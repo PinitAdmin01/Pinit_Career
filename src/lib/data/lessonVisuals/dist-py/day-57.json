@@ -2,535 +2,279 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 57,
-  "promptSha": "a858cc7cb6e5928ea4295e2d06555b2801d7210608d02a5b786bf4b437e92421",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windowing — Foundations & Mathematical Invariants",
-      "codeHash": "4c72f6836da6f2ec3841e15fde71062e4c38d118cf3feae3ffc596e278e3b163",
+      "codeHash": "83c1ce77edbde7b1e37fde7526cd2f20315fe7ca222d4698707b8ac3c64913b0",
       "spec": {
-        "template": "flow",
-        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windowing —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windo",
+        "actors": [
+          "self",
+          "sim",
+          "event_time"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In modern distributed data streaming, one of the most critical conceptual.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "sim",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "sim",
+                "to": "event_time",
+                "label": {
+                  "var": "sim",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Event Time is the exact wall-clock timestamp at which an action occurred.",
+            "activeActor": "sim",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "sim",
+                "label": {
+                  "var": "self",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "sim",
+                "to": "event_time",
+                "label": {
+                  "var": "sim",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "If event processing logic mistakenly queries local system wall-clock time.",
+            "activeActor": "event_time",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "sim",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "sim",
+                "to": "event_time",
+                "label": {
+                  "var": "sim",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windowing —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windo",
+        "actors": [
+          "self",
+          "sim",
+          "event_time"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In modern distributed data streaming, one of the most critical conceptual.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "sim",
+                "label": "<TimeDomainSimulator>",
+                "tone": "data"
+              },
+              {
+                "from": "sim",
+                "to": "event_time",
+                "label": "<TimeDomainSimulator>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Event Time is the exact wall-clock timestamp at which an action occurred.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "sim",
+                "label": "<TimeDomainSimulator>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "sim",
+                "to": "event_time",
+                "label": "<TimeDomainSimulator>",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "sim"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "If event processing logic mistakenly queries local system wall-clock time.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "sim",
+                "label": "<TimeDomainSimulator>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "sim",
+                "to": "event_time",
+                "label": "<TimeDomainSimulator>",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "event_time"
           }
         ]
       }
     },
     {
       "partTitle": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windowing — Core Algorithm & State Representation",
-      "codeHash": "270aa3ee6e6ead2d25b34bc7ff528d55ebade74faffa0769daf237b589a78500",
+      "codeHash": "9d096ebfd3403d98306c0fac1294e11694a95b1c7bca77ce3f8261079805b149",
       "spec": {
-        "template": "flow",
-        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windowing —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windo",
         "steps": [
           {
+            "at": "say1",
+            "caption": "How do distributed streaming operators track watermarks when drawing.",
+            "items": {
+              "var": "channels",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Watermark propagation follows the Minimum Upstream Rule.",
+            "items": {
+              "var": "channels",
+              "line": 3,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Production watermark trackers prevent watermark regression by enforcing.",
+            "items": {
+              "var": "channels",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windowing —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windo",
         "steps": [
           {
+            "at": "say1",
+            "caption": "How do distributed streaming operators track watermarks when drawing.",
+            "items": [
+              "'part_0'",
+              "'part_1'",
+              "'part_2'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "Watermark propagation follows the Minimum Upstream Rule.",
+            "items": [
+              "'part_0'",
+              "'part_1'",
+              "'part_2'"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say8",
+            "caption": "Production watermark trackers prevent watermark regression by enforcing.",
+            "items": [
+              "'part_0'",
+              "'part_1'",
+              "'part_2'"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -539,797 +283,607 @@
     },
     {
       "partTitle": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windowing — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "b78ae301b6fb9bf9c468f3d15cc0460e6a9072f950f551586204a0544fd328eb",
+      "codeHash": "d08a5a1fbafdc9b839baa18dbce1f1d490b4a0765cf20d36669774d04d88c256",
       "spec": {
-        "template": "flow",
-        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windowing —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windo",
+        "actors": [
+          "self",
+          "size_sec",
+          "allowed_lateness_sec"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Event-time windowing divides continuous streaming data into discrete.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "size_sec",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "size_sec",
+                "to": "allowed_lateness_sec",
+                "label": {
+                  "var": "size_sec",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "When the watermark advances past the window end timestamp `WindowEnd <=.",
+            "activeActor": "size_sec",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "size_sec",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "size_sec",
+                "to": "allowed_lateness_sec",
+                "label": {
+                  "var": "size_sec",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Side outputs provide decoupling between real-time downstream consumers.",
+            "activeActor": "allowed_lateness_sec",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "size_sec",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "size_sec",
+                "to": "allowed_lateness_sec",
+                "label": {
+                  "var": "size_sec",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windowing —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windo",
+        "actors": [
+          "self",
+          "size_sec",
+          "allowed_lateness_sec"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Event-time windowing divides continuous streaming data into discrete.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "size_sec",
+                "label": "<TumblingEventWindow>",
+                "tone": "data"
+              },
+              {
+                "from": "size_sec",
+                "to": "allowed_lateness_sec",
+                "label": "60",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "When the watermark advances past the window end timestamp `WindowEnd <=.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "size_sec",
+                "label": "<TumblingEventWindow>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "size_sec",
+                "to": "allowed_lateness_sec",
+                "label": "60",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "size_sec"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Side outputs provide decoupling between real-time downstream consumers.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "size_sec",
+                "label": "<TumblingEventWindow>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "size_sec",
+                "to": "allowed_lateness_sec",
+                "label": "60",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "allowed_lateness_sec"
           }
         ]
       }
     },
     {
       "partTitle": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windowing — Resilience Guardrails & Failure Recovery",
-      "codeHash": "85d6be4d9e494b4a096c60355f4df387ab8cc689e1ba47357c9ec5773339af01",
+      "codeHash": "99effb81f251ff7f00d8b32434741b776bc7e30534da564df24ea9bb1b496519",
       "spec": {
-        "template": "flow",
-        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windowing —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windo",
+        "actors": [
+          "self",
+          "out_of_orderness_sec",
+          "max_future_skew_sec"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Watermark generation strategies must balance latency and completeness.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "out_of_orderness_sec",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "out_of_orderness_sec",
+                "to": "max_future_skew_sec",
+                "label": {
+                  "var": "out_of_orderness_sec",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In production environments, stream engineers implement.",
+            "activeActor": "out_of_orderness_sec",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "out_of_orderness_sec",
+                "label": {
+                  "var": "self",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "out_of_orderness_sec",
+                "to": "max_future_skew_sec",
+                "label": {
+                  "var": "out_of_orderness_sec",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Robust generators track out-of-order bounds dynamically, adapting.",
+            "activeActor": "max_future_skew_sec",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "out_of_orderness_sec",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "out_of_orderness_sec",
+                "to": "max_future_skew_sec",
+                "label": {
+                  "var": "out_of_orderness_sec",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windowing —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windo",
+        "actors": [
+          "self",
+          "out_of_orderness_sec",
+          "max_future_skew_sec"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Watermark generation strategies must balance latency and completeness.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "out_of_orderness_sec",
+                "label": "<ResilientWatermarkGenerator>",
+                "tone": "data"
+              },
+              {
+                "from": "out_of_orderness_sec",
+                "to": "max_future_skew_sec",
+                "label": "5",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In production environments, stream engineers implement.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "out_of_orderness_sec",
+                "label": "<ResilientWatermarkGenerator>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "out_of_orderness_sec",
+                "to": "max_future_skew_sec",
+                "label": "5",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "out_of_orderness_sec"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Robust generators track out-of-order bounds dynamically, adapting.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "out_of_orderness_sec",
+                "label": "<ResilientWatermarkGenerator>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "out_of_orderness_sec",
+                "to": "max_future_skew_sec",
+                "label": "5",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "max_future_skew_sec"
           }
         ]
       }
     },
     {
       "partTitle": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windowing — Production Telemetry & Verification Audit",
-      "codeHash": "682d223286ae04369c803050c656379971816c50c8a3ef5374c1554f9a2810dc",
+      "codeHash": "9b2042f3174b6fc2e77daba62b7f19f5c78337037ccf3e79e10f44c1575c4703",
       "spec": {
         "template": "flow",
-        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windowing —",
+        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windo",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "healthy_met",
+            "label": "healthy_met"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "degraded_met",
+            "label": "degraded_met"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "metrics",
+            "label": "metrics"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "lag",
+            "label": "lag"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Monitoring watermark health and late-data rates is fundamental.",
+            "values": {
+              "healthy_met": {
+                "var": "healthy_met",
+                "line": 16,
+                "hit": 1
+              },
+              "degraded_met": {
+                "var": "degraded_met",
+                "line": 17,
+                "hit": 1
+              },
+              "metrics": {
+                "var": "metrics",
+                "line": 2,
+                "hit": 1
+              },
+              "lag": {
+                "var": "lag",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "healthy_met": "data",
+              "degraded_met": "data",
+              "metrics": "data",
+              "lag": "data"
+            },
+            "arrows": [
+              [
+                "healthy_met",
+                "degraded_met"
+              ],
+              [
+                "degraded_met",
+                "metrics"
+              ],
+              [
+                "metrics",
+                "lag"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Production observability stacks instrument three key metrics.",
+            "values": {
+              "healthy_met": {
+                "var": "healthy_met",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "degraded_met": {
+                "var": "degraded_met",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "metrics": {
+                "var": "metrics",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "lag": {
+                "var": "lag",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "healthy_met": "data",
+              "degraded_met": "data",
+              "metrics": "data",
+              "lag": "data"
+            },
+            "arrows": [
+              [
+                "healthy_met",
+                "degraded_met"
+              ],
+              [
+                "degraded_met",
+                "metrics"
+              ],
+              [
+                "metrics",
+                "lag"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "SRE teams configure automated runbooks that scale consumer task.",
+            "values": {
+              "healthy_met": {
+                "var": "healthy_met",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "degraded_met": {
+                "var": "degraded_met",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "metrics": {
+                "var": "metrics",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "lag": {
+                "var": "lag",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "healthy_met": "ok",
+              "degraded_met": "ok",
+              "metrics": "ok",
+              "lag": "ok"
+            },
+            "arrows": [
+              [
+                "healthy_met",
+                "degraded_met"
+              ],
+              [
+                "degraded_met",
+                "metrics"
+              ],
+              [
+                "metrics",
+                "lag"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windowing —",
+        "title": "Watermark Propagation, Late-Data Side Outputs & Event-Time Windo",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "healthy_met",
+            "label": "healthy_met"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "degraded_met",
+            "label": "degraded_met"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "metrics",
+            "label": "metrics"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "lag",
+            "label": "lag"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Monitoring watermark health and late-data rates is fundamental.",
+            "values": {
+              "healthy_met": "{'watermark_lag_sec': 8, 'late_data_dro…",
+              "degraded_met": "{'watermark_lag_sec': 240, 'late_data_d…",
+              "metrics": "{'watermark_lag_sec': 8, 'late_data_dro…",
+              "lag": "8"
+            },
+            "tones": {
+              "healthy_met": "data",
+              "degraded_met": "data",
+              "metrics": "data",
+              "lag": "data"
+            },
+            "arrows": [
+              [
+                "healthy_met",
+                "degraded_met"
+              ],
+              [
+                "degraded_met",
+                "metrics"
+              ],
+              [
+                "metrics",
+                "lag"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Production observability stacks instrument three key metrics.",
+            "values": {
+              "healthy_met": "{'watermark_lag_sec': 8, 'late_data_dro…",
+              "degraded_met": "{'watermark_lag_sec': 240, 'late_data_d…",
+              "metrics": "{'watermark_lag_sec': 8, 'late_data_dro…",
+              "lag": "8"
+            },
+            "tones": {
+              "healthy_met": "data",
+              "degraded_met": "data",
+              "metrics": "data",
+              "lag": "data"
+            },
+            "arrows": [
+              [
+                "healthy_met",
+                "degraded_met"
+              ],
+              [
+                "degraded_met",
+                "metrics"
+              ],
+              [
+                "metrics",
+                "lag"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say7",
+            "caption": "SRE teams configure automated runbooks that scale consumer task.",
+            "values": {
+              "healthy_met": "{'watermark_lag_sec': 8, 'late_data_dro…",
+              "degraded_met": "{'watermark_lag_sec': 240, 'late_data_d…",
+              "metrics": "{'watermark_lag_sec': 8, 'late_data_dro…",
+              "lag": "8"
+            },
+            "tones": {
+              "healthy_met": "ok",
+              "degraded_met": "ok",
+              "metrics": "ok",
+              "lag": "ok"
+            },
+            "arrows": [
+              [
+                "healthy_met",
+                "degraded_met"
+              ],
+              [
+                "degraded_met",
+                "metrics"
+              ],
+              [
+                "metrics",
+                "lag"
+              ]
             ]
           }
         ]

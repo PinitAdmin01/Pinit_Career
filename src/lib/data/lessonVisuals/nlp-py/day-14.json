@@ -2,150 +2,84 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 14,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Gates: learned valves",
       "codeHash": "174d0190aca3878f3a4a9f40bf00aa7c15d41129430db2ebb15fe9490d18d949",
       "spec": {
-        "template": "table",
-        "title": "Sigmoid gating functions and state valve mechanisms",
-        "columns": [
-          "sigmoid",
-          "state"
-        ],
+        "template": "bars",
+        "title": "Gates: learned valves",
         "steps": [
           {
             "at": "say1",
-            "caption": "LSTMs introduce dedicated cell state memory channels across sequences.",
-            "rows": [
+            "caption": "A separate memory lane that runs through the sequence with only small.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "sigmoid"
-                  },
-                  {
-                    "text": "state"
-                  }
-                ],
-                "tone": "ok"
+                "label": "z",
+                "value": {
+                  "var": "z",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "g",
+                "value": {
+                  "var": "g",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Sigmoid gating valves modulate information passage smoothly between extremes.",
-            "rows": [
+            "caption": "Gates control that lane.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "sigmoid"
-                  },
-                  {
-                    "text": "state"
-                  }
-                ],
+                "label": "z",
+                "value": {
+                  "var": "z",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sigmoid"
-                  }
-                ],
+                "label": "g",
+                "value": {
+                  "var": "g",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Sigmoid bounds gating while hyperbolic tangent scales the content itself.",
-            "rows": [
+            "at": "say7",
+            "caption": "Think of gates as learned rules like \"when you see a new sentence subject.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "sigmoid"
-                  },
-                  {
-                    "text": "state"
-                  }
-                ],
+                "label": "z",
+                "value": {
+                  "var": "z",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sigmoid"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "state"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The standard LSTM architecture integrates forget, input, and output gates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sigmoid"
-                  },
-                  {
-                    "text": "state"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sigmoid"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "state"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sigmoid"
-                  },
-                  {
-                    "text": "state"
-                  }
-                ],
+                "label": "g",
+                "value": {
+                  "var": "g",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -153,103 +87,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Sigmoid gating functions and state valve mechanisms",
-        "columns": [
-          "sigmoid",
-          "state"
-        ],
+        "template": "bars",
+        "title": "Gates: learned valves",
         "steps": [
           {
             "at": "say1",
-            "caption": "LSTMs introduce dedicated cell state memory channels across sequences.",
-            "rows": [
+            "caption": "A separate memory lane that runs through the sequence with only small.",
+            "bars": [
               {
-                "cells": [
-                  "sigmoid",
-                  "state"
-                ],
-                "tone": "ok"
+                "label": "z",
+                "value": -6,
+                "tone": "data"
+              },
+              {
+                "label": "g",
+                "value": 0.0024726231566347743,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Sigmoid gating valves modulate information passage smoothly between extremes.",
-            "rows": [
+            "caption": "Gates control that lane.",
+            "bars": [
               {
-                "cells": [
-                  "sigmoid",
-                  "state"
-                ],
+                "label": "z",
+                "value": -6,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "math",
-                  "sigmoid"
-                ],
+                "label": "g",
+                "value": 0.0024726231566347743,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Sigmoid bounds gating while hyperbolic tangent scales the content itself.",
-            "rows": [
+            "at": "say7",
+            "caption": "Think of gates as learned rules like \"when you see a new sentence subject.",
+            "bars": [
               {
-                "cells": [
-                  "sigmoid",
-                  "state"
-                ],
+                "label": "z",
+                "value": -6,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "math",
-                  "sigmoid"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "state",
-                  "math"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The standard LSTM architecture integrates forget, input, and output gates.",
-            "rows": [
-              {
-                "cells": [
-                  "sigmoid",
-                  "state"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "sigmoid"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "state",
-                  "math"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sigmoid",
-                  "state"
-                ],
+                "label": "g",
+                "value": 0.0024726231566347743,
                 "tone": "ok"
               }
             ]
@@ -261,143 +145,131 @@
       "partTitle": "The forget and input gates",
       "codeHash": "a106d2e74d68692196baafcffd09a0ca35a9f2acb36ab80cbe0e58f6e0c15845",
       "spec": {
-        "template": "table",
-        "title": "Cell state memory retention and candidate information integration",
-        "columns": [
-          "c_prev",
-          "c_candidate"
-        ],
+        "template": "bars",
+        "title": "The forget and input gates",
         "steps": [
           {
             "at": "say1",
-            "caption": "The forget gate determines what fraction of old cell memory to retain.",
-            "rows": [
+            "caption": "The forget gate f decides how much of the old cell state to keep.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "c_prev"
-                  },
-                  {
-                    "text": "c_candidate"
-                  }
-                ],
-                "tone": "ok"
+                "label": "f",
+                "value": {
+                  "var": "f",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c_prev",
+                "value": {
+                  "var": "c_prev",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c_candidate",
+                "value": {
+                  "var": "c_candidate",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The input gate modulates newly generated candidate information.",
-            "rows": [
+            "caption": "The input gate i decides how much new information to write.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "c_prev"
-                  },
-                  {
-                    "text": "c_candidate"
-                  }
-                ],
+                "label": "f",
+                "value": {
+                  "var": "f",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "lstm_cell"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
+                "label": "c_prev",
+                "value": {
+                  "var": "c_prev",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c_candidate",
+                "value": {
+                  "var": "c_candidate",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Cell state update combines gated prior memory with gated candidate input.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example runs the update in three situations.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "c_prev"
-                  },
-                  {
-                    "text": "c_candidate"
-                  }
-                ],
+                "label": "f",
+                "value": {
+                  "var": "f",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "lstm_cell"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
+                "label": "c_prev",
+                "value": {
+                  "var": "c_prev",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "c_prev"
-                  },
-                  {
-                    "text": "lstm_cell"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Direct additive cell paths permit error gradients to propagate without decay.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "c_prev"
-                  },
-                  {
-                    "text": "c_candidate"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "lstm_cell"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "c_prev"
-                  },
-                  {
-                    "text": "lstm_cell"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "round"
-                  },
-                  {
-                    "text": "c_candidate"
-                  }
-                ],
+                "label": "c_candidate",
+                "value": {
+                  "var": "c_candidate",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -405,103 +277,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cell state memory retention and candidate information integration",
-        "columns": [
-          "c_prev",
-          "c_candidate"
-        ],
+        "template": "bars",
+        "title": "The forget and input gates",
         "steps": [
           {
             "at": "say1",
-            "caption": "The forget gate determines what fraction of old cell memory to retain.",
-            "rows": [
+            "caption": "The forget gate f decides how much of the old cell state to keep.",
+            "bars": [
               {
-                "cells": [
-                  "c_prev",
-                  "c_candidate"
-                ],
-                "tone": "ok"
+                "label": "f",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "c_prev",
+                "value": 0.8,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "c_candidate",
+                "value": 0.5,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The input gate modulates newly generated candidate information.",
-            "rows": [
+            "caption": "The input gate i decides how much new information to write.",
+            "bars": [
               {
-                "cells": [
-                  "c_prev",
-                  "c_candidate"
-                ],
+                "label": "f",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "lstm_cell",
-                  "round"
-                ],
+                "label": "c_prev",
+                "value": 0.8,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "c_candidate",
+                "value": 0.5,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Cell state update combines gated prior memory with gated candidate input.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example runs the update in three situations.",
+            "bars": [
               {
-                "cells": [
-                  "c_prev",
-                  "c_candidate"
-                ],
+                "label": "f",
+                "value": 0.9,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "lstm_cell",
-                  "round"
-                ],
+                "label": "c_prev",
+                "value": 0.5,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "c_prev",
-                  "lstm_cell"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Direct additive cell paths permit error gradients to propagate without decay.",
-            "rows": [
-              {
-                "cells": [
-                  "c_prev",
-                  "c_candidate"
-                ],
+                "label": "i",
+                "value": 0.3,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "lstm_cell",
-                  "round"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "c_prev",
-                  "lstm_cell"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "round",
-                  "c_candidate"
-                ],
+                "label": "c_candidate",
+                "value": -0.2,
                 "tone": "ok"
               }
             ]
@@ -513,143 +365,131 @@
       "partTitle": "The output gate and hidden state",
       "codeHash": "04de8038115c6ab7a4372972c0c22abb83d9ce6f07bdb043809863db96b870fb",
       "spec": {
-        "template": "table",
-        "title": "Output gate filtering and exposed hidden state projection",
-        "columns": [
-          "lstm_step",
-          "c_candidate"
-        ],
+        "template": "bars",
+        "title": "The output gate and hidden state",
         "steps": [
           {
             "at": "say1",
-            "caption": "Cell state preserves long term memory while hidden state reflects output.",
-            "rows": [
+            "caption": "The cell state is the long-term memory.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "lstm_step"
-                  },
-                  {
-                    "text": "c_candidate"
-                  }
-                ],
-                "tone": "ok"
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "f",
+                "value": {
+                  "var": "f",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The output gate reveals filtered memory content to downstream layers.",
-            "rows": [
+            "caption": "The output gate o decides how much of the memory to reveal.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "lstm_step"
-                  },
-                  {
-                    "text": "c_candidate"
-                  }
-                ],
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "c_prev"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "f",
+                "value": {
+                  "var": "f",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Memories stay preserved in cell state until output gates open.",
-            "rows": [
+            "at": "say7",
+            "caption": "LSTMs held the state of the art in translation, speech recognition.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "lstm_step"
-                  },
-                  {
-                    "text": "c_candidate"
-                  }
-                ],
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "c_prev"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 11,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "tanh"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Learned weights compute unique gate activations across differing inputs.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "lstm_step"
-                  },
-                  {
-                    "text": "c_candidate"
-                  }
-                ],
+                "label": "f",
+                "value": {
+                  "var": "f",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "c_prev"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tanh"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "c_candidate"
-                  },
-                  {
-                    "text": "c_prev"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -657,103 +497,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Output gate filtering and exposed hidden state projection",
-        "columns": [
-          "lstm_step",
-          "c_candidate"
-        ],
+        "template": "bars",
+        "title": "The output gate and hidden state",
         "steps": [
           {
             "at": "say1",
-            "caption": "Cell state preserves long term memory while hidden state reflects output.",
-            "rows": [
+            "caption": "The cell state is the long-term memory.",
+            "bars": [
               {
-                "cells": [
-                  "lstm_step",
-                  "c_candidate"
-                ],
-                "tone": "ok"
+                "label": "c",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "t",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "f",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The output gate reveals filtered memory content to downstream layers.",
-            "rows": [
+            "caption": "The output gate o decides how much of the memory to reveal.",
+            "bars": [
               {
-                "cells": [
-                  "lstm_step",
-                  "c_candidate"
-                ],
+                "label": "c",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "c_prev",
-                  "math"
-                ],
+                "label": "t",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "f",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Memories stay preserved in cell state until output gates open.",
-            "rows": [
+            "at": "say7",
+            "caption": "LSTMs held the state of the art in translation, speech recognition.",
+            "bars": [
               {
-                "cells": [
-                  "lstm_step",
-                  "c_candidate"
-                ],
+                "label": "c",
+                "value": 0.9,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "c_prev",
-                  "math"
-                ],
+                "label": "t",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "tanh",
-                  "round"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Learned weights compute unique gate activations across differing inputs.",
-            "rows": [
-              {
-                "cells": [
-                  "lstm_step",
-                  "c_candidate"
-                ],
+                "label": "f",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "c_prev",
-                  "math"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tanh",
-                  "round"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "c_candidate",
-                  "c_prev"
-                ],
+                "label": "i",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -765,143 +585,131 @@
       "partTitle": "The GRU: fewer gates",
       "codeHash": "8700fae8376dd88c02947021821825c8462bad1f331b1ee99df3bf609115026e",
       "spec": {
-        "template": "table",
-        "title": "Gated recurrent unit update interpolation and hidden state merge",
-        "columns": [
-          "h_prev",
-          "h_candidate"
-        ],
+        "template": "bars",
+        "title": "The GRU: fewer gates",
         "steps": [
           {
             "at": "say1",
-            "caption": "The gated recurrent unit simplifies LSTM gating with fewer parameters.",
-            "rows": [
+            "caption": "Trace how gated updates recurrent during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "h_prev"
-                  },
-                  {
-                    "text": "h_candidate"
-                  }
-                ],
-                "tone": "ok"
+                "label": "z",
+                "value": {
+                  "var": "z",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "h_prev",
+                "value": {
+                  "var": "h_prev",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "h_candidate",
+                "value": {
+                  "var": "h_candidate",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "GRUs merge memory states into a single unified hidden representation.",
-            "rows": [
+            "caption": "It merges the cell state and hidden state into one, and uses two gates.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "h_prev"
-                  },
-                  {
-                    "text": "h_candidate"
-                  }
-                ],
+                "label": "z",
+                "value": {
+                  "var": "z",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "gru_update"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
+                "label": "h_prev",
+                "value": {
+                  "var": "h_prev",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "h_candidate",
+                "value": {
+                  "var": "h_candidate",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The update gate balances retention of prior state versus candidate input.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example blends old and new states with several z values.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "h_prev"
-                  },
-                  {
-                    "text": "h_candidate"
-                  }
-                ],
+                "label": "z",
+                "value": {
+                  "var": "z",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "gru_update"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
+                "label": "h_prev",
+                "value": {
+                  "var": "h_prev",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "list"
-                  },
-                  {
-                    "text": "zip"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The reset gate modulates how much historical state influences candidates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "h_prev"
-                  },
-                  {
-                    "text": "h_candidate"
-                  }
-                ],
+                "label": "h_candidate",
+                "value": {
+                  "var": "h_candidate",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "gru_update"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "list"
-                  },
-                  {
-                    "text": "zip"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "h_candidate"
-                  },
-                  {
-                    "text": "h_prev"
-                  }
-                ],
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -909,103 +717,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Gated recurrent unit update interpolation and hidden state merge",
-        "columns": [
-          "h_prev",
-          "h_candidate"
-        ],
+        "template": "bars",
+        "title": "The GRU: fewer gates",
         "steps": [
           {
             "at": "say1",
-            "caption": "The gated recurrent unit simplifies LSTM gating with fewer parameters.",
-            "rows": [
+            "caption": "Trace how gated updates recurrent during execution.",
+            "bars": [
               {
-                "cells": [
-                  "h_prev",
-                  "h_candidate"
-                ],
-                "tone": "ok"
+                "label": "z",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "h_prev",
+                "value": 0.8,
+                "tone": "data"
+              },
+              {
+                "label": "h_candidate",
+                "value": 0.4,
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "GRUs merge memory states into a single unified hidden representation.",
-            "rows": [
+            "caption": "It merges the cell state and hidden state into one, and uses two gates.",
+            "bars": [
               {
-                "cells": [
-                  "h_prev",
-                  "h_candidate"
-                ],
+                "label": "z",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "gru_update",
-                  "round"
-                ],
+                "label": "h_prev",
+                "value": 0.8,
+                "tone": "ok"
+              },
+              {
+                "label": "h_candidate",
+                "value": 0.4,
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": 0,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The update gate balances retention of prior state versus candidate input.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example blends old and new states with several z values.",
+            "bars": [
               {
-                "cells": [
-                  "h_prev",
-                  "h_candidate"
-                ],
+                "label": "z",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "gru_update",
-                  "round"
-                ],
+                "label": "h_prev",
+                "value": 0.8,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "list",
-                  "zip"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The reset gate modulates how much historical state influences candidates.",
-            "rows": [
-              {
-                "cells": [
-                  "h_prev",
-                  "h_candidate"
-                ],
+                "label": "h_candidate",
+                "value": 0.4,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "gru_update",
-                  "round"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "list",
-                  "zip"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "h_candidate",
-                  "h_prev"
-                ],
+                "label": "a",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -1018,110 +806,127 @@
       "codeHash": "35c5b3d09c95bd913f9a098e1afce5a3f908d1eda0235e438921fdad2b355908",
       "spec": {
         "template": "flow",
-        "title": "Why gates fix vanishing gradients — Execution Pipeline",
+        "title": "Why gates fix vanishing gradients",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "steps",
+            "label": "steps"
           },
           {
-            "id": "proc",
-            "label": "2. Why gates fix vanis...",
-            "tappable": true
+            "id": "rnn_factor",
+            "label": "rnn_factor"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "forget_gate",
+            "label": "forget_gate"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Why gates fix vanishing gradients.",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Why gates fix vanis... [D.Pfive.Stwo].",
+            "caption": "In a plain RNN, the path from an early step to a late one goes through.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "steps": {
+                "var": "steps",
+                "line": 1,
+                "hit": 1
+              },
+              "rnn_factor": {
+                "var": "rnn_factor",
+                "line": 2,
+                "hit": 1
+              },
+              "forget_gate": {
+                "var": "forget_gate",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "steps": "data",
+              "rnn_factor": "data",
+              "forget_gate": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "steps",
+                "rnn_factor"
               ],
               [
-                "proc",
-                "out"
+                "rnn_factor",
+                "forget_gate"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "In an LSTM, the cell state path is mostly just multiplication by.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "steps": {
+                "var": "steps",
+                "line": 2,
+                "hit": 1
+              },
+              "rnn_factor": {
+                "var": "rnn_factor",
+                "line": 3,
+                "hit": 1
+              },
+              "forget_gate": {
+                "var": "forget_gate",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "steps": "data",
+              "rnn_factor": "data",
+              "forget_gate": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "steps",
+                "rnn_factor"
+              ],
+              [
+                "rnn_factor",
+                "forget_gate"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Why gates fix vanishing gradients.",
+            "at": "say7",
+            "caption": "This is why LSTMs can learn dependencies across dozens or hundreds.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "steps": {
+                "var": "steps",
+                "line": 3,
+                "hit": 1
+              },
+              "rnn_factor": {
+                "var": "rnn_factor",
+                "line": 4,
+                "hit": 1
+              },
+              "forget_gate": {
+                "var": "forget_gate",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "steps": "ok",
+              "rnn_factor": "ok",
+              "forget_gate": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "steps",
+                "rnn_factor"
               ],
               [
-                "proc",
-                "out"
+                "rnn_factor",
+                "forget_gate"
               ]
             ]
           }
@@ -1129,110 +934,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Why gates fix vanishing gradients — Execution Pipeline",
+        "title": "Why gates fix vanishing gradients",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "steps",
+            "label": "steps"
           },
           {
-            "id": "proc",
-            "label": "2. Why gates fix vanis...",
-            "tappable": true
+            "id": "rnn_factor",
+            "label": "rnn_factor"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "forget_gate",
+            "label": "forget_gate"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Why gates fix vanishing gradients [D14.P5.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Why gates fix vanis... [D14.P5.S2].",
+            "caption": "In a plain RNN, the path from an early step to a late one goes through.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "steps": "30",
+              "rnn_factor": "0.5",
+              "forget_gate": "0.97"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "steps": "data",
+              "rnn_factor": "data",
+              "forget_gate": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "steps",
+                "rnn_factor"
               ],
               [
-                "proc",
-                "out"
+                "rnn_factor",
+                "forget_gate"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P5.S3].",
+            "at": "say2",
+            "caption": "In an LSTM, the cell state path is mostly just multiplication by.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "steps": "30",
+              "rnn_factor": "0.5",
+              "forget_gate": "0.97"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "steps": "data",
+              "rnn_factor": "data",
+              "forget_gate": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "steps",
+                "rnn_factor"
+              ],
+              [
+                "rnn_factor",
+                "forget_gate"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Why gates fix vanishing gradients [D14.P5.S4].",
+            "at": "say7",
+            "caption": "This is why LSTMs can learn dependencies across dozens or hundreds.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "steps": "30",
+              "rnn_factor": "0.5",
+              "forget_gate": "0.97"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "steps": "ok",
+              "rnn_factor": "ok",
+              "forget_gate": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "steps",
+                "rnn_factor"
               ],
               [
-                "proc",
-                "out"
+                "rnn_factor",
+                "forget_gate"
               ]
             ]
           }
@@ -1243,223 +1029,106 @@
       "partTitle": "Practice time: cells and updates",
       "codeHash": "18109871bfc2ead118baa772aea48cc91dbf0b29ba460f63b9e3d96f141ec23d",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: cells and updates — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: cell...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: cells and updates",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: cells and updates [D.Psix.Sone].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: cell... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Trace how practice updates line during execution.",
+            "items": {
+              "var": "value",
+              "line": 1,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Trace how checks updates cover during execution.",
+            "items": {
+              "var": "value",
+              "line": 2,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: cells and updates.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example shows isinstance, which you use to handle both numbers and lists.",
+            "items": {
+              "var": "value",
+              "line": 2,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: cells and updates — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: cell...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: cells and updates",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: cells and updates [D14.P6.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: cell... [D14.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Trace how practice updates line during execution.",
+            "items": [
+              "0.5",
+              "0.2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates cover during execution.",
+            "items": [
+              "0.5",
+              "0.2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: cells and updates [D14.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows isinstance, which you use to handle both numbers and lists.",
+            "items": [
+              "0.5",
+              "0.2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]

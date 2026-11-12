@@ -2,118 +2,169 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 56,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Constitutional AI & Self-Correction: Principle-Driven Critiques & Automated Value Alignment",
       "codeHash": "84f8291a7e5a458246789cca3ca771b912b4ca258b52ea6f10912c56b92b7d43",
       "spec": {
         "template": "flow",
-        "title": "Constitutional AI & Self-Correction: Principl... — Execution Pipeline",
+        "title": "Constitutional AI & Self-Correction: Principle-Driven Critiques ",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "CONSTITUTION",
+            "label": "CONSTITUTION"
           },
           {
-            "id": "proc",
-            "label": "2. Constitutional AI &...",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "principles",
+            "label": "principles"
+          },
+          {
+            "id": "engine",
+            "label": "engine"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Constitutional AI & Self-Correction: Pri...",
-            "values": {
-              "in": "Day 56 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Constitutional AI &....",
+            "caption": "Over the previous eleven blocks, we designed neural tokenizers, built deep.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "CONSTITUTION": {
+                "var": "CONSTITUTION",
+                "line": 12,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 29,
+                "hit": 1
+              },
+              "principles": {
+                "var": "principles",
+                "line": 29,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 70,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "CONSTITUTION": "data",
+              "self": "data",
+              "principles": "data",
+              "engine": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "CONSTITUTION",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "principles"
+              ],
+              [
+                "principles",
+                "engine"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "At the vanguard of synthetic data methodology is Constitutional AI (CAI).",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "CONSTITUTION": {
+                "var": "CONSTITUTION",
+                "line": 27,
+                "hit": 2
+              },
+              "self": {
+                "var": "self",
+                "line": 52,
+                "hit": 1
+              },
+              "principles": {
+                "var": "principles",
+                "line": 29,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 71,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "CONSTITUTION": "data",
+              "self": "data",
+              "principles": "data",
+              "engine": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "CONSTITUTION",
+                "self"
+              ],
+              [
+                "self",
+                "principles"
+              ],
+              [
+                "principles",
+                "engine"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Constitutional AI & Self-Correcti...",
+            "at": "say6",
+            "caption": "As enterprise AI engineers designing frontier training pipelines, you must.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "CONSTITUTION": {
+                "var": "CONSTITUTION",
+                "line": 70,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 53,
+                "hit": 1
+              },
+              "principles": {
+                "var": "principles",
+                "line": 29,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 72,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "CONSTITUTION": "ok",
+              "self": "ok",
+              "principles": "ok",
+              "engine": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "CONSTITUTION",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "principles"
+              ],
+              [
+                "principles",
+                "engine"
               ]
             ]
           }
@@ -121,110 +172,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Constitutional AI & Self-Correction: Principl... — Execution Pipeline",
+        "title": "Constitutional AI & Self-Correction: Principle-Driven Critiques ",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "CONSTITUTION",
+            "label": "CONSTITUTION"
           },
           {
-            "id": "proc",
-            "label": "2. Constitutional AI &...",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "principles",
+            "label": "principles"
+          },
+          {
+            "id": "engine",
+            "label": "engine"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Constitutional AI & Self-Correction: Pri...",
-            "values": {
-              "in": "Day 56 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Constitutional AI &....",
+            "caption": "Over the previous eleven blocks, we designed neural tokenizers, built deep.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "CONSTITUTION": "[<Principle>, <Principle>]",
+              "self": "<ConstitutionalRefiner>",
+              "principles": "[<Principle>, <Principle>]",
+              "engine": "<ConstitutionalRefiner>"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "CONSTITUTION": "data",
+              "self": "data",
+              "principles": "data",
+              "engine": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "CONSTITUTION",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "principles"
+              ],
+              [
+                "principles",
+                "engine"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "At the vanguard of synthetic data methodology is Constitutional AI (CAI).",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "CONSTITUTION": "[<Principle>, <Principle>]",
+              "self": "<ConstitutionalRefiner>",
+              "principles": "[<Principle>, <Principle>]",
+              "engine": "<ConstitutionalRefiner>"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "CONSTITUTION": "data",
+              "self": "data",
+              "principles": "data",
+              "engine": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "CONSTITUTION",
+                "self"
+              ],
+              [
+                "self",
+                "principles"
+              ],
+              [
+                "principles",
+                "engine"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Constitutional AI & Self-Correcti...",
+            "at": "say6",
+            "caption": "As enterprise AI engineers designing frontier training pipelines, you must.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "CONSTITUTION": "[<Principle>, <Principle>]",
+              "self": "<ConstitutionalRefiner>",
+              "principles": "[<Principle>, <Principle>]",
+              "engine": "<ConstitutionalRefiner>"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "CONSTITUTION": "ok",
+              "self": "ok",
+              "principles": "ok",
+              "engine": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "CONSTITUTION",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "principles"
+              ],
+              [
+                "principles",
+                "engine"
               ]
             ]
           }
@@ -236,110 +290,161 @@
       "codeHash": "c46ef628de11c42991f4fef8626c15575f710d9f424b9f2b2ec6c3dde722c8b6",
       "spec": {
         "template": "flow",
-        "title": "Self-Instruct & Evol-Instruct Architectures: ... — Execution Pipeline",
+        "title": "Self-Instruct & Evol-Instruct Architectures: Complexity Deepenin",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Self-Instruct & Evo...",
-            "tappable": true
+            "id": "engine",
+            "label": "engine"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "seed",
+            "label": "seed"
+          },
+          {
+            "id": "operator_name",
+            "label": "operator_name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Self-Instruct & Evol-Instruct Architectu...",
-            "values": {
-              "in": "Day 56 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Self-Instruct & Evo....",
+            "caption": "While Constitutional AI focuses on ethical alignment, safety,.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": {
+                "var": "self",
+                "line": 15,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 58,
+                "hit": 1
+              },
+              "seed": {
+                "var": "seed",
+                "line": 59,
+                "hit": 2
+              },
+              "operator_name": {
+                "var": "operator_name",
+                "line": 54,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "engine": "data",
+              "seed": "data",
+              "operator_name": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "engine"
               ],
               [
-                "proc",
-                "out"
+                "engine",
+                "seed"
+              ],
+              [
+                "seed",
+                "operator_name"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "However, vanilla Self-Instruct quickly hits a ceiling.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": {
+                "var": "self",
+                "line": 16,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 59,
+                "hit": 1
+              },
+              "seed": {
+                "var": "seed",
+                "line": 54,
+                "hit": 1
+              },
+              "operator_name": {
+                "var": "operator_name",
+                "line": 56,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "engine": "data",
+              "seed": "data",
+              "operator_name": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "engine"
+              ],
+              [
+                "engine",
+                "seed"
+              ],
+              [
+                "seed",
+                "operator_name"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Self-Instruct & Evol-Instruct Arc...",
+            "at": "say6",
+            "caption": "Mastering Evol-Instruct is an essential competency for frontier AI engineering.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": {
+                "var": "self",
+                "line": 17,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 60,
+                "hit": 1
+              },
+              "seed": {
+                "var": "seed",
+                "line": 56,
+                "hit": 1
+              },
+              "operator_name": {
+                "var": "operator_name",
+                "line": 54,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "engine": "ok",
+              "seed": "ok",
+              "operator_name": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "engine"
               ],
               [
-                "proc",
-                "out"
+                "engine",
+                "seed"
+              ],
+              [
+                "seed",
+                "operator_name"
               ]
             ]
           }
@@ -347,110 +452,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Self-Instruct & Evol-Instruct Architectures: ... — Execution Pipeline",
+        "title": "Self-Instruct & Evol-Instruct Architectures: Complexity Deepenin",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Self-Instruct & Evo...",
-            "tappable": true
+            "id": "engine",
+            "label": "engine"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "seed",
+            "label": "seed"
+          },
+          {
+            "id": "operator_name",
+            "label": "operator_name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Self-Instruct & Evol-Instruct Architectu...",
-            "values": {
-              "in": "Day 56 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Self-Instruct & Evo....",
+            "caption": "While Constitutional AI focuses on ethical alignment, safety,.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": "<EvolInstructEngine>",
+              "engine": "<EvolInstructEngine>",
+              "seed": "<Task>",
+              "operator_name": "'add_constraints'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "engine": "data",
+              "seed": "data",
+              "operator_name": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "engine"
               ],
               [
-                "proc",
-                "out"
+                "engine",
+                "seed"
+              ],
+              [
+                "seed",
+                "operator_name"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "However, vanilla Self-Instruct quickly hits a ceiling.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": "<EvolInstructEngine>",
+              "engine": "<EvolInstructEngine>",
+              "seed": "<Task>",
+              "operator_name": "'add_constraints'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "engine": "data",
+              "seed": "data",
+              "operator_name": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "engine"
+              ],
+              [
+                "engine",
+                "seed"
+              ],
+              [
+                "seed",
+                "operator_name"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Self-Instruct & Evol-Instruct Arc...",
+            "at": "say6",
+            "caption": "Mastering Evol-Instruct is an essential competency for frontier AI engineering.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": "<EvolInstructEngine>",
+              "engine": "<EvolInstructEngine>",
+              "seed": "<Task>",
+              "operator_name": "'deepen_reasoning'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "engine": "ok",
+              "seed": "ok",
+              "operator_name": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "engine"
               ],
               [
-                "proc",
-                "out"
+                "engine",
+                "seed"
+              ],
+              [
+                "seed",
+                "operator_name"
               ]
             ]
           }
@@ -462,110 +570,161 @@
       "codeHash": "1d821ccd38fb9461d378db2396c04ff61a3c64ec64a23f861f35d0c5103e9f3a",
       "spec": {
         "template": "flow",
-        "title": "Data Quality Filtering & Decontamination: N-G... — Execution Pipeline",
+        "title": "Data Quality Filtering & Decontamination: N-Gram Overlap, Perple",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "BENCHMARK",
+            "label": "BENCHMARK"
           },
           {
-            "id": "proc",
-            "label": "2. Data Quality Filter...",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "benchmark_texts",
+            "label": "benchmark_texts"
+          },
+          {
+            "id": "n_gram_size",
+            "label": "n_gram_size"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Data Quality Filtering & Decontamination...",
-            "values": {
-              "in": "Day 56 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Data Quality Filter....",
+            "caption": "Generating millions of synthetic instruction-response pairs is only half.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "BENCHMARK": {
+                "var": "BENCHMARK",
+                "line": 55,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
+              },
+              "benchmark_texts": {
+                "var": "benchmark_texts",
+                "line": 6,
+                "hit": 1
+              },
+              "n_gram_size": {
+                "var": "n_gram_size",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "BENCHMARK": "data",
+              "self": "data",
+              "benchmark_texts": "data",
+              "n_gram_size": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "BENCHMARK",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "benchmark_texts"
+              ],
+              [
+                "benchmark_texts",
+                "n_gram_size"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The filtering pipeline begins with structural and heuristic hygiene checks.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "BENCHMARK": {
+                "var": "BENCHMARK",
+                "line": 59,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
+              },
+              "benchmark_texts": {
+                "var": "benchmark_texts",
+                "line": 7,
+                "hit": 1
+              },
+              "n_gram_size": {
+                "var": "n_gram_size",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "BENCHMARK": "data",
+              "self": "data",
+              "benchmark_texts": "data",
+              "n_gram_size": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "BENCHMARK",
+                "self"
+              ],
+              [
+                "self",
+                "benchmark_texts"
+              ],
+              [
+                "benchmark_texts",
+                "n_gram_size"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Data Quality Filtering & Decontam...",
+            "at": "say8",
+            "caption": "Furthermore, in high-stakes regulatory environments, decontamination must.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "BENCHMARK": {
+                "var": "BENCHMARK",
+                "line": 60,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 15,
+                "hit": 1
+              },
+              "benchmark_texts": {
+                "var": "benchmark_texts",
+                "line": 15,
+                "hit": 1
+              },
+              "n_gram_size": {
+                "var": "n_gram_size",
+                "line": 8,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "BENCHMARK": "ok",
+              "self": "ok",
+              "benchmark_texts": "ok",
+              "n_gram_size": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "BENCHMARK",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "benchmark_texts"
+              ],
+              [
+                "benchmark_texts",
+                "n_gram_size"
               ]
             ]
           }
@@ -573,110 +732,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Data Quality Filtering & Decontamination: N-G... — Execution Pipeline",
+        "title": "Data Quality Filtering & Decontamination: N-Gram Overlap, Perple",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "BENCHMARK",
+            "label": "BENCHMARK"
           },
           {
-            "id": "proc",
-            "label": "2. Data Quality Filter...",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "benchmark_texts",
+            "label": "benchmark_texts"
+          },
+          {
+            "id": "n_gram_size",
+            "label": "n_gram_size"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Data Quality Filtering & Decontamination...",
-            "values": {
-              "in": "Day 56 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Data Quality Filter....",
+            "caption": "Generating millions of synthetic instruction-response pairs is only half.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "BENCHMARK": "['Suppose Alice has three apples and Bo…",
+              "self": "<BenchmarkDecontaminator>",
+              "benchmark_texts": "['Suppose Alice has three apples and Bo…",
+              "n_gram_size": "8"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "BENCHMARK": "data",
+              "self": "data",
+              "benchmark_texts": "data",
+              "n_gram_size": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "BENCHMARK",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "benchmark_texts"
+              ],
+              [
+                "benchmark_texts",
+                "n_gram_size"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The filtering pipeline begins with structural and heuristic hygiene checks.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "BENCHMARK": "['Suppose Alice has three apples and Bo…",
+              "self": "<BenchmarkDecontaminator>",
+              "benchmark_texts": "['Suppose Alice has three apples and Bo…",
+              "n_gram_size": "8"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "BENCHMARK": "data",
+              "self": "data",
+              "benchmark_texts": "data",
+              "n_gram_size": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "BENCHMARK",
+                "self"
+              ],
+              [
+                "self",
+                "benchmark_texts"
+              ],
+              [
+                "benchmark_texts",
+                "n_gram_size"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Data Quality Filtering & Decontam...",
+            "at": "say8",
+            "caption": "Furthermore, in high-stakes regulatory environments, decontamination must.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "BENCHMARK": "['Suppose Alice has three apples and Bo…",
+              "self": "<BenchmarkDecontaminator>",
+              "benchmark_texts": "['Suppose Alice has three apples and Bo…",
+              "n_gram_size": "8"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "BENCHMARK": "ok",
+              "self": "ok",
+              "benchmark_texts": "ok",
+              "n_gram_size": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "BENCHMARK",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "benchmark_texts"
+              ],
+              [
+                "benchmark_texts",
+                "n_gram_size"
               ]
             ]
           }
@@ -687,223 +849,124 @@
       "partTitle": "Task Diversity Synthesis & Difficulty Calibration: Taxonomy Trees & Difficulty Scoring",
       "codeHash": "f40d085a08f8fbe04165694eb3207c786efeb0e81ef4780b4e5fe97a81454c35",
       "spec": {
-        "template": "flow",
-        "title": "Task Diversity Synthesis & Difficulty Calibra... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Task Diversity Synt...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Task Diversity Synthesis & Difficulty Calibration: Taxonomy Tree",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Task Diversity Synthesis & Difficulty Ca...",
-            "values": {
-              "in": "Day 56 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Task Diversity Synt....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Achieving state-of-the-art generalist capability requires synthetic.",
+            "items": {
+              "var": "words",
+              "line": 20,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "A Task Taxonomy Tree organizes human knowledge into a directed acyclic.",
+            "items": {
+              "var": "words",
+              "line": 31,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Task Diversity Synthesis & Diffic...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "Beyond scalar difficulty scoring, maintaining task diversity across.",
+            "items": {
+              "var": "words",
+              "line": 38,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Task Diversity Synthesis & Difficulty Calibra... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Task Diversity Synt...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Task Diversity Synthesis & Difficulty Calibration: Taxonomy Tree",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Task Diversity Synthesis & Difficulty Ca...",
-            "values": {
-              "in": "Day 56 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Task Diversity Synt....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Achieving state-of-the-art generalist capability requires synthetic.",
+            "items": [
+              "'write'",
+              "'a'",
+              "'simple'",
+              "'hello'",
+              "'world'",
+              "'program'",
+              "'in'",
+              "'python'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A Task Taxonomy Tree organizes human knowledge into a directed acyclic.",
+            "items": [
+              "'write'",
+              "'a'",
+              "'simple'",
+              "'hello'",
+              "'world'",
+              "'program'",
+              "'in'",
+              "'python'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Task Diversity Synthesis & Diffic...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Beyond scalar difficulty scoring, maintaining task diversity across.",
+            "items": [
+              "'write'",
+              "'a'",
+              "'simple'",
+              "'hello'",
+              "'world'",
+              "'program'",
+              "'in'",
+              "'python'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -913,223 +976,106 @@
       "partTitle": "Masterclass Implementation: ApexSynthetic Enterprise Generation & Constitutional Pipeline",
       "codeHash": "276781816801992e3fe74e21883b3d4a1421d009892c5758fcc24375c7fa0fea",
       "spec": {
-        "template": "flow",
-        "title": "Masterclass Implementation: ApexSynthetic Ent... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Impleme...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Masterclass Implementation: ApexSynthetic Enterprise Generation ",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Masterclass Implementation: ApexSyntheti...",
-            "values": {
-              "in": "Day 56 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Masterclass Impleme....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "ApexSynthetic is an industrial-grade synthetic data pipeline that takes.",
+            "items": {
+              "var": "applied",
+              "line": 41,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Let us trace the complete lifecycle of a synthetic record through.",
+            "items": {
+              "var": "applied",
+              "line": 42,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Masterclass Implementation: ApexS...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Finally, when formatting the output for downstream supervised fine-tuning.",
+            "items": {
+              "var": "applied",
+              "line": 42,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Masterclass Implementation: ApexSynthetic Ent... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Impleme...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Masterclass Implementation: ApexSynthetic Enterprise Generation ",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Implementation: ApexSyntheti...",
-            "values": {
-              "in": "Day 56 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Impleme....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "ApexSynthetic is an industrial-grade synthetic data pipeline that takes.",
+            "items": [
+              "'PRIN-01-EMPIRICAL-GROUNDING'",
+              "'PRIN-02-AUDIT-DISCLOSURE'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us trace the complete lifecycle of a synthetic record through.",
+            "items": [
+              "'PRIN-01-EMPIRICAL-GROUNDING'",
+              "'PRIN-02-AUDIT-DISCLOSURE'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Implementation: ApexS...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Finally, when formatting the output for downstream supervised fine-tuning.",
+            "items": [
+              "'PRIN-01-EMPIRICAL-GROUNDING'",
+              "'PRIN-02-AUDIT-DISCLOSURE'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]

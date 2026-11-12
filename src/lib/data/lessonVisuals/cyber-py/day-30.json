@@ -2,215 +2,449 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 30,
-  "promptSha": "e8075e7b872e7051ac73d394d69d31dd991829a0b185990abed4a839415dd3be",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Triage: what to look at first",
       "codeHash": "9664663e0d6e391084fe854cdef44db47900083366f36a7d58fe6cee22b8fc7a",
       "spec": {
-        "template": "compare",
-        "title": "Application perimeter shielding and cryptographic identity protection suite",
-        "left": {
-          "title": "Application Shielding",
-          "items": [
-            "Parameterized SQL query enforcement against injection",
-            "Automated HTML entity escaping against cross-site scripting",
-            "SameSite cookie policies preventing cross-site request forgery",
-            "Strict object-level authorization checks eliminating BOLA"
-          ]
-        },
-        "right": {
-          "title": "Cryptographic Identity",
-          "items": [
-            "Multi-factor authentication via RFC 6238 TOTP codes",
-            "Memory-hard Argon2id key derivation password protection",
-            "Cryptographic JWT signature verification against spoofing",
-            "Explicit rejection of insecure none algorithm headers"
-          ]
-        },
-        "steps": [
+        "template": "flow",
+        "title": "Triage: what to look at first",
+        "nodes": [
           {
-            "at": "say4",
-            "caption": "Application shielding neutralizes injection attacks and enforces policies.",
-            "highlightSide": "left",
-            "statusBadge": "active"
+            "id": "assets",
+            "label": "assets"
           },
           {
-            "at": "say6",
-            "caption": "Argontwoid derivation and token signature verification prevent identity.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "alerts",
+            "label": "alerts"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "ranked",
+            "label": "ranked"
           }
         ],
-        "leftLabel": "Application Shielding",
-        "rightLabel": "Cryptographic Identity"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Security teams receive far more alerts than they can investigate.",
+            "values": {
+              "assets": {
+                "var": "assets",
+                "line": 1,
+                "hit": 1
+              },
+              "alerts": {
+                "var": "alerts",
+                "line": 2,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 3,
+                "hit": 1
+              },
+              "ranked": {
+                "var": "ranked",
+                "line": 3,
+                "hit": 5
+              }
+            },
+            "tones": {
+              "assets": "data",
+              "alerts": "data",
+              "a": "data",
+              "ranked": "data"
+            },
+            "arrows": [
+              [
+                "assets",
+                "alerts"
+              ],
+              [
+                "alerts",
+                "a"
+              ],
+              [
+                "a",
+                "ranked"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A simple and effective priority multiplies the alert's severity by.",
+            "values": {
+              "assets": {
+                "var": "assets",
+                "line": 2,
+                "hit": 1
+              },
+              "alerts": {
+                "var": "alerts",
+                "line": 3,
+                "hit": 5
+              },
+              "a": {
+                "var": "a",
+                "line": 3,
+                "hit": 2
+              },
+              "ranked": {
+                "var": "ranked",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "assets": "data",
+              "alerts": "data",
+              "a": "data",
+              "ranked": "data"
+            },
+            "arrows": [
+              [
+                "assets",
+                "alerts"
+              ],
+              [
+                "alerts",
+                "a"
+              ],
+              [
+                "a",
+                "ranked"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Review the triage rules regularly.",
+            "values": {
+              "assets": {
+                "var": "assets",
+                "line": 3,
+                "hit": 5
+              },
+              "alerts": {
+                "var": "alerts",
+                "line": 4,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 3,
+                "hit": 3
+              },
+              "ranked": {
+                "var": "ranked",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "assets": "ok",
+              "alerts": "ok",
+              "a": "ok",
+              "ranked": "ok"
+            },
+            "arrows": [
+              [
+                "assets",
+                "alerts"
+              ],
+              [
+                "alerts",
+                "a"
+              ],
+              [
+                "a",
+                "ranked"
+              ]
+            ]
+          }
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Application perimeter shielding and cryptographic identity protection suite",
-        "left": {
-          "title": "Application Shielding",
-          "items": [
-            "Parameterized SQL query enforcement against injection",
-            "Automated HTML entity escaping against cross-site scripting",
-            "SameSite cookie policies preventing cross-site request forgery",
-            "Strict object-level authorization checks eliminating BOLA"
-          ]
-        },
-        "right": {
-          "title": "Cryptographic Identity",
-          "items": [
-            "Multi-factor authentication via RFC 6238 TOTP codes",
-            "Memory-hard Argon2id key derivation password protection",
-            "Cryptographic JWT signature verification against spoofing",
-            "Explicit rejection of insecure none algorithm headers"
-          ]
-        },
-        "steps": [
+        "template": "flow",
+        "title": "Triage: what to look at first",
+        "nodes": [
           {
-            "at": "say4",
-            "caption": "Application shielding neutralizes injection attacks and enforces policies.",
-            "highlightSide": "left",
-            "statusBadge": "active"
+            "id": "assets",
+            "label": "assets"
           },
           {
-            "at": "say6",
-            "caption": "Argon2id derivation and token signature verification prevent identity bypass.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "alerts",
+            "label": "alerts"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "ranked",
+            "label": "ranked"
           }
         ],
-        "leftLabel": "Application Shielding",
-        "rightLabel": "Cryptographic Identity"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Security teams receive far more alerts than they can investigate.",
+            "values": {
+              "assets": "{'payments-db': 5, 'hr-laptop': 2, 'dev…",
+              "alerts": "[['A1', 5, 'dev-vm'], ['A2', 5, 'paymen…",
+              "a": "['A1', 5, 'dev-vm']",
+              "ranked": "[['A2', 5, 'payments-db'], ['A3', 3, 'p…"
+            },
+            "tones": {
+              "assets": "data",
+              "alerts": "data",
+              "a": "data",
+              "ranked": "data"
+            },
+            "arrows": [
+              [
+                "assets",
+                "alerts"
+              ],
+              [
+                "alerts",
+                "a"
+              ],
+              [
+                "a",
+                "ranked"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A simple and effective priority multiplies the alert's severity by.",
+            "values": {
+              "assets": "{'payments-db': 5, 'hr-laptop': 2, 'dev…",
+              "alerts": "[['A1', 5, 'dev-vm'], ['A2', 5, 'paymen…",
+              "a": "['A2', 5, 'payments-db']",
+              "ranked": "[['A2', 5, 'payments-db'], ['A3', 3, 'p…"
+            },
+            "tones": {
+              "assets": "data",
+              "alerts": "data",
+              "a": "data",
+              "ranked": "data"
+            },
+            "arrows": [
+              [
+                "assets",
+                "alerts"
+              ],
+              [
+                "alerts",
+                "a"
+              ],
+              [
+                "a",
+                "ranked"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Review the triage rules regularly.",
+            "values": {
+              "assets": "{'payments-db': 5, 'hr-laptop': 2, 'dev…",
+              "alerts": "[['A1', 5, 'dev-vm'], ['A2', 5, 'paymen…",
+              "a": "['A3', 3, 'payments-db']",
+              "ranked": "[['A2', 5, 'payments-db'], ['A3', 3, 'p…"
+            },
+            "tones": {
+              "assets": "ok",
+              "alerts": "ok",
+              "a": "ok",
+              "ranked": "ok"
+            },
+            "arrows": [
+              [
+                "assets",
+                "alerts"
+              ],
+              [
+                "alerts",
+                "a"
+              ],
+              [
+                "a",
+                "ranked"
+              ]
+            ]
+          }
+        ]
       }
     },
     {
       "partTitle": "Measuring security posture",
       "codeHash": "0baab57711110662297358aa1c5f78fcd1ab97d168b46e260951580bcd9a5851",
       "spec": {
-        "template": "flow",
-        "title": "Runtime self-protection and software supply chain vulnerability pipeline",
-        "nodes": [
-          {
-            "id": "egress",
-            "label": "Egress Request Filter",
-            "tappable": false
-          },
-          {
-            "id": "metadata",
-            "label": "Cloud Metadata Blocker",
-            "tappable": false
-          },
-          {
-            "id": "sbom",
-            "label": "SBOM Dependency Scanner",
-            "tappable": false
-          },
-          {
-            "id": "limiter",
-            "label": "Token Bucket Rate Limiter",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "egress",
-            "to": "metadata",
-            "label": "Inspect Destination"
-          },
-          {
-            "from": "metadata",
-            "to": "sbom",
-            "label": "Pass Egress"
-          },
-          {
-            "from": "sbom",
-            "to": "limiter",
-            "label": "Validate Packages"
-          }
+        "template": "sequence",
+        "title": "Measuring security posture",
+        "actors": [
+          "controls",
+          "score",
+          "grade"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Egress filtering blocks metadata endpoints to prevent server request forgery.",
-            "activeNodes": [
-              "egress",
-              "metadata"
-            ],
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Leaders need a simple view of how well protected the organisation is.",
+            "activeActor": "controls",
+            "messages": [
+              {
+                "from": "controls",
+                "to": "score",
+                "label": {
+                  "var": "controls",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "grade",
+                "label": {
+                  "var": "score",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say6",
-            "caption": "Software bill of materials scanners match dependency packages with advisories.",
-            "activeNodes": [
-              "sbom",
-              "limiter"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "A scorecard lists key controls, such as MFA, patching, backups, logging.",
+            "activeActor": "score",
+            "messages": [
+              {
+                "from": "controls",
+                "to": "score",
+                "label": {
+                  "var": "controls",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "grade",
+                "label": {
+                  "var": "score",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Be honest when scoring.",
+            "activeActor": "grade",
+            "messages": [
+              {
+                "from": "controls",
+                "to": "score",
+                "label": {
+                  "var": "controls",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "grade",
+                "label": {
+                  "var": "score",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Runtime self-protection and software supply chain vulnerability pipeline",
-        "nodes": [
-          {
-            "id": "egress",
-            "label": "Egress Request Filter",
-            "tappable": false
-          },
-          {
-            "id": "metadata",
-            "label": "Cloud Metadata Blocker",
-            "tappable": false
-          },
-          {
-            "id": "sbom",
-            "label": "SBOM Dependency Scanner",
-            "tappable": false
-          },
-          {
-            "id": "limiter",
-            "label": "Token Bucket Rate Limiter",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "egress",
-            "to": "metadata",
-            "label": "Inspect Destination"
-          },
-          {
-            "from": "metadata",
-            "to": "sbom",
-            "label": "Pass Egress"
-          },
-          {
-            "from": "sbom",
-            "to": "limiter",
-            "label": "Validate Packages"
-          }
+        "template": "sequence",
+        "title": "Measuring security posture",
+        "actors": [
+          "controls",
+          "score",
+          "grade"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Egress filtering blocks metadata endpoints to prevent server request forgery.",
-            "activeNodes": [
-              "egress",
-              "metadata"
+            "at": "say1",
+            "caption": "Leaders need a simple view of how well protected the organisation is.",
+            "messages": [
+              {
+                "from": "controls",
+                "to": "score",
+                "label": "{'mfa': True, 'patching': True, 'backup…",
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "grade",
+                "label": "75",
+                "tone": "ok"
+              }
             ],
-            "statusBadge": "failed"
+            "activeActor": "controls"
           },
           {
-            "at": "say6",
-            "caption": "Software bill of materials scanners match dependency packages with advisories.",
-            "activeNodes": [
-              "sbom",
-              "limiter"
+            "at": "say2",
+            "caption": "A scorecard lists key controls, such as MFA, patching, backups, logging.",
+            "messages": [
+              {
+                "from": "controls",
+                "to": "score",
+                "label": "{'mfa': True, 'patching': True, 'backup…",
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "grade",
+                "label": "75",
+                "tone": "ok"
+              }
             ],
-            "statusBadge": "completed"
+            "activeActor": "score"
+          },
+          {
+            "at": "say10",
+            "caption": "Be honest when scoring.",
+            "messages": [
+              {
+                "from": "controls",
+                "to": "score",
+                "label": "{'mfa': True, 'patching': True, 'backup…",
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "grade",
+                "label": "75",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "grade"
           }
         ]
       }
@@ -220,73 +454,105 @@
       "codeHash": "6b319ff81480fecb84a286b50af99105c1635e6c1a8459eaa6ccef6bcf937ba3",
       "spec": {
         "template": "states",
-        "title": "Systems integrity memory safety and SIEM telemetry correlation lifecycle",
+        "title": "The course as a defensive programme",
         "states": [
           {
-            "id": "canary",
-            "label": "Stack Canary Integrity Guard"
+            "id": "taught",
+            "label": "taught"
           },
           {
-            "id": "temporal",
-            "label": "Temporal Heap Safety Tracking"
+            "id": "kv",
+            "label": "kv"
           },
           {
-            "id": "siem",
-            "label": "SIEM Correlation Engine"
-          },
-          {
-            "id": "ips",
-            "label": "IPS Packet Dropper Active"
+            "id": "control",
+            "label": "control"
           }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Stack canaries detect corruption before hijacked returns transfer flow.",
-            "activeStateId": "canary",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Week 1 protected web inputs.",
+            "currentState": "taught",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Correlation engines process normalized security events in real time.",
-            "activeStateId": "siem",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Week 2 protected identity and data.",
+            "currentState": "kv",
+            "transition": {
+              "from": "taught",
+              "to": "kv",
+              "label": {
+                "var": "kv",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "When a single layer fails, as eventually one will, the others should still.",
+            "currentState": "control",
+            "transition": {
+              "from": "kv",
+              "to": "control",
+              "label": {
+                "var": "control",
+                "line": 3,
+                "hit": 10
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Systems integrity memory safety and SIEM telemetry correlation lifecycle",
+        "title": "The course as a defensive programme",
         "states": [
           {
-            "id": "canary",
-            "label": "Stack Canary Integrity Guard"
+            "id": "taught",
+            "label": "taught"
           },
           {
-            "id": "temporal",
-            "label": "Temporal Heap Safety Tracking"
+            "id": "kv",
+            "label": "kv"
           },
           {
-            "id": "siem",
-            "label": "SIEM Correlation Engine"
-          },
-          {
-            "id": "ips",
-            "label": "IPS Packet Dropper Active"
+            "id": "control",
+            "label": "control"
           }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Stack canaries detect corruption before hijacked returns transfer flow.",
-            "activeStateId": "canary",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Week 1 protected web inputs.",
+            "currentState": "taught",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Correlation engines process normalized security events in real time.",
-            "activeStateId": "siem",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Week 2 protected identity and data.",
+            "currentState": "kv",
+            "transition": {
+              "from": "taught",
+              "to": "kv",
+              "label": "['patching', 19]"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "When a single layer fails, as eventually one will, the others should still.",
+            "currentState": "control",
+            "transition": {
+              "from": "kv",
+              "to": "control",
+              "label": "'mfa'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -295,224 +561,106 @@
       "partTitle": "Careers in security",
       "codeHash": "fd0f9537fcd81c0b47cbd5949c013a3d3e9d22a81b198d885790fa53dd4489ca",
       "spec": {
-        "template": "flow",
-        "title": "Capstone Phase 4: Sovereign Security Operatio... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Careers in security",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "roles",
+            "label": "roles"
           },
           {
-            "id": "proc",
-            "label": "2. Capstone Phase 4: S...",
-            "tappable": true
+            "id": "role",
+            "label": "role"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "topics",
+            "label": "topics"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Capstone Phase four: Sovereign Security Ope.",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Capstone Phase four: S... [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Security offers many paths.",
+            "currentState": "roles",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Developers with security skills are especially valuable.",
+            "currentState": "role",
+            "transition": {
+              "from": "roles",
+              "to": "role",
+              "label": {
+                "var": "role",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Capstone Phase four: Sovereign Secur.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "Writing up what you learn, for example as blog posts, builds both.",
+            "currentState": "topics",
+            "transition": {
+              "from": "role",
+              "to": "topics",
+              "label": {
+                "var": "topics",
+                "line": 5,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Capstone Phase 4: Sovereign Security Operatio... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Careers in security",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "roles",
+            "label": "roles"
           },
           {
-            "id": "proc",
-            "label": "2. Capstone Phase 4: S...",
-            "tappable": true
+            "id": "role",
+            "label": "role"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "topics",
+            "label": "topics"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Capstone Phase 4: Sovereign Security Ope.. [D30.P4.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Capstone Phase 4: S... [D30.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Security offers many paths.",
+            "currentState": "roles",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Developers with security skills are especially valuable.",
+            "currentState": "role",
+            "transition": {
+              "from": "roles",
+              "to": "role",
+              "label": "'application security engineer'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Capstone Phase 4: Sovereign Secur.. [D30.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "Writing up what you learn, for example as blog posts, builds both.",
+            "currentState": "topics",
+            "transition": {
+              "from": "role",
+              "to": "topics",
+              "label": "['SIEM', 'IDS rules', 'triage']"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -521,126 +669,106 @@
       "partTitle": "Keeping your defences current",
       "codeHash": "9b179e9ba5bc4117e9deb1526019d6d1902693ed289fd5469d18e9150ccce4a8",
       "spec": {
-        "template": "sequence",
-        "title": "Live adversary attack chain simulation and automated SOAR dynamic containment",
-        "actors": [
+        "template": "states",
+        "title": "Keeping your defences current",
+        "states": [
           {
-            "id": "attacker",
-            "label": "Adversary Threat Actor"
+            "id": "calendar",
+            "label": "calendar"
           },
           {
-            "id": "sensor",
-            "label": "Perimeter Defense Sensor"
+            "id": "cadence",
+            "label": "cadence"
           },
           {
-            "id": "siem",
-            "label": "SIEM Analytics Engine"
-          },
-          {
-            "id": "soar",
-            "label": "SOAR Orchestrator"
-          }
-        ],
-        "messages": [
-          {
-            "from": "attacker",
-            "to": "sensor",
-            "label": "Launch Multi-Stage Attack Vectors",
-            "tone": "danger"
-          },
-          {
-            "from": "sensor",
-            "to": "siem",
-            "label": "Stream Normalized Threat Telemetry",
-            "tone": "data"
-          },
-          {
-            "from": "siem",
-            "to": "soar",
-            "label": "Correlate High-Severity Incident",
-            "tone": "data"
-          },
-          {
-            "from": "soar",
-            "to": "attacker",
-            "label": "Trigger Network Host Isolation Severing Reach",
-            "tone": "success"
+            "id": "tasks",
+            "label": "tasks"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Simulation engines execute realistic multi-stage kill chains against defenses.",
-            "activeMessageIndex": 0,
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "New vulnerabilities, techniques and tools appear every week.",
+            "currentState": "calendar",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "Security playbooks trigger dynamic host isolation to sever connections.",
-            "activeMessageIndex": 3,
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Follow reliable sources.",
+            "currentState": "cadence",
+            "transition": {
+              "from": "calendar",
+              "to": "cadence",
+              "label": {
+                "var": "cadence",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Assign an owner to each recurring task, because tasks that belong.",
+            "currentState": "tasks",
+            "transition": {
+              "from": "cadence",
+              "to": "tasks",
+              "label": {
+                "var": "tasks",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "sequence",
-        "title": "Live adversary attack chain simulation and automated SOAR dynamic containment",
-        "actors": [
+        "template": "states",
+        "title": "Keeping your defences current",
+        "states": [
           {
-            "id": "attacker",
-            "label": "Adversary Threat Actor"
+            "id": "calendar",
+            "label": "calendar"
           },
           {
-            "id": "sensor",
-            "label": "Perimeter Defense Sensor"
+            "id": "cadence",
+            "label": "cadence"
           },
           {
-            "id": "siem",
-            "label": "SIEM Analytics Engine"
-          },
-          {
-            "id": "soar",
-            "label": "SOAR Orchestrator"
-          }
-        ],
-        "messages": [
-          {
-            "from": "attacker",
-            "to": "sensor",
-            "label": "Launch Multi-Stage Attack Vectors",
-            "tone": "danger"
-          },
-          {
-            "from": "sensor",
-            "to": "siem",
-            "label": "Stream Normalized Threat Telemetry",
-            "tone": "data"
-          },
-          {
-            "from": "siem",
-            "to": "soar",
-            "label": "Correlate High-Severity Incident",
-            "tone": "data"
-          },
-          {
-            "from": "soar",
-            "to": "attacker",
-            "label": "Trigger Network Host Isolation Severing Reach",
-            "tone": "success"
+            "id": "tasks",
+            "label": "tasks"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Simulation engines execute realistic multi-stage kill chains against defenses.",
-            "activeMessageIndex": 0,
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "New vulnerabilities, techniques and tools appear every week.",
+            "currentState": "calendar",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "Security playbooks trigger dynamic host isolation to sever connections.",
-            "activeMessageIndex": 3,
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Follow reliable sources.",
+            "currentState": "cadence",
+            "transition": {
+              "from": "calendar",
+              "to": "cadence",
+              "label": "'weekly'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Assign an owner to each recurring task, because tasks that belong.",
+            "currentState": "tasks",
+            "transition": {
+              "from": "cadence",
+              "to": "tasks",
+              "label": "['secret scan of all repos', 'backup re…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -649,184 +777,194 @@
       "partTitle": "Capstone practice: triage and scorecard",
       "codeHash": "98d9b90eda224479a20efea98657b633b1b0e283f9a56a3209169240ed937413",
       "spec": {
-        "template": "table",
-        "title": "Sovereign cybersecurity compliance certification audit domains and control verification",
-        "columns": [
-          "Security Domain",
-          "Certified Controls",
-          "Audit Verification"
+        "template": "boxes",
+        "title": "Capstone practice: triage and scorecard",
+        "boxes": [
+          {
+            "id": "assets",
+            "label": "assets"
+          },
+          {
+            "id": "alerts",
+            "label": "alerts"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "queue",
+            "label": "queue"
+          }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Compliance certification manifests verify security across all system domains.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Application Shielding",
-                  "Twelve Controls",
-                  "Input Sanitization and CSRF"
-                ],
-                "tone": "data"
+            "at": "say1",
+            "caption": "Triage(alerts, assets).",
+            "values": {
+              "assets": {
+                "var": "assets",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Cryptographic Identity",
-                  "Fourteen Controls",
-                  "Argon2id and Multi Factor"
-                ],
-                "tone": "data"
+              "alerts": {
+                "var": "alerts",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Supply Chain Security",
-                  "Ten Controls",
-                  "SBOM Scans and SSRF Filters"
-                ],
-                "tone": "data"
+              "a": {
+                "var": "a",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Zero Trust Governance",
-                  "Sixteen Controls",
-                  "Device Attestation and mTLS"
-                ],
-                "tone": "data"
+              "queue": {
+                "var": "queue",
+                "line": 3,
+                "hit": 7
               }
-            ]
+            },
+            "tones": {
+              "assets": "data",
+              "alerts": "data",
+              "a": "data",
+              "queue": "data"
+            }
           },
           {
-            "at": "say6",
-            "caption": "Certifications prove that every defense satisfies enterprise standards.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Application Shielding",
-                  "Twelve Controls",
-                  "Input Sanitization and CSRF"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "The checks include critical and unknown assets and a tie broken by severity.",
+            "values": {
+              "assets": {
+                "var": "assets",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Cryptographic Identity",
-                  "Fourteen Controls",
-                  "Argon2id and Multi Factor"
-                ],
-                "tone": "data"
+              "alerts": {
+                "var": "alerts",
+                "line": 3,
+                "hit": 4
               },
-              {
-                "cells": [
-                  "Supply Chain Security",
-                  "Ten Controls",
-                  "SBOM Scans and SSRF Filters"
-                ],
-                "tone": "data"
+              "a": {
+                "var": "a",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "cells": [
-                  "Zero Trust Governance",
-                  "Sixteen Controls",
-                  "Device Attestation and mTLS"
-                ],
-                "tone": "data"
+              "queue": {
+                "var": "queue",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "assets": "data",
+              "alerts": "data",
+              "a": "data",
+              "queue": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Your certificate reflects real, tested skills that employers value.",
+            "values": {
+              "assets": {
+                "var": "assets",
+                "line": 3,
+                "hit": 4
+              },
+              "alerts": {
+                "var": "alerts",
+                "line": 3,
+                "hit": 5
+              },
+              "a": {
+                "var": "a",
+                "line": 3,
+                "hit": 3
+              },
+              "queue": {
+                "var": "queue",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "assets": "ok",
+              "alerts": "ok",
+              "a": "ok",
+              "queue": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Sovereign cybersecurity compliance certification audit domains and control verification",
-        "columns": [
-          "Security Domain",
-          "Certified Controls",
-          "Audit Verification"
+        "template": "boxes",
+        "title": "Capstone practice: triage and scorecard",
+        "boxes": [
+          {
+            "id": "assets",
+            "label": "assets"
+          },
+          {
+            "id": "alerts",
+            "label": "alerts"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "queue",
+            "label": "queue"
+          }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Compliance certification manifests verify security across all system domains.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Application Shielding",
-                  "Twelve Controls",
-                  "Input Sanitization and CSRF"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Cryptographic Identity",
-                  "Fourteen Controls",
-                  "Argon2id and Multi Factor"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Supply Chain Security",
-                  "Ten Controls",
-                  "SBOM Scans and SSRF Filters"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Zero Trust Governance",
-                  "Sixteen Controls",
-                  "Device Attestation and mTLS"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Triage(alerts, assets).",
+            "values": {
+              "assets": "{'payments-db': 5, 'website': 4, 'dev-v…",
+              "alerts": "[['A7', 4, 'website'], ['A8', 2, 'payme…",
+              "a": "['A7', 4, 'website']",
+              "queue": "['A7', 'A8', 'A9']"
+            },
+            "tones": {
+              "assets": "data",
+              "alerts": "data",
+              "a": "data",
+              "queue": "data"
+            }
           },
           {
-            "at": "say6",
-            "caption": "Certifications prove that every defense satisfies enterprise standards.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Application Shielding",
-                  "Twelve Controls",
-                  "Input Sanitization and CSRF"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Cryptographic Identity",
-                  "Fourteen Controls",
-                  "Argon2id and Multi Factor"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Supply Chain Security",
-                  "Ten Controls",
-                  "SBOM Scans and SSRF Filters"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Zero Trust Governance",
-                  "Sixteen Controls",
-                  "Device Attestation and mTLS"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "The checks include critical and unknown assets and a tie broken by severity.",
+            "values": {
+              "assets": "{'payments-db': 5, 'website': 4, 'dev-v…",
+              "alerts": "[['A7', 4, 'website'], ['A8', 2, 'payme…",
+              "a": "['A8', 2, 'payments-db']",
+              "queue": "['A7', 'A8', 'A9']"
+            },
+            "tones": {
+              "assets": "data",
+              "alerts": "data",
+              "a": "data",
+              "queue": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Your certificate reflects real, tested skills that employers value.",
+            "values": {
+              "assets": "{'payments-db': 5, 'website': 4, 'dev-v…",
+              "alerts": "[['A7', 4, 'website'], ['A8', 2, 'payme…",
+              "a": "['A9', 5, 'dev-vm']",
+              "queue": "['A7', 'A8', 'A9']"
+            },
+            "tones": {
+              "assets": "ok",
+              "alerts": "ok",
+              "a": "ok",
+              "queue": "ok"
+            }
           }
         ]
       }

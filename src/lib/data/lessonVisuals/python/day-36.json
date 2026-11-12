@@ -2,88 +2,300 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 36,
-  "promptSha": "6c14a9c5254a41518eab1745e49a8940df8de8ab8c2e6e5f41335e3c6379c8d0",
-  "model": "gate-v2-verified",
+  "promptSha": "aa5c67cf5eae1041d2d0e4358c4056198a025ad9a6a5234cfa116e37f8d30850",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "SQLAlchemy 2.0 Async Architecture & asyncpg Driver Mechanics",
       "codeHash": "9a0f1a0c2660dbd7a88dad90e337cdfb1b45dc8b8accdf748d21f7814d09225b",
       "spec": {
-        "template": "table",
-        "title": "SQLAlchemy 2.0 Async Architecture & asyncpg Driver",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "AsyncConnection non-blocking query path",
+        "nodes": [
+          {
+            "id": "conn",
+            "label": "AsyncConnection"
+          },
+          {
+            "id": "loop",
+            "label": "asyncio"
+          },
+          {
+            "id": "drv",
+            "label": "asyncpg"
+          },
+          {
+            "id": "pg",
+            "label": "PostgreSQL"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "SQLAlchemy"
-                  },
-                  {
-                    "text": "Async"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Async Python avoids spawning heavy operating system threads.",
+            "values": {
+              "conn": {
+                "text": "AsyncEngine"
+              },
+              "loop": {
+                "text": "asyncio"
+              },
+              "drv": {
+                "text": "asyncpg"
+              },
+              "pg": {
+                "text": "PostgreSQL"
               }
+            },
+            "tones": {
+              "conn": "data",
+              "loop": "ok",
+              "drv": "idle",
+              "pg": "idle"
+            },
+            "arrows": [
+              [
+                "conn",
+                "loop"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "The heart logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Architecture"
-                  },
-                  {
-                    "text": "asyncpg"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say4",
+            "caption": "Registered sockets yield back to asyncio during PostgreSQL waits.",
+            "values": {
+              "conn": {
+                "text": "AsyncConnection"
+              },
+              "loop": {
+                "text": "epoll"
+              },
+              "drv": {
+                "text": "asyncpg"
+              },
+              "pg": {
+                "text": "socket"
               }
+            },
+            "tones": {
+              "conn": "data",
+              "loop": "ok",
+              "drv": "data",
+              "pg": "ok"
+            },
+            "arrows": [
+              [
+                "conn",
+                "loop"
+              ],
+              [
+                "loop",
+                "drv"
+              ],
+              [
+                "drv",
+                "pg"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "SQLAlchemy dispatches statements over non-blocking TCP packets.",
+            "values": {
+              "conn": {
+                "text": "MockAsyncConnection"
+              },
+              "loop": {
+                "text": "101"
+              },
+              "drv": {
+                "text": "asyncpg"
+              },
+              "pg": {
+                "text": "active"
+              }
+            },
+            "tones": {
+              "conn": "ok",
+              "loop": "ok",
+              "drv": "ok",
+              "pg": "ok"
+            },
+            "arrows": [
+              [
+                "conn",
+                "drv"
+              ],
+              [
+                "drv",
+                "pg"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add execute_many batch query method and verify multiple logged SQL calls.",
+            "values": {
+              "conn": {
+                "text": "Add"
+              },
+              "loop": {
+                "text": "method"
+              },
+              "drv": {
+                "text": "batch"
+              },
+              "pg": {
+                "text": "execution"
+              }
+            },
+            "tones": {
+              "conn": "ok",
+              "loop": "data",
+              "drv": "ok",
+              "pg": "ok"
+            },
+            "arrows": [
+              [
+                "conn",
+                "drv"
+              ],
+              [
+                "drv",
+                "pg"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "SQLAlchemy 2.0 Async Architecture & asyncpg Driver",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "AsyncConnection non-blocking query path",
+        "nodes": [
+          {
+            "id": "conn",
+            "label": "AsyncConnection"
+          },
+          {
+            "id": "loop",
+            "label": "asyncio"
+          },
+          {
+            "id": "drv",
+            "label": "asyncpg"
+          },
+          {
+            "id": "pg",
+            "label": "PostgreSQL"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "SQLAlchemy",
-                  "Async"
-                ],
-                "tone": "data"
-              }
+            "at": "say2",
+            "caption": "Async Python avoids spawning heavy operating system threads.",
+            "values": {
+              "conn": "AsyncEngine",
+              "loop": "Single Thread",
+              "drv": "asyncpg",
+              "pg": "PostgreSQL"
+            },
+            "tones": {
+              "conn": "data",
+              "loop": "ok",
+              "drv": "idle",
+              "pg": "idle"
+            },
+            "arrows": [
+              [
+                "conn",
+                "loop"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "The heart logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Architecture",
-                  "asyncpg"
-                ],
-                "tone": "ok"
-              }
+            "at": "say4",
+            "caption": "Registered sockets yield back to asyncio during PostgreSQL waits.",
+            "values": {
+              "conn": "AsyncConnection",
+              "loop": "epoll/kqueue yield",
+              "drv": "asyncpg binary",
+              "pg": "Non-blocking TCP"
+            },
+            "tones": {
+              "conn": "data",
+              "loop": "ok",
+              "drv": "data",
+              "pg": "ok"
+            },
+            "arrows": [
+              [
+                "conn",
+                "loop"
+              ],
+              [
+                "loop",
+                "drv"
+              ],
+              [
+                "drv",
+                "pg"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "SQLAlchemy dispatches statements over non-blocking TCP packets.",
+            "values": {
+              "conn": "conn_101",
+              "loop": "Executed SELECT",
+              "drv": "asyncpg Wire",
+              "pg": "status=active"
+            },
+            "tones": {
+              "conn": "ok",
+              "loop": "ok",
+              "drv": "ok",
+              "pg": "ok"
+            },
+            "arrows": [
+              [
+                "conn",
+                "drv"
+              ],
+              [
+                "drv",
+                "pg"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add execute_many batch query method and verify multiple logged SQL calls.",
+            "values": {
+              "conn": "conn_101",
+              "loop": "execute_many(2 SQLs)",
+              "drv": "asyncpg Batch Pipeline",
+              "pg": "3 Queries Logged"
+            },
+            "tones": {
+              "conn": "ok",
+              "loop": "data",
+              "drv": "ok",
+              "pg": "ok"
+            },
+            "arrows": [
+              [
+                "conn",
+                "drv"
+              ],
+              [
+                "drv",
+                "pg"
+              ]
+            ],
+            "whatIf": "class MockAsyncConnection:\n    def __init__(self, conn_id: int):\n        self.conn_id = conn_id\n        self.in_transaction = False\n        self.query_log = []\n\n    def execute(self, statement: str):\n        self.query_log.append(statement)\n        return {\"rows\": [{\"id\": 1, \"status\": \"active\"}], \"count\": 1}\n\n    def execute_many(self, statements):\n        for stmt in statements:\n            self.query_log.append(stmt)\n        return len(statements)\n\nconn = MockAsyncConnection(conn_id=101)\nres = conn.execute(\"SELECT id, status FROM users WHERE id = 1\")\n\nprint(\"=== ASYNC ENGINE DRIVER MECHANICS ===\")\nprint(f\"Connection Handle: conn_{conn.conn_id}\")\nprint(f\"Executed SQL:     {conn.query_log[0]}\")\nprint(f\"Returned Rows:    {res['count']} row, status={res['rows'][0]['status']}\")\nbatch_n = conn.execute_many([\"INSERT INTO logs VALUES (1)\", \"INSERT INTO logs VALUES (2)\"])\nprint(f\"Batch Executed: {batch_n} queries | Total Logged: {len(conn.query_log)}\")\nprint(\"Non-blocking database execution simulation verified.\")",
+            "checks": [
+              "Batch Executed: 2 queries | Total Logged: 3"
             ]
           }
         ]
@@ -93,82 +305,162 @@
       "partTitle": "Connection Pool Exhaustion & Leak Forensics",
       "codeHash": "a3d67322212b9958fcfbe55f0bf3b9bd06c9d3a52a3dea6bcbfb892224c6618a",
       "spec": {
-        "template": "table",
-        "title": "Connection Pool Exhaustion & Leak Forensics",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Connection starvation vs healthy pool release",
+        "leftLabel": "Held During Blocking Call",
+        "rightLabel": "Timely Pool Checkin",
         "steps": [
           {
             "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Connection"
-                  },
-                  {
-                    "text": "Pool"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Raw TCP handshakes add heavy latency without database pooling.",
+            "left": {
+              "code": "new_tcp_handshake()",
+              "result": "20-50ms Overhead",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "pool.checkout()",
+              "result": "Pre-authenticated Warm",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The eliminate logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Exhaustion"
-                  },
-                  {
-                    "text": "Leak"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say4",
+            "caption": "External HTTP work keeps connections pinned until timeouts fire.",
+            "left": {
+              "code": "c3 = pool.checkout()",
+              "result": "TimeoutError (Pool Full)",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "pool.checkin(c1); pool.checkout()",
+              "result": "Reused Safely",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Bounded size 2 rejects the waiting checkout when idle slots vanish.",
+            "left": {
+              "code": "c1, c2 held; c3 = pool.checkout()",
+              "result": "QueuePool limit reached",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "pool.checkin(c1); c3 = pool.checkout()",
+              "result": "Acquired conn_0",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Call pool.checkin(c1) before c3 checkout so acquisition avoids TimeoutError.",
+            "left": {
+              "code": "c3 = pool.checkout() (No checkin)",
+              "result": "Pool Exhaustion Intercepted: True",
+              "tone": "error",
+              "checks": [
+                "TimeoutError simulated without checkin",
+                "Pool Exhaustion Intercepted:   True"
+              ],
+              "whatIf": "from collections import deque\n\nclass NaiveConnectionPool:\n    def __init__(self, size=2):\n        self.available = deque([f\"conn_{i}\" for i in range(size)])\n        self.checked_out = set()\n\n    def checkout(self):\n        if not self.available:\n            raise TimeoutError(\"QueuePool limit reached: connection timed out\")\n        conn = self.available.popleft()\n        self.checked_out.add(conn)\n        return conn\n\n    def checkin(self, conn):\n        if conn in self.checked_out:\n            self.checked_out.remove(conn)\n            self.available.append(conn)\n\npool = NaiveConnectionPool(size=2)\nc1 = pool.checkout()\nc2 = pool.checkout()\n\ntimeout_caught = False\ntry:\n    c3 = pool.checkout()  # Pool exhausted!\nexcept TimeoutError:\n    timeout_caught = True\n\nprint(\"=== CONNECTION POOL EXHAUSTION LAB ===\")\nprint(f\"Available Connections in Pool: {len(pool.available)}\")\nprint(f\"Active Checked-Out Conns:     {len(pool.checked_out)}\")\nprint(\"Left Mode (No Checkin): TimeoutError simulated without checkin\")\nprint(f\"Pool Exhaustion Intercepted:   {timeout_caught}\")\nprint(\"Connection starvation failure mode successfully demonstrated.\")"
+            },
+            "right": {
+              "code": "pool.checkin(c1); c3 = pool.checkout()",
+              "result": "Acquired conn_0 (Exhaustion: False)",
+              "tone": "ok",
+              "checks": [
+                "Pool Exhaustion Intercepted:   False",
+                "Active Checked-Out Conns:     2"
+              ],
+              "whatIf": "from collections import deque\n\nclass NaiveConnectionPool:\n    def __init__(self, size=2):\n        self.available = deque([f\"conn_{i}\" for i in range(size)])\n        self.checked_out = set()\n\n    def checkout(self):\n        if not self.available:\n            raise TimeoutError(\"QueuePool limit reached: connection timed out\")\n        conn = self.available.popleft()\n        self.checked_out.add(conn)\n        return conn\n\n    def checkin(self, conn):\n        if conn in self.checked_out:\n            self.checked_out.remove(conn)\n            self.available.append(conn)\n\npool = NaiveConnectionPool(size=2)\nc1 = pool.checkout()\nc2 = pool.checkout()\n\ntimeout_caught = False\npool.checkin(c1)\ntry:\n    c3 = pool.checkout()  # Pool exhausted!\nexcept TimeoutError:\n    timeout_caught = True\n\nprint(\"=== CONNECTION POOL EXHAUSTION LAB ===\")\nprint(f\"Available Connections in Pool: {len(pool.available)}\")\nprint(f\"Active Checked-Out Conns:     {len(pool.checked_out)}\")\nprint(f\"Pool Exhaustion Intercepted:   {timeout_caught}\")\nprint(\"Connection starvation failure mode successfully demonstrated.\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Connection Pool Exhaustion & Leak Forensics",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Connection starvation vs healthy pool release",
+        "leftLabel": "Held During Blocking Call",
+        "rightLabel": "Timely Pool Checkin",
         "steps": [
           {
             "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Connection",
-                  "Pool"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Raw TCP handshakes add heavy latency without database pooling.",
+            "left": {
+              "code": "new_tcp_handshake()",
+              "result": "20-50ms Overhead",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "pool.checkout()",
+              "result": "Pre-authenticated Warm",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The eliminate logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Exhaustion",
-                  "Leak"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say4",
+            "caption": "External HTTP work keeps connections pinned until timeouts fire.",
+            "left": {
+              "code": "c3 = pool.checkout()",
+              "result": "TimeoutError (Pool Full)",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "pool.checkin(c1); pool.checkout()",
+              "result": "Reused Safely",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Bounded size 2 rejects the waiting checkout when idle slots vanish.",
+            "left": {
+              "code": "c1, c2 held; c3 = pool.checkout()",
+              "result": "QueuePool limit reached",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "pool.checkin(c1); c3 = pool.checkout()",
+              "result": "Acquired conn_0",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Call pool.checkin(c1) before c3 checkout so acquisition avoids TimeoutError.",
+            "left": {
+              "code": "c3 = pool.checkout() (No checkin)",
+              "result": "Pool Exhaustion Intercepted: True",
+              "tone": "error",
+              "checks": [
+                "TimeoutError simulated without checkin",
+                "Pool Exhaustion Intercepted:   True"
+              ],
+              "whatIf": "from collections import deque\n\nclass NaiveConnectionPool:\n    def __init__(self, size=2):\n        self.available = deque([f\"conn_{i}\" for i in range(size)])\n        self.checked_out = set()\n\n    def checkout(self):\n        if not self.available:\n            raise TimeoutError(\"QueuePool limit reached: connection timed out\")\n        conn = self.available.popleft()\n        self.checked_out.add(conn)\n        return conn\n\n    def checkin(self, conn):\n        if conn in self.checked_out:\n            self.checked_out.remove(conn)\n            self.available.append(conn)\n\npool = NaiveConnectionPool(size=2)\nc1 = pool.checkout()\nc2 = pool.checkout()\n\ntimeout_caught = False\ntry:\n    c3 = pool.checkout()  # Pool exhausted!\nexcept TimeoutError:\n    timeout_caught = True\n\nprint(\"=== CONNECTION POOL EXHAUSTION LAB ===\")\nprint(f\"Available Connections in Pool: {len(pool.available)}\")\nprint(f\"Active Checked-Out Conns:     {len(pool.checked_out)}\")\nprint(\"Left Mode (No Checkin): TimeoutError simulated without checkin\")\nprint(f\"Pool Exhaustion Intercepted:   {timeout_caught}\")\nprint(\"Connection starvation failure mode successfully demonstrated.\")"
+            },
+            "right": {
+              "code": "pool.checkin(c1); c3 = pool.checkout()",
+              "result": "Acquired conn_0 (Exhaustion: False)",
+              "tone": "ok",
+              "checks": [
+                "Pool Exhaustion Intercepted:   False",
+                "Active Checked-Out Conns:     2"
+              ],
+              "whatIf": "from collections import deque\n\nclass NaiveConnectionPool:\n    def __init__(self, size=2):\n        self.available = deque([f\"conn_{i}\" for i in range(size)])\n        self.checked_out = set()\n\n    def checkout(self):\n        if not self.available:\n            raise TimeoutError(\"QueuePool limit reached: connection timed out\")\n        conn = self.available.popleft()\n        self.checked_out.add(conn)\n        return conn\n\n    def checkin(self, conn):\n        if conn in self.checked_out:\n            self.checked_out.remove(conn)\n            self.available.append(conn)\n\npool = NaiveConnectionPool(size=2)\nc1 = pool.checkout()\nc2 = pool.checkout()\n\ntimeout_caught = False\npool.checkin(c1)\ntry:\n    c3 = pool.checkout()  # Pool exhausted!\nexcept TimeoutError:\n    timeout_caught = True\n\nprint(\"=== CONNECTION POOL EXHAUSTION LAB ===\")\nprint(f\"Available Connections in Pool: {len(pool.available)}\")\nprint(f\"Active Checked-Out Conns:     {len(pool.checked_out)}\")\nprint(f\"Pool Exhaustion Intercepted:   {timeout_caught}\")\nprint(\"Connection starvation failure mode successfully demonstrated.\")"
+            }
           }
         ]
       }
@@ -177,81 +469,181 @@
       "partTitle": "Asynchronous QueuePool Engine Implementation",
       "codeHash": "4af5af4dbaf63c2da80e54d1e623e4a90994ca599228fd1c42e6455758232e91",
       "spec": {
-        "template": "table",
-        "title": "Asynchronous QueuePool Engine Implementation",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "AsyncQueuePool primary and overflow buffers",
+        "boxes": [
+          {
+            "id": "avail",
+            "label": "available"
+          },
+          {
+            "id": "out",
+            "label": "checked_out"
+          },
+          {
+            "id": "over",
+            "label": "overflow_count"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Asynchronous"
-                  },
-                  {
-                    "text": "QueuePool"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "QueuePool balances steady pool_size slots with max_overflow bursts.",
+            "values": {
+              "avail": {
+                "text": "pool_size"
+              },
+              "out": {
+                "text": "pool"
+              },
+              "over": {
+                "text": "max_overflow"
               }
-            ]
+            },
+            "tones": {
+              "avail": "ok",
+              "out": "idle",
+              "over": "data"
+            }
           },
           {
             "at": "say3",
-            "caption": "The checkout logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Engine"
-                  },
-                  {
-                    "text": "Implementation"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "FIFO checkout drains primary deque slots before spawning overflow.",
+            "values": {
+              "avail": {
+                "text": "popleft()"
+              },
+              "out": {
+                "text": "checked_out"
+              },
+              "over": {
+                "text": "overflow"
               }
-            ]
+            },
+            "tones": {
+              "avail": "data",
+              "out": "ok",
+              "over": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Primary size 2 and overflow ceiling handle burst checkouts deterministically.",
+            "values": {
+              "avail": {
+                "text": "deque"
+              },
+              "out": {
+                "text": "checked_out"
+              },
+              "over": {
+                "text": "max_overflow"
+              }
+            },
+            "tones": {
+              "avail": "error",
+              "out": "data",
+              "over": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Attempt a 4th checkout after max_overflow saturation to catch TimeoutError.",
+            "values": {
+              "avail": {
+                "text": "Attempt"
+              },
+              "out": {
+                "text": "checkout"
+              },
+              "over": {
+                "text": "assert"
+              }
+            },
+            "tones": {
+              "avail": "error",
+              "out": "data",
+              "over": "error"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Asynchronous QueuePool Engine Implementation",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "AsyncQueuePool primary and overflow buffers",
+        "boxes": [
+          {
+            "id": "avail",
+            "label": "available"
+          },
+          {
+            "id": "out",
+            "label": "checked_out"
+          },
+          {
+            "id": "over",
+            "label": "overflow_count"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Asynchronous",
-                  "QueuePool"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "QueuePool balances steady pool_size slots with max_overflow bursts.",
+            "values": {
+              "avail": "pool_conn_0, pool_conn_1",
+              "out": "0 checked out",
+              "over": "0 / 1 overflow"
+            },
+            "tones": {
+              "avail": "ok",
+              "out": "idle",
+              "over": "data"
+            }
           },
           {
             "at": "say3",
-            "caption": "The checkout logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Engine",
-                  "Implementation"
-                ],
-                "tone": "ok"
-              }
+            "caption": "FIFO checkout drains primary deque slots before spawning overflow.",
+            "values": {
+              "avail": "Empty ([])",
+              "out": "3 connections",
+              "over": "1 / 1 (overflow_conn_1)"
+            },
+            "tones": {
+              "avail": "data",
+              "out": "ok",
+              "over": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Primary size 2 and overflow ceiling handle burst checkouts deterministically.",
+            "values": {
+              "avail": "0 left",
+              "out": "3 Saturated",
+              "over": "4th -> TimeoutError"
+            },
+            "tones": {
+              "avail": "error",
+              "out": "data",
+              "over": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Attempt a 4th checkout after max_overflow saturation to catch TimeoutError.",
+            "values": {
+              "avail": "0 Available",
+              "out": "3 Checked Out",
+              "over": "4th -> TimeoutError Caught"
+            },
+            "tones": {
+              "avail": "error",
+              "out": "data",
+              "over": "error"
+            },
+            "whatIf": "from collections import deque\n\nclass AsyncQueuePool:\n    def __init__(self, pool_size=2, max_overflow=1):\n        self.pool_size = pool_size\n        self.max_overflow = max_overflow\n        self.available = deque([f\"pool_conn_{i}\" for i in range(pool_size)])\n        self.checked_out = set()\n        self.overflow_count = 0\n\n    def checkout(self):\n        if self.available:\n            conn = self.available.popleft()\n            self.checked_out.add(conn)\n            return conn, \"pool\"\n        elif self.overflow_count < self.max_overflow:\n            self.overflow_count += 1\n            conn = f\"overflow_conn_{self.overflow_count}\"\n            self.checked_out.add(conn)\n            return conn, \"overflow\"\n        else:\n            raise TimeoutError(\"QueuePool limit exceeded: max overflow saturated\")\n\n    def checkin(self, conn, conn_type=\"pool\"):\n        if conn in self.checked_out:\n            self.checked_out.remove(conn)\n            if conn_type == \"pool\":\n                self.available.append(conn)\n            else:\n                self.overflow_count -= 1  # Teardown temporary overflow\n\nqp = AsyncQueuePool(pool_size=2, max_overflow=1)\nc1, t1 = qp.checkout()\nc2, t2 = qp.checkout()\nc3, t3 = qp.checkout()  # Utilizes overflow capacity\n\nprint(\"=== ASYNC QUEUEPOOL ENGINE LAB ===\")\nprint(f\"Connection 1 Source: {t1}\")\nprint(f\"Connection 2 Source: {t2}\")\nprint(f\"Connection 3 Source: {t3} (Burst scaling)\")\nprint(f\"Active Checked-Out:  {len(qp.checked_out)} connections\")\noverflow_blocked = False\ntry:\n    qp.checkout()\nexcept TimeoutError as e:\n    overflow_blocked = True\n    print(f\"4th Checkout Blocked: {overflow_blocked} ({e})\")\nprint(\"Dynamic overflow connection pooling successfully verified.\")",
+            "checks": [
+              "4th Checkout Blocked: True (QueuePool limit exceeded: max overflow saturated)"
             ]
           }
         ]
@@ -262,40 +654,157 @@
       "codeHash": "6d372b53338fac6f299332133c544c8d2bf2396b5daa512ead77e6eb8a456cd8",
       "spec": {
         "template": "table",
-        "title": "High-Volume Checkout Connection Pool Tuning",
+        "title": "Payment gateway hold time remediation",
         "columns": [
-          "Stage",
-          "Concept"
+          "Checkout Stage",
+          "Legacy Hold",
+          "Remediated"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
+            "at": "say3",
+            "caption": "Holding an open connection during payment stalls every checkout request.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "High"
+                    "text": "2"
                   },
                   {
-                    "text": "Volume"
+                    "text": "800"
+                  },
+                  {
+                    "text": "pool_timeout"
                   }
                 ],
-                "tone": "data"
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "804"
+                  },
+                  {
+                    "text": "Payment"
+                  },
+                  {
+                    "text": "4"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The forensic logic drives deterministic execution.",
+            "at": "say5",
+            "caption": "Decoupling external payment HTTP calls restores fast checkout throughput.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Checkout"
+                    "text": "bad_checkout_flow"
                   },
                   {
-                    "text": "Connection"
+                    "text": "804"
+                  },
+                  {
+                    "text": "STARVATION RISK"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "remediated_checkout_flow"
+                  },
+                  {
+                    "text": "4"
+                  },
+                  {
+                    "text": "POOL OPTIMIZED"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Returning sockets before 800ms HTTP work shrinks hold duration.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "conn_hold_1"
+                  },
+                  {
+                    "text": "2"
+                  },
+                  {
+                    "text": "Read cart"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "External Payment HTTP"
+                  },
+                  {
+                    "text": "800"
+                  },
+                  {
+                    "text": "conns_held_ms"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "conn_hold_2"
+                  },
+                  {
+                    "text": "2"
+                  },
+                  {
+                    "text": "Update order"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calculate maximum concurrent users supported under bad vs remediated flow.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Calculate"
+                  },
+                  {
+                    "text": "the"
+                  },
+                  {
+                    "text": "maximum"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "maximum"
+                  },
+                  {
+                    "text": "concurrent"
+                  },
+                  {
+                    "text": "users"
                   }
                 ],
                 "tone": "ok"
@@ -306,36 +815,111 @@
       },
       "filled": {
         "template": "table",
-        "title": "High-Volume Checkout Connection Pool Tuning",
+        "title": "Payment gateway hold time remediation",
         "columns": [
-          "Stage",
-          "Concept"
+          "Checkout Stage",
+          "Legacy Hold",
+          "Remediated"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
+            "at": "say3",
+            "caption": "Holding an open connection during payment stalls every checkout request.",
             "rows": [
               {
                 "cells": [
-                  "High",
-                  "Volume"
+                  "Read Cart (2ms)",
+                  "Holds Connection",
+                  "Releases Connection"
                 ],
-                "tone": "data"
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Credit Card HTTP (800ms)",
+                  "Pinned DB Slot",
+                  "Zero DB Slots Held"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The forensic logic drives deterministic execution.",
+            "at": "say5",
+            "caption": "Decoupling external payment HTTP calls restores fast checkout throughput.",
             "rows": [
               {
                 "cells": [
-                  "Checkout",
-                  "Connection"
+                  "bad_checkout_flow()",
+                  "804 ms held",
+                  "STARVATION RISK"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "remediated_checkout_flow()",
+                  "4 ms held",
+                  "POOL OPTIMIZED (201x)"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Returning sockets before 800ms HTTP work shrinks hold duration.",
+            "rows": [
+              {
+                "cells": [
+                  "1. Query Cart",
+                  "2 ms",
+                  "2 ms + Checkin"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "2. External HTTP Payment",
+                  "800 ms held",
+                  "0 ms DB held"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "3. Update Order",
+                  "2 ms (804 ms total)",
+                  "2 ms (4 ms total)"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calculate maximum concurrent users supported under bad vs remediated flow.",
+            "rows": [
+              {
+                "cells": [
+                  "Legacy Hold (804ms)",
+                  "24 req/sec",
+                  "Pool Starved"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Remediated (4ms)",
+                  "5000 req/sec",
+                  "208x Throughput Gain"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "class PaymentGatewayRemediation:\n    def __init__(self):\n        self.conns_held_ms = []\n\n    def bad_checkout_flow(self):\n        # Holds connection during payment\n        conn_hold = 2 + 800 + 2  # 804 ms held\n        self.conns_held_ms.append(conn_hold)\n        return conn_hold\n\n    def remediated_checkout_flow(self):\n        # Decoupled: only holds connection during db queries\n        conn_hold_1 = 2  # Read cart\n        # Payment happens with 0 db conns held\n        conn_hold_2 = 2  # Update order\n        total_held = conn_hold_1 + conn_hold_2  # 4 ms held\n        self.conns_held_ms.append(total_held)\n        return total_held\n\nlab = PaymentGatewayRemediation()\nbad_time = lab.bad_checkout_flow()\ngood_time = lab.remediated_checkout_flow()\n\nprint(\"=== CONNECTION POOL TUNING LAB ===\")\nprint(f\"Unoptimized DB Hold Time: {bad_time} ms [STARVATION RISK]\")\nprint(f\"Remediated DB Hold Time:   {good_time} ms [POOL OPTIMIZED]\")\nprint(f\"Connection Efficiency:     {bad_time // good_time}x concurrency capacity increase\")\npool_size = 20\nlegacy_rps = int(pool_size * (1000 / bad_time))\nopt_rps = int(pool_size * (1000 / good_time))\nprint(f\"Pool=20 Capacity: Legacy={legacy_rps} req/s vs Remediated={opt_rps} req/s\")\nprint(\"Decoupled connection lifecycle tuning verified.\")",
+            "checks": [
+              "Pool=20 Capacity: Legacy=24 req/s vs Remediated=5000 req/s"
             ]
           }
         ]
@@ -345,81 +929,258 @@
       "partTitle": "Full Asynchronous Engine & Connection Lifecycle Lab",
       "codeHash": "cddb5f528e3be07b985173308d49a7a7a585d3864da504e1123987306f57e573",
       "spec": {
-        "template": "table",
-        "title": "Full Asynchronous Engine & Connection Lifecycle La",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Yield dependency commit, rollback, and cleanup",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Yield dependencies commit successful transactions before checkin.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Full"
-                  },
-                  {
-                    "text": "Asynchronous"
-                  }
-                ],
-                "tone": "data"
+                "text": "checkouts"
+              },
+              {
+                "text": "commits"
+              },
+              {
+                "text": "rollbacks"
+              },
+              {
+                "text": "leaks"
               }
-            ]
+            ],
+            "pointers": [
+              {
+                "name": "commit",
+                "index": 1,
+                "tone": "ok"
+              }
+            ],
+            "tones": {
+              "0": "data",
+              "1": "ok",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The unhandled logic drives deterministic execution.",
-            "rows": [
+            "caption": "Finally block rollbacks restore pristine pool handles after errors.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Engine"
-                  },
-                  {
-                    "text": "Connection"
-                  }
-                ],
+                "text": "checkouts"
+              },
+              {
+                "text": "commits"
+              },
+              {
+                "text": "rollbacks"
+              },
+              {
+                "text": "leaks"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "finally",
+                "index": 2,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              2,
+              4
+            ],
+            "tones": {
+              "0": "data",
+              "1": "idle",
+              "2": "error",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Commit and rollback paths both check connections cleanly back into pool.",
+            "items": [
+              {
+                "text": "checkouts"
+              },
+              {
+                "text": "commits"
+              },
+              {
+                "text": "rollbacks"
+              },
+              {
+                "text": "pool"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "clean",
+                "index": 3,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate missing finally cleanup during rollback to observe connection leak.",
+            "items": [
+              {
+                "text": "Comment"
+              },
+              {
+                "text": "the"
+              },
+              {
+                "text": "block"
+              },
+              {
+                "text": "run"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "leaked",
+                "index": 3,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "data",
+              "1": "ok",
+              "2": "error",
+              "3": "error"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Full Asynchronous Engine & Connection Lifecycle La",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Yield dependency commit, rollback, and cleanup",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Yield dependencies commit successful transactions before checkin.",
+            "items": [
+              "checkouts: 1",
+              "commits: 1",
+              "rollbacks: 0",
+              "leaks: 0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Full",
-                  "Asynchronous"
-                ],
-                "tone": "data"
+                "name": "commit",
+                "index": 1,
+                "tone": "ok"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "ok",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The unhandled logic drives deterministic execution.",
-            "rows": [
+            "caption": "Finally block rollbacks restore pristine pool handles after errors.",
+            "items": [
+              "checkouts: 2",
+              "commits: 1",
+              "rollbacks: 1",
+              "leaks: 0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Engine",
-                  "Connection"
-                ],
+                "name": "finally",
+                "index": 2,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              2,
+              4
+            ],
+            "tones": {
+              "0": "data",
+              "1": "idle",
+              "2": "error",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Commit and rollback paths both check connections cleanly back into pool.",
+            "items": [
+              "checkouts: 2",
+              "commits: 1",
+              "rollbacks: 1",
+              "pool: 2/2 available"
+            ],
+            "pointers": [
+              {
+                "name": "clean",
+                "index": 3,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate missing finally cleanup during rollback to observe connection leak.",
+            "items": [
+              "checkouts: 2",
+              "commits: 1",
+              "rollbacks: 1",
+              "pool: 1/2 (LEAK!)"
+            ],
+            "pointers": [
+              {
+                "name": "leaked",
+                "index": 3,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "data",
+              "1": "ok",
+              "2": "error",
+              "3": "error"
+            },
+            "whatIf": "class DatabaseSubsystem:\n    def __init__(self, pool_capacity=3):\n        self.pool = [f\"pg_socket_{i}\" for i in range(pool_capacity)]\n        self.stats = {\"checkouts\": 0, \"commits\": 0, \"rollbacks\": 0, \"leaks\": 0}\n\n    def run_transaction(self, success=True):\n        if not self.pool:\n            raise TimeoutError(\"No connections available\")\n        conn = self.pool.pop(0)\n        self.stats[\"checkouts\"] += 1\n        try:\n            # Simulate route execution\n            if not success:\n                raise ValueError(\"Database constraint violation\")\n            self.stats[\"commits\"] += 1\n            self.pool.append(conn)\n        except Exception:\n            self.stats[\"rollbacks\"] += 1\n            # Bug: finally block omitted so failing txn leaks conn\n\ndb = DatabaseSubsystem(pool_capacity=2)\n# Execute successful transaction\ndb.run_transaction(success=True)\n# Execute failing transaction\ndb.run_transaction(success=False)\n\nprint(\"=== ASYNC ENGINE & LIFECYCLE SYNTHESIS ===\")\nprint(f\"Total Checkouts Executed: {db.stats['checkouts']}\")\nprint(f\"Transactions Committed:   {db.stats['commits']}\")\nprint(f\"Transactions Rolled Back: {db.stats['rollbacks']}\")\nprint(f\"Active Pool Connections:  {len(db.pool)}/2 available\")\nprint(\"Deterministic connection lifecycle and leak prevention verified.\")",
+            "checks": [
+              "Transactions Rolled Back: 1",
+              "Active Pool Connections:  1/2 available"
             ]
           }
         ]

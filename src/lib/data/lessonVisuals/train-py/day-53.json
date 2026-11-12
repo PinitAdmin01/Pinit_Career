@@ -2,269 +2,121 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 53,
-  "promptSha": "dba7c34f34fef3e3547efc2b838d7c6367a1f863966f688b0e9453f0eb8c39f6",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "LoRA, QLoRA (NF4 Double Quantization) & DoRA Weight-Decomposed Low-Rank Adaptation — Foundations & Mathematical Invariants",
-      "codeHash": "0b655d7d4c3b3b2ddfcd08632859fbc827988a4c034620dbc205ad0f373999fc",
+      "partTitle": "PEFT Architectures — Foundations & Mathematical Invariants",
+      "codeHash": "9ef8931a96212513047b64cc1e694d77d7b646f5459ebbad53f6a20be3a91950",
       "spec": {
-        "template": "flow",
-        "title": "LoRA, QLoRA (NF Double Quantization) & DoRA Weight-Decomposed Low-Rank",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "PEFT Architectures — Foundations & Mathematical Invariants",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how full updates fine during execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "peft"
+                  },
+                  {
+                    "var": "peft",
+                    "line": 8,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "This full fine-tuning workflow consumes over 1.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "peft"
+                  },
+                  {
+                    "var": "peft",
+                    "line": 9,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This architectural versatility makes PEFT the standard methodology.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "LoRA, QLoRA (NF Double Quantization) & DoRA Weight-Decomposed Low-Rank",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "PEFT Architectures — Foundations & Mathematical Invariants",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how full updates fine during execution.",
+            "rows": [
+              {
+                "cells": [
+                  "peft",
+                  "{'LoRA': {'base_precision': 'FP16/BF16 …"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "This full fine-tuning workflow consumes over 1.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "peft",
+                  "{'LoRA': {'base_precision': 'FP16/BF16 …"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This architectural versatility makes PEFT the standard methodology.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "[PEFT_COMPARISON] LoRA: FP16/BF16 (16-bit), QLoRA: NF4_Double_Quantized (4-bit), DoRA: Decoupled magnitude (m) and direction (V)"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -272,265 +124,219 @@
       }
     },
     {
-      "partTitle": "LoRA, QLoRA (NF4 Double Quantization) & DoRA Weight-Decomposed Low-Rank Adaptation — Core Algorithm & State Representation",
-      "codeHash": "0ef94252f12979ee9a16a84187f635043e67325ca0b19e8665b4a431c339b104",
+      "partTitle": "PEFT Architectures — Core Algorithm & State Representation",
+      "codeHash": "8f8016816bfaff19f8f0649d62278162cf6e8ecb8dab2de5f709cc2ebccfde86",
       "spec": {
-        "template": "flow",
-        "title": "LoRA, QLoRA (NF Double Quantization) & DoRA Weight-Decomposed Low-Rank",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "PEFT Architectures — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantifying the memory footprint of different fine-tuning methodologies.",
+            "bars": [
+              {
+                "label": "params_b",
+                "value": {
+                  "var": "params_b",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "rank",
+                "value": {
+                  "var": "rank",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "hidden_dim",
+                "value": {
+                  "var": "hidden_dim",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "num_layers",
+                "value": {
+                  "var": "num_layers",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "For a 70-billion-parameter foundation model, standard Full Fine-Tuning.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "params_b",
+                "value": {
+                  "var": "params_b",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "rank",
+                "value": {
+                  "var": "rank",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "hidden_dim",
+                "value": {
+                  "var": "hidden_dim",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "num_layers",
+                "value": {
+                  "var": "num_layers",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This memory efficiency makes QLoRA an indispensable tool in modern.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "params_b",
+                "value": {
+                  "var": "params_b",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "rank",
+                "value": {
+                  "var": "rank",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "hidden_dim",
+                "value": {
+                  "var": "hidden_dim",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "num_layers",
+                "value": {
+                  "var": "num_layers",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "LoRA, QLoRA (NF Double Quantization) & DoRA Weight-Decomposed Low-Rank",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "PEFT Architectures — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantifying the memory footprint of different fine-tuning methodologies.",
+            "bars": [
+              {
+                "label": "params_b",
+                "value": 70,
+                "tone": "data"
+              },
+              {
+                "label": "rank",
+                "value": 16,
+                "tone": "data"
+              },
+              {
+                "label": "hidden_dim",
+                "value": 8192,
+                "tone": "data"
+              },
+              {
+                "label": "num_layers",
+                "value": 80,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "For a 70-billion-parameter foundation model, standard Full Fine-Tuning.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "params_b",
+                "value": 70,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "rank",
+                "value": 16,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "hidden_dim",
+                "value": 8192,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "num_layers",
+                "value": 80,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This memory efficiency makes QLoRA an indispensable tool in modern.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "params_b",
+                "value": 70,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "rank",
+                "value": 16,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "hidden_dim",
+                "value": 8192,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "num_layers",
+                "value": 80,
+                "tone": "ok"
               }
             ]
           }
@@ -538,797 +344,677 @@
       }
     },
     {
-      "partTitle": "LoRA, QLoRA (NF4 Double Quantization) & DoRA Weight-Decomposed Low-Rank Adaptation — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "0b67791b4255c67f48cf4a07f427da5365a5bf29f43de2556b81ea031027b464",
+      "partTitle": "PEFT Architectures — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "a0837338301ebc28d71f166232c19a4014389ba7f18cd8e1588bf92a71161e01",
       "spec": {
         "template": "flow",
-        "title": "LoRA, QLoRA (NF Double Quantization) & DoRA Weight-Decomposed Low-Rank",
+        "title": "PEFT Architectures — Throughput Optimization & Edge-Case Handlin",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "x_dim",
+            "label": "x_dim"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "hidden_dim",
+            "label": "hidden_dim"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "rank",
+            "label": "rank"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "alpha",
+            "label": "alpha"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Implementing LoRA forward propagation requires careful management.",
+            "values": {
+              "x_dim": {
+                "var": "x_dim",
+                "line": 2,
+                "hit": 1
+              },
+              "hidden_dim": {
+                "var": "hidden_dim",
+                "line": 2,
+                "hit": 1
+              },
+              "rank": {
+                "var": "rank",
+                "line": 2,
+                "hit": 1
+              },
+              "alpha": {
+                "var": "alpha",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "x_dim": "data",
+              "hidden_dim": "data",
+              "rank": "data",
+              "alpha": "data"
+            },
+            "arrows": [
+              [
+                "x_dim",
+                "hidden_dim"
+              ],
+              [
+                "hidden_dim",
+                "rank"
+              ],
+              [
+                "rank",
+                "alpha"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "For an input vector x of dimension d, the forward output is computed as.",
+            "values": {
+              "x_dim": {
+                "var": "x_dim",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "hidden_dim": {
+                "var": "hidden_dim",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "rank": {
+                "var": "rank",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "alpha": {
+                "var": "alpha",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "x_dim": "data",
+              "hidden_dim": "data",
+              "rank": "data",
+              "alpha": "data"
+            },
+            "arrows": [
+              [
+                "x_dim",
+                "hidden_dim"
+              ],
+              [
+                "hidden_dim",
+                "rank"
+              ],
+              [
+                "rank",
+                "alpha"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "This flexible serving paradigm makes low-rank adaptation the premier.",
+            "values": {
+              "x_dim": {
+                "var": "x_dim",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "hidden_dim": {
+                "var": "hidden_dim",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "rank": {
+                "var": "rank",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "alpha": {
+                "var": "alpha",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "x_dim": "ok",
+              "hidden_dim": "ok",
+              "rank": "ok",
+              "alpha": "ok"
+            },
+            "arrows": [
+              [
+                "x_dim",
+                "hidden_dim"
+              ],
+              [
+                "hidden_dim",
+                "rank"
+              ],
+              [
+                "rank",
+                "alpha"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "LoRA, QLoRA (NF Double Quantization) & DoRA Weight-Decomposed Low-Rank",
+        "title": "PEFT Architectures — Throughput Optimization & Edge-Case Handlin",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "x_dim",
+            "label": "x_dim"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "hidden_dim",
+            "label": "hidden_dim"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "rank",
+            "label": "rank"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "alpha",
+            "label": "alpha"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Implementing LoRA forward propagation requires careful management.",
+            "values": {
+              "x_dim": "4096",
+              "hidden_dim": "4096",
+              "rank": "16",
+              "alpha": "32"
+            },
+            "tones": {
+              "x_dim": "data",
+              "hidden_dim": "data",
+              "rank": "data",
+              "alpha": "data"
+            },
+            "arrows": [
+              [
+                "x_dim",
+                "hidden_dim"
+              ],
+              [
+                "hidden_dim",
+                "rank"
+              ],
+              [
+                "rank",
+                "alpha"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "For an input vector x of dimension d, the forward output is computed as.",
+            "values": {
+              "x_dim": "4096",
+              "hidden_dim": "4096",
+              "rank": "16",
+              "alpha": "32"
+            },
+            "tones": {
+              "x_dim": "data",
+              "hidden_dim": "data",
+              "rank": "data",
+              "alpha": "data"
+            },
+            "arrows": [
+              [
+                "x_dim",
+                "hidden_dim"
+              ],
+              [
+                "hidden_dim",
+                "rank"
+              ],
+              [
+                "rank",
+                "alpha"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "This flexible serving paradigm makes low-rank adaptation the premier.",
+            "values": {
+              "x_dim": "4096",
+              "hidden_dim": "4096",
+              "rank": "16",
+              "alpha": "32"
+            },
+            "tones": {
+              "x_dim": "ok",
+              "hidden_dim": "ok",
+              "rank": "ok",
+              "alpha": "ok"
+            },
+            "arrows": [
+              [
+                "x_dim",
+                "hidden_dim"
+              ],
+              [
+                "hidden_dim",
+                "rank"
+              ],
+              [
+                "rank",
+                "alpha"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "LoRA, QLoRA (NF4 Double Quantization) & DoRA Weight-Decomposed Low-Rank Adaptation — Resilience Guardrails & Failure Recovery",
-      "codeHash": "c06d447369fa97f0edd56263349375940d6b7ff24adc1632f2d85943c3b670be",
+      "partTitle": "PEFT Architectures — Resilience Guardrails & Failure Recovery",
+      "codeHash": "a888913cf432a4200987bcc5761f0e0c1b9711160b7a298fb9f4ac818bc67aa3",
       "spec": {
         "template": "flow",
-        "title": "LoRA, QLoRA (NF Double Quantization) & DoRA Weight-Decomposed Low-Rank",
+        "title": "PEFT Architectures — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "rank",
+            "label": "rank"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "alpha",
+            "label": "alpha"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "status",
+            "label": "status"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "ok",
+            "label": "ok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Preflight validation guardrails ensure that low-rank adaptation.",
+            "values": {
+              "rank": {
+                "var": "rank",
+                "line": 2,
+                "hit": 1
+              },
+              "alpha": {
+                "var": "alpha",
+                "line": 2,
+                "hit": 1
+              },
+              "status": {
+                "var": "status",
+                "line": 8,
+                "hit": 1
+              },
+              "ok": {
+                "var": "ok",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "rank": "data",
+              "alpha": "data",
+              "status": "data",
+              "ok": "data"
+            },
+            "arrows": [
+              [
+                "rank",
+                "alpha"
+              ],
+              [
+                "alpha",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The adapter rank r must be an integer between 1 and 256.",
+            "values": {
+              "rank": {
+                "var": "rank",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "alpha": {
+                "var": "alpha",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "status": {
+                "var": "status",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "ok": {
+                "var": "ok",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "rank": "data",
+              "alpha": "data",
+              "status": "data",
+              "ok": "data"
+            },
+            "arrows": [
+              [
+                "rank",
+                "alpha"
+              ],
+              [
+                "alpha",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "Rigorous preflight validation is an essential requirement for reliable.",
+            "values": {
+              "rank": {
+                "var": "rank",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "alpha": {
+                "var": "alpha",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "status": {
+                "var": "status",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "ok": {
+                "var": "ok",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "rank": "ok",
+              "alpha": "ok",
+              "status": "ok",
+              "ok": "ok"
+            },
+            "arrows": [
+              [
+                "rank",
+                "alpha"
+              ],
+              [
+                "alpha",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "LoRA, QLoRA (NF Double Quantization) & DoRA Weight-Decomposed Low-Rank",
+        "title": "PEFT Architectures — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "rank",
+            "label": "rank"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "alpha",
+            "label": "alpha"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "status",
+            "label": "status"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "ok",
+            "label": "ok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Preflight validation guardrails ensure that low-rank adaptation.",
+            "values": {
+              "rank": "16",
+              "alpha": "32",
+              "status": "'LORA_CONFIG_APPROVED'",
+              "ok": "True"
+            },
+            "tones": {
+              "rank": "data",
+              "alpha": "data",
+              "status": "data",
+              "ok": "data"
+            },
+            "arrows": [
+              [
+                "rank",
+                "alpha"
+              ],
+              [
+                "alpha",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The adapter rank r must be an integer between 1 and 256.",
+            "values": {
+              "rank": "16",
+              "alpha": "32",
+              "status": "'LORA_CONFIG_APPROVED'",
+              "ok": "True"
+            },
+            "tones": {
+              "rank": "data",
+              "alpha": "data",
+              "status": "data",
+              "ok": "data"
+            },
+            "arrows": [
+              [
+                "rank",
+                "alpha"
+              ],
+              [
+                "alpha",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "Rigorous preflight validation is an essential requirement for reliable.",
+            "values": {
+              "rank": "16",
+              "alpha": "32",
+              "status": "'LORA_CONFIG_APPROVED'",
+              "ok": "True"
+            },
+            "tones": {
+              "rank": "ok",
+              "alpha": "ok",
+              "status": "ok",
+              "ok": "ok"
+            },
+            "arrows": [
+              [
+                "rank",
+                "alpha"
+              ],
+              [
+                "alpha",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "LoRA, QLoRA (NF4 Double Quantization) & DoRA Weight-Decomposed Low-Rank Adaptation — Production Telemetry & Verification Audit",
-      "codeHash": "846576a4a4daa2afc7a4870c1a2b966d4be1a5f0d249729e9a9529c3633fa872",
+      "partTitle": "PEFT Architectures — Production Telemetry & Verification Audit",
+      "codeHash": "29f5371f30871f96a2f575784a02da75a7b76b46837c9587b28670ce29dcf6fe",
       "spec": {
-        "template": "flow",
-        "title": "LoRA, QLoRA (NF Double Quantization) & DoRA Weight-Decomposed Low-Rank",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "PEFT Architectures — Production Telemetry & Verification Audit",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing validates the empirical efficiency.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "audit"
+                  },
+                  {
+                    "var": "audit",
+                    "line": 10,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Auditors record trainable parameter percentages, High Bandwidth Memory.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "audit"
+                  },
+                  {
+                    "var": "audit",
+                    "line": 11,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "With PEFT verified, organizations can rapidly adapt foundation models.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "LoRA, QLoRA (NF Double Quantization) & DoRA Weight-Decomposed Low-Rank",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "PEFT Architectures — Production Telemetry & Verification Audit",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing validates the empirical efficiency.",
+            "rows": [
+              {
+                "cells": [
+                  "audit",
+                  "{'status': 'CERTIFIED', 'method': 'QLoR…"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Auditors record trainable parameter percentages, High Bandwidth Memory.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "audit",
+                  "{'status': 'CERTIFIED', 'method': 'QLoR…"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "With PEFT verified, organizations can rapidly adapt foundation models.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "PEFT Audit: CERTIFIED (Method: QLoRA_NF4_DoRA, VRAM Saved: 73.5%, Rel Acc: 99.4%)"
+                ],
+                "tone": "ok"
               }
             ]
           }

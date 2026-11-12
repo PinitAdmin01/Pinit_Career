@@ -2,230 +2,224 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 36,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Foundations of Neural Scaling: Power Laws, Loss Predictability & The Compute Budget C ≈ 6ND",
       "codeHash": "40e6389037edbd457a97c1fb95f82f692022c30251454d9d8aa3842d98523eab",
       "spec": {
-        "template": "flow",
-        "title": "The Foundations of Neural Scaling: Power Laws... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Foundations of ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The Foundations of Neural Scaling: Power Laws, Loss Predictabili",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The Foundations of Neural Scaling: Power...",
-            "values": {
-              "in": "Day 36 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The Foundations of ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Welcome to Block 8 of our Natural Language Processing and Computational.",
+            "bars": [
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "D",
+                "value": {
+                  "var": "D",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "num_params",
+                "value": {
+                  "var": "num_params",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "num_tokens",
+                "value": {
+                  "var": "num_tokens",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In deep learning, an empirical scaling law is a mathematical relationship.",
+            "bars": [
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "D",
+                "value": {
+                  "var": "D",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "num_params",
+                "value": {
+                  "var": "num_params",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "num_tokens",
+                "value": {
+                  "var": "num_tokens",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The Foundations of Neural Scaling...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following interactive Python simulation, we will implement.",
+            "bars": [
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "D",
+                "value": {
+                  "var": "D",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "num_params",
+                "value": {
+                  "var": "num_params",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "num_tokens",
+                "value": {
+                  "var": "num_tokens",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The Foundations of Neural Scaling: Power Laws... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Foundations of ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The Foundations of Neural Scaling: Power Laws, Loss Predictabili",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The Foundations of Neural Scaling: Power...",
-            "values": {
-              "in": "Day 36 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Foundations of ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Welcome to Block 8 of our Natural Language Processing and Computational.",
+            "bars": [
+              {
+                "label": "N",
+                "value": 125000000,
+                "tone": "data"
+              },
+              {
+                "label": "D",
+                "value": 2000000000,
+                "tone": "data"
+              },
+              {
+                "label": "num_params",
+                "value": 125000000,
+                "tone": "data"
+              },
+              {
+                "label": "num_tokens",
+                "value": 2000000000,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In deep learning, an empirical scaling law is a mathematical relationship.",
+            "bars": [
+              {
+                "label": "N",
+                "value": 125000000,
+                "tone": "ok"
+              },
+              {
+                "label": "D",
+                "value": 2000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "num_params",
+                "value": 1300000000,
+                "tone": "ok"
+              },
+              {
+                "label": "num_tokens",
+                "value": 20000000000,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Foundations of Neural Scaling...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following interactive Python simulation, we will implement.",
+            "bars": [
+              {
+                "label": "N",
+                "value": 125000000,
+                "tone": "ok"
+              },
+              {
+                "label": "D",
+                "value": 2000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "num_params",
+                "value": 7000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "num_tokens",
+                "value": 140000000000,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -235,223 +229,217 @@
       "partTitle": "The Kaplan Scaling Regime: Model Parameter Over-Allocation & Sub-Optimal Token Ratios",
       "codeHash": "4b980078945986a191cd575a7ab7b3cee94ae46ccf34280118e399f5c860f22a",
       "spec": {
-        "template": "flow",
-        "title": "The Kaplan Scaling Regime: Model Parameter Ov... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Kaplan Scaling ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The Kaplan Scaling Regime: Model Parameter Over-Allocation & Sub",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The Kaplan Scaling Regime: Model Paramet...",
-            "values": {
-              "in": "Day 36 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The Kaplan Scaling ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "This paper was the first to systematically investigate power-law scaling.",
+            "bars": [
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "compute_budget",
+                "value": {
+                  "var": "compute_budget",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "D",
+                "value": {
+                  "var": "D",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Investigated three primary resource constraints.",
+            "bars": [
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "compute_budget",
+                "value": {
+                  "var": "compute_budget",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "D",
+                "value": {
+                  "var": "D",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The Kaplan Scaling Regime: Model ...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we will simulate the Kaplan resource.",
+            "bars": [
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "compute_budget",
+                "value": {
+                  "var": "compute_budget",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "D",
+                "value": {
+                  "var": "D",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The Kaplan Scaling Regime: Model Parameter Ov... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Kaplan Scaling ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The Kaplan Scaling Regime: Model Parameter Over-Allocation & Sub",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The Kaplan Scaling Regime: Model Paramet...",
-            "values": {
-              "in": "Day 36 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Kaplan Scaling ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "This paper was the first to systematically investigate power-law scaling.",
+            "bars": [
+              {
+                "label": "c",
+                "value": 1e+21,
+                "tone": "data"
+              },
+              {
+                "label": "compute_budget",
+                "value": 1e+21,
+                "tone": "data"
+              },
+              {
+                "label": "N",
+                "value": 2625858650.6890497,
+                "tone": "data"
+              },
+              {
+                "label": "D",
+                "value": 63471301710.36883,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Investigated three primary resource constraints.",
+            "bars": [
+              {
+                "label": "c",
+                "value": 1e+21,
+                "tone": "ok"
+              },
+              {
+                "label": "compute_budget",
+                "value": 1e+21,
+                "tone": "ok"
+              },
+              {
+                "label": "N",
+                "value": 2625858650.6890497,
+                "tone": "ok"
+              },
+              {
+                "label": "D",
+                "value": 63471301710.36883,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Kaplan Scaling Regime: Model ...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we will simulate the Kaplan resource.",
+            "bars": [
+              {
+                "label": "c",
+                "value": 1e+21,
+                "tone": "ok"
+              },
+              {
+                "label": "compute_budget",
+                "value": 1e+21,
+                "tone": "ok"
+              },
+              {
+                "label": "N",
+                "value": 2625858650.6890497,
+                "tone": "ok"
+              },
+              {
+                "label": "D",
+                "value": 118189094462.12567,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -462,110 +450,161 @@
       "codeHash": "a80e5c2974938d4e8c7a248fc77021c6981d71aef3b91716730436911c7521d1",
       "spec": {
         "template": "flow",
-        "title": "Hoffmann's Chinchilla Revolution: Compute-Opt... — Execution Pipeline",
+        "title": "Hoffmann's Chinchilla Revolution: Compute-Optimal IsoFLOP Curves",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "budgets",
+            "label": "budgets"
           },
           {
-            "id": "proc",
-            "label": "2. Hoffmann's Chinchil...",
-            "tappable": true
+            "id": "label",
+            "label": "label"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "compute_budget",
+            "label": "compute_budget"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Hoffmann's Chinchilla Revolution: Comput...",
-            "values": {
-              "in": "Day 36 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Hoffmann's Chinchil....",
+            "caption": "This paper shattered the Kaplan paradigm, redefined foundation model.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "budgets": {
+                "var": "budgets",
+                "line": 16,
+                "hit": 1
+              },
+              "label": {
+                "var": "label",
+                "line": 23,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 23,
+                "hit": 1
+              },
+              "compute_budget": {
+                "var": "compute_budget",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "budgets": "data",
+              "label": "data",
+              "c": "data",
+              "compute_budget": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "budgets",
+                "label"
               ],
               [
-                "proc",
-                "out"
+                "label",
+                "c"
+              ],
+              [
+                "c",
+                "compute_budget"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "To eliminate the methodological flaws of previous studies, Hoffmann et al.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "budgets": {
+                "var": "budgets",
+                "line": 23,
+                "hit": 1
+              },
+              "label": {
+                "var": "label",
+                "line": 24,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 24,
+                "hit": 1
+              },
+              "compute_budget": {
+                "var": "compute_budget",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "budgets": "data",
+              "label": "data",
+              "c": "data",
+              "compute_budget": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "budgets",
+                "label"
+              ],
+              [
+                "label",
+                "c"
+              ],
+              [
+                "c",
+                "compute_budget"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Hoffmann's Chinchilla Revolution:...",
+            "at": "say8",
+            "caption": "In the following Python script, we will implement Hoffmann's parametric.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "budgets": {
+                "var": "budgets",
+                "line": 24,
+                "hit": 1
+              },
+              "label": {
+                "var": "label",
+                "line": 25,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 25,
+                "hit": 1
+              },
+              "compute_budget": {
+                "var": "compute_budget",
+                "line": 8,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "budgets": "ok",
+              "label": "ok",
+              "c": "ok",
+              "compute_budget": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "budgets",
+                "label"
               ],
               [
-                "proc",
-                "out"
+                "label",
+                "c"
+              ],
+              [
+                "c",
+                "compute_budget"
               ]
             ]
           }
@@ -573,110 +612,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Hoffmann's Chinchilla Revolution: Compute-Opt... — Execution Pipeline",
+        "title": "Hoffmann's Chinchilla Revolution: Compute-Optimal IsoFLOP Curves",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "budgets",
+            "label": "budgets"
           },
           {
-            "id": "proc",
-            "label": "2. Hoffmann's Chinchil...",
-            "tappable": true
+            "id": "label",
+            "label": "label"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "compute_budget",
+            "label": "compute_budget"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Hoffmann's Chinchilla Revolution: Comput...",
-            "values": {
-              "in": "Day 36 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Hoffmann's Chinchil....",
+            "caption": "This paper shattered the Kaplan paradigm, redefined foundation model.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "budgets": "[['Budget 1e21 (Small)', 1e+21], ['Budg…",
+              "label": "'Budget 1e21 (Small)'",
+              "c": "1e+21",
+              "compute_budget": "1e+21"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "budgets": "data",
+              "label": "data",
+              "c": "data",
+              "compute_budget": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "budgets",
+                "label"
               ],
               [
-                "proc",
-                "out"
+                "label",
+                "c"
+              ],
+              [
+                "c",
+                "compute_budget"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "To eliminate the methodological flaws of previous studies, Hoffmann et al.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "budgets": "[['Budget 1e21 (Small)', 1e+21], ['Budg…",
+              "label": "'Budget 1e21 (Small)'",
+              "c": "1e+21",
+              "compute_budget": "1e+21"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "budgets": "data",
+              "label": "data",
+              "c": "data",
+              "compute_budget": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "budgets",
+                "label"
+              ],
+              [
+                "label",
+                "c"
+              ],
+              [
+                "c",
+                "compute_budget"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Hoffmann's Chinchilla Revolution:...",
+            "at": "say8",
+            "caption": "In the following Python script, we will implement Hoffmann's parametric.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "budgets": "[['Budget 1e21 (Small)', 1e+21], ['Budg…",
+              "label": "'Budget 1e21 (Small)'",
+              "c": "1e+21",
+              "compute_budget": "1e+21"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "budgets": "ok",
+              "label": "ok",
+              "c": "ok",
+              "compute_budget": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "budgets",
+                "label"
               ],
               [
-                "proc",
-                "out"
+                "label",
+                "c"
+              ],
+              [
+                "c",
+                "compute_budget"
               ]
             ]
           }
@@ -687,223 +729,217 @@
       "partTitle": "Beyond Compute-Optimal Training: The Over-Training Frontier & Inference-Optimal Economics",
       "codeHash": "91d2469aba40d7bc00950ed7f424fe7ee510274ad7181f0be620240ac3739aeb",
       "spec": {
-        "template": "flow",
-        "title": "Beyond Compute-Optimal Training: The Over-Tra... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Beyond Compute-Opti...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Beyond Compute-Optimal Training: The Over-Training Frontier & In",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Beyond Compute-Optimal Training: The Ove...",
-            "values": {
-              "in": "Day 36 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Beyond Compute-Opti....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While Hoffmann's Chinchilla laws established the theoretical frontier.",
+            "bars": [
+              {
+                "label": "Q",
+                "value": {
+                  "var": "Q",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "N_params",
+                "value": {
+                  "var": "N_params",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "D_train_tokens",
+                "value": {
+                  "var": "D_train_tokens",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "Q_query_tokens",
+                "value": {
+                  "var": "Q_query_tokens",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Why would premier AI research laboratories deliberately violate Chinchilla.",
+            "bars": [
+              {
+                "label": "Q",
+                "value": {
+                  "var": "Q",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "N_params",
+                "value": {
+                  "var": "N_params",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "D_train_tokens",
+                "value": {
+                  "var": "D_train_tokens",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "Q_query_tokens",
+                "value": {
+                  "var": "Q_query_tokens",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Beyond Compute-Optimal Training: ...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we will model the complete lifecycle cost.",
+            "bars": [
+              {
+                "label": "Q",
+                "value": {
+                  "var": "Q",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "N_params",
+                "value": {
+                  "var": "N_params",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "D_train_tokens",
+                "value": {
+                  "var": "D_train_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "Q_query_tokens",
+                "value": {
+                  "var": "Q_query_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Beyond Compute-Optimal Training: The Over-Tra... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Beyond Compute-Opti...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Beyond Compute-Optimal Training: The Over-Training Frontier & In",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Beyond Compute-Optimal Training: The Ove...",
-            "values": {
-              "in": "Day 36 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Beyond Compute-Opti....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While Hoffmann's Chinchilla laws established the theoretical frontier.",
+            "bars": [
+              {
+                "label": "Q",
+                "value": 5000000000000,
+                "tone": "data"
+              },
+              {
+                "label": "N_params",
+                "value": 70000000000,
+                "tone": "data"
+              },
+              {
+                "label": "D_train_tokens",
+                "value": 1400000000000,
+                "tone": "data"
+              },
+              {
+                "label": "Q_query_tokens",
+                "value": 5000000000000,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Why would premier AI research laboratories deliberately violate Chinchilla.",
+            "bars": [
+              {
+                "label": "Q",
+                "value": 5000000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "N_params",
+                "value": 70000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "D_train_tokens",
+                "value": 1400000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "Q_query_tokens",
+                "value": 5000000000000,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Beyond Compute-Optimal Training: ...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we will model the complete lifecycle cost.",
+            "bars": [
+              {
+                "label": "Q",
+                "value": 5000000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "N_params",
+                "value": 70000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "D_train_tokens",
+                "value": 1400000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "Q_query_tokens",
+                "value": 5000000000000,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -913,223 +949,217 @@
       "partTitle": "Production Scaling Law Estimator: Simulating Power-Law Loss Projections & Compute Allocations in Python",
       "codeHash": "e9ccfa1a14b5a66311cd9e696a28075c3d6c3631264b59d6a09445f70b2a9e02",
       "spec": {
-        "template": "flow",
-        "title": "Production Scaling Law Estimator: Simulating ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Production Scaling ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Production Scaling Law Estimator: Simulating Power-Law Loss Proj",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Production Scaling Law Estimator: Simula...",
-            "values": {
-              "in": "Day 36 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Production Scaling ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The Production Scaling Law Estimator and Compute Allocator.",
+            "bars": [
+              {
+                "label": "num_gpus",
+                "value": {
+                  "var": "num_gpus",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "peak_tflops_pe",
+                "value": {
+                  "var": "peak_tflops_per_gpu",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mfu",
+                "value": {
+                  "var": "mfu",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "duration_days",
+                "value": {
+                  "var": "duration_days",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us walk through the complete calculation pipeline implemented in our.",
+            "bars": [
+              {
+                "label": "num_gpus",
+                "value": {
+                  "var": "num_gpus",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "peak_tflops_pe",
+                "value": {
+                  "var": "peak_tflops_per_gpu",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mfu",
+                "value": {
+                  "var": "mfu",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "duration_days",
+                "value": {
+                  "var": "duration_days",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Production Scaling Law Estimator:...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following production-grade Python script, we execute the complete.",
+            "bars": [
+              {
+                "label": "num_gpus",
+                "value": {
+                  "var": "num_gpus",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "peak_tflops_pe",
+                "value": {
+                  "var": "peak_tflops_per_gpu",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mfu",
+                "value": {
+                  "var": "mfu",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "duration_days",
+                "value": {
+                  "var": "duration_days",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Production Scaling Law Estimator: Simulating ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Production Scaling ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Production Scaling Law Estimator: Simulating Power-Law Loss Proj",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Production Scaling Law Estimator: Simula...",
-            "values": {
-              "in": "Day 36 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Production Scaling ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The Production Scaling Law Estimator and Compute Allocator.",
+            "bars": [
+              {
+                "label": "num_gpus",
+                "value": 256,
+                "tone": "data"
+              },
+              {
+                "label": "peak_tflops_pe",
+                "value": 989.5,
+                "tone": "data"
+              },
+              {
+                "label": "mfu",
+                "value": 0.48,
+                "tone": "data"
+              },
+              {
+                "label": "duration_days",
+                "value": 21,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us walk through the complete calculation pipeline implemented in our.",
+            "bars": [
+              {
+                "label": "num_gpus",
+                "value": 256,
+                "tone": "ok"
+              },
+              {
+                "label": "peak_tflops_pe",
+                "value": 989.5,
+                "tone": "ok"
+              },
+              {
+                "label": "mfu",
+                "value": 0.48,
+                "tone": "ok"
+              },
+              {
+                "label": "duration_days",
+                "value": 21,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Production Scaling Law Estimator:...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following production-grade Python script, we execute the complete.",
+            "bars": [
+              {
+                "label": "num_gpus",
+                "value": 256,
+                "tone": "ok"
+              },
+              {
+                "label": "peak_tflops_pe",
+                "value": 989.5,
+                "tone": "ok"
+              },
+              {
+                "label": "mfu",
+                "value": 0.48,
+                "tone": "ok"
+              },
+              {
+                "label": "duration_days",
+                "value": 21,
+                "tone": "ok"
+              }
             ]
           }
         ]

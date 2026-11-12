@@ -2,142 +2,284 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 29,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Clusters and schedulers",
       "codeHash": "9e3a75be6bb531a6bf0ba611fd15bfa4d136ee6c89a8d8d913ac51ba17e5fdb9",
       "spec": {
-        "template": "table",
-        "title": "Multi-node gang scheduling and queuing requirements",
-        "columns": [
-          "free",
-          "requests",
-          "gpus"
+        "template": "flow",
+        "title": "Clusters and schedulers",
+        "nodes": [
+          {
+            "id": "free",
+            "label": "free"
+          },
+          {
+            "id": "requests",
+            "label": "requests"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "gpus",
+            "label": "gpus"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A cluster scheduler decides which job runs across shared hardware nodes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "free"
-                  },
-                  {
-                    "text": "requests"
-                  },
-                  {
-                    "text": "gpus"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "A GPU cluster is a set of nodes, each with several GPUs, typically 8.",
+            "values": {
+              "free": {
+                "var": "free",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "free"
-                  },
-                  {
-                    "text": "requests"
-                  },
-                  {
-                    "text": "gpus"
-                  }
-                ],
-                "tone": "data"
+              "requests": {
+                "var": "requests",
+                "line": 2,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
+              },
+              "gpus": {
+                "var": "gpus",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "free": "data",
+              "requests": "data",
+              "name": "data",
+              "gpus": "data"
+            },
+            "arrows": [
+              [
+                "free",
+                "requests"
+              ],
+              [
+                "requests",
+                "name"
+              ],
+              [
+                "name",
+                "gpus"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Distributed training requires gang scheduling where all workers launch.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "free"
-                  },
-                  {
-                    "text": "requests"
-                  },
-                  {
-                    "text": "gpus"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Many teams share the cluster, so a scheduler decides which job runs where.",
+            "values": {
+              "free": {
+                "var": "free",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "free"
-                  },
-                  {
-                    "text": "requests"
-                  },
-                  {
-                    "text": "free"
-                  }
-                ],
-                "tone": "ok"
+              "requests": {
+                "var": "requests",
+                "line": 3,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
+              },
+              "gpus": {
+                "var": "gpus",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "free": "data",
+              "requests": "data",
+              "name": "data",
+              "gpus": "data"
+            },
+            "arrows": [
+              [
+                "free",
+                "requests"
+              ],
+              [
+                "requests",
+                "name"
+              ],
+              [
+                "name",
+                "gpus"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "For example, asking for exactly the GPUs and time you need, rather than.",
+            "values": {
+              "free": {
+                "var": "free",
+                "line": 3,
+                "hit": 1
+              },
+              "requests": {
+                "var": "requests",
+                "line": 4,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 2
+              },
+              "gpus": {
+                "var": "gpus",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "free": "ok",
+              "requests": "ok",
+              "name": "ok",
+              "gpus": "ok"
+            },
+            "arrows": [
+              [
+                "free",
+                "requests"
+              ],
+              [
+                "requests",
+                "name"
+              ],
+              [
+                "name",
+                "gpus"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Multi-node gang scheduling and queuing requirements",
-        "columns": [
-          "free",
-          "requests",
-          "gpus"
+        "template": "flow",
+        "title": "Clusters and schedulers",
+        "nodes": [
+          {
+            "id": "free",
+            "label": "free"
+          },
+          {
+            "id": "requests",
+            "label": "requests"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "gpus",
+            "label": "gpus"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A cluster scheduler decides which job runs across shared hardware nodes.",
-            "rows": [
-              {
-                "cells": [
-                  "free",
-                  "requests",
-                  "gpus"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "free",
-                  "requests",
-                  "gpus"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "A GPU cluster is a set of nodes, each with several GPUs, typically 8.",
+            "values": {
+              "free": "[8, 4, 6, 0, 2]",
+              "requests": "[['fine-tune', 4], ['eval', 2], ['pretr…",
+              "name": "'fine-tune'",
+              "gpus": "4"
+            },
+            "tones": {
+              "free": "data",
+              "requests": "data",
+              "name": "data",
+              "gpus": "data"
+            },
+            "arrows": [
+              [
+                "free",
+                "requests"
+              ],
+              [
+                "requests",
+                "name"
+              ],
+              [
+                "name",
+                "gpus"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Distributed training requires gang scheduling where all workers launch.",
-            "rows": [
-              {
-                "cells": [
-                  "free",
-                  "requests",
-                  "gpus"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "free",
-                  "requests",
-                  "free"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Many teams share the cluster, so a scheduler decides which job runs where.",
+            "values": {
+              "free": "[8, 4, 6, 0, 2]",
+              "requests": "[['fine-tune', 4], ['eval', 2], ['pretr…",
+              "name": "'fine-tune'",
+              "gpus": "4"
+            },
+            "tones": {
+              "free": "data",
+              "requests": "data",
+              "name": "data",
+              "gpus": "data"
+            },
+            "arrows": [
+              [
+                "free",
+                "requests"
+              ],
+              [
+                "requests",
+                "name"
+              ],
+              [
+                "name",
+                "gpus"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "For example, asking for exactly the GPUs and time you need, rather than.",
+            "values": {
+              "free": "[8, 4, 6, 0, 2]",
+              "requests": "[['fine-tune', 4], ['eval', 2], ['pretr…",
+              "name": "'eval'",
+              "gpus": "2"
+            },
+            "tones": {
+              "free": "ok",
+              "requests": "ok",
+              "name": "ok",
+              "gpus": "ok"
+            },
+            "arrows": [
+              [
+                "free",
+                "requests"
+              ],
+              [
+                "requests",
+                "name"
+              ],
+              [
+                "name",
+                "gpus"
+              ]
             ]
           }
         ]
@@ -147,78 +289,131 @@
       "partTitle": "Placing jobs well",
       "codeHash": "3f4cdccdf15a582f02246a337401934171fc7545a6a404f9a5daab8783061472",
       "spec": {
-        "template": "table",
-        "title": "Topology-aware bin packing and fragmentation mitigation",
-        "columns": [
-          "free",
-          "node",
-          "free"
-        ],
+        "template": "bars",
+        "title": "Placing jobs well",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Jobs should pack into as few physical nodes as possible to minimize latency.",
-            "rows": [
+            "at": "say1",
+            "caption": "Where a job runs matters.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "free"
-                  },
-                  {
-                    "text": "node"
-                  },
-                  {
-                    "text": "free"
-                  }
-                ],
-                "tone": "ok"
+                "label": "job",
+                "value": {
+                  "var": "job",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "free"
-                  },
-                  {
-                    "text": "node"
-                  },
-                  {
-                    "text": "free"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "f",
+                "value": {
+                  "var": "f",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Best fit placement preserves larger free blocks for incoming jobs.",
-            "rows": [
+            "at": "say2",
+            "caption": "So a job should use as few nodes as possible.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "free"
-                  },
-                  {
-                    "text": "node"
-                  },
-                  {
-                    "text": "free"
-                  }
-                ],
-                "tone": "data"
+                "label": "job",
+                "value": {
+                  "var": "job",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "free"
-                  },
-                  {
-                    "text": "node"
-                  },
-                  {
-                    "text": "node"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "f",
+                "value": {
+                  "var": "f",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "The same idea appears when packing virtual machines onto servers.",
+            "bars": [
+              {
+                "label": "job",
+                "value": {
+                  "var": "job",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "f",
+                "value": {
+                  "var": "f",
+                  "line": 3,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +421,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Topology-aware bin packing and fragmentation mitigation",
-        "columns": [
-          "free",
-          "node",
-          "free"
-        ],
+        "template": "bars",
+        "title": "Placing jobs well",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Jobs should pack into as few physical nodes as possible to minimize latency.",
-            "rows": [
+            "at": "say1",
+            "caption": "Where a job runs matters.",
+            "bars": [
               {
-                "cells": [
-                  "free",
-                  "node",
-                  "free"
-                ],
-                "tone": "ok"
+                "label": "job",
+                "value": 4,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "free",
-                  "node",
-                  "free"
-                ],
+                "label": "n",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "f",
+                "value": 8,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Best fit placement preserves larger free blocks for incoming jobs.",
-            "rows": [
+            "at": "say2",
+            "caption": "So a job should use as few nodes as possible.",
+            "bars": [
               {
-                "cells": [
-                  "free",
-                  "node",
-                  "free"
-                ],
-                "tone": "data"
+                "label": "job",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "free",
-                  "node",
-                  "node"
-                ],
+                "label": "n",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "f",
+                "value": 4,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "The same idea appears when packing virtual machines onto servers.",
+            "bars": [
+              {
+                "label": "job",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "f",
+                "value": 6,
                 "tone": "ok"
               }
             ]
@@ -285,135 +509,277 @@
       "partTitle": "The full cost of a run",
       "codeHash": "d2b380824964bacb435d9855991c969f34fc79d26ce84cbd61803b29469cc8b9",
       "spec": {
-        "template": "table",
-        "title": "Comprehensive cost modeling across on-demand and spot instances",
-        "columns": [
-          "hours",
-          "price",
-          "cost"
+        "template": "flow",
+        "title": "The full cost of a run",
+        "nodes": [
+          {
+            "id": "hours",
+            "label": "hours"
+          },
+          {
+            "id": "price",
+            "label": "price"
+          },
+          {
+            "id": "discount",
+            "label": "discount"
+          },
+          {
+            "id": "spot_share",
+            "label": "spot_share"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Hardware failures and restarts add extra hours to planned training time.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "hours"
-                  },
-                  {
-                    "text": "price"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Trace how hours updates budget during execution.",
+            "values": {
+              "hours": {
+                "var": "hours",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "hours"
-                  },
-                  {
-                    "text": "price"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
-                "tone": "data"
+              "price": {
+                "var": "price",
+                "line": 1,
+                "hit": 1
+              },
+              "discount": {
+                "var": "discount",
+                "line": 1,
+                "hit": 1
+              },
+              "spot_share": {
+                "var": "spot_share",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "hours": "data",
+              "price": "data",
+              "discount": "data",
+              "spot_share": "data"
+            },
+            "arrows": [
+              [
+                "hours",
+                "price"
+              ],
+              [
+                "price",
+                "discount"
+              ],
+              [
+                "discount",
+                "spot_share"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Spot capacity is cheaper but introduces interruptions from cloud preemption.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "hours"
-                  },
-                  {
-                    "text": "price"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Trace how failures updates restarts during execution.",
+            "values": {
+              "hours": {
+                "var": "hours",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "hours"
-                  },
-                  {
-                    "text": "price"
-                  },
-                  {
-                    "text": "hours"
-                  }
-                ],
-                "tone": "ok"
+              "price": {
+                "var": "price",
+                "line": 2,
+                "hit": 1
+              },
+              "discount": {
+                "var": "discount",
+                "line": 2,
+                "hit": 1
+              },
+              "spot_share": {
+                "var": "spot_share",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "hours": "data",
+              "price": "data",
+              "discount": "data",
+              "spot_share": "data"
+            },
+            "arrows": [
+              [
+                "hours",
+                "price"
+              ],
+              [
+                "price",
+                "discount"
+              ],
+              [
+                "discount",
+                "spot_share"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Presenting a range, from an optimistic to a cautious estimate, is more.",
+            "values": {
+              "hours": {
+                "var": "hours",
+                "line": 3,
+                "hit": 1
+              },
+              "price": {
+                "var": "price",
+                "line": 3,
+                "hit": 1
+              },
+              "discount": {
+                "var": "discount",
+                "line": 3,
+                "hit": 1
+              },
+              "spot_share": {
+                "var": "spot_share",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "hours": "ok",
+              "price": "ok",
+              "discount": "ok",
+              "spot_share": "ok"
+            },
+            "arrows": [
+              [
+                "hours",
+                "price"
+              ],
+              [
+                "price",
+                "discount"
+              ],
+              [
+                "discount",
+                "spot_share"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Comprehensive cost modeling across on-demand and spot instances",
-        "columns": [
-          "hours",
-          "price",
-          "cost"
+        "template": "flow",
+        "title": "The full cost of a run",
+        "nodes": [
+          {
+            "id": "hours",
+            "label": "hours"
+          },
+          {
+            "id": "price",
+            "label": "price"
+          },
+          {
+            "id": "discount",
+            "label": "discount"
+          },
+          {
+            "id": "spot_share",
+            "label": "spot_share"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Hardware failures and restarts add extra hours to planned training time.",
-            "rows": [
-              {
-                "cells": [
-                  "hours",
-                  "price",
-                  "cost"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "hours",
-                  "price",
-                  "cost"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Trace how hours updates budget during execution.",
+            "values": {
+              "hours": "10000",
+              "price": "2",
+              "discount": "60",
+              "spot_share": "0"
+            },
+            "tones": {
+              "hours": "data",
+              "price": "data",
+              "discount": "data",
+              "spot_share": "data"
+            },
+            "arrows": [
+              [
+                "hours",
+                "price"
+              ],
+              [
+                "price",
+                "discount"
+              ],
+              [
+                "discount",
+                "spot_share"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Spot capacity is cheaper but introduces interruptions from cloud preemption.",
-            "rows": [
-              {
-                "cells": [
-                  "hours",
-                  "price",
-                  "cost"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "hours",
-                  "price",
-                  "hours"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Trace how failures updates restarts during execution.",
+            "values": {
+              "hours": "10000",
+              "price": "2",
+              "discount": "60",
+              "spot_share": "0"
+            },
+            "tones": {
+              "hours": "data",
+              "price": "data",
+              "discount": "data",
+              "spot_share": "data"
+            },
+            "arrows": [
+              [
+                "hours",
+                "price"
+              ],
+              [
+                "price",
+                "discount"
+              ],
+              [
+                "discount",
+                "spot_share"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Presenting a range, from an optimistic to a cautious estimate, is more.",
+            "values": {
+              "hours": "10000",
+              "price": "2",
+              "discount": "60",
+              "spot_share": "0"
+            },
+            "tones": {
+              "hours": "ok",
+              "price": "ok",
+              "discount": "ok",
+              "spot_share": "ok"
+            },
+            "arrows": [
+              [
+                "hours",
+                "price"
+              ],
+              [
+                "price",
+                "discount"
+              ],
+              [
+                "discount",
+                "spot_share"
+              ]
             ]
           }
         ]
@@ -423,78 +789,91 @@
       "partTitle": "Utilisation of shared clusters",
       "codeHash": "6a1ad1694a77d29f737f5d002464b6e13b47d78b746a915315b1c618b5856d09",
       "spec": {
-        "template": "table",
-        "title": "Cluster capacity tracking and backfilling efficiency",
-        "columns": [
+        "template": "sequence",
+        "title": "Utilisation of shared clusters",
+        "actors": [
           "cluster_gpus",
           "hours",
-          "used"
+          "jobs"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cluster utilisation measures the fraction of hardware hours running jobs.",
-            "rows": [
+            "caption": "Cluster utilisation is the fraction of GPU-hours spent running jobs rather.",
+            "activeActor": "cluster_gpus",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "cluster_gpus"
-                  },
-                  {
-                    "text": "hours"
-                  },
-                  {
-                    "text": "used"
-                  }
-                ],
-                "tone": "ok"
+                "from": "cluster_gpus",
+                "to": "hours",
+                "label": {
+                  "var": "cluster_gpus",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "cluster_gpus"
-                  },
-                  {
-                    "text": "hours"
-                  },
-                  {
-                    "text": "used"
-                  }
-                ],
-                "tone": "data"
+                "from": "hours",
+                "to": "jobs",
+                "label": {
+                  "var": "hours",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Backfilling allows short jobs to utilize scheduling gaps between large runs.",
-            "rows": [
+            "at": "say2",
+            "caption": "Idle time comes from fragmentation, jobs waiting for gang scheduling,.",
+            "activeActor": "hours",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "cluster_gpus"
-                  },
-                  {
-                    "text": "hours"
-                  },
-                  {
-                    "text": "used"
-                  }
-                ],
+                "from": "cluster_gpus",
+                "to": "hours",
+                "label": {
+                  "var": "cluster_gpus",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "cluster_gpus"
-                  },
-                  {
-                    "text": "hours"
-                  },
-                  {
-                    "text": "cluster_gpus"
-                  }
-                ],
+                "from": "hours",
+                "to": "jobs",
+                "label": {
+                  "var": "hours",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Both are worth tracking on shared dashboards.",
+            "activeActor": "jobs",
+            "messages": [
+              {
+                "from": "cluster_gpus",
+                "to": "hours",
+                "label": {
+                  "var": "cluster_gpus",
+                  "line": 3,
+                  "hit": 6
+                },
+                "tone": "data"
+              },
+              {
+                "from": "hours",
+                "to": "jobs",
+                "label": {
+                  "var": "hours",
+                  "line": 3,
+                  "hit": 6
+                },
                 "tone": "ok"
               }
             ]
@@ -502,57 +881,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cluster capacity tracking and backfilling efficiency",
-        "columns": [
+        "template": "sequence",
+        "title": "Utilisation of shared clusters",
+        "actors": [
           "cluster_gpus",
           "hours",
-          "used"
+          "jobs"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cluster utilisation measures the fraction of hardware hours running jobs.",
-            "rows": [
+            "caption": "Cluster utilisation is the fraction of GPU-hours spent running jobs rather.",
+            "messages": [
               {
-                "cells": [
-                  "cluster_gpus",
-                  "hours",
-                  "used"
-                ],
-                "tone": "ok"
+                "from": "cluster_gpus",
+                "to": "hours",
+                "label": "64",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "cluster_gpus",
-                  "hours",
-                  "used"
-                ],
-                "tone": "data"
+                "from": "hours",
+                "to": "jobs",
+                "label": "168",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "cluster_gpus"
           },
           {
-            "at": "say3",
-            "caption": "Backfilling allows short jobs to utilize scheduling gaps between large runs.",
-            "rows": [
+            "at": "say2",
+            "caption": "Idle time comes from fragmentation, jobs waiting for gang scheduling,.",
+            "messages": [
               {
-                "cells": [
-                  "cluster_gpus",
-                  "hours",
-                  "used"
-                ],
+                "from": "cluster_gpus",
+                "to": "hours",
+                "label": "64",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "cluster_gpus",
-                  "hours",
-                  "cluster_gpus"
-                ],
+                "from": "hours",
+                "to": "jobs",
+                "label": "168",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "hours"
+          },
+          {
+            "at": "say10",
+            "caption": "Both are worth tracking on shared dashboards.",
+            "messages": [
+              {
+                "from": "cluster_gpus",
+                "to": "hours",
+                "label": "64",
+                "tone": "data"
+              },
+              {
+                "from": "hours",
+                "to": "jobs",
+                "label": "168",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "jobs"
           }
         ]
       }
@@ -561,224 +953,162 @@
       "partTitle": "Planning the capacity you need",
       "codeHash": "279515014b7a28d010f40f088970b34fda836c51ddb2b8ab1a71ce97630882fb",
       "spec": {
-        "template": "flow",
-        "title": "Planning the capacity you need — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Planning the capaci...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Planning the capacity you need",
+        "actors": [
+          "quarter_hours",
+          "work",
+          "h"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Planning the capacity you need [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Planning the capaci... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Capacity planning estimates how many GPUs a team needs over the coming months.",
+            "activeActor": "quarter_hours",
+            "messages": [
+              {
+                "from": "quarter_hours",
+                "to": "work",
+                "label": {
+                  "var": "quarter_hours",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "work",
+                "to": "h",
+                "label": {
+                  "var": "work",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Start from the planned runs.",
+            "activeActor": "work",
+            "messages": [
+              {
+                "from": "quarter_hours",
+                "to": "work",
+                "label": {
+                  "var": "quarter_hours",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "work",
+                "to": "h",
+                "label": {
+                  "var": "work",
+                  "line": 3,
+                  "hit": 5
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Planning the capacity you need.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Presenting capacity needs clearly is how engineering teams secure.",
+            "activeActor": "h",
+            "messages": [
+              {
+                "from": "quarter_hours",
+                "to": "work",
+                "label": {
+                  "var": "quarter_hours",
+                  "line": 3,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "from": "work",
+                "to": "h",
+                "label": {
+                  "var": "work",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Planning the capacity you need — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Planning the capaci...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Planning the capacity you need",
+        "actors": [
+          "quarter_hours",
+          "work",
+          "h"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Planning the capacity you need [D29.P5.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Planning the capaci... [D29.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Capacity planning estimates how many GPUs a team needs over the coming months.",
+            "messages": [
+              {
+                "from": "quarter_hours",
+                "to": "work",
+                "label": "2184",
+                "tone": "data"
+              },
+              {
+                "from": "work",
+                "to": "h",
+                "label": "[['pretraining run', 250000, 512], ['fi…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "quarter_hours"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Start from the planned runs.",
+            "messages": [
+              {
+                "from": "quarter_hours",
+                "to": "work",
+                "label": "2184",
+                "tone": "data"
+              },
+              {
+                "from": "work",
+                "to": "h",
+                "label": "[['pretraining run', 250000, 512], ['fi…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "work"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Planning the capacity you need [D29.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say10",
+            "caption": "Presenting capacity needs clearly is how engineering teams secure.",
+            "messages": [
+              {
+                "from": "quarter_hours",
+                "to": "work",
+                "label": "2184",
+                "tone": "data"
+              },
+              {
+                "from": "work",
+                "to": "h",
+                "label": "[['pretraining run', 250000, 512], ['fi…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "h"
           }
         ]
       }
@@ -787,224 +1117,162 @@
       "partTitle": "Practice time: clusters and cost",
       "codeHash": "0c87168a59cf3f5ddb8fdd291fa52b9c0cf2f7be0189553b5f3fdc90baefa70a",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: clusters and cost — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: clus...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: clusters and cost",
+        "actors": [
+          "free",
+          "job",
+          "fits"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: clusters and cost [D.Psix.Sone].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: clus... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Return None if the cluster lacks enough free GPUs.",
+            "activeActor": "free",
+            "messages": [
+              {
+                "from": "free",
+                "to": "job",
+                "label": {
+                  "var": "free",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "job",
+                "to": "fits",
+                "label": {
+                  "var": "job",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include best fit, a two-node placement, an impossible job and.",
+            "activeActor": "job",
+            "messages": [
+              {
+                "from": "free",
+                "to": "job",
+                "label": {
+                  "var": "free",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "job",
+                "to": "fits",
+                "label": {
+                  "var": "job",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: clusters and cost.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If place_job chooses the wrong node, print the candidate nodes and their.",
+            "activeActor": "fits",
+            "messages": [
+              {
+                "from": "free",
+                "to": "job",
+                "label": {
+                  "var": "free",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "job",
+                "to": "fits",
+                "label": {
+                  "var": "job",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: clusters and cost — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: clus...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: clusters and cost",
+        "actors": [
+          "free",
+          "job",
+          "fits"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: clusters and cost [D29.P6.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: clus... [D29.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Return None if the cluster lacks enough free GPUs.",
+            "messages": [
+              {
+                "from": "free",
+                "to": "job",
+                "label": "[8, 8, 8, 8]",
+                "tone": "data"
+              },
+              {
+                "from": "job",
+                "to": "fits",
+                "label": "3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "free"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks include best fit, a two-node placement, an impossible job and.",
+            "messages": [
+              {
+                "from": "free",
+                "to": "job",
+                "label": "[8, 8, 8, 8]",
+                "tone": "data"
+              },
+              {
+                "from": "job",
+                "to": "fits",
+                "label": "3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "job"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: clusters and cost [D29.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say10",
+            "caption": "If place_job chooses the wrong node, print the candidate nodes and their.",
+            "messages": [
+              {
+                "from": "free",
+                "to": "job",
+                "label": "[8, 8, 8, 8]",
+                "tone": "data"
+              },
+              {
+                "from": "job",
+                "to": "fits",
+                "label": "3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "fits"
           }
         ]
       }

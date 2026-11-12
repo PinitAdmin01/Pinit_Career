@@ -2,171 +2,139 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 16,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What a CDN does",
       "codeHash": "fe79513564f04e429bb5a61766cb8b3c381137befd5a746cf1f7c4930d9ef792",
       "spec": {
-        "template": "table",
-        "title": "CloudFront edge cache hit and miss lifecycle simulation",
-        "columns": [
-          "path",
-          "result"
-        ],
+        "template": "bars",
+        "title": "What a CDN does",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Edges return cached content on hits and fetch from origin on misses.",
-            "rows": [
+            "at": "say1",
+            "caption": "A content delivery network (CDN) keeps copies of your content in edge.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "/logo.png"
-                  },
-                  {
-                    "text": "misses"
-                  }
-                ],
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "misses",
+                "value": {
+                  "var": "misses",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Cache hits respond rapidly while reducing data transfer and origin load.",
-            "rows": [
+            "at": "say2",
+            "caption": "When a user asks for an image, CloudFront answers from the nearest edge if.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "/logo.png"
-                  },
-                  {
-                    "text": "misses"
-                  }
-                ],
-                "tone": "data"
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "/logo.png"
-                  },
-                  {
-                    "text": "hits"
-                  }
-                ],
+                "label": "misses",
+                "value": {
+                  "var": "misses",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example simulates edge cache retrieval measuring overall hit ratio.",
-            "rows": [
+            "caption": "The example simulates an edge cache with a Python set and measures the hit.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "/logo.png"
-                  },
-                  {
-                    "text": "misses"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "/logo.png"
-                  },
-                  {
-                    "text": "hits"
-                  }
-                ],
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "/video1.mp4"
-                  },
-                  {
-                    "text": "misses"
-                  }
-                ],
-                "tone": "data"
+                "label": "misses",
+                "value": {
+                  "var": "misses",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "CloudFront edge cache hit and miss lifecycle simulation",
-        "columns": [
-          "path",
-          "result"
-        ],
+        "template": "bars",
+        "title": "What a CDN does",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Edges return cached content on hits and fetch from origin on misses.",
-            "rows": [
+            "at": "say1",
+            "caption": "A content delivery network (CDN) keeps copies of your content in edge.",
+            "bars": [
               {
-                "cells": [
-                  "/logo.png",
-                  "misses"
-                ],
+                "label": "hits",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "misses",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Cache hits respond rapidly while reducing data transfer and origin load.",
-            "rows": [
+            "at": "say2",
+            "caption": "When a user asks for an image, CloudFront answers from the nearest edge if.",
+            "bars": [
               {
-                "cells": [
-                  "/logo.png",
-                  "misses"
-                ],
-                "tone": "data"
+                "label": "hits",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "/logo.png",
-                  "hits"
-                ],
+                "label": "misses",
+                "value": 0,
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example simulates edge cache retrieval measuring overall hit ratio.",
-            "rows": [
+            "caption": "The example simulates an edge cache with a Python set and measures the hit.",
+            "bars": [
               {
-                "cells": [
-                  "/logo.png",
-                  "misses"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "/logo.png",
-                  "hits"
-                ],
+                "label": "hits",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "/video1.mp4",
-                  "misses"
-                ],
-                "tone": "data"
+                "label": "misses",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           }
@@ -177,201 +145,277 @@
       "partTitle": "Cache-Control and TTL",
       "codeHash": "abef421e1e319a0dcb69ec79e9d4562a2363eefec8ba1da4d1889cb202d70a5c",
       "spec": {
-        "template": "table",
-        "title": "Cache-Control header directive parsing and TTL priority precedence",
-        "columns": [
-          "directive",
-          "status"
+        "template": "flow",
+        "title": "Cache-Control and TTL",
+        "nodes": [
+          {
+            "id": "header",
+            "label": "header"
+          },
+          {
+            "id": "cache_control",
+            "label": "cache_control"
+          },
+          {
+            "id": "default_ttl",
+            "label": "default_ttl"
+          },
+          {
+            "id": "d",
+            "label": "d"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "How long may an edge keep a copy.",
+            "values": {
+              "header": {
+                "var": "header",
+                "line": 11,
+                "hit": 1
+              },
+              "cache_control": {
+                "var": "cache_control",
+                "line": 2,
+                "hit": 1
+              },
+              "default_ttl": {
+                "var": "default_ttl",
+                "line": 2,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "header": "data",
+              "cache_control": "data",
+              "default_ttl": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "header",
+                "cache_control"
+              ],
+              [
+                "cache_control",
+                "default_ttl"
+              ],
+              [
+                "default_ttl",
+                "d"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "The s-maxage directive specifies TTL for shared caches like CloudFront.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "public, max-age=3600"
-                  },
-                  {
-                    "text": "max-age="
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Max-age=3600 says any cache may keep the response for an hour.",
+            "values": {
+              "header": {
+                "var": "header",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "max-age=60, s-maxage=600"
-                  },
-                  {
-                    "text": "s-maxage="
-                  }
-                ],
-                "tone": "ok"
+              "cache_control": {
+                "var": "cache_control",
+                "line": 2,
+                "hit": 2
+              },
+              "default_ttl": {
+                "var": "default_ttl",
+                "line": 2,
+                "hit": 2
+              },
+              "d": {
+                "var": "d",
+                "line": 2,
+                "hit": 2
               }
+            },
+            "tones": {
+              "header": "data",
+              "cache_control": "data",
+              "default_ttl": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "header",
+                "cache_control"
+              ],
+              [
+                "cache_control",
+                "default_ttl"
+              ],
+              [
+                "default_ttl",
+                "d"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Directives like no-store and private prevent shared edge caching.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "public, max-age=3600"
-                  },
-                  {
-                    "text": "max-age="
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example parses a set of real-looking headers.",
+            "values": {
+              "header": {
+                "var": "header",
+                "line": 11,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "max-age=60, s-maxage=600"
-                  },
-                  {
-                    "text": "s-maxage="
-                  }
-                ],
-                "tone": "ok"
+              "cache_control": {
+                "var": "cache_control",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "cells": [
-                  {
-                    "text": "no-store"
-                  },
-                  {
-                    "text": "no-store"
-                  }
-                ],
-                "tone": "error"
+              "default_ttl": {
+                "var": "default_ttl",
+                "line": 2,
+                "hit": 3
+              },
+              "d": {
+                "var": "d",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Split header directives checking private before falling back to the default.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "public, max-age=3600"
-                  },
-                  {
-                    "text": "max-age="
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "max-age=60, s-maxage=600"
-                  },
-                  {
-                    "text": "s-maxage="
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "no-store"
-                  },
-                  {
-                    "text": "no-store"
-                  }
-                ],
-                "tone": "error"
-              }
+            },
+            "tones": {
+              "header": "ok",
+              "cache_control": "ok",
+              "default_ttl": "ok",
+              "d": "ok"
+            },
+            "arrows": [
+              [
+                "header",
+                "cache_control"
+              ],
+              [
+                "cache_control",
+                "default_ttl"
+              ],
+              [
+                "default_ttl",
+                "d"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cache-Control header directive parsing and TTL priority precedence",
-        "columns": [
-          "directive",
-          "status"
+        "template": "flow",
+        "title": "Cache-Control and TTL",
+        "nodes": [
+          {
+            "id": "header",
+            "label": "header"
+          },
+          {
+            "id": "cache_control",
+            "label": "cache_control"
+          },
+          {
+            "id": "default_ttl",
+            "label": "default_ttl"
+          },
+          {
+            "id": "d",
+            "label": "d"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "How long may an edge keep a copy.",
+            "values": {
+              "header": "'public, max-age=3600'",
+              "cache_control": "'public, max-age=3600'",
+              "default_ttl": "86400",
+              "d": "'public'"
+            },
+            "tones": {
+              "header": "data",
+              "cache_control": "data",
+              "default_ttl": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "header",
+                "cache_control"
+              ],
+              [
+                "cache_control",
+                "default_ttl"
+              ],
+              [
+                "default_ttl",
+                "d"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "The s-maxage directive specifies TTL for shared caches like CloudFront.",
-            "rows": [
-              {
-                "cells": [
-                  "public, max-age=3600",
-                  "max-age="
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "max-age=60, s-maxage=600",
-                  "s-maxage="
-                ],
-                "tone": "ok"
-              }
+            "caption": "Max-age=3600 says any cache may keep the response for an hour.",
+            "values": {
+              "header": "'public, max-age=3600'",
+              "cache_control": "'public, max-age=3600'",
+              "default_ttl": "86400",
+              "d": "' max-age=3600'"
+            },
+            "tones": {
+              "header": "data",
+              "cache_control": "data",
+              "default_ttl": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "header",
+                "cache_control"
+              ],
+              [
+                "cache_control",
+                "default_ttl"
+              ],
+              [
+                "default_ttl",
+                "d"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Directives like no-store and private prevent shared edge caching.",
-            "rows": [
-              {
-                "cells": [
-                  "public, max-age=3600",
-                  "max-age="
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "max-age=60, s-maxage=600",
-                  "s-maxage="
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "no-store",
-                  "no-store"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Split header directives checking private before falling back to the default.",
-            "rows": [
-              {
-                "cells": [
-                  "public, max-age=3600",
-                  "max-age="
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "max-age=60, s-maxage=600",
-                  "s-maxage="
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "no-store",
-                  "no-store"
-                ],
-                "tone": "error"
-              }
+            "at": "say7",
+            "caption": "The example parses a set of real-looking headers.",
+            "values": {
+              "header": "'max-age=60, s-maxage=600'",
+              "cache_control": "'public, max-age=3600'",
+              "default_ttl": "86400",
+              "d": "'public'"
+            },
+            "tones": {
+              "header": "ok",
+              "cache_control": "ok",
+              "default_ttl": "ok",
+              "d": "ok"
+            },
+            "arrows": [
+              [
+                "header",
+                "cache_control"
+              ],
+              [
+                "cache_control",
+                "default_ttl"
+              ],
+              [
+                "default_ttl",
+                "d"
+              ]
             ]
           }
         ]
@@ -381,147 +425,277 @@
       "partTitle": "Cache keys and hit ratio",
       "codeHash": "2a00d15cf5f4d57661f4e448071142b7e35bbb5be3c4ca5219ec92ce140970b7",
       "spec": {
-        "template": "table",
-        "title": "Cache key attribute dimensions and collision impact on hit ratios",
-        "columns": [
-          "field",
-          "value"
+        "template": "flow",
+        "title": "Cache keys and hit ratio",
+        "nodes": [
+          {
+            "id": "calls",
+            "label": "calls"
+          },
+          {
+            "id": "seen",
+            "label": "seen"
+          },
+          {
+            "id": "hits",
+            "label": "hits"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "CloudFront uses the cache key to determine whether requests match objects.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "/home"
-                  },
-                  {
-                    "text": "en"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The cache key is what CloudFront uses to decide whether two calls want.",
+            "values": {
+              "calls": {
+                "var": "calls",
+                "line": 1,
+                "hit": 7
+              },
+              "seen": {
+                "var": "seen",
+                "line": 5,
+                "hit": 1
+              },
+              "hits": {
+                "var": "hits",
+                "line": 5,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "calls": "data",
+              "seen": "data",
+              "hits": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "calls",
+                "seen"
+              ],
+              [
+                "seen",
+                "hits"
+              ],
+              [
+                "hits",
+                "c"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Excessive cache key headers split cache entries collapsing the hit ratio.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "/home"
-                  },
-                  {
-                    "text": "en"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "You can add headers, cookies or query parameters to the key when.",
+            "values": {
+              "calls": {
+                "var": "calls",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "/home"
-                  },
-                  {
-                    "text": "hi"
-                  }
-                ],
-                "tone": "ok"
+              "seen": {
+                "var": "seen",
+                "line": 6,
+                "hit": 1
+              },
+              "hits": {
+                "var": "hits",
+                "line": 6,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 12,
+                "hit": 1
               }
+            },
+            "tones": {
+              "calls": "data",
+              "seen": "data",
+              "hits": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "calls",
+                "seen"
+              ],
+              [
+                "seen",
+                "hits"
+              ],
+              [
+                "hits",
+                "c"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example compares cache keys demonstrating impact on overall hits.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "/home"
-                  },
-                  {
-                    "text": "en"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example shows how a bad key choice destroys the hit ratio.",
+            "values": {
+              "calls": {
+                "var": "calls",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "/home"
-                  },
-                  {
-                    "text": "hi"
-                  }
-                ],
-                "tone": "ok"
+              "seen": {
+                "var": "seen",
+                "line": 7,
+                "hit": 1
+              },
+              "hits": {
+                "var": "hits",
+                "line": 7,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "calls": "ok",
+              "seen": "ok",
+              "hits": "ok",
+              "c": "ok"
+            },
+            "arrows": [
+              [
+                "calls",
+                "seen"
+              ],
+              [
+                "seen",
+                "hits"
+              ],
+              [
+                "hits",
+                "c"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cache key attribute dimensions and collision impact on hit ratios",
-        "columns": [
-          "field",
-          "value"
+        "template": "flow",
+        "title": "Cache keys and hit ratio",
+        "nodes": [
+          {
+            "id": "calls",
+            "label": "calls"
+          },
+          {
+            "id": "seen",
+            "label": "seen"
+          },
+          {
+            "id": "hits",
+            "label": "hits"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "CloudFront uses the cache key to determine whether requests match objects.",
-            "rows": [
-              {
-                "cells": [
-                  "/home",
-                  "en"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The cache key is what CloudFront uses to decide whether two calls want.",
+            "values": {
+              "calls": "[{'path': '/home', 'lang': 'en', 'ua': …",
+              "seen": "set()",
+              "hits": "0",
+              "c": "{'path': '/home', 'lang': 'en', 'ua': '…"
+            },
+            "tones": {
+              "calls": "data",
+              "seen": "data",
+              "hits": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "calls",
+                "seen"
+              ],
+              [
+                "seen",
+                "hits"
+              ],
+              [
+                "hits",
+                "c"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Excessive cache key headers split cache entries collapsing the hit ratio.",
-            "rows": [
-              {
-                "cells": [
-                  "/home",
-                  "en"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "/home",
-                  "hi"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "You can add headers, cookies or query parameters to the key when.",
+            "values": {
+              "calls": "[{'path': '/home', 'lang': 'en', 'ua': …",
+              "seen": "set()",
+              "hits": "0",
+              "c": "{'path': '/home', 'lang': 'en', 'ua': '…"
+            },
+            "tones": {
+              "calls": "data",
+              "seen": "data",
+              "hits": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "calls",
+                "seen"
+              ],
+              [
+                "seen",
+                "hits"
+              ],
+              [
+                "hits",
+                "c"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example compares cache keys demonstrating impact on overall hits.",
-            "rows": [
-              {
-                "cells": [
-                  "/home",
-                  "en"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "/home",
-                  "hi"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The example shows how a bad key choice destroys the hit ratio.",
+            "values": {
+              "calls": "[{'path': '/home', 'lang': 'en', 'ua': …",
+              "seen": "set()",
+              "hits": "0",
+              "c": "{'path': '/home', 'lang': 'en', 'ua': '…"
+            },
+            "tones": {
+              "calls": "ok",
+              "seen": "ok",
+              "hits": "ok",
+              "c": "ok"
+            },
+            "arrows": [
+              [
+                "calls",
+                "seen"
+              ],
+              [
+                "seen",
+                "hits"
+              ],
+              [
+                "hits",
+                "c"
+              ]
             ]
           }
         ]
@@ -531,148 +705,162 @@
       "partTitle": "Invalidations and versioned file names",
       "codeHash": "d8517bccb59389318f9d557ba023b4e5186221ede5a4707c43a0a509c02fa553",
       "spec": {
-        "template": "table",
-        "title": "Static asset cache busting comparing invalidations and content hashes",
-        "columns": [
-          "asset",
-          "version_content"
+        "template": "sequence",
+        "title": "Invalidations and versioned file names",
+        "actors": [
+          "name",
+          "content",
+          "digest"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Invalidations force edges to drop cached copies when assets are updated.",
-            "rows": [
+            "caption": "What if you change a file that edges have cached for a day.",
+            "activeActor": "name",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "app.js"
-                  },
-                  {
-                    "text": "console-free build v1"
-                  }
-                ],
+                "from": "name",
+                "to": "content",
+                "label": {
+                  "var": "name",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "content",
+                "to": "digest",
+                "label": {
+                  "var": "content",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Versioned file names embed content hashes making cache updates instantaneous.",
-            "rows": [
+            "at": "say2",
+            "caption": "Invalidations take a little time to spread, and after a free monthly.",
+            "activeActor": "content",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "app.js"
-                  },
-                  {
-                    "text": "console-free build v1"
-                  }
-                ],
-                "tone": "ok"
+                "from": "name",
+                "to": "content",
+                "label": {
+                  "var": "name",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "app.js"
-                  },
-                  {
-                    "text": "console-free build v2"
-                  }
-                ],
-                "tone": "data"
+                "from": "content",
+                "to": "digest",
+                "label": {
+                  "var": "content",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example builds versioned asset names derived from file contents.",
-            "rows": [
+            "at": "say7",
+            "caption": "You have already used the same idea in Git commit ids and in.",
+            "activeActor": "digest",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "app.js"
-                  },
-                  {
-                    "text": "console-free build v1"
-                  }
-                ],
-                "tone": "ok"
+                "from": "name",
+                "to": "content",
+                "label": {
+                  "var": "name",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "app.js"
-                  },
-                  {
-                    "text": "console-free build v2"
-                  }
-                ],
-                "tone": "data"
+                "from": "content",
+                "to": "digest",
+                "label": {
+                  "var": "content",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Static asset cache busting comparing invalidations and content hashes",
-        "columns": [
-          "asset",
-          "version_content"
+        "template": "sequence",
+        "title": "Invalidations and versioned file names",
+        "actors": [
+          "name",
+          "content",
+          "digest"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Invalidations force edges to drop cached copies when assets are updated.",
-            "rows": [
+            "caption": "What if you change a file that edges have cached for a day.",
+            "messages": [
               {
-                "cells": [
-                  "app.js",
-                  "console-free build v1"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Versioned file names embed content hashes making cache updates instantaneous.",
-            "rows": [
-              {
-                "cells": [
-                  "app.js",
-                  "console-free build v1"
-                ],
-                "tone": "ok"
+                "from": "name",
+                "to": "content",
+                "label": "'app.js'",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "app.js",
-                  "console-free build v2"
-                ],
-                "tone": "data"
+                "from": "content",
+                "to": "digest",
+                "label": "'console-free build v1'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "name"
           },
           {
-            "at": "say6",
-            "caption": "The example builds versioned asset names derived from file contents.",
-            "rows": [
+            "at": "say2",
+            "caption": "Invalidations take a little time to spread, and after a free monthly.",
+            "messages": [
               {
-                "cells": [
-                  "app.js",
-                  "console-free build v1"
-                ],
-                "tone": "ok"
+                "from": "name",
+                "to": "content",
+                "label": "'app.js'",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "app.js",
-                  "console-free build v2"
-                ],
-                "tone": "data"
+                "from": "content",
+                "to": "digest",
+                "label": "'console-free build v1'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "content"
+          },
+          {
+            "at": "say7",
+            "caption": "You have already used the same idea in Git commit ids and in.",
+            "messages": [
+              {
+                "from": "name",
+                "to": "content",
+                "label": "'app.js'",
+                "tone": "data"
+              },
+              {
+                "from": "content",
+                "to": "digest",
+                "label": "'console-free build v1'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "digest"
           }
         ]
       }
@@ -681,224 +869,106 @@
       "partTitle": "Code at the edge",
       "codeHash": "0928c26073b50b0cc89afb26ae822e5a8406c2685d4fa83d4356beeae394617d",
       "spec": {
-        "template": "flow",
-        "title": "Code at the edge — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Code at the edge",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "request",
+            "label": "request"
           },
           {
-            "id": "proc",
-            "label": "2. Code at the edge",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "value",
+            "label": "value"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Code at the edge [Dsixteen.Pfive.Sone].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Code at the edge [Dsixteen.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Sometimes you want to change calls or responses at the edge, close.",
+            "currentState": "request",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "CloudFront Functions are tiny, very fast JavaScript functions for simple.",
+            "currentState": "name",
+            "transition": {
+              "from": "request",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 2,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Code at the edge [Dsixteen.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Keep edge code small and fast.",
+            "currentState": "value",
+            "transition": {
+              "from": "name",
+              "to": "value",
+              "label": {
+                "var": "value",
+                "line": 2,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Code at the edge — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Code at the edge",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "request",
+            "label": "request"
           },
           {
-            "id": "proc",
-            "label": "2. Code at the edge",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "value",
+            "label": "value"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Code at the edge [D16.P5.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Code at the edge [D16.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Sometimes you want to change calls or responses at the edge, close.",
+            "currentState": "request",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "CloudFront Functions are tiny, very fast JavaScript functions for simple.",
+            "currentState": "name",
+            "transition": {
+              "from": "request",
+              "to": "name",
+              "label": "'X-Device'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Code at the edge [D16.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Keep edge code small and fast.",
+            "currentState": "value",
+            "transition": {
+              "from": "name",
+              "to": "value",
+              "label": "'mobile'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -908,110 +978,161 @@
       "codeHash": "ac263039c03890602da414a75afee31f5e9283875a418521d34ce7012ad2e0b7",
       "spec": {
         "template": "flow",
-        "title": "Practice time: TTLs and cache keys — Execution Pipeline",
+        "title": "Practice time: TTLs and cache keys",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "a",
+            "label": "a"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: TTLs...",
-            "tappable": true
+            "id": "b",
+            "label": "b"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "v",
+            "label": "v"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: TTLs and cache keys.",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: TTLs... [Dsixteen.Psix.Stwo].",
+            "caption": "Build a clean list of directives.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "a": {
+                "var": "a",
+                "line": 1,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 2,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 3,
+                "hit": 1
+              },
+              "v": {
+                "var": "v",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "a": "data",
+              "b": "data",
+              "k": "data",
+              "v": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "a",
+                "b"
               ],
               [
-                "proc",
-                "out"
+                "b",
+                "k"
+              ],
+              [
+                "k",
+                "v"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Then look for s-maxage=, then max-age=, and convert the number after.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "a": {
+                "var": "a",
+                "line": 2,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 3,
+                "hit": 4
+              },
+              "k": {
+                "var": "k",
+                "line": 3,
+                "hit": 2
+              },
+              "v": {
+                "var": "v",
+                "line": 3,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "a": "data",
+              "b": "data",
+              "k": "data",
+              "v": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "k"
+              ],
+              [
+                "k",
+                "v"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: TTLs and cache keys.",
+            "at": "say7",
+            "caption": "The example shows why sorting is needed for equal keys.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "a": {
+                "var": "a",
+                "line": 3,
+                "hit": 4
+              },
+              "b": {
+                "var": "b",
+                "line": 4,
+                "hit": 4
+              },
+              "k": {
+                "var": "k",
+                "line": 3,
+                "hit": 3
+              },
+              "v": {
+                "var": "v",
+                "line": 3,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "a": "ok",
+              "b": "ok",
+              "k": "ok",
+              "v": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "a",
+                "b"
               ],
               [
-                "proc",
-                "out"
+                "b",
+                "k"
+              ],
+              [
+                "k",
+                "v"
               ]
             ]
           }
@@ -1019,110 +1140,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: TTLs and cache keys — Execution Pipeline",
+        "title": "Practice time: TTLs and cache keys",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "a",
+            "label": "a"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: TTLs...",
-            "tappable": true
+            "id": "b",
+            "label": "b"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "v",
+            "label": "v"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: TTLs and cache keys [D16.P6.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: TTLs... [D16.P6.S2].",
+            "caption": "Build a clean list of directives.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "a": "{'x-device': 'mobile', 'accept-language…",
+              "b": "{'accept-language': 'en', 'x-device': '…",
+              "k": "'x-device'",
+              "v": "'mobile'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "a": "data",
+              "b": "data",
+              "k": "data",
+              "v": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "a",
+                "b"
               ],
               [
-                "proc",
-                "out"
+                "b",
+                "k"
+              ],
+              [
+                "k",
+                "v"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P6.S3].",
+            "at": "say2",
+            "caption": "Then look for s-maxage=, then max-age=, and convert the number after.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "a": "{'x-device': 'mobile', 'accept-language…",
+              "b": "{'accept-language': 'en', 'x-device': '…",
+              "k": "'accept-language'",
+              "v": "'en'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "a": "data",
+              "b": "data",
+              "k": "data",
+              "v": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "k"
+              ],
+              [
+                "k",
+                "v"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: TTLs and cache keys [D16.P6.S4].",
+            "at": "say7",
+            "caption": "The example shows why sorting is needed for equal keys.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "a": "{'x-device': 'mobile', 'accept-language…",
+              "b": "{'accept-language': 'en', 'x-device': '…",
+              "k": "'accept-language'",
+              "v": "'en'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "a": "ok",
+              "b": "ok",
+              "k": "ok",
+              "v": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "a",
+                "b"
               ],
               [
-                "proc",
-                "out"
+                "b",
+                "k"
+              ],
+              [
+                "k",
+                "v"
               ]
             ]
           }

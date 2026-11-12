@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 59,
-  "promptSha": "47c39fb81f8c5e94a94ad31b50ba258e5d7797ae496bae4384e42ee400600360",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in Perpetual Swaps — Foundations & Mathematical Invariants",
-      "codeHash": "bf8b4b83fc29df8c020515a22a883184eb77073dab015987c370f455eedf8cd7",
+      "codeHash": "8b83425dc35b5a78bb3fdb79df4b714e89fdc37c898ee1793bd61c798a97eb01",
       "spec": {
-        "template": "flow",
-        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in Perpe",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Unlike traditional futures contracts that expire quarterly, Perpetual.",
+            "bars": [
+              {
+                "label": "notional",
+                "value": {
+                  "var": "notional",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "rate_8h",
+                "value": {
+                  "var": "rate_8h",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "position_notio",
+                "value": {
+                  "var": "position_notional",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "funding_rate_p",
+                "value": {
+                  "var": "funding_rate_pct",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "To keep perpetual contract prices tethered to the underlying spot index.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "notional",
+                "value": {
+                  "var": "notional",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "rate_8h",
+                "value": {
+                  "var": "rate_8h",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "position_notio",
+                "value": {
+                  "var": "position_notional",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "funding_rate_p",
+                "value": {
+                  "var": "funding_rate_pct",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic funding math ensures that basis yields are captured.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "notional",
+                "value": {
+                  "var": "notional",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "rate_8h",
+                "value": {
+                  "var": "rate_8h",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "position_notio",
+                "value": {
+                  "var": "position_notional",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "funding_rate_p",
+                "value": {
+                  "var": "funding_rate_pct",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in Perpe",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Unlike traditional futures contracts that expire quarterly, Perpetual.",
+            "bars": [
+              {
+                "label": "notional",
+                "value": 1000000,
+                "tone": "data"
+              },
+              {
+                "label": "rate_8h",
+                "value": 0.04,
+                "tone": "data"
+              },
+              {
+                "label": "position_notio",
+                "value": 1000000,
+                "tone": "data"
+              },
+              {
+                "label": "funding_rate_p",
+                "value": 0.04,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "To keep perpetual contract prices tethered to the underlying spot index.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "notional",
+                "value": 1000000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "rate_8h",
+                "value": 0.04,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "position_notio",
+                "value": 1000000,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "funding_rate_p",
+                "value": 0.04,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic funding math ensures that basis yields are captured.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "notional",
+                "value": 1000000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "rate_8h",
+                "value": 0.04,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "position_notio",
+                "value": 1000000,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "funding_rate_p",
+                "value": 0.04,
+                "tone": "ok"
               }
             ]
           }
@@ -273,264 +227,218 @@
     },
     {
       "partTitle": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in Perpetual Swaps — Core Algorithm & State Representation",
-      "codeHash": "0392b72d0d7e5ddc7e39de1d18cd21f1cca308559ed9fa359d24fb54bc9f6c92",
+      "codeHash": "a8d4af402807a5c6288916c09f662958e9e05ab238b222f6a6f5741dbb29795c",
       "spec": {
-        "template": "flow",
-        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in Perpe",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core perpetual swap risk engine evaluates Liquidation Price.",
+            "bars": [
+              {
+                "label": "entry",
+                "value": {
+                  "var": "entry",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "lev",
+                "value": {
+                  "var": "lev",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mmr",
+                "value": {
+                  "var": "mmr",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "entry_price",
+                "value": {
+                  "var": "entry_price",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Because perpetual contracts offer leverage up to 20x or 50x, positions.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "entry",
+                "value": {
+                  "var": "entry",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "lev",
+                "value": {
+                  "var": "lev",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "mmr",
+                "value": {
+                  "var": "mmr",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "entry_price",
+                "value": {
+                  "var": "entry_price",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Delta-neutral strategies maintain substantial collateral headroom.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "entry",
+                "value": {
+                  "var": "entry",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "lev",
+                "value": {
+                  "var": "lev",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "mmr",
+                "value": {
+                  "var": "mmr",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "entry_price",
+                "value": {
+                  "var": "entry_price",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in Perpe",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core perpetual swap risk engine evaluates Liquidation Price.",
+            "bars": [
+              {
+                "label": "entry",
+                "value": 50000,
+                "tone": "data"
+              },
+              {
+                "label": "lev",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "mmr",
+                "value": 0.005,
+                "tone": "data"
+              },
+              {
+                "label": "entry_price",
+                "value": 50000,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Because perpetual contracts offer leverage up to 20x or 50x, positions.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "entry",
+                "value": 50000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "lev",
+                "value": 10,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "mmr",
+                "value": 0.005,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "entry_price",
+                "value": 50000,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Delta-neutral strategies maintain substantial collateral headroom.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "entry",
+                "value": 50000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "lev",
+                "value": 10,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "mmr",
+                "value": 0.005,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "entry_price",
+                "value": 50000,
+                "tone": "ok"
               }
             ]
           }
@@ -539,264 +447,218 @@
     },
     {
       "partTitle": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in Perpetual Swaps — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "9258220d7d3f04901ee5c2e27ecd850e91dcd0c4685cdcafaf5d024f1b50f180",
+      "codeHash": "283524bd7a6c5c87c777f45fdb8cf5eb1aaf5297d93b563fcfd0c809e03a1651",
       "spec": {
-        "template": "flow",
-        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in Perpe",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in",
         "steps": [
           {
+            "at": "say1",
+            "caption": "High-frequency basis arbitrage platforms monitor funding rates and basis.",
+            "bars": [
+              {
+                "label": "spot_price",
+                "value": {
+                  "var": "spot_price",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "perp_mark_pric",
+                "value": {
+                  "var": "perp_mark_price",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "funding_rate_8",
+                "value": {
+                  "var": "funding_rate_8h_pct",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "min_apy_thresh",
+                "value": {
+                  "var": "min_apy_threshold",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Processing millions of order book updates while simultaneously tracking.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "spot_price",
+                "value": {
+                  "var": "spot_price",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "perp_mark_pric",
+                "value": {
+                  "var": "perp_mark_price",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "funding_rate_8",
+                "value": {
+                  "var": "funding_rate_8h_pct",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "min_apy_thresh",
+                "value": {
+                  "var": "min_apy_threshold",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic optimization guarantees that basis carry portfolios capture.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "spot_price",
+                "value": {
+                  "var": "spot_price",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "perp_mark_pric",
+                "value": {
+                  "var": "perp_mark_price",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "funding_rate_8",
+                "value": {
+                  "var": "funding_rate_8h_pct",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "min_apy_thresh",
+                "value": {
+                  "var": "min_apy_threshold",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in Perpe",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in",
         "steps": [
           {
+            "at": "say1",
+            "caption": "High-frequency basis arbitrage platforms monitor funding rates and basis.",
+            "bars": [
+              {
+                "label": "spot_price",
+                "value": 50000,
+                "tone": "data"
+              },
+              {
+                "label": "perp_mark_pric",
+                "value": 50080,
+                "tone": "data"
+              },
+              {
+                "label": "funding_rate_8",
+                "value": 0.03,
+                "tone": "data"
+              },
+              {
+                "label": "min_apy_thresh",
+                "value": 0.15,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Processing millions of order book updates while simultaneously tracking.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "spot_price",
+                "value": 50000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "perp_mark_pric",
+                "value": 50080,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "funding_rate_8",
+                "value": 0.03,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "min_apy_thresh",
+                "value": 0.15,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic optimization guarantees that basis carry portfolios capture.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "spot_price",
+                "value": 50000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "perp_mark_pric",
+                "value": 50080,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "funding_rate_8",
+                "value": 0.03,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "min_apy_thresh",
+                "value": 0.15,
+                "tone": "ok"
               }
             ]
           }
@@ -805,265 +667,279 @@
     },
     {
       "partTitle": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in Perpetual Swaps — Resilience Guardrails & Failure Recovery",
-      "codeHash": "933f0cc28a2274db1d13890160f4d77249d3ccec20b12e18194063355b5f79be",
+      "codeHash": "7b7a36041e2b0533ad79d4c4ee4b00e99b71cbbbe190771bd986a3fcaa6be545",
       "spec": {
         "template": "flow",
-        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in Perpe",
+        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "current_price",
+            "label": "current_price"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "liq_price",
+            "label": "liq_price"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "side",
+            "label": "side"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "min_safe_distance_pct",
+            "label": "min_safe_distance_pct"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operational risk controllers enforce strict liquidation buffers.",
+            "values": {
+              "current_price": {
+                "var": "current_price",
+                "line": 5,
+                "hit": 1
+              },
+              "liq_price": {
+                "var": "liq_price",
+                "line": 5,
+                "hit": 1
+              },
+              "side": {
+                "var": "side",
+                "line": 5,
+                "hit": 1
+              },
+              "min_safe_distance_pct": {
+                "var": "min_safe_distance_pct",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "current_price": "data",
+              "liq_price": "data",
+              "side": "data",
+              "min_safe_distance_pct": "data"
+            },
+            "arrows": [
+              [
+                "current_price",
+                "liq_price"
+              ],
+              [
+                "liq_price",
+                "side"
+              ],
+              [
+                "side",
+                "min_safe_distance_pct"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The Liquidation Buffer Guardrail mandates that perpetual positions.",
+            "values": {
+              "current_price": {
+                "var": "current_price",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "liq_price": {
+                "var": "liq_price",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "side": {
+                "var": "side",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "min_safe_distance_pct": {
+                "var": "min_safe_distance_pct",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "current_price": "data",
+              "liq_price": "data",
+              "side": "data",
+              "min_safe_distance_pct": "data"
+            },
+            "arrows": [
+              [
+                "current_price",
+                "liq_price"
+              ],
+              [
+                "liq_price",
+                "side"
+              ],
+              [
+                "side",
+                "min_safe_distance_pct"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Automated margin replenishment ensures that delta-neutral positions.",
+            "values": {
+              "current_price": {
+                "var": "current_price",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "liq_price": {
+                "var": "liq_price",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "side": {
+                "var": "side",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "min_safe_distance_pct": {
+                "var": "min_safe_distance_pct",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "current_price": "ok",
+              "liq_price": "ok",
+              "side": "ok",
+              "min_safe_distance_pct": "ok"
+            },
+            "arrows": [
+              [
+                "current_price",
+                "liq_price"
+              ],
+              [
+                "liq_price",
+                "side"
+              ],
+              [
+                "side",
+                "min_safe_distance_pct"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in Perpe",
+        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "current_price",
+            "label": "current_price"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "liq_price",
+            "label": "liq_price"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "side",
+            "label": "side"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "min_safe_distance_pct",
+            "label": "min_safe_distance_pct"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operational risk controllers enforce strict liquidation buffers.",
+            "values": {
+              "current_price": "50000",
+              "liq_price": "72000",
+              "side": "'SHORT'",
+              "min_safe_distance_pct": "0.35"
+            },
+            "tones": {
+              "current_price": "data",
+              "liq_price": "data",
+              "side": "data",
+              "min_safe_distance_pct": "data"
+            },
+            "arrows": [
+              [
+                "current_price",
+                "liq_price"
+              ],
+              [
+                "liq_price",
+                "side"
+              ],
+              [
+                "side",
+                "min_safe_distance_pct"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The Liquidation Buffer Guardrail mandates that perpetual positions.",
+            "values": {
+              "current_price": "50000",
+              "liq_price": "72000",
+              "side": "'SHORT'",
+              "min_safe_distance_pct": "0.35"
+            },
+            "tones": {
+              "current_price": "data",
+              "liq_price": "data",
+              "side": "data",
+              "min_safe_distance_pct": "data"
+            },
+            "arrows": [
+              [
+                "current_price",
+                "liq_price"
+              ],
+              [
+                "liq_price",
+                "side"
+              ],
+              [
+                "side",
+                "min_safe_distance_pct"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Automated margin replenishment ensures that delta-neutral positions.",
+            "values": {
+              "current_price": "50000",
+              "liq_price": "72000",
+              "side": "'SHORT'",
+              "min_safe_distance_pct": "0.35"
+            },
+            "tones": {
+              "current_price": "ok",
+              "liq_price": "ok",
+              "side": "ok",
+              "min_safe_distance_pct": "ok"
+            },
+            "arrows": [
+              [
+                "current_price",
+                "liq_price"
+              ],
+              [
+                "liq_price",
+                "side"
+              ],
+              [
+                "side",
+                "min_safe_distance_pct"
+              ]
             ]
           }
         ]
@@ -1071,266 +947,164 @@
     },
     {
       "partTitle": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in Perpetual Swaps — Production Telemetry & Verification Audit",
-      "codeHash": "46b3e95856f1ef12825b916be0d19d2ca008a1d10c5f04230db978d1dd62cf8b",
+      "codeHash": "8ef699669923a204b810a857386fe274d0f643aaea1b93da4db35e12869afcce",
       "spec": {
-        "template": "flow",
-        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in Perpe",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in",
+        "actors": [
+          "spot_notional",
+          "perp_notional",
+          "cum_funding_earned"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for perpetual swap basis trading requires.",
+            "activeActor": "spot_notional",
+            "messages": [
+              {
+                "from": "spot_notional",
+                "to": "perp_notional",
+                "label": {
+                  "var": "spot_notional",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "perp_notional",
+                "to": "cum_funding_earned",
+                "label": {
+                  "var": "perp_notional",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The telemetry pipeline computes the Net Realized Basis APY.",
+            "activeActor": "perp_notional",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "spot_notional",
+                "to": "perp_notional",
+                "label": {
+                  "var": "spot_notional",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "perp_notional",
+                "to": "cum_funding_earned",
+                "label": {
+                  "var": "perp_notional",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Live basis telemetry provides granular real-time visibility to treasury.",
+            "activeActor": "cum_funding_earned",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "spot_notional",
+                "to": "perp_notional",
+                "label": {
+                  "var": "spot_notional",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "perp_notional",
+                "to": "cum_funding_earned",
+                "label": {
+                  "var": "perp_notional",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in Perpe",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Funding Rate Arbitrage, Basis Carry & Liquidation Margin Math in",
+        "actors": [
+          "spot_notional",
+          "perp_notional",
+          "cum_funding_earned"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for perpetual swap basis trading requires.",
+            "messages": [
+              {
+                "from": "spot_notional",
+                "to": "perp_notional",
+                "label": "1000000",
+                "tone": "data"
+              },
+              {
+                "from": "perp_notional",
+                "to": "cum_funding_earned",
+                "label": "1002500",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "spot_notional"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The telemetry pipeline computes the Net Realized Basis APY.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "spot_notional",
+                "to": "perp_notional",
+                "label": "1000000",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "perp_notional",
+                "to": "cum_funding_earned",
+                "label": "1002500",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "perp_notional"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Live basis telemetry provides granular real-time visibility to treasury.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "spot_notional",
+                "to": "perp_notional",
+                "label": "1000000",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "perp_notional",
+                "to": "cum_funding_earned",
+                "label": "1002500",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "cum_funding_earned"
           }
         ]
       }

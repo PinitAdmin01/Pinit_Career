@@ -2,269 +2,895 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 34,
-  "promptSha": "cf048fcbf16360b292127f9898d3c1aa48838cf618413d66227809609c581e9f",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "GraphRAG — Foundations & Mathematical Invariants",
-      "codeHash": "d066b1b62603847568b384f38aa8281b5a4010da32884f740e71c582c097e3bc",
+      "partTitle": "Subject-Predicate-Object Triplets and Entity Alias Merging",
+      "codeHash": "8ec13bd298075b55091072b78dd0557a537abbb2ce2bdef2e1245abce3938c42",
       "spec": {
-        "template": "flow",
-        "title": "GraphRAG — Foundations & Mathematical Invariants",
-        "nodes": [
+        "template": "boxes",
+        "title": "Subject-Predicate-Object Triplets and Entity Alias Merging",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "ALIASES",
+            "label": "ALIASES"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "raw",
+            "label": "raw"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "raw_triples",
+            "label": "raw_triples"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "edges",
+            "label": "edges"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Flat vector chunks fail dramatically when answers span five separate.",
+            "values": {
+              "ALIASES": {
+                "var": "ALIASES",
+                "line": 1,
+                "hit": 1
+              },
+              "raw": {
+                "var": "raw",
+                "line": 19,
+                "hit": 1
+              },
+              "raw_triples": {
+                "var": "raw_triples",
+                "line": 14,
+                "hit": 1
+              },
+              "edges": {
+                "var": "edges",
+                "line": 14,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "ALIASES": "data",
+              "raw": "data",
+              "raw_triples": "data",
+              "edges": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "GraphRAG converts unstructured prose into typed Subject-Predicate-Object.",
+            "values": {
+              "ALIASES": {
+                "var": "ALIASES",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "raw": {
+                "var": "raw",
+                "line": 25,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "raw_triples": {
+                "var": "raw_triples",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "edges": {
+                "var": "edges",
+                "line": 15,
+                "hit": 1
               }
+            },
+            "tones": {
+              "ALIASES": "data",
+              "raw": "data",
+              "raw_triples": "data",
+              "edges": "data"
+            }
+          },
+          {
+            "at": "say8",
+            "caption": "Observe also how uppercasing predicates and replacing spaces.",
+            "values": {
+              "ALIASES": {
+                "var": "ALIASES",
+                "line": 13,
+                "hit": 1
+              },
+              "raw": {
+                "var": "raw",
+                "line": 26,
+                "hit": 1
+              },
+              "raw_triples": {
+                "var": "raw_triples",
+                "line": 16,
+                "hit": 1
+              },
+              "edges": {
+                "var": "edges",
+                "line": 16,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "ALIASES": "ok",
+              "raw": "ok",
+              "raw_triples": "ok",
+              "edges": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Subject-Predicate-Object Triplets and Entity Alias Merging",
+        "boxes": [
+          {
+            "id": "ALIASES",
+            "label": "ALIASES"
+          },
+          {
+            "id": "raw",
+            "label": "raw"
+          },
+          {
+            "id": "raw_triples",
+            "label": "raw_triples"
+          },
+          {
+            "id": "edges",
+            "label": "edges"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Flat vector chunks fail dramatically when answers span five separate.",
+            "values": {
+              "ALIASES": "{'auth svc': 'auth-service', 'auth-serv…",
+              "raw": "[['Auth Svc', 'writes to', 'Postgres DB…",
+              "raw_triples": "[['Auth Svc', 'writes to', 'Postgres DB…",
+              "edges": "set()"
+            },
+            "tones": {
+              "ALIASES": "data",
+              "raw": "data",
+              "raw_triples": "data",
+              "edges": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "GraphRAG converts unstructured prose into typed Subject-Predicate-Object.",
+            "values": {
+              "ALIASES": "{'auth svc': 'auth-service', 'auth-serv…",
+              "raw": "[['Auth Svc', 'writes to', 'Postgres DB…",
+              "raw_triples": "[['Auth Svc', 'writes to', 'Postgres DB…",
+              "edges": "set()"
+            },
+            "tones": {
+              "ALIASES": "data",
+              "raw": "data",
+              "raw_triples": "data",
+              "edges": "data"
+            }
+          },
+          {
+            "at": "say8",
+            "caption": "Observe also how uppercasing predicates and replacing spaces.",
+            "values": {
+              "ALIASES": "{'auth svc': 'auth-service', 'auth-serv…",
+              "raw": "[['Auth Svc', 'writes to', 'Postgres DB…",
+              "raw_triples": "[['Auth Svc', 'writes to', 'Postgres DB…",
+              "edges": "{['auth-service', 'WRITES_TO', 'postgre…"
+            },
+            "tones": {
+              "ALIASES": "ok",
+              "raw": "ok",
+              "raw_triples": "ok",
+              "edges": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Bounded K-Hop Neighborhood Expansion and Hub Protection",
+      "codeHash": "414b6da9415608903e6312325ea58506605f9ec2db814ee848fb30427e5e1644",
+      "spec": {
+        "template": "boxes",
+        "title": "Bounded K-Hop Neighborhood Expansion and Hub Protection",
+        "boxes": [
+          {
+            "id": "edges",
+            "label": "edges"
+          },
+          {
+            "id": "seeds",
+            "label": "seeds"
+          },
+          {
+            "id": "max_hops",
+            "label": "max_hops"
+          },
+          {
+            "id": "fanout",
+            "label": "fanout"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Production enterprise graphs often contain ultra-dense super-nodesentities.",
+            "values": {
+              "edges": {
+                "var": "edges",
+                "line": 22,
+                "hit": 1
+              },
+              "seeds": {
+                "var": "seeds",
+                "line": 4,
+                "hit": 1
+              },
+              "max_hops": {
+                "var": "max_hops",
+                "line": 4,
+                "hit": 1
+              },
+              "fanout": {
+                "var": "fanout",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "edges": "data",
+              "seeds": "data",
+              "max_hops": "data",
+              "fanout": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Also notice edge direction matters.",
+            "values": {
+              "edges": {
+                "var": "edges",
+                "line": 4,
+                "hit": 1
+              },
+              "seeds": {
+                "var": "seeds",
+                "line": 5,
+                "hit": 1
+              },
+              "max_hops": {
+                "var": "max_hops",
+                "line": 5,
+                "hit": 1
+              },
+              "fanout": {
+                "var": "fanout",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "edges": "data",
+              "seeds": "data",
+              "max_hops": "data",
+              "fanout": "data"
+            }
+          },
+          {
+            "at": "say8",
+            "caption": "Inspect both `nodes` and `edges kept` printed afterwardverifying how.",
+            "values": {
+              "edges": {
+                "var": "edges",
+                "line": 5,
+                "hit": 1
+              },
+              "seeds": {
+                "var": "seeds",
+                "line": 6,
+                "hit": 1
+              },
+              "max_hops": {
+                "var": "max_hops",
+                "line": 6,
+                "hit": 1
+              },
+              "fanout": {
+                "var": "fanout",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "edges": "ok",
+              "seeds": "ok",
+              "max_hops": "ok",
+              "fanout": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Bounded K-Hop Neighborhood Expansion and Hub Protection",
+        "boxes": [
+          {
+            "id": "edges",
+            "label": "edges"
+          },
+          {
+            "id": "seeds",
+            "label": "seeds"
+          },
+          {
+            "id": "max_hops",
+            "label": "max_hops"
+          },
+          {
+            "id": "fanout",
+            "label": "fanout"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Production enterprise graphs often contain ultra-dense super-nodesentities.",
+            "values": {
+              "edges": "[['api-gw', 'CALLS', 'auth', 0.9], ['au…",
+              "seeds": "['api-gw']",
+              "max_hops": "2",
+              "fanout": "2"
+            },
+            "tones": {
+              "edges": "data",
+              "seeds": "data",
+              "max_hops": "data",
+              "fanout": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Also notice edge direction matters.",
+            "values": {
+              "edges": "[['api-gw', 'CALLS', 'auth', 0.9], ['au…",
+              "seeds": "['api-gw']",
+              "max_hops": "2",
+              "fanout": "2"
+            },
+            "tones": {
+              "edges": "data",
+              "seeds": "data",
+              "max_hops": "data",
+              "fanout": "data"
+            }
+          },
+          {
+            "at": "say8",
+            "caption": "Inspect both `nodes` and `edges kept` printed afterwardverifying how.",
+            "values": {
+              "edges": "[['api-gw', 'CALLS', 'auth', 0.9], ['au…",
+              "seeds": "['api-gw']",
+              "max_hops": "2",
+              "fanout": "2"
+            },
+            "tones": {
+              "edges": "ok",
+              "seeds": "ok",
+              "max_hops": "ok",
+              "fanout": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Greedy Community Detection via Label Propagation",
+      "codeHash": "d7803c0cd77a4f4272385f3437d7d3304e5d28a65802df21201b8de6eff28f9b",
+      "spec": {
+        "template": "flow",
+        "title": "Greedy Community Detection via Label Propagation",
+        "nodes": [
+          {
+            "id": "nodes",
+            "label": "nodes"
+          },
+          {
+            "id": "edges",
+            "label": "edges"
+          },
+          {
+            "id": "iters",
+            "label": "iters"
+          },
+          {
+            "id": "adj",
+            "label": "adj"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Corpus-wide sensemaking questions like 'What are the recurring operational.",
+            "values": {
+              "nodes": {
+                "var": "nodes",
+                "line": 27,
+                "hit": 1
+              },
+              "edges": {
+                "var": "edges",
+                "line": 28,
+                "hit": 1
+              },
+              "iters": {
+                "var": "iters",
+                "line": 4,
+                "hit": 1
+              },
+              "adj": {
+                "var": "adj",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "nodes": "data",
+              "edges": "data",
+              "iters": "data",
+              "adj": "data"
+            },
+            "arrows": [
+              [
+                "nodes",
+                "edges"
+              ],
+              [
+                "edges",
+                "iters"
+              ],
+              [
+                "iters",
+                "adj"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Community detection partitions dense entity regions automatically.",
+            "values": {
+              "nodes": {
+                "var": "nodes",
+                "line": 28,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "edges": {
+                "var": "edges",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "iters": {
+                "var": "iters",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "adj": {
+                "var": "adj",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "nodes": "data",
+              "edges": "data",
+              "iters": "data",
+              "adj": "data"
+            },
+            "arrows": [
+              [
+                "nodes",
+                "edges"
+              ],
+              [
+                "edges",
+                "iters"
+              ],
+              [
+                "iters",
+                "adj"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Inspect the stabilized communities output carefully.",
+            "values": {
+              "nodes": {
+                "var": "nodes",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "edges": {
+                "var": "edges",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "iters": {
+                "var": "iters",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "adj": {
+                "var": "adj",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "nodes": "ok",
+              "edges": "ok",
+              "iters": "ok",
+              "adj": "ok"
+            },
+            "arrows": [
+              [
+                "nodes",
+                "edges"
+              ],
+              [
+                "edges",
+                "iters"
+              ],
+              [
+                "iters",
+                "adj"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "GraphRAG — Foundations & Mathematical Invariants",
+        "title": "Greedy Community Detection via Label Propagation",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "nodes",
+            "label": "nodes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "edges",
+            "label": "edges"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "iters",
+            "label": "iters"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "adj",
+            "label": "adj"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Corpus-wide sensemaking questions like 'What are the recurring operational.",
+            "values": {
+              "nodes": "['auth', 'jwt', 'oauth', 'pg', 'sql', '…",
+              "edges": "[['auth', 'jwt', 1], ['jwt', 'oauth', 1…",
+              "iters": "6",
+              "adj": "{}"
+            },
+            "tones": {
+              "nodes": "data",
+              "edges": "data",
+              "iters": "data",
+              "adj": "data"
+            },
+            "arrows": [
+              [
+                "nodes",
+                "edges"
+              ],
+              [
+                "edges",
+                "iters"
+              ],
+              [
+                "iters",
+                "adj"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Community detection partitions dense entity regions automatically.",
+            "values": {
+              "nodes": "['auth', 'jwt', 'oauth', 'pg', 'sql', '…",
+              "edges": "[['auth', 'jwt', 1], ['jwt', 'oauth', 1…",
+              "iters": "6",
+              "adj": "{}"
+            },
+            "tones": {
+              "nodes": "data",
+              "edges": "data",
+              "iters": "data",
+              "adj": "data"
+            },
+            "arrows": [
+              [
+                "nodes",
+                "edges"
+              ],
+              [
+                "edges",
+                "iters"
+              ],
+              [
+                "iters",
+                "adj"
+              ]
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Inspect the stabilized communities output carefully.",
+            "values": {
+              "nodes": "['auth', 'jwt', 'oauth', 'pg', 'sql', '…",
+              "edges": "[['auth', 'jwt', 1], ['jwt', 'oauth', 1…",
+              "iters": "6",
+              "adj": "{'auth': [['jwt', 1]]}"
+            },
+            "tones": {
+              "nodes": "ok",
+              "edges": "ok",
+              "iters": "ok",
+              "adj": "ok"
+            },
+            "arrows": [
+              [
+                "nodes",
+                "edges"
+              ],
+              [
+                "edges",
+                "iters"
+              ],
+              [
+                "iters",
+                "adj"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Map-Reduce Community Synthesis for Global Queries",
+      "codeHash": "afff7d79e74c5b351b364fc8e8af222131d6783ce414d8749329084269e38586",
+      "spec": {
+        "template": "bars",
+        "title": "Map-Reduce Community Synthesis for Global Queries",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Once dense communities carry precomputed structured summaries, answering.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "max_chars",
+                "value": {
+                  "var": "max_chars",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "used",
+                "value": {
+                  "var": "used",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "In the map phase, each community summary gets scored for relevance against.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "max_chars",
+                "value": {
+                  "var": "max_chars",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "used",
+                "value": {
+                  "var": "used",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Watch how cleanly `comm-ui` gets filtered out ahead of prompt packing when.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "max_chars",
+                "value": {
+                  "var": "max_chars",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+                "label": "used",
+                "value": {
+                  "var": "used",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "bars",
+        "title": "Map-Reduce Community Synthesis for Global Queries",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Once dense communities carry precomputed structured summaries, answering.",
+            "bars": [
+              {
+                "label": "max_chars",
+                "value": 180,
+                "tone": "data"
+              },
+              {
+                "label": "hits",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "used",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "score",
+                "value": 3,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "In the map phase, each community summary gets scored for relevance against.",
+            "bars": [
+              {
+                "label": "max_chars",
+                "value": 180,
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "used",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "score",
+                "value": 3,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Watch how cleanly `comm-ui` gets filtered out ahead of prompt packing when.",
+            "bars": [
+              {
+                "label": "max_chars",
+                "value": 180,
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "used",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "score",
+                "value": 3,
+                "tone": "ok"
               }
             ]
           }
@@ -272,1065 +898,165 @@
       }
     },
     {
-      "partTitle": "GraphRAG — Core Algorithm & State Representation",
-      "codeHash": "eaa36f2d8097bacd74dceb123ec0331c763b76cbb972d8407fe43d0593cb4df3",
+      "partTitle": "Local vs Global Query Dispatch in GraphRAG",
+      "codeHash": "fa6419fde4e777d4ba21030585406ea277492af5d701b5cfd01dbf932fb3385b",
       "spec": {
-        "template": "flow",
-        "title": "GraphRAG — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Local vs Global Query Dispatch in GraphRAG",
+        "actors": [
+          "KNOWN_ENTITIES",
+          "q",
+          "query"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Not every GraphRAG question warrants scanning global community summaries.",
+            "activeActor": "KNOWN_ENTITIES",
+            "messages": [
+              {
+                "from": "KNOWN_ENTITIES",
+                "to": "q",
+                "label": {
+                  "var": "KNOWN_ENTITIES",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "query",
+                "label": {
+                  "var": "q",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Routing cleanly checks whether normalized terms in the question match.",
+            "activeActor": "q",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "KNOWN_ENTITIES",
+                "to": "q",
+                "label": {
+                  "var": "KNOWN_ENTITIES",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "q",
+                "to": "query",
+                "label": {
+                  "var": "q",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Notice also how cleanly splitting hyphenated service names catches.",
+            "activeActor": "query",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "KNOWN_ENTITIES",
+                "to": "q",
+                "label": {
+                  "var": "KNOWN_ENTITIES",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "q",
+                "to": "query",
+                "label": {
+                  "var": "q",
+                  "line": 10,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "GraphRAG — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Local vs Global Query Dispatch in GraphRAG",
+        "actors": [
+          "KNOWN_ENTITIES",
+          "q",
+          "query"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Not every GraphRAG question warrants scanning global community summaries.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "KNOWN_ENTITIES",
+                "to": "q",
+                "label": "{'api-gateway', 'auth-service', 'postgr…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "q",
+                "to": "query",
+                "label": "'Which stores does auth-service depend …",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "KNOWN_ENTITIES"
           },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "GraphRAG — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "284847e4915e987a5d764fea7acd356da776c41d0c486a1ddcdb945e7251dd8f",
-      "spec": {
-        "template": "flow",
-        "title": "GraphRAG — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Routing cleanly checks whether normalized terms in the question match.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "KNOWN_ENTITIES",
+                "to": "q",
+                "label": "{'api-gateway', 'auth-service', 'postgr…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "q",
+                "to": "query",
+                "label": "'Which stores does auth-service depend …",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "q"
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "at": "say7",
+            "caption": "Notice also how cleanly splitting hyphenated service names catches.",
+            "messages": [
+              {
+                "from": "KNOWN_ENTITIES",
+                "to": "q",
+                "label": "{'api-gateway', 'auth-service', 'postgr…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "query",
+                "label": "'Summarize common operational reliabili…",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "GraphRAG — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "GraphRAG — Resilience Guardrails & Failure Recovery",
-      "codeHash": "ab48a52c49d9df63e5be12844a9596aa9dfae963664dba642e481c1d434e24ac",
-      "spec": {
-        "template": "flow",
-        "title": "GraphRAG — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "GraphRAG — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "GraphRAG — Production Telemetry & Verification Audit",
-      "codeHash": "317b1c2e0e0288d9f17fb17c2fbf465346566116a44e12d85f55c87e2599190b",
-      "spec": {
-        "template": "flow",
-        "title": "GraphRAG — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "GraphRAG — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "query"
           }
         ]
       }

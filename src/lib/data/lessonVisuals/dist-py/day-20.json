@@ -2,231 +2,113 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 20,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Cascading failures",
       "codeHash": "3c409de316b1dd869528c753bc30f6b0385a1b168786dfd10b8f7974b48957aa",
       "spec": {
-        "template": "flow",
-        "title": "Cascading failures — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Cascading failures",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "pool_size",
+            "label": "pool_size"
           },
           {
-            "id": "proc",
-            "label": "2. Cascading failures",
-            "tappable": true
+            "id": "busy",
+            "label": "busy"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "second",
+            "label": "second"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Cascading failures [Dtwenty.Pone.Sone].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Cascading failures [Dtwenty.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "When a dependency (say the payments service) becomes slow, callers wait on it.",
+            "currentState": "pool_size",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Slow is often worse than down.",
+            "currentState": "busy",
+            "transition": {
+              "from": "pool_size",
+              "to": "busy",
+              "label": {
+                "var": "busy",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Cascading failures [Dtwenty.Pone.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "Timeouts (Day 1) limit how long each call waits.",
+            "currentState": "second",
+            "transition": {
+              "from": "busy",
+              "to": "second",
+              "label": {
+                "var": "second",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cascading failures — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Cascading failures",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "pool_size",
+            "label": "pool_size"
           },
           {
-            "id": "proc",
-            "label": "2. Cascading failures",
-            "tappable": true
+            "id": "busy",
+            "label": "busy"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "second",
+            "label": "second"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Cascading failures [D20.P1.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Cascading failures [D20.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "When a dependency (say the payments service) becomes slow, callers wait on it.",
+            "currentState": "pool_size",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Slow is often worse than down.",
+            "currentState": "busy",
+            "transition": {
+              "from": "pool_size",
+              "to": "busy",
+              "label": "0"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Cascading failures [D20.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "Timeouts (Day 1) limit how long each call waits.",
+            "currentState": "second",
+            "transition": {
+              "from": "busy",
+              "to": "second",
+              "label": "1"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -235,94 +117,162 @@
       "partTitle": "The circuit breaker states",
       "codeHash": "03e410a30b4c9e3365ae228a26f91a56f2fd7b89aa670fcb5d63e212b965408d",
       "spec": {
-        "template": "states",
-        "title": "Circuit breaker transitions between closed open and half-open states",
-        "states": [
-          {
-            "id": "CLOSED",
-            "label": "CLOSED"
-          },
-          {
-            "id": "OPEN",
-            "label": "OPEN"
-          },
-          {
-            "id": "HALF_OPEN",
-            "label": "HALF_OPEN"
-          }
+        "template": "sequence",
+        "title": "The circuit breaker states",
+        "actors": [
+          "transitions",
+          "start",
+          "event"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A circuit breaker wraps dependency calls and has three states.",
-            "currentState": "CLOSED",
-            "tone": "ok"
+            "caption": "A circuit breaker wraps calls to a dependency and has three states.",
+            "activeActor": "transitions",
+            "messages": [
+              {
+                "from": "transitions",
+                "to": "start",
+                "label": {
+                  "var": "transitions",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "start",
+                "to": "event",
+                "label": {
+                  "var": "start",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "After too many failures calls are rejected immediately.",
-            "currentState": "OPEN",
-            "transition": {
-              "from": "CLOSED",
-              "to": "OPEN"
-            },
-            "tone": "error"
+            "caption": "After too many failures, calls are rejected immediately with an error.",
+            "activeActor": "start",
+            "messages": [
+              {
+                "from": "transitions",
+                "to": "start",
+                "label": {
+                  "var": "transitions",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "start",
+                "to": "event",
+                "label": {
+                  "var": "start",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "After reset timeout one trial call is allowed in HALF_OPEN.",
-            "currentState": "HALF_OPEN",
-            "transition": {
-              "from": "OPEN",
-              "to": "HALF_OPEN"
-            },
-            "tone": "idle"
+            "at": "say8",
+            "caption": "The example prints the state transitions for a sequence of outcomes.",
+            "activeActor": "event",
+            "messages": [
+              {
+                "from": "transitions",
+                "to": "start",
+                "label": {
+                  "var": "transitions",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "start",
+                "to": "event",
+                "label": {
+                  "var": "start",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Circuit breaker transitions between closed open and half-open states",
-        "states": [
-          {
-            "id": "CLOSED",
-            "label": "CLOSED"
-          },
-          {
-            "id": "OPEN",
-            "label": "OPEN"
-          },
-          {
-            "id": "HALF_OPEN",
-            "label": "HALF_OPEN"
-          }
+        "template": "sequence",
+        "title": "The circuit breaker states",
+        "actors": [
+          "transitions",
+          "start",
+          "event"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A circuit breaker wraps dependency calls and has three states.",
-            "currentState": "CLOSED",
-            "tone": "ok"
+            "caption": "A circuit breaker wraps calls to a dependency and has three states.",
+            "messages": [
+              {
+                "from": "transitions",
+                "to": "start",
+                "label": "[['CLOSED', 'failure count reaches thre…",
+                "tone": "data"
+              },
+              {
+                "from": "start",
+                "to": "event",
+                "label": "'CLOSED'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "transitions"
           },
           {
             "at": "say2",
-            "caption": "After too many failures calls are rejected immediately.",
-            "currentState": "OPEN",
-            "transition": {
-              "from": "CLOSED",
-              "to": "OPEN"
-            },
-            "tone": "error"
+            "caption": "After too many failures, calls are rejected immediately with an error.",
+            "messages": [
+              {
+                "from": "transitions",
+                "to": "start",
+                "label": "[['CLOSED', 'failure count reaches thre…",
+                "tone": "data"
+              },
+              {
+                "from": "start",
+                "to": "event",
+                "label": "'CLOSED'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "start"
           },
           {
-            "at": "say4",
-            "caption": "After reset timeout one trial call is allowed in HALF_OPEN.",
-            "currentState": "HALF_OPEN",
-            "transition": {
-              "from": "OPEN",
-              "to": "HALF_OPEN"
-            },
-            "tone": "idle"
+            "at": "say8",
+            "caption": "The example prints the state transitions for a sequence of outcomes.",
+            "messages": [
+              {
+                "from": "transitions",
+                "to": "start",
+                "label": "[['CLOSED', 'failure count reaches thre…",
+                "tone": "data"
+              },
+              {
+                "from": "start",
+                "to": "event",
+                "label": "'OPEN'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "event"
           }
         ]
       }
@@ -331,132 +281,162 @@
       "partTitle": "Implementing the breaker",
       "codeHash": "e21bd35d1126468c720963ce97e511c0a68007a79cf7116163f44a59ef16b905",
       "spec": {
-        "template": "compare",
-        "title": "Circuit breaker execution paths normal closed calls versus open trips",
-        "leftLabel": "Healthy Service (CLOSED)",
-        "rightLabel": "Failing Service (OPEN)",
+        "template": "sequence",
+        "title": "Implementing the breaker",
+        "actors": [
+          "self",
+          "threshold",
+          "reset_timeout_ms"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "If breaker is OPEN calls raise CircuitOpenError immediately.",
-            "left": {
-              "code": "fn() executes normally",
-              "result": {
-                "text": "ok"
+            "caption": "CircuitBreaker.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "threshold",
+                "label": {
+                  "var": "self",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "raise CircuitOpenError",
-              "result": {
-                "text": "circuit open"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "threshold",
+                "to": "reset_timeout_ms",
+                "label": {
+                  "var": "threshold",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Move to OPEN once failures reach threshold or trial fails.",
-            "left": {
-              "code": "failures count reset",
-              "result": {
-                "text": "CLOSED"
+            "at": "say2",
+            "caption": "If the timeout has passed, move to HALF_OPEN and let this call through.",
+            "activeActor": "threshold",
+            "messages": [
+              {
+                "from": "self",
+                "to": "threshold",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "trips open at threshold",
-              "result": {
-                "text": "OPEN"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "threshold",
+                "to": "reset_timeout_ms",
+                "label": {
+                  "var": "threshold",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say5",
-            "caption": "On success reset failures to zero and return result.",
-            "left": {
-              "code": "trial call succeeds",
-              "result": {
-                "text": "ok"
+            "at": "say8",
+            "caption": "The example drives the breaker through all states.",
+            "activeActor": "reset_timeout_ms",
+            "messages": [
+              {
+                "from": "self",
+                "to": "threshold",
+                "label": {
+                  "var": "self",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "dependency still down",
-              "result": {
-                "text": "payments down"
-              },
-              "tone": "idle"
-            }
+              {
+                "from": "threshold",
+                "to": "reset_timeout_ms",
+                "label": {
+                  "var": "threshold",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Circuit breaker execution paths normal closed calls versus open trips",
-        "leftLabel": "Healthy Service (CLOSED)",
-        "rightLabel": "Failing Service (OPEN)",
+        "template": "sequence",
+        "title": "Implementing the breaker",
+        "actors": [
+          "self",
+          "threshold",
+          "reset_timeout_ms"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "If breaker is OPEN calls raise CircuitOpenError immediately.",
-            "left": {
-              "code": "fn() executes normally",
-              "result": "ok",
-              "tone": "ok",
-              "checks": [
-                "ok"
-              ]
-            },
-            "right": {
-              "code": "raise CircuitOpenError",
-              "result": "circuit open",
-              "tone": "error",
-              "checks": [
-                "circuit open"
-              ]
-            }
+            "caption": "CircuitBreaker.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "threshold",
+                "label": "<CircuitBreaker>",
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "reset_timeout_ms",
+                "label": "3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
           },
           {
-            "at": "say3",
-            "caption": "Move to OPEN once failures reach threshold or trial fails.",
-            "left": {
-              "code": "failures count reset",
-              "result": "CLOSED",
-              "tone": "ok",
-              "checks": [
-                "CLOSED"
-              ]
-            },
-            "right": {
-              "code": "trips open at threshold",
-              "result": "OPEN",
-              "tone": "error",
-              "checks": [
-                "OPEN"
-              ]
-            }
+            "at": "say2",
+            "caption": "If the timeout has passed, move to HALF_OPEN and let this call through.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "threshold",
+                "label": "<CircuitBreaker>",
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "reset_timeout_ms",
+                "label": "3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "threshold"
           },
           {
-            "at": "say5",
-            "caption": "On success reset failures to zero and return result.",
-            "left": {
-              "code": "trial call succeeds",
-              "result": "ok",
-              "tone": "ok",
-              "checks": [
-                "ok"
-              ]
-            },
-            "right": {
-              "code": "dependency still down",
-              "result": "payments down",
-              "tone": "idle",
-              "checks": [
-                "payments down"
-              ]
-            }
+            "at": "say8",
+            "caption": "The example drives the breaker through all states.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "threshold",
+                "label": "<CircuitBreaker>",
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "reset_timeout_ms",
+                "label": "3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "reset_timeout_ms"
           }
         ]
       }
@@ -465,166 +445,162 @@
       "partTitle": "Reporting breaker status",
       "codeHash": "ab0546d065c3d6417186af3c9b0976fc36a31ea4da4e8d04f5876430a767165e",
       "spec": {
-        "template": "table",
-        "title": "Circuit breaker status formatting telemetry metrics and alerting",
-        "columns": [
-          "dep",
-          "state"
+        "template": "sequence",
+        "title": "Reporting breaker status",
+        "actors": [
+          "STATE_METRIC",
+          "breakers",
+          "dep"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function format_circuit_status returns consistent status string.",
-            "rows": [
+            "caption": "Format_circuit_status(state) returns \"[CIRCUIT].",
+            "activeActor": "STATE_METRIC",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "inventory"
-                  },
-                  {
-                    "text": "CLOSED"
-                  }
-                ],
+                "from": "STATE_METRIC",
+                "to": "breakers",
+                "label": {
+                  "var": "STATE_METRIC",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "breakers",
+                "to": "dep",
+                "label": {
+                  "var": "breakers",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "An OPEN breaker is an important signal for on call engineers.",
-            "rows": [
+            "caption": "Log every state change with the dependency name and the reason.",
+            "activeActor": "breakers",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "inventory"
-                  },
-                  {
-                    "text": "CLOSED"
-                  }
-                ],
-                "tone": "ok"
+                "from": "STATE_METRIC",
+                "to": "breakers",
+                "label": {
+                  "var": "STATE_METRIC",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "payments"
-                  },
-                  {
-                    "text": "OPEN"
-                  }
-                ],
-                "tone": "error"
+                "from": "breakers",
+                "to": "dep",
+                "label": {
+                  "var": "breakers",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Alert when a breaker stays open longer than expected.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example logs transitions for three dependencies.",
+            "activeActor": "dep",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "inventory"
-                  },
-                  {
-                    "text": "CLOSED"
-                  }
-                ],
+                "from": "STATE_METRIC",
+                "to": "breakers",
+                "label": {
+                  "var": "STATE_METRIC",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "breakers",
+                "to": "dep",
+                "label": {
+                  "var": "breakers",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "payments"
-                  },
-                  {
-                    "text": "OPEN"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "recommendations"
-                  },
-                  {
-                    "text": "HALF_OPEN"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Circuit breaker status formatting telemetry metrics and alerting",
-        "columns": [
-          "dep",
-          "state"
+        "template": "sequence",
+        "title": "Reporting breaker status",
+        "actors": [
+          "STATE_METRIC",
+          "breakers",
+          "dep"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function format_circuit_status returns consistent status string.",
-            "rows": [
+            "caption": "Format_circuit_status(state) returns \"[CIRCUIT].",
+            "messages": [
               {
-                "cells": [
-                  "inventory",
-                  "CLOSED"
-                ],
+                "from": "STATE_METRIC",
+                "to": "breakers",
+                "label": "{'CLOSED': 0, 'HALF_OPEN': 1, 'OPEN': 2}",
+                "tone": "data"
+              },
+              {
+                "from": "breakers",
+                "to": "dep",
+                "label": "{'payments': 'OPEN', 'inventory': 'CLOS…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "STATE_METRIC"
           },
           {
             "at": "say2",
-            "caption": "An OPEN breaker is an important signal for on call engineers.",
-            "rows": [
+            "caption": "Log every state change with the dependency name and the reason.",
+            "messages": [
               {
-                "cells": [
-                  "inventory",
-                  "CLOSED"
-                ],
-                "tone": "ok"
+                "from": "STATE_METRIC",
+                "to": "breakers",
+                "label": "{'CLOSED': 0, 'HALF_OPEN': 1, 'OPEN': 2}",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "payments",
-                  "OPEN"
-                ],
-                "tone": "error"
+                "from": "breakers",
+                "to": "dep",
+                "label": "{'payments': 'OPEN', 'inventory': 'CLOS…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "breakers"
           },
           {
-            "at": "say5",
-            "caption": "Alert when a breaker stays open longer than expected.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example logs transitions for three dependencies.",
+            "messages": [
               {
-                "cells": [
-                  "inventory",
-                  "CLOSED"
-                ],
+                "from": "STATE_METRIC",
+                "to": "breakers",
+                "label": "{'CLOSED': 0, 'HALF_OPEN': 1, 'OPEN': 2}",
+                "tone": "data"
+              },
+              {
+                "from": "breakers",
+                "to": "dep",
+                "label": "{'payments': 'OPEN', 'inventory': 'CLOS…",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "payments",
-                  "OPEN"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "recommendations",
-                  "HALF_OPEN"
-                ],
-                "tone": "idle"
               }
-            ]
+            ],
+            "activeActor": "dep"
           }
         ]
       }
@@ -633,93 +609,91 @@
       "partTitle": "Bulkheads",
       "codeHash": "d69802055c56a93d6db6142a13328c3594139385089d3f15526a31335916dc50",
       "spec": {
-        "template": "table",
-        "title": "Bulkhead isolated connection pools preventing resource starvation",
-        "columns": [
-          "dep",
-          "pools"
+        "template": "sequence",
+        "title": "Bulkheads",
+        "actors": [
+          "pools",
+          "in_use",
+          "dep"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A bulkhead isolates resources so one failing dependency cannot use all.",
-            "rows": [
+            "caption": "A bulkhead isolates resources so one failing dependency cannot use them all.",
+            "activeActor": "pools",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "payments"
-                  },
-                  {
-                    "text": "4"
-                  }
-                ],
+                "from": "pools",
+                "to": "in_use",
+                "label": {
+                  "var": "pools",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "in_use",
+                "to": "dep",
+                "label": {
+                  "var": "in_use",
+                  "line": 2,
+                  "hit": 4
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Give each dependency its own limited pool of connections.",
-            "rows": [
+            "caption": "Give each dependency its own limited pool of threads or connections.",
+            "activeActor": "in_use",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "payments"
-                  },
-                  {
-                    "text": "4"
-                  }
-                ],
-                "tone": "ok"
+                "from": "pools",
+                "to": "in_use",
+                "label": {
+                  "var": "pools",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "inventory"
-                  },
-                  {
-                    "text": "4"
-                  }
-                ],
+                "from": "in_use",
+                "to": "dep",
+                "label": {
+                  "var": "in_use",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Bulkheads work together with circuit breakers to limit damage.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example gives each dependency its own pool.",
+            "activeActor": "dep",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "payments"
-                  },
-                  {
-                    "text": "4"
-                  }
-                ],
-                "tone": "error"
+                "from": "pools",
+                "to": "in_use",
+                "label": {
+                  "var": "pools",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "inventory"
-                  },
-                  {
-                    "text": "4"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "search"
-                  },
-                  {
-                    "text": "4"
-                  }
-                ],
+                "from": "in_use",
+                "to": "dep",
+                "label": {
+                  "var": "in_use",
+                  "line": 12,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -727,72 +701,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Bulkhead isolated connection pools preventing resource starvation",
-        "columns": [
-          "dep",
-          "pools"
+        "template": "sequence",
+        "title": "Bulkheads",
+        "actors": [
+          "pools",
+          "in_use",
+          "dep"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A bulkhead isolates resources so one failing dependency cannot use all.",
-            "rows": [
+            "caption": "A bulkhead isolates resources so one failing dependency cannot use them all.",
+            "messages": [
               {
-                "cells": [
-                  "payments",
-                  "4"
-                ],
+                "from": "pools",
+                "to": "in_use",
+                "label": "{'payments': 4, 'inventory': 4, 'search…",
+                "tone": "data"
+              },
+              {
+                "from": "in_use",
+                "to": "dep",
+                "label": "{'payments': 0, 'inventory': 0, 'search…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "pools"
           },
           {
             "at": "say2",
-            "caption": "Give each dependency its own limited pool of connections.",
-            "rows": [
+            "caption": "Give each dependency its own limited pool of threads or connections.",
+            "messages": [
               {
-                "cells": [
-                  "payments",
-                  "4"
-                ],
-                "tone": "ok"
+                "from": "pools",
+                "to": "in_use",
+                "label": "{'payments': 4, 'inventory': 4, 'search…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "inventory",
-                  "4"
-                ],
+                "from": "in_use",
+                "to": "dep",
+                "label": "{'payments': 0, 'inventory': 0, 'search…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "in_use"
           },
           {
-            "at": "say3",
-            "caption": "Bulkheads work together with circuit breakers to limit damage.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example gives each dependency its own pool.",
+            "messages": [
               {
-                "cells": [
-                  "payments",
-                  "4"
-                ],
-                "tone": "error"
+                "from": "pools",
+                "to": "in_use",
+                "label": "{'payments': 4, 'inventory': 4, 'search…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "inventory",
-                  "4"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "search",
-                  "4"
-                ],
+                "from": "in_use",
+                "to": "dep",
+                "label": "{'payments': 0, 'inventory': 0, 'search…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "dep"
           }
         ]
       }
@@ -802,110 +774,161 @@
       "codeHash": "017dbff2dc0bec1710bf79915836aa54e7da768dd7ad57f04feb2b79299c23ae",
       "spec": {
         "template": "flow",
-        "title": "Fallbacks and graceful degradation — Execution Pipeline",
+        "title": "Fallbacks and graceful degradation",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "cache",
+            "label": "cache"
           },
           {
-            "id": "proc",
-            "label": "2. Fallbacks and grace...",
-            "tappable": true
+            "id": "user",
+            "label": "user"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "breaker_open",
+            "label": "breaker_open"
+          },
+          {
+            "id": "amount",
+            "label": "amount"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Fallbacks and graceful degradation.",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Fallbacks and grace... [Dtwenty.Psix.Stwo].",
+            "caption": "When a call fails or the breaker is open, return a fallback where possible.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "cache": {
+                "var": "cache",
+                "line": 1,
+                "hit": 1
+              },
+              "user": {
+                "var": "user",
+                "line": 4,
+                "hit": 1
+              },
+              "breaker_open": {
+                "var": "breaker_open",
+                "line": 4,
+                "hit": 1
+              },
+              "amount": {
+                "var": "amount",
+                "line": 9,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "cache": "data",
+              "user": "data",
+              "breaker_open": "data",
+              "amount": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cache",
+                "user"
               ],
               [
-                "proc",
-                "out"
+                "user",
+                "breaker_open"
+              ],
+              [
+                "breaker_open",
+                "amount"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Recommendations down.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "cache": {
+                "var": "cache",
+                "line": 3,
+                "hit": 1
+              },
+              "user": {
+                "var": "user",
+                "line": 5,
+                "hit": 1
+              },
+              "breaker_open": {
+                "var": "breaker_open",
+                "line": 5,
+                "hit": 1
+              },
+              "amount": {
+                "var": "amount",
+                "line": 10,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "cache": "data",
+              "user": "data",
+              "breaker_open": "data",
+              "amount": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "cache",
+                "user"
+              ],
+              [
+                "user",
+                "breaker_open"
+              ],
+              [
+                "breaker_open",
+                "amount"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Fallbacks and graceful degradation.",
+            "at": "say7",
+            "caption": "Tomorrow's milestone combines rate limiting and circuit breakers into.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "cache": {
+                "var": "cache",
+                "line": 8,
+                "hit": 1
+              },
+              "user": {
+                "var": "user",
+                "line": 5,
+                "hit": 1
+              },
+              "breaker_open": {
+                "var": "breaker_open",
+                "line": 9,
+                "hit": 1
+              },
+              "amount": {
+                "var": "amount",
+                "line": 10,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "cache": "ok",
+              "user": "ok",
+              "breaker_open": "ok",
+              "amount": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cache",
+                "user"
               ],
               [
-                "proc",
-                "out"
+                "user",
+                "breaker_open"
+              ],
+              [
+                "breaker_open",
+                "amount"
               ]
             ]
           }
@@ -913,110 +936,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Fallbacks and graceful degradation — Execution Pipeline",
+        "title": "Fallbacks and graceful degradation",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "cache",
+            "label": "cache"
           },
           {
-            "id": "proc",
-            "label": "2. Fallbacks and grace...",
-            "tappable": true
+            "id": "user",
+            "label": "user"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "breaker_open",
+            "label": "breaker_open"
+          },
+          {
+            "id": "amount",
+            "label": "amount"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Fallbacks and graceful degradation [D20.P6.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Fallbacks and grace... [D20.P6.S2].",
+            "caption": "When a call fails or the breaker is open, return a fallback where possible.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "cache": "{'recs:u1': ['popular item A', 'popular…",
+              "user": "'u1'",
+              "breaker_open": "True",
+              "amount": "499"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "cache": "data",
+              "user": "data",
+              "breaker_open": "data",
+              "amount": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cache",
+                "user"
               ],
               [
-                "proc",
-                "out"
+                "user",
+                "breaker_open"
+              ],
+              [
+                "breaker_open",
+                "amount"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P6.S3].",
+            "at": "say2",
+            "caption": "Recommendations down.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "cache": "{'recs:u1': ['popular item A', 'popular…",
+              "user": "'u1'",
+              "breaker_open": "True",
+              "amount": "499"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "cache": "data",
+              "user": "data",
+              "breaker_open": "data",
+              "amount": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "cache",
+                "user"
+              ],
+              [
+                "user",
+                "breaker_open"
+              ],
+              [
+                "breaker_open",
+                "amount"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Fallbacks and graceful degradation [D20.P6.S4].",
+            "at": "say7",
+            "caption": "Tomorrow's milestone combines rate limiting and circuit breakers into.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "cache": "{'recs:u1': ['popular item A', 'popular…",
+              "user": "'u1'",
+              "breaker_open": "True",
+              "amount": "499"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "cache": "ok",
+              "user": "ok",
+              "breaker_open": "ok",
+              "amount": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cache",
+                "user"
               ],
               [
-                "proc",
-                "out"
+                "user",
+                "breaker_open"
+              ],
+              [
+                "breaker_open",
+                "amount"
               ]
             ]
           }

@@ -2,150 +2,138 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 6,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What market impact is",
       "codeHash": "141229d7e03de27c3ab2b2eaab11ad6d93db3d1e9d7de11fd56952d04f54e1c9",
       "spec": {
-        "template": "table",
-        "title": "Market impact mechanics and square root scaling",
-        "columns": [
-          "shares",
-          "daily_volume"
-        ],
+        "template": "bars",
+        "title": "What market impact is",
         "steps": [
           {
             "at": "say1",
-            "caption": "Market impact shifts prices when aggressive trading consumes order book depth.",
-            "rows": [
+            "caption": "Market impact is the price move caused by your own trading.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "shares"
-                  },
-                  {
-                    "text": "daily_volume"
-                  }
-                ],
-                "tone": "ok"
+                "label": "daily_volume",
+                "value": {
+                  "var": "daily_volume",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "volatility_bps",
+                "value": {
+                  "var": "volatility_bps",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "shares",
+                "value": {
+                  "var": "shares",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "impact_bps",
+                "value": {
+                  "var": "impact_bps",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Impact constitutes the largest execution expense for institutional investors.",
-            "rows": [
+            "caption": "Impact is usually the largest trading cost for big investors, bigger than.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "shares"
-                  },
-                  {
-                    "text": "daily_volume"
-                  }
-                ],
+                "label": "daily_volume",
+                "value": {
+                  "var": "daily_volume",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "volatility_bps"
-                  },
-                  {
-                    "text": "impact_bps"
-                  }
-                ],
+                "label": "volatility_bps",
+                "value": {
+                  "var": "volatility_bps",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "shares",
+                "value": {
+                  "var": "shares",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "impact_bps",
+                "value": {
+                  "var": "impact_bps",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Temporary impact fades while permanent price shifts persist indefinitely.",
-            "rows": [
+            "at": "say7",
+            "caption": "Keep the idea simple.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "shares"
-                  },
-                  {
-                    "text": "daily_volume"
-                  }
-                ],
+                "label": "daily_volume",
+                "value": {
+                  "var": "daily_volume",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "volatility_bps"
-                  },
-                  {
-                    "text": "impact_bps"
-                  }
-                ],
+                "label": "volatility_bps",
+                "value": {
+                  "var": "volatility_bps",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example applies square root impact scaling across varying order sizes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "shares"
-                  },
-                  {
-                    "text": "daily_volume"
-                  }
-                ],
+                "label": "shares",
+                "value": {
+                  "var": "shares",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "volatility_bps"
-                  },
-                  {
-                    "text": "impact_bps"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "shares"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "impact_bps",
+                "value": {
+                  "var": "impact_bps",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -153,103 +141,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Market impact mechanics and square root scaling",
-        "columns": [
-          "shares",
-          "daily_volume"
-        ],
+        "template": "bars",
+        "title": "What market impact is",
         "steps": [
           {
             "at": "say1",
-            "caption": "Market impact shifts prices when aggressive trading consumes order book depth.",
-            "rows": [
+            "caption": "Market impact is the price move caused by your own trading.",
+            "bars": [
               {
-                "cells": [
-                  "shares",
-                  "daily_volume"
-                ],
-                "tone": "ok"
+                "label": "daily_volume",
+                "value": 2000000,
+                "tone": "data"
+              },
+              {
+                "label": "volatility_bps",
+                "value": 150,
+                "tone": "data"
+              },
+              {
+                "label": "shares",
+                "value": 10000,
+                "tone": "data"
+              },
+              {
+                "label": "impact_bps",
+                "value": 10.606601717798213,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Impact constitutes the largest execution expense for institutional investors.",
-            "rows": [
+            "caption": "Impact is usually the largest trading cost for big investors, bigger than.",
+            "bars": [
               {
-                "cells": [
-                  "shares",
-                  "daily_volume"
-                ],
+                "label": "daily_volume",
+                "value": 2000000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "volatility_bps",
-                  "impact_bps"
-                ],
+                "label": "volatility_bps",
+                "value": 150,
+                "tone": "ok"
+              },
+              {
+                "label": "shares",
+                "value": 10000,
+                "tone": "ok"
+              },
+              {
+                "label": "impact_bps",
+                "value": 10.606601717798213,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Temporary impact fades while permanent price shifts persist indefinitely.",
-            "rows": [
+            "at": "say7",
+            "caption": "Keep the idea simple.",
+            "bars": [
               {
-                "cells": [
-                  "shares",
-                  "daily_volume"
-                ],
+                "label": "daily_volume",
+                "value": 2000000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "volatility_bps",
-                  "impact_bps"
-                ],
+                "label": "volatility_bps",
+                "value": 150,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "math",
-                  "sqrt"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example applies square root impact scaling across varying order sizes.",
-            "rows": [
-              {
-                "cells": [
-                  "shares",
-                  "daily_volume"
-                ],
+                "label": "shares",
+                "value": 10000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "volatility_bps",
-                  "impact_bps"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "sqrt"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "shares",
-                  "print"
-                ],
+                "label": "impact_bps",
+                "value": 10.606601717798213,
                 "tone": "ok"
               }
             ]
@@ -261,143 +229,131 @@
       "partTitle": "The Almgren-Chriss model",
       "codeHash": "fb275120b65ec59d75ec22db655b49dc6566b1bf186e8925de441e56fb8056fe",
       "spec": {
-        "template": "table",
-        "title": "Almgren-Chriss permanent and temporary cost decomposition",
-        "columns": [
-          "permanent",
-          "temporary"
-        ],
+        "template": "bars",
+        "title": "The Almgren-Chriss model",
         "steps": [
           {
             "at": "say1",
-            "caption": "Optimal execution models balance impact expenses against timing exposure risks.",
-            "rows": [
+            "caption": "In 2000, Robert Almgren and Neil Chriss published a model for optimal.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "permanent"
-                  },
-                  {
-                    "text": "temporary"
-                  }
-                ],
-                "tone": "ok"
+                "label": "rate",
+                "value": {
+                  "var": "rate",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "shares",
+                "value": {
+                  "var": "shares",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "gamma",
+                "value": {
+                  "var": "gamma",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "eta",
+                "value": {
+                  "var": "eta",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Permanent impact cost accumulates quadratically with total traded shares.",
-            "rows": [
+            "caption": "Trace how simple updates version during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "permanent"
-                  },
-                  {
-                    "text": "temporary"
-                  }
-                ],
+                "label": "rate",
+                "value": {
+                  "var": "rate",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "gamma"
-                  },
-                  {
-                    "text": "shares"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Temporary impact expands linearly as trading velocity increases.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "permanent"
-                  },
-                  {
-                    "text": "temporary"
-                  }
-                ],
+                "label": "shares",
+                "value": {
+                  "var": "shares",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "gamma"
-                  },
-                  {
-                    "text": "shares"
-                  }
-                ],
+                "label": "gamma",
+                "value": {
+                  "var": "gamma",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "eta"
-                  },
-                  {
-                    "text": "rate"
-                  }
-                ],
-                "tone": "data"
+                "label": "eta",
+                "value": {
+                  "var": "eta",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example shows how costs respond when execution trading accelerates.",
-            "rows": [
+            "caption": "The example shows how the two costs respond to trading faster.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "permanent"
-                  },
-                  {
-                    "text": "temporary"
-                  }
-                ],
+                "label": "rate",
+                "value": {
+                  "var": "rate",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "gamma"
-                  },
-                  {
-                    "text": "shares"
-                  }
-                ],
+                "label": "shares",
+                "value": {
+                  "var": "shares",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "eta"
-                  },
-                  {
-                    "text": "rate"
-                  }
-                ],
-                "tone": "data"
+                "label": "gamma",
+                "value": {
+                  "var": "gamma",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "impact_cost"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
+                "label": "eta",
+                "value": {
+                  "var": "eta",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -405,103 +361,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Almgren-Chriss permanent and temporary cost decomposition",
-        "columns": [
-          "permanent",
-          "temporary"
-        ],
+        "template": "bars",
+        "title": "The Almgren-Chriss model",
         "steps": [
           {
             "at": "say1",
-            "caption": "Optimal execution models balance impact expenses against timing exposure risks.",
-            "rows": [
+            "caption": "In 2000, Robert Almgren and Neil Chriss published a model for optimal.",
+            "bars": [
               {
-                "cells": [
-                  "permanent",
-                  "temporary"
-                ],
-                "tone": "ok"
+                "label": "rate",
+                "value": 500,
+                "tone": "data"
+              },
+              {
+                "label": "shares",
+                "value": 10000,
+                "tone": "data"
+              },
+              {
+                "label": "gamma",
+                "value": 0.000001,
+                "tone": "data"
+              },
+              {
+                "label": "eta",
+                "value": 0.000002,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Permanent impact cost accumulates quadratically with total traded shares.",
-            "rows": [
+            "caption": "Trace how simple updates version during execution.",
+            "bars": [
               {
-                "cells": [
-                  "permanent",
-                  "temporary"
-                ],
+                "label": "rate",
+                "value": 500,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "gamma",
-                  "shares"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Temporary impact expands linearly as trading velocity increases.",
-            "rows": [
-              {
-                "cells": [
-                  "permanent",
-                  "temporary"
-                ],
+                "label": "shares",
+                "value": 10000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "gamma",
-                  "shares"
-                ],
+                "label": "gamma",
+                "value": 0.000001,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "eta",
-                  "rate"
-                ],
-                "tone": "data"
+                "label": "eta",
+                "value": 0.000002,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example shows how costs respond when execution trading accelerates.",
-            "rows": [
+            "caption": "The example shows how the two costs respond to trading faster.",
+            "bars": [
               {
-                "cells": [
-                  "permanent",
-                  "temporary"
-                ],
+                "label": "rate",
+                "value": 500,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "gamma",
-                  "shares"
-                ],
+                "label": "shares",
+                "value": 10000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "eta",
-                  "rate"
-                ],
-                "tone": "data"
+                "label": "gamma",
+                "value": 0.000001,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "impact_cost",
-                  "round"
-                ],
+                "label": "eta",
+                "value": 0.000002,
                 "tone": "ok"
               }
             ]
@@ -513,249 +449,277 @@
       "partTitle": "Speed versus risk",
       "codeHash": "3aa6c6e69c02aa6763cbbe69f159c89f1df57c06add0998c7cbf15f38b60538a",
       "spec": {
-        "template": "table",
-        "title": "Execution trajectory optimization and risk aversion frontier",
-        "columns": [
-          "impact",
-          "risk"
+        "template": "flow",
+        "title": "Speed versus risk",
+        "nodes": [
+          {
+            "id": "shares",
+            "label": "shares"
+          },
+          {
+            "id": "eta",
+            "label": "eta"
+          },
+          {
+            "id": "sigma",
+            "label": "sigma"
+          },
+          {
+            "id": "risk_aversion",
+            "label": "risk_aversion"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Trading slowly lowers impact but invites adverse random price movements.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "impact"
-                  },
-                  {
-                    "text": "risk"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "If trading slowly is cheaper, why not trade very slowly.",
+            "values": {
+              "shares": {
+                "var": "shares",
+                "line": 3,
+                "hit": 1
+              },
+              "eta": {
+                "var": "eta",
+                "line": 3,
+                "hit": 1
+              },
+              "sigma": {
+                "var": "sigma",
+                "line": 3,
+                "hit": 1
+              },
+              "risk_aversion": {
+                "var": "risk_aversion",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "shares": "data",
+              "eta": "data",
+              "sigma": "data",
+              "risk_aversion": "data"
+            },
+            "arrows": [
+              [
+                "shares",
+                "eta"
+              ],
+              [
+                "eta",
+                "sigma"
+              ],
+              [
+                "sigma",
+                "risk_aversion"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Timing risk expands across exposure horizons driven by underlying volatility.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "impact"
-                  },
-                  {
-                    "text": "risk"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "This timing risk grows with the square root of the time you are exposed.",
+            "values": {
+              "shares": {
+                "var": "shares",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "shares"
-                  },
-                  {
-                    "text": "minutes"
-                  }
-                ],
-                "tone": "ok"
+              "eta": {
+                "var": "eta",
+                "line": 4,
+                "hit": 1
+              },
+              "sigma": {
+                "var": "sigma",
+                "line": 4,
+                "hit": 1
+              },
+              "risk_aversion": {
+                "var": "risk_aversion",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "shares": "data",
+              "eta": "data",
+              "sigma": "data",
+              "risk_aversion": "data"
+            },
+            "arrows": [
+              [
+                "shares",
+                "eta"
+              ],
+              [
+                "eta",
+                "sigma"
+              ],
+              [
+                "sigma",
+                "risk_aversion"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Higher risk aversion parameters demand faster front-loaded schedules.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "impact"
-                  },
-                  {
-                    "text": "risk"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "This same trade-off appears in every execution decision you will make.",
+            "values": {
+              "shares": {
+                "var": "shares",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "shares"
-                  },
-                  {
-                    "text": "minutes"
-                  }
-                ],
-                "tone": "ok"
+              "eta": {
+                "var": "eta",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "risk_aversion"
-                  },
-                  {
-                    "text": "sigma"
-                  }
-                ],
-                "tone": "data"
+              "sigma": {
+                "var": "sigma",
+                "line": 5,
+                "hit": 1
+              },
+              "risk_aversion": {
+                "var": "risk_aversion",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example identifies optimal trade-off horizons along the total curve.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "impact"
-                  },
-                  {
-                    "text": "risk"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "shares"
-                  },
-                  {
-                    "text": "minutes"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "risk_aversion"
-                  },
-                  {
-                    "text": "sigma"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "best"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "shares": "ok",
+              "eta": "ok",
+              "sigma": "ok",
+              "risk_aversion": "ok"
+            },
+            "arrows": [
+              [
+                "shares",
+                "eta"
+              ],
+              [
+                "eta",
+                "sigma"
+              ],
+              [
+                "sigma",
+                "risk_aversion"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Execution trajectory optimization and risk aversion frontier",
-        "columns": [
-          "impact",
-          "risk"
+        "template": "flow",
+        "title": "Speed versus risk",
+        "nodes": [
+          {
+            "id": "shares",
+            "label": "shares"
+          },
+          {
+            "id": "eta",
+            "label": "eta"
+          },
+          {
+            "id": "sigma",
+            "label": "sigma"
+          },
+          {
+            "id": "risk_aversion",
+            "label": "risk_aversion"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Trading slowly lowers impact but invites adverse random price movements.",
-            "rows": [
-              {
-                "cells": [
-                  "impact",
-                  "risk"
-                ],
-                "tone": "ok"
-              }
+            "caption": "If trading slowly is cheaper, why not trade very slowly.",
+            "values": {
+              "shares": "100000",
+              "eta": "0.000002",
+              "sigma": "0.8",
+              "risk_aversion": "0.02"
+            },
+            "tones": {
+              "shares": "data",
+              "eta": "data",
+              "sigma": "data",
+              "risk_aversion": "data"
+            },
+            "arrows": [
+              [
+                "shares",
+                "eta"
+              ],
+              [
+                "eta",
+                "sigma"
+              ],
+              [
+                "sigma",
+                "risk_aversion"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Timing risk expands across exposure horizons driven by underlying volatility.",
-            "rows": [
-              {
-                "cells": [
-                  "impact",
-                  "risk"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "shares",
-                  "minutes"
-                ],
-                "tone": "ok"
-              }
+            "caption": "This timing risk grows with the square root of the time you are exposed.",
+            "values": {
+              "shares": "100000",
+              "eta": "0.000002",
+              "sigma": "0.8",
+              "risk_aversion": "0.02"
+            },
+            "tones": {
+              "shares": "data",
+              "eta": "data",
+              "sigma": "data",
+              "risk_aversion": "data"
+            },
+            "arrows": [
+              [
+                "shares",
+                "eta"
+              ],
+              [
+                "eta",
+                "sigma"
+              ],
+              [
+                "sigma",
+                "risk_aversion"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Higher risk aversion parameters demand faster front-loaded schedules.",
-            "rows": [
-              {
-                "cells": [
-                  "impact",
-                  "risk"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "shares",
-                  "minutes"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "risk_aversion",
-                  "sigma"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example identifies optimal trade-off horizons along the total curve.",
-            "rows": [
-              {
-                "cells": [
-                  "impact",
-                  "risk"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "shares",
-                  "minutes"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "risk_aversion",
-                  "sigma"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "total",
-                  "best"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "This same trade-off appears in every execution decision you will make.",
+            "values": {
+              "shares": "100000",
+              "eta": "0.000002",
+              "sigma": "0.8",
+              "risk_aversion": "0.02"
+            },
+            "tones": {
+              "shares": "ok",
+              "eta": "ok",
+              "sigma": "ok",
+              "risk_aversion": "ok"
+            },
+            "arrows": [
+              [
+                "shares",
+                "eta"
+              ],
+              [
+                "eta",
+                "sigma"
+              ],
+              [
+                "sigma",
+                "risk_aversion"
+              ]
             ]
           }
         ]
@@ -765,143 +729,91 @@
       "partTitle": "Slippage",
       "codeHash": "ee0c0cb65bffa72037c8a1e568b5a210dfc0398849a99a6a5cffdc8bc3c5eafa",
       "spec": {
-        "template": "table",
-        "title": "Implementation shortfall and arrival slippage benchmarking",
-        "columns": [
+        "template": "sequence",
+        "title": "Slippage",
+        "actors": [
           "decision",
-          "fill"
+          "fill",
+          "side"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Slippage measures execution performance against initial benchmark price.",
-            "rows": [
+            "caption": "Slippage measures how much worse your execution was than a benchmark.",
+            "activeActor": "decision",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "decision"
-                  },
-                  {
-                    "text": "fill"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Negative slippage occurs when price moves favourably during execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "decision"
-                  },
-                  {
-                    "text": "fill"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "BUY"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Implementation shortfall captures total execution quality and price gap.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "decision"
-                  },
-                  {
-                    "text": "fill"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "BUY"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "diff"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
+                "from": "decision",
+                "to": "fill",
+                "label": {
+                  "var": "decision",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "fill",
+                "to": "side",
+                "label": {
+                  "var": "fill",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Paying more than the decision price is a positive cost.",
+            "activeActor": "fill",
+            "messages": [
+              {
+                "from": "decision",
+                "to": "fill",
+                "label": {
+                  "var": "decision",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fill",
+                "to": "side",
+                "label": {
+                  "var": "fill",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example computes slippage metrics across buy and sell executions.",
-            "rows": [
+            "caption": "The example computes slippage for a few fills on both sides.",
+            "activeActor": "side",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "decision"
-                  },
-                  {
-                    "text": "fill"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "BUY"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "diff"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
+                "from": "decision",
+                "to": "fill",
+                "label": {
+                  "var": "decision",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "slippage_bps"
-                  },
-                  {
-                    "text": "SELL"
-                  }
-                ],
+                "from": "fill",
+                "to": "side",
+                "label": {
+                  "var": "fill",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -909,106 +821,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Implementation shortfall and arrival slippage benchmarking",
-        "columns": [
+        "template": "sequence",
+        "title": "Slippage",
+        "actors": [
           "decision",
-          "fill"
+          "fill",
+          "side"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Slippage measures execution performance against initial benchmark price.",
-            "rows": [
+            "caption": "Slippage measures how much worse your execution was than a benchmark.",
+            "messages": [
               {
-                "cells": [
-                  "decision",
-                  "fill"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Negative slippage occurs when price moves favourably during execution.",
-            "rows": [
-              {
-                "cells": [
-                  "decision",
-                  "fill"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "side",
-                  "BUY"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Implementation shortfall captures total execution quality and price gap.",
-            "rows": [
-              {
-                "cells": [
-                  "decision",
-                  "fill"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "side",
-                  "BUY"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "diff",
-                  "round"
-                ],
+                "from": "decision",
+                "to": "fill",
+                "label": "100",
                 "tone": "data"
+              },
+              {
+                "from": "fill",
+                "to": "side",
+                "label": "100.05",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "decision"
+          },
+          {
+            "at": "say2",
+            "caption": "Paying more than the decision price is a positive cost.",
+            "messages": [
+              {
+                "from": "decision",
+                "to": "fill",
+                "label": "100",
+                "tone": "data"
+              },
+              {
+                "from": "fill",
+                "to": "side",
+                "label": "100.05",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "fill"
           },
           {
             "at": "say7",
-            "caption": "The example computes slippage metrics across buy and sell executions.",
-            "rows": [
+            "caption": "The example computes slippage for a few fills on both sides.",
+            "messages": [
               {
-                "cells": [
-                  "decision",
-                  "fill"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "side",
-                  "BUY"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "diff",
-                  "round"
-                ],
+                "from": "decision",
+                "to": "fill",
+                "label": "100",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "slippage_bps",
-                  "SELL"
-                ],
+                "from": "fill",
+                "to": "side",
+                "label": "100.05",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "side"
           }
         ]
       }
@@ -1017,223 +893,109 @@
       "partTitle": "Transaction cost analysis",
       "codeHash": "a7aede8075d590bc8823845d4f36f0a70f3d99d4d40a235c4256d4d7557f6c2c",
       "spec": {
-        "template": "flow",
-        "title": "Transaction cost analysis — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Transaction cost an...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Transaction cost analysis",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Transaction cost analysis [Dsix.Pfive.Sone].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Transaction cost an... [Dsix.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Transaction cost analysis (TCA) is the regular review of execution quality.",
+            "items": {
+              "var": "o",
+              "line": 6,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "For each order, TCA compares the average fill price with several benchmarks.",
+            "items": {
+              "var": "o",
+              "line": 6,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Transaction cost analysis.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Weighting by size matters.",
+            "items": {
+              "var": "o",
+              "line": 6,
+              "hit": 4
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Transaction cost analysis — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Transaction cost an...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Transaction cost analysis",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Transaction cost analysis [D6.P5.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Transaction cost an... [D6.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Transaction cost analysis (TCA) is the regular review of execution quality.",
+            "items": [
+              "'A'",
+              "50000",
+              "3.2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "For each order, TCA compares the average fill price with several benchmarks.",
+            "items": [
+              "'C'",
+              "120000",
+              "6.8"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Transaction cost analysis [D6.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Weighting by size matters.",
+            "items": [
+              "'D'",
+              "8000",
+              "-1.5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -1243,223 +1005,175 @@
       "partTitle": "Practice time: costs and slippage",
       "codeHash": "b5c796aca1c635421b0756c5ca43e30de0366ca482f90e4a2e22fae2fb5e19e1",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: costs and slippage — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: cost...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: costs and slippage",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: costs and slippage.",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: cost... [Dsix.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Impact_cost(shares, rate, gamma, eta).",
+            "bars": [
+              {
+                "label": "notional",
+                "value": {
+                  "var": "notional",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bps",
+                "value": {
+                  "var": "bps",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks confirm that trading 10 times faster multiplies only.",
+            "bars": [
+              {
+                "label": "notional",
+                "value": {
+                  "var": "notional",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bps",
+                "value": {
+                  "var": "bps",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: costs and slippage.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example converts basis points into rupees for a few orders.",
+            "bars": [
+              {
+                "label": "notional",
+                "value": {
+                  "var": "notional",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bps",
+                "value": {
+                  "var": "bps",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: costs and slippage — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: cost...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: costs and slippage",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: costs and slippage [D6.P6.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: cost... [D6.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Impact_cost(shares, rate, gamma, eta).",
+            "bars": [
+              {
+                "label": "notional",
+                "value": 10000000,
+                "tone": "data"
+              },
+              {
+                "label": "bps",
+                "value": 3.2,
+                "tone": "data"
+              },
+              {
+                "label": "cost",
+                "value": 3200,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks confirm that trading 10 times faster multiplies only.",
+            "bars": [
+              {
+                "label": "notional",
+                "value": 10000000,
+                "tone": "ok"
+              },
+              {
+                "label": "bps",
+                "value": 3.2,
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": 3200,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: costs and slippage [D6.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example converts basis points into rupees for a few orders.",
+            "bars": [
+              {
+                "label": "notional",
+                "value": 10000000,
+                "tone": "ok"
+              },
+              {
+                "label": "bps",
+                "value": 3.2,
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": 3200,
+                "tone": "ok"
+              }
             ]
           }
         ]

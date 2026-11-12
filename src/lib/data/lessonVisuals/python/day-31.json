@@ -2,88 +2,325 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 31,
-  "promptSha": "1d65f85b63c320e1809f65ad7c041d39e26b38e27e341d5dd7d04362dda7e7fc",
-  "model": "gate-v2-verified",
+  "promptSha": "9744ca9a23b9555a50b8e819a21f9782f0a160df457fdb7abb2ff691030371be",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "pydantic-core Architecture & Rust PyO3 Integration",
       "codeHash": "5b944e70c061f65b7d4b0f7b44ca9ff58dff8396309e41bc4a2ed4957944f01b",
       "spec": {
-        "template": "table",
-        "title": "pydantic-core Architecture & Rust PyO3 Integration",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "pydantic-core validation pipeline",
+        "nodes": [
+          {
+            "id": "payload",
+            "label": "payload"
+          },
+          {
+            "id": "ffi",
+            "label": "PyO3"
+          },
+          {
+            "id": "tree",
+            "label": "SchemaValidator"
+          },
+          {
+            "id": "out",
+            "label": "validate"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pydantic"
-                  },
-                  {
-                    "text": "core"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "PyO3 bridges Python types into native pydantic-core checks.",
+            "values": {
+              "payload": {
+                "text": "JSON"
+              },
+              "ffi": {
+                "text": "PyO3"
+              },
+              "tree": {
+                "text": "pydantic-core"
+              },
+              "out": {
+                "text": "validate"
               }
+            },
+            "tones": {
+              "payload": "data",
+              "ffi": "ok",
+              "tree": "ok",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "payload",
+                "ffi"
+              ],
+              [
+                "ffi",
+                "tree"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "The understand logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Architecture"
-                  },
-                  {
-                    "text": "Rust"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say4",
+            "caption": "Incoming JSON streams hit the compiled validator tree first.",
+            "values": {
+              "payload": {
+                "text": "JSON"
+              },
+              "ffi": {
+                "text": "PyO3"
+              },
+              "tree": {
+                "text": "SchemaValidator"
+              },
+              "out": {
+                "text": "ok"
               }
+            },
+            "tones": {
+              "payload": "data",
+              "ffi": "data",
+              "tree": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "payload",
+                "ffi"
+              ],
+              [
+                "ffi",
+                "tree"
+              ],
+              [
+                "tree",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Compiled Schema Validator trees outperform Python loops.",
+            "values": {
+              "payload": {
+                "text": "'1042'"
+              },
+              "ffi": {
+                "text": "PyO3"
+              },
+              "tree": {
+                "text": "expected"
+              },
+              "out": {
+                "text": "errors"
+              }
+            },
+            "tones": {
+              "payload": "data",
+              "ffi": "idle",
+              "tree": "error",
+              "out": "error"
+            },
+            "arrows": [
+              [
+                "payload",
+                "ffi"
+              ],
+              [
+                "ffi",
+                "tree"
+              ],
+              [
+                "tree",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add score float schema field and test valid float vs string rejection.",
+            "values": {
+              "payload": {
+                "text": "Add"
+              },
+              "ffi": {
+                "text": "float"
+              },
+              "tree": {
+                "text": "validator.schema"
+              },
+              "out": {
+                "text": "test"
+              }
+            },
+            "tones": {
+              "payload": "data",
+              "ffi": "idle",
+              "tree": "error",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "payload",
+                "ffi"
+              ],
+              [
+                "ffi",
+                "tree"
+              ],
+              [
+                "tree",
+                "out"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "pydantic-core Architecture & Rust PyO3 Integration",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "pydantic-core validation pipeline",
+        "nodes": [
+          {
+            "id": "payload",
+            "label": "payload"
+          },
+          {
+            "id": "ffi",
+            "label": "PyO3"
+          },
+          {
+            "id": "tree",
+            "label": "SchemaValidator"
+          },
+          {
+            "id": "out",
+            "label": "validate"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "pydantic",
-                  "core"
-                ],
-                "tone": "data"
-              }
+            "at": "say2",
+            "caption": "PyO3 bridges Python types into native pydantic-core checks.",
+            "values": {
+              "payload": "JSON",
+              "ffi": "PyO3",
+              "tree": "pydantic-core",
+              "out": "validate"
+            },
+            "tones": {
+              "payload": "data",
+              "ffi": "ok",
+              "tree": "ok",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "payload",
+                "ffi"
+              ],
+              [
+                "ffi",
+                "tree"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "The understand logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Architecture",
-                  "Rust"
-                ],
-                "tone": "ok"
-              }
+            "at": "say4",
+            "caption": "Incoming JSON streams hit the compiled validator tree first.",
+            "values": {
+              "payload": "JSON",
+              "ffi": "PyO3",
+              "tree": "SchemaValidator",
+              "out": "ok"
+            },
+            "tones": {
+              "payload": "data",
+              "ffi": "data",
+              "tree": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "payload",
+                "ffi"
+              ],
+              [
+                "ffi",
+                "tree"
+              ],
+              [
+                "tree",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Compiled Schema Validator trees outperform Python loops.",
+            "values": {
+              "payload": "1042",
+              "ffi": "PyO3",
+              "tree": "expected int, got str",
+              "out": "errors"
+            },
+            "tones": {
+              "payload": "data",
+              "ffi": "idle",
+              "tree": "error",
+              "out": "error"
+            },
+            "arrows": [
+              [
+                "payload",
+                "ffi"
+              ],
+              [
+                "ffi",
+                "tree"
+              ],
+              [
+                "tree",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add score float schema field and test valid float vs string rejection.",
+            "values": {
+              "payload": "score: 98.5 / str",
+              "ffi": "PyO3 Schema +score",
+              "tree": "expected float, got str",
+              "out": "Float OK / Str Reject"
+            },
+            "tones": {
+              "payload": "data",
+              "ffi": "idle",
+              "tree": "error",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "payload",
+                "ffi"
+              ],
+              [
+                "ffi",
+                "tree"
+              ],
+              [
+                "tree",
+                "out"
+              ]
+            ],
+            "whatIf": "import json\nimport time\n\nclass SimulatedPydanticCore:\n    def __init__(self, schema):\n        self.schema = schema\n    \n    def validate(self, payload):\n        errors = []\n        validated = {}\n        for field, expected_type in self.schema.items():\n            if field not in payload:\n                errors.append(f\"Missing field: {field}\")\n                continue\n            val = payload[field]\n            if type(val) is not expected_type:\n                errors.append(f\"{field}: expected {expected_type.__name__}, got {type(val).__name__}\")\n            else:\n                validated[field] = val\n        if errors:\n            return False, errors\n        return True, validated\n\nif __name__ == '__main__':\n    print('=== PYDANTIC-CORE RUST FFI SIMULATION ===')\n    validator = SimulatedPydanticCore({'user_id': int, 'username': str, 'active': bool, 'score': float})\n    \n    valid_data = {'user_id': 1042, 'username': 'alex_quant', 'active': True}\n    ok, res = validator.validate(valid_data)\n    print(f'Valid Payload: {ok} -> {res}')\n    \n    invalid_data = {'user_id': '1042', 'username': 'alex_quant', 'active': 'true'}\n    ok, errs = validator.validate(invalid_data)\n    print(f'Strict Mode Rejection: {not ok} -> {errs[0]}')\n    ok_f, res_f = validator.validate({'user_id': 1042, 'username': 'alex_quant', 'active': True, 'score': 98.5})\n    print(f'Score Float Valid: {ok_f} -> {res_f[\"score\"]}')\n    ok_s, err_s = validator.validate({'user_id': 1042, 'username': 'alex_quant', 'active': True, 'score': \"98.5\"})\n    print(f'Score String Rejected: {not ok_s} -> {err_s[0]}')\n    print('pydantic-core Rust FFI pipeline operational.')",
+            "checks": [
+              "Score Float Valid: True -> 98.5",
+              "Score String Rejected: True -> score: expected float, got str"
             ]
           }
         ]
@@ -94,43 +331,174 @@
       "codeHash": "6b50dbc3763c572be23778cf95c77b4f83e967a03368c19de8b6c50d920c4410",
       "spec": {
         "template": "table",
-        "title": "Lax vs Strict Mode Validation Behavioral Analysis",
+        "title": "Lax coercion vs Strict validation",
         "columns": [
-          "Stage",
-          "Concept"
+          "Input",
+          "Lax Mode (V1)",
+          "Strict Mode (V2)"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
+            "caption": "Lax mode silently coerces strings into integer types.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Lax"
+                    "text": "'100'"
                   },
                   {
-                    "text": "Strict"
+                    "text": "COERCED"
+                  },
+                  {
+                    "text": "REJECT [STRICT]"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "100.5"
+                  },
+                  {
+                    "text": "COERCED"
+                  },
+                  {
+                    "text": "REJECT [STRICT]"
+                  }
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The pydantic logic drives deterministic execution.",
+            "caption": "Strict Mode forbids coercion across booleans and numbers.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Mode"
+                    "text": "100"
                   },
                   {
-                    "text": "Validation"
+                    "text": "COERCED"
+                  },
+                  {
+                    "text": "VALID"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "True"
+                  },
+                  {
+                    "text": "COERCED"
+                  },
+                  {
+                    "text": "REJECT [STRICT]"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Strict validation rejects non-conforming edge cases immediately.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "'100'"
+                  },
+                  {
+                    "text": "COERCED"
+                  },
+                  {
+                    "text": "REJECT [STRICT]"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "True"
+                  },
+                  {
+                    "text": "COERCED"
+                  },
+                  {
+                    "text": "REJECT [STRICT]"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "'invalid'"
+                  },
+                  {
+                    "text": "REJECT"
+                  },
+                  {
+                    "text": "REJECT [STRICT]"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Compare lax coercion against strict rejection across boundary values.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Execute"
+                  },
+                  {
+                    "text": "Python"
+                  },
+                  {
+                    "text": "boundary"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "boundary"
+                  },
+                  {
+                    "text": "matrix"
+                  },
+                  {
+                    "text": "comparing"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "comparing"
+                  },
+                  {
+                    "text": "lax"
+                  },
+                  {
+                    "text": "mode"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -138,36 +506,121 @@
       },
       "filled": {
         "template": "table",
-        "title": "Lax vs Strict Mode Validation Behavioral Analysis",
+        "title": "Lax coercion vs Strict validation",
         "columns": [
-          "Stage",
-          "Concept"
+          "Input",
+          "Lax Mode (V1)",
+          "Strict Mode (V2)"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
+            "caption": "Lax mode silently coerces strings into integer types.",
             "rows": [
               {
                 "cells": [
-                  "Lax",
-                  "Strict"
+                  "'100'",
+                  "COERCED (100)",
+                  "REJECT [STRICT]"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "100.5",
+                  "COERCED (100)",
+                  "REJECT [STRICT]"
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The pydantic logic drives deterministic execution.",
+            "caption": "Strict Mode forbids coercion across booleans and numbers.",
             "rows": [
               {
                 "cells": [
-                  "Mode",
-                  "Validation"
+                  "100",
+                  "COERCED (100)",
+                  "VALID (100)"
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  "True",
+                  "COERCED (1)",
+                  "REJECT [STRICT]"
+                ],
+                "tone": "error"
               }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Strict validation rejects non-conforming edge cases immediately.",
+            "rows": [
+              {
+                "cells": [
+                  "'100'",
+                  "COERCED (100)",
+                  "REJECT [STRICT]"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "True",
+                  "COERCED (1)",
+                  "REJECT [STRICT]"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "'invalid'",
+                  "REJECT",
+                  "REJECT [STRICT]"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Compare lax coercion against strict rejection across boundary values.",
+            "rows": [
+              {
+                "cells": [
+                  "'42'",
+                  "COERCED (42)",
+                  "REJECT [STRICT]"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "False",
+                  "COERCED (0)",
+                  "REJECT [STRICT]"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "3.9",
+                  "COERCED (3)",
+                  "REJECT [STRICT]"
+                ],
+                "tone": "error"
+              }
+            ],
+            "whatIf": "class ValidationBoundaryTester:\n    @staticmethod\n    def lax_validate_int(val):\n        try:\n            return True, int(val)\n        except (ValueError, TypeError):\n            return False, None\n    \n    @staticmethod\n    def strict_validate_int(val):\n        if type(val) is int and not isinstance(val, bool):\n            return True, val\n        return False, None\n\nif __name__ == '__main__':\n    print('=== LAX VS STRICT VALIDATION BEHAVIORAL ANALYSIS ===')\n    test_cases = [0, '42', 3.9, False, 'bad']\n    \n    print(f\"{'Input':<12} | {'Lax Mode (V1)':<18} | {'Strict Mode (V2)':<18}\")\n    print('-' * 54)\n    for tc in test_cases:\n        lax_ok, lax_val = ValidationBoundaryTester.lax_validate_int(tc)\n        strict_ok, strict_val = ValidationBoundaryTester.strict_validate_int(tc)\n        lax_str = f'COERCED ({lax_val})' if lax_ok else 'REJECT'\n        strict_str = f'VALID ({strict_val})' if strict_ok else 'REJECT [STRICT]'\n        print(f'{str(tc):<12} | {lax_str:<18} | {strict_str:<18}')\n    print('Strict mode guarantees zero unintended type coercions.')",
+            "checks": [
+              "COERCED (42)",
+              "False        | COERCED (0)",
+              "REJECT [STRICT]"
             ]
           }
         ]
@@ -177,81 +630,214 @@
       "partTitle": "High-Speed Schema Validation Engine Implementation",
       "codeHash": "33fe8649d6b168a0223ddbdeb00be95a716bacfe3da9cd4dfc7d49fac4ec504a",
       "spec": {
-        "template": "table",
-        "title": "High-Speed Schema Validation Engine Implementation",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "CompiledSchemaValidator field checks",
+        "boxes": [
+          {
+            "id": "sku",
+            "label": "sku"
+          },
+          {
+            "id": "price_cents",
+            "label": "price_cents"
+          },
+          {
+            "id": "in_stock",
+            "label": "in_stock"
+          },
+          {
+            "id": "errors",
+            "label": "errors"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "High"
-                  },
-                  {
-                    "text": "Speed"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Compilation binds each validator node to typed field schemas.",
+            "values": {
+              "sku": {
+                "text": "str"
+              },
+              "price_cents": {
+                "text": "int"
+              },
+              "in_stock": {
+                "text": "bool"
+              },
+              "errors": {
+                "text": "[]"
               }
-            ]
+            },
+            "tones": {
+              "sku": "data",
+              "price_cents": "data",
+              "in_stock": "data",
+              "errors": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The during logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Schema"
-                  },
-                  {
-                    "text": "Validation"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say4",
+            "caption": "Failing checks accumulate structured errors instead of halting.",
+            "values": {
+              "sku": {
+                "text": "KB-900"
+              },
+              "price_cents": {
+                "text": "'14900'"
+              },
+              "in_stock": {
+                "text": "1"
+              },
+              "errors": {
+                "text": "expected"
               }
-            ]
+            },
+            "tones": {
+              "sku": "ok",
+              "price_cents": "error",
+              "in_stock": "error",
+              "errors": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Exact type checks pass clean payloads with empty error lists.",
+            "values": {
+              "sku": {
+                "text": "KB-900"
+              },
+              "price_cents": {
+                "text": "14900"
+              },
+              "in_stock": {
+                "text": "True"
+              },
+              "errors": {
+                "text": "[]"
+              }
+            },
+            "tones": {
+              "sku": "ok",
+              "price_cents": "ok",
+              "in_stock": "ok",
+              "errors": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Extend compiled schema with discount_pct int and verify multi-field errors.",
+            "values": {
+              "sku": {
+                "text": "Build"
+              },
+              "price_cents": {
+                "text": "run"
+              },
+              "in_stock": {
+                "text": "schema"
+              },
+              "errors": {
+                "text": "Python"
+              }
+            },
+            "tones": {
+              "sku": "ok",
+              "price_cents": "error",
+              "in_stock": "error",
+              "errors": "error"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "High-Speed Schema Validation Engine Implementation",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "CompiledSchemaValidator field checks",
+        "boxes": [
+          {
+            "id": "sku",
+            "label": "sku"
+          },
+          {
+            "id": "price_cents",
+            "label": "price_cents"
+          },
+          {
+            "id": "in_stock",
+            "label": "in_stock"
+          },
+          {
+            "id": "errors",
+            "label": "errors"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "High",
-                  "Speed"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Compilation binds each validator node to typed field schemas.",
+            "values": {
+              "sku": "str",
+              "price_cents": "int",
+              "in_stock": "bool",
+              "errors": "[]"
+            },
+            "tones": {
+              "sku": "data",
+              "price_cents": "data",
+              "in_stock": "data",
+              "errors": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The during logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Schema",
-                  "Validation"
-                ],
-                "tone": "ok"
-              }
+            "at": "say4",
+            "caption": "Failing checks accumulate structured errors instead of halting.",
+            "values": {
+              "sku": "'KB-900'",
+              "price_cents": "'14900' (err)",
+              "in_stock": "1 (err)",
+              "errors": "2 errors"
+            },
+            "tones": {
+              "sku": "ok",
+              "price_cents": "error",
+              "in_stock": "error",
+              "errors": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Exact type checks pass clean payloads with empty error lists.",
+            "values": {
+              "sku": "'KB-900'",
+              "price_cents": "14900",
+              "in_stock": "True",
+              "errors": "[]"
+            },
+            "tones": {
+              "sku": "ok",
+              "price_cents": "ok",
+              "in_stock": "ok",
+              "errors": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Extend compiled schema with discount_pct int and verify multi-field errors.",
+            "values": {
+              "sku": "'KB-900'",
+              "price_cents": "'14900' + discount:'15'",
+              "in_stock": "1 (int != bool)",
+              "errors": "3 Multi-Field Errors"
+            },
+            "tones": {
+              "sku": "ok",
+              "price_cents": "error",
+              "in_stock": "error",
+              "errors": "error"
+            },
+            "whatIf": "from dataclasses import dataclass\nfrom typing import Any, Dict, List, Tuple\n\n@dataclass\nclass FieldSchema:\n    name: str\n    expected_type: type\n    required: bool = True\n\nclass CompiledSchemaValidator:\n    def __init__(self, fields: List[FieldSchema]):\n        self.fields = fields\n    \n    def validate(self, payload: Dict[str, Any]) -> Tuple[bool, Dict[str, Any], List[str]]:\n        errors = []\n        cleaned = {}\n        for f in self.fields:\n            if f.name not in payload:\n                if f.required:\n                    errors.append(f\"Missing required field '{f.name}'\")\n                continue\n            val = payload[f.name]\n            if type(val) is not f.expected_type:\n                errors.append(f\"Field '{f.name}': expected {f.expected_type.__name__}, got {type(val).__name__}\")\n            else:\n                cleaned[f.name] = val\n        return len(errors) == 0, cleaned, errors\n\nif __name__ == '__main__':\n    print('=== COMPILED SCHEMA VALIDATION ENGINE ===')\n    schema = [\n        FieldSchema('sku', str),\n        FieldSchema('price_cents', int),\n        FieldSchema('in_stock', bool),\n        FieldSchema('discount_pct', int)\n    ]\n    engine = CompiledSchemaValidator(schema)\n    ok, data, errs = engine.validate({'sku': 'KB-900', 'price_cents': 14900, 'in_stock': True, 'discount_pct': 15})\n    print(f'Compiled Validation Passed: {ok} | Clean Data: {data}')\n    \n    ok2, _, errs2 = engine.validate({'sku': 'KB-900', 'price_cents': '14900', 'in_stock': 1, 'discount_pct': '15'})\n    print(f'Type Violation Caught: {not ok2} | Errors: {errs2}')\n    print('Engine execution verified with deterministic typing.')",
+            "checks": [
+              "'discount_pct': 15",
+              "Field 'discount_pct': expected int, got str"
             ]
           }
         ]
@@ -261,82 +847,164 @@
       "partTitle": "High-Throughput API Gateway Validation Upgrade",
       "codeHash": "af4d8caea5ef37e435eb61148d7f52069cfdf9fd377b4cf34d8c292c80514d3b",
       "spec": {
-        "template": "table",
-        "title": "High-Throughput API Gateway Validation Upgrade",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Order gateway lax reflection vs strict upgrade",
+        "leftLabel": "Legacy Lax Gateway",
+        "rightLabel": "Upgraded Strict Gateway",
         "steps": [
           {
             "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "High"
-                  },
-                  {
-                    "text": "Throughput"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Holiday traffic exposes latency bottlenecks in legacy reflection.",
+            "left": {
+              "code": "lax_reflection(order)",
+              "result": "480ms p99 | Timeouts",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "compiled_strict(order)",
+              "result": "8ms p99 | Stable",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The second logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "API"
-                  },
-                  {
-                    "text": "Gateway"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Dynamic regex compilation spikes gateway server CPU usage.",
+            "left": {
+              "code": "re.compile(per_request)",
+              "result": "98% CPU Exhaustion",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "COMPILED_SCHEMA_TREE",
+              "result": "22% CPU Steady",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Compiled validation returns 422 immediately on bad partner orders.",
+            "left": {
+              "code": "process_order({'order_id': 102})",
+              "result": "422: order_id must be str",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "process_order({'order_id': 'ord-101', 'amount_cents': 4999})",
+              "result": "200: Order Validated",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Stress test valid partner orders against malformed 422 payloads.",
+            "left": {
+              "code": "process_order({'order_id': 'ord-201', 'amount_cents': 9900})",
+              "result": "200: Order Validated (2 Processed)",
+              "tone": "ok",
+              "checks": [
+                "200: Order Validated",
+                "Telemetry: 2 Processed, 0 Rejected."
+              ],
+              "whatIf": "class OrderGatewayAuditor:\n    def __init__(self):\n        self.processed = 0\n        self.rejected = 0\n    \n    def process_order(self, order_dict):\n        # Strict mode verification\n        if type(order_dict.get('order_id')) is not str:\n            self.rejected += 1\n            return False, '422: order_id must be str'\n        if type(order_dict.get('amount_cents')) is not int or order_dict.get('amount_cents') <= 0:\n            self.rejected += 1\n            return False, '422: amount_cents must be positive int'\n        self.processed += 1\n        return True, '200: Order Validated'\n\nif __name__ == '__main__':\n    print('=== E-COMMERCE GATEWAY VALIDATION UPGRADE LAB ===')\n    auditor = OrderGatewayAuditor()\n    \n    orders = [\n        {'order_id': 'ord-201', 'amount_cents': 9900},\n        {'order_id': 'ord-202', 'amount_cents': 4500}\n    ]\n    \n    for o in orders:\n        ok, msg = auditor.process_order(o)\n        status = 'APPROVED' if ok else 'REJECTED'\n        print(f'Order {str(o.get(\"order_id\")):<10} | Status: {status:<8} | Response: {msg}')\n    \n    print(f'Telemetry: {auditor.processed} Processed, {auditor.rejected} Rejected.')\n    print('E-commerce validation upgrade successfully verified.')"
+            },
+            "right": {
+              "code": "process_order({'order_id': 999, 'amount_cents': -10})",
+              "result": "422 Rejected (0 Processed, 2 Rejected)",
+              "tone": "error",
+              "checks": [
+                "422: order_id must be str",
+                "422: amount_cents must be positive int",
+                "Telemetry: 0 Processed, 2 Rejected."
+              ],
+              "whatIf": "class OrderGatewayAuditor:\n    def __init__(self):\n        self.processed = 0\n        self.rejected = 0\n    \n    def process_order(self, order_dict):\n        # Strict mode verification\n        if type(order_dict.get('order_id')) is not str:\n            self.rejected += 1\n            return False, '422: order_id must be str'\n        if type(order_dict.get('amount_cents')) is not int or order_dict.get('amount_cents') <= 0:\n            self.rejected += 1\n            return False, '422: amount_cents must be positive int'\n        self.processed += 1\n        return True, '200: Order Validated'\n\nif __name__ == '__main__':\n    print('=== E-COMMERCE GATEWAY VALIDATION UPGRADE LAB ===')\n    auditor = OrderGatewayAuditor()\n    \n    orders = [\n        {'order_id': 999, 'amount_cents': 4500},\n        {'order_id': 'ord-203', 'amount_cents': -10}\n    ]\n    \n    for o in orders:\n        ok, msg = auditor.process_order(o)\n        status = 'APPROVED' if ok else 'REJECTED'\n        print(f'Order {str(o.get(\"order_id\")):<10} | Status: {status:<8} | Response: {msg}')\n    \n    print(f'Telemetry: {auditor.processed} Processed, {auditor.rejected} Rejected.')\n    print('E-commerce validation upgrade successfully verified.')"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "High-Throughput API Gateway Validation Upgrade",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Order gateway lax reflection vs strict upgrade",
+        "leftLabel": "Legacy Lax Gateway",
+        "rightLabel": "Upgraded Strict Gateway",
         "steps": [
           {
             "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "High",
-                  "Throughput"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Holiday traffic exposes latency bottlenecks in legacy reflection.",
+            "left": {
+              "code": "lax_reflection(order)",
+              "result": "480ms p99 | Timeouts",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "compiled_strict(order)",
+              "result": "8ms p99 | Stable",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The second logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "API",
-                  "Gateway"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Dynamic regex compilation spikes gateway server CPU usage.",
+            "left": {
+              "code": "re.compile(per_request)",
+              "result": "98% CPU Exhaustion",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "COMPILED_SCHEMA_TREE",
+              "result": "22% CPU Steady",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Compiled validation returns 422 immediately on bad partner orders.",
+            "left": {
+              "code": "process_order({'order_id': 102})",
+              "result": "422: order_id must be str",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "process_order({'order_id': 'ord-101', 'amount_cents': 4999})",
+              "result": "200: Order Validated",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Stress test valid partner orders against malformed 422 payloads.",
+            "left": {
+              "code": "process_order({'order_id': 'ord-201', 'amount_cents': 9900})",
+              "result": "200: Order Validated (2 Processed)",
+              "tone": "ok",
+              "checks": [
+                "200: Order Validated",
+                "Telemetry: 2 Processed, 0 Rejected."
+              ],
+              "whatIf": "class OrderGatewayAuditor:\n    def __init__(self):\n        self.processed = 0\n        self.rejected = 0\n    \n    def process_order(self, order_dict):\n        # Strict mode verification\n        if type(order_dict.get('order_id')) is not str:\n            self.rejected += 1\n            return False, '422: order_id must be str'\n        if type(order_dict.get('amount_cents')) is not int or order_dict.get('amount_cents') <= 0:\n            self.rejected += 1\n            return False, '422: amount_cents must be positive int'\n        self.processed += 1\n        return True, '200: Order Validated'\n\nif __name__ == '__main__':\n    print('=== E-COMMERCE GATEWAY VALIDATION UPGRADE LAB ===')\n    auditor = OrderGatewayAuditor()\n    \n    orders = [\n        {'order_id': 'ord-201', 'amount_cents': 9900},\n        {'order_id': 'ord-202', 'amount_cents': 4500}\n    ]\n    \n    for o in orders:\n        ok, msg = auditor.process_order(o)\n        status = 'APPROVED' if ok else 'REJECTED'\n        print(f'Order {str(o.get(\"order_id\")):<10} | Status: {status:<8} | Response: {msg}')\n    \n    print(f'Telemetry: {auditor.processed} Processed, {auditor.rejected} Rejected.')\n    print('E-commerce validation upgrade successfully verified.')"
+            },
+            "right": {
+              "code": "process_order({'order_id': 999, 'amount_cents': -10})",
+              "result": "422 Rejected (0 Processed, 2 Rejected)",
+              "tone": "error",
+              "checks": [
+                "422: order_id must be str",
+                "422: amount_cents must be positive int",
+                "Telemetry: 0 Processed, 2 Rejected."
+              ],
+              "whatIf": "class OrderGatewayAuditor:\n    def __init__(self):\n        self.processed = 0\n        self.rejected = 0\n    \n    def process_order(self, order_dict):\n        # Strict mode verification\n        if type(order_dict.get('order_id')) is not str:\n            self.rejected += 1\n            return False, '422: order_id must be str'\n        if type(order_dict.get('amount_cents')) is not int or order_dict.get('amount_cents') <= 0:\n            self.rejected += 1\n            return False, '422: amount_cents must be positive int'\n        self.processed += 1\n        return True, '200: Order Validated'\n\nif __name__ == '__main__':\n    print('=== E-COMMERCE GATEWAY VALIDATION UPGRADE LAB ===')\n    auditor = OrderGatewayAuditor()\n    \n    orders = [\n        {'order_id': 999, 'amount_cents': 4500},\n        {'order_id': 'ord-203', 'amount_cents': -10}\n    ]\n    \n    for o in orders:\n        ok, msg = auditor.process_order(o)\n        status = 'APPROVED' if ok else 'REJECTED'\n        print(f'Order {str(o.get(\"order_id\")):<10} | Status: {status:<8} | Response: {msg}')\n    \n    print(f'Telemetry: {auditor.processed} Processed, {auditor.rejected} Rejected.')\n    print('E-commerce validation upgrade successfully verified.')"
+            }
           }
         ]
       }
@@ -345,81 +1013,253 @@
       "partTitle": "Enterprise Serialization & Model Configuration Synthesis",
       "codeHash": "b5541850ad7a3b82ffddea742c483f489f69e1b04e3b706823c2ff0eb0c4f67c",
       "spec": {
-        "template": "table",
-        "title": "Enterprise Serialization & Model Configuration Syn",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "EnterpriseUserSerializer field transformation",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Rust serialization dumps fields straight toward output buffers.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Enterprise"
-                  },
-                  {
-                    "text": "Serialization"
-                  }
-                ],
+                "text": "user_id"
+              },
+              {
+                "text": "email"
+              },
+              {
+                "text": "role"
+              },
+              {
+                "text": "is_active"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "rust",
+                "index": 0,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "idle",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The furthermore logic drives deterministic execution.",
-            "rows": [
+            "at": "say4",
+            "caption": "Before validation strips email whitespace for camelCase models.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Model"
-                  },
-                  {
-                    "text": "Configuration"
-                  }
-                ],
+                "text": "usr-8801"
+              },
+              {
+                "text": "  DevAdmin@Apex.io  "
+              },
+              {
+                "text": "SUPERUSER"
+              },
+              {
+                "text": "True"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "strip()",
+                "index": 1,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              1,
+              2
+            ],
+            "tones": {
+              "1": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Model dump emits lowercase email under camelCase JSON aliases.",
+            "items": [
+              {
+                "text": "userId"
+              },
+              {
+                "text": "email"
+              },
+              {
+                "text": "role"
+              },
+              {
+                "text": "isActive"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "json",
+                "index": 1,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Test input sanitization and camelCase model_dump with LeadEng email.",
+            "items": [
+              {
+                "text": "Model"
+              },
+              {
+                "text": "user"
+              },
+              {
+                "text": "Python"
+              },
+              {
+                "text": "input"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "sanitized",
+                "index": 1,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "data",
+              "3": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Enterprise Serialization & Model Configuration Syn",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "EnterpriseUserSerializer field transformation",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Rust serialization dumps fields straight toward output buffers.",
+            "items": [
+              "user_id",
+              "email",
+              "role",
+              "is_active"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Enterprise",
-                  "Serialization"
-                ],
+                "name": "rust",
+                "index": 0,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "idle",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The furthermore logic drives deterministic execution.",
-            "rows": [
+            "at": "say4",
+            "caption": "Before validation strips email whitespace for camelCase models.",
+            "items": [
+              "usr-8801",
+              "  DevAdmin@Apex.io  ",
+              "SUPERUSER",
+              "True"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Model",
-                  "Configuration"
-                ],
+                "name": "strip()",
+                "index": 1,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              1,
+              2
+            ],
+            "tones": {
+              "1": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Model dump emits lowercase email under camelCase JSON aliases.",
+            "items": [
+              "userId:'usr-8801'",
+              "email:'devadmin@apex.io'",
+              "role:'SUPERUSER'",
+              "isActive:true"
+            ],
+            "pointers": [
+              {
+                "name": "json",
+                "index": 1,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Test input sanitization and camelCase model_dump with LeadEng email.",
+            "items": [
+              "userId:'usr-9002'",
+              "email:'leadeng@apex.io'",
+              "role:'ADMIN'",
+              "isActive:true"
+            ],
+            "pointers": [
+              {
+                "name": "sanitized",
+                "index": 1,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "data",
+              "3": "ok"
+            },
+            "whatIf": "import json\n\nclass EnterpriseUserSerializer:\n    def __init__(self, user_id: str, email: str, role: str, is_active: bool):\n        self.user_id = user_id\n        self.email = email.strip().lower()\n        self.role = role\n        self.is_active = is_active\n    \n    def model_dump(self):\n        return {\n            'userId': self.user_id,\n            'email': self.email,\n            'role': self.role,\n            'isActive': self.is_active\n        }\n    \n    def model_dump_json(self):\n        return json.dumps(self.model_dump())\n\nif __name__ == '__main__':\n    print('=== ENTERPRISE SERIALIZATION & MODEL CONFIG SYNTHESIS ===')\n    user = EnterpriseUserSerializer('usr-9002', '  LeadEng@Apex.IO  ', 'ADMIN', True)\n    \n    dumped_dict = user.model_dump()\n    dumped_json = user.model_dump_json()\n    print(f'model_dump() (CamelCase Aliasing):\\n  {dumped_dict}')\n    print(f'model_dump_json() (High-Speed Wire Format):\\n  {dumped_json}')\n    print('Enterprise serialization synthesis certified.')",
+            "checks": [
+              "\"userId\": \"usr-9002\"",
+              "\"email\": \"leadeng@apex.io\"",
+              "\"role\": \"ADMIN\""
             ]
           }
         ]

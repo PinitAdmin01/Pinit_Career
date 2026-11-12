@@ -2,231 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 3,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Remote procedure calls",
       "codeHash": "778028790ec33a1cd80b42c13fa5513aaaba9a4eb899b801f5192e65fa2329fa",
       "spec": {
-        "template": "flow",
-        "title": "Remote procedure calls — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Remote procedure calls",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Remote procedure calls",
+        "actors": [
+          "sku",
+          "request",
+          "raw"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Remote procedure calls [Dthree.Pone.Sone].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Remote procedure calls [Dthree.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A remote procedure call (RPC) lets code call a function on another machine.",
+            "activeActor": "sku",
+            "messages": [
+              {
+                "from": "sku",
+                "to": "request",
+                "label": {
+                  "var": "sku",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "raw",
+                "label": {
+                  "var": "request",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Behind the scenes, a client stub turns the call into bytes.",
+            "activeActor": "request",
+            "messages": [
+              {
+                "from": "sku",
+                "to": "request",
+                "label": {
+                  "var": "sku",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "raw",
+                "label": {
+                  "var": "request",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Remote procedure calls.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "Notice that only bytes cross the network.",
+            "activeActor": "raw",
+            "messages": [
+              {
+                "from": "sku",
+                "to": "request",
+                "label": {
+                  "var": "sku",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "raw",
+                "label": {
+                  "var": "request",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Remote procedure calls — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Remote procedure calls",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Remote procedure calls",
+        "actors": [
+          "sku",
+          "request",
+          "raw"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Remote procedure calls [D3.P1.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Remote procedure calls [D3.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A remote procedure call (RPC) lets code call a function on another machine.",
+            "messages": [
+              {
+                "from": "sku",
+                "to": "request",
+                "label": "'sku-42'",
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "raw",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "sku"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Behind the scenes, a client stub turns the call into bytes.",
+            "messages": [
+              {
+                "from": "sku",
+                "to": "request",
+                "label": "'sku-42'",
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "raw",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "request"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Remote procedure calls [D3.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say6",
+            "caption": "Notice that only bytes cross the network.",
+            "messages": [
+              {
+                "from": "sku",
+                "to": "request",
+                "label": "'sku-42'",
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "raw",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "raw"
           }
         ]
       }
@@ -235,132 +173,162 @@
       "partTitle": "Text versus binary serialisation",
       "codeHash": "b95089d63989244cf8baa858cbc013e569b66a46b39682ae6af2e85cd979944c",
       "spec": {
-        "template": "compare",
-        "title": "JSON text representation versus Protobuf packed binary serialization",
-        "leftLabel": "JSON Payload",
-        "rightLabel": "Binary Packed Payload",
+        "template": "sequence",
+        "title": "Text versus binary serialisation",
+        "actors": [
+          "order",
+          "as_json",
+          "as_binary"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "JSON repeats field names in every message making payloads verbose.",
-            "left": {
-              "code": "json.dumps(order).encode()",
-              "result": {
-                "text": "order_id"
+            "caption": "JSON is readable and universal, but verbose.",
+            "activeActor": "order",
+            "messages": [
+              {
+                "from": "order",
+                "to": "as_json",
+                "label": {
+                  "var": "order",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "data"
-            },
-            "right": {
-              "code": "struct.pack(\"<IHI\", ...)",
-              "result": {
-                "text": "123456"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "as_json",
+                "to": "as_binary",
+                "label": {
+                  "var": "as_json",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Binary formats replace field names with compact schema numbers.",
-            "left": {
-              "code": "text field key string",
-              "result": {
-                "text": "quantity"
+            "caption": "Binary formats like Protocol Buffers (Protobuf) send numbers in compact.",
+            "activeActor": "as_json",
+            "messages": [
+              {
+                "from": "order",
+                "to": "as_json",
+                "label": {
+                  "var": "order",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "data"
-            },
-            "right": {
-              "code": "packed numeric struct",
-              "result": {
-                "text": "3"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "as_json",
+                "to": "as_binary",
+                "label": {
+                  "var": "as_json",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Compact binary representation is smaller and faster to parse.",
-            "left": {
-              "code": "verbose ASCII encoding",
-              "result": {
-                "text": "price_paise"
+            "at": "say6",
+            "caption": "Many teams use JSON at the edges (public APIs) and Protobuf between.",
+            "activeActor": "as_binary",
+            "messages": [
+              {
+                "from": "order",
+                "to": "as_json",
+                "label": {
+                  "var": "order",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "data"
-            },
-            "right": {
-              "code": "compact binary bytes",
-              "result": {
-                "text": "49900"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "as_json",
+                "to": "as_binary",
+                "label": {
+                  "var": "as_json",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "JSON text representation versus Protobuf packed binary serialization",
-        "leftLabel": "JSON Payload",
-        "rightLabel": "Binary Packed Payload",
+        "template": "sequence",
+        "title": "Text versus binary serialisation",
+        "actors": [
+          "order",
+          "as_json",
+          "as_binary"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "JSON repeats field names in every message making payloads verbose.",
-            "left": {
-              "code": "json.dumps(order).encode()",
-              "result": "order_id",
-              "tone": "data",
-              "checks": [
-                "order_id"
-              ]
-            },
-            "right": {
-              "code": "struct.pack(\"<IHI\", ...)",
-              "result": "123456",
-              "tone": "ok",
-              "checks": [
-                "123456"
-              ]
-            }
+            "caption": "JSON is readable and universal, but verbose.",
+            "messages": [
+              {
+                "from": "order",
+                "to": "as_json",
+                "label": "{'order_id': 123456, 'quantity': 3, 'pr…",
+                "tone": "data"
+              },
+              {
+                "from": "as_json",
+                "to": "as_binary",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "order"
           },
           {
             "at": "say2",
-            "caption": "Binary formats replace field names with compact schema numbers.",
-            "left": {
-              "code": "text field key string",
-              "result": "quantity",
-              "tone": "data",
-              "checks": [
-                "quantity"
-              ]
-            },
-            "right": {
-              "code": "packed numeric struct",
-              "result": "3",
-              "tone": "ok",
-              "checks": [
-                "3"
-              ]
-            }
+            "caption": "Binary formats like Protocol Buffers (Protobuf) send numbers in compact.",
+            "messages": [
+              {
+                "from": "order",
+                "to": "as_json",
+                "label": "{'order_id': 123456, 'quantity': 3, 'pr…",
+                "tone": "data"
+              },
+              {
+                "from": "as_json",
+                "to": "as_binary",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "as_json"
           },
           {
-            "at": "say3",
-            "caption": "Compact binary representation is smaller and faster to parse.",
-            "left": {
-              "code": "verbose ASCII encoding",
-              "result": "price_paise",
-              "tone": "data",
-              "checks": [
-                "price_paise"
-              ]
-            },
-            "right": {
-              "code": "compact binary bytes",
-              "result": "49900",
-              "tone": "ok",
-              "checks": [
-                "49900"
-              ]
-            }
+            "at": "say6",
+            "caption": "Many teams use JSON at the edges (public APIs) and Protobuf between.",
+            "messages": [
+              {
+                "from": "order",
+                "to": "as_json",
+                "label": "{'order_id': 123456, 'quantity': 3, 'pr…",
+                "tone": "data"
+              },
+              {
+                "from": "as_json",
+                "to": "as_binary",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "as_binary"
           }
         ]
       }
@@ -369,192 +337,162 @@
       "partTitle": "Varints: small numbers, few bytes",
       "codeHash": "4463c6fcd037746d5b3a93933ec9caed954fb540d369d048ea8704983821022b",
       "spec": {
-        "template": "table",
-        "title": "Protobuf variable length integer encoding and continuation bits",
-        "columns": [
+        "template": "sequence",
+        "title": "Varints: small numbers, few bytes",
+        "actors": [
+          "n",
           "value",
-          "continuation",
-          "status"
+          "out"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Varints store integers using fewer bytes for smaller numbers.",
-            "rows": [
+            "caption": "Protobuf stores integers as varints, so small numbers take fewer bytes.",
+            "activeActor": "n",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "value"
-                  }
-                ],
+                "from": "n",
+                "to": "value",
+                "label": {
+                  "var": "n",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "value",
+                "to": "out",
+                "label": {
+                  "var": "value",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Continuation flag bit indicates whether more bytes follow.",
-            "rows": [
+            "caption": "The top bit (0x80) of each byte is a continuation flag.",
+            "activeActor": "value",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "value"
-                  }
-                ],
-                "tone": "ok"
+                "from": "n",
+                "to": "value",
+                "label": {
+                  "var": "n",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "127"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "value"
-                  }
-                ],
+                "from": "value",
+                "to": "out",
+                "label": {
+                  "var": "value",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Function encode_varint encodes values exceeding one-twenty-eight across.",
-            "rows": [
+            "at": "say6",
+            "caption": "Decoding reverses the process, adding each 7-bit group shifted into place.",
+            "activeActor": "out",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "value"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "127"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "value"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "300"
-                  },
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "shift"
-                  }
-                ],
+                "from": "n",
+                "to": "value",
+                "label": {
+                  "var": "n",
+                  "line": 20,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "value",
+                "to": "out",
+                "label": {
+                  "var": "value",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Protobuf variable length integer encoding and continuation bits",
-        "columns": [
+        "template": "sequence",
+        "title": "Varints: small numbers, few bytes",
+        "actors": [
+          "n",
           "value",
-          "continuation",
-          "status"
+          "out"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Varints store integers using fewer bytes for smaller numbers.",
-            "rows": [
+            "caption": "Protobuf stores integers as varints, so small numbers take fewer bytes.",
+            "messages": [
               {
-                "cells": [
-                  "1",
-                  "0",
-                  "value"
-                ],
+                "from": "n",
+                "to": "value",
+                "label": "1",
+                "tone": "data"
+              },
+              {
+                "from": "value",
+                "to": "out",
+                "label": "1",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "n"
           },
           {
             "at": "say2",
-            "caption": "Continuation flag bit indicates whether more bytes follow.",
-            "rows": [
+            "caption": "The top bit (0x80) of each byte is a continuation flag.",
+            "messages": [
               {
-                "cells": [
-                  "1",
-                  "0",
-                  "value"
-                ],
-                "tone": "ok"
+                "from": "n",
+                "to": "value",
+                "label": "1",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "127",
-                  "0",
-                  "value"
-                ],
+                "from": "value",
+                "to": "out",
+                "label": "1",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "value"
           },
           {
-            "at": "say3",
-            "caption": "Function encode_varint encodes values exceeding 128 across bytes.",
-            "rows": [
+            "at": "say6",
+            "caption": "Decoding reverses the process, adding each 7-bit group shifted into place.",
+            "messages": [
               {
-                "cells": [
-                  "1",
-                  "0",
-                  "value"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "127",
-                  "0",
-                  "value"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "300",
-                  "1",
-                  "shift"
-                ],
+                "from": "n",
+                "to": "value",
+                "label": "1",
                 "tone": "data"
+              },
+              {
+                "from": "value",
+                "to": "out",
+                "label": "1",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "out"
           }
         ]
       }
@@ -563,192 +501,162 @@
       "partTitle": "Tags and wire types",
       "codeHash": "0b8dc81c0c8e5ce95f33b3bf68752f6f450e75773cca7afae47af393026c8121",
       "spec": {
-        "template": "table",
-        "title": "Protobuf tag decoding extracting field numbers and wire types",
-        "columns": [
-          "field",
-          "wire_type",
-          "value"
+        "template": "sequence",
+        "title": "Tags and wire types",
+        "actors": [
+          "WIRE_TYPES",
+          "v",
+          "out"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tag combines field number and wire type to tell decoder how to read.",
-            "rows": [
+            "caption": "Each Protobuf field starts with a tag.",
+            "activeActor": "WIRE_TYPES",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "VARINT"
-                  },
-                  {
-                    "text": "150"
-                  }
-                ],
+                "from": "WIRE_TYPES",
+                "to": "v",
+                "label": {
+                  "var": "WIRE_TYPES",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "v",
+                "to": "out",
+                "label": {
+                  "var": "v",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Wire types define length and byte interpretation for values.",
-            "rows": [
+            "caption": "Strings, bytes, nested messages), and 5 is FIXED32.",
+            "activeActor": "v",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "VARINT"
-                  },
-                  {
-                    "text": "150"
-                  }
-                ],
-                "tone": "ok"
+                "from": "WIRE_TYPES",
+                "to": "v",
+                "label": {
+                  "var": "WIRE_TYPES",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "LENGTH_DELIMITED"
-                  },
-                  {
-                    "text": "hi"
-                  }
-                ],
+                "from": "v",
+                "to": "out",
+                "label": {
+                  "var": "v",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Tag bit shift extracts field number and length to consume.",
-            "rows": [
+            "at": "say6",
+            "caption": "Seeing the bytes once makes Protobuf feel much less magical.",
+            "activeActor": "out",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "VARINT"
-                  },
-                  {
-                    "text": "150"
-                  }
-                ],
-                "tone": "ok"
+                "from": "WIRE_TYPES",
+                "to": "v",
+                "label": {
+                  "var": "WIRE_TYPES",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "LENGTH_DELIMITED"
-                  },
-                  {
-                    "text": "hi"
-                  }
-                ],
+                "from": "v",
+                "to": "out",
+                "label": {
+                  "var": "v",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "FIXED64"
-                  },
-                  {
-                    "text": "UNKNOWN"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Protobuf tag decoding extracting field numbers and wire types",
-        "columns": [
-          "field",
-          "wire_type",
-          "value"
+        "template": "sequence",
+        "title": "Tags and wire types",
+        "actors": [
+          "WIRE_TYPES",
+          "v",
+          "out"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tag combines field number and wire type to tell decoder how to read.",
-            "rows": [
+            "caption": "Each Protobuf field starts with a tag.",
+            "messages": [
               {
-                "cells": [
-                  "1",
-                  "VARINT",
-                  "150"
-                ],
+                "from": "WIRE_TYPES",
+                "to": "v",
+                "label": "{0: 'VARINT', 1: 'FIXED64', 2: 'LENGTH_…",
+                "tone": "data"
+              },
+              {
+                "from": "v",
+                "to": "out",
+                "label": "150",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "WIRE_TYPES"
           },
           {
             "at": "say2",
-            "caption": "Wire types define length and byte interpretation for values.",
-            "rows": [
+            "caption": "Strings, bytes, nested messages), and 5 is FIXED32.",
+            "messages": [
               {
-                "cells": [
-                  "1",
-                  "VARINT",
-                  "150"
-                ],
-                "tone": "ok"
+                "from": "WIRE_TYPES",
+                "to": "v",
+                "label": "{0: 'VARINT', 1: 'FIXED64', 2: 'LENGTH_…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "2",
-                  "LENGTH_DELIMITED",
-                  "hi"
-                ],
+                "from": "v",
+                "to": "out",
+                "label": "150",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "v"
           },
           {
-            "at": "say4",
-            "caption": "Tag bit shift extracts field number and length to consume.",
-            "rows": [
+            "at": "say6",
+            "caption": "Seeing the bytes once makes Protobuf feel much less magical.",
+            "messages": [
               {
-                "cells": [
-                  "1",
-                  "VARINT",
-                  "150"
-                ],
-                "tone": "ok"
+                "from": "WIRE_TYPES",
+                "to": "v",
+                "label": "{0: 'VARINT', 1: 'FIXED64', 2: 'LENGTH_…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "2",
-                  "LENGTH_DELIMITED",
-                  "hi"
-                ],
+                "from": "v",
+                "to": "out",
+                "label": "150",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "0",
-                  "FIXED64",
-                  "UNKNOWN"
-                ],
-                "tone": "idle"
               }
-            ]
+            ],
+            "activeActor": "out"
           }
         ]
       }
@@ -757,132 +665,278 @@
       "partTitle": "Evolving schemas safely",
       "codeHash": "01628ac323a47705c6d561bce122fa16c821d8044fdc21181ed0ad1f01e586b2",
       "spec": {
-        "template": "compare",
-        "title": "Backward compatible schema evolution between service versions",
-        "leftLabel": "Old Service Decoder",
-        "rightLabel": "New Service Decoder",
+        "template": "flow",
+        "title": "Evolving schemas safely",
+        "nodes": [
+          {
+            "id": "new_message",
+            "label": "new_message"
+          },
+          {
+            "id": "data",
+            "label": "data"
+          },
+          {
+            "id": "known",
+            "label": "known"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Schema evolution allows services with different versions to communicate.",
-            "left": {
-              "code": "decode_known(new_msg, {1: \"id\"})",
-              "result": {
-                "text": "id"
+            "caption": "Services are updated at different times, so old and new versions must.",
+            "values": {
+              "new_message": {
+                "var": "new_message",
+                "line": 24,
+                "hit": 1
               },
-              "tone": "ok"
+              "data": {
+                "var": "data",
+                "line": 11,
+                "hit": 1
+              },
+              "known": {
+                "var": "known",
+                "line": 11,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 11,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "decode_known(new_msg, {3: \"is_premium\"})",
-              "result": {
-                "text": "is_premium"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "new_message": "data",
+              "data": "data",
+              "known": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "new_message",
+                "data"
+              ],
+              [
+                "data",
+                "known"
+              ],
+              [
+                "known",
+                "i"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Decoders skip unknown fields cleanly using wire type lengths.",
-            "left": {
-              "code": "skip unknown field 3",
-              "result": {
-                "text": "name"
+            "caption": "Protobuf makes it possible.",
+            "values": {
+              "new_message": {
+                "var": "new_message",
+                "line": 25,
+                "hit": 1
               },
-              "tone": "idle"
+              "data": {
+                "var": "data",
+                "line": 12,
+                "hit": 1
+              },
+              "known": {
+                "var": "known",
+                "line": 12,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 12,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "parse new field 3",
-              "result": {
-                "text": "is_premium"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "new_message": "data",
+              "data": "data",
+              "known": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "new_message",
+                "data"
+              ],
+              [
+                "data",
+                "known"
+              ],
+              [
+                "known",
+                "i"
+              ]
+            ]
           },
           {
             "at": "say6",
-            "caption": "Compatibility allows zero-downtime deployments across services.",
-            "left": {
-              "code": "backward compatible read",
-              "result": {
-                "text": "name"
+            "caption": "Backward and forward compatibility is what allows zero-downtime deployments.",
+            "values": {
+              "new_message": {
+                "var": "new_message",
+                "line": 26,
+                "hit": 1
               },
-              "tone": "ok"
+              "data": {
+                "var": "data",
+                "line": 2,
+                "hit": 1
+              },
+              "known": {
+                "var": "known",
+                "line": 13,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 2,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "forward compatible read",
-              "result": {
-                "text": "is_premium"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "new_message": "ok",
+              "data": "ok",
+              "known": "ok",
+              "i": "ok"
+            },
+            "arrows": [
+              [
+                "new_message",
+                "data"
+              ],
+              [
+                "data",
+                "known"
+              ],
+              [
+                "known",
+                "i"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Backward compatible schema evolution between service versions",
-        "leftLabel": "Old Service Decoder",
-        "rightLabel": "New Service Decoder",
+        "template": "flow",
+        "title": "Evolving schemas safely",
+        "nodes": [
+          {
+            "id": "new_message",
+            "label": "new_message"
+          },
+          {
+            "id": "data",
+            "label": "data"
+          },
+          {
+            "id": "known",
+            "label": "known"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Schema evolution allows services with different versions to communicate.",
-            "left": {
-              "code": "decode_known(new_msg, {1: \"id\"})",
-              "result": "id",
-              "tone": "ok",
-              "checks": [
-                "id"
-              ]
+            "caption": "Services are updated at different times, so old and new versions must.",
+            "values": {
+              "new_message": "[8, 150, 1, 18, 2, 104, 105, 24, 1]",
+              "data": "[8, 150, 1, 18, 2, 104, 105, 24, 1]",
+              "known": "{1: 'id', 2: 'name'}",
+              "i": "0"
             },
-            "right": {
-              "code": "decode_known(new_msg, {3: \"is_premium\"})",
-              "result": "is_premium",
-              "tone": "ok",
-              "checks": [
-                "is_premium"
+            "tones": {
+              "new_message": "data",
+              "data": "data",
+              "known": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "new_message",
+                "data"
+              ],
+              [
+                "data",
+                "known"
+              ],
+              [
+                "known",
+                "i"
               ]
-            }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Decoders skip unknown fields cleanly using wire type lengths.",
-            "left": {
-              "code": "skip unknown field 3",
-              "result": "name",
-              "tone": "idle",
-              "checks": [
-                "name"
-              ]
+            "caption": "Protobuf makes it possible.",
+            "values": {
+              "new_message": "[8, 150, 1, 18, 2, 104, 105, 24, 1]",
+              "data": "[8, 150, 1, 18, 2, 104, 105, 24, 1]",
+              "known": "{1: 'id', 2: 'name'}",
+              "i": "0"
             },
-            "right": {
-              "code": "parse new field 3",
-              "result": "is_premium",
-              "tone": "ok",
-              "checks": [
-                "is_premium"
+            "tones": {
+              "new_message": "data",
+              "data": "data",
+              "known": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "new_message",
+                "data"
+              ],
+              [
+                "data",
+                "known"
+              ],
+              [
+                "known",
+                "i"
               ]
-            }
+            ]
           },
           {
             "at": "say6",
-            "caption": "Compatibility allows zero-downtime deployments across services.",
-            "left": {
-              "code": "backward compatible read",
-              "result": "name",
-              "tone": "ok",
-              "checks": [
-                "name"
-              ]
+            "caption": "Backward and forward compatibility is what allows zero-downtime deployments.",
+            "values": {
+              "new_message": "[8, 150, 1, 18, 2, 104, 105, 24, 1]",
+              "data": "[8, 150, 1, 18, 2, 104, 105, 24, 1]",
+              "known": "{1: 'id', 2: 'name'}",
+              "i": "0"
             },
-            "right": {
-              "code": "forward compatible read",
-              "result": "is_premium",
-              "tone": "ok",
-              "checks": [
-                "is_premium"
+            "tones": {
+              "new_message": "ok",
+              "data": "ok",
+              "known": "ok",
+              "i": "ok"
+            },
+            "arrows": [
+              [
+                "new_message",
+                "data"
+              ],
+              [
+                "data",
+                "known"
+              ],
+              [
+                "known",
+                "i"
               ]
-            }
+            ]
           }
         ]
       }
@@ -891,224 +945,106 @@
       "partTitle": "Deadlines, retries and status codes",
       "codeHash": "80e6765c01bf92c13e4fe38311de7e1282b48cdd5537faadd7e90e6289d350c2",
       "spec": {
-        "template": "flow",
-        "title": "Deadlines, retries and status codes — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Deadlines, retries and status codes",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "services",
+            "label": "services"
           },
           {
-            "id": "proc",
-            "label": "2. Deadlines, retries ...",
-            "tappable": true
+            "id": "budget_ms",
+            "label": "budget_ms"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Deadlines, retries and status codes.",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Deadlines, retries ... [Dthree.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Every RPC should carry a deadline.",
+            "currentState": "services",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Pass the remaining time, not the original timeout.",
+            "currentState": "budget_ms",
+            "transition": {
+              "from": "services",
+              "to": "budget_ms",
+              "label": {
+                "var": "budget_ms",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Deadlines, retries and status codes.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say6",
+            "caption": "Design RPC interfaces to be coarse, doing meaningful work per call, rather.",
+            "currentState": "name",
+            "transition": {
+              "from": "budget_ms",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Deadlines, retries and status codes — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Deadlines, retries and status codes",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "services",
+            "label": "services"
           },
           {
-            "id": "proc",
-            "label": "2. Deadlines, retries ...",
-            "tappable": true
+            "id": "budget_ms",
+            "label": "budget_ms"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Deadlines, retries and status codes [D3.P6.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Deadlines, retries ... [D3.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Every RPC should carry a deadline.",
+            "currentState": "services",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Pass the remaining time, not the original timeout.",
+            "currentState": "budget_ms",
+            "transition": {
+              "from": "services",
+              "to": "budget_ms",
+              "label": "500"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Deadlines, retries and status codes [D3.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say6",
+            "caption": "Design RPC interfaces to be coarse, doing meaningful work per call, rather.",
+            "currentState": "name",
+            "transition": {
+              "from": "budget_ms",
+              "to": "name",
+              "label": "'api'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

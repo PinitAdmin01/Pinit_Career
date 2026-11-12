@@ -2,89 +2,86 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 45,
-  "promptSha": "2106493896662c7251018eb3e3c6bbcade088d30d60bf911b22bae001fed9a21",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "System Architecture: Modeling Allocation Graphs & Sequence Transforms",
       "codeHash": "08ecbe78d3a5d163984783c1e326f510391ddf5b98dcc7a68896e58c4ef48099",
       "spec": {
-        "template": "table",
-        "title": "System Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "System Architecture: Modeling Allocation Graphs & Sequence Trans",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The milestone design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "System"
-                  },
-                  {
-                    "text": "Architecture"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Welcome to Milestone 9.",
+            "items": {
+              "var": "old_spec",
+              "line": 3,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Modeling"
-                  },
-                  {
-                    "text": "Allocation"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Think carefully about why combining Block 9's four optimization algorithms.",
+            "items": {
+              "var": "old_spec",
+              "line": 4,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "Trace how part updates define during execution.",
+            "items": {
+              "var": "old_spec",
+              "line": 7,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "System Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "System Architecture: Modeling Allocation Graphs & Sequence Trans",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The milestone design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "System",
-                  "Architecture"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Welcome to Milestone 9.",
+            "mode": "stack",
+            "items": [
+              "'timeout=30'",
+              "'workers=4'",
+              "'cache=on'"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Modeling",
-                  "Allocation"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Think carefully about why combining Block 9's four optimization algorithms.",
+            "mode": "stack",
+            "items": [
+              "'timeout=30'",
+              "'workers=4'",
+              "'cache=on'"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "Trace how part updates define during execution.",
+            "mode": "stack",
+            "items": [
+              "'timeout=30'",
+              "'workers=4'",
+              "'cache=on'"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -93,82 +90,88 @@
       "partTitle": "Stage 1: Dinic Throughput & Bipartite Supply-to-Demand Matching",
       "codeHash": "8d6180fce901f0bc0e73fcb15501690c5ddbb691a96f67960ff75edac3440e96",
       "spec": {
-        "template": "table",
-        "title": "Stage 1: Dinic Throughput & Bipartite Supply-to-Demand",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Stage 1: Dinic Throughput & Bipartite Supply-to-Demand Matching",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Stage"
-                  },
-                  {
-                    "text": "Dinic"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Stage 1 guarantees physical network readiness before placing a.",
+            "items": {
+              "var": "level",
+              "line": 27,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The dinic step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Throughput"
-                  },
-                  {
-                    "text": "Bipartite"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "If gateway node `hub` caps out at 50 Gbps CPU forwarding throughput.",
+            "items": {
+              "var": "level",
+              "line": 28,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Execute Stage 1 cleanly in Pyodide below on a multi-tier ingest topology.",
+            "items": {
+              "var": "level",
+              "line": 59,
+              "hit": 2
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stage 1: Dinic Throughput & Bipartite Supply-to-Demand",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Stage 1: Dinic Throughput & Bipartite Supply-to-Demand Matching",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Stage",
-                  "Dinic"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Stage 1 guarantees physical network readiness before placing a.",
+            "mode": "queue",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The dinic step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Throughput",
-                  "Bipartite"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "If gateway node `hub` caps out at 50 Gbps CPU forwarding throughput.",
+            "mode": "queue",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Execute Stage 1 cleanly in Pyodide below on a multi-tier ingest topology.",
+            "mode": "queue",
+            "items": [
+              "0",
+              "1",
+              "1",
+              "2",
+              "3",
+              "4"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -177,82 +180,79 @@
       "partTitle": "Stage 2: Min-Cost Allocation vs Bounded Binary-Split Knapsack Budgeting",
       "codeHash": "9c40d4c4640c78f3e479499d1379d1320a66b6c0f69c8dd160991dabbff4d37d",
       "spec": {
-        "template": "table",
-        "title": "Stage 2: Min-Cost Allocation vs Bounded Binary-Split",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Stage 2: Min-Cost Allocation vs Bounded Binary-Split Knapsack Bu",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Stage"
-                  },
-                  {
-                    "text": "Cost"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Once Stage 1 certifies physical pipe throughput, Stage 2 solves two.",
+            "items": {
+              "var": "jobs",
+              "line": 4,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The building step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Allocation"
-                  },
-                  {
-                    "text": "Bounded"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "In the assignment subproblem, microservices compete for finite.",
+            "items": {
+              "var": "jobs",
+              "line": 5,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect and run Stage 2 cleanly in Pyodide below to see live latency.",
+            "items": {
+              "var": "jobs",
+              "line": 8,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stage 2: Min-Cost Allocation vs Bounded Binary-Split",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Stage 2: Min-Cost Allocation vs Bounded Binary-Split Knapsack Bu",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Stage",
-                  "Cost"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Once Stage 1 certifies physical pipe throughput, Stage 2 solves two.",
+            "mode": "queue",
+            "items": [
+              "'j1'",
+              "'j2'",
+              "'j3'"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The building step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Allocation",
-                  "Bounded"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "In the assignment subproblem, microservices compete for finite.",
+            "mode": "queue",
+            "items": [
+              "'j1'",
+              "'j2'",
+              "'j3'"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect and run Stage 2 cleanly in Pyodide below to see live latency.",
+            "mode": "queue",
+            "items": [
+              "'j1'",
+              "'j2'",
+              "'j3'"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -261,80 +261,108 @@
       "partTitle": "Stage 3: Line-Level Diff Reconciliation & Fuzzy Identifier Remediation",
       "codeHash": "e9e7afa2def1119ba49009419b18c5448ead0db068deb5fdb7f3c76782bc92ad",
       "spec": {
-        "template": "table",
-        "title": "Stage 3: Line-Level Diff Reconciliation & Fuzzy Identifier",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Stage 3: Line-Level Diff Reconciliation & Fuzzy Identifier Remed",
         "steps": [
           {
             "at": "say1",
-            "caption": "The pushing design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Before pushing any capacity update or service reallocation.",
+            "items": {
+              "var": "old_c",
+              "line": 50,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Stage"
-                  },
-                  {
-                    "text": "Line"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The think step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Why combine BOTH sequence algorithms rather than relying on plain LCS.",
+            "items": {
+              "var": "old_c",
+              "line": 51,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Level"
-                  },
-                  {
-                    "text": "Diff"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Run `ManifestReconciler` below to observe structured diff output working.",
+            "items": {
+              "var": "old_c",
+              "line": 51,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stage 3: Line-Level Diff Reconciliation & Fuzzy Identifier",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Stage 3: Line-Level Diff Reconciliation & Fuzzy Identifier Remed",
         "steps": [
           {
             "at": "say1",
-            "caption": "The pushing design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Before pushing any capacity update or service reallocation.",
+            "items": [
+              "'region_hub=us-east'",
+              "'max_concurrency=32'",
+              "'timeout_ms=500'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Stage",
-                  "Line"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The think step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Why combine BOTH sequence algorithms rather than relying on plain LCS.",
+            "items": [
+              "'region_hub=us-east'",
+              "'max_concurrency=32'",
+              "'timeout_ms=500'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Level",
-                  "Diff"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Run `ManifestReconciler` below to observe structured diff output working.",
+            "items": [
+              "'region_hub=us-east'",
+              "'max_concurrency=32'",
+              "'timeout_ms=500'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -345,82 +373,72 @@
       "partTitle": "Complete Milestone 9 Capstone: Unified Cloud Capacity & Manifest Audit Suite",
       "codeHash": "aee8fa3e3bb8415b39561603e16ce1b71d11783ce1dfc2b3697bdf031702ef04",
       "spec": {
-        "template": "table",
-        "title": "Complete Milestone 9 Capstone",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Complete Milestone 9 Capstone: Unified Cloud Capacity & Manifest",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The integrate design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Complete"
-                  },
-                  {
-                    "text": "Milestone"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Trace how integrate updates four during execution.",
+            "items": {
+              "var": "names",
+              "line": 8,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Capstone"
-                  },
-                  {
-                    "text": "Unified"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Let us walk through how an end-to-end production release pipeline invokes.",
+            "items": {
+              "var": "names",
+              "line": 9,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Trace how execute updates complete during execution.",
+            "items": {
+              "var": "names",
+              "line": 15,
+              "hit": 4
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Complete Milestone 9 Capstone",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Complete Milestone 9 Capstone: Unified Cloud Capacity & Manifest",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The integrate design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Complete",
-                  "Milestone"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Trace how integrate updates four during execution.",
+            "mode": "queue",
+            "items": [],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Capstone",
-                  "Unified"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Let us walk through how an end-to-end production release pipeline invokes.",
+            "mode": "queue",
+            "items": [],
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Trace how execute updates complete during execution.",
+            "mode": "queue",
+            "items": [
+              "'S'",
+              "'r1'",
+              "'r2'",
+              "'T'"
+            ],
+            "action": "idle"
           }
         ]
       }

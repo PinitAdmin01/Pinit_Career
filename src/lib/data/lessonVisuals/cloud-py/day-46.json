@@ -2,270 +2,284 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 46,
-  "promptSha": "74fe0e57a88f6efa22e9f8cdffb37286fbfb6d20af942503d7116f2afba2d42e",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "DynamoDB Single-Table Design — Foundations & Mathematical Invariants",
-      "codeHash": "29dd7dd8d1cfa68d9572568cb4e6dd32241ff72c5268bc311f10ee97603d2eea",
+      "codeHash": "a4392391f740efed2879327193466c5ae34c63ce3b7073458966387965d60eb7",
       "spec": {
         "template": "flow",
-        "title": "DynamoDB Single-Table Design — Foundations & Mathematical Invariants",
+        "title": "DynamoDB Single-Table Design — Foundations & Mathematical Invari",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "db",
+            "label": "db"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "pk",
+            "label": "pk"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sk",
+            "label": "sk"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Single-table design collapses relational entities into a unified NoSQL key.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "db": {
+                "var": "db",
+                "line": 16,
+                "hit": 1
+              },
+              "pk": {
+                "var": "pk",
+                "line": 6,
+                "hit": 1
+              },
+              "sk": {
+                "var": "sk",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "db": "data",
+              "pk": "data",
+              "sk": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "db"
+              ],
+              [
+                "db",
+                "pk"
+              ],
+              [
+                "pk",
+                "sk"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Overloading generic partition keys (`PK`) and sort keys (`SK`) enables.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "db": {
+                "var": "db",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "pk": {
+                "var": "pk",
+                "line": 6,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "sk": {
+                "var": "sk",
+                "line": 6,
+                "hit": 2
               }
+            },
+            "tones": {
+              "self": "data",
+              "db": "data",
+              "pk": "data",
+              "sk": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "db"
+              ],
+              [
+                "db",
+                "pk"
+              ],
+              [
+                "pk",
+                "sk"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Analyze the mathematical data co-location model comparing relational.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "db": {
+                "var": "db",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "pk": {
+                "var": "pk",
+                "line": 6,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "sk": {
+                "var": "sk",
+                "line": 6,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "db": "ok",
+              "pk": "ok",
+              "sk": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "db"
+              ],
+              [
+                "db",
+                "pk"
+              ],
+              [
+                "pk",
+                "sk"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "DynamoDB Single-Table Design — Foundations & Mathematical Invariants",
+        "title": "DynamoDB Single-Table Design — Foundations & Mathematical Invari",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "db",
+            "label": "db"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "pk",
+            "label": "pk"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sk",
+            "label": "sk"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Single-table design collapses relational entities into a unified NoSQL key.",
+            "values": {
+              "self": "<SingleTableDesignModel>",
+              "db": "<SingleTableDesignModel>",
+              "pk": "'USER#101'",
+              "sk": "'METADATA'"
+            },
+            "tones": {
+              "self": "data",
+              "db": "data",
+              "pk": "data",
+              "sk": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "db"
+              ],
+              [
+                "db",
+                "pk"
+              ],
+              [
+                "pk",
+                "sk"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Overloading generic partition keys (`PK`) and sort keys (`SK`) enables.",
+            "values": {
+              "self": "<SingleTableDesignModel>",
+              "db": "<SingleTableDesignModel>",
+              "pk": "'USER#101'",
+              "sk": "'ORDER#2026-11-10'"
+            },
+            "tones": {
+              "self": "data",
+              "db": "data",
+              "pk": "data",
+              "sk": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "db"
+              ],
+              [
+                "db",
+                "pk"
+              ],
+              [
+                "pk",
+                "sk"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Analyze the mathematical data co-location model comparing relational.",
+            "values": {
+              "self": "<SingleTableDesignModel>",
+              "db": "<SingleTableDesignModel>",
+              "pk": "'USER#101'",
+              "sk": "'ORDER#2026-11-12'"
+            },
+            "tones": {
+              "self": "ok",
+              "db": "ok",
+              "pk": "ok",
+              "sk": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "db"
+              ],
+              [
+                "db",
+                "pk"
+              ],
+              [
+                "pk",
+                "sk"
+              ]
             ]
           }
         ]
@@ -273,265 +287,279 @@
     },
     {
       "partTitle": "DynamoDB Single-Table Design — Core Algorithm & State Representation",
-      "codeHash": "dff63581006badc72bc4ea75d4538d7847652cf7671318e8ba846f3faf0e6e17",
+      "codeHash": "898315d45838e3096cbd42420db77bddb6a2747512d796fa3ba917a4f0afa550",
       "spec": {
         "template": "flow",
-        "title": "DynamoDB Single-Table Design — Core Algorithm & State Representation",
+        "title": "DynamoDB Single-Table Design — Core Algorithm & State Representa",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "table",
+            "label": "table"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "pk",
+            "label": "pk"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sk",
+            "label": "sk"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Composite sort keys structured with hierarchical delimiters (`USER#100`.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "table": {
+                "var": "table",
+                "line": 18,
+                "hit": 1
+              },
+              "pk": {
+                "var": "pk",
+                "line": 7,
+                "hit": 1
+              },
+              "sk": {
+                "var": "sk",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "table": "data",
+              "pk": "data",
+              "sk": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "table"
+              ],
+              [
+                "table",
+                "pk"
+              ],
+              [
+                "pk",
+                "sk"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Designing access patterns prior to schema definition ensures that all.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "table": {
+                "var": "table",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "pk": {
+                "var": "pk",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "sk": {
+                "var": "sk",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "table": "data",
+              "pk": "data",
+              "sk": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "table"
+              ],
+              [
+                "table",
+                "pk"
+              ],
+              [
+                "pk",
+                "sk"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Study the Global Secondary Index projection and sparse index query.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "table": {
+                "var": "table",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "pk": {
+                "var": "pk",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "sk": {
+                "var": "sk",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "table": "ok",
+              "pk": "ok",
+              "sk": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "table"
+              ],
+              [
+                "table",
+                "pk"
+              ],
+              [
+                "pk",
+                "sk"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "DynamoDB Single-Table Design — Core Algorithm & State Representation",
+        "title": "DynamoDB Single-Table Design — Core Algorithm & State Representa",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "table",
+            "label": "table"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "pk",
+            "label": "pk"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sk",
+            "label": "sk"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Composite sort keys structured with hierarchical delimiters (`USER#100`.",
+            "values": {
+              "self": "<DynamoDBTableWithGSI>",
+              "table": "<DynamoDBTableWithGSI>",
+              "pk": "'USER#1'",
+              "sk": "'ORD#1'"
+            },
+            "tones": {
+              "self": "data",
+              "table": "data",
+              "pk": "data",
+              "sk": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "table"
+              ],
+              [
+                "table",
+                "pk"
+              ],
+              [
+                "pk",
+                "sk"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Designing access patterns prior to schema definition ensures that all.",
+            "values": {
+              "self": "<DynamoDBTableWithGSI>",
+              "table": "<DynamoDBTableWithGSI>",
+              "pk": "'USER#1'",
+              "sk": "'ORD#1'"
+            },
+            "tones": {
+              "self": "data",
+              "table": "data",
+              "pk": "data",
+              "sk": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "table"
+              ],
+              [
+                "table",
+                "pk"
+              ],
+              [
+                "pk",
+                "sk"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Study the Global Secondary Index projection and sparse index query.",
+            "values": {
+              "self": "<DynamoDBTableWithGSI>",
+              "table": "<DynamoDBTableWithGSI>",
+              "pk": "'USER#1'",
+              "sk": "'ORD#1'"
+            },
+            "tones": {
+              "self": "ok",
+              "table": "ok",
+              "pk": "ok",
+              "sk": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "table"
+              ],
+              [
+                "table",
+                "pk"
+              ],
+              [
+                "pk",
+                "sk"
+              ]
             ]
           }
         ]
@@ -539,265 +567,279 @@
     },
     {
       "partTitle": "DynamoDB Single-Table Design — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "2e9e6b1d6d36513500b64c009be03fb92e83d5d5a6e19ea954168798f7fdc1c3",
+      "codeHash": "7603d9c0d0715ed9655d37e482065d5d3f05f90219ad6fa0f82cd0982248915c",
       "spec": {
         "template": "flow",
-        "title": "DynamoDB Single-Table Design — Throughput Optimization & Edge-Case Han",
+        "title": "DynamoDB Single-Table Design — Throughput Optimization & Edge-Ca",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tx_engine",
+            "label": "tx_engine"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "transfer_ops",
+            "label": "transfer_ops"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "operations",
+            "label": "operations"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Sparse global secondary indexes project only items containing specific.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "tx_engine": {
+                "var": "tx_engine",
+                "line": 20,
+                "hit": 1
+              },
+              "transfer_ops": {
+                "var": "transfer_ops",
+                "line": 25,
+                "hit": 1
+              },
+              "operations": {
+                "var": "operations",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "tx_engine": "data",
+              "transfer_ops": "data",
+              "operations": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "tx_engine"
+              ],
+              [
+                "tx_engine",
+                "transfer_ops"
+              ],
+              [
+                "transfer_ops",
+                "operations"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Batch write operations and parallel pagination scans ensure maximum.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tx_engine": {
+                "var": "tx_engine",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "transfer_ops": {
+                "var": "transfer_ops",
+                "line": 29,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "operations": {
+                "var": "operations",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "tx_engine": "data",
+              "transfer_ops": "data",
+              "operations": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "tx_engine"
+              ],
+              [
+                "tx_engine",
+                "transfer_ops"
+              ],
+              [
+                "transfer_ops",
+                "operations"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Implement the ACID transaction coordinator and attribute projection.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tx_engine": {
+                "var": "tx_engine",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "transfer_ops": {
+                "var": "transfer_ops",
+                "line": 30,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "operations": {
+                "var": "operations",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "tx_engine": "ok",
+              "transfer_ops": "ok",
+              "operations": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "tx_engine"
+              ],
+              [
+                "tx_engine",
+                "transfer_ops"
+              ],
+              [
+                "transfer_ops",
+                "operations"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "DynamoDB Single-Table Design — Throughput Optimization & Edge-Case Han",
+        "title": "DynamoDB Single-Table Design — Throughput Optimization & Edge-Ca",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tx_engine",
+            "label": "tx_engine"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "transfer_ops",
+            "label": "transfer_ops"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "operations",
+            "label": "operations"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Sparse global secondary indexes project only items containing specific.",
+            "values": {
+              "self": "<DynamoDBTransactionEngine>",
+              "tx_engine": "<DynamoDBTransactionEngine>",
+              "transfer_ops": "[{'type': 'PUT', 'pk': 'ACCT#1', 'sk': …",
+              "operations": "[{'type': 'PUT', 'pk': 'ACCT#1', 'sk': …"
+            },
+            "tones": {
+              "self": "data",
+              "tx_engine": "data",
+              "transfer_ops": "data",
+              "operations": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "tx_engine"
+              ],
+              [
+                "tx_engine",
+                "transfer_ops"
+              ],
+              [
+                "transfer_ops",
+                "operations"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Batch write operations and parallel pagination scans ensure maximum.",
+            "values": {
+              "self": "<DynamoDBTransactionEngine>",
+              "tx_engine": "<DynamoDBTransactionEngine>",
+              "transfer_ops": "[{'type': 'PUT', 'pk': 'ACCT#1', 'sk': …",
+              "operations": "[{'type': 'PUT', 'pk': 'ACCT#1', 'sk': …"
+            },
+            "tones": {
+              "self": "data",
+              "tx_engine": "data",
+              "transfer_ops": "data",
+              "operations": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "tx_engine"
+              ],
+              [
+                "tx_engine",
+                "transfer_ops"
+              ],
+              [
+                "transfer_ops",
+                "operations"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say7",
+            "caption": "Implement the ACID transaction coordinator and attribute projection.",
+            "values": {
+              "self": "<DynamoDBTransactionEngine>",
+              "tx_engine": "<DynamoDBTransactionEngine>",
+              "transfer_ops": "[{'type': 'PUT', 'pk': 'ACCT#1', 'sk': …",
+              "operations": "[{'type': 'PUT', 'pk': 'ACCT#1', 'sk': …"
+            },
+            "tones": {
+              "self": "ok",
+              "tx_engine": "ok",
+              "transfer_ops": "ok",
+              "operations": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "tx_engine"
+              ],
+              [
+                "tx_engine",
+                "transfer_ops"
+              ],
+              [
+                "transfer_ops",
+                "operations"
+              ]
             ]
           }
         ]
@@ -805,532 +847,272 @@
     },
     {
       "partTitle": "DynamoDB Single-Table Design — Resilience Guardrails & Failure Recovery",
-      "codeHash": "619484126e1502424c7fbfa33a8a8cfd3328d3eaec43273dcd132fd2193a65c0",
+      "codeHash": "10468fcc65eff8e503b059441a332e94435be290e01727c341b4e819b8a6b53e",
       "spec": {
-        "template": "flow",
-        "title": "DynamoDB Single-Table Design — Resilience Guardrails & Failure Recover",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "DynamoDB Single-Table Design — Resilience Guardrails & Failure R",
+        "actors": [
+          "self",
+          "num_shards",
+          "router"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Optimistic locking using version attributes prevents race conditions.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "num_shards",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "num_shards",
+                "to": "router",
+                "label": {
+                  "var": "num_shards",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "DynamoDB Streams provide an immutable, ordered changelog that powers.",
+            "activeActor": "num_shards",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "num_shards",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 10
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "num_shards",
+                "to": "router",
+                "label": {
+                  "var": "num_shards",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Simulate the write sharding partition key generator and throughput.",
+            "activeActor": "router",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "num_shards",
+                "label": {
+                  "var": "self",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "num_shards",
+                "to": "router",
+                "label": {
+                  "var": "num_shards",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "DynamoDB Single-Table Design — Resilience Guardrails & Failure Recover",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "DynamoDB Single-Table Design — Resilience Guardrails & Failure R",
+        "actors": [
+          "self",
+          "num_shards",
+          "router"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Optimistic locking using version attributes prevents race conditions.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "num_shards",
+                "label": "<ShardedPartitionRouter>",
+                "tone": "data"
+              },
+              {
+                "from": "num_shards",
+                "to": "router",
+                "label": "4",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "DynamoDB Streams provide an immutable, ordered changelog that powers.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "num_shards",
+                "label": "<ShardedPartitionRouter>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "num_shards",
+                "to": "router",
+                "label": "4",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "num_shards"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Simulate the write sharding partition key generator and throughput.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "num_shards",
+                "label": "<ShardedPartitionRouter>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "num_shards",
+                "to": "router",
+                "label": "4",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "router"
           }
         ]
       }
     },
     {
       "partTitle": "DynamoDB Single-Table Design — Production Telemetry & Verification Audit",
-      "codeHash": "ae7cdb8572beaf55e137599e22cb3b30132fdbde71579c666c628917b0bc0eb2",
+      "codeHash": "de87091cc2e9657020fc80652658940be34e9eef77703893d6599901a4ceabdd",
       "spec": {
-        "template": "flow",
-        "title": "DynamoDB Single-Table Design — Production Telemetry & Verification Aud",
-        "nodes": [
+        "template": "states",
+        "title": "DynamoDB Single-Table Design — Production Telemetry & Verificati",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "healthy",
+            "label": "healthy"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "degraded",
+            "label": "degraded"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "table_telemetry",
+            "label": "table_telemetry"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Monitoring ConsumedReadCapacityUnits, ConsumedWriteCapacityUnits,.",
+            "currentState": "healthy",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Automated schema verification verifies that all composite key formats.",
+            "currentState": "degraded",
+            "transition": {
+              "from": "healthy",
+              "to": "degraded",
+              "label": {
+                "var": "degraded",
+                "line": 21,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say7",
+            "caption": "Run the automated DynamoDB telemetry and capacity health audit suite below.",
+            "currentState": "table_telemetry",
+            "transition": {
+              "from": "degraded",
+              "to": "table_telemetry",
+              "label": {
+                "var": "table_telemetry",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "DynamoDB Single-Table Design — Production Telemetry & Verification Aud",
-        "nodes": [
+        "template": "states",
+        "title": "DynamoDB Single-Table Design — Production Telemetry & Verificati",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "healthy",
+            "label": "healthy"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "degraded",
+            "label": "degraded"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "table_telemetry",
+            "label": "table_telemetry"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Monitoring ConsumedReadCapacityUnits, ConsumedWriteCapacityUnits,.",
+            "currentState": "healthy",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Automated schema verification verifies that all composite key formats.",
+            "currentState": "degraded",
+            "transition": {
+              "from": "healthy",
+              "to": "degraded",
+              "label": "{'ReadThrottleEvents': 45, 'WriteThrott…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say7",
+            "caption": "Run the automated DynamoDB telemetry and capacity health audit suite below.",
+            "currentState": "table_telemetry",
+            "transition": {
+              "from": "degraded",
+              "to": "table_telemetry",
+              "label": "{'ReadThrottleEvents': 0, 'WriteThrottl…"
+            },
+            "tone": "ok"
           }
         ]
       }

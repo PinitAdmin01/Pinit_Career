@@ -2,230 +2,224 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 25,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why self-host an open model?",
       "codeHash": "a1cfc2796108952cfe0dd3b3a4c73eb9977d1771c35e515ca5d90220f085ed9b",
       "spec": {
-        "template": "flow",
-        "title": "Why self-host an open model? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Why self-host an op...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Why self-host an open model?",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Why self-host an open model? [D.Pone.Sone].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Why self-host an op... [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Open-weight models (such as Llama, Mistral, Qwen and Gemma) can be.",
+            "bars": [
+              {
+                "label": "gpu_per_hour",
+                "value": {
+                  "var": "gpu_per_hour",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "tokens_per_sec",
+                "value": {
+                  "var": "tokens_per_second",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "api_per_millio",
+                "value": {
+                  "var": "api_per_million",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "monthly_gpu",
+                "value": {
+                  "var": "monthly_gpu",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Reasons to self-host.",
+            "bars": [
+              {
+                "label": "gpu_per_hour",
+                "value": {
+                  "var": "gpu_per_hour",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "tokens_per_sec",
+                "value": {
+                  "var": "tokens_per_second",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "api_per_millio",
+                "value": {
+                  "var": "api_per_million",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "monthly_gpu",
+                "value": {
+                  "var": "monthly_gpu",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Why self-host an open model.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The break-even calculation below helps you make that call with numbers.",
+            "bars": [
+              {
+                "label": "gpu_per_hour",
+                "value": {
+                  "var": "gpu_per_hour",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "tokens_per_sec",
+                "value": {
+                  "var": "tokens_per_second",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "api_per_millio",
+                "value": {
+                  "var": "api_per_million",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "monthly_gpu",
+                "value": {
+                  "var": "monthly_gpu",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Why self-host an open model? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Why self-host an op...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Why self-host an open model?",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Why self-host an open model? [D25.P1.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Why self-host an op... [D25.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Open-weight models (such as Llama, Mistral, Qwen and Gemma) can be.",
+            "bars": [
+              {
+                "label": "gpu_per_hour",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "tokens_per_sec",
+                "value": 2500,
+                "tone": "data"
+              },
+              {
+                "label": "api_per_millio",
+                "value": 0.6,
+                "tone": "data"
+              },
+              {
+                "label": "monthly_gpu",
+                "value": 1440,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Reasons to self-host.",
+            "bars": [
+              {
+                "label": "gpu_per_hour",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "tokens_per_sec",
+                "value": 2500,
+                "tone": "ok"
+              },
+              {
+                "label": "api_per_millio",
+                "value": 0.6,
+                "tone": "ok"
+              },
+              {
+                "label": "monthly_gpu",
+                "value": 1440,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Why self-host an open model? [D25.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The break-even calculation below helps you make that call with numbers.",
+            "bars": [
+              {
+                "label": "gpu_per_hour",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "tokens_per_sec",
+                "value": 2500,
+                "tone": "ok"
+              },
+              {
+                "label": "api_per_millio",
+                "value": 0.6,
+                "tone": "ok"
+              },
+              {
+                "label": "monthly_gpu",
+                "value": 1440,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -236,23 +230,45 @@
       "codeHash": "c77c547e2282f7a6243b92d46925958d2ac838356e0d85d9d1aa15897f6f9466",
       "spec": {
         "template": "bars",
-        "title": "KV cache memory consumption scaling with context length",
+        "title": "The KV cache",
         "steps": [
           {
             "at": "say1",
-            "caption": "KV cache stores keys and values so transformer reuses earlier tokens.",
+            "caption": "When generating, a transformer reuses the keys and values (K and V).",
             "bars": [
               {
-                "label": "context_1k",
+                "label": "layers",
                 "value": {
-                  "text": "1000"
+                  "var": "layers",
+                  "line": 2,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "context_4k",
+                "label": "hidden",
                 "value": {
-                  "text": "4000"
+                  "var": "hidden",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bytes_per_valu",
+                "value": {
+                  "var": "bytes_per_value",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "per_token",
+                "value": {
+                  "var": "per_token",
+                  "line": 4,
+                  "hit": 1
                 },
                 "tone": "data"
               }
@@ -260,55 +276,85 @@
           },
           {
             "at": "say2",
-            "caption": "KV cache grows with every token across long contexts.",
+            "caption": "The KV cache grows with every token of every conversation being served.",
             "bars": [
               {
-                "label": "context_1k",
+                "label": "layers",
                 "value": {
-                  "text": "1000"
+                  "var": "layers",
+                  "line": 2,
+                  "hit": 1
                 },
                 "tone": "ok"
               },
               {
-                "label": "context_4k",
+                "label": "hidden",
                 "value": {
-                  "text": "4000"
+                  "var": "hidden",
+                  "line": 2,
+                  "hit": 1
                 },
-                "tone": "data"
+                "tone": "ok"
               },
               {
-                "label": "context_32k",
+                "label": "bytes_per_valu",
                 "value": {
-                  "text": "32000"
+                  "var": "bytes_per_value",
+                  "line": 2,
+                  "hit": 1
                 },
-                "tone": "error"
+                "tone": "ok"
+              },
+              {
+                "label": "per_token",
+                "value": {
+                  "var": "per_token",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Cache memory is main limit on how many users a GPU serves at once.",
+            "caption": "KV cache memory is the main limit on how many users a GPU can serve at once.",
             "bars": [
               {
-                "label": "context_1k",
+                "label": "layers",
                 "value": {
-                  "text": "1000"
+                  "var": "layers",
+                  "line": 2,
+                  "hit": 1
                 },
                 "tone": "ok"
               },
               {
-                "label": "context_4k",
+                "label": "hidden",
                 "value": {
-                  "text": "4000"
+                  "var": "hidden",
+                  "line": 2,
+                  "hit": 1
                 },
-                "tone": "data"
+                "tone": "ok"
               },
               {
-                "label": "context_32k",
+                "label": "bytes_per_valu",
                 "value": {
-                  "text": "32000"
+                  "var": "bytes_per_value",
+                  "line": 2,
+                  "hit": 1
                 },
-                "tone": "error"
+                "tone": "ok"
+              },
+              {
+                "label": "per_token",
+                "value": {
+                  "var": "per_token",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
@@ -316,63 +362,83 @@
       },
       "filled": {
         "template": "bars",
-        "title": "KV cache memory consumption scaling with context length",
+        "title": "The KV cache",
         "steps": [
           {
             "at": "say1",
-            "caption": "KV cache stores keys and values so transformer reuses earlier tokens.",
+            "caption": "When generating, a transformer reuses the keys and values (K and V).",
             "bars": [
               {
-                "label": "context_1k",
-                "value": 1000,
-                "tone": "ok"
+                "label": "layers",
+                "value": 32,
+                "tone": "data"
               },
               {
-                "label": "context_4k",
-                "value": 4000,
+                "label": "hidden",
+                "value": 4096,
+                "tone": "data"
+              },
+              {
+                "label": "bytes_per_valu",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "per_token",
+                "value": 524288,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "KV cache grows with every token across long contexts.",
+            "caption": "The KV cache grows with every token of every conversation being served.",
             "bars": [
               {
-                "label": "context_1k",
-                "value": 1000,
+                "label": "layers",
+                "value": 32,
                 "tone": "ok"
               },
               {
-                "label": "context_4k",
-                "value": 4000,
-                "tone": "data"
+                "label": "hidden",
+                "value": 4096,
+                "tone": "ok"
               },
               {
-                "label": "context_32k",
-                "value": 32000,
-                "tone": "error"
+                "label": "bytes_per_valu",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "per_token",
+                "value": 524288,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Cache memory is main limit on how many users a GPU serves at once.",
+            "caption": "KV cache memory is the main limit on how many users a GPU can serve at once.",
             "bars": [
               {
-                "label": "context_1k",
-                "value": 1000,
+                "label": "layers",
+                "value": 32,
                 "tone": "ok"
               },
               {
-                "label": "context_4k",
-                "value": 4000,
-                "tone": "data"
+                "label": "hidden",
+                "value": 4096,
+                "tone": "ok"
               },
               {
-                "label": "context_32k",
-                "value": 32000,
-                "tone": "error"
+                "label": "bytes_per_valu",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "per_token",
+                "value": 524288,
+                "tone": "ok"
               }
             ]
           }
@@ -383,132 +449,162 @@
       "partTitle": "PagedAttention",
       "codeHash": "fce11c2db0f346af055f19a4fb352210ef14b5b3ed7228bd73fc87c2f68c387a",
       "spec": {
-        "template": "compare",
-        "title": "Pre-allocated contiguous buffer versus paged virtual memory allocation",
-        "leftLabel": "Traditional Buffer",
-        "rightLabel": "PagedAttention",
+        "template": "sequence",
+        "title": "PagedAttention",
+        "actors": [
+          "traditional_mb",
+          "paged_mb",
+          "saved"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Traditional servers reserve one big block of memory per request.",
-            "left": {
-              "code": "reserved_per_request = 2048 MB",
-              "result": {
-                "text": "2048"
+            "caption": "Traditional servers reserve one big block of memory per request, sized.",
+            "activeActor": "traditional_mb",
+            "messages": [
+              {
+                "from": "traditional_mb",
+                "to": "paged_mb",
+                "label": {
+                  "var": "traditional_mb",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "paged_mb = 512 MB virtual pages",
-              "result": {
-                "text": "512"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "paged_mb",
+                "to": "saved",
+                "label": {
+                  "var": "paged_mb",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "PagedAttention stores KV cache in small pages like virtual memory.",
-            "left": {
-              "code": "contiguous pre-allocation waste",
-              "result": {
-                "text": "2048"
+            "caption": "PagedAttention, introduced by vLLM, stores the KV cache in small.",
+            "activeActor": "paged_mb",
+            "messages": [
+              {
+                "from": "traditional_mb",
+                "to": "paged_mb",
+                "label": {
+                  "var": "traditional_mb",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "on-demand page allocation blocks",
-              "result": {
-                "text": "512"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "paged_mb",
+                "to": "saved",
+                "label": {
+                  "var": "paged_mb",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Less wasted memory allows more requests on the same GPU raising throughput.",
-            "left": {
-              "code": "internal fragmentation bottlenecks",
-              "result": {
-                "text": "2048"
+            "at": "say7",
+            "caption": "This one idea is a major reason vLLM serves many times more requests than.",
+            "activeActor": "saved",
+            "messages": [
+              {
+                "from": "traditional_mb",
+                "to": "paged_mb",
+                "label": {
+                  "var": "traditional_mb",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "high batch capacity concurrency",
-              "result": {
-                "text": "512"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "paged_mb",
+                "to": "saved",
+                "label": {
+                  "var": "paged_mb",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Pre-allocated contiguous buffer versus paged virtual memory allocation",
-        "leftLabel": "Traditional Buffer",
-        "rightLabel": "PagedAttention",
+        "template": "sequence",
+        "title": "PagedAttention",
+        "actors": [
+          "traditional_mb",
+          "paged_mb",
+          "saved"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Traditional servers reserve one big block of memory per request.",
-            "left": {
-              "code": "reserved_per_request = 2048 MB",
-              "result": "2048",
-              "tone": "error",
-              "checks": [
-                "2048"
-              ]
-            },
-            "right": {
-              "code": "paged_mb = 512 MB virtual pages",
-              "result": "512",
-              "tone": "ok",
-              "checks": [
-                "512"
-              ]
-            }
+            "caption": "Traditional servers reserve one big block of memory per request, sized.",
+            "messages": [
+              {
+                "from": "traditional_mb",
+                "to": "paged_mb",
+                "label": "2048",
+                "tone": "data"
+              },
+              {
+                "from": "paged_mb",
+                "to": "saved",
+                "label": "512",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "traditional_mb"
           },
           {
             "at": "say2",
-            "caption": "PagedAttention stores KV cache in small pages like virtual memory.",
-            "left": {
-              "code": "contiguous pre-allocation waste",
-              "result": "2048",
-              "tone": "error",
-              "checks": [
-                "2048"
-              ]
-            },
-            "right": {
-              "code": "on-demand page allocation blocks",
-              "result": "512",
-              "tone": "ok",
-              "checks": [
-                "512"
-              ]
-            }
+            "caption": "PagedAttention, introduced by vLLM, stores the KV cache in small.",
+            "messages": [
+              {
+                "from": "traditional_mb",
+                "to": "paged_mb",
+                "label": "2048",
+                "tone": "data"
+              },
+              {
+                "from": "paged_mb",
+                "to": "saved",
+                "label": "512",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "paged_mb"
           },
           {
-            "at": "say3",
-            "caption": "Less wasted memory allows more requests on the same GPU raising throughput.",
-            "left": {
-              "code": "internal fragmentation bottlenecks",
-              "result": "2048",
-              "tone": "error",
-              "checks": [
-                "2048"
-              ]
-            },
-            "right": {
-              "code": "high batch capacity concurrency",
-              "result": "512",
-              "tone": "ok",
-              "checks": [
-                "512"
-              ]
-            }
+            "at": "say7",
+            "caption": "This one idea is a major reason vLLM serves many times more requests than.",
+            "messages": [
+              {
+                "from": "traditional_mb",
+                "to": "paged_mb",
+                "label": "2048",
+                "tone": "data"
+              },
+              {
+                "from": "paged_mb",
+                "to": "saved",
+                "label": "512",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "saved"
           }
         ]
       }
@@ -517,132 +613,218 @@
       "partTitle": "Batching and throughput",
       "codeHash": "e5171991c8da0e66569ee1eb77f1d193edf0f5417791e7d04b46bf295e6eebfa",
       "spec": {
-        "template": "compare",
-        "title": "Sequential static batching versus dynamic continuous batching",
-        "leftLabel": "Static Batching",
-        "rightLabel": "Continuous Batching",
+        "template": "bars",
+        "title": "Batching and throughput",
         "steps": [
           {
             "at": "say1",
-            "caption": "Static batching waits for whole batch to finish before starting next.",
-            "left": {
-              "code": "static_time = sum(max(...))",
-              "result": {
-                "text": "static batching steps:"
+            "caption": "A GPU is most efficient when it processes many sequences at once.",
+            "bars": [
+              {
+                "label": "slots",
+                "value": {
+                  "var": "slots",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "data"
-            },
-            "right": {
-              "code": "continuous_time = max(finish)",
-              "result": {
-                "text": "continuous batching steps:"
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            }
+              {
+                "label": "static_time",
+                "value": {
+                  "var": "static_time",
+                  "line": 4,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "label": "length",
+                "value": {
+                  "var": "length",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Continuous batching adds new requests as soon as sequence finishes.",
-            "left": {
-              "code": "idle GPU slots waiting for longest sequence",
-              "result": {
-                "text": "static batching steps:"
+            "caption": "Continuous batching (used by vLLM and others) adds new requests into.",
+            "bars": [
+              {
+                "label": "slots",
+                "value": {
+                  "var": "slots",
+                  "line": 4,
+                  "hit": 5
+                },
+                "tone": "ok"
               },
-              "tone": "data"
-            },
-            "right": {
-              "code": "immediate slot refill on token finish",
-              "result": {
-                "text": "continuous batching steps:"
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
-              "tone": "ok"
-            }
+              {
+                "label": "static_time",
+                "value": {
+                  "var": "static_time",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "length",
+                "value": {
+                  "var": "length",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Continuous batching keeps GPU busy and raises total tokens per second.",
-            "left": {
-              "code": "underutilized compute hardware",
-              "result": {
-                "text": "static batching steps:"
+            "at": "say7",
+            "caption": "The simple simulation shows why short requests benefit most.",
+            "bars": [
+              {
+                "label": "slots",
+                "value": {
+                  "var": "slots",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
-              "tone": "data"
-            },
-            "right": {
-              "code": "near 100% compute hardware saturation",
-              "result": {
-                "text": "continuous batching steps:"
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
-              "tone": "ok"
-            }
+              {
+                "label": "static_time",
+                "value": {
+                  "var": "static_time",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "length",
+                "value": {
+                  "var": "length",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Sequential static batching versus dynamic continuous batching",
-        "leftLabel": "Static Batching",
-        "rightLabel": "Continuous Batching",
+        "template": "bars",
+        "title": "Batching and throughput",
         "steps": [
           {
             "at": "say1",
-            "caption": "Static batching waits for whole batch to finish before starting next.",
-            "left": {
-              "code": "static_time = sum(max(...))",
-              "result": "static batching steps:",
-              "tone": "data",
-              "checks": [
-                "static batching steps:"
-              ]
-            },
-            "right": {
-              "code": "continuous_time = max(finish)",
-              "result": "continuous batching steps:",
-              "tone": "ok",
-              "checks": [
-                "continuous batching steps:"
-              ]
-            }
+            "caption": "A GPU is most efficient when it processes many sequences at once.",
+            "bars": [
+              {
+                "label": "slots",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "static_time",
+                "value": 420,
+                "tone": "data"
+              },
+              {
+                "label": "length",
+                "value": 20,
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Continuous batching adds new requests as soon as sequence finishes.",
-            "left": {
-              "code": "idle GPU slots waiting for longest sequence",
-              "result": "static batching steps:",
-              "tone": "data",
-              "checks": [
-                "static batching steps:"
-              ]
-            },
-            "right": {
-              "code": "immediate slot refill on token finish",
-              "result": "continuous batching steps:",
-              "tone": "ok",
-              "checks": [
-                "continuous batching steps:"
-              ]
-            }
+            "caption": "Continuous batching (used by vLLM and others) adds new requests into.",
+            "bars": [
+              {
+                "label": "slots",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "static_time",
+                "value": 420,
+                "tone": "ok"
+              },
+              {
+                "label": "length",
+                "value": 20,
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Continuous batching keeps GPU busy and raises total tokens per second.",
-            "left": {
-              "code": "underutilized compute hardware",
-              "result": "static batching steps:",
-              "tone": "data",
-              "checks": [
-                "static batching steps:"
-              ]
-            },
-            "right": {
-              "code": "near 100% compute hardware saturation",
-              "result": "continuous batching steps:",
-              "tone": "ok",
-              "checks": [
-                "continuous batching steps:"
-              ]
-            }
+            "at": "say7",
+            "caption": "The simple simulation shows why short requests benefit most.",
+            "bars": [
+              {
+                "label": "slots",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "static_time",
+                "value": 420,
+                "tone": "ok"
+              },
+              {
+                "label": "length",
+                "value": 20,
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -651,236 +833,194 @@
       "partTitle": "GGUF and quantisation names",
       "codeHash": "fadf36fe92b94862c9256969bbc3715aa8e4890d370c87a66f6539d1d6c6fb93",
       "spec": {
-        "template": "table",
-        "title": "GGUF quantization format naming conventions and bit precision",
-        "columns": [
-          "gguf_name",
-          "bit_precision",
-          "file_size"
+        "template": "boxes",
+        "title": "GGUF and quantisation names",
+        "boxes": [
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "bits",
+            "label": "bits"
+          },
+          {
+            "id": "f",
+            "label": "f"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "GGUF is the file format used by llama.cpp and Ollama.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Q4_K_M"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "GB"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "GGUF is the file format used by llama.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Q8_0"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "GB"
-                  }
-                ],
-                "tone": "ok"
+              "q": {
+                "var": "q",
+                "line": 4,
+                "hit": 1
+              },
+              "bits": {
+                "var": "bits",
+                "line": 11,
+                "hit": 1
+              },
+              "f": {
+                "var": "f",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "name": "data",
+              "q": "data",
+              "bits": "data",
+              "f": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "File names show quantisation bits per weight with quality mix.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Q4_K_M"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "GB"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "File names show the quantisation.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Q8_0"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "GB"
-                  }
-                ],
-                "tone": "ok"
+              "q": {
+                "var": "q",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "FP16"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "GB"
-                  }
-                ],
-                "tone": "data"
+              "bits": {
+                "var": "bits",
+                "line": 12,
+                "hit": 1
+              },
+              "f": {
+                "var": "f",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "name": "data",
+              "q": "data",
+              "bits": "data",
+              "f": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "Quantization bits returns the number after Q for quantised names.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Q4_K_M"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "GB"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say6",
+            "caption": "File size is roughly parameters x bits / 8, so a 7B model at Q4 is about 3.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Q8_0"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "GB"
-                  }
-                ],
-                "tone": "ok"
+              "q": {
+                "var": "q",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "FP16"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "GB"
-                  }
-                ],
-                "tone": "data"
+              "bits": {
+                "var": "bits",
+                "line": 10,
+                "hit": 2
+              },
+              "f": {
+                "var": "f",
+                "line": 7,
+                "hit": 2
               }
-            ]
+            },
+            "tones": {
+              "name": "ok",
+              "q": "ok",
+              "bits": "ok",
+              "f": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "GGUF quantization format naming conventions and bit precision",
-        "columns": [
-          "gguf_name",
-          "bit_precision",
-          "file_size"
+        "template": "boxes",
+        "title": "GGUF and quantisation names",
+        "boxes": [
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "bits",
+            "label": "bits"
+          },
+          {
+            "id": "f",
+            "label": "f"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "GGUF is the file format used by llama.cpp and Ollama.",
-            "rows": [
-              {
-                "cells": [
-                  "Q4_K_M",
-                  "bits",
-                  "GB"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Q8_0",
-                  "bits",
-                  "GB"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "GGUF is the file format used by llama.",
+            "values": {
+              "name": "'Q4_K_M'",
+              "q": "{'__other__': 'Match'}",
+              "bits": "4",
+              "f": "{'__other__': 'Match'}"
+            },
+            "tones": {
+              "name": "data",
+              "q": "data",
+              "bits": "data",
+              "f": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "File names show quantisation bits per weight with quality mix.",
-            "rows": [
-              {
-                "cells": [
-                  "Q4_K_M",
-                  "bits",
-                  "GB"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Q8_0",
-                  "bits",
-                  "GB"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "FP16",
-                  "bits",
-                  "GB"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "File names show the quantisation.",
+            "values": {
+              "name": "'Q4_K_M'",
+              "q": "{'__other__': 'Match'}",
+              "bits": "4",
+              "f": "{'__other__': 'Match'}"
+            },
+            "tones": {
+              "name": "data",
+              "q": "data",
+              "bits": "data",
+              "f": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "Quantization bits returns the number after Q for quantised names.",
-            "rows": [
-              {
-                "cells": [
-                  "Q4_K_M",
-                  "bits",
-                  "GB"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Q8_0",
-                  "bits",
-                  "GB"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "FP16",
-                  "bits",
-                  "GB"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say6",
+            "caption": "File size is roughly parameters x bits / 8, so a 7B model at Q4 is about 3.",
+            "values": {
+              "name": "'Q4_K_M'",
+              "q": "{'__other__': 'Match'}",
+              "bits": "4",
+              "f": "{'__other__': 'Match'}"
+            },
+            "tones": {
+              "name": "ok",
+              "q": "ok",
+              "bits": "ok",
+              "f": "ok"
+            }
           }
         ]
       }
@@ -890,110 +1030,161 @@
       "codeHash": "b5cf8538323befd5a55b3bc1f25973bb52252b2de62a016c943f6e1f0bb8e8a0",
       "spec": {
         "template": "flow",
-        "title": "Choosing how to run a model — Execution Pipeline",
+        "title": "Choosing how to run a model",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "case",
+            "label": "case"
           },
           {
-            "id": "proc",
-            "label": "2. Choosing how to run...",
-            "tappable": true
+            "id": "users",
+            "label": "users"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "needs_privacy",
+            "label": "needs_privacy"
+          },
+          {
+            "id": "has_gpu",
+            "label": "has_gpu"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing how to run a model [D.Psix.Sone].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing how to run... [D.Psix.Stwo].",
+            "caption": "On a laptop or for private experiments.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "case": {
+                "var": "case",
+                "line": 8,
+                "hit": 1
+              },
+              "users": {
+                "var": "users",
+                "line": 2,
+                "hit": 1
+              },
+              "needs_privacy": {
+                "var": "needs_privacy",
+                "line": 2,
+                "hit": 1
+              },
+              "has_gpu": {
+                "var": "has_gpu",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "case": "data",
+              "users": "data",
+              "needs_privacy": "data",
+              "has_gpu": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "case",
+                "users"
               ],
               [
-                "proc",
-                "out"
+                "users",
+                "needs_privacy"
+              ],
+              [
+                "needs_privacy",
+                "has_gpu"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "For a production API on GPUs.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "case": {
+                "var": "case",
+                "line": 9,
+                "hit": 1
+              },
+              "users": {
+                "var": "users",
+                "line": 3,
+                "hit": 1
+              },
+              "needs_privacy": {
+                "var": "needs_privacy",
+                "line": 3,
+                "hit": 1
+              },
+              "has_gpu": {
+                "var": "has_gpu",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "case": "data",
+              "users": "data",
+              "needs_privacy": "data",
+              "has_gpu": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "case",
+                "users"
+              ],
+              [
+                "users",
+                "needs_privacy"
+              ],
+              [
+                "needs_privacy",
+                "has_gpu"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing how to run a model.",
+            "at": "say7",
+            "caption": "Tomorrow covers models that see images as well as text.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "case": {
+                "var": "case",
+                "line": 8,
+                "hit": 2
+              },
+              "users": {
+                "var": "users",
+                "line": 2,
+                "hit": 2
+              },
+              "needs_privacy": {
+                "var": "needs_privacy",
+                "line": 2,
+                "hit": 2
+              },
+              "has_gpu": {
+                "var": "has_gpu",
+                "line": 2,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "case": "ok",
+              "users": "ok",
+              "needs_privacy": "ok",
+              "has_gpu": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "case",
+                "users"
               ],
               [
-                "proc",
-                "out"
+                "users",
+                "needs_privacy"
+              ],
+              [
+                "needs_privacy",
+                "has_gpu"
               ]
             ]
           }
@@ -1001,110 +1192,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Choosing how to run a model — Execution Pipeline",
+        "title": "Choosing how to run a model",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "case",
+            "label": "case"
           },
           {
-            "id": "proc",
-            "label": "2. Choosing how to run...",
-            "tappable": true
+            "id": "users",
+            "label": "users"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "needs_privacy",
+            "label": "needs_privacy"
+          },
+          {
+            "id": "has_gpu",
+            "label": "has_gpu"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing how to run a model [D25.P6.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing how to run... [D25.P6.S2].",
+            "caption": "On a laptop or for private experiments.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "case": "[1, True, False]",
+              "users": "1",
+              "needs_privacy": "True",
+              "has_gpu": "False"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "case": "data",
+              "users": "data",
+              "needs_privacy": "data",
+              "has_gpu": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "case",
+                "users"
               ],
               [
-                "proc",
-                "out"
+                "users",
+                "needs_privacy"
+              ],
+              [
+                "needs_privacy",
+                "has_gpu"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P6.S3].",
+            "at": "say2",
+            "caption": "For a production API on GPUs.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "case": "[1, True, False]",
+              "users": "1",
+              "needs_privacy": "True",
+              "has_gpu": "False"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "case": "data",
+              "users": "data",
+              "needs_privacy": "data",
+              "has_gpu": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "case",
+                "users"
+              ],
+              [
+                "users",
+                "needs_privacy"
+              ],
+              [
+                "needs_privacy",
+                "has_gpu"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing how to run a model [D25.P6.S4].",
+            "at": "say7",
+            "caption": "Tomorrow covers models that see images as well as text.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "case": "[500, True, True]",
+              "users": "500",
+              "needs_privacy": "True",
+              "has_gpu": "True"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "case": "ok",
+              "users": "ok",
+              "needs_privacy": "ok",
+              "has_gpu": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "case",
+                "users"
               ],
               [
-                "proc",
-                "out"
+                "users",
+                "needs_privacy"
+              ],
+              [
+                "needs_privacy",
+                "has_gpu"
               ]
             ]
           }

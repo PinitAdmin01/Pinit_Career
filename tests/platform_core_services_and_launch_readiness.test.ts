@@ -22,8 +22,8 @@ import { computeDashboard, computeEmployability, applyFilters, THRESHOLDS, Cohor
 import { ENABLED_COURSES, isCourseVisualsEnabled } from '../src/lib/visuals/enabledCourses';
 
 test('Launch Readiness [Service 1]: Onboarding Role Pathing Parity across all Catalog & Registry courses', () => {
-  assert.ok(COURSES_CATALOG.length >= 37, 'Catalog must contain all 37 courses');
-  assert.ok(COURSES_REGISTRY.length >= 37, 'Registry must contain at least 37 courses');
+  assert.strictEqual(COURSES_CATALOG.length, 55, 'Catalog must contain all 55 courses');
+  assert.strictEqual(COURSES_REGISTRY.length, 55, 'Registry must contain all 55 courses');
 
   // Verify all courses resolve to authoritative tracks
   for (const c of COURSES_CATALOG) {

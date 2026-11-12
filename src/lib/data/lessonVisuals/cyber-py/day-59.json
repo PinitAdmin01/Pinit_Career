@@ -2,1335 +2,829 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 59,
-  "promptSha": "3b23d3b43ec6eceaec9de6790cf768cf22d8845b933e1f60650052a676fe7585",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "CVSS v3.1 Base/Temporal/Environmental Score Calculator & SLA Triage Router — Foundations & Mathematical Invariants",
-      "codeHash": "ed1f4869571b36abdb42bfef8d8730427b25b30e1d68a882db8743fcfec2920d",
+      "partTitle": "CVSS v3.1 Calculator & SLA Triage Router — Foundations & Mathematical Invariants",
+      "codeHash": "f0f2de554693e57f884caccd95c8e443cca10f160d077ccc9308fd02012d08fd",
       "spec": {
-        "template": "flow",
-        "title": "CVSS v. Base/Temporal/Environmental Score Calculator & SLA Triage Rout",
-        "nodes": [
+        "template": "boxes",
+        "title": "CVSS v3.1 Calculator & SLA Triage Router — Foundations & Mathema",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "CVSS_METRICS_TAXONOMY",
+            "label": "CVSS_METRICS_TAXONOMY"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "metric",
+            "label": "metric"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "options",
+            "label": "options"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Managing software vulnerabilities across enterprise applications requires.",
+            "values": {
+              "CVSS_METRICS_TAXONOMY": {
+                "var": "CVSS_METRICS_TAXONOMY",
+                "line": 1,
+                "hit": 1
+              },
+              "metric": {
+                "var": "metric",
+                "line": 7,
+                "hit": 1
+              },
+              "options": {
+                "var": "options",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "CVSS_METRICS_TAXONOMY": "data",
+              "metric": "data",
+              "options": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The Common Vulnerability Scoring System (CVSS), maintained by FIRST (Forum.",
+            "values": {
+              "CVSS_METRICS_TAXONOMY": {
+                "var": "CVSS_METRICS_TAXONOMY",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "metric": {
+                "var": "metric",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "options": {
+                "var": "options",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "CVSS_METRICS_TAXONOMY": "data",
+              "metric": "data",
+              "options": "data"
+            }
+          },
+          {
+            "at": "say11",
+            "caption": "Common Vulnerability Scoring System standards provide an objective.",
+            "values": {
+              "CVSS_METRICS_TAXONOMY": {
+                "var": "CVSS_METRICS_TAXONOMY",
+                "line": 8,
+                "hit": 1
+              },
+              "metric": {
+                "var": "metric",
+                "line": 7,
+                "hit": 2
+              },
+              "options": {
+                "var": "options",
+                "line": 7,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "CVSS_METRICS_TAXONOMY": "ok",
+              "metric": "ok",
+              "options": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "CVSS v3.1 Calculator & SLA Triage Router — Foundations & Mathema",
+        "boxes": [
+          {
+            "id": "CVSS_METRICS_TAXONOMY",
+            "label": "CVSS_METRICS_TAXONOMY"
+          },
+          {
+            "id": "metric",
+            "label": "metric"
+          },
+          {
+            "id": "options",
+            "label": "options"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Managing software vulnerabilities across enterprise applications requires.",
+            "values": {
+              "CVSS_METRICS_TAXONOMY": "{'ATTACK_VECTOR': {'N': 'Network (1.0)'…",
+              "metric": "'ATTACK_COMPLEXITY'",
+              "options": "{'L': 'Low (0.77)', 'H': 'High (0.44)'}"
+            },
+            "tones": {
+              "CVSS_METRICS_TAXONOMY": "data",
+              "metric": "data",
+              "options": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "The Common Vulnerability Scoring System (CVSS), maintained by FIRST (Forum.",
+            "values": {
+              "CVSS_METRICS_TAXONOMY": "{'ATTACK_VECTOR': {'N': 'Network (1.0)'…",
+              "metric": "'ATTACK_COMPLEXITY'",
+              "options": "{'L': 'Low (0.77)', 'H': 'High (0.44)'}"
+            },
+            "tones": {
+              "CVSS_METRICS_TAXONOMY": "data",
+              "metric": "data",
+              "options": "data"
+            }
+          },
+          {
+            "at": "say11",
+            "caption": "Common Vulnerability Scoring System standards provide an objective.",
+            "values": {
+              "CVSS_METRICS_TAXONOMY": "{'ATTACK_VECTOR': {'N': 'Network (1.0)'…",
+              "metric": "'ATTACK_VECTOR'",
+              "options": "{'N': 'Network (1.0)', 'A': 'Adjacent (…"
+            },
+            "tones": {
+              "CVSS_METRICS_TAXONOMY": "ok",
+              "metric": "ok",
+              "options": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "CVSS v3.1 Calculator & SLA Triage Router — Core Algorithm & State Representation",
+      "codeHash": "7a39af36f235126993aa641b76cc65ea6070988afdb1a7bbbc4193e53d98d903",
+      "spec": {
+        "template": "flow",
+        "title": "CVSS v3.1 Calculator & SLA Triage Router — Core Algorithm & Stat",
+        "nodes": [
+          {
+            "id": "av",
+            "label": "av"
+          },
+          {
+            "id": "ac",
+            "label": "ac"
+          },
+          {
+            "id": "pr",
+            "label": "pr"
+          },
+          {
+            "id": "ui",
+            "label": "ui"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The CVSS base score calculator implements the mathematical formulas.",
+            "values": {
+              "av": {
+                "var": "av",
+                "line": 5,
+                "hit": 1
+              },
+              "ac": {
+                "var": "ac",
+                "line": 5,
+                "hit": 1
+              },
+              "pr": {
+                "var": "pr",
+                "line": 5,
+                "hit": 1
+              },
+              "ui": {
+                "var": "ui",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "av": "data",
+              "ac": "data",
+              "pr": "data",
+              "ui": "data"
+            },
+            "arrows": [
+              [
+                "av",
+                "ac"
+              ],
+              [
+                "ac",
+                "pr"
+              ],
+              [
+                "pr",
+                "ui"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "The algorithm extracts metric values from the vector, translating discrete.",
+            "values": {
+              "av": {
+                "var": "av",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "ac": {
+                "var": "ac",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "pr": {
+                "var": "pr",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "ui": {
+                "var": "ui",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "av": "data",
+              "ac": "data",
+              "pr": "data",
+              "ui": "data"
+            },
+            "arrows": [
+              [
+                "av",
+                "ac"
+              ],
+              [
+                "ac",
+                "pr"
+              ],
+              [
+                "pr",
+                "ui"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Standardized CVSS base score calculation eliminates subjective triage.",
+            "values": {
+              "av": {
+                "var": "av",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "ac": {
+                "var": "ac",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "pr": {
+                "var": "pr",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "ui": {
+                "var": "ui",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "av": "ok",
+              "ac": "ok",
+              "pr": "ok",
+              "ui": "ok"
+            },
+            "arrows": [
+              [
+                "av",
+                "ac"
+              ],
+              [
+                "ac",
+                "pr"
+              ],
+              [
+                "pr",
+                "ui"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "CVSS v. Base/Temporal/Environmental Score Calculator & SLA Triage Rout",
+        "title": "CVSS v3.1 Calculator & SLA Triage Router — Core Algorithm & Stat",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "av",
+            "label": "av"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "ac",
+            "label": "ac"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "pr",
+            "label": "pr"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "ui",
+            "label": "ui"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The CVSS base score calculator implements the mathematical formulas.",
+            "values": {
+              "av": "'N'",
+              "ac": "'L'",
+              "pr": "'N'",
+              "ui": "'N'"
+            },
+            "tones": {
+              "av": "data",
+              "ac": "data",
+              "pr": "data",
+              "ui": "data"
+            },
+            "arrows": [
+              [
+                "av",
+                "ac"
+              ],
+              [
+                "ac",
+                "pr"
+              ],
+              [
+                "pr",
+                "ui"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The algorithm extracts metric values from the vector, translating discrete.",
+            "values": {
+              "av": "'N'",
+              "ac": "'L'",
+              "pr": "'N'",
+              "ui": "'N'"
+            },
+            "tones": {
+              "av": "data",
+              "ac": "data",
+              "pr": "data",
+              "ui": "data"
+            },
+            "arrows": [
+              [
+                "av",
+                "ac"
+              ],
+              [
+                "ac",
+                "pr"
+              ],
+              [
+                "pr",
+                "ui"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Standardized CVSS base score calculation eliminates subjective triage.",
+            "values": {
+              "av": "'N'",
+              "ac": "'L'",
+              "pr": "'N'",
+              "ui": "'N'"
+            },
+            "tones": {
+              "av": "ok",
+              "ac": "ok",
+              "pr": "ok",
+              "ui": "ok"
+            },
+            "arrows": [
+              [
+                "av",
+                "ac"
+              ],
+              [
+                "ac",
+                "pr"
+              ],
+              [
+                "pr",
+                "ui"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "CVSS v3.1 Base/Temporal/Environmental Score Calculator & SLA Triage Router — Core Algorithm & State Representation",
-      "codeHash": "4fa9b5f346fef001f12207c43bb032734716ae169fd93cd6103ced4286acd0ef",
+      "partTitle": "CVSS v3.1 Calculator & SLA Triage Router — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "8eb693babe2d654d5f5c6efafb59844f3d28e894906a822dbf3fd4ba297c27e8",
       "spec": {
-        "template": "flow",
-        "title": "CVSS v. Base/Temporal/Environmental Score Calculator & SLA Triage Rout",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "CVSS v3.1 Calculator & SLA Triage Router — Throughput Optimizati",
+        "actors": [
+          "cvss_score",
+          "severity",
+          "sla_hours"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Calculating vulnerability scores is only useful if organizations enforce.",
+            "activeActor": "cvss_score",
+            "messages": [
+              {
+                "from": "cvss_score",
+                "to": "severity",
+                "label": {
+                  "var": "cvss_score",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "severity",
+                "to": "sla_hours",
+                "label": {
+                  "var": "severity",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A vulnerability SLA triage router maps calculated CVSS scores.",
+            "activeActor": "severity",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "cvss_score",
+                "to": "severity",
+                "label": {
+                  "var": "cvss_score",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "severity",
+                "to": "sla_hours",
+                "label": {
+                  "var": "severity",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Vulnerability SLA triage routers map calculated scores to strict.",
+            "activeActor": "sla_hours",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "cvss_score",
+                "to": "severity",
+                "label": {
+                  "var": "cvss_score",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "severity",
+                "to": "sla_hours",
+                "label": {
+                  "var": "severity",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "CVSS v. Base/Temporal/Environmental Score Calculator & SLA Triage Rout",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "CVSS v3.1 Calculator & SLA Triage Router — Throughput Optimizati",
+        "actors": [
+          "cvss_score",
+          "severity",
+          "sla_hours"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Calculating vulnerability scores is only useful if organizations enforce.",
+            "messages": [
+              {
+                "from": "cvss_score",
+                "to": "severity",
+                "label": "9.8",
+                "tone": "data"
+              },
+              {
+                "from": "severity",
+                "to": "sla_hours",
+                "label": "'CRITICAL'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "cvss_score"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A vulnerability SLA triage router maps calculated CVSS scores.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "cvss_score",
+                "to": "severity",
+                "label": "9.8",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "severity",
+                "to": "sla_hours",
+                "label": "'CRITICAL'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "severity"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Vulnerability SLA triage routers map calculated scores to strict.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "cvss_score",
+                "to": "severity",
+                "label": "9.8",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "severity",
+                "to": "sla_hours",
+                "label": "'CRITICAL'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "sla_hours"
           }
         ]
       }
     },
     {
-      "partTitle": "CVSS v3.1 Base/Temporal/Environmental Score Calculator & SLA Triage Router — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "a8aa770e1957335623a5f3672e1d0b09444eb7d8b24f9eafd9c6407091c1ee54",
+      "partTitle": "CVSS v3.1 Calculator & SLA Triage Router — Resilience Guardrails & Failure Recovery",
+      "codeHash": "8674806b689389acf5b4089c42a20998730f08a6a270df69c3fc1d58fed7cae7",
       "spec": {
-        "template": "flow",
-        "title": "CVSS v. Base/Temporal/Environmental Score Calculator & SLA Triage Rout",
-        "nodes": [
+        "template": "states",
+        "title": "CVSS v3.1 Calculator & SLA Triage Router — Resilience Guardrails",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "valid_vec",
+            "label": "valid_vec"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "invalid_vec",
+            "label": "invalid_vec"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "vector_str",
+            "label": "vector_str"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "CVSS vector strings (e.",
+            "currentState": "valid_vec",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "A malformed or truncated vector string can cause parser exceptions.",
+            "currentState": "invalid_vec",
+            "transition": {
+              "from": "valid_vec",
+              "to": "invalid_vec",
+              "label": {
+                "var": "invalid_vec",
+                "line": 17,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Input syntax guardrails validate CVSS vector strings to guarantee that all.",
+            "currentState": "vector_str",
+            "transition": {
+              "from": "invalid_vec",
+              "to": "vector_str",
+              "label": {
+                "var": "vector_str",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "CVSS v. Base/Temporal/Environmental Score Calculator & SLA Triage Rout",
-        "nodes": [
+        "template": "states",
+        "title": "CVSS v3.1 Calculator & SLA Triage Router — Resilience Guardrails",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "valid_vec",
+            "label": "valid_vec"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "invalid_vec",
+            "label": "invalid_vec"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "vector_str",
+            "label": "vector_str"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "CVSS vector strings (e.",
+            "currentState": "valid_vec",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "A malformed or truncated vector string can cause parser exceptions.",
+            "currentState": "invalid_vec",
+            "transition": {
+              "from": "valid_vec",
+              "to": "invalid_vec",
+              "label": "'CVSS:3.1/AV:N/AC:L'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Input syntax guardrails validate CVSS vector strings to guarantee that all.",
+            "currentState": "vector_str",
+            "transition": {
+              "from": "invalid_vec",
+              "to": "vector_str",
+              "label": "'CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "CVSS v3.1 Base/Temporal/Environmental Score Calculator & SLA Triage Router — Resilience Guardrails & Failure Recovery",
-      "codeHash": "458ad855794b2123f4615222d526026a1f0388cf4d8bd5587aca25ee88c84d85",
+      "partTitle": "CVSS v3.1 Calculator & SLA Triage Router — Production Telemetry & Verification Audit",
+      "codeHash": "fb0261854ec5d3ad86dc88656ba4f86b26fc7904ba44e45ecde70cb7bf22c9f2",
       "spec": {
-        "template": "flow",
-        "title": "CVSS v. Base/Temporal/Environmental Score Calculator & SLA Triage Rout",
-        "nodes": [
+        "template": "states",
+        "title": "CVSS v3.1 Calculator & SLA Triage Router — Production Telemetry ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "calc_ok",
+            "label": "calc_ok"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "router_ok",
+            "label": "router_ok"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "syntax_guard_ok",
+            "label": "syntax_guard_ok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing vulnerability management requires continuous auditing.",
+            "currentState": "calc_ok",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "A vulnerability triage auditor verifies that CVSS calculators, SLA.",
+            "currentState": "router_ok",
+            "transition": {
+              "from": "calc_ok",
+              "to": "router_ok",
+              "label": {
+                "var": "router_ok",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Continuous vulnerability triage auditing ensures that enterprise patch.",
+            "currentState": "syntax_guard_ok",
+            "transition": {
+              "from": "router_ok",
+              "to": "syntax_guard_ok",
+              "label": {
+                "var": "syntax_guard_ok",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "CVSS v. Base/Temporal/Environmental Score Calculator & SLA Triage Rout",
-        "nodes": [
+        "template": "states",
+        "title": "CVSS v3.1 Calculator & SLA Triage Router — Production Telemetry ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "calc_ok",
+            "label": "calc_ok"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "router_ok",
+            "label": "router_ok"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "syntax_guard_ok",
+            "label": "syntax_guard_ok"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Operationalizing vulnerability management requires continuous auditing.",
+            "currentState": "calc_ok",
+            "tone": "data"
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "CVSS v3.1 Base/Temporal/Environmental Score Calculator & SLA Triage Router — Production Telemetry & Verification Audit",
-      "codeHash": "fb9bd69fd1570d84ccea3650509760ecf2144e73cdb6264d92964d790163ed61",
-      "spec": {
-        "template": "flow",
-        "title": "CVSS v. Base/Temporal/Environmental Score Calculator & SLA Triage Rout",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "A vulnerability triage auditor verifies that CVSS calculators, SLA.",
+            "currentState": "router_ok",
+            "transition": {
+              "from": "calc_ok",
+              "to": "router_ok",
+              "label": "True"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "CVSS v. Base/Temporal/Environmental Score Calculator & SLA Triage Rout",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Continuous vulnerability triage auditing ensures that enterprise patch.",
+            "currentState": "syntax_guard_ok",
+            "transition": {
+              "from": "router_ok",
+              "to": "syntax_guard_ok",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }

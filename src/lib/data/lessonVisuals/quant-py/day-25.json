@@ -2,100 +2,138 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 25,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Line of sight and towers",
       "codeHash": "f51e28a50d75dde5f37d558376be5f943ed53cb529b961390a9838c182405e77",
       "spec": {
-        "template": "table",
-        "title": "Microwave tower line of sight and Earth curvature bulge",
-        "columns": [
-          "hop_km",
-          "bulge"
-        ],
+        "template": "bars",
+        "title": "Line of sight and towers",
         "steps": [
           {
             "at": "say1",
-            "caption": "Microwave antennas require unobstructed line of sight across terrain.",
-            "rows": [
+            "caption": "Microwave links need line of sight.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "hop_km"
-                  },
-                  {
-                    "text": "bulge"
-                  }
-                ],
-                "tone": "ok"
+                "label": "R",
+                "value": {
+                  "var": "R",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "hop_km",
+                "value": {
+                  "var": "hop_km",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bulge",
+                "value": {
+                  "var": "bulge",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Planetary curvature limits practical hop spans between tower installations.",
-            "rows": [
+            "caption": "Because the Earth curves, practical hop lengths are limited to about 50.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "hop_km"
-                  },
-                  {
-                    "text": "bulge"
-                  }
-                ],
+                "label": "R",
+                "value": {
+                  "var": "R",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "30"
-                  },
-                  {
-                    "text": "bulge"
-                  }
-                ],
+                "label": "hop_km",
+                "value": {
+                  "var": "hop_km",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bulge",
+                "value": {
+                  "var": "bulge",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Intermediate relay towers receive and retransmit signals along the route.",
-            "rows": [
+            "at": "say8",
+            "caption": "Building and leasing tower sites is expensive, and the best locations are.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "hop_km"
-                  },
-                  {
-                    "text": "bulge"
-                  }
-                ],
+                "label": "R",
+                "value": {
+                  "var": "R",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "30"
-                  },
-                  {
-                    "text": "bulge"
-                  }
-                ],
+                "label": "hop_km",
+                "value": {
+                  "var": "hop_km",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "70"
-                  },
-                  {
-                    "text": "bulge"
-                  }
-                ],
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bulge",
+                "value": {
+                  "var": "bulge",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -103,69 +141,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Microwave tower line of sight and Earth curvature bulge",
-        "columns": [
-          "hop_km",
-          "bulge"
-        ],
+        "template": "bars",
+        "title": "Line of sight and towers",
         "steps": [
           {
             "at": "say1",
-            "caption": "Microwave antennas require unobstructed line of sight across terrain.",
-            "rows": [
+            "caption": "Microwave links need line of sight.",
+            "bars": [
               {
-                "cells": [
-                  "hop_km",
-                  "bulge"
-                ],
-                "tone": "ok"
+                "label": "R",
+                "value": 6371000,
+                "tone": "data"
+              },
+              {
+                "label": "hop_km",
+                "value": 30,
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": 15000,
+                "tone": "data"
+              },
+              {
+                "label": "bulge",
+                "value": 17.658138439805366,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Planetary curvature limits practical hop spans between tower installations.",
-            "rows": [
+            "caption": "Because the Earth curves, practical hop lengths are limited to about 50.",
+            "bars": [
               {
-                "cells": [
-                  "hop_km",
-                  "bulge"
-                ],
+                "label": "R",
+                "value": 6371000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "30",
-                  "bulge"
-                ],
+                "label": "hop_km",
+                "value": 30,
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": 15000,
+                "tone": "ok"
+              },
+              {
+                "label": "bulge",
+                "value": 17.658138439805366,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Intermediate relay towers receive and retransmit signals along the route.",
-            "rows": [
+            "at": "say8",
+            "caption": "Building and leasing tower sites is expensive, and the best locations are.",
+            "bars": [
               {
-                "cells": [
-                  "hop_km",
-                  "bulge"
-                ],
+                "label": "R",
+                "value": 6371000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "30",
-                  "bulge"
-                ],
+                "label": "hop_km",
+                "value": 30,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "70",
-                  "bulge"
-                ],
+                "label": "d",
+                "value": 15000,
+                "tone": "ok"
+              },
+              {
+                "label": "bulge",
+                "value": 17.658138439805366,
                 "tone": "ok"
               }
             ]
@@ -177,191 +229,277 @@
       "partTitle": "Link latency",
       "codeHash": "62c1204545145805ed6efdfbdf6a4dd443b6997713c564e28004bea5a76321d4",
       "spec": {
-        "template": "table",
-        "title": "Microwave propagation and relay hop latency budgets",
-        "columns": [
-          "distance_km",
-          "towers",
-          "hop_ns"
+        "template": "flow",
+        "title": "Link latency",
+        "nodes": [
+          {
+            "id": "C",
+            "label": "C"
+          },
+          {
+            "id": "distance_km",
+            "label": "distance_km"
+          },
+          {
+            "id": "towers",
+            "label": "towers"
+          },
+          {
+            "id": "hop_ns",
+            "label": "hop_ns"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Microwave link latency combines air propagation and tower relay delays.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "distance_km"
-                  },
-                  {
-                    "text": "towers"
-                  },
-                  {
-                    "text": "hop_ns"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Total microwave latency = propagation delay through the air + the delay.",
+            "values": {
+              "C": {
+                "var": "C",
+                "line": 1,
+                "hit": 1
+              },
+              "distance_km": {
+                "var": "distance_km",
+                "line": 2,
+                "hit": 1
+              },
+              "towers": {
+                "var": "towers",
+                "line": 2,
+                "hit": 1
+              },
+              "hop_ns": {
+                "var": "hop_ns",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "C": "data",
+              "distance_km": "data",
+              "towers": "data",
+              "hop_ns": "data"
+            },
+            "arrows": [
+              [
+                "C",
+                "distance_km"
+              ],
+              [
+                "distance_km",
+                "towers"
+              ],
+              [
+                "towers",
+                "hop_ns"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Modern radio equipment reduces nanosecond overhead at each repeater.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "distance_km"
-                  },
-                  {
-                    "text": "towers"
-                  },
-                  {
-                    "text": "hop_ns"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Trace how propagation updates distance during execution.",
+            "values": {
+              "C": {
+                "var": "C",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "1180"
-                  },
-                  {
-                    "text": "20"
-                  },
-                  {
-                    "text": "300"
-                  }
-                ],
-                "tone": "ok"
+              "distance_km": {
+                "var": "distance_km",
+                "line": 3,
+                "hit": 1
+              },
+              "towers": {
+                "var": "towers",
+                "line": 3,
+                "hit": 1
+              },
+              "hop_ns": {
+                "var": "hop_ns",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "C": "data",
+              "distance_km": "data",
+              "towers": "data",
+              "hop_ns": "data"
+            },
+            "arrows": [
+              [
+                "C",
+                "distance_km"
+              ],
+              [
+                "distance_km",
+                "towers"
+              ],
+              [
+                "towers",
+                "hop_ns"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Trading firms continuously optimize hardware to reach minimal relay delay.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "distance_km"
-                  },
-                  {
-                    "text": "towers"
-                  },
-                  {
-                    "text": "hop_ns"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say8",
+            "caption": "Some relays simply amplify the signal without fully decoding it, saving.",
+            "values": {
+              "C": {
+                "var": "C",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "1180"
-                  },
-                  {
-                    "text": "20"
-                  },
-                  {
-                    "text": "300"
-                  }
-                ],
-                "tone": "ok"
+              "distance_km": {
+                "var": "distance_km",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "distance_km"
-                  },
-                  {
-                    "text": "20"
-                  },
-                  {
-                    "text": "300"
-                  }
-                ],
-                "tone": "data"
+              "towers": {
+                "var": "towers",
+                "line": 4,
+                "hit": 1
+              },
+              "hop_ns": {
+                "var": "hop_ns",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "C": "ok",
+              "distance_km": "ok",
+              "towers": "ok",
+              "hop_ns": "ok"
+            },
+            "arrows": [
+              [
+                "C",
+                "distance_km"
+              ],
+              [
+                "distance_km",
+                "towers"
+              ],
+              [
+                "towers",
+                "hop_ns"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Microwave propagation and relay hop latency budgets",
-        "columns": [
-          "distance_km",
-          "towers",
-          "hop_ns"
+        "template": "flow",
+        "title": "Link latency",
+        "nodes": [
+          {
+            "id": "C",
+            "label": "C"
+          },
+          {
+            "id": "distance_km",
+            "label": "distance_km"
+          },
+          {
+            "id": "towers",
+            "label": "towers"
+          },
+          {
+            "id": "hop_ns",
+            "label": "hop_ns"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Microwave link latency combines air propagation and tower relay delays.",
-            "rows": [
-              {
-                "cells": [
-                  "distance_km",
-                  "towers",
-                  "hop_ns"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Total microwave latency = propagation delay through the air + the delay.",
+            "values": {
+              "C": "299792458",
+              "distance_km": "1180",
+              "towers": "20",
+              "hop_ns": "300"
+            },
+            "tones": {
+              "C": "data",
+              "distance_km": "data",
+              "towers": "data",
+              "hop_ns": "data"
+            },
+            "arrows": [
+              [
+                "C",
+                "distance_km"
+              ],
+              [
+                "distance_km",
+                "towers"
+              ],
+              [
+                "towers",
+                "hop_ns"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Modern radio equipment reduces nanosecond overhead at each repeater.",
-            "rows": [
-              {
-                "cells": [
-                  "distance_km",
-                  "towers",
-                  "hop_ns"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "1180",
-                  "20",
-                  "300"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Trace how propagation updates distance during execution.",
+            "values": {
+              "C": "299792458",
+              "distance_km": "1180",
+              "towers": "20",
+              "hop_ns": "300"
+            },
+            "tones": {
+              "C": "data",
+              "distance_km": "data",
+              "towers": "data",
+              "hop_ns": "data"
+            },
+            "arrows": [
+              [
+                "C",
+                "distance_km"
+              ],
+              [
+                "distance_km",
+                "towers"
+              ],
+              [
+                "towers",
+                "hop_ns"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Trading firms continuously optimize hardware to reach minimal relay delay.",
-            "rows": [
-              {
-                "cells": [
-                  "distance_km",
-                  "towers",
-                  "hop_ns"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "1180",
-                  "20",
-                  "300"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "distance_km",
-                  "20",
-                  "300"
-                ],
-                "tone": "data"
-              }
+            "at": "say8",
+            "caption": "Some relays simply amplify the signal without fully decoding it, saving.",
+            "values": {
+              "C": "299792458",
+              "distance_km": "1180",
+              "towers": "20",
+              "hop_ns": "300"
+            },
+            "tones": {
+              "C": "ok",
+              "distance_km": "ok",
+              "towers": "ok",
+              "hop_ns": "ok"
+            },
+            "arrows": [
+              [
+                "C",
+                "distance_km"
+              ],
+              [
+                "distance_km",
+                "towers"
+              ],
+              [
+                "towers",
+                "hop_ns"
+              ]
             ]
           }
         ]
@@ -371,166 +509,162 @@
       "partTitle": "Rain fade and availability",
       "codeHash": "983690ce97714fddf4b88cad510115fcd3a4c2c41b3a6f69000b5234bd21b33e",
       "spec": {
-        "template": "table",
-        "title": "Rain fade attenuation and wireless link operational status",
-        "columns": [
-          "rain",
-          "status"
+        "template": "sequence",
+        "title": "Rain fade and availability",
+        "actors": [
+          "rain_limit",
+          "readings",
+          "rain"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Atmospheric precipitation causes signal attenuation known as rain fade.",
-            "rows": [
+            "caption": "Microwave signals are absorbed and scattered by rain, a problem called.",
+            "activeActor": "rain_limit",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "rain"
-                  },
-                  {
-                    "text": "status"
-                  }
-                ],
+                "from": "rain_limit",
+                "to": "readings",
+                "label": {
+                  "var": "rain_limit",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "readings",
+                "to": "rain",
+                "label": {
+                  "var": "readings",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Rain thresholds classify link health into operational states.",
-            "rows": [
+            "at": "say2",
+            "caption": "Light rain barely matters.",
+            "activeActor": "readings",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "rain"
-                  },
-                  {
-                    "text": "status"
-                  }
-                ],
-                "tone": "ok"
+                "from": "rain_limit",
+                "to": "readings",
+                "label": {
+                  "var": "rain_limit",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "0.0"
-                  },
-                  {
-                    "text": "UP"
-                  }
-                ],
+                "from": "readings",
+                "to": "rain",
+                "label": {
+                  "var": "readings",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Stormy conditions force traffic fallback to slower terrestrial fibre.",
-            "rows": [
+            "at": "say8",
+            "caption": "A trading system must detect a failing link within microseconds and switch.",
+            "activeActor": "rain",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "rain"
-                  },
-                  {
-                    "text": "status"
-                  }
-                ],
-                "tone": "ok"
+                "from": "rain_limit",
+                "to": "readings",
+                "label": {
+                  "var": "rain_limit",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "0.0"
-                  },
-                  {
-                    "text": "UP"
-                  }
-                ],
+                "from": "readings",
+                "to": "rain",
+                "label": {
+                  "var": "readings",
+                  "line": 8,
+                  "hit": 2
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "30.0"
-                  },
-                  {
-                    "text": "DOWN"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Rain fade attenuation and wireless link operational status",
-        "columns": [
-          "rain",
-          "status"
+        "template": "sequence",
+        "title": "Rain fade and availability",
+        "actors": [
+          "rain_limit",
+          "readings",
+          "rain"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Atmospheric precipitation causes signal attenuation known as rain fade.",
-            "rows": [
+            "caption": "Microwave signals are absorbed and scattered by rain, a problem called.",
+            "messages": [
               {
-                "cells": [
-                  "rain",
-                  "status"
-                ],
+                "from": "rain_limit",
+                "to": "readings",
+                "label": "25",
+                "tone": "data"
+              },
+              {
+                "from": "readings",
+                "to": "rain",
+                "label": "[0, 2, 8, 16, 22, 30, 12]",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "rain_limit"
           },
           {
-            "at": "say3",
-            "caption": "Rain thresholds classify link health into operational states.",
-            "rows": [
+            "at": "say2",
+            "caption": "Light rain barely matters.",
+            "messages": [
               {
-                "cells": [
-                  "rain",
-                  "status"
-                ],
-                "tone": "ok"
+                "from": "rain_limit",
+                "to": "readings",
+                "label": "25",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "0.0",
-                  "UP"
-                ],
+                "from": "readings",
+                "to": "rain",
+                "label": "[0, 2, 8, 16, 22, 30, 12]",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "readings"
           },
           {
-            "at": "say4",
-            "caption": "Stormy conditions force traffic fallback to slower terrestrial fibre.",
-            "rows": [
+            "at": "say8",
+            "caption": "A trading system must detect a failing link within microseconds and switch.",
+            "messages": [
               {
-                "cells": [
-                  "rain",
-                  "status"
-                ],
-                "tone": "ok"
+                "from": "rain_limit",
+                "to": "readings",
+                "label": "25",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "0.0",
-                  "UP"
-                ],
+                "from": "readings",
+                "to": "rain",
+                "label": "[0, 2, 8, 16, 22, 30, 12]",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "30.0",
-                  "DOWN"
-                ],
-                "tone": "idle"
               }
-            ]
+            ],
+            "activeActor": "rain"
           }
         ]
       }
@@ -539,165 +673,221 @@
       "partTitle": "Millimetre wave and laser links",
       "codeHash": "58f7cbd92966060cacdf97f70b9553accdbefb91eeb422a21f398d9fe3c05aa4",
       "spec": {
-        "template": "table",
-        "title": "Free space optics and millimeter wave wireless links",
-        "columns": [
-          "bandwidth_mbps",
-          "rain_sensitivity"
+        "template": "flow",
+        "title": "Millimetre wave and laser links",
+        "nodes": [
+          {
+            "id": "options",
+            "label": "options"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "o",
+            "label": "o"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Higher transmission frequencies deliver wider bandwidth at shorter ranges.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bandwidth_mbps"
-                  },
-                  {
-                    "text": "rain_sensitivity"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Trace how millimetre updates wave during execution.",
+            "values": {
+              "options": {
+                "var": "options",
+                "line": 1,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
+              },
+              "o": {
+                "var": "o",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "options": "data",
+              "name": "data",
+              "o": "data"
+            },
+            "arrows": [
+              [
+                "options",
+                "name"
+              ],
+              [
+                "name",
+                "o"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Free space optical laser links achieve near vacuum propagation speeds.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bandwidth_mbps"
-                  },
-                  {
-                    "text": "rain_sensitivity"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Free-space optical (laser) links also travel at nearly vacuum speed but.",
+            "values": {
+              "options": {
+                "var": "options",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "10000"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
-                "tone": "ok"
+              "name": {
+                "var": "name",
+                "line": 8,
+                "hit": 1
+              },
+              "o": {
+                "var": "o",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "options": "data",
+              "name": "data",
+              "o": "data"
+            },
+            "arrows": [
+              [
+                "options",
+                "name"
+              ],
+              [
+                "name",
+                "o"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Hybrid architectures blend microwave reliability with optical links.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bandwidth_mbps"
-                  },
-                  {
-                    "text": "rain_sensitivity"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Choosing the right mix is an engineering decision, not a single right answer.",
+            "values": {
+              "options": {
+                "var": "options",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "10000"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
-                "tone": "ok"
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "100000"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "data"
+              "o": {
+                "var": "o",
+                "line": 7,
+                "hit": 2
               }
+            },
+            "tones": {
+              "options": "ok",
+              "name": "ok",
+              "o": "ok"
+            },
+            "arrows": [
+              [
+                "options",
+                "name"
+              ],
+              [
+                "name",
+                "o"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Free space optics and millimeter wave wireless links",
-        "columns": [
-          "bandwidth_mbps",
-          "rain_sensitivity"
+        "template": "flow",
+        "title": "Millimetre wave and laser links",
+        "nodes": [
+          {
+            "id": "options",
+            "label": "options"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "o",
+            "label": "o"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Higher transmission frequencies deliver wider bandwidth at shorter ranges.",
-            "rows": [
-              {
-                "cells": [
-                  "bandwidth_mbps",
-                  "rain_sensitivity"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Trace how millimetre updates wave during execution.",
+            "values": {
+              "options": "{'microwave (6-11 GHz)': {'bandwidth_mb…",
+              "name": "'microwave (6-11 GHz)'",
+              "o": "{'bandwidth_mbps': 150, 'rain_sensitivi…"
+            },
+            "tones": {
+              "options": "data",
+              "name": "data",
+              "o": "data"
+            },
+            "arrows": [
+              [
+                "options",
+                "name"
+              ],
+              [
+                "name",
+                "o"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Free space optical laser links achieve near vacuum propagation speeds.",
-            "rows": [
-              {
-                "cells": [
-                  "bandwidth_mbps",
-                  "rain_sensitivity"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "10000",
-                  "2"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Free-space optical (laser) links also travel at nearly vacuum speed but.",
+            "values": {
+              "options": "{'microwave (6-11 GHz)': {'bandwidth_mb…",
+              "name": "'microwave (6-11 GHz)'",
+              "o": "{'bandwidth_mbps': 150, 'rain_sensitivi…"
+            },
+            "tones": {
+              "options": "data",
+              "name": "data",
+              "o": "data"
+            },
+            "arrows": [
+              [
+                "options",
+                "name"
+              ],
+              [
+                "name",
+                "o"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Hybrid architectures blend microwave reliability with optical links.",
-            "rows": [
-              {
-                "cells": [
-                  "bandwidth_mbps",
-                  "rain_sensitivity"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "10000",
-                  "2"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "100000",
-                  "0"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "Choosing the right mix is an engineering decision, not a single right answer.",
+            "values": {
+              "options": "{'microwave (6-11 GHz)': {'bandwidth_mb…",
+              "name": "'millimetre wave (80 GHz)'",
+              "o": "{'bandwidth_mbps': 10000, 'rain_sensiti…"
+            },
+            "tones": {
+              "options": "ok",
+              "name": "ok",
+              "o": "ok"
+            },
+            "arrows": [
+              [
+                "options",
+                "name"
+              ],
+              [
+                "name",
+                "o"
+              ]
             ]
           }
         ]
@@ -707,223 +897,217 @@
       "partTitle": "Shortwave across oceans",
       "codeHash": "ccec55fd29f650df8c11cbb4e38c89f7637e49b90f4718dae19879e00aabb527",
       "spec": {
-        "template": "flow",
-        "title": "Shortwave across oceans — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Shortwave across oc...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Shortwave across oceans",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Shortwave across oceans [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Shortwave across oc... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Microwave cannot cross oceans.",
+            "bars": [
+              {
+                "label": "C",
+                "value": {
+                  "var": "C",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "great_circle_k",
+                "value": {
+                  "var": "great_circle_km",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fibre_ms",
+                "value": {
+                  "var": "fibre_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "shortwave_ms",
+                "value": {
+                  "var": "shortwave_ms",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how shortwave updates high during execution.",
+            "bars": [
+              {
+                "label": "C",
+                "value": {
+                  "var": "C",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "great_circle_k",
+                "value": {
+                  "var": "great_circle_km",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fibre_ms",
+                "value": {
+                  "var": "fibre_ms",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "shortwave_ms",
+                "value": {
+                  "var": "shortwave_ms",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Shortwave across oceans [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Physics, geography and even space weather have become part of trading.",
+            "bars": [
+              {
+                "label": "C",
+                "value": {
+                  "var": "C",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "great_circle_k",
+                "value": {
+                  "var": "great_circle_km",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fibre_ms",
+                "value": {
+                  "var": "fibre_ms",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "shortwave_ms",
+                "value": {
+                  "var": "shortwave_ms",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Shortwave across oceans — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Shortwave across oc...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Shortwave across oceans",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Shortwave across oceans [D25.P5.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Shortwave across oc... [D25.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Microwave cannot cross oceans.",
+            "bars": [
+              {
+                "label": "C",
+                "value": 299792458,
+                "tone": "data"
+              },
+              {
+                "label": "great_circle_k",
+                "value": 6000,
+                "tone": "data"
+              },
+              {
+                "label": "fibre_ms",
+                "value": 32.32276110161518,
+                "tone": "data"
+              },
+              {
+                "label": "shortwave_ms",
+                "value": 21.01453799748358,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how shortwave updates high during execution.",
+            "bars": [
+              {
+                "label": "C",
+                "value": 299792458,
+                "tone": "ok"
+              },
+              {
+                "label": "great_circle_k",
+                "value": 6000,
+                "tone": "ok"
+              },
+              {
+                "label": "fibre_ms",
+                "value": 32.32276110161518,
+                "tone": "ok"
+              },
+              {
+                "label": "shortwave_ms",
+                "value": 21.01453799748358,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Shortwave across oceans [D25.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Physics, geography and even space weather have become part of trading.",
+            "bars": [
+              {
+                "label": "C",
+                "value": 299792458,
+                "tone": "ok"
+              },
+              {
+                "label": "great_circle_k",
+                "value": 6000,
+                "tone": "ok"
+              },
+              {
+                "label": "fibre_ms",
+                "value": 32.32276110161518,
+                "tone": "ok"
+              },
+              {
+                "label": "shortwave_ms",
+                "value": 21.01453799748358,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -933,223 +1117,217 @@
       "partTitle": "Practice time: link and towers",
       "codeHash": "1654525233c78b5491392b44ca97cc7598df8657a1b3cf11a6c446b32992ab54",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: link and towers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: link...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: link and towers",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: link and towers [D.Psix.Sone].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: link... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "If rain limit, return latency None and status DOWN.",
+            "bars": [
+              {
+                "label": "C",
+                "value": {
+                  "var": "C",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "air",
+                "value": {
+                  "var": "air",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "relays",
+                "value": {
+                  "var": "relays",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "per_relay",
+                "value": {
+                  "var": "per_relay",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Otherwise latency = round(propagation ns + towers hop_ns), and status UP.",
+            "bars": [
+              {
+                "label": "C",
+                "value": {
+                  "var": "C",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "air",
+                "value": {
+                  "var": "air",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "relays",
+                "value": {
+                  "var": "relays",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "per_relay",
+                "value": {
+                  "var": "per_relay",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: link and towers.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Tomorrow the course turns from speed to honesty.",
+            "bars": [
+              {
+                "label": "C",
+                "value": {
+                  "var": "C",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "air",
+                "value": {
+                  "var": "air",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "relays",
+                "value": {
+                  "var": "relays",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "per_relay",
+                "value": {
+                  "var": "per_relay",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: link and towers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: link...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: link and towers",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: link and towers [D25.P6.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: link... [D25.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "If rain limit, return latency None and status DOWN.",
+            "bars": [
+              {
+                "label": "C",
+                "value": 299792458,
+                "tone": "data"
+              },
+              {
+                "label": "air",
+                "value": 3937237.1402351954,
+                "tone": "data"
+              },
+              {
+                "label": "relays",
+                "value": 23,
+                "tone": "data"
+              },
+              {
+                "label": "per_relay",
+                "value": 300,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Otherwise latency = round(propagation ns + towers hop_ns), and status UP.",
+            "bars": [
+              {
+                "label": "C",
+                "value": 299792458,
+                "tone": "ok"
+              },
+              {
+                "label": "air",
+                "value": 3937237.1402351954,
+                "tone": "ok"
+              },
+              {
+                "label": "relays",
+                "value": 23,
+                "tone": "ok"
+              },
+              {
+                "label": "per_relay",
+                "value": 300,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: link and towers [D25.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Tomorrow the course turns from speed to honesty.",
+            "bars": [
+              {
+                "label": "C",
+                "value": 299792458,
+                "tone": "ok"
+              },
+              {
+                "label": "air",
+                "value": 3937237.1402351954,
+                "tone": "ok"
+              },
+              {
+                "label": "relays",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "per_relay",
+                "value": 800,
+                "tone": "ok"
+              }
             ]
           }
         ]

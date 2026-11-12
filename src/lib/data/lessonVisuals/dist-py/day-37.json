@@ -2,269 +2,412 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 37,
-  "promptSha": "e10e5a78d32817054458e05b6dedc686f2b77846263a7ef4a3b467354ae5e368",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Phi Accrual Failure Detection — Foundations & Mathematical Invariants",
-      "codeHash": "b58c812c8254182d14cb4fe55999b4ef5d63fbc819c3e8757aefb98ed9b0b1ea",
+      "partTitle": "Limitations of Fixed Binary Heartbeat Deadlines",
+      "codeHash": "8c1901c8fe9d8297e2e49ca2ba6240a7a042ce3295cf723c5f945aca023d06ad",
       "spec": {
         "template": "flow",
-        "title": "Phi Accrual Failure Detection — Foundations & Mathematical Invariants",
+        "title": "Limitations of Fixed Binary Heartbeat Deadlines",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "p_later",
+            "label": "p_later"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Fixed heartbeat timeouts force an ugly static guess.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 7,
+                "hit": 1
+              },
+              "p_later": {
+                "var": "p_later",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "p": "data",
+              "p_later": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "p_later"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Worse yet, network latency shifts continuously between regions, traffic.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "p_later": {
+                "var": "p_later",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "p": "data",
+              "p_later": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "p_later"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Compute logarithmic suspicion phi directly from tail probabilities below.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "p_later": {
+                "var": "p_later",
+                "line": 4,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "p": "ok",
+              "p_later": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "p_later"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Phi Accrual Failure Detection — Foundations & Mathematical Invariants",
+        "title": "Limitations of Fixed Binary Heartbeat Deadlines",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "p_later",
+            "label": "p_later"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Fixed heartbeat timeouts force an ugly static guess.",
+            "values": {
+              "p": "0.5",
+              "p_later": "0.5"
+            },
+            "tones": {
+              "p": "data",
+              "p_later": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "p_later"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Worse yet, network latency shifts continuously between regions, traffic.",
+            "values": {
+              "p": "0.5",
+              "p_later": "0.5"
+            },
+            "tones": {
+              "p": "data",
+              "p_later": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "p_later"
+              ]
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Compute logarithmic suspicion phi directly from tail probabilities below.",
+            "values": {
+              "p": "0.5",
+              "p_later": "0.1"
+            },
+            "tones": {
+              "p": "ok",
+              "p_later": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "p_later"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Sliding Window Sampling & Normal Distribution Tail Approximation",
+      "codeHash": "1caf4de2dbf0d21cf77fac6c3f24d3c3cd7ceccaa5122fc06280387cde11c389",
+      "spec": {
+        "template": "states",
+        "title": "Sliding Window Sampling & Normal Distribution Tail Approximation",
+        "states": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "window_size",
+            "label": "window_size"
+          },
+          {
+            "id": "min_std_ms",
+            "label": "min_std_ms"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "To estimate `P_later(delta)` cleanly in standard Python without allocating.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Upon receiving each heartbeat at timestamp t_i, record `gap = t_i.",
+            "currentState": "window_size",
+            "transition": {
+              "from": "self",
+              "to": "window_size",
+              "label": {
+                "var": "window_size",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say7",
+            "caption": "Inspect the sliding-window Gaussian tail calculator below comparing smooth.",
+            "currentState": "min_std_ms",
+            "transition": {
+              "from": "window_size",
+              "to": "min_std_ms",
+              "label": {
+                "var": "min_std_ms",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Sliding Window Sampling & Normal Distribution Tail Approximation",
+        "states": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "window_size",
+            "label": "window_size"
+          },
+          {
+            "id": "min_std_ms",
+            "label": "min_std_ms"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "To estimate `P_later(delta)` cleanly in standard Python without allocating.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Upon receiving each heartbeat at timestamp t_i, record `gap = t_i.",
+            "currentState": "window_size",
+            "transition": {
+              "from": "self",
+              "to": "window_size",
+              "label": "200"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say7",
+            "caption": "Inspect the sliding-window Gaussian tail calculator below comparing smooth.",
+            "currentState": "min_std_ms",
+            "transition": {
+              "from": "window_size",
+              "to": "min_std_ms",
+              "label": "20"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Handling Stop-the-World GC Pauses & Exponential Arrival Alternatives",
+      "codeHash": "b7a9d5879d3debe96b9ef07691520cdaa76b1c6066421a35f443f26fcca107ec",
+      "spec": {
+        "template": "cells",
+        "title": "Handling Stop-the-World GC Pauses & Exponential Arrival Alternat",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Standard Gaussian distributions decay super-exponentially far faster than.",
+            "items": {
+              "var": "samples",
+              "line": 16,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Apache Cassandra engineers noticed real inter-arrival times match.",
+            "items": {
+              "var": "samples",
+              "line": 17,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "caption": "Run both models over an identical noisy trace with a sudden 400ms spike below.",
+            "items": {
+              "var": "samples",
+              "line": 17,
+              "hit": 5
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "cells",
+        "title": "Handling Stop-the-World GC Pauses & Exponential Arrival Alternat",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Standard Gaussian distributions decay super-exponentially far faster than.",
+            "items": [
+              "100",
+              "105",
+              "95",
+              "110",
+              "98",
+              "102",
+              "100",
+              "99",
+              "104",
+              "101"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Apache Cassandra engineers noticed real inter-arrival times match.",
+            "items": [
+              "100",
+              "105",
+              "95",
+              "110",
+              "98",
+              "102",
+              "100",
+              "99",
+              "104",
+              "101"
+            ],
+            "pointers": [
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Run both models over an identical noisy trace with a sudden 400ms spike below.",
+            "items": [
+              "100",
+              "105",
+              "95",
+              "110",
+              "98",
+              "102",
+              "100",
+              "99",
+              "104",
+              "101"
+            ],
+            "pointers": [
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -272,1065 +415,329 @@
       }
     },
     {
-      "partTitle": "Phi Accrual Failure Detection — Core Algorithm & State Representation",
-      "codeHash": "0169679485383ca0c6379686c8fcbf8561794fce712a9d31a51fff66a65a9d82",
+      "partTitle": "Multi-Consumer Accrual Actions: Tiered Degraded vs Evicted States",
+      "codeHash": "07e02807ee7aa2e720c9913856f910fe3783048e8c32eb78a159068c41949aa3",
       "spec": {
-        "template": "flow",
-        "title": "Phi Accrual Failure Detection — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Multi-Consumer Accrual Actions: Tiered Degraded vs Evicted State",
+        "actors": [
+          "self",
+          "p",
+          "val"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "The signature architectural strength of Phi Accrual is decoupling.",
+            "activeActor": "self",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "p",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "p",
+                "to": "val",
+                "label": {
+                  "var": "p",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "An API load balancer sitting in front of stateless workers wants ultra-low.",
+            "activeActor": "p",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "p",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "p",
+                "to": "val",
+                "label": {
+                  "var": "p",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Build the tiered multi-policy state router with recovery hysteresis below.",
+            "activeActor": "val",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "p",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "p",
+                "to": "val",
+                "label": {
+                  "var": "p",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Phi Accrual Failure Detection — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Multi-Consumer Accrual Actions: Tiered Degraded vs Evicted State",
+        "actors": [
+          "self",
+          "p",
+          "val"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "The signature architectural strength of Phi Accrual is decoupling.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "p",
+                "label": "<TieredPeerPolicy>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "p",
+                "to": "val",
+                "label": "<TieredPeerPolicy>",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "self"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "An API load balancer sitting in front of stateless workers wants ultra-low.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "p",
+                "label": "<TieredPeerPolicy>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "p",
+                "to": "val",
+                "label": "<TieredPeerPolicy>",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "p"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Build the tiered multi-policy state router with recovery hysteresis below.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "p",
+                "label": "<TieredPeerPolicy>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "p",
+                "to": "val",
+                "label": "<TieredPeerPolicy>",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "val"
           }
         ]
       }
     },
     {
-      "partTitle": "Phi Accrual Failure Detection — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "c1a50a5cd8f43f079c9320553727b305988fe0e0c6003b71d5f904db218e65de",
+      "partTitle": "Simulating Adaptive Thresholds Across Changing Latency Regimes",
+      "codeHash": "40563c6d4b775520d47b5e262d48183471eb26e2120e2fdfa9bc98ebb8c223a0",
       "spec": {
-        "template": "flow",
-        "title": "Phi Accrual Failure Detection — Throughput Optimization & Edge-Case Ha",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Simulating Adaptive Thresholds Across Changing Latency Regimes",
+        "actors": [
+          "intervals_before_crash",
+          "probe_times",
+          "window"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Unlike fixed millisecond timers, Phi Accrual adapts automatically when.",
+            "activeActor": "intervals_before_crash",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "intervals_before_crash",
+                "to": "probe_times",
+                "label": {
+                  "var": "intervals_before_crash",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "probe_times",
+                "to": "window",
+                "label": {
+                  "var": "probe_times",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Run a two-regime adaptive simulation.",
+            "activeActor": "probe_times",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "intervals_before_crash",
+                "to": "probe_times",
+                "label": {
+                  "var": "intervals_before_crash",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "probe_times",
+                "to": "window",
+                "label": {
+                  "var": "probe_times",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Execute the dual-regime adaptive benchmark below measuring both.",
+            "activeActor": "window",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "intervals_before_crash",
+                "to": "probe_times",
+                "label": {
+                  "var": "intervals_before_crash",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "probe_times",
+                "to": "window",
+                "label": {
+                  "var": "probe_times",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Phi Accrual Failure Detection — Throughput Optimization & Edge-Case Ha",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Simulating Adaptive Thresholds Across Changing Latency Regimes",
+        "actors": [
+          "intervals_before_crash",
+          "probe_times",
+          "window"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Unlike fixed millisecond timers, Phi Accrual adapts automatically when.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "intervals_before_crash",
+                "to": "probe_times",
+                "label": "[50, 50, 50, 50, 50, 50, 50, 50, 50, 50…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "probe_times",
+                "to": "window",
+                "label": "{'__other__': 'range'}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "intervals_before_crash"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Run a two-regime adaptive simulation.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "intervals_before_crash",
+                "to": "probe_times",
+                "label": "[50, 50, 50, 50, 50, 50, 50, 50, 50, 50…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "probe_times",
+                "to": "window",
+                "label": "{'__other__': 'range'}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "probe_times"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Execute the dual-regime adaptive benchmark below measuring both.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "intervals_before_crash",
+                "to": "probe_times",
+                "label": "[50, 50, 50, 50, 50, 50, 50, 50, 50, 50…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "probe_times",
+                "to": "window",
+                "label": "{'__other__': 'range'}",
+                "tone": "ok"
               }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Phi Accrual Failure Detection — Resilience Guardrails & Failure Recovery",
-      "codeHash": "45b7d0b4b8125eacf575c9b6bac1e804be8368c3d8c8ed29217e761d948e2b61",
-      "spec": {
-        "template": "flow",
-        "title": "Phi Accrual Failure Detection — Resilience Guardrails & Failure Recove",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Phi Accrual Failure Detection — Resilience Guardrails & Failure Recove",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Phi Accrual Failure Detection — Production Telemetry & Verification Audit",
-      "codeHash": "6a13cb6afb18f999d8571a349c4512e724e12000e737ed96fe39f8d4b5878ab4",
-      "spec": {
-        "template": "flow",
-        "title": "Phi Accrual Failure Detection — Production Telemetry & Verification Au",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Phi Accrual Failure Detection — Production Telemetry & Verification Au",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "window"
           }
         ]
       }

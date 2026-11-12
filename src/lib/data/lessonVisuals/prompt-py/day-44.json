@@ -1,159 +1,170 @@
 {
-  "schemaVersion": "2.0.0",
-  "course": "prompt-py",
-  "day": 44,
+  "schemaVersion": 1,
   "prefix": "prompt-py",
+  "day": 44,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Architectural Comparison LangGraph CrewAI AutoGen And Native AsyncIO",
       "codeHash": "a1b8de99a35bde9b77b521dc13f97f1db4d2c1b3650b6cf97348b267237b23ca",
       "spec": {
-        "template": "table",
-        "title": "Architectural Comparison LangGraph CrewAI AutoGen And Native AsyncIO.",
-        "columns": [
-          "Framework Paradigm",
-          "Core Control Abstraction",
-          "Primary Enterprise Use Case"
+        "template": "sequence",
+        "title": "Architectural Comparison LangGraph CrewAI AutoGen And Native Asy",
+        "actors": [
+          "framework_evaluations",
+          "orchestration_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Agent frameworks differ in state modeling and orchestration control.",
-            "rows": [
-              [
-                "LangGraph Pregel Graph",
-                "Stateful Cyclical Computation Nodes And Edges",
-                "Mission Critical Deterministic Workflows"
-              ],
-              [
-                "CrewAI Role Swarm",
-                "Personas Backstories And Hierarchical Tasks",
-                "Content Generation And Operations"
-              ]
+            "caption": "As the artificial intelligence landscape transitions from single-prompt.",
+            "activeActor": "framework_evaluations",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": {
+                  "var": "framework_evaluations",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": {
+                  "var": "orchestration_metrics",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Architectural paradigms in production agent frameworks dictate.",
-            "rows": [
-              [
-                "AutoGen Conversational Mesh",
-                "Multi Agent Dialogue And Sandboxed Execution",
-                "Collaborative Research And Code Debugging"
-              ],
-              [
-                "Native AsyncIO Architecture",
-                "Lightweight Coroutines And Pydantic Schemas",
-                "Ultra Low Latency Microservice Core"
-              ]
+            "caption": "Architectural paradigms in production agent frameworks dictate how swarms.",
+            "activeActor": "orchestration_metrics",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": {
+                  "var": "framework_evaluations",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": {
+                  "var": "orchestration_metrics",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Enterprise swarms balance cyclical graphs against role playing teams.",
-            "rows": [
-              [
-                "Hybrid Orchestration Fabric",
-                "Combines Cyclical Graphs With Role Swarms",
-                "Enterprise High Throughput Platforms"
-              ],
-              [
-                "State Checkpointer Backend",
-                "PostgreSQL Redis And Cloud Object Persistence",
-                "Zero Data Loss Session Crash Recovery"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Benchmark state persistence latency across graph and conversational models.",
-            "rows": [
-              [
-                "Conditional Edge Router",
-                "Evaluates Predicates To Route Flow Dynamically",
-                "Adaptive Multi Path Business Execution"
-              ],
-              [
-                "Sovereign Framework Hub",
-                "Abstracts Underlying Engine Model Topologies",
-                "Enterprise Multi Agent Portability"
-              ]
+            "at": "say11",
+            "caption": "Mastering the comparative landscape of production agent frameworks enables.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": {
+                  "var": "framework_evaluations",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": {
+                  "var": "orchestration_metrics",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Architectural Comparison LangGraph CrewAI AutoGen And Native AsyncIO.",
-        "columns": [
-          "Framework Paradigm",
-          "Core Control Abstraction",
-          "Primary Enterprise Use Case"
+        "template": "sequence",
+        "title": "Architectural Comparison LangGraph CrewAI AutoGen And Native Asy",
+        "actors": [
+          "framework_evaluations",
+          "orchestration_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Agent frameworks differ in state modeling and orchestration control.",
-            "rows": [
-              [
-                "LangGraph Pregel Graph",
-                "Stateful Cyclical Computation Nodes And Edges",
-                "Mission Critical Deterministic Workflows"
-              ],
-              [
-                "CrewAI Role Swarm",
-                "Personas Backstories And Hierarchical Tasks",
-                "Content Generation And Operations"
-              ]
-            ]
+            "caption": "As the artificial intelligence landscape transitions from single-prompt.",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": "{'LangGraph': {'architecture': 'Statefu…",
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": "{'graphCycleExecutionThroughputRPS': 42…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "framework_evaluations"
           },
           {
             "at": "say2",
-            "caption": "Architectural paradigms in production agent frameworks dictate.",
-            "rows": [
-              [
-                "AutoGen Conversational Mesh",
-                "Multi Agent Dialogue And Sandboxed Execution",
-                "Collaborative Research And Code Debugging"
-              ],
-              [
-                "Native AsyncIO Architecture",
-                "Lightweight Coroutines And Pydantic Schemas",
-                "Ultra Low Latency Microservice Core"
-              ]
-            ]
+            "caption": "Architectural paradigms in production agent frameworks dictate how swarms.",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": "{'LangGraph': {'architecture': 'Statefu…",
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": "{'graphCycleExecutionThroughputRPS': 42…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "orchestration_metrics"
           },
           {
-            "at": "example",
-            "caption": "Enterprise swarms balance cyclical graphs against role playing teams.",
-            "rows": [
-              [
-                "Hybrid Orchestration Fabric",
-                "Combines Cyclical Graphs With Role Swarms",
-                "Enterprise High Throughput Platforms"
-              ],
-              [
-                "State Checkpointer Backend",
-                "PostgreSQL Redis And Cloud Object Persistence",
-                "Zero Data Loss Session Crash Recovery"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Benchmark state persistence latency across graph and conversational models.",
-            "rows": [
-              [
-                "Conditional Edge Router",
-                "Evaluates Predicates To Route Flow Dynamically",
-                "Adaptive Multi Path Business Execution"
-              ],
-              [
-                "Sovereign Framework Hub",
-                "Abstracts Underlying Engine Model Topologies",
-                "Enterprise Multi Agent Portability"
-              ]
-            ]
+            "at": "say11",
+            "caption": "Mastering the comparative landscape of production agent frameworks enables.",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": "{'LangGraph': {'architecture': 'Statefu…",
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": "{'graphCycleExecutionThroughputRPS': 42…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -162,150 +173,220 @@
       "partTitle": "LangGraph Deep Dive Stateful Computation Graphs And Checkpointers",
       "codeHash": "a1b8de99a35bde9b77b521dc13f97f1db4d2c1b3650b6cf97348b267237b23ca",
       "spec": {
-        "template": "table",
-        "title": "LangGraph Deep Dive Stateful Computation Graphs And Checkpointers.",
-        "columns": [
-          "Graph Component Layer",
-          "Execution Semantics",
-          "State Resilience SLA"
+        "template": "flow",
+        "title": "LangGraph Deep Dive Stateful Computation Graphs And Checkpointer",
+        "nodes": [
+          {
+            "id": "framework_evaluations",
+            "label": "framework_evaluations"
+          },
+          {
+            "id": "orchestration_metrics",
+            "label": "orchestration_metrics"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cyclical computation graphs provide deterministic state flow and routing.",
-            "rows": [
+            "caption": "When enterprise workflows demand deterministic state transitions, complex.",
+            "values": {
+              "framework_evaluations": {
+                "var": "framework_evaluations",
+                "line": 9,
+                "hit": 1
+              },
+              "orchestration_metrics": {
+                "var": "orchestration_metrics",
+                "line": 27,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 41,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "framework_evaluations": "data",
+              "orchestration_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Immutable State Channel",
-                "Typed Pydantic Schema Shared Across Nodes",
-                "Thread Safe Atomic State Transitions"
+                "framework_evaluations",
+                "orchestration_metrics"
               ],
               [
-                "Cyclical Graph Node",
-                "Executes Specialized Model Or Tool Invocation",
-                "Enables Iterative Revision Loops"
+                "orchestration_metrics",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "LangGraph stateful computation graphs provide deterministic control.",
-            "rows": [
+            "caption": "LangGraph stateful computation graphs provide deterministic control flow.",
+            "values": {
+              "framework_evaluations": {
+                "var": "framework_evaluations",
+                "line": 28,
+                "hit": 1
+              },
+              "orchestration_metrics": {
+                "var": "orchestration_metrics",
+                "line": 34,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 42,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "framework_evaluations": "data",
+              "orchestration_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Conditional Edge Evaluator",
-                "Inspects Output Payloads To Direct Flow",
-                "Non Linear Adaptive Execution Paths"
+                "framework_evaluations",
+                "orchestration_metrics"
               ],
               [
-                "Persistent Checkpointer Core",
-                "Serializes Graph State After Every Step",
-                "Instantaneous State Crash Recovery"
+                "orchestration_metrics",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "LangGraph checkpointers save graph state after every node transition.",
-            "rows": [
+            "at": "say11",
+            "caption": "Mastering LangGraph equips AI engineers with the tools to construct.",
+            "values": {
+              "framework_evaluations": {
+                "var": "framework_evaluations",
+                "line": 29,
+                "hit": 1
+              },
+              "orchestration_metrics": {
+                "var": "orchestration_metrics",
+                "line": 35,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 42,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "framework_evaluations": "ok",
+              "orchestration_metrics": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Human In The Loop Gate",
-                "Pauses Execution For Executive Approvals",
-                "Enforces High Stakes Policy Compliance"
+                "framework_evaluations",
+                "orchestration_metrics"
               ],
               [
-                "Time Travel State Explorer",
-                "Enables Historical Inspection And Branch Rewinds",
-                "Deterministic Edge Case Debugging"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement a conditional edge router directing tasks based on schemas.",
-            "rows": [
-              [
-                "Hierarchical Subgraph Mesh",
-                "Encapsulates Complex Domain Workflows Cleanly",
-                "Modular Enterprise System Composition"
-              ],
-              [
-                "Real Time Streaming Bus",
-                "Emits Token Streams And State Deltas Over Web",
-                "Sub Second Responsive User Interfaces"
+                "orchestration_metrics",
+                "result"
               ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "LangGraph Deep Dive Stateful Computation Graphs And Checkpointers.",
-        "columns": [
-          "Graph Component Layer",
-          "Execution Semantics",
-          "State Resilience SLA"
+        "template": "flow",
+        "title": "LangGraph Deep Dive Stateful Computation Graphs And Checkpointer",
+        "nodes": [
+          {
+            "id": "framework_evaluations",
+            "label": "framework_evaluations"
+          },
+          {
+            "id": "orchestration_metrics",
+            "label": "orchestration_metrics"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cyclical computation graphs provide deterministic state flow and routing.",
-            "rows": [
+            "caption": "When enterprise workflows demand deterministic state transitions, complex.",
+            "values": {
+              "framework_evaluations": "{'LangGraph': {'architecture': 'Statefu…",
+              "orchestration_metrics": "{'graphCycleExecutionThroughputRPS': 42…",
+              "result": "{'frameworkEvaluations': {'LangGraph': …"
+            },
+            "tones": {
+              "framework_evaluations": "data",
+              "orchestration_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Immutable State Channel",
-                "Typed Pydantic Schema Shared Across Nodes",
-                "Thread Safe Atomic State Transitions"
+                "framework_evaluations",
+                "orchestration_metrics"
               ],
               [
-                "Cyclical Graph Node",
-                "Executes Specialized Model Or Tool Invocation",
-                "Enables Iterative Revision Loops"
+                "orchestration_metrics",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "LangGraph stateful computation graphs provide deterministic control.",
-            "rows": [
+            "caption": "LangGraph stateful computation graphs provide deterministic control flow.",
+            "values": {
+              "framework_evaluations": "{'LangGraph': {'architecture': 'Statefu…",
+              "orchestration_metrics": "{'graphCycleExecutionThroughputRPS': 42…",
+              "result": "{'frameworkEvaluations': {'LangGraph': …"
+            },
+            "tones": {
+              "framework_evaluations": "data",
+              "orchestration_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Conditional Edge Evaluator",
-                "Inspects Output Payloads To Direct Flow",
-                "Non Linear Adaptive Execution Paths"
+                "framework_evaluations",
+                "orchestration_metrics"
               ],
               [
-                "Persistent Checkpointer Core",
-                "Serializes Graph State After Every Step",
-                "Instantaneous State Crash Recovery"
+                "orchestration_metrics",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "LangGraph checkpointers save graph state after every node transition.",
-            "rows": [
+            "at": "say11",
+            "caption": "Mastering LangGraph equips AI engineers with the tools to construct.",
+            "values": {
+              "framework_evaluations": "{'LangGraph': {'architecture': 'Statefu…",
+              "orchestration_metrics": "{'graphCycleExecutionThroughputRPS': 42…",
+              "result": "{'frameworkEvaluations': {'LangGraph': …"
+            },
+            "tones": {
+              "framework_evaluations": "ok",
+              "orchestration_metrics": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Human In The Loop Gate",
-                "Pauses Execution For Executive Approvals",
-                "Enforces High Stakes Policy Compliance"
+                "framework_evaluations",
+                "orchestration_metrics"
               ],
               [
-                "Time Travel State Explorer",
-                "Enables Historical Inspection And Branch Rewinds",
-                "Deterministic Edge Case Debugging"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement a conditional edge router directing tasks based on schemas.",
-            "rows": [
-              [
-                "Hierarchical Subgraph Mesh",
-                "Encapsulates Complex Domain Workflows Cleanly",
-                "Modular Enterprise System Composition"
-              ],
-              [
-                "Real Time Streaming Bus",
-                "Emits Token Streams And State Deltas Over Web",
-                "Sub Second Responsive User Interfaces"
+                "orchestration_metrics",
+                "result"
               ]
             ]
           }
@@ -316,152 +397,162 @@
       "partTitle": "CrewAI Deep Dive Role Playing Agents And Hierarchical Orchestration",
       "codeHash": "a1b8de99a35bde9b77b521dc13f97f1db4d2c1b3650b6cf97348b267237b23ca",
       "spec": {
-        "template": "table",
-        "title": "CrewAI Deep Dive Role Playing Agents And Hierarchical Orchestration.",
-        "columns": [
-          "Crew Primitives Role",
-          "Operational Function",
-          "Delegation Protocol"
+        "template": "sequence",
+        "title": "CrewAI Deep Dive Role Playing Agents And Hierarchical Orchestrat",
+        "actors": [
+          "framework_evaluations",
+          "orchestration_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Hierarchical agent crews mirror collaborative human enterprise teams.",
-            "rows": [
-              [
-                "Role Playing Agent Persona",
-                "Configures Model Backstory Goals And Style",
-                "Consistent Domain Specific Tone"
-              ],
-              [
-                "Structured Task Definition",
-                "Specifies Expected Outputs And Tools Clearly",
-                "Prevents Ambiguous Execution Failures"
-              ]
+            "caption": "While graph-based frameworks excel at strict conditional state machines.",
+            "activeActor": "framework_evaluations",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": {
+                  "var": "framework_evaluations",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": {
+                  "var": "orchestration_metrics",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "CrewAI role playing agent frameworks model complex enterprise.",
-            "rows": [
-              [
-                "Manager LLM Orchestrator",
-                "Decomposes Missions And Delegates Sub Tasks",
-                "Autonomous Operational Project Planning"
-              ],
-              [
-                "Sequential Process Pipeline",
-                "Pipes Preceding Outputs Into Downstream Steps",
-                "Deterministic Ordered Business Processes"
-              ]
+            "caption": "CrewAI role playing agent frameworks model complex enterprise business.",
+            "activeActor": "orchestration_metrics",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": {
+                  "var": "framework_evaluations",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": {
+                  "var": "orchestration_metrics",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Manager agents in CrewAI delegate sub tasks to specialized role workers.",
-            "rows": [
-              [
-                "Hierarchical Delegation Core",
-                "Reviews Worker Outputs And Requests Edits",
-                "Maintains Rigorous Enterprise Quality"
-              ],
-              [
-                "Tripartite Memory Fabric",
-                "Combines Short Term Long Term And Entity Memory",
-                "Continuous Contextual Cross Task Coherence"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Configure a multi agent crew with hierarchical delegation and schemas.",
-            "rows": [
-              [
-                "Asynchronous Task Worker",
-                "Executes Independent Sub Tasks In Parallel",
-                "Substantially Reduced Mission Wall Time"
-              ],
-              [
-                "Pydantic Output Gate",
-                "Enforces Strongly Typed JSON Schema Adherence",
-                "Seamless Downstream Database Ingestion"
-              ]
+            "at": "say11",
+            "caption": "Mastering CrewAI enables prompt engineers to transform high-level.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": {
+                  "var": "framework_evaluations",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": {
+                  "var": "orchestration_metrics",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "CrewAI Deep Dive Role Playing Agents And Hierarchical Orchestration.",
-        "columns": [
-          "Crew Primitives Role",
-          "Operational Function",
-          "Delegation Protocol"
+        "template": "sequence",
+        "title": "CrewAI Deep Dive Role Playing Agents And Hierarchical Orchestrat",
+        "actors": [
+          "framework_evaluations",
+          "orchestration_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Hierarchical agent crews mirror collaborative human enterprise teams.",
-            "rows": [
-              [
-                "Role Playing Agent Persona",
-                "Configures Model Backstory Goals And Style",
-                "Consistent Domain Specific Tone"
-              ],
-              [
-                "Structured Task Definition",
-                "Specifies Expected Outputs And Tools Clearly",
-                "Prevents Ambiguous Execution Failures"
-              ]
-            ]
+            "caption": "While graph-based frameworks excel at strict conditional state machines.",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": "{'LangGraph': {'architecture': 'Statefu…",
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": "{'graphCycleExecutionThroughputRPS': 42…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "framework_evaluations"
           },
           {
             "at": "say2",
-            "caption": "CrewAI role playing agent frameworks model complex enterprise.",
-            "rows": [
-              [
-                "Manager LLM Orchestrator",
-                "Decomposes Missions And Delegates Sub Tasks",
-                "Autonomous Operational Project Planning"
-              ],
-              [
-                "Sequential Process Pipeline",
-                "Pipes Preceding Outputs Into Downstream Steps",
-                "Deterministic Ordered Business Processes"
-              ]
-            ]
+            "caption": "CrewAI role playing agent frameworks model complex enterprise business.",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": "{'LangGraph': {'architecture': 'Statefu…",
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": "{'graphCycleExecutionThroughputRPS': 42…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "orchestration_metrics"
           },
           {
-            "at": "example",
-            "caption": "Manager agents in CrewAI delegate sub tasks to specialized role workers.",
-            "rows": [
-              [
-                "Hierarchical Delegation Core",
-                "Reviews Worker Outputs And Requests Edits",
-                "Maintains Rigorous Enterprise Quality"
-              ],
-              [
-                "Tripartite Memory Fabric",
-                "Combines Short Term Long Term And Entity Memory",
-                "Continuous Contextual Cross Task Coherence"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Configure a multi agent crew with hierarchical delegation and schemas.",
-            "rows": [
-              [
-                "Asynchronous Task Worker",
-                "Executes Independent Sub Tasks In Parallel",
-                "Substantially Reduced Mission Wall Time"
-              ],
-              [
-                "Pydantic Output Gate",
-                "Enforces Strongly Typed JSON Schema Adherence",
-                "Seamless Downstream Database Ingestion"
-              ]
-            ]
+            "at": "say11",
+            "caption": "Mastering CrewAI enables prompt engineers to transform high-level.",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": "{'LangGraph': {'architecture': 'Statefu…",
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": "{'graphCycleExecutionThroughputRPS': 42…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -470,152 +561,162 @@
       "partTitle": "AutoGen And Conversational Mesh Architectures With Code Execution",
       "codeHash": "a1b8de99a35bde9b77b521dc13f97f1db4d2c1b3650b6cf97348b267237b23ca",
       "spec": {
-        "template": "table",
-        "title": "AutoGen And Conversational Mesh Architectures With Code Execution.",
-        "columns": [
-          "Mesh Component Type",
-          "Interaction Topology",
-          "Safety And Execution Boundary"
+        "template": "sequence",
+        "title": "AutoGen And Conversational Mesh Architectures With Code Executio",
+        "actors": [
+          "framework_evaluations",
+          "orchestration_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Conversational agent meshes debug code iteratively in sandboxes.",
-            "rows": [
-              [
-                "Conversable Agent Base",
-                "Sends And Receives Typed Natural Language Text",
-                "Uniform Communicating Entity Model"
-              ],
-              [
-                "Assistant Agent Solver",
-                "Generates Reasoning Chains Code And Drafts",
-                "Autonomous Problem Solving Logic"
-              ]
+            "caption": "When enterprise tasks require fluid, open-ended problem solving.",
+            "activeActor": "framework_evaluations",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": {
+                  "var": "framework_evaluations",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": {
+                  "var": "orchestration_metrics",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "AutoGen conversational multi agent mesh architectures enable emergent.",
-            "rows": [
-              [
-                "User Proxy Agent Runner",
-                "Executes Code Inside Secure Docker Sandboxes",
-                "Safe Automated Code Execution Loop"
-              ],
-              [
-                "Group Chat Coordinator",
-                "Mediates Multi Turn Deliberations In Shared Room",
-                "Emergent Multi Perspective Consensus"
-              ]
+            "caption": "AutoGen conversational multi-agent mesh architectures enable emergent.",
+            "activeActor": "orchestration_metrics",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": {
+                  "var": "framework_evaluations",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": {
+                  "var": "orchestration_metrics",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "AutoGen agents debug Python scripts autonomously inside Docker sandboxes.",
-            "rows": [
-              [
-                "Speaker Selection Engine",
-                "Selects Next Expert Dynamically Using Models",
-                "Fluid Context Driven Conversation Flow"
-              ],
-              [
-                "Autonomous Debugging Loop",
-                "Inspects Tracebacks And Fixes Errors Recursively",
-                "Self Healing Quantitative Code Execution"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Construct a GroupChat with automated speaker selection and sandboxes.",
-            "rows": [
-              [
-                "Nested Chat Sub Task",
-                "Spawns Isolated Sub Conversations For Details",
-                "Prevents Context Window Bloat In Main Chat"
-              ],
-              [
-                "Human Input Gatekeeper",
-                "Requires Operator Confirmation Before Actions",
-                "Safe Human In The Loop System Guidance"
-              ]
+            "at": "say11",
+            "caption": "Mastering AutoGen unlocks the full potential of conversational multi-agent.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": {
+                  "var": "framework_evaluations",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": {
+                  "var": "orchestration_metrics",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "AutoGen And Conversational Mesh Architectures With Code Execution.",
-        "columns": [
-          "Mesh Component Type",
-          "Interaction Topology",
-          "Safety And Execution Boundary"
+        "template": "sequence",
+        "title": "AutoGen And Conversational Mesh Architectures With Code Executio",
+        "actors": [
+          "framework_evaluations",
+          "orchestration_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Conversational agent meshes debug code iteratively in sandboxes.",
-            "rows": [
-              [
-                "Conversable Agent Base",
-                "Sends And Receives Typed Natural Language Text",
-                "Uniform Communicating Entity Model"
-              ],
-              [
-                "Assistant Agent Solver",
-                "Generates Reasoning Chains Code And Drafts",
-                "Autonomous Problem Solving Logic"
-              ]
-            ]
+            "caption": "When enterprise tasks require fluid, open-ended problem solving.",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": "{'LangGraph': {'architecture': 'Statefu…",
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": "{'graphCycleExecutionThroughputRPS': 42…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "framework_evaluations"
           },
           {
             "at": "say2",
-            "caption": "AutoGen conversational multi agent mesh architectures enable emergent.",
-            "rows": [
-              [
-                "User Proxy Agent Runner",
-                "Executes Code Inside Secure Docker Sandboxes",
-                "Safe Automated Code Execution Loop"
-              ],
-              [
-                "Group Chat Coordinator",
-                "Mediates Multi Turn Deliberations In Shared Room",
-                "Emergent Multi Perspective Consensus"
-              ]
-            ]
+            "caption": "AutoGen conversational multi-agent mesh architectures enable emergent.",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": "{'LangGraph': {'architecture': 'Statefu…",
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": "{'graphCycleExecutionThroughputRPS': 42…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "orchestration_metrics"
           },
           {
-            "at": "example",
-            "caption": "AutoGen agents debug Python scripts autonomously inside Docker sandboxes.",
-            "rows": [
-              [
-                "Speaker Selection Engine",
-                "Selects Next Expert Dynamically Using Models",
-                "Fluid Context Driven Conversation Flow"
-              ],
-              [
-                "Autonomous Debugging Loop",
-                "Inspects Tracebacks And Fixes Errors Recursively",
-                "Self Healing Quantitative Code Execution"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Construct a GroupChat with automated speaker selection and sandboxes.",
-            "rows": [
-              [
-                "Nested Chat Sub Task",
-                "Spawns Isolated Sub Conversations For Details",
-                "Prevents Context Window Bloat In Main Chat"
-              ],
-              [
-                "Human Input Gatekeeper",
-                "Requires Operator Confirmation Before Actions",
-                "Safe Human In The Loop System Guidance"
-              ]
-            ]
+            "at": "say11",
+            "caption": "Mastering AutoGen unlocks the full potential of conversational multi-agent.",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": "{'LangGraph': {'architecture': 'Statefu…",
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": "{'graphCycleExecutionThroughputRPS': 42…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -624,152 +725,162 @@
       "partTitle": "Enterprise Production Framework Selection And Native Hybrid Async Engine",
       "codeHash": "a1b8de99a35bde9b77b521dc13f97f1db4d2c1b3650b6cf97348b267237b23ca",
       "spec": {
-        "template": "table",
-        "title": "Enterprise Production Framework Selection And Native Hybrid Async Engine.",
-        "columns": [
-          "Engine Subsystem Layer",
-          "Asynchronous Implementation",
-          "Throughput And Recovery SLA"
+        "template": "sequence",
+        "title": "Enterprise Production Framework Selection And Native Hybrid Asyn",
+        "actors": [
+          "framework_evaluations",
+          "orchestration_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production hybrid engines deliver high throughput and instant recovery.",
-            "rows": [
-              [
-                "Graph State Kernel",
-                "Evaluates Cyclical State Transitions Rapidly",
-                "Four Hundred Graph Cycles Per Second"
-              ],
-              [
-                "AsyncIO Task Dispatcher",
-                "Manages Bounded Worker Coroutine Pools",
-                "Sub Millisecond Concurrent Task Dispatch"
-              ]
+            "caption": "While high-level frameworks like CrewAI, AutoGen, and LangGraph provide.",
+            "activeActor": "framework_evaluations",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": {
+                  "var": "framework_evaluations",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": {
+                  "var": "orchestration_metrics",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Enterprise production agent architectures balance strict stateful.",
-            "rows": [
-              [
-                "Agent Persona Registry",
-                "Decouples Prompt Personas From Graph Topology",
-                "Agile Prompt Iteration And Governance"
-              ],
-              [
-                "Persistent Delta Checkpointer",
-                "Commits Redis Deltas Concurrently",
-                "One Hundred Percent State Recovery Guarantee"
-              ]
+            "activeActor": "orchestration_metrics",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": {
+                  "var": "framework_evaluations",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": {
+                  "var": "orchestration_metrics",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Hybrid async engines achieve high throughput state machine execution.",
-            "rows": [
-              [
-                "Dynamic Replanning Engine",
-                "Reroutes Execution Around Tool Failures",
-                "Ninety Seven Point Nine Percent Success"
-              ],
-              [
-                "OpenTelemetry Telemetry Core",
-                "Emits Latency Histograms And Transition Traces",
-                "Comprehensive Production SRE Visibility"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy a production hybrid orchestrator with telemetry and checkpointers.",
-            "rows": [
-              [
-                "Zero Trust Tool Gateway",
-                "Enforces Least Privilege Microservice Access",
-                "Prevents Unauthorized Infrastructure Actions"
-              ],
-              [
-                "Sovereign Hybrid Platform",
-                "Harmonizes Graphs Roles And Native Async Loops",
-                "Mission Critical Enterprise Scaling SLA"
-              ]
+            "at": "say13",
+            "caption": "Mastering the engineering principles of production agent frameworks.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": {
+                  "var": "framework_evaluations",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": {
+                  "var": "orchestration_metrics",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Enterprise Production Framework Selection And Native Hybrid Async Engine.",
-        "columns": [
-          "Engine Subsystem Layer",
-          "Asynchronous Implementation",
-          "Throughput And Recovery SLA"
+        "template": "sequence",
+        "title": "Enterprise Production Framework Selection And Native Hybrid Asyn",
+        "actors": [
+          "framework_evaluations",
+          "orchestration_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production hybrid engines deliver high throughput and instant recovery.",
-            "rows": [
-              [
-                "Graph State Kernel",
-                "Evaluates Cyclical State Transitions Rapidly",
-                "Four Hundred Graph Cycles Per Second"
-              ],
-              [
-                "AsyncIO Task Dispatcher",
-                "Manages Bounded Worker Coroutine Pools",
-                "Sub Millisecond Concurrent Task Dispatch"
-              ]
-            ]
+            "caption": "While high-level frameworks like CrewAI, AutoGen, and LangGraph provide.",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": "{'LangGraph': {'architecture': 'Statefu…",
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": "{'graphCycleExecutionThroughputRPS': 42…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "framework_evaluations"
           },
           {
             "at": "say2",
             "caption": "Enterprise production agent architectures balance strict stateful.",
-            "rows": [
-              [
-                "Agent Persona Registry",
-                "Decouples Prompt Personas From Graph Topology",
-                "Agile Prompt Iteration And Governance"
-              ],
-              [
-                "Persistent Delta Checkpointer",
-                "Commits Redis Deltas Concurrently",
-                "One Hundred Percent State Recovery Guarantee"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": "{'LangGraph': {'architecture': 'Statefu…",
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": "{'graphCycleExecutionThroughputRPS': 42…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "orchestration_metrics"
           },
           {
-            "at": "example",
-            "caption": "Hybrid async engines achieve high throughput state machine execution.",
-            "rows": [
-              [
-                "Dynamic Replanning Engine",
-                "Reroutes Execution Around Tool Failures",
-                "Ninety Seven Point Nine Percent Success"
-              ],
-              [
-                "OpenTelemetry Telemetry Core",
-                "Emits Latency Histograms And Transition Traces",
-                "Comprehensive Production SRE Visibility"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy a production hybrid orchestrator with telemetry and checkpointers.",
-            "rows": [
-              [
-                "Zero Trust Tool Gateway",
-                "Enforces Least Privilege Microservice Access",
-                "Prevents Unauthorized Infrastructure Actions"
-              ],
-              [
-                "Sovereign Hybrid Platform",
-                "Harmonizes Graphs Roles And Native Async Loops",
-                "Mission Critical Enterprise Scaling SLA"
-              ]
-            ]
+            "at": "say13",
+            "caption": "Mastering the engineering principles of production agent frameworks.",
+            "messages": [
+              {
+                "from": "framework_evaluations",
+                "to": "orchestration_metrics",
+                "label": "{'LangGraph': {'architecture': 'Statefu…",
+                "tone": "data"
+              },
+              {
+                "from": "orchestration_metrics",
+                "to": "result",
+                "label": "{'graphCycleExecutionThroughputRPS': 42…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }

@@ -2,87 +2,115 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 43,
-  "promptSha": "309871e8528d0166804af931eff81e85d71a32c66fa02cf609b4f4777987a3d3",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Optimal Substructure vs Greedy Failure: 0/1 Knapsack Decision Tree",
       "codeHash": "afc6e00647426af7ccabe4c1d4c901a158e575b385dac4d9b64392f7407f846d",
       "spec": {
-        "template": "table",
-        "title": "Optimal Substructure vs Greedy Failure",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Optimal Substructure vs Greedy Failure: 0/1 Knapsack Decision Tr",
         "steps": [
           {
             "at": "say1",
-            "caption": "The suppose design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Suppose a cloud autoscaler has a strict memory budget W = 50 GB and.",
+            "items": {
+              "var": "weights",
+              "line": 26,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Optimal"
-                  },
-                  {
-                    "text": "Substructure"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The three step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "At first glance, students naturally try a greedy heuristic.",
+            "items": {
+              "var": "weights",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Greedy"
-                  },
-                  {
-                    "text": "Failure"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Run the Python counterexample below contrasting greedy ratio sorting.",
+            "items": {
+              "var": "weights",
+              "line": 9,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Optimal Substructure vs Greedy Failure",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Optimal Substructure vs Greedy Failure: 0/1 Knapsack Decision Tr",
         "steps": [
           {
             "at": "say1",
-            "caption": "The suppose design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Suppose a cloud autoscaler has a strict memory budget W = 50 GB and.",
+            "items": [
+              "10",
+              "20",
+              "30"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Optimal",
-                  "Substructure"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The three step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "At first glance, students naturally try a greedy heuristic.",
+            "items": [
+              "10",
+              "20",
+              "30"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Greedy",
-                  "Failure"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Run the Python counterexample below contrasting greedy ratio sorting.",
+            "items": [
+              "10",
+              "20",
+              "30"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,43 +121,131 @@
       "partTitle": "2D Tabulation & Optimal Item Subset Traceback",
       "codeHash": "78c333d5891bed118d59fbf062f0a92147af62ab73dd7fc6d49689badee1b3f7",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "2D Tabulation & Optimal Item Subset Traceback",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The converting design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Converting top-down recursion into bottom-up 2D tabulation eliminates.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Tabulation"
-                  },
-                  {
-                    "text": "Optimal"
-                  }
-                ],
+                "label": "cap",
+                "value": {
+                  "var": "cap",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The weights step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Define `dp[i][c]` as the maximum value attainable considering the first.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Item"
-                  },
-                  {
-                    "text": "Subset"
-                  }
-                ],
+                "label": "cap",
+                "value": {
+                  "var": "cap",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Run the 2D bottom-up table builder and exact item subset reconstructor.",
+            "bars": [
+              {
+                "label": "cap",
+                "value": {
+                  "var": "cap",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -137,35 +253,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "2D Tabulation & Optimal Item Subset Traceback",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The converting design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Converting top-down recursion into bottom-up 2D tabulation eliminates.",
+            "bars": [
               {
-                "cells": [
-                  "Tabulation",
-                  "Optimal"
-                ],
+                "label": "cap",
+                "value": 11,
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "w",
+                "value": 4,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The weights step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Define `dp[i][c]` as the maximum value attainable considering the first.",
+            "bars": [
               {
-                "cells": [
-                  "Item",
-                  "Subset"
-                ],
+                "label": "cap",
+                "value": 11,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": 4,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Run the 2D bottom-up table builder and exact item subset reconstructor.",
+            "bars": [
+              {
+                "label": "cap",
+                "value": 11,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": 4,
                 "tone": "ok"
               }
             ]
@@ -177,80 +341,129 @@
       "partTitle": "1D Space Optimization: Why 0/1 Knapsack Loops Capacity Backward",
       "codeHash": "6d300f358a651b35c01d437d3dcb2356f1ee24a1424eab968dfa072e3bfa9fc0",
       "spec": {
-        "template": "table",
-        "title": "1D Space Optimization",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "1D Space Optimization: Why 0/1 Knapsack Loops Capacity Backward",
         "steps": [
           {
             "at": "say1",
-            "caption": "The storing design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Storing a full `(N + 1) x (W + 1)` 2D table consumes gigabytes of RAM if.",
+            "items": {
+              "var": "dp",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Space"
-                  },
-                  {
-                    "text": "Optimization"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The strictly step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "However, collapsing from 2D to 1D introduces one of Dynamic Programming's.",
+            "items": {
+              "var": "dp",
+              "line": 4,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Knapsack"
-                  },
-                  {
-                    "text": "Loops"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Look at the dramatic side-by-side demonstration in Python below.",
+            "items": {
+              "var": "dp",
+              "line": 5,
+              "hit": 5
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "1D Space Optimization",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "1D Space Optimization: Why 0/1 Knapsack Loops Capacity Backward",
         "steps": [
           {
             "at": "say1",
-            "caption": "The storing design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Storing a full `(N + 1) x (W + 1)` 2D table consumes gigabytes of RAM if.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Space",
-                  "Optimization"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The strictly step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "However, collapsing from 2D to 1D introduces one of Dynamic Programming's.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "10",
+              "10",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Knapsack",
-                  "Loops"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Look at the dramatic side-by-side demonstration in Python below.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "10",
+              "10",
+              "10",
+              "20",
+              "20",
+              "0",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -261,80 +474,105 @@
       "partTitle": "Unbounded Knapsack (Forward Loop) & Bounded Knapsack Binary Splitting",
       "codeHash": "f979b3ef5a9646bd81e6b62e67a9139fdce7f7cad8c632488c6e19af0e06b3fb",
       "spec": {
-        "template": "table",
-        "title": "Unbounded Knapsack (Forward Loop) & Bounded Knapsack Binary",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Unbounded Knapsack (Forward Loop) & Bounded Knapsack Binary Spli",
         "steps": [
           {
             "at": "say1",
-            "caption": "The problem design establishes the core structural invariant.",
-            "rows": [
+            "caption": "What if your problem ACTUALLY allows infinite copies of each resource type.",
+            "items": {
+              "var": "weights",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Unbounded"
-                  },
-                  {
-                    "text": "Knapsack"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The middle step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Remarkably, that earlier 'bug' becomes an instant feature.",
+            "items": {
+              "var": "weights",
+              "line": 4,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Forward"
-                  },
-                  {
-                    "text": "Loop"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Once split into `log(qty)` scaled 0/1 bundles `(size*w, size*v)`, feed.",
+            "items": {
+              "var": "weights",
+              "line": 5,
+              "hit": 5
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Unbounded Knapsack (Forward Loop) & Bounded Knapsack Binary",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Unbounded Knapsack (Forward Loop) & Bounded Knapsack Binary Spli",
         "steps": [
           {
             "at": "say1",
-            "caption": "The problem design establishes the core structural invariant.",
-            "rows": [
+            "caption": "What if your problem ACTUALLY allows infinite copies of each resource type.",
+            "items": [
+              "2",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Unbounded",
-                  "Knapsack"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The middle step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Remarkably, that earlier 'bug' becomes an instant feature.",
+            "items": [
+              "2",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Forward",
-                  "Loop"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Once split into `log(qty)` scaled 0/1 bundles `(size*w, size*v)`, feed.",
+            "items": [
+              "2",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -345,43 +583,131 @@
       "partTitle": "Production Application: Cloud Spot-Instance Portfolio & Multi-SLA Capacity Planner",
       "codeHash": "8558f9d55481a6c0f6d62218182c665a53cb3b9ce09bbea9bb183791bb45abf8",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Production Application: Cloud Spot-Instance Portfolio & Multi-SL",
         "steps": [
           {
             "at": "say1",
-            "caption": "The build design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us build a real Cloud Spot-Instance Portfolio Allocator using.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "stock",
+                "value": {
+                  "var": "stock",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The recover step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Suppose a FinOps scheduler must provision compute capacity under a strict.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Cloud"
-                  },
-                  {
-                    "text": "Spot"
-                  }
-                ],
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "stock",
+                "value": {
+                  "var": "stock",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Execute `CloudPortfolioAllocator` below to allocate spot capacity cleanly.",
+            "bars": [
+              {
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "stock",
+                "value": {
+                  "var": "stock",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -389,35 +715,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Production Application: Cloud Spot-Instance Portfolio & Multi-SL",
         "steps": [
           {
             "at": "say1",
-            "caption": "The build design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us build a real Cloud Spot-Instance Portfolio Allocator using.",
+            "bars": [
               {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
+                "label": "budget",
+                "value": 120,
+                "tone": "data"
+              },
+              {
+                "label": "cost",
+                "value": 12,
+                "tone": "data"
+              },
+              {
+                "label": "score",
+                "value": 55,
+                "tone": "data"
+              },
+              {
+                "label": "stock",
+                "value": 6,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The recover step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Suppose a FinOps scheduler must provision compute capacity under a strict.",
+            "bars": [
               {
-                "cells": [
-                  "Cloud",
-                  "Spot"
-                ],
+                "label": "budget",
+                "value": 120,
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": 12,
+                "tone": "ok"
+              },
+              {
+                "label": "score",
+                "value": 55,
+                "tone": "ok"
+              },
+              {
+                "label": "stock",
+                "value": 6,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Execute `CloudPortfolioAllocator` below to allocate spot capacity cleanly.",
+            "bars": [
+              {
+                "label": "budget",
+                "value": 120,
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": 12,
+                "tone": "ok"
+              },
+              {
+                "label": "score",
+                "value": 55,
+                "tone": "ok"
+              },
+              {
+                "label": "stock",
+                "value": 6,
                 "tone": "ok"
               }
             ]

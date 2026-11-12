@@ -2,100 +2,98 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 2,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "System prompts and user prompts",
       "codeHash": "12228e74409d9e6f9f3bbd0d58cb807eb746cb4fa133c523fc1dc6a663e61afe",
       "spec": {
-        "template": "table",
-        "title": "System and user prompt message payload structure",
-        "columns": [
-          "role",
-          "content"
+        "template": "sequence",
+        "title": "System prompts and user prompts",
+        "actors": [
+          "system",
+          "user",
+          "messages"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "System prompts configure persistent persona boundaries and rules.",
-            "rows": [
+            "caption": "Chat assistants usually receive two kinds of instructions.",
+            "activeActor": "system",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "role"
-                  },
-                  {
-                    "text": "content"
-                  }
-                ],
+                "from": "system",
+                "to": "user",
+                "label": {
+                  "var": "system",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "user",
+                "to": "messages",
+                "label": {
+                  "var": "user",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Customer queries arrive as distinct user prompt messages.",
-            "rows": [
+            "caption": "A company building a support bot writes the system prompt once (\"You are.",
+            "activeActor": "user",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "role"
-                  },
-                  {
-                    "text": "content"
-                  }
-                ],
-                "tone": "ok"
+                "from": "system",
+                "to": "user",
+                "label": {
+                  "var": "system",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "system"
-                  },
-                  {
-                    "text": "system"
-                  }
-                ],
+                "from": "user",
+                "to": "messages",
+                "label": {
+                  "var": "user",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Standard message formats organize structured role and content pairs.",
-            "rows": [
+            "at": "say8",
+            "caption": "Later in the course you will generate and check these message lists in Python.",
+            "activeActor": "messages",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "role"
-                  },
-                  {
-                    "text": "content"
-                  }
-                ],
-                "tone": "ok"
+                "from": "system",
+                "to": "user",
+                "label": {
+                  "var": "system",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "system"
-                  },
-                  {
-                    "text": "system"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "user"
-                  },
-                  {
-                    "text": "user"
-                  }
-                ],
+                "from": "user",
+                "to": "messages",
+                "label": {
+                  "var": "user",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -103,72 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "System and user prompt message payload structure",
-        "columns": [
-          "role",
-          "content"
+        "template": "sequence",
+        "title": "System prompts and user prompts",
+        "actors": [
+          "system",
+          "user",
+          "messages"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "System prompts configure persistent persona boundaries and rules.",
-            "rows": [
+            "caption": "Chat assistants usually receive two kinds of instructions.",
+            "messages": [
               {
-                "cells": [
-                  "role",
-                  "content"
-                ],
+                "from": "system",
+                "to": "user",
+                "label": "'You are a friendly support agent for S…",
+                "tone": "data"
+              },
+              {
+                "from": "user",
+                "to": "messages",
+                "label": "'My running shoes arrived in the wrong …",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "system"
           },
           {
             "at": "say2",
-            "caption": "Customer queries arrive as distinct user prompt messages.",
-            "rows": [
+            "caption": "A company building a support bot writes the system prompt once (\"You are.",
+            "messages": [
               {
-                "cells": [
-                  "role",
-                  "content"
-                ],
-                "tone": "ok"
+                "from": "system",
+                "to": "user",
+                "label": "'You are a friendly support agent for S…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "system",
-                  "system"
-                ],
+                "from": "user",
+                "to": "messages",
+                "label": "'My running shoes arrived in the wrong …",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "user"
           },
           {
-            "at": "say6",
-            "caption": "Standard message formats organize structured role and content pairs.",
-            "rows": [
+            "at": "say8",
+            "caption": "Later in the course you will generate and check these message lists in Python.",
+            "messages": [
               {
-                "cells": [
-                  "role",
-                  "content"
-                ],
-                "tone": "ok"
+                "from": "system",
+                "to": "user",
+                "label": "'You are a friendly support agent for S…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "system",
-                  "system"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "user",
-                  "user"
-                ],
+                "from": "user",
+                "to": "messages",
+                "label": "'My running shoes arrived in the wrong …",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "messages"
           }
         ]
       }
@@ -177,131 +173,91 @@
       "partTitle": "The C-R-E-A-T-E framework",
       "codeHash": "bcfbd3feeb640bdcf4c62ac0f23486c5dfd088a36d0a2ed8aab4d6beb21b6e01",
       "spec": {
-        "template": "table",
-        "title": "CREATE structured prompt framework assembly",
-        "columns": [
-          "context",
-          "role",
-          "instructions",
-          "actions"
+        "template": "sequence",
+        "title": "The C-R-E-A-T-E framework",
+        "actors": [
+          "ORDER",
+          "parts",
+          "key"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Structured context provides background situation details.",
-            "rows": [
+            "caption": "C-R-E-A-T-E is a checklist for structured prompts.",
+            "activeActor": "ORDER",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "context"
-                  },
-                  {
-                    "text": "role"
-                  },
-                  {
-                    "text": "instructions"
-                  },
-                  {
-                    "text": "actions"
-                  }
-                ],
+                "from": "ORDER",
+                "to": "parts",
+                "label": {
+                  "var": "ORDER",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "parts",
+                "to": "key",
+                "label": {
+                  "var": "parts",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Explicit instructions establish strict operational rules.",
-            "rows": [
+            "caption": "The persona the model should adopt, such as \"You are a senior tax accountant\".",
+            "activeActor": "parts",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "context"
-                  },
-                  {
-                    "text": "role"
-                  },
-                  {
-                    "text": "instructions"
-                  },
-                  {
-                    "text": "actions"
-                  }
-                ],
-                "tone": "ok"
+                "from": "ORDER",
+                "to": "parts",
+                "label": {
+                  "var": "ORDER",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "context"
-                  },
-                  {
-                    "text": "role"
-                  },
-                  {
-                    "text": "instructions"
-                  },
-                  {
-                    "text": "actions"
-                  }
-                ],
+                "from": "parts",
+                "to": "key",
+                "label": {
+                  "var": "parts",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Specified actions define concrete outputs and expected tone.",
-            "rows": [
+            "at": "say8",
+            "caption": "The example assembles a complete support-agent prompt.",
+            "activeActor": "key",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "context"
-                  },
-                  {
-                    "text": "role"
-                  },
-                  {
-                    "text": "instructions"
-                  },
-                  {
-                    "text": "actions"
-                  }
-                ],
-                "tone": "ok"
+                "from": "ORDER",
+                "to": "parts",
+                "label": {
+                  "var": "ORDER",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "context"
-                  },
-                  {
-                    "text": "role"
-                  },
-                  {
-                    "text": "instructions"
-                  },
-                  {
-                    "text": "actions"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "context"
-                  },
-                  {
-                    "text": "role"
-                  },
-                  {
-                    "text": "instructions"
-                  },
-                  {
-                    "text": "actions"
-                  }
-                ],
+                "from": "parts",
+                "to": "key",
+                "label": {
+                  "var": "parts",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -309,86 +265,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "CREATE structured prompt framework assembly",
-        "columns": [
-          "context",
-          "role",
-          "instructions",
-          "actions"
+        "template": "sequence",
+        "title": "The C-R-E-A-T-E framework",
+        "actors": [
+          "ORDER",
+          "parts",
+          "key"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Structured context provides background situation details.",
-            "rows": [
+            "caption": "C-R-E-A-T-E is a checklist for structured prompts.",
+            "messages": [
               {
-                "cells": [
-                  "context",
-                  "role",
-                  "instructions",
-                  "actions"
-                ],
+                "from": "ORDER",
+                "to": "parts",
+                "label": "['context', 'role', 'instructions', 'ac…",
+                "tone": "data"
+              },
+              {
+                "from": "parts",
+                "to": "key",
+                "label": "{'context': 'We sell running shoes onli…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "ORDER"
           },
           {
             "at": "say2",
-            "caption": "Explicit instructions establish strict operational rules.",
-            "rows": [
+            "caption": "The persona the model should adopt, such as \"You are a senior tax accountant\".",
+            "messages": [
               {
-                "cells": [
-                  "context",
-                  "role",
-                  "instructions",
-                  "actions"
-                ],
-                "tone": "ok"
+                "from": "ORDER",
+                "to": "parts",
+                "label": "['context', 'role', 'instructions', 'ac…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "context",
-                  "role",
-                  "instructions",
-                  "actions"
-                ],
+                "from": "parts",
+                "to": "key",
+                "label": "{'context': 'We sell running shoes onli…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "parts"
           },
           {
-            "at": "say3",
-            "caption": "Specified actions define concrete outputs and expected tone.",
-            "rows": [
+            "at": "say8",
+            "caption": "The example assembles a complete support-agent prompt.",
+            "messages": [
               {
-                "cells": [
-                  "context",
-                  "role",
-                  "instructions",
-                  "actions"
-                ],
-                "tone": "ok"
+                "from": "ORDER",
+                "to": "parts",
+                "label": "['context', 'role', 'instructions', 'ac…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "context",
-                  "role",
-                  "instructions",
-                  "actions"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "context",
-                  "role",
-                  "instructions",
-                  "actions"
-                ],
+                "from": "parts",
+                "to": "key",
+                "label": "{'context': 'We sell running shoes onli…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "key"
           }
         ]
       }
@@ -397,166 +337,162 @@
       "partTitle": "Personas and roles",
       "codeHash": "edf628a5c08af5468c7ff9d566a971a2ad1e896c3f964eeda5dbc9c47e69489a",
       "spec": {
-        "template": "table",
-        "title": "Persona expertise alignment and domain depth framing",
-        "columns": [
+        "template": "sequence",
+        "title": "Personas and roles",
+        "actors": [
           "question",
-          "personas"
+          "personas",
+          "p"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Assigned roles calibrate response vocabulary and domain depth.",
-            "rows": [
+            "caption": "Giving the model a role (\"You are an experienced primary school teacher\").",
+            "activeActor": "question",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "question"
-                  },
-                  {
-                    "text": "personas"
-                  }
-                ],
+                "from": "question",
+                "to": "personas",
+                "label": {
+                  "var": "question",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "personas",
+                "to": "p",
+                "label": {
+                  "var": "personas",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Specific persona styling shapes nuanced assistant language.",
-            "rows": [
+            "caption": "Roles work because the model has seen how such people write.",
+            "activeActor": "personas",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "question"
-                  },
-                  {
-                    "text": "personas"
-                  }
-                ],
-                "tone": "ok"
+                "from": "question",
+                "to": "personas",
+                "label": {
+                  "var": "question",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "question"
-                  },
-                  {
-                    "text": "personas"
-                  }
-                ],
+                "from": "personas",
+                "to": "p",
+                "label": {
+                  "var": "personas",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Targeted professional descriptions outperform generic expert titles.",
-            "rows": [
+            "at": "say8",
+            "caption": "Choosing the persona is often the fastest way to fix a prompt whose.",
+            "activeActor": "p",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "question"
-                  },
-                  {
-                    "text": "personas"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "question"
-                  },
-                  {
-                    "text": "personas"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "question"
-                  },
-                  {
-                    "text": "personas"
-                  }
-                ],
+                "from": "question",
+                "to": "personas",
+                "label": {
+                  "var": "question",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "personas",
+                "to": "p",
+                "label": {
+                  "var": "personas",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Persona expertise alignment and domain depth framing",
-        "columns": [
+        "template": "sequence",
+        "title": "Personas and roles",
+        "actors": [
           "question",
-          "personas"
+          "personas",
+          "p"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Assigned roles calibrate response vocabulary and domain depth.",
-            "rows": [
+            "caption": "Giving the model a role (\"You are an experienced primary school teacher\").",
+            "messages": [
               {
-                "cells": [
-                  "question",
-                  "personas"
-                ],
+                "from": "question",
+                "to": "personas",
+                "label": "'How should I sit at my desk?'",
+                "tone": "data"
+              },
+              {
+                "from": "personas",
+                "to": "p",
+                "label": "['a physiotherapist who treats office w…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "question"
           },
           {
             "at": "say2",
-            "caption": "Specific persona styling shapes nuanced assistant language.",
-            "rows": [
+            "caption": "Roles work because the model has seen how such people write.",
+            "messages": [
               {
-                "cells": [
-                  "question",
-                  "personas"
-                ],
-                "tone": "ok"
+                "from": "question",
+                "to": "personas",
+                "label": "'How should I sit at my desk?'",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "question",
-                  "personas"
-                ],
+                "from": "personas",
+                "to": "p",
+                "label": "['a physiotherapist who treats office w…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "personas"
           },
           {
-            "at": "say3",
-            "caption": "Targeted professional descriptions outperform generic expert titles.",
-            "rows": [
+            "at": "say8",
+            "caption": "Choosing the persona is often the fastest way to fix a prompt whose.",
+            "messages": [
               {
-                "cells": [
-                  "question",
-                  "personas"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "question",
-                  "personas"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "question",
-                  "personas"
-                ],
+                "from": "question",
+                "to": "personas",
+                "label": "'How should I sit at my desk?'",
                 "tone": "data"
+              },
+              {
+                "from": "personas",
+                "to": "p",
+                "label": "['a physiotherapist who treats office w…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "p"
           }
         ]
       }
@@ -565,165 +501,277 @@
       "partTitle": "Negative constraints and guardrails",
       "codeHash": "7ee9b2f65c777ea3e552b0022ffb18d84b3a17c819d46970b3c8f81da15d1234",
       "spec": {
-        "template": "table",
-        "title": "Negative constraint enforcement and guardrail verification",
-        "columns": [
-          "rules",
-          "reply"
+        "template": "flow",
+        "title": "Negative constraints and guardrails",
+        "nodes": [
+          {
+            "id": "rules",
+            "label": "rules"
+          },
+          {
+            "id": "reply",
+            "label": "reply"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "r",
+            "label": "r"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Negative constraints instruct the model regarding forbidden actions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rules"
-                  },
-                  {
-                    "text": "reply"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Tell the model what NOT to do as well as what to do.",
+            "values": {
+              "rules": {
+                "var": "rules",
+                "line": 1,
+                "hit": 2
+              },
+              "reply": {
+                "var": "reply",
+                "line": 3,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 1,
+                "hit": 3
               }
+            },
+            "tones": {
+              "rules": "data",
+              "reply": "data",
+              "name": "data",
+              "r": "data"
+            },
+            "arrows": [
+              [
+                "rules",
+                "reply"
+              ],
+              [
+                "reply",
+                "name"
+              ],
+              [
+                "name",
+                "r"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Explicit boundary guardrails reduce hallucination risks and enforce policy.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rules"
-                  },
-                  {
-                    "text": "reply"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "These negative constraints reduce hallucinations and keep an assistant.",
+            "values": {
+              "rules": {
+                "var": "rules",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "rules"
-                  },
-                  {
-                    "text": "reply"
-                  }
-                ],
-                "tone": "ok"
+              "reply": {
+                "var": "reply",
+                "line": 4,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 2,
+                "hit": 2
               }
+            },
+            "tones": {
+              "rules": "data",
+              "reply": "data",
+              "name": "data",
+              "r": "data"
+            },
+            "arrows": [
+              [
+                "rules",
+                "reply"
+              ],
+              [
+                "reply",
+                "name"
+              ],
+              [
+                "name",
+                "r"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Testable constraints anchor model statements to verified policy text.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rules"
-                  },
-                  {
-                    "text": "reply"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say8",
+            "caption": "When a constraint is broken in testing, strengthen the wording, add.",
+            "values": {
+              "rules": {
+                "var": "rules",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "rules"
-                  },
-                  {
-                    "text": "reply"
-                  }
-                ],
-                "tone": "ok"
+              "reply": {
+                "var": "reply",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "rules"
-                  },
-                  {
-                    "text": "reply"
-                  }
-                ],
-                "tone": "idle"
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 2
+              },
+              "r": {
+                "var": "r",
+                "line": 2,
+                "hit": 2
               }
+            },
+            "tones": {
+              "rules": "ok",
+              "reply": "ok",
+              "name": "ok",
+              "r": "ok"
+            },
+            "arrows": [
+              [
+                "rules",
+                "reply"
+              ],
+              [
+                "reply",
+                "name"
+              ],
+              [
+                "name",
+                "r"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Negative constraint enforcement and guardrail verification",
-        "columns": [
-          "rules",
-          "reply"
+        "template": "flow",
+        "title": "Negative constraints and guardrails",
+        "nodes": [
+          {
+            "id": "rules",
+            "label": "rules"
+          },
+          {
+            "id": "reply",
+            "label": "reply"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "r",
+            "label": "r"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Negative constraints instruct the model regarding forbidden actions.",
-            "rows": [
-              {
-                "cells": [
-                  "rules",
-                  "reply"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Tell the model what NOT to do as well as what to do.",
+            "values": {
+              "rules": "{'no refund promises over 5000': {'__ot…",
+              "reply": "'Good news! Your order #A1B2 qualifies …",
+              "name": "'no refund promises over 5000'",
+              "r": "'Good news! Your order #A1B2 qualifies …"
+            },
+            "tones": {
+              "rules": "data",
+              "reply": "data",
+              "name": "data",
+              "r": "data"
+            },
+            "arrows": [
+              [
+                "rules",
+                "reply"
+              ],
+              [
+                "reply",
+                "name"
+              ],
+              [
+                "name",
+                "r"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Explicit boundary guardrails reduce hallucination risks and enforce policy.",
-            "rows": [
-              {
-                "cells": [
-                  "rules",
-                  "reply"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "rules",
-                  "reply"
-                ],
-                "tone": "ok"
-              }
+            "caption": "These negative constraints reduce hallucinations and keep an assistant.",
+            "values": {
+              "rules": "{'no refund promises over 5000': {'__ot…",
+              "reply": "'Good news! Your order #A1B2 qualifies …",
+              "name": "'no refund promises over 5000'",
+              "r": "'Good news! Your order #A1B2 qualifies …"
+            },
+            "tones": {
+              "rules": "data",
+              "reply": "data",
+              "name": "data",
+              "r": "data"
+            },
+            "arrows": [
+              [
+                "rules",
+                "reply"
+              ],
+              [
+                "reply",
+                "name"
+              ],
+              [
+                "name",
+                "r"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Testable constraints anchor model statements to verified policy text.",
-            "rows": [
-              {
-                "cells": [
-                  "rules",
-                  "reply"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "rules",
-                  "reply"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "rules",
-                  "reply"
-                ],
-                "tone": "idle"
-              }
+            "at": "say8",
+            "caption": "When a constraint is broken in testing, strengthen the wording, add.",
+            "values": {
+              "rules": "{'no refund promises over 5000': {'__ot…",
+              "reply": "'Good news! Your order #A1B2 qualifies …",
+              "name": "'no invented order ids'",
+              "r": "'Good news! Your order #A1B2 qualifies …"
+            },
+            "tones": {
+              "rules": "ok",
+              "reply": "ok",
+              "name": "ok",
+              "r": "ok"
+            },
+            "arrows": [
+              [
+                "rules",
+                "reply"
+              ],
+              [
+                "reply",
+                "name"
+              ],
+              [
+                "name",
+                "r"
+              ]
             ]
           }
         ]
@@ -733,224 +781,162 @@
       "partTitle": "Auditing existing prompts",
       "codeHash": "82fb1c3460d3a08f4fd5a4b05056ab3eed464ac21f4446d0e4dfd57bc76c1b0b",
       "spec": {
-        "template": "flow",
-        "title": "Auditing existing prompts — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Auditing existing p...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Auditing existing prompts",
+        "actors": [
+          "ORDER",
+          "prompts",
+          "name"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Auditing existing prompts [Dtwo.Pfive.Sone].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Auditing existing p... [Dtwo.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Teams often inherit prompts written by someone else.",
+            "activeActor": "ORDER",
+            "messages": [
+              {
+                "from": "ORDER",
+                "to": "prompts",
+                "label": {
+                  "var": "ORDER",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "prompts",
+                "to": "name",
+                "label": {
+                  "var": "prompts",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "If prompts use labelled lines like \"Role:\" and \"Tone:\", a script can audit.",
+            "activeActor": "prompts",
+            "messages": [
+              {
+                "from": "ORDER",
+                "to": "prompts",
+                "label": {
+                  "var": "ORDER",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "prompts",
+                "to": "name",
+                "label": {
+                  "var": "prompts",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Auditing existing prompts.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Version them too.",
+            "activeActor": "name",
+            "messages": [
+              {
+                "from": "ORDER",
+                "to": "prompts",
+                "label": {
+                  "var": "ORDER",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "prompts",
+                "to": "name",
+                "label": {
+                  "var": "prompts",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Auditing existing prompts — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Auditing existing p...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Auditing existing prompts",
+        "actors": [
+          "ORDER",
+          "prompts",
+          "name"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Auditing existing prompts [D2.P5.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Auditing existing p... [D2.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Teams often inherit prompts written by someone else.",
+            "messages": [
+              {
+                "from": "ORDER",
+                "to": "prompts",
+                "label": "['context', 'role', 'instructions', 'ac…",
+                "tone": "data"
+              },
+              {
+                "from": "prompts",
+                "to": "name",
+                "label": "{'support bot': 'Role: agent\nTone: warm…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ORDER"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "If prompts use labelled lines like \"Role:\" and \"Tone:\", a script can audit.",
+            "messages": [
+              {
+                "from": "ORDER",
+                "to": "prompts",
+                "label": "['context', 'role', 'instructions', 'ac…",
+                "tone": "data"
+              },
+              {
+                "from": "prompts",
+                "to": "name",
+                "label": "{'support bot': 'Role: agent\nTone: warm…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "prompts"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Auditing existing prompts [D2.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "Version them too.",
+            "messages": [
+              {
+                "from": "ORDER",
+                "to": "prompts",
+                "label": "['context', 'role', 'instructions', 'ac…",
+                "tone": "data"
+              },
+              {
+                "from": "prompts",
+                "to": "name",
+                "label": "{'support bot': 'Role: agent\nTone: warm…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "name"
           }
         ]
       }
@@ -959,224 +945,162 @@
       "partTitle": "Practice time: assemble and audit",
       "codeHash": "2e1ed7012d9a0c874a01f592d9578a93e9857cc0c00324bcf89d5d97e12f4703",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: assemble and audit — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: asse...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: assemble and audit",
+        "actors": [
+          "ORDER",
+          "parts",
+          "lines"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: assemble and audit.",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: asse... [Dtwo.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Create_prompt(parts).",
+            "activeActor": "ORDER",
+            "messages": [
+              {
+                "from": "ORDER",
+                "to": "parts",
+                "label": {
+                  "var": "ORDER",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "parts",
+                "to": "lines",
+                "label": {
+                  "var": "parts",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Return the prompt text joined with newlines, the missing list in order.",
+            "activeActor": "parts",
+            "messages": [
+              {
+                "from": "ORDER",
+                "to": "parts",
+                "label": {
+                  "var": "ORDER",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "parts",
+                "to": "lines",
+                "label": {
+                  "var": "parts",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: assemble and audit.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Examples inside prompts, the most powerful pillar of all.",
+            "activeActor": "lines",
+            "messages": [
+              {
+                "from": "ORDER",
+                "to": "parts",
+                "label": {
+                  "var": "ORDER",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "parts",
+                "to": "lines",
+                "label": {
+                  "var": "parts",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: assemble and audit — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: asse...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: assemble and audit",
+        "actors": [
+          "ORDER",
+          "parts",
+          "lines"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: assemble and audit [D2.P6.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: asse... [D2.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Create_prompt(parts).",
+            "messages": [
+              {
+                "from": "ORDER",
+                "to": "parts",
+                "label": "['context', 'role', 'instructions', 'ac…",
+                "tone": "data"
+              },
+              {
+                "from": "parts",
+                "to": "lines",
+                "label": "{'role': 'You are a tutor.', 'tone': 'P…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ORDER"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Return the prompt text joined with newlines, the missing list in order.",
+            "messages": [
+              {
+                "from": "ORDER",
+                "to": "parts",
+                "label": "['context', 'role', 'instructions', 'ac…",
+                "tone": "data"
+              },
+              {
+                "from": "parts",
+                "to": "lines",
+                "label": "{'role': 'You are a tutor.', 'tone': 'P…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "parts"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: assemble and audit [D2.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Examples inside prompts, the most powerful pillar of all.",
+            "messages": [
+              {
+                "from": "ORDER",
+                "to": "parts",
+                "label": "['context', 'role', 'instructions', 'ac…",
+                "tone": "data"
+              },
+              {
+                "from": "parts",
+                "to": "lines",
+                "label": "{'role': 'You are a tutor.', 'tone': 'P…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "lines"
           }
         ]
       }

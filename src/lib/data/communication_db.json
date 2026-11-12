@@ -4,6 +4,14 @@
   "sms": [],
   "logs": [
     {
+      "id": "NOTICE-4718",
+      "type": "email",
+      "subject": "Exam Schedule Published",
+      "body": "Final exam dates are live.",
+      "category": "Academics",
+      "date": "2026-11-12"
+    },
+    {
       "id": "NOTICE-1936",
       "type": "email",
       "subject": "Exam Schedule Published",

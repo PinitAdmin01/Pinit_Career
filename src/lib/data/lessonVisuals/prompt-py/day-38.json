@@ -1,158 +1,225 @@
 {
-  "schemaVersion": "2.0.0",
-  "course": "prompt-py",
-  "day": 38,
+  "schemaVersion": 1,
   "prefix": "prompt-py",
+  "day": 38,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Context Inflation & Economics: The Hidden Cost Of Bloated Enterprise Prompts",
       "codeHash": "2e9157cbbf407adf39faecbb2c568d2f60416965c8d063973f40cb36b5f20315",
       "spec": {
-        "template": "table",
-        "title": "Context Inflation Economics And Pre Fill Latency Degradation Dynamics.",
-        "columns": [
-          "Context Dimension",
-          "Uncompressed Prompt Profile",
-          "Compressed Context Profile"
-        ],
+        "template": "bars",
+        "title": "Context Inflation & Economics: The Hidden Cost Of Bloated Enterp",
         "steps": [
           {
             "at": "say1",
-            "caption": "Prompt context inflation represents severe driver of operational costs.",
-            "rows": [
-              [
-                "Prompt Token Volume",
-                "Bloated Multi Thousand Token Context",
-                "Lean Compressed High Density Context"
-              ],
-              [
-                "API Operational Cost",
-                "Continuous High Per Token Billing Drain",
-                "Sixty Percent Operational Cost Reduction"
-              ]
+            "caption": "In large-scale enterprise artificial intelligence deployments, prompt.",
+            "bars": [
+              {
+                "label": "baseline_token",
+                "value": {
+                  "var": "baseline_tokens",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "compressed_tok",
+                "value": {
+                  "var": "compressed_tokens",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pruned_tokens",
+                "value": {
+                  "var": "pruned_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "compression_ra",
+                "value": {
+                  "var": "compression_ratio",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "The financial implications of uncompressed prompt inflation compound.",
-            "rows": [
-              [
-                "Pre Fill Latency Lag",
-                "Hundreds Of Milliseconds GPU Pre Fill",
-                "Tens Of Milliseconds Rapid Response"
-              ],
-              [
-                "Information Density",
-                "Seventy Percent Redundant Syntactic Tissue",
-                "Concentrated Semantic Entropy Nucleus"
-              ]
+            "bars": [
+              {
+                "label": "baseline_token",
+                "value": {
+                  "var": "baseline_tokens",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "compressed_tok",
+                "value": {
+                  "var": "compressed_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pruned_tokens",
+                "value": {
+                  "var": "pruned_tokens",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "compression_ra",
+                "value": {
+                  "var": "compression_ratio",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Customer service agents prune redundant tokens from long chat records.",
-            "rows": [
-              [
-                "Attention Dispersion",
-                "Attention Weights Diluted In Background",
-                "Focused Attention On Vital Variables"
-              ],
-              [
-                "Enterprise Scalability",
-                "Restricted Concurrent Session Capacity",
-                "Massive Planetary Request Throughput"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Measure how token count inflation increases API costs and latency.",
-            "rows": [
-              [
-                "System Reliability",
-                "Vulnerable To Context Overflow Crashes",
-                "Strict Bounded Context Ceiling Safety"
-              ],
-              [
-                "Latency SLA Profile",
-                "Unpredictable Response Tail Latencies",
-                "Deterministic Crisp User Experience"
-              ]
+            "at": "say9",
+            "caption": "Financial return on investment analyses for context compression engines.",
+            "bars": [
+              {
+                "label": "baseline_token",
+                "value": {
+                  "var": "baseline_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "compressed_tok",
+                "value": {
+                  "var": "compressed_tokens",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pruned_tokens",
+                "value": {
+                  "var": "pruned_tokens",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "compression_ra",
+                "value": {
+                  "var": "compression_ratio",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Context Inflation Economics And Pre Fill Latency Degradation Dynamics.",
-        "columns": [
-          "Context Dimension",
-          "Uncompressed Prompt Profile",
-          "Compressed Context Profile"
-        ],
+        "template": "bars",
+        "title": "Context Inflation & Economics: The Hidden Cost Of Bloated Enterp",
         "steps": [
           {
             "at": "say1",
-            "caption": "Prompt context inflation represents severe driver of operational costs.",
-            "rows": [
-              [
-                "Prompt Token Volume",
-                "Bloated Multi Thousand Token Context",
-                "Lean Compressed High Density Context"
-              ],
-              [
-                "API Operational Cost",
-                "Continuous High Per Token Billing Drain",
-                "Sixty Percent Operational Cost Reduction"
-              ]
+            "caption": "In large-scale enterprise artificial intelligence deployments, prompt.",
+            "bars": [
+              {
+                "label": "baseline_token",
+                "value": 4500,
+                "tone": "data"
+              },
+              {
+                "label": "compressed_tok",
+                "value": 1350,
+                "tone": "data"
+              },
+              {
+                "label": "pruned_tokens",
+                "value": 3150,
+                "tone": "data"
+              },
+              {
+                "label": "compression_ra",
+                "value": 3.33,
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "The financial implications of uncompressed prompt inflation compound.",
-            "rows": [
-              [
-                "Pre Fill Latency Lag",
-                "Hundreds Of Milliseconds GPU Pre Fill",
-                "Tens Of Milliseconds Rapid Response"
-              ],
-              [
-                "Information Density",
-                "Seventy Percent Redundant Syntactic Tissue",
-                "Concentrated Semantic Entropy Nucleus"
-              ]
+            "bars": [
+              {
+                "label": "baseline_token",
+                "value": 4500,
+                "tone": "ok"
+              },
+              {
+                "label": "compressed_tok",
+                "value": 1350,
+                "tone": "ok"
+              },
+              {
+                "label": "pruned_tokens",
+                "value": 3150,
+                "tone": "ok"
+              },
+              {
+                "label": "compression_ra",
+                "value": 3.33,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Customer service agents prune redundant tokens from long chat records.",
-            "rows": [
-              [
-                "Attention Dispersion",
-                "Attention Weights Diluted In Background",
-                "Focused Attention On Vital Variables"
-              ],
-              [
-                "Enterprise Scalability",
-                "Restricted Concurrent Session Capacity",
-                "Massive Planetary Request Throughput"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Measure how token count inflation increases API costs and latency.",
-            "rows": [
-              [
-                "System Reliability",
-                "Vulnerable To Context Overflow Crashes",
-                "Strict Bounded Context Ceiling Safety"
-              ],
-              [
-                "Latency SLA Profile",
-                "Unpredictable Response Tail Latencies",
-                "Deterministic Crisp User Experience"
-              ]
+            "at": "say9",
+            "caption": "Financial return on investment analyses for context compression engines.",
+            "bars": [
+              {
+                "label": "baseline_token",
+                "value": 4500,
+                "tone": "ok"
+              },
+              {
+                "label": "compressed_tok",
+                "value": 1350,
+                "tone": "ok"
+              },
+              {
+                "label": "pruned_tokens",
+                "value": 3150,
+                "tone": "ok"
+              },
+              {
+                "label": "compression_ra",
+                "value": 3.33,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -162,152 +229,162 @@
       "partTitle": "LLMLingua Algorithmic Foundations: Small Language Models & Perplexity Calculation",
       "codeHash": "2e9157cbbf407adf39faecbb2c568d2f60416965c8d063973f40cb36b5f20315",
       "spec": {
-        "template": "table",
-        "title": "LLMLingua Foundations And Perplexity Calculation Architecture.",
-        "columns": [
-          "Information Factor",
-          "Linguistic Representation",
-          "Perplexity Scoring Metric"
+        "template": "sequence",
+        "title": "LLMLingua Algorithmic Foundations: Small Language Models & Perpl",
+        "actors": [
+          "baseline_tokens",
+          "compressed_tokens",
+          "pruned_tokens"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "LLMLingua leverages compact models to compute token level perplexity.",
-            "rows": [
-              [
-                "Perplexity Metric Core",
-                "Measure Information Theoretic Surprise",
-                "High Score Denotes Critical Variable"
-              ],
-              [
-                "Low Perplexity Token",
-                "Predictable Grammatical Filler And Boilerplate",
-                "Pruned With Minimal Semantic Loss"
-              ]
+            "caption": "At the mathematical foundation of modern prompt compression lies.",
+            "activeActor": "baseline_tokens",
+            "messages": [
+              {
+                "from": "baseline_tokens",
+                "to": "compressed_tokens",
+                "label": {
+                  "var": "baseline_tokens",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "compressed_tokens",
+                "to": "pruned_tokens",
+                "label": {
+                  "var": "compressed_tokens",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Perplexity in information theory measures how surprised models are.",
-            "rows": [
-              [
-                "High Perplexity Token",
-                "Unique Named Entity Number Or Constraint",
-                "Preserved With Absolute Fidelity"
-              ],
-              [
-                "Small Language Model",
-                "Sub Millisecond Vectorized Loss Scoring",
-                "Zero Latency Overhead On Processing"
-              ]
+            "caption": "Perplexity in information theory measures how surprised a language model.",
+            "activeActor": "compressed_tokens",
+            "messages": [
+              {
+                "from": "baseline_tokens",
+                "to": "compressed_tokens",
+                "label": {
+                  "var": "baseline_tokens",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "compressed_tokens",
+                "to": "pruned_tokens",
+                "label": {
+                  "var": "compressed_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Small models score high perplexity for nouns and low for boilerplate.",
-            "rows": [
-              [
-                "Coarse To Fine Slicing",
-                "Hierarchical Document Sentence Token Filter",
-                "Optimizes Compute Across Long Spans"
-              ],
-              [
-                "Conditional Alignment",
-                "Preserve Syntactic Anchors Across Tokens",
-                "Guarantees Downstream Model Coherence"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Trace how token perplexity scores differentiate nouns from filler.",
-            "rows": [
-              [
-                "Information Entropy Floor",
-                "Preserve Core Factual Meaning In Text",
-                "Zero Factual Reasoning Degradation"
-              ],
-              [
-                "Dynamic Thresholding",
-                "Adaptive Perplexity Cuts Per Sentence",
-                "Prevents Broken Fragmented Sequences"
-              ]
+            "at": "say9",
+            "caption": "Dynamic vocabularies and multi-tokenizer mapping protocols ensure.",
+            "activeActor": "pruned_tokens",
+            "messages": [
+              {
+                "from": "baseline_tokens",
+                "to": "compressed_tokens",
+                "label": {
+                  "var": "baseline_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "compressed_tokens",
+                "to": "pruned_tokens",
+                "label": {
+                  "var": "compressed_tokens",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "LLMLingua Foundations And Perplexity Calculation Architecture.",
-        "columns": [
-          "Information Factor",
-          "Linguistic Representation",
-          "Perplexity Scoring Metric"
+        "template": "sequence",
+        "title": "LLMLingua Algorithmic Foundations: Small Language Models & Perpl",
+        "actors": [
+          "baseline_tokens",
+          "compressed_tokens",
+          "pruned_tokens"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "LLMLingua leverages compact models to compute token level perplexity.",
-            "rows": [
-              [
-                "Perplexity Metric Core",
-                "Measure Information Theoretic Surprise",
-                "High Score Denotes Critical Variable"
-              ],
-              [
-                "Low Perplexity Token",
-                "Predictable Grammatical Filler And Boilerplate",
-                "Pruned With Minimal Semantic Loss"
-              ]
-            ]
+            "caption": "At the mathematical foundation of modern prompt compression lies.",
+            "messages": [
+              {
+                "from": "baseline_tokens",
+                "to": "compressed_tokens",
+                "label": "4500",
+                "tone": "data"
+              },
+              {
+                "from": "compressed_tokens",
+                "to": "pruned_tokens",
+                "label": "1350",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "baseline_tokens"
           },
           {
             "at": "say2",
-            "caption": "Perplexity in information theory measures how surprised models are.",
-            "rows": [
-              [
-                "High Perplexity Token",
-                "Unique Named Entity Number Or Constraint",
-                "Preserved With Absolute Fidelity"
-              ],
-              [
-                "Small Language Model",
-                "Sub Millisecond Vectorized Loss Scoring",
-                "Zero Latency Overhead On Processing"
-              ]
-            ]
+            "caption": "Perplexity in information theory measures how surprised a language model.",
+            "messages": [
+              {
+                "from": "baseline_tokens",
+                "to": "compressed_tokens",
+                "label": "4500",
+                "tone": "data"
+              },
+              {
+                "from": "compressed_tokens",
+                "to": "pruned_tokens",
+                "label": "1350",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "compressed_tokens"
           },
           {
-            "at": "example",
-            "caption": "Small models score high perplexity for nouns and low for boilerplate.",
-            "rows": [
-              [
-                "Coarse To Fine Slicing",
-                "Hierarchical Document Sentence Token Filter",
-                "Optimizes Compute Across Long Spans"
-              ],
-              [
-                "Conditional Alignment",
-                "Preserve Syntactic Anchors Across Tokens",
-                "Guarantees Downstream Model Coherence"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Trace how token perplexity scores differentiate nouns from filler.",
-            "rows": [
-              [
-                "Information Entropy Floor",
-                "Preserve Core Factual Meaning In Text",
-                "Zero Factual Reasoning Degradation"
-              ],
-              [
-                "Dynamic Thresholding",
-                "Adaptive Perplexity Cuts Per Sentence",
-                "Prevents Broken Fragmented Sequences"
-              ]
-            ]
+            "at": "say9",
+            "caption": "Dynamic vocabularies and multi-tokenizer mapping protocols ensure.",
+            "messages": [
+              {
+                "from": "baseline_tokens",
+                "to": "compressed_tokens",
+                "label": "4500",
+                "tone": "data"
+              },
+              {
+                "from": "compressed_tokens",
+                "to": "pruned_tokens",
+                "label": "1350",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "pruned_tokens"
           }
         ]
       }
@@ -316,150 +393,276 @@
       "partTitle": "Budgeted Token Pruning: Dynamic Coarse-to-Fine Compression & Information Density",
       "codeHash": "2e9157cbbf407adf39faecbb2c568d2f60416965c8d063973f40cb36b5f20315",
       "spec": {
-        "template": "table",
-        "title": "Budgeted Token Pruning And Coarse To Fine Hierarchical Compression.",
-        "columns": [
-          "Pruning Hierarchy Stage",
-          "Algorithmic Granularity",
-          "Information Optimization Target"
+        "template": "flow",
+        "title": "Budgeted Token Pruning: Dynamic Coarse-to-Fine Compression & Inf",
+        "nodes": [
+          {
+            "id": "baseline_tokens",
+            "label": "baseline_tokens"
+          },
+          {
+            "id": "compressed_tokens",
+            "label": "compressed_tokens"
+          },
+          {
+            "id": "pruned_tokens",
+            "label": "pruned_tokens"
+          },
+          {
+            "id": "compression_ratio",
+            "label": "compression_ratio"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Budgeted token pruning operationalizes compression as optimization.",
-            "rows": [
+            "caption": "Budgeted token pruning operationalizes prompt compression as a constrained.",
+            "values": {
+              "baseline_tokens": {
+                "var": "baseline_tokens",
+                "line": 5,
+                "hit": 1
+              },
+              "compressed_tokens": {
+                "var": "compressed_tokens",
+                "line": 6,
+                "hit": 1
+              },
+              "pruned_tokens": {
+                "var": "pruned_tokens",
+                "line": 7,
+                "hit": 1
+              },
+              "compression_ratio": {
+                "var": "compression_ratio",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "baseline_tokens": "data",
+              "compressed_tokens": "data",
+              "pruned_tokens": "data",
+              "compression_ratio": "data"
+            },
+            "arrows": [
               [
-                "Document Level Pruning",
-                "Filter Entire Peripheral Reference Texts",
-                "Coarse Fast Relevance Elimination"
+                "baseline_tokens",
+                "compressed_tokens"
               ],
               [
-                "Sentence Level Pruning",
-                "Excise Redundant Clauses And Boilerplate",
-                "Preserves Core Grammatical Meaning"
+                "compressed_tokens",
+                "pruned_tokens"
+              ],
+              [
+                "pruned_tokens",
+                "compression_ratio"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "The coarse to fine compression hierarchy begins with document filtering.",
-            "rows": [
+            "caption": "The coarse-to-fine compression hierarchy begins with Document-Level Filtering.",
+            "values": {
+              "baseline_tokens": {
+                "var": "baseline_tokens",
+                "line": 6,
+                "hit": 1
+              },
+              "compressed_tokens": {
+                "var": "compressed_tokens",
+                "line": 7,
+                "hit": 1
+              },
+              "pruned_tokens": {
+                "var": "pruned_tokens",
+                "line": 8,
+                "hit": 1
+              },
+              "compression_ratio": {
+                "var": "compression_ratio",
+                "line": 11,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "baseline_tokens": "data",
+              "compressed_tokens": "data",
+              "pruned_tokens": "data",
+              "compression_ratio": "data"
+            },
+            "arrows": [
               [
-                "Token Level Slicing",
-                "Global Priority Queue Perplexity Pruning",
-                "Strictly Satisfies Target Budget Limits"
+                "baseline_tokens",
+                "compressed_tokens"
               ],
               [
-                "Instruction Invariant",
-                "Zero Pruning On System Prompts And Schemas",
-                "Protects Vital Operational Directives"
+                "compressed_tokens",
+                "pruned_tokens"
+              ],
+              [
+                "pruned_tokens",
+                "compression_ratio"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Coarse to fine pruning pipelines filter documents before token slicing.",
-            "rows": [
+            "at": "say10",
+            "caption": "Empirical cross-entropy evaluations confirm that budgeted token pruning.",
+            "values": {
+              "baseline_tokens": {
+                "var": "baseline_tokens",
+                "line": 7,
+                "hit": 1
+              },
+              "compressed_tokens": {
+                "var": "compressed_tokens",
+                "line": 8,
+                "hit": 1
+              },
+              "pruned_tokens": {
+                "var": "pruned_tokens",
+                "line": 11,
+                "hit": 1
+              },
+              "compression_ratio": {
+                "var": "compression_ratio",
+                "line": 12,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "baseline_tokens": "ok",
+              "compressed_tokens": "ok",
+              "pruned_tokens": "ok",
+              "compression_ratio": "ok"
+            },
+            "arrows": [
               [
-                "Few Shot Compression",
-                "Prune Intermediate Example Demonstrations",
-                "Fifty Percent Example Token Savings"
+                "baseline_tokens",
+                "compressed_tokens"
               ],
               [
-                "Dynamic Budget Sizer",
-                "Adaptive Ratio Based On Query Difficulty",
-                "Balances Speed With Nuanced Depth"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement a hierarchical pruner protecting system prompts and queries.",
-            "rows": [
-              [
-                "Token Adjacency Guard",
-                "Preserve Local Multi Token Entity Blocks",
-                "Prevents Broken Numerical Identifiers"
+                "compressed_tokens",
+                "pruned_tokens"
               ],
               [
-                "Target Budget Governor",
-                "Strict Upper Ceiling Token Enforcement",
-                "Guarantees Predictable Memory Usage"
+                "pruned_tokens",
+                "compression_ratio"
               ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Budgeted Token Pruning And Coarse To Fine Hierarchical Compression.",
-        "columns": [
-          "Pruning Hierarchy Stage",
-          "Algorithmic Granularity",
-          "Information Optimization Target"
+        "template": "flow",
+        "title": "Budgeted Token Pruning: Dynamic Coarse-to-Fine Compression & Inf",
+        "nodes": [
+          {
+            "id": "baseline_tokens",
+            "label": "baseline_tokens"
+          },
+          {
+            "id": "compressed_tokens",
+            "label": "compressed_tokens"
+          },
+          {
+            "id": "pruned_tokens",
+            "label": "pruned_tokens"
+          },
+          {
+            "id": "compression_ratio",
+            "label": "compression_ratio"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Budgeted token pruning operationalizes compression as optimization.",
-            "rows": [
+            "caption": "Budgeted token pruning operationalizes prompt compression as a constrained.",
+            "values": {
+              "baseline_tokens": "4500",
+              "compressed_tokens": "1350",
+              "pruned_tokens": "3150",
+              "compression_ratio": "3.33"
+            },
+            "tones": {
+              "baseline_tokens": "data",
+              "compressed_tokens": "data",
+              "pruned_tokens": "data",
+              "compression_ratio": "data"
+            },
+            "arrows": [
               [
-                "Document Level Pruning",
-                "Filter Entire Peripheral Reference Texts",
-                "Coarse Fast Relevance Elimination"
+                "baseline_tokens",
+                "compressed_tokens"
               ],
               [
-                "Sentence Level Pruning",
-                "Excise Redundant Clauses And Boilerplate",
-                "Preserves Core Grammatical Meaning"
+                "compressed_tokens",
+                "pruned_tokens"
+              ],
+              [
+                "pruned_tokens",
+                "compression_ratio"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "The coarse to fine compression hierarchy begins with document filtering.",
-            "rows": [
+            "caption": "The coarse-to-fine compression hierarchy begins with Document-Level Filtering.",
+            "values": {
+              "baseline_tokens": "4500",
+              "compressed_tokens": "1350",
+              "pruned_tokens": "3150",
+              "compression_ratio": "3.33"
+            },
+            "tones": {
+              "baseline_tokens": "data",
+              "compressed_tokens": "data",
+              "pruned_tokens": "data",
+              "compression_ratio": "data"
+            },
+            "arrows": [
               [
-                "Token Level Slicing",
-                "Global Priority Queue Perplexity Pruning",
-                "Strictly Satisfies Target Budget Limits"
+                "baseline_tokens",
+                "compressed_tokens"
               ],
               [
-                "Instruction Invariant",
-                "Zero Pruning On System Prompts And Schemas",
-                "Protects Vital Operational Directives"
+                "compressed_tokens",
+                "pruned_tokens"
+              ],
+              [
+                "pruned_tokens",
+                "compression_ratio"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Coarse to fine pruning pipelines filter documents before token slicing.",
-            "rows": [
+            "at": "say10",
+            "caption": "Empirical cross-entropy evaluations confirm that budgeted token pruning.",
+            "values": {
+              "baseline_tokens": "4500",
+              "compressed_tokens": "1350",
+              "pruned_tokens": "3150",
+              "compression_ratio": "3.33"
+            },
+            "tones": {
+              "baseline_tokens": "ok",
+              "compressed_tokens": "ok",
+              "pruned_tokens": "ok",
+              "compression_ratio": "ok"
+            },
+            "arrows": [
               [
-                "Few Shot Compression",
-                "Prune Intermediate Example Demonstrations",
-                "Fifty Percent Example Token Savings"
+                "baseline_tokens",
+                "compressed_tokens"
               ],
               [
-                "Dynamic Budget Sizer",
-                "Adaptive Ratio Based On Query Difficulty",
-                "Balances Speed With Nuanced Depth"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement a hierarchical pruner protecting system prompts and queries.",
-            "rows": [
-              [
-                "Token Adjacency Guard",
-                "Preserve Local Multi Token Entity Blocks",
-                "Prevents Broken Numerical Identifiers"
+                "compressed_tokens",
+                "pruned_tokens"
               ],
               [
-                "Target Budget Governor",
-                "Strict Upper Ceiling Token Enforcement",
-                "Guarantees Predictable Memory Usage"
+                "pruned_tokens",
+                "compression_ratio"
               ]
             ]
           }
@@ -470,151 +673,217 @@
       "partTitle": "KV-Cache Physics & Latency Acceleration: Pre-Fill Optimization & Memory Footprints",
       "codeHash": "2e9157cbbf407adf39faecbb2c568d2f60416965c8d063973f40cb36b5f20315",
       "spec": {
-        "template": "table",
-        "title": "Key Value Cache Physics And High Concurrency Serving Optimization.",
-        "columns": [
-          "GPU Hardware Dimension",
-          "Physical Resource Impact",
-          "Concurrency Scaling Breakthrough"
-        ],
+        "template": "bars",
+        "title": "KV-Cache Physics & Latency Acceleration: Pre-Fill Optimization &",
         "steps": [
           {
             "at": "say1",
-            "caption": "The physics of the Key Value cache dictates true economic benefits.",
-            "rows": [
-              [
-                "KV Cache Allocation",
-                "Gigabytes Of GPU Memory Per Long Prompt",
-                "Two Thirds Less Cache Memory Needed"
-              ],
-              [
-                "Pre Fill Phase Speed",
-                "Prolonged Attention Matrix Calculations",
-                "Slashes Time To First Token Drastically"
-              ]
+            "caption": "The physics of the Key-Value (KV) cache in modern transformer inference.",
+            "bars": [
+              {
+                "label": "baseline_token",
+                "value": {
+                  "var": "baseline_tokens",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "compressed_tok",
+                "value": {
+                  "var": "compressed_tokens",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pruned_tokens",
+                "value": {
+                  "var": "pruned_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "compression_ra",
+                "value": {
+                  "var": "compression_ratio",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Key Value cache memory consumption scales linearly with prompt length.",
-            "rows": [
-              [
-                "Batch Concurrency Gain",
-                "Server Saturated By Few Concurrent Users",
-                "Triples Active Concurrent User Capacity"
-              ],
-              [
-                "Memory Bandwidth Bound",
-                "High Bandwidth Memory Bus Saturation",
-                "Smooth Vector Streaming Across Cores"
-              ]
+            "caption": "KV-cache memory consumption scales linearly with prompt token length.",
+            "bars": [
+              {
+                "label": "baseline_token",
+                "value": {
+                  "var": "baseline_tokens",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "compressed_tok",
+                "value": {
+                  "var": "compressed_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pruned_tokens",
+                "value": {
+                  "var": "pruned_tokens",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "compression_ra",
+                "value": {
+                  "var": "compression_ratio",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Compressing prompts by three to one reduces memory and doubles batches.",
-            "rows": [
-              [
-                "Prefix Caching Synergy",
-                "Combine Compressed Context With Prefix Cache",
-                "Multiplicative Enterprise Efficiency Gain"
-              ],
-              [
-                "Carbon Footprint Reduction",
-                "Megawatts Of Wasted Data Center Energy",
-                "Cuts Megawatt Hours Of Compute Annually"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Calculate the exact GPU high bandwidth memory savings from compression.",
-            "rows": [
-              [
-                "Hardware Cluster ROI",
-                "Demands Expensive Hardware Upgrades",
-                "Extracts Maximum Yield From Existing GPUs"
-              ],
-              [
-                "Cluster High Availability",
-                "Vulnerable To GPU Out Of Memory Rejections",
-                "Uninterrupted High Concurrency Uptime"
-              ]
+            "at": "say10",
+            "caption": "Continuous memory profiling across enterprise clusters demonstrates.",
+            "bars": [
+              {
+                "label": "baseline_token",
+                "value": {
+                  "var": "baseline_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "compressed_tok",
+                "value": {
+                  "var": "compressed_tokens",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pruned_tokens",
+                "value": {
+                  "var": "pruned_tokens",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "compression_ra",
+                "value": {
+                  "var": "compression_ratio",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Key Value Cache Physics And High Concurrency Serving Optimization.",
-        "columns": [
-          "GPU Hardware Dimension",
-          "Physical Resource Impact",
-          "Concurrency Scaling Breakthrough"
-        ],
+        "template": "bars",
+        "title": "KV-Cache Physics & Latency Acceleration: Pre-Fill Optimization &",
         "steps": [
           {
             "at": "say1",
-            "caption": "The physics of the Key Value cache dictates true economic benefits.",
-            "rows": [
-              [
-                "KV Cache Allocation",
-                "Gigabytes Of GPU Memory Per Long Prompt",
-                "Two Thirds Less Cache Memory Needed"
-              ],
-              [
-                "Pre Fill Phase Speed",
-                "Prolonged Attention Matrix Calculations",
-                "Slashes Time To First Token Drastically"
-              ]
+            "caption": "The physics of the Key-Value (KV) cache in modern transformer inference.",
+            "bars": [
+              {
+                "label": "baseline_token",
+                "value": 4500,
+                "tone": "data"
+              },
+              {
+                "label": "compressed_tok",
+                "value": 1350,
+                "tone": "data"
+              },
+              {
+                "label": "pruned_tokens",
+                "value": 3150,
+                "tone": "data"
+              },
+              {
+                "label": "compression_ra",
+                "value": 3.33,
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Key Value cache memory consumption scales linearly with prompt length.",
-            "rows": [
-              [
-                "Batch Concurrency Gain",
-                "Server Saturated By Few Concurrent Users",
-                "Triples Active Concurrent User Capacity"
-              ],
-              [
-                "Memory Bandwidth Bound",
-                "High Bandwidth Memory Bus Saturation",
-                "Smooth Vector Streaming Across Cores"
-              ]
+            "caption": "KV-cache memory consumption scales linearly with prompt token length.",
+            "bars": [
+              {
+                "label": "baseline_token",
+                "value": 4500,
+                "tone": "ok"
+              },
+              {
+                "label": "compressed_tok",
+                "value": 1350,
+                "tone": "ok"
+              },
+              {
+                "label": "pruned_tokens",
+                "value": 3150,
+                "tone": "ok"
+              },
+              {
+                "label": "compression_ra",
+                "value": 3.33,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Compressing prompts by three to one reduces memory and doubles batches.",
-            "rows": [
-              [
-                "Prefix Caching Synergy",
-                "Combine Compressed Context With Prefix Cache",
-                "Multiplicative Enterprise Efficiency Gain"
-              ],
-              [
-                "Carbon Footprint Reduction",
-                "Megawatts Of Wasted Data Center Energy",
-                "Cuts Megawatt Hours Of Compute Annually"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Calculate the exact GPU high bandwidth memory savings from compression.",
-            "rows": [
-              [
-                "Hardware Cluster ROI",
-                "Demands Expensive Hardware Upgrades",
-                "Extracts Maximum Yield From Existing GPUs"
-              ],
-              [
-                "Cluster High Availability",
-                "Vulnerable To GPU Out Of Memory Rejections",
-                "Uninterrupted High Concurrency Uptime"
-              ]
+            "at": "say10",
+            "caption": "Continuous memory profiling across enterprise clusters demonstrates.",
+            "bars": [
+              {
+                "label": "baseline_token",
+                "value": 4500,
+                "tone": "ok"
+              },
+              {
+                "label": "compressed_tok",
+                "value": 1350,
+                "tone": "ok"
+              },
+              {
+                "label": "pruned_tokens",
+                "value": 3150,
+                "tone": "ok"
+              },
+              {
+                "label": "compression_ra",
+                "value": 3.33,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -624,151 +893,217 @@
       "partTitle": "Enterprise Compression Engineering: Building A Production Prompt Pruner In Python",
       "codeHash": "2e9157cbbf407adf39faecbb2c568d2f60416965c8d063973f40cb36b5f20315",
       "spec": {
-        "template": "table",
-        "title": "Enterprise Compression Engineering And Production Service Deployment.",
-        "columns": [
-          "Platform Service Layer",
-          "Component Implementation",
-          "Production Reliability SLA"
-        ],
+        "template": "bars",
+        "title": "Enterprise Compression Engineering: Building A Production Prompt",
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise compression engineering implements modular python engines.",
-            "rows": [
-              [
-                "Context Ingestion Gateway",
-                "Segregate Directives From Compressible Spans",
-                "Protects Mission Critical Directives"
-              ],
-              [
-                "Perplexity Scoring Kernel",
-                "Vectorized Tensor Loss Computation",
-                "Sub Millisecond Per Token Throughput"
-              ]
+            "caption": "Building an enterprise-grade prompt compression service requires.",
+            "bars": [
+              {
+                "label": "baseline_token",
+                "value": {
+                  "var": "baseline_tokens",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "compressed_tok",
+                "value": {
+                  "var": "compressed_tokens",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pruned_tokens",
+                "value": {
+                  "var": "pruned_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "compression_ra",
+                "value": {
+                  "var": "compression_ratio",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "The software architecture comprises five decoupled microservice layers.",
-            "rows": [
-              [
-                "Reconstruction Filter",
-                "Scan Pruned Text For Essential Entities",
-                "Guarantees Absolute Numerical Precision"
-              ],
-              [
-                "OpenTelemetry Trace Emitter",
-                "Emit Compression Ratio And Token Savings",
-                "Provides Real Time Observability"
-              ]
+            "caption": "The software architecture of a production prompt compression service.",
+            "bars": [
+              {
+                "label": "baseline_token",
+                "value": {
+                  "var": "baseline_tokens",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "compressed_tok",
+                "value": {
+                  "var": "compressed_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pruned_tokens",
+                "value": {
+                  "var": "pruned_tokens",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "compression_ra",
+                "value": {
+                  "var": "compression_ratio",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Enterprise compression microservices prune retrieved document chunks.",
-            "rows": [
-              [
-                "Inline Vector Pipeline",
-                "Prune RAG Document Chunks Before Assembly",
-                "Prevents Downstream Context Bloat"
-              ],
-              [
-                "Resilient Fallback Guard",
-                "Heuristic Sentence Pruning On Engine Timeout",
-                "Guarantees High Service Availability"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a modular Python class with perplexity scoring and tracing.",
-            "rows": [
-              [
-                "Cryptographic Hash Vault",
-                "Tamper Evident Audit Log Of Pruned Texts",
-                "Satisfies External Regulatory Oversight"
-              ],
-              [
-                "Automated SLA Watchdog",
-                "Sub Second End To End Compression SLA",
-                "Maintains High Availability Platform SLA"
-              ]
+            "at": "say11",
+            "caption": "Enterprise dashboard integration exposes real-time context economics.",
+            "bars": [
+              {
+                "label": "baseline_token",
+                "value": {
+                  "var": "baseline_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "compressed_tok",
+                "value": {
+                  "var": "compressed_tokens",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pruned_tokens",
+                "value": {
+                  "var": "pruned_tokens",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "compression_ra",
+                "value": {
+                  "var": "compression_ratio",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Enterprise Compression Engineering And Production Service Deployment.",
-        "columns": [
-          "Platform Service Layer",
-          "Component Implementation",
-          "Production Reliability SLA"
-        ],
+        "template": "bars",
+        "title": "Enterprise Compression Engineering: Building A Production Prompt",
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise compression engineering implements modular python engines.",
-            "rows": [
-              [
-                "Context Ingestion Gateway",
-                "Segregate Directives From Compressible Spans",
-                "Protects Mission Critical Directives"
-              ],
-              [
-                "Perplexity Scoring Kernel",
-                "Vectorized Tensor Loss Computation",
-                "Sub Millisecond Per Token Throughput"
-              ]
+            "caption": "Building an enterprise-grade prompt compression service requires.",
+            "bars": [
+              {
+                "label": "baseline_token",
+                "value": 4500,
+                "tone": "data"
+              },
+              {
+                "label": "compressed_tok",
+                "value": 1350,
+                "tone": "data"
+              },
+              {
+                "label": "pruned_tokens",
+                "value": 3150,
+                "tone": "data"
+              },
+              {
+                "label": "compression_ra",
+                "value": 3.33,
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "The software architecture comprises five decoupled microservice layers.",
-            "rows": [
-              [
-                "Reconstruction Filter",
-                "Scan Pruned Text For Essential Entities",
-                "Guarantees Absolute Numerical Precision"
-              ],
-              [
-                "OpenTelemetry Trace Emitter",
-                "Emit Compression Ratio And Token Savings",
-                "Provides Real Time Observability"
-              ]
+            "caption": "The software architecture of a production prompt compression service.",
+            "bars": [
+              {
+                "label": "baseline_token",
+                "value": 4500,
+                "tone": "ok"
+              },
+              {
+                "label": "compressed_tok",
+                "value": 1350,
+                "tone": "ok"
+              },
+              {
+                "label": "pruned_tokens",
+                "value": 3150,
+                "tone": "ok"
+              },
+              {
+                "label": "compression_ra",
+                "value": 3.33,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Enterprise compression microservices prune retrieved document chunks.",
-            "rows": [
-              [
-                "Inline Vector Pipeline",
-                "Prune RAG Document Chunks Before Assembly",
-                "Prevents Downstream Context Bloat"
-              ],
-              [
-                "Resilient Fallback Guard",
-                "Heuristic Sentence Pruning On Engine Timeout",
-                "Guarantees High Service Availability"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a modular Python class with perplexity scoring and tracing.",
-            "rows": [
-              [
-                "Cryptographic Hash Vault",
-                "Tamper Evident Audit Log Of Pruned Texts",
-                "Satisfies External Regulatory Oversight"
-              ],
-              [
-                "Automated SLA Watchdog",
-                "Sub Second End To End Compression SLA",
-                "Maintains High Availability Platform SLA"
-              ]
+            "at": "say11",
+            "caption": "Enterprise dashboard integration exposes real-time context economics.",
+            "bars": [
+              {
+                "label": "baseline_token",
+                "value": 4500,
+                "tone": "ok"
+              },
+              {
+                "label": "compressed_tok",
+                "value": 1350,
+                "tone": "ok"
+              },
+              {
+                "label": "pruned_tokens",
+                "value": 3150,
+                "tone": "ok"
+              },
+              {
+                "label": "compression_ra",
+                "value": 3.33,
+                "tone": "ok"
+              }
             ]
           }
         ]

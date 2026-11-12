@@ -2,88 +2,265 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 51,
-  "promptSha": "a42524fd05c71732db9548943105553a6602a48753eaf5ae695f8a44dcf614d9",
-  "model": "gate-v2-verified",
+  "promptSha": "26c70dcb1d8ea77e50468f8811c65ef02379dd4f602ec94219cebd930afbde59",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "Distributed Tracing Foundations & W3C TraceContext",
       "codeHash": "8554039bd4fbac95a2db1bd1b6abc136419787e9206e0d5c17235e5095208219",
       "spec": {
-        "template": "table",
-        "title": "Distributed Tracing Foundations & W3C TraceContext",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "W3C traceparent header 4-part causal anatomy",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The monolithic concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Distributed tracing tracks requests end-to-end where isolated server logs fail.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Distributed"
-                  },
-                  {
-                    "text": "Tracing"
-                  }
-                ],
+                "text": "version"
+              },
+              {
+                "text": "trace_id"
+              },
+              {
+                "text": "parent_id"
+              },
+              {
+                "text": "trace_flags"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "root",
+                "index": 1,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "idle",
+              "1": "data",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The heart logic drives deterministic execution.",
-            "rows": [
+            "caption": "W3C traceparent standardizes version, trace ID, span ID, and trace flags.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Foundations"
-                  },
-                  {
-                    "text": "TraceContext"
-                  }
-                ],
+                "text": "version"
+              },
+              {
+                "text": "trace_id"
+              },
+              {
+                "text": "parent_id"
+              },
+              {
+                "text": "trace_flags"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "span",
+                "index": 2,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "ok",
+              "3": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Parsing and formatting W3C traceparent propagates causal trace state cleanly.",
+            "items": [
+              {
+                "text": "parse_traceparent"
+              },
+              {
+                "text": "trace_id"
+              },
+              {
+                "text": "child_span_id"
+              },
+              {
+                "text": "format_traceparent"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "out",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set traceparent flags 00 in sample_header so sampled evaluates False.",
+            "items": [
+              {
+                "text": "Change"
+              },
+              {
+                "text": "flags"
+              },
+              {
+                "text": "and"
+              },
+              {
+                "text": "that"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "unsampled",
+                "index": 1,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "ok",
+              "3": "data"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Distributed Tracing Foundations & W3C TraceContext",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "W3C traceparent header 4-part causal anatomy",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The monolithic concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Distributed tracing tracks requests end-to-end where isolated server logs fail.",
+            "items": [
+              "ver: 00",
+              "trace_id: 16B Hex",
+              "parent_id: 8B Hex",
+              "flags: 01"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Distributed",
-                  "Tracing"
-                ],
+                "name": "root",
+                "index": 1,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "idle",
+              "1": "data",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The heart logic drives deterministic execution.",
-            "rows": [
+            "caption": "W3C traceparent standardizes version, trace ID, span ID, and trace flags.",
+            "items": [
+              "version = 00",
+              "4bf92f35...0e0e4736",
+              "00f067aa0ba902b7",
+              "sampled = True (01)"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Foundations",
-                  "TraceContext"
-                ],
+                "name": "span",
+                "index": 2,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "ok",
+              "3": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Parsing and formatting W3C traceparent propagates causal trace state cleanly.",
+            "items": [
+              "Parsed Header",
+              "Same Trace ID Kept",
+              "00f067aa0ba902c8",
+              "Outbound traceparent"
+            ],
+            "pointers": [
+              {
+                "name": "out",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set traceparent flags 00 in sample_header so sampled evaluates False.",
+            "items": [
+              "Parsed Flag 00",
+              "Sampled: False",
+              "00f067aa0ba902c8",
+              "Outbound ...-00"
+            ],
+            "pointers": [
+              {
+                "name": "unsampled",
+                "index": 1,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "ok",
+              "3": "data"
+            },
+            "whatIf": "class W3CTraceContext:\n    @staticmethod\n    def parse_traceparent(header_val: str):\n        parts = header_val.strip().split(\"-\")\n        if len(parts) != 4:\n            raise ValueError(\"Invalid traceparent header format\")\n        version, trace_id, parent_id, trace_flags = parts\n        return {\n            \"version\": version,\n            \"trace_id\": trace_id,\n            \"parent_id\": parent_id,\n            \"sampled\": (int(trace_flags, 16) & 1) == 1\n        }\n\n    @staticmethod\n    def format_traceparent(trace_id: str, span_id: str, sampled: bool = True) -> str:\n        flags = \"01\" if sampled else \"00\"\n        return f\"00-{trace_id}-{span_id}-{flags}\"\n\nsample_header = \"00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-00\"\nparsed = W3CTraceContext.parse_traceparent(sample_header)\nprint(f\"Parsed Trace ID: {parsed['trace_id']}\")\nprint(f\"Parent Span ID: {parsed['parent_id']} | Sampled: {parsed['sampled']}\")\n\n# Generate child span header\nchild_span_id = \"00f067aa0ba902c8\"\nnew_header = W3CTraceContext.format_traceparent(parsed['trace_id'], child_span_id, parsed['sampled'])\nprint(f\"Outbound Propagated Header: {new_header}\")\nprint(\"W3C TraceContext Invariant: Standard 4-part traceparent header preserves causality across services.\")",
+            "checks": [
+              "Sampled: False",
+              "-00"
             ]
           }
         ]
@@ -93,81 +270,244 @@
       "partTitle": "Contextvars & Asynchronous Trace Propagation",
       "codeHash": "dd53ec4d8644c9bb1145d6dd17cc2fa4bc44626554f6510b15cfd27ff67bf55d",
       "spec": {
-        "template": "table",
-        "title": "Contextvars & Asynchronous Trace Propagation",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "AsyncTraceContextManager nested coroutine propagation",
+        "nodes": [
+          {
+            "id": "gw",
+            "label": "gateway_handler"
+          },
+          {
+            "id": "set",
+            "label": "set_active_span"
+          },
+          {
+            "id": "auth",
+            "label": "auth_service_handler"
+          },
+          {
+            "id": "get",
+            "label": "get_active_span"
+          }
+        ],
+        "edges": [
+          {
+            "from": "gw",
+            "to": "set"
+          },
+          {
+            "from": "set",
+            "to": "auth"
+          },
+          {
+            "from": "auth",
+            "to": "get"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The once concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Contextvars"
-                  },
-                  {
-                    "text": "Asynchronous"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Coroutine contextvars isolate request state safely across asyncio event loops.",
+            "values": {
+              "gw": {
+                "text": "gateway_handler"
+              },
+              "set": {
+                "text": "span_gw_1001"
+              },
+              "auth": {
+                "text": "auth_service_handler"
+              },
+              "get": {
+                "text": "get_active_span"
               }
-            ]
+            },
+            "tones": {
+              "gw": "data",
+              "set": "ok",
+              "auth": "idle",
+              "get": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The opentelemetry logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Trace"
-                  },
-                  {
-                    "text": "Propagation"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Downstream coroutines read the active span context without passing arguments.",
+            "values": {
+              "gw": {
+                "text": "span_gw_1001"
+              },
+              "set": {
+                "text": "span_auth_2002"
+              },
+              "auth": {
+                "text": "auth_service_handler"
+              },
+              "get": {
+                "text": "get_active_span"
               }
-            ]
+            },
+            "tones": {
+              "gw": "ok",
+              "set": "data",
+              "auth": "ok",
+              "get": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Preserving and restoring active span context isolates asynchronous calls.",
+            "values": {
+              "gw": {
+                "text": "gateway_handler"
+              },
+              "set": {
+                "text": "set_active_span"
+              },
+              "auth": {
+                "text": "span_auth_2002"
+              },
+              "get": {
+                "text": "span_gw_1001"
+              }
+            },
+            "tones": {
+              "gw": "ok",
+              "set": "ok",
+              "auth": "ok",
+              "get": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add inventory_service_handler for three-service nested span propagation.",
+            "values": {
+              "gw": {
+                "text": "Add"
+              },
+              "set": {
+                "text": "service"
+              },
+              "auth": {
+                "text": "e.g."
+              },
+              "get": {
+                "text": "and"
+              }
+            },
+            "tones": {
+              "gw": "ok",
+              "set": "ok",
+              "auth": "data",
+              "get": "ok"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Contextvars & Asynchronous Trace Propagation",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "AsyncTraceContextManager nested coroutine propagation",
+        "nodes": [
+          {
+            "id": "gw",
+            "label": "gateway_handler"
+          },
+          {
+            "id": "set",
+            "label": "set_active_span"
+          },
+          {
+            "id": "auth",
+            "label": "auth_service_handler"
+          },
+          {
+            "id": "get",
+            "label": "get_active_span"
+          }
+        ],
+        "edges": [
+          {
+            "from": "gw",
+            "to": "set"
+          },
+          {
+            "from": "set",
+            "to": "auth"
+          },
+          {
+            "from": "auth",
+            "to": "get"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The once concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Contextvars",
-                  "Asynchronous"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Coroutine contextvars isolate request state safely across asyncio event loops.",
+            "values": {
+              "gw": "Root Gateway Span",
+              "set": "Bound span_gw_1001",
+              "auth": "Pending Dispatch",
+              "get": "Parent Stored"
+            },
+            "tones": {
+              "gw": "data",
+              "set": "ok",
+              "auth": "idle",
+              "get": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The opentelemetry logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Trace",
-                  "Propagation"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Downstream coroutines read the active span context without passing arguments.",
+            "values": {
+              "gw": "Parent Saved",
+              "set": "Pushed span_auth_2002",
+              "auth": "Child Context Active",
+              "get": "No Manual Span Arg"
+            },
+            "tones": {
+              "gw": "ok",
+              "set": "data",
+              "auth": "ok",
+              "get": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Preserving and restoring active span context isolates asynchronous calls.",
+            "values": {
+              "gw": "Resumed Cleanly",
+              "set": "Restored Parent Span",
+              "auth": "Child Exited",
+              "get": "Active: span_gw_1001"
+            },
+            "tones": {
+              "gw": "ok",
+              "set": "ok",
+              "auth": "ok",
+              "get": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add inventory_service_handler for three-service nested span propagation.",
+            "values": {
+              "gw": "Resumed span_gw_1001",
+              "set": "Restored Parent Stack",
+              "auth": "Called span_inv_3003",
+              "get": "Nested Context Preserved"
+            },
+            "tones": {
+              "gw": "ok",
+              "set": "ok",
+              "auth": "data",
+              "get": "ok"
+            },
+            "arrows": [],
+            "whatIf": "class AsyncTraceContextManager:\n    def __init__(self):\n        self._current_context = None\n\n    def set_active_span(self, span_id: str):\n        self._current_context = span_id\n\n    def get_active_span(self) -> str:\n        return self._current_context or \"ROOT_NO_PARENT\"\n\nctx_manager = AsyncTraceContextManager()\n\ndef gateway_handler():\n    ctx_manager.set_active_span(\"span_gw_1001\")\n    print(f\"[Gateway] Active Span: {ctx_manager.get_active_span()}\")\n    # Dispatch to auth\n    auth_service_handler()\n    # Return to gateway\n    print(f\"[Gateway Resumed] Active Span: {ctx_manager.get_active_span()}\")\n\ndef auth_service_handler():\n    parent = ctx_manager.get_active_span()\n    ctx_manager.set_active_span(\"span_auth_2002\")\n    print(f\"  [AuthService] Parent: {parent} -> Active Span: {ctx_manager.get_active_span()}\")\n    inventory_service_handler()\n    print(f\"  [AuthService Resumed] Active Span: {ctx_manager.get_active_span()}\")\n    ctx_manager.set_active_span(parent)\n\ndef inventory_service_handler():\n    parent = ctx_manager.get_active_span()\n    ctx_manager.set_active_span(\"span_inv_3003\")\n    print(f\"    [InventoryService] Parent: {parent} -> Active Span: {ctx_manager.get_active_span()}\")\n    ctx_manager.set_active_span(parent)\n\ngateway_handler()\nprint(\"Context Propagation Invariant: Context variables isolate active span state per execution context.\")",
+            "checks": [
+              "[InventoryService] Parent: span_auth_2002 -> Active Span: span_inv_3003",
+              "[Gateway Resumed] Active Span: span_gw_1001"
             ]
           }
         ]
@@ -177,81 +517,182 @@
       "partTitle": "Span Lifecycle, Events & Semantic Attributes",
       "codeHash": "f7c494c2465b10a2cbc57a2a566bdb4949aac5ac9b6bc1bbd874f47c412a64d3",
       "spec": {
-        "template": "table",
-        "title": "Span Lifecycle, Events & Semantic Attributes",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "TraceSpan semantic attributes and recorded events",
+        "boxes": [
+          {
+            "id": "sp",
+            "label": "TraceSpan"
+          },
+          {
+            "id": "attr",
+            "label": "attributes"
+          },
+          {
+            "id": "ev",
+            "label": "events"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The within concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Span"
-                  },
-                  {
-                    "text": "Lifecycle"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Hierarchical child spans share the root Trace ID with semantic conventions.",
+            "values": {
+              "sp": {
+                "text": "parent_id"
+              },
+              "attr": {
+                "text": "set_attribute"
+              },
+              "ev": {
+                "text": "status"
               }
-            ]
+            },
+            "tones": {
+              "sp": "data",
+              "attr": "data",
+              "ev": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The beyond logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Events"
-                  },
-                  {
-                    "text": "Semantic"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Span events record cache misses and mark failed operations with error status.",
+            "values": {
+              "sp": {
+                "text": "status"
+              },
+              "attr": {
+                "text": "attributes"
+              },
+              "ev": {
+                "text": "add_event"
               }
-            ]
+            },
+            "tones": {
+              "sp": "data",
+              "attr": "ok",
+              "ev": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Instrumenting spans records semantic conventions, events, and status codes.",
+            "values": {
+              "sp": {
+                "text": "duration_ms"
+              },
+              "attr": {
+                "text": "attributes"
+              },
+              "ev": {
+                "text": "events"
+              }
+            },
+            "tones": {
+              "sp": "ok",
+              "attr": "ok",
+              "ev": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add timeout error event and finish TraceSpan with ERROR status at 25ms.",
+            "values": {
+              "sp": {
+                "text": "Add"
+              },
+              "attr": {
+                "text": "event"
+              },
+              "ev": {
+                "text": "set"
+              }
+            },
+            "tones": {
+              "sp": "error",
+              "attr": "idle",
+              "ev": "error"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Span Lifecycle, Events & Semantic Attributes",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "TraceSpan semantic attributes and recorded events",
+        "boxes": [
+          {
+            "id": "sp",
+            "label": "TraceSpan"
+          },
+          {
+            "id": "attr",
+            "label": "attributes"
+          },
+          {
+            "id": "ev",
+            "label": "events"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The within concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Span",
-                  "Lifecycle"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Hierarchical child spans share the root Trace ID with semantic conventions.",
+            "values": {
+              "sp": "parent_id = span_gw_01",
+              "attr": "http.method, db.system",
+              "ev": "Listening For Events"
+            },
+            "tones": {
+              "sp": "data",
+              "attr": "data",
+              "ev": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The beyond logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Events",
-                  "Semantic"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Span events record cache misses and mark failed operations with error status.",
+            "values": {
+              "sp": "status: OK or ERROR",
+              "attr": "http.status_code = 200",
+              "ev": "[cache_miss, db_query_complete]"
+            },
+            "tones": {
+              "sp": "data",
+              "attr": "ok",
+              "ev": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Instrumenting spans records semantic conventions, events, and status codes.",
+            "values": {
+              "sp": "14.8ms Duration | OK",
+              "attr": "3 Semantic Keys Set",
+              "ev": "2 Timestamped Events"
+            },
+            "tones": {
+              "sp": "ok",
+              "attr": "ok",
+              "ev": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add timeout error event and finish TraceSpan with ERROR status at 25ms.",
+            "values": {
+              "sp": "25.0ms | Status ERROR",
+              "attr": "3 Semantic Keys Set",
+              "ev": "db_query_timeout Logged"
+            },
+            "tones": {
+              "sp": "error",
+              "attr": "idle",
+              "ev": "error"
+            },
+            "whatIf": "class TraceSpan:\n    def __init__(self, name, parent_id=None):\n        self.name = name\n        self.parent_id = parent_id\n        self.attributes = {}\n        self.events = []\n        self.status = \"UNSET\"\n        self.duration_ms = 0.0\n\n    def set_attribute(self, key, value):\n        self.attributes[key] = value\n\n    def add_event(self, event_name, payload=None):\n        self.events.append({\"event\": event_name, \"data\": payload or {}})\n\n    def finish(self, duration_ms, status=\"OK\"):\n        self.duration_ms = duration_ms\n        self.status = status\n\nspan = TraceSpan(\"HTTP GET /api/v1/orders\", parent_id=\"span_gw_01\")\nspan.set_attribute(\"http.method\", \"GET\")\nspan.set_attribute(\"http.status_code\", 200)\nspan.set_attribute(\"db.system\", \"postgresql\")\nspan.add_event(\"cache_miss\", {\"cache_key\": \"order:9901\"})\nspan.add_event(\"db_query_timeout\", {\"error\": \"DeadlockDetected\"})\nspan.finish(25.0, status=\"ERROR\")\n\nprint(f\"Span: '{span.name}' | Status: {span.status} | Duration: {span.duration_ms}ms\")\nprint(f\"Semantic Attributes: {span.attributes}\")\nprint(f\"Recorded Events: {[e['event'] for e in span.events]}\")\nprint(\"Span Lifecycle Invariant: Spans capture duration, structured attributes, and operational events.\")",
+            "checks": [
+              "Status: ERROR | Duration: 25.0ms",
+              "['cache_miss', 'db_query_timeout']"
             ]
           }
         ]
@@ -261,82 +702,162 @@
       "partTitle": "Head-Based & Tail-Based Distributed Sampling",
       "codeHash": "9d0bcd9a6176bdcc8b1c4e3b2544ea4c46fa67d17cdce3c493a769e6a55dbe8a",
       "spec": {
-        "template": "table",
-        "title": "Head-Based & Tail-Based Distributed Sampling",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Head-based ratio sampling vs tail-based anomaly capture",
+        "leftLabel": "Head-Based Probabilistic",
+        "rightLabel": "Tail-Based Collector",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The high concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Head"
-                  },
-                  {
-                    "text": "Based"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say3",
+            "caption": "Head-based probabilistic sampling inspects Trace ID hashes at ingress uniformly.",
+            "left": {
+              "code": "ProbabilisticSampler",
+              "result": "Low Memory Overhead",
+              "tone": "ok",
+              "checks": []
+            },
+            "right": {
+              "code": "threshold",
+              "result": "May Drop Rare Errors",
+              "tone": "error",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The simplest logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Tail"
-                  },
-                  {
-                    "text": "Based"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say4",
+            "caption": "Tail-based sampling buffers completed traces to keep errors and slow outliers.",
+            "left": {
+              "code": "should_sample",
+              "result": "Blind To Outcome At Start",
+              "tone": "data",
+              "checks": []
+            },
+            "right": {
+              "code": "trace_id",
+              "result": "Keeps 100% Errors + Slow",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Deterministic trace ID sampling enforces telemetry ratio budgets cleanly.",
+            "left": {
+              "code": "rate",
+              "result": "0.5 -> 50% Sampled",
+              "tone": "ok",
+              "checks": []
+            },
+            "right": {
+              "code": "should_sample",
+              "result": "Uniform Hash Threshold",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Lower sampling rate in trace sampler and observe threshold trace cutoff.",
+            "left": {
+              "code": "ProbabilisticSampler(rate=0.5) (threshold=128)",
+              "result": "0e4710: True | 0e4740: True",
+              "tone": "ok",
+              "checks": [
+                "Threshold 50%: 128",
+                "Trace 0e4740: Sampled=True"
+              ],
+              "whatIf": "class ProbabilisticSampler:\n    def __init__(self, rate: float = 0.5):\n        self.rate = rate\n\n    def should_sample(self, trace_id: str) -> bool:\n        val = int(trace_id[-2:], 16)\n        threshold = int(256 * self.rate)\n        return val < threshold\n\nsampler = ProbabilisticSampler(rate=0.5)\ntraces = [\n    \"4bf92f3577b34da6a3ce929d0e0e4710\",\n    \"4bf92f3577b34da6a3ce929d0e0e47ff\",\n    \"4bf92f3577b34da6a3ce929d0e0e4740\",\n    \"4bf92f3577b34da6a3ce929d0e0e47a0\",\n]\n\nfor t in traces:\n    decision = sampler.should_sample(t)\n    print(f\"Trace {t[-6:]}: Sampled={decision}\")\nprint(\"Threshold 50%:\", int(256 * sampler.rate))\nprint(\"Sampling Invariant: Head-based sampling bounds telemetry storage costs deterministically.\")"
+            },
+            "right": {
+              "code": "ProbabilisticSampler(rate=0.25) (threshold=64)",
+              "result": "0e4710: True | 0e4740: False",
+              "tone": "data",
+              "checks": [
+                "Trace 0e4710: Sampled=True",
+                "Trace 0e4740: Sampled=False"
+              ],
+              "whatIf": "class ProbabilisticSampler:\n    def __init__(self, rate: float = 0.5):\n        self.rate = rate\n\n    def should_sample(self, trace_id: str) -> bool:\n        val = int(trace_id[-2:], 16)\n        threshold = int(256 * self.rate)\n        return val < threshold\n\nsampler = ProbabilisticSampler(rate=0.25)\ntraces = [\n    \"4bf92f3577b34da6a3ce929d0e0e4710\",\n    \"4bf92f3577b34da6a3ce929d0e0e47ff\",\n    \"4bf92f3577b34da6a3ce929d0e0e4740\",\n    \"4bf92f3577b34da6a3ce929d0e0e47a0\",\n]\n\nfor t in traces:\n    decision = sampler.should_sample(t)\n    print(f\"Trace {t[-6:]}: Sampled={decision}\")\nprint(\"Sampling Invariant: Head-based sampling bounds telemetry storage costs deterministically.\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Head-Based & Tail-Based Distributed Sampling",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Head-based ratio sampling vs tail-based anomaly capture",
+        "leftLabel": "Head-Based Probabilistic",
+        "rightLabel": "Tail-Based Collector",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The high concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Head",
-                  "Based"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say3",
+            "caption": "Head-based probabilistic sampling inspects Trace ID hashes at ingress uniformly.",
+            "left": {
+              "code": "Sample By trace_id[-2:] Flag",
+              "result": "Zero Buffer At Gateway",
+              "tone": "ok",
+              "checks": []
+            },
+            "right": {
+              "code": "Randomly Discards Future 500s",
+              "result": "Decided Too Early",
+              "tone": "error",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The simplest logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Tail",
-                  "Based"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say4",
+            "caption": "Tail-based sampling buffers completed traces to keep errors and slow outliers.",
+            "left": {
+              "code": "Fixed Ingress Ratio (10%)",
+              "result": "Predictable Egress Cost",
+              "tone": "data",
+              "checks": []
+            },
+            "right": {
+              "code": "Keep On Error Or High Latency",
+              "result": "100% Fault Retention",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Deterministic trace ID sampling enforces telemetry ratio budgets cleanly.",
+            "left": {
+              "code": "rate = 0.5 (threshold 128)",
+              "result": "0e4710 True / 0e47ff False",
+              "tone": "ok",
+              "checks": []
+            },
+            "right": {
+              "code": "0e4740 True / 0e47a0 False",
+              "result": "Bounded Storage Costs",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Lower sampling rate in trace sampler and observe threshold trace cutoff.",
+            "left": {
+              "code": "ProbabilisticSampler(rate=0.5) (threshold=128)",
+              "result": "0e4710: True | 0e4740: True",
+              "tone": "ok",
+              "checks": [
+                "Threshold 50%: 128",
+                "Trace 0e4740: Sampled=True"
+              ],
+              "whatIf": "class ProbabilisticSampler:\n    def __init__(self, rate: float = 0.5):\n        self.rate = rate\n\n    def should_sample(self, trace_id: str) -> bool:\n        val = int(trace_id[-2:], 16)\n        threshold = int(256 * self.rate)\n        return val < threshold\n\nsampler = ProbabilisticSampler(rate=0.5)\ntraces = [\n    \"4bf92f3577b34da6a3ce929d0e0e4710\",\n    \"4bf92f3577b34da6a3ce929d0e0e47ff\",\n    \"4bf92f3577b34da6a3ce929d0e0e4740\",\n    \"4bf92f3577b34da6a3ce929d0e0e47a0\",\n]\n\nfor t in traces:\n    decision = sampler.should_sample(t)\n    print(f\"Trace {t[-6:]}: Sampled={decision}\")\nprint(\"Threshold 50%:\", int(256 * sampler.rate))\nprint(\"Sampling Invariant: Head-based sampling bounds telemetry storage costs deterministically.\")"
+            },
+            "right": {
+              "code": "ProbabilisticSampler(rate=0.25) (threshold=64)",
+              "result": "0e4710: True | 0e4740: False",
+              "tone": "data",
+              "checks": [
+                "Trace 0e4710: Sampled=True",
+                "Trace 0e4740: Sampled=False"
+              ],
+              "whatIf": "class ProbabilisticSampler:\n    def __init__(self, rate: float = 0.5):\n        self.rate = rate\n\n    def should_sample(self, trace_id: str) -> bool:\n        val = int(trace_id[-2:], 16)\n        threshold = int(256 * self.rate)\n        return val < threshold\n\nsampler = ProbabilisticSampler(rate=0.25)\ntraces = [\n    \"4bf92f3577b34da6a3ce929d0e0e4710\",\n    \"4bf92f3577b34da6a3ce929d0e0e47ff\",\n    \"4bf92f3577b34da6a3ce929d0e0e4740\",\n    \"4bf92f3577b34da6a3ce929d0e0e47a0\",\n]\n\nfor t in traces:\n    decision = sampler.should_sample(t)\n    print(f\"Trace {t[-6:]}: Sampled={decision}\")\nprint(\"Sampling Invariant: Head-based sampling bounds telemetry storage costs deterministically.\")"
+            }
           }
         ]
       }
@@ -346,40 +867,143 @@
       "codeHash": "f064c42eb0353d51982c0a3976ef367c32595f6a108d8d76e5a82fc08b3a0d0f",
       "spec": {
         "template": "table",
-        "title": "Multi-Service Distributed Trace Graph Synthesis",
+        "title": "MultiServiceTraceSimulator end-to-end span latencies",
         "columns": [
-          "Stage",
-          "Concept"
+          "Service",
+          "Operation",
+          "Latency"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Child spans link gateway, auth, billing, and database calls to one root trace.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Multi"
+                    "text": "ingress"
                   },
                   {
-                    "text": "Service"
+                    "text": "verify_jwt"
+                  },
+                  {
+                    "text": "execute_request"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "charge_card"
+                  },
+                  {
+                    "text": "trace_tree"
+                  },
+                  {
+                    "text": "MultiServiceTraceSimulator"
+                  }
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The microservice logic drives deterministic execution.",
+            "caption": "Nested trace graphs measure exact SQL and service hop durations together.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Distributed"
+                    "text": "charge_card"
                   },
                   {
-                    "text": "Trace"
+                    "text": "trace_tree"
+                  },
+                  {
+                    "text": "verify_jwt"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "ingress"
+                  },
+                  {
+                    "text": "execute_request"
+                  },
+                  {
+                    "text": "MultiServiceTraceSimulator"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Distributed trace graph tracks gateway, auth, billing, and database timings.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "ingress"
+                  },
+                  {
+                    "text": "verify_jwt"
+                  },
+                  {
+                    "text": "2.1"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "charge_card"
+                  },
+                  {
+                    "text": "trace_tree"
+                  },
+                  {
+                    "text": "42.8"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add inventory verification span under ingress and recompute total latency.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Add"
+                  },
+                  {
+                    "text": "inventory"
+                  },
+                  {
+                    "text": "verification"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "verification"
+                  },
+                  {
+                    "text": "span"
+                  },
+                  {
+                    "text": "under"
                   }
                 ],
                 "tone": "ok"
@@ -390,36 +1014,104 @@
       },
       "filled": {
         "template": "table",
-        "title": "Multi-Service Distributed Trace Graph Synthesis",
+        "title": "MultiServiceTraceSimulator end-to-end span latencies",
         "columns": [
-          "Stage",
-          "Concept"
+          "Service",
+          "Operation",
+          "Latency"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Child spans link gateway, auth, billing, and database calls to one root trace.",
             "rows": [
               {
                 "cells": [
-                  "Multi",
-                  "Service"
+                  "api-gateway",
+                  "ingress (Root)",
+                  "2.1ms"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "auth-service",
+                  "verify_jwt -> ingress",
+                  "5.4ms"
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The microservice logic drives deterministic execution.",
+            "caption": "Nested trace graphs measure exact SQL and service hop durations together.",
             "rows": [
               {
                 "cells": [
-                  "Distributed",
-                  "Trace"
+                  "billing-service",
+                  "charge_card -> ingress",
+                  "42.8ms"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "postgres-db",
+                  "INSERT orders -> charge_card",
+                  "8.3ms"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Distributed trace graph tracks gateway, auth, billing, and database timings.",
+            "rows": [
+              {
+                "cells": [
+                  "Total Trace Graph",
+                  "4 Spans Correlated",
+                  "58.6ms End-to-End"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Bottleneck Isolated",
+                  "billing-service charge_card",
+                  "42.8ms Dominant Hop"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add inventory verification span under ingress and recompute total latency.",
+            "rows": [
+              {
+                "cells": [
+                  "inventory-service",
+                  "verify_stock (child of ingress)",
+                  "12.4ms"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Total Trace Graph",
+                  "5 Spans Correlated",
+                  "71.0ms End-to-End"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "class MultiServiceTraceSimulator:\n    def __init__(self):\n        self.trace_tree = []\n\n    def execute_request(self, trace_id: str):\n        self.trace_tree.append({\"service\": \"api-gateway\", \"span\": \"ingress\", \"parent\": None, \"latency_ms\": 2.1})\n        self.trace_tree.append({\"service\": \"auth-service\", \"span\": \"verify_jwt\", \"parent\": \"ingress\", \"latency_ms\": 5.4})\n        self.trace_tree.append({\"service\": \"billing-service\", \"span\": \"charge_card\", \"parent\": \"ingress\", \"latency_ms\": 42.8})\n        self.trace_tree.append({\"service\": \"postgres-db\", \"span\": \"INSERT orders\", \"parent\": \"charge_card\", \"latency_ms\": 8.3})\n        self.trace_tree.append({\"service\": \"inventory-service\", \"span\": \"verify_stock\", \"parent\": \"ingress\", \"latency_ms\": 12.4})\n\n        total_latency = sum(item[\"latency_ms\"] for item in self.trace_tree)\n        return total_latency\n\nsim = MultiServiceTraceSimulator()\ntotal_time = sim.execute_request(\"4bf92f3577b34da6a3ce929d0e0e4736\")\n\nprint(\"=== Multi-Service Distributed Trace Graph ===\")\nfor item in sim.trace_tree:\n    indent = \"  \" if item[\"parent\"] is None else (\"    \" if item[\"parent\"] == \"ingress\" else \"      \")\n    print(f\"{indent}[{item['service']}] {item['span']} ({item['latency_ms']}ms) -> parent: {item['parent']}\")\nprint(f\"Total Request Execution Latency: {total_time:.1f}ms\")\nprint(\"INVARIANT SATISFIED: Multi-service causality and latency bottlenecks identified with zero ambiguity.\")",
+            "checks": [
+              "[inventory-service] verify_stock (12.4ms) -> parent: ingress",
+              "Total Request Execution Latency: 71.0ms"
             ]
           }
         ]

@@ -2,1333 +2,1003 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 57,
-  "promptSha": "b49054e6311b0eb51a8148275a48e7e0fb4dbcd5141d50c2ad97d316765a5424",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Multimodal Document Parsing — Foundations & Mathematical Invariants",
-      "codeHash": "b384ea77e413902a8532bd68339e7acc7a4d36b9988d78c16525533291d857e4",
+      "partTitle": "Why Naive Stream PDF Text Extractors Scramble Two-Column Layouts",
+      "codeHash": "609d70edecee3852906052b5a9ba8398f8326440cb18cc052b4e386de1b4d74f",
       "spec": {
-        "template": "flow",
-        "title": "Multimodal Document Parsing — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Why Naive Stream PDF Text Extractors Scramble Two-Column Layouts",
+        "actors": [
+          "boxes",
+          "blocks",
+          "page_mid_x"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Extracting PDFs blindly using naive stream parsers slices **horizontally.",
+            "activeActor": "boxes",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "boxes",
+                "to": "blocks",
+                "label": {
+                  "var": "boxes",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "blocks",
+                "to": "page_mid_x",
+                "label": {
+                  "var": "blocks",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Layout-aware parsers rely instead on 2D **bounding boxes `[x0, y0, x1.",
+            "activeActor": "blocks",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "boxes",
+                "to": "blocks",
+                "label": {
+                  "var": "boxes",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "blocks",
+                "to": "page_mid_x",
+                "label": {
+                  "var": "blocks",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Trace sort_two_column_blocks() restoring natural human reading flow over.",
+            "activeActor": "page_mid_x",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "boxes",
+                "to": "blocks",
+                "label": {
+                  "var": "boxes",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "blocks",
+                "to": "page_mid_x",
+                "label": {
+                  "var": "blocks",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Multimodal Document Parsing — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
+        "template": "sequence",
+        "title": "Why Naive Stream PDF Text Extractors Scramble Two-Column Layouts",
+        "actors": [
+          "boxes",
+          "blocks",
+          "page_mid_x"
         ],
-        "edges": [
+        "steps": [
           {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
+            "at": "say1",
+            "caption": "Extracting PDFs blindly using naive stream parsers slices **horizontally.",
+            "messages": [
+              {
+                "from": "boxes",
+                "to": "blocks",
+                "label": "[['R1', 320, 100, 560, 130, 'Right col …",
+                "tone": "data"
+              },
+              {
+                "from": "blocks",
+                "to": "page_mid_x",
+                "label": "[['R1', 320, 100, 560, 130, 'Right col …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "boxes"
           },
           {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
+            "at": "say2",
+            "caption": "Layout-aware parsers rely instead on 2D **bounding boxes `[x0, y0, x1.",
+            "messages": [
+              {
+                "from": "boxes",
+                "to": "blocks",
+                "label": "[['R1', 320, 100, 560, 130, 'Right col …",
+                "tone": "data"
+              },
+              {
+                "from": "blocks",
+                "to": "page_mid_x",
+                "label": "[['R1', 320, 100, 560, 130, 'Right col …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "blocks"
           },
           {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "at": "say6",
+            "caption": "Trace sort_two_column_blocks() restoring natural human reading flow over.",
+            "messages": [
+              {
+                "from": "boxes",
+                "to": "blocks",
+                "label": "[['R1', 320, 100, 560, 130, 'Right col …",
+                "tone": "data"
+              },
+              {
+                "from": "blocks",
+                "to": "page_mid_x",
+                "label": "[['R1', 320, 100, 560, 130, 'Right col …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "page_mid_x"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Serializing Nested & Merged Tables for High-Accuracy Retrieval",
+      "codeHash": "ad47aa948fb25e03dfae5dd340157eed3daf525f0abafe3efd6537abf16a0f04",
+      "spec": {
+        "template": "boxes",
+        "title": "Serializing Nested & Merged Tables for High-Accuracy Retrieval",
+        "boxes": [
+          {
+            "id": "hdr",
+            "label": "hdr"
+          },
+          {
+            "id": "data",
+            "label": "data"
+          },
+          {
+            "id": "headers",
+            "label": "headers"
+          },
+          {
+            "id": "rows",
+            "label": "rows"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "at": "say1",
+            "caption": "Dumping dense numeric grid tables into flat space-separated text destroys.",
+            "values": {
+              "hdr": {
+                "var": "hdr",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "data": {
+                "var": "data",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "headers": {
+                "var": "headers",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "rows": {
+                "var": "rows",
+                "line": 2,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "hdr": "data",
+              "data": "data",
+              "headers": "data",
+              "rows": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Preserve rigid tabular topology natively by serializing grids cleanly.",
+            "values": {
+              "hdr": {
+                "var": "hdr",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "data": {
+                "var": "data",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "headers": {
+                "var": "headers",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "rows": {
+                "var": "rows",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "hdr": "data",
+              "data": "data",
+              "headers": "data",
+              "rows": "data"
+            }
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "caption": "Inspect serialize_table_rows() repeating headers cleanly.",
+            "values": {
+              "hdr": {
+                "var": "hdr",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "data": {
+                "var": "data",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "headers": {
+                "var": "headers",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "rows": {
+                "var": "rows",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "hdr": "ok",
+              "data": "ok",
+              "headers": "ok",
+              "rows": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Serializing Nested & Merged Tables for High-Accuracy Retrieval",
+        "boxes": [
+          {
+            "id": "hdr",
+            "label": "hdr"
+          },
+          {
+            "id": "data",
+            "label": "data"
+          },
+          {
+            "id": "headers",
+            "label": "headers"
+          },
+          {
+            "id": "rows",
+            "label": "rows"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Dumping dense numeric grid tables into flat space-separated text destroys.",
+            "values": {
+              "hdr": "['Metric', '2024', '2025']",
+              "data": "[['Revenue', 120, 150], ['COGS', 80, 95…",
+              "headers": "['Metric', '2024', '2025']",
+              "rows": "[['Revenue', 120, 150], ['COGS', 80, 95…"
+            },
+            "tones": {
+              "hdr": "data",
+              "data": "data",
+              "headers": "data",
+              "rows": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Preserve rigid tabular topology natively by serializing grids cleanly.",
+            "values": {
+              "hdr": "['Metric', '2024', '2025']",
+              "data": "[['Revenue', 120, 150], ['COGS', 80, 95…",
+              "headers": "['Metric', '2024', '2025']",
+              "rows": "[['Revenue', 120, 150], ['COGS', 80, 95…"
+            },
+            "tones": {
+              "hdr": "data",
+              "data": "data",
+              "headers": "data",
+              "rows": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect serialize_table_rows() repeating headers cleanly.",
+            "values": {
+              "hdr": "['Metric', '2024', '2025']",
+              "data": "[['Revenue', 120, 150], ['COGS', 80, 95…",
+              "headers": "['Metric', '2024', '2025']",
+              "rows": "[['Revenue', 120, 150], ['COGS', 80, 95…"
+            },
+            "tones": {
+              "hdr": "ok",
+              "data": "ok",
+              "headers": "ok",
+              "rows": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Filtering Running Headers, Footers & Watermarks Before Chunking",
+      "codeHash": "d849997d1df73b4cae9be3988f41aa417017dac04c8e505a2d72bff11e5f5fb3",
+      "spec": {
+        "template": "boxes",
+        "title": "Filtering Running Headers, Footers & Watermarks Before Chunking",
+        "boxes": [
+          {
+            "id": "doc_pages",
+            "label": "doc_pages"
+          },
+          {
+            "id": "pages",
+            "label": "pages"
+          },
+          {
+            "id": "top_y",
+            "label": "top_y"
+          },
+          {
+            "id": "bot_y",
+            "label": "bot_y"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Every corporate PDF embeds repeating boilerplate stamped vertically along.",
+            "values": {
+              "doc_pages": {
+                "var": "doc_pages",
+                "line": 20,
+                "hit": 1
+              },
+              "pages": {
+                "var": "pages",
+                "line": 4,
+                "hit": 1
+              },
+              "top_y": {
+                "var": "top_y",
+                "line": 4,
+                "hit": 1
+              },
+              "bot_y": {
+                "var": "bot_y",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "doc_pages": "data",
+              "pages": "data",
+              "top_y": "data",
+              "bot_y": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Indexing unstripped margins poisons RAG retrieval doubly.",
+            "values": {
+              "doc_pages": {
+                "var": "doc_pages",
+                "line": 24,
+                "hit": 1
+              },
+              "pages": {
+                "var": "pages",
+                "line": 5,
+                "hit": 1
+              },
+              "top_y": {
+                "var": "top_y",
+                "line": 5,
+                "hit": 1
+              },
+              "bot_y": {
+                "var": "bot_y",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "doc_pages": "data",
+              "pages": "data",
+              "top_y": "data",
+              "bot_y": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect strip_boilerplate_bands() sanitizing repeating page stamps cleanly.",
+            "values": {
+              "doc_pages": {
+                "var": "doc_pages",
+                "line": 24,
+                "hit": 1
+              },
+              "pages": {
+                "var": "pages",
+                "line": 6,
+                "hit": 1
+              },
+              "top_y": {
+                "var": "top_y",
+                "line": 6,
+                "hit": 1
+              },
+              "bot_y": {
+                "var": "bot_y",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "doc_pages": "ok",
+              "pages": "ok",
+              "top_y": "ok",
+              "bot_y": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Filtering Running Headers, Footers & Watermarks Before Chunking",
+        "boxes": [
+          {
+            "id": "doc_pages",
+            "label": "doc_pages"
+          },
+          {
+            "id": "pages",
+            "label": "pages"
+          },
+          {
+            "id": "top_y",
+            "label": "top_y"
+          },
+          {
+            "id": "bot_y",
+            "label": "bot_y"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Every corporate PDF embeds repeating boilerplate stamped vertically along.",
+            "values": {
+              "doc_pages": "[[{'y': 30, 'text': 'ACME CONFIDENTIAL'…",
+              "pages": "[[{'y': 30, 'text': 'ACME CONFIDENTIAL'…",
+              "top_y": "60",
+              "bot_y": "740"
+            },
+            "tones": {
+              "doc_pages": "data",
+              "pages": "data",
+              "top_y": "data",
+              "bot_y": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Indexing unstripped margins poisons RAG retrieval doubly.",
+            "values": {
+              "doc_pages": "[[{'y': 30, 'text': 'ACME CONFIDENTIAL'…",
+              "pages": "[[{'y': 30, 'text': 'ACME CONFIDENTIAL'…",
+              "top_y": "60",
+              "bot_y": "740"
+            },
+            "tones": {
+              "doc_pages": "data",
+              "pages": "data",
+              "top_y": "data",
+              "bot_y": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect strip_boilerplate_bands() sanitizing repeating page stamps cleanly.",
+            "values": {
+              "doc_pages": "[[{'y': 30, 'text': 'ACME CONFIDENTIAL'…",
+              "pages": "[[{'y': 30, 'text': 'ACME CONFIDENTIAL'…",
+              "top_y": "60",
+              "bot_y": "740"
+            },
+            "tones": {
+              "doc_pages": "ok",
+              "pages": "ok",
+              "top_y": "ok",
+              "bot_y": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Routing Ambiguous Scans Using OCR Confidence Thresholds",
+      "codeHash": "32a55d0036edcf0b36b294446212cc081ca284ec46b12aa12cc61f909c9b58cf",
+      "spec": {
+        "template": "flow",
+        "title": "Routing Ambiguous Scans Using OCR Confidence Thresholds",
+        "nodes": [
+          {
+            "id": "samples",
+            "label": "samples"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "block",
+            "label": "block"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Scanned legacy contracts, blurry smartphone receipts, and handwritten.",
+            "values": {
+              "samples": {
+                "var": "samples",
+                "line": 8,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 13,
+                "hit": 1
+              },
+              "block": {
+                "var": "block",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "samples": "data",
+              "s": "data",
+              "block": "data"
+            },
+            "arrows": [
+              [
+                "samples",
+                "s"
+              ],
+              [
+                "s",
+                "block"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how reading updates blurry during execution.",
+            "values": {
+              "samples": {
+                "var": "samples",
+                "line": 13,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 14,
+                "hit": 1
+              },
+              "block": {
+                "var": "block",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "samples": "data",
+              "s": "data",
+              "block": "data"
+            },
+            "arrows": [
+              [
+                "samples",
+                "s"
+              ],
+              [
+                "s",
+                "block"
+              ]
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Trace route_page_parser() assigning cost-optimal text vs vision paths.",
+            "values": {
+              "samples": {
+                "var": "samples",
+                "line": 14,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 13,
+                "hit": 2
+              },
+              "block": {
+                "var": "block",
+                "line": 2,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "samples": "ok",
+              "s": "ok",
+              "block": "ok"
+            },
+            "arrows": [
+              [
+                "samples",
+                "s"
+              ],
+              [
+                "s",
+                "block"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Routing Ambiguous Scans Using OCR Confidence Thresholds",
+        "nodes": [
+          {
+            "id": "samples",
+            "label": "samples"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "block",
+            "label": "block"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Scanned legacy contracts, blurry smartphone receipts, and handwritten.",
+            "values": {
+              "samples": "[{'has_native_text': True, 'is_complex_…",
+              "s": "{'has_native_text': True, 'is_complex_c…",
+              "block": "{'has_native_text': True, 'is_complex_c…"
+            },
+            "tones": {
+              "samples": "data",
+              "s": "data",
+              "block": "data"
+            },
+            "arrows": [
+              [
+                "samples",
+                "s"
+              ],
+              [
+                "s",
+                "block"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how reading updates blurry during execution.",
+            "values": {
+              "samples": "[{'has_native_text': True, 'is_complex_…",
+              "s": "{'has_native_text': True, 'is_complex_c…",
+              "block": "{'has_native_text': True, 'is_complex_c…"
+            },
+            "tones": {
+              "samples": "data",
+              "s": "data",
+              "block": "data"
+            },
+            "arrows": [
+              [
+                "samples",
+                "s"
+              ],
+              [
+                "s",
+                "block"
+              ]
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Trace route_page_parser() assigning cost-optimal text vs vision paths.",
+            "values": {
+              "samples": "[{'has_native_text': True, 'is_complex_…",
+              "s": "{'has_native_text': False, 'is_complex_…",
+              "block": "{'has_native_text': False, 'is_complex_…"
+            },
+            "tones": {
+              "samples": "ok",
+              "s": "ok",
+              "block": "ok"
+            },
+            "arrows": [
+              [
+                "samples",
+                "s"
+              ],
+              [
+                "s",
+                "block"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Multimodal Document Parsing — Core Algorithm & State Representation",
-      "codeHash": "e1679e41e9d84757ce8d7c360df9f9192ec060cb704abc21f8a66b146d55265e",
+      "partTitle": "Multimodal Visual Provenance: Linking Text Chunks to Page Coordinates",
+      "codeHash": "d4ba8cb44979129242fe7fafc9bb7418d0486074f56517a5c55363c59363f784",
       "spec": {
-        "template": "flow",
-        "title": "Multimodal Document Parsing — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Multimodal Visual Provenance: Linking Text Chunks to Page Coordi",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how analyst updates sees during execution.",
+            "bars": [
+              {
+                "label": "x0",
+                "value": {
+                  "var": "x0",
+                  "line": 4,
+                  "hit": 4
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y0",
+                "value": {
+                  "var": "y0",
+                  "line": 5,
+                  "hit": 4
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x1",
+                "value": {
+                  "var": "x1",
+                  "line": 6,
+                  "hit": 4
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y1",
+                "value": {
+                  "var": "y1",
+                  "line": 7,
+                  "hit": 4
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Storing structured **Spatial Provenance Metadata** (`doc_id`, `page_num`.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "x0",
+                "value": {
+                  "var": "x0",
+                  "line": 5,
+                  "hit": 4
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "y0",
+                "value": {
+                  "var": "y0",
+                  "line": 6,
+                  "hit": 4
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "x1",
+                "value": {
+                  "var": "x1",
+                  "line": 7,
+                  "hit": 4
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "y1",
+                "value": {
+                  "var": "y1",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Run merge_provenance_bbox() unifying stitched multi-block paragraphs.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "x0",
+                "value": {
+                  "var": "x0",
+                  "line": 6,
+                  "hit": 4
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "y0",
+                "value": {
+                  "var": "y0",
+                  "line": 7,
+                  "hit": 4
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "x1",
+                "value": {
+                  "var": "x1",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "y1",
+                "value": {
+                  "var": "y1",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Multimodal Document Parsing — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Multimodal Visual Provenance: Linking Text Chunks to Page Coordi",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Trace how analyst updates sees during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "x0",
+                "value": 40,
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "y0",
+                "value": 120,
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "x1",
+                "value": 310,
+                "tone": "data"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "y1",
+                "value": 175,
+                "tone": "data"
               }
             ]
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Multimodal Document Parsing — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "c40e432e3bf3fab6d9a8bc83637932eac1db7159df5c3e4941a4e8d88f5632b3",
-      "spec": {
-        "template": "flow",
-        "title": "Multimodal Document Parsing — Throughput Optimization & Edge-Case Hand",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Storing structured **Spatial Provenance Metadata** (`doc_id`, `page_num`.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "x0",
+                "value": 40,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "y0",
+                "value": 120,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "x1",
+                "value": 310,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "y1",
+                "value": 175,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Run merge_provenance_bbox() unifying stitched multi-block paragraphs.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "x0",
+                "value": 40,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "y0",
+                "value": 120,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "x1",
+                "value": 310,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Multimodal Document Parsing — Throughput Optimization & Edge-Case Hand",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Multimodal Document Parsing — Resilience Guardrails & Failure Recovery",
-      "codeHash": "7bc1512cf9691a1bc9d45d647680a5a4dc12c78f6b1cdabf2e0415653e1cf618",
-      "spec": {
-        "template": "flow",
-        "title": "Multimodal Document Parsing — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Multimodal Document Parsing — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Multimodal Document Parsing — Production Telemetry & Verification Audit",
-      "codeHash": "5ed4c02af2b7f993189351ab48322578402f68a7fc6e836825b689f83ecae2a4",
-      "spec": {
-        "template": "flow",
-        "title": "Multimodal Document Parsing — Production Telemetry & Verification Audi",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Multimodal Document Parsing — Production Telemetry & Verification Audi",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "y1",
+                "value": 175,
+                "tone": "ok"
               }
             ]
           }

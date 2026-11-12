@@ -2,172 +2,228 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 11,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Functions without servers",
       "codeHash": "7fd0e5758506a4125daf595c132f59dfa97b43c24a752d1fc014b607c421731e",
       "spec": {
-        "template": "table",
-        "title": "Serverless event request handling and structured response attributes",
-        "columns": [
-          "field",
-          "value"
+        "template": "flow",
+        "title": "Functions without servers",
+        "nodes": [
+          {
+            "id": "event",
+            "label": "event"
+          },
+          {
+            "id": "context",
+            "label": "context"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "AWS Lambda runs code in response to events without managing a server.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "queryStringParameters"
-                  },
-                  {
-                    "text": "Asha"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "AWS Lambda runs your code in response to events.",
+            "values": {
+              "event": {
+                "var": "event",
+                "line": 4,
+                "hit": 1
+              },
+              "context": {
+                "var": "context",
+                "line": 4,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "event": "data",
+              "context": "data",
+              "name": "data"
+            },
+            "arrows": [
+              [
+                "event",
+                "context"
+              ],
+              [
+                "context",
+                "name"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Lambda scales automatically by starting parallel copies of your function.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "queryStringParameters"
-                  },
-                  {
-                    "text": "Asha"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "You pay only while your code runs, measured in milliseconds, plus a small.",
+            "values": {
+              "event": {
+                "var": "event",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "statusCode"
-                  },
-                  {
-                    "text": "200"
-                  }
-                ],
-                "tone": "ok"
+              "context": {
+                "var": "context",
+                "line": 5,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "event": "data",
+              "context": "data",
+              "name": "data"
+            },
+            "arrows": [
+              [
+                "event",
+                "context"
+              ],
+              [
+                "context",
+                "name"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example shows the shape of a Python Lambda function and invocations.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "queryStringParameters"
-                  },
-                  {
-                    "text": "Asha"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example shows the shape of a Python Lambda function and calls it.",
+            "values": {
+              "event": {
+                "var": "event",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "statusCode"
-                  },
-                  {
-                    "text": "200"
-                  }
-                ],
-                "tone": "ok"
+              "context": {
+                "var": "context",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "queryStringParameters"
-                  },
-                  {
-                    "text": "world"
-                  }
-                ],
-                "tone": "data"
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 2
               }
+            },
+            "tones": {
+              "event": "ok",
+              "context": "ok",
+              "name": "ok"
+            },
+            "arrows": [
+              [
+                "event",
+                "context"
+              ],
+              [
+                "context",
+                "name"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Serverless event request handling and structured response attributes",
-        "columns": [
-          "field",
-          "value"
+        "template": "flow",
+        "title": "Functions without servers",
+        "nodes": [
+          {
+            "id": "event",
+            "label": "event"
+          },
+          {
+            "id": "context",
+            "label": "context"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "AWS Lambda runs code in response to events without managing a server.",
-            "rows": [
-              {
-                "cells": [
-                  "queryStringParameters",
-                  "Asha"
-                ],
-                "tone": "ok"
-              }
+            "caption": "AWS Lambda runs your code in response to events.",
+            "values": {
+              "event": "{'queryStringParameters': {'name': 'Ash…",
+              "context": "None",
+              "name": "'Asha'"
+            },
+            "tones": {
+              "event": "data",
+              "context": "data",
+              "name": "data"
+            },
+            "arrows": [
+              [
+                "event",
+                "context"
+              ],
+              [
+                "context",
+                "name"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Lambda scales automatically by starting parallel copies of your function.",
-            "rows": [
-              {
-                "cells": [
-                  "queryStringParameters",
-                  "Asha"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "statusCode",
-                  "200"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "You pay only while your code runs, measured in milliseconds, plus a small.",
+            "values": {
+              "event": "{'queryStringParameters': {'name': 'Ash…",
+              "context": "None",
+              "name": "'Asha'"
+            },
+            "tones": {
+              "event": "data",
+              "context": "data",
+              "name": "data"
+            },
+            "arrows": [
+              [
+                "event",
+                "context"
+              ],
+              [
+                "context",
+                "name"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example shows the shape of a Python Lambda function and invocations.",
-            "rows": [
-              {
-                "cells": [
-                  "queryStringParameters",
-                  "Asha"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "statusCode",
-                  "200"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "queryStringParameters",
-                  "world"
-                ],
-                "tone": "data"
-              }
+            "caption": "The example shows the shape of a Python Lambda function and calls it.",
+            "values": {
+              "event": "{}",
+              "context": "None",
+              "name": "'world'"
+            },
+            "tones": {
+              "event": "ok",
+              "context": "ok",
+              "name": "ok"
+            },
+            "arrows": [
+              [
+                "event",
+                "context"
+              ],
+              [
+                "context",
+                "name"
+              ]
             ]
           }
         ]
@@ -177,183 +233,277 @@
       "partTitle": "How Lambda is priced",
       "codeHash": "313d74d8eb84c1211369938586ad04540e62fc0e31cec039a65bea4e497e9284",
       "spec": {
-        "template": "table",
-        "title": "Lambda invocation duration and memory allocation pricing dimensions",
-        "columns": [
-          "memory_mb",
-          "duration_ms"
+        "template": "flow",
+        "title": "How Lambda is priced",
+        "nodes": [
+          {
+            "id": "memory",
+            "label": "memory"
+          },
+          {
+            "id": "duration",
+            "label": "duration"
+          },
+          {
+            "id": "invocations",
+            "label": "invocations"
+          },
+          {
+            "id": "duration_ms",
+            "label": "duration_ms"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Lambda charges for compute in gigabyte seconds based on configured memory.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "128"
-                  },
-                  {
-                    "text": "1600"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Lambda charges for compute in gigabyte-seconds.",
+            "values": {
+              "memory": {
+                "var": "memory",
+                "line": 5,
+                "hit": 1
+              },
+              "duration": {
+                "var": "duration",
+                "line": 5,
+                "hit": 1
+              },
+              "invocations": {
+                "var": "invocations",
+                "line": 2,
+                "hit": 1
+              },
+              "duration_ms": {
+                "var": "duration_ms",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "memory": "data",
+              "duration": "data",
+              "invocations": "data",
+              "duration_ms": "data"
+            },
+            "arrows": [
+              [
+                "memory",
+                "duration"
+              ],
+              [
+                "duration",
+                "invocations"
+              ],
+              [
+                "invocations",
+                "duration_ms"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "More memory provides additional CPU allowing functions to finish faster.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "128"
-                  },
-                  {
-                    "text": "1600"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Trace how function updates runs during execution.",
+            "values": {
+              "memory": {
+                "var": "memory",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "512"
-                  },
-                  {
-                    "text": "400"
-                  }
-                ],
-                "tone": "ok"
+              "duration": {
+                "var": "duration",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "1024"
-                  },
-                  {
-                    "text": "210"
-                  }
-                ],
-                "tone": "ok"
+              "invocations": {
+                "var": "invocations",
+                "line": 3,
+                "hit": 1
+              },
+              "duration_ms": {
+                "var": "duration_ms",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "memory": "data",
+              "duration": "data",
+              "invocations": "data",
+              "duration_ms": "data"
+            },
+            "arrows": [
+              [
+                "memory",
+                "duration"
+              ],
+              [
+                "duration",
+                "invocations"
+              ],
+              [
+                "invocations",
+                "duration_ms"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example evaluates cost tradeoffs across different memory allocations.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "128"
-                  },
-                  {
-                    "text": "1600"
-                  }
-                ],
-                "tone": "data"
+            "caption": "The example prices a million calls at three memory sizes where.",
+            "values": {
+              "memory": {
+                "var": "memory",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "512"
-                  },
-                  {
-                    "text": "400"
-                  }
-                ],
-                "tone": "ok"
+              "duration": {
+                "var": "duration",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "1024"
-                  },
-                  {
-                    "text": "210"
-                  }
-                ],
-                "tone": "ok"
+              "invocations": {
+                "var": "invocations",
+                "line": 2,
+                "hit": 2
+              },
+              "duration_ms": {
+                "var": "duration_ms",
+                "line": 2,
+                "hit": 2
               }
+            },
+            "tones": {
+              "memory": "ok",
+              "duration": "ok",
+              "invocations": "ok",
+              "duration_ms": "ok"
+            },
+            "arrows": [
+              [
+                "memory",
+                "duration"
+              ],
+              [
+                "duration",
+                "invocations"
+              ],
+              [
+                "invocations",
+                "duration_ms"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Lambda invocation duration and memory allocation pricing dimensions",
-        "columns": [
-          "memory_mb",
-          "duration_ms"
+        "template": "flow",
+        "title": "How Lambda is priced",
+        "nodes": [
+          {
+            "id": "memory",
+            "label": "memory"
+          },
+          {
+            "id": "duration",
+            "label": "duration"
+          },
+          {
+            "id": "invocations",
+            "label": "invocations"
+          },
+          {
+            "id": "duration_ms",
+            "label": "duration_ms"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Lambda charges for compute in gigabyte seconds based on configured memory.",
-            "rows": [
-              {
-                "cells": [
-                  "128",
-                  "1600"
-                ],
-                "tone": "data"
-              }
+            "caption": "Lambda charges for compute in gigabyte-seconds.",
+            "values": {
+              "memory": "128",
+              "duration": "1600",
+              "invocations": "1000000",
+              "duration_ms": "1600"
+            },
+            "tones": {
+              "memory": "data",
+              "duration": "data",
+              "invocations": "data",
+              "duration_ms": "data"
+            },
+            "arrows": [
+              [
+                "memory",
+                "duration"
+              ],
+              [
+                "duration",
+                "invocations"
+              ],
+              [
+                "invocations",
+                "duration_ms"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "More memory provides additional CPU allowing functions to finish faster.",
-            "rows": [
-              {
-                "cells": [
-                  "128",
-                  "1600"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "512",
-                  "400"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "1024",
-                  "210"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Trace how function updates runs during execution.",
+            "values": {
+              "memory": "128",
+              "duration": "1600",
+              "invocations": "1000000",
+              "duration_ms": "1600"
+            },
+            "tones": {
+              "memory": "data",
+              "duration": "data",
+              "invocations": "data",
+              "duration_ms": "data"
+            },
+            "arrows": [
+              [
+                "memory",
+                "duration"
+              ],
+              [
+                "duration",
+                "invocations"
+              ],
+              [
+                "invocations",
+                "duration_ms"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example evaluates cost tradeoffs across different memory allocations.",
-            "rows": [
-              {
-                "cells": [
-                  "128",
-                  "1600"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "512",
-                  "400"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "1024",
-                  "210"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The example prices a million calls at three memory sizes where.",
+            "values": {
+              "memory": "128",
+              "duration": "1600",
+              "invocations": "1000000",
+              "duration_ms": "400"
+            },
+            "tones": {
+              "memory": "ok",
+              "duration": "ok",
+              "invocations": "ok",
+              "duration_ms": "ok"
+            },
+            "arrows": [
+              [
+                "memory",
+                "duration"
+              ],
+              [
+                "duration",
+                "invocations"
+              ],
+              [
+                "invocations",
+                "duration_ms"
+              ]
             ]
           }
         ]
@@ -363,93 +513,91 @@
       "partTitle": "Cold starts and warm starts",
       "codeHash": "5f36bd46ef396966a816052466e4bfe6195a7851b8e9d53ce7344582acb2dc34",
       "spec": {
-        "template": "table",
-        "title": "Lambda execution environment lifecycle states across sequential calls",
-        "columns": [
-          "environment",
-          "state"
+        "template": "sequence",
+        "title": "Cold starts and warm starts",
+        "actors": [
+          "environments",
+          "env",
+          "e1"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A cold start initializes the execution environment and runtime dependencies.",
-            "rows": [
+            "caption": "When Lambda has no ready copy of your function, it must create one.",
+            "activeActor": "environments",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "connected"
-                  },
-                  {
-                    "text": "cold"
-                  }
-                ],
+                "from": "environments",
+                "to": "env",
+                "label": {
+                  "var": "environments",
+                  "line": 1,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "env",
+                "to": "e1",
+                "label": {
+                  "var": "env",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Warm starts reuse initialized environments to handle invocations quickly.",
-            "rows": [
+            "caption": "After that, the environment stays around for a while and handles further.",
+            "activeActor": "env",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "connected"
-                  },
-                  {
-                    "text": "cold"
-                  }
-                ],
+                "from": "environments",
+                "to": "env",
+                "label": {
+                  "var": "environments",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "connected"
-                  },
-                  {
-                    "text": "warm"
-                  }
-                ],
+                "from": "env",
+                "to": "e1",
+                "label": {
+                  "var": "env",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example simulates handler execution reusing environment connections.",
-            "rows": [
+            "at": "say7",
+            "caption": "For most background work, cold starts do not matter.",
+            "activeActor": "e1",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "connected"
-                  },
-                  {
-                    "text": "cold"
-                  }
-                ],
+                "from": "environments",
+                "to": "env",
+                "label": {
+                  "var": "environments",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "connected"
-                  },
-                  {
-                    "text": "warm"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "connected"
-                  },
-                  {
-                    "text": "warm"
-                  }
-                ],
+                "from": "env",
+                "to": "e1",
+                "label": {
+                  "var": "env",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -457,72 +605,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Lambda execution environment lifecycle states across sequential calls",
-        "columns": [
-          "environment",
-          "state"
+        "template": "sequence",
+        "title": "Cold starts and warm starts",
+        "actors": [
+          "environments",
+          "env",
+          "e1"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A cold start initializes the execution environment and runtime dependencies.",
-            "rows": [
+            "caption": "When Lambda has no ready copy of your function, it must create one.",
+            "messages": [
               {
-                "cells": [
-                  "connected",
-                  "cold"
-                ],
+                "from": "environments",
+                "to": "env",
+                "label": "[]",
                 "tone": "data"
+              },
+              {
+                "from": "env",
+                "to": "e1",
+                "label": "{'id': 1, 'db': 'connected', 'calls': 0}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "environments"
           },
           {
             "at": "say2",
-            "caption": "Warm starts reuse initialized environments to handle invocations quickly.",
-            "rows": [
+            "caption": "After that, the environment stays around for a while and handles further.",
+            "messages": [
               {
-                "cells": [
-                  "connected",
-                  "cold"
-                ],
+                "from": "environments",
+                "to": "env",
+                "label": "[]",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "connected",
-                  "warm"
-                ],
+                "from": "env",
+                "to": "e1",
+                "label": "{'id': 1, 'db': 'connected', 'calls': 0}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "env"
           },
           {
-            "at": "say6",
-            "caption": "The example simulates handler execution reusing environment connections.",
-            "rows": [
+            "at": "say7",
+            "caption": "For most background work, cold starts do not matter.",
+            "messages": [
               {
-                "cells": [
-                  "connected",
-                  "cold"
-                ],
+                "from": "environments",
+                "to": "env",
+                "label": "[]",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "connected",
-                  "warm"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "connected",
-                  "warm"
-                ],
+                "from": "env",
+                "to": "e1",
+                "label": "{'id': 1, 'db': 'connected', 'calls': 0}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "e1"
           }
         ]
       }
@@ -531,166 +677,106 @@
       "partTitle": "Concurrency",
       "codeHash": "a98e5f374add95804e98de674a981d9848054739e1668b410d6104bf501ff1eb",
       "spec": {
-        "template": "table",
-        "title": "Estimated concurrent function demand against regional concurrency limits",
-        "columns": [
-          "workload",
-          "status"
+        "template": "states",
+        "title": "Concurrency",
+        "states": [
+          {
+            "id": "LIMIT",
+            "label": "LIMIT"
+          },
+          {
+            "id": "workloads",
+            "label": "workloads"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Concurrency represents the number of function copies executing simultaneously.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "api"
-                  },
-                  {
-                    "text": "ok"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Concurrency is how many copies of your function run at the same moment.",
+            "currentState": "LIMIT",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Regional concurrency limits are shared across all functions in an account.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "api"
-                  },
-                  {
-                    "text": "ok"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "thumbnails"
-                  },
-                  {
-                    "text": "ok"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Trace how example updates calls during execution.",
+            "currentState": "workloads",
+            "transition": {
+              "from": "LIMIT",
+              "to": "workloads",
+              "label": {
+                "var": "workloads",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "The example estimates concurrency across workloads flagging throttled demand.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "api"
-                  },
-                  {
-                    "text": "ok"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "thumbnails"
-                  },
-                  {
-                    "text": "ok"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "black-friday api"
-                  },
-                  {
-                    "text": "THROTTLED"
-                  }
-                ],
-                "tone": "error"
+            "at": "say7",
+            "caption": "Remember the database lesson.",
+            "currentState": "name",
+            "transition": {
+              "from": "workloads",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 9,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Estimated concurrent function demand against regional concurrency limits",
-        "columns": [
-          "workload",
-          "status"
+        "template": "states",
+        "title": "Concurrency",
+        "states": [
+          {
+            "id": "LIMIT",
+            "label": "LIMIT"
+          },
+          {
+            "id": "workloads",
+            "label": "workloads"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Concurrency represents the number of function copies executing simultaneously.",
-            "rows": [
-              {
-                "cells": [
-                  "api",
-                  "ok"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Concurrency is how many copies of your function run at the same moment.",
+            "currentState": "LIMIT",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Regional concurrency limits are shared across all functions in an account.",
-            "rows": [
-              {
-                "cells": [
-                  "api",
-                  "ok"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "thumbnails",
-                  "ok"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Trace how example updates calls during execution.",
+            "currentState": "workloads",
+            "transition": {
+              "from": "LIMIT",
+              "to": "workloads",
+              "label": "{'api': [500, 0.2], 'thumbnails': [40, …"
+            },
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "The example estimates concurrency across workloads flagging throttled demand.",
-            "rows": [
-              {
-                "cells": [
-                  "api",
-                  "ok"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "thumbnails",
-                  "ok"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "black-friday api",
-                  "THROTTLED"
-                ],
-                "tone": "error"
-              }
-            ]
+            "at": "say7",
+            "caption": "Remember the database lesson.",
+            "currentState": "name",
+            "transition": {
+              "from": "workloads",
+              "to": "name",
+              "label": "'api'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -699,223 +785,133 @@
       "partTitle": "Fighting cold starts: SnapStart and provisioned concurrency",
       "codeHash": "c9ffde95ac16e9db9a323aaa71bfc5c0114cac33aaa5cd2502729dc8e7a59faf",
       "spec": {
-        "template": "flow",
-        "title": "Fighting cold starts: SnapStart and provision... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Fighting cold start...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Fighting cold starts: SnapStart and provisioned concurrency",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Fighting cold starts: SnapStart and prov.",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Fighting cold start... [Deleven.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "When cold starts hurt users, Lambda offers two main tools.",
+            "bars": [
+              {
+                "label": "cold",
+                "value": {
+                  "var": "cold",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cold_start_ms",
+                "value": {
+                  "var": "cold_start_ms",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "SnapStart takes a snapshot of an initialised environment and restores.",
+            "bars": [
+              {
+                "label": "cold",
+                "value": {
+                  "var": "cold",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cold_start_ms",
+                "value": {
+                  "var": "cold_start_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Fighting cold starts: SnapStart a.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example decides for a handful of functions.",
+            "bars": [
+              {
+                "label": "cold",
+                "value": {
+                  "var": "cold",
+                  "line": 10,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cold_start_ms",
+                "value": {
+                  "var": "cold_start_ms",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Fighting cold starts: SnapStart and provision... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Fighting cold start...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Fighting cold starts: SnapStart and provisioned concurrency",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Fighting cold starts: SnapStart and prov.. [D11.P5.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Fighting cold start... [D11.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "When cold starts hurt users, Lambda offers two main tools.",
+            "bars": [
+              {
+                "label": "cold",
+                "value": 2500,
+                "tone": "data"
+              },
+              {
+                "label": "cold_start_ms",
+                "value": 2500,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "SnapStart takes a snapshot of an initialised environment and restores.",
+            "bars": [
+              {
+                "label": "cold",
+                "value": 2500,
+                "tone": "ok"
+              },
+              {
+                "label": "cold_start_ms",
+                "value": 2500,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Fighting cold starts: SnapStart a.. [D11.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example decides for a handful of functions.",
+            "bars": [
+              {
+                "label": "cold",
+                "value": 900,
+                "tone": "ok"
+              },
+              {
+                "label": "cold_start_ms",
+                "value": 900,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -925,223 +921,217 @@
       "partTitle": "Practice time: cost and cold starts",
       "codeHash": "ed438ba42b5a3fae4a1e84f8626a2f9f755b01cae722ade04b0b2de7504e56aa",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: cost and cold starts — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: cost...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: cost and cold starts",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: cost and cold starts.",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: cost... [Deleven.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Lambda_cost(invocations, duration_ms, memory_mb).",
+            "bars": [
+              {
+                "label": "calls",
+                "value": {
+                  "var": "calls",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "ms",
+                "value": {
+                  "var": "ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mb",
+                "value": {
+                  "var": "mb",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "right",
+                "value": {
+                  "var": "right",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Round the total to 4 decimal places.",
+            "bars": [
+              {
+                "label": "calls",
+                "value": {
+                  "var": "calls",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ms",
+                "value": {
+                  "var": "ms",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mb",
+                "value": {
+                  "var": "mb",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "right",
+                "value": {
+                  "var": "right",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: cost and cold starts.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows how the 1000 versus 1024 mistake changes the answer.",
+            "bars": [
+              {
+                "label": "calls",
+                "value": {
+                  "var": "calls",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ms",
+                "value": {
+                  "var": "ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mb",
+                "value": {
+                  "var": "mb",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "right",
+                "value": {
+                  "var": "right",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: cost and cold starts — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: cost...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: cost and cold starts",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: cost and cold starts [D11.P6.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: cost... [D11.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Lambda_cost(invocations, duration_ms, memory_mb).",
+            "bars": [
+              {
+                "label": "calls",
+                "value": 1000000,
+                "tone": "data"
+              },
+              {
+                "label": "ms",
+                "value": 200,
+                "tone": "data"
+              },
+              {
+                "label": "mb",
+                "value": 512,
+                "tone": "data"
+              },
+              {
+                "label": "right",
+                "value": 1.86667,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Round the total to 4 decimal places.",
+            "bars": [
+              {
+                "label": "calls",
+                "value": 1000000,
+                "tone": "ok"
+              },
+              {
+                "label": "ms",
+                "value": 200,
+                "tone": "ok"
+              },
+              {
+                "label": "mb",
+                "value": 512,
+                "tone": "ok"
+              },
+              {
+                "label": "right",
+                "value": 1.86667,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: cost and cold starts [D11.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows how the 1000 versus 1024 mistake changes the answer.",
+            "bars": [
+              {
+                "label": "calls",
+                "value": 1000000,
+                "tone": "ok"
+              },
+              {
+                "label": "ms",
+                "value": 200,
+                "tone": "ok"
+              },
+              {
+                "label": "mb",
+                "value": 512,
+                "tone": "ok"
+              },
+              {
+                "label": "right",
+                "value": 1.86667,
+                "tone": "ok"
+              }
             ]
           }
         ]

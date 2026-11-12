@@ -2,231 +2,201 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 22,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why cache LLM answers",
       "codeHash": "486bb0627bdad1b49b695ef55f3776f20d301a169bbfc3222166250645ea078d",
       "spec": {
-        "template": "flow",
-        "title": "Why cache LLM answers — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Why cache LLM answers",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "calls_per_day",
+            "label": "calls_per_day"
           },
           {
-            "id": "proc",
-            "label": "2. Why cache LLM answers",
-            "tappable": true
+            "id": "cost_per_call",
+            "label": "cost_per_call"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "model_seconds",
+            "label": "model_seconds"
+          },
+          {
+            "id": "cache_seconds",
+            "label": "cache_seconds"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Why cache LLM answers [D.Pone.Sone].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Why cache LLM answers [D.Pone.Stwo].",
+            "caption": "In real products, many questions repeat.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "calls_per_day": {
+                "var": "calls_per_day",
+                "line": 1,
+                "hit": 1
+              },
+              "cost_per_call": {
+                "var": "cost_per_call",
+                "line": 2,
+                "hit": 1
+              },
+              "model_seconds": {
+                "var": "model_seconds",
+                "line": 3,
+                "hit": 1
+              },
+              "cache_seconds": {
+                "var": "cache_seconds",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "calls_per_day": "data",
+              "cost_per_call": "data",
+              "model_seconds": "data",
+              "cache_seconds": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
+            "at": "say2",
+            "caption": "A cache stores answers and returns them instantly when the same (or a very.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "calls_per_day": {
+                "var": "calls_per_day",
+                "line": 2,
+                "hit": 1
+              },
+              "cost_per_call": {
+                "var": "cost_per_call",
+                "line": 3,
+                "hit": 1
+              },
+              "model_seconds": {
+                "var": "model_seconds",
+                "line": 4,
+                "hit": 1
+              },
+              "cache_seconds": {
+                "var": "cache_seconds",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "calls_per_day": "data",
+              "cost_per_call": "data",
+              "model_seconds": "data",
+              "cache_seconds": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Why cache LLM answers [D.Pone.Sfour].",
+            "at": "say7",
+            "caption": "Caching also protects you during traffic spikes and provider outages.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "calls_per_day": {
+                "var": "calls_per_day",
+                "line": 3,
+                "hit": 1
+              },
+              "cost_per_call": {
+                "var": "cost_per_call",
+                "line": 4,
+                "hit": 1
+              },
+              "model_seconds": {
+                "var": "model_seconds",
+                "line": 5,
+                "hit": 1
+              },
+              "cache_seconds": {
+                "var": "cache_seconds",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "calls_per_day": "ok",
+              "cost_per_call": "ok",
+              "model_seconds": "ok",
+              "cache_seconds": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Why cache LLM answers — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Why cache LLM answers",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "calls_per_day",
+            "label": "calls_per_day"
           },
           {
-            "id": "proc",
-            "label": "2. Why cache LLM answers",
-            "tappable": true
+            "id": "cost_per_call",
+            "label": "cost_per_call"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "model_seconds",
+            "label": "model_seconds"
+          },
+          {
+            "id": "cache_seconds",
+            "label": "cache_seconds"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Why cache LLM answers [D22.P1.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Why cache LLM answers [D22.P1.S2].",
+            "caption": "In real products, many questions repeat.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "calls_per_day": "50000",
+              "cost_per_call": "0.004",
+              "model_seconds": "2.5",
+              "cache_seconds": "0.01"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "calls_per_day": "data",
+              "cost_per_call": "data",
+              "model_seconds": "data",
+              "cache_seconds": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P1.S3].",
+            "at": "say2",
+            "caption": "A cache stores answers and returns them instantly when the same (or a very.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "calls_per_day": "50000",
+              "cost_per_call": "0.004",
+              "model_seconds": "2.5",
+              "cache_seconds": "0.01"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "calls_per_day": "data",
+              "cost_per_call": "data",
+              "model_seconds": "data",
+              "cache_seconds": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Why cache LLM answers [D22.P1.S4].",
+            "at": "say7",
+            "caption": "Caching also protects you during traffic spikes and provider outages.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "calls_per_day": "50000",
+              "cost_per_call": "0.004",
+              "model_seconds": "2.5",
+              "cache_seconds": "0.01"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "calls_per_day": "ok",
+              "cost_per_call": "ok",
+              "model_seconds": "ok",
+              "cache_seconds": "ok"
+            }
           }
         ]
       }
@@ -235,192 +205,194 @@
       "partTitle": "Exact caching",
       "codeHash": "86fe10b865d1dd6b5fb3ab1a8587408ba505e0bdc61c2bc57bc5d832934355cf",
       "spec": {
-        "template": "table",
-        "title": "Normalized SHA-256 key generation for exact query caching",
-        "columns": [
-          "input_query",
-          "cache_status",
-          "cached_answer"
+        "template": "boxes",
+        "title": "Exact caching",
+        "boxes": [
+          {
+            "id": "cache",
+            "label": "cache"
+          },
+          {
+            "id": "question",
+            "label": "question"
+          },
+          {
+            "id": "model",
+            "label": "model"
+          },
+          {
+            "id": "prompt_version",
+            "label": "prompt_version"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An exact cache maps question to answer and never returns wrong match.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "  what are your OPENING hours? "
-                  },
-                  {
-                    "text": "What are your opening hours?"
-                  },
-                  {
-                    "text": "We are open 9 am to 9 pm."
-                  }
-                ],
-                "tone": "ok"
+            "caption": "An exact cache is a dict from question to answer.",
+            "values": {
+              "cache": {
+                "var": "cache",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "When do you open?"
-                  },
-                  {
-                    "text": "MISS"
-                  },
-                  {
-                    "text": "MISS"
-                  }
-                ],
-                "tone": "error"
+              "question": {
+                "var": "question",
+                "line": 5,
+                "hit": 1
+              },
+              "model": {
+                "var": "model",
+                "line": 5,
+                "hit": 1
+              },
+              "prompt_version": {
+                "var": "prompt_version",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "cache": "data",
+              "question": "data",
+              "model": "data",
+              "prompt_version": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Normalise the key first by trimming spaces so queries share entry.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "  what are your OPENING hours? "
-                  },
-                  {
-                    "text": "What are your opening hours?"
-                  },
-                  {
-                    "text": "We are open 9 am to 9 pm."
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Normalise the key first.",
+            "values": {
+              "cache": {
+                "var": "cache",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "When do you open?"
-                  },
-                  {
-                    "text": "MISS"
-                  },
-                  {
-                    "text": "MISS"
-                  }
-                ],
-                "tone": "error"
+              "question": {
+                "var": "question",
+                "line": 6,
+                "hit": 1
+              },
+              "model": {
+                "var": "model",
+                "line": 6,
+                "hit": 1
+              },
+              "prompt_version": {
+                "var": "prompt_version",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "cache": "data",
+              "question": "data",
+              "model": "data",
+              "prompt_version": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "Include model name and prompt version in the key.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "  what are your OPENING hours? "
-                  },
-                  {
-                    "text": "What are your opening hours?"
-                  },
-                  {
-                    "text": "We are open 9 am to 9 pm."
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Creative answers are meant to vary.",
+            "values": {
+              "cache": {
+                "var": "cache",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "When do you open?"
-                  },
-                  {
-                    "text": "MISS"
-                  },
-                  {
-                    "text": "MISS"
-                  }
-                ],
-                "tone": "error"
+              "question": {
+                "var": "question",
+                "line": 5,
+                "hit": 2
+              },
+              "model": {
+                "var": "model",
+                "line": 5,
+                "hit": 2
+              },
+              "prompt_version": {
+                "var": "prompt_version",
+                "line": 5,
+                "hit": 2
               }
-            ]
+            },
+            "tones": {
+              "cache": "ok",
+              "question": "ok",
+              "model": "ok",
+              "prompt_version": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Normalized SHA-256 key generation for exact query caching",
-        "columns": [
-          "input_query",
-          "cache_status",
-          "cached_answer"
+        "template": "boxes",
+        "title": "Exact caching",
+        "boxes": [
+          {
+            "id": "cache",
+            "label": "cache"
+          },
+          {
+            "id": "question",
+            "label": "question"
+          },
+          {
+            "id": "model",
+            "label": "model"
+          },
+          {
+            "id": "prompt_version",
+            "label": "prompt_version"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An exact cache maps question to answer and never returns wrong match.",
-            "rows": [
-              {
-                "cells": [
-                  "  what are your OPENING hours? ",
-                  "What are your opening hours?",
-                  "We are open 9 am to 9 pm."
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "When do you open?",
-                  "MISS",
-                  "MISS"
-                ],
-                "tone": "error"
-              }
-            ]
+            "caption": "An exact cache is a dict from question to answer.",
+            "values": {
+              "cache": "{}",
+              "question": "'What are your opening hours?'",
+              "model": "'small-v2'",
+              "prompt_version": "'3'"
+            },
+            "tones": {
+              "cache": "data",
+              "question": "data",
+              "model": "data",
+              "prompt_version": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Normalise the key first by trimming spaces so queries share entry.",
-            "rows": [
-              {
-                "cells": [
-                  "  what are your OPENING hours? ",
-                  "What are your opening hours?",
-                  "We are open 9 am to 9 pm."
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "When do you open?",
-                  "MISS",
-                  "MISS"
-                ],
-                "tone": "error"
-              }
-            ]
+            "caption": "Normalise the key first.",
+            "values": {
+              "cache": "{'8e4981247b1f1ff4': 'We are open 9 am …",
+              "question": "'What are your opening hours?'",
+              "model": "'small-v2'",
+              "prompt_version": "'3'"
+            },
+            "tones": {
+              "cache": "data",
+              "question": "data",
+              "model": "data",
+              "prompt_version": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "Include model name and prompt version in the key.",
-            "rows": [
-              {
-                "cells": [
-                  "  what are your OPENING hours? ",
-                  "What are your opening hours?",
-                  "We are open 9 am to 9 pm."
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "When do you open?",
-                  "MISS",
-                  "MISS"
-                ],
-                "tone": "error"
-              }
-            ]
+            "at": "say7",
+            "caption": "Creative answers are meant to vary.",
+            "values": {
+              "cache": "{'8e4981247b1f1ff4': 'We are open 9 am …",
+              "question": "'  what are your OPENING hours? '",
+              "model": "'small-v2'",
+              "prompt_version": "'3'"
+            },
+            "tones": {
+              "cache": "ok",
+              "question": "ok",
+              "model": "ok",
+              "prompt_version": "ok"
+            }
           }
         ]
       }
@@ -429,132 +401,278 @@
       "partTitle": "Semantic caching",
       "codeHash": "3af5997fb1a3c2edf622faa5942365bd194848bb92fc88a068fde1082064bcd3",
       "spec": {
-        "template": "compare",
-        "title": "Cosine similarity threshold impact on semantic cache retrieval",
-        "leftLabel": "Threshold 0.90",
-        "rightLabel": "Threshold 0.97",
+        "template": "flow",
+        "title": "Semantic caching",
+        "nodes": [
+          {
+            "id": "stored",
+            "label": "stored"
+          },
+          {
+            "id": "new_questions",
+            "label": "new_questions"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "emb",
+            "label": "emb"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A semantic cache compares cosine similarity with stored embeddings.",
-            "left": {
-              "code": "score >= 0.9 threshold match",
-              "result": {
-                "text": "9 am to 9 pm."
+            "caption": "A semantic cache stores each question's embedding with its answer.",
+            "values": {
+              "stored": {
+                "var": "stored",
+                "line": 6,
+                "hit": 2
               },
-              "tone": "ok"
+              "new_questions": {
+                "var": "new_questions",
+                "line": 8,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 9,
+                "hit": 1
+              },
+              "emb": {
+                "var": "emb",
+                "line": 9,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "score < 0.97 threshold miss",
-              "result": {
-                "text": "MISS"
-              },
-              "tone": "error"
-            }
+            "tones": {
+              "stored": "data",
+              "new_questions": "data",
+              "q": "data",
+              "emb": "data"
+            },
+            "arrows": [
+              [
+                "stored",
+                "new_questions"
+              ],
+              [
+                "new_questions",
+                "q"
+              ],
+              [
+                "q",
+                "emb"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "When match is above threshold return its answer.",
-            "left": {
-              "code": "When do you open? matches stored hours",
-              "result": {
-                "text": "9 am to 9 pm."
+            "caption": "\"When do you open.",
+            "values": {
+              "stored": {
+                "var": "stored",
+                "line": 8,
+                "hit": 1
               },
-              "tone": "ok"
+              "new_questions": {
+                "var": "new_questions",
+                "line": 9,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 10,
+                "hit": 3
+              },
+              "emb": {
+                "var": "emb",
+                "line": 10,
+                "hit": 3
+              }
             },
-            "right": {
-              "code": "stricter tolerance rejects marginal match",
-              "result": {
-                "text": "MISS"
-              },
-              "tone": "error"
-            }
+            "tones": {
+              "stored": "data",
+              "new_questions": "data",
+              "q": "data",
+              "emb": "data"
+            },
+            "arrows": [
+              [
+                "stored",
+                "new_questions"
+              ],
+              [
+                "new_questions",
+                "q"
+              ],
+              [
+                "q",
+                "emb"
+              ]
+            ]
           },
           {
-            "at": "say3",
-            "caption": "The threshold is critical so different questions do not share answers.",
-            "left": {
-              "code": "low threshold risk of spurious match",
-              "result": {
-                "text": "9 am to 9 pm."
+            "at": "say7",
+            "caption": "Embedding the new question costs a little, but far less than a full generation.",
+            "values": {
+              "stored": {
+                "var": "stored",
+                "line": 9,
+                "hit": 1
               },
-              "tone": "ok"
+              "new_questions": {
+                "var": "new_questions",
+                "line": 10,
+                "hit": 3
+              },
+              "q": {
+                "var": "q",
+                "line": 11,
+                "hit": 1
+              },
+              "emb": {
+                "var": "emb",
+                "line": 11,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "safe conservative miss triggers fresh call",
-              "result": {
-                "text": "MISS"
-              },
-              "tone": "error"
-            }
+            "tones": {
+              "stored": "ok",
+              "new_questions": "ok",
+              "q": "ok",
+              "emb": "ok"
+            },
+            "arrows": [
+              [
+                "stored",
+                "new_questions"
+              ],
+              [
+                "new_questions",
+                "q"
+              ],
+              [
+                "q",
+                "emb"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Cosine similarity threshold impact on semantic cache retrieval",
-        "leftLabel": "Threshold 0.90",
-        "rightLabel": "Threshold 0.97",
+        "template": "flow",
+        "title": "Semantic caching",
+        "nodes": [
+          {
+            "id": "stored",
+            "label": "stored"
+          },
+          {
+            "id": "new_questions",
+            "label": "new_questions"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "emb",
+            "label": "emb"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A semantic cache compares cosine similarity with stored embeddings.",
-            "left": {
-              "code": "score >= 0.9 threshold match",
-              "result": "9 am to 9 pm.",
-              "tone": "ok",
-              "checks": [
-                "9 am to 9 pm."
-              ]
+            "caption": "A semantic cache stores each question's embedding with its answer.",
+            "values": {
+              "stored": "[{'q': 'What are your opening hours?', …",
+              "new_questions": "{'When do you open?': [0.88, 0.15, 0.2]…",
+              "q": "'When do you open?'",
+              "emb": "[0.88, 0.15, 0.2]"
             },
-            "right": {
-              "code": "score < 0.97 threshold miss",
-              "result": "MISS",
-              "tone": "error",
-              "checks": [
-                "MISS"
+            "tones": {
+              "stored": "data",
+              "new_questions": "data",
+              "q": "data",
+              "emb": "data"
+            },
+            "arrows": [
+              [
+                "stored",
+                "new_questions"
+              ],
+              [
+                "new_questions",
+                "q"
+              ],
+              [
+                "q",
+                "emb"
               ]
-            }
+            ]
           },
           {
             "at": "say2",
-            "caption": "When match is above threshold return its answer.",
-            "left": {
-              "code": "When do you open? matches stored hours",
-              "result": "9 am to 9 pm.",
-              "tone": "ok",
-              "checks": [
-                "9 am to 9 pm."
-              ]
+            "caption": "\"When do you open.",
+            "values": {
+              "stored": "[{'q': 'What are your opening hours?', …",
+              "new_questions": "{'When do you open?': [0.88, 0.15, 0.2]…",
+              "q": "'When do you open?'",
+              "emb": "[0.88, 0.15, 0.2]"
             },
-            "right": {
-              "code": "stricter tolerance rejects marginal match",
-              "result": "MISS",
-              "tone": "error",
-              "checks": [
-                "MISS"
+            "tones": {
+              "stored": "data",
+              "new_questions": "data",
+              "q": "data",
+              "emb": "data"
+            },
+            "arrows": [
+              [
+                "stored",
+                "new_questions"
+              ],
+              [
+                "new_questions",
+                "q"
+              ],
+              [
+                "q",
+                "emb"
               ]
-            }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "The threshold is critical so different questions do not share answers.",
-            "left": {
-              "code": "low threshold risk of spurious match",
-              "result": "9 am to 9 pm.",
-              "tone": "ok",
-              "checks": [
-                "9 am to 9 pm."
-              ]
+            "at": "say7",
+            "caption": "Embedding the new question costs a little, but far less than a full generation.",
+            "values": {
+              "stored": "[{'q': 'What are your opening hours?', …",
+              "new_questions": "{'When do you open?': [0.88, 0.15, 0.2]…",
+              "q": "'When do you open?'",
+              "emb": "[0.88, 0.15, 0.2]"
             },
-            "right": {
-              "code": "safe conservative miss triggers fresh call",
-              "result": "MISS",
-              "tone": "error",
-              "checks": [
-                "MISS"
+            "tones": {
+              "stored": "ok",
+              "new_questions": "ok",
+              "q": "ok",
+              "emb": "ok"
+            },
+            "arrows": [
+              [
+                "stored",
+                "new_questions"
+              ],
+              [
+                "new_questions",
+                "q"
+              ],
+              [
+                "q",
+                "emb"
               ]
-            }
+            ]
           }
         ]
       }
@@ -563,157 +681,218 @@
       "partTitle": "Exact first, then semantic",
       "codeHash": "dd0b6a4c671a49bfe8fa2a7d0d0b1a715ed1afe19c04c4bd981bdf67311a2d9a",
       "spec": {
-        "template": "flow",
-        "title": "Two-tier cache lookup hierarchy routing exact then semantic queries",
-        "nodes": [
-          {
-            "id": "query",
-            "label": "query"
-          },
-          {
-            "id": "exact",
-            "label": "cached_response"
-          },
-          {
-            "id": "cosine",
-            "label": "cosine"
-          }
-        ],
-        "edges": [
-          {
-            "from": "query",
-            "to": "exact"
-          },
-          {
-            "from": "exact",
-            "to": "cosine"
-          }
-        ],
+        "template": "bars",
+        "title": "Exact first, then semantic",
         "steps": [
           {
             "at": "say1",
-            "caption": "Check exact cache first and if found return type EXACT.",
-            "values": {
-              "query": {
-                "text": "opening hours"
+            "caption": "Cached_response(query, embedding, store, threshold).",
+            "bars": [
+              {
+                "label": "threshold",
+                "value": {
+                  "var": "threshold",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "exact": {
-                "text": "EXACT"
+              {
+                "label": "na",
+                "value": {
+                  "var": "na",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "cosine": {
-                "text": "SEMANTIC"
+              {
+                "label": "nb",
+                "value": {
+                  "var": "nb",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               }
-            },
-            "tones": {
-              "query": "data",
-              "exact": "ok",
-              "cosine": "idle"
-            }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Look through semantic store and return first entry meeting threshold.",
-            "values": {
-              "query": {
-                "text": "opening hours"
+            "caption": "Otherwise look through store[\"semantic\"] and return the first entry whose.",
+            "bars": [
+              {
+                "label": "threshold",
+                "value": {
+                  "var": "threshold",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
-              "exact": {
-                "text": "EXACT"
+              {
+                "label": "na",
+                "value": {
+                  "var": "na",
+                  "line": 5,
+                  "hit": 4
+                },
+                "tone": "ok"
               },
-              "cosine": {
-                "text": "SEMANTIC"
+              {
+                "label": "nb",
+                "value": {
+                  "var": "nb",
+                  "line": 5,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "query": "data",
-              "exact": "idle",
-              "cosine": "ok"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Checking exact first is cheaper and always correct.",
-            "values": {
-              "query": {
-                "text": "opening hours"
+            "at": "say7",
+            "caption": "Trace how guard updates cosine during execution.",
+            "bars": [
+              {
+                "label": "threshold",
+                "value": {
+                  "var": "threshold",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
-              "exact": {
-                "text": "EXACT"
+              {
+                "label": "na",
+                "value": {
+                  "var": "na",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
-              "cosine": {
-                "text": "SEMANTIC"
+              {
+                "label": "nb",
+                "value": {
+                  "var": "nb",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "query": "ok",
-              "exact": "ok",
-              "cosine": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Two-tier cache lookup hierarchy routing exact then semantic queries",
-        "nodes": [
-          {
-            "id": "query",
-            "label": "query"
-          },
-          {
-            "id": "exact",
-            "label": "cached_response"
-          },
-          {
-            "id": "cosine",
-            "label": "cosine"
-          }
-        ],
+        "template": "bars",
+        "title": "Exact first, then semantic",
         "steps": [
           {
             "at": "say1",
-            "caption": "Check exact cache first and if found return type EXACT.",
-            "values": {
-              "query": "opening hours",
-              "exact": "EXACT",
-              "cosine": "SEMANTIC"
-            },
-            "tones": {
-              "query": "data",
-              "exact": "ok",
-              "cosine": "idle"
-            },
-            "arrows": []
+            "caption": "Cached_response(query, embedding, store, threshold).",
+            "bars": [
+              {
+                "label": "threshold",
+                "value": 0.95,
+                "tone": "data"
+              },
+              {
+                "label": "na",
+                "value": 0.9912618221237011,
+                "tone": "data"
+              },
+              {
+                "label": "nb",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 0.99,
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Look through semantic store and return first entry meeting threshold.",
-            "values": {
-              "query": "opening hours",
-              "exact": "EXACT",
-              "cosine": "SEMANTIC"
-            },
-            "tones": {
-              "query": "data",
-              "exact": "idle",
-              "cosine": "ok"
-            },
-            "arrows": []
+            "caption": "Otherwise look through store[\"semantic\"] and return the first entry whose.",
+            "bars": [
+              {
+                "label": "threshold",
+                "value": 0.95,
+                "tone": "ok"
+              },
+              {
+                "label": "na",
+                "value": 0.9912618221237011,
+                "tone": "ok"
+              },
+              {
+                "label": "nb",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0.05,
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Checking exact first is cheaper and always correct.",
-            "values": {
-              "query": "opening hours",
-              "exact": "EXACT",
-              "cosine": "SEMANTIC"
-            },
-            "tones": {
-              "query": "ok",
-              "exact": "ok",
-              "cosine": "ok"
-            },
-            "arrows": []
+            "at": "say7",
+            "caption": "Trace how guard updates cosine during execution.",
+            "bars": [
+              {
+                "label": "threshold",
+                "value": 0.95,
+                "tone": "ok"
+              },
+              {
+                "label": "na",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "nb",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0.05,
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -723,30 +902,36 @@
       "codeHash": "4f5c40b0a5c5a496eef2b3343ae5fdbd09c16083710e4122b1d82d8b7f2ccbfa",
       "spec": {
         "template": "bars",
-        "title": "Distribution of cache traffic between exact hits semantic hits and misses",
+        "title": "Measuring hit rate and savings",
         "steps": [
           {
             "at": "say1",
-            "caption": "Hit rate returns percentage of hits over total requests.",
+            "caption": "Hit_rate(hits, misses) returns the percentage with one decimal, like \"80.",
             "bars": [
               {
-                "label": "exact_hits",
+                "label": "hits",
                 "value": {
-                  "text": "1200"
+                  "var": "hits",
+                  "line": 2,
+                  "hit": 1
                 },
-                "tone": "ok"
-              },
-              {
-                "label": "semantic_hits",
-                "value": {
-                  "text": "900"
-                },
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "label": "misses",
                 "value": {
-                  "text": "5900"
+                  "var": "misses",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 2,
+                  "hit": 1
                 },
                 "tone": "data"
               }
@@ -754,55 +939,67 @@
           },
           {
             "at": "say2",
-            "caption": "Track hits and misses per cache type per day.",
+            "caption": "Track hits and misses per cache type, per day.",
             "bars": [
               {
-                "label": "exact_hits",
+                "label": "hits",
                 "value": {
-                  "text": "1200"
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "semantic_hits",
-                "value": {
-                  "text": "900"
+                  "var": "hits",
+                  "line": 3,
+                  "hit": 1
                 },
                 "tone": "ok"
               },
               {
                 "label": "misses",
                 "value": {
-                  "text": "5900"
+                  "var": "misses",
+                  "line": 3,
+                  "hit": 1
                 },
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Estimate savings from hits times average cost per model call.",
+            "at": "say7",
+            "caption": "Trace how dashboards updates will during execution.",
             "bars": [
               {
-                "label": "exact_hits",
+                "label": "hits",
                 "value": {
-                  "text": "1200"
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "semantic_hits",
-                "value": {
-                  "text": "900"
+                  "var": "hits",
+                  "line": 2,
+                  "hit": 2
                 },
                 "tone": "ok"
               },
               {
                 "label": "misses",
                 "value": {
-                  "text": "5900"
+                  "var": "misses",
+                  "line": 2,
+                  "hit": 2
                 },
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
@@ -810,68 +1007,68 @@
       },
       "filled": {
         "template": "bars",
-        "title": "Distribution of cache traffic between exact hits semantic hits and misses",
+        "title": "Measuring hit rate and savings",
         "steps": [
           {
             "at": "say1",
-            "caption": "Hit rate returns percentage of hits over total requests.",
+            "caption": "Hit_rate(hits, misses) returns the percentage with one decimal, like \"80.",
             "bars": [
               {
-                "label": "exact_hits",
-                "value": 1200,
-                "tone": "ok"
-              },
-              {
-                "label": "semantic_hits",
-                "value": 900,
-                "tone": "ok"
+                "label": "hits",
+                "value": 80,
+                "tone": "data"
               },
               {
                 "label": "misses",
-                "value": 5900,
+                "value": 20,
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": 100,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Track hits and misses per cache type per day.",
+            "caption": "Track hits and misses per cache type, per day.",
             "bars": [
               {
-                "label": "exact_hits",
-                "value": 1200,
-                "tone": "ok"
-              },
-              {
-                "label": "semantic_hits",
-                "value": 900,
+                "label": "hits",
+                "value": 80,
                 "tone": "ok"
               },
               {
                 "label": "misses",
-                "value": 5900,
-                "tone": "data"
+                "value": 20,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 100,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Estimate savings from hits times average cost per model call.",
+            "at": "say7",
+            "caption": "Trace how dashboards updates will during execution.",
             "bars": [
               {
-                "label": "exact_hits",
-                "value": 1200,
-                "tone": "ok"
-              },
-              {
-                "label": "semantic_hits",
-                "value": 900,
+                "label": "hits",
+                "value": 1,
                 "tone": "ok"
               },
               {
                 "label": "misses",
-                "value": 5900,
-                "tone": "data"
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 3,
+                "tone": "ok"
               }
             ]
           }
@@ -882,224 +1079,162 @@
       "partTitle": "Stale, personal and unsafe cache entries",
       "codeHash": "56ce613240aab0b7348807952ce4bb8561e9778f63ed34e171eda4b9382cc155",
       "spec": {
-        "template": "flow",
-        "title": "Stale, personal and unsafe cache entries — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Stale, personal and...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Stale, personal and unsafe cache entries",
+        "actors": [
+          "TTL",
+          "cache",
+          "key"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Stale, personal and unsafe cache entries.",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Stale, personal and... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Cached answers go stale.",
+            "activeActor": "TTL",
+            "messages": [
+              {
+                "from": "TTL",
+                "to": "cache",
+                "label": {
+                  "var": "TTL",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "key",
+                "label": {
+                  "var": "cache",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Never share personalised answers between users.",
+            "activeActor": "cache",
+            "messages": [
+              {
+                "from": "TTL",
+                "to": "cache",
+                "label": {
+                  "var": "TTL",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "key",
+                "label": {
+                  "var": "cache",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Stale, personal and unsafe cache .",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "The expiry example below uses a fake clock so it runs the same way every time.",
+            "activeActor": "key",
+            "messages": [
+              {
+                "from": "TTL",
+                "to": "cache",
+                "label": {
+                  "var": "TTL",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "key",
+                "label": {
+                  "var": "cache",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Stale, personal and unsafe cache entries — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Stale, personal and...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Stale, personal and unsafe cache entries",
+        "actors": [
+          "TTL",
+          "cache",
+          "key"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Stale, personal and unsafe cache entries [D22.P6.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Stale, personal and... [D22.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Cached answers go stale.",
+            "messages": [
+              {
+                "from": "TTL",
+                "to": "cache",
+                "label": "3600",
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "key",
+                "label": "{}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "TTL"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Never share personalised answers between users.",
+            "messages": [
+              {
+                "from": "TTL",
+                "to": "cache",
+                "label": "3600",
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "key",
+                "label": "{}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "cache"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Stale, personal and unsafe cache .. [D22.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say6",
+            "caption": "The expiry example below uses a fake clock so it runs the same way every time.",
+            "messages": [
+              {
+                "from": "TTL",
+                "to": "cache",
+                "label": "3600",
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "key",
+                "label": "{}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "key"
           }
         ]
       }

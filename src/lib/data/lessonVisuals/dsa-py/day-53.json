@@ -2,87 +2,112 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 53,
-  "promptSha": "5f21c2e9a11c2daa97d20852e7adfb5e77468d2fd70425f51483a2fd1f4bce23",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "2D Cross-Product Orientation Tests Without Floating-Point Slope Bugs",
       "codeHash": "795bf3b7665a7d4c0cd13999ab24edc2261040b89e44cf1006b70e6c87c59295",
       "spec": {
-        "template": "table",
-        "title": "2D Cross-Product Orientation Tests Without Floating-Point",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "2D Cross-Product Orientation Tests Without Floating-Point Slope ",
         "steps": [
           {
             "at": "say1",
-            "caption": "The beginner design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Beginner computational geometry code often computes line slopes `dy / dx`.",
+            "items": {
+              "var": "o",
+              "line": 17,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Cross"
-                  },
-                  {
-                    "text": "Product"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The memorize step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Professional geometry engines ban slope division completely by using.",
+            "items": {
+              "var": "o",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Orientation"
-                  },
-                  {
-                    "text": "Tests"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect the `orientation(o, a, b)` classifier and signed triangle area.",
+            "items": {
+              "var": "o",
+              "line": 2,
+              "hit": 4
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "2D Cross-Product Orientation Tests Without Floating-Point",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "2D Cross-Product Orientation Tests Without Floating-Point Slope ",
         "steps": [
           {
             "at": "say1",
-            "caption": "The beginner design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Beginner computational geometry code often computes line slopes `dy / dx`.",
+            "items": [
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Cross",
-                  "Product"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The memorize step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Professional geometry engines ban slope division completely by using.",
+            "items": [
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Orientation",
-                  "Tests"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect the `orientation(o, a, b)` classifier and signed triangle area.",
+            "items": [
+              "0",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -93,80 +118,105 @@
       "partTitle": "Exact Line-Segment Intersection Including Collinear & Endpoint Overlap Cases",
       "codeHash": "39ac52f23cabfe214d924e1f83179c2df50b4d4d78692c4b0e188f519e11b9e5",
       "spec": {
-        "template": "table",
-        "title": "Exact Line-Segment Intersection Including Collinear &",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Exact Line-Segment Intersection Including Collinear & Endpoint O",
         "steps": [
           {
             "at": "say1",
-            "caption": "The testing design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Testing whether two finite line segments `AB` and `CD` touch or cross.",
+            "items": {
+              "var": "a",
+              "line": 32,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Exact"
-                  },
-                  {
-                    "text": "Line"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The cross step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Think of how two non-collinear segments `AB` and `CD` cross properly.",
+            "items": {
+              "var": "a",
+              "line": 5,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Segment"
-                  },
-                  {
-                    "text": "Intersection"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Observe why bounding-box projection is non-negotiable for `cross == 0`.",
+            "items": {
+              "var": "a",
+              "line": 6,
+              "hit": 3
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Exact Line-Segment Intersection Including Collinear &",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Exact Line-Segment Intersection Including Collinear & Endpoint O",
         "steps": [
           {
             "at": "say1",
-            "caption": "The testing design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Testing whether two finite line segments `AB` and `CD` touch or cross.",
+            "items": [
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Exact",
-                  "Line"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The cross step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Think of how two non-collinear segments `AB` and `CD` cross properly.",
+            "items": [
+              "4",
+              "4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Segment",
-                  "Intersection"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Observe why bounding-box projection is non-negotiable for `cross == 0`.",
+            "items": [
+              "4",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -177,82 +227,76 @@
       "partTitle": "Andrew's O(N log N) Monotone Chain Convex Hull (Lower & Upper Hull)",
       "codeHash": "4a7b8276ea2161561365a0b5c735133aa59f6c8076a8f58d074e9508552298f6",
       "spec": {
-        "template": "table",
-        "title": "Andrew's O(N log N) Monotone Chain Convex Hull (Lower &",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Andrew's O(N log N) Monotone Chain Convex Hull (Lower & Upper Hu",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The given design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Andrew"
-                  },
-                  {
-                    "text": "Monotone"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Given `N` scattered 2D coordinates (GPS pings, radar targets, collision.",
+            "items": {
+              "var": "p",
+              "line": 10,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The preserve step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Chain"
-                  },
-                  {
-                    "text": "Convex"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Watch how cleanly Monotone Chain operates.",
+            "items": {
+              "var": "p",
+              "line": 11,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "Notice each point pushes/pops at most once per chain -> strict `O(N)` scan.",
+            "items": {
+              "var": "p",
+              "line": 10,
+              "hit": 4
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Andrew's O(N log N) Monotone Chain Convex Hull (Lower &",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Andrew's O(N log N) Monotone Chain Convex Hull (Lower & Upper Hu",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The given design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Andrew",
-                  "Monotone"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Given `N` scattered 2D coordinates (GPS pings, radar targets, collision.",
+            "mode": "stack",
+            "items": [
+              "0",
+              "0"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The preserve step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Chain",
-                  "Convex"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Watch how cleanly Monotone Chain operates.",
+            "mode": "stack",
+            "items": [
+              "0",
+              "0"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "Notice each point pushes/pops at most once per chain -> strict `O(N)` scan.",
+            "mode": "stack",
+            "items": [
+              "1",
+              "2"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -261,80 +305,105 @@
       "partTitle": "Shoelace Area, Hull Perimeter & Rotating Calipers Diameter",
       "codeHash": "efa106532bf2f937211c52afc837c1ecb70381069b5fbd010f99444d11720dc2",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Shoelace Area, Hull Perimeter & Rotating Calipers Diameter",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The monotone design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Once Monotone Chain delivers clean CCW hull vertices `H[0.",
+            "items": {
+              "var": "o",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Shoelace"
-                  },
-                  {
-                    "text": "Area"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "First, Gauss's **Shoelace Formula** computes the exact area of ANY simple.",
+            "items": {
+              "var": "o",
+              "line": 4,
+              "hit": 7
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Hull"
-                  },
-                  {
-                    "text": "Perimeter"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect Shoelace Area, Perimeter, and `O(m)` Rotating Calipers verified.",
+            "items": {
+              "var": "o",
+              "line": 4,
+              "hit": 12
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Shoelace Area, Hull Perimeter & Rotating Calipers Diameter",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The monotone design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Once Monotone Chain delivers clean CCW hull vertices `H[0.",
+            "items": [
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Shoelace",
-                  "Area"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "First, Gauss's **Shoelace Formula** computes the exact area of ANY simple.",
+            "items": [
+              "4",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Hull",
-                  "Perimeter"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect Shoelace Area, Perimeter, and `O(m)` Rotating Calipers verified.",
+            "items": [
+              "6",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -345,80 +414,105 @@
       "partTitle": "Production Application: Drone No-Fly Geofence Hull & Route Intrusion Auditor",
       "codeHash": "685ae479be23b41552a3792a5c7f7af40a4b0b6cfffabd99522480549752cfab",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Production Application: Drone No-Fly Geofence Hull & Route Intru",
         "steps": [
           {
             "at": "say1",
-            "caption": "The synthesize design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us synthesize Monotone Chain Convex Hull, Integer Orientation.",
+            "items": {
+              "var": "p",
+              "line": 17,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The geofencegeometryengine step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Imagine a robotics fleet planner receiving noisy obstacle beacons.",
+            "items": {
+              "var": "p",
+              "line": 17,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Drone"
-                  },
-                  {
-                    "text": "Geofence"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "(3) **Flight Path Breach Detection (`route_crosses_zone`)**.",
+            "items": {
+              "var": "p",
+              "line": 19,
+              "hit": 4
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Production Application: Drone No-Fly Geofence Hull & Route Intru",
         "steps": [
           {
             "at": "say1",
-            "caption": "The synthesize design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us synthesize Monotone Chain Convex Hull, Integer Orientation.",
+            "items": [
+              "1",
+              "5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The geofencegeometryengine step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Imagine a robotics fleet planner receiving noisy obstacle beacons.",
+            "items": [
+              "4",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Drone",
-                  "Geofence"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "(3) **Flight Path Breach Detection (`route_crosses_zone`)**.",
+            "items": [
+              "5",
+              "4"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }

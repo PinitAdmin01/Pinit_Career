@@ -2,172 +2,228 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 9,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Object storage and S3",
       "codeHash": "652729771629247096cccc563b990dafb2323b54702874459e2a59090db8e2ed",
       "spec": {
-        "template": "table",
-        "title": "S3 bucket object key prefixes and simulated hierarchy",
-        "columns": [
-          "prefix",
-          "key"
+        "template": "flow",
+        "title": "Object storage and S3",
+        "nodes": [
+          {
+            "id": "bucket",
+            "label": "bucket"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "prefix",
+            "label": "prefix"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Every object key represents its full name where slashes simulate folders.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "photos/2026/"
-                  },
-                  {
-                    "text": "photos/2026/beach.jpg"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Amazon Simple Storage Service (S3) stores objects.",
+            "values": {
+              "bucket": {
+                "var": "bucket",
+                "line": 1,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 8,
+                "hit": 1
+              },
+              "prefix": {
+                "var": "prefix",
+                "line": 8,
+                "hit": 6
               }
+            },
+            "tones": {
+              "bucket": "data",
+              "k": "data",
+              "prefix": "data"
+            },
+            "arrows": [
+              [
+                "bucket",
+                "k"
+              ],
+              [
+                "k",
+                "prefix"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Object-storage stores copies across multiple availability zones ensuring.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "photos/2026/"
-                  },
-                  {
-                    "text": "photos/2026/beach.jpg"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Objects live in buckets.",
+            "values": {
+              "bucket": {
+                "var": "bucket",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "photos/2026/"
-                  },
-                  {
-                    "text": "photos/2026/sunset.jpg"
-                  }
-                ],
-                "tone": "ok"
+              "k": {
+                "var": "k",
+                "line": 8,
+                "hit": 2
+              },
+              "prefix": {
+                "var": "prefix",
+                "line": 8,
+                "hit": 12
               }
+            },
+            "tones": {
+              "bucket": "data",
+              "k": "data",
+              "prefix": "data"
+            },
+            "arrows": [
+              [
+                "bucket",
+                "k"
+              ],
+              [
+                "k",
+                "prefix"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example lists keys by prefix matching object-storage bucket object.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "photos/2026/"
-                  },
-                  {
-                    "text": "photos/2026/beach.jpg"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example models a bucket as a dictionary and lists keys by prefix, just.",
+            "values": {
+              "bucket": {
+                "var": "bucket",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "photos/2026/"
-                  },
-                  {
-                    "text": "photos/2026/sunset.jpg"
-                  }
-                ],
-                "tone": "ok"
+              "k": {
+                "var": "k",
+                "line": 8,
+                "hit": 3
               },
-              {
-                "cells": [
-                  {
-                    "text": "videos/"
-                  },
-                  {
-                    "text": "videos/intro.mp4"
-                  }
-                ],
-                "tone": "ok"
+              "prefix": {
+                "var": "prefix",
+                "line": 8,
+                "hit": 12
               }
+            },
+            "tones": {
+              "bucket": "ok",
+              "k": "ok",
+              "prefix": "ok"
+            },
+            "arrows": [
+              [
+                "bucket",
+                "k"
+              ],
+              [
+                "k",
+                "prefix"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "S3 bucket object key prefixes and simulated hierarchy",
-        "columns": [
-          "prefix",
-          "key"
+        "template": "flow",
+        "title": "Object storage and S3",
+        "nodes": [
+          {
+            "id": "bucket",
+            "label": "bucket"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "prefix",
+            "label": "prefix"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Every object key represents its full name where slashes simulate folders.",
-            "rows": [
-              {
-                "cells": [
-                  "photos/2026/",
-                  "photos/2026/beach.jpg"
-                ],
-                "tone": "ok"
-              }
+            "at": "say1",
+            "caption": "Amazon Simple Storage Service (S3) stores objects.",
+            "values": {
+              "bucket": "{'users/42/avatar.png': 48000, 'users/4…",
+              "k": "'users/42/avatar.png'",
+              "prefix": "'users/42/'"
+            },
+            "tones": {
+              "bucket": "data",
+              "k": "data",
+              "prefix": "data"
+            },
+            "arrows": [
+              [
+                "bucket",
+                "k"
+              ],
+              [
+                "k",
+                "prefix"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "S3 stores copies across multiple availability zones ensuring durability.",
-            "rows": [
-              {
-                "cells": [
-                  "photos/2026/",
-                  "photos/2026/beach.jpg"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "photos/2026/",
-                  "photos/2026/sunset.jpg"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Objects live in buckets.",
+            "values": {
+              "bucket": "{'users/42/avatar.png': 48000, 'users/4…",
+              "k": "'users/42/cv.pdf'",
+              "prefix": "'logs/'"
+            },
+            "tones": {
+              "bucket": "data",
+              "k": "data",
+              "prefix": "data"
+            },
+            "arrows": [
+              [
+                "bucket",
+                "k"
+              ],
+              [
+                "k",
+                "prefix"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example lists keys by prefix matching S3 bucket object naming patterns.",
-            "rows": [
-              {
-                "cells": [
-                  "photos/2026/",
-                  "photos/2026/beach.jpg"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "photos/2026/",
-                  "photos/2026/sunset.jpg"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "videos/",
-                  "videos/intro.mp4"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The example models a bucket as a dictionary and lists keys by prefix, just.",
+            "values": {
+              "bucket": "{'users/42/avatar.png': 48000, 'users/4…",
+              "k": "'users/77/avatar.png'",
+              "prefix": "'logs/'"
+            },
+            "tones": {
+              "bucket": "ok",
+              "k": "ok",
+              "prefix": "ok"
+            },
+            "arrows": [
+              [
+                "bucket",
+                "k"
+              ],
+              [
+                "k",
+                "prefix"
+              ]
             ]
           }
         ]
@@ -177,164 +233,216 @@
       "partTitle": "Storage classes",
       "codeHash": "b7f4a96b534163bb0d069b9e8879d1337b042454bb4c6ad0b5ac7d2ecb4706a7",
       "spec": {
-        "template": "table",
-        "title": "S3 storage tier tradeoffs balancing storage price and retrieval latency",
-        "columns": [
-          "tier",
-          "feature"
-        ],
+        "template": "bars",
+        "title": "Storage classes",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Standard storage provides millisecond access for frequently accessed data.",
-            "rows": [
+            "at": "say1",
+            "caption": "Not all data is used equally.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "STANDARD"
-                  },
-                  {
-                    "text": "millisecond access"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Infrequent access offers cheaper storage fees with per gigabyte retrieval.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "STANDARD"
-                  },
-                  {
-                    "text": "millisecond access"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "STANDARD_IA"
-                  },
-                  {
-                    "text": "cheaper to store"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Deep Archive delivers very cheap storage designed for long term archives.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "STANDARD"
-                  },
-                  {
-                    "text": "millisecond access"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "STANDARD_IA"
-                  },
-                  {
-                    "text": "cheaper to store"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "DEEP_ARCHIVE"
-                  },
-                  {
-                    "text": "very cheap storage"
-                  }
-                ],
+                "label": "gb",
+                "value": {
+                  "var": "gb",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "label": "per_gb_month",
+                "value": {
+                  "var": "per_gb_month",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "per_gb_read",
+                "value": {
+                  "var": "per_gb_read",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "store",
+                "value": {
+                  "var": "store",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "For frequently used data, with millisecond access and the highest storage.",
+            "bars": [
+              {
+                "label": "gb",
+                "value": {
+                  "var": "gb",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "per_gb_month",
+                "value": {
+                  "var": "per_gb_month",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "per_gb_read",
+                "value": {
+                  "var": "per_gb_read",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "store",
+                "value": {
+                  "var": "store",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The cheapest class to store is not always the cheapest overall if you read.",
+            "bars": [
+              {
+                "label": "gb",
+                "value": {
+                  "var": "gb",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "per_gb_month",
+                "value": {
+                  "var": "per_gb_month",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "per_gb_read",
+                "value": {
+                  "var": "per_gb_read",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "store",
+                "value": {
+                  "var": "store",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "S3 storage tier tradeoffs balancing storage price and retrieval latency",
-        "columns": [
-          "tier",
-          "feature"
-        ],
+        "template": "bars",
+        "title": "Storage classes",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Standard storage provides millisecond access for frequently accessed data.",
-            "rows": [
+            "at": "say1",
+            "caption": "Not all data is used equally.",
+            "bars": [
               {
-                "cells": [
-                  "STANDARD",
-                  "millisecond access"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Infrequent access offers cheaper storage fees with per gigabyte retrieval.",
-            "rows": [
-              {
-                "cells": [
-                  "STANDARD",
-                  "millisecond access"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "STANDARD_IA",
-                  "cheaper to store"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Deep Archive delivers very cheap storage designed for long term archives.",
-            "rows": [
-              {
-                "cells": [
-                  "STANDARD",
-                  "millisecond access"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "STANDARD_IA",
-                  "cheaper to store"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "DEEP_ARCHIVE",
-                  "very cheap storage"
-                ],
+                "label": "gb",
+                "value": 1000,
                 "tone": "data"
+              },
+              {
+                "label": "per_gb_month",
+                "value": 0.023,
+                "tone": "data"
+              },
+              {
+                "label": "per_gb_read",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "store",
+                "value": 276,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "For frequently used data, with millisecond access and the highest storage.",
+            "bars": [
+              {
+                "label": "gb",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "per_gb_month",
+                "value": 0.023,
+                "tone": "ok"
+              },
+              {
+                "label": "per_gb_read",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "store",
+                "value": 276,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The cheapest class to store is not always the cheapest overall if you read.",
+            "bars": [
+              {
+                "label": "gb",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "per_gb_month",
+                "value": 0.023,
+                "tone": "ok"
+              },
+              {
+                "label": "per_gb_read",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "store",
+                "value": 276,
+                "tone": "ok"
               }
             ]
           }
@@ -345,201 +453,277 @@
       "partTitle": "Lifecycle rules",
       "codeHash": "c04d0e6340e436a59bb79271484ed32376d6a1834041369f8cce758a89215756",
       "spec": {
-        "template": "table",
-        "title": "Automated lifecycle transition stages mapping object age to storage class",
-        "columns": [
-          "file",
-          "tier"
+        "template": "flow",
+        "title": "Lifecycle rules",
+        "nodes": [
+          {
+            "id": "objects",
+            "label": "objects"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "age",
+            "label": "age"
+          },
+          {
+            "id": "access",
+            "label": "access"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Lifecycle rules automatically transition objects based on elapsed age.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "app.log"
-                  },
-                  {
-                    "text": "STANDARD"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "You do not have to move objects between classes by hand.",
+            "values": {
+              "objects": {
+                "var": "objects",
+                "line": 7,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 9,
+                "hit": 1
+              },
+              "age": {
+                "var": "age",
+                "line": 9,
+                "hit": 1
+              },
+              "access": {
+                "var": "access",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "objects": "data",
+              "key": "data",
+              "age": "data",
+              "access": "data"
+            },
+            "arrows": [
+              [
+                "objects",
+                "key"
+              ],
+              [
+                "key",
+                "age"
+              ],
+              [
+                "age",
+                "access"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Rules progressively transition aged items into Glacier archival storage.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "app.log"
-                  },
-                  {
-                    "text": "STANDARD"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A typical rule for logs.",
+            "values": {
+              "objects": {
+                "var": "objects",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "report.pdf"
-                  },
-                  {
-                    "text": "STANDARD_IA"
-                  }
-                ],
-                "tone": "ok"
+              "key": {
+                "var": "key",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "q1.csv"
-                  },
-                  {
-                    "text": "GLACIER_FLEXIBLE"
-                  }
-                ],
-                "tone": "data"
+              "age": {
+                "var": "age",
+                "line": 10,
+                "hit": 1
+              },
+              "access": {
+                "var": "access",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "objects": "data",
+              "key": "data",
+              "age": "data",
+              "access": "data"
+            },
+            "arrows": [
+              [
+                "objects",
+                "key"
+              ],
+              [
+                "key",
+                "age"
+              ],
+              [
+                "age",
+                "access"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example applies lifecycle transitions to objects of different ages.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "app.log"
-                  },
-                  {
-                    "text": "STANDARD"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example applies the rule to a batch of objects of different ages.",
+            "values": {
+              "objects": {
+                "var": "objects",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "report.pdf"
-                  },
-                  {
-                    "text": "STANDARD_IA"
-                  }
-                ],
-                "tone": "ok"
+              "key": {
+                "var": "key",
+                "line": 9,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "q1.csv"
-                  },
-                  {
-                    "text": "GLACIER_FLEXIBLE"
-                  }
-                ],
-                "tone": "data"
+              "age": {
+                "var": "age",
+                "line": 9,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "2024.tar"
-                  },
-                  {
-                    "text": "DEEP_ARCHIVE"
-                  }
-                ],
-                "tone": "data"
+              "access": {
+                "var": "access",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "objects": "ok",
+              "key": "ok",
+              "age": "ok",
+              "access": "ok"
+            },
+            "arrows": [
+              [
+                "objects",
+                "key"
+              ],
+              [
+                "key",
+                "age"
+              ],
+              [
+                "age",
+                "access"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Automated lifecycle transition stages mapping object age to storage class",
-        "columns": [
-          "file",
-          "tier"
+        "template": "flow",
+        "title": "Lifecycle rules",
+        "nodes": [
+          {
+            "id": "objects",
+            "label": "objects"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "age",
+            "label": "age"
+          },
+          {
+            "id": "access",
+            "label": "access"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Lifecycle rules automatically transition objects based on elapsed age.",
-            "rows": [
-              {
-                "cells": [
-                  "app.log",
-                  "STANDARD"
-                ],
-                "tone": "ok"
-              }
+            "caption": "You do not have to move objects between classes by hand.",
+            "values": {
+              "objects": "[['app.log', 3, 'FREQUENT'], ['report.p…",
+              "key": "'app.log'",
+              "age": "3",
+              "access": "'FREQUENT'"
+            },
+            "tones": {
+              "objects": "data",
+              "key": "data",
+              "age": "data",
+              "access": "data"
+            },
+            "arrows": [
+              [
+                "objects",
+                "key"
+              ],
+              [
+                "key",
+                "age"
+              ],
+              [
+                "age",
+                "access"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Rules progressively transition aged items into Glacier archival storage.",
-            "rows": [
-              {
-                "cells": [
-                  "app.log",
-                  "STANDARD"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "report.pdf",
-                  "STANDARD_IA"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "q1.csv",
-                  "GLACIER_FLEXIBLE"
-                ],
-                "tone": "data"
-              }
+            "caption": "A typical rule for logs.",
+            "values": {
+              "objects": "[['app.log', 3, 'FREQUENT'], ['report.p…",
+              "key": "'app.log'",
+              "age": "3",
+              "access": "'FREQUENT'"
+            },
+            "tones": {
+              "objects": "data",
+              "key": "data",
+              "age": "data",
+              "access": "data"
+            },
+            "arrows": [
+              [
+                "objects",
+                "key"
+              ],
+              [
+                "key",
+                "age"
+              ],
+              [
+                "age",
+                "access"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example applies lifecycle transitions to objects of different ages.",
-            "rows": [
-              {
-                "cells": [
-                  "app.log",
-                  "STANDARD"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "report.pdf",
-                  "STANDARD_IA"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "q1.csv",
-                  "GLACIER_FLEXIBLE"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "2024.tar",
-                  "DEEP_ARCHIVE"
-                ],
-                "tone": "data"
-              }
+            "caption": "The example applies the rule to a batch of objects of different ages.",
+            "values": {
+              "objects": "[['app.log', 3, 'FREQUENT'], ['report.p…",
+              "key": "'report.pdf'",
+              "age": "45",
+              "access": "'FREQUENT'"
+            },
+            "tones": {
+              "objects": "ok",
+              "key": "ok",
+              "age": "ok",
+              "access": "ok"
+            },
+            "arrows": [
+              [
+                "objects",
+                "key"
+              ],
+              [
+                "key",
+                "age"
+              ],
+              [
+                "age",
+                "access"
+              ]
             ]
           }
         ]
@@ -550,90 +734,61 @@
       "codeHash": "0a5594d8cbcde5191322f3d5c5443444811a81bee60a772b6da5a7a9d469b229",
       "spec": {
         "template": "table",
-        "title": "S3 versioning state tracking upload history and delete markers",
+        "title": "Versioning and delete markers",
         "columns": [
-          "version_id",
-          "status"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Bucket versioning preserves older revisions when new objects are uploaded.",
+            "caption": "Turn on versioning for a bucket and S3 keeps every version of every object.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "v1"
+                    "text": "versions"
                   },
                   {
-                    "text": "upload ->"
+                    "var": "versions",
+                    "line": 1,
+                    "hit": 1
                   }
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "v2"
-                  },
-                  {
-                    "text": "overwrite ->"
-                  }
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Deleting adds a delete marker while keeping previous object versions intact.",
+            "caption": "Deleting an object in a versioned bucket does not erase it.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "v1"
+                    "text": "versions"
                   },
                   {
-                    "text": "upload ->"
+                    "var": "versions",
+                    "line": 3,
+                    "hit": 1
                   }
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "v2"
-                  },
-                  {
-                    "text": "overwrite ->"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "d1"
-                  },
-                  {
-                    "text": "delete ->"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example demonstrates upload overwrite and restore sequences on a key.",
+            "at": "say7",
+            "caption": "For extra protection, S3 Object Lock can make versions unchangeable for.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "v1"
+                    "text": "out 1"
                   },
                   {
-                    "text": "upload ->"
+                    "out": 1
                   }
                 ],
                 "tone": "ok"
@@ -641,10 +796,32 @@
               {
                 "cells": [
                   {
-                    "text": "v2"
+                    "text": "out 2"
                   },
                   {
-                    "text": "overwrite ->"
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 4"
+                  },
+                  {
+                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -655,74 +832,67 @@
       },
       "filled": {
         "template": "table",
-        "title": "S3 versioning state tracking upload history and delete markers",
+        "title": "Versioning and delete markers",
         "columns": [
-          "version_id",
-          "status"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Bucket versioning preserves older revisions when new objects are uploaded.",
+            "caption": "Turn on versioning for a bucket and S3 keeps every version of every object.",
             "rows": [
               {
                 "cells": [
-                  "v1",
-                  "upload ->"
+                  "versions",
+                  "[]"
                 ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "v2",
-                  "overwrite ->"
-                ],
-                "tone": "ok"
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Deleting adds a delete marker while keeping previous object versions intact.",
+            "caption": "Deleting an object in a versioned bucket does not erase it.",
             "rows": [
               {
                 "cells": [
-                  "v1",
-                  "upload ->"
+                  "versions",
+                  "[]"
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "v2",
-                  "overwrite ->"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "d1",
-                  "delete ->"
-                ],
-                "tone": "error"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example demonstrates upload overwrite and restore sequences on a key.",
+            "at": "say7",
+            "caption": "For extra protection, S3 Object Lock can make versions unchangeable for.",
             "rows": [
               {
                 "cells": [
-                  "v1",
-                  "upload ->"
+                  "out 1",
+                  "upload -> v1"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "v2",
-                  "overwrite ->"
+                  "out 2",
+                  "overwrite -> v2"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "delete -> None"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 4",
+                  "remove the marker -> v2"
                 ],
                 "tone": "ok"
               }
@@ -735,224 +905,162 @@
       "partTitle": "Uploading big files and presigned URLs",
       "codeHash": "17d4daae2ef98e4d7557a3889ac23c2115566b5db4b56b4e043a3c609525d5ba",
       "spec": {
-        "template": "flow",
-        "title": "Uploading big files and presigned URLs — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Uploading big files...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Uploading big files and presigned URLs",
+        "actors": [
+          "MB",
+          "file_size",
+          "part_size"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Uploading big files and presigned URLs.",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Uploading big files... [Dnine.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "For large files, S3 multipart upload splits the file into parts (at least.",
+            "activeActor": "MB",
+            "messages": [
+              {
+                "from": "MB",
+                "to": "file_size",
+                "label": {
+                  "var": "MB",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "file_size",
+                "to": "part_size",
+                "label": {
+                  "var": "file_size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "AWS recommends multipart for files over about 100 MB.",
+            "activeActor": "file_size",
+            "messages": [
+              {
+                "from": "MB",
+                "to": "file_size",
+                "label": {
+                  "var": "MB",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "file_size",
+                "to": "part_size",
+                "label": {
+                  "var": "file_size",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Uploading big files and presigned.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Trace how will updates uploads during execution.",
+            "activeActor": "part_size",
+            "messages": [
+              {
+                "from": "MB",
+                "to": "file_size",
+                "label": {
+                  "var": "MB",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "file_size",
+                "to": "part_size",
+                "label": {
+                  "var": "file_size",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Uploading big files and presigned URLs — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Uploading big files...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Uploading big files and presigned URLs",
+        "actors": [
+          "MB",
+          "file_size",
+          "part_size"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Uploading big files and presigned URLs [D9.P5.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Uploading big files... [D9.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "For large files, S3 multipart upload splits the file into parts (at least.",
+            "messages": [
+              {
+                "from": "MB",
+                "to": "file_size",
+                "label": "1048576",
+                "tone": "data"
+              },
+              {
+                "from": "file_size",
+                "to": "part_size",
+                "label": "1363148800",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "MB"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "AWS recommends multipart for files over about 100 MB.",
+            "messages": [
+              {
+                "from": "MB",
+                "to": "file_size",
+                "label": "1048576",
+                "tone": "data"
+              },
+              {
+                "from": "file_size",
+                "to": "part_size",
+                "label": "1363148800",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "file_size"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Uploading big files and presigned.. [D9.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Trace how will updates uploads during execution.",
+            "messages": [
+              {
+                "from": "MB",
+                "to": "file_size",
+                "label": "1048576",
+                "tone": "data"
+              },
+              {
+                "from": "file_size",
+                "to": "part_size",
+                "label": "1363148800",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "part_size"
           }
         ]
       }
@@ -961,224 +1069,106 @@
       "partTitle": "Practice time: classes and versions",
       "codeHash": "824d2c4bfb61be732f78df8d8de4ba49aec0077452a9f450b16e6e71e923ca92",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: classes and versions — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Practice time: classes and versions",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "versions",
+            "label": "versions"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: clas...",
-            "tappable": true
+            "id": "v",
+            "label": "v"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "wrong",
+            "label": "wrong"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: classes and versions.",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: clas... [Dnine.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Storage_class(age_days, access).",
+            "currentState": "versions",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dnine.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Test your thinking.",
+            "currentState": "v",
+            "transition": {
+              "from": "versions",
+              "to": "v",
+              "label": {
+                "var": "v",
+                "line": 6,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: classes and versions.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example shows why only the newest entry matters.",
+            "currentState": "wrong",
+            "transition": {
+              "from": "v",
+              "to": "wrong",
+              "label": {
+                "var": "wrong",
+                "line": 8,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: classes and versions — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Practice time: classes and versions",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "versions",
+            "label": "versions"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: clas...",
-            "tappable": true
+            "id": "v",
+            "label": "v"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "wrong",
+            "label": "wrong"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: classes and versions [D9.P6.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: clas... [D9.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Storage_class(age_days, access).",
+            "currentState": "versions",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Test your thinking.",
+            "currentState": "v",
+            "transition": {
+              "from": "versions",
+              "to": "v",
+              "label": "{'version_id': 'd1', 'is_delete_marker'…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: classes and versions [D9.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example shows why only the newest entry matters.",
+            "currentState": "wrong",
+            "transition": {
+              "from": "v",
+              "to": "wrong",
+              "label": "None"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

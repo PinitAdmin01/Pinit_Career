@@ -2,150 +2,138 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 4,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why split an order?",
       "codeHash": "4a57173175f2e92613cdb903661c021579838102376a39249b9dc783cfd3d9b2",
       "spec": {
-        "template": "table",
-        "title": "Order slicing impact mitigation and execution tradeoffs",
-        "columns": [
-          "at_once",
-          "in_slices"
-        ],
+        "template": "bars",
+        "title": "Why split an order?",
         "steps": [
           {
             "at": "say1",
-            "caption": "Executing large parent orders at once walks deep into market depth.",
-            "rows": [
+            "caption": "It would walk deep into the book and pay far more than the displayed price.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "at_once"
-                  },
-                  {
-                    "text": "in_slices"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Execution algorithms slice parent orders into small child orders.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "at_once"
-                  },
-                  {
-                    "text": "in_slices"
-                  }
-                ],
-                "tone": "ok"
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "slices"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Gradual execution reduces market impact while balancing adverse price drift.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "at_once"
-                  },
-                  {
-                    "text": "in_slices"
-                  }
-                ],
-                "tone": "ok"
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "slices"
-                  }
-                ],
-                "tone": "ok"
+                "label": "depth_per_leve",
+                "value": {
+                  "var": "depth_per_level",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "impact"
-                  },
-                  {
-                    "text": "tick"
-                  }
-                ],
+                "label": "tick",
+                "value": {
+                  "var": "tick",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example compares the cost of buying at once versus buying in slices.",
-            "rows": [
+            "at": "say2",
+            "caption": "Showing a huge order also leaks information.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "at_once"
-                  },
-                  {
-                    "text": "in_slices"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "slices"
-                  }
-                ],
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "impact"
-                  },
-                  {
-                    "text": "tick"
-                  }
-                ],
-                "tone": "data"
+                "label": "depth_per_leve",
+                "value": {
+                  "var": "depth_per_level",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "at_once"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "tick",
+                "value": {
+                  "var": "tick",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Execution is where many quant engineers start, because every investor needs it.",
+            "bars": [
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "depth_per_leve",
+                "value": {
+                  "var": "depth_per_level",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "tick",
+                "value": {
+                  "var": "tick",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -153,103 +141,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Order slicing impact mitigation and execution tradeoffs",
-        "columns": [
-          "at_once",
-          "in_slices"
-        ],
+        "template": "bars",
+        "title": "Why split an order?",
         "steps": [
           {
             "at": "say1",
-            "caption": "Executing large parent orders at once walks deep into market depth.",
-            "rows": [
+            "caption": "It would walk deep into the book and pay far more than the displayed price.",
+            "bars": [
               {
-                "cells": [
-                  "at_once",
-                  "in_slices"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Execution algorithms slice parent orders into small child orders.",
-            "rows": [
-              {
-                "cells": [
-                  "at_once",
-                  "in_slices"
-                ],
-                "tone": "ok"
+                "label": "total",
+                "value": 100000,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "total",
-                  "slices"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Gradual execution reduces market impact while balancing adverse price drift.",
-            "rows": [
-              {
-                "cells": [
-                  "at_once",
-                  "in_slices"
-                ],
-                "tone": "ok"
+                "label": "qty",
+                "value": 100000,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "total",
-                  "slices"
-                ],
-                "tone": "ok"
+                "label": "depth_per_leve",
+                "value": 10000,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "impact",
-                  "tick"
-                ],
+                "label": "tick",
+                "value": 0.01,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example compares the cost of buying at once versus buying in slices.",
-            "rows": [
+            "at": "say2",
+            "caption": "Showing a huge order also leaks information.",
+            "bars": [
               {
-                "cells": [
-                  "at_once",
-                  "in_slices"
-                ],
+                "label": "total",
+                "value": 100000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "total",
-                  "slices"
-                ],
+                "label": "qty",
+                "value": 100000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "impact",
-                  "tick"
-                ],
-                "tone": "data"
+                "label": "depth_per_leve",
+                "value": 10000,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "at_once",
-                  "print"
-                ],
+                "label": "tick",
+                "value": 0.01,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Execution is where many quant engineers start, because every investor needs it.",
+            "bars": [
+              {
+                "label": "total",
+                "value": 100000,
+                "tone": "ok"
+              },
+              {
+                "label": "qty",
+                "value": 5000,
+                "tone": "ok"
+              },
+              {
+                "label": "depth_per_leve",
+                "value": 10000,
+                "tone": "ok"
+              },
+              {
+                "label": "tick",
+                "value": 0.01,
                 "tone": "ok"
               }
             ]
@@ -261,143 +229,131 @@
       "partTitle": "The VWAP benchmark",
       "codeHash": "cddfdc41425cdd5631dbb1f445c3d1dfa988ddd4ecb4780aba26c85131b8b228",
       "spec": {
-        "template": "table",
-        "title": "VWAP benchmark tracking and diurnal volume profiles",
-        "columns": [
-          "vwap",
-          "profile"
-        ],
+        "template": "bars",
+        "title": "The VWAP benchmark",
         "steps": [
           {
             "at": "say1",
-            "caption": "VWAP measures volume weighted average prices over a trading session.",
-            "rows": [
+            "caption": "VWAP, the volume-weighted average price, is the average price of all.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "vwap"
-                  },
-                  {
-                    "text": "profile"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Execution pacing distributes volume proportional to market activity.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "vwap"
-                  },
-                  {
-                    "text": "profile"
-                  }
-                ],
-                "tone": "ok"
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "market_trades"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Historical trading patterns construct an expected intraday volume profile.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "vwap"
-                  },
-                  {
-                    "text": "profile"
-                  }
-                ],
-                "tone": "ok"
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "market_trades"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
+                "label": "vwap",
+                "value": {
+                  "var": "vwap",
+                  "line": 2,
+                  "hit": 11
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "sum"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "share",
+                "value": {
+                  "var": "share",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example computes market VWAP across trades with a volume profile.",
-            "rows": [
+            "at": "say2",
+            "caption": "It is the most common benchmark for execution quality.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "vwap"
-                  },
-                  {
-                    "text": "profile"
-                  }
-                ],
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "market_trades"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "sum"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "data"
+                "label": "vwap",
+                "value": {
+                  "var": "vwap",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "vwap"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "share",
+                "value": {
+                  "var": "share",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The formula is the same weighted average you wrote yesterday, applied.",
+            "bars": [
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "vwap",
+                "value": {
+                  "var": "vwap",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "share",
+                "value": {
+                  "var": "share",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -405,103 +361,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "VWAP benchmark tracking and diurnal volume profiles",
-        "columns": [
-          "vwap",
-          "profile"
-        ],
+        "template": "bars",
+        "title": "The VWAP benchmark",
         "steps": [
           {
             "at": "say1",
-            "caption": "VWAP measures volume weighted average prices over a trading session.",
-            "rows": [
+            "caption": "VWAP, the volume-weighted average price, is the average price of all.",
+            "bars": [
               {
-                "cells": [
-                  "vwap",
-                  "profile"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Execution pacing distributes volume proportional to market activity.",
-            "rows": [
-              {
-                "cells": [
-                  "vwap",
-                  "profile"
-                ],
-                "tone": "ok"
+                "label": "p",
+                "value": 100,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "market_trades",
-                  "round"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Historical trading patterns construct an expected intraday volume profile.",
-            "rows": [
-              {
-                "cells": [
-                  "vwap",
-                  "profile"
-                ],
-                "tone": "ok"
+                "label": "q",
+                "value": 5000,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "market_trades",
-                  "round"
-                ],
-                "tone": "ok"
+                "label": "vwap",
+                "value": 99.985,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "sum",
-                  "print"
-                ],
+                "label": "share",
+                "value": 0.18,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example computes market VWAP across trades with a volume profile.",
-            "rows": [
+            "at": "say2",
+            "caption": "It is the most common benchmark for execution quality.",
+            "bars": [
               {
-                "cells": [
-                  "vwap",
-                  "profile"
-                ],
+                "label": "p",
+                "value": 100.2,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "market_trades",
-                  "round"
-                ],
+                "label": "q",
+                "value": 2000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "sum",
-                  "print"
-                ],
-                "tone": "data"
+                "label": "vwap",
+                "value": 99.985,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "vwap",
-                  "print"
-                ],
+                "label": "share",
+                "value": 0.18,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The formula is the same weighted average you wrote yesterday, applied.",
+            "bars": [
+              {
+                "label": "p",
+                "value": 100.1,
+                "tone": "ok"
+              },
+              {
+                "label": "q",
+                "value": 3000,
+                "tone": "ok"
+              },
+              {
+                "label": "vwap",
+                "value": 99.985,
+                "tone": "ok"
+              },
+              {
+                "label": "share",
+                "value": 0.1,
                 "tone": "ok"
               }
             ]
@@ -513,249 +449,277 @@
       "partTitle": "Building a VWAP schedule",
       "codeHash": "33eb068e66846d286a0dba182ef0896b6b37c0b6e8672991813eb8d0a56e01e5",
       "spec": {
-        "template": "table",
-        "title": "VWAP discrete bucket allocation and remainder distribution",
-        "columns": [
-          "naive",
-          "fixed"
+        "template": "flow",
+        "title": "Building a VWAP schedule",
+        "nodes": [
+          {
+            "id": "total",
+            "label": "total"
+          },
+          {
+            "id": "pcts",
+            "label": "pcts"
+          },
+          {
+            "id": "naive",
+            "label": "naive"
+          },
+          {
+            "id": "fixed",
+            "label": "fixed"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Volume profiles dictate scheduled quantities across successive intervals.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "naive"
-                  },
-                  {
-                    "text": "fixed"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Given a total order size and a volume profile, the schedule gives each.",
+            "values": {
+              "total": {
+                "var": "total",
+                "line": 1,
+                "hit": 1
+              },
+              "pcts": {
+                "var": "pcts",
+                "line": 2,
+                "hit": 1
+              },
+              "naive": {
+                "var": "naive",
+                "line": 3,
+                "hit": 4
+              },
+              "fixed": {
+                "var": "fixed",
+                "line": 4,
+                "hit": 3
               }
+            },
+            "tones": {
+              "total": "data",
+              "pcts": "data",
+              "naive": "data",
+              "fixed": "data"
+            },
+            "arrows": [
+              [
+                "total",
+                "pcts"
+              ],
+              [
+                "pcts",
+                "naive"
+              ],
+              [
+                "naive",
+                "fixed"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Independent rounding introduces cumulative discrepancies in total shares.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "naive"
-                  },
-                  {
-                    "text": "fixed"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Rounding each slice to a whole number of shares can make the total.",
+            "values": {
+              "total": {
+                "var": "total",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "pcts"
-                  }
-                ],
-                "tone": "ok"
+              "pcts": {
+                "var": "pcts",
+                "line": 3,
+                "hit": 1
+              },
+              "naive": {
+                "var": "naive",
+                "line": 4,
+                "hit": 1
+              },
+              "fixed": {
+                "var": "fixed",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Allocating the remainder to the final interval preserves total volume.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "naive"
-                  },
-                  {
-                    "text": "fixed"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "pcts"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "append"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "total": "data",
+              "pcts": "data",
+              "naive": "data",
+              "fixed": "data"
+            },
+            "arrows": [
+              [
+                "total",
+                "pcts"
+              ],
+              [
+                "pcts",
+                "naive"
+              ],
+              [
+                "naive",
+                "fixed"
+              ]
             ]
           },
           {
             "at": "say7",
             "caption": "The example shows the rounding problem and the fix side by side.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "naive"
-                  },
-                  {
-                    "text": "fixed"
-                  }
-                ],
-                "tone": "ok"
+            "values": {
+              "total": {
+                "var": "total",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "pcts"
-                  }
-                ],
-                "tone": "ok"
+              "pcts": {
+                "var": "pcts",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "append"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
-                "tone": "data"
+              "naive": {
+                "var": "naive",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "fixed"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
+              "fixed": {
+                "var": "fixed",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "total": "ok",
+              "pcts": "ok",
+              "naive": "ok",
+              "fixed": "ok"
+            },
+            "arrows": [
+              [
+                "total",
+                "pcts"
+              ],
+              [
+                "pcts",
+                "naive"
+              ],
+              [
+                "naive",
+                "fixed"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "VWAP discrete bucket allocation and remainder distribution",
-        "columns": [
-          "naive",
-          "fixed"
+        "template": "flow",
+        "title": "Building a VWAP schedule",
+        "nodes": [
+          {
+            "id": "total",
+            "label": "total"
+          },
+          {
+            "id": "pcts",
+            "label": "pcts"
+          },
+          {
+            "id": "naive",
+            "label": "naive"
+          },
+          {
+            "id": "fixed",
+            "label": "fixed"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Volume profiles dictate scheduled quantities across successive intervals.",
-            "rows": [
-              {
-                "cells": [
-                  "naive",
-                  "fixed"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Given a total order size and a volume profile, the schedule gives each.",
+            "values": {
+              "total": "1001",
+              "pcts": "[0.3333, 0.3333, 0.3334]",
+              "naive": "[334, 334, 334]",
+              "fixed": "[334, 334]"
+            },
+            "tones": {
+              "total": "data",
+              "pcts": "data",
+              "naive": "data",
+              "fixed": "data"
+            },
+            "arrows": [
+              [
+                "total",
+                "pcts"
+              ],
+              [
+                "pcts",
+                "naive"
+              ],
+              [
+                "naive",
+                "fixed"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Independent rounding introduces cumulative discrepancies in total shares.",
-            "rows": [
-              {
-                "cells": [
-                  "naive",
-                  "fixed"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "total",
-                  "pcts"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Allocating the remainder to the final interval preserves total volume.",
-            "rows": [
-              {
-                "cells": [
-                  "naive",
-                  "fixed"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "total",
-                  "pcts"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "append",
-                  "sum"
-                ],
-                "tone": "data"
-              }
+            "caption": "Rounding each slice to a whole number of shares can make the total.",
+            "values": {
+              "total": "1001",
+              "pcts": "[0.3333, 0.3333, 0.3334]",
+              "naive": "[334, 334, 334]",
+              "fixed": "[334, 334, 333]"
+            },
+            "tones": {
+              "total": "data",
+              "pcts": "data",
+              "naive": "data",
+              "fixed": "data"
+            },
+            "arrows": [
+              [
+                "total",
+                "pcts"
+              ],
+              [
+                "pcts",
+                "naive"
+              ],
+              [
+                "naive",
+                "fixed"
+              ]
             ]
           },
           {
             "at": "say7",
             "caption": "The example shows the rounding problem and the fix side by side.",
-            "rows": [
-              {
-                "cells": [
-                  "naive",
-                  "fixed"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "total",
-                  "pcts"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "append",
-                  "sum"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "fixed",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "values": {
+              "total": "1001",
+              "pcts": "[0.3333, 0.3333, 0.3334]",
+              "naive": "[334, 334, 334]",
+              "fixed": "[334, 334, 333]"
+            },
+            "tones": {
+              "total": "ok",
+              "pcts": "ok",
+              "naive": "ok",
+              "fixed": "ok"
+            },
+            "arrows": [
+              [
+                "total",
+                "pcts"
+              ],
+              [
+                "pcts",
+                "naive"
+              ],
+              [
+                "naive",
+                "fixed"
+              ]
             ]
           }
         ]
@@ -765,143 +729,131 @@
       "partTitle": "TWAP: equal slices over time",
       "codeHash": "ce6713f8d31c6fbb33414c84681b1e171b5fbe1dac2b3d8dea7f0a6a0ab8f35d",
       "spec": {
-        "template": "table",
-        "title": "Time-weighted uniform order distribution schedule",
-        "columns": [
-          "base",
-          "extra"
-        ],
+        "template": "bars",
+        "title": "TWAP: equal slices over time",
         "steps": [
           {
             "at": "say1",
-            "caption": "TWAP executes equal slices at regular intervals across the order duration.",
-            "rows": [
+            "caption": "TWAP, time-weighted average price, is simpler.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "extra"
-                  }
-                ],
-                "tone": "ok"
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "duration_min",
+                "value": {
+                  "var": "duration_min",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "interval_min",
+                "value": {
+                  "var": "interval_min",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Constant pacing provides steady execution when volume profiles are absent.",
-            "rows": [
+            "caption": "It is useful when no good volume profile exists (new or thinly traded.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "extra"
-                  }
-                ],
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "qty"
-                  },
-                  {
-                    "text": "duration_min"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The divmod operation calculates base slices and remaining odd shares.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "extra"
-                  }
-                ],
+                "label": "duration_min",
+                "value": {
+                  "var": "duration_min",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "qty"
-                  },
-                  {
-                    "text": "duration_min"
-                  }
-                ],
+                "label": "interval_min",
+                "value": {
+                  "var": "interval_min",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "interval_min"
-                  },
-                  {
-                    "text": "divmod"
-                  }
-                ],
-                "tone": "data"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example builds TWAP schedules for discrete execution intervals.",
-            "rows": [
+            "caption": "The example builds TWAP schedules for a few cases.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "extra"
-                  }
-                ],
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "qty"
-                  },
-                  {
-                    "text": "duration_min"
-                  }
-                ],
+                "label": "duration_min",
+                "value": {
+                  "var": "duration_min",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "interval_min"
-                  },
-                  {
-                    "text": "divmod"
-                  }
-                ],
-                "tone": "data"
+                "label": "interval_min",
+                "value": {
+                  "var": "interval_min",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "twap_schedule"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -909,103 +861,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Time-weighted uniform order distribution schedule",
-        "columns": [
-          "base",
-          "extra"
-        ],
+        "template": "bars",
+        "title": "TWAP: equal slices over time",
         "steps": [
           {
             "at": "say1",
-            "caption": "TWAP executes equal slices at regular intervals across the order duration.",
-            "rows": [
+            "caption": "TWAP, time-weighted average price, is simpler.",
+            "bars": [
               {
-                "cells": [
-                  "base",
-                  "extra"
-                ],
-                "tone": "ok"
+                "label": "qty",
+                "value": 1200,
+                "tone": "data"
+              },
+              {
+                "label": "duration_min",
+                "value": 60,
+                "tone": "data"
+              },
+              {
+                "label": "interval_min",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": 6,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Constant pacing provides steady execution when volume profiles are absent.",
-            "rows": [
+            "caption": "It is useful when no good volume profile exists (new or thinly traded.",
+            "bars": [
               {
-                "cells": [
-                  "base",
-                  "extra"
-                ],
+                "label": "qty",
+                "value": 1200,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "qty",
-                  "duration_min"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The divmod operation calculates base slices and remaining odd shares.",
-            "rows": [
-              {
-                "cells": [
-                  "base",
-                  "extra"
-                ],
+                "label": "duration_min",
+                "value": 60,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "qty",
-                  "duration_min"
-                ],
+                "label": "interval_min",
+                "value": 10,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "interval_min",
-                  "divmod"
-                ],
-                "tone": "data"
+                "label": "n",
+                "value": 6,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example builds TWAP schedules for discrete execution intervals.",
-            "rows": [
+            "caption": "The example builds TWAP schedules for a few cases.",
+            "bars": [
               {
-                "cells": [
-                  "base",
-                  "extra"
-                ],
+                "label": "qty",
+                "value": 1200,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "qty",
-                  "duration_min"
-                ],
+                "label": "duration_min",
+                "value": 60,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "interval_min",
-                  "divmod"
-                ],
-                "tone": "data"
+                "label": "interval_min",
+                "value": 10,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "twap_schedule",
-                  "print"
-                ],
+                "label": "n",
+                "value": 6,
                 "tone": "ok"
               }
             ]
@@ -1018,110 +950,161 @@
       "codeHash": "5eba010cab71925b5162060e4bf08c3ba0b69be82f7a3c8ca31f6f17c6262b96",
       "spec": {
         "template": "flow",
-        "title": "Choosing and measuring an algorithm — Execution Pipeline",
+        "title": "Choosing and measuring an algorithm",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "schedule",
+            "label": "schedule"
           },
           {
-            "id": "proc",
-            "label": "2. Choosing and measur...",
-            "tappable": true
+            "id": "expected_market",
+            "label": "expected_market"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "limit",
+            "label": "limit"
+          },
+          {
+            "id": "i",
+            "label": "i"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing and measuring an algorithm.",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing and measur... [Dfour.Pfive.Stwo].",
+            "caption": "VWAP suits clients benchmarked to the day's VWAP and orders that are.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "schedule": {
+                "var": "schedule",
+                "line": 1,
+                "hit": 1
+              },
+              "expected_market": {
+                "var": "expected_market",
+                "line": 2,
+                "hit": 1
+              },
+              "limit": {
+                "var": "limit",
+                "line": 3,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "schedule": "data",
+              "expected_market": "data",
+              "limit": "data",
+              "i": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "schedule",
+                "expected_market"
               ],
               [
-                "proc",
-                "out"
+                "expected_market",
+                "limit"
+              ],
+              [
+                "limit",
+                "i"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "TWAP suits steady execution when volume is unpredictable.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "schedule": {
+                "var": "schedule",
+                "line": 2,
+                "hit": 1
+              },
+              "expected_market": {
+                "var": "expected_market",
+                "line": 3,
+                "hit": 1
+              },
+              "limit": {
+                "var": "limit",
+                "line": 4,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "schedule": "data",
+              "expected_market": "data",
+              "limit": "data",
+              "i": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "schedule",
+                "expected_market"
+              ],
+              [
+                "expected_market",
+                "limit"
+              ],
+              [
+                "limit",
+                "i"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing and measuring an algorithm.",
+            "at": "say7",
+            "caption": "Good execution is measured, not assumed.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "schedule": {
+                "var": "schedule",
+                "line": 3,
+                "hit": 1
+              },
+              "expected_market": {
+                "var": "expected_market",
+                "line": 4,
+                "hit": 1
+              },
+              "limit": {
+                "var": "limit",
+                "line": 5,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "schedule": "ok",
+              "expected_market": "ok",
+              "limit": "ok",
+              "i": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "schedule",
+                "expected_market"
               ],
               [
-                "proc",
-                "out"
+                "expected_market",
+                "limit"
+              ],
+              [
+                "limit",
+                "i"
               ]
             ]
           }
@@ -1129,110 +1112,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Choosing and measuring an algorithm — Execution Pipeline",
+        "title": "Choosing and measuring an algorithm",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "schedule",
+            "label": "schedule"
           },
           {
-            "id": "proc",
-            "label": "2. Choosing and measur...",
-            "tappable": true
+            "id": "expected_market",
+            "label": "expected_market"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "limit",
+            "label": "limit"
+          },
+          {
+            "id": "i",
+            "label": "i"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing and measuring an algorithm [D4.P5.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing and measur... [D4.P5.S2].",
+            "caption": "VWAP suits clients benchmarked to the day's VWAP and orders that are.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "schedule": "[2000, 1000, 1000, 1500, 4500]",
+              "expected_market": "[15000, 12000, 9000, 11000, 20000]",
+              "limit": "0.15",
+              "i": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "schedule": "data",
+              "expected_market": "data",
+              "limit": "data",
+              "i": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "schedule",
+                "expected_market"
               ],
               [
-                "proc",
-                "out"
+                "expected_market",
+                "limit"
+              ],
+              [
+                "limit",
+                "i"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P5.S3].",
+            "at": "say2",
+            "caption": "TWAP suits steady execution when volume is unpredictable.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "schedule": "[2000, 1000, 1000, 1500, 4500]",
+              "expected_market": "[15000, 12000, 9000, 11000, 20000]",
+              "limit": "0.15",
+              "i": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "schedule": "data",
+              "expected_market": "data",
+              "limit": "data",
+              "i": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "schedule",
+                "expected_market"
+              ],
+              [
+                "expected_market",
+                "limit"
+              ],
+              [
+                "limit",
+                "i"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing and measuring an algorithm [D4.P5.S4].",
+            "at": "say7",
+            "caption": "Good execution is measured, not assumed.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "schedule": "[2000, 1000, 1000, 1500, 4500]",
+              "expected_market": "[15000, 12000, 9000, 11000, 20000]",
+              "limit": "0.15",
+              "i": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "schedule": "ok",
+              "expected_market": "ok",
+              "limit": "ok",
+              "i": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "schedule",
+                "expected_market"
               ],
               [
-                "proc",
-                "out"
+                "expected_market",
+                "limit"
+              ],
+              [
+                "limit",
+                "i"
               ]
             ]
           }
@@ -1243,224 +1229,162 @@
       "partTitle": "Practice time: schedules",
       "codeHash": "f952564b6358d6941f826c99c213ea4cd706d9c1eb55566cdc3f4c4e3d8796f6",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: schedules — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: sche...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: schedules",
+        "actors": [
+          "plan",
+          "carry",
+          "filled_total"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: schedules [Dfour.Psix.Sone].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: sche... [Dfour.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Vwap_schedule(total, volume_pcts).",
+            "activeActor": "plan",
+            "messages": [
+              {
+                "from": "plan",
+                "to": "carry",
+                "label": {
+                  "var": "plan",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "carry",
+                "to": "filled_total",
+                "label": {
+                  "var": "carry",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfour.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a clean profile, a profile where naive rounding would.",
+            "activeActor": "carry",
+            "messages": [
+              {
+                "from": "plan",
+                "to": "carry",
+                "label": {
+                  "var": "plan",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "carry",
+                "to": "filled_total",
+                "label": {
+                  "var": "carry",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: schedules.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows that carry-forward loop.",
+            "activeActor": "filled_total",
+            "messages": [
+              {
+                "from": "plan",
+                "to": "carry",
+                "label": {
+                  "var": "plan",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "carry",
+                "to": "filled_total",
+                "label": {
+                  "var": "carry",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: schedules — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: sche...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: schedules",
+        "actors": [
+          "plan",
+          "carry",
+          "filled_total"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: schedules [D4.P6.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: sche... [D4.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Vwap_schedule(total, volume_pcts).",
+            "messages": [
+              {
+                "from": "plan",
+                "to": "carry",
+                "label": "[200, 200, 200, 200, 200]",
+                "tone": "data"
+              },
+              {
+                "from": "carry",
+                "to": "filled_total",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "plan"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks include a clean profile, a profile where naive rounding would.",
+            "messages": [
+              {
+                "from": "plan",
+                "to": "carry",
+                "label": "[200, 200, 200, 200, 200]",
+                "tone": "data"
+              },
+              {
+                "from": "carry",
+                "to": "filled_total",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "carry"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: schedules [D4.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example shows that carry-forward loop.",
+            "messages": [
+              {
+                "from": "plan",
+                "to": "carry",
+                "label": "[200, 200, 200, 200, 200]",
+                "tone": "data"
+              },
+              {
+                "from": "carry",
+                "to": "filled_total",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "filled_total"
           }
         ]
       }

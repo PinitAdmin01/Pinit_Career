@@ -2,85 +2,97 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 24,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Triggers and actions",
       "codeHash": "9280c042d3b86a9d4312b8e5a5f8f69a47a55efb17f628d2c954ef619842e1c0",
       "spec": {
-        "template": "table",
-        "title": "Trigger-action event pipelines and AI transformations",
-        "columns": [
-          "event",
-          "action",
+        "template": "sequence",
+        "title": "Triggers and actions",
+        "actors": [
+          "new_email",
           "event"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An automation links a trigger event to executed action steps in response.",
-            "rows": [
+            "caption": "An automation has a trigger (an event, such as a new email, a form.",
+            "activeActor": "new_email",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "event"
-                  },
-                  {
-                    "text": "action"
-                  },
-                  {
-                    "text": "event"
-                  }
-                ],
-                "tone": "ok"
+                "from": "new_email",
+                "to": "event",
+                "label": {
+                  "var": "new_email",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "event"
-                  },
-                  {
-                    "text": "action"
-                  },
-                  {
-                    "text": "event"
-                  }
-                ],
-                "tone": "data"
+                "from": "event",
+                "to": "new_email",
+                "label": {
+                  "var": "event",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "AI steps classify incoming email messages and extract fields automatically.",
-            "rows": [
+            "caption": "AI steps slot in between.",
+            "activeActor": "event",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "event"
-                  },
-                  {
-                    "text": "action"
-                  },
-                  {
-                    "text": "event"
-                  }
-                ],
+                "from": "new_email",
+                "to": "event",
+                "label": {
+                  "var": "new_email",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "event"
-                  },
-                  {
-                    "text": "action"
-                  },
-                  {
-                    "text": "new_email"
-                  }
-                ],
+                "from": "event",
+                "to": "new_email",
+                "label": {
+                  "var": "event",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Include a notification step at the end, so people know the automation ran.",
+            "activeActor": "event",
+            "messages": [
+              {
+                "from": "new_email",
+                "to": "event",
+                "label": {
+                  "var": "new_email",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "event",
+                "to": "new_email",
+                "label": {
+                  "var": "event",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +100,69 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Trigger-action event pipelines and AI transformations",
-        "columns": [
-          "event",
-          "action",
+        "template": "sequence",
+        "title": "Triggers and actions",
+        "actors": [
+          "new_email",
           "event"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An automation links a trigger event to executed action steps in response.",
-            "rows": [
+            "caption": "An automation has a trigger (an event, such as a new email, a form.",
+            "messages": [
               {
-                "cells": [
-                  "event",
-                  "action",
-                  "event"
-                ],
-                "tone": "ok"
+                "from": "new_email",
+                "to": "event",
+                "label": "{'body': 'Please find the invoice for M…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "event",
-                  "action",
-                  "event"
-                ],
-                "tone": "data"
+                "from": "event",
+                "to": "new_email",
+                "label": "{'body': 'Please find the invoice for M…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "new_email"
           },
           {
             "at": "say2",
-            "caption": "AI steps classify incoming email messages and extract fields automatically.",
-            "rows": [
+            "caption": "AI steps slot in between.",
+            "messages": [
               {
-                "cells": [
-                  "event",
-                  "action",
-                  "event"
-                ],
+                "from": "new_email",
+                "to": "event",
+                "label": "{'body': 'Please find the invoice for M…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "event",
-                  "action",
-                  "new_email"
-                ],
+                "from": "event",
+                "to": "new_email",
+                "label": "{'body': 'Please find the invoice for M…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "event"
+          },
+          {
+            "at": "say9",
+            "caption": "Include a notification step at the end, so people know the automation ran.",
+            "messages": [
+              {
+                "from": "new_email",
+                "to": "event",
+                "label": "{'body': 'Please find the invoice for M…",
+                "tone": "data"
+              },
+              {
+                "from": "event",
+                "to": "new_email",
+                "label": "{'body': 'Please find the invoice for M…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "event"
           }
         ]
       }
@@ -147,135 +171,277 @@
       "partTitle": "Webhooks",
       "codeHash": "0bdb3f39c7d738afa7b5d43d7959c6fd71d5a247d67d5f2b9623226eb12d0ef8",
       "spec": {
-        "template": "table",
-        "title": "HTTP webhook reception and idempotent deduplication",
-        "columns": [
-          "seen_ids",
-          "event",
-          "seen_ids"
+        "template": "flow",
+        "title": "Webhooks",
+        "nodes": [
+          {
+            "id": "seen_ids",
+            "label": "seen_ids"
+          },
+          {
+            "id": "payloads",
+            "label": "payloads"
+          },
+          {
+            "id": "raw",
+            "label": "raw"
+          },
+          {
+            "id": "event",
+            "label": "event"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A webhook sends instant HTTP JSON notifications when remote events happen.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "seen_ids"
-                  },
-                  {
-                    "text": "event"
-                  },
-                  {
-                    "text": "seen_ids"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A webhook is a way for one app to notify another instantly.",
+            "values": {
+              "seen_ids": {
+                "var": "seen_ids",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "seen_ids"
-                  },
-                  {
-                    "text": "event"
-                  },
-                  {
-                    "text": "seen_ids"
-                  }
-                ],
-                "tone": "data"
+              "payloads": {
+                "var": "payloads",
+                "line": 4,
+                "hit": 1
+              },
+              "raw": {
+                "var": "raw",
+                "line": 7,
+                "hit": 1
+              },
+              "event": {
+                "var": "event",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "seen_ids": "data",
+              "payloads": "data",
+              "raw": "data",
+              "event": "data"
+            },
+            "arrows": [
+              [
+                "seen_ids",
+                "payloads"
+              ],
+              [
+                "payloads",
+                "raw"
+              ],
+              [
+                "raw",
+                "event"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Webhook data arrives as JSON payloads which local code parses and validates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "seen_ids"
-                  },
-                  {
-                    "text": "event"
-                  },
-                  {
-                    "text": "seen_ids"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "For example, a payment service can call your webhook when a payment.",
+            "values": {
+              "seen_ids": {
+                "var": "seen_ids",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "seen_ids"
-                  },
-                  {
-                    "text": "event"
-                  },
-                  {
-                    "text": "payloads"
-                  }
-                ],
-                "tone": "ok"
+              "payloads": {
+                "var": "payloads",
+                "line": 7,
+                "hit": 1
+              },
+              "raw": {
+                "var": "raw",
+                "line": 8,
+                "hit": 1
+              },
+              "event": {
+                "var": "event",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "seen_ids": "data",
+              "payloads": "data",
+              "raw": "data",
+              "event": "data"
+            },
+            "arrows": [
+              [
+                "seen_ids",
+                "payloads"
+              ],
+              [
+                "payloads",
+                "raw"
+              ],
+              [
+                "raw",
+                "event"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Many platforms provide a test button that sends a sample webhook, which.",
+            "values": {
+              "seen_ids": {
+                "var": "seen_ids",
+                "line": 7,
+                "hit": 1
+              },
+              "payloads": {
+                "var": "payloads",
+                "line": 8,
+                "hit": 1
+              },
+              "raw": {
+                "var": "raw",
+                "line": 9,
+                "hit": 1
+              },
+              "event": {
+                "var": "event",
+                "line": 12,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "seen_ids": "ok",
+              "payloads": "ok",
+              "raw": "ok",
+              "event": "ok"
+            },
+            "arrows": [
+              [
+                "seen_ids",
+                "payloads"
+              ],
+              [
+                "payloads",
+                "raw"
+              ],
+              [
+                "raw",
+                "event"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "HTTP webhook reception and idempotent deduplication",
-        "columns": [
-          "seen_ids",
-          "event",
-          "seen_ids"
+        "template": "flow",
+        "title": "Webhooks",
+        "nodes": [
+          {
+            "id": "seen_ids",
+            "label": "seen_ids"
+          },
+          {
+            "id": "payloads",
+            "label": "payloads"
+          },
+          {
+            "id": "raw",
+            "label": "raw"
+          },
+          {
+            "id": "event",
+            "label": "event"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A webhook sends instant HTTP JSON notifications when remote events happen.",
-            "rows": [
-              {
-                "cells": [
-                  "seen_ids",
-                  "event",
-                  "seen_ids"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "seen_ids",
-                  "event",
-                  "seen_ids"
-                ],
-                "tone": "data"
-              }
+            "caption": "A webhook is a way for one app to notify another instantly.",
+            "values": {
+              "seen_ids": "set()",
+              "payloads": "['{\"id\": \"evt_1\", \"type\": \"payment.succ…",
+              "raw": "'{\"id\": \"evt_1\", \"type\": \"payment.succe…",
+              "event": "{'id': 'evt_1', 'type': 'payment.succee…"
+            },
+            "tones": {
+              "seen_ids": "data",
+              "payloads": "data",
+              "raw": "data",
+              "event": "data"
+            },
+            "arrows": [
+              [
+                "seen_ids",
+                "payloads"
+              ],
+              [
+                "payloads",
+                "raw"
+              ],
+              [
+                "raw",
+                "event"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Webhook data arrives as JSON payloads which local code parses and validates.",
-            "rows": [
-              {
-                "cells": [
-                  "seen_ids",
-                  "event",
-                  "seen_ids"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "seen_ids",
-                  "event",
-                  "payloads"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "For example, a payment service can call your webhook when a payment.",
+            "values": {
+              "seen_ids": "set()",
+              "payloads": "['{\"id\": \"evt_1\", \"type\": \"payment.succ…",
+              "raw": "'{\"id\": \"evt_1\", \"type\": \"payment.succe…",
+              "event": "{'id': 'evt_1', 'type': 'payment.succee…"
+            },
+            "tones": {
+              "seen_ids": "data",
+              "payloads": "data",
+              "raw": "data",
+              "event": "data"
+            },
+            "arrows": [
+              [
+                "seen_ids",
+                "payloads"
+              ],
+              [
+                "payloads",
+                "raw"
+              ],
+              [
+                "raw",
+                "event"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Many platforms provide a test button that sends a sample webhook, which.",
+            "values": {
+              "seen_ids": "set()",
+              "payloads": "['{\"id\": \"evt_1\", \"type\": \"payment.succ…",
+              "raw": "'{\"id\": \"evt_1\", \"type\": \"payment.succe…",
+              "event": "{'id': 'evt_1', 'type': 'payment.succee…"
+            },
+            "tones": {
+              "seen_ids": "ok",
+              "payloads": "ok",
+              "raw": "ok",
+              "event": "ok"
+            },
+            "arrows": [
+              [
+                "seen_ids",
+                "payloads"
+              ],
+              [
+                "payloads",
+                "raw"
+              ],
+              [
+                "raw",
+                "event"
+              ]
             ]
           }
         ]
@@ -285,78 +451,91 @@
       "partTitle": "Routing events with rules",
       "codeHash": "38a7d5699161cf2d0b85b35192042b6165adf5638f39f5232611930f505b1288",
       "spec": {
-        "template": "table",
-        "title": "Conditional rule evaluation and event dispatch routing",
-        "columns": [
+        "template": "sequence",
+        "title": "Routing events with rules",
+        "actors": [
           "rules",
-          "event",
-          "actions"
+          "e",
+          "event"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Event routing sends different incoming events to specialized actions.",
-            "rows": [
+            "caption": "Most automations need routing.",
+            "activeActor": "rules",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "rules"
-                  },
-                  {
-                    "text": "event"
-                  },
-                  {
-                    "text": "actions"
-                  }
-                ],
-                "tone": "ok"
+                "from": "rules",
+                "to": "e",
+                "label": {
+                  "var": "rules",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "rules"
-                  },
-                  {
-                    "text": "event"
-                  },
-                  {
-                    "text": "actions"
-                  }
-                ],
-                "tone": "data"
+                "from": "e",
+                "to": "event",
+                "label": {
+                  "var": "e",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Conditional rules inspect event type and priority to notify appropriate teams.",
-            "rows": [
+            "caption": "Rules are simple conditions.",
+            "activeActor": "e",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "rules"
-                  },
-                  {
-                    "text": "event"
-                  },
-                  {
-                    "text": "actions"
-                  }
-                ],
+                "from": "rules",
+                "to": "e",
+                "label": {
+                  "var": "rules",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "rules"
-                  },
-                  {
-                    "text": "event"
-                  },
-                  {
-                    "text": "rules"
-                  }
-                ],
+                "from": "e",
+                "to": "event",
+                "label": {
+                  "var": "e",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Order matters when actions depend on each other, so keep rules in.",
+            "activeActor": "event",
+            "messages": [
+              {
+                "from": "rules",
+                "to": "e",
+                "label": {
+                  "var": "rules",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "e",
+                "to": "event",
+                "label": {
+                  "var": "e",
+                  "line": 10,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +543,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Conditional rule evaluation and event dispatch routing",
-        "columns": [
+        "template": "sequence",
+        "title": "Routing events with rules",
+        "actors": [
           "rules",
-          "event",
-          "actions"
+          "e",
+          "event"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Event routing sends different incoming events to specialized actions.",
-            "rows": [
+            "caption": "Most automations need routing.",
+            "messages": [
               {
-                "cells": [
-                  "rules",
-                  "event",
-                  "actions"
-                ],
-                "tone": "ok"
+                "from": "rules",
+                "to": "e",
+                "label": "[{'field': 'type', 'equals': 'order', '…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "rules",
-                  "event",
-                  "actions"
-                ],
-                "tone": "data"
+                "from": "e",
+                "to": "event",
+                "label": "{'type': 'order', 'priority': 'high'}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "rules"
           },
           {
             "at": "say2",
-            "caption": "Conditional rules inspect event type and priority to notify appropriate teams.",
-            "rows": [
+            "caption": "Rules are simple conditions.",
+            "messages": [
               {
-                "cells": [
-                  "rules",
-                  "event",
-                  "actions"
-                ],
+                "from": "rules",
+                "to": "e",
+                "label": "[{'field': 'type', 'equals': 'order', '…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "rules",
-                  "event",
-                  "rules"
-                ],
+                "from": "e",
+                "to": "event",
+                "label": "{'type': 'order', 'priority': 'high'}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "e"
+          },
+          {
+            "at": "say9",
+            "caption": "Order matters when actions depend on each other, so keep rules in.",
+            "messages": [
+              {
+                "from": "rules",
+                "to": "e",
+                "label": "[{'field': 'type', 'equals': 'order', '…",
+                "tone": "data"
+              },
+              {
+                "from": "e",
+                "to": "event",
+                "label": "{'type': 'refund'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "event"
           }
         ]
       }
@@ -423,78 +615,131 @@
       "partTitle": "Retries and exponential backoff",
       "codeHash": "7d0ac4a76cd8aa721fa81ff773f94f1a7a267abeb0f156a5cab2457f4f8e5986",
       "spec": {
-        "template": "table",
-        "title": "Exponential backoff retry intervals with jitter cap",
-        "columns": [
-          "attempts",
-          "base",
-          "cap"
-        ],
+        "template": "bars",
+        "title": "Retries and exponential backoff",
         "steps": [
           {
             "at": "say1",
-            "caption": "External services sometimes fail temporarily due to rate limits or timeouts.",
-            "rows": [
+            "caption": "AI services and other APIs sometimes fail temporarily.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "attempts"
-                  },
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "cap"
-                  }
-                ],
-                "tone": "ok"
+                "label": "attempts",
+                "value": {
+                  "var": "attempts",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "attempts"
-                  },
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "cap"
-                  }
-                ],
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cap",
+                "value": {
+                  "var": "cap",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Exponential backoff waits longer after each failure up to a specified cap.",
-            "rows": [
+            "at": "say2",
+            "caption": "Retrying immediately and repeatedly makes things worse, overloading.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "attempts"
-                  },
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "cap"
-                  }
-                ],
-                "tone": "data"
+                "label": "attempts",
+                "value": {
+                  "var": "attempts",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "attempts"
-                  },
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "base"
-                  }
-                ],
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cap",
+                "value": {
+                  "var": "cap",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Rate limit errors often include a suggested wait time.",
+            "bars": [
+              {
+                "label": "attempts",
+                "value": {
+                  "var": "attempts",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cap",
+                "value": {
+                  "var": "cap",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +747,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Exponential backoff retry intervals with jitter cap",
-        "columns": [
-          "attempts",
-          "base",
-          "cap"
-        ],
+        "template": "bars",
+        "title": "Retries and exponential backoff",
         "steps": [
           {
             "at": "say1",
-            "caption": "External services sometimes fail temporarily due to rate limits or timeouts.",
-            "rows": [
+            "caption": "AI services and other APIs sometimes fail temporarily.",
+            "bars": [
               {
-                "cells": [
-                  "attempts",
-                  "base",
-                  "cap"
-                ],
-                "tone": "ok"
+                "label": "attempts",
+                "value": 5,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "attempts",
-                  "base",
-                  "cap"
-                ],
+                "label": "base",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "cap",
+                "value": 30,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Exponential backoff waits longer after each failure up to a specified cap.",
-            "rows": [
+            "at": "say2",
+            "caption": "Retrying immediately and repeatedly makes things worse, overloading.",
+            "bars": [
               {
-                "cells": [
-                  "attempts",
-                  "base",
-                  "cap"
-                ],
-                "tone": "data"
+                "label": "attempts",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "attempts",
-                  "base",
-                  "base"
-                ],
+                "label": "base",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "cap",
+                "value": 30,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Rate limit errors often include a suggested wait time.",
+            "bars": [
+              {
+                "label": "attempts",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "base",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "cap",
+                "value": 30,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 2,
                 "tone": "ok"
               }
             ]
@@ -561,224 +835,162 @@
       "partTitle": "Monitoring automations",
       "codeHash": "36ba41058fcb5ef2bbce0c11d05283753830d5cecaa4f901e15b5e037dfe6a8c",
       "spec": {
-        "template": "flow",
-        "title": "Monitoring automations — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Monitoring automations",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Monitoring automations",
+        "actors": [
+          "runs",
+          "r",
+          "status"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Monitoring automations [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Monitoring automations [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Automations run unattended, so failures can go unnoticed for days.",
+            "activeActor": "runs",
+            "messages": [
+              {
+                "from": "runs",
+                "to": "r",
+                "label": {
+                  "var": "runs",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "r",
+                "to": "status",
+                "label": {
+                  "var": "r",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trigger, actions taken, time, success or failure, and error messages.",
+            "activeActor": "r",
+            "messages": [
+              {
+                "from": "runs",
+                "to": "r",
+                "label": {
+                  "var": "runs",
+                  "line": 4,
+                  "hit": 10
+                },
+                "tone": "data"
+              },
+              {
+                "from": "r",
+                "to": "status",
+                "label": {
+                  "var": "r",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Monitoring automations [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "A short weekly review of the logs often reveals easy improvements, such.",
+            "activeActor": "status",
+            "messages": [
+              {
+                "from": "runs",
+                "to": "r",
+                "label": {
+                  "var": "runs",
+                  "line": 5,
+                  "hit": 10
+                },
+                "tone": "data"
+              },
+              {
+                "from": "r",
+                "to": "status",
+                "label": {
+                  "var": "r",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Monitoring automations — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Monitoring automations",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Monitoring automations",
+        "actors": [
+          "runs",
+          "r",
+          "status"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Monitoring automations [D24.P5.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Monitoring automations [D24.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Automations run unattended, so failures can go unnoticed for days.",
+            "messages": [
+              {
+                "from": "runs",
+                "to": "r",
+                "label": "['ok', 'ok', 'error: timeout', 'ok', 'o…",
+                "tone": "data"
+              },
+              {
+                "from": "r",
+                "to": "status",
+                "label": "'ok'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "runs"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Trigger, actions taken, time, success or failure, and error messages.",
+            "messages": [
+              {
+                "from": "runs",
+                "to": "r",
+                "label": "['ok', 'ok', 'error: timeout', 'ok', 'o…",
+                "tone": "data"
+              },
+              {
+                "from": "r",
+                "to": "status",
+                "label": "'ok'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "r"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Monitoring automations [D24.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "A short weekly review of the logs often reveals easy improvements, such.",
+            "messages": [
+              {
+                "from": "runs",
+                "to": "r",
+                "label": "['ok', 'ok', 'error: timeout', 'ok', 'o…",
+                "tone": "data"
+              },
+              {
+                "from": "r",
+                "to": "status",
+                "label": "'error: timeout'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "status"
           }
         ]
       }
@@ -787,224 +999,162 @@
       "partTitle": "Practice time: route and back off",
       "codeHash": "2814cf318635aa5a418c21130fbacddb5b48846f47f4b1fcfc0b726c00f45cac",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: route and back off — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: rout...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: route and back off",
+        "actors": [
+          "rules",
+          "event",
+          "actions"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: route and back off [D.Psix.Sone].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: rout... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Route_event(event, rules).",
+            "activeActor": "rules",
+            "messages": [
+              {
+                "from": "rules",
+                "to": "event",
+                "label": {
+                  "var": "rules",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "event",
+                "to": "actions",
+                "label": {
+                  "var": "event",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include an event matching every rule (with a duplicate action).",
+            "activeActor": "event",
+            "messages": [
+              {
+                "from": "rules",
+                "to": "event",
+                "label": {
+                  "var": "rules",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "event",
+                "to": "actions",
+                "label": {
+                  "var": "event",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: route and back off.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "These two small functions capture the core logic behind much larger.",
+            "activeActor": "actions",
+            "messages": [
+              {
+                "from": "rules",
+                "to": "event",
+                "label": {
+                  "var": "rules",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "event",
+                "to": "actions",
+                "label": {
+                  "var": "event",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: route and back off — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: rout...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: route and back off",
+        "actors": [
+          "rules",
+          "event",
+          "actions"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: route and back off [D24.P6.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: rout... [D24.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Route_event(event, rules).",
+            "messages": [
+              {
+                "from": "rules",
+                "to": "event",
+                "label": "[{'field': 'type', 'equals': 'invoice',…",
+                "tone": "data"
+              },
+              {
+                "from": "event",
+                "to": "actions",
+                "label": "{'type': 'invoice'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "rules"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks include an event matching every rule (with a duplicate action).",
+            "messages": [
+              {
+                "from": "rules",
+                "to": "event",
+                "label": "[{'field': 'type', 'equals': 'invoice',…",
+                "tone": "data"
+              },
+              {
+                "from": "event",
+                "to": "actions",
+                "label": "{'type': 'invoice'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "event"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: route and back off [D24.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "These two small functions capture the core logic behind much larger.",
+            "messages": [
+              {
+                "from": "rules",
+                "to": "event",
+                "label": "[{'field': 'type', 'equals': 'invoice',…",
+                "tone": "data"
+              },
+              {
+                "from": "event",
+                "to": "actions",
+                "label": "{'type': 'invoice'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "actions"
           }
         ]
       }

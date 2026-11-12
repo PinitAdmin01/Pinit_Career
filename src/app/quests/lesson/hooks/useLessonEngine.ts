@@ -109,26 +109,48 @@ export function refillVisualFromTrace(
       prevVars = currentVars;
     }
 
-    // 2. Identify variables required by the visual (only from variable bindings in boxes)
+    // [FIX-STAGE: phase2a-boxes-static-binding-guard]
+    // Identify variables required by the visual from trace bindings.
+    // Conceptual boxes that exclusively use `{ text }` or `{ out }` across all steps
+    // (e.g. D5P1 `condition`, D8P1 `item`, D10P1 dict keys, D11P1 `record`) are NOT Python local variables
+    // and must not trigger a false fallback to static values.
     const requiredVars = new Set<string>();
-    if (Array.isArray(spec.boxes)) {
-      for (const b of spec.boxes) {
-        if (b.id && b.tappable !== false) {
-          requiredVars.add(b.id);
-        }
-      }
-    }
+    const hasExplicitVarBinding = new Set<string>();
+    const hasStaticOrOutBinding = new Set<string>();
 
     if (Array.isArray(spec.steps)) {
       for (const s of spec.steps) {
         if (s.values && typeof s.values === 'object') {
-          for (const binding of Object.values<any>(s.values)) {
+          for (const [key, binding] of Object.entries<any>(s.values)) {
             if (binding && typeof binding === 'object' && 'var' in binding && typeof binding.var === 'string') {
               requiredVars.add(binding.var);
+              hasExplicitVarBinding.add(key);
+            } else if (binding && typeof binding === 'object' && ('text' in binding || 'out' in binding)) {
+              hasStaticOrOutBinding.add(key);
             }
           }
         }
       }
+    }
+
+    if (Array.isArray(spec.boxes)) {
+      for (const b of spec.boxes) {
+        if (b.id && b.tappable !== false) {
+          const onlyStaticConceptual =
+            !hasExplicitVarBinding.has(b.id) && hasStaticOrOutBinding.has(b.id);
+          if (!onlyStaticConceptual) {
+            requiredVars.add(b.id);
+          }
+        }
+      }
+    }
+
+    if (requiredVars.size === 0) {
+      console.info('[PinIT][Fix:VisualTrace] Conceptual boxes visual has no trace-bound vars; keeping contextual labels.', {
+        title: spec.title,
+      });
+      // [FIX-STAGE: option-a-live-browser-fixes] Return contextual filled visual intact without clobbering prose with Gate v2 verbatim spec tokens.
+      return { visual: { ...(defaultVisual as any), fallbackNote: null }, fallbackNote: null };
     }
 
     // Check if any required variable is missing from the student trace
@@ -199,7 +221,7 @@ export function refillVisualFromTrace(
                 const valForStep = sIdx < history.length ? history[sIdx] : history[history.length - 1];
                 newValues[key] = String(valForStep);
               }
-            } else {
+            } else if (currentVal === undefined || currentVal === '') {
               newValues[key] = binding.text;
             }
             continue;
@@ -221,7 +243,12 @@ export function refillVisualFromTrace(
     }
 
     return { visual: { ...(updatedVisual as any), fallbackNote: null }, fallbackNote: null };
-  } catch {
+  } catch (err) {
+    // [FIX-STAGE: VisualTrace Diagnostics] Surface trace fallback reason cleanly instead of swallowing.
+    console.warn(
+      '[PinIT][Fix:VisualTrace] Falling back to static default visual:',
+      err instanceof Error ? err.message : String(err)
+    );
     return {
       visual: { ...(defaultVisual as any), fallbackNote: FALLBACK_MESSAGE },
       fallbackNote: FALLBACK_MESSAGE,
@@ -453,21 +480,28 @@ export function useLessonEngine({
     setQuizQuestions(null);
 
     const makeEmergencyFallback = (): TestQuestion[] => {
+      // [FIX-STAGE: checkpoint1-rotate-emergency-fallback] Never hardcode answerIndex: 0 in emergency diagnostic MCQs.
       const fallback = buildTestQuestions(testInfo.prefix, testInfo.start, testInfo.end, () => null);
       if (fallback.length > 0) return fallback;
+      console.warn('[useLessonEngine] makeEmergencyFallback triggered for', testInfo.prefix, testInfo.start, testInfo.end);
       const res: TestQuestion[] = [];
       for (let day = testInfo.start; day <= testInfo.end; day++) {
-        res.push({
-          question: `Diagnostic Assessment Day ${day}: What is the core requirement for Day ${day} in the ${testInfo.prefix} syllabus?`,
-          options: [
-            'Implement the required functionality according to specification and verify with tests',
-            'Skip test verification and push incomplete code directly to production',
-            'Bypass input validation checks in the pipeline',
-            'Hardcode mock credentials in production source code',
-          ],
-          answerIndex: 0,
-          explanation: `Engineering standard for Day ${day} demands verified implementation matching the curriculum rubric.`,
-        });
+        res.push(
+          withAnswerAt(
+            {
+              question: `Diagnostic Assessment Day ${day}: What is the core requirement for Day ${day} in the ${testInfo.prefix} syllabus?`,
+              options: [
+                'Implement the required functionality according to specification and verify with tests',
+                'Skip test verification and push incomplete code directly to production',
+                'Bypass input validation checks in the pipeline',
+                'Hardcode mock credentials in production source code',
+              ],
+              answerIndex: 0,
+              explanation: `Engineering standard for Day ${day} demands verified implementation matching the curriculum rubric.`,
+            },
+            (day - 1) % 4
+          )
+        );
       }
       return res;
     };
@@ -682,7 +716,13 @@ export function useLessonEngine({
       }
 
       let codeToExecute = codeSnippet;
-      const isTs = (parsedId && getLongLessonLanguage(parsedId.prefix) === 'typescript') || questData?.language === 'typescript' || questData?.language === 'tsx';
+      // [FIX-STAGE: Java Basics TS Simulator Compilation] java-basics lessons execute TypeScript simulator
+      // code in-browser; transpile via compileTs unless the snippet is raw Java (`public class`).
+      const isJavaBasicsTs = parsedId?.prefix === 'java-basics' && !/\bpublic\s+class\b/.test(codeSnippet);
+      if (isJavaBasicsTs) {
+        console.log('[PinIT][Fix:LessonEngine] Compiling java-basics TypeScript simulator before sandbox run');
+      }
+      const isTs = (parsedId && getLongLessonLanguage(parsedId.prefix) === 'typescript') || isJavaBasicsTs || questData?.language === 'typescript' || questData?.language === 'tsx';
       if (isTs) {
         setCodeOutputs(prev => ({ ...prev, [slideIdx]: "Compiling TypeScript..." }));
         const compiled = await compileTs(codeSnippet, { jsx: questData?.language === 'tsx' || /<[A-Za-z]/.test(codeSnippet) });

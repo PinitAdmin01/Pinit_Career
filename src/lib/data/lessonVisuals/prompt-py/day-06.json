@@ -2,141 +2,139 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 6,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "From scores to probabilities",
       "codeHash": "28fa3afb128254b304ea95098f7c48bf1e623b85d2869b63835c3a674675c11a",
       "spec": {
-        "template": "table",
-        "title": "Softmax transformation from logits to token probabilities",
-        "columns": [
-          "word",
-          "score",
-          "probability"
-        ],
+        "template": "bars",
+        "title": "From scores to probabilities",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Softmax turns raw scores into probabilities for each candidate token.",
-            "rows": [
+            "at": "say1",
+            "caption": "At each step the model gives every possible next token a score called a logit.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "sunny"
-                  },
-                  {
-                    "text": "score"
-                  },
-                  {
-                    "text": "probability"
-                  }
-                ],
-                "tone": "ok"
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "cloudy"
-                  },
-                  {
-                    "text": "score"
-                  },
-                  {
-                    "text": "probability"
-                  }
-                ],
+                "label": "e",
+                "value": {
+                  "var": "e",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Greedy decoding selects the top token while sampling allows variety.",
-            "rows": [
+            "at": "say2",
+            "caption": "Bigger scores get a much bigger share.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "sunny"
-                  },
-                  {
-                    "text": "score"
-                  },
-                  {
-                    "text": "probability"
-                  }
-                ],
-                "tone": "data"
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "purple"
-                  },
-                  {
-                    "text": "score"
-                  },
-                  {
-                    "text": "probability"
-                  }
-                ],
-                "tone": "idle"
+                "label": "e",
+                "value": {
+                  "var": "e",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Some APIs can return the top candidate tokens with their probabilities.",
+            "bars": [
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "e",
+                "value": {
+                  "var": "e",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Softmax transformation from logits to token probabilities",
-        "columns": [
-          "word",
-          "score",
-          "probability"
-        ],
+        "template": "bars",
+        "title": "From scores to probabilities",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Softmax turns raw scores into probabilities for each candidate token.",
-            "rows": [
+            "at": "say1",
+            "caption": "At each step the model gives every possible next token a score called a logit.",
+            "bars": [
               {
-                "cells": [
-                  "sunny",
-                  "score",
-                  "probability"
-                ],
-                "tone": "ok"
+                "label": "total",
+                "value": 10.475217368561138,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "cloudy",
-                  "score",
-                  "probability"
-                ],
+                "label": "e",
+                "value": 7.38905609893065,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Greedy decoding selects the top token while sampling allows variety.",
-            "rows": [
+            "at": "say2",
+            "caption": "Bigger scores get a much bigger share.",
+            "bars": [
               {
-                "cells": [
-                  "sunny",
-                  "score",
-                  "probability"
-                ],
-                "tone": "data"
+                "label": "total",
+                "value": 10.475217368561138,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "purple",
-                  "score",
-                  "probability"
-                ],
-                "tone": "idle"
+                "label": "e",
+                "value": 7.38905609893065,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Some APIs can return the top candidate tokens with their probabilities.",
+            "bars": [
+              {
+                "label": "total",
+                "value": 10.475217368561138,
+                "tone": "ok"
+              },
+              {
+                "label": "e",
+                "value": 2.718281828459045,
+                "tone": "ok"
               }
             ]
           }
@@ -147,78 +145,131 @@
       "partTitle": "Temperature",
       "codeHash": "fa8e77ee44dd46c2ea510baa8481e1e1b1843d2f721314aeaf98b7b699221535",
       "spec": {
-        "template": "table",
-        "title": "Temperature scaling effect on token probability distributions",
-        "columns": [
-          "temperature",
-          "sunny",
-          "cloudy"
-        ],
+        "template": "bars",
+        "title": "Temperature",
         "steps": [
           {
             "at": "say1",
-            "caption": "Low temperature sharpens the distribution so common tokens dominate.",
-            "rows": [
+            "caption": "Temperature divides every score before the softmax.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "temperature"
-                  },
-                  {
-                    "text": "sunny"
-                  },
-                  {
-                    "text": "cloudy"
-                  }
-                ],
-                "tone": "ok"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "temperature"
-                  },
-                  {
-                    "text": "sunny"
-                  },
-                  {
-                    "text": "cloudy"
-                  }
-                ],
+                "label": "top",
+                "value": {
+                  "var": "top",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Factual answers and code benefit from lower temperature settings.",
-            "rows": [
+            "at": "say2",
+            "caption": "Always the most likely token, giving nearly the same answer every time.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "temperature"
-                  },
-                  {
-                    "text": "sunny"
-                  },
-                  {
-                    "text": "cloudy"
-                  }
-                ],
-                "tone": "data"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "temperature"
-                  },
-                  {
-                    "text": "sunny"
-                  },
-                  {
-                    "text": "cloudy"
-                  }
-                ],
+                "label": "top",
+                "value": {
+                  "var": "top",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Remember that low temperature makes answers consistent, not correct.",
+            "bars": [
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "top",
+                "value": {
+                  "var": "top",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 7,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +277,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Temperature scaling effect on token probability distributions",
-        "columns": [
-          "temperature",
-          "sunny",
-          "cloudy"
-        ],
+        "template": "bars",
+        "title": "Temperature",
         "steps": [
           {
             "at": "say1",
-            "caption": "Low temperature sharpens the distribution so common tokens dominate.",
-            "rows": [
+            "caption": "Temperature divides every score before the softmax.",
+            "bars": [
               {
-                "cells": [
-                  "temperature",
-                  "sunny",
-                  "cloudy"
-                ],
-                "tone": "ok"
+                "label": "t",
+                "value": 0.3,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "temperature",
-                  "sunny",
-                  "cloudy"
-                ],
+                "label": "top",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": 1.0357193932770148,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Factual answers and code benefit from lower temperature settings.",
-            "rows": [
+            "at": "say2",
+            "caption": "Always the most likely token, giving nearly the same answer every time.",
+            "bars": [
               {
-                "cells": [
-                  "temperature",
-                  "sunny",
-                  "cloudy"
-                ],
-                "tone": "data"
+                "label": "t",
+                "value": 0.3,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "temperature",
-                  "sunny",
-                  "cloudy"
-                ],
+                "label": "top",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 1.0357193932770148,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Remember that low temperature makes answers consistent, not correct.",
+            "bars": [
+              {
+                "label": "t",
+                "value": 0.3,
+                "tone": "ok"
+              },
+              {
+                "label": "top",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": -1,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 1.0357193932770148,
                 "tone": "ok"
               }
             ]
@@ -285,78 +365,104 @@
       "partTitle": "Top-p (nucleus) sampling",
       "codeHash": "ad3ed42a0e46b26b9c936b38a2a00e2001f91426ea1cc425d6c1292e67692a53",
       "spec": {
-        "template": "table",
-        "title": "Nucleus sampling cumulative probability threshold cutoff",
-        "columns": [
-          "token",
-          "prob",
-          "kept"
-        ],
+        "template": "bars",
+        "title": "Top-p (nucleus) sampling",
         "steps": [
           {
             "at": "say1",
-            "caption": "Sampling keeps likely tokens whose cumulative probabilities reach the cutoff.",
-            "rows": [
+            "caption": "Top-p sampling keeps only the most likely tokens whose probabilities add.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "token"
-                  },
-                  {
-                    "text": "prob"
-                  },
-                  {
-                    "text": "kept"
-                  }
-                ],
-                "tone": "ok"
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "token"
-                  },
-                  {
-                    "text": "prob"
-                  },
-                  {
-                    "text": "kept"
-                  }
-                ],
+                "label": "cum",
+                "value": {
+                  "var": "cum",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "prob",
+                "value": {
+                  "var": "prob",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Filtering avoids nonsense tokens while keeping variety across options.",
-            "rows": [
+            "caption": "This avoids the rare nonsense tokens that pure sampling can pick, while.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "token"
-                  },
-                  {
-                    "text": "prob"
-                  },
-                  {
-                    "text": "kept"
-                  }
-                ],
-                "tone": "data"
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "token"
-                  },
-                  {
-                    "text": "prob"
-                  },
-                  {
-                    "text": "kept"
-                  }
-                ],
+                "label": "cum",
+                "value": {
+                  "var": "cum",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "prob",
+                "value": {
+                  "var": "prob",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Top-p adapts to the situation.",
+            "bars": [
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cum",
+                "value": {
+                  "var": "cum",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "prob",
+                "value": {
+                  "var": "prob",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,54 +470,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Nucleus sampling cumulative probability threshold cutoff",
-        "columns": [
-          "token",
-          "prob",
-          "kept"
-        ],
+        "template": "bars",
+        "title": "Top-p (nucleus) sampling",
         "steps": [
           {
             "at": "say1",
-            "caption": "Sampling keeps likely tokens whose cumulative probabilities reach the cutoff.",
-            "rows": [
+            "caption": "Top-p sampling keeps only the most likely tokens whose probabilities add.",
+            "bars": [
               {
-                "cells": [
-                  "token",
-                  "prob",
-                  "kept"
-                ],
-                "tone": "ok"
+                "label": "p",
+                "value": 0.5,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "token",
-                  "prob",
-                  "kept"
-                ],
+                "label": "cum",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "prob",
+                "value": 0.5,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Filtering avoids nonsense tokens while keeping variety across options.",
-            "rows": [
+            "caption": "This avoids the rare nonsense tokens that pure sampling can pick, while.",
+            "bars": [
               {
-                "cells": [
-                  "token",
-                  "prob",
-                  "kept"
-                ],
-                "tone": "data"
+                "label": "p",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "token",
-                  "prob",
-                  "kept"
-                ],
+                "label": "cum",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "prob",
+                "value": 0.5,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Top-p adapts to the situation.",
+            "bars": [
+              {
+                "label": "p",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "cum",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "prob",
+                "value": 0.5,
                 "tone": "ok"
               }
             ]
@@ -423,78 +543,91 @@
       "partTitle": "Frequency and presence penalties",
       "codeHash": "bb48bd001555ea5f6b1db0f0cc7fe1f6f13fd33af10b72d5c45a045617a2419f",
       "spec": {
-        "template": "table",
-        "title": "Repetition penalty adjustments on token scores",
-        "columns": [
-          "token",
+        "template": "sequence",
+        "title": "Frequency and presence penalties",
+        "actors": [
           "scores",
-          "adjusted"
+          "history",
+          "freq_pen"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A frequency penalty grows with repeated token occurrences.",
-            "rows": [
+            "at": "say1",
+            "caption": "Language models sometimes repeat words or phrases.",
+            "activeActor": "scores",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "great"
-                  },
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "adjusted"
-                  }
-                ],
-                "tone": "ok"
+                "from": "scores",
+                "to": "history",
+                "label": {
+                  "var": "scores",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "good"
-                  },
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "adjusted"
-                  }
-                ],
-                "tone": "data"
+                "from": "history",
+                "to": "freq_pen",
+                "label": {
+                  "var": "history",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "A presence penalty applies flat reduction encouraging new topics.",
-            "rows": [
+            "at": "say2",
+            "caption": "A frequency penalty grows with how many times a token has appeared.",
+            "activeActor": "history",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "great"
-                  },
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "adjusted"
-                  }
-                ],
+                "from": "scores",
+                "to": "history",
+                "label": {
+                  "var": "scores",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "good"
-                  },
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "adjusted"
-                  }
-                ],
+                "from": "history",
+                "to": "freq_pen",
+                "label": {
+                  "var": "history",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "When a list of ideas keeps producing near-duplicates, a presence penalty.",
+            "activeActor": "freq_pen",
+            "messages": [
+              {
+                "from": "scores",
+                "to": "history",
+                "label": {
+                  "var": "scores",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "history",
+                "to": "freq_pen",
+                "label": {
+                  "var": "history",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,57 +635,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Repetition penalty adjustments on token scores",
-        "columns": [
-          "token",
+        "template": "sequence",
+        "title": "Frequency and presence penalties",
+        "actors": [
           "scores",
-          "adjusted"
+          "history",
+          "freq_pen"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A frequency penalty grows with repeated token occurrences.",
-            "rows": [
+            "at": "say1",
+            "caption": "Language models sometimes repeat words or phrases.",
+            "messages": [
               {
-                "cells": [
-                  "great",
-                  "scores",
-                  "adjusted"
-                ],
-                "tone": "ok"
+                "from": "scores",
+                "to": "history",
+                "label": "{'great': 2, 'good': 1.6, 'excellent': …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "good",
-                  "scores",
-                  "adjusted"
-                ],
-                "tone": "data"
+                "from": "history",
+                "to": "freq_pen",
+                "label": "{'great': 3, 'good': 1}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "scores"
           },
           {
-            "at": "say3",
-            "caption": "A presence penalty applies flat reduction encouraging new topics.",
-            "rows": [
+            "at": "say2",
+            "caption": "A frequency penalty grows with how many times a token has appeared.",
+            "messages": [
               {
-                "cells": [
-                  "great",
-                  "scores",
-                  "adjusted"
-                ],
+                "from": "scores",
+                "to": "history",
+                "label": "{'great': 2, 'good': 1.6, 'excellent': …",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "good",
-                  "scores",
-                  "adjusted"
-                ],
+                "from": "history",
+                "to": "freq_pen",
+                "label": "{'great': 3, 'good': 1}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "history"
+          },
+          {
+            "at": "say8",
+            "caption": "When a list of ideas keeps producing near-duplicates, a presence penalty.",
+            "messages": [
+              {
+                "from": "scores",
+                "to": "history",
+                "label": "{'great': 2, 'good': 1.6, 'excellent': …",
+                "tone": "data"
+              },
+              {
+                "from": "history",
+                "to": "freq_pen",
+                "label": "{'great': 3, 'good': 1}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "freq_pen"
           }
         ]
       }
@@ -562,110 +708,127 @@
       "codeHash": "2e870e9b06ed8d826a02234225d7fc48f3bde46a2dce632b90826d2f473a88c6",
       "spec": {
         "template": "flow",
-        "title": "Choosing settings for the task — Execution Pipeline",
+        "title": "Choosing settings for the task",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "presets",
+            "label": "presets"
           },
           {
-            "id": "proc",
-            "label": "2. Choosing settings f...",
-            "tappable": true
+            "id": "task",
+            "label": "task"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "settings",
+            "label": "settings"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing settings for the task.",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing settings f... [Dsix.Pfive.Stwo].",
+            "caption": "Factual Q&A, data extraction, classification and code.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "presets": {
+                "var": "presets",
+                "line": 1,
+                "hit": 1
+              },
+              "task": {
+                "var": "task",
+                "line": 6,
+                "hit": 1
+              },
+              "settings": {
+                "var": "settings",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "presets": "data",
+              "task": "data",
+              "settings": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "presets",
+                "task"
               ],
               [
-                "proc",
-                "out"
+                "task",
+                "settings"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Emails and everyday writing.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "presets": {
+                "var": "presets",
+                "line": 6,
+                "hit": 1
+              },
+              "task": {
+                "var": "task",
+                "line": 7,
+                "hit": 1
+              },
+              "settings": {
+                "var": "settings",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "presets": "data",
+              "task": "data",
+              "settings": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "presets",
+                "task"
+              ],
+              [
+                "task",
+                "settings"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing settings for the task.",
+            "at": "say8",
+            "caption": "Newer reasoning models sometimes fix these settings internally, so check.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "presets": {
+                "var": "presets",
+                "line": 7,
+                "hit": 1
+              },
+              "task": {
+                "var": "task",
+                "line": 6,
+                "hit": 2
+              },
+              "settings": {
+                "var": "settings",
+                "line": 6,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "presets": "ok",
+              "task": "ok",
+              "settings": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "presets",
+                "task"
               ],
               [
-                "proc",
-                "out"
+                "task",
+                "settings"
               ]
             ]
           }
@@ -673,110 +836,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Choosing settings for the task — Execution Pipeline",
+        "title": "Choosing settings for the task",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "presets",
+            "label": "presets"
           },
           {
-            "id": "proc",
-            "label": "2. Choosing settings f...",
-            "tappable": true
+            "id": "task",
+            "label": "task"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "settings",
+            "label": "settings"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing settings for the task [D6.P5.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing settings f... [D6.P5.S2].",
+            "caption": "Factual Q&A, data extraction, classification and code.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "presets": "{'extract data': {'temperature': 0, 'to…",
+              "task": "'extract data'",
+              "settings": "{'temperature': 0, 'top_p': 1, 'presenc…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "presets": "data",
+              "task": "data",
+              "settings": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "presets",
+                "task"
               ],
               [
-                "proc",
-                "out"
+                "task",
+                "settings"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P5.S3].",
+            "at": "say2",
+            "caption": "Emails and everyday writing.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "presets": "{'extract data': {'temperature': 0, 'to…",
+              "task": "'extract data'",
+              "settings": "{'temperature': 0, 'top_p': 1, 'presenc…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "presets": "data",
+              "task": "data",
+              "settings": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "presets",
+                "task"
+              ],
+              [
+                "task",
+                "settings"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing settings for the task [D6.P5.S4].",
+            "at": "say8",
+            "caption": "Newer reasoning models sometimes fix these settings internally, so check.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "presets": "{'extract data': {'temperature': 0, 'to…",
+              "task": "'write email'",
+              "settings": "{'temperature': 0.6, 'top_p': 1, 'prese…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "presets": "ok",
+              "task": "ok",
+              "settings": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "presets",
+                "task"
               ],
               [
-                "proc",
-                "out"
+                "task",
+                "settings"
               ]
             ]
           }
@@ -787,223 +931,175 @@
       "partTitle": "Practice time: temperature and top-p",
       "codeHash": "ff34ad426fe8754a25818912ee772c49f8b7f310500708bbf745349250882ffd",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: temperature and top-p — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: temp...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: temperature and top-p",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: temperature and top-p.",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: temp... [Dsix.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Apply_temperature(logits, temperature).",
+            "bars": [
+              {
+                "label": "top",
+                "value": {
+                  "var": "top",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cum",
+                "value": {
+                  "var": "cum",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 8,
+                  "hit": 5
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Otherwise subtract the top score, divide by temperature, exponentiate.",
+            "bars": [
+              {
+                "label": "top",
+                "value": {
+                  "var": "top",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cum",
+                "value": {
+                  "var": "cum",
+                  "line": 8,
+                  "hit": 5
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: temperature and to.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "These two functions are simplified versions of what runs inside real model.",
+            "bars": [
+              {
+                "label": "top",
+                "value": {
+                  "var": "top",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cum",
+                "value": {
+                  "var": "cum",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: temperature and top-p — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: temp...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: temperature and top-p",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: temperature and top-p [D6.P6.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: temp... [D6.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Apply_temperature(logits, temperature).",
+            "bars": [
+              {
+                "label": "top",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "cum",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 0.7261480338597156,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Otherwise subtract the top score, divide by temperature, exponentiate.",
+            "bars": [
+              {
+                "label": "top",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "cum",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 0.7261480338597156,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: temperature and to.. [D6.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "These two functions are simplified versions of what runs inside real model.",
+            "bars": [
+              {
+                "label": "top",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "cum",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 0.7261480338597156,
+                "tone": "ok"
+              }
             ]
           }
         ]

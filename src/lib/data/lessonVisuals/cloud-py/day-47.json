@@ -2,270 +2,284 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 47,
-  "promptSha": "9c0c18c83a99e59d840f5e557716d73bf2f2680ed77a9f1b90f04ea7f04a2e8b",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitigation — Foundations & Mathematical Invariants",
-      "codeHash": "1691fb221b628c93ef734aefb8e23e75a7d7fa117edf2d07c7964c14305e5f54",
+      "codeHash": "ca81a3bccd66e9dd708177fbe398039f758fa78eae6fcdf17641b13a6a5ffa42",
       "spec": {
         "template": "flow",
-        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitigation ",
+        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitig",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "logical_key",
+            "label": "logical_key"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "writes_per_sec",
+            "label": "writes_per_sec"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "reads_per_sec",
+            "label": "reads_per_sec"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "wcu_exceeded",
+            "label": "wcu_exceeded"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In large-scale cloud applications, partition heat distribution.",
+            "values": {
+              "logical_key": {
+                "var": "logical_key",
+                "line": 7,
+                "hit": 1
+              },
+              "writes_per_sec": {
+                "var": "writes_per_sec",
+                "line": 7,
+                "hit": 1
+              },
+              "reads_per_sec": {
+                "var": "reads_per_sec",
+                "line": 7,
+                "hit": 1
+              },
+              "wcu_exceeded": {
+                "var": "wcu_exceeded",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "logical_key": "data",
+              "writes_per_sec": "data",
+              "reads_per_sec": "data",
+              "wcu_exceeded": "data"
+            },
+            "arrows": [
+              [
+                "logical_key",
+                "writes_per_sec"
+              ],
+              [
+                "writes_per_sec",
+                "reads_per_sec"
+              ],
+              [
+                "reads_per_sec",
+                "wcu_exceeded"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Understanding internal storage node boundaries allows platform engineers.",
+            "values": {
+              "logical_key": {
+                "var": "logical_key",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "writes_per_sec": {
+                "var": "writes_per_sec",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "reads_per_sec": {
+                "var": "reads_per_sec",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "wcu_exceeded": {
+                "var": "wcu_exceeded",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "logical_key": "data",
+              "writes_per_sec": "data",
+              "reads_per_sec": "data",
+              "wcu_exceeded": "data"
+            },
+            "arrows": [
+              [
+                "logical_key",
+                "writes_per_sec"
+              ],
+              [
+                "writes_per_sec",
+                "reads_per_sec"
+              ],
+              [
+                "reads_per_sec",
+                "wcu_exceeded"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Review the mathematical partition capacity boundaries and hot partition.",
+            "values": {
+              "logical_key": {
+                "var": "logical_key",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "writes_per_sec": {
+                "var": "writes_per_sec",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "reads_per_sec": {
+                "var": "reads_per_sec",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "wcu_exceeded": {
+                "var": "wcu_exceeded",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "logical_key": "ok",
+              "writes_per_sec": "ok",
+              "reads_per_sec": "ok",
+              "wcu_exceeded": "ok"
+            },
+            "arrows": [
+              [
+                "logical_key",
+                "writes_per_sec"
+              ],
+              [
+                "writes_per_sec",
+                "reads_per_sec"
+              ],
+              [
+                "reads_per_sec",
+                "wcu_exceeded"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitigation ",
+        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitig",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "logical_key",
+            "label": "logical_key"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "writes_per_sec",
+            "label": "writes_per_sec"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "reads_per_sec",
+            "label": "reads_per_sec"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "wcu_exceeded",
+            "label": "wcu_exceeded"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In large-scale cloud applications, partition heat distribution.",
+            "values": {
+              "logical_key": "'candidate_alpha'",
+              "writes_per_sec": "4500",
+              "reads_per_sec": "1200",
+              "wcu_exceeded": "True"
+            },
+            "tones": {
+              "logical_key": "data",
+              "writes_per_sec": "data",
+              "reads_per_sec": "data",
+              "wcu_exceeded": "data"
+            },
+            "arrows": [
+              [
+                "logical_key",
+                "writes_per_sec"
+              ],
+              [
+                "writes_per_sec",
+                "reads_per_sec"
+              ],
+              [
+                "reads_per_sec",
+                "wcu_exceeded"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Understanding internal storage node boundaries allows platform engineers.",
+            "values": {
+              "logical_key": "'candidate_alpha'",
+              "writes_per_sec": "4500",
+              "reads_per_sec": "1200",
+              "wcu_exceeded": "True"
+            },
+            "tones": {
+              "logical_key": "data",
+              "writes_per_sec": "data",
+              "reads_per_sec": "data",
+              "wcu_exceeded": "data"
+            },
+            "arrows": [
+              [
+                "logical_key",
+                "writes_per_sec"
+              ],
+              [
+                "writes_per_sec",
+                "reads_per_sec"
+              ],
+              [
+                "reads_per_sec",
+                "wcu_exceeded"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Review the mathematical partition capacity boundaries and hot partition.",
+            "values": {
+              "logical_key": "'candidate_alpha'",
+              "writes_per_sec": "4500",
+              "reads_per_sec": "1200",
+              "wcu_exceeded": "True"
+            },
+            "tones": {
+              "logical_key": "ok",
+              "writes_per_sec": "ok",
+              "reads_per_sec": "ok",
+              "wcu_exceeded": "ok"
+            },
+            "arrows": [
+              [
+                "logical_key",
+                "writes_per_sec"
+              ],
+              [
+                "writes_per_sec",
+                "reads_per_sec"
+              ],
+              [
+                "reads_per_sec",
+                "wcu_exceeded"
+              ]
             ]
           }
         ]
@@ -273,265 +287,279 @@
     },
     {
       "partTitle": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitigation — Core Algorithm & State Representation",
-      "codeHash": "1c28c6dd661ba05e8efc4d4b74d4d645decd97fa4b277fda358de53c563d2db5",
+      "codeHash": "0e9c2d4927ae42bee7d81b09f93eba887f9b310e38da8cb2717c71533759a83d",
       "spec": {
         "template": "flow",
-        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitigation ",
+        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitig",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "num_shards",
+            "label": "num_shards"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "i",
+            "label": "i"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "table",
+            "label": "table"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Scatter-gather query execution requires careful thread pool tuning.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "num_shards": {
+                "var": "num_shards",
+                "line": 3,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 1
+              },
+              "table": {
+                "var": "table",
+                "line": 25,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "num_shards": "data",
+              "i": "data",
+              "table": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "num_shards"
+              ],
+              [
+                "num_shards",
+                "i"
+              ],
+              [
+                "i",
+                "table"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "When performing aggregation sweeps across write shards, client SDKs merge.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "num_shards": {
+                "var": "num_shards",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "table": {
+                "var": "table",
+                "line": 26,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "num_shards": "data",
+              "i": "data",
+              "table": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "num_shards"
+              ],
+              [
+                "num_shards",
+                "i"
+              ],
+              [
+                "i",
+                "table"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Examine the write sharding key generator and scatter-gather aggregator.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "num_shards": {
+                "var": "num_shards",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "table": {
+                "var": "table",
+                "line": 27,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "num_shards": "ok",
+              "i": "ok",
+              "table": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "num_shards"
+              ],
+              [
+                "num_shards",
+                "i"
+              ],
+              [
+                "i",
+                "table"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitigation ",
+        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitig",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "num_shards",
+            "label": "num_shards"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "i",
+            "label": "i"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "table",
+            "label": "table"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Scatter-gather query execution requires careful thread pool tuning.",
+            "values": {
+              "self": "<WriteShardedTable>",
+              "num_shards": "4",
+              "i": "0",
+              "table": "<WriteShardedTable>"
+            },
+            "tones": {
+              "self": "data",
+              "num_shards": "data",
+              "i": "data",
+              "table": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "num_shards"
+              ],
+              [
+                "num_shards",
+                "i"
+              ],
+              [
+                "i",
+                "table"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "When performing aggregation sweeps across write shards, client SDKs merge.",
+            "values": {
+              "self": "<WriteShardedTable>",
+              "num_shards": "4",
+              "i": "1",
+              "table": "<WriteShardedTable>"
+            },
+            "tones": {
+              "self": "data",
+              "num_shards": "data",
+              "i": "data",
+              "table": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "num_shards"
+              ],
+              [
+                "num_shards",
+                "i"
+              ],
+              [
+                "i",
+                "table"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Examine the write sharding key generator and scatter-gather aggregator.",
+            "values": {
+              "self": "<WriteShardedTable>",
+              "num_shards": "4",
+              "i": "2",
+              "table": "<WriteShardedTable>"
+            },
+            "tones": {
+              "self": "ok",
+              "num_shards": "ok",
+              "i": "ok",
+              "table": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "num_shards"
+              ],
+              [
+                "num_shards",
+                "i"
+              ],
+              [
+                "i",
+                "table"
+              ]
             ]
           }
         ]
@@ -539,796 +567,490 @@
     },
     {
       "partTitle": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitigation — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "060a2e135b149122958c38dc9459070a4b2e58d01a5d609c99ac18253a25b355",
+      "codeHash": "e79f3bfa3038cc818902ee0f5b64139d15de0a7880c049a792fc9d3db205fd06",
       "spec": {
-        "template": "flow",
-        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitigation ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitig",
+        "actors": [
+          "entity_type",
+          "expected_wcu",
+          "entity_id"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Combining write sharding with DynamoDB Accelerator (DAX) microsecond.",
+            "activeActor": "entity_type",
+            "messages": [
+              {
+                "from": "entity_type",
+                "to": "expected_wcu",
+                "label": {
+                  "var": "entity_type",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "expected_wcu",
+                "to": "entity_id",
+                "label": {
+                  "var": "expected_wcu",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Dynamic key partitioning policies evaluate recent historical throughput.",
+            "activeActor": "expected_wcu",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "entity_type",
+                "to": "expected_wcu",
+                "label": {
+                  "var": "entity_type",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "expected_wcu",
+                "to": "entity_id",
+                "label": {
+                  "var": "expected_wcu",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Review the dynamic tier-based sharding router and burst capacity.",
+            "activeActor": "entity_id",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "entity_type",
+                "to": "expected_wcu",
+                "label": {
+                  "var": "entity_type",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "expected_wcu",
+                "to": "entity_id",
+                "label": {
+                  "var": "expected_wcu",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitigation ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitig",
+        "actors": [
+          "entity_type",
+          "expected_wcu",
+          "entity_id"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Combining write sharding with DynamoDB Accelerator (DAX) microsecond.",
+            "messages": [
+              {
+                "from": "entity_type",
+                "to": "expected_wcu",
+                "label": "'TENANT_STD'",
+                "tone": "data"
+              },
+              {
+                "from": "expected_wcu",
+                "to": "entity_id",
+                "label": "400",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "entity_type"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Dynamic key partitioning policies evaluate recent historical throughput.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "entity_type",
+                "to": "expected_wcu",
+                "label": "'TENANT_STD'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "expected_wcu",
+                "to": "entity_id",
+                "label": "400",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "expected_wcu"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Review the dynamic tier-based sharding router and burst capacity.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "entity_type",
+                "to": "expected_wcu",
+                "label": "'TENANT_VIRAL'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "expected_wcu",
+                "to": "entity_id",
+                "label": "400",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "entity_id"
           }
         ]
       }
     },
     {
       "partTitle": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitigation — Resilience Guardrails & Failure Recovery",
-      "codeHash": "3b7cbb55c53981ba18b9e2873ee03caaef0251ab5e101c3bd84461f4d1507017",
+      "codeHash": "c22253dc1e470106c4772a5a518bd1c9903703c809b959bbe6571f2aa9904fa8",
       "spec": {
-        "template": "flow",
-        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitigation ",
-        "nodes": [
+        "template": "states",
+        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitig",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "payload",
+            "label": "payload"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_retries",
+            "label": "max_retries"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "attempts",
+            "label": "attempts"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Implementing client-side circuit breakers prevents cascading thread pool.",
+            "currentState": "payload",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Failed write mutations captured in durable local memory buffers.",
+            "currentState": "max_retries",
+            "transition": {
+              "from": "payload",
+              "to": "max_retries",
+              "label": {
+                "var": "max_retries",
+                "line": 13,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say8",
+            "caption": "Observe the jittered backoff engine and hot partition throttle resilience.",
+            "currentState": "attempts",
+            "transition": {
+              "from": "max_retries",
+              "to": "attempts",
+              "label": {
+                "var": "attempts",
+                "line": 15,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitigation ",
-        "nodes": [
+        "template": "states",
+        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitig",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "payload",
+            "label": "payload"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_retries",
+            "label": "max_retries"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "attempts",
+            "label": "attempts"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Implementing client-side circuit breakers prevents cascading thread pool.",
+            "currentState": "payload",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Failed write mutations captured in durable local memory buffers.",
+            "currentState": "max_retries",
+            "transition": {
+              "from": "payload",
+              "to": "max_retries",
+              "label": "3"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say8",
+            "caption": "Observe the jittered backoff engine and hot partition throttle resilience.",
+            "currentState": "attempts",
+            "transition": {
+              "from": "max_retries",
+              "to": "attempts",
+              "label": "0"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitigation — Production Telemetry & Verification Audit",
-      "codeHash": "585e8522be298507d6b4a48b21f0ed6e9402ed3cf90ce7a7c8222b899cecbcbf",
+      "codeHash": "fbcd05994ce7d688e85178e903d438c82aa98aadd0f2254363224edc7abd1aad",
       "spec": {
-        "template": "flow",
-        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitigation ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitig",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Continuous telemetry auditing tracks partition access distribution.",
+            "bars": [
+              {
+                "label": "total_writes",
+                "value": {
+                  "var": "total_writes",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "max_writes",
+                "value": {
+                  "var": "max_writes",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "min_writes",
+                "value": {
+                  "var": "min_writes",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "skew_ratio",
+                "value": {
+                  "var": "skew_ratio",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Automated regression test suites simulate sudden 10x traffic surges.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_writes",
+                "value": {
+                  "var": "total_writes",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_writes",
+                "value": {
+                  "var": "max_writes",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "min_writes",
+                "value": {
+                  "var": "min_writes",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "skew_ratio",
+                "value": {
+                  "var": "skew_ratio",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Execute the Contributor Insights hot key detector and partition variance.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_writes",
+                "value": {
+                  "var": "total_writes",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_writes",
+                "value": {
+                  "var": "max_writes",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "min_writes",
+                "value": {
+                  "var": "min_writes",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "skew_ratio",
+                "value": {
+                  "var": "skew_ratio",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitigation ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "DynamoDB Write Sharding, Adaptive Capacity & Hot Partition Mitig",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Continuous telemetry auditing tracks partition access distribution.",
+            "bars": [
+              {
+                "label": "total_writes",
+                "value": 1000,
+                "tone": "data"
+              },
+              {
+                "label": "max_writes",
+                "value": 260,
+                "tone": "data"
+              },
+              {
+                "label": "min_writes",
+                "value": 240,
+                "tone": "data"
+              },
+              {
+                "label": "skew_ratio",
+                "value": 1.08,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Automated regression test suites simulate sudden 10x traffic surges.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_writes",
+                "value": 1000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_writes",
+                "value": 260,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "min_writes",
+                "value": 240,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "skew_ratio",
+                "value": 1.08,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Execute the Contributor Insights hot key detector and partition variance.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_writes",
+                "value": 1000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_writes",
+                "value": 260,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "min_writes",
+                "value": 240,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "skew_ratio",
+                "value": 1.08,
+                "tone": "ok"
               }
             ]
           }

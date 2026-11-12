@@ -2,150 +2,111 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 12,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Threads and the cost of locks",
       "codeHash": "5ac4f614a0a17b549538e5f27c4fa1969be1f07bc0922a4058a7137d1a24d326",
       "spec": {
-        "template": "table",
-        "title": "Thread coordination contention and mutex locking costs",
-        "columns": [
-          "threads",
-          "worst_wait"
-        ],
+        "template": "bars",
+        "title": "Threads and the cost of locks",
         "steps": [
           {
             "at": "say1",
-            "caption": "Trading engines partition execution pipelines across concurrent threads.",
-            "rows": [
+            "caption": "Trading systems split work across threads.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "threads"
-                  },
-                  {
-                    "text": "worst_wait"
-                  }
-                ],
-                "tone": "ok"
+                "label": "service_ns",
+                "value": {
+                  "var": "service_ns",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "threads",
+                "value": {
+                  "var": "threads",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "worst_wait",
+                "value": {
+                  "var": "worst_wait",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Threads pass messages through queues guarded by mutual exclusion locks.",
-            "rows": [
+            "caption": "Threads pass messages through queues.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "threads"
-                  },
-                  {
-                    "text": "worst_wait"
-                  }
-                ],
+                "label": "service_ns",
+                "value": {
+                  "var": "service_ns",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "service_ns"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "threads",
+                "value": {
+                  "var": "threads",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "worst_wait",
+                "value": {
+                  "var": "worst_wait",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Lock-free designs coordinate threads using ordered shared counters.",
-            "rows": [
+            "at": "say7",
+            "caption": "The most common lock-free structure in trading is the single-producer.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "threads"
-                  },
-                  {
-                    "text": "worst_wait"
-                  }
-                ],
+                "label": "service_ns",
+                "value": {
+                  "var": "service_ns",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "service_ns"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "threads",
+                "value": {
+                  "var": "threads",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "threads"
-                  },
-                  {
-                    "text": "service_ns"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example shows how waiting time grows as more threads compete for one lock.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "threads"
-                  },
-                  {
-                    "text": "worst_wait"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "service_ns"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "threads"
-                  },
-                  {
-                    "text": "service_ns"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "worst_wait"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "worst_wait",
+                "value": {
+                  "var": "worst_wait",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -153,103 +114,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Thread coordination contention and mutex locking costs",
-        "columns": [
-          "threads",
-          "worst_wait"
-        ],
+        "template": "bars",
+        "title": "Threads and the cost of locks",
         "steps": [
           {
             "at": "say1",
-            "caption": "Trading engines partition execution pipelines across concurrent threads.",
-            "rows": [
+            "caption": "Trading systems split work across threads.",
+            "bars": [
               {
-                "cells": [
-                  "threads",
-                  "worst_wait"
-                ],
-                "tone": "ok"
+                "label": "service_ns",
+                "value": 50,
+                "tone": "data"
+              },
+              {
+                "label": "threads",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "worst_wait",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Threads pass messages through queues guarded by mutual exclusion locks.",
-            "rows": [
+            "caption": "Threads pass messages through queues.",
+            "bars": [
               {
-                "cells": [
-                  "threads",
-                  "worst_wait"
-                ],
+                "label": "service_ns",
+                "value": 50,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "service_ns",
-                  "print"
-                ],
+                "label": "threads",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "worst_wait",
+                "value": 0,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Lock-free designs coordinate threads using ordered shared counters.",
-            "rows": [
+            "at": "say7",
+            "caption": "The most common lock-free structure in trading is the single-producer.",
+            "bars": [
               {
-                "cells": [
-                  "threads",
-                  "worst_wait"
-                ],
+                "label": "service_ns",
+                "value": 50,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "service_ns",
-                  "print"
-                ],
+                "label": "threads",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "threads",
-                  "service_ns"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example shows how waiting time grows as more threads compete for one lock.",
-            "rows": [
-              {
-                "cells": [
-                  "threads",
-                  "worst_wait"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "service_ns",
-                  "print"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "threads",
-                  "service_ns"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "worst_wait",
-                  "print"
-                ],
+                "label": "worst_wait",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -261,249 +187,277 @@
       "partTitle": "The SPSC ring queue",
       "codeHash": "ee4ac5337e970cfd5f17812af857f68a754ed994c303fb0df92f5f3f4e28de77",
       "spec": {
-        "template": "table",
-        "title": "Single-Producer Single-Consumer lock-free ring queue",
-        "columns": [
-          "head",
-          "tail"
+        "template": "flow",
+        "title": "The SPSC ring queue",
+        "nodes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "capacity",
+            "label": "capacity"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "item",
+            "label": "item"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An SPSC queue isolates one producer thread and one consumer thread.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "head"
-                  },
-                  {
-                    "text": "tail"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "An SPSC queue has exactly one producer thread and one consumer thread.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "capacity": {
+                "var": "capacity",
+                "line": 3,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 20,
+                "hit": 1
+              },
+              "item": {
+                "var": "item",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "capacity": "data",
+              "q": "data",
+              "item": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "q"
+              ],
+              [
+                "q",
+                "item"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Dedicated head and tail counters eliminate write contention across threads.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "head"
-                  },
-                  {
-                    "text": "tail"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "It holds a fixed array of slots, a head counter written only by.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "mask"
-                  },
-                  {
-                    "text": "slots"
-                  }
-                ],
-                "tone": "ok"
+              "capacity": {
+                "var": "capacity",
+                "line": 5,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 21,
+                "hit": 1
+              },
+              "item": {
+                "var": "item",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Producer threads verify remaining capacity before inserting enqueue items.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "head"
-                  },
-                  {
-                    "text": "tail"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "mask"
-                  },
-                  {
-                    "text": "slots"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "capacity"
-                  },
-                  {
-                    "text": "enqueue"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "self": "data",
+              "capacity": "data",
+              "q": "data",
+              "item": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "q"
+              ],
+              [
+                "q",
+                "item"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example runs a queue through fill, drain and wrap around cycles.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "head"
-                  },
-                  {
-                    "text": "tail"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example runs a queue through fill, drain and wrap-around.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "mask"
-                  },
-                  {
-                    "text": "slots"
-                  }
-                ],
-                "tone": "ok"
+              "capacity": {
+                "var": "capacity",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "capacity"
-                  },
-                  {
-                    "text": "enqueue"
-                  }
-                ],
-                "tone": "data"
+              "q": {
+                "var": "q",
+                "line": 21,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "SpscQueue"
-                  },
-                  {
-                    "text": "slots"
-                  }
-                ],
-                "tone": "ok"
+              "item": {
+                "var": "item",
+                "line": 11,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "ok",
+              "capacity": "ok",
+              "q": "ok",
+              "item": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "q"
+              ],
+              [
+                "q",
+                "item"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Single-Producer Single-Consumer lock-free ring queue",
-        "columns": [
-          "head",
-          "tail"
+        "template": "flow",
+        "title": "The SPSC ring queue",
+        "nodes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "capacity",
+            "label": "capacity"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "item",
+            "label": "item"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An SPSC queue isolates one producer thread and one consumer thread.",
-            "rows": [
-              {
-                "cells": [
-                  "head",
-                  "tail"
-                ],
-                "tone": "ok"
-              }
+            "caption": "An SPSC queue has exactly one producer thread and one consumer thread.",
+            "values": {
+              "self": "<SpscQueue>",
+              "capacity": "4",
+              "q": "<SpscQueue>",
+              "item": "'a'"
+            },
+            "tones": {
+              "self": "data",
+              "capacity": "data",
+              "q": "data",
+              "item": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "q"
+              ],
+              [
+                "q",
+                "item"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Dedicated head and tail counters eliminate write contention across threads.",
-            "rows": [
-              {
-                "cells": [
-                  "head",
-                  "tail"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "mask",
-                  "slots"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Producer threads verify remaining capacity before inserting enqueue items.",
-            "rows": [
-              {
-                "cells": [
-                  "head",
-                  "tail"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "mask",
-                  "slots"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "capacity",
-                  "enqueue"
-                ],
-                "tone": "data"
-              }
+            "caption": "It holds a fixed array of slots, a head counter written only by.",
+            "values": {
+              "self": "<SpscQueue>",
+              "capacity": "4",
+              "q": "<SpscQueue>",
+              "item": "'a'"
+            },
+            "tones": {
+              "self": "data",
+              "capacity": "data",
+              "q": "data",
+              "item": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "q"
+              ],
+              [
+                "q",
+                "item"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example runs a queue through fill, drain and wrap around cycles.",
-            "rows": [
-              {
-                "cells": [
-                  "head",
-                  "tail"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "mask",
-                  "slots"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "capacity",
-                  "enqueue"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "SpscQueue",
-                  "slots"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The example runs a queue through fill, drain and wrap-around.",
+            "values": {
+              "self": "<SpscQueue>",
+              "capacity": "4",
+              "q": "<SpscQueue>",
+              "item": "'a'"
+            },
+            "tones": {
+              "self": "ok",
+              "capacity": "ok",
+              "q": "ok",
+              "item": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "q"
+              ],
+              [
+                "q",
+                "item"
+              ]
             ]
           }
         ]
@@ -513,249 +467,277 @@
       "partTitle": "Why powers of two",
       "codeHash": "88c6f892270704879d260fa22ad121148a48ac5ec07baa9f61b1481aebbb03e3",
       "spec": {
-        "template": "table",
-        "title": "Power-of-two bitwise masking vs integer division",
-        "columns": [
-          "capacity",
-          "mask"
+        "template": "flow",
+        "title": "Why powers of two",
+        "nodes": [
+          {
+            "id": "capacity",
+            "label": "capacity"
+          },
+          {
+            "id": "mask",
+            "label": "mask"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Modulo division represents a slow integer operation on modern processors.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "capacity"
-                  },
-                  {
-                    "text": "mask"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Finding a slot needs counter modulo capacity.",
+            "values": {
+              "capacity": {
+                "var": "capacity",
+                "line": 1,
+                "hit": 1
+              },
+              "mask": {
+                "var": "mask",
+                "line": 2,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 4,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "capacity": "data",
+              "mask": "data",
+              "c": "data",
+              "n": "data"
+            },
+            "arrows": [
+              [
+                "capacity",
+                "mask"
+              ],
+              [
+                "mask",
+                "c"
+              ],
+              [
+                "c",
+                "n"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Bitwise AND operations calculate slot remainders in a single CPU cycle.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "capacity"
-                  },
-                  {
-                    "text": "mask"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "When capacity is a power of two, counter % capacity equals counter &.",
+            "values": {
+              "capacity": {
+                "var": "capacity",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "bin"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
-                "tone": "ok"
+              "mask": {
+                "var": "mask",
+                "line": 3,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 4,
+                "hit": 2
+              },
+              "n": {
+                "var": "n",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "capacity": "data",
+              "mask": "data",
+              "c": "data",
+              "n": "data"
+            },
+            "arrows": [
+              [
+                "capacity",
+                "mask"
+              ],
+              [
+                "mask",
+                "c"
+              ],
+              [
+                "c",
+                "n"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Bit manipulation checks whether buffer capacity satisfies power of two rules.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "capacity"
-                  },
-                  {
-                    "text": "mask"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Bit tricks like this appear throughout high-performance code.",
+            "values": {
+              "capacity": {
+                "var": "capacity",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "bin"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
-                "tone": "ok"
+              "mask": {
+                "var": "mask",
+                "line": 4,
+                "hit": 1002
               },
-              {
-                "cells": [
-                  {
-                    "text": "all"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "data"
+              "c": {
+                "var": "c",
+                "line": 4,
+                "hit": 3
+              },
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example checks that mask and modulo operations produce identical results.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "capacity"
-                  },
-                  {
-                    "text": "mask"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bin"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "all"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "capacity"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "capacity": "ok",
+              "mask": "ok",
+              "c": "ok",
+              "n": "ok"
+            },
+            "arrows": [
+              [
+                "capacity",
+                "mask"
+              ],
+              [
+                "mask",
+                "c"
+              ],
+              [
+                "c",
+                "n"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Power-of-two bitwise masking vs integer division",
-        "columns": [
-          "capacity",
-          "mask"
+        "template": "flow",
+        "title": "Why powers of two",
+        "nodes": [
+          {
+            "id": "capacity",
+            "label": "capacity"
+          },
+          {
+            "id": "mask",
+            "label": "mask"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Modulo division represents a slow integer operation on modern processors.",
-            "rows": [
-              {
-                "cells": [
-                  "capacity",
-                  "mask"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Finding a slot needs counter modulo capacity.",
+            "values": {
+              "capacity": "8",
+              "mask": "7",
+              "c": "0",
+              "n": "1"
+            },
+            "tones": {
+              "capacity": "data",
+              "mask": "data",
+              "c": "data",
+              "n": "data"
+            },
+            "arrows": [
+              [
+                "capacity",
+                "mask"
+              ],
+              [
+                "mask",
+                "c"
+              ],
+              [
+                "c",
+                "n"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Bitwise AND operations calculate slot remainders in a single CPU cycle.",
-            "rows": [
-              {
-                "cells": [
-                  "capacity",
-                  "mask"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bin",
-                  "range"
-                ],
-                "tone": "ok"
-              }
+            "caption": "When capacity is a power of two, counter % capacity equals counter &.",
+            "values": {
+              "capacity": "8",
+              "mask": "7",
+              "c": "1",
+              "n": "1"
+            },
+            "tones": {
+              "capacity": "data",
+              "mask": "data",
+              "c": "data",
+              "n": "data"
+            },
+            "arrows": [
+              [
+                "capacity",
+                "mask"
+              ],
+              [
+                "mask",
+                "c"
+              ],
+              [
+                "c",
+                "n"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Bit manipulation checks whether buffer capacity satisfies power of two rules.",
-            "rows": [
-              {
-                "cells": [
-                  "capacity",
-                  "mask"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bin",
-                  "range"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "all",
-                  "print"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example checks that mask and modulo operations produce identical results.",
-            "rows": [
-              {
-                "cells": [
-                  "capacity",
-                  "mask"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bin",
-                  "range"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "all",
-                  "print"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "capacity",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Bit tricks like this appear throughout high-performance code.",
+            "values": {
+              "capacity": "8",
+              "mask": "7",
+              "c": "2",
+              "n": "6"
+            },
+            "tones": {
+              "capacity": "ok",
+              "mask": "ok",
+              "c": "ok",
+              "n": "ok"
+            },
+            "arrows": [
+              [
+                "capacity",
+                "mask"
+              ],
+              [
+                "mask",
+                "c"
+              ],
+              [
+                "c",
+                "n"
+              ]
             ]
           }
         ]
@@ -765,143 +747,91 @@
       "partTitle": "Full, empty and back-pressure",
       "codeHash": "608dfb66e38f9639fe610e76c9fde124ca5bb6425689496be3b26ecfdd244342",
       "spec": {
-        "template": "table",
-        "title": "Queue capacity boundaries, overflow policies and depth alarms",
-        "columns": [
+        "template": "sequence",
+        "title": "Full, empty and back-pressure",
+        "actors": [
           "capacity",
-          "depth"
+          "depth",
+          "alerts"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Bounded queue structures implement deterministic policies when buffers fill.",
-            "rows": [
+            "caption": "A bounded queue must decide what happens when it is full.",
+            "activeActor": "capacity",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "capacity"
-                  },
-                  {
-                    "text": "depth"
-                  }
-                ],
+                "from": "capacity",
+                "to": "depth",
+                "label": {
+                  "var": "capacity",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "depth",
+                "to": "alerts",
+                "label": {
+                  "var": "depth",
+                  "line": 1,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Rejection policies return False when buffer capacity is reached.",
-            "rows": [
+            "caption": "Enqueue returns False and the producer decides what to do (drop, retry.",
+            "activeActor": "depth",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "capacity"
-                  },
-                  {
-                    "text": "depth"
-                  }
-                ],
-                "tone": "ok"
+                "from": "capacity",
+                "to": "depth",
+                "label": {
+                  "var": "capacity",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "alerts"
-                  },
-                  {
-                    "text": "arrivals"
-                  }
-                ],
+                "from": "depth",
+                "to": "alerts",
+                "label": {
+                  "var": "depth",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Systems monitor queue depth and alarm before queues become completely full.",
-            "rows": [
+            "at": "say7",
+            "caption": "Choose the full-queue policy deliberately for each queue.",
+            "activeActor": "alerts",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "capacity"
-                  },
-                  {
-                    "text": "depth"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "alerts"
-                  },
-                  {
-                    "text": "arrivals"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "enumerate"
-                  },
-                  {
-                    "text": "append"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example monitors queue depth and raises early alerts for downstream lags.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "capacity"
-                  },
-                  {
-                    "text": "depth"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "alerts"
-                  },
-                  {
-                    "text": "arrivals"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "enumerate"
-                  },
-                  {
-                    "text": "append"
-                  }
-                ],
+                "from": "capacity",
+                "to": "depth",
+                "label": {
+                  "var": "capacity",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "min"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "from": "depth",
+                "to": "alerts",
+                "label": {
+                  "var": "depth",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -909,106 +839,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Queue capacity boundaries, overflow policies and depth alarms",
-        "columns": [
+        "template": "sequence",
+        "title": "Full, empty and back-pressure",
+        "actors": [
           "capacity",
-          "depth"
+          "depth",
+          "alerts"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Bounded queue structures implement deterministic policies when buffers fill.",
-            "rows": [
+            "caption": "A bounded queue must decide what happens when it is full.",
+            "messages": [
               {
-                "cells": [
-                  "capacity",
-                  "depth"
-                ],
+                "from": "capacity",
+                "to": "depth",
+                "label": "16",
+                "tone": "data"
+              },
+              {
+                "from": "depth",
+                "to": "alerts",
+                "label": "0",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "capacity"
           },
           {
             "at": "say2",
-            "caption": "Rejection policies return False when buffer capacity is reached.",
-            "rows": [
+            "caption": "Enqueue returns False and the producer decides what to do (drop, retry.",
+            "messages": [
               {
-                "cells": [
-                  "capacity",
-                  "depth"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "alerts",
-                  "arrivals"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Systems monitor queue depth and alarm before queues become completely full.",
-            "rows": [
-              {
-                "cells": [
-                  "capacity",
-                  "depth"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "alerts",
-                  "arrivals"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "enumerate",
-                  "append"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example monitors queue depth and raises early alerts for downstream lags.",
-            "rows": [
-              {
-                "cells": [
-                  "capacity",
-                  "depth"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "alerts",
-                  "arrivals"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "enumerate",
-                  "append"
-                ],
+                "from": "capacity",
+                "to": "depth",
+                "label": "16",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "min",
-                  "print"
-                ],
+                "from": "depth",
+                "to": "alerts",
+                "label": "0",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "depth"
+          },
+          {
+            "at": "say7",
+            "caption": "Choose the full-queue policy deliberately for each queue.",
+            "messages": [
+              {
+                "from": "capacity",
+                "to": "depth",
+                "label": "16",
+                "tone": "data"
+              },
+              {
+                "from": "depth",
+                "to": "alerts",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "alerts"
           }
         ]
       }
@@ -1017,223 +911,124 @@
       "partTitle": "Testing concurrent code",
       "codeHash": "69b22639a804addb691ae1efe65735206fcad7576b73c51df945a74095c1ac0a",
       "spec": {
-        "template": "flow",
-        "title": "Testing concurrent code — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Testing concurrent ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Testing concurrent code",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Testing concurrent code [Dtwelve.Pfive.Sone].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Testing concurrent ... [Dtwelve.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Concurrent bugs are notoriously hard to find.",
+            "items": {
+              "var": "slots",
+              "line": 3,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Start with single-threaded tests of every path.",
+            "items": {
+              "var": "slots",
+              "line": 9,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Testing concurrent code.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "An invariant check that runs on every test is worth more than any number.",
+            "items": {
+              "var": "slots",
+              "line": 13,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Testing concurrent code — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Testing concurrent ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Testing concurrent code",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Testing concurrent code [D12.P5.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Testing concurrent ... [D12.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Concurrent bugs are notoriously hard to find.",
+            "items": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Start with single-threaded tests of every path.",
+            "items": [
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Testing concurrent code [D12.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "An invariant check that runs on every test is worth more than any number.",
+            "items": [
+              "0",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None",
+              "None"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -1243,223 +1038,133 @@
       "partTitle": "Practice time: build the queue",
       "codeHash": "08fe89e7d7cbc35d4dbab2ce9125c4ebe4c62c99ee7bf4e23c492fcbb2d43c95",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: build the queue — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: buil...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: build the queue",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: build the queue.",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: buil... [Dtwelve.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In __init__, validate the capacity with the power-of-two test, store.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Return False if head - tail == capacity.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: build the queue.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the doubling loop for next_power_of_two.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: build the queue — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: buil...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: build the queue",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: build the queue [D12.P6.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: buil... [D12.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In __init__, validate the capacity with the power-of-two test, store.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Return False if head - tail == capacity.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: build the queue [D12.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the doubling loop for next_power_of_two.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           }
         ]

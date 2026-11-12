@@ -2,269 +2,181 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 33,
-  "promptSha": "ae0c78a5cea5ffdaee31604a54def48de6c27e962c0e43157da1d645d4fbaf38",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevention — Foundations & Mathematical Invariants",
-      "codeHash": "e803e06b5f8dda572ef246b0266fc875fcc31ec995c1f876eb876ea6fb579388",
+      "codeHash": "a8ac162b2683ca449cec83c36989baf3e403d7b7896fa3538e96a77e304b72d6",
       "spec": {
-        "template": "flow",
-        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevention — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevent",
         "steps": [
           {
+            "at": "say1",
+            "caption": "As organizations grow from a few development accounts to hundreds.",
+            "bars": [
+              {
+                "label": "num_vpcs",
+                "value": {
+                  "var": "num_vpcs",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "peering_links",
+                "value": {
+                  "var": "peering_links",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "tgw_attachment",
+                "value": {
+                  "var": "tgw_attachments",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Connecting `N` VPCs via VPC Peering requires `N * (N - 1) / 2` separate.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "num_vpcs",
+                "value": {
+                  "var": "num_vpcs",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "peering_links",
+                "value": {
+                  "var": "peering_links",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "tgw_attachment",
+                "value": {
+                  "var": "tgw_attachments",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Centralized routing simplifies security inspection, allowing cloud network.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "num_vpcs",
+                "value": {
+                  "var": "num_vpcs",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "peering_links",
+                "value": {
+                  "var": "peering_links",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "tgw_attachment",
+                "value": {
+                  "var": "tgw_attachments",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevention — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevent",
         "steps": [
           {
+            "at": "say1",
+            "caption": "As organizations grow from a few development accounts to hundreds.",
+            "bars": [
+              {
+                "label": "num_vpcs",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "peering_links",
+                "value": 45,
+                "tone": "data"
+              },
+              {
+                "label": "tgw_attachment",
+                "value": 10,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Connecting `N` VPCs via VPC Peering requires `N * (N - 1) / 2` separate.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "num_vpcs",
+                "value": 10,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "peering_links",
+                "value": 45,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "tgw_attachment",
+                "value": 10,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Centralized routing simplifies security inspection, allowing cloud network.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "num_vpcs",
+                "value": 10,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "peering_links",
+                "value": 45,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "tgw_attachment",
+                "value": 10,
+                "tone": "ok"
               }
             ]
           }
@@ -273,265 +185,279 @@
     },
     {
       "partTitle": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevention — Core Algorithm & State Representation",
-      "codeHash": "ebab9776cf978307ec738f3aeb4685dd418a0eb4b9ec6dca733590a9725f3e9a",
+      "codeHash": "1b71dcaa82549370ac1f844f58cc55e43d3dc916119658408cec90b6542a1967",
       "spec": {
         "template": "flow",
-        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevention — ",
+        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevent",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "tgw_rt",
+            "label": "tgw_rt"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "cidr_str",
+            "label": "cidr_str"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Transit Gateway achieves network segmentation through multiple Route.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
+              },
+              "tgw_rt": {
+                "var": "tgw_rt",
+                "line": 21,
+                "hit": 1
+              },
+              "cidr_str": {
+                "var": "cidr_str",
+                "line": 9,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "name": "data",
+              "tgw_rt": "data",
+              "cidr_str": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "name"
+              ],
+              [
+                "name",
+                "tgw_rt"
+              ],
+              [
+                "tgw_rt",
+                "cidr_str"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "An attachment is Associated with exactly one TGW route table (determining.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "tgw_rt": {
+                "var": "tgw_rt",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "cidr_str": {
+                "var": "cidr_str",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "name": "data",
+              "tgw_rt": "data",
+              "cidr_str": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "name"
+              ],
+              [
+                "name",
+                "tgw_rt"
+              ],
+              [
+                "tgw_rt",
+                "cidr_str"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Separating route table associations from propagations enables clean.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "tgw_rt": {
+                "var": "tgw_rt",
+                "line": 23,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "cidr_str": {
+                "var": "cidr_str",
+                "line": 12,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "name": "ok",
+              "tgw_rt": "ok",
+              "cidr_str": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "name"
+              ],
+              [
+                "name",
+                "tgw_rt"
+              ],
+              [
+                "tgw_rt",
+                "cidr_str"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevention — ",
+        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevent",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "tgw_rt",
+            "label": "tgw_rt"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "cidr_str",
+            "label": "cidr_str"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Transit Gateway achieves network segmentation through multiple Route.",
+            "values": {
+              "self": "<TransitGatewayRouteTable>",
+              "name": "'Spoke_Route_Table'",
+              "tgw_rt": "<TransitGatewayRouteTable>",
+              "cidr_str": "'10.0.0.0/16'"
+            },
+            "tones": {
+              "self": "data",
+              "name": "data",
+              "tgw_rt": "data",
+              "cidr_str": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "name"
+              ],
+              [
+                "name",
+                "tgw_rt"
+              ],
+              [
+                "tgw_rt",
+                "cidr_str"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "An attachment is Associated with exactly one TGW route table (determining.",
+            "values": {
+              "self": "<TransitGatewayRouteTable>",
+              "name": "'Spoke_Route_Table'",
+              "tgw_rt": "<TransitGatewayRouteTable>",
+              "cidr_str": "'10.0.0.0/16'"
+            },
+            "tones": {
+              "self": "data",
+              "name": "data",
+              "tgw_rt": "data",
+              "cidr_str": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "name"
+              ],
+              [
+                "name",
+                "tgw_rt"
+              ],
+              [
+                "tgw_rt",
+                "cidr_str"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say7",
+            "caption": "Separating route table associations from propagations enables clean.",
+            "values": {
+              "self": "<TransitGatewayRouteTable>",
+              "name": "'Spoke_Route_Table'",
+              "tgw_rt": "<TransitGatewayRouteTable>",
+              "cidr_str": "'10.0.0.0/16'"
+            },
+            "tones": {
+              "self": "ok",
+              "name": "ok",
+              "tgw_rt": "ok",
+              "cidr_str": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "name"
+              ],
+              [
+                "name",
+                "tgw_rt"
+              ],
+              [
+                "tgw_rt",
+                "cidr_str"
+              ]
             ]
           }
         ]
@@ -539,265 +465,279 @@
     },
     {
       "partTitle": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevention — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "cf1f8b9384de73d8b8c8bbf017d25bff0fdc47ad3153265884022d6dcc14012d",
+      "codeHash": "969995eed07d15b7510b58b55ca9643617571b08ef3e3cc58bd74c9c75cfb1cb",
       "spec": {
         "template": "flow",
-        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevention — ",
+        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevent",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "virtual_pool_cidr",
+            "label": "virtual_pool_cidr"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "nat",
+            "label": "nat"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "real_ip_str",
+            "label": "real_ip_str"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enterprise acquisitions and legacy mergers frequently present overlapping.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
+              },
+              "virtual_pool_cidr": {
+                "var": "virtual_pool_cidr",
+                "line": 5,
+                "hit": 1
+              },
+              "nat": {
+                "var": "nat",
+                "line": 21,
+                "hit": 1
+              },
+              "real_ip_str": {
+                "var": "real_ip_str",
+                "line": 11,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "virtual_pool_cidr": "data",
+              "nat": "data",
+              "real_ip_str": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "virtual_pool_cidr"
+              ],
+              [
+                "virtual_pool_cidr",
+                "nat"
+              ],
+              [
+                "nat",
+                "real_ip_str"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Re-architecting and re-IPing thousands of servers and database connection.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "virtual_pool_cidr": {
+                "var": "virtual_pool_cidr",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "nat": {
+                "var": "nat",
+                "line": 23,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "real_ip_str": {
+                "var": "real_ip_str",
+                "line": 12,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "virtual_pool_cidr": "data",
+              "nat": "data",
+              "real_ip_str": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "virtual_pool_cidr"
+              ],
+              [
+                "virtual_pool_cidr",
+                "nat"
+              ],
+              [
+                "nat",
+                "real_ip_str"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Virtual IP pools provide stable destination addresses that route.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "virtual_pool_cidr": {
+                "var": "virtual_pool_cidr",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "nat": {
+                "var": "nat",
+                "line": 24,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "real_ip_str": {
+                "var": "real_ip_str",
+                "line": 13,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "virtual_pool_cidr": "ok",
+              "nat": "ok",
+              "real_ip_str": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "virtual_pool_cidr"
+              ],
+              [
+                "virtual_pool_cidr",
+                "nat"
+              ],
+              [
+                "nat",
+                "real_ip_str"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevention — ",
+        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevent",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "virtual_pool_cidr",
+            "label": "virtual_pool_cidr"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "nat",
+            "label": "nat"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "real_ip_str",
+            "label": "real_ip_str"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enterprise acquisitions and legacy mergers frequently present overlapping.",
+            "values": {
+              "self": "<PrivateNATGateway>",
+              "virtual_pool_cidr": "'100.64.0.0/24'",
+              "nat": "<PrivateNATGateway>",
+              "real_ip_str": "'10.100.1.5'"
+            },
+            "tones": {
+              "self": "data",
+              "virtual_pool_cidr": "data",
+              "nat": "data",
+              "real_ip_str": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "virtual_pool_cidr"
+              ],
+              [
+                "virtual_pool_cidr",
+                "nat"
+              ],
+              [
+                "nat",
+                "real_ip_str"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Re-architecting and re-IPing thousands of servers and database connection.",
+            "values": {
+              "self": "<PrivateNATGateway>",
+              "virtual_pool_cidr": "'100.64.0.0/24'",
+              "nat": "<PrivateNATGateway>",
+              "real_ip_str": "'10.100.1.5'"
+            },
+            "tones": {
+              "self": "data",
+              "virtual_pool_cidr": "data",
+              "nat": "data",
+              "real_ip_str": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "virtual_pool_cidr"
+              ],
+              [
+                "virtual_pool_cidr",
+                "nat"
+              ],
+              [
+                "nat",
+                "real_ip_str"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Virtual IP pools provide stable destination addresses that route.",
+            "values": {
+              "self": "<PrivateNATGateway>",
+              "virtual_pool_cidr": "'100.64.0.0/24'",
+              "nat": "<PrivateNATGateway>",
+              "real_ip_str": "'10.100.1.5'"
+            },
+            "tones": {
+              "self": "ok",
+              "virtual_pool_cidr": "ok",
+              "nat": "ok",
+              "real_ip_str": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "virtual_pool_cidr"
+              ],
+              [
+                "virtual_pool_cidr",
+                "nat"
+              ],
+              [
+                "nat",
+                "real_ip_str"
+              ]
             ]
           }
         ]
@@ -805,265 +745,279 @@
     },
     {
       "partTitle": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevention — Resilience Guardrails & Failure Recovery",
-      "codeHash": "9466d7dc5ddd95fcb6dd801abeb79ab58a92943ca2cb5321e8eff9c760776de1",
+      "codeHash": "025bad4ba8527cdb52ef964712b2d60d5f14e13b5b1052f0dd637e378699c952",
       "spec": {
         "template": "flow",
-        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevention — ",
+        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevent",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "vpc_id",
+            "label": "vpc_id"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "attached_azs",
+            "label": "attached_azs"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "required_azs",
+            "label": "required_azs"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "appliance_mode",
+            "label": "appliance_mode"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In multi-AZ cloud deployments, network resilience requires.",
+            "values": {
+              "vpc_id": {
+                "var": "vpc_id",
+                "line": 4,
+                "hit": 1
+              },
+              "attached_azs": {
+                "var": "attached_azs",
+                "line": 4,
+                "hit": 1
+              },
+              "required_azs": {
+                "var": "required_azs",
+                "line": 4,
+                "hit": 1
+              },
+              "appliance_mode": {
+                "var": "appliance_mode",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "vpc_id": "data",
+              "attached_azs": "data",
+              "required_azs": "data",
+              "appliance_mode": "data"
+            },
+            "arrows": [
+              [
+                "vpc_id",
+                "attached_azs"
+              ],
+              [
+                "attached_azs",
+                "required_azs"
+              ],
+              [
+                "required_azs",
+                "appliance_mode"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "When creating a TGW VPC Attachment, engineers must select at least one.",
+            "values": {
+              "vpc_id": {
+                "var": "vpc_id",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "attached_azs": {
+                "var": "attached_azs",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "required_azs": {
+                "var": "required_azs",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "appliance_mode": {
+                "var": "appliance_mode",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "vpc_id": "data",
+              "attached_azs": "data",
+              "required_azs": "data",
+              "appliance_mode": "data"
+            },
+            "arrows": [
+              [
+                "vpc_id",
+                "attached_azs"
+              ],
+              [
+                "attached_azs",
+                "required_azs"
+              ],
+              [
+                "required_azs",
+                "appliance_mode"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Enabling TGW Appliance Mode enforces symmetric routing through stateful.",
+            "values": {
+              "vpc_id": {
+                "var": "vpc_id",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "attached_azs": {
+                "var": "attached_azs",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "required_azs": {
+                "var": "required_azs",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "appliance_mode": {
+                "var": "appliance_mode",
+                "line": 4,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "vpc_id": "ok",
+              "attached_azs": "ok",
+              "required_azs": "ok",
+              "appliance_mode": "ok"
+            },
+            "arrows": [
+              [
+                "vpc_id",
+                "attached_azs"
+              ],
+              [
+                "attached_azs",
+                "required_azs"
+              ],
+              [
+                "required_azs",
+                "appliance_mode"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevention — ",
+        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevent",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "vpc_id",
+            "label": "vpc_id"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "attached_azs",
+            "label": "attached_azs"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "required_azs",
+            "label": "required_azs"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "appliance_mode",
+            "label": "appliance_mode"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In multi-AZ cloud deployments, network resilience requires.",
+            "values": {
+              "vpc_id": "'vpc-1'",
+              "attached_azs": "['us-east-1a']",
+              "required_azs": "3",
+              "appliance_mode": "False"
+            },
+            "tones": {
+              "vpc_id": "data",
+              "attached_azs": "data",
+              "required_azs": "data",
+              "appliance_mode": "data"
+            },
+            "arrows": [
+              [
+                "vpc_id",
+                "attached_azs"
+              ],
+              [
+                "attached_azs",
+                "required_azs"
+              ],
+              [
+                "required_azs",
+                "appliance_mode"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "When creating a TGW VPC Attachment, engineers must select at least one.",
+            "values": {
+              "vpc_id": "'vpc-1'",
+              "attached_azs": "['us-east-1a']",
+              "required_azs": "3",
+              "appliance_mode": "False"
+            },
+            "tones": {
+              "vpc_id": "data",
+              "attached_azs": "data",
+              "required_azs": "data",
+              "appliance_mode": "data"
+            },
+            "arrows": [
+              [
+                "vpc_id",
+                "attached_azs"
+              ],
+              [
+                "attached_azs",
+                "required_azs"
+              ],
+              [
+                "required_azs",
+                "appliance_mode"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say7",
+            "caption": "Enabling TGW Appliance Mode enforces symmetric routing through stateful.",
+            "values": {
+              "vpc_id": "'vpc-1'",
+              "attached_azs": "['us-east-1a', 'us-east-1b', 'us-east-1…",
+              "required_azs": "3",
+              "appliance_mode": "False"
+            },
+            "tones": {
+              "vpc_id": "ok",
+              "attached_azs": "ok",
+              "required_azs": "ok",
+              "appliance_mode": "ok"
+            },
+            "arrows": [
+              [
+                "vpc_id",
+                "attached_azs"
+              ],
+              [
+                "attached_azs",
+                "required_azs"
+              ],
+              [
+                "required_azs",
+                "appliance_mode"
+              ]
             ]
           }
         ]
@@ -1071,266 +1025,164 @@
     },
     {
       "partTitle": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevention — Production Telemetry & Verification Audit",
-      "codeHash": "129c6b3fc8e9a2d398430918c984787bacd8c64b97a0e232b2d86000a8fb5a50",
+      "codeHash": "333f09a294c9838e61161d9cc696608d2f23f79b803c9154e561244d43e650d3",
       "spec": {
-        "template": "flow",
-        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevention — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevent",
+        "actors": [
+          "healthy",
+          "degraded",
+          "metrics"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating a regional Transit Gateway carrying terabits of production.",
+            "activeActor": "healthy",
+            "messages": [
+              {
+                "from": "healthy",
+                "to": "degraded",
+                "label": {
+                  "var": "healthy",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "degraded",
+                "to": "metrics",
+                "label": {
+                  "var": "degraded",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "AWS CloudWatch provides core Transit Gateway metrics.",
+            "activeActor": "degraded",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "healthy",
+                "to": "degraded",
+                "label": {
+                  "var": "healthy",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "degraded",
+                "to": "metrics",
+                "label": {
+                  "var": "degraded",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Tracking transit gateway bandwidth metrics ensures that attachments do not.",
+            "activeActor": "metrics",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "healthy",
+                "to": "degraded",
+                "label": {
+                  "var": "healthy",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "degraded",
+                "to": "metrics",
+                "label": {
+                  "var": "degraded",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevention — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "VPC Transit Gateway Hub-and-Spoke Routing & CIDR Overlap Prevent",
+        "actors": [
+          "healthy",
+          "degraded",
+          "metrics"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating a regional Transit Gateway carrying terabits of production.",
+            "messages": [
+              {
+                "from": "healthy",
+                "to": "degraded",
+                "label": "{'PacketDropCountBlackhole': 0, 'Packet…",
+                "tone": "data"
+              },
+              {
+                "from": "degraded",
+                "to": "metrics",
+                "label": "{'PacketDropCountBlackhole': 450, 'Pack…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "healthy"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "AWS CloudWatch provides core Transit Gateway metrics.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "healthy",
+                "to": "degraded",
+                "label": "{'PacketDropCountBlackhole': 0, 'Packet…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "degraded",
+                "to": "metrics",
+                "label": "{'PacketDropCountBlackhole': 450, 'Pack…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "degraded"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Tracking transit gateway bandwidth metrics ensures that attachments do not.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "healthy",
+                "to": "degraded",
+                "label": "{'PacketDropCountBlackhole': 0, 'Packet…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "degraded",
+                "to": "metrics",
+                "label": "{'PacketDropCountBlackhole': 450, 'Pack…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "metrics"
           }
         ]
       }

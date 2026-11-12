@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 53,
-  "promptSha": "e6755f35060d876f6b401d5cbb87d1a1664fbee390c1966fcf850f0db803af19",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constrained Leverage — Foundations & Mathematical Invariants",
-      "codeHash": "460dceff46ec9cf68fcddebea40282c9cc97eb226c6ae85e859d973b701d10da",
+      "codeHash": "bc650be2cf1a8fae925c7ec7920c07b22efbbb3c2a4570f4966f6974eba7534f",
       "spec": {
-        "template": "flow",
-        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constrained ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constr",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In quantitative finance, having a positive expectation (alpha edge).",
+            "bars": [
+              {
+                "label": "mu",
+                "value": {
+                  "var": "mu",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "sigma",
+                "value": {
+                  "var": "sigma",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mean_return",
+                "value": {
+                  "var": "mean_return",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Formulated the optimal betting fraction that maximizes the asymptotic.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "mu",
+                "value": {
+                  "var": "mu",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "sigma",
+                "value": {
+                  "var": "sigma",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "mean_return",
+                "value": {
+                  "var": "mean_return",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Trace how mathematical updates derivation during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "mu",
+                "value": {
+                  "var": "mu",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "sigma",
+                "value": {
+                  "var": "sigma",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "mean_return",
+                "value": {
+                  "var": "mean_return",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constrained ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constr",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In quantitative finance, having a positive expectation (alpha edge).",
+            "bars": [
+              {
+                "label": "mu",
+                "value": 0.12,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 0.02,
+                "tone": "data"
+              },
+              {
+                "label": "sigma",
+                "value": 0.2,
+                "tone": "data"
+              },
+              {
+                "label": "mean_return",
+                "value": 0.12,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Formulated the optimal betting fraction that maximizes the asymptotic.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "mu",
+                "value": 0.12,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "r",
+                "value": 0.02,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "sigma",
+                "value": 0.2,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "mean_return",
+                "value": 0.12,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Trace how mathematical updates derivation during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "mu",
+                "value": 0.12,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "r",
+                "value": 0.02,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "sigma",
+                "value": 0.2,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "mean_return",
+                "value": 0.12,
+                "tone": "ok"
               }
             ]
           }
@@ -273,264 +227,218 @@
     },
     {
       "partTitle": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constrained Leverage — Core Algorithm & State Representation",
-      "codeHash": "b468e33fbbbb5e7dee3614b6ce5588207ef3cf71477ab0438b2fdb8c2e7e390d",
+      "codeHash": "5496299a1a5043834685818d7a8d821b180beb85bfa37f426ce6cdb33ff1c1d1",
       "spec": {
-        "template": "flow",
-        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constrained ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constr",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In multi-asset portfolios with correlated strategies, unconstrained Kelly.",
+            "bars": [
+              {
+                "label": "drawdown_depth",
+                "value": {
+                  "var": "drawdown_depth_pct",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fraction_c",
+                "value": {
+                  "var": "fraction_c",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Notice that the multi-asset Kelly equation is identical to.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "drawdown_depth",
+                "value": {
+                  "var": "drawdown_depth_pct",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "fraction_c",
+                "value": {
+                  "var": "fraction_c",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Dynamic fractional scaling automatically reduces leverage when parameter.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "drawdown_depth",
+                "value": {
+                  "var": "drawdown_depth_pct",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "fraction_c",
+                "value": {
+                  "var": "fraction_c",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constrained ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constr",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In multi-asset portfolios with correlated strategies, unconstrained Kelly.",
+            "bars": [
+              {
+                "label": "drawdown_depth",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "fraction_c",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Notice that the multi-asset Kelly equation is identical to.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "drawdown_depth",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "fraction_c",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "d",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "c",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Dynamic fractional scaling automatically reduces leverage when parameter.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "drawdown_depth",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "fraction_c",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "d",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "c",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           }
@@ -539,264 +447,218 @@
     },
     {
       "partTitle": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constrained Leverage — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "3d39dd4821e4f733b5d9703fc82db65828d5b8674a5ba8262d83304162732ad1",
+      "codeHash": "3416044a6b715125291637c32c8d39a921ba25710eb38ace2fd93ca1531403bd",
       "spec": {
-        "template": "flow",
-        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constrained ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constr",
         "steps": [
           {
+            "at": "say1",
+            "caption": "High-frequency multi-strategy execution platforms compute fractional Kelly.",
+            "bars": [
+              {
+                "label": "kelly_fraction",
+                "value": {
+                  "var": "kelly_fraction",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "max_leverage_p",
+                "value": {
+                  "var": "max_leverage_per_strat",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "vol",
+                "value": {
+                  "var": "vol",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how recalculating updates covariance during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "kelly_fraction",
+                "value": {
+                  "var": "kelly_fraction",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_leverage_p",
+                "value": {
+                  "var": "max_leverage_per_strat",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "vol",
+                "value": {
+                  "var": "vol",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic optimization guarantees that position sizing updates execute.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "kelly_fraction",
+                "value": {
+                  "var": "kelly_fraction",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_leverage_p",
+                "value": {
+                  "var": "max_leverage_per_strat",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "vol",
+                "value": {
+                  "var": "vol",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constrained ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constr",
         "steps": [
           {
+            "at": "say1",
+            "caption": "High-frequency multi-strategy execution platforms compute fractional Kelly.",
+            "bars": [
+              {
+                "label": "kelly_fraction",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "max_leverage_p",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "alpha",
+                "value": 0.08,
+                "tone": "data"
+              },
+              {
+                "label": "vol",
+                "value": 0.16,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how recalculating updates covariance during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "kelly_fraction",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_leverage_p",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "alpha",
+                "value": 0.08,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "vol",
+                "value": 0.16,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic optimization guarantees that position sizing updates execute.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "kelly_fraction",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_leverage_p",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "alpha",
+                "value": 0.08,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "vol",
+                "value": 0.16,
+                "tone": "ok"
               }
             ]
           }
@@ -805,265 +667,279 @@
     },
     {
       "partTitle": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constrained Leverage — Resilience Guardrails & Failure Recovery",
-      "codeHash": "c3002be7d6f452003ca0cbbbada789d9c86fe5153145169d7c77a6bab19d9610",
+      "codeHash": "1725a4c236397fe4ca67e0fe6f315a72d94779e339d10cde9f65649c10ebaea1",
       "spec": {
         "template": "flow",
-        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constrained ",
+        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constr",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "f0",
+            "label": "f0"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "base_kelly_leverage",
+            "label": "base_kelly_leverage"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "current_drawdown_pct",
+            "label": "current_drawdown_pct"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_tolerated_dd",
+            "label": "max_tolerated_dd"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operational risk controllers enforce hard capital preservation guardrails.",
+            "values": {
+              "f0": {
+                "var": "f0",
+                "line": 17,
+                "hit": 1
+              },
+              "base_kelly_leverage": {
+                "var": "base_kelly_leverage",
+                "line": 5,
+                "hit": 1
+              },
+              "current_drawdown_pct": {
+                "var": "current_drawdown_pct",
+                "line": 5,
+                "hit": 1
+              },
+              "max_tolerated_dd": {
+                "var": "max_tolerated_dd",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "f0": "data",
+              "base_kelly_leverage": "data",
+              "current_drawdown_pct": "data",
+              "max_tolerated_dd": "data"
+            },
+            "arrows": [
+              [
+                "f0",
+                "base_kelly_leverage"
+              ],
+              [
+                "base_kelly_leverage",
+                "current_drawdown_pct"
+              ],
+              [
+                "current_drawdown_pct",
+                "max_tolerated_dd"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The Drawdown-Constrained Leverage Deleveraging Rule systematically reduces.",
+            "values": {
+              "f0": {
+                "var": "f0",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "base_kelly_leverage": {
+                "var": "base_kelly_leverage",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "current_drawdown_pct": {
+                "var": "current_drawdown_pct",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "max_tolerated_dd": {
+                "var": "max_tolerated_dd",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "f0": "data",
+              "base_kelly_leverage": "data",
+              "current_drawdown_pct": "data",
+              "max_tolerated_dd": "data"
+            },
+            "arrows": [
+              [
+                "f0",
+                "base_kelly_leverage"
+              ],
+              [
+                "base_kelly_leverage",
+                "current_drawdown_pct"
+              ],
+              [
+                "current_drawdown_pct",
+                "max_tolerated_dd"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Automated deleveraging ensures that trading capital remains preserved so.",
+            "values": {
+              "f0": {
+                "var": "f0",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "base_kelly_leverage": {
+                "var": "base_kelly_leverage",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "current_drawdown_pct": {
+                "var": "current_drawdown_pct",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "max_tolerated_dd": {
+                "var": "max_tolerated_dd",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "f0": "ok",
+              "base_kelly_leverage": "ok",
+              "current_drawdown_pct": "ok",
+              "max_tolerated_dd": "ok"
+            },
+            "arrows": [
+              [
+                "f0",
+                "base_kelly_leverage"
+              ],
+              [
+                "base_kelly_leverage",
+                "current_drawdown_pct"
+              ],
+              [
+                "current_drawdown_pct",
+                "max_tolerated_dd"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constrained ",
+        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constr",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "f0",
+            "label": "f0"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "base_kelly_leverage",
+            "label": "base_kelly_leverage"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "current_drawdown_pct",
+            "label": "current_drawdown_pct"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_tolerated_dd",
+            "label": "max_tolerated_dd"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operational risk controllers enforce hard capital preservation guardrails.",
+            "values": {
+              "f0": "2",
+              "base_kelly_leverage": "2",
+              "current_drawdown_pct": "0.04",
+              "max_tolerated_dd": "0.2"
+            },
+            "tones": {
+              "f0": "data",
+              "base_kelly_leverage": "data",
+              "current_drawdown_pct": "data",
+              "max_tolerated_dd": "data"
+            },
+            "arrows": [
+              [
+                "f0",
+                "base_kelly_leverage"
+              ],
+              [
+                "base_kelly_leverage",
+                "current_drawdown_pct"
+              ],
+              [
+                "current_drawdown_pct",
+                "max_tolerated_dd"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The Drawdown-Constrained Leverage Deleveraging Rule systematically reduces.",
+            "values": {
+              "f0": "2",
+              "base_kelly_leverage": "2",
+              "current_drawdown_pct": "0.04",
+              "max_tolerated_dd": "0.2"
+            },
+            "tones": {
+              "f0": "data",
+              "base_kelly_leverage": "data",
+              "current_drawdown_pct": "data",
+              "max_tolerated_dd": "data"
+            },
+            "arrows": [
+              [
+                "f0",
+                "base_kelly_leverage"
+              ],
+              [
+                "base_kelly_leverage",
+                "current_drawdown_pct"
+              ],
+              [
+                "current_drawdown_pct",
+                "max_tolerated_dd"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Automated deleveraging ensures that trading capital remains preserved so.",
+            "values": {
+              "f0": "2",
+              "base_kelly_leverage": "2",
+              "current_drawdown_pct": "0.04",
+              "max_tolerated_dd": "0.2"
+            },
+            "tones": {
+              "f0": "ok",
+              "base_kelly_leverage": "ok",
+              "current_drawdown_pct": "ok",
+              "max_tolerated_dd": "ok"
+            },
+            "arrows": [
+              [
+                "f0",
+                "base_kelly_leverage"
+              ],
+              [
+                "base_kelly_leverage",
+                "current_drawdown_pct"
+              ],
+              [
+                "current_drawdown_pct",
+                "max_tolerated_dd"
+              ]
             ]
           }
         ]
@@ -1071,266 +947,164 @@
     },
     {
       "partTitle": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constrained Leverage — Production Telemetry & Verification Audit",
-      "codeHash": "a04200c6187b5d0437d34cb392597f6ee1e6cf00c0aa2b86c7308a9dbd4c5da8",
+      "codeHash": "d92fc8d45aa3f9dc2cc87eaec3df031dda88c31df2bf240b2d2bc5439b5c3d00",
       "spec": {
-        "template": "flow",
-        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constrained ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constr",
+        "actors": [
+          "equity_capital",
+          "total_notional_positions",
+          "maintenance_margin_req_pct"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for position sizing systems requires real-time.",
+            "activeActor": "equity_capital",
+            "messages": [
+              {
+                "from": "equity_capital",
+                "to": "total_notional_positions",
+                "label": {
+                  "var": "equity_capital",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "total_notional_positions",
+                "to": "maintenance_margin_req_pct",
+                "label": {
+                  "var": "total_notional_positions",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The telemetry pipeline computes realized log wealth trajectory.",
+            "activeActor": "total_notional_positions",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "equity_capital",
+                "to": "total_notional_positions",
+                "label": {
+                  "var": "equity_capital",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "total_notional_positions",
+                "to": "maintenance_margin_req_pct",
+                "label": {
+                  "var": "total_notional_positions",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Continuous metric tracking provides full operational transparency to chief.",
+            "activeActor": "maintenance_margin_req_pct",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "equity_capital",
+                "to": "total_notional_positions",
+                "label": {
+                  "var": "equity_capital",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "total_notional_positions",
+                "to": "maintenance_margin_req_pct",
+                "label": {
+                  "var": "total_notional_positions",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constrained ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Kelly Criterion Fractional Sizing, Ruin Bounds & Drawdown-Constr",
+        "actors": [
+          "equity_capital",
+          "total_notional_positions",
+          "maintenance_margin_req_pct"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for position sizing systems requires real-time.",
+            "messages": [
+              {
+                "from": "equity_capital",
+                "to": "total_notional_positions",
+                "label": "5000000",
+                "tone": "data"
+              },
+              {
+                "from": "total_notional_positions",
+                "to": "maintenance_margin_req_pct",
+                "label": "12000000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "equity_capital"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The telemetry pipeline computes realized log wealth trajectory.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "equity_capital",
+                "to": "total_notional_positions",
+                "label": "5000000",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "total_notional_positions",
+                "to": "maintenance_margin_req_pct",
+                "label": "12000000",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "total_notional_positions"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Continuous metric tracking provides full operational transparency to chief.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "equity_capital",
+                "to": "total_notional_positions",
+                "label": "5000000",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "total_notional_positions",
+                "to": "maintenance_margin_req_pct",
+                "label": "12000000",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "maintenance_margin_req_pct"
           }
         ]
       }

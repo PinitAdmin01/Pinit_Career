@@ -2,118 +2,135 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 30,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The platform flow",
       "codeHash": "b2f9979ac185dadc2fa0b788594a76a073244c82b8f53fc665bc7fd6d52c9bb4",
       "spec": {
         "template": "flow",
-        "title": "The platform flow — Execution Pipeline",
+        "title": "The platform flow",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "flow",
+            "label": "flow"
           },
           {
-            "id": "proc",
-            "label": "2. The platform flow",
-            "tappable": true
+            "id": "lessons",
+            "label": "lessons"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "step",
+            "label": "step"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The platform flow [D.Pone.Sone].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The platform flow [D.Pone.Stwo].",
+            "caption": "A production AI request flows through the same stages again and again.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "flow": {
+                "var": "flow",
+                "line": 1,
+                "hit": 1
+              },
+              "lessons": {
+                "var": "lessons",
+                "line": 2,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "flow": "data",
+              "lessons": "data",
+              "step": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "flow",
+                "lessons"
               ],
               [
-                "proc",
-                "out"
+                "lessons",
+                "step"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
+            "at": "say2",
+            "caption": "Each stage comes from a lesson.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "flow": {
+                "var": "flow",
+                "line": 2,
+                "hit": 1
+              },
+              "lessons": {
+                "var": "lessons",
+                "line": 3,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "flow": "data",
+              "lessons": "data",
+              "step": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "flow",
+                "lessons"
+              ],
+              [
+                "lessons",
+                "step"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The platform flow [D.Pone.Sfour].",
+            "at": "say7",
+            "caption": "Before coding, list the possible outcomes.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "flow": {
+                "var": "flow",
+                "line": 3,
+                "hit": 1
+              },
+              "lessons": {
+                "var": "lessons",
+                "line": 4,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 3,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "flow": "ok",
+              "lessons": "ok",
+              "step": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "flow",
+                "lessons"
               ],
               [
-                "proc",
-                "out"
+                "lessons",
+                "step"
               ]
             ]
           }
@@ -121,110 +138,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "The platform flow — Execution Pipeline",
+        "title": "The platform flow",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "flow",
+            "label": "flow"
           },
           {
-            "id": "proc",
-            "label": "2. The platform flow",
-            "tappable": true
+            "id": "lessons",
+            "label": "lessons"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "step",
+            "label": "step"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The platform flow [D30.P1.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The platform flow [D30.P1.S2].",
+            "caption": "A production AI request flows through the same stages again and again.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "flow": "['is_threat', 'cache_get', 'retrieve', …",
+              "lessons": "{'is_threat': 14, 'cache_get': 22, 'ret…",
+              "step": "'is_threat'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "flow": "data",
+              "lessons": "data",
+              "step": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "flow",
+                "lessons"
               ],
               [
-                "proc",
-                "out"
+                "lessons",
+                "step"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P1.S3].",
+            "at": "say2",
+            "caption": "Each stage comes from a lesson.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "flow": "['is_threat', 'cache_get', 'retrieve', …",
+              "lessons": "{'is_threat': 14, 'cache_get': 22, 'ret…",
+              "step": "'is_threat'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "flow": "data",
+              "lessons": "data",
+              "step": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "flow",
+                "lessons"
+              ],
+              [
+                "lessons",
+                "step"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The platform flow [D30.P1.S4].",
+            "at": "say7",
+            "caption": "Before coding, list the possible outcomes.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "flow": "['is_threat', 'cache_get', 'retrieve', …",
+              "lessons": "{'is_threat': 14, 'cache_get': 22, 'ret…",
+              "step": "'cache_get'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "flow": "ok",
+              "lessons": "ok",
+              "step": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "flow",
+                "lessons"
               ],
               [
-                "proc",
-                "out"
+                "lessons",
+                "step"
               ]
             ]
           }
@@ -235,159 +233,162 @@
       "partTitle": "The run_ai_platform function",
       "codeHash": "73eb4be8326a82d8e33eb7a4166436da03839755a5b773bb3213668a9da8dac9",
       "spec": {
-        "template": "flow",
-        "title": "Enterprise AI platform request routing and execution pipeline",
-        "nodes": [
-          {
-            "id": "threat",
-            "label": "is_threat"
-          },
-          {
-            "id": "cache",
-            "label": "cache"
-          },
-          {
-            "id": "retrieve",
-            "label": "retrieve"
-          }
-        ],
-        "edges": [
-          {
-            "from": "threat",
-            "to": "cache",
-            "label": "safe"
-          },
-          {
-            "from": "cache",
-            "to": "retrieve",
-            "label": "miss"
-          }
+        "template": "sequence",
+        "title": "The run_ai_platform function",
+        "actors": [
+          "cache",
+          "services",
+          "q"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Guardrail checks is_threat blocking query immediately.",
-            "values": {
-              "threat": {
-                "text": "BLOCKED"
+            "caption": "Run_ai_platform(query, services).",
+            "activeActor": "cache",
+            "messages": [
+              {
+                "from": "cache",
+                "to": "services",
+                "label": {
+                  "var": "cache",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "cache": {
-                "text": "CACHE"
-              },
-              "retrieve": {
-                "text": "RAG"
+              {
+                "from": "services",
+                "to": "q",
+                "label": {
+                  "var": "services",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "threat": "error",
-              "cache": "idle",
-              "retrieve": "idle"
-            }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Semantic cache returns existing response on match.",
-            "values": {
-              "threat": {
-                "text": "BLOCKED"
+            "caption": "Otherwise try services[\"cache_get\"](query).",
+            "activeActor": "services",
+            "messages": [
+              {
+                "from": "cache",
+                "to": "services",
+                "label": {
+                  "var": "cache",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "cache": {
-                "text": "CACHE"
-              },
-              "retrieve": {
-                "text": "RAG"
+              {
+                "from": "services",
+                "to": "q",
+                "label": {
+                  "var": "services",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "threat": "ok",
-              "cache": "ok",
-              "retrieve": "idle"
-            }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Cache miss falls back to retrieve sources and generate answer.",
-            "values": {
-              "threat": {
-                "text": "BLOCKED"
+            "at": "say7",
+            "caption": "Test all three paths with fake services before connecting real ones.",
+            "activeActor": "q",
+            "messages": [
+              {
+                "from": "cache",
+                "to": "services",
+                "label": {
+                  "var": "cache",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "cache": {
-                "text": "CACHE"
-              },
-              "retrieve": {
-                "text": "RAG"
+              {
+                "from": "services",
+                "to": "q",
+                "label": {
+                  "var": "services",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "threat": "ok",
-              "cache": "idle",
-              "retrieve": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Enterprise AI platform request routing and execution pipeline",
-        "nodes": [
-          {
-            "id": "threat",
-            "label": "is_threat"
-          },
-          {
-            "id": "cache",
-            "label": "cache"
-          },
-          {
-            "id": "retrieve",
-            "label": "retrieve"
-          }
+        "template": "sequence",
+        "title": "The run_ai_platform function",
+        "actors": [
+          "cache",
+          "services",
+          "q"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Guardrail checks is_threat blocking query immediately.",
-            "values": {
-              "threat": "BLOCKED",
-              "cache": "CACHE",
-              "retrieve": "RAG"
-            },
-            "tones": {
-              "threat": "error",
-              "cache": "idle",
-              "retrieve": "idle"
-            },
-            "arrows": []
+            "caption": "Run_ai_platform(query, services).",
+            "messages": [
+              {
+                "from": "cache",
+                "to": "services",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "services",
+                "to": "q",
+                "label": "{'is_threat': {'__other__': 'function'}…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "cache"
           },
           {
             "at": "say2",
-            "caption": "Semantic cache returns existing response on match.",
-            "values": {
-              "threat": "BLOCKED",
-              "cache": "CACHE",
-              "retrieve": "RAG"
-            },
-            "tones": {
-              "threat": "ok",
-              "cache": "ok",
-              "retrieve": "idle"
-            },
-            "arrows": []
+            "caption": "Otherwise try services[\"cache_get\"](query).",
+            "messages": [
+              {
+                "from": "cache",
+                "to": "services",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "services",
+                "to": "q",
+                "label": "{'is_threat': {'__other__': 'function'}…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "services"
           },
           {
-            "at": "say3",
-            "caption": "Cache miss falls back to retrieve sources and generate answer.",
-            "values": {
-              "threat": "BLOCKED",
-              "cache": "CACHE",
-              "retrieve": "RAG"
-            },
-            "tones": {
-              "threat": "ok",
-              "cache": "idle",
-              "retrieve": "ok"
-            },
-            "arrows": []
+            "at": "say7",
+            "caption": "Test all three paths with fake services before connecting real ones.",
+            "messages": [
+              {
+                "from": "cache",
+                "to": "services",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "services",
+                "to": "q",
+                "label": "{'is_threat': {'__other__': 'function'}…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "q"
           }
         ]
       }
@@ -396,192 +397,162 @@
       "partTitle": "Wrapping services with tracing",
       "codeHash": "e49f0faf65a0fdace28df1e1649c069d33c69b78664f00c26752b218bf6feadf",
       "spec": {
-        "template": "table",
-        "title": "Traced service span execution history and outcomes",
-        "columns": [
-          "service",
-          "query",
-          "status"
+        "template": "sequence",
+        "title": "Wrapping services with tracing",
+        "actors": [
+          "trace",
+          "services",
+          "name"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Every service call records execution outcome and details.",
-            "rows": [
+            "caption": "Its name, time and outcome.",
+            "activeActor": "trace",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "is_threat"
-                  },
-                  {
-                    "text": "hours?"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
+                "from": "trace",
+                "to": "services",
+                "label": {
+                  "var": "trace",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "services",
+                "to": "name",
+                "label": {
+                  "var": "services",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Wrapper function records trace span around underlying call.",
-            "rows": [
+            "caption": "A wrapper function takes a service and returns a new function that records.",
+            "activeActor": "services",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "is_threat"
-                  },
-                  {
-                    "text": "hours?"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "ok"
+                "from": "trace",
+                "to": "services",
+                "label": {
+                  "var": "trace",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "cache_get"
-                  },
-                  {
-                    "text": "hours?"
-                  },
-                  {
-                    "text": "None"
-                  }
-                ],
-                "tone": "idle"
+                "from": "services",
+                "to": "name",
+                "label": {
+                  "var": "services",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Complete trace captures request across wrapped services.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example uses a step counter instead of real time so the output is.",
+            "activeActor": "name",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "is_threat"
-                  },
-                  {
-                    "text": "hours?"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cache_get"
-                  },
-                  {
-                    "text": "hours?"
-                  },
-                  {
-                    "text": "None"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "retrieve"
-                  },
-                  {
-                    "text": "hours?"
-                  },
-                  {
-                    "text": "faq.md"
-                  }
-                ],
+                "from": "trace",
+                "to": "services",
+                "label": {
+                  "var": "trace",
+                  "line": 11,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "services",
+                "to": "name",
+                "label": {
+                  "var": "services",
+                  "line": 16,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Traced service span execution history and outcomes",
-        "columns": [
-          "service",
-          "query",
-          "status"
+        "template": "sequence",
+        "title": "Wrapping services with tracing",
+        "actors": [
+          "trace",
+          "services",
+          "name"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Every service call records execution outcome and details.",
-            "rows": [
+            "caption": "Its name, time and outcome.",
+            "messages": [
               {
-                "cells": [
-                  "is_threat",
-                  "hours?",
-                  "False"
-                ],
+                "from": "trace",
+                "to": "services",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "services",
+                "to": "name",
+                "label": "{'is_threat': {'__other__': 'function'}…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "trace"
           },
           {
             "at": "say2",
-            "caption": "Wrapper function records trace span around underlying call.",
-            "rows": [
+            "caption": "A wrapper function takes a service and returns a new function that records.",
+            "messages": [
               {
-                "cells": [
-                  "is_threat",
-                  "hours?",
-                  "False"
-                ],
-                "tone": "ok"
+                "from": "trace",
+                "to": "services",
+                "label": "[]",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "cache_get",
-                  "hours?",
-                  "None"
-                ],
-                "tone": "idle"
+                "from": "services",
+                "to": "name",
+                "label": "{'is_threat': {'__other__': 'function'}…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "services"
           },
           {
-            "at": "say4",
-            "caption": "Complete trace captures request across wrapped services.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example uses a step counter instead of real time so the output is.",
+            "messages": [
               {
-                "cells": [
-                  "is_threat",
-                  "hours?",
-                  "False"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cache_get",
-                  "hours?",
-                  "None"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "retrieve",
-                  "hours?",
-                  "faq.md"
-                ],
+                "from": "trace",
+                "to": "services",
+                "label": "[]",
                 "tone": "data"
+              },
+              {
+                "from": "services",
+                "to": "name",
+                "label": "{'is_threat': {'__other__': 'function'}…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "name"
           }
         ]
       }
@@ -590,132 +561,162 @@
       "partTitle": "Testing every path",
       "codeHash": "89a62a949535fceab1a7ac8a722647a995bfc44bd0442696f5dd340196954445",
       "spec": {
-        "template": "compare",
-        "title": "Platform test execution verification across all execution paths",
-        "leftLabel": "Guardrail Threat Path",
-        "rightLabel": "Cache & RAG Paths",
+        "template": "sequence",
+        "title": "Testing every path",
+        "actors": [
+          "threat",
+          "cached",
+          "calls"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Every execution path is tested including blocked and cached.",
-            "left": {
-              "code": "threat returns BLOCKED",
-              "result": {
-                "text": "BLOCKED"
+            "caption": "A platform is only trustworthy if every path is tested.",
+            "activeActor": "threat",
+            "messages": [
+              {
+                "from": "threat",
+                "to": "cached",
+                "label": {
+                  "var": "threat",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "fresh query returns RAG",
-              "result": {
-                "text": "RAG"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "cached",
+                "to": "calls",
+                "label": {
+                  "var": "cached",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Fake services verify test result without network calls.",
-            "left": {
-              "code": "assert status BLOCKED",
-              "result": {
-                "text": "BLOCKED"
+            "caption": "Write tests as small functions with fake services, each asserting.",
+            "activeActor": "cached",
+            "messages": [
+              {
+                "from": "threat",
+                "to": "cached",
+                "label": {
+                  "var": "threat",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "assert source CACHE",
-              "result": {
-                "text": "CACHE"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "cached",
+                "to": "calls",
+                "label": {
+                  "var": "cached",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Fake records prove threat halts without calling cache.",
-            "left": {
-              "code": "blocked calls recorded: none",
-              "result": {
-                "text": "BLOCKED"
+            "at": "say7",
+            "caption": "Tests are what let you improve the platform confidently for years.",
+            "activeActor": "calls",
+            "messages": [
+              {
+                "from": "threat",
+                "to": "cached",
+                "label": {
+                  "var": "threat",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "rag calls recorded: save",
-              "result": {
-                "text": "save"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "cached",
+                "to": "calls",
+                "label": {
+                  "var": "cached",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Platform test execution verification across all execution paths",
-        "leftLabel": "Guardrail Threat Path",
-        "rightLabel": "Cache & RAG Paths",
+        "template": "sequence",
+        "title": "Testing every path",
+        "actors": [
+          "threat",
+          "cached",
+          "calls"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Every execution path is tested including blocked and cached.",
-            "left": {
-              "code": "threat returns BLOCKED",
-              "result": "BLOCKED",
-              "tone": "error",
-              "checks": [
-                "BLOCKED"
-              ]
-            },
-            "right": {
-              "code": "fresh query returns RAG",
-              "result": "RAG",
-              "tone": "ok",
-              "checks": [
-                "RAG"
-              ]
-            }
+            "caption": "A platform is only trustworthy if every path is tested.",
+            "messages": [
+              {
+                "from": "threat",
+                "to": "cached",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "cached",
+                "to": "calls",
+                "label": "None",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "threat"
           },
           {
             "at": "say2",
-            "caption": "Fake services verify test result without network calls.",
-            "left": {
-              "code": "assert status BLOCKED",
-              "result": "BLOCKED",
-              "tone": "error",
-              "checks": [
-                "BLOCKED"
-              ]
-            },
-            "right": {
-              "code": "assert source CACHE",
-              "result": "CACHE",
-              "tone": "ok",
-              "checks": [
-                "CACHE"
-              ]
-            }
+            "caption": "Write tests as small functions with fake services, each asserting.",
+            "messages": [
+              {
+                "from": "threat",
+                "to": "cached",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "cached",
+                "to": "calls",
+                "label": "None",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "cached"
           },
           {
-            "at": "say3",
-            "caption": "Fake records prove threat halts without calling cache.",
-            "left": {
-              "code": "blocked calls recorded: none",
-              "result": "BLOCKED",
-              "tone": "error",
-              "checks": [
-                "BLOCKED"
-              ]
-            },
-            "right": {
-              "code": "rag calls recorded: save",
-              "result": "save",
-              "tone": "ok",
-              "checks": [
-                "save"
-              ]
-            }
+            "at": "say7",
+            "caption": "Tests are what let you improve the platform confidently for years.",
+            "messages": [
+              {
+                "from": "threat",
+                "to": "cached",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "cached",
+                "to": "calls",
+                "label": "None",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "calls"
           }
         ]
       }
@@ -724,190 +725,132 @@
       "partTitle": "Certification audit",
       "codeHash": "a7842f32f03ce79a7ef4c6840ea67d36856d81c8b90ad61a31c51b997bc40cd4",
       "spec": {
-        "template": "table",
-        "title": "Certification module evaluation and audit results",
-        "columns": [
-          "module",
-          "score",
-          "threshold"
-        ],
+        "template": "bars",
+        "title": "Certification audit",
         "steps": [
           {
             "at": "say1",
-            "caption": "Audit function checks module marks against average.",
-            "rows": [
+            "caption": "True only if the average is at least 80 and nothing failed.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "rag"
-                  },
-                  {
-                    "text": "92"
-                  },
-                  {
-                    "text": "70"
-                  }
-                ],
-                "tone": "ok"
+                "label": "average",
+                "value": {
+                  "var": "average",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "High average with no failed module ensures balanced skill.",
-            "rows": [
+            "caption": "Two rules together make a fair bar.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "rag"
-                  },
-                  {
-                    "text": "92"
-                  },
-                  {
-                    "text": "70"
-                  }
-                ],
+                "label": "average",
+                "value": {
+                  "var": "average",
+                  "line": 3,
+                  "hit": 6
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "agents"
-                  },
-                  {
-                    "text": "85"
-                  },
-                  {
-                    "text": "70"
-                  }
-                ],
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Sorting failed list produces predictable test output.",
-            "rows": [
+            "at": "say7",
+            "caption": "Use the audit on yourself.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "rag"
-                  },
-                  {
-                    "text": "92"
-                  },
-                  {
-                    "text": "70"
-                  }
-                ],
+                "label": "average",
+                "value": {
+                  "var": "average",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "agents"
-                  },
-                  {
-                    "text": "85"
-                  },
-                  {
-                    "text": "70"
-                  }
-                ],
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 3,
+                  "hit": 3
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "security"
-                  },
-                  {
-                    "text": "65"
-                  },
-                  {
-                    "text": "70"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Certification module evaluation and audit results",
-        "columns": [
-          "module",
-          "score",
-          "threshold"
-        ],
+        "template": "bars",
+        "title": "Certification audit",
         "steps": [
           {
             "at": "say1",
-            "caption": "Audit function checks module marks against average.",
-            "rows": [
+            "caption": "True only if the average is at least 80 and nothing failed.",
+            "bars": [
               {
-                "cells": [
-                  "rag",
-                  "92",
-                  "70"
-                ],
-                "tone": "ok"
+                "label": "average",
+                "value": 86.5,
+                "tone": "data"
+              },
+              {
+                "label": "s",
+                "value": 92,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "High average with no failed module ensures balanced skill.",
-            "rows": [
+            "caption": "Two rules together make a fair bar.",
+            "bars": [
               {
-                "cells": [
-                  "rag",
-                  "92",
-                  "70"
-                ],
+                "label": "average",
+                "value": 86.5,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "agents",
-                  "85",
-                  "70"
-                ],
+                "label": "s",
+                "value": 85,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Sorting failed list produces predictable test output.",
-            "rows": [
+            "at": "say7",
+            "caption": "Use the audit on yourself.",
+            "bars": [
               {
-                "cells": [
-                  "rag",
-                  "92",
-                  "70"
-                ],
+                "label": "average",
+                "value": 86.5,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "agents",
-                  "85",
-                  "70"
-                ],
+                "label": "s",
+                "value": 88,
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "security",
-                  "65",
-                  "70"
-                ],
-                "tone": "error"
               }
             ]
           }
@@ -918,224 +861,130 @@
       "partTitle": "Your AI engineering checklist",
       "codeHash": "5f8f704ac2a1a70e6efccdee825dc2114aa0d781e0c389420aa4283e2e340ac5",
       "spec": {
-        "template": "flow",
-        "title": "Your AI engineering checklist — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Your AI engineering checklist",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "checklist",
+            "label": "checklist"
           },
           {
-            "id": "proc",
-            "label": "2. Your AI engineering...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "done",
+            "label": "done"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Your AI engineering checklist [D.Psix.Sone].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Your AI engineering... [D.Psix.Stwo].",
+            "caption": "Before shipping any AI feature, walk through a checklist.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "checklist": {
+                "var": "checklist",
+                "line": 1,
+                "hit": 1
+              },
+              "done": {
+                "var": "done",
+                "line": 10,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "checklist": "data",
+              "done": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Injection checks, cleaned retrieved content, least-privilege tools, human.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "checklist": {
+                "var": "checklist",
+                "line": 10,
+                "hit": 1
+              },
+              "done": {
+                "var": "done",
+                "line": 11,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "checklist": "data",
+              "done": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Your AI engineering checklist.",
+            "at": "say6",
+            "caption": "Congratulations on completing AI Engineering in Python.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "checklist": {
+                "var": "checklist",
+                "line": 11,
+                "hit": 1
+              },
+              "done": {
+                "var": "done",
+                "line": 12,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "checklist": "ok",
+              "done": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Your AI engineering checklist — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Your AI engineering checklist",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "checklist",
+            "label": "checklist"
           },
           {
-            "id": "proc",
-            "label": "2. Your AI engineering...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "done",
+            "label": "done"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Your AI engineering checklist [D30.P6.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Your AI engineering... [D30.P6.S2].",
+            "caption": "Before shipping any AI feature, walk through a checklist.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "checklist": "{'prompts with output contracts': True,…",
+              "done": "5"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "checklist": "data",
+              "done": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P6.S3].",
+            "at": "say2",
+            "caption": "Injection checks, cleaned retrieved content, least-privilege tools, human.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "checklist": "{'prompts with output contracts': True,…",
+              "done": "5"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "checklist": "data",
+              "done": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Your AI engineering checklist [D30.P6.S4].",
+            "at": "say6",
+            "caption": "Congratulations on completing AI Engineering in Python.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "checklist": "{'prompts with output contracts': True,…",
+              "done": "5"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "checklist": "ok",
+              "done": "ok"
+            }
           }
         ]
       }

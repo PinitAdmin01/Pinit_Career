@@ -2,231 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 30,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The trading engine's requirements",
       "codeHash": "6ce47d4c0d7044e8352d029317017a9f8b7df778593a7aa9e72d1fbf6223c574",
       "spec": {
-        "template": "flow",
-        "title": "The trading engine's requirements — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The trading engine'...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "The trading engine's requirements",
+        "actors": [
+          "steps",
+          "name",
+          "what"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The trading engine's requirements [D.Pone.Sone].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The trading engine'... [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A trading exchange must never double-spend an account, never lose.",
+            "activeActor": "steps",
+            "messages": [
+              {
+                "from": "steps",
+                "to": "name",
+                "label": {
+                  "var": "steps",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "what",
+                "label": {
+                  "var": "name",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "These are the same guarantees that payment systems, ticket booking.",
+            "activeActor": "name",
+            "messages": [
+              {
+                "from": "steps",
+                "to": "name",
+                "label": {
+                  "var": "steps",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "what",
+                "label": {
+                  "var": "name",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The trading engine's requirements.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example lists the steps and the lesson each comes from.",
+            "activeActor": "what",
+            "messages": [
+              {
+                "from": "steps",
+                "to": "name",
+                "label": {
+                  "var": "steps",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "what",
+                "label": {
+                  "var": "name",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The trading engine's requirements — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The trading engine'...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "The trading engine's requirements",
+        "actors": [
+          "steps",
+          "name",
+          "what"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The trading engine's requirements [D30.P1.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The trading engine'... [D30.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A trading exchange must never double-spend an account, never lose.",
+            "messages": [
+              {
+                "from": "steps",
+                "to": "name",
+                "label": "[['is_allowed', 'rate limit per account…",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "what",
+                "label": "'is_allowed'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "steps"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "These are the same guarantees that payment systems, ticket booking.",
+            "messages": [
+              {
+                "from": "steps",
+                "to": "name",
+                "label": "[['is_allowed', 'rate limit per account…",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "what",
+                "label": "'is_allowed'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "name"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The trading engine's requirements [D30.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example lists the steps and the lesson each comes from.",
+            "messages": [
+              {
+                "from": "steps",
+                "to": "name",
+                "label": "[['is_allowed', 'rate limit per account…",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "what",
+                "label": "'acquire'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "what"
           }
         ]
       }
@@ -235,165 +173,277 @@
       "partTitle": "The execute_trade function",
       "codeHash": "69ba07eb1e7f8c38e7429a6c4199a1244af44560283a2d2163a56a91d06f2dae",
       "spec": {
-        "template": "table",
-        "title": "Trading engine order transaction pipeline stages and execution outcomes",
-        "columns": [
-          "account",
-          "error"
+        "template": "flow",
+        "title": "The execute_trade function",
+        "nodes": [
+          {
+            "id": "released",
+            "label": "released"
+          },
+          {
+            "id": "replicas",
+            "label": "replicas"
+          },
+          {
+            "id": "services",
+            "label": "services"
+          },
+          {
+            "id": "order",
+            "label": "order"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Rate limited orders return immediately without acquiring an account lock.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ACC-9"
-                  },
-                  {
-                    "text": "RATE_LIMITED"
-                  }
-                ],
-                "tone": "error"
+            "caption": "If services[\"is_allowed\"](account) is False, return RATE_LIMITED.",
+            "values": {
+              "released": {
+                "var": "released",
+                "line": 17,
+                "hit": 1
+              },
+              "replicas": {
+                "var": "replicas",
+                "line": 17,
+                "hit": 1
+              },
+              "services": {
+                "var": "services",
+                "line": 18,
+                "hit": 1
+              },
+              "order": {
+                "var": "order",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "released": "data",
+              "replicas": "data",
+              "services": "data",
+              "order": "data"
+            },
+            "arrows": [
+              [
+                "released",
+                "replicas"
+              ],
+              [
+                "replicas",
+                "services"
+              ],
+              [
+                "services",
+                "order"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "The finally block guarantees releasing the account lock on every exit.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ACC-9"
-                  },
-                  {
-                    "text": "RATE_LIMITED"
-                  }
-                ],
-                "tone": "error"
+            "at": "say2",
+            "caption": "Then replicate {\"order_id\", \"amount\", \"fencing_token\"} and commit.",
+            "values": {
+              "released": {
+                "var": "released",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "ACC-9"
-                  },
-                  {
-                    "text": "ACCOUNT_LOCKED"
-                  }
-                ],
-                "tone": "error"
+              "replicas": {
+                "var": "replicas",
+                "line": 19,
+                "hit": 1
+              },
+              "services": {
+                "var": "services",
+                "line": 2,
+                "hit": 1
+              },
+              "order": {
+                "var": "order",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "released": "data",
+              "replicas": "data",
+              "services": "data",
+              "order": "data"
+            },
+            "arrows": [
+              [
+                "released",
+                "replicas"
+              ],
+              [
+                "replicas",
+                "services"
+              ],
+              [
+                "services",
+                "order"
+              ]
             ]
           },
           {
             "at": "say8",
-            "caption": "The trade transaction executes safely with mock service dependencies.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ACC-9"
-                  },
-                  {
-                    "text": "RATE_LIMITED"
-                  }
-                ],
-                "tone": "error"
+            "caption": "The example runs one successful trade with fake services.",
+            "values": {
+              "released": {
+                "var": "released",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "ACC-9"
-                  },
-                  {
-                    "text": "ACCOUNT_LOCKED"
-                  }
-                ],
-                "tone": "error"
+              "replicas": {
+                "var": "replicas",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "ACC-9"
-                  },
-                  {
-                    "text": "lock_7"
-                  }
-                ],
-                "tone": "ok"
+              "services": {
+                "var": "services",
+                "line": 3,
+                "hit": 1
+              },
+              "order": {
+                "var": "order",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "released": "ok",
+              "replicas": "ok",
+              "services": "ok",
+              "order": "ok"
+            },
+            "arrows": [
+              [
+                "released",
+                "replicas"
+              ],
+              [
+                "replicas",
+                "services"
+              ],
+              [
+                "services",
+                "order"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Trading engine order transaction pipeline stages and execution outcomes",
-        "columns": [
-          "account",
-          "error"
+        "template": "flow",
+        "title": "The execute_trade function",
+        "nodes": [
+          {
+            "id": "released",
+            "label": "released"
+          },
+          {
+            "id": "replicas",
+            "label": "replicas"
+          },
+          {
+            "id": "services",
+            "label": "services"
+          },
+          {
+            "id": "order",
+            "label": "order"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Rate limited orders return immediately without acquiring an account lock.",
-            "rows": [
-              {
-                "cells": [
-                  "ACC-9",
-                  "RATE_LIMITED"
-                ],
-                "tone": "error"
-              }
+            "caption": "If services[\"is_allowed\"](account) is False, return RATE_LIMITED.",
+            "values": {
+              "released": "[]",
+              "replicas": "[]",
+              "services": "{'is_allowed': {'__other__': 'function'…",
+              "order": "{'id': 'T1', 'account': 'ACC-9', 'amoun…"
+            },
+            "tones": {
+              "released": "data",
+              "replicas": "data",
+              "services": "data",
+              "order": "data"
+            },
+            "arrows": [
+              [
+                "released",
+                "replicas"
+              ],
+              [
+                "replicas",
+                "services"
+              ],
+              [
+                "services",
+                "order"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "The finally block guarantees releasing the account lock on every exit.",
-            "rows": [
-              {
-                "cells": [
-                  "ACC-9",
-                  "RATE_LIMITED"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "ACC-9",
-                  "ACCOUNT_LOCKED"
-                ],
-                "tone": "error"
-              }
+            "at": "say2",
+            "caption": "Then replicate {\"order_id\", \"amount\", \"fencing_token\"} and commit.",
+            "values": {
+              "released": "[]",
+              "replicas": "[]",
+              "services": "{'is_allowed': {'__other__': 'function'…",
+              "order": "{'id': 'T1', 'account': 'ACC-9', 'amoun…"
+            },
+            "tones": {
+              "released": "data",
+              "replicas": "data",
+              "services": "data",
+              "order": "data"
+            },
+            "arrows": [
+              [
+                "released",
+                "replicas"
+              ],
+              [
+                "replicas",
+                "services"
+              ],
+              [
+                "services",
+                "order"
+              ]
             ]
           },
           {
             "at": "say8",
-            "caption": "The trade transaction executes safely with mock service dependencies.",
-            "rows": [
-              {
-                "cells": [
-                  "ACC-9",
-                  "RATE_LIMITED"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "ACC-9",
-                  "ACCOUNT_LOCKED"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "ACC-9",
-                  "lock_7"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The example runs one successful trade with fake services.",
+            "values": {
+              "released": "[]",
+              "replicas": "[]",
+              "services": "{'is_allowed': {'__other__': 'function'…",
+              "order": "{'id': 'T1', 'account': 'ACC-9', 'amoun…"
+            },
+            "tones": {
+              "released": "ok",
+              "replicas": "ok",
+              "services": "ok",
+              "order": "ok"
+            },
+            "arrows": [
+              [
+                "released",
+                "replicas"
+              ],
+              [
+                "replicas",
+                "services"
+              ],
+              [
+                "services",
+                "order"
+              ]
             ]
           }
         ]
@@ -403,166 +453,106 @@
       "partTitle": "Testing every failure path",
       "codeHash": "85138ef0edd63585cc6a1b376dcd90ca869ff79d96d9e58d0b7b9ce2c3930f01",
       "spec": {
-        "template": "table",
-        "title": "Trading engine scenario test suite verifying failure branch assertions",
-        "columns": [
-          "account",
-          "expected"
+        "template": "states",
+        "title": "Testing every failure path",
+        "states": [
+          {
+            "id": "order",
+            "label": "order"
+          },
+          {
+            "id": "kwargs",
+            "label": "kwargs"
+          },
+          {
+            "id": "expected",
+            "label": "expected"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Test every execution path including rate limits lock failures and success.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "A1"
-                  },
-                  {
-                    "text": "RATE_LIMITED"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
+            "caption": "The engine must be tested on each path.",
+            "currentState": "order",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Assert that release is called exactly once whenever acquire succeeds.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "A1"
-                  },
-                  {
-                    "text": "RATE_LIMITED"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "A1"
-                  },
-                  {
-                    "text": "ACCOUNT_LOCKED"
-                  }
-                ],
-                "tone": "error"
+            "caption": "For every path after acquiring the lock, assert that release was called.",
+            "currentState": "kwargs",
+            "transition": {
+              "from": "order",
+              "to": "kwargs",
+              "label": {
+                "var": "kwargs",
+                "line": 36,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Rate limited trades must never invoke acquire or backend operations.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "A1"
-                  },
-                  {
-                    "text": "RATE_LIMITED"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "A1"
-                  },
-                  {
-                    "text": "ACCOUNT_LOCKED"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "A1"
-                  },
-                  {
-                    "text": "OK rcpt-1"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example runs a table of scenarios with assertions.",
+            "currentState": "expected",
+            "transition": {
+              "from": "kwargs",
+              "to": "expected",
+              "label": {
+                "var": "expected",
+                "line": 37,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Trading engine scenario test suite verifying failure branch assertions",
-        "columns": [
-          "account",
-          "expected"
+        "template": "states",
+        "title": "Testing every failure path",
+        "states": [
+          {
+            "id": "order",
+            "label": "order"
+          },
+          {
+            "id": "kwargs",
+            "label": "kwargs"
+          },
+          {
+            "id": "expected",
+            "label": "expected"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Test every execution path including rate limits lock failures and success.",
-            "rows": [
-              {
-                "cells": [
-                  "A1",
-                  "RATE_LIMITED"
-                ],
-                "tone": "idle"
-              }
-            ]
+            "caption": "The engine must be tested on each path.",
+            "currentState": "order",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Assert that release is called exactly once whenever acquire succeeds.",
-            "rows": [
-              {
-                "cells": [
-                  "A1",
-                  "RATE_LIMITED"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "A1",
-                  "ACCOUNT_LOCKED"
-                ],
-                "tone": "error"
-              }
-            ]
+            "caption": "For every path after acquiring the lock, assert that release was called.",
+            "currentState": "kwargs",
+            "transition": {
+              "from": "order",
+              "to": "kwargs",
+              "label": "{}"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Rate limited trades must never invoke acquire or backend operations.",
-            "rows": [
-              {
-                "cells": [
-                  "A1",
-                  "RATE_LIMITED"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "A1",
-                  "ACCOUNT_LOCKED"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "A1",
-                  "OK rcpt-1"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say7",
+            "caption": "The example runs a table of scenarios with assertions.",
+            "currentState": "expected",
+            "transition": {
+              "from": "kwargs",
+              "to": "expected",
+              "label": "'OK rcpt-1'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -571,224 +561,162 @@
       "partTitle": "Fencing tokens protect the ledger",
       "codeHash": "a8ab971ccdbda762d1f7117768ddd781c10214fa4351057b84005f9ffafbd492",
       "spec": {
-        "template": "flow",
-        "title": "Fencing tokens protect the ledger — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Fencing tokens prot...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Fencing tokens protect the ledger",
+        "actors": [
+          "ledger",
+          "record",
+          "acct"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Fencing tokens protect the ledger.",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Fencing tokens prot... [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A paused process may wake up after its lock expired and try to write.",
+            "activeActor": "ledger",
+            "messages": [
+              {
+                "from": "ledger",
+                "to": "record",
+                "label": {
+                  "var": "ledger",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "record",
+                "to": "acct",
+                "label": {
+                  "var": "record",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The ledger storage remembers the highest token applied per account.",
+            "activeActor": "record",
+            "messages": [
+              {
+                "from": "ledger",
+                "to": "record",
+                "label": {
+                  "var": "ledger",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "record",
+                "to": "acct",
+                "label": {
+                  "var": "record",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Fencing tokens protect the ledger.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the ledger rejecting a stale holder.",
+            "activeActor": "acct",
+            "messages": [
+              {
+                "from": "ledger",
+                "to": "record",
+                "label": {
+                  "var": "ledger",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "record",
+                "to": "acct",
+                "label": {
+                  "var": "record",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Fencing tokens protect the ledger — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Fencing tokens prot...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Fencing tokens protect the ledger",
+        "actors": [
+          "ledger",
+          "record",
+          "acct"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Fencing tokens protect the ledger [D30.P4.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Fencing tokens prot... [D30.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A paused process may wake up after its lock expired and try to write.",
+            "messages": [
+              {
+                "from": "ledger",
+                "to": "record",
+                "label": "{'ACC-9': {'highest_token': 0, 'entries…",
+                "tone": "data"
+              },
+              {
+                "from": "record",
+                "to": "acct",
+                "label": "{'account': 'ACC-9', 'order_id': 'T2', …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ledger"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The ledger storage remembers the highest token applied per account.",
+            "messages": [
+              {
+                "from": "ledger",
+                "to": "record",
+                "label": "{'ACC-9': {'highest_token': 0, 'entries…",
+                "tone": "data"
+              },
+              {
+                "from": "record",
+                "to": "acct",
+                "label": "{'account': 'ACC-9', 'order_id': 'T2', …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "record"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Fencing tokens protect the ledger [D30.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example shows the ledger rejecting a stale holder.",
+            "messages": [
+              {
+                "from": "ledger",
+                "to": "record",
+                "label": "{'ACC-9': {'highest_token': 8, 'entries…",
+                "tone": "data"
+              },
+              {
+                "from": "record",
+                "to": "acct",
+                "label": "{'account': 'ACC-9', 'order_id': 'T2', …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "acct"
           }
         ]
       }
@@ -797,166 +725,162 @@
       "partTitle": "The certification audit",
       "codeHash": "88046b19f18a1d9f70659a7ae405553ea5860da8c02e8a9422650e0ae4291880",
       "spec": {
-        "template": "table",
-        "title": "Capstone release certification checklist status and audit gates",
-        "columns": [
+        "template": "sequence",
+        "title": "The certification audit",
+        "actors": [
+          "checks",
           "name",
           "ok"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Auditing distributed checklist rules requires passing all quality gates.",
-            "rows": [
+            "caption": "Audit_distributed_capstone(checks) takes a dict from check name to True.",
+            "activeActor": "checks",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "rate limiting"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
+                "from": "checks",
+                "to": "name",
+                "label": {
+                  "var": "checks",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "ok",
+                "label": {
+                  "var": "name",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The audit requires at least one check to prevent empty passes.",
-            "rows": [
+            "caption": "The \"at least one\" rule matters.",
+            "activeActor": "name",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "rate limiting"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "ok"
+                "from": "checks",
+                "to": "name",
+                "label": {
+                  "var": "checks",
+                  "line": 2,
+                  "hit": 7
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "fenced locks"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
+                "from": "name",
+                "to": "ok",
+                "label": {
+                  "var": "name",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Automated release checklists enforce engineering rigor on every build.",
-            "rows": [
+            "at": "say8",
+            "caption": "The example audits a system with one failing check.",
+            "activeActor": "ok",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "rate limiting"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "ok"
+                "from": "checks",
+                "to": "name",
+                "label": {
+                  "var": "checks",
+                  "line": 3,
+                  "hit": 7
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "fenced locks"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
+                "from": "name",
+                "to": "ok",
+                "label": {
+                  "var": "name",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "dr drill"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Capstone release certification checklist status and audit gates",
-        "columns": [
+        "template": "sequence",
+        "title": "The certification audit",
+        "actors": [
+          "checks",
           "name",
           "ok"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Auditing distributed checklist rules requires passing all quality gates.",
-            "rows": [
+            "caption": "Audit_distributed_capstone(checks) takes a dict from check name to True.",
+            "messages": [
               {
-                "cells": [
-                  "rate limiting",
-                  "True"
-                ],
+                "from": "checks",
+                "to": "name",
+                "label": "{'rate limiting': True, 'fenced locks':…",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "ok",
+                "label": "'rate limiting'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "checks"
           },
           {
             "at": "say2",
-            "caption": "The audit requires at least one check to prevent empty passes.",
-            "rows": [
+            "caption": "The \"at least one\" rule matters.",
+            "messages": [
               {
-                "cells": [
-                  "rate limiting",
-                  "True"
-                ],
-                "tone": "ok"
+                "from": "checks",
+                "to": "name",
+                "label": "{'rate limiting': True, 'fenced locks':…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "fenced locks",
-                  "True"
-                ],
+                "from": "name",
+                "to": "ok",
+                "label": "'fenced locks'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "name"
           },
           {
-            "at": "say5",
-            "caption": "Automated release checklists enforce engineering rigor on every build.",
-            "rows": [
+            "at": "say8",
+            "caption": "The example audits a system with one failing check.",
+            "messages": [
               {
-                "cells": [
-                  "rate limiting",
-                  "True"
-                ],
-                "tone": "ok"
+                "from": "checks",
+                "to": "name",
+                "label": "{'rate limiting': True, 'fenced locks':…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "fenced locks",
-                  "True"
-                ],
+                "from": "name",
+                "to": "ok",
+                "label": "'replication'",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "dr drill",
-                  "False"
-                ],
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "ok"
           }
         ]
       }
@@ -965,93 +889,91 @@
       "partTitle": "Looking back, and next steps",
       "codeHash": "c393dbdfbc5154f99f4165fb1fd595798b7c9fa9b82b95fd0efbf893c7cfe553",
       "spec": {
-        "template": "table",
-        "title": "Distributed systems engineering architectural patterns and tool mapping",
-        "columns": [
+        "template": "sequence",
+        "title": "Looking back, and next steps",
+        "actors": [
+          "toolbox",
           "problem",
           "tool"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Distributed architectures overcome network fallacies with systematic designs.",
-            "rows": [
+            "caption": "You started with the fallacies of distributed computing and ended.",
+            "activeActor": "toolbox",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "only one may act"
-                  },
-                  {
-                    "text": "leases, fencing tokens, leader election"
-                  }
-                ],
+                "from": "toolbox",
+                "to": "problem",
+                "label": {
+                  "var": "toolbox",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "problem",
+                "to": "tool",
+                "label": {
+                  "var": "problem",
+                  "line": 11,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Fundamental distributed concepts repeat across databases queues and caches.",
-            "rows": [
+            "caption": "The core ideas repeat everywhere.",
+            "activeActor": "problem",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "only one may act"
-                  },
-                  {
-                    "text": "leases, fencing tokens, leader election"
-                  }
-                ],
-                "tone": "ok"
+                "from": "toolbox",
+                "to": "problem",
+                "label": {
+                  "var": "toolbox",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "replicas must agree"
-                  },
-                  {
-                    "text": "Raft consensus and quorums"
-                  }
-                ],
+                "from": "problem",
+                "to": "tool",
+                "label": {
+                  "var": "problem",
+                  "line": 12,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Engineers frame system architecture around concrete design trade-offs.",
-            "rows": [
+            "at": "say7",
+            "caption": "The cheat sheet below maps common problems to the tools you now have.",
+            "activeActor": "tool",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "only one may act"
-                  },
-                  {
-                    "text": "leases, fencing tokens, leader election"
-                  }
-                ],
-                "tone": "ok"
+                "from": "toolbox",
+                "to": "problem",
+                "label": {
+                  "var": "toolbox",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "replicas must agree"
-                  },
-                  {
-                    "text": "Raft consensus and quorums"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "transactions span services"
-                  },
-                  {
-                    "text": "sagas with compensations"
-                  }
-                ],
+                "from": "problem",
+                "to": "tool",
+                "label": {
+                  "var": "problem",
+                  "line": 11,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -1059,72 +981,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Distributed systems engineering architectural patterns and tool mapping",
-        "columns": [
+        "template": "sequence",
+        "title": "Looking back, and next steps",
+        "actors": [
+          "toolbox",
           "problem",
           "tool"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Distributed architectures overcome network fallacies with systematic designs.",
-            "rows": [
+            "caption": "You started with the fallacies of distributed computing and ended.",
+            "messages": [
               {
-                "cells": [
-                  "only one may act",
-                  "leases, fencing tokens, leader election"
-                ],
+                "from": "toolbox",
+                "to": "problem",
+                "label": "{'calls fail or hang': 'timeouts, retri…",
+                "tone": "data"
+              },
+              {
+                "from": "problem",
+                "to": "tool",
+                "label": "'calls fail or hang'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "toolbox"
           },
           {
             "at": "say2",
-            "caption": "Fundamental distributed concepts repeat across databases queues and caches.",
-            "rows": [
+            "caption": "The core ideas repeat everywhere.",
+            "messages": [
               {
-                "cells": [
-                  "only one may act",
-                  "leases, fencing tokens, leader election"
-                ],
-                "tone": "ok"
+                "from": "toolbox",
+                "to": "problem",
+                "label": "{'calls fail or hang': 'timeouts, retri…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "replicas must agree",
-                  "Raft consensus and quorums"
-                ],
+                "from": "problem",
+                "to": "tool",
+                "label": "'calls fail or hang'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "problem"
           },
           {
-            "at": "say5",
-            "caption": "Engineers frame system architecture around concrete design trade-offs.",
-            "rows": [
+            "at": "say7",
+            "caption": "The cheat sheet below maps common problems to the tools you now have.",
+            "messages": [
               {
-                "cells": [
-                  "only one may act",
-                  "leases, fencing tokens, leader election"
-                ],
-                "tone": "ok"
+                "from": "toolbox",
+                "to": "problem",
+                "label": "{'calls fail or hang': 'timeouts, retri…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "replicas must agree",
-                  "Raft consensus and quorums"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "transactions span services",
-                  "sagas with compensations"
-                ],
+                "from": "problem",
+                "to": "tool",
+                "label": "'messages arrive twice'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "tool"
           }
         ]
       }

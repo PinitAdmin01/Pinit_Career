@@ -2,87 +2,115 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 28,
-  "promptSha": "dd12b61e5b6b73f9ce2d3c701e0053c7dc79880753b33a331c06993d333ff40c",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Choose, explore, un-choose",
       "codeHash": "d8860ff3f5493a6ec787e7380ada8a4ddf0fe4a3373a2a2dcd0ae210280e1767",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Choose, explore, un-choose",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The backtracking concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Backtracking builds a solution one choice at a time.",
+            "items": {
+              "var": "items",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Choose"
-                  },
-                  {
-                    "text": "explore"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The depth logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The pattern is always the same.",
+            "items": {
+              "var": "items",
+              "line": 14,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "choose"
-                  },
-                  {
-                    "text": "explore"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Constraint satisfaction problems (CSPs) model complex combinatorial searches.",
+            "items": {
+              "var": "items",
+              "line": 15,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Choose, explore, un-choose",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The backtracking concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Backtracking builds a solution one choice at a time.",
+            "items": [
+              "'tea'",
+              "'coffee'",
+              "'juice'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Choose",
-                  "explore"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The depth logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The pattern is always the same.",
+            "items": [
+              "'tea'",
+              "'coffee'",
+              "'juice'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "choose",
-                  "explore"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Constraint satisfaction problems (CSPs) model complex combinatorial searches.",
+            "items": [
+              "'tea'",
+              "'coffee'",
+              "'juice'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,80 +121,129 @@
       "partTitle": "Pruning: stop early",
       "codeHash": "8dd073a1a201cee403c6f90f1c19dbb4e8099d11ec3a7f9f556cc6ad2f851df5",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Pruning: stop early",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The plain concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A plain search tries every arrangement, which grows factorially.",
+            "items": {
+              "var": "nums",
+              "line": 19,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Pruning"
-                  },
-                  {
-                    "text": "stop"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The subset logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Pruning means checking constraints as you go and abandoning a path as soon.",
+            "items": {
+              "var": "nums",
+              "line": 21,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "early"
-                  },
-                  {
-                    "text": "stop"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Tracking threatened diagonals in N-Queens using hash sets or bitmasks.",
+            "items": {
+              "var": "nums",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Pruning: stop early",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The plain concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A plain search tries every arrangement, which grows factorially.",
+            "items": [
+              "3",
+              "34",
+              "4",
+              "12",
+              "5",
+              "2",
+              "8",
+              "21",
+              "13",
+              "7"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Pruning",
-                  "stop"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The subset logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Pruning means checking constraints as you go and abandoning a path as soon.",
+            "items": [
+              "3",
+              "34",
+              "4",
+              "12",
+              "5",
+              "2",
+              "8",
+              "21",
+              "13",
+              "7"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "early",
-                  "stop"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Tracking threatened diagonals in N-Queens using hash sets or bitmasks.",
+            "items": [
+              "2",
+              "3",
+              "4",
+              "5",
+              "7",
+              "8",
+              "12",
+              "13",
+              "21",
+              "34"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,43 +254,131 @@
       "partTitle": "N-Queens",
       "codeHash": "1520e9a806d801a2118ef5cdb572f16a641ccbc56cd43cc60555ae1c04690c22",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "N-Queens",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Place n queens on an n x n chessboard so that no two attack each other.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Queens"
-                  },
-                  {
-                    "text": "Queens"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "row",
+                "value": {
+                  "var": "row",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "count",
+                "value": {
+                  "var": "count",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "col",
+                "value": {
+                  "var": "col",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The checking logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Place one queen per row.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Queens"
-                  },
-                  {
-                    "text": "Queens"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "row",
+                "value": {
+                  "var": "row",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "count",
+                "value": {
+                  "var": "count",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "col",
+                "value": {
+                  "var": "col",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Because each queen must occupy a distinct column, candidate state.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "row",
+                "value": {
+                  "var": "row",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "count",
+                "value": {
+                  "var": "count",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "col",
+                "value": {
+                  "var": "col",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +386,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "N-Queens",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Place n queens on an n x n chessboard so that no two attack each other.",
+            "bars": [
               {
-                "cells": [
-                  "Queens",
-                  "Queens"
-                ],
+                "label": "n",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "row",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "count",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "col",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The checking logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Place one queen per row.",
+            "bars": [
               {
-                "cells": [
-                  "Queens",
-                  "Queens"
-                ],
+                "label": "n",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "row",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "count",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "col",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Because each queen must occupy a distinct column, candidate state.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "row",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "count",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "col",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -261,80 +474,117 @@
       "partTitle": "Printing a board",
       "codeHash": "daa85ff3bf1cf5af1ebc95621e57b04bcd73ad739f40a52519bc8cc75609d389",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Printing a board",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The counting concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Counting is useful, but it helps to see one solution.",
+            "items": {
+              "var": "queens",
+              "line": 13,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Printing"
-                  },
-                  {
-                    "text": "board"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The printing logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Returning True as soon as a solution is found stops the whole search early.",
+            "items": {
+              "var": "queens",
+              "line": 14,
+              "hit": 32
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Printing"
-                  },
-                  {
-                    "text": "board"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Try reading the board and checking by hand that no two queens share.",
+            "items": {
+              "var": "queens",
+              "line": 14,
+              "hit": 49
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Printing a board",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The counting concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Counting is useful, but it helps to see one solution.",
+            "items": [
+              "1",
+              "3",
+              "5",
+              "0",
+              "2",
+              "4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Printing",
-                  "board"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The printing logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Returning True as soon as a solution is found stops the whole search early.",
+            "items": [
+              "1",
+              "3",
+              "5",
+              "0",
+              "2",
+              "4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Printing",
-                  "board"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Try reading the board and checking by hand that no two queens share.",
+            "items": [
+              "1",
+              "3",
+              "5",
+              "0",
+              "2",
+              "4"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -345,82 +595,80 @@
       "partTitle": "Sudoku validation with sets",
       "codeHash": "c476d0a56935c908b452ab71d9491822ff366930239dfc00ae53e190bcc153d4",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Sudoku validation with sets",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Sudoku"
-                  },
-                  {
-                    "text": "validation"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Practice 2 is a constraint check rather than a search.",
+            "items": {
+              "var": "rec",
+              "line": 9,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The turn logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "with"
-                  },
-                  {
-                    "text": "sets"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Record each digit three ways in one set.",
+            "items": {
+              "var": "rec",
+              "line": 9,
+              "hit": 2
+            },
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "A full solver is backtracking plus this check.",
+            "items": {
+              "var": "rec",
+              "line": 9,
+              "hit": 14
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Sudoku validation with sets",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Sudoku",
-                  "validation"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Practice 2 is a constraint check rather than a search.",
+            "mode": "stack",
+            "items": [
+              "'row'",
+              "0",
+              "'5'"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The turn logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "with",
-                  "sets"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Record each digit three ways in one set.",
+            "mode": "stack",
+            "items": [
+              "'col'",
+              "0",
+              "'5'"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "A full solver is backtracking plus this check.",
+            "mode": "stack",
+            "items": [
+              "'box'",
+              "1",
+              "1",
+              "'7'"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -429,80 +677,111 @@
       "partTitle": "When to reach for backtracking",
       "codeHash": "a1a9212de66888913b5faed27c41f73477d0451003598330558e4b3d03826c80",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "When to reach for backtracking",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The clues concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Clues in a question.",
+            "items": {
+              "var": "items",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "When"
-                  },
-                  {
-                    "text": "reach"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The partial logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Backtracking is exponential in the worst case, so it suits small inputs.",
+            "items": {
+              "var": "items",
+              "line": 11,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "for"
-                  },
-                  {
-                    "text": "backtracking"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Tomorrow is a change of pace.",
+            "items": {
+              "var": "items",
+              "line": 12,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "When to reach for backtracking",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The clues concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Clues in a question.",
+            "items": [
+              "'Asha'",
+              "'Bala'",
+              "'Chitra'",
+              "'Dev'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "When",
-                  "reach"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The partial logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Backtracking is exponential in the worst case, so it suits small inputs.",
+            "items": [
+              "'Asha'",
+              "'Bala'",
+              "'Chitra'",
+              "'Dev'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "for",
-                  "backtracking"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Tomorrow is a change of pace.",
+            "items": [
+              "'Asha'",
+              "'Bala'",
+              "'Chitra'",
+              "'Dev'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

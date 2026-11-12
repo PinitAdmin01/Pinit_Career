@@ -2,239 +2,169 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 19,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Publish and subscribe",
       "codeHash": "51988e7571496f8226b9d3185b5e0b2000e22ef8012b9d385efaf7874a7e67fe",
       "spec": {
-        "template": "table",
-        "title": "SNS topic publish and subscribe fan-out model",
-        "columns": [
-          "subscriber",
-          "order_id"
+        "template": "sequence",
+        "title": "Publish and subscribe",
+        "actors": [
+          "topic",
+          "message",
+          "m"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Publishers broadcast messages to all registered topic subscribers.",
-            "rows": [
+            "caption": "Publish-subscribe (pub/sub) messaging separates who announces an event.",
+            "activeActor": "topic",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "billing: charge"
-                  },
-                  {
-                    "text": "ord-981"
-                  }
-                ],
+                "from": "topic",
+                "to": "message",
+                "label": {
+                  "var": "topic",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "message",
+                "to": "m",
+                "label": {
+                  "var": "message",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Subscribers attach diverse services to receive topic notifications.",
-            "rows": [
+            "caption": "Amazon Simple Notification Service (SNS) provides topics.",
+            "activeActor": "message",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "billing: charge"
-                  },
-                  {
-                    "text": "ord-981"
-                  }
-                ],
-                "tone": "ok"
+                "from": "topic",
+                "to": "message",
+                "label": {
+                  "var": "topic",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "email: send receipt for"
-                  },
-                  {
-                    "text": "ord-981"
-                  }
-                ],
+                "from": "message",
+                "to": "m",
+                "label": {
+                  "var": "message",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Adding new subscribers requires no modifications to the publisher.",
-            "rows": [
+            "at": "say7",
+            "caption": "Pub/sub is how large systems stay loosely coupled.",
+            "activeActor": "m",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "billing: charge"
-                  },
-                  {
-                    "text": "ord-981"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "email: send receipt for"
-                  },
-                  {
-                    "text": "ord-981"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "stock: reserve items for"
-                  },
-                  {
-                    "text": "ord-981"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Every topic subscriber receives a copy of each published message.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "billing: charge"
-                  },
-                  {
-                    "text": "ord-981"
-                  }
-                ],
+                "from": "topic",
+                "to": "message",
+                "label": {
+                  "var": "topic",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "email: send receipt for"
-                  },
-                  {
-                    "text": "ord-981"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "stock: reserve items for"
-                  },
-                  {
-                    "text": "ord-981"
-                  }
-                ],
-                "tone": "data"
+                "from": "message",
+                "to": "m",
+                "label": {
+                  "var": "message",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "SNS topic publish and subscribe fan-out model",
-        "columns": [
-          "subscriber",
-          "order_id"
+        "template": "sequence",
+        "title": "Publish and subscribe",
+        "actors": [
+          "topic",
+          "message",
+          "m"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Publishers broadcast messages to all registered topic subscribers.",
-            "rows": [
+            "caption": "Publish-subscribe (pub/sub) messaging separates who announces an event.",
+            "messages": [
               {
-                "cells": [
-                  "billing: charge",
-                  "ord-981"
-                ],
+                "from": "topic",
+                "to": "message",
+                "label": "{'name': 'order-events', 'subscribers':…",
+                "tone": "data"
+              },
+              {
+                "from": "message",
+                "to": "m",
+                "label": "{'event': 'ORDER_PLACED', 'order_id': '…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "topic"
           },
           {
             "at": "say2",
-            "caption": "Subscribers attach diverse services to receive topic notifications.",
-            "rows": [
+            "caption": "Amazon Simple Notification Service (SNS) provides topics.",
+            "messages": [
               {
-                "cells": [
-                  "billing: charge",
-                  "ord-981"
-                ],
-                "tone": "ok"
+                "from": "topic",
+                "to": "message",
+                "label": "{'name': 'order-events', 'subscribers':…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "email: send receipt for",
-                  "ord-981"
-                ],
+                "from": "message",
+                "to": "m",
+                "label": "{'event': 'ORDER_PLACED', 'order_id': '…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "message"
           },
           {
-            "at": "say3",
-            "caption": "Adding new subscribers requires no modifications to the publisher.",
-            "rows": [
+            "at": "say7",
+            "caption": "Pub/sub is how large systems stay loosely coupled.",
+            "messages": [
               {
-                "cells": [
-                  "billing: charge",
-                  "ord-981"
-                ],
-                "tone": "ok"
+                "from": "topic",
+                "to": "message",
+                "label": "{'name': 'order-events', 'subscribers':…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "email: send receipt for",
-                  "ord-981"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "stock: reserve items for",
-                  "ord-981"
-                ],
+                "from": "message",
+                "to": "m",
+                "label": "{'event': 'ORDER_PLACED', 'order_id': '…",
                 "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Every topic subscriber receives a copy of each published message.",
-            "rows": [
-              {
-                "cells": [
-                  "billing: charge",
-                  "ord-981"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "email: send receipt for",
-                  "ord-981"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "stock: reserve items for",
-                  "ord-981"
-                ],
-                "tone": "data"
-              }
-            ]
+            ],
+            "activeActor": "m"
           }
         ]
       }
@@ -243,250 +173,106 @@
       "partTitle": "Fan-out with SNS and SQS",
       "codeHash": "6452f344119aa4a938aec107f851a2a180fddb23d2c324a042bd90e50c52d1c0",
       "spec": {
-        "template": "table",
-        "title": "SNS to SQS queue fan-out delivery verification",
-        "columns": [
-          "endpoint",
-          "status"
+        "template": "states",
+        "title": "Fan-out with SNS and SQS",
+        "states": [
+          {
+            "id": "queues",
+            "label": "queues"
+          },
+          {
+            "id": "subs",
+            "label": "subs"
+          },
+          {
+            "id": "delivered",
+            "label": "delivered"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fan-out architectures buffer messages into dedicated consumer queues.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "billing-q"
-                  },
-                  {
-                    "text": "CONFIRMED"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "SNS pushes messages and does not store them long.",
+            "currentState": "queues",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Each service reads from its own queue at its own pace.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "billing-q"
-                  },
-                  {
-                    "text": "CONFIRMED"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "old-q"
-                  },
-                  {
-                    "text": "CONFIRMED"
-                  }
-                ],
-                "tone": "idle"
+            "caption": "Subscribe an SQS queue for each consuming service to the topic.",
+            "currentState": "subs",
+            "transition": {
+              "from": "queues",
+              "to": "subs",
+              "label": {
+                "var": "subs",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Maintenance downtime in one service never blocks downstream queues.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "billing-q"
-                  },
-                  {
-                    "text": "CONFIRMED"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "old-q"
-                  },
-                  {
-                    "text": "CONFIRMED"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "email-q"
-                  },
-                  {
-                    "text": "CONFIRMED"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "This pattern, one topic fanning out to many queues, appears in almost.",
+            "currentState": "delivered",
+            "transition": {
+              "from": "subs",
+              "to": "delivered",
+              "label": {
+                "var": "delivered",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example delivers events while tracking endpoint failures.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "billing-q"
-                  },
-                  {
-                    "text": "CONFIRMED"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "old-q"
-                  },
-                  {
-                    "text": "CONFIRMED"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "email-q"
-                  },
-                  {
-                    "text": "CONFIRMED"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "new-q"
-                  },
-                  {
-                    "text": "PENDING"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "SNS to SQS queue fan-out delivery verification",
-        "columns": [
-          "endpoint",
-          "status"
+        "template": "states",
+        "title": "Fan-out with SNS and SQS",
+        "states": [
+          {
+            "id": "queues",
+            "label": "queues"
+          },
+          {
+            "id": "subs",
+            "label": "subs"
+          },
+          {
+            "id": "delivered",
+            "label": "delivered"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fan-out architectures buffer messages into dedicated consumer queues.",
-            "rows": [
-              {
-                "cells": [
-                  "billing-q",
-                  "CONFIRMED"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "SNS pushes messages and does not store them long.",
+            "currentState": "queues",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Each service reads from its own queue at its own pace.",
-            "rows": [
-              {
-                "cells": [
-                  "billing-q",
-                  "CONFIRMED"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "old-q",
-                  "CONFIRMED"
-                ],
-                "tone": "idle"
-              }
-            ]
+            "caption": "Subscribe an SQS queue for each consuming service to the topic.",
+            "currentState": "subs",
+            "transition": {
+              "from": "queues",
+              "to": "subs",
+              "label": "[{'endpoint': 'billing-q', 'status': 'C…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Maintenance downtime in one service never blocks downstream queues.",
-            "rows": [
-              {
-                "cells": [
-                  "billing-q",
-                  "CONFIRMED"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "old-q",
-                  "CONFIRMED"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "email-q",
-                  "CONFIRMED"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example delivers events while tracking endpoint failures.",
-            "rows": [
-              {
-                "cells": [
-                  "billing-q",
-                  "CONFIRMED"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "old-q",
-                  "CONFIRMED"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "email-q",
-                  "CONFIRMED"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "new-q",
-                  "PENDING"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say7",
+            "caption": "This pattern, one topic fanning out to many queues, appears in almost.",
+            "currentState": "delivered",
+            "transition": {
+              "from": "subs",
+              "to": "delivered",
+              "label": "[]"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -495,249 +281,277 @@
       "partTitle": "Filter policies",
       "codeHash": "af85bf96f6d1f6fc5c733f0132309cf782686fb71cba54eef29d84cb9d05b394",
       "spec": {
-        "template": "table",
-        "title": "SNS subscription filter policies and attribute matching",
-        "columns": [
-          "customer",
-          "country"
+        "template": "flow",
+        "title": "Filter policies",
+        "nodes": [
+          {
+            "id": "vip_support",
+            "label": "vip_support"
+          },
+          {
+            "id": "india_warehouse",
+            "label": "india_warehouse"
+          },
+          {
+            "id": "msgs",
+            "label": "msgs"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each subscriber receives only relevant service orders.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "VIP"
-                  },
-                  {
-                    "text": "IN"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Not every subscriber wants every message.",
+            "values": {
+              "vip_support": {
+                "var": "vip_support",
+                "line": 5,
+                "hit": 1
+              },
+              "india_warehouse": {
+                "var": "india_warehouse",
+                "line": 6,
+                "hit": 1
+              },
+              "msgs": {
+                "var": "msgs",
+                "line": 7,
+                "hit": 2
+              },
+              "m": {
+                "var": "m",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "vip_support": "data",
+              "india_warehouse": "data",
+              "msgs": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "vip_support",
+                "india_warehouse"
+              ],
+              [
+                "india_warehouse",
+                "msgs"
+              ],
+              [
+                "msgs",
+                "m"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Filter policies evaluate message attributes before delivering.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "VIP"
-                  },
-                  {
-                    "text": "IN"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "SNS subscription filter policies let each subscription declare.",
+            "values": {
+              "vip_support": {
+                "var": "vip_support",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "BASIC"
-                  },
-                  {
-                    "text": "IN"
-                  }
-                ],
-                "tone": "idle"
+              "india_warehouse": {
+                "var": "india_warehouse",
+                "line": 7,
+                "hit": 1
+              },
+              "msgs": {
+                "var": "msgs",
+                "line": 9,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "vip_support": "data",
+              "india_warehouse": "data",
+              "msgs": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "vip_support",
+                "india_warehouse"
+              ],
+              [
+                "india_warehouse",
+                "msgs"
+              ],
+              [
+                "msgs",
+                "m"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Every configured attribute in the policy must match allowed values.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "VIP"
-                  },
-                  {
-                    "text": "IN"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example routes four messages through two filtered subscriptions.",
+            "values": {
+              "vip_support": {
+                "var": "vip_support",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "BASIC"
-                  },
-                  {
-                    "text": "IN"
-                  }
-                ],
-                "tone": "idle"
+              "india_warehouse": {
+                "var": "india_warehouse",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "ENTERPRISE"
-                  },
-                  {
-                    "text": "US"
-                  }
-                ],
-                "tone": "ok"
+              "msgs": {
+                "var": "msgs",
+                "line": 10,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 10,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Filtering prevents subscribers from receiving irrelevant messages.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "VIP"
-                  },
-                  {
-                    "text": "IN"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "BASIC"
-                  },
-                  {
-                    "text": "IN"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ENTERPRISE"
-                  },
-                  {
-                    "text": "US"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "BASIC"
-                  },
-                  {
-                    "text": "US"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "vip_support": "ok",
+              "india_warehouse": "ok",
+              "msgs": "ok",
+              "m": "ok"
+            },
+            "arrows": [
+              [
+                "vip_support",
+                "india_warehouse"
+              ],
+              [
+                "india_warehouse",
+                "msgs"
+              ],
+              [
+                "msgs",
+                "m"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "SNS subscription filter policies and attribute matching",
-        "columns": [
-          "customer",
-          "country"
+        "template": "flow",
+        "title": "Filter policies",
+        "nodes": [
+          {
+            "id": "vip_support",
+            "label": "vip_support"
+          },
+          {
+            "id": "india_warehouse",
+            "label": "india_warehouse"
+          },
+          {
+            "id": "msgs",
+            "label": "msgs"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each subscriber receives only relevant service orders.",
-            "rows": [
-              {
-                "cells": [
-                  "VIP",
-                  "IN"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Not every subscriber wants every message.",
+            "values": {
+              "vip_support": "{'customer': ['VIP', 'ENTERPRISE']}",
+              "india_warehouse": "{'country': ['IN']}",
+              "msgs": "[{'customer': 'VIP', 'country': 'IN'}, …",
+              "m": "{'customer': 'VIP', 'country': 'IN'}"
+            },
+            "tones": {
+              "vip_support": "data",
+              "india_warehouse": "data",
+              "msgs": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "vip_support",
+                "india_warehouse"
+              ],
+              [
+                "india_warehouse",
+                "msgs"
+              ],
+              [
+                "msgs",
+                "m"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Filter policies evaluate message attributes before delivering.",
-            "rows": [
-              {
-                "cells": [
-                  "VIP",
-                  "IN"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "BASIC",
-                  "IN"
-                ],
-                "tone": "idle"
-              }
+            "caption": "SNS subscription filter policies let each subscription declare.",
+            "values": {
+              "vip_support": "{'customer': ['VIP', 'ENTERPRISE']}",
+              "india_warehouse": "{'country': ['IN']}",
+              "msgs": "[{'customer': 'VIP', 'country': 'IN'}, …",
+              "m": "{'customer': 'VIP', 'country': 'IN'}"
+            },
+            "tones": {
+              "vip_support": "data",
+              "india_warehouse": "data",
+              "msgs": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "vip_support",
+                "india_warehouse"
+              ],
+              [
+                "india_warehouse",
+                "msgs"
+              ],
+              [
+                "msgs",
+                "m"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Every configured attribute in the policy must match allowed values.",
-            "rows": [
-              {
-                "cells": [
-                  "VIP",
-                  "IN"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "BASIC",
-                  "IN"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "ENTERPRISE",
-                  "US"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Filtering prevents subscribers from receiving irrelevant messages.",
-            "rows": [
-              {
-                "cells": [
-                  "VIP",
-                  "IN"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "BASIC",
-                  "IN"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "ENTERPRISE",
-                  "US"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "BASIC",
-                  "US"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "The example routes four messages through two filtered subscriptions.",
+            "values": {
+              "vip_support": "{'customer': ['VIP', 'ENTERPRISE']}",
+              "india_warehouse": "{'country': ['IN']}",
+              "msgs": "[{'customer': 'VIP', 'country': 'IN'}, …",
+              "m": "{'customer': 'VIP', 'country': 'IN'}"
+            },
+            "tones": {
+              "vip_support": "ok",
+              "india_warehouse": "ok",
+              "msgs": "ok",
+              "m": "ok"
+            },
+            "arrows": [
+              [
+                "vip_support",
+                "india_warehouse"
+              ],
+              [
+                "india_warehouse",
+                "msgs"
+              ],
+              [
+                "msgs",
+                "m"
+              ]
             ]
           }
         ]
@@ -747,194 +561,216 @@
       "partTitle": "Delivery retries and dead-letter queues",
       "codeHash": "ca903850a6491e35564e30d3cc603143a838703eb29df3f366a60080e80d2414",
       "spec": {
-        "template": "table",
-        "title": "SNS retry backoff schedule and dead-letter handling",
-        "columns": [
-          "endpoint_ok_after",
-          "max_attempts"
-        ],
+        "template": "bars",
+        "title": "Delivery retries and dead-letter queues",
         "steps": [
           {
             "at": "say1",
-            "caption": "SNS retries failed message delivery according to configured policy.",
-            "rows": [
+            "caption": "What if a subscriber's endpoint is down when SNS delivers.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "4"
-                  }
-                ],
+                "label": "endpoint_ok_af",
+                "value": {
+                  "var": "endpoint_ok_after",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "max_attempts",
+                "value": {
+                  "var": "max_attempts",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "waited",
+                "value": {
+                  "var": "waited",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "For SQS and Lambda subscribers, SNS retries many times over hours.",
+            "bars": [
+              {
+                "label": "endpoint_ok_af",
+                "value": {
+                  "var": "endpoint_ok_after",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "max_attempts",
+                "value": {
+                  "var": "max_attempts",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "waited",
+                "value": {
+                  "var": "waited",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Unrecoverable messages are routed to a dead-letter queue.",
-            "rows": [
+            "at": "say7",
+            "caption": "This is the same retry discipline you met in distributed systems.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "4"
-                  }
-                ],
+                "label": "endpoint_ok_af",
+                "value": {
+                  "var": "endpoint_ok_after",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "99"
-                  },
-                  {
-                    "text": "4"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Exponential backoff delays give recovering endpoints breathing room.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "4"
-                  }
-                ],
+                "label": "max_attempts",
+                "value": {
+                  "var": "max_attempts",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "99"
-                  },
-                  {
-                    "text": "4"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example simulates delivery retries with progressive backoff.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "4"
-                  }
-                ],
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "99"
-                  },
-                  {
-                    "text": "4"
-                  }
-                ],
-                "tone": "error"
+                "label": "waited",
+                "value": {
+                  "var": "waited",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "SNS retry backoff schedule and dead-letter handling",
-        "columns": [
-          "endpoint_ok_after",
-          "max_attempts"
-        ],
+        "template": "bars",
+        "title": "Delivery retries and dead-letter queues",
         "steps": [
           {
             "at": "say1",
-            "caption": "SNS retries failed message delivery according to configured policy.",
-            "rows": [
+            "caption": "What if a subscriber's endpoint is down when SNS delivers.",
+            "bars": [
               {
-                "cells": [
-                  "2",
-                  "4"
-                ],
+                "label": "endpoint_ok_af",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "max_attempts",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "base",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "waited",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "For SQS and Lambda subscribers, SNS retries many times over hours.",
+            "bars": [
+              {
+                "label": "endpoint_ok_af",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "max_attempts",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "base",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "waited",
+                "value": 0,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Unrecoverable messages are routed to a dead-letter queue.",
-            "rows": [
+            "at": "say7",
+            "caption": "This is the same retry discipline you met in distributed systems.",
+            "bars": [
               {
-                "cells": [
-                  "2",
-                  "4"
-                ],
+                "label": "endpoint_ok_af",
+                "value": 2,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "99",
-                  "4"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Exponential backoff delays give recovering endpoints breathing room.",
-            "rows": [
-              {
-                "cells": [
-                  "2",
-                  "4"
-                ],
+                "label": "max_attempts",
+                "value": 4,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "99",
-                  "4"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example simulates delivery retries with progressive backoff.",
-            "rows": [
-              {
-                "cells": [
-                  "2",
-                  "4"
-                ],
+                "label": "base",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "99",
-                  "4"
-                ],
-                "tone": "error"
+                "label": "waited",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           }
@@ -946,110 +782,93 @@
       "codeHash": "d955ef3377a22f0e313eb37f246e4a6a9969a32d99a8d0b758964a481cbfa8c3",
       "spec": {
         "template": "flow",
-        "title": "Push notifications, email and SMS — Execution Pipeline",
+        "title": "Push notifications, email and SMS",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "alert",
+            "label": "alert"
           },
           {
-            "id": "proc",
-            "label": "2. Push notifications,...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "a",
+            "label": "a"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Push notifications, email and SMS.",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Push notifications,... [D.Pfive.Stwo].",
+            "caption": "SNS also delivers straight to people.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "alert": {
+                "var": "alert",
+                "line": 1,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "alert": "data",
+              "a": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "alert",
+                "a"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "For apps, you register each device's push token as an endpoint.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "alert": {
+                "var": "alert",
+                "line": 3,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "alert": "data",
+              "a": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "alert",
+                "a"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Push notifications, email and SMS.",
+            "at": "say7",
+            "caption": "One event, many channels, each formatted for its audience.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "alert": {
+                "var": "alert",
+                "line": 6,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 8,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "alert": "ok",
+              "a": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "alert",
+                "a"
               ]
             ]
           }
@@ -1057,110 +876,69 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Push notifications, email and SMS — Execution Pipeline",
+        "title": "Push notifications, email and SMS",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "alert",
+            "label": "alert"
           },
           {
-            "id": "proc",
-            "label": "2. Push notifications,...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "a",
+            "label": "a"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Push notifications, email and SMS [D19.P5.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Push notifications,... [D19.P5.S2].",
+            "caption": "SNS also delivers straight to people.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "alert": "{'service': 'checkout-api', 'metric': '…",
+              "a": "{'service': 'checkout-api', 'metric': '…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "alert": "data",
+              "a": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "alert",
+                "a"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P5.S3].",
+            "at": "say2",
+            "caption": "For apps, you register each device's push token as an endpoint.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "alert": "{'service': 'checkout-api', 'metric': '…",
+              "a": "{'service': 'checkout-api', 'metric': '…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "alert": "data",
+              "a": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "alert",
+                "a"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Push notifications, email and SMS [D19.P5.S4].",
+            "at": "say7",
+            "caption": "One event, many channels, each formatted for its audience.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "alert": "{'service': 'checkout-api', 'metric': '…",
+              "a": "{'service': 'checkout-api', 'metric': '…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "alert": "ok",
+              "a": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "alert",
+                "a"
               ]
             ]
           }
@@ -1172,110 +950,93 @@
       "codeHash": "1a981a959a511f4502f0d2b6b18d57ef40e465b574a55c9137d2f188ffc0dad2",
       "spec": {
         "template": "flow",
-        "title": "Practice time: fan out and filter — Execution Pipeline",
+        "title": "Practice time: fan out and filter",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "attrs",
+            "label": "attrs"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: fan ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "allowed",
+            "label": "allowed"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: fan out and filter [D.Psix.Sone].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: fan ... [D.Psix.Stwo].",
+            "caption": "Fanout(subscriptions, message, deliver).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "attrs": {
+                "var": "attrs",
+                "line": 1,
+                "hit": 1
+              },
+              "allowed": {
+                "var": "allowed",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "attrs": "data",
+              "allowed": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "attrs",
+                "allowed"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Skip non-confirmed subscriptions before trying to deliver, and wrap each.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "attrs": {
+                "var": "attrs",
+                "line": 2,
+                "hit": 1
+              },
+              "allowed": {
+                "var": "allowed",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "attrs": "data",
+              "allowed": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "attrs",
+                "allowed"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: fan out and filter.",
+            "at": "say7",
+            "caption": "The example shows the classic mistake of comparing the whole attribute.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "attrs": {
+                "var": "attrs",
+                "line": 3,
+                "hit": 1
+              },
+              "allowed": {
+                "var": "allowed",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "attrs": "ok",
+              "allowed": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "attrs",
+                "allowed"
               ]
             ]
           }
@@ -1283,110 +1044,69 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: fan out and filter — Execution Pipeline",
+        "title": "Practice time: fan out and filter",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "attrs",
+            "label": "attrs"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: fan ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "allowed",
+            "label": "allowed"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: fan out and filter [D19.P6.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: fan ... [D19.P6.S2].",
+            "caption": "Fanout(subscriptions, message, deliver).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "attrs": "{'customer': {'Type': 'String', 'Value'…",
+              "allowed": "['VIP', 'ENTERPRISE']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "attrs": "data",
+              "allowed": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "attrs",
+                "allowed"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
+            "at": "say2",
+            "caption": "Skip non-confirmed subscriptions before trying to deliver, and wrap each.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "attrs": "{'customer': {'Type': 'String', 'Value'…",
+              "allowed": "['VIP', 'ENTERPRISE']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "attrs": "data",
+              "allowed": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "attrs",
+                "allowed"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: fan out and filter [D19.P6.S4].",
+            "at": "say7",
+            "caption": "The example shows the classic mistake of comparing the whole attribute.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "attrs": "{'customer': {'Type': 'String', 'Value'…",
+              "allowed": "['VIP', 'ENTERPRISE']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "attrs": "ok",
+              "allowed": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "attrs",
+                "allowed"
               ]
             ]
           }

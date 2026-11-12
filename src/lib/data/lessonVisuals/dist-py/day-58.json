@@ -2,1068 +2,776 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 58,
-  "promptSha": "e36c57088e2ea319fa1ae7ae59b33c89a36ca6fa66cf425f86c73dc20f980b58",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Distributed Tracing Context Propagation (W3C Traceparent & Critical Path) — Foundations & Mathematical Invariants",
-      "codeHash": "9731d8aa59ecc9a4b932a960d94ba299d4dd659ca3a8a7a8f662378d21de7b5a",
+      "codeHash": "c82aba1ef00ca52b9e1fce7b97752396b527d2ddb04f32f03a7c58cb4a4b2da4",
       "spec": {
-        "template": "flow",
-        "title": "Distributed Tracing Context Propagation (WC Traceparent & Critical Pat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Distributed Tracing Context Propagation (W3C Traceparent & Criti",
+        "actors": [
+          "h",
+          "header",
+          "m"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In modern cloud-native architectures where a single customer web request.",
+            "activeActor": "h",
+            "messages": [
+              {
+                "from": "h",
+                "to": "header",
+                "label": {
+                  "var": "h",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "header",
+                "to": "m",
+                "label": {
+                  "var": "header",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Distributed tracing reconstructs the full causal graph of a distributed.",
+            "activeActor": "header",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "h",
+                "to": "header",
+                "label": {
+                  "var": "h",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "header",
+                "to": "m",
+                "label": {
+                  "var": "header",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Standardizing on the `traceparent` header guarantees that open-source.",
+            "activeActor": "m",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "h",
+                "to": "header",
+                "label": {
+                  "var": "h",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "header",
+                "to": "m",
+                "label": {
+                  "var": "header",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Distributed Tracing Context Propagation (WC Traceparent & Critical Pat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Distributed Tracing Context Propagation (W3C Traceparent & Criti",
+        "actors": [
+          "h",
+          "header",
+          "m"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In modern cloud-native architectures where a single customer web request.",
+            "messages": [
+              {
+                "from": "h",
+                "to": "header",
+                "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
+                "tone": "data"
+              },
+              {
+                "from": "header",
+                "to": "m",
+                "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "h"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Distributed tracing reconstructs the full causal graph of a distributed.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "h",
+                "to": "header",
+                "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "header",
+                "to": "m",
+                "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "header"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Standardizing on the `traceparent` header guarantees that open-source.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "h",
+                "to": "header",
+                "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "header",
+                "to": "m",
+                "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "m"
           }
         ]
       }
     },
     {
       "partTitle": "Distributed Tracing Context Propagation (W3C Traceparent & Critical Path) — Core Algorithm & State Representation",
-      "codeHash": "91434132fb6368d290a854b95b10fab3565f487981a8df508ecbaade4ebc04bb",
+      "codeHash": "a19c8aa9d42245bae961747430f25abd255c4f889e1c84707b221c8eaa397037",
       "spec": {
-        "template": "flow",
-        "title": "Distributed Tracing Context Propagation (WC Traceparent & Critical Pat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Distributed Tracing Context Propagation (W3C Traceparent & Criti",
+        "actors": [
+          "name",
+          "sampled",
+          "flags"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Context propagation requires two fundamental operations across service.",
+            "activeActor": "name",
+            "messages": [
+              {
+                "from": "name",
+                "to": "sampled",
+                "label": {
+                  "var": "name",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "sampled",
+                "to": "flags",
+                "label": {
+                  "var": "sampled",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Inside a service runtime, tracing frameworks maintain the active trace.",
+            "activeActor": "sampled",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "name",
+                "to": "sampled",
+                "label": {
+                  "var": "name",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "sampled",
+                "to": "flags",
+                "label": {
+                  "var": "sampled",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Production tracing middleware restricts Baggage payload size (typically.",
+            "activeActor": "flags",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "name",
+                "to": "sampled",
+                "label": {
+                  "var": "name",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "sampled",
+                "to": "flags",
+                "label": {
+                  "var": "sampled",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Distributed Tracing Context Propagation (WC Traceparent & Critical Pat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Distributed Tracing Context Propagation (W3C Traceparent & Criti",
+        "actors": [
+          "name",
+          "sampled",
+          "flags"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Context propagation requires two fundamental operations across service.",
+            "messages": [
+              {
+                "from": "name",
+                "to": "sampled",
+                "label": "'API_Gateway_Auth'",
+                "tone": "data"
+              },
+              {
+                "from": "sampled",
+                "to": "flags",
+                "label": "True",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "name"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Inside a service runtime, tracing frameworks maintain the active trace.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "name",
+                "to": "sampled",
+                "label": "'API_Gateway_Auth'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "sampled",
+                "to": "flags",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "sampled"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Production tracing middleware restricts Baggage payload size (typically.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "name",
+                "to": "sampled",
+                "label": "'API_Gateway_Auth'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "sampled",
+                "to": "flags",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "flags"
           }
         ]
       }
     },
     {
       "partTitle": "Distributed Tracing Context Propagation (W3C Traceparent & Critical Path) — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "07b771105f2e7a2a03cbc36503f4ab543645d096c24e3caba362b92d38093d71",
+      "codeHash": "35bff17ecd4791c29483bcc531cbe6b6ec4e603e3dd3e36b17e374a0a95b8a2f",
       "spec": {
-        "template": "flow",
-        "title": "Distributed Tracing Context Propagation (WC Traceparent & Critical Pat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Distributed Tracing Context Propagation (W3C Traceparent & Criti",
+        "actors": [
+          "self",
+          "latency_threshold_ms",
+          "tbs"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "At high throughput (millions of requests per second), recording.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "latency_threshold_ms",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "latency_threshold_ms",
+                "to": "tbs",
+                "label": {
+                  "var": "latency_threshold_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Production distributed tracing architectures implement Adaptive Head-Based.",
+            "activeActor": "latency_threshold_ms",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "latency_threshold_ms",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "latency_threshold_ms",
+                "to": "tbs",
+                "label": {
+                  "var": "latency_threshold_ms",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "By evaluating completed traces in collector memory, organizations capture.",
+            "activeActor": "tbs",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "latency_threshold_ms",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "latency_threshold_ms",
+                "to": "tbs",
+                "label": {
+                  "var": "latency_threshold_ms",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Distributed Tracing Context Propagation (WC Traceparent & Critical Pat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Distributed Tracing Context Propagation (W3C Traceparent & Criti",
+        "actors": [
+          "self",
+          "latency_threshold_ms",
+          "tbs"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "At high throughput (millions of requests per second), recording.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "latency_threshold_ms",
+                "label": "<TailBasedSampler>",
+                "tone": "data"
+              },
+              {
+                "from": "latency_threshold_ms",
+                "to": "tbs",
+                "label": "300",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Production distributed tracing architectures implement Adaptive Head-Based.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "latency_threshold_ms",
+                "label": "<TailBasedSampler>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "latency_threshold_ms",
+                "to": "tbs",
+                "label": "300",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "latency_threshold_ms"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "By evaluating completed traces in collector memory, organizations capture.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "latency_threshold_ms",
+                "label": "<TailBasedSampler>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "latency_threshold_ms",
+                "to": "tbs",
+                "label": "300",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "tbs"
           }
         ]
       }
     },
     {
       "partTitle": "Distributed Tracing Context Propagation (W3C Traceparent & Critical Path) — Resilience Guardrails & Failure Recovery",
-      "codeHash": "0be421fbf53f50201b66bf26976c147fb7f98435b908de8df5411ecd6df9c54c",
+      "codeHash": "99949d8f903b2f9652b3c0058bb77d8eec797c523ef87ff182ca0f242c7621f9",
       "spec": {
         "template": "flow",
-        "title": "Distributed Tracing Context Propagation (WC Traceparent & Critical Pat",
+        "title": "Distributed Tracing Context Propagation (W3C Traceparent & Criti",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "duration_ms",
+            "label": "duration_ms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "children",
+            "label": "children"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Once distributed spans are collected into a unified trace DAG, performance.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 3,
+                "hit": 1
+              },
+              "duration_ms": {
+                "var": "duration_ms",
+                "line": 3,
+                "hit": 1
+              },
+              "children": {
+                "var": "children",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "name": "data",
+              "duration_ms": "data",
+              "children": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "name"
+              ],
+              [
+                "name",
+                "duration_ms"
+              ],
+              [
+                "duration_ms",
+                "children"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "In distributed systems featuring parallel fan-out (e.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "duration_ms": {
+                "var": "duration_ms",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "children": {
+                "var": "children",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "name": "data",
+              "duration_ms": "data",
+              "children": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "name"
+              ],
+              [
+                "name",
+                "duration_ms"
+              ],
+              [
+                "duration_ms",
+                "children"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Visualizing the critical path with Gantt-style flame graphs enables.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "name": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "duration_ms": {
+                "var": "duration_ms",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "children": {
+                "var": "children",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "name": "ok",
+              "duration_ms": "ok",
+              "children": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "name"
+              ],
+              [
+                "name",
+                "duration_ms"
+              ],
+              [
+                "duration_ms",
+                "children"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Distributed Tracing Context Propagation (WC Traceparent & Critical Pat",
+        "title": "Distributed Tracing Context Propagation (W3C Traceparent & Criti",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "duration_ms",
+            "label": "duration_ms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "children",
+            "label": "children"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Once distributed spans are collected into a unified trace DAG, performance.",
+            "values": {
+              "self": "<SpanNode>",
+              "name": "'Auth_Check'",
+              "duration_ms": "45",
+              "children": "None"
+            },
+            "tones": {
+              "self": "data",
+              "name": "data",
+              "duration_ms": "data",
+              "children": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "name"
+              ],
+              [
+                "name",
+                "duration_ms"
+              ],
+              [
+                "duration_ms",
+                "children"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "In distributed systems featuring parallel fan-out (e.",
+            "values": {
+              "self": "<SpanNode>",
+              "name": "'Auth_Check'",
+              "duration_ms": "45",
+              "children": "None"
+            },
+            "tones": {
+              "self": "data",
+              "name": "data",
+              "duration_ms": "data",
+              "children": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "name"
+              ],
+              [
+                "name",
+                "duration_ms"
+              ],
+              [
+                "duration_ms",
+                "children"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say7",
+            "caption": "Visualizing the critical path with Gantt-style flame graphs enables.",
+            "values": {
+              "self": "<SpanNode>",
+              "name": "'Auth_Check'",
+              "duration_ms": "45",
+              "children": "None"
+            },
+            "tones": {
+              "self": "ok",
+              "name": "ok",
+              "duration_ms": "ok",
+              "children": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "name"
+              ],
+              [
+                "name",
+                "duration_ms"
+              ],
+              [
+                "duration_ms",
+                "children"
+              ]
             ]
           }
         ]
@@ -1071,266 +779,108 @@
     },
     {
       "partTitle": "Distributed Tracing Context Propagation (W3C Traceparent & Critical Path) — Production Telemetry & Verification Audit",
-      "codeHash": "d1ac7c57a37ac8a0620903a4c3c498b0672ad066edda63ea2d2ec8e28b34b7b8",
+      "codeHash": "d5daa43da19b5548f5dab280dc03ae2c2ab7497b0fef8f5b761565799af29b49",
       "spec": {
-        "template": "flow",
-        "title": "Distributed Tracing Context Propagation (WC Traceparent & Critical Pat",
-        "nodes": [
+        "template": "states",
+        "title": "Distributed Tracing Context Propagation (W3C Traceparent & Criti",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "trace",
+            "label": "trace"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "spans",
+            "label": "spans"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "s",
+            "label": "s"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying distributed tracing across large engineering organizations.",
+            "currentState": "trace",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "A Broken Trace occurs when a microservice receives a valid `traceparent`.",
+            "currentState": "spans",
+            "transition": {
+              "from": "trace",
+              "to": "spans",
+              "label": {
+                "var": "spans",
+                "line": 2,
+                "hit": 2
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say7",
+            "caption": "Tracking `span_generation_rate` alongside service request volume allows.",
+            "currentState": "s",
+            "transition": {
+              "from": "spans",
+              "to": "s",
+              "label": {
+                "var": "s",
+                "line": 2,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Distributed Tracing Context Propagation (WC Traceparent & Critical Pat",
-        "nodes": [
+        "template": "states",
+        "title": "Distributed Tracing Context Propagation (W3C Traceparent & Criti",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "trace",
+            "label": "trace"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "spans",
+            "label": "spans"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "s",
+            "label": "s"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying distributed tracing across large engineering organizations.",
+            "currentState": "trace",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "A Broken Trace occurs when a microservice receives a valid `traceparent`.",
+            "currentState": "spans",
+            "transition": {
+              "from": "trace",
+              "to": "spans",
+              "label": "[{'span_id': 's1', 'name': 'gateway', '…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say7",
+            "caption": "Tracking `span_generation_rate` alongside service request volume allows.",
+            "currentState": "s",
+            "transition": {
+              "from": "spans",
+              "to": "s",
+              "label": "{'span_id': 's3', 'name': 'billing', 'p…"
+            },
+            "tone": "ok"
           }
         ]
       }

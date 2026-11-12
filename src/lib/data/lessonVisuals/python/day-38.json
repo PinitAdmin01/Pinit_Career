@@ -2,89 +2,165 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 38,
-  "promptSha": "95fb089e761ecf2f160b80330914d28299335f2e329ab140ab4b371fedc2dccb",
-  "model": "gate-v2-verified",
+  "promptSha": "b36438c49be4a98b80f20d13f862d8def830754f8276f81d9ced474bfd3f7957",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "N+1 Problem Mechanics & Cartesian Product Analysis",
       "codeHash": "5c01bf2b4320db1a6074c7aec961cec607953ba8316f458eee0e3dee8e1e620d",
       "spec": {
-        "template": "table",
-        "title": "N+1 Problem Mechanics & Cartesian Product Analysis",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Lazy loading N+1 scaling vs eager loading",
+        "leftLabel": "Lazy Loading (1 + N)",
+        "rightLabel": "selectinload (Constant 2)",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Problem"
-                  },
-                  {
-                    "text": "Mechanics"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say3",
+            "caption": "Each user attribute access triggers a separate network order query.",
+            "left": {
+              "code": "simulate_lazy_vs_eager(50)[0]",
+              "result": "51 Network Queries",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "simulate_lazy_vs_eager(50)[1]",
+              "result": "2 Network Queries",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The however logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Cartesian"
-                  },
-                  {
-                    "text": "Product"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say4",
+            "caption": "Scaling records inflates lazy round trips into connection stalls.",
+            "left": {
+              "code": "simulate_lazy_vs_eager(1000)[0]",
+              "result": "1001 Queries (~4s)",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "simulate_lazy_vs_eager(1000)[1]",
+              "result": "2 Queries (<10ms)",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Selecting all child orders via IN keeps database round trips bounded.",
+            "left": {
+              "code": "1 Users + N Order SELECTs",
+              "result": "500x Query Explosion",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "WHERE user_id IN (...)",
+              "result": "2 Queries Constant",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Compute round-trip time for 1000 entities assuming 3ms network ping.",
+            "left": {
+              "code": "lazy_1000 * 3ms per query",
+              "result": "3003 ms Total (1001 Queries)",
+              "tone": "error",
+              "checks": [
+                "Lazy RTT (3ms/query):  3003 ms total"
+              ],
+              "whatIf": "def simulate_lazy_vs_eager(entity_count: int):\n    # Lazy Loading: 1 query for parents + N queries for children\n    lazy_queries = 1 + entity_count\n    # Eager Loading (selectinload): 1 for parents + 1 for children\n    eager_queries = 2\n    return lazy_queries, eager_queries\n\nlazy_50, eager_50 = simulate_lazy_vs_eager(50)\nlazy_1000, eager_1000 = simulate_lazy_vs_eager(1000)\n\nprint(\"=== N+1 QUERY SCALING FORENSICS ===\")\nprint(f\"Dataset (50 records):    Lazy: {lazy_50} queries   | Eager: {eager_50} queries\")\nprint(f\"Dataset (1,000 records): Lazy: {lazy_1000} queries | Eager: {eager_1000} queries\")\nprint(f\"Query Multiplier:        {lazy_1000 // eager_1000}x query explosion under lazy loading\")\nprint(f\"Lazy RTT (3ms/query):  {lazy_1000 * 3} ms total\")\nprint(\"Eager loading bounds database query count to constant O(1).\")"
+            },
+            "right": {
+              "code": "eager_1000 * 3ms per query",
+              "result": "6 ms Total (2 Queries, 500x faster)",
+              "tone": "ok",
+              "checks": [
+                "Eager RTT (3ms/query): 6 ms total (500x lower)"
+              ],
+              "whatIf": "def simulate_lazy_vs_eager(entity_count: int):\n    # Lazy Loading: 1 query for parents + N queries for children\n    lazy_queries = 1 + entity_count\n    # Eager Loading (selectinload): 1 for parents + 1 for children\n    eager_queries = 2\n    return lazy_queries, eager_queries\n\nlazy_50, eager_50 = simulate_lazy_vs_eager(50)\nlazy_1000, eager_1000 = simulate_lazy_vs_eager(1000)\n\nprint(\"=== N+1 QUERY SCALING FORENSICS ===\")\nprint(f\"Dataset (50 records):    Lazy: {lazy_50} queries   | Eager: {eager_50} queries\")\nprint(f\"Dataset (1,000 records): Lazy: {lazy_1000} queries | Eager: {eager_1000} queries\")\nprint(f\"Query Multiplier:        {lazy_1000 // eager_1000}x query explosion under lazy loading\")\nprint(f\"Eager RTT (3ms/query): {eager_1000 * 3} ms total (500x lower)\")\nprint(\"Eager loading bounds database query count to constant O(1).\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "N+1 Problem Mechanics & Cartesian Product Analysis",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Lazy loading N+1 scaling vs eager loading",
+        "leftLabel": "Lazy Loading (1 + N)",
+        "rightLabel": "selectinload (Constant 2)",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Problem",
-                  "Mechanics"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say3",
+            "caption": "Each user attribute access triggers a separate network order query.",
+            "left": {
+              "code": "simulate_lazy_vs_eager(50)[0]",
+              "result": "51 Network Queries",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "simulate_lazy_vs_eager(50)[1]",
+              "result": "2 Network Queries",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The however logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Cartesian",
-                  "Product"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say4",
+            "caption": "Scaling records inflates lazy round trips into connection stalls.",
+            "left": {
+              "code": "simulate_lazy_vs_eager(1000)[0]",
+              "result": "1001 Queries (~4s)",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "simulate_lazy_vs_eager(1000)[1]",
+              "result": "2 Queries (<10ms)",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Selecting all child orders via IN keeps database round trips bounded.",
+            "left": {
+              "code": "1 Users + N Order SELECTs",
+              "result": "500x Query Explosion",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "WHERE user_id IN (...)",
+              "result": "2 Queries Constant",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Compute round-trip time for 1000 entities assuming 3ms network ping.",
+            "left": {
+              "code": "lazy_1000 * 3ms per query",
+              "result": "3003 ms Total (1001 Queries)",
+              "tone": "error",
+              "checks": [
+                "Lazy RTT (3ms/query):  3003 ms total"
+              ],
+              "whatIf": "def simulate_lazy_vs_eager(entity_count: int):\n    # Lazy Loading: 1 query for parents + N queries for children\n    lazy_queries = 1 + entity_count\n    # Eager Loading (selectinload): 1 for parents + 1 for children\n    eager_queries = 2\n    return lazy_queries, eager_queries\n\nlazy_50, eager_50 = simulate_lazy_vs_eager(50)\nlazy_1000, eager_1000 = simulate_lazy_vs_eager(1000)\n\nprint(\"=== N+1 QUERY SCALING FORENSICS ===\")\nprint(f\"Dataset (50 records):    Lazy: {lazy_50} queries   | Eager: {eager_50} queries\")\nprint(f\"Dataset (1,000 records): Lazy: {lazy_1000} queries | Eager: {eager_1000} queries\")\nprint(f\"Query Multiplier:        {lazy_1000 // eager_1000}x query explosion under lazy loading\")\nprint(f\"Lazy RTT (3ms/query):  {lazy_1000 * 3} ms total\")\nprint(\"Eager loading bounds database query count to constant O(1).\")"
+            },
+            "right": {
+              "code": "eager_1000 * 3ms per query",
+              "result": "6 ms Total (2 Queries, 500x faster)",
+              "tone": "ok",
+              "checks": [
+                "Eager RTT (3ms/query): 6 ms total (500x lower)"
+              ],
+              "whatIf": "def simulate_lazy_vs_eager(entity_count: int):\n    # Lazy Loading: 1 query for parents + N queries for children\n    lazy_queries = 1 + entity_count\n    # Eager Loading (selectinload): 1 for parents + 1 for children\n    eager_queries = 2\n    return lazy_queries, eager_queries\n\nlazy_50, eager_50 = simulate_lazy_vs_eager(50)\nlazy_1000, eager_1000 = simulate_lazy_vs_eager(1000)\n\nprint(\"=== N+1 QUERY SCALING FORENSICS ===\")\nprint(f\"Dataset (50 records):    Lazy: {lazy_50} queries   | Eager: {eager_50} queries\")\nprint(f\"Dataset (1,000 records): Lazy: {lazy_1000} queries | Eager: {eager_1000} queries\")\nprint(f\"Query Multiplier:        {lazy_1000 // eager_1000}x query explosion under lazy loading\")\nprint(f\"Eager RTT (3ms/query): {eager_1000 * 3} ms total (500x lower)\")\nprint(\"Eager loading bounds database query count to constant O(1).\")"
+            }
           }
         ]
       }
@@ -93,81 +169,183 @@
       "partTitle": "SQLAlchemy Query Profiling with echo=True & EXPLAIN ANALYZE",
       "codeHash": "afea28a4a21d76f33f125dbd5f9112a2afb19629df4d3eea1ca9f142bd4bda73",
       "spec": {
-        "template": "table",
-        "title": "SQLAlchemy Query Profiling with echo=True & EXPLAI",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "QueryProfiler budget assertion guard",
+        "boxes": [
+          {
+            "id": "cap",
+            "label": "captured_queries"
+          },
+          {
+            "id": "max",
+            "label": "max_queries"
+          },
+          {
+            "id": "verdict",
+            "label": "assert_query_limit"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "SQLAlchemy"
-                  },
-                  {
-                    "text": "Query"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Query echo logs expose repeating parameter filters in user lookups.",
+            "values": {
+              "cap": {
+                "text": "captured_queries"
+              },
+              "max": {
+                "text": "2"
+              },
+              "verdict": {
+                "text": "REGRESSION"
               }
-            ]
+            },
+            "tones": {
+              "cap": "error",
+              "max": "idle",
+              "verdict": "error"
+            }
           },
           {
             "at": "say3",
-            "caption": "The however logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Profiling"
-                  },
-                  {
-                    "text": "with"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "CI listeners assert fetching users triggers strictly 2 SQL queries.",
+            "values": {
+              "cap": {
+                "text": "WHERE user_id IN (1, 2, 3)"
+              },
+              "max": {
+                "text": "2"
+              },
+              "verdict": {
+                "text": "PASSED"
               }
-            ]
+            },
+            "tones": {
+              "cap": "ok",
+              "max": "ok",
+              "verdict": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Repeated per-user SELECT logs fail query budgets cleanly.",
+            "values": {
+              "cap": {
+                "text": "user_id"
+              },
+              "max": {
+                "text": "2"
+              },
+              "verdict": {
+                "text": "PASSED"
+              }
+            },
+            "tones": {
+              "cap": "ok",
+              "max": "ok",
+              "verdict": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate lazy load loop recording child queries so assert_query_limit flags.",
+            "values": {
+              "cap": {
+                "text": "Simulate"
+              },
+              "max": {
+                "text": "load"
+              },
+              "verdict": {
+                "text": "recording"
+              }
+            },
+            "tones": {
+              "cap": "error",
+              "max": "data",
+              "verdict": "error"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "SQLAlchemy Query Profiling with echo=True & EXPLAI",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "QueryProfiler budget assertion guard",
+        "boxes": [
+          {
+            "id": "cap",
+            "label": "captured_queries"
+          },
+          {
+            "id": "max",
+            "label": "max_queries"
+          },
+          {
+            "id": "verdict",
+            "label": "assert_query_limit"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "SQLAlchemy",
-                  "Query"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Query echo logs expose repeating parameter filters in user lookups.",
+            "values": {
+              "cap": "50+ WHERE user_id = ?",
+              "max": "2",
+              "verdict": "REGRESSION"
+            },
+            "tones": {
+              "cap": "error",
+              "max": "idle",
+              "verdict": "error"
+            }
           },
           {
             "at": "say3",
-            "caption": "The however logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Profiling",
-                  "with"
-                ],
-                "tone": "ok"
-              }
+            "caption": "CI listeners assert fetching users triggers strictly 2 SQL queries.",
+            "values": {
+              "cap": "2 batched queries (IN)",
+              "max": "2",
+              "verdict": "PASSED: 2 within budget"
+            },
+            "tones": {
+              "cap": "ok",
+              "max": "ok",
+              "verdict": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Repeated per-user SELECT logs fail query budgets cleanly.",
+            "values": {
+              "cap": "SELECT users + SELECT orders",
+              "max": "2",
+              "verdict": "PASSED"
+            },
+            "tones": {
+              "cap": "ok",
+              "max": "ok",
+              "verdict": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate lazy load loop recording child queries so assert_query_limit flags.",
+            "values": {
+              "cap": "7 Recorded (2+5 Child Queries)",
+              "max": "2 Budget Limit",
+              "verdict": "REGRESSION (False)"
+            },
+            "tones": {
+              "cap": "error",
+              "max": "data",
+              "verdict": "error"
+            },
+            "whatIf": "class QueryProfiler:\n    def __init__(self):\n        self.captured_queries = []\n\n    def record(self, sql, params=None):\n        self.captured_queries.append({\"sql\": sql, \"params\": params})\n\n    def assert_query_limit(self, max_queries=2):\n        count = len(self.captured_queries)\n        if count > max_queries:\n            return False, f\"REGRESSION: Executed {count} queries (Limit: {max_queries})\"\n        return True, f\"PASSED: {count} queries within budget\"\n\nprofiler = QueryProfiler()\n# Simulate selectinload execution\nprofiler.record(\"SELECT id, name FROM users\")\nprofiler.record(\"SELECT id, user_id, total FROM orders WHERE user_id IN (1, 2, 3)\")\n\nfor n in range(1, 6):\n    profiler.record(f\"SELECT * FROM orders WHERE user_id = {n}\")\nok, report = profiler.assert_query_limit(max_queries=2)\n\nprint(\"=== SQLALCHEMY QUERY PROFILER LAB ===\")\nprint(f\"Total Queries Recorded: {len(profiler.captured_queries)}\")\nprint(f\"Query Budget Result:    {ok}\")\nprint(f\"Profiler Audit:         {report}\")\nprint(\"Automated query budget assertions verified.\")",
+            "checks": [
+              "Total Queries Recorded: 7",
+              "Query Budget Result:    False",
+              "REGRESSION: Executed 7 queries (Limit: 2)"
             ]
           }
         ]
@@ -178,23 +356,41 @@
       "codeHash": "891d1d983c0ed788da329995a9686ae48e91334f2cb9f18d0eb413ee6f6e2167",
       "spec": {
         "template": "table",
-        "title": "Eager Loading Query Execution Engine Implementatio",
+        "title": "Comparing selectinload, joinedload, and subqueryload",
         "columns": [
-          "Stage",
-          "Concept"
+          "Strategy",
+          "Query Count",
+          "Best Use Case"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Two-step selectinload loads collections cleanly without Cartesian bloat.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Eager"
+                    "text": "selectinload"
                   },
                   {
-                    "text": "Loading"
+                    "text": "2"
+                  },
+                  {
+                    "text": "users_db"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "joinedload"
+                  },
+                  {
+                    "text": "LEFT OUTER JOIN"
+                  },
+                  {
+                    "text": "orders_db"
                   }
                 ],
                 "tone": "data"
@@ -202,19 +398,104 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Modern SQLAlchemy prefers selectinload over legacy subqueryload queries.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Query"
+                    "text": "selectinload"
                   },
                   {
-                    "text": "Execution"
+                    "text": "2"
+                  },
+                  {
+                    "text": "orders"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "subqueryload"
+                  },
+                  {
+                    "text": "WHERE user_id"
+                  },
+                  {
+                    "text": "orders"
+                  }
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Explicit IN batching avoids joinedload row duplication on collections.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "selectinload"
+                  },
+                  {
+                    "text": "2"
+                  },
+                  {
+                    "text": "Alice"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "joinedload"
+                  },
+                  {
+                    "text": "LEFT OUTER JOIN"
+                  },
+                  {
+                    "text": "Bob"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate joinedload flat join rows producing duplicate parent records.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Add"
+                  },
+                  {
+                    "text": "joinedload"
+                  },
+                  {
+                    "text": "method"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "method"
+                  },
+                  {
+                    "text": "using"
+                  },
+                  {
+                    "text": "list"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -222,36 +503,104 @@
       },
       "filled": {
         "template": "table",
-        "title": "Eager Loading Query Execution Engine Implementatio",
+        "title": "Comparing selectinload, joinedload, and subqueryload",
         "columns": [
-          "Stage",
-          "Concept"
+          "Strategy",
+          "Query Count",
+          "Best Use Case"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Two-step selectinload loads collections cleanly without Cartesian bloat.",
             "rows": [
               {
                 "cells": [
-                  "Eager",
-                  "Loading"
+                  "selectinload",
+                  "2 (Users + WHERE IN)",
+                  "One-to-many collections"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "joinedload",
+                  "1 (LEFT OUTER JOIN)",
+                  "Many-to-one single parents"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Modern SQLAlchemy prefers selectinload over legacy subqueryload queries.",
             "rows": [
               {
                 "cells": [
-                  "Query",
-                  "Execution"
+                  "selectinload",
+                  "2 (Cached IN plan)",
+                  "Preferred collection loader"
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  "subqueryload",
+                  "2 (Nested subquery)",
+                  "Legacy SQLAlchemy 1.x"
+                ],
+                "tone": "idle"
               }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Explicit IN batching avoids joinedload row duplication on collections.",
+            "rows": [
+              {
+                "cells": [
+                  "selectinload",
+                  "2 Queries (Zero dupes)",
+                  "Alice (2 orders), Bob (1)"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "joinedload",
+                  "1 Query (Row bloat risk)",
+                  "Single parent FK lookups"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate joinedload flat join rows producing duplicate parent records.",
+            "rows": [
+              {
+                "cells": [
+                  "selectinload",
+                  "2 Queries (Zero dupes)",
+                  "Nested collections"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "joinedload",
+                  "1 Query (3 flat rows)",
+                  "Alice repeated 2x"
+                ],
+                "tone": "data"
+              }
+            ],
+            "whatIf": "class EagerLoadingEngine:\n    def __init__(self):\n        self.users_db = [{ \"id\": 1, \"name\": \"Alice\" }, { \"id\": 2, \"name\": \"Bob\" }]\n        self.orders_db = [\n            { \"id\": 101, \"user_id\": 1, \"amount\": 45.0 },\n            { \"id\": 102, \"user_id\": 1, \"amount\": 90.0 },\n            { \"id\": 103, \"user_id\": 2, \"amount\": 15.0 }\n        ]\n\n    def execute_selectinload(self):\n        # 1. Query users (Query 1)\n        users = [dict(u) for u in self.users_db]\n        uids = [u[\"id\"] for u in users]\n        # 2. Query orders with IN clause (Query 2)\n        orders = [o for o in self.orders_db if o[\"user_id\"] in uids]\n        # 3. In-memory stitch (O(N))\n        for u in users:\n            u[\"orders\"] = [o for o in orders if o[\"user_id\"] == u[\"id\"]]\n        return users, 2\n\n    def execute_joinedload(self):\n        rows = [(u[\"name\"], o[\"id\"], o[\"amount\"]) for u in self.users_db for o in self.orders_db if o[\"user_id\"] == u[\"id\"]]\n        return rows, 1\n\nengine = EagerLoadingEngine()\npopulated_users, query_count = engine.execute_selectinload()\n\nprint(\"=== EAGER LOADING ENGINE LAB ===\")\nprint(f\"Total Queries Executed:  {query_count}\")\nprint(f\"User 1 Order Count:      {len(populated_users[0]['orders'])}\")\nprint(f\"User 2 Order Count:      {len(populated_users[1]['orders'])}\")\nprint(f\"User 1 Order 1 Amount:   ${populated_users[0]['orders'][0]['amount']}\")\nflat_rows, j_queries = engine.execute_joinedload()\nprint(f\"Joinedload ({j_queries} Query): {len(flat_rows)} duplicate parent rows -> {flat_rows}\")\nprint(\"selectinload execution strategy successfully simulated.\")",
+            "checks": [
+              "Joinedload (1 Query): 3 duplicate parent rows",
+              "('Alice', 101, 45.0), ('Alice', 102, 90.0)"
             ]
           }
         ]
@@ -261,82 +610,160 @@
       "partTitle": "Enterprise Reporting Endpoint Query Optimization",
       "codeHash": "c1625bac95211cc413cabd664e738ae058e10c697e193013cadb39beb2a1edcd",
       "spec": {
-        "template": "table",
-        "title": "Enterprise Reporting Endpoint Query Optimization",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Vendor reporting endpoint before and after SQL eager tuning",
+        "leftLabel": "Legacy Lazy Loop",
+        "rightLabel": "Eager selectinload + SQL",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Enterprise"
-                  },
-                  {
-                    "text": "Reporting"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say3",
+            "caption": "Lazy invoice traversal fires one thousand consecutive vendor queries.",
+            "left": {
+              "code": "benchmark_legacy_report()",
+              "result": "1001 Queries | 4504.5ms",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "benchmark_optimized_report()",
+              "result": "2 Queries | 22.0ms",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The because logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Endpoint"
-                  },
-                  {
-                    "text": "Query"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say5",
+            "caption": "Pushing aggregation into selectinload queries trims query count to 2.",
+            "left": {
+              "code": "leg_q = 1 + 1000",
+              "result": "4504.5 ms [TIMEOUT HAZARD]",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "opt_q = 2",
+              "result": "22.0 ms [REMEDIATED]",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Replacing loop queries eliminates reporting connection starvation.",
+            "left": {
+              "code": "1001 queries (4.5ms RTT)",
+              "result": "4504.5 ms Saturation",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "2 queries (selectinload + index)",
+              "result": "22.0 ms Nominal",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Recalculate reporting benchmark with 10ms network ping showing 10s stall.",
+            "left": {
+              "code": "Legacy (1001 queries * 10ms ping)",
+              "result": "10010.0 ms (> 10s Timeout Hazard)",
+              "tone": "error",
+              "checks": [
+                "1001 queries | 10010.0 ms [TIMEOUT HAZARD]"
+              ],
+              "whatIf": "class ReportingOptimizationLab:\n    def __init__(self):\n        self.vendors_count = 1000\n        self.avg_invoices_per_vendor = 5\n\n    def benchmark_legacy_report(self):\n        # 1 query for vendors + 1000 queries for invoices\n        queries = 1 + self.vendors_count\n        latency_ms = queries * 10.0\n        return queries, latency_ms\n\n    def benchmark_optimized_report(self):\n        # 1 query for vendors + 1 selectinload query for invoices\n        queries = 2\n        latency_ms = queries * 4.5 + 13.0  # Network + in-memory sum\n        return queries, latency_ms\n\nlab = ReportingOptimizationLab()\nleg_q, leg_lat = lab.benchmark_legacy_report()\nopt_q, opt_lat = lab.benchmark_optimized_report()\n\nprint(\"=== ENTERPRISE REPORTING BENCHMARK ===\")\nprint(f\"Legacy Reporting Endpoint:    {leg_q} queries | {leg_lat:.1f} ms [TIMEOUT HAZARD]\")\nprint(f\"Optimized Reporting Endpoint: {opt_q} queries    | {opt_lat:.1f} ms [REMEDIATED]\")\nprint(f\"Latency Speedup:              {leg_lat / opt_lat:.1f}x faster execution\")\nprint(\"Enterprise reporting query optimization verified.\")"
+            },
+            "right": {
+              "code": "Optimized (2 queries * 10ms ping)",
+              "result": "33.0 ms Total (303x Faster)",
+              "tone": "ok",
+              "checks": [
+                "2 queries    | 33.0 ms [REMEDIATED]",
+                "303.3x faster execution"
+              ],
+              "whatIf": "class ReportingOptimizationLab:\n    def __init__(self):\n        self.vendors_count = 1000\n        self.avg_invoices_per_vendor = 5\n\n    def benchmark_legacy_report(self):\n        # 1 query for vendors + 1000 queries for invoices\n        queries = 1 + self.vendors_count\n        latency_ms = queries * 10.0\n        return queries, latency_ms\n\n    def benchmark_optimized_report(self):\n        # 1 query for vendors + 1 selectinload query for invoices\n        queries = 2\n        latency_ms = queries * 10.0 + 13.0\n        return queries, latency_ms\n\nlab = ReportingOptimizationLab()\nleg_q, leg_lat = lab.benchmark_legacy_report()\nopt_q, opt_lat = lab.benchmark_optimized_report()\n\nprint(\"=== ENTERPRISE REPORTING BENCHMARK ===\")\nprint(f\"Legacy Reporting Endpoint:    {leg_q} queries | {leg_lat:.1f} ms [TIMEOUT HAZARD]\")\nprint(f\"Optimized Reporting Endpoint: {opt_q} queries    | {opt_lat:.1f} ms [REMEDIATED]\")\nprint(f\"Latency Speedup:              {leg_lat / opt_lat:.1f}x faster execution\")\nprint(\"Enterprise reporting query optimization verified.\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Enterprise Reporting Endpoint Query Optimization",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Vendor reporting endpoint before and after SQL eager tuning",
+        "leftLabel": "Legacy Lazy Loop",
+        "rightLabel": "Eager selectinload + SQL",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Enterprise",
-                  "Reporting"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say3",
+            "caption": "Lazy invoice traversal fires one thousand consecutive vendor queries.",
+            "left": {
+              "code": "benchmark_legacy_report()",
+              "result": "1001 Queries | 4504.5ms",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "benchmark_optimized_report()",
+              "result": "2 Queries | 22.0ms",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The because logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Endpoint",
-                  "Query"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say5",
+            "caption": "Pushing aggregation into selectinload queries trims query count to 2.",
+            "left": {
+              "code": "leg_q = 1 + 1000",
+              "result": "4504.5 ms [TIMEOUT HAZARD]",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "opt_q = 2",
+              "result": "22.0 ms [REMEDIATED]",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Replacing loop queries eliminates reporting connection starvation.",
+            "left": {
+              "code": "1001 queries (4.5ms RTT)",
+              "result": "4504.5 ms Saturation",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "2 queries (selectinload + index)",
+              "result": "22.0 ms Nominal",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Recalculate reporting benchmark with 10ms network ping showing 10s stall.",
+            "left": {
+              "code": "Legacy (1001 queries * 10ms ping)",
+              "result": "10010.0 ms (> 10s Timeout Hazard)",
+              "tone": "error",
+              "checks": [
+                "1001 queries | 10010.0 ms [TIMEOUT HAZARD]"
+              ],
+              "whatIf": "class ReportingOptimizationLab:\n    def __init__(self):\n        self.vendors_count = 1000\n        self.avg_invoices_per_vendor = 5\n\n    def benchmark_legacy_report(self):\n        # 1 query for vendors + 1000 queries for invoices\n        queries = 1 + self.vendors_count\n        latency_ms = queries * 10.0\n        return queries, latency_ms\n\n    def benchmark_optimized_report(self):\n        # 1 query for vendors + 1 selectinload query for invoices\n        queries = 2\n        latency_ms = queries * 4.5 + 13.0  # Network + in-memory sum\n        return queries, latency_ms\n\nlab = ReportingOptimizationLab()\nleg_q, leg_lat = lab.benchmark_legacy_report()\nopt_q, opt_lat = lab.benchmark_optimized_report()\n\nprint(\"=== ENTERPRISE REPORTING BENCHMARK ===\")\nprint(f\"Legacy Reporting Endpoint:    {leg_q} queries | {leg_lat:.1f} ms [TIMEOUT HAZARD]\")\nprint(f\"Optimized Reporting Endpoint: {opt_q} queries    | {opt_lat:.1f} ms [REMEDIATED]\")\nprint(f\"Latency Speedup:              {leg_lat / opt_lat:.1f}x faster execution\")\nprint(\"Enterprise reporting query optimization verified.\")"
+            },
+            "right": {
+              "code": "Optimized (2 queries * 10ms ping)",
+              "result": "33.0 ms Total (303x Faster)",
+              "tone": "ok",
+              "checks": [
+                "2 queries    | 33.0 ms [REMEDIATED]",
+                "303.3x faster execution"
+              ],
+              "whatIf": "class ReportingOptimizationLab:\n    def __init__(self):\n        self.vendors_count = 1000\n        self.avg_invoices_per_vendor = 5\n\n    def benchmark_legacy_report(self):\n        # 1 query for vendors + 1000 queries for invoices\n        queries = 1 + self.vendors_count\n        latency_ms = queries * 10.0\n        return queries, latency_ms\n\n    def benchmark_optimized_report(self):\n        # 1 query for vendors + 1 selectinload query for invoices\n        queries = 2\n        latency_ms = queries * 10.0 + 13.0\n        return queries, latency_ms\n\nlab = ReportingOptimizationLab()\nleg_q, leg_lat = lab.benchmark_legacy_report()\nopt_q, opt_lat = lab.benchmark_optimized_report()\n\nprint(\"=== ENTERPRISE REPORTING BENCHMARK ===\")\nprint(f\"Legacy Reporting Endpoint:    {leg_q} queries | {leg_lat:.1f} ms [TIMEOUT HAZARD]\")\nprint(f\"Optimized Reporting Endpoint: {opt_q} queries    | {opt_lat:.1f} ms [REMEDIATED]\")\nprint(f\"Latency Speedup:              {leg_lat / opt_lat:.1f}x faster execution\")\nprint(\"Enterprise reporting query optimization verified.\")"
+            }
           }
         ]
       }
@@ -345,81 +772,319 @@
       "partTitle": "Full Eager Loading & Query Planner Synthesis Lab",
       "codeHash": "9d4f14b62bcf3cb7e8a4832e8724fa308004dd8b7d9d014157137e4db2816eaf",
       "spec": {
-        "template": "table",
-        "title": "Full Eager Loading & Query Planner Synthesis Lab",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "RelationalQueryPlanner constant-query execution path",
+        "nodes": [
+          {
+            "id": "ids",
+            "label": "vendor_ids"
+          },
+          {
+            "id": "plan",
+            "label": "fetch_vendors_with_invoices"
+          },
+          {
+            "id": "q",
+            "label": "queries"
+          },
+          {
+            "id": "rec",
+            "label": "records_loaded"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Full"
-                  },
-                  {
-                    "text": "Eager"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Eager selectinload invariants block accidental runtime N+1 queries.",
+            "values": {
+              "ids": {
+                "text": "vendor_ids"
+              },
+              "plan": {
+                "text": "selectinload"
+              },
+              "q": {
+                "text": "2"
+              },
+              "rec": {
+                "text": "eager"
               }
+            },
+            "tones": {
+              "ids": "data",
+              "plan": "ok",
+              "q": "ok",
+              "rec": "idle"
+            },
+            "arrows": [
+              [
+                "ids",
+                "plan"
+              ],
+              [
+                "plan",
+                "q"
+              ]
             ]
           },
           {
             "at": "say3",
-            "caption": "The furthermore logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Loading"
-                  },
-                  {
-                    "text": "Query"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Keyset cursor pagination sustains bounded queries without OFFSET scans.",
+            "values": {
+              "ids": {
+                "text": "5"
+              },
+              "plan": {
+                "text": "LIMIT 50"
+              },
+              "q": {
+                "text": "2"
+              },
+              "rec": {
+                "text": "records_loaded"
               }
+            },
+            "tones": {
+              "ids": "data",
+              "plan": "ok",
+              "q": "ok",
+              "rec": "ok"
+            },
+            "arrows": [
+              [
+                "ids",
+                "plan"
+              ],
+              [
+                "plan",
+                "q"
+              ],
+              [
+                "q",
+                "rec"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Planner hydrates all vendor invoices in 2 constant-count queries.",
+            "values": {
+              "ids": {
+                "text": "5"
+              },
+              "plan": {
+                "text": "selectinload"
+              },
+              "q": {
+                "text": "2"
+              },
+              "rec": {
+                "text": "3"
+              }
+            },
+            "tones": {
+              "ids": "ok",
+              "plan": "ok",
+              "q": "ok",
+              "rec": "ok"
+            },
+            "arrows": [
+              [
+                "ids",
+                "plan"
+              ],
+              [
+                "plan",
+                "q"
+              ],
+              [
+                "q",
+                "rec"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Run fetch_vendors_with_invoices with eager=True confirming constant queries.",
+            "values": {
+              "ids": {
+                "text": "Run"
+              },
+              "plan": {
+                "text": "with"
+              },
+              "q": {
+                "text": "vendor"
+              },
+              "rec": {
+                "text": "and"
+              }
+            },
+            "tones": {
+              "ids": "data",
+              "plan": "ok",
+              "q": "ok",
+              "rec": "ok"
+            },
+            "arrows": [
+              [
+                "ids",
+                "plan"
+              ],
+              [
+                "plan",
+                "q"
+              ],
+              [
+                "q",
+                "rec"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Full Eager Loading & Query Planner Synthesis Lab",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "RelationalQueryPlanner constant-query execution path",
+        "nodes": [
+          {
+            "id": "ids",
+            "label": "vendor_ids"
+          },
+          {
+            "id": "plan",
+            "label": "fetch_vendors_with_invoices"
+          },
+          {
+            "id": "q",
+            "label": "queries"
+          },
+          {
+            "id": "rec",
+            "label": "records_loaded"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Full",
-                  "Eager"
-                ],
-                "tone": "data"
-              }
+            "at": "say2",
+            "caption": "Eager selectinload invariants block accidental runtime N+1 queries.",
+            "values": {
+              "ids": "[1..5]",
+              "plan": "selectinload enforced",
+              "q": "2 queries",
+              "rec": "15 hydrated"
+            },
+            "tones": {
+              "ids": "data",
+              "plan": "ok",
+              "q": "ok",
+              "rec": "idle"
+            },
+            "arrows": [
+              [
+                "ids",
+                "plan"
+              ],
+              [
+                "plan",
+                "q"
+              ]
             ]
           },
           {
             "at": "say3",
-            "caption": "The furthermore logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Loading",
-                  "Query"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Keyset cursor pagination sustains bounded queries without OFFSET scans.",
+            "values": {
+              "ids": "WHERE id > :last_id",
+              "plan": "Keyset LIMIT 50",
+              "q": "2 (O(1))",
+              "rec": "15 Records"
+            },
+            "tones": {
+              "ids": "data",
+              "plan": "ok",
+              "q": "ok",
+              "rec": "ok"
+            },
+            "arrows": [
+              [
+                "ids",
+                "plan"
+              ],
+              [
+                "plan",
+                "q"
+              ],
+              [
+                "q",
+                "rec"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Planner hydrates all vendor invoices in 2 constant-count queries.",
+            "values": {
+              "ids": "[1, 2, 3, 4, 5]",
+              "plan": "selectinload",
+              "q": "2 Total",
+              "rec": "15 Hydrated"
+            },
+            "tones": {
+              "ids": "ok",
+              "plan": "ok",
+              "q": "ok",
+              "rec": "ok"
+            },
+            "arrows": [
+              [
+                "ids",
+                "plan"
+              ],
+              [
+                "plan",
+                "q"
+              ],
+              [
+                "q",
+                "rec"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Run fetch_vendors_with_invoices with eager=True confirming constant queries.",
+            "values": {
+              "ids": "[1 .. 100] Vendors",
+              "plan": "selectinload (Eager)",
+              "q": "2 Queries Constant",
+              "rec": "300 Records Loaded"
+            },
+            "tones": {
+              "ids": "data",
+              "plan": "ok",
+              "q": "ok",
+              "rec": "ok"
+            },
+            "arrows": [
+              [
+                "ids",
+                "plan"
+              ],
+              [
+                "plan",
+                "q"
+              ],
+              [
+                "q",
+                "rec"
+              ]
+            ],
+            "whatIf": "class RelationalQueryPlanner:\n    def __init__(self):\n        self.stats = {\"queries\": 0, \"records_loaded\": 0}\n\n    def fetch_vendors_with_invoices(self, vendor_ids, eager=True):\n        if eager:\n            # 2 Queries: 1 for vendors, 1 for all invoices\n            self.stats[\"queries\"] += 2\n            self.stats[\"records_loaded\"] += len(vendor_ids) * 3\n            return f\"Eager loaded {len(vendor_ids)} vendors and invoices in 2 queries\"\n        else:\n            # N+1 Queries: 1 for vendors, N for invoices\n            self.stats[\"queries\"] += 1 + len(vendor_ids)\n            self.stats[\"records_loaded\"] += len(vendor_ids) * 3\n            return f\"Lazy loaded {len(vendor_ids)} vendors in {1 + len(vendor_ids)} queries\"\n\nplanner = RelationalQueryPlanner()\nres_eager = planner.fetch_vendors_with_invoices(list(range(1, 101)), eager=True)\n\nprint(\"=== QUERY PLANNER SYNTHESIS LAB ===\")\nprint(f\"Planner Execution:       {res_eager}\")\nprint(f\"Total Queries Emitted:   {planner.stats['queries']}\")\nprint(f\"Total Records Hydrated:  {planner.stats['records_loaded']}\")\nprint(\"Complete query optimization and eager loading synthesis verified.\")",
+            "checks": [
+              "Eager loaded 100 vendors and invoices in 2 queries",
+              "Total Queries Emitted:   2",
+              "Total Records Hydrated:  300"
             ]
           }
         ]

@@ -2,148 +2,284 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 24,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Infrastructure as Code",
       "codeHash": "4dc2bad515a49fcb17eb294e82f1ba0c698c3bbd95db43cf4072836acb2cd334",
       "spec": {
-        "template": "table",
-        "title": "Terraform declarative resource block structure",
-        "columns": [
-          "rtype",
-          "name"
+        "template": "flow",
+        "title": "Infrastructure as Code",
+        "nodes": [
+          {
+            "id": "hcl",
+            "label": "hcl"
+          },
+          {
+            "id": "first",
+            "label": "first"
+          },
+          {
+            "id": "kind",
+            "label": "kind"
+          },
+          {
+            "id": "rtype",
+            "label": "rtype"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Infrastructure as Code defines cloud resources in versioned files.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "aws_s3_bucket"
-                  },
-                  {
-                    "text": "media"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Infrastructure as Code (IaC) means describing your cloud resources in text.",
+            "values": {
+              "hcl": {
+                "var": "hcl",
+                "line": 1,
+                "hit": 1
+              },
+              "first": {
+                "var": "first",
+                "line": 5,
+                "hit": 1
+              },
+              "kind": {
+                "var": "kind",
+                "line": 6,
+                "hit": 1
+              },
+              "rtype": {
+                "var": "rtype",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "hcl": "data",
+              "first": "data",
+              "kind": "data",
+              "rtype": "data"
+            },
+            "arrows": [
+              [
+                "hcl",
+                "first"
+              ],
+              [
+                "first",
+                "kind"
+              ],
+              [
+                "kind",
+                "rtype"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Version control allows teams to review changes and roll back.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "aws_s3_bucket"
-                  },
-                  {
-                    "text": "media"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The benefits are the same as for application code.",
+            "values": {
+              "hcl": {
+                "var": "hcl",
+                "line": 5,
+                "hit": 1
+              },
+              "first": {
+                "var": "first",
+                "line": 6,
+                "hit": 1
+              },
+              "kind": {
+                "var": "kind",
+                "line": 7,
+                "hit": 1
+              },
+              "rtype": {
+                "var": "rtype",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "hcl": "data",
+              "first": "data",
+              "kind": "data",
+              "rtype": "data"
+            },
+            "arrows": [
+              [
+                "hcl",
+                "first"
+              ],
+              [
+                "first",
+                "kind"
+              ],
+              [
+                "kind",
+                "rtype"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Terraform provides widely used IaC tooling across providers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "aws_s3_bucket"
-                  },
-                  {
-                    "text": "media"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "A good rule for a team.",
+            "values": {
+              "hcl": {
+                "var": "hcl",
+                "line": 6,
+                "hit": 1
+              },
+              "first": {
+                "var": "first",
+                "line": 7,
+                "hit": 1
+              },
+              "kind": {
+                "var": "kind",
+                "line": 8,
+                "hit": 1
+              },
+              "rtype": {
+                "var": "rtype",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Declarative code specifies desired end state rather than manual steps.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "aws_s3_bucket"
-                  },
-                  {
-                    "text": "media"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "hcl": "ok",
+              "first": "ok",
+              "kind": "ok",
+              "rtype": "ok"
+            },
+            "arrows": [
+              [
+                "hcl",
+                "first"
+              ],
+              [
+                "first",
+                "kind"
+              ],
+              [
+                "kind",
+                "rtype"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Terraform declarative resource block structure",
-        "columns": [
-          "rtype",
-          "name"
+        "template": "flow",
+        "title": "Infrastructure as Code",
+        "nodes": [
+          {
+            "id": "hcl",
+            "label": "hcl"
+          },
+          {
+            "id": "first",
+            "label": "first"
+          },
+          {
+            "id": "kind",
+            "label": "kind"
+          },
+          {
+            "id": "rtype",
+            "label": "rtype"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Infrastructure as Code defines cloud resources in versioned files.",
-            "rows": [
-              {
-                "cells": [
-                  "aws_s3_bucket",
-                  "media"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Infrastructure as Code (IaC) means describing your cloud resources in text.",
+            "values": {
+              "hcl": "'resource \"aws_s3_bucket\" \"media\" {\n  b…",
+              "first": "['resource', '\"aws_s3_bucket\"', '\"media…",
+              "kind": "'resource'",
+              "rtype": "'aws_s3_bucket'"
+            },
+            "tones": {
+              "hcl": "data",
+              "first": "data",
+              "kind": "data",
+              "rtype": "data"
+            },
+            "arrows": [
+              [
+                "hcl",
+                "first"
+              ],
+              [
+                "first",
+                "kind"
+              ],
+              [
+                "kind",
+                "rtype"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Version control allows teams to review changes and roll back.",
-            "rows": [
-              {
-                "cells": [
-                  "aws_s3_bucket",
-                  "media"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The benefits are the same as for application code.",
+            "values": {
+              "hcl": "'resource \"aws_s3_bucket\" \"media\" {\n  b…",
+              "first": "['resource', '\"aws_s3_bucket\"', '\"media…",
+              "kind": "'resource'",
+              "rtype": "'aws_s3_bucket'"
+            },
+            "tones": {
+              "hcl": "data",
+              "first": "data",
+              "kind": "data",
+              "rtype": "data"
+            },
+            "arrows": [
+              [
+                "hcl",
+                "first"
+              ],
+              [
+                "first",
+                "kind"
+              ],
+              [
+                "kind",
+                "rtype"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Terraform provides widely used IaC tooling across providers.",
-            "rows": [
-              {
-                "cells": [
-                  "aws_s3_bucket",
-                  "media"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Declarative code specifies desired end state rather than manual steps.",
-            "rows": [
-              {
-                "cells": [
-                  "aws_s3_bucket",
-                  "media"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "A good rule for a team.",
+            "values": {
+              "hcl": "'resource \"aws_s3_bucket\" \"media\" {\n  b…",
+              "first": "['resource', '\"aws_s3_bucket\"', '\"media…",
+              "kind": "'resource'",
+              "rtype": "'aws_s3_bucket'"
+            },
+            "tones": {
+              "hcl": "ok",
+              "first": "ok",
+              "kind": "ok",
+              "rtype": "ok"
+            },
+            "arrows": [
+              [
+                "hcl",
+                "first"
+              ],
+              [
+                "first",
+                "kind"
+              ],
+              [
+                "kind",
+                "rtype"
+              ]
             ]
           }
         ]
@@ -153,232 +289,162 @@
       "partTitle": "Resource addresses and modules",
       "codeHash": "cf53dca3c800c7e374d8fe3895c9e6ab11a2b5364aebb085286acbaa8972de1c",
       "spec": {
-        "template": "table",
-        "title": "Terraform resource address and module namespace parsing",
-        "columns": [
-          "type",
-          "name"
+        "template": "sequence",
+        "title": "Resource addresses and modules",
+        "actors": [
+          "a",
+          "address",
+          "parts"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Terraform addresses identify every managed resource uniquely.",
-            "rows": [
+            "caption": "Every resource Terraform manages has an address.",
+            "activeActor": "a",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "aws_s3_bucket"
-                  },
-                  {
-                    "text": "data_lake"
-                  }
-                ],
+                "from": "a",
+                "to": "address",
+                "label": {
+                  "var": "a",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "address",
+                "to": "parts",
+                "label": {
+                  "var": "address",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Modules bundle related resources into reusable packages.",
-            "rows": [
+            "caption": "Modules group resources into reusable packages, such as a \"vpc\" module.",
+            "activeActor": "address",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "aws_s3_bucket"
-                  },
-                  {
-                    "text": "data_lake"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "aws_subnet"
-                  },
-                  {
-                    "text": "public"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Nested modules prefix addresses with hierarchical names.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "aws_s3_bucket"
-                  },
-                  {
-                    "text": "data_lake"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "aws_subnet"
-                  },
-                  {
-                    "text": "public"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "aws_route_table"
-                  },
-                  {
-                    "text": "private"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Address parsing extracts module hierarchy alongside resource type.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "aws_s3_bucket"
-                  },
-                  {
-                    "text": "data_lake"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "aws_subnet"
-                  },
-                  {
-                    "text": "public"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "aws_route_table"
-                  },
-                  {
-                    "text": "private"
-                  }
-                ],
+                "from": "a",
+                "to": "address",
+                "label": {
+                  "var": "a",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "address",
+                "to": "parts",
+                "label": {
+                  "var": "address",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The example parses several addresses of increasing depth.",
+            "activeActor": "parts",
+            "messages": [
+              {
+                "from": "a",
+                "to": "address",
+                "label": {
+                  "var": "a",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "address",
+                "to": "parts",
+                "label": {
+                  "var": "address",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Terraform resource address and module namespace parsing",
-        "columns": [
-          "type",
-          "name"
+        "template": "sequence",
+        "title": "Resource addresses and modules",
+        "actors": [
+          "a",
+          "address",
+          "parts"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Terraform addresses identify every managed resource uniquely.",
-            "rows": [
+            "caption": "Every resource Terraform manages has an address.",
+            "messages": [
               {
-                "cells": [
-                  "aws_s3_bucket",
-                  "data_lake"
-                ],
+                "from": "a",
+                "to": "address",
+                "label": "'aws_s3_bucket.data_lake'",
+                "tone": "data"
+              },
+              {
+                "from": "address",
+                "to": "parts",
+                "label": "'aws_s3_bucket.data_lake'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "a"
           },
           {
             "at": "say2",
-            "caption": "Modules bundle related resources into reusable packages.",
-            "rows": [
+            "caption": "Modules group resources into reusable packages, such as a \"vpc\" module.",
+            "messages": [
               {
-                "cells": [
-                  "aws_s3_bucket",
-                  "data_lake"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "aws_subnet",
-                  "public"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Nested modules prefix addresses with hierarchical names.",
-            "rows": [
-              {
-                "cells": [
-                  "aws_s3_bucket",
-                  "data_lake"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "aws_subnet",
-                  "public"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "aws_route_table",
-                  "private"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Address parsing extracts module hierarchy alongside resource type.",
-            "rows": [
-              {
-                "cells": [
-                  "aws_s3_bucket",
-                  "data_lake"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "aws_subnet",
-                  "public"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "aws_route_table",
-                  "private"
-                ],
+                "from": "a",
+                "to": "address",
+                "label": "'aws_s3_bucket.data_lake'",
                 "tone": "data"
+              },
+              {
+                "from": "address",
+                "to": "parts",
+                "label": "'aws_s3_bucket.data_lake'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "address"
+          },
+          {
+            "at": "say7",
+            "caption": "The example parses several addresses of increasing depth.",
+            "messages": [
+              {
+                "from": "a",
+                "to": "address",
+                "label": "'module.vpc.aws_subnet.public'",
+                "tone": "data"
+              },
+              {
+                "from": "address",
+                "to": "parts",
+                "label": "'aws_s3_bucket.data_lake'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "parts"
           }
         ]
       }
@@ -387,178 +453,106 @@
       "partTitle": "State: Terraform's memory",
       "codeHash": "d7d6a7bde003e6eaf02756f170a8d048a9fd467b3cc482ae54373c43b4b6ff6d",
       "spec": {
-        "template": "table",
-        "title": "Terraform state mapping and manual drift detection",
-        "columns": [
-          "address",
-          "status"
+        "template": "states",
+        "title": "State: Terraform's memory",
+        "states": [
+          {
+            "id": "code",
+            "label": "code"
+          },
+          {
+            "id": "state",
+            "label": "state"
+          },
+          {
+            "id": "reality",
+            "label": "reality"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Terraform state maps code addresses to live cloud resource IDs.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "aws_s3_bucket.media"
-                  },
-                  {
-                    "text": "pinit-media-prod"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Terraform keeps a state file that maps each resource address in your code.",
+            "currentState": "code",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "State tracking allows Terraform to determine necessary updates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "aws_s3_bucket.media"
-                  },
-                  {
-                    "text": "pinit-media-prod"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Without state, Terraform could not tell whether a resource in your code.",
+            "currentState": "state",
+            "transition": {
+              "from": "code",
+              "to": "state",
+              "label": {
+                "var": "state",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Remote encrypted state ensures shared access across teams.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "aws_s3_bucket.media"
-                  },
-                  {
-                    "text": "pinit-media-prod"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "aws_sqs_queue.orders"
-                  },
-                  {
-                    "text": "in sync"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example compares state with reality to find drift.",
+            "currentState": "reality",
+            "transition": {
+              "from": "state",
+              "to": "reality",
+              "label": {
+                "var": "reality",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Terraform plan detects manual resource drift automatically.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "aws_s3_bucket.media"
-                  },
-                  {
-                    "text": "pinit-media-prod"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "aws_sqs_queue.orders"
-                  },
-                  {
-                    "text": "in sync"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Terraform state mapping and manual drift detection",
-        "columns": [
-          "address",
-          "status"
+        "template": "states",
+        "title": "State: Terraform's memory",
+        "states": [
+          {
+            "id": "code",
+            "label": "code"
+          },
+          {
+            "id": "state",
+            "label": "state"
+          },
+          {
+            "id": "reality",
+            "label": "reality"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Terraform state maps code addresses to live cloud resource IDs.",
-            "rows": [
-              {
-                "cells": [
-                  "aws_s3_bucket.media",
-                  "pinit-media-prod"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Terraform keeps a state file that maps each resource address in your code.",
+            "currentState": "code",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "State tracking allows Terraform to determine necessary updates.",
-            "rows": [
-              {
-                "cells": [
-                  "aws_s3_bucket.media",
-                  "pinit-media-prod"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Without state, Terraform could not tell whether a resource in your code.",
+            "currentState": "state",
+            "transition": {
+              "from": "code",
+              "to": "state",
+              "label": "{'aws_s3_bucket.media': 'pinit-media-pr…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Remote encrypted state ensures shared access across teams.",
-            "rows": [
-              {
-                "cells": [
-                  "aws_s3_bucket.media",
-                  "pinit-media-prod"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "aws_sqs_queue.orders",
-                  "in sync"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Terraform plan detects manual resource drift automatically.",
-            "rows": [
-              {
-                "cells": [
-                  "aws_s3_bucket.media",
-                  "pinit-media-prod"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "aws_sqs_queue.orders",
-                  "in sync"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say7",
+            "caption": "The example compares state with reality to find drift.",
+            "currentState": "reality",
+            "transition": {
+              "from": "state",
+              "to": "reality",
+              "label": "{'pinit-media-prod': {'versioning': Fal…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -567,177 +561,277 @@
       "partTitle": "Locking state",
       "codeHash": "b19561ebb792b5426fdf06c41fc22041a3a7bd388dbc7ba1d46cc999d30dbc77",
       "spec": {
-        "template": "table",
-        "title": "DynamoDB state lock concurrency control simulation",
-        "columns": [
-          "who",
-          "status"
+        "template": "flow",
+        "title": "Locking state",
+        "nodes": [
+          {
+            "id": "lock_table",
+            "label": "lock_table"
+          },
+          {
+            "id": "LOCK",
+            "label": "LOCK"
+          },
+          {
+            "id": "lock_id",
+            "label": "lock_id"
+          },
+          {
+            "id": "who",
+            "label": "who"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Concurrent runs risk corrupting state without locking protection.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "asha"
-                  },
-                  {
-                    "text": "pinit-tf-state/prod/terraform.tfstate"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "What if two engineers run terraform apply at the same moment.",
+            "values": {
+              "lock_table": {
+                "var": "lock_table",
+                "line": 1,
+                "hit": 1
+              },
+              "LOCK": {
+                "var": "LOCK",
+                "line": 12,
+                "hit": 1
+              },
+              "lock_id": {
+                "var": "lock_id",
+                "line": 4,
+                "hit": 1
+              },
+              "who": {
+                "var": "who",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "lock_table": "data",
+              "LOCK": "data",
+              "lock_id": "data",
+              "who": "data"
+            },
+            "arrows": [
+              [
+                "lock_table",
+                "LOCK"
+              ],
+              [
+                "LOCK",
+                "lock_id"
+              ],
+              [
+                "lock_id",
+                "who"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "State locking prevents concurrent runs from corrupting data.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "asha"
-                  },
-                  {
-                    "text": "pinit-tf-state/prod/terraform.tfstate"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "State locking prevents this.",
+            "values": {
+              "lock_table": {
+                "var": "lock_table",
+                "line": 3,
+                "hit": 1
+              },
+              "LOCK": {
+                "var": "LOCK",
+                "line": 13,
+                "hit": 1
+              },
+              "lock_id": {
+                "var": "lock_id",
+                "line": 6,
+                "hit": 1
+              },
+              "who": {
+                "var": "who",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "lock_table": "data",
+              "LOCK": "data",
+              "lock_id": "data",
+              "who": "data"
+            },
+            "arrows": [
+              [
+                "lock_table",
+                "LOCK"
+              ],
+              [
+                "LOCK",
+                "lock_id"
+              ],
+              [
+                "lock_id",
+                "who"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "DynamoDB tables lock state using dedicated LockID keys.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "asha"
-                  },
-                  {
-                    "text": "pinit-tf-state/prod/terraform.tfstate"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "In CI pipelines, one pipeline per environment at a time is the usual rule.",
+            "values": {
+              "lock_table": {
+                "var": "lock_table",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "ravi"
-                  },
-                  {
-                    "text": "pinit-tf-state/prod/terraform.tfstate"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Conditional writes ensure only one execution holds the lock item.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "asha"
-                  },
-                  {
-                    "text": "pinit-tf-state/prod/terraform.tfstate"
-                  }
-                ],
-                "tone": "ok"
+              "LOCK": {
+                "var": "LOCK",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "ravi"
-                  },
-                  {
-                    "text": "pinit-tf-state/prod/terraform.tfstate"
-                  }
-                ],
-                "tone": "ok"
+              "lock_id": {
+                "var": "lock_id",
+                "line": 7,
+                "hit": 1
+              },
+              "who": {
+                "var": "who",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "lock_table": "ok",
+              "LOCK": "ok",
+              "lock_id": "ok",
+              "who": "ok"
+            },
+            "arrows": [
+              [
+                "lock_table",
+                "LOCK"
+              ],
+              [
+                "LOCK",
+                "lock_id"
+              ],
+              [
+                "lock_id",
+                "who"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "DynamoDB state lock concurrency control simulation",
-        "columns": [
-          "who",
-          "status"
+        "template": "flow",
+        "title": "Locking state",
+        "nodes": [
+          {
+            "id": "lock_table",
+            "label": "lock_table"
+          },
+          {
+            "id": "LOCK",
+            "label": "LOCK"
+          },
+          {
+            "id": "lock_id",
+            "label": "lock_id"
+          },
+          {
+            "id": "who",
+            "label": "who"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Concurrent runs risk corrupting state without locking protection.",
-            "rows": [
-              {
-                "cells": [
-                  "asha",
-                  "pinit-tf-state/prod/terraform.tfstate"
-                ],
-                "tone": "ok"
-              }
+            "caption": "What if two engineers run terraform apply at the same moment.",
+            "values": {
+              "lock_table": "{}",
+              "LOCK": "'pinit-tf-state/prod/terraform.tfstate'",
+              "lock_id": "'pinit-tf-state/prod/terraform.tfstate'",
+              "who": "'asha'"
+            },
+            "tones": {
+              "lock_table": "data",
+              "LOCK": "data",
+              "lock_id": "data",
+              "who": "data"
+            },
+            "arrows": [
+              [
+                "lock_table",
+                "LOCK"
+              ],
+              [
+                "LOCK",
+                "lock_id"
+              ],
+              [
+                "lock_id",
+                "who"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "State locking prevents concurrent runs from corrupting data.",
-            "rows": [
-              {
-                "cells": [
-                  "asha",
-                  "pinit-tf-state/prod/terraform.tfstate"
-                ],
-                "tone": "ok"
-              }
+            "caption": "State locking prevents this.",
+            "values": {
+              "lock_table": "{}",
+              "LOCK": "'pinit-tf-state/prod/terraform.tfstate'",
+              "lock_id": "'pinit-tf-state/prod/terraform.tfstate'",
+              "who": "'asha'"
+            },
+            "tones": {
+              "lock_table": "data",
+              "LOCK": "data",
+              "lock_id": "data",
+              "who": "data"
+            },
+            "arrows": [
+              [
+                "lock_table",
+                "LOCK"
+              ],
+              [
+                "LOCK",
+                "lock_id"
+              ],
+              [
+                "lock_id",
+                "who"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "DynamoDB tables lock state using dedicated LockID keys.",
-            "rows": [
-              {
-                "cells": [
-                  "asha",
-                  "pinit-tf-state/prod/terraform.tfstate"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ravi",
-                  "pinit-tf-state/prod/terraform.tfstate"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Conditional writes ensure only one execution holds the lock item.",
-            "rows": [
-              {
-                "cells": [
-                  "asha",
-                  "pinit-tf-state/prod/terraform.tfstate"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ravi",
-                  "pinit-tf-state/prod/terraform.tfstate"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "In CI pipelines, one pipeline per environment at a time is the usual rule.",
+            "values": {
+              "lock_table": "{}",
+              "LOCK": "'pinit-tf-state/prod/terraform.tfstate'",
+              "lock_id": "'pinit-tf-state/prod/terraform.tfstate'",
+              "who": "'asha'"
+            },
+            "tones": {
+              "lock_table": "ok",
+              "LOCK": "ok",
+              "lock_id": "ok",
+              "who": "ok"
+            },
+            "arrows": [
+              [
+                "lock_table",
+                "LOCK"
+              ],
+              [
+                "LOCK",
+                "lock_id"
+              ],
+              [
+                "lock_id",
+                "who"
+              ]
             ]
           }
         ]
@@ -747,223 +841,175 @@
       "partTitle": "Plan, apply and reading a plan",
       "codeHash": "16d03641203045e02b0bc3f76653b2fce06f42916dee2fee9d34cc0a84246c91",
       "spec": {
-        "template": "flow",
-        "title": "Plan, apply and reading a plan — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Plan, apply and rea...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Plan, apply and reading a plan",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Plan, apply and reading a plan [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Plan, apply and rea... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The core loop is.",
+            "bars": [
+              {
+                "label": "add",
+                "value": {
+                  "var": "add",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "change",
+                "value": {
+                  "var": "change",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "destroy",
+                "value": {
+                  "var": "destroy",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Always read the plan.",
+            "bars": [
+              {
+                "label": "add",
+                "value": {
+                  "var": "add",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "change",
+                "value": {
+                  "var": "change",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "destroy",
+                "value": {
+                  "var": "destroy",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Plan, apply and reading a plan.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example turns a plan into that summary line.",
+            "bars": [
+              {
+                "label": "add",
+                "value": {
+                  "var": "add",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "change",
+                "value": {
+                  "var": "change",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "destroy",
+                "value": {
+                  "var": "destroy",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Plan, apply and reading a plan — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Plan, apply and rea...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Plan, apply and reading a plan",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Plan, apply and reading a plan [D24.P5.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Plan, apply and rea... [D24.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The core loop is.",
+            "bars": [
+              {
+                "label": "add",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "change",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "destroy",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Always read the plan.",
+            "bars": [
+              {
+                "label": "add",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "change",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "destroy",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Plan, apply and reading a plan [D24.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example turns a plan into that summary line.",
+            "bars": [
+              {
+                "label": "add",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "change",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "destroy",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -974,110 +1020,127 @@
       "codeHash": "5780a8f9da8f720684faf06b657aebdb922151e4a7923fe1457e7e389385510d",
       "spec": {
         "template": "flow",
-        "title": "Practice time: addresses and plans — Execution Pipeline",
+        "title": "Practice time: addresses and plans",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "PROTECTED",
+            "label": "PROTECTED"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: addr...",
-            "tappable": true
+            "id": "replacements",
+            "label": "replacements"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "blocked",
+            "label": "blocked"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: addresses and plans.",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: addr... [D.Psix.Stwo].",
+            "caption": "Parse_tf_address(address).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "PROTECTED": {
+                "var": "PROTECTED",
+                "line": 1,
+                "hit": 1
+              },
+              "replacements": {
+                "var": "replacements",
+                "line": 2,
+                "hit": 1
+              },
+              "blocked": {
+                "var": "blocked",
+                "line": 3,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "PROTECTED": "data",
+              "replacements": "data",
+              "blocked": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "PROTECTED",
+                "replacements"
               ],
               [
-                "proc",
-                "out"
+                "replacements",
+                "blocked"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Test all three shapes.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "PROTECTED": {
+                "var": "PROTECTED",
+                "line": 2,
+                "hit": 1
+              },
+              "replacements": {
+                "var": "replacements",
+                "line": 3,
+                "hit": 1
+              },
+              "blocked": {
+                "var": "blocked",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "PROTECTED": "data",
+              "replacements": "data",
+              "blocked": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "PROTECTED",
+                "replacements"
+              ],
+              [
+                "replacements",
+                "blocked"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: addresses and plans.",
+            "at": "say7",
+            "caption": "The example shows a guard that blocks dangerous replacements.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "PROTECTED": {
+                "var": "PROTECTED",
+                "line": 3,
+                "hit": 1
+              },
+              "replacements": {
+                "var": "replacements",
+                "line": 3,
+                "hit": 2
+              },
+              "blocked": {
+                "var": "blocked",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "PROTECTED": "ok",
+              "replacements": "ok",
+              "blocked": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "PROTECTED",
+                "replacements"
               ],
               [
-                "proc",
-                "out"
+                "replacements",
+                "blocked"
               ]
             ]
           }
@@ -1085,110 +1148,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: addresses and plans — Execution Pipeline",
+        "title": "Practice time: addresses and plans",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "PROTECTED",
+            "label": "PROTECTED"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: addr...",
-            "tappable": true
+            "id": "replacements",
+            "label": "replacements"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "blocked",
+            "label": "blocked"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: addresses and plans [D24.P6.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: addr... [D24.P6.S2].",
+            "caption": "Parse_tf_address(address).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "PROTECTED": "['aws_db_instance', 'aws_s3_bucket', 'a…",
+              "replacements": "['aws_instance.web', 'aws_db_instance.m…",
+              "blocked": "['aws_db_instance.main']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "PROTECTED": "data",
+              "replacements": "data",
+              "blocked": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "PROTECTED",
+                "replacements"
               ],
               [
-                "proc",
-                "out"
+                "replacements",
+                "blocked"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P6.S3].",
+            "at": "say2",
+            "caption": "Test all three shapes.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "PROTECTED": "['aws_db_instance', 'aws_s3_bucket', 'a…",
+              "replacements": "['aws_instance.web', 'aws_db_instance.m…",
+              "blocked": "['aws_db_instance.main']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "PROTECTED": "data",
+              "replacements": "data",
+              "blocked": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "PROTECTED",
+                "replacements"
+              ],
+              [
+                "replacements",
+                "blocked"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: addresses and plans [D24.P6.S4].",
+            "at": "say7",
+            "caption": "The example shows a guard that blocks dangerous replacements.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "PROTECTED": "['aws_db_instance', 'aws_s3_bucket', 'a…",
+              "replacements": "['aws_instance.web', 'aws_db_instance.m…",
+              "blocked": "['aws_db_instance.main']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "PROTECTED": "ok",
+              "replacements": "ok",
+              "blocked": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "PROTECTED",
+                "replacements"
               ],
               [
-                "proc",
-                "out"
+                "replacements",
+                "blocked"
               ]
             ]
           }

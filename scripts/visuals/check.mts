@@ -6,6 +6,7 @@ export interface CheckResult {
   passed: boolean;
   pictureCount: number;
   noneCount: number;
+  totalEntries: number;
   errors: string[];
 }
 
@@ -56,10 +57,14 @@ export function checkDay(
     }
   }
 
+  // [FIX-STAGE: VisualCheck Entry Count] Report actual entry count rather than hardcoded /6.
+  const totalEntries = Array.isArray(parsed?.entries) ? parsed.entries.length : 0;
+
   return {
     passed: gateResult.passed,
     pictureCount,
     noneCount,
+    totalEntries,
     errors: gateResult.errors,
   };
 }
@@ -97,7 +102,7 @@ export async function main() {
     process.exit(1);
   }
 
-  console.log(`PASS ${result.pictureCount}/6 (none: ${result.noneCount})`);
+  console.log(`PASS ${result.pictureCount}/${result.totalEntries} (none: ${result.noneCount})`);
   process.exit(0);
 }
 

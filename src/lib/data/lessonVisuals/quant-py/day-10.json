@@ -2,256 +2,172 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 10,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why binary feeds",
       "codeHash": "5617aa68026d60cbfafaab07f98b881465628b93816b46a689fd36b37dc7995b",
       "spec": {
-        "template": "table",
-        "title": "Binary market data feeds and wire efficiency advantages",
-        "columns": [
-          "text",
-          "binary"
+        "template": "flow",
+        "title": "Why binary feeds",
+        "nodes": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "binary",
+            "label": "binary"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Exchanges publish high volume market data streams containing orders and trades.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "binary"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A busy exchange publishes millions of market data messages per second.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 3,
+                "hit": 1
+              },
+              "binary": {
+                "var": "binary",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "text": "data",
+              "binary": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "binary"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Fixed byte layouts eliminate string parsing overhead for incoming numbers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "binary"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Text formats waste space and time.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "struct"
-                  },
-                  {
-                    "text": "pack"
-                  }
-                ],
-                "tone": "ok"
+              "binary": {
+                "var": "binary",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "text": "data",
+              "binary": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "binary"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "TotalView ITCH organizes messages into deterministic field offsets.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "binary"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Smaller messages mean less network time and faster decoding, which.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "struct"
-                  },
-                  {
-                    "text": "pack"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "encode"
-                  },
-                  {
-                    "text": "hex"
-                  }
-                ],
-                "tone": "data"
+              "binary": {
+                "var": "binary",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example compares payload sizes between text formats and binary encodings.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "binary"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "struct"
-                  },
-                  {
-                    "text": "pack"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "encode"
-                  },
-                  {
-                    "text": "hex"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "print"
-                  },
-                  {
-                    "text": "len"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "text": "ok",
+              "binary": "ok"
+            },
+            "arrows": [
+              [
+                "text",
+                "binary"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Binary market data feeds and wire efficiency advantages",
-        "columns": [
-          "text",
-          "binary"
+        "template": "flow",
+        "title": "Why binary feeds",
+        "nodes": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "binary",
+            "label": "binary"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Exchanges publish high volume market data streams containing orders and trades.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "binary"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A busy exchange publishes millions of market data messages per second.",
+            "values": {
+              "text": "'A|ref=123456789|side=B|shares=250|stoc…",
+              "binary": "{'__other__': 'bytes'}"
+            },
+            "tones": {
+              "text": "data",
+              "binary": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "binary"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Fixed byte layouts eliminate string parsing overhead for incoming numbers.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "binary"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "struct",
-                  "pack"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Text formats waste space and time.",
+            "values": {
+              "text": "'A|ref=123456789|side=B|shares=250|stoc…",
+              "binary": "{'__other__': 'bytes'}"
+            },
+            "tones": {
+              "text": "data",
+              "binary": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "binary"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "TotalView ITCH organizes messages into deterministic field offsets.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "binary"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "struct",
-                  "pack"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "encode",
-                  "hex"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example compares payload sizes between text formats and binary encodings.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "binary"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "struct",
-                  "pack"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "encode",
-                  "hex"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "print",
-                  "len"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Smaller messages mean less network time and faster decoding, which.",
+            "values": {
+              "text": "'A|ref=123456789|side=B|shares=250|stoc…",
+              "binary": "{'__other__': 'bytes'}"
+            },
+            "tones": {
+              "text": "ok",
+              "binary": "ok"
+            },
+            "arrows": [
+              [
+                "text",
+                "binary"
+              ]
             ]
           }
         ]
@@ -261,249 +177,221 @@
       "partTitle": "Bytes, endianness and struct",
       "codeHash": "5cde5a20a3e892b5d3f9283ce344ae4833e431d6a444121176f77f48fdb35a03",
       "spec": {
-        "template": "table",
-        "title": "Multi-byte integer serialization and endianness conversion",
-        "columns": [
-          "big",
-          "little"
+        "template": "flow",
+        "title": "Bytes, endianness and struct",
+        "nodes": [
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": "big",
+            "label": "big"
+          },
+          {
+            "id": "little",
+            "label": "little"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Binary fields are raw bytes.",
+            "values": {
+              "n": {
+                "var": "n",
+                "line": 3,
+                "hit": 1
+              },
+              "big": {
+                "var": "big",
+                "line": 4,
+                "hit": 1
+              },
+              "little": {
+                "var": "little",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "n": "data",
+              "big": "data",
+              "little": "data"
+            },
+            "arrows": [
+              [
+                "n",
+                "big"
+              ],
+              [
+                "big",
+                "little"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Endianness defines byte significance order across multi byte integers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "big"
-                  },
-                  {
-                    "text": "little"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Endianness is the order of bytes in a multi-byte number.",
+            "values": {
+              "n": {
+                "var": "n",
+                "line": 4,
+                "hit": 1
+              },
+              "big": {
+                "var": "big",
+                "line": 5,
+                "hit": 1
+              },
+              "little": {
+                "var": "little",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "n": "data",
+              "big": "data",
+              "little": "data"
+            },
+            "arrows": [
+              [
+                "n",
+                "big"
+              ],
+              [
+                "big",
+                "little"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Protocols like ITCH mandate big endian ordering to prevent decoding errors.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "big"
-                  },
-                  {
-                    "text": "little"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Always check the specification for byte order before writing a decoder.",
+            "values": {
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "pack"
-                  },
-                  {
-                    "text": "unpack"
-                  }
-                ],
-                "tone": "ok"
+              "big": {
+                "var": "big",
+                "line": 6,
+                "hit": 1
+              },
+              "little": {
+                "var": "little",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Matching struct unpack format patterns ensures accurate numeric parsing.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "big"
-                  },
-                  {
-                    "text": "little"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "pack"
-                  },
-                  {
-                    "text": "unpack"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "struct"
-                  },
-                  {
-                    "text": "hex"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example demonstrates byte order packing across differing endian systems.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "big"
-                  },
-                  {
-                    "text": "little"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "pack"
-                  },
-                  {
-                    "text": "unpack"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "struct"
-                  },
-                  {
-                    "text": "hex"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "print"
-                  },
-                  {
-                    "text": "big"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "n": "ok",
+              "big": "ok",
+              "little": "ok"
+            },
+            "arrows": [
+              [
+                "n",
+                "big"
+              ],
+              [
+                "big",
+                "little"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Multi-byte integer serialization and endianness conversion",
-        "columns": [
-          "big",
-          "little"
+        "template": "flow",
+        "title": "Bytes, endianness and struct",
+        "nodes": [
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": "big",
+            "label": "big"
+          },
+          {
+            "id": "little",
+            "label": "little"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Binary fields are raw bytes.",
+            "values": {
+              "n": "15205000",
+              "big": "{'__other__': 'bytes'}",
+              "little": "{'__other__': 'bytes'}"
+            },
+            "tones": {
+              "n": "data",
+              "big": "data",
+              "little": "data"
+            },
+            "arrows": [
+              [
+                "n",
+                "big"
+              ],
+              [
+                "big",
+                "little"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Endianness defines byte significance order across multi byte integers.",
-            "rows": [
-              {
-                "cells": [
-                  "big",
-                  "little"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Endianness is the order of bytes in a multi-byte number.",
+            "values": {
+              "n": "15205000",
+              "big": "{'__other__': 'bytes'}",
+              "little": "{'__other__': 'bytes'}"
+            },
+            "tones": {
+              "n": "data",
+              "big": "data",
+              "little": "data"
+            },
+            "arrows": [
+              [
+                "n",
+                "big"
+              ],
+              [
+                "big",
+                "little"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Protocols like ITCH mandate big endian ordering to prevent decoding errors.",
-            "rows": [
-              {
-                "cells": [
-                  "big",
-                  "little"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pack",
-                  "unpack"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Matching struct unpack format patterns ensures accurate numeric parsing.",
-            "rows": [
-              {
-                "cells": [
-                  "big",
-                  "little"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pack",
-                  "unpack"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "struct",
-                  "hex"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example demonstrates byte order packing across differing endian systems.",
-            "rows": [
-              {
-                "cells": [
-                  "big",
-                  "little"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pack",
-                  "unpack"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "struct",
-                  "hex"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "print",
-                  "big"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Always check the specification for byte order before writing a decoder.",
+            "values": {
+              "n": "15205000",
+              "big": "{'__other__': 'bytes'}",
+              "little": "{'__other__': 'bytes'}"
+            },
+            "tones": {
+              "n": "ok",
+              "big": "ok",
+              "little": "ok"
+            },
+            "arrows": [
+              [
+                "n",
+                "big"
+              ],
+              [
+                "big",
+                "little"
+              ]
             ]
           }
         ]
@@ -513,143 +401,104 @@
       "partTitle": "Decoding an Add Order message",
       "codeHash": "9a0a8ee18e24f4251939ba26be50a9226f4e8ebd3f18861c3edefed317dce12f",
       "spec": {
-        "template": "table",
-        "title": "ITCH binary frame parsing and field extraction",
-        "columns": [
-          "shares",
-          "stock"
-        ],
+        "template": "bars",
+        "title": "Decoding an Add Order message",
         "steps": [
           {
             "at": "say1",
-            "caption": "Binary Add Order messages encapsulate reference, side, quantity, and price.",
-            "rows": [
+            "caption": "Trace how simplified updates itch during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "shares"
-                  },
-                  {
-                    "text": "stock"
-                  }
-                ],
-                "tone": "ok"
+                "label": "ref",
+                "value": {
+                  "var": "ref",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "shares",
+                "value": {
+                  "var": "shares",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The struct format unpacks fixed layout binary frames matching protocol schemas.",
-            "rows": [
+            "caption": "The matching struct format is \">cQcI8sI\", and struct.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "shares"
-                  },
-                  {
-                    "text": "stock"
-                  }
-                ],
+                "label": "ref",
+                "value": {
+                  "var": "ref",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "FORMAT"
-                  },
-                  {
-                    "text": "calcsize"
-                  }
-                ],
+                "label": "shares",
+                "value": {
+                  "var": "shares",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "String decoding strips padding spaces from fixed width stock ticker bytes.",
-            "rows": [
+            "at": "say7",
+            "caption": "Real ITCH messages have more fields (stock locate, tracking number.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "shares"
-                  },
-                  {
-                    "text": "stock"
-                  }
-                ],
+                "label": "ref",
+                "value": {
+                  "var": "ref",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "FORMAT"
-                  },
-                  {
-                    "text": "calcsize"
-                  }
-                ],
+                "label": "shares",
+                "value": {
+                  "var": "shares",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "kind"
-                  },
-                  {
-                    "text": "ref"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example builds a message with pack and decodes it back via unit testing.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "shares"
-                  },
-                  {
-                    "text": "stock"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "FORMAT"
-                  },
-                  {
-                    "text": "calcsize"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "kind"
-                  },
-                  {
-                    "text": "ref"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "price"
-                  }
-                ],
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -657,103 +506,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "ITCH binary frame parsing and field extraction",
-        "columns": [
-          "shares",
-          "stock"
-        ],
+        "template": "bars",
+        "title": "Decoding an Add Order message",
         "steps": [
           {
             "at": "say1",
-            "caption": "Binary Add Order messages encapsulate reference, side, quantity, and price.",
-            "rows": [
+            "caption": "Trace how simplified updates itch during execution.",
+            "bars": [
               {
-                "cells": [
-                  "shares",
-                  "stock"
-                ],
-                "tone": "ok"
+                "label": "ref",
+                "value": 987654321,
+                "tone": "data"
+              },
+              {
+                "label": "shares",
+                "value": 1200,
+                "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": 38001234,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The struct format unpacks fixed layout binary frames matching protocol schemas.",
-            "rows": [
+            "caption": "The matching struct format is \">cQcI8sI\", and struct.",
+            "bars": [
               {
-                "cells": [
-                  "shares",
-                  "stock"
-                ],
+                "label": "ref",
+                "value": 987654321,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "FORMAT",
-                  "calcsize"
-                ],
+                "label": "shares",
+                "value": 1200,
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": 38001234,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "String decoding strips padding spaces from fixed width stock ticker bytes.",
-            "rows": [
+            "at": "say7",
+            "caption": "Real ITCH messages have more fields (stock locate, tracking number.",
+            "bars": [
               {
-                "cells": [
-                  "shares",
-                  "stock"
-                ],
+                "label": "ref",
+                "value": 987654321,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "FORMAT",
-                  "calcsize"
-                ],
+                "label": "shares",
+                "value": 1200,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "kind",
-                  "ref"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example builds a message with pack and decodes it back via unit testing.",
-            "rows": [
-              {
-                "cells": [
-                  "shares",
-                  "stock"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "FORMAT",
-                  "calcsize"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "kind",
-                  "ref"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "side",
-                  "price"
-                ],
+                "label": "price",
+                "value": 38001234,
                 "tone": "ok"
               }
             ]
@@ -765,143 +579,77 @@
       "partTitle": "Fixed-point prices",
       "codeHash": "08b411d5a3a471313e017f7f8dc1eaab0f61b364639f94e7206ad918e4d10a47",
       "spec": {
-        "template": "table",
-        "title": "Fixed-point integer representation and floating point drift",
-        "columns": [
-          "total_float",
-          "total_fixed"
-        ],
+        "template": "bars",
+        "title": "Fixed-point prices",
         "steps": [
           {
             "at": "say1",
-            "caption": "Direct market data feeds send prices as integers with implied decimal places.",
-            "rows": [
+            "caption": "Feeds rarely send floating point prices.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "total_float"
-                  },
-                  {
-                    "text": "total_fixed"
-                  }
-                ],
-                "tone": "ok"
+                "label": "total_float",
+                "value": {
+                  "var": "total_float",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_fixed",
+                "value": {
+                  "var": "total_fixed",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Fixed point integers guarantee exact arithmetic without floating point errors.",
-            "rows": [
+            "caption": "Fixed-point integers are exact.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "total_float"
-                  },
-                  {
-                    "text": "total_fixed"
-                  }
-                ],
+                "label": "total_float",
+                "value": {
+                  "var": "total_float",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "total_fixed",
+                "value": {
+                  "var": "total_fixed",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Internal engine pipelines represent prices as integers to avoid binary drift.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "total_float"
-                  },
-                  {
-                    "text": "total_fixed"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "int"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
-                "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example shows floating point drift and how integers avoid errors.",
-            "rows": [
+            "caption": "The example shows floating point drift and how integers avoid it.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "total_float"
-                  },
-                  {
-                    "text": "total_fixed"
-                  }
-                ],
+                "label": "total_float",
+                "value": {
+                  "var": "total_float",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "int"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "total_fixed"
-                  },
-                  {
-                    "text": "total_float"
-                  }
-                ],
+                "label": "total_fixed",
+                "value": {
+                  "var": "total_fixed",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -909,103 +657,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Fixed-point integer representation and floating point drift",
-        "columns": [
-          "total_float",
-          "total_fixed"
-        ],
+        "template": "bars",
+        "title": "Fixed-point prices",
         "steps": [
           {
             "at": "say1",
-            "caption": "Direct market data feeds send prices as integers with implied decimal places.",
-            "rows": [
+            "caption": "Feeds rarely send floating point prices.",
+            "bars": [
               {
-                "cells": [
-                  "total_float",
-                  "total_fixed"
-                ],
-                "tone": "ok"
+                "label": "total_float",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "total_fixed",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Fixed point integers guarantee exact arithmetic without floating point errors.",
-            "rows": [
+            "caption": "Fixed-point integers are exact.",
+            "bars": [
               {
-                "cells": [
-                  "total_float",
-                  "total_fixed"
-                ],
+                "label": "total_float",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "range",
-                  "print"
-                ],
+                "label": "total_fixed",
+                "value": 0,
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Internal engine pipelines represent prices as integers to avoid binary drift.",
-            "rows": [
-              {
-                "cells": [
-                  "total_float",
-                  "total_fixed"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "range",
-                  "print"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "int",
-                  "sum"
-                ],
-                "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example shows floating point drift and how integers avoid errors.",
-            "rows": [
+            "caption": "The example shows floating point drift and how integers avoid it.",
+            "bars": [
               {
-                "cells": [
-                  "total_float",
-                  "total_fixed"
-                ],
+                "label": "total_float",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "range",
-                  "print"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "int",
-                  "sum"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "total_fixed",
-                  "total_float"
-                ],
+                "label": "total_fixed",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -1018,110 +716,161 @@
       "codeHash": "fb287a2aa5b052b81a51ac428a3a5d9de3666fbab69d8b2357fab28d1698fbf3",
       "spec": {
         "template": "flow",
-        "title": "Rebuilding the book from a feed — Execution Pipeline",
+        "title": "Rebuilding the book from a feed",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "orders",
+            "label": "orders"
           },
           {
-            "id": "proc",
-            "label": "2. Rebuilding the book...",
-            "tappable": true
+            "id": "events",
+            "label": "events"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "kind",
+            "label": "kind"
+          },
+          {
+            "id": "ref",
+            "label": "ref"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Rebuilding the book from a feed.",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Rebuilding the book... [Dten.Pfive.Stwo].",
+            "caption": "With an order-by-order feed, a receiver rebuilds the whole book.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "orders": {
+                "var": "orders",
+                "line": 1,
+                "hit": 1
+              },
+              "events": {
+                "var": "events",
+                "line": 2,
+                "hit": 1
+              },
+              "kind": {
+                "var": "kind",
+                "line": 4,
+                "hit": 1
+              },
+              "ref": {
+                "var": "ref",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "orders": "data",
+              "events": "data",
+              "kind": "data",
+              "ref": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "orders",
+                "events"
               ],
               [
-                "proc",
-                "out"
+                "events",
+                "kind"
+              ],
+              [
+                "kind",
+                "ref"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dten.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Each message refers to the order by its reference number, so the receiver.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "orders": {
+                "var": "orders",
+                "line": 2,
+                "hit": 1
+              },
+              "events": {
+                "var": "events",
+                "line": 4,
+                "hit": 1
+              },
+              "kind": {
+                "var": "kind",
+                "line": 5,
+                "hit": 1
+              },
+              "ref": {
+                "var": "ref",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "orders": "data",
+              "events": "data",
+              "kind": "data",
+              "ref": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "orders",
+                "events"
+              ],
+              [
+                "events",
+                "kind"
+              ],
+              [
+                "kind",
+                "ref"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Rebuilding the book from a feed.",
+            "at": "say7",
+            "caption": "Every trading strategy that reads the book depends on this rebuild being.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "orders": {
+                "var": "orders",
+                "line": 4,
+                "hit": 1
+              },
+              "events": {
+                "var": "events",
+                "line": 5,
+                "hit": 1
+              },
+              "kind": {
+                "var": "kind",
+                "line": 6,
+                "hit": 1
+              },
+              "ref": {
+                "var": "ref",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "orders": "ok",
+              "events": "ok",
+              "kind": "ok",
+              "ref": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "orders",
+                "events"
               ],
               [
-                "proc",
-                "out"
+                "events",
+                "kind"
+              ],
+              [
+                "kind",
+                "ref"
               ]
             ]
           }
@@ -1129,110 +878,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Rebuilding the book from a feed — Execution Pipeline",
+        "title": "Rebuilding the book from a feed",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "orders",
+            "label": "orders"
           },
           {
-            "id": "proc",
-            "label": "2. Rebuilding the book...",
-            "tappable": true
+            "id": "events",
+            "label": "events"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "kind",
+            "label": "kind"
+          },
+          {
+            "id": "ref",
+            "label": "ref"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Rebuilding the book from a feed [D10.P5.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Rebuilding the book... [D10.P5.S2].",
+            "caption": "With an order-by-order feed, a receiver rebuilds the whole book.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "orders": "{}",
+              "events": "[['A', 1, 'B', 100, 1520], ['A', 2, 'B'…",
+              "kind": "'A'",
+              "ref": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "orders": "data",
+              "events": "data",
+              "kind": "data",
+              "ref": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "orders",
+                "events"
               ],
               [
-                "proc",
-                "out"
+                "events",
+                "kind"
+              ],
+              [
+                "kind",
+                "ref"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P5.S3].",
+            "at": "say2",
+            "caption": "Each message refers to the order by its reference number, so the receiver.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "orders": "{}",
+              "events": "[['A', 1, 'B', 100, 1520], ['A', 2, 'B'…",
+              "kind": "'A'",
+              "ref": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "orders": "data",
+              "events": "data",
+              "kind": "data",
+              "ref": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "orders",
+                "events"
+              ],
+              [
+                "events",
+                "kind"
+              ],
+              [
+                "kind",
+                "ref"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Rebuilding the book from a feed [D10.P5.S4].",
+            "at": "say7",
+            "caption": "Every trading strategy that reads the book depends on this rebuild being.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "orders": "{}",
+              "events": "[['A', 1, 'B', 100, 1520], ['A', 2, 'B'…",
+              "kind": "'A'",
+              "ref": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "orders": "ok",
+              "events": "ok",
+              "kind": "ok",
+              "ref": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "orders",
+                "events"
               ],
               [
-                "proc",
-                "out"
+                "events",
+                "kind"
+              ],
+              [
+                "kind",
+                "ref"
               ]
             ]
           }
@@ -1243,224 +995,162 @@
       "partTitle": "Practice time: decode and convert",
       "codeHash": "42b35fe9abb98da476e237b18594d2b73d412d83f2d26474c82957c88e766b27",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: decode and convert — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: deco...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: decode and convert",
+        "actors": [
+          "FMT",
+          "original",
+          "d"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: decode and convert.",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: deco... [Dten.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Trace how practice updates check during execution.",
+            "activeActor": "FMT",
+            "messages": [
+              {
+                "from": "FMT",
+                "to": "original",
+                "label": {
+                  "var": "FMT",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "original",
+                "to": "d",
+                "label": {
+                  "var": "original",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dten.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks decode a buy and a sell message and expect ValueError for.",
+            "activeActor": "original",
+            "messages": [
+              {
+                "from": "FMT",
+                "to": "original",
+                "label": {
+                  "var": "FMT",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "original",
+                "to": "d",
+                "label": {
+                  "var": "original",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: decode and convert.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows that round-trip test style.",
+            "activeActor": "d",
+            "messages": [
+              {
+                "from": "FMT",
+                "to": "original",
+                "label": {
+                  "var": "FMT",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "original",
+                "to": "d",
+                "label": {
+                  "var": "original",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: decode and convert — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: deco...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: decode and convert",
+        "actors": [
+          "FMT",
+          "original",
+          "d"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: decode and convert [D10.P6.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: deco... [D10.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Trace how practice updates check during execution.",
+            "messages": [
+              {
+                "from": "FMT",
+                "to": "original",
+                "label": "'>cQcI8sI'",
+                "tone": "data"
+              },
+              {
+                "from": "original",
+                "to": "d",
+                "label": "{'ref': 42, 'side': 'SELL', 'shares': 7…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "FMT"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks decode a buy and a sell message and expect ValueError for.",
+            "messages": [
+              {
+                "from": "FMT",
+                "to": "original",
+                "label": "'>cQcI8sI'",
+                "tone": "data"
+              },
+              {
+                "from": "original",
+                "to": "d",
+                "label": "{'ref': 42, 'side': 'SELL', 'shares': 7…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "original"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: decode and convert [D10.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example shows that round-trip test style.",
+            "messages": [
+              {
+                "from": "FMT",
+                "to": "original",
+                "label": "'>cQcI8sI'",
+                "tone": "data"
+              },
+              {
+                "from": "original",
+                "to": "d",
+                "label": "{'ref': 42, 'side': 'SELL', 'shares': 7…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "d"
           }
         ]
       }

@@ -2,118 +2,135 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 19,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Primary and read replicas",
       "codeHash": "294697cfe40c1e3e1c0682ec927f01859078a936a69367e0b91d8aad15b5a192",
       "spec": {
         "template": "flow",
-        "title": "Primary and read replicas — Execution Pipeline",
+        "title": "Primary and read replicas",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "primary",
+            "label": "primary"
           },
           {
-            "id": "proc",
-            "label": "2. Primary and read re...",
-            "tappable": true
+            "id": "replicas",
+            "label": "replicas"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "r",
+            "label": "r"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Primary and read replicas [D.Pone.Sone].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Primary and read re... [D.Pone.Stwo].",
+            "caption": "In primary-replica (leader-follower) replication, all writes go to the primary.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "primary": {
+                "var": "primary",
+                "line": 1,
+                "hit": 1
+              },
+              "replicas": {
+                "var": "replicas",
+                "line": 2,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "primary": "data",
+              "replicas": "data",
+              "r": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "primary",
+                "replicas"
               ],
               [
-                "proc",
-                "out"
+                "replicas",
+                "r"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
+            "at": "say2",
+            "caption": "Replicas serve reads, so read capacity grows with the number of replicas.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "primary": {
+                "var": "primary",
+                "line": 2,
+                "hit": 1
+              },
+              "replicas": {
+                "var": "replicas",
+                "line": 4,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 8,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "primary": "data",
+              "replicas": "data",
+              "r": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "primary",
+                "replicas"
+              ],
+              [
+                "replicas",
+                "r"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Primary and read replicas [D.Pone.Sfour].",
+            "at": "say8",
+            "caption": "The example sends reads round-robin to replicas and writes to the primary.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "primary": {
+                "var": "primary",
+                "line": 4,
+                "hit": 1
+              },
+              "replicas": {
+                "var": "replicas",
+                "line": 5,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 7,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "primary": "ok",
+              "replicas": "ok",
+              "r": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "primary",
+                "replicas"
               ],
               [
-                "proc",
-                "out"
+                "replicas",
+                "r"
               ]
             ]
           }
@@ -121,110 +138,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Primary and read replicas — Execution Pipeline",
+        "title": "Primary and read replicas",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "primary",
+            "label": "primary"
           },
           {
-            "id": "proc",
-            "label": "2. Primary and read re...",
-            "tappable": true
+            "id": "replicas",
+            "label": "replicas"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "r",
+            "label": "r"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Primary and read replicas [D19.P1.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Primary and read re... [D19.P1.S2].",
+            "caption": "In primary-replica (leader-follower) replication, all writes go to the primary.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "primary": "{'price:sku-1': 499}",
+              "replicas": "[{'price:sku-1': 499}, {'price:sku-1': …",
+              "r": "{'price:sku-1': 499}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "primary": "data",
+              "replicas": "data",
+              "r": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "primary",
+                "replicas"
               ],
               [
-                "proc",
-                "out"
+                "replicas",
+                "r"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P1.S3].",
+            "at": "say2",
+            "caption": "Replicas serve reads, so read capacity grows with the number of replicas.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "primary": "{'price:sku-1': 499}",
+              "replicas": "[{'price:sku-1': 499}, {'price:sku-1': …",
+              "r": "{'price:sku-1': 449}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "primary": "data",
+              "replicas": "data",
+              "r": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "primary",
+                "replicas"
+              ],
+              [
+                "replicas",
+                "r"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Primary and read replicas [D19.P1.S4].",
+            "at": "say8",
+            "caption": "The example sends reads round-robin to replicas and writes to the primary.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "primary": "{'price:sku-1': 449}",
+              "replicas": "[{'price:sku-1': 499}, {'price:sku-1': …",
+              "r": "{'price:sku-1': 499}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "primary": "ok",
+              "replicas": "ok",
+              "r": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "primary",
+                "replicas"
               ],
               [
-                "proc",
-                "out"
+                "replicas",
+                "r"
               ]
             ]
           }
@@ -235,132 +233,72 @@
       "partTitle": "The read-your-own-writes problem",
       "codeHash": "1651a4abc1d34bc563461b478217804f6fbe8ca7289cb0bc2483c8c54d605788",
       "spec": {
-        "template": "compare",
-        "title": "Read your own writes session consistency versus stale replica read",
-        "leftLabel": "Primary Read-Your-Own-Writes",
-        "rightLabel": "Lagging Replica Read",
+        "template": "states",
+        "title": "The read-your-own-writes problem",
+        "states": [
+          {
+            "id": "primary",
+            "label": "primary"
+          },
+          {
+            "id": "replica",
+            "label": "replica"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "User updates profile photo then page reloads from a lagging replica.",
-            "left": {
-              "code": "primary holds latest write",
-              "result": {
-                "text": "new.jpg"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "replica holds stale data",
-              "result": {
-                "text": "old.jpg"
-              },
-              "tone": "error"
-            }
+            "caption": "A user updates their profile photo (a write to the primary), then the page.",
+            "currentState": "primary",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Read-your-own-writes guarantees a user always sees their own changes.",
-            "left": {
-              "code": "session pinned to primary",
-              "result": {
-                "text": "new.jpg"
-              },
-              "tone": "ok"
+            "caption": "Read-your-own-writes (RYW) consistency guarantees a user always sees their.",
+            "currentState": "replica",
+            "transition": {
+              "from": "primary",
+              "to": "replica",
+              "label": {
+                "var": "replica",
+                "line": 4,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "stale read confusing user",
-              "result": {
-                "text": "old.jpg"
-              },
-              "tone": "error"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "RYW is a session guarantee about user experience.",
-            "left": {
-              "code": "user reads updated photo",
-              "result": {
-                "text": "new.jpg"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "other users may see lag",
-              "result": {
-                "text": "old.jpg"
-              },
-              "tone": "idle"
-            }
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Read your own writes session consistency versus stale replica read",
-        "leftLabel": "Primary Read-Your-Own-Writes",
-        "rightLabel": "Lagging Replica Read",
+        "template": "states",
+        "title": "The read-your-own-writes problem",
+        "states": [
+          {
+            "id": "primary",
+            "label": "primary"
+          },
+          {
+            "id": "replica",
+            "label": "replica"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "User updates profile photo then page reloads from a lagging replica.",
-            "left": {
-              "code": "primary holds latest write",
-              "result": "new.jpg",
-              "tone": "ok",
-              "checks": [
-                "new.jpg"
-              ]
-            },
-            "right": {
-              "code": "replica holds stale data",
-              "result": "old.jpg",
-              "tone": "error",
-              "checks": [
-                "old.jpg"
-              ]
-            }
+            "caption": "A user updates their profile photo (a write to the primary), then the page.",
+            "currentState": "primary",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Read-your-own-writes guarantees a user always sees their own changes.",
-            "left": {
-              "code": "session pinned to primary",
-              "result": "new.jpg",
-              "tone": "ok",
-              "checks": [
-                "new.jpg"
-              ]
+            "caption": "Read-your-own-writes (RYW) consistency guarantees a user always sees their.",
+            "currentState": "replica",
+            "transition": {
+              "from": "primary",
+              "to": "replica",
+              "label": "{'photo:u1': 'old.jpg'}"
             },
-            "right": {
-              "code": "stale read confusing user",
-              "result": "old.jpg",
-              "tone": "error",
-              "checks": [
-                "old.jpg"
-              ]
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "RYW is a session guarantee about user experience.",
-            "left": {
-              "code": "user reads updated photo",
-              "result": "new.jpg",
-              "tone": "ok",
-              "checks": [
-                "new.jpg"
-              ]
-            },
-            "right": {
-              "code": "other users may see lag",
-              "result": "old.jpg",
-              "tone": "idle",
-              "checks": [
-                "old.jpg"
-              ]
-            }
+            "tone": "ok"
           }
         ]
       }
@@ -369,182 +307,105 @@
       "partTitle": "Routing queries by session",
       "codeHash": "444bfdede9d8d66712382aa3ec8384ed2a78a57fc293722280dd3270a6ec0778",
       "spec": {
-        "template": "table",
-        "title": "Session query routing directing recent writes to primary master",
-        "columns": [
-          "op",
-          "replicas"
-        ],
+        "template": "cells",
+        "title": "Routing queries by session",
         "steps": [
           {
             "at": "say1",
-            "caption": "Function route_query sends WRITE operations to MASTER.",
-            "rows": [
+            "caption": "Route_query(op, session, now, replicas).",
+            "items": {
+              "var": "replicas",
+              "line": 12,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "WRITE"
-                  },
-                  {
-                    "text": "MASTER"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Reads within five seconds of last write go to MASTER.",
-            "rows": [
+            "caption": "A READ within 5000 ms of the session's last write also goes to MASTER.",
+            "items": {
+              "var": "replicas",
+              "line": 9,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "WRITE"
-                  },
-                  {
-                    "text": "MASTER"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "READ"
-                  },
-                  {
-                    "text": "MASTER"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Other reads route round-robin across replicas.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example routes a sequence of operations for one session.",
+            "items": {
+              "var": "replicas",
+              "line": 5,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "WRITE"
-                  },
-                  {
-                    "text": "MASTER"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "READ"
-                  },
-                  {
-                    "text": "MASTER"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "READ"
-                  },
-                  {
-                    "text": "replica-1"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "READ"
-                  },
-                  {
-                    "text": "replica-2"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Session query routing directing recent writes to primary master",
-        "columns": [
-          "op",
-          "replicas"
-        ],
+        "template": "cells",
+        "title": "Routing queries by session",
         "steps": [
           {
             "at": "say1",
-            "caption": "Function route_query sends WRITE operations to MASTER.",
-            "rows": [
+            "caption": "Route_query(op, session, now, replicas).",
+            "items": [
+              "'replica-1'",
+              "'replica-2'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "WRITE",
-                  "MASTER"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Reads within five seconds of last write go to MASTER.",
-            "rows": [
+            "caption": "A READ within 5000 ms of the session's last write also goes to MASTER.",
+            "items": [
+              "'replica-1'",
+              "'replica-2'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "WRITE",
-                  "MASTER"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "READ",
-                  "MASTER"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Other reads route round-robin across replicas.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example routes a sequence of operations for one session.",
+            "items": [
+              "'replica-1'",
+              "'replica-2'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "WRITE",
-                  "MASTER"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "READ",
-                  "MASTER"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "READ",
-                  "replica-1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "READ",
-                  "replica-2"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -555,164 +416,105 @@
       "partTitle": "Measuring and alerting on lag",
       "codeHash": "ee0e873666df61f4e52b557f2788a069b09faffffc3e7187b6ab459a2977a90d",
       "spec": {
-        "template": "table",
-        "title": "Replication lag monitoring threshold check and pool eviction",
-        "columns": [
-          "lag_seconds",
-          "max_lag"
-        ],
+        "template": "cells",
+        "title": "Measuring and alerting on lag",
         "steps": [
           {
             "at": "say1",
-            "caption": "Replication lag is measured in seconds behind primary.",
-            "rows": [
+            "caption": "Lag is measured as time (seconds behind the primary) or as position (bytes.",
+            "items": {
+              "var": "healthy",
+              "line": 5,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "0.4"
-                  },
-                  {
-                    "text": "10"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Function lag_exceeded checks when lag is above max_lag.",
-            "rows": [
+            "caption": "Lag_exceeded(lag_seconds, max_lag) returns True when lag is above the limit.",
+            "items": {
+              "var": "healthy",
+              "line": 7,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "0.4"
-                  },
-                  {
-                    "text": "10"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "2.1"
-                  },
-                  {
-                    "text": "10"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Lagging replicas trigger alerts and are removed from pool.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example checks several replicas and removes the slow one from routing.",
+            "items": {
+              "var": "healthy",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "0.4"
-                  },
-                  {
-                    "text": "10"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "2.1"
-                  },
-                  {
-                    "text": "10"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "14.2"
-                  },
-                  {
-                    "text": "10"
-                  }
-                ],
-                "tone": "error"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Replication lag monitoring threshold check and pool eviction",
-        "columns": [
-          "lag_seconds",
-          "max_lag"
-        ],
+        "template": "cells",
+        "title": "Measuring and alerting on lag",
         "steps": [
           {
             "at": "say1",
-            "caption": "Replication lag is measured in seconds behind primary.",
-            "rows": [
+            "caption": "Lag is measured as time (seconds behind the primary) or as position (bytes.",
+            "items": [
+              "'replica-1'",
+              "'replica-3'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "0.4",
-                  "10"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Function lag_exceeded checks when lag is above max_lag.",
-            "rows": [
+            "caption": "Lag_exceeded(lag_seconds, max_lag) returns True when lag is above the limit.",
+            "items": [
+              "'replica-1'",
+              "'replica-3'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "0.4",
-                  "10"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "2.1",
-                  "10"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Lagging replicas trigger alerts and are removed from pool.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example checks several replicas and removes the slow one from routing.",
+            "items": [
+              "'replica-1'",
+              "'replica-3'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "0.4",
-                  "10"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "2.1",
-                  "10"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "14.2",
-                  "10"
-                ],
-                "tone": "error"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -723,166 +525,162 @@
       "partTitle": "Synchronous, asynchronous and semi-synchronous",
       "codeHash": "95228d2ca07c9350160bf73a937c73d0835ac4a7f8463ffbe54848d9d7d59bba",
       "spec": {
-        "template": "table",
-        "title": "Replication mode latency versus data loss trade-off comparison",
-        "columns": [
-          "mode",
-          "loss"
+        "template": "sequence",
+        "title": "Synchronous, asynchronous and semi-synchronous",
+        "actors": [
+          "replica_ack_ms",
+          "modes",
+          "mode"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Synchronous replication waits for replicas before acknowledging.",
-            "rows": [
+            "caption": "Synchronous replication waits for replicas to confirm before acknowledging.",
+            "activeActor": "replica_ack_ms",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "synchronous (all)"
-                  },
-                  {
-                    "text": "none"
-                  }
-                ],
+                "from": "replica_ack_ms",
+                "to": "modes",
+                "label": {
+                  "var": "replica_ack_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "modes",
+                "to": "mode",
+                "label": {
+                  "var": "modes",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Asynchronous replication acknowledges writes immediately.",
-            "rows": [
+            "caption": "Asynchronous replication acknowledges immediately.",
+            "activeActor": "modes",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "synchronous (all)"
-                  },
-                  {
-                    "text": "none"
-                  }
-                ],
-                "tone": "ok"
+                "from": "replica_ack_ms",
+                "to": "modes",
+                "label": {
+                  "var": "replica_ack_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "asynchronous"
-                  },
-                  {
-                    "text": "possible"
-                  }
-                ],
-                "tone": "error"
+                "from": "modes",
+                "to": "mode",
+                "label": {
+                  "var": "modes",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Semi-synchronous replication bounds data loss.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example compares write latency and potential data loss for the three modes.",
+            "activeActor": "mode",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "synchronous (all)"
-                  },
-                  {
-                    "text": "none"
-                  }
-                ],
+                "from": "replica_ack_ms",
+                "to": "modes",
+                "label": {
+                  "var": "replica_ack_ms",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "modes",
+                "to": "mode",
+                "label": {
+                  "var": "modes",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "asynchronous"
-                  },
-                  {
-                    "text": "possible"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "semi-synchronous (1)"
-                  },
-                  {
-                    "text": "small"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Replication mode latency versus data loss trade-off comparison",
-        "columns": [
-          "mode",
-          "loss"
+        "template": "sequence",
+        "title": "Synchronous, asynchronous and semi-synchronous",
+        "actors": [
+          "replica_ack_ms",
+          "modes",
+          "mode"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Synchronous replication waits for replicas before acknowledging.",
-            "rows": [
+            "caption": "Synchronous replication waits for replicas to confirm before acknowledging.",
+            "messages": [
               {
-                "cells": [
-                  "synchronous (all)",
-                  "none"
-                ],
+                "from": "replica_ack_ms",
+                "to": "modes",
+                "label": "[4, 6, 90]",
+                "tone": "data"
+              },
+              {
+                "from": "modes",
+                "to": "mode",
+                "label": "{'synchronous (all)': 90, 'semi-synchro…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "replica_ack_ms"
           },
           {
             "at": "say2",
-            "caption": "Asynchronous replication acknowledges writes immediately.",
-            "rows": [
+            "caption": "Asynchronous replication acknowledges immediately.",
+            "messages": [
               {
-                "cells": [
-                  "synchronous (all)",
-                  "none"
-                ],
-                "tone": "ok"
+                "from": "replica_ack_ms",
+                "to": "modes",
+                "label": "[4, 6, 90]",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "asynchronous",
-                  "possible"
-                ],
-                "tone": "error"
+                "from": "modes",
+                "to": "mode",
+                "label": "{'synchronous (all)': 90, 'semi-synchro…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "modes"
           },
           {
-            "at": "say3",
-            "caption": "Semi-synchronous replication bounds data loss.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example compares write latency and potential data loss for the three modes.",
+            "messages": [
               {
-                "cells": [
-                  "synchronous (all)",
-                  "none"
-                ],
+                "from": "replica_ack_ms",
+                "to": "modes",
+                "label": "[4, 6, 90]",
+                "tone": "data"
+              },
+              {
+                "from": "modes",
+                "to": "mode",
+                "label": "{'synchronous (all)': 90, 'semi-synchro…",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "asynchronous",
-                  "possible"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "semi-synchronous (1)",
-                  "small"
-                ],
-                "tone": "idle"
               }
-            ]
+            ],
+            "activeActor": "mode"
           }
         ]
       }
@@ -891,224 +689,162 @@
       "partTitle": "Other session guarantees",
       "codeHash": "32a0bce7b427dea2b7ea67a7fc3488a50f00daa67acc909bdce57de633b96b4a",
       "spec": {
-        "template": "flow",
-        "title": "Other session guarantees — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Other session guara...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Other session guarantees",
+        "actors": [
+          "replica_views",
+          "replica",
+          "user_replica"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Other session guarantees [D.Psix.Sone].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Other session guara... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A user never sees data go backwards in time.",
+            "activeActor": "replica_views",
+            "messages": [
+              {
+                "from": "replica_views",
+                "to": "replica",
+                "label": {
+                  "var": "replica_views",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "replica",
+                "to": "user_replica",
+                "label": {
+                  "var": "replica",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Sticky routing (sending each user to the same replica) gives monotonic.",
+            "activeActor": "replica",
+            "messages": [
+              {
+                "from": "replica_views",
+                "to": "replica",
+                "label": {
+                  "var": "replica_views",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "replica",
+                "to": "user_replica",
+                "label": {
+                  "var": "replica",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Other session guarantees [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "The example shows a read going backwards and how sticky routing prevents it.",
+            "activeActor": "user_replica",
+            "messages": [
+              {
+                "from": "replica_views",
+                "to": "replica",
+                "label": {
+                  "var": "replica_views",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "replica",
+                "to": "user_replica",
+                "label": {
+                  "var": "replica",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Other session guarantees — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Other session guara...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Other session guarantees",
+        "actors": [
+          "replica_views",
+          "replica",
+          "user_replica"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Other session guarantees [D19.P6.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Other session guara... [D19.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A user never sees data go backwards in time.",
+            "messages": [
+              {
+                "from": "replica_views",
+                "to": "replica",
+                "label": "{'fresh': ['post', 'comment-1', 'commen…",
+                "tone": "data"
+              },
+              {
+                "from": "replica",
+                "to": "user_replica",
+                "label": "'fresh'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "replica_views"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Sticky routing (sending each user to the same replica) gives monotonic.",
+            "messages": [
+              {
+                "from": "replica_views",
+                "to": "replica",
+                "label": "{'fresh': ['post', 'comment-1', 'commen…",
+                "tone": "data"
+              },
+              {
+                "from": "replica",
+                "to": "user_replica",
+                "label": "'lagging'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "replica"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Other session guarantees [D19.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "The example shows a read going backwards and how sticky routing prevents it.",
+            "messages": [
+              {
+                "from": "replica_views",
+                "to": "replica",
+                "label": "{'fresh': ['post', 'comment-1', 'commen…",
+                "tone": "data"
+              },
+              {
+                "from": "replica",
+                "to": "user_replica",
+                "label": "'fresh'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "user_replica"
           }
         ]
       }

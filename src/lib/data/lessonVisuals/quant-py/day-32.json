@@ -2,270 +2,284 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 32,
-  "promptSha": "d71ebd1a198c1004807e65a2cce9a314f31db9966de2d6886b9e096ab3cfd4ec",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxicity Scoring — Foundations & Mathematical Invariants",
-      "codeHash": "1f46f1fbaa40306dc6a59952ca377a82cc6ad7a7f2ea2c8ecfb922cff108a2d8",
+      "codeHash": "f12ef88478828ef4a8e0d34f1c097ab90bc93500740cc89c425b707fc19667ee",
       "spec": {
         "template": "flow",
-        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxicity Sco",
+        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxici",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cov_price_orderflow",
+            "label": "cov_price_orderflow"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "var_orderflow",
+            "label": "var_orderflow"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "lambda_val",
+            "label": "lambda_val"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "lambda_liquid",
+            "label": "lambda_liquid"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Whenever a market participant executes a market order to buy or sell,.",
+            "values": {
+              "cov_price_orderflow": {
+                "var": "cov_price_orderflow",
+                "line": 4,
+                "hit": 1
+              },
+              "var_orderflow": {
+                "var": "var_orderflow",
+                "line": 4,
+                "hit": 1
+              },
+              "lambda_val": {
+                "var": "lambda_val",
+                "line": 7,
+                "hit": 1
+              },
+              "lambda_liquid": {
+                "var": "lambda_liquid",
+                "line": 16,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "cov_price_orderflow": "data",
+              "var_orderflow": "data",
+              "lambda_val": "data",
+              "lambda_liquid": "data"
+            },
+            "arrows": [
+              [
+                "cov_price_orderflow",
+                "var_orderflow"
+              ],
+              [
+                "var_orderflow",
+                "lambda_val"
+              ],
+              [
+                "lambda_val",
+                "lambda_liquid"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "A single informed trader with private information, noise traders who trade.",
+            "values": {
+              "cov_price_orderflow": {
+                "var": "cov_price_orderflow",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "var_orderflow": {
+                "var": "var_orderflow",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "lambda_val": {
+                "var": "lambda_val",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "lambda_liquid": {
+                "var": "lambda_liquid",
+                "line": 17,
+                "hit": 1
               }
+            },
+            "tones": {
+              "cov_price_orderflow": "data",
+              "var_orderflow": "data",
+              "lambda_val": "data",
+              "lambda_liquid": "data"
+            },
+            "arrows": [
+              [
+                "cov_price_orderflow",
+                "var_orderflow"
+              ],
+              [
+                "var_orderflow",
+                "lambda_val"
+              ],
+              [
+                "lambda_val",
+                "lambda_liquid"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Kyle's lambda regression quantifies adverse selection by measuring.",
+            "values": {
+              "cov_price_orderflow": {
+                "var": "cov_price_orderflow",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "var_orderflow": {
+                "var": "var_orderflow",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "lambda_val": {
+                "var": "lambda_val",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "lambda_liquid": {
+                "var": "lambda_liquid",
+                "line": 19,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "cov_price_orderflow": "ok",
+              "var_orderflow": "ok",
+              "lambda_val": "ok",
+              "lambda_liquid": "ok"
+            },
+            "arrows": [
+              [
+                "cov_price_orderflow",
+                "var_orderflow"
+              ],
+              [
+                "var_orderflow",
+                "lambda_val"
+              ],
+              [
+                "lambda_val",
+                "lambda_liquid"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxicity Sco",
+        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxici",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cov_price_orderflow",
+            "label": "cov_price_orderflow"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "var_orderflow",
+            "label": "var_orderflow"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "lambda_val",
+            "label": "lambda_val"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "lambda_liquid",
+            "label": "lambda_liquid"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Whenever a market participant executes a market order to buy or sell,.",
+            "values": {
+              "cov_price_orderflow": "15",
+              "var_orderflow": "500000",
+              "lambda_val": "0.00003",
+              "lambda_liquid": "0.00003"
+            },
+            "tones": {
+              "cov_price_orderflow": "data",
+              "var_orderflow": "data",
+              "lambda_val": "data",
+              "lambda_liquid": "data"
+            },
+            "arrows": [
+              [
+                "cov_price_orderflow",
+                "var_orderflow"
+              ],
+              [
+                "var_orderflow",
+                "lambda_val"
+              ],
+              [
+                "lambda_val",
+                "lambda_liquid"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "A single informed trader with private information, noise traders who trade.",
+            "values": {
+              "cov_price_orderflow": "15",
+              "var_orderflow": "500000",
+              "lambda_val": "0.00003",
+              "lambda_liquid": "0.00003"
+            },
+            "tones": {
+              "cov_price_orderflow": "data",
+              "var_orderflow": "data",
+              "lambda_val": "data",
+              "lambda_liquid": "data"
+            },
+            "arrows": [
+              [
+                "cov_price_orderflow",
+                "var_orderflow"
+              ],
+              [
+                "var_orderflow",
+                "lambda_val"
+              ],
+              [
+                "lambda_val",
+                "lambda_liquid"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Kyle's lambda regression quantifies adverse selection by measuring.",
+            "values": {
+              "cov_price_orderflow": "15",
+              "var_orderflow": "500000",
+              "lambda_val": "0.0009",
+              "lambda_liquid": "0.00003"
+            },
+            "tones": {
+              "cov_price_orderflow": "ok",
+              "var_orderflow": "ok",
+              "lambda_val": "ok",
+              "lambda_liquid": "ok"
+            },
+            "arrows": [
+              [
+                "cov_price_orderflow",
+                "var_orderflow"
+              ],
+              [
+                "var_orderflow",
+                "lambda_val"
+              ],
+              [
+                "lambda_val",
+                "lambda_liquid"
+              ]
             ]
           }
         ]
@@ -273,530 +287,382 @@
     },
     {
       "partTitle": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxicity Scoring — Core Algorithm & State Representation",
-      "codeHash": "0a59c1e9df3afa2f4e48d3be813d89b456ef94e0f4c6fe93fb94636b7735504c",
+      "codeHash": "e856c9a5738e65e5c1a0faf5cd5c3f36f0c212613b25234bbac09409d14c9987",
       "spec": {
-        "template": "flow",
-        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxicity Sco",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxici",
+        "actors": [
+          "order_size",
+          "adv_volume",
+          "daily_volatility"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Price impact is not a monolithic phenomenon.",
+            "activeActor": "order_size",
+            "messages": [
+              {
+                "from": "order_size",
+                "to": "adv_volume",
+                "label": {
+                  "var": "order_size",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "adv_volume",
+                "to": "daily_volatility",
+                "label": {
+                  "var": "adv_volume",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Permanent Price Impact ($I_{perm}$) reflects the fundamental information.",
+            "activeActor": "adv_volume",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "order_size",
+                "to": "adv_volume",
+                "label": {
+                  "var": "order_size",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "adv_volume",
+                "to": "daily_volatility",
+                "label": {
+                  "var": "adv_volume",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Decomposing order flow into permanent information-driven impact.",
+            "activeActor": "daily_volatility",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "order_size",
+                "to": "adv_volume",
+                "label": {
+                  "var": "order_size",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "adv_volume",
+                "to": "daily_volatility",
+                "label": {
+                  "var": "adv_volume",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxicity Sco",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxici",
+        "actors": [
+          "order_size",
+          "adv_volume",
+          "daily_volatility"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Price impact is not a monolithic phenomenon.",
+            "messages": [
+              {
+                "from": "order_size",
+                "to": "adv_volume",
+                "label": "50000",
+                "tone": "data"
+              },
+              {
+                "from": "adv_volume",
+                "to": "daily_volatility",
+                "label": "2000000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "order_size"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Permanent Price Impact ($I_{perm}$) reflects the fundamental information.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "order_size",
+                "to": "adv_volume",
+                "label": "50000",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "adv_volume",
+                "to": "daily_volatility",
+                "label": "2000000",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "adv_volume"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Decomposing order flow into permanent information-driven impact.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "order_size",
+                "to": "adv_volume",
+                "label": "50000",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "adv_volume",
+                "to": "daily_volatility",
+                "label": "2000000",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "daily_volatility"
           }
         ]
       }
     },
     {
       "partTitle": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxicity Scoring — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "04f59cf21c36a747d0be0562c288525537ee572e4f25f71ecdad0e3a882fcb9c",
+      "codeHash": "0b7a17b0a1b57a297224c04eb8e5f73518244ce81725dab0e9bf4e2987a9ce9c",
       "spec": {
-        "template": "flow",
-        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxicity Sco",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxici",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Estimating price impact parameters in real time requires online streaming.",
+            "bars": [
+              {
+                "label": "forgetting_fac",
+                "value": {
+                  "var": "forgetting_factor",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "dp",
+                "value": {
+                  "var": "dp",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "signed_volume",
+                "value": {
+                  "var": "signed_volume",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Standard Ordinary Least Squares (OLS) batch regression requires.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "forgetting_fac",
+                "value": {
+                  "var": "forgetting_factor",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "dp",
+                "value": {
+                  "var": "dp",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "signed_volume",
+                "value": {
+                  "var": "signed_volume",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "High-frequency trading desks calibrate Kyle's lambda using tick-level.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "forgetting_fac",
+                "value": {
+                  "var": "forgetting_factor",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "dp",
+                "value": {
+                  "var": "dp",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "signed_volume",
+                "value": {
+                  "var": "signed_volume",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxicity Sco",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxici",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Estimating price impact parameters in real time requires online streaming.",
+            "bars": [
+              {
+                "label": "forgetting_fac",
+                "value": 0.95,
+                "tone": "data"
+              },
+              {
+                "label": "q",
+                "value": 1000,
+                "tone": "data"
+              },
+              {
+                "label": "dp",
+                "value": 0.05,
+                "tone": "data"
+              },
+              {
+                "label": "signed_volume",
+                "value": 1000,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Standard Ordinary Least Squares (OLS) batch regression requires.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "forgetting_fac",
+                "value": 0.95,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "q",
+                "value": 1000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "dp",
+                "value": 0.05,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "signed_volume",
+                "value": 1000,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "High-frequency trading desks calibrate Kyle's lambda using tick-level.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "forgetting_fac",
+                "value": 0.95,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "q",
+                "value": 1000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "dp",
+                "value": 0.05,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "signed_volume",
+                "value": 1000,
+                "tone": "ok"
               }
             ]
           }
@@ -805,264 +671,218 @@
     },
     {
       "partTitle": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxicity Scoring — Resilience Guardrails & Failure Recovery",
-      "codeHash": "c1cdc4339e1e1c96fe26237eb8bd0ee7ae7d57200645b26cb75f18cc23ec1107",
+      "codeHash": "a7a0ef5ee6fb38dbcf56b412bbaed8d55e89ab9ac24d73c547c42b6a7631a577",
       "spec": {
-        "template": "flow",
-        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxicity Sco",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxici",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Failing to account for adverse selection and price impact leads to severe.",
+            "bars": [
+              {
+                "label": "target_qty",
+                "value": {
+                  "var": "target_qty",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "current_adv",
+                "value": {
+                  "var": "current_adv",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "lambda_est",
+                "value": {
+                  "var": "lambda_est",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "max_impact_bps",
+                "value": {
+                  "var": "max_impact_bps",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how institutional updates fund during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "target_qty",
+                "value": {
+                  "var": "target_qty",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "current_adv",
+                "value": {
+                  "var": "current_adv",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "lambda_est",
+                "value": {
+                  "var": "lambda_est",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "max_impact_bps",
+                "value": {
+                  "var": "max_impact_bps",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "When adverse selection toxicity scores exceed statistical tolerance bands.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "target_qty",
+                "value": {
+                  "var": "target_qty",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "current_adv",
+                "value": {
+                  "var": "current_adv",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "lambda_est",
+                "value": {
+                  "var": "lambda_est",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "max_impact_bps",
+                "value": {
+                  "var": "max_impact_bps",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxicity Sco",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxici",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Failing to account for adverse selection and price impact leads to severe.",
+            "bars": [
+              {
+                "label": "target_qty",
+                "value": 2000,
+                "tone": "data"
+              },
+              {
+                "label": "current_adv",
+                "value": 500000,
+                "tone": "data"
+              },
+              {
+                "label": "lambda_est",
+                "value": 0.00005,
+                "tone": "data"
+              },
+              {
+                "label": "max_impact_bps",
+                "value": 15,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how institutional updates fund during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "target_qty",
+                "value": 2000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "current_adv",
+                "value": 500000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "lambda_est",
+                "value": 0.00005,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "max_impact_bps",
+                "value": 15,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "When adverse selection toxicity scores exceed statistical tolerance bands.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "target_qty",
+                "value": 2000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "current_adv",
+                "value": 500000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "lambda_est",
+                "value": 0.00005,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "max_impact_bps",
+                "value": 15,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,264 +891,218 @@
     },
     {
       "partTitle": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxicity Scoring — Production Telemetry & Verification Audit",
-      "codeHash": "85779d38faf364a8bb8f703a95749201797c7bf147ce01706ac0f4a2507ce6ff",
+      "codeHash": "14f5b3aa523bb89da000064130e6ba383d7d70beb5137a51afd2205bfc1309e0",
       "spec": {
-        "template": "flow",
-        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxicity Sco",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxici",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating institutional execution algorithms requires real-time telemetry.",
+            "bars": [
+              {
+                "label": "arrival_price",
+                "value": {
+                  "var": "arrival_price",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "avg_exec_price",
+                "value": {
+                  "var": "avg_exec_price",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "predicted_impa",
+                "value": {
+                  "var": "predicted_impact_bps",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "side_mult",
+                "value": {
+                  "var": "side_mult",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Post-trade Transaction Cost Analysis (TCA) compares actual execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "arrival_price",
+                "value": {
+                  "var": "arrival_price",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "avg_exec_price",
+                "value": {
+                  "var": "avg_exec_price",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "predicted_impa",
+                "value": {
+                  "var": "predicted_impact_bps",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "side_mult",
+                "value": {
+                  "var": "side_mult",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Quantitative surveillance monitors lambda stability across varying times.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "arrival_price",
+                "value": {
+                  "var": "arrival_price",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "avg_exec_price",
+                "value": {
+                  "var": "avg_exec_price",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "predicted_impa",
+                "value": {
+                  "var": "predicted_impact_bps",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "side_mult",
+                "value": {
+                  "var": "side_mult",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxicity Sco",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Kyle's Lambda Price Impact Regression & Adverse Selection Toxici",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating institutional execution algorithms requires real-time telemetry.",
+            "bars": [
+              {
+                "label": "arrival_price",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "avg_exec_price",
+                "value": 100.08,
+                "tone": "data"
+              },
+              {
+                "label": "predicted_impa",
+                "value": 9.5,
+                "tone": "data"
+              },
+              {
+                "label": "side_mult",
+                "value": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Post-trade Transaction Cost Analysis (TCA) compares actual execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "arrival_price",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "avg_exec_price",
+                "value": 100.08,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "predicted_impa",
+                "value": 9.5,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "side_mult",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Quantitative surveillance monitors lambda stability across varying times.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "arrival_price",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "avg_exec_price",
+                "value": 100.08,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "predicted_impa",
+                "value": 9.5,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "side_mult",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           }

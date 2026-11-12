@@ -105,7 +105,7 @@ describe('Quests Lesson Page and Teacher SSR Suite (Block 53 / TASK-341)', () =>
     assert.ok(fallbackHtml.includes('Tutor'));
   });
 
-  test('LessonNavigationBar renders slide controls, docked teacher frame, and completion triggers', () => {
+  test('LessonNavigationBar renders slide controls, topic pill, and completion triggers without 2D avatar dock', () => {
     const teacher = resolveTeacher('karthic');
 
     // Slide 1 of 5
@@ -132,8 +132,8 @@ describe('Quests Lesson Page and Teacher SSR Suite (Block 53 / TASK-341)', () =>
     assert.ok(midSlideHtml.includes('data-testid="btn-prev-slide"'));
     assert.ok(midSlideHtml.includes('data-testid="btn-qa-toggle"'));
     assert.ok(midSlideHtml.includes('data-testid="btn-next-slide"'));
-    assert.ok(midSlideHtml.includes('data-testid="teacher-avatar-dock"'));
-    assert.ok(midSlideHtml.includes('Karthic Sir &quot;Nega&quot;'));
+    assert.ok(!midSlideHtml.includes('data-testid="teacher-avatar-dock"'));
+    assert.ok(midSlideHtml.includes('data-testid="classroom-topic-pill"'));
     assert.ok(midSlideHtml.includes('data-testid="lesson-check-progress-pill"'));
 
     // Last slide when exam is passed

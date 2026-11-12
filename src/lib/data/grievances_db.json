@@ -1,6 +1,33 @@
 {
   "grievances": [
     {
+      "id": "GRV-654",
+      "studentId": "alice_1794464189545",
+      "reporterId": "alice_1794464189545",
+      "reporterType": "Anonymous Whistleblower",
+      "reporterName": "Anonymous Candidate",
+      "category": "Faculty",
+      "title": "Anonymous Whistleblower Note",
+      "description": "Unfair grading in lab session.",
+      "anonymous": true,
+      "status": "Pending",
+      "filedOn": "2026-11-12T06:16:29.550Z",
+      "receiptToken": "TRK-3M6A8SU7"
+    },
+    {
+      "id": "GRV-106",
+      "studentId": "alice_1794464189545",
+      "reporterId": "alice_1794464189545",
+      "reporterType": "student",
+      "reporterName": "Alice Wonderland",
+      "category": "Hostel",
+      "title": "Room Water Leakage",
+      "description": "Tap in room 204 is leaking heavily.",
+      "anonymous": false,
+      "status": "Pending",
+      "filedOn": "2026-11-12T06:16:29.547Z"
+    },
+    {
       "id": "GRV-280",
       "studentId": "alice_1789725878785",
       "reporterId": "alice_1789725878785",

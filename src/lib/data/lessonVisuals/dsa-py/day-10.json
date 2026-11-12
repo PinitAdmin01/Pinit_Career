@@ -2,87 +2,127 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 10,
-  "promptSha": "475587644d5046b76b1a3587d83e51905f9ded8e4c5a366d6abaccf26b2251e5",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Binary search on a sorted list",
       "codeHash": "784c90f1f5fab025631b8d87e633617fa213f641d517dca38188916c17a8cf20",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Binary search on a sorted list",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The halving concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Binary search uses this to find a value in a sorted list in O(log N).",
+            "items": {
+              "var": "nums",
+              "line": 13,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Binary"
-                  },
-                  {
-                    "text": "search"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The repeat logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Keep left and right bounds.",
+            "items": {
+              "var": "nums",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "sorted"
-                  },
-                  {
-                    "text": "list"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Computing the midpoint with low + (high - low) // 2 is a crucial defensive.",
+            "items": {
+              "var": "nums",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Binary search on a sorted list",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The halving concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Binary search uses this to find a value in a sorted list in O(log N).",
+            "items": [
+              "3",
+              "8",
+              "15",
+              "21",
+              "42",
+              "57",
+              "66"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Binary",
-                  "search"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The repeat logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Keep left and right bounds.",
+            "items": [
+              "3",
+              "8",
+              "15",
+              "21",
+              "42",
+              "57",
+              "66"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "sorted",
-                  "list"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Computing the midpoint with low + (high - low) // 2 is a crucial defensive.",
+            "items": [
+              "3",
+              "8",
+              "15",
+              "21",
+              "42",
+              "57",
+              "66"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,80 +133,111 @@
       "partTitle": "The off-by-one traps",
       "codeHash": "0664745f317e569ecebb5c00505c8a1e5f16b6ebd9ac2d14aa2d5200b80ea8cd",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "The off-by-one traps",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The binary concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Binary search is short but famous for small mistakes.",
+            "items": {
+              "var": "nums",
+              "line": 13,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "The"
-                  },
-                  {
-                    "text": "off"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The loop logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "With right = len(nums) - 1, use while left <= right and move to mid + 1.",
+            "items": {
+              "var": "nums",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "one"
-                  },
-                  {
-                    "text": "traps"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Python's bisect module does this for you.",
+            "items": {
+              "var": "nums",
+              "line": 5,
+              "hit": 3
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "The off-by-one traps",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The binary concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Binary search is short but famous for small mistakes.",
+            "items": [
+              "10",
+              "20",
+              "30",
+              "40"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "The",
-                  "off"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The loop logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "With right = len(nums) - 1, use while left <= right and move to mid + 1.",
+            "items": [
+              "10",
+              "20",
+              "30",
+              "40"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "one",
-                  "traps"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Python's bisect module does this for you.",
+            "items": [
+              "10",
+              "20",
+              "30",
+              "40"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,82 +248,91 @@
       "partTitle": "Searching a rotated sorted list",
       "codeHash": "120017a66f92aef7ee954af337912165825d2a58d2149a3508c0e2f1c30b93c3",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Searching a rotated sorted list",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Searching"
-                  },
-                  {
-                    "text": "rotated"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Practice 1 gives a sorted list that has been rotated, like [4, 5, 6, 7, 0.",
+            "items": {
+              "var": "nums",
+              "line": 19,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The check logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sorted"
-                  },
-                  {
-                    "text": "list"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "At any middle point, at least one half is properly sorted.",
+            "items": {
+              "var": "nums",
+              "line": 2,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "In a rotated sorted array, the inflection point partitions the list.",
+            "items": {
+              "var": "nums",
+              "line": 7,
+              "hit": 2
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Searching a rotated sorted list",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Searching",
-                  "rotated"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Practice 1 gives a sorted list that has been rotated, like [4, 5, 6, 7, 0.",
+            "mode": "stack",
+            "items": [
+              "4",
+              "5",
+              "6",
+              "7",
+              "0",
+              "1",
+              "2"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The check logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "sorted",
-                  "list"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "At any middle point, at least one half is properly sorted.",
+            "mode": "stack",
+            "items": [
+              "4",
+              "5",
+              "6",
+              "7",
+              "0",
+              "1",
+              "2"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "In a rotated sorted array, the inflection point partitions the list.",
+            "mode": "stack",
+            "items": [
+              "4",
+              "5",
+              "6",
+              "7",
+              "0",
+              "1",
+              "2"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -261,82 +341,91 @@
       "partTitle": "Finding the smallest in a rotated list",
       "codeHash": "42192af75f2430c3543fd95caeea89a15d2a8855899deaa260307e4ed138b894",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Finding the smallest in a rotated list",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Finding"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Practice 2 asks for the smallest number in a rotated sorted list.",
+            "items": {
+              "var": "nums",
+              "line": 2,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The left logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "smallest"
-                  },
-                  {
-                    "text": "rotated"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Compare the middle with the right end.",
+            "items": {
+              "var": "nums",
+              "line": 3,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say4",
+            "caption": "This is a different style of binary search from part 1.",
+            "items": {
+              "var": "nums",
+              "line": 5,
+              "hit": 3
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Finding the smallest in a rotated list",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Finding",
-                  "the"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Practice 2 asks for the smallest number in a rotated sorted list.",
+            "mode": "queue",
+            "items": [
+              "4",
+              "5",
+              "6",
+              "7",
+              "0",
+              "1",
+              "2"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The left logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "smallest",
-                  "rotated"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Compare the middle with the right end.",
+            "mode": "queue",
+            "items": [
+              "4",
+              "5",
+              "6",
+              "7",
+              "0",
+              "1",
+              "2"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say4",
+            "caption": "This is a different style of binary search from part 1.",
+            "mode": "queue",
+            "items": [
+              "4",
+              "5",
+              "6",
+              "7",
+              "0",
+              "1",
+              "2"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -345,80 +434,111 @@
       "partTitle": "Binary search on the answer",
       "codeHash": "08f7fa6d987124e26578e7729bfd0a8b148dcd9d4b6a9e3b933c08b54c898d6b",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Binary search on the answer",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The binary concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Binary search is not only for lists.",
+            "items": {
+              "var": "piles",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Binary"
-                  },
-                  {
-                    "text": "search"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The write logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The slowest eating speed to finish all banana piles within h hours.",
+            "items": {
+              "var": "piles",
+              "line": 8,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "the"
-                  },
-                  {
-                    "text": "answer"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "This idea, searching over possible answers with a yes/no test, solves.",
+            "items": {
+              "var": "piles",
+              "line": 9,
+              "hit": 3
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Binary search on the answer",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The binary concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Binary search is not only for lists.",
+            "items": [
+              "3",
+              "6",
+              "7",
+              "11"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Binary",
-                  "search"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The write logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The slowest eating speed to finish all banana piles within h hours.",
+            "items": [
+              "3",
+              "6",
+              "7",
+              "11"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "the",
-                  "answer"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "This idea, searching over possible answers with a yes/no test, solves.",
+            "items": [
+              "3",
+              "6",
+              "7",
+              "11"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -429,80 +549,114 @@
       "partTitle": "Binary search in real life",
       "codeHash": "71bf033007615e6baac62af0cf4341a386491161c6cb24a23678dae4d858ee41",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Binary search in real life",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The binary concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Binary search is inside many tools you use.",
+            "items": {
+              "var": "cutoffs",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Binary"
-                  },
-                  {
-                    "text": "search"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The whenever logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Git bisect finds which commit introduced a bug by testing the middle.",
+            "items": {
+              "var": "cutoffs",
+              "line": 5,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "real"
-                  },
-                  {
-                    "text": "life"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The code below uses bisect to grade marks quickly.",
+            "items": {
+              "var": "cutoffs",
+              "line": 7,
+              "hit": 4
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Binary search in real life",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The binary concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Binary search is inside many tools you use.",
+            "items": [
+              "35",
+              "50",
+              "60",
+              "75",
+              "90"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Binary",
-                  "search"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The whenever logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Git bisect finds which commit introduced a bug by testing the middle.",
+            "items": [
+              "35",
+              "50",
+              "60",
+              "75",
+              "90"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "real",
-                  "life"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The code below uses bisect to grade marks quickly.",
+            "items": [
+              "35",
+              "50",
+              "60",
+              "75",
+              "90"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

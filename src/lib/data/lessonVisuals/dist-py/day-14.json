@@ -2,231 +2,113 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 14,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The poison pill",
       "codeHash": "935c42ef3cdb2ee0c2f61d18d28518736ee863abced1b674d269b9f4cbcdf5d2",
       "spec": {
-        "template": "flow",
-        "title": "The poison pill — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "The poison pill",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "queue",
+            "label": "queue"
           },
           {
-            "id": "proc",
-            "label": "2. The poison pill",
-            "tappable": true
+            "id": "attempts",
+            "label": "attempts"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "position",
+            "label": "position"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The poison pill [D.Pone.Sone].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The poison pill [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A poison pill is a message that makes the consumer fail every time.",
+            "currentState": "queue",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Poison pills often appear after a producer changes its message format.",
+            "currentState": "attempts",
+            "transition": {
+              "from": "queue",
+              "to": "attempts",
+              "label": {
+                "var": "attempts",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The poison pill [D.Pone.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Handling poison pills well is one of the main differences between a demo.",
+            "currentState": "position",
+            "transition": {
+              "from": "attempts",
+              "to": "position",
+              "label": {
+                "var": "position",
+                "line": 7,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The poison pill — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "The poison pill",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "queue",
+            "label": "queue"
           },
           {
-            "id": "proc",
-            "label": "2. The poison pill",
-            "tappable": true
+            "id": "attempts",
+            "label": "attempts"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "position",
+            "label": "position"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The poison pill [D14.P1.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The poison pill [D14.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A poison pill is a message that makes the consumer fail every time.",
+            "currentState": "queue",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Poison pills often appear after a producer changes its message format.",
+            "currentState": "attempts",
+            "transition": {
+              "from": "queue",
+              "to": "attempts",
+              "label": "0"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The poison pill [D14.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Handling poison pills well is one of the main differences between a demo.",
+            "currentState": "position",
+            "transition": {
+              "from": "attempts",
+              "to": "position",
+              "label": "0"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -235,184 +117,162 @@
       "partTitle": "Temporary or permanent?",
       "codeHash": "69217aeef49ab0e574d62e7f490ce32dcd3f7e45f3771af12c97dd09d8360579",
       "spec": {
-        "template": "table",
-        "title": "Error classification separating transient retries from permanent DLQ",
-        "columns": [
-          "error",
-          "classify"
+        "template": "sequence",
+        "title": "Temporary or permanent?",
+        "actors": [
+          "TRANSIENT",
+          "errors",
+          "err"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Errors fall into temporary and permanent categories.",
-            "rows": [
+            "caption": "Errors fall into two groups.",
+            "activeActor": "TRANSIENT",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "db slow"
-                  },
-                  {
-                    "text": "retry with backoff"
-                  }
-                ],
+                "from": "TRANSIENT",
+                "to": "errors",
+                "label": {
+                  "var": "TRANSIENT",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "errors",
+                "to": "err",
+                "label": {
+                  "var": "errors",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Permanent errors fail every time without retry.",
-            "rows": [
+            "caption": "Permanent errors will fail every time.",
+            "activeActor": "errors",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "db slow"
-                  },
-                  {
-                    "text": "retry with backoff"
-                  }
-                ],
-                "tone": "ok"
+                "from": "TRANSIENT",
+                "to": "errors",
+                "label": {
+                  "var": "TRANSIENT",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "amount is negative"
-                  },
-                  {
-                    "text": "send to DLQ"
-                  }
-                ],
-                "tone": "error"
+                "from": "errors",
+                "to": "err",
+                "label": {
+                  "var": "errors",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Retry temporary errors with backoff and send permanent to DLQ.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example classifies a few common errors.",
+            "activeActor": "err",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "db slow"
-                  },
-                  {
-                    "text": "retry with backoff"
-                  }
-                ],
+                "from": "TRANSIENT",
+                "to": "errors",
+                "label": {
+                  "var": "TRANSIENT",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "errors",
+                "to": "err",
+                "label": {
+                  "var": "errors",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "amount is negative"
-                  },
-                  {
-                    "text": "send to DLQ"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "reset"
-                  },
-                  {
-                    "text": "retry with backoff"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "customer_id"
-                  },
-                  {
-                    "text": "send to DLQ"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Error classification separating transient retries from permanent DLQ",
-        "columns": [
-          "error",
-          "classify"
+        "template": "sequence",
+        "title": "Temporary or permanent?",
+        "actors": [
+          "TRANSIENT",
+          "errors",
+          "err"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Errors fall into temporary and permanent categories.",
-            "rows": [
+            "caption": "Errors fall into two groups.",
+            "messages": [
               {
-                "cells": [
-                  "db slow",
-                  "retry with backoff"
-                ],
+                "from": "TRANSIENT",
+                "to": "errors",
+                "label": "[{'__other__': 'type'}, {'__other__': '…",
+                "tone": "data"
+              },
+              {
+                "from": "errors",
+                "to": "err",
+                "label": "[<TimeoutError>, <ValueError>, <Connect…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "TRANSIENT"
           },
           {
             "at": "say2",
-            "caption": "Permanent errors fail every time without retry.",
-            "rows": [
+            "caption": "Permanent errors will fail every time.",
+            "messages": [
               {
-                "cells": [
-                  "db slow",
-                  "retry with backoff"
-                ],
-                "tone": "ok"
+                "from": "TRANSIENT",
+                "to": "errors",
+                "label": "[{'__other__': 'type'}, {'__other__': '…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "amount is negative",
-                  "send to DLQ"
-                ],
-                "tone": "error"
+                "from": "errors",
+                "to": "err",
+                "label": "[<TimeoutError>, <ValueError>, <Connect…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "errors"
           },
           {
-            "at": "say3",
-            "caption": "Retry temporary errors with backoff and send permanent to DLQ.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example classifies a few common errors.",
+            "messages": [
               {
-                "cells": [
-                  "db slow",
-                  "retry with backoff"
-                ],
+                "from": "TRANSIENT",
+                "to": "errors",
+                "label": "[{'__other__': 'type'}, {'__other__': '…",
+                "tone": "data"
+              },
+              {
+                "from": "errors",
+                "to": "err",
+                "label": "[<TimeoutError>, <ValueError>, <Connect…",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "amount is negative",
-                  "send to DLQ"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "reset",
-                  "retry with backoff"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "customer_id",
-                  "send to DLQ"
-                ],
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "err"
           }
         ]
       }
@@ -421,132 +281,162 @@
       "partTitle": "Retry, then dead-letter",
       "codeHash": "063c891d509405e2bc3524418a6ef1f875fcc9bf854ae2b86f4461adbb93c083",
       "spec": {
-        "template": "compare",
-        "title": "Message retry progression leading to dead letter queue dispatch",
-        "leftLabel": "Flaky Temporary Error",
-        "rightLabel": "Permanent Broken Message",
+        "template": "sequence",
+        "title": "Retry, then dead-letter",
+        "actors": [
+          "flaky_calls",
+          "dlq",
+          "m1"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function handle_message calls handler and returns result.",
-            "left": {
-              "code": "flaky call fails once",
-              "result": {
-                "text": "RETRY_SCHEDULED"
+            "caption": "Handle_message(msg, handler, dlq, max_attempts).",
+            "activeActor": "flaky_calls",
+            "messages": [
+              {
+                "from": "flaky_calls",
+                "to": "dlq",
+                "label": {
+                  "var": "flaky_calls",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "broken payload fails",
-              "result": {
-                "text": "RETRY_SCHEDULED"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "dlq",
+                "to": "m1",
+                "label": {
+                  "var": "dlq",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Exceeding max_attempts routes failed message to the DLQ.",
-            "left": {
-              "code": "second attempt succeeds",
-              "result": {
-                "text": "PROCESSED"
+            "caption": "On an exception, add 1 to msg[\"retry_count\"].",
+            "activeActor": "dlq",
+            "messages": [
+              {
+                "from": "flaky_calls",
+                "to": "dlq",
+                "label": {
+                  "var": "flaky_calls",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "attempts exceed maximum",
-              "result": {
-                "text": "ROUTED_TO_DLQ"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "dlq",
+                "to": "m1",
+                "label": {
+                  "var": "dlq",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say7",
-            "caption": "Once a message routes to DLQ the partition is unblocked.",
-            "left": {
-              "code": "payload returns ok",
-              "result": {
-                "text": "ok"
+            "caption": "Once a message is in the DLQ, the consumer moves on to the next one.",
+            "activeActor": "m1",
+            "messages": [
+              {
+                "from": "flaky_calls",
+                "to": "dlq",
+                "label": {
+                  "var": "flaky_calls",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "error recorded in dlq",
-              "result": {
-                "text": "missing customer_id"
-              },
-              "tone": "idle"
-            }
+              {
+                "from": "dlq",
+                "to": "m1",
+                "label": {
+                  "var": "dlq",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Message retry progression leading to dead letter queue dispatch",
-        "leftLabel": "Flaky Temporary Error",
-        "rightLabel": "Permanent Broken Message",
+        "template": "sequence",
+        "title": "Retry, then dead-letter",
+        "actors": [
+          "flaky_calls",
+          "dlq",
+          "m1"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function handle_message calls handler and returns result.",
-            "left": {
-              "code": "flaky call fails once",
-              "result": "RETRY_SCHEDULED",
-              "tone": "idle",
-              "checks": [
-                "RETRY_SCHEDULED"
-              ]
-            },
-            "right": {
-              "code": "broken payload fails",
-              "result": "RETRY_SCHEDULED",
-              "tone": "error",
-              "checks": [
-                "RETRY_SCHEDULED"
-              ]
-            }
+            "caption": "Handle_message(msg, handler, dlq, max_attempts).",
+            "messages": [
+              {
+                "from": "flaky_calls",
+                "to": "dlq",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "data"
+              },
+              {
+                "from": "dlq",
+                "to": "m1",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "flaky_calls"
           },
           {
             "at": "say2",
-            "caption": "Exceeding max_attempts routes failed message to the DLQ.",
-            "left": {
-              "code": "second attempt succeeds",
-              "result": "PROCESSED",
-              "tone": "ok",
-              "checks": [
-                "PROCESSED"
-              ]
-            },
-            "right": {
-              "code": "attempts exceed maximum",
-              "result": "ROUTED_TO_DLQ",
-              "tone": "error",
-              "checks": [
-                "ROUTED_TO_DLQ"
-              ]
-            }
+            "caption": "On an exception, add 1 to msg[\"retry_count\"].",
+            "messages": [
+              {
+                "from": "flaky_calls",
+                "to": "dlq",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "data"
+              },
+              {
+                "from": "dlq",
+                "to": "m1",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "dlq"
           },
           {
             "at": "say7",
-            "caption": "Once a message routes to DLQ the partition is unblocked.",
-            "left": {
-              "code": "payload returns ok",
-              "result": "ok",
-              "tone": "ok",
-              "checks": [
-                "ok"
-              ]
-            },
-            "right": {
-              "code": "error recorded in dlq",
-              "result": "missing customer_id",
-              "tone": "idle",
-              "checks": [
-                "missing customer_id"
-              ]
-            }
+            "caption": "Once a message is in the DLQ, the consumer moves on to the next one.",
+            "messages": [
+              {
+                "from": "flaky_calls",
+                "to": "dlq",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "data"
+              },
+              {
+                "from": "dlq",
+                "to": "m1",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "m1"
           }
         ]
       }
@@ -555,214 +445,162 @@
       "partTitle": "What to store in the DLQ",
       "codeHash": "9c9447ba7ac6a94fdced73aa5ce189d47298a344be4230e21091c0881383800e",
       "spec": {
-        "template": "table",
-        "title": "Dead letter queue entry metadata schema and error aggregation",
-        "columns": [
+        "template": "sequence",
+        "title": "What to store in the DLQ",
+        "actors": [
           "msg_id",
           "error",
-          "failed_at"
+          "now"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A DLQ entry contains original message error and timestamp.",
-            "rows": [
+            "caption": "A DLQ entry must contain everything needed to understand and replay.",
+            "activeActor": "msg_id",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "KeyError: customer_id"
-                  },
-                  {
-                    "text": "1000"
-                  }
-                ],
-                "tone": "error"
+                "from": "msg_id",
+                "to": "error",
+                "label": {
+                  "var": "msg_id",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "error",
+                "to": "now",
+                "label": {
+                  "var": "error",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Function dlq_entry packages msg_id error and timestamp.",
-            "rows": [
+            "at": "say2",
+            "caption": "Keep the original message bytes unchanged, so a redrive sends exactly what.",
+            "activeActor": "error",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "KeyError: customer_id"
-                  },
-                  {
-                    "text": "1000"
-                  }
-                ],
-                "tone": "error"
+                "from": "msg_id",
+                "to": "error",
+                "label": {
+                  "var": "msg_id",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "ValueError: negative amount"
-                  },
-                  {
-                    "text": "1010"
-                  }
-                ],
-                "tone": "error"
+                "from": "error",
+                "to": "now",
+                "label": {
+                  "var": "error",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Group DLQ entries by error message to diagnose issues.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example groups a small DLQ by error.",
+            "activeActor": "now",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "KeyError: customer_id"
-                  },
-                  {
-                    "text": "1000"
-                  }
-                ],
-                "tone": "error"
+                "from": "msg_id",
+                "to": "error",
+                "label": {
+                  "var": "msg_id",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "ValueError: negative amount"
-                  },
-                  {
-                    "text": "1010"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "3"
-                  },
-                  {
-                    "text": "KeyError: customer_id"
-                  },
-                  {
-                    "text": "1020"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "4"
-                  },
-                  {
-                    "text": "KeyError: customer_id"
-                  },
-                  {
-                    "text": "1030"
-                  }
-                ],
-                "tone": "error"
+                "from": "error",
+                "to": "now",
+                "label": {
+                  "var": "error",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Dead letter queue entry metadata schema and error aggregation",
-        "columns": [
+        "template": "sequence",
+        "title": "What to store in the DLQ",
+        "actors": [
           "msg_id",
           "error",
-          "failed_at"
+          "now"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A DLQ entry contains original message error and timestamp.",
-            "rows": [
+            "caption": "A DLQ entry must contain everything needed to understand and replay.",
+            "messages": [
               {
-                "cells": [
-                  "1",
-                  "KeyError: customer_id",
-                  "1000"
-                ],
-                "tone": "error"
+                "from": "msg_id",
+                "to": "error",
+                "label": "1",
+                "tone": "data"
+              },
+              {
+                "from": "error",
+                "to": "now",
+                "label": "'KeyError: customer_id'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "msg_id"
           },
           {
-            "at": "say3",
-            "caption": "Function dlq_entry packages msg_id error and timestamp.",
-            "rows": [
+            "at": "say2",
+            "caption": "Keep the original message bytes unchanged, so a redrive sends exactly what.",
+            "messages": [
               {
-                "cells": [
-                  "1",
-                  "KeyError: customer_id",
-                  "1000"
-                ],
-                "tone": "error"
+                "from": "msg_id",
+                "to": "error",
+                "label": "2",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "2",
-                  "ValueError: negative amount",
-                  "1010"
-                ],
-                "tone": "error"
+                "from": "error",
+                "to": "now",
+                "label": "'ValueError: negative amount'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "error"
           },
           {
-            "at": "say6",
-            "caption": "Group DLQ entries by error message to diagnose issues.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example groups a small DLQ by error.",
+            "messages": [
               {
-                "cells": [
-                  "1",
-                  "KeyError: customer_id",
-                  "1000"
-                ],
-                "tone": "error"
+                "from": "msg_id",
+                "to": "error",
+                "label": "3",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "2",
-                  "ValueError: negative amount",
-                  "1010"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "3",
-                  "KeyError: customer_id",
-                  "1020"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "4",
-                  "KeyError: customer_id",
-                  "1030"
-                ],
-                "tone": "error"
+                "from": "error",
+                "to": "now",
+                "label": "'KeyError: customer_id'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "now"
           }
         ]
       }
@@ -771,93 +609,91 @@
       "partTitle": "Redrive and retry topics",
       "codeHash": "541c784ad7bfd453e1c2bbe334bb3e7d95e08d2b17f9738bc5bf294cad834cf7",
       "spec": {
-        "template": "table",
-        "title": "Dead letter queue redrive filtering by resolved error types",
-        "columns": [
-          "id",
-          "error"
+        "template": "sequence",
+        "title": "Redrive and retry topics",
+        "actors": [
+          "dlq",
+          "fixed_errors",
+          "main_topic"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fixed messages in the DLQ are redriven to the main topic.",
-            "rows": [
+            "caption": "After fixing the bug or the data, messages in the DLQ are redriven.",
+            "activeActor": "dlq",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "KeyError: customer_id"
-                  }
-                ],
+                "from": "dlq",
+                "to": "fixed_errors",
+                "label": {
+                  "var": "dlq",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fixed_errors",
+                "to": "main_topic",
+                "label": {
+                  "var": "fixed_errors",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Redriving messages is safe when processing is idempotent.",
-            "rows": [
+            "at": "say2",
+            "caption": "Sometimes the right action is to discard a message, for example a test.",
+            "activeActor": "fixed_errors",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "KeyError: customer_id"
-                  }
-                ],
-                "tone": "ok"
+                "from": "dlq",
+                "to": "fixed_errors",
+                "label": {
+                  "var": "dlq",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "ValueError: negative amount"
-                  }
-                ],
-                "tone": "error"
+                "from": "fixed_errors",
+                "to": "main_topic",
+                "label": {
+                  "var": "fixed_errors",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Redrive routes only entries whose error has been resolved.",
-            "rows": [
+            "caption": "The example redrives only the entries whose error has been fixed.",
+            "activeActor": "main_topic",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "KeyError: customer_id"
-                  }
-                ],
-                "tone": "ok"
+                "from": "dlq",
+                "to": "fixed_errors",
+                "label": {
+                  "var": "dlq",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "ValueError: negative amount"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "3"
-                  },
-                  {
-                    "text": "KeyError: customer_id"
-                  }
-                ],
+                "from": "fixed_errors",
+                "to": "main_topic",
+                "label": {
+                  "var": "fixed_errors",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -865,72 +701,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Dead letter queue redrive filtering by resolved error types",
-        "columns": [
-          "id",
-          "error"
+        "template": "sequence",
+        "title": "Redrive and retry topics",
+        "actors": [
+          "dlq",
+          "fixed_errors",
+          "main_topic"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fixed messages in the DLQ are redriven to the main topic.",
-            "rows": [
+            "caption": "After fixing the bug or the data, messages in the DLQ are redriven.",
+            "messages": [
               {
-                "cells": [
-                  "1",
-                  "KeyError: customer_id"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Redriving messages is safe when processing is idempotent.",
-            "rows": [
-              {
-                "cells": [
-                  "1",
-                  "KeyError: customer_id"
-                ],
-                "tone": "ok"
+                "from": "dlq",
+                "to": "fixed_errors",
+                "label": "[{'id': 1, 'error': 'KeyError: customer…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "2",
-                  "ValueError: negative amount"
-                ],
-                "tone": "error"
+                "from": "fixed_errors",
+                "to": "main_topic",
+                "label": "{'KeyError: customer_id'}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "dlq"
+          },
+          {
+            "at": "say2",
+            "caption": "Sometimes the right action is to discard a message, for example a test.",
+            "messages": [
+              {
+                "from": "dlq",
+                "to": "fixed_errors",
+                "label": "[{'id': 1, 'error': 'KeyError: customer…",
+                "tone": "data"
+              },
+              {
+                "from": "fixed_errors",
+                "to": "main_topic",
+                "label": "{'KeyError: customer_id'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "fixed_errors"
           },
           {
             "at": "say7",
-            "caption": "Redrive routes only entries whose error has been resolved.",
-            "rows": [
+            "caption": "The example redrives only the entries whose error has been fixed.",
+            "messages": [
               {
-                "cells": [
-                  "1",
-                  "KeyError: customer_id"
-                ],
-                "tone": "ok"
+                "from": "dlq",
+                "to": "fixed_errors",
+                "label": "[{'id': 1, 'error': 'KeyError: customer…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "2",
-                  "ValueError: negative amount"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "3",
-                  "KeyError: customer_id"
-                ],
+                "from": "fixed_errors",
+                "to": "main_topic",
+                "label": "{'KeyError: customer_id'}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "main_topic"
           }
         ]
       }
@@ -940,110 +774,161 @@
       "codeHash": "97b5c294393761bd6b4b80a78f14acfca36fc1bccd007e023a2f252e9fa91959",
       "spec": {
         "template": "flow",
-        "title": "Monitoring and ordering concerns — Execution Pipeline",
+        "title": "Monitoring and ordering concerns",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "stream",
+            "label": "stream"
           },
           {
-            "id": "proc",
-            "label": "2. Monitoring and orde...",
-            "tappable": true
+            "id": "failed_keys",
+            "label": "failed_keys"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "op",
+            "label": "op"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Monitoring and ordering concerns [D.Psix.Sone].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Monitoring and orde... [D.Psix.Stwo].",
+            "caption": "Alert when the DLQ grows, and review it daily.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "stream": {
+                "var": "stream",
+                "line": 1,
+                "hit": 1
+              },
+              "failed_keys": {
+                "var": "failed_keys",
+                "line": 2,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 3,
+                "hit": 1
+              },
+              "op": {
+                "var": "op",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "stream": "data",
+              "failed_keys": "data",
+              "key": "data",
+              "op": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "stream",
+                "failed_keys"
               ],
               [
-                "proc",
-                "out"
+                "failed_keys",
+                "key"
+              ],
+              [
+                "key",
+                "op"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Give each DLQ an owner team, so someone is clearly responsible for looking.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "stream": {
+                "var": "stream",
+                "line": 2,
+                "hit": 1
+              },
+              "failed_keys": {
+                "var": "failed_keys",
+                "line": 3,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 4,
+                "hit": 1
+              },
+              "op": {
+                "var": "op",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "stream": "data",
+              "failed_keys": "data",
+              "key": "data",
+              "op": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "stream",
+                "failed_keys"
+              ],
+              [
+                "failed_keys",
+                "key"
+              ],
+              [
+                "key",
+                "op"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Monitoring and ordering concerns.",
+            "at": "say7",
+            "caption": "The code shows a simple check for \"later messages of the same key\" when.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "stream": {
+                "var": "stream",
+                "line": 3,
+                "hit": 1
+              },
+              "failed_keys": {
+                "var": "failed_keys",
+                "line": 4,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 7,
+                "hit": 1
+              },
+              "op": {
+                "var": "op",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "stream": "ok",
+              "failed_keys": "ok",
+              "key": "ok",
+              "op": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "stream",
+                "failed_keys"
               ],
               [
-                "proc",
-                "out"
+                "failed_keys",
+                "key"
+              ],
+              [
+                "key",
+                "op"
               ]
             ]
           }
@@ -1051,110 +936,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Monitoring and ordering concerns — Execution Pipeline",
+        "title": "Monitoring and ordering concerns",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "stream",
+            "label": "stream"
           },
           {
-            "id": "proc",
-            "label": "2. Monitoring and orde...",
-            "tappable": true
+            "id": "failed_keys",
+            "label": "failed_keys"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "op",
+            "label": "op"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Monitoring and ordering concerns [D14.P6.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Monitoring and orde... [D14.P6.S2].",
+            "caption": "Alert when the DLQ grows, and review it daily.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "stream": "[['acct-1', 'deposit 100'], ['acct-2', …",
+              "failed_keys": "set()",
+              "key": "'acct-1'",
+              "op": "'deposit 100'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "stream": "data",
+              "failed_keys": "data",
+              "key": "data",
+              "op": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "stream",
+                "failed_keys"
               ],
               [
-                "proc",
-                "out"
+                "failed_keys",
+                "key"
+              ],
+              [
+                "key",
+                "op"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P6.S3].",
+            "at": "say2",
+            "caption": "Give each DLQ an owner team, so someone is clearly responsible for looking.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "stream": "[['acct-1', 'deposit 100'], ['acct-2', …",
+              "failed_keys": "set()",
+              "key": "'acct-1'",
+              "op": "'deposit 100'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "stream": "data",
+              "failed_keys": "data",
+              "key": "data",
+              "op": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "stream",
+                "failed_keys"
+              ],
+              [
+                "failed_keys",
+                "key"
+              ],
+              [
+                "key",
+                "op"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Monitoring and ordering concerns [D14.P6.S4].",
+            "at": "say7",
+            "caption": "The code shows a simple check for \"later messages of the same key\" when.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "stream": "[['acct-1', 'deposit 100'], ['acct-2', …",
+              "failed_keys": "set()",
+              "key": "'acct-1'",
+              "op": "'deposit 100'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "stream": "ok",
+              "failed_keys": "ok",
+              "key": "ok",
+              "op": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "stream",
+                "failed_keys"
               ],
               [
-                "proc",
-                "out"
+                "failed_keys",
+                "key"
+              ],
+              [
+                "key",
+                "op"
               ]
             ]
           }

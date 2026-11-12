@@ -2,118 +2,169 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 38,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Floating Point Representation & Dynamic Range: IEEE FP32, FP16 Exponent Deficits & Bfloat16 Truncation",
       "codeHash": "bcbf763a3826f3197b54ed42a54df4a3bb3a0e9e507fa3072706403567fc5995",
       "spec": {
         "template": "flow",
-        "title": "Floating Point Representation & Dynamic Range... — Execution Pipeline",
+        "title": "Floating Point Representation & Dynamic Range: IEEE FP32, FP16 E",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "fp16_max",
+            "label": "fp16_max"
           },
           {
-            "id": "proc",
-            "label": "2. Floating Point Repr...",
-            "tappable": true
+            "id": "fp16_min_norm",
+            "label": "fp16_min_norm"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "fp16_min_subnorm",
+            "label": "fp16_min_subnorm"
+          },
+          {
+            "id": "bf16_max",
+            "label": "bf16_max"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Floating Point Representation & Dynamic ...",
-            "values": {
-              "in": "Day 38 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Floating Point Repr....",
+            "caption": "In our previous investigations of distributed training topologies, we.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "fp16_max": {
+                "var": "fp16_max",
+                "line": 3,
+                "hit": 1
+              },
+              "fp16_min_norm": {
+                "var": "fp16_min_norm",
+                "line": 4,
+                "hit": 1
+              },
+              "fp16_min_subnorm": {
+                "var": "fp16_min_subnorm",
+                "line": 5,
+                "hit": 1
+              },
+              "bf16_max": {
+                "var": "bf16_max",
+                "line": 8,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "fp16_max": "data",
+              "fp16_min_norm": "data",
+              "fp16_min_subnorm": "data",
+              "bf16_max": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "fp16_max",
+                "fp16_min_norm"
               ],
               [
-                "proc",
-                "out"
+                "fp16_min_norm",
+                "fp16_min_subnorm"
+              ],
+              [
+                "fp16_min_subnorm",
+                "bf16_max"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "To understand floating-point arithmetic from first principles, recall.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "fp16_max": {
+                "var": "fp16_max",
+                "line": 4,
+                "hit": 1
+              },
+              "fp16_min_norm": {
+                "var": "fp16_min_norm",
+                "line": 5,
+                "hit": 1
+              },
+              "fp16_min_subnorm": {
+                "var": "fp16_min_subnorm",
+                "line": 8,
+                "hit": 1
+              },
+              "bf16_max": {
+                "var": "bf16_max",
+                "line": 9,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "fp16_max": "data",
+              "fp16_min_norm": "data",
+              "fp16_min_subnorm": "data",
+              "bf16_max": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "fp16_max",
+                "fp16_min_norm"
+              ],
+              [
+                "fp16_min_norm",
+                "fp16_min_subnorm"
+              ],
+              [
+                "fp16_min_subnorm",
+                "bf16_max"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Floating Point Representation & D...",
+            "at": "say8",
+            "caption": "In the following Python script, we will simulate the bitfields, dynamic.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "fp16_max": {
+                "var": "fp16_max",
+                "line": 5,
+                "hit": 1
+              },
+              "fp16_min_norm": {
+                "var": "fp16_min_norm",
+                "line": 8,
+                "hit": 1
+              },
+              "fp16_min_subnorm": {
+                "var": "fp16_min_subnorm",
+                "line": 9,
+                "hit": 1
+              },
+              "bf16_max": {
+                "var": "bf16_max",
+                "line": 12,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "fp16_max": "ok",
+              "fp16_min_norm": "ok",
+              "fp16_min_subnorm": "ok",
+              "bf16_max": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "fp16_max",
+                "fp16_min_norm"
               ],
               [
-                "proc",
-                "out"
+                "fp16_min_norm",
+                "fp16_min_subnorm"
+              ],
+              [
+                "fp16_min_subnorm",
+                "bf16_max"
               ]
             ]
           }
@@ -121,110 +172,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Floating Point Representation & Dynamic Range... — Execution Pipeline",
+        "title": "Floating Point Representation & Dynamic Range: IEEE FP32, FP16 E",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "fp16_max",
+            "label": "fp16_max"
           },
           {
-            "id": "proc",
-            "label": "2. Floating Point Repr...",
-            "tappable": true
+            "id": "fp16_min_norm",
+            "label": "fp16_min_norm"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "fp16_min_subnorm",
+            "label": "fp16_min_subnorm"
+          },
+          {
+            "id": "bf16_max",
+            "label": "bf16_max"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Floating Point Representation & Dynamic ...",
-            "values": {
-              "in": "Day 38 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Floating Point Repr....",
+            "caption": "In our previous investigations of distributed training topologies, we.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "fp16_max": "65504",
+              "fp16_min_norm": "0.00006103515625",
+              "fp16_min_subnorm": "5.960464477539063e-8",
+              "bf16_max": "3.3895313892515355e+38"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "fp16_max": "data",
+              "fp16_min_norm": "data",
+              "fp16_min_subnorm": "data",
+              "bf16_max": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "fp16_max",
+                "fp16_min_norm"
               ],
               [
-                "proc",
-                "out"
+                "fp16_min_norm",
+                "fp16_min_subnorm"
+              ],
+              [
+                "fp16_min_subnorm",
+                "bf16_max"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "To understand floating-point arithmetic from first principles, recall.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "fp16_max": "65504",
+              "fp16_min_norm": "0.00006103515625",
+              "fp16_min_subnorm": "5.960464477539063e-8",
+              "bf16_max": "3.3895313892515355e+38"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "fp16_max": "data",
+              "fp16_min_norm": "data",
+              "fp16_min_subnorm": "data",
+              "bf16_max": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "fp16_max",
+                "fp16_min_norm"
+              ],
+              [
+                "fp16_min_norm",
+                "fp16_min_subnorm"
+              ],
+              [
+                "fp16_min_subnorm",
+                "bf16_max"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Floating Point Representation & D...",
+            "at": "say8",
+            "caption": "In the following Python script, we will simulate the bitfields, dynamic.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "fp16_max": "65504",
+              "fp16_min_norm": "0.00006103515625",
+              "fp16_min_subnorm": "5.960464477539063e-8",
+              "bf16_max": "3.3895313892515355e+38"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "fp16_max": "ok",
+              "fp16_min_norm": "ok",
+              "fp16_min_subnorm": "ok",
+              "bf16_max": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "fp16_max",
+                "fp16_min_norm"
               ],
               [
-                "proc",
-                "out"
+                "fp16_min_norm",
+                "fp16_min_subnorm"
+              ],
+              [
+                "fp16_min_subnorm",
+                "bf16_max"
               ]
             ]
           }
@@ -235,449 +289,86 @@
       "partTitle": "The Mixed-Precision Training Loop: FP32 Master Weights, Low-Precision Forward/Backward Passes & Gradient Accumulation",
       "codeHash": "3f6d638a6368b74d5747b2132eeeceed7d6a36d80d774fdda05115098f5281eb",
       "spec": {
-        "template": "flow",
-        "title": "The Mixed-Precision Training Loop: FP32 Maste... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Mixed-Precision...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Initialize input state for The Mixed-Precision Training Loop.",
-            "values": {
-              "in": "Day 38 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Execute core transformation in The Mixed-Precision....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The Mixed-Precision Training Loop...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
+        "template": "none",
+        "reason": "Concept explained cleanly in text and interactive code."
       },
-      "filled": {
-        "template": "flow",
-        "title": "The Mixed-Precision Training Loop: FP32 Maste... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Mixed-Precision...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The Mixed-Precision Training Loop: FP32 ...",
-            "values": {
-              "in": "Day 38 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Mixed-Precision....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Mixed-Precision Training Loop...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
+      "filled": {}
     },
     {
       "partTitle": "Underflow, Gradient Vanishing & The Dynamic Loss Scaling Algorithm (Scaling, Overflow Detection & Backoff)",
       "codeHash": "15e8469eae1cfc254770662c52da6e469d2f297341ceda2aa59efd50cf018481",
       "spec": {
-        "template": "flow",
-        "title": "Underflow, Gradient Vanishing & The Dynamic L... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Underflow, Gradient...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Underflow, Gradient Vanishing & The Dynamic Loss Scaling Algorit",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Underflow, Gradient Vanishing & The Dyna...",
-            "values": {
-              "in": "Day 38 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Underflow, Gradient....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "While maintaining FP32 master weights prevents truncation during.",
+            "items": {
+              "var": "g",
+              "line": 49,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The core insight of loss scaling is mathematical linearity.",
+            "items": {
+              "var": "g",
+              "line": 49,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Underflow, Gradient Vanishing & T...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Underflow, Gradient Vanishing & The Dynamic L... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Underflow, Gradient...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Underflow, Gradient Vanishing & The Dynamic Loss Scaling Algorit",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Underflow, Gradient Vanishing & The Dyna...",
-            "values": {
-              "in": "Day 38 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Underflow, Gradient....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While maintaining FP32 master weights prevents truncation during.",
+            "items": [
+              "0.0001",
+              "-0.0002",
+              "0.00005"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Underflow, Gradient Vanishing & T...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The core insight of loss scaling is mathematical linearity.",
+            "items": [
+              "0.0001",
+              "-0.0002",
+              "0.00005"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -687,223 +378,112 @@
       "partTitle": "Numerical Stability in Normalization, Softmax Denominators & Optimizer Updates",
       "codeHash": "429938a7300f5fbb1dd8473d3a531fb81b8fbf48fc3197bc5ba9afe66dd4b263",
       "spec": {
-        "template": "flow",
-        "title": "Numerical Stability in Normalization, Softmax... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Numerical Stability...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Numerical Stability in Normalization, Softmax Denominators & Opt",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Numerical Stability in Normalization, So...",
-            "values": {
-              "in": "Day 38 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Numerical Stability....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "While mixed-precision matrix multiplications and dynamic loss scaling.",
+            "items": {
+              "var": "activations",
+              "line": 5,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Layer Normalization & RMSNorm Variance Reductions.",
+            "items": {
+              "var": "activations",
+              "line": 15,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Numerical Stability in Normalizat...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "In the following Python script, we will simulate the catastrophic FP16.",
+            "items": {
+              "var": "activations",
+              "line": 19,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Numerical Stability in Normalization, Softmax... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Numerical Stability...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Numerical Stability in Normalization, Softmax Denominators & Opt",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Numerical Stability in Normalization, So...",
-            "values": {
-              "in": "Day 38 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Numerical Stability....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While mixed-precision matrix multiplications and dynamic loss scaling.",
+            "items": [
+              "120",
+              "-180",
+              "240",
+              "-210"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Layer Normalization & RMSNorm Variance Reductions.",
+            "items": [
+              "120",
+              "-180",
+              "240",
+              "-210"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Numerical Stability in Normalizat...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we will simulate the catastrophic FP16.",
+            "items": [
+              "120",
+              "-180",
+              "240",
+              "-210"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -913,223 +493,217 @@
       "partTitle": "Building a Complete Mixed-Precision Training & Dynamic Loss Scaler Engine in Pure Python",
       "codeHash": "b9b51d7c0d231e2ce8f547d2a5e75a40611e1908bac8999400aaa23872bf9260",
       "spec": {
-        "template": "flow",
-        "title": "Building a Complete Mixed-Precision Training ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a Complete...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Building a Complete Mixed-Precision Training & Dynamic Loss Scal",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Building a Complete Mixed-Precision Trai...",
-            "values": {
-              "in": "Day 38 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Building a Complete....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The Sovereign Mixed-Precision Training and Dynamic Loss Scaling Engine.",
+            "bars": [
+              {
+                "label": "init_weight",
+                "value": {
+                  "var": "init_weight",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "lr",
+                "value": {
+                  "var": "lr",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "init_scale",
+                "value": {
+                  "var": "init_scale",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 56,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us trace the complete execution pathway of our `MixedPrecisionEngine`.",
+            "bars": [
+              {
+                "label": "init_weight",
+                "value": {
+                  "var": "init_weight",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": {
+                  "var": "lr",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "init_scale",
+                "value": {
+                  "var": "init_scale",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 57,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Building a Complete Mixed-Precisi...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following comprehensive implementation, we assemble the unified.",
+            "bars": [
+              {
+                "label": "init_weight",
+                "value": {
+                  "var": "init_weight",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": {
+                  "var": "lr",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "init_scale",
+                "value": {
+                  "var": "init_scale",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 58,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Building a Complete Mixed-Precision Training ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a Complete...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Building a Complete Mixed-Precision Training & Dynamic Loss Scal",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Complete Mixed-Precision Trai...",
-            "values": {
-              "in": "Day 38 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Complete....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The Sovereign Mixed-Precision Training and Dynamic Loss Scaling Engine.",
+            "bars": [
+              {
+                "label": "init_weight",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "lr",
+                "value": 0.1,
+                "tone": "data"
+              },
+              {
+                "label": "init_scale",
+                "value": 32768,
+                "tone": "data"
+              },
+              {
+                "label": "step",
+                "value": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us trace the complete execution pathway of our `MixedPrecisionEngine`.",
+            "bars": [
+              {
+                "label": "init_weight",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "init_scale",
+                "value": 32768,
+                "tone": "ok"
+              },
+              {
+                "label": "step",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Complete Mixed-Precisi...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following comprehensive implementation, we assemble the unified.",
+            "bars": [
+              {
+                "label": "init_weight",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "init_scale",
+                "value": 32768,
+                "tone": "ok"
+              },
+              {
+                "label": "step",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           }
         ]

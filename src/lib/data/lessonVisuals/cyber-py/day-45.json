@@ -2,1068 +2,662 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 45,
-  "promptSha": "34b6269d8b508e5ab8f73980727a156300b204036715194badcdd144d5828f49",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Milestone 9 — Foundations & Mathematical Invariants",
-      "codeHash": "07d9b2121cd94c36fd59422fbd771d4f328ab59d1654f8be6af67fc3dc598663",
+      "codeHash": "38f1563ac9ddc1d57049aa4a48f0ebcc978b22d5f5dc963fd90539ca6dff4c90",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone 9 — Foundations & Mathematical Invariants",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how milestone updates synthesizes during execution.",
+            "currentState": "p",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The architectural scope encompasses two critical enterprise threat vectors.",
+            "currentState": "desc",
+            "transition": {
+              "from": "p",
+              "to": "desc",
+              "label": {
+                "var": "desc",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone 9 — Foundations & Mathematical Invariants",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how milestone updates synthesizes during execution.",
+            "currentState": "p",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "The architectural scope encompasses two critical enterprise threat vectors.",
+            "currentState": "desc",
+            "transition": {
+              "from": "p",
+              "to": "desc",
+              "label": "'RFC 1918 Private CIDR & Cloud IMDS Lin…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Milestone 9 — Core Algorithm & State Representation",
-      "codeHash": "79edf434aa94c62ec1d5f146ba793192ca8f64ee801b7192e4fac10e8636532c",
+      "codeHash": "a2dd2ec734e3383074ac837b4bf75ce4cc65479d1aec96de896c9bf2f09d0b02",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone 9 — Core Algorithm & State Representation",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "bom",
+            "label": "bom"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "target_ip",
+            "label": "target_ip"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "cyclonedx_bom",
+            "label": "cyclonedx_bom"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how core updates engine during execution.",
+            "currentState": "bom",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "For network operations, the engine resolves destination hostnames.",
+            "currentState": "target_ip",
+            "transition": {
+              "from": "bom",
+              "to": "target_ip",
+              "label": {
+                "var": "target_ip",
+                "line": 9,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Continuous state synchronization ensures that newly identified vulnerable.",
+            "currentState": "cyclonedx_bom",
+            "transition": {
+              "from": "target_ip",
+              "to": "cyclonedx_bom",
+              "label": {
+                "var": "cyclonedx_bom",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone 9 — Core Algorithm & State Representation",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "bom",
+            "label": "bom"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "target_ip",
+            "label": "target_ip"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "cyclonedx_bom",
+            "label": "cyclonedx_bom"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how core updates engine during execution.",
+            "currentState": "bom",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "For network operations, the engine resolves destination hostnames.",
+            "currentState": "target_ip",
+            "transition": {
+              "from": "bom",
+              "to": "target_ip",
+              "label": "'93.184.216.34'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Continuous state synchronization ensures that newly identified vulnerable.",
+            "currentState": "cyclonedx_bom",
+            "transition": {
+              "from": "target_ip",
+              "to": "cyclonedx_bom",
+              "label": "{'components': [{'name': 'cryptography'…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Milestone 9 — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "e44a7b344d94f5ef243c6d55837504d699ec62a0fd98e1b3097279cb5a965824",
+      "codeHash": "30449b5053367337b54ad26567e19ee8802e9dfbd8e481aca0da198cc68e3c26",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "boxes",
+        "title": "Milestone 9 — Throughput Optimization & Edge-Case Handling",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "trie",
+            "label": "trie"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "package",
+            "label": "package"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "version",
+            "label": "version"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "High-throughput enterprise environments demand sub-millisecond evaluation.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "trie": {
+                "var": "trie",
+                "line": 12,
+                "hit": 1
+              },
+              "package": {
+                "var": "package",
+                "line": 6,
+                "hit": 1
+              },
+              "version": {
+                "var": "version",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "trie": "data",
+              "package": "data",
+              "version": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Trace how milestone updates optimization during execution.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "trie": {
+                "var": "trie",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "package": {
+                "var": "package",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "version": {
+                "var": "version",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "self": "data",
+              "trie": "data",
+              "package": "data",
+              "version": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Performance profiling verifies that the combined security inspection adds.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "trie": {
+                "var": "trie",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "package": {
+                "var": "package",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "version": {
+                "var": "version",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "self": "ok",
+              "trie": "ok",
+              "package": "ok",
+              "version": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "boxes",
+        "title": "Milestone 9 — Throughput Optimization & Edge-Case Handling",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "trie",
+            "label": "trie"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "package",
+            "label": "package"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "version",
+            "label": "version"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "High-throughput enterprise environments demand sub-millisecond evaluation.",
+            "values": {
+              "self": "<HighThroughputVulnerabilityTrie>",
+              "trie": "<HighThroughputVulnerabilityTrie>",
+              "package": "'urllib3'",
+              "version": "'1.26.4'"
+            },
+            "tones": {
+              "self": "data",
+              "trie": "data",
+              "package": "data",
+              "version": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Trace how milestone updates optimization during execution.",
+            "values": {
+              "self": "<HighThroughputVulnerabilityTrie>",
+              "trie": "<HighThroughputVulnerabilityTrie>",
+              "package": "'urllib3'",
+              "version": "'1.26.4'"
+            },
+            "tones": {
+              "self": "data",
+              "trie": "data",
+              "package": "data",
+              "version": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Performance profiling verifies that the combined security inspection adds.",
+            "values": {
+              "self": "<HighThroughputVulnerabilityTrie>",
+              "trie": "<HighThroughputVulnerabilityTrie>",
+              "package": "'urllib3'",
+              "version": "'1.26.4'"
+            },
+            "tones": {
+              "self": "ok",
+              "trie": "ok",
+              "package": "ok",
+              "version": "ok"
+            }
           }
         ]
       }
     },
     {
       "partTitle": "Milestone 9 — Resilience Guardrails & Failure Recovery",
-      "codeHash": "114bfa939ec26bdc91883cda25747014c2a31bc9ef665a3c4128e8e47a5f4d14",
+      "codeHash": "82b42842569a40dbd7523220548310e6cf1441a57fbcdbf3e4df402a186c011c",
       "spec": {
         "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
+        "title": "Milestone 9 — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "component_name",
+            "label": "component_name"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cvss_score",
+            "label": "cvss_score"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "threshold",
+            "label": "threshold"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "e",
+            "label": "e"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Resilience in security infrastructure requires fail-secure defaults.",
+            "values": {
+              "component_name": {
+                "var": "component_name",
+                "line": 4,
+                "hit": 1
+              },
+              "cvss_score": {
+                "var": "cvss_score",
+                "line": 4,
+                "hit": 1
+              },
+              "threshold": {
+                "var": "threshold",
+                "line": 4,
+                "hit": 1
+              },
+              "e": {
+                "var": "e",
+                "line": 11,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "component_name": "data",
+              "cvss_score": "data",
+              "threshold": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "component_name",
+                "cvss_score"
+              ],
+              [
+                "cvss_score",
+                "threshold"
+              ],
+              [
+                "threshold",
+                "e"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "For network egress, if DNS resolution fails or returns conflicting IP.",
+            "values": {
+              "component_name": {
+                "var": "component_name",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "cvss_score": {
+                "var": "cvss_score",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "threshold": {
+                "var": "threshold",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "e": {
+                "var": "e",
+                "line": 11,
+                "hit": 1
               }
+            },
+            "tones": {
+              "component_name": "data",
+              "cvss_score": "data",
+              "threshold": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "component_name",
+                "cvss_score"
+              ],
+              [
+                "cvss_score",
+                "threshold"
+              ],
+              [
+                "threshold",
+                "e"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Documented runbooks provide step-by-step procedures for security analysts.",
+            "values": {
+              "component_name": {
+                "var": "component_name",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "cvss_score": {
+                "var": "cvss_score",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "threshold": {
+                "var": "threshold",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "e": {
+                "var": "e",
+                "line": 11,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "component_name": "ok",
+              "cvss_score": "ok",
+              "threshold": "ok",
+              "e": "ok"
+            },
+            "arrows": [
+              [
+                "component_name",
+                "cvss_score"
+              ],
+              [
+                "cvss_score",
+                "threshold"
+              ],
+              [
+                "threshold",
+                "e"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
+        "title": "Milestone 9 — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "component_name",
+            "label": "component_name"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cvss_score",
+            "label": "cvss_score"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "threshold",
+            "label": "threshold"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "e",
+            "label": "e"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Resilience in security infrastructure requires fail-secure defaults.",
+            "values": {
+              "component_name": "'log4j-api'",
+              "cvss_score": "5.3",
+              "threshold": "9",
+              "e": "<SystemError>"
+            },
+            "tones": {
+              "component_name": "data",
+              "cvss_score": "data",
+              "threshold": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "component_name",
+                "cvss_score"
+              ],
+              [
+                "cvss_score",
+                "threshold"
+              ],
+              [
+                "threshold",
+                "e"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "For network egress, if DNS resolution fails or returns conflicting IP.",
+            "values": {
+              "component_name": "'log4j-api'",
+              "cvss_score": "5.3",
+              "threshold": "9",
+              "e": "<SystemError>"
+            },
+            "tones": {
+              "component_name": "data",
+              "cvss_score": "data",
+              "threshold": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "component_name",
+                "cvss_score"
+              ],
+              [
+                "cvss_score",
+                "threshold"
+              ],
+              [
+                "threshold",
+                "e"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Documented runbooks provide step-by-step procedures for security analysts.",
+            "values": {
+              "component_name": "'log4j-core'",
+              "cvss_score": "10",
+              "threshold": "9",
+              "e": "<SystemError>"
+            },
+            "tones": {
+              "component_name": "ok",
+              "cvss_score": "ok",
+              "threshold": "ok",
+              "e": "ok"
+            },
+            "arrows": [
+              [
+                "component_name",
+                "cvss_score"
+              ],
+              [
+                "cvss_score",
+                "threshold"
+              ],
+              [
+                "threshold",
+                "e"
+              ]
             ]
           }
         ]
@@ -1071,266 +665,164 @@
     },
     {
       "partTitle": "Milestone 9 — Production Telemetry & Verification Audit",
-      "codeHash": "009e8dd629129be2b4c8871a84181febddc869550e16d66fba502a8a5fa7380d",
+      "codeHash": "66b82703a8b66f6aaa75f72c854e57b2ed718d11fd41b066671fc600fe36206f",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Milestone 9 — Production Telemetry & Verification Audit",
+        "actors": [
+          "ssrf_firewalled",
+          "safe_unmarshalled",
+          "sbom_analyzed"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The capstone milestone culminates in a comprehensive end-to-end.",
+            "activeActor": "ssrf_firewalled",
+            "messages": [
+              {
+                "from": "ssrf_firewalled",
+                "to": "safe_unmarshalled",
+                "label": {
+                  "var": "ssrf_firewalled",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "safe_unmarshalled",
+                "to": "sbom_analyzed",
+                "label": {
+                  "var": "safe_unmarshalled",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The milestone auditor executes a battery of deterministic test scenarios.",
+            "activeActor": "safe_unmarshalled",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "ssrf_firewalled",
+                "to": "safe_unmarshalled",
+                "label": {
+                  "var": "ssrf_firewalled",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "safe_unmarshalled",
+                "to": "sbom_analyzed",
+                "label": {
+                  "var": "safe_unmarshalled",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Organizations adopting these certified milestone standards demonstrate.",
+            "activeActor": "sbom_analyzed",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "ssrf_firewalled",
+                "to": "safe_unmarshalled",
+                "label": {
+                  "var": "ssrf_firewalled",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "safe_unmarshalled",
+                "to": "sbom_analyzed",
+                "label": {
+                  "var": "safe_unmarshalled",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Milestone 9 — Production Telemetry & Verification Audit",
+        "actors": [
+          "ssrf_firewalled",
+          "safe_unmarshalled",
+          "sbom_analyzed"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The capstone milestone culminates in a comprehensive end-to-end.",
+            "messages": [
+              {
+                "from": "ssrf_firewalled",
+                "to": "safe_unmarshalled",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "safe_unmarshalled",
+                "to": "sbom_analyzed",
+                "label": "True",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ssrf_firewalled"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The milestone auditor executes a battery of deterministic test scenarios.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "ssrf_firewalled",
+                "to": "safe_unmarshalled",
+                "label": "True",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "safe_unmarshalled",
+                "to": "sbom_analyzed",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "safe_unmarshalled"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Organizations adopting these certified milestone standards demonstrate.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "ssrf_firewalled",
+                "to": "safe_unmarshalled",
+                "label": "True",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "safe_unmarshalled",
+                "to": "sbom_analyzed",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "sbom_analyzed"
           }
         ]
       }

@@ -2,139 +2,285 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 4,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Two layers of firewall",
       "codeHash": "42ad9fdc0af0d3b849911ff25892e5e62da94a68523c7ad5f0f70486a352baec",
       "spec": {
-        "template": "compare",
-        "title": "Architectural comparison between security groups and network ACLs",
-        "leftLabel": "Security Groups",
-        "rightLabel": "Network ACLs",
-        "steps": [
+        "template": "flow",
+        "title": "Two layers of firewall",
+        "nodes": [
           {
-            "at": "say2",
-            "caption": "Security groups attach to individual resources like servers and databases.",
-            "left": {
-              "code": "Attached to",
-              "result": {
-                "text": "a resource (server, DB)"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "Attached to",
-              "result": {
-                "text": "a subnet"
-              },
-              "tone": "data"
-            }
+            "id": "compare",
+            "label": "compare"
           },
           {
-            "at": "say4",
-            "caption": "Security groups only have allow rules while NACLs permit explicit denies.",
-            "left": {
-              "code": "Rule types",
-              "result": {
-                "text": "ALLOW only"
+            "id": "label",
+            "label": "label"
+          },
+          {
+            "id": "sg",
+            "label": "sg"
+          },
+          {
+            "id": "nacl",
+            "label": "nacl"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "AWS gives you two kinds of network firewall inside a VPC, and good designs.",
+            "values": {
+              "compare": {
+                "var": "compare",
+                "line": 1,
+                "hit": 1
               },
-              "tone": "ok"
+              "label": {
+                "var": "label",
+                "line": 8,
+                "hit": 1
+              },
+              "sg": {
+                "var": "sg",
+                "line": 8,
+                "hit": 1
+              },
+              "nacl": {
+                "var": "nacl",
+                "line": 8,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "Rule types",
-              "result": {
-                "text": "ALLOW and DENY"
+            "tones": {
+              "compare": "data",
+              "label": "data",
+              "sg": "data",
+              "nacl": "data"
+            },
+            "arrows": [
+              [
+                "compare",
+                "label"
+              ],
+              [
+                "label",
+                "sg"
+              ],
+              [
+                "sg",
+                "nacl"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A security group is attached to a resource, such as a server, a database.",
+            "values": {
+              "compare": {
+                "var": "compare",
+                "line": 7,
+                "hit": 1
               },
-              "tone": "data"
-            }
+              "label": {
+                "var": "label",
+                "line": 9,
+                "hit": 1
+              },
+              "sg": {
+                "var": "sg",
+                "line": 9,
+                "hit": 1
+              },
+              "nacl": {
+                "var": "nacl",
+                "line": 9,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "compare": "data",
+              "label": "data",
+              "sg": "data",
+              "nacl": "data"
+            },
+            "arrows": [
+              [
+                "compare",
+                "label"
+              ],
+              [
+                "label",
+                "sg"
+              ],
+              [
+                "sg",
+                "nacl"
+              ]
+            ]
           },
           {
             "at": "say7",
-            "caption": "The comparison table summarizes differences across firewall mechanisms.",
-            "left": {
-              "code": "Rule order",
-              "result": {
-                "text": "all rules checked"
+            "caption": "The example lays out the differences as data and prints them as a small.",
+            "values": {
+              "compare": {
+                "var": "compare",
+                "line": 8,
+                "hit": 1
               },
-              "tone": "ok"
+              "label": {
+                "var": "label",
+                "line": 8,
+                "hit": 2
+              },
+              "sg": {
+                "var": "sg",
+                "line": 8,
+                "hit": 2
+              },
+              "nacl": {
+                "var": "nacl",
+                "line": 8,
+                "hit": 2
+              }
             },
-            "right": {
-              "code": "Rule order",
-              "result": {
-                "text": "lowest number first"
-              },
-              "tone": "data"
-            }
+            "tones": {
+              "compare": "ok",
+              "label": "ok",
+              "sg": "ok",
+              "nacl": "ok"
+            },
+            "arrows": [
+              [
+                "compare",
+                "label"
+              ],
+              [
+                "label",
+                "sg"
+              ],
+              [
+                "sg",
+                "nacl"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Architectural comparison between security groups and network ACLs",
-        "leftLabel": "Security Groups",
-        "rightLabel": "Network ACLs",
-        "steps": [
+        "template": "flow",
+        "title": "Two layers of firewall",
+        "nodes": [
           {
-            "at": "say2",
-            "caption": "Security groups attach to individual resources like servers and databases.",
-            "left": {
-              "code": "Attached to",
-              "result": "a resource (server, DB)",
-              "tone": "ok",
-              "checks": [
-                "a resource (server, DB)"
-              ]
-            },
-            "right": {
-              "code": "Attached to",
-              "result": "a subnet",
-              "tone": "data",
-              "checks": [
-                "a subnet"
-              ]
-            }
+            "id": "compare",
+            "label": "compare"
           },
           {
-            "at": "say4",
-            "caption": "Security groups only have allow rules while NACLs permit explicit denies.",
-            "left": {
-              "code": "Rule types",
-              "result": "ALLOW only",
-              "tone": "ok",
-              "checks": [
-                "ALLOW only"
-              ]
+            "id": "label",
+            "label": "label"
+          },
+          {
+            "id": "sg",
+            "label": "sg"
+          },
+          {
+            "id": "nacl",
+            "label": "nacl"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "AWS gives you two kinds of network firewall inside a VPC, and good designs.",
+            "values": {
+              "compare": "[['Attached to', 'a resource (server, D…",
+              "label": "'Attached to'",
+              "sg": "'a resource (server, DB)'",
+              "nacl": "'a subnet'"
             },
-            "right": {
-              "code": "Rule types",
-              "result": "ALLOW and DENY",
-              "tone": "data",
-              "checks": [
-                "ALLOW and DENY"
+            "tones": {
+              "compare": "data",
+              "label": "data",
+              "sg": "data",
+              "nacl": "data"
+            },
+            "arrows": [
+              [
+                "compare",
+                "label"
+              ],
+              [
+                "label",
+                "sg"
+              ],
+              [
+                "sg",
+                "nacl"
               ]
-            }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A security group is attached to a resource, such as a server, a database.",
+            "values": {
+              "compare": "[['Attached to', 'a resource (server, D…",
+              "label": "'Attached to'",
+              "sg": "'a resource (server, DB)'",
+              "nacl": "'a subnet'"
+            },
+            "tones": {
+              "compare": "data",
+              "label": "data",
+              "sg": "data",
+              "nacl": "data"
+            },
+            "arrows": [
+              [
+                "compare",
+                "label"
+              ],
+              [
+                "label",
+                "sg"
+              ],
+              [
+                "sg",
+                "nacl"
+              ]
+            ]
           },
           {
             "at": "say7",
-            "caption": "The comparison table summarizes differences across firewall mechanisms.",
-            "left": {
-              "code": "Rule order",
-              "result": "all rules checked",
-              "tone": "ok",
-              "checks": [
-                "all rules checked"
-              ]
+            "caption": "The example lays out the differences as data and prints them as a small.",
+            "values": {
+              "compare": "[['Attached to', 'a resource (server, D…",
+              "label": "'Rule types'",
+              "sg": "'ALLOW only'",
+              "nacl": "'ALLOW and DENY'"
             },
-            "right": {
-              "code": "Rule order",
-              "result": "lowest number first",
-              "tone": "data",
-              "checks": [
-                "lowest number first"
+            "tones": {
+              "compare": "ok",
+              "label": "ok",
+              "sg": "ok",
+              "nacl": "ok"
+            },
+            "arrows": [
+              [
+                "compare",
+                "label"
+              ],
+              [
+                "label",
+                "sg"
+              ],
+              [
+                "sg",
+                "nacl"
               ]
-            }
+            ]
           }
         ]
       }
@@ -143,165 +289,277 @@
       "partTitle": "Stateful versus stateless",
       "codeHash": "1ccb248d9093857576bf8bf4c98099e86738c575629ba104a1a3d9da82e0de5b",
       "spec": {
-        "template": "table",
-        "title": "Stateful security group rules permitting return and inbound traffic",
-        "columns": [
-          "port",
-          "protocol"
+        "template": "flow",
+        "title": "Stateful versus stateless",
+        "nodes": [
+          {
+            "id": "web_sg",
+            "label": "web_sg"
+          },
+          {
+            "id": "t",
+            "label": "t"
+          },
+          {
+            "id": "rules",
+            "label": "rules"
+          },
+          {
+            "id": "traffic",
+            "label": "traffic"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Security groups are stateful allowing return packets automatically.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "443"
-                  },
-                  {
-                    "text": "TCP"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Security groups are stateful.",
+            "values": {
+              "web_sg": {
+                "var": "web_sg",
+                "line": 7,
+                "hit": 2
+              },
+              "t": {
+                "var": "t",
+                "line": 9,
+                "hit": 2
+              },
+              "rules": {
+                "var": "rules",
+                "line": 2,
+                "hit": 1
+              },
+              "traffic": {
+                "var": "traffic",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "web_sg": "data",
+              "t": "data",
+              "rules": "data",
+              "traffic": "data"
+            },
+            "arrows": [
+              [
+                "web_sg",
+                "t"
+              ],
+              [
+                "t",
+                "rules"
+              ],
+              [
+                "rules",
+                "traffic"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "NACLs are stateless requiring explicit outbound rules for replies.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "443"
-                  },
-                  {
-                    "text": "TCP"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "NACLs are stateless.",
+            "values": {
+              "web_sg": {
+                "var": "web_sg",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "80"
-                  },
-                  {
-                    "text": "TCP"
-                  }
-                ],
-                "tone": "ok"
+              "t": {
+                "var": "t",
+                "line": 11,
+                "hit": 1
+              },
+              "rules": {
+                "var": "rules",
+                "line": 4,
+                "hit": 1
+              },
+              "traffic": {
+                "var": "traffic",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "web_sg": "data",
+              "t": "data",
+              "rules": "data",
+              "traffic": "data"
+            },
+            "arrows": [
+              [
+                "web_sg",
+                "t"
+              ],
+              [
+                "t",
+                "rules"
+              ],
+              [
+                "rules",
+                "traffic"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Security group rules evaluate incoming traffic protocol and port bounds.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "443"
-                  },
-                  {
-                    "text": "TCP"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example evaluates a small set of rules against several kinds of traffic.",
+            "values": {
+              "web_sg": {
+                "var": "web_sg",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "80"
-                  },
-                  {
-                    "text": "TCP"
-                  }
-                ],
-                "tone": "ok"
+              "t": {
+                "var": "t",
+                "line": 9,
+                "hit": 3
               },
-              {
-                "cells": [
-                  {
-                    "text": "22"
-                  },
-                  {
-                    "text": "TCP"
-                  }
-                ],
-                "tone": "error"
+              "rules": {
+                "var": "rules",
+                "line": 5,
+                "hit": 1
+              },
+              "traffic": {
+                "var": "traffic",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "web_sg": "ok",
+              "t": "ok",
+              "rules": "ok",
+              "traffic": "ok"
+            },
+            "arrows": [
+              [
+                "web_sg",
+                "t"
+              ],
+              [
+                "t",
+                "rules"
+              ],
+              [
+                "rules",
+                "traffic"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stateful security group rules permitting return and inbound traffic",
-        "columns": [
-          "port",
-          "protocol"
+        "template": "flow",
+        "title": "Stateful versus stateless",
+        "nodes": [
+          {
+            "id": "web_sg",
+            "label": "web_sg"
+          },
+          {
+            "id": "t",
+            "label": "t"
+          },
+          {
+            "id": "rules",
+            "label": "rules"
+          },
+          {
+            "id": "traffic",
+            "label": "traffic"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Security groups are stateful allowing return packets automatically.",
-            "rows": [
-              {
-                "cells": [
-                  "443",
-                  "TCP"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Security groups are stateful.",
+            "values": {
+              "web_sg": "[{'protocol': 'TCP', 'from_port': 443, …",
+              "t": "{'protocol': 'TCP', 'port': 443}",
+              "rules": "[{'protocol': 'TCP', 'from_port': 443, …",
+              "traffic": "{'protocol': 'TCP', 'port': 443}"
+            },
+            "tones": {
+              "web_sg": "data",
+              "t": "data",
+              "rules": "data",
+              "traffic": "data"
+            },
+            "arrows": [
+              [
+                "web_sg",
+                "t"
+              ],
+              [
+                "t",
+                "rules"
+              ],
+              [
+                "rules",
+                "traffic"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "NACLs are stateless requiring explicit outbound rules for replies.",
-            "rows": [
-              {
-                "cells": [
-                  "443",
-                  "TCP"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "80",
-                  "TCP"
-                ],
-                "tone": "ok"
-              }
+            "caption": "NACLs are stateless.",
+            "values": {
+              "web_sg": "[{'protocol': 'TCP', 'from_port': 443, …",
+              "t": "{'protocol': 'TCP', 'port': 443}",
+              "rules": "[{'protocol': 'TCP', 'from_port': 443, …",
+              "traffic": "{'protocol': 'TCP', 'port': 443}"
+            },
+            "tones": {
+              "web_sg": "data",
+              "t": "data",
+              "rules": "data",
+              "traffic": "data"
+            },
+            "arrows": [
+              [
+                "web_sg",
+                "t"
+              ],
+              [
+                "t",
+                "rules"
+              ],
+              [
+                "rules",
+                "traffic"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Security group rules evaluate incoming traffic protocol and port bounds.",
-            "rows": [
-              {
-                "cells": [
-                  "443",
-                  "TCP"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "80",
-                  "TCP"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "22",
-                  "TCP"
-                ],
-                "tone": "error"
-              }
+            "at": "say7",
+            "caption": "The example evaluates a small set of rules against several kinds of traffic.",
+            "values": {
+              "web_sg": "[{'protocol': 'TCP', 'from_port': 443, …",
+              "t": "{'protocol': 'TCP', 'port': 22}",
+              "rules": "[{'protocol': 'TCP', 'from_port': 443, …",
+              "traffic": "{'protocol': 'TCP', 'port': 443}"
+            },
+            "tones": {
+              "web_sg": "ok",
+              "t": "ok",
+              "rules": "ok",
+              "traffic": "ok"
+            },
+            "arrows": [
+              [
+                "web_sg",
+                "t"
+              ],
+              [
+                "t",
+                "rules"
+              ],
+              [
+                "rules",
+                "traffic"
+              ]
             ]
           }
         ]
@@ -311,147 +569,277 @@
       "partTitle": "NACL rule numbers: first match wins",
       "codeHash": "58a1ad56de5183a297ecb367fd9fa82f5b9d9b6d51d85b6f588ad4ce8ee76dd9",
       "spec": {
-        "template": "table",
-        "title": "Network ACL ordered rule number evaluation and first match resolution",
-        "columns": [
-          "rule_number",
-          "action"
+        "template": "flow",
+        "title": "NACL rule numbers: first match wins",
+        "nodes": [
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "r",
+            "label": "r"
+          },
+          {
+            "id": "rules",
+            "label": "rules"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "AWS checks NACL rules in ascending numerical order stopping at first match.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "100"
-                  },
-                  {
-                    "text": "DENY"
-                  }
-                ],
-                "tone": "error"
+            "caption": "AWS checks rules from the lowest number up and stops at the FIRST rule.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 7,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 8,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 2,
+                "hit": 1
+              },
+              "rules": {
+                "var": "rules",
+                "line": 2,
+                "hit": 3
               }
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "r": "data",
+              "rules": "data"
+            },
+            "arrows": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "r"
+              ],
+              [
+                "r",
+                "rules"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Unmatched packets encounter an implicit final catch-all deny rule.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "100"
-                  },
-                  {
-                    "text": "DENY"
-                  }
-                ],
-                "tone": "error"
+            "at": "say2",
+            "caption": "That means order is everything.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "200"
-                  },
-                  {
-                    "text": "ALLOW"
-                  }
-                ],
-                "tone": "ok"
+              "b": {
+                "var": "b",
+                "line": 9,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 2,
+                "hit": 2
+              },
+              "rules": {
+                "var": "rules",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "r": "data",
+              "rules": "data"
+            },
+            "arrows": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "r"
+              ],
+              [
+                "r",
+                "rules"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Sorting rules by rule number evaluates packet permissions sequentially.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "100"
-                  },
-                  {
-                    "text": "DENY"
-                  }
-                ],
-                "tone": "error"
+            "at": "say7",
+            "caption": "The example shows the same two rules giving opposite results when their.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "200"
-                  },
-                  {
-                    "text": "ALLOW"
-                  }
-                ],
-                "tone": "ok"
+              "b": {
+                "var": "b",
+                "line": 10,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 2,
+                "hit": 3
+              },
+              "rules": {
+                "var": "rules",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "a": "ok",
+              "b": "ok",
+              "r": "ok",
+              "rules": "ok"
+            },
+            "arrows": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "r"
+              ],
+              [
+                "r",
+                "rules"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Network ACL ordered rule number evaluation and first match resolution",
-        "columns": [
-          "rule_number",
-          "action"
+        "template": "flow",
+        "title": "NACL rule numbers: first match wins",
+        "nodes": [
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "r",
+            "label": "r"
+          },
+          {
+            "id": "rules",
+            "label": "rules"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "AWS checks NACL rules in ascending numerical order stopping at first match.",
-            "rows": [
-              {
-                "cells": [
-                  "100",
-                  "DENY"
-                ],
-                "tone": "error"
-              }
+            "caption": "AWS checks rules from the lowest number up and stops at the FIRST rule.",
+            "values": {
+              "a": "[{'rule_number': 100, 'port': 22, 'acti…",
+              "b": "[{'rule_number': 200, 'port': 22, 'acti…",
+              "r": "{'rule_number': 100, 'port': 22, 'actio…",
+              "rules": "[{'rule_number': 100, 'port': 22, 'acti…"
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "r": "data",
+              "rules": "data"
+            },
+            "arrows": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "r"
+              ],
+              [
+                "r",
+                "rules"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Unmatched packets encounter an implicit final catch-all deny rule.",
-            "rows": [
-              {
-                "cells": [
-                  "100",
-                  "DENY"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "200",
-                  "ALLOW"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "That means order is everything.",
+            "values": {
+              "a": "[{'rule_number': 100, 'port': 22, 'acti…",
+              "b": "[{'rule_number': 200, 'port': 22, 'acti…",
+              "r": "{'rule_number': 200, 'port': '*', 'acti…",
+              "rules": "[{'rule_number': 100, 'port': 22, 'acti…"
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "r": "data",
+              "rules": "data"
+            },
+            "arrows": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "r"
+              ],
+              [
+                "r",
+                "rules"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Sorting rules by rule number evaluates packet permissions sequentially.",
-            "rows": [
-              {
-                "cells": [
-                  "100",
-                  "DENY"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "200",
-                  "ALLOW"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example shows the same two rules giving opposite results when their.",
+            "values": {
+              "a": "[{'rule_number': 100, 'port': 22, 'acti…",
+              "b": "[{'rule_number': 200, 'port': 22, 'acti…",
+              "r": "{'rule_number': 100, 'port': 22, 'actio…",
+              "rules": "[{'rule_number': 100, 'port': 22, 'acti…"
+            },
+            "tones": {
+              "a": "ok",
+              "b": "ok",
+              "r": "ok",
+              "rules": "ok"
+            },
+            "arrows": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "r"
+              ],
+              [
+                "r",
+                "rules"
+              ]
             ]
           }
         ]
@@ -461,93 +849,91 @@
       "partTitle": "Security groups that reference each other",
       "codeHash": "7cbf24c6a7c667776b6aed360db01ff30be988f820b46a12e09b3ce3f8509ecb",
       "spec": {
-        "template": "table",
-        "title": "Chained tier security group references restricting lateral network access",
-        "columns": [
-          "target",
+        "template": "sequence",
+        "title": "Security groups that reference each other",
+        "actors": [
+          "rules",
+          "hop",
           "source"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Security groups can reference other security groups as authorized sources.",
-            "rows": [
+            "caption": "One of the best features of security groups is that a rule's source can be.",
+            "activeActor": "rules",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "alb-sg"
-                  },
-                  {
-                    "text": "internet"
-                  }
-                ],
+                "from": "rules",
+                "to": "hop",
+                "label": {
+                  "var": "rules",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "hop",
+                "to": "source",
+                "label": {
+                  "var": "hop",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Referenced security groups automatically permit dynamic scaled instances.",
-            "rows": [
+            "at": "say2",
+            "caption": "For example, the database security group can say.",
+            "activeActor": "hop",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "alb-sg"
-                  },
-                  {
-                    "text": "internet"
-                  }
-                ],
-                "tone": "ok"
+                "from": "rules",
+                "to": "hop",
+                "label": {
+                  "var": "rules",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "app-sg"
-                  },
-                  {
-                    "text": "alb-sg"
-                  }
-                ],
+                "from": "hop",
+                "to": "source",
+                "label": {
+                  "var": "hop",
+                  "line": 11,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Tiered architecture isolates database traffic to authorized app tier hosts.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example models that chain and checks which hops are allowed.",
+            "activeActor": "source",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "alb-sg"
-                  },
-                  {
-                    "text": "internet"
-                  }
-                ],
-                "tone": "ok"
+                "from": "rules",
+                "to": "hop",
+                "label": {
+                  "var": "rules",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "app-sg"
-                  },
-                  {
-                    "text": "alb-sg"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "db-sg"
-                  },
-                  {
-                    "text": "app-sg"
-                  }
-                ],
+                "from": "hop",
+                "to": "source",
+                "label": {
+                  "var": "hop",
+                  "line": 10,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -555,72 +941,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Chained tier security group references restricting lateral network access",
-        "columns": [
-          "target",
+        "template": "sequence",
+        "title": "Security groups that reference each other",
+        "actors": [
+          "rules",
+          "hop",
           "source"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Security groups can reference other security groups as authorized sources.",
-            "rows": [
+            "caption": "One of the best features of security groups is that a rule's source can be.",
+            "messages": [
               {
-                "cells": [
-                  "alb-sg",
-                  "internet"
-                ],
+                "from": "rules",
+                "to": "hop",
+                "label": "{'alb-sg': [['internet', 443]], 'app-sg…",
+                "tone": "data"
+              },
+              {
+                "from": "hop",
+                "to": "source",
+                "label": "['internet', 'alb-sg', 443]",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "rules"
           },
           {
-            "at": "say3",
-            "caption": "Referenced security groups automatically permit dynamic scaled instances.",
-            "rows": [
+            "at": "say2",
+            "caption": "For example, the database security group can say.",
+            "messages": [
               {
-                "cells": [
-                  "alb-sg",
-                  "internet"
-                ],
-                "tone": "ok"
+                "from": "rules",
+                "to": "hop",
+                "label": "{'alb-sg': [['internet', 443]], 'app-sg…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "app-sg",
-                  "alb-sg"
-                ],
+                "from": "hop",
+                "to": "source",
+                "label": "['internet', 'alb-sg', 443]",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "hop"
           },
           {
-            "at": "say5",
-            "caption": "Tiered architecture isolates database traffic to authorized app tier hosts.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example models that chain and checks which hops are allowed.",
+            "messages": [
               {
-                "cells": [
-                  "alb-sg",
-                  "internet"
-                ],
-                "tone": "ok"
+                "from": "rules",
+                "to": "hop",
+                "label": "{'alb-sg': [['internet', 443]], 'app-sg…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "app-sg",
-                  "alb-sg"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "db-sg",
-                  "app-sg"
-                ],
+                "from": "hop",
+                "to": "source",
+                "label": "['alb-sg', 'app-sg', 8080]",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "source"
           }
         ]
       }
@@ -629,224 +1013,106 @@
       "partTitle": "Least privilege on the network",
       "codeHash": "7eff1157dfb21d9e5a649a5e5a6dcaf6d0134ab6f6a54c7796eaf93581d8f816",
       "spec": {
-        "template": "flow",
-        "title": "Least privilege on the network — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Least privilege on the network",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "SENSITIVE",
+            "label": "SENSITIVE"
           },
           {
-            "id": "proc",
-            "label": "2. Least privilege on ...",
-            "tappable": true
+            "id": "rules",
+            "label": "rules"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "r",
+            "label": "r"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Least privilege on the network.",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Least privilege on ... [Dfour.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Least privilege means opening only what is needed, only to who needs it.",
+            "currentState": "SENSITIVE",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The most dangerous rule is SSH (port 22) or RDP (port 3389) open to 0.",
+            "currentState": "rules",
+            "transition": {
+              "from": "SENSITIVE",
+              "to": "rules",
+              "label": {
+                "var": "rules",
+                "line": 8,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Least privilege on the network.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "A rule that is \"just for testing\" and never removed is how many real.",
+            "currentState": "r",
+            "transition": {
+              "from": "rules",
+              "to": "r",
+              "label": {
+                "var": "r",
+                "line": 8,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Least privilege on the network — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Least privilege on the network",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "SENSITIVE",
+            "label": "SENSITIVE"
           },
           {
-            "id": "proc",
-            "label": "2. Least privilege on ...",
-            "tappable": true
+            "id": "rules",
+            "label": "rules"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "r",
+            "label": "r"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Least privilege on the network [D4.P5.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Least privilege on ... [D4.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Least privilege means opening only what is needed, only to who needs it.",
+            "currentState": "SENSITIVE",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The most dangerous rule is SSH (port 22) or RDP (port 3389) open to 0.",
+            "currentState": "rules",
+            "transition": {
+              "from": "SENSITIVE",
+              "to": "rules",
+              "label": "[{'port': 443, 'source': '0.0.0.0/0'}, …"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Least privilege on the network [D4.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "A rule that is \"just for testing\" and never removed is how many real.",
+            "currentState": "r",
+            "transition": {
+              "from": "rules",
+              "to": "r",
+              "label": "{'port': 22, 'source': '0.0.0.0/0'}"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -856,110 +1122,161 @@
       "codeHash": "293cf4b2c7a5a5a57bd0abcb84744cb3a0c0819ddf39afdbfd3064f7993d8235",
       "spec": {
         "template": "flow",
-        "title": "Practice time: evaluate the firewalls — Execution Pipeline",
+        "title": "Practice time: evaluate the firewalls",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "nacl",
+            "label": "nacl"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: eval...",
-            "tappable": true
+            "id": "sg_ports",
+            "label": "sg_ports"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "port",
+            "label": "port"
+          },
+          {
+            "id": "r",
+            "label": "r"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: evaluate the firewalls.",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: eval... [Dfour.Psix.Stwo].",
+            "caption": "Security_group_allows(rules, traffic).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "nacl": {
+                "var": "nacl",
+                "line": 7,
+                "hit": 1
+              },
+              "sg_ports": {
+                "var": "sg_ports",
+                "line": 8,
+                "hit": 1
+              },
+              "port": {
+                "var": "port",
+                "line": 9,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "nacl": "data",
+              "sg_ports": "data",
+              "port": "data",
+              "r": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "nacl",
+                "sg_ports"
               ],
               [
-                "proc",
-                "out"
+                "sg_ports",
+                "port"
+              ],
+              [
+                "port",
+                "r"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfour.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Trace how watch updates edges during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "nacl": {
+                "var": "nacl",
+                "line": 8,
+                "hit": 1
+              },
+              "sg_ports": {
+                "var": "sg_ports",
+                "line": 9,
+                "hit": 1
+              },
+              "port": {
+                "var": "port",
+                "line": 2,
+                "hit": 3
+              },
+              "r": {
+                "var": "r",
+                "line": 2,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "nacl": "data",
+              "sg_ports": "data",
+              "port": "data",
+              "r": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "nacl",
+                "sg_ports"
+              ],
+              [
+                "sg_ports",
+                "port"
+              ],
+              [
+                "port",
+                "r"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: evaluate the firew.",
+            "at": "say7",
+            "caption": "The example runs one packet through both layers, NACL first at the subnet.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "nacl": {
+                "var": "nacl",
+                "line": 9,
+                "hit": 1
+              },
+              "sg_ports": {
+                "var": "sg_ports",
+                "line": 10,
+                "hit": 1
+              },
+              "port": {
+                "var": "port",
+                "line": 3,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 2,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "nacl": "ok",
+              "sg_ports": "ok",
+              "port": "ok",
+              "r": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "nacl",
+                "sg_ports"
               ],
               [
-                "proc",
-                "out"
+                "sg_ports",
+                "port"
+              ],
+              [
+                "port",
+                "r"
               ]
             ]
           }
@@ -967,110 +1284,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: evaluate the firewalls — Execution Pipeline",
+        "title": "Practice time: evaluate the firewalls",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "nacl",
+            "label": "nacl"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: eval...",
-            "tappable": true
+            "id": "sg_ports",
+            "label": "sg_ports"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "port",
+            "label": "port"
+          },
+          {
+            "id": "r",
+            "label": "r"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: evaluate the firewalls [D4.P6.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: eval... [D4.P6.S2].",
+            "caption": "Security_group_allows(rules, traffic).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "nacl": "[{'rule_number': 100, 'port': 23, 'acti…",
+              "sg_ports": "{443, 80}",
+              "port": "443",
+              "r": "{'rule_number': 100, 'port': 23, 'actio…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "nacl": "data",
+              "sg_ports": "data",
+              "port": "data",
+              "r": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "nacl",
+                "sg_ports"
               ],
               [
-                "proc",
-                "out"
+                "sg_ports",
+                "port"
+              ],
+              [
+                "port",
+                "r"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P6.S3].",
+            "at": "say2",
+            "caption": "Trace how watch updates edges during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "nacl": "[{'rule_number': 100, 'port': 23, 'acti…",
+              "sg_ports": "{443, 80}",
+              "port": "443",
+              "r": "{'rule_number': 200, 'port': '*', 'acti…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "nacl": "data",
+              "sg_ports": "data",
+              "port": "data",
+              "r": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "nacl",
+                "sg_ports"
+              ],
+              [
+                "sg_ports",
+                "port"
+              ],
+              [
+                "port",
+                "r"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: evaluate the firew.. [D4.P6.S4].",
+            "at": "say7",
+            "caption": "The example runs one packet through both layers, NACL first at the subnet.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "nacl": "[{'rule_number': 100, 'port': 23, 'acti…",
+              "sg_ports": "{443, 80}",
+              "port": "443",
+              "r": "{'rule_number': 100, 'port': 23, 'actio…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "nacl": "ok",
+              "sg_ports": "ok",
+              "port": "ok",
+              "r": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "nacl",
+                "sg_ports"
               ],
               [
-                "proc",
-                "out"
+                "sg_ports",
+                "port"
+              ],
+              [
+                "port",
+                "r"
               ]
             ]
           }

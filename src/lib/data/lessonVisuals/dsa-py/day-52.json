@@ -2,89 +2,101 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 52,
-  "promptSha": "96d3d46863947c646e17d3f6e201f8e53e8984dcf6de3c14560e9a8d776cc7dc",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Subtree Sizes, Heavy Child Selection & The O(log N) Light-Edge Bound",
       "codeHash": "1f8dec2caf9555a7b17e4db91abe6c904062649d3e13e48e71f7f790f7e766ae",
       "spec": {
-        "template": "table",
-        "title": "Subtree Sizes, Heavy Child Selection & The O(log N)",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Subtree Sizes, Heavy Child Selection & The O(log N) Light-Edge B",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The binary design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Subtree"
-                  },
-                  {
-                    "text": "Sizes"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Binary Lifting handles static path sums cleanly via `dist[u] + dist[v] - 2.",
+            "items": {
+              "var": "parent",
+              "line": 7,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The appreciate step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Heavy"
-                  },
-                  {
-                    "text": "Child"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Enter Heavy-Light Decomposition (HLD), one of the crowning algorithms.",
+            "items": {
+              "var": "parent",
+              "line": 8,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "Therefore, ANY arbitrary path between two nodes `u` and `v` in an N-node.",
+            "items": {
+              "var": "parent",
+              "line": 20,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Subtree Sizes, Heavy Child Selection & The O(log N)",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Subtree Sizes, Heavy Child Selection & The O(log N) Light-Edge B",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The binary design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Subtree",
-                  "Sizes"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Binary Lifting handles static path sums cleanly via `dist[u] + dist[v] - 2.",
+            "mode": "stack",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The appreciate step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Heavy",
-                  "Child"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Enter Heavy-Light Decomposition (HLD), one of the crowning algorithms.",
+            "mode": "stack",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "Therefore, ANY arbitrary path between two nodes `u` and `v` in an N-node.",
+            "mode": "stack",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -93,82 +105,94 @@
       "partTitle": "Chain Decomposition (head[u], pos[u]) & Heavy-First DFS Flattening",
       "codeHash": "503f663f5e73228c00890a91cb0f3526572691864988169807a934f437f2f2ad",
       "spec": {
-        "template": "table",
-        "title": "Chain Decomposition (head[u], pos[u]) & Heavy-First DFS",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Chain Decomposition (head[u], pos[u]) & Heavy-First DFS Flatteni",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The tagged design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Chain"
-                  },
-                  {
-                    "text": "Decomposition"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Pass 1 tagged each edge Heavy or Light.",
+            "items": {
+              "var": "parent",
+              "line": 7,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The entire step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "head"
-                  },
-                  {
-                    "text": "Heavy"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Watch the subtle recursion/traversal ordering rule that makes HLD magical.",
+            "items": {
+              "var": "parent",
+              "line": 8,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "Notice carefully that an iterative Pass 2 stack pushes light children.",
+            "items": {
+              "var": "parent",
+              "line": 14,
+              "hit": 2
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Chain Decomposition (head[u], pos[u]) & Heavy-First DFS",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Chain Decomposition (head[u], pos[u]) & Heavy-First DFS Flatteni",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The tagged design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Chain",
-                  "Decomposition"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Pass 1 tagged each edge Heavy or Light.",
+            "mode": "stack",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The entire step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "head",
-                  "Heavy"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Watch the subtle recursion/traversal ordering rule that makes HLD magical.",
+            "mode": "stack",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "Notice carefully that an iterative Pass 2 stack pushes light children.",
+            "mode": "stack",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -177,80 +201,123 @@
       "partTitle": "Iterative Segment Tree + Chain-Climbing O(log^2 N) Path Queries",
       "codeHash": "7a0e2eae31af51b6c564a868ba4b31b5804fc9e807e7e1d3578ed446dfbcd04f",
       "spec": {
-        "template": "table",
-        "title": "Iterative Segment Tree + Chain-Climbing O(log^2 N) Path",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Iterative Segment Tree + Chain-Climbing O(log^2 N) Path Queries",
         "steps": [
           {
             "at": "say1",
-            "caption": "The attach design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now we attach an iterative bottom-up Segment Tree cleanly over our.",
+            "items": {
+              "var": "vals",
+              "line": 70,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Iterative"
-                  },
-                  {
-                    "text": "Segment"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The query step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how `query_path_max(u, v)` climbs up the chains until `u` and `v`.",
+            "items": {
+              "var": "vals",
+              "line": 73,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Tree"
-                  },
-                  {
-                    "text": "Chain"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Count operations carefully.",
+            "items": {
+              "var": "vals",
+              "line": 75,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Iterative Segment Tree + Chain-Climbing O(log^2 N) Path",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Iterative Segment Tree + Chain-Climbing O(log^2 N) Path Queries",
         "steps": [
           {
             "at": "say1",
-            "caption": "The attach design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now we attach an iterative bottom-up Segment Tree cleanly over our.",
+            "items": [
+              "10",
+              "25",
+              "18",
+              "42",
+              "30",
+              "15",
+              "50",
+              "22"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Iterative",
-                  "Segment"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The query step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how `query_path_max(u, v)` climbs up the chains until `u` and `v`.",
+            "items": [
+              "10",
+              "25",
+              "18",
+              "42",
+              "30",
+              "15",
+              "50",
+              "22"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Tree",
-                  "Chain"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Count operations carefully.",
+            "items": [
+              "10",
+              "25",
+              "18",
+              "42",
+              "30",
+              "15",
+              "50",
+              "22"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -261,80 +328,117 @@
       "partTitle": "Supporting Unified Path Queries AND Subtree Queries on One HLD Array",
       "codeHash": "3db9945dc28c6a6caa5c6355c2a693fcba8ba7ae4c15a5e93b5f2ec03420b5c3",
       "spec": {
-        "template": "table",
-        "title": "Supporting Unified Path Queries AND Subtree Queries on One",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Supporting Unified Path Queries AND Subtree Queries on One HLD A",
         "steps": [
           {
             "at": "say1",
-            "caption": "The pause design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Pause and examine ONE subtle flexibility of Heavy-Light Decomposition.",
+            "items": {
+              "var": "init_vals",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Supporting"
-                  },
-                  {
-                    "text": "Unified"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The weighted step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Remember Pass 2.",
+            "items": {
+              "var": "init_vals",
+              "line": 4,
+              "hit": 6
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Path"
-                  },
-                  {
-                    "text": "Queries"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Execute the unified dual-metric HLD tree engine below verifying point.",
+            "items": {
+              "var": "init_vals",
+              "line": 6,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Supporting Unified Path Queries AND Subtree Queries on One",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Supporting Unified Path Queries AND Subtree Queries on One HLD A",
         "steps": [
           {
             "at": "say1",
-            "caption": "The pause design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Pause and examine ONE subtle flexibility of Heavy-Light Decomposition.",
+            "items": [
+              "5",
+              "10",
+              "20",
+              "4",
+              "8",
+              "12"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Supporting",
-                  "Unified"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The weighted step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Remember Pass 2.",
+            "items": [
+              "5",
+              "10",
+              "20",
+              "4",
+              "8",
+              "12"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Path",
-                  "Queries"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Execute the unified dual-metric HLD tree engine below verifying point.",
+            "items": [
+              "5",
+              "10",
+              "20",
+              "4",
+              "8",
+              "12"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -345,82 +449,91 @@
       "partTitle": "Production Application: Datacenter Fabric Telemetry & Hot-Path Congestion Engine",
       "codeHash": "0b82d4b206409e0e25b52502f7dac15d58a4cfb922273d6f1fddfb796964aaa0",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Production Application: Datacenter Fabric Telemetry & Hot-Path C",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The package design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Now let us package our complete HLD + Iterative Segment Tree architecture.",
+            "items": {
+              "var": "heavy",
+              "line": 17,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The bottleneck step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Datacenter"
-                  },
-                  {
-                    "text": "Fabric"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Tree topologies model spine-leaf datacenter networks, organizational.",
+            "items": {
+              "var": "heavy",
+              "line": 18,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Execute the complete multi-update network fabric simulation below.",
+            "items": {
+              "var": "heavy",
+              "line": 20,
+              "hit": 2
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Production Application: Datacenter Fabric Telemetry & Hot-Path C",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The package design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Now let us package our complete HLD + Iterative Segment Tree architecture.",
+            "mode": "queue",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The bottleneck step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Datacenter",
-                  "Fabric"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Tree topologies model spine-leaf datacenter networks, organizational.",
+            "mode": "queue",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Execute the complete multi-update network fabric simulation below.",
+            "mode": "queue",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "idle"
           }
         ]
       }

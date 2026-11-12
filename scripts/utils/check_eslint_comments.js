@@ -4,7 +4,9 @@ const path = require('path');
 const ROOT_DIR = path.resolve(__dirname, '..', '..');
 const SCAN_DIRS = ['src', 'scripts', 'audit'];
 const EXTENSIONS = new Set(['.ts', '.tsx']);
-const FORBIDDEN_PATTERN = /@typescript-eslint/;
+// [FIX-STAGE: Wave 1A] Match actual ESLint directive comments targeting @typescript-eslint rules,
+// not student educational prose discussing TypeScript ESLint rules (e.g. reactLongLessons.ts:3771).
+const FORBIDDEN_PATTERN = /(?:\/\/|\/\*)\s*eslint(?:-disable(?:-next-line|-line)?|-enable)?\b[^\n]*@typescript-eslint/;
 
 let violations = [];
 

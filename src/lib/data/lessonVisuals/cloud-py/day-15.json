@@ -2,190 +2,284 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 15,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The architecture",
       "codeHash": "fe2f55b4b884a2f3287c4239b27ee5ae2a252119767bdb3950024cc9efddfd2e",
       "spec": {
-        "template": "table",
-        "title": "Event-driven video processing pipeline stages and executing AWS services",
-        "columns": [
-          "stage",
-          "service"
+        "template": "flow",
+        "title": "The architecture",
+        "nodes": [
+          {
+            "id": "pipeline",
+            "label": "pipeline"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          },
+          {
+            "id": "what",
+            "label": "what"
+          },
+          {
+            "id": "service",
+            "label": "service"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Here is the goal.",
+            "values": {
+              "pipeline": {
+                "var": "pipeline",
+                "line": 1,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 8,
+                "hit": 1
+              },
+              "what": {
+                "var": "what",
+                "line": 8,
+                "hit": 1
+              },
+              "service": {
+                "var": "service",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "pipeline": "data",
+              "step": "data",
+              "what": "data",
+              "service": "data"
+            },
+            "arrows": [
+              [
+                "pipeline",
+                "step"
+              ],
+              [
+                "step",
+                "what"
+              ],
+              [
+                "what",
+                "service"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Clients request presigned URLs to upload directly to raw storage buckets.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "request upload URL"
-                  },
-                  {
-                    "text": "API Gateway + Lambda"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The phone or browser gets a presigned URL from an API (API Gateway.",
+            "values": {
+              "pipeline": {
+                "var": "pipeline",
+                "line": 8,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 9,
+                "hit": 1
+              },
+              "what": {
+                "var": "what",
+                "line": 9,
+                "hit": 1
+              },
+              "service": {
+                "var": "service",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "pipeline": "data",
+              "step": "data",
+              "what": "data",
+              "service": "data"
+            },
+            "arrows": [
+              [
+                "pipeline",
+                "step"
+              ],
+              [
+                "step",
+                "what"
+              ],
+              [
+                "what",
+                "service"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Object-storage upload completion notifications trigger asynchronous.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "request upload URL"
-                  },
-                  {
-                    "text": "API Gateway + Lambda"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example prints the pipeline as a list of stages with the AWS service.",
+            "values": {
+              "pipeline": {
+                "var": "pipeline",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "upload finished event"
-                  },
-                  {
-                    "text": "S3 event notification"
-                  }
-                ],
-                "tone": "ok"
+              "step": {
+                "var": "step",
+                "line": 8,
+                "hit": 2
+              },
+              "what": {
+                "var": "what",
+                "line": 8,
+                "hit": 2
+              },
+              "service": {
+                "var": "service",
+                "line": 8,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Event driven pipeline components react to events and scale independently.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "request upload URL"
-                  },
-                  {
-                    "text": "API Gateway + Lambda"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "upload finished event"
-                  },
-                  {
-                    "text": "S3 event notification"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "transcode"
-                  },
-                  {
-                    "text": "Lambda -> MediaConvert"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "save result"
-                  },
-                  {
-                    "text": "S3 processed bucket + DynamoDB"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "pipeline": "ok",
+              "step": "ok",
+              "what": "ok",
+              "service": "ok"
+            },
+            "arrows": [
+              [
+                "pipeline",
+                "step"
+              ],
+              [
+                "step",
+                "what"
+              ],
+              [
+                "what",
+                "service"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Event-driven video processing pipeline stages and executing AWS services",
-        "columns": [
-          "stage",
-          "service"
+        "template": "flow",
+        "title": "The architecture",
+        "nodes": [
+          {
+            "id": "pipeline",
+            "label": "pipeline"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          },
+          {
+            "id": "what",
+            "label": "what"
+          },
+          {
+            "id": "service",
+            "label": "service"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Here is the goal.",
+            "values": {
+              "pipeline": "[['request upload URL', 'API Gateway + …",
+              "step": "1",
+              "what": "'request upload URL'",
+              "service": "'API Gateway + Lambda'"
+            },
+            "tones": {
+              "pipeline": "data",
+              "step": "data",
+              "what": "data",
+              "service": "data"
+            },
+            "arrows": [
+              [
+                "pipeline",
+                "step"
+              ],
+              [
+                "step",
+                "what"
+              ],
+              [
+                "what",
+                "service"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Clients request presigned URLs to upload directly to raw storage buckets.",
-            "rows": [
-              {
-                "cells": [
-                  "request upload URL",
-                  "API Gateway + Lambda"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The phone or browser gets a presigned URL from an API (API Gateway.",
+            "values": {
+              "pipeline": "[['request upload URL', 'API Gateway + …",
+              "step": "1",
+              "what": "'request upload URL'",
+              "service": "'API Gateway + Lambda'"
+            },
+            "tones": {
+              "pipeline": "data",
+              "step": "data",
+              "what": "data",
+              "service": "data"
+            },
+            "arrows": [
+              [
+                "pipeline",
+                "step"
+              ],
+              [
+                "step",
+                "what"
+              ],
+              [
+                "what",
+                "service"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "S3 upload completion notifications trigger asynchronous processing functions.",
-            "rows": [
-              {
-                "cells": [
-                  "request upload URL",
-                  "API Gateway + Lambda"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "upload finished event",
-                  "S3 event notification"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Event driven pipeline components react to events and scale independently.",
-            "rows": [
-              {
-                "cells": [
-                  "request upload URL",
-                  "API Gateway + Lambda"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "upload finished event",
-                  "S3 event notification"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "transcode",
-                  "Lambda -> MediaConvert"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "save result",
-                  "S3 processed bucket + DynamoDB"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example prints the pipeline as a list of stages with the AWS service.",
+            "values": {
+              "pipeline": "[['request upload URL', 'API Gateway + …",
+              "step": "2",
+              "what": "'upload video'",
+              "service": "'S3 raw-videos bucket (presigned PUT)'"
+            },
+            "tones": {
+              "pipeline": "ok",
+              "step": "ok",
+              "what": "ok",
+              "service": "ok"
+            },
+            "arrows": [
+              [
+                "pipeline",
+                "step"
+              ],
+              [
+                "step",
+                "what"
+              ],
+              [
+                "what",
+                "service"
+              ]
             ]
           }
         ]
@@ -195,147 +289,277 @@
       "partTitle": "Reading S3 event records",
       "codeHash": "8e79cc3f81c9535e8e2867a7256d1ec3fe39b44570267f0b91fb9cb47ec4c7e2",
       "spec": {
-        "template": "table",
-        "title": "S3 event record payload fields parsing bucket names and object keys",
-        "columns": [
-          "eventName",
-          "key"
+        "template": "flow",
+        "title": "Reading S3 event records",
+        "nodes": [
+          {
+            "id": "event",
+            "label": "event"
+          },
+          {
+            "id": "r",
+            "label": "r"
+          },
+          {
+            "id": "record",
+            "label": "record"
+          },
+          {
+            "id": "obj",
+            "label": "obj"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Object-storage notification records describe affected objects including.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ObjectCreated:Put"
-                  },
-                  {
-                    "text": "demo.mp4"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "An S3 event arrives at Lambda as a dictionary with a Records list.",
+            "values": {
+              "event": {
+                "var": "event",
+                "line": 7,
+                "hit": 2
+              },
+              "r": {
+                "var": "r",
+                "line": 11,
+                "hit": 1
+              },
+              "record": {
+                "var": "record",
+                "line": 2,
+                "hit": 1
+              },
+              "obj": {
+                "var": "obj",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "event": "data",
+              "r": "data",
+              "record": "data",
+              "obj": "data"
+            },
+            "arrows": [
+              [
+                "event",
+                "r"
+              ],
+              [
+                "r",
+                "record"
+              ],
+              [
+                "record",
+                "obj"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Event object keys arrive URL encoded requiring decoding before processing.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ObjectCreated:Put"
-                  },
-                  {
-                    "text": "demo.mp4"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "One event can contain several records, so always loop over all of them.",
+            "values": {
+              "event": {
+                "var": "event",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "ObjectCreated:Put"
-                  },
-                  {
-                    "text": "my+holiday%20video.mp4"
-                  }
-                ],
-                "tone": "ok"
+              "r": {
+                "var": "r",
+                "line": 12,
+                "hit": 1
+              },
+              "record": {
+                "var": "record",
+                "line": 3,
+                "hit": 1
+              },
+              "obj": {
+                "var": "obj",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "event": "data",
+              "r": "data",
+              "record": "data",
+              "obj": "data"
+            },
+            "arrows": [
+              [
+                "event",
+                "r"
+              ],
+              [
+                "r",
+                "record"
+              ],
+              [
+                "record",
+                "obj"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "Always log the bucket name and object key while processing event records.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ObjectCreated:Put"
-                  },
-                  {
-                    "text": "demo.mp4"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Always log the bucket and key you are processing.",
+            "values": {
+              "event": {
+                "var": "event",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "ObjectCreated:Put"
-                  },
-                  {
-                    "text": "my+holiday%20video.mp4"
-                  }
-                ],
-                "tone": "ok"
+              "r": {
+                "var": "r",
+                "line": 11,
+                "hit": 2
+              },
+              "record": {
+                "var": "record",
+                "line": 4,
+                "hit": 1
+              },
+              "obj": {
+                "var": "obj",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "event": "ok",
+              "r": "ok",
+              "record": "ok",
+              "obj": "ok"
+            },
+            "arrows": [
+              [
+                "event",
+                "r"
+              ],
+              [
+                "r",
+                "record"
+              ],
+              [
+                "record",
+                "obj"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "S3 event record payload fields parsing bucket names and object keys",
-        "columns": [
-          "eventName",
-          "key"
+        "template": "flow",
+        "title": "Reading S3 event records",
+        "nodes": [
+          {
+            "id": "event",
+            "label": "event"
+          },
+          {
+            "id": "r",
+            "label": "r"
+          },
+          {
+            "id": "record",
+            "label": "record"
+          },
+          {
+            "id": "obj",
+            "label": "obj"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "S3 notification records describe affected objects including bucket and key.",
-            "rows": [
-              {
-                "cells": [
-                  "ObjectCreated:Put",
-                  "demo.mp4"
-                ],
-                "tone": "ok"
-              }
+            "caption": "An S3 event arrives at Lambda as a dictionary with a Records list.",
+            "values": {
+              "event": "{'Records': [{'eventName': 'ObjectCreat…",
+              "r": "{'eventName': 'ObjectCreated:Put', 's3'…",
+              "record": "{'eventName': 'ObjectCreated:Put', 's3'…",
+              "obj": "{'key': 'demo.mp4', 'size': 5242880}"
+            },
+            "tones": {
+              "event": "data",
+              "r": "data",
+              "record": "data",
+              "obj": "data"
+            },
+            "arrows": [
+              [
+                "event",
+                "r"
+              ],
+              [
+                "r",
+                "record"
+              ],
+              [
+                "record",
+                "obj"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Event object keys arrive URL encoded requiring decoding before processing.",
-            "rows": [
-              {
-                "cells": [
-                  "ObjectCreated:Put",
-                  "demo.mp4"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ObjectCreated:Put",
-                  "my+holiday%20video.mp4"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "One event can contain several records, so always loop over all of them.",
+            "values": {
+              "event": "{'Records': [{'eventName': 'ObjectCreat…",
+              "r": "{'eventName': 'ObjectCreated:Put', 's3'…",
+              "record": "{'eventName': 'ObjectCreated:Put', 's3'…",
+              "obj": "{'key': 'demo.mp4', 'size': 5242880}"
+            },
+            "tones": {
+              "event": "data",
+              "r": "data",
+              "record": "data",
+              "obj": "data"
+            },
+            "arrows": [
+              [
+                "event",
+                "r"
+              ],
+              [
+                "r",
+                "record"
+              ],
+              [
+                "record",
+                "obj"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "Always log the bucket name and object key while processing event records.",
-            "rows": [
-              {
-                "cells": [
-                  "ObjectCreated:Put",
-                  "demo.mp4"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ObjectCreated:Put",
-                  "my+holiday%20video.mp4"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Always log the bucket and key you are processing.",
+            "values": {
+              "event": "{'Records': [{'eventName': 'ObjectCreat…",
+              "r": "{'eventName': 'ObjectCreated:Put', 's3'…",
+              "record": "{'eventName': 'ObjectCreated:Put', 's3'…",
+              "obj": "{'key': 'demo.mp4', 'size': 5242880}"
+            },
+            "tones": {
+              "event": "ok",
+              "r": "ok",
+              "record": "ok",
+              "obj": "ok"
+            },
+            "arrows": [
+              [
+                "event",
+                "r"
+              ],
+              [
+                "r",
+                "record"
+              ],
+              [
+                "record",
+                "obj"
+              ]
             ]
           }
         ]
@@ -345,201 +569,277 @@
       "partTitle": "Processing every record and isolating failures",
       "codeHash": "0e2ccb612a9fda5944581bc63cf21f134362afc26e72d7f943e1beb35140f869",
       "spec": {
-        "template": "table",
-        "title": "Batch upload processing outcomes with isolated corrupt file handling",
-        "columns": [
-          "file",
-          "status"
+        "template": "flow",
+        "title": "Processing every record and isolating failures",
+        "nodes": [
+          {
+            "id": "db",
+            "label": "db"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "event",
+            "label": "event"
+          },
+          {
+            "id": "done",
+            "label": "done"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Isolating processing exceptions marks corrupt files as FAILED without crashing.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "a.mp4"
-                  },
-                  {
-                    "text": "DONE"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Practice 1 is process_upload(event, db, transcode).",
+            "values": {
+              "db": {
+                "var": "db",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "b.bad"
-                  },
-                  {
-                    "text": "FAILED"
-                  }
-                ],
-                "tone": "error"
+              "k": {
+                "var": "k",
+                "line": 18,
+                "hit": 2
+              },
+              "event": {
+                "var": "event",
+                "line": 7,
+                "hit": 1
+              },
+              "done": {
+                "var": "done",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "db": "data",
+              "k": "data",
+              "event": "data",
+              "done": "data"
+            },
+            "arrows": [
+              [
+                "db",
+                "k"
+              ],
+              [
+                "k",
+                "event"
+              ],
+              [
+                "event",
+                "done"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Failure isolation ensures valid files complete successfully despite errors.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "a.mp4"
-                  },
-                  {
-                    "text": "DONE"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "If transcode raises an exception for one file, record that file as FAILED.",
+            "values": {
+              "db": {
+                "var": "db",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "b.bad"
-                  },
-                  {
-                    "text": "FAILED"
-                  }
-                ],
-                "tone": "error"
+              "k": {
+                "var": "k",
+                "line": 18,
+                "hit": 3
               },
-              {
-                "cells": [
-                  {
-                    "text": "c.mp4"
-                  },
-                  {
-                    "text": "DONE"
-                  }
-                ],
-                "tone": "ok"
+              "event": {
+                "var": "event",
+                "line": 8,
+                "hit": 1
+              },
+              "done": {
+                "var": "done",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "db": "data",
+              "k": "data",
+              "event": "data",
+              "done": "data"
+            },
+            "arrows": [
+              [
+                "db",
+                "k"
+              ],
+              [
+                "k",
+                "event"
+              ],
+              [
+                "event",
+                "done"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example processes batch uploads isolating corrupt files from valid ones.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "a.mp4"
-                  },
-                  {
-                    "text": "DONE"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example runs the pipeline over three uploads, one of which is corrupt.",
+            "values": {
+              "db": {
+                "var": "db",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "b.bad"
-                  },
-                  {
-                    "text": "FAILED"
-                  }
-                ],
-                "tone": "error"
+              "k": {
+                "var": "k",
+                "line": 18,
+                "hit": 4
               },
-              {
-                "cells": [
-                  {
-                    "text": "c.mp4"
-                  },
-                  {
-                    "text": "DONE"
-                  }
-                ],
-                "tone": "ok"
+              "event": {
+                "var": "event",
+                "line": 9,
+                "hit": 1
+              },
+              "done": {
+                "var": "done",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "db": "ok",
+              "k": "ok",
+              "event": "ok",
+              "done": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "k"
+              ],
+              [
+                "k",
+                "event"
+              ],
+              [
+                "event",
+                "done"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Batch upload processing outcomes with isolated corrupt file handling",
-        "columns": [
-          "file",
-          "status"
+        "template": "flow",
+        "title": "Processing every record and isolating failures",
+        "nodes": [
+          {
+            "id": "db",
+            "label": "db"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "event",
+            "label": "event"
+          },
+          {
+            "id": "done",
+            "label": "done"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Isolating processing exceptions marks corrupt files as FAILED without crashing.",
-            "rows": [
-              {
-                "cells": [
-                  "a.mp4",
-                  "DONE"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "b.bad",
-                  "FAILED"
-                ],
-                "tone": "error"
-              }
+            "at": "say1",
+            "caption": "Practice 1 is process_upload(event, db, transcode).",
+            "values": {
+              "db": "{}",
+              "k": "'a.mp4'",
+              "event": "{'Records': [{'s3': {'bucket': {'name':…",
+              "done": "0"
+            },
+            "tones": {
+              "db": "data",
+              "k": "data",
+              "event": "data",
+              "done": "data"
+            },
+            "arrows": [
+              [
+                "db",
+                "k"
+              ],
+              [
+                "k",
+                "event"
+              ],
+              [
+                "event",
+                "done"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Failure isolation ensures valid files complete successfully despite errors.",
-            "rows": [
-              {
-                "cells": [
-                  "a.mp4",
-                  "DONE"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "b.bad",
-                  "FAILED"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "c.mp4",
-                  "DONE"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "If transcode raises an exception for one file, record that file as FAILED.",
+            "values": {
+              "db": "{}",
+              "k": "'b.bad'",
+              "event": "{'Records': [{'s3': {'bucket': {'name':…",
+              "done": "0"
+            },
+            "tones": {
+              "db": "data",
+              "k": "data",
+              "event": "data",
+              "done": "data"
+            },
+            "arrows": [
+              [
+                "db",
+                "k"
+              ],
+              [
+                "k",
+                "event"
+              ],
+              [
+                "event",
+                "done"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example processes batch uploads isolating corrupt files from valid ones.",
-            "rows": [
-              {
-                "cells": [
-                  "a.mp4",
-                  "DONE"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "b.bad",
-                  "FAILED"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "c.mp4",
-                  "DONE"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The example runs the pipeline over three uploads, one of which is corrupt.",
+            "values": {
+              "db": "{}",
+              "k": "'c.mp4'",
+              "event": "{'Records': [{'s3': {'bucket': {'name':…",
+              "done": "0"
+            },
+            "tones": {
+              "db": "ok",
+              "k": "ok",
+              "event": "ok",
+              "done": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "k"
+              ],
+              [
+                "k",
+                "event"
+              ],
+              [
+                "event",
+                "done"
+              ]
             ]
           }
         ]
@@ -549,147 +849,277 @@
       "partTitle": "Idempotency: safe to run twice",
       "codeHash": "026ce8aeac8c619ff7973c82652170941ac5865dea85c477453adf145d8c027d",
       "spec": {
-        "template": "table",
-        "title": "Idempotent execution verification tracking transcode runs across deliveries",
-        "columns": [
-          "event_delivery",
-          "action"
+        "template": "flow",
+        "title": "Idempotency: safe to run twice",
+        "nodes": [
+          {
+            "id": "db",
+            "label": "db"
+          },
+          {
+            "id": "transcode_runs",
+            "label": "transcode_runs"
+          },
+          {
+            "id": "delivery",
+            "label": "delivery"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "AWS event delivery is \"at least once\".",
+            "values": {
+              "db": {
+                "var": "db",
+                "line": 1,
+                "hit": 1
+              },
+              "transcode_runs": {
+                "var": "transcode_runs",
+                "line": 2,
+                "hit": 1
+              },
+              "delivery": {
+                "var": "delivery",
+                "line": 12,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "db": "data",
+              "transcode_runs": "data",
+              "delivery": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "db",
+                "transcode_runs"
+              ],
+              [
+                "transcode_runs",
+                "delivery"
+              ],
+              [
+                "delivery",
+                "key"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Idempotent event handlers avoid duplicate executions on repeated deliveries.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "demo.mp4"
-                  },
-                  {
-                    "text": "transcoded"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "So every event handler must be idempotent.",
+            "values": {
+              "db": {
+                "var": "db",
+                "line": 2,
+                "hit": 1
+              },
+              "transcode_runs": {
+                "var": "transcode_runs",
+                "line": 4,
+                "hit": 1
+              },
+              "delivery": {
+                "var": "delivery",
+                "line": 13,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "db": "data",
+              "transcode_runs": "data",
+              "delivery": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "db",
+                "transcode_runs"
+              ],
+              [
+                "transcode_runs",
+                "delivery"
+              ],
+              [
+                "delivery",
+                "key"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Checking state in the database skips redundant work when already processed.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "demo.mp4"
-                  },
-                  {
-                    "text": "transcoded"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Whenever you write an event handler, ask.",
+            "values": {
+              "db": {
+                "var": "db",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "demo.mp4"
-                  },
-                  {
-                    "text": "skipped (already done)"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example executes identical events confirming expensive jobs run once.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "demo.mp4"
-                  },
-                  {
-                    "text": "transcoded"
-                  }
-                ],
-                "tone": "ok"
+              "transcode_runs": {
+                "var": "transcode_runs",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "demo.mp4"
-                  },
-                  {
-                    "text": "skipped (already done)"
-                  }
-                ],
-                "tone": "data"
+              "delivery": {
+                "var": "delivery",
+                "line": 12,
+                "hit": 2
+              },
+              "key": {
+                "var": "key",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "db": "ok",
+              "transcode_runs": "ok",
+              "delivery": "ok",
+              "key": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "transcode_runs"
+              ],
+              [
+                "transcode_runs",
+                "delivery"
+              ],
+              [
+                "delivery",
+                "key"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Idempotent execution verification tracking transcode runs across deliveries",
-        "columns": [
-          "event_delivery",
-          "action"
+        "template": "flow",
+        "title": "Idempotency: safe to run twice",
+        "nodes": [
+          {
+            "id": "db",
+            "label": "db"
+          },
+          {
+            "id": "transcode_runs",
+            "label": "transcode_runs"
+          },
+          {
+            "id": "delivery",
+            "label": "delivery"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "AWS event delivery is \"at least once\".",
+            "values": {
+              "db": "{}",
+              "transcode_runs": "0",
+              "delivery": "1",
+              "key": "'demo.mp4'"
+            },
+            "tones": {
+              "db": "data",
+              "transcode_runs": "data",
+              "delivery": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "db",
+                "transcode_runs"
+              ],
+              [
+                "transcode_runs",
+                "delivery"
+              ],
+              [
+                "delivery",
+                "key"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Idempotent event handlers avoid duplicate executions on repeated deliveries.",
-            "rows": [
-              {
-                "cells": [
-                  "demo.mp4",
-                  "transcoded"
-                ],
-                "tone": "ok"
-              }
+            "caption": "So every event handler must be idempotent.",
+            "values": {
+              "db": "{}",
+              "transcode_runs": "0",
+              "delivery": "1",
+              "key": "'demo.mp4'"
+            },
+            "tones": {
+              "db": "data",
+              "transcode_runs": "data",
+              "delivery": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "db",
+                "transcode_runs"
+              ],
+              [
+                "transcode_runs",
+                "delivery"
+              ],
+              [
+                "delivery",
+                "key"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Checking state in the database skips redundant work when already processed.",
-            "rows": [
-              {
-                "cells": [
-                  "demo.mp4",
-                  "transcoded"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "demo.mp4",
-                  "skipped (already done)"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example executes identical events confirming expensive jobs run once.",
-            "rows": [
-              {
-                "cells": [
-                  "demo.mp4",
-                  "transcoded"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "demo.mp4",
-                  "skipped (already done)"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "Whenever you write an event handler, ask.",
+            "values": {
+              "db": "{}",
+              "transcode_runs": "0",
+              "delivery": "2",
+              "key": "'demo.mp4'"
+            },
+            "tones": {
+              "db": "ok",
+              "transcode_runs": "ok",
+              "delivery": "ok",
+              "key": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "transcode_runs"
+              ],
+              [
+                "transcode_runs",
+                "delivery"
+              ],
+              [
+                "delivery",
+                "key"
+              ]
             ]
           }
         ]
@@ -699,224 +1129,162 @@
       "partTitle": "Long jobs, costs and limits",
       "codeHash": "6223d5a80e1fcd0a44a74389e4f5bca02828ddf77f5beabedc9126247e4a499b",
       "spec": {
-        "template": "flow",
-        "title": "Long jobs, costs and limits — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Long jobs, costs an...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Long jobs, costs and limits",
+        "actors": [
+          "LAMBDA_LIMIT_MIN",
+          "minutes",
+          "video_minutes"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Long jobs, costs and limits [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Long jobs, costs an... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Lambda's 15-minute limit matters for video.",
+            "activeActor": "LAMBDA_LIMIT_MIN",
+            "messages": [
+              {
+                "from": "LAMBDA_LIMIT_MIN",
+                "to": "minutes",
+                "label": {
+                  "var": "LAMBDA_LIMIT_MIN",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "minutes",
+                "to": "video_minutes",
+                "label": {
+                  "var": "minutes",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The pattern is to let Lambda start the job and let a dedicated service do.",
+            "activeActor": "minutes",
+            "messages": [
+              {
+                "from": "LAMBDA_LIMIT_MIN",
+                "to": "minutes",
+                "label": {
+                  "var": "LAMBDA_LIMIT_MIN",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "minutes",
+                "to": "video_minutes",
+                "label": {
+                  "var": "minutes",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Long jobs, costs and limits.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Good serverless design is about putting each job where it fits best, not.",
+            "activeActor": "video_minutes",
+            "messages": [
+              {
+                "from": "LAMBDA_LIMIT_MIN",
+                "to": "minutes",
+                "label": {
+                  "var": "LAMBDA_LIMIT_MIN",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "minutes",
+                "to": "video_minutes",
+                "label": {
+                  "var": "minutes",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Long jobs, costs and limits — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Long jobs, costs an...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Long jobs, costs and limits",
+        "actors": [
+          "LAMBDA_LIMIT_MIN",
+          "minutes",
+          "video_minutes"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Long jobs, costs and limits [D15.P5.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Long jobs, costs an... [D15.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Lambda's 15-minute limit matters for video.",
+            "messages": [
+              {
+                "from": "LAMBDA_LIMIT_MIN",
+                "to": "minutes",
+                "label": "15",
+                "tone": "data"
+              },
+              {
+                "from": "minutes",
+                "to": "video_minutes",
+                "label": "0.5",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "LAMBDA_LIMIT_MIN"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The pattern is to let Lambda start the job and let a dedicated service do.",
+            "messages": [
+              {
+                "from": "LAMBDA_LIMIT_MIN",
+                "to": "minutes",
+                "label": "15",
+                "tone": "data"
+              },
+              {
+                "from": "minutes",
+                "to": "video_minutes",
+                "label": "0.5",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "minutes"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Long jobs, costs and limits [D15.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Good serverless design is about putting each job where it fits best, not.",
+            "messages": [
+              {
+                "from": "LAMBDA_LIMIT_MIN",
+                "to": "minutes",
+                "label": "15",
+                "tone": "data"
+              },
+              {
+                "from": "minutes",
+                "to": "video_minutes",
+                "label": "0.5",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "video_minutes"
           }
         ]
       }
@@ -925,224 +1293,106 @@
       "partTitle": "Milestone practice: build the engine",
       "codeHash": "d86806db94847055a82f42e5763b39834f189da8bd9a63ef096fdd32fbfd64c6",
       "spec": {
-        "template": "flow",
-        "title": "Milestone practice: build the engine — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone practice: build the engine",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "event",
+            "label": "event"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
+            "id": "db",
+            "label": "db"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "record",
+            "label": "record"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Milestone practice: build the engine.",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Milestone practice:... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Process_upload(event, db, transcode).",
+            "currentState": "event",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Save exactly {\"bucket\", \"output_url\", \"status\"} for each key,.",
+            "currentState": "db",
+            "transition": {
+              "from": "event",
+              "to": "db",
+              "label": {
+                "var": "db",
+                "line": 7,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Milestone practice: build the eng.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example runs a final end-to-end check of both functions together.",
+            "currentState": "record",
+            "transition": {
+              "from": "db",
+              "to": "record",
+              "label": {
+                "var": "record",
+                "line": 9,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone practice: build the engine — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone practice: build the engine",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "event",
+            "label": "event"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
+            "id": "db",
+            "label": "db"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "record",
+            "label": "record"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Milestone practice: build the engine [D15.P6.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Milestone practice:... [D15.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Process_upload(event, db, transcode).",
+            "currentState": "event",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Save exactly {\"bucket\", \"output_url\", \"status\"} for each key,.",
+            "currentState": "db",
+            "transition": {
+              "from": "event",
+              "to": "db",
+              "label": "{}"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Milestone practice: build the eng.. [D15.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example runs a final end-to-end check of both functions together.",
+            "currentState": "record",
+            "transition": {
+              "from": "db",
+              "to": "record",
+              "label": "{'s3': {'bucket': {'name': 'raw'}, 'obj…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

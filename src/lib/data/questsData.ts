@@ -42,82 +42,107 @@ export const QUESTS_REGISTRY: QuestData[] = [
   ...(BCOM_LAW_30_DAYS_QUESTS as any[]),
   ...(BCOM_TAXATION_30_DAYS_QUESTS as any[]),
   {
+    // [FIX-STAGE: wave1c-java-quests-harness] Aligned language='java' + real Test.java harnesses for /api/code/run-java (replacing JS typeof/=== tests)
     id: 'fizzbuzz',
     title: 'Quest 1: FizzBuzz Mastery',
     desc: 'Write a Java method `fizzBuzz(int n)` returning "Fizz" for multiples of 3, "Buzz" for multiples of 5, "FizzBuzz" for multiples of 3 and 5, and the number as a string for other cases.',
     type: 'coding',
+    language: 'java',
     requiresAvatar: false,
     skillCategory: 'programming',
     starterCode: `public class Solution {\n    public String fizzBuzz(int n) {\n        // Write your code here\n        \n    }\n}`,
     hint: 'Use modulo operator % to check divisibility. Check n % 15 first.',
-    testSuite: `
-      if (typeof fizzBuzz !== 'function') throw new Error("Method fizzBuzz(int n) not found.");
-      if (fizzBuzz(3) !== 'Fizz') throw new Error("fizzBuzz(3) returned '" + fizzBuzz(3) + "', expected 'Fizz'");
-      if (fizzBuzz(5) !== 'Buzz') throw new Error("fizzBuzz(5) returned '" + fizzBuzz(5) + "', expected 'Buzz'");
-      if (fizzBuzz(15) !== 'FizzBuzz') throw new Error("fizzBuzz(15) returned '" + fizzBuzz(15) + "', expected 'FizzBuzz'");
-      if (fizzBuzz(7) !== '7') throw new Error("fizzBuzz(7) returned '" + fizzBuzz(7) + "', expected '7'");
-    `
+    testSuite: `public class Test {
+  public static void main(String[] args) {
+    Solution s = new Solution();
+    if (!"Fizz".equals(s.fizzBuzz(3))) throw new RuntimeException("fizzBuzz(3) returned '" + s.fizzBuzz(3) + "', expected 'Fizz'");
+    if (!"Buzz".equals(s.fizzBuzz(5))) throw new RuntimeException("fizzBuzz(5) returned '" + s.fizzBuzz(5) + "', expected 'Buzz'");
+    if (!"FizzBuzz".equals(s.fizzBuzz(15))) throw new RuntimeException("fizzBuzz(15) returned '" + s.fizzBuzz(15) + "', expected 'FizzBuzz'");
+    if (!"7".equals(s.fizzBuzz(7))) throw new RuntimeException("fizzBuzz(7) returned '" + s.fizzBuzz(7) + "', expected '7'");
+    System.out.println("[PinIT][Fix:JavaQuest] fizzbuzz passed");
+  }
+}`
   },
   {
     id: 'reverser',
     title: 'Quest 2: String Reversal',
     desc: 'Write a Java method `reverse(String str)` returning the characters of the string in reverse order.',
     type: 'coding',
+    language: 'java',
     requiresAvatar: false,
     skillCategory: 'programming',
     starterCode: `public class Solution {\n    public String reverse(String str) {\n        // Write your code here\n        \n    }\n}`,
     hint: 'You can loop backward through the string or use a StringBuilder.',
-    testSuite: `
-      if (typeof reverse !== 'function') throw new Error("Method reverse(String str) not found.");
-      if (reverse("hello") !== "olleh") throw new Error("reverse('hello') returned '" + reverse("hello") + "', expected 'olleh'");
-      if (reverse("java") !== "avaj") throw new Error("reverse('java') returned '" + reverse("java") + "', expected 'avaj'");
-    `
+    testSuite: `public class Test {
+  public static void main(String[] args) {
+    Solution s = new Solution();
+    if (!"olleh".equals(s.reverse("hello"))) throw new RuntimeException("reverse('hello') returned '" + s.reverse("hello") + "', expected 'olleh'");
+    if (!"avaj".equals(s.reverse("java"))) throw new RuntimeException("reverse('java') returned '" + s.reverse("java") + "', expected 'avaj'");
+    System.out.println("[PinIT][Fix:JavaQuest] reverser passed");
+  }
+}`
   },
   {
     id: 'arraysum',
     title: 'Quest 3: SDE Calculator Sum',
     desc: 'Write a Java method `sum(int[] arr)` returning the sum of all elements inside the integer array.',
     type: 'coding',
+    language: 'java',
     requiresAvatar: false,
     skillCategory: 'programming',
     starterCode: `public class Solution {\n    public int sum(int[] arr) {\n        // Write your code here\n        \n    }\n}`,
     hint: 'Use a simple for loop to iterate over the array elements.',
-    testSuite: `
-      if (typeof sum !== 'function') throw new Error("Method sum(int[] arr) not found.");
-      if (sum([1, 2, 3]) !== 6) throw new Error("sum([1,2,3]) returned " + sum([1,2,3]) + ", expected 6");
-      if (sum([-1, 5, 20]) !== 24) throw new Error("sum([-1,5,20]) returned " + sum([-1,5,20]) + ", expected 24");
-    `
+    testSuite: `public class Test {
+  public static void main(String[] args) {
+    Solution s = new Solution();
+    int r1 = s.sum(new int[]{1, 2, 3});
+    if (r1 != 6) throw new RuntimeException("sum([1,2,3]) returned " + r1 + ", expected 6");
+    int r2 = s.sum(new int[]{-1, 5, 20});
+    if (r2 != 24) throw new RuntimeException("sum([-1,5,20]) returned " + r2 + ", expected 24");
+    System.out.println("[PinIT][Fix:JavaQuest] arraysum passed");
+  }
+}`
   },
   {
     id: 'palindrome',
     title: 'Quest 4: Palindrome Checker',
     desc: 'Write a Java method `isPalindrome(String str)` returning true if the string reads the same forward and backward.',
     type: 'coding',
+    language: 'java',
     requiresAvatar: false,
     skillCategory: 'programming',
     starterCode: `public class Solution {\n    public boolean isPalindrome(String str) {\n        // Write your code here\n        \n    }\n}`,
     hint: 'Compare characters from start and end, moving towards the middle.',
-    testSuite: `
-      if (typeof isPalindrome !== 'function') throw new Error("Method isPalindrome(String str) not found.");
-      if (isPalindrome("racecar") !== true) throw new Error("isPalindrome('racecar') returned " + isPalindrome('racecar') + ", expected true");
-      if (isPalindrome("hello") !== false) throw new Error("isPalindrome('hello') returned " + isPalindrome('hello') + ", expected false");
-      if (isPalindrome("radar") !== true) throw new Error("isPalindrome('radar') returned " + isPalindrome('radar') + ", expected true");
-    `
+    testSuite: `public class Test {
+  public static void main(String[] args) {
+    Solution s = new Solution();
+    if (!s.isPalindrome("racecar")) throw new RuntimeException("isPalindrome('racecar') expected true");
+    if (s.isPalindrome("hello")) throw new RuntimeException("isPalindrome('hello') expected false");
+    if (!s.isPalindrome("radar")) throw new RuntimeException("isPalindrome('radar') expected true");
+    System.out.println("[PinIT][Fix:JavaQuest] palindrome passed");
+  }
+}`
   },
   {
     id: 'findmax',
     title: 'Quest 5: Array Max Finder',
     desc: 'Write a Java method `findMax(int[] arr)` returning the largest integer element inside the array.',
     type: 'coding',
+    language: 'java',
     requiresAvatar: false,
     skillCategory: 'programming',
     starterCode: `public class Solution {\n    public int findMax(int[] arr) {\n        // Write your code here\n        \n    }\n}`,
     hint: 'Initialize max with the first element and update it as you iterate through the array.',
-    testSuite: `
-      if (typeof findMax !== 'function') throw new Error("Method findMax(int[] arr) not found.");
-      if (findMax([1, 5, 3, 9, 2]) !== 9) throw new Error("findMax([1,5,3,9,2]) returned " + findMax([1,5,3,9,2]) + ", expected 9");
-      if (findMax([-10, -5, -20]) !== -5) throw new Error("findMax([-10,-5,-20]) returned " + findMax([-10,-5,-20]) + ", expected -5");
-    `
+    testSuite: `public class Test {
+  public static void main(String[] args) {
+    Solution s = new Solution();
+    int r1 = s.findMax(new int[]{1, 5, 3, 9, 2});
+    if (r1 != 9) throw new RuntimeException("findMax([1,5,3,9,2]) returned " + r1 + ", expected 9");
+    int r2 = s.findMax(new int[]{-10, -5, -20});
+    if (r2 != -5) throw new RuntimeException("findMax([-10,-5,-20]) returned " + r2 + ", expected -5");
+    System.out.println("[PinIT][Fix:JavaQuest] findmax passed");
+  }
+}`
   },
   {
     id: 'jvm-intro',

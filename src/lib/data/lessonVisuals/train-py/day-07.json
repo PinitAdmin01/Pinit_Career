@@ -2,142 +2,172 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 7,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Floating-point formats",
       "codeHash": "25524aeda385ecdcdda21050149f0bbcde44f7a025d25ed5bc91542df7a046b5",
       "spec": {
-        "template": "table",
-        "title": "Floating-point number formats and precision trade-offs",
-        "columns": [
-          "struct",
-          "to_fp16",
-          "pack"
+        "template": "flow",
+        "title": "Floating-point formats",
+        "nodes": [
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "err",
+            "label": "err"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Floating representations balance dynamic range against decimal precision.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "struct"
-                  },
-                  {
-                    "text": "to_fp16"
-                  },
-                  {
-                    "text": "pack"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Trace how uses updates bits during execution.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "struct"
-                  },
-                  {
-                    "text": "to_fp16"
-                  },
-                  {
-                    "text": "pack"
-                  }
-                ],
-                "tone": "data"
+              "err": {
+                "var": "err",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "x": "data",
+              "err": "data"
+            },
+            "arrows": [
+              [
+                "x",
+                "err"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Preserving dynamic range suits neural training while saving memory.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "struct"
-                  },
-                  {
-                    "text": "to_fp16"
-                  },
-                  {
-                    "text": "pack"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Trace how uses updates bits during execution.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "struct"
-                  },
-                  {
-                    "text": "to_fp16"
-                  },
-                  {
-                    "text": "struct"
-                  }
-                ],
-                "tone": "ok"
+              "err": {
+                "var": "err",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "x": "data",
+              "err": "data"
+            },
+            "arrows": [
+              [
+                "x",
+                "err"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Choosing between FP16 and BF16 depends on hardware.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 7,
+                "hit": 1
+              },
+              "err": {
+                "var": "err",
+                "line": 10,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "x": "ok",
+              "err": "ok"
+            },
+            "arrows": [
+              [
+                "x",
+                "err"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Floating-point number formats and precision trade-offs",
-        "columns": [
-          "struct",
-          "to_fp16",
-          "pack"
+        "template": "flow",
+        "title": "Floating-point formats",
+        "nodes": [
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "err",
+            "label": "err"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Floating representations balance dynamic range against decimal precision.",
-            "rows": [
-              {
-                "cells": [
-                  "struct",
-                  "to_fp16",
-                  "pack"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "struct",
-                  "to_fp16",
-                  "pack"
-                ],
-                "tone": "data"
-              }
+            "caption": "Trace how uses updates bits during execution.",
+            "values": {
+              "x": "3.14159265",
+              "err": "<OverflowError>"
+            },
+            "tones": {
+              "x": "data",
+              "err": "data"
+            },
+            "arrows": [
+              [
+                "x",
+                "err"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Preserving dynamic range suits neural training while saving memory.",
-            "rows": [
-              {
-                "cells": [
-                  "struct",
-                  "to_fp16",
-                  "pack"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "struct",
-                  "to_fp16",
-                  "struct"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Trace how uses updates bits during execution.",
+            "values": {
+              "x": "3.14159265",
+              "err": "<OverflowError>"
+            },
+            "tones": {
+              "x": "data",
+              "err": "data"
+            },
+            "arrows": [
+              [
+                "x",
+                "err"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Choosing between FP16 and BF16 depends on hardware.",
+            "values": {
+              "x": "3.14159265",
+              "err": "<OverflowError>"
+            },
+            "tones": {
+              "x": "ok",
+              "err": "ok"
+            },
+            "arrows": [
+              [
+                "x",
+                "err"
+              ]
             ]
           }
         ]
@@ -147,135 +177,165 @@
       "partTitle": "Overflow and underflow",
       "codeHash": "e5ae0d33e256560d9634889c68dd47ef544df40d939c386a2b9fd11d53ae7125",
       "spec": {
-        "template": "table",
-        "title": "Numerical boundaries: overflow, underflow, and valid ranges",
-        "columns": [
-          "status",
-          "abs",
-          "value"
+        "template": "flow",
+        "title": "Overflow and underflow",
+        "nodes": [
+          {
+            "id": "value",
+            "label": "value"
+          },
+          {
+            "id": "x",
+            "label": "x"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Extreme values trigger overflows or underflows outside valid ranges.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "status"
-                  },
-                  {
-                    "text": "abs"
-                  },
-                  {
-                    "text": "value"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "In FP16, any magnitude above 65504 overflows to infinity, and any non-zero.",
+            "values": {
+              "value": {
+                "var": "value",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "status"
-                  },
-                  {
-                    "text": "abs"
-                  },
-                  {
-                    "text": "value"
-                  }
-                ],
-                "tone": "data"
+              "x": {
+                "var": "x",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "value": "data",
+              "x": "data"
+            },
+            "arrows": [
+              [
+                "value",
+                "x"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Tiny gradients underflow to zero and disrupt deep network learning.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "status"
-                  },
-                  {
-                    "text": "abs"
-                  },
-                  {
-                    "text": "value"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Gradients in deep networks are often very small, so many would underflow.",
+            "values": {
+              "value": {
+                "var": "value",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "status"
-                  },
-                  {
-                    "text": "abs"
-                  },
-                  {
-                    "text": "status"
-                  }
-                ],
-                "tone": "ok"
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "value": "data",
+              "x": "data"
+            },
+            "arrows": [
+              [
+                "value",
+                "x"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Knowing the thresholds by heart helps you read error messages about.",
+            "values": {
+              "value": {
+                "var": "value",
+                "line": 8,
+                "hit": 2
+              },
+              "x": {
+                "var": "x",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "value": "ok",
+              "x": "ok"
+            },
+            "arrows": [
+              [
+                "value",
+                "x"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Numerical boundaries: overflow, underflow, and valid ranges",
-        "columns": [
-          "status",
-          "abs",
-          "value"
+        "template": "flow",
+        "title": "Overflow and underflow",
+        "nodes": [
+          {
+            "id": "value",
+            "label": "value"
+          },
+          {
+            "id": "x",
+            "label": "x"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Extreme values trigger overflows or underflows outside valid ranges.",
-            "rows": [
-              {
-                "cells": [
-                  "status",
-                  "abs",
-                  "value"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "status",
-                  "abs",
-                  "value"
-                ],
-                "tone": "data"
-              }
+            "caption": "In FP16, any magnitude above 65504 overflows to infinity, and any non-zero.",
+            "values": {
+              "value": "0.02",
+              "x": "0.02"
+            },
+            "tones": {
+              "value": "data",
+              "x": "data"
+            },
+            "arrows": [
+              [
+                "value",
+                "x"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Tiny gradients underflow to zero and disrupt deep network learning.",
-            "rows": [
-              {
-                "cells": [
-                  "status",
-                  "abs",
-                  "value"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "status",
-                  "abs",
-                  "status"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Gradients in deep networks are often very small, so many would underflow.",
+            "values": {
+              "value": "0.02",
+              "x": "0.02"
+            },
+            "tones": {
+              "value": "data",
+              "x": "data"
+            },
+            "arrows": [
+              [
+                "value",
+                "x"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Knowing the thresholds by heart helps you read error messages about.",
+            "values": {
+              "value": "0.000003",
+              "x": "0.02"
+            },
+            "tones": {
+              "value": "ok",
+              "x": "ok"
+            },
+            "arrows": [
+              [
+                "value",
+                "x"
+              ]
             ]
           }
         ]
@@ -285,78 +345,91 @@
       "partTitle": "Loss scaling",
       "codeHash": "42363b4a7a9a39e4688f2dcfa3a8347717faaedaf14ba371508233bb8693d019",
       "spec": {
-        "template": "table",
-        "title": "Loss scaling mechanism for low-precision gradient rescue",
-        "columns": [
+        "template": "sequence",
+        "title": "Loss scaling",
+        "actors": [
           "grad",
           "scale",
-          "stored"
+          "x"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Loss scaling rescues small gradients before the backward pass.",
-            "rows": [
+            "caption": "Loss scaling rescues small gradients.",
+            "activeActor": "grad",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "grad"
-                  },
-                  {
-                    "text": "scale"
-                  },
-                  {
-                    "text": "stored"
-                  }
-                ],
-                "tone": "ok"
+                "from": "grad",
+                "to": "scale",
+                "label": {
+                  "var": "grad",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "grad"
-                  },
-                  {
-                    "text": "scale"
-                  },
-                  {
-                    "text": "stored"
-                  }
-                ],
-                "tone": "data"
+                "from": "scale",
+                "to": "x",
+                "label": {
+                  "var": "scale",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Unscaling divides gradients by the factor to leave updates unchanged.",
-            "rows": [
+            "at": "say2",
+            "caption": "Because gradients are proportional to the loss, every gradient.",
+            "activeActor": "scale",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "grad"
-                  },
-                  {
-                    "text": "scale"
-                  },
-                  {
-                    "text": "stored"
-                  }
-                ],
+                "from": "grad",
+                "to": "scale",
+                "label": {
+                  "var": "grad",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "grad"
-                  },
-                  {
-                    "text": "scale"
-                  },
-                  {
-                    "text": "grad"
-                  }
-                ],
+                "from": "scale",
+                "to": "x",
+                "label": {
+                  "var": "scale",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Loss scaling is not needed with BF16, which is another reason for its.",
+            "activeActor": "x",
+            "messages": [
+              {
+                "from": "grad",
+                "to": "scale",
+                "label": {
+                  "var": "grad",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "scale",
+                "to": "x",
+                "label": {
+                  "var": "scale",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +437,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Loss scaling mechanism for low-precision gradient rescue",
-        "columns": [
+        "template": "sequence",
+        "title": "Loss scaling",
+        "actors": [
           "grad",
           "scale",
-          "stored"
+          "x"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Loss scaling rescues small gradients before the backward pass.",
-            "rows": [
+            "caption": "Loss scaling rescues small gradients.",
+            "messages": [
               {
-                "cells": [
-                  "grad",
-                  "scale",
-                  "stored"
-                ],
-                "tone": "ok"
+                "from": "grad",
+                "to": "scale",
+                "label": "2e-8",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "grad",
-                  "scale",
-                  "stored"
-                ],
-                "tone": "data"
+                "from": "scale",
+                "to": "x",
+                "label": "65536",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "grad"
           },
           {
-            "at": "say3",
-            "caption": "Unscaling divides gradients by the factor to leave updates unchanged.",
-            "rows": [
+            "at": "say2",
+            "caption": "Because gradients are proportional to the loss, every gradient.",
+            "messages": [
               {
-                "cells": [
-                  "grad",
-                  "scale",
-                  "stored"
-                ],
+                "from": "grad",
+                "to": "scale",
+                "label": "2e-8",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "grad",
-                  "scale",
-                  "grad"
-                ],
+                "from": "scale",
+                "to": "x",
+                "label": "65536",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "scale"
+          },
+          {
+            "at": "say10",
+            "caption": "Loss scaling is not needed with BF16, which is another reason for its.",
+            "messages": [
+              {
+                "from": "grad",
+                "to": "scale",
+                "label": "2e-8",
+                "tone": "data"
+              },
+              {
+                "from": "scale",
+                "to": "x",
+                "label": "65536",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "x"
           }
         ]
       }
@@ -423,78 +509,91 @@
       "partTitle": "Dynamic loss scaling",
       "codeHash": "5eeb2dc9aa9a4a28a2ad2b7f21f0c94e3764e21d232f7f0155dc0a7bcb606dd3",
       "spec": {
-        "template": "table",
-        "title": "Dynamic scale adaptation and overflow-driven backoff",
-        "columns": [
+        "template": "sequence",
+        "title": "Dynamic loss scaling",
+        "actors": [
           "scale",
           "good",
-          "step"
+          "interval"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dynamic loss scaling adjusts the factor automatically during training.",
-            "rows": [
+            "caption": "Dynamic loss scaling adjusts the scale automatically.",
+            "activeActor": "scale",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "scale"
-                  },
-                  {
-                    "text": "good"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "ok"
+                "from": "scale",
+                "to": "good",
+                "label": {
+                  "var": "scale",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "scale"
-                  },
-                  {
-                    "text": "good"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "data"
+                "from": "good",
+                "to": "interval",
+                "label": {
+                  "var": "good",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Detected overflows skip the optimizer step and halve the current scale.",
-            "rows": [
+            "at": "say2",
+            "caption": "After each backward pass, check the gradients for infinities or NaNs.",
+            "activeActor": "good",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "scale"
-                  },
-                  {
-                    "text": "good"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
+                "from": "scale",
+                "to": "good",
+                "label": {
+                  "var": "scale",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "scale"
-                  },
-                  {
-                    "text": "good"
-                  },
-                  {
-                    "text": "scale"
-                  }
-                ],
+                "from": "good",
+                "to": "interval",
+                "label": {
+                  "var": "good",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Logging the scale over time is a useful health check for mixed-precision runs.",
+            "activeActor": "interval",
+            "messages": [
+              {
+                "from": "scale",
+                "to": "good",
+                "label": {
+                  "var": "scale",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "good",
+                "to": "interval",
+                "label": {
+                  "var": "good",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,57 +601,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Dynamic scale adaptation and overflow-driven backoff",
-        "columns": [
+        "template": "sequence",
+        "title": "Dynamic loss scaling",
+        "actors": [
           "scale",
           "good",
-          "step"
+          "interval"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dynamic loss scaling adjusts the factor automatically during training.",
-            "rows": [
+            "caption": "Dynamic loss scaling adjusts the scale automatically.",
+            "messages": [
               {
-                "cells": [
-                  "scale",
-                  "good",
-                  "step"
-                ],
-                "tone": "ok"
+                "from": "scale",
+                "to": "good",
+                "label": "1024",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "scale",
-                  "good",
-                  "step"
-                ],
-                "tone": "data"
+                "from": "good",
+                "to": "interval",
+                "label": "0",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "scale"
           },
           {
-            "at": "say3",
-            "caption": "Detected overflows skip the optimizer step and halve the current scale.",
-            "rows": [
+            "at": "say2",
+            "caption": "After each backward pass, check the gradients for infinities or NaNs.",
+            "messages": [
               {
-                "cells": [
-                  "scale",
-                  "good",
-                  "step"
-                ],
+                "from": "scale",
+                "to": "good",
+                "label": "1024",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "scale",
-                  "good",
-                  "scale"
-                ],
+                "from": "good",
+                "to": "interval",
+                "label": "0",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "good"
+          },
+          {
+            "at": "say10",
+            "caption": "Logging the scale over time is a useful health check for mixed-precision runs.",
+            "messages": [
+              {
+                "from": "scale",
+                "to": "good",
+                "label": "1024",
+                "tone": "data"
+              },
+              {
+                "from": "good",
+                "to": "interval",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "interval"
           }
         ]
       }
@@ -562,110 +674,127 @@
       "codeHash": "7a9a1f0e6816482cf1b49046ae5088354456da03ec90b940e9039b0d3db818c1",
       "spec": {
         "template": "flow",
-        "title": "Mixed precision in practice — Execution Pipeline",
+        "title": "Mixed precision in practice",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "plan",
+            "label": "plan"
           },
           {
-            "id": "proc",
-            "label": "2. Mixed precision in ...",
-            "tappable": true
+            "id": "item",
+            "label": "item"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "precision",
+            "label": "precision"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Mixed precision in practice [Dseven.Pfive.Sone].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Mixed precision in ... [Dseven.Pfive.Stwo].",
+            "caption": "A mixed-precision step.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "plan": {
+                "var": "plan",
+                "line": 1,
+                "hit": 1
+              },
+              "item": {
+                "var": "item",
+                "line": 4,
+                "hit": 1
+              },
+              "precision": {
+                "var": "precision",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "plan": "data",
+              "item": "data",
+              "precision": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "plan",
+                "item"
               ],
               [
-                "proc",
-                "out"
+                "item",
+                "precision"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Some operations, such as softmax, layer normalisation and loss.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "plan": {
+                "var": "plan",
+                "line": 4,
+                "hit": 1
+              },
+              "item": {
+                "var": "item",
+                "line": 5,
+                "hit": 1
+              },
+              "precision": {
+                "var": "precision",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "plan": "data",
+              "item": "data",
+              "precision": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "plan",
+                "item"
+              ],
+              [
+                "item",
+                "precision"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Mixed precision in practice.",
+            "at": "say10",
+            "caption": "When results differ slightly between FP32 and mixed precision, that.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "plan": {
+                "var": "plan",
+                "line": 5,
+                "hit": 1
+              },
+              "item": {
+                "var": "item",
+                "line": 4,
+                "hit": 2
+              },
+              "precision": {
+                "var": "precision",
+                "line": 4,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "plan": "ok",
+              "item": "ok",
+              "precision": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "plan",
+                "item"
               ],
               [
-                "proc",
-                "out"
+                "item",
+                "precision"
               ]
             ]
           }
@@ -673,110 +802,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Mixed precision in practice — Execution Pipeline",
+        "title": "Mixed precision in practice",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "plan",
+            "label": "plan"
           },
           {
-            "id": "proc",
-            "label": "2. Mixed precision in ...",
-            "tappable": true
+            "id": "item",
+            "label": "item"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "precision",
+            "label": "precision"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Mixed precision in practice [D7.P5.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Mixed precision in ... [D7.P5.S2].",
+            "caption": "A mixed-precision step.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "plan": "[['master weights', 'fp32'], ['weights …",
+              "item": "'master weights'",
+              "precision": "'fp32'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "plan": "data",
+              "item": "data",
+              "precision": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "plan",
+                "item"
               ],
               [
-                "proc",
-                "out"
+                "item",
+                "precision"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P5.S3].",
+            "at": "say2",
+            "caption": "Some operations, such as softmax, layer normalisation and loss.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "plan": "[['master weights', 'fp32'], ['weights …",
+              "item": "'master weights'",
+              "precision": "'fp32'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "plan": "data",
+              "item": "data",
+              "precision": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "plan",
+                "item"
+              ],
+              [
+                "item",
+                "precision"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Mixed precision in practice [D7.P5.S4].",
+            "at": "say10",
+            "caption": "When results differ slightly between FP32 and mixed precision, that.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "plan": "[['master weights', 'fp32'], ['weights …",
+              "item": "'weights used in forward/backward'",
+              "precision": "'bf16 or fp16'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "plan": "ok",
+              "item": "ok",
+              "precision": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "plan",
+                "item"
               ],
               [
-                "proc",
-                "out"
+                "item",
+                "precision"
               ]
             ]
           }
@@ -787,223 +897,217 @@
       "partTitle": "Practice time: precision",
       "codeHash": "6667c18baac592958d3e2fa43e2c80c62bb359e1bb254ca36306116b386b1c0f",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: precision — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: prec...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: precision",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: precision [Dseven.Psix.Sone].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: prec... [Dseven.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Trace how practice updates return during execution.",
+            "bars": [
+              {
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "good",
+                "value": {
+                  "var": "good",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "skipped",
+                "value": {
+                  "var": "skipped",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
+            "bars": [
+              {
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "good",
+                "value": {
+                  "var": "good",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "skipped",
+                "value": {
+                  "var": "skipped",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: precision.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If your scaler test fails, print the scale and counter after each call.",
+            "bars": [
+              {
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "good",
+                "value": {
+                  "var": "good",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "skipped",
+                "value": {
+                  "var": "skipped",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: precision — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: prec...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: precision",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: precision [D7.P6.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: prec... [D7.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Trace how practice updates return during execution.",
+            "bars": [
+              {
+                "label": "scale",
+                "value": 65536,
+                "tone": "data"
+              },
+              {
+                "label": "good",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "skipped",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "step",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
+            "bars": [
+              {
+                "label": "scale",
+                "value": 65536,
+                "tone": "ok"
+              },
+              {
+                "label": "good",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "skipped",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "step",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: precision [D7.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If your scaler test fails, print the scale and counter after each call.",
+            "bars": [
+              {
+                "label": "scale",
+                "value": 65536,
+                "tone": "ok"
+              },
+              {
+                "label": "good",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "skipped",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "step",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]

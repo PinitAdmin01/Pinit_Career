@@ -2,257 +2,169 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 25,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Metrics, logs and traces",
       "codeHash": "5f46be03fa363a7e26ea94099e4ca3da8364635b94c781afc89b23a0712c5a43",
       "spec": {
-        "template": "table",
-        "title": "CloudWatch observability metrics, logs and latency signals",
-        "columns": [
-          "ms",
-          "status"
+        "template": "sequence",
+        "title": "Metrics, logs and traces",
+        "actors": [
+          "calls",
+          "minutes",
+          "m"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Observability helps teams understand what systems do from outside.",
-            "rows": [
+            "caption": "Observability means being able to understand what your system is doing.",
+            "activeActor": "calls",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "120"
-                  },
-                  {
-                    "text": "200"
-                  }
-                ],
+                "from": "calls",
+                "to": "minutes",
+                "label": {
+                  "var": "calls",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "minutes",
+                "to": "m",
+                "label": {
+                  "var": "minutes",
+                  "line": 2,
+                  "hit": 8
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Metrics aggregate operational numbers over time for alarms.",
-            "rows": [
+            "caption": "Metrics are numbers over time.",
+            "activeActor": "minutes",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "120"
-                  },
-                  {
-                    "text": "200"
-                  }
-                ],
-                "tone": "ok"
+                "from": "calls",
+                "to": "minutes",
+                "label": {
+                  "var": "calls",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "90"
-                  },
-                  {
-                    "text": "200"
-                  }
-                ],
+                "from": "minutes",
+                "to": "m",
+                "label": {
+                  "var": "minutes",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Logs capture records of individual events with diagnostic detail.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example turns raw call records into per-minute metrics.",
+            "activeActor": "m",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "120"
-                  },
-                  {
-                    "text": "200"
-                  }
-                ],
+                "from": "calls",
+                "to": "minutes",
+                "label": {
+                  "var": "calls",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "minutes",
+                "to": "m",
+                "label": {
+                  "var": "minutes",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "90"
-                  },
-                  {
-                    "text": "200"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "400"
-                  },
-                  {
-                    "text": "500"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Traces follow execution calls across distributed services.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "120"
-                  },
-                  {
-                    "text": "200"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "90"
-                  },
-                  {
-                    "text": "200"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "400"
-                  },
-                  {
-                    "text": "500"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "800"
-                  },
-                  {
-                    "text": "503"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "CloudWatch observability metrics, logs and latency signals",
-        "columns": [
-          "ms",
-          "status"
+        "template": "sequence",
+        "title": "Metrics, logs and traces",
+        "actors": [
+          "calls",
+          "minutes",
+          "m"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Observability helps teams understand what systems do from outside.",
-            "rows": [
+            "caption": "Observability means being able to understand what your system is doing.",
+            "messages": [
               {
-                "cells": [
-                  "120",
-                  "200"
-                ],
+                "from": "calls",
+                "to": "minutes",
+                "label": "[[0, 120, 200], [0, 90, 200], [0, 400, …",
+                "tone": "data"
+              },
+              {
+                "from": "minutes",
+                "to": "m",
+                "label": "[0, 1]",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "calls"
           },
           {
             "at": "say2",
-            "caption": "Metrics aggregate operational numbers over time for alarms.",
-            "rows": [
+            "caption": "Metrics are numbers over time.",
+            "messages": [
               {
-                "cells": [
-                  "120",
-                  "200"
-                ],
-                "tone": "ok"
+                "from": "calls",
+                "to": "minutes",
+                "label": "[[0, 120, 200], [0, 90, 200], [0, 400, …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "90",
-                  "200"
-                ],
+                "from": "minutes",
+                "to": "m",
+                "label": "[0, 1]",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "minutes"
           },
           {
-            "at": "say3",
-            "caption": "Logs capture records of individual events with diagnostic detail.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example turns raw call records into per-minute metrics.",
+            "messages": [
               {
-                "cells": [
-                  "120",
-                  "200"
-                ],
-                "tone": "ok"
+                "from": "calls",
+                "to": "minutes",
+                "label": "[[0, 120, 200], [0, 90, 200], [0, 400, …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "90",
-                  "200"
-                ],
+                "from": "minutes",
+                "to": "m",
+                "label": "[0, 1]",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "400",
-                  "500"
-                ],
-                "tone": "idle"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Traces follow execution calls across distributed services.",
-            "rows": [
-              {
-                "cells": [
-                  "120",
-                  "200"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "90",
-                  "200"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "400",
-                  "500"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "800",
-                  "503"
-                ],
-                "tone": "error"
-              }
-            ]
+            ],
+            "activeActor": "m"
           }
         ]
       }
@@ -261,232 +173,72 @@
       "partTitle": "Percentiles beat averages",
       "codeHash": "c3408514fdab487c3abbdd8ed97a76c990f1fa87be7a725e2510118c857ffc63",
       "spec": {
-        "template": "table",
-        "title": "Latency distribution percentiles exposing tail performance",
-        "columns": [
-          "percentile",
-          "latency"
+        "template": "states",
+        "title": "Percentiles beat averages",
+        "states": [
+          {
+            "id": "latencies",
+            "label": "latencies"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Averages hide extreme latency spikes experienced by unlucky users.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "p50"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Averages hide pain.",
+            "currentState": "latencies",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Percentiles measure typical user calls and reveal slow tail latency.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "p50"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "p99"
-                  },
-                  {
-                    "text": "2500"
-                  }
-                ],
-                "tone": "idle"
+            "caption": "Percentiles show the spread.",
+            "currentState": "q",
+            "transition": {
+              "from": "latencies",
+              "to": "q",
+              "label": {
+                "var": "q",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Service level objectives define latency targets using percentiles.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "p50"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "p99"
-                  },
-                  {
-                    "text": "2500"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "max"
-                  },
-                  {
-                    "text": "10000"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Production alarms track tail percentiles instead of simple averages.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "p50"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "p99"
-                  },
-                  {
-                    "text": "2500"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "max"
-                  },
-                  {
-                    "text": "10000"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Latency distribution percentiles exposing tail performance",
-        "columns": [
-          "percentile",
-          "latency"
+        "template": "states",
+        "title": "Percentiles beat averages",
+        "states": [
+          {
+            "id": "latencies",
+            "label": "latencies"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Averages hide extreme latency spikes experienced by unlucky users.",
-            "rows": [
-              {
-                "cells": [
-                  "p50",
-                  "100"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Averages hide pain.",
+            "currentState": "latencies",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Percentiles measure typical user calls and reveal slow tail latency.",
-            "rows": [
-              {
-                "cells": [
-                  "p50",
-                  "100"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "p99",
-                  "2500"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Service level objectives define latency targets using percentiles.",
-            "rows": [
-              {
-                "cells": [
-                  "p50",
-                  "100"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "p99",
-                  "2500"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "max",
-                  "10000"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Production alarms track tail percentiles instead of simple averages.",
-            "rows": [
-              {
-                "cells": [
-                  "p50",
-                  "100"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "p99",
-                  "2500"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "max",
-                  "10000"
-                ],
-                "tone": "error"
-              }
-            ]
+            "caption": "Percentiles show the spread.",
+            "currentState": "q",
+            "transition": {
+              "from": "latencies",
+              "to": "q",
+              "label": "[100, 100, 100, 100, 100, 100, 100, 100…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -495,230 +247,216 @@
       "partTitle": "Alarms over consecutive datapoints",
       "codeHash": "8dc77ee026891a98fcdc68af9d7dc59ed8e4c510df84606121ed5d822e634fee",
       "spec": {
-        "template": "table",
-        "title": "Consecutive period evaluation for CloudWatch alarms",
-        "columns": [
-          "value",
-          "state"
-        ],
+        "template": "bars",
+        "title": "Alarms over consecutive datapoints",
         "steps": [
           {
             "at": "say1",
-            "caption": "CloudWatch alarms transition between monitored metric states.",
-            "rows": [
+            "caption": "A CloudWatch alarm watches one metric and changes state.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "40"
-                  },
-                  {
-                    "text": "INSUFFICIENT_DATA"
-                  }
-                ],
+                "label": "value",
+                "value": {
+                  "var": "value",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "threshold",
+                "value": {
+                  "var": "threshold",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "periods",
+                "value": {
+                  "var": "periods",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Alarms configure thresholds, comparisons and evaluation periods.",
-            "rows": [
+            "caption": "You choose a threshold, a comparison (GreaterThanThreshold.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "40"
-                  },
-                  {
-                    "text": "INSUFFICIENT_DATA"
-                  }
-                ],
-                "tone": "data"
+                "label": "value",
+                "value": {
+                  "var": "value",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "70"
-                  },
-                  {
-                    "text": "OK"
-                  }
-                ],
+                "label": "threshold",
+                "value": {
+                  "var": "threshold",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "periods",
+                "value": {
+                  "var": "periods",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 6,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Consecutive evaluation periods prevent noisy false alarms.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example evaluates the alarm after each new datapoint arrives.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "40"
-                  },
-                  {
-                    "text": "INSUFFICIENT_DATA"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "70"
-                  },
-                  {
-                    "text": "OK"
-                  }
-                ],
+                "label": "value",
+                "value": {
+                  "var": "value",
+                  "line": 14,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "95"
-                  },
-                  {
-                    "text": "ALARM"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The alarm evaluates recent datapoints against configured operators.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "40"
-                  },
-                  {
-                    "text": "INSUFFICIENT_DATA"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "70"
-                  },
-                  {
-                    "text": "OK"
-                  }
-                ],
+                "label": "threshold",
+                "value": {
+                  "var": "threshold",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "95"
-                  },
-                  {
-                    "text": "ALARM"
-                  }
-                ],
-                "tone": "idle"
+                "label": "periods",
+                "value": {
+                  "var": "periods",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 6,
+                  "hit": 4
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Consecutive period evaluation for CloudWatch alarms",
-        "columns": [
-          "value",
-          "state"
-        ],
+        "template": "bars",
+        "title": "Alarms over consecutive datapoints",
         "steps": [
           {
             "at": "say1",
-            "caption": "CloudWatch alarms transition between monitored metric states.",
-            "rows": [
+            "caption": "A CloudWatch alarm watches one metric and changes state.",
+            "bars": [
               {
-                "cells": [
-                  "40",
-                  "INSUFFICIENT_DATA"
-                ],
+                "label": "value",
+                "value": 40,
+                "tone": "data"
+              },
+              {
+                "label": "threshold",
+                "value": 80,
+                "tone": "data"
+              },
+              {
+                "label": "periods",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 40,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Alarms configure thresholds, comparisons and evaluation periods.",
-            "rows": [
+            "caption": "You choose a threshold, a comparison (GreaterThanThreshold.",
+            "bars": [
               {
-                "cells": [
-                  "40",
-                  "INSUFFICIENT_DATA"
-                ],
-                "tone": "data"
+                "label": "value",
+                "value": 40,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "70",
-                  "OK"
-                ],
+                "label": "threshold",
+                "value": 80,
+                "tone": "ok"
+              },
+              {
+                "label": "periods",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 85,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Consecutive evaluation periods prevent noisy false alarms.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example evaluates the alarm after each new datapoint arrives.",
+            "bars": [
               {
-                "cells": [
-                  "40",
-                  "INSUFFICIENT_DATA"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "70",
-                  "OK"
-                ],
+                "label": "value",
+                "value": 40,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "95",
-                  "ALARM"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The alarm evaluates recent datapoints against configured operators.",
-            "rows": [
-              {
-                "cells": [
-                  "40",
-                  "INSUFFICIENT_DATA"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "70",
-                  "OK"
-                ],
+                "label": "threshold",
+                "value": 80,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "95",
-                  "ALARM"
-                ],
-                "tone": "idle"
+                "label": "periods",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 90,
+                "tone": "ok"
               }
             ]
           }
@@ -729,143 +467,91 @@
       "partTitle": "Logs and Logs Insights",
       "codeHash": "9cdc27006f19c47ef143f8dd26aa72c3e00831dd1b75973f58d991dc53067d85",
       "spec": {
-        "template": "table",
-        "title": "CloudWatch Logs Insights query filtering by status code",
-        "columns": [
-          "path",
-          "status"
+        "template": "sequence",
+        "title": "Logs and Logs Insights",
+        "actors": [
+          "logs",
+          ".0",
+          "l"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "CloudWatch Logs groups lines into application log streams.",
-            "rows": [
+            "caption": "CloudWatch Logs stores log lines in log groups (one per application.",
+            "activeActor": "logs",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "/pay"
-                  },
-                  {
-                    "text": "500"
-                  }
-                ],
-                "tone": "idle"
+                "from": "logs",
+                "to": ".0",
+                "label": {
+                  "var": "logs",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "l",
+                "label": {
+                  "var": ".0",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Retention periods prevent log group storage costs from growing forever.",
-            "rows": [
+            "caption": "Set a retention period on every log group.",
+            "activeActor": ".0",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "/pay"
-                  },
-                  {
-                    "text": "500"
-                  }
-                ],
-                "tone": "idle"
+                "from": "logs",
+                "to": ".0",
+                "label": {
+                  "var": "logs",
+                  "line": 5,
+                  "hit": 8
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "/cart"
-                  },
-                  {
-                    "text": "502"
-                  }
-                ],
-                "tone": "idle"
+                "from": ".0",
+                "to": "l",
+                "label": {
+                  "var": ".0",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Structured JSON logs allow Logs Insights queries to filter and aggregate.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example runs the error summary over a small batch of structured logs.",
+            "activeActor": "l",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "/pay"
-                  },
-                  {
-                    "text": "500"
-                  }
-                ],
-                "tone": "idle"
+                "from": "logs",
+                "to": ".0",
+                "label": {
+                  "var": "logs",
+                  "line": 6,
+                  "hit": 4
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "/cart"
-                  },
-                  {
-                    "text": "502"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "/auth"
-                  },
-                  {
-                    "text": "500"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Queries aggregate status errors across specific request paths.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "/pay"
-                  },
-                  {
-                    "text": "500"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "/cart"
-                  },
-                  {
-                    "text": "502"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "/auth"
-                  },
-                  {
-                    "text": "500"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "/home"
-                  },
-                  {
-                    "text": "200"
-                  }
-                ],
+                "from": ".0",
+                "to": "l",
+                "label": {
+                  "var": ".0",
+                  "line": 5,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -873,106 +559,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "CloudWatch Logs Insights query filtering by status code",
-        "columns": [
-          "path",
-          "status"
+        "template": "sequence",
+        "title": "Logs and Logs Insights",
+        "actors": [
+          "logs",
+          ".0",
+          "l"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "CloudWatch Logs groups lines into application log streams.",
-            "rows": [
+            "caption": "CloudWatch Logs stores log lines in log groups (one per application.",
+            "messages": [
               {
-                "cells": [
-                  "/pay",
-                  "500"
-                ],
-                "tone": "idle"
+                "from": "logs",
+                "to": ".0",
+                "label": "[{'path': '/pay', 'status': 500}, {'pat…",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "l",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "logs"
           },
           {
             "at": "say2",
-            "caption": "Retention periods prevent log group storage costs from growing forever.",
-            "rows": [
+            "caption": "Set a retention period on every log group.",
+            "messages": [
               {
-                "cells": [
-                  "/pay",
-                  "500"
-                ],
-                "tone": "idle"
+                "from": "logs",
+                "to": ".0",
+                "label": "[{'path': '/pay', 'status': 500}, {'pat…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "/cart",
-                  "502"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Structured JSON logs allow Logs Insights queries to filter and aggregate.",
-            "rows": [
-              {
-                "cells": [
-                  "/pay",
-                  "500"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "/cart",
-                  "502"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "/auth",
-                  "500"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Queries aggregate status errors across specific request paths.",
-            "rows": [
-              {
-                "cells": [
-                  "/pay",
-                  "500"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "/cart",
-                  "502"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "/auth",
-                  "500"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "/home",
-                  "200"
-                ],
+                "from": ".0",
+                "to": "l",
+                "label": "{'__other__': 'list_iterator'}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": ".0"
+          },
+          {
+            "at": "say7",
+            "caption": "The example runs the error summary over a small batch of structured logs.",
+            "messages": [
+              {
+                "from": "logs",
+                "to": ".0",
+                "label": "[{'path': '/pay', 'status': 500}, {'pat…",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "l",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "l"
           }
         ]
       }
@@ -982,110 +632,161 @@
       "codeHash": "165b0adf90f6613cb608ca539df1942eab12988dfa6acd2b301395afc6bec921",
       "spec": {
         "template": "flow",
-        "title": "Dashboards and alerts people act on — Execution Pipeline",
+        "title": "Dashboards and alerts people act on",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "alerts",
+            "label": "alerts"
           },
           {
-            "id": "proc",
-            "label": "2. Dashboards and aler...",
-            "tappable": true
+            "id": "a",
+            "label": "a"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "useful",
+            "label": "useful"
+          },
+          {
+            "id": "verdict",
+            "label": "verdict"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Dashboards and alerts people act on.",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Dashboards and aler... [D.Pfive.Stwo].",
+            "caption": "A dashboard should answer \"is the system healthy right now, and if not, where.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "alerts": {
+                "var": "alerts",
+                "line": 1,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 7,
+                "hit": 1
+              },
+              "useful": {
+                "var": "useful",
+                "line": 8,
+                "hit": 1
+              },
+              "verdict": {
+                "var": "verdict",
+                "line": 9,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "alerts": "data",
+              "a": "data",
+              "useful": "data",
+              "verdict": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "alerts",
+                "a"
               ],
               [
-                "proc",
-                "out"
+                "a",
+                "useful"
+              ],
+              [
+                "useful",
+                "verdict"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "A widely used framework is the four golden signals.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "alerts": {
+                "var": "alerts",
+                "line": 7,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 8,
+                "hit": 1
+              },
+              "useful": {
+                "var": "useful",
+                "line": 9,
+                "hit": 1
+              },
+              "verdict": {
+                "var": "verdict",
+                "line": 10,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "alerts": "data",
+              "a": "data",
+              "useful": "data",
+              "verdict": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "alerts",
+                "a"
+              ],
+              [
+                "a",
+                "useful"
+              ],
+              [
+                "useful",
+                "verdict"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Dashboards and alerts people act on.",
+            "at": "say7",
+            "caption": "The example scores a list of alerts by whether they are actionable,.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "alerts": {
+                "var": "alerts",
+                "line": 8,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 9,
+                "hit": 1
+              },
+              "useful": {
+                "var": "useful",
+                "line": 10,
+                "hit": 1
+              },
+              "verdict": {
+                "var": "verdict",
+                "line": 7,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "alerts": "ok",
+              "a": "ok",
+              "useful": "ok",
+              "verdict": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "alerts",
+                "a"
               ],
               [
-                "proc",
-                "out"
+                "a",
+                "useful"
+              ],
+              [
+                "useful",
+                "verdict"
               ]
             ]
           }
@@ -1093,110 +794,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Dashboards and alerts people act on — Execution Pipeline",
+        "title": "Dashboards and alerts people act on",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "alerts",
+            "label": "alerts"
           },
           {
-            "id": "proc",
-            "label": "2. Dashboards and aler...",
-            "tappable": true
+            "id": "a",
+            "label": "a"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "useful",
+            "label": "useful"
+          },
+          {
+            "id": "verdict",
+            "label": "verdict"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Dashboards and alerts people act on [D25.P5.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Dashboards and aler... [D25.P5.S2].",
+            "caption": "A dashboard should answer \"is the system healthy right now, and if not, where.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "alerts": "[{'name': 'checkout 5xx > 2%', 'fired':…",
+              "a": "{'name': 'checkout 5xx > 2%', 'fired': …",
+              "useful": "1",
+              "verdict": "'keep'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "alerts": "data",
+              "a": "data",
+              "useful": "data",
+              "verdict": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "alerts",
+                "a"
               ],
               [
-                "proc",
-                "out"
+                "a",
+                "useful"
+              ],
+              [
+                "useful",
+                "verdict"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P5.S3].",
+            "at": "say2",
+            "caption": "A widely used framework is the four golden signals.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "alerts": "[{'name': 'checkout 5xx > 2%', 'fired':…",
+              "a": "{'name': 'checkout 5xx > 2%', 'fired': …",
+              "useful": "1",
+              "verdict": "'keep'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "alerts": "data",
+              "a": "data",
+              "useful": "data",
+              "verdict": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "alerts",
+                "a"
+              ],
+              [
+                "a",
+                "useful"
+              ],
+              [
+                "useful",
+                "verdict"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Dashboards and alerts people act on [D25.P5.S4].",
+            "at": "say7",
+            "caption": "The example scores a list of alerts by whether they are actionable,.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "alerts": "[{'name': 'checkout 5xx > 2%', 'fired':…",
+              "a": "{'name': 'checkout 5xx > 2%', 'fired': …",
+              "useful": "1",
+              "verdict": "'keep'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "alerts": "ok",
+              "a": "ok",
+              "useful": "ok",
+              "verdict": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "alerts",
+                "a"
               ],
               [
-                "proc",
-                "out"
+                "a",
+                "useful"
+              ],
+              [
+                "useful",
+                "verdict"
               ]
             ]
           }
@@ -1208,110 +912,93 @@
       "codeHash": "629171f6e9c5f4166656752bce96caaed640cce21ff3fe2ea6c325d62b072274",
       "spec": {
         "template": "flow",
-        "title": "Practice time: alarms and log summaries — Execution Pipeline",
+        "title": "Practice time: alarms and log summaries",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "counts",
+            "label": "counts"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: alar...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "kv",
+            "label": "kv"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: alarms and log summaries.",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: alar... [D.Psix.Stwo].",
+            "caption": "Alarm_state(datapoints, threshold, operator, periods).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "counts": {
+                "var": "counts",
+                "line": 1,
+                "hit": 1
+              },
+              "kv": {
+                "var": "kv",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "counts": "data",
+              "kv": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "counts",
+                "kv"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Use strict comparisons.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "counts": {
+                "var": "counts",
+                "line": 2,
+                "hit": 5
+              },
+              "kv": {
+                "var": "kv",
+                "line": 2,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "counts": "data",
+              "kv": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "counts",
+                "kv"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: alarms and log sum.",
+            "at": "say7",
+            "caption": "The example shows the (-count, path) sort key on a tie.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "counts": {
+                "var": "counts",
+                "line": 3,
+                "hit": 5
+              },
+              "kv": {
+                "var": "kv",
+                "line": 2,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "counts": "ok",
+              "kv": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "counts",
+                "kv"
               ]
             ]
           }
@@ -1319,110 +1006,69 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: alarms and log summaries — Execution Pipeline",
+        "title": "Practice time: alarms and log summaries",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "counts",
+            "label": "counts"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: alar...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "kv",
+            "label": "kv"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: alarms and log summaries [D25.P6.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: alar... [D25.P6.S2].",
+            "caption": "Alarm_state(datapoints, threshold, operator, periods).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "counts": "{'/pay': 3, '/auth': 1, '/cart': 3, '/h…",
+              "kv": "['/pay', 3]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "counts": "data",
+              "kv": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "counts",
+                "kv"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P6.S3].",
+            "at": "say2",
+            "caption": "Use strict comparisons.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "counts": "{'/pay': 3, '/auth': 1, '/cart': 3, '/h…",
+              "kv": "['/auth', 1]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "counts": "data",
+              "kv": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "counts",
+                "kv"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: alarms and log sum.. [D25.P6.S4].",
+            "at": "say7",
+            "caption": "The example shows the (-count, path) sort key on a tie.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "counts": "{'/pay': 3, '/auth': 1, '/cart': 3, '/h…",
+              "kv": "['/cart', 3]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "counts": "ok",
+              "kv": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "counts",
+                "kv"
               ]
             ]
           }

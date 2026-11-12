@@ -2,118 +2,169 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 45,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Architecture of the ApexAlign Master Suite: Unifying SFT, LoRA, Reward Modeling & DPO",
       "codeHash": "adbc6d2d4c2a40856f9acccd4c935d3dc96c62dd72f3c36dc92b26f6d295d5bc",
       "spec": {
         "template": "flow",
-        "title": "Architecture of the ApexAlign Master Suite: U... — Execution Pipeline",
+        "title": "Architecture of the ApexAlign Master Suite: Unifying SFT, LoRA, ",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "config",
+            "label": "config"
           },
           {
-            "id": "proc",
-            "label": "2. Architecture of the...",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "suite",
+            "label": "suite"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Architecture of the ApexAlign Master Sui...",
-            "values": {
-              "in": "Day 45 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Architecture of the....",
+            "caption": "(2) Parameter-Efficient Fine-Tuning (PEFT) through Low-Rank Adaptation.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "config": {
+                "var": "config",
+                "line": 51,
+                "hit": 2
+              },
+              "self": {
+                "var": "self",
+                "line": 29,
+                "hit": 1
+              },
+              "suite": {
+                "var": "suite",
+                "line": 62,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 39,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "config": "data",
+              "self": "data",
+              "suite": "data",
+              ".0": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "config",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "suite"
+              ],
+              [
+                "suite",
+                ".0"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "In this grand milestone capstone, you step into the role of Chief AI.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "config": {
+                "var": "config",
+                "line": 29,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 31,
+                "hit": 1
+              },
+              "suite": {
+                "var": "suite",
+                "line": 63,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 39,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "config": "data",
+              "self": "data",
+              "suite": "data",
+              ".0": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "config",
+                "self"
+              ],
+              [
+                "self",
+                "suite"
+              ],
+              [
+                "suite",
+                ".0"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Architecture of the ApexAlign Mas...",
+            "at": "say7",
+            "caption": "In the following Python script, we establish the core architectural.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "config": {
+                "var": "config",
+                "line": 31,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 32,
+                "hit": 1
+              },
+              "suite": {
+                "var": "suite",
+                "line": 64,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 39,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "config": "ok",
+              "self": "ok",
+              "suite": "ok",
+              ".0": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "config",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "suite"
+              ],
+              [
+                "suite",
+                ".0"
               ]
             ]
           }
@@ -121,110 +172,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Architecture of the ApexAlign Master Suite: U... — Execution Pipeline",
+        "title": "Architecture of the ApexAlign Master Suite: Unifying SFT, LoRA, ",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "config",
+            "label": "config"
           },
           {
-            "id": "proc",
-            "label": "2. Architecture of the...",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "suite",
+            "label": "suite"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Architecture of the ApexAlign Master Sui...",
-            "values": {
-              "in": "Day 45 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Architecture of the....",
+            "caption": "(2) Parameter-Efficient Fine-Tuning (PEFT) through Low-Rank Adaptation.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "config": "<ApexAlignSystemConfig>",
+              "self": "<ApexAlignMasterArchitecture>",
+              "suite": "<ApexAlignMasterArchitecture>",
+              ".0": "{'__other__': 'list_iterator'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "config": "data",
+              "self": "data",
+              "suite": "data",
+              ".0": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "config",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "suite"
+              ],
+              [
+                "suite",
+                ".0"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "In this grand milestone capstone, you step into the role of Chief AI.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "config": "<ApexAlignSystemConfig>",
+              "self": "<ApexAlignMasterArchitecture>",
+              "suite": "<ApexAlignMasterArchitecture>",
+              ".0": "{'__other__': 'list_iterator'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "config": "data",
+              "self": "data",
+              "suite": "data",
+              ".0": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "config",
+                "self"
+              ],
+              [
+                "self",
+                "suite"
+              ],
+              [
+                "suite",
+                ".0"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Architecture of the ApexAlign Mas...",
+            "at": "say7",
+            "caption": "In the following Python script, we establish the core architectural.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "config": "<ApexAlignSystemConfig>",
+              "self": "<ApexAlignMasterArchitecture>",
+              "suite": "<ApexAlignMasterArchitecture>",
+              ".0": "{'__other__': 'list_iterator'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "config": "ok",
+              "self": "ok",
+              "suite": "ok",
+              ".0": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "config",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "suite"
+              ],
+              [
+                "suite",
+                ".0"
               ]
             ]
           }
@@ -235,223 +289,124 @@
       "partTitle": "Subsystem 1 & 2: Multimodal Instruction Ingestion, Prompt Masking & LoRA Adaptation",
       "codeHash": "8689754670412f2f20c15942de780a712adcfa85d6e55db9d8a16d84cf874d4b",
       "spec": {
-        "template": "flow",
-        "title": "Subsystem 1 & 2: Multimodal Instruction Inges... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Subsystem 1 & 2: Mu...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Subsystem 1 & 2: Multimodal Instruction Ingestion, Prompt Maskin",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Subsystem one & two: Multimodal Instruction ...",
-            "values": {
-              "in": "Day 45 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Subsystem one & two: Mu....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Having established the macro-architecture of the ApexAlign Suite, we now.",
+            "items": {
+              "var": "x_test",
+              "line": 86,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Instruction Ingestion and Chat Template Compliance forms the bedrock.",
+            "items": {
+              "var": "x_test",
+              "line": 93,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Subsystem one & two: Multimodal Instr...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "In the following Python script, we implement Subsystems 1 and 2 in pure.",
+            "items": {
+              "var": "x_test",
+              "line": 98,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Subsystem 1 & 2: Multimodal Instruction Inges... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Subsystem 1 & 2: Mu...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Subsystem 1 & 2: Multimodal Instruction Ingestion, Prompt Maskin",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 1 & 2: Multimodal Instruction ...",
-            "values": {
-              "in": "Day 45 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 1 & 2: Mu....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having established the macro-architecture of the ApexAlign Suite, we now.",
+            "items": [
+              "1",
+              "1",
+              "1",
+              "1",
+              "1",
+              "1",
+              "1",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Instruction Ingestion and Chat Template Compliance forms the bedrock.",
+            "items": [
+              "1",
+              "1",
+              "1",
+              "1",
+              "1",
+              "1",
+              "1",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 1 & 2: Multimodal Instr...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we implement Subsystems 1 and 2 in pure.",
+            "items": [
+              "1",
+              "1",
+              "1",
+              "1",
+              "1",
+              "1",
+              "1",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -461,223 +416,217 @@
       "partTitle": "Subsystem 3: Bradley-Terry Reward Modeling, ECE Auditing & Length Normalization",
       "codeHash": "6a6749a044d3c6092c88cba96be8066297dff3f5c05d1185ce42817ef335a21c",
       "spec": {
-        "template": "flow",
-        "title": "Subsystem 3: Bradley-Terry Reward Modeling, E... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Subsystem 3: Bradle...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Subsystem 3: Bradley-Terry Reward Modeling, ECE Auditing & Lengt",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Subsystem three: Bradley-Terry Reward Modeli...",
-            "values": {
-              "in": "Day 45 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Subsystem three: Bradle....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "With instruction tuning and parameter-efficient adapters established, we.",
+            "bars": [
+              {
+                "label": "dim",
+                "value": {
+                  "var": "dim",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "length_penalty",
+                "value": {
+                  "var": "length_penalty",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_loss",
+                "value": {
+                  "var": "total_loss",
+                  "line": 46,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The Mathematical Bridge from Preferences to Scalar Rewards relies upon.",
+            "bars": [
+              {
+                "label": "dim",
+                "value": {
+                  "var": "dim",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "length_penalty",
+                "value": {
+                  "var": "length_penalty",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total_loss",
+                "value": {
+                  "var": "total_loss",
+                  "line": 47,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Subsystem three: Bradley-Terry Reward...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we construct Subsystem 3 in pure standard.",
+            "bars": [
+              {
+                "label": "dim",
+                "value": {
+                  "var": "dim",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "length_penalty",
+                "value": {
+                  "var": "length_penalty",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total_loss",
+                "value": {
+                  "var": "total_loss",
+                  "line": 48,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Subsystem 3: Bradley-Terry Reward Modeling, E... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Subsystem 3: Bradle...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Subsystem 3: Bradley-Terry Reward Modeling, ECE Auditing & Lengt",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 3: Bradley-Terry Reward Modeli...",
-            "values": {
-              "in": "Day 45 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 3: Bradle....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "With instruction tuning and parameter-efficient adapters established, we.",
+            "bars": [
+              {
+                "label": "dim",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "length_penalty",
+                "value": 0.005,
+                "tone": "data"
+              },
+              {
+                "label": "budget",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "total_loss",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The Mathematical Bridge from Preferences to Scalar Rewards relies upon.",
+            "bars": [
+              {
+                "label": "dim",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "length_penalty",
+                "value": 0.005,
+                "tone": "ok"
+              },
+              {
+                "label": "budget",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "total_loss",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 3: Bradley-Terry Reward...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we construct Subsystem 3 in pure standard.",
+            "bars": [
+              {
+                "label": "dim",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "length_penalty",
+                "value": 0.005,
+                "tone": "ok"
+              },
+              {
+                "label": "budget",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "total_loss",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -688,110 +637,161 @@
       "codeHash": "6dab65a6ced433bf40554e7fff1e7c77113441000a47e300cd7ae8ff0b70419d",
       "spec": {
         "template": "flow",
-        "title": "Subsystem 4: Dual-Path Preference Optimizatio... — Execution Pipeline",
+        "title": "Subsystem 4: Dual-Path Preference Optimization (Length-Normalize",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Subsystem 4: Dual-P...",
-            "tappable": true
+            "id": "beta",
+            "label": "beta"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "lambda_or",
+            "label": "lambda_or"
+          },
+          {
+            "id": "lr",
+            "label": "lr"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Subsystem four: Dual-Path Preference Optimi...",
-            "values": {
-              "in": "Day 45 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Subsystem four: Dual-P....",
+            "caption": "We now arrive at the algorithmic core of the post-training pipeline.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": {
+                "var": "self",
+                "line": 21,
+                "hit": 1
+              },
+              "beta": {
+                "var": "beta",
+                "line": 21,
+                "hit": 1
+              },
+              "lambda_or": {
+                "var": "lambda_or",
+                "line": 21,
+                "hit": 1
+              },
+              "lr": {
+                "var": "lr",
+                "line": 21,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "beta": "data",
+              "lambda_or": "data",
+              "lr": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "beta"
               ],
               [
-                "proc",
-                "out"
+                "beta",
+                "lambda_or"
+              ],
+              [
+                "lambda_or",
+                "lr"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The Dual-Path Dispatch Architecture operates based on infrastructure.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": {
+                "var": "self",
+                "line": 22,
+                "hit": 1
+              },
+              "beta": {
+                "var": "beta",
+                "line": 22,
+                "hit": 1
+              },
+              "lambda_or": {
+                "var": "lambda_or",
+                "line": 22,
+                "hit": 1
+              },
+              "lr": {
+                "var": "lr",
+                "line": 22,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "beta": "data",
+              "lambda_or": "data",
+              "lr": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "beta"
+              ],
+              [
+                "beta",
+                "lambda_or"
+              ],
+              [
+                "lambda_or",
+                "lr"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Subsystem four: Dual-Path Preference...",
+            "at": "say7",
+            "caption": "In the following Python script, we construct Subsystem 4 in pure standard.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": {
+                "var": "self",
+                "line": 23,
+                "hit": 1
+              },
+              "beta": {
+                "var": "beta",
+                "line": 23,
+                "hit": 1
+              },
+              "lambda_or": {
+                "var": "lambda_or",
+                "line": 23,
+                "hit": 1
+              },
+              "lr": {
+                "var": "lr",
+                "line": 23,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "beta": "ok",
+              "lambda_or": "ok",
+              "lr": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "beta"
               ],
               [
-                "proc",
-                "out"
+                "beta",
+                "lambda_or"
+              ],
+              [
+                "lambda_or",
+                "lr"
               ]
             ]
           }
@@ -799,110 +799,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Subsystem 4: Dual-Path Preference Optimizatio... — Execution Pipeline",
+        "title": "Subsystem 4: Dual-Path Preference Optimization (Length-Normalize",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Subsystem 4: Dual-P...",
-            "tappable": true
+            "id": "beta",
+            "label": "beta"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "lambda_or",
+            "label": "lambda_or"
+          },
+          {
+            "id": "lr",
+            "label": "lr"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 4: Dual-Path Preference Optimi...",
-            "values": {
-              "in": "Day 45 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 4: Dual-P....",
+            "caption": "We now arrive at the algorithmic core of the post-training pipeline.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": "<DualPathPreferenceSubsystem>",
+              "beta": "0.1",
+              "lambda_or": "0.15",
+              "lr": "0.1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "beta": "data",
+              "lambda_or": "data",
+              "lr": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "beta"
               ],
               [
-                "proc",
-                "out"
+                "beta",
+                "lambda_or"
+              ],
+              [
+                "lambda_or",
+                "lr"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The Dual-Path Dispatch Architecture operates based on infrastructure.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": "<DualPathPreferenceSubsystem>",
+              "beta": "0.1",
+              "lambda_or": "0.15",
+              "lr": "0.1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "beta": "data",
+              "lambda_or": "data",
+              "lr": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "beta"
+              ],
+              [
+                "beta",
+                "lambda_or"
+              ],
+              [
+                "lambda_or",
+                "lr"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 4: Dual-Path Preference...",
+            "at": "say7",
+            "caption": "In the following Python script, we construct Subsystem 4 in pure standard.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": "<DualPathPreferenceSubsystem>",
+              "beta": "0.1",
+              "lambda_or": "0.15",
+              "lr": "0.1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "beta": "ok",
+              "lambda_or": "ok",
+              "lr": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "beta"
               ],
               [
-                "proc",
-                "out"
+                "beta",
+                "lambda_or"
+              ],
+              [
+                "lambda_or",
+                "lr"
               ]
             ]
           }
@@ -913,223 +916,133 @@
       "partTitle": "Subsystem 5: Milestone 9 Capstone Defense, Fiduciary Attestation & Certification",
       "codeHash": "57d03e3a6f260a0a8bd901bdf87c3f85365e627dc71a24d80fbdf77ec434b802",
       "spec": {
-        "template": "flow",
-        "title": "Subsystem 5: Milestone 9 Capstone Defense, Fi... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Subsystem 5: Milest...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Subsystem 5: Milestone 9 Capstone Defense, Fiduciary Attestation",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Subsystem five: Milestone nine Capstone.",
-            "values": {
-              "in": "Day 45 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Subsystem five: Milest....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "You have arrived at the final defense and certification of Milestone 9.",
+            "bars": [
+              {
+                "label": "lora_reduction",
+                "value": {
+                  "var": "lora_reduction",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "ece_score",
+                "value": {
+                  "var": "ece_score",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In this grand capstone synthesis, you present your final technical defense.",
+            "bars": [
+              {
+                "label": "lora_reduction",
+                "value": {
+                  "var": "lora_reduction",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ece_score",
+                "value": {
+                  "var": "ece_score",
+                  "line": 39,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Subsystem five: Milestone nine.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Congratulations on conquering Milestone 9.",
+            "bars": [
+              {
+                "label": "lora_reduction",
+                "value": {
+                  "var": "lora_reduction",
+                  "line": 39,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ece_score",
+                "value": {
+                  "var": "ece_score",
+                  "line": 42,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Subsystem 5: Milestone 9 Capstone Defense, Fi... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Subsystem 5: Milest...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Subsystem 5: Milestone 9 Capstone Defense, Fiduciary Attestation",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 5: Milestone 9 Capstone Defens...",
-            "values": {
-              "in": "Day 45 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 5: Milest....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "You have arrived at the final defense and certification of Milestone 9.",
+            "bars": [
+              {
+                "label": "lora_reduction",
+                "value": 99.22,
+                "tone": "data"
+              },
+              {
+                "label": "ece_score",
+                "value": 0.0482,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In this grand capstone synthesis, you present your final technical defense.",
+            "bars": [
+              {
+                "label": "lora_reduction",
+                "value": 99.22,
+                "tone": "ok"
+              },
+              {
+                "label": "ece_score",
+                "value": 0.0482,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 5: Milestone 9 Capstone...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Congratulations on conquering Milestone 9.",
+            "bars": [
+              {
+                "label": "lora_reduction",
+                "value": 99.22,
+                "tone": "ok"
+              },
+              {
+                "label": "ece_score",
+                "value": 0.0482,
+                "tone": "ok"
+              }
             ]
           }
         ]

@@ -6,52 +6,66 @@ import type { LessonVisual } from '@/lib/types/lessonVisual';
  * Underlines nothing for table, letters or compare visuals.
  * Only flow and boxes visuals have tappable nodes/boxes.
  */
+// [FIX-STAGE: VisualRules Array Safety] Guard every visual template array against missing or
+// non-array fields so malformed JSON visuals log a clear diagnostic warning instead of crashing Gate/UI.
+function safeExtractLabels<T>(
+  arr: T[] | null | undefined,
+  visual: LessonVisual,
+  field: string,
+  pick: (item: T) => string | undefined | null
+): string[] {
+  if (!Array.isArray(arr)) {
+    console.warn(
+      `[PinIT][Fix:VisualRules] Malformed "${visual.template}" visual missing array "${field}" (title="${visual.title ?? 'untitled'}")`
+    );
+    return [];
+  }
+  const labels: string[] = [];
+  for (const item of arr as T[]) {
+    const label = pick(item);
+    if (typeof label === 'string' && label.length > 0) {
+      labels.push(label);
+    }
+  }
+  return labels;
+}
+
 export function getTappableLabelsForVisual(visual?: LessonVisual | null): string[] {
   if (!visual) return [];
-  if (visual.template === 'flow') {
-    return visual.nodes.filter(n => n.tappable !== false).map(n => n.label);
+
+  switch (visual.template) {
+    case 'flow':
+      return safeExtractLabels(visual.nodes, visual, 'nodes', n => (n?.tappable !== false ? n?.label : null));
+    case 'boxes':
+      return safeExtractLabels(visual.boxes, visual, 'boxes', b => (b?.tappable !== false ? b?.label : null));
+    case 'funnel':
+      return safeExtractLabels(visual.steps?.[0]?.stages, visual, 'steps[0].stages', s => s?.label);
+    case 'ledger-sheet':
+      return safeExtractLabels(visual.steps?.[0]?.entries, visual, 'steps[0].entries', e => e?.account);
+    case 'register-bits':
+      return safeExtractLabels(visual.steps?.[0]?.bits, visual, 'steps[0].bits', b => b?.name);
+    case 'component-tree':
+      return safeExtractLabels(visual.nodes, visual, 'nodes', n => n?.name);
+    case 'workflow':
+      return safeExtractLabels(visual.stages, visual, 'stages', s => s?.name);
+    case 'wireframe':
+      return safeExtractLabels(visual.boxes, visual, 'boxes', b => b?.label);
+    case 'states':
+      return safeExtractLabels(visual.states, visual, 'states', s => s?.label);
+    case 'sequence':
+      return safeExtractLabels<string>(visual.actors, visual, 'actors', a => a);
+    case 'tree-graph':
+      return safeExtractLabels(visual.nodes, visual, 'nodes', n => n?.label);
+    case 'bars':
+      return safeExtractLabels(visual.steps?.[0]?.bars, visual, 'steps[0].bars', b => b?.label);
+    case 'stack-queue':
+      return safeExtractLabels<string>(visual.steps?.[0]?.items, visual, 'steps[0].items', item => item);
+    case 'cells':
+      return safeExtractLabels<string>(visual.steps?.[0]?.items, visual, 'steps[0].items', item => item);
+    default:
+      // Spec v1.1: Underline nothing for table, letters or compare visuals
+      return [];
   }
-  if (visual.template === 'boxes') {
-    return visual.boxes.filter(b => b.tappable !== false).map(b => b.label);
-  }
-  if (visual.template === 'funnel') {
-    return visual.steps[0]?.stages.map(s => s.label) || [];
-  }
-  if (visual.template === 'ledger-sheet') {
-    return visual.steps[0]?.entries.map(e => e.account) || [];
-  }
-  if (visual.template === 'register-bits') {
-    return visual.steps[0]?.bits.map(b => b.name).filter(Boolean) as string[] || [];
-  }
-  if (visual.template === 'component-tree') {
-    return (visual.nodes || []).map(n => n.name).filter(Boolean);
-  }
-  if (visual.template === 'workflow') {
-    return (visual.stages || []).map(s => s.name).filter(Boolean);
-  }
-  if (visual.template === 'wireframe') {
-    return (visual.boxes || []).map(b => b.label).filter(Boolean);
-  }
-  if (visual.template === 'states') {
-    return (visual.states || []).map(s => s.label).filter(Boolean);
-  }
-  if (visual.template === 'sequence') {
-    return (visual.actors || []).filter(Boolean);
-  }
-  if (visual.template === 'tree-graph') {
-    return (visual.nodes || []).map(n => n.label).filter(Boolean);
-  }
-  if (visual.template === 'bars') {
-    return (visual.steps[0]?.bars || []).map(b => b.label).filter(Boolean);
-  }
-  if (visual.template === 'stack-queue') {
-    return (visual.steps[0]?.items || []).filter(Boolean);
-  }
-  if (visual.template === 'cells') {
-    return (visual.steps[0]?.items || []).filter(Boolean);
-  }
-  // Spec v1.1: Underline nothing for table, letters or compare visuals
-  return [];
 }
 
 export interface UnderlineToken {

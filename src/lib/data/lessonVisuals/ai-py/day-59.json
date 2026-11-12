@@ -2,1335 +2,973 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 59,
-  "promptSha": "d4575327629dcd78312d16718f678d790a9436c4f4bb0f25095e20489db6be66",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Canary Rollouts, Shadow Traffic Evaluation & Automated Prompt Rollbacks — Foundations & Mathematical Invariants",
-      "codeHash": "8627ce2ba448a7f454695659a54aca2ff85dad50aebf7384551cce2f8c9acd28",
+      "partTitle": "Zero-Risk Shadow Traffic Replay Ahead of Customer Exposure",
+      "codeHash": "2f1e842fa7e5b50e1a530d9da51a4a3e33808ab44a718dd34b89aa9cf2d1ffff",
       "spec": {
-        "template": "flow",
-        "title": "Canary Rollouts, Shadow Traffic Evaluation & Automated Prompt Rollback",
-        "nodes": [
+        "template": "boxes",
+        "title": "Zero-Risk Shadow Traffic Replay Ahead of Customer Exposure",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "prompt",
+            "label": "prompt"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "read_only_tools",
+            "label": "read_only_tools"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "live_reply",
+            "label": "live_reply"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "at": "say1",
+            "caption": "Trace how before updates exposing during execution.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "prompt": {
+                "var": "prompt",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "read_only_tools": {
+                "var": "read_only_tools",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "live_reply": {
+                "var": "live_reply",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "p": "data",
+              "prompt": "data",
+              "read_only_tools": "data",
+              "live_reply": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Watch what shadow testing reveals cleanly with **zero live blast radius**.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 14,
+                "hit": 2
+              },
+              "prompt": {
+                "var": "prompt",
+                "line": 3,
+                "hit": 1
+              },
+              "read_only_tools": {
+                "var": "read_only_tools",
+                "line": 3,
+                "hit": 1
+              },
+              "live_reply": {
+                "var": "live_reply",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "p": "data",
+              "prompt": "data",
+              "read_only_tools": "data",
+              "live_reply": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Trace dispatch_shadow() ensuring live paths always prioritize Baseline.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 15,
+                "hit": 1
+              },
+              "prompt": {
+                "var": "prompt",
+                "line": 4,
+                "hit": 1
+              },
+              "read_only_tools": {
+                "var": "read_only_tools",
+                "line": 4,
+                "hit": 1
+              },
+              "live_reply": {
+                "var": "live_reply",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "p": "ok",
+              "prompt": "ok",
+              "read_only_tools": "ok",
+              "live_reply": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Zero-Risk Shadow Traffic Replay Ahead of Customer Exposure",
+        "boxes": [
+          {
+            "id": "p",
+            "label": "p"
+          },
+          {
+            "id": "prompt",
+            "label": "prompt"
+          },
+          {
+            "id": "read_only_tools",
+            "label": "read_only_tools"
+          },
+          {
+            "id": "live_reply",
+            "label": "live_reply"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Trace how before updates exposing during execution.",
+            "values": {
+              "p": "'hi'",
+              "prompt": "'hi'",
+              "read_only_tools": "True",
+              "live_reply": "'v1_ok'"
+            },
+            "tones": {
+              "p": "data",
+              "prompt": "data",
+              "read_only_tools": "data",
+              "live_reply": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Watch what shadow testing reveals cleanly with **zero live blast radius**.",
+            "values": {
+              "p": "'hi'",
+              "prompt": "'hi'",
+              "read_only_tools": "True",
+              "live_reply": "'v1_ok'"
+            },
+            "tones": {
+              "p": "data",
+              "prompt": "data",
+              "read_only_tools": "data",
+              "live_reply": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Trace dispatch_shadow() ensuring live paths always prioritize Baseline.",
+            "values": {
+              "p": "'hi'",
+              "prompt": "'hi'",
+              "read_only_tools": "True",
+              "live_reply": "'v1_ok'"
+            },
+            "tones": {
+              "p": "ok",
+              "prompt": "ok",
+              "read_only_tools": "ok",
+              "live_reply": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Deterministic Tenant-Sticky Canary Bucket Assignment",
+      "codeHash": "a62ca42b930bd0c39b307a20e2e13c91a575ec3f06015e91a394e53333bf49c3",
+      "spec": {
+        "template": "flow",
+        "title": "Deterministic Tenant-Sticky Canary Bucket Assignment",
+        "nodes": [
+          {
+            "id": "t",
+            "label": "t"
+          },
+          {
+            "id": "tenant_id",
+            "label": "tenant_id"
+          },
+          {
+            "id": "rollout_salt",
+            "label": "rollout_salt"
+          },
+          {
+            "id": "canary_pct",
+            "label": "canary_pct"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Flipping a blind per-request coin (`random.",
+            "values": {
+              "t": {
+                "var": "t",
+                "line": 9,
+                "hit": 1
+              },
+              "tenant_id": {
+                "var": "tenant_id",
+                "line": 4,
+                "hit": 1
+              },
+              "rollout_salt": {
+                "var": "rollout_salt",
+                "line": 4,
+                "hit": 1
+              },
+              "canary_pct": {
+                "var": "canary_pct",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "t": "data",
+              "tenant_id": "data",
+              "rollout_salt": "data",
+              "canary_pct": "data"
+            },
+            "arrows": [
+              [
+                "t",
+                "tenant_id"
+              ],
+              [
+                "tenant_id",
+                "rollout_salt"
+              ],
+              [
+                "rollout_salt",
+                "canary_pct"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Trace how deterministic updates hash during execution.",
+            "values": {
+              "t": {
+                "var": "t",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tenant_id": {
+                "var": "tenant_id",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "rollout_salt": {
+                "var": "rollout_salt",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "canary_pct": {
+                "var": "canary_pct",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "t": "data",
+              "tenant_id": "data",
+              "rollout_salt": "data",
+              "canary_pct": "data"
+            },
+            "arrows": [
+              [
+                "t",
+                "tenant_id"
+              ],
+              [
+                "tenant_id",
+                "rollout_salt"
+              ],
+              [
+                "rollout_salt",
+                "canary_pct"
+              ]
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "caption": "Run assign_canary_bucket() demonstrating sticky reproducibility per tenant.",
+            "values": {
+              "t": {
+                "var": "t",
+                "line": 9,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "tenant_id": {
+                "var": "tenant_id",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "rollout_salt": {
+                "var": "rollout_salt",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "canary_pct": {
+                "var": "canary_pct",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "t": "ok",
+              "tenant_id": "ok",
+              "rollout_salt": "ok",
+              "canary_pct": "ok"
+            },
+            "arrows": [
+              [
+                "t",
+                "tenant_id"
+              ],
+              [
+                "tenant_id",
+                "rollout_salt"
+              ],
+              [
+                "rollout_salt",
+                "canary_pct"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Canary Rollouts, Shadow Traffic Evaluation & Automated Prompt Rollback",
+        "title": "Deterministic Tenant-Sticky Canary Bucket Assignment",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "t",
+            "label": "t"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tenant_id",
+            "label": "tenant_id"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "rollout_salt",
+            "label": "rollout_salt"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "canary_pct",
+            "label": "canary_pct"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "at": "say1",
+            "caption": "Flipping a blind per-request coin (`random.",
+            "values": {
+              "t": "'acme'",
+              "tenant_id": "'acme'",
+              "rollout_salt": "'rel_2026_11_12'",
+              "canary_pct": "25"
+            },
+            "tones": {
+              "t": "data",
+              "tenant_id": "data",
+              "rollout_salt": "data",
+              "canary_pct": "data"
+            },
+            "arrows": [
+              [
+                "t",
+                "tenant_id"
+              ],
+              [
+                "tenant_id",
+                "rollout_salt"
+              ],
+              [
+                "rollout_salt",
+                "canary_pct"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "at": "say2",
+            "caption": "Trace how deterministic updates hash during execution.",
+            "values": {
+              "t": "'acme'",
+              "tenant_id": "'acme'",
+              "rollout_salt": "'rel_2026_11_12'",
+              "canary_pct": "25"
+            },
+            "tones": {
+              "t": "data",
+              "tenant_id": "data",
+              "rollout_salt": "data",
+              "canary_pct": "data"
+            },
+            "arrows": [
+              [
+                "t",
+                "tenant_id"
+              ],
+              [
+                "tenant_id",
+                "rollout_salt"
+              ],
+              [
+                "rollout_salt",
+                "canary_pct"
+              ]
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "caption": "Run assign_canary_bucket() demonstrating sticky reproducibility per tenant.",
+            "values": {
+              "t": "'globex'",
+              "tenant_id": "'acme'",
+              "rollout_salt": "'rel_2026_11_12'",
+              "canary_pct": "25"
+            },
+            "tones": {
+              "t": "ok",
+              "tenant_id": "ok",
+              "rollout_salt": "ok",
+              "canary_pct": "ok"
+            },
+            "arrows": [
+              [
+                "t",
+                "tenant_id"
+              ],
+              [
+                "tenant_id",
+                "rollout_salt"
+              ],
+              [
+                "rollout_salt",
+                "canary_pct"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Canary Rollouts, Shadow Traffic Evaluation & Automated Prompt Rollbacks — Core Algorithm & State Representation",
-      "codeHash": "4b23505f4549057b9937556490fe952e036bee527c9c78eb5a4be08991cb30e5",
+      "partTitle": "Automated Multi-Metric Guardrail Rollback Triggers",
+      "codeHash": "d8c6c98a79ec1482ef9d308aac1e6f949db48896029c59c195f84deebd6c4e06",
       "spec": {
-        "template": "flow",
-        "title": "Canary Rollouts, Shadow Traffic Evaluation & Automated Prompt Rollback",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Automated Multi-Metric Guardrail Rollback Triggers",
+        "actors": [
+          "base",
+          "base_stats",
+          "cand_stats"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Human engineers staring manually at Grafana tabs cannot catch subtle.",
+            "activeActor": "base",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "base",
+                "to": "base_stats",
+                "label": {
+                  "var": "base",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "base_stats",
+                "to": "cand_stats",
+                "label": {
+                  "var": "base_stats",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Automated **Canary Guardrail Controllers** compare Canary v2 vs Baseline.",
+            "activeActor": "base_stats",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "base",
+                "to": "base_stats",
+                "label": {
+                  "var": "base",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "base_stats",
+                "to": "cand_stats",
+                "label": {
+                  "var": "base_stats",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Run evaluate_canary_guardrails() triggering deterministic instant rollback.",
+            "activeActor": "cand_stats",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "base",
+                "to": "base_stats",
+                "label": {
+                  "var": "base",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "base_stats",
+                "to": "cand_stats",
+                "label": {
+                  "var": "base_stats",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Canary Rollouts, Shadow Traffic Evaluation & Automated Prompt Rollback",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Automated Multi-Metric Guardrail Rollback Triggers",
+        "actors": [
+          "base",
+          "base_stats",
+          "cand_stats"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Human engineers staring manually at Grafana tabs cannot catch subtle.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "base",
+                "to": "base_stats",
+                "label": "{'n': 500, 'err_rate': 0.01, 'p95_ms': …",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "base_stats",
+                "to": "cand_stats",
+                "label": "{'n': 500, 'err_rate': 0.01, 'p95_ms': …",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "base"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Automated **Canary Guardrail Controllers** compare Canary v2 vs Baseline.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "base",
+                "to": "base_stats",
+                "label": "{'n': 500, 'err_rate': 0.01, 'p95_ms': …",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "base_stats",
+                "to": "cand_stats",
+                "label": "{'n': 500, 'err_rate': 0.01, 'p95_ms': …",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "base_stats"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Run evaluate_canary_guardrails() triggering deterministic instant rollback.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "base",
+                "to": "base_stats",
+                "label": "{'n': 500, 'err_rate': 0.01, 'p95_ms': …",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "base_stats",
+                "to": "cand_stats",
+                "label": "{'n': 500, 'err_rate': 0.01, 'p95_ms': …",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "cand_stats"
           }
         ]
       }
     },
     {
-      "partTitle": "Canary Rollouts, Shadow Traffic Evaluation & Automated Prompt Rollbacks — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "d51b5136d0ca9b6a3af30e58bb9aec0c96439974e0a5da478f234bcf5e658e24",
+      "partTitle": "Immutable Prompt Registry & Zero-Downtime Atomic Pointer Rollbacks",
+      "codeHash": "0d2cd5559805652ff34015574e42947311cf3b5e1abc206309f59c33e78a0253",
       "spec": {
-        "template": "flow",
-        "title": "Canary Rollouts, Shadow Traffic Evaluation & Automated Prompt Rollback",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Immutable Prompt Registry & Zero-Downtime Atomic Pointer Rollbac",
+        "actors": [
+          "self",
+          "reg",
+          "version_id"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Hardcoding multi-kilobyte system prompt strings straight inside container.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "reg",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "reg",
+                "to": "version_id",
+                "label": {
+                  "var": "reg",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Decouple prompts cleanly into an **Immutable Content-Addressed Prompt.",
+            "activeActor": "reg",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "reg",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "reg",
+                "to": "version_id",
+                "label": {
+                  "var": "reg",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect PromptRegistry verifying immutable content publishing alongside.",
+            "activeActor": "version_id",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "reg",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "reg",
+                "to": "version_id",
+                "label": {
+                  "var": "reg",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Canary Rollouts, Shadow Traffic Evaluation & Automated Prompt Rollback",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Immutable Prompt Registry & Zero-Downtime Atomic Pointer Rollbac",
+        "actors": [
+          "self",
+          "reg",
+          "version_id"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Hardcoding multi-kilobyte system prompt strings straight inside container.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "reg",
+                "label": "<PromptRegistry>",
+                "tone": "data"
+              },
+              {
+                "from": "reg",
+                "to": "version_id",
+                "label": "<PromptRegistry>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Decouple prompts cleanly into an **Immutable Content-Addressed Prompt.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "reg",
+                "label": "<PromptRegistry>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "reg",
+                "to": "version_id",
+                "label": "<PromptRegistry>",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "reg"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect PromptRegistry verifying immutable content publishing alongside.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "reg",
+                "label": "<PromptRegistry>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "reg",
+                "to": "version_id",
+                "label": "<PromptRegistry>",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "version_id"
           }
         ]
       }
     },
     {
-      "partTitle": "Canary Rollouts, Shadow Traffic Evaluation & Automated Prompt Rollbacks — Resilience Guardrails & Failure Recovery",
-      "codeHash": "dd657e798784aaed57a722d92ee1d16a2f0ac373c1911a18481c1b2b644b2f28",
+      "partTitle": "Progressive Ramping Schedule paired With Post-Rollback Cooldowns",
+      "codeHash": "3074c611635fb49f75861d7b94f056915f73655297bbd269a0f60ce386fb5456",
       "spec": {
-        "template": "flow",
-        "title": "Canary Rollouts, Shadow Traffic Evaluation & Automated Prompt Rollback",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Progressive Ramping Schedule paired With Post-Rollback Cooldowns",
+        "actors": [
+          "STAGES",
+          "blocked",
+          "current_pct"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Mature release controllers combine stage gating (`SHADOW -> 5% -> 25% ->.",
+            "activeActor": "STAGES",
+            "messages": [
+              {
+                "from": "STAGES",
+                "to": "blocked",
+                "label": {
+                  "var": "STAGES",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "blocked",
+                "to": "current_pct",
+                "label": {
+                  "var": "blocked",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Without cooldown lockout, naive GitOps reconciliation bots spot `'Desired v2.",
+            "activeActor": "blocked",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "STAGES",
+                "to": "blocked",
+                "label": {
+                  "var": "STAGES",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "blocked",
+                "to": "current_pct",
+                "label": {
+                  "var": "blocked",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect advance_rollout_stage() stepping cleanly upward on healthy buckets.",
+            "activeActor": "current_pct",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "STAGES",
+                "to": "blocked",
+                "label": {
+                  "var": "STAGES",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "blocked",
+                "to": "current_pct",
+                "label": {
+                  "var": "blocked",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Canary Rollouts, Shadow Traffic Evaluation & Automated Prompt Rollback",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Progressive Ramping Schedule paired With Post-Rollback Cooldowns",
+        "actors": [
+          "STAGES",
+          "blocked",
+          "current_pct"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Mature release controllers combine stage gating (`SHADOW -> 5% -> 25% ->.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "STAGES",
+                "to": "blocked",
+                "label": "[0, 5, 25, 100]",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "blocked",
+                "to": "current_pct",
+                "label": "set()",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "STAGES"
           },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Canary Rollouts, Shadow Traffic Evaluation & Automated Prompt Rollbacks — Production Telemetry & Verification Audit",
-      "codeHash": "e4a4a45c624028280fb4d03564621cc36fa82545a0e6bfbeb0183b0af3ad6ae9",
-      "spec": {
-        "template": "flow",
-        "title": "Canary Rollouts, Shadow Traffic Evaluation & Automated Prompt Rollback",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Without cooldown lockout, naive GitOps reconciliation bots spot `'Desired v2.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "STAGES",
+                "to": "blocked",
+                "label": "[0, 5, 25, 100]",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "blocked",
+                "to": "current_pct",
+                "label": "set()",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "blocked"
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "at": "say7",
+            "caption": "Inspect advance_rollout_stage() stepping cleanly upward on healthy buckets.",
+            "messages": [
+              {
+                "from": "STAGES",
+                "to": "blocked",
+                "label": "[0, 5, 25, 100]",
+                "tone": "data"
+              },
+              {
+                "from": "blocked",
+                "to": "current_pct",
+                "label": "{'sha_v2'}",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Canary Rollouts, Shadow Traffic Evaluation & Automated Prompt Rollback",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "current_pct"
           }
         ]
       }

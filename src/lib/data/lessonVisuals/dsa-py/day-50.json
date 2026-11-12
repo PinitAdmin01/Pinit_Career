@@ -2,89 +2,101 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 50,
-  "promptSha": "714631f7533d26d2f61f866fc4da4dee3206f74d658fea9fbb70f8a1f607e558",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "System Architecture: Unifying Temporal Sweeps, Rolling Windows & Exact Combinatorial Routing",
       "codeHash": "0ba6be5835e01d4b94335c6dc593c04e75f151cbc6b03fb875192c48ba31792d",
       "spec": {
-        "template": "table",
-        "title": "System Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "System Architecture: Unifying Temporal Sweeps, Rolling Windows &",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The milestone design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "System"
-                  },
-                  {
-                    "text": "Architecture"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Welcome to Milestone 10.",
+            "items": {
+              "var": "stream",
+              "line": 3,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Unifying"
-                  },
-                  {
-                    "text": "Temporal"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Think carefully about how those four mechanisms reinforce one another.",
+            "items": {
+              "var": "stream",
+              "line": 4,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "In Part 1, let us define the unified `Block10Manifest` schema and verify.",
+            "items": {
+              "var": "stream",
+              "line": 9,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "System Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "System Architecture: Unifying Temporal Sweeps, Rolling Windows &",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The milestone design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "System",
-                  "Architecture"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Welcome to Milestone 10.",
+            "mode": "stack",
+            "items": [
+              "12",
+              "15",
+              "14",
+              "48",
+              "55",
+              "50",
+              "18",
+              "16"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Unifying",
-                  "Temporal"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Think carefully about how those four mechanisms reinforce one another.",
+            "mode": "stack",
+            "items": [
+              "12",
+              "15",
+              "14",
+              "48",
+              "55",
+              "50",
+              "18",
+              "16"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "In Part 1, let us define the unified `Block10Manifest` schema and verify.",
+            "mode": "stack",
+            "items": [
+              "12",
+              "15",
+              "14",
+              "48",
+              "55",
+              "50",
+              "18",
+              "16"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -93,82 +105,100 @@
       "partTitle": "Stage 1: Sweep-Line Interval Scheduling & O(N) Monotonic Deque Telemetry",
       "codeHash": "2a5e665f2b79cf202bb5756b23f5d1a13579d186e34ca8b5a3d408703b572eed",
       "spec": {
-        "template": "table",
-        "title": "Stage 1: Sweep-Line Interval Scheduling & O(N) Monotonic",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Stage 1: Sweep-Line Interval Scheduling & O(N) Monotonic Deque T",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Stage"
-                  },
-                  {
-                    "text": "Sweep"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Stage 1 executes high-throughput temporal sweep audits alongside linear.",
+            "items": {
+              "var": "samples",
+              "line": 53,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The simultaneously step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Line"
-                  },
-                  {
-                    "text": "Interval"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "First, given half-open `[start, end)` reservation epochs, our sweep engine.",
+            "items": {
+              "var": "samples",
+              "line": 54,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Execute Stage 1 cleanly in Pyodide below across sparse reservations.",
+            "items": {
+              "var": "samples",
+              "line": 54,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stage 1: Sweep-Line Interval Scheduling & O(N) Monotonic",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Stage 1: Sweep-Line Interval Scheduling & O(N) Monotonic Deque T",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Stage",
-                  "Sweep"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Stage 1 executes high-throughput temporal sweep audits alongside linear.",
+            "mode": "queue",
+            "items": [
+              "10",
+              "12",
+              "11",
+              "50",
+              "54",
+              "52",
+              "13",
+              "14",
+              "15",
+              "13"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The simultaneously step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Line",
-                  "Interval"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "First, given half-open `[start, end)` reservation epochs, our sweep engine.",
+            "mode": "queue",
+            "items": [
+              "10",
+              "12",
+              "11",
+              "50",
+              "54",
+              "52",
+              "13",
+              "14",
+              "15",
+              "13"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Execute Stage 1 cleanly in Pyodide below across sparse reservations.",
+            "mode": "queue",
+            "items": [
+              "10",
+              "12",
+              "11",
+              "50",
+              "54",
+              "52",
+              "13",
+              "14",
+              "15",
+              "13"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -177,80 +207,108 @@
       "partTitle": "Stage 2: Dual-Hash Rolling Chunk Deduplicator & KMP Threat Signature Scanner",
       "codeHash": "edd0d7a9b1fbec8f6cf5e5924c2e394758f2cc554e7c97536acb94aa48be40b3",
       "spec": {
-        "template": "table",
-        "title": "Stage 2: Dual-Hash Rolling Chunk Deduplicator & KMP Threat",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Stage 2: Dual-Hash Rolling Chunk Deduplicator & KMP Threat Signa",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Stage 2 guards payload integrity before commands commit to dispatch queues.",
+            "items": {
+              "var": "alerts",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Stage"
-                  },
-                  {
-                    "text": "Dual"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The comparing step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Notice why combining BOTH algorithms covers completely complementary.",
+            "items": {
+              "var": "alerts",
+              "line": 22,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Hash"
-                  },
-                  {
-                    "text": "Rolling"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Execute Stage 2 cleanly in Pyodide below across baseline logs, replay.",
+            "items": {
+              "var": "alerts",
+              "line": 22,
+              "hit": 7
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stage 2: Dual-Hash Rolling Chunk Deduplicator & KMP Threat",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Stage 2: Dual-Hash Rolling Chunk Deduplicator & KMP Threat Signa",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Stage 2 guards payload integrity before commands commit to dispatch queues.",
+            "items": [
+              "'exec_shell'",
+              "'drop_tbl'",
+              "'token_issue'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Stage",
-                  "Dual"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The comparing step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Notice why combining BOTH algorithms covers completely complementary.",
+            "items": [
+              "'exec_shell'",
+              "'drop_tbl'",
+              "'token_issue'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Hash",
-                  "Rolling"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Execute Stage 2 cleanly in Pyodide below across baseline logs, replay.",
+            "items": [
+              "'exec_shell'",
+              "'drop_tbl'",
+              "'token_issue'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -261,80 +319,114 @@
       "partTitle": "Stage 3: Held-Karp Multi-Stop Courier Tour & O(3^N) Minimum Batch Dispatch",
       "codeHash": "a67e1cf8b33f6bea2e35e24841a56ebccdef48875392bf08ceb809484b07dff4",
       "spec": {
-        "template": "table",
-        "title": "Stage 3: Held-Karp Multi-Stop Courier Tour & O(3^N) Minimum",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Stage 3: Held-Karp Multi-Stop Courier Tour & O(3^N) Minimum Batc",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Stage 3 completes exact operational dispatch once payloads clear temporal.",
+            "items": {
+              "var": "weights",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Stage"
-                  },
-                  {
-                    "text": "Held"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The solving step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Then apply our exact `O(3^N)` bitmask partitioning loop using the crisp.",
+            "items": {
+              "var": "weights",
+              "line": 4,
+              "hit": 35
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Karp"
-                  },
-                  {
-                    "text": "Multi"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect and run Stage 3 dispatch optimization cleanly below across 5.",
+            "items": {
+              "var": "weights",
+              "line": 4,
+              "hit": 70
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stage 3: Held-Karp Multi-Stop Courier Tour & O(3^N) Minimum",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Stage 3: Held-Karp Multi-Stop Courier Tour & O(3^N) Minimum Batc",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stage design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Stage 3 completes exact operational dispatch once payloads clear temporal.",
+            "items": [
+              "4",
+              "5",
+              "3",
+              "6",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Stage",
-                  "Held"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The solving step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Then apply our exact `O(3^N)` bitmask partitioning loop using the crisp.",
+            "items": [
+              "4",
+              "5",
+              "3",
+              "6",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Karp",
-                  "Multi"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect and run Stage 3 dispatch optimization cleanly below across 5.",
+            "items": [
+              "4",
+              "5",
+              "3",
+              "6",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -345,82 +437,76 @@
       "partTitle": "Complete Milestone 10 Capstone: Real-Time Fleet Telemetry & Pattern Engine",
       "codeHash": "4a09e2358e75b1a47138ce1b740359f256efc5d3f119411b8c4e3ff2b3e91fcd",
       "spec": {
-        "template": "table",
-        "title": "Complete Milestone 10 Capstone",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Complete Milestone 10 Capstone: Real-Time Fleet Telemetry & Patt",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The unite design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Complete"
-                  },
-                  {
-                    "text": "Milestone"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Now let us unite all four Block 10 algorithmic pillars into one cohesive.",
+            "items": {
+              "var": "iv",
+              "line": 13,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The executing step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Capstone"
-                  },
-                  {
-                    "text": "Real"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Think about the sheer algorithmic range demonstrated across this.",
+            "items": {
+              "var": "iv",
+              "line": 13,
+              "hit": 2
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Running this script validates complete mastery of Block 10 algorithms.",
+            "items": {
+              "var": "iv",
+              "line": 13,
+              "hit": 9
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Complete Milestone 10 Capstone",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Complete Milestone 10 Capstone: Real-Time Fleet Telemetry & Patt",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The unite design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Complete",
-                  "Milestone"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Now let us unite all four Block 10 algorithmic pillars into one cohesive.",
+            "mode": "queue",
+            "items": [
+              "100",
+              "300"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The executing step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Capstone",
-                  "Real"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Think about the sheer algorithmic range demonstrated across this.",
+            "mode": "queue",
+            "items": [
+              "100",
+              "300"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Running this script validates complete mastery of Block 10 algorithms.",
+            "mode": "queue",
+            "items": [
+              "450",
+              "600"
+            ],
+            "action": "idle"
           }
         ]
       }

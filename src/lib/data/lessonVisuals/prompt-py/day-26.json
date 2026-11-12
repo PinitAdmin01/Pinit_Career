@@ -2,85 +2,98 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 26,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "AI as a personal planner",
       "codeHash": "17bb1c38b11b80daae64a2e928651294c8b6d2a801ad6088b81262483964d430",
       "spec": {
-        "template": "table",
-        "title": "Planning constraints and weekly schedule layout",
-        "columns": [
-          "work",
-          "study",
-          "sleep"
+        "template": "sequence",
+        "title": "AI as a personal planner",
+        "actors": [
+          "constraints",
+          "lines",
+          "prompt"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "AI turns goals into a structured weekly schedule.",
-            "rows": [
+            "caption": "AI is good at turning a messy list of goals and constraints into a plan.",
+            "activeActor": "constraints",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "work"
-                  },
-                  {
-                    "text": "study"
-                  },
-                  {
-                    "text": "sleep"
-                  }
-                ],
-                "tone": "ok"
+                "from": "constraints",
+                "to": "lines",
+                "label": {
+                  "var": "constraints",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "work"
-                  },
-                  {
-                    "text": "study"
-                  },
-                  {
-                    "text": "sleep"
-                  }
-                ],
-                "tone": "data"
+                "from": "lines",
+                "to": "prompt",
+                "label": {
+                  "var": "lines",
+                  "line": 3,
+                  "hit": 6
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Clear constraints prevent generic and unrealistic schedules.",
-            "rows": [
+            "caption": "The key is constraints.",
+            "activeActor": "lines",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "work"
-                  },
-                  {
-                    "text": "study"
-                  },
-                  {
-                    "text": "sleep"
-                  }
-                ],
+                "from": "constraints",
+                "to": "lines",
+                "label": {
+                  "var": "constraints",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "work"
-                  },
-                  {
-                    "text": "study"
-                  },
-                  {
-                    "text": "work"
-                  }
-                ],
+                "from": "lines",
+                "to": "prompt",
+                "label": {
+                  "var": "lines",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Trace how small updates specific during execution.",
+            "activeActor": "prompt",
+            "messages": [
+              {
+                "from": "constraints",
+                "to": "lines",
+                "label": {
+                  "var": "constraints",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "lines",
+                "to": "prompt",
+                "label": {
+                  "var": "lines",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Planning constraints and weekly schedule layout",
-        "columns": [
-          "work",
-          "study",
-          "sleep"
+        "template": "sequence",
+        "title": "AI as a personal planner",
+        "actors": [
+          "constraints",
+          "lines",
+          "prompt"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "AI turns goals into a structured weekly schedule.",
-            "rows": [
+            "caption": "AI is good at turning a messy list of goals and constraints into a plan.",
+            "messages": [
               {
-                "cells": [
-                  "work",
-                  "study",
-                  "sleep"
-                ],
-                "tone": "ok"
+                "from": "constraints",
+                "to": "lines",
+                "label": "{'work': '9 am to 6 pm on weekdays', 'g…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "work",
-                  "study",
-                  "sleep"
-                ],
-                "tone": "data"
+                "from": "lines",
+                "to": "prompt",
+                "label": "['- work: 9 am to 6 pm on weekdays', '-…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "constraints"
           },
           {
             "at": "say2",
-            "caption": "Clear constraints prevent generic and unrealistic schedules.",
-            "rows": [
+            "caption": "The key is constraints.",
+            "messages": [
               {
-                "cells": [
-                  "work",
-                  "study",
-                  "sleep"
-                ],
+                "from": "constraints",
+                "to": "lines",
+                "label": "{'work': '9 am to 6 pm on weekdays', 'g…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "work",
-                  "study",
-                  "work"
-                ],
+                "from": "lines",
+                "to": "prompt",
+                "label": "['- work: 9 am to 6 pm on weekdays', '-…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "lines"
+          },
+          {
+            "at": "say9",
+            "caption": "Trace how small updates specific during execution.",
+            "messages": [
+              {
+                "from": "constraints",
+                "to": "lines",
+                "label": "{'work': '9 am to 6 pm on weekdays', 'g…",
+                "tone": "data"
+              },
+              {
+                "from": "lines",
+                "to": "prompt",
+                "label": "['- work: 9 am to 6 pm on weekdays', '-…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "prompt"
           }
         ]
       }
@@ -147,78 +173,77 @@
       "partTitle": "Meals and budgets",
       "codeHash": "07f51b320952366bcf303e7c2d1d39c1b511fb7999d0cedffb4591e3baa5252a",
       "spec": {
-        "template": "table",
-        "title": "Meal planning and ingredient budget allocation",
-        "columns": [
-          "budget",
-          "vegetables",
-          "total"
-        ],
+        "template": "bars",
+        "title": "Meals and budgets",
         "steps": [
           {
             "at": "say1",
-            "caption": "Share cooking time and kitchen items for meal planning.",
-            "rows": [
+            "caption": "For meal planning, give AI your diet, budget, cooking time, household size.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "budget"
-                  },
-                  {
-                    "text": "vegetables"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "ok"
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "budget"
-                  },
-                  {
-                    "text": "vegetables"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Structured shopping lists reuse ingredients to reduce waste.",
-            "rows": [
+            "caption": "Ask for a shopping list grouped by shop section, and for recipes.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "budget"
-                  },
-                  {
-                    "text": "vegetables"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "data"
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "budget"
-                  },
-                  {
-                    "text": "vegetables"
-                  },
-                  {
-                    "text": "budget"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Seasonal and local ingredients are often cheaper and fresher, so mention.",
+            "bars": [
+              {
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +251,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Meal planning and ingredient budget allocation",
-        "columns": [
-          "budget",
-          "vegetables",
-          "total"
-        ],
+        "template": "bars",
+        "title": "Meals and budgets",
         "steps": [
           {
             "at": "say1",
-            "caption": "Share cooking time and kitchen items for meal planning.",
-            "rows": [
+            "caption": "For meal planning, give AI your diet, budget, cooking time, household size.",
+            "bars": [
               {
-                "cells": [
-                  "budget",
-                  "vegetables",
-                  "total"
-                ],
-                "tone": "ok"
+                "label": "budget",
+                "value": 1700,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "budget",
-                  "vegetables",
-                  "total"
-                ],
+                "label": "total",
+                "value": 1637,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Structured shopping lists reuse ingredients to reduce waste.",
-            "rows": [
+            "caption": "Ask for a shopping list grouped by shop section, and for recipes.",
+            "bars": [
               {
-                "cells": [
-                  "budget",
-                  "vegetables",
-                  "total"
-                ],
-                "tone": "data"
+                "label": "budget",
+                "value": 1700,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "budget",
-                  "vegetables",
-                  "budget"
-                ],
+                "label": "total",
+                "value": 1637,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Seasonal and local ingredients are often cheaper and fresher, so mention.",
+            "bars": [
+              {
+                "label": "budget",
+                "value": 1700,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 1637,
                 "tone": "ok"
               }
             ]
@@ -285,78 +309,91 @@
       "partTitle": "Habits and streaks",
       "codeHash": "5f8fa323757477195acfee33d1b537b2e341b1ae36b3a06389f4dfbadcd58776",
       "spec": {
-        "template": "table",
-        "title": "Habit tracking and consecutive streak computation",
-        "columns": [
+        "template": "sequence",
+        "title": "Habits and streaks",
+        "actors": [
+          "log",
           "days",
-          "runs",
-          "longest"
+          "run"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Habit tracking is best managed with simple data.",
-            "rows": [
+            "caption": "AI habit coaches suggest small, specific habits and encourage you, but.",
+            "activeActor": "log",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "days"
-                  },
-                  {
-                    "text": "runs"
-                  },
-                  {
-                    "text": "longest"
-                  }
-                ],
-                "tone": "ok"
+                "from": "log",
+                "to": "days",
+                "label": {
+                  "var": "log",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "days"
-                  },
-                  {
-                    "text": "runs"
-                  },
-                  {
-                    "text": "longest"
-                  }
-                ],
-                "tone": "data"
+                "from": "days",
+                "to": "run",
+                "label": {
+                  "var": "days",
+                  "line": 4,
+                  "hit": 7
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "A streak records consecutive days of completed habits.",
-            "rows": [
+            "caption": "A streak is a run of consecutive days on which the habit was done.",
+            "activeActor": "days",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "days"
-                  },
-                  {
-                    "text": "runs"
-                  },
-                  {
-                    "text": "longest"
-                  }
-                ],
+                "from": "log",
+                "to": "days",
+                "label": {
+                  "var": "log",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "days"
-                  },
-                  {
-                    "text": "runs"
-                  },
-                  {
-                    "text": "days"
-                  }
-                ],
+                "from": "days",
+                "to": "run",
+                "label": {
+                  "var": "days",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Tracking only a few habits at once keeps the effort small enough to sustain.",
+            "activeActor": "run",
+            "messages": [
+              {
+                "from": "log",
+                "to": "days",
+                "label": {
+                  "var": "log",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "days",
+                "to": "run",
+                "label": {
+                  "var": "days",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +401,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Habit tracking and consecutive streak computation",
-        "columns": [
+        "template": "sequence",
+        "title": "Habits and streaks",
+        "actors": [
+          "log",
           "days",
-          "runs",
-          "longest"
+          "run"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Habit tracking is best managed with simple data.",
-            "rows": [
+            "caption": "AI habit coaches suggest small, specific habits and encourage you, but.",
+            "messages": [
               {
-                "cells": [
-                  "days",
-                  "runs",
-                  "longest"
-                ],
-                "tone": "ok"
+                "from": "log",
+                "to": "days",
+                "label": "['2024-05-01', '2024-05-02', '2024-05-0…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "days",
-                  "runs",
-                  "longest"
-                ],
-                "tone": "data"
+                "from": "days",
+                "to": "run",
+                "label": "[{'__other__': 'date'}, {'__other__': '…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "log"
           },
           {
             "at": "say2",
-            "caption": "A streak records consecutive days of completed habits.",
-            "rows": [
+            "caption": "A streak is a run of consecutive days on which the habit was done.",
+            "messages": [
               {
-                "cells": [
-                  "days",
-                  "runs",
-                  "longest"
-                ],
+                "from": "log",
+                "to": "days",
+                "label": "['2024-05-01', '2024-05-02', '2024-05-0…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "days",
-                  "runs",
-                  "days"
-                ],
+                "from": "days",
+                "to": "run",
+                "label": "[{'__other__': 'date'}, {'__other__': '…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "days"
+          },
+          {
+            "at": "say9",
+            "caption": "Tracking only a few habits at once keeps the effort small enough to sustain.",
+            "messages": [
+              {
+                "from": "log",
+                "to": "days",
+                "label": "['2024-05-01', '2024-05-02', '2024-05-0…",
+                "tone": "data"
+              },
+              {
+                "from": "days",
+                "to": "run",
+                "label": "[{'__other__': 'date'}, {'__other__': '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "run"
           }
         ]
       }
@@ -423,78 +473,91 @@
       "partTitle": "Travel planning",
       "codeHash": "8ce501700d46cbefd9c3ab896d3b8b17be487df5aa11ce45dfd734d03c21775c",
       "spec": {
-        "template": "table",
-        "title": "Travel itinerary and available schedule allocation",
-        "columns": [
-          "travel",
+        "template": "sequence",
+        "title": "Travel planning",
+        "actors": [
+          "day_plan",
           "available",
-          "used"
+          ".0"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Draft itineraries compare transport options and local customs.",
-            "rows": [
+            "caption": "AI can draft itineraries, compare transport options, suggest packing lists.",
+            "activeActor": "day_plan",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "travel"
-                  },
-                  {
-                    "text": "available"
-                  },
-                  {
-                    "text": "used"
-                  }
-                ],
-                "tone": "ok"
+                "from": "day_plan",
+                "to": "available",
+                "label": {
+                  "var": "day_plan",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "travel"
-                  },
-                  {
-                    "text": "available"
-                  },
-                  {
-                    "text": "used"
-                  }
-                ],
-                "tone": "data"
+                "from": "available",
+                "to": ".0",
+                "label": {
+                  "var": "available",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Specify relaxed or packed travel styles and mobility needs.",
-            "rows": [
+            "caption": "Give dates, budget, travel style (relaxed or packed), interests and any.",
+            "activeActor": "available",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "travel"
-                  },
-                  {
-                    "text": "available"
-                  },
-                  {
-                    "text": "used"
-                  }
-                ],
+                "from": "day_plan",
+                "to": "available",
+                "label": {
+                  "var": "day_plan",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "travel"
-                  },
-                  {
-                    "text": "available"
-                  },
-                  {
-                    "text": "travel"
-                  }
-                ],
+                "from": "available",
+                "to": ".0",
+                "label": {
+                  "var": "available",
+                  "line": 3,
+                  "hit": 8
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Local festivals and holidays can close attractions or raise prices, so ask.",
+            "activeActor": ".0",
+            "messages": [
+              {
+                "from": "day_plan",
+                "to": "available",
+                "label": {
+                  "var": "day_plan",
+                  "line": 3,
+                  "hit": 8
+                },
+                "tone": "data"
+              },
+              {
+                "from": "available",
+                "to": ".0",
+                "label": {
+                  "var": "available",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,57 +565,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Travel itinerary and available schedule allocation",
-        "columns": [
-          "travel",
+        "template": "sequence",
+        "title": "Travel planning",
+        "actors": [
+          "day_plan",
           "available",
-          "used"
+          ".0"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Draft itineraries compare transport options and local customs.",
-            "rows": [
+            "caption": "AI can draft itineraries, compare transport options, suggest packing lists.",
+            "messages": [
               {
-                "cells": [
-                  "travel",
-                  "available",
-                  "used"
-                ],
-                "tone": "ok"
+                "from": "day_plan",
+                "to": "available",
+                "label": "[['Fort', 2.5], ['travel', 0.75], ['Mus…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "travel",
-                  "available",
-                  "used"
-                ],
-                "tone": "data"
+                "from": "available",
+                "to": ".0",
+                "label": "9",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "day_plan"
           },
           {
             "at": "say2",
-            "caption": "Specify relaxed or packed travel styles and mobility needs.",
-            "rows": [
+            "caption": "Give dates, budget, travel style (relaxed or packed), interests and any.",
+            "messages": [
               {
-                "cells": [
-                  "travel",
-                  "available",
-                  "used"
-                ],
+                "from": "day_plan",
+                "to": "available",
+                "label": "[['Fort', 2.5], ['travel', 0.75], ['Mus…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "travel",
-                  "available",
-                  "travel"
-                ],
+                "from": "available",
+                "to": ".0",
+                "label": "9",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "available"
+          },
+          {
+            "at": "say9",
+            "caption": "Local festivals and holidays can close attractions or raise prices, so ask.",
+            "messages": [
+              {
+                "from": "day_plan",
+                "to": "available",
+                "label": "[['Fort', 2.5], ['travel', 0.75], ['Mus…",
+                "tone": "data"
+              },
+              {
+                "from": "available",
+                "to": ".0",
+                "label": "9",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": ".0"
           }
         ]
       }
@@ -562,110 +638,161 @@
       "codeHash": "4fff875bbd780b57493b2a8a54187de6389e93d1b36b4988f4e8d528938cc82e",
       "spec": {
         "template": "flow",
-        "title": "Splitting costs fairly — Execution Pipeline",
+        "title": "Splitting costs fairly",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "total",
+            "label": "total"
           },
           {
-            "id": "proc",
-            "label": "2. Splitting costs fairly",
-            "tappable": true
+            "id": "people",
+            "label": "people"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "naive",
+            "label": "naive"
+          },
+          {
+            "id": "base",
+            "label": "base"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Splitting costs fairly [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Splitting costs fairly [D.Pfive.Stwo].",
+            "caption": "Shared expenses, such as trips, dinners and flat bills, are a classic.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "total": {
+                "var": "total",
+                "line": 1,
+                "hit": 1
+              },
+              "people": {
+                "var": "people",
+                "line": 1,
+                "hit": 1
+              },
+              "naive": {
+                "var": "naive",
+                "line": 2,
+                "hit": 1
+              },
+              "base": {
+                "var": "base",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "total": "data",
+              "people": "data",
+              "naive": "data",
+              "base": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "total",
+                "people"
               ],
               [
-                "proc",
-                "out"
+                "people",
+                "naive"
+              ],
+              [
+                "naive",
+                "base"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Trace how dividing updates among during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "total": {
+                "var": "total",
+                "line": 2,
+                "hit": 1
+              },
+              "people": {
+                "var": "people",
+                "line": 2,
+                "hit": 1
+              },
+              "naive": {
+                "var": "naive",
+                "line": 3,
+                "hit": 1
+              },
+              "base": {
+                "var": "base",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "total": "data",
+              "people": "data",
+              "naive": "data",
+              "base": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "total",
+                "people"
+              ],
+              [
+                "people",
+                "naive"
+              ],
+              [
+                "naive",
+                "base"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Splitting costs fairly [D.Pfive.Sfour].",
+            "at": "say9",
+            "caption": "Rotating who gets the extra paisa over time keeps things fair across many.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "total": {
+                "var": "total",
+                "line": 3,
+                "hit": 1
+              },
+              "people": {
+                "var": "people",
+                "line": 3,
+                "hit": 1
+              },
+              "naive": {
+                "var": "naive",
+                "line": 4,
+                "hit": 1
+              },
+              "base": {
+                "var": "base",
+                "line": 5,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "total": "ok",
+              "people": "ok",
+              "naive": "ok",
+              "base": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "total",
+                "people"
               ],
               [
-                "proc",
-                "out"
+                "people",
+                "naive"
+              ],
+              [
+                "naive",
+                "base"
               ]
             ]
           }
@@ -673,110 +800,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Splitting costs fairly — Execution Pipeline",
+        "title": "Splitting costs fairly",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "total",
+            "label": "total"
           },
           {
-            "id": "proc",
-            "label": "2. Splitting costs fairly",
-            "tappable": true
+            "id": "people",
+            "label": "people"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "naive",
+            "label": "naive"
+          },
+          {
+            "id": "base",
+            "label": "base"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Splitting costs fairly [D26.P5.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Splitting costs fairly [D26.P5.S2].",
+            "caption": "Shared expenses, such as trips, dinners and flat bills, are a classic.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "total": "100",
+              "people": "3",
+              "naive": "[33.33, 33.33, 33.33]",
+              "base": "3333"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "total": "data",
+              "people": "data",
+              "naive": "data",
+              "base": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "total",
+                "people"
               ],
               [
-                "proc",
-                "out"
+                "people",
+                "naive"
+              ],
+              [
+                "naive",
+                "base"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P5.S3].",
+            "at": "say2",
+            "caption": "Trace how dividing updates among during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "total": "100",
+              "people": "3",
+              "naive": "[33.33, 33.33, 33.33]",
+              "base": "3333"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "total": "data",
+              "people": "data",
+              "naive": "data",
+              "base": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "total",
+                "people"
+              ],
+              [
+                "people",
+                "naive"
+              ],
+              [
+                "naive",
+                "base"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Splitting costs fairly [D26.P5.S4].",
+            "at": "say9",
+            "caption": "Rotating who gets the extra paisa over time keeps things fair across many.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "total": "100",
+              "people": "3",
+              "naive": "[33.33, 33.33, 33.33]",
+              "base": "3333"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "total": "ok",
+              "people": "ok",
+              "naive": "ok",
+              "base": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "total",
+                "people"
               ],
               [
-                "proc",
-                "out"
+                "people",
+                "naive"
+              ],
+              [
+                "naive",
+                "base"
               ]
             ]
           }
@@ -787,223 +917,133 @@
       "partTitle": "Practice time: streaks and bills",
       "codeHash": "c573175ef936f25a76f33db712e8ceda0be007b41b5c2379849b8c4fee8ebc53",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: streaks and bills — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: stre...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: streaks and bills",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: streaks and bills [D.Psix.Sone].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: stre... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Streaks(dates, today).",
+            "bars": [
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "extra",
+                "value": {
+                  "var": "extra",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include duplicates, a streak ending today, one ending.",
+            "bars": [
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "extra",
+                "value": {
+                  "var": "extra",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: streaks and bills.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Everyday uses are where AI habits form, so practising careful use here.",
+            "bars": [
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "extra",
+                "value": {
+                  "var": "extra",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: streaks and bills — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: stre...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: streaks and bills",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: streaks and bills [D26.P6.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: stre... [D26.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Streaks(dates, today).",
+            "bars": [
+              {
+                "label": "base",
+                "value": 6250,
+                "tone": "data"
+              },
+              {
+                "label": "extra",
+                "value": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include duplicates, a streak ending today, one ending.",
+            "bars": [
+              {
+                "label": "base",
+                "value": 6250,
+                "tone": "ok"
+              },
+              {
+                "label": "extra",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: streaks and bills [D26.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Everyday uses are where AI habits form, so practising careful use here.",
+            "bars": [
+              {
+                "label": "base",
+                "value": 6250,
+                "tone": "ok"
+              },
+              {
+                "label": "extra",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           }
         ]

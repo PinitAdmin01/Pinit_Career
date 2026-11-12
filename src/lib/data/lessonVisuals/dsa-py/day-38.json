@@ -2,87 +2,118 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 38,
-  "promptSha": "1d8eed4757aae0e8b30d263c441626967e8c133824bc1c486351a984647e605e",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why Dijkstra Fails on Negative Weights & The Edge Relaxation Invariant",
       "codeHash": "02d6ead9b93b62ffd1ea438bee5222a993d4425e6d75fa50f97058eb690a15bd",
       "spec": {
-        "template": "table",
-        "title": "Why Dijkstra Fails on Negative Weights & The Edge Relaxation",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Why Dijkstra Fails on Negative Weights & The Edge Relaxation Inv",
         "steps": [
           {
             "at": "say1",
-            "caption": "The dijkstra design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Dijkstra's algorithm locks in the shortest distance to each popped.",
+            "items": {
+              "var": "seen",
+              "line": 9,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Dijkstra"
-                  },
-                  {
-                    "text": "Fails"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The bellman step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "As soon as even one negative-weight edge exists representing packet-loss.",
+            "items": {
+              "var": "seen",
+              "line": 16,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Negative"
-                  },
-                  {
-                    "text": "Weights"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Observe the minimal 4-node counterexample in Python below.",
+            "items": {
+              "var": "seen",
+              "line": 17,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Why Dijkstra Fails on Negative Weights & The Edge Relaxation",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Why Dijkstra Fails on Negative Weights & The Edge Relaxation Inv",
         "steps": [
           {
             "at": "say1",
-            "caption": "The dijkstra design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Dijkstra's algorithm locks in the shortest distance to each popped.",
+            "items": [
+              "False",
+              "False",
+              "False",
+              "False"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Dijkstra",
-                  "Fails"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The bellman step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "As soon as even one negative-weight edge exists representing packet-loss.",
+            "items": [
+              "True",
+              "False",
+              "False",
+              "False"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Negative",
-                  "Weights"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Observe the minimal 4-node counterexample in Python below.",
+            "items": [
+              "True",
+              "False",
+              "False",
+              "False"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,80 +124,114 @@
       "partTitle": "Standard Bellman-Ford: (V - 1) Relaxation Passes & Path Reconstruction",
       "codeHash": "b09775361fc0eb6fb2a5115926161db8475a28006b39a8370ef12419f2afdf5f",
       "spec": {
-        "template": "table",
-        "title": "Standard Bellman-Ford",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Standard Bellman-Ford: (V - 1) Relaxation Passes & Path Reconstr",
         "steps": [
           {
             "at": "say1",
-            "caption": "The bellman design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Standard Bellman-Ford executes up to V - 1 complete passes across all E.",
+            "items": {
+              "var": "parent",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Bellman"
-                  },
-                  {
-                    "text": "Ford"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The recover step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Because every subsequent relaxation depends on distances updated.",
+            "items": {
+              "var": "parent",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Relaxation"
-                  },
-                  {
-                    "text": "Passes"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "The complete implementation below computes distances, tracks early-stop.",
+            "items": {
+              "var": "parent",
+              "line": 10,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Standard Bellman-Ford",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Standard Bellman-Ford: (V - 1) Relaxation Passes & Path Reconstr",
         "steps": [
           {
             "at": "say1",
-            "caption": "The bellman design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Standard Bellman-Ford executes up to V - 1 complete passes across all E.",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Bellman",
-                  "Ford"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The recover step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Because every subsequent relaxation depends on distances updated.",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Relaxation",
-                  "Passes"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "The complete implementation below computes distances, tracks early-stop.",
+            "items": [
+              "-1",
+              "0",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,80 +242,114 @@
       "partTitle": "Detecting & Extracting Exact Negative-Weight Cycles on Pass V",
       "codeHash": "ceee0d40ea7709cfe365430fa52ca2bc1aecd5e46166d17e624df11703099a3a",
       "spec": {
-        "template": "table",
-        "title": "Detecting & Extracting Exact Negative-Weight Cycles on Pass",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Detecting & Extracting Exact Negative-Weight Cycles on Pass V",
         "steps": [
           {
             "at": "say1",
-            "caption": "The happens design establishes the core structural invariant.",
-            "rows": [
+            "caption": "What happens if a graph contains a directed cycle whose edges sum to.",
+            "items": {
+              "var": "dist",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Detecting"
-                  },
-                  {
-                    "text": "Extracting"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The subtle step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Bellman-Ford detects negative cycles effortlessly via one additional pass.",
+            "items": {
+              "var": "dist",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Exact"
-                  },
-                  {
-                    "text": "Negative"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Once anchored on vertex `cycle_anchor`, follow `parent[]` pointers around.",
+            "items": {
+              "var": "dist",
+              "line": 11,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Detecting & Extracting Exact Negative-Weight Cycles on Pass",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Detecting & Extracting Exact Negative-Weight Cycles on Pass V",
         "steps": [
           {
             "at": "say1",
-            "caption": "The happens design establishes the core structural invariant.",
-            "rows": [
+            "caption": "What happens if a graph contains a directed cycle whose edges sum to.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Detecting",
-                  "Extracting"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The subtle step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Bellman-Ford detects negative cycles effortlessly via one additional pass.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Exact",
-                  "Negative"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Once anchored on vertex `cycle_anchor`, follow `parent[]` pointers around.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "-8",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -261,82 +360,85 @@
       "partTitle": "Shortest Path Faster Algorithm (SPFA): Active Frontier Queue & Cycle Guard",
       "codeHash": "bddf3332b53b53e398874d601b113f900a1b30edb47f7b2660184da89ae32e41",
       "spec": {
-        "template": "table",
-        "title": "Shortest Path Faster Algorithm (SPFA)",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Shortest Path Faster Algorithm (SPFA): Active Frontier Queue & C",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The bellman design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Shortest"
-                  },
-                  {
-                    "text": "Path"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Standard Bellman-Ford wastes enormous CPU cycles scanning stagnant edges.",
+            "items": {
+              "var": "in_queue",
+              "line": 10,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The maintaining step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Faster"
-                  },
-                  {
-                    "text": "Algorithm"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Only an edge `(u, v)` out of a node `u` whose own `dist[u]` just decreased.",
+            "items": {
+              "var": "in_queue",
+              "line": 11,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Watch SPFA trace active relaxations cleanly below on both a convergent.",
+            "items": {
+              "var": "in_queue",
+              "line": 22,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Shortest Path Faster Algorithm (SPFA)",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Shortest Path Faster Algorithm (SPFA): Active Frontier Queue & C",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The bellman design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Shortest",
-                  "Path"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Standard Bellman-Ford wastes enormous CPU cycles scanning stagnant edges.",
+            "mode": "queue",
+            "items": [
+              "False",
+              "False",
+              "False",
+              "False",
+              "False"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The maintaining step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Faster",
-                  "Algorithm"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Only an edge `(u, v)` out of a node `u` whose own `dist[u]` just decreased.",
+            "mode": "queue",
+            "items": [
+              "False",
+              "False",
+              "False",
+              "False",
+              "False"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Watch SPFA trace active relaxations cleanly below on both a convergent.",
+            "mode": "queue",
+            "items": [
+              "False",
+              "False",
+              "False",
+              "False",
+              "False"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -345,82 +447,85 @@
       "partTitle": "Production Application: Currency Exchange Arbitrage & Routing Loop Detector",
       "codeHash": "612ec65dc140fe7c7fd0b027d3181b2dc22389192b63bc3a9f0a23dde9e34f77",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Production Application: Currency Exchange Arbitrage & Routing Lo",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The famous design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "One of the most famous quantitative finance applications of Bellman-Ford.",
+            "items": {
+              "var": "currencies",
+              "line": 49,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The therefore step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Currency"
-                  },
-                  {
-                    "text": "Exchange"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Bellman-Ford adds edge weights rather than multiplying them.",
+            "items": {
+              "var": "currencies",
+              "line": 50,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "Trace how production updates arbitrage during execution.",
+            "items": {
+              "var": "currencies",
+              "line": 8,
+              "hit": 2
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Production Application: Currency Exchange Arbitrage & Routing Lo",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The famous design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "One of the most famous quantitative finance applications of Bellman-Ford.",
+            "mode": "stack",
+            "items": [
+              "'USD'",
+              "'EUR'",
+              "'GBP'",
+              "'JPY'",
+              "'CHF'"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The therefore step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Currency",
-                  "Exchange"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Bellman-Ford adds edge weights rather than multiplying them.",
+            "mode": "stack",
+            "items": [
+              "'USD'",
+              "'EUR'",
+              "'GBP'",
+              "'JPY'",
+              "'CHF'"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "Trace how production updates arbitrage during execution.",
+            "mode": "stack",
+            "items": [
+              "'USD'",
+              "'EUR'",
+              "'GBP'",
+              "'JPY'",
+              "'CHF'"
+            ],
+            "action": "idle"
           }
         ]
       }

@@ -2,119 +2,98 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 4,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Chain-of-thought prompting",
       "codeHash": "9bcfcde97436b2f901d08c5de4d200e76b9e61e09c84c91adf5a36f61b3a33bf",
       "spec": {
-        "template": "table",
-        "title": "Direct prompting versus step-by-step reasoning tokens",
-        "columns": [
+        "template": "sequence",
+        "title": "Chain-of-thought prompting",
+        "actors": [
           "problem",
           "direct",
           "cot"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Chain-of-thought (CoT) prompting asks the model to write out its reasoning.",
+            "activeActor": "problem",
+            "messages": [
+              {
+                "from": "problem",
+                "to": "direct",
+                "label": {
+                  "var": "problem",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "direct",
+                "to": "cot",
+                "label": {
+                  "var": "direct",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Intermediate reasoning steps provide valuable context for generation.",
-            "rows": [
+            "caption": "Because the model generates one token at a time, writing intermediate.",
+            "activeActor": "direct",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "problem"
-                  },
-                  {
-                    "text": "direct"
-                  },
-                  {
-                    "text": "cot"
-                  }
-                ],
+                "from": "problem",
+                "to": "direct",
+                "label": {
+                  "var": "problem",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "direct",
+                "to": "cot",
+                "label": {
+                  "var": "direct",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Step by step instructions stimulate structured reasoning pathways.",
-            "rows": [
+            "at": "say9",
+            "caption": "You can also ask the model to check its own work at the end, for example.",
+            "activeActor": "cot",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "problem"
-                  },
-                  {
-                    "text": "direct"
-                  },
-                  {
-                    "text": "cot"
-                  }
-                ],
-                "tone": "ok"
+                "from": "problem",
+                "to": "direct",
+                "label": {
+                  "var": "problem",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "problem"
-                  },
-                  {
-                    "text": "direct"
-                  },
-                  {
-                    "text": "cot"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Chain of thought prompting resolves complex multi step logic problems.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "problem"
-                  },
-                  {
-                    "text": "direct"
-                  },
-                  {
-                    "text": "cot"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "problem"
-                  },
-                  {
-                    "text": "direct"
-                  },
-                  {
-                    "text": "cot"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "problem"
-                  },
-                  {
-                    "text": "direct"
-                  },
-                  {
-                    "text": "cot"
-                  }
-                ],
+                "from": "direct",
+                "to": "cot",
+                "label": {
+                  "var": "direct",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -122,79 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Direct prompting versus step-by-step reasoning tokens",
-        "columns": [
+        "template": "sequence",
+        "title": "Chain-of-thought prompting",
+        "actors": [
           "problem",
           "direct",
           "cot"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Chain-of-thought (CoT) prompting asks the model to write out its reasoning.",
+            "messages": [
+              {
+                "from": "problem",
+                "to": "direct",
+                "label": "'A shop sells pens at 12 rupees each. A…",
+                "tone": "data"
+              },
+              {
+                "from": "direct",
+                "to": "cot",
+                "label": "'A shop sells pens at 12 rupees each. A…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "problem"
+          },
+          {
             "at": "say2",
-            "caption": "Intermediate reasoning steps provide valuable context for generation.",
-            "rows": [
+            "caption": "Because the model generates one token at a time, writing intermediate.",
+            "messages": [
               {
-                "cells": [
-                  "problem",
-                  "direct",
-                  "cot"
-                ],
+                "from": "problem",
+                "to": "direct",
+                "label": "'A shop sells pens at 12 rupees each. A…",
+                "tone": "data"
+              },
+              {
+                "from": "direct",
+                "to": "cot",
+                "label": "'A shop sells pens at 12 rupees each. A…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "direct"
           },
           {
-            "at": "say3",
-            "caption": "Step by step instructions stimulate structured reasoning pathways.",
-            "rows": [
+            "at": "say9",
+            "caption": "You can also ask the model to check its own work at the end, for example.",
+            "messages": [
               {
-                "cells": [
-                  "problem",
-                  "direct",
-                  "cot"
-                ],
-                "tone": "ok"
+                "from": "problem",
+                "to": "direct",
+                "label": "'A shop sells pens at 12 rupees each. A…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "problem",
-                  "direct",
-                  "cot"
-                ],
+                "from": "direct",
+                "to": "cot",
+                "label": "'A shop sells pens at 12 rupees each. A…",
                 "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Chain of thought prompting resolves complex multi step logic problems.",
-            "rows": [
-              {
-                "cells": [
-                  "problem",
-                  "direct",
-                  "cot"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "problem",
-                  "direct",
-                  "cot"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "problem",
-                  "direct",
-                  "cot"
-                ],
-                "tone": "ok"
-              }
-            ]
+            ],
+            "activeActor": "cot"
           }
         ]
       }
@@ -203,191 +173,277 @@
       "partTitle": "Extracting the final answer",
       "codeHash": "726cc0c28b692b959732397b2accaf07d84de033121a75b51f5eed40dca6c57b",
       "spec": {
-        "template": "table",
-        "title": "Marker extraction and trailing number fallback regex",
-        "columns": [
-          "text",
-          "line",
-          "found"
+        "template": "flow",
+        "title": "Extracting the final answer",
+        "nodes": [
+          {
+            "id": "reply",
+            "label": "reply"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "found",
+            "label": "found"
+          },
+          {
+            "id": "line",
+            "label": "line"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Reasoning text is great for humans but awkward for programs, which need.",
+            "values": {
+              "reply": {
+                "var": "reply",
+                "line": 13,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 1
+              },
+              "found": {
+                "var": "found",
+                "line": 4,
+                "hit": 1
+              },
+              "line": {
+                "var": "line",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "reply": "data",
+              "text": "data",
+              "found": "data",
+              "line": "data"
+            },
+            "arrows": [
+              [
+                "reply",
+                "text"
+              ],
+              [
+                "text",
+                "found"
+              ],
+              [
+                "found",
+                "line"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Standardized answer markers enable reliable regex parsing.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "line"
-                  },
-                  {
-                    "text": "found"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The reliable approach is to ask the model to finish with a fixed marker.",
+            "values": {
+              "reply": {
+                "var": "reply",
+                "line": 14,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 5,
+                "hit": 1
+              },
+              "found": {
+                "var": "found",
+                "line": 5,
+                "hit": 1
+              },
+              "line": {
+                "var": "line",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "reply": "data",
+              "text": "data",
+              "found": "data",
+              "line": "data"
+            },
+            "arrows": [
+              [
+                "reply",
+                "text"
+              ],
+              [
+                "text",
+                "found"
+              ],
+              [
+                "found",
+                "line"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Scanning for the last marker resolves self corrected reasoning trails.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "line"
-                  },
-                  {
-                    "text": "found"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say8",
+            "caption": "If extraction fails often, change the prompt to make the marker clearer.",
+            "values": {
+              "reply": {
+                "var": "reply",
+                "line": 13,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "line"
-                  },
-                  {
-                    "text": "found"
-                  }
-                ],
-                "tone": "ok"
+              "text": {
+                "var": "text",
+                "line": 6,
+                "hit": 1
+              },
+              "found": {
+                "var": "found",
+                "line": 6,
+                "hit": 1
+              },
+              "line": {
+                "var": "line",
+                "line": 5,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Fallback numerical pattern matching extracts trailing quantities.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "line"
-                  },
-                  {
-                    "text": "found"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "line"
-                  },
-                  {
-                    "text": "found"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "line"
-                  },
-                  {
-                    "text": "found"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "reply": "ok",
+              "text": "ok",
+              "found": "ok",
+              "line": "ok"
+            },
+            "arrows": [
+              [
+                "reply",
+                "text"
+              ],
+              [
+                "text",
+                "found"
+              ],
+              [
+                "found",
+                "line"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Marker extraction and trailing number fallback regex",
-        "columns": [
-          "text",
-          "line",
-          "found"
+        "template": "flow",
+        "title": "Extracting the final answer",
+        "nodes": [
+          {
+            "id": "reply",
+            "label": "reply"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "found",
+            "label": "found"
+          },
+          {
+            "id": "line",
+            "label": "line"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Reasoning text is great for humans but awkward for programs, which need.",
+            "values": {
+              "reply": "'7 x 12 = 84\n100 - 84 = 16\nAnswer: 16'",
+              "text": "'7 x 12 = 84\n100 - 84 = 16\nAnswer: 16'",
+              "found": "None",
+              "line": "'7 x 12 = 84'"
+            },
+            "tones": {
+              "reply": "data",
+              "text": "data",
+              "found": "data",
+              "line": "data"
+            },
+            "arrows": [
+              [
+                "reply",
+                "text"
+              ],
+              [
+                "text",
+                "found"
+              ],
+              [
+                "found",
+                "line"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Standardized answer markers enable reliable regex parsing.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "line",
-                  "found"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The reliable approach is to ask the model to finish with a fixed marker.",
+            "values": {
+              "reply": "'7 x 12 = 84\n100 - 84 = 16\nAnswer: 16'",
+              "text": "'7 x 12 = 84\n100 - 84 = 16\nAnswer: 16'",
+              "found": "None",
+              "line": "'7 x 12 = 84'"
+            },
+            "tones": {
+              "reply": "data",
+              "text": "data",
+              "found": "data",
+              "line": "data"
+            },
+            "arrows": [
+              [
+                "reply",
+                "text"
+              ],
+              [
+                "text",
+                "found"
+              ],
+              [
+                "found",
+                "line"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Scanning for the last marker resolves self corrected reasoning trails.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "line",
-                  "found"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "text",
-                  "line",
-                  "found"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Fallback numerical pattern matching extracts trailing quantities.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "line",
-                  "found"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "text",
-                  "line",
-                  "found"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "text",
-                  "line",
-                  "found"
-                ],
-                "tone": "data"
-              }
+            "at": "say8",
+            "caption": "If extraction fails often, change the prompt to make the marker clearer.",
+            "values": {
+              "reply": "'So the change is 16 rupees.'",
+              "text": "'7 x 12 = 84\n100 - 84 = 16\nAnswer: 16'",
+              "found": "None",
+              "line": "'100 - 84 = 16'"
+            },
+            "tones": {
+              "reply": "ok",
+              "text": "ok",
+              "found": "ok",
+              "line": "ok"
+            },
+            "arrows": [
+              [
+                "reply",
+                "text"
+              ],
+              [
+                "text",
+                "found"
+              ],
+              [
+                "found",
+                "line"
+              ]
             ]
           }
         ]
@@ -397,131 +453,91 @@
       "partTitle": "Self-consistency voting",
       "codeHash": "5fc560232c4957192301cfd1831f1082dfbfc3988ca877ce69825593181b6baa",
       "spec": {
-        "template": "table",
-        "title": "Self-consistency majority voting and confidence metrics",
-        "columns": [
+        "template": "sequence",
+        "title": "Self-consistency voting",
+        "actors": [
           "answers",
           "norm",
-          "winner",
-          "share"
+          "winner"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Stochastic generation yields diverse reasoning paths across repeated runs.",
-            "rows": [
+            "caption": "Trace how models updates random during execution.",
+            "activeActor": "answers",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "norm"
-                  },
-                  {
-                    "text": "winner"
-                  },
-                  {
-                    "text": "share"
-                  }
-                ],
+                "from": "answers",
+                "to": "norm",
+                "label": {
+                  "var": "answers",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "norm",
+                "to": "winner",
+                "label": {
+                  "var": "norm",
+                  "line": 2,
+                  "hit": 6
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Majority voting across independent sample paths improves answer accuracy.",
-            "rows": [
+            "caption": "Self-consistency exploits this.",
+            "activeActor": "norm",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "norm"
-                  },
-                  {
-                    "text": "winner"
-                  },
-                  {
-                    "text": "share"
-                  }
-                ],
-                "tone": "ok"
+                "from": "answers",
+                "to": "norm",
+                "label": {
+                  "var": "answers",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "norm"
-                  },
-                  {
-                    "text": "16"
-                  },
-                  {
-                    "text": "share"
-                  }
-                ],
+                "from": "norm",
+                "to": "winner",
+                "label": {
+                  "var": "norm",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Vote concentration provides an empirical confidence score for decisions.",
-            "rows": [
+            "at": "say8",
+            "caption": "Normalising answers before voting matters.",
+            "activeActor": "winner",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "norm"
-                  },
-                  {
-                    "text": "winner"
-                  },
-                  {
-                    "text": "share"
-                  }
-                ],
-                "tone": "ok"
+                "from": "answers",
+                "to": "norm",
+                "label": {
+                  "var": "answers",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "norm"
-                  },
-                  {
-                    "text": "16"
-                  },
-                  {
-                    "text": "share"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "norm"
-                  },
-                  {
-                    "text": "16"
-                  },
-                  {
-                    "text": "share"
-                  }
-                ],
+                "from": "norm",
+                "to": "winner",
+                "label": {
+                  "var": "norm",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -529,86 +545,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Self-consistency majority voting and confidence metrics",
-        "columns": [
+        "template": "sequence",
+        "title": "Self-consistency voting",
+        "actors": [
           "answers",
           "norm",
-          "winner",
-          "share"
+          "winner"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Stochastic generation yields diverse reasoning paths across repeated runs.",
-            "rows": [
+            "caption": "Trace how models updates random during execution.",
+            "messages": [
               {
-                "cells": [
-                  "answers",
-                  "norm",
-                  "winner",
-                  "share"
-                ],
+                "from": "answers",
+                "to": "norm",
+                "label": "['16', ' 16', '26', '16 ', '16']",
+                "tone": "data"
+              },
+              {
+                "from": "norm",
+                "to": "winner",
+                "label": "['16', '16', '26', '16', '16']",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "answers"
           },
           {
             "at": "say2",
-            "caption": "Majority voting across independent sample paths improves answer accuracy.",
-            "rows": [
+            "caption": "Self-consistency exploits this.",
+            "messages": [
               {
-                "cells": [
-                  "answers",
-                  "norm",
-                  "winner",
-                  "share"
-                ],
-                "tone": "ok"
+                "from": "answers",
+                "to": "norm",
+                "label": "['16', ' 16', '26', '16 ', '16']",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "answers",
-                  "norm",
-                  "16",
-                  "share"
-                ],
+                "from": "norm",
+                "to": "winner",
+                "label": "['16', '16', '26', '16', '16']",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "norm"
           },
           {
-            "at": "say4",
-            "caption": "Vote concentration provides an empirical confidence score for decisions.",
-            "rows": [
+            "at": "say8",
+            "caption": "Normalising answers before voting matters.",
+            "messages": [
               {
-                "cells": [
-                  "answers",
-                  "norm",
-                  "winner",
-                  "share"
-                ],
-                "tone": "ok"
+                "from": "answers",
+                "to": "norm",
+                "label": "['16', ' 16', '26', '16 ', '16']",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "answers",
-                  "norm",
-                  "16",
-                  "share"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "answers",
-                  "norm",
-                  "16",
-                  "share"
-                ],
+                "from": "norm",
+                "to": "winner",
+                "label": "['16', '16', '26', '16', '16']",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "winner"
           }
         ]
       }
@@ -617,192 +617,162 @@
       "partTitle": "Tree of thoughts",
       "codeHash": "2abf88c5a4074843e34e4cd4ad0ed72a7e2e54c9634a244efadf08c192c48147",
       "spec": {
-        "template": "table",
-        "title": "Tree of thoughts multi-branch evaluation and scoring",
-        "columns": [
+        "template": "sequence",
+        "title": "Tree of thoughts",
+        "actors": [
           "options",
-          "budget",
-          "score"
+          "o",
+          "budget"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Branching thought trees explore multiple alternative candidate solutions.",
-            "rows": [
+            "caption": "Chain of thought follows one line of reasoning.",
+            "activeActor": "options",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "options"
-                  },
-                  {
-                    "text": "budget"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
+                "from": "options",
+                "to": "o",
+                "label": {
+                  "var": "options",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "o",
+                "to": "budget",
+                "label": {
+                  "var": "o",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Systematic exploration navigates complex planning and search spaces.",
-            "rows": [
+            "caption": "It suits problems like puzzles, planning and creative tasks, where.",
+            "activeActor": "o",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "options"
-                  },
-                  {
-                    "text": "budget"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
-                "tone": "ok"
+                "from": "options",
+                "to": "o",
+                "label": {
+                  "var": "options",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "train"
-                  },
-                  {
-                    "text": "3000"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
+                "from": "o",
+                "to": "budget",
+                "label": {
+                  "var": "o",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Prompts propose different approaches before developing the best plan.",
-            "rows": [
+            "at": "say8",
+            "caption": "It is especially useful for decisions with trade-offs, such as choosing.",
+            "activeActor": "budget",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "options"
-                  },
-                  {
-                    "text": "budget"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
-                "tone": "ok"
+                "from": "options",
+                "to": "o",
+                "label": {
+                  "var": "options",
+                  "line": 7,
+                  "hit": 4
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "train"
-                  },
-                  {
-                    "text": "3000"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
+                "from": "o",
+                "to": "budget",
+                "label": {
+                  "var": "o",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "flight"
-                  },
-                  {
-                    "text": "3000"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Tree of thoughts multi-branch evaluation and scoring",
-        "columns": [
+        "template": "sequence",
+        "title": "Tree of thoughts",
+        "actors": [
           "options",
-          "budget",
-          "score"
+          "o",
+          "budget"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Branching thought trees explore multiple alternative candidate solutions.",
-            "rows": [
+            "caption": "Chain of thought follows one line of reasoning.",
+            "messages": [
               {
-                "cells": [
-                  "options",
-                  "budget",
-                  "score"
-                ],
+                "from": "options",
+                "to": "o",
+                "label": "{'train': {'hours': 8, 'cost': 900}, 'f…",
+                "tone": "data"
+              },
+              {
+                "from": "o",
+                "to": "budget",
+                "label": "{'hours': 8, 'cost': 900}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "options"
           },
           {
             "at": "say2",
-            "caption": "Systematic exploration navigates complex planning and search spaces.",
-            "rows": [
+            "caption": "It suits problems like puzzles, planning and creative tasks, where.",
+            "messages": [
               {
-                "cells": [
-                  "options",
-                  "budget",
-                  "score"
-                ],
-                "tone": "ok"
+                "from": "options",
+                "to": "o",
+                "label": "{'train': {'hours': 8, 'cost': 900}, 'f…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "train",
-                  "3000",
-                  "score"
-                ],
+                "from": "o",
+                "to": "budget",
+                "label": "{'hours': 8, 'cost': 900}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "o"
           },
           {
-            "at": "say3",
-            "caption": "Prompts propose different approaches before developing the best plan.",
-            "rows": [
+            "at": "say8",
+            "caption": "It is especially useful for decisions with trade-offs, such as choosing.",
+            "messages": [
               {
-                "cells": [
-                  "options",
-                  "budget",
-                  "score"
-                ],
-                "tone": "ok"
+                "from": "options",
+                "to": "o",
+                "label": "{'train': {'hours': 8, 'cost': 900}, 'f…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "train",
-                  "3000",
-                  "score"
-                ],
+                "from": "o",
+                "to": "budget",
+                "label": "{'hours': 2, 'cost': 4500}",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "flight",
-                  "3000",
-                  "score"
-                ],
-                "tone": "idle"
               }
-            ]
+            ],
+            "activeActor": "budget"
           }
         ]
       }
@@ -811,224 +781,162 @@
       "partTitle": "When reasoning prompts help",
       "codeHash": "5b730929b203e89626133d26ff780999a2f2f2ceff70d3253db42b024968a110",
       "spec": {
-        "template": "flow",
-        "title": "When reasoning prompts help — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. When reasoning prom...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "When reasoning prompts help",
+        "actors": [
+          "reasoning",
+          "line",
+          "a"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for When reasoning prompts help [Dfour.Pfive.Sone].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in When reasoning prom... [Dfour.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Reasoning prompts help most for multi-step maths, logic puzzles, planning.",
+            "activeActor": "reasoning",
+            "messages": [
+              {
+                "from": "reasoning",
+                "to": "line",
+                "label": {
+                  "var": "reasoning",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "line",
+                "to": "a",
+                "label": {
+                  "var": "line",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "If you would need scrap paper to solve it yourself, ask the model.",
+            "activeActor": "line",
+            "messages": [
+              {
+                "from": "reasoning",
+                "to": "line",
+                "label": {
+                  "var": "reasoning",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "line",
+                "to": "a",
+                "label": {
+                  "var": "line",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for When reasoning prompts help.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "The model is good at choosing the steps.",
+            "activeActor": "a",
+            "messages": [
+              {
+                "from": "reasoning",
+                "to": "line",
+                "label": {
+                  "var": "reasoning",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "line",
+                "to": "a",
+                "label": {
+                  "var": "line",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "When reasoning prompts help — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. When reasoning prom...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "When reasoning prompts help",
+        "actors": [
+          "reasoning",
+          "line",
+          "a"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for When reasoning prompts help [D4.P5.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in When reasoning prom... [D4.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Reasoning prompts help most for multi-step maths, logic puzzles, planning.",
+            "messages": [
+              {
+                "from": "reasoning",
+                "to": "line",
+                "label": "'7 x 12 = 84\n100 - 84 = 16\n16 x 3 = 58'",
+                "tone": "data"
+              },
+              {
+                "from": "line",
+                "to": "a",
+                "label": "'7 x 12 = 84'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "reasoning"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "If you would need scrap paper to solve it yourself, ask the model.",
+            "messages": [
+              {
+                "from": "reasoning",
+                "to": "line",
+                "label": "'7 x 12 = 84\n100 - 84 = 16\n16 x 3 = 58'",
+                "tone": "data"
+              },
+              {
+                "from": "line",
+                "to": "a",
+                "label": "'7 x 12 = 84'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "line"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for When reasoning prompts help [D4.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say9",
+            "caption": "The model is good at choosing the steps.",
+            "messages": [
+              {
+                "from": "reasoning",
+                "to": "line",
+                "label": "'7 x 12 = 84\n100 - 84 = 16\n16 x 3 = 58'",
+                "tone": "data"
+              },
+              {
+                "from": "line",
+                "to": "a",
+                "label": "'7 x 12 = 84'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "a"
           }
         ]
       }
@@ -1037,224 +945,162 @@
       "partTitle": "Practice time: vote and extract",
       "codeHash": "c272081ecb47a101422a743a778573bd68b58d8c62f80f05b8bd1817129ba3a4",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: vote and extract — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: vote...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: vote and extract",
+        "actors": [
+          "replies",
+          "text",
+          "l"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: vote and extract.",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: vote... [Dfour.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Self_consistency(answers).",
+            "activeActor": "replies",
+            "messages": [
+              {
+                "from": "replies",
+                "to": "text",
+                "label": {
+                  "var": "replies",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "l",
+                "label": {
+                  "var": "text",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfour.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
+            "activeActor": "text",
+            "messages": [
+              {
+                "from": "replies",
+                "to": "text",
+                "label": {
+                  "var": "replies",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "l",
+                "label": {
+                  "var": "text",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: vote and extract.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Milestone 1 tomorrow brings together tokens, costs and everything.",
+            "activeActor": "l",
+            "messages": [
+              {
+                "from": "replies",
+                "to": "text",
+                "label": {
+                  "var": "replies",
+                  "line": 11,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "l",
+                "label": {
+                  "var": "text",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: vote and extract — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: vote...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: vote and extract",
+        "actors": [
+          "replies",
+          "text",
+          "l"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: vote and extract [D4.P6.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: vote... [D4.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Self_consistency(answers).",
+            "messages": [
+              {
+                "from": "replies",
+                "to": "text",
+                "label": "['... Answer: 16', '... so 16 rupees', …",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "l",
+                "label": "'... Answer: 16'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "replies"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
+            "messages": [
+              {
+                "from": "replies",
+                "to": "text",
+                "label": "['... Answer: 16', '... so 16 rupees', …",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "l",
+                "label": "'... Answer: 16'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "text"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: vote and extract [D4.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Milestone 1 tomorrow brings together tokens, costs and everything.",
+            "messages": [
+              {
+                "from": "replies",
+                "to": "text",
+                "label": "['... Answer: 16', '... so 16 rupees', …",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "l",
+                "label": "'... Answer: 16'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "l"
           }
         ]
       }

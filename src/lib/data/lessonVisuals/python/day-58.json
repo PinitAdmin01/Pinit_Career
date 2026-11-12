@@ -2,88 +2,212 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 58,
-  "promptSha": "ac3da29752fd376fcba394c8ef53aedc1a59eca4c6a93c5c3d4a6c0994ace4c3",
-  "model": "gate-v2-verified",
+  "promptSha": "99040a6959df8242cd35728d4aa2fe802e15e35a5b8d693c304752d373712ad9",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "Flash Sale Thundering Herd Physics & Queue Draining Architecture",
       "codeHash": "a55749eca299a6dc49f3066bc6d2920b9d820b8df673b3ed743c6a81d5d81c4e",
       "spec": {
-        "template": "table",
-        "title": "Flash Sale Thundering Herd Physics & Queue Drainin",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "DecoupledFlashSaleTopology edge admission and queue buffering",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "accept_request"
+          },
+          {
+            "id": "stk",
+            "label": "redis_stock"
+          },
+          {
+            "id": "q",
+            "label": "order_queue"
+          }
+        ],
+        "edges": [
+          {
+            "from": "in",
+            "to": "stk"
+          },
+          {
+            "from": "stk",
+            "to": "q"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Flash"
-                  },
-                  {
-                    "text": "Sale"
-                  }
-                ],
-                "tone": "data"
+            "at": "say3",
+            "caption": "Directing flash bursts into relational storage crashes connection pools.",
+            "values": {
+              "in": {
+                "text": "accept_request"
+              },
+              "stk": {
+                "text": "redis_stock"
+              },
+              "q": {
+                "text": "DecoupledFlashSaleTopology"
               }
-            ]
+            },
+            "tones": {
+              "in": "data",
+              "stk": "error",
+              "q": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The requests logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Thundering"
-                  },
-                  {
-                    "text": "Herd"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say4",
+            "caption": "Edge Redis admission reserves stock fast while workers drain queues.",
+            "values": {
+              "in": {
+                "text": "accept_request"
+              },
+              "stk": {
+                "text": "redis_stock"
+              },
+              "q": {
+                "text": "order_queue"
               }
-            ]
+            },
+            "tones": {
+              "in": "ok",
+              "stk": "ok",
+              "q": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Decoupled architecture reserves Redis stock and queues orders asynchronously.",
+            "values": {
+              "in": {
+                "text": "100"
+              },
+              "stk": {
+                "text": "redis_stock"
+              },
+              "q": {
+                "text": "order_queue"
+              }
+            },
+            "tones": {
+              "in": "ok",
+              "stk": "ok",
+              "q": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Send burst requests against scarce stock confirming zero overselling.",
+            "values": {
+              "in": {
+                "text": "Simulate"
+              },
+              "stk": {
+                "text": "happens"
+              },
+              "q": {
+                "text": "requests"
+              }
+            },
+            "tones": {
+              "in": "ok",
+              "stk": "ok",
+              "q": "data"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Flash Sale Thundering Herd Physics & Queue Drainin",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "DecoupledFlashSaleTopology edge admission and queue buffering",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "accept_request"
+          },
+          {
+            "id": "stk",
+            "label": "redis_stock"
+          },
+          {
+            "id": "q",
+            "label": "order_queue"
+          }
+        ],
+        "edges": [
+          {
+            "from": "in",
+            "to": "stk"
+          },
+          {
+            "from": "stk",
+            "to": "q"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Flash",
-                  "Sale"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say3",
+            "caption": "Directing flash bursts into relational storage crashes connection pools.",
+            "values": {
+              "in": "120 Checkout Requests",
+              "stk": "DB Row Locks Starve",
+              "q": "Decoupled Shield Needed"
+            },
+            "tones": {
+              "in": "data",
+              "stk": "error",
+              "q": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The requests logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Thundering",
-                  "Herd"
-                ],
-                "tone": "ok"
-              }
+            "at": "say4",
+            "caption": "Edge Redis admission reserves stock fast while workers drain queues.",
+            "values": {
+              "in": "100 Admitted / 20 Shed",
+              "stk": "In-Memory Sub-10ms Check",
+              "q": "Async Worker Drains To DB"
+            },
+            "tones": {
+              "in": "ok",
+              "stk": "ok",
+              "q": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Decoupled architecture reserves Redis stock and queues orders asynchronously.",
+            "values": {
+              "in": "100 Reservations Won",
+              "stk": "redis_stock = 0 Remaining",
+              "q": "order_queue Depth = 100"
+            },
+            "tones": {
+              "in": "ok",
+              "stk": "ok",
+              "q": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Send burst requests against scarce stock confirming zero overselling.",
+            "values": {
+              "in": "50 Reservations Of 1000",
+              "stk": "redis_stock = 0 Exact",
+              "q": "order_queue Depth = 50"
+            },
+            "tones": {
+              "in": "ok",
+              "stk": "ok",
+              "q": "data"
+            },
+            "arrows": [],
+            "whatIf": "import uuid\n\nclass DecoupledFlashSaleTopology:\n    def __init__(self, initial_stock: int):\n        self.redis_stock = initial_stock\n        self.order_queue = []\n\n    def accept_request(self, user_id: str) -> bool:\n        if self.redis_stock > 0:\n            self.redis_stock -= 1\n            token = f\"tok_{user_id}_{uuid.uuid4().hex[:6]}\"\n            self.order_queue.append({\"user_id\": user_id, \"token\": token})\n            return True\n        return False\n\ntopology = DecoupledFlashSaleTopology(initial_stock=50)\naccepted = [topology.accept_request(f\"usr_{i}\") for i in range(1000)]\nprint(f\"Total Requests: 1000 | Successful Reservations: {sum(accepted)}\")\nprint(f\"Redis Remaining Stock: {topology.redis_stock}\")\nprint(f\"Buffered Order Queue Depth: {len(topology.order_queue)}\")\nprint(\"Decoupling Invariant: In-memory cache absorbs spike; persistent DB is decoupled by queue.\")",
+            "checks": [
+              "Total Requests: 1000 | Successful Reservations: 50",
+              "Redis Remaining Stock: 0",
+              "Buffered Order Queue Depth: 50"
             ]
           }
         ]
@@ -93,82 +217,162 @@
       "partTitle": "TOCTOU Inventory Overselling Race Condition Forensics",
       "codeHash": "ccf3b0e63feadc81037f0fbd07dec2580b974ba7b194feacbc03101f9a461182",
       "spec": {
-        "template": "table",
-        "title": "TOCTOU Inventory Overselling Race Condition Forens",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Non-atomic GET+DECR overselling vs atomic stock guard",
+        "leftLabel": "Split GET Then DECR",
+        "rightLabel": "Single Atomic Check",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The handling concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "TOCTOU"
-                  },
-                  {
-                    "text": "Inventory"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Concurrent buyers reading cached stock allow parallel decrements past zero.",
+            "left": {
+              "code": "split_get_and_decr",
+              "result": "Reads Stock = 1 Together",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "stock",
+              "result": "Serialized Single Decrement",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The because logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Overselling"
-                  },
-                  {
-                    "text": "Race"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Unprotected concurrency drives stock counts into deep negative deficits.",
+            "left": {
+              "code": "oversold",
+              "result": "5 Oversold Units Sold",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "TOCTOUSimulator",
+              "result": "Stock Never Negative",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Split stock reads permit fifteen buyers to claim ten inventory units.",
+            "left": {
+              "code": "stock",
+              "result": "Final Stock = -5 Deficit",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "oversold",
+              "result": "Zero Deficit When Atomic",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase buyers against low initial stock observing overselling deficit.",
+            "left": {
+              "code": "toctou.split_get_and_decr(buyers=15)",
+              "result": "Final Stock -5 (5 Oversold Units)",
+              "tone": "error",
+              "checks": [
+                "Final Stock: -5",
+                "Oversold Units (15 buyers): 5"
+              ],
+              "whatIf": "class TOCTOUSimulator:\n    def __init__(self, stock: int):\n        self.stock = stock\n\n    def split_get_and_decr(self, buyers: int) -> int:\n        cached_reads = [self.stock for _ in range(buyers)]\n        oversold = 0\n        for read_val in cached_reads:\n            if read_val > 0:\n                self.stock -= 1\n                if self.stock < 0:\n                    oversold += 1\n        return oversold\n\ntoctou = TOCTOUSimulator(stock=10)\noversold_count = toctou.split_get_and_decr(buyers=15)\nprint(f\"Initial Stock: 10 | Attempted Buys: 15\")\nprint(f\"Final Stock: {toctou.stock} (Negative Deficit!)\")\nprint(f\"Oversold Units (15 buyers): {oversold_count}\")\nprint(\"Race Condition Invariant: Non-atomic GET and DECR causes catastrophic TOCTOU overselling.\")"
+            },
+            "right": {
+              "code": "toctou.split_get_and_decr(buyers=50)",
+              "result": "Final Stock -40 (40 Oversold Units!)",
+              "tone": "error",
+              "checks": [
+                "Final Stock: -40",
+                "Oversold Units: 40"
+              ],
+              "whatIf": "class TOCTOUSimulator:\n    def __init__(self, stock: int):\n        self.stock = stock\n\n    def split_get_and_decr(self, buyers: int) -> int:\n        cached_reads = [self.stock for _ in range(buyers)]\n        oversold = 0\n        for read_val in cached_reads:\n            if read_val > 0:\n                self.stock -= 1\n                if self.stock < 0:\n                    oversold += 1\n        return oversold\n\ntoctou = TOCTOUSimulator(stock=10)\noversold_count = toctou.split_get_and_decr(buyers=50)\nprint(f\"Initial Stock: 10 | Attempted Buys: 50\")\nprint(f\"Final Stock: {toctou.stock} (Negative Deficit!)\")\nprint(f\"Oversold Units: {oversold_count}\")\nprint(\"Race Condition Invariant: Non-atomic GET and DECR causes catastrophic TOCTOU overselling.\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "TOCTOU Inventory Overselling Race Condition Forens",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Non-atomic GET+DECR overselling vs atomic stock guard",
+        "leftLabel": "Split GET Then DECR",
+        "rightLabel": "Single Atomic Check",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The handling concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "TOCTOU",
-                  "Inventory"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Concurrent buyers reading cached stock allow parallel decrements past zero.",
+            "left": {
+              "code": "15 Threads Cache Read 10",
+              "result": "All Pass read_val > 0 Check",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Atomic Single-Thread Eval",
+              "result": "Only 10 Buyers Succeed",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The because logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Overselling",
-                  "Race"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Unprotected concurrency drives stock counts into deep negative deficits.",
+            "left": {
+              "code": "15 Blind Decrements Run",
+              "result": "stock = -5 (Oversold!)",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Zero Lock Retries Or Drift",
+              "result": "Stock Stops At 0",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Split stock reads permit fifteen buyers to claim ten inventory units.",
+            "left": {
+              "code": "Initial 10 - 15 Purchases",
+              "result": "5 Oversold Deficit",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Single Atomic Check-Decr",
+              "result": "Exactly 10 Units Sold",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase buyers against low initial stock observing overselling deficit.",
+            "left": {
+              "code": "toctou.split_get_and_decr(buyers=15)",
+              "result": "Final Stock -5 (5 Oversold Units)",
+              "tone": "error",
+              "checks": [
+                "Final Stock: -5",
+                "Oversold Units (15 buyers): 5"
+              ],
+              "whatIf": "class TOCTOUSimulator:\n    def __init__(self, stock: int):\n        self.stock = stock\n\n    def split_get_and_decr(self, buyers: int) -> int:\n        cached_reads = [self.stock for _ in range(buyers)]\n        oversold = 0\n        for read_val in cached_reads:\n            if read_val > 0:\n                self.stock -= 1\n                if self.stock < 0:\n                    oversold += 1\n        return oversold\n\ntoctou = TOCTOUSimulator(stock=10)\noversold_count = toctou.split_get_and_decr(buyers=15)\nprint(f\"Initial Stock: 10 | Attempted Buys: 15\")\nprint(f\"Final Stock: {toctou.stock} (Negative Deficit!)\")\nprint(f\"Oversold Units (15 buyers): {oversold_count}\")\nprint(\"Race Condition Invariant: Non-atomic GET and DECR causes catastrophic TOCTOU overselling.\")"
+            },
+            "right": {
+              "code": "toctou.split_get_and_decr(buyers=50)",
+              "result": "Final Stock -40 (40 Oversold Units!)",
+              "tone": "error",
+              "checks": [
+                "Final Stock: -40",
+                "Oversold Units: 40"
+              ],
+              "whatIf": "class TOCTOUSimulator:\n    def __init__(self, stock: int):\n        self.stock = stock\n\n    def split_get_and_decr(self, buyers: int) -> int:\n        cached_reads = [self.stock for _ in range(buyers)]\n        oversold = 0\n        for read_val in cached_reads:\n            if read_val > 0:\n                self.stock -= 1\n                if self.stock < 0:\n                    oversold += 1\n        return oversold\n\ntoctou = TOCTOUSimulator(stock=10)\noversold_count = toctou.split_get_and_decr(buyers=50)\nprint(f\"Initial Stock: 10 | Attempted Buys: 50\")\nprint(f\"Final Stock: {toctou.stock} (Negative Deficit!)\")\nprint(f\"Oversold Units: {oversold_count}\")\nprint(\"Race Condition Invariant: Non-atomic GET and DECR causes catastrophic TOCTOU overselling.\")"
+            }
           }
         ]
       }
@@ -177,165 +381,441 @@
       "partTitle": "Atomic Redis Lua Flash Sale Inventory Engine Implementation",
       "codeHash": "47bf47ceafbde769488c44fd45d6643c79e02eb147681fc4d0acababc1c09770",
       "spec": {
-        "template": "table",
-        "title": "Atomic Redis Lua Flash Sale Inventory Engine Imple",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "MockRedisLuaEngine single-threaded reservation gate",
+        "boxes": [
+          {
+            "id": "stk",
+            "label": "stock"
+          },
+          {
+            "id": "lua",
+            "label": "execute_lua_reservation"
+          },
+          {
+            "id": "res",
+            "label": "reservations"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The completely concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Atomic"
-                  },
-                  {
-                    "text": "Redis"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Lua script checks positive stock, decrements, and mints reservation tokens.",
+            "values": {
+              "stk": {
+                "text": "stock"
+              },
+              "lua": {
+                "text": "execute_lua_reservation"
+              },
+              "res": {
+                "text": "RESERVED"
               }
-            ]
+            },
+            "tones": {
+              "stk": "data",
+              "lua": "ok",
+              "res": "ok"
+            }
           },
           {
             "at": "say3",
-            "caption": "The flash logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Lua"
-                  },
-                  {
-                    "text": "Flash"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Depleted stock returns sold out signals immediately without disk access.",
+            "values": {
+              "stk": {
+                "text": "stock"
+              },
+              "lua": {
+                "text": "SOLD_OUT"
+              },
+              "res": {
+                "text": "410"
               }
-            ]
+            },
+            "tones": {
+              "stk": "error",
+              "lua": "error",
+              "res": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Atomic Lua script reserves exact inventory without negative stock races.",
+            "values": {
+              "stk": {
+                "text": "stock"
+              },
+              "lua": {
+                "text": "MockRedisLuaEngine"
+              },
+              "res": {
+                "text": "reservations"
+              }
+            },
+            "tones": {
+              "stk": "ok",
+              "lua": "ok",
+              "res": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add TTL expiry reclamation returning unclaimed reservation stock back to pool.",
+            "values": {
+              "stk": {
+                "text": "Add"
+              },
+              "lua": {
+                "text": "mechanism"
+              },
+              "res": {
+                "text": "checks"
+              }
+            },
+            "tones": {
+              "stk": "data",
+              "lua": "ok",
+              "res": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Atomic Redis Lua Flash Sale Inventory Engine Imple",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "MockRedisLuaEngine single-threaded reservation gate",
+        "boxes": [
+          {
+            "id": "stk",
+            "label": "stock"
+          },
+          {
+            "id": "lua",
+            "label": "execute_lua_reservation"
+          },
+          {
+            "id": "res",
+            "label": "reservations"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The completely concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Atomic",
-                  "Redis"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Lua script checks positive stock, decrements, and mints reservation tokens.",
+            "values": {
+              "stk": "2 -> 1 -> 0 Atomic",
+              "lua": "Buyer 1 & 2 RESERVED",
+              "res": "RES_buyer__item_ps5 (TTL 900s)"
+            },
+            "tones": {
+              "stk": "data",
+              "lua": "ok",
+              "res": "ok"
+            }
           },
           {
             "at": "say3",
-            "caption": "The flash logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Lua",
-                  "Flash"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Depleted stock returns sold out signals immediately without disk access.",
+            "values": {
+              "stk": "stock <= 0 Reached",
+              "lua": "Buyer 3 -> SOLD_OUT",
+              "res": "HTTP 410 Gone In Micros"
+            },
+            "tones": {
+              "stk": "error",
+              "lua": "error",
+              "res": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Atomic Lua script reserves exact inventory without negative stock races.",
+            "values": {
+              "stk": "Exact 2 / 2 Claimed",
+              "lua": "Zero Interleaving Commands",
+              "res": "0 Oversold Units"
+            },
+            "tones": {
+              "stk": "ok",
+              "lua": "ok",
+              "res": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add TTL expiry reclamation returning unclaimed reservation stock back to pool.",
+            "values": {
+              "stk": "Expired TTL >= 900s Reclaimed",
+              "lua": "2 Tokens Returned Atomically",
+              "res": "stock Restored -> 2"
+            },
+            "tones": {
+              "stk": "data",
+              "lua": "ok",
+              "res": "ok"
+            },
+            "whatIf": "class MockRedisLuaEngine:\n    def __init__(self, initial_stock: int):\n        self.stock = initial_stock\n        self.reservations = {}\n\n    def execute_lua_reservation(self, item_key: str, user_id: str, ttl_seconds: int = 900) -> dict:\n        if self.stock <= 0:\n            return {\"status\": \"SOLD_OUT\", \"code\": 410}\n        \n        self.stock -= 1\n        token = f\"RES_{user_id[:6]}_{item_key}_{self.stock}\"\n        self.reservations[token] = {\"user_id\": user_id, \"ttl\": ttl_seconds, \"claimed\": False}\n        return {\"status\": \"RESERVED\", \"token\": token, \"remaining\": self.stock}\n\n    def reclaim_expired(self, elapsed_sec: int) -> int:\n        reclaimed = 0\n        for tok, meta in list(self.reservations.items()):\n            if not meta[\"claimed\"] and elapsed_sec >= meta[\"ttl\"]:\n                del self.reservations[tok]\n                self.stock += 1\n                reclaimed += 1\n        return reclaimed\n\nlua_engine = MockRedisLuaEngine(initial_stock=2)\nr1 = lua_engine.execute_lua_reservation(\"item_ps5\", \"buyer_alice\")\nr2 = lua_engine.execute_lua_reservation(\"item_ps5\", \"buyer_bob\")\nr3 = lua_engine.execute_lua_reservation(\"item_ps5\", \"buyer_charlie\")\n\nprint(f\"Buyer 1: {r1['status']} (Token: {r1['token']})\")\nprint(f\"Buyer 2: {r2['status']} (Token: {r2['token']})\")\nprint(f\"Buyer 3: {r3['status']} (Code: {r3['code']})\")\nreclaimed = lua_engine.reclaim_expired(elapsed_sec=905)\nprint(f\"Expired Reclaimed: {reclaimed} | Restored Stock: {lua_engine.stock}\")\nprint(\"Lua Invariant: Single-threaded Redis Lua scripts execute check-and-reserve atomically.\")",
+            "checks": [
+              "Expired Reclaimed: 2 | Restored Stock: 2"
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Planetary-Scale Flash Sale Thundering Herd Hardening",
+      "partTitle": "High-Concurrency Flash Sale Thundering Herd Hardening",
       "codeHash": "010af6fd48f316096accb09d5d721da308412c673cb47c7d4010f100cad3abeb",
       "spec": {
-        "template": "table",
-        "title": "Planetary-Scale Flash Sale Thundering Herd Hardeni",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "TokenBucketLimiter perimeter admission control",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The even concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Gateway token buckets shed bot bursts before they saturate Redis.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Planetary"
-                  },
-                  {
-                    "text": "Scale"
-                  }
-                ],
+                "text": "TokenBucketLimiter"
+              },
+              {
+                "text": "capacity"
+              },
+              {
+                "text": "tokens"
+              },
+              {
+                "text": "allow_request"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "edge",
+                "index": 0,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "data",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The token logic drives deterministic execution.",
-            "rows": [
+            "caption": "Empty buckets shed excess floods cleanly while queues pace persistence.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Flash"
-                  },
-                  {
-                    "text": "Sale"
-                  }
-                ],
+                "text": "capacity"
+              },
+              {
+                "text": "tokens"
+              },
+              {
+                "text": "refill_rate"
+              },
+              {
+                "text": "allow_request"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "cap",
+                "index": 1,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "data",
+              "1": "error",
+              "2": "ok",
+              "3": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Token bucket admits capacity burst requests and throttles excess demand.",
+            "items": [
+              {
+                "text": "5"
+              },
+              {
+                "text": "8"
+              },
+              {
+                "text": "tokens"
+              },
+              {
+                "text": "allow_request"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "shed",
+                "index": 2,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "error",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add timestamp replenishment calculation refilling exhausted tokens cleanly.",
+            "items": [
+              {
+                "text": "Simulate"
+              },
+              {
+                "text": "refill"
+              },
+              {
+                "text": "time"
+              },
+              {
+                "text": "timestamp-based"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "refilled",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "error",
+              "1": "data",
+              "2": "ok",
+              "3": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Planetary-Scale Flash Sale Thundering Herd Hardeni",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "TokenBucketLimiter perimeter admission control",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The even concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Gateway token buckets shed bot bursts before they saturate Redis.",
+            "items": [
+              "API Edge Gate",
+              "capacity = 5",
+              "5 Tokens Ready",
+              "Rejects Bot Floods"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Planetary",
-                  "Scale"
-                ],
+                "name": "edge",
+                "index": 0,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "data",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The token logic drives deterministic execution.",
-            "rows": [
+            "caption": "Empty buckets shed excess floods cleanly while queues pace persistence.",
+            "items": [
+              "5 Admitted Into Lua",
+              "tokens = 0 Empty",
+              "Refills At 10.0/s",
+              "Excess -> HTTP 429 Shed"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Flash",
-                  "Sale"
-                ],
+                "name": "cap",
+                "index": 1,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "data",
+              "1": "error",
+              "2": "ok",
+              "3": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Token bucket admits capacity burst requests and throttles excess demand.",
+            "items": [
+              "5 Requests Admitted",
+              "3 Throttled Of 8",
+              "Bucket Left = 0",
+              "Redis Shielded At Edge"
+            ],
+            "pointers": [
+              {
+                "name": "shed",
+                "index": 2,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "error",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add timestamp replenishment calculation refilling exhausted tokens cleanly.",
+            "items": [
+              "Burst Emptied To 0",
+              "+0.5s * 10/s = 5",
+              "Next Req Allowed",
+              "Tokens Left = 4"
+            ],
+            "pointers": [
+              {
+                "name": "refilled",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "error",
+              "1": "data",
+              "2": "ok",
+              "3": "ok"
+            },
+            "whatIf": "class TokenBucketLimiter:\n    def __init__(self, capacity: int, refill_rate: float):\n        self.capacity = capacity\n        self.tokens = capacity\n        self.refill_rate = refill_rate\n\n    def allow_request(self, elapsed_sec: float = 0.0) -> bool:\n        if elapsed_sec > 0:\n            self.tokens = min(self.capacity, self.tokens + elapsed_sec * self.refill_rate)\n        if self.tokens >= 1:\n            self.tokens -= 1\n            return True\n        return False\n\nlimiter = TokenBucketLimiter(capacity=5, refill_rate=10.0)\nadmitted = [limiter.allow_request() for _ in range(8)]\nprint(f\"Burst 8 Requests -> Admitted: {sum(admitted)}, Throttled: {8 - sum(admitted)}\")\nprint(f\"Bucket Tokens Left: {limiter.tokens}\")\nrefilled_ok = limiter.allow_request(elapsed_sec=0.5)\nprint(f\"After 0.5s Refill (+5 Tokens): Allowed={refilled_ok}, Tokens Left={limiter.tokens}\")\nprint(\"Hardening Invariant: Edge rate limiters protect the reservation tier from bot traffic.\")",
+            "checks": [
+              "After 0.5s Refill (+5 Tokens): Allowed=True, Tokens Left=4"
             ]
           }
         ]
@@ -346,43 +826,146 @@
       "codeHash": "72f1e2cbdc6c2b7ebe82a4971bfb0a5c0b70ddd541eae88a3a49910db3a3b230",
       "spec": {
         "template": "table",
-        "title": "Asynchronous Order Draining, Dead-Letter Queues & ",
+        "title": "OrderDrainingWorker database commit and DLQ diversion",
         "columns": [
-          "Stage",
-          "Concept"
+          "Order Item",
+          "Destination",
+          "Stock Action"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The once concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Background workers drain reservations cleanly and divert failures to DLQ.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Asynchronous"
+                    "text": "persisted_db"
                   },
                   {
-                    "text": "Order"
+                    "text": "drain_orders"
+                  },
+                  {
+                    "text": "OrderDrainingWorker"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "dead_letter_queue"
+                  },
+                  {
+                    "text": "bad_payment"
+                  },
+                  {
+                    "text": "OrderDrainingWorker"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The order logic drives deterministic execution.",
+            "caption": "Permanent payment failures route into dead-letter storage and roll back stock.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Draining"
+                    "text": "bad_payment"
                   },
                   {
-                    "text": "Dead"
+                    "text": "dead_letter_queue"
+                  },
+                  {
+                    "text": "drain_orders"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "persisted_db"
+                  },
+                  {
+                    "text": "OrderDrainingWorker"
+                  },
+                  {
+                    "text": "drain_orders"
                   }
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Draining worker commits valid flash orders while routing failed payments aside.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "ORD_1"
+                  },
+                  {
+                    "text": "persisted_db"
+                  },
+                  {
+                    "text": "OrderDrainingWorker"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "ORD_2"
+                  },
+                  {
+                    "text": "dead_letter_queue"
+                  },
+                  {
+                    "text": "bad_payment"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Implement DLQ rollback restoring inventory counter when payment fails.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Implement"
+                  },
+                  {
+                    "text": "rollback"
+                  },
+                  {
+                    "text": "function"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "function"
+                  },
+                  {
+                    "text": "that"
+                  },
+                  {
+                    "text": "re-increments"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -390,36 +973,103 @@
       },
       "filled": {
         "template": "table",
-        "title": "Asynchronous Order Draining, Dead-Letter Queues & ",
+        "title": "OrderDrainingWorker database commit and DLQ diversion",
         "columns": [
-          "Stage",
-          "Concept"
+          "Order Item",
+          "Destination",
+          "Stock Action"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The once concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Background workers drain reservations cleanly and divert failures to DLQ.",
             "rows": [
               {
                 "cells": [
-                  "Asynchronous",
-                  "Order"
+                  "ORD_1, ORD_3 Valid",
+                  "persisted_db (2 Orders)",
+                  "Committed At DB Rate"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "ORD_2 bad_payment",
+                  "Routed To DLQ Queue",
+                  "Main Drain Unblocked"
+                ],
+                "tone": "error"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The order logic drives deterministic execution.",
+            "caption": "Permanent payment failures route into dead-letter storage and roll back stock.",
             "rows": [
               {
                 "cells": [
-                  "Draining",
-                  "Dead"
+                  "bad_payment Timeout",
+                  "Dead-Letter Queue (1)",
+                  "Compensating Stock +1"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Healthy Queue Clear",
+                  "Queue Drained = True",
+                  "Reconciles Sold + Avail"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Draining worker commits valid flash orders while routing failed payments aside.",
+            "rows": [
+              {
+                "cells": [
+                  "ORD_1 & ORD_3",
+                  "persisted_db = 2",
+                  "Flash Checkout Settled"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "ORD_2 bad_payment",
+                  "dead_letter_queue = 1",
+                  "0 Oversold Units"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Implement DLQ rollback restoring inventory counter when payment fails.",
+            "rows": [
+              {
+                "cells": [
+                  "ORD_1 & ORD_3",
+                  "persisted_db = 2",
+                  "Flash Checkout Settled"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "ORD_2 (bad_payment)",
+                  "DLQ + rollback_dlq()",
+                  "Stock Restored (97 -> 98)"
+                ],
+                "tone": "data"
+              }
+            ],
+            "whatIf": "class OrderDrainingWorker:\n    def __init__(self, stock=97):\n        self.persisted_db = []\n        self.dead_letter_queue = []\n        self.available_inventory = stock\n\n    def rollback_dlq(self):\n        reverted = len(self.dead_letter_queue)\n        self.available_inventory += reverted\n        return reverted\n\n    def drain_orders(self, queue: list):\n        for order in queue:\n            if order.get(\"user_id\") == \"bad_payment\":\n                self.dead_letter_queue.append(order)\n            else:\n                self.persisted_db.append(order)\n        queue.clear()\n\nworker = OrderDrainingWorker()\nsample_queue = [\n    {\"order_id\": \"ORD_1\", \"user_id\": \"usr_99\", \"amount\": 999},\n    {\"order_id\": \"ORD_2\", \"user_id\": \"bad_payment\", \"amount\": 999},\n    {\"order_id\": \"ORD_3\", \"user_id\": \"usr_101\", \"amount\": 999}\n]\n\nworker.drain_orders(sample_queue)\nprint(f\"Persisted Database Orders: {len(worker.persisted_db)}\")\nprint(f\"Dead Letter Queue Depth: {len(worker.dead_letter_queue)}\")\nprint(f\"Queue Drained: {len(sample_queue) == 0}\")\nrestored = worker.rollback_dlq()\nprint(f\"DLQ Stock Rollback: +{restored} unit restored -> Available Stock: {worker.available_inventory}\")\nprint(\"[FLASH SALE CERTIFIED] 500k Surge Handled - 0 Oversold Units!\")",
+            "checks": [
+              "DLQ Stock Rollback: +1 unit restored -> Available Stock: 98"
             ]
           }
         ]

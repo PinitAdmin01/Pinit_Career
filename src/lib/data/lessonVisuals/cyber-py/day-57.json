@@ -2,937 +2,582 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 57,
-  "promptSha": "25ac77c982c66a5f52ab795d69c386f515c29c2a188ee5fc7d9aabe3be37eef5",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Differential Privacy — Foundations & Mathematical Invariants",
-      "codeHash": "72675155608967994e72ef03e382012618602db50ad0473849bfce2779fab6cb",
+      "codeHash": "10a3386156740302aecdd31ca0ac5d770be7d1dbdffc99d90cef1795b068086f",
       "spec": {
-        "template": "flow",
+        "template": "states",
         "title": "Differential Privacy — Foundations & Mathematical Invariants",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "DP_FOUNDATIONS_TAXONOMY",
+            "label": "DP_FOUNDATIONS_TAXONOMY"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "concept",
+            "label": "concept"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Statistical analysis of sensitive databasessuch as medical records, salary.",
+            "currentState": "DP_FOUNDATIONS_TAXONOMY",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Traditional anonymization techniques (such as stripping names or social.",
+            "currentState": "concept",
+            "transition": {
+              "from": "DP_FOUNDATIONS_TAXONOMY",
+              "to": "concept",
+              "label": {
+                "var": "concept",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say11",
+            "caption": "Differential privacy provides a provable mathematical framework.",
+            "currentState": "desc",
+            "transition": {
+              "from": "concept",
+              "to": "desc",
+              "label": {
+                "var": "desc",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "states",
         "title": "Differential Privacy — Foundations & Mathematical Invariants",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "DP_FOUNDATIONS_TAXONOMY",
+            "label": "DP_FOUNDATIONS_TAXONOMY"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "concept",
+            "label": "concept"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Statistical analysis of sensitive databasessuch as medical records, salary.",
+            "currentState": "DP_FOUNDATIONS_TAXONOMY",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Traditional anonymization techniques (such as stripping names or social.",
+            "currentState": "concept",
+            "transition": {
+              "from": "DP_FOUNDATIONS_TAXONOMY",
+              "to": "concept",
+              "label": "'COMPOSITION_THEOREM'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say11",
+            "caption": "Differential privacy provides a provable mathematical framework.",
+            "currentState": "desc",
+            "transition": {
+              "from": "concept",
+              "to": "desc",
+              "label": "'Mathematical bound on the maximum priv…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Differential Privacy — Core Algorithm & State Representation",
-      "codeHash": "eb7bf244a19087115c1cb9496814c13abf3d6fcc12c43fcf31d70fb700684fa4",
+      "codeHash": "77c2131c87cf17b59014e9f6699c75ca527fcf8807b4ddcb3c60012bc4f864f8",
       "spec": {
-        "template": "flow",
+        "template": "states",
         "title": "Differential Privacy — Core Algorithm & State Representation",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "true_patient_count",
+            "label": "true_patient_count"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "sensitivity",
+            "label": "sensitivity"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "epsilon",
+            "label": "epsilon"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Laplace mechanism is the fundamental algorithm for achieving.",
+            "currentState": "true_patient_count",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "To privatize a query result, the mechanism draws random noise from.",
+            "currentState": "sensitivity",
+            "transition": {
+              "from": "true_patient_count",
+              "to": "sensitivity",
+              "label": {
+                "var": "sensitivity",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Calibrated Laplace perturbation ensures that external observers cannot.",
+            "currentState": "epsilon",
+            "transition": {
+              "from": "sensitivity",
+              "to": "epsilon",
+              "label": {
+                "var": "epsilon",
+                "line": 12,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "states",
         "title": "Differential Privacy — Core Algorithm & State Representation",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "true_patient_count",
+            "label": "true_patient_count"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "sensitivity",
+            "label": "sensitivity"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "epsilon",
+            "label": "epsilon"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Laplace mechanism is the fundamental algorithm for achieving.",
+            "currentState": "true_patient_count",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "To privatize a query result, the mechanism draws random noise from.",
+            "currentState": "sensitivity",
+            "transition": {
+              "from": "true_patient_count",
+              "to": "sensitivity",
+              "label": "1"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Calibrated Laplace perturbation ensures that external observers cannot.",
+            "currentState": "epsilon",
+            "transition": {
+              "from": "sensitivity",
+              "to": "epsilon",
+              "label": "0.5"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Differential Privacy — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "b6dff0baff3050ad301ec17636f216a1d5ad16b9d98b079a697597e0d062dfed",
+      "codeHash": "84f6785514654bfdc46d682246d540df299febcd76e286a35ca24faac2967af9",
       "spec": {
-        "template": "flow",
-        "title": "Differential Privacy — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "boxes",
+        "title": "Differential Privacy — Throughput Optimization & Edge-Case Handl",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_epsilon_budget",
+            "label": "max_epsilon_budget"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "ledger",
+            "label": "ledger"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "query_name",
+            "label": "query_name"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A single differentially private query provides strong guarantees, but.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "max_epsilon_budget": {
+                "var": "max_epsilon_budget",
+                "line": 3,
+                "hit": 1
+              },
+              "ledger": {
+                "var": "ledger",
+                "line": 15,
+                "hit": 1
+              },
+              "query_name": {
+                "var": "query_name",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "max_epsilon_budget": "data",
+              "ledger": "data",
+              "query_name": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "By the Composition Theorem of differential privacy, the total privacy loss.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "max_epsilon_budget": {
+                "var": "max_epsilon_budget",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "ledger": {
+                "var": "ledger",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "query_name": {
+                "var": "query_name",
+                "line": 11,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "self": "data",
+              "max_epsilon_budget": "data",
+              "ledger": "data",
+              "query_name": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Privacy budget ledgers track cumulative epsilon consumption across.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "max_epsilon_budget": {
+                "var": "max_epsilon_budget",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "ledger": {
+                "var": "ledger",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "query_name": {
+                "var": "query_name",
+                "line": 12,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "self": "ok",
+              "max_epsilon_budget": "ok",
+              "ledger": "ok",
+              "query_name": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Differential Privacy — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "boxes",
+        "title": "Differential Privacy — Throughput Optimization & Edge-Case Handl",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_epsilon_budget",
+            "label": "max_epsilon_budget"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "ledger",
+            "label": "ledger"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "query_name",
+            "label": "query_name"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A single differentially private query provides strong guarantees, but.",
+            "values": {
+              "self": "<PrivacyBudgetLedger>",
+              "max_epsilon_budget": "1",
+              "ledger": "<PrivacyBudgetLedger>",
+              "query_name": "'Salary Mean Query'"
+            },
+            "tones": {
+              "self": "data",
+              "max_epsilon_budget": "data",
+              "ledger": "data",
+              "query_name": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "By the Composition Theorem of differential privacy, the total privacy loss.",
+            "values": {
+              "self": "<PrivacyBudgetLedger>",
+              "max_epsilon_budget": "1",
+              "ledger": "<PrivacyBudgetLedger>",
+              "query_name": "'Salary Mean Query'"
+            },
+            "tones": {
+              "self": "data",
+              "max_epsilon_budget": "data",
+              "ledger": "data",
+              "query_name": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Privacy budget ledgers track cumulative epsilon consumption across.",
+            "values": {
+              "self": "<PrivacyBudgetLedger>",
+              "max_epsilon_budget": "1",
+              "ledger": "<PrivacyBudgetLedger>",
+              "query_name": "'Salary Mean Query'"
+            },
+            "tones": {
+              "self": "ok",
+              "max_epsilon_budget": "ok",
+              "ledger": "ok",
+              "query_name": "ok"
+            }
           }
         ]
       }
     },
     {
       "partTitle": "Differential Privacy — Resilience Guardrails & Failure Recovery",
-      "codeHash": "9e3671171034bdd791ba91e1e36e2e9d755237c5869a6852878d11591a08a2d9",
+      "codeHash": "036d585dfa93a2b87268c9bce8bb8fdf64849342941abff3827e6b9c884d657c",
       "spec": {
         "template": "flow",
         "title": "Differential Privacy — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "raw_donations",
+            "label": "raw_donations"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "numeric_list",
+            "label": "numeric_list"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "lower_bound",
+            "label": "lower_bound"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "upper_bound",
+            "label": "upper_bound"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "For sum or average queries on numerical attributes (such as employee.",
+            "values": {
+              "raw_donations": {
+                "var": "raw_donations",
+                "line": 9,
+                "hit": 1
+              },
+              "numeric_list": {
+                "var": "numeric_list",
+                "line": 5,
+                "hit": 1
+              },
+              "lower_bound": {
+                "var": "lower_bound",
+                "line": 5,
+                "hit": 1
+              },
+              "upper_bound": {
+                "var": "upper_bound",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "raw_donations": "data",
+              "numeric_list": "data",
+              "lower_bound": "data",
+              "upper_bound": "data"
+            },
+            "arrows": [
+              [
+                "raw_donations",
+                "numeric_list"
+              ],
+              [
+                "numeric_list",
+                "lower_bound"
+              ],
+              [
+                "lower_bound",
+                "upper_bound"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "If an unconstrained dataset contains an extreme outlier (e.",
+            "values": {
+              "raw_donations": {
+                "var": "raw_donations",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "numeric_list": {
+                "var": "numeric_list",
+                "line": 5,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "lower_bound": {
+                "var": "lower_bound",
+                "line": 5,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "upper_bound": {
+                "var": "upper_bound",
+                "line": 5,
+                "hit": 2
               }
+            },
+            "tones": {
+              "raw_donations": "data",
+              "numeric_list": "data",
+              "lower_bound": "data",
+              "upper_bound": "data"
+            },
+            "arrows": [
+              [
+                "raw_donations",
+                "numeric_list"
+              ],
+              [
+                "numeric_list",
+                "lower_bound"
+              ],
+              [
+                "lower_bound",
+                "upper_bound"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Value clamping bounds global sensitivity by eliminating the mathematical.",
+            "values": {
+              "raw_donations": {
+                "var": "raw_donations",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "numeric_list": {
+                "var": "numeric_list",
+                "line": 5,
+                "hit": 3
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "lower_bound": {
+                "var": "lower_bound",
+                "line": 5,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "upper_bound": {
+                "var": "upper_bound",
+                "line": 5,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "raw_donations": "ok",
+              "numeric_list": "ok",
+              "lower_bound": "ok",
+              "upper_bound": "ok"
+            },
+            "arrows": [
+              [
+                "raw_donations",
+                "numeric_list"
+              ],
+              [
+                "numeric_list",
+                "lower_bound"
+              ],
+              [
+                "lower_bound",
+                "upper_bound"
+              ]
             ]
           }
         ]
@@ -942,128 +587,111 @@
         "title": "Differential Privacy — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "raw_donations",
+            "label": "raw_donations"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "numeric_list",
+            "label": "numeric_list"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "lower_bound",
+            "label": "lower_bound"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "upper_bound",
+            "label": "upper_bound"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "For sum or average queries on numerical attributes (such as employee.",
+            "values": {
+              "raw_donations": "[15, 50, 25, 100000, 5]",
+              "numeric_list": "[15, 50, 25, 100000, 5]",
+              "lower_bound": "0",
+              "upper_bound": "500"
+            },
+            "tones": {
+              "raw_donations": "data",
+              "numeric_list": "data",
+              "lower_bound": "data",
+              "upper_bound": "data"
+            },
+            "arrows": [
+              [
+                "raw_donations",
+                "numeric_list"
+              ],
+              [
+                "numeric_list",
+                "lower_bound"
+              ],
+              [
+                "lower_bound",
+                "upper_bound"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "If an unconstrained dataset contains an extreme outlier (e.",
+            "values": {
+              "raw_donations": "[15, 50, 25, 100000, 5]",
+              "numeric_list": "[15, 50, 25, 100000, 5]",
+              "lower_bound": "0",
+              "upper_bound": "500"
+            },
+            "tones": {
+              "raw_donations": "data",
+              "numeric_list": "data",
+              "lower_bound": "data",
+              "upper_bound": "data"
+            },
+            "arrows": [
+              [
+                "raw_donations",
+                "numeric_list"
+              ],
+              [
+                "numeric_list",
+                "lower_bound"
+              ],
+              [
+                "lower_bound",
+                "upper_bound"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Value clamping bounds global sensitivity by eliminating the mathematical.",
+            "values": {
+              "raw_donations": "[15, 50, 25, 100000, 5]",
+              "numeric_list": "[15, 50, 25, 100000, 5]",
+              "lower_bound": "0",
+              "upper_bound": "500"
+            },
+            "tones": {
+              "raw_donations": "ok",
+              "numeric_list": "ok",
+              "lower_bound": "ok",
+              "upper_bound": "ok"
+            },
+            "arrows": [
+              [
+                "raw_donations",
+                "numeric_list"
+              ],
+              [
+                "numeric_list",
+                "lower_bound"
+              ],
+              [
+                "lower_bound",
+                "upper_bound"
+              ]
             ]
           }
         ]
@@ -1071,266 +699,164 @@
     },
     {
       "partTitle": "Differential Privacy — Production Telemetry & Verification Audit",
-      "codeHash": "df29d86717fb976e03348bd95801a975dc1d025788cf67182e94d3bfc8520d3e",
+      "codeHash": "c0c42ac54432eed6f4f231601053d3830abb88bf4e37f2f44814f2884f50819f",
       "spec": {
-        "template": "flow",
+        "template": "sequence",
         "title": "Differential Privacy — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "actors": [
+          "laplace_calibrated",
+          "budget_ledger_active",
+          "clamping_enforced"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing differential privacy requires continuous monitoring.",
+            "activeActor": "laplace_calibrated",
+            "messages": [
+              {
+                "from": "laplace_calibrated",
+                "to": "budget_ledger_active",
+                "label": {
+                  "var": "laplace_calibrated",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "budget_ledger_active",
+                "to": "clamping_enforced",
+                "label": {
+                  "var": "budget_ledger_active",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A differential privacy auditor asserts the operational health of Laplace.",
+            "activeActor": "budget_ledger_active",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "laplace_calibrated",
+                "to": "budget_ledger_active",
+                "label": {
+                  "var": "laplace_calibrated",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "budget_ledger_active",
+                "to": "clamping_enforced",
+                "label": {
+                  "var": "budget_ledger_active",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Continuous differential privacy auditing verifies that noise calibration.",
+            "activeActor": "clamping_enforced",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "laplace_calibrated",
+                "to": "budget_ledger_active",
+                "label": {
+                  "var": "laplace_calibrated",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "budget_ledger_active",
+                "to": "clamping_enforced",
+                "label": {
+                  "var": "budget_ledger_active",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "sequence",
         "title": "Differential Privacy — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "actors": [
+          "laplace_calibrated",
+          "budget_ledger_active",
+          "clamping_enforced"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing differential privacy requires continuous monitoring.",
+            "messages": [
+              {
+                "from": "laplace_calibrated",
+                "to": "budget_ledger_active",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "budget_ledger_active",
+                "to": "clamping_enforced",
+                "label": "True",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "laplace_calibrated"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A differential privacy auditor asserts the operational health of Laplace.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "laplace_calibrated",
+                "to": "budget_ledger_active",
+                "label": "True",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "budget_ledger_active",
+                "to": "clamping_enforced",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "budget_ledger_active"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Continuous differential privacy auditing verifies that noise calibration.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "laplace_calibrated",
+                "to": "budget_ledger_active",
+                "label": "True",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "budget_ledger_active",
+                "to": "clamping_enforced",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "clamping_enforced"
           }
         ]
       }

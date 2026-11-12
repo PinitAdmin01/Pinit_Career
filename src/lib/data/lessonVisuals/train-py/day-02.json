@@ -2,142 +2,228 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 2,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The training loop",
       "codeHash": "8c537fa6a6b288621e8babde537dcd6bfb2dfa15e84b65ca6cbc9a236aaf8de4",
       "spec": {
-        "template": "table",
-        "title": "Neural network training loop stages and execution sequence",
-        "columns": [
-          "forward",
-          "loss",
-          "backward"
+        "template": "flow",
+        "title": "The training loop",
+        "nodes": [
+          {
+            "id": "steps",
+            "label": "steps"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Forward evaluation computes predictions from current parameter weights.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "forward"
-                  },
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "backward"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Every neural network, from a tiny line fit to a giant language model,.",
+            "values": {
+              "steps": {
+                "var": "steps",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "forward"
-                  },
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "backward"
-                  }
-                ],
-                "tone": "data"
+              "i": {
+                "var": "i",
+                "line": 3,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "steps": "data",
+              "i": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "steps",
+                "i"
+              ],
+              [
+                "i",
+                "s"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Backward passes evaluate parameter gradients across all model layers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "forward"
-                  },
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "backward"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Run the model on some data to get predictions, called the forward pass.",
+            "values": {
+              "steps": {
+                "var": "steps",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "forward"
-                  },
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "forward"
-                  }
-                ],
-                "tone": "ok"
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "steps": "data",
+              "i": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "steps",
+                "i"
+              ],
+              [
+                "i",
+                "s"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today we implement all four steps for the smallest possible model.",
+            "values": {
+              "steps": {
+                "var": "steps",
+                "line": 4,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 3,
+                "hit": 2
+              },
+              "s": {
+                "var": "s",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "steps": "ok",
+              "i": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "steps",
+                "i"
+              ],
+              [
+                "i",
+                "s"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Neural network training loop stages and execution sequence",
-        "columns": [
-          "forward",
-          "loss",
-          "backward"
+        "template": "flow",
+        "title": "The training loop",
+        "nodes": [
+          {
+            "id": "steps",
+            "label": "steps"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Forward evaluation computes predictions from current parameter weights.",
-            "rows": [
-              {
-                "cells": [
-                  "forward",
-                  "loss",
-                  "backward"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "forward",
-                  "loss",
-                  "backward"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Every neural network, from a tiny line fit to a giant language model,.",
+            "values": {
+              "steps": "['forward: predictions from current wei…",
+              "i": "1",
+              "s": "'forward: predictions from current weig…"
+            },
+            "tones": {
+              "steps": "data",
+              "i": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "steps",
+                "i"
+              ],
+              [
+                "i",
+                "s"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Backward passes evaluate parameter gradients across all model layers.",
-            "rows": [
-              {
-                "cells": [
-                  "forward",
-                  "loss",
-                  "backward"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "forward",
-                  "loss",
-                  "forward"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Run the model on some data to get predictions, called the forward pass.",
+            "values": {
+              "steps": "['forward: predictions from current wei…",
+              "i": "1",
+              "s": "'forward: predictions from current weig…"
+            },
+            "tones": {
+              "steps": "data",
+              "i": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "steps",
+                "i"
+              ],
+              [
+                "i",
+                "s"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today we implement all four steps for the smallest possible model.",
+            "values": {
+              "steps": "['forward: predictions from current wei…",
+              "i": "2",
+              "s": "'loss: how wrong the predictions are'"
+            },
+            "tones": {
+              "steps": "ok",
+              "i": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "steps",
+                "i"
+              ],
+              [
+                "i",
+                "s"
+              ]
             ]
           }
         ]
@@ -147,134 +233,108 @@
       "partTitle": "A tiny model and its loss",
       "codeHash": "0f4aba2373d4e1b7c20b8868fb004a7a6ad2f7ef379448ffc422fb0f8f9e4497",
       "spec": {
-        "template": "table",
-        "title": "Linear regression hypothesis and mean squared error loss",
-        "columns": [
-          "xs",
-          "ys",
-          "mse"
-        ],
+        "template": "cells",
+        "title": "A tiny model and its loss",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Mean squared error loss penalises differences between model predictions.",
-            "rows": [
+            "at": "say1",
+            "caption": "Our model has two parameters.",
+            "items": {
+              "var": "xs",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "xs"
-                  },
-                  {
-                    "text": "ys"
-                  },
-                  {
-                    "text": "mse"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "xs"
-                  },
-                  {
-                    "text": "ys"
-                  },
-                  {
-                    "text": "mse"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say8",
-            "caption": "Tracking loss curves informs engineers about overall training stability.",
-            "rows": [
+            "at": "say2",
+            "caption": "The mean squared error (MSE) loss averages the squared differences between.",
+            "items": {
+              "var": "xs",
+              "line": 6,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "xs"
-                  },
-                  {
-                    "text": "ys"
-                  },
-                  {
-                    "text": "mse"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Keeping the loss simple today lets us check every number by hand.",
+            "items": {
+              "var": "xs",
+              "line": 5,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "xs"
-                  },
-                  {
-                    "text": "ys"
-                  },
-                  {
-                    "text": "xs"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Linear regression hypothesis and mean squared error loss",
-        "columns": [
-          "xs",
-          "ys",
-          "mse"
-        ],
+        "template": "cells",
+        "title": "A tiny model and its loss",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Mean squared error loss penalises differences between model predictions.",
-            "rows": [
+            "at": "say1",
+            "caption": "Our model has two parameters.",
+            "items": [
+              "1",
+              "2",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "xs",
-                  "ys",
-                  "mse"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "xs",
-                  "ys",
-                  "mse"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say8",
-            "caption": "Tracking loss curves informs engineers about overall training stability.",
-            "rows": [
+            "at": "say2",
+            "caption": "The mean squared error (MSE) loss averages the squared differences between.",
+            "items": [
+              "1",
+              "2",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "xs",
-                  "ys",
-                  "mse"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Keeping the loss simple today lets us check every number by hand.",
+            "items": [
+              "1",
+              "2",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "xs",
-                  "ys",
-                  "xs"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -285,78 +345,91 @@
       "partTitle": "Gradients by hand",
       "codeHash": "41976b31c9fcf1e3c485d831f9ea6ee87e1a5c84c69adcfbb84b8982f490bf19",
       "spec": {
-        "template": "table",
-        "title": "Manual gradient derivation and analytical error propagation",
-        "columns": [
-          "errors",
-          "dw",
-          "db"
+        "template": "sequence",
+        "title": "Gradients by hand",
+        "actors": [
+          "xs",
+          "ys",
+          "w"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Gradient vectors point toward the direction of steepest loss increase.",
-            "rows": [
+            "caption": "The gradient tells us the direction in which the loss increases fastest.",
+            "activeActor": "xs",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "errors"
-                  },
-                  {
-                    "text": "dw"
-                  },
-                  {
-                    "text": "db"
-                  }
-                ],
-                "tone": "ok"
+                "from": "xs",
+                "to": "ys",
+                "label": {
+                  "var": "xs",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "errors"
-                  },
-                  {
-                    "text": "dw"
-                  },
-                  {
-                    "text": "db"
-                  }
-                ],
-                "tone": "data"
+                "from": "ys",
+                "to": "w",
+                "label": {
+                  "var": "ys",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The gradient reflects the mean error direction across data samples.",
-            "rows": [
+            "at": "say2",
+            "caption": "For MSE with y = wx + b, the error on one point is e = wx + b y.",
+            "activeActor": "ys",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "errors"
-                  },
-                  {
-                    "text": "dw"
-                  },
-                  {
-                    "text": "db"
-                  }
-                ],
+                "from": "xs",
+                "to": "ys",
+                "label": {
+                  "var": "xs",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "errors"
-                  },
-                  {
-                    "text": "dw"
-                  },
-                  {
-                    "text": "errors"
-                  }
-                ],
+                "from": "ys",
+                "to": "w",
+                "label": {
+                  "var": "ys",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Checking gradients by hand on tiny examples is a real debugging technique.",
+            "activeActor": "w",
+            "messages": [
+              {
+                "from": "xs",
+                "to": "ys",
+                "label": {
+                  "var": "xs",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "ys",
+                "to": "w",
+                "label": {
+                  "var": "ys",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +437,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Manual gradient derivation and analytical error propagation",
-        "columns": [
-          "errors",
-          "dw",
-          "db"
+        "template": "sequence",
+        "title": "Gradients by hand",
+        "actors": [
+          "xs",
+          "ys",
+          "w"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Gradient vectors point toward the direction of steepest loss increase.",
-            "rows": [
+            "caption": "The gradient tells us the direction in which the loss increases fastest.",
+            "messages": [
               {
-                "cells": [
-                  "errors",
-                  "dw",
-                  "db"
-                ],
-                "tone": "ok"
+                "from": "xs",
+                "to": "ys",
+                "label": "[1, 2, 3]",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "errors",
-                  "dw",
-                  "db"
-                ],
-                "tone": "data"
+                "from": "ys",
+                "to": "w",
+                "label": "[3, 5, 7]",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "xs"
           },
           {
-            "at": "say3",
-            "caption": "The gradient reflects the mean error direction across data samples.",
-            "rows": [
+            "at": "say2",
+            "caption": "For MSE with y = wx + b, the error on one point is e = wx + b y.",
+            "messages": [
               {
-                "cells": [
-                  "errors",
-                  "dw",
-                  "db"
-                ],
+                "from": "xs",
+                "to": "ys",
+                "label": "[1, 2, 3]",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "errors",
-                  "dw",
-                  "errors"
-                ],
+                "from": "ys",
+                "to": "w",
+                "label": "[3, 5, 7]",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "ys"
+          },
+          {
+            "at": "say10",
+            "caption": "Checking gradients by hand on tiny examples is a real debugging technique.",
+            "messages": [
+              {
+                "from": "xs",
+                "to": "ys",
+                "label": "[1, 2, 3]",
+                "tone": "data"
+              },
+              {
+                "from": "ys",
+                "to": "w",
+                "label": "[3, 5, 7]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "w"
           }
         ]
       }
@@ -423,78 +509,131 @@
       "partTitle": "Gradient descent in action",
       "codeHash": "c9a3ccdc51e04ff5a18993d71f21a955f85454c387d85a6f7a45339b8483c421",
       "spec": {
-        "template": "table",
-        "title": "Gradient descent iterative optimisation and convergence path",
-        "columns": [
-          "step",
-          "loss",
-          "lr"
-        ],
+        "template": "bars",
+        "title": "Gradient descent in action",
         "steps": [
           {
             "at": "say1",
-            "caption": "Gradient descent updates parameters iteratively along the descent path.",
-            "rows": [
+            "caption": "Gradient descent repeats.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "lr"
-                  }
-                ],
-                "tone": "ok"
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "lr"
-                  }
-                ],
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "lr",
+                "value": {
+                  "var": "lr",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "The objective loss drops quickly as model parameters reach convergence.",
-            "rows": [
+            "at": "say2",
+            "caption": "The learning rate lr controls the size of each step.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "lr"
-                  }
-                ],
-                "tone": "data"
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": {
+                  "var": "lr",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Real networks start from small random values instead, because all-zero.",
+            "bars": [
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": {
+                  "var": "lr",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +641,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Gradient descent iterative optimisation and convergence path",
-        "columns": [
-          "step",
-          "loss",
-          "lr"
-        ],
+        "template": "bars",
+        "title": "Gradient descent in action",
         "steps": [
           {
             "at": "say1",
-            "caption": "Gradient descent updates parameters iteratively along the descent path.",
-            "rows": [
+            "caption": "Gradient descent repeats.",
+            "bars": [
               {
-                "cells": [
-                  "step",
-                  "loss",
-                  "lr"
-                ],
-                "tone": "ok"
+                "label": "w",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "step",
-                  "loss",
-                  "lr"
-                ],
+                "label": "b",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "lr",
+                "value": 0.05,
+                "tone": "data"
+              },
+              {
+                "label": "step",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "The objective loss drops quickly as model parameters reach convergence.",
-            "rows": [
+            "at": "say2",
+            "caption": "The learning rate lr controls the size of each step.",
+            "bars": [
               {
-                "cells": [
-                  "step",
-                  "loss",
-                  "lr"
-                ],
-                "tone": "data"
+                "label": "w",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "step",
-                  "loss",
-                  "step"
-                ],
+                "label": "b",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": 0.05,
+                "tone": "ok"
+              },
+              {
+                "label": "step",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Real networks start from small random values instead, because all-zero.",
+            "bars": [
+              {
+                "label": "w",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": 0.05,
+                "tone": "ok"
+              },
+              {
+                "label": "step",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -561,223 +729,217 @@
       "partTitle": "Choosing the learning rate",
       "codeHash": "c2fc2846d499ac0240135974bb46a4b03b6a6833567dac441aa59ded57578f78",
       "spec": {
-        "template": "flow",
-        "title": "Choosing the learning rate — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing the learni...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Choosing the learning rate",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing the learning rate [Dtwo.Pfive.Sone].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing the learni... [Dtwo.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A learning rate that is too small makes training painfully slow.",
+            "bars": [
+              {
+                "label": "lr",
+                "value": {
+                  "var": "lr",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A learning rate that is too large overshoots the minimum.",
+            "bars": [
+              {
+                "label": "lr",
+                "value": {
+                  "var": "lr",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing the learning rate.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Record every experiment's settings so results can be compared fairly.",
+            "bars": [
+              {
+                "label": "lr",
+                "value": {
+                  "var": "lr",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Choosing the learning rate — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing the learni...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Choosing the learning rate",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing the learning rate [D2.P5.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing the learni... [D2.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A learning rate that is too small makes training painfully slow.",
+            "bars": [
+              {
+                "label": "lr",
+                "value": 0.001,
+                "tone": "data"
+              },
+              {
+                "label": "steps",
+                "value": 50,
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "w",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A learning rate that is too large overshoots the minimum.",
+            "bars": [
+              {
+                "label": "lr",
+                "value": 0.001,
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": 50,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing the learning rate [D2.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Record every experiment's settings so results can be compared fairly.",
+            "bars": [
+              {
+                "label": "lr",
+                "value": 0.001,
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": 50,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -788,110 +950,161 @@
       "codeHash": "ee66a162ee9be515546fbd3207aafc791333b23d62ee8c9f6a7fd7278bbcc464",
       "spec": {
         "template": "flow",
-        "title": "Practice time: gradients and fitting — Execution Pipeline",
+        "title": "Practice time: gradients and fitting",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "xs",
+            "label": "xs"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: grad...",
-            "tappable": true
+            "id": "ys",
+            "label": "ys"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "w",
+            "label": "w"
+          },
+          {
+            "id": "b",
+            "label": "b"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: gradients and fitting.",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: grad... [Dtwo.Psix.Stwo].",
+            "caption": "Compute the errors, then the loss, dw and db as means, and return all.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "xs": {
+                "var": "xs",
+                "line": 1,
+                "hit": 1
+              },
+              "ys": {
+                "var": "ys",
+                "line": 1,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 2,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "xs": "data",
+              "ys": "data",
+              "w": "data",
+              "b": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "xs",
+                "ys"
               ],
               [
-                "proc",
-                "out"
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "b"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Psix.object-storage].",
+            "at": "say2",
+            "caption": "The checks include a perfect fit (all zeros), the starting point w = 0, b.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "xs": {
+                "var": "xs",
+                "line": 2,
+                "hit": 1
+              },
+              "ys": {
+                "var": "ys",
+                "line": 2,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 3,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "xs": "data",
+              "ys": "data",
+              "w": "data",
+              "b": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "xs",
+                "ys"
+              ],
+              [
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "b"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: gradients and fitt.",
+            "at": "say10",
+            "caption": "If your numbers disagree with the checks, print the errors list first.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "xs": {
+                "var": "xs",
+                "line": 3,
+                "hit": 1
+              },
+              "ys": {
+                "var": "ys",
+                "line": 3,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 4,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "xs": "ok",
+              "ys": "ok",
+              "w": "ok",
+              "b": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "xs",
+                "ys"
               ],
               [
-                "proc",
-                "out"
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "b"
               ]
             ]
           }
@@ -899,110 +1112,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: gradients and fitting — Execution Pipeline",
+        "title": "Practice time: gradients and fitting",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "xs",
+            "label": "xs"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: grad...",
-            "tappable": true
+            "id": "ys",
+            "label": "ys"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "w",
+            "label": "w"
+          },
+          {
+            "id": "b",
+            "label": "b"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: gradients and fitting [D2.P6.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: grad... [D2.P6.S2].",
+            "caption": "Compute the errors, then the loss, dw and db as means, and return all.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "xs": "[0, 1, 2, 3, 4]",
+              "ys": "[1, 3, 5, 7, 9]",
+              "w": "0",
+              "b": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "xs": "data",
+              "ys": "data",
+              "w": "data",
+              "b": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "xs",
+                "ys"
               ],
               [
-                "proc",
-                "out"
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "b"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
+            "at": "say2",
+            "caption": "The checks include a perfect fit (all zeros), the starting point w = 0, b.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "xs": "[0, 1, 2, 3, 4]",
+              "ys": "[1, 3, 5, 7, 9]",
+              "w": "0",
+              "b": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "xs": "data",
+              "ys": "data",
+              "w": "data",
+              "b": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "xs",
+                "ys"
+              ],
+              [
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "b"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: gradients and fitt.. [D2.P6.S4].",
+            "at": "say10",
+            "caption": "If your numbers disagree with the checks, print the errors list first.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "xs": "[0, 1, 2, 3, 4]",
+              "ys": "[1, 3, 5, 7, 9]",
+              "w": "0",
+              "b": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "xs": "ok",
+              "ys": "ok",
+              "w": "ok",
+              "b": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "xs",
+                "ys"
               ],
               [
-                "proc",
-                "out"
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "b"
               ]
             ]
           }

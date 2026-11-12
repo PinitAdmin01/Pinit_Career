@@ -2,270 +2,228 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 32,
-  "promptSha": "b5ad4abfcc95f6e255777845e3b8446dbb2dc8e32551603c2e8b14b3b6626664",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Chinchilla Compute-Optimal Scaling Laws — Foundations & Mathematical Invariants",
-      "codeHash": "5ff1c8d8907b94e139c5264bc6de64f6030f1f556e817af050d12f371d11455d",
+      "codeHash": "c77875cbd5e6eda2ad4e96160408c640bedd3f11d45f9b5e8581da8da96d4a0c",
       "spec": {
         "template": "flow",
-        "title": "Chinchilla Compute-Optimal Scaling Laws — Foundations & Mathematical I",
+        "title": "Chinchilla Compute-Optimal Scaling Laws — Foundations & Mathemat",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "SCALING_LAW_PILLARS",
+            "label": "SCALING_LAW_PILLARS"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "pillar",
+            "label": "pillar"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "summary",
+            "label": "summary"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Before launching a multi-million-dollar training run, organizations must.",
+            "values": {
+              "SCALING_LAW_PILLARS": {
+                "var": "SCALING_LAW_PILLARS",
+                "line": 1,
+                "hit": 1
+              },
+              "pillar": {
+                "var": "pillar",
+                "line": 7,
+                "hit": 1
+              },
+              "summary": {
+                "var": "summary",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "SCALING_LAW_PILLARS": "data",
+              "pillar": "data",
+              "summary": "data"
+            },
+            "arrows": [
+              [
+                "SCALING_LAW_PILLARS",
+                "pillar"
+              ],
+              [
+                "pillar",
+                "summary"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Trace how openai updates published during execution.",
+            "values": {
+              "SCALING_LAW_PILLARS": {
+                "var": "SCALING_LAW_PILLARS",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "pillar": {
+                "var": "pillar",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "summary": {
+                "var": "summary",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "SCALING_LAW_PILLARS": "data",
+              "pillar": "data",
+              "summary": "data"
+            },
+            "arrows": [
+              [
+                "SCALING_LAW_PILLARS",
+                "pillar"
+              ],
+              [
+                "pillar",
+                "summary"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "AI research leadership anchors foundation model roadmaps in empirical.",
+            "values": {
+              "SCALING_LAW_PILLARS": {
+                "var": "SCALING_LAW_PILLARS",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "pillar": {
+                "var": "pillar",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "summary": {
+                "var": "summary",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "SCALING_LAW_PILLARS": "ok",
+              "pillar": "ok",
+              "summary": "ok"
+            },
+            "arrows": [
+              [
+                "SCALING_LAW_PILLARS",
+                "pillar"
+              ],
+              [
+                "pillar",
+                "summary"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Chinchilla Compute-Optimal Scaling Laws — Foundations & Mathematical I",
+        "title": "Chinchilla Compute-Optimal Scaling Laws — Foundations & Mathemat",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "SCALING_LAW_PILLARS",
+            "label": "SCALING_LAW_PILLARS"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "pillar",
+            "label": "pillar"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "summary",
+            "label": "summary"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Before launching a multi-million-dollar training run, organizations must.",
+            "values": {
+              "SCALING_LAW_PILLARS": "{'KAPLAN_LEGACY_LAW': 'Early empirical …",
+              "pillar": "'CHINCHILLA_OPTIMAL'",
+              "summary": "'Compute-optimal frontier: model parame…"
+            },
+            "tones": {
+              "SCALING_LAW_PILLARS": "data",
+              "pillar": "data",
+              "summary": "data"
+            },
+            "arrows": [
+              [
+                "SCALING_LAW_PILLARS",
+                "pillar"
+              ],
+              [
+                "pillar",
+                "summary"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Trace how openai updates published during execution.",
+            "values": {
+              "SCALING_LAW_PILLARS": "{'KAPLAN_LEGACY_LAW': 'Early empirical …",
+              "pillar": "'CHINCHILLA_OPTIMAL'",
+              "summary": "'Compute-optimal frontier: model parame…"
+            },
+            "tones": {
+              "SCALING_LAW_PILLARS": "data",
+              "pillar": "data",
+              "summary": "data"
+            },
+            "arrows": [
+              [
+                "SCALING_LAW_PILLARS",
+                "pillar"
+              ],
+              [
+                "pillar",
+                "summary"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "AI research leadership anchors foundation model roadmaps in empirical.",
+            "values": {
+              "SCALING_LAW_PILLARS": "{'KAPLAN_LEGACY_LAW': 'Early empirical …",
+              "pillar": "'FLOP_BUDGET_FORMULA'",
+              "summary": "'Approximate training FLOPs: C ~ 6 * N …"
+            },
+            "tones": {
+              "SCALING_LAW_PILLARS": "ok",
+              "pillar": "ok",
+              "summary": "ok"
+            },
+            "arrows": [
+              [
+                "SCALING_LAW_PILLARS",
+                "pillar"
+              ],
+              [
+                "pillar",
+                "summary"
+              ]
             ]
           }
         ]
@@ -273,796 +231,546 @@
     },
     {
       "partTitle": "Chinchilla Compute-Optimal Scaling Laws — Core Algorithm & State Representation",
-      "codeHash": "a9e68bc4a40f04f3cd87a977bbd8596fd7d3d7e387596e5ae30158168f17827f",
+      "codeHash": "5695a07b0c00fa26da2ceb1e3ef6e033ea21b606198637c00b23fe80b8466735",
       "spec": {
-        "template": "flow",
-        "title": "Chinchilla Compute-Optimal Scaling Laws — Core Algorithm & State Repre",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Chinchilla Compute-Optimal Scaling Laws — Core Algorithm & State",
+        "actors": [
+          "param_count_billions",
+          "token_count_billions",
+          "n"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Chinchilla scaling calculator translates a given compute budget.",
+            "activeActor": "param_count_billions",
+            "messages": [
+              {
+                "from": "param_count_billions",
+                "to": "token_count_billions",
+                "label": {
+                  "var": "param_count_billions",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "token_count_billions",
+                "to": "n",
+                "label": {
+                  "var": "token_count_billions",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Given that total compute is C = 6 * N * D and the optimal ratio is D = 20.",
+            "activeActor": "token_count_billions",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "param_count_billions",
+                "to": "token_count_billions",
+                "label": {
+                  "var": "param_count_billions",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "token_count_billions",
+                "to": "n",
+                "label": {
+                  "var": "token_count_billions",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Automating Chinchilla calculations enables rapid parameter exploration.",
+            "activeActor": "n",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "param_count_billions",
+                "to": "token_count_billions",
+                "label": {
+                  "var": "param_count_billions",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "token_count_billions",
+                "to": "n",
+                "label": {
+                  "var": "token_count_billions",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Chinchilla Compute-Optimal Scaling Laws — Core Algorithm & State Repre",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Chinchilla Compute-Optimal Scaling Laws — Core Algorithm & State",
+        "actors": [
+          "param_count_billions",
+          "token_count_billions",
+          "n"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Chinchilla scaling calculator translates a given compute budget.",
+            "messages": [
+              {
+                "from": "param_count_billions",
+                "to": "token_count_billions",
+                "label": "7",
+                "tone": "data"
+              },
+              {
+                "from": "token_count_billions",
+                "to": "n",
+                "label": "140",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "param_count_billions"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Given that total compute is C = 6 * N * D and the optimal ratio is D = 20.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "param_count_billions",
+                "to": "token_count_billions",
+                "label": "7",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "token_count_billions",
+                "to": "n",
+                "label": "140",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "token_count_billions"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Automating Chinchilla calculations enables rapid parameter exploration.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "param_count_billions",
+                "to": "token_count_billions",
+                "label": "7",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "token_count_billions",
+                "to": "n",
+                "label": "140",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "n"
           }
         ]
       }
     },
     {
       "partTitle": "Chinchilla Compute-Optimal Scaling Laws — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "8c19915cca9182487920f72f120681990482192654a8e96dc28690f25c378751",
+      "codeHash": "034697adef33ea8aac698192f42554789ed4253b69778834e3af9f3303e8ceeb",
       "spec": {
-        "template": "flow",
-        "title": "Chinchilla Compute-Optimal Scaling Laws — Throughput Optimization & Ed",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Chinchilla Compute-Optimal Scaling Laws — Throughput Optimizatio",
+        "actors": [
+          "param_billions",
+          "token_billions",
+          "ratio"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While Chinchilla optimizes compute during training, real-world deployment.",
+            "activeActor": "param_billions",
+            "messages": [
+              {
+                "from": "param_billions",
+                "to": "token_billions",
+                "label": {
+                  "var": "param_billions",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "token_billions",
+                "to": "ratio",
+                "label": {
+                  "var": "token_billions",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Once trained, a model may be queried billions of times by millions.",
+            "activeActor": "token_billions",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "param_billions",
+                "to": "token_billions",
+                "label": {
+                  "var": "param_billions",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "token_billions",
+                "to": "ratio",
+                "label": {
+                  "var": "token_billions",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Machine learning teams evaluate lifetime inference costs to strategically.",
+            "activeActor": "ratio",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "param_billions",
+                "to": "token_billions",
+                "label": {
+                  "var": "param_billions",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "token_billions",
+                "to": "ratio",
+                "label": {
+                  "var": "token_billions",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Chinchilla Compute-Optimal Scaling Laws — Throughput Optimization & Ed",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Chinchilla Compute-Optimal Scaling Laws — Throughput Optimizatio",
+        "actors": [
+          "param_billions",
+          "token_billions",
+          "ratio"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While Chinchilla optimizes compute during training, real-world deployment.",
+            "messages": [
+              {
+                "from": "param_billions",
+                "to": "token_billions",
+                "label": "70",
+                "tone": "data"
+              },
+              {
+                "from": "token_billions",
+                "to": "ratio",
+                "label": "1400",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "param_billions"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Once trained, a model may be queried billions of times by millions.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "param_billions",
+                "to": "token_billions",
+                "label": "70",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "token_billions",
+                "to": "ratio",
+                "label": "1400",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "token_billions"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Machine learning teams evaluate lifetime inference costs to strategically.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "param_billions",
+                "to": "token_billions",
+                "label": "70",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "token_billions",
+                "to": "ratio",
+                "label": "1400",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "ratio"
           }
         ]
       }
     },
     {
       "partTitle": "Chinchilla Compute-Optimal Scaling Laws — Resilience Guardrails & Failure Recovery",
-      "codeHash": "3981b6b56657786d1ef3f7e2c62b4382e3ff7e397d66ee553413d23a8c4aca28",
+      "codeHash": "df2ce2c4c7a6f79944cfca9b82b67efb5f9b8b5c5f877556d5b31dcf4fc7b9d9",
       "spec": {
-        "template": "flow",
-        "title": "Chinchilla Compute-Optimal Scaling Laws — Resilience Guardrails & Fail",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Chinchilla Compute-Optimal Scaling Laws — Resilience Guardrails ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Launching a large-scale training run without verifying cluster compute.",
+            "bars": [
+              {
+                "label": "param_billions",
+                "value": {
+                  "var": "param_billions",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "token_billions",
+                "value": {
+                  "var": "token_billions",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "available_h100",
+                "value": {
+                  "var": "available_h100_hours",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "h100_effective",
+                "value": {
+                  "var": "h100_effective_tflops",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The compute budget validation guard evaluates required training FLOPs.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "param_billions",
+                "value": {
+                  "var": "param_billions",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "token_billions",
+                "value": {
+                  "var": "token_billions",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "available_h100",
+                "value": {
+                  "var": "available_h100_hours",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "h100_effective",
+                "value": {
+                  "var": "h100_effective_tflops",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Enforcing compute budget validation prevents aborted runs and financial.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "param_billions",
+                "value": {
+                  "var": "param_billions",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "token_billions",
+                "value": {
+                  "var": "token_billions",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "available_h100",
+                "value": {
+                  "var": "available_h100_hours",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "h100_effective",
+                "value": {
+                  "var": "h100_effective_tflops",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Chinchilla Compute-Optimal Scaling Laws — Resilience Guardrails & Fail",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Chinchilla Compute-Optimal Scaling Laws — Resilience Guardrails ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Launching a large-scale training run without verifying cluster compute.",
+            "bars": [
+              {
+                "label": "param_billions",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "token_billions",
+                "value": 1000,
+                "tone": "data"
+              },
+              {
+                "label": "available_h100",
+                "value": 40000,
+                "tone": "data"
+              },
+              {
+                "label": "h100_effective",
+                "value": 400,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The compute budget validation guard evaluates required training FLOPs.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "param_billions",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "token_billions",
+                "value": 1000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "available_h100",
+                "value": 40000,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "h100_effective",
+                "value": 400,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Enforcing compute budget validation prevents aborted runs and financial.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "param_billions",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "token_billions",
+                "value": 1000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "available_h100",
+                "value": 40000,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "h100_effective",
+                "value": 400,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,265 +779,279 @@
     },
     {
       "partTitle": "Chinchilla Compute-Optimal Scaling Laws — Production Telemetry & Verification Audit",
-      "codeHash": "2f6311675821f7fa7d3e91775cfdb314b223c388533371aa3cfbd588696a258f",
+      "codeHash": "cc0e03073542a5fb01aa6ee81a4b5fdbf7c0fe3d9863ccd6e5b0b2b28af43689",
       "spec": {
         "template": "flow",
-        "title": "Chinchilla Compute-Optimal Scaling Laws — Production Telemetry & Verif",
+        "title": "Chinchilla Compute-Optimal Scaling Laws — Production Telemetry &",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "chinchilla_calculated",
+            "label": "chinchilla_calculated"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "overtraining_evaluated",
+            "label": "overtraining_evaluated"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "compute_budget_verified",
+            "label": "compute_budget_verified"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "checks",
+            "label": "checks"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing scaling law governance requires continuous telemetry.",
+            "values": {
+              "chinchilla_calculated": {
+                "var": "chinchilla_calculated",
+                "line": 5,
+                "hit": 1
+              },
+              "overtraining_evaluated": {
+                "var": "overtraining_evaluated",
+                "line": 5,
+                "hit": 1
+              },
+              "compute_budget_verified": {
+                "var": "compute_budget_verified",
+                "line": 5,
+                "hit": 1
+              },
+              "checks": {
+                "var": "checks",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "chinchilla_calculated": "data",
+              "overtraining_evaluated": "data",
+              "compute_budget_verified": "data",
+              "checks": "data"
+            },
+            "arrows": [
+              [
+                "chinchilla_calculated",
+                "overtraining_evaluated"
+              ],
+              [
+                "overtraining_evaluated",
+                "compute_budget_verified"
+              ],
+              [
+                "compute_budget_verified",
+                "checks"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "A scaling law auditor asserts the operational status of Chinchilla FLOP.",
+            "values": {
+              "chinchilla_calculated": {
+                "var": "chinchilla_calculated",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "overtraining_evaluated": {
+                "var": "overtraining_evaluated",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "compute_budget_verified": {
+                "var": "compute_budget_verified",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "checks": {
+                "var": "checks",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "chinchilla_calculated": "data",
+              "overtraining_evaluated": "data",
+              "compute_budget_verified": "data",
+              "checks": "data"
+            },
+            "arrows": [
+              [
+                "chinchilla_calculated",
+                "overtraining_evaluated"
+              ],
+              [
+                "overtraining_evaluated",
+                "compute_budget_verified"
+              ],
+              [
+                "compute_budget_verified",
+                "checks"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Continuous scaling law auditing verifies that training loss trajectories.",
+            "values": {
+              "chinchilla_calculated": {
+                "var": "chinchilla_calculated",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "overtraining_evaluated": {
+                "var": "overtraining_evaluated",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "compute_budget_verified": {
+                "var": "compute_budget_verified",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "checks": {
+                "var": "checks",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "chinchilla_calculated": "ok",
+              "overtraining_evaluated": "ok",
+              "compute_budget_verified": "ok",
+              "checks": "ok"
+            },
+            "arrows": [
+              [
+                "chinchilla_calculated",
+                "overtraining_evaluated"
+              ],
+              [
+                "overtraining_evaluated",
+                "compute_budget_verified"
+              ],
+              [
+                "compute_budget_verified",
+                "checks"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Chinchilla Compute-Optimal Scaling Laws — Production Telemetry & Verif",
+        "title": "Chinchilla Compute-Optimal Scaling Laws — Production Telemetry &",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "chinchilla_calculated",
+            "label": "chinchilla_calculated"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "overtraining_evaluated",
+            "label": "overtraining_evaluated"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "compute_budget_verified",
+            "label": "compute_budget_verified"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "checks",
+            "label": "checks"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing scaling law governance requires continuous telemetry.",
+            "values": {
+              "chinchilla_calculated": "True",
+              "overtraining_evaluated": "True",
+              "compute_budget_verified": "True",
+              "checks": "{'CHINCHILLA_FLOP_ACCOUNTING': True, 'I…"
+            },
+            "tones": {
+              "chinchilla_calculated": "data",
+              "overtraining_evaluated": "data",
+              "compute_budget_verified": "data",
+              "checks": "data"
+            },
+            "arrows": [
+              [
+                "chinchilla_calculated",
+                "overtraining_evaluated"
+              ],
+              [
+                "overtraining_evaluated",
+                "compute_budget_verified"
+              ],
+              [
+                "compute_budget_verified",
+                "checks"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "A scaling law auditor asserts the operational status of Chinchilla FLOP.",
+            "values": {
+              "chinchilla_calculated": "True",
+              "overtraining_evaluated": "True",
+              "compute_budget_verified": "True",
+              "checks": "{'CHINCHILLA_FLOP_ACCOUNTING': True, 'I…"
+            },
+            "tones": {
+              "chinchilla_calculated": "data",
+              "overtraining_evaluated": "data",
+              "compute_budget_verified": "data",
+              "checks": "data"
+            },
+            "arrows": [
+              [
+                "chinchilla_calculated",
+                "overtraining_evaluated"
+              ],
+              [
+                "overtraining_evaluated",
+                "compute_budget_verified"
+              ],
+              [
+                "compute_budget_verified",
+                "checks"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Continuous scaling law auditing verifies that training loss trajectories.",
+            "values": {
+              "chinchilla_calculated": "True",
+              "overtraining_evaluated": "True",
+              "compute_budget_verified": "True",
+              "checks": "{'CHINCHILLA_FLOP_ACCOUNTING': True, 'I…"
+            },
+            "tones": {
+              "chinchilla_calculated": "ok",
+              "overtraining_evaluated": "ok",
+              "compute_budget_verified": "ok",
+              "checks": "ok"
+            },
+            "arrows": [
+              [
+                "chinchilla_calculated",
+                "overtraining_evaluated"
+              ],
+              [
+                "overtraining_evaluated",
+                "compute_budget_verified"
+              ],
+              [
+                "compute_budget_verified",
+                "checks"
+              ]
             ]
           }
         ]

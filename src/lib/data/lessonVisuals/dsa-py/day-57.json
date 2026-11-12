@@ -2,50 +2,138 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 57,
-  "promptSha": "d2ffdd99b120cc285bc7ccdc1f68af2df2082f9c39f6c4e18115e9156ae870d8",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Express-Lane Architecture: Adding Multi-Level Forward Towers to Linked Lists",
       "codeHash": "0368d5c6d942e321201a9e1e65af8208b27ce643e480a3b14a38f5fc55c4d29d",
       "spec": {
-        "template": "table",
-        "title": "Express-Lane Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Express-Lane Architecture: Adding Multi-Level Forward Towers to ",
         "steps": [
           {
             "at": "say1",
-            "caption": "The caches design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Hash caches answer exact equality keys (`map[k]`) in O(1), yet fail.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Express"
-                  },
-                  {
-                    "text": "Lane"
-                  }
-                ],
+                "label": "key",
+                "value": {
+                  "var": "key",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "level",
+                "value": {
+                  "var": "level",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "target",
+                "value": {
+                  "var": "target",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "lvl",
+                "value": {
+                  "var": "lvl",
+                  "line": 26,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The think step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "William Pugh invented an astonishingly elegant lock-friendly alternative.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Architecture"
-                  },
-                  {
-                    "text": "Adding"
-                  }
-                ],
+                "label": "key",
+                "value": {
+                  "var": "key",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "level",
+                "value": {
+                  "var": "level",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "target",
+                "value": {
+                  "var": "target",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lvl",
+                "value": {
+                  "var": "lvl",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Notice each node simply stores a compact array `forward.",
+            "bars": [
+              {
+                "label": "key",
+                "value": {
+                  "var": "key",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "level",
+                "value": {
+                  "var": "level",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "target",
+                "value": {
+                  "var": "target",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lvl",
+                "value": {
+                  "var": "lvl",
+                  "line": 28,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -53,35 +141,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Express-Lane Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Express-Lane Architecture: Adding Multi-Level Forward Towers to ",
         "steps": [
           {
             "at": "say1",
-            "caption": "The caches design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Hash caches answer exact equality keys (`map[k]`) in O(1), yet fail.",
+            "bars": [
               {
-                "cells": [
-                  "Express",
-                  "Lane"
-                ],
+                "label": "key",
+                "value": -1000000000000000000,
+                "tone": "data"
+              },
+              {
+                "label": "level",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "target",
+                "value": 40,
+                "tone": "data"
+              },
+              {
+                "label": "lvl",
+                "value": 2,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The think step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "William Pugh invented an astonishingly elegant lock-friendly alternative.",
+            "bars": [
               {
-                "cells": [
-                  "Architecture",
-                  "Adding"
-                ],
+                "label": "key",
+                "value": -1000000000000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "level",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "target",
+                "value": 40,
+                "tone": "ok"
+              },
+              {
+                "label": "lvl",
+                "value": 2,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Notice each node simply stores a compact array `forward.",
+            "bars": [
+              {
+                "label": "key",
+                "value": -1000000000000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "level",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "target",
+                "value": 40,
+                "tone": "ok"
+              },
+              {
+                "label": "lvl",
+                "value": 2,
                 "tone": "ok"
               }
             ]
@@ -93,43 +229,131 @@
       "partTitle": "Seeded Geometric Level Promotion & Express Lane Density Analysis",
       "codeHash": "3250dafbb379c54f597bdf1026b48429321d0651387f30315621ff3c9b821f0c",
       "spec": {
-        "template": "table",
-        "title": "Seeded Geometric Level Promotion & Express Lane Density",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Seeded Geometric Level Promotion & Express Lane Density Analysis",
         "steps": [
           {
             "at": "say1",
-            "caption": "The dynamic design establishes the core structural invariant.",
-            "rows": [
+            "caption": "How does a dynamic Skip List decide what tower height `level` to assign.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Seeded"
-                  },
-                  {
-                    "text": "Geometric"
-                  }
-                ],
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "max_level",
+                "value": {
+                  "var": "max_level",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "seed",
+                "value": {
+                  "var": "seed",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "count",
+                "value": {
+                  "var": "count",
+                  "line": 16,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The think step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Start every new node at base `lvl = 0`.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Level"
-                  },
-                  {
-                    "text": "Promotion"
-                  }
-                ],
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "max_level",
+                "value": {
+                  "var": "max_level",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": {
+                  "var": "seed",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "count",
+                "value": {
+                  "var": "count",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Best practice for deterministic engineering & CI repeatability.",
+            "bars": [
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "max_level",
+                "value": {
+                  "var": "max_level",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": {
+                  "var": "seed",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "count",
+                "value": {
+                  "var": "count",
+                  "line": 18,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -137,35 +361,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Seeded Geometric Level Promotion & Express Lane Density",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Seeded Geometric Level Promotion & Express Lane Density Analysis",
         "steps": [
           {
             "at": "say1",
-            "caption": "The dynamic design establishes the core structural invariant.",
-            "rows": [
+            "caption": "How does a dynamic Skip List decide what tower height `level` to assign.",
+            "bars": [
               {
-                "cells": [
-                  "Seeded",
-                  "Geometric"
-                ],
+                "label": "p",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "max_level",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "seed",
+                "value": 42,
+                "tone": "data"
+              },
+              {
+                "label": "count",
+                "value": 200,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The think step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Start every new node at base `lvl = 0`.",
+            "bars": [
               {
-                "cells": [
-                  "Level",
-                  "Promotion"
-                ],
+                "label": "p",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "max_level",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": 42,
+                "tone": "ok"
+              },
+              {
+                "label": "count",
+                "value": 200,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Best practice for deterministic engineering & CI repeatability.",
+            "bars": [
+              {
+                "label": "p",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "max_level",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": 42,
+                "tone": "ok"
+              },
+              {
+                "label": "count",
+                "value": 200,
                 "tone": "ok"
               }
             ]
@@ -177,211 +449,149 @@
       "partTitle": "Dynamic Insert with update[] Predecessor Tower Splicing",
       "codeHash": "0f47f03f56dad6af75393df5dc78ef7dcc4e87bdd5a344bd80bc7dd438f96332",
       "spec": {
-        "template": "table",
-        "title": "Dynamic Insert with update[] Predecessor Tower Splicing",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "The watch design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Dynamic"
-                  },
-                  {
-                    "text": "Insert"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The update step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "update"
-                  },
-                  {
-                    "text": "Predecessor"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
+        "template": "none",
+        "reason": "Concept explained cleanly in text and interactive code."
       },
-      "filled": {
-        "template": "table",
-        "title": "Dynamic Insert with update[] Predecessor Tower Splicing",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "The watch design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Dynamic",
-                  "Insert"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The update step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "update",
-                  "Predecessor"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      }
+      "filled": {}
     },
     {
       "partTitle": "Clean Node Deletion, Level Trimming & O(log N + K) Range Scans",
       "codeHash": "c8d164e8cd99eac3a4fcca1cbf492832e41d24c606239c3f36ebeedd5c6cfbe9",
       "spec": {
-        "template": "table",
-        "title": "Clean Node Deletion, Level Trimming & O(log N + K) Range",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "The deleting design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Clean"
-                  },
-                  {
-                    "text": "Node"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The pause step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Deletion"
-                  },
-                  {
-                    "text": "Level"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
+        "template": "none",
+        "reason": "Concept explained cleanly in text and interactive code."
       },
-      "filled": {
-        "template": "table",
-        "title": "Clean Node Deletion, Level Trimming & O(log N + K) Range",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "The deleting design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Clean",
-                  "Node"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The pause step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Deletion",
-                  "Level"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      }
+      "filled": {}
     },
     {
       "partTitle": "Production Application: Sorted Exchange Order-Book Price Ladder Skip List",
       "codeHash": "b781a93edd75644ad78aa7c4a5b789eaee84e163cf6af78377303090a456d253",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Production Application: Sorted Exchange Order-Book Price Ladder ",
         "steps": [
           {
             "at": "say1",
-            "caption": "The apply design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us apply our Skip List directly where lock-friendly ordered data.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
+                "label": "max_level",
+                "value": {
+                  "var": "max_level",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "seed",
+                "value": {
+                  "var": "seed",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "px_cents",
+                "value": {
+                  "var": "px_cents",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The plain step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Electronic exchanges receive thousands of price level insertions, partial.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Sorted"
-                  },
-                  {
-                    "text": "Exchange"
-                  }
-                ],
+                "label": "max_level",
+                "value": {
+                  "var": "max_level",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": {
+                  "var": "seed",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "px_cents",
+                "value": {
+                  "var": "px_cents",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect and run `OrderBookSkipList` deterministically below across live.",
+            "bars": [
+              {
+                "label": "max_level",
+                "value": {
+                  "var": "max_level",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": {
+                  "var": "seed",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "px_cents",
+                "value": {
+                  "var": "px_cents",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -389,35 +599,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Production Application: Sorted Exchange Order-Book Price Ladder ",
         "steps": [
           {
             "at": "say1",
-            "caption": "The apply design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us apply our Skip List directly where lock-friendly ordered data.",
+            "bars": [
               {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
+                "label": "max_level",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": 0.25,
+                "tone": "data"
+              },
+              {
+                "label": "seed",
+                "value": 42,
+                "tone": "data"
+              },
+              {
+                "label": "px_cents",
+                "value": -1000000000000000000,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The plain step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Electronic exchanges receive thousands of price level insertions, partial.",
+            "bars": [
               {
-                "cells": [
-                  "Sorted",
-                  "Exchange"
-                ],
+                "label": "max_level",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 0.25,
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": 42,
+                "tone": "ok"
+              },
+              {
+                "label": "px_cents",
+                "value": -1000000000000000000,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect and run `OrderBookSkipList` deterministically below across live.",
+            "bars": [
+              {
+                "label": "max_level",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 0.25,
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": 42,
+                "tone": "ok"
+              },
+              {
+                "label": "px_cents",
+                "value": -1000000000000000000,
                 "tone": "ok"
               }
             ]

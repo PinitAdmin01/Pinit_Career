@@ -2,269 +2,121 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 49,
-  "promptSha": "5efa041e82a8a9a2a3830752eca7f9a45a57debedf8a838c22217e37f8bbb467",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Fused AdamW Optimizer, Global Gradient Norm Clipping & Cosine Warmup Schedules — Foundations & Mathematical Invariants",
-      "codeHash": "e5d6fc5b4e2a3a3b958a0d7bc27571dbb89a2dd8e39d5e65dab7b4dbc173895d",
+      "partTitle": "Fused Optimizers — Foundations & Mathematical Invariants",
+      "codeHash": "160cc57cf542d6507061fc7ca15f989cdd8e15eb9df536abca7c0e63e93c0dfe",
       "spec": {
-        "template": "flow",
-        "title": "Fused AdamW Optimizer, Global Gradient Norm Clipping & Cosine Warmup S",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Fused Optimizers — Foundations & Mathematical Invariants",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Standard PyTorch implementations of AdamW execute the optimizer update.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "info"
+                  },
+                  {
+                    "var": "info",
+                    "line": 10,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "These operations include weight decay calculation, first-moment momentum.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "info"
+                  },
+                  {
+                    "var": "info",
+                    "line": 11,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Adopting fused optimizer implementations provides immediate throughput.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Fused AdamW Optimizer, Global Gradient Norm Clipping & Cosine Warmup S",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Fused Optimizers — Foundations & Mathematical Invariants",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Standard PyTorch implementations of AdamW execute the optimizer update.",
+            "rows": [
+              {
+                "cells": [
+                  "info",
+                  "{'concept': 'FUSED_OPTIMIZER_KERNEL', '…"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "These operations include weight decay calculation, first-moment momentum.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "info",
+                  "{'concept': 'FUSED_OPTIMIZER_KERNEL', '…"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Adopting fused optimizer implementations provides immediate throughput.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "[FUSED_OPTIMIZER_KERNEL] Reduces memory passes from 8_memory_passes_per_parameter to 2_memory_passes_per_parameter (75%_less_HBM_traffic)"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -272,1063 +124,725 @@
       }
     },
     {
-      "partTitle": "Fused AdamW Optimizer, Global Gradient Norm Clipping & Cosine Warmup Schedules — Core Algorithm & State Representation",
-      "codeHash": "0670efc7861b29e91eee946f7f68417663973f79dc10e9050f2e33805ef5ca86",
+      "partTitle": "Fused Optimizers — Core Algorithm & State Representation",
+      "codeHash": "cbd6762f7ccf0754cf6998dd20c948b588965d3bed8f8ac9a863bb9088635549",
       "spec": {
         "template": "flow",
-        "title": "Fused AdamW Optimizer, Global Gradient Norm Clipping & Cosine Warmup S",
+        "title": "Fused Optimizers — Core Algorithm & State Representation",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": ".0",
+            "label": ".0"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "param_grad_norms",
+            "label": "param_grad_norms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "clip_threshold",
+            "label": "clip_threshold"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deep neural networks are susceptible to exploding gradients caused.",
+            "values": {
+              ".0": {
+                "var": ".0",
+                "line": 4,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 4,
+                "hit": 1
+              },
+              "param_grad_norms": {
+                "var": "param_grad_norms",
+                "line": 4,
+                "hit": 6
+              },
+              "clip_threshold": {
+                "var": "clip_threshold",
+                "line": 4,
+                "hit": 6
+              }
+            },
+            "tones": {
+              ".0": "data",
+              "n": "data",
+              "param_grad_norms": "data",
+              "clip_threshold": "data"
+            },
+            "arrows": [
+              [
+                ".0",
+                "n"
+              ],
+              [
+                "n",
+                "param_grad_norms"
+              ],
+              [
+                "param_grad_norms",
+                "clip_threshold"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Gradient clipping by global norm prevents unstable parameter steps.",
+            "values": {
+              ".0": {
+                "var": ".0",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "n": {
+                "var": "n",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "param_grad_norms": {
+                "var": "param_grad_norms",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "clip_threshold": {
+                "var": "clip_threshold",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              ".0": "data",
+              "n": "data",
+              "param_grad_norms": "data",
+              "clip_threshold": "data"
+            },
+            "arrows": [
+              [
+                ".0",
+                "n"
+              ],
+              [
+                "n",
+                "param_grad_norms"
+              ],
+              [
+                "param_grad_norms",
+                "clip_threshold"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "Rigorous testing confirms that global norm clipping maintains smooth.",
+            "values": {
+              ".0": {
+                "var": ".0",
+                "line": 4,
+                "hit": 3
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "n": {
+                "var": "n",
+                "line": 4,
+                "hit": 3
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "param_grad_norms": {
+                "var": "param_grad_norms",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "clip_threshold": {
+                "var": "clip_threshold",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              ".0": "ok",
+              "n": "ok",
+              "param_grad_norms": "ok",
+              "clip_threshold": "ok"
+            },
+            "arrows": [
+              [
+                ".0",
+                "n"
+              ],
+              [
+                "n",
+                "param_grad_norms"
+              ],
+              [
+                "param_grad_norms",
+                "clip_threshold"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Fused AdamW Optimizer, Global Gradient Norm Clipping & Cosine Warmup S",
+        "title": "Fused Optimizers — Core Algorithm & State Representation",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": ".0",
+            "label": ".0"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "param_grad_norms",
+            "label": "param_grad_norms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "clip_threshold",
+            "label": "clip_threshold"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deep neural networks are susceptible to exploding gradients caused.",
+            "values": {
+              ".0": "{'__other__': 'list_iterator'}",
+              "n": "0.8",
+              "param_grad_norms": "[0.8, 1.2, 0.9, 0.7]",
+              "clip_threshold": "1"
+            },
+            "tones": {
+              ".0": "data",
+              "n": "data",
+              "param_grad_norms": "data",
+              "clip_threshold": "data"
+            },
+            "arrows": [
+              [
+                ".0",
+                "n"
+              ],
+              [
+                "n",
+                "param_grad_norms"
+              ],
+              [
+                "param_grad_norms",
+                "clip_threshold"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Gradient clipping by global norm prevents unstable parameter steps.",
+            "values": {
+              ".0": "{'__other__': 'list_iterator'}",
+              "n": "1.2",
+              "param_grad_norms": "[0.8, 1.2, 0.9, 0.7]",
+              "clip_threshold": "1"
+            },
+            "tones": {
+              ".0": "data",
+              "n": "data",
+              "param_grad_norms": "data",
+              "clip_threshold": "data"
+            },
+            "arrows": [
+              [
+                ".0",
+                "n"
+              ],
+              [
+                "n",
+                "param_grad_norms"
+              ],
+              [
+                "param_grad_norms",
+                "clip_threshold"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "Rigorous testing confirms that global norm clipping maintains smooth.",
+            "values": {
+              ".0": "{'__other__': 'list_iterator'}",
+              "n": "0.9",
+              "param_grad_norms": "[0.8, 1.2, 0.9, 0.7]",
+              "clip_threshold": "1"
+            },
+            "tones": {
+              ".0": "ok",
+              "n": "ok",
+              "param_grad_norms": "ok",
+              "clip_threshold": "ok"
+            },
+            "arrows": [
+              [
+                ".0",
+                "n"
+              ],
+              [
+                "n",
+                "param_grad_norms"
+              ],
+              [
+                "param_grad_norms",
+                "clip_threshold"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Fused AdamW Optimizer, Global Gradient Norm Clipping & Cosine Warmup Schedules — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "7f86363c41e6dbd66544ce09df7f627a3aa5e8a6104f0ef972d9c3c579337eaf",
+      "partTitle": "Fused Optimizers — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "d1de0413a1267a6b56f29fc4f82a4ab79589fac7df867cca634f2ad910e60265",
       "spec": {
-        "template": "flow",
-        "title": "Fused AdamW Optimizer, Global Gradient Norm Clipping & Cosine Warmup S",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Fused Optimizers — Throughput Optimization & Edge-Case Handling",
+        "actors": [
+          "params_b",
+          "bytes_per_elem",
+          "standard_traffic_gb"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantifying memory bandwidth savings for billion-parameter models.",
+            "activeActor": "params_b",
+            "messages": [
+              {
+                "from": "params_b",
+                "to": "bytes_per_elem",
+                "label": {
+                  "var": "params_b",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bytes_per_elem",
+                "to": "standard_traffic_gb",
+                "label": {
+                  "var": "bytes_per_elem",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how billion updates parameter during execution.",
+            "activeActor": "bytes_per_elem",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "params_b",
+                "to": "bytes_per_elem",
+                "label": {
+                  "var": "params_b",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "bytes_per_elem",
+                "to": "standard_traffic_gb",
+                "label": {
+                  "var": "bytes_per_elem",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Distributed infrastructure platforms enforce fused optimizer backends as.",
+            "activeActor": "standard_traffic_gb",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "params_b",
+                "to": "bytes_per_elem",
+                "label": {
+                  "var": "params_b",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "bytes_per_elem",
+                "to": "standard_traffic_gb",
+                "label": {
+                  "var": "bytes_per_elem",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Fused AdamW Optimizer, Global Gradient Norm Clipping & Cosine Warmup S",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Fused Optimizers — Throughput Optimization & Edge-Case Handling",
+        "actors": [
+          "params_b",
+          "bytes_per_elem",
+          "standard_traffic_gb"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantifying memory bandwidth savings for billion-parameter models.",
+            "messages": [
+              {
+                "from": "params_b",
+                "to": "bytes_per_elem",
+                "label": "7",
+                "tone": "data"
+              },
+              {
+                "from": "bytes_per_elem",
+                "to": "standard_traffic_gb",
+                "label": "4",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "params_b"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how billion updates parameter during execution.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "params_b",
+                "to": "bytes_per_elem",
+                "label": "7",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "bytes_per_elem",
+                "to": "standard_traffic_gb",
+                "label": "4",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "bytes_per_elem"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Distributed infrastructure platforms enforce fused optimizer backends as.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "params_b",
+                "to": "bytes_per_elem",
+                "label": "7",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "bytes_per_elem",
+                "to": "standard_traffic_gb",
+                "label": "4",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "standard_traffic_gb"
           }
         ]
       }
     },
     {
-      "partTitle": "Fused AdamW Optimizer, Global Gradient Norm Clipping & Cosine Warmup Schedules — Resilience Guardrails & Failure Recovery",
-      "codeHash": "017bc26d59fcdc12cc34c964c655154c915a9a1560bc8b3cfec858fa9da7af89",
+      "partTitle": "Fused Optimizers — Resilience Guardrails & Failure Recovery",
+      "codeHash": "a67c45ed814d9667772e6c061c6fb3bf2c296a456dc5004645ddf708c30284ab",
       "spec": {
-        "template": "flow",
-        "title": "Fused AdamW Optimizer, Global Gradient Norm Clipping & Cosine Warmup S",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Fused Optimizers — Resilience Guardrails & Failure Recovery",
+        "actors": [
+          "global_norm",
+          "clip_threshold",
+          "status"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While gradient clipping protects against normal loss spikes, extreme.",
+            "activeActor": "global_norm",
+            "messages": [
+              {
+                "from": "global_norm",
+                "to": "clip_threshold",
+                "label": {
+                  "var": "global_norm",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "clip_threshold",
+                "to": "status",
+                "label": {
+                  "var": "clip_threshold",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how global updates gradient during execution.",
+            "activeActor": "clip_threshold",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "global_norm",
+                "to": "clip_threshold",
+                "label": {
+                  "var": "global_norm",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "clip_threshold",
+                "to": "status",
+                "label": {
+                  "var": "clip_threshold",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Enforcing robust gradient guardrails guarantees that transient dataset.",
+            "activeActor": "status",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "global_norm",
+                "to": "clip_threshold",
+                "label": {
+                  "var": "global_norm",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "clip_threshold",
+                "to": "status",
+                "label": {
+                  "var": "clip_threshold",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Fused AdamW Optimizer, Global Gradient Norm Clipping & Cosine Warmup S",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Fused Optimizers — Resilience Guardrails & Failure Recovery",
+        "actors": [
+          "global_norm",
+          "clip_threshold",
+          "status"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While gradient clipping protects against normal loss spikes, extreme.",
+            "messages": [
+              {
+                "from": "global_norm",
+                "to": "clip_threshold",
+                "label": "2.1",
+                "tone": "data"
+              },
+              {
+                "from": "clip_threshold",
+                "to": "status",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "global_norm"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how global updates gradient during execution.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "global_norm",
+                "to": "clip_threshold",
+                "label": "2.1",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "clip_threshold",
+                "to": "status",
+                "label": "1",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "clip_threshold"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Enforcing robust gradient guardrails guarantees that transient dataset.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "global_norm",
+                "to": "clip_threshold",
+                "label": "2.1",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "clip_threshold",
+                "to": "status",
+                "label": "1",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "status"
           }
         ]
       }
     },
     {
-      "partTitle": "Fused AdamW Optimizer, Global Gradient Norm Clipping & Cosine Warmup Schedules — Production Telemetry & Verification Audit",
-      "codeHash": "6348fd79bc2eaa9337829bf6c3d18bf132fe60b090bd5d6471ba32a06f0c7590",
+      "partTitle": "Fused Optimizers — Production Telemetry & Verification Audit",
+      "codeHash": "acdb0101a8b676bc5964f8f24fd7b45a34dbbee4dc02a0c23519d2a0cf1ccc17",
       "spec": {
-        "template": "flow",
-        "title": "Fused AdamW Optimizer, Global Gradient Norm Clipping & Cosine Warmup S",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Fused Optimizers — Production Telemetry & Verification Audit",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing validates optimizer kernel execution speed.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "audit"
+                  },
+                  {
+                    "var": "audit",
+                    "line": 10,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Auditors track kernel execution durations in milliseconds, 99th-percentile.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "audit"
+                  },
+                  {
+                    "var": "audit",
+                    "line": 11,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This telemetry certification provides definitive verification.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Fused AdamW Optimizer, Global Gradient Norm Clipping & Cosine Warmup S",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Fused Optimizers — Production Telemetry & Verification Audit",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing validates optimizer kernel execution speed.",
+            "rows": [
+              {
+                "cells": [
+                  "audit",
+                  "{'status': 'CERTIFIED', 'optimizer': 'F…"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Auditors track kernel execution durations in milliseconds, 99th-percentile.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "audit",
+                  "{'status': 'CERTIFIED', 'optimizer': 'F…"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This telemetry certification provides definitive verification.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "Fused Optimizer Audit: CERTIFIED (Kernel: 1.45ms, P99 Norm: 0.88)"
+                ],
+                "tone": "ok"
               }
             ]
           }

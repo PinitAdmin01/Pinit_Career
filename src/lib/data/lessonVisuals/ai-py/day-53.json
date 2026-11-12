@@ -2,269 +2,699 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 53,
-  "promptSha": "49ac4ec9ce7cce9fe9598bdfb6f35beb43858caa23de244c1e651f35e524c72c",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Cost Attribution, Token Bucket Quotas & Multi-Tenant Chargeback Ledgers — Foundations & Mathematical Invariants",
-      "codeHash": "2f2e421353232c92a7eab03b857990f47b9676194bf454b56653dee2d16c1a0c",
+      "partTitle": "Noisy Neighbors and Token-Aware Rate Limiting Over Request Counts",
+      "codeHash": "5fe5c159d201ef67e16386f5797963729a880b911d208c8ec39650ebf8ebf367",
       "spec": {
-        "template": "flow",
-        "title": "Cost Attribution, Token Bucket Quotas & Multi-Tenant Chargeback Ledger",
-        "nodes": [
+        "template": "boxes",
+        "title": "Noisy Neighbors and Token-Aware Rate Limiting Over Request Count",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cap_tokens",
+            "label": "cap_tokens"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "refill_per_sec",
+            "label": "refill_per_sec"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "tb",
+            "label": "tb"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "at": "say1",
+            "caption": "Classic REST API gateways rate-limit strictly by **requests per minute.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "cap_tokens": {
+                "var": "cap_tokens",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "refill_per_sec": {
+                "var": "refill_per_sec",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "tb": {
+                "var": "tb",
+                "line": 18,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "cap_tokens": "data",
+              "refill_per_sec": "data",
+              "tb": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Modern AI gateways govern capacity explicitly via **Tokens-Per-Minute.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
+              },
+              "cap_tokens": {
+                "var": "cap_tokens",
+                "line": 4,
+                "hit": 1
+              },
+              "refill_per_sec": {
+                "var": "refill_per_sec",
+                "line": 4,
+                "hit": 1
+              },
+              "tb": {
+                "var": "tb",
+                "line": 19,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "cap_tokens": "data",
+              "refill_per_sec": "data",
+              "tb": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Run TokenBucket below tracking fractional refill progression, burst.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
+              },
+              "cap_tokens": {
+                "var": "cap_tokens",
+                "line": 5,
+                "hit": 1
+              },
+              "refill_per_sec": {
+                "var": "refill_per_sec",
+                "line": 5,
+                "hit": 1
+              },
+              "tb": {
+                "var": "tb",
+                "line": 20,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "ok",
+              "cap_tokens": "ok",
+              "refill_per_sec": "ok",
+              "tb": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Noisy Neighbors and Token-Aware Rate Limiting Over Request Count",
+        "boxes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "cap_tokens",
+            "label": "cap_tokens"
+          },
+          {
+            "id": "refill_per_sec",
+            "label": "refill_per_sec"
+          },
+          {
+            "id": "tb",
+            "label": "tb"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Classic REST API gateways rate-limit strictly by **requests per minute.",
+            "values": {
+              "self": "<TokenBucket>",
+              "cap_tokens": "1000",
+              "refill_per_sec": "100",
+              "tb": "<TokenBucket>"
+            },
+            "tones": {
+              "self": "data",
+              "cap_tokens": "data",
+              "refill_per_sec": "data",
+              "tb": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Modern AI gateways govern capacity explicitly via **Tokens-Per-Minute.",
+            "values": {
+              "self": "<TokenBucket>",
+              "cap_tokens": "1000",
+              "refill_per_sec": "100",
+              "tb": "<TokenBucket>"
+            },
+            "tones": {
+              "self": "data",
+              "cap_tokens": "data",
+              "refill_per_sec": "data",
+              "tb": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Run TokenBucket below tracking fractional refill progression, burst.",
+            "values": {
+              "self": "<TokenBucket>",
+              "cap_tokens": "1000",
+              "refill_per_sec": "100",
+              "tb": "<TokenBucket>"
+            },
+            "tones": {
+              "self": "ok",
+              "cap_tokens": "ok",
+              "refill_per_sec": "ok",
+              "tb": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Asymmetric Input, Cached-Input, and Output Pricing Math",
+      "codeHash": "9c3ac5753df40398e4387431715d1036429e34708c0734cf404f3897b5429b82",
+      "spec": {
+        "template": "flow",
+        "title": "Asymmetric Input, Cached-Input, and Output Pricing Math",
+        "nodes": [
+          {
+            "id": "PRICING_PER_1M",
+            "label": "PRICING_PER_1M"
+          },
+          {
+            "id": "total_in",
+            "label": "total_in"
+          },
+          {
+            "id": "cached_in",
+            "label": "cached_in"
+          },
+          {
+            "id": "out_tokens",
+            "label": "out_tokens"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Computing clean chargeback bills accurately demands respecting **provider.",
+            "values": {
+              "PRICING_PER_1M": {
+                "var": "PRICING_PER_1M",
+                "line": 1,
+                "hit": 1
+              },
+              "total_in": {
+                "var": "total_in",
+                "line": 8,
+                "hit": 1
+              },
+              "cached_in": {
+                "var": "cached_in",
+                "line": 8,
+                "hit": 1
+              },
+              "out_tokens": {
+                "var": "out_tokens",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "PRICING_PER_1M": "data",
+              "total_in": "data",
+              "cached_in": "data",
+              "out_tokens": "data"
+            },
+            "arrows": [
+              [
+                "PRICING_PER_1M",
+                "total_in"
+              ],
+              [
+                "total_in",
+                "cached_in"
+              ],
+              [
+                "cached_in",
+                "out_tokens"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Meanwhile, vendor **Prompt Cache Hits** slash shared prefix token charges.",
+            "values": {
+              "PRICING_PER_1M": {
+                "var": "PRICING_PER_1M",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "total_in": {
+                "var": "total_in",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "cached_in": {
+                "var": "cached_in",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "out_tokens": {
+                "var": "out_tokens",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "PRICING_PER_1M": "data",
+              "total_in": "data",
+              "cached_in": "data",
+              "out_tokens": "data"
+            },
+            "arrows": [
+              [
+                "PRICING_PER_1M",
+                "total_in"
+              ],
+              [
+                "total_in",
+                "cached_in"
+              ],
+              [
+                "cached_in",
+                "out_tokens"
+              ]
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "caption": "Inspect calc_call_cost_usd() calculating itemized pricing breakdown.",
+            "values": {
+              "PRICING_PER_1M": {
+                "var": "PRICING_PER_1M",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "total_in": {
+                "var": "total_in",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "cached_in": {
+                "var": "cached_in",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "out_tokens": {
+                "var": "out_tokens",
+                "line": 11,
+                "hit": 1
               }
+            },
+            "tones": {
+              "PRICING_PER_1M": "ok",
+              "total_in": "ok",
+              "cached_in": "ok",
+              "out_tokens": "ok"
+            },
+            "arrows": [
+              [
+                "PRICING_PER_1M",
+                "total_in"
+              ],
+              [
+                "total_in",
+                "cached_in"
+              ],
+              [
+                "cached_in",
+                "out_tokens"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Cost Attribution, Token Bucket Quotas & Multi-Tenant Chargeback Ledger",
+        "title": "Asymmetric Input, Cached-Input, and Output Pricing Math",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "PRICING_PER_1M",
+            "label": "PRICING_PER_1M"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "total_in",
+            "label": "total_in"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "cached_in",
+            "label": "cached_in"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "out_tokens",
+            "label": "out_tokens"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "at": "say1",
+            "caption": "Computing clean chargeback bills accurately demands respecting **provider.",
+            "values": {
+              "PRICING_PER_1M": "{'in': 3, 'cached_in': 0.3, 'out': 15}",
+              "total_in": "20000",
+              "cached_in": "0",
+              "out_tokens": "800"
+            },
+            "tones": {
+              "PRICING_PER_1M": "data",
+              "total_in": "data",
+              "cached_in": "data",
+              "out_tokens": "data"
+            },
+            "arrows": [
+              [
+                "PRICING_PER_1M",
+                "total_in"
+              ],
+              [
+                "total_in",
+                "cached_in"
+              ],
+              [
+                "cached_in",
+                "out_tokens"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "at": "say2",
+            "caption": "Meanwhile, vendor **Prompt Cache Hits** slash shared prefix token charges.",
+            "values": {
+              "PRICING_PER_1M": "{'in': 3, 'cached_in': 0.3, 'out': 15}",
+              "total_in": "20000",
+              "cached_in": "0",
+              "out_tokens": "800"
+            },
+            "tones": {
+              "PRICING_PER_1M": "data",
+              "total_in": "data",
+              "cached_in": "data",
+              "out_tokens": "data"
+            },
+            "arrows": [
+              [
+                "PRICING_PER_1M",
+                "total_in"
+              ],
+              [
+                "total_in",
+                "cached_in"
+              ],
+              [
+                "cached_in",
+                "out_tokens"
+              ]
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Inspect calc_call_cost_usd() calculating itemized pricing breakdown.",
+            "values": {
+              "PRICING_PER_1M": "{'in': 3, 'cached_in': 0.3, 'out': 15}",
+              "total_in": "20000",
+              "cached_in": "0",
+              "out_tokens": "800"
+            },
+            "tones": {
+              "PRICING_PER_1M": "ok",
+              "total_in": "ok",
+              "cached_in": "ok",
+              "out_tokens": "ok"
+            },
+            "arrows": [
+              [
+                "PRICING_PER_1M",
+                "total_in"
+              ],
+              [
+                "total_in",
+                "cached_in"
+              ],
+              [
+                "cached_in",
+                "out_tokens"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Two-Phase Cost Reservation and Idempotent Ledger Settlement",
+      "codeHash": "88b8c8523b4a01a71a48070a11aa8d513b2d5daaca2294184a4203cce7cbb0e0",
+      "spec": {
+        "template": "bars",
+        "title": "Two-Phase Cost Reservation and Idempotent Ledger Settlement",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Consider how billing bugs ignite during real production storms.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "balance_usd",
+                "value": {
+                  "var": "balance_usd",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "label": "est_usd",
+                "value": {
+                  "var": "est_usd",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+                "label": "actual_usd",
+                "value": {
+                  "var": "actual_usd",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "reserved",
+                "value": {
+                  "var": "reserved",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If balance updates write strictly *after* responses stream back, all ten.",
+            "bars": [
+              {
+                "label": "balance_usd",
+                "value": {
+                  "var": "balance_usd",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "est_usd",
+                "value": {
+                  "var": "est_usd",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "actual_usd",
+                "value": {
+                  "var": "actual_usd",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "reserved",
+                "value": {
+                  "var": "reserved",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Trace BillingLedger testing initial reserve, duplicate replay protection.",
+            "bars": [
+              {
+                "label": "balance_usd",
+                "value": {
+                  "var": "balance_usd",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "est_usd",
+                "value": {
+                  "var": "est_usd",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "actual_usd",
+                "value": {
+                  "var": "actual_usd",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "reserved",
+                "value": {
+                  "var": "reserved",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "bars",
+        "title": "Two-Phase Cost Reservation and Idempotent Ledger Settlement",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Consider how billing bugs ignite during real production storms.",
+            "bars": [
+              {
+                "label": "balance_usd",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "est_usd",
+                "value": 0.4,
+                "tone": "data"
+              },
+              {
+                "label": "actual_usd",
+                "value": 0.15,
+                "tone": "data"
+              },
+              {
+                "label": "reserved",
+                "value": 0.4,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If balance updates write strictly *after* responses stream back, all ten.",
+            "bars": [
+              {
+                "label": "balance_usd",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "est_usd",
+                "value": 0.4,
+                "tone": "ok"
+              },
+              {
+                "label": "actual_usd",
+                "value": 0.15,
+                "tone": "ok"
+              },
+              {
+                "label": "reserved",
+                "value": 0.4,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Trace BillingLedger testing initial reserve, duplicate replay protection.",
+            "bars": [
+              {
+                "label": "balance_usd",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "est_usd",
+                "value": 0.4,
+                "tone": "ok"
+              },
+              {
+                "label": "actual_usd",
+                "value": 0.15,
+                "tone": "ok"
+              },
+              {
+                "label": "reserved",
+                "value": 0.4,
+                "tone": "ok"
               }
             ]
           }
@@ -272,265 +702,219 @@
       }
     },
     {
-      "partTitle": "Cost Attribution, Token Bucket Quotas & Multi-Tenant Chargeback Ledgers — Core Algorithm & State Representation",
-      "codeHash": "3a9d84e612fd9cddf199a364f39a7d8ca422ed16b80b025f9c66a0809f1fa68f",
+      "partTitle": "Soft Quota Alerts vs Hard Kill-Switch Thresholds",
+      "codeHash": "adfb4214431919fdb9f8e1d59a5dea4a6abb4bb1233ed316a3d8411243fe0c64",
       "spec": {
-        "template": "flow",
-        "title": "Cost Attribution, Token Bucket Quotas & Multi-Tenant Chargeback Ledger",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Soft Quota Alerts vs Hard Kill-Switch Thresholds",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cutting off an enterprise customer's mission-critical copilot completely.",
+            "bars": [
+              {
+                "label": "spend",
+                "value": {
+                  "var": "spend",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "spent_usd",
+                "value": {
+                  "var": "spent_usd",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cap_usd",
+                "value": {
+                  "var": "cap_usd",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "ratio",
+                "value": {
+                  "var": "ratio",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Mature SaaS gateways implement tiered **graduated quota guardrails**.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "spend",
+                "value": {
+                  "var": "spend",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "spent_usd",
+                "value": {
+                  "var": "spent_usd",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "cap_usd",
+                "value": {
+                  "var": "cap_usd",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "ratio",
+                "value": {
+                  "var": "ratio",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect evaluate_quota_band() cleanly steering traffic tiers cleanly.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "spend",
+                "value": {
+                  "var": "spend",
+                  "line": 11,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "spent_usd",
+                "value": {
+                  "var": "spent_usd",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "cap_usd",
+                "value": {
+                  "var": "cap_usd",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "ratio",
+                "value": {
+                  "var": "ratio",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cost Attribution, Token Bucket Quotas & Multi-Tenant Chargeback Ledger",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Soft Quota Alerts vs Hard Kill-Switch Thresholds",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cutting off an enterprise customer's mission-critical copilot completely.",
+            "bars": [
+              {
+                "label": "spend",
+                "value": 500,
+                "tone": "data"
+              },
+              {
+                "label": "spent_usd",
+                "value": 500,
+                "tone": "data"
+              },
+              {
+                "label": "cap_usd",
+                "value": 1000,
+                "tone": "data"
+              },
+              {
+                "label": "ratio",
+                "value": 0.5,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Mature SaaS gateways implement tiered **graduated quota guardrails**.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "spend",
+                "value": 500,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "spent_usd",
+                "value": 500,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "cap_usd",
+                "value": 1000,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "ratio",
+                "value": 0.5,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect evaluate_quota_band() cleanly steering traffic tiers cleanly.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "spend",
+                "value": 820,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "spent_usd",
+                "value": 500,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "cap_usd",
+                "value": 1000,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "ratio",
+                "value": 0.5,
+                "tone": "ok"
               }
             ]
           }
@@ -538,799 +922,165 @@
       }
     },
     {
-      "partTitle": "Cost Attribution, Token Bucket Quotas & Multi-Tenant Chargeback Ledgers — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "3068e997c7003bf96acfe53cabdd5b0e64035057ddfa8e929d5e0b99afff295c",
+      "partTitle": "Granular Per-Feature Chargeback Rollups From Trace Dimensions",
+      "codeHash": "566063c095f4df4577a7f389fe66788a34586ec52c215fe41cf77f3d5e1ecded",
       "spec": {
-        "template": "flow",
-        "title": "Cost Attribution, Token Bucket Quotas & Multi-Tenant Chargeback Ledger",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Granular Per-Feature Chargeback Rollups From Trace Dimensions",
+        "actors": [
+          "ledger_events",
+          "events",
+          "totals"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "CFOs and VP Engineering teams rarely accept vague blanket `'AI Infra.",
+            "activeActor": "ledger_events",
+            "messages": [
+              {
+                "from": "ledger_events",
+                "to": "events",
+                "label": {
+                  "var": "ledger_events",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "events",
+                "to": "totals",
+                "label": {
+                  "var": "events",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Attaching mandatory attribution tags (`tenant_id`, `feature_tag`.",
+            "activeActor": "events",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "ledger_events",
+                "to": "events",
+                "label": {
+                  "var": "ledger_events",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "events",
+                "to": "totals",
+                "label": {
+                  "var": "events",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect summarize_chargeback() rolling raw immutable ledger events.",
+            "activeActor": "totals",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "ledger_events",
+                "to": "events",
+                "label": {
+                  "var": "ledger_events",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "events",
+                "to": "totals",
+                "label": {
+                  "var": "events",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cost Attribution, Token Bucket Quotas & Multi-Tenant Chargeback Ledger",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Granular Per-Feature Chargeback Rollups From Trace Dimensions",
+        "actors": [
+          "ledger_events",
+          "events",
+          "totals"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "CFOs and VP Engineering teams rarely accept vague blanket `'AI Infra.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "ledger_events",
+                "to": "events",
+                "label": "[{'tenant': 'acme', 'feature': 'sql_cop…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "events",
+                "to": "totals",
+                "label": "[{'tenant': 'acme', 'feature': 'sql_cop…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "ledger_events"
           },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Cost Attribution, Token Bucket Quotas & Multi-Tenant Chargeback Ledgers — Resilience Guardrails & Failure Recovery",
-      "codeHash": "67cd49428cb650654e8a30812917ef40be484db1b92ea5d9dcbf7b17ac68c16d",
-      "spec": {
-        "template": "flow",
-        "title": "Cost Attribution, Token Bucket Quotas & Multi-Tenant Chargeback Ledger",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Attaching mandatory attribution tags (`tenant_id`, `feature_tag`.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "ledger_events",
+                "to": "events",
+                "label": "[{'tenant': 'acme', 'feature': 'sql_cop…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "events",
+                "to": "totals",
+                "label": "[{'tenant': 'acme', 'feature': 'sql_cop…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "events"
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "at": "say7",
+            "caption": "Inspect summarize_chargeback() rolling raw immutable ledger events.",
+            "messages": [
+              {
+                "from": "ledger_events",
+                "to": "events",
+                "label": "[{'tenant': 'acme', 'feature': 'sql_cop…",
+                "tone": "data"
+              },
+              {
+                "from": "events",
+                "to": "totals",
+                "label": "[{'tenant': 'acme', 'feature': 'sql_cop…",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Cost Attribution, Token Bucket Quotas & Multi-Tenant Chargeback Ledger",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Cost Attribution, Token Bucket Quotas & Multi-Tenant Chargeback Ledgers — Production Telemetry & Verification Audit",
-      "codeHash": "df891a9fee61a806f05f50b7efb6f5254db92802859555d364133c23af5bbb8c",
-      "spec": {
-        "template": "flow",
-        "title": "Cost Attribution, Token Bucket Quotas & Multi-Tenant Chargeback Ledger",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Cost Attribution, Token Bucket Quotas & Multi-Tenant Chargeback Ledger",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "totals"
           }
         ]
       }

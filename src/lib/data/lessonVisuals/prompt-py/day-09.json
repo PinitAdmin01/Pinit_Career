@@ -2,85 +2,98 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 9,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why grounding matters",
       "codeHash": "f2a15718e832a7ef135e225690de6b78bcbf74779162c342fc305b12fd3dd863",
       "spec": {
-        "template": "table",
-        "title": "Retrieval-augmented grounding versus ungrounded hallucination",
-        "columns": [
+        "template": "sequence",
+        "title": "Why grounding matters",
+        "actors": [
+          "policy",
           "question",
-          "ungrounded",
-          "grounded"
+          "ungrounded"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Without grounding the model may hallucinate a plausible but wrong answer.",
-            "rows": [
+            "at": "say1",
+            "caption": "A model's built-in knowledge stops at its training date and never includes.",
+            "activeActor": "policy",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "question"
-                  },
-                  {
-                    "text": "ungrounded"
-                  },
-                  {
-                    "text": "grounded"
-                  }
-                ],
-                "tone": "idle"
+                "from": "policy",
+                "to": "question",
+                "label": {
+                  "var": "policy",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "question"
-                  },
-                  {
-                    "text": "ungrounded"
-                  },
-                  {
-                    "text": "grounded"
-                  }
-                ],
-                "tone": "data"
+                "from": "question",
+                "to": "ungrounded",
+                "label": {
+                  "var": "question",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Grounded answers cite reliable sources so people can verify facts.",
-            "rows": [
+            "at": "say2",
+            "caption": "Asked about them anyway, it may hallucinate a plausible but wrong answer.",
+            "activeActor": "question",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "question"
-                  },
-                  {
-                    "text": "ungrounded"
-                  },
-                  {
-                    "text": "grounded"
-                  }
-                ],
+                "from": "policy",
+                "to": "question",
+                "label": {
+                  "var": "policy",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "policy"
-                  },
-                  {
-                    "text": "ungrounded"
-                  },
-                  {
-                    "text": "grounded"
-                  }
-                ],
+                "from": "question",
+                "to": "ungrounded",
+                "label": {
+                  "var": "question",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "It also keeps information current.",
+            "activeActor": "ungrounded",
+            "messages": [
+              {
+                "from": "policy",
+                "to": "question",
+                "label": {
+                  "var": "policy",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "question",
+                "to": "ungrounded",
+                "label": {
+                  "var": "question",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Retrieval-augmented grounding versus ungrounded hallucination",
-        "columns": [
+        "template": "sequence",
+        "title": "Why grounding matters",
+        "actors": [
+          "policy",
           "question",
-          "ungrounded",
-          "grounded"
+          "ungrounded"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Without grounding the model may hallucinate a plausible but wrong answer.",
-            "rows": [
+            "at": "say1",
+            "caption": "A model's built-in knowledge stops at its training date and never includes.",
+            "messages": [
               {
-                "cells": [
-                  "question",
-                  "ungrounded",
-                  "grounded"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "question",
-                  "ungrounded",
-                  "grounded"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Grounded answers cite reliable sources so people can verify facts.",
-            "rows": [
-              {
-                "cells": [
-                  "question",
-                  "ungrounded",
-                  "grounded"
-                ],
+                "from": "policy",
+                "to": "question",
+                "label": "{'returns': 'Items can be returned with…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "policy",
-                  "ungrounded",
-                  "grounded"
-                ],
+                "from": "question",
+                "to": "ungrounded",
+                "label": "'How long do I have to return an item?'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "policy"
+          },
+          {
+            "at": "say2",
+            "caption": "Asked about them anyway, it may hallucinate a plausible but wrong answer.",
+            "messages": [
+              {
+                "from": "policy",
+                "to": "question",
+                "label": "{'returns': 'Items can be returned with…",
+                "tone": "data"
+              },
+              {
+                "from": "question",
+                "to": "ungrounded",
+                "label": "'How long do I have to return an item?'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "question"
+          },
+          {
+            "at": "say8",
+            "caption": "It also keeps information current.",
+            "messages": [
+              {
+                "from": "policy",
+                "to": "question",
+                "label": "{'returns': 'Items can be returned with…",
+                "tone": "data"
+              },
+              {
+                "from": "question",
+                "to": "ungrounded",
+                "label": "'How long do I have to return an item?'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ungrounded"
           }
         ]
       }
@@ -147,135 +173,277 @@
       "partTitle": "Chunking documents",
       "codeHash": "686c6b19e85ef709bd4de14f75028c96a3300529d8ed43e7765c4326e3920f0e",
       "spec": {
-        "template": "table",
-        "title": "Document chunking and source metadata retention",
-        "columns": [
-          "source",
-          "text",
-          "chunks"
+        "template": "flow",
+        "title": "Chunking documents",
+        "nodes": [
+          {
+            "id": "doc_title",
+            "label": "doc_title"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "chunks",
+            "label": "chunks"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Documents are split into chunks so retrieval can find relevant parts.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "chunks"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Documents are split into chunks, typically a paragraph or a few hundred.",
+            "values": {
+              "doc_title": {
+                "var": "doc_title",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "chunks"
-                  }
-                ],
-                "tone": "data"
+              "text": {
+                "var": "text",
+                "line": 2,
+                "hit": 1
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 3,
+                "hit": 4
+              },
+              "c": {
+                "var": "c",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "doc_title": "data",
+              "text": "data",
+              "chunks": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "doc_title",
+                "text"
+              ],
+              [
+                "text",
+                "chunks"
+              ],
+              [
+                "chunks",
+                "c"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Retaining document metadata with each chunk supports verified citations.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "chunks"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Chunks that are too small lose context (\"it\" with no idea what \"it\" is).",
+            "values": {
+              "doc_title": {
+                "var": "doc_title",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "chunks"
-                  }
-                ],
-                "tone": "ok"
+              "text": {
+                "var": "text",
+                "line": 3,
+                "hit": 1
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 4,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "doc_title": "data",
+              "text": "data",
+              "chunks": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "doc_title",
+                "text"
+              ],
+              [
+                "text",
+                "chunks"
+              ],
+              [
+                "chunks",
+                "c"
+              ]
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "When answers are poor, inspect the chunks first.",
+            "values": {
+              "doc_title": {
+                "var": "doc_title",
+                "line": 3,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 3,
+                "hit": 2
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 5,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "doc_title": "ok",
+              "text": "ok",
+              "chunks": "ok",
+              "c": "ok"
+            },
+            "arrows": [
+              [
+                "doc_title",
+                "text"
+              ],
+              [
+                "text",
+                "chunks"
+              ],
+              [
+                "chunks",
+                "c"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Document chunking and source metadata retention",
-        "columns": [
-          "source",
-          "text",
-          "chunks"
+        "template": "flow",
+        "title": "Chunking documents",
+        "nodes": [
+          {
+            "id": "doc_title",
+            "label": "doc_title"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "chunks",
+            "label": "chunks"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Documents are split into chunks so retrieval can find relevant parts.",
-            "rows": [
-              {
-                "cells": [
-                  "source",
-                  "text",
-                  "chunks"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "source",
-                  "text",
-                  "chunks"
-                ],
-                "tone": "data"
-              }
+            "caption": "Documents are split into chunks, typically a paragraph or a few hundred.",
+            "values": {
+              "doc_title": "'Store Policy 2024'",
+              "text": "'Returns are accepted within 30 days.\n\n…",
+              "chunks": "[{'id': 1, 'source': 'Store Policy 2024…",
+              "c": "{'id': 1, 'source': 'Store Policy 2024'…"
+            },
+            "tones": {
+              "doc_title": "data",
+              "text": "data",
+              "chunks": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "doc_title",
+                "text"
+              ],
+              [
+                "text",
+                "chunks"
+              ],
+              [
+                "chunks",
+                "c"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Retaining document metadata with each chunk supports verified citations.",
-            "rows": [
-              {
-                "cells": [
-                  "source",
-                  "text",
-                  "chunks"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "source",
-                  "text",
-                  "chunks"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Chunks that are too small lose context (\"it\" with no idea what \"it\" is).",
+            "values": {
+              "doc_title": "'Store Policy 2024'",
+              "text": "'Returns are accepted within 30 days.\n\n…",
+              "chunks": "[{'id': 1, 'source': 'Store Policy 2024…",
+              "c": "{'id': 1, 'source': 'Store Policy 2024'…"
+            },
+            "tones": {
+              "doc_title": "data",
+              "text": "data",
+              "chunks": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "doc_title",
+                "text"
+              ],
+              [
+                "text",
+                "chunks"
+              ],
+              [
+                "chunks",
+                "c"
+              ]
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "When answers are poor, inspect the chunks first.",
+            "values": {
+              "doc_title": "'Store Policy 2024'",
+              "text": "'Returns are accepted within 30 days.\n\n…",
+              "chunks": "[{'id': 1, 'source': 'Store Policy 2024…",
+              "c": "{'id': 2, 'source': 'Store Policy 2024'…"
+            },
+            "tones": {
+              "doc_title": "ok",
+              "text": "ok",
+              "chunks": "ok",
+              "c": "ok"
+            },
+            "arrows": [
+              [
+                "doc_title",
+                "text"
+              ],
+              [
+                "text",
+                "chunks"
+              ],
+              [
+                "chunks",
+                "c"
+              ]
             ]
           }
         ]
@@ -285,78 +453,91 @@
       "partTitle": "Retrieving relevant chunks",
       "codeHash": "88e377afa12f80c9fd8a615b0d8be61d2bf2e4d9b5e15626b05f5763b3b651db",
       "spec": {
-        "template": "table",
-        "title": "Keyword overlap scoring for chunk retrieval",
-        "columns": [
+        "template": "sequence",
+        "title": "Retrieving relevant chunks",
+        "actors": [
           "chunks",
-          "words",
-          "scores"
+          "q",
+          "t"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Retrieval finds relevant chunks using keyword overlap against queries.",
-            "rows": [
+            "caption": "Retrieval finds the chunks most related to the question.",
+            "activeActor": "chunks",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
-                "tone": "ok"
+                "from": "chunks",
+                "to": "q",
+                "label": {
+                  "var": "chunks",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
-                "tone": "data"
+                "from": "q",
+                "to": "t",
+                "label": {
+                  "var": "q",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Scoring chunks by distinct shared words ranks the best candidate passages.",
-            "rows": [
+            "caption": "Trace how practice updates retrieve during execution.",
+            "activeActor": "q",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
+                "from": "chunks",
+                "to": "q",
+                "label": {
+                  "var": "chunks",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
+                "from": "q",
+                "to": "t",
+                "label": {
+                  "var": "q",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Measuring retrieval separately, by checking whether the right chunk.",
+            "activeActor": "t",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": {
+                  "var": "chunks",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": {
+                  "var": "q",
+                  "line": 8,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +545,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Keyword overlap scoring for chunk retrieval",
-        "columns": [
+        "template": "sequence",
+        "title": "Retrieving relevant chunks",
+        "actors": [
           "chunks",
-          "words",
-          "scores"
+          "q",
+          "t"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Retrieval finds relevant chunks using keyword overlap against queries.",
-            "rows": [
+            "caption": "Retrieval finds the chunks most related to the question.",
+            "messages": [
               {
-                "cells": [
-                  "chunks",
-                  "words",
-                  "scores"
-                ],
-                "tone": "ok"
+                "from": "chunks",
+                "to": "q",
+                "label": "['Returns are accepted within 30 days.'…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "chunks",
-                  "words",
-                  "scores"
-                ],
-                "tone": "data"
+                "from": "q",
+                "to": "t",
+                "label": "'How many days to get a refund?'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "chunks"
           },
           {
             "at": "say2",
-            "caption": "Scoring chunks by distinct shared words ranks the best candidate passages.",
-            "rows": [
+            "caption": "Trace how practice updates retrieve during execution.",
+            "messages": [
               {
-                "cells": [
-                  "chunks",
-                  "words",
-                  "scores"
-                ],
+                "from": "chunks",
+                "to": "q",
+                "label": "['Returns are accepted within 30 days.'…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "chunks",
-                  "words",
-                  "scores"
-                ],
+                "from": "q",
+                "to": "t",
+                "label": "'How many days to get a refund?'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "q"
+          },
+          {
+            "at": "say8",
+            "caption": "Measuring retrieval separately, by checking whether the right chunk.",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": "['Returns are accepted within 30 days.'…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": "'How many days to get a refund?'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "t"
           }
         ]
       }
@@ -423,9 +617,9 @@
       "partTitle": "The grounded prompt",
       "codeHash": "ad68571a3b93fbc5cacc4d1f9dfac26a436b7014b105a0df1036ff3e5345bbac",
       "spec": {
-        "template": "table",
-        "title": "Prompt assembly with source citations and question anchoring",
-        "columns": [
+        "template": "sequence",
+        "title": "The grounded prompt",
+        "actors": [
           "header",
           "sources",
           "question"
@@ -433,68 +627,81 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A grounded prompt combines clear instructions, sources, and the question.",
-            "rows": [
+            "caption": "A grounded prompt has three parts.",
+            "activeActor": "header",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "header"
-                  },
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "question"
-                  }
-                ],
-                "tone": "ok"
+                "from": "header",
+                "to": "sources",
+                "label": {
+                  "var": "header",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "header"
-                  },
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "question"
-                  }
-                ],
-                "tone": "data"
+                "from": "sources",
+                "to": "question",
+                "label": {
+                  "var": "sources",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Numbering sources makes citation verification straightforward for code.",
-            "rows": [
+            "at": "say2",
+            "caption": "The instructions say to answer only from the sources, to cite them like.",
+            "activeActor": "sources",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "header"
-                  },
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "question"
-                  }
-                ],
+                "from": "header",
+                "to": "sources",
+                "label": {
+                  "var": "header",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "question"
-                  }
-                ],
+                "from": "sources",
+                "to": "question",
+                "label": {
+                  "var": "sources",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "If no chunk is relevant, it is often better to skip the model entirely.",
+            "activeActor": "question",
+            "messages": [
+              {
+                "from": "header",
+                "to": "sources",
+                "label": {
+                  "var": "header",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "sources",
+                "to": "question",
+                "label": {
+                  "var": "sources",
+                  "line": 4,
+                  "hit": 4
+                },
                 "tone": "ok"
               }
             ]
@@ -502,9 +709,9 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Prompt assembly with source citations and question anchoring",
-        "columns": [
+        "template": "sequence",
+        "title": "The grounded prompt",
+        "actors": [
           "header",
           "sources",
           "question"
@@ -512,47 +719,60 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "A grounded prompt combines clear instructions, sources, and the question.",
-            "rows": [
+            "caption": "A grounded prompt has three parts.",
+            "messages": [
               {
-                "cells": [
-                  "header",
-                  "sources",
-                  "question"
-                ],
-                "tone": "ok"
+                "from": "header",
+                "to": "sources",
+                "label": "'Answer using only the sources below. C…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "header",
-                  "sources",
-                  "question"
-                ],
-                "tone": "data"
+                "from": "sources",
+                "to": "question",
+                "label": "['Refunds go to the original card withi…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "header"
           },
           {
-            "at": "say3",
-            "caption": "Numbering sources makes citation verification straightforward for code.",
-            "rows": [
+            "at": "say2",
+            "caption": "The instructions say to answer only from the sources, to cite them like.",
+            "messages": [
               {
-                "cells": [
-                  "header",
-                  "sources",
-                  "question"
-                ],
+                "from": "header",
+                "to": "sources",
+                "label": "'Answer using only the sources below. C…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "prompt",
-                  "sources",
-                  "question"
-                ],
+                "from": "sources",
+                "to": "question",
+                "label": "['Refunds go to the original card withi…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "sources"
+          },
+          {
+            "at": "say8",
+            "caption": "If no chunk is relevant, it is often better to skip the model entirely.",
+            "messages": [
+              {
+                "from": "header",
+                "to": "sources",
+                "label": "'Answer using only the sources below. C…",
+                "tone": "data"
+              },
+              {
+                "from": "sources",
+                "to": "question",
+                "label": "['Refunds go to the original card withi…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "question"
           }
         ]
       }
@@ -561,223 +781,133 @@
       "partTitle": "Checking citations",
       "codeHash": "e3ba8b6604b071f7f1fec96364d023422a96fa56a25e94d71c3091b2b98ecbf7",
       "spec": {
-        "template": "flow",
-        "title": "Checking citations — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Checking citations",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Checking citations",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Checking citations [Dnine.Pfive.Sone].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Checking citations [Dnine.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Even with instructions, models sometimes cite sources that do not exist.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Practice 2 is check_citations(answer, n_sources).",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Checking citations [Dnine.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Showing citations as clickable links to the source passage lets users.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Checking citations — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Checking citations",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Checking citations",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Checking citations [D9.P5.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Checking citations [D9.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Even with instructions, models sometimes cite sources that do not exist.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": "'1'",
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Practice 2 is check_citations(answer, n_sources).",
+            "bars": [
+              {
+                "label": "n",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Checking citations [D9.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Showing citations as clickable links to the source passage lets users.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -787,224 +917,162 @@
       "partTitle": "Practice time: retrieve and check",
       "codeHash": "7e2a4cf74fb2d51820d61d17f4e7b909ddf53332471481394e42e399f4e10eba",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: retrieve and check — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: retr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: retrieve and check",
+        "actors": [
+          "chunks",
+          "q",
+          "t"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: retrieve and check.",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: retr... [Dnine.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Retrieve(chunks, query, k).",
+            "activeActor": "chunks",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": {
+                  "var": "chunks",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": {
+                  "var": "q",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dnine.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a question where small words like \"to\" cause a chunk.",
+            "activeActor": "q",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": {
+                  "var": "chunks",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": {
+                  "var": "q",
+                  "line": 6,
+                  "hit": 8
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: retrieve and check.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "These two functions, retrieve and check, are the skeleton of every RAG.",
+            "activeActor": "t",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": {
+                  "var": "chunks",
+                  "line": 6,
+                  "hit": 8
+                },
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": {
+                  "var": "q",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: retrieve and check — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: retr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: retrieve and check",
+        "actors": [
+          "chunks",
+          "q",
+          "t"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: retrieve and check [D9.P6.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: retr... [D9.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Retrieve(chunks, query, k).",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": "['The gym opens at 6 am.', 'Lockers cos…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": "'When does the pool close?'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "chunks"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks include a question where small words like \"to\" cause a chunk.",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": "['The gym opens at 6 am.', 'Lockers cos…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": "'When does the pool close?'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "q"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: retrieve and check [D9.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "These two functions, retrieve and check, are the skeleton of every RAG.",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": "['The gym opens at 6 am.', 'Lockers cos…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": "'When does the pool close?'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "t"
           }
         ]
       }

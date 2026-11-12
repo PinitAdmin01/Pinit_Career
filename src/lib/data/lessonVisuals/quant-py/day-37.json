@@ -2,269 +2,157 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 37,
-  "promptSha": "00cb14cf4b38669bbf572983ad2de8042eaff5ff4d2b03b01b6318bdbad71ac1",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hedge Ratios — Foundations & Mathematical Invariants",
-      "codeHash": "8ec5039c8317e978df3a8f58841da116f98477f35726d9ee5edc5a127cac8b1f",
+      "codeHash": "4d5e0e5dec854f9820c95b5c3907ee35a33d044fd05e3b17c3d0d78b929dd8eb",
       "spec": {
-        "template": "flow",
-        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hedge Rat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hed",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A fundamental mistake made by novice quantitative traders is confusing.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "info"
+                  },
+                  {
+                    "var": "info",
+                    "line": 14,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "High correlation merely measures short-term co-movement.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "info"
+                  },
+                  {
+                    "var": "info",
+                    "line": 15,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Cointegration identifies stationary linear combinations of non-stationary.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hedge Rat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hed",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A fundamental mistake made by novice quantitative traders is confusing.",
+            "rows": [
+              {
+                "cells": [
+                  "info",
+                  "{'correlation_flaw': 'High correlation …"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "High correlation merely measures short-term co-movement.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "info",
+                  "{'correlation_flaw': 'High correlation …"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Cointegration identifies stationary linear combinations of non-stationary.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "cells": [
+                  "out 1",
+                  "correlation principle: High correlation does NOT imply mean reversion; series can drift apart forever"
+                ],
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "cells": [
+                  "out 2",
+                  "cointegration guarantee: Linear combination Y - beta*X is I(0) stationary with bounded variance"
+                ],
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 3",
+                  "hedge ratio role: The exact number of shares of X required to hedge 1 share of Y"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -273,265 +161,279 @@
     },
     {
       "partTitle": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hedge Ratios — Core Algorithm & State Representation",
-      "codeHash": "ecaa1deaa394edc5b803c7bf228ca7618c489c570fb600747595a80fe233289a",
+      "codeHash": "326c0c0d2a9ec0102d785a65a14c7afef8973f9a07477a9b68f291ce8847607b",
       "spec": {
         "template": "flow",
-        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hedge Rat",
+        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hed",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "x_prices",
+            "label": "x_prices"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "y_prices",
+            "label": "y_prices"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "y_series",
+            "label": "y_series"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "x_series",
+            "label": "x_series"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Engle-Granger Two-Step Method is the classic algorithmic procedure.",
+            "values": {
+              "x_prices": {
+                "var": "x_prices",
+                "line": 33,
+                "hit": 51
+              },
+              "y_prices": {
+                "var": "y_prices",
+                "line": 34,
+                "hit": 51
+              },
+              "y_series": {
+                "var": "y_series",
+                "line": 4,
+                "hit": 1
+              },
+              "x_series": {
+                "var": "x_series",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "x_prices": "data",
+              "y_prices": "data",
+              "y_series": "data",
+              "x_series": "data"
+            },
+            "arrows": [
+              [
+                "x_prices",
+                "y_prices"
+              ],
+              [
+                "y_prices",
+                "y_series"
+              ],
+              [
+                "y_series",
+                "x_series"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "$Y_t = \\alpha + \\beta X_t + \\epsilon_t$.",
+            "values": {
+              "x_prices": {
+                "var": "x_prices",
+                "line": 34,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "y_prices": {
+                "var": "y_prices",
+                "line": 36,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "y_series": {
+                "var": "y_series",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "x_series": {
+                "var": "x_series",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "x_prices": "data",
+              "y_prices": "data",
+              "y_series": "data",
+              "x_series": "data"
+            },
+            "arrows": [
+              [
+                "x_prices",
+                "y_prices"
+              ],
+              [
+                "y_prices",
+                "y_series"
+              ],
+              [
+                "y_series",
+                "x_series"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "The Engle-Granger two-step methodology estimates the static cointegrating.",
+            "values": {
+              "x_prices": {
+                "var": "x_prices",
+                "line": 34,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "y_prices": {
+                "var": "y_prices",
+                "line": 37,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "y_series": {
+                "var": "y_series",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "x_series": {
+                "var": "x_series",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "x_prices": "ok",
+              "y_prices": "ok",
+              "y_series": "ok",
+              "x_series": "ok"
+            },
+            "arrows": [
+              [
+                "x_prices",
+                "y_prices"
+              ],
+              [
+                "y_prices",
+                "y_series"
+              ],
+              [
+                "y_series",
+                "x_series"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hedge Rat",
+        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hed",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "x_prices",
+            "label": "x_prices"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "y_prices",
+            "label": "y_prices"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "y_series",
+            "label": "y_series"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "x_series",
+            "label": "x_series"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Engle-Granger Two-Step Method is the classic algorithmic procedure.",
+            "values": {
+              "x_prices": "[100.27885359691577, 99.55002151044533,…",
+              "y_prices": "[150.22355184604896, 148.88929281182524…",
+              "y_series": "[150.22355184604896, 148.88929281182524…",
+              "x_series": "[100.27885359691577, 99.55002151044533,…"
+            },
+            "tones": {
+              "x_prices": "data",
+              "y_prices": "data",
+              "y_series": "data",
+              "x_series": "data"
+            },
+            "arrows": [
+              [
+                "x_prices",
+                "y_prices"
+              ],
+              [
+                "y_prices",
+                "y_series"
+              ],
+              [
+                "y_series",
+                "x_series"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "$Y_t = \\alpha + \\beta X_t + \\epsilon_t$.",
+            "values": {
+              "x_prices": "[100.27885359691577, 99.55002151044533,…",
+              "y_prices": "[150.22355184604896, 148.88929281182524…",
+              "y_series": "[150.22355184604896, 148.88929281182524…",
+              "x_series": "[100.27885359691577, 99.55002151044533,…"
+            },
+            "tones": {
+              "x_prices": "data",
+              "y_prices": "data",
+              "y_series": "data",
+              "x_series": "data"
+            },
+            "arrows": [
+              [
+                "x_prices",
+                "y_prices"
+              ],
+              [
+                "y_prices",
+                "y_series"
+              ],
+              [
+                "y_series",
+                "x_series"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "The Engle-Granger two-step methodology estimates the static cointegrating.",
+            "values": {
+              "x_prices": "[100.27885359691577, 99.55002151044533,…",
+              "y_prices": "[150.22355184604896, 148.88929281182524…",
+              "y_series": "[150.22355184604896, 148.88929281182524…",
+              "x_series": "[100.27885359691577, 99.55002151044533,…"
+            },
+            "tones": {
+              "x_prices": "ok",
+              "y_prices": "ok",
+              "y_series": "ok",
+              "x_series": "ok"
+            },
+            "arrows": [
+              [
+                "x_prices",
+                "y_prices"
+              ],
+              [
+                "y_prices",
+                "y_series"
+              ],
+              [
+                "y_series",
+                "x_series"
+              ]
             ]
           }
         ]
@@ -539,530 +441,382 @@
     },
     {
       "partTitle": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hedge Ratios — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "9169a52445181c76d11c2ccdf27a79bdcd89d8f6c10f7cbc9fabf3147f32ef06",
+      "codeHash": "8210b0439019e3642e4181fd0f257719f3004a84198737393486afe1e948e5ee",
       "spec": {
-        "template": "flow",
-        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hedge Rat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hed",
+        "actors": [
+          "xs",
+          "ys",
+          "y_series"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While the Engle-Granger method works well for two assets, institutional.",
+            "activeActor": "xs",
+            "messages": [
+              {
+                "from": "xs",
+                "to": "ys",
+                "label": {
+                  "var": "xs",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "ys",
+                "to": "y_series",
+                "label": {
+                  "var": "ys",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The Johansen Cointegration Procedure generalizes cointegration to $K$.",
+            "activeActor": "ys",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "xs",
+                "to": "ys",
+                "label": {
+                  "var": "xs",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "ys",
+                "to": "y_series",
+                "label": {
+                  "var": "ys",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "High-performance cointegration scanners apply online recursive least.",
+            "activeActor": "y_series",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "xs",
+                "to": "ys",
+                "label": {
+                  "var": "xs",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "ys",
+                "to": "y_series",
+                "label": {
+                  "var": "ys",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hedge Rat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hed",
+        "actors": [
+          "xs",
+          "ys",
+          "y_series"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While the Engle-Granger method works well for two assets, institutional.",
+            "messages": [
+              {
+                "from": "xs",
+                "to": "ys",
+                "label": "[100, 102, 101.5, 103, 104.5, 103.5]",
+                "tone": "data"
+              },
+              {
+                "from": "ys",
+                "to": "y_series",
+                "label": "[150, 153.2, 152, 154.8, 156.9, 155]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "xs"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The Johansen Cointegration Procedure generalizes cointegration to $K$.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "xs",
+                "to": "ys",
+                "label": "[100, 102, 101.5, 103, 104.5, 103.5]",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "ys",
+                "to": "y_series",
+                "label": "[150, 153.2, 152, 154.8, 156.9, 155]",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "ys"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "High-performance cointegration scanners apply online recursive least.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "xs",
+                "to": "ys",
+                "label": "[100, 102, 101.5, 103, 104.5, 103.5]",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "ys",
+                "to": "y_series",
+                "label": "[150, 153.2, 152, 154.8, 156.9, 155]",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "y_series"
           }
         ]
       }
     },
     {
       "partTitle": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hedge Ratios — Resilience Guardrails & Failure Recovery",
-      "codeHash": "5e327ceca05e97fa580676a1677c6c88c5f54b8e2bc1d233329513a31e87fdf8",
+      "codeHash": "99186fe7e99be8a79c94101b3df9f40aee05db1cc702b942d9713bfbf1622d51",
       "spec": {
-        "template": "flow",
-        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hedge Rat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hed",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating cointegration strategies requires guardrails against dynamic.",
+            "bars": [
+              {
+                "label": "current_beta",
+                "value": {
+                  "var": "current_beta",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "proposed_beta",
+                "value": {
+                  "var": "proposed_beta",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "max_shift_pct",
+                "value": {
+                  "var": "max_shift_pct",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "beta_shift",
+                "value": {
+                  "var": "beta_shift",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Hedge ratios are not static constants.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "current_beta",
+                "value": {
+                  "var": "current_beta",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "proposed_beta",
+                "value": {
+                  "var": "proposed_beta",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "max_shift_pct",
+                "value": {
+                  "var": "max_shift_pct",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "beta_shift",
+                "value": {
+                  "var": "beta_shift",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Cointegration trading strategies enforce strict structural break detectors.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "current_beta",
+                "value": {
+                  "var": "current_beta",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "proposed_beta",
+                "value": {
+                  "var": "proposed_beta",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "max_shift_pct",
+                "value": {
+                  "var": "max_shift_pct",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "beta_shift",
+                "value": {
+                  "var": "beta_shift",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hedge Rat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hed",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating cointegration strategies requires guardrails against dynamic.",
+            "bars": [
+              {
+                "label": "current_beta",
+                "value": 1.5,
+                "tone": "data"
+              },
+              {
+                "label": "proposed_beta",
+                "value": 1.58,
+                "tone": "data"
+              },
+              {
+                "label": "max_shift_pct",
+                "value": 0.2,
+                "tone": "data"
+              },
+              {
+                "label": "beta_shift",
+                "value": 0.05333333333333338,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Hedge ratios are not static constants.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "current_beta",
+                "value": 1.5,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "proposed_beta",
+                "value": 1.58,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "max_shift_pct",
+                "value": 0.2,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "beta_shift",
+                "value": 0.05333333333333338,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Cointegration trading strategies enforce strict structural break detectors.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "current_beta",
+                "value": 1.5,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "proposed_beta",
+                "value": 1.58,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "max_shift_pct",
+                "value": 0.2,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "beta_shift",
+                "value": 0.05333333333333338,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,264 +825,218 @@
     },
     {
       "partTitle": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hedge Ratios — Production Telemetry & Verification Audit",
-      "codeHash": "ae9fb57af03561a94da39d11a881a6c6ad2e0e5cfcd5dd0bb454c22d6776edf6",
+      "codeHash": "139c44406b7e8187e6a7283b63d2fab2583571456dd682b3d4f605f9222f2527",
       "spec": {
-        "template": "flow",
-        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hedge Rat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hed",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Observability for cointegration trading platforms requires real-time.",
+            "bars": [
+              {
+                "label": "net_market_bet",
+                "value": {
+                  "var": "net_market_beta",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_pairs",
+                "value": {
+                  "var": "total_pairs",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cointegrated_c",
+                "value": {
+                  "var": "cointegrated_count",
+                  "line": 5,
+                  "hit": 6
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cointegration_",
+                "value": {
+                  "var": "cointegration_ratio",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The primary diagnostic signal is Portfolio Beta to the Benchmark (e.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "net_market_bet",
+                "value": {
+                  "var": "net_market_beta",
+                  "line": 5,
+                  "hit": 6
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_pairs",
+                "value": {
+                  "var": "total_pairs",
+                  "line": 5,
+                  "hit": 6
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "cointegrated_c",
+                "value": {
+                  "var": "cointegrated_count",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "cointegration_",
+                "value": {
+                  "var": "cointegration_ratio",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Automated certification audits guarantee that statistical arbitrage.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "net_market_bet",
+                "value": {
+                  "var": "net_market_beta",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_pairs",
+                "value": {
+                  "var": "total_pairs",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "cointegrated_c",
+                "value": {
+                  "var": "cointegrated_count",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "cointegration_",
+                "value": {
+                  "var": "cointegration_ratio",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hedge Rat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Engle-Granger Cointegration, Johansen Eigenvectors & Dynamic Hed",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Observability for cointegration trading platforms requires real-time.",
+            "bars": [
+              {
+                "label": "net_market_bet",
+                "value": 0.02,
+                "tone": "data"
+              },
+              {
+                "label": "total_pairs",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "cointegrated_c",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "cointegration_",
+                "value": 75,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The primary diagnostic signal is Portfolio Beta to the Benchmark (e.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "net_market_bet",
+                "value": 0.02,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_pairs",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "cointegrated_c",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "cointegration_",
+                "value": 75,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Automated certification audits guarantee that statistical arbitrage.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "net_market_bet",
+                "value": 0.02,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_pairs",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "cointegrated_c",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "cointegration_",
+                "value": 75,
+                "tone": "ok"
               }
             ]
           }

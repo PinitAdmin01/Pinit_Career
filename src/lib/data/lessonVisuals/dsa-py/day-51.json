@@ -2,89 +2,98 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 51,
-  "promptSha": "e13d06aa551fd2b3a44e69efd0123bdfc5b5049a446e50ebe2b0ab4354117dc2",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Rooted Tree DFS, Depth Tracking & O(1) Entry/Exit Subtree Timestamps",
       "codeHash": "9cf42f06875749746e2dd4f2aa0ec098d0b004b532de429dee74788a5ba100f3",
       "spec": {
-        "template": "table",
-        "title": "Rooted Tree DFS, Depth Tracking & O(1) Entry/Exit Subtree",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Rooted Tree DFS, Depth Tracking & O(1) Entry/Exit Subtree Timest",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The hierarchical design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Rooted"
-                  },
-                  {
-                    "text": "Tree"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Hierarchical structures dominate software systems.",
+            "items": {
+              "var": "parent",
+              "line": 7,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The watch step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Depth"
-                  },
-                  {
-                    "text": "Tracking"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Before jumping ancestors exponentially, let us master one deceptively.",
+            "items": {
+              "var": "parent",
+              "line": 8,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "Run the iterative `tin / tout` + `depth` tree indexer below and verify.",
+            "items": {
+              "var": "parent",
+              "line": 20,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Rooted Tree DFS, Depth Tracking & O(1) Entry/Exit Subtree",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Rooted Tree DFS, Depth Tracking & O(1) Entry/Exit Subtree Timest",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The hierarchical design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Rooted",
-                  "Tree"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Hierarchical structures dominate software systems.",
+            "mode": "stack",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The watch step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Depth",
-                  "Tracking"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Before jumping ancestors exponentially, let us master one deceptively.",
+            "mode": "stack",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "Run the iterative `tin / tout` + `depth` tree indexer below and verify.",
+            "mode": "stack",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -93,43 +102,131 @@
       "partTitle": "Binary Lifting Table up[v][k]: Jumping 2^k Ancestors in O(log N)",
       "codeHash": "33909c369aaf1771bb016b26d956266da89da76c5d39e43fdee680474e6de082",
       "spec": {
-        "template": "table",
-        "title": "Binary Lifting Table up[v][k]",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Binary Lifting Table up[v][k]: Jumping 2^k Ancestors in O(log N)",
         "steps": [
           {
             "at": "say1",
-            "caption": "The walking design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Walking upward one parent link at a time takes `O(N)` per query disastrous.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Binary"
-                  },
-                  {
-                    "text": "Lifting"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "root",
+                "value": {
+                  "var": "root",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The cleanly step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "How does Binary Lifting decompose arbitrary jumps.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Table"
-                  },
-                  {
-                    "text": "Jumping"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "root",
+                "value": {
+                  "var": "root",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Run the Binary Lifting table builder and `kth_ancestor` query engine below.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "root",
+                "value": {
+                  "var": "root",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -137,35 +234,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Binary Lifting Table up[v][k]",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Binary Lifting Table up[v][k]: Jumping 2^k Ancestors in O(log N)",
         "steps": [
           {
             "at": "say1",
-            "caption": "The walking design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Walking upward one parent link at a time takes `O(N)` per query disastrous.",
+            "bars": [
               {
-                "cells": [
-                  "Binary",
-                  "Lifting"
-                ],
+                "label": "n",
+                "value": 7,
+                "tone": "data"
+              },
+              {
+                "label": "root",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "u",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The cleanly step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "How does Binary Lifting decompose arbitrary jumps.",
+            "bars": [
               {
-                "cells": [
-                  "Table",
-                  "Jumping"
-                ],
+                "label": "n",
+                "value": 7,
+                "tone": "ok"
+              },
+              {
+                "label": "root",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Run the Binary Lifting table builder and `kth_ancestor` query engine below.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 7,
+                "tone": "ok"
+              },
+              {
+                "label": "root",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -177,43 +322,131 @@
       "partTitle": "O(log N) LCA Resolution & Weighted Tree Path Distance Formulas",
       "codeHash": "6996f32bd9899237463a83d4f18b11a49960eb5e65b8813d9f86dd93e71c815b",
       "spec": {
-        "template": "table",
-        "title": "O(log N) LCA Resolution & Weighted Tree Path Distance",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "O(log N) LCA Resolution & Weighted Tree Path Distance Formulas",
         "steps": [
           {
             "at": "say1",
-            "caption": "The combine design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now we combine `tin/tout` (or depth equalization) with `up[v][k]`.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Resolution"
-                  },
-                  {
-                    "text": "Weighted"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "root",
+                "value": {
+                  "var": "root",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The exact step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "First check the trivial ancestor edge case (`is_ancestor(u, v)` -> return `u`.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Tree"
-                  },
-                  {
-                    "text": "Path"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "root",
+                "value": {
+                  "var": "root",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Even better, once `l = lca(u, v)` is known, unweighted edge distance.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "root",
+                "value": {
+                  "var": "root",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +454,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "O(log N) LCA Resolution & Weighted Tree Path Distance",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "O(log N) LCA Resolution & Weighted Tree Path Distance Formulas",
         "steps": [
           {
             "at": "say1",
-            "caption": "The combine design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now we combine `tin/tout` (or depth equalization) with `up[v][k]`.",
+            "bars": [
               {
-                "cells": [
-                  "Resolution",
-                  "Weighted"
-                ],
+                "label": "n",
+                "value": 7,
+                "tone": "data"
+              },
+              {
+                "label": "root",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "u",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The exact step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "First check the trivial ancestor edge case (`is_ancestor(u, v)` -> return `u`.",
+            "bars": [
               {
-                "cells": [
-                  "Tree",
-                  "Path"
-                ],
+                "label": "n",
+                "value": 7,
+                "tone": "ok"
+              },
+              {
+                "label": "root",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Even better, once `l = lca(u, v)` is known, unweighted edge distance.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 7,
+                "tone": "ok"
+              },
+              {
+                "label": "root",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -261,82 +542,94 @@
       "partTitle": "Euler Tour Flattening + Sparse Table RMQ: True O(1) Query LCA",
       "codeHash": "cdec43a734a1a9943a9261158be59b4790950336e4c463eea8b13bfd89955e23",
       "spec": {
-        "template": "table",
-        "title": "Euler Tour Flattening + Sparse Table RMQ",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Euler Tour Flattening + Sparse Table RMQ: True O(1) Query LCA",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The answer design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Euler"
-                  },
-                  {
-                    "text": "Tour"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Can you answer LCA queries even faster than `O(log N)` in true `O(1)`.",
+            "items": {
+              "var": "depth_arr",
+              "line": 11,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The pause step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Flattening"
-                  },
-                  {
-                    "text": "Sparse"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Walk the tree by recording node `u` onto an `euler` tape BOTH when.",
+            "items": {
+              "var": "depth_arr",
+              "line": 14,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "Run the Euler Tour + Sparse Table O(1) LCA engine below and observe exact.",
+            "items": {
+              "var": "depth_arr",
+              "line": 30,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Euler Tour Flattening + Sparse Table RMQ",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Euler Tour Flattening + Sparse Table RMQ: True O(1) Query LCA",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The answer design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Euler",
-                  "Tour"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Can you answer LCA queries even faster than `O(log N)` in true `O(1)`.",
+            "mode": "stack",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The pause step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Flattening",
-                  "Sparse"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Walk the tree by recording node `u` onto an `euler` tape BOTH when.",
+            "mode": "stack",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "Run the Euler Tour + Sparse Table O(1) LCA engine below and observe exact.",
+            "mode": "stack",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -345,43 +638,131 @@
       "partTitle": "Production Application: Hierarchical Access Escalation & Service Call-Tree LCA Engine",
       "codeHash": "f20a185dc6892e577cbef4b486a71b0c9c54011f86f13e485ca5002be4fb0c40",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Production Application: Hierarchical Access Escalation & Service",
         "steps": [
           {
             "at": "say1",
-            "caption": "The subtree design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us fuse `tin/tout` O(1) subtree gating, Binary Lifting `up[][]`.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "lat",
+                "value": {
+                  "var": "lat",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "timer",
+                "value": {
+                  "var": "timer",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 27,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The audit step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Imagine a corporate Identity & Access Management (IAM) + microservice.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Hierarchical"
-                  },
-                  {
-                    "text": "Access"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lat",
+                "value": {
+                  "var": "lat",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "timer",
+                "value": {
+                  "var": "timer",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Execute the complete deterministic `TreeHierarchyLCAEngine` verification.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lat",
+                "value": {
+                  "var": "lat",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "timer",
+                "value": {
+                  "var": "timer",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 29,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -389,35 +770,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Production Application: Hierarchical Access Escalation & Service",
         "steps": [
           {
             "at": "say1",
-            "caption": "The subtree design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us fuse `tin/tout` O(1) subtree gating, Binary Lifting `up[][]`.",
+            "bars": [
               {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
+                "label": "n",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "lat",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "timer",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": -1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The audit step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Imagine a corporate Identity & Access Management (IAM) + microservice.",
+            "bars": [
               {
-                "cells": [
-                  "Hierarchical",
-                  "Access"
-                ],
+                "label": "n",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "lat",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "timer",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": -1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Execute the complete deterministic `TreeHierarchyLCAEngine` verification.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "lat",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "timer",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": -1,
                 "tone": "ok"
               }
             ]

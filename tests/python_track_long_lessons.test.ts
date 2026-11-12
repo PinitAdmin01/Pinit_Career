@@ -98,4 +98,45 @@ for (const course of COURSES) {
       }
     }
   });
+
+  // [FIX-STAGE: wave0-python-anti-clone-gate] Block synthetic Month-2 toy clones, meta-commentary padding, duplicated prose, and un-balanced MCQ length giveaways
+  test(`${course.name}: zero toy utilization stubs, boilerplate clones, or severe MCQ length giveaway`, () => {
+    const seenLongParagraphs = new Map<string, number>();
+    let totalChecks = 0;
+    let longestWins = 0;
+
+    for (const lesson of course.lessons) {
+      const where = `${course.prefix} Day ${lesson.day}`;
+      for (const part of lesson.parts) {
+        const sayText = (part.say || []).join('\n');
+        assert.doesNotMatch(
+          sayText,
+          /For slow or methodical readers:|Fast readers can scan|When studying .* within|Notice how our implementation models the core state transitions explicitly/i,
+          `${where} "${part.title}": contains banned synthetic template meta-commentary`
+        );
+        assert.doesNotMatch(
+          part.code || '',
+          /utilization\s*=\s*round\(\(\s*load\s*\*\s*weight\s*\)\s*\/\s*capacity\s*,\s*4\s*\)/,
+          `${where} "${part.title}": contains banned 6-line toy utilization stub clone`
+        );
+        for (const para of part.say || []) {
+          const trimmed = para.trim();
+          if (trimmed.length > 90) {
+            seenLongParagraphs.set(trimmed, (seenLongParagraphs.get(trimmed) || 0) + 1);
+          }
+        }
+        const lens = part.check.options.map((o) => o.trim().length);
+        const maxLen = Math.max(...lens);
+        if (lens[part.check.answer] === maxLen && lens.filter((l) => l === maxLen).length === 1) {
+          longestWins++;
+        }
+        totalChecks++;
+      }
+    }
+
+    const dupCount = [...seenLongParagraphs.values()].filter((c) => c > 2).length;
+    assert.equal(dupCount, 0, `${course.prefix}: found ${dupCount} repeated >90-char boilerplate paragraphs`);
+    const longestRate = totalChecks > 0 ? longestWins / totalChecks : 0;
+    assert.ok(longestRate <= 0.35, `${course.prefix}: longest-option win rate is ${(longestRate * 100).toFixed(1)}% (${longestWins}/${totalChecks}), must be <= 35%`);
+  });
 }

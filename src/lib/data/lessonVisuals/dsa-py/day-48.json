@@ -2,50 +2,138 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 48,
-  "promptSha": "01bbaa8cff7cb18c1a746ac849ca91cca51f545e6e8d04d6b4ff18bca96c8ae4",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Deterministic Polynomial Rolling Hash & Double-Hash Collision Protection",
       "codeHash": "fd0efa905f05795ac7fbe4acdce634aa3615a4616f4ae05f1caf442749120841",
       "spec": {
-        "template": "table",
-        "title": "Deterministic Polynomial Rolling Hash & Double-Hash",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Deterministic Polynomial Rolling Hash & Double-Hash Collision Pr",
         "steps": [
           {
             "at": "say1",
-            "caption": "The plagiarism design establishes the core structural invariant.",
-            "rows": [
+            "caption": "How do plagiarism detectors and backup deduplicators compare millions.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Deterministic"
-                  },
-                  {
-                    "text": "Polynomial"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "BASE1",
+                "value": {
+                  "var": "BASE1",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "MOD1",
+                "value": {
+                  "var": "MOD1",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The rolling step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Rabin-Karp treats each character cleanly as a base-B digit (`B = 131`.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Rolling"
-                  },
-                  {
-                    "text": "Hash"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "BASE1",
+                "value": {
+                  "var": "BASE1",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "MOD1",
+                "value": {
+                  "var": "MOD1",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect our collision-safe Double-Hash `rabin_karp_search` matcher below.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "BASE1",
+                "value": {
+                  "var": "BASE1",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "MOD1",
+                "value": {
+                  "var": "MOD1",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -53,35 +141,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Deterministic Polynomial Rolling Hash & Double-Hash",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Deterministic Polynomial Rolling Hash & Double-Hash Collision Pr",
         "steps": [
           {
             "at": "say1",
-            "caption": "The plagiarism design establishes the core structural invariant.",
-            "rows": [
+            "caption": "How do plagiarism detectors and backup deduplicators compare millions.",
+            "bars": [
               {
-                "cells": [
-                  "Deterministic",
-                  "Polynomial"
-                ],
+                "label": "n",
+                "value": 12,
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "BASE1",
+                "value": 131,
+                "tone": "data"
+              },
+              {
+                "label": "MOD1",
+                "value": 1000000007,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The rolling step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Rabin-Karp treats each character cleanly as a base-B digit (`B = 131`.",
+            "bars": [
               {
-                "cells": [
-                  "Rolling",
-                  "Hash"
-                ],
+                "label": "n",
+                "value": 12,
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "BASE1",
+                "value": 131,
+                "tone": "ok"
+              },
+              {
+                "label": "MOD1",
+                "value": 1000000007,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect our collision-safe Double-Hash `rabin_karp_search` matcher below.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 12,
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "BASE1",
+                "value": 131,
+                "tone": "ok"
+              },
+              {
+                "label": "MOD1",
+                "value": 1000000007,
                 "tone": "ok"
               }
             ]
@@ -93,82 +229,76 @@
       "partTitle": "Multi-Pattern Constant-Length Deduplication & Longest Repeated Substring",
       "codeHash": "11e51be7fef9b81ae7a490a0eece1ce5d8354ca29da21a7e80b741f8e705a8bf",
       "spec": {
-        "template": "table",
-        "title": "Multi-Pattern Constant-Length Deduplication & Longest",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Multi-Pattern Constant-Length Deduplication & Longest Repeated S",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The rabin design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Multi"
-                  },
-                  {
-                    "text": "Pattern"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Notice where Rabin-Karp crushes single-pattern matchers like KMP.",
+            "items": {
+              "var": "key",
+              "line": 20,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The monotonic step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Constant"
-                  },
-                  {
-                    "text": "Length"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Observe the critical monotonicity invariant cleanly.",
+            "items": {
+              "var": "key",
+              "line": 21,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "Test `longest_repeated_substring` below on structured sequences containing.",
+            "items": {
+              "var": "key",
+              "line": 17,
+              "hit": 3
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Multi-Pattern Constant-Length Deduplication & Longest",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Multi-Pattern Constant-Length Deduplication & Longest Repeated S",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The rabin design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Multi",
-                  "Pattern"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Notice where Rabin-Karp crushes single-pattern matchers like KMP.",
+            "mode": "stack",
+            "items": [
+              "1679124",
+              "6435120"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The monotonic step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Constant",
-                  "Length"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Observe the critical monotonicity invariant cleanly.",
+            "mode": "stack",
+            "items": [
+              "1679124",
+              "6435120"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "Test `longest_repeated_substring` below on structured sequences containing.",
+            "mode": "stack",
+            "items": [
+              "1900527",
+              "7290429"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -177,80 +307,114 @@
       "partTitle": "Knuth-Morris-Pratt (KMP): Proper Prefix-Suffix Failure Table (LPS)",
       "codeHash": "1cc737731f5ec39b7df0a1edf3b85ca970efbbe9bb7ab2363245c9087a940f18",
       "spec": {
-        "template": "table",
-        "title": "Knuth-Morris-Pratt (KMP)",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Knuth-Morris-Pratt (KMP): Proper Prefix-Suffix Failure Table (LP",
         "steps": [
           {
             "at": "say1",
-            "caption": "The hashing design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Hashing is phenomenal for bulk indexing, yet deterministic streaming I/O.",
+            "items": {
+              "var": "lps",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Knuth"
-                  },
-                  {
-                    "text": "Morris"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The precomputes step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "In naive nested string scanning, matching `AAAAAB` against `AAAAAAAAAAAAB`.",
+            "items": {
+              "var": "lps",
+              "line": 5,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Pratt"
-                  },
-                  {
-                    "text": "Proper"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Examine `build_lps` and `kmp_search` below scanning overlapping.",
+            "items": {
+              "var": "lps",
+              "line": 5,
+              "hit": 3
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Knuth-Morris-Pratt (KMP)",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Knuth-Morris-Pratt (KMP): Proper Prefix-Suffix Failure Table (LP",
         "steps": [
           {
             "at": "say1",
-            "caption": "The hashing design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Hashing is phenomenal for bulk indexing, yet deterministic streaming I/O.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Knuth",
-                  "Morris"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The precomputes step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "In naive nested string scanning, matching `AAAAAB` against `AAAAAAAAAAAAB`.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Pratt",
-                  "Proper"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Examine `build_lps` and `kmp_search` below scanning overlapping.",
+            "items": [
+              "0",
+              "0",
+              "1",
+              "0",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -261,80 +425,120 @@
       "partTitle": "Z-Algorithm vs KMP Automaton for Linear String & Periodicity Detection",
       "codeHash": "38a059f5a951235ee08ba3ed6259b275f97bd5b1d25f80331246c03f46071c08",
       "spec": {
-        "template": "table",
-        "title": "Z-Algorithm vs KMP Automaton for Linear String & Periodicity",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Z-Algorithm vs KMP Automaton for Linear String & Periodicity Det",
         "steps": [
           {
             "at": "say1",
-            "caption": "The closely design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Closely related to KMP's LPS border table is the Z-Algorithm,.",
+            "items": {
+              "var": "z",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Algorithm"
-                  },
-                  {
-                    "text": "Automaton"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The whenever step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "How does Z stay linear without re-scanning shared prefix characters repeatedly.",
+            "items": {
+              "var": "z",
+              "line": 8,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Linear"
-                  },
-                  {
-                    "text": "String"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect both `z_algorithm` and exact O(N) string periodicity detection.",
+            "items": {
+              "var": "z",
+              "line": 8,
+              "hit": 3
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Z-Algorithm vs KMP Automaton for Linear String & Periodicity",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Z-Algorithm vs KMP Automaton for Linear String & Periodicity Det",
         "steps": [
           {
             "at": "say1",
-            "caption": "The closely design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Closely related to KMP's LPS border table is the Z-Algorithm,.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Algorithm",
-                  "Automaton"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The whenever step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "How does Z stay linear without re-scanning shared prefix characters repeatedly.",
+            "items": [
+              "0",
+              "1",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Linear",
-                  "String"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect both `z_algorithm` and exact O(N) string periodicity detection.",
+            "items": [
+              "0",
+              "1",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -345,80 +549,114 @@
       "partTitle": "Production Application: Plagiarism Chunk Fingerprinter & Stream Signature Matcher",
       "codeHash": "1ef8a5eae0c7267a8766641db76d513a6a8a48602a6279aa5108b0cb77133c53",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Production Application: Plagiarism Chunk Fingerprinter & Stream ",
         "steps": [
           {
             "at": "say1",
-            "caption": "The world design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Real-world log scanners and source deduplicators pair Rabin-Karp.",
+            "items": {
+              "var": "shared",
+              "line": 54,
+              "hit": 32
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The observe step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "First, our `TextSignatureEngine` uses Rabin-Karp dual-hash windowing.",
+            "items": {
+              "var": "shared",
+              "line": 57,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Plagiarism"
-                  },
-                  {
-                    "text": "Chunk"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect and execute the complete dual `TextSignatureEngine` pipeline below.",
+            "items": {
+              "var": "shared",
+              "line": 58,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Production Application: Plagiarism Chunk Fingerprinter & Stream ",
         "steps": [
           {
             "at": "say1",
-            "caption": "The world design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Real-world log scanners and source deduplicators pair Rabin-Karp.",
+            "items": [
+              "';fetch_use'",
+              "'fetch_user'",
+              "'etch_user;'",
+              "';drop_tabl'",
+              "'drop_table'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The observe step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "First, our `TextSignatureEngine` uses Rabin-Karp dual-hash windowing.",
+            "items": [
+              "';fetch_use'",
+              "'fetch_user'",
+              "'etch_user;'",
+              "';drop_tabl'",
+              "'drop_table'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Plagiarism",
-                  "Chunk"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect and execute the complete dual `TextSignatureEngine` pipeline below.",
+            "items": [
+              "';fetch_use'",
+              "'fetch_user'",
+              "'etch_user;'",
+              "';drop_tabl'",
+              "'drop_table'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

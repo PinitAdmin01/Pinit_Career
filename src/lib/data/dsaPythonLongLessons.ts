@@ -39,11 +39,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When n goes from 1000 to 2000, what happens to the steps of the nested loop?",
           "options": [
-            "They double",
-            "They go up about 4 times",
-            "They stay the same"
+            "They increase roughly fourfold per call",
+            "They double linearly with the outer count",
+            "They remain fixed regardless of array size",
+            "They grow proportionally to half the input"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The nested loop does n x n steps. Doubling n gives 2n x 2n = 4 x n x n, so about four times the work."
         }
       },
@@ -74,9 +75,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "O(N)",
             "O(5N^2)",
+            "O(N log N)",
             "O(N^2)"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Drop the constants (5, 100, 7) and keep the fastest-growing term, N^2. So it is O(N^2)."
         }
       },
@@ -110,10 +112,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which of these is O(N) for a Python list called users?",
           "options": [
             "users[0]",
+            "len(users)",
             "\"asha\" in users",
-            "len(users)"
+            "users[-1]"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "in on a list checks items one by one, so it is O(N). Reading users[0] and len(users) are both O(1)."
         }
       },
@@ -142,11 +145,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Roughly how many halving steps does it take to get from 1,000,000 down to 1?",
           "options": [
-            "About 20",
-            "About 1,000",
-            "About 500,000"
+            "About 1,000 steps",
+            "About 20 steps",
+            "About 500,000 steps",
+            "About 200,000 steps"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Each step halves the size. 2 to the power 20 is 1,048,576, so about 20 steps."
         }
       },
@@ -177,7 +181,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "O(N)",
             "O(N^2)",
-            "O(log N)"
+            "O(log N)",
+            "O(1)"
           ],
           "answer": 1,
           "why": "The outer loop runs N times and each in check on a list is O(N), so N x N = O(N^2). Using a set for other_list would make it O(N)."
@@ -208,11 +213,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A function builds a new dict with one entry for every item in the input list. What is its extra space?",
           "options": [
-            "O(1)",
             "O(N)",
-            "O(N^2)"
+            "O(1)",
+            "O(N^2)",
+            "O(log N)"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "One dict entry per item means the dict grows to N entries, so the extra space is O(N)."
         }
       }
@@ -261,11 +267,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is nums[i] O(1) for a Python list?",
           "options": [
-            "Python remembers the last item you read",
-            "The position is worked out with one calculation",
-            "Lists are always short"
+            "Python caches the previous element you read",
+            "Lists sort element offsets on every mutation",
+            "Every Python list caps elements to four slots",
+            "Base address plus i times slot size computes it"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Items sit side by side, so the address is start + i x item size. One calculation, no searching."
         }
       },
@@ -298,11 +305,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "With doubling, when does an append have to copy all the items?",
           "options": [
-            "On every append",
-            "Only when the array is full",
-            "Never"
+            "On every single append call",
+            "After every second pop call",
+            "Only when capacity is full",
+            "Never after initial creation"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Only when size equals capacity. Then the capacity doubles, so the next full moment is twice as far away."
         }
       },
@@ -331,11 +339,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the amortized cost of append on a list that doubles when full?",
           "options": [
-            "O(1)",
             "O(N)",
-            "O(log N)"
+            "O(log N)",
+            "O(1)",
+            "O(N log N)"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "All the copying for N appends adds up to less than 2N, so on average each append costs a constant amount: O(1)."
         }
       },
@@ -364,9 +373,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the extra space used by the write-pointer method?",
           "options": [
-            "O(N), because it copies items",
-            "O(1), just two positions",
-            "O(N^2)"
+            "O(N), because items get copied out",
+            "O(1), updating two index vars",
+            "O(N^2), due to shifting elements",
+            "O(log N), for binary pointer halving"
           ],
           "answer": 1,
           "why": "It moves items inside the same list and only keeps two numbers (read and write), so the extra space is O(1)."
@@ -401,11 +411,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which list operation is O(N)?",
           "options": [
+            "nums.insert(0, x)",
             "nums.append(x)",
             "nums[3] = x",
-            "nums.insert(0, x)"
+            "len(nums)"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Inserting at the front shifts every item one place to the right, so it is O(N). The other two are O(1)."
         }
       },
@@ -438,11 +449,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does [[0] * 2] * 2 create?",
           "options": [
-            "Two separate rows",
-            "Two references to the same row",
-            "An error"
+            "Two independent row allocations",
+            "A Python runtime TypeError",
+            "Four separate integer scalars",
+            "Two aliases to one row list"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "The outer * 2 repeats the reference to one inner list, so both rows are the same list. Use a list comprehension for separate rows."
         }
       }
@@ -499,11 +511,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the last node of a singly linked list point to?",
           "options": [
-            "The head",
-            "None",
-            "Itself"
+            "The head node",
+            "Its own address",
+            "Index zero",
+            "None"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "The last node's next is None. That is how a loop over the list knows it has reached the end."
         }
       },
@@ -534,7 +547,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "O(1)",
             "O(log N)",
-            "O(N)"
+            "O(N)",
+            "O(N log N)"
           ],
           "answer": 2,
           "why": "You may have to follow next through every node before you find it (or find it missing), so it is O(N)."
@@ -569,9 +583,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must you save curr.next before setting curr.next = prev?",
           "options": [
-            "To make the code faster",
-            "Otherwise you lose the link to the rest of the list",
-            "Python requires it"
+            "To speed up pointer reassignment checks",
+            "Or you lose the link to remaining nodes",
+            "Because Python forbids overwriting next first",
+            "To double node capacity before reversal runs"
           ],
           "answer": 1,
           "why": "After curr.next = prev, the old next node is no longer reachable from curr. Saving it in nxt keeps the rest of the list."
@@ -606,11 +621,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Floyd's cycle detection, how fast does the fast pointer move?",
           "options": [
-            "One node per step",
-            "Two nodes per step",
-            "It jumps to the end"
+            "Two nodes per loop step",
+            "One node per loop step",
+            "Jumps straight to tail",
+            "Three nodes on odd counts"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "fast moves two nodes per step and slow moves one, so inside a loop fast gains one node each step and must meet slow."
         }
       },
@@ -639,11 +655,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the main advantage of sentinel (dummy) head and tail nodes?",
           "options": [
-            "They store extra data",
-            "Every real node always has neighbours, so no special cases",
-            "They make lists sorted"
+            "Every real node keeps neighbors, cutting edge checks",
+            "They cache list lengths to skip counting loops",
+            "They enforce sorted ordering after node inserts",
+            "They share memory addresses across linked segments"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "With a dummy head and tail, adding or removing the first or last real node works exactly like any other node."
         }
       },
@@ -676,11 +693,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do we return dummy.next instead of head?",
           "options": [
-            "dummy.next is faster",
-            "The original head may have been deleted",
-            "head is always None"
+            "dummy.next avoids attribute lookups on head",
+            "head becomes uninitialized on single-item calls",
+            "Python linked nodes require skipping index zero",
+            "The original head node might be deleted"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "If the first node was deleted, head points at a removed node. dummy.next is always the true first node of the list."
         }
       }
@@ -736,7 +754,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "A",
             "B",
-            "C"
+            "C",
+            "None"
           ],
           "answer": 2,
           "why": "C went in last, so it comes out first. Last in, first out."
@@ -771,9 +790,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is \"((\" invalid even though no bracket is wrongly matched?",
           "options": [
-            "It is too short",
-            "The stack is not empty at the end",
-            "Round brackets need a square one"
+            "A two-character string cannot form valid pairs",
+            "The stack still holds unclosed items at exit",
+            "Round brackets always require a matching square pair",
+            "Opening brackets must pop immediately when read"
           ],
           "answer": 1,
           "why": "Two brackets were opened and never closed, so they are still on the stack at the end. The string is only valid when the stack ends empty."
@@ -809,9 +829,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the stack version O(N) even though it has a while loop inside a for loop?",
           "options": [
-            "Python loops are fast",
-            "Each position is pushed once and popped at most once",
-            "The while loop runs once per number"
+            "Python inner while conditions cache slice bounds",
+            "Each index pushes once and pops at most once",
+            "The inner while executes once per input item",
+            "Popped values bypass index comparison loops"
           ],
           "answer": 1,
           "why": "Across the whole run there are N pushes and at most N pops, so the total work is O(N), not N x N."
@@ -838,11 +859,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a decreasing monotonic stack, what do you do before pushing a new, larger number?",
           "options": [
-            "Push it anyway",
-            "Pop every smaller number from the top",
-            "Clear the whole stack"
+            "Pop all smaller values from the stack top",
+            "Push the larger value directly over top",
+            "Clear the entire stack before pushing",
+            "Swap only the bottom two stack elements"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Pop the smaller numbers first; each of them has just found its next greater number. Then push the new one, keeping the stack decreasing."
         }
       },
@@ -871,11 +893,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the time cost of get_min() in this MinStack?",
           "options": [
-            "O(1)",
             "O(N)",
-            "O(log N)"
+            "O(log N)",
+            "O(N^2)",
+            "O(1)"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "It only reads the top of the mins stack, which is always the current minimum. One step: O(1)."
         }
       },
@@ -905,10 +928,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does \"6 3 /\" evaluate to in reverse Polish notation?",
           "options": [
             "0",
+            "0.5",
             "2",
-            "0.5"
+            "18"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Pop 3 (right), then 6 (left), and compute 6 / 3 = 2. The order of the pops decides which number is on which side."
         }
       }
@@ -961,11 +985,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In an LRU cache that is full, which item is removed when a new one arrives?",
           "options": [
-            "The newest item",
-            "The item used longest ago",
-            "A random item"
+            "The newest inserted item",
+            "A randomly sampled item",
+            "The oldest unused item",
+            "The largest integer item"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "LRU evicts the least recently used item: the one nobody has read or written for the longest time."
         }
       },
@@ -994,9 +1019,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the dict + doubly linked list design, what does the dict store?",
           "options": [
-            "The order of use",
-            "Each key mapped to its node",
-            "Only the oldest key"
+            "Only the chronological eviction order",
+            "Each key mapped to its list node",
+            "Only the oldest unaccessed key",
+            "A sorted array of node frequencies"
           ],
           "answer": 1,
           "why": "The dict maps each key to its node so any key can be found in O(1). The linked list is what keeps the order of use."
@@ -1031,11 +1057,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "After put(1), put(2), get(1), put(3) on a capacity-2 LRU cache, which key was evicted?",
           "options": [
-            "1",
             "2",
-            "3"
+            "1",
+            "3",
+            "0"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "get(1) made key 1 recent, so key 2 was the least recently used when key 3 arrived. get(2) returns -1."
         }
       },
@@ -1069,10 +1096,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does OrderedDict.popitem(last=False) remove?",
           "options": [
             "The newest key",
-            "The oldest key",
-            "A random key"
+            "A random key",
+            "The smallest key",
+            "The oldest key"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "last=False removes from the front, the key that was added or moved to the end longest ago, which is exactly the LRU victim."
         }
       },
@@ -1101,11 +1129,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a capacity-1 LRU cache, you put \"a\" then put \"b\". What does get(\"a\") return?",
           "options": [
-            "The value of a",
-            "-1",
-            "The value of b"
+            "Returns cached value a",
+            "Returns fallback value b",
+            "Raises KeyError",
+            "Returns -1"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Capacity 1 means putting \"b\" evicts \"a\", so get(\"a\") is a miss and returns -1."
         }
       },
@@ -1135,10 +1164,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "A cache answered 45 of 60 requests. What is its hit rate?",
           "options": [
             "45%",
+            "25%",
             "75%",
-            "25%"
+            "60%"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Hit rate is hits divided by all requests: 45 / 60 = 0.75, which is 75 percent."
         }
       }
@@ -1197,7 +1227,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "C",
             "A",
-            "B"
+            "B",
+            "None"
           ],
           "answer": 1,
           "why": "A queue is first in, first out, so A, which joined first, leaves first."
@@ -1229,11 +1260,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the cost of removing the front item from a Python list with pop(0)?",
           "options": [
-            "O(1)",
             "O(N)",
-            "O(log N)"
+            "O(1)",
+            "O(log N)",
+            "O(N^2)"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Every remaining item shifts one place towards the front, so the work grows with N."
         }
       },
@@ -1267,11 +1299,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a ring buffer of capacity 5, what is the slot after slot 4?",
           "options": [
-            "Slot 5",
-            "Slot 0",
-            "There is none"
+            "Slot 0 by modulo",
+            "Slot 5 linearly",
+            "Raises IndexError",
+            "Slot 1 on wrap"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "(4 + 1) % 5 is 0, so the index wraps round to the start and reuses slot 0."
         }
       },
@@ -1301,10 +1334,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "A deque(maxlen=2) holds [1, 2]. You append 3. What does it hold now?",
           "options": [
             "[1, 2, 3]",
-            "[2, 3]",
-            "[1, 3]"
+            "[1, 3]",
+            "[3]",
+            "[2, 3]"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "It is full, so appending 3 at the right drops the oldest item, 1, from the left."
         }
       },
@@ -1333,11 +1367,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In this design, which operation costs O(N)?",
           "options": [
-            "push",
             "pop",
-            "top"
+            "top",
+            "push",
+            "empty"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "push rotates every older item to the back, which is N moves. pop and top only touch the front: O(1)."
         }
       },
@@ -1366,9 +1401,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Jobs arrive at 10 per second and workers finish 8 per second. What happens to the queue?",
           "options": [
-            "It stays empty",
-            "It grows by about 2 each second",
-            "It shrinks"
+            "It drains completely between arrivals",
+            "It grows by roughly 2 per second",
+            "It shrinks steadily toward zero jobs",
+            "It rejects every fifth incoming request"
           ],
           "answer": 1,
           "why": "Arrivals beat processing by 2 per second, so 2 more jobs are left waiting each second, and the queue keeps growing."
@@ -1424,9 +1460,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can a hash table find a key without looking at every item?",
           "options": [
-            "It keeps the keys sorted",
-            "The key's hash tells it which bucket to look in",
-            "It remembers the last key"
+            "It stores inserted dictionary keys sorted inside memory",
+            "Key hashes compute the exact target bucket directly",
+            "It caches only the most recently accessed key path",
+            "It divides bucket arrays with binary tree pointers"
           ],
           "answer": 1,
           "why": "Hashing the key gives the bucket directly, so only that bucket is searched."
@@ -1461,11 +1498,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a collision in a hash table?",
           "options": [
-            "Two keys with the same value",
-            "Two different keys landing in the same bucket",
-            "A key that cannot be hashed"
+            "Two distinct keys mapping to one bucket",
+            "Two identical keys sharing identical values",
+            "A mutable key failing Python hash calls",
+            "A table exceeding its 100% bucket load"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "A collision is when two different keys map to the same bucket. Chaining stores both in that bucket's list."
         }
       },
@@ -1495,11 +1533,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A hash table has 12 items in 16 buckets. What is its load factor?",
           "options": [
-            "0.75",
             "1.33",
-            "12"
+            "12",
+            "4.0",
+            "0.75"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Load factor is items divided by buckets: 12 / 16 = 0.75."
         }
       },
@@ -1532,11 +1571,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the Big-O of counting every item in a list of N items with a dict?",
           "options": [
-            "O(N)",
             "O(N^2)",
-            "O(1)"
+            "O(1)",
+            "O(N)",
+            "O(log N)"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "One pass over the list, with an O(1) dict update for each item: O(N)."
         }
       },
@@ -1569,11 +1609,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the dict store in the two sum solution?",
           "options": [
-            "Each pair tried so far",
-            "Each number seen and its position",
-            "Only the target"
+            "Each candidate pair sum checked",
+            "Only the remaining complement diff",
+            "Each seen value and its index",
+            "Sorted slices of unseen integers"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "seen maps each number to its index, so when the partner turns up you can return both positions."
         }
       },
@@ -1608,7 +1649,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "[1, 2]",
             "(1, 2)",
-            "{1: 2}"
+            "{1: 2}",
+            "{1, 2}"
           ],
           "answer": 1,
           "why": "A tuple cannot change, so it is hashable and can be a key. Lists and dicts can change, so they cannot."
@@ -1664,11 +1706,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a sorted list, the pair sum is smaller than the target. Which pointer moves?",
           "options": [
-            "The right one moves left",
-            "The left one moves right",
-            "Both move"
+            "Left pointer steps rightward",
+            "Right pointer steps leftward",
+            "Both pointers step inward",
+            "Only right pointer resets"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "A smaller sum needs a bigger number, and moving left rightwards gives a bigger number."
         }
       },
@@ -1698,11 +1741,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why move the pointer at the shorter line?",
           "options": [
-            "It is always on the left",
-            "The water is limited by it, so it cannot do better where it is",
-            "To save memory"
+            "The leftmost vertical wall is always shortest first",
+            "Advancing from left saves extra temporary list space",
+            "Moving the taller wall skips duplicate array checks",
+            "The shorter wall caps area, so moving taller cannot help"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "The shorter line caps the water. Any container keeping it is narrower and still capped, so it is safe to move on from it."
         }
       },
@@ -1731,11 +1775,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What extra space does the two-pointer palindrome check use?",
           "options": [
-            "O(1)",
             "O(N)",
-            "O(N^2)"
+            "O(N^2)",
+            "O(log N)",
+            "O(1)"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "It only keeps two index numbers and compares characters in place, so the extra space is constant."
         }
       },
@@ -1764,11 +1809,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What do the read and write pointers do when read finds a 0 in move_zeros_to_end?",
           "options": [
-            "Both move",
-            "Only read moves",
-            "Only write moves"
+            "Both pointers advance",
+            "Only write advances",
+            "Only read advances",
+            "Both pointers reset"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "A zero is skipped: read moves on, write stays put, waiting for the next non-zero number."
         }
       },
@@ -1799,7 +1845,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "O(N)",
             "O(N^2)",
-            "O(N^3)"
+            "O(N^3)",
+            "O(N log N)"
           ],
           "answer": 1,
           "why": "For each of N first numbers, the two pointers do O(N) work, giving O(N^2). Sorting, O(N log N), is smaller."
@@ -1830,11 +1877,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A list is unsorted and you must return the original positions quickly. Which is the natural choice?",
           "options": [
-            "Two pointers",
-            "A hash map",
-            "Checking every pair"
+            "A hash map lookup",
+            "Two pointers directly",
+            "Brute-force nested pairs",
+            "Binary search alone"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "A hash map works on unsorted data in O(N) and remembers each number's original position."
         }
       }
@@ -1884,11 +1932,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many windows of size 3 does a list of 6 items have?",
           "options": [
-            "3",
             "4",
-            "6"
+            "3",
+            "6",
+            "2"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Windows start at positions 0 to 6 - 3 = 3, which is 4 windows."
         }
       },
@@ -1917,11 +1966,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How is the window sum updated when the window slides one step?",
           "options": [
-            "Recount all k numbers",
-            "Add the new number and subtract the one leaving",
-            "Double it"
+            "Rescan and sum all k elements",
+            "Multiply previous sum by window k",
+            "Sort the current k window bounds",
+            "Add incoming value, drop outgoing"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Only one number enters and one leaves, so adjust the sum by those two: O(1) per step."
         }
       },
@@ -1956,10 +2006,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "For \"abba\", what is the length of the longest part with no repeated letters?",
           "options": [
             "1",
+            "3",
             "2",
-            "3"
+            "4"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "\"ab\" and \"ba\" both have length 2; any 3 letters in a row contain a repeat."
         }
       },
@@ -1989,9 +2040,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does this shrinking-window method need all numbers to be positive?",
           "options": [
-            "Negative numbers are not allowed in Python",
-            "So adding always raises the total and removing always lowers it",
-            "To make it faster"
+            "Python loops reject negative operands inside sums",
+            "Adding always increases sum and removing reduces it",
+            "It removes branch prediction stalls on odd inputs",
+            "Positive-only bounds avoid dividing by zero later"
           ],
           "answer": 1,
           "why": "With negative numbers, shrinking could raise the total, so \"shrink while it reaches the target\" would no longer be safe."
@@ -2026,11 +2078,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When the window slides, how many letter counts change?",
           "options": [
-            "Only the letters entering and leaving",
-            "All 26 letters",
-            "None"
+            "All 26 alphabet counts recalculate",
+            "Entering and exiting letter counts",
+            "Zero entries change in counts",
+            "Only the window midpoint letter"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "One letter enters and one leaves, so at most two counts change: O(1) per slide."
         }
       },
@@ -2055,11 +2108,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which question is best solved with a sliding window?",
           "options": [
-            "Find two numbers anywhere that sum to 10",
-            "Find the longest substring with no repeated letters",
-            "Sort a list"
+            "Longest substring without repeated characters",
+            "Find two non-adjacent array items summing to 10",
+            "Sort arbitrary integer arrays into ascending order",
+            "Count total distinct values across hash buckets"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "A substring is a stretch in a row, and \"longest with no repeats\" is a flexible window rule."
         }
       }
@@ -2113,11 +2167,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is it left = mid + 1 and not left = mid?",
           "options": [
-            "To go faster",
-            "mid was already checked, and keeping it can loop forever",
-            "Python needs +1"
+            "Skipping mid cuts recursion overhead cleanly",
+            "Python integer division skips midpoint values",
+            "Right-hand bounds already exclude index zero",
+            "mid was checked, and keeping it risks loops"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "mid is known not to be the target. Keeping it in range wastes a step and can get stuck when left and right are next to each other."
         }
       },
@@ -2146,11 +2201,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "After a binary search for a missing value ends, what does left tell you?",
           "options": [
-            "Nothing useful",
-            "Where the value would go to keep the list sorted",
-            "The biggest item"
+            "No ordering property at termination",
+            "Index of largest element inside list",
+            "Insertion slot to keep list sorted",
+            "Midpoint index from last comparison"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "left ends at the first position whose value is not smaller than the target: the insert position."
         }
       },
@@ -2184,11 +2240,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a rotated sorted list, what is always true at any mid point?",
           "options": [
-            "Both halves are sorted",
-            "At least one half is sorted",
-            "Neither half is sorted"
+            "Both subarray halves stay sorted",
+            "Neither subarray half stays sorted",
+            "At least one half remains sorted",
+            "Only odd indices remain sorted"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The rotation breaks the order in at most one place, so at least one side of mid is a normal sorted run."
         }
       },
@@ -2217,11 +2274,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is it right = mid instead of right = mid - 1 in find_min?",
           "options": [
-            "mid might be the smallest number",
-            "It is faster",
-            "To avoid a Python error"
+            "right = mid halves loop iterations",
+            "mid might hold the minimum value",
+            "right = mid - 1 causes IndexError",
+            "right = mid keeps midpoint duplicates"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "When nums[mid] <= nums[right], mid could itself be the minimum, so it must stay inside the range."
         }
       },
@@ -2250,11 +2308,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What must be true to binary-search the answer?",
           "options": [
-            "The input list is sorted",
-            "If a value works, every bigger value also works",
-            "The answer is always 1"
+            "If value x works, every x' > x works too",
+            "The underlying search input must be sorted",
+            "The valid search bound must end at one",
+            "Target counts must double on every iteration"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The yes/no test must switch from \"no\" to \"yes\" only once as the value grows; then halving the range is safe."
         }
       },
@@ -2283,11 +2342,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "git bisect searches 1,000 commits for the one that broke the build. Roughly how many tests are needed?",
           "options": [
-            "About 10",
-            "About 500",
-            "About 1,000"
+            "About 500 tests",
+            "About 1,000 tests",
+            "About 100 tests",
+            "About 10 tests"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Each test halves the commits left, and 2 to the power 10 is 1,024, so about 10 tests."
         }
       }
@@ -2341,11 +2401,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens if a recursive function has no base case?",
           "options": [
-            "It returns 0",
-            "It calls itself until Python raises a RecursionError",
-            "It runs once"
+            "Returns zero safely upon exit",
+            "Executes the body once only",
+            "Automatically breaks via Python loop",
+            "Recurses until RecursionError fires"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Nothing stops the calls, so they pile up until Python's limit (about 1,000 levels) and it raises RecursionError."
         }
       },
@@ -2374,11 +2435,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In what order do the recursive calls of factorial(3) return?",
           "options": [
-            "factorial(3) first",
-            "factorial(1) first, then 2, then 3",
-            "All at the same time"
+            "factorial(3) returns to caller first",
+            "All three frames return simultaneously",
+            "factorial(1), then 2, then 3",
+            "factorial(2) returns before factorial(1)"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "factorial(1) is on top of the stack, so it finishes first, then factorial(2) can finish, then factorial(3)."
         }
       },
@@ -2411,9 +2473,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the plain recursive fib(n) slow?",
           "options": [
-            "Python is slow at maths",
-            "It recomputes the same smaller values many times",
-            "It has no base case"
+            "Python arithmetic slows recursive floats down",
+            "It repeatedly computes identical subproblems",
+            "The base condition fails to halt at n <= 1",
+            "List slices copy stack memory every call"
           ],
           "answer": 1,
           "why": "fib(n - 1) and fib(n - 2) both recompute the same smaller values, so the number of calls grows exponentially."
@@ -2453,11 +2516,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many subsets does a list of 5 different items have?",
           "options": [
+            "32",
             "5",
             "25",
-            "32"
+            "10"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "Each item is either in or out, so there are 2 x 2 x 2 x 2 x 2 = 32 subsets."
         }
       },
@@ -2490,11 +2554,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the used list prevent?",
           "options": [
-            "Recording the same order twice",
-            "Using the same number twice in one order",
-            "Running out of memory"
+            "Reusing one number twice in a path",
+            "Outputting duplicate permutation ordering",
+            "Exhausting stack depth during calls",
+            "Skipping odd indices at depth zero"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "used marks numbers already in the current order, so each number appears once per order."
         }
       },
@@ -2523,11 +2588,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does pruning do in backtracking?",
           "options": [
-            "Finds more answers",
-            "Stops exploring branches that cannot succeed",
-            "Sorts the answers"
+            "Collects extra candidate branches early",
+            "Pre-sorts valid permutations at leaves",
+            "Caches recursive calls in hash tables",
+            "Drops branches guaranteed not to succeed"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Pruning cuts off a branch as soon as it is clear it cannot lead to a valid answer, saving work."
         }
       }
@@ -2582,11 +2648,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the base case of merge sort?",
           "options": [
-            "A list of 0 or 1 items",
-            "A list of 10 items",
-            "A sorted list"
+            "Lists of 10 or fewer",
+            "Already descending input lists",
+            "Lists of 0 or 1 item",
+            "Pairs of unsorted adjacent items"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A list with 0 or 1 items is sorted already, so the recursion can stop there."
         }
       },
@@ -2616,11 +2683,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the cost of merging two sorted lists with N items in total?",
           "options": [
-            "O(N)",
             "O(N log N)",
-            "O(N^2)"
+            "O(N)",
+            "O(N^2)",
+            "O(log N)"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Each step moves one item into the result, so N steps: O(N)."
         }
       },
@@ -2653,9 +2721,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is merge sort O(N log N)?",
           "options": [
-            "It compares every pair",
-            "log N levels of halving, O(N) merging per level",
-            "It sorts in place"
+            "Compares every possible pair inside subarrays",
+            "log N split levels, O(N) merge per level",
+            "Sorts segments directly inside original buffer",
+            "Alternates pivot scans across sorted halves"
           ],
           "answer": 1,
           "why": "Halving gives about log N levels, and the merges at each level touch all N items once."
@@ -2686,11 +2755,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is merging linked lists O(1) extra space?",
           "options": [
-            "It uses a dict",
-            "It re-links the existing nodes instead of copying them",
-            "Linked lists are small"
+            "It relinks nodes instead of copying",
+            "It stores node references inside dict",
+            "Linked nodes bypass size limit checks",
+            "Head pointers never require updating"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Only the next links change; no new nodes are made, apart from the single dummy."
         }
       },
@@ -2717,10 +2787,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "How many inversions does a list sorted in reverse, [4, 3, 2, 1], have?",
           "options": [
             "4",
-            "6",
-            "3"
+            "3",
+            "8",
+            "6"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Every pair is in the wrong order, and 4 items have 4 x 3 / 2 = 6 pairs."
         }
       },
@@ -2749,11 +2820,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does it mean that Python's sort is stable?",
           "options": [
-            "It never crashes",
-            "Items that compare equal keep their original order",
-            "It always takes the same time"
+            "Input mutations never raise runtime exceptions",
+            "Execution uses strictly constant runtime across keys",
+            "Equal items keep original relative ordering",
+            "Duplicate elements get merged into one slot"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Stable means equal items stay in the order they were in before sorting, which makes multi-step sorting work."
         }
       }
@@ -2811,11 +2883,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "After partitioning, what is true about the pivot?",
           "options": [
-            "It is at position 0",
-            "It is in its final sorted position",
-            "It is removed"
+            "Always placed at array index 0",
+            "Removed and returned separately",
+            "Placed in its final sorted slot",
+            "Swapped into array midpoint index"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Everything smaller is left of it and everything bigger is right of it, so it is exactly where it belongs."
         }
       },
@@ -2848,11 +2921,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does quick sort need very little extra memory?",
           "options": [
-            "It swaps items inside the same list",
-            "It uses a dict",
-            "It sorts only half the list"
+            "Caches element partitions in dicts",
+            "Swaps elements in-place inside list",
+            "Processes only the left half only",
+            "Allocates fixed two-item slice pools"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Partitioning swaps items in place, so no extra lists are made, only the recursion stack."
         }
       },
@@ -2881,11 +2955,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "On an already sorted list, what is quick sort's cost if it always picks the last item as pivot?",
           "options": [
-            "O(N log N)",
             "O(N^2)",
-            "O(N)"
+            "O(N log N)",
+            "O(N)",
+            "O(log N)"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The pivot is always the largest, so each partition only removes one item, giving N levels of O(N) work."
         }
       },
@@ -2919,11 +2994,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is quickselect O(N) on average while quick sort is O(N log N)?",
           "options": [
-            "Quickselect only follows one side after each partition",
-            "Quickselect does not compare items",
-            "It uses binary search"
+            "Quickselect skips all pairwise element checks",
+            "Quickselect uses binary search after sorting",
+            "Quickselect halving avoids partition swaps",
+            "Quickselect recurses into one side per partition"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Quick sort sorts both sides; quickselect follows only the side with the answer, so the work shrinks by half each time."
         }
       },
@@ -2953,11 +3029,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "You need the single median of 10 million numbers. Which is the best fit?",
           "options": [
-            "Sort them all",
-            "Quickselect",
-            "heapq.nlargest with k = 5 million"
+            "Full Timsort sort",
+            "heapq.nlargest k=5M",
+            "Bubble pass half-scan",
+            "Quickselect (avg O(N))"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Quickselect finds one position in O(N) on average, without sorting everything."
         }
       },
@@ -2983,10 +3060,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which sort guarantees O(N log N) even in the worst case?",
           "options": [
             "Quick sort",
+            "Both sorts",
             "Merge sort",
-            "Both"
+            "Shell sort"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Merge sort always halves evenly, so it is O(N log N) in every case. Quick sort can degrade to O(N^2)."
         }
       }
@@ -3042,7 +3120,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "O(N)",
             "O(N log N)",
-            "O(N^2)"
+            "O(N^2)",
+            "O(log N)"
           ],
           "answer": 1,
           "why": "Comparison sorts need about N log N comparisons in the worst case; merge sort already achieves it."
@@ -3073,11 +3152,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the time cost of counting sort for N numbers in the range 0 to K?",
           "options": [
-            "O(N log N)",
             "O(N + K)",
-            "O(N x K)"
+            "O(N log N)",
+            "O(N * K)",
+            "O(K log K)"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "One pass over N items to count and one pass over K+1 slots to write out: O(N + K)."
         }
       },
@@ -3107,11 +3187,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When nums[mid] is 2 and you swap it with nums[high], why does mid not move forward?",
           "options": [
-            "It is a mistake",
-            "The item swapped in from high has not been checked yet",
-            "mid must stay at 0"
+            "The item from high has not been inspected",
+            "Advancing mid causes Python IndexError crash",
+            "Pointer mid must stay anchored at zero",
+            "Only zero values trigger advancing pointers"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The item that came from the high end could be a 0, 1 or 2, so mid must look at it before moving on."
         }
       },
@@ -3140,11 +3221,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the bucket version of counting sort stable?",
           "options": [
-            "Buckets are sorted afterwards",
-            "Records join each bucket in their original order",
-            "It uses random pivots"
+            "Individual buckets get re-sorted afterwards",
+            "Pivots partition equal keys dynamically",
+            "Equal keys are deduplicated before scan",
+            "Records append to buckets in input order"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Records are appended to buckets in the order they appear, so equal keys keep their original order."
         }
       },
@@ -3174,11 +3256,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which digit does this radix sort look at first?",
           "options": [
-            "The most significant digit",
-            "The ones digit",
-            "A random digit"
+            "Most significant leftmost digit",
+            "Randomly sampled digit position",
+            "Least significant ones digit",
+            "Middle decimal place digit"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "It starts with the ones digit (place 0) and works upwards; stable passes keep the earlier ordering."
         }
       },
@@ -3205,7 +3288,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Quick sort",
             "Counting sort",
-            "Merge sort"
+            "Merge sort",
+            "Heap sort"
           ],
           "answer": 1,
           "why": "The range is tiny (5 values) and the data is huge, so counting sort runs in O(N + 5)."
@@ -3262,9 +3346,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the median often better than the average for response times?",
           "options": [
-            "It is easier to compute",
-            "One extreme value does not drag it far",
-            "It is always smaller"
+            "Median omits sorting overhead completely",
+            "Single outlier spikes barely shift it",
+            "Median always evaluates lower than mean",
+            "Python tracks medians inside list headers"
           ],
           "answer": 1,
           "why": "The median only depends on the middle value, so a few very slow requests do not distort it."
@@ -3295,11 +3380,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do you get a max-heap with Python's heapq?",
           "options": [
-            "heapq.maxheap()",
-            "Store negated values in a min-heap",
-            "Sort in reverse"
+            "Negate numbers in a min-heap",
+            "Call heapq.maxheap() directly",
+            "Reverse-sort slice after pops",
+            "Pass key=neg into heappush"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "heapq only provides a min-heap, so pushing -x makes the largest original value the smallest stored value."
         }
       },
@@ -3330,11 +3416,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the two-heap design, where is the median when there is an odd number of values?",
           "options": [
-            "At the top of high",
-            "At the top of low",
-            "At the bottom of low"
+            "Top root of high min-heap",
+            "Bottom leaf of low heap",
+            "Second item in high heap",
+            "Top root of low max-heap"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "low holds the extra number when the count is odd, and its top is the middle value."
         }
       },
@@ -3364,10 +3451,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the cost of add_num in the two-heap MedianFinder?",
           "options": [
             "O(1)",
+            "O(N)",
             "O(log N)",
-            "O(N)"
+            "O(N log N)"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "It does a few heap pushes and pops, each O(log N), so adding is O(log N)."
         }
       },
@@ -3393,10 +3481,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the running median list for [4, 8]?",
           "options": [
             "[4, 8]",
+            "[6.0, 6.0]",
             "[4, 6.0]",
-            "[6.0, 6.0]"
+            "[2, 6.0]"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "After 4 alone the median is 4; after 4 and 8 it is (4 + 8) / 2 = 6.0."
         }
       },
@@ -3425,9 +3514,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the cost per number of keeping a sorted list with bisect.insort?",
           "options": [
-            "O(log N)",
-            "O(N), because items shift to make room",
-            "O(1)"
+            "O(log N), matching binary search",
+            "O(N), because elements shift right",
+            "O(1), updating tail pointers only",
+            "O(N log N), re-sorting on inserts"
           ],
           "answer": 1,
           "why": "Finding the position is O(log N), but inserting into the list shifts items: O(N)."
@@ -3487,11 +3577,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a binary tree, how many children can a node have?",
           "options": [
-            "Exactly two",
             "At most two",
-            "Any number"
+            "Exactly two",
+            "Any count",
+            "Only one"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "A binary tree node has a left and a right child, and either or both can be missing (None)."
         }
       },
@@ -3527,9 +3618,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Preorder",
             "Inorder",
+            "Levelorder",
             "Postorder"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": "Postorder handles left, then right, then the node itself last."
         }
       },
@@ -3564,10 +3656,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "Which data structure does level order traversal use?",
           "options": [
             "A stack",
-            "A queue",
-            "A heap"
+            "A heap",
+            "A trie",
+            "A queue"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Nodes must come out in the order they were found, level by level: first in, first out, which is a queue."
         }
       },
@@ -3598,10 +3691,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the maximum depth of a tree with only a root node?",
           "options": [
             "0",
+            "2",
             "1",
-            "2"
+            "3"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The root is one level: 1 + max(depth of None, depth of None) = 1 + 0 = 1."
         }
       },
@@ -3631,11 +3725,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What changes a breadth-first walk into a depth-first walk?",
           "options": [
-            "Using a stack instead of a queue",
-            "Sorting the nodes",
-            "Starting from a leaf"
+            "Sorting level items each step",
+            "Swapping stack in over queue",
+            "Starting walk from rightmost leaf",
+            "Halving sibling links at depth"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A queue takes the oldest node (level by level); a stack takes the newest (deep first)."
         }
       },
@@ -3669,9 +3764,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A function that computes the size of each subtree from its children's sizes is using which kind of thinking?",
           "options": [
-            "Answers combined from the children (postorder)",
-            "Information passed down (preorder)",
-            "Level order"
+            "Combining results from children (postorder)",
+            "Passing state top-down from parents (preorder)",
+            "Scanning nodes horizontally across levels",
+            "Maintaining pointer offsets in binary arrays"
           ],
           "answer": 0,
           "why": "A node's size needs its children's sizes first, so the answers are combined on the way back up."
@@ -3727,11 +3823,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a BST, where are all values smaller than a node?",
           "options": [
-            "In its right subtree",
-            "In its left subtree",
-            "Anywhere"
+            "Inside its left subtree",
+            "Inside its right subtree",
+            "Scattered across levels",
+            "Only in direct leaves"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The BST rule puts every smaller value in the left subtree and every bigger value in the right subtree."
         }
       },
@@ -3766,10 +3863,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the search cost in a BST built by inserting 1, 2, 3, ..., N in order?",
           "options": [
             "O(log N)",
-            "O(N)",
-            "O(1)"
+            "O(1)",
+            "O(N log N)",
+            "O(N)"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Sorted inserts make every node the right child of the previous one, a chain of height N, so search is O(N)."
         }
       },
@@ -3803,11 +3901,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is checking only \"left child < node < right child\" not enough?",
           "options": [
-            "It is too slow",
-            "A deeper node can break the rule for an ancestor",
-            "Leaves have no children"
+            "Checking both pointers doubles runtime bounds",
+            "Leaf nodes lack left and right links",
+            "Deeper descendants can violate ancestor limits",
+            "Parent values must always precede duplicates"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The rule covers whole subtrees; a grandchild can be on the correct side of its parent but the wrong side of the root."
         }
       },
@@ -3839,7 +3938,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "3",
             "6",
-            "9"
+            "9",
+            "1"
           ],
           "answer": 1,
           "why": "3 is smaller and 9 is bigger than 6, so they split at 6, which makes 6 the lowest common ancestor."
@@ -3875,9 +3975,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What order does an inorder walk of a BST give?",
           "options": [
-            "Level by level",
-            "Sorted from smallest to largest",
-            "Random"
+            "Broad level-by-level sequence",
+            "Sorted ascending order",
+            "Reverse postorder sequence",
+            "Randomly hashed traversal"
           ],
           "answer": 1,
           "why": "Left subtree (smaller), node, right subtree (bigger), so inorder lists a BST in sorted order."
@@ -3913,11 +4014,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When deleting a node with two children, which value replaces it?",
           "options": [
-            "The largest value in the whole tree",
-            "The smallest value in its right subtree",
-            "Its left child"
+            "Smallest key in right subtree",
+            "Largest value anywhere in tree",
+            "Direct left leaf descendant",
+            "Parent ancestor of deleted node"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The successor, the smallest value on the right, keeps everything on the left smaller and everything on the right bigger."
         }
       }
@@ -3976,10 +4078,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "In a list-based heap, where are the children of the item at index 3?",
           "options": [
             "At 4 and 5",
-            "At 7 and 8",
-            "At 6 and 7"
+            "At 6 and 7",
+            "At 2 and 3",
+            "At 7 and 8"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Children are at 2 x 3 + 1 = 7 and 2 x 3 + 2 = 8."
         }
       },
@@ -4010,10 +4113,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the cost of pushing into a heap of N items?",
           "options": [
             "O(1)",
+            "O(N)",
             "O(log N)",
-            "O(N)"
+            "O(N log N)"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The new item rises at most one level per swap, and there are about log N levels."
         }
       },
@@ -4047,11 +4151,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When sifting down, which child do you swap with?",
           "options": [
-            "The left child always",
-            "The smaller child",
-            "The larger child"
+            "Always the left child",
+            "The larger child key",
+            "The smaller child key",
+            "Either leaf at random"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Swapping with the smaller child makes the new parent smaller than both children, keeping the heap rule."
         }
       },
@@ -4081,9 +4186,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why keep a heap of size k instead of heapifying all N numbers?",
           "options": [
-            "It is always faster",
-            "It uses only O(k) memory, good for huge streams",
-            "It gives a different answer"
+            "Small heaps beat all O(N) builds easily",
+            "Caps memory to O(k) on large streams",
+            "Produces lower exact top-k values",
+            "Eliminates tie-breaking comparisons altogether"
           ],
           "answer": 1,
           "why": "The bounded heap never stores more than k items, so it works on streams too big to hold in memory."
@@ -4115,11 +4221,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why include a counter in the tuples pushed into the priority queue?",
           "options": [
-            "To make it faster",
-            "To break ties so equal priorities keep arrival order",
-            "heapq requires three items"
+            "Breaks ties to preserve FIFO arrival order",
+            "Eliminates heapify log-N rotations completely",
+            "Python heapq rejects two-element tuples cleanly",
+            "Doubles comparison throughput on large keys"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "With equal priorities, the counter decides the order, so tasks never need to be compared themselves."
         }
       },
@@ -4149,11 +4256,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the cost of merging k sorted lists with N items in total using a heap?",
           "options": [
-            "O(N log k)",
             "O(N k)",
-            "O(k)"
+            "O(k)",
+            "O(N log N)",
+            "O(N log k)"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Each item goes through a heap of at most k items once: O(log k) per item, O(N log k) in total."
         }
       }
@@ -4211,11 +4319,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does each trie node need an is_end flag?",
           "options": [
-            "To count letters",
-            "To tell complete words apart from prefixes",
-            "To sort the children"
+            "Tracks child letter frequency counts",
+            "Keeps outgoing edge dicts sorted",
+            "Caps recursion depth on searches",
+            "Distinguishes full words from prefixes"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Without it, \"car\" would look the same as the prefix of \"card\"; is_end marks where a real word stops."
         }
       },
@@ -4250,10 +4359,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "A trie holds only \"apple\". What do search(\"app\") and starts_with(\"app\") return?",
           "options": [
             "True and True",
+            "False and False",
             "False and True",
-            "False and False"
+            "True and False"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "\"app\" is a prefix of \"apple\" but not a complete word, so search is False and starts_with is True."
         }
       },
@@ -4287,9 +4397,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does words_with_prefix find the words below the prefix?",
           "options": [
-            "It checks every word in the dictionary",
-            "It walks to the prefix node, then does a depth-first search below it",
-            "It uses binary search"
+            "Scans every word in global dictionary",
+            "Walks to prefix node, then runs DFS",
+            "Binary searches compressed edge labels",
+            "Counts matching substrings by slicing"
           ],
           "answer": 1,
           "why": "Only the part of the trie under the prefix node is explored."
@@ -4321,11 +4432,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the count stored in a trie node represent here?",
           "options": [
-            "How many children it has",
-            "How many inserted words pass through it",
-            "Its depth"
+            "Words routed through that node",
+            "Total direct children below node",
+            "Depth steps from root node",
+            "Distinct leaf words below"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Every insert adds 1 to each node along its path, so the count is the number of words with that prefix."
         }
       },
@@ -4359,11 +4471,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a trie's main advantage over a set of words?",
           "options": [
-            "Less memory always",
-            "Fast prefix questions, independent of how many words there are",
-            "Faster whole-word checks"
+            "O(prefix) queries independent of word count",
+            "Uses strictly less RAM across inputs",
+            "Runs faster whole-word equality lookups",
+            "Eliminates character hashing overhead totally"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "A trie answers \"which words start with this?\" by walking only the prefix, while a set must check every word."
         }
       },
@@ -4397,11 +4510,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the trie speed up the word search?",
           "options": [
-            "It sorts the grid",
-            "It stops paths whose letters are not a prefix of any word",
-            "It checks words in parallel"
+            "Pre-sorts grid characters alphabetically",
+            "Evaluates grid rows across threads",
+            "Replaces grid tuples with linked nodes",
+            "Prunes paths not forming valid prefixes"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "As soon as a path's letters are not in the trie, that path cannot become a word, so it is abandoned."
         }
       }
@@ -4459,11 +4573,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is an adjacency list usually preferred for large social networks?",
           "options": [
-            "It is faster to draw",
-            "It uses memory for real edges only, not every possible pair",
-            "It sorts friends"
+            "Easier to serialize to static matrix PNGs",
+            "Maintains sorted friend IDs inside lists",
+            "Stores real edges, not all pairs squared",
+            "Eliminates parent backtracking loops entirely"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Each person has relatively few friends, so storing only real edges (O(V + E)) uses far less memory than a V x V matrix."
         }
       },
@@ -4497,9 +4612,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does BFS find the fewest edges in an unweighted graph?",
           "options": [
-            "It is random",
-            "It explores all nodes at distance d before any at distance d + 1",
-            "It uses a stack"
+            "Random walks prioritize shorter edge chains",
+            "Visits every distance-d node before d+1",
+            "Depth-first stack order finds goals earlier",
+            "Visited sets automatically weight edge hops"
           ],
           "answer": 1,
           "why": "Nodes leave the queue in order of distance, so the first time the target is reached, it is by a shortest path."
@@ -4533,7 +4649,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "DFS",
             "BFS",
-            "Either gives the fewest steps"
+            "Either",
+            "A* zero-cost"
           ],
           "answer": 1,
           "why": "BFS explores in order of distance; DFS may find a long path first."
@@ -4569,11 +4686,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A graph has 6 nodes and no edges. How many connected components does it have?",
           "options": [
+            "6",
             "0",
             "1",
-            "6"
+            "3"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "With no edges, every node is a group on its own: 6 components."
         }
       },
@@ -4607,11 +4725,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a grid problem, what are a cell's neighbours usually?",
           "options": [
-            "Every other cell",
-            "The cells up, down, left and right",
-            "Only the cell to the right"
+            "Every remaining board position",
+            "Only right and below cells",
+            "Diagonal corners only",
+            "Up, down, left, right cells"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Grid graphs usually connect each cell to its four side neighbours (sometimes eight, if diagonals count)."
         }
       },
@@ -4642,10 +4761,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is the right search for the fewest word changes in a word ladder?",
           "options": [
             "DFS",
+            "Binary search",
             "BFS",
-            "Binary search"
+            "Union-Find"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Each change is one edge in an unweighted graph, so BFS finds the fewest steps."
         }
       }
@@ -4700,11 +4820,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why sort with the key (-frequency, word)?",
           "options": [
-            "To sort alphabetically only",
-            "Highest frequency first, and alphabetical order on ties",
-            "To remove duplicates"
+            "Sorts matching phrases alphabetically ascending",
+            "Removes duplicate substrings from matches",
+            "Highest frequency first, then alphabetical ties",
+            "Ranks shortest character words before frequent ones"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Negating the frequency puts big counts first; the word breaks ties in alphabetical order."
         }
       },
@@ -4735,10 +4856,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "The word \"chai\" is inserted with freq 3 and then again with freq 2. What is its stored frequency?",
           "options": [
             "2",
+            "5",
             "3",
-            "5"
+            "6"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "insert adds to the existing count, so 3 + 2 = 5."
         }
       },
@@ -4768,11 +4890,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does matches() return when the prefix is not in the trie?",
           "options": [
-            "All words",
             "An empty list",
-            "An error"
+            "All trie words",
+            "KeyError fault",
+            "Root characters"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The walk hits a missing letter and returns [] straight away."
         }
       },
@@ -4804,10 +4927,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "\"read\" and \"reach\" both have frequency 80. Which comes first?",
           "options": [
             "read",
-            "reach",
-            "Either, randomly"
+            "Either",
+            "react",
+            "reach"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Ties are broken alphabetically, and \"reach\" comes before \"read\"."
         }
       },
@@ -4842,11 +4966,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which three topics from this month does the auto-complete engine combine?",
           "options": [
-            "Tries, DFS and heaps",
-            "Sorting, queues and hashing only",
-            "Binary search and recursion only"
+            "Sorting, queues, hashing",
+            "Binary search, recursion",
+            "Graphs, arrays, bitmasks",
+            "Tries, DFS and heaps"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "A trie stores the words, DFS collects matches under the prefix, and a heap picks the top k."
         }
       },
@@ -4876,11 +5001,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does storing the top k at every trie node trade?",
           "options": [
-            "Slower suggestions for faster inserts",
-            "Slower inserts for instant suggestions",
-            "More accuracy for less speed"
+            "Trades query latency for fast inserts",
+            "Trades result order for smaller RAM",
+            "Trades insert cost for O(1) lookup",
+            "Trades trie fanout for wider branching"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Each insert updates lists along the path (more work when writing) so each suggestion is a simple read."
         }
       }
@@ -4931,9 +5057,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can't BFS find the cheapest route in a weighted graph?",
           "options": [
-            "BFS is too slow",
-            "BFS counts edges, not their costs",
-            "BFS only works on trees"
+            "BFS scans adjacency lists slower",
+            "BFS counts edges, not path weights",
+            "BFS only explores connected trees",
+            "BFS discards weighted heap ordering"
           ],
           "answer": 1,
           "why": "BFS finds the fewest edges; with weights, several cheap edges can cost less than one expensive edge."
@@ -4965,11 +5092,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which node does Dijkstra settle next?",
           "options": [
-            "The one added most recently",
-            "The unsettled node with the smallest known distance",
-            "A random neighbour"
+            "The unsettled node with smallest distance",
+            "The vertex most recently pushed onto queue",
+            "A randomly chosen unvisited neighbor vertex",
+            "The node holding maximum outgoing degree"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The closest unsettled node's distance cannot be improved later (with non-negative weights), so it is final."
         }
       },
@@ -5003,11 +5131,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the code skip a popped entry when d > dist[node]?",
           "options": [
-            "It is a bug",
-            "A cheaper route to that node was already found, so this entry is outdated",
-            "To avoid negative numbers"
+            "A cheaper path already settled this node",
+            "Stale heap tuples overflow float bounds cleanly",
+            "Negative edge weights flipped prior relaxed sums",
+            "Python heaps pop identical distances twice"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The heap may hold older, more expensive entries for the same node; they can be ignored."
         }
       },
@@ -5041,11 +5170,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do you rebuild the cheapest route after Dijkstra?",
           "options": [
-            "Sort the distances",
-            "Follow the prev links back from the target, then reverse",
-            "Run BFS again"
+            "Sort the settled distance dict values",
+            "Launch a fresh unweighted BFS search",
+            "Pop vertices backward from the min-heap",
+            "Walk prev pointers back, then reverse"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Each prev entry records the node before it on the best route, so following them backwards gives the path."
         }
       },
@@ -5075,11 +5205,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "After Dijkstra, what is the network delay time when every node is reachable?",
           "options": [
-            "The smallest distance",
-            "The largest shortest distance",
-            "The sum of all distances"
+            "The smallest positive distance",
+            "The sum of all edge lengths",
+            "The maximum shortest path",
+            "The median node distance"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Everyone has the signal only when the last node receives it, which is the largest of the shortest times."
         }
       },
@@ -5112,7 +5243,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Dijkstra",
             "Bellman-Ford",
-            "BFS"
+            "BFS",
+            "Kahn sort"
           ],
           "answer": 1,
           "why": "Bellman-Ford does not rely on settled nodes staying final, so negative edges are handled correctly."
@@ -5168,9 +5300,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a DAG?",
           "options": [
-            "A graph with weights",
-            "A directed graph with no cycles",
-            "A tree with two children per node"
+            "Graph with non-negative weights",
+            "Directed graph with zero cycles",
+            "Binary tree with weighted leaves",
+            "Undirected graph with unit edges"
           ],
           "answer": 1,
           "why": "Directed acyclic graph: edges have a direction and you can never follow them back to where you started."
@@ -5203,11 +5336,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an in-degree of 0 mean for a task?",
           "options": [
-            "It is finished",
-            "Nothing must happen before it, so it can be done now",
-            "Nothing depends on it"
+            "Zero blockers ahead, ready to run",
+            "The task finished execution early",
+            "Zero downstream dependent tasks remain",
+            "The vertex holds an isolated cycle"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "In-degree counts incoming edges (prerequisites). Zero means no prerequisites are left."
         }
       },
@@ -5242,11 +5376,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Kahn's algorithm, how do you know the graph had a cycle?",
           "options": [
-            "The queue never empties",
-            "The final order has fewer nodes than the graph",
-            "A node has in-degree 1"
+            "The processing queue runs forever without exit",
+            "A starting node still shows indegree one",
+            "Visited adjacency lists keep stale back edges",
+            "Final order misses nodes due to cycles"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Nodes in a cycle never reach in-degree 0, so they never join the order."
         }
       },
@@ -5281,11 +5416,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the DFS method, what does reaching a node marked \"visiting\" (state 1) mean?",
           "options": [
-            "The node is finished",
-            "We came back to a node on the current path: a cycle",
-            "The node has no edges"
+            "Neighbor completed recursion cleanly earlier",
+            "Vertex contains zero outgoing directed arcs",
+            "Current path looped back: cycle found",
+            "Branch exceeded maximum recursion stack limit"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "State 1 means the node is on the path we are currently exploring, so reaching it again closes a loop."
         }
       },
@@ -5317,7 +5453,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "1",
             "2",
-            "4"
+            "4",
+            "3"
           ],
           "answer": 2,
           "why": "Each task must wait for the one before it, so the chain forces 4 stages one after another."
@@ -5348,7 +5485,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Dijkstra",
             "Topological sort",
-            "Binary search"
+            "Binary search",
+            "Quickselect"
           ],
           "answer": 1,
           "why": "Dependencies define a DAG, and a topological sort gives an order that installs every dependency first."
@@ -5408,11 +5546,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do you check whether x and y are in the same group?",
           "options": [
-            "Compare x and y directly",
-            "Check if find(x) == find(y)",
-            "Count the group sizes"
+            "Check whether find(x) == find(y)",
+            "Compare node IDs x and y directly",
+            "Count disjoint partition totals cleanly",
+            "Traverse parent pointers backward to tail"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Each group has one root; two items share a group exactly when they have the same root."
         }
       },
@@ -5443,11 +5582,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does path compression do?",
           "options": [
-            "Deletes nodes from a group",
-            "Points nodes on the find path directly at the root",
-            "Sorts the groups"
+            "Drops redundant child nodes from tree",
+            "Sorts disjoint sets by subtree size",
+            "Splits cyclic components into binary trees",
+            "Links visited nodes straight to root"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "After finding the root, every node visited is re-linked to the root, flattening the tree."
         }
       },
@@ -5483,10 +5623,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What does union(x, y) return when x and y are already connected?",
           "options": [
             "True",
-            "False",
-            "The group size"
+            "None",
+            "Group size",
+            "False"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Nothing is merged, so it returns False, which signals that adding this link would close a loop."
         }
       },
@@ -5516,11 +5657,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In find_redundant, when is an edge reported?",
           "options": [
-            "When it is the longest",
-            "When its two ends already have the same root",
-            "When it is the last edge"
+            "When edge weight exceeds threshold",
+            "When the final input edge arrives",
+            "When endpoints share the same root",
+            "When both vertices keep rank zero"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Same root means the two computers were already connected, so this edge creates a cycle."
         }
       },
@@ -5550,9 +5692,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Kruskal skip an edge whose ends are already in the same group?",
           "options": [
-            "It is too expensive",
-            "It would create a loop",
-            "It is a duplicate"
+            "Weight exceeds minimum spanning bound",
+            "Adding it would form a cycle",
+            "Edge matches previously sorted input",
+            "Both vertices sit in odd clusters"
           ],
           "answer": 1,
           "why": "Both ends are already connected, so adding the edge would form a cycle, which a spanning tree cannot have."
@@ -5584,9 +5727,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is union-find a better choice than running BFS each time?",
           "options": [
-            "When edges keep arriving and connectivity is asked after each one",
-            "When you need the actual path",
-            "When groups must be split apart"
+            "Dynamic arriving edges checking live connectivity",
+            "Finding exact vertex-to-vertex hop paths",
+            "Splitting merged groups dynamically mid-stream",
+            "Computing all-pairs shortest path matrices"
           ],
           "answer": 0,
           "why": "Union-find answers \"connected?\" in almost O(1) as edges arrive, while BFS would redo a whole search each time."
@@ -5639,11 +5783,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which two properties make a problem suitable for dynamic programming?",
           "options": [
-            "Sorted input and small numbers",
-            "Overlapping subproblems and optimal substructure",
-            "Recursion and loops"
+            "Overlapping subproblems, optimal substructure",
+            "Sorted slices and small positive integers",
+            "Tail recursion and nested for-loops",
+            "Balanced trees and monotonic invariant queues"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The same subproblems repeat (so storing helps), and the best overall answer is built from best sub-answers."
         }
       },
@@ -5673,11 +5818,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does memoization store?",
           "options": [
-            "The input list",
-            "The answer to each subproblem, the first time it is computed",
-            "Only the final answer"
+            "Unmodified copies of original inputs",
+            "Only final aggregated output totals",
+            "Recursion stack depth per function call",
+            "Subproblem results on first calculation"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Each subproblem's answer is saved, so every later request for it is a quick lookup."
         }
       },
@@ -5708,11 +5854,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the main difference between memoization and tabulation?",
           "options": [
-            "Only tabulation stores answers",
-            "Memoization recurses top-down; tabulation loops bottom-up",
-            "Tabulation is always slower"
+            "Only iterative tabulation stores intermediate results",
+            "Bottom-up tabulation runs asymptotically slower always",
+            "Memoization works top-down; tabulation loops bottom-up",
+            "Top-down memoization cannot handle two-state recurrences"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Both store sub-answers; memoization starts from the top with recursion, tabulation fills a table from the bottom."
         }
       },
@@ -5742,9 +5889,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is ways(n) = ways(n - 1) + ways(n - 2) for climbing stairs?",
           "options": [
-            "It is a formula to memorise",
-            "The last move was either 1 step from n - 1 or 2 steps from n - 2",
-            "Because stairs are Fibonacci numbers"
+            "Standard Fibonacci shortcut memorized globally",
+            "Final step came from n-1 or n-2",
+            "Every staircase forms geometric power series",
+            "Two-step hops cancel odd intermediate indices"
           ],
           "answer": 1,
           "why": "Every way to reach n ends with a 1-step or a 2-step, so add the ways to reach the two stairs it could come from."
@@ -5778,7 +5926,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "3",
             "4",
-            "2"
+            "2",
+            "5"
           ],
           "answer": 1,
           "why": "Take the first and last houses, 2 + 2 = 4; they are not neighbours."
@@ -5814,11 +5963,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the first step of the DP recipe?",
           "options": [
-            "Write the loop",
-            "Define in words what dp[i] means",
-            "Pick the answer"
+            "Define what dp[i] represents",
+            "Write inner transition loop",
+            "Return final array entry",
+            "Hardcode zero base states"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "A clear definition of dp[i] makes the recurrence, base cases and answer much easier to find."
         }
       }
@@ -5873,10 +6023,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "With coins 1, 3 and 4, what is the fewest number of coins that make 6?",
           "options": [
             "3",
-            "2",
-            "1"
+            "1",
+            "4",
+            "2"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "3 + 3 = 6 uses two coins; greedy's 4 + 1 + 1 uses three."
         }
       },
@@ -5910,11 +6061,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In coin change, what does best[x - c] + 1 represent?",
           "options": [
-            "Using coin c twice",
-            "Using coin c last, plus the fewest coins for the rest",
-            "The number of coin types"
+            "Picking coin c two consecutive times",
+            "Total count of available coin types",
+            "Using coin c last plus subproblem",
+            "Remainder left after greedy max coin"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "If the last coin is c, the remaining x - c needs best[x - c] coins, plus one for c."
         }
       },
@@ -5944,11 +6096,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Coin change asks for the fewest coins. What changes when you want the number of ways?",
           "options": [
-            "Nothing",
-            "The table stores counts and adds them instead of taking a minimum",
-            "You must use recursion"
+            "Zero change to transition array logic",
+            "Force top-down recursion without DP table",
+            "Store path counts and sum choices",
+            "Sort denominations strictly descending first"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Same table idea, different question: add up the ways instead of taking the minimum."
         }
       },
@@ -5978,9 +6131,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the knapsack loop go through capacities from high to low?",
           "options": [
-            "It is faster",
-            "So each item is only counted once",
-            "So the answer is sorted"
+            "Backward strides speed CPU branch cache",
+            "Prevents reusing same item multiple times",
+            "Produces final DP values pre-sorted cleanly",
+            "Eliminates checking item weights exceeding limit"
           ],
           "answer": 1,
           "why": "Going downwards means best[c - w] has not yet been updated for this item, so the item cannot be added twice."
@@ -6016,11 +6170,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When walking back through the table, how do you know item i was taken?",
           "options": [
-            "dp[i][c] is 0",
-            "dp[i][c] is different from dp[i - 1][c]",
-            "The item is the heaviest"
+            "dp[i][c] differs from dp[i - 1][c]",
+            "dp[i][c] equals base value zero",
+            "Item weight is heaviest remaining pick",
+            "Prefix profit ratio hits maximum value"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "If adding item i changed the best value, the best answer must use item i."
         }
       },
@@ -6051,10 +6206,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "A question says: \"choose projects within a 100-hour budget to maximise profit\". Which pattern fits?",
           "options": [
             "Coin change",
-            "0/1 knapsack",
-            "Binary search"
+            "Binary search",
+            "Topological sort",
+            "0/1 knapsack"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Each project is taken once or not at all, under a limit, to maximise a value: the 0/1 knapsack."
         }
       }
@@ -6104,11 +6260,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Is \"ace\" a subsequence of \"abcde\"?",
           "options": [
-            "No, the letters are not next to each other",
-            "Yes, the letters appear in the same order",
-            "Only if the strings are the same length"
+            "No, characters are not contiguous neighbors",
+            "Only when string lengths match evenly",
+            "Only when sorted characters align identically",
+            "Yes, letters appear in preserved order"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "A subsequence may skip letters; it just has to keep their order."
         }
       },
@@ -6144,10 +6301,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "When the current letters match, what is dp[i][j]?",
           "options": [
             "max(dp[i - 1][j], dp[i][j - 1])",
+            "0",
             "dp[i - 1][j - 1] + 1",
-            "0"
+            "dp[i - 1][j] + dp[i][j - 1]"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "A matching letter extends the best common subsequence of the two shorter prefixes by one."
         }
       },
@@ -6181,9 +6339,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are the letters reversed at the end?",
           "options": [
-            "To sort them",
-            "The walk goes from the end of the strings to the start",
-            "Python strings are stored backwards"
+            "Alphabetize matching output sequences cleanly",
+            "Traceback walks backwards from end to start",
+            "Python slices string characters in reverse",
+            "Leading delimiters invert LCS row indexing"
           ],
           "answer": 1,
           "why": "The walk starts at the last letters, so the letters come out in reverse order."
@@ -6221,11 +6380,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is dp[i][0] in the edit distance table?",
           "options": [
-            "0",
-            "i, because turning i letters into an empty word takes i deletes",
-            "j"
+            "i, costing i deletes",
+            "0 unconditionally",
+            "j, costing j inserts",
+            "max(i, j) edits"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "An empty target means every one of the i letters must be deleted."
         }
       },
@@ -6255,11 +6415,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does min_distance here keep only two rows?",
           "options": [
-            "It gives a different answer",
-            "Each row only needs the row above it, so memory drops to O(N)",
-            "Python limits list sizes"
+            "Row i only reads row i-1, saving O(N)",
+            "Compressing drops exact optimality slightly here",
+            "Python memory limits two-dimensional string grids",
+            "Skipping odd rows halves total edit counts"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Every cell uses the current and previous rows only, so older rows can be thrown away."
         }
       },
@@ -6289,11 +6450,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a grid where you can only move right or down, where does the number of paths to a cell come from?",
           "options": [
-            "Only the cell above",
-            "The cell above plus the cell to the left",
-            "The diagonal cell"
+            "Only the cell directly above it",
+            "Previous diagonal corner value alone",
+            "Twice the minimum row neighbor",
+            "Sum of top and left cells"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "The last move into the cell was either down (from above) or right (from the left)."
         }
       }
@@ -6357,10 +6519,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What are the three steps of backtracking?",
           "options": [
             "Sort, search, return",
-            "Choose, explore, un-choose",
-            "Divide, conquer, combine"
+            "Divide, conquer, merge",
+            "Choose, explore, undo",
+            "Push, relax, backtrack"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Make a choice, explore what follows from it, then undo it before trying the next choice."
         }
       },
@@ -6391,9 +6554,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does pruning do in backtracking?",
           "options": [
-            "Removes duplicate answers",
-            "Abandons a path as soon as it cannot lead to a valid answer",
-            "Sorts the answers"
+            "Deduplicates identical solutions after completion",
+            "Abandons branches unable to yield validity",
+            "Sorts candidate subtrees before deeper search",
+            "Caches partial states in LRU dictionaries"
           ],
           "answer": 1,
           "why": "Stopping early skips the whole subtree of choices below a bad partial solution."
@@ -6430,9 +6594,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Two squares are on the same \"\\\" diagonal when...",
           "options": [
-            "Their rows are equal",
-            "Their row - col values are equal",
-            "Their row + col values are equal"
+            "Their row coordinates match equally",
+            "Their row - col diffs match",
+            "Their row + col sums match",
+            "Their column counts differ by 2"
           ],
           "answer": 1,
           "why": "Moving one step down-right adds 1 to both row and col, so row - col stays the same."
@@ -6464,11 +6629,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is \"find one solution\" usually faster than \"count all solutions\"?",
           "options": [
-            "It uses less memory",
-            "The search stops as soon as the first solution is found",
-            "It skips pruning"
+            "Stops immediately upon finding first solution",
+            "Single-answer stops allocate fewer frames",
+            "First-hit search skips conflict constraint checks",
+            "Counting-all disables branch pruning completely"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Returning True up the call chain ends the search immediately."
         }
       },
@@ -6502,11 +6668,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which box does the cell at row 4, column 7 belong to?",
           "options": [
-            "(1, 2)",
             "(4, 7)",
-            "(2, 1)"
+            "(2, 1)",
+            "(2, 2)",
+            "(1, 2)"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "4 // 3 = 1 and 7 // 3 = 2, so it is box (1, 2)."
         }
       },
@@ -6536,11 +6703,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which clue suggests backtracking?",
           "options": [
-            "\"Find the shortest route\"",
-            "\"List all valid arrangements\"",
-            "\"Find the maximum in a list\""
+            "Find shortest weighted path",
+            "Find largest element fast",
+            "List all valid arrangements",
+            "Compute rolling window max"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Listing or counting every valid arrangement is the classic backtracking job."
         }
       }
@@ -6595,10 +6763,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What is 1011 in binary as a decimal number?",
           "options": [
             "13",
+            "7",
             "11",
-            "7"
+            "9"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "8 + 0 + 2 + 1 = 11."
         }
       },
@@ -6635,7 +6804,8 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "7",
             "5",
-            "2"
+            "2",
+            "4"
           ],
           "answer": 1,
           "why": "110 XOR 011 = 101, which is 5."
@@ -6667,11 +6837,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does XOR-ing all numbers find the single one?",
           "options": [
-            "XOR sorts the list",
-            "Each pair cancels (x ^ x = 0), leaving only the single number",
-            "XOR finds the largest value"
+            "Equal pairs cancel (x ^ x = 0)",
+            "Bitwise XOR sorts bit positions in-place",
+            "XOR isolates maximum binary integer element",
+            "Even duplicate integers overflow signed sign-bits"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Order does not matter for XOR, so every pair cancels out and only the unpaired number remains."
         }
       },
@@ -6706,11 +6877,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does n & (n - 1) do?",
           "options": [
-            "Doubles n",
-            "Clears the lowest 1 bit of n",
-            "Sets all bits to 1"
+            "Doubles integer n by left shifting",
+            "Sets every bit position to one",
+            "Flips sign bit via two's complement",
+            "Clears rightmost set 1-bit of n"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Subtracting 1 flips the lowest 1 and the zeros below it; AND-ing removes that lowest 1."
         }
       },
@@ -6745,10 +6917,11 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "With READ = 4, WRITE = 2 and EXECUTE = 1, what does permission 6 mean?",
           "options": [
             "Read and execute",
-            "Read and write",
-            "Write and execute"
+            "Write and execute",
+            "Execute only",
+            "Read and write"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "6 = 4 + 2, which is read and write."
         }
       },
@@ -6782,11 +6955,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is a bit trick a good choice over a plain set?",
           "options": [
-            "Always",
-            "When memory or speed really matters, or a format requires it",
-            "Never"
+            "Always, on every collection regardless",
+            "Never, because Python ints stay unreadable",
+            "When tight memory/speed demands bit packing",
+            "Only when keys form unordered floating values"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Bits save memory and time, but cost readability, so use them where those savings matter."
         }
       }
@@ -6841,9 +7015,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is plain Dijkstra not enough for \"at most k stops\"?",
           "options": [
-            "It is too slow",
-            "It finds the cheapest route but ignores how many stops it uses",
-            "It cannot handle prices"
+            "Dijkstra runs too slowly on weighted hubs",
+            "Minimizes price while ignoring intermediate stops",
+            "Cannot represent directed integer airline fares",
+            "Heap entries reject edge hop counters"
           ],
           "answer": 1,
           "why": "Dijkstra minimises cost alone; the cheapest route overall may have too many stops."
@@ -6880,11 +7055,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does each round work on a copy of the costs?",
           "options": [
-            "To save memory",
-            "So a single round cannot chain several flights and exceed the stop limit",
-            "To sort the prices"
+            "Prevents chaining multiple flights inside one round",
+            "Buffer reuse slashes auxiliary allocation size",
+            "Maintains flight fares sorted across hub passes",
+            "Eliminates checking self-loops on relaxation passes"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Reading only last round's costs guarantees each round extends routes by exactly one flight."
         }
       },
@@ -6914,11 +7090,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the heap version, what does each heap entry hold?",
           "options": [
-            "Only the airport",
-            "(cost so far, airport, flights used)",
-            "The whole route"
+            "(cost, airport, stops used)",
+            "Destination airport code alone",
+            "Full route city sequence list",
+            "Sorted origin and destination tuple"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The heap orders states by cost, and flights used enforces the stop limit."
         }
       },
@@ -6948,11 +7125,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a set used to count airports?",
           "options": [
-            "Sets are sorted",
-            "Each airport appears in many flights but should be counted once",
-            "Sets use less memory than numbers"
+            "Sets automatically keep vertices alphabetically ordered",
+            "Sets consume fewer bytes than integer counters",
+            "Sets preserve multi-edge parallel flight weights",
+            "Deduplicates repeat airport appearances across routes"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "A set keeps one copy of each airport, however many flights mention it."
         }
       },
@@ -6987,11 +7165,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does \"production-ready\" add beyond a correct algorithm?",
           "options": [
-            "More comments only",
-            "A clear interface, validated inputs, handled edge cases and tests",
-            "Faster hardware"
+            "Detailed inline docstrings and comments only",
+            "Faster multi-core CPU compilation flags only",
+            "Clean API, validated edge inputs, and tests",
+            "Removing assertions after initial unit runs"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Correctness is the start; real code also has to be safe to call, clear to use and tested."
         }
       },
@@ -7017,9 +7196,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the most valuable skill this course aimed to build?",
           "options": [
-            "Memorising code",
-            "Recognising the right pattern and explaining why it fits",
-            "Typing fast"
+            "Memorising fixed code templates verbatim",
+            "Matching problem structure to fitting patterns",
+            "Writing compressed single-line loop expressions",
+            "Switching every algorithm straight to recursion"
           ],
           "answer": 1,
           "why": "Choosing a structure or algorithm, and explaining the choice, is what interviews and real work reward."
@@ -7075,11 +7255,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the responsibility range of index 6 (binary 0110) in a 1-based Fenwick Tree?",
           "options": [
-            "Indices 5 to 6 (length 2)",
             "Indices 1 to 6 (length 6)",
-            "Indices 6 to 6 (length 1)"
+            "Indices 5 to 6 (length 2)",
+            "Indices 6 to 6 (length 1)",
+            "Indices 4 to 6 (length 3)"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Index 6 has LSB = 6 & (-6) = 2. Its responsibility interval is [6 - 2 + 1, 6] = [5, 6], storing the sum of 2 elements."
         }
       },
@@ -7113,9 +7294,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the query loop terminate in O(log N) iterations?",
           "options": [
-            "Each subtraction i -= i & (-i) clears the lowest 1-bit, and N has at most log2(N) bits",
-            "It halves i via floating-point division every step",
-            "It scans a balanced red-black tree pointer structure"
+            "Each step clears lowest 1-bit; bounded by log2(N)",
+            "Halves i by floating-point division every loop",
+            "Scans balanced red-black tree pointers sequentially",
+            "Masks odd index bits across fixed bucket spans"
           ],
           "answer": 0,
           "why": "Clearing the rightmost set bit repeats at most equal to the number of bits in the binary representation of N, strictly O(log N)."
@@ -7147,11 +7329,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does binary lifting improve finding the k-th smallest element over standard binary search + BIT queries?",
           "options": [
-            "It reduces complexity from O(log^2 V) to a single O(log V) traversal by reading precomputed power-of-two intervals directly",
-            "It sorts the entire underlying array in O(1)",
-            "It replaces arrays with unordered sets"
+            "Sorts the underlying array strictly inside O(1)",
+            "Replaces dense arrays with unordered hash sets",
+            "Computes median frequencies using sliding deque bounds",
+            "Achieves single O(log V) scan via power-of-two jumps"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Because tree[idx + 2^b] stores the exact sum of the block (idx, idx + 2^b], checking one array cell eliminates the inner O(log V) query loop."
         }
       },
@@ -7181,11 +7364,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must query(r1 - 1, c1 - 1) be added back in query_subgrid?",
           "options": [
-            "Because the upper-left corner subgrid was subtracted twice: once in the top strip and once in the left strip",
-            "To convert from 0-based coordinates to 1-based coordinates",
-            "Because BIT trees double-count diagonal coordinates"
+            "Converts zero-based coordinates to one-based indexing",
+            "Fenwick structures double-count diagonal cell sums",
+            "Top-left corner was subtracted twice earlier",
+            "Clears negative offsets along border rows"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Both query(r1 - 1, c2) and query(r2, c1 - 1) exclude the shared intersection (1,1)..(r1-1, c1-1), so adding it once restores balance."
         }
       },
@@ -7215,11 +7399,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What ensures indices strictly after 'right' are unaffected by range_add(left, right, delta)?",
           "options": [
-            "Every prefix query at index k > right accumulates both +delta at left and -delta at right + 1, summing to zero",
-            "The tree truncates all array indices beyond right",
-            "The BIT skips all nodes greater than right during initialization"
+            "Tree initialization truncates indices exceeding right",
+            "BIT updates skip ranges ending past index right",
+            "Prefixes past right sum both +delta and -delta",
+            "Delta signs flip automatically on odd indices"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Prefix sums past right include the positive step at left and the equal negative cancellation step at right + 1."
         }
       }
@@ -7275,11 +7460,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a flat array Segment Tree allocate 4N slots instead of 2N?",
           "options": [
-            "Non-power-of-two lengths leave gaps at the bottom tree level whose heap indices exceed 2N but stay strictly under 4N",
-            "Each array element requires four Python floats internally",
-            "To double-buffer tree updates for multithreading"
+            "Each element needs four Python float heap slots",
+            "Last ragged level reaches indices between 2N and 4N",
+            "Double-buffers lazy tags across concurrent threads",
+            "Extra 2N header padding holds parent links"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "If N = 2^k + 1, depth increases to k + 2 and the flat heap index max approaches 2^(k+2) < 4N."
         }
       },
@@ -7315,9 +7501,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does any range query on a Segment Tree visit only O(log N) nodes total?",
           "options": [
-            "At each height level, at most two border intervals partially overlap [ql, qr]; interior intervals return immediately",
-            "It only checks odd indices inside the tree array",
-            "It caches all O(N^2) queries inside a dictionary"
+            "Only two border ranges split per tree height",
+            "Queries inspect only odd internal array positions",
+            "All O(N^2) segment bounds are hash-cached",
+            "Leaves collapse directly into parent bitmasks"
           ],
           "answer": 0,
           "why": "Only the nodes straddling ql and qr recurse downward, leaving at most 4 visited nodes per depth level across log2(N) levels."
@@ -7350,11 +7537,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Lazy Propagation avoid O(N log N) cost on full-array range updates?",
           "options": [
-            "It halts recursion at the highest completely covered ancestor nodes and stashes pending updates in a lazy array",
-            "It skips updating tree[node] until query time",
-            "It lowers tree array size from 4N down to 1"
+            "Defers modifying tree[node] until final queries",
+            "Shrinks flat 4N buffer to single scalar",
+            "Applies lazy deltas purely at leaf arrays",
+            "Halts at covered nodes, staging lazy updates"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Recording a lazy tag on completely covered nodes cuts off downward traversal into millions of descendant leaves."
         }
       },
@@ -7385,11 +7573,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does pushing a lazy tag val down to a child covering [l, mid] increment tree[left] by (mid - l + 1) * val?",
           "options": [
-            "Because adding val to each element in that range increases the range total by count * val",
-            "Because segment tree values represent products of node heights",
-            "To preserve 1-based indexing inside left subtrees"
+            "Tree nodes accumulate products of child heights",
+            "Preserves one-based positions inside left children",
+            "Avoids propagating tags down past midpoint index",
+            "Range total grows by element count times val"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "A lazy sum tag affects every element in the interval equally, multiplying the per-element delta by interval width."
         }
       },
@@ -7423,11 +7612,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the time complexity of both range_add and range_query on a Lazy Segment Tree of N elements?",
           "options": [
-            "O(log N) for both operations",
-            "O(N) for range_add and O(log N) for range_query",
-            "O(log^2 N) for both operations"
+            "O(N) update, O(log N) query",
+            "O(log^2 N) for both ops",
+            "O(log N) for both ops",
+            "O(1) update, O(N) query"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Both traversals visit at most O(log N) tree nodes because lazy tagging cuts off completely covered subtrees."
         }
       }
@@ -7482,11 +7672,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under what condition can a parent node and its child edge be fused in a Radix Tree?",
           "options": [
-            "When the node has strictly one child and is not marked as the end of any inserted word",
-            "When the node stores only ASCII lowercase characters",
-            "When the parent string length exceeds 8 characters"
+            "Node stores strictly lowercase ASCII byte keys",
+            "Single child exists and node is non-terminal",
+            "Parent prefix label exceeds eight byte length",
+            "Both child branches share identical suffix strings"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A non-terminal node with a single child conveys no branching information, so concatenating parent and child labels loses zero structure."
         }
       },
@@ -7517,9 +7708,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "At most how many nodes can a Radix Tree storing K distinct non-empty strings contain?",
           "options": [
-            "At most 2K nodes (regardless of how long each string is)",
-            "At most K * average_word_length nodes",
-            "Exponentially many in K"
+            "At most 2K nodes total",
+            "Up to K times word length",
+            "Exponentially many in K",
+            "Strictly K + 1 leaf nodes"
           ],
           "answer": 0,
           "why": "By graph leaf-branching properties, a tree with at most K leaves and every non-terminal internal node having >= 2 children has <= 2K total nodes."
@@ -7552,9 +7744,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must failure link generation run in Breadth-First Search (BFS) order instead of DFS?",
           "options": [
-            "Because resolving fail[child] inspects fail[parent], which points to shallower levels that BFS computes strictly first",
-            "Because Python dictionaries preserve order only under BFS",
-            "Because DFS ignores leaf nodes"
+            "fail[child] needs shallower BFS failure pointers ready",
+            "Python dicts guarantee insertion order purely in BFS",
+            "DFS construction omits intermediate leaf suffix paths",
+            "Failure links only connect same-depth sibling nodes"
           ],
           "answer": 0,
           "why": "Since proper suffixes are strictly shorter than the node's own depth, level-order traversal ensures every target ancestor failure link is already finalized."
@@ -7586,11 +7779,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the text scanner catch both 'she' and 'he' when finishing the letter 'e' in 'ushers'?",
           "options": [
-            "State 'she' points its failure link to 'he' and inherited 'he' inside child.outputs during BFS",
-            "The search function restarts from index 0 after matching 'she'",
-            "The text string is reversed internally"
+            "Matcher rewinds string index back to zero",
+            "Input scanner evaluates text backward right-to-left",
+            "Both strings compile into separate regex engines",
+            "State 'she' failure-links to 'he', inheriting outputs"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "'he' is the longest proper dictionary suffix of 'she', so BFS extended 'she'.outputs to include 'he'."
         }
       },
@@ -7620,11 +7814,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a WAF prefer Aho-Corasick over scanning K separate regular expressions sequentially?",
           "options": [
-            "Scan time is O(N + matches), remaining independent of rulebook size K and immune to regex backtracking",
-            "Aho-Corasick decrypts TLS payloads automatically",
-            "Regular expressions cannot match ASCII letters"
+            "Automatically decrypts TLS packets prior to scan",
+            "Standard regex engines cannot match uppercase ASCII",
+            "Single O(N + matches) pass, immune to backtracking",
+            "Allocates strictly O(1) memory regardless of patterns"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Compiling all signatures into one failure-linked Trie means each character transitions once in amortized O(1)."
         }
       }
@@ -7679,11 +7874,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What causes naive Union-Find to degrade to O(N) per find() query?",
           "options": [
-            "Blindly attaching larger trees underneath smaller ones forms a linear linked list of depth N",
-            "Initializing self.parent with list(range(size))",
-            "Checking root_x != root_y before linking"
+            "Initializing self.parent with range indices upward",
+            "Blindly attaching big trees creates depth-N chains",
+            "Checking root_x != root_y before merging clusters",
+            "Assigning rank 0 equally to all roots"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Without balancing tree heights, sequential merges produce an unbranched chain forcing O(N) pointer hops."
         }
       },
@@ -7714,11 +7910,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many minimum nodes must a tree of rank R contain under Union by Rank?",
           "options": [
-            "At least 2^R nodes, proving height <= log2(N)",
-            "Exactly R nodes",
-            "At least R^2 nodes"
+            "Exactly R child nodes total",
+            "At least 2^R nodes total",
+            "At least R^2 total nodes",
+            "Up to 2R + 1 leaves"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Inductively, rank increments only upon merging two rank-(R-1) trees of size >= 2^(R-1), yielding >= 2^R nodes."
         }
       },
@@ -7749,9 +7946,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does path compression affect future find() calls along the same branch?",
           "options": [
-            "Visited nodes point directly to the root, reducing their subsequent lookup time to O(1)",
-            "It doubles the rank counter of intermediate nodes",
-            "It disconnects leaf nodes from their parent"
+            "Rewires visited nodes to root for O(1) lookups",
+            "Doubles integer rank counter along parent paths",
+            "Disconnects leaf nodes away from parent trees",
+            "Sorts union clusters in ascending array slices"
           ],
           "answer": 0,
           "why": "Setting self.parent[x] = root collapses tree paths so future queries hit the root in 1 hop."
@@ -7780,11 +7978,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is O(alpha(N)) treated as O(1) constant time in engineering systems?",
           "options": [
-            "Because Inverse Ackermann alpha(N) never exceeds 4 for any dataset smaller than 10^80 items",
-            "Because Python uses AVX2 hardware instructions for recursion",
-            "Because hash collisions are impossible inside integer arrays"
+            "Python uses hardware AVX2 instructions for recursion",
+            "Integer lookup arrays eliminate every hash collision",
+            "Path compression bounds recursion depth strictly to one",
+            "Inverse Ackermann <= 4 for all N < 10^80"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Inverse Ackermann grows more slowly than iterated logarithms; alpha(N) <= 4 for all cosmic-scale inputs."
         }
       },
@@ -7819,11 +8018,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must path compression be disabled in Rollback DSU?",
           "options": [
-            "Path compression overwrites many arbitrary parent pointers during lookups, breaking single-entry O(1) undo records",
-            "Path compression disables Python list slicing",
-            "Union by size cannot run alongside path compression in Python"
+            "Path compression breaks Python negative list slicing",
+            "Union by size forbids path compression in Python",
+            "Bulk pointer overwrites break O(1) single-entry undos",
+            "Rollback stacks grow to O(N^2) under compression"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Omitting path compression guarantees each union mutates only one parent link and one size slot, making O(1) rollback effortless."
         }
       }
@@ -7875,11 +8075,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the Milestone 7 architecture pair a Fenwick Tree for point counters alongside a Lazy Segment Tree for forecast blocks?",
           "options": [
-            "Fenwick Trees minimize memory and constant factor for single-node updates, while Lazy Segment Trees achieve O(log T) across wide time intervals",
-            "Because Python lists cannot exceed 24 elements without a Segment Tree",
-            "Because Aho-Corasick requires Segment Trees to hash strings"
+            "Python lists fail past 24 elements without segments",
+            "Aho-Corasick mandates Segment Trees for hashing strings",
+            "Fenwick saves point overhead; Segment handles ranges",
+            "Both trees use identical O(1) prefix bitmasks"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Choosing the lightest specialized data structure for each access pattern minimizes constant-factor overhead and worst-case latency."
         }
       },
@@ -7911,11 +8112,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Rollback DSU evaluate speculative failovers safely without deep-copying cluster graphs?",
           "options": [
-            "It logs each single parent/size change onto an undo stack, enabling exact O(1) pointer restoration",
-            "It runs network routing inside a subprocess fork",
-            "It discards all disconnected clusters during rollback"
+            "Executes network failovers inside subprocess worker forks",
+            "Logs parent/size diffs onto stack for O(1) rollback",
+            "Discards all partitioned islands prior to every rollback",
+            "Clones only adjacency edge tuples with copy.copy"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Recording mutated indices rather than copying arrays reduces rollback overhead from O(N) to O(1)."
         }
       },
@@ -7943,9 +8145,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens to throughput as the security signature rulebook grows from 50 to 5,000 signatures?",
           "options": [
-            "Log inspection speed stays O(len(log_line)) per line because all patterns compile into one shared Aho-Corasick automaton",
-            "Ingestion becomes 100x slower per log line",
-            "Fenwick tree queries expand from O(log N) to O(N)"
+            "Throughput stays O(len(line)) via single shared Aho-Corasick",
+            "Ingestion slows 100x per additional regex rule added",
+            "Fenwick point queries expand from O(log N) to O(N)",
+            "Automaton construction jumps to cubic O(K^3) per line"
           ],
           "answer": 0,
           "why": "Aho-Corasick transitions depend only on characters consumed in the input line, independent of rule count K."
@@ -7975,11 +8178,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Lazy Propagation scale smoothly if time resolution changes from 24 hours to 86,400 seconds?",
           "options": [
-            "O(log 86400) is roughly 17 steps, avoiding 86,400 per-second loop iterations on every multi-hour booking",
-            "Segment trees automatically aggregate seconds into days internally",
-            "Lazy arrays shrink memory size below N"
+            "Segment nodes auto-aggregate second intervals into hours",
+            "Lazy arrays shrink backing buffer size below N",
+            "Modulo compression merges adjacent empty second ranges",
+            "Tree height log2(86400) ~ 17 skips linear loops"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Logarithmic scaling means even thousands of times finer granularity adds only a tiny constant number of tree depth hops."
         }
       },
@@ -8010,11 +8214,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does AutonomousInfraEngine eliminate tail-latency bottlenecks across mixed workloads?",
           "options": [
-            "Every subsystem operates in logarithmic O(log N), near-constant O(alpha(N)), or linear single-pass O(L) time",
-            "It disables log scanning whenever node counts exceed 4",
-            "It caches static results indefinitely without supporting updates"
+            "Bypasses log scanning whenever active nodes exceed four",
+            "Freezes cached outputs without allowing dynamic updates",
+            "Batches queries sequentially into overnight O(N^2) passes",
+            "Each engine runs in O(log N), O(alpha(N)), or O(L)"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Selecting optimal asymptotic bounds per subsystem prevents linear array scans and quadratic regex matching under burst load."
         }
       }
@@ -8068,12 +8273,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does mutual reachability partition all vertices of any directed graph into disjoint SCCs?",
           "options": [
-            "Mutual reachability is reflexive, symmetric, and transitive, forming equivalence classes",
-            "Every directed graph has an even number of vertices with symmetric in-degrees",
-            "Topological sorting forces every directed edge to point backward",
-            "BFS trees eliminate all directed back-edges automatically"
+            "Directed graphs keep symmetric even degrees",
+            "Topological sorting points directed edges back",
+            "Mutual reachability forms equivalence classes",
+            "BFS spanning trees erase directed back-edges"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Equivalence relations uniquely partition any underlying set into non-overlapping equivalence classes."
         }
       },
@@ -8103,12 +8308,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Pass 2 of Kosaraju run on the transpose graph G^T instead of the original graph G?",
           "options": [
-            "Reversing edges turns source SCCs into sink basins so DFS cannot leak downstream into other SCCs",
-            "Transposing converts every directed graph into a bipartite tree",
-            "G^T reduces total edge count by half before starting DFS",
-            "Finish times are always sorted ascending in G^T"
+            "Transposing converts directed graphs into trees",
+            "Turns sources into sinks so DFS stays inside SCC",
+            "G^T drops half the edges before starting DFS",
+            "Finish timestamps always sort ascending in G^T"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A source SCC in G becomes a sink SCC in G^T, preventing Pass 2 from traversing inter-SCC bridges."
         }
       },
@@ -8138,10 +8343,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Tarjan's SCC algorithm, what bug occurs if you update low[u] = min(low[u], disc[v]) for visited node v without checking on_stack[v]?",
           "options": [
-            "Cross-edges into previously completed SCCs corrupt low[u], falsely merging distinct components",
+            "Cross-edges to old SCCs corrupt low[u] values",
             "The DFS timer overflows integer memory limits",
-            "Nodes with self-loops are excluded from every SCC",
-            "Tarjan produces components in ascending rather than reverse topological order"
+            "Self-loop nodes get excluded from every SCC",
+            "Tarjan emits components in ascending order only"
           ],
           "answer": 0,
           "why": "Without checking on_stack[v], a lower discovery index in an already-popped SCC falsely drags down low[u]."
@@ -8173,10 +8378,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can a Condensation Graph formed from SCCs never contain a directed cycle?",
           "options": [
-            "Any cycle between two SCC supernodes would mean all their nodes are mutually reachable and belong to one SCC",
-            "Condensation edges only connect even-numbered vertices to odd-numbered vertices",
-            "Tarjan discards backward edges while building the supernode table",
-            "Kahn topological sort removes all feedback edges automatically"
+            "A cycle between supernodes merges them into one SCC",
+            "Condensation edges only link even to odd vertices",
+            "Tarjan drops backward edges building supernodes",
+            "Kahn sort strips all feedback edges during init"
           ],
           "answer": 0,
           "why": "Mutual reachability across two distinct supernodes contradicts maximality of Strongly Connected Components."
@@ -8208,12 +8413,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the Microservice Dependency Auditor, what defines an atomic circular dependency ring?",
           "options": [
-            "Any SCC containing more than one service (or a self-calling service)",
-            "Any vertex with out-degree greater than in-degree",
-            "Any sink node with zero outgoing edges in the Condensation DAG",
-            "The first edge inspected by DFS from the gateway"
+            "Any node whose out-degree exceeds in-degree",
+            "Any sink with zero outgoing DAG edges",
+            "The first edge visited from the gateway",
+            "Any SCC with >1 service or a self-loop"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Multiple mutually reachable services form an SCC with size > 1, requiring coupled upgrades and cycle-breaking."
         }
       }
@@ -8266,12 +8471,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is an endpoint of a bridge NOT an articulation point?",
           "options": [
-            "When that endpoint has degree 1 (a pendant leaf vertex)",
-            "When the graph contains an odd number of triangles",
-            "When every other edge in the component has higher weight",
-            "Never: every bridge endpoint is always an articulation point"
+            "When the graph contains an odd triangle count",
+            "When every other edge carries higher weight",
+            "When that endpoint has degree one (a leaf)",
+            "Never: every bridge endpoint splits the graph"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Deleting a degree-1 leaf leaves all remaining vertices in the same single connected component."
         }
       },
@@ -8301,12 +8506,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does edge-ID tracking beat parent-vertex tracking in Tarjan's bridge finder?",
           "options": [
-            "It distinguishes parallel multi-edges between the same two vertices so redundant links are not mislabeled as bridges",
-            "It reduces memory usage from O(V) to O(1)",
-            "It allows the algorithm to support directed graphs automatically",
-            "It avoids maintaining discovery timestamps altogether"
+            "Cuts auxiliary recursion memory down to O(1)",
+            "Tracks parallel multi-edges individually by ID",
+            "Enables Tarjan bridges directly on digraphs",
+            "Removes discovery timestamp arrays altogether"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Tracking parent_eid skips only the traversed edge while letting parallel redundant links serve as valid bypasses."
         }
       },
@@ -8336,12 +8541,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can we NOT use low[v] >= disc[u] for the root of the DFS spanning tree?",
           "options": [
-            "No vertex can have a discovery timestamp smaller than the root, so low[v] >= disc[root] is always true",
-            "The root never has any back edges pointing to it",
-            "Parallel edges invalidate the root timestamp",
-            "Root vertices are excluded from vertex connectivity definitions"
+            "The root never receives backward spanning edges",
+            "No node has smaller disc than root, always true",
+            "Parallel edges invalidate root timestamps only",
+            "Roots are excluded from vertex connectivity sets"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Because disc[root] is minimum in its tree, every child trivially satisfies low[v] >= disc[root], requiring the child-count >= 2 test instead."
         }
       },
@@ -8371,10 +8576,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Tarjan's Biconnected Components decomposition, why do we guard back-edge stack pushes with `disc[v] < disc[u]`?",
           "options": [
-            "Every undirected back edge appears twice in adjacency lists; pushing only from child u to ancestor v prevents duplicates",
-            "Self-loops satisfy disc[v] < disc[u] so they are captured cleanly",
-            "Undirected edges with larger target IDs must always be popped first",
-            "It ensures every biconnected component contains an odd number of nodes"
+            "Prevents pushing duplicate reverse undirected edges",
+            "Self-loops pass disc[v] < disc[u] cleanly once",
+            "Ensures larger target vertex IDs pop strictly first",
+            "Forces every biconnected component to odd size"
           ],
           "answer": 0,
           "why": "Because adjacency lists store (u, v) and (v, u), checking disc[v] < disc[u] records each back edge strictly once."
@@ -8406,12 +8611,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "According to bridge-tree augmentation, if a connected network's 2-edge-connected bridge tree has 4 leaves, how many new cables minimum eliminate all bridges?",
           "options": [
-            "2 cables (matching ceil(leaves / 2))",
-            "4 cables (one for each bridge edge)",
-            "1 cable connecting the root to any leaf",
-            "8 cables forming a complete clique"
+            "4 cables (one per bridge edge)",
+            "1 cable linking root to one leaf",
+            "8 cables forming a complete clique",
+            "2 cables (ceil(leaves / 2))"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Pairing leaves in a tree with L leaves requires ceil(L / 2) augmenting links to absorb all bridges into cycles."
         }
       }
@@ -8464,12 +8669,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Dijkstra fail when graphs contain negative edge weights even without negative cycles?",
           "options": [
-            "Finalizing the closest frontier node ignores unvisited paths whose subsequent negative edges lower total distance",
-            "Python heapq cannot compare negative numbers reliably",
-            "Negative weights force adjacency lists to loop infinitely even on DAGs",
-            "Edge relaxation reverses direction on negative weights"
+            "Python heapq fails comparing negative numbers",
+            "Negative weights force DAG adjacency lists to loop",
+            "Popped nodes miss later paths lowered by neg edges",
+            "Edge relaxation reverses direction on negatives"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Dijkstra's greedy invariant assumes path weights never decrease when extending a path."
         }
       },
@@ -8499,12 +8704,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is it mathematically safe for Bellman-Ford to stop before completing all V - 1 passes?",
           "options": [
-            "Whenever a complete scan over all E edges produces zero distance relaxations",
-            "As soon as the target node's distance drops below zero",
-            "Right after half of the vertices receive finite distances",
-            "When at least one negative edge has been relaxed once"
+            "Right when target distance drops below zero",
+            "Once half the graph holds finite distances",
+            "When one full pass makes zero relaxations",
+            "When one negative edge relaxes successfully"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "If no edge improves during a full pass over E edges, distances have converged to fixed points."
         }
       },
@@ -8534,12 +8739,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must you step backward V times from `last_relaxed` instead of immediately tracing `last_relaxed` itself?",
           "options": [
-            "A node relaxed on pass V might sit downstream of the negative cycle rather than inside it",
-            "Stepping backward ensures negative edge weights turn positive",
-            "Parent pointers only point forward on odd passes",
-            "Without stepping back V times, sorted output raises IndexError"
+            "Stepping backward turns negative weights positive",
+            "Node relaxed on pass V may lie downstream of cycle",
+            "Parent pointers aim forward on odd iterations",
+            "Tracing directly triggers IndexError on DAG paths"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A node hanging off a negative cycle keeps getting updated; following parent links V steps guarantees landing inside the cycle."
         }
       },
@@ -8569,10 +8774,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does SPFA detect a negative-weight cycle without running forever?",
           "options": [
-            "It tracks relaxation or push counts per vertex and halts when any node exceeds V - 1 updates",
-            "It restricts edge weights to integers inside [-100, 100]",
-            "It discards edges already inspected twice",
-            "It sorts edges descending before pushing into the deque"
+            "Halts when any node's relax count reaches V",
+            "Restricts integer edge weights inside [-100, 100]",
+            "Discards directed edges inspected twice before",
+            "Sorts edges descending before queueing neighbors"
           ],
           "answer": 0,
           "why": "Any shortest simple path has at most V - 1 edges, so relaxing any node V times proves a negative cycle."
@@ -8604,12 +8809,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does FX arbitrage detection assign edge weights w = -math.log(rate) before running Bellman-Ford?",
           "options": [
-            "It maps multiplicative cycle products > 1.0 linearly onto additive path sums < 0.0",
-            "Logarithms eliminate negative exchange rates in foreign markets",
-            "Negative logs sort quotes in descending yield order automatically",
-            "It converts directed FX quotes into undirected distances"
+            "Logarithms prevent negative exchange rates",
+            "Negative logs auto-sort quotes by descending yield",
+            "Converts directed quotes to undirected distances",
+            "Maps products > 1.0 onto additive sums < 0.0"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Since log(a * b * c) = log(a) + log(b) + log(c), product > 1 implies -log sum < 0, matching negative-cycle detection."
         }
       }
@@ -8662,12 +8867,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Floyd-Warshall, why MUST the pivot vertex `k` be the outermost loop?",
           "options": [
-            "Layer k combines paths restricted to intermediate nodes {0..k-1}, which must all finish computing before pivot k+1 begins",
-            "Python iterates faster when k is on the outside",
-            "It avoids needing diagonal initialization dist[i][i] = 0",
-            "Otherwise parallel edges overwrite minimum values"
+            "Python loops execute faster with k outermost",
+            "Eliminates diagonal dist[i][i] = 0 initialization",
+            "Prevents parallel edges overwriting minimum sums",
+            "K+1 needs all paths through {0..k} finalized first"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "The recurrence dp[k][i][j] depends on completed solutions from layer k-1 across all pairs."
         }
       },
@@ -8697,12 +8902,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When Floyd-Warshall improves path (i, j) via pivot k, why does it set `nxt[i][j] = nxt[i][k]` instead of `k`?",
           "options": [
-            "Because k itself may require multiple intermediate hops to reach from i; nxt[i][k] gives the immediate first step",
-            "Because k only exists in the transpose matrix",
-            "Because nxt[i][k] stores the path length in hops rather than a vertex index",
-            "To avoid storing negative numbers inside nxt"
+            "Because k only lives inside transpose arrays",
+            "Because nxt[i][k] stores hop length, not index",
+            "nxt[i][k] stores first hop toward multi-hop k",
+            "To avoid storing negative sentinel hops inside"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "If i->k already routes through hub h first, routing i->j via k must still leave i through hub h."
         }
       },
@@ -8732,12 +8937,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Floyd-Warshall, when is pair (i, j) truly unbounded (-infinity) due to a negative cycle through node k?",
           "options": [
-            "Whenever dist[k][k] < 0 AND both dist[i][k] and dist[k][j] are finite",
-            "Whenever any edge in the entire graph has negative weight",
-            "Only when i equals k and j equals k",
-            "Whenever dist[i][j] < 0 after step 0"
+            "Whenever any graph edge has negative weight",
+            "dist[k][k] < 0 with finite i->k and k->j",
+            "Only when both indices equal k simultaneously",
+            "Whenever dist[i][j] < 0 right after step 0"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A negative cycle at k affects pair (i, j) precisely when a path can travel from i to k and onward from k to j."
         }
       },
@@ -8767,10 +8972,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does bitset Warshall compute transitive closure faster than nested boolean matrices?",
           "options": [
-            "Checking if i reaches k allows bitwise ORing row k's entire reach mask into row i in O(1) word operations",
-            "Bitsets compress O(V^3) graphs down to linear O(V) complexity",
-            "Bitwise XOR deletes cycles before starting iteration k",
-            "It avoids inspecting directed back edges"
+            "Row OR propagates full bitmask reach in O(1) ops",
+            "Bitsets reduce cubic O(V^3) graphs to O(V) time",
+            "Bitwise XOR erases cycles before outer loop k",
+            "Avoids checking directed back-edges at all"
           ],
           "answer": 0,
           "why": "Bit-parallel row ORing combines all V target reachability bits simultaneously in Python bigints."
@@ -8802,10 +9007,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In multi-region mesh optimization, what defines the graph center selected by `optimal_hub()`?",
           "options": [
-            "The vertex minimizing its maximum shortest-path distance (eccentricity) to all other vertices",
-            "The vertex with the greatest sum of directly attached edge capacities",
-            "The first node discovered in BFS order",
-            "Any leaf vertex in the spanning tree"
+            "Node minimizing max distance to all others",
+            "Node with highest adjacent capacity total",
+            "First vertex reached by breadth-first search",
+            "Any degree-1 leaf vertex on spanning tree"
           ],
           "answer": 0,
           "why": "Minimizing worst-case vertex eccentricity places the coordinator where the farthest node has minimal tail RTT."
@@ -8861,12 +9066,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must a unified network engine normalize both directed policy links and unique undirected physical pairs?",
           "options": [
-            "Tarjan SCC/SPFA require directed arcs, whereas bridge/cut-vertex resilience audits operate on physical undirected cables",
-            "Floyd-Warshall can only iterate over undirected graphs",
-            "Python sets cannot hash directed tuples",
-            "Removing self-loops guarantees negative weights disappear"
+            "Floyd-Warshall handles purely undirected links",
+            "Python sets cannot hash directed edge tuples",
+            "Removing self-loops forces negative weights zero",
+            "Tarjan SCC needs directed; bridges need undirected"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Logical routing policies are asymmetric directed edges, while physical cable cuts sever connectivity in both directions."
         }
       },
@@ -8897,12 +9102,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Stage 1, why can an undirected edge be a physical bridge even when all its routers sit inside distinct non-trivial cycles?",
           "options": [
-            "Because no parallel or alternate cable connects the two cyclic clusters to each other",
-            "Because Tarjan's SCC algorithm ignores edge weights",
-            "Because root vertices always generate at least one bridge",
-            "Because symmetric directed edges cancel each other out"
+            "Tarjan SCC ignores all positive edge weights",
+            "DFS root nodes always create at least one bridge",
+            "No alternate link joins the two cyclic clusters",
+            "Symmetric directed edges cancel out automatically"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Cycles within clusters do not bridge the single choke cable connecting one cluster to the rest of the network."
         }
       },
@@ -8933,12 +9138,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does SPFA track `pushes[v] >= n` instead of simply halting after `total_pops > E`?",
           "options": [
-            "Valid shortest paths may pop an active node several times as shorter detours arrive, yet no simple path visits more than n - 1 edges",
-            "Counting total pops requires floating-point division",
-            "Pushing into a deque is constant time whereas popping is O(V)",
-            "Otherwise disconnected nodes immediately trigger false positives"
+            "Counting total pushes forces float division math",
+            "Valid paths pop nodes repeatedly, capped at n-1 hops",
+            "Deque push runs O(1) while pop takes O(V) time",
+            "Disconnected islands immediately false-trigger stops"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Bounding updates per vertex by V strictly enforces the simple-path length invariant regardless of edge count E."
         }
       },
@@ -8969,12 +9174,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Stage 3 rely on Stage 2 verifying zero negative cycles before electing a hub with Floyd-Warshall?",
           "options": [
-            "Negative cycles cause distances and next-hop forwarding pointers to diverge or spin indefinitely",
-            "SPFA transforms directed edges into undirected edges",
-            "Floyd-Warshall runs in O(V) once SPFA completes",
-            "Stage 2 sorts node strings alphabetically for Stage 3"
+            "SPFA turns directed arcs into undirected edges",
+            "Negative cycles diverge forwarding distances endlessly",
+            "Floyd-Warshall runs in O(V) after SPFA exits",
+            "Stage 2 alphabetically sorts vertices for Stage 3"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Without pre-screening negative cycles, shortest paths may not exist and next-hop chasing can loop."
         }
       },
@@ -9005,10 +9210,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In `EnterpriseNetworkEngine`, why does `_spfa_check_global_cycles` pre-load every node into the SPFA queue at `dist = 0`?",
           "options": [
-            "So negative cycles anywhere in the graph — even inside unreachable or disconnected subgraphs — are detected globally",
-            "Because SPFA cannot process positive weights unless all nodes start in the deque",
-            "To compute exact shortest paths from node 0 only",
-            "To sort components alphabetically before Floyd-Warshall"
+            "Catches negative cycles even in unreachable islands",
+            "SPFA rejects positive weights unless all queued",
+            "Computes exact single-source paths from node 0",
+            "Pre-sorts SCC components prior to Floyd-Warshall"
           ],
           "answer": 0,
           "why": "Initializing every vertex at 0 simulates a virtual super-source with zero-weight arcs to every vertex, catching negative cycles anywhere."
@@ -9062,12 +9267,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a residual flow network, what physical operation does sending `delta` flow along a reverse edge `v -> u` represent?",
           "options": [
-            "Canceling `delta` units of previously committed forward flow along `u -> v` so upstream flow can reroute",
-            "Increasing the physical bandwidth limit of edge `u -> v` permanently",
-            "Violating flow conservation at node `v` by generating extra packets",
-            "Reversing the source and sink labels mid-execution"
+            "Raises physical edge capacity u -> v forever",
+            "Creates excess packets violating conservation at v",
+            "Swaps global source and sink labels mid-run",
+            "Cancels prior forward flow to enable rerouting"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Flow along a residual backward edge simply subtracts from earlier forward flow on (u, v), safely diverting traffic."
         }
       },
@@ -9097,12 +9302,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Edmonds-Karp prevent exponential flow-capacity blowups in Ford-Fulkerson?",
           "options": [
-            "Using BFS guarantees augmenting paths have shortest hop length, bounding critical edge saturations to O(V * E)",
-            "Sorting adjacency lists by weight forces one-pass convergence",
-            "Deleting reverse edges eliminates oscillatory paths completely",
-            "Pre-computing Dijkstra shortest paths scales flow linearly by capacity"
+            "Sorting adjacency lists forces single-pass saturation",
+            "Deleting back edges kills all oscillatory loops",
+            "BFS shortest augmenting hops bound saturations to O(VE)",
+            "Pre-running Dijkstra scales capacity flow linearly"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "BFS shortest augmenting path lengths never shrink, capping total augmentations at O(V * E) regardless of capacity size."
         }
       },
@@ -9132,12 +9337,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can Dinic's DFS phase never get caught in an infinite cycle while traversing the Level Graph?",
           "options": [
-            "Every permitted transition satisfies level[v] == level[u] + 1, making the active level graph strictly a DAG",
-            "Dinic deletes all edges with capacity < 2 before BFS begins",
-            "Python's recursion stack automatically halts back edges",
-            "Every sink vertex points directly back to the source"
+            "Dinic removes all edges of capacity < 2 first",
+            "Python stack limits halt cyclic DFS branches",
+            "level[v] == level[u] + 1 forces strictly a DAG",
+            "Every sink vertex connects straight back to S"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Increasing level numbers along every edge forbid revisiting any lower or equal level vertex, guaranteeing an acyclic subgraph."
         }
       },
@@ -9167,12 +9372,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What critical role does the `ptr[]` current-arc pointer play in Dinic's DFS phase?",
           "options": [
-            "It skips edges that already yielded 0 augmenting flow during the current level phase, preventing quadratic edge rescans",
-            "It stores the minimum capacity discovered so far on each BFS path",
-            "It enables Dinic to handle negative edge capacities cleanly",
-            "It sorts residual vertices before printing the final flow"
+            "Caches minimum edge capacity along BFS routes",
+            "Skips dead zero-flow arcs to prevent O(E) rescans",
+            "Allows Dinic to support negative link weights",
+            "Sorts residual vertices before emitting final flow"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Advancing ptr[u] guarantees each edge at node u is scanned at most once before it saturates or fails within that phase."
         }
       },
@@ -9202,10 +9407,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do you model a node processing throughput limit `K` inside a standard edge-capacitated flow network?",
           "options": [
-            "Split node `u` into `u_in` and `u_out` connected by one directed edge `(u_in -> u_out)` with capacity `K`",
-            "Assign capacity `K` to the super-sink edge",
-            "Divide all incoming edge capacities evenly by `K`",
-            "Run Bellman-Ford on reverse links first"
+            "Split u into u_in -> u_out edge with capacity K",
+            "Assign cap K on the outgoing super-sink edge",
+            "Divide all node incoming link capacities by K",
+            "Pre-relax node weights with reverse Bellman-Ford"
           ],
           "answer": 0,
           "why": "Replacing node u with u_in -> u_out restricts aggregate flow passing through u cleanly to at most K."
@@ -9260,12 +9465,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does flipping edges along an augmenting alternating path increase bipartite matching size by 1?",
           "options": [
-            "An augmenting path starts and ends at unmatched vertices and contains one more unmatched edge than matched edge",
-            "It merges two vertices from the left side into a single node",
-            "Every bipartite edge doubles its capacity automatically",
-            "DFS skips unmatched right-side vertices altogether"
+            "Merges two left-side vertices into one cluster",
+            "Doubles capacity across all bipartite link pairs",
+            "DFS skips all unmatched right-hand nodes completely",
+            "Alternating path has one more unmatched than matched"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Flipping matched <-> unmatched edges along an odd-length alternating path strictly swaps k matches for k + 1 matches."
         }
       },
@@ -9295,12 +9500,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Hopcroft-Karp achieve O(E * sqrt(V)) time compared to O(V * E) for Kuhn's DFS?",
           "options": [
-            "Each BFS+DFS phase augments a maximal set of vertex-disjoint shortest paths simultaneously, strictly forcing shortest augmenting path length to rise every phase",
-            "It avoids constructing adjacency lists by indexing bitmasks",
-            "Each BFS scans only half of the right-hand vertices",
-            "DFS skips unmatched right-side vertices entirely"
+            "Replaces adjacency lists with packed integer bitmasks",
+            "Each BFS explores only half the right vertices",
+            "Skips unmatched right-side vertices inside DFS",
+            "Each phase finds maximal vertex-disjoint shortest paths"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Bounding max phase count to 2 * sqrt(V) follows directly from simultaneous disjoint shortest augmenting phases."
         }
       },
@@ -9330,12 +9535,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why MUST reverse residual edges carry `-cost` in Min-Cost Max-Flow?",
           "options": [
-            "Sending backward flow along a reverse edge cancels previously assigned forward flow and accurately refunds its original `+cost`",
-            "So total cost drops to zero when all capacity is exhausted",
-            "Negative costs enable BFS without distances",
-            "Python heapq rejects positive costs on residual edges"
+            "Guarantees zero total cost once capacity drains",
+            "Negative weights enable unweighted BFS without costs",
+            "Backward flow cancels committed edge and refunds +cost",
+            "Python heapq fails on positive residual edges"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Canceling 1 unit on forward edge (u, v) removes its charge (+cost) from the total objective cleanly via -cost."
         }
       },
@@ -9365,12 +9570,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Successive Shortest Path MCMF, why do non-negative initial edge weights ensure no negative-cost cycle ever forms in the residual graph?",
           "options": [
-            "By induction on shortest augmenting paths, reduced costs remain non-negative along every residual edge",
-            "SPFA automatically deletes reverse edges after one use",
-            "Capacity scaling rounds edge costs up to powers of 2",
-            "Forward edge capacities strictly exceed reverse costs"
+            "SPFA deletes all reverse arcs after one push",
+            "Shortest-path induction keeps reduced costs >= 0",
+            "Capacity scaling rounds costs up to powers of 2",
+            "Forward edge caps strictly exceed reverse costs"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Augmenting solely along shortest-cost paths preserves dual optimality / reduced-cost feasibility, preventing negative residual cycles."
         }
       },
@@ -9400,10 +9605,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do you read which jobs were assigned to which GPUs after `optimize_placement_mcmf()` completes?",
           "options": [
-            "Any job-to-GPU forward edge whose remaining forward capacity dropped from 1 to 0 represents an active assignment",
-            "Any vertex whose final SPFA distance equals 0 is assigned to S",
-            "Read all reverse arcs originating from Super-Sink T",
-            "Pick the GPU with minimum outgoing adjacency degree"
+            "Job-to-GPU forward arcs now showing 0 remaining cap",
+            "Any vertex whose final SPFA dist equals zero",
+            "Any reverse edge leaving straight from Super-Sink T",
+            "Pick GPU holding lowest outgoing degree count"
           ],
           "answer": 0,
           "why": "Since job-to-GPU edges carry capacity 1, remaining capacity == 0 identifies exactly the selected matches."
@@ -9458,10 +9663,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does sorting items by value-to-weight density fail for 0/1 Knapsack?",
           "options": [
-            "Picking high-density discrete items can strand unusable capacity gaps that larger indivisible pairs would fill more profitably",
-            "Value-to-weight density only applies to negative item weights",
-            "Memoization returns the minimum capacity instead of maximum value",
-            "Python floating-point ratios round downward"
+            "High-density picks leave stranded capacity gaps",
+            "Value/weight density assumes negative item costs",
+            "Memoization computes min capacity instead of max",
+            "Floating-point Python division always rounds down"
           ],
           "answer": 0,
           "why": "Indivisible 0/1 constraints mean leftover knapsack space cannot be fractionally filled, invalidating density greediness."
@@ -9493,12 +9698,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In 2D 0/1 Knapsack traceback, what guarantees item `i - 1` was included at state `(i, c)`?",
           "options": [
-            "Observing dp[i][c] != dp[i - 1][c] (meaning taking item i strictly beat skipping it)",
-            "Checking whether weights[i - 1] <= c",
-            "Seeing that dp[i][c] is an even integer",
-            "Ensuring i equals n at the final row"
+            "Checking whether weights[i - 1] <= c suffices",
+            "Seeing whether dp[i][c] holds an even integer",
+            "Confirming row index i equals final total n",
+            "dp[i][c] != dp[i - 1][c] proves inclusion beat skip"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "If dp[i][c] == dp[i-1][c], skipping item i achieves the exact same optimal score; inequality proves inclusion."
         }
       },
@@ -9528,12 +9733,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why MUST 1D space-optimized 0/1 Knapsack iterate capacity `c` downward (`W` down to `w`)?",
           "options": [
-            "So left-side index dp[c - w] still holds row i-1's untouched state, preventing reusing item i multiple times",
-            "Because Python range() raises MemoryError on upward steps",
-            "To skip zero-capacity base cases faster",
-            "Because backward loops automatically reconstruct selected item names"
+            "Python range() fails upward steps with MemoryError",
+            "Bypasses checking zero-capacity base columns fast",
+            "Keeps dp[c - w] from row i-1 to avoid multi-use",
+            "Backward iteration directly recovers item names"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Reading left-side entries before updating them preserves the single-use (i - 1) transition invariant."
         }
       },
@@ -9563,12 +9768,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does binary splitting compress a stock quantity of `count = 13` into bundles `[1, 2, 4, 6]` instead of naive `13` individual copies?",
           "options": [
-            "Any integer in [0, 13] forms as a subset sum of [1, 2, 4, 6], turning O(count) items into O(log count) 0/1 bundles",
-            "Doubling weights converts Knapsack into an Unbounded recurrence",
-            "Remainders above 8 cannot fit inside integer capacities",
-            "Binary splitting eliminates the need for reverse loops in 1D DP"
+            "Doubling weights changes 0/1 to Unbounded DP",
+            "Any [0..13] sum forms from powers + remainder cleanly",
+            "Remainders past 8 fail integer capacity checks",
+            "Binary splitting removes backward loop constraints"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Powers of 2 up to floor(log2) cover [0, 2^m - 1] uniquely, and adding the remainder extends coverage strictly to [0, count]."
         }
       },
@@ -9598,12 +9803,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does tracking provenance across Binary-Split bundles remain memory-efficient even when SKU stock limits are 1,000 machines?",
           "options": [
-            "Splitting 1,000 copies requires only 10 binary bundle rows instead of 1,000 unrolled item rows",
-            "Binary bundles store floating-point ratios rather than counts",
-            "Each bundle restricts budget steps to multiples of 8",
-            "Python dictionaries discard unselected rows during execution"
+            "Binary bundles track floating-point stock ratios",
+            "1,000 copies compress down to 10 binary bundle rows",
+            "Bundles limit step sizes strictly to multiples of 8",
+            "Python dicts automatically prune unused stock rows"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Binary decomposition compresses stock S into O(log S) bundles (~10 rows for S = 1000), keeping 2D traceback compact."
         }
       }
@@ -9656,10 +9861,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the LCS DP table, what transition occurs when `a[i - 1] == b[j - 1]`?",
           "options": [
-            "dp[i][j] takes 1 + dp[i - 1][j - 1] from the upper-left diagonal subproblem",
-            "dp[i][j] takes min(dp[i - 1][j], dp[i][j - 1])",
-            "dp[i][j] resets to 0 to begin a new substring",
-            "dp[i][j] adds 2 to cover both characters"
+            "dp[i][j] = 1 + dp[i - 1][j - 1] diagonal match",
+            "dp[i][j] = min(dp[i - 1][j], dp[i][j - 1])",
+            "dp[i][j] resets to zero for a new substring",
+            "dp[i][j] adds 2 to cover both equal chars"
           ],
           "answer": 0,
           "why": "Matching elements pair together diagonally, shrinking both prefixes simultaneously by one element."
@@ -9691,12 +9896,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When tracing backward from `(m, n)` in LCS diff generation and `old[i-1] != new[j-1]`, what operation corresponds to moving upward from `(i, j)` to `(i - 1, j)`?",
           "options": [
-            "Deleting item `old[i - 1]` from the old sequence (`- old[i - 1]`)",
-            "Inserting item `new[j - 1]` into the new sequence (`+ new[j - 1]`)",
-            "Keeping both characters unchanged diagonally",
-            "Resetting the LCS score back to zero"
+            "Inserting new[j - 1] into target sequence",
+            "Keeping both matching letters cleanly diagonally",
+            "Resetting the accumulated LCS score to zero",
+            "Deleting old[i - 1] from original sequence"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Decreasing `i` consumes `old[i - 1]` without advancing `new`, which corresponds directly to deleting `old[i - 1]`."
         }
       },
@@ -9726,12 +9931,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must Edit Distance initialize `dp[i][0] = i` and `dp[0][j] = j` rather than `0`?",
           "options": [
-            "Transforming a prefix of length `i` to an empty string requires `i` deletions, and generating length `j` from empty requires `j` insertions",
-            "Python lists index from 1 rather than 0 inside nested loops",
-            "Initializing zeros causes replacement operations to cost 2 instead of 1",
-            "Because Edit Distance forbids matching characters on border indices"
+            "Python loops index rows from 1 instead of 0",
+            "Setting base cells to 0 raises substitution cost",
+            "Deleting/inserting i or j chars to match empty",
+            "Edit distance disallows border matches completely"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Empty-string borders represent base edit costs (all deletions or all insertions) before computing inner matches."
         }
       },
@@ -9761,12 +9966,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In 1-array O(min(M, N)) Edit Distance compression, what does scalar variable `prev_diag` store before `dp[j]` is overwritten?",
           "options": [
-            "The untouched upper-left cell `dp[i - 1][j - 1]` needed for match or substitution transitions",
-            "The minimum cost across all rows processed previously",
-            "The running sum of deletions along row 0",
-            "The reverse string offset in sequence `s1`"
+            "Minimum edit distance over all prior matrix rows",
+            "Running prefix sum of row 0 character drops",
+            "Previous row's upper-left dp[i - 1][j - 1]",
+            "Reverse character index offset inside string s1"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Because updating `dp[j-1]` already overwrote the left neighbor, `prev_diag` rescues `dp[i-1][j-1]` before it vanishes."
         }
       },
@@ -9796,12 +10001,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When building a fuzzy command autocorrect ranker + manifest diff engine, why pair O(min(M, N)) 1D Edit Distance with 2D LCS?",
           "options": [
-            "1D scoring filters large command catalogs in minimal memory, while 2D LCS preserves row structure only where diff traceback is needed",
-            "1D Edit Distance runs in O(M + N) linear time across any string length",
-            "2D LCS cannot process strings containing hyphens or numbers",
-            "Levenshtein distance is always larger than LCS length"
+            "1D Edit Distance runs in linear O(M + N) time",
+            "1D filters big catalogs lean; 2D runs diff traceback",
+            "2D LCS rejects hyphenated keys and integer tokens",
+            "Levenshtein edit count always exceeds LCS length"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Scoring needs only a single integer (O(min(M, N)) RAM), whereas generating a unified diff needs the full alignment table for backtracing."
         }
       }
@@ -9855,10 +10060,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Milestone 9 preserve separate Dinic/MCMF, Knapsack, and LCS solvers rather than forcing discrete budgeting into Max-Flow?",
           "options": [
-            "Max-Flow optimizes unit-by-unit path conservation whereas 0/1 and Bounded Knapsack handle indivisible multi-resource item budgets",
-            "Python cannot import two classes into the same module",
-            "Dinic cannot process graphs with more than 5 nodes",
-            "LCS diffs run in exponential time unless paired with Dinic"
+            "Flow models continuous paths; Knapsack handles indivisible SKUs",
+            "Python forbids importing Dinic and DP in one file",
+            "Dinic fails graphs exceeding five intermediate nodes",
+            "LCS line diffs run exponential unless paired with Dinic"
           ],
           "answer": 0,
           "why": "Different mathematical structures require dedicated optimal algorithms: flow graphs for routing, DP for discrete budgets, sequence DP for alignment."
@@ -9891,12 +10096,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Stage 1, if `router:hub_cpu` has capacity 50 while incoming links sum to 75 and outgoing links carry 60, what does Min-Cut report?",
           "options": [
-            "[('router:hub_cpu', 50)], proving upgrading the router CPU rather than fiber cables unlocks additional capacity",
-            "[('egress:T', 60)], blaming the final sink edge",
-            "[('in:a', 40), ('in:b', 35)], even though inputs remain unsaturated",
-            "An empty list because no sink node reached zero capacity"
+            "[('egress:T', 60)], blaming final sink egress",
+            "[('in:a', 40), ('in:b', 35)] despite slack capacity",
+            "An empty list since sink never hit zero flow",
+            "[('router:hub_cpu', 50)], bottleneck on the hub link"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Edge hub_in -> hub_out at capacity 50 is the minimum cut separating S from T, dominating upstream/downstream links."
         }
       },
@@ -9927,12 +10132,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Stage 2, why do we split bounded GPU stock limits using powers of 2 instead of unrolling every single server individually?",
           "options": [
-            "Binary splitting reduces DP bundle count from O(sum(stock)) down to O(sum(log stock)), cutting both time and memory dramatically",
-            "Powers of 2 force every machine price to be even",
-            "SPFA requires weights divisible by 2",
-            "Unrolling servers prohibits traceback reconstruction"
+            "Powers of 2 force every server price to even ints",
+            "SPFA requires edge weights divisible strictly by 2",
+            "Unrolling items disables backward path traceback",
+            "Power-of-2 splits shrink rows from O(stock) to O(log stock)"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Compressed bundles cover all integer purchase quantities 0..stock using only logarithmic rows."
         }
       },
@@ -9963,12 +10168,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does pairing Levenshtein distance with LCS line diffs protect production releases against subtle configuration bugs?",
           "options": [
-            "LCS detects added lines cleanly while Levenshtein flags misspelled parameter keys sitting close to approved schema keys",
-            "Levenshtein replaces broken network cables automatically",
-            "LCS encrypts sensitive keys inside configuration files",
+            "Levenshtein automatically repairs broken hardware links",
+            "LCS encrypts sensitive keys inside release manifests",
+            "LCS catches line changes; Levenshtein flags key typos",
             "Rolling arrays sort manifest lines alphabetically"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "LCS shows exact line mutations, and Levenshtein catches near-miss typos in newly added setting names."
         }
       },
@@ -9999,12 +10204,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which combination of Milestone 9 algorithms gives operators both continuous routing latency minimization AND discrete hardware budget packing?",
           "options": [
-            "SPFA Min-Cost Max-Flow for routing assignment paired with Binary-Split Bounded Knapsack for discrete SKU budgets",
-            "Edmonds-Karp for string diffing paired with Kuhn DFS for SKU packing",
-            "Rolling Levenshtein alone for both hardware purchase budgets and routing flow",
-            "Unbounded Knapsack with negative edge capacities"
+            "Edmonds-Karp diffs paired with Kuhn GPU packing",
+            "SPFA MCMF routing paired with Binary-Split Knapsack",
+            "Rolling Levenshtein for routing and GPU budgets",
+            "Unbounded Knapsack using negative flow capacities"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "MCMF optimizes continuous/integral path flow fees across zones, whereas Binary-Split Knapsack respects indivisible SKU pricing and budgets."
         }
       }
@@ -10056,10 +10261,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Weighted Interval Scheduling sorted by end times, why does `bisect_right(ends, s)` find the right compatible predecessor?",
           "options": [
-            "It counts how many preceding intervals have end time <= s, yielding the 1-based DP index of the newest compatible job",
-            "It sorts jobs dynamically in place by descending profit",
-            "It deletes overlapping intervals from `ordered`",
-            "It converts half-open intervals into closed segments"
+            "Counts intervals ending <= s to index newest valid DP",
+            "Sorts jobs dynamically in-place by descending profit",
+            "Removes overlapping intervals directly from ordered",
+            "Converts half-open [s, e) into closed segments"
           ],
           "answer": 0,
           "why": "Since dp is 1-indexed (dp[0] = 0), bisect_right(ends, s) equals the exact index k where ordered[k - 1].end <= s."
@@ -10091,10 +10296,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Minimum Room Partitioning check ONLY `min_heap[0]` rather than scanning all rooms?",
           "options": [
-            "Because the min-heap root always holds the earliest finish time; if it exceeds `start`, every other active room also exceeds `start`",
-            "Python heapq stores intervals sorted descending by length",
-            "Sorting by start time ensures rooms only ever stay busy for 1 time unit",
-            "Rooms freed before `start` are automatically deleted from memory"
+            "Heap root is earliest free room; > start means none free",
+            "Python heapq keeps intervals sorted descending by width",
+            "Sorting starts keeps rooms busy for one unit step",
+            "Rooms freed before start auto-expire from heap memory"
           ],
           "answer": 0,
           "why": "If even the minimum finish time among active rooms is strictly later than `start`, all rooms are busy simultaneously."
@@ -10126,12 +10331,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "For half-open intervals `[start, end)` sharing an exact boundary `t = 5` between `[1, 5)` and `[5, 9)`, which event order yields true instantaneous concurrency?",
           "options": [
-            "Process `(5, -1)` departures strictly BEFORE `(5, +1)` arrivals",
-            "Process `(5, +1)` arrivals strictly BEFORE `(5, -1)` departures",
-            "Discard both boundary events whenever timestamps collide",
-            "Use the midpoint `2.5` instead of endpoint coordinates"
+            "Sort (5, +1) arrivals before (5, -1) departures",
+            "Discard both boundary events whenever stamps tie",
+            "Replace boundary points with 2.5 midpoints cleanly",
+            "Sort (5, -1) departures before (5, +1) arrivals"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Under half-open [start, end), instant 5 belongs to [5, 9) and not [1, 5), so the ending interval decrements before the starting one increments."
         }
       },
@@ -10161,12 +10366,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Coordinate Compression let a difference array compute exact covered union span when endpoints reach 10^9?",
           "options": [
-            "It tracks active coverage across deduplicated consecutive endpoint slabs [coords[i], coords[i+1]) and weights each covered slab by its exact coordinate width",
-            "It rounds timestamps down to nearest multiples of 1000",
-            "It builds a sparse matrix of 10^9 pointers",
-            "It swaps start and end intervals inside bisect"
+            "Rounds Unix timestamps down to multiples of 1000",
+            "Allocates a sparse 10^9-slot pointer index table",
+            "Maps active slabs [coords[i], coords[i+1]) weighted by span",
+            "Swaps start and end bounds directly inside bisect"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Diff counters remain uniform inside every consecutive compressed gap [coords[i], coords[i+1]), requiring O(N) slots instead of 10^9."
         }
       },
@@ -10196,12 +10401,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In `CapacitySweepEngine`, why can coordinate compression map 1.7-billion Unix epoch seconds accurately without allocating 1.7 billion array slots?",
           "options": [
-            "Only the 2N distinct start/end timestamps define unique occupancy transition slabs, requiring at most 2N indices",
-            "Min-heaps automatically divide Unix timestamps by 1,000,000",
-            "bisect_right drops intervals whose length exceeds 1,000 seconds",
-            "Sweep-line ignores intermediate timestamps altogether"
+            "Min-heaps divide Unix timestamps by 1,000,000 cleanly",
+            "2N distinct endpoints define <= 2N transition slabs",
+            "bisect_right drops intervals wider than 1,000 sec",
+            "Sweep-line ignores intermediate timestamp events"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Coverage concurrency changes strictly at interval start/end coordinates, so sorting at most 2N unique endpoints suffices."
         }
       }
@@ -10254,12 +10459,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a Monotonic Stack run in O(N) time despite containing an inner `while stack:` loop?",
           "options": [
-            "Every array element enters the stack once and can be popped at most once, bounding total operations strictly by 2N",
-            "The stack automatically truncates whenever length exceeds sqrt(N)",
-            "Python lists implement O(1) binary search inside the while condition",
-            "Elements already popped get reinserted only at even indices"
+            "Stack auto-truncates whenever length hits sqrt(N)",
+            "Each element pushes and pops <= once, <= 2N ops",
+            "Python lists run O(1) binary search inside while",
+            "Popped values re-enter strictly at even indices"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Aggregate work equals total pushes plus total pops across the whole array, never quadratic per iteration."
         }
       },
@@ -10289,10 +10494,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When popping index `p` from an increasing histogram stack at incoming index `right`, how do you calculate the rectangle's maximum width?",
           "options": [
-            "`right - left - 1`, where `left` is the new `stack[-1]` (or `-1` if the stack is now empty)",
-            "`right - p` unconditionally",
-            "`heights[p] * (right + 1)`",
-            "`stack[-1] - right + 1`"
+            "right - left - 1 using new stack[-1] (or -1)",
+            "right - p index offset unconditionally",
+            "heights[p] * (right + 1) rectangle product",
+            "stack[-1] - right + 1 distance span"
           ],
           "answer": 0,
           "why": "Both `left` (exclusive) and `right` (exclusive) mark the nearest bars strictly shorter than heights[p], leaving right - left - 1 full bars."
@@ -10324,12 +10529,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why MUST a Sliding Window Monotonic Deque store array indices rather than bare numeric values?",
           "options": [
-            "So the front element can be expired cleanly via `dq[0] <= i - k` the exact step it leaves the active window",
-            "Because collections.deque cannot push negative integers",
-            "Indices compress O(K) memory down to O(1)",
-            "So duplicate numeric values always merge into one slot"
+            "Because collections.deque rejects negative ints",
+            "Array indices shrink O(K) RAM down to O(1)",
+            "Ensures duplicate input numbers merge one slot",
+            "Enables exact left-bound eviction dq[0] <= i - k"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Without storing indices, you cannot determine whether the current front extreme expired outside the k-width window."
         }
       },
@@ -10359,12 +10564,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In `shortest_subarray_with_negatives`, why is it safe to permanently `dq.popleft()` an index `s` once `prefix[i] - prefix[s] >= K`?",
           "options": [
-            "Any subsequent index `j > i` pairing with `s` can only yield a strictly longer subarray `j - s > i - s`",
-            "Removing `s` shrinks the prefix sum values of later elements",
-            "Negative sums can never follow a valid match",
-            "Python deque pops from the left in O(N) only once"
+            "Popping s lowers subsequent array prefix sums",
+            "Negative sums cannot precede valid K subarrays",
+            "Any later j > i gives strictly wider length j - s",
+            "Python deque pops from left in O(N) only once"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Since we already minimized length using `s` at `i`, `s` can never improve best length for any later `j > i`."
         }
       },
@@ -10394,12 +10599,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How fast does `StreamingWindowMonitor` compute rolling k-window spread, longest bounded jitter span, and sustained histogram area?",
           "options": [
-            "Strictly O(N) total time across all three metrics regardless of window size `k`",
-            "O(N * K) using nested loops over each window",
-            "O(N^2) because deque back-pruning rescans earlier samples",
-            "O(N log N) from sorting every sliding window"
+            "O(N * K) via nested loops per window",
+            "O(N^2) because deque rescans earlier items",
+            "Strictly O(N) total regardless of k",
+            "O(N log N) sorting each sliding window"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Each element is pushed and popped at most once per monotonic stack or deque, guaranteeing O(N) aggregate work independent of k."
         }
       }
@@ -10453,12 +10658,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Rabin-Karp polynomial rolling hash, how do you drop the outgoing leftmost character `old_c` from a window of length `M` in O(1)?",
           "options": [
-            "Subtract `old_c * (BASE ** (M - 1) % MOD)` modulo MOD, multiply by BASE, and add incoming `new_c`",
-            "Recompute the sum of ASCII characters across the entire new slice",
-            "Bit-shift the string right by 8 bits",
-            "Divide the current hash by `old_c`"
+            "Re-sum ASCII values across the full sliced window",
+            "Subtract old_c * pow_m, multiply BASE, add new_c",
+            "Bit-shift the rolling hash integer right by 8 bits",
+            "Integer-divide current rolling hash by old_c"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Because the leading character carries exponent BASE^(M-1), subtracting it leaves the remaining M-1 characters ready to shift up by * BASE."
         }
       },
@@ -10489,10 +10694,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can Binary Search find the Longest Repeated Substring length?",
           "options": [
-            "Existence of a repeat is monotonic: if a repeat of length L exists, at least one repeat of every shorter length k < L also exists",
-            "Strings must be sorted alphabetically before hashing",
-            "Rolling hash requires lengths to be powers of 2",
-            "Python sets maintain insertion indices strictly sorted"
+            "Monotonic: if L repeats, all lengths < L do too",
+            "Strings must sort alphabetically prior to hashing",
+            "Rolling hashes require lengths be powers of 2",
+            "Python sets maintain inserted indices sorted"
           ],
           "answer": 0,
           "why": "Monotonicity partitions [1..N-1] cleanly into [True, ..., True, False, ..., False], enabling binary search over length."
@@ -10525,12 +10730,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Right after KMP matches a full pattern of length `M` at index `i`, why does it set `j = lps[j - 1]` rather than `j = 0`?",
           "options": [
-            "Setting `j = lps[j - 1]` allows overlapping pattern matches that reuse matched suffix characters",
-            "Setting `j = 0` causes an out-of-bounds crash on empty text",
-            "`lps[j - 1]` automatically doubles the pattern length",
-            "Text index `i` rewinds backward by `M - 1` steps"
+            "Setting j = 0 triggers IndexError on empty input",
+            "lps[j - 1] automatically doubles pattern length",
+            "Text index i rewinds backward by M - 1 positions",
+            "j = lps[j - 1] keeps matched suffix for overlaps"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Reusing the matched border lps[M - 1] allows detecting overlapping occurrences such as 'aba' at [0, 2] in 'ababa'."
         }
       },
@@ -10561,12 +10766,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Using KMP's prefix array on a string of length `n`, when does `s` repeat an exact prefix unit `p = n - lps[-1]` without trailing remainder?",
           "options": [
-            "Whenever `p < n` and `n % p == 0`",
-            "Whenever `lps[-1] == 0`",
-            "Whenever `n` is an odd prime integer",
-            "Whenever `z[1] == n // 2`"
+            "When lps[-1] == 0 strictly",
+            "When n is an odd prime integer",
+            "When z[1] == n // 2 exactly",
+            "When p < n and n % p == 0"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "If border overlap lps[-1] implies shift p and n divides p cleanly, induction proves every p-block mirrors the prefix."
         }
       },
@@ -10597,12 +10802,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does streaming wire inspection prefer KMP over Rabin-Karp when matching a single known fixed threat signature?",
           "options": [
-            "KMP maintains strict worst-case O(1) amortized transition per byte in O(M) space without verifying hash-table collisions on disk/slices",
-            "KMP hashes strings with SHA-256 automatically",
-            "Rabin-Karp cannot match substrings containing underscores",
-            "KMP runs faster by ignoring character order"
+            "KMP hashes strings automatically with SHA-256 bytes",
+            "Rabin-Karp fails substrings holding underscore chars",
+            "Worst-case O(1) transition/byte, zero collision checks",
+            "KMP accelerates scans by skipping character order"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "KMP requires zero historical window slicing (exact equality fallback needs the last M bytes) and offers guaranteed worst-case O(N + M) determinism."
         }
       }
@@ -10655,12 +10860,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do you test whether element `k` belongs to subset bitmask `mask` and then construct the new mask with `k` added?",
           "options": [
-            "Test `bool(mask & (1 << k))`, and add via `mask | (1 << k)`",
-            "Test `mask % k == 0`, and add via `mask + k`",
-            "Test `mask >> k`, and add via `mask & (1 << k)`",
-            "Test `mask ^ (1 << k)`, and add via `mask // 2`"
+            "Check mask % k == 0; set via mask + k",
+            "Check bool(mask & (1<<k)); set mask | (1<<k)",
+            "Check mask >> k; set via mask & (1<<k)",
+            "Check mask ^ (1<<k); set via mask // 2"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Bitwise AND with (1 << k) extracts bit k alone, and bitwise OR inserts bit k without toggling other items."
         }
       },
@@ -10690,10 +10895,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In sequential Worker-to-Task Bitmask DP, why do we not need to store current worker index `w` inside the DP table dimensions?",
           "options": [
-            "Workers are assigned in strict order `0, 1, ...`, so `w` always equals `popcount(mask)` of tasks already taken",
-            "Bitmask assignment assumes all workers have identical cost rows",
-            "Bitwise XOR erases the need to index workers completely",
-            "Tasks with lowest cost always go to worker 0"
+            "Worker w always equals popcount(mask) assigned tasks",
+            "Bitmask assignment assumes uniform worker cost rows",
+            "Bitwise XOR removes needing worker dimension slots",
+            "Lowest cost task always maps cleanly to worker 0"
           ],
           "answer": 0,
           "why": "Assigning workers sequentially ensures the k-th worker always transitions from states containing exactly k set task bits."
@@ -10725,10 +10930,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Held-Karp TSP pin starting node 0 (`dp[1][0] = 0`) instead of iterating every possible starting vertex?",
           "options": [
-            "Every Hamiltonian cycle passes through vertex 0, so pinning the depot eliminates N equivalent cyclic shifts identically",
-            "Distances from other nodes cannot be negative",
-            "Bitmask integers cannot store bit 0 unless initialized to 1",
-            "It cuts asymptotic runtime from O(N^2 * 2^N) down to O(N)"
+            "Every tour visits node 0; eliminates N cyclic shifts",
+            "Other nodes forbid negative outgoing edge distances",
+            "Bitmasks require bit zero initialized strictly to 1",
+            "Cuts runtime from O(N^2 * 2^N) down to O(N)"
           ],
           "answer": 0,
           "why": "A closed loop has identical length regardless of which node on the ring starts it, so fixing depot 0 saves a factor of N without loss."
@@ -10760,12 +10965,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the exact aggregate time complexity across all outer `mask` and inner `sub = (sub - 1) & mask` loops for universe size N?",
           "options": [
-            "O(3^N), because each of the N items is either outside mask, inside mask\\sub, or inside sub",
-            "O(4^N), because two nested loops over 2^N always square",
-            "O(N * 2^N), matching Worker Assignment DP",
-            "O(N!)"
+            "O(4^N) from two nested 2^N loop structures",
+            "O(N * 2^N), matching Worker Assignment DP cost",
+            "O(N!) from permuting subset submasks directly",
+            "O(3^N): each bit sits in none, mask\\sub, or sub"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Each bit has 3 mutually exclusive states across all (mask, sub) pairs: 0 in both, 1 in mask only, or 1 in both -> 3^N combinations."
         }
       },
@@ -10795,12 +11000,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In `BitmaskRoutePlanner`, why does Held-Karp accept `[0] + customers` rather than running over all `N` nodes globally every flight?",
           "options": [
-            "Optimizing only over the `k` assigned stops of one flight keeps per-sortie complexity `O(k^2 * 2^k)` instead of paying full `N` dimensionality",
-            "Depot 0 must sit at index 1 in every customer array",
-            "Python sets cannot hash nodes larger than `k`",
-            "Customer distances equal zero outside the active mask"
+            "Depot 0 must sit at index 1 in every array",
+            "Python sets cannot hash nodes larger than k",
+            "Solving k assigned stops keeps each sortie O(k^2 * 2^k)",
+            "Distances outside active masks zero out automatically"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Shrinking TSP to just Depot 0 + the flight's batch subset keeps the exponent strictly small (`k <= N`)."
         }
       }
@@ -10854,12 +11059,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does `Block10Manifest.preflight_check()` verify `all(w <= self.cap)` before starting Bitmask Submask Batch DP?",
           "options": [
-            "Any single item heavier than container capacity `cap` has zero valid batches, leaving the full mask unreachable",
-            "Python bitwise shift `1 << w` crashes on small weights",
-            "Held-Karp requires every customer weight to be identical",
-            "Intervals overlap infinitely if weights exceed cap"
+            "Python shift 1 << w fails on small positive weights",
+            "Any item > cap has 0 valid batches, blocking full mask",
+            "Held-Karp forces every customer weight identical",
+            "Intervals overlap infinitely when weights pass cap"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "If an indivisible stop exceeds payload cap, no valid submask can cover that stop, making finite packing impossible."
         }
       },
@@ -10890,12 +11095,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Stage 1, why does `best_calm` evaluate `stream[mx2[0]] - stream[mn2[0]]` in O(1) at each `left` shift?",
           "options": [
-            "The fronts of both decreasing and increasing monotonic deques continuously maintain the current window maximum and minimum in O(1)",
-            "Both deques store only two scalars instead of indices",
-            "Sliding `left` triggers Python's sorted() timsort cleanly",
-            "Jitter checks skip every second index"
+            "Both deques hold only scalars instead of indices",
+            "Dequeue fronts track sliding max and min in O(1)",
+            "Moving left invokes Python sorted() timsort fast",
+            "Jitter checks skip every second window position"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "mx2[0] always tracks the active max index and mn2[0] always tracks the active min index across [left..right]."
         }
       },
@@ -10926,10 +11131,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Stage 2, why do we run BOTH Rabin-Karp chunk hashing and KMP linear search?",
           "options": [
-            "Rabin-Karp matches shared fixed-width substrings across documents in O(N) hash lookups, while KMP deterministically catches known alert patterns without hash-slice storage",
-            "KMP hashes tuples while Rabin-Karp computes LPS periodicity",
-            "Rabin-Karp runs in O(1) total time regardless of document length",
-            "KMP requires dual prime moduli to avoid integer overflow"
+            "RK detects shared chunks O(N); KMP checks exact alerts",
+            "KMP hashes tuples while RK builds LPS periodicity",
+            "Rabin-Karp executes O(1) independent of file length",
+            "KMP requires dual prime moduli against overflow"
           ],
           "answer": 0,
           "why": "Chunk fingerprinting shines for set intersections across large texts, while KMP excels at streaming deterministic alert matching."
@@ -10962,12 +11167,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Stage 3, why does minimizing total dispatch batches (`O(3^N)`) come prior to running Held-Karp TSP (`O(k^2 * 2^k)`) on each batch?",
           "options": [
-            "Each vehicle sortie carries independent stops within weight limit `cap`, letting Held-Karp solve strictly smaller optimal loops per assigned flight",
-            "Held-Karp modifies item weights before packing begins",
-            "Bitmask XOR sums distances sequentially",
-            "Submask enumeration requires sorting customer cities clockwise first"
+            "Held-Karp modifies stop weights prior to batching",
+            "Bitwise XOR sums sortie route distances sequentially",
+            "Submask sweeps require clockwise-sorted stops first",
+            "Batching fits k <= cap so TSP optimizes smaller sets"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Determining exact capacity-valid customer groupings first gives each sortie an exact stop subset for optimal closed routing."
         }
       },
@@ -10998,12 +11203,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does `Milestone10FleetSuite` achieve O(N) complexity for stream metrics while using O(3^N) and O(k^2 * 2^k) for vehicle dispatch?",
           "options": [
-            "Sliding extreme and pattern matching have linear sequential structure, whereas exact multi-stop bin-packing/TSP are NP-hard combinatorial subset problems",
-            "Python deques are inherently slower than bitwise integers",
-            "KMP reuses vehicle weights internally",
-            "Intervals force O(N) loops to run exponentially"
+            "Python deques run slower than packed integers",
+            "KMP reuses customer weights internally per pass",
+            "Streaming/KMP stay linear; batching/TSP are NP-hard",
+            "Sweep intervals force linear scans exponential"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Algorithm complexity reflects intrinsic problem structure: sequential window bounds are P (O(N)), while exact subset routing is NP-hard."
         }
       }
@@ -11055,12 +11260,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Using DFS entry (`tin`) and exit (`tout`) timestamps on a rooted tree, what condition proves node `u` is an ancestor of node `v` in O(1)?",
           "options": [
-            "`tin[u] <= tin[v] and tout[v] <= tout[u]`",
-            "`tin[v] <= tin[u] and tout[v] <= tout[u]`",
-            "`depth[u] < depth[v]` alone regardless of timestamps",
-            "`tin[u] + tout[u] == depth[v]`"
+            "tin[v] <= tin[u] and tout[v] <= tout[u]",
+            "depth[u] < depth[v] ignoring DFS timestamps",
+            "tin[u] <= tin[v] and tout[v] <= tout[u]",
+            "tin[u] + tout[u] == depth[v] strictly"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "A descendant's DFS lifetime starts after its ancestor enters and completes cleanly before its ancestor exits."
         }
       },
@@ -11091,12 +11296,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Binary Lifting, how is `up[v][k]` (the `2^k`-th ancestor of `v`) computed from column `k - 1`?",
           "options": [
-            "`up[up[v][k - 1]][k - 1]` (or `-1` if `up[v][k - 1] == -1`)",
-            "`up[v][k - 1] + 2`",
-            "`up[v][0] * k`",
-            "`up[k][v - 1]`"
+            "up[v][k - 1] + 2 step index",
+            "up[up[v][k - 1]][k - 1] (or -1 if none)",
+            "up[v][0] * k direct stride",
+            "up[k][v - 1] transposed lookup"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Taking two consecutive jumps of length 2^(k - 1) covers exact total vertical climb 2^(k - 1) + 2^(k - 1) = 2^k."
         }
       },
@@ -11127,10 +11332,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Binary Lifting LCA, why MUST the simultaneous jump loop iterate `k` from `LOG - 1` down to `0` instead of ascending `0` to `LOG - 1`?",
           "options": [
-            "Descending powers execute binary search over remaining height cleanly so `u` and `v` reach one step below LCA regardless of jump binary pattern",
-            "Ascending loops cause Python dictionaries to reverse order",
-            "Large `k` values must run first because `up[u][0]` is uninitialized initially",
-            "Because tree depths decrease downward from root to leaves"
+            "Descending powers binary-search depth cleanly to LCA-1",
+            "Ascending loops reverse Python dictionary insertion",
+            "Large k runs first as up[u][0] initializes last",
+            "Tree depths descend numerically toward leaf nodes"
           ],
           "answer": 0,
           "why": "Binary decomposition of an arbitrary gap requires testing largest power-of-2 steps first, identically to binary search."
@@ -11163,12 +11368,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Sparse Table RMQ work accurately in `O(1)` over overlapping power-of-2 intervals `min(st[k][L], st[k][R - 2^k + 1])`, whereas Range Sum fails with overlap?",
           "options": [
-            "`min` is idempotent: evaluating overlapping sub-elements twice never changes the minimum depth",
-            "Euler tours never contain duplicate node entries",
-            "Sparse tables store sum prefixes implicitly inside bitmasks",
-            "Python min() executes in O(N) only on sorted tuples"
+            "Euler tours never repeat identical node indices",
+            "Sparse tables pack sum prefixes in bitmasks",
+            "Python min() takes O(N) only on sorted tuples",
+            "min is idempotent so overlaps never distort minima"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "min(a, a) == a cleanly (idempotence), so intersecting left/right 2^k windows never corrupts the minimum depth node."
         }
       },
@@ -11199,12 +11404,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In `TreeHierarchyLCAEngine`, how do we compute weighted RPC latency between `a` and `b` using precomputed root distances `lat[]`?",
           "options": [
-            "`lat[a] + lat[b] - 2 * lat[lca(a, b)]`",
-            "`abs(lat[a] - lat[b])` unconditionally",
-            "`lat[a] + lat[b]` ignoring `lca`",
-            "`lat[lca(a, b)] * 2`"
+            "abs(lat[a] - lat[b]) unconditionally",
+            "lat[a] + lat[b] ignoring lca depth",
+            "lat[lca(a, b)] * 2 subtree double",
+            "lat[a] + lat[b] - 2 * lat[lca(a, b)]"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Adding root-to-a and root-to-b counts the shared prefix root-to-lca twice, so subtracting 2 * lat[lca] leaves the exact unique bridge path."
         }
       }
@@ -11257,12 +11462,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Heavy-Light Decomposition, why can a path from ANY leaf to the root cross at most `floor(log2(N))` light edges?",
           "options": [
-            "Any non-heavy child has subtree size at most `sz[parent] / 2`, so each light edge visited doubles the subtree size on the way upward",
-            "Every binary tree has depth bounded strictly by log2(N)",
-            "Heavy chains eliminate half the nodes from the graph completely",
-            "Light edges only connect leaf nodes at equal depths"
+            "Every binary tree keeps depth <= floor(log2(N))",
+            "Heavy chains prune half the tree vertices out",
+            "Light edges halve remaining subtree size, <= log2(N)",
+            "Light edges only link same-depth leaf pairs"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "If `v` is NOT the largest child, at least one sibling carries >= `sz[v]` nodes, forcing `sz[parent] >= 2 * sz[v]`."
         }
       },
@@ -11292,12 +11497,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why MUST HLD Pass 2 enter `heavy[u]` before recursing into light children?",
           "options": [
-            "So nodes along any heavy chain occupy contiguous array indices `[pos[head[u]] .. pos[u]]`, letting a Segment Tree query chains in O(log N)",
-            "Because light children have negative depth values",
-            "To sort tree nodes strictly by numerical ID",
-            "Because segment trees cannot store heavy nodes past index N/2"
+            "Light child branches receive negative depth values",
+            "Places heavy chains contiguously for O(log N) queries",
+            "Sorts tree indices ascending by vertex label ID",
+            "Segment trees reject heavy indices above N / 2"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Descending the heavy branch first lays the entire heavy path sequentially in memory so each chain maps to one contiguous segment."
         }
       },
@@ -11327,10 +11532,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does `query_path_max` swap `u, v` whenever `depth[head[u]] < depth[head[v]]` before jumping `u = parent[head[u]]`?",
           "options": [
-            "Climbing strictly from the deeper chain head prevents stepping past the true LCA into ancestor nodes outside the path",
-            "Because Segment Trees only accept `u < v` as numeric vertex IDs",
-            "Swapping reduces path time from O(log^2 N) down to O(1)",
-            "Light edges can only traverse downward from parents"
+            "Climbing deeper chain head prevents overshooting LCA",
+            "Segment trees accept only vertex pairs u < v",
+            "Swapping reduces query time from O(log^2 N) to O(1)",
+            "Light edges only step downward toward leaf nodes"
           ],
           "answer": 0,
           "why": "Since `lca(u, v)` cannot sit strictly below BOTH `head[u]` and `head[v]`, the deeper chain head strictly lies on or inside one branch below LCA."
@@ -11362,10 +11567,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does HLD support whole-subtree range queries `[pos[u], pos[u] + sz[u] - 1]` simultaneously with heavy chain queries?",
           "options": [
-            "Pass 2 completes every descendant inside `u`'s subtree before stepping out to siblings, placing the subtree in one contiguous block",
-            "Every heavy chain ends right at leaf `sz[u] - 1`",
-            "Subtree stats walk parent pointers dynamically in O(N)",
-            "Light children always precede root index 0"
+            "Pass 2 finishes whole subtree u contiguously in flat idx",
+            "Every heavy chain ends right at leaf sz[u] - 1",
+            "Subtree sums follow parent pointers in O(N) hops",
+            "Light children always precede root array index 0"
           ],
           "answer": 0,
           "why": "HLD DFS ordering preserves contiguous Euler subtree ranges seamlessly while enforcing heavy-first linear chains."
@@ -11398,12 +11603,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In `HLDNetworkMonitor`, what makes updating a router load and querying arbitrary spine-leaf path peaks run in `O(log N)` and `O(log^2 N)` instead of `O(N)`?",
           "options": [
-            "Every heavy chain sits contiguously in the segment tree, and paths traverse at most O(log N) distinct chains",
-            "Updating a router rebuilds the DFS tree cleanly inside O(1)",
-            "Heavy chains skip spine routers unconditionally",
-            "Segment trees divide network throughput equally across leaves"
+            "Updating a router rebuilds DFS arrays cleanly in O(1)",
+            "Heavy paths bypass spine backbone switches altogether",
+            "Segment trees split link load evenly across leaves",
+            "Chains occupy contiguous ranges; <= O(log N) chains/path"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Bounding chain transitions to O(log N) and backing each chain with an O(log N) Segment Tree yields O(log^2 N) worst-case dynamic path queries."
         }
       }
@@ -11456,12 +11661,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do computational geometry algorithms compute `(Ax - Ox)*(By - Oy) - (Ay - Oy)*(Bx - Ox)` instead of comparing slopes `(Ay - Oy)/(Ax - Ox)`?",
           "options": [
-            "Cross products use exact integer multiplication with zero division-by-zero crashes on vertical lines (`dx=0`) and zero float rounding error",
-            "Cross products work only in 3D space whereas slopes work only in 2D",
-            "Python computes floats slower than list comprehensions",
-            "Because slopes become infinite whenever `dy == 0`"
+            "Cross products handle 3D while slopes work only 2D",
+            "Python floats evaluate slower than list comprehensions",
+            "Integer cross product avoids dy/0 & float precision loss",
+            "Slopes blow up to infinity whenever dy equals zero"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Pure integer arithmetic guarantees exactness across vertical alignments and near-collinear geometry edge cases."
         }
       },
@@ -11491,12 +11696,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When `o1, o2, o3, o4` all equal `0` (meaning all four segment endpoints sit along one infinite straight line), what determines whether segments `AB` and `CD` actually intersect?",
           "options": [
-            "Whether bounding projection `_on_segment` confirms at least one segment's endpoints fall inside the partner's X/Y intervals",
-            "They intersect unconditionally because every orientation equals zero",
-            "Segments are never considered intersecting if `o1 == 0`",
-            "Comparing `a[0] * d[1]` against zero"
+            "Always intersect since every orientation equals zero",
+            "Bounding box _on_segment overlap in X and Y ranges",
+            "Collinear segments never count as intersecting",
+            "Checking sign of cross product a[0] * d[1]"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Collinear points share zero cross product even when totally disjoint; projection interval overlap checks separate overlapping vs disjoint collinear segments."
         }
       },
@@ -11526,12 +11731,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Andrew's Monotone Chain algorithm, why do we slice `lower[:-1] + upper[:-1]` when combining the lower and upper hull lists?",
           "options": [
-            "The rightmost endpoint of `lower` starts `upper`, and the rightmost endpoint of `upper` equals the first point of `lower`",
-            "The final element of both hulls is always a dummy sentinel `(0, 0)`",
-            "Both chains store inner interior points at index `-1`",
-            "Slicing removes clockwise duplicates created by division rounding"
+            "Both chain tails terminate at sentinel point (0, 0)",
+            "Slices drop shared seam duplicates at upper/lower ends",
+            "Interior non-hull points sit at trailing index -1",
+            "Slicing deletes clockwise division rounding copies"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Omitting each chain's final corner eliminates double-listing the leftmost and rightmost extreme hull vertices."
         }
       },
@@ -11561,10 +11766,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Rotating Calipers run in `O(m)` linear time across an `m`-vertex convex hull instead of `O(m^2)`?",
           "options": [
-            "Triangle areas perpendicular to consecutive CCW hull edges vary unimodally, so antipodal pointer `k` walks around the polygon at most once without rewinding",
-            "Because polygon vertices sit on strictly odd integer grid coordinates",
-            "Shoelace area pre-computes every diagonal distance first",
-            "Convex hulls never exceed 4 vertices"
+            "Triangle area along CCW edges is unimodal, single k walk",
+            "Polygon hull points only sit on odd integer grids",
+            "Shoelace precomputes every diagonal length upfront",
+            "Convex polygon hulls never exceed four vertices"
           ],
           "answer": 0,
           "why": "As base edge advances around the convex boundary, the optimal farthest vertex k advances monotonically without ever needing to rewind."
@@ -11597,12 +11802,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In `GeofenceGeometryEngine`, why MUST `route_breaches_zone(start, end)` check `seg_intersect` against hull edges IN ADDITION TO `contains_point` at endpoints?",
           "options": [
-            "A straight drone path can begin and end safely outside the polygon while flying straight through its middle",
-            "`contains_point` cannot detect negative coordinates inside the interior",
-            "Segments outside convex polygons always share endpoint coordinates",
-            "Shoelace area checks ignore points touching corners"
+            "contains_point fails on negative interior coordinates",
+            "Outside segments always share one hull corner coordinate",
+            "Shoelace area tests skip vertices touching polygon edges",
+            "A path starting/ending outside can still cross hull edges"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Two safe exterior waypoints can bridge directly across an obstacle polygon, so boundary segment intersection must be checked."
         }
       }
@@ -11655,12 +11860,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Algorithm R Reservoir Sampling holding `K` items, what probability ensures the `(i)`-th zero-indexed stream item (`i >= K`) survives uniformly alongside earlier items?",
           "options": [
-            "Drawing `j` uniformly in `[0 .. i]` and replacing `reservoir[j]` when `j < K` (`probability K / (i + 1)`)",
-            "Drawing `j` strictly in `[0 .. K - 1]` and replacing unconditionally",
-            "Replacing only when `i` is a prime integer",
-            "Resampling every element from disk after `i` steps"
+            "Pick j in [0..K-1] and overwrite slot directly",
+            "Overwrite only when step i equals prime integer",
+            "Pick j in [0..i]; swap reservoir[j] when j < K",
+            "Re-read earlier disk records on every i step"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Choosing an existing slot index out of (i + 1) possibilities gives entry odds K/(i+1) and lowers incumbent survival by i/(i+1), maintaining exact uniformity."
         }
       },
@@ -11690,12 +11895,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why MUST reproducible Python Bloom Filters derive bit indices from `hashlib` rather than built-in `hash()`?",
           "options": [
-            "Python randomizes `PYTHONHASHSEED` per process, causing built-in `hash(str)` to emit different indices across restarts",
-            "Built-in `hash()` returns floating-point numbers rather than integers",
-            "hashlib computes Bloom sizes dynamically in O(1) bits",
-            "Built-in `hash()` ignores UTF-8 characters past ASCII 127"
+            "Built-in hash() returns 64-bit floats, not integers",
+            "hashlib automatically sizes Bloom arrays in O(1) bits",
+            "PYTHONHASHSEED randomizes built-in hash() across runs",
+            "Built-in hash() rejects non-ASCII UTF-8 strings"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Randomized SipHash breaks cross-run reproducibility and serialized filter compatibility unless anchored by deterministic hashes like SHA-256."
         }
       },
@@ -11725,12 +11930,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a Count-Min Sketch receiving strictly non-negative counts, why does `query(key)` return `min` rather than `max` or `mean` across rows?",
           "options": [
-            "Hash collisions only add non-negative noise upward, so every row >= exact count and `min` stays closest to true value without undercounting",
-            "`max` crashes on empty rows initialized to zero",
-            "`min` removes negative decrements stored by deletions",
-            "`mean` always returns an overestimate below the true count"
+            "max raises exceptions on zero-initialized byte rows",
+            "Collisions only add positive noise; min stays tightest",
+            "min removes negative decrement noise from deletions",
+            "mean strictly underestimates the true stream count"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Because non-negative increments can only overestimate buckets on collision, the smallest bucket among rows carries the least collision pollution."
         }
       },
@@ -11760,10 +11965,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does HyperLogLog split incoming hashed keys into `2^b` independent registers and apply a Harmonic Mean instead of tracking one global max leading-zero count?",
           "options": [
-            "Harmonic averaging across independent buckets suppresses variance from single lucky long zero runs dramatically",
-            "A single register can only count strings shorter than 64 bytes",
-            "Harmonic mean forces exact integers without floating point",
-            "Splitting keys turns distinct counting into exact membership testing"
+            "Harmonic mean across 2^b buckets suppresses outlier zeros",
+            "Single registers only count keys <= 64 byte length",
+            "Harmonic mean returns exact integers without floats",
+            "Splitting turns distinct estimation into membership checks"
           ],
           "answer": 0,
           "why": "One unusual bitstring outlier distorts a single global register, whereas harmonic mean across 2^b sub-streams yields small relative standard error 1.04/sqrt(m)."
@@ -11796,12 +12001,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In `StreamingTelemetrySketchEngine`, which structure guarantees 0% under-reporting errors when monitoring API traffic surges?",
           "options": [
-            "Both Bloom Filter (0% false negatives on membership) and Count-Min Sketch (never undercounts non-negative frequencies)",
-            "HyperLogLog registers always exceed true cardinality by >= 50%",
-            "Algorithm R guarantees every heavy hitter enters the sample",
-            "SHA-256 bitmasks store every input key verbatim"
+            "HyperLogLog counters strictly overestimate >= 50%",
+            "Algorithm R forces heavy hitters into the reservoir",
+            "SHA-256 bitmasks store each input token verbatim",
+            "Bloom Filters (no FN) & Count-Min (never undercounts)"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Bloom filters never reject an inserted member, and Count-Min Sketch collisions only increase bucket counters, never decrease them."
         }
       }
@@ -11855,12 +12060,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why MUST `Block11KernelSpec` enforce strictly deterministic hashing (`hashlib`) and integer orientation tests alongside iterative tree traversal?",
           "options": [
-            "Avoids Python hash randomization drift across runs, eliminates float division bugs on vertical edges, and prevents stack overflows on skewed trees",
-            "Python sets cannot hold tuples containing negative integers",
-            "HLD arrays require all node IDs to equal SHA-256 digests",
-            "Monotone Chain only accepts trees with fewer than 7 edges"
+            "Python sets forbid storing negative int tuples",
+            "HLD arrays require numeric IDs equal SHA digests",
+            "Monotone Chain fails trees with under seven edges",
+            "Blocks hash-seed drift, float bugs, and recursion limits"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Hash seed determinism, exact integer cross products, and explicit DFS stacks eliminate three classic production failure modes."
         }
       },
@@ -11891,12 +12096,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does `Stage1TreeKernel` handle BOTH static `lca_info(u, v)` and dynamic mutable `path_max(u, v)` without maintaining two separate trees?",
           "options": [
-            "A single iterative DFS pass constructs both Binary Lifting `up[][]` and HLD `sz`/`heavy` bounds, sharing flat segment indexing cleanly",
-            "HLD computes LCA strictly in O(1) using division slopes",
-            "Binary Lifting dynamically updates `max_t` in O(1)",
-            "Segment tree leaves store sorted ancestor lists at every vertex"
+            "HLD solves arbitrary LCA queries in O(1) via slopes",
+            "Binary Lifting mutates edge path maxima in O(1)",
+            "One iterative DFS fills both up[][] and HLD arrays",
+            "Segment leaves pack sorted ancestors per vertex"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "One topological DFS builds up[][], tin/tout, and sz/heavy metadata cleanly in O(N log N) before attaching the Segment Tree."
         }
       },
@@ -11927,12 +12132,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Stage 2, why does wrapping interior obstacles in a Convex Hull prior to corridor collision checking improve performance cleanly?",
           "options": [
-            "Corridors need test only against the tiny boundary hull edges rather than comparing against thousands of enclosed points individually",
-            "Convex hulls always shrink every obstacle down to exactly 3 vertices",
-            "Checking hull intersections turns integer arithmetic into O(1) float lookup",
-            "Collinear obstacles vanish cleanly from memory"
+            "Convex hulls shrink every obstacle down to 3 corners",
+            "Paths test tiny boundary hulls, skipping inner points",
+            "Hull intersection swaps integer math for O(1) floats",
+            "Collinear obstacles erase themselves from arrays"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "A corridor safe from the enclosing Convex Hull boundary cannot hit any interior obstacle enclosed within that hull."
         }
       },
@@ -11963,10 +12168,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Stage 3 derive separate digests/salts for the Bloom Filter, Count-Min Sketch rows, and HyperLogLog registers?",
           "options": [
-            "Using independent SHA-256 slices prevents correlation across data structures and guarantees identical results regardless of PYTHONHASHSEED",
-            "Hashlib refuses hashing integers unless salted cleanly",
-            "Reusing identical hash outputs eliminates false positives completely",
-            "Python bytearray objects reject built-in hashes cleanly"
+            "Independent SHA salts keep sketches uncorrelated & seeded",
+            "hashlib rejects integer payloads unless double-salted",
+            "Sharing identical hashes removes all false positives",
+            "Python bytearrays refuse standard built-in hashes"
           ],
           "answer": 0,
           "why": "Decoupled deterministic SHA-256 indexing eliminates both Python random hash-seed variation and statistical correlation between sketches."
@@ -11999,10 +12204,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In `Milestone11KernelSuite`, why do Binary Lifting + HLD, Monotone Chain Convex Hull, and SHA-256 Stream Sketches all execute deterministically across repeated runs?",
           "options": [
-            "Integer cross products prevent float instability, iterative stacks avoid recursion risk, and seeded RNG + SHA-256 prevent Python hash-seed drift",
-            "HLD replaces SHA-256 digests automatically",
-            "Bloom filters sort 2D geometry hulls by polar angle",
-            "Count-Min Sketches freeze global random seeds automatically"
+            "Integer math, iterative DFS, and seeded SHA/RNG",
+            "HLD automatically overwrites SHA-256 byte digests",
+            "Bloom filters sort polygon coordinates by angle",
+            "Count-Min sketches freeze global PRNG seeds"
           ],
           "answer": 0,
           "why": "Deterministic engineering removes hidden sources of variability across math precision, stack depth, and process hash randomization."
@@ -12058,12 +12263,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do Doubly Linked Lists used inside O(1) caches allocate permanent dummy `head` and `tail` sentinel nodes?",
           "options": [
-            "Every real node is guaranteed to have valid `prev` and `next` nodes, eliminating head/tail null-branch special cases on insert and removal",
-            "Sentinel nodes halve overall pointer memory per cache entry",
-            "Because Python dictionaries cannot map strings without dummy keys",
-            "Sentinels force cache capacity to double automatically"
+            "Sentinels cut linked list pointer RAM by half",
+            "Python dicts require dummy sentinel keys upfront",
+            "Sentinels double cache array capacity on resize",
+            "Real nodes always keep non-null prev/next links"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Dummy boundary sentinels keep `node.prev.next = node.next` uniform for first, middle, and last elements alike."
         }
       },
@@ -12093,12 +12298,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In `LRUCache.put(key, value)` when `key` ALREADY exists inside `self.map` and the cache is full, what must happen?",
           "options": [
-            "Update `node.val` in place and promote `node` to MRU WITHOUT evicting any entry",
-            "Evict `head.next` first, then insert a duplicate key",
-            "Leave `node` untouched at its stale position",
-            "Double `self.cap` automatically"
+            "Evict head.next first, then append duplicate node",
+            "Leave existing node unchanged at stale position",
+            "Update value, move to MRU; zero items evicted",
+            "Double self.cap dynamically to absorb updates"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Updating an existing cached key does not increase distinct entry count, so no eviction should occur."
         }
       },
@@ -12128,12 +12333,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Inside an O(1) `LFUCache`, when promoting `node` from `f` to `f + 1`, when does `min_freq` increment?",
           "options": [
-            "Only when `f == min_freq` AND `freq_map[f]` just became empty after removing `node`",
-            "On every single `get()` hit unconditionally",
-            "Only when `len(key_map)` reaches capacity",
-            "Whenever a brand-new key gets inserted"
+            "On every single get() cache hit unconditionally",
+            "Only when f == min_freq and freq_map[f] empties",
+            "Only when key_map hits maximum cache capacity",
+            "Right after any brand-new key enters at start"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "If another key remains inside `freq_map[min_freq]`, `min_freq` stays unchanged; if that bucket just emptied, only `f + 1` is guaranteed non-empty."
         }
       },
@@ -12163,12 +12368,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does `TTLLRUCache.get(key, now)` unlink and remove an expired key immediately instead of leaving it inside the cache map?",
           "options": [
-            "Reclaims RAM immediately and prevents an expired dead entry from counting against capacity or forcing eviction of valid live keys",
-            "Leaving expired items causes doubly linked list `prev` pointers to invert",
-            "Python dictionaries automatically sort expired items first",
-            "Unlinking automatically restores old TTL timestamps"
+            "Expired entries cause prev list pointers to invert",
+            "Frees RAM and prevents dead keys evicting live data",
+            "Python dicts sort expired keys to MRU automatically",
+            "Unlinking restores prior TTL window timestamps"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Reclaiming stale slots on lazy lookup avoids wasting finite cache capacity on dead data."
         }
       },
@@ -12198,10 +12403,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does `LFUCache` outperform plain `LRUCache` dramatically under sequential cold-table scans?",
           "options": [
-            "Cold scan keys enter at `min_freq = 1` and evict each other cleanly while higher-frequency hot items remain protected",
-            "LFU caches expand capacity dynamically beyond `cap` during scans",
-            "Doubly linked lists reverse scan keys into MRU slots",
-            "LRU hashes keys with modulo instead of pointers"
+            "One-shot scan keys cycle at min_freq=1; hot stays safe",
+            "LFU scales max capacity past cap during scans",
+            "Doubly linked lists push scan keys into MRU slots",
+            "LRU computes shard hashes with modulo % N"
           ],
           "answer": 0,
           "why": "Protecting freq > 1 entries prevents one-hit sequential scans from thrashing heavily reused working sets."
@@ -12256,12 +12461,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a Skip List node storing `forward` pointers up to its height `h`, how does searching for `target` avoid touching nodes strictly past `target`?",
           "options": [
-            "At each level top-down, advance `curr = curr.forward[lvl]` only while `curr.forward[lvl].key < target`, then step down one level",
-            "Perform binary search over every node's `forward` list at index 0",
-            "Store reverse backward pointers to rewind past overshoots",
-            "Always drop immediately to Level 0 whenever `key` is even"
+            "Runs binary search across level-0 forward slices",
+            "Uses reverse pointers to step back past overshoots",
+            "Drops straight to level 0 on every even integer key",
+            "Walks express forward[lvl] < target top-down cleanly"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Advancing strictly while `next.key < target` halts just left of `target` on every express lane cleanly before descending."
         }
       },
@@ -12291,12 +12496,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "If a Skip List promotes node heights with geometric probability `p = 0.25`, roughly how many forward pointers per inserted element are allocated on average?",
           "options": [
-            "About `1 / (1 - 0.25) = 1.33` pointers per node on average",
-            "Exactly `4.0` pointers per node unconditionally",
-            "`N / 4` pointers per node linearly",
-            "`log2(N)` pointers per every single base node"
+            "Exactly 4.0 pointers per node unconditionally",
+            "Linearly N / 4 pointers per inserted key",
+            "About 1 / (1 - 0.25) = 1.33 pointers",
+            "Logarithmic log2(N) pointers per base node"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Geometric tower height sums `1 + p + p^2 + ... = 1 / (1 - p)` expected forward slots per item."
         }
       },
@@ -12326,12 +12531,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When `new_lvl > self.level` during Skip List `insert()`, what MUST `update[i]` be initialized to for levels `self.level + 1 .. new_lvl`?",
           "options": [
-            "`self.header`, because no node previously reached those upper express layers yet",
-            "`None`, causing an early stop before splicing",
-            "The largest element at Level 0",
-            "`update[0]` repeated up to `new_lvl`"
+            "None sentinel, halting splices above current level",
+            "The largest existing element node at bottom Level 0",
+            "self.header, since upper layers had zero nodes yet",
+            "Repeated update[0] values cloned up to new_lvl"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "All brand-new empty upper express tiers begin strictly at `self.header`, so `self.header` is their immediate predecessor."
         }
       },
@@ -12360,12 +12565,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "After unlinking a node in Skip List `delete()`, why do we loop `while self.level > 0 and self.header.forward[self.level] is None: self.level -= 1`?",
           "options": [
-            "Removes newly vacated empty upper express tiers so subsequent searches do not waste top-level header steps",
-            "Rebalances adjacent nodes by lowering every remaining key height by 1",
-            "Prevents negative keys from entering Level 0",
-            "Frees sorted order gaps inside `range_scan`"
+            "Lowers all surviving neighbor keys down one tier",
+            "Drops empty express levels to skip wasted header hops",
+            "Prevents negative integers from inserting at level 0",
+            "Compresses deleted key gaps inside range scans"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "If the deleted node was the tallest tower, pruning empty ceiling levels keeps current active height tight cleanly."
         }
       },
@@ -12396,10 +12601,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What advantage gives a Skip List (`OrderBookSkipList`) an edge over a plain Python hash table for market depth queries?",
           "options": [
-            "Skip Lists keep price ticks in strict sorted order so `depth_slice(lo, hi)` executes in `O(log N + K)` without sorting all N entries per tick",
-            "Skip Lists execute arbitrary range queries in O(1) ignoring K",
-            "Hash tables reject integer keys representing price cents",
-            "Red-Black rotations are replaced by sorting at every get"
+            "Sorted level-0 links give O(log N + K) depth slices",
+            "Skip Lists evaluate arbitrary range slices in O(1)",
+            "Hash tables cannot store integer price-cent keys",
+            "Red-Black tree rotations sort arrays on each get"
           ],
           "answer": 0,
           "why": "Express-lane binary jumps locate range starts in O(log N), followed by sorted sequential Level-0 iteration over matching results."
@@ -12454,12 +12659,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does naive `md5_int(key) % N` cause catastrophic cache stampedes during auto-scaling from `4` to `5` servers?",
           "options": [
-            "Changing the divisor shifts remainders across almost every key (~80%), missing warmed caches simultaneously",
-            "Modulo arithmetic distributes all keys onto shard 0",
-            "MD5 hashes collide 80% of the time when divided by 5",
-            "Python % operator returns negative shards on large ints"
+            "Modulo % N routes almost every key onto shard 0",
+            "MD5 hashes collide 80% when divided by integer 5",
+            "Python modulo returns negative indices on big ints",
+            "Modulo change shifts ~80% of keys, causing mass misses"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Since `x mod 4` and `x mod 5` coincide only ~20% of the time (mod 20 congruence), ~80% of keys re-route!"
         }
       },
@@ -12489,12 +12694,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a sorted Consistent Hash Ring `ring[]`, what happens if `bisect_right(ring, key_hash)` returns `len(ring)`?",
           "options": [
-            "Wrap `idx = 0` cleanly because keys past the largest clockwise server wrap past 2^32 back to the first node on the circle",
-            "Throw KeyError because `key_hash` sits outside cluster ownership",
-            "Re-hash `key_hash` recursively with a random salt",
-            "Route the key to `ring[-1]` walking counter-clockwise"
+            "Raises KeyError for hashes beyond final ring node",
+            "Re-hashes key_hash recursively with random salt",
+            "Routes counter-clockwise onto last element ring[-1]",
+            "Wraps idx = 0 clockwise past max hash ring slot"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Because the ring connects end-to-start circularly, positions beyond the maximum node wrap directly to ring[0]."
         }
       },
@@ -12524,12 +12729,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What two production problems do Virtual Nodes (`vnodes`) simultaneously eliminate on a Consistent Hashing Ring?",
           "options": [
-            "Cluster load imbalance (skewed arc slices) AND single-neighbor failover hotspots when a physical node dies",
-            "They reduce 32-bit MD5 hashes down to 8-bit modulo integers",
-            "They eliminate `bisect_right` by converting arrays back to `% N`",
-            "They double network replication factor automatically without configuration"
+            "Compresses 32-bit MD5 digests into 8-bit ints",
+            "Replaces bisect_right binary scans with simple % N",
+            "Balances shard slices and spreads failover hotspot loads",
+            "Doubles network replication factor without config"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Scattering V replicas per physical host smoothes slice size variance and distributes failure traffic smoothly across all healthy peers."
         }
       },
@@ -12558,12 +12763,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Under Consistent Hashing, when a new node `E` joins an active 4-node ring `{A, B, C, D}`, where can any displaced key move?",
           "options": [
-            "Strictly onto `E` itself (`0` lateral keys ever move between existing healthy hosts `{A, B, C, D}`)",
-            "Around 20% redistribute randomly across ALL 5 nodes",
-            "Only keys on `D` move cleanly to `A`",
-            "All keys move forward one host clockwise"
+            "Roughly 20% shuffle randomly across all 5 hosts",
+            "Only keys moving onto E (0 keys move between old hosts)",
+            "Only keys living on D migrate directly onto node A",
+            "All cluster keys shift one slot clockwise on ring"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Inserting points on the ring only intercepts slices strictly ending at the new vnode coordinates, transferring those slices strictly to `E`."
         }
       },
@@ -12593,10 +12798,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When selecting `RF = 3` storage replicas on a Virtual-Node Hash Ring, why must `route_replicas` skip duplicate physical hosts in `seen`?",
           "options": [
-            "Adjacent ring vnode coordinates can belong to the same physical machine, which would silently place multiple copies on one single point of failure",
-            "Python sets cannot store ring integer hashes directly",
-            "Skipping physical hosts reduces MD5 bit length from 32 to 16",
-            "Virtual nodes already double disk capacity unconditionally"
+            "Adjacent vnodes may sit on same host, ruining fault tolerance",
+            "Python sets cannot store integer ring hash coordinates",
+            "Skipping duplicate hosts halves MD5 digests cleanly",
+            "Virtual nodes double disk storage capacity on add"
           ],
           "answer": 0,
           "why": "Consecutive virtual tokens around the ring often map to the same physical node, so explicit `seen` filtering preserves true machine independence across replicas."
@@ -12651,10 +12856,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "For Branch-and-Bound Maximization pruning (`if upper_bound <= best_val: skip`), what essential mathematical property MUST `upper_bound` satisfy?",
           "options": [
-            "Optimistic validity: `upper_bound` MUST always be >= the true best valid integer completion in that subtree (never underestimate!)",
-            "Pessimistic tightness: `upper_bound` must never exceed `cur_val`",
-            "It must strictly equal exact fractional remainder rounded down",
-            "It only checks the very next immediate child edge"
+            "True upper bound >= best integer completion in subtree",
+            "Tight lower bound never exceeding current branch sum",
+            "Must equal exact fractional LP relaxation floored",
+            "Must evaluate only the next direct tree edge"
           ],
           "answer": 0,
           "why": "If `upper_bound` ever fell below the true optimal subtree completion, valid optimal paths could be fatally pruned!"
@@ -12686,12 +12891,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In A* scoring `f(n) = g(n) + h(n)`, what special algorithm emerges cleanly when heuristic `h(n) = 0` everywhere?",
           "options": [
-            "Standard Dijkstra's Algorithm",
             "Depth-First Backtracking",
             "Greedy Best-First Search",
-            "Bellman-Ford Negative Relaxation"
+            "Bellman-Ford Relaxation",
+            "Standard Dijkstra's Algorithm"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Setting heuristic h(n) == 0 drops f(n) cleanly back down to pure realized distance g(n), which is exactly Dijkstra's algorithm."
         }
       },
@@ -12721,12 +12926,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "On a grid allowing 8-directional moves (horizontal, vertical, AND diagonal each at step cost `1`), why is Manhattan distance `|dx| + |dy|` INVALID for guaranteeing optimal A* paths?",
           "options": [
-            "Diagonal moves drop true cost to `max(|dx|, |dy|) = 1` while Manhattan computes `2`, making Manhattan **inadmissible** (overestimates true cost)",
-            "Manhattan distance produces negative floats on odd diagonals",
-            "8-directional grids contain negative cost cycles",
-            "Chebyshev distance violates `h(goal) == 0`"
+            "Manhattan distance emits negative floats on odd diagonals",
+            "8-directional neighbor grids induce negative edge cycles",
+            "Diagonals cost 1 while Manhattan says 2 (inadmissible)",
+            "Chebyshev heuristic breaks h(goal) == 0 condition"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "To stay admissible (`h(n) <= h*(n)`), an 8-dir unit-cost heuristic must use Chebyshev `max(|dx|, |dy|)` rather than Manhattan."
         }
       },
@@ -12756,12 +12961,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does breaking `f(n) = g(n) + h(n)` ties using larger realized progress (`-g`) accelerate A* on open grids without harming optimality?",
           "options": [
-            "Tied total scores with higher `g` already stand closer (`smaller h`) to the goal, slicing straight along one direct corridor instead of flooding wide plateaus",
-            "Negating `g` turns A* into Breadth-First Search unconditionally",
-            "Smaller `g` scores violate admissibility on straight lines",
-            "Heap ties prevent `closed` sets from inserting goal coordinates"
+            "Negating g turns A* into unweighted BFS always",
+            "Higher g = smaller remaining h, guiding direct paths",
+            "Smaller g values break straight-line admissibility",
+            "Equal f ties block closed sets from storing goals"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Tie-breaking never changes admissible f-ordering, yet pushes ties cleanly deeper toward the goal instead of stalling sideways."
         }
       },
@@ -12791,12 +12996,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why MUST priority keys pushed into Python `heapq` all compare identically across types (e.g., all ints or all equal-structure tuples)?",
           "options": [
-            "Comparing an `int` against a `tuple` during heap sift throws `TypeError` in Python 3",
-            "Python heapq sorts tuples strictly descending by last element",
-            "Scalar integers disable tie-breaking automatically",
-            "Tuples consume 4x heap iterations on pop"
+            "Python heapq pops tuples descending by final field",
+            "Mixing int and tuple keys throws Python heapq TypeError",
+            "Scalar integer priorities turn off tie-breaking",
+            "Tuples consume 4x heap sift steps per extraction"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Python 3 strictly forbids `<` comparisons between ints and tuples, so initial push and loop pushes must share matching key types!"
         }
       }
@@ -12850,10 +13055,10 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In our Milestone 12 Distributed Exchange Engine, why combine an O(1) LFU Cache, Skip List Price Ladder, and Virtual-Node Hash Ring rather than storing everything inside a single Python dict?",
           "options": [
-            "Consistent Hashing shards symbols evenly across hosts, Skip Lists provide sorted `O(log N + K)` price range scans, and LFU protects hot quotes from scan pollution in `O(1)`",
-            "Python dictionaries cannot store string ticker keys past 1,000 items",
-            "Skip Lists replace MD5 hashes with modulo % N cleanly",
-            "Branch-and-Bound disables virtual nodes at runtime"
+            "Hash ring shards; Skip List sorts O(log N); LFU guards hot",
+            "Dicts cap ticker keys above 1,000 live symbols",
+            "Skip Lists swap MD5 digests cleanly for % N shards",
+            "Branch-and-Bound switches virtual nodes off runtime"
           ],
           "answer": 0,
           "why": "Each specialized subsystem fulfills a distinct operational invariant: horizontal shard partition tolerance, ordered ladder slicing, and scan-resistant hot caching."
@@ -12886,12 +13091,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In `Stage1ShardAndLFU`, why are both Shard Ownership (`md5`) and Quote Eviction (`LFU`) strictly O(log(NV)) / O(1) without global scans?",
           "options": [
-            "Shard lookup uses binary search (`bisect_right`) on the sorted ring while LFU updates linked buckets via `min_f` pointers",
-            "Shard ring automatically promotes warm tickers to Level 2 express towers",
-            "LFU sweeps every key with linear scanning before bumping `min_f`",
-            "MD5 hashes pre-sort ticker prices numerically"
+            "Hash ring auto-promotes hot ticks to L2 express",
+            "LFU linearly scans keys before updating min_f",
+            "MD5 pre-sorts numeric ticker quotes on insert",
+            "bisect_right runs O(log NV); LFU min_f runs O(1)"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Binary search resolves clockwise ring lookups logarithmically, while doubly linked frequency buckets maintain `min_f` in constant time."
         }
       },
@@ -12922,12 +13127,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Inside `Stage2OrderBookSkipList.fill_market_buy`, what makes deleting an exhausted best-Ask price tick fast?",
           "options": [
-            "Top-down `update[]` locates Level 0's leading node in O(log N) and removes exhausted pointers cleanly without shifting subsequent levels",
-            "Exhausted ticks automatically swap into the header sentinel slot",
-            "Skip Lists keep exhausted nodes zeroed at Level 0 without unlinking",
-            "Market sweeps delete all upper express levels unconditionally"
+            "Empty ticks swap cleanly into header sentinel slot",
+            "Skip Lists leave emptied L0 nodes zeroed unlinked",
+            "Top-down update[] relinks L0 head in O(log N)",
+            "Market fills strip upper express tiers unconditionally"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Express-lane unlinking cleans out depleted price ladders in logarithmic time without array elements shifting."
         }
       },
@@ -12957,12 +13162,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Stage 3's unified router, why MUST priority queue elements start with consistent tuples `(g+h, -g, r, c)` on BOTH initial push and neighbor pushes?",
           "options": [
-            "Ensures Python `heapq` compares identical tuple schemas without `TypeError` and resolves `f` ties deterministically toward higher `g`",
-            "Tuples automatically flip negative costs positive during A*",
-            "Because Dijkstra pops highest `f` before `src`",
-            "Tuple keys turn Branch-and-Bound upper bounds downward"
+            "Tuple schemas convert negative weights positive in A*",
+            "Allows Dijkstra to extract highest f prior to src",
+            "Avoids mixed-type TypeError and prefers higher g on ties",
+            "Tuple keys drive Branch-and-Bound bounds downward"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "Uniform priority key structures keep heap comparisons clean and enforce tie-breaking deterministically."
         }
       },
@@ -12993,12 +13198,12 @@ export const DSA_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Milestone 12 Capstone, what core guarantee separates consistent hashing (`RF=2`), O(1) LFU (`min_f`), Skip Lists, and Admissible A* cleanly from ad-hoc brute-force approaches?",
           "options": [
-            "Each subsystem enforces mathematically proven asymptotic bounds and structural invariants (minimal `~1/N` drift, `O(1)` eviction, `O(log N)` ordered depth, `h <= h*` optimality)",
-            "All four modules run identically in O(N^2) time on tiny lists",
-            "Python random built-in hashes replace MD5 and SHA-256 automatically",
-            "Skip Lists balance nodes exclusively by binary rotations"
+            "All four subsystems share quadratic O(N^2) tiny bounds",
+            "Strict ~1/N drift, O(1) LFU, O(log N) skips, h <= h*",
+            "Built-in random hashes replace MD5 and SHA-256",
+            "Skip Lists maintain balance via binary rotations"
           ],
-          "answer": 0,
+          "answer": 1,
           "why": "Software reliability at principal scale rests directly on explicit invariants across sharding, caching, indexing, and search."
         }
       }

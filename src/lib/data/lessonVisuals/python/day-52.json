@@ -2,51 +2,154 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 52,
-  "promptSha": "3bfb836af38231ec74950196635dc8af2b74dd30ec5dbee3fecf35bcefaa09b1",
-  "model": "gate-v2-verified",
+  "promptSha": "3f0736da53e55c8bcd658951a95b256529bff68c6ed3809de091d88f9f4a8cf0",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "The RED Method & Operational Metrics Architecture",
       "codeHash": "96cbaf129f6d15dee8cb88de55c731871cc79d51b3bf5785ddfb9959d2a40fc9",
       "spec": {
         "template": "table",
-        "title": "The RED Method & Operational Metrics Architecture",
+        "title": "REDMetricsTracker Rate, Errors, and Duration signals",
         "columns": [
-          "Stage",
-          "Concept"
+          "Signal",
+          "Field",
+          "Window Value"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The distributed concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "RED Method tracks service Rate, Errors, and Duration signals across endpoints.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "The"
+                    "text": "total_requests"
                   },
                   {
-                    "text": "RED"
+                    "text": "record_request"
+                  },
+                  {
+                    "text": "REDMetricsTracker"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "total_errors"
+                  },
+                  {
+                    "text": "latencies_ms"
+                  },
+                  {
+                    "text": "get_summary"
+                  }
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The monitoring logic drives deterministic execution.",
+            "caption": "Error rate tracking exposes failing HTTP and gRPC responses early.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Method"
+                    "text": "total_errors"
                   },
                   {
-                    "text": "Operational"
+                    "text": "get_summary"
+                  },
+                  {
+                    "text": "total_requests"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "latencies_ms"
+                  },
+                  {
+                    "text": "record_request"
+                  },
+                  {
+                    "text": "REDMetricsTracker"
                   }
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Metrics tracker computes throughput rate, error ratio, and mean duration.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "total_requests"
+                  },
+                  {
+                    "text": "total_errors"
+                  },
+                  {
+                    "text": "get_summary"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "latencies_ms"
+                  },
+                  {
+                    "text": "record_request"
+                  },
+                  {
+                    "text": "REDMetricsTracker"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase error count in tracker observing error_percentage degradation.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Increase"
+                  },
+                  {
+                    "text": "error"
+                  },
+                  {
+                    "text": "count"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "count"
+                  },
+                  {
+                    "text": "tracker"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -54,36 +157,104 @@
       },
       "filled": {
         "template": "table",
-        "title": "The RED Method & Operational Metrics Architecture",
+        "title": "REDMetricsTracker Rate, Errors, and Duration signals",
         "columns": [
-          "Stage",
-          "Concept"
+          "Signal",
+          "Field",
+          "Window Value"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The distributed concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "RED Method tracks service Rate, Errors, and Duration signals across endpoints.",
             "rows": [
               {
                 "cells": [
-                  "The",
-                  "RED"
+                  "Rate (Traffic)",
+                  "100 Requests / 10.0s",
+                  "10.0 req/sec"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "Errors & Duration",
+                  "Collecting Window Samples",
+                  "Uniform Vocabulary"
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The monitoring logic drives deterministic execution.",
+            "caption": "Error rate tracking exposes failing HTTP and gRPC responses early.",
             "rows": [
               {
                 "cells": [
-                  "Method",
-                  "Operational"
+                  "Errors (5xx Rate)",
+                  "5 Failing Requests",
+                  "5.0% Error Ratio"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Duration Samples",
+                  "95 Fast + 5 Slow Requests",
+                  "Track Tail Spread"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Metrics tracker computes throughput rate, error ratio, and mean duration.",
+            "rows": [
+              {
+                "cells": [
+                  "Rate & Errors",
+                  "10.0 rps | 5.0% Error",
+                  "Healthy Alert Threshold"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Average Duration",
+                  "14.12ms Window Mean",
+                  "RED Telemetry Ready"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase error count in tracker observing error_percentage degradation.",
+            "rows": [
+              {
+                "cells": [
+                  "Rate & Errors",
+                  "10.0 rps | 20.0% Error",
+                  "Degradation Alert Fired"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Average Duration",
+                  "19.0ms Window Mean",
+                  "Higher Error Tail"
+                ],
+                "tone": "data"
+              }
+            ],
+            "whatIf": "class REDMetricsTracker:\n    def __init__(self):\n        self.total_requests = 0\n        self.total_errors = 0\n        self.latencies_ms = []\n\n    def record_request(self, duration_ms: float, is_error: bool = False):\n        self.total_requests += 1\n        if is_error:\n            self.total_errors += 1\n        self.latencies_ms.append(duration_ms)\n\n    def get_summary(self, window_seconds: float = 60.0):\n        rps = round(self.total_requests / window_seconds, 2)\n        error_rate = round((self.total_errors / self.total_requests) * 100, 2) if self.total_requests else 0.0\n        avg_duration = round(sum(self.latencies_ms) / len(self.latencies_ms), 2) if self.latencies_ms else 0.0\n        return {\"rate_rps\": rps, \"error_percentage\": f\"{error_rate}%\", \"avg_duration_ms\": avg_duration}\n\ntracker = REDMetricsTracker()\nfor _ in range(80):\n    tracker.record_request(duration_ms=12.5, is_error=False)\nfor _ in range(20):\n    tracker.record_request(duration_ms=45.0, is_error=True)\n\nsummary = tracker.get_summary(window_seconds=10.0)\nprint(\"=== RED Metrics Telemetry ===\")\nprint(f\"  Rate: {summary['rate_rps']} req/sec\")\nprint(f\"  Errors: {summary['error_percentage']}\")\nprint(f\"  Duration: {summary['avg_duration_ms']}ms\")\nprint(\"RED Invariant: Rate, Errors, and Duration provide comprehensive microservice operational health.\")",
+            "checks": [
+              "Rate: 10.0 req/sec",
+              "Errors: 20.0%"
             ]
           }
         ]
@@ -93,82 +264,160 @@
       "partTitle": "Prometheus Counter & Gauge Primitives",
       "codeHash": "eaf8606553dfaa56eb0e17471b868b12e4f7aa9c5baa8a577b2e5dd1a2b1233a",
       "spec": {
-        "template": "table",
-        "title": "Prometheus Counter & Gauge Primitives",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Monotonic PrometheusCounter vs fluctuating PrometheusGauge",
+        "leftLabel": "PrometheusCounter (Monotonic)",
+        "rightLabel": "PrometheusGauge (Bidirectional)",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The prometheus concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Prometheus"
-                  },
-                  {
-                    "text": "Counter"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Prometheus Counters only increase cumulatively to count requests and errors.",
+            "left": {
+              "code": "PrometheusCounter",
+              "result": "Only inc() or Reset On Boot",
+              "tone": "ok",
+              "checks": []
+            },
+            "right": {
+              "code": "inc",
+              "result": "Use rate() In PromQL",
+              "tone": "data",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The contrast logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Gauge"
-                  },
-                  {
-                    "text": "Primitives"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Prometheus Gauges track fluctuating active connections and queue sizes.",
+            "left": {
+              "code": "http_requests",
+              "result": "GET 200 = 2.0 Total",
+              "tone": "data",
+              "checks": []
+            },
+            "right": {
+              "code": "active_connections",
+              "result": "Supports inc() And dec()",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Thread-safe Counters track HTTP calls while Gauges monitor active connections.",
+            "left": {
+              "code": "get_value",
+              "result": "GET 200: 2.0 / POST 500: 1.0",
+              "tone": "ok",
+              "checks": []
+            },
+            "right": {
+              "code": "PrometheusGauge",
+              "result": "5.0 + 2.0 - 1.0 = 6.0 Open",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Call active_connections decrement and observe updated gauge value.",
+            "left": {
+              "code": "active_connections after set(5)+inc(2)-dec(1)",
+              "result": "Active DB Connections = 6.0",
+              "tone": "data",
+              "checks": [
+                "Active DB Connections = 6.0",
+                "BASELINE_GAUGE_6"
+              ],
+              "whatIf": "class PrometheusCounter:\n    def __init__(self, name: str):\n        self.name = name\n        self.labels = {}\n\n    def inc(self, amount: float = 1.0, **labels):\n        key = tuple(sorted(labels.items()))\n        self.labels[key] = self.labels.get(key, 0.0) + amount\n\n    def get_value(self, **labels) -> float:\n        key = tuple(sorted(labels.items()))\n        return self.labels.get(key, 0.0)\n\nclass PrometheusGauge:\n    def __init__(self, name: str):\n        self.name = name\n        self.value = 0.0\n\n    def set(self, val: float):\n        self.value = val\n\n    def inc(self, amount: float = 1.0):\n        self.value += amount\n\n    def dec(self, amount: float = 1.0):\n        self.value -= amount\n\nhttp_requests = PrometheusCounter(\"http_requests_total\")\nhttp_requests.inc(method=\"GET\", status=\"200\")\nhttp_requests.inc(method=\"GET\", status=\"200\")\nhttp_requests.inc(method=\"POST\", status=\"500\")\n\nactive_connections = PrometheusGauge(\"active_db_connections\")\nactive_connections.set(5.0)\nactive_connections.inc(2.0)\nactive_connections.dec(1.0)\n\nprint(f\"Counter: GET 200 = {http_requests.get_value(method='GET', status='200')}\")\nprint(f\"Counter: POST 500 = {http_requests.get_value(method='POST', status='500')}\")\nprint(f\"Gauge: Active DB Connections = {active_connections.value}\")\nprint(\"BASELINE_GAUGE_6\")\nprint(\"Metrics Invariant: Counters increase monotonically; Gauges model instantaneous fluctuations.\")"
+            },
+            "right": {
+              "code": "active_connections.dec(3.0)",
+              "result": "Active DB Connections = 3.0",
+              "tone": "ok",
+              "checks": [
+                "Gauge: Active DB Connections = 3.0"
+              ],
+              "whatIf": "class PrometheusCounter:\n    def __init__(self, name: str):\n        self.name = name\n        self.labels = {}\n\n    def inc(self, amount: float = 1.0, **labels):\n        key = tuple(sorted(labels.items()))\n        self.labels[key] = self.labels.get(key, 0.0) + amount\n\n    def get_value(self, **labels) -> float:\n        key = tuple(sorted(labels.items()))\n        return self.labels.get(key, 0.0)\n\nclass PrometheusGauge:\n    def __init__(self, name: str):\n        self.name = name\n        self.value = 0.0\n\n    def set(self, val: float):\n        self.value = val\n\n    def inc(self, amount: float = 1.0):\n        self.value += amount\n\n    def dec(self, amount: float = 1.0):\n        self.value -= amount\n\nhttp_requests = PrometheusCounter(\"http_requests_total\")\nhttp_requests.inc(method=\"GET\", status=\"200\")\nhttp_requests.inc(method=\"GET\", status=\"200\")\nhttp_requests.inc(method=\"POST\", status=\"500\")\n\nactive_connections = PrometheusGauge(\"active_db_connections\")\nactive_connections.set(5.0)\nactive_connections.inc(2.0)\nactive_connections.dec(1.0)\nactive_connections.dec(3.0)\n\nprint(f\"Counter: GET 200 = {http_requests.get_value(method='GET', status='200')}\")\nprint(f\"Counter: POST 500 = {http_requests.get_value(method='POST', status='500')}\")\nprint(f\"Gauge: Active DB Connections = {active_connections.value}\")\nprint(\"Metrics Invariant: Counters increase monotonically; Gauges model instantaneous fluctuations.\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Prometheus Counter & Gauge Primitives",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Monotonic PrometheusCounter vs fluctuating PrometheusGauge",
+        "leftLabel": "PrometheusCounter (Monotonic)",
+        "rightLabel": "PrometheusGauge (Bidirectional)",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The prometheus concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Prometheus",
-                  "Counter"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Prometheus Counters only increase cumulatively to count requests and errors.",
+            "left": {
+              "code": "Cumulative Count Only",
+              "result": "Never Decremented",
+              "tone": "ok",
+              "checks": []
+            },
+            "right": {
+              "code": "rate(http_requests_total[5m])",
+              "result": "Derives Per-Second RPS",
+              "tone": "data",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The contrast logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Gauge",
-                  "Primitives"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Prometheus Gauges track fluctuating active connections and queue sizes.",
+            "left": {
+              "code": "Labeled By method, status",
+              "result": "Independent Time Series",
+              "tone": "data",
+              "checks": []
+            },
+            "right": {
+              "code": "set(5.0) -> inc(2.0) -> dec(1.0)",
+              "result": "Live Resource Snapshot",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Thread-safe Counters track HTTP calls while Gauges monitor active connections.",
+            "left": {
+              "code": "GET 200=2.0 | POST 500=1.0",
+              "result": "Total Events Tracked",
+              "tone": "ok",
+              "checks": []
+            },
+            "right": {
+              "code": "active_db_connections = 6.0",
+              "result": "Current Active Connections",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Call active_connections decrement and observe updated gauge value.",
+            "left": {
+              "code": "active_connections after set(5)+inc(2)-dec(1)",
+              "result": "Active DB Connections = 6.0",
+              "tone": "data",
+              "checks": [
+                "Active DB Connections = 6.0",
+                "BASELINE_GAUGE_6"
+              ],
+              "whatIf": "class PrometheusCounter:\n    def __init__(self, name: str):\n        self.name = name\n        self.labels = {}\n\n    def inc(self, amount: float = 1.0, **labels):\n        key = tuple(sorted(labels.items()))\n        self.labels[key] = self.labels.get(key, 0.0) + amount\n\n    def get_value(self, **labels) -> float:\n        key = tuple(sorted(labels.items()))\n        return self.labels.get(key, 0.0)\n\nclass PrometheusGauge:\n    def __init__(self, name: str):\n        self.name = name\n        self.value = 0.0\n\n    def set(self, val: float):\n        self.value = val\n\n    def inc(self, amount: float = 1.0):\n        self.value += amount\n\n    def dec(self, amount: float = 1.0):\n        self.value -= amount\n\nhttp_requests = PrometheusCounter(\"http_requests_total\")\nhttp_requests.inc(method=\"GET\", status=\"200\")\nhttp_requests.inc(method=\"GET\", status=\"200\")\nhttp_requests.inc(method=\"POST\", status=\"500\")\n\nactive_connections = PrometheusGauge(\"active_db_connections\")\nactive_connections.set(5.0)\nactive_connections.inc(2.0)\nactive_connections.dec(1.0)\n\nprint(f\"Counter: GET 200 = {http_requests.get_value(method='GET', status='200')}\")\nprint(f\"Counter: POST 500 = {http_requests.get_value(method='POST', status='500')}\")\nprint(f\"Gauge: Active DB Connections = {active_connections.value}\")\nprint(\"BASELINE_GAUGE_6\")\nprint(\"Metrics Invariant: Counters increase monotonically; Gauges model instantaneous fluctuations.\")"
+            },
+            "right": {
+              "code": "active_connections.dec(3.0)",
+              "result": "Active DB Connections = 3.0",
+              "tone": "ok",
+              "checks": [
+                "Gauge: Active DB Connections = 3.0"
+              ],
+              "whatIf": "class PrometheusCounter:\n    def __init__(self, name: str):\n        self.name = name\n        self.labels = {}\n\n    def inc(self, amount: float = 1.0, **labels):\n        key = tuple(sorted(labels.items()))\n        self.labels[key] = self.labels.get(key, 0.0) + amount\n\n    def get_value(self, **labels) -> float:\n        key = tuple(sorted(labels.items()))\n        return self.labels.get(key, 0.0)\n\nclass PrometheusGauge:\n    def __init__(self, name: str):\n        self.name = name\n        self.value = 0.0\n\n    def set(self, val: float):\n        self.value = val\n\n    def inc(self, amount: float = 1.0):\n        self.value += amount\n\n    def dec(self, amount: float = 1.0):\n        self.value -= amount\n\nhttp_requests = PrometheusCounter(\"http_requests_total\")\nhttp_requests.inc(method=\"GET\", status=\"200\")\nhttp_requests.inc(method=\"GET\", status=\"200\")\nhttp_requests.inc(method=\"POST\", status=\"500\")\n\nactive_connections = PrometheusGauge(\"active_db_connections\")\nactive_connections.set(5.0)\nactive_connections.inc(2.0)\nactive_connections.dec(1.0)\nactive_connections.dec(3.0)\n\nprint(f\"Counter: GET 200 = {http_requests.get_value(method='GET', status='200')}\")\nprint(f\"Counter: POST 500 = {http_requests.get_value(method='POST', status='500')}\")\nprint(f\"Gauge: Active DB Connections = {active_connections.value}\")\nprint(\"Metrics Invariant: Counters increase monotonically; Gauges model instantaneous fluctuations.\")"
+            }
           }
         ]
       }
@@ -177,81 +426,258 @@
       "partTitle": "Histograms, Bucket Distributions & Percentile Quantiles",
       "codeHash": "2387b0f4772d182d6db356d95d99aa77715a41d3cf93b2b83e8a5a3d91d203c1",
       "spec": {
-        "template": "table",
-        "title": "Histograms, Bucket Distributions & Percentile Quan",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "PrometheusHistogram cumulative latency bucket counts",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The measuring concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Histogram observations increment every cumulative bucket bound above latency.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Histograms"
-                  },
-                  {
-                    "text": "Bucket"
-                  }
-                ],
+                "text": "buckets"
+              },
+              {
+                "text": "observe"
+              },
+              {
+                "text": "counts"
+              },
+              {
+                "text": "estimate_p95"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "le",
+                "index": 2,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "ok",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The because logic drives deterministic execution.",
-            "rows": [
+            "caption": "Prometheus interpolates cumulative buckets to estimate latency quantiles.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Distributions"
-                  },
-                  {
-                    "text": "Percentile"
-                  }
-                ],
+                "text": "counts"
+              },
+              {
+                "text": "buckets"
+              },
+              {
+                "text": "estimate_p95"
+              },
+              {
+                "text": "PrometheusHistogram"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "p95",
+                "index": 2,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "ok",
+              "3": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Cumulative histogram buckets sample durations to estimate percentile latency.",
+            "items": [
+              {
+                "text": "PrometheusHistogram"
+              },
+              {
+                "text": "observe"
+              },
+              {
+                "text": "counts"
+              },
+              {
+                "text": "estimate_p95"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "rank",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe five extra 95ms requests and watch estimated p95 latency jump.",
+            "items": [
+              {
+                "text": "Observe"
+              },
+              {
+                "text": "requests"
+              },
+              {
+                "text": "and"
+              },
+              {
+                "text": "how"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "shifted",
+                "index": 3,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "idle",
+              "3": "error"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Histograms, Bucket Distributions & Percentile Quan",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "PrometheusHistogram cumulative latency bucket counts",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The measuring concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Histogram observations increment every cumulative bucket bound above latency.",
+            "items": [
+              "le=[10, 25, 50, 100]",
+              "90 x 15.0ms Recorded",
+              "Buckets 25,50,100 += 90",
+              "Rank = 95.0 Pending"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Histograms",
-                  "Bucket"
-                ],
+                "name": "le",
+                "index": 2,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "ok",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The because logic drives deterministic execution.",
-            "rows": [
+            "caption": "Prometheus interpolates cumulative buckets to estimate latency quantiles.",
+            "items": [
+              "{10:0, 25:90, 50:98, 100:100}",
+              "Rank 95 In [25, 50]",
+              "p95 = 40.6ms Estimated",
+              "Bounded RAM Storage"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Distributions",
-                  "Percentile"
-                ],
+                "name": "p95",
+                "index": 2,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "ok",
+              "3": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Cumulative histogram buckets sample durations to estimate percentile latency.",
+            "items": [
+              "100 Samples Observed",
+              "Sum = 1840.0ms",
+              "No Raw Sample Array",
+              "Estimated p95 = 40.6ms"
+            ],
+            "pointers": [
+              {
+                "name": "rank",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe five extra 95ms requests and watch estimated p95 latency jump.",
+            "items": [
+              "105 Samples Observed",
+              "7 Requests In 100ms Bucket",
+              "Target Rank 99.75",
+              "Estimated p95 = 62.5ms"
+            ],
+            "pointers": [
+              {
+                "name": "shifted",
+                "index": 3,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "idle",
+              "3": "error"
+            },
+            "whatIf": "class PrometheusHistogram:\n    def __init__(self, name: str, buckets=(10.0, 25.0, 50.0, 100.0)):\n        self.name = name\n        self.buckets = sorted(buckets) + [float(\"inf\")]\n        self.counts = {b: 0 for b in self.buckets}\n        self.sum = 0.0\n        self.count = 0\n\n    def observe(self, value: float):\n        self.sum += value\n        self.count += 1\n        for b in self.buckets:\n            if value <= b:\n                self.counts[b] += 1\n\n    def estimate_p95(self) -> float:\n        target = 0.95 * self.count\n        prev_b, prev_c = 0.0, 0\n        for b in self.buckets:\n            curr_c = self.counts[b]\n            if curr_c >= target:\n                bucket_width = b - prev_b if b != float(\"inf\") else 50.0\n                fraction = (target - prev_c) / (curr_c - prev_c) if (curr_c - prev_c) else 0.0\n                return round(prev_b + fraction * bucket_width, 1)\n            prev_b, prev_c = b, curr_c\n        return round(prev_b, 1)\n\nhist = PrometheusHistogram(\"http_request_duration_ms\", buckets=[10, 25, 50, 100])\n# 90 requests at 15ms, 8 requests at 40ms, 2 requests at 85ms\nfor _ in range(90): hist.observe(15.0)\nfor _ in range(8): hist.observe(40.0)\nfor _ in range(2): hist.observe(85.0)\nfor _ in range(5): hist.observe(95.0)\n\nprint(f\"Total Requests Observed: {hist.count} | Cumulative Sum: {hist.sum}ms\")\nprint(f\"Bucket Counts: { {k: v for k, v in hist.counts.items() if k != float('inf')} }\")\nprint(f\"Estimated p95 Latency: {hist.estimate_p95()}ms\")\nprint(\"Histogram Invariant: Bucket distributions calculate percentiles without storing unbounded raw samples.\")",
+            "checks": [
+              "Total Requests Observed: 105",
+              "Estimated p95 Latency: 62.5ms"
             ]
           }
         ]
@@ -261,81 +687,181 @@
       "partTitle": "High-Cardinality Traps & Time Series Memory Protection",
       "codeHash": "d9f76a28eca5caf3b834ff6eb283fbe8515969301efce9fdc8637899459108a1",
       "spec": {
-        "template": "table",
-        "title": "High-Cardinality Traps & Time Series Memory Protec",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "CardinalityGuard label sanitization against OOM explosion",
+        "boxes": [
+          {
+            "id": "in",
+            "label": "record"
+          },
+          {
+            "id": "guard",
+            "label": "CardinalityGuard"
+          },
+          {
+            "id": "ser",
+            "label": "series"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The prometheus concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "High"
-                  },
-                  {
-                    "text": "Cardinality"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Unbounded user ID labels multiply time series combinations into memory bloat.",
+            "values": {
+              "in": {
+                "text": "record"
+              },
+              "guard": {
+                "text": "max_allowed_series"
+              },
+              "ser": {
+                "text": "series"
               }
-            ]
+            },
+            "tones": {
+              "in": "error",
+              "guard": "error",
+              "ser": "error"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The cardinality logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Traps"
-                  },
-                  {
-                    "text": "Time"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say4",
+            "caption": "Cardinality guards sanitize labels down to bounded route templates safely.",
+            "values": {
+              "in": {
+                "text": "record"
+              },
+              "guard": {
+                "text": "CardinalityGuard"
+              },
+              "ser": {
+                "text": "series"
               }
-            ]
+            },
+            "tones": {
+              "in": "data",
+              "guard": "ok",
+              "ser": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Collapsing unbounded user identifiers protects Prometheus time series memory.",
+            "values": {
+              "in": {
+                "text": "REDACTED_HIGH_CARDINALITY"
+              },
+              "guard": {
+                "text": "max_allowed_series"
+              },
+              "ser": {
+                "text": "series"
+              }
+            },
+            "tones": {
+              "in": "data",
+              "guard": "ok",
+              "ser": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Send 10 distinct routes into CardinalityGuard and confirm cap rejection.",
+            "values": {
+              "in": {
+                "text": "Attempt"
+              },
+              "guard": {
+                "text": "different"
+              },
+              "ser": {
+                "text": "labels"
+              }
+            },
+            "tones": {
+              "in": "data",
+              "guard": "error",
+              "ser": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "High-Cardinality Traps & Time Series Memory Protec",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "CardinalityGuard label sanitization against OOM explosion",
+        "boxes": [
+          {
+            "id": "in",
+            "label": "record"
+          },
+          {
+            "id": "guard",
+            "label": "CardinalityGuard"
+          },
+          {
+            "id": "ser",
+            "label": "series"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The prometheus concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "High",
-                  "Cardinality"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Unbounded user ID labels multiply time series combinations into memory bloat.",
+            "values": {
+              "in": "user_id, order_id, email",
+              "guard": "Cartesian Product Blowup",
+              "ser": "Millions -> OOM Crash"
+            },
+            "tones": {
+              "in": "error",
+              "guard": "error",
+              "ser": "error"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The cardinality logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Traps",
-                  "Time"
-                ],
-                "tone": "ok"
-              }
+            "at": "say4",
+            "caption": "Cardinality guards sanitize labels down to bounded route templates safely.",
+            "values": {
+              "in": "route=/api/v1/checkout",
+              "guard": "Coarse Enums Preserved",
+              "ser": "Capped Under Limit (3)"
+            },
+            "tones": {
+              "in": "data",
+              "guard": "ok",
+              "ser": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Collapsing unbounded user identifiers protects Prometheus time series memory.",
+            "values": {
+              "in": "user_101, 102 -> REDACTED",
+              "guard": "Share 1 Series Slot",
+              "ser": "2 Active Series Total"
+            },
+            "tones": {
+              "in": "data",
+              "guard": "ok",
+              "ser": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Send 10 distinct routes into CardinalityGuard and confirm cap rejection.",
+            "values": {
+              "in": "10 Distinct Routes Fed",
+              "guard": "9 Overflow Routes Blocked",
+              "ser": "Capped At 3 Series Max"
+            },
+            "tones": {
+              "in": "data",
+              "guard": "error",
+              "ser": "ok"
+            },
+            "whatIf": "class CardinalityGuard:\n    def __init__(self, max_allowed_series=10):\n        self.series = set()\n        self.max_allowed_series = max_allowed_series\n\n    def record(self, **labels):\n        sanitized = {}\n        for k, v in labels.items():\n            if k in [\"user_id\", \"order_id\", \"email\"]:\n                sanitized[k] = \"REDACTED_HIGH_CARDINALITY\"\n            else:\n                sanitized[k] = v\n\n        series_key = tuple(sorted(sanitized.items()))\n        if len(self.series) < self.max_allowed_series or series_key in self.series:\n            self.series.add(series_key)\n            return True, len(self.series)\n        return False, len(self.series)\n\nguard = CardinalityGuard(max_allowed_series=3)\nr1, count1 = guard.record(route=\"/api/v1/checkout\", method=\"POST\", user_id=\"user_101\")\nr2, count2 = guard.record(route=\"/api/v1/checkout\", method=\"POST\", user_id=\"user_102\")\nr3, count3 = guard.record(route=\"/api/v1/products\", method=\"GET\")\n\nprint(f\"Label Attempt 1: Accepted={r1} | Total Active Series: {count1}\")\nprint(f\"Label Attempt 2 (Different User): Accepted={r2} | Total Active Series: {count2}\")\nprint(f\"Label Attempt 3 (Different Route): Accepted={r3} | Total Active Series: {count3}\")\nrejected = []\nfor idx in range(10):\n    ok, cnt = guard.record(route=f\"/api/v1/item_{idx}\", method=\"GET\")\n    if not ok:\n        rejected.append(idx)\nprint(f\"10 Routes Tested -> Rejected Count: {len(rejected)} | Capped Series: {cnt}\")\nprint(\"Cardinality Invariant: Unbounded dimensions are collapsed, preventing time series memory explosion.\")",
+            "checks": [
+              "10 Routes Tested -> Rejected Count: 9 | Capped Series: 3"
             ]
           }
         ]
@@ -345,81 +871,206 @@
       "partTitle": "Production Service RED Metrics Dashboard Synthesis",
       "codeHash": "4acc03994121dc1bf6fb754e5535b59377a794b8c7beed288c242ebf576a146f",
       "spec": {
-        "template": "table",
-        "title": "Production Service RED Metrics Dashboard Synthesis",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "ProductionREDDashboard SLO compliance pipeline",
+        "nodes": [
+          {
+            "id": "req",
+            "label": "total_requests"
+          },
+          {
+            "id": "slo",
+            "label": "evaluate_slo"
+          },
+          {
+            "id": "p99",
+            "label": "p99_latency_ms"
+          }
+        ],
+        "edges": [
+          {
+            "from": "req",
+            "to": "slo"
+          },
+          {
+            "from": "slo",
+            "to": "p99",
+            "label": "slo_p99_target_ms"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Service"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "RED telemetry pipeline tracks counters, active gauges, and latency buckets.",
+            "values": {
+              "req": {
+                "text": "total_requests"
+              },
+              "slo": {
+                "text": "successful_requests"
+              },
+              "p99": {
+                "text": "p50_latency_ms"
               }
-            ]
+            },
+            "tones": {
+              "req": "data",
+              "slo": "ok",
+              "p99": "data"
+            }
           },
           {
             "at": "say3",
-            "caption": "The midway logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "RED"
-                  },
-                  {
-                    "text": "Metrics"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Cardinality guards sanitize user labels before aggregating percentiles.",
+            "values": {
+              "req": {
+                "text": "failed_requests"
+              },
+              "slo": {
+                "text": "p95_latency_ms"
+              },
+              "p99": {
+                "text": "p99_latency_ms"
               }
-            ]
+            },
+            "tones": {
+              "req": "data",
+              "slo": "ok",
+              "p99": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Dashboard verifies availability and p99 latency against target thresholds.",
+            "values": {
+              "req": {
+                "text": "ProductionREDDashboard"
+              },
+              "slo": {
+                "text": "evaluate_slo"
+              },
+              "p99": {
+                "text": "slo_p99_target_ms"
+              }
+            },
+            "tones": {
+              "req": "ok",
+              "slo": "ok",
+              "p99": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Raise p99_latency_ms in dashboard verifying slo_compliant returns False.",
+            "values": {
+              "req": {
+                "text": "Set"
+              },
+              "slo": {
+                "text": "60.0"
+              },
+              "p99": {
+                "text": "and"
+              }
+            },
+            "tones": {
+              "req": "idle",
+              "slo": "error",
+              "p99": "error"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Service RED Metrics Dashboard Synthesis",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "ProductionREDDashboard SLO compliance pipeline",
+        "nodes": [
+          {
+            "id": "req",
+            "label": "total_requests"
+          },
+          {
+            "id": "slo",
+            "label": "evaluate_slo"
+          },
+          {
+            "id": "p99",
+            "label": "p99_latency_ms"
+          }
+        ],
+        "edges": [
+          {
+            "from": "req",
+            "to": "slo"
+          },
+          {
+            "from": "slo",
+            "to": "p99",
+            "label": "slo_p99_target_ms"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Production",
-                  "Service"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "RED telemetry pipeline tracks counters, active gauges, and latency buckets.",
+            "values": {
+              "req": "10,000 Transactions",
+              "slo": "9,995 Succeeded",
+              "p99": "p50 = 4.2ms / p95 = 18.5ms"
+            },
+            "tones": {
+              "req": "data",
+              "slo": "ok",
+              "p99": "data"
+            }
           },
           {
             "at": "say3",
-            "caption": "The midway logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "RED",
-                  "Metrics"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Cardinality guards sanitize user labels before aggregating percentiles.",
+            "values": {
+              "req": "5 Failed (Bounded Labels)",
+              "slo": "99.95% Availability",
+              "p99": "p99 = 48.0ms"
+            },
+            "tones": {
+              "req": "data",
+              "slo": "ok",
+              "p99": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Dashboard verifies availability and p99 latency against target thresholds.",
+            "values": {
+              "req": "10,000 Requests Verified",
+              "slo": "slo_compliant = True",
+              "p99": "48.0ms <= 50.0ms SLA"
+            },
+            "tones": {
+              "req": "ok",
+              "slo": "ok",
+              "p99": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Raise p99_latency_ms in dashboard verifying slo_compliant returns False.",
+            "values": {
+              "req": "10000 Requests Verified",
+              "slo": "slo_compliant = False",
+              "p99": "60.0ms > 50.0ms SLA"
+            },
+            "tones": {
+              "req": "idle",
+              "slo": "error",
+              "p99": "error"
+            },
+            "arrows": [],
+            "whatIf": "class ProductionREDDashboard:\n    def __init__(self):\n        self.total_requests = 10000\n        self.successful_requests = 9995\n        self.failed_requests = 5\n        self.p50_latency_ms = 4.2\n        self.p95_latency_ms = 18.5\n        self.p99_latency_ms = 60.0\n        self.slo_p99_target_ms = 50.0\n\n    def evaluate_slo(self):\n        availability = (self.successful_requests / self.total_requests) * 100\n        p99_compliant = self.p99_latency_ms <= self.slo_p99_target_ms\n        return {\n            \"total_traffic\": self.total_requests,\n            \"availability_rate\": f\"{availability:.2f}%\",\n            \"p50_ms\": self.p50_latency_ms,\n            \"p95_ms\": self.p95_latency_ms,\n            \"p99_ms\": self.p99_latency_ms,\n            \"slo_compliant\": p99_compliant and availability >= 99.9\n        }\n\ndashboard = ProductionREDDashboard()\nreport = dashboard.evaluate_slo()\n\nprint(\"=== Production Service RED Metrics Report ===\")\nfor k, v in report.items():\n    print(f\"  {k}: {v}\")\nprint(\"INVARIANT SATISFIED: High-throughput RED metrics verify 99.8% availability within 50ms p99 SLA.\")",
+            "checks": [
+              "p99_ms: 60.0",
+              "slo_compliant: False"
             ]
           }
         ]

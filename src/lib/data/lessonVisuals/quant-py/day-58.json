@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 58,
-  "promptSha": "a2853eecc2092b9c78685ccff9dae78544bae0b74aedb66bcc370db905676aef",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Position Flattening — Foundations & Mathematical Invariants",
-      "codeHash": "981dc4a370e8a63f9272c8c8ad2468427f17f01aab26588303f321c176fc7cfd",
+      "codeHash": "cd0298df90fcd54cde8070788077a13508d255eb8c7d65864b77da4272f074e3",
       "spec": {
-        "template": "flow",
-        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Position F",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Posi",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In high-speed algorithmic trading, when an execution system enters.",
+            "bars": [
+              {
+                "label": "peak",
+                "value": {
+                  "var": "peak",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "current_nav",
+                "value": {
+                  "var": "current_nav",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "peak_nav",
+                "value": {
+                  "var": "peak_nav",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "soft_stop_pct",
+                "value": {
+                  "var": "soft_stop_pct",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A Real-Time Kill Switch is the ultimate fail-safe mechanism.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "peak",
+                "value": {
+                  "var": "peak",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "current_nav",
+                "value": {
+                  "var": "current_nav",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "peak_nav",
+                "value": {
+                  "var": "peak_nav",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "soft_stop_pct",
+                "value": {
+                  "var": "soft_stop_pct",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Continuous fail-safe readiness guarantees that trading operations can be.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "peak",
+                "value": {
+                  "var": "peak",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "current_nav",
+                "value": {
+                  "var": "current_nav",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "peak_nav",
+                "value": {
+                  "var": "peak_nav",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "soft_stop_pct",
+                "value": {
+                  "var": "soft_stop_pct",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Position F",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Posi",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In high-speed algorithmic trading, when an execution system enters.",
+            "bars": [
+              {
+                "label": "peak",
+                "value": 10000000,
+                "tone": "data"
+              },
+              {
+                "label": "current_nav",
+                "value": 9800000,
+                "tone": "data"
+              },
+              {
+                "label": "peak_nav",
+                "value": 10000000,
+                "tone": "data"
+              },
+              {
+                "label": "soft_stop_pct",
+                "value": 0.03,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A Real-Time Kill Switch is the ultimate fail-safe mechanism.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "peak",
+                "value": 10000000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "current_nav",
+                "value": 9800000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "peak_nav",
+                "value": 10000000,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "soft_stop_pct",
+                "value": 0.03,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Continuous fail-safe readiness guarantees that trading operations can be.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "peak",
+                "value": 10000000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "current_nav",
+                "value": 9800000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "peak_nav",
+                "value": 10000000,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "soft_stop_pct",
+                "value": 0.03,
+                "tone": "ok"
               }
             ]
           }
@@ -273,264 +227,116 @@
     },
     {
       "partTitle": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Position Flattening — Core Algorithm & State Representation",
-      "codeHash": "3be779fe69b232dc8fdf6d5eb24190e584769a939430a8a4336d14fd8e877741",
+      "codeHash": "8040d293b5e007ee95f1a2c5c8a958b397898b4ac691769807ab14bcab5a427e",
       "spec": {
-        "template": "flow",
-        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Position F",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Posi",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core kill switch execution algorithm operates in two coordinated phases.",
+            "items": {
+              "var": "active_orders",
+              "line": 37,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Phase 1 (Cancel-All) transmits bulk Mass Cancel messages across all.",
+            "items": {
+              "var": "active_orders",
+              "line": 44,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Formal state verification guarantees that no orphan orders or untracked.",
+            "items": {
+              "var": "active_orders",
+              "line": 45,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Position F",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Posi",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core kill switch execution algorithm operates in two coordinated phases.",
+            "items": [
+              "101",
+              "102",
+              "103",
+              "104",
+              "105"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "Phase 1 (Cancel-All) transmits bulk Mass Cancel messages across all.",
+            "items": [
+              "101",
+              "102",
+              "103",
+              "104",
+              "105"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say10",
+            "caption": "Formal state verification guarantees that no orphan orders or untracked.",
+            "items": [
+              "101",
+              "102",
+              "103",
+              "104",
+              "105"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -539,265 +345,279 @@
     },
     {
       "partTitle": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Position Flattening — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "1cf3749ee2dbdcd76bb6d1e47d79a0da139e8f2d4e7ffc8aed2cdbfed0c71da4",
+      "codeHash": "6f3b753a5f13261f9667790612578b370a29b928e0efeb2cd6eef01862603afa",
       "spec": {
         "template": "flow",
-        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Position F",
+        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Posi",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "venues",
+            "label": "venues"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "venue_connections",
+            "label": "venue_connections"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "cancel_results",
+            "label": "cancel_results"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "venue",
+            "label": "venue"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In critical emergency shutdown scenarios, execution latency is measured.",
+            "values": {
+              "venues": {
+                "var": "venues",
+                "line": 17,
+                "hit": 1
+              },
+              "venue_connections": {
+                "var": "venue_connections",
+                "line": 5,
+                "hit": 1
+              },
+              "cancel_results": {
+                "var": "cancel_results",
+                "line": 5,
+                "hit": 1
+              },
+              "venue": {
+                "var": "venue",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "venues": "data",
+              "venue_connections": "data",
+              "cancel_results": "data",
+              "venue": "data"
+            },
+            "arrows": [
+              [
+                "venues",
+                "venue_connections"
+              ],
+              [
+                "venue_connections",
+                "cancel_results"
+              ],
+              [
+                "cancel_results",
+                "venue"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "High-throughput kill switch engines utilize dedicated out-of-band UDP.",
+            "values": {
+              "venues": {
+                "var": "venues",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "venue_connections": {
+                "var": "venue_connections",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "cancel_results": {
+                "var": "cancel_results",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "venue": {
+                "var": "venue",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "venues": "data",
+              "venue_connections": "data",
+              "cancel_results": "data",
+              "venue": "data"
+            },
+            "arrows": [
+              [
+                "venues",
+                "venue_connections"
+              ],
+              [
+                "venue_connections",
+                "cancel_results"
+              ],
+              [
+                "cancel_results",
+                "venue"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Deterministic priority queuing guarantees that kill switch messages.",
+            "values": {
+              "venues": {
+                "var": "venues",
+                "line": 23,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "venue_connections": {
+                "var": "venue_connections",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "cancel_results": {
+                "var": "cancel_results",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "venue": {
+                "var": "venue",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "venues": "ok",
+              "venue_connections": "ok",
+              "cancel_results": "ok",
+              "venue": "ok"
+            },
+            "arrows": [
+              [
+                "venues",
+                "venue_connections"
+              ],
+              [
+                "venue_connections",
+                "cancel_results"
+              ],
+              [
+                "cancel_results",
+                "venue"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Position F",
+        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Posi",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "venues",
+            "label": "venues"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "venue_connections",
+            "label": "venue_connections"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "cancel_results",
+            "label": "cancel_results"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "venue",
+            "label": "venue"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In critical emergency shutdown scenarios, execution latency is measured.",
+            "values": {
+              "venues": "[{'name': 'NASDAQ', 'protocol': 'OUCH_4…",
+              "venue_connections": "[{'name': 'NASDAQ', 'protocol': 'OUCH_4…",
+              "cancel_results": "[]",
+              "venue": "{'name': 'NASDAQ', 'protocol': 'OUCH_4.…"
+            },
+            "tones": {
+              "venues": "data",
+              "venue_connections": "data",
+              "cancel_results": "data",
+              "venue": "data"
+            },
+            "arrows": [
+              [
+                "venues",
+                "venue_connections"
+              ],
+              [
+                "venue_connections",
+                "cancel_results"
+              ],
+              [
+                "cancel_results",
+                "venue"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "High-throughput kill switch engines utilize dedicated out-of-band UDP.",
+            "values": {
+              "venues": "[{'name': 'NASDAQ', 'protocol': 'OUCH_4…",
+              "venue_connections": "[{'name': 'NASDAQ', 'protocol': 'OUCH_4…",
+              "cancel_results": "[]",
+              "venue": "{'name': 'NASDAQ', 'protocol': 'OUCH_4.…"
+            },
+            "tones": {
+              "venues": "data",
+              "venue_connections": "data",
+              "cancel_results": "data",
+              "venue": "data"
+            },
+            "arrows": [
+              [
+                "venues",
+                "venue_connections"
+              ],
+              [
+                "venue_connections",
+                "cancel_results"
+              ],
+              [
+                "cancel_results",
+                "venue"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Deterministic priority queuing guarantees that kill switch messages.",
+            "values": {
+              "venues": "[{'name': 'NASDAQ', 'protocol': 'OUCH_4…",
+              "venue_connections": "[{'name': 'NASDAQ', 'protocol': 'OUCH_4…",
+              "cancel_results": "[]",
+              "venue": "{'name': 'NASDAQ', 'protocol': 'OUCH_4.…"
+            },
+            "tones": {
+              "venues": "ok",
+              "venue_connections": "ok",
+              "cancel_results": "ok",
+              "venue": "ok"
+            },
+            "arrows": [
+              [
+                "venues",
+                "venue_connections"
+              ],
+              [
+                "venue_connections",
+                "cancel_results"
+              ],
+              [
+                "cancel_results",
+                "venue"
+              ]
             ]
           }
         ]
@@ -805,265 +625,279 @@
     },
     {
       "partTitle": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Position Flattening — Resilience Guardrails & Failure Recovery",
-      "codeHash": "82973ea7d2cbcf049b3ca1ea7f138e95af0e5170482eb564642dd5ce85a758e6",
+      "codeHash": "1a007dc22d3fd7376a592ba8eb47a512f9ed7023e3097571a36825b5200c3f19",
       "spec": {
         "template": "flow",
-        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Position F",
+        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Posi",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "signers",
+            "label": "signers"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "authorized_signers",
+            "label": "authorized_signers"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "guard",
+            "label": "guard"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operational resilience for kill switch systems requires multi-layered.",
+            "values": {
+              "signers": {
+                "var": "signers",
+                "line": 25,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "authorized_signers": {
+                "var": "authorized_signers",
+                "line": 3,
+                "hit": 1
+              },
+              "guard": {
+                "var": "guard",
+                "line": 26,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "signers": "data",
+              "self": "data",
+              "authorized_signers": "data",
+              "guard": "data"
+            },
+            "arrows": [
+              [
+                "signers",
+                "self"
+              ],
+              [
+                "self",
+                "authorized_signers"
+              ],
+              [
+                "authorized_signers",
+                "guard"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The Multi-Signature Reset Protocol mandates that resetting a tripped kill.",
+            "values": {
+              "signers": {
+                "var": "signers",
+                "line": 26,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "authorized_signers": {
+                "var": "authorized_signers",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "guard": {
+                "var": "guard",
+                "line": 27,
+                "hit": 1
               }
+            },
+            "tones": {
+              "signers": "data",
+              "self": "data",
+              "authorized_signers": "data",
+              "guard": "data"
+            },
+            "arrows": [
+              [
+                "signers",
+                "self"
+              ],
+              [
+                "self",
+                "authorized_signers"
+              ],
+              [
+                "authorized_signers",
+                "guard"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Automated fail-safe protocols ensure that firm capital remains protected.",
+            "values": {
+              "signers": {
+                "var": "signers",
+                "line": 27,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "authorized_signers": {
+                "var": "authorized_signers",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "guard": {
+                "var": "guard",
+                "line": 28,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "signers": "ok",
+              "self": "ok",
+              "authorized_signers": "ok",
+              "guard": "ok"
+            },
+            "arrows": [
+              [
+                "signers",
+                "self"
+              ],
+              [
+                "self",
+                "authorized_signers"
+              ],
+              [
+                "authorized_signers",
+                "guard"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Position F",
+        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Posi",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "signers",
+            "label": "signers"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "authorized_signers",
+            "label": "authorized_signers"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "guard",
+            "label": "guard"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operational resilience for kill switch systems requires multi-layered.",
+            "values": {
+              "signers": "['CHIEF_RISK_OFFICER', 'HEAD_OF_TRADING…",
+              "self": "<MultiSigResetGuard>",
+              "authorized_signers": "['CHIEF_RISK_OFFICER', 'HEAD_OF_TRADING…",
+              "guard": "<MultiSigResetGuard>"
+            },
+            "tones": {
+              "signers": "data",
+              "self": "data",
+              "authorized_signers": "data",
+              "guard": "data"
+            },
+            "arrows": [
+              [
+                "signers",
+                "self"
+              ],
+              [
+                "self",
+                "authorized_signers"
+              ],
+              [
+                "authorized_signers",
+                "guard"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The Multi-Signature Reset Protocol mandates that resetting a tripped kill.",
+            "values": {
+              "signers": "['CHIEF_RISK_OFFICER', 'HEAD_OF_TRADING…",
+              "self": "<MultiSigResetGuard>",
+              "authorized_signers": "['CHIEF_RISK_OFFICER', 'HEAD_OF_TRADING…",
+              "guard": "<MultiSigResetGuard>"
+            },
+            "tones": {
+              "signers": "data",
+              "self": "data",
+              "authorized_signers": "data",
+              "guard": "data"
+            },
+            "arrows": [
+              [
+                "signers",
+                "self"
+              ],
+              [
+                "self",
+                "authorized_signers"
+              ],
+              [
+                "authorized_signers",
+                "guard"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Automated fail-safe protocols ensure that firm capital remains protected.",
+            "values": {
+              "signers": "['CHIEF_RISK_OFFICER', 'HEAD_OF_TRADING…",
+              "self": "<MultiSigResetGuard>",
+              "authorized_signers": "['CHIEF_RISK_OFFICER', 'HEAD_OF_TRADING…",
+              "guard": "<MultiSigResetGuard>"
+            },
+            "tones": {
+              "signers": "ok",
+              "self": "ok",
+              "authorized_signers": "ok",
+              "guard": "ok"
+            },
+            "arrows": [
+              [
+                "signers",
+                "self"
+              ],
+              [
+                "self",
+                "authorized_signers"
+              ],
+              [
+                "authorized_signers",
+                "guard"
+              ]
             ]
           }
         ]
@@ -1071,265 +905,279 @@
     },
     {
       "partTitle": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Position Flattening — Production Telemetry & Verification Audit",
-      "codeHash": "ea6e44292b3fc7eb05751666d9a46e571f184707f30c19bc8c6f63d49529529f",
+      "codeHash": "72b9c20a73609676da9fcc6bb2cba54cb895e7fa927c97879100a8c93caffc56",
       "spec": {
         "template": "flow",
-        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Position F",
+        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Posi",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "rem_pos_clean",
+            "label": "rem_pos_clean"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "rem_pos_dirty",
+            "label": "rem_pos_dirty"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "trip_timestamp_ms",
+            "label": "trip_timestamp_ms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "all_cancels_confirmed_ms",
+            "label": "all_cancels_confirmed_ms"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for kill switch infrastructure requires tracking.",
+            "values": {
+              "rem_pos_clean": {
+                "var": "rem_pos_clean",
+                "line": 19,
+                "hit": 1
+              },
+              "rem_pos_dirty": {
+                "var": "rem_pos_dirty",
+                "line": 20,
+                "hit": 1
+              },
+              "trip_timestamp_ms": {
+                "var": "trip_timestamp_ms",
+                "line": 4,
+                "hit": 1
+              },
+              "all_cancels_confirmed_ms": {
+                "var": "all_cancels_confirmed_ms",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "rem_pos_clean": "data",
+              "rem_pos_dirty": "data",
+              "trip_timestamp_ms": "data",
+              "all_cancels_confirmed_ms": "data"
+            },
+            "arrows": [
+              [
+                "rem_pos_clean",
+                "rem_pos_dirty"
+              ],
+              [
+                "rem_pos_dirty",
+                "trip_timestamp_ms"
+              ],
+              [
+                "trip_timestamp_ms",
+                "all_cancels_confirmed_ms"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The telemetry pipeline measures Total Shutdown Latency.",
+            "values": {
+              "rem_pos_clean": {
+                "var": "rem_pos_clean",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "rem_pos_dirty": {
+                "var": "rem_pos_dirty",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "trip_timestamp_ms": {
+                "var": "trip_timestamp_ms",
+                "line": 5,
+                "hit": 5
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "all_cancels_confirmed_ms": {
+                "var": "all_cancels_confirmed_ms",
+                "line": 5,
+                "hit": 5
               }
+            },
+            "tones": {
+              "rem_pos_clean": "data",
+              "rem_pos_dirty": "data",
+              "trip_timestamp_ms": "data",
+              "all_cancels_confirmed_ms": "data"
+            },
+            "arrows": [
+              [
+                "rem_pos_clean",
+                "rem_pos_dirty"
+              ],
+              [
+                "rem_pos_dirty",
+                "trip_timestamp_ms"
+              ],
+              [
+                "trip_timestamp_ms",
+                "all_cancels_confirmed_ms"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Continuous metric tracking provides full operational transparency to chief.",
+            "values": {
+              "rem_pos_clean": {
+                "var": "rem_pos_clean",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "rem_pos_dirty": {
+                "var": "rem_pos_dirty",
+                "line": 23,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "trip_timestamp_ms": {
+                "var": "trip_timestamp_ms",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "all_cancels_confirmed_ms": {
+                "var": "all_cancels_confirmed_ms",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "rem_pos_clean": "ok",
+              "rem_pos_dirty": "ok",
+              "trip_timestamp_ms": "ok",
+              "all_cancels_confirmed_ms": "ok"
+            },
+            "arrows": [
+              [
+                "rem_pos_clean",
+                "rem_pos_dirty"
+              ],
+              [
+                "rem_pos_dirty",
+                "trip_timestamp_ms"
+              ],
+              [
+                "trip_timestamp_ms",
+                "all_cancels_confirmed_ms"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Position F",
+        "title": "Real-Time Kill Switch, Intraday Drawdown Circuit Breakers & Posi",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "rem_pos_clean",
+            "label": "rem_pos_clean"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "rem_pos_dirty",
+            "label": "rem_pos_dirty"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "trip_timestamp_ms",
+            "label": "trip_timestamp_ms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "all_cancels_confirmed_ms",
+            "label": "all_cancels_confirmed_ms"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for kill switch infrastructure requires tracking.",
+            "values": {
+              "rem_pos_clean": "{'AAPL': 0, 'MSFT': 0, 'GOOG': 0}",
+              "rem_pos_dirty": "{'AAPL': 200, 'MSFT': 0}",
+              "trip_timestamp_ms": "1000",
+              "all_cancels_confirmed_ms": "1028"
+            },
+            "tones": {
+              "rem_pos_clean": "data",
+              "rem_pos_dirty": "data",
+              "trip_timestamp_ms": "data",
+              "all_cancels_confirmed_ms": "data"
+            },
+            "arrows": [
+              [
+                "rem_pos_clean",
+                "rem_pos_dirty"
+              ],
+              [
+                "rem_pos_dirty",
+                "trip_timestamp_ms"
+              ],
+              [
+                "trip_timestamp_ms",
+                "all_cancels_confirmed_ms"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The telemetry pipeline measures Total Shutdown Latency.",
+            "values": {
+              "rem_pos_clean": "{'AAPL': 0, 'MSFT': 0, 'GOOG': 0}",
+              "rem_pos_dirty": "{'AAPL': 200, 'MSFT': 0}",
+              "trip_timestamp_ms": "1000",
+              "all_cancels_confirmed_ms": "1028"
+            },
+            "tones": {
+              "rem_pos_clean": "data",
+              "rem_pos_dirty": "data",
+              "trip_timestamp_ms": "data",
+              "all_cancels_confirmed_ms": "data"
+            },
+            "arrows": [
+              [
+                "rem_pos_clean",
+                "rem_pos_dirty"
+              ],
+              [
+                "rem_pos_dirty",
+                "trip_timestamp_ms"
+              ],
+              [
+                "trip_timestamp_ms",
+                "all_cancels_confirmed_ms"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Continuous metric tracking provides full operational transparency to chief.",
+            "values": {
+              "rem_pos_clean": "{'AAPL': 0, 'MSFT': 0, 'GOOG': 0}",
+              "rem_pos_dirty": "{'AAPL': 200, 'MSFT': 0}",
+              "trip_timestamp_ms": "1000",
+              "all_cancels_confirmed_ms": "1028"
+            },
+            "tones": {
+              "rem_pos_clean": "ok",
+              "rem_pos_dirty": "ok",
+              "trip_timestamp_ms": "ok",
+              "all_cancels_confirmed_ms": "ok"
+            },
+            "arrows": [
+              [
+                "rem_pos_clean",
+                "rem_pos_dirty"
+              ],
+              [
+                "rem_pos_dirty",
+                "trip_timestamp_ms"
+              ],
+              [
+                "trip_timestamp_ms",
+                "all_cancels_confirmed_ms"
+              ]
             ]
           }
         ]

@@ -2,269 +2,121 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 46,
-  "promptSha": "874be46712e49be84be2e1cdb1671e18a4a85b54d293341fa198a6bd4801c236",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "BF16 vs FP16 Mixed Precision — Foundations & Mathematical Invariants",
-      "codeHash": "13fe455a472050a95f0d1c541029bb7634883b9521bfc22d5b00288c92752e32",
+      "partTitle": "Mixed Precision Training — Foundations & Mathematical Invariants",
+      "codeHash": "9d46b881fc3156f4edba1fe4bb5c977e640c2bbe16219bcfa9f1f5c974c5f900",
       "spec": {
-        "template": "flow",
-        "title": "BF vs FP Mixed Precision — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Mixed Precision Training — Foundations & Mathematical Invariants",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how full updates precision during execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "formats"
+                  },
+                  {
+                    "var": "formats",
+                    "line": 8,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "However, executing deep learning training entirely in FP32 consumes.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "formats"
+                  },
+                  {
+                    "var": "formats",
+                    "line": 9,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Bfloat16 (BF16) solves this limitation by allocating 8 bits to.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "BF vs FP Mixed Precision — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Mixed Precision Training — Foundations & Mathematical Invariants",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how full updates precision during execution.",
+            "rows": [
+              {
+                "cells": [
+                  "formats",
+                  "{'FP32': {'sign': 1, 'exponent': 8, 'ma…"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "However, executing deep learning training entirely in FP32 consumes.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "formats",
+                  "{'FP32': {'sign': 1, 'exponent': 8, 'ma…"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Bfloat16 (BF16) solves this limitation by allocating 8 bits to.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "Precision Range: FP16 max=65504, BF16 max=3.39e+38 (Matches FP32 dynamic range)"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -272,265 +124,219 @@
       }
     },
     {
-      "partTitle": "BF16 vs FP16 Mixed Precision — Core Algorithm & State Representation",
-      "codeHash": "429cd172b1799448135d52373d696de6abde91b4cc7c05c79f1f175b485bd43a",
+      "partTitle": "Mixed Precision Training — Core Algorithm & State Representation",
+      "codeHash": "52163c8bb172c7ec48a3bed17f34883a338905c89d464fc594f6d0d540def9ec",
       "spec": {
-        "template": "flow",
-        "title": "BF vs FP Mixed Precision — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Mixed Precision Training — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "When training with FP16, Dynamic Loss Scaling prevents small gradients.",
+            "bars": [
+              {
+                "label": "current_scale",
+                "value": {
+                  "var": "current_scale",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "consecutive_go",
+                "value": {
+                  "var": "consecutive_good",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "new_scale",
+                "value": {
+                  "var": "new_scale",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The scaled loss generates proportionally larger gradients during.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "current_scale",
+                "value": {
+                  "var": "current_scale",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "consecutive_go",
+                "value": {
+                  "var": "consecutive_good",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "new_scale",
+                "value": {
+                  "var": "new_scale",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Conversely, when training proceeds without overflows for thousands.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "current_scale",
+                "value": {
+                  "var": "current_scale",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "consecutive_go",
+                "value": {
+                  "var": "consecutive_good",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "new_scale",
+                "value": {
+                  "var": "new_scale",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "BF vs FP Mixed Precision — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Mixed Precision Training — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "When training with FP16, Dynamic Loss Scaling prevents small gradients.",
+            "bars": [
+              {
+                "label": "current_scale",
+                "value": 65536,
+                "tone": "data"
+              },
+              {
+                "label": "consecutive_go",
+                "value": 450,
+                "tone": "data"
+              },
+              {
+                "label": "new_scale",
+                "value": 32768,
+                "tone": "data"
+              },
+              {
+                "label": "scale",
+                "value": 32768,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The scaled loss generates proportionally larger gradients during.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "current_scale",
+                "value": 65536,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "consecutive_go",
+                "value": 450,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "new_scale",
+                "value": 32768,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "scale",
+                "value": 32768,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Conversely, when training proceeds without overflows for thousands.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "current_scale",
+                "value": 65536,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "consecutive_go",
+                "value": 450,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "new_scale",
+                "value": 32768,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "scale",
+                "value": 32768,
+                "tone": "ok"
               }
             ]
           }
@@ -538,265 +344,177 @@
       }
     },
     {
-      "partTitle": "BF16 vs FP16 Mixed Precision — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "0c57709cc9b3177ded76213f5875925da4e6a27e02dc404f0ecc74f332a966b4",
+      "partTitle": "Mixed Precision Training — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "bfabc732b5efe49ba2178c7ba3838796c9dccd4d842f2cb0a31ecc20edae91aa",
       "spec": {
-        "template": "flow",
-        "title": "BF vs FP Mixed Precision — Throughput Optimization & Edge-Case Handlin",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Mixed Precision Training — Throughput Optimization & Edge-Case H",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Mixed precision training requires 16 bytes of memory per parameter when.",
+            "bars": [
+              {
+                "label": "params_b",
+                "value": {
+                  "var": "params_b",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bytes_per_para",
+                "value": {
+                  "var": "bytes_per_param",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_gb",
+                "value": {
+                  "var": "total_gb",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "This memory consists of.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "params_b",
+                "value": {
+                  "var": "params_b",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "bytes_per_para",
+                "value": {
+                  "var": "bytes_per_param",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "total_gb",
+                "value": {
+                  "var": "total_gb",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Furthermore, activation memory is halved because intermediate forward.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "params_b",
+                "value": {
+                  "var": "params_b",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "bytes_per_para",
+                "value": {
+                  "var": "bytes_per_param",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "total_gb",
+                "value": {
+                  "var": "total_gb",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "BF vs FP Mixed Precision — Throughput Optimization & Edge-Case Handlin",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Mixed Precision Training — Throughput Optimization & Edge-Case H",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Mixed precision training requires 16 bytes of memory per parameter when.",
+            "bars": [
+              {
+                "label": "params_b",
+                "value": 7,
+                "tone": "data"
+              },
+              {
+                "label": "bytes_per_para",
+                "value": 16,
+                "tone": "data"
+              },
+              {
+                "label": "total_gb",
+                "value": 112,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "This memory consists of.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "params_b",
+                "value": 7,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "bytes_per_para",
+                "value": 16,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "total_gb",
+                "value": 112,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Furthermore, activation memory is halved because intermediate forward.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "params_b",
+                "value": 7,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "bytes_per_para",
+                "value": 16,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "total_gb",
+                "value": 112,
+                "tone": "ok"
               }
             ]
           }
@@ -804,531 +522,397 @@
       }
     },
     {
-      "partTitle": "BF16 vs FP16 Mixed Precision — Resilience Guardrails & Failure Recovery",
-      "codeHash": "241dfb12b481953bfafead2d0eb398e1fb4ce910c506bfc624148f7215d31344",
+      "partTitle": "Mixed Precision Training — Resilience Guardrails & Failure Recovery",
+      "codeHash": "80844e17b7da453f68e257ad4c35e2670bb7fc88fcd54bf19d32c12dfac216f2",
       "spec": {
         "template": "flow",
-        "title": "BF vs FP Mixed Precision — Resilience Guardrails & Failure Recovery",
+        "title": "Mixed Precision Training — Resilience Guardrails & Failure Recov",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "grads",
+            "label": "grads"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "g",
+            "label": "g"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "status",
+            "label": "status"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "ok",
+            "label": "ok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Numerical resilience guardrails inspect gradient buffers for non-finite.",
+            "values": {
+              "grads": {
+                "var": "grads",
+                "line": 2,
+                "hit": 1
+              },
+              "g": {
+                "var": "g",
+                "line": 2,
+                "hit": 1
+              },
+              "status": {
+                "var": "status",
+                "line": 7,
+                "hit": 1
+              },
+              "ok": {
+                "var": "ok",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "grads": "data",
+              "g": "data",
+              "status": "data",
+              "ok": "data"
+            },
+            "arrows": [
+              [
+                "grads",
+                "g"
+              ],
+              [
+                "g",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "A single NaN or Inf value in a gradient tensor can permanently corrupt.",
+            "values": {
+              "grads": {
+                "var": "grads",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "g": {
+                "var": "g",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "status": {
+                "var": "status",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "ok": {
+                "var": "ok",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "grads": "data",
+              "g": "data",
+              "status": "data",
+              "ok": "data"
+            },
+            "arrows": [
+              [
+                "grads",
+                "g"
+              ],
+              [
+                "g",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "If non-finite gradients are detected, the optimizer step is bypassed,.",
+            "values": {
+              "grads": {
+                "var": "grads",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "g": {
+                "var": "g",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "status": {
+                "var": "status",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "ok": {
+                "var": "ok",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "grads": "ok",
+              "g": "ok",
+              "status": "ok",
+              "ok": "ok"
+            },
+            "arrows": [
+              [
+                "grads",
+                "g"
+              ],
+              [
+                "g",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "BF vs FP Mixed Precision — Resilience Guardrails & Failure Recovery",
+        "title": "Mixed Precision Training — Resilience Guardrails & Failure Recov",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "grads",
+            "label": "grads"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "g",
+            "label": "g"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "status",
+            "label": "status"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "ok",
+            "label": "ok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Numerical resilience guardrails inspect gradient buffers for non-finite.",
+            "values": {
+              "grads": "[0.012, 0.045, nan, 0.003]",
+              "g": "0.012",
+              "status": "'GRADIENT_OVERFLOW_DETECTED_SKIP_STEP'",
+              "ok": "False"
+            },
+            "tones": {
+              "grads": "data",
+              "g": "data",
+              "status": "data",
+              "ok": "data"
+            },
+            "arrows": [
+              [
+                "grads",
+                "g"
+              ],
+              [
+                "g",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "A single NaN or Inf value in a gradient tensor can permanently corrupt.",
+            "values": {
+              "grads": "[0.012, 0.045, nan, 0.003]",
+              "g": "0.012",
+              "status": "'GRADIENT_OVERFLOW_DETECTED_SKIP_STEP'",
+              "ok": "False"
+            },
+            "tones": {
+              "grads": "data",
+              "g": "data",
+              "status": "data",
+              "ok": "data"
+            },
+            "arrows": [
+              [
+                "grads",
+                "g"
+              ],
+              [
+                "g",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "If non-finite gradients are detected, the optimizer step is bypassed,.",
+            "values": {
+              "grads": "[0.012, 0.045, nan, 0.003]",
+              "g": "0.045",
+              "status": "'GRADIENT_OVERFLOW_DETECTED_SKIP_STEP'",
+              "ok": "False"
+            },
+            "tones": {
+              "grads": "ok",
+              "g": "ok",
+              "status": "ok",
+              "ok": "ok"
+            },
+            "arrows": [
+              [
+                "grads",
+                "g"
+              ],
+              [
+                "g",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "BF16 vs FP16 Mixed Precision — Production Telemetry & Verification Audit",
-      "codeHash": "420ba802e401595eccfd31e97d1ade8bdc9cbaf0b8161b57ed54e1d4824b5dc7",
+      "partTitle": "Mixed Precision Training — Production Telemetry & Verification Audit",
+      "codeHash": "b3c0c314f48b1f222491e120effc761de28ab9738c7512da6f4b1b2bcc31e143",
       "spec": {
-        "template": "flow",
-        "title": "BF vs FP Mixed Precision — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Mixed Precision Training — Production Telemetry & Verification A",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing tracks numerical stability, gradient norm.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "audit"
+                  },
+                  {
+                    "var": "audit",
+                    "line": 11,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Auditors record 99th-percentile gradient norms, loss scale values, and.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "audit"
+                  },
+                  {
+                    "var": "audit",
+                    "line": 12,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "High-resolution telemetry confirms that gradient norms remain smoothly.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "BF vs FP Mixed Precision — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Mixed Precision Training — Production Telemetry & Verification A",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing tracks numerical stability, gradient norm.",
+            "rows": [
+              {
+                "cells": [
+                  "audit",
+                  "{'status': 'CERTIFIED', 'precision': 'B…"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Auditors record 99th-percentile gradient norms, loss scale values, and.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "audit",
+                  "{'status': 'CERTIFIED', 'precision': 'B…"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "High-resolution telemetry confirms that gradient norms remain smoothly.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "Mixed Precision Audit: CERTIFIED (Format: BF16_MIXED, Stability: ROCK_SOLID)"
+                ],
+                "tone": "ok"
               }
             ]
           }

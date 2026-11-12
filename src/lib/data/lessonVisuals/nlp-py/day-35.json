@@ -2,230 +2,119 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 35,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Architectural Blueprint: Integrating GQA, RoPE, RMSNorm, and SwiGLU",
       "codeHash": "7b2c878522f66bf48dd9165d9844e93ae33245b42bc24ec057df1d92f43422f3",
       "spec": {
-        "template": "flow",
-        "title": "Architectural Blueprint: Integrating GQA, RoP... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Architectural Bluep...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Architectural Blueprint: Integrating GQA, RoPE, RMSNorm, and Swi",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Architectural Blueprint: Integrating GQA...",
-            "values": {
-              "in": "Day 35 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Architectural Bluep....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Trace how welcome updates milestone during execution.",
+            "items": {
+              "var": "x_input",
+              "line": 23,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The Sovereign ApexDecoderBlock.",
+            "items": {
+              "var": "x_input",
+              "line": 27,
+              "hit": 4
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Architectural Blueprint: Integrat...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "In the following architectural simulation, we will construct a pure Python.",
+            "items": {
+              "var": "x_input",
+              "line": 30,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Architectural Blueprint: Integrating GQA, RoP... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Architectural Bluep...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Architectural Blueprint: Integrating GQA, RoPE, RMSNorm, and Swi",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Architectural Blueprint: Integrating GQA...",
-            "values": {
-              "in": "Day 35 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Architectural Bluep....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Trace how welcome updates milestone during execution.",
+            "items": [
+              "1.5",
+              "-0.8",
+              "2.2",
+              "-1.1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The Sovereign ApexDecoderBlock.",
+            "items": [
+              "1.5",
+              "-0.8",
+              "2.2",
+              "-1.1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Architectural Blueprint: Integrat...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following architectural simulation, we will construct a pure Python.",
+            "items": [
+              "1.5",
+              "-0.8",
+              "2.2",
+              "-1.1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -235,223 +124,77 @@
       "partTitle": "Capstone Component 1: Building the Sovereign ApexTokenizer Engine",
       "codeHash": "24a536995281ed93b13cf9c8bb5a4e1b0890f0069ebf469c299230d250d86aee",
       "spec": {
-        "template": "flow",
-        "title": "Capstone Component 1: Building the Sovereign ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Capstone Component ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Capstone Component 1: Building the Sovereign ApexTokenizer Engin",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Capstone Component one: Building the Sover...",
-            "values": {
-              "in": "Day 35 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Capstone Component ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "With the architectural blueprint established, we construct Capstone.",
+            "items": {
+              "var": "train_data",
+              "line": 84,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The ApexTokenizer engine consists of four tightly synchronized subsystems.",
+            "items": {
+              "var": "train_data",
+              "line": 84,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Capstone Component one: Building th...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Capstone Component 1: Building the Sovereign ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Capstone Component ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Capstone Component 1: Building the Sovereign ApexTokenizer Engin",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Capstone Component 1: Building the Sover...",
-            "values": {
-              "in": "Day 35 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Capstone Component ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "With the architectural blueprint established, we construct Capstone.",
+            "items": [
+              "'attention is all you need'",
+              "'attention mechanisms optimize transfor…",
+              "'rotary position embeddings enable long…"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Capstone Component 1: Building th...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The ApexTokenizer engine consists of four tightly synchronized subsystems.",
+            "items": [
+              "'attention is all you need'",
+              "'attention mechanisms optimize transfor…",
+              "'rotary position embeddings enable long…"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -461,223 +204,217 @@
       "partTitle": "Capstone Component 2: Building the ApexGQA Layer with Integrated RoPE",
       "codeHash": "018976bff0d8518b551c08d30d3ce49ce5c22d88f388cb91870a12cb5f076d83",
       "spec": {
-        "template": "flow",
-        "title": "Capstone Component 2: Building the ApexGQA La... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Capstone Component ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Capstone Component 2: Building the ApexGQA Layer with Integrated",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Capstone Component two: Building the ApexG...",
-            "values": {
-              "in": "Day 35 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Capstone Component ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having built the ApexTokenizer, we construct Capstone Component 2.",
+            "bars": [
+              {
+                "label": "d_model",
+                "value": {
+                  "var": "d_model",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n_q_heads",
+                "value": {
+                  "var": "n_q_heads",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n_kv_heads",
+                "value": {
+                  "var": "n_kv_heads",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us walk through the exact tensor execution lifecycle inside `ApexGQALayer`.",
+            "bars": [
+              {
+                "label": "d_model",
+                "value": {
+                  "var": "d_model",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n_q_heads",
+                "value": {
+                  "var": "n_q_heads",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n_kv_heads",
+                "value": {
+                  "var": "n_kv_heads",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Capstone Component two: Building th...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "In our implementation below, we will write a complete, self-contained.",
+            "bars": [
+              {
+                "label": "d_model",
+                "value": {
+                  "var": "d_model",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n_q_heads",
+                "value": {
+                  "var": "n_q_heads",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n_kv_heads",
+                "value": {
+                  "var": "n_kv_heads",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 23,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Capstone Component 2: Building the ApexGQA La... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Capstone Component ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Capstone Component 2: Building the ApexGQA Layer with Integrated",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Capstone Component 2: Building the ApexG...",
-            "values": {
-              "in": "Day 35 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Capstone Component ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having built the ApexTokenizer, we construct Capstone Component 2.",
+            "bars": [
+              {
+                "label": "d_model",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "n_q_heads",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "n_kv_heads",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us walk through the exact tensor execution lifecycle inside `ApexGQALayer`.",
+            "bars": [
+              {
+                "label": "d_model",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "n_q_heads",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "n_kv_heads",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Capstone Component 2: Building th...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "In our implementation below, we will write a complete, self-contained.",
+            "bars": [
+              {
+                "label": "d_model",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "n_q_heads",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "n_kv_heads",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -688,110 +425,161 @@
       "codeHash": "a88f9183769064b23c6dff052abaf4343d7345ba44b241d6e4eb72af4000ee02",
       "spec": {
         "template": "flow",
-        "title": "Capstone Component 3: Building the SwiGLU MLP... — Execution Pipeline",
+        "title": "Capstone Component 3: Building the SwiGLU MLP & RMSNorm Engine",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "d_model",
+            "label": "d_model"
           },
           {
-            "id": "proc",
-            "label": "2. Capstone Component ...",
-            "tappable": true
+            "id": "d_ffn",
+            "label": "d_ffn"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "eps",
+            "label": "eps"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Capstone Component three: Building the SwiGL...",
-            "values": {
-              "in": "Day 35 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Capstone Component ....",
+            "caption": "The Pre-RMSNorm and SwiGLU Feed-Forward Network (FFN).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "d_model": {
+                "var": "d_model",
+                "line": 34,
+                "hit": 1
+              },
+              "d_ffn": {
+                "var": "d_ffn",
+                "line": 35,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
+              },
+              "eps": {
+                "var": "eps",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "d_model": "data",
+              "d_ffn": "data",
+              "self": "data",
+              "eps": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "d_model",
+                "d_ffn"
               ],
               [
-                "proc",
-                "out"
+                "d_ffn",
+                "self"
+              ],
+              [
+                "self",
+                "eps"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "We begin with the RMSNorm engine.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "d_model": {
+                "var": "d_model",
+                "line": 35,
+                "hit": 1
+              },
+              "d_ffn": {
+                "var": "d_ffn",
+                "line": 36,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
+              },
+              "eps": {
+                "var": "eps",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "d_model": "data",
+              "d_ffn": "data",
+              "self": "data",
+              "eps": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "d_model",
+                "d_ffn"
+              ],
+              [
+                "d_ffn",
+                "self"
+              ],
+              [
+                "self",
+                "eps"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Capstone Component three: Building th...",
+            "at": "say11",
+            "caption": "In our implementation below, we will write complete, self-contained.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "d_model": {
+                "var": "d_model",
+                "line": 5,
+                "hit": 1
+              },
+              "d_ffn": {
+                "var": "d_ffn",
+                "line": 17,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
+              },
+              "eps": {
+                "var": "eps",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "d_model": "ok",
+              "d_ffn": "ok",
+              "self": "ok",
+              "eps": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "d_model",
+                "d_ffn"
               ],
               [
-                "proc",
-                "out"
+                "d_ffn",
+                "self"
+              ],
+              [
+                "self",
+                "eps"
               ]
             ]
           }
@@ -799,110 +587,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Capstone Component 3: Building the SwiGLU MLP... — Execution Pipeline",
+        "title": "Capstone Component 3: Building the SwiGLU MLP & RMSNorm Engine",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "d_model",
+            "label": "d_model"
           },
           {
-            "id": "proc",
-            "label": "2. Capstone Component ...",
-            "tappable": true
+            "id": "d_ffn",
+            "label": "d_ffn"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "eps",
+            "label": "eps"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Capstone Component 3: Building the SwiGL...",
-            "values": {
-              "in": "Day 35 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Capstone Component ....",
+            "caption": "The Pre-RMSNorm and SwiGLU Feed-Forward Network (FFN).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "d_model": "4",
+              "d_ffn": "8",
+              "self": "<RMSNorm>",
+              "eps": "0.000001"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "d_model": "data",
+              "d_ffn": "data",
+              "self": "data",
+              "eps": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "d_model",
+                "d_ffn"
               ],
               [
-                "proc",
-                "out"
+                "d_ffn",
+                "self"
+              ],
+              [
+                "self",
+                "eps"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "We begin with the RMSNorm engine.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "d_model": "4",
+              "d_ffn": "8",
+              "self": "<RMSNorm>",
+              "eps": "0.000001"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "d_model": "data",
+              "d_ffn": "data",
+              "self": "data",
+              "eps": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "d_model",
+                "d_ffn"
+              ],
+              [
+                "d_ffn",
+                "self"
+              ],
+              [
+                "self",
+                "eps"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Capstone Component 3: Building th...",
+            "at": "say11",
+            "caption": "In our implementation below, we will write complete, self-contained.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "d_model": "4",
+              "d_ffn": "8",
+              "self": "<RMSNorm>",
+              "eps": "0.000001"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "d_model": "ok",
+              "d_ffn": "ok",
+              "self": "ok",
+              "eps": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "d_model",
+                "d_ffn"
               ],
               [
-                "proc",
-                "out"
+                "d_ffn",
+                "self"
+              ],
+              [
+                "self",
+                "eps"
               ]
             ]
           }
@@ -913,223 +704,112 @@
       "partTitle": "Capstone Component 4: End-to-End ApexDecoderBlock Integration & Verification",
       "codeHash": "e60e77e43aee5cedee491a0e4dc3f264ee46e79255997603c7895c9c6b1fca15",
       "spec": {
-        "template": "flow",
-        "title": "Capstone Component 4: End-to-End ApexDecoderB... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Capstone Component ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Capstone Component 4: End-to-End ApexDecoderBlock Integration & ",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Capstone Component four: End-to-End ApexDec...",
-            "values": {
-              "in": "Day 35 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Capstone Component ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "The Complete ApexDecoderBlock and ApexModel.",
+            "items": {
+              "var": "x",
+              "line": 19,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Let us trace the complete execution pathway of a tokenized prompt through.",
+            "items": {
+              "var": "x",
+              "line": 21,
+              "hit": 5
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Capstone Component four: End-to-End ...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say11",
+            "caption": "In the following comprehensive implementation, we assemble the unified.",
+            "items": {
+              "var": "x",
+              "line": 21,
+              "hit": 7
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Capstone Component 4: End-to-End ApexDecoderB... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Capstone Component ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Capstone Component 4: End-to-End ApexDecoderBlock Integration & ",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Capstone Component 4: End-to-End ApexDec...",
-            "values": {
-              "in": "Day 35 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Capstone Component ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The Complete ApexDecoderBlock and ApexModel.",
+            "items": [
+              "1",
+              "0.5",
+              "-0.2",
+              "0.8"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us trace the complete execution pathway of a tokenized prompt through.",
+            "items": [
+              "1",
+              "0.5",
+              "-0.2",
+              "0.8"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Capstone Component 4: End-to-End ...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "In the following comprehensive implementation, we assemble the unified.",
+            "items": [
+              "0.4",
+              "-1.2",
+              "0.9",
+              "0.1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

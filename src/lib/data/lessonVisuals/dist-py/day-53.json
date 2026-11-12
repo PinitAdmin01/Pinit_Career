@@ -2,1333 +2,830 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 53,
-  "promptSha": "f7c4c76aa84016e092a93d24fc839effc7904f496d8feda0450b9a3287cec5b1",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Tail Latency Amplification — Foundations & Mathematical Invariants",
-      "codeHash": "c207efcd4e1cb3d286609b1f01e75c5fb575f8b3e8ccdc290d6c8c6310ff84a7",
+      "partTitle": "How Rare 1% Server Stalls Destroy 99% Fan-Out Tail Latency",
+      "codeHash": "b6a2cd6602c5f793a23f2f8862fe7981500ce11d079cf0fff8048c4acc89cfd0",
       "spec": {
-        "template": "flow",
-        "title": "Tail Latency Amplification — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "How Rare 1% Server Stalls Destroy 99% Fan-Out Tail Latency",
+        "actors": [
+          "n",
+          "single_call_slow_p",
+          "fanout_n"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how suppose updates single during execution.",
+            "activeActor": "n",
+            "messages": [
+              {
+                "from": "n",
+                "to": "single_call_slow_p",
+                "label": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "single_call_slow_p",
+                "to": "fanout_n",
+                "label": {
+                  "var": "single_call_slow_p",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Look at what happens mathematically when a search page or microservice.",
+            "activeActor": "single_call_slow_p",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "n",
+                "to": "single_call_slow_p",
+                "label": {
+                  "var": "n",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "single_call_slow_p",
+                "to": "fanout_n",
+                "label": {
+                  "var": "single_call_slow_p",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say5",
+            "caption": "Verify exact fan-out tail probability amplification math across N=1.",
+            "activeActor": "fanout_n",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "n",
+                "to": "single_call_slow_p",
+                "label": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "single_call_slow_p",
+                "to": "fanout_n",
+                "label": {
+                  "var": "single_call_slow_p",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Tail Latency Amplification — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "How Rare 1% Server Stalls Destroy 99% Fan-Out Tail Latency",
+        "actors": [
+          "n",
+          "single_call_slow_p",
+          "fanout_n"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "at": "say1",
+            "caption": "Trace how suppose updates single during execution.",
+            "messages": [
+              {
+                "from": "n",
+                "to": "single_call_slow_p",
+                "label": "1",
+                "tone": "data"
+              },
+              {
+                "from": "single_call_slow_p",
+                "to": "fanout_n",
+                "label": "0.01",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
+            "activeActor": "n"
+          },
+          {
+            "at": "say2",
+            "caption": "Look at what happens mathematically when a search page or microservice.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "n",
+                "to": "single_call_slow_p",
+                "label": "1",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "from": "single_call_slow_p",
+                "to": "fanout_n",
+                "label": "0.01",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "single_call_slow_p"
+          },
+          {
+            "at": "say5",
+            "caption": "Verify exact fan-out tail probability amplification math across N=1.",
+            "messages": [
+              {
+                "from": "n",
+                "to": "single_call_slow_p",
+                "label": "10",
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "from": "single_call_slow_p",
+                "to": "fanout_n",
+                "label": "0.01",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "fanout_n"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Hedged Requests: Slashing Tail Latency With Tiny Backup Overhead",
+      "codeHash": "60fcf427bfe0137b731238904ff1e4ce08f30fc3c0cba4d6d8c8527f48524f56",
+      "spec": {
+        "template": "sequence",
+        "title": "Hedged Requests: Slashing Tail Latency With Tiny Backup Overhead",
+        "actors": [
+          "prim",
+          "sec",
+          "primary_rtts"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "With **Hedged Requests**.",
+            "activeActor": "prim",
+            "messages": [
+              {
+                "from": "prim",
+                "to": "sec",
+                "label": {
+                  "var": "prim",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "sec",
+                "to": "primary_rtts",
+                "label": {
+                  "var": "sec",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Sending two identical copies of EVERY request simultaneously right at `t =.",
+            "activeActor": "sec",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "prim",
+                "to": "sec",
+                "label": {
+                  "var": "prim",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "sec",
+                "to": "primary_rtts",
+                "label": {
+                  "var": "sec",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Simulate smart p95-delayed hedging measuring tail latency drop AND exact.",
+            "activeActor": "primary_rtts",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "prim",
+                "to": "sec",
+                "label": {
+                  "var": "prim",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "sec",
+                "to": "primary_rtts",
+                "label": {
+                  "var": "sec",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "Hedged Requests: Slashing Tail Latency With Tiny Backup Overhead",
+        "actors": [
+          "prim",
+          "sec",
+          "primary_rtts"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "With **Hedged Requests**.",
+            "messages": [
+              {
+                "from": "prim",
+                "to": "sec",
+                "label": "[8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,…",
+                "tone": "data"
+              },
+              {
+                "from": "sec",
+                "to": "primary_rtts",
+                "label": "[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "prim"
+          },
+          {
+            "at": "say2",
+            "caption": "Sending two identical copies of EVERY request simultaneously right at `t =.",
+            "messages": [
+              {
+                "from": "prim",
+                "to": "sec",
+                "label": "[8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,…",
+                "tone": "data"
+              },
+              {
+                "from": "sec",
+                "to": "primary_rtts",
+                "label": "[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "sec"
+          },
+          {
+            "at": "say6",
+            "caption": "Simulate smart p95-delayed hedging measuring tail latency drop AND exact.",
+            "messages": [
+              {
+                "from": "prim",
+                "to": "sec",
+                "label": "[8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,…",
+                "tone": "data"
+              },
+              {
+                "from": "sec",
+                "to": "primary_rtts",
+                "label": "[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "primary_rtts"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Hedged Storm Suppression via Adaptive Token Buckets",
+      "codeHash": "6ec4503aa88445ae48f1be3ef4da57858ba143b271ba0468daedb3a212fd0f1d",
+      "spec": {
+        "template": "flow",
+        "title": "Hedged Storm Suppression via Adaptive Token Buckets",
+        "nodes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "max_tokens",
+            "label": "max_tokens"
+          },
+          {
+            "id": "earn_per_ok",
+            "label": "earn_per_ok"
+          },
+          {
+            "id": "hb",
+            "label": "hb"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Pause on the fatal failure trap inside naive hedged requests during.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "max_tokens": {
+                "var": "max_tokens",
+                "line": 3,
+                "hit": 1
+              },
+              "earn_per_ok": {
+                "var": "earn_per_ok",
+                "line": 3,
+                "hit": 1
+              },
+              "hb": {
+                "var": "hb",
+                "line": 16,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "max_tokens": "data",
+              "earn_per_ok": "data",
+              "hb": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_tokens"
+              ],
+              [
+                "max_tokens",
+                "earn_per_ok"
+              ],
+              [
+                "earn_per_ok",
+                "hb"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Production tail-mitigation clients prevent hedging storms using.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
+              },
+              "max_tokens": {
+                "var": "max_tokens",
+                "line": 4,
+                "hit": 1
+              },
+              "earn_per_ok": {
+                "var": "earn_per_ok",
+                "line": 4,
+                "hit": 1
+              },
+              "hb": {
+                "var": "hb",
+                "line": 18,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "max_tokens": "data",
+              "earn_per_ok": "data",
+              "hb": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_tokens"
+              ],
+              [
+                "max_tokens",
+                "earn_per_ok"
+              ],
+              [
+                "earn_per_ok",
+                "hb"
+              ]
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Implement the self-throttling Hedge Budget Token Bucket below preventing.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
+              },
+              "max_tokens": {
+                "var": "max_tokens",
+                "line": 5,
+                "hit": 1
+              },
+              "earn_per_ok": {
+                "var": "earn_per_ok",
+                "line": 5,
+                "hit": 1
+              },
+              "hb": {
+                "var": "hb",
+                "line": 18,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "self": "ok",
+              "max_tokens": "ok",
+              "earn_per_ok": "ok",
+              "hb": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_tokens"
+              ],
+              [
+                "max_tokens",
+                "earn_per_ok"
+              ],
+              [
+                "earn_per_ok",
+                "hb"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Hedged Storm Suppression via Adaptive Token Buckets",
+        "nodes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "max_tokens",
+            "label": "max_tokens"
+          },
+          {
+            "id": "earn_per_ok",
+            "label": "earn_per_ok"
+          },
+          {
+            "id": "hb",
+            "label": "hb"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Pause on the fatal failure trap inside naive hedged requests during.",
+            "values": {
+              "self": "<SafeHedgeBudget>",
+              "max_tokens": "2",
+              "earn_per_ok": "0.1",
+              "hb": "<SafeHedgeBudget>"
+            },
+            "tones": {
+              "self": "data",
+              "max_tokens": "data",
+              "earn_per_ok": "data",
+              "hb": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_tokens"
+              ],
+              [
+                "max_tokens",
+                "earn_per_ok"
+              ],
+              [
+                "earn_per_ok",
+                "hb"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Production tail-mitigation clients prevent hedging storms using.",
+            "values": {
+              "self": "<SafeHedgeBudget>",
+              "max_tokens": "2",
+              "earn_per_ok": "0.1",
+              "hb": "<SafeHedgeBudget>"
+            },
+            "tones": {
+              "self": "data",
+              "max_tokens": "data",
+              "earn_per_ok": "data",
+              "hb": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_tokens"
+              ],
+              [
+                "max_tokens",
+                "earn_per_ok"
+              ],
+              [
+                "earn_per_ok",
+                "hb"
+              ]
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Implement the self-throttling Hedge Budget Token Bucket below preventing.",
+            "values": {
+              "self": "<SafeHedgeBudget>",
+              "max_tokens": "2",
+              "earn_per_ok": "0.1",
+              "hb": "<SafeHedgeBudget>"
+            },
+            "tones": {
+              "self": "ok",
+              "max_tokens": "ok",
+              "earn_per_ok": "ok",
+              "hb": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_tokens"
+              ],
+              [
+                "max_tokens",
+                "earn_per_ok"
+              ],
+              [
+                "earn_per_ok",
+                "hb"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Tail Latency Amplification — Core Algorithm & State Representation",
-      "codeHash": "6e3ff39ad5aad179d80bfe7195b3748d71acddc1a960e228fbc142a709e6a625",
+      "partTitle": "Tied Requests: Enqueuing Replicas With Cross-Server Cancellation",
+      "codeHash": "58e17a5a16c5285c44c463836f36cafc942f974c1cf98387b832dd168f76253b",
       "spec": {
-        "template": "flow",
-        "title": "Tail Latency Amplification — Core Algorithm & State Representation",
-        "nodes": [
+        "template": "states",
+        "title": "Tied Requests: Enqueuing Replicas With Cross-Server Cancellation",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "queue_wait_a",
+            "label": "queue_wait_a"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "queue_wait_b",
+            "label": "queue_wait_b"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "service_ms",
+            "label": "service_ms"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Standard delayed Hedged Requests still wait `p95 = 12ms` idling BEFORE.",
+            "currentState": "queue_wait_a",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say2",
+            "caption": "Dean & Barroso introduced **Tied Requests** specifically for this win.",
+            "currentState": "queue_wait_b",
+            "transition": {
+              "from": "queue_wait_a",
+              "to": "queue_wait_b",
+              "label": {
+                "var": "queue_wait_b",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+            "caption": "Simulate Tied Request immediate dispatch + cross-server queue cancellation.",
+            "currentState": "service_ms",
+            "transition": {
+              "from": "queue_wait_b",
+              "to": "service_ms",
+              "label": {
+                "var": "service_ms",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Tail Latency Amplification — Core Algorithm & State Representation",
-        "nodes": [
+        "template": "states",
+        "title": "Tied Requests: Enqueuing Replicas With Cross-Server Cancellation",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "queue_wait_a",
+            "label": "queue_wait_a"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "queue_wait_b",
+            "label": "queue_wait_b"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "service_ms",
+            "label": "service_ms"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Standard delayed Hedged Requests still wait `p95 = 12ms` idling BEFORE.",
+            "currentState": "queue_wait_a",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say2",
+            "caption": "Dean & Barroso introduced **Tied Requests** specifically for this win.",
+            "currentState": "queue_wait_b",
+            "transition": {
+              "from": "queue_wait_a",
+              "to": "queue_wait_b",
+              "label": "0"
+            },
+            "tone": "data"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "Simulate Tied Request immediate dispatch + cross-server queue cancellation.",
+            "currentState": "service_ms",
+            "transition": {
+              "from": "queue_wait_b",
+              "to": "service_ms",
+              "label": "5"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Tail Latency Amplification — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "3eb3dfb2f56a1ccef583c9ea9de015c5af8cb4b513a2ba2638e9c6fcdb3833fc",
+      "partTitle": "End-to-End Fan-Out Tail Mitigation Audit (Raw vs Hedged vs Tied)",
+      "codeHash": "0e0f9cb5d055af377f039bf8f40b4e21b13b38c53871cc193f8cac4d764944ca",
       "spec": {
-        "template": "flow",
-        "title": "Tail Latency Amplification — Throughput Optimization & Edge-Case Handl",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "End-to-End Fan-Out Tail Mitigation Audit (Raw vs Hedged vs Tied)",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Now benchmark a realistic 50-way parallel scatter-gather search cluster.",
+            "items": {
+              "var": "h_page",
+              "line": 14,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Observe why production control planes do not blindly duplicate everything.",
+            "items": {
+              "var": "h_page",
+              "line": 14,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say3",
+            "caption": "Execute the deterministic 50-shard scatter-gather comparison simulation below.",
+            "items": {
+              "var": "h_page",
+              "line": 13,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Tail Latency Amplification — Throughput Optimization & Edge-Case Handl",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "End-to-End Fan-Out Tail Mitigation Audit (Raw vs Hedged vs Tied)",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "at": "say1",
+            "caption": "Now benchmark a realistic 50-way parallel scatter-gather search cluster.",
+            "items": [
+              "4.150064531336001",
+              "5.339264428892936"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Tail Latency Amplification — Resilience Guardrails & Failure Recovery",
-      "codeHash": "1e5aec5a7123148079afb5926469d96796cdcd276b964c541b4ce33295dddbe8",
-      "spec": {
-        "template": "flow",
-        "title": "Tail Latency Amplification — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "Observe why production control planes do not blindly duplicate everything.",
+            "items": [
+              "4.150064531336001",
+              "5.339264428892936",
+              "8.060196924537468"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say3",
+            "caption": "Execute the deterministic 50-shard scatter-gather comparison simulation below.",
+            "items": [
+              "4.150064531336001",
+              "5.339264428892936",
+              "8.060196924537468"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Tail Latency Amplification — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Tail Latency Amplification — Production Telemetry & Verification Audit",
-      "codeHash": "5c12814587597ea65b85ca12c2ba157d92d3cbdbf034b3f3a0ee70ad2fbd58a1",
-      "spec": {
-        "template": "flow",
-        "title": "Tail Latency Amplification — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Tail Latency Amplification — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

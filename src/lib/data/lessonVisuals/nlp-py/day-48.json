@@ -2,118 +2,169 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 48,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Post-Training Quantization (PTQ) vs QAT: Numeric Formats & Scale/Zero-Point Mathematics",
       "codeHash": "139ea92071638103b0952029e91998cda7887e7e3c05a0cb176b2607569c4a2c",
       "spec": {
         "template": "flow",
-        "title": "Post-Training Quantization (PTQ) vs QAT: Nume... — Execution Pipeline",
+        "title": "Post-Training Quantization (PTQ) vs QAT: Numeric Formats & Scale",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "weights",
+            "label": "weights"
           },
           {
-            "id": "proc",
-            "label": "2. Post-Training Quant...",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "bits",
+            "label": "bits"
+          },
+          {
+            "id": "mode",
+            "label": "mode"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Post-Training Quantization (PTQ) vs QAT:...",
-            "values": {
-              "in": "Day 48 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Post-Training Quant....",
+            "caption": "In our previous two modules, we resolved memory allocation.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "weights": {
+                "var": "weights",
+                "line": 75,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 23,
+                "hit": 1
+              },
+              "bits": {
+                "var": "bits",
+                "line": 23,
+                "hit": 1
+              },
+              "mode": {
+                "var": "mode",
+                "line": 23,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "weights": "data",
+              "self": "data",
+              "bits": "data",
+              "mode": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "weights",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "bits"
+              ],
+              [
+                "bits",
+                "mode"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "To understand the imperative for quantization, we must examine.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "weights": {
+                "var": "weights",
+                "line": 77,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 24,
+                "hit": 1
+              },
+              "bits": {
+                "var": "bits",
+                "line": 24,
+                "hit": 1
+              },
+              "mode": {
+                "var": "mode",
+                "line": 24,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "weights": "data",
+              "self": "data",
+              "bits": "data",
+              "mode": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "weights",
+                "self"
+              ],
+              [
+                "self",
+                "bits"
+              ],
+              [
+                "bits",
+                "mode"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Post-Training Quantization (PTQ) ...",
+            "at": "say8",
+            "caption": "In the following Python script, we construct a complete UniformQuantizer.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "weights": {
+                "var": "weights",
+                "line": 78,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 25,
+                "hit": 1
+              },
+              "bits": {
+                "var": "bits",
+                "line": 25,
+                "hit": 1
+              },
+              "mode": {
+                "var": "mode",
+                "line": 25,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "weights": "ok",
+              "self": "ok",
+              "bits": "ok",
+              "mode": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "weights",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "bits"
+              ],
+              [
+                "bits",
+                "mode"
               ]
             ]
           }
@@ -121,110 +172,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Post-Training Quantization (PTQ) vs QAT: Nume... — Execution Pipeline",
+        "title": "Post-Training Quantization (PTQ) vs QAT: Numeric Formats & Scale",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "weights",
+            "label": "weights"
           },
           {
-            "id": "proc",
-            "label": "2. Post-Training Quant...",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "bits",
+            "label": "bits"
+          },
+          {
+            "id": "mode",
+            "label": "mode"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Post-Training Quantization (PTQ) vs QAT:...",
-            "values": {
-              "in": "Day 48 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Post-Training Quant....",
+            "caption": "In our previous two modules, we resolved memory allocation.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "weights": "[-2.45, -1.8, -0.65, 0.12, 0.85, 1.4, 2…",
+              "self": "<PurePythonUniformQuantizer>",
+              "bits": "8",
+              "mode": "'symmetric'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "weights": "data",
+              "self": "data",
+              "bits": "data",
+              "mode": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "weights",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "bits"
+              ],
+              [
+                "bits",
+                "mode"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "To understand the imperative for quantization, we must examine.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "weights": "[-2.45, -1.8, -0.65, 0.12, 0.85, 1.4, 2…",
+              "self": "<PurePythonUniformQuantizer>",
+              "bits": "8",
+              "mode": "'symmetric'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "weights": "data",
+              "self": "data",
+              "bits": "data",
+              "mode": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "weights",
+                "self"
+              ],
+              [
+                "self",
+                "bits"
+              ],
+              [
+                "bits",
+                "mode"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Post-Training Quantization (PTQ) ...",
+            "at": "say8",
+            "caption": "In the following Python script, we construct a complete UniformQuantizer.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "weights": "[-2.45, -1.8, -0.65, 0.12, 0.85, 1.4, 2…",
+              "self": "<PurePythonUniformQuantizer>",
+              "bits": "8",
+              "mode": "'symmetric'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "weights": "ok",
+              "self": "ok",
+              "bits": "ok",
+              "mode": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "weights",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "bits"
+              ],
+              [
+                "bits",
+                "mode"
               ]
             ]
           }
@@ -235,223 +289,112 @@
       "partTitle": "Second-Order Optimization: Optimal Brain Surgeon (OBS) & GPTQ Hessian Inversion",
       "codeHash": "5596c4a1599404cfe4347a6465dbdfba82e05c1f5a7ab7b05eeb7f6f0f06372b",
       "spec": {
-        "template": "flow",
-        "title": "Second-Order Optimization: Optimal Brain Surg... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Second-Order Optimi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Second-Order Optimization: Optimal Brain Surgeon (OBS) & GPTQ He",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Second-Order Optimization: Optimal Brain...",
-            "values": {
-              "in": "Day 48 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Second-Order Optimi....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "While uniform round-to-nearest (RTN) quantization works well for INT8.",
+            "items": {
+              "var": "W_weights",
+              "line": 91,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The fundamental flaw of Round-to-Nearest (RTN) is that it treats every.",
+            "items": {
+              "var": "W_weights",
+              "line": 99,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Second-Order Optimization: Optima...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "In the following Python script, we construct a complete.",
+            "items": {
+              "var": "W_weights",
+              "line": 105,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Second-Order Optimization: Optimal Brain Surg... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Second-Order Optimi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Second-Order Optimization: Optimal Brain Surgeon (OBS) & GPTQ He",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Second-Order Optimization: Optimal Brain...",
-            "values": {
-              "in": "Day 48 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Second-Order Optimi....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While uniform round-to-nearest (RTN) quantization works well for INT8.",
+            "items": [
+              "1.25",
+              "-0.85",
+              "2.1",
+              "-1.45"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The fundamental flaw of Round-to-Nearest (RTN) is that it treats every.",
+            "items": [
+              "1.25",
+              "-0.85",
+              "2.1",
+              "-1.45"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Second-Order Optimization: Optima...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we construct a complete.",
+            "items": [
+              "1.25",
+              "-0.85",
+              "2.1",
+              "-1.45"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -461,223 +404,112 @@
       "partTitle": "Activation-Aware Weight Quantization (AWQ): Salient Weight Protection",
       "codeHash": "8064f4c01e92f8eacfcb8fadd6710f051062e56b50567ad53131bca9ba2ee69a",
       "spec": {
-        "template": "flow",
-        "title": "Activation-Aware Weight Quantization (AWQ): S... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Activation-Aware We...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Activation-Aware Weight Quantization (AWQ): Salient Weight Prote",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Activation-Aware Weight Quantization (AW...",
-            "values": {
-              "in": "Day 48 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Activation-Aware We....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "While GPTQ achieves outstanding 4-bit compression via second-order Hessian.",
+            "items": {
+              "var": "channel_acts",
+              "line": 70,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The core observation of AWQ is that Weights are NOT Equally Important.",
+            "items": {
+              "var": "channel_acts",
+              "line": 78,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Activation-Aware Weight Quantizat...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "In the following Python script, we construct a complete AWQEngine in pure.",
+            "items": {
+              "var": "channel_acts",
+              "line": 82,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Activation-Aware Weight Quantization (AWQ): S... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Activation-Aware We...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Activation-Aware Weight Quantization (AWQ): Salient Weight Prote",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Activation-Aware Weight Quantization (AW...",
-            "values": {
-              "in": "Day 48 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Activation-Aware We....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While GPTQ achieves outstanding 4-bit compression via second-order Hessian.",
+            "items": [
+              "28.5",
+              "2.1",
+              "1.8",
+              "2.4"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The core observation of AWQ is that Weights are NOT Equally Important.",
+            "items": [
+              "28.5",
+              "2.1",
+              "1.8",
+              "2.4"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Activation-Aware Weight Quantizat...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct a complete AWQEngine in pure.",
+            "items": [
+              "28.5",
+              "2.1",
+              "1.8",
+              "2.4"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -687,223 +519,112 @@
       "partTitle": "SmoothQuant: Migrating Activation Outlier Difficulty for W8A8 Inference",
       "codeHash": "75a74f2211a8d0cc09e7d10d7cddb25f91cd0fc0cdd24a5a961deda5e4ef4ee4",
       "spec": {
-        "template": "flow",
-        "title": "SmoothQuant: Migrating Activation Outlier Dif... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. SmoothQuant: Migrat...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "SmoothQuant: Migrating Activation Outlier Difficulty for W8A8 In",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for SmoothQuant: Migrating Activation Outlie...",
-            "values": {
-              "in": "Day 48 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in SmoothQuant: Migrat....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "While GPTQ and AWQ achieve breakthrough Weight-Only Quantization (W4A16.",
+            "items": {
+              "var": "act_peaks",
+              "line": 53,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "To accelerate compute by 2x, we must quantize Both Weights and Activations.",
+            "items": {
+              "var": "act_peaks",
+              "line": 61,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for SmoothQuant: Migrating Activation...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "In the following Python script, we construct a complete SmoothQuantEngine.",
+            "items": {
+              "var": "act_peaks",
+              "line": 66,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "SmoothQuant: Migrating Activation Outlier Dif... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. SmoothQuant: Migrat...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "SmoothQuant: Migrating Activation Outlier Difficulty for W8A8 In",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for SmoothQuant: Migrating Activation Outlie...",
-            "values": {
-              "in": "Day 48 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in SmoothQuant: Migrat....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While GPTQ and AWQ achieve breakthrough Weight-Only Quantization (W4A16.",
+            "items": [
+              "64",
+              "2.5",
+              "3",
+              "1.8"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To accelerate compute by 2x, we must quantize Both Weights and Activations.",
+            "items": [
+              "64",
+              "2.5",
+              "3",
+              "1.8"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for SmoothQuant: Migrating Activation...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct a complete SmoothQuantEngine.",
+            "items": [
+              "64",
+              "2.5",
+              "3",
+              "1.8"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -913,223 +634,217 @@
       "partTitle": "Masterclass Synthesis: Building the ApexQuant Suite",
       "codeHash": "97a86ba3b392792d1490c1b06be42a9bc7308f54f27c715ab2be6898330f1729",
       "spec": {
-        "template": "flow",
-        "title": "Masterclass Synthesis: Building the ApexQuant... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Synthes...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Masterclass Synthesis: Building the ApexQuant Suite",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Masterclass Synthesis: Building.",
-            "values": {
-              "in": "Day 48 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Masterclass Synthes....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Building the ApexQuant Suite.",
+            "bars": [
+              {
+                "label": "target_bits",
+                "value": {
+                  "var": "target_bits",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d_in",
+                "value": {
+                  "var": "d_in",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d_out",
+                "value": {
+                  "var": "d_out",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 37,
+                  "hit": 5
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In this masterclass capstone, you assume the executive position.",
+            "bars": [
+              {
+                "label": "target_bits",
+                "value": {
+                  "var": "target_bits",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_in",
+                "value": {
+                  "var": "d_in",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_out",
+                "value": {
+                  "var": "d_out",
+                  "line": 37,
+                  "hit": 5
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 37,
+                  "hit": 10
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Masterclass Synthesis: Building t...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "By conquering this milestone, you master the high-performance core.",
+            "bars": [
+              {
+                "label": "target_bits",
+                "value": {
+                  "var": "target_bits",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_in",
+                "value": {
+                  "var": "d_in",
+                  "line": 37,
+                  "hit": 5
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_out",
+                "value": {
+                  "var": "d_out",
+                  "line": 37,
+                  "hit": 10
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 37,
+                  "hit": 15
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Masterclass Synthesis: Building the ApexQuant... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Synthes...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Masterclass Synthesis: Building the ApexQuant Suite",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Synthesis: Building.",
-            "values": {
-              "in": "Day 48 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Synthes....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Building the ApexQuant Suite.",
+            "bars": [
+              {
+                "label": "target_bits",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "d_in",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "d_out",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In this masterclass capstone, you assume the executive position.",
+            "bars": [
+              {
+                "label": "target_bits",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "d_in",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "d_out",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Synthesis: Building t...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "By conquering this milestone, you master the high-performance core.",
+            "bars": [
+              {
+                "label": "target_bits",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "d_in",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "d_out",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
+              }
             ]
           }
         ]

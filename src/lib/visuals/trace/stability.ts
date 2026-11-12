@@ -19,9 +19,12 @@ export function findUnstable(eventsA: TraceEvent[], eventsB: TraceEvent[]): stri
     }
 
     const allKeys = new Set([...Object.keys(varsA), ...Object.keys(varsB)]);
+    // [FIX-STAGE: checkpoint2-bigint-trace-stability] Serialize Python >2^53 integers returned as JS BigInt by Pyodide without crashing.
+    const serializeTraceValue = (val: unknown) =>
+      JSON.stringify(val, (_k, v) => (typeof v === 'bigint' ? `${v.toString()}n` : v));
     for (const key of allKeys) {
-      const valA = JSON.stringify(varsA[key]);
-      const valB = JSON.stringify(varsB[key]);
+      const valA = serializeTraceValue(varsA[key]);
+      const valB = serializeTraceValue(varsB[key]);
       if (valA !== valB) {
         unstable.add(key);
       }

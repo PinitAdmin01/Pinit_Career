@@ -2,89 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 56,
-  "promptSha": "ca98e135cfe742e2addd30f4a05e9610f815a379013f6091ae77f15efe201661",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Sentinel Doubly Linked List Mechanics for Branch-Free O(1) Unlinking",
       "codeHash": "e190c1553ce2cf14eb4ede3d3e651355454f86dda710b76f52d3332c7c4646a7",
       "spec": {
-        "template": "table",
-        "title": "Sentinel Doubly Linked List Mechanics for Branch-Free O(1)",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Sentinel Doubly Linked List Mechanics for Branch-Free O(1) Unlin",
+        "boxes": [
+          {
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "val",
+            "label": "val"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The memory design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Sentinel"
-                  },
-                  {
-                    "text": "Doubly"
-                  }
-                ],
-                "tone": "data"
+            "caption": "In-memory caches power databases, CDNs, and key-value stores cleanly ONLY.",
+            "values": {
+              "key": {
+                "var": "key",
+                "line": 3,
+                "hit": 1
+              },
+              "val": {
+                "var": "val",
+                "line": 3,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 50,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "key": "data",
+              "val": "data",
+              "k": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The combining step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Linked"
-                  },
-                  {
-                    "text": "List"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Why does a dynamic Python `list` fail immediately.",
+            "values": {
+              "key": {
+                "var": "key",
+                "line": 4,
+                "hit": 1
+              },
+              "val": {
+                "var": "val",
+                "line": 4,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 51,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "key": "data",
+              "val": "data",
+              "k": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect our clean sentinel `SentinelDLL` trace demonstrating bug-free O(1).",
+            "values": {
+              "key": {
+                "var": "key",
+                "line": 5,
+                "hit": 1
+              },
+              "val": {
+                "var": "val",
+                "line": 5,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 50,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "key": "ok",
+              "val": "ok",
+              "k": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Sentinel Doubly Linked List Mechanics for Branch-Free O(1)",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Sentinel Doubly Linked List Mechanics for Branch-Free O(1) Unlin",
+        "boxes": [
+          {
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "val",
+            "label": "val"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The memory design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Sentinel",
-                  "Doubly"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "In-memory caches power databases, CDNs, and key-value stores cleanly ONLY.",
+            "values": {
+              "key": "''",
+              "val": "0",
+              "k": "'a'"
+            },
+            "tones": {
+              "key": "data",
+              "val": "data",
+              "k": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The combining step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Linked",
-                  "List"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Why does a dynamic Python `list` fail immediately.",
+            "values": {
+              "key": "''",
+              "val": "0",
+              "k": "'a'"
+            },
+            "tones": {
+              "key": "data",
+              "val": "data",
+              "k": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect our clean sentinel `SentinelDLL` trace demonstrating bug-free O(1).",
+            "values": {
+              "key": "''",
+              "val": "0",
+              "k": "'b'"
+            },
+            "tones": {
+              "key": "ok",
+              "val": "ok",
+              "k": "ok"
+            }
           }
         ]
       }
@@ -93,43 +173,131 @@
       "partTitle": "Custom O(1) LRUCache vs OrderedDict Verification",
       "codeHash": "ee91a10486127c5559ae00f1910c9df69c41465d6f9998a2331beb122aaee8dc",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Custom O(1) LRUCache vs OrderedDict Verification",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The wiring design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Wiring a plain Python dictionary `cache[key] = node` onto `SentinelDLL`.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Custom"
-                  },
-                  {
-                    "text": "LRUCache"
-                  }
-                ],
+                "label": "capacity",
+                "value": {
+                  "var": "capacity",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "key",
+                "value": {
+                  "var": "key",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 57,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The already step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Walk carefully through BOTH operations and confirm strict `O(1)` time.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "OrderedDict"
-                  },
-                  {
-                    "text": "Verification"
-                  }
-                ],
+                "label": "capacity",
+                "value": {
+                  "var": "capacity",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "key",
+                "value": {
+                  "var": "key",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 58,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Let us execute our hand-written `LRUCache` side-by-side against Python's.",
+            "bars": [
+              {
+                "label": "capacity",
+                "value": {
+                  "var": "capacity",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "key",
+                "value": {
+                  "var": "key",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 59,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -137,35 +305,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Custom O(1) LRUCache vs OrderedDict Verification",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The wiring design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Wiring a plain Python dictionary `cache[key] = node` onto `SentinelDLL`.",
+            "bars": [
               {
-                "cells": [
-                  "Custom",
-                  "LRUCache"
-                ],
+                "label": "capacity",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "key",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "val",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The already step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Walk carefully through BOTH operations and confirm strict `O(1)` time.",
+            "bars": [
               {
-                "cells": [
-                  "OrderedDict",
-                  "Verification"
-                ],
+                "label": "capacity",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "key",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Let us execute our hand-written `LRUCache` side-by-side against Python's.",
+            "bars": [
+              {
+                "label": "capacity",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "key",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -177,43 +393,131 @@
       "partTitle": "O(1) LFUCache Architecture: Frequency Buckets & The min_freq Invariant",
       "codeHash": "378cfb14d8c3eaec183c85be1128904cd5de28bc33ee59c57701941437c560d1",
       "spec": {
-        "template": "table",
-        "title": "O(1) LFUCache Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "O(1) LFUCache Architecture: Frequency Buckets & The min_freq Inv",
         "steps": [
           {
             "at": "say1",
-            "caption": "The suffers design establishes the core structural invariant.",
-            "rows": [
+            "caption": "LRU suffers one famous blind spot known as **Sequential Scan Pollution**.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "LFUCache"
-                  },
-                  {
-                    "text": "Architecture"
-                  }
-                ],
+                "label": "capacity",
+                "value": {
+                  "var": "capacity",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "key",
+                "value": {
+                  "var": "key",
+                  "line": 53,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "value",
+                "value": {
+                  "var": "value",
+                  "line": 53,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The maintain step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Enter **LFU (Least Frequently Used)** Caching.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Frequency"
-                  },
-                  {
-                    "text": "Buckets"
-                  }
-                ],
+                "label": "capacity",
+                "value": {
+                  "var": "capacity",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "key",
+                "value": {
+                  "var": "key",
+                  "line": 55,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "value",
+                "value": {
+                  "var": "value",
+                  "line": 55,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "(2) When inserting a BRAND-NEW key.",
+            "bars": [
+              {
+                "label": "capacity",
+                "value": {
+                  "var": "capacity",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "key",
+                "value": {
+                  "var": "key",
+                  "line": 60,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "value",
+                "value": {
+                  "var": "value",
+                  "line": 60,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +525,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "O(1) LFUCache Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "O(1) LFUCache Architecture: Frequency Buckets & The min_freq Inv",
         "steps": [
           {
             "at": "say1",
-            "caption": "The suffers design establishes the core structural invariant.",
-            "rows": [
+            "caption": "LRU suffers one famous blind spot known as **Sequential Scan Pollution**.",
+            "bars": [
               {
-                "cells": [
-                  "LFUCache",
-                  "Architecture"
-                ],
+                "label": "capacity",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "key",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "value",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "val",
+                "value": 100,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The maintain step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Enter **LFU (Least Frequently Used)** Caching.",
+            "bars": [
               {
-                "cells": [
-                  "Frequency",
-                  "Buckets"
-                ],
+                "label": "capacity",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "key",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "value",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": 100,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "(2) When inserting a BRAND-NEW key.",
+            "bars": [
+              {
+                "label": "capacity",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "key",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "value",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -261,43 +613,131 @@
       "partTitle": "Logical-Clock TTL Expiration & Hit/Miss Telemetry Auditing",
       "codeHash": "c1a51c968e21784e3afe339e7ac153828b504ff246b4aa1caeb7c5171c00caa5",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Logical-Clock TTL Expiration & Hit/Miss Telemetry Auditing",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The distributed design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Real distributed caches rarely keep keys forever merely because capacity.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Logical"
-                  },
-                  {
-                    "text": "Clock"
-                  }
-                ],
+                "label": "capacity",
+                "value": {
+                  "var": "capacity",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "default_ttl",
+                "value": {
+                  "var": "default_ttl",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "exp",
+                "value": {
+                  "var": "exp",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "now",
+                "value": {
+                  "var": "now",
+                  "line": 38,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The expiration step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Rather than spawning background timer threads per key (which thrash locks.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Expiration"
-                  },
-                  {
-                    "text": "Miss"
-                  }
-                ],
+                "label": "capacity",
+                "value": {
+                  "var": "capacity",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "default_ttl",
+                "value": {
+                  "var": "default_ttl",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "exp",
+                "value": {
+                  "var": "exp",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "now",
+                "value": {
+                  "var": "now",
+                  "line": 39,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Notice that keeping `ttl` eviction deterministic via passed integer.",
+            "bars": [
+              {
+                "label": "capacity",
+                "value": {
+                  "var": "capacity",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "default_ttl",
+                "value": {
+                  "var": "default_ttl",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "exp",
+                "value": {
+                  "var": "exp",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "now",
+                "value": {
+                  "var": "now",
+                  "line": 44,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -305,35 +745,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Logical-Clock TTL Expiration & Hit/Miss Telemetry Auditing",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The distributed design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Real distributed caches rarely keep keys forever merely because capacity.",
+            "bars": [
               {
-                "cells": [
-                  "Logical",
-                  "Clock"
-                ],
+                "label": "capacity",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "default_ttl",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "exp",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "now",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The expiration step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Rather than spawning background timer threads per key (which thrash locks.",
+            "bars": [
               {
-                "cells": [
-                  "Expiration",
-                  "Miss"
-                ],
+                "label": "capacity",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "default_ttl",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "exp",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "now",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Notice that keeping `ttl` eviction deterministic via passed integer.",
+            "bars": [
+              {
+                "label": "capacity",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "default_ttl",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "exp",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "now",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -345,43 +833,131 @@
       "partTitle": "Production Application: Scan-Resistant Dual-Policy Cache Benchmark Engine",
       "codeHash": "a83b7ab0f2f0c44102c58f16ea042d55c155a426d49fd79522e497fa7dca4fa5",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Production Application: Scan-Resistant Dual-Policy Cache Benchma",
         "steps": [
           {
             "at": "say1",
-            "caption": "The synthesize design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us synthesize **LRU**, **LFU**, and **Telemetry Hit-Ratio.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cap",
+                "value": {
+                  "var": "cap",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "min_f",
+                "value": {
+                  "var": "min_f",
+                  "line": 35,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The watch step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Consider what happens when an edge cache experiences a mixed realistic.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Scan"
-                  },
-                  {
-                    "text": "Resistant"
-                  }
-                ],
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cap",
+                "value": {
+                  "var": "cap",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "min_f",
+                "value": {
+                  "var": "min_f",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Execute `DualPolicyCacheEngine` below and inspect the exact.",
+            "bars": [
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cap",
+                "value": {
+                  "var": "cap",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "min_f",
+                "value": {
+                  "var": "min_f",
+                  "line": 41,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -389,35 +965,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Production Application: Scan-Resistant Dual-Policy Cache Benchma",
         "steps": [
           {
             "at": "say1",
-            "caption": "The synthesize design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us synthesize **LRU**, **LFU**, and **Telemetry Hit-Ratio.",
+            "bars": [
               {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
+                "label": "v",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "cap",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "hits",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "min_f",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The watch step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Consider what happens when an edge cache experiences a mixed realistic.",
+            "bars": [
               {
-                "cells": [
-                  "Scan",
-                  "Resistant"
-                ],
+                "label": "v",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "cap",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "min_f",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Execute `DualPolicyCacheEngine` below and inspect the exact.",
+            "bars": [
+              {
+                "label": "v",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "cap",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "min_f",
+                "value": 0,
                 "tone": "ok"
               }
             ]

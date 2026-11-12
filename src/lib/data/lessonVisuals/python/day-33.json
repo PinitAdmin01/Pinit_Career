@@ -2,88 +2,261 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 33,
-  "promptSha": "b28785c46c9cd68e95c7b31d78395e6d9bfc48284184600c0738dea2b88c4840",
-  "model": "gate-v2-verified",
+  "promptSha": "96be633cbf597b3a897c5a5d946bdf18c0bb0cb93d8c641874ab522129a46017",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "HTTP Chunked Transfer Encoding & ASGI Streaming Protocols",
       "codeHash": "a26bd9079c29c14ca5097e15036b1b2c3b291f4be1f14f57e89a69411314e182",
       "spec": {
-        "template": "table",
-        "title": "HTTP Chunked Transfer Encoding & ASGI Streaming Pr",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "ASGI chunked transfer encoding pipeline",
+        "nodes": [
+          {
+            "id": "gen",
+            "label": "generator"
+          },
+          {
+            "id": "asgi",
+            "label": "StreamingResponse"
+          },
+          {
+            "id": "socket",
+            "label": "socket"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "HTTP"
-                  },
-                  {
-                    "text": "Chunked"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Chunked transfer prefixes each block size using hexadecimal length.",
+            "values": {
+              "gen": {
+                "text": "chunk"
+              },
+              "asgi": {
+                "text": "chunked"
+              },
+              "socket": {
+                "text": "CRLF"
               }
+            },
+            "tones": {
+              "gen": "data",
+              "asgi": "data",
+              "socket": "idle"
+            },
+            "arrows": [
+              [
+                "gen",
+                "asgi"
+              ]
             ]
           },
           {
             "at": "say3",
-            "caption": "The asgi logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Transfer"
-                  },
-                  {
-                    "text": "Encoding"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "StreamingResponse flushes body chunks straight onto the TCP socket.",
+            "values": {
+              "gen": {
+                "text": "stream_init"
+              },
+              "asgi": {
+                "text": "more_body=True"
+              },
+              "socket": {
+                "text": "socket"
               }
+            },
+            "tones": {
+              "gen": "data",
+              "asgi": "ok",
+              "socket": "ok"
+            },
+            "arrows": [
+              [
+                "gen",
+                "asgi"
+              ],
+              [
+                "asgi",
+                "socket"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Terminating frame zero signals completion of the HTTP chunked stream.",
+            "values": {
+              "gen": {
+                "text": "stream_close"
+              },
+              "asgi": {
+                "text": "chunked"
+              },
+              "socket": {
+                "text": "0"
+              }
+            },
+            "tones": {
+              "gen": "ok",
+              "asgi": "ok",
+              "socket": "ok"
+            },
+            "arrows": [
+              [
+                "gen",
+                "asgi"
+              ],
+              [
+                "asgi",
+                "socket"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify chunk array to stream simulated telemetry ticks with constant memory.",
+            "values": {
+              "gen": {
+                "text": "Modify"
+              },
+              "asgi": {
+                "text": "chunk"
+              },
+              "socket": {
+                "text": "stream"
+              }
+            },
+            "tones": {
+              "gen": "data",
+              "asgi": "ok",
+              "socket": "ok"
+            },
+            "arrows": [
+              [
+                "gen",
+                "asgi"
+              ],
+              [
+                "asgi",
+                "socket"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "HTTP Chunked Transfer Encoding & ASGI Streaming Pr",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "ASGI chunked transfer encoding pipeline",
+        "nodes": [
+          {
+            "id": "gen",
+            "label": "generator"
+          },
+          {
+            "id": "asgi",
+            "label": "StreamingResponse"
+          },
+          {
+            "id": "socket",
+            "label": "socket"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "HTTP",
-                  "Chunked"
-                ],
-                "tone": "data"
-              }
+            "at": "say2",
+            "caption": "Chunked transfer prefixes each block size using hexadecimal length.",
+            "values": {
+              "gen": "hex_len + chunk",
+              "asgi": "Transfer-Encoding: chunked",
+              "socket": "\\r\\n"
+            },
+            "tones": {
+              "gen": "data",
+              "asgi": "data",
+              "socket": "idle"
+            },
+            "arrows": [
+              [
+                "gen",
+                "asgi"
+              ]
             ]
           },
           {
             "at": "say3",
-            "caption": "The asgi logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Transfer",
-                  "Encoding"
-                ],
-                "tone": "ok"
-              }
+            "caption": "StreamingResponse flushes body chunks straight onto the TCP socket.",
+            "values": {
+              "gen": "stream_init",
+              "asgi": "more_body=True",
+              "socket": "TCP Socket Flush"
+            },
+            "tones": {
+              "gen": "data",
+              "asgi": "ok",
+              "socket": "ok"
+            },
+            "arrows": [
+              [
+                "gen",
+                "asgi"
+              ],
+              [
+                "asgi",
+                "socket"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Terminating frame zero signals completion of the HTTP chunked stream.",
+            "values": {
+              "gen": "stream_close",
+              "asgi": "End Stream",
+              "socket": "0\\r\\n\\r\\n"
+            },
+            "tones": {
+              "gen": "ok",
+              "asgi": "ok",
+              "socket": "ok"
+            },
+            "arrows": [
+              [
+                "gen",
+                "asgi"
+              ],
+              [
+                "asgi",
+                "socket"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify chunk array to stream simulated telemetry ticks with constant memory.",
+            "values": {
+              "gen": "100 Telemetry Ticks",
+              "asgi": "Constant Memory Loop",
+              "socket": "0\\r\\n\\r\\n Terminated"
+            },
+            "tones": {
+              "gen": "data",
+              "asgi": "ok",
+              "socket": "ok"
+            },
+            "arrows": [
+              [
+                "gen",
+                "asgi"
+              ],
+              [
+                "asgi",
+                "socket"
+              ]
+            ],
+            "whatIf": "import io\n\ndef simulate_chunked_stream():\n    chunks = [f'{{\"tick\": {i}}}' for i in range(100)]\n    output_buffer = io.StringIO()\n    for c in chunks:\n        hex_len = f\"{len(c):x}\"\n        output_buffer.write(f\"{hex_len}\\r\\n{c}\\r\\n\")\n    output_buffer.write(\"0\\r\\n\\r\\n\")\n    return output_buffer.getvalue()\n\nresult = simulate_chunked_stream()\nprint(\"=== HTTP CHUNKED ENCODING SIMULATION ===\")\nprint(f\"Total Streamed Ticks: 100\")\nprint(f\"Raw Encoded Stream Length: {len(result)} bytes\")\nprint(f\"Stream Verified: {result.endswith('0\\r\\n\\r\\n')}\")\nprint(\"Chunked transport successfully framed.\")",
+            "checks": [
+              "Total Streamed Ticks: 100",
+              "Stream Verified: True"
             ]
           }
         ]
@@ -93,82 +266,158 @@
       "partTitle": "WebSocket RFC 6455 Framing & Slow Consumer Memory Forensics",
       "codeHash": "d6bca9cf0c6efe80035caa927ef7cfc78efaf2d404a5426192512e9edad7bf25",
       "spec": {
-        "template": "table",
-        "title": "WebSocket RFC 6455 Framing & Slow Consumer Memory ",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Slow consumer buffer vs bounded eviction",
+        "leftLabel": "UnboundedConsumer",
+        "rightLabel": "BoundedConsumer (maxlen=5)",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The http concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "WebSocket"
-                  },
-                  {
-                    "text": "RFC"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Full socket buffers halt transmission across TCP windows.",
+            "left": {
+              "code": "deque()",
+              "result": "Growing Backlog",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "deque(maxlen=5)",
+              "result": "Capped Queue",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The client logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Framing"
-                  },
-                  {
-                    "text": "Slow"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Slow consumer reads force un-sent frames to pile up in RAM.",
+            "left": {
+              "code": "for i in range(100): push()",
+              "result": "100 Queued Items",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "for i in range(100): push()",
+              "result": "5 Queued, 95 Dropped",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Bounded consumer eviction stops 100 ticks from causing memory exhaustion.",
+            "left": {
+              "code": "unbounded.lag()",
+              "result": "100 items (CRITICAL)",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "bounded.lag()",
+              "result": "5 items (BOUNDED)",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Implement disconnect warning hook in BoundedConsumer on dropped frames.",
+            "left": {
+              "code": "BoundedConsumer dropped 45 stale frames",
+              "result": "45 dropped (no disconnect warning)",
+              "tone": "ok",
+              "checks": [
+                "Bounded Discard Count: 45 stale frames dropped"
+              ],
+              "whatIf": "from collections import deque\n\nclass UnboundedConsumer:\n    def __init__(self):\n        self.queue = deque()\n    def push(self, msg):\n        self.queue.append(msg)\n    def lag(self):\n        return len(self.queue)\n\nclass BoundedConsumer:\n    def __init__(self, maxsize=5):\n        self.queue = deque(maxlen=maxsize)\n        self.dropped = 0\n    def push(self, msg):\n        if len(self.queue) >= self.queue.maxlen:\n            self.dropped += 1\n        self.queue.append(msg)\n    def lag(self):\n        return len(self.queue)\n\nunbounded = UnboundedConsumer()\nbounded = BoundedConsumer(maxsize=5)\n\nfor i in range(50):\n    unbounded.push(f\"tick_{i}\")\n    bounded.push(f\"tick_{i}\")\n\nprint(\"=== SLOW CONSUMER BUFFER FORENSICS ===\")\nprint(f\"Unbounded Buffer Lag:  {unbounded.lag()} items (RAM Risk: CRITICAL)\")\nprint(f\"Bounded Buffer Lag:    {bounded.lag()} items (RAM Risk: BOUNDED)\")\nprint(f\"Bounded Discard Count: {bounded.dropped} stale frames dropped\")\nprint(\"Memory safety enforced via bounded eviction.\")"
+            },
+            "right": {
+              "code": "if bounded.dropped > 50: DISCONNECT",
+              "result": "DISCONNECT_WARN triggered at 95 dropped",
+              "tone": "error",
+              "checks": [
+                "DISCONNECT_WARN: Slow consumer dropped 95 frames (> 50)"
+              ],
+              "whatIf": "from collections import deque\n\nclass UnboundedConsumer:\n    def __init__(self):\n        self.queue = deque()\n    def push(self, msg):\n        self.queue.append(msg)\n    def lag(self):\n        return len(self.queue)\n\nclass BoundedConsumer:\n    def __init__(self, maxsize=5):\n        self.queue = deque(maxlen=maxsize)\n        self.dropped = 0\n    def push(self, msg):\n        if len(self.queue) >= self.queue.maxlen:\n            self.dropped += 1\n        self.queue.append(msg)\n    def lag(self):\n        return len(self.queue)\n\nunbounded = UnboundedConsumer()\nbounded = BoundedConsumer(maxsize=5)\n\nfor i in range(100):\n    unbounded.push(f\"tick_{i}\")\n    bounded.push(f\"tick_{i}\")\n\nprint(\"=== SLOW CONSUMER BUFFER FORENSICS ===\")\nprint(f\"Unbounded Buffer Lag:  {unbounded.lag()} items (RAM Risk: CRITICAL)\")\nprint(f\"Bounded Buffer Lag:    {bounded.lag()} items (RAM Risk: BOUNDED)\")\nprint(f\"Bounded Discard Count: {bounded.dropped} stale frames dropped\")\nif bounded.dropped > 50:\n    print(f\"DISCONNECT_WARN: Slow consumer dropped {bounded.dropped} frames (> 50)\")\nprint(\"Memory safety enforced via bounded eviction.\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "WebSocket RFC 6455 Framing & Slow Consumer Memory ",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Slow consumer buffer vs bounded eviction",
+        "leftLabel": "UnboundedConsumer",
+        "rightLabel": "BoundedConsumer (maxlen=5)",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The http concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "WebSocket",
-                  "RFC"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Full socket buffers halt transmission across TCP windows.",
+            "left": {
+              "code": "deque()",
+              "result": "Growing Backlog",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "deque(maxlen=5)",
+              "result": "Capped Queue",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The client logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Framing",
-                  "Slow"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Slow consumer reads force un-sent frames to pile up in RAM.",
+            "left": {
+              "code": "for i in range(100): push()",
+              "result": "100 Queued Items",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "for i in range(100): push()",
+              "result": "5 Queued, 95 Dropped",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Bounded consumer eviction stops 100 ticks from causing memory exhaustion.",
+            "left": {
+              "code": "unbounded.lag()",
+              "result": "100 items (CRITICAL)",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "bounded.lag()",
+              "result": "5 items (BOUNDED)",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Implement disconnect warning hook in BoundedConsumer on dropped frames.",
+            "left": {
+              "code": "BoundedConsumer dropped 45 stale frames",
+              "result": "45 dropped (no disconnect warning)",
+              "tone": "ok",
+              "checks": [
+                "Bounded Discard Count: 45 stale frames dropped"
+              ],
+              "whatIf": "from collections import deque\n\nclass UnboundedConsumer:\n    def __init__(self):\n        self.queue = deque()\n    def push(self, msg):\n        self.queue.append(msg)\n    def lag(self):\n        return len(self.queue)\n\nclass BoundedConsumer:\n    def __init__(self, maxsize=5):\n        self.queue = deque(maxlen=maxsize)\n        self.dropped = 0\n    def push(self, msg):\n        if len(self.queue) >= self.queue.maxlen:\n            self.dropped += 1\n        self.queue.append(msg)\n    def lag(self):\n        return len(self.queue)\n\nunbounded = UnboundedConsumer()\nbounded = BoundedConsumer(maxsize=5)\n\nfor i in range(50):\n    unbounded.push(f\"tick_{i}\")\n    bounded.push(f\"tick_{i}\")\n\nprint(\"=== SLOW CONSUMER BUFFER FORENSICS ===\")\nprint(f\"Unbounded Buffer Lag:  {unbounded.lag()} items (RAM Risk: CRITICAL)\")\nprint(f\"Bounded Buffer Lag:    {bounded.lag()} items (RAM Risk: BOUNDED)\")\nprint(f\"Bounded Discard Count: {bounded.dropped} stale frames dropped\")\nprint(\"Memory safety enforced via bounded eviction.\")"
+            },
+            "right": {
+              "code": "if bounded.dropped > 50: DISCONNECT",
+              "result": "DISCONNECT_WARN triggered at 95 dropped",
+              "tone": "error",
+              "checks": [
+                "DISCONNECT_WARN: Slow consumer dropped 95 frames (> 50)"
+              ],
+              "whatIf": "from collections import deque\n\nclass UnboundedConsumer:\n    def __init__(self):\n        self.queue = deque()\n    def push(self, msg):\n        self.queue.append(msg)\n    def lag(self):\n        return len(self.queue)\n\nclass BoundedConsumer:\n    def __init__(self, maxsize=5):\n        self.queue = deque(maxlen=maxsize)\n        self.dropped = 0\n    def push(self, msg):\n        if len(self.queue) >= self.queue.maxlen:\n            self.dropped += 1\n        self.queue.append(msg)\n    def lag(self):\n        return len(self.queue)\n\nunbounded = UnboundedConsumer()\nbounded = BoundedConsumer(maxsize=5)\n\nfor i in range(100):\n    unbounded.push(f\"tick_{i}\")\n    bounded.push(f\"tick_{i}\")\n\nprint(\"=== SLOW CONSUMER BUFFER FORENSICS ===\")\nprint(f\"Unbounded Buffer Lag:  {unbounded.lag()} items (RAM Risk: CRITICAL)\")\nprint(f\"Bounded Buffer Lag:    {bounded.lag()} items (RAM Risk: BOUNDED)\")\nprint(f\"Bounded Discard Count: {bounded.dropped} stale frames dropped\")\nif bounded.dropped > 50:\n    print(f\"DISCONNECT_WARN: Slow consumer dropped {bounded.dropped} frames (> 50)\")\nprint(\"Memory safety enforced via bounded eviction.\")"
+            }
           }
         ]
       }
@@ -177,81 +426,182 @@
       "partTitle": "High-Throughput WebSocket Broadcast Hub with Backpressure",
       "codeHash": "b1cffe874f0ee759ede685f7848dfc186b24618733538ae3d7dd5ecd517da616",
       "spec": {
-        "template": "table",
-        "title": "High-Throughput WebSocket Broadcast Hub with Backp",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "ConnectionHub per-client bounded queues",
+        "boxes": [
+          {
+            "id": "fast",
+            "label": "client_fast"
+          },
+          {
+            "id": "slow",
+            "label": "client_slow"
+          },
+          {
+            "id": "evict",
+            "label": "evictions"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The deploy concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "High"
-                  },
-                  {
-                    "text": "Throughput"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Broadcast Hub maintains bounded per-connection subscription queues.",
+            "values": {
+              "fast": {
+                "text": "active_clients"
+              },
+              "slow": {
+                "text": "active_clients"
+              },
+              "evict": {
+                "text": "[]"
               }
-            ]
+            },
+            "tones": {
+              "fast": "data",
+              "slow": "data",
+              "evict": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The python logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "WebSocket"
-                  },
-                  {
-                    "text": "Broadcast"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Overflowing QueueFull slows are flagged instead of blocking loops.",
+            "values": {
+              "fast": {
+                "text": "get_nowait()"
+              },
+              "slow": {
+                "text": "QueueFull"
+              },
+              "evict": {
+                "text": "1008"
               }
-            ]
+            },
+            "tones": {
+              "fast": "ok",
+              "slow": "error",
+              "evict": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Slow consumer eviction leaves healthy subscribers unaffected at limit 2.",
+            "values": {
+              "fast": {
+                "text": "OK"
+              },
+              "slow": {
+                "text": "EVICTED"
+              },
+              "evict": {
+                "text": "client_slow"
+              }
+            },
+            "tones": {
+              "fast": "ok",
+              "slow": "error",
+              "evict": "error"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Replace oldest queue item instead of evicting slow consumer connections.",
+            "values": {
+              "fast": {
+                "text": "Add"
+              },
+              "slow": {
+                "text": "fallback"
+              },
+              "evict": {
+                "text": "that"
+              }
+            },
+            "tones": {
+              "fast": "ok",
+              "slow": "data",
+              "evict": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "High-Throughput WebSocket Broadcast Hub with Backp",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "ConnectionHub per-client bounded queues",
+        "boxes": [
+          {
+            "id": "fast",
+            "label": "client_fast"
+          },
+          {
+            "id": "slow",
+            "label": "client_slow"
+          },
+          {
+            "id": "evict",
+            "label": "evictions"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The deploy concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "High",
-                  "Throughput"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Broadcast Hub maintains bounded per-connection subscription queues.",
+            "values": {
+              "fast": "Queue(maxsize=2)",
+              "slow": "Queue(maxsize=2)",
+              "evict": "[]"
+            },
+            "tones": {
+              "fast": "data",
+              "slow": "data",
+              "evict": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The python logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "WebSocket",
-                  "Broadcast"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Overflowing QueueFull slows are flagged instead of blocking loops.",
+            "values": {
+              "fast": "Drained (0 backlog)",
+              "slow": "QueueFull (Close 1008)",
+              "evict": "['client_slow']"
+            },
+            "tones": {
+              "fast": "ok",
+              "slow": "error",
+              "evict": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Slow consumer eviction leaves healthy subscribers unaffected at limit 2.",
+            "values": {
+              "fast": "Active (0 backlog)",
+              "slow": "EVICTED",
+              "evict": "['client_slow']"
+            },
+            "tones": {
+              "fast": "ok",
+              "slow": "error",
+              "evict": "error"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Replace oldest queue item instead of evicting slow consumer connections.",
+            "values": {
+              "fast": "Active (0 backlog)",
+              "slow": "Active (Oldest Replaced)",
+              "evict": "[] (0 Evictions)"
+            },
+            "tones": {
+              "fast": "ok",
+              "slow": "data",
+              "evict": "ok"
+            },
+            "whatIf": "import asyncio\n\nclass ConnectionHub:\n    def __init__(self, queue_limit=3):\n        self.active_clients = {}\n        self.limit = queue_limit\n        self.evictions = []\n\n    def register(self, client_id):\n        self.active_clients[client_id] = asyncio.Queue(maxsize=self.limit)\n\n    def broadcast(self, message):\n        evict_list = []\n        for cid, q in self.active_clients.items():\n            try:\n                q.put_nowait(message)\n            except asyncio.QueueFull:\n                q.get_nowait()\n                q.put_nowait(message)\n        for cid in evict_list:\n            del self.active_clients[cid]\n            self.evictions.append(cid)\n\nhub = ConnectionHub(queue_limit=2)\nhub.register(\"client_fast\")\nhub.register(\"client_slow\")\n\n# Broadcast messages beyond queue limit (fast client consumes immediately)\nfor idx in range(4):\n    hub.broadcast(f\"tick_payload_{idx}\")\n    if \"client_fast\" in hub.active_clients:\n        hub.active_clients[\"client_fast\"].get_nowait()\n\nprint(\"=== WEBSOCKET BROADCAST HUB LAB ===\")\nprint(f\"Active Healthy Clients: {list(hub.active_clients.keys())}\")\nprint(f\"Evicted Slow Consumers: {hub.evictions}\")\nprint(f\"Fast Client Backlog:    {hub.active_clients['client_fast'].qsize()} items\")\nprint(\"Deterministic slow consumer eviction verified.\")",
+            "checks": [
+              "Active Healthy Clients: ['client_fast', 'client_slow']",
+              "Evicted Slow Consumers: []"
             ]
           }
         ]
@@ -261,81 +611,258 @@
       "partTitle": "Real-Time AI Token Streaming Gateway & SSE Hardening",
       "codeHash": "ff0d2f4e4a29347b549275d65ce661e60e8ec1457d8f95b2017b5f2d2df771ca",
       "spec": {
-        "template": "table",
-        "title": "Real-Time AI Token Streaming Gateway & SSE Hardeni",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Server-Sent Events LLM token frame stream",
         "steps": [
           {
             "at": "say1",
-            "caption": "The explosion concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Streaming tokens yields immediate visual feedback during AI generation.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Real"
-                  },
-                  {
-                    "text": "Time"
-                  }
-                ],
+                "text": "FastAPI"
+              },
+              {
+                "text": "v0.115"
+              },
+              {
+                "text": "Streaming"
+              },
+              {
+                "text": "Active"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "yield",
+                "index": 0,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "idle",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The asgi logic drives deterministic execution.",
-            "rows": [
+            "caption": "Client disconnect breaks the loop to avoid wasted upstream compute.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Token"
-                  },
-                  {
-                    "text": "Streaming"
-                  }
-                ],
+                "text": "FastAPI"
+              },
+              {
+                "text": "v0.115"
+              },
+              {
+                "text": "DISCONNECTED_ABORT"
+              },
+              {
+                "text": "Active"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "abort",
+                "index": 2,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              2
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "error",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "SSE data frames wrap each token cleanly for frontend EventSource.",
+            "items": [
+              {
+                "text": "FastAPI"
+              },
+              {
+                "text": "v0.115"
+              },
+              {
+                "text": "Streaming"
+              },
+              {
+                "text": "Active"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "done",
+                "index": 3,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate client disconnect after 3 tokens and verify upstream abort.",
+            "items": [
+              {
+                "text": "Simulate"
+              },
+              {
+                "text": "disconnect"
+              },
+              {
+                "text": "after"
+              },
+              {
+                "text": "verify"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "abort",
+                "index": 3,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "idle",
+              "2": "ok",
+              "3": "error"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Real-Time AI Token Streaming Gateway & SSE Hardeni",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Server-Sent Events LLM token frame stream",
         "steps": [
           {
             "at": "say1",
-            "caption": "The explosion concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Streaming tokens yields immediate visual feedback during AI generation.",
+            "items": [
+              "FastAPI",
+              "v0.115",
+              "Streaming",
+              "Active"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Real",
-                  "Time"
-                ],
+                "name": "yield",
+                "index": 0,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "idle",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The asgi logic drives deterministic execution.",
-            "rows": [
+            "caption": "Client disconnect breaks the loop to avoid wasted upstream compute.",
+            "items": [
+              "FastAPI",
+              "v0.115",
+              "DISCONNECTED_ABORT",
+              "Skipped"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Token",
-                  "Streaming"
-                ],
+                "name": "abort",
+                "index": 2,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              2
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "error",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "SSE data frames wrap each token cleanly for frontend EventSource.",
+            "items": [
+              "data: FastAPI",
+              "data: v0.115",
+              "data: Streaming",
+              "data: Active"
+            ],
+            "pointers": [
+              {
+                "name": "done",
+                "index": 3,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate client disconnect after 3 tokens and verify upstream abort.",
+            "items": [
+              "data: FastAPI",
+              "data:  ",
+              "data: v0.115",
+              "[DISCONNECTED_ABORT]"
+            ],
+            "pointers": [
+              {
+                "name": "abort",
+                "index": 3,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "idle",
+              "2": "ok",
+              "3": "error"
+            },
+            "whatIf": "def mock_llm_token_stream():\n    tokens = [\"FastAPI\", \" \", \"v0.115\", \" \", \"Streaming\", \" \", \"Active\"]\n    for t in tokens:\n        yield t\n\ndef sse_gateway_handler(max_tokens=3):\n    emitted = []\n    for idx, token in enumerate(mock_llm_token_stream()):\n        if idx >= max_tokens:\n            emitted.append(\"[DISCONNECTED_ABORT]\")\n            break\n        emitted.append(f\"data: {json_token(token)}\\n\\n\")\n    return emitted\n\ndef json_token(t):\n    return f'\"token\": \"{t}\"' \n\nstream_output = sse_gateway_handler(max_tokens=3)\nprint(\"=== REAL-TIME AI TOKEN STREAMING GATEWAY ===\")\nprint(f\"Total SSE Frames Emitted: {len(stream_output)}\")\nprint(f\"Sample Frame:             {repr(stream_output[0])}\")\nprint(f\"Final Frame:              {repr(stream_output[-1])}\")\nprint(\"SSE streaming gateway pipeline successfully verified.\")",
+            "checks": [
+              "Total SSE Frames Emitted: 4",
+              "Final Frame:              '[DISCONNECTED_ABORT]'"
             ]
           }
         ]
@@ -346,43 +873,174 @@
       "codeHash": "ed907ad7fac92b6658d1855d14b8b4cce211e0ddbdd1dc1330c14968678bcd5f",
       "spec": {
         "template": "table",
-        "title": "Full Asynchronous Streaming & WebSocket Hub Integr",
+        "title": "MicroserviceStreamingSubsystem concurrency stats",
         "columns": [
-          "Stage",
-          "Concept"
+          "Channel",
+          "Subscriber",
+          "Outcome"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "WebSocket connections register heartbeat queues and release on close.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Full"
+                    "text": "ws_subscribers"
                   },
                   {
-                    "text": "Asynchronous"
+                    "text": "trader_alpha"
+                  },
+                  {
+                    "text": "broadcasts"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "ws_subscribers"
+                  },
+                  {
+                    "text": "trader_beta"
+                  },
+                  {
+                    "text": "evictions"
+                  }
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The simultaneously logic drives deterministic execution.",
+            "caption": "Prometheus counters track connection metrics, evictions, and SSE frames.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Streaming"
+                    "text": "stream_sse"
                   },
                   {
-                    "text": "WebSocket"
+                    "text": "sse_frames"
+                  },
+                  {
+                    "text": "price_101.5"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "broadcast_ws"
+                  },
+                  {
+                    "text": "trader_beta"
+                  },
+                  {
+                    "text": "QueueFull"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "FastAPI subsystem isolates lagging traders without dropping SSE ticks.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "WebSocket"
+                  },
+                  {
+                    "text": "trader_alpha"
+                  },
+                  {
+                    "text": "broadcasts"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "WebSocket"
+                  },
+                  {
+                    "text": "trader_beta"
+                  },
+                  {
+                    "text": "evictions"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "SSE"
+                  },
+                  {
+                    "text": "price_102.0"
+                  },
+                  {
+                    "text": "sse_frames"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase max_queue to 5 so both subscribers stay active across 3 ticks.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Increase"
+                  },
+                  {
+                    "text": "queue"
+                  },
+                  {
+                    "text": "limits"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "limits"
+                  },
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "verify"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "verify"
+                  },
+                  {
+                    "text": "that"
+                  },
+                  {
+                    "text": "both"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -390,36 +1048,120 @@
       },
       "filled": {
         "template": "table",
-        "title": "Full Asynchronous Streaming & WebSocket Hub Integr",
+        "title": "MicroserviceStreamingSubsystem concurrency stats",
         "columns": [
-          "Stage",
-          "Concept"
+          "Channel",
+          "Subscriber",
+          "Outcome"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "WebSocket connections register heartbeat queues and release on close.",
             "rows": [
               {
                 "cells": [
-                  "Full",
-                  "Asynchronous"
+                  "WebSocket",
+                  "trader_alpha",
+                  "Registered (max_queue=2)"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "WebSocket",
+                  "trader_beta",
+                  "Registered (max_queue=2)"
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The simultaneously logic drives deterministic execution.",
+            "caption": "Prometheus counters track connection metrics, evictions, and SSE frames.",
             "rows": [
               {
                 "cells": [
-                  "Streaming",
-                  "WebSocket"
+                  "SSE",
+                  "stream_sse()",
+                  "2 frames emitted"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "WebSocket",
+                  "trader_beta",
+                  "QueueFull -> Evicted"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "FastAPI subsystem isolates lagging traders without dropping SSE ticks.",
+            "rows": [
+              {
+                "cells": [
+                  "WebSocket",
+                  "trader_alpha",
+                  "3 broadcasts drained"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "WebSocket",
+                  "trader_beta",
+                  "1 eviction"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "SSE",
+                  "price_101.5 -> 102.0",
+                  "2 ticks streamed"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase max_queue to 5 so both subscribers stay active across 3 ticks.",
+            "rows": [
+              {
+                "cells": [
+                  "WebSocket",
+                  "trader_alpha",
+                  "Drained 3 ticks (OK)"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "WebSocket",
+                  "trader_beta",
+                  "Kept Alive (limit 5)"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Evictions",
+                  "hub_counter",
+                  "0 Consumers Evicted"
+                ],
+                "tone": "data"
+              }
+            ],
+            "whatIf": "import asyncio\n\nclass MicroserviceStreamingSubsystem:\n    def __init__(self):\n        self.ws_subscribers = {}\n        self.stats = {\"broadcasts\": 0, \"sse_frames\": 0, \"evictions\": 0}\n\n    def subscribe_ws(self, uid, max_queue=5):\n        self.ws_subscribers[uid] = asyncio.Queue(maxsize=max_queue)\n\n    def broadcast_ws(self, message):\n        to_evict = []\n        for uid, q in self.ws_subscribers.items():\n            try:\n                q.put_nowait(message)\n            except asyncio.QueueFull:\n                to_evict.append(uid)\n        for uid in to_evict:\n            del self.ws_subscribers[uid]\n            self.stats[\"evictions\"] += 1\n        self.stats[\"broadcasts\"] += 1\n\n    def stream_sse(self, items):\n        for item in items:\n            self.stats[\"sse_frames\"] += 1\n            yield f\"event: tick\\ndata: {item}\\n\\n\"\n\nsubsystem = MicroserviceStreamingSubsystem()\nsubsystem.subscribe_ws(\"trader_alpha\")\nsubsystem.subscribe_ws(\"trader_beta\")\n\n# Broadcast 3 ticks (trader_alpha drains queue, trader_beta lags and is evicted)\nfor i in range(3):\n    subsystem.broadcast_ws(f\"tick_{i}\")\n    if \"trader_alpha\" in subsystem.ws_subscribers:\n        subsystem.ws_subscribers[\"trader_alpha\"].get_nowait()\n\nsse_results = list(subsystem.stream_sse([\"price_101.5\", \"price_102.0\"]))\n\nprint(\"=== STREAMING & WEBSOCKET SUBSYSTEM SYNTHESIS ===\")\nprint(f\"Broadcast Events Dispatched: {subsystem.stats['broadcasts']}\")\nprint(f\"SSE Frames Emitted:         {subsystem.stats['sse_frames']}\")\nprint(f\"Active WebSocket Clients:   {len(subsystem.ws_subscribers)}\")\nprint(f\"Slow Consumer Evictions:    {subsystem.stats['evictions']}\")\nprint(\"Full streaming and WebSocket synthesis verified.\")",
+            "checks": [
+              "Active WebSocket Clients:   2",
+              "Slow Consumer Evictions:    0"
             ]
           }
         ]

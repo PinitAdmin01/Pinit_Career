@@ -1,159 +1,170 @@
 {
-  "schemaVersion": "2.0.0",
-  "course": "prompt-py",
-  "day": 59,
+  "schemaVersion": 1,
   "prefix": "prompt-py",
+  "day": 59,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Economics Of Enterprise Generative AI: The Cost-Quality Trade-Off",
       "codeHash": "a686a3e35d360b26e08744c693adef477bda7b02af1c374781a7a7a5fffb90c1",
       "spec": {
-        "template": "table",
-        "title": "The Economics Of Enterprise Generative AI Cost And Quality.",
-        "columns": [
-          "Operating Tier",
-          "Cost Structure SLA",
-          "Economic Advantage"
+        "template": "sequence",
+        "title": "The Economics Of Enterprise Generative AI: The Cost-Quality Trad",
+        "actors": [
+          "routing_tiers",
+          "finops_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dynamic routing maximizes task accuracy while minimizing token costs.",
-            "rows": [
-              [
-                "Frontier Model Static",
-                "Thirty To Sixty Dollars Per Million Tokens",
-                "Prohibitive Cloud Budget Burn"
-              ],
-              [
-                "Dynamic Cascade Router",
-                "One Dollar Forty Per Million Tokens Blended",
-                "Sixty Eight Percent Cost Savings"
-              ]
+            "caption": "As enterprise organizations scale foundation model applications across.",
+            "activeActor": "routing_tiers",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": {
+                  "var": "routing_tiers",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": {
+                  "var": "finops_metrics",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Empirical analysis of enterprise query distributions reveals that over.",
-            "rows": [
-              [
-                "Lightweight Edge Model",
-                "Under Twenty Cents Per Million Tokens",
-                "Sub Fifteen Millisecond Latency"
-              ],
-              [
-                "Pareto Frontier Gate",
-                "Maximizes Accuracy While Minimizing Dollars",
-                "High FinOps Return On Investment"
-              ]
+            "activeActor": "finops_metrics",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": {
+                  "var": "routing_tiers",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": {
+                  "var": "finops_metrics",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Dynamic routing maximizes task accuracy while minimizing token costs.",
-            "rows": [
-              [
-                "Token Asymmetry Engine",
-                "Routes Boilerplate Text To Local Open Weights",
-                "Massive Completion Savings"
-              ],
-              [
-                "Departmental Quota Mesh",
-                "Enforces Financial Ceilings In Real Time",
-                "Zero Unapproved Budget Spikes"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Design an enterprise token economics model benchmarking model tiers.",
-            "rows": [
-              [
-                "Sovereign FinOps Core",
-                "Combines Local GPUs With Frontier Endpoints",
-                "Flawless Regulatory Security"
-              ],
-              [
-                "Enterprise Value Shield",
-                "Delivers Frontier Intelligence Economically",
-                "Enterprise Production Grade SLA"
-              ]
+            "at": "say13",
+            "caption": "Mastering the token economics of the Cost-Performance Pareto Frontier.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": {
+                  "var": "routing_tiers",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": {
+                  "var": "finops_metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "The Economics Of Enterprise Generative AI Cost And Quality.",
-        "columns": [
-          "Operating Tier",
-          "Cost Structure SLA",
-          "Economic Advantage"
+        "template": "sequence",
+        "title": "The Economics Of Enterprise Generative AI: The Cost-Quality Trad",
+        "actors": [
+          "routing_tiers",
+          "finops_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dynamic routing maximizes task accuracy while minimizing token costs.",
-            "rows": [
-              [
-                "Frontier Model Static",
-                "Thirty To Sixty Dollars Per Million Tokens",
-                "Prohibitive Cloud Budget Burn"
-              ],
-              [
-                "Dynamic Cascade Router",
-                "One Dollar Forty Per Million Tokens Blended",
-                "Sixty Eight Percent Cost Savings"
-              ]
-            ]
+            "caption": "As enterprise organizations scale foundation model applications across.",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "routing_tiers"
           },
           {
             "at": "say2",
             "caption": "Empirical analysis of enterprise query distributions reveals that over.",
-            "rows": [
-              [
-                "Lightweight Edge Model",
-                "Under Twenty Cents Per Million Tokens",
-                "Sub Fifteen Millisecond Latency"
-              ],
-              [
-                "Pareto Frontier Gate",
-                "Maximizes Accuracy While Minimizing Dollars",
-                "High FinOps Return On Investment"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "finops_metrics"
           },
           {
-            "at": "example",
-            "caption": "Dynamic routing maximizes task accuracy while minimizing token costs.",
-            "rows": [
-              [
-                "Token Asymmetry Engine",
-                "Routes Boilerplate Text To Local Open Weights",
-                "Massive Completion Savings"
-              ],
-              [
-                "Departmental Quota Mesh",
-                "Enforces Financial Ceilings In Real Time",
-                "Zero Unapproved Budget Spikes"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Design an enterprise token economics model benchmarking model tiers.",
-            "rows": [
-              [
-                "Sovereign FinOps Core",
-                "Combines Local GPUs With Frontier Endpoints",
-                "Flawless Regulatory Security"
-              ],
-              [
-                "Enterprise Value Shield",
-                "Delivers Frontier Intelligence Economically",
-                "Enterprise Production Grade SLA"
-              ]
-            ]
+            "at": "say13",
+            "caption": "Mastering the token economics of the Cost-Performance Pareto Frontier.",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -162,150 +173,220 @@
       "partTitle": "Model Cascade Architectures: FrugalGPT, RouteLLM And Predictive Classifiers",
       "codeHash": "a686a3e35d360b26e08744c693adef477bda7b02af1c374781a7a7a5fffb90c1",
       "spec": {
-        "template": "table",
-        "title": "Model Cascade Architectures FrugalGPT And RouteLLM Mechanics.",
-        "columns": [
-          "Routing Component",
-          "Algorithmic Primitive",
-          "Classification Speed SLA"
+        "template": "flow",
+        "title": "Model Cascade Architectures: FrugalGPT, RouteLLM And Predictive ",
+        "nodes": [
+          {
+            "id": "routing_tiers",
+            "label": "routing_tiers"
+          },
+          {
+            "id": "finops_metrics",
+            "label": "finops_metrics"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "FrugalGPT and RouteLLM predict task complexity in single milliseconds.",
-            "rows": [
+            "caption": "Translating the theoretical principles of the Pareto Frontier.",
+            "values": {
+              "routing_tiers": {
+                "var": "routing_tiers",
+                "line": 6,
+                "hit": 1
+              },
+              "finops_metrics": {
+                "var": "finops_metrics",
+                "line": 12,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 29,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "routing_tiers": "data",
+              "finops_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "FrugalGPT Controller",
-                "Sequential Quality Verification Cascade",
-                "Zero Quality Degradation"
+                "routing_tiers",
+                "finops_metrics"
               ],
               [
-                "RouteLLM Classifier",
-                "Preference Trained DeBERTa Predictor",
-                "Single Millisecond Decision SLA"
+                "finops_metrics",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "The FrugalGPT paradigm introduces sequential model cascading to systems.",
-            "rows": [
+            "caption": "The FrugalGPT paradigm introduces sequential model cascading to foundation.",
+            "values": {
+              "routing_tiers": {
+                "var": "routing_tiers",
+                "line": 13,
+                "hit": 1
+              },
+              "finops_metrics": {
+                "var": "finops_metrics",
+                "line": 21,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 30,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "routing_tiers": "data",
+              "finops_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Complexity Scorer",
-                "Analyzes Reasoning Depth And Terminology",
-                "Accurate Tier Matching"
+                "routing_tiers",
+                "finops_metrics"
               ],
               [
-                "Confidence Calibrator",
-                "Evaluates Token Log Probabilities",
-                "Immediate Escalation On Doubt"
+                "finops_metrics",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "RouteLLM uses preference trained classifiers to route prompts in speed.",
-            "rows": [
+            "at": "say14",
+            "caption": "Mastering model cascade architectures and predictive routing frameworks.",
+            "values": {
+              "routing_tiers": {
+                "var": "routing_tiers",
+                "line": 14,
+                "hit": 1
+              },
+              "finops_metrics": {
+                "var": "finops_metrics",
+                "line": 22,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 30,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "routing_tiers": "ok",
+              "finops_metrics": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Speculative Verifier",
-                "Drafts Low Cost Text With High Tier Audit",
-                "Blended Speed And Precision"
+                "routing_tiers",
+                "finops_metrics"
               ],
               [
-                "Matrix Factorization",
-                "Embeds Query Space Onto Model Capabilities",
-                "Ultra Low Compute Overhead"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement a predictive query complexity classifier predicting model tiers.",
-            "rows": [
-              [
-                "Adaptive Preference Gate",
-                "Tunes Balance Between Spend And Excellence",
-                "Dynamic Threshold Flexibility"
-              ],
-              [
-                "Sovereign Routing Core",
-                "Eliminates Brute Force Frontier Commits",
-                "Robust Fleet Efficiency SLA"
+                "finops_metrics",
+                "result"
               ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Model Cascade Architectures FrugalGPT And RouteLLM Mechanics.",
-        "columns": [
-          "Routing Component",
-          "Algorithmic Primitive",
-          "Classification Speed SLA"
+        "template": "flow",
+        "title": "Model Cascade Architectures: FrugalGPT, RouteLLM And Predictive ",
+        "nodes": [
+          {
+            "id": "routing_tiers",
+            "label": "routing_tiers"
+          },
+          {
+            "id": "finops_metrics",
+            "label": "finops_metrics"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "FrugalGPT and RouteLLM predict task complexity in single milliseconds.",
-            "rows": [
+            "caption": "Translating the theoretical principles of the Pareto Frontier.",
+            "values": {
+              "routing_tiers": "['Tier 1: High-Speed Edge Model (Quanti…",
+              "finops_metrics": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
+              "result": "{'routerArchitecture': 'Apex Pareto Fro…"
+            },
+            "tones": {
+              "routing_tiers": "data",
+              "finops_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "FrugalGPT Controller",
-                "Sequential Quality Verification Cascade",
-                "Zero Quality Degradation"
+                "routing_tiers",
+                "finops_metrics"
               ],
               [
-                "RouteLLM Classifier",
-                "Preference Trained DeBERTa Predictor",
-                "Single Millisecond Decision SLA"
+                "finops_metrics",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "The FrugalGPT paradigm introduces sequential model cascading to systems.",
-            "rows": [
+            "caption": "The FrugalGPT paradigm introduces sequential model cascading to foundation.",
+            "values": {
+              "routing_tiers": "['Tier 1: High-Speed Edge Model (Quanti…",
+              "finops_metrics": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
+              "result": "{'routerArchitecture': 'Apex Pareto Fro…"
+            },
+            "tones": {
+              "routing_tiers": "data",
+              "finops_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Complexity Scorer",
-                "Analyzes Reasoning Depth And Terminology",
-                "Accurate Tier Matching"
+                "routing_tiers",
+                "finops_metrics"
               ],
               [
-                "Confidence Calibrator",
-                "Evaluates Token Log Probabilities",
-                "Immediate Escalation On Doubt"
+                "finops_metrics",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "RouteLLM uses preference trained classifiers to route prompts in speed.",
-            "rows": [
+            "at": "say14",
+            "caption": "Mastering model cascade architectures and predictive routing frameworks.",
+            "values": {
+              "routing_tiers": "['Tier 1: High-Speed Edge Model (Quanti…",
+              "finops_metrics": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
+              "result": "{'routerArchitecture': 'Apex Pareto Fro…"
+            },
+            "tones": {
+              "routing_tiers": "ok",
+              "finops_metrics": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Speculative Verifier",
-                "Drafts Low Cost Text With High Tier Audit",
-                "Blended Speed And Precision"
+                "routing_tiers",
+                "finops_metrics"
               ],
               [
-                "Matrix Factorization",
-                "Embeds Query Space Onto Model Capabilities",
-                "Ultra Low Compute Overhead"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement a predictive query complexity classifier predicting model tiers.",
-            "rows": [
-              [
-                "Adaptive Preference Gate",
-                "Tunes Balance Between Spend And Excellence",
-                "Dynamic Threshold Flexibility"
-              ],
-              [
-                "Sovereign Routing Core",
-                "Eliminates Brute Force Frontier Commits",
-                "Robust Fleet Efficiency SLA"
+                "finops_metrics",
+                "result"
               ]
             ]
           }
@@ -316,152 +397,162 @@
       "partTitle": "Multi-Tier Routing Infrastructure: Edge, Mid-Weight, And Frontier Routing",
       "codeHash": "a686a3e35d360b26e08744c693adef477bda7b02af1c374781a7a7a5fffb90c1",
       "spec": {
-        "template": "table",
-        "title": "Multi Tier Routing Infrastructure Edge Generalist And Frontier.",
-        "columns": [
-          "Infrastructure Tier",
-          "Parameter Architecture",
-          "Target Traffic Share SLA"
+        "template": "sequence",
+        "title": "Multi-Tier Routing Infrastructure: Edge, Mid-Weight, And Frontie",
+        "actors": [
+          "routing_tiers",
+          "finops_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Multi tier architectures partition queries across edge and frontier nodes.",
-            "rows": [
-              [
-                "Tier One Edge Models",
-                "Quantized Eight Billion Open Weights",
-                "Sixty Two Point Four Percent Share"
-              ],
-              [
-                "Tier Two Mid Weight",
-                "Seventy Billion Parameter Generalists",
-                "Twenty Eight Point One Percent"
-              ]
+            "caption": "Deploying an enterprise-grade dynamic cascade requires organizing.",
+            "activeActor": "routing_tiers",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": {
+                  "var": "routing_tiers",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": {
+                  "var": "finops_metrics",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Tier One High Speed Edge Models serve as the foundation of the mesh.",
-            "rows": [
-              [
-                "Tier Three Frontier",
-                "Proprietary Mixture Of Experts Reasoning",
-                "Nine Point Five Percent Traffic"
-              ],
-              [
-                "Tier Four Air Gapped",
-                "On Premises Classified Transaction Validator",
-                "Complete Network Isolation"
-              ]
+            "caption": "Tier One High-Speed Edge Models serve as the foundation of the routing.",
+            "activeActor": "finops_metrics",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": {
+                  "var": "routing_tiers",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": {
+                  "var": "finops_metrics",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Tier one edge models handle sixty percent of queries in low latency.",
-            "rows": [
-              [
-                "Protocol Homogenizer",
-                "Normalizes Diverse Vendor JSON Schemas",
-                "Seamless Hot Swapping SLA"
-              ],
-              [
-                "Hardware Aware Balancer",
-                "Directs Quantized Models To Tensor Cores",
-                "Maximized Silicon Efficiency"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Construct a four tier model hierarchy routing edge and frontier tasks.",
-            "rows": [
-              [
-                "Multi Region Gateway",
-                "Routes Traffic To Geographically Nearest Nodes",
-                "Low Latency Data Residency"
-              ],
-              [
-                "Apex Tier Mesh",
-                "Harmonizes Four Layer Model Hierarchy",
-                "Uncompromising Fleet Scaling SLA"
-              ]
+            "at": "say14",
+            "caption": "Mastering multi-tier routing infrastructure establishes the architectural.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": {
+                  "var": "routing_tiers",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": {
+                  "var": "finops_metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Multi Tier Routing Infrastructure Edge Generalist And Frontier.",
-        "columns": [
-          "Infrastructure Tier",
-          "Parameter Architecture",
-          "Target Traffic Share SLA"
+        "template": "sequence",
+        "title": "Multi-Tier Routing Infrastructure: Edge, Mid-Weight, And Frontie",
+        "actors": [
+          "routing_tiers",
+          "finops_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Multi tier architectures partition queries across edge and frontier nodes.",
-            "rows": [
-              [
-                "Tier One Edge Models",
-                "Quantized Eight Billion Open Weights",
-                "Sixty Two Point Four Percent Share"
-              ],
-              [
-                "Tier Two Mid Weight",
-                "Seventy Billion Parameter Generalists",
-                "Twenty Eight Point One Percent"
-              ]
-            ]
+            "caption": "Deploying an enterprise-grade dynamic cascade requires organizing.",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "routing_tiers"
           },
           {
             "at": "say2",
-            "caption": "Tier One High Speed Edge Models serve as the foundation of the mesh.",
-            "rows": [
-              [
-                "Tier Three Frontier",
-                "Proprietary Mixture Of Experts Reasoning",
-                "Nine Point Five Percent Traffic"
-              ],
-              [
-                "Tier Four Air Gapped",
-                "On Premises Classified Transaction Validator",
-                "Complete Network Isolation"
-              ]
-            ]
+            "caption": "Tier One High-Speed Edge Models serve as the foundation of the routing.",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "finops_metrics"
           },
           {
-            "at": "example",
-            "caption": "Tier one edge models handle sixty percent of queries in low latency.",
-            "rows": [
-              [
-                "Protocol Homogenizer",
-                "Normalizes Diverse Vendor JSON Schemas",
-                "Seamless Hot Swapping SLA"
-              ],
-              [
-                "Hardware Aware Balancer",
-                "Directs Quantized Models To Tensor Cores",
-                "Maximized Silicon Efficiency"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Construct a four tier model hierarchy routing edge and frontier tasks.",
-            "rows": [
-              [
-                "Multi Region Gateway",
-                "Routes Traffic To Geographically Nearest Nodes",
-                "Low Latency Data Residency"
-              ],
-              [
-                "Apex Tier Mesh",
-                "Harmonizes Four Layer Model Hierarchy",
-                "Uncompromising Fleet Scaling SLA"
-              ]
-            ]
+            "at": "say14",
+            "caption": "Mastering multi-tier routing infrastructure establishes the architectural.",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -470,152 +561,162 @@
       "partTitle": "Dynamic Fallback Policies, Circuit Breakers, And SLA Enforcement",
       "codeHash": "a686a3e35d360b26e08744c693adef477bda7b02af1c374781a7a7a5fffb90c1",
       "spec": {
-        "template": "table",
-        "title": "Dynamic Fallback Policies Circuit Breakers And SLA Enforcement.",
-        "columns": [
-          "Resilience Mechanism",
-          "Trigger Condition",
-          "Recovery SLA"
+        "template": "sequence",
+        "title": "Dynamic Fallback Policies, Circuit Breakers, And SLA Enforcement",
+        "actors": [
+          "routing_tiers",
+          "finops_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Circuit breakers trip on provider timeouts to escalate queries seamlessly.",
-            "rows": [
-              [
-                "Schema Error Fallback",
-                "Pydantic Schema Failure Triggers Escalation",
-                "Zero Malformed Output Leakage"
-              ],
-              [
-                "Latency Circuit Breaker",
-                "Trips On Eight Hundred Millisecond Stalls",
-                "Immediate Local Model Handover"
-              ]
+            "caption": "In a multi-tier dynamic cascade, routing decisions cannot be treated.",
+            "activeActor": "routing_tiers",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": {
+                  "var": "routing_tiers",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": {
+                  "var": "finops_metrics",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Cascaded schema validation error fallbacks serve as the primary shield.",
-            "rows": [
-              [
-                "Exponential Backoff",
-                "Buffers Traffic During Provider Rate Limits",
-                "Zero Thundering Herd Crashes"
-              ],
-              [
-                "Multi Vendor Redundancy",
-                "Fails Over Between Clouds In Microseconds",
-                "Five Nines High Availability"
-              ]
+            "caption": "Cascaded schema validation error fallbacks serve as the primary structural.",
+            "activeActor": "finops_metrics",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": {
+                  "var": "routing_tiers",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": {
+                  "var": "finops_metrics",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Circuit breakers trip on provider timeouts to escalate queries cleanly.",
-            "rows": [
-              [
-                "Dynamic SLA Prioritizer",
-                "Allocates Frontier GPUs To Critical Tasks",
-                "Strict Mission Prioritization"
-              ],
-              [
-                "Degraded Mode Sentinel",
-                "Funnels Traffic To Local Weights In Outages",
-                "Uninterrupted Business Continuity"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a cascaded schema validation fallback recovering malformed JSON.",
-            "rows": [
-              [
-                "Cost Governed Breaker",
-                "Terminates Loops Breaching Dollar Ceilings",
-                "Denial Of Wallet Defense"
-              ],
-              [
-                "Active Resilience Shield",
-                "Guarantees Five Nines Production Uptime",
-                "Unshakeable System Reliability"
-              ]
+            "at": "say14",
+            "caption": "Mastering dynamic fallback policies and circuit breaker architectures.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": {
+                  "var": "routing_tiers",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": {
+                  "var": "finops_metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Dynamic Fallback Policies Circuit Breakers And SLA Enforcement.",
-        "columns": [
-          "Resilience Mechanism",
-          "Trigger Condition",
-          "Recovery SLA"
+        "template": "sequence",
+        "title": "Dynamic Fallback Policies, Circuit Breakers, And SLA Enforcement",
+        "actors": [
+          "routing_tiers",
+          "finops_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Circuit breakers trip on provider timeouts to escalate queries seamlessly.",
-            "rows": [
-              [
-                "Schema Error Fallback",
-                "Pydantic Schema Failure Triggers Escalation",
-                "Zero Malformed Output Leakage"
-              ],
-              [
-                "Latency Circuit Breaker",
-                "Trips On Eight Hundred Millisecond Stalls",
-                "Immediate Local Model Handover"
-              ]
-            ]
+            "caption": "In a multi-tier dynamic cascade, routing decisions cannot be treated.",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "routing_tiers"
           },
           {
             "at": "say2",
-            "caption": "Cascaded schema validation error fallbacks serve as the primary shield.",
-            "rows": [
-              [
-                "Exponential Backoff",
-                "Buffers Traffic During Provider Rate Limits",
-                "Zero Thundering Herd Crashes"
-              ],
-              [
-                "Multi Vendor Redundancy",
-                "Fails Over Between Clouds In Microseconds",
-                "Five Nines High Availability"
-              ]
-            ]
+            "caption": "Cascaded schema validation error fallbacks serve as the primary structural.",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "finops_metrics"
           },
           {
-            "at": "example",
-            "caption": "Circuit breakers trip on provider timeouts to escalate queries cleanly.",
-            "rows": [
-              [
-                "Dynamic SLA Prioritizer",
-                "Allocates Frontier GPUs To Critical Tasks",
-                "Strict Mission Prioritization"
-              ],
-              [
-                "Degraded Mode Sentinel",
-                "Funnels Traffic To Local Weights In Outages",
-                "Uninterrupted Business Continuity"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a cascaded schema validation fallback recovering malformed JSON.",
-            "rows": [
-              [
-                "Cost Governed Breaker",
-                "Terminates Loops Breaching Dollar Ceilings",
-                "Denial Of Wallet Defense"
-              ],
-              [
-                "Active Resilience Shield",
-                "Guarantees Five Nines Production Uptime",
-                "Unshakeable System Reliability"
-              ]
-            ]
+            "at": "say14",
+            "caption": "Mastering dynamic fallback policies and circuit breaker architectures.",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -624,152 +725,162 @@
       "partTitle": "Enterprise Pareto Frontier Cascade Router: 68.2% Cloud Cost Reduction",
       "codeHash": "a686a3e35d360b26e08744c693adef477bda7b02af1c374781a7a7a5fffb90c1",
       "spec": {
-        "template": "table",
-        "title": "Enterprise Pareto Frontier Cascade Router And FinOps Architecture.",
-        "columns": [
-          "Router Subsystem",
-          "FinOps Verification Metric",
-          "Performance Target SLA"
+        "template": "sequence",
+        "title": "Enterprise Pareto Frontier Cascade Router: 68.2% Cloud Cost Redu",
+        "actors": [
+          "routing_tiers",
+          "finops_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cascade routers achieve sixty eight percent cost reduction with accuracy.",
-            "rows": [
-              [
-                "Predictive Complexity Gate",
-                "Routes Requests Across Four Computational Tiers",
-                "Single Millisecond Evaluation"
-              ],
-              [
-                "Tier One Edge Cluster",
-                "Resolves Routine Tasks At Local GPU Speeds",
-                "Sixty Two Percent Traffic Share"
-              ]
+            "caption": "Translating token economics, Pareto Frontier optimization, FrugalGPT.",
+            "activeActor": "routing_tiers",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": {
+                  "var": "routing_tiers",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": {
+                  "var": "finops_metrics",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "The software architecture of the enterprise cascade router integrates.",
-            "rows": [
-              [
-                "Tier Two Generalist Pool",
-                "Handles Structured Extraction And Synthesis",
-                "Twenty Eight Percent Share"
-              ],
-              [
-                "Tier Three Frontier Engine",
-                "Executes Multi Step Mathematical Reasoning",
-                "Nine Point Five Percent Share"
-              ]
+            "caption": "The software architecture of the enterprise cascade router integrates five.",
+            "activeActor": "finops_metrics",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": {
+                  "var": "routing_tiers",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": {
+                  "var": "finops_metrics",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Cascade routers achieve sixty eight percent cost reduction with accuracy.",
-            "rows": [
-              [
-                "FinOps Analytics Bus",
-                "Tracks Token Consumption And Budget Burn",
-                "Sixty Eight Percent Savings"
-              ],
-              [
-                "OpenTelemetry Trace Bus",
-                "Exports Real Time Latency Distribution Graphs",
-                "Fourteen Millisecond P Fifty"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy an integrated Pareto frontier router optimizing enterprise spend.",
-            "rows": [
-              [
-                "Apex Pareto Mesh",
-                "Harmonizes Four Routing Tiers Economically",
-                "Ninety Eight Percent Accuracy SLA"
-              ],
-              [
-                "Production Promotion Gate",
-                "Delivers Sustainable Enterprise Intelligence",
-                "Mastery Of AI Economics"
-              ]
+            "at": "say14",
+            "caption": "Mastering the engineering architecture of enterprise Pareto Frontier.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": {
+                  "var": "routing_tiers",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": {
+                  "var": "finops_metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Enterprise Pareto Frontier Cascade Router And FinOps Architecture.",
-        "columns": [
-          "Router Subsystem",
-          "FinOps Verification Metric",
-          "Performance Target SLA"
+        "template": "sequence",
+        "title": "Enterprise Pareto Frontier Cascade Router: 68.2% Cloud Cost Redu",
+        "actors": [
+          "routing_tiers",
+          "finops_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cascade routers achieve sixty eight percent cost reduction with accuracy.",
-            "rows": [
-              [
-                "Predictive Complexity Gate",
-                "Routes Requests Across Four Computational Tiers",
-                "Single Millisecond Evaluation"
-              ],
-              [
-                "Tier One Edge Cluster",
-                "Resolves Routine Tasks At Local GPU Speeds",
-                "Sixty Two Percent Traffic Share"
-              ]
-            ]
+            "caption": "Translating token economics, Pareto Frontier optimization, FrugalGPT.",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "routing_tiers"
           },
           {
             "at": "say2",
-            "caption": "The software architecture of the enterprise cascade router integrates.",
-            "rows": [
-              [
-                "Tier Two Generalist Pool",
-                "Handles Structured Extraction And Synthesis",
-                "Twenty Eight Percent Share"
-              ],
-              [
-                "Tier Three Frontier Engine",
-                "Executes Multi Step Mathematical Reasoning",
-                "Nine Point Five Percent Share"
-              ]
-            ]
+            "caption": "The software architecture of the enterprise cascade router integrates five.",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "finops_metrics"
           },
           {
-            "at": "example",
-            "caption": "Cascade routers achieve sixty eight percent cost reduction with accuracy.",
-            "rows": [
-              [
-                "FinOps Analytics Bus",
-                "Tracks Token Consumption And Budget Burn",
-                "Sixty Eight Percent Savings"
-              ],
-              [
-                "OpenTelemetry Trace Bus",
-                "Exports Real Time Latency Distribution Graphs",
-                "Fourteen Millisecond P Fifty"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy an integrated Pareto frontier router optimizing enterprise spend.",
-            "rows": [
-              [
-                "Apex Pareto Mesh",
-                "Harmonizes Four Routing Tiers Economically",
-                "Ninety Eight Percent Accuracy SLA"
-              ],
-              [
-                "Production Promotion Gate",
-                "Delivers Sustainable Enterprise Intelligence",
-                "Mastery Of AI Economics"
-              ]
-            ]
+            "at": "say14",
+            "caption": "Mastering the engineering architecture of enterprise Pareto Frontier.",
+            "messages": [
+              {
+                "from": "routing_tiers",
+                "to": "finops_metrics",
+                "label": "['Tier 1: High-Speed Edge Model (Quanti…",
+                "tone": "data"
+              },
+              {
+                "from": "finops_metrics",
+                "to": "result",
+                "label": "{'tier1TrafficSharePct': 62.4, 'tier2Tr…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }

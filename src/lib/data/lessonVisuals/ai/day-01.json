@@ -424,36 +424,42 @@
       "codeHash": "3cb53d2be18871693e5d97f80a2946957384f83e23791ec2d49bf28b11fd05ce",
       "spec": {
         "template": "flow",
-        "title": "Multi-Head Attention (MHA) & Subspace Represe... — Execution Pipeline",
+        "title": "Multi-Head Attention Subspace Flow",
         "nodes": [
           {
             "id": "in",
-            "label": "1. Input & State",
+            "label": "Queries",
             "tappable": true
           },
           {
             "id": "proc",
-            "label": "2. Multi-Head Attentio...",
+            "label": "Multi-Head Attention",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Concatenated",
             "tappable": true
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Multi-Head Attention (MHA) & Subspace Re.",
+            "at": "say1",
+            "caption": "Single attention focuses on one token relationship at a time.",
             "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "in": {
+                "text": "tokens"
+              },
+              "proc": {
+                "text": "single attention"
+              },
+              "out": {
+                "text": "relationship"
+              }
             },
             "tones": {
               "in": "data",
-              "proc": "idle",
+              "proc": "data",
               "out": "idle"
             },
             "arrows": [
@@ -464,12 +470,18 @@
             ]
           },
           {
-            "at": "say1",
-            "caption": "Execute core transformation in Multi-Head Attentio... [Done.Pfour.Stwo].",
+            "at": "say3",
+            "caption": "Multi-Head Attention projects Queries into multiple subspaces.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "in": {
+                "text": "Queries, Keys, and Values"
+              },
+              "proc": {
+                "text": "Multi-Head Attention"
+              },
+              "out": {
+                "text": "subspaces"
+              }
             },
             "tones": {
               "in": "ok",
@@ -488,32 +500,18 @@
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Pfour.object-storage].",
+            "at": "say7",
+            "caption": "Context vectors from all heads concatenate into d_model.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Multi-Head Attention (MHA) & Subs.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "in": {
+                "text": "context vectors"
+              },
+              "proc": {
+                "text": "concatenated"
+              },
+              "out": {
+                "text": "d_model"
+              }
             },
             "tones": {
               "in": "ok",
@@ -525,6 +523,32 @@
                 "in",
                 "proc"
               ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Specialized heads examine patient chart signals and merge insights.",
+            "values": {
+              "in": {
+                "text": "patient chart"
+              },
+              "proc": {
+                "text": "specialized doctors"
+              },
+              "out": {
+                "text": "diagnostic insights"
+              }
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
               [
                 "proc",
                 "out"
@@ -535,36 +559,36 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Multi-Head Attention (MHA) & Subspace Represe... — Execution Pipeline",
+        "title": "Multi-Head Attention Subspace Flow",
         "nodes": [
           {
             "id": "in",
-            "label": "1. Input & State",
+            "label": "Queries",
             "tappable": true
           },
           {
             "id": "proc",
-            "label": "2. Multi-Head Attentio...",
+            "label": "Multi-Head Attention",
             "tappable": true
           },
           {
             "id": "out",
-            "label": "3. Verified Output",
+            "label": "Concatenated",
             "tappable": true
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Multi-Head Attention (MHA) & Subspace Re.. [D1.P4.S1].",
+            "at": "say1",
+            "caption": "Single attention focuses on one token relationship at a time.",
             "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "in": "tokens",
+              "proc": "single attention",
+              "out": "relationship"
             },
             "tones": {
               "in": "data",
-              "proc": "idle",
+              "proc": "data",
               "out": "idle"
             },
             "arrows": [
@@ -575,12 +599,12 @@
             ]
           },
           {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Multi-Head Attentio... [D1.P4.S2].",
+            "at": "say3",
+            "caption": "Multi-Head Attention projects Queries into multiple subspaces.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "in": "Queries, Keys, and Values",
+              "proc": "Multi-Head Attention",
+              "out": "subspaces"
             },
             "tones": {
               "in": "ok",
@@ -599,32 +623,12 @@
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P4.S3].",
+            "at": "say7",
+            "caption": "Context vectors from all heads concatenate into d_model.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Multi-Head Attention (MHA) & Subs.. [D1.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "in": "context vectors",
+              "proc": "concatenated",
+              "out": "d_model"
             },
             "tones": {
               "in": "ok",
@@ -636,6 +640,26 @@
                 "in",
                 "proc"
               ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Specialized heads examine patient chart signals and merge insights.",
+            "values": {
+              "in": "patient chart",
+              "proc": "specialized doctors",
+              "out": "diagnostic insights"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
               [
                 "proc",
                 "out"

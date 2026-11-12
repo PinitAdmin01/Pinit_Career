@@ -42,6 +42,69 @@
         }
       },
       "updated_at": "2026-09-20T06:55:31.533Z"
+    },
+    {
+      "user_id": "001",
+      "display_name": "Leaked.student",
+      "total_accuracy": 75,
+      "daily_logs": {
+        "2026-09-17": {
+          "date": "2026-09-17",
+          "focusMinutes": 60
+        },
+        "current_stats": {
+          "date": "current_stats",
+          "stats": {
+            "focusFireBest": 300,
+            "memoryMatrixBest": 10,
+            "reflexRushBest": 80,
+            "sequenceSnapBest": 5,
+            "vortexVisionBest": 0,
+            "flashFusionBest": 0,
+            "shapeShifterBest": 0,
+            "patternForgeBest": 0,
+            "logicCircuitBest": 0,
+            "storeSimBest": 0,
+            "iqPuzzleBest": 0,
+            "mindMosaicBest": 0,
+            "intelligenceProfile": {
+              "reasoning": {
+                "total": 0,
+                "sessions": 0
+              },
+              "creative": {
+                "total": 0,
+                "sessions": 0
+              },
+              "executive": {
+                "total": 0,
+                "sessions": 0
+              },
+              "social": {
+                "total": 0,
+                "sessions": 0
+              }
+            },
+            "precisionPointerBest": 0,
+            "totalSessions": 10,
+            "streak": 2,
+            "lastPlayedDate": "2026-09-17",
+            "questClaimedDate": "",
+            "dailyScores": {},
+            "dailySessions": {},
+            "completedDifficulties": {}
+          },
+          "integrityHash": "eaf776c5e821c1b9",
+          "updatedAt": "2026-11-12T06:16:46.082Z"
+        }
+      },
+      "monthly_summaries": {
+        "2026-09": {
+          "month": "2026-09",
+          "totalFocusHours": 15
+        }
+      },
+      "updated_at": "2026-11-12T06:16:46.082Z"
     }
   ]
 }

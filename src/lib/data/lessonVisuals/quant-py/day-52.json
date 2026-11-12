@@ -2,269 +2,112 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 52,
-  "promptSha": "8cac106c3d2ef57f827cd6a8a61f6c76f14bb1b24216b78558f5ee4b874419d2",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clustering — Foundations & Mathematical Invariants",
-      "codeHash": "df50e8da9bbda2dd9d2eedcfdd1623df0a4a3e7fc64169798c1403522c8ede15",
+      "codeHash": "cb20dbba7680adcfef5685fffdb865d13b387d629471133570540eb45fcdd14e",
       "spec": {
-        "template": "flow",
-        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clustering — Fo",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clusterin",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Traditional portfolio optimization techniquessuch as Markowitz Minimum.",
+            "items": {
+              "var": "row",
+              "line": 14,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "When assets exhibit high correlation or collinearity, the covariance.",
+            "items": {
+              "var": "row",
+              "line": 12,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "By structuring portfolios around natural hierarchical clusters, risk.",
+            "items": {
+              "var": "row",
+              "line": 13,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clustering — Fo",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clusterin",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Traditional portfolio optimization techniquessuch as Markowitz Minimum.",
+            "items": [
+              "0",
+              "0.3162"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "When assets exhibit high correlation or collinearity, the covariance.",
+            "items": [
+              "0",
+              "0.3162"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say11",
+            "caption": "By structuring portfolios around natural hierarchical clusters, risk.",
+            "items": [
+              "0",
+              "0.3162"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -273,264 +116,107 @@
     },
     {
       "partTitle": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clustering — Core Algorithm & State Representation",
-      "codeHash": "3adc7f84b9125e23d25735fa6d699d02b9ee8e98c5ddef84addca69afa0b2472",
+      "codeHash": "46645a6fbad9e410368208e6f49c97c338abcc63af0c897102eadc7927f1d886",
       "spec": {
-        "template": "flow",
-        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clustering — Co",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clusterin",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core HRP algorithm organizes assets through Quasi-Diagonalization.",
+            "items": {
+              "var": "c_l",
+              "line": 15,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Quasi-Diagonalization reorders the rows and columns of the covariance.",
+            "items": {
+              "var": "c_l",
+              "line": 18,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "This recursive hierarchical allocation guarantees that risk parity.",
+            "items": {
+              "var": "c_l",
+              "line": 20,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clustering — Co",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clusterin",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core HRP algorithm organizes assets through Quasi-Diagonalization.",
+            "items": [
+              "0.04",
+              "0.05"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "Quasi-Diagonalization reorders the rows and columns of the covariance.",
+            "items": [
+              "0.04",
+              "0.05"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say10",
+            "caption": "This recursive hierarchical allocation guarantees that risk parity.",
+            "items": [
+              "0.04",
+              "0.05"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -539,264 +225,218 @@
     },
     {
       "partTitle": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clustering — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "49a5f584100cdeda85ce91b7a94c9a55975c258927c6a62462e0fc2bc1eb95d4",
+      "codeHash": "7cc9969e71dd1598d245c9b51836dc8654dc4b0d75afae7213cbd26876870a0a",
       "spec": {
-        "template": "flow",
-        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clustering — Th",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clusterin",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Scaling HRP to optimize portfolios across thousands of global assets.",
+            "bars": [
+              {
+                "label": "eps",
+                "value": {
+                  "var": "eps",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Standard pairwise distance evaluation has quadratic time complexity.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "eps",
+                "value": {
+                  "var": "eps",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Optimizing hierarchical clustering algorithms enables quantitative risk.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "eps",
+                "value": {
+                  "var": "eps",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 7,
+                  "hit": 4
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 4
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 7,
+                  "hit": 4
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clustering — Th",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clusterin",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Scaling HRP to optimize portfolios across thousands of global assets.",
+            "bars": [
+              {
+                "label": "eps",
+                "value": 0.00001,
+                "tone": "data"
+              },
+              {
+                "label": "j",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Standard pairwise distance evaluation has quadratic time complexity.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "eps",
+                "value": 0.00001,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "j",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "d",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Optimizing hierarchical clustering algorithms enables quantitative risk.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "eps",
+                "value": 0.00001,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "j",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "d",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           }
@@ -805,264 +445,218 @@
     },
     {
       "partTitle": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clustering — Resilience Guardrails & Failure Recovery",
-      "codeHash": "df6bd10c0433f4b524c777f8585503de2af3b0cedf34c3cce0a19b240843b105",
+      "codeHash": "3ca284b2d7b43fe96f6f428ec3918addbc8f6e5bd0201c7d6581d676bd6a8b5b",
       "spec": {
-        "template": "flow",
-        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clustering — Re",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clusterin",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operational resilience in HRP asset allocation requires strict guardrails.",
+            "bars": [
+              {
+                "label": "max_cap",
+                "value": {
+                  "var": "max_cap",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "min_floor",
+                "value": {
+                  "var": "min_floor",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "surplus",
+                "value": {
+                  "var": "surplus",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Even though HRP prevents extreme leverage, a cluster of very.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "max_cap",
+                "value": {
+                  "var": "max_cap",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "min_floor",
+                "value": {
+                  "var": "min_floor",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "surplus",
+                "value": {
+                  "var": "surplus",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Disciplined risk limits ensure that hierarchical portfolio allocations.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "max_cap",
+                "value": {
+                  "var": "max_cap",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "min_floor",
+                "value": {
+                  "var": "min_floor",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "surplus",
+                "value": {
+                  "var": "surplus",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clustering — Re",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clusterin",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operational resilience in HRP asset allocation requires strict guardrails.",
+            "bars": [
+              {
+                "label": "max_cap",
+                "value": 0.3,
+                "tone": "data"
+              },
+              {
+                "label": "min_floor",
+                "value": 0.005,
+                "tone": "data"
+              },
+              {
+                "label": "surplus",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "w",
+                "value": 0.45,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Even though HRP prevents extreme leverage, a cluster of very.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "max_cap",
+                "value": 0.3,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "min_floor",
+                "value": 0.005,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "surplus",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "w",
+                "value": 0.45,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Disciplined risk limits ensure that hierarchical portfolio allocations.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "max_cap",
+                "value": 0.3,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "min_floor",
+                "value": 0.005,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "surplus",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "w",
+                "value": 0.45,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,265 +665,279 @@
     },
     {
       "partTitle": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clustering — Production Telemetry & Verification Audit",
-      "codeHash": "e0a37ca924b9df5a4c4e040f93c286a185fb7e1a839b782865868594dd1859a6",
+      "codeHash": "6f316ec027e62321c4096ce33b0db77b9753f9360c906b10e25639aa688bfdc6",
       "spec": {
         "template": "flow",
-        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clustering — Pr",
+        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clusterin",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "weights",
+            "label": "weights"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "vols",
+            "label": "vols"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "cov",
+            "label": "cov"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": ".0",
+            "label": ".0"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for HRP asset allocation requires tracking.",
+            "values": {
+              "weights": {
+                "var": "weights",
+                "line": 25,
+                "hit": 1
+              },
+              "vols": {
+                "var": "vols",
+                "line": 26,
+                "hit": 1
+              },
+              "cov": {
+                "var": "cov",
+                "line": 27,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "weights": "data",
+              "vols": "data",
+              "cov": "data",
+              ".0": "data"
+            },
+            "arrows": [
+              [
+                "weights",
+                "vols"
+              ],
+              [
+                "vols",
+                "cov"
+              ],
+              [
+                "cov",
+                ".0"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The telemetry pipeline computes the Diversification Ratio.",
+            "values": {
+              "weights": {
+                "var": "weights",
+                "line": 26,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "vols": {
+                "var": "vols",
+                "line": 28,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "cov": {
+                "var": "cov",
+                "line": 33,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              ".0": {
+                "var": ".0",
+                "line": 5,
+                "hit": 2
               }
+            },
+            "tones": {
+              "weights": "data",
+              "vols": "data",
+              "cov": "data",
+              ".0": "data"
+            },
+            "arrows": [
+              [
+                "weights",
+                "vols"
+              ],
+              [
+                "vols",
+                "cov"
+              ],
+              [
+                "cov",
+                ".0"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "Automated diversification telemetry provides verifiable mathematical.",
+            "values": {
+              "weights": {
+                "var": "weights",
+                "line": 28,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "vols": {
+                "var": "vols",
+                "line": 29,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "cov": {
+                "var": "cov",
+                "line": 34,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              ".0": {
+                "var": ".0",
+                "line": 5,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "weights": "ok",
+              "vols": "ok",
+              "cov": "ok",
+              ".0": "ok"
+            },
+            "arrows": [
+              [
+                "weights",
+                "vols"
+              ],
+              [
+                "vols",
+                "cov"
+              ],
+              [
+                "cov",
+                ".0"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clustering — Pr",
+        "title": "Hierarchical Risk Parity (HRP) & Inverse-Variance Tree Clusterin",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "weights",
+            "label": "weights"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "vols",
+            "label": "vols"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "cov",
+            "label": "cov"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": ".0",
+            "label": ".0"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for HRP asset allocation requires tracking.",
+            "values": {
+              "weights": "[0.25, 0.25, 0.25, 0.25]",
+              "vols": "[0.2, 0.18, 0.15, 0.12]",
+              "cov": "[[0.04, 0.005, 0.002, 0.001], [0.005, 0…",
+              ".0": "{'__other__': 'range_iterator'}"
+            },
+            "tones": {
+              "weights": "data",
+              "vols": "data",
+              "cov": "data",
+              ".0": "data"
+            },
+            "arrows": [
+              [
+                "weights",
+                "vols"
+              ],
+              [
+                "vols",
+                "cov"
+              ],
+              [
+                "cov",
+                ".0"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The telemetry pipeline computes the Diversification Ratio.",
+            "values": {
+              "weights": "[0.25, 0.25, 0.25, 0.25]",
+              "vols": "[0.2, 0.18, 0.15, 0.12]",
+              "cov": "[[0.04, 0.005, 0.002, 0.001], [0.005, 0…",
+              ".0": "{'__other__': 'range_iterator'}"
+            },
+            "tones": {
+              "weights": "data",
+              "vols": "data",
+              "cov": "data",
+              ".0": "data"
+            },
+            "arrows": [
+              [
+                "weights",
+                "vols"
+              ],
+              [
+                "vols",
+                "cov"
+              ],
+              [
+                "cov",
+                ".0"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "Automated diversification telemetry provides verifiable mathematical.",
+            "values": {
+              "weights": "[0.25, 0.25, 0.25, 0.25]",
+              "vols": "[0.2, 0.18, 0.15, 0.12]",
+              "cov": "[[0.04, 0.005, 0.002, 0.001], [0.005, 0…",
+              ".0": "{'__other__': 'range_iterator'}"
+            },
+            "tones": {
+              "weights": "ok",
+              "vols": "ok",
+              "cov": "ok",
+              ".0": "ok"
+            },
+            "arrows": [
+              [
+                "weights",
+                "vols"
+              ],
+              [
+                "vols",
+                "cov"
+              ],
+              [
+                "cov",
+                ".0"
+              ]
             ]
           }
         ]

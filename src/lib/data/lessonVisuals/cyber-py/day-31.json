@@ -2,1335 +2,689 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 31,
-  "promptSha": "3905e1cccdaa09c7bdf77afffe66d9553640704f817bdf6fb5899c5c59f841cb",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "STRIDE & LINDDUN Threat Modeling — Foundations & Mathematical Invariants",
-      "codeHash": "6e1cfd750af524760444ec3a2bb119a20e1bef59dafc95b9a8161a12a6d35a4a",
+      "codeHash": "73d461b16a9f0c909f97fb0c880a0fbcb8756ec85db14e73bd848d68bfe05fe3",
       "spec": {
-        "template": "flow",
-        "title": "STRIDE & LINDDUN Threat Modeling — Foundations & Mathematical Invarian",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "STRIDE & LINDDUN Threat Modeling — Foundations & Mathematical In",
+        "actors": [
+          "damage",
+          "reproducibility",
+          "exploitability"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Threat modeling is the proactive engineering discipline of analyzing.",
+            "activeActor": "damage",
+            "messages": [
+              {
+                "from": "damage",
+                "to": "reproducibility",
+                "label": {
+                  "var": "damage",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "reproducibility",
+                "to": "exploitability",
+                "label": {
+                  "var": "reproducibility",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The foundational model pioneered by Microsoft decomposes adversarial.",
+            "activeActor": "reproducibility",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "damage",
+                "to": "reproducibility",
+                "label": {
+                  "var": "damage",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "reproducibility",
+                "to": "exploitability",
+                "label": {
+                  "var": "reproducibility",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Threat modeling artifacts must be version-controlled alongside source.",
+            "activeActor": "exploitability",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "damage",
+                "to": "reproducibility",
+                "label": {
+                  "var": "damage",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "reproducibility",
+                "to": "exploitability",
+                "label": {
+                  "var": "reproducibility",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "STRIDE & LINDDUN Threat Modeling — Foundations & Mathematical Invarian",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "STRIDE & LINDDUN Threat Modeling — Foundations & Mathematical In",
+        "actors": [
+          "damage",
+          "reproducibility",
+          "exploitability"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Threat modeling is the proactive engineering discipline of analyzing.",
+            "messages": [
+              {
+                "from": "damage",
+                "to": "reproducibility",
+                "label": "9.5",
+                "tone": "data"
+              },
+              {
+                "from": "reproducibility",
+                "to": "exploitability",
+                "label": "8",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "damage"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The foundational model pioneered by Microsoft decomposes adversarial.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "damage",
+                "to": "reproducibility",
+                "label": "9.5",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "reproducibility",
+                "to": "exploitability",
+                "label": "8",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "reproducibility"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Threat modeling artifacts must be version-controlled alongside source.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "damage",
+                "to": "reproducibility",
+                "label": "9.5",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "reproducibility",
+                "to": "exploitability",
+                "label": "8",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "exploitability"
           }
         ]
       }
     },
     {
       "partTitle": "STRIDE & LINDDUN Threat Modeling — Core Algorithm & State Representation",
-      "codeHash": "0ba5cda725e72d221f77463694e2387ef6d3e386ed0a58c8335ec5ec28d867e7",
+      "codeHash": "c14e837f12b7a5e8011f944d075a0c80637fc76d40b4fa5e75af706b117ed303",
       "spec": {
-        "template": "flow",
-        "title": "STRIDE & LINDDUN Threat Modeling — Core Algorithm & State Representati",
-        "nodes": [
+        "template": "states",
+        "title": "STRIDE & LINDDUN Threat Modeling — Core Algorithm & State Repres",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "node_id",
+            "label": "node_id"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "description",
+            "label": "description"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Decomposing complex distributed microservices into structured threat.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "An attack tree represents an adversary's ultimate objective as the root.",
+            "currentState": "node_id",
+            "transition": {
+              "from": "self",
+              "to": "node_id",
+              "label": {
+                "var": "node_id",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say8",
+            "caption": "Attack tree branch costs should incorporate both technical exploit.",
+            "currentState": "description",
+            "transition": {
+              "from": "node_id",
+              "to": "description",
+              "label": {
+                "var": "description",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "STRIDE & LINDDUN Threat Modeling — Core Algorithm & State Representati",
-        "nodes": [
+        "template": "states",
+        "title": "STRIDE & LINDDUN Threat Modeling — Core Algorithm & State Repres",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "node_id",
+            "label": "node_id"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "description",
+            "label": "description"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Decomposing complex distributed microservices into structured threat.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "An attack tree represents an adversary's ultimate objective as the root.",
+            "currentState": "node_id",
+            "transition": {
+              "from": "self",
+              "to": "node_id",
+              "label": "'ROOT'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say8",
+            "caption": "Attack tree branch costs should incorporate both technical exploit.",
+            "currentState": "description",
+            "transition": {
+              "from": "node_id",
+              "to": "description",
+              "label": "'Exfiltrate Customer DB'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "STRIDE & LINDDUN Threat Modeling — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "0cc1b55f3ad81ab1b522e672893956a049281b0cb01a519b4bbd21efa12bb7a9",
+      "codeHash": "5ec067e29945d4c31eb0296896c78135f60d4979f5e22245fa4a9b18d2f7de54",
       "spec": {
-        "template": "flow",
-        "title": "STRIDE & LINDDUN Threat Modeling — Throughput Optimization & Edge-Case",
-        "nodes": [
+        "template": "states",
+        "title": "STRIDE & LINDDUN Threat Modeling — Throughput Optimization & Edg",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tg",
+            "label": "tg"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "u",
+            "label": "u"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Industrial enterprise architectures consist of hundreds of interdependent.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Naive recursive traversal of attack trees leads to exponential.",
+            "currentState": "tg",
+            "transition": {
+              "from": "self",
+              "to": "tg",
+              "label": {
+                "var": "tg",
+                "line": 37,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say8",
+            "caption": "Memoized pathfinding algorithms scale seamlessly to enterprise service.",
+            "currentState": "u",
+            "transition": {
+              "from": "tg",
+              "to": "u",
+              "label": {
+                "var": "u",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "STRIDE & LINDDUN Threat Modeling — Throughput Optimization & Edge-Case",
-        "nodes": [
+        "template": "states",
+        "title": "STRIDE & LINDDUN Threat Modeling — Throughput Optimization & Edg",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tg",
+            "label": "tg"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "u",
+            "label": "u"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Industrial enterprise architectures consist of hundreds of interdependent.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Naive recursive traversal of attack trees leads to exponential.",
+            "currentState": "tg",
+            "transition": {
+              "from": "self",
+              "to": "tg",
+              "label": "<OptimizedThreatGraph>"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say8",
+            "caption": "Memoized pathfinding algorithms scale seamlessly to enterprise service.",
+            "currentState": "u",
+            "transition": {
+              "from": "tg",
+              "to": "u",
+              "label": "'Internet'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "STRIDE & LINDDUN Threat Modeling — Resilience Guardrails & Failure Recovery",
-      "codeHash": "cbbcfef4dafeb32676fee2388cb59afd9530856cee183a0395b0a1ef734f9e44",
+      "codeHash": "4e93a26e43b47d954bb2efcf5cbe16c178079775e0956a29453b99f8437692e5",
       "spec": {
-        "template": "flow",
-        "title": "STRIDE & LINDDUN Threat Modeling — Resilience Guardrails & Failure Rec",
-        "nodes": [
+        "template": "states",
+        "title": "STRIDE & LINDDUN Threat Modeling — Resilience Guardrails & Failu",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sample_threats",
+            "label": "sample_threats"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "service_name",
+            "label": "service_name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "threats",
+            "label": "threats"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated threat modeling engines must maintain strict resilience.",
+            "currentState": "sample_threats",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "When an engineering team submits a newly designed microservice topology.",
+            "currentState": "service_name",
+            "transition": {
+              "from": "sample_threats",
+              "to": "service_name",
+              "label": {
+                "var": "service_name",
+                "line": 14,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say8",
+            "caption": "Security guardrails integrated into pull request pipelines provide.",
+            "currentState": "threats",
+            "transition": {
+              "from": "service_name",
+              "to": "threats",
+              "label": {
+                "var": "threats",
+                "line": 15,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "STRIDE & LINDDUN Threat Modeling — Resilience Guardrails & Failure Rec",
-        "nodes": [
+        "template": "states",
+        "title": "STRIDE & LINDDUN Threat Modeling — Resilience Guardrails & Failu",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sample_threats",
+            "label": "sample_threats"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "service_name",
+            "label": "service_name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "threats",
+            "label": "threats"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated threat modeling engines must maintain strict resilience.",
+            "currentState": "sample_threats",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "When an engineering team submits a newly designed microservice topology.",
+            "currentState": "service_name",
+            "transition": {
+              "from": "sample_threats",
+              "to": "service_name",
+              "label": "'PaymentGatewayService'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say8",
+            "caption": "Security guardrails integrated into pull request pipelines provide.",
+            "currentState": "threats",
+            "transition": {
+              "from": "service_name",
+              "to": "threats",
+              "label": "[{'id': 'T101', 'stride_category': 'Tam…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "STRIDE & LINDDUN Threat Modeling — Production Telemetry & Verification Audit",
-      "codeHash": "4dc9edc413651ed60b4a9c13a1c16abd7314edf5f7a29bf495058207473c1d39",
+      "codeHash": "3c21ac32d6ef87daedc143d28360ec2962cdf5d304f0f220eb94dd3686446ab2",
       "spec": {
-        "template": "flow",
-        "title": "STRIDE & LINDDUN Threat Modeling — Production Telemetry & Verification",
-        "nodes": [
+        "template": "boxes",
+        "title": "STRIDE & LINDDUN Threat Modeling — Production Telemetry & Verifi",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "nodes",
+            "label": "nodes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "sample_threats",
+            "label": "sample_threats"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "model_nodes",
+            "label": "model_nodes"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "min_attack_cost",
+            "label": "min_attack_cost"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production threat modeling verification requires continuous.",
+            "values": {
+              "nodes": {
+                "var": "nodes",
+                "line": 24,
+                "hit": 1
+              },
+              "sample_threats": {
+                "var": "sample_threats",
+                "line": 25,
+                "hit": 1
+              },
+              "model_nodes": {
+                "var": "model_nodes",
+                "line": 5,
+                "hit": 1
+              },
+              "min_attack_cost": {
+                "var": "min_attack_cost",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "nodes": "data",
+              "sample_threats": "data",
+              "model_nodes": "data",
+              "min_attack_cost": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Static threat models become obsolete rapidly as microservice dependencies.",
+            "values": {
+              "nodes": {
+                "var": "nodes",
+                "line": 25,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "sample_threats": {
+                "var": "sample_threats",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "model_nodes": {
+                "var": "model_nodes",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "min_attack_cost": {
+                "var": "min_attack_cost",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "nodes": "data",
+              "sample_threats": "data",
+              "model_nodes": "data",
+              "min_attack_cost": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Continuous telemetry correlation ensures that architectural risk.",
+            "values": {
+              "nodes": {
+                "var": "nodes",
+                "line": 26,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "sample_threats": {
+                "var": "sample_threats",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "model_nodes": {
+                "var": "model_nodes",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "min_attack_cost": {
+                "var": "min_attack_cost",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "nodes": "ok",
+              "sample_threats": "ok",
+              "model_nodes": "ok",
+              "min_attack_cost": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "STRIDE & LINDDUN Threat Modeling — Production Telemetry & Verification",
-        "nodes": [
+        "template": "boxes",
+        "title": "STRIDE & LINDDUN Threat Modeling — Production Telemetry & Verifi",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "nodes",
+            "label": "nodes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "sample_threats",
+            "label": "sample_threats"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "model_nodes",
+            "label": "model_nodes"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "min_attack_cost",
+            "label": "min_attack_cost"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production threat modeling verification requires continuous.",
+            "values": {
+              "nodes": "['Client_SPA', 'API_Gateway', 'User_Dat…",
+              "sample_threats": "[{'id': 'T1', 'dread_score': 8}]",
+              "model_nodes": "['Client_SPA', 'API_Gateway', 'User_Dat…",
+              "min_attack_cost": "4"
+            },
+            "tones": {
+              "nodes": "data",
+              "sample_threats": "data",
+              "model_nodes": "data",
+              "min_attack_cost": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Static threat models become obsolete rapidly as microservice dependencies.",
+            "values": {
+              "nodes": "['Client_SPA', 'API_Gateway', 'User_Dat…",
+              "sample_threats": "[{'id': 'T1', 'dread_score': 8}]",
+              "model_nodes": "['Client_SPA', 'API_Gateway', 'User_Dat…",
+              "min_attack_cost": "4"
+            },
+            "tones": {
+              "nodes": "data",
+              "sample_threats": "data",
+              "model_nodes": "data",
+              "min_attack_cost": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say8",
+            "caption": "Continuous telemetry correlation ensures that architectural risk.",
+            "values": {
+              "nodes": "['Client_SPA', 'API_Gateway', 'User_Dat…",
+              "sample_threats": "[{'id': 'T1', 'dread_score': 8}]",
+              "model_nodes": "['Client_SPA', 'API_Gateway', 'User_Dat…",
+              "min_attack_cost": "4"
+            },
+            "tones": {
+              "nodes": "ok",
+              "sample_threats": "ok",
+              "model_nodes": "ok",
+              "min_attack_cost": "ok"
+            }
           }
         ]
       }

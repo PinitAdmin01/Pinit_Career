@@ -2,269 +2,181 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 56,
-  "promptSha": "bb418611f228b610c01eb08678a6785a0ae0516de8e8ac5552ae8be58a2b6af3",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Long-Context Needle-in-a-Haystack Diagnostics & Lost-in-the-Middle Mitigation — Foundations & Mathematical Invariants",
-      "codeHash": "d26b8778ff42932b7ddb4e6a9d2f4ca4470a5da0fb248e317264ba2bf195012d",
+      "partTitle": "Needle-in-a-Haystack Evaluation Across Depth Percentiles",
+      "codeHash": "5230944845485341164b9f1114f1579c77d6b52c24d064d8a3b0fc00d2854b07",
       "spec": {
-        "template": "flow",
-        "title": "Long-Context Needle-in-a-Haystack Diagnostics & Lost-in-the-Middle Mit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Needle-in-a-Haystack Evaluation Across Depth Percentiles",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Advertising a `'200k-token context window'` merely guarantees your API.",
+            "bars": [
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "min_depth",
+                "value": {
+                  "var": "min_depth",
+                  "line": 10,
+                  "hit": 4
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Because causal autoregressive models naturally exhibit **primacy.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 10,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "min_depth",
+                "value": {
+                  "var": "min_depth",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect niah_grid_summary() mapping synthetic recall grid measurements.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 10,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "min_depth",
+                "value": {
+                  "var": "min_depth",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Long-Context Needle-in-a-Haystack Diagnostics & Lost-in-the-Middle Mit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Needle-in-a-Haystack Evaluation Across Depth Percentiles",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Advertising a `'200k-token context window'` merely guarantees your API.",
+            "bars": [
+              {
+                "label": "d",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "min_depth",
+                "value": 50,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Because causal autoregressive models naturally exhibit **primacy.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "d",
+                "value": 10,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "k",
+                "value": 50,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "min_depth",
+                "value": 50,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect niah_grid_summary() mapping synthetic recall grid measurements.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "d",
+                "value": 10,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "k",
+                "value": 90,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "min_depth",
+                "value": 50,
+                "tone": "ok"
               }
             ]
           }
@@ -272,1064 +184,804 @@
       }
     },
     {
-      "partTitle": "Long-Context Needle-in-a-Haystack Diagnostics & Lost-in-the-Middle Mitigation — Core Algorithm & State Representation",
-      "codeHash": "d2be73c26ac3f7ac369356c3137e8b46d90f3250f3df1fac07d15c4593132b1c",
+      "partTitle": "Mitigating Lost-in-the-Middle via Edge-Weighted Reranked Ordering",
+      "codeHash": "92a508c2c7e04b4aebcf233380416f26439cccd0b077b152d8a074cc31f59cba",
       "spec": {
-        "template": "flow",
-        "title": "Long-Context Needle-in-a-Haystack Diagnostics & Lost-in-the-Middle Mit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Mitigating Lost-in-the-Middle via Edge-Weighted Reranked Orderin",
+        "actors": [
+          "ranked",
+          "ranked_docs",
+          "left"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Once NIAH confirms your attention curve favors **primacy (start)**.",
+            "activeActor": "ranked",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "ranked",
+                "to": "ranked_docs",
+                "label": {
+                  "var": "ranked",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "ranked_docs",
+                "to": "left",
+                "label": {
+                  "var": "ranked_docs",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Picture standard sorted retrieval handing `[rank_1, rank_2, rank_3.",
+            "activeActor": "ranked_docs",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "ranked",
+                "to": "ranked_docs",
+                "label": {
+                  "var": "ranked",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "ranked_docs",
+                "to": "left",
+                "label": {
+                  "var": "ranked_docs",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Inspect pack_u_order() rearranging relevance-ranked items neatly onto.",
+            "activeActor": "left",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "ranked",
+                "to": "ranked_docs",
+                "label": {
+                  "var": "ranked",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "ranked_docs",
+                "to": "left",
+                "label": {
+                  "var": "ranked_docs",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Long-Context Needle-in-a-Haystack Diagnostics & Lost-in-the-Middle Mit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Mitigating Lost-in-the-Middle via Edge-Weighted Reranked Orderin",
+        "actors": [
+          "ranked",
+          "ranked_docs",
+          "left"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Once NIAH confirms your attention curve favors **primacy (start)**.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "ranked",
+                "to": "ranked_docs",
+                "label": "['R1_best', 'R2_second', 'R3_third', 'R…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "ranked_docs",
+                "to": "left",
+                "label": "['R1_best', 'R2_second', 'R3_third', 'R…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "ranked"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Picture standard sorted retrieval handing `[rank_1, rank_2, rank_3.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "ranked",
+                "to": "ranked_docs",
+                "label": "['R1_best', 'R2_second', 'R3_third', 'R…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "ranked_docs",
+                "to": "left",
+                "label": "['R1_best', 'R2_second', 'R3_third', 'R…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "ranked_docs"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Inspect pack_u_order() rearranging relevance-ranked items neatly onto.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "ranked",
+                "to": "ranked_docs",
+                "label": "['R1_best', 'R2_second', 'R3_third', 'R…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "ranked_docs",
+                "to": "left",
+                "label": "['R1_best', 'R2_second', 'R3_third', 'R…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "left"
           }
         ]
       }
     },
     {
-      "partTitle": "Long-Context Needle-in-a-Haystack Diagnostics & Lost-in-the-Middle Mitigation — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "e612c4f9bde9d4b997d2e529a463d1e6be9a5a8d09b737dcd1942979b89a3ac0",
+      "partTitle": "Strict Context Budget Allocation: Avoiding Silent Tail Truncation",
+      "codeHash": "c784715df918e2002d3d880aab0c741440528959b3a9d7a6b150ab9e4d530a6e",
       "spec": {
-        "template": "flow",
-        "title": "Long-Context Needle-in-a-Haystack Diagnostics & Lost-in-the-Middle Mit",
-        "nodes": [
+        "template": "boxes",
+        "title": "Strict Context Budget Allocation: Avoiding Silent Tail Truncatio",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "docs",
+            "label": "docs"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "window_cap",
+            "label": "window_cap"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "sys_tok",
+            "label": "sys_tok"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "query_tok",
+            "label": "query_tok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Assembling massive dynamic prompts by slamming system templates + user.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 11,
+                "hit": 1
+              },
+              "window_cap": {
+                "var": "window_cap",
+                "line": 2,
+                "hit": 1
+              },
+              "sys_tok": {
+                "var": "sys_tok",
+                "line": 2,
+                "hit": 1
+              },
+              "query_tok": {
+                "var": "query_tok",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "docs": "data",
+              "window_cap": "data",
+              "sys_tok": "data",
+              "query_tok": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Principled prompt assemblers compute **explicit prioritized slice.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "window_cap": {
+                "var": "window_cap",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "sys_tok": {
+                "var": "sys_tok",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "query_tok": {
+                "var": "query_tok",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "docs": "data",
+              "window_cap": "data",
+              "sys_tok": "data",
+              "query_tok": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Run allocate_long_context() reserving mandatory framing + response room.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "window_cap": {
+                "var": "window_cap",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "sys_tok": {
+                "var": "sys_tok",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "query_tok": {
+                "var": "query_tok",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "docs": "ok",
+              "window_cap": "ok",
+              "sys_tok": "ok",
+              "query_tok": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Long-Context Needle-in-a-Haystack Diagnostics & Lost-in-the-Middle Mit",
-        "nodes": [
+        "template": "boxes",
+        "title": "Strict Context Budget Allocation: Avoiding Silent Tail Truncatio",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "docs",
+            "label": "docs"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "window_cap",
+            "label": "window_cap"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "sys_tok",
+            "label": "sys_tok"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "query_tok",
+            "label": "query_tok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Assembling massive dynamic prompts by slamming system templates + user.",
+            "values": {
+              "docs": "[['d1', 12000], ['d2', 15000], ['d3', 1…",
+              "window_cap": "32000",
+              "sys_tok": "1500",
+              "query_tok": "500"
+            },
+            "tones": {
+              "docs": "data",
+              "window_cap": "data",
+              "sys_tok": "data",
+              "query_tok": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Principled prompt assemblers compute **explicit prioritized slice.",
+            "values": {
+              "docs": "[['d1', 12000], ['d2', 15000], ['d3', 1…",
+              "window_cap": "32000",
+              "sys_tok": "1500",
+              "query_tok": "500"
+            },
+            "tones": {
+              "docs": "data",
+              "window_cap": "data",
+              "sys_tok": "data",
+              "query_tok": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say7",
+            "caption": "Run allocate_long_context() reserving mandatory framing + response room.",
+            "values": {
+              "docs": "[['d1', 12000], ['d2', 15000], ['d3', 1…",
+              "window_cap": "32000",
+              "sys_tok": "1500",
+              "query_tok": "500"
+            },
+            "tones": {
+              "docs": "ok",
+              "window_cap": "ok",
+              "sys_tok": "ok",
+              "query_tok": "ok"
+            }
           }
         ]
       }
     },
     {
-      "partTitle": "Long-Context Needle-in-a-Haystack Diagnostics & Lost-in-the-Middle Mitigation — Resilience Guardrails & Failure Recovery",
-      "codeHash": "fda723a75dbacb051a3a0ec9c35640529660ebc39bff2387dd7e59fae9a33a31",
+      "partTitle": "Long-Context Stuffing vs Indexed Hybrid RAG Economics",
+      "codeHash": "ad6c7c7150272f2968f07a67459131e9100760480adc4ef3deaf51a772adb77e",
       "spec": {
-        "template": "flow",
-        "title": "Long-Context Needle-in-a-Haystack Diagnostics & Lost-in-the-Middle Mit",
-        "nodes": [
+        "template": "boxes",
+        "title": "Long-Context Stuffing vs Indexed Hybrid RAG Economics",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "corpus_tokens",
+            "label": "corpus_tokens"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "queries_per_day",
+            "label": "queries_per_day"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "whole_doc_synthesis",
+            "label": "whole_doc_synthesis"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "at": "say1",
+            "caption": "Every team facing massive PDF manuals eventually asks.",
+            "values": {
+              "corpus_tokens": {
+                "var": "corpus_tokens",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "queries_per_day": {
+                "var": "queries_per_day",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "whole_doc_synthesis": {
+                "var": "whole_doc_synthesis",
+                "line": 2,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "corpus_tokens": "data",
+              "queries_per_day": "data",
+              "whole_doc_synthesis": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Let's run honest production unit economics + latency numbers cleanly.",
+            "values": {
+              "corpus_tokens": {
+                "var": "corpus_tokens",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "queries_per_day": {
+                "var": "queries_per_day",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "whole_doc_synthesis": {
+                "var": "whole_doc_synthesis",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "corpus_tokens": "data",
+              "queries_per_day": "data",
+              "whole_doc_synthesis": "data"
+            }
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "caption": "Inspect choose_retrieval_strategy() selecting cost-optimal architectures.",
+            "values": {
+              "corpus_tokens": {
+                "var": "corpus_tokens",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "queries_per_day": {
+                "var": "queries_per_day",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "whole_doc_synthesis": {
+                "var": "whole_doc_synthesis",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "corpus_tokens": "ok",
+              "queries_per_day": "ok",
+              "whole_doc_synthesis": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Long-Context Needle-in-a-Haystack Diagnostics & Lost-in-the-Middle Mit",
-        "nodes": [
+        "template": "boxes",
+        "title": "Long-Context Stuffing vs Indexed Hybrid RAG Economics",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "corpus_tokens",
+            "label": "corpus_tokens"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "queries_per_day",
+            "label": "queries_per_day"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "whole_doc_synthesis",
+            "label": "whole_doc_synthesis"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Every team facing massive PDF manuals eventually asks.",
+            "values": {
+              "corpus_tokens": "2000000",
+              "queries_per_day": "1200",
+              "whole_doc_synthesis": "False"
+            },
+            "tones": {
+              "corpus_tokens": "data",
+              "queries_per_day": "data",
+              "whole_doc_synthesis": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say2",
+            "caption": "Let's run honest production unit economics + latency numbers cleanly.",
+            "values": {
+              "corpus_tokens": "2000000",
+              "queries_per_day": "1200",
+              "whole_doc_synthesis": "False"
+            },
+            "tones": {
+              "corpus_tokens": "data",
+              "queries_per_day": "data",
+              "whole_doc_synthesis": "data"
+            }
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "Inspect choose_retrieval_strategy() selecting cost-optimal architectures.",
+            "values": {
+              "corpus_tokens": "2000000",
+              "queries_per_day": "1200",
+              "whole_doc_synthesis": "False"
+            },
+            "tones": {
+              "corpus_tokens": "ok",
+              "queries_per_day": "ok",
+              "whole_doc_synthesis": "ok"
+            }
           }
         ]
       }
     },
     {
-      "partTitle": "Long-Context Needle-in-a-Haystack Diagnostics & Lost-in-the-Middle Mitigation — Production Telemetry & Verification Audit",
-      "codeHash": "53392ce578c230c69f49f5fa83510531ff42b89c397dad75df45eb870d5fa2d2",
+      "partTitle": "Rolling Hierarchical Summarization for Multi-Hour Context Histories",
+      "codeHash": "48338f3c1944755687bedd555337838aa3891b6c947c73d4bcdbf204a519a70f",
       "spec": {
         "template": "flow",
-        "title": "Long-Context Needle-in-a-Haystack Diagnostics & Lost-in-the-Middle Mit",
+        "title": "Rolling Hierarchical Summarization for Multi-Hour Context Histor",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "hist",
+            "label": "hist"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "turns",
+            "label": "turns"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "max_recent",
+            "label": "max_recent"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "pinned_keys",
+            "label": "pinned_keys"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "at": "say1",
+            "caption": "Even long-context models hit degradation ceilings across hours-long agent.",
+            "values": {
+              "hist": {
+                "var": "hist",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "turns": {
+                "var": "turns",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "max_recent": {
+                "var": "max_recent",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "pinned_keys": {
+                "var": "pinned_keys",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "hist": "data",
+              "turns": "data",
+              "max_recent": "data",
+              "pinned_keys": "data"
+            },
+            "arrows": [
+              [
+                "hist",
+                "turns"
+              ],
+              [
+                "turns",
+                "max_recent"
+              ],
+              [
+                "max_recent",
+                "pinned_keys"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Hierarchical **Rolling Memory Compaction** keeps context lean and sharp.",
+            "values": {
+              "hist": {
+                "var": "hist",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "turns": {
+                "var": "turns",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "max_recent": {
+                "var": "max_recent",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "pinned_keys": {
+                "var": "pinned_keys",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "hist": "data",
+              "turns": "data",
+              "max_recent": "data",
+              "pinned_keys": "data"
+            },
+            "arrows": [
+              [
+                "hist",
+                "turns"
+              ],
+              [
+                "turns",
+                "max_recent"
+              ],
+              [
+                "max_recent",
+                "pinned_keys"
+              ]
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "caption": "Run compact_history() showing how compacting old chunks reclaims capacity.",
+            "values": {
+              "hist": {
+                "var": "hist",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "turns": {
+                "var": "turns",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "max_recent": {
+                "var": "max_recent",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "pinned_keys": {
+                "var": "pinned_keys",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "hist": "ok",
+              "turns": "ok",
+              "max_recent": "ok",
+              "pinned_keys": "ok"
+            },
+            "arrows": [
+              [
+                "hist",
+                "turns"
+              ],
+              [
+                "turns",
+                "max_recent"
+              ],
+              [
+                "max_recent",
+                "pinned_keys"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Long-Context Needle-in-a-Haystack Diagnostics & Lost-in-the-Middle Mit",
+        "title": "Rolling Hierarchical Summarization for Multi-Hour Context Histor",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "hist",
+            "label": "hist"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "turns",
+            "label": "turns"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "max_recent",
+            "label": "max_recent"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "pinned_keys",
+            "label": "pinned_keys"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "at": "say1",
+            "caption": "Even long-context models hit degradation ceilings across hours-long agent.",
+            "values": {
+              "hist": "['DECISION: strictly use UTC timestamps…",
+              "turns": "['DECISION: strictly use UTC timestamps…",
+              "max_recent": "2",
+              "pinned_keys": "['DECISION:']"
+            },
+            "tones": {
+              "hist": "data",
+              "turns": "data",
+              "max_recent": "data",
+              "pinned_keys": "data"
+            },
+            "arrows": [
+              [
+                "hist",
+                "turns"
+              ],
+              [
+                "turns",
+                "max_recent"
+              ],
+              [
+                "max_recent",
+                "pinned_keys"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "at": "say2",
+            "caption": "Hierarchical **Rolling Memory Compaction** keeps context lean and sharp.",
+            "values": {
+              "hist": "['DECISION: strictly use UTC timestamps…",
+              "turns": "['DECISION: strictly use UTC timestamps…",
+              "max_recent": "2",
+              "pinned_keys": "['DECISION:']"
+            },
+            "tones": {
+              "hist": "data",
+              "turns": "data",
+              "max_recent": "data",
+              "pinned_keys": "data"
+            },
+            "arrows": [
+              [
+                "hist",
+                "turns"
+              ],
+              [
+                "turns",
+                "max_recent"
+              ],
+              [
+                "max_recent",
+                "pinned_keys"
+              ]
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "caption": "Run compact_history() showing how compacting old chunks reclaims capacity.",
+            "values": {
+              "hist": "['DECISION: strictly use UTC timestamps…",
+              "turns": "['DECISION: strictly use UTC timestamps…",
+              "max_recent": "2",
+              "pinned_keys": "['DECISION:']"
+            },
+            "tones": {
+              "hist": "ok",
+              "turns": "ok",
+              "max_recent": "ok",
+              "pinned_keys": "ok"
+            },
+            "arrows": [
+              [
+                "hist",
+                "turns"
+              ],
+              [
+                "turns",
+                "max_recent"
+              ],
+              [
+                "max_recent",
+                "pinned_keys"
+              ]
             ]
           }
         ]

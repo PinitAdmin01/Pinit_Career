@@ -2,230 +2,122 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 40,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Architectural Blueprint: Simulating a Multi-Node, Multi-GPU Pre-Training Cluster from First Principles",
       "codeHash": "083560e9d8dc08e22d291f18baa5c069edbf2e71370658817dd4468e3c850469",
       "spec": {
-        "template": "flow",
-        "title": "Architectural Blueprint: Simulating a Multi-N... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Architectural Bluep...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Architectural Blueprint: Simulating a Multi-Node, Multi-GPU Pre-",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Architectural Blueprint: Simulating a Mu...",
-            "values": {
-              "in": "Day 40 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Architectural Bluep....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Welcome to the Milestone 8 Capstone.",
+            "items": {
+              "var": "test_ranks",
+              "line": 29,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "In industrial artificial intelligence laboratories (such as Meta FAIR.",
+            "items": {
+              "var": "test_ranks",
+              "line": 35,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Architectural Blueprint: Simulati...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "In the following Python script, we implement the complete ClusterTopology.",
+            "items": {
+              "var": "test_ranks",
+              "line": 33,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Architectural Blueprint: Simulating a Multi-N... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Architectural Bluep...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Architectural Blueprint: Simulating a Multi-Node, Multi-GPU Pre-",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Architectural Blueprint: Simulating a Mu...",
-            "values": {
-              "in": "Day 40 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Architectural Bluep....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Welcome to the Milestone 8 Capstone.",
+            "items": [
+              "0",
+              "1",
+              "2",
+              "7",
+              "31"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In industrial artificial intelligence laboratories (such as Meta FAIR.",
+            "items": [
+              "0",
+              "1",
+              "2",
+              "7",
+              "31"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Architectural Blueprint: Simulati...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "In the following Python script, we implement the complete ClusterTopology.",
+            "items": [
+              "0",
+              "1",
+              "2",
+              "7",
+              "31"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -235,223 +127,217 @@
       "partTitle": "Capstone Component 1: The Distributed Cluster State & ZeRO-3 Parameter Sharding Engine",
       "codeHash": "ab5cebe46c81ec19d8a49d47ac0003df31943b6cbbabd3cad3e4b62cc6b45cbb",
       "spec": {
-        "template": "flow",
-        "title": "Capstone Component 1: The Distributed Cluster... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Capstone Component ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Capstone Component 1: The Distributed Cluster State & ZeRO-3 Par",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Capstone Component one: The Distributed Cl...",
-            "values": {
-              "in": "Day 40 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Capstone Component ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "With the cluster topology established, we build Capstone Component 1.",
+            "bars": [
+              {
+                "label": "num_params",
+                "value": {
+                  "var": "num_params",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "num_dp_ranks",
+                "value": {
+                  "var": "num_dp_ranks",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Our ZeRO3ParameterSharding engine models the exact lifecycle of sharded memory.",
+            "bars": [
+              {
+                "label": "num_params",
+                "value": {
+                  "var": "num_params",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "num_dp_ranks",
+                "value": {
+                  "var": "num_dp_ranks",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Capstone Component one: The Distrib...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "In the following Python script, we construct the complete.",
+            "bars": [
+              {
+                "label": "num_params",
+                "value": {
+                  "var": "num_params",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "num_dp_ranks",
+                "value": {
+                  "var": "num_dp_ranks",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 15,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Capstone Component 1: The Distributed Cluster... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Capstone Component ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Capstone Component 1: The Distributed Cluster State & ZeRO-3 Par",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Capstone Component 1: The Distributed Cl...",
-            "values": {
-              "in": "Day 40 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Capstone Component ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "With the cluster topology established, we build Capstone Component 1.",
+            "bars": [
+              {
+                "label": "num_params",
+                "value": 64,
+                "tone": "data"
+              },
+              {
+                "label": "num_dp_ranks",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Our ZeRO3ParameterSharding engine models the exact lifecycle of sharded memory.",
+            "bars": [
+              {
+                "label": "num_params",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "num_dp_ranks",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Capstone Component 1: The Distrib...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "In the following Python script, we construct the complete.",
+            "bars": [
+              {
+                "label": "num_params",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "num_dp_ranks",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -461,223 +347,217 @@
       "partTitle": "Capstone Component 2: The Megatron-LM Tensor Parallel MLP & Attention Execution Layer",
       "codeHash": "970bebef00fb6f9e75d7bb8d313b9a8f45c0139a217cc041d0557cae602e3774",
       "spec": {
-        "template": "flow",
-        "title": "Capstone Component 2: The Megatron-LM Tensor ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Capstone Component ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Capstone Component 2: The Megatron-LM Tensor Parallel MLP & Atte",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Capstone Component two: The Megatron-LM Te...",
-            "values": {
-              "in": "Day 40 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Capstone Component ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having implemented the ZeRO-3 parameter sharding engine across.",
+            "bars": [
+              {
+                "label": "d_model",
+                "value": {
+                  "var": "d_model",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d_ffn",
+                "value": {
+                  "var": "d_ffn",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "tp",
+                "value": {
+                  "var": "tp",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us analyze the internal mechanics of our MegatronTPLayer.",
+            "bars": [
+              {
+                "label": "d_model",
+                "value": {
+                  "var": "d_model",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_ffn",
+                "value": {
+                  "var": "d_ffn",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "tp",
+                "value": {
+                  "var": "tp",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Capstone Component two: The Megatro...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct the complete MegatronTPLayer.",
+            "bars": [
+              {
+                "label": "d_model",
+                "value": {
+                  "var": "d_model",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_ffn",
+                "value": {
+                  "var": "d_ffn",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "tp",
+                "value": {
+                  "var": "tp",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 9,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Capstone Component 2: The Megatron-LM Tensor ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Capstone Component ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Capstone Component 2: The Megatron-LM Tensor Parallel MLP & Atte",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Capstone Component 2: The Megatron-LM Te...",
-            "values": {
-              "in": "Day 40 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Capstone Component ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having implemented the ZeRO-3 parameter sharding engine across.",
+            "bars": [
+              {
+                "label": "d_model",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "d_ffn",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "tp",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us analyze the internal mechanics of our MegatronTPLayer.",
+            "bars": [
+              {
+                "label": "d_model",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "d_ffn",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "tp",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Capstone Component 2: The Megatro...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct the complete MegatronTPLayer.",
+            "bars": [
+              {
+                "label": "d_model",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "d_ffn",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "tp",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -688,110 +568,161 @@
       "codeHash": "f8d4116bad8ced410ed0853b4d72bf60b3c90016e7a4e1d86b7455390b19d792",
       "spec": {
         "template": "flow",
-        "title": "Capstone Component 3: The Dynamic Mixed-Preci... — Execution Pipeline",
+        "title": "Capstone Component 3: The Dynamic Mixed-Precision & Compute-Opti",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Capstone Component ...",
-            "tappable": true
+            "id": "init_scale",
+            "label": "init_scale"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "growth_interval",
+            "label": "growth_interval"
+          },
+          {
+            "id": "ctrl",
+            "label": "ctrl"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Capstone Component three: The Dynamic Mixed-...",
-            "values": {
-              "in": "Day 40 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Capstone Component ....",
+            "caption": "Having built the distributed memory sharding and tensor parallel.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "init_scale": {
+                "var": "init_scale",
+                "line": 3,
+                "hit": 1
+              },
+              "growth_interval": {
+                "var": "growth_interval",
+                "line": 3,
+                "hit": 1
+              },
+              "ctrl": {
+                "var": "ctrl",
+                "line": 26,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "init_scale": "data",
+              "growth_interval": "data",
+              "ctrl": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "init_scale"
               ],
               [
-                "proc",
-                "out"
+                "init_scale",
+                "growth_interval"
+              ],
+              [
+                "growth_interval",
+                "ctrl"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Our ScalingController coordinates three critical control loops.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
+              },
+              "init_scale": {
+                "var": "init_scale",
+                "line": 4,
+                "hit": 1
+              },
+              "growth_interval": {
+                "var": "growth_interval",
+                "line": 4,
+                "hit": 1
+              },
+              "ctrl": {
+                "var": "ctrl",
+                "line": 28,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "init_scale": "data",
+              "growth_interval": "data",
+              "ctrl": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "init_scale"
+              ],
+              [
+                "init_scale",
+                "growth_interval"
+              ],
+              [
+                "growth_interval",
+                "ctrl"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Capstone Component three: The Dynamic...",
+            "at": "say9",
+            "caption": "In the following Python script, we construct the complete.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
+              },
+              "init_scale": {
+                "var": "init_scale",
+                "line": 5,
+                "hit": 1
+              },
+              "growth_interval": {
+                "var": "growth_interval",
+                "line": 5,
+                "hit": 1
+              },
+              "ctrl": {
+                "var": "ctrl",
+                "line": 29,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "init_scale": "ok",
+              "growth_interval": "ok",
+              "ctrl": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "init_scale"
               ],
               [
-                "proc",
-                "out"
+                "init_scale",
+                "growth_interval"
+              ],
+              [
+                "growth_interval",
+                "ctrl"
               ]
             ]
           }
@@ -799,110 +730,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Capstone Component 3: The Dynamic Mixed-Preci... — Execution Pipeline",
+        "title": "Capstone Component 3: The Dynamic Mixed-Precision & Compute-Opti",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Capstone Component ...",
-            "tappable": true
+            "id": "init_scale",
+            "label": "init_scale"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "growth_interval",
+            "label": "growth_interval"
+          },
+          {
+            "id": "ctrl",
+            "label": "ctrl"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Capstone Component 3: The Dynamic Mixed-...",
-            "values": {
-              "in": "Day 40 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Capstone Component ....",
+            "caption": "Having built the distributed memory sharding and tensor parallel.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": "<ScalingController>",
+              "init_scale": "32768",
+              "growth_interval": "10",
+              "ctrl": "<ScalingController>"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "init_scale": "data",
+              "growth_interval": "data",
+              "ctrl": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "init_scale"
               ],
               [
-                "proc",
-                "out"
+                "init_scale",
+                "growth_interval"
+              ],
+              [
+                "growth_interval",
+                "ctrl"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Our ScalingController coordinates three critical control loops.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": "<ScalingController>",
+              "init_scale": "32768",
+              "growth_interval": "10",
+              "ctrl": "<ScalingController>"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "init_scale": "data",
+              "growth_interval": "data",
+              "ctrl": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "init_scale"
+              ],
+              [
+                "init_scale",
+                "growth_interval"
+              ],
+              [
+                "growth_interval",
+                "ctrl"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Capstone Component 3: The Dynamic...",
+            "at": "say9",
+            "caption": "In the following Python script, we construct the complete.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": "<ScalingController>",
+              "init_scale": "32768",
+              "growth_interval": "10",
+              "ctrl": "<ScalingController>"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "init_scale": "ok",
+              "growth_interval": "ok",
+              "ctrl": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "init_scale"
               ],
               [
-                "proc",
-                "out"
+                "init_scale",
+                "growth_interval"
+              ],
+              [
+                "growth_interval",
+                "ctrl"
               ]
             ]
           }
@@ -913,223 +847,112 @@
       "partTitle": "Capstone Component 4: End-to-End Cluster Pre-Training Step Simulation & Loss Trajectory Verification",
       "codeHash": "d21b0578b780796eedfef03bb7e60ad8980078afefc14053583bef3b79b5c43b",
       "spec": {
-        "template": "flow",
-        "title": "Capstone Component 4: End-to-End Cluster Pre-... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Capstone Component ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Capstone Component 4: End-to-End Cluster Pre-Training Step Simul",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Capstone Component four: End-to-End Cluster...",
-            "values": {
-              "in": "Day 40 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Capstone Component ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "In this grand finale of Block 8, we assemble all subsystems into.",
+            "items": {
+              "var": "x_seq",
+              "line": 41,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Let us trace the complete execution pathway of a pre-training step through.",
+            "items": {
+              "var": "x_seq",
+              "line": 45,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Capstone Component four: End-to-End ...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say11",
+            "caption": "In the following comprehensive implementation, we assemble the unified.",
+            "items": {
+              "var": "x_seq",
+              "line": 44,
+              "hit": 4
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Capstone Component 4: End-to-End Cluster Pre-... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Capstone Component ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Capstone Component 4: End-to-End Cluster Pre-Training Step Simul",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Capstone Component 4: End-to-End Cluster...",
-            "values": {
-              "in": "Day 40 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Capstone Component ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In this grand finale of Block 8, we assemble all subsystems into.",
+            "items": [
+              "1",
+              "0.5",
+              "-0.2",
+              "0.8"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us trace the complete execution pathway of a pre-training step through.",
+            "items": [
+              "1",
+              "0.5",
+              "-0.2",
+              "0.8"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Capstone Component 4: End-to-End ...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "In the following comprehensive implementation, we assemble the unified.",
+            "items": [
+              "1",
+              "0.5",
+              "-0.2",
+              "0.8"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

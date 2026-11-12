@@ -2,231 +2,169 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 26,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Models that see",
       "codeHash": "e4a461175164b61c095d1a2d231ea0fec9edb85b413bf10bd4ceee596993efc9",
       "spec": {
-        "template": "flow",
-        "title": "Models that see — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Models that see",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Models that see",
+        "actors": [
+          "uses",
+          "image",
+          "task"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Models that see [D.Pone.Sone].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Models that see [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Vision-language models (VLMs) accept images alongside text.",
+            "activeActor": "uses",
+            "messages": [
+              {
+                "from": "uses",
+                "to": "image",
+                "label": {
+                  "var": "uses",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "image",
+                "to": "task",
+                "label": {
+                  "var": "image",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Reading receipts and forms, describing photos for accessibility, checking.",
+            "activeActor": "image",
+            "messages": [
+              {
+                "from": "uses",
+                "to": "image",
+                "label": {
+                  "var": "uses",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "image",
+                "to": "task",
+                "label": {
+                  "var": "image",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Models that see [D.Pone.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Today you will calculate image tokens, resize images sensibly, and see how.",
+            "activeActor": "task",
+            "messages": [
+              {
+                "from": "uses",
+                "to": "image",
+                "label": {
+                  "var": "uses",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "image",
+                "to": "task",
+                "label": {
+                  "var": "image",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Models that see — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Models that see",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Models that see",
+        "actors": [
+          "uses",
+          "image",
+          "task"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Models that see [D26.P1.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Models that see [D26.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Vision-language models (VLMs) accept images alongside text.",
+            "messages": [
+              {
+                "from": "uses",
+                "to": "image",
+                "label": "{'receipt photo': 'extract merchant, da…",
+                "tone": "data"
+              },
+              {
+                "from": "image",
+                "to": "task",
+                "label": "'receipt photo'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "uses"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Reading receipts and forms, describing photos for accessibility, checking.",
+            "messages": [
+              {
+                "from": "uses",
+                "to": "image",
+                "label": "{'receipt photo': 'extract merchant, da…",
+                "tone": "data"
+              },
+              {
+                "from": "image",
+                "to": "task",
+                "label": "'receipt photo'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "image"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Models that see [D26.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Today you will calculate image tokens, resize images sensibly, and see how.",
+            "messages": [
+              {
+                "from": "uses",
+                "to": "image",
+                "label": "{'receipt photo': 'extract merchant, da…",
+                "tone": "data"
+              },
+              {
+                "from": "image",
+                "to": "task",
+                "label": "'product photo'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "task"
           }
         ]
       }
@@ -235,236 +173,162 @@
       "partTitle": "Images become patch tokens",
       "codeHash": "f2d7365708c85715b3814c08d18dd74969a595a25ed9d5d9fe41bfae92e33f13",
       "spec": {
-        "template": "table",
-        "title": "Vision transformer patch decomposition and token calculation",
-        "columns": [
-          "image_size",
-          "patch_size",
-          "tokens_total"
+        "template": "sequence",
+        "title": "Images become patch tokens",
+        "actors": [
+          "width",
+          "height",
+          "patch"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Vision encoder cuts image into grid of square patches.",
-            "rows": [
+            "caption": "A vision encoder cuts the image into a grid of square patches, often 14.",
+            "activeActor": "width",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "224"
-                  },
-                  {
-                    "text": "patches_x"
-                  },
-                  {
-                    "text": "total_tokens"
-                  }
-                ],
-                "tone": "ok"
+                "from": "width",
+                "to": "height",
+                "label": {
+                  "var": "width",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "448"
-                  },
-                  {
-                    "text": "patches_y"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
+                "from": "height",
+                "to": "patch",
+                "label": {
+                  "var": "height",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Vision tokens returns patches across and down plus summary token.",
-            "rows": [
+            "caption": "Vision_tokens(width, height, patch) returns patches across (ceil(width /.",
+            "activeActor": "height",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "224"
-                  },
-                  {
-                    "text": "patches_x"
-                  },
-                  {
-                    "text": "total_tokens"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "448"
-                  },
-                  {
-                    "text": "patches_y"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "896"
-                  },
-                  {
-                    "text": "patches_x"
-                  },
-                  {
-                    "text": "total_tokens"
-                  }
-                ],
+                "from": "width",
+                "to": "height",
+                "label": {
+                  "var": "width",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "height",
+                "to": "patch",
+                "label": {
+                  "var": "height",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Bigger images give more tokens quadrupling cost.",
-            "rows": [
+            "at": "say7",
+            "caption": "Real APIs use their own formulas, often tiling large images, but the idea.",
+            "activeActor": "patch",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "224"
-                  },
-                  {
-                    "text": "patches_x"
-                  },
-                  {
-                    "text": "total_tokens"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "448"
-                  },
-                  {
-                    "text": "patches_y"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "896"
-                  },
-                  {
-                    "text": "patches_x"
-                  },
-                  {
-                    "text": "total_tokens"
-                  }
-                ],
+                "from": "width",
+                "to": "height",
+                "label": {
+                  "var": "width",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "data"
+              },
+              {
+                "from": "height",
+                "to": "patch",
+                "label": {
+                  "var": "height",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Vision transformer patch decomposition and token calculation",
-        "columns": [
-          "image_size",
-          "patch_size",
-          "tokens_total"
+        "template": "sequence",
+        "title": "Images become patch tokens",
+        "actors": [
+          "width",
+          "height",
+          "patch"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Vision encoder cuts image into grid of square patches.",
-            "rows": [
+            "caption": "A vision encoder cuts the image into a grid of square patches, often 14.",
+            "messages": [
               {
-                "cells": [
-                  "224",
-                  "patches_x",
-                  "total_tokens"
-                ],
-                "tone": "ok"
+                "from": "width",
+                "to": "height",
+                "label": "224",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "448",
-                  "patches_y",
-                  "tokens"
-                ],
+                "from": "height",
+                "to": "patch",
+                "label": "224",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "width"
           },
           {
             "at": "say2",
-            "caption": "Vision tokens returns patches across and down plus summary token.",
-            "rows": [
+            "caption": "Vision_tokens(width, height, patch) returns patches across (ceil(width /.",
+            "messages": [
               {
-                "cells": [
-                  "224",
-                  "patches_x",
-                  "total_tokens"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "448",
-                  "patches_y",
-                  "tokens"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "896",
-                  "patches_x",
-                  "total_tokens"
-                ],
+                "from": "width",
+                "to": "height",
+                "label": "224",
                 "tone": "data"
+              },
+              {
+                "from": "height",
+                "to": "patch",
+                "label": "224",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "height"
           },
           {
-            "at": "say5",
-            "caption": "Bigger images give more tokens quadrupling cost.",
-            "rows": [
+            "at": "say7",
+            "caption": "Real APIs use their own formulas, often tiling large images, but the idea.",
+            "messages": [
               {
-                "cells": [
-                  "224",
-                  "patches_x",
-                  "total_tokens"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "448",
-                  "patches_y",
-                  "tokens"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "896",
-                  "patches_x",
-                  "total_tokens"
-                ],
+                "from": "width",
+                "to": "height",
+                "label": "230",
                 "tone": "data"
+              },
+              {
+                "from": "height",
+                "to": "patch",
+                "label": "224",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "patch"
           }
         ]
       }
@@ -473,146 +337,194 @@
       "partTitle": "The cost of images",
       "codeHash": "468667cec566e140ea9d0e1e230558ad8824ae62640f25ec92f605cf6422fc76",
       "spec": {
-        "template": "bars",
-        "title": "Token footprint scaling with input image resolution",
+        "template": "boxes",
+        "title": "The cost of images",
+        "boxes": [
+          {
+            "id": "price_per_million",
+            "label": "price_per_million"
+          },
+          {
+            "id": "w",
+            "label": "w"
+          },
+          {
+            "id": "h",
+            "label": "h"
+          },
+          {
+            "id": "patch",
+            "label": "patch"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
             "caption": "Image tokens are billed like text tokens.",
-            "bars": [
-              {
-                "label": "res_4000",
-                "value": {
-                  "text": "4000"
-                },
-                "tone": "error"
+            "values": {
+              "price_per_million": {
+                "var": "price_per_million",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "label": "res_2000",
-                "value": {
-                  "text": "2000"
-                },
-                "tone": "data"
+              "w": {
+                "var": "w",
+                "line": 7,
+                "hit": 1
+              },
+              "h": {
+                "var": "h",
+                "line": 7,
+                "hit": 1
+              },
+              "patch": {
+                "var": "patch",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "price_per_million": "data",
+              "w": "data",
+              "h": "data",
+              "patch": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "Resize images before sending to save tokens while keeping accuracy.",
-            "bars": [
-              {
-                "label": "res_4000",
-                "value": {
-                  "text": "4000"
-                },
-                "tone": "error"
+            "at": "say2",
+            "caption": "Many APIs offer a detail setting.",
+            "values": {
+              "price_per_million": {
+                "var": "price_per_million",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "label": "res_2000",
-                "value": {
-                  "text": "2000"
-                },
-                "tone": "data"
+              "w": {
+                "var": "w",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "label": "res_1000",
-                "value": {
-                  "text": "1000"
-                },
-                "tone": "ok"
+              "h": {
+                "var": "h",
+                "line": 4,
+                "hit": 1
+              },
+              "patch": {
+                "var": "patch",
+                "line": 4,
+                "hit": 2
               }
-            ]
+            },
+            "tones": {
+              "price_per_million": "data",
+              "w": "data",
+              "h": "data",
+              "patch": "data"
+            }
           },
           {
             "at": "say7",
-            "caption": "Savings add up quickly in apps processing thousands of photos.",
-            "bars": [
-              {
-                "label": "res_4000",
-                "value": {
-                  "text": "4000"
-                },
-                "tone": "error"
+            "caption": "These savings add up quickly in apps that process thousands of photos a day.",
+            "values": {
+              "price_per_million": {
+                "var": "price_per_million",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "label": "res_2000",
-                "value": {
-                  "text": "2000"
-                },
-                "tone": "data"
+              "w": {
+                "var": "w",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "label": "res_1000",
-                "value": {
-                  "text": "1000"
-                },
-                "tone": "ok"
+              "h": {
+                "var": "h",
+                "line": 8,
+                "hit": 1
+              },
+              "patch": {
+                "var": "patch",
+                "line": 4,
+                "hit": 3
               }
-            ]
+            },
+            "tones": {
+              "price_per_million": "ok",
+              "w": "ok",
+              "h": "ok",
+              "patch": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Token footprint scaling with input image resolution",
+        "template": "boxes",
+        "title": "The cost of images",
+        "boxes": [
+          {
+            "id": "price_per_million",
+            "label": "price_per_million"
+          },
+          {
+            "id": "w",
+            "label": "w"
+          },
+          {
+            "id": "h",
+            "label": "h"
+          },
+          {
+            "id": "patch",
+            "label": "patch"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
             "caption": "Image tokens are billed like text tokens.",
-            "bars": [
-              {
-                "label": "res_4000",
-                "value": 4000,
-                "tone": "error"
-              },
-              {
-                "label": "res_2000",
-                "value": 2000,
-                "tone": "data"
-              }
-            ]
+            "values": {
+              "price_per_million": "2.5",
+              "w": "4000",
+              "h": "3000",
+              "patch": "14"
+            },
+            "tones": {
+              "price_per_million": "data",
+              "w": "data",
+              "h": "data",
+              "patch": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "Resize images before sending to save tokens while keeping accuracy.",
-            "bars": [
-              {
-                "label": "res_4000",
-                "value": 4000,
-                "tone": "error"
-              },
-              {
-                "label": "res_2000",
-                "value": 2000,
-                "tone": "data"
-              },
-              {
-                "label": "res_1000",
-                "value": 1000,
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Many APIs offer a detail setting.",
+            "values": {
+              "price_per_million": "2.5",
+              "w": "4000",
+              "h": "3000",
+              "patch": "14"
+            },
+            "tones": {
+              "price_per_million": "data",
+              "w": "data",
+              "h": "data",
+              "patch": "data"
+            }
           },
           {
             "at": "say7",
-            "caption": "Savings add up quickly in apps processing thousands of photos.",
-            "bars": [
-              {
-                "label": "res_4000",
-                "value": 4000,
-                "tone": "error"
-              },
-              {
-                "label": "res_2000",
-                "value": 2000,
-                "tone": "data"
-              },
-              {
-                "label": "res_1000",
-                "value": 1000,
-                "tone": "ok"
-              }
-            ]
+            "caption": "These savings add up quickly in apps that process thousands of photos a day.",
+            "values": {
+              "price_per_million": "2.5",
+              "w": "4000",
+              "h": "3000",
+              "patch": "14"
+            },
+            "tones": {
+              "price_per_million": "ok",
+              "w": "ok",
+              "h": "ok",
+              "patch": "ok"
+            }
           }
         ]
       }
@@ -621,192 +533,194 @@
       "partTitle": "Keeping the aspect ratio",
       "codeHash": "539731368ec07202e18839fed2b0a93da0e8dd7f0ae94dccc59a5668b214326a",
       "spec": {
-        "template": "table",
-        "title": "Aspect ratio preservation and bounding box scaling constraints",
-        "columns": [
-          "raw_resolution",
-          "gcd_divisor",
-          "ratio_result"
+        "template": "boxes",
+        "title": "Keeping the aspect ratio",
+        "boxes": [
+          {
+            "id": "width",
+            "label": "width"
+          },
+          {
+            "id": "height",
+            "label": "height"
+          },
+          {
+            "id": "g",
+            "label": "g"
+          },
+          {
+            "id": "max_side",
+            "label": "max_side"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When resizing keep aspect ratio so image is not stretched.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "1920"
-                  },
-                  {
-                    "text": "1080"
-                  },
-                  {
-                    "text": "1024"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "When resizing, keep the aspect ratio (width.",
+            "values": {
+              "width": {
+                "var": "width",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "4000"
-                  },
-                  {
-                    "text": "3000"
-                  },
-                  {
-                    "text": "640"
-                  }
-                ],
-                "tone": "ok"
+              "height": {
+                "var": "height",
+                "line": 4,
+                "hit": 1
+              },
+              "g": {
+                "var": "g",
+                "line": 4,
+                "hit": 1
+              },
+              "max_side": {
+                "var": "max_side",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "width": "data",
+              "height": "data",
+              "g": "data",
+              "max_side": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Aspect ratio returns simplest ratio string using greatest common divisor.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "1920"
-                  },
-                  {
-                    "text": "1080"
-                  },
-                  {
-                    "text": "1024"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Divide both numbers by their greatest common divisor with math.",
+            "values": {
+              "width": {
+                "var": "width",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "4000"
-                  },
-                  {
-                    "text": "3000"
-                  },
-                  {
-                    "text": "640"
-                  }
-                ],
-                "tone": "ok"
+              "height": {
+                "var": "height",
+                "line": 5,
+                "hit": 1
+              },
+              "g": {
+                "var": "g",
+                "line": 5,
+                "hit": 1
+              },
+              "max_side": {
+                "var": "max_side",
+                "line": 9,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "width": "data",
+              "height": "data",
+              "g": "data",
+              "max_side": "data"
+            }
           },
           {
-            "at": "say6",
-            "caption": "Never upscale small images as it only adds tokens without detail.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "1920"
-                  },
-                  {
-                    "text": "1080"
-                  },
-                  {
-                    "text": "1024"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "A helper that fits any image inside a maximum box, keeping the ratio, is.",
+            "values": {
+              "width": {
+                "var": "width",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "4000"
-                  },
-                  {
-                    "text": "3000"
-                  },
-                  {
-                    "text": "640"
-                  }
-                ],
-                "tone": "ok"
+              "height": {
+                "var": "height",
+                "line": 4,
+                "hit": 2
+              },
+              "g": {
+                "var": "g",
+                "line": 4,
+                "hit": 2
+              },
+              "max_side": {
+                "var": "max_side",
+                "line": 8,
+                "hit": 2
               }
-            ]
+            },
+            "tones": {
+              "width": "ok",
+              "height": "ok",
+              "g": "ok",
+              "max_side": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Aspect ratio preservation and bounding box scaling constraints",
-        "columns": [
-          "raw_resolution",
-          "gcd_divisor",
-          "ratio_result"
+        "template": "boxes",
+        "title": "Keeping the aspect ratio",
+        "boxes": [
+          {
+            "id": "width",
+            "label": "width"
+          },
+          {
+            "id": "height",
+            "label": "height"
+          },
+          {
+            "id": "g",
+            "label": "g"
+          },
+          {
+            "id": "max_side",
+            "label": "max_side"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When resizing keep aspect ratio so image is not stretched.",
-            "rows": [
-              {
-                "cells": [
-                  "1920",
-                  "1080",
-                  "1024"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "4000",
-                  "3000",
-                  "640"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "When resizing, keep the aspect ratio (width.",
+            "values": {
+              "width": "1920",
+              "height": "1080",
+              "g": "120",
+              "max_side": "1024"
+            },
+            "tones": {
+              "width": "data",
+              "height": "data",
+              "g": "data",
+              "max_side": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Aspect ratio returns simplest ratio string using greatest common divisor.",
-            "rows": [
-              {
-                "cells": [
-                  "1920",
-                  "1080",
-                  "1024"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "4000",
-                  "3000",
-                  "640"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Divide both numbers by their greatest common divisor with math.",
+            "values": {
+              "width": "1920",
+              "height": "1080",
+              "g": "120",
+              "max_side": "1024"
+            },
+            "tones": {
+              "width": "data",
+              "height": "data",
+              "g": "data",
+              "max_side": "data"
+            }
           },
           {
-            "at": "say6",
-            "caption": "Never upscale small images as it only adds tokens without detail.",
-            "rows": [
-              {
-                "cells": [
-                  "1920",
-                  "1080",
-                  "1024"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "4000",
-                  "3000",
-                  "640"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say7",
+            "caption": "A helper that fits any image inside a maximum box, keeping the ratio, is.",
+            "values": {
+              "width": "1024",
+              "height": "768",
+              "g": "256",
+              "max_side": "1024"
+            },
+            "tones": {
+              "width": "ok",
+              "height": "ok",
+              "g": "ok",
+              "max_side": "ok"
+            }
           }
         ]
       }
@@ -815,132 +729,278 @@
       "partTitle": "Shared embeddings for text and images",
       "codeHash": "15f8e37d92fce38fd479a21382194148d6899db77126c3867fe318a79117cf1c",
       "spec": {
-        "template": "compare",
-        "title": "CLIP cross-modal joint embedding text-to-image similarity ranking",
-        "leftLabel": "Text Query",
-        "rightLabel": "Top Image Match",
+        "template": "flow",
+        "title": "Shared embeddings for text and images",
+        "nodes": [
+          {
+            "id": "images",
+            "label": "images"
+          },
+          {
+            "id": "query_text",
+            "label": "query_text"
+          },
+          {
+            "id": "query_vec",
+            "label": "query_vec"
+          },
+          {
+            "id": "x",
+            "label": "x"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Models like CLIP learn one embedding space for images and text.",
-            "left": {
-              "code": "query_text = \"sunny sea shore\"",
-              "result": {
-                "text": "sunny sea shore"
+            "caption": "Models like CLIP learn one embedding space for both images and text.",
+            "values": {
+              "images": {
+                "var": "images",
+                "line": 6,
+                "hit": 1
               },
-              "tone": "data"
+              "query_text": {
+                "var": "query_text",
+                "line": 7,
+                "hit": 1
+              },
+              "query_vec": {
+                "var": "query_vec",
+                "line": 8,
+                "hit": 1
+              },
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "ranked[0] = \"beach.jpg\"",
-              "result": {
-                "text": "beach.jpg"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "images": "data",
+              "query_text": "data",
+              "query_vec": "data",
+              "x": "data"
+            },
+            "arrows": [
+              [
+                "images",
+                "query_text"
+              ],
+              [
+                "query_text",
+                "query_vec"
+              ],
+              [
+                "query_vec",
+                "x"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Photo and text description land close together in shared vector space.",
-            "left": {
-              "code": "multimodal query vector representation",
-              "result": {
-                "text": "sunny sea shore"
+            "caption": "A photo of a dog and the text \"a dog playing\" land close together, so you.",
+            "values": {
+              "images": {
+                "var": "images",
+                "line": 7,
+                "hit": 1
               },
-              "tone": "data"
+              "query_text": {
+                "var": "query_text",
+                "line": 8,
+                "hit": 1
+              },
+              "query_vec": {
+                "var": "query_vec",
+                "line": 9,
+                "hit": 4
+              },
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 2
+              }
             },
-            "right": {
-              "code": "high cosine similarity dot product",
-              "result": {
-                "text": "beach.jpg"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "images": "data",
+              "query_text": "data",
+              "query_vec": "data",
+              "x": "data"
+            },
+            "arrows": [
+              [
+                "images",
+                "query_text"
+              ],
+              [
+                "query_text",
+                "query_vec"
+              ],
+              [
+                "query_vec",
+                "x"
+              ]
+            ]
           },
           {
-            "at": "say5",
-            "caption": "Embed query text and compare by cosine similarity with image embeddings.",
-            "left": {
-              "code": "query_vec = [0.85, 0.15, 0.25]",
-              "result": {
-                "text": "sunny sea shore"
+            "at": "say7",
+            "caption": "The example uses tiny made-up vectors to show the search.",
+            "values": {
+              "images": {
+                "var": "images",
+                "line": 8,
+                "hit": 1
               },
-              "tone": "data"
+              "query_text": {
+                "var": "query_text",
+                "line": 9,
+                "hit": 4
+              },
+              "query_vec": {
+                "var": "query_vec",
+                "line": 10,
+                "hit": 1
+              },
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 3
+              }
             },
-            "right": {
-              "code": "images[\"beach.jpg\"] = [0.9, 0.1, 0.2]",
-              "result": {
-                "text": "beach.jpg"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "images": "ok",
+              "query_text": "ok",
+              "query_vec": "ok",
+              "x": "ok"
+            },
+            "arrows": [
+              [
+                "images",
+                "query_text"
+              ],
+              [
+                "query_text",
+                "query_vec"
+              ],
+              [
+                "query_vec",
+                "x"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "CLIP cross-modal joint embedding text-to-image similarity ranking",
-        "leftLabel": "Text Query",
-        "rightLabel": "Top Image Match",
+        "template": "flow",
+        "title": "Shared embeddings for text and images",
+        "nodes": [
+          {
+            "id": "images",
+            "label": "images"
+          },
+          {
+            "id": "query_text",
+            "label": "query_text"
+          },
+          {
+            "id": "query_vec",
+            "label": "query_vec"
+          },
+          {
+            "id": "x",
+            "label": "x"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Models like CLIP learn one embedding space for images and text.",
-            "left": {
-              "code": "query_text = \"sunny sea shore\"",
-              "result": "sunny sea shore",
-              "tone": "data",
-              "checks": [
-                "sunny sea shore"
-              ]
+            "caption": "Models like CLIP learn one embedding space for both images and text.",
+            "values": {
+              "images": "{'beach.jpg': [0.9, 0.1, 0.2], 'temple.…",
+              "query_text": "'sunny sea shore'",
+              "query_vec": "[0.85, 0.15, 0.25]",
+              "x": "0.85"
             },
-            "right": {
-              "code": "ranked[0] = \"beach.jpg\"",
-              "result": "beach.jpg",
-              "tone": "ok",
-              "checks": [
-                "beach.jpg"
+            "tones": {
+              "images": "data",
+              "query_text": "data",
+              "query_vec": "data",
+              "x": "data"
+            },
+            "arrows": [
+              [
+                "images",
+                "query_text"
+              ],
+              [
+                "query_text",
+                "query_vec"
+              ],
+              [
+                "query_vec",
+                "x"
               ]
-            }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Photo and text description land close together in shared vector space.",
-            "left": {
-              "code": "multimodal query vector representation",
-              "result": "sunny sea shore",
-              "tone": "data",
-              "checks": [
-                "sunny sea shore"
-              ]
+            "caption": "A photo of a dog and the text \"a dog playing\" land close together, so you.",
+            "values": {
+              "images": "{'beach.jpg': [0.9, 0.1, 0.2], 'temple.…",
+              "query_text": "'sunny sea shore'",
+              "query_vec": "[0.85, 0.15, 0.25]",
+              "x": "0.15"
             },
-            "right": {
-              "code": "high cosine similarity dot product",
-              "result": "beach.jpg",
-              "tone": "ok",
-              "checks": [
-                "beach.jpg"
+            "tones": {
+              "images": "data",
+              "query_text": "data",
+              "query_vec": "data",
+              "x": "data"
+            },
+            "arrows": [
+              [
+                "images",
+                "query_text"
+              ],
+              [
+                "query_text",
+                "query_vec"
+              ],
+              [
+                "query_vec",
+                "x"
               ]
-            }
+            ]
           },
           {
-            "at": "say5",
-            "caption": "Embed query text and compare by cosine similarity with image embeddings.",
-            "left": {
-              "code": "query_vec = [0.85, 0.15, 0.25]",
-              "result": "sunny sea shore",
-              "tone": "data",
-              "checks": [
-                "sunny sea shore"
-              ]
+            "at": "say7",
+            "caption": "The example uses tiny made-up vectors to show the search.",
+            "values": {
+              "images": "{'beach.jpg': [0.9, 0.1, 0.2], 'temple.…",
+              "query_text": "'sunny sea shore'",
+              "query_vec": "[0.85, 0.15, 0.25]",
+              "x": "0.25"
             },
-            "right": {
-              "code": "images[\"beach.jpg\"] = [0.9, 0.1, 0.2]",
-              "result": "beach.jpg",
-              "tone": "ok",
-              "checks": [
-                "beach.jpg"
+            "tones": {
+              "images": "ok",
+              "query_text": "ok",
+              "query_vec": "ok",
+              "x": "ok"
+            },
+            "arrows": [
+              [
+                "images",
+                "query_text"
+              ],
+              [
+                "query_text",
+                "query_vec"
+              ],
+              [
+                "query_vec",
+                "x"
               ]
-            }
+            ]
           }
         ]
       }
@@ -949,224 +1009,160 @@
       "partTitle": "Prompting with images, safely",
       "codeHash": "4e28cd9bac6d920c8be53c104f8ac855f1dfba8669cc7a22b28b2d51d988f085",
       "spec": {
-        "template": "flow",
-        "title": "Prompting with images, safely — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Prompting with imag...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Prompting with images, safely",
+        "actors": [
+          "message",
+          "reply"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Prompting with images, safely [D.Psix.Sone].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Prompting with imag... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In chat APIs, a message's content can be a list of parts.",
+            "activeActor": "message",
+            "messages": [
+              {
+                "from": "message",
+                "to": "reply",
+                "label": {
+                  "var": "message",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "reply",
+                "to": "message",
+                "label": {
+                  "var": "reply",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "\"Read the total amount on this receipt and return JSON with total.",
+            "activeActor": "reply",
+            "messages": [
+              {
+                "from": "message",
+                "to": "reply",
+                "label": {
+                  "var": "message",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "reply",
+                "to": "message",
+                "label": {
+                  "var": "reply",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Prompting with images, safely.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Tomorrow moves to operations.",
+            "activeActor": "reply",
+            "messages": [
+              {
+                "from": "message",
+                "to": "reply",
+                "label": {
+                  "var": "message",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "reply",
+                "to": "message",
+                "label": {
+                  "var": "reply",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Prompting with images, safely — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Prompting with imag...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Prompting with images, safely",
+        "actors": [
+          "message",
+          "reply"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Prompting with images, safely [D26.P6.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Prompting with imag... [D26.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "In chat APIs, a message's content can be a list of parts.",
+            "messages": [
+              {
+                "from": "message",
+                "to": "reply",
+                "label": "{'role': 'user', 'content': [{'type': '…",
+                "tone": "data"
+              },
+              {
+                "from": "reply",
+                "to": "message",
+                "label": "{'total': 450, 'currency': 'INR', 'item…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "message"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "\"Read the total amount on this receipt and return JSON with total.",
+            "messages": [
+              {
+                "from": "message",
+                "to": "reply",
+                "label": "{'role': 'user', 'content': [{'type': '…",
+                "tone": "data"
+              },
+              {
+                "from": "reply",
+                "to": "message",
+                "label": "{'total': 450, 'currency': 'INR', 'item…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "reply"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Prompting with images, safely [D26.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Tomorrow moves to operations.",
+            "messages": [
+              {
+                "from": "message",
+                "to": "reply",
+                "label": "{'role': 'user', 'content': [{'type': '…",
+                "tone": "data"
+              },
+              {
+                "from": "reply",
+                "to": "message",
+                "label": "{'total': 450, 'currency': 'INR', 'item…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "reply"
           }
         ]
       }

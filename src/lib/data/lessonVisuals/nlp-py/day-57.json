@@ -2,118 +2,169 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 57,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Adversarial Vulnerability Surface: Prompt Injection, Jailbreaks & Multilingual Exploits",
       "codeHash": "d9a2610cef4ecadbfc6c9587f582d9f4c998f02541ea3f7940c63dff0a8ec550",
       "spec": {
         "template": "flow",
-        "title": "The Adversarial Vulnerability Surface: Prompt... — Execution Pipeline",
+        "title": "The Adversarial Vulnerability Surface: Prompt Injection, Jailbre",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. The Adversarial Vul...",
-            "tappable": true
+            "id": "detector",
+            "label": "detector"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "test_prompt",
+            "label": "test_prompt"
+          },
+          {
+            "id": "prompt",
+            "label": "prompt"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The Adversarial Vulnerability Surface: P...",
-            "values": {
-              "in": "Day 57 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The Adversarial Vul....",
+            "caption": "As language models transition from research curiosities.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": {
+                "var": "self",
+                "line": 15,
+                "hit": 1
+              },
+              "detector": {
+                "var": "detector",
+                "line": 56,
+                "hit": 1
+              },
+              "test_prompt": {
+                "var": "test_prompt",
+                "line": 57,
+                "hit": 1
+              },
+              "prompt": {
+                "var": "prompt",
+                "line": 30,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "detector": "data",
+              "test_prompt": "data",
+              "prompt": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "detector"
               ],
               [
-                "proc",
-                "out"
+                "detector",
+                "test_prompt"
+              ],
+              [
+                "test_prompt",
+                "prompt"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "To defend enterprise LLMs, security architects must categorize the primary.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": {
+                "var": "self",
+                "line": 22,
+                "hit": 1
+              },
+              "detector": {
+                "var": "detector",
+                "line": 57,
+                "hit": 1
+              },
+              "test_prompt": {
+                "var": "test_prompt",
+                "line": 58,
+                "hit": 1
+              },
+              "prompt": {
+                "var": "prompt",
+                "line": 31,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "detector": "data",
+              "test_prompt": "data",
+              "prompt": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "detector"
+              ],
+              [
+                "detector",
+                "test_prompt"
+              ],
+              [
+                "test_prompt",
+                "prompt"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The Adversarial Vulnerability Sur...",
+            "at": "say8",
+            "caption": "Beyond mathematical optimization attacks, cognitive virtualization attacks.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": {
+                "var": "self",
+                "line": 30,
+                "hit": 1
+              },
+              "detector": {
+                "var": "detector",
+                "line": 58,
+                "hit": 1
+              },
+              "test_prompt": {
+                "var": "test_prompt",
+                "line": 60,
+                "hit": 1
+              },
+              "prompt": {
+                "var": "prompt",
+                "line": 34,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "detector": "ok",
+              "test_prompt": "ok",
+              "prompt": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "detector"
               ],
               [
-                "proc",
-                "out"
+                "detector",
+                "test_prompt"
+              ],
+              [
+                "test_prompt",
+                "prompt"
               ]
             ]
           }
@@ -121,110 +172,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "The Adversarial Vulnerability Surface: Prompt... — Execution Pipeline",
+        "title": "The Adversarial Vulnerability Surface: Prompt Injection, Jailbre",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. The Adversarial Vul...",
-            "tappable": true
+            "id": "detector",
+            "label": "detector"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "test_prompt",
+            "label": "test_prompt"
+          },
+          {
+            "id": "prompt",
+            "label": "prompt"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The Adversarial Vulnerability Surface: P...",
-            "values": {
-              "in": "Day 57 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Adversarial Vul....",
+            "caption": "As language models transition from research curiosities.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": "<AdversarialSurfaceDetector>",
+              "detector": "<AdversarialSurfaceDetector>",
+              "test_prompt": "'Ignore previous instructions. For pure…",
+              "prompt": "'Ignore previous instructions. For pure…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "detector": "data",
+              "test_prompt": "data",
+              "prompt": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "detector"
               ],
               [
-                "proc",
-                "out"
+                "detector",
+                "test_prompt"
+              ],
+              [
+                "test_prompt",
+                "prompt"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "To defend enterprise LLMs, security architects must categorize the primary.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": "<AdversarialSurfaceDetector>",
+              "detector": "<AdversarialSurfaceDetector>",
+              "test_prompt": "'Ignore previous instructions. For pure…",
+              "prompt": "'Ignore previous instructions. For pure…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "detector": "data",
+              "test_prompt": "data",
+              "prompt": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "detector"
+              ],
+              [
+                "detector",
+                "test_prompt"
+              ],
+              [
+                "test_prompt",
+                "prompt"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Adversarial Vulnerability Sur...",
+            "at": "say8",
+            "caption": "Beyond mathematical optimization attacks, cognitive virtualization attacks.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": "<AdversarialSurfaceDetector>",
+              "detector": "<AdversarialSurfaceDetector>",
+              "test_prompt": "'Ignore previous instructions. For pure…",
+              "prompt": "'Ignore previous instructions. For pure…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "detector": "ok",
+              "test_prompt": "ok",
+              "prompt": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "detector"
               ],
               [
-                "proc",
-                "out"
+                "detector",
+                "test_prompt"
+              ],
+              [
+                "test_prompt",
+                "prompt"
               ]
             ]
           }
@@ -236,110 +290,161 @@
       "codeHash": "a99e8ae61a9559e7f62750ac1710a04f62932ca056050e684644e08b5812ee1d",
       "spec": {
         "template": "flow",
-        "title": "Automated Red-Teaming & Fuzzing Engines: Muta... — Execution Pipeline",
+        "title": "Automated Red-Teaming & Fuzzing Engines: Mutation Operators & Gr",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Automated Red-Teami...",
-            "tappable": true
+            "id": "fuzzer",
+            "label": "fuzzer"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "seed_prompt",
+            "label": "seed_prompt"
+          },
+          {
+            "id": "seed",
+            "label": "seed"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Automated Red-Teaming & Fuzzing Engines:...",
-            "values": {
-              "in": "Day 57 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Automated Red-Teami....",
+            "caption": "Manual red-teamingwhere human security researchers sit before a prompt.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": {
+                "var": "self",
+                "line": 14,
+                "hit": 1
+              },
+              "fuzzer": {
+                "var": "fuzzer",
+                "line": 66,
+                "hit": 1
+              },
+              "seed_prompt": {
+                "var": "seed_prompt",
+                "line": 67,
+                "hit": 1
+              },
+              "seed": {
+                "var": "seed",
+                "line": 49,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "fuzzer": "data",
+              "seed_prompt": "data",
+              "seed": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "fuzzer"
               ],
               [
-                "proc",
-                "out"
+                "fuzzer",
+                "seed_prompt"
+              ],
+              [
+                "seed_prompt",
+                "seed"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "At the center of automated fuzzing is the Evolutionary Prompt Optimization.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": {
+                "var": "self",
+                "line": 15,
+                "hit": 1
+              },
+              "fuzzer": {
+                "var": "fuzzer",
+                "line": 67,
+                "hit": 1
+              },
+              "seed_prompt": {
+                "var": "seed_prompt",
+                "line": 68,
+                "hit": 1
+              },
+              "seed": {
+                "var": "seed",
+                "line": 50,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "fuzzer": "data",
+              "seed_prompt": "data",
+              "seed": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "fuzzer"
+              ],
+              [
+                "fuzzer",
+                "seed_prompt"
+              ],
+              [
+                "seed_prompt",
+                "seed"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Automated Red-Teaming & Fuzzing E...",
+            "at": "say8",
+            "caption": "The mutation operators themselves are parameterized using empirical.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": {
+                "var": "self",
+                "line": 49,
+                "hit": 1
+              },
+              "fuzzer": {
+                "var": "fuzzer",
+                "line": 68,
+                "hit": 1
+              },
+              "seed_prompt": {
+                "var": "seed_prompt",
+                "line": 70,
+                "hit": 1
+              },
+              "seed": {
+                "var": "seed",
+                "line": 52,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "fuzzer": "ok",
+              "seed_prompt": "ok",
+              "seed": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "fuzzer"
               ],
               [
-                "proc",
-                "out"
+                "fuzzer",
+                "seed_prompt"
+              ],
+              [
+                "seed_prompt",
+                "seed"
               ]
             ]
           }
@@ -347,110 +452,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Automated Red-Teaming & Fuzzing Engines: Muta... — Execution Pipeline",
+        "title": "Automated Red-Teaming & Fuzzing Engines: Mutation Operators & Gr",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Automated Red-Teami...",
-            "tappable": true
+            "id": "fuzzer",
+            "label": "fuzzer"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "seed_prompt",
+            "label": "seed_prompt"
+          },
+          {
+            "id": "seed",
+            "label": "seed"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Automated Red-Teaming & Fuzzing Engines:...",
-            "values": {
-              "in": "Day 57 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Automated Red-Teami....",
+            "caption": "Manual red-teamingwhere human security researchers sit before a prompt.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": "<EvolutionaryRedTeamFuzzer>",
+              "fuzzer": "<EvolutionaryRedTeamFuzzer>",
+              "seed_prompt": "'Extract administrative password hashes…",
+              "seed": "'Extract administrative password hashes…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "fuzzer": "data",
+              "seed_prompt": "data",
+              "seed": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "fuzzer"
               ],
               [
-                "proc",
-                "out"
+                "fuzzer",
+                "seed_prompt"
+              ],
+              [
+                "seed_prompt",
+                "seed"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "At the center of automated fuzzing is the Evolutionary Prompt Optimization.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": "<EvolutionaryRedTeamFuzzer>",
+              "fuzzer": "<EvolutionaryRedTeamFuzzer>",
+              "seed_prompt": "'Extract administrative password hashes…",
+              "seed": "'Extract administrative password hashes…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "fuzzer": "data",
+              "seed_prompt": "data",
+              "seed": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "fuzzer"
+              ],
+              [
+                "fuzzer",
+                "seed_prompt"
+              ],
+              [
+                "seed_prompt",
+                "seed"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Automated Red-Teaming & Fuzzing E...",
+            "at": "say8",
+            "caption": "The mutation operators themselves are parameterized using empirical.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": "<EvolutionaryRedTeamFuzzer>",
+              "fuzzer": "<EvolutionaryRedTeamFuzzer>",
+              "seed_prompt": "'Extract administrative password hashes…",
+              "seed": "'Extract administrative password hashes…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "fuzzer": "ok",
+              "seed_prompt": "ok",
+              "seed": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "fuzzer"
               ],
               [
-                "proc",
-                "out"
+                "fuzzer",
+                "seed_prompt"
+              ],
+              [
+                "seed_prompt",
+                "seed"
               ]
             ]
           }
@@ -462,110 +570,161 @@
       "codeHash": "0af1f4271a13ee0188fd249aebcedd56b35136883370f17f9dab8e223b2c3bc1",
       "spec": {
         "template": "flow",
-        "title": "Safety Guardrails & Llama Guard Architectures... — Execution Pipeline",
+        "title": "Safety Guardrails & Llama Guard Architectures: Toxic Classificat",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "ENTERPRISE_TAXONOMY",
+            "label": "ENTERPRISE_TAXONOMY"
           },
           {
-            "id": "proc",
-            "label": "2. Safety Guardrails &...",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "taxonomy",
+            "label": "taxonomy"
+          },
+          {
+            "id": "guard",
+            "label": "guard"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Safety Guardrails & Llama Guard Architec...",
-            "values": {
-              "in": "Day 57 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Safety Guardrails &....",
+            "caption": "While post-training alignment (such as RLHF, DPO, and Constitutional AI).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "ENTERPRISE_TAXONOMY": {
+                "var": "ENTERPRISE_TAXONOMY",
+                "line": 12,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 21,
+                "hit": 1
+              },
+              "taxonomy": {
+                "var": "taxonomy",
+                "line": 21,
+                "hit": 1
+              },
+              "guard": {
+                "var": "guard",
+                "line": 49,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "ENTERPRISE_TAXONOMY": "data",
+              "self": "data",
+              "taxonomy": "data",
+              "guard": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ENTERPRISE_TAXONOMY",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "taxonomy"
+              ],
+              [
+                "taxonomy",
+                "guard"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The modern architectural archetype for LLM safety guardrails is Llama.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "ENTERPRISE_TAXONOMY": {
+                "var": "ENTERPRISE_TAXONOMY",
+                "line": 19,
+                "hit": 2
+              },
+              "self": {
+                "var": "self",
+                "line": 24,
+                "hit": 1
+              },
+              "taxonomy": {
+                "var": "taxonomy",
+                "line": 21,
+                "hit": 1
+              },
+              "guard": {
+                "var": "guard",
+                "line": 50,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "ENTERPRISE_TAXONOMY": "data",
+              "self": "data",
+              "taxonomy": "data",
+              "guard": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "ENTERPRISE_TAXONOMY",
+                "self"
+              ],
+              [
+                "self",
+                "taxonomy"
+              ],
+              [
+                "taxonomy",
+                "guard"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Safety Guardrails & Llama Guard A...",
+            "at": "say8",
+            "caption": "A pervasive challenge in commercial guardrail operations is the False.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "ENTERPRISE_TAXONOMY": {
+                "var": "ENTERPRISE_TAXONOMY",
+                "line": 49,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 25,
+                "hit": 1
+              },
+              "taxonomy": {
+                "var": "taxonomy",
+                "line": 21,
+                "hit": 1
+              },
+              "guard": {
+                "var": "guard",
+                "line": 51,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "ENTERPRISE_TAXONOMY": "ok",
+              "self": "ok",
+              "taxonomy": "ok",
+              "guard": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ENTERPRISE_TAXONOMY",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "taxonomy"
+              ],
+              [
+                "taxonomy",
+                "guard"
               ]
             ]
           }
@@ -573,110 +732,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Safety Guardrails & Llama Guard Architectures... — Execution Pipeline",
+        "title": "Safety Guardrails & Llama Guard Architectures: Toxic Classificat",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "ENTERPRISE_TAXONOMY",
+            "label": "ENTERPRISE_TAXONOMY"
           },
           {
-            "id": "proc",
-            "label": "2. Safety Guardrails &...",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "taxonomy",
+            "label": "taxonomy"
+          },
+          {
+            "id": "guard",
+            "label": "guard"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Safety Guardrails & Llama Guard Architec...",
-            "values": {
-              "in": "Day 57 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Safety Guardrails &....",
+            "caption": "While post-training alignment (such as RLHF, DPO, and Constitutional AI).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "ENTERPRISE_TAXONOMY": "[<SafetyCategory>, <SafetyCategory>, <S…",
+              "self": "<EnterpriseSafetyGuard>",
+              "taxonomy": "[<SafetyCategory>, <SafetyCategory>, <S…",
+              "guard": "<EnterpriseSafetyGuard>"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "ENTERPRISE_TAXONOMY": "data",
+              "self": "data",
+              "taxonomy": "data",
+              "guard": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ENTERPRISE_TAXONOMY",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "taxonomy"
+              ],
+              [
+                "taxonomy",
+                "guard"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The modern architectural archetype for LLM safety guardrails is Llama.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "ENTERPRISE_TAXONOMY": "[<SafetyCategory>, <SafetyCategory>, <S…",
+              "self": "<EnterpriseSafetyGuard>",
+              "taxonomy": "[<SafetyCategory>, <SafetyCategory>, <S…",
+              "guard": "<EnterpriseSafetyGuard>"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "ENTERPRISE_TAXONOMY": "data",
+              "self": "data",
+              "taxonomy": "data",
+              "guard": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "ENTERPRISE_TAXONOMY",
+                "self"
+              ],
+              [
+                "self",
+                "taxonomy"
+              ],
+              [
+                "taxonomy",
+                "guard"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Safety Guardrails & Llama Guard A...",
+            "at": "say8",
+            "caption": "A pervasive challenge in commercial guardrail operations is the False.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "ENTERPRISE_TAXONOMY": "[<SafetyCategory>, <SafetyCategory>, <S…",
+              "self": "<EnterpriseSafetyGuard>",
+              "taxonomy": "[<SafetyCategory>, <SafetyCategory>, <S…",
+              "guard": "<EnterpriseSafetyGuard>"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "ENTERPRISE_TAXONOMY": "ok",
+              "self": "ok",
+              "taxonomy": "ok",
+              "guard": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ENTERPRISE_TAXONOMY",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "taxonomy"
+              ],
+              [
+                "taxonomy",
+                "guard"
               ]
             ]
           }
@@ -687,223 +849,112 @@
       "partTitle": "Representation Engineering & Refusal Steering: Activation Addition & Concept Vectors",
       "codeHash": "595c5841b3be6db2a2b11b59dd2ecc114f5c37b6a7c63730f8f98ea0408c5c74",
       "spec": {
-        "template": "flow",
-        "title": "Representation Engineering & Refusal Steering... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Representation Engi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Representation Engineering & Refusal Steering: Activation Additi",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Representation Engineering & Refusal Ste...",
-            "values": {
-              "in": "Day 57 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Representation Engi....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Post-training alignment has traditionally operated through behavioral.",
+            "items": {
+              "var": "v",
+              "line": 12,
+              "hit": 6
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "How are concept steering vectors extracted.",
+            "items": {
+              "var": "v",
+              "line": 16,
+              "hit": 5
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Representation Engineering & Refu...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "Crucially, safety engineers must evaluate the impact of activation.",
+            "items": {
+              "var": "v",
+              "line": 16,
+              "hit": 8
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Representation Engineering & Refusal Steering... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Representation Engi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Representation Engineering & Refusal Steering: Activation Additi",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Representation Engineering & Refusal Ste...",
-            "values": {
-              "in": "Day 57 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Representation Engi....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Post-training alignment has traditionally operated through behavioral.",
+            "items": [
+              "0.8",
+              "-0.2",
+              "0.5",
+              "0.1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "How are concept steering vectors extracted.",
+            "items": [
+              "0.8",
+              "-0.2",
+              "0.5",
+              "0.1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Representation Engineering & Refu...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Crucially, safety engineers must evaluate the impact of activation.",
+            "items": [
+              "0.3",
+              "0.5",
+              "0.2",
+              "0.4"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -913,223 +964,175 @@
       "partTitle": "Masterclass Implementation: ApexGuard Enterprise Fuzzer & Guardrail Attestation Suite",
       "codeHash": "511ab80506baf1289d76ad09e604429cbf57ced25a450d3d0485e19a41a790eb",
       "spec": {
-        "template": "flow",
-        "title": "Masterclass Implementation: ApexGuard Enterpr... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Impleme...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Masterclass Implementation: ApexGuard Enterprise Fuzzer & Guardr",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Masterclass Implementation: ApexGuard En...",
-            "values": {
-              "in": "Day 57 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Masterclass Impleme....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "ApexGuard is an institutional-grade red-teaming and safety attestation.",
+            "bars": [
+              {
+                "label": "passed_count",
+                "value": {
+                  "var": "passed_count",
+                  "line": 39,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "idx",
+                "value": {
+                  "var": "idx",
+                  "line": 41,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pass_rate",
+                "value": {
+                  "var": "pass_rate",
+                  "line": 58,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In production operations, ApexGuard serves a dual purpose.",
+            "bars": [
+              {
+                "label": "passed_count",
+                "value": {
+                  "var": "passed_count",
+                  "line": 41,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "idx",
+                "value": {
+                  "var": "idx",
+                  "line": 42,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pass_rate",
+                "value": {
+                  "var": "pass_rate",
+                  "line": 59,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Masterclass Implementation: ApexG...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Furthermore, ApexGuard integrates an active feedback loop with synthetic.",
+            "bars": [
+              {
+                "label": "passed_count",
+                "value": {
+                  "var": "passed_count",
+                  "line": 42,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "idx",
+                "value": {
+                  "var": "idx",
+                  "line": 43,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pass_rate",
+                "value": {
+                  "var": "pass_rate",
+                  "line": 62,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Masterclass Implementation: ApexGuard Enterpr... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Impleme...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Masterclass Implementation: ApexGuard Enterprise Fuzzer & Guardr",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Implementation: ApexGuard En...",
-            "values": {
-              "in": "Day 57 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Impleme....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "ApexGuard is an institutional-grade red-teaming and safety attestation.",
+            "bars": [
+              {
+                "label": "passed_count",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "idx",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "pass_rate",
+                "value": 100,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In production operations, ApexGuard serves a dual purpose.",
+            "bars": [
+              {
+                "label": "passed_count",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "idx",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "pass_rate",
+                "value": 100,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Implementation: ApexG...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Furthermore, ApexGuard integrates an active feedback loop with synthetic.",
+            "bars": [
+              {
+                "label": "passed_count",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "idx",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "pass_rate",
+                "value": 100,
+                "tone": "ok"
+              }
             ]
           }
         ]

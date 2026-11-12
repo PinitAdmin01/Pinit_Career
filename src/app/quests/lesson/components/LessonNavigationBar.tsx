@@ -1,5 +1,5 @@
 import React from 'react';
-import { TeacherAvatarFrame, type LessonQuestData } from './TeacherAvatarFrame';
+import { type LessonQuestData } from './TeacherAvatarFrame';
 
 interface LessonNavigationBarProps {
   currentSlide: number;
@@ -106,16 +106,8 @@ export function LessonNavigationBar({
         }
       `}</style>
 
-      {/* Zone 1 (Left-Down): Clean Classroom Status Tag (2D Cartoon avatar removed per user request) */}
+      {/* [FIX-STAGE: phase3-nav-avatar-dedup] Zone 1 (Left-Down): Clean Classroom Status Tag (2D Cartoon avatar removed in favor of 3D TeacherVRoidPanel) */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0, minWidth: 0 }}>
-        <TeacherAvatarFrame
-          userId={userId || "guest"}
-          teacherId={teacherId || "kashyap"}
-          teacher={safeTeacher}
-          isPlaying={Boolean(isPlaying)}
-          speechText={speechText || ""}
-          questData={questData}
-        />
         <div
           data-testid="classroom-topic-pill"
           style={{

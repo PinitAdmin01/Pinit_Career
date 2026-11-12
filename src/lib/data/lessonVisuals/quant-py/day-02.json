@@ -2,256 +2,172 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 2,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Limit orders and market orders",
       "codeHash": "8ad8c9740109682f3adc0ba6b61911858459557531c6ca5fecf5b946edd8333c",
       "spec": {
-        "template": "table",
-        "title": "Resting limit order book sides and execution terms",
-        "columns": [
-          "bids",
-          "asks"
+        "template": "flow",
+        "title": "Limit orders and market orders",
+        "nodes": [
+          {
+            "id": "book",
+            "label": "book"
+          },
+          {
+            "id": "o",
+            "label": "o"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Limit orders specify execution boundaries and wait when untraded immediately.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bids"
-                  },
-                  {
-                    "text": "asks"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A limit order says.",
+            "values": {
+              "book": {
+                "var": "book",
+                "line": 1,
+                "hit": 1
+              },
+              "o": {
+                "var": "o",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "book": "data",
+              "o": "data"
+            },
+            "arrows": [
+              [
+                "book",
+                "o"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Market orders execute immediately against whatever prices are available.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bids"
-                  },
-                  {
-                    "text": "asks"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A market order says.",
+            "values": {
+              "book": {
+                "var": "book",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "book"
-                  },
-                  {
-                    "text": "side"
-                  }
-                ],
-                "tone": "ok"
+              "o": {
+                "var": "o",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "book": "data",
+              "o": "data"
+            },
+            "arrows": [
+              [
+                "book",
+                "o"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Resting orders populate the order book on bid and ask sides.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bids"
-                  },
-                  {
-                    "text": "asks"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The book is the central data structure of every exchange and every trading.",
+            "values": {
+              "book": {
+                "var": "book",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "book"
-                  },
-                  {
-                    "text": "side"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bids"
-                  },
-                  {
-                    "text": "book"
-                  }
-                ],
-                "tone": "data"
+              "o": {
+                "var": "o",
+                "line": 6,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example shows a small book with a few resting orders on each side.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bids"
-                  },
-                  {
-                    "text": "asks"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "book"
-                  },
-                  {
-                    "text": "side"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bids"
-                  },
-                  {
-                    "text": "book"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "asks"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "book": "ok",
+              "o": "ok"
+            },
+            "arrows": [
+              [
+                "book",
+                "o"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Resting limit order book sides and execution terms",
-        "columns": [
-          "bids",
-          "asks"
+        "template": "flow",
+        "title": "Limit orders and market orders",
+        "nodes": [
+          {
+            "id": "book",
+            "label": "book"
+          },
+          {
+            "id": "o",
+            "label": "o"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Limit orders specify execution boundaries and wait when untraded immediately.",
-            "rows": [
-              {
-                "cells": [
-                  "bids",
-                  "asks"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A limit order says.",
+            "values": {
+              "book": "{'bids': [{'id': 'b1', 'price': 100, 'q…",
+              "o": "{'id': 'a2', 'price': 100.05, 'qty': 70…"
+            },
+            "tones": {
+              "book": "data",
+              "o": "data"
+            },
+            "arrows": [
+              [
+                "book",
+                "o"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Market orders execute immediately against whatever prices are available.",
-            "rows": [
-              {
-                "cells": [
-                  "bids",
-                  "asks"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "book",
-                  "side"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A market order says.",
+            "values": {
+              "book": "{'bids': [{'id': 'b1', 'price': 100, 'q…",
+              "o": "{'id': 'a2', 'price': 100.05, 'qty': 70…"
+            },
+            "tones": {
+              "book": "data",
+              "o": "data"
+            },
+            "arrows": [
+              [
+                "book",
+                "o"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Resting orders populate the order book on bid and ask sides.",
-            "rows": [
-              {
-                "cells": [
-                  "bids",
-                  "asks"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "book",
-                  "side"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bids",
-                  "book"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example shows a small book with a few resting orders on each side.",
-            "rows": [
-              {
-                "cells": [
-                  "bids",
-                  "asks"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "book",
-                  "side"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bids",
-                  "book"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "asks",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The book is the central data structure of every exchange and every trading.",
+            "values": {
+              "book": "{'bids': [{'id': 'b1', 'price': 100, 'q…",
+              "o": "{'id': 'a1', 'price': 100.02, 'qty': 20…"
+            },
+            "tones": {
+              "book": "ok",
+              "o": "ok"
+            },
+            "arrows": [
+              [
+                "book",
+                "o"
+              ]
             ]
           }
         ]
@@ -261,143 +177,91 @@
       "partTitle": "Price-time priority",
       "codeHash": "355ae33fdc533a40de00037819108e866d2376d50768dd10a0f1ac88b5ee92c4",
       "spec": {
-        "template": "table",
-        "title": "Price-time priority execution sequencing and FIFO queues",
-        "columns": [
-          "bids",
-          "asks"
+        "template": "sequence",
+        "title": "Price-time priority",
+        "actors": [
+          "orders",
+          "o",
+          "bids"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Price-time priority determines matching sequence when orders could trade.",
-            "rows": [
+            "caption": "When several orders could trade, exchanges must decide who goes first.",
+            "activeActor": "orders",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "bids"
-                  },
-                  {
-                    "text": "asks"
-                  }
-                ],
+                "from": "orders",
+                "to": "o",
+                "label": {
+                  "var": "orders",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "o",
+                "to": "bids",
+                "label": {
+                  "var": "o",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The best price trades first with higher bids and lower asks taking precedence.",
-            "rows": [
+            "caption": "A higher bid beats a lower bid.",
+            "activeActor": "o",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "bids"
-                  },
-                  {
-                    "text": "asks"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "orders"
-                  },
-                  {
-                    "text": "sorted"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Orders at the same price trade in FIFO order based on when they arrived.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bids"
-                  },
-                  {
-                    "text": "asks"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "orders"
-                  },
-                  {
-                    "text": "sorted"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "orders"
-                  },
-                  {
-                    "text": "key"
-                  }
-                ],
+                "from": "orders",
+                "to": "o",
+                "label": {
+                  "var": "orders",
+                  "line": 2,
+                  "hit": 5
+                },
                 "tone": "data"
+              },
+              {
+                "from": "o",
+                "to": "bids",
+                "label": {
+                  "var": "o",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example sorts orders into price-time order with sorted keys.",
-            "rows": [
+            "caption": "The example sorts a jumble of orders into price-time order with Python's.",
+            "activeActor": "bids",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "bids"
-                  },
-                  {
-                    "text": "asks"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "orders"
-                  },
-                  {
-                    "text": "sorted"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "orders"
-                  },
-                  {
-                    "text": "key"
-                  }
-                ],
+                "from": "orders",
+                "to": "o",
+                "label": {
+                  "var": "orders",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "bids"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "from": "o",
+                "to": "bids",
+                "label": {
+                  "var": "o",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -405,106 +269,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Price-time priority execution sequencing and FIFO queues",
-        "columns": [
-          "bids",
-          "asks"
+        "template": "sequence",
+        "title": "Price-time priority",
+        "actors": [
+          "orders",
+          "o",
+          "bids"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Price-time priority determines matching sequence when orders could trade.",
-            "rows": [
+            "caption": "When several orders could trade, exchanges must decide who goes first.",
+            "messages": [
               {
-                "cells": [
-                  "bids",
-                  "asks"
-                ],
+                "from": "orders",
+                "to": "o",
+                "label": "[[100, 3, 'b3'], [100.5, 2, 'b2'], [100…",
+                "tone": "data"
+              },
+              {
+                "from": "o",
+                "to": "bids",
+                "label": "[100, 3, 'b3']",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "orders"
           },
           {
             "at": "say2",
-            "caption": "The best price trades first with higher bids and lower asks taking precedence.",
-            "rows": [
+            "caption": "A higher bid beats a lower bid.",
+            "messages": [
               {
-                "cells": [
-                  "bids",
-                  "asks"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "orders",
-                  "sorted"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Orders at the same price trade in FIFO order based on when they arrived.",
-            "rows": [
-              {
-                "cells": [
-                  "bids",
-                  "asks"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "orders",
-                  "sorted"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "orders",
-                  "key"
-                ],
+                "from": "orders",
+                "to": "o",
+                "label": "[[100, 3, 'b3'], [100.5, 2, 'b2'], [100…",
                 "tone": "data"
+              },
+              {
+                "from": "o",
+                "to": "bids",
+                "label": "[100.5, 2, 'b2']",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "o"
           },
           {
             "at": "say7",
-            "caption": "The example sorts orders into price-time order with sorted keys.",
-            "rows": [
+            "caption": "The example sorts a jumble of orders into price-time order with Python's.",
+            "messages": [
               {
-                "cells": [
-                  "bids",
-                  "asks"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "orders",
-                  "sorted"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "orders",
-                  "key"
-                ],
+                "from": "orders",
+                "to": "o",
+                "label": "[[100, 3, 'b3'], [100.5, 2, 'b2'], [100…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "bids",
-                  "print"
-                ],
+                "from": "o",
+                "to": "bids",
+                "label": "[100, 1, 'b1']",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "bids"
           }
         ]
       }
@@ -513,143 +341,104 @@
       "partTitle": "Inserting an order",
       "codeHash": "7a621429b4e69d681d9564ea123c38c7fa5b2f394222e75f50060783bc01890e",
       "spec": {
-        "template": "table",
-        "title": "Order insertion positioning and queue ordering",
-        "columns": [
-          "side",
-          "pos"
-        ],
+        "template": "bars",
+        "title": "Inserting an order",
         "steps": [
           {
             "at": "say1",
-            "caption": "Inserting each order at the right position avoids sorting the whole book.",
-            "rows": [
+            "caption": "Sorting the whole book after every new order would be slow.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "pos"
-                  }
-                ],
-                "tone": "ok"
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Walking from the best price stops at the first resting order with worse price.",
-            "rows": [
+            "caption": "For a bid, walk from the best price down and stop at the first resting.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "pos"
-                  }
-                ],
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "worse"
-                  },
-                  {
-                    "text": "book"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Strict price comparisons place newly arrived orders behind existing orders.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "pos"
-                  }
-                ],
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "worse"
-                  },
-                  {
-                    "text": "book"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 5
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "enumerate"
-                  },
-                  {
-                    "text": "len"
-                  }
-                ],
-                "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example inserts orders and prints the updated book configuration.",
-            "rows": [
+            "caption": "The example inserts orders one by one and prints the book after each.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "pos"
-                  }
-                ],
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 11,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "worse"
-                  },
-                  {
-                    "text": "book"
-                  }
-                ],
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "enumerate"
-                  },
-                  {
-                    "text": "len"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "insert_order"
-                  },
-                  {
-                    "text": "insert"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 6
+                },
                 "tone": "ok"
               }
             ]
@@ -657,103 +446,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Order insertion positioning and queue ordering",
-        "columns": [
-          "side",
-          "pos"
-        ],
+        "template": "bars",
+        "title": "Inserting an order",
         "steps": [
           {
             "at": "say1",
-            "caption": "Inserting each order at the right position avoids sorting the whole book.",
-            "rows": [
+            "caption": "Sorting the whole book after every new order would be slow.",
+            "bars": [
               {
-                "cells": [
-                  "side",
-                  "pos"
-                ],
-                "tone": "ok"
+                "label": "price",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "pos",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Walking from the best price stops at the first resting order with worse price.",
-            "rows": [
+            "caption": "For a bid, walk from the best price down and stop at the first resting.",
+            "bars": [
               {
-                "cells": [
-                  "side",
-                  "pos"
-                ],
+                "label": "price",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "worse",
-                  "book"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Strict price comparisons place newly arrived orders behind existing orders.",
-            "rows": [
-              {
-                "cells": [
-                  "side",
-                  "pos"
-                ],
+                "label": "pos",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "worse",
-                  "book"
-                ],
+                "label": "i",
+                "value": 0,
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "enumerate",
-                  "len"
-                ],
-                "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example inserts orders and prints the updated book configuration.",
-            "rows": [
+            "caption": "The example inserts orders one by one and prints the book after each.",
+            "bars": [
               {
-                "cells": [
-                  "side",
-                  "pos"
-                ],
+                "label": "price",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "worse",
-                  "book"
-                ],
+                "label": "pos",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "enumerate",
-                  "len"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "insert_order",
-                  "insert"
-                ],
+                "label": "i",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -765,143 +519,104 @@
       "partTitle": "Price levels and depth",
       "codeHash": "b78287d8de62d8ca349c8e91b0c155fcc004e8cd85874463ff73034572bcc1c8",
       "spec": {
-        "template": "table",
-        "title": "Level 2 market depth and cumulative volume ladders",
-        "columns": [
-          "levels",
-          "cumulative"
-        ],
+        "template": "bars",
+        "title": "Price levels and depth",
         "steps": [
           {
             "at": "say1",
-            "caption": "Aggregated price levels sum the total quantity across matching resting orders.",
-            "rows": [
+            "caption": "Many screens show the book aggregated by price level.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "levels"
-                  },
-                  {
-                    "text": "cumulative"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Cumulative depth tallies available liquidity from the best price outwards.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "levels"
-                  },
-                  {
-                    "text": "cumulative"
-                  }
-                ],
-                "tone": "ok"
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "asks"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Market depth indicates how large an order volume the market can absorb.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "levels"
-                  },
-                  {
-                    "text": "cumulative"
-                  }
-                ],
-                "tone": "ok"
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "asks"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "append"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example aggregates orders into price levels and computes cumulative depth.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how level updates data during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "levels"
-                  },
-                  {
-                    "text": "cumulative"
-                  }
-                ],
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "asks"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "append"
-                  }
-                ],
-                "tone": "data"
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Aggregation keeps the first-seen order of prices, which, for a sorted.",
+            "bars": [
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "levels"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -909,103 +624,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Level 2 market depth and cumulative volume ladders",
-        "columns": [
-          "levels",
-          "cumulative"
-        ],
+        "template": "bars",
+        "title": "Price levels and depth",
         "steps": [
           {
             "at": "say1",
-            "caption": "Aggregated price levels sum the total quantity across matching resting orders.",
-            "rows": [
+            "caption": "Many screens show the book aggregated by price level.",
+            "bars": [
               {
-                "cells": [
-                  "levels",
-                  "cumulative"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Cumulative depth tallies available liquidity from the best price outwards.",
-            "rows": [
-              {
-                "cells": [
-                  "levels",
-                  "cumulative"
-                ],
-                "tone": "ok"
+                "label": "price",
+                "value": 100.02,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "asks",
-                  "total"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Market depth indicates how large an order volume the market can absorb.",
-            "rows": [
-              {
-                "cells": [
-                  "levels",
-                  "cumulative"
-                ],
-                "tone": "ok"
+                "label": "qty",
+                "value": 200,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "asks",
-                  "total"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "items",
-                  "append"
-                ],
+                "label": "total",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example aggregates orders into price levels and computes cumulative depth.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how level updates data during execution.",
+            "bars": [
               {
-                "cells": [
-                  "levels",
-                  "cumulative"
-                ],
+                "label": "price",
+                "value": 100.02,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "asks",
-                  "total"
-                ],
+                "label": "qty",
+                "value": 200,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "items",
-                  "append"
-                ],
-                "tone": "data"
+                "label": "total",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Aggregation keeps the first-seen order of prices, which, for a sorted.",
+            "bars": [
+              {
+                "label": "price",
+                "value": 100.02,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "levels",
-                  "print"
-                ],
+                "label": "qty",
+                "value": 300,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 500,
                 "tone": "ok"
               }
             ]
@@ -1018,110 +698,161 @@
       "codeHash": "4f0e5fb7500fc4815d4abf91b5103edcb7d78fb5653832c639c832b566c76ccf",
       "spec": {
         "template": "flow",
-        "title": "Cancels, modifies and data structures — Execution Pipeline",
+        "title": "Cancels, modifies and data structures",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "book",
+            "label": "book"
           },
           {
-            "id": "proc",
-            "label": "2. Cancels, modifies a...",
-            "tappable": true
+            "id": "index",
+            "label": "index"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "order",
+            "label": "order"
+          },
+          {
+            "id": "side",
+            "label": "side"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Cancels, modifies and data structures.",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Cancels, modifies a... [Dtwo.Pfive.Stwo].",
+            "caption": "Orders are not only added.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "book": {
+                "var": "book",
+                "line": 1,
+                "hit": 1
+              },
+              "index": {
+                "var": "index",
+                "line": 2,
+                "hit": 1
+              },
+              "order": {
+                "var": "order",
+                "line": 4,
+                "hit": 1
+              },
+              "side": {
+                "var": "side",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "book": "data",
+              "index": "data",
+              "order": "data",
+              "side": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "book",
+                "index"
               ],
               [
-                "proc",
-                "out"
+                "index",
+                "order"
+              ],
+              [
+                "order",
+                "side"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "A cancel must find the order quickly.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "book": {
+                "var": "book",
+                "line": 2,
+                "hit": 1
+              },
+              "index": {
+                "var": "index",
+                "line": 3,
+                "hit": 1
+              },
+              "order": {
+                "var": "order",
+                "line": 5,
+                "hit": 1
+              },
+              "side": {
+                "var": "side",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "book": "data",
+              "index": "data",
+              "order": "data",
+              "side": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "book",
+                "index"
+              ],
+              [
+                "index",
+                "order"
+              ],
+              [
+                "order",
+                "side"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Cancels, modifies and data struct.",
+            "at": "say7",
+            "caption": "Always test cancel and modify paths as carefully as inserts.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "book": {
+                "var": "book",
+                "line": 3,
+                "hit": 1
+              },
+              "index": {
+                "var": "index",
+                "line": 7,
+                "hit": 1
+              },
+              "order": {
+                "var": "order",
+                "line": 6,
+                "hit": 1
+              },
+              "side": {
+                "var": "side",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "book": "ok",
+              "index": "ok",
+              "order": "ok",
+              "side": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "book",
+                "index"
               ],
               [
-                "proc",
-                "out"
+                "index",
+                "order"
+              ],
+              [
+                "order",
+                "side"
               ]
             ]
           }
@@ -1129,110 +860,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Cancels, modifies and data structures — Execution Pipeline",
+        "title": "Cancels, modifies and data structures",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "book",
+            "label": "book"
           },
           {
-            "id": "proc",
-            "label": "2. Cancels, modifies a...",
-            "tappable": true
+            "id": "index",
+            "label": "index"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "order",
+            "label": "order"
+          },
+          {
+            "id": "side",
+            "label": "side"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Cancels, modifies and data structures [D2.P5.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Cancels, modifies a... [D2.P5.S2].",
+            "caption": "Orders are not only added.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "book": "{'bids': [], 'asks': []}",
+              "index": "{}",
+              "order": "{'id': 'b1', 'side': 'BUY', 'price': 10…",
+              "side": "[]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "book": "data",
+              "index": "data",
+              "order": "data",
+              "side": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "book",
+                "index"
               ],
               [
-                "proc",
-                "out"
+                "index",
+                "order"
+              ],
+              [
+                "order",
+                "side"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P5.S3].",
+            "at": "say2",
+            "caption": "A cancel must find the order quickly.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "book": "{'bids': [], 'asks': []}",
+              "index": "{}",
+              "order": "{'id': 'b1', 'side': 'BUY', 'price': 10…",
+              "side": "[{'id': 'b1', 'side': 'BUY', 'price': 1…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "book": "data",
+              "index": "data",
+              "order": "data",
+              "side": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "book",
+                "index"
+              ],
+              [
+                "index",
+                "order"
+              ],
+              [
+                "order",
+                "side"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Cancels, modifies and data struct.. [D2.P5.S4].",
+            "at": "say7",
+            "caption": "Always test cancel and modify paths as carefully as inserts.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "book": "{'bids': [], 'asks': []}",
+              "index": "{}",
+              "order": "{'id': 'b1', 'side': 'BUY', 'price': 10…",
+              "side": "[{'id': 'b1', 'side': 'BUY', 'price': 1…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "book": "ok",
+              "index": "ok",
+              "order": "ok",
+              "side": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "book",
+                "index"
               ],
               [
-                "proc",
-                "out"
+                "index",
+                "order"
+              ],
+              [
+                "order",
+                "side"
               ]
             ]
           }
@@ -1243,223 +977,133 @@
       "partTitle": "Practice time: build the book",
       "codeHash": "81c6f63f45394bcf7cc231dba54bb0223455548a93f9d3356ac469bb270f985e",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: build the book — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: buil...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: build the book",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: build the book [Dtwo.Psix.Sone].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: buil... [Dtwo.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Insert_order(book, order).",
+            "bars": [
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks insert a mix of bids and asks, including two orders at the same.",
+            "bars": [
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: build the book.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example prints that ladder.",
+            "bars": [
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: build the book — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: buil...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: build the book",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: build the book [D2.P6.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: buil... [D2.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Insert_order(book, order).",
+            "bars": [
+              {
+                "label": "price",
+                "value": 100.05,
+                "tone": "data"
+              },
+              {
+                "label": "qty",
+                "value": 700,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks insert a mix of bids and asks, including two orders at the same.",
+            "bars": [
+              {
+                "label": "price",
+                "value": 100.05,
+                "tone": "ok"
+              },
+              {
+                "label": "qty",
+                "value": 700,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: build the book [D2.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example prints that ladder.",
+            "bars": [
+              {
+                "label": "price",
+                "value": 100.03,
+                "tone": "ok"
+              },
+              {
+                "label": "qty",
+                "value": 400,
+                "tone": "ok"
+              }
             ]
           }
         ]

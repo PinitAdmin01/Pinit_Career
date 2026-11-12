@@ -2,269 +2,809 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 47,
-  "promptSha": "8fddf1176d16ff4deb22e609c7e0a130f72ccf86f1d4b1fe13351fe329651322",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Read Repair & Version Vector Conflict Resolution (Siblings) — Foundations & Mathematical Invariants",
-      "codeHash": "c66192871fc9c16aecdc3c5b33055b9871f5d57cf638a9f65e27034667756367",
+      "partTitle": "Digest Optimization & Blocking vs Async Read Repair",
+      "codeHash": "97cee92e83b81e14ebdfa6c03cc2af908bd59ebfbc51629063c216509a9ed1b5",
       "spec": {
-        "template": "flow",
-        "title": "Read Repair & Version Vector Conflict Resolution (Siblings) — Foundati",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Digest Optimization & Blocking vs Async Read Repair",
+        "actors": [
+          "reps",
+          "replicas",
+          "key"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Trace how quorum updates read during execution.",
+            "activeActor": "reps",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "reps",
+                "to": "replicas",
+                "label": {
+                  "var": "reps",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "replicas",
+                "to": "key",
+                "label": {
+                  "var": "replicas",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Distributed databases like Cassandra eliminate redundant read payload.",
+            "activeActor": "replicas",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "reps",
+                "to": "replicas",
+                "label": {
+                  "var": "reps",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "replicas",
+                "to": "key",
+                "label": {
+                  "var": "replicas",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Trace the digest comparison and selective repair push below.",
+            "activeActor": "key",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "reps",
+                "to": "replicas",
+                "label": {
+                  "var": "reps",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "replicas",
+                "to": "key",
+                "label": {
+                  "var": "replicas",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Read Repair & Version Vector Conflict Resolution (Siblings) — Foundati",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Digest Optimization & Blocking vs Async Read Repair",
+        "actors": [
+          "reps",
+          "replicas",
+          "key"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "at": "say1",
+            "caption": "Trace how quorum updates read during execution.",
+            "messages": [
+              {
+                "from": "reps",
+                "to": "replicas",
+                "label": "[{'k': [5, 'fresh']}, {'k': [5, 'fresh'…",
+                "tone": "data"
+              },
+              {
+                "from": "replicas",
+                "to": "key",
+                "label": "[{'k': [5, 'fresh']}, {'k': [5, 'fresh'…",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
+            "activeActor": "reps"
+          },
+          {
+            "at": "say2",
+            "caption": "Distributed databases like Cassandra eliminate redundant read payload.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "reps",
+                "to": "replicas",
+                "label": "[{'k': [5, 'fresh']}, {'k': [5, 'fresh'…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "from": "replicas",
+                "to": "key",
+                "label": "[{'k': [5, 'fresh']}, {'k': [5, 'fresh'…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "replicas"
+          },
+          {
+            "at": "say6",
+            "caption": "Trace the digest comparison and selective repair push below.",
+            "messages": [
+              {
+                "from": "reps",
+                "to": "replicas",
+                "label": "[{'k': [5, 'fresh']}, {'k': [5, 'fresh'…",
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "from": "replicas",
+                "to": "key",
+                "label": "[{'k': [5, 'fresh']}, {'k': [5, 'fresh'…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "key"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Resolving Multi-Leader Version Vectors Into Sibling Lists",
+      "codeHash": "155a4790468c8db238eb333deea85e79f455a0173d5c07872bc2fb2f9197750d",
+      "spec": {
+        "template": "sequence",
+        "title": "Resolving Multi-Leader Version Vectors Into Sibling Lists",
+        "actors": [
+          "r1",
+          "replica_lists",
+          "all_items"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Scalar timestamps `(ts, node_id)` pick arbitrary single winners cleanly.",
+            "activeActor": "r1",
+            "messages": [
+              {
+                "from": "r1",
+                "to": "replica_lists",
+                "label": {
+                  "var": "r1",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "replica_lists",
+                "to": "all_items",
+                "label": {
+                  "var": "replica_lists",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Read Repair in vector-clock stores instead inspects version vectors across.",
+            "activeActor": "replica_lists",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "r1",
+                "to": "replica_lists",
+                "label": {
+                  "var": "r1",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "replica_lists",
+                "to": "all_items",
+                "label": {
+                  "var": "replica_lists",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "caption": "Simulate multi-replica sibling union and ancestor elimination during read.",
+            "activeActor": "all_items",
+            "messages": [
+              {
+                "from": "r1",
+                "to": "replica_lists",
+                "label": {
+                  "var": "r1",
+                  "line": 22,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "replica_lists",
+                "to": "all_items",
+                "label": {
+                  "var": "replica_lists",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "Resolving Multi-Leader Version Vectors Into Sibling Lists",
+        "actors": [
+          "r1",
+          "replica_lists",
+          "all_items"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Scalar timestamps `(ts, node_id)` pick arbitrary single winners cleanly.",
+            "messages": [
+              {
+                "from": "r1",
+                "to": "replica_lists",
+                "label": "[[{'vc': {'n1': 1, 'n2': 1}, 'val': 'ca…",
+                "tone": "data"
+              },
+              {
+                "from": "replica_lists",
+                "to": "all_items",
+                "label": "[[{'vc': {'n1': 1, 'n2': 1}, 'val': 'ca…",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
+            "activeActor": "r1"
+          },
+          {
+            "at": "say2",
+            "caption": "Read Repair in vector-clock stores instead inspects version vectors across.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "r1",
+                "to": "replica_lists",
+                "label": "[[{'vc': {'n1': 1, 'n2': 1}, 'val': 'ca…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "from": "replica_lists",
+                "to": "all_items",
+                "label": "[[{'vc': {'n1': 1, 'n2': 1}, 'val': 'ca…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "replica_lists"
+          },
+          {
+            "at": "say6",
+            "caption": "Simulate multi-replica sibling union and ancestor elimination during read.",
+            "messages": [
+              {
+                "from": "r1",
+                "to": "replica_lists",
+                "label": "[[{'vc': {'n1': 1, 'n2': 1}, 'val': 'ca…",
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+                "from": "replica_lists",
+                "to": "all_items",
+                "label": "[[{'vc': {'n1': 1, 'n2': 1}, 'val': 'ca…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "all_items"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Domain Conflict Resolution Policies: LWW, OR-Set CRDT & Custom Merge",
+      "codeHash": "887f15b8c0b1efcaba5479f95f7e519a76e6216ca108c1aa9da351e93d80c990",
+      "spec": {
+        "template": "flow",
+        "title": "Domain Conflict Resolution Policies: LWW, OR-Set CRDT & Custom M",
+        "nodes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "c1",
+            "label": "c1"
+          },
+          {
+            "id": "c2",
+            "label": "c2"
+          },
+          {
+            "id": "item",
+            "label": "item"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Surfacing raw sibling arrays to application code forces every caller.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "c1": {
+                "var": "c1",
+                "line": 20,
+                "hit": 1
+              },
+              "c2": {
+                "var": "c2",
+                "line": 20,
+                "hit": 1
+              },
+              "item": {
+                "var": "item",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "c1": "data",
+              "c2": "data",
+              "item": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "c1"
+              ],
+              [
+                "c1",
+                "c2"
+              ],
+              [
+                "c2",
+                "item"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Production systems support three distinct resolution tiers depending.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
+              },
+              "c1": {
+                "var": "c1",
+                "line": 21,
+                "hit": 1
+              },
+              "c2": {
+                "var": "c2",
+                "line": 21,
+                "hit": 1
+              },
+              "item": {
+                "var": "item",
+                "line": 7,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "self": "data",
+              "c1": "data",
+              "c2": "data",
+              "item": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "c1"
+              ],
+              [
+                "c1",
+                "c2"
+              ],
+              [
+                "c2",
+                "item"
+              ]
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Build an explicit OR-Set CRDT cart conflict resolver vs naive LWW.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 2
+              },
+              "c1": {
+                "var": "c1",
+                "line": 22,
+                "hit": 1
+              },
+              "c2": {
+                "var": "c2",
+                "line": 22,
+                "hit": 1
+              },
+              "item": {
+                "var": "item",
+                "line": 10,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "ok",
+              "c1": "ok",
+              "c2": "ok",
+              "item": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "c1"
+              ],
+              [
+                "c1",
+                "c2"
+              ],
+              [
+                "c2",
+                "item"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Domain Conflict Resolution Policies: LWW, OR-Set CRDT & Custom M",
+        "nodes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "c1",
+            "label": "c1"
+          },
+          {
+            "id": "c2",
+            "label": "c2"
+          },
+          {
+            "id": "item",
+            "label": "item"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Surfacing raw sibling arrays to application code forces every caller.",
+            "values": {
+              "self": "<ORSetCart>",
+              "c1": "<ORSetCart>",
+              "c2": "<ORSetCart>",
+              "item": "'milk'"
+            },
+            "tones": {
+              "self": "data",
+              "c1": "data",
+              "c2": "data",
+              "item": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "c1"
+              ],
+              [
+                "c1",
+                "c2"
+              ],
+              [
+                "c2",
+                "item"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Production systems support three distinct resolution tiers depending.",
+            "values": {
+              "self": "<ORSetCart>",
+              "c1": "<ORSetCart>",
+              "c2": "<ORSetCart>",
+              "item": "'eggs'"
+            },
+            "tones": {
+              "self": "data",
+              "c1": "data",
+              "c2": "data",
+              "item": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "c1"
+              ],
+              [
+                "c1",
+                "c2"
+              ],
+              [
+                "c2",
+                "item"
+              ]
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Build an explicit OR-Set CRDT cart conflict resolver vs naive LWW.",
+            "values": {
+              "self": "<ORSetCart>",
+              "c1": "<ORSetCart>",
+              "c2": "<ORSetCart>",
+              "item": "'eggs'"
+            },
+            "tones": {
+              "self": "ok",
+              "c1": "ok",
+              "c2": "ok",
+              "item": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "c1"
+              ],
+              [
+                "c1",
+                "c2"
+              ],
+              [
+                "c2",
+                "item"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Repair-on-Write (Partial Write Heal) & Sibling Explosion Alerts",
+      "codeHash": "f3553e438071ff664456410b6fc46aa477810e9a75c6ceea96114ddd76d47b26",
+      "spec": {
+        "template": "table",
+        "title": "Repair-on-Write (Partial Write Heal) & Sibling Explosion Alerts",
+        "columns": [
+          "Symbol",
+          "Executed Value"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "What happens if clients forget to pass back read context vectors.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "sibs"
+                  },
+                  {
+                    "var": "sibs",
+                    "line": 10,
+                    "hit": 5
+                  }
+                ],
+                "tone": "data"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": ".0"
+                  },
+                  {
+                    "var": ".0",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "k"
+                  },
+                  {
+                    "var": "k",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Every blind PUT without context arrives concurrent with ALL existing siblings.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "sibs"
+                  },
+                  {
+                    "var": "sibs",
+                    "line": 11,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": ".0"
+                  },
+                  {
+                    "var": ".0",
+                    "line": 3,
+                    "hit": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "k"
+                  },
+                  {
+                    "var": "k",
+                    "line": 3,
+                    "hit": 3
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Verify sibling-explosion throttling guards alongside blocking read-repair.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Repair-on-Write (Partial Write Heal) & Sibling Explosion Alerts",
+        "columns": [
+          "Symbol",
+          "Executed Value"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "What happens if clients forget to pass back read context vectors.",
+            "rows": [
+              {
+                "cells": [
+                  "sibs",
+                  "[[{'n0': 1}, 'v0'], [{'n1': 1}, 'v1'], …"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  ".0",
+                  "{'__other__': 'set_iterator'}"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "k",
+                  "'n0'"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Every blind PUT without context arrives concurrent with ALL existing siblings.",
+            "rows": [
+              {
+                "cells": [
+                  "sibs",
+                  "[[{'n0': 1}, 'v0'], [{'n1': 1}, 'v1'], …"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  ".0",
+                  "{'__other__': 'set_iterator'}"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "k",
+                  "'n9'"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Verify sibling-explosion throttling guards alongside blocking read-repair.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "bloat trigger: ('SIBLING_EXPLOSION_GUARD(count=5 > 4)', [({'n0': 1}, 'v0'), ({'n1': 1}, 'v1'), ({'n2': 1}, 'v2'), ({'n3': 1}, 'v3'), ({'n9': 1}, 'v9')])"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -272,1065 +812,165 @@
       }
     },
     {
-      "partTitle": "Read Repair & Version Vector Conflict Resolution (Siblings) — Core Algorithm & State Representation",
-      "codeHash": "afe3420672bd6759b4ed847f03b80060817b4d3b3c877c6f64879c5194f7db57",
+      "partTitle": "Testing Read Repair & Sibling Convergence Under Packet Loss",
+      "codeHash": "6eb0ca10654f6cf8759b5bf63dfc21df5ae4d40d36aa2f69febac0870412e779",
       "spec": {
-        "template": "flow",
-        "title": "Read Repair & Version Vector Conflict Resolution (Siblings) — Core Alg",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Testing Read Repair & Sibling Convergence Under Packet Loss",
+        "actors": [
+          "reps",
+          "all_sibs",
+          "idx"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Verify your quorum read-repair and sibling-resolution subsystem together.",
+            "activeActor": "reps",
+            "messages": [
+              {
+                "from": "reps",
+                "to": "all_sibs",
+                "label": {
+                  "var": "reps",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "all_sibs",
+                "to": "idx",
+                "label": {
+                  "var": "all_sibs",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Run a complete simulation where `N=3` replicas receive partial writes.",
+            "activeActor": "all_sibs",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "reps",
+                "to": "all_sibs",
+                "label": {
+                  "var": "reps",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "all_sibs",
+                "to": "idx",
+                "label": {
+                  "var": "all_sibs",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "caption": "Run the full convergence simulation test below.",
+            "activeActor": "idx",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "reps",
+                "to": "all_sibs",
+                "label": {
+                  "var": "reps",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "all_sibs",
+                "to": "idx",
+                "label": {
+                  "var": "all_sibs",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Read Repair & Version Vector Conflict Resolution (Siblings) — Core Alg",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Testing Read Repair & Sibling Convergence Under Packet Loss",
+        "actors": [
+          "reps",
+          "all_sibs",
+          "idx"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Verify your quorum read-repair and sibling-resolution subsystem together.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "reps",
+                "to": "all_sibs",
+                "label": "[[{'vc': {'n1': 1}, 'val': 'cart:[pen]'…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "all_sibs",
+                "to": "idx",
+                "label": "[{'vc': {'n1': 1}, 'val': 'cart:[pen]'}…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "reps"
+          },
+          {
+            "at": "say2",
+            "caption": "Run a complete simulation where `N=3` replicas receive partial writes.",
+            "messages": [
+              {
+                "from": "reps",
+                "to": "all_sibs",
+                "label": "[[{'vc': {'n1': 1}, 'val': 'cart:[pen]'…",
+                "tone": "data"
+              },
+              {
+                "from": "all_sibs",
+                "to": "idx",
+                "label": "[{'vc': {'n1': 1}, 'val': 'cart:[pen]'}…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "all_sibs"
           },
           {
             "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "caption": "Run the full convergence simulation test below.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "reps",
+                "to": "all_sibs",
+                "label": "[[{'vc': {'n1': 1}, 'val': 'cart:[pen]'…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "all_sibs",
+                "to": "idx",
+                "label": "[{'vc': {'n1': 1}, 'val': 'cart:[pen]'}…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Read Repair & Version Vector Conflict Resolution (Siblings) — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "96f27f1b9a65aecee7c12166c8b7642c73d04d0780fa3cc45466f0e446f548db",
-      "spec": {
-        "template": "flow",
-        "title": "Read Repair & Version Vector Conflict Resolution (Siblings) — Throughp",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Read Repair & Version Vector Conflict Resolution (Siblings) — Throughp",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Read Repair & Version Vector Conflict Resolution (Siblings) — Resilience Guardrails & Failure Recovery",
-      "codeHash": "be29542d34b31f0e2e8ee7608af51816305a72136943b5bc3b2ede6b38f19f6c",
-      "spec": {
-        "template": "flow",
-        "title": "Read Repair & Version Vector Conflict Resolution (Siblings) — Resilien",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Read Repair & Version Vector Conflict Resolution (Siblings) — Resilien",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Read Repair & Version Vector Conflict Resolution (Siblings) — Production Telemetry & Verification Audit",
-      "codeHash": "5a5539d78c005d2db0385c77e7f89594fd155fbd83000fbb84c3e281be9ff9c9",
-      "spec": {
-        "template": "flow",
-        "title": "Read Repair & Version Vector Conflict Resolution (Siblings) — Producti",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Read Repair & Version Vector Conflict Resolution (Siblings) — Producti",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "idx"
           }
         ]
       }

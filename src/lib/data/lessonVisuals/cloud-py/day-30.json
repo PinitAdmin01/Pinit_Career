@@ -2,256 +2,284 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 30,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The capstone architecture",
       "codeHash": "862f15b90d86a76736c4891c78d925f008ecb439e96e2c450a9cbfcc2f55b2db",
       "spec": {
-        "template": "table",
-        "title": "Multi-Region banking platform architectural stack and components",
-        "columns": [
-          "Edge",
-          "Compute"
+        "template": "flow",
+        "title": "The capstone architecture",
+        "nodes": [
+          {
+            "id": "layers",
+            "label": "layers"
+          },
+          {
+            "id": "regions",
+            "label": "regions"
+          },
+          {
+            "id": "layer",
+            "label": "layer"
+          },
+          {
+            "id": "what",
+            "label": "what"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A digital bank serving customers with near zero downtime and data loss.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Edge"
-                  },
-                  {
-                    "text": "Compute"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A digital bank serving customers in India, Europe and the United States.",
+            "values": {
+              "layers": {
+                "var": "layers",
+                "line": 1,
+                "hit": 1
+              },
+              "regions": {
+                "var": "regions",
+                "line": 10,
+                "hit": 1
+              },
+              "layer": {
+                "var": "layer",
+                "line": 11,
+                "hit": 1
+              },
+              "what": {
+                "var": "what",
+                "line": 11,
+                "hit": 1
               }
+            },
+            "tones": {
+              "layers": "data",
+              "regions": "data",
+              "layer": "data",
+              "what": "data"
+            },
+            "arrows": [
+              [
+                "layers",
+                "regions"
+              ],
+              [
+                "regions",
+                "layer"
+              ],
+              [
+                "layer",
+                "what"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Each Region has the full application stack with public and private subnets.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Edge"
-                  },
-                  {
-                    "text": "Compute"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Each Region runs a full copy of the stack.",
+            "values": {
+              "layers": {
+                "var": "layers",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Entry"
-                  },
-                  {
-                    "text": "Compute"
-                  }
-                ],
-                "tone": "ok"
+              "regions": {
+                "var": "regions",
+                "line": 11,
+                "hit": 1
+              },
+              "layer": {
+                "var": "layer",
+                "line": 12,
+                "hit": 1
+              },
+              "what": {
+                "var": "what",
+                "line": 12,
+                "hit": 1
               }
+            },
+            "tones": {
+              "layers": "data",
+              "regions": "data",
+              "layer": "data",
+              "what": "data"
+            },
+            "arrows": [
+              [
+                "layers",
+                "regions"
+              ],
+              [
+                "regions",
+                "layer"
+              ],
+              [
+                "layer",
+                "what"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "DynamoDB global tables replicate customer profiles across Regions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Edge"
-                  },
-                  {
-                    "text": "Compute"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Take a moment to notice how much you can already design.",
+            "values": {
+              "layers": {
+                "var": "layers",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Entry"
-                  },
-                  {
-                    "text": "Compute"
-                  }
-                ],
-                "tone": "ok"
+              "regions": {
+                "var": "regions",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Data"
-                  },
-                  {
-                    "text": "Messaging"
-                  }
-                ],
-                "tone": "data"
+              "layer": {
+                "var": "layer",
+                "line": 11,
+                "hit": 2
+              },
+              "what": {
+                "var": "what",
+                "line": 11,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Everything is defined in Terraform and encrypted with KMS keys.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Edge"
-                  },
-                  {
-                    "text": "Compute"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Entry"
-                  },
-                  {
-                    "text": "Compute"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Data"
-                  },
-                  {
-                    "text": "Messaging"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Security"
-                  },
-                  {
-                    "text": "layers"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "layers": "ok",
+              "regions": "ok",
+              "layer": "ok",
+              "what": "ok"
+            },
+            "arrows": [
+              [
+                "layers",
+                "regions"
+              ],
+              [
+                "regions",
+                "layer"
+              ],
+              [
+                "layer",
+                "what"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Multi-Region banking platform architectural stack and components",
-        "columns": [
-          "Edge",
-          "Compute"
+        "template": "flow",
+        "title": "The capstone architecture",
+        "nodes": [
+          {
+            "id": "layers",
+            "label": "layers"
+          },
+          {
+            "id": "regions",
+            "label": "regions"
+          },
+          {
+            "id": "layer",
+            "label": "layer"
+          },
+          {
+            "id": "what",
+            "label": "what"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A digital bank serving customers with near zero downtime and data loss.",
-            "rows": [
-              {
-                "cells": [
-                  "Edge",
-                  "Compute"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A digital bank serving customers in India, Europe and the United States.",
+            "values": {
+              "layers": "[['Edge', 'Route 53 latency + health ch…",
+              "regions": "['ap-south-1', 'eu-west-1', 'us-east-1']",
+              "layer": "'Edge'",
+              "what": "'Route 53 latency + health checks, Clou…"
+            },
+            "tones": {
+              "layers": "data",
+              "regions": "data",
+              "layer": "data",
+              "what": "data"
+            },
+            "arrows": [
+              [
+                "layers",
+                "regions"
+              ],
+              [
+                "regions",
+                "layer"
+              ],
+              [
+                "layer",
+                "what"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Each Region has the full application stack with public and private subnets.",
-            "rows": [
-              {
-                "cells": [
-                  "Edge",
-                  "Compute"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Entry",
-                  "Compute"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Each Region runs a full copy of the stack.",
+            "values": {
+              "layers": "[['Edge', 'Route 53 latency + health ch…",
+              "regions": "['ap-south-1', 'eu-west-1', 'us-east-1']",
+              "layer": "'Edge'",
+              "what": "'Route 53 latency + health checks, Clou…"
+            },
+            "tones": {
+              "layers": "data",
+              "regions": "data",
+              "layer": "data",
+              "what": "data"
+            },
+            "arrows": [
+              [
+                "layers",
+                "regions"
+              ],
+              [
+                "regions",
+                "layer"
+              ],
+              [
+                "layer",
+                "what"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "DynamoDB global tables replicate customer profiles across Regions.",
-            "rows": [
-              {
-                "cells": [
-                  "Edge",
-                  "Compute"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Entry",
-                  "Compute"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Data",
-                  "Messaging"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Everything is defined in Terraform and encrypted with KMS keys.",
-            "rows": [
-              {
-                "cells": [
-                  "Edge",
-                  "Compute"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Entry",
-                  "Compute"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Data",
-                  "Messaging"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Security",
-                  "layers"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Take a moment to notice how much you can already design.",
+            "values": {
+              "layers": "[['Edge', 'Route 53 latency + health ch…",
+              "regions": "['ap-south-1', 'eu-west-1', 'us-east-1']",
+              "layer": "'Entry'",
+              "what": "'ALB across 3 AZs, TLS from ACM'"
+            },
+            "tones": {
+              "layers": "ok",
+              "regions": "ok",
+              "layer": "ok",
+              "what": "ok"
+            },
+            "arrows": [
+              [
+                "layers",
+                "regions"
+              ],
+              [
+                "regions",
+                "layer"
+              ],
+              [
+                "layer",
+                "what"
+              ]
             ]
           }
         ]
@@ -261,250 +289,162 @@
       "partTitle": "Routing transactions: health, latency and residency",
       "codeHash": "32f5d44f368df0f077ff9bc63967427609c198a9d134a85c6a24e67c4ee7f94a",
       "spec": {
-        "template": "table",
-        "title": "Transaction routing decisions filtered by health, law and latency",
-        "columns": [
-          "healthy",
-          "country"
+        "template": "sequence",
+        "title": "Routing transactions: health, latency and residency",
+        "actors": [
+          "regions",
+          "country",
+          "txn"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Routing a banking transaction follows three rules in strict order.",
-            "rows": [
+            "caption": "Routing a banking transaction has three rules, in this order.",
+            "activeActor": "regions",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "healthy"
-                  },
-                  {
-                    "text": "country"
-                  }
-                ],
+                "from": "regions",
+                "to": "country",
+                "label": {
+                  "var": "regions",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "country",
+                "to": "txn",
+                "label": {
+                  "var": "country",
+                  "line": 12,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Customer data may only be processed in Regions allowed by residency law.",
-            "rows": [
+            "caption": "The customer's data may only be processed in Regions allowed by data.",
+            "activeActor": "country",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "healthy"
-                  },
-                  {
-                    "text": "country"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "regions"
-                  },
-                  {
-                    "text": "country"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Never send a transaction to an unhealthy Region.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "healthy"
-                  },
-                  {
-                    "text": "country"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "regions"
-                  },
-                  {
-                    "text": "country"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "healthy"
-                  },
-                  {
-                    "text": "region"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Choose the lowest latency among Regions that pass the first rules.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "healthy"
-                  },
-                  {
-                    "text": "country"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "regions"
-                  },
-                  {
-                    "text": "country"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "healthy"
-                  },
-                  {
-                    "text": "region"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "latency_ms"
-                  },
-                  {
-                    "text": "success"
-                  }
-                ],
+                "from": "regions",
+                "to": "country",
+                "label": {
+                  "var": "regions",
+                  "line": 12,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "country",
+                "to": "txn",
+                "label": {
+                  "var": "country",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The example routes customers from three countries while one Region is down.",
+            "activeActor": "txn",
+            "messages": [
+              {
+                "from": "regions",
+                "to": "country",
+                "label": {
+                  "var": "regions",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "country",
+                "to": "txn",
+                "label": {
+                  "var": "country",
+                  "line": 12,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Transaction routing decisions filtered by health, law and latency",
-        "columns": [
-          "healthy",
-          "country"
+        "template": "sequence",
+        "title": "Routing transactions: health, latency and residency",
+        "actors": [
+          "regions",
+          "country",
+          "txn"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Routing a banking transaction follows three rules in strict order.",
-            "rows": [
+            "caption": "Routing a banking transaction has three rules, in this order.",
+            "messages": [
               {
-                "cells": [
-                  "healthy",
-                  "country"
-                ],
+                "from": "regions",
+                "to": "country",
+                "label": "[{'code': 'ap-south-1', 'healthy': Fals…",
+                "tone": "data"
+              },
+              {
+                "from": "country",
+                "to": "txn",
+                "label": "'IN'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "regions"
           },
           {
             "at": "say2",
-            "caption": "Customer data may only be processed in Regions allowed by residency law.",
-            "rows": [
+            "caption": "The customer's data may only be processed in Regions allowed by data.",
+            "messages": [
               {
-                "cells": [
-                  "healthy",
-                  "country"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "regions",
-                  "country"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Never send a transaction to an unhealthy Region.",
-            "rows": [
-              {
-                "cells": [
-                  "healthy",
-                  "country"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "regions",
-                  "country"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "healthy",
-                  "region"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Choose the lowest latency among Regions that pass the first rules.",
-            "rows": [
-              {
-                "cells": [
-                  "healthy",
-                  "country"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "regions",
-                  "country"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "healthy",
-                  "region"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "latency_ms",
-                  "success"
-                ],
+                "from": "regions",
+                "to": "country",
+                "label": "[{'code': 'ap-south-1', 'healthy': Fals…",
                 "tone": "data"
+              },
+              {
+                "from": "country",
+                "to": "txn",
+                "label": "'IN'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "country"
+          },
+          {
+            "at": "say7",
+            "caption": "The example routes customers from three countries while one Region is down.",
+            "messages": [
+              {
+                "from": "regions",
+                "to": "country",
+                "label": "[{'code': 'ap-south-1', 'healthy': Fals…",
+                "tone": "data"
+              },
+              {
+                "from": "country",
+                "to": "txn",
+                "label": "'DE'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "txn"
           }
         ]
       }
@@ -513,250 +453,106 @@
       "partTitle": "Keeping money consistent across Regions",
       "codeHash": "b507c34975ec7c9758304a09329e438ad4b3937cd41dbe5d93c9c4a02669c078",
       "spec": {
-        "template": "table",
-        "title": "Ledger balance consistency and home Region failover guarantees",
-        "columns": [
-          "balance",
-          "amount"
+        "template": "states",
+        "title": "Keeping money consistent across Regions",
+        "states": [
+          {
+            "id": "balance",
+            "label": "balance"
+          },
+          {
+            "id": "amount",
+            "label": "amount"
+          },
+          {
+            "id": "mumbai",
+            "label": "mumbai"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Balances are hard because two Regions could approve withdrawals at once.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "balance"
-                  },
-                  {
-                    "text": "amount"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Active-active is easy for data that can be briefly out of sync, like.",
+            "currentState": "balance",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Global tables resolve concurrent writes with last writer wins.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "balance"
-                  },
-                  {
-                    "text": "amount"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "frankfurt"
-                  },
-                  {
-                    "text": "declined"
-                  }
-                ],
-                "tone": "idle"
+            "caption": "Global tables resolve concurrent writes with \"last writer wins\".",
+            "currentState": "amount",
+            "transition": {
+              "from": "balance",
+              "to": "amount",
+              "label": {
+                "var": "amount",
+                "line": 2,
+                "hit": 2
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "A home Region processes money movements while reads serve everywhere.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "balance"
-                  },
-                  {
-                    "text": "amount"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "frankfurt"
-                  },
-                  {
-                    "text": "declined"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "mumbai"
-                  },
-                  {
-                    "text": "approved"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "This is where cloud architecture and distributed systems meet.",
+            "currentState": "mumbai",
+            "transition": {
+              "from": "amount",
+              "to": "mumbai",
+              "label": {
+                "var": "mumbai",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Money movements use an append-only ledger with an idempotency key.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "balance"
-                  },
-                  {
-                    "text": "amount"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "frankfurt"
-                  },
-                  {
-                    "text": "declined"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "mumbai"
-                  },
-                  {
-                    "text": "approved"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "balance"
-                  },
-                  {
-                    "text": "approved"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Ledger balance consistency and home Region failover guarantees",
-        "columns": [
-          "balance",
-          "amount"
+        "template": "states",
+        "title": "Keeping money consistent across Regions",
+        "states": [
+          {
+            "id": "balance",
+            "label": "balance"
+          },
+          {
+            "id": "amount",
+            "label": "amount"
+          },
+          {
+            "id": "mumbai",
+            "label": "mumbai"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Balances are hard because two Regions could approve withdrawals at once.",
-            "rows": [
-              {
-                "cells": [
-                  "balance",
-                  "amount"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Active-active is easy for data that can be briefly out of sync, like.",
+            "currentState": "balance",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Global tables resolve concurrent writes with last writer wins.",
-            "rows": [
-              {
-                "cells": [
-                  "balance",
-                  "amount"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "frankfurt",
-                  "declined"
-                ],
-                "tone": "idle"
-              }
-            ]
+            "caption": "Global tables resolve concurrent writes with \"last writer wins\".",
+            "currentState": "amount",
+            "transition": {
+              "from": "balance",
+              "to": "amount",
+              "label": "70"
+            },
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "A home Region processes money movements while reads serve everywhere.",
-            "rows": [
-              {
-                "cells": [
-                  "balance",
-                  "amount"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "frankfurt",
-                  "declined"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "mumbai",
-                  "approved"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Money movements use an append-only ledger with an idempotency key.",
-            "rows": [
-              {
-                "cells": [
-                  "balance",
-                  "amount"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "frankfurt",
-                  "declined"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "mumbai",
-                  "approved"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "balance",
-                  "approved"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say7",
+            "caption": "This is where cloud architecture and distributed systems meet.",
+            "currentState": "mumbai",
+            "transition": {
+              "from": "amount",
+              "to": "mumbai",
+              "label": "[20, 'approved']"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -765,143 +561,104 @@
       "partTitle": "Failing over a whole Region",
       "codeHash": "d369b1217dba81d5c7bfe7d13bd43b8ba43008edaa2c68fb860d838210e4f41d",
       "spec": {
-        "template": "table",
-        "title": "Region failover traffic shift and survivor capacity allocation",
-        "columns": [
-          "traffic",
-          "capacity"
-        ],
+        "template": "bars",
+        "title": "Failing over a whole Region",
         "steps": [
           {
             "at": "say1",
-            "caption": "When a Region fails several automatic actions take place.",
-            "rows": [
+            "caption": "When a Region fails, several things happen, ideally automatically.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "ap-south-1"
-                  },
-                  {
-                    "text": "capacity"
-                  }
-                ],
-                "tone": "ok"
+                "label": "moved",
+                "value": {
+                  "var": "moved",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_survivin",
+                "value": {
+                  "var": "total_surviving",
+                  "line": 6,
+                  "hit": 4
+                },
+                "tone": "data"
+              },
+              {
+                "label": "new_load",
+                "value": {
+                  "var": "new_load",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Health checks stop sending users to the failed Region.",
-            "rows": [
+            "caption": "Trace how route updates health during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "ap-south-1"
-                  },
-                  {
-                    "text": "capacity"
-                  }
-                ],
+                "label": "moved",
+                "value": {
+                  "var": "moved",
+                  "line": 6,
+                  "hit": 4
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "failed"
-                  },
-                  {
-                    "text": "traffic"
-                  }
-                ],
-                "tone": "error"
+                "label": "total_survivin",
+                "value": {
+                  "var": "total_surviving",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "new_load",
+                "value": {
+                  "var": "new_load",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Accounts move to backup home Regions after ledger replicas catch up.",
-            "rows": [
+            "at": "say7",
+            "caption": "The most common real failure is not the Region itself but a failover.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "ap-south-1"
-                  },
-                  {
-                    "text": "capacity"
-                  }
-                ],
+                "label": "moved",
+                "value": {
+                  "var": "moved",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "failed"
-                  },
-                  {
-                    "text": "traffic"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "eu-west-1"
-                  },
-                  {
-                    "text": "capacity"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Surviving Regions scale out to absorb extra traffic.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ap-south-1"
-                  },
-                  {
-                    "text": "capacity"
-                  }
-                ],
+                "label": "total_survivin",
+                "value": {
+                  "var": "total_surviving",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "failed"
-                  },
-                  {
-                    "text": "traffic"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "eu-west-1"
-                  },
-                  {
-                    "text": "capacity"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "us-east-1"
-                  },
-                  {
-                    "text": "capacity"
-                  }
-                ],
+                "label": "new_load",
+                "value": {
+                  "var": "new_load",
+                  "line": 7,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -909,103 +666,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Region failover traffic shift and survivor capacity allocation",
-        "columns": [
-          "traffic",
-          "capacity"
-        ],
+        "template": "bars",
+        "title": "Failing over a whole Region",
         "steps": [
           {
             "at": "say1",
-            "caption": "When a Region fails several automatic actions take place.",
-            "rows": [
+            "caption": "When a Region fails, several things happen, ideally automatically.",
+            "bars": [
               {
-                "cells": [
-                  "ap-south-1",
-                  "capacity"
-                ],
-                "tone": "ok"
+                "label": "moved",
+                "value": 5000,
+                "tone": "data"
+              },
+              {
+                "label": "total_survivin",
+                "value": 5000,
+                "tone": "data"
+              },
+              {
+                "label": "new_load",
+                "value": 6000,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Health checks stop sending users to the failed Region.",
-            "rows": [
+            "caption": "Trace how route updates health during execution.",
+            "bars": [
               {
-                "cells": [
-                  "ap-south-1",
-                  "capacity"
-                ],
+                "label": "moved",
+                "value": 5000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "failed",
-                  "traffic"
-                ],
-                "tone": "error"
+                "label": "total_survivin",
+                "value": 5000,
+                "tone": "ok"
+              },
+              {
+                "label": "new_load",
+                "value": 6000,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Accounts move to backup home Regions after ledger replicas catch up.",
-            "rows": [
+            "at": "say7",
+            "caption": "The most common real failure is not the Region itself but a failover.",
+            "bars": [
               {
-                "cells": [
-                  "ap-south-1",
-                  "capacity"
-                ],
+                "label": "moved",
+                "value": 5000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "failed",
-                  "traffic"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "eu-west-1",
-                  "capacity"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Surviving Regions scale out to absorb extra traffic.",
-            "rows": [
-              {
-                "cells": [
-                  "ap-south-1",
-                  "capacity"
-                ],
+                "label": "total_survivin",
+                "value": 5000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "failed",
-                  "traffic"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "eu-west-1",
-                  "capacity"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "us-east-1",
-                  "capacity"
-                ],
+                "label": "new_load",
+                "value": 6000,
                 "tone": "ok"
               }
             ]
@@ -1017,224 +739,162 @@
       "partTitle": "The readiness audit",
       "codeHash": "c4f9ff3dba81b031498d1daaee2652bd39538a5627db9b0b5d81b69ab8fc8222",
       "spec": {
-        "template": "flow",
-        "title": "The readiness audit — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The readiness audit",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "The readiness audit",
+        "actors": [
+          "checks",
+          "score",
+          "flags"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The readiness audit [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The readiness audit [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Before a platform like this goes live, it passes a readiness review.",
+            "activeActor": "checks",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "score",
+                "label": {
+                  "var": "checks",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "flags",
+                "label": {
+                  "var": "score",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The AWS Well-Architected Framework groups the questions into six pillars.",
+            "activeActor": "score",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "score",
+                "label": {
+                  "var": "checks",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "flags",
+                "label": {
+                  "var": "score",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The readiness audit [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example runs an audit on a nearly ready platform.",
+            "activeActor": "flags",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "score",
+                "label": {
+                  "var": "checks",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "flags",
+                "label": {
+                  "var": "score",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The readiness audit — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The readiness audit",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "The readiness audit",
+        "actors": [
+          "checks",
+          "score",
+          "flags"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The readiness audit [D30.P5.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The readiness audit [D30.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Before a platform like this goes live, it passes a readiness review.",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "score",
+                "label": "{'multi_region_failover_tested': True, …",
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "flags",
+                "label": "84",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "checks"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The AWS Well-Architected Framework groups the questions into six pillars.",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "score",
+                "label": "{'multi_region_failover_tested': True, …",
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "flags",
+                "label": "84",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "score"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The readiness audit [D30.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example runs an audit on a nearly ready platform.",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "score",
+                "label": "{'multi_region_failover_tested': True, …",
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "flags",
+                "label": "84",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "flags"
           }
         ]
       }
@@ -1244,110 +904,93 @@
       "codeHash": "c67640d5cadfd43687ff635d784aff634e08d0f4e502908aa3f723a67b567338",
       "spec": {
         "template": "flow",
-        "title": "Capstone practice and what comes next — Execution Pipeline",
+        "title": "Capstone practice and what comes next",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "milestones",
+            "label": "milestones"
           },
           {
-            "id": "proc",
-            "label": "2. Capstone practice a...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "day",
+            "label": "day"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Capstone practice and what comes next.",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Capstone practice a... [D.Psix.Stwo].",
+            "caption": "Route_transaction(regions, txn).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "milestones": {
+                "var": "milestones",
+                "line": 1,
+                "hit": 2
+              },
+              "day": {
+                "var": "day",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "milestones": "data",
+              "day": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "milestones",
+                "day"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Readiness_audit(checks).",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "milestones": {
+                "var": "milestones",
+                "line": 3,
+                "hit": 1
+              },
+              "day": {
+                "var": "day",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "milestones": "data",
+              "day": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "milestones",
+                "day"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Capstone practice and what comes .",
+            "at": "say7",
+            "caption": "The example prints your course journey as the milestones you passed.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "milestones": {
+                "var": "milestones",
+                "line": 4,
+                "hit": 1
+              },
+              "day": {
+                "var": "day",
+                "line": 3,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "milestones": "ok",
+              "day": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "milestones",
+                "day"
               ]
             ]
           }
@@ -1355,110 +998,69 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Capstone practice and what comes next — Execution Pipeline",
+        "title": "Capstone practice and what comes next",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "milestones",
+            "label": "milestones"
           },
           {
-            "id": "proc",
-            "label": "2. Capstone practice a...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "day",
+            "label": "day"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Capstone practice and what comes next [D30.P6.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Capstone practice a... [D30.P6.S2].",
+            "caption": "Route_transaction(regions, txn).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "milestones": "{5: 'Multi-AZ VPC', 15: 'Serverless vid…",
+              "day": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "milestones": "data",
+              "day": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "milestones",
+                "day"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P6.S3].",
+            "at": "say2",
+            "caption": "Readiness_audit(checks).",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "milestones": "{5: 'Multi-AZ VPC', 15: 'Serverless vid…",
+              "day": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "milestones": "data",
+              "day": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "milestones",
+                "day"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Capstone practice and what comes .. [D30.P6.S4].",
+            "at": "say7",
+            "caption": "The example prints your course journey as the milestones you passed.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "milestones": "{5: 'Multi-AZ VPC', 15: 'Serverless vid…",
+              "day": "2"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "milestones": "ok",
+              "day": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "milestones",
+                "day"
               ]
             ]
           }

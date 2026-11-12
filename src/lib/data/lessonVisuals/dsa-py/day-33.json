@@ -2,87 +2,115 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 33,
-  "promptSha": "055044770d36dfe85534379703c50f476a8707c5f94f86cfd0ec7a3b84e88a0e",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Trie Memory Overhead & The Principles of Edge Compression",
       "codeHash": "afc39c58d2acf23cf45ef20793219e6b68607950a8097c45e13470e203fabc78",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Trie Memory Overhead & The Principles of Edge Compression",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The tries design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Standard Tries allocate one node and one child hash dictionary for every.",
+            "items": {
+              "var": "urls",
+              "line": 19,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Trie"
-                  },
-                  {
-                    "text": "Memory"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The indexed step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "In CPython, every Python dict object plus class instance easily consumes.",
+            "items": {
+              "var": "urls",
+              "line": 24,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Overhead"
-                  },
-                  {
-                    "text": "Principles"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Run the Python comparison below counting exact node allocations for three.",
+            "items": {
+              "var": "urls",
+              "line": 25,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Trie Memory Overhead & The Principles of Edge Compression",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The tries design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Standard Tries allocate one node and one child hash dictionary for every.",
+            "items": [
+              "'https://api.company.com/v1/users'",
+              "'https://api.company.com/v1/orders'",
+              "'https://api.company.com/v1/products'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Trie",
-                  "Memory"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The indexed step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "In CPython, every Python dict object plus class instance easily consumes.",
+            "items": [
+              "'https://api.company.com/v1/users'",
+              "'https://api.company.com/v1/orders'",
+              "'https://api.company.com/v1/products'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Overhead",
-                  "Principles"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Run the Python comparison below counting exact node allocations for three.",
+            "items": [
+              "'https://api.company.com/v1/users'",
+              "'https://api.company.com/v1/orders'",
+              "'https://api.company.com/v1/products'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,43 +121,77 @@
       "partTitle": "Implementing the Radix Tree: Prefix Splitting Mechanics",
       "codeHash": "a1f3a568066cb079f967e8248f7d5cfeec02ac353675a997694007bb868fa841",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Implementing the Radix Tree: Prefix Splitting Mechanics",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The inserting design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Inserting keys into a Radix Tree cleanly divides into three mutually.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Implementing"
-                  },
-                  {
-                    "text": "Radix"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 25,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The complete step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Case 1 (Disjoint).",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Tree"
-                  },
-                  {
-                    "text": "Prefix"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Run this self-contained RadixTree implementation below (with RadixNode.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 27,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -137,35 +199,53 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Implementing the Radix Tree: Prefix Splitting Mechanics",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The inserting design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Inserting keys into a Radix Tree cleanly divides into three mutually.",
+            "bars": [
               {
-                "cells": [
-                  "Implementing",
-                  "Radix"
-                ],
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": 2,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The complete step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Case 1 (Disjoint).",
+            "bars": [
               {
-                "cells": [
-                  "Tree",
-                  "Prefix"
-                ],
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": 2,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Run this self-contained RadixTree implementation below (with RadixNode.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": 2,
                 "tone": "ok"
               }
             ]
@@ -177,82 +257,82 @@
       "partTitle": "Aho-Corasick Automaton: Failure Links & BFS Construction",
       "codeHash": "fc8d451332e1330f011289b77f027c110a641e7cdbe8ce09aa82fd997c287ac7",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Aho-Corasick Automaton: Failure Links & BFS Construction",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The searching design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Corasick"
-                  },
-                  {
-                    "text": "Automaton"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Now consider searching an incoming text stream of length N for K.",
+            "items": {
+              "var": "patterns",
+              "line": 11,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The insert step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Failure"
-                  },
-                  {
-                    "text": "Links"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "The Aho-Corasick algorithm upgrades a standard Trie into a deterministic.",
+            "items": {
+              "var": "patterns",
+              "line": 12,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect this self-contained AhoCorasick automaton builder below.",
+            "items": {
+              "var": "patterns",
+              "line": 14,
+              "hit": 3
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Aho-Corasick Automaton: Failure Links & BFS Construction",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The searching design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Corasick",
-                  "Automaton"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Now consider searching an incoming text stream of length N for K.",
+            "mode": "queue",
+            "items": [
+              "'he'",
+              "'she'",
+              "'his'",
+              "'hers'"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The insert step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Failure",
-                  "Links"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "The Aho-Corasick algorithm upgrades a standard Trie into a deterministic.",
+            "mode": "queue",
+            "items": [
+              "'he'",
+              "'she'",
+              "'his'",
+              "'hers'"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect this self-contained AhoCorasick automaton builder below.",
+            "mode": "queue",
+            "items": [
+              "'he'",
+              "'she'",
+              "'his'",
+              "'hers'"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -261,82 +341,82 @@
       "partTitle": "Multi-Pattern Text Scanning in Linear Time",
       "codeHash": "c37220d07f660b5fd33ff7db02add3ed4ef10dfaeb65a5723ace51ea000b8bd5",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Multi-Pattern Text Scanning in Linear Time",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The finishes design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Multi"
-                  },
-                  {
-                    "text": "Pattern"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Once BFS finishes wiring all failure links and dictionary output lists.",
+            "items": {
+              "var": "patterns",
+              "line": 11,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The lacks step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Text"
-                  },
-                  {
-                    "text": "Scanning"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Starting pointer curr at self.",
+            "items": {
+              "var": "patterns",
+              "line": 12,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Execute this self-contained AhoCorasickSearcher below on 'ushers'.",
+            "items": {
+              "var": "patterns",
+              "line": 14,
+              "hit": 3
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Multi-Pattern Text Scanning in Linear Time",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The finishes design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Multi",
-                  "Pattern"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Once BFS finishes wiring all failure links and dictionary output lists.",
+            "mode": "queue",
+            "items": [
+              "'he'",
+              "'she'",
+              "'his'",
+              "'hers'"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The lacks step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Text",
-                  "Scanning"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Starting pointer curr at self.",
+            "mode": "queue",
+            "items": [
+              "'he'",
+              "'she'",
+              "'his'",
+              "'hers'"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Execute this self-contained AhoCorasickSearcher below on 'ushers'.",
+            "mode": "queue",
+            "items": [
+              "'he'",
+              "'she'",
+              "'his'",
+              "'hers'"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -345,82 +425,85 @@
       "partTitle": "Production Application: High-Throughput Security Log Auditor",
       "codeHash": "7b1eaeb479a38f566b97bb6ed3293fc05abc6c53c40bcb04ea2167d8c0da2d78",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Production Application: High-Throughput Security Log Auditor",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The appreciate design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "To appreciate the engineering power of Aho-Corasick, let us deploy it.",
+            "items": {
+              "var": "patterns",
+              "line": 11,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The evaluating step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "High"
-                  },
-                  {
-                    "text": "Throughput"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Enterprise security rulesets bundle thousands of threat markersSQL.",
+            "items": {
+              "var": "patterns",
+              "line": 12,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Notice below how wrapping AhoCorasickSearcher inside SecurityLogAuditor.",
+            "items": {
+              "var": "patterns",
+              "line": 14,
+              "hit": 3
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Production Application: High-Throughput Security Log Auditor",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The appreciate design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "To appreciate the engineering power of Aho-Corasick, let us deploy it.",
+            "mode": "queue",
+            "items": [
+              "'UNION SELECT'",
+              "'OR 1=1'",
+              "'<script>'",
+              "'../..'",
+              "'/etc/passwd'"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The evaluating step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "High",
-                  "Throughput"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Enterprise security rulesets bundle thousands of threat markersSQL.",
+            "mode": "queue",
+            "items": [
+              "'UNION SELECT'",
+              "'OR 1=1'",
+              "'<script>'",
+              "'../..'",
+              "'/etc/passwd'"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Notice below how wrapping AhoCorasickSearcher inside SecurityLogAuditor.",
+            "mode": "queue",
+            "items": [
+              "'UNION SELECT'",
+              "'OR 1=1'",
+              "'<script>'",
+              "'../..'",
+              "'/etc/passwd'"
+            ],
+            "action": "idle"
           }
         ]
       }

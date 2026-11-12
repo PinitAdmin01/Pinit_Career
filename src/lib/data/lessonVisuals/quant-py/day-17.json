@@ -2,150 +2,138 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 17,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Implied volatility",
       "codeHash": "47030df96710c7208eb2da5480a29fd6206f5d765dc34702e840d0f3cb14194b",
       "spec": {
-        "template": "table",
-        "title": "Implied volatility mapping and monotonic price response",
-        "columns": [
-          "call",
-          "sigma"
-        ],
+        "template": "bars",
+        "title": "Implied volatility",
         "steps": [
           {
             "at": "say1",
-            "caption": "Asset prices, strikes and rates are observable while volatility is unobserved.",
-            "rows": [
+            "caption": "Every input to Black-Scholes is observable except volatility.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "sigma"
-                  }
-                ],
-                "tone": "ok"
+                "label": "sigma",
+                "value": {
+                  "var": "sigma",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Implied volatility is the parameter that reproduces observable market prices.",
-            "rows": [
+            "caption": "Markets therefore quote options by price, and traders ask.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "sigma"
-                  }
-                ],
+                "label": "sigma",
+                "value": {
+                  "var": "sigma",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "d1"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Because no closed formula exists for sigma, solvers find roots numerically.",
-            "rows": [
+            "at": "say7",
+            "caption": "Because the price increases steadily with volatility, there is at most one.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "sigma"
-                  }
-                ],
+                "label": "sigma",
+                "value": {
+                  "var": "sigma",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "d1"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "sqrt"
-                  },
-                  {
-                    "text": "exp"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example shows how call prices rise monotonically as volatility increases.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "sigma"
-                  }
-                ],
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "d1"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sqrt"
-                  },
-                  {
-                    "text": "exp"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "S"
-                  }
-                ],
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -153,103 +141,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Implied volatility mapping and monotonic price response",
-        "columns": [
-          "call",
-          "sigma"
-        ],
+        "template": "bars",
+        "title": "Implied volatility",
         "steps": [
           {
             "at": "say1",
-            "caption": "Asset prices, strikes and rates are observable while volatility is unobserved.",
-            "rows": [
+            "caption": "Every input to Black-Scholes is observable except volatility.",
+            "bars": [
               {
-                "cells": [
-                  "call",
-                  "sigma"
-                ],
-                "tone": "ok"
+                "label": "sigma",
+                "value": 0.1,
+                "tone": "data"
+              },
+              {
+                "label": "S",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "K",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "T",
+                "value": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Implied volatility is the parameter that reproduces observable market prices.",
-            "rows": [
+            "caption": "Markets therefore quote options by price, and traders ask.",
+            "bars": [
               {
-                "cells": [
-                  "call",
-                  "sigma"
-                ],
+                "label": "sigma",
+                "value": 0.1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "d1",
-                  "math"
-                ],
+                "label": "S",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "K",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "T",
+                "value": 1,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Because no closed formula exists for sigma, solvers find roots numerically.",
-            "rows": [
+            "at": "say7",
+            "caption": "Because the price increases steadily with volatility, there is at most one.",
+            "bars": [
               {
-                "cells": [
-                  "call",
-                  "sigma"
-                ],
+                "label": "sigma",
+                "value": 0.1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "d1",
-                  "math"
-                ],
+                "label": "S",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "sqrt",
-                  "exp"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example shows how call prices rise monotonically as volatility increases.",
-            "rows": [
-              {
-                "cells": [
-                  "call",
-                  "sigma"
-                ],
+                "label": "K",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "d1",
-                  "math"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sqrt",
-                  "exp"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "call",
-                  "S"
-                ],
+                "label": "T",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -261,143 +229,131 @@
       "partTitle": "Vega",
       "codeHash": "b674ce74535d7bc3f043df5eabb2f802116384579b3aaee5dab7df859f9b9bb2",
       "spec": {
-        "template": "table",
-        "title": "Vega sensitivity and analytical first-derivative slope",
-        "columns": [
-          "vega",
-          "sigma"
-        ],
+        "template": "bars",
+        "title": "Vega",
         "steps": [
           {
             "at": "say1",
-            "caption": "Vega quantifies option price sensitivity to shifts in implied volatility.",
-            "rows": [
+            "caption": "Vega is the Greek measuring how much the option price changes when.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "vega"
-                  },
-                  {
-                    "text": "sigma"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Vega reaches maximum values at the money and expands across longer expiries.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "vega"
-                  },
-                  {
-                    "text": "sigma"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "T"
-                  },
-                  {
-                    "text": "d1"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Vega provides the analytical slope necessary for Newton-Raphson solvers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "vega"
-                  },
-                  {
-                    "text": "sigma"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "T"
-                  },
-                  {
-                    "text": "d1"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "pi"
-                  }
-                ],
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how usually updates quoted during execution.",
+            "bars": [
+              {
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example compares vega metrics across different option expiries.",
-            "rows": [
+            "caption": "The example compares vega across expiries.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "vega"
-                  },
-                  {
-                    "text": "sigma"
-                  }
-                ],
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "T"
-                  },
-                  {
-                    "text": "d1"
-                  }
-                ],
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "pi"
-                  }
-                ],
-                "tone": "data"
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "print"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -405,103 +361,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Vega sensitivity and analytical first-derivative slope",
-        "columns": [
-          "vega",
-          "sigma"
-        ],
+        "template": "bars",
+        "title": "Vega",
         "steps": [
           {
             "at": "say1",
-            "caption": "Vega quantifies option price sensitivity to shifts in implied volatility.",
-            "rows": [
+            "caption": "Vega is the Greek measuring how much the option price changes when.",
+            "bars": [
               {
-                "cells": [
-                  "vega",
-                  "sigma"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Vega reaches maximum values at the money and expands across longer expiries.",
-            "rows": [
-              {
-                "cells": [
-                  "vega",
-                  "sigma"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "T",
-                  "d1"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Vega provides the analytical slope necessary for Newton-Raphson solvers.",
-            "rows": [
-              {
-                "cells": [
-                  "vega",
-                  "sigma"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "T",
-                  "d1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "pi"
-                ],
+                "label": "T",
+                "value": 0.1,
                 "tone": "data"
+              },
+              {
+                "label": "S",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "K",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 0.05,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how usually updates quoted during execution.",
+            "bars": [
+              {
+                "label": "T",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "S",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "K",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 0.05,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example compares vega metrics across different option expiries.",
-            "rows": [
+            "caption": "The example compares vega across expiries.",
+            "bars": [
               {
-                "cells": [
-                  "vega",
-                  "sigma"
-                ],
+                "label": "T",
+                "value": 0.1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "T",
-                  "d1"
-                ],
+                "label": "S",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "math",
-                  "pi"
-                ],
-                "tone": "data"
+                "label": "K",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "print",
-                  "sqrt"
-                ],
+                "label": "r",
+                "value": 0.05,
                 "tone": "ok"
               }
             ]
@@ -513,143 +449,131 @@
       "partTitle": "Newton-Raphson",
       "codeHash": "558db280bb60c7f1d90fb9e3596767dca83e4f57090a778b903a563510276234",
       "spec": {
-        "template": "table",
-        "title": "Newton-Raphson iterative root finding and quadratic convergence",
-        "columns": [
-          "model",
-          "price"
-        ],
+        "template": "bars",
+        "title": "Newton-Raphson",
         "steps": [
           {
             "at": "say1",
-            "caption": "Newton-Raphson iteratively updates root estimates using derivative slopes.",
-            "rows": [
+            "caption": "Newton-Raphson is a fast method for solving f(x) = 0.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "model"
-                  },
-                  {
-                    "text": "price"
-                  }
-                ],
-                "tone": "ok"
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Pricing error differences divide by vega to determine volatility step updates.",
-            "rows": [
+            "caption": "For implied volatility, f(sigma) = BlackScholes(sigma) - market price,.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "model"
-                  },
-                  {
-                    "text": "price"
-                  }
-                ],
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "sigma"
-                  },
-                  {
-                    "text": "d1"
-                  }
-                ],
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Iterations terminate once pricing discrepancies fall below required tolerances.",
-            "rows": [
+            "at": "say7",
+            "caption": "A market maker may recompute thousands of implied volatilities every time.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "model"
-                  },
-                  {
-                    "text": "price"
-                  }
-                ],
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "sigma"
-                  },
-                  {
-                    "text": "d1"
-                  }
-                ],
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example prints each iteration step demonstrating how the error vanishes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "model"
-                  },
-                  {
-                    "text": "price"
-                  }
-                ],
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "sigma"
-                  },
-                  {
-                    "text": "d1"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "exp"
-                  }
-                ],
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -657,103 +581,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Newton-Raphson iterative root finding and quadratic convergence",
-        "columns": [
-          "model",
-          "price"
-        ],
+        "template": "bars",
+        "title": "Newton-Raphson",
         "steps": [
           {
             "at": "say1",
-            "caption": "Newton-Raphson iteratively updates root estimates using derivative slopes.",
-            "rows": [
+            "caption": "Newton-Raphson is a fast method for solving f(x) = 0.",
+            "bars": [
               {
-                "cells": [
-                  "model",
-                  "price"
-                ],
-                "tone": "ok"
+                "label": "S",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "K",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "T",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 0.05,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Pricing error differences divide by vega to determine volatility step updates.",
-            "rows": [
+            "caption": "For implied volatility, f(sigma) = BlackScholes(sigma) - market price,.",
+            "bars": [
               {
-                "cells": [
-                  "model",
-                  "price"
-                ],
+                "label": "S",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "sigma",
-                  "d1"
-                ],
+                "label": "K",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "T",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 0.05,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Iterations terminate once pricing discrepancies fall below required tolerances.",
-            "rows": [
+            "at": "say7",
+            "caption": "A market maker may recompute thousands of implied volatilities every time.",
+            "bars": [
               {
-                "cells": [
-                  "model",
-                  "price"
-                ],
+                "label": "S",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "sigma",
-                  "d1"
-                ],
+                "label": "K",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "step",
-                  "range"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example prints each iteration step demonstrating how the error vanishes.",
-            "rows": [
-              {
-                "cells": [
-                  "model",
-                  "price"
-                ],
+                "label": "T",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "sigma",
-                  "d1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "step",
-                  "range"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "math",
-                  "exp"
-                ],
+                "label": "r",
+                "value": 0.05,
                 "tone": "ok"
               }
             ]
@@ -765,249 +669,277 @@
       "partTitle": "When there is no answer",
       "codeHash": "2d0d739e2bcdbef86f2b64ea23434acf4a785a35b84e9d56a7b33a3c87e99dbe",
       "spec": {
-        "template": "table",
-        "title": "No-arbitrage boundary conditions and solver safeguard validation",
-        "columns": [
-          "low",
-          "high"
+        "template": "flow",
+        "title": "When there is no answer",
+        "nodes": [
+          {
+            "id": "S",
+            "label": "S"
+          },
+          {
+            "id": "K",
+            "label": "K"
+          },
+          {
+            "id": "T",
+            "label": "T"
+          },
+          {
+            "id": "r",
+            "label": "r"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Option quotes remain bounded by stock price and discounted intrinsic value.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "low"
-                  },
-                  {
-                    "text": "high"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Not every price has an implied volatility.",
+            "values": {
+              "S": {
+                "var": "S",
+                "line": 4,
+                "hit": 1
+              },
+              "K": {
+                "var": "K",
+                "line": 4,
+                "hit": 1
+              },
+              "T": {
+                "var": "T",
+                "line": 4,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "S": "data",
+              "K": "data",
+              "T": "data",
+              "r": "data"
+            },
+            "arrows": [
+              [
+                "S",
+                "K"
+              ],
+              [
+                "K",
+                "T"
+              ],
+              [
+                "T",
+                "r"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Quotes outside bounds yield no valid solution and return invalid signals.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "low"
-                  },
-                  {
-                    "text": "high"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A price outside those bounds, often a stale or bad quote, has no solution.",
+            "values": {
+              "S": {
+                "var": "S",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "call_bounds"
-                  },
-                  {
-                    "text": "price"
-                  }
-                ],
-                "tone": "ok"
+              "K": {
+                "var": "K",
+                "line": 4,
+                "hit": 1
+              },
+              "T": {
+                "var": "T",
+                "line": 4,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "S": "data",
+              "K": "data",
+              "T": "data",
+              "r": "data"
+            },
+            "arrows": [
+              [
+                "S",
+                "K"
+              ],
+              [
+                "K",
+                "T"
+              ],
+              [
+                "T",
+                "r"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Robust solvers check boundary limits and guard against vanishing vega slopes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "low"
-                  },
-                  {
-                    "text": "high"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "In production, a silent wrong implied volatility can misprice a whole.",
+            "values": {
+              "S": {
+                "var": "S",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "call_bounds"
-                  },
-                  {
-                    "text": "price"
-                  }
-                ],
-                "tone": "ok"
+              "K": {
+                "var": "K",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "round"
-                  },
-                  {
-                    "text": "max"
-                  }
-                ],
-                "tone": "data"
+              "T": {
+                "var": "T",
+                "line": 4,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example checks no-arbitrage bounds before attempting an analytical solve.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "low"
-                  },
-                  {
-                    "text": "high"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "call_bounds"
-                  },
-                  {
-                    "text": "price"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "round"
-                  },
-                  {
-                    "text": "max"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "print"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "S": "ok",
+              "K": "ok",
+              "T": "ok",
+              "r": "ok"
+            },
+            "arrows": [
+              [
+                "S",
+                "K"
+              ],
+              [
+                "K",
+                "T"
+              ],
+              [
+                "T",
+                "r"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "No-arbitrage boundary conditions and solver safeguard validation",
-        "columns": [
-          "low",
-          "high"
+        "template": "flow",
+        "title": "When there is no answer",
+        "nodes": [
+          {
+            "id": "S",
+            "label": "S"
+          },
+          {
+            "id": "K",
+            "label": "K"
+          },
+          {
+            "id": "T",
+            "label": "T"
+          },
+          {
+            "id": "r",
+            "label": "r"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Option quotes remain bounded by stock price and discounted intrinsic value.",
-            "rows": [
-              {
-                "cells": [
-                  "low",
-                  "high"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Not every price has an implied volatility.",
+            "values": {
+              "S": "100",
+              "K": "100",
+              "T": "1",
+              "r": "0.05"
+            },
+            "tones": {
+              "S": "data",
+              "K": "data",
+              "T": "data",
+              "r": "data"
+            },
+            "arrows": [
+              [
+                "S",
+                "K"
+              ],
+              [
+                "K",
+                "T"
+              ],
+              [
+                "T",
+                "r"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Quotes outside bounds yield no valid solution and return invalid signals.",
-            "rows": [
-              {
-                "cells": [
-                  "low",
-                  "high"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "call_bounds",
-                  "price"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A price outside those bounds, often a stale or bad quote, has no solution.",
+            "values": {
+              "S": "100",
+              "K": "100",
+              "T": "1",
+              "r": "0.05"
+            },
+            "tones": {
+              "S": "data",
+              "K": "data",
+              "T": "data",
+              "r": "data"
+            },
+            "arrows": [
+              [
+                "S",
+                "K"
+              ],
+              [
+                "K",
+                "T"
+              ],
+              [
+                "T",
+                "r"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Robust solvers check boundary limits and guard against vanishing vega slopes.",
-            "rows": [
-              {
-                "cells": [
-                  "low",
-                  "high"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "call_bounds",
-                  "price"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "round",
-                  "max"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example checks no-arbitrage bounds before attempting an analytical solve.",
-            "rows": [
-              {
-                "cells": [
-                  "low",
-                  "high"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "call_bounds",
-                  "price"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "round",
-                  "max"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "print",
-                  "math"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "In production, a silent wrong implied volatility can misprice a whole.",
+            "values": {
+              "S": "100",
+              "K": "100",
+              "T": "1",
+              "r": "0.05"
+            },
+            "tones": {
+              "S": "ok",
+              "K": "ok",
+              "T": "ok",
+              "r": "ok"
+            },
+            "arrows": [
+              [
+                "S",
+                "K"
+              ],
+              [
+                "K",
+                "T"
+              ],
+              [
+                "T",
+                "r"
+              ]
             ]
           }
         ]
@@ -1017,224 +949,162 @@
       "partTitle": "The smile and the surface",
       "codeHash": "b191532f97401193ed5578b84de7dce524cbc7b0ea82a2d972bd8267269db2bd",
       "spec": {
-        "template": "flow",
-        "title": "The smile and the surface — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The smile and the s...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "The smile and the surface",
+        "actors": [
+          "strikes",
+          "atm_vol",
+          "skew"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The smile and the surface [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The smile and the s... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "If Black-Scholes were perfectly true, every option on the same stock would.",
+            "activeActor": "strikes",
+            "messages": [
+              {
+                "from": "strikes",
+                "to": "atm_vol",
+                "label": {
+                  "var": "strikes",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "atm_vol",
+                "to": "skew",
+                "label": {
+                  "var": "atm_vol",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Plotting implied volatility against strike usually shows a smile or a skew.",
+            "activeActor": "atm_vol",
+            "messages": [
+              {
+                "from": "strikes",
+                "to": "atm_vol",
+                "label": {
+                  "var": "strikes",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "atm_vol",
+                "to": "skew",
+                "label": {
+                  "var": "atm_vol",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The smile and the surface.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Understanding the surface is the step from \"knowing the formula\".",
+            "activeActor": "skew",
+            "messages": [
+              {
+                "from": "strikes",
+                "to": "atm_vol",
+                "label": {
+                  "var": "strikes",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "atm_vol",
+                "to": "skew",
+                "label": {
+                  "var": "atm_vol",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The smile and the surface — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The smile and the s...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "The smile and the surface",
+        "actors": [
+          "strikes",
+          "atm_vol",
+          "skew"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The smile and the surface [D17.P5.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The smile and the s... [D17.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "If Black-Scholes were perfectly true, every option on the same stock would.",
+            "messages": [
+              {
+                "from": "strikes",
+                "to": "atm_vol",
+                "label": "[80, 90, 100, 110, 120]",
+                "tone": "data"
+              },
+              {
+                "from": "atm_vol",
+                "to": "skew",
+                "label": "0.2",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "strikes"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Plotting implied volatility against strike usually shows a smile or a skew.",
+            "messages": [
+              {
+                "from": "strikes",
+                "to": "atm_vol",
+                "label": "[80, 90, 100, 110, 120]",
+                "tone": "data"
+              },
+              {
+                "from": "atm_vol",
+                "to": "skew",
+                "label": "0.2",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "atm_vol"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The smile and the surface [D17.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Understanding the surface is the step from \"knowing the formula\".",
+            "messages": [
+              {
+                "from": "strikes",
+                "to": "atm_vol",
+                "label": "[80, 90, 100, 110, 120]",
+                "tone": "data"
+              },
+              {
+                "from": "atm_vol",
+                "to": "skew",
+                "label": "0.2",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "skew"
           }
         ]
       }
@@ -1243,223 +1113,217 @@
       "partTitle": "Practice time: solve for volatility",
       "codeHash": "7183e52873563db2cfac911ec647d2c568e54e51c1250f52b91ea8447ad43845",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: solve for volatility — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: solv...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: solve for volatility",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: solve for volatility.",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: solv... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Implied_vol(price, S, K, T, r, guess=0.",
+            "bars": [
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Return None after max_iter iterations without converging.",
+            "bars": [
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: solve for volatility.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "You now have a pricer and its inverse.",
+            "bars": [
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: solve for volatility — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: solv...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: solve for volatility",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: solve for volatility [D17.P6.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: solv... [D17.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Implied_vol(price, S, K, T, r, guess=0.",
+            "bars": [
+              {
+                "label": "price",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "S",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "K",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "T",
+                "value": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Return None after max_iter iterations without converging.",
+            "bars": [
+              {
+                "label": "price",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "S",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "K",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "T",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: solve for volatility [D17.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "You now have a pricer and its inverse.",
+            "bars": [
+              {
+                "label": "price",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "S",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "K",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "T",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           }
         ]

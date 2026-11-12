@@ -2,150 +2,98 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 3,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "When does an order trade?",
       "codeHash": "9ded269d18eac0398e4446b52a4da0bfd5906790ca48e6c0c82dda8392d196a1",
       "spec": {
-        "template": "table",
-        "title": "Crossing conditions and aggressor fill pricing",
-        "columns": [
+        "template": "sequence",
+        "title": "When does an order trade?",
+        "actors": [
           "best_bid",
-          "best_ask"
+          "best_ask",
+          "incoming"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An incoming order can trade if its limit crosses the prevailing spread.",
-            "rows": [
+            "caption": "An incoming buy order can trade if its limit price is at or above the best ask.",
+            "activeActor": "best_bid",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "best_bid"
-                  },
-                  {
-                    "text": "best_ask"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Crossing orders match against opposite resting orders until filled.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "best_bid"
-                  },
-                  {
-                    "text": "best_ask"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "incoming"
-                  },
-                  {
-                    "text": "crosses"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Executed trades match at the price set by the resting passive order.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "best_bid"
-                  },
-                  {
-                    "text": "best_ask"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "incoming"
-                  },
-                  {
-                    "text": "crosses"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "limit"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example checks whether several incoming orders would cross a given book.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "best_bid"
-                  },
-                  {
-                    "text": "best_ask"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "incoming"
-                  },
-                  {
-                    "text": "crosses"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "limit"
-                  }
-                ],
+                "from": "best_bid",
+                "to": "best_ask",
+                "label": {
+                  "var": "best_bid",
+                  "line": 1,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "best_bid"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "from": "best_ask",
+                "to": "incoming",
+                "label": {
+                  "var": "best_ask",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how does updates cross during execution.",
+            "activeActor": "best_ask",
+            "messages": [
+              {
+                "from": "best_bid",
+                "to": "best_ask",
+                "label": {
+                  "var": "best_bid",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "best_ask",
+                "to": "incoming",
+                "label": {
+                  "var": "best_ask",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The whole matching engine is just these rules, applied exactly and quickly.",
+            "activeActor": "incoming",
+            "messages": [
+              {
+                "from": "best_bid",
+                "to": "best_ask",
+                "label": {
+                  "var": "best_bid",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "best_ask",
+                "to": "incoming",
+                "label": {
+                  "var": "best_ask",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -153,106 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Crossing conditions and aggressor fill pricing",
-        "columns": [
+        "template": "sequence",
+        "title": "When does an order trade?",
+        "actors": [
           "best_bid",
-          "best_ask"
+          "best_ask",
+          "incoming"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An incoming order can trade if its limit crosses the prevailing spread.",
-            "rows": [
+            "caption": "An incoming buy order can trade if its limit price is at or above the best ask.",
+            "messages": [
               {
-                "cells": [
-                  "best_bid",
-                  "best_ask"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Crossing orders match against opposite resting orders until filled.",
-            "rows": [
-              {
-                "cells": [
-                  "best_bid",
-                  "best_ask"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "incoming",
-                  "crosses"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Executed trades match at the price set by the resting passive order.",
-            "rows": [
-              {
-                "cells": [
-                  "best_bid",
-                  "best_ask"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "incoming",
-                  "crosses"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "side",
-                  "limit"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example checks whether several incoming orders would cross a given book.",
-            "rows": [
-              {
-                "cells": [
-                  "best_bid",
-                  "best_ask"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "incoming",
-                  "crosses"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "side",
-                  "limit"
-                ],
+                "from": "best_bid",
+                "to": "best_ask",
+                "label": "99.98",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "best_bid",
-                  "print"
-                ],
+                "from": "best_ask",
+                "to": "incoming",
+                "label": "100.02",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "best_bid"
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how does updates cross during execution.",
+            "messages": [
+              {
+                "from": "best_bid",
+                "to": "best_ask",
+                "label": "99.98",
+                "tone": "data"
+              },
+              {
+                "from": "best_ask",
+                "to": "incoming",
+                "label": "100.02",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "best_ask"
+          },
+          {
+            "at": "say7",
+            "caption": "The whole matching engine is just these rules, applied exactly and quickly.",
+            "messages": [
+              {
+                "from": "best_bid",
+                "to": "best_ask",
+                "label": "99.98",
+                "tone": "data"
+              },
+              {
+                "from": "best_ask",
+                "to": "incoming",
+                "label": "100.02",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "incoming"
           }
         ]
       }
@@ -261,143 +173,131 @@
       "partTitle": "Walking the book",
       "codeHash": "e593d58b9d9f961643d3306a47ccb55ae67189fa85b35af90b54700c3a08d122",
       "spec": {
-        "template": "table",
-        "title": "Order sweep execution and market impact progression",
-        "columns": [
-          "asks",
-          "trades"
-        ],
+        "template": "bars",
+        "title": "Walking the book",
         "steps": [
           {
             "at": "say1",
-            "caption": "Large incoming volume exhausts top levels and trades across adjacent queues.",
-            "rows": [
+            "caption": "If the incoming order is bigger than the best resting order, it trades.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "asks"
-                  },
-                  {
-                    "text": "trades"
-                  }
-                ],
-                "tone": "ok"
+                "label": "remaining",
+                "value": {
+                  "var": "remaining",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "limit",
+                "value": {
+                  "var": "limit",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Walking the book executes sequential fills at distinct price increments.",
-            "rows": [
+            "caption": "This is called walking (or sweeping) the book.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "asks"
-                  },
-                  {
-                    "text": "trades"
-                  }
-                ],
+                "label": "remaining",
+                "value": {
+                  "var": "remaining",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "remaining"
-                  },
-                  {
-                    "text": "limit"
-                  }
-                ],
+                "label": "limit",
+                "value": {
+                  "var": "limit",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Depleted orders get removed while partially filled items keep queue priority.",
-            "rows": [
+            "at": "say7",
+            "caption": "Notice how a large order pays progressively worse prices.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "asks"
-                  },
-                  {
-                    "text": "trades"
-                  }
-                ],
+                "label": "remaining",
+                "value": {
+                  "var": "remaining",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "remaining"
-                  },
-                  {
-                    "text": "limit"
-                  }
-                ],
+                "label": "limit",
+                "value": {
+                  "var": "limit",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "take"
-                  },
-                  {
-                    "text": "append"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example walks a buy order through ask levels and prints each trade.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "asks"
-                  },
-                  {
-                    "text": "trades"
-                  }
-                ],
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "remaining"
-                  },
-                  {
-                    "text": "limit"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "take"
-                  },
-                  {
-                    "text": "append"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "trades"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -405,103 +305,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Order sweep execution and market impact progression",
-        "columns": [
-          "asks",
-          "trades"
-        ],
+        "template": "bars",
+        "title": "Walking the book",
         "steps": [
           {
             "at": "say1",
-            "caption": "Large incoming volume exhausts top levels and trades across adjacent queues.",
-            "rows": [
+            "caption": "If the incoming order is bigger than the best resting order, it trades.",
+            "bars": [
               {
-                "cells": [
-                  "asks",
-                  "trades"
-                ],
-                "tone": "ok"
+                "label": "remaining",
+                "value": 6,
+                "tone": "data"
+              },
+              {
+                "label": "limit",
+                "value": 100.1,
+                "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "qty",
+                "value": 3,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Walking the book executes sequential fills at distinct price increments.",
-            "rows": [
+            "caption": "This is called walking (or sweeping) the book.",
+            "bars": [
               {
-                "cells": [
-                  "asks",
-                  "trades"
-                ],
+                "label": "remaining",
+                "value": 6,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "remaining",
-                  "limit"
-                ],
+                "label": "limit",
+                "value": 100.1,
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "qty",
+                "value": 3,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Depleted orders get removed while partially filled items keep queue priority.",
-            "rows": [
+            "at": "say7",
+            "caption": "Notice how a large order pays progressively worse prices.",
+            "bars": [
               {
-                "cells": [
-                  "asks",
-                  "trades"
-                ],
+                "label": "remaining",
+                "value": 6,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "remaining",
-                  "limit"
-                ],
+                "label": "limit",
+                "value": 100.1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "take",
-                  "append"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example walks a buy order through ask levels and prints each trade.",
-            "rows": [
-              {
-                "cells": [
-                  "asks",
-                  "trades"
-                ],
+                "label": "price",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "remaining",
-                  "limit"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "take",
-                  "append"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "trades",
-                  "print"
-                ],
+                "label": "qty",
+                "value": 3,
                 "tone": "ok"
               }
             ]
@@ -513,143 +393,77 @@
       "partTitle": "Remainders rest in the book",
       "codeHash": "7d5c01f9fd7e78dcd35e8dc412734f16ac5b283c358c166fac6f0c9c579b7dd5",
       "spec": {
-        "template": "table",
-        "title": "Partial fill remainder retention and queue persistence",
-        "columns": [
-          "incoming",
-          "remaining"
-        ],
+        "template": "bars",
+        "title": "Remainders rest in the book",
         "steps": [
           {
             "at": "say1",
-            "caption": "Unfilled remainder quantity rests in the book at the original limit price.",
-            "rows": [
+            "caption": "If a limit order still has quantity after matching stops, the remainder.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "incoming"
-                  },
-                  {
-                    "text": "remaining"
-                  }
-                ],
-                "tone": "ok"
+                "label": "remaining",
+                "value": {
+                  "var": "remaining",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The remainder inserts into the queue establishing the new best price level.",
-            "rows": [
+            "caption": "Trace how inserted updates same during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "incoming"
-                  },
-                  {
-                    "text": "remaining"
-                  }
-                ],
+                "label": "remaining",
+                "value": {
+                  "var": "remaining",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "book"
-                  },
-                  {
-                    "text": "trades"
-                  }
-                ],
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Correct remainder handling ensures order quantities track shares reliably.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "incoming"
-                  },
-                  {
-                    "text": "remaining"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "book"
-                  },
-                  {
-                    "text": "trades"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "take"
-                  },
-                  {
-                    "text": "append"
-                  }
-                ],
-                "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Inspecting the book before and after confirms deterministic execution rules.",
-            "rows": [
+            "caption": "Look closely at the book before and after.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "incoming"
-                  },
-                  {
-                    "text": "remaining"
-                  }
-                ],
+                "label": "remaining",
+                "value": {
+                  "var": "remaining",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "book"
-                  },
-                  {
-                    "text": "trades"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "take"
-                  },
-                  {
-                    "text": "append"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "incoming"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -657,103 +471,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Partial fill remainder retention and queue persistence",
-        "columns": [
-          "incoming",
-          "remaining"
-        ],
+        "template": "bars",
+        "title": "Remainders rest in the book",
         "steps": [
           {
             "at": "say1",
-            "caption": "Unfilled remainder quantity rests in the book at the original limit price.",
-            "rows": [
+            "caption": "If a limit order still has quantity after matching stops, the remainder.",
+            "bars": [
               {
-                "cells": [
-                  "incoming",
-                  "remaining"
-                ],
-                "tone": "ok"
+                "label": "remaining",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "q",
+                "value": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The remainder inserts into the queue establishing the new best price level.",
-            "rows": [
+            "caption": "Trace how inserted updates same during execution.",
+            "bars": [
               {
-                "cells": [
-                  "incoming",
-                  "remaining"
-                ],
+                "label": "remaining",
+                "value": 4,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "book",
-                  "trades"
-                ],
+                "label": "q",
+                "value": 1,
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Correct remainder handling ensures order quantities track shares reliably.",
-            "rows": [
-              {
-                "cells": [
-                  "incoming",
-                  "remaining"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "book",
-                  "trades"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "take",
-                  "append"
-                ],
-                "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Inspecting the book before and after confirms deterministic execution rules.",
-            "rows": [
+            "caption": "Look closely at the book before and after.",
+            "bars": [
               {
-                "cells": [
-                  "incoming",
-                  "remaining"
-                ],
+                "label": "remaining",
+                "value": 4,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "book",
-                  "trades"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "take",
-                  "append"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "incoming",
-                  "print"
-                ],
+                "label": "q",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -765,143 +529,131 @@
       "partTitle": "Average fill price",
       "codeHash": "726379daac85418f4884d9153812f79de82fd785c6ac33646bc4086fe8bc7faa",
       "spec": {
-        "template": "table",
-        "title": "Volume weighted average fill price calculation",
-        "columns": [
-          "trades",
-          "qty"
-        ],
+        "template": "bars",
+        "title": "Average fill price",
         "steps": [
           {
             "at": "say1",
-            "caption": "Multiple partial executions require calculating an average fill price.",
-            "rows": [
+            "caption": "When an order fills in several trades at different prices, clients want.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "trades"
-                  },
-                  {
-                    "text": "qty"
-                  }
-                ],
-                "tone": "ok"
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 2,
+                  "hit": 4
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "avg",
+                "value": {
+                  "var": "avg",
+                  "line": 3,
+                  "hit": 4
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Price aggregation must weight each fill proportional to executed quantity.",
-            "rows": [
+            "caption": "It must be weighted by quantity.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "trades"
-                  },
-                  {
-                    "text": "qty"
-                  }
-                ],
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "avg"
-                  },
-                  {
-                    "text": "simple"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The formula computes volume-weighted average price across all fills.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "trades"
-                  },
-                  {
-                    "text": "qty"
-                  }
-                ],
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 3,
+                  "hit": 4
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "avg"
-                  },
-                  {
-                    "text": "simple"
-                  }
-                ],
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "sum"
-                  },
-                  {
-                    "text": "len"
-                  }
-                ],
-                "tone": "data"
+                "label": "avg",
+                "value": {
+                  "var": "avg",
+                  "line": 4,
+                  "hit": 4
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example computes the average fill price for trades from walking the book.",
-            "rows": [
+            "caption": "The example computes the average for the trades from the walking example.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "trades"
-                  },
-                  {
-                    "text": "qty"
-                  }
-                ],
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "avg"
-                  },
-                  {
-                    "text": "simple"
-                  }
-                ],
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 4,
+                  "hit": 4
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "sum"
-                  },
-                  {
-                    "text": "len"
-                  }
-                ],
-                "tone": "data"
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "round"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "avg",
+                "value": {
+                  "var": "avg",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -909,103 +661,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Volume weighted average fill price calculation",
-        "columns": [
-          "trades",
-          "qty"
-        ],
+        "template": "bars",
+        "title": "Average fill price",
         "steps": [
           {
             "at": "say1",
-            "caption": "Multiple partial executions require calculating an average fill price.",
-            "rows": [
+            "caption": "When an order fills in several trades at different prices, clients want.",
+            "bars": [
               {
-                "cells": [
-                  "trades",
-                  "qty"
-                ],
-                "tone": "ok"
+                "label": "q",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "qty",
+                "value": 6,
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "avg",
+                "value": 100.05,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Price aggregation must weight each fill proportional to executed quantity.",
-            "rows": [
+            "caption": "It must be weighted by quantity.",
+            "bars": [
               {
-                "cells": [
-                  "trades",
-                  "qty"
-                ],
+                "label": "q",
+                "value": 3,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "avg",
-                  "simple"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The formula computes volume-weighted average price across all fills.",
-            "rows": [
-              {
-                "cells": [
-                  "trades",
-                  "qty"
-                ],
+                "label": "qty",
+                "value": 6,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "avg",
-                  "simple"
-                ],
+                "label": "p",
+                "value": 100.1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "sum",
-                  "len"
-                ],
-                "tone": "data"
+                "label": "avg",
+                "value": 100.05,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example computes the average fill price for trades from walking the book.",
-            "rows": [
+            "caption": "The example computes the average for the trades from the walking example.",
+            "bars": [
               {
-                "cells": [
-                  "trades",
-                  "qty"
-                ],
+                "label": "q",
+                "value": 3,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "avg",
-                  "simple"
-                ],
+                "label": "qty",
+                "value": 6,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "sum",
-                  "len"
-                ],
-                "tone": "data"
+                "label": "p",
+                "value": 100.1,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "round",
-                  "print"
-                ],
+                "label": "avg",
+                "value": 100.05,
                 "tone": "ok"
               }
             ]
@@ -1017,223 +749,175 @@
       "partTitle": "Determinism and testing",
       "codeHash": "37753d2c380a26fed657fbf039e0aec17d71181f21739d5bbef35522af5cc3b8",
       "spec": {
-        "template": "flow",
-        "title": "Determinism and testing — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Determinism and tes...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Determinism and testing",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Determinism and testing [Dthree.Pfive.Sone].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Determinism and tes... [Dthree.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A matching engine must be deterministic.",
+            "bars": [
+              {
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "best_bid",
+                "value": {
+                  "var": "best_bid",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "best_ask",
+                "value": {
+                  "var": "best_ask",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Exchanges rely on this for fairness, regulation and recovery.",
+            "bars": [
+              {
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "best_bid",
+                "value": {
+                  "var": "best_bid",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "best_ask",
+                "value": {
+                  "var": "best_ask",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Determinism and testing.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "In interviews for exchange and trading roles, explaining these invariants.",
+            "bars": [
+              {
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "best_bid",
+                "value": {
+                  "var": "best_bid",
+                  "line": 5,
+                  "hit": 5
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "best_ask",
+                "value": {
+                  "var": "best_ask",
+                  "line": 5,
+                  "hit": 5
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Determinism and testing — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Determinism and tes...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Determinism and testing",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Determinism and testing [D3.P5.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Determinism and tes... [D3.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A matching engine must be deterministic.",
+            "bars": [
+              {
+                "label": "q",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "best_bid",
+                "value": 99.9,
+                "tone": "data"
+              },
+              {
+                "label": "best_ask",
+                "value": 100.3,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Exchanges rely on this for fairness, regulation and recovery.",
+            "bars": [
+              {
+                "label": "q",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "best_bid",
+                "value": 99.9,
+                "tone": "ok"
+              },
+              {
+                "label": "best_ask",
+                "value": 100.3,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Determinism and testing [D3.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "In interviews for exchange and trading roles, explaining these invariants.",
+            "bars": [
+              {
+                "label": "q",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "best_bid",
+                "value": 99.9,
+                "tone": "ok"
+              },
+              {
+                "label": "best_ask",
+                "value": 100.3,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -1244,110 +928,161 @@
       "codeHash": "71f948dceb330d0316867c6145e759046a2d41bffacf096ad88e99b1be791efc",
       "spec": {
         "template": "flow",
-        "title": "Practice time: match orders — Execution Pipeline",
+        "title": "Practice time: match orders",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "book_states",
+            "label": "book_states"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: matc...",
-            "tappable": true
+            "id": "i",
+            "label": "i"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "bid",
+            "label": "bid"
+          },
+          {
+            "id": "ask",
+            "label": "ask"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: match orders [Dthree.Psix.Sone].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: matc... [Dthree.Psix.Stwo].",
+            "caption": "Match_order(book, incoming).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "book_states": {
+                "var": "book_states",
+                "line": 1,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 2,
+                "hit": 1
+              },
+              "bid": {
+                "var": "bid",
+                "line": 2,
+                "hit": 1
+              },
+              "ask": {
+                "var": "ask",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "book_states": "data",
+              "i": "data",
+              "bid": "data",
+              "ask": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "book_states",
+                "i"
               ],
               [
-                "proc",
-                "out"
+                "i",
+                "bid"
+              ],
+              [
+                "bid",
+                "ask"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "After the loop, if anything remains, insert the remainder (a copy of.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "book_states": {
+                "var": "book_states",
+                "line": 2,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 3,
+                "hit": 1
+              },
+              "bid": {
+                "var": "bid",
+                "line": 3,
+                "hit": 1
+              },
+              "ask": {
+                "var": "ask",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "book_states": "data",
+              "i": "data",
+              "bid": "data",
+              "ask": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "book_states",
+                "i"
+              ],
+              [
+                "i",
+                "bid"
+              ],
+              [
+                "bid",
+                "ask"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: match orders.",
+            "at": "say7",
+            "caption": "The example shows the book never crossing after a sequence of matches.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "book_states": {
+                "var": "book_states",
+                "line": 3,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 2,
+                "hit": 2
+              },
+              "bid": {
+                "var": "bid",
+                "line": 2,
+                "hit": 2
+              },
+              "ask": {
+                "var": "ask",
+                "line": 2,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "book_states": "ok",
+              "i": "ok",
+              "bid": "ok",
+              "ask": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "book_states",
+                "i"
               ],
               [
-                "proc",
-                "out"
+                "i",
+                "bid"
+              ],
+              [
+                "bid",
+                "ask"
               ]
             ]
           }
@@ -1355,110 +1090,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: match orders — Execution Pipeline",
+        "title": "Practice time: match orders",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "book_states",
+            "label": "book_states"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: matc...",
-            "tappable": true
+            "id": "i",
+            "label": "i"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "bid",
+            "label": "bid"
+          },
+          {
+            "id": "ask",
+            "label": "ask"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: match orders [D3.P6.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: matc... [D3.P6.S2].",
+            "caption": "Match_order(book, incoming).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "book_states": "[[99.9, 100.1], [99.9, 100.3], [100.2, …",
+              "i": "1",
+              "bid": "99.9",
+              "ask": "100.1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "book_states": "data",
+              "i": "data",
+              "bid": "data",
+              "ask": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "book_states",
+                "i"
               ],
               [
-                "proc",
-                "out"
+                "i",
+                "bid"
+              ],
+              [
+                "bid",
+                "ask"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P6.S3].",
+            "at": "say2",
+            "caption": "After the loop, if anything remains, insert the remainder (a copy of.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "book_states": "[[99.9, 100.1], [99.9, 100.3], [100.2, …",
+              "i": "1",
+              "bid": "99.9",
+              "ask": "100.1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "book_states": "data",
+              "i": "data",
+              "bid": "data",
+              "ask": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "book_states",
+                "i"
+              ],
+              [
+                "i",
+                "bid"
+              ],
+              [
+                "bid",
+                "ask"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: match orders [D3.P6.S4].",
+            "at": "say7",
+            "caption": "The example shows the book never crossing after a sequence of matches.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "book_states": "[[99.9, 100.1], [99.9, 100.3], [100.2, …",
+              "i": "2",
+              "bid": "99.9",
+              "ask": "100.3"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "book_states": "ok",
+              "i": "ok",
+              "bid": "ok",
+              "ask": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "book_states",
+                "i"
               ],
               [
-                "proc",
-                "out"
+                "i",
+                "bid"
+              ],
+              [
+                "bid",
+                "ask"
               ]
             ]
           }

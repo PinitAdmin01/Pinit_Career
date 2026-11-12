@@ -2,89 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 27,
-  "promptSha": "a552cea9611e1d577a71c53a2da09d7173d3350b6f59ecb0ad1a869d6e684523",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Comparing two strings",
       "codeHash": "a1401fb8b9574b81fbcc29719461c6cd533c17f0313aed398137aad7023c37aa",
       "spec": {
-        "template": "table",
+        "template": "boxes",
         "title": "Comparing two strings",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "small",
+            "label": "small"
+          },
+          {
+            "id": "big",
+            "label": "big"
+          },
+          {
+            "id": "ch",
+            "label": "ch"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The many concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Comparing"
-                  },
-                  {
-                    "text": "two"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Many tools compare two pieces of text.",
+            "values": {
+              "small": {
+                "var": "small",
+                "line": 2,
+                "hit": 1
+              },
+              "big": {
+                "var": "big",
+                "line": 2,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "small": "data",
+              "big": "data",
+              "ch": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The longest logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "strings"
-                  },
-                  {
-                    "text": "two"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "A subsequence keeps letters in their order but may skip some.",
+            "values": {
+              "small": {
+                "var": "small",
+                "line": 3,
+                "hit": 5
+              },
+              "big": {
+                "var": "big",
+                "line": 3,
+                "hit": 5
+              },
+              "ch": {
+                "var": "ch",
+                "line": 3,
+                "hit": 2
               }
-            ]
+            },
+            "tones": {
+              "small": "data",
+              "big": "data",
+              "ch": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "The key new idea.",
+            "values": {
+              "small": {
+                "var": "small",
+                "line": 2,
+                "hit": 2
+              },
+              "big": {
+                "var": "big",
+                "line": 2,
+                "hit": 2
+              },
+              "ch": {
+                "var": "ch",
+                "line": 3,
+                "hit": 3
+              }
+            },
+            "tones": {
+              "small": "ok",
+              "big": "ok",
+              "ch": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "boxes",
         "title": "Comparing two strings",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "small",
+            "label": "small"
+          },
+          {
+            "id": "big",
+            "label": "big"
+          },
+          {
+            "id": "ch",
+            "label": "ch"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The many concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Comparing",
-                  "two"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Many tools compare two pieces of text.",
+            "values": {
+              "small": "'ace'",
+              "big": "'abcde'",
+              "ch": "'a'"
+            },
+            "tones": {
+              "small": "data",
+              "big": "data",
+              "ch": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The longest logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "strings",
-                  "two"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "A subsequence keeps letters in their order but may skip some.",
+            "values": {
+              "small": "'ace'",
+              "big": "'abcde'",
+              "ch": "'c'"
+            },
+            "tones": {
+              "small": "data",
+              "big": "data",
+              "ch": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "The key new idea.",
+            "values": {
+              "small": "'aec'",
+              "big": "'abcde'",
+              "ch": "'e'"
+            },
+            "tones": {
+              "small": "ok",
+              "big": "ok",
+              "ch": "ok"
+            }
           }
         ]
       }
@@ -93,80 +173,111 @@
       "partTitle": "The LCS recurrence",
       "codeHash": "3035795974d36da5af8eff418c7f5552b4c3808d7d91ffd6fca6505e3c9f8c46",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "The LCS recurrence",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The compare concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Compare the last letters of the two prefixes, text1[i - 1] and text2[j - 1].",
+            "items": {
+              "var": "row",
+              "line": 13,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "The"
-                  },
-                  {
-                    "text": "LCS"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The match logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "If they match, that letter can end the common subsequence.",
+            "items": {
+              "var": "row",
+              "line": 13,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "recurrence"
-                  },
-                  {
-                    "text": "LCS"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "The 2D dynamic programming table captures the complete Cartesian product.",
+            "items": {
+              "var": "row",
+              "line": 14,
+              "hit": 36
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "The LCS recurrence",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The compare concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Compare the last letters of the two prefixes, text1[i - 1] and text2[j - 1].",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "The",
-                  "LCS"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The match logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "If they match, that letter can end the common subsequence.",
+            "items": [
+              "0",
+              "1",
+              "2",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "recurrence",
-                  "LCS"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "The 2D dynamic programming table captures the complete Cartesian product.",
+            "items": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,80 +288,74 @@
       "partTitle": "Rebuilding the common letters",
       "codeHash": "43fe2d1259f991daec18a3a1264d5e5691e6a2006c2c03cfd79a76deb6fa3caf",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Rebuilding the common letters",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 1 asks only for the length, but seeing the actual letters helps.",
+            "items": {
+              "var": "letters",
+              "line": 12,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Rebuilding"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The collect logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Start at the bottom-right cell.",
+            "items": {
+              "var": "letters",
+              "line": 12,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "common"
-                  },
-                  {
-                    "text": "letters"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Rebuilding the common letters",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 1 asks only for the length, but seeing the actual letters helps.",
+            "items": [
+              "'e'",
+              "'c'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Rebuilding",
-                  "the"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The collect logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Start at the bottom-right cell.",
+            "items": [
+              "'e'",
+              "'c'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "common",
-                  "letters"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -261,43 +366,131 @@
       "partTitle": "Edit distance",
       "codeHash": "209f733497b8dd78b45328db196b0d10111982d01cb93d96ce3a28df058535d3",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Edit distance",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Edit distance is the fewest single-letter inserts, deletes or replacements.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Edit"
-                  },
-                  {
-                    "text": "distance"
-                  }
-                ],
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The current logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Dp[i][j] is the edit distance between the first i letters of word1 and.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Edit"
-                  },
-                  {
-                    "text": "distance"
-                  }
-                ],
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Wagner-Fischer dynamic programming computes string similarity by filling.",
+            "bars": [
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 6,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -305,35 +498,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Edit distance",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Edit distance is the fewest single-letter inserts, deletes or replacements.",
+            "bars": [
               {
-                "cells": [
-                  "Edit",
-                  "distance"
-                ],
+                "label": "m",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "j",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The current logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Dp[i][j] is the edit distance between the first i letters of word1 and.",
+            "bars": [
               {
-                "cells": [
-                  "Edit",
-                  "distance"
-                ],
+                "label": "m",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Wagner-Fischer dynamic programming computes string similarity by filling.",
+            "bars": [
+              {
+                "label": "m",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -345,80 +586,117 @@
       "partTitle": "A tiny spell checker",
       "codeHash": "671c6ca6fadad5e607f8ffef3615a9bb55e1dfd181396c950b338a06fc405c96",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "A tiny spell checker",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The edit concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Put edit distance to work.",
+            "items": {
+              "var": "words",
+              "line": 17,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "tiny"
-                  },
-                  {
-                    "text": "spell"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The checks logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Compute the distance to every word and keep those within a small limit.",
+            "items": {
+              "var": "words",
+              "line": 18,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "checker"
-                  },
-                  {
-                    "text": "spell"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "That habit, small tested functions composed into features, is what makes.",
+            "items": {
+              "var": "words",
+              "line": 19,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "A tiny spell checker",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The edit concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Put edit distance to work.",
+            "items": [
+              "'python'",
+              "'pyramid'",
+              "'typhoon'",
+              "'java'",
+              "'pythons'",
+              "'person'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "tiny",
-                  "spell"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The checks logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Compute the distance to every word and keep those within a small limit.",
+            "items": [
+              "'python'",
+              "'pyramid'",
+              "'typhoon'",
+              "'java'",
+              "'pythons'",
+              "'person'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "checker",
-                  "spell"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "That habit, small tested functions composed into features, is what makes.",
+            "items": [
+              "'python'",
+              "'pyramid'",
+              "'typhoon'",
+              "'java'",
+              "'pythons'",
+              "'person'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -429,43 +707,131 @@
       "partTitle": "Spotting 2D DP problems",
       "codeHash": "8709d53f9bf87f1d43f1afe848fbb7da32b38feb6735ac003c135f9e335a8321",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Spotting 2D DP problems",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The inputs concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Two inputs to compare (two strings, two lists) usually means a table.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Spotting"
-                  },
-                  {
-                    "text": "problems"
-                  }
-                ],
+                "label": "rows",
+                "value": {
+                  "var": "rows",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cols",
+                "value": {
+                  "var": "cols",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The recipe logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Grid questions, like counting paths in a grid from the top-left to.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Spotting"
-                  },
-                  {
-                    "text": "problems"
-                  }
-                ],
+                "label": "rows",
+                "value": {
+                  "var": "rows",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cols",
+                "value": {
+                  "var": "cols",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Tomorrow switches to backtracking, for problems where you must list.",
+            "bars": [
+              {
+                "label": "rows",
+                "value": {
+                  "var": "rows",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cols",
+                "value": {
+                  "var": "cols",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -473,35 +839,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Spotting 2D DP problems",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The inputs concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Two inputs to compare (two strings, two lists) usually means a table.",
+            "bars": [
               {
-                "cells": [
-                  "Spotting",
-                  "problems"
-                ],
+                "label": "rows",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "cols",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The recipe logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Grid questions, like counting paths in a grid from the top-left to.",
+            "bars": [
               {
-                "cells": [
-                  "Spotting",
-                  "problems"
-                ],
+                "label": "rows",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "cols",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Tomorrow switches to backtracking, for problems where you must list.",
+            "bars": [
+              {
+                "label": "rows",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "cols",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 1,
                 "tone": "ok"
               }
             ]

@@ -2,231 +2,169 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 1,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What the cloud really is",
       "codeHash": "018644b7ddab197bbe51c7c5eb2b02f3f96ed49d5d3fb950be41dab015660ec3",
       "spec": {
-        "template": "flow",
-        "title": "What the cloud really is — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. What the cloud real...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "What the cloud really is",
+        "actors": [
+          "monthly_peak_servers",
+          "server_price_per_month",
+          "owned_server_cost"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for What the cloud really is [Done.Pone.Sone].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in What the cloud real... [Done.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The cloud is simply other people's computers that you rent by the second.",
+            "activeActor": "monthly_peak_servers",
+            "messages": [
+              {
+                "from": "monthly_peak_servers",
+                "to": "server_price_per_month",
+                "label": {
+                  "var": "monthly_peak_servers",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "server_price_per_month",
+                "to": "owned_server_cost",
+                "label": {
+                  "var": "server_price_per_month",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Before the cloud, a company that wanted to launch a website had to buy.",
+            "activeActor": "server_price_per_month",
+            "messages": [
+              {
+                "from": "monthly_peak_servers",
+                "to": "server_price_per_month",
+                "label": {
+                  "var": "monthly_peak_servers",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "server_price_per_month",
+                "to": "owned_server_cost",
+                "label": {
+                  "var": "server_price_per_month",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for What the cloud really is.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "The example compares buying servers for your busiest day with renting.",
+            "activeActor": "owned_server_cost",
+            "messages": [
+              {
+                "from": "monthly_peak_servers",
+                "to": "server_price_per_month",
+                "label": {
+                  "var": "monthly_peak_servers",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "server_price_per_month",
+                "to": "owned_server_cost",
+                "label": {
+                  "var": "server_price_per_month",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "What the cloud really is — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. What the cloud real...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "What the cloud really is",
+        "actors": [
+          "monthly_peak_servers",
+          "server_price_per_month",
+          "owned_server_cost"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for What the cloud really is [D1.P1.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in What the cloud real... [D1.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "The cloud is simply other people's computers that you rent by the second.",
+            "messages": [
+              {
+                "from": "monthly_peak_servers",
+                "to": "server_price_per_month",
+                "label": "[4, 4, 5, 4, 6, 5, 4, 4, 5, 8, 12, 20]",
+                "tone": "data"
+              },
+              {
+                "from": "server_price_per_month",
+                "to": "owned_server_cost",
+                "label": "300",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "monthly_peak_servers"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Before the cloud, a company that wanted to launch a website had to buy.",
+            "messages": [
+              {
+                "from": "monthly_peak_servers",
+                "to": "server_price_per_month",
+                "label": "[4, 4, 5, 4, 6, 5, 4, 4, 5, 8, 12, 20]",
+                "tone": "data"
+              },
+              {
+                "from": "server_price_per_month",
+                "to": "owned_server_cost",
+                "label": "300",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "server_price_per_month"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for What the cloud really is [D1.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "The example compares buying servers for your busiest day with renting.",
+            "messages": [
+              {
+                "from": "monthly_peak_servers",
+                "to": "server_price_per_month",
+                "label": "[4, 4, 5, 4, 6, 5, 4, 4, 5, 8, 12, 20]",
+                "tone": "data"
+              },
+              {
+                "from": "server_price_per_month",
+                "to": "owned_server_cost",
+                "label": "300",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "owned_server_cost"
           }
         ]
       }
@@ -235,166 +173,72 @@
       "partTitle": "IaaS, PaaS and SaaS",
       "codeHash": "948477b200eb91c35be06997989b4212044e65cbafd38ebaf282896d30472064",
       "spec": {
-        "template": "table",
-        "title": "Cloud service delivery models mapping control versus operational convenience",
-        "columns": [
-          "service",
-          "model"
+        "template": "states",
+        "title": "IaaS, PaaS and SaaS",
+        "states": [
+          {
+            "id": "MODELS",
+            "label": "MODELS"
+          },
+          {
+            "id": "service",
+            "label": "service"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cloud services come in three broad levels, depending on how much.",
+            "currentState": "MODELS",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "IaaS provides raw infrastructure like virtual machines and network blocks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "EC2"
-                  },
-                  {
-                    "text": "IaaS"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Infrastructure as a Service (IaaS) gives you raw building blocks.",
+            "currentState": "service",
+            "transition": {
+              "from": "MODELS",
+              "to": "service",
+              "label": {
+                "var": "service",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "PaaS manages underlying platforms while running database and function code.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "EC2"
-                  },
-                  {
-                    "text": "IaaS"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Lambda"
-                  },
-                  {
-                    "text": "PaaS"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "SaaS offers complete managed applications where users only govern data.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "EC2"
-                  },
-                  {
-                    "text": "IaaS"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Lambda"
-                  },
-                  {
-                    "text": "PaaS"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "WorkDocs"
-                  },
-                  {
-                    "text": "SaaS"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cloud service delivery models mapping control versus operational convenience",
-        "columns": [
-          "service",
-          "model"
+        "template": "states",
+        "title": "IaaS, PaaS and SaaS",
+        "states": [
+          {
+            "id": "MODELS",
+            "label": "MODELS"
+          },
+          {
+            "id": "service",
+            "label": "service"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cloud services come in three broad levels, depending on how much.",
+            "currentState": "MODELS",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "IaaS provides raw infrastructure like virtual machines and network blocks.",
-            "rows": [
-              {
-                "cells": [
-                  "EC2",
-                  "IaaS"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "PaaS manages underlying platforms while running database and function code.",
-            "rows": [
-              {
-                "cells": [
-                  "EC2",
-                  "IaaS"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Lambda",
-                  "PaaS"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "SaaS offers complete managed applications where users only govern data.",
-            "rows": [
-              {
-                "cells": [
-                  "EC2",
-                  "IaaS"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Lambda",
-                  "PaaS"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "WorkDocs",
-                  "SaaS"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Infrastructure as a Service (IaaS) gives you raw building blocks.",
+            "currentState": "service",
+            "transition": {
+              "from": "MODELS",
+              "to": "service",
+              "label": "'EC2'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -403,165 +247,277 @@
       "partTitle": "The shared responsibility model",
       "codeHash": "968aaf4cc32d66041564a750cc25e5f432a78ec4600f738fd5a3a1d4fe22f5ab",
       "spec": {
-        "template": "table",
-        "title": "Shared responsibility model delineating provider and customer domains",
-        "columns": [
-          "layer",
-          "owner"
+        "template": "flow",
+        "title": "The shared responsibility model",
+        "nodes": [
+          {
+            "id": "LAYERS",
+            "label": "LAYERS"
+          },
+          {
+            "id": "AWS_OWNS",
+            "label": "AWS_OWNS"
+          },
+          {
+            "id": "model",
+            "label": "model"
+          },
+          {
+            "id": "layer",
+            "label": "layer"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cloud security divides into security of the cloud and security in the cloud.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "PHYSICAL_DATACENTER"
-                  },
-                  {
-                    "text": "AWS"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Security in the cloud is a partnership.",
+            "values": {
+              "LAYERS": {
+                "var": "LAYERS",
+                "line": 1,
+                "hit": 1
+              },
+              "AWS_OWNS": {
+                "var": "AWS_OWNS",
+                "line": 3,
+                "hit": 1
+              },
+              "model": {
+                "var": "model",
+                "line": 8,
+                "hit": 1
+              },
+              "layer": {
+                "var": "layer",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "LAYERS": "data",
+              "AWS_OWNS": "data",
+              "model": "data",
+              "layer": "data"
+            },
+            "arrows": [
+              [
+                "LAYERS",
+                "AWS_OWNS"
+              ],
+              [
+                "AWS_OWNS",
+                "model"
+              ],
+              [
+                "model",
+                "layer"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Security of the cloud covers physical datacenters facilities and hardware.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "PHYSICAL_DATACENTER"
-                  },
-                  {
-                    "text": "AWS"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Security OF the cloud means the buildings, the guards, the hardware,.",
+            "values": {
+              "LAYERS": {
+                "var": "LAYERS",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "OS_PATCHING"
-                  },
-                  {
-                    "text": "CUSTOMER"
-                  }
-                ],
-                "tone": "idle"
+              "AWS_OWNS": {
+                "var": "AWS_OWNS",
+                "line": 5,
+                "hit": 1
+              },
+              "model": {
+                "var": "model",
+                "line": 6,
+                "hit": 1
+              },
+              "layer": {
+                "var": "layer",
+                "line": 6,
+                "hit": 2
               }
+            },
+            "tones": {
+              "LAYERS": "data",
+              "AWS_OWNS": "data",
+              "model": "data",
+              "layer": "data"
+            },
+            "arrows": [
+              [
+                "LAYERS",
+                "AWS_OWNS"
+              ],
+              [
+                "AWS_OWNS",
+                "model"
+              ],
+              [
+                "model",
+                "layer"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Customer data and access governance always remain customer responsibilities.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "PHYSICAL_DATACENTER"
-                  },
-                  {
-                    "text": "AWS"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Responsibility_owner(layer, model) returns \"AWS\" or \"CUSTOMER\" using.",
+            "values": {
+              "LAYERS": {
+                "var": "LAYERS",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "OS_PATCHING"
-                  },
-                  {
-                    "text": "CUSTOMER"
-                  }
-                ],
-                "tone": "idle"
+              "AWS_OWNS": {
+                "var": "AWS_OWNS",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "DATA"
-                  },
-                  {
-                    "text": "CUSTOMER"
-                  }
-                ],
-                "tone": "error"
+              "model": {
+                "var": "model",
+                "line": 9,
+                "hit": 1
+              },
+              "layer": {
+                "var": "layer",
+                "line": 6,
+                "hit": 3
               }
+            },
+            "tones": {
+              "LAYERS": "ok",
+              "AWS_OWNS": "ok",
+              "model": "ok",
+              "layer": "ok"
+            },
+            "arrows": [
+              [
+                "LAYERS",
+                "AWS_OWNS"
+              ],
+              [
+                "AWS_OWNS",
+                "model"
+              ],
+              [
+                "model",
+                "layer"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Shared responsibility model delineating provider and customer domains",
-        "columns": [
-          "layer",
-          "owner"
+        "template": "flow",
+        "title": "The shared responsibility model",
+        "nodes": [
+          {
+            "id": "LAYERS",
+            "label": "LAYERS"
+          },
+          {
+            "id": "AWS_OWNS",
+            "label": "AWS_OWNS"
+          },
+          {
+            "id": "model",
+            "label": "model"
+          },
+          {
+            "id": "layer",
+            "label": "layer"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cloud security divides into security of the cloud and security in the cloud.",
-            "rows": [
-              {
-                "cells": [
-                  "PHYSICAL_DATACENTER",
-                  "AWS"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Security in the cloud is a partnership.",
+            "values": {
+              "LAYERS": "['PHYSICAL_DATACENTER', 'HYPERVISOR', '…",
+              "AWS_OWNS": "{'IaaS': 2, 'PaaS': 4, 'SaaS': 5}",
+              "model": "'IaaS'",
+              "layer": "'PHYSICAL_DATACENTER'"
+            },
+            "tones": {
+              "LAYERS": "data",
+              "AWS_OWNS": "data",
+              "model": "data",
+              "layer": "data"
+            },
+            "arrows": [
+              [
+                "LAYERS",
+                "AWS_OWNS"
+              ],
+              [
+                "AWS_OWNS",
+                "model"
+              ],
+              [
+                "model",
+                "layer"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Security of the cloud covers physical datacenters facilities and hardware.",
-            "rows": [
-              {
-                "cells": [
-                  "PHYSICAL_DATACENTER",
-                  "AWS"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "OS_PATCHING",
-                  "CUSTOMER"
-                ],
-                "tone": "idle"
-              }
+            "caption": "Security OF the cloud means the buildings, the guards, the hardware,.",
+            "values": {
+              "LAYERS": "['PHYSICAL_DATACENTER', 'HYPERVISOR', '…",
+              "AWS_OWNS": "{'IaaS': 2, 'PaaS': 4, 'SaaS': 5}",
+              "model": "'IaaS'",
+              "layer": "'HYPERVISOR'"
+            },
+            "tones": {
+              "LAYERS": "data",
+              "AWS_OWNS": "data",
+              "model": "data",
+              "layer": "data"
+            },
+            "arrows": [
+              [
+                "LAYERS",
+                "AWS_OWNS"
+              ],
+              [
+                "AWS_OWNS",
+                "model"
+              ],
+              [
+                "model",
+                "layer"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Customer data and access governance always remain customer responsibilities.",
-            "rows": [
-              {
-                "cells": [
-                  "PHYSICAL_DATACENTER",
-                  "AWS"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "OS_PATCHING",
-                  "CUSTOMER"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "DATA",
-                  "CUSTOMER"
-                ],
-                "tone": "error"
-              }
+            "at": "say7",
+            "caption": "Responsibility_owner(layer, model) returns \"AWS\" or \"CUSTOMER\" using.",
+            "values": {
+              "LAYERS": "['PHYSICAL_DATACENTER', 'HYPERVISOR', '…",
+              "AWS_OWNS": "{'IaaS': 2, 'PaaS': 4, 'SaaS': 5}",
+              "model": "'IaaS'",
+              "layer": "'OS_PATCHING'"
+            },
+            "tones": {
+              "LAYERS": "ok",
+              "AWS_OWNS": "ok",
+              "model": "ok",
+              "layer": "ok"
+            },
+            "arrows": [
+              [
+                "LAYERS",
+                "AWS_OWNS"
+              ],
+              [
+                "AWS_OWNS",
+                "model"
+              ],
+              [
+                "model",
+                "layer"
+              ]
             ]
           }
         ]
@@ -571,164 +527,216 @@
       "partTitle": "Paying for what you use",
       "codeHash": "2ea97e61df147f0627d78aa1f49f956f8ad2aa350adedbfcdbe1e3d311fc3de3",
       "spec": {
-        "template": "table",
-        "title": "Utility cloud billing breakdown across compute storage and data transfer",
-        "columns": [
-          "name",
-          "qty"
-        ],
+        "template": "bars",
+        "title": "Paying for what you use",
         "steps": [
           {
             "at": "say1",
-            "caption": "Cloud utility pricing charges per unit across compute storage and network.",
-            "rows": [
+            "caption": "Cloud prices are published per unit.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "EC2 server hours"
-                  },
-                  {
-                    "text": "720"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Because the bill follows usage, engineers can see cost as part of design.",
+            "bars": [
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Major bill drivers include server compute disk storage and outbound egress.",
-            "rows": [
+            "at": "say7",
+            "caption": "Trace how later updates course during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "EC2 server hours"
-                  },
-                  {
-                    "text": "720"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "S3 storage GB-months"
-                  },
-                  {
-                    "text": "200"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Setting billing alarms prevents unexpected charges on new cloud accounts.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "EC2 server hours"
-                  },
-                  {
-                    "text": "720"
-                  }
-                ],
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "S3 storage GB-months"
-                  },
-                  {
-                    "text": "200"
-                  }
-                ],
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "Data out to internet GB"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
-                "tone": "idle"
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Utility cloud billing breakdown across compute storage and data transfer",
-        "columns": [
-          "name",
-          "qty"
-        ],
+        "template": "bars",
+        "title": "Paying for what you use",
         "steps": [
           {
             "at": "say1",
-            "caption": "Cloud utility pricing charges per unit across compute storage and network.",
-            "rows": [
+            "caption": "Cloud prices are published per unit.",
+            "bars": [
               {
-                "cells": [
-                  "EC2 server hours",
-                  "720"
-                ],
+                "label": "total",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "qty",
+                "value": 720,
+                "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": 0.0416,
+                "tone": "data"
+              },
+              {
+                "label": "cost",
+                "value": 29.951999999999998,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Because the bill follows usage, engineers can see cost as part of design.",
+            "bars": [
+              {
+                "label": "total",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "qty",
+                "value": 720,
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": 0.0416,
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": 29.951999999999998,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Major bill drivers include server compute disk storage and outbound egress.",
-            "rows": [
+            "at": "say7",
+            "caption": "Trace how later updates course during execution.",
+            "bars": [
               {
-                "cells": [
-                  "EC2 server hours",
-                  "720"
-                ],
+                "label": "total",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "S3 storage GB-months",
-                  "200"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Setting billing alarms prevents unexpected charges on new cloud accounts.",
-            "rows": [
-              {
-                "cells": [
-                  "EC2 server hours",
-                  "720"
-                ],
+                "label": "qty",
+                "value": 720,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "S3 storage GB-months",
-                  "200"
-                ],
+                "label": "price",
+                "value": 0.0416,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "Data out to internet GB",
-                  "100"
-                ],
-                "tone": "idle"
+                "label": "cost",
+                "value": 29.951999999999998,
+                "tone": "ok"
               }
             ]
           }
@@ -739,147 +747,221 @@
       "partTitle": "How you talk to AWS: console, CLI and code",
       "codeHash": "8377d6a69843995764694cae876952fcd619d808564664246b120e8b7450c3ae",
       "spec": {
-        "template": "table",
-        "title": "Boto3 AWS describe instances API response payload state parsing",
-        "columns": [
-          "InstanceId",
-          "State"
+        "template": "flow",
+        "title": "How you talk to AWS: console, CLI and code",
+        "nodes": [
+          {
+            "id": "response",
+            "label": "response"
+          },
+          {
+            "id": "reservation",
+            "label": "reservation"
+          },
+          {
+            "id": "inst",
+            "label": "inst"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Administrators control cloud infrastructure via console CLI and program code.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "i-0a1"
-                  },
-                  {
-                    "text": "running"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "There are three ways to control AWS.",
+            "values": {
+              "response": {
+                "var": "response",
+                "line": 2,
+                "hit": 2
+              },
+              "reservation": {
+                "var": "reservation",
+                "line": 7,
+                "hit": 1
+              },
+              "inst": {
+                "var": "inst",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "response": "data",
+              "reservation": "data",
+              "inst": "data"
+            },
+            "arrows": [
+              [
+                "response",
+                "reservation"
+              ],
+              [
+                "reservation",
+                "inst"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Python developers use botothree to dispatch signed API calls to cloud.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "i-0a1"
-                  },
-                  {
-                    "text": "running"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The third way is code.",
+            "values": {
+              "response": {
+                "var": "response",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "i-0b2"
-                  },
-                  {
-                    "text": "stopped"
-                  }
-                ],
-                "tone": "idle"
+              "reservation": {
+                "var": "reservation",
+                "line": 8,
+                "hit": 1
+              },
+              "inst": {
+                "var": "inst",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "response": "data",
+              "reservation": "data",
+              "inst": "data"
+            },
+            "arrows": [
+              [
+                "response",
+                "reservation"
+              ],
+              [
+                "reservation",
+                "inst"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "Automation scripts parse nested dictionaries and lists from API responses.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "i-0a1"
-                  },
-                  {
-                    "text": "running"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Notice that responses are nested dictionaries and lists.",
+            "values": {
+              "response": {
+                "var": "response",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "i-0b2"
-                  },
-                  {
-                    "text": "stopped"
-                  }
-                ],
-                "tone": "idle"
+              "reservation": {
+                "var": "reservation",
+                "line": 9,
+                "hit": 1
+              },
+              "inst": {
+                "var": "inst",
+                "line": 8,
+                "hit": 2
               }
+            },
+            "tones": {
+              "response": "ok",
+              "reservation": "ok",
+              "inst": "ok"
+            },
+            "arrows": [
+              [
+                "response",
+                "reservation"
+              ],
+              [
+                "reservation",
+                "inst"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Boto3 AWS describe instances API response payload state parsing",
-        "columns": [
-          "InstanceId",
-          "State"
+        "template": "flow",
+        "title": "How you talk to AWS: console, CLI and code",
+        "nodes": [
+          {
+            "id": "response",
+            "label": "response"
+          },
+          {
+            "id": "reservation",
+            "label": "reservation"
+          },
+          {
+            "id": "inst",
+            "label": "inst"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Administrators control cloud infrastructure via console CLI and program code.",
-            "rows": [
-              {
-                "cells": [
-                  "i-0a1",
-                  "running"
-                ],
-                "tone": "ok"
-              }
+            "caption": "There are three ways to control AWS.",
+            "values": {
+              "response": "{'Reservations': [{'Instances': [{'Inst…",
+              "reservation": "{'Instances': [{'InstanceId': 'i-0a1', …",
+              "inst": "{'InstanceId': 'i-0a1', 'State': {'Name…"
+            },
+            "tones": {
+              "response": "data",
+              "reservation": "data",
+              "inst": "data"
+            },
+            "arrows": [
+              [
+                "response",
+                "reservation"
+              ],
+              [
+                "reservation",
+                "inst"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Python developers use boto3 to dispatch signed API calls to cloud services.",
-            "rows": [
-              {
-                "cells": [
-                  "i-0a1",
-                  "running"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "i-0b2",
-                  "stopped"
-                ],
-                "tone": "idle"
-              }
+            "caption": "The third way is code.",
+            "values": {
+              "response": "{'Reservations': [{'Instances': [{'Inst…",
+              "reservation": "{'Instances': [{'InstanceId': 'i-0a1', …",
+              "inst": "{'InstanceId': 'i-0a1', 'State': {'Name…"
+            },
+            "tones": {
+              "response": "data",
+              "reservation": "data",
+              "inst": "data"
+            },
+            "arrows": [
+              [
+                "response",
+                "reservation"
+              ],
+              [
+                "reservation",
+                "inst"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "Automation scripts parse nested dictionaries and lists from API responses.",
-            "rows": [
-              {
-                "cells": [
-                  "i-0a1",
-                  "running"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "i-0b2",
-                  "stopped"
-                ],
-                "tone": "idle"
-              }
+            "caption": "Notice that responses are nested dictionaries and lists.",
+            "values": {
+              "response": "{'Reservations': [{'Instances': [{'Inst…",
+              "reservation": "{'Instances': [{'InstanceId': 'i-0a1', …",
+              "inst": "{'InstanceId': 'i-0a1', 'State': {'Name…"
+            },
+            "tones": {
+              "response": "ok",
+              "reservation": "ok",
+              "inst": "ok"
+            },
+            "arrows": [
+              [
+                "response",
+                "reservation"
+              ],
+              [
+                "reservation",
+                "inst"
+              ]
             ]
           }
         ]
@@ -890,110 +972,161 @@
       "codeHash": "fe5e595cbcaa94e8bb3c1996cc5b2bfe5e0a7bab2efe2495faf7a0d4b6ed9e15",
       "spec": {
         "template": "flow",
-        "title": "Practice time: model the cloud in code — Execution Pipeline",
+        "title": "Practice time: model the cloud in code",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "LAYERS",
+            "label": "LAYERS"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: mode...",
-            "tappable": true
+            "id": "aws_count",
+            "label": "aws_count"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "layer",
+            "label": "layer"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: model the cloud in code.",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: mode... [Done.Psix.Stwo].",
+            "caption": "Keep the list of layers, find the index of the layer, and compare it.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "LAYERS": {
+                "var": "LAYERS",
+                "line": 1,
+                "hit": 1
+              },
+              "aws_count": {
+                "var": "aws_count",
+                "line": 3,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 1
+              },
+              "layer": {
+                "var": "layer",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "LAYERS": "data",
+              "aws_count": "data",
+              "i": "data",
+              "layer": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "LAYERS",
+                "aws_count"
               ],
               [
-                "proc",
-                "out"
+                "aws_count",
+                "i"
+              ],
+              [
+                "i",
+                "layer"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Psix.object-storage].",
+            "at": "say2",
+            "caption": "A dictionary such as {\"IaaS\".",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "LAYERS": {
+                "var": "LAYERS",
+                "line": 3,
+                "hit": 1
+              },
+              "aws_count": {
+                "var": "aws_count",
+                "line": 4,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 5,
+                "hit": 1
+              },
+              "layer": {
+                "var": "layer",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "LAYERS": "data",
+              "aws_count": "data",
+              "i": "data",
+              "layer": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "LAYERS",
+                "aws_count"
+              ],
+              [
+                "aws_count",
+                "i"
+              ],
+              [
+                "i",
+                "layer"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: model the cloud in.",
+            "at": "say7",
+            "caption": "The example below is a small warm-up.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "LAYERS": {
+                "var": "LAYERS",
+                "line": 4,
+                "hit": 1
+              },
+              "aws_count": {
+                "var": "aws_count",
+                "line": 5,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 6,
+                "hit": 1
+              },
+              "layer": {
+                "var": "layer",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "LAYERS": "ok",
+              "aws_count": "ok",
+              "i": "ok",
+              "layer": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "LAYERS",
+                "aws_count"
               ],
               [
-                "proc",
-                "out"
+                "aws_count",
+                "i"
+              ],
+              [
+                "i",
+                "layer"
               ]
             ]
           }
@@ -1001,110 +1134,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: model the cloud in code — Execution Pipeline",
+        "title": "Practice time: model the cloud in code",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "LAYERS",
+            "label": "LAYERS"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: mode...",
-            "tappable": true
+            "id": "aws_count",
+            "label": "aws_count"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "layer",
+            "label": "layer"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: model the cloud in code [D1.P6.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: mode... [D1.P6.S2].",
+            "caption": "Keep the list of layers, find the index of the layer, and compare it.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "LAYERS": "['PHYSICAL_DATACENTER', 'HYPERVISOR', '…",
+              "aws_count": "4",
+              "i": "0",
+              "layer": "'PHYSICAL_DATACENTER'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "LAYERS": "data",
+              "aws_count": "data",
+              "i": "data",
+              "layer": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "LAYERS",
+                "aws_count"
               ],
               [
-                "proc",
-                "out"
+                "aws_count",
+                "i"
+              ],
+              [
+                "i",
+                "layer"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P6.S3].",
+            "at": "say2",
+            "caption": "A dictionary such as {\"IaaS\".",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "LAYERS": "['PHYSICAL_DATACENTER', 'HYPERVISOR', '…",
+              "aws_count": "4",
+              "i": "0",
+              "layer": "'PHYSICAL_DATACENTER'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "LAYERS": "data",
+              "aws_count": "data",
+              "i": "data",
+              "layer": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "LAYERS",
+                "aws_count"
+              ],
+              [
+                "aws_count",
+                "i"
+              ],
+              [
+                "i",
+                "layer"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: model the cloud in.. [D1.P6.S4].",
+            "at": "say7",
+            "caption": "The example below is a small warm-up.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "LAYERS": "['PHYSICAL_DATACENTER', 'HYPERVISOR', '…",
+              "aws_count": "4",
+              "i": "0",
+              "layer": "'PHYSICAL_DATACENTER'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "LAYERS": "ok",
+              "aws_count": "ok",
+              "i": "ok",
+              "layer": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "LAYERS",
+                "aws_count"
               ],
               [
-                "proc",
-                "out"
+                "aws_count",
+                "i"
+              ],
+              [
+                "i",
+                "layer"
               ]
             ]
           }

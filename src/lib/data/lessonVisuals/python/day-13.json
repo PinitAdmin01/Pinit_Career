@@ -2,6 +2,8 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 13,
+  "promptSha": "2232789a963c73aef7a009fc631b6feef8ae4f7c17fc44c75ccf6dc78fcc850b",
+  "model": "hand-verified-day13",
   "entries": [
     {
       "partTitle": "What an f-string is",

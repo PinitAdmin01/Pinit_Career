@@ -2,231 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 28,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Reverse proxies and CDNs",
       "codeHash": "88c5d4b7454227775289312398c15b9c0e65e034b357a81a1b72f921ed78983d",
       "spec": {
-        "template": "flow",
-        "title": "Reverse proxies and CDNs — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reverse proxies and...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Reverse proxies and CDNs",
+        "actors": [
+          "edge_ms",
+          "origin_round_trip_ms",
+          "hit_rate"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Reverse proxies and CDNs [D.Pone.Sone].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Reverse proxies and... [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A reverse proxy sits in front of your servers and handles incoming requests.",
+            "activeActor": "edge_ms",
+            "messages": [
+              {
+                "from": "edge_ms",
+                "to": "origin_round_trip_ms",
+                "label": {
+                  "var": "edge_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "origin_round_trip_ms",
+                "to": "hit_rate",
+                "label": {
+                  "var": "origin_round_trip_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Because it terminates client connections, it also hides your servers'.",
+            "activeActor": "origin_round_trip_ms",
+            "messages": [
+              {
+                "from": "edge_ms",
+                "to": "origin_round_trip_ms",
+                "label": {
+                  "var": "edge_ms",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "origin_round_trip_ms",
+                "to": "hit_rate",
+                "label": {
+                  "var": "origin_round_trip_ms",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Reverse proxies and CDNs [D.Pone.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example compares response times with and without an edge cache hit.",
+            "activeActor": "hit_rate",
+            "messages": [
+              {
+                "from": "edge_ms",
+                "to": "origin_round_trip_ms",
+                "label": {
+                  "var": "edge_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "origin_round_trip_ms",
+                "to": "hit_rate",
+                "label": {
+                  "var": "origin_round_trip_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Reverse proxies and CDNs — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reverse proxies and...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Reverse proxies and CDNs",
+        "actors": [
+          "edge_ms",
+          "origin_round_trip_ms",
+          "hit_rate"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Reverse proxies and CDNs [D28.P1.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Reverse proxies and... [D28.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A reverse proxy sits in front of your servers and handles incoming requests.",
+            "messages": [
+              {
+                "from": "edge_ms",
+                "to": "origin_round_trip_ms",
+                "label": "15",
+                "tone": "data"
+              },
+              {
+                "from": "origin_round_trip_ms",
+                "to": "hit_rate",
+                "label": "220",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "edge_ms"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Because it terminates client connections, it also hides your servers'.",
+            "messages": [
+              {
+                "from": "edge_ms",
+                "to": "origin_round_trip_ms",
+                "label": "15",
+                "tone": "data"
+              },
+              {
+                "from": "origin_round_trip_ms",
+                "to": "hit_rate",
+                "label": "220",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "origin_round_trip_ms"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Reverse proxies and CDNs [D28.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example compares response times with and without an edge cache hit.",
+            "messages": [
+              {
+                "from": "edge_ms",
+                "to": "origin_round_trip_ms",
+                "label": "15",
+                "tone": "data"
+              },
+              {
+                "from": "origin_round_trip_ms",
+                "to": "hit_rate",
+                "label": "220",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "hit_rate"
           }
         ]
       }
@@ -235,166 +173,162 @@
       "partTitle": "Cache-Control headers",
       "codeHash": "436ddf37ee9ee0eb6622309ae59bf491ba013e6aeb91a6217f6fd3d1b47feef7",
       "spec": {
-        "template": "table",
-        "title": "HTTP Cache-Control response header directives and timing values",
-        "columns": [
-          "name",
-          "value"
+        "template": "sequence",
+        "title": "Cache-Control headers",
+        "actors": [
+          "header",
+          "directives",
+          "part"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The origin tells caches what to do with the Cache-Control header,.",
+            "activeActor": "header",
+            "messages": [
+              {
+                "from": "header",
+                "to": "directives",
+                "label": {
+                  "var": "header",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "directives",
+                "to": "part",
+                "label": {
+                  "var": "directives",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "The max-age directive defines fresh lifetime in seconds for shared caches.",
-            "rows": [
+            "caption": "Max-age is how many seconds a copy is fresh.",
+            "activeActor": "directives",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "public"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
+                "from": "header",
+                "to": "directives",
+                "label": {
+                  "var": "header",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "directives",
+                "to": "part",
+                "label": {
+                  "var": "directives",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The no-store directive forbids caching entirely for sensitive customer data.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example parses the directives of a header into a dict.",
+            "activeActor": "part",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "public"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "ok"
+                "from": "header",
+                "to": "directives",
+                "label": {
+                  "var": "header",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "max-age"
-                  },
-                  {
-                    "text": "60"
-                  }
-                ],
+                "from": "directives",
+                "to": "part",
+                "label": {
+                  "var": "directives",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The stale-while-revalidate directive serves cached copies while refreshing.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "public"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "max-age"
-                  },
-                  {
-                    "text": "60"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "stale-while-revalidate"
-                  },
-                  {
-                    "text": "30"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "HTTP Cache-Control response header directives and timing values",
-        "columns": [
-          "name",
-          "value"
+        "template": "sequence",
+        "title": "Cache-Control headers",
+        "actors": [
+          "header",
+          "directives",
+          "part"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The origin tells caches what to do with the Cache-Control header,.",
+            "messages": [
+              {
+                "from": "header",
+                "to": "directives",
+                "label": "'public, max-age=60, stale-while-revali…",
+                "tone": "data"
+              },
+              {
+                "from": "directives",
+                "to": "part",
+                "label": "{}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "header"
+          },
+          {
             "at": "say2",
-            "caption": "The max-age directive defines fresh lifetime in seconds for shared caches.",
-            "rows": [
+            "caption": "Max-age is how many seconds a copy is fresh.",
+            "messages": [
               {
-                "cells": [
-                  "public",
-                  "True"
-                ],
+                "from": "header",
+                "to": "directives",
+                "label": "'public, max-age=60, stale-while-revali…",
+                "tone": "data"
+              },
+              {
+                "from": "directives",
+                "to": "part",
+                "label": "{}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "directives"
           },
           {
-            "at": "say4",
-            "caption": "The no-store directive forbids caching entirely for sensitive customer data.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example parses the directives of a header into a dict.",
+            "messages": [
               {
-                "cells": [
-                  "public",
-                  "True"
-                ],
-                "tone": "ok"
+                "from": "header",
+                "to": "directives",
+                "label": "'public, max-age=60, stale-while-revali…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "max-age",
-                  "60"
-                ],
+                "from": "directives",
+                "to": "part",
+                "label": "{}",
                 "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The stale-while-revalidate directive serves cached copies while refreshing.",
-            "rows": [
-              {
-                "cells": [
-                  "public",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "max-age",
-                  "60"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "stale-while-revalidate",
-                  "30"
-                ],
-                "tone": "idle"
-              }
-            ]
+            ],
+            "activeActor": "part"
           }
         ]
       }
@@ -403,166 +337,162 @@
       "partTitle": "Fresh, stale or expired?",
       "codeHash": "7af8ff67cd3d62b36a8fdb44e77193beb94c894a46cd94c89bea2db05f05ea9c",
       "spec": {
-        "template": "table",
-        "title": "Edge cache evaluation status and revalidation decisions by age",
-        "columns": [
-          "status",
-          "revalidate"
+        "template": "sequence",
+        "title": "Fresh, stale or expired?",
+        "actors": [
+          "header",
+          "age",
+          "cache_control"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Read max-age and stale-while-revalidate from the header (0 when missing).",
+            "activeActor": "header",
+            "messages": [
+              {
+                "from": "header",
+                "to": "age",
+                "label": {
+                  "var": "header",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "age",
+                "to": "cache_control",
+                "label": {
+                  "var": "age",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "If age is within max-age the copy is fresh and served without revalidation.",
-            "rows": [
+            "caption": "If age is at most max-age, the copy is FRESH.",
+            "activeActor": "age",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "FRESH"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
+                "from": "header",
+                "to": "age",
+                "label": {
+                  "var": "header",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "age",
+                "to": "cache_control",
+                "label": {
+                  "var": "age",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Stale content is served immediately while triggering background refresh.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example evaluates one header at several ages.",
+            "activeActor": "cache_control",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "FRESH"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
+                "from": "header",
+                "to": "age",
+                "label": {
+                  "var": "header",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "age",
+                "to": "cache_control",
+                "label": {
+                  "var": "age",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "STALE_REVALIDATING"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Otherwise expired assets must fetch fresh responses from origin.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "FRESH"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "STALE_REVALIDATING"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "EXPIRED"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Edge cache evaluation status and revalidation decisions by age",
-        "columns": [
-          "status",
-          "revalidate"
+        "template": "sequence",
+        "title": "Fresh, stale or expired?",
+        "actors": [
+          "header",
+          "age",
+          "cache_control"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Read max-age and stale-while-revalidate from the header (0 when missing).",
+            "messages": [
+              {
+                "from": "header",
+                "to": "age",
+                "label": "'public, max-age=60, stale-while-revali…",
+                "tone": "data"
+              },
+              {
+                "from": "age",
+                "to": "cache_control",
+                "label": "10",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "header"
+          },
+          {
             "at": "say2",
-            "caption": "If age is within max-age the copy is fresh and served without revalidation.",
-            "rows": [
+            "caption": "If age is at most max-age, the copy is FRESH.",
+            "messages": [
               {
-                "cells": [
-                  "FRESH",
-                  "False"
-                ],
+                "from": "header",
+                "to": "age",
+                "label": "'public, max-age=60, stale-while-revali…",
+                "tone": "data"
+              },
+              {
+                "from": "age",
+                "to": "cache_control",
+                "label": "10",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "age"
           },
           {
-            "at": "say3",
-            "caption": "Stale content is served immediately while triggering background refresh.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example evaluates one header at several ages.",
+            "messages": [
               {
-                "cells": [
-                  "FRESH",
-                  "False"
-                ],
+                "from": "header",
+                "to": "age",
+                "label": "'public, max-age=60, stale-while-revali…",
+                "tone": "data"
+              },
+              {
+                "from": "age",
+                "to": "cache_control",
+                "label": "10",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "STALE_REVALIDATING",
-                  "True"
-                ],
-                "tone": "idle"
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Otherwise expired assets must fetch fresh responses from origin.",
-            "rows": [
-              {
-                "cells": [
-                  "FRESH",
-                  "False"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "STALE_REVALIDATING",
-                  "True"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "EXPIRED",
-                  "False"
-                ],
-                "tone": "error"
-              }
-            ]
+            ],
+            "activeActor": "cache_control"
           }
         ]
       }
@@ -571,165 +501,221 @@
       "partTitle": "Purging with surrogate keys",
       "codeHash": "afd95f050340140766cb871d7234314fcb2c75f7077aacb9225cd20c4a1f14cf",
       "spec": {
-        "template": "table",
-        "title": "Surrogate keys cache tag association for granular edge invalidation",
-        "columns": [
-          "url",
-          "keys"
+        "template": "flow",
+        "title": "Purging with surrogate keys",
+        "nodes": [
+          {
+            "id": "pages",
+            "label": "pages"
+          },
+          {
+            "id": "keys",
+            "label": "keys"
+          },
+          {
+            "id": "purge",
+            "label": "purge"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Purging invalidates outdated copies from edge caches when prices change.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "/product/42"
-                  },
-                  {
-                    "text": "product-42"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Sometimes content changes before it expires.",
+            "values": {
+              "pages": {
+                "var": "pages",
+                "line": 4,
+                "hit": 1
+              },
+              "keys": {
+                "var": "keys",
+                "line": 2,
+                "hit": 1
+              },
+              "purge": {
+                "var": "purge",
+                "line": 11,
+                "hit": 1
               }
+            },
+            "tones": {
+              "pages": "data",
+              "keys": "data",
+              "purge": "data"
+            },
+            "arrows": [
+              [
+                "pages",
+                "keys"
+              ],
+              [
+                "keys",
+                "purge"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Surrogate keys tag responses so related pages purge together in one operation.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "/product/42"
-                  },
-                  {
-                    "text": "product-42"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Purging by URL works for one page, but a product may appear on hundreds.",
+            "values": {
+              "pages": {
+                "var": "pages",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "/category/shoes"
-                  },
-                  {
-                    "text": "category-shoes"
-                  }
-                ],
-                "tone": "ok"
+              "keys": {
+                "var": "keys",
+                "line": 2,
+                "hit": 1
+              },
+              "purge": {
+                "var": "purge",
+                "line": 12,
+                "hit": 1
               }
+            },
+            "tones": {
+              "pages": "data",
+              "keys": "data",
+              "purge": "data"
+            },
+            "arrows": [
+              [
+                "pages",
+                "keys"
+              ],
+              [
+                "keys",
+                "purge"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Purging by key invalidates cached copies globally across all edge locations.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "/product/42"
-                  },
-                  {
-                    "text": "product-42"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example tags pages and finds which ones a purge would remove.",
+            "values": {
+              "pages": {
+                "var": "pages",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "/category/shoes"
-                  },
-                  {
-                    "text": "category-shoes"
-                  }
-                ],
-                "tone": "ok"
+              "keys": {
+                "var": "keys",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "/home"
-                  },
-                  {
-                    "text": "home"
-                  }
-                ],
-                "tone": "ok"
+              "purge": {
+                "var": "purge",
+                "line": 12,
+                "hit": 2
               }
+            },
+            "tones": {
+              "pages": "ok",
+              "keys": "ok",
+              "purge": "ok"
+            },
+            "arrows": [
+              [
+                "pages",
+                "keys"
+              ],
+              [
+                "keys",
+                "purge"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Surrogate keys cache tag association for granular edge invalidation",
-        "columns": [
-          "url",
-          "keys"
+        "template": "flow",
+        "title": "Purging with surrogate keys",
+        "nodes": [
+          {
+            "id": "pages",
+            "label": "pages"
+          },
+          {
+            "id": "keys",
+            "label": "keys"
+          },
+          {
+            "id": "purge",
+            "label": "purge"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Purging invalidates outdated copies from edge caches when prices change.",
-            "rows": [
-              {
-                "cells": [
-                  "/product/42",
-                  "product-42"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Sometimes content changes before it expires.",
+            "values": {
+              "pages": "{'/product/42': ['product-42', 'categor…",
+              "keys": "['category-shoes', 'product-42', 'produ…",
+              "purge": "'product-42'"
+            },
+            "tones": {
+              "pages": "data",
+              "keys": "data",
+              "purge": "data"
+            },
+            "arrows": [
+              [
+                "pages",
+                "keys"
+              ],
+              [
+                "keys",
+                "purge"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Surrogate keys tag responses so related pages purge together in one operation.",
-            "rows": [
-              {
-                "cells": [
-                  "/product/42",
-                  "product-42"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "/category/shoes",
-                  "category-shoes"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Purging by URL works for one page, but a product may appear on hundreds.",
+            "values": {
+              "pages": "{'/product/42': ['product-42', 'categor…",
+              "keys": "['category-shoes', 'product-42', 'produ…",
+              "purge": "'product-42'"
+            },
+            "tones": {
+              "pages": "data",
+              "keys": "data",
+              "purge": "data"
+            },
+            "arrows": [
+              [
+                "pages",
+                "keys"
+              ],
+              [
+                "keys",
+                "purge"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Purging by key invalidates cached copies globally across all edge locations.",
-            "rows": [
-              {
-                "cells": [
-                  "/product/42",
-                  "product-42"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "/category/shoes",
-                  "category-shoes"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "/home",
-                  "home"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example tags pages and finds which ones a purge would remove.",
+            "values": {
+              "pages": "{'/product/42': ['product-42', 'categor…",
+              "keys": "['category-shoes', 'product-42', 'produ…",
+              "purge": "'product-42'"
+            },
+            "tones": {
+              "pages": "ok",
+              "keys": "ok",
+              "purge": "ok"
+            },
+            "arrows": [
+              [
+                "pages",
+                "keys"
+              ],
+              [
+                "keys",
+                "purge"
+              ]
             ]
           }
         ]
@@ -739,166 +725,72 @@
       "partTitle": "What to cache, and what not",
       "codeHash": "25260e7c185c6daf355716ff9769ebf03a06e60db9d2563f0af825f2b20669d1",
       "spec": {
-        "template": "table",
-        "title": "Caching policies and header strategies across web resource types",
-        "columns": [
-          "kind",
-          "rules"
+        "template": "states",
+        "title": "What to cache, and what not",
+        "states": [
+          {
+            "id": "kind",
+            "label": "kind"
+          },
+          {
+            "id": "rules",
+            "label": "rules"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cache static assets for long durations with content hashed filenames.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "static asset"
-                  },
-                  {
-                    "text": "public, max-age=31536000, immutable"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Cache static assets (images, CSS, JavaScript) for a long time,.",
+            "currentState": "kind",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Cache public pages briefly and configure stale revalidation for fast loads.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "static asset"
-                  },
-                  {
-                    "text": "public, max-age=31536000, immutable"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "public page"
-                  },
-                  {
-                    "text": "public, max-age=60, stale-while-revalidate=30"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Cache public pages and API responses for short times, often.",
+            "currentState": "rules",
+            "transition": {
+              "from": "kind",
+              "to": "rules",
+              "label": {
+                "var": "rules",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Never store personalized or sensitive account pages in shared caches.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "static asset"
-                  },
-                  {
-                    "text": "public, max-age=31536000, immutable"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "public page"
-                  },
-                  {
-                    "text": "public, max-age=60, stale-while-revalidate=30"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "user account page"
-                  },
-                  {
-                    "text": "private, no-store"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Caching policies and header strategies across web resource types",
-        "columns": [
-          "kind",
-          "rules"
+        "template": "states",
+        "title": "What to cache, and what not",
+        "states": [
+          {
+            "id": "kind",
+            "label": "kind"
+          },
+          {
+            "id": "rules",
+            "label": "rules"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cache static assets for long durations with content hashed filenames.",
-            "rows": [
-              {
-                "cells": [
-                  "static asset",
-                  "public, max-age=31536000, immutable"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Cache static assets (images, CSS, JavaScript) for a long time,.",
+            "currentState": "kind",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Cache public pages briefly and configure stale revalidation for fast loads.",
-            "rows": [
-              {
-                "cells": [
-                  "static asset",
-                  "public, max-age=31536000, immutable"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "public page",
-                  "public, max-age=60, stale-while-revalidate=30"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Never store personalized or sensitive account pages in shared caches.",
-            "rows": [
-              {
-                "cells": [
-                  "static asset",
-                  "public, max-age=31536000, immutable"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "public page",
-                  "public, max-age=60, stale-while-revalidate=30"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "user account page",
-                  "private, no-store"
-                ],
-                "tone": "error"
-              }
-            ]
+            "caption": "Cache public pages and API responses for short times, often.",
+            "currentState": "rules",
+            "transition": {
+              "from": "kind",
+              "to": "rules",
+              "label": "{'static asset': 'public, max-age=31536…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -907,224 +799,162 @@
       "partTitle": "Protecting the origin",
       "codeHash": "fb04ff721a7d70256cf242f8de7d857391640ccd8ef925180151d5a5e675a311",
       "spec": {
-        "template": "flow",
-        "title": "Protecting the origin — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Protecting the origin",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Protecting the origin",
+        "actors": [
+          "waiting",
+          "origin_fetches",
+          "url"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Protecting the origin [D.Psix.Sone].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Protecting the origin [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "When a popular item expires at the edge, many requests can miss at once.",
+            "activeActor": "waiting",
+            "messages": [
+              {
+                "from": "waiting",
+                "to": "origin_fetches",
+                "label": {
+                  "var": "waiting",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "origin_fetches",
+                "to": "url",
+                "label": {
+                  "var": "origin_fetches",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "CDNs defend with request collapsing (only one request per object goes.",
+            "activeActor": "origin_fetches",
+            "messages": [
+              {
+                "from": "waiting",
+                "to": "origin_fetches",
+                "label": {
+                  "var": "waiting",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "origin_fetches",
+                "to": "url",
+                "label": {
+                  "var": "origin_fetches",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Protecting the origin [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Trace how example updates shows during execution.",
+            "activeActor": "url",
+            "messages": [
+              {
+                "from": "waiting",
+                "to": "origin_fetches",
+                "label": {
+                  "var": "waiting",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "origin_fetches",
+                "to": "url",
+                "label": {
+                  "var": "origin_fetches",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Protecting the origin — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Protecting the origin",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Protecting the origin",
+        "actors": [
+          "waiting",
+          "origin_fetches",
+          "url"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Protecting the origin [D28.P6.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Protecting the origin [D28.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "When a popular item expires at the edge, many requests can miss at once.",
+            "messages": [
+              {
+                "from": "waiting",
+                "to": "origin_fetches",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "origin_fetches",
+                "to": "url",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "waiting"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "CDNs defend with request collapsing (only one request per object goes.",
+            "messages": [
+              {
+                "from": "waiting",
+                "to": "origin_fetches",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "origin_fetches",
+                "to": "url",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "origin_fetches"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Protecting the origin [D28.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Trace how example updates shows during execution.",
+            "messages": [
+              {
+                "from": "waiting",
+                "to": "origin_fetches",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "origin_fetches",
+                "to": "url",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "url"
           }
         ]
       }

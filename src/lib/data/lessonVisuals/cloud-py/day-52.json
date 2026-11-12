@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 52,
-  "promptSha": "5f74151c44a34dbe0b42c2bfd374b5bbad62796298e89dd8f47f96ed0dd358cf",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Route 53 Application Recovery Controller, Readiness Checks & Shuffle Sharding — Foundations & Mathematical Invariants",
-      "codeHash": "4c513d60f54d8530e0b2c15ef46834d7589efa1d5db810dd60de0bba98651852",
+      "codeHash": "d4a1471c2b76828c9d3c010a2929cb57af5cd611ea48cd9c33dc80ee39ad5ac8",
       "spec": {
-        "template": "flow",
-        "title": "Route Application Recovery Controller, Readiness Checks & Shuffle Shar",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Route 53 Application Recovery Controller, Readiness Checks & Shu",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cellular architectures decouple enterprise platforms into independently.",
+            "bars": [
+              {
+                "label": "total_customer",
+                "value": {
+                  "var": "total_customers",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "num_cells",
+                "value": {
+                  "var": "num_cells",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "customers_per_",
+                "value": {
+                  "var": "customers_per_cell",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "impact_pct",
+                "value": {
+                  "var": "impact_pct",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Rigorous cellular sizing ensures that any localized operational disruption.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_customer",
+                "value": {
+                  "var": "total_customers",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "num_cells",
+                "value": {
+                  "var": "num_cells",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "customers_per_",
+                "value": {
+                  "var": "customers_per_cell",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "impact_pct",
+                "value": {
+                  "var": "impact_pct",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Architects model cellular capacities mathematically to guarantee.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_customer",
+                "value": {
+                  "var": "total_customers",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "num_cells",
+                "value": {
+                  "var": "num_cells",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "customers_per_",
+                "value": {
+                  "var": "customers_per_cell",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "impact_pct",
+                "value": {
+                  "var": "impact_pct",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Route Application Recovery Controller, Readiness Checks & Shuffle Shar",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Route 53 Application Recovery Controller, Readiness Checks & Shu",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cellular architectures decouple enterprise platforms into independently.",
+            "bars": [
+              {
+                "label": "total_customer",
+                "value": 100000,
+                "tone": "data"
+              },
+              {
+                "label": "num_cells",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "customers_per_",
+                "value": 10000,
+                "tone": "data"
+              },
+              {
+                "label": "impact_pct",
+                "value": 10,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Rigorous cellular sizing ensures that any localized operational disruption.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_customer",
+                "value": 100000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "num_cells",
+                "value": 10,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "customers_per_",
+                "value": 10000,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "impact_pct",
+                "value": 10,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Architects model cellular capacities mathematically to guarantee.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_customer",
+                "value": 100000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "num_cells",
+                "value": 10,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "customers_per_",
+                "value": 10000,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "impact_pct",
+                "value": 10,
+                "tone": "ok"
               }
             ]
           }
@@ -273,265 +227,279 @@
     },
     {
       "partTitle": "Route 53 Application Recovery Controller, Readiness Checks & Shuffle Sharding — Core Algorithm & State Representation",
-      "codeHash": "22243f947c96fde06618637d7b3911269dfdf7cfcd22c4d6b8acb7526b17ac2b",
+      "codeHash": "c08a91a11eb5bfe956ae5d6afc7dae04c7b10d6d3a770f712d7a795826f81d46",
       "spec": {
         "template": "flow",
-        "title": "Route Application Recovery Controller, Readiness Checks & Shuffle Shar",
+        "title": "Route 53 Application Recovery Controller, Readiness Checks & Shu",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cell_ready",
+            "label": "cell_ready"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cell_unready",
+            "label": "cell_unready"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "cell_spec",
+            "label": "cell_spec"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "issues",
+            "label": "issues"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Continuous readiness auditing interrogates standby cell compute capacities.",
+            "values": {
+              "cell_ready": {
+                "var": "cell_ready",
+                "line": 20,
+                "hit": 1
+              },
+              "cell_unready": {
+                "var": "cell_unready",
+                "line": 21,
+                "hit": 1
+              },
+              "cell_spec": {
+                "var": "cell_spec",
+                "line": 4,
+                "hit": 1
+              },
+              "issues": {
+                "var": "issues",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "cell_ready": "data",
+              "cell_unready": "data",
+              "cell_spec": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "cell_ready",
+                "cell_unready"
+              ],
+              [
+                "cell_unready",
+                "cell_spec"
+              ],
+              [
+                "cell_spec",
+                "issues"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Automated readiness evaluation prevents the catastrophic failure mode.",
+            "values": {
+              "cell_ready": {
+                "var": "cell_ready",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "cell_unready": {
+                "var": "cell_unready",
+                "line": 23,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "cell_spec": {
+                "var": "cell_spec",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "issues": {
+                "var": "issues",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "cell_ready": "data",
+              "cell_unready": "data",
+              "cell_spec": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "cell_ready",
+                "cell_unready"
+              ],
+              [
+                "cell_unready",
+                "cell_spec"
+              ],
+              [
+                "cell_spec",
+                "issues"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "These deterministic controls ensure that failover operations execute.",
+            "values": {
+              "cell_ready": {
+                "var": "cell_ready",
+                "line": 23,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "cell_unready": {
+                "var": "cell_unready",
+                "line": 24,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "cell_spec": {
+                "var": "cell_spec",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "issues": {
+                "var": "issues",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "cell_ready": "ok",
+              "cell_unready": "ok",
+              "cell_spec": "ok",
+              "issues": "ok"
+            },
+            "arrows": [
+              [
+                "cell_ready",
+                "cell_unready"
+              ],
+              [
+                "cell_unready",
+                "cell_spec"
+              ],
+              [
+                "cell_spec",
+                "issues"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Route Application Recovery Controller, Readiness Checks & Shuffle Shar",
+        "title": "Route 53 Application Recovery Controller, Readiness Checks & Shu",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cell_ready",
+            "label": "cell_ready"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cell_unready",
+            "label": "cell_unready"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "cell_spec",
+            "label": "cell_spec"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "issues",
+            "label": "issues"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Continuous readiness auditing interrogates standby cell compute capacities.",
+            "values": {
+              "cell_ready": "{'spare_cpu_pct': 55, 'db_lag_seconds':…",
+              "cell_unready": "{'spare_cpu_pct': 15, 'db_lag_seconds':…",
+              "cell_spec": "{'spare_cpu_pct': 55, 'db_lag_seconds':…",
+              "issues": "[]"
+            },
+            "tones": {
+              "cell_ready": "data",
+              "cell_unready": "data",
+              "cell_spec": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "cell_ready",
+                "cell_unready"
+              ],
+              [
+                "cell_unready",
+                "cell_spec"
+              ],
+              [
+                "cell_spec",
+                "issues"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Automated readiness evaluation prevents the catastrophic failure mode.",
+            "values": {
+              "cell_ready": "{'spare_cpu_pct': 55, 'db_lag_seconds':…",
+              "cell_unready": "{'spare_cpu_pct': 15, 'db_lag_seconds':…",
+              "cell_spec": "{'spare_cpu_pct': 55, 'db_lag_seconds':…",
+              "issues": "[]"
+            },
+            "tones": {
+              "cell_ready": "data",
+              "cell_unready": "data",
+              "cell_spec": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "cell_ready",
+                "cell_unready"
+              ],
+              [
+                "cell_unready",
+                "cell_spec"
+              ],
+              [
+                "cell_spec",
+                "issues"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "These deterministic controls ensure that failover operations execute.",
+            "values": {
+              "cell_ready": "{'spare_cpu_pct': 55, 'db_lag_seconds':…",
+              "cell_unready": "{'spare_cpu_pct': 15, 'db_lag_seconds':…",
+              "cell_spec": "{'spare_cpu_pct': 55, 'db_lag_seconds':…",
+              "issues": "[]"
+            },
+            "tones": {
+              "cell_ready": "ok",
+              "cell_unready": "ok",
+              "cell_spec": "ok",
+              "issues": "ok"
+            },
+            "arrows": [
+              [
+                "cell_ready",
+                "cell_unready"
+              ],
+              [
+                "cell_unready",
+                "cell_spec"
+              ],
+              [
+                "cell_spec",
+                "issues"
+              ]
             ]
           }
         ]
@@ -539,265 +507,279 @@
     },
     {
       "partTitle": "Route 53 Application Recovery Controller, Readiness Checks & Shuffle Sharding — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "7c3fae313abc73c0b365ff3bb991d40bb97f9acb545eb857e59b3d2d6ea080e0",
+      "codeHash": "ef5895fa0e7725753cd11e21b82e8b6156696da14d0052f4b851f3b0260ea8f5",
       "spec": {
         "template": "flow",
-        "title": "Route Application Recovery Controller, Readiness Checks & Shuffle Shar",
+        "title": "Route 53 Application Recovery Controller, Readiness Checks & Shu",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "n_total_cells",
+            "label": "n_total_cells"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "k_cells_per_tenant",
+            "label": "k_cells_per_tenant"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "total_shards",
+            "label": "total_shards"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "collision_prob",
+            "label": "collision_prob"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Shuffle sharding achieves mathematical resilience by transforming physical.",
+            "values": {
+              "n_total_cells": {
+                "var": "n_total_cells",
+                "line": 7,
+                "hit": 1
+              },
+              "k_cells_per_tenant": {
+                "var": "k_cells_per_tenant",
+                "line": 7,
+                "hit": 1
+              },
+              "total_shards": {
+                "var": "total_shards",
+                "line": 7,
+                "hit": 1
+              },
+              "collision_prob": {
+                "var": "collision_prob",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "n_total_cells": "data",
+              "k_cells_per_tenant": "data",
+              "total_shards": "data",
+              "collision_prob": "data"
+            },
+            "arrows": [
+              [
+                "n_total_cells",
+                "k_cells_per_tenant"
+              ],
+              [
+                "k_cells_per_tenant",
+                "total_shards"
+              ],
+              [
+                "total_shards",
+                "collision_prob"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Even when malicious traffic patterns or corrupted payloads crash an entire.",
+            "values": {
+              "n_total_cells": {
+                "var": "n_total_cells",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "k_cells_per_tenant": {
+                "var": "k_cells_per_tenant",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "total_shards": {
+                "var": "total_shards",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "collision_prob": {
+                "var": "collision_prob",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "n_total_cells": "data",
+              "k_cells_per_tenant": "data",
+              "total_shards": "data",
+              "collision_prob": "data"
+            },
+            "arrows": [
+              [
+                "n_total_cells",
+                "k_cells_per_tenant"
+              ],
+              [
+                "k_cells_per_tenant",
+                "total_shards"
+              ],
+              [
+                "total_shards",
+                "collision_prob"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Shuffle sharding transforms standard cloud infrastructure.",
+            "values": {
+              "n_total_cells": {
+                "var": "n_total_cells",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "k_cells_per_tenant": {
+                "var": "k_cells_per_tenant",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "total_shards": {
+                "var": "total_shards",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "collision_prob": {
+                "var": "collision_prob",
+                "line": 11,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "n_total_cells": "ok",
+              "k_cells_per_tenant": "ok",
+              "total_shards": "ok",
+              "collision_prob": "ok"
+            },
+            "arrows": [
+              [
+                "n_total_cells",
+                "k_cells_per_tenant"
+              ],
+              [
+                "k_cells_per_tenant",
+                "total_shards"
+              ],
+              [
+                "total_shards",
+                "collision_prob"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Route Application Recovery Controller, Readiness Checks & Shuffle Shar",
+        "title": "Route 53 Application Recovery Controller, Readiness Checks & Shu",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "n_total_cells",
+            "label": "n_total_cells"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "k_cells_per_tenant",
+            "label": "k_cells_per_tenant"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "total_shards",
+            "label": "total_shards"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "collision_prob",
+            "label": "collision_prob"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Shuffle sharding achieves mathematical resilience by transforming physical.",
+            "values": {
+              "n_total_cells": "20",
+              "k_cells_per_tenant": "4",
+              "total_shards": "4845",
+              "collision_prob": "0.0206"
+            },
+            "tones": {
+              "n_total_cells": "data",
+              "k_cells_per_tenant": "data",
+              "total_shards": "data",
+              "collision_prob": "data"
+            },
+            "arrows": [
+              [
+                "n_total_cells",
+                "k_cells_per_tenant"
+              ],
+              [
+                "k_cells_per_tenant",
+                "total_shards"
+              ],
+              [
+                "total_shards",
+                "collision_prob"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Even when malicious traffic patterns or corrupted payloads crash an entire.",
+            "values": {
+              "n_total_cells": "20",
+              "k_cells_per_tenant": "4",
+              "total_shards": "4845",
+              "collision_prob": "0.0206"
+            },
+            "tones": {
+              "n_total_cells": "data",
+              "k_cells_per_tenant": "data",
+              "total_shards": "data",
+              "collision_prob": "data"
+            },
+            "arrows": [
+              [
+                "n_total_cells",
+                "k_cells_per_tenant"
+              ],
+              [
+                "k_cells_per_tenant",
+                "total_shards"
+              ],
+              [
+                "total_shards",
+                "collision_prob"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Shuffle sharding transforms standard cloud infrastructure.",
+            "values": {
+              "n_total_cells": "20",
+              "k_cells_per_tenant": "4",
+              "total_shards": "4845",
+              "collision_prob": "0.0206"
+            },
+            "tones": {
+              "n_total_cells": "ok",
+              "k_cells_per_tenant": "ok",
+              "total_shards": "ok",
+              "collision_prob": "ok"
+            },
+            "arrows": [
+              [
+                "n_total_cells",
+                "k_cells_per_tenant"
+              ],
+              [
+                "k_cells_per_tenant",
+                "total_shards"
+              ],
+              [
+                "total_shards",
+                "collision_prob"
+              ]
             ]
           }
         ]
@@ -805,532 +787,272 @@
     },
     {
       "partTitle": "Route 53 Application Recovery Controller, Readiness Checks & Shuffle Sharding — Resilience Guardrails & Failure Recovery",
-      "codeHash": "91cd741d2d4639a120c181eeb05a615301b0a96a242bff8449c5e7c89f195687",
+      "codeHash": "3ec460cedfc36244c26c5f5a555a4a9e270c5eca0ed9293d1473063a962adc50",
       "spec": {
-        "template": "flow",
-        "title": "Route Application Recovery Controller, Readiness Checks & Shuffle Shar",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Route 53 Application Recovery Controller, Readiness Checks & Shu",
+        "actors": [
+          "ctrls",
+          "self",
+          "controls"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "ARC safety rules enforce strict logical assertions on routing control.",
+            "activeActor": "ctrls",
+            "messages": [
+              {
+                "from": "ctrls",
+                "to": "self",
+                "label": {
+                  "var": "ctrls",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "controls",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Zonal autoshift mechanisms continuously evaluate availability zone.",
+            "activeActor": "self",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "ctrls",
+                "to": "self",
+                "label": {
+                  "var": "ctrls",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "controls",
+                "label": {
+                  "var": "self",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Continuous validation of control states guarantees that emergency recovery.",
+            "activeActor": "controls",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "ctrls",
+                "to": "self",
+                "label": {
+                  "var": "ctrls",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "self",
+                "to": "controls",
+                "label": {
+                  "var": "self",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Route Application Recovery Controller, Readiness Checks & Shuffle Shar",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Route 53 Application Recovery Controller, Readiness Checks & Shu",
+        "actors": [
+          "ctrls",
+          "self",
+          "controls"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "ARC safety rules enforce strict logical assertions on routing control.",
+            "messages": [
+              {
+                "from": "ctrls",
+                "to": "self",
+                "label": "{'cell_az1': True, 'cell_az2': False, '…",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "controls",
+                "label": "<ArcSafetyRuleEngine>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ctrls"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Zonal autoshift mechanisms continuously evaluate availability zone.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "ctrls",
+                "to": "self",
+                "label": "{'cell_az1': True, 'cell_az2': False, '…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "controls",
+                "label": "<ArcSafetyRuleEngine>",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "self"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Continuous validation of control states guarantees that emergency recovery.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "ctrls",
+                "to": "self",
+                "label": "{'cell_az1': True, 'cell_az2': False, '…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "controls",
+                "label": "<ArcSafetyRuleEngine>",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "controls"
           }
         ]
       }
     },
     {
       "partTitle": "Route 53 Application Recovery Controller, Readiness Checks & Shuffle Sharding — Production Telemetry & Verification Audit",
-      "codeHash": "f63c484065e3de87bcfd67259838e4603e23eb643ab9ed3703d172f40263171d",
+      "codeHash": "5e71487957b3a9ba4b7c7c397608abe5a61fb13c685b099f2e89f4a244cfb2e3",
       "spec": {
-        "template": "flow",
-        "title": "Route Application Recovery Controller, Readiness Checks & Shuffle Shar",
-        "nodes": [
+        "template": "states",
+        "title": "Route 53 Application Recovery Controller, Readiness Checks & Shu",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "fleet",
+            "label": "fleet"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cell_statuses",
+            "label": "cell_statuses"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "total_cells",
+            "label": "total_cells"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Centralized dashboards correlate cellular health metrics and DNS health.",
+            "currentState": "fleet",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Automated chaos engineering GameDays periodically inject simulated.",
+            "currentState": "cell_statuses",
+            "transition": {
+              "from": "fleet",
+              "to": "cell_statuses",
+              "label": {
+                "var": "cell_statuses",
+                "line": 5,
+                "hit": 7
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "These rigorous automated verifications certify that enterprise resiliency.",
+            "currentState": "total_cells",
+            "transition": {
+              "from": "cell_statuses",
+              "to": "total_cells",
+              "label": {
+                "var": "total_cells",
+                "line": 6,
+                "hit": 7
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Route Application Recovery Controller, Readiness Checks & Shuffle Shar",
-        "nodes": [
+        "template": "states",
+        "title": "Route 53 Application Recovery Controller, Readiness Checks & Shu",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "fleet",
+            "label": "fleet"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cell_statuses",
+            "label": "cell_statuses"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "total_cells",
+            "label": "total_cells"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Centralized dashboards correlate cellular health metrics and DNS health.",
+            "currentState": "fleet",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Automated chaos engineering GameDays periodically inject simulated.",
+            "currentState": "cell_statuses",
+            "transition": {
+              "from": "fleet",
+              "to": "cell_statuses",
+              "label": "[{'cell_id': 'cell-1', 'status': 'HEALT…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "These rigorous automated verifications certify that enterprise resiliency.",
+            "currentState": "total_cells",
+            "transition": {
+              "from": "cell_statuses",
+              "to": "total_cells",
+              "label": "5"
+            },
+            "tone": "ok"
           }
         ]
       }

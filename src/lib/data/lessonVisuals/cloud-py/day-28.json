@@ -2,255 +2,139 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 28,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "FinOps: engineering meets finance",
       "codeHash": "7d6bcc69434c1abc4071522b2e65acf986174f336906da89129649fadffd6e93",
       "spec": {
-        "template": "table",
-        "title": "Monthly cloud spend tracking and unit cost efficiency metrics",
-        "columns": [
-          "name",
-          "bill"
-        ],
+        "template": "bars",
+        "title": "FinOps: engineering meets finance",
         "steps": [
           {
             "at": "say1",
-            "caption": "FinOps manages cloud cost as a shared responsibility across teams.",
-            "rows": [
+            "caption": "FinOps is the practice of managing cloud cost as a shared responsibility.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Jul"
-                  },
-                  {
-                    "text": "bill"
-                  }
-                ],
-                "tone": "ok"
+                "label": "bill",
+                "value": {
+                  "var": "bill",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "orders",
+                "value": {
+                  "var": "orders",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Every engineer can spend money with cloud calls.",
-            "rows": [
+            "caption": "In the cloud, every engineer can spend money with an API call.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Jul"
-                  },
-                  {
-                    "text": "bill"
-                  }
-                ],
+                "label": "bill",
+                "value": {
+                  "var": "bill",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "Aug"
-                  },
-                  {
-                    "text": "bill"
-                  }
-                ],
+                "label": "orders",
+                "value": {
+                  "var": "orders",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The FinOps cycle phases remove waste and operate budgets.",
-            "rows": [
+            "at": "say7",
+            "caption": "Cost is a design property, like speed or security.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Jul"
-                  },
-                  {
-                    "text": "bill"
-                  }
-                ],
+                "label": "bill",
+                "value": {
+                  "var": "bill",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "Aug"
-                  },
-                  {
-                    "text": "bill"
-                  }
-                ],
+                "label": "orders",
+                "value": {
+                  "var": "orders",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Sep"
-                  },
-                  {
-                    "text": "bill"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Unit cost per order measures efficiency as bill values change.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Jul"
-                  },
-                  {
-                    "text": "bill"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Aug"
-                  },
-                  {
-                    "text": "bill"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Sep"
-                  },
-                  {
-                    "text": "bill"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "orders"
-                  },
-                  {
-                    "text": "bill"
-                  }
-                ],
-                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Monthly cloud spend tracking and unit cost efficiency metrics",
-        "columns": [
-          "name",
-          "bill"
-        ],
+        "template": "bars",
+        "title": "FinOps: engineering meets finance",
         "steps": [
           {
             "at": "say1",
-            "caption": "FinOps manages cloud cost as a shared responsibility across teams.",
-            "rows": [
+            "caption": "FinOps is the practice of managing cloud cost as a shared responsibility.",
+            "bars": [
               {
-                "cells": [
-                  "Jul",
-                  "bill"
-                ],
-                "tone": "ok"
+                "label": "bill",
+                "value": 42000,
+                "tone": "data"
+              },
+              {
+                "label": "orders",
+                "value": 120000,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Every engineer can spend money with cloud calls.",
-            "rows": [
+            "caption": "In the cloud, every engineer can spend money with an API call.",
+            "bars": [
               {
-                "cells": [
-                  "Jul",
-                  "bill"
-                ],
+                "label": "bill",
+                "value": 42000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "Aug",
-                  "bill"
-                ],
+                "label": "orders",
+                "value": 120000,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The FinOps cycle phases remove waste and operate budgets.",
-            "rows": [
+            "at": "say7",
+            "caption": "Cost is a design property, like speed or security.",
+            "bars": [
               {
-                "cells": [
-                  "Jul",
-                  "bill"
-                ],
+                "label": "bill",
+                "value": 51000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "Aug",
-                  "bill"
-                ],
+                "label": "orders",
+                "value": 170000,
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Sep",
-                  "bill"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Unit cost per order measures efficiency as bill values change.",
-            "rows": [
-              {
-                "cells": [
-                  "Jul",
-                  "bill"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Aug",
-                  "bill"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Sep",
-                  "bill"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "orders",
-                  "bill"
-                ],
-                "tone": "data"
               }
             ]
           }
@@ -261,249 +145,277 @@
       "partTitle": "Savings Plans and commitments",
       "codeHash": "ed84ebd76017e8e665821ccfbb084ea5dd461212d03dc4f21a1c9022a697a822",
       "spec": {
-        "template": "table",
-        "title": "Compute Savings Plans hourly commitment vs on-demand rates",
-        "columns": [
-          "plan_rate",
-          "on_demand_rate"
+        "template": "flow",
+        "title": "Savings Plans and commitments",
+        "nodes": [
+          {
+            "id": "usage",
+            "label": "usage"
+          },
+          {
+            "id": "commit",
+            "label": "commit"
+          },
+          {
+            "id": "hours_used",
+            "label": "hours_used"
+          },
+          {
+            "id": "plan_rate",
+            "label": "plan_rate"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Compute Savings Plans commit to steady usage discounts.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "plan_rate"
-                  },
-                  {
-                    "text": "on_demand_rate"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "On Day 7 you met the idea.",
+            "values": {
+              "usage": {
+                "var": "usage",
+                "line": 4,
+                "hit": 1
+              },
+              "commit": {
+                "var": "commit",
+                "line": 5,
+                "hit": 1
+              },
+              "hours_used": {
+                "var": "hours_used",
+                "line": 2,
+                "hit": 1
+              },
+              "plan_rate": {
+                "var": "plan_rate",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "usage": "data",
+              "commit": "data",
+              "hours_used": "data",
+              "plan_rate": "data"
+            },
+            "arrows": [
+              [
+                "usage",
+                "commit"
+              ],
+              [
+                "commit",
+                "hours_used"
+              ],
+              [
+                "hours_used",
+                "plan_rate"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Usage above commitment is billed at normal on-demand rates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "plan_rate"
-                  },
-                  {
-                    "text": "on_demand_rate"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "You pay the committed amount every hour whether you use it or not.",
+            "values": {
+              "usage": {
+                "var": "usage",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "committed_hours"
-                  },
-                  {
-                    "text": "hours_used"
-                  }
-                ],
-                "tone": "data"
+              "commit": {
+                "var": "commit",
+                "line": 6,
+                "hit": 1
+              },
+              "hours_used": {
+                "var": "hours_used",
+                "line": 2,
+                "hit": 2
+              },
+              "plan_rate": {
+                "var": "plan_rate",
+                "line": 2,
+                "hit": 2
               }
+            },
+            "tones": {
+              "usage": "data",
+              "commit": "data",
+              "hours_used": "data",
+              "plan_rate": "data"
+            },
+            "arrows": [
+              [
+                "usage",
+                "commit"
+              ],
+              [
+                "commit",
+                "hours_used"
+              ],
+              [
+                "hours_used",
+                "plan_rate"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Choosing the commitment avoids paying for hours you do not use.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "plan_rate"
-                  },
-                  {
-                    "text": "on_demand_rate"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example compares several commitment levels for the same month.",
+            "values": {
+              "usage": {
+                "var": "usage",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "committed_hours"
-                  },
-                  {
-                    "text": "hours_used"
-                  }
-                ],
-                "tone": "data"
+              "commit": {
+                "var": "commit",
+                "line": 5,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "committed_hours"
-                  },
-                  {
-                    "text": "plan_rate"
-                  }
-                ],
-                "tone": "idle"
+              "hours_used": {
+                "var": "hours_used",
+                "line": 2,
+                "hit": 3
+              },
+              "plan_rate": {
+                "var": "plan_rate",
+                "line": 2,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Commit to baseline usage and allow peaks to run on-demand.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "plan_rate"
-                  },
-                  {
-                    "text": "on_demand_rate"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "committed_hours"
-                  },
-                  {
-                    "text": "hours_used"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "committed_hours"
-                  },
-                  {
-                    "text": "plan_rate"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "hours_used"
-                  },
-                  {
-                    "text": "on_demand_rate"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "usage": "ok",
+              "commit": "ok",
+              "hours_used": "ok",
+              "plan_rate": "ok"
+            },
+            "arrows": [
+              [
+                "usage",
+                "commit"
+              ],
+              [
+                "commit",
+                "hours_used"
+              ],
+              [
+                "hours_used",
+                "plan_rate"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Compute Savings Plans hourly commitment vs on-demand rates",
-        "columns": [
-          "plan_rate",
-          "on_demand_rate"
+        "template": "flow",
+        "title": "Savings Plans and commitments",
+        "nodes": [
+          {
+            "id": "usage",
+            "label": "usage"
+          },
+          {
+            "id": "commit",
+            "label": "commit"
+          },
+          {
+            "id": "hours_used",
+            "label": "hours_used"
+          },
+          {
+            "id": "plan_rate",
+            "label": "plan_rate"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Compute Savings Plans commit to steady usage discounts.",
-            "rows": [
-              {
-                "cells": [
-                  "plan_rate",
-                  "on_demand_rate"
-                ],
-                "tone": "ok"
-              }
+            "caption": "On Day 7 you met the idea.",
+            "values": {
+              "usage": "1000",
+              "commit": "0",
+              "hours_used": "1000",
+              "plan_rate": "0.06"
+            },
+            "tones": {
+              "usage": "data",
+              "commit": "data",
+              "hours_used": "data",
+              "plan_rate": "data"
+            },
+            "arrows": [
+              [
+                "usage",
+                "commit"
+              ],
+              [
+                "commit",
+                "hours_used"
+              ],
+              [
+                "hours_used",
+                "plan_rate"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Usage above commitment is billed at normal on-demand rates.",
-            "rows": [
-              {
-                "cells": [
-                  "plan_rate",
-                  "on_demand_rate"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "committed_hours",
-                  "hours_used"
-                ],
-                "tone": "data"
-              }
+            "caption": "You pay the committed amount every hour whether you use it or not.",
+            "values": {
+              "usage": "1000",
+              "commit": "0",
+              "hours_used": "1000",
+              "plan_rate": "0.06"
+            },
+            "tones": {
+              "usage": "data",
+              "commit": "data",
+              "hours_used": "data",
+              "plan_rate": "data"
+            },
+            "arrows": [
+              [
+                "usage",
+                "commit"
+              ],
+              [
+                "commit",
+                "hours_used"
+              ],
+              [
+                "hours_used",
+                "plan_rate"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Choosing the commitment avoids paying for hours you do not use.",
-            "rows": [
-              {
-                "cells": [
-                  "plan_rate",
-                  "on_demand_rate"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "committed_hours",
-                  "hours_used"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "committed_hours",
-                  "plan_rate"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Commit to baseline usage and allow peaks to run on-demand.",
-            "rows": [
-              {
-                "cells": [
-                  "plan_rate",
-                  "on_demand_rate"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "committed_hours",
-                  "hours_used"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "committed_hours",
-                  "plan_rate"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "hours_used",
-                  "on_demand_rate"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example compares several commitment levels for the same month.",
+            "values": {
+              "usage": "1000",
+              "commit": "400",
+              "hours_used": "1000",
+              "plan_rate": "0.06"
+            },
+            "tones": {
+              "usage": "ok",
+              "commit": "ok",
+              "hours_used": "ok",
+              "plan_rate": "ok"
+            },
+            "arrows": [
+              [
+                "usage",
+                "commit"
+              ],
+              [
+                "commit",
+                "hours_used"
+              ],
+              [
+                "hours_used",
+                "plan_rate"
+              ]
             ]
           }
         ]
@@ -513,249 +425,277 @@
       "partTitle": "Finding idle and oversized resources",
       "codeHash": "53a214dc13b6a7ebab991a0da42c2d26f0c8252f6bb423d23d37af4da19f924a",
       "spec": {
-        "template": "table",
-        "title": "Cloud resource rightsizing inventory and unattached disks",
-        "columns": [
-          "type",
-          "monthly"
+        "template": "flow",
+        "title": "Finding idle and oversized resources",
+        "nodes": [
+          {
+            "id": "inventory",
+            "label": "inventory"
+          },
+          {
+            "id": "r",
+            "label": "r"
+          },
+          {
+            "id": "action",
+            "label": "action"
+          },
+          {
+            "id": "saving",
+            "label": "saving"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Unattached EBS disks and idle servers waste monthly budget.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ebs-unattached"
-                  },
-                  {
-                    "text": "vol-old"
-                  }
-                ],
-                "tone": "error"
+            "caption": "The fastest savings come from things nobody is using.",
+            "values": {
+              "inventory": {
+                "var": "inventory",
+                "line": 1,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 7,
+                "hit": 1
+              },
+              "action": {
+                "var": "action",
+                "line": 11,
+                "hit": 1
+              },
+              "saving": {
+                "var": "saving",
+                "line": 11,
+                "hit": 1
               }
+            },
+            "tones": {
+              "inventory": "data",
+              "r": "data",
+              "action": "data",
+              "saving": "data"
+            },
+            "arrows": [
+              [
+                "inventory",
+                "r"
+              ],
+              [
+                "r",
+                "action"
+              ],
+              [
+                "action",
+                "saving"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Oversized resources with low CPU could often be half the size.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ebs-unattached"
-                  },
-                  {
-                    "text": "vol-old"
-                  }
-                ],
-                "tone": "error"
+            "caption": "Next come oversized resources.",
+            "values": {
+              "inventory": {
+                "var": "inventory",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "m5.2xlarge"
-                  },
-                  {
-                    "text": "i-web-1"
-                  }
-                ],
-                "tone": "idle"
+              "r": {
+                "var": "r",
+                "line": 8,
+                "hit": 1
+              },
+              "action": {
+                "var": "action",
+                "line": 14,
+                "hit": 1
+              },
+              "saving": {
+                "var": "saving",
+                "line": 14,
+                "hit": 1
               }
+            },
+            "tones": {
+              "inventory": "data",
+              "r": "data",
+              "action": "data",
+              "saving": "data"
+            },
+            "arrows": [
+              [
+                "inventory",
+                "r"
+              ],
+              [
+                "r",
+                "action"
+              ],
+              [
+                "action",
+                "saving"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Compute Optimizer suggests right-sizing while Trusted Advisor flags idle.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ebs-unattached"
-                  },
-                  {
-                    "text": "vol-old"
-                  }
-                ],
-                "tone": "error"
+            "at": "say7",
+            "caption": "Make clean-up a habit.",
+            "values": {
+              "inventory": {
+                "var": "inventory",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "m5.2xlarge"
-                  },
-                  {
-                    "text": "i-web-1"
-                  }
-                ],
-                "tone": "idle"
+              "r": {
+                "var": "r",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "t3.large"
-                  },
-                  {
-                    "text": "i-test-9"
-                  }
-                ],
-                "tone": "data"
+              "action": {
+                "var": "action",
+                "line": 7,
+                "hit": 2
+              },
+              "saving": {
+                "var": "saving",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Development environments stop at night cutting cost by two thirds.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ebs-unattached"
-                  },
-                  {
-                    "text": "vol-old"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "m5.2xlarge"
-                  },
-                  {
-                    "text": "i-web-1"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "t3.large"
-                  },
-                  {
-                    "text": "i-test-9"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "type"
-                  },
-                  {
-                    "text": "monthly"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "inventory": "ok",
+              "r": "ok",
+              "action": "ok",
+              "saving": "ok"
+            },
+            "arrows": [
+              [
+                "inventory",
+                "r"
+              ],
+              [
+                "r",
+                "action"
+              ],
+              [
+                "action",
+                "saving"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cloud resource rightsizing inventory and unattached disks",
-        "columns": [
-          "type",
-          "monthly"
+        "template": "flow",
+        "title": "Finding idle and oversized resources",
+        "nodes": [
+          {
+            "id": "inventory",
+            "label": "inventory"
+          },
+          {
+            "id": "r",
+            "label": "r"
+          },
+          {
+            "id": "action",
+            "label": "action"
+          },
+          {
+            "id": "saving",
+            "label": "saving"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Unattached EBS disks and idle servers waste monthly budget.",
-            "rows": [
-              {
-                "cells": [
-                  "ebs-unattached",
-                  "vol-old"
-                ],
-                "tone": "error"
-              }
+            "caption": "The fastest savings come from things nobody is using.",
+            "values": {
+              "inventory": "[{'id': 'i-web-1', 'type': 'm5.2xlarge'…",
+              "r": "{'id': 'i-web-1', 'type': 'm5.2xlarge',…",
+              "action": "'right-size to half'",
+              "saving": "140"
+            },
+            "tones": {
+              "inventory": "data",
+              "r": "data",
+              "action": "data",
+              "saving": "data"
+            },
+            "arrows": [
+              [
+                "inventory",
+                "r"
+              ],
+              [
+                "r",
+                "action"
+              ],
+              [
+                "action",
+                "saving"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Oversized resources with low CPU could often be half the size.",
-            "rows": [
-              {
-                "cells": [
-                  "ebs-unattached",
-                  "vol-old"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "m5.2xlarge",
-                  "i-web-1"
-                ],
-                "tone": "idle"
-              }
+            "caption": "Next come oversized resources.",
+            "values": {
+              "inventory": "[{'id': 'i-web-1', 'type': 'm5.2xlarge'…",
+              "r": "{'id': 'i-web-1', 'type': 'm5.2xlarge',…",
+              "action": "'right-size to half'",
+              "saving": "140"
+            },
+            "tones": {
+              "inventory": "data",
+              "r": "data",
+              "action": "data",
+              "saving": "data"
+            },
+            "arrows": [
+              [
+                "inventory",
+                "r"
+              ],
+              [
+                "r",
+                "action"
+              ],
+              [
+                "action",
+                "saving"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Compute Optimizer suggests right-sizing while Trusted Advisor flags idle.",
-            "rows": [
-              {
-                "cells": [
-                  "ebs-unattached",
-                  "vol-old"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "m5.2xlarge",
-                  "i-web-1"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "t3.large",
-                  "i-test-9"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Development environments stop at night cutting cost by two thirds.",
-            "rows": [
-              {
-                "cells": [
-                  "ebs-unattached",
-                  "vol-old"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "m5.2xlarge",
-                  "i-web-1"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "t3.large",
-                  "i-test-9"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "type",
-                  "monthly"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Make clean-up a habit.",
+            "values": {
+              "inventory": "[{'id': 'i-web-1', 'type': 'm5.2xlarge'…",
+              "r": "{'id': 'i-web-1', 'type': 'm5.2xlarge',…",
+              "action": "'right-size to half'",
+              "saving": "140"
+            },
+            "tones": {
+              "inventory": "ok",
+              "r": "ok",
+              "action": "ok",
+              "saving": "ok"
+            },
+            "arrows": [
+              [
+                "inventory",
+                "r"
+              ],
+              [
+                "r",
+                "action"
+              ],
+              [
+                "action",
+                "saving"
+              ]
             ]
           }
         ]
@@ -765,250 +705,162 @@
       "partTitle": "Cost allocation tags",
       "codeHash": "2371beca22af046d394ffae2aa0315fc0b64dde348f46c14ed55d9c9f18ccd10",
       "spec": {
-        "template": "table",
-        "title": "Cost allocation tags for project attribution and spending reports",
-        "columns": [
-          "tags",
-          "cost"
+        "template": "sequence",
+        "title": "Cost allocation tags",
+        "actors": [
+          "resources",
+          "by_project",
+          "tags"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tags apply key-value labels to identify resource ownership.",
-            "rows": [
+            "caption": "Tags are key-value labels on resources, such as Environment=production.",
+            "activeActor": "resources",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "Project"
-                  },
-                  {
-                    "text": "checkout"
-                  }
-                ],
+                "from": "resources",
+                "to": "by_project",
+                "label": {
+                  "var": "resources",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "by_project",
+                "to": "tags",
+                "label": {
+                  "var": "by_project",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Cost allocation tags split the bill by team and environment.",
-            "rows": [
+            "caption": "Activated as cost allocation tags, they let Cost Explorer and the billing.",
+            "activeActor": "by_project",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "Project"
-                  },
-                  {
-                    "text": "checkout"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Project"
-                  },
-                  {
-                    "text": "search"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Resources missing required tags contribute to unallocated spend.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Project"
-                  },
-                  {
-                    "text": "checkout"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Project"
-                  },
-                  {
-                    "text": "search"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "UNALLOCATED"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Terraform modules and organization policies enforce tagging early.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Project"
-                  },
-                  {
-                    "text": "checkout"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Project"
-                  },
-                  {
-                    "text": "search"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "UNALLOCATED"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tags"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
+                "from": "resources",
+                "to": "by_project",
+                "label": {
+                  "var": "resources",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "by_project",
+                "to": "tags",
+                "label": {
+                  "var": "by_project",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The example splits a bill by the Project tag and shows the unallocated share.",
+            "activeActor": "tags",
+            "messages": [
+              {
+                "from": "resources",
+                "to": "by_project",
+                "label": {
+                  "var": "resources",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "by_project",
+                "to": "tags",
+                "label": {
+                  "var": "by_project",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cost allocation tags for project attribution and spending reports",
-        "columns": [
-          "tags",
-          "cost"
+        "template": "sequence",
+        "title": "Cost allocation tags",
+        "actors": [
+          "resources",
+          "by_project",
+          "tags"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tags apply key-value labels to identify resource ownership.",
-            "rows": [
+            "caption": "Tags are key-value labels on resources, such as Environment=production.",
+            "messages": [
               {
-                "cells": [
-                  "Project",
-                  "checkout"
-                ],
+                "from": "resources",
+                "to": "by_project",
+                "label": "[[{'Project': 'checkout'}, 420], [{'Pro…",
+                "tone": "data"
+              },
+              {
+                "from": "by_project",
+                "to": "tags",
+                "label": "{}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "resources"
           },
           {
             "at": "say2",
-            "caption": "Cost allocation tags split the bill by team and environment.",
-            "rows": [
+            "caption": "Activated as cost allocation tags, they let Cost Explorer and the billing.",
+            "messages": [
               {
-                "cells": [
-                  "Project",
-                  "checkout"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Project",
-                  "search"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Resources missing required tags contribute to unallocated spend.",
-            "rows": [
-              {
-                "cells": [
-                  "Project",
-                  "checkout"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Project",
-                  "search"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "UNALLOCATED",
-                  "cost"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Terraform modules and organization policies enforce tagging early.",
-            "rows": [
-              {
-                "cells": [
-                  "Project",
-                  "checkout"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Project",
-                  "search"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "UNALLOCATED",
-                  "cost"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "tags",
-                  "cost"
-                ],
+                "from": "resources",
+                "to": "by_project",
+                "label": "[[{'Project': 'checkout'}, 420], [{'Pro…",
                 "tone": "data"
+              },
+              {
+                "from": "by_project",
+                "to": "tags",
+                "label": "{}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "by_project"
+          },
+          {
+            "at": "say7",
+            "caption": "The example splits a bill by the Project tag and shows the unallocated share.",
+            "messages": [
+              {
+                "from": "resources",
+                "to": "by_project",
+                "label": "[[{'Project': 'checkout'}, 420], [{'Pro…",
+                "tone": "data"
+              },
+              {
+                "from": "by_project",
+                "to": "tags",
+                "label": "{'checkout': 420}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "tags"
           }
         ]
       }
@@ -1017,224 +869,106 @@
       "partTitle": "Budgets, alerts and anomaly detection",
       "codeHash": "d3111359ffd0d6ef6f1d2936c71955eacfe53c75e94924b31e7510bfb03f4278",
       "spec": {
-        "template": "flow",
-        "title": "Budgets, alerts and anomaly detection — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Budgets, alerts and anomaly detection",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "budget",
+            "label": "budget"
           },
           {
-            "id": "proc",
-            "label": "2. Budgets, alerts and...",
-            "tappable": true
+            "id": "daily_spend",
+            "label": "daily_spend"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "days_in_month",
+            "label": "days_in_month"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Budgets, alerts and anomaly detection.",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Budgets, alerts and... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "AWS Budgets lets you set monthly limits per account, team tag or service.",
+            "currentState": "budget",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Forecast alerts are the valuable ones.",
+            "currentState": "daily_spend",
+            "transition": {
+              "from": "budget",
+              "to": "daily_spend",
+              "label": {
+                "var": "daily_spend",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Budgets, alerts and anomaly detec.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Budgets turn cost from a monthly surprise into a daily, visible number.",
+            "currentState": "days_in_month",
+            "transition": {
+              "from": "daily_spend",
+              "to": "days_in_month",
+              "label": {
+                "var": "days_in_month",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Budgets, alerts and anomaly detection — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Budgets, alerts and anomaly detection",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "budget",
+            "label": "budget"
           },
           {
-            "id": "proc",
-            "label": "2. Budgets, alerts and...",
-            "tappable": true
+            "id": "daily_spend",
+            "label": "daily_spend"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "days_in_month",
+            "label": "days_in_month"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Budgets, alerts and anomaly detection [D28.P5.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Budgets, alerts and... [D28.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "AWS Budgets lets you set monthly limits per account, team tag or service.",
+            "currentState": "budget",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Forecast alerts are the valuable ones.",
+            "currentState": "daily_spend",
+            "transition": {
+              "from": "budget",
+              "to": "daily_spend",
+              "label": "[38, 41, 40, 39, 95, 97, 99, 101]"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Budgets, alerts and anomaly detec.. [D28.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Budgets turn cost from a monthly surprise into a daily, visible number.",
+            "currentState": "days_in_month",
+            "transition": {
+              "from": "daily_spend",
+              "to": "days_in_month",
+              "label": "30"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -1243,223 +977,217 @@
       "partTitle": "Practice time: bills and tags",
       "codeHash": "3482d566f087f3fe4313a0a048ac67e96e140a3eb88c8f5d268f4cd6a5da1a38",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: bills and tags — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: bill...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: bills and tags",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: bills and tags [D.Psix.Sone].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: bill... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Committed times plan rate, plus max(0, used minus committed) times.",
+            "bars": [
+              {
+                "label": "used",
+                "value": {
+                  "var": "used",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "committed",
+                "value": {
+                  "var": "committed",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "plan",
+                "value": {
+                  "var": "plan",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "od",
+                "value": {
+                  "var": "od",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Check the four cases in the task.",
+            "bars": [
+              {
+                "label": "used",
+                "value": {
+                  "var": "used",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "committed",
+                "value": {
+                  "var": "committed",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "plan",
+                "value": {
+                  "var": "plan",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "od",
+                "value": {
+                  "var": "od",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: bills and tags.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the negative-hours bug.",
+            "bars": [
+              {
+                "label": "used",
+                "value": {
+                  "var": "used",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "committed",
+                "value": {
+                  "var": "committed",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "plan",
+                "value": {
+                  "var": "plan",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "od",
+                "value": {
+                  "var": "od",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: bills and tags — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: bill...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: bills and tags",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: bills and tags [D28.P6.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: bill... [D28.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Committed times plan rate, plus max(0, used minus committed) times.",
+            "bars": [
+              {
+                "label": "used",
+                "value": 50,
+                "tone": "data"
+              },
+              {
+                "label": "committed",
+                "value": 80,
+                "tone": "data"
+              },
+              {
+                "label": "plan",
+                "value": 0.05,
+                "tone": "data"
+              },
+              {
+                "label": "od",
+                "value": 0.1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Check the four cases in the task.",
+            "bars": [
+              {
+                "label": "used",
+                "value": 50,
+                "tone": "ok"
+              },
+              {
+                "label": "committed",
+                "value": 80,
+                "tone": "ok"
+              },
+              {
+                "label": "plan",
+                "value": 0.05,
+                "tone": "ok"
+              },
+              {
+                "label": "od",
+                "value": 0.1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: bills and tags [D28.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the negative-hours bug.",
+            "bars": [
+              {
+                "label": "used",
+                "value": 50,
+                "tone": "ok"
+              },
+              {
+                "label": "committed",
+                "value": 80,
+                "tone": "ok"
+              },
+              {
+                "label": "plan",
+                "value": 0.05,
+                "tone": "ok"
+              },
+              {
+                "label": "od",
+                "value": 0.1,
+                "tone": "ok"
+              }
             ]
           }
         ]

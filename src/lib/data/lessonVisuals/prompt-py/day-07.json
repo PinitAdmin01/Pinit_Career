@@ -2,85 +2,97 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 7,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why structured output",
       "codeHash": "fa9c0adc8ca55208a54a1e85a5a459677aedb1d2100b1ff0686a2ea59b31f391",
       "spec": {
-        "template": "table",
-        "title": "Structured JSON output extraction from model responses",
-        "columns": [
-          "name",
-          "age",
-          "tags"
+        "template": "sequence",
+        "title": "Why structured output",
+        "actors": [
+          "reply",
+          "data"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Predictable structure helps programs update a database or trigger action.",
-            "rows": [
+            "caption": "Free text is great for people but hard for programs.",
+            "activeActor": "reply",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "age"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
-                "tone": "ok"
+                "from": "reply",
+                "to": "data",
+                "label": {
+                  "var": "reply",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "age"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
-                "tone": "data"
+                "from": "data",
+                "to": "reply",
+                "label": {
+                  "var": "data",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Standard format provides named fields with values such as text and numbers.",
-            "rows": [
+            "caption": "JSON (JavaScript Object Notation) is the standard format.",
+            "activeActor": "data",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "age"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
+                "from": "reply",
+                "to": "data",
+                "label": {
+                  "var": "reply",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "age"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
+                "from": "data",
+                "to": "reply",
+                "label": {
+                  "var": "data",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "The json module is part of Python's standard library, so no installation.",
+            "activeActor": "data",
+            "messages": [
+              {
+                "from": "reply",
+                "to": "data",
+                "label": {
+                  "var": "reply",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "data",
+                "to": "reply",
+                "label": {
+                  "var": "data",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +100,69 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Structured JSON output extraction from model responses",
-        "columns": [
-          "name",
-          "age",
-          "tags"
+        "template": "sequence",
+        "title": "Why structured output",
+        "actors": [
+          "reply",
+          "data"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Predictable structure helps programs update a database or trigger action.",
-            "rows": [
+            "caption": "Free text is great for people but hard for programs.",
+            "messages": [
               {
-                "cells": [
-                  "name",
-                  "age",
-                  "tags"
-                ],
-                "tone": "ok"
+                "from": "reply",
+                "to": "data",
+                "label": "'{\"name\": \"Asha\", \"age\": 31, \"tags\": [\"…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "name",
-                  "age",
-                  "tags"
-                ],
-                "tone": "data"
+                "from": "data",
+                "to": "reply",
+                "label": "{'name': 'Asha', 'age': 31, 'tags': ['v…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "reply"
           },
           {
             "at": "say2",
-            "caption": "Standard format provides named fields with values such as text and numbers.",
-            "rows": [
+            "caption": "JSON (JavaScript Object Notation) is the standard format.",
+            "messages": [
               {
-                "cells": [
-                  "name",
-                  "age",
-                  "tags"
-                ],
+                "from": "reply",
+                "to": "data",
+                "label": "'{\"name\": \"Asha\", \"age\": 31, \"tags\": [\"…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "name",
-                  "age",
-                  "tags"
-                ],
+                "from": "data",
+                "to": "reply",
+                "label": "{'name': 'Asha', 'age': 31, 'tags': ['v…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "data"
+          },
+          {
+            "at": "say8",
+            "caption": "The json module is part of Python's standard library, so no installation.",
+            "messages": [
+              {
+                "from": "reply",
+                "to": "data",
+                "label": "'{\"name\": \"Asha\", \"age\": 31, \"tags\": [\"…",
+                "tone": "data"
+              },
+              {
+                "from": "data",
+                "to": "reply",
+                "label": "{'name': 'Asha', 'age': 31, 'tags': ['v…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "data"
           }
         ]
       }
@@ -147,78 +171,91 @@
       "partTitle": "Describing the schema",
       "codeHash": "b2b9fcb0d31247436a473a2d72be72259e1685b821d53ff0cae489664dd2c8fa",
       "spec": {
-        "template": "table",
-        "title": "Schema specifications and field definitions for prompt extraction",
-        "columns": [
-          "customer",
-          "issue",
-          "priority"
+        "template": "sequence",
+        "title": "Describing the schema",
+        "actors": [
+          "schema",
+          "lines",
+          "example"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A schema describes required fields and allowed values for data extraction.",
-            "rows": [
+            "caption": "A schema describes the shape of the data.",
+            "activeActor": "schema",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "customer"
-                  },
-                  {
-                    "text": "issue"
-                  },
-                  {
-                    "text": "priority"
-                  }
-                ],
-                "tone": "ok"
+                "from": "schema",
+                "to": "lines",
+                "label": {
+                  "var": "schema",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "customer"
-                  },
-                  {
-                    "text": "issue"
-                  },
-                  {
-                    "text": "priority"
-                  }
-                ],
-                "tone": "data"
+                "from": "lines",
+                "to": "example",
+                "label": {
+                  "var": "lines",
+                  "line": 3,
+                  "hit": 5
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Compact description defines each field name and expected type in prompts.",
-            "rows": [
+            "caption": "In prompts, a compact description works well.",
+            "activeActor": "lines",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "customer"
-                  },
-                  {
-                    "text": "issue"
-                  },
-                  {
-                    "text": "priority"
-                  }
-                ],
+                "from": "schema",
+                "to": "lines",
+                "label": {
+                  "var": "schema",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "customer"
-                  },
-                  {
-                    "text": "issue"
-                  },
-                  {
-                    "text": "priority"
-                  }
-                ],
+                "from": "lines",
+                "to": "example",
+                "label": {
+                  "var": "lines",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Keep field names short, descriptive and consistent, such as snake_case.",
+            "activeActor": "example",
+            "messages": [
+              {
+                "from": "schema",
+                "to": "lines",
+                "label": {
+                  "var": "schema",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "lines",
+                "to": "example",
+                "label": {
+                  "var": "lines",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -226,57 +263,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Schema specifications and field definitions for prompt extraction",
-        "columns": [
-          "customer",
-          "issue",
-          "priority"
+        "template": "sequence",
+        "title": "Describing the schema",
+        "actors": [
+          "schema",
+          "lines",
+          "example"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A schema describes required fields and allowed values for data extraction.",
-            "rows": [
+            "caption": "A schema describes the shape of the data.",
+            "messages": [
               {
-                "cells": [
-                  "customer",
-                  "issue",
-                  "priority"
-                ],
-                "tone": "ok"
+                "from": "schema",
+                "to": "lines",
+                "label": "{'customer': 'string', 'issue': 'one of…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "customer",
-                  "issue",
-                  "priority"
-                ],
-                "tone": "data"
+                "from": "lines",
+                "to": "example",
+                "label": "['- customer: string', '- issue: one of…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "schema"
           },
           {
             "at": "say2",
-            "caption": "Compact description defines each field name and expected type in prompts.",
-            "rows": [
+            "caption": "In prompts, a compact description works well.",
+            "messages": [
               {
-                "cells": [
-                  "customer",
-                  "issue",
-                  "priority"
-                ],
+                "from": "schema",
+                "to": "lines",
+                "label": "{'customer': 'string', 'issue': 'one of…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "customer",
-                  "issue",
-                  "priority"
-                ],
+                "from": "lines",
+                "to": "example",
+                "label": "['- customer: string', '- issue: one of…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "lines"
+          },
+          {
+            "at": "say8",
+            "caption": "Keep field names short, descriptive and consistent, such as snake_case.",
+            "messages": [
+              {
+                "from": "schema",
+                "to": "lines",
+                "label": "{'customer': 'string', 'issue': 'one of…",
+                "tone": "data"
+              },
+              {
+                "from": "lines",
+                "to": "example",
+                "label": "['- customer: string', '- issue: one of…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "example"
           }
         ]
       }
@@ -285,78 +335,91 @@
       "partTitle": "Validating JSON output",
       "codeHash": "ca177327ea9a511c57828a867e10d3c89ce3b427c9db16903f14bbea140b5ed5",
       "spec": {
-        "template": "table",
-        "title": "Output schema validation and error reporting",
-        "columns": [
-          "name",
-          "age",
-          "errors"
+        "template": "sequence",
+        "title": "Validating JSON output",
+        "actors": [
+          "schema",
+          "text",
+          "data"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Validation checks that output parses and every field matches its type.",
-            "rows": [
+            "caption": "Validation checks three things.",
+            "activeActor": "schema",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "age"
-                  },
-                  {
-                    "text": "errors"
-                  }
-                ],
-                "tone": "ok"
+                "from": "schema",
+                "to": "text",
+                "label": {
+                  "var": "schema",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "age"
-                  },
-                  {
-                    "text": "errors"
-                  }
-                ],
-                "tone": "data"
+                "from": "text",
+                "to": "data",
+                "label": {
+                  "var": "text",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Invalid parsing raises an error which you catch and report.",
-            "rows": [
+            "caption": "Python's json.",
+            "activeActor": "text",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "age"
-                  },
-                  {
-                    "text": "errors"
-                  }
-                ],
-                "tone": "error"
+                "from": "schema",
+                "to": "text",
+                "label": {
+                  "var": "schema",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "age"
-                  },
-                  {
-                    "text": "errors"
-                  }
-                ],
+                "from": "text",
+                "to": "data",
+                "label": {
+                  "var": "text",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "A validation step between the model and the rest of your program is.",
+            "activeActor": "data",
+            "messages": [
+              {
+                "from": "schema",
+                "to": "text",
+                "label": {
+                  "var": "schema",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "data",
+                "label": {
+                  "var": "text",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +427,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Output schema validation and error reporting",
-        "columns": [
-          "name",
-          "age",
-          "errors"
+        "template": "sequence",
+        "title": "Validating JSON output",
+        "actors": [
+          "schema",
+          "text",
+          "data"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Validation checks that output parses and every field matches its type.",
-            "rows": [
+            "caption": "Validation checks three things.",
+            "messages": [
               {
-                "cells": [
-                  "name",
-                  "age",
-                  "errors"
-                ],
-                "tone": "ok"
+                "from": "schema",
+                "to": "text",
+                "label": "{'name': {'__other__': 'type'}, 'age': …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "name",
-                  "age",
-                  "errors"
-                ],
-                "tone": "data"
+                "from": "text",
+                "to": "data",
+                "label": "'{\"name\": \"Asha\", \"age\": 31}'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "schema"
           },
           {
             "at": "say2",
-            "caption": "Invalid parsing raises an error which you catch and report.",
-            "rows": [
+            "caption": "Python's json.",
+            "messages": [
               {
-                "cells": [
-                  "name",
-                  "age",
-                  "errors"
-                ],
-                "tone": "error"
+                "from": "schema",
+                "to": "text",
+                "label": "{'name': {'__other__': 'type'}, 'age': …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "name",
-                  "age",
-                  "errors"
-                ],
+                "from": "text",
+                "to": "data",
+                "label": "'{\"name\": \"Asha\", \"age\": 31}'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "text"
+          },
+          {
+            "at": "say8",
+            "caption": "A validation step between the model and the rest of your program is.",
+            "messages": [
+              {
+                "from": "schema",
+                "to": "text",
+                "label": "{'name': {'__other__': 'type'}, 'age': …",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "data",
+                "label": "'{\"name\": \"Asha\", \"age\": 31}'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "data"
           }
         ]
       }
@@ -423,135 +499,221 @@
       "partTitle": "Extracting JSON from chatty replies",
       "codeHash": "2e349efd73e7110589e9c9343aa47238b715238dc9fb65ef5c8969fc3ba42ba9",
       "spec": {
-        "template": "table",
-        "title": "Delimiter slicing for JSON extraction from conversational text",
-        "columns": [
-          "city",
-          "temp",
-          "parsed"
+        "template": "flow",
+        "title": "Extracting JSON from chatty replies",
+        "nodes": [
+          {
+            "id": "reply",
+            "label": "reply"
+          },
+          {
+            "id": "start",
+            "label": "start"
+          },
+          {
+            "id": "end",
+            "label": "end"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Chatty models often add conversational text around JSON code fences.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "city"
-                  },
-                  {
-                    "text": "temp"
-                  },
-                  {
-                    "text": "parsed"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Without a strict JSON mode, models often add friendly text.",
+            "values": {
+              "reply": {
+                "var": "reply",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "city"
-                  },
-                  {
-                    "text": "temp"
-                  },
-                  {
-                    "text": "parsed"
-                  }
-                ],
-                "tone": "data"
+              "start": {
+                "var": "start",
+                "line": 4,
+                "hit": 1
+              },
+              "end": {
+                "var": "end",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "reply": "data",
+              "start": "data",
+              "end": "data"
+            },
+            "arrows": [
+              [
+                "reply",
+                "start"
+              ],
+              [
+                "start",
+                "end"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "A robust method extracts everything between opening and closing braces.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "city"
-                  },
-                  {
-                    "text": "temp"
-                  },
-                  {
-                    "text": "parsed"
-                  }
-                ],
-                "tone": "data"
+            "caption": "A robust fix is to take everything from the first \"{\" to the last \"}\".",
+            "values": {
+              "reply": {
+                "var": "reply",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "city"
-                  },
-                  {
-                    "text": "temp"
-                  },
-                  {
-                    "text": "parsed"
-                  }
-                ],
-                "tone": "ok"
+              "start": {
+                "var": "start",
+                "line": 5,
+                "hit": 1
+              },
+              "end": {
+                "var": "end",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "reply": "data",
+              "start": "data",
+              "end": "data"
+            },
+            "arrows": [
+              [
+                "reply",
+                "start"
+              ],
+              [
+                "start",
+                "end"
+              ]
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Logging failed replies helps you improve the prompt, since patterns.",
+            "values": {
+              "reply": {
+                "var": "reply",
+                "line": 5,
+                "hit": 1
+              },
+              "start": {
+                "var": "start",
+                "line": 6,
+                "hit": 1
+              },
+              "end": {
+                "var": "end",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "reply": "ok",
+              "start": "ok",
+              "end": "ok"
+            },
+            "arrows": [
+              [
+                "reply",
+                "start"
+              ],
+              [
+                "start",
+                "end"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Delimiter slicing for JSON extraction from conversational text",
-        "columns": [
-          "city",
-          "temp",
-          "parsed"
+        "template": "flow",
+        "title": "Extracting JSON from chatty replies",
+        "nodes": [
+          {
+            "id": "reply",
+            "label": "reply"
+          },
+          {
+            "id": "start",
+            "label": "start"
+          },
+          {
+            "id": "end",
+            "label": "end"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Chatty models often add conversational text around JSON code fences.",
-            "rows": [
-              {
-                "cells": [
-                  "city",
-                  "temp",
-                  "parsed"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "city",
-                  "temp",
-                  "parsed"
-                ],
-                "tone": "data"
-              }
+            "caption": "Without a strict JSON mode, models often add friendly text.",
+            "values": {
+              "reply": "'Sure! Here you go:\n```json\n{\"city\": \"P…",
+              "start": "27",
+              "end": "54"
+            },
+            "tones": {
+              "reply": "data",
+              "start": "data",
+              "end": "data"
+            },
+            "arrows": [
+              [
+                "reply",
+                "start"
+              ],
+              [
+                "start",
+                "end"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "A robust method extracts everything between opening and closing braces.",
-            "rows": [
-              {
-                "cells": [
-                  "city",
-                  "temp",
-                  "parsed"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "city",
-                  "temp",
-                  "parsed"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A robust fix is to take everything from the first \"{\" to the last \"}\".",
+            "values": {
+              "reply": "'Sure! Here you go:\n```json\n{\"city\": \"P…",
+              "start": "27",
+              "end": "54"
+            },
+            "tones": {
+              "reply": "data",
+              "start": "data",
+              "end": "data"
+            },
+            "arrows": [
+              [
+                "reply",
+                "start"
+              ],
+              [
+                "start",
+                "end"
+              ]
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Logging failed replies helps you improve the prompt, since patterns.",
+            "values": {
+              "reply": "'Sure! Here you go:\n```json\n{\"city\": \"P…",
+              "start": "27",
+              "end": "54"
+            },
+            "tones": {
+              "reply": "ok",
+              "start": "ok",
+              "end": "ok"
+            },
+            "arrows": [
+              [
+                "reply",
+                "start"
+              ],
+              [
+                "start",
+                "end"
+              ]
             ]
           }
         ]
@@ -561,224 +723,162 @@
       "partTitle": "Function calling and tools",
       "codeHash": "76977516c27fca53a9d39a3213a7fdc7df634282e97ff7cc869bc4835a41eead",
       "spec": {
-        "template": "flow",
-        "title": "Function calling and tools — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Function calling an...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Function calling and tools",
+        "actors": [
+          "tools",
+          "request",
+          "city"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Function calling and tools [Dseven.Pfive.Sone].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Function calling an... [Dseven.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Function calling (also called tool use) lets a model ask your program.",
+            "activeActor": "tools",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "request",
+                "label": {
+                  "var": "tools",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "city",
+                "label": {
+                  "var": "request",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Instead of answering directly, the model replies with a structured.",
+            "activeActor": "request",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "request",
+                "label": {
+                  "var": "tools",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "city",
+                "label": {
+                  "var": "request",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Function calling and tools.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Descriptions matter.",
+            "activeActor": "city",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "request",
+                "label": {
+                  "var": "tools",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "city",
+                "label": {
+                  "var": "request",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Function calling and tools — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Function calling an...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Function calling and tools",
+        "actors": [
+          "tools",
+          "request",
+          "city"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Function calling and tools [D7.P5.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Function calling an... [D7.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Function calling (also called tool use) lets a model ask your program.",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "request",
+                "label": "{'get_weather': {'__other__': 'function…",
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "city",
+                "label": "{'tool': 'get_weather', 'arguments': {'…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "tools"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Instead of answering directly, the model replies with a structured.",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "request",
+                "label": "{'get_weather': {'__other__': 'function…",
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "city",
+                "label": "{'tool': 'get_weather', 'arguments': {'…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "request"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Function calling and tools [D7.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "Descriptions matter.",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "request",
+                "label": "{'get_weather': {'__other__': 'function…",
+                "tone": "data"
+              },
+              {
+                "from": "request",
+                "to": "city",
+                "label": "{'tool': 'get_weather', 'arguments': {'…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "city"
           }
         ]
       }
@@ -787,223 +887,133 @@
       "partTitle": "Practice time: validate and extract",
       "codeHash": "8157c36b5c7abfd6ca5178cbfd7605805d6bfe2dfda528ceae56ce486bf719a5",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: validate and extract — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: vali...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: validate and extract",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: validate and extract.",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: vali... [Dseven.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Validate_json_output(text, schema).",
+            "bars": [
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "end",
+                "value": {
+                  "var": "end",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Then, for each schema field in order, add \"missing.",
+            "bars": [
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "end",
+                "value": {
+                  "var": "end",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: validate and extract.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Keep both functions.",
+            "bars": [
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "end",
+                "value": {
+                  "var": "end",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: validate and extract — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: vali...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: validate and extract",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: validate and extract [D7.P6.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: vali... [D7.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Validate_json_output(text, schema).",
+            "bars": [
+              {
+                "label": "start",
+                "value": 12,
+                "tone": "data"
+              },
+              {
+                "label": "end",
+                "value": 55,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Then, for each schema field in order, add \"missing.",
+            "bars": [
+              {
+                "label": "start",
+                "value": 12,
+                "tone": "ok"
+              },
+              {
+                "label": "end",
+                "value": 55,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: validate and extract [D7.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Keep both functions.",
+            "bars": [
+              {
+                "label": "start",
+                "value": 12,
+                "tone": "ok"
+              },
+              {
+                "label": "end",
+                "value": 55,
+                "tone": "ok"
+              }
             ]
           }
         ]

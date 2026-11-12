@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 41,
-  "promptSha": "6ba39b47c46f4cff1ed1b19fc6dafac099f3c4db8f2902cc95e7d9f438903c82",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Grinold-Kahn Fundamental Law of Active Management — Foundations & Mathematical Invariants",
-      "codeHash": "1e12adbbd6b64b47ec9efcd845ac8dda202000d2bd358875e1f2dc34a7806673",
+      "codeHash": "049bbc9ee78e0c1e2f7866414f339b34fbe480d30d47fe48720da665e37861b2",
       "spec": {
-        "template": "flow",
-        "title": "Grinold-Kahn Fundamental Law of Active Management — Foundations & Math",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Grinold-Kahn Fundamental Law of Active Management — Foundations ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Fundamental Law of Active Management, formulated by Richard Grinold.",
+            "bars": [
+              {
+                "label": "ic",
+                "value": {
+                  "var": "ic",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "breadth",
+                "value": {
+                  "var": "breadth",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "ir",
+                "value": {
+                  "var": "ir",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "target_ir",
+                "value": {
+                  "var": "target_ir",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In its classical formulation, expected active performance, measured by.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "ic",
+                "value": {
+                  "var": "ic",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "breadth",
+                "value": {
+                  "var": "breadth",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "ir",
+                "value": {
+                  "var": "ir",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "target_ir",
+                "value": {
+                  "var": "target_ir",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Quantitative research teams utilize these mathematical invariants.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "ic",
+                "value": {
+                  "var": "ic",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "breadth",
+                "value": {
+                  "var": "breadth",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "ir",
+                "value": {
+                  "var": "ir",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "target_ir",
+                "value": {
+                  "var": "target_ir",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Grinold-Kahn Fundamental Law of Active Management — Foundations & Math",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Grinold-Kahn Fundamental Law of Active Management — Foundations ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Fundamental Law of Active Management, formulated by Richard Grinold.",
+            "bars": [
+              {
+                "label": "ic",
+                "value": 0.05,
+                "tone": "data"
+              },
+              {
+                "label": "breadth",
+                "value": 400,
+                "tone": "data"
+              },
+              {
+                "label": "ir",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "target_ir",
+                "value": 2,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In its classical formulation, expected active performance, measured by.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "ic",
+                "value": 0.05,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "breadth",
+                "value": 400,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "ir",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "target_ir",
+                "value": 2,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Quantitative research teams utilize these mathematical invariants.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "ic",
+                "value": 0.05,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "breadth",
+                "value": 400,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "ir",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "target_ir",
+                "value": 2,
+                "tone": "ok"
               }
             ]
           }
@@ -273,264 +227,218 @@
     },
     {
       "partTitle": "Grinold-Kahn Fundamental Law of Active Management — Core Algorithm & State Representation",
-      "codeHash": "cb502a64f249945d0ae3f4f65a7a88cb361ed349701ac2461724aad8e1d57813",
+      "codeHash": "2fbc92ebb62f7bc2c75228c1fc3c0a3c588af1e9481bbe19ae3a81560575be99",
       "spec": {
-        "template": "flow",
-        "title": "Grinold-Kahn Fundamental Law of Active Management — Core Algorithm & S",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Grinold-Kahn Fundamental Law of Active Management — Core Algorit",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In real-world institutional portfolio management, unconstrained.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mean_u",
+                "value": {
+                  "var": "mean_u",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mean_c",
+                "value": {
+                  "var": "mean_c",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Real-world portfolios face constraints.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "mean_u",
+                "value": {
+                  "var": "mean_u",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "mean_c",
+                "value": {
+                  "var": "mean_c",
+                  "line": 8,
+                  "hit": 8
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Optimizing portfolio construction under realistic constraints bridges.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "mean_u",
+                "value": {
+                  "var": "mean_u",
+                  "line": 8,
+                  "hit": 8
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "mean_c",
+                "value": {
+                  "var": "mean_c",
+                  "line": 9,
+                  "hit": 8
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 8,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Grinold-Kahn Fundamental Law of Active Management — Core Algorithm & S",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Grinold-Kahn Fundamental Law of Active Management — Core Algorit",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In real-world institutional portfolio management, unconstrained.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 6,
+                "tone": "data"
+              },
+              {
+                "label": "mean_u",
+                "value": 0.013333333333333336,
+                "tone": "data"
+              },
+              {
+                "label": "mean_c",
+                "value": 0.07166666666666667,
+                "tone": "data"
+              },
+              {
+                "label": "u",
+                "value": 0.15,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Real-world portfolios face constraints.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "n",
+                "value": 6,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "mean_u",
+                "value": 0.013333333333333336,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "mean_c",
+                "value": 0.07166666666666667,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "u",
+                "value": -0.12,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Optimizing portfolio construction under realistic constraints bridges.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "n",
+                "value": 6,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "mean_u",
+                "value": 0.013333333333333336,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "mean_c",
+                "value": 0.07166666666666667,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "u",
+                "value": 0.2,
+                "tone": "ok"
               }
             ]
           }
@@ -539,264 +447,218 @@
     },
     {
       "partTitle": "Grinold-Kahn Fundamental Law of Active Management — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "18bdf2301954af6e3f90ef340c3cfcb575c5b5f84c2254687becbd336c978e65",
+      "codeHash": "f80af88db2561fdd2e85a2a59fb328790ac3d8cd59ba3cef74e2bd59e04f611d",
       "spec": {
-        "template": "flow",
-        "title": "Grinold-Kahn Fundamental Law of Active Management — Throughput Optimiz",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Grinold-Kahn Fundamental Law of Active Management — Throughput O",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Accurately measuring Breadth ($BR$) in multi-asset universes requires.",
+            "bars": [
+              {
+                "label": "sum_eigen",
+                "value": {
+                  "var": "sum_eigen",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "e",
+                "value": {
+                  "var": "e",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "sum_sq_eigen",
+                "value": {
+                  "var": "sum_sq_eigen",
+                  "line": 6,
+                  "hit": 7
+                },
+                "tone": "data"
+              },
+              {
+                "label": "br_eff",
+                "value": {
+                  "var": "br_eff",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how portfolio updates trades during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "sum_eigen",
+                "value": {
+                  "var": "sum_eigen",
+                  "line": 6,
+                  "hit": 7
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "e",
+                "value": {
+                  "var": "e",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "sum_sq_eigen",
+                "value": {
+                  "var": "sum_sq_eigen",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "br_eff",
+                "value": {
+                  "var": "br_eff",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Empirical spectral decomposition accurately quantifies the true.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "sum_eigen",
+                "value": {
+                  "var": "sum_eigen",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "e",
+                "value": {
+                  "var": "e",
+                  "line": 6,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "sum_sq_eigen",
+                "value": {
+                  "var": "sum_sq_eigen",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "br_eff",
+                "value": {
+                  "var": "br_eff",
+                  "line": 11,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Grinold-Kahn Fundamental Law of Active Management — Throughput Optimiz",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Grinold-Kahn Fundamental Law of Active Management — Throughput O",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Accurately measuring Breadth ($BR$) in multi-asset universes requires.",
+            "bars": [
+              {
+                "label": "sum_eigen",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "e",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "sum_sq_eigen",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "br_eff",
+                "value": 5,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how portfolio updates trades during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "sum_eigen",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "e",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "sum_sq_eigen",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "br_eff",
+                "value": 5,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Empirical spectral decomposition accurately quantifies the true.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "sum_eigen",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "e",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "sum_sq_eigen",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "br_eff",
+                "value": 1.4029180695847363,
+                "tone": "ok"
               }
             ]
           }
@@ -805,265 +667,279 @@
     },
     {
       "partTitle": "Grinold-Kahn Fundamental Law of Active Management — Resilience Guardrails & Failure Recovery",
-      "codeHash": "1af5d11bd50971eae071158bfa4bdfeb7ac4a92caad1f9aa63d112d5bb8f8e52",
+      "codeHash": "6afaa173ec93f838d2d3e5b908918428e68297338208310d494954d209bdc5c0",
       "spec": {
         "template": "flow",
-        "title": "Grinold-Kahn Fundamental Law of Active Management — Resilience Guardra",
+        "title": "Grinold-Kahn Fundamental Law of Active Management — Resilience G",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "backtest_ic",
+            "label": "backtest_ic"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "nominal_breadth",
+            "label": "nominal_breadth"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "tc",
+            "label": "tc"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_cost_drag",
+            "label": "max_cost_drag"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantitative risk controllers must enforce strict guardrails against.",
+            "values": {
+              "backtest_ic": {
+                "var": "backtest_ic",
+                "line": 5,
+                "hit": 1
+              },
+              "nominal_breadth": {
+                "var": "nominal_breadth",
+                "line": 5,
+                "hit": 1
+              },
+              "tc": {
+                "var": "tc",
+                "line": 5,
+                "hit": 1
+              },
+              "max_cost_drag": {
+                "var": "max_cost_drag",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "backtest_ic": "data",
+              "nominal_breadth": "data",
+              "tc": "data",
+              "max_cost_drag": "data"
+            },
+            "arrows": [
+              [
+                "backtest_ic",
+                "nominal_breadth"
+              ],
+              [
+                "nominal_breadth",
+                "tc"
+              ],
+              [
+                "tc",
+                "max_cost_drag"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The most common pitfall in quantitative strategy design is assuming high.",
+            "values": {
+              "backtest_ic": {
+                "var": "backtest_ic",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "nominal_breadth": {
+                "var": "nominal_breadth",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "tc": {
+                "var": "tc",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "max_cost_drag": {
+                "var": "max_cost_drag",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "backtest_ic": "data",
+              "nominal_breadth": "data",
+              "tc": "data",
+              "max_cost_drag": "data"
+            },
+            "arrows": [
+              [
+                "backtest_ic",
+                "nominal_breadth"
+              ],
+              [
+                "nominal_breadth",
+                "tc"
+              ],
+              [
+                "tc",
+                "max_cost_drag"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Applying disciplined haircuts to historical model performance guarantees.",
+            "values": {
+              "backtest_ic": {
+                "var": "backtest_ic",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "nominal_breadth": {
+                "var": "nominal_breadth",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "tc": {
+                "var": "tc",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "max_cost_drag": {
+                "var": "max_cost_drag",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "backtest_ic": "ok",
+              "nominal_breadth": "ok",
+              "tc": "ok",
+              "max_cost_drag": "ok"
+            },
+            "arrows": [
+              [
+                "backtest_ic",
+                "nominal_breadth"
+              ],
+              [
+                "nominal_breadth",
+                "tc"
+              ],
+              [
+                "tc",
+                "max_cost_drag"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Grinold-Kahn Fundamental Law of Active Management — Resilience Guardra",
+        "title": "Grinold-Kahn Fundamental Law of Active Management — Resilience G",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "backtest_ic",
+            "label": "backtest_ic"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "nominal_breadth",
+            "label": "nominal_breadth"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "tc",
+            "label": "tc"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_cost_drag",
+            "label": "max_cost_drag"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantitative risk controllers must enforce strict guardrails against.",
+            "values": {
+              "backtest_ic": "0.08",
+              "nominal_breadth": "250",
+              "tc": "0.75",
+              "max_cost_drag": "0.2"
+            },
+            "tones": {
+              "backtest_ic": "data",
+              "nominal_breadth": "data",
+              "tc": "data",
+              "max_cost_drag": "data"
+            },
+            "arrows": [
+              [
+                "backtest_ic",
+                "nominal_breadth"
+              ],
+              [
+                "nominal_breadth",
+                "tc"
+              ],
+              [
+                "tc",
+                "max_cost_drag"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The most common pitfall in quantitative strategy design is assuming high.",
+            "values": {
+              "backtest_ic": "0.08",
+              "nominal_breadth": "250",
+              "tc": "0.75",
+              "max_cost_drag": "0.2"
+            },
+            "tones": {
+              "backtest_ic": "data",
+              "nominal_breadth": "data",
+              "tc": "data",
+              "max_cost_drag": "data"
+            },
+            "arrows": [
+              [
+                "backtest_ic",
+                "nominal_breadth"
+              ],
+              [
+                "nominal_breadth",
+                "tc"
+              ],
+              [
+                "tc",
+                "max_cost_drag"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Applying disciplined haircuts to historical model performance guarantees.",
+            "values": {
+              "backtest_ic": "0.08",
+              "nominal_breadth": "250",
+              "tc": "0.75",
+              "max_cost_drag": "0.2"
+            },
+            "tones": {
+              "backtest_ic": "ok",
+              "nominal_breadth": "ok",
+              "tc": "ok",
+              "max_cost_drag": "ok"
+            },
+            "arrows": [
+              [
+                "backtest_ic",
+                "nominal_breadth"
+              ],
+              [
+                "nominal_breadth",
+                "tc"
+              ],
+              [
+                "tc",
+                "max_cost_drag"
+              ]
             ]
           }
         ]
@@ -1071,266 +947,164 @@
     },
     {
       "partTitle": "Grinold-Kahn Fundamental Law of Active Management — Production Telemetry & Verification Audit",
-      "codeHash": "4c6acb74b4081dd385792b27a7dc911b1b034dbaf037369cbcb2ee73873e63ef",
+      "codeHash": "37b411484e38b949503b58972506f0c9971ee03db235e41d0530f42ed8007091",
       "spec": {
-        "template": "flow",
-        "title": "Grinold-Kahn Fundamental Law of Active Management — Production Telemet",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Grinold-Kahn Fundamental Law of Active Management — Production T",
+        "actors": [
+          "realized_ic",
+          "effective_breadth",
+          "realized_tc"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for fundamental law management requires tracking.",
+            "activeActor": "realized_ic",
+            "messages": [
+              {
+                "from": "realized_ic",
+                "to": "effective_breadth",
+                "label": {
+                  "var": "realized_ic",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "effective_breadth",
+                "to": "realized_tc",
+                "label": {
+                  "var": "effective_breadth",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Every trading quarter, the quantitative risk telemetry pipeline compares.",
+            "activeActor": "effective_breadth",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "realized_ic",
+                "to": "effective_breadth",
+                "label": {
+                  "var": "realized_ic",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "effective_breadth",
+                "to": "realized_tc",
+                "label": {
+                  "var": "effective_breadth",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Real-time attribution verifies that excess returns stem from persistent.",
+            "activeActor": "realized_tc",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "realized_ic",
+                "to": "effective_breadth",
+                "label": {
+                  "var": "realized_ic",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "effective_breadth",
+                "to": "realized_tc",
+                "label": {
+                  "var": "effective_breadth",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Grinold-Kahn Fundamental Law of Active Management — Production Telemet",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Grinold-Kahn Fundamental Law of Active Management — Production T",
+        "actors": [
+          "realized_ic",
+          "effective_breadth",
+          "realized_tc"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for fundamental law management requires tracking.",
+            "messages": [
+              {
+                "from": "realized_ic",
+                "to": "effective_breadth",
+                "label": "0.045",
+                "tone": "data"
+              },
+              {
+                "from": "effective_breadth",
+                "to": "realized_tc",
+                "label": "180",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "realized_ic"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Every trading quarter, the quantitative risk telemetry pipeline compares.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "realized_ic",
+                "to": "effective_breadth",
+                "label": "0.045",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "effective_breadth",
+                "to": "realized_tc",
+                "label": "180",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "effective_breadth"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Real-time attribution verifies that excess returns stem from persistent.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "realized_ic",
+                "to": "effective_breadth",
+                "label": "0.045",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "effective_breadth",
+                "to": "realized_tc",
+                "label": "180",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "realized_tc"
           }
         ]
       }

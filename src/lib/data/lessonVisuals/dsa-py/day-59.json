@@ -2,87 +2,112 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 59,
-  "promptSha": "3691a29a5b772ed5ed2ca1a41dc07781ce4aab9f2956cbc864c2f5b299e72854",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Combinatorial Pruning via Least-Cost / Upper-Bound Branch-and-Bound (B&B)",
       "codeHash": "8fe524677ad856871c393af9e3e45dde8b2291ef0a431270a235da453657759a",
       "spec": {
-        "template": "table",
-        "title": "Combinatorial Pruning via Least-Cost / Upper-Bound",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Combinatorial Pruning via Least-Cost / Upper-Bound Branch-and-Bo",
         "steps": [
           {
             "at": "say1",
-            "caption": "The backtracking design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Raw backtracking explores exponential trees blindly even down subtrees.",
+            "items": {
+              "var": "x",
+              "line": 21,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Combinatorial"
-                  },
-                  {
-                    "text": "Pruning"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The compute step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Think cleanly about 0/1 combinatorial optimization (`items sorted.",
+            "items": {
+              "var": "x",
+              "line": 21,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Least"
-                  },
-                  {
-                    "text": "Cost"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Run the exact node-counter comparison below comparing Brute-Force DFS vs.",
+            "items": {
+              "var": "x",
+              "line": 21,
+              "hit": 8
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Combinatorial Pruning via Least-Cost / Upper-Bound",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Combinatorial Pruning via Least-Cost / Upper-Bound Branch-and-Bo",
         "steps": [
           {
             "at": "say1",
-            "caption": "The backtracking design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Raw backtracking explores exponential trees blindly even down subtrees.",
+            "items": [
+              "4",
+              "40"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Combinatorial",
-                  "Pruning"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The compute step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Think cleanly about 0/1 combinatorial optimization (`items sorted.",
+            "items": [
+              "2",
+              "11"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Least",
-                  "Cost"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Run the exact node-counter comparison below comparing Brute-Force DFS vs.",
+            "items": [
+              "5",
+              "29"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -93,80 +118,117 @@
       "partTitle": "From Dijkstra (f=g) & Greedy Best-First (f=h) to A* Search (f=g+h)",
       "codeHash": "653837c188b31c516e4b5f89e9af1896682b10830b3ba6398ab93c969ea96bd0",
       "spec": {
-        "template": "table",
-        "title": "From Dijkstra (f=g) & Greedy Best-First (f=h) to A* Search",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "From Dijkstra (f=g) & Greedy Best-First (f=h) to A* Search (f=g+",
         "steps": [
           {
             "at": "say1",
-            "caption": "The shift design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now shift from maximization trees onto physical graph & grid pathfinding.",
+            "items": {
+              "var": "u_wall",
+              "line": 35,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Dijkstra"
-                  },
-                  {
-                    "text": "Greedy"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The nilsson step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Because Dijkstra guides priority queues purely by **actual traveled cost.",
+            "items": {
+              "var": "u_wall",
+              "line": 46,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Best"
-                  },
-                  {
-                    "text": "Search"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Watch all three algorithms Dijkstra, Greedy Best-First, and A* race across.",
+            "items": {
+              "var": "u_wall",
+              "line": 44,
+              "hit": 3
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "From Dijkstra (f=g) & Greedy Best-First (f=h) to A* Search",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "From Dijkstra (f=g) & Greedy Best-First (f=h) to A* Search (f=g+",
         "steps": [
           {
             "at": "say1",
-            "caption": "The shift design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now shift from maximization trees onto physical graph & grid pathfinding.",
+            "items": [
+              "'.........'",
+              "'..#####..'",
+              "'..#...#..'",
+              "'......#..'",
+              "'..#####..'",
+              "'.........'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Dijkstra",
-                  "Greedy"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The nilsson step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Because Dijkstra guides priority queues purely by **actual traveled cost.",
+            "items": [
+              "'.........'",
+              "'..#####..'",
+              "'..#...#..'",
+              "'......#..'",
+              "'..#####..'",
+              "'.........'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Best",
-                  "Search"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Watch all three algorithms Dijkstra, Greedy Best-First, and A* race across.",
+            "items": [
+              "'.........'",
+              "'..#####..'",
+              "'..#...#..'",
+              "'......#..'",
+              "'..#####..'",
+              "'.........'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,82 +239,85 @@
       "partTitle": "Heuristic Admissibility vs Consistency (Triangle Inequality Proof)",
       "codeHash": "44dd206fe6740cb0d3715fe24b5c43ef4d5551474265c52193475b6a048d5a3c",
       "spec": {
-        "template": "table",
-        "title": "Heuristic Admissibility vs Consistency (Triangle Inequality",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Heuristic Admissibility vs Consistency (Triangle Inequality Proo",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The heuristic design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Heuristic"
-                  },
-                  {
-                    "text": "Admissibility"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Does EVERY heuristic `h(n)` work safely in A*.",
+            "items": {
+              "var": "trap",
+              "line": 30,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The consistency step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Consistency"
-                  },
-                  {
-                    "text": "Triangle"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Memorize the two gold-standard mathematical guarantees governing `h(n)`.",
+            "items": {
+              "var": "trap",
+              "line": 37,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Watch our test script demonstrate an intentionally INADMISSIBLE weighted.",
+            "items": {
+              "var": "trap",
+              "line": 46,
+              "hit": 3
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Heuristic Admissibility vs Consistency (Triangle Inequality",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Heuristic Admissibility vs Consistency (Triangle Inequality Proo",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The heuristic design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Heuristic",
-                  "Admissibility"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Does EVERY heuristic `h(n)` work safely in A*.",
+            "mode": "queue",
+            "items": [
+              "'.#.....'",
+              "'.#.###.'",
+              "'.#.#...'",
+              "'...#.#.'",
+              "'#####..'"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The consistency step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Consistency",
-                  "Triangle"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Memorize the two gold-standard mathematical guarantees governing `h(n)`.",
+            "mode": "queue",
+            "items": [
+              "'.#.....'",
+              "'.#.###.'",
+              "'.#.#...'",
+              "'...#.#.'",
+              "'#####..'"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Watch our test script demonstrate an intentionally INADMISSIBLE weighted.",
+            "mode": "queue",
+            "items": [
+              "'.#.....'",
+              "'.#.###.'",
+              "'.#.#...'",
+              "'...#.#.'",
+              "'#####..'"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -261,80 +326,86 @@
       "partTitle": "A* vs Dijkstra Quantitative Expansion Benchmark & Deterministic Tie-Breaking",
       "codeHash": "bf5141614544b91233596e156c7f3da600081b938befc8277b0599f034040493",
       "spec": {
-        "template": "table",
-        "title": "A* vs Dijkstra Quantitative Expansion Benchmark &",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "A* vs Dijkstra Quantitative Expansion Benchmark & Deterministic ",
         "steps": [
           {
             "at": "say1",
-            "caption": "The pause design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Pause and examine ONE subtle performance killer inside grid A*.",
+            "items": {
+              "var": "warehouse",
+              "line": 41,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Dijkstra"
-                  },
-                  {
-                    "text": "Quantitative"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The think step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Watch how crisp deterministic tie-breaking upgrades A* cleanly without.",
+            "items": {
+              "var": "warehouse",
+              "line": 41,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Expansion"
-                  },
-                  {
-                    "text": "Benchmark"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "A* vs Dijkstra Quantitative Expansion Benchmark &",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "A* vs Dijkstra Quantitative Expansion Benchmark & Deterministic ",
         "steps": [
           {
             "at": "say1",
-            "caption": "The pause design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Pause and examine ONE subtle performance killer inside grid A*.",
+            "items": [
+              "'............'",
+              "'..###..###..'",
+              "'............'",
+              "'....####....'",
+              "'............'",
+              "'..###..###..'",
+              "'............'",
+              "'............'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Dijkstra",
-                  "Quantitative"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The think step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Watch how crisp deterministic tie-breaking upgrades A* cleanly without.",
+            "items": [
+              "'............'",
+              "'..###..###..'",
+              "'............'",
+              "'....####....'",
+              "'............'",
+              "'..###..###..'",
+              "'............'",
+              "'............'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Expansion",
-                  "Benchmark"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -345,80 +416,120 @@
       "partTitle": "Production Application: Dual Branch-and-Bound Portfolio & A* AGV Warehouse Router",
       "codeHash": "60837131b7184a94f5966cc90cd8ac49914d6fb62a6c443231114ea8d92ba3c9",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Production Application: Dual Branch-and-Bound Portfolio & A* AGV",
         "steps": [
           {
             "at": "say1",
-            "caption": "The synthesize design establishes the core structural invariant.",
-            "rows": [
+            "caption": "`OptimizationAndPathEngine`.",
+            "items": {
+              "var": "wh",
+              "line": 74,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The branch step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "An automated fulfillment robot accepts two tightly coupled jobs every.",
+            "items": {
+              "var": "wh",
+              "line": 83,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Dual"
-                  },
-                  {
-                    "text": "Branch"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Run the full dual optimization report below and inspect both pruned search.",
+            "items": {
+              "var": "wh",
+              "line": 84,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Production Application: Dual Branch-and-Bound Portfolio & A* AGV",
         "steps": [
           {
             "at": "say1",
-            "caption": "The synthesize design establishes the core structural invariant.",
-            "rows": [
+            "caption": "`OptimizationAndPathEngine`.",
+            "items": [
+              "'..........'",
+              "'.###..###.'",
+              "'..........'",
+              "'...####...'",
+              "'..........'",
+              "'.###..###.'",
+              "'..........'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The branch step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "An automated fulfillment robot accepts two tightly coupled jobs every.",
+            "items": [
+              "'..........'",
+              "'.###..###.'",
+              "'..........'",
+              "'...####...'",
+              "'..........'",
+              "'.###..###.'",
+              "'..........'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Dual",
-                  "Branch"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Run the full dual optimization report below and inspect both pruned search.",
+            "items": [
+              "'..........'",
+              "'.###..###.'",
+              "'..........'",
+              "'...####...'",
+              "'..........'",
+              "'.###..###.'",
+              "'..........'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

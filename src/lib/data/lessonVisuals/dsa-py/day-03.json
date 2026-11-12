@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 3,
-  "promptSha": "bfa69d099470053c083675462f0d11fc7f6aaaea7736367924b00ecbf9756624",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Nodes that point to the next node",
@@ -12,21 +12,49 @@
         "template": "table",
         "title": "Nodes that point to the next node",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The linked concept establishes the core structural baseline.",
+            "caption": "A linked list stores items in separate nodes.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Nodes"
+                    "text": "self"
                   },
                   {
-                    "text": "that"
+                    "var": "self",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "val"
+                  },
+                  {
+                    "var": "val",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "next"
+                  },
+                  {
+                    "var": "next",
+                    "line": 3,
+                    "hit": 1
                   }
                 ],
                 "tone": "data"
@@ -34,16 +62,83 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The because logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "In Python a node is a small class with two attributes, val and next.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "point"
+                    "text": "self"
                   },
                   {
-                    "text": "the"
+                    "var": "self",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "val"
+                  },
+                  {
+                    "var": "val",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "next"
+                  },
+                  {
+                    "var": "next",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "You only change a couple of references.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
                   }
                 ],
                 "tone": "ok"
@@ -56,31 +151,86 @@
         "template": "table",
         "title": "Nodes that point to the next node",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The linked concept establishes the core structural baseline.",
+            "caption": "A linked list stores items in separate nodes.",
             "rows": [
               {
                 "cells": [
-                  "Nodes",
-                  "that"
+                  "self",
+                  "<ListNode>"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "val",
+                  "30"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "next",
+                  "None"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The because logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "In Python a node is a small class with two attributes, val and next.",
             "rows": [
               {
                 "cells": [
-                  "point",
-                  "the"
+                  "self",
+                  "<ListNode>"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "val",
+                  "30"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "next",
+                  "None"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "You only change a couple of references.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "10"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "20"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "30"
                 ],
                 "tone": "ok"
               }
@@ -93,80 +243,107 @@
       "partTitle": "Walking, counting and finding",
       "codeHash": "58f6f9a13745394fc0f0b990ee0033a17e196bddb52d5d99d0fac9662beaf0ba",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Walking, counting and finding",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The almost concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Almost every linked list function starts the same way.",
+            "items": {
+              "var": "out",
+              "line": 9,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Walking"
-                  },
-                  {
-                    "text": "counting"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The always logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "To find a value, compare node.",
+            "items": {
+              "var": "out",
+              "line": 9,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "and"
-                  },
-                  {
-                    "text": "finding"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Turning a linked list into a Python list is a handy helper for printing.",
+            "items": {
+              "var": "out",
+              "line": 11,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Walking, counting and finding",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The almost concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Almost every linked list function starts the same way.",
+            "items": [
+              "4",
+              "8"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Walking",
-                  "counting"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The always logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "To find a value, compare node.",
+            "items": [
+              "4",
+              "8",
+              "15"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "and",
-                  "finding"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Turning a linked list into a Python list is a handy helper for printing.",
+            "items": [
+              "4",
+              "8",
+              "15"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,80 +354,108 @@
       "partTitle": "Reversing a list in place",
       "codeHash": "ecc27426ebd992c7b2ddabab55a3aa45d0aed5f192a1e4bc3a3d6b77b7f68fdd",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Reversing a list in place",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The reversing concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Reversing a linked list is the most famous linked list question, and it.",
+            "items": {
+              "var": "out",
+              "line": 9,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Reversing"
-                  },
-                  {
-                    "text": "list"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The step logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "You need three variables.",
+            "items": {
+              "var": "out",
+              "line": 9,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "place"
-                  },
-                  {
-                    "text": "list"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "It visits each node once, so it is O(N) time, and it only uses three.",
+            "items": {
+              "var": "out",
+              "line": 9,
+              "hit": 4
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Reversing a list in place",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The reversing concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Reversing a linked list is the most famous linked list question, and it.",
+            "items": [
+              "4",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Reversing",
-                  "list"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The step logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "You need three variables.",
+            "items": [
+              "4",
+              "3",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "place",
-                  "list"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "It visits each node once, so it is O(N) time, and it only uses three.",
+            "items": [
+              "4",
+              "3",
+              "2",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -264,21 +469,49 @@
         "template": "table",
         "title": "Fast and slow pointers",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The linked concept establishes the core structural baseline.",
+            "caption": "Some linked lists are broken.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Fast"
+                    "text": "self"
                   },
                   {
-                    "text": "and"
+                    "var": "self",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "val"
+                  },
+                  {
+                    "var": "val",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "next"
+                  },
+                  {
+                    "var": "next",
+                    "line": 3,
+                    "hit": 1
                   }
                 ],
                 "tone": "data"
@@ -286,16 +519,72 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The cycle logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Floyd's algorithm uses two pointers.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "slow"
+                    "text": "self"
                   },
                   {
-                    "text": "pointers"
+                    "var": "self",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "val"
+                  },
+                  {
+                    "var": "val",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "next"
+                  },
+                  {
+                    "var": "next",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Fast and slow pointers also find the middle of a list.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
                   }
                 ],
                 "tone": "ok"
@@ -308,31 +597,79 @@
         "template": "table",
         "title": "Fast and slow pointers",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The linked concept establishes the core structural baseline.",
+            "caption": "Some linked lists are broken.",
             "rows": [
               {
                 "cells": [
-                  "Fast",
-                  "and"
+                  "self",
+                  "<ListNode>"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "val",
+                  "1"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "next",
+                  "None"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The cycle logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Floyd's algorithm uses two pointers.",
             "rows": [
               {
                 "cells": [
-                  "slow",
-                  "pointers"
+                  "self",
+                  "<ListNode>"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "val",
+                  "1"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "next",
+                  "None"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Fast and slow pointers also find the middle of a list.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "False"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "True"
                 ],
                 "tone": "ok"
               }
@@ -348,21 +685,49 @@
         "template": "table",
         "title": "Doubly linked lists and when to use linked lists",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The doubly concept establishes the core structural baseline.",
+            "caption": "In a doubly linked list each node has two links.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Doubly"
+                    "text": "self"
                   },
                   {
-                    "text": "linked"
+                    "var": "self",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "val"
+                  },
+                  {
+                    "var": "val",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "head"
+                  },
+                  {
+                    "var": "head",
+                    "line": 7,
+                    "hit": 1
                   }
                 ],
                 "tone": "data"
@@ -370,16 +735,72 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The common logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "That O(1) removal is exactly what an LRU cache needs, and you will build.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "lists"
+                    "text": "self"
                   },
                   {
-                    "text": "and"
+                    "var": "self",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "val"
+                  },
+                  {
+                    "var": "val",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "head"
+                  },
+                  {
+                    "var": "head",
+                    "line": 8,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Use a Python list when you mostly read by position and add at the end.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
                   }
                 ],
                 "tone": "ok"
@@ -392,31 +813,79 @@
         "template": "table",
         "title": "Doubly linked lists and when to use linked lists",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The doubly concept establishes the core structural baseline.",
+            "caption": "In a doubly linked list each node has two links.",
             "rows": [
               {
                 "cells": [
-                  "Doubly",
-                  "linked"
+                  "self",
+                  "<Node>"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "val",
+                  "'HEAD'"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "head",
+                  "<Node>"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The common logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "That O(1) removal is exactly what an LRU cache needs, and you will build.",
             "rows": [
               {
                 "cells": [
-                  "lists",
-                  "and"
+                  "self",
+                  "<Node>"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "val",
+                  "'HEAD'"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "head",
+                  "<Node>"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Use a Python list when you mostly read by position and add at the end.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "Kesariya"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "Jhoome Jo Pathaan"
                 ],
                 "tone": "ok"
               }
@@ -429,80 +898,105 @@
       "partTitle": "Deleting nodes with a dummy head",
       "codeHash": "8f8e9f4a837f06857284b3b7ef28ffeed6220511c7b83fccfa6a2192fd896041",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Deleting nodes with a dummy head",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The delete concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "To delete a node from a singly linked list, you change the link of.",
+            "items": {
+              "var": "out",
+              "line": 9,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Deleting"
-                  },
-                  {
-                    "text": "nodes"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The clean logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The awkward case is deleting the head itself, because there is no node.",
+            "items": {
+              "var": "out",
+              "line": 8,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "with"
-                  },
-                  {
-                    "text": "dummy"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Whenever the head might change, reach for a dummy node.",
+            "items": {
+              "var": "out",
+              "line": 11,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Deleting nodes with a dummy head",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The delete concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "To delete a node from a singly linked list, you change the link of.",
+            "items": [
+              "3",
+              "5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Deleting",
-                  "nodes"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The clean logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The awkward case is deleting the head itself, because there is no node.",
+            "items": [
+              "3",
+              "5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "with",
-                  "dummy"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Whenever the head might change, reach for a dummy node.",
+            "items": [
+              "3",
+              "5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }

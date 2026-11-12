@@ -2,6 +2,8 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 14,
+  "promptSha": "523250b5a6168157fa4d818d136d48039736ff357b4aac2e913bd9494abf0a33",
+  "model": "hand-verified-day14",
   "entries": [
     {
       "partTitle": "Reading an error message",

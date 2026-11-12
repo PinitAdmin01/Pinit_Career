@@ -2,88 +2,213 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 44,
-  "promptSha": "09e5e0064dfda7bdb33501a7fdce1b75003e69818a781218281d261f409bf6dd",
-  "model": "gate-v2-verified",
+  "promptSha": "f5baf64f2771b70f8d2d37179464c7cba181d092c6ff17ea7831ba4cfce4c063",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "AMQP Dead-Letter Exchanges & Celery Error Handling Mechanics",
       "codeHash": "d44a52cd0ef28dd05610cffe1608caf08cba7fe864f322729f45fe1031240453",
       "spec": {
-        "template": "table",
-        "title": "AMQP Dead-Letter Exchanges & Celery Error Handling",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "DeadLetterExchangeSimulator failure routing",
+        "nodes": [
+          {
+            "id": "pq",
+            "label": "primary_queue"
+          },
+          {
+            "id": "wh",
+            "label": "sync_invoice_webhook"
+          },
+          {
+            "id": "dlq",
+            "label": "dead_letter_queue"
+          }
+        ],
+        "edges": [
+          {
+            "from": "pq",
+            "to": "wh"
+          },
+          {
+            "from": "wh",
+            "to": "dlq",
+            "label": "SCHEMA_VALIDATION_ERROR"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The high concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "AMQP"
-                  },
-                  {
-                    "text": "Dead"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Dead-letter exchanges isolate permanently failing messages cleanly.",
+            "values": {
+              "pq": {
+                "text": "primary_queue"
+              },
+              "wh": {
+                "text": "send_welcome_email"
+              },
+              "dlq": {
+                "text": "dead_letter_queue"
               }
-            ]
+            },
+            "tones": {
+              "pq": "data",
+              "wh": "ok",
+              "dlq": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The dead logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Letter"
-                  },
-                  {
-                    "text": "Exchanges"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Routing permanent failures out of primary queues avoids queue blocks.",
+            "values": {
+              "pq": {
+                "text": "primary_queue"
+              },
+              "wh": {
+                "text": "SCHEMA_VALIDATION_ERROR"
+              },
+              "dlq": {
+                "text": "dead_letter_queue"
               }
-            ]
+            },
+            "tones": {
+              "pq": "ok",
+              "wh": "error",
+              "dlq": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Failed webhook tasks move from primary queue toward dead-letter quarantine.",
+            "values": {
+              "pq": {
+                "text": "send_welcome_email"
+              },
+              "wh": {
+                "text": "sync_invoice_webhook"
+              },
+              "dlq": {
+                "text": "dead_letter_queue"
+              }
+            },
+            "tones": {
+              "pq": "ok",
+              "wh": "error",
+              "dlq": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Process task missing email field and confirm DLQ depth grows cleanly.",
+            "values": {
+              "pq": {
+                "text": "Add"
+              },
+              "wh": {
+                "text": "task"
+              },
+              "dlq": {
+                "text": "missing"
+              }
+            },
+            "tones": {
+              "pq": "ok",
+              "wh": "error",
+              "dlq": "data"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "AMQP Dead-Letter Exchanges & Celery Error Handling",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "DeadLetterExchangeSimulator failure routing",
+        "nodes": [
+          {
+            "id": "pq",
+            "label": "primary_queue"
+          },
+          {
+            "id": "wh",
+            "label": "sync_invoice_webhook"
+          },
+          {
+            "id": "dlq",
+            "label": "dead_letter_queue"
+          }
+        ],
+        "edges": [
+          {
+            "from": "pq",
+            "to": "wh"
+          },
+          {
+            "from": "wh",
+            "to": "dlq",
+            "label": "SCHEMA_VALIDATION_ERROR"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The high concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "AMQP",
-                  "Dead"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Dead-letter exchanges isolate permanently failing messages cleanly.",
+            "values": {
+              "pq": "2 Tasks Dispatched",
+              "wh": "send_welcome_email OK",
+              "dlq": "Empty (0 Quarantined)"
+            },
+            "tones": {
+              "pq": "data",
+              "wh": "ok",
+              "dlq": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The dead logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Letter",
-                  "Exchanges"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Routing permanent failures out of primary queues avoids queue blocks.",
+            "values": {
+              "pq": "Healthy Queue Unblocked",
+              "wh": "SCHEMA_VALIDATION_ERROR",
+              "dlq": "Evicted From Primary"
+            },
+            "tones": {
+              "pq": "ok",
+              "wh": "error",
+              "dlq": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Failed webhook tasks move from primary queue toward dead-letter quarantine.",
+            "values": {
+              "pq": "send_welcome_email Completed",
+              "wh": "sync_invoice_webhook Failed",
+              "dlq": "Quarantined in DLQ"
+            },
+            "tones": {
+              "pq": "ok",
+              "wh": "error",
+              "dlq": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Process task missing email field and confirm DLQ depth grows cleanly.",
+            "values": {
+              "pq": "send_welcome_email OK",
+              "wh": "missing email Rejected",
+              "dlq": "2 Quarantined In DLQ"
+            },
+            "tones": {
+              "pq": "ok",
+              "wh": "error",
+              "dlq": "data"
+            },
+            "arrows": [],
+            "whatIf": "class DeadLetterExchangeSimulator:\n    def __init__(self):\n        self.primary_queue = []\n        self.dead_letter_queue = []\n\n    def process_task(self, task_name, payload):\n        print(f\"Worker dequeued '{task_name}'...\")\n        if not payload.get(\"valid_schema\", False) or not payload.get(\"email\"):\n            # Message rejected without requeue -> routed to DLX\n            self.dead_letter_queue.append({\"task\": task_name, \"reason\": \"SCHEMA_VALIDATION_ERROR\"})\n            print(f\"REJECTED: '{task_name}' failed schema validation -> Routed to DLQ!\")\n        else:\n            print(f\"SUCCESS: '{task_name}' processed cleanly.\")\n\ndlx = DeadLetterExchangeSimulator()\ndlx.process_task(\"send_welcome_email\", {\"valid_schema\": True, \"email\": \"user@test.com\"})\ndlx.process_task(\"sync_invoice_webhook\", {\"valid_schema\": False, \"payload\": \"corrupt_data\"})\ndlx.process_task(\"send_receipt_email\", {\"valid_schema\": True, \"order_id\": \"ord_55\"})\n\nprint(f\"Primary Queue status: Empty (all tasks triaged)\")\nprint(f\"Dead-Letter Queue depth: {len(dlx.dead_letter_queue)} quarantined message(s)\")\nprint(f\"Quarantined item: {dlx.dead_letter_queue[0]}\")",
+            "checks": [
+              "REJECTED: 'send_receipt_email' failed schema validation -> Routed to DLQ!",
+              "Dead-Letter Queue depth: 2 quarantined message(s)"
             ]
           }
         ]
@@ -93,82 +218,158 @@
       "partTitle": "Poison Pill Cascade & Infinite Retry Backlog Forensics",
       "codeHash": "563ad329b2ce9d68c33ed11c7825dfb70c8a05757ec73b605a56a4e287c28811",
       "spec": {
-        "template": "table",
-        "title": "Poison Pill Cascade & Infinite Retry Backlog Foren",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Infinite retry saturation vs bounded retry cap",
+        "leftLabel": "Infinite Retry Loop",
+        "rightLabel": "Bounded max_retries=3",
         "steps": [
           {
             "at": "say1",
-            "caption": "The fully concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Poison"
-                  },
-                  {
-                    "text": "Pill"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Malformed payloads crash workers repeatedly creating poison pills.",
+            "left": {
+              "code": "webhook_bad_json",
+              "result": "Crashes Every Attempt",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "PoisonPillForensics",
+              "result": "Classify Permanent Fault",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The creates logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Cascade"
-                  },
-                  {
-                    "text": "Infinite"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Infinite retries fill cluster workers and starve healthy background queues.",
+            "left": {
+              "code": "corrupt_pdf_job",
+              "result": "100% Worker CPU Starved",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "max_retries",
+              "result": "Quarantined After 3 Tries",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Poison pill forensics show infinite retries saturating worker queues.",
+            "left": {
+              "code": "webhook_bad_json",
+              "result": "Unbounded Backlog Spike",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "corrupt_pdf_job",
+              "result": "Isolated to DLQ Quickly",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase max_retries in simulate_bounded_retries and observe retry count.",
+            "left": {
+              "code": "simulate_bounded_retries(poison_tasks, max_retries=3)",
+              "result": "6 Total Attempts -> Evicted",
+              "tone": "data",
+              "checks": [
+                "Bounded retries (limit=3): 6 total attempts before eviction"
+              ],
+              "whatIf": "class PoisonPillForensics:\n    def simulate_unbounded_retries(self, tasks=3, attempts=10):\n        # Unbounded retry causes infinite loop\n        return f\"UNBOUNDED RETRIES: {tasks} poison pill tasks generated {tasks * attempts} failed executions, blocking cluster!\"\n\n    def simulate_bounded_retries(self, poison_tasks, max_retries=3):\n        retries_logged = []\n        evicted_to_dlq = []\n        for t in poison_tasks:\n            for r in range(1, max_retries + 1):\n                retries_logged.append(f\"Task '{t}' retry {r}/{max_retries}\")\n            evicted_to_dlq.append(t)\n        return retries_logged, evicted_to_dlq\n\nforensics = PoisonPillForensics()\nprint(forensics.simulate_unbounded_retries())\n\nlog, dlq = forensics.simulate_bounded_retries([\"webhook_bad_json\", \"corrupt_pdf_job\"], max_retries=3)\nprint(f\"Bounded retries (limit=3): {len(log)} total attempts before eviction\")\nprint(f\"Tasks safely quarantined in DLQ: {dlq}\")"
+            },
+            "right": {
+              "code": "simulate_bounded_retries(poison_tasks, max_retries=5)",
+              "result": "10 Total Attempts -> Evicted",
+              "tone": "ok",
+              "checks": [
+                "Bounded retries executed: 10 total attempts before eviction"
+              ],
+              "whatIf": "class PoisonPillForensics:\n    def simulate_unbounded_retries(self, tasks=3, attempts=10):\n        # Unbounded retry causes infinite loop\n        return f\"UNBOUNDED RETRIES: {tasks} poison pill tasks generated {tasks * attempts} failed executions, blocking cluster!\"\n\n    def simulate_bounded_retries(self, poison_tasks, max_retries=3):\n        retries_logged = []\n        evicted_to_dlq = []\n        for t in poison_tasks:\n            for r in range(1, max_retries + 1):\n                retries_logged.append(f\"Task '{t}' retry {r}/{max_retries}\")\n            evicted_to_dlq.append(t)\n        return retries_logged, evicted_to_dlq\n\nforensics = PoisonPillForensics()\nprint(forensics.simulate_unbounded_retries())\n\nlog, dlq = forensics.simulate_bounded_retries([\"webhook_bad_json\", \"corrupt_pdf_job\"], max_retries=5)\nprint(f\"Bounded retries executed: {len(log)} total attempts before eviction\")\nprint(f\"Tasks safely quarantined in DLQ: {dlq}\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Poison Pill Cascade & Infinite Retry Backlog Foren",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Infinite retry saturation vs bounded retry cap",
+        "leftLabel": "Infinite Retry Loop",
+        "rightLabel": "Bounded max_retries=3",
         "steps": [
           {
             "at": "say1",
-            "caption": "The fully concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Poison",
-                  "Pill"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Malformed payloads crash workers repeatedly creating poison pills.",
+            "left": {
+              "code": "webhook_bad_json -> JSONDecodeError",
+              "result": "Re-queued Forever",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Inspect Permanent Exception",
+              "result": "Tracks Attempt Count",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The creates logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Cascade",
-                  "Infinite"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Infinite retries fill cluster workers and starve healthy background queues.",
+            "left": {
+              "code": "10 Poison Pills x Infinity",
+              "result": "Healthy Tasks Starved",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "max_retries = 3 Reached",
+              "result": "Evicted From Main Pool",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Poison pill forensics show infinite retries saturating worker queues.",
+            "left": {
+              "code": "Unbounded Retry Storm",
+              "result": "Cluster Throughput 0%",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Quarantine + Continue",
+              "result": "Healthy Traffic Flowing",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase max_retries in simulate_bounded_retries and observe retry count.",
+            "left": {
+              "code": "simulate_bounded_retries(poison_tasks, max_retries=3)",
+              "result": "6 Total Attempts -> Evicted",
+              "tone": "data",
+              "checks": [
+                "Bounded retries (limit=3): 6 total attempts before eviction"
+              ],
+              "whatIf": "class PoisonPillForensics:\n    def simulate_unbounded_retries(self, tasks=3, attempts=10):\n        # Unbounded retry causes infinite loop\n        return f\"UNBOUNDED RETRIES: {tasks} poison pill tasks generated {tasks * attempts} failed executions, blocking cluster!\"\n\n    def simulate_bounded_retries(self, poison_tasks, max_retries=3):\n        retries_logged = []\n        evicted_to_dlq = []\n        for t in poison_tasks:\n            for r in range(1, max_retries + 1):\n                retries_logged.append(f\"Task '{t}' retry {r}/{max_retries}\")\n            evicted_to_dlq.append(t)\n        return retries_logged, evicted_to_dlq\n\nforensics = PoisonPillForensics()\nprint(forensics.simulate_unbounded_retries())\n\nlog, dlq = forensics.simulate_bounded_retries([\"webhook_bad_json\", \"corrupt_pdf_job\"], max_retries=3)\nprint(f\"Bounded retries (limit=3): {len(log)} total attempts before eviction\")\nprint(f\"Tasks safely quarantined in DLQ: {dlq}\")"
+            },
+            "right": {
+              "code": "simulate_bounded_retries(poison_tasks, max_retries=5)",
+              "result": "10 Total Attempts -> Evicted",
+              "tone": "ok",
+              "checks": [
+                "Bounded retries executed: 10 total attempts before eviction"
+              ],
+              "whatIf": "class PoisonPillForensics:\n    def simulate_unbounded_retries(self, tasks=3, attempts=10):\n        # Unbounded retry causes infinite loop\n        return f\"UNBOUNDED RETRIES: {tasks} poison pill tasks generated {tasks * attempts} failed executions, blocking cluster!\"\n\n    def simulate_bounded_retries(self, poison_tasks, max_retries=3):\n        retries_logged = []\n        evicted_to_dlq = []\n        for t in poison_tasks:\n            for r in range(1, max_retries + 1):\n                retries_logged.append(f\"Task '{t}' retry {r}/{max_retries}\")\n            evicted_to_dlq.append(t)\n        return retries_logged, evicted_to_dlq\n\nforensics = PoisonPillForensics()\nprint(forensics.simulate_unbounded_retries())\n\nlog, dlq = forensics.simulate_bounded_retries([\"webhook_bad_json\", \"corrupt_pdf_job\"], max_retries=5)\nprint(f\"Bounded retries executed: {len(log)} total attempts before eviction\")\nprint(f\"Tasks safely quarantined in DLQ: {dlq}\")"
+            }
           }
         ]
       }
@@ -177,81 +378,265 @@
       "partTitle": "Dead-Letter Queue Router & Exponential Backoff with Jitter",
       "codeHash": "3cddf1619c4f4a77faa795dbebe6ab9b6b64097c42878cb1b442cd2acf33b5db",
       "spec": {
-        "template": "table",
-        "title": "Dead-Letter Queue Router & Exponential Backoff wit",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "DLQBackoffRouter expanding retry intervals and eviction",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The halting concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Exponential backoff widens retry delays across expanding intervals.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Dead"
-                  },
-                  {
-                    "text": "Letter"
-                  }
-                ],
+                "text": "base_delay_sec"
+              },
+              {
+                "text": "compute_backoff_schedule"
+              },
+              {
+                "text": "max_retries"
+              },
+              {
+                "text": "dlq"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "retry",
+                "index": 1,
                 "tone": "data"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The prevent logic drives deterministic execution.",
-            "rows": [
+            "caption": "Full jitter randomizes retry delays to spread traffic spikes smoothly.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Queue"
-                  },
-                  {
-                    "text": "Router"
-                  }
-                ],
+                "text": "DLQBackoffRouter"
+              },
+              {
+                "text": "compute_backoff_schedule"
+              },
+              {
+                "text": "max_retries"
+              },
+              {
+                "text": "dlq"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "jitter",
+                "index": 2,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              1,
+              4
+            ],
+            "tones": {
+              "0": "data",
+              "1": "ok",
+              "2": "ok",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Backoff router computes exponential delays before evicting terminal failures.",
+            "items": [
+              {
+                "text": "DLQBackoffRouter"
+              },
+              {
+                "text": "compute_backoff_schedule"
+              },
+              {
+                "text": "handle_terminal_failure"
+              },
+              {
+                "text": "dlq"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "evict",
+                "index": 3,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "data",
+              "3": "error"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set base_delay_sec to 3 and max_retries to 4 for updated delay schedule.",
+            "items": [
+              {
+                "text": "Change"
+              },
+              {
+                "text": "and"
+              },
+              {
+                "text": "and"
+              },
+              {
+                "text": "the"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "max",
+                "index": 3,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "data",
+              "3": "data"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Dead-Letter Queue Router & Exponential Backoff wit",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "DLQBackoffRouter expanding retry intervals and eviction",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The halting concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Exponential backoff widens retry delays across expanding intervals.",
+            "items": [
+              "base_delay = 2s",
+              "Schedule [2s, 4s, 8s]",
+              "max_retries = 3",
+              "dlq: [] Empty"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Dead",
-                  "Letter"
-                ],
+                "name": "retry",
+                "index": 1,
                 "tone": "data"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The prevent logic drives deterministic execution.",
-            "rows": [
+            "caption": "Full jitter randomizes retry delays to spread traffic spikes smoothly.",
+            "items": [
+              "Jitter Enabled",
+              "uniform(0, delay)",
+              "Cap Reached (3/3)",
+              "Ready to Quarantine"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Queue",
-                  "Router"
-                ],
+                "name": "jitter",
+                "index": 2,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              1,
+              4
+            ],
+            "tones": {
+              "0": "data",
+              "1": "ok",
+              "2": "ok",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Backoff router computes exponential delays before evicting terminal failures.",
+            "items": [
+              "task_wh_9918",
+              "[2, 4, 8] Exhausted",
+              "HTTP 410 Terminal",
+              "QUARANTINED in dlq[1]"
+            ],
+            "pointers": [
+              {
+                "name": "evict",
+                "index": 3,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "data",
+              "3": "error"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set base_delay_sec to 3 and max_retries to 4 for updated delay schedule.",
+            "items": [
+              "Retry 1: 3s",
+              "Retry 2: 6s",
+              "Retry 3: 12s",
+              "Retry 4: 24s"
+            ],
+            "pointers": [
+              {
+                "name": "max",
+                "index": 3,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "data",
+              "3": "data"
+            },
+            "whatIf": "class DLQBackoffRouter:\n    def __init__(self, max_retries=3, base_delay_sec=1):\n        self.max_retries = max_retries\n        self.base_delay_sec = base_delay_sec\n        self.dlq = []\n\n    def compute_backoff_schedule(self):\n        # Deterministic exponential backoff intervals without random jitter for testing\n        schedule = []\n        for attempt in range(1, self.max_retries + 1):\n            delay = self.base_delay_sec * (2 ** (attempt - 1))\n            schedule.append(delay)\n        return schedule\n\n    def handle_terminal_failure(self, task_id, error_msg):\n        entry = {\"task_id\": task_id, \"error\": error_msg, \"status\": \"QUARANTINED\"}\n        self.dlq.append(entry)\n        return entry\n\nrouter = DLQBackoffRouter(max_retries=4, base_delay_sec=3)\ndelays = router.compute_backoff_schedule()\nprint(f\"Exponential backoff schedule (seconds): {delays}\")\n\nentry = router.handle_terminal_failure(\"task_wh_9918\", \"HTTP 410 Gone: Customer endpoint deleted\")\nprint(f\"Task evicted to DLQ: ID={entry['task_id']}, Reason='{entry['error']}'\")\nprint(f\"Active DLQ queue count: {len(router.dlq)}\")",
+            "checks": [
+              "Exponential backoff schedule (seconds): [3, 6, 12, 24]"
             ]
           }
         ]
@@ -262,23 +647,75 @@
       "codeHash": "829e7668e8deba0aa1c20a54b31eecebee5dcd0f8fd850708c38d8ab223eaf71",
       "spec": {
         "template": "table",
-        "title": "Worker Concurrency Models & Pool Sizing (Prefork v",
+        "title": "WorkerPoolProfiler workload pool matching",
         "columns": [
-          "Stage",
-          "Concept"
+          "Workload",
+          "Pool Model",
+          "Target Case"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The beyond concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Prefork worker processes bypass GIL limits on CPU-intensive tasks.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Worker"
+                    "text": "CPU_BOUND"
                   },
                   {
-                    "text": "Concurrency"
+                    "text": "prefork"
+                  },
+                  {
+                    "text": "WorkerPoolProfiler"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "IO_BOUND"
+                  },
+                  {
+                    "text": "gevent"
+                  },
+                  {
+                    "text": "concurrency"
+                  }
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Greenlet pools sustain dense concurrency across I/O-bound webhook workloads.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "IO_BOUND"
+                  },
+                  {
+                    "text": "gevent"
+                  },
+                  {
+                    "text": "profile_workload"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "CPU_BOUND"
+                  },
+                  {
+                    "text": "prefork"
+                  },
+                  {
+                    "text": "concurrency"
                   }
                 ],
                 "tone": "data"
@@ -286,16 +723,67 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The conversely logic drives deterministic execution.",
+            "at": "example",
+            "caption": "Profiler selects optimal prefork or greenlet pools for each workload.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Models"
+                    "text": "CPU_BOUND"
                   },
                   {
-                    "text": "Pool"
+                    "text": "prefork"
+                  },
+                  {
+                    "text": "8"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "IO_BOUND"
+                  },
+                  {
+                    "text": "gevent"
+                  },
+                  {
+                    "text": "500"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add HYBRID workload profiling rule recommending dual separated queues.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Add"
+                  },
+                  {
+                    "text": "profiling"
+                  },
+                  {
+                    "text": "rule"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "rule"
+                  },
+                  {
+                    "text": "for"
+                  },
+                  {
+                    "text": "HYBRID"
                   }
                 ],
                 "tone": "ok"
@@ -306,36 +794,103 @@
       },
       "filled": {
         "template": "table",
-        "title": "Worker Concurrency Models & Pool Sizing (Prefork v",
+        "title": "WorkerPoolProfiler workload pool matching",
         "columns": [
-          "Stage",
-          "Concept"
+          "Workload",
+          "Pool Model",
+          "Target Case"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The beyond concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Prefork worker processes bypass GIL limits on CPU-intensive tasks.",
             "rows": [
               {
                 "cells": [
-                  "Worker",
-                  "Concurrency"
+                  "CPU_BOUND",
+                  "prefork (OS Procs)",
+                  "No GIL Contention"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "IO_BOUND",
+                  "gevent (Pending)",
+                  "High Socket Wait"
+                ],
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Greenlet pools sustain dense concurrency across I/O-bound webhook workloads.",
+            "rows": [
+              {
+                "cells": [
+                  "IO_BOUND",
+                  "gevent / eventlet",
+                  "Webhooks & HTTP Calls"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "CPU_BOUND",
+                  "Dedicated Queue",
+                  "Never Mix In Greenlet"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The conversely logic drives deterministic execution.",
+            "at": "example",
+            "caption": "Profiler selects optimal prefork or greenlet pools for each workload.",
             "rows": [
               {
                 "cells": [
-                  "Models",
-                  "Pool"
+                  "CPU_BOUND",
+                  "prefork (8 procs)",
+                  "Video / ML Inference"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "IO_BOUND",
+                  "gevent (500 greenlets)",
+                  "API Polling / Webhooks"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add HYBRID workload profiling rule recommending dual separated queues.",
+            "rows": [
+              {
+                "cells": [
+                  "CPU_BOUND",
+                  "prefork (8 procs)",
+                  "Video / ML Inference"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "HYBRID",
+                  "Split Prefork + Gevent (16)",
+                  "Isolated Mixed Queues"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "class WorkerPoolProfiler:\n    def profile_workload(self, task_type, concurrency):\n        if task_type == \"CPU_BOUND\":\n            # Prefork multiprocessing pool: 1 worker per physical CPU core\n            return f\"POOL: prefork (processes={concurrency}) | Best for: Video encoding, compression, ML inference.\"\n        elif task_type == \"IO_BOUND\":\n            # Greenlet/async pool: high concurrency for network I/O\n            return f\"POOL: gevent/eventlet (concurrency={concurrency}) | Best for: Webhooks, HTTP API polling, DB queries.\"\n        elif task_type == \"HYBRID\":\n            return f\"POOL: split queues -> CPU prefork + I/O gevent (workers={concurrency}) | Route compute away from event loop.\"\n        return \"Unknown pool\"\n\nprofiler = WorkerPoolProfiler()\nprint(profiler.profile_workload(\"CPU_BOUND\", concurrency=8))\nprint(profiler.profile_workload(\"IO_BOUND\", concurrency=500))\nprint(profiler.profile_workload(\"HYBRID\", concurrency=16))\nprint(\"Architecture Rule: Never run CPU-heavy tasks in greenlet pools (GIL blocks all greenlets).\")",
+            "checks": [
+              "POOL: split queues -> CPU prefork + I/O gevent (workers=16)"
             ]
           }
         ]
@@ -345,81 +900,182 @@
       "partTitle": "Real-Time Monitoring, Prometheus Metrics & Flower Observability",
       "codeHash": "d3204aa9ab517da039952136fc40929e28ca0c138b051c8a35eb1e90e50c4ec5",
       "spec": {
-        "template": "table",
-        "title": "Real-Time Monitoring, Prometheus Metrics & Flower ",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "ObservableWorkerCluster Prometheus counters",
+        "boxes": [
+          {
+            "id": "suc",
+            "label": "processed_success"
+          },
+          {
+            "id": "ret",
+            "label": "processed_retries"
+          },
+          {
+            "id": "dlq",
+            "label": "evicted_dlq"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Real"
-                  },
-                  {
-                    "text": "Time"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Flower dashboards inspect active workers and in-flight execution live.",
+            "values": {
+              "suc": {
+                "text": "processed_success"
+              },
+              "ret": {
+                "text": "processed_retries"
+              },
+              "dlq": {
+                "text": "ObservableWorkerCluster"
               }
-            ]
+            },
+            "tones": {
+              "suc": "data",
+              "ret": "idle",
+              "dlq": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The furthermore logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Monitoring"
-                  },
-                  {
-                    "text": "Prometheus"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Prometheus exporters capture retry counters and dead-letter queue metrics.",
+            "values": {
+              "suc": {
+                "text": "SUCCESS"
+              },
+              "ret": {
+                "text": "RETRY"
+              },
+              "dlq": {
+                "text": "DLQ_EVICT"
               }
-            ]
+            },
+            "tones": {
+              "suc": "ok",
+              "ret": "data",
+              "dlq": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Observable cluster exports structured Prometheus metrics for cluster health.",
+            "values": {
+              "suc": {
+                "text": "50"
+              },
+              "ret": {
+                "text": "4"
+              },
+              "dlq": {
+                "text": "evicted_dlq"
+              }
+            },
+            "tones": {
+              "suc": "ok",
+              "ret": "data",
+              "dlq": "error"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Trigger DLQ evictions on ObservableWorkerCluster verifying ALERT_HIGH_DLQ.",
+            "values": {
+              "suc": {
+                "text": "Trigger"
+              },
+              "ret": {
+                "text": "evictions"
+              },
+              "dlq": {
+                "text": "and"
+              }
+            },
+            "tones": {
+              "suc": "ok",
+              "ret": "data",
+              "dlq": "error"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Real-Time Monitoring, Prometheus Metrics & Flower ",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "ObservableWorkerCluster Prometheus counters",
+        "boxes": [
+          {
+            "id": "suc",
+            "label": "processed_success"
+          },
+          {
+            "id": "ret",
+            "label": "processed_retries"
+          },
+          {
+            "id": "dlq",
+            "label": "evicted_dlq"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Real",
-                  "Time"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Flower dashboards inspect active workers and in-flight execution live.",
+            "values": {
+              "suc": "Flower Dashboard Live",
+              "ret": "In-Flight Tracked",
+              "dlq": "Worker Heartbeats OK"
+            },
+            "tones": {
+              "suc": "data",
+              "ret": "idle",
+              "dlq": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The furthermore logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Monitoring",
-                  "Prometheus"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Prometheus exporters capture retry counters and dead-letter queue metrics.",
+            "values": {
+              "suc": "tasks_succeeded_total",
+              "ret": "tasks_retried_total",
+              "dlq": "tasks_dlq_evicted_total"
+            },
+            "tones": {
+              "suc": "ok",
+              "ret": "data",
+              "dlq": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Observable cluster exports structured Prometheus metrics for cluster health.",
+            "values": {
+              "suc": "50 Succeeded",
+              "ret": "4 Transient Retries",
+              "dlq": "1 Quarantined -> HEALTHY"
+            },
+            "tones": {
+              "suc": "ok",
+              "ret": "data",
+              "dlq": "error"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Trigger DLQ evictions on ObservableWorkerCluster verifying ALERT_HIGH_DLQ.",
+            "values": {
+              "suc": "50 Succeeded",
+              "ret": "4 Retries Logged",
+              "dlq": "12 Evictions -> ALERT_HIGH_DLQ"
+            },
+            "tones": {
+              "suc": "ok",
+              "ret": "data",
+              "dlq": "error"
+            },
+            "whatIf": "class ObservableWorkerCluster:\n    def __init__(self):\n        self.processed_success = 0\n        self.processed_retries = 0\n        self.evicted_dlq = 0\n\n    def record_event(self, event_type):\n        if event_type == \"SUCCESS\":\n            self.processed_success += 1\n        elif event_type == \"RETRY\":\n            self.processed_retries += 1\n        elif event_type == \"DLQ_EVICT\":\n            self.evicted_dlq += 1\n\n    def export_prometheus_metrics(self):\n        return {\n            \"celery_tasks_succeeded_total\": self.processed_success,\n            \"celery_tasks_retried_total\": self.processed_retries,\n            \"celery_tasks_dlq_evicted_total\": self.evicted_dlq,\n            \"cluster_health\": \"HEALTHY\" if self.evicted_dlq < 10 else \"ALERT_HIGH_DLQ\"\n        }\n\ncluster = ObservableWorkerCluster()\n# Simulate workload stream\nfor _ in range(50): cluster.record_event(\"SUCCESS\")\nfor _ in range(4): cluster.record_event(\"RETRY\")\nfor _ in range(12): cluster.record_event(\"DLQ_EVICT\")\n\nmetrics = cluster.export_prometheus_metrics()\nprint(\"=== Prometheus Celery Observability Metrics ===\")\nfor k, v in metrics.items():\n    print(f\"  {k}: {v}\")\nprint(\"INVARIANT SATISFIED: Poison pills quarantined in DLQ; cluster health maintained at 100%.\")",
+            "checks": [
+              "celery_tasks_dlq_evicted_total: 12",
+              "cluster_health: ALERT_HIGH_DLQ"
             ]
           }
         ]

@@ -2,16 +2,16 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 8,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Two kinds of summary",
       "codeHash": "05e52a921979b0424e904b010e1f2044523d06680b0ce55469241f94e0250861",
       "spec": {
-        "template": "table",
-        "title": "Extractive vs abstractive summarization trade-offs",
-        "columns": [
+        "template": "sequence",
+        "title": "Two kinds of summary",
+        "actors": [
           "text",
           "extractive",
           "abstractive"
@@ -19,68 +19,81 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Extractive summarisation copies important sentences from the original text.",
-            "rows": [
+            "caption": "Extractive summarisation picks the most important sentences from.",
+            "activeActor": "text",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "extractive"
-                  },
-                  {
-                    "text": "abstractive"
-                  }
-                ],
-                "tone": "ok"
+                "from": "text",
+                "to": "extractive",
+                "label": {
+                  "var": "text",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "extractive"
-                  },
-                  {
-                    "text": "abstractive"
-                  }
-                ],
-                "tone": "data"
+                "from": "extractive",
+                "to": "abstractive",
+                "label": {
+                  "var": "extractive",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Abstractive summarisation writes new sentences that capture source meaning.",
-            "rows": [
+            "caption": "Abstractive summarisation writes new sentences that capture the meaning.",
+            "activeActor": "extractive",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "extractive"
-                  },
-                  {
-                    "text": "abstractive"
-                  }
-                ],
+                "from": "text",
+                "to": "extractive",
+                "label": {
+                  "var": "text",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "costs"
-                  },
-                  {
-                    "text": "extractive"
-                  },
-                  {
-                    "text": "abstractive"
-                  }
-                ],
+                "from": "extractive",
+                "to": "abstractive",
+                "label": {
+                  "var": "extractive",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Many tools blend both, extracting key sentences first and then rewriting.",
+            "activeActor": "abstractive",
+            "messages": [
+              {
+                "from": "text",
+                "to": "extractive",
+                "label": {
+                  "var": "text",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "extractive",
+                "to": "abstractive",
+                "label": {
+                  "var": "extractive",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -88,9 +101,9 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Extractive vs abstractive summarization trade-offs",
-        "columns": [
+        "template": "sequence",
+        "title": "Two kinds of summary",
+        "actors": [
           "text",
           "extractive",
           "abstractive"
@@ -98,47 +111,60 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Extractive summarisation copies important sentences from the original text.",
-            "rows": [
+            "caption": "Extractive summarisation picks the most important sentences from.",
+            "messages": [
               {
-                "cells": [
-                  "text",
-                  "extractive",
-                  "abstractive"
-                ],
-                "tone": "ok"
+                "from": "text",
+                "to": "extractive",
+                "label": "['Sales rose 12% in Q3.', 'The new app …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "text",
-                  "extractive",
-                  "abstractive"
-                ],
-                "tone": "data"
+                "from": "extractive",
+                "to": "abstractive",
+                "label": "'Sales rose 12% in Q3. The new app drov…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "text"
           },
           {
             "at": "say2",
-            "caption": "Abstractive summarisation writes new sentences that capture source meaning.",
-            "rows": [
+            "caption": "Abstractive summarisation writes new sentences that capture the meaning.",
+            "messages": [
               {
-                "cells": [
-                  "text",
-                  "extractive",
-                  "abstractive"
-                ],
+                "from": "text",
+                "to": "extractive",
+                "label": "['Sales rose 12% in Q3.', 'The new app …",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "costs",
-                  "extractive",
-                  "abstractive"
-                ],
+                "from": "extractive",
+                "to": "abstractive",
+                "label": "'Sales rose 12% in Q3. The new app drov…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "extractive"
+          },
+          {
+            "at": "say8",
+            "caption": "Many tools blend both, extracting key sentences first and then rewriting.",
+            "messages": [
+              {
+                "from": "text",
+                "to": "extractive",
+                "label": "['Sales rose 12% in Q3.', 'The new app …",
+                "tone": "data"
+              },
+              {
+                "from": "extractive",
+                "to": "abstractive",
+                "label": "'Sales rose 12% in Q3. The new app drov…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "abstractive"
           }
         ]
       }
@@ -147,78 +173,91 @@
       "partTitle": "A simple extractive summariser",
       "codeHash": "ecd268298127c22a5cf1e0363bd4237632726ea71e13ee43d62cc59c6f3d4b36",
       "spec": {
-        "template": "table",
-        "title": "Word frequency scoring and sentence ranking",
-        "columns": [
-          "sentences",
-          "freq",
-          "score"
+        "template": "sequence",
+        "title": "A simple extractive summariser",
+        "actors": [
+          "STOP",
+          "text",
+          "sentences"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A classic extractive method scores sentences containing important words.",
-            "rows": [
+            "caption": "A classic extractive method scores sentences by how many important words.",
+            "activeActor": "STOP",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "sentences"
-                  },
-                  {
-                    "text": "freq"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
-                "tone": "ok"
+                "from": "STOP",
+                "to": "text",
+                "label": {
+                  "var": "STOP",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "sentences"
-                  },
-                  {
-                    "text": "freq"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
-                "tone": "data"
+                "from": "text",
+                "to": "sentences",
+                "label": {
+                  "var": "text",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Adding word frequency counts ranks each candidate sentence for the summary.",
-            "rows": [
+            "at": "say2",
+            "caption": "Count how often each word appears in the whole text, ignoring very common.",
+            "activeActor": "text",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "sentences"
-                  },
-                  {
-                    "text": "freq"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
+                "from": "STOP",
+                "to": "text",
+                "label": {
+                  "var": "STOP",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "freq"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
+                "from": "text",
+                "to": "sentences",
+                "label": {
+                  "var": "text",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Even so, word-frequency scoring captures the main idea surprisingly often.",
+            "activeActor": "sentences",
+            "messages": [
+              {
+                "from": "STOP",
+                "to": "text",
+                "label": {
+                  "var": "STOP",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "sentences",
+                "label": {
+                  "var": "text",
+                  "line": 7,
+                  "hit": 24
+                },
                 "tone": "ok"
               }
             ]
@@ -226,57 +265,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Word frequency scoring and sentence ranking",
-        "columns": [
-          "sentences",
-          "freq",
-          "score"
+        "template": "sequence",
+        "title": "A simple extractive summariser",
+        "actors": [
+          "STOP",
+          "text",
+          "sentences"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A classic extractive method scores sentences containing important words.",
-            "rows": [
+            "caption": "A classic extractive method scores sentences by how many important words.",
+            "messages": [
               {
-                "cells": [
-                  "sentences",
-                  "freq",
-                  "score"
-                ],
-                "tone": "ok"
+                "from": "STOP",
+                "to": "text",
+                "label": "{'a', 'and', 'is', 'my', 'of', 'than', …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "sentences",
-                  "freq",
-                  "score"
-                ],
-                "tone": "data"
+                "from": "text",
+                "to": "sentences",
+                "label": "'Solar power is growing fast. Solar pan…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "STOP"
           },
           {
-            "at": "say3",
-            "caption": "Adding word frequency counts ranks each candidate sentence for the summary.",
-            "rows": [
+            "at": "say2",
+            "caption": "Count how often each word appears in the whole text, ignoring very common.",
+            "messages": [
               {
-                "cells": [
-                  "sentences",
-                  "freq",
-                  "score"
-                ],
+                "from": "STOP",
+                "to": "text",
+                "label": "{'a', 'and', 'is', 'my', 'of', 'than', …",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "text",
-                  "freq",
-                  "score"
-                ],
+                "from": "text",
+                "to": "sentences",
+                "label": "'Solar power is growing fast. Solar pan…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "text"
+          },
+          {
+            "at": "say8",
+            "caption": "Even so, word-frequency scoring captures the main idea surprisingly often.",
+            "messages": [
+              {
+                "from": "STOP",
+                "to": "text",
+                "label": "{'a', 'and', 'is', 'my', 'of', 'than', …",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "sentences",
+                "label": "'Solar power is growing fast. Solar pan…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "sentences"
           }
         ]
       }
@@ -285,135 +337,165 @@
       "partTitle": "Prompting for good summaries",
       "codeHash": "d2ae4027c9e894490ba3e1a165eb52517001a191e5093e9083300a19502db0b4",
       "spec": {
-        "template": "table",
-        "title": "Audience-tailored executive briefing prompt structure",
-        "columns": [
-          "audience",
-          "length",
-          "prompts"
+        "template": "flow",
+        "title": "Prompting for good summaries",
+        "nodes": [
+          {
+            "id": "template",
+            "label": "template"
+          },
+          {
+            "id": "prompts",
+            "label": "prompts"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A structured prompt states the audience, format, and target length.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "audience"
-                  },
-                  {
-                    "text": "length"
-                  },
-                  {
-                    "text": "prompts"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A good summary prompt states the audience, the purpose, the length and.",
+            "values": {
+              "template": {
+                "var": "template",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "audience"
-                  },
-                  {
-                    "text": "length"
-                  },
-                  {
-                    "text": "prompts"
-                  }
-                ],
-                "tone": "data"
+              "prompts": {
+                "var": "prompts",
+                "line": 3,
+                "hit": 5
               }
+            },
+            "tones": {
+              "template": "data",
+              "prompts": "data"
+            },
+            "arrows": [
+              [
+                "template",
+                "prompts"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Specifying decisions and risks helps the model prioritise key items.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "audience"
-                  },
-                  {
-                    "text": "length"
-                  },
-                  {
-                    "text": "prompts"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Say what to prioritise.",
+            "values": {
+              "template": {
+                "var": "template",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "audience"
-                  },
-                  {
-                    "text": "length"
-                  },
-                  {
-                    "text": "focus"
-                  }
-                ],
-                "tone": "ok"
+              "prompts": {
+                "var": "prompts",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "template": "data",
+              "prompts": "data"
+            },
+            "arrows": [
+              [
+                "template",
+                "prompts"
+              ]
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Asking for the summary to end with open questions or unclear points is.",
+            "values": {
+              "template": {
+                "var": "template",
+                "line": 3,
+                "hit": 1
+              },
+              "prompts": {
+                "var": "prompts",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "template": "ok",
+              "prompts": "ok"
+            },
+            "arrows": [
+              [
+                "template",
+                "prompts"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Audience-tailored executive briefing prompt structure",
-        "columns": [
-          "audience",
-          "length",
-          "prompts"
+        "template": "flow",
+        "title": "Prompting for good summaries",
+        "nodes": [
+          {
+            "id": "template",
+            "label": "template"
+          },
+          {
+            "id": "prompts",
+            "label": "prompts"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A structured prompt states the audience, format, and target length.",
-            "rows": [
-              {
-                "cells": [
-                  "audience",
-                  "length",
-                  "prompts"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "audience",
-                  "length",
-                  "prompts"
-                ],
-                "tone": "data"
-              }
+            "caption": "A good summary prompt states the audience, the purpose, the length and.",
+            "values": {
+              "template": "'Summarise the text below for {audience…",
+              "prompts": "['Summarise the text below for the CEO …"
+            },
+            "tones": {
+              "template": "data",
+              "prompts": "data"
+            },
+            "arrows": [
+              [
+                "template",
+                "prompts"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Specifying decisions and risks helps the model prioritise key items.",
-            "rows": [
-              {
-                "cells": [
-                  "audience",
-                  "length",
-                  "prompts"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "audience",
-                  "length",
-                  "focus"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Say what to prioritise.",
+            "values": {
+              "template": "'Summarise the text below for {audience…",
+              "prompts": "['Summarise the text below for the CEO …"
+            },
+            "tones": {
+              "template": "data",
+              "prompts": "data"
+            },
+            "arrows": [
+              [
+                "template",
+                "prompts"
+              ]
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Asking for the summary to end with open questions or unclear points is.",
+            "values": {
+              "template": "'Summarise the text below for {audience…",
+              "prompts": "['Summarise the text below for the CEO …"
+            },
+            "tones": {
+              "template": "ok",
+              "prompts": "ok"
+            },
+            "arrows": [
+              [
+                "template",
+                "prompts"
+              ]
             ]
           }
         ]
@@ -423,78 +505,131 @@
       "partTitle": "Documents longer than the context window",
       "codeHash": "93f02ad139f5224b6387addec707ebf540202bd52794f495aa06f46836240c84",
       "spec": {
-        "template": "table",
-        "title": "Map-reduce chunking for large document summarization",
-        "columns": [
-          "chunks",
-          "size",
-          "overlap"
-        ],
+        "template": "bars",
+        "title": "Documents longer than the context window",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Summarisation splits the document into chunks before the reduce step.",
-            "rows": [
+            "at": "say1",
+            "caption": "Some documents are too long for one prompt, or would be too expensive.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "size"
-                  },
-                  {
-                    "text": "overlap"
-                  }
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "size"
-                  },
-                  {
-                    "text": "overlap"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Preserving natural boundaries and overlap prevents losing context.",
-            "rows": [
+            "at": "say2",
+            "caption": "Map-reduce summarisation splits the document into chunks, summarises each.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "size"
-                  },
-                  {
-                    "text": "overlap"
-                  }
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 11,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "size"
-                  },
-                  {
-                    "text": "overlap"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Keeping each chunk summary with its section heading lets readers jump back.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 11,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +637,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Map-reduce chunking for large document summarization",
-        "columns": [
-          "chunks",
-          "size",
-          "overlap"
-        ],
+        "template": "bars",
+        "title": "Documents longer than the context window",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Summarisation splits the document into chunks before the reduce step.",
-            "rows": [
+            "at": "say1",
+            "caption": "Some documents are too long for one prompt, or would be too expensive.",
+            "bars": [
               {
-                "cells": [
-                  "chunks",
-                  "size",
-                  "overlap"
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": 1,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "chunks",
-                  "size",
-                  "overlap"
-                ],
+                "label": "size",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "overlap",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "start",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Preserving natural boundaries and overlap prevents losing context.",
-            "rows": [
+            "at": "say2",
+            "caption": "Map-reduce summarisation splits the document into chunks, summarises each.",
+            "bars": [
               {
-                "cells": [
-                  "chunks",
-                  "size",
-                  "overlap"
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "words",
-                  "size",
-                  "overlap"
-                ],
+                "label": "size",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "overlap",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "start",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Keeping each chunk summary with its section heading lets readers jump back.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "overlap",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "start",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -561,224 +725,162 @@
       "partTitle": "Checking summary length and quality",
       "codeHash": "9f4f41dee0b15515f8a160f5a312dac8b1e8b19fae2bdd9389e6201582096ffc",
       "spec": {
-        "template": "flow",
-        "title": "Checking summary length and quality — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Checking summary le...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Checking summary length and quality",
+        "actors": [
+          "original",
+          "summary",
+          "ratio"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Checking summary length and quality.",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Checking summary le... [Deight.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A summary that is almost as long as the original saves no time.",
+            "activeActor": "original",
+            "messages": [
+              {
+                "from": "original",
+                "to": "summary",
+                "label": {
+                  "var": "original",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "summary",
+                "to": "ratio",
+                "label": {
+                  "var": "summary",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The compression ratio, summary words divided by original words, is.",
+            "activeActor": "summary",
+            "messages": [
+              {
+                "from": "original",
+                "to": "summary",
+                "label": {
+                  "var": "original",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "summary",
+                "to": "ratio",
+                "label": {
+                  "var": "summary",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Checking summary length and quality.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Tracking these measures over many summaries shows whether a prompt change.",
+            "activeActor": "ratio",
+            "messages": [
+              {
+                "from": "original",
+                "to": "summary",
+                "label": {
+                  "var": "original",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "summary",
+                "to": "ratio",
+                "label": {
+                  "var": "summary",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Checking summary length and quality — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Checking summary le...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Checking summary length and quality",
+        "actors": [
+          "original",
+          "summary",
+          "ratio"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Checking summary length and quality [D8.P5.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Checking summary le... [D8.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A summary that is almost as long as the original saves no time.",
+            "messages": [
+              {
+                "from": "original",
+                "to": "summary",
+                "label": "'word word word word word word word wor…",
+                "tone": "data"
+              },
+              {
+                "from": "summary",
+                "to": "ratio",
+                "label": "'Sales rose 12% in Q3 from the new app;…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "original"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The compression ratio, summary words divided by original words, is.",
+            "messages": [
+              {
+                "from": "original",
+                "to": "summary",
+                "label": "'word word word word word word word wor…",
+                "tone": "data"
+              },
+              {
+                "from": "summary",
+                "to": "ratio",
+                "label": "'Sales rose 12% in Q3 from the new app;…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "summary"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Checking summary length and quality [D8.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "Tracking these measures over many summaries shows whether a prompt change.",
+            "messages": [
+              {
+                "from": "original",
+                "to": "summary",
+                "label": "'word word word word word word word wor…",
+                "tone": "data"
+              },
+              {
+                "from": "summary",
+                "to": "ratio",
+                "label": "'Sales rose 12% in Q3 from the new app;…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ratio"
           }
         ]
       }
@@ -787,224 +889,162 @@
       "partTitle": "Practice time: summarise and check",
       "codeHash": "a3c455bf5d64b85817d27a577f532d6d305995588352b52b9d54afe60612315d",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: summarise and check — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: summ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: summarise and check",
+        "actors": [
+          "STOP",
+          "text",
+          "sents"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: summarise and check.",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: summ... [Deight.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Extractive_summary(text, n).",
+            "activeActor": "STOP",
+            "messages": [
+              {
+                "from": "STOP",
+                "to": "text",
+                "label": {
+                  "var": "STOP",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "sents",
+                "label": {
+                  "var": "text",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks use a short article about solar power where the off-topic cat.",
+            "activeActor": "text",
+            "messages": [
+              {
+                "from": "STOP",
+                "to": "text",
+                "label": {
+                  "var": "STOP",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "sents",
+                "label": {
+                  "var": "text",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: summarise and check.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "The same scoring idea, finding the passages that best match important.",
+            "activeActor": "sents",
+            "messages": [
+              {
+                "from": "STOP",
+                "to": "text",
+                "label": {
+                  "var": "STOP",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "sents",
+                "label": {
+                  "var": "text",
+                  "line": 8,
+                  "hit": 25
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: summarise and check — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: summ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: summarise and check",
+        "actors": [
+          "STOP",
+          "text",
+          "sents"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: summarise and check [D8.P6.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: summ... [D8.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Extractive_summary(text, n).",
+            "messages": [
+              {
+                "from": "STOP",
+                "to": "text",
+                "label": "{'a', 'an', 'and', 'for', 'in', 'is', '…",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "sents",
+                "label": "'The council approved the new bus route…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "STOP"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks use a short article about solar power where the off-topic cat.",
+            "messages": [
+              {
+                "from": "STOP",
+                "to": "text",
+                "label": "{'a', 'an', 'and', 'for', 'in', 'is', '…",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "sents",
+                "label": "'The council approved the new bus route…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "text"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: summarise and check [D8.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "The same scoring idea, finding the passages that best match important.",
+            "messages": [
+              {
+                "from": "STOP",
+                "to": "text",
+                "label": "{'a', 'an', 'and', 'for', 'in', 'is', '…",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "sents",
+                "label": "'The council approved the new bus route…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "sents"
           }
         ]
       }

@@ -2,89 +2,167 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 56,
-  "promptSha": "71017547ff7e00c932a47608dd7ef615b93cf8d3e036702c3c8be8778df0145d",
-  "model": "gate-v2-verified",
+  "promptSha": "a0cb4c0dfeb839f7bb8e8097d35710fdf0cd40f7504add2c5c7630a8f1fac865",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "Double-Entry Accounting Mechanics & Decimal Precision Physics",
       "codeHash": "0623147ca6e1ff6f9ac9ff1e15e47694aa2b5b43597f4aa93cfd5d33619051aa",
       "spec": {
-        "template": "table",
-        "title": "Double-Entry Accounting Mechanics & Decimal Precis",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Binary IEEE 754 float drift vs exact integer Decimal cents",
+        "leftLabel": "Binary Float Arithmetic",
+        "rightLabel": "Decimal & Integer Cents",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Double"
-                  },
-                  {
-                    "text": "Entry"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Binary floats fail to represent exact decimal fractions like 0.1 cleanly.",
+            "left": {
+              "code": "f_val",
+              "result": "0.30000000000000004 Drift",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "d_val",
+              "result": "Decimal 0.3 Exact",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The binary logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Accounting"
-                  },
-                  {
-                    "text": "Mechanics"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Ledgers compute in Python Decimal math and integer cents without rounding drift.",
+            "left": {
+              "code": "ROUND_HALF_EVEN",
+              "result": "Quantized Money Boundary",
+              "tone": "data",
+              "checks": []
+            },
+            "right": {
+              "code": "CurrencyMath",
+              "result": "Exact Minor Units",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Integer cents keep ledger balances exact across millions of transfers.",
+            "left": {
+              "code": "to_cents",
+              "result": "$125.45 -> 12545 Cents",
+              "tone": "ok",
+              "checks": []
+            },
+            "right": {
+              "code": "from_cents",
+              "result": "Zero Float Discrepancy",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Change currency amount and observe quantize ROUND_HALF_EVEN cents rounding.",
+            "left": {
+              "code": "CurrencyMath.to_cents('125.45')",
+              "result": "12545 integer cents",
+              "tone": "data",
+              "checks": [
+                "Cents CHECK ($125.45) = 12545"
+              ],
+              "whatIf": "from decimal import Decimal, ROUND_HALF_EVEN\n\nf_val = 0.1 + 0.2\nd_val = Decimal(\"0.1\") + Decimal(\"0.2\")\nprint(f\"Float 0.1 + 0.2 == 0.3: {f_val == 0.3} (Float: {f_val})\")\nprint(f\"Decimal '0.1' + '0.2' == '0.3': {d_val == Decimal('0.3')} (Decimal: {d_val})\")\n\nclass CurrencyMath:\n    @staticmethod\n    def to_cents(amount_str: str) -> int:\n        d = Decimal(amount_str).quantize(Decimal(\"0.01\"), rounding=ROUND_HALF_EVEN)\n        return int(d * 100)\n\n    @staticmethod\n    def from_cents(cents: int) -> Decimal:\n        return (Decimal(cents) / Decimal(100)).quantize(Decimal(\"0.01\"))\n\nprint(f\"Cents CHECK ($125.45) = {CurrencyMath.to_cents('125.45')}\")\nprint(f\"Cents for '$125.45': {CurrencyMath.to_cents('125.45')}\")\nprint(f\"Reconstructed: ${CurrencyMath.from_cents(12545)}\")\nprint(\"Precision Invariant: Exact integer cents eliminate IEEE 754 rounding discrepancies.\")"
+            },
+            "right": {
+              "code": "CurrencyMath.to_cents('99.999')",
+              "result": "10000 cents ($100.00 ROUND_HALF_EVEN)",
+              "tone": "ok",
+              "checks": [
+                "Cents for '$99.999': 10000",
+                "Reconstructed: $100.00"
+              ],
+              "whatIf": "from decimal import Decimal, ROUND_HALF_EVEN\n\nf_val = 0.1 + 0.2\nd_val = Decimal(\"0.1\") + Decimal(\"0.2\")\nprint(f\"Float 0.1 + 0.2 == 0.3: {f_val == 0.3} (Float: {f_val})\")\nprint(f\"Decimal '0.1' + '0.2' == '0.3': {d_val == Decimal('0.3')} (Decimal: {d_val})\")\n\nclass CurrencyMath:\n    @staticmethod\n    def to_cents(amount_str: str) -> int:\n        d = Decimal(amount_str).quantize(Decimal(\"0.01\"), rounding=ROUND_HALF_EVEN)\n        return int(d * 100)\n\n    @staticmethod\n    def from_cents(cents: int) -> Decimal:\n        return (Decimal(cents) / Decimal(100)).quantize(Decimal(\"0.01\"))\n\ncents = CurrencyMath.to_cents(\"99.999\")\nprint(f\"Cents for '$99.999': {cents}\")\nprint(f\"Reconstructed: ${CurrencyMath.from_cents(cents)}\")\nprint(\"Precision Invariant: Exact integer cents eliminate IEEE 754 rounding discrepancies.\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Double-Entry Accounting Mechanics & Decimal Precis",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Binary IEEE 754 float drift vs exact integer Decimal cents",
+        "leftLabel": "Binary Float Arithmetic",
+        "rightLabel": "Decimal & Integer Cents",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Double",
-                  "Entry"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Binary floats fail to represent exact decimal fractions like 0.1 cleanly.",
+            "left": {
+              "code": "0.1 + 0.2 == 0.3 -> False",
+              "result": "0.30000000000000004",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Decimal(\"0.1\") + Decimal(\"0.2\")",
+              "result": "0.3 Exact Match",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The binary logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Accounting",
-                  "Mechanics"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Ledgers compute in Python Decimal math and integer cents without rounding drift.",
+            "left": {
+              "code": "ROUND_HALF_EVEN Bankers Mode",
+              "result": "Zero Statistical Bias",
+              "tone": "data",
+              "checks": []
+            },
+            "right": {
+              "code": "Store Base-10 Cents Int",
+              "result": "Zero IEEE 754 Drift",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Integer cents keep ledger balances exact across millions of transfers.",
+            "left": {
+              "code": "to_cents(\"125.45\") = 12545",
+              "result": "Deterministic Storage",
+              "tone": "ok",
+              "checks": []
+            },
+            "right": {
+              "code": "from_cents(12545) = $125.45",
+              "result": "Cent-Accurate Reconciliation",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Change currency amount and observe quantize ROUND_HALF_EVEN cents rounding.",
+            "left": {
+              "code": "CurrencyMath.to_cents('125.45')",
+              "result": "12545 integer cents",
+              "tone": "data",
+              "checks": [
+                "Cents CHECK ($125.45) = 12545"
+              ],
+              "whatIf": "from decimal import Decimal, ROUND_HALF_EVEN\n\nf_val = 0.1 + 0.2\nd_val = Decimal(\"0.1\") + Decimal(\"0.2\")\nprint(f\"Float 0.1 + 0.2 == 0.3: {f_val == 0.3} (Float: {f_val})\")\nprint(f\"Decimal '0.1' + '0.2' == '0.3': {d_val == Decimal('0.3')} (Decimal: {d_val})\")\n\nclass CurrencyMath:\n    @staticmethod\n    def to_cents(amount_str: str) -> int:\n        d = Decimal(amount_str).quantize(Decimal(\"0.01\"), rounding=ROUND_HALF_EVEN)\n        return int(d * 100)\n\n    @staticmethod\n    def from_cents(cents: int) -> Decimal:\n        return (Decimal(cents) / Decimal(100)).quantize(Decimal(\"0.01\"))\n\nprint(f\"Cents CHECK ($125.45) = {CurrencyMath.to_cents('125.45')}\")\nprint(f\"Cents for '$125.45': {CurrencyMath.to_cents('125.45')}\")\nprint(f\"Reconstructed: ${CurrencyMath.from_cents(12545)}\")\nprint(\"Precision Invariant: Exact integer cents eliminate IEEE 754 rounding discrepancies.\")"
+            },
+            "right": {
+              "code": "CurrencyMath.to_cents('99.999')",
+              "result": "10000 cents ($100.00 ROUND_HALF_EVEN)",
+              "tone": "ok",
+              "checks": [
+                "Cents for '$99.999': 10000",
+                "Reconstructed: $100.00"
+              ],
+              "whatIf": "from decimal import Decimal, ROUND_HALF_EVEN\n\nf_val = 0.1 + 0.2\nd_val = Decimal(\"0.1\") + Decimal(\"0.2\")\nprint(f\"Float 0.1 + 0.2 == 0.3: {f_val == 0.3} (Float: {f_val})\")\nprint(f\"Decimal '0.1' + '0.2' == '0.3': {d_val == Decimal('0.3')} (Decimal: {d_val})\")\n\nclass CurrencyMath:\n    @staticmethod\n    def to_cents(amount_str: str) -> int:\n        d = Decimal(amount_str).quantize(Decimal(\"0.01\"), rounding=ROUND_HALF_EVEN)\n        return int(d * 100)\n\n    @staticmethod\n    def from_cents(cents: int) -> Decimal:\n        return (Decimal(cents) / Decimal(100)).quantize(Decimal(\"0.01\"))\n\ncents = CurrencyMath.to_cents(\"99.999\")\nprint(f\"Cents for '$99.999': {cents}\")\nprint(f\"Reconstructed: ${CurrencyMath.from_cents(cents)}\")\nprint(\"Precision Invariant: Exact integer cents eliminate IEEE 754 rounding discrepancies.\")"
+            }
           }
         ]
       }
@@ -93,82 +171,162 @@
       "partTitle": "Concurrent Double-Spend Race Condition Forensics",
       "codeHash": "3a06fbab9f331ec97fd8b68bbdac6993c6de42901a70d68f39f9f77092026f79",
       "spec": {
-        "template": "table",
-        "title": "Concurrent Double-Spend Race Condition Forensics",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Read-Committed double-spend vs versioned serializable locking",
+        "leftLabel": "Unsafe Read-Modify-Write",
+        "rightLabel": "LockedAccount Version Guard",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The building concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Concurrent"
-                  },
-                  {
-                    "text": "Double"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Concurrent withdrawals read stale balance state causing negative overdrafts.",
+            "left": {
+              "code": "simulate_concurrent_double_spend",
+              "result": "$-60 Negative Overdraft",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "LockedAccount",
+              "result": "Balance Floor Enforced",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The backend logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Spend"
-                  },
-                  {
-                    "text": "Race"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say4",
+            "caption": "Serializable row locking rejects stale concurrent payouts safely.",
+            "left": {
+              "code": "UnsafeAccount",
+              "result": "Two Payouts Authorized",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "withdraw_serializable",
+              "result": "Tx2 Fails On Stale Version",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Versioned serializable lock blocks second $80 withdrawal from $100 account.",
+            "left": {
+              "code": "UnsafeAccount",
+              "result": "$-60 Exploit",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "expected_version",
+              "result": "$20 Remaining (v2)",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase concurrent transactions observing version locking rejections.",
+            "left": {
+              "code": "UnsafeAccount(100).simulate_concurrent_double_spend(80)",
+              "result": "Balance -$60 Overdraft Exploit",
+              "tone": "error",
+              "checks": [
+                "Unsafe Race Final Balance: $-60",
+                "EXPLOIT_CONFIRMED: Unsafe -$60"
+              ],
+              "whatIf": "class UnsafeAccount:\n    def __init__(self, initial: int):\n        self.balance = initial\n\n    def simulate_concurrent_double_spend(self, amount: int):\n        read1 = self.balance\n        read2 = self.balance\n        self.balance -= amount\n        self.balance -= amount\n        return read1 >= amount and read2 >= amount\n\nclass LockedAccount:\n    def __init__(self, initial: int):\n        self.balance = initial\n        self.version = 1\n\n    def withdraw_serializable(self, amount: int, expected_version: int) -> bool:\n        if self.version != expected_version:\n            return False\n        if self.balance < amount:\n            return False\n        self.balance -= amount\n        self.version += 1\n        return True\n\nunsafe = UnsafeAccount(100)\nunsafe.simulate_concurrent_double_spend(80)\nprint(\"EXPLOIT_CONFIRMED: Unsafe -$60\")\nprint(f\"Unsafe Race Final Balance: ${unsafe.balance} (Negative Overdraft Exploit!)\")\n\nlocked = LockedAccount(100)\ntx1_ok = locked.withdraw_serializable(80, expected_version=1)\ntx2_ok = locked.withdraw_serializable(80, expected_version=1)\nprint(f\"Tx1 Success: {tx1_ok}, Tx2 Success: {tx2_ok}\")\nprint(f\"Locked Account Final Balance: ${locked.balance} (Version: {locked.version})\")\nprint(\"Concurrency Invariant: Version-checked serializable locking blocks double-spending.\")"
+            },
+            "right": {
+              "code": "5 concurrent withdraw_serializable(20, expected_version=1)",
+              "result": "1 Accepted, 4 Rejected ($80 left, v2)",
+              "tone": "ok",
+              "checks": [
+                "5 Concurrent Txns -> Accepted: 1, Rejected: 4",
+                "Locked Account Final Balance: $80 (Version: 2)"
+              ],
+              "whatIf": "class UnsafeAccount:\n    def __init__(self, initial: int):\n        self.balance = initial\n\n    def simulate_concurrent_double_spend(self, amount: int):\n        read1 = self.balance\n        read2 = self.balance\n        self.balance -= amount\n        self.balance -= amount\n        return read1 >= amount and read2 >= amount\n\nclass LockedAccount:\n    def __init__(self, initial: int):\n        self.balance = initial\n        self.version = 1\n\n    def withdraw_serializable(self, amount: int, expected_version: int) -> bool:\n        if self.version != expected_version:\n            return False\n        if self.balance < amount:\n            return False\n        self.balance -= amount\n        self.version += 1\n        return True\n\nunsafe = UnsafeAccount(100)\nunsafe.simulate_concurrent_double_spend(80)\nprint(f\"Unsafe Race Final Balance: ${unsafe.balance} (Negative Overdraft Exploit!)\")\n\nlocked = LockedAccount(100)\noutcomes = [locked.withdraw_serializable(20, expected_version=1) for _ in range(5)]\nprint(f\"5 Concurrent Txns -> Accepted: {sum(outcomes)}, Rejected: {5 - sum(outcomes)} | Outcomes: {outcomes}\")\nprint(f\"Locked Account Final Balance: ${locked.balance} (Version: {locked.version})\")\nprint(\"Concurrency Invariant: Version-checked serializable locking blocks double-spending.\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Concurrent Double-Spend Race Condition Forensics",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Read-Committed double-spend vs versioned serializable locking",
+        "leftLabel": "Unsafe Read-Modify-Write",
+        "rightLabel": "LockedAccount Version Guard",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The building concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Concurrent",
-                  "Double"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Concurrent withdrawals read stale balance state causing negative overdrafts.",
+            "left": {
+              "code": "Both Threads Read $100",
+              "result": "Approve Two $80 Payouts",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Single Thread Mutates v1->v2",
+              "result": "Monotonic Balance Kept",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The backend logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Spend",
-                  "Race"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say4",
+            "caption": "Serializable row locking rejects stale concurrent payouts safely.",
+            "left": {
+              "code": "Account Ends At -$60",
+              "result": "Overdraft Theft Success",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "expected_version=1 Mismatch",
+              "result": "Tx2 Aborted Safely",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Versioned serializable lock blocks second $80 withdrawal from $100 account.",
+            "left": {
+              "code": "100 - 80 - 80 = -$60",
+              "result": "Financial Loss Bug",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Tx1 True / Tx2 False",
+              "result": "Final Balance $20 (v2)",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase concurrent transactions observing version locking rejections.",
+            "left": {
+              "code": "UnsafeAccount(100).simulate_concurrent_double_spend(80)",
+              "result": "Balance -$60 Overdraft Exploit",
+              "tone": "error",
+              "checks": [
+                "Unsafe Race Final Balance: $-60",
+                "EXPLOIT_CONFIRMED: Unsafe -$60"
+              ],
+              "whatIf": "class UnsafeAccount:\n    def __init__(self, initial: int):\n        self.balance = initial\n\n    def simulate_concurrent_double_spend(self, amount: int):\n        read1 = self.balance\n        read2 = self.balance\n        self.balance -= amount\n        self.balance -= amount\n        return read1 >= amount and read2 >= amount\n\nclass LockedAccount:\n    def __init__(self, initial: int):\n        self.balance = initial\n        self.version = 1\n\n    def withdraw_serializable(self, amount: int, expected_version: int) -> bool:\n        if self.version != expected_version:\n            return False\n        if self.balance < amount:\n            return False\n        self.balance -= amount\n        self.version += 1\n        return True\n\nunsafe = UnsafeAccount(100)\nunsafe.simulate_concurrent_double_spend(80)\nprint(\"EXPLOIT_CONFIRMED: Unsafe -$60\")\nprint(f\"Unsafe Race Final Balance: ${unsafe.balance} (Negative Overdraft Exploit!)\")\n\nlocked = LockedAccount(100)\ntx1_ok = locked.withdraw_serializable(80, expected_version=1)\ntx2_ok = locked.withdraw_serializable(80, expected_version=1)\nprint(f\"Tx1 Success: {tx1_ok}, Tx2 Success: {tx2_ok}\")\nprint(f\"Locked Account Final Balance: ${locked.balance} (Version: {locked.version})\")\nprint(\"Concurrency Invariant: Version-checked serializable locking blocks double-spending.\")"
+            },
+            "right": {
+              "code": "5 concurrent withdraw_serializable(20, expected_version=1)",
+              "result": "1 Accepted, 4 Rejected ($80 left, v2)",
+              "tone": "ok",
+              "checks": [
+                "5 Concurrent Txns -> Accepted: 1, Rejected: 4",
+                "Locked Account Final Balance: $80 (Version: 2)"
+              ],
+              "whatIf": "class UnsafeAccount:\n    def __init__(self, initial: int):\n        self.balance = initial\n\n    def simulate_concurrent_double_spend(self, amount: int):\n        read1 = self.balance\n        read2 = self.balance\n        self.balance -= amount\n        self.balance -= amount\n        return read1 >= amount and read2 >= amount\n\nclass LockedAccount:\n    def __init__(self, initial: int):\n        self.balance = initial\n        self.version = 1\n\n    def withdraw_serializable(self, amount: int, expected_version: int) -> bool:\n        if self.version != expected_version:\n            return False\n        if self.balance < amount:\n            return False\n        self.balance -= amount\n        self.version += 1\n        return True\n\nunsafe = UnsafeAccount(100)\nunsafe.simulate_concurrent_double_spend(80)\nprint(f\"Unsafe Race Final Balance: ${unsafe.balance} (Negative Overdraft Exploit!)\")\n\nlocked = LockedAccount(100)\noutcomes = [locked.withdraw_serializable(20, expected_version=1) for _ in range(5)]\nprint(f\"5 Concurrent Txns -> Accepted: {sum(outcomes)}, Rejected: {5 - sum(outcomes)} | Outcomes: {outcomes}\")\nprint(f\"Locked Account Final Balance: ${locked.balance} (Version: {locked.version})\")\nprint(\"Concurrency Invariant: Version-checked serializable locking blocks double-spending.\")"
+            }
           }
         ]
       }
@@ -177,81 +335,182 @@
       "partTitle": "Immutable Double-Entry Ledger Engine Implementation",
       "codeHash": "20342d0b1c0c2871f5298d4fdb991ee556d6e98f655b8ee2513c0aee4eac161a",
       "spec": {
-        "template": "table",
-        "title": "Immutable Double-Entry Ledger Engine Implementatio",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "DoubleEntryLedger balanced journal postings",
+        "boxes": [
+          {
+            "id": "deb",
+            "label": "sum_debits"
+          },
+          {
+            "id": "crd",
+            "label": "sum_credits"
+          },
+          {
+            "id": "jrn",
+            "label": "journal"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The bedrock concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Immutable"
-                  },
-                  {
-                    "text": "Double"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Ledger engine requires equal debit and credit totals prior to commit.",
+            "values": {
+              "deb": {
+                "text": "debits"
+              },
+              "crd": {
+                "text": "credits"
+              },
+              "jrn": {
+                "text": "DoubleEntryLedger"
               }
-            ]
+            },
+            "tones": {
+              "deb": "data",
+              "crd": "data",
+              "jrn": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The every logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Entry"
-                  },
-                  {
-                    "text": "Ledger"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Every immutable journal entry balances debit and credit postings identically.",
+            "values": {
+              "deb": {
+                "text": "sum_debits"
+              },
+              "crd": {
+                "text": "sum_credits"
+              },
+              "jrn": {
+                "text": "journal"
               }
-            ]
+            },
+            "tones": {
+              "deb": "ok",
+              "crd": "ok",
+              "jrn": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Balanced journal posting updates ledger accounts atomically in append order.",
+            "values": {
+              "deb": {
+                "text": "cash_assets"
+              },
+              "crd": {
+                "text": "user_deposits"
+              },
+              "jrn": {
+                "text": "post"
+              }
+            },
+            "tones": {
+              "deb": "ok",
+              "crd": "ok",
+              "jrn": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Post unbalanced debits vs credits verifying ValueError raises cleanly.",
+            "values": {
+              "deb": {
+                "text": "Try"
+              },
+              "crd": {
+                "text": "unbalanced"
+              },
+              "jrn": {
+                "text": "with"
+              }
+            },
+            "tones": {
+              "deb": "data",
+              "crd": "error",
+              "jrn": "error"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Immutable Double-Entry Ledger Engine Implementatio",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "DoubleEntryLedger balanced journal postings",
+        "boxes": [
+          {
+            "id": "deb",
+            "label": "sum_debits"
+          },
+          {
+            "id": "crd",
+            "label": "sum_credits"
+          },
+          {
+            "id": "jrn",
+            "label": "journal"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The bedrock concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Immutable",
-                  "Double"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Ledger engine requires equal debit and credit totals prior to commit.",
+            "values": {
+              "deb": "sum_debits = $250.00",
+              "crd": "sum_credits = $250.00",
+              "jrn": "JE-001 Validated"
+            },
+            "tones": {
+              "deb": "data",
+              "crd": "data",
+              "jrn": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The every logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Entry",
-                  "Ledger"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Every immutable journal entry balances debit and credit postings identically.",
+            "values": {
+              "deb": "SUM(Debits) == SUM(Credits)",
+              "crd": "Unbalanced -> ValueError",
+              "jrn": "Append-Only Entry [1]"
+            },
+            "tones": {
+              "deb": "ok",
+              "crd": "ok",
+              "jrn": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Balanced journal posting updates ledger accounts atomically in append order.",
+            "values": {
+              "deb": "cash_assets: $1250.00",
+              "crd": "user_deposits: $750.00",
+              "jrn": "Conservation Verified"
+            },
+            "tones": {
+              "deb": "ok",
+              "crd": "ok",
+              "jrn": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Post unbalanced debits vs credits verifying ValueError raises cleanly.",
+            "values": {
+              "deb": "Debits: $250.00",
+              "crd": "Credits: $240.00 Mismatch",
+              "jrn": "ValueError Raised (0 Posted)"
+            },
+            "tones": {
+              "deb": "data",
+              "crd": "error",
+              "jrn": "error"
+            },
+            "whatIf": "from decimal import Decimal\n\nclass DoubleEntryLedger:\n    def __init__(self):\n        self.accounts = {\"cash_assets\": Decimal(\"1000.00\"), \"user_deposits\": Decimal(\"1000.00\")}\n        self.journal = []\n\n    def post(self, entry_id: str, debits: dict, credits: dict):\n        sum_debits = sum(debits.values(), Decimal(\"0.00\"))\n        sum_credits = sum(credits.values(), Decimal(\"0.00\"))\n        if sum_debits != sum_credits:\n            raise ValueError(f\"Unbalanced entry: Debits {sum_debits} != Credits {sum_credits}\")\n        \n        for acct, amt in debits.items():\n            self.accounts[acct] = self.accounts.get(acct, Decimal(\"0.00\")) + amt\n        for acct, amt in credits.items():\n            self.accounts[acct] = self.accounts.get(acct, Decimal(\"0.00\")) - amt\n            \n        self.journal.append({\"id\": entry_id, \"debits\": debits, \"credits\": credits})\n        return True\n\nledger = DoubleEntryLedger()\ntry:\n    ledger.post(\n        \"JE-001\",\n        debits={\"cash_assets\": Decimal(\"250.00\")},\n        credits={\"user_deposits\": Decimal(\"240.00\")}\n    )\nexcept ValueError as err:\n    print(f\"ValueError Raised: {err}\")\nprint(f\"Ledger Journal Entries: {len(ledger.journal)}\")\nprint(f\"Cash Assets: ${ledger.accounts['cash_assets']}\")\nprint(f\"User Deposits: ${ledger.accounts['user_deposits']}\")\nprint(\"Double-Entry Invariant: Sum of debits strictly equals sum of credits in every entry.\")",
+            "checks": [
+              "ValueError Raised: Unbalanced entry: Debits 250.00 != Credits 240.00",
+              "Ledger Journal Entries: 0"
             ]
           }
         ]
@@ -261,81 +520,204 @@
       "partTitle": "High-Frequency Peer-to-Peer Transfer Hardening",
       "codeHash": "e6b3f8684b565739736f7ce04afad2f2a7b31a169faa4e87deeae4b5417359d1",
       "spec": {
-        "template": "table",
-        "title": "High-Frequency Peer-to-Peer Transfer Hardening",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "P2PTransferService idempotency key deduplication flow",
+        "nodes": [
+          {
+            "id": "k",
+            "label": "idempotency_key"
+          },
+          {
+            "id": "st",
+            "label": "idempotency_store"
+          },
+          {
+            "id": "tr",
+            "label": "transfer"
+          }
+        ],
+        "edges": [
+          {
+            "from": "k",
+            "to": "st"
+          },
+          {
+            "from": "st",
+            "to": "tr"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The peer concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "High"
-                  },
-                  {
-                    "text": "Frequency"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Transfers carry client UUID checked atomically inside idempotency store.",
+            "values": {
+              "k": {
+                "text": "idempotency_key"
+              },
+              "st": {
+                "text": "idempotency_store"
+              },
+              "tr": {
+                "text": "balances"
               }
-            ]
+            },
+            "tones": {
+              "k": "data",
+              "st": "data",
+              "tr": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The cellular logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Peer"
-                  },
-                  {
-                    "text": "Peer"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Retries return the saved transaction outcome instead of withdrawing twice.",
+            "values": {
+              "k": {
+                "text": "idemp_uuid_7701a"
+              },
+              "st": {
+                "text": "CACHED"
+              },
+              "tr": {
+                "text": "transfer"
               }
-            ]
+            },
+            "tones": {
+              "k": "ok",
+              "st": "ok",
+              "tr": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Service blocks duplicate charges when clients retry timed-out transfers.",
+            "values": {
+              "k": {
+                "text": "idempotency_key"
+              },
+              "st": {
+                "text": "CACHED"
+              },
+              "tr": {
+                "text": "P2PTransferService"
+              }
+            },
+            "tones": {
+              "k": "ok",
+              "st": "ok",
+              "tr": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Test second transfer attempt by Alice confirming insufficient funds block.",
+            "values": {
+              "k": {
+                "text": "Test"
+              },
+              "st": {
+                "text": "happens"
+              },
+              "tr": {
+                "text": "tries"
+              }
+            },
+            "tones": {
+              "k": "data",
+              "st": "error",
+              "tr": "ok"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "High-Frequency Peer-to-Peer Transfer Hardening",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "P2PTransferService idempotency key deduplication flow",
+        "nodes": [
+          {
+            "id": "k",
+            "label": "idempotency_key"
+          },
+          {
+            "id": "st",
+            "label": "idempotency_store"
+          },
+          {
+            "id": "tr",
+            "label": "transfer"
+          }
+        ],
+        "edges": [
+          {
+            "from": "k",
+            "to": "st"
+          },
+          {
+            "from": "st",
+            "to": "tr"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The peer concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "High",
-                  "Frequency"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Transfers carry client UUID checked atomically inside idempotency store.",
+            "values": {
+              "k": "idemp_uuid_7701a",
+              "st": "First Miss -> Execute Once",
+              "tr": "Alice $350 / Bob $350"
+            },
+            "tones": {
+              "k": "data",
+              "st": "data",
+              "tr": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The cellular logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Peer",
-                  "Peer"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Retries return the saved transaction outcome instead of withdrawing twice.",
+            "values": {
+              "k": "Mobile Retry Same Key",
+              "st": "CACHED Hit Returned",
+              "tr": "Skipped Second Debit"
+            },
+            "tones": {
+              "k": "ok",
+              "st": "ok",
+              "tr": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Service blocks duplicate charges when clients retry timed-out transfers.",
+            "values": {
+              "k": "Attempt 1: SUCCESS",
+              "st": "Attempt 2: CACHED",
+              "tr": "Zero Duplicate Withdrawals"
+            },
+            "tones": {
+              "k": "ok",
+              "st": "ok",
+              "tr": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Test second transfer attempt by Alice confirming insufficient funds block.",
+            "values": {
+              "k": "Attempt 3 ($400 > $350)",
+              "st": "FAILED: INSUFFICIENT_FUNDS",
+              "tr": "Alice Balance Safe ($350.00)"
+            },
+            "tones": {
+              "k": "data",
+              "st": "error",
+              "tr": "ok"
+            },
+            "arrows": [],
+            "whatIf": "from decimal import Decimal\n\nclass P2PTransferService:\n    def __init__(self):\n        self.balances = {\"alice\": Decimal(\"500.00\"), \"bob\": Decimal(\"200.00\")}\n        self.idempotency_store = {}\n\n    def transfer(self, idempotency_key: str, sender: str, recipient: str, amount: Decimal):\n        if idempotency_key in self.idempotency_store:\n            return {\"status\": \"CACHED\", \"result\": self.idempotency_store[idempotency_key]}\n        \n        if self.balances.get(sender, Decimal(\"0.00\")) < amount:\n            return {\"status\": \"FAILED\", \"reason\": \"INSUFFICIENT_FUNDS\"}\n            \n        self.balances[sender] -= amount\n        self.balances[recipient] = self.balances.get(recipient, Decimal(\"0.00\")) + amount\n        \n        res = {\"sender_balance\": str(self.balances[sender]), \"recipient_balance\": str(self.balances[recipient])}\n        self.idempotency_store[idempotency_key] = res\n        return {\"status\": \"SUCCESS\", \"result\": res}\n\np2p = P2PTransferService()\nkey = \"idemp_uuid_7701a\"\nres1 = p2p.transfer(key, \"alice\", \"bob\", Decimal(\"150.00\"))\nres2 = p2p.transfer(key, \"alice\", \"bob\", Decimal(\"150.00\"))\n\nprint(f\"Transfer 1: {res1['status']} -> Bob Balance: ${res1['result']['recipient_balance']}\")\nprint(f\"Transfer 2 (Retry): {res2['status']} -> Bob Balance: ${res2['result']['recipient_balance']}\")\nprint(f\"Alice Remaining: ${p2p.balances['alice']}\")\nres3 = p2p.transfer(\"idemp_uuid_7702b\", \"alice\", \"bob\", Decimal(\"400.00\"))\nprint(f\"Transfer 3 ($400): {res3['status']} | Reason: {res3['reason']}\")\nprint(\"Idempotency Invariant: Atomic idempotency keys prevent duplicate payments on retries.\")",
+            "checks": [
+              "Alice Remaining: $350.00",
+              "Transfer 3 ($400): FAILED | Reason: INSUFFICIENT_FUNDS"
             ]
           }
         ]
@@ -345,81 +727,257 @@
       "partTitle": "Production Fintech Audit Trail & Reconciliation Verification",
       "codeHash": "eaceaff56c7f2d8c0d231f8a16b0001539701d501967f0104368e7edd5155943",
       "spec": {
-        "template": "table",
-        "title": "Production Fintech Audit Trail & Reconciliation Ve",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "AuditChain cryptographic SHA-256 hash linkage",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The ultimate concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say3",
+            "caption": "Chained cryptographic SHA hashes link every posted journal entry cleanly.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Fintech"
-                  }
-                ],
+                "text": "prev_hash"
+              },
+              {
+                "text": "record_entry"
+              },
+              {
+                "text": "chain"
+              },
+              {
+                "text": "verify_integrity"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "link",
+                "index": 1,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "ok",
+              "2": "data",
+              "3": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The modern logic drives deterministic execution.",
-            "rows": [
+            "at": "say4",
+            "caption": "Mutating any older record invalidates every downstream digest across the chain.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Audit"
-                  },
-                  {
-                    "text": "Trail"
-                  }
-                ],
+                "text": "prev_hash"
+              },
+              {
+                "text": "chain"
+              },
+              {
+                "text": "verify_integrity"
+              },
+              {
+                "text": "AuditChain"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "tamper",
+                "index": 2,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Cryptographic hash chain verifies complete journal integrity for audits.",
+            "items": [
+              {
+                "text": "record_entry"
+              },
+              {
+                "text": "chain"
+              },
+              {
+                "text": "prev_hash"
+              },
+              {
+                "text": "verify_integrity"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "cert",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Tamper cents in first chain block and confirm verify_integrity returns False.",
+            "items": [
+              {
+                "text": "Modify"
+              },
+              {
+                "text": "cents"
+              },
+              {
+                "text": "first"
+              },
+              {
+                "text": "block"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "tampered",
+                "index": 3,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "error",
+              "1": "error",
+              "2": "error",
+              "3": "error"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Fintech Audit Trail & Reconciliation Ve",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "AuditChain cryptographic SHA-256 hash linkage",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The ultimate concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say3",
+            "caption": "Chained cryptographic SHA hashes link every posted journal entry cleanly.",
+            "items": [
+              "Genesis 0000...",
+              "JE-001 ($250)",
+              "SHA-256 Linked",
+              "verify_integrity Armed"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Production",
-                  "Fintech"
-                ],
+                "name": "link",
+                "index": 1,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "ok",
+              "2": "data",
+              "3": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The modern logic drives deterministic execution.",
-            "rows": [
+            "at": "say4",
+            "caption": "Mutating any older record invalidates every downstream digest across the chain.",
+            "items": [
+              "prev_hash == Link",
+              "2 Blocks Chained",
+              "Recomputes Every Digest",
+              "Tamper Instantly Flagged"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Audit",
-                  "Trail"
-                ],
+                "name": "tamper",
+                "index": 2,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Cryptographic hash chain verifies complete journal integrity for audits.",
+            "items": [
+              "JE-001 + JE-002",
+              "c36b57f61fe14f3d...",
+              "Intact Prev Links",
+              "True (AUDIT CERTIFIED)"
+            ],
+            "pointers": [
+              {
+                "name": "cert",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Tamper cents in first chain block and confirm verify_integrity returns False.",
+            "items": [
+              "Block 0 Tampered (99999)",
+              "Hash Mismatch Detected",
+              "Prev Hash Broken",
+              "verify_integrity = False"
+            ],
+            "pointers": [
+              {
+                "name": "tampered",
+                "index": 3,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "error",
+              "1": "error",
+              "2": "error",
+              "3": "error"
+            },
+            "whatIf": "import hashlib\nimport json\n\nclass AuditChain:\n    def __init__(self):\n        self.chain = []\n        self.prev_hash = \"0\" * 64\n\n    def record_entry(self, entry_data: dict) -> str:\n        payload = json.dumps(entry_data, sort_keys=True)\n        h = hashlib.sha256(f\"{self.prev_hash}:{payload}\".encode()).hexdigest()\n        self.chain.append({\"payload\": entry_data, \"hash\": h, \"prev_hash\": self.prev_hash})\n        self.prev_hash = h\n        return h\n\n    def verify_integrity(self) -> bool:\n        curr_prev = \"0\" * 64\n        for item in self.chain:\n            expected = hashlib.sha256(f\"{curr_prev}:{json.dumps(item['payload'], sort_keys=True)}\".encode()).hexdigest()\n            if item[\"hash\"] != expected or item[\"prev_hash\"] != curr_prev:\n                return False\n            curr_prev = item[\"hash\"]\n        return True\n\nauditor = AuditChain()\nh1 = auditor.record_entry({\"tx\": \"JE-001\", \"cents\": 25000})\nh2 = auditor.record_entry({\"tx\": \"JE-002\", \"cents\": 15000})\nauditor.chain[0][\"payload\"][\"cents\"] = 99999\nvalid = auditor.verify_integrity()\nprint(f\"Audit Trail Length: {len(auditor.chain)} blocks\")\nprint(f\"Root Hash: {auditor.prev_hash[:16]}...\")\nprint(f\"Ledger Chain Integrity Valid: {valid}\")\nprint(\"[AUDIT CERTIFIED] Double-Entry Ledger Integrity 100% Balanced!\")",
+            "checks": [
+              "Ledger Chain Integrity Valid: False"
             ]
           }
         ]

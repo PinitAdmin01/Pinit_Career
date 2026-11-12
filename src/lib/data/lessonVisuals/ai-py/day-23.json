@@ -2,230 +2,176 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 23,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Prompting, RAG or fine-tuning?",
       "codeHash": "ed20f3448f42d3ea49985c9276832bd0c6d69ef01264b252ce28479fbfa3fc8e",
       "spec": {
-        "template": "flow",
-        "title": "Prompting, RAG or fine-tuning? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Prompting, RAG or f...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Prompting, RAG or fine-tuning?",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Prompting, RAG or fine-tuning? [D.Pone.Sone].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Prompting, RAG or f... [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Prompting changes instructions.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "need"
+                  },
+                  {
+                    "var": "need",
+                    "line": 8,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Fine-tune for behaviour and style.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "need"
+                  },
+                  {
+                    "var": "need",
+                    "line": 2,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Prompting, RAG or fine-tuning.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Fine-tune a small, cheap model on outputs of a large one for a narrow.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 4"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Prompting, RAG or fine-tuning? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Prompting, RAG or f...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Prompting, RAG or fine-tuning?",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Prompting, RAG or fine-tuning? [D23.P1.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Prompting, RAG or f... [D23.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Prompting changes instructions.",
+            "rows": [
+              {
+                "cells": [
+                  "need",
+                  "'new facts'"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Fine-tune for behaviour and style.",
+            "rows": [
+              {
+                "cells": [
+                  "need",
+                  "'new facts'"
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Prompting, RAG or fine-tuning? [D23.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Fine-tune a small, cheap model on outputs of a large one for a narrow.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "new facts              -> RAG"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "tone of voice          -> fine-tuning (after trying prompts)"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "one-off question       -> prompting"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 4",
+                  "cheaper small model    -> fine-tuning (after trying prompts)"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -235,191 +181,277 @@
       "partTitle": "Why full fine-tuning is expensive",
       "codeHash": "6bcce6e0499b61230528c0fd5b0f9405ca0313354709ee0f36b46e6764c02960",
       "spec": {
-        "template": "table",
-        "title": "Full parameter fine-tuning GPU memory requirements by model scale",
-        "columns": [
-          "model_size",
-          "weights_vram",
-          "finetune_vram"
+        "template": "flow",
+        "title": "Why full fine-tuning is expensive",
+        "nodes": [
+          {
+            "id": "size",
+            "label": "size"
+          },
+          {
+            "id": "weights_gb",
+            "label": "weights_gb"
+          },
+          {
+            "id": "params_billions",
+            "label": "params_billions"
+          },
+          {
+            "id": "bytes_per_param",
+            "label": "bytes_per_param"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Weights alone take about fourteen gigabytes in sixteen bit.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "model"
-                  },
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "full fine-tuning"
-                  }
-                ],
-                "tone": "data"
+            "caption": "A model with 7 billion parameters stores each weight in 2 bytes (16-bit).",
+            "values": {
+              "size": {
+                "var": "size",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "model"
-                  },
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "GB"
-                  }
-                ],
-                "tone": "ok"
+              "weights_gb": {
+                "var": "weights_gb",
+                "line": 5,
+                "hit": 1
+              },
+              "params_billions": {
+                "var": "params_billions",
+                "line": 2,
+                "hit": 1
+              },
+              "bytes_per_param": {
+                "var": "bytes_per_param",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "size": "data",
+              "weights_gb": "data",
+              "params_billions": "data",
+              "bytes_per_param": "data"
+            },
+            "arrows": [
+              [
+                "size",
+                "weights_gb"
+              ],
+              [
+                "weights_gb",
+                "params_billions"
+              ],
+              [
+                "params_billions",
+                "bytes_per_param"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Training needs gradients and optimiser states taking sixteen bytes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "model"
-                  },
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "full fine-tuning"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Training needs much more.",
+            "values": {
+              "size": {
+                "var": "size",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "model"
-                  },
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "GB"
-                  }
-                ],
-                "tone": "ok"
+              "weights_gb": {
+                "var": "weights_gb",
+                "line": 6,
+                "hit": 1
+              },
+              "params_billions": {
+                "var": "params_billions",
+                "line": 2,
+                "hit": 2
+              },
+              "bytes_per_param": {
+                "var": "bytes_per_param",
+                "line": 2,
+                "hit": 2
               }
+            },
+            "tones": {
+              "size": "data",
+              "weights_gb": "data",
+              "params_billions": "data",
+              "bytes_per_param": "data"
+            },
+            "arrows": [
+              [
+                "size",
+                "weights_gb"
+              ],
+              [
+                "weights_gb",
+                "params_billions"
+              ],
+              [
+                "params_billions",
+                "bytes_per_param"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Parameter efficient fine-tuning PEFT trains only small number of parameters.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "model"
-                  },
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "full fine-tuning"
-                  }
-                ],
-                "tone": "data"
+            "at": "say7",
+            "caption": "The numbers below make the problem concrete.",
+            "values": {
+              "size": {
+                "var": "size",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "model"
-                  },
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "GB"
-                  }
-                ],
-                "tone": "ok"
+              "weights_gb": {
+                "var": "weights_gb",
+                "line": 4,
+                "hit": 2
+              },
+              "params_billions": {
+                "var": "params_billions",
+                "line": 2,
+                "hit": 3
+              },
+              "bytes_per_param": {
+                "var": "bytes_per_param",
+                "line": 2,
+                "hit": 3
               }
+            },
+            "tones": {
+              "size": "ok",
+              "weights_gb": "ok",
+              "params_billions": "ok",
+              "bytes_per_param": "ok"
+            },
+            "arrows": [
+              [
+                "size",
+                "weights_gb"
+              ],
+              [
+                "weights_gb",
+                "params_billions"
+              ],
+              [
+                "params_billions",
+                "bytes_per_param"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Full parameter fine-tuning GPU memory requirements by model scale",
-        "columns": [
-          "model_size",
-          "weights_vram",
-          "finetune_vram"
+        "template": "flow",
+        "title": "Why full fine-tuning is expensive",
+        "nodes": [
+          {
+            "id": "size",
+            "label": "size"
+          },
+          {
+            "id": "weights_gb",
+            "label": "weights_gb"
+          },
+          {
+            "id": "params_billions",
+            "label": "params_billions"
+          },
+          {
+            "id": "bytes_per_param",
+            "label": "bytes_per_param"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Weights alone take about fourteen gigabytes in sixteen bit.",
-            "rows": [
-              {
-                "cells": [
-                  "model",
-                  "weights",
-                  "full fine-tuning"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "model",
-                  "weights",
-                  "GB"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A model with 7 billion parameters stores each weight in 2 bytes (16-bit).",
+            "values": {
+              "size": "1",
+              "weights_gb": "1.862645149230957",
+              "params_billions": "1",
+              "bytes_per_param": "16"
+            },
+            "tones": {
+              "size": "data",
+              "weights_gb": "data",
+              "params_billions": "data",
+              "bytes_per_param": "data"
+            },
+            "arrows": [
+              [
+                "size",
+                "weights_gb"
+              ],
+              [
+                "weights_gb",
+                "params_billions"
+              ],
+              [
+                "params_billions",
+                "bytes_per_param"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Training needs gradients and optimiser states taking sixteen bytes.",
-            "rows": [
-              {
-                "cells": [
-                  "model",
-                  "weights",
-                  "full fine-tuning"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "model",
-                  "weights",
-                  "GB"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Training needs much more.",
+            "values": {
+              "size": "1",
+              "weights_gb": "1.862645149230957",
+              "params_billions": "7",
+              "bytes_per_param": "16"
+            },
+            "tones": {
+              "size": "data",
+              "weights_gb": "data",
+              "params_billions": "data",
+              "bytes_per_param": "data"
+            },
+            "arrows": [
+              [
+                "size",
+                "weights_gb"
+              ],
+              [
+                "weights_gb",
+                "params_billions"
+              ],
+              [
+                "params_billions",
+                "bytes_per_param"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Parameter efficient fine-tuning PEFT trains only small number of parameters.",
-            "rows": [
-              {
-                "cells": [
-                  "model",
-                  "weights",
-                  "full fine-tuning"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "model",
-                  "weights",
-                  "GB"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The numbers below make the problem concrete.",
+            "values": {
+              "size": "1",
+              "weights_gb": "1.862645149230957",
+              "params_billions": "13",
+              "bytes_per_param": "16"
+            },
+            "tones": {
+              "size": "ok",
+              "weights_gb": "ok",
+              "params_billions": "ok",
+              "bytes_per_param": "ok"
+            },
+            "arrows": [
+              [
+                "size",
+                "weights_gb"
+              ],
+              [
+                "weights_gb",
+                "params_billions"
+              ],
+              [
+                "params_billions",
+                "bytes_per_param"
+              ]
             ]
           }
         ]
@@ -429,246 +461,140 @@
       "partTitle": "LoRA: small adapters",
       "codeHash": "97dedf6bf78684c5fb7be9e9b3846e9dcaee4c8a735fe5f89db664e80dbb54a1",
       "spec": {
-        "template": "compare",
-        "title": "Full parameter matrix update versus low-rank factorization",
-        "leftLabel": "Full Matrix",
-        "rightLabel": "LoRA Factorization",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "LoRA freezes original weights and learns two thin matrices.",
-            "left": {
-              "code": "full update matrix stores 4 x 4 numbers",
-              "result": {
-                "text": "instead of"
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "low rank factorization A x B stores 4 + 4 numbers",
-              "result": {
-                "text": "numbers stored:"
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Product A times B is full update built from fewer numbers.",
-            "left": {
-              "code": "quadratic parameter explosion d x d",
-              "result": {
-                "text": "instead of"
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "linear parameter footprint 2 x d x r",
-              "result": {
-                "text": "numbers stored:"
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Adapter is small file allowing one base model to swap adapters.",
-            "left": {
-              "code": "huge duplicate base model checkpoints",
-              "result": {
-                "text": "instead of"
-              },
-              "tone": "data"
-            },
-            "right": {
-              "code": "tiny modular adapter weights per tenant",
-              "result": {
-                "text": "numbers stored:"
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+        "template": "none",
+        "reason": "Concept explained cleanly in text and interactive code."
       },
-      "filled": {
-        "template": "compare",
-        "title": "Full parameter matrix update versus low-rank factorization",
-        "leftLabel": "Full Matrix",
-        "rightLabel": "LoRA Factorization",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "LoRA freezes original weights and learns two thin matrices.",
-            "left": {
-              "code": "full update matrix stores 4 x 4 numbers",
-              "result": "instead of",
-              "tone": "data",
-              "checks": [
-                "instead of"
-              ]
-            },
-            "right": {
-              "code": "low rank factorization A x B stores 4 + 4 numbers",
-              "result": "numbers stored:",
-              "tone": "ok",
-              "checks": [
-                "numbers stored:"
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Product A times B is full update built from fewer numbers.",
-            "left": {
-              "code": "quadratic parameter explosion d x d",
-              "result": "instead of",
-              "tone": "data",
-              "checks": [
-                "instead of"
-              ]
-            },
-            "right": {
-              "code": "linear parameter footprint 2 x d x r",
-              "result": "numbers stored:",
-              "tone": "ok",
-              "checks": [
-                "numbers stored:"
-              ]
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Adapter is small file allowing one base model to swap adapters.",
-            "left": {
-              "code": "huge duplicate base model checkpoints",
-              "result": "instead of",
-              "tone": "data",
-              "checks": [
-                "instead of"
-              ]
-            },
-            "right": {
-              "code": "tiny modular adapter weights per tenant",
-              "result": "numbers stored:",
-              "tone": "ok",
-              "checks": [
-                "numbers stored:"
-              ]
-            }
-          }
-        ]
-      }
+      "filled": {}
     },
     {
       "partTitle": "Counting LoRA parameters",
       "codeHash": "cdba65101f561008dc2608f69aac6e2ba2e5b116045b11e3fd7948b0cd0ca87f",
       "spec": {
-        "template": "table",
-        "title": "LoRA trainable parameter count and percentage by rank",
-        "columns": [
-          "rank_r",
-          "matrix_dim",
-          "trainable_pct"
-        ],
+        "template": "bars",
+        "title": "Counting LoRA parameters",
         "steps": [
           {
             "at": "say1",
-            "caption": "Lora parameters returns full matrix size and trainable count.",
-            "rows": [
+            "caption": "Lora_parameters(d_model, rank) returns the full matrix size d x d,.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "16"
-                  },
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "trainable"
-                  }
-                ],
+                "label": "d_model",
+                "value": {
+                  "var": "d_model",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "rank",
+                "value": {
+                  "var": "rank",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "full",
+                "value": {
+                  "var": "full",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "trainable",
+                "value": {
+                  "var": "trainable",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how full updates trainable during execution.",
+            "bars": [
+              {
+                "label": "d_model",
+                "value": {
+                  "var": "d_model",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "rank"
-                  },
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "percent"
-                  }
-                ],
+                "label": "rank",
+                "value": {
+                  "var": "rank",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "full",
+                "value": {
+                  "var": "full",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "trainable",
+                "value": {
+                  "var": "trainable",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Total trainable parameters are usually under one percent of the model.",
-            "rows": [
+            "at": "say7",
+            "caption": "Format percentages with :.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "16"
-                  },
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "trainable"
-                  }
-                ],
+                "label": "d_model",
+                "value": {
+                  "var": "d_model",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "rank"
-                  },
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "percent"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Higher rank gives adapter more capacity at more memory.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "16"
-                  },
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "trainable"
-                  }
-                ],
+                "label": "rank",
+                "value": {
+                  "var": "rank",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "rank"
-                  },
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "percent"
-                  }
-                ],
+                "label": "full",
+                "value": {
+                  "var": "full",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "trainable",
+                "value": {
+                  "var": "trainable",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -676,76 +602,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "LoRA trainable parameter count and percentage by rank",
-        "columns": [
-          "rank_r",
-          "matrix_dim",
-          "trainable_pct"
-        ],
+        "template": "bars",
+        "title": "Counting LoRA parameters",
         "steps": [
           {
             "at": "say1",
-            "caption": "Lora parameters returns full matrix size and trainable count.",
-            "rows": [
+            "caption": "Lora_parameters(d_model, rank) returns the full matrix size d x d,.",
+            "bars": [
               {
-                "cells": [
-                  "16",
-                  "full",
-                  "trainable"
-                ],
+                "label": "d_model",
+                "value": 4096,
+                "tone": "data"
+              },
+              {
+                "label": "rank",
+                "value": 16,
+                "tone": "data"
+              },
+              {
+                "label": "full",
+                "value": 16777216,
+                "tone": "data"
+              },
+              {
+                "label": "trainable",
+                "value": 131072,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how full updates trainable during execution.",
+            "bars": [
+              {
+                "label": "d_model",
+                "value": 4096,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "rank",
-                  "full",
-                  "percent"
-                ],
+                "label": "rank",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "full",
+                "value": 16777216,
+                "tone": "ok"
+              },
+              {
+                "label": "trainable",
+                "value": 131072,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Total trainable parameters are usually under one percent of the model.",
-            "rows": [
+            "at": "say7",
+            "caption": "Format percentages with :.",
+            "bars": [
               {
-                "cells": [
-                  "16",
-                  "full",
-                  "trainable"
-                ],
+                "label": "d_model",
+                "value": 4096,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "rank",
-                  "full",
-                  "percent"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Higher rank gives adapter more capacity at more memory.",
-            "rows": [
-              {
-                "cells": [
-                  "16",
-                  "full",
-                  "trainable"
-                ],
+                "label": "rank",
+                "value": 16,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "rank",
-                  "full",
-                  "percent"
-                ],
+                "label": "full",
+                "value": 16777216,
+                "tone": "ok"
+              },
+              {
+                "label": "trainable",
+                "value": 32768,
                 "tone": "ok"
               }
             ]
@@ -757,31 +690,36 @@
       "partTitle": "Quantisation and QLoRA",
       "codeHash": "5d341764bb5013eb65730b058f41f270a78535ac28ad3f7ea056a6b9fc591e4b",
       "spec": {
-        "template": "bars",
-        "title": "GPU memory consumption across model precision bit widths",
+        "template": "sequence",
+        "title": "Quantisation and QLoRA",
+        "actors": [
+          "bits",
+          "params_billions",
+          "gb"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Quantisation stores weights with fewer bits reducing memory.",
-            "bars": [
+            "caption": "Quantisation stores weights with fewer bits.",
+            "activeActor": "bits",
+            "messages": [
               {
-                "label": "bits_16",
-                "value": {
-                  "text": "16"
-                },
-                "tone": "error"
-              },
-              {
-                "label": "bits_8",
-                "value": {
-                  "text": "8"
+                "from": "bits",
+                "to": "params_billions",
+                "label": {
+                  "var": "bits",
+                  "line": 5,
+                  "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "bits_4",
-                "value": {
-                  "text": "4"
+                "from": "params_billions",
+                "to": "gb",
+                "label": {
+                  "var": "params_billions",
+                  "line": 2,
+                  "hit": 1
                 },
                 "tone": "ok"
               }
@@ -789,53 +727,53 @@
           },
           {
             "at": "say2",
-            "caption": "QLoRA loads frozen base model in four bit and trains LoRA adapters.",
-            "bars": [
+            "caption": "QLoRA loads the frozen base model in 4-bit and trains LoRA adapters on top.",
+            "activeActor": "params_billions",
+            "messages": [
               {
-                "label": "bits_16",
-                "value": {
-                  "text": "16"
-                },
-                "tone": "error"
-              },
-              {
-                "label": "bits_8",
-                "value": {
-                  "text": "8"
+                "from": "bits",
+                "to": "params_billions",
+                "label": {
+                  "var": "bits",
+                  "line": 2,
+                  "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "bits_4",
-                "value": {
-                  "text": "4"
+                "from": "params_billions",
+                "to": "gb",
+                "label": {
+                  "var": "params_billions",
+                  "line": 3,
+                  "hit": 1
                 },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Practice estimate_vram_gb calculates bytes plus overhead string.",
-            "bars": [
+            "at": "say6",
+            "caption": "These estimates tell you quickly which GPU you need, before renting one.",
+            "activeActor": "gb",
+            "messages": [
               {
-                "label": "bits_16",
-                "value": {
-                  "text": "16"
-                },
-                "tone": "error"
-              },
-              {
-                "label": "bits_8",
-                "value": {
-                  "text": "8"
+                "from": "bits",
+                "to": "params_billions",
+                "label": {
+                  "var": "bits",
+                  "line": 3,
+                  "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "bits_4",
-                "value": {
-                  "text": "4"
+                "from": "params_billions",
+                "to": "gb",
+                "label": {
+                  "var": "params_billions",
+                  "line": 2,
+                  "hit": 2
                 },
                 "tone": "ok"
               }
@@ -844,71 +782,70 @@
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "GPU memory consumption across model precision bit widths",
+        "template": "sequence",
+        "title": "Quantisation and QLoRA",
+        "actors": [
+          "bits",
+          "params_billions",
+          "gb"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Quantisation stores weights with fewer bits reducing memory.",
-            "bars": [
+            "caption": "Quantisation stores weights with fewer bits.",
+            "messages": [
               {
-                "label": "bits_16",
-                "value": 16,
-                "tone": "error"
-              },
-              {
-                "label": "bits_8",
-                "value": 8,
+                "from": "bits",
+                "to": "params_billions",
+                "label": "16",
                 "tone": "data"
               },
               {
-                "label": "bits_4",
-                "value": 4,
+                "from": "params_billions",
+                "to": "gb",
+                "label": "7",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "bits"
           },
           {
             "at": "say2",
-            "caption": "QLoRA loads frozen base model in four bit and trains LoRA adapters.",
-            "bars": [
+            "caption": "QLoRA loads the frozen base model in 4-bit and trains LoRA adapters on top.",
+            "messages": [
               {
-                "label": "bits_16",
-                "value": 16,
-                "tone": "error"
-              },
-              {
-                "label": "bits_8",
-                "value": 8,
+                "from": "bits",
+                "to": "params_billions",
+                "label": "16",
                 "tone": "data"
               },
               {
-                "label": "bits_4",
-                "value": 4,
+                "from": "params_billions",
+                "to": "gb",
+                "label": "7",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "params_billions"
           },
           {
-            "at": "say3",
-            "caption": "Practice estimate_vram_gb calculates bytes plus overhead string.",
-            "bars": [
+            "at": "say6",
+            "caption": "These estimates tell you quickly which GPU you need, before renting one.",
+            "messages": [
               {
-                "label": "bits_16",
-                "value": 16,
-                "tone": "error"
-              },
-              {
-                "label": "bits_8",
-                "value": 8,
+                "from": "bits",
+                "to": "params_billions",
+                "label": "16",
                 "tone": "data"
               },
               {
-                "label": "bits_4",
-                "value": 4,
+                "from": "params_billions",
+                "to": "gb",
+                "label": "7",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "gb"
           }
         ]
       }
@@ -917,224 +854,194 @@
       "partTitle": "Preparing training data",
       "codeHash": "914cb3a6e5893093eecba25232ddad07ca1e06e114e3dc6289e31dbdfc1e8c2b",
       "spec": {
-        "template": "flow",
-        "title": "Preparing training data — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Preparing training data",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "rows",
+            "label": "rows"
           },
           {
-            "id": "proc",
-            "label": "2. Preparing training ...",
-            "tappable": true
+            "id": "row",
+            "label": "row"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "m",
+            "label": "m"
+          },
+          {
+            "id": "roles",
+            "label": "roles"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Preparing training data [D.Psix.Sone].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Preparing training ... [D.Psix.Stwo].",
+            "caption": "Fine-tuning data is usually a JSONL file.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "rows": {
+                "var": "rows",
+                "line": 4,
+                "hit": 11
+              },
+              "row": {
+                "var": "row",
+                "line": 8,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 8,
+                "hit": 1
+              },
+              "roles": {
+                "var": "roles",
+                "line": 8,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "rows": "data",
+              "row": "data",
+              "m": "data",
+              "roles": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Quality beats quantity.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "rows": {
+                "var": "rows",
+                "line": 5,
+                "hit": 1
+              },
+              "row": {
+                "var": "row",
+                "line": 8,
+                "hit": 2
+              },
+              "m": {
+                "var": "m",
+                "line": 8,
+                "hit": 2
+              },
+              "roles": {
+                "var": "roles",
+                "line": 9,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "rows": "data",
+              "row": "data",
+              "m": "data",
+              "roles": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Preparing training data [D.Psix.Sfour].",
+            "at": "say7",
+            "caption": "Tomorrow covers alignment.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "rows": {
+                "var": "rows",
+                "line": 7,
+                "hit": 1
+              },
+              "row": {
+                "var": "row",
+                "line": 8,
+                "hit": 3
+              },
+              "m": {
+                "var": "m",
+                "line": 8,
+                "hit": 4
+              },
+              "roles": {
+                "var": "roles",
+                "line": 8,
+                "hit": 6
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "rows": "ok",
+              "row": "ok",
+              "m": "ok",
+              "roles": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Preparing training data — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Preparing training data",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "rows",
+            "label": "rows"
           },
           {
-            "id": "proc",
-            "label": "2. Preparing training ...",
-            "tappable": true
+            "id": "row",
+            "label": "row"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "m",
+            "label": "m"
+          },
+          {
+            "id": "roles",
+            "label": "roles"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Preparing training data [D23.P6.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Preparing training ... [D23.P6.S2].",
+            "caption": "Fine-tuning data is usually a JSONL file.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "rows": "[{'messages': [{'role': 'user', 'conten…",
+              "row": "{'messages': [{'role': 'user', 'content…",
+              "m": "{'role': 'user', 'content': 'Classify t…",
+              "roles": "['user', 'assistant']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "rows": "data",
+              "row": "data",
+              "m": "data",
+              "roles": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P6.S3].",
+            "at": "say2",
+            "caption": "Quality beats quantity.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "rows": "[{'messages': [{'role': 'user', 'conten…",
+              "row": "{'messages': [{'role': 'user', 'content…",
+              "m": "{'role': 'assistant', 'content': 'TECH'}",
+              "roles": "['user', 'assistant']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "rows": "data",
+              "row": "data",
+              "m": "data",
+              "roles": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Preparing training data [D23.P6.S4].",
+            "at": "say7",
+            "caption": "Tomorrow covers alignment.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "rows": "[{'messages': [{'role': 'user', 'conten…",
+              "row": "{'messages': [{'role': 'user', 'content…",
+              "m": "{'role': 'user', 'content': 'Classify t…",
+              "roles": "['user', 'assistant']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "rows": "ok",
+              "row": "ok",
+              "m": "ok",
+              "roles": "ok"
+            }
           }
         ]
       }

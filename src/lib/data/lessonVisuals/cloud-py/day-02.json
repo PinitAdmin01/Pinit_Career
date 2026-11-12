@@ -2,173 +2,113 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 2,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Regions: separate clouds around the world",
       "codeHash": "f21be5bd1dfd2d0d7d9896130ec099b406ac47e26279a3000233c385a29544e3",
       "spec": {
-        "template": "table",
-        "title": "Geographic AWS Regions evaluated by data sovereignty and latency",
-        "columns": [
-          "code",
-          "country"
+        "template": "states",
+        "title": "Regions: separate clouds around the world",
+        "states": [
+          {
+            "id": "regions",
+            "label": "regions"
+          },
+          {
+            "id": "must_stay_in",
+            "label": "must_stay_in"
+          },
+          {
+            "id": "allowed",
+            "label": "allowed"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "AWS runs its global cloud across geographic regions like Mumbai.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ap-south-1"
-                  },
-                  {
-                    "text": "IN"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Trace how runs updates cloud during execution.",
+            "currentState": "regions",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Latency considerations favour deploying close to primary user clusters.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ap-south-1"
-                  },
-                  {
-                    "text": "IN"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ap-southeast-1"
-                  },
-                  {
-                    "text": "SG"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Each Region is a separate, independent cloud.",
+            "currentState": "must_stay_in",
+            "transition": {
+              "from": "regions",
+              "to": "must_stay_in",
+              "label": {
+                "var": "must_stay_in",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
             "at": "say7",
-            "caption": "Filtering regions satisfies data residency rules before picking best latency.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ap-south-1"
-                  },
-                  {
-                    "text": "IN"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ap-southeast-1"
-                  },
-                  {
-                    "text": "SG"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "us-east-1"
-                  },
-                  {
-                    "text": "US"
-                  }
-                ],
-                "tone": "idle"
+            "caption": "The example scores Regions for a customer base in India, filtering by law.",
+            "currentState": "allowed",
+            "transition": {
+              "from": "must_stay_in",
+              "to": "allowed",
+              "label": {
+                "var": "allowed",
+                "line": 9,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Geographic AWS Regions evaluated by data sovereignty and latency",
-        "columns": [
-          "code",
-          "country"
+        "template": "states",
+        "title": "Regions: separate clouds around the world",
+        "states": [
+          {
+            "id": "regions",
+            "label": "regions"
+          },
+          {
+            "id": "must_stay_in",
+            "label": "must_stay_in"
+          },
+          {
+            "id": "allowed",
+            "label": "allowed"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "AWS runs its global cloud across geographic regions like Mumbai.",
-            "rows": [
-              {
-                "cells": [
-                  "ap-south-1",
-                  "IN"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Trace how runs updates cloud during execution.",
+            "currentState": "regions",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Latency considerations favour deploying close to primary user clusters.",
-            "rows": [
-              {
-                "cells": [
-                  "ap-south-1",
-                  "IN"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ap-southeast-1",
-                  "SG"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Each Region is a separate, independent cloud.",
+            "currentState": "must_stay_in",
+            "transition": {
+              "from": "regions",
+              "to": "must_stay_in",
+              "label": "{'IN', 'SG'}"
+            },
+            "tone": "data"
           },
           {
             "at": "say7",
-            "caption": "Filtering regions satisfies data residency rules before picking best latency.",
-            "rows": [
-              {
-                "cells": [
-                  "ap-south-1",
-                  "IN"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ap-southeast-1",
-                  "SG"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "us-east-1",
-                  "US"
-                ],
-                "tone": "idle"
-              }
-            ]
+            "caption": "The example scores Regions for a customer base in India, filtering by law.",
+            "currentState": "allowed",
+            "transition": {
+              "from": "must_stay_in",
+              "to": "allowed",
+              "label": "[{'code': 'ap-south-1', 'country': 'IN'…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -177,147 +117,277 @@
       "partTitle": "Availability Zones: failure boundaries inside a Region",
       "codeHash": "fe3ea1fbe099325ff12976c5d70f8b6a1812988e5d97e363ba6823f0e717cc06",
       "spec": {
-        "template": "table",
-        "title": "Multi-AZ node distribution establishing fault tolerance boundaries",
-        "columns": [
-          "id",
-          "az"
+        "template": "flow",
+        "title": "Availability Zones: failure boundaries inside a Region",
+        "nodes": [
+          {
+            "id": "same_az",
+            "label": "same_az"
+          },
+          {
+            "id": "two_azs",
+            "label": "two_azs"
+          },
+          {
+            "id": "nodes",
+            "label": "nodes"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each Region contains several distinct Availability Zones for resilience.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "i-1"
-                  },
-                  {
-                    "text": "us-east-1a"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Each Region contains several Availability Zones (AZs), usually three or more.",
+            "values": {
+              "same_az": {
+                "var": "same_az",
+                "line": 4,
+                "hit": 1
+              },
+              "two_azs": {
+                "var": "two_azs",
+                "line": 5,
+                "hit": 1
+              },
+              "nodes": {
+                "var": "nodes",
+                "line": 2,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "same_az": "data",
+              "two_azs": "data",
+              "nodes": "data",
+              "n": "data"
+            },
+            "arrows": [
+              [
+                "same_az",
+                "two_azs"
+              ],
+              [
+                "two_azs",
+                "nodes"
+              ],
+              [
+                "nodes",
+                "n"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Running applications in two zones provides high availability if one fails.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "i-1"
-                  },
-                  {
-                    "text": "us-east-1a"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "AZs in a Region are many kilometres apart, so a fire, flood or power cut.",
+            "values": {
+              "same_az": {
+                "var": "same_az",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "i-2"
-                  },
-                  {
-                    "text": "us-east-1b"
-                  }
-                ],
-                "tone": "ok"
+              "two_azs": {
+                "var": "two_azs",
+                "line": 6,
+                "hit": 1
+              },
+              "nodes": {
+                "var": "nodes",
+                "line": 2,
+                "hit": 2
+              },
+              "n": {
+                "var": "n",
+                "line": 2,
+                "hit": 2
               }
+            },
+            "tones": {
+              "same_az": "data",
+              "two_azs": "data",
+              "nodes": "data",
+              "n": "data"
+            },
+            "arrows": [
+              [
+                "same_az",
+                "two_azs"
+              ],
+              [
+                "two_azs",
+                "nodes"
+              ],
+              [
+                "nodes",
+                "n"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Fault tolerant architectures require servers spanning two or more zones.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "i-1"
-                  },
-                  {
-                    "text": "us-east-1a"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "A Python set is perfect for it, because a set keeps only distinct values.",
+            "values": {
+              "same_az": {
+                "var": "same_az",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "i-2"
-                  },
-                  {
-                    "text": "us-east-1b"
-                  }
-                ],
-                "tone": "ok"
+              "two_azs": {
+                "var": "two_azs",
+                "line": 7,
+                "hit": 1
+              },
+              "nodes": {
+                "var": "nodes",
+                "line": 2,
+                "hit": 3
+              },
+              "n": {
+                "var": "n",
+                "line": 2,
+                "hit": 4
               }
+            },
+            "tones": {
+              "same_az": "ok",
+              "two_azs": "ok",
+              "nodes": "ok",
+              "n": "ok"
+            },
+            "arrows": [
+              [
+                "same_az",
+                "two_azs"
+              ],
+              [
+                "two_azs",
+                "nodes"
+              ],
+              [
+                "nodes",
+                "n"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Multi-AZ node distribution establishing fault tolerance boundaries",
-        "columns": [
-          "id",
-          "az"
+        "template": "flow",
+        "title": "Availability Zones: failure boundaries inside a Region",
+        "nodes": [
+          {
+            "id": "same_az",
+            "label": "same_az"
+          },
+          {
+            "id": "two_azs",
+            "label": "two_azs"
+          },
+          {
+            "id": "nodes",
+            "label": "nodes"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each Region contains several distinct Availability Zones for resilience.",
-            "rows": [
-              {
-                "cells": [
-                  "i-1",
-                  "us-east-1a"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Each Region contains several Availability Zones (AZs), usually three or more.",
+            "values": {
+              "same_az": "[{'id': 'i-1', 'az': 'us-east-1a'}, {'i…",
+              "two_azs": "[{'id': 'i-1', 'az': 'us-east-1a'}, {'i…",
+              "nodes": "[{'id': 'i-1', 'az': 'us-east-1a'}, {'i…",
+              "n": "{'id': 'i-1', 'az': 'us-east-1a'}"
+            },
+            "tones": {
+              "same_az": "data",
+              "two_azs": "data",
+              "nodes": "data",
+              "n": "data"
+            },
+            "arrows": [
+              [
+                "same_az",
+                "two_azs"
+              ],
+              [
+                "two_azs",
+                "nodes"
+              ],
+              [
+                "nodes",
+                "n"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Running applications in two zones provides high availability if one fails.",
-            "rows": [
-              {
-                "cells": [
-                  "i-1",
-                  "us-east-1a"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "i-2",
-                  "us-east-1b"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "AZs in a Region are many kilometres apart, so a fire, flood or power cut.",
+            "values": {
+              "same_az": "[{'id': 'i-1', 'az': 'us-east-1a'}, {'i…",
+              "two_azs": "[{'id': 'i-1', 'az': 'us-east-1a'}, {'i…",
+              "nodes": "[{'id': 'i-1', 'az': 'us-east-1a'}, {'i…",
+              "n": "{'id': 'i-2', 'az': 'us-east-1a'}"
+            },
+            "tones": {
+              "same_az": "data",
+              "two_azs": "data",
+              "nodes": "data",
+              "n": "data"
+            },
+            "arrows": [
+              [
+                "same_az",
+                "two_azs"
+              ],
+              [
+                "two_azs",
+                "nodes"
+              ],
+              [
+                "nodes",
+                "n"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Fault tolerant architectures require servers spanning two or more zones.",
-            "rows": [
-              {
-                "cells": [
-                  "i-1",
-                  "us-east-1a"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "i-2",
-                  "us-east-1b"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "A Python set is perfect for it, because a set keeps only distinct values.",
+            "values": {
+              "same_az": "[{'id': 'i-1', 'az': 'us-east-1a'}, {'i…",
+              "two_azs": "[{'id': 'i-1', 'az': 'us-east-1a'}, {'i…",
+              "nodes": "[{'id': 'i-1', 'az': 'us-east-1a'}, {'i…",
+              "n": "{'id': 'i-1', 'az': 'us-east-1a'}"
+            },
+            "tones": {
+              "same_az": "ok",
+              "two_azs": "ok",
+              "nodes": "ok",
+              "n": "ok"
+            },
+            "arrows": [
+              [
+                "same_az",
+                "two_azs"
+              ],
+              [
+                "two_azs",
+                "nodes"
+              ],
+              [
+                "nodes",
+                "n"
+              ]
             ]
           }
         ]
@@ -328,110 +398,127 @@
       "codeHash": "f4978db14674990b2f41f556c2f7ac26f6897c396b1df3b7ba2415c9289b2b0b",
       "spec": {
         "template": "flow",
-        "title": "Checking region codes with a regular expression — Execution Pipeline",
+        "title": "Checking region codes with a regular expression",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "DIRECTIONS",
+            "label": "DIRECTIONS"
           },
           {
-            "id": "proc",
-            "label": "2. Checking region cod...",
-            "tappable": true
+            "id": "PATTERN",
+            "label": "PATTERN"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "code",
+            "label": "code"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Checking region codes with a regular exp.",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Checking region cod... [Dtwo.Pthree.Stwo].",
+            "caption": "Region codes follow a strict pattern.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "DIRECTIONS": {
+                "var": "DIRECTIONS",
+                "line": 3,
+                "hit": 1
+              },
+              "PATTERN": {
+                "var": "PATTERN",
+                "line": 4,
+                "hit": 1
+              },
+              "code": {
+                "var": "code",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "DIRECTIONS": "data",
+              "PATTERN": "data",
+              "code": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "DIRECTIONS",
+                "PATTERN"
               ],
               [
-                "proc",
-                "out"
+                "PATTERN",
+                "code"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Scripts often receive region codes from users or config files.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "DIRECTIONS": {
+                "var": "DIRECTIONS",
+                "line": 4,
+                "hit": 1
+              },
+              "PATTERN": {
+                "var": "PATTERN",
+                "line": 6,
+                "hit": 1
+              },
+              "code": {
+                "var": "code",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "DIRECTIONS": "data",
+              "PATTERN": "data",
+              "code": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "DIRECTIONS",
+                "PATTERN"
+              ],
+              [
+                "PATTERN",
+                "code"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Checking region codes with a regu.",
+            "at": "say7",
+            "caption": "The example tests a handful of good and bad codes.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "DIRECTIONS": {
+                "var": "DIRECTIONS",
+                "line": 6,
+                "hit": 1
+              },
+              "PATTERN": {
+                "var": "PATTERN",
+                "line": 7,
+                "hit": 1
+              },
+              "code": {
+                "var": "code",
+                "line": 6,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "DIRECTIONS": "ok",
+              "PATTERN": "ok",
+              "code": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "DIRECTIONS",
+                "PATTERN"
               ],
               [
-                "proc",
-                "out"
+                "PATTERN",
+                "code"
               ]
             ]
           }
@@ -439,110 +526,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Checking region codes with a regular expression — Execution Pipeline",
+        "title": "Checking region codes with a regular expression",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "DIRECTIONS",
+            "label": "DIRECTIONS"
           },
           {
-            "id": "proc",
-            "label": "2. Checking region cod...",
-            "tappable": true
+            "id": "PATTERN",
+            "label": "PATTERN"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "code",
+            "label": "code"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Checking region codes with a regular exp.. [D2.P3.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Checking region cod... [D2.P3.S2].",
+            "caption": "Region codes follow a strict pattern.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "DIRECTIONS": "'north|south|east|west|central|northeas…",
+              "PATTERN": "'[a-z]{2}-(north|south|east|west|centra…",
+              "code": "'us-east-1'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "DIRECTIONS": "data",
+              "PATTERN": "data",
+              "code": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "DIRECTIONS",
+                "PATTERN"
               ],
               [
-                "proc",
-                "out"
+                "PATTERN",
+                "code"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P3.S3].",
+            "at": "say2",
+            "caption": "Scripts often receive region codes from users or config files.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "DIRECTIONS": "'north|south|east|west|central|northeas…",
+              "PATTERN": "'[a-z]{2}-(north|south|east|west|centra…",
+              "code": "'us-east-1'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "DIRECTIONS": "data",
+              "PATTERN": "data",
+              "code": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "DIRECTIONS",
+                "PATTERN"
+              ],
+              [
+                "PATTERN",
+                "code"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Checking region codes with a regu.. [D2.P3.S4].",
+            "at": "say7",
+            "caption": "The example tests a handful of good and bad codes.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "DIRECTIONS": "'north|south|east|west|central|northeas…",
+              "PATTERN": "'[a-z]{2}-(north|south|east|west|centra…",
+              "code": "'ap-southeast-2'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "DIRECTIONS": "ok",
+              "PATTERN": "ok",
+              "code": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "DIRECTIONS",
+                "PATTERN"
               ],
               [
-                "proc",
-                "out"
+                "PATTERN",
+                "code"
               ]
             ]
           }
@@ -553,165 +621,277 @@
       "partTitle": "Edge locations and the speed of light",
       "codeHash": "b42f5b46c6afaceb4380970cb3113319af126891d8a3ee9ccb872b436d60da06",
       "spec": {
-        "template": "table",
-        "title": "Global network distance and speed-of-light propagation round-trip time",
-        "columns": [
-          "place",
-          "km"
+        "template": "flow",
+        "title": "Edge locations and the speed of light",
+        "nodes": [
+          {
+            "id": "FIBRE_KM_PER_S",
+            "label": "FIBRE_KM_PER_S"
+          },
+          {
+            "id": "place",
+            "label": "place"
+          },
+          {
+            "id": "km",
+            "label": "km"
+          },
+          {
+            "id": "distance_km",
+            "label": "distance_km"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Edge locations cache content close to end users around the world.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Same city edge"
-                  },
-                  {
-                    "text": "20"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Besides Regions, AWS has hundreds of edge locations (points of presence).",
+            "values": {
+              "FIBRE_KM_PER_S": {
+                "var": "FIBRE_KM_PER_S",
+                "line": 1,
+                "hit": 1
+              },
+              "place": {
+                "var": "place",
+                "line": 6,
+                "hit": 1
+              },
+              "km": {
+                "var": "km",
+                "line": 6,
+                "hit": 1
+              },
+              "distance_km": {
+                "var": "distance_km",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "FIBRE_KM_PER_S": "data",
+              "place": "data",
+              "km": "data",
+              "distance_km": "data"
+            },
+            "arrows": [
+              [
+                "FIBRE_KM_PER_S",
+                "place"
+              ],
+              [
+                "place",
+                "km"
+              ],
+              [
+                "km",
+                "distance_km"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Network packet propagation is fundamentally bounded by the speed of light.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Same city edge"
-                  },
-                  {
-                    "text": "20"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Trace how amazon updates cloudfront during execution.",
+            "values": {
+              "FIBRE_KM_PER_S": {
+                "var": "FIBRE_KM_PER_S",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Mumbai to Singapore"
-                  },
-                  {
-                    "text": "3900"
-                  }
-                ],
-                "tone": "ok"
+              "place": {
+                "var": "place",
+                "line": 7,
+                "hit": 1
+              },
+              "km": {
+                "var": "km",
+                "line": 7,
+                "hit": 1
+              },
+              "distance_km": {
+                "var": "distance_km",
+                "line": 4,
+                "hit": 2
               }
+            },
+            "tones": {
+              "FIBRE_KM_PER_S": "data",
+              "place": "data",
+              "km": "data",
+              "distance_km": "data"
+            },
+            "arrows": [
+              [
+                "FIBRE_KM_PER_S",
+                "place"
+              ],
+              [
+                "place",
+                "km"
+              ],
+              [
+                "km",
+                "distance_km"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Global applications place data close to users to reduce transit delay.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Same city edge"
-                  },
-                  {
-                    "text": "20"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Remember the three levels.",
+            "values": {
+              "FIBRE_KM_PER_S": {
+                "var": "FIBRE_KM_PER_S",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Mumbai to Singapore"
-                  },
-                  {
-                    "text": "3900"
-                  }
-                ],
-                "tone": "ok"
+              "place": {
+                "var": "place",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Chennai to Virginia"
-                  },
-                  {
-                    "text": "13600"
-                  }
-                ],
-                "tone": "idle"
+              "km": {
+                "var": "km",
+                "line": 8,
+                "hit": 1
+              },
+              "distance_km": {
+                "var": "distance_km",
+                "line": 4,
+                "hit": 3
               }
+            },
+            "tones": {
+              "FIBRE_KM_PER_S": "ok",
+              "place": "ok",
+              "km": "ok",
+              "distance_km": "ok"
+            },
+            "arrows": [
+              [
+                "FIBRE_KM_PER_S",
+                "place"
+              ],
+              [
+                "place",
+                "km"
+              ],
+              [
+                "km",
+                "distance_km"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Global network distance and speed-of-light propagation round-trip time",
-        "columns": [
-          "place",
-          "km"
+        "template": "flow",
+        "title": "Edge locations and the speed of light",
+        "nodes": [
+          {
+            "id": "FIBRE_KM_PER_S",
+            "label": "FIBRE_KM_PER_S"
+          },
+          {
+            "id": "place",
+            "label": "place"
+          },
+          {
+            "id": "km",
+            "label": "km"
+          },
+          {
+            "id": "distance_km",
+            "label": "distance_km"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Edge locations cache content close to end users around the world.",
-            "rows": [
-              {
-                "cells": [
-                  "Same city edge",
-                  "20"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Besides Regions, AWS has hundreds of edge locations (points of presence).",
+            "values": {
+              "FIBRE_KM_PER_S": "200000",
+              "place": "'Same city edge'",
+              "km": "20",
+              "distance_km": "20"
+            },
+            "tones": {
+              "FIBRE_KM_PER_S": "data",
+              "place": "data",
+              "km": "data",
+              "distance_km": "data"
+            },
+            "arrows": [
+              [
+                "FIBRE_KM_PER_S",
+                "place"
+              ],
+              [
+                "place",
+                "km"
+              ],
+              [
+                "km",
+                "distance_km"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Network packet propagation is fundamentally bounded by the speed of light.",
-            "rows": [
-              {
-                "cells": [
-                  "Same city edge",
-                  "20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Mumbai to Singapore",
-                  "3900"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Trace how amazon updates cloudfront during execution.",
+            "values": {
+              "FIBRE_KM_PER_S": "200000",
+              "place": "'Same city edge'",
+              "km": "20",
+              "distance_km": "3900"
+            },
+            "tones": {
+              "FIBRE_KM_PER_S": "data",
+              "place": "data",
+              "km": "data",
+              "distance_km": "data"
+            },
+            "arrows": [
+              [
+                "FIBRE_KM_PER_S",
+                "place"
+              ],
+              [
+                "place",
+                "km"
+              ],
+              [
+                "km",
+                "distance_km"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Global applications place data close to users to reduce transit delay.",
-            "rows": [
-              {
-                "cells": [
-                  "Same city edge",
-                  "20"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Mumbai to Singapore",
-                  "3900"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Chennai to Virginia",
-                  "13600"
-                ],
-                "tone": "idle"
-              }
+            "at": "say7",
+            "caption": "Remember the three levels.",
+            "values": {
+              "FIBRE_KM_PER_S": "200000",
+              "place": "'Same city edge'",
+              "km": "20",
+              "distance_km": "13600"
+            },
+            "tones": {
+              "FIBRE_KM_PER_S": "ok",
+              "place": "ok",
+              "km": "ok",
+              "distance_km": "ok"
+            },
+            "arrows": [
+              [
+                "FIBRE_KM_PER_S",
+                "place"
+              ],
+              [
+                "place",
+                "km"
+              ],
+              [
+                "km",
+                "distance_km"
+              ]
             ]
           }
         ]
@@ -721,165 +901,277 @@
       "partTitle": "Designing for failure",
       "codeHash": "7b4b644faa3536293f124eb6a6d6ad43a30783ccb2914997aecb0015fecc0428",
       "spec": {
-        "template": "table",
-        "title": "Redundant availability zone deployment and expected uptime improvement",
-        "columns": [
-          "azs",
-          "uptime"
+        "template": "flow",
+        "title": "Designing for failure",
+        "nodes": [
+          {
+            "id": "single_az_uptime",
+            "label": "single_az_uptime"
+          },
+          {
+            "id": "minutes_per_year",
+            "label": "minutes_per_year"
+          },
+          {
+            "id": "azs",
+            "label": "azs"
+          },
+          {
+            "id": "all_down",
+            "label": "all_down"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cloud infrastructure designs anticipate that individual hardware units fail.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "1"
-                  }
-                ],
-                "tone": "idle"
+            "caption": "Werner Vogels, the chief technology officer of Amazon, often says.",
+            "values": {
+              "single_az_uptime": {
+                "var": "single_az_uptime",
+                "line": 1,
+                "hit": 1
+              },
+              "minutes_per_year": {
+                "var": "minutes_per_year",
+                "line": 2,
+                "hit": 1
+              },
+              "azs": {
+                "var": "azs",
+                "line": 4,
+                "hit": 1
+              },
+              "all_down": {
+                "var": "all_down",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "single_az_uptime": "data",
+              "minutes_per_year": "data",
+              "azs": "data",
+              "all_down": "data"
+            },
+            "arrows": [
+              [
+                "single_az_uptime",
+                "minutes_per_year"
+              ],
+              [
+                "minutes_per_year",
+                "azs"
+              ],
+              [
+                "azs",
+                "all_down"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "The common pattern maintains multiple healthy copies behind a load balancer.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "1"
-                  }
-                ],
-                "tone": "idle"
+            "at": "say2",
+            "caption": "Disks fail, servers reboot, network links drop, and occasionally a whole.",
+            "values": {
+              "single_az_uptime": {
+                "var": "single_az_uptime",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
-                "tone": "ok"
+              "minutes_per_year": {
+                "var": "minutes_per_year",
+                "line": 4,
+                "hit": 1
+              },
+              "azs": {
+                "var": "azs",
+                "line": 5,
+                "hit": 1
+              },
+              "all_down": {
+                "var": "all_down",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "single_az_uptime": "data",
+              "minutes_per_year": "data",
+              "azs": "data",
+              "all_down": "data"
+            },
+            "arrows": [
+              [
+                "single_az_uptime",
+                "minutes_per_year"
+              ],
+              [
+                "minutes_per_year",
+                "azs"
+              ],
+              [
+                "azs",
+                "all_down"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Adding independent availability zones reduces expected annual downtime.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "1"
-                  }
-                ],
-                "tone": "idle"
+            "at": "say7",
+            "caption": "Trace how multi updates region during execution.",
+            "values": {
+              "single_az_uptime": {
+                "var": "single_az_uptime",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
-                "tone": "ok"
+              "minutes_per_year": {
+                "var": "minutes_per_year",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "3"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
-                "tone": "ok"
+              "azs": {
+                "var": "azs",
+                "line": 6,
+                "hit": 1
+              },
+              "all_down": {
+                "var": "all_down",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "single_az_uptime": "ok",
+              "minutes_per_year": "ok",
+              "azs": "ok",
+              "all_down": "ok"
+            },
+            "arrows": [
+              [
+                "single_az_uptime",
+                "minutes_per_year"
+              ],
+              [
+                "minutes_per_year",
+                "azs"
+              ],
+              [
+                "azs",
+                "all_down"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Redundant availability zone deployment and expected uptime improvement",
-        "columns": [
-          "azs",
-          "uptime"
+        "template": "flow",
+        "title": "Designing for failure",
+        "nodes": [
+          {
+            "id": "single_az_uptime",
+            "label": "single_az_uptime"
+          },
+          {
+            "id": "minutes_per_year",
+            "label": "minutes_per_year"
+          },
+          {
+            "id": "azs",
+            "label": "azs"
+          },
+          {
+            "id": "all_down",
+            "label": "all_down"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cloud infrastructure designs anticipate that individual hardware units fail.",
-            "rows": [
-              {
-                "cells": [
-                  "1",
-                  "1"
-                ],
-                "tone": "idle"
-              }
+            "caption": "Werner Vogels, the chief technology officer of Amazon, often says.",
+            "values": {
+              "single_az_uptime": "0.999",
+              "minutes_per_year": "525600",
+              "azs": "1",
+              "all_down": "0.0010000000000000009"
+            },
+            "tones": {
+              "single_az_uptime": "data",
+              "minutes_per_year": "data",
+              "azs": "data",
+              "all_down": "data"
+            },
+            "arrows": [
+              [
+                "single_az_uptime",
+                "minutes_per_year"
+              ],
+              [
+                "minutes_per_year",
+                "azs"
+              ],
+              [
+                "azs",
+                "all_down"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "The common pattern maintains multiple healthy copies behind a load balancer.",
-            "rows": [
-              {
-                "cells": [
-                  "1",
-                  "1"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "2",
-                  "2"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Disks fail, servers reboot, network links drop, and occasionally a whole.",
+            "values": {
+              "single_az_uptime": "0.999",
+              "minutes_per_year": "525600",
+              "azs": "1",
+              "all_down": "0.0010000000000000009"
+            },
+            "tones": {
+              "single_az_uptime": "data",
+              "minutes_per_year": "data",
+              "azs": "data",
+              "all_down": "data"
+            },
+            "arrows": [
+              [
+                "single_az_uptime",
+                "minutes_per_year"
+              ],
+              [
+                "minutes_per_year",
+                "azs"
+              ],
+              [
+                "azs",
+                "all_down"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Adding independent availability zones reduces expected annual downtime.",
-            "rows": [
-              {
-                "cells": [
-                  "1",
-                  "1"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "2",
-                  "2"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "3",
-                  "3"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Trace how multi updates region during execution.",
+            "values": {
+              "single_az_uptime": "0.999",
+              "minutes_per_year": "525600",
+              "azs": "1",
+              "all_down": "0.0010000000000000009"
+            },
+            "tones": {
+              "single_az_uptime": "ok",
+              "minutes_per_year": "ok",
+              "azs": "ok",
+              "all_down": "ok"
+            },
+            "arrows": [
+              [
+                "single_az_uptime",
+                "minutes_per_year"
+              ],
+              [
+                "minutes_per_year",
+                "azs"
+              ],
+              [
+                "azs",
+                "all_down"
+              ]
             ]
           }
         ]
@@ -889,224 +1181,160 @@
       "partTitle": "Practice time: AZ checks and region codes",
       "codeHash": "432785b5d5ddb21c5684a15963fa116ac35b856e1260d11e9082860be8227edd",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: AZ checks and region codes — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: AZ c...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: AZ checks and region codes",
+        "actors": [
+          "fleet",
+          "per_az"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: AZ checks and region codes.",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: AZ c... [Dtwo.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Practice 1 is is_fault_tolerant(nodes).",
+            "activeActor": "fleet",
+            "messages": [
+              {
+                "from": "fleet",
+                "to": "per_az",
+                "label": {
+                  "var": "fleet",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "per_az",
+                "to": "fleet",
+                "label": {
+                  "var": "per_az",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how practice updates code during execution.",
+            "activeActor": "per_az",
+            "messages": [
+              {
+                "from": "fleet",
+                "to": "per_az",
+                "label": {
+                  "var": "fleet",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "per_az",
+                "to": "fleet",
+                "label": {
+                  "var": "per_az",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: AZ checks and regi.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows a quick report of servers per AZ using collections.",
+            "activeActor": "per_az",
+            "messages": [
+              {
+                "from": "fleet",
+                "to": "per_az",
+                "label": {
+                  "var": "fleet",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "per_az",
+                "to": "fleet",
+                "label": {
+                  "var": "per_az",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: AZ checks and region codes — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: AZ c...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: AZ checks and region codes",
+        "actors": [
+          "fleet",
+          "per_az"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: AZ checks and region codes [D2.P6.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: AZ c... [D2.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Practice 1 is is_fault_tolerant(nodes).",
+            "messages": [
+              {
+                "from": "fleet",
+                "to": "per_az",
+                "label": "['us-east-1a', 'us-east-1a', 'us-east-1…",
+                "tone": "data"
+              },
+              {
+                "from": "per_az",
+                "to": "fleet",
+                "label": "{'us-east-1a': 3, 'us-east-1b': 1, 'us-…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "fleet"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Trace how practice updates code during execution.",
+            "messages": [
+              {
+                "from": "fleet",
+                "to": "per_az",
+                "label": "['us-east-1a', 'us-east-1a', 'us-east-1…",
+                "tone": "data"
+              },
+              {
+                "from": "per_az",
+                "to": "fleet",
+                "label": "{'us-east-1a': 3, 'us-east-1b': 1, 'us-…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "per_az"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: AZ checks and regi.. [D2.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example shows a quick report of servers per AZ using collections.",
+            "messages": [
+              {
+                "from": "fleet",
+                "to": "per_az",
+                "label": "['us-east-1a', 'us-east-1a', 'us-east-1…",
+                "tone": "data"
+              },
+              {
+                "from": "per_az",
+                "to": "fleet",
+                "label": "{'us-east-1a': 3, 'us-east-1b': 1, 'us-…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "per_az"
           }
         ]
       }

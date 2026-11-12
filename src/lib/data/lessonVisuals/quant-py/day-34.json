@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 34,
-  "promptSha": "0802c747c8b327aec1ddfe8e3b48e1e1d9973c81cd9ba6ac0abec3bbfac034f9",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Queue Position Valuation, Fill Probability Hazard Rates & Cancellation Latency — Foundations & Mathematical Invariants",
-      "codeHash": "f00ba9e7dcab534b40bcb90229a7594d03eefdb58581c8ae16e7a30c26f60bbe",
+      "codeHash": "31a8bc6ba24da0db718ef8b5e69f718cff00d60d39987640ca2289a7a389f65c",
       "spec": {
-        "template": "flow",
-        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancellation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancel",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The vast majority of modern electronic exchangesincluding NASDAQ, the New.",
+            "bars": [
+              {
+                "label": "queue_ahead",
+                "value": {
+                  "var": "queue_ahead",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_queue_si",
+                "value": {
+                  "var": "total_queue_size",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "trade_rate_per",
+                "value": {
+                  "var": "trade_rate_per_sec",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pos_fraction",
+                "value": {
+                  "var": "pos_fraction",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Under Price-Time Priority, orders at the best available price are matched.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "queue_ahead",
+                "value": {
+                  "var": "queue_ahead",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_queue_si",
+                "value": {
+                  "var": "total_queue_size",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "trade_rate_per",
+                "value": {
+                  "var": "trade_rate_per_sec",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "pos_fraction",
+                "value": {
+                  "var": "pos_fraction",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "High-frequency asset prices suffer from microstructure noise caused.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "queue_ahead",
+                "value": {
+                  "var": "queue_ahead",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_queue_si",
+                "value": {
+                  "var": "total_queue_size",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "trade_rate_per",
+                "value": {
+                  "var": "trade_rate_per_sec",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "pos_fraction",
+                "value": {
+                  "var": "pos_fraction",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancellation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancel",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The vast majority of modern electronic exchangesincluding NASDAQ, the New.",
+            "bars": [
+              {
+                "label": "queue_ahead",
+                "value": 1500,
+                "tone": "data"
+              },
+              {
+                "label": "total_queue_si",
+                "value": 25000,
+                "tone": "data"
+              },
+              {
+                "label": "trade_rate_per",
+                "value": 500,
+                "tone": "data"
+              },
+              {
+                "label": "pos_fraction",
+                "value": 0.06,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Under Price-Time Priority, orders at the best available price are matched.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "queue_ahead",
+                "value": 1500,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_queue_si",
+                "value": 25000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "trade_rate_per",
+                "value": 500,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "pos_fraction",
+                "value": 0.06,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "High-frequency asset prices suffer from microstructure noise caused.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "queue_ahead",
+                "value": 1500,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_queue_si",
+                "value": 25000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "trade_rate_per",
+                "value": 500,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "pos_fraction",
+                "value": 0.06,
+                "tone": "ok"
               }
             ]
           }
@@ -273,264 +227,218 @@
     },
     {
       "partTitle": "Queue Position Valuation, Fill Probability Hazard Rates & Cancellation Latency — Core Algorithm & State Representation",
-      "codeHash": "425ca3b0281e8aeb4af14ea4314863f3dd06a5c7bd825bbf9dfc7c5f122856c7",
+      "codeHash": "e0e0497ce69a2755ce310a080d7ef584722a97f252d994ea490642f97360194f",
       "spec": {
-        "template": "flow",
-        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancellation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancel",
         "steps": [
           {
+            "at": "say1",
+            "caption": "To estimate the likelihood of execution, quantitative models employ.",
+            "bars": [
+              {
+                "label": "queue_ahead",
+                "value": {
+                  "var": "queue_ahead",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "avg_trade_size",
+                "value": {
+                  "var": "avg_trade_size",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cancel_rate_pc",
+                "value": {
+                  "var": "cancel_rate_pct",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "beta",
+                "value": {
+                  "var": "beta",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The hazard rate $h(t)$ represents the instantaneous rate of fill.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "queue_ahead",
+                "value": {
+                  "var": "queue_ahead",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "avg_trade_size",
+                "value": {
+                  "var": "avg_trade_size",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "cancel_rate_pc",
+                "value": {
+                  "var": "cancel_rate_pct",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "beta",
+                "value": {
+                  "var": "beta",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "The two-scale realized volatility estimator resolves microstructure.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "queue_ahead",
+                "value": {
+                  "var": "queue_ahead",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "avg_trade_size",
+                "value": {
+                  "var": "avg_trade_size",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "cancel_rate_pc",
+                "value": {
+                  "var": "cancel_rate_pct",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "beta",
+                "value": {
+                  "var": "beta",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancellation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancel",
         "steps": [
           {
+            "at": "say1",
+            "caption": "To estimate the likelihood of execution, quantitative models employ.",
+            "bars": [
+              {
+                "label": "queue_ahead",
+                "value": 500,
+                "tone": "data"
+              },
+              {
+                "label": "avg_trade_size",
+                "value": 250,
+                "tone": "data"
+              },
+              {
+                "label": "cancel_rate_pc",
+                "value": 0.4,
+                "tone": "data"
+              },
+              {
+                "label": "beta",
+                "value": 1.2,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The hazard rate $h(t)$ represents the instantaneous rate of fill.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "queue_ahead",
+                "value": 500,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "avg_trade_size",
+                "value": 250,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "cancel_rate_pc",
+                "value": 0.4,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "beta",
+                "value": 1.2,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "The two-scale realized volatility estimator resolves microstructure.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "queue_ahead",
+                "value": 500,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "avg_trade_size",
+                "value": 250,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "cancel_rate_pc",
+                "value": 0.4,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "beta",
+                "value": 1.2,
+                "tone": "ok"
               }
             ]
           }
@@ -539,264 +447,218 @@
     },
     {
       "partTitle": "Queue Position Valuation, Fill Probability Hazard Rates & Cancellation Latency — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "988d50efcc5a4497ba5c56b94f3aa4f98dc80cf970f612c791c63ce7f21d5a5c",
+      "codeHash": "6df217349d71510a37961660a1d2db00a1276fc5b07b8c2847b211cd9f4e677f",
       "spec": {
-        "template": "flow",
-        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancellation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancel",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Tracking queue position in real time requires reconstructing the state.",
+            "bars": [
+              {
+                "label": "order_ref",
+                "value": {
+                  "var": "order_ref",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "my_order_ref",
+                "value": {
+                  "var": "my_order_ref",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "When an exchange publishes market depth via aggregate price levels (L2.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "order_ref",
+                "value": {
+                  "var": "order_ref",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "my_order_ref",
+                "value": {
+                  "var": "my_order_ref",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Kernel-based realized volatility estimators apply Parzen or Tukey-Hanning.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "order_ref",
+                "value": {
+                  "var": "order_ref",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "my_order_ref",
+                "value": {
+                  "var": "my_order_ref",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancellation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancel",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Tracking queue position in real time requires reconstructing the state.",
+            "bars": [
+              {
+                "label": "order_ref",
+                "value": 1001,
+                "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "qty",
+                "value": 500,
+                "tone": "data"
+              },
+              {
+                "label": "my_order_ref",
+                "value": 1003,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "When an exchange publishes market depth via aggregate price levels (L2.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "order_ref",
+                "value": 1001,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "price",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "qty",
+                "value": 500,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "my_order_ref",
+                "value": 1003,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Kernel-based realized volatility estimators apply Parzen or Tukey-Hanning.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "order_ref",
+                "value": 1001,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "price",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "qty",
+                "value": 500,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "my_order_ref",
+                "value": 1003,
+                "tone": "ok"
               }
             ]
           }
@@ -805,264 +667,218 @@
     },
     {
       "partTitle": "Queue Position Valuation, Fill Probability Hazard Rates & Cancellation Latency — Resilience Guardrails & Failure Recovery",
-      "codeHash": "9ba72e0c8cd7229ad5a2a6dc1ae157504cf36918f9fccde438caa39f8ecdab2b",
+      "codeHash": "d4ec648e1c3ed4c8103490ec9e7580da3e079052e8258915eb363d0d1e73bb37",
       "spec": {
-        "template": "flow",
-        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancellation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancel",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating passive limit order strategies requires resilient Cancellation.",
+            "bars": [
+              {
+                "label": "current_fair_v",
+                "value": {
+                  "var": "current_fair_value",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "order_price",
+                "value": {
+                  "var": "order_price",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "queue_pos_pct",
+                "value": {
+                  "var": "queue_pos_pct",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "max_adverse_mo",
+                "value": {
+                  "var": "max_adverse_move",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "When fair value shifts away from a quoted price (e.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "current_fair_v",
+                "value": {
+                  "var": "current_fair_value",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "order_price",
+                "value": {
+                  "var": "order_price",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "queue_pos_pct",
+                "value": {
+                  "var": "queue_pos_pct",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "max_adverse_mo",
+                "value": {
+                  "var": "max_adverse_move",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Volatility estimators maintain defensive bounds against stale quote.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "current_fair_v",
+                "value": {
+                  "var": "current_fair_value",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "order_price",
+                "value": {
+                  "var": "order_price",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "queue_pos_pct",
+                "value": {
+                  "var": "queue_pos_pct",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "max_adverse_mo",
+                "value": {
+                  "var": "max_adverse_move",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancellation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancel",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating passive limit order strategies requires resilient Cancellation.",
+            "bars": [
+              {
+                "label": "current_fair_v",
+                "value": 100.05,
+                "tone": "data"
+              },
+              {
+                "label": "order_price",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "queue_pos_pct",
+                "value": 0.3,
+                "tone": "data"
+              },
+              {
+                "label": "max_adverse_mo",
+                "value": 0.03,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "When fair value shifts away from a quoted price (e.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "current_fair_v",
+                "value": 100.05,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "order_price",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "queue_pos_pct",
+                "value": 0.3,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "max_adverse_mo",
+                "value": 0.03,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Volatility estimators maintain defensive bounds against stale quote.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "current_fair_v",
+                "value": 100.05,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "order_price",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "queue_pos_pct",
+                "value": 0.3,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "max_adverse_mo",
+                "value": 0.03,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,265 +887,279 @@
     },
     {
       "partTitle": "Queue Position Valuation, Fill Probability Hazard Rates & Cancellation Latency — Production Telemetry & Verification Audit",
-      "codeHash": "c4bf60fc6ea3971e139f351eff2b1be5dc208f6efbaac70853dafb802a1055b6",
+      "codeHash": "80f583ea270363e5c3f2488f819b8be5dadc9f727ce313fea68c1be161e99914",
       "spec": {
         "template": "flow",
-        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancellation",
+        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancel",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "otr_ratio",
+            "label": "otr_ratio"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "p99_cancel_latency_us",
+            "label": "p99_cancel_latency_us"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "prediction_accuracy_pct",
+            "label": "prediction_accuracy_pct"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "issues",
+            "label": "issues"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enterprise microstructure auditing requires tracking Tick-to-Cancel.",
+            "values": {
+              "otr_ratio": {
+                "var": "otr_ratio",
+                "line": 4,
+                "hit": 1
+              },
+              "p99_cancel_latency_us": {
+                "var": "p99_cancel_latency_us",
+                "line": 4,
+                "hit": 1
+              },
+              "prediction_accuracy_pct": {
+                "var": "prediction_accuracy_pct",
+                "line": 4,
+                "hit": 1
+              },
+              "issues": {
+                "var": "issues",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "otr_ratio": "data",
+              "p99_cancel_latency_us": "data",
+              "prediction_accuracy_pct": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "otr_ratio",
+                "p99_cancel_latency_us"
+              ],
+              [
+                "p99_cancel_latency_us",
+                "prediction_accuracy_pct"
+              ],
+              [
+                "prediction_accuracy_pct",
+                "issues"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Trace how financial updates regulators during execution.",
+            "values": {
+              "otr_ratio": {
+                "var": "otr_ratio",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "p99_cancel_latency_us": {
+                "var": "p99_cancel_latency_us",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "prediction_accuracy_pct": {
+                "var": "prediction_accuracy_pct",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "issues": {
+                "var": "issues",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "otr_ratio": "data",
+              "p99_cancel_latency_us": "data",
+              "prediction_accuracy_pct": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "otr_ratio",
+                "p99_cancel_latency_us"
+              ],
+              [
+                "p99_cancel_latency_us",
+                "prediction_accuracy_pct"
+              ],
+              [
+                "prediction_accuracy_pct",
+                "issues"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Quantitative risk engines stream two-scale realized volatility metrics.",
+            "values": {
+              "otr_ratio": {
+                "var": "otr_ratio",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "p99_cancel_latency_us": {
+                "var": "p99_cancel_latency_us",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "prediction_accuracy_pct": {
+                "var": "prediction_accuracy_pct",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "issues": {
+                "var": "issues",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "otr_ratio": "ok",
+              "p99_cancel_latency_us": "ok",
+              "prediction_accuracy_pct": "ok",
+              "issues": "ok"
+            },
+            "arrows": [
+              [
+                "otr_ratio",
+                "p99_cancel_latency_us"
+              ],
+              [
+                "p99_cancel_latency_us",
+                "prediction_accuracy_pct"
+              ],
+              [
+                "prediction_accuracy_pct",
+                "issues"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancellation",
+        "title": "Queue Position Valuation, Fill Probability Hazard Rates & Cancel",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "otr_ratio",
+            "label": "otr_ratio"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "p99_cancel_latency_us",
+            "label": "p99_cancel_latency_us"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "prediction_accuracy_pct",
+            "label": "prediction_accuracy_pct"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "issues",
+            "label": "issues"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enterprise microstructure auditing requires tracking Tick-to-Cancel.",
+            "values": {
+              "otr_ratio": "45",
+              "p99_cancel_latency_us": "185",
+              "prediction_accuracy_pct": "84.5",
+              "issues": "[]"
+            },
+            "tones": {
+              "otr_ratio": "data",
+              "p99_cancel_latency_us": "data",
+              "prediction_accuracy_pct": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "otr_ratio",
+                "p99_cancel_latency_us"
+              ],
+              [
+                "p99_cancel_latency_us",
+                "prediction_accuracy_pct"
+              ],
+              [
+                "prediction_accuracy_pct",
+                "issues"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Trace how financial updates regulators during execution.",
+            "values": {
+              "otr_ratio": "45",
+              "p99_cancel_latency_us": "185",
+              "prediction_accuracy_pct": "84.5",
+              "issues": "[]"
+            },
+            "tones": {
+              "otr_ratio": "data",
+              "p99_cancel_latency_us": "data",
+              "prediction_accuracy_pct": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "otr_ratio",
+                "p99_cancel_latency_us"
+              ],
+              [
+                "p99_cancel_latency_us",
+                "prediction_accuracy_pct"
+              ],
+              [
+                "prediction_accuracy_pct",
+                "issues"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Quantitative risk engines stream two-scale realized volatility metrics.",
+            "values": {
+              "otr_ratio": "45",
+              "p99_cancel_latency_us": "185",
+              "prediction_accuracy_pct": "84.5",
+              "issues": "[]"
+            },
+            "tones": {
+              "otr_ratio": "ok",
+              "p99_cancel_latency_us": "ok",
+              "prediction_accuracy_pct": "ok",
+              "issues": "ok"
+            },
+            "arrows": [
+              [
+                "otr_ratio",
+                "p99_cancel_latency_us"
+              ],
+              [
+                "p99_cancel_latency_us",
+                "prediction_accuracy_pct"
+              ],
+              [
+                "prediction_accuracy_pct",
+                "issues"
+              ]
             ]
           }
         ]

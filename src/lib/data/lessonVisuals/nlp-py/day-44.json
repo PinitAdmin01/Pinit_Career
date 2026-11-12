@@ -2,230 +2,224 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 44,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Direct Preference Optimization (DPO) Breakthrough: Eliminating the RL Trilemma",
       "codeHash": "284f0e81ae52685b72dac13d458606b36cf1b1e89ab3c8bda63a1e0886e3f179",
       "spec": {
-        "template": "flow",
-        "title": "The Direct Preference Optimization (DPO) Brea... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Direct Preferen...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The Direct Preference Optimization (DPO) Breakthrough: Eliminati",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The Direct Preference Optimization (DPO)...",
-            "values": {
-              "in": "Day 44 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The Direct Preferen....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In our preceding module, we explored the classical Reinforcement Learning.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": {
+                  "var": "beta",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "lp_ref",
+                "value": {
+                  "var": "lp_ref",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "lp_policy",
+                "value": {
+                  "var": "lp_policy",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r_w",
+                "value": {
+                  "var": "r_w",
+                  "line": 45,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand the imperative for DPO, we must dissect the fundamental.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": {
+                  "var": "beta",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lp_ref",
+                "value": {
+                  "var": "lp_ref",
+                  "line": 26,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lp_policy",
+                "value": {
+                  "var": "lp_policy",
+                  "line": 26,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r_w",
+                "value": {
+                  "var": "r_w",
+                  "line": 46,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The Direct Preference Optimizatio...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we implement the foundational mathematical.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": {
+                  "var": "beta",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lp_ref",
+                "value": {
+                  "var": "lp_ref",
+                  "line": 26,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lp_policy",
+                "value": {
+                  "var": "lp_policy",
+                  "line": 26,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r_w",
+                "value": {
+                  "var": "r_w",
+                  "line": 47,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The Direct Preference Optimization (DPO) Brea... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Direct Preferen...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The Direct Preference Optimization (DPO) Breakthrough: Eliminati",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The Direct Preference Optimization (DPO)...",
-            "values": {
-              "in": "Day 44 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Direct Preferen....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In our preceding module, we explored the classical Reinforcement Learning.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": 0.1,
+                "tone": "data"
+              },
+              {
+                "label": "lp_ref",
+                "value": -3.5,
+                "tone": "data"
+              },
+              {
+                "label": "lp_policy",
+                "value": -2.2,
+                "tone": "data"
+              },
+              {
+                "label": "r_w",
+                "value": 0.12999999999999998,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand the imperative for DPO, we must dissect the fundamental.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "lp_ref",
+                "value": -3.8,
+                "tone": "ok"
+              },
+              {
+                "label": "lp_policy",
+                "value": -5.1,
+                "tone": "ok"
+              },
+              {
+                "label": "r_w",
+                "value": 0.12999999999999998,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Direct Preference Optimizatio...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we implement the foundational mathematical.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "lp_ref",
+                "value": -4.1,
+                "tone": "ok"
+              },
+              {
+                "label": "lp_policy",
+                "value": -2.8,
+                "tone": "ok"
+              },
+              {
+                "label": "r_w",
+                "value": 0.12999999999999998,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -235,223 +229,217 @@
       "partTitle": "DPO Closed-Form Loss Derivation & Token-Level Gradient Dynamics",
       "codeHash": "6800cbe1cf1301d6f935cad53108dfee314a8a9feafdc07032b467007cd7e120",
       "spec": {
-        "template": "flow",
-        "title": "DPO Closed-Form Loss Derivation & Token-Level... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. DPO Closed-Form Los...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "DPO Closed-Form Loss Derivation & Token-Level Gradient Dynamics",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for DPO Closed-Form Loss Derivation & Token-...",
-            "values": {
-              "in": "Day 44 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in DPO Closed-Form Los....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having established the conceptual breakthrough of Direct Preference.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": {
+                  "var": "beta",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "lr",
+                "value": {
+                  "var": "lr",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "w_ref",
+                "value": {
+                  "var": "w_ref",
+                  "line": 54,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "l_ref",
+                "value": {
+                  "var": "l_ref",
+                  "line": 55,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The formal DPO Loss Objective is defined over a dataset of pairwise human.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": {
+                  "var": "beta",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": {
+                  "var": "lr",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w_ref",
+                "value": {
+                  "var": "w_ref",
+                  "line": 55,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "l_ref",
+                "value": {
+                  "var": "l_ref",
+                  "line": 57,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for DPO Closed-Form Loss Derivation &...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct a complete.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": {
+                  "var": "beta",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": {
+                  "var": "lr",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w_ref",
+                "value": {
+                  "var": "w_ref",
+                  "line": 57,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "l_ref",
+                "value": {
+                  "var": "l_ref",
+                  "line": 58,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "DPO Closed-Form Loss Derivation & Token-Level... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. DPO Closed-Form Los...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "DPO Closed-Form Loss Derivation & Token-Level Gradient Dynamics",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for DPO Closed-Form Loss Derivation & Token-...",
-            "values": {
-              "in": "Day 44 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in DPO Closed-Form Los....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having established the conceptual breakthrough of Direct Preference.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": 0.1,
+                "tone": "data"
+              },
+              {
+                "label": "lr",
+                "value": 0.25,
+                "tone": "data"
+              },
+              {
+                "label": "w_ref",
+                "value": -3.5,
+                "tone": "data"
+              },
+              {
+                "label": "l_ref",
+                "value": -3.2,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The formal DPO Loss Objective is defined over a dataset of pairwise human.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": 0.25,
+                "tone": "ok"
+              },
+              {
+                "label": "w_ref",
+                "value": -3.5,
+                "tone": "ok"
+              },
+              {
+                "label": "l_ref",
+                "value": -3.2,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for DPO Closed-Form Loss Derivation &...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct a complete.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": 0.25,
+                "tone": "ok"
+              },
+              {
+                "label": "w_ref",
+                "value": -3.5,
+                "tone": "ok"
+              },
+              {
+                "label": "l_ref",
+                "value": -3.2,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -461,223 +449,106 @@
       "partTitle": "Reference-Free Alignment: KTO (Prospect Theory) & ORPO (Odds Ratio Alignment)",
       "codeHash": "babfb5838a028e06bd4b18893ac5203c0693ac8c85c6250f3816ad43b34d0131",
       "spec": {
-        "template": "flow",
-        "title": "Reference-Free Alignment: KTO (Prospect Theor... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reference-Free Alig...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Reference-Free Alignment: KTO (Prospect Theory) & ORPO (Odds Rat",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Reference-Free Alignment: KTO (Prospect ...",
-            "values": {
-              "in": "Day 44 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Reference-Free Alig....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "While Direct Preference Optimization eliminated the RL trilemma.",
+            "items": {
+              "var": "sft_losses",
+              "line": 100,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "In this module, we examine two cutting-edge alignment architectures.",
+            "items": {
+              "var": "sft_losses",
+              "line": 102,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Reference-Free Alignment: KTO (Pr...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "In the following Python script, we construct a complete KTOAndORPOEngine.",
+            "items": {
+              "var": "sft_losses",
+              "line": 98,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Reference-Free Alignment: KTO (Prospect Theor... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reference-Free Alig...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Reference-Free Alignment: KTO (Prospect Theory) & ORPO (Odds Rat",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Reference-Free Alignment: KTO (Prospect ...",
-            "values": {
-              "in": "Day 44 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Reference-Free Alig....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While Direct Preference Optimization eliminated the RL trilemma.",
+            "items": [
+              "0.7985076962177716",
+              "0.9675840262617056"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In this module, we examine two cutting-edge alignment architectures.",
+            "items": [
+              "0.7985076962177716",
+              "0.9675840262617056"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Reference-Free Alignment: KTO (Pr...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "In the following Python script, we construct a complete KTOAndORPOEngine.",
+            "items": [
+              "0.7985076962177716",
+              "0.9675840262617056"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -687,223 +558,217 @@
       "partTitle": "Length Normalization in DPO & Mitigating Length Exploitation (cDPO / c-DPO)",
       "codeHash": "45c56fb711d9d6c05b6f1748e88ae6cbeb024ba294b1b4816df51e1db68298f1",
       "spec": {
-        "template": "flow",
-        "title": "Length Normalization in DPO & Mitigating Leng... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Length Normalizatio...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Length Normalization in DPO & Mitigating Length Exploitation (cD",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Length Normalization in DPO & Mitigating...",
-            "values": {
-              "in": "Day 44 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Length Normalizatio....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Just as classical RLHF suffers from length bias and verbosity hacking.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": {
+                  "var": "beta",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "label_noise_ep",
+                "value": {
+                  "var": "label_noise_eps",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "w_seq_lp",
+                "value": {
+                  "var": "w_seq_lp",
+                  "line": 38,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The Mathematical Vulnerability of Sequence Log-Probabilities explains why.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": {
+                  "var": "beta",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "label_noise_ep",
+                "value": {
+                  "var": "label_noise_eps",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w_seq_lp",
+                "value": {
+                  "var": "w_seq_lp",
+                  "line": 39,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Length Normalization in DPO & Mit...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct an EnterpriseDPOLengthAuditor.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": {
+                  "var": "beta",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "label_noise_ep",
+                "value": {
+                  "var": "label_noise_eps",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w_seq_lp",
+                "value": {
+                  "var": "w_seq_lp",
+                  "line": 40,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Length Normalization in DPO & Mitigating Leng... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Length Normalizatio...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Length Normalization in DPO & Mitigating Length Exploitation (cD",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Length Normalization in DPO & Mitigating...",
-            "values": {
-              "in": "Day 44 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Length Normalizatio....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Just as classical RLHF suffers from length bias and verbosity hacking.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": 0.1,
+                "tone": "data"
+              },
+              {
+                "label": "label_noise_ep",
+                "value": 0.05,
+                "tone": "data"
+              },
+              {
+                "label": "alpha",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "w_seq_lp",
+                "value": -56,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The Mathematical Vulnerability of Sequence Log-Probabilities explains why.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "label_noise_ep",
+                "value": 0.05,
+                "tone": "ok"
+              },
+              {
+                "label": "alpha",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "w_seq_lp",
+                "value": -56,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Length Normalization in DPO & Mit...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct an EnterpriseDPOLengthAuditor.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "label_noise_ep",
+                "value": 0.05,
+                "tone": "ok"
+              },
+              {
+                "label": "alpha",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "w_seq_lp",
+                "value": -56,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -914,110 +779,161 @@
       "codeHash": "76b86d1dec4d3e3bbc2754dbbb8d7d7e2afcf113f2f156a210a1c07fc65527f1",
       "spec": {
         "template": "flow",
-        "title": "Masterclass Synthesis: Building the ApexDirec... — Execution Pipeline",
+        "title": "Masterclass Synthesis: Building the ApexDirect DPO & ORPO Optimi",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Masterclass Synthes...",
-            "tappable": true
+            "id": "beta",
+            "label": "beta"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "lambda_or",
+            "label": "lambda_or"
+          },
+          {
+            "id": "lr",
+            "label": "lr"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Masterclass Synthesis: Building.",
-            "values": {
-              "in": "Day 44 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Masterclass Synthes....",
+            "caption": "Building the ApexDirect DPO & ORPO Optimization Suite.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": {
+                "var": "self",
+                "line": 24,
+                "hit": 1
+              },
+              "beta": {
+                "var": "beta",
+                "line": 24,
+                "hit": 1
+              },
+              "lambda_or": {
+                "var": "lambda_or",
+                "line": 24,
+                "hit": 1
+              },
+              "lr": {
+                "var": "lr",
+                "line": 24,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "beta": "data",
+              "lambda_or": "data",
+              "lr": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "beta"
               ],
               [
-                "proc",
-                "out"
+                "beta",
+                "lambda_or"
+              ],
+              [
+                "lambda_or",
+                "lr"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "In this masterclass capstone, you assume the executive position of Vice.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": {
+                "var": "self",
+                "line": 25,
+                "hit": 1
+              },
+              "beta": {
+                "var": "beta",
+                "line": 25,
+                "hit": 1
+              },
+              "lambda_or": {
+                "var": "lambda_or",
+                "line": 25,
+                "hit": 1
+              },
+              "lr": {
+                "var": "lr",
+                "line": 25,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "beta": "data",
+              "lambda_or": "data",
+              "lr": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "beta"
+              ],
+              [
+                "beta",
+                "lambda_or"
+              ],
+              [
+                "lambda_or",
+                "lr"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Masterclass Synthesis: Building t...",
+            "at": "say9",
+            "caption": "By conquering this milestone, you master the cutting edge of frontier.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": {
+                "var": "self",
+                "line": 26,
+                "hit": 1
+              },
+              "beta": {
+                "var": "beta",
+                "line": 26,
+                "hit": 1
+              },
+              "lambda_or": {
+                "var": "lambda_or",
+                "line": 26,
+                "hit": 1
+              },
+              "lr": {
+                "var": "lr",
+                "line": 26,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "beta": "ok",
+              "lambda_or": "ok",
+              "lr": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "beta"
               ],
               [
-                "proc",
-                "out"
+                "beta",
+                "lambda_or"
+              ],
+              [
+                "lambda_or",
+                "lr"
               ]
             ]
           }
@@ -1025,110 +941,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Masterclass Synthesis: Building the ApexDirec... — Execution Pipeline",
+        "title": "Masterclass Synthesis: Building the ApexDirect DPO & ORPO Optimi",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Masterclass Synthes...",
-            "tappable": true
+            "id": "beta",
+            "label": "beta"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "lambda_or",
+            "label": "lambda_or"
+          },
+          {
+            "id": "lr",
+            "label": "lr"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Synthesis: Building.",
-            "values": {
-              "in": "Day 44 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Synthes....",
+            "caption": "Building the ApexDirect DPO & ORPO Optimization Suite.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": "<ApexDirectSuite>",
+              "beta": "0.1",
+              "lambda_or": "0.15",
+              "lr": "0.1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "beta": "data",
+              "lambda_or": "data",
+              "lr": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "beta"
               ],
               [
-                "proc",
-                "out"
+                "beta",
+                "lambda_or"
+              ],
+              [
+                "lambda_or",
+                "lr"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "In this masterclass capstone, you assume the executive position of Vice.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": "<ApexDirectSuite>",
+              "beta": "0.1",
+              "lambda_or": "0.15",
+              "lr": "0.1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "beta": "data",
+              "lambda_or": "data",
+              "lr": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "beta"
+              ],
+              [
+                "beta",
+                "lambda_or"
+              ],
+              [
+                "lambda_or",
+                "lr"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Synthesis: Building t...",
+            "at": "say9",
+            "caption": "By conquering this milestone, you master the cutting edge of frontier.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": "<ApexDirectSuite>",
+              "beta": "0.1",
+              "lambda_or": "0.15",
+              "lr": "0.1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "beta": "ok",
+              "lambda_or": "ok",
+              "lr": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "beta"
               ],
               [
-                "proc",
-                "out"
+                "beta",
+                "lambda_or"
+              ],
+              [
+                "lambda_or",
+                "lr"
               ]
             ]
           }

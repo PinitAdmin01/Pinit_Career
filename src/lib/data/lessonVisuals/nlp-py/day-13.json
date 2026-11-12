@@ -2,256 +2,228 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 13,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why order and memory matter",
       "codeHash": "c829c735501d03070c616dda10c6b13c8f74e35f3b7f142225317fe7f604e8a2",
       "spec": {
-        "template": "table",
-        "title": "Sequential token memory and order dependent representations",
-        "columns": [
-          "words",
-          "memory"
+        "template": "flow",
+        "title": "Why order and memory matter",
+        "nodes": [
+          {
+            "id": "words",
+            "label": "words"
+          },
+          {
+            "id": "memory",
+            "label": "memory"
+          },
+          {
+            "id": "w",
+            "label": "w"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Language sequences convey distinct meanings through word order.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "memory"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Language is sequential.",
+            "values": {
+              "words": {
+                "var": "words",
+                "line": 2,
+                "hit": 1
+              },
+              "memory": {
+                "var": "memory",
+                "line": 2,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "words": "data",
+              "memory": "data",
+              "w": "data"
+            },
+            "arrows": [
+              [
+                "words",
+                "memory"
+              ],
+              [
+                "memory",
+                "w"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Recurrent networks maintain a hidden state vector summarizing past tokens.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "memory"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Bag-of-words models throw order away.",
+            "values": {
+              "words": {
+                "var": "words",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "movie"
-                  },
-                  {
-                    "text": "read"
-                  }
-                ],
-                "tone": "ok"
+              "memory": {
+                "var": "memory",
+                "line": 3,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "words": "data",
+              "memory": "data",
+              "w": "data"
+            },
+            "arrows": [
+              [
+                "words",
+                "memory"
+              ],
+              [
+                "memory",
+                "w"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Shared recurrent weights combine the prior hidden state with current input.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "memory"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Trace how rnns updates were during execution.",
+            "values": {
+              "words": {
+                "var": "words",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "movie"
-                  },
-                  {
-                    "text": "read"
-                  }
-                ],
-                "tone": "ok"
+              "memory": {
+                "var": "memory",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "memory"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
-                "tone": "data"
+              "w": {
+                "var": "w",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Weight parameter reuse enables processing arbitrary sequence lengths.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "memory"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "movie"
-                  },
-                  {
-                    "text": "read"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "memory"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "read"
-                  },
-                  {
-                    "text": "memory"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "words": "ok",
+              "memory": "ok",
+              "w": "ok"
+            },
+            "arrows": [
+              [
+                "words",
+                "memory"
+              ],
+              [
+                "memory",
+                "w"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Sequential token memory and order dependent representations",
-        "columns": [
-          "words",
-          "memory"
+        "template": "flow",
+        "title": "Why order and memory matter",
+        "nodes": [
+          {
+            "id": "words",
+            "label": "words"
+          },
+          {
+            "id": "memory",
+            "label": "memory"
+          },
+          {
+            "id": "w",
+            "label": "w"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Language sequences convey distinct meanings through word order.",
-            "rows": [
-              {
-                "cells": [
-                  "words",
-                  "memory"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Language is sequential.",
+            "values": {
+              "words": "['the', 'movie', 'was', 'not', 'good']",
+              "memory": "[]",
+              "w": "'the'"
+            },
+            "tones": {
+              "words": "data",
+              "memory": "data",
+              "w": "data"
+            },
+            "arrows": [
+              [
+                "words",
+                "memory"
+              ],
+              [
+                "memory",
+                "w"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Recurrent networks maintain a hidden state vector summarizing past tokens.",
-            "rows": [
-              {
-                "cells": [
-                  "words",
-                  "memory"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "movie",
-                  "read"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Bag-of-words models throw order away.",
+            "values": {
+              "words": "['the', 'movie', 'was', 'not', 'good']",
+              "memory": "[]",
+              "w": "'the'"
+            },
+            "tones": {
+              "words": "data",
+              "memory": "data",
+              "w": "data"
+            },
+            "arrows": [
+              [
+                "words",
+                "memory"
+              ],
+              [
+                "memory",
+                "w"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Shared recurrent weights combine the prior hidden state with current input.",
-            "rows": [
-              {
-                "cells": [
-                  "words",
-                  "memory"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "movie",
-                  "read"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "memory",
-                  "words"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Weight parameter reuse enables processing arbitrary sequence lengths.",
-            "rows": [
-              {
-                "cells": [
-                  "words",
-                  "memory"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "movie",
-                  "read"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "memory",
-                  "words"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "read",
-                  "memory"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Trace how rnns updates were during execution.",
+            "values": {
+              "words": "['the', 'movie', 'was', 'not', 'good']",
+              "memory": "['the']",
+              "w": "'the'"
+            },
+            "tones": {
+              "words": "ok",
+              "memory": "ok",
+              "w": "ok"
+            },
+            "arrows": [
+              [
+                "words",
+                "memory"
+              ],
+              [
+                "memory",
+                "w"
+              ]
             ]
           }
         ]
@@ -261,143 +233,131 @@
       "partTitle": "The RNN update",
       "codeHash": "5e91f2fe5947515111fac4ddaed320b5586d15adeabab00a457c2926cc8b8157",
       "spec": {
-        "template": "table",
-        "title": "Recurrent hidden state update and hyperbolic tangent gating",
-        "columns": [
-          "w_hh",
-          "w_xh"
-        ],
+        "template": "bars",
+        "title": "The RNN update",
         "steps": [
           {
             "at": "say1",
-            "caption": "The recurrent update calculates next hidden state using tanh activation.",
-            "rows": [
+            "caption": "The core RNN equation is h_t = tanh(W_hh * h_{t-1} + W_xh * x_t + b).",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "w_hh"
-                  },
-                  {
-                    "text": "w_xh"
-                  }
-                ],
-                "tone": "ok"
+                "label": "z",
+                "value": {
+                  "var": "z",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "w_hh",
+                "value": {
+                  "var": "w_hh",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "h_prev",
+                "value": {
+                  "var": "h_prev",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "w_xh",
+                "value": {
+                  "var": "w_xh",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Previous hidden state and current input are scaled by learned matrix weights.",
-            "rows": [
+            "caption": "H_{t-1} is the previous hidden state, x_t is the current input (for text.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "w_hh"
-                  },
-                  {
-                    "text": "w_xh"
-                  }
-                ],
+                "label": "z",
+                "value": {
+                  "var": "z",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "h_prev"
-                  },
-                  {
-                    "text": "rnn_step"
-                  }
-                ],
+                "label": "w_hh",
+                "value": {
+                  "var": "w_hh",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "h_prev",
+                "value": {
+                  "var": "h_prev",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w_xh",
+                "value": {
+                  "var": "w_xh",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Hyperbolic tangent squashing bounds state values within stable limits.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example shows tanh squashing a range of values.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "w_hh"
-                  },
-                  {
-                    "text": "w_xh"
-                  }
-                ],
+                "label": "z",
+                "value": {
+                  "var": "z",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "h_prev"
-                  },
-                  {
-                    "text": "rnn_step"
-                  }
-                ],
+                "label": "w_hh",
+                "value": {
+                  "var": "w_hh",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "tanh"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Backpropagation through time optimizes weight parameters across sequences.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "w_hh"
-                  },
-                  {
-                    "text": "w_xh"
-                  }
-                ],
+                "label": "h_prev",
+                "value": {
+                  "var": "h_prev",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "h_prev"
-                  },
-                  {
-                    "text": "rnn_step"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "tanh"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "w_xh"
-                  },
-                  {
-                    "text": "w_hh"
-                  }
-                ],
+                "label": "w_xh",
+                "value": {
+                  "var": "w_xh",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -405,103 +365,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Recurrent hidden state update and hyperbolic tangent gating",
-        "columns": [
-          "w_hh",
-          "w_xh"
-        ],
+        "template": "bars",
+        "title": "The RNN update",
         "steps": [
           {
             "at": "say1",
-            "caption": "The recurrent update calculates next hidden state using tanh activation.",
-            "rows": [
+            "caption": "The core RNN equation is h_t = tanh(W_hh * h_{t-1} + W_xh * x_t + b).",
+            "bars": [
               {
-                "cells": [
-                  "w_hh",
-                  "w_xh"
-                ],
-                "tone": "ok"
+                "label": "z",
+                "value": -5,
+                "tone": "data"
+              },
+              {
+                "label": "w_hh",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "h_prev",
+                "value": 0.2,
+                "tone": "data"
+              },
+              {
+                "label": "w_xh",
+                "value": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Previous hidden state and current input are scaled by learned matrix weights.",
-            "rows": [
+            "caption": "H_{t-1} is the previous hidden state, x_t is the current input (for text.",
+            "bars": [
               {
-                "cells": [
-                  "w_hh",
-                  "w_xh"
-                ],
+                "label": "z",
+                "value": -5,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "h_prev",
-                  "rnn_step"
-                ],
+                "label": "w_hh",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "h_prev",
+                "value": 0.2,
+                "tone": "ok"
+              },
+              {
+                "label": "w_xh",
+                "value": 1,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Hyperbolic tangent squashing bounds state values within stable limits.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example shows tanh squashing a range of values.",
+            "bars": [
               {
-                "cells": [
-                  "w_hh",
-                  "w_xh"
-                ],
+                "label": "z",
+                "value": -1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "h_prev",
-                  "rnn_step"
-                ],
+                "label": "w_hh",
+                "value": 0.5,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "math",
-                  "tanh"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Backpropagation through time optimizes weight parameters across sequences.",
-            "rows": [
-              {
-                "cells": [
-                  "w_hh",
-                  "w_xh"
-                ],
+                "label": "h_prev",
+                "value": 0.2,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "h_prev",
-                  "rnn_step"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "tanh"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "w_xh",
-                  "w_hh"
-                ],
+                "label": "w_xh",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -513,248 +453,114 @@
       "partTitle": "Running an RNN over a sequence",
       "codeHash": "6d1bd1ed5b29bb08ae4786048ff52ed79a13be6acf9b746bf76712d8170a4543",
       "spec": {
-        "template": "table",
-        "title": "Sequential state recurrence and temporal memory dynamics",
-        "columns": [
-          "input",
-          "hidden"
-        ],
+        "template": "cells",
+        "title": "Running an RNN over a sequence",
         "steps": [
           {
             "at": "say1",
-            "caption": "To process a sentence we apply the step repeatedly feeding each input.",
-            "rows": [
+            "caption": "To process a sentence, start with h = 0 and apply the step once per input.",
+            "items": {
+              "var": "inputs",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "input"
-                  },
-                  {
-                    "text": "hidden"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The terminal hidden state vector summarizes the entire processed sequence.",
-            "rows": [
+            "caption": "The final hidden state summarises the whole sequence.",
+            "items": {
+              "var": "inputs",
+              "line": 7,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "input"
-                  },
-                  {
-                    "text": "hidden"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "inputs"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Sequential state dependence inhibits parallel computation on modern hardware.",
-            "rows": [
+            "at": "say7",
+            "caption": "That fading is the heart of the problem you will meet next.",
+            "items": {
+              "var": "inputs",
+              "line": 6,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "input"
-                  },
-                  {
-                    "text": "hidden"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "inputs"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "tanh"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Early sequence inputs gradually exert faint influence upon distant states.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "input"
-                  },
-                  {
-                    "text": "hidden"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "inputs"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "tanh"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "w_hh"
-                  },
-                  {
-                    "text": "w_xh"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Sequential state recurrence and temporal memory dynamics",
-        "columns": [
-          "input",
-          "hidden"
-        ],
+        "template": "cells",
+        "title": "Running an RNN over a sequence",
         "steps": [
           {
             "at": "say1",
-            "caption": "To process a sentence we apply the step repeatedly feeding each input.",
-            "rows": [
+            "caption": "To process a sentence, start with h = 0 and apply the step once per input.",
+            "items": [
+              "1",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "input",
-                  "hidden"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The terminal hidden state vector summarizes the entire processed sequence.",
-            "rows": [
+            "caption": "The final hidden state summarises the whole sequence.",
+            "items": [
+              "1",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "input",
-                  "hidden"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "inputs",
-                  "step"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Sequential state dependence inhibits parallel computation on modern hardware.",
-            "rows": [
+            "at": "say7",
+            "caption": "That fading is the heart of the problem you will meet next.",
+            "items": [
+              "1",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "input",
-                  "hidden"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "inputs",
-                  "step"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "tanh"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Early sequence inputs gradually exert faint influence upon distant states.",
-            "rows": [
-              {
-                "cells": [
-                  "input",
-                  "hidden"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "inputs",
-                  "step"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "tanh"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "w_hh",
-                  "w_xh"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -765,248 +571,108 @@
       "partTitle": "Vanishing and exploding gradients",
       "codeHash": "9b73d54e7f93f4dee357830359e940bc02867f09f717260b2df14753253a373b",
       "spec": {
-        "template": "table",
-        "title": "Backpropagation error propagation and exponential scaling",
-        "columns": [
-          "factor",
-          "steps"
-        ],
+        "template": "cells",
+        "title": "Vanishing and exploding gradients",
         "steps": [
           {
             "at": "say1",
-            "caption": "Backpropagated error signals multiply across recurrent time steps.",
-            "rows": [
+            "caption": "Training an RNN means sending error signals backwards through every time step.",
+            "items": {
+              "var": "row",
+              "line": 2,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "factor"
-                  },
-                  {
-                    "text": "steps"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Small multiplicative factors cause the error gradient to vanish exponentially.",
-            "rows": [
+            "caption": "Early words get almost no learning signal.",
+            "items": {
+              "var": "row",
+              "line": 2,
+              "hit": 8
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "factor"
-                  },
-                  {
-                    "text": "steps"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "row"
-                  },
-                  {
-                    "text": "factor"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Factors exceeding unity cause gradient updates to explode exponentially.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example prints how quickly both problems appear.",
+            "items": {
+              "var": "row",
+              "line": 2,
+              "hit": 11
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "factor"
-                  },
-                  {
-                    "text": "steps"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "row"
-                  },
-                  {
-                    "text": "factor"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "steps"
-                  },
-                  {
-                    "text": "row"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Gradient clipping bounds exploding updates while gated units fix vanishing.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "factor"
-                  },
-                  {
-                    "text": "steps"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "row"
-                  },
-                  {
-                    "text": "factor"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "steps"
-                  },
-                  {
-                    "text": "row"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "factor"
-                  },
-                  {
-                    "text": "steps"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Backpropagation error propagation and exponential scaling",
-        "columns": [
-          "factor",
-          "steps"
-        ],
+        "template": "cells",
+        "title": "Vanishing and exploding gradients",
         "steps": [
           {
             "at": "say1",
-            "caption": "Backpropagated error signals multiply across recurrent time steps.",
-            "rows": [
+            "caption": "Training an RNN means sending error signals backwards through every time step.",
+            "items": [
+              "'3.12e-02'",
+              "'9.54e-07'",
+              "'8.88e-16'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "factor",
-                  "steps"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Small multiplicative factors cause the error gradient to vanish exponentially.",
-            "rows": [
+            "caption": "Early words get almost no learning signal.",
+            "items": [
+              "'5.90e-01'",
+              "'1.22e-01'",
+              "'5.15e-03'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "factor",
-                  "steps"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "row",
-                  "factor"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Factors exceeding unity cause gradient updates to explode exponentially.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example prints how quickly both problems appear.",
+            "items": [
+              "'5.90e-01'",
+              "'1.22e-01'",
+              "'5.15e-03'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "factor",
-                  "steps"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "row",
-                  "factor"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "steps",
-                  "row"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Gradient clipping bounds exploding updates while gated units fix vanishing.",
-            "rows": [
-              {
-                "cells": [
-                  "factor",
-                  "steps"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "row",
-                  "factor"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "steps",
-                  "row"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "factor",
-                  "steps"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -1017,223 +683,175 @@
       "partTitle": "Gradient clipping and what comes next",
       "codeHash": "5effb0c0bf7f14133d83623a8287eda3f4e72ec7b388a0dec7d764c7791c9e17",
       "spec": {
-        "template": "flow",
-        "title": "Gradient clipping and what comes next — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Gradient clipping a...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Gradient clipping and what comes next",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Gradient clipping and what comes next.",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Gradient clipping a... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Gradient clipping is a simple, standard fix for exploding gradients.",
+            "bars": [
+              {
+                "label": "g",
+                "value": {
+                  "var": "g",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "max_norm",
+                "value": {
+                  "var": "max_norm",
+                  "line": 4,
+                  "hit": 4
+                },
+                "tone": "data"
+              },
+              {
+                "label": "norm",
+                "value": {
+                  "var": "norm",
+                  "line": 4,
+                  "hit": 4
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "It is used not only for RNNs but for training almost every large model.",
+            "bars": [
+              {
+                "label": "g",
+                "value": {
+                  "var": "g",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "max_norm",
+                "value": {
+                  "var": "max_norm",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "norm",
+                "value": {
+                  "var": "norm",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Gradient clipping and what comes .",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Tomorrow's LSTM lesson builds directly on this problem.",
+            "bars": [
+              {
+                "label": "g",
+                "value": {
+                  "var": "g",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "max_norm",
+                "value": {
+                  "var": "max_norm",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "norm",
+                "value": {
+                  "var": "norm",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Gradient clipping and what comes next — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Gradient clipping a...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Gradient clipping and what comes next",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Gradient clipping and what comes next [D13.P5.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Gradient clipping a... [D13.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Gradient clipping is a simple, standard fix for exploding gradients.",
+            "bars": [
+              {
+                "label": "g",
+                "value": "[1, 2]",
+                "tone": "data"
+              },
+              {
+                "label": "max_norm",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "norm",
+                "value": 2.23606797749979,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "It is used not only for RNNs but for training almost every large model.",
+            "bars": [
+              {
+                "label": "g",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "max_norm",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "norm",
+                "value": 2.23606797749979,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Gradient clipping and what comes .. [D13.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Tomorrow's LSTM lesson builds directly on this problem.",
+            "bars": [
+              {
+                "label": "g",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "max_norm",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "norm",
+                "value": 2.23606797749979,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -1244,110 +862,161 @@
       "codeHash": "9f5db7d3cc48bf4345fed5c5e121859c612cdd3b730b2362f129865c54b3d163",
       "spec": {
         "template": "flow",
-        "title": "Practice time: RNN steps and gradients — Execution Pipeline",
+        "title": "Practice time: RNN steps and gradients",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "factor",
+            "label": "factor"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: RNN ...",
-            "tappable": true
+            "id": "steps",
+            "label": "steps"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "s",
+            "label": "s"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: RNN steps and gradients.",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: RNN ... [D.Psix.Stwo].",
+            "caption": "Compute the weighted sum, apply math.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "factor": {
+                "var": "factor",
+                "line": 1,
+                "hit": 1
+              },
+              "steps": {
+                "var": "steps",
+                "line": 1,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 5,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "factor": "data",
+              "steps": "data",
+              ".0": "data",
+              "s": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "factor",
+                "steps"
               ],
               [
-                "proc",
-                "out"
+                "steps",
+                ".0"
+              ],
+              [
+                ".0",
+                "s"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "The checks include all zeros (giving 0.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "factor": {
+                "var": "factor",
+                "line": 2,
+                "hit": 1
+              },
+              "steps": {
+                "var": "steps",
+                "line": 2,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 5,
+                "hit": 2
+              },
+              "s": {
+                "var": "s",
+                "line": 5,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "factor": "data",
+              "steps": "data",
+              ".0": "data",
+              "s": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "factor",
+                "steps"
+              ],
+              [
+                "steps",
+                ".0"
+              ],
+              [
+                ".0",
+                "s"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: RNN steps and grad.",
+            "at": "say7",
+            "caption": "The example finds that number with a loop.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "factor": {
+                "var": "factor",
+                "line": 3,
+                "hit": 1
+              },
+              "steps": {
+                "var": "steps",
+                "line": 3,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 5,
+                "hit": 3
+              },
+              "s": {
+                "var": "s",
+                "line": 5,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "factor": "ok",
+              "steps": "ok",
+              ".0": "ok",
+              "s": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "factor",
+                "steps"
               ],
               [
-                "proc",
-                "out"
+                "steps",
+                ".0"
+              ],
+              [
+                ".0",
+                "s"
               ]
             ]
           }
@@ -1355,110 +1024,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: RNN steps and gradients — Execution Pipeline",
+        "title": "Practice time: RNN steps and gradients",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "factor",
+            "label": "factor"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: RNN ...",
-            "tappable": true
+            "id": "steps",
+            "label": "steps"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "s",
+            "label": "s"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: RNN steps and gradients [D13.P6.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: RNN ... [D13.P6.S2].",
+            "caption": "Compute the weighted sum, apply math.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "factor": "0.9",
+              "steps": "0",
+              ".0": "{'__other__': 'range_iterator'}",
+              "s": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "factor": "data",
+              "steps": "data",
+              ".0": "data",
+              "s": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "factor",
+                "steps"
               ],
               [
-                "proc",
-                "out"
+                "steps",
+                ".0"
+              ],
+              [
+                ".0",
+                "s"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P6.S3].",
+            "at": "say2",
+            "caption": "The checks include all zeros (giving 0.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "factor": "0.9",
+              "steps": "0",
+              ".0": "{'__other__': 'range_iterator'}",
+              "s": "2"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "factor": "data",
+              "steps": "data",
+              ".0": "data",
+              "s": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "factor",
+                "steps"
+              ],
+              [
+                "steps",
+                ".0"
+              ],
+              [
+                ".0",
+                "s"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: RNN steps and grad.. [D13.P6.S4].",
+            "at": "say7",
+            "caption": "The example finds that number with a loop.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "factor": "0.9",
+              "steps": "1",
+              ".0": "{'__other__': 'range_iterator'}",
+              "s": "3"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "factor": "ok",
+              "steps": "ok",
+              ".0": "ok",
+              "s": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "factor",
+                "steps"
               ],
               [
-                "proc",
-                "out"
+                "steps",
+                ".0"
+              ],
+              [
+                ".0",
+                "s"
               ]
             ]
           }

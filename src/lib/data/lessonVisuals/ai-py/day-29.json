@@ -2,231 +2,169 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 29,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "When chunk retrieval struggles",
       "codeHash": "f8df9dec7184a318184e77460e1604a8d6d08e95dc49b196eb7d9fb3b469b756",
       "spec": {
-        "template": "flow",
-        "title": "When chunk retrieval struggles — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "When chunk retrieval struggles",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "facts",
+            "label": "facts"
           },
           {
-            "id": "proc",
-            "label": "2. When chunk retrieva...",
-            "tappable": true
+            "id": "owners",
+            "label": "owners"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "cities",
+            "label": "cities"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for When chunk retrieval struggles [D.Pone.Sone].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in When chunk retrieva... [D.Pone.Stwo].",
+            "caption": "Chunk RAG works when the answer sits in one or two passages.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "facts": {
+                "var": "facts",
+                "line": 1,
+                "hit": 1
+              },
+              "owners": {
+                "var": "owners",
+                "line": 7,
+                "hit": 5
+              },
+              "cities": {
+                "var": "cities",
+                "line": 8,
+                "hit": 5
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "facts": "data",
+              "owners": "data",
+              "cities": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
+            "at": "say2",
+            "caption": "\"Which of our suppliers are owned by companies based in Pune.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "facts": {
+                "var": "facts",
+                "line": 7,
+                "hit": 1
+              },
+              "owners": {
+                "var": "owners",
+                "line": 8,
+                "hit": 1
+              },
+              "cities": {
+                "var": "cities",
+                "line": 9,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "facts": "data",
+              "owners": "data",
+              "cities": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for When chunk retrieval struggles.",
+            "at": "say7",
+            "caption": "Graph databases such as Neo4j store and query these structures efficiently.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "facts": {
+                "var": "facts",
+                "line": 7,
+                "hit": 2
+              },
+              "owners": {
+                "var": "owners",
+                "line": 8,
+                "hit": 2
+              },
+              "cities": {
+                "var": "cities",
+                "line": 9,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "facts": "ok",
+              "owners": "ok",
+              "cities": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "When chunk retrieval struggles — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "When chunk retrieval struggles",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "facts",
+            "label": "facts"
           },
           {
-            "id": "proc",
-            "label": "2. When chunk retrieva...",
-            "tappable": true
+            "id": "owners",
+            "label": "owners"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "cities",
+            "label": "cities"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for When chunk retrieval struggles [D29.P1.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in When chunk retrieva... [D29.P1.S2].",
+            "caption": "Chunk RAG works when the answer sits in one or two passages.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "facts": "[['SupplierA', 'OWNED_BY', 'CompanyX'],…",
+              "owners": "{'SupplierA': 'CompanyX', 'SupplierB': …",
+              "cities": "{'CompanyX': 'Pune', 'CompanyY': 'Chenn…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "facts": "data",
+              "owners": "data",
+              "cities": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P1.S3].",
+            "at": "say2",
+            "caption": "\"Which of our suppliers are owned by companies based in Pune.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "facts": "[['SupplierA', 'OWNED_BY', 'CompanyX'],…",
+              "owners": "{'SupplierA': 'CompanyX', 'SupplierB': …",
+              "cities": "{'CompanyX': 'Pune', 'CompanyY': 'Chenn…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "facts": "data",
+              "owners": "data",
+              "cities": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for When chunk retrieval struggles [D29.P1.S4].",
+            "at": "say7",
+            "caption": "Graph databases such as Neo4j store and query these structures efficiently.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "facts": "[['SupplierA', 'OWNED_BY', 'CompanyX'],…",
+              "owners": "{'SupplierA': 'CompanyX', 'SupplierB': …",
+              "cities": "{'CompanyX': 'Pune', 'CompanyY': 'Chenn…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "facts": "ok",
+              "owners": "ok",
+              "cities": "ok"
+            }
           }
         ]
       }
@@ -236,153 +174,277 @@
       "codeHash": "bfde68bca935525a5f3b7902cb94cca0965fcca10f5d30a96eb560ab87996cda",
       "spec": {
         "template": "flow",
-        "title": "Knowledge graph construction from extracted entity triples",
+        "title": "Building a graph from triples",
         "nodes": [
           {
-            "id": "asha",
-            "label": "Asha"
+            "id": "triples",
+            "label": "triples"
           },
           {
-            "id": "ravi",
-            "label": "Ravi"
+            "id": "ALLOWED",
+            "label": "ALLOWED"
           },
           {
-            "id": "mysuru",
-            "label": "Mysuru"
-          }
-        ],
-        "edges": [
+            "id": "nodes",
+            "label": "nodes"
+          },
           {
-            "from": "asha",
-            "to": "mysuru",
-            "label": "LIVES_IN"
+            "id": "edges",
+            "label": "edges"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Facts extracted as subject relation object triples form graph nodes.",
+            "caption": "Facts are usually extracted as triples.",
             "values": {
-              "asha": {
-                "text": "Asha"
+              "triples": {
+                "var": "triples",
+                "line": 1,
+                "hit": 1
               },
-              "ravi": {
-                "text": "Ravi"
+              "ALLOWED": {
+                "var": "ALLOWED",
+                "line": 2,
+                "hit": 1
               },
-              "mysuru": {
-                "text": "Mysuru"
+              "nodes": {
+                "var": "nodes",
+                "line": 7,
+                "hit": 1
+              },
+              "edges": {
+                "var": "edges",
+                "line": 7,
+                "hit": 1
               }
             },
             "tones": {
-              "asha": "data",
-              "ravi": "data",
-              "mysuru": "data"
-            }
+              "triples": "data",
+              "ALLOWED": "data",
+              "nodes": "data",
+              "edges": "data"
+            },
+            "arrows": [
+              [
+                "triples",
+                "ALLOWED"
+              ],
+              [
+                "ALLOWED",
+                "nodes"
+              ],
+              [
+                "nodes",
+                "edges"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Store nodes with properties and edges with relation types.",
+            "caption": "Store nodes with properties (name, type, city) and edges with a type.",
             "values": {
-              "asha": {
-                "text": "Asha"
+              "triples": {
+                "var": "triples",
+                "line": 2,
+                "hit": 1
               },
-              "ravi": {
-                "text": "Ravi"
+              "ALLOWED": {
+                "var": "ALLOWED",
+                "line": 4,
+                "hit": 1
               },
-              "mysuru": {
-                "text": "Mysuru"
+              "nodes": {
+                "var": "nodes",
+                "line": 8,
+                "hit": 1
+              },
+              "edges": {
+                "var": "edges",
+                "line": 8,
+                "hit": 1
               }
             },
             "tones": {
-              "asha": "ok",
-              "ravi": "ok",
-              "mysuru": "ok"
-            }
+              "triples": "data",
+              "ALLOWED": "data",
+              "nodes": "data",
+              "edges": "data"
+            },
+            "arrows": [
+              [
+                "triples",
+                "ALLOWED"
+              ],
+              [
+                "ALLOWED",
+                "nodes"
+              ],
+              [
+                "nodes",
+                "edges"
+              ]
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Entity resolution normalises names so variants merge into one node.",
+            "at": "say7",
+            "caption": "The example builds nodes and edges with sources from extracted triples.",
             "values": {
-              "asha": {
-                "text": "Asha"
+              "triples": {
+                "var": "triples",
+                "line": 4,
+                "hit": 1
               },
-              "ravi": {
-                "text": "Ravi"
+              "ALLOWED": {
+                "var": "ALLOWED",
+                "line": 7,
+                "hit": 1
               },
-              "mysuru": {
-                "text": "Mysuru"
+              "nodes": {
+                "var": "nodes",
+                "line": 9,
+                "hit": 1
+              },
+              "edges": {
+                "var": "edges",
+                "line": 9,
+                "hit": 1
               }
             },
             "tones": {
-              "asha": "ok",
-              "ravi": "ok",
-              "mysuru": "ok"
-            }
+              "triples": "ok",
+              "ALLOWED": "ok",
+              "nodes": "ok",
+              "edges": "ok"
+            },
+            "arrows": [
+              [
+                "triples",
+                "ALLOWED"
+              ],
+              [
+                "ALLOWED",
+                "nodes"
+              ],
+              [
+                "nodes",
+                "edges"
+              ]
+            ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Knowledge graph construction from extracted entity triples",
+        "title": "Building a graph from triples",
         "nodes": [
           {
-            "id": "asha",
-            "label": "Asha"
+            "id": "triples",
+            "label": "triples"
           },
           {
-            "id": "ravi",
-            "label": "Ravi"
+            "id": "ALLOWED",
+            "label": "ALLOWED"
           },
           {
-            "id": "mysuru",
-            "label": "Mysuru"
+            "id": "nodes",
+            "label": "nodes"
+          },
+          {
+            "id": "edges",
+            "label": "edges"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Facts extracted as subject relation object triples form graph nodes.",
+            "caption": "Facts are usually extracted as triples.",
             "values": {
-              "asha": "Asha",
-              "ravi": "Ravi",
-              "mysuru": "Mysuru"
+              "triples": "[['Asha', 'WORKS_AT', 'Infosys Ltd', 'd…",
+              "ALLOWED": "{'LIVES_IN', 'WORKS_AT'}",
+              "nodes": "set()",
+              "edges": "[]"
             },
             "tones": {
-              "asha": "data",
-              "ravi": "data",
-              "mysuru": "data"
+              "triples": "data",
+              "ALLOWED": "data",
+              "nodes": "data",
+              "edges": "data"
             },
-            "arrows": []
+            "arrows": [
+              [
+                "triples",
+                "ALLOWED"
+              ],
+              [
+                "ALLOWED",
+                "nodes"
+              ],
+              [
+                "nodes",
+                "edges"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Store nodes with properties and edges with relation types.",
+            "caption": "Store nodes with properties (name, type, city) and edges with a type.",
             "values": {
-              "asha": "Asha",
-              "ravi": "Ravi",
-              "mysuru": "Mysuru"
+              "triples": "[['Asha', 'WORKS_AT', 'Infosys Ltd', 'd…",
+              "ALLOWED": "{'LIVES_IN', 'WORKS_AT'}",
+              "nodes": "set()",
+              "edges": "[]"
             },
             "tones": {
-              "asha": "ok",
-              "ravi": "ok",
-              "mysuru": "ok"
+              "triples": "data",
+              "ALLOWED": "data",
+              "nodes": "data",
+              "edges": "data"
             },
-            "arrows": []
+            "arrows": [
+              [
+                "triples",
+                "ALLOWED"
+              ],
+              [
+                "ALLOWED",
+                "nodes"
+              ],
+              [
+                "nodes",
+                "edges"
+              ]
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Entity resolution normalises names so variants merge into one node.",
+            "at": "say7",
+            "caption": "The example builds nodes and edges with sources from extracted triples.",
             "values": {
-              "asha": "Asha",
-              "ravi": "Ravi",
-              "mysuru": "Mysuru"
+              "triples": "[['Asha', 'WORKS_AT', 'Infosys Ltd', 'd…",
+              "ALLOWED": "{'LIVES_IN', 'WORKS_AT'}",
+              "nodes": "set()",
+              "edges": "[]"
             },
             "tones": {
-              "asha": "ok",
-              "ravi": "ok",
-              "mysuru": "ok"
+              "triples": "ok",
+              "ALLOWED": "ok",
+              "nodes": "ok",
+              "edges": "ok"
             },
-            "arrows": []
+            "arrows": [
+              [
+                "triples",
+                "ALLOWED"
+              ],
+              [
+                "ALLOWED",
+                "nodes"
+              ],
+              [
+                "nodes",
+                "edges"
+              ]
+            ]
           }
         ]
       }
@@ -391,192 +453,162 @@
       "partTitle": "Traversing a relation",
       "codeHash": "2ccab68dcf60ed424b94df51c8f923ce54b386ead159fc95d3cc767b37899879",
       "spec": {
-        "template": "table",
-        "title": "Graph relation traversal matching outgoing edges",
-        "columns": [
-          "from",
-          "to",
-          "type"
+        "template": "sequence",
+        "title": "Traversing a relation",
+        "actors": [
+          "graph",
+          "start",
+          "relation"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function traverse_graph filters edges by start entity and relation.",
-            "rows": [
+            "caption": "Traverse_graph(graph, start, relation).",
+            "activeActor": "graph",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "CompanyX"
-                  },
-                  {
-                    "text": "SupplierA"
-                  },
-                  {
-                    "text": "OWNS"
-                  }
-                ],
+                "from": "graph",
+                "to": "start",
+                "label": {
+                  "var": "graph",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "start",
+                "to": "relation",
+                "label": {
+                  "var": "start",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Build lookup map to resolve target properties quickly.",
-            "rows": [
+            "caption": "Build a lookup from node id to properties first, so each target's.",
+            "activeActor": "start",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "CompanyX"
-                  },
-                  {
-                    "text": "SupplierA"
-                  },
-                  {
-                    "text": "OWNS"
-                  }
-                ],
-                "tone": "ok"
+                "from": "graph",
+                "to": "start",
+                "label": {
+                  "var": "graph",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "CompanyX"
-                  },
-                  {
-                    "text": "SupplierZ"
-                  },
-                  {
-                    "text": "OWNS"
-                  }
-                ],
+                "from": "start",
+                "to": "relation",
+                "label": {
+                  "var": "start",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "One hop graph query retrieves matching target edges.",
-            "rows": [
+            "at": "say7",
+            "caption": "The results, with their properties, can go straight into a prompt.",
+            "activeActor": "relation",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "CompanyX"
-                  },
-                  {
-                    "text": "SupplierA"
-                  },
-                  {
-                    "text": "OWNS"
-                  }
-                ],
-                "tone": "ok"
+                "from": "graph",
+                "to": "start",
+                "label": {
+                  "var": "graph",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "CompanyX"
-                  },
-                  {
-                    "text": "SupplierZ"
-                  },
-                  {
-                    "text": "OWNS"
-                  }
-                ],
+                "from": "start",
+                "to": "relation",
+                "label": {
+                  "var": "start",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "CompanyX"
-                  },
-                  {
-                    "text": "Pune"
-                  },
-                  {
-                    "text": "BASED_IN"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Graph relation traversal matching outgoing edges",
-        "columns": [
-          "from",
-          "to",
-          "type"
+        "template": "sequence",
+        "title": "Traversing a relation",
+        "actors": [
+          "graph",
+          "start",
+          "relation"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function traverse_graph filters edges by start entity and relation.",
-            "rows": [
+            "caption": "Traverse_graph(graph, start, relation).",
+            "messages": [
               {
-                "cells": [
-                  "CompanyX",
-                  "SupplierA",
-                  "OWNS"
-                ],
+                "from": "graph",
+                "to": "start",
+                "label": "{'nodes': [{'id': 'CompanyX', 'properti…",
+                "tone": "data"
+              },
+              {
+                "from": "start",
+                "to": "relation",
+                "label": "'CompanyX'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "graph"
           },
           {
             "at": "say2",
-            "caption": "Build lookup map to resolve target properties quickly.",
-            "rows": [
+            "caption": "Build a lookup from node id to properties first, so each target's.",
+            "messages": [
               {
-                "cells": [
-                  "CompanyX",
-                  "SupplierA",
-                  "OWNS"
-                ],
-                "tone": "ok"
+                "from": "graph",
+                "to": "start",
+                "label": "{'nodes': [{'id': 'CompanyX', 'properti…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "CompanyX",
-                  "SupplierZ",
-                  "OWNS"
-                ],
+                "from": "start",
+                "to": "relation",
+                "label": "'CompanyX'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "start"
           },
           {
-            "at": "say5",
-            "caption": "One hop graph query retrieves matching target edges.",
-            "rows": [
+            "at": "say7",
+            "caption": "The results, with their properties, can go straight into a prompt.",
+            "messages": [
               {
-                "cells": [
-                  "CompanyX",
-                  "SupplierA",
-                  "OWNS"
-                ],
-                "tone": "ok"
+                "from": "graph",
+                "to": "start",
+                "label": "{'nodes': [{'id': 'CompanyX', 'properti…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "CompanyX",
-                  "SupplierZ",
-                  "OWNS"
-                ],
+                "from": "start",
+                "to": "relation",
+                "label": "'CompanyX'",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "CompanyX",
-                  "Pune",
-                  "BASED_IN"
-                ],
-                "tone": "idle"
               }
-            ]
+            ],
+            "activeActor": "relation"
           }
         ]
       }
@@ -585,159 +617,162 @@
       "partTitle": "Multi-hop questions",
       "codeHash": "9208b9b2a01060d7be257298806c75784068fa073831bf3da35e3189740a2748",
       "spec": {
-        "template": "flow",
-        "title": "Multi-hop path exploration with breadth first search",
-        "nodes": [
-          {
-            "id": "CompanyX",
-            "label": "CompanyX"
-          },
-          {
-            "id": "SupplierA",
-            "label": "SupplierA"
-          },
-          {
-            "id": "SupplierB",
-            "label": "SupplierB"
-          }
-        ],
-        "edges": [
-          {
-            "from": "CompanyX",
-            "to": "SupplierA",
-            "label": "OWNS"
-          },
-          {
-            "from": "CompanyX",
-            "to": "SupplierB",
-            "label": "OWNS"
-          }
+        "template": "sequence",
+        "title": "Multi-hop questions",
+        "actors": [
+          "edges",
+          "start",
+          "max_hops"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Breadth-first search traverses multi-hop paths with hop limit.",
-            "values": {
-              "CompanyX": {
-                "text": "CompanyX"
+            "caption": "Many questions need several hops.",
+            "activeActor": "edges",
+            "messages": [
+              {
+                "from": "edges",
+                "to": "start",
+                "label": {
+                  "var": "edges",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "SupplierA": {
-                "text": "SupplierA"
-              },
-              "SupplierB": {
-                "text": "SupplierB"
+              {
+                "from": "start",
+                "to": "max_hops",
+                "label": {
+                  "var": "start",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "CompanyX": "ok",
-              "SupplierA": "idle",
-              "SupplierB": "idle"
-            }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Path history records hops explaining answer derivation.",
-            "values": {
-              "CompanyX": {
-                "text": "CompanyX"
+            "caption": "Keep the path for each result.",
+            "activeActor": "start",
+            "messages": [
+              {
+                "from": "edges",
+                "to": "start",
+                "label": {
+                  "var": "edges",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "SupplierA": {
-                "text": "SupplierA"
-              },
-              "SupplierB": {
-                "text": "SupplierB"
+              {
+                "from": "start",
+                "to": "max_hops",
+                "label": {
+                  "var": "start",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "CompanyX": "ok",
-              "SupplierA": "ok",
-              "SupplierB": "idle"
-            }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Limit search depth to max hops avoiding unbounded traversal.",
-            "values": {
-              "CompanyX": {
-                "text": "CompanyX"
+            "at": "say7",
+            "caption": "The BFS below is the same algorithm as in the DSA course, now carrying.",
+            "activeActor": "max_hops",
+            "messages": [
+              {
+                "from": "edges",
+                "to": "start",
+                "label": {
+                  "var": "edges",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "SupplierA": {
-                "text": "SupplierA"
-              },
-              "SupplierB": {
-                "text": "SupplierB"
+              {
+                "from": "start",
+                "to": "max_hops",
+                "label": {
+                  "var": "start",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "CompanyX": "ok",
-              "SupplierA": "ok",
-              "SupplierB": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Multi-hop path exploration with breadth first search",
-        "nodes": [
-          {
-            "id": "CompanyX",
-            "label": "CompanyX"
-          },
-          {
-            "id": "SupplierA",
-            "label": "SupplierA"
-          },
-          {
-            "id": "SupplierB",
-            "label": "SupplierB"
-          }
+        "template": "sequence",
+        "title": "Multi-hop questions",
+        "actors": [
+          "edges",
+          "start",
+          "max_hops"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Breadth-first search traverses multi-hop paths with hop limit.",
-            "values": {
-              "CompanyX": "CompanyX",
-              "SupplierA": "SupplierA",
-              "SupplierB": "SupplierB"
-            },
-            "tones": {
-              "CompanyX": "ok",
-              "SupplierA": "idle",
-              "SupplierB": "idle"
-            },
-            "arrows": []
+            "caption": "Many questions need several hops.",
+            "messages": [
+              {
+                "from": "edges",
+                "to": "start",
+                "label": "[['CompanyX', 'OWNS', 'SupplierA'], ['S…",
+                "tone": "data"
+              },
+              {
+                "from": "start",
+                "to": "max_hops",
+                "label": "'CompanyX'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "edges"
           },
           {
             "at": "say2",
-            "caption": "Path history records hops explaining answer derivation.",
-            "values": {
-              "CompanyX": "CompanyX",
-              "SupplierA": "SupplierA",
-              "SupplierB": "SupplierB"
-            },
-            "tones": {
-              "CompanyX": "ok",
-              "SupplierA": "ok",
-              "SupplierB": "idle"
-            },
-            "arrows": []
+            "caption": "Keep the path for each result.",
+            "messages": [
+              {
+                "from": "edges",
+                "to": "start",
+                "label": "[['CompanyX', 'OWNS', 'SupplierA'], ['S…",
+                "tone": "data"
+              },
+              {
+                "from": "start",
+                "to": "max_hops",
+                "label": "'CompanyX'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "start"
           },
           {
-            "at": "say3",
-            "caption": "Limit search depth to max hops avoiding unbounded traversal.",
-            "values": {
-              "CompanyX": "CompanyX",
-              "SupplierA": "SupplierA",
-              "SupplierB": "SupplierB"
-            },
-            "tones": {
-              "CompanyX": "ok",
-              "SupplierA": "ok",
-              "SupplierB": "ok"
-            },
-            "arrows": []
+            "at": "say7",
+            "caption": "The BFS below is the same algorithm as in the DSA course, now carrying.",
+            "messages": [
+              {
+                "from": "edges",
+                "to": "start",
+                "label": "[['CompanyX', 'OWNS', 'SupplierA'], ['S…",
+                "tone": "data"
+              },
+              {
+                "from": "start",
+                "to": "max_hops",
+                "label": "'CompanyX'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "max_hops"
           }
         ]
       }
@@ -746,132 +781,162 @@
       "partTitle": "Cypher queries, safely",
       "codeHash": "84c469b444536a22ddb1b2b1e33a04cc01b23efd26335a6f8b4c5a5fabb4ec5a",
       "spec": {
-        "template": "compare",
-        "title": "Cypher query construction injection vulnerability and parameters",
-        "leftLabel": "Vulnerable Cypher",
-        "rightLabel": "Safe Parameterized",
+        "template": "sequence",
+        "title": "Cypher queries, safely",
+        "actors": [
+          "ALLOWED_RELATIONS",
+          "a",
+          "relation"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cypher graph patterns describe node relationships like drawings.",
-            "left": {
-              "code": "MATCH (a)-[:OWNS]->(b)",
-              "result": {
-                "text": "OWNS"
+            "caption": "Neo4j uses the Cypher query language.",
+            "activeActor": "ALLOWED_RELATIONS",
+            "messages": [
+              {
+                "from": "ALLOWED_RELATIONS",
+                "to": "a",
+                "label": {
+                  "var": "ALLOWED_RELATIONS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "MATCH (a)-[:SUPPLIES]->(b)",
-              "result": {
-                "text": "SUPPLIES"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "a",
+                "to": "relation",
+                "label": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "String concatenation invites injection attacks changing queries.",
-            "left": {
-              "code": "f-string injection risk",
-              "result": {
-                "text": "CompanyX"
+            "at": "say2",
+            "caption": "Build_match_cypher(a, relation, b) returns MATCH (a {id.",
+            "activeActor": "a",
+            "messages": [
+              {
+                "from": "ALLOWED_RELATIONS",
+                "to": "a",
+                "label": {
+                  "var": "ALLOWED_RELATIONS",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "sanitized relations check",
-              "result": {
-                "text": "BASED_IN"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "a",
+                "to": "relation",
+                "label": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Parameters pass values separately so database executes query safely.",
-            "left": {
-              "code": "raw query string concat",
-              "result": {
-                "text": "SupplierA"
+            "at": "say7",
+            "caption": "LLMs can write Cypher from questions (text-to-Cypher), but always validate.",
+            "activeActor": "relation",
+            "messages": [
+              {
+                "from": "ALLOWED_RELATIONS",
+                "to": "a",
+                "label": {
+                  "var": "ALLOWED_RELATIONS",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "parameter bound variable $a",
-              "result": {
-                "text": "CompanyX"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "a",
+                "to": "relation",
+                "label": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Cypher query construction injection vulnerability and parameters",
-        "leftLabel": "Vulnerable Cypher",
-        "rightLabel": "Safe Parameterized",
+        "template": "sequence",
+        "title": "Cypher queries, safely",
+        "actors": [
+          "ALLOWED_RELATIONS",
+          "a",
+          "relation"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cypher graph patterns describe node relationships like drawings.",
-            "left": {
-              "code": "MATCH (a)-[:OWNS]->(b)",
-              "result": "OWNS",
-              "tone": "ok",
-              "checks": [
-                "OWNS"
-              ]
-            },
-            "right": {
-              "code": "MATCH (a)-[:SUPPLIES]->(b)",
-              "result": "SUPPLIES",
-              "tone": "ok",
-              "checks": [
-                "SUPPLIES"
-              ]
-            }
+            "caption": "Neo4j uses the Cypher query language.",
+            "messages": [
+              {
+                "from": "ALLOWED_RELATIONS",
+                "to": "a",
+                "label": "{'BASED_IN', 'OWNS', 'SUPPLIES'}",
+                "tone": "data"
+              },
+              {
+                "from": "a",
+                "to": "relation",
+                "label": "'CompanyX'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ALLOWED_RELATIONS"
           },
           {
-            "at": "say3",
-            "caption": "String concatenation invites injection attacks changing queries.",
-            "left": {
-              "code": "f-string injection risk",
-              "result": "CompanyX",
-              "tone": "error",
-              "checks": [
-                "CompanyX"
-              ]
-            },
-            "right": {
-              "code": "sanitized relations check",
-              "result": "BASED_IN",
-              "tone": "ok",
-              "checks": [
-                "BASED_IN"
-              ]
-            }
+            "at": "say2",
+            "caption": "Build_match_cypher(a, relation, b) returns MATCH (a {id.",
+            "messages": [
+              {
+                "from": "ALLOWED_RELATIONS",
+                "to": "a",
+                "label": "{'BASED_IN', 'OWNS', 'SUPPLIES'}",
+                "tone": "data"
+              },
+              {
+                "from": "a",
+                "to": "relation",
+                "label": "\"x'}) DETACH DELETE (a\"",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "a"
           },
           {
-            "at": "say4",
-            "caption": "Parameters pass values separately so database executes query safely.",
-            "left": {
-              "code": "raw query string concat",
-              "result": "SupplierA",
-              "tone": "error",
-              "checks": [
-                "SupplierA"
-              ]
-            },
-            "right": {
-              "code": "parameter bound variable $a",
-              "result": "CompanyX",
-              "tone": "ok",
-              "checks": [
-                "CompanyX"
-              ]
-            }
+            "at": "say7",
+            "caption": "LLMs can write Cypher from questions (text-to-Cypher), but always validate.",
+            "messages": [
+              {
+                "from": "ALLOWED_RELATIONS",
+                "to": "a",
+                "label": "{'BASED_IN', 'OWNS', 'SUPPLIES'}",
+                "tone": "data"
+              },
+              {
+                "from": "a",
+                "to": "relation",
+                "label": "\"x'}) DETACH DELETE (a\"",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "relation"
           }
         ]
       }
@@ -880,224 +945,194 @@
       "partTitle": "Combining graphs with vector search",
       "codeHash": "265eca91621f5a47379fcc7fbc68c5f042ff13d316f5eb4fd2ed721a149cb4ba",
       "spec": {
-        "template": "flow",
-        "title": "Combining graphs with vector search — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Combining graphs with vector search",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "passages",
+            "label": "passages"
           },
           {
-            "id": "proc",
-            "label": "2. Combining graphs wi...",
-            "tappable": true
+            "id": "graph_paths",
+            "label": "graph_paths"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "question",
+            "label": "question"
+          },
+          {
+            "id": "context",
+            "label": "context"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Combining graphs with vector search.",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Combining graphs wi... [D.Psix.Stwo].",
+            "caption": "Graphs and vectors complement each other.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "passages": {
+                "var": "passages",
+                "line": 1,
+                "hit": 1
+              },
+              "graph_paths": {
+                "var": "graph_paths",
+                "line": 2,
+                "hit": 1
+              },
+              "question": {
+                "var": "question",
+                "line": 3,
+                "hit": 1
+              },
+              "context": {
+                "var": "context",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "passages": "data",
+              "graph_paths": "data",
+              "question": "data",
+              "context": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "A common pattern.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "passages": {
+                "var": "passages",
+                "line": 2,
+                "hit": 1
+              },
+              "graph_paths": {
+                "var": "graph_paths",
+                "line": 3,
+                "hit": 1
+              },
+              "question": {
+                "var": "question",
+                "line": 4,
+                "hit": 1
+              },
+              "context": {
+                "var": "context",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "passages": "data",
+              "graph_paths": "data",
+              "question": "data",
+              "context": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Combining graphs with vector search.",
+            "at": "say7",
+            "caption": "Tomorrow, the capstone joins everything from this course into one platform.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "passages": {
+                "var": "passages",
+                "line": 3,
+                "hit": 1
+              },
+              "graph_paths": {
+                "var": "graph_paths",
+                "line": 4,
+                "hit": 1
+              },
+              "question": {
+                "var": "question",
+                "line": 5,
+                "hit": 1
+              },
+              "context": {
+                "var": "context",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "passages": "ok",
+              "graph_paths": "ok",
+              "question": "ok",
+              "context": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Combining graphs with vector search — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Combining graphs with vector search",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "passages",
+            "label": "passages"
           },
           {
-            "id": "proc",
-            "label": "2. Combining graphs wi...",
-            "tappable": true
+            "id": "graph_paths",
+            "label": "graph_paths"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "question",
+            "label": "question"
+          },
+          {
+            "id": "context",
+            "label": "context"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Combining graphs with vector search [D29.P6.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Combining graphs wi... [D29.P6.S2].",
+            "caption": "Graphs and vectors complement each other.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "passages": "{'supplier-risk': 'Suppliers in flood-p…",
+              "graph_paths": "['CompanyX owns SupplierA.', 'SupplierA…",
+              "question": "'Is CompanyX exposed to monsoon supply …",
+              "context": "'Passages:\nSuppliers in flood-prone are…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "passages": "data",
+              "graph_paths": "data",
+              "question": "data",
+              "context": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P6.S3].",
+            "at": "say2",
+            "caption": "A common pattern.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "passages": "{'supplier-risk': 'Suppliers in flood-p…",
+              "graph_paths": "['CompanyX owns SupplierA.', 'SupplierA…",
+              "question": "'Is CompanyX exposed to monsoon supply …",
+              "context": "'Passages:\nSuppliers in flood-prone are…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "passages": "data",
+              "graph_paths": "data",
+              "question": "data",
+              "context": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Combining graphs with vector search [D29.P6.S4].",
+            "at": "say7",
+            "caption": "Tomorrow, the capstone joins everything from this course into one platform.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "passages": "{'supplier-risk': 'Suppliers in flood-p…",
+              "graph_paths": "['CompanyX owns SupplierA.', 'SupplierA…",
+              "question": "'Is CompanyX exposed to monsoon supply …",
+              "context": "'Passages:\nSuppliers in flood-prone are…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "passages": "ok",
+              "graph_paths": "ok",
+              "question": "ok",
+              "context": "ok"
+            }
           }
         ]
       }

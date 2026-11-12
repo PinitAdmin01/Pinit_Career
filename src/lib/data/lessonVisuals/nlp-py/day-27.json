@@ -2,256 +2,284 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 27,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "From logits to a choice",
       "codeHash": "b4690e85e1ed07ba7ba2db15c2d6304704611d9930e52f739d4ad978226475f3",
       "spec": {
-        "template": "table",
-        "title": "Vocabulary probability distribution and choice strategies",
-        "columns": [
-          "probs",
-          "greedy"
+        "template": "flow",
+        "title": "From logits to a choice",
+        "nodes": [
+          {
+            "id": "probs",
+            "label": "probs"
+          },
+          {
+            "id": "greedy",
+            "label": "greedy"
+          },
+          {
+            "id": "rng",
+            "label": "rng"
+          },
+          {
+            "id": "samples",
+            "label": "samples"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Language models generate vocabulary probabilities at each sequence step.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "probs"
-                  },
-                  {
-                    "text": "greedy"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "At each step, a language model outputs one logit per vocabulary token.",
+            "values": {
+              "probs": {
+                "var": "probs",
+                "line": 3,
+                "hit": 1
+              },
+              "greedy": {
+                "var": "greedy",
+                "line": 4,
+                "hit": 1
+              },
+              "rng": {
+                "var": "rng",
+                "line": 5,
+                "hit": 1
+              },
+              "samples": {
+                "var": "samples",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "probs": "data",
+              "greedy": "data",
+              "rng": "data",
+              "samples": "data"
+            },
+            "arrows": [
+              [
+                "probs",
+                "greedy"
+              ],
+              [
+                "greedy",
+                "rng"
+              ],
+              [
+                "rng",
+                "samples"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Decoding rules select candidate tokens from the computed distribution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "probs"
-                  },
-                  {
-                    "text": "greedy"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Decoding is the rule for choosing the next token from those probabilities.",
+            "values": {
+              "probs": {
+                "var": "probs",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "random"
-                  },
-                  {
-                    "text": "samples"
-                  }
-                ],
-                "tone": "ok"
+              "greedy": {
+                "var": "greedy",
+                "line": 5,
+                "hit": 1
+              },
+              "rng": {
+                "var": "rng",
+                "line": 6,
+                "hit": 1
+              },
+              "samples": {
+                "var": "samples",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "probs": "data",
+              "greedy": "data",
+              "rng": "data",
+              "samples": "data"
+            },
+            "arrows": [
+              [
+                "probs",
+                "greedy"
+              ],
+              [
+                "greedy",
+                "rng"
+              ],
+              [
+                "rng",
+                "samples"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Greedy decoding selects the most probable token deterministically.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "probs"
-                  },
-                  {
-                    "text": "greedy"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say8",
+            "caption": "The example compares greedy choice with a few seeded random samples.",
+            "values": {
+              "probs": {
+                "var": "probs",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "random"
-                  },
-                  {
-                    "text": "samples"
-                  }
-                ],
-                "tone": "ok"
+              "greedy": {
+                "var": "greedy",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "list"
-                  },
-                  {
-                    "text": "values"
-                  }
-                ],
-                "tone": "data"
+              "rng": {
+                "var": "rng",
+                "line": 7,
+                "hit": 1
+              },
+              "samples": {
+                "var": "samples",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Stochastic sampling introduces variety weighted by candidate probabilities.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "probs"
-                  },
-                  {
-                    "text": "greedy"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "random"
-                  },
-                  {
-                    "text": "samples"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "list"
-                  },
-                  {
-                    "text": "values"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "probs"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "probs": "ok",
+              "greedy": "ok",
+              "rng": "ok",
+              "samples": "ok"
+            },
+            "arrows": [
+              [
+                "probs",
+                "greedy"
+              ],
+              [
+                "greedy",
+                "rng"
+              ],
+              [
+                "rng",
+                "samples"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Vocabulary probability distribution and choice strategies",
-        "columns": [
-          "probs",
-          "greedy"
+        "template": "flow",
+        "title": "From logits to a choice",
+        "nodes": [
+          {
+            "id": "probs",
+            "label": "probs"
+          },
+          {
+            "id": "greedy",
+            "label": "greedy"
+          },
+          {
+            "id": "rng",
+            "label": "rng"
+          },
+          {
+            "id": "samples",
+            "label": "samples"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Language models generate vocabulary probabilities at each sequence step.",
-            "rows": [
-              {
-                "cells": [
-                  "probs",
-                  "greedy"
-                ],
-                "tone": "ok"
-              }
+            "caption": "At each step, a language model outputs one logit per vocabulary token.",
+            "values": {
+              "probs": "{'the': 0.45, 'a': 0.25, 'one': 0.15, '…",
+              "greedy": "'the'",
+              "rng": "<Random>",
+              "samples": "['a', 'the', 'the', 'the', 'one', 'a', …"
+            },
+            "tones": {
+              "probs": "data",
+              "greedy": "data",
+              "rng": "data",
+              "samples": "data"
+            },
+            "arrows": [
+              [
+                "probs",
+                "greedy"
+              ],
+              [
+                "greedy",
+                "rng"
+              ],
+              [
+                "rng",
+                "samples"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Decoding rules select candidate tokens from the computed distribution.",
-            "rows": [
-              {
-                "cells": [
-                  "probs",
-                  "greedy"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "random",
-                  "samples"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Decoding is the rule for choosing the next token from those probabilities.",
+            "values": {
+              "probs": "{'the': 0.45, 'a': 0.25, 'one': 0.15, '…",
+              "greedy": "'the'",
+              "rng": "<Random>",
+              "samples": "['a', 'the', 'the', 'the', 'one', 'a', …"
+            },
+            "tones": {
+              "probs": "data",
+              "greedy": "data",
+              "rng": "data",
+              "samples": "data"
+            },
+            "arrows": [
+              [
+                "probs",
+                "greedy"
+              ],
+              [
+                "greedy",
+                "rng"
+              ],
+              [
+                "rng",
+                "samples"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Greedy decoding selects the most probable token deterministically.",
-            "rows": [
-              {
-                "cells": [
-                  "probs",
-                  "greedy"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "random",
-                  "samples"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "list",
-                  "values"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Stochastic sampling introduces variety weighted by candidate probabilities.",
-            "rows": [
-              {
-                "cells": [
-                  "probs",
-                  "greedy"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "random",
-                  "samples"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "list",
-                  "values"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "probs",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "at": "say8",
+            "caption": "The example compares greedy choice with a few seeded random samples.",
+            "values": {
+              "probs": "{'the': 0.45, 'a': 0.25, 'one': 0.15, '…",
+              "greedy": "'the'",
+              "rng": "<Random>",
+              "samples": "['a', 'the', 'the', 'the', 'one', 'a', …"
+            },
+            "tones": {
+              "probs": "ok",
+              "greedy": "ok",
+              "rng": "ok",
+              "samples": "ok"
+            },
+            "arrows": [
+              [
+                "probs",
+                "greedy"
+              ],
+              [
+                "greedy",
+                "rng"
+              ],
+              [
+                "rng",
+                "samples"
+              ]
             ]
           }
         ]
@@ -261,249 +289,277 @@
       "partTitle": "Temperature",
       "codeHash": "296596ebe6e392a3ae09a255f60f9b04055bfc5ec546121578ae3a74ae0e739a",
       "spec": {
-        "template": "table",
-        "title": "Temperature parameter logit scaling and smoothing",
-        "columns": [
-          "logits",
-          "scaled"
+        "template": "flow",
+        "title": "Temperature",
+        "nodes": [
+          {
+            "id": "logits",
+            "label": "logits"
+          },
+          {
+            "id": "t",
+            "label": "t"
+          },
+          {
+            "id": "top",
+            "label": "top"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Temperature reshapes logit distributions before applying softmax sampling.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "logits"
-                  },
-                  {
-                    "text": "scaled"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Temperature reshapes the distribution before sampling.",
+            "values": {
+              "logits": {
+                "var": "logits",
+                "line": 12,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 13,
+                "hit": 1
+              },
+              "top": {
+                "var": "top",
+                "line": 5,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "logits": "data",
+              "t": "data",
+              "top": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "logits",
+                "t"
+              ],
+              [
+                "t",
+                "top"
+              ],
+              [
+                "top",
+                "i"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Temperature below one sharpens distribution choices making tokens more likely.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "logits"
-                  },
-                  {
-                    "text": "scaled"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "T = 1 leaves the distribution as it is.",
+            "values": {
+              "logits": {
+                "var": "logits",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "exp"
-                  }
-                ],
-                "tone": "ok"
+              "t": {
+                "var": "t",
+                "line": 4,
+                "hit": 1
+              },
+              "top": {
+                "var": "top",
+                "line": 6,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 6,
+                "hit": 2
               }
+            },
+            "tones": {
+              "logits": "data",
+              "t": "data",
+              "top": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "logits",
+                "t"
+              ],
+              [
+                "t",
+                "top"
+              ],
+              [
+                "top",
+                "i"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Zero temperature reduces sampling directly to deterministic greedy decoding.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "logits"
-                  },
-                  {
-                    "text": "scaled"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say8",
+            "caption": "The example prints the same logits at several temperatures.",
+            "values": {
+              "logits": {
+                "var": "logits",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "exp"
-                  }
-                ],
-                "tone": "ok"
+              "t": {
+                "var": "t",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "len"
-                  }
-                ],
-                "tone": "data"
+              "top": {
+                "var": "top",
+                "line": 6,
+                "hit": 2
+              },
+              "i": {
+                "var": "i",
+                "line": 6,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Temperature changes how strongly the model prefers the most likely token.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "logits"
-                  },
-                  {
-                    "text": "scaled"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "exp"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "len"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "apply_temperature"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "logits": "ok",
+              "t": "ok",
+              "top": "ok",
+              "i": "ok"
+            },
+            "arrows": [
+              [
+                "logits",
+                "t"
+              ],
+              [
+                "t",
+                "top"
+              ],
+              [
+                "top",
+                "i"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Temperature parameter logit scaling and smoothing",
-        "columns": [
-          "logits",
-          "scaled"
+        "template": "flow",
+        "title": "Temperature",
+        "nodes": [
+          {
+            "id": "logits",
+            "label": "logits"
+          },
+          {
+            "id": "t",
+            "label": "t"
+          },
+          {
+            "id": "top",
+            "label": "top"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Temperature reshapes logit distributions before applying softmax sampling.",
-            "rows": [
-              {
-                "cells": [
-                  "logits",
-                  "scaled"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Temperature reshapes the distribution before sampling.",
+            "values": {
+              "logits": "[2, 1, 0]",
+              "t": "0",
+              "top": "0",
+              "i": "0"
+            },
+            "tones": {
+              "logits": "data",
+              "t": "data",
+              "top": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "logits",
+                "t"
+              ],
+              [
+                "t",
+                "top"
+              ],
+              [
+                "top",
+                "i"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Temperature below one sharpens distribution choices making tokens more likely.",
-            "rows": [
-              {
-                "cells": [
-                  "logits",
-                  "scaled"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "exp"
-                ],
-                "tone": "ok"
-              }
+            "caption": "T = 1 leaves the distribution as it is.",
+            "values": {
+              "logits": "[2, 1, 0]",
+              "t": "0",
+              "top": "0",
+              "i": "1"
+            },
+            "tones": {
+              "logits": "data",
+              "t": "data",
+              "top": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "logits",
+                "t"
+              ],
+              [
+                "t",
+                "top"
+              ],
+              [
+                "top",
+                "i"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Zero temperature reduces sampling directly to deterministic greedy decoding.",
-            "rows": [
-              {
-                "cells": [
-                  "logits",
-                  "scaled"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "exp"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "range",
-                  "len"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Temperature changes how strongly the model prefers the most likely token.",
-            "rows": [
-              {
-                "cells": [
-                  "logits",
-                  "scaled"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "exp"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "range",
-                  "len"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "apply_temperature",
-                  "round"
-                ],
-                "tone": "ok"
-              }
+            "at": "say8",
+            "caption": "The example prints the same logits at several temperatures.",
+            "values": {
+              "logits": "[2, 1, 0]",
+              "t": "0",
+              "top": "0",
+              "i": "2"
+            },
+            "tones": {
+              "logits": "ok",
+              "t": "ok",
+              "top": "ok",
+              "i": "ok"
+            },
+            "arrows": [
+              [
+                "logits",
+                "t"
+              ],
+              [
+                "t",
+                "top"
+              ],
+              [
+                "top",
+                "i"
+              ]
             ]
           }
         ]
@@ -513,248 +569,108 @@
       "partTitle": "Top-k sampling",
       "codeHash": "a23a903f3efb39ccd0e7eb98f83daef588e8428b84845d486a42783b1833214f",
       "spec": {
-        "template": "table",
-        "title": "Top-k candidate truncation and probability renormalisation",
-        "columns": [
-          "probs",
-          "top"
-        ],
+        "template": "cells",
+        "title": "Top-k sampling",
         "steps": [
           {
             "at": "say1",
-            "caption": "Top-k sampling isolates likely tokens and renormalises their probabilities.",
-            "rows": [
+            "caption": "Top-k sampling keeps only the k most likely tokens, sets all others.",
+            "items": {
+              "var": "top",
+              "line": 3,
+              "hit": 6
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "probs"
-                  },
-                  {
-                    "text": "top"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Trimming prevents low probability tail candidates from being sampled.",
-            "rows": [
+            "caption": "It cuts off the long tail of strange tokens that pure sampling might pick.",
+            "items": {
+              "var": "top",
+              "line": 5,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "probs"
-                  },
-                  {
-                    "text": "top"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "sorted"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Temperature reshapes candidate scores before top-k bounds the selection.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "probs"
-                  },
-                  {
-                    "text": "top"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "sorted"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "round"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say8",
-            "caption": "Dividing by total probability renormalises the remaining distribution.",
-            "rows": [
+            "caption": "Renormalising means dividing by the kept total so the probabilities add up.",
+            "items": {
+              "var": "top",
+              "line": 5,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "probs"
-                  },
-                  {
-                    "text": "top"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "sorted"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "round"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "probs"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Top-k candidate truncation and probability renormalisation",
-        "columns": [
-          "probs",
-          "top"
-        ],
+        "template": "cells",
+        "title": "Top-k sampling",
         "steps": [
           {
             "at": "say1",
-            "caption": "Top-k sampling isolates likely tokens and renormalises their probabilities.",
-            "rows": [
+            "caption": "Top-k sampling keeps only the k most likely tokens, sets all others.",
+            "items": [
+              "'the'",
+              "'a'",
+              "'one'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "probs",
-                  "top"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Trimming prevents low probability tail candidates from being sampled.",
-            "rows": [
+            "caption": "It cuts off the long tail of strange tokens that pure sampling might pick.",
+            "items": [
+              "'the'",
+              "'a'",
+              "'one'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "probs",
-                  "top"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "total",
-                  "sorted"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Temperature reshapes candidate scores before top-k bounds the selection.",
-            "rows": [
-              {
-                "cells": [
-                  "probs",
-                  "top"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "total",
-                  "sorted"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "round",
-                  "sum"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say8",
-            "caption": "Dividing by total probability renormalises the remaining distribution.",
-            "rows": [
+            "caption": "Renormalising means dividing by the kept total so the probabilities add up.",
+            "items": [
+              "'the'",
+              "'a'",
+              "'one'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "probs",
-                  "top"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "total",
-                  "sorted"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "round",
-                  "sum"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "probs",
-                  "print"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -765,143 +681,77 @@
       "partTitle": "Nucleus (top-p) sampling",
       "codeHash": "05a050904dacf009cbb3f5e4329d97eb333538ae8ac2214f360e171df8073e70",
       "spec": {
-        "template": "table",
-        "title": "Nucleus cumulative probability thresholding and adaptive cutoffs",
-        "columns": [
-          "keep",
-          "total"
-        ],
+        "template": "bars",
+        "title": "Nucleus (top-p) sampling",
         "steps": [
           {
             "at": "say1",
-            "caption": "Nucleus sampling accumulates the smallest set exceeding probability mass.",
-            "rows": [
+            "caption": "Trace how nucleus updates sampling during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "keep"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "ok"
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Confident predictions restrict candidates while uncertainty expands options.",
-            "rows": [
+            "caption": "When the model is confident, a single token might already reach p = 0.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "keep"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 3,
+                  "hit": 5
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "confident"
-                  },
-                  {
-                    "text": "uncertain"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 3,
+                  "hit": 5
+                },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Dynamic nucleus sets adapt flexibly unlike fixed static cutoffs.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "keep"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "confident"
-                  },
-                  {
-                    "text": "uncertain"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "round"
-                  },
-                  {
-                    "text": "sorted"
-                  }
-                ],
-                "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example applies top-p to an uncertain distribution.",
-            "rows": [
+            "caption": "The example applies top-p to a confident and an uncertain distribution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "keep"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "confident"
-                  },
-                  {
-                    "text": "uncertain"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "round"
-                  },
-                  {
-                    "text": "sorted"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "top_p"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -909,103 +759,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Nucleus cumulative probability thresholding and adaptive cutoffs",
-        "columns": [
-          "keep",
-          "total"
-        ],
+        "template": "bars",
+        "title": "Nucleus (top-p) sampling",
         "steps": [
           {
             "at": "say1",
-            "caption": "Nucleus sampling accumulates the smallest set exceeding probability mass.",
-            "rows": [
+            "caption": "Trace how nucleus updates sampling during execution.",
+            "bars": [
               {
-                "cells": [
-                  "keep",
-                  "total"
-                ],
-                "tone": "ok"
+                "label": "p",
+                "value": 0.9,
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Confident predictions restrict candidates while uncertainty expands options.",
-            "rows": [
+            "caption": "When the model is confident, a single token might already reach p = 0.",
+            "bars": [
               {
-                "cells": [
-                  "keep",
-                  "total"
-                ],
+                "label": "p",
+                "value": 0.9,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "confident",
-                  "uncertain"
-                ],
+                "label": "total",
+                "value": 0,
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Dynamic nucleus sets adapt flexibly unlike fixed static cutoffs.",
-            "rows": [
-              {
-                "cells": [
-                  "keep",
-                  "total"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "confident",
-                  "uncertain"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "round",
-                  "sorted"
-                ],
-                "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example applies top-p to an uncertain distribution.",
-            "rows": [
+            "caption": "The example applies top-p to a confident and an uncertain distribution.",
+            "bars": [
               {
-                "cells": [
-                  "keep",
-                  "total"
-                ],
+                "label": "p",
+                "value": 0.9,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "confident",
-                  "uncertain"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "round",
-                  "sorted"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "top_p",
-                  "print"
-                ],
+                "label": "total",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -1017,223 +817,169 @@
       "partTitle": "Choosing decoding settings",
       "codeHash": "813b8ceed93016dc45d9d3c6bfd71226e586ad23b34363633083cdfe07c83e2f",
       "spec": {
-        "template": "flow",
-        "title": "Choosing decoding settings — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing decoding s...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Choosing decoding settings",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing decoding settings [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing decoding s... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "For tasks with one correct answer (extraction, classification.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "task"
+                  },
+                  {
+                    "var": "task",
+                    "line": 8,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "For open-ended writing (stories, brainstorming, marketing copy), use.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "task"
+                  },
+                  {
+                    "var": "task",
+                    "line": 2,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing decoding settings.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Always test settings on real examples from your task.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 4"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Choosing decoding settings — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing decoding s...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Choosing decoding settings",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing decoding settings [D27.P5.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing decoding s... [D27.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "For tasks with one correct answer (extraction, classification.",
+            "rows": [
+              {
+                "cells": [
+                  "task",
+                  "'extract'"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "For open-ended writing (stories, brainstorming, marketing copy), use.",
+            "rows": [
+              {
+                "cells": [
+                  "task",
+                  "'extract'"
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing decoding settings [D27.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Always test settings on real examples from your task.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "extract  -> {'temperature': 0.0}"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "story    -> {'temperature': 0.9, 'top_p': 0.95}"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "chat     -> {'temperature': 0.7, 'top_p': 0.9}"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 4",
+                  "code     -> {'temperature': 0.0}"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -1243,223 +989,133 @@
       "partTitle": "Practice time: nucleus and temperature",
       "codeHash": "8a74c51eee55943fb39cdde11744f8f498e31b9a780b957b6b9ded2d49798ed1",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: nucleus and temperature — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: nucl...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: nucleus and temperature",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: nucleus and temperature.",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: nucl... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Top_p(probs, p).",
+            "bars": [
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A p that one token already reaches, p = 0.",
+            "bars": [
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 10,
+                  "hit": 6
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: nucleus and temper.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the chained pipeline most APIs use.",
+            "bars": [
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: nucleus and temperature — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: nucl...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: nucleus and temperature",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: nucleus and temperature [D27.P6.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: nucl... [D27.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Top_p(probs, p).",
+            "bars": [
+              {
+                "label": "t",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A p that one token already reaches, p = 0.",
+            "bars": [
+              {
+                "label": "t",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: nucleus and temper.. [D27.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the chained pipeline most APIs use.",
+            "bars": [
+              {
+                "label": "t",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 0.6783976184408979,
+                "tone": "ok"
+              }
             ]
           }
         ]

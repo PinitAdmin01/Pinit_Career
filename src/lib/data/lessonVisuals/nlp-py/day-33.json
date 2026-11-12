@@ -2,118 +2,169 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 33,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The GPU Memory Hierarchy: SRAM, HBM, and the Memory-Bound Attention Bottleneck",
       "codeHash": "b26b8680172805dc73e6b01a13dcce7b594d1e0a4fa473956ddc7e7d85f2ab78",
       "spec": {
         "template": "flow",
-        "title": "The GPU Memory Hierarchy: SRAM, HBM, and the ... — Execution Pipeline",
+        "title": "The GPU Memory Hierarchy: SRAM, HBM, and the Memory-Bound Attent",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "N",
+            "label": "N"
           },
           {
-            "id": "proc",
-            "label": "2. The GPU Memory Hier...",
-            "tappable": true
+            "id": "seq_len",
+            "label": "seq_len"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "d_head",
+            "label": "d_head"
+          },
+          {
+            "id": "n_heads",
+            "label": "n_heads"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The GPU Memory Hierarchy: SRAM, HBM, and...",
-            "values": {
-              "in": "Day 33 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The GPU Memory Hier....",
+            "caption": "To understand why modern foundation model architectures required.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "N": {
+                "var": "N",
+                "line": 21,
+                "hit": 1
+              },
+              "seq_len": {
+                "var": "seq_len",
+                "line": 3,
+                "hit": 1
+              },
+              "d_head": {
+                "var": "d_head",
+                "line": 3,
+                "hit": 1
+              },
+              "n_heads": {
+                "var": "n_heads",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "N": "data",
+              "seq_len": "data",
+              "d_head": "data",
+              "n_heads": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "N",
+                "seq_len"
               ],
               [
-                "proc",
-                "out"
+                "seq_len",
+                "d_head"
+              ],
+              [
+                "d_head",
+                "n_heads"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "High Bandwidth Memory (HBM) represents the external memory pool of.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "N": {
+                "var": "N",
+                "line": 22,
+                "hit": 1
+              },
+              "seq_len": {
+                "var": "seq_len",
+                "line": 4,
+                "hit": 1
+              },
+              "d_head": {
+                "var": "d_head",
+                "line": 4,
+                "hit": 1
+              },
+              "n_heads": {
+                "var": "n_heads",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "N": "data",
+              "seq_len": "data",
+              "d_head": "data",
+              "n_heads": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "N",
+                "seq_len"
+              ],
+              [
+                "seq_len",
+                "d_head"
+              ],
+              [
+                "d_head",
+                "n_heads"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The GPU Memory Hierarchy: SRAM, H...",
+            "at": "say8",
+            "caption": "In the following analytical script, we will model the exact memory traffic.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "N": {
+                "var": "N",
+                "line": 23,
+                "hit": 1
+              },
+              "seq_len": {
+                "var": "seq_len",
+                "line": 3,
+                "hit": 2
+              },
+              "d_head": {
+                "var": "d_head",
+                "line": 3,
+                "hit": 2
+              },
+              "n_heads": {
+                "var": "n_heads",
+                "line": 3,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "N": "ok",
+              "seq_len": "ok",
+              "d_head": "ok",
+              "n_heads": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "N",
+                "seq_len"
               ],
               [
-                "proc",
-                "out"
+                "seq_len",
+                "d_head"
+              ],
+              [
+                "d_head",
+                "n_heads"
               ]
             ]
           }
@@ -121,110 +172,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "The GPU Memory Hierarchy: SRAM, HBM, and the ... — Execution Pipeline",
+        "title": "The GPU Memory Hierarchy: SRAM, HBM, and the Memory-Bound Attent",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "N",
+            "label": "N"
           },
           {
-            "id": "proc",
-            "label": "2. The GPU Memory Hier...",
-            "tappable": true
+            "id": "seq_len",
+            "label": "seq_len"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "d_head",
+            "label": "d_head"
+          },
+          {
+            "id": "n_heads",
+            "label": "n_heads"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The GPU Memory Hierarchy: SRAM, HBM, and...",
-            "values": {
-              "in": "Day 33 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The GPU Memory Hier....",
+            "caption": "To understand why modern foundation model architectures required.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "N": "512",
+              "seq_len": "512",
+              "d_head": "128",
+              "n_heads": "32"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "N": "data",
+              "seq_len": "data",
+              "d_head": "data",
+              "n_heads": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "N",
+                "seq_len"
               ],
               [
-                "proc",
-                "out"
+                "seq_len",
+                "d_head"
+              ],
+              [
+                "d_head",
+                "n_heads"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "High Bandwidth Memory (HBM) represents the external memory pool of.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "N": "512",
+              "seq_len": "512",
+              "d_head": "128",
+              "n_heads": "32"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "N": "data",
+              "seq_len": "data",
+              "d_head": "data",
+              "n_heads": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "N",
+                "seq_len"
+              ],
+              [
+                "seq_len",
+                "d_head"
+              ],
+              [
+                "d_head",
+                "n_heads"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The GPU Memory Hierarchy: SRAM, H...",
+            "at": "say8",
+            "caption": "In the following analytical script, we will model the exact memory traffic.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "N": "512",
+              "seq_len": "512",
+              "d_head": "128",
+              "n_heads": "32"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "N": "ok",
+              "seq_len": "ok",
+              "d_head": "ok",
+              "n_heads": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "N",
+                "seq_len"
               ],
               [
-                "proc",
-                "out"
+                "seq_len",
+                "d_head"
+              ],
+              [
+                "d_head",
+                "n_heads"
               ]
             ]
           }
@@ -235,223 +289,118 @@
       "partTitle": "The Safe Softmax & The Online Softmax Algorithm",
       "codeHash": "cc898d1558bcffa35d1d26ada01e4ff1d7943a969091e3c54751c4caab285398",
       "spec": {
-        "template": "flow",
-        "title": "The Safe Softmax & The Online Softmax Algorithm — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Safe Softmax & ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "The Safe Softmax & The Online Softmax Algorithm",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The Safe Softmax & The Online Softmax Al...",
-            "values": {
-              "in": "Day 33 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The Safe Softmax & ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Before we can tile the attention computation across small SRAM blocks, we.",
+            "items": {
+              "var": "logits",
+              "line": 36,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Safe Softmax operates in three strictly sequential passes over the row.",
+            "items": {
+              "var": "logits",
+              "line": 44,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The Safe Softmax & The Online Sof...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "In our implementation below, we will write a pure Python implementation.",
+            "items": {
+              "var": "logits",
+              "line": 43,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The Safe Softmax & The Online Softmax Algorithm — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Safe Softmax & ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "The Safe Softmax & The Online Softmax Algorithm",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The Safe Softmax & The Online Softmax Al...",
-            "values": {
-              "in": "Day 33 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Safe Softmax & ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Before we can tile the attention computation across small SRAM blocks, we.",
+            "items": [
+              "2.5",
+              "1.2",
+              "5.8",
+              "4.1",
+              "8.2",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Safe Softmax operates in three strictly sequential passes over the row.",
+            "items": [
+              "2.5",
+              "1.2",
+              "5.8",
+              "4.1",
+              "8.2",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Safe Softmax & The Online Sof...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In our implementation below, we will write a pure Python implementation.",
+            "items": [
+              "2.5",
+              "1.2",
+              "5.8",
+              "4.1",
+              "8.2",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -461,223 +410,106 @@
       "partTitle": "FlashAttention-1: Tiled Matrix Multiplication and Backward Recomputation",
       "codeHash": "eb1469e2f6a33a575d706366bad2b4c1000176e9cab8929f7f4cc6ec29e3fa5c",
       "spec": {
-        "template": "flow",
-        "title": "FlashAttention-1: Tiled Matrix Multiplication... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. FlashAttention-1: T...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "FlashAttention-1: Tiled Matrix Multiplication and Backward Recom",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for FlashAttention-one: Tiled Matrix Multiplic...",
-            "values": {
-              "in": "Day 33 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in FlashAttention-one: T....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Armed with the Online Softmax algorithm, Tri Dao and colleagues.",
+            "items": {
+              "var": "a",
+              "line": 4,
+              "hit": 4
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "In FlashAttention-1, the available on-chip SRAM capacity M (typically.",
+            "items": {
+              "var": "a",
+              "line": 4,
+              "hit": 28
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for FlashAttention-one: Tiled Matrix Mu...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "In our implementation below, we will write a pure Python FlashAttention-1.",
+            "items": {
+              "var": "a",
+              "line": 4,
+              "hit": 48
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "FlashAttention-1: Tiled Matrix Multiplication... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. FlashAttention-1: T...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "FlashAttention-1: Tiled Matrix Multiplication and Backward Recom",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for FlashAttention-1: Tiled Matrix Multiplic...",
-            "values": {
-              "in": "Day 33 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in FlashAttention-1: T....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Armed with the Online Softmax algorithm, Tri Dao and colleagues.",
+            "items": [
+              "1",
+              "0.5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In FlashAttention-1, the available on-chip SRAM capacity M (typically.",
+            "items": [
+              "0.2",
+              "1.8"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for FlashAttention-1: Tiled Matrix Mu...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In our implementation below, we will write a pure Python FlashAttention-1.",
+            "items": [
+              "0.9",
+              "0.1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -687,223 +519,106 @@
       "partTitle": "FlashAttention-2: Outer Query Loop Reordering & Warp-Level Parallelism",
       "codeHash": "96bf2a666e35d8d2eec07c5c4de7bbf3d296f12d5b25a1ac7b37937e93a60ec4",
       "spec": {
-        "template": "flow",
-        "title": "FlashAttention-2: Outer Query Loop Reordering... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. FlashAttention-2: O...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "FlashAttention-2: Outer Query Loop Reordering & Warp-Level Paral",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for FlashAttention-two: Outer Query Loop Reord...",
-            "values": {
-              "in": "Day 33 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in FlashAttention-two: O....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Faster Attention with Better Parallelism and Work Partitioning', achieving.",
+            "items": {
+              "var": "l_block",
+              "line": 19,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "To understand the engineering breakthrough of FlashAttention-2, we must.",
+            "items": {
+              "var": "l_block",
+              "line": 27,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for FlashAttention-two: Outer Query Loo...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "In our implementation below, we will write a pure Python FlashAttention-2.",
+            "items": {
+              "var": "l_block",
+              "line": 31,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "FlashAttention-2: Outer Query Loop Reordering... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. FlashAttention-2: O...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "FlashAttention-2: Outer Query Loop Reordering & Warp-Level Paral",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for FlashAttention-2: Outer Query Loop Reord...",
-            "values": {
-              "in": "Day 33 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in FlashAttention-2: O....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Faster Attention with Better Parallelism and Work Partitioning', achieving.",
+            "items": [
+              "0",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand the engineering breakthrough of FlashAttention-2, we must.",
+            "items": [
+              "0",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for FlashAttention-2: Outer Query Loo...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "In our implementation below, we will write a pure Python FlashAttention-2.",
+            "items": [
+              "0",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -913,223 +628,217 @@
       "partTitle": "Production Implementation: Tiled Attention Simulator & Numerical Precision Verification",
       "codeHash": "169427c85d2aaec142debc800ac7b2dc4ae583a9a6148eeae068e6054531198c",
       "spec": {
-        "template": "flow",
-        "title": "Production Implementation: Tiled Attention Si... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Production Implemen...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Production Implementation: Tiled Attention Simulator & Numerical",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Production Implementation: Tiled Attenti...",
-            "values": {
-              "in": "Day 33 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Production Implemen....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Tiled Causal Attention with Block Skipping.",
+            "bars": [
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In FlashAttention, causal masking unlocks an extraordinary algorithmic.",
+            "bars": [
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Production Implementation: Tiled ...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "In the following comprehensive implementation, we will build a complete.",
+            "bars": [
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Production Implementation: Tiled Attention Si... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Production Implemen...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Production Implementation: Tiled Attention Simulator & Numerical",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Production Implementation: Tiled Attenti...",
-            "values": {
-              "in": "Day 33 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Production Implemen....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Tiled Causal Attention with Block Skipping.",
+            "bars": [
+              {
+                "label": "N",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "scale",
+                "value": 0.7071067811865475,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In FlashAttention, causal masking unlocks an extraordinary algorithmic.",
+            "bars": [
+              {
+                "label": "N",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "scale",
+                "value": 0.7071067811865475,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Production Implementation: Tiled ...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "In the following comprehensive implementation, we will build a complete.",
+            "bars": [
+              {
+                "label": "N",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "scale",
+                "value": 0.7071067811865475,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]

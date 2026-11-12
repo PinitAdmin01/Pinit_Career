@@ -2,142 +2,284 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 20,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The latency-bandwidth model",
       "codeHash": "e8cd6cc70591f0466412f405795cb9a9eb6e6761c03e5fdf22f7fccb65534d1d",
       "spec": {
-        "template": "table",
-        "title": "Alpha-beta network communication transfer cost model",
-        "columns": [
-          "size_mb",
-          "latency_us",
-          "gbps"
+        "template": "flow",
+        "title": "The latency-bandwidth model",
+        "nodes": [
+          {
+            "id": "net",
+            "label": "net"
+          },
+          {
+            "id": "lat",
+            "label": "lat"
+          },
+          {
+            "id": "bw",
+            "label": "bw"
+          },
+          {
+            "id": "size",
+            "label": "size"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The time to send a message has startup latency and size transfer bandwidth.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "size_mb"
-                  },
-                  {
-                    "text": "latency_us"
-                  },
-                  {
-                    "text": "gbps"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The time to send a message has two parts.",
+            "values": {
+              "net": {
+                "var": "net",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "size_mb"
-                  },
-                  {
-                    "text": "latency_us"
-                  },
-                  {
-                    "text": "gbps"
-                  }
-                ],
-                "tone": "data"
+              "lat": {
+                "var": "lat",
+                "line": 4,
+                "hit": 1
+              },
+              "bw": {
+                "var": "bw",
+                "line": 4,
+                "hit": 1
+              },
+              "size": {
+                "var": "size",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "net": "data",
+              "lat": "data",
+              "bw": "data",
+              "size": "data"
+            },
+            "arrows": [
+              [
+                "net",
+                "lat"
+              ],
+              [
+                "lat",
+                "bw"
+              ],
+              [
+                "bw",
+                "size"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Bandwidth dominates for large messages while latency dominates for tiny ones.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "size_mb"
-                  },
-                  {
-                    "text": "latency_us"
-                  },
-                  {
-                    "text": "gbps"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Time = latency + size / bandwidth.",
+            "values": {
+              "net": {
+                "var": "net",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "size_mb"
-                  },
-                  {
-                    "text": "latency_us"
-                  },
-                  {
-                    "text": "size_mb"
-                  }
-                ],
-                "tone": "ok"
+              "lat": {
+                "var": "lat",
+                "line": 5,
+                "hit": 1
+              },
+              "bw": {
+                "var": "bw",
+                "line": 5,
+                "hit": 1
+              },
+              "size": {
+                "var": "size",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "net": "data",
+              "lat": "data",
+              "bw": "data",
+              "size": "data"
+            },
+            "arrows": [
+              [
+                "net",
+                "lat"
+              ],
+              [
+                "lat",
+                "bw"
+              ],
+              [
+                "bw",
+                "size"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Writing the units next to every number in your code, for example size_mb.",
+            "values": {
+              "net": {
+                "var": "net",
+                "line": 6,
+                "hit": 1
+              },
+              "lat": {
+                "var": "lat",
+                "line": 6,
+                "hit": 1
+              },
+              "bw": {
+                "var": "bw",
+                "line": 6,
+                "hit": 1
+              },
+              "size": {
+                "var": "size",
+                "line": 5,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "net": "ok",
+              "lat": "ok",
+              "bw": "ok",
+              "size": "ok"
+            },
+            "arrows": [
+              [
+                "net",
+                "lat"
+              ],
+              [
+                "lat",
+                "bw"
+              ],
+              [
+                "bw",
+                "size"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Alpha-beta network communication transfer cost model",
-        "columns": [
-          "size_mb",
-          "latency_us",
-          "gbps"
+        "template": "flow",
+        "title": "The latency-bandwidth model",
+        "nodes": [
+          {
+            "id": "net",
+            "label": "net"
+          },
+          {
+            "id": "lat",
+            "label": "lat"
+          },
+          {
+            "id": "bw",
+            "label": "bw"
+          },
+          {
+            "id": "size",
+            "label": "size"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The time to send a message has startup latency and size transfer bandwidth.",
-            "rows": [
-              {
-                "cells": [
-                  "size_mb",
-                  "latency_us",
-                  "gbps"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "size_mb",
-                  "latency_us",
-                  "gbps"
-                ],
-                "tone": "data"
-              }
+            "caption": "The time to send a message has two parts.",
+            "values": {
+              "net": "'InfiniBand 400G'",
+              "lat": "5",
+              "bw": "400",
+              "size": "0.001"
+            },
+            "tones": {
+              "net": "data",
+              "lat": "data",
+              "bw": "data",
+              "size": "data"
+            },
+            "arrows": [
+              [
+                "net",
+                "lat"
+              ],
+              [
+                "lat",
+                "bw"
+              ],
+              [
+                "bw",
+                "size"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Bandwidth dominates for large messages while latency dominates for tiny ones.",
-            "rows": [
-              {
-                "cells": [
-                  "size_mb",
-                  "latency_us",
-                  "gbps"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "size_mb",
-                  "latency_us",
-                  "size_mb"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Time = latency + size / bandwidth.",
+            "values": {
+              "net": "'InfiniBand 400G'",
+              "lat": "5",
+              "bw": "400",
+              "size": "0.001"
+            },
+            "tones": {
+              "net": "data",
+              "lat": "data",
+              "bw": "data",
+              "size": "data"
+            },
+            "arrows": [
+              [
+                "net",
+                "lat"
+              ],
+              [
+                "lat",
+                "bw"
+              ],
+              [
+                "bw",
+                "size"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Writing the units next to every number in your code, for example size_mb.",
+            "values": {
+              "net": "'InfiniBand 400G'",
+              "lat": "5",
+              "bw": "400",
+              "size": "100"
+            },
+            "tones": {
+              "net": "ok",
+              "lat": "ok",
+              "bw": "ok",
+              "size": "ok"
+            },
+            "arrows": [
+              [
+                "net",
+                "lat"
+              ],
+              [
+                "lat",
+                "bw"
+              ],
+              [
+                "bw",
+                "size"
+              ]
             ]
           }
         ]
@@ -147,78 +289,91 @@
       "partTitle": "Ring all-reduce time",
       "codeHash": "afe68b2ee60c51f65432c9ae5cc424e4ca8e304d2bfdab0cd093509db76966f0",
       "spec": {
-        "template": "table",
-        "title": "Ring all-reduce execution time scaling across ranks",
-        "columns": [
+        "template": "sequence",
+        "title": "Ring all-reduce time",
+        "actors": [
+          "p",
           "size_mb",
-          "lat_us",
-          "gbps"
+          "lat_us"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The bandwidth part approaches a limit that barely depends on cluster size.",
-            "rows": [
+            "at": "say1",
+            "caption": "Ring all-reduce takes 2(p 1) steps, and each step sends a chunk of size.",
+            "activeActor": "p",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "size_mb"
-                  },
-                  {
-                    "text": "lat_us"
-                  },
-                  {
-                    "text": "gbps"
-                  }
-                ],
-                "tone": "ok"
+                "from": "p",
+                "to": "size_mb",
+                "label": {
+                  "var": "p",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "size_mb"
-                  },
-                  {
-                    "text": "lat_us"
-                  },
-                  {
-                    "text": "gbps"
-                  }
-                ],
-                "tone": "data"
+                "from": "size_mb",
+                "to": "lat_us",
+                "label": {
+                  "var": "size_mb",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The latency part grows linearly on very large clusters.",
-            "rows": [
+            "at": "say2",
+            "caption": "So its time is 2(p 1) (latency + (size / p) / bandwidth).",
+            "activeActor": "size_mb",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "size_mb"
-                  },
-                  {
-                    "text": "lat_us"
-                  },
-                  {
-                    "text": "gbps"
-                  }
-                ],
+                "from": "p",
+                "to": "size_mb",
+                "label": {
+                  "var": "p",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "size_mb"
-                  },
-                  {
-                    "text": "lat_us"
-                  },
-                  {
-                    "text": "size_mb"
-                  }
-                ],
+                "from": "size_mb",
+                "to": "lat_us",
+                "label": {
+                  "var": "size_mb",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "This formula lets you predict whether communication will be a bottleneck.",
+            "activeActor": "lat_us",
+            "messages": [
+              {
+                "from": "p",
+                "to": "size_mb",
+                "label": {
+                  "var": "p",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "size_mb",
+                "to": "lat_us",
+                "label": {
+                  "var": "size_mb",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -226,57 +381,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Ring all-reduce execution time scaling across ranks",
-        "columns": [
+        "template": "sequence",
+        "title": "Ring all-reduce time",
+        "actors": [
+          "p",
           "size_mb",
-          "lat_us",
-          "gbps"
+          "lat_us"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The bandwidth part approaches a limit that barely depends on cluster size.",
-            "rows": [
+            "at": "say1",
+            "caption": "Ring all-reduce takes 2(p 1) steps, and each step sends a chunk of size.",
+            "messages": [
               {
-                "cells": [
-                  "size_mb",
-                  "lat_us",
-                  "gbps"
-                ],
-                "tone": "ok"
+                "from": "p",
+                "to": "size_mb",
+                "label": "8",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "size_mb",
-                  "lat_us",
-                  "gbps"
-                ],
-                "tone": "data"
+                "from": "size_mb",
+                "to": "lat_us",
+                "label": "1000",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "p"
           },
           {
-            "at": "say4",
-            "caption": "The latency part grows linearly on very large clusters.",
-            "rows": [
+            "at": "say2",
+            "caption": "So its time is 2(p 1) (latency + (size / p) / bandwidth).",
+            "messages": [
               {
-                "cells": [
-                  "size_mb",
-                  "lat_us",
-                  "gbps"
-                ],
+                "from": "p",
+                "to": "size_mb",
+                "label": "8",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "size_mb",
-                  "lat_us",
-                  "size_mb"
-                ],
+                "from": "size_mb",
+                "to": "lat_us",
+                "label": "1000",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "size_mb"
+          },
+          {
+            "at": "say10",
+            "caption": "This formula lets you predict whether communication will be a bottleneck.",
+            "messages": [
+              {
+                "from": "p",
+                "to": "size_mb",
+                "label": "8",
+                "tone": "data"
+              },
+              {
+                "from": "size_mb",
+                "to": "lat_us",
+                "label": "1000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "lat_us"
           }
         ]
       }
@@ -285,78 +453,91 @@
       "partTitle": "Network topology",
       "codeHash": "3a6f042872ecd06aab2bf11dd3f55bf446346e4f11d6fbafae27f28fbe46b12b",
       "spec": {
-        "template": "table",
-        "title": "Interconnect bandwidth comparison and topology placement",
-        "columns": [
+        "template": "sequence",
+        "title": "Network topology",
+        "actors": [
+          "links",
           "name",
-          "gb_per_s",
-          "links"
+          "gb_per_s"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Inside a server GPUs are connected by fast links such as NVLink systems.",
-            "rows": [
+            "caption": "Inside a server, GPUs are connected by very fast links such as NVLink.",
+            "activeActor": "links",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "gb_per_s"
-                  },
-                  {
-                    "text": "links"
-                  }
-                ],
-                "tone": "ok"
+                "from": "links",
+                "to": "name",
+                "label": {
+                  "var": "links",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "gb_per_s"
-                  },
-                  {
-                    "text": "links"
-                  }
-                ],
-                "tone": "data"
+                "from": "name",
+                "to": "gb_per_s",
+                "label": {
+                  "var": "name",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Topology-aware placement puts parallel workloads on the fastest links.",
-            "rows": [
+            "at": "say2",
+            "caption": "Between servers, InfiniBand or high-speed Ethernet (RoCE) connects each.",
+            "activeActor": "name",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "gb_per_s"
-                  },
-                  {
-                    "text": "links"
-                  }
-                ],
+                "from": "links",
+                "to": "name",
+                "label": {
+                  "var": "links",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "gb_per_s"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
+                "from": "name",
+                "to": "gb_per_s",
+                "label": {
+                  "var": "name",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Cloud providers publish these details for their GPU instances.",
+            "activeActor": "gb_per_s",
+            "messages": [
+              {
+                "from": "links",
+                "to": "name",
+                "label": {
+                  "var": "links",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "gb_per_s",
+                "label": {
+                  "var": "name",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +545,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Interconnect bandwidth comparison and topology placement",
-        "columns": [
+        "template": "sequence",
+        "title": "Network topology",
+        "actors": [
+          "links",
           "name",
-          "gb_per_s",
-          "links"
+          "gb_per_s"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Inside a server GPUs are connected by fast links such as NVLink systems.",
-            "rows": [
+            "caption": "Inside a server, GPUs are connected by very fast links such as NVLink.",
+            "messages": [
               {
-                "cells": [
-                  "name",
-                  "gb_per_s",
-                  "links"
-                ],
-                "tone": "ok"
+                "from": "links",
+                "to": "name",
+                "label": "{'NVLink (same server)': 900, 'InfiniBa…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "name",
-                  "gb_per_s",
-                  "links"
-                ],
-                "tone": "data"
+                "from": "name",
+                "to": "gb_per_s",
+                "label": "'NVLink (same server)'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "links"
           },
           {
-            "at": "say6",
-            "caption": "Topology-aware placement puts parallel workloads on the fastest links.",
-            "rows": [
+            "at": "say2",
+            "caption": "Between servers, InfiniBand or high-speed Ethernet (RoCE) connects each.",
+            "messages": [
               {
-                "cells": [
-                  "name",
-                  "gb_per_s",
-                  "links"
-                ],
+                "from": "links",
+                "to": "name",
+                "label": "{'NVLink (same server)': 900, 'InfiniBa…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "name",
-                  "gb_per_s",
-                  "name"
-                ],
+                "from": "name",
+                "to": "gb_per_s",
+                "label": "'NVLink (same server)'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "name"
+          },
+          {
+            "at": "say10",
+            "caption": "Cloud providers publish these details for their GPU instances.",
+            "messages": [
+              {
+                "from": "links",
+                "to": "name",
+                "label": "{'NVLink (same server)': 900, 'InfiniBa…",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "gb_per_s",
+                "label": "'InfiniBand per GPU'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "gb_per_s"
           }
         ]
       }
@@ -423,78 +617,131 @@
       "partTitle": "Is communication the bottleneck?",
       "codeHash": "2aaf5e30accc5ab3565655ae042716a13b2105af3f53da1a1575bd4f1b04f18a",
       "spec": {
-        "template": "table",
-        "title": "Compute versus communication ratio and bottleneck diagnosis",
-        "columns": [
-          "params",
-          "tokens_per_gpu",
-          "flops"
-        ],
+        "template": "bars",
+        "title": "Is communication the bottleneck?",
         "steps": [
           {
             "at": "say1",
-            "caption": "Engineers compare communication step time with computation requirements.",
-            "rows": [
+            "caption": "To decide, compare the time for one step's communication with the time.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "tokens_per_gpu"
-                  },
-                  {
-                    "text": "flops"
-                  }
-                ],
-                "tone": "ok"
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "tokens_per_gpu"
-                  },
-                  {
-                    "text": "flops"
-                  }
-                ],
+                "label": "tokens_per_gpu",
+                "value": {
+                  "var": "tokens_per_gpu",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "flops",
+                "value": {
+                  "var": "flops",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mfu",
+                "value": {
+                  "var": "mfu",
+                  "line": 1,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Communication remains a small fraction of step time on a fast network.",
-            "rows": [
+            "at": "say2",
+            "caption": "Compute time per step is about 6 parameters tokens per step (GPU FLOPs.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "tokens_per_gpu"
-                  },
-                  {
-                    "text": "flops"
-                  }
-                ],
-                "tone": "data"
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "tokens_per_gpu"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
+                "label": "tokens_per_gpu",
+                "value": {
+                  "var": "tokens_per_gpu",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "flops",
+                "value": {
+                  "var": "flops",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mfu",
+                "value": {
+                  "var": "mfu",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "This is the same analysis that network engineers use when designing AI.",
+            "bars": [
+              {
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "tokens_per_gpu",
+                "value": {
+                  "var": "tokens_per_gpu",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "flops",
+                "value": {
+                  "var": "flops",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mfu",
+                "value": {
+                  "var": "mfu",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +749,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Compute versus communication ratio and bottleneck diagnosis",
-        "columns": [
-          "params",
-          "tokens_per_gpu",
-          "flops"
-        ],
+        "template": "bars",
+        "title": "Is communication the bottleneck?",
         "steps": [
           {
             "at": "say1",
-            "caption": "Engineers compare communication step time with computation requirements.",
-            "rows": [
+            "caption": "To decide, compare the time for one step's communication with the time.",
+            "bars": [
               {
-                "cells": [
-                  "params",
-                  "tokens_per_gpu",
-                  "flops"
-                ],
-                "tone": "ok"
+                "label": "params",
+                "value": 7000000000,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "params",
-                  "tokens_per_gpu",
-                  "flops"
-                ],
+                "label": "tokens_per_gpu",
+                "value": 8192,
+                "tone": "data"
+              },
+              {
+                "label": "flops",
+                "value": 312000000000000,
+                "tone": "data"
+              },
+              {
+                "label": "mfu",
+                "value": 0.45,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Communication remains a small fraction of step time on a fast network.",
-            "rows": [
+            "at": "say2",
+            "caption": "Compute time per step is about 6 parameters tokens per step (GPU FLOPs.",
+            "bars": [
               {
-                "cells": [
-                  "params",
-                  "tokens_per_gpu",
-                  "flops"
-                ],
-                "tone": "data"
+                "label": "params",
+                "value": 7000000000,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "params",
-                  "tokens_per_gpu",
-                  "params"
-                ],
+                "label": "tokens_per_gpu",
+                "value": 8192,
+                "tone": "ok"
+              },
+              {
+                "label": "flops",
+                "value": 312000000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "mfu",
+                "value": 0.45,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "This is the same analysis that network engineers use when designing AI.",
+            "bars": [
+              {
+                "label": "params",
+                "value": 7000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "tokens_per_gpu",
+                "value": 8192,
+                "tone": "ok"
+              },
+              {
+                "label": "flops",
+                "value": 312000000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "mfu",
+                "value": 0.45,
                 "tone": "ok"
               }
             ]
@@ -561,223 +837,175 @@
       "partTitle": "Reducing communication",
       "codeHash": "44e79143f33d093b9904a2158d4c0ee53e2dac33bf200994b2cb4708d64adea7",
       "spec": {
-        "template": "flow",
-        "title": "Reducing communication — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reducing communication",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Reducing communication",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Reducing communication [Dtwenty.Pfive.Sone].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Reducing communication [Dtwenty.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Several techniques reduce what must be communicated.",
+            "bars": [
+              {
+                "label": "base_mb",
+                "value": {
+                  "var": "base_mb",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mb",
+                "value": {
+                  "var": "mb",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "every",
+                "value": {
+                  "var": "every",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how gradient updates accumulation during execution.",
+            "bars": [
+              {
+                "label": "base_mb",
+                "value": {
+                  "var": "base_mb",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mb",
+                "value": {
+                  "var": "mb",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "every",
+                "value": {
+                  "var": "every",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Reducing communication.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Tomorrow shows how to overlap communication with the backward pass.",
+            "bars": [
+              {
+                "label": "base_mb",
+                "value": {
+                  "var": "base_mb",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mb",
+                "value": {
+                  "var": "mb",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "every",
+                "value": {
+                  "var": "every",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Reducing communication — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reducing communication",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Reducing communication",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Reducing communication [D20.P5.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Reducing communication [D20.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Several techniques reduce what must be communicated.",
+            "bars": [
+              {
+                "label": "base_mb",
+                "value": 28000,
+                "tone": "data"
+              },
+              {
+                "label": "mb",
+                "value": 28000,
+                "tone": "data"
+              },
+              {
+                "label": "every",
+                "value": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how gradient updates accumulation during execution.",
+            "bars": [
+              {
+                "label": "base_mb",
+                "value": 28000,
+                "tone": "ok"
+              },
+              {
+                "label": "mb",
+                "value": 28000,
+                "tone": "ok"
+              },
+              {
+                "label": "every",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Reducing communication [D20.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Tomorrow shows how to overlap communication with the backward pass.",
+            "bars": [
+              {
+                "label": "base_mb",
+                "value": 28000,
+                "tone": "ok"
+              },
+              {
+                "label": "mb",
+                "value": 14000,
+                "tone": "ok"
+              },
+              {
+                "label": "every",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -788,110 +1016,161 @@
       "codeHash": "e2224edee0c206372c3010ad638197e3868412ded2c59f657974f4a8bbe11596",
       "spec": {
         "template": "flow",
-        "title": "Practice time: communication cost — Execution Pipeline",
+        "title": "Practice time: communication cost",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: comm...",
-            "tappable": true
+            "id": "params",
+            "label": "params"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "grad_mb",
+            "label": "grad_mb"
+          },
+          {
+            "id": "size_mb",
+            "label": "size_mb"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: communication cost.",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: comm... [Dtwenty.Psix.Stwo].",
+            "caption": "Return latency in milliseconds plus size 8 / (bandwidth 1000) seconds.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 4,
+                "hit": 1
+              },
+              "grad_mb": {
+                "var": "grad_mb",
+                "line": 5,
+                "hit": 1
+              },
+              "size_mb": {
+                "var": "size_mb",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "name": "data",
+              "params": "data",
+              "grad_mb": "data",
+              "size_mb": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "name",
+                "params"
               ],
               [
-                "proc",
-                "out"
+                "params",
+                "grad_mb"
+              ],
+              [
+                "grad_mb",
+                "size_mb"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "name": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 5,
+                "hit": 1
+              },
+              "grad_mb": {
+                "var": "grad_mb",
+                "line": 6,
+                "hit": 1
+              },
+              "size_mb": {
+                "var": "size_mb",
+                "line": 2,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "name": "data",
+              "params": "data",
+              "grad_mb": "data",
+              "size_mb": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "name",
+                "params"
+              ],
+              [
+                "params",
+                "grad_mb"
+              ],
+              [
+                "grad_mb",
+                "size_mb"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: communication cost.",
+            "at": "say10",
+            "caption": "If your numbers are off by a factor of 8 or 1000, check bits versus bytes.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 6,
+                "hit": 1
+              },
+              "grad_mb": {
+                "var": "grad_mb",
+                "line": 4,
+                "hit": 2
+              },
+              "size_mb": {
+                "var": "size_mb",
+                "line": 2,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "name": "ok",
+              "params": "ok",
+              "grad_mb": "ok",
+              "size_mb": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "name",
+                "params"
               ],
               [
-                "proc",
-                "out"
+                "params",
+                "grad_mb"
+              ],
+              [
+                "grad_mb",
+                "size_mb"
               ]
             ]
           }
@@ -899,110 +1178,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: communication cost — Execution Pipeline",
+        "title": "Practice time: communication cost",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: comm...",
-            "tappable": true
+            "id": "params",
+            "label": "params"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "grad_mb",
+            "label": "grad_mb"
+          },
+          {
+            "id": "size_mb",
+            "label": "size_mb"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: communication cost [D20.P6.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: comm... [D20.P6.S2].",
+            "caption": "Return latency in milliseconds plus size 8 / (bandwidth 1000) seconds.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "name": "'1.3B'",
+              "params": "1300000000",
+              "grad_mb": "2600",
+              "size_mb": "2600"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "name": "data",
+              "params": "data",
+              "grad_mb": "data",
+              "size_mb": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "name",
+                "params"
               ],
               [
-                "proc",
-                "out"
+                "params",
+                "grad_mb"
+              ],
+              [
+                "grad_mb",
+                "size_mb"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P6.S3].",
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "name": "'1.3B'",
+              "params": "1300000000",
+              "grad_mb": "2600",
+              "size_mb": "14000"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "name": "data",
+              "params": "data",
+              "grad_mb": "data",
+              "size_mb": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "name",
+                "params"
+              ],
+              [
+                "params",
+                "grad_mb"
+              ],
+              [
+                "grad_mb",
+                "size_mb"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: communication cost [D20.P6.S4].",
+            "at": "say10",
+            "caption": "If your numbers are off by a factor of 8 or 1000, check bits versus bytes.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "name": "'1.3B'",
+              "params": "1300000000",
+              "grad_mb": "2600",
+              "size_mb": "26000"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "name": "ok",
+              "params": "ok",
+              "grad_mb": "ok",
+              "size_mb": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "name",
+                "params"
               ],
               [
-                "proc",
-                "out"
+                "params",
+                "grad_mb"
+              ],
+              [
+                "grad_mb",
+                "size_mb"
               ]
             ]
           }

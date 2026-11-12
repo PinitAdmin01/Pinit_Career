@@ -2,231 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 23,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why load balance?",
       "codeHash": "fe48e1cba6532d7c92f2a3598ea7ab9ea04361640696e3f13296b73aa2c35186",
       "spec": {
-        "template": "flow",
-        "title": "Why load balance? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Why load balance?",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Why load balance?",
+        "actors": [
+          "servers",
+          "counts",
+          "request"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Why load balance? [D.Pone.Sone].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Why load balance? [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A load balancer receives client requests and forwards each one to one.",
+            "activeActor": "servers",
+            "messages": [
+              {
+                "from": "servers",
+                "to": "counts",
+                "label": {
+                  "var": "servers",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "counts",
+                "to": "request",
+                "label": {
+                  "var": "counts",
+                  "line": 2,
+                  "hit": 4
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "It lets you scale by adding servers, keeps serving when a server fails.",
+            "activeActor": "counts",
+            "messages": [
+              {
+                "from": "servers",
+                "to": "counts",
+                "label": {
+                  "var": "servers",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "counts",
+                "to": "request",
+                "label": {
+                  "var": "counts",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Why load balance? [D.Pone.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "The example sends requests round-robin to three servers.",
+            "activeActor": "request",
+            "messages": [
+              {
+                "from": "servers",
+                "to": "counts",
+                "label": {
+                  "var": "servers",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "counts",
+                "to": "request",
+                "label": {
+                  "var": "counts",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Why load balance? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Why load balance?",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Why load balance?",
+        "actors": [
+          "servers",
+          "counts",
+          "request"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Why load balance? [D23.P1.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Why load balance? [D23.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A load balancer receives client requests and forwards each one to one.",
+            "messages": [
+              {
+                "from": "servers",
+                "to": "counts",
+                "label": "['s1', 's2', 's3']",
+                "tone": "data"
+              },
+              {
+                "from": "counts",
+                "to": "request",
+                "label": "{'s1': 0, 's2': 0, 's3': 0}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "servers"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "It lets you scale by adding servers, keeps serving when a server fails.",
+            "messages": [
+              {
+                "from": "servers",
+                "to": "counts",
+                "label": "['s1', 's2', 's3']",
+                "tone": "data"
+              },
+              {
+                "from": "counts",
+                "to": "request",
+                "label": "{'s1': 0, 's2': 0, 's3': 0}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "counts"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Why load balance? [D23.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "The example sends requests round-robin to three servers.",
+            "messages": [
+              {
+                "from": "servers",
+                "to": "counts",
+                "label": "['s1', 's2', 's3']",
+                "tone": "data"
+              },
+              {
+                "from": "counts",
+                "to": "request",
+                "label": "{'s1': 0, 's2': 0, 's3': 0}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "request"
           }
         ]
       }
@@ -235,154 +173,91 @@
       "partTitle": "Smooth weighted round-robin",
       "codeHash": "b043602ceb4671e5275c8c8518bafe55e19a4179741623b9f38153f360a9becf",
       "spec": {
-        "template": "table",
-        "title": "Smooth weighted round-robin server weights and current credit balances",
-        "columns": [
-          "id",
-          "weight",
-          "current"
+        "template": "sequence",
+        "title": "Smooth weighted round-robin",
+        "actors": [
+          "self",
+          "weights",
+          "sid"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Weighted round-robin sends traffic in proportion to server weights.",
-            "rows": [
+            "caption": "Servers are not always equal.",
+            "activeActor": "self",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "big"
-                  },
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
+                "from": "self",
+                "to": "weights",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "weights",
+                "to": "sid",
+                "label": {
+                  "var": "weights",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "small-1"
-                  },
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "small-2"
-                  },
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Smooth weighted round-robin interleaves heavy and light servers.",
-            "rows": [
+            "caption": "A naive approach sends a heavy server's requests in a burst (A, A, A, B).",
+            "activeActor": "weights",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "big"
-                  },
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "ok"
+                "from": "self",
+                "to": "weights",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "small-1"
-                  },
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "small-2"
-                  },
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
+                "from": "weights",
+                "to": "sid",
+                "label": {
+                  "var": "weights",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Over a full cycle each server is chosen exactly weight times.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example runs a full cycle for weights 5, 1 and 1.",
+            "activeActor": "sid",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "big"
-                  },
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "ok"
+                "from": "self",
+                "to": "weights",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "small-1"
-                  },
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "small-2"
-                  },
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
+                "from": "weights",
+                "to": "sid",
+                "label": {
+                  "var": "weights",
+                  "line": 3,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -390,103 +265,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Smooth weighted round-robin server weights and current credit balances",
-        "columns": [
-          "id",
-          "weight",
-          "current"
+        "template": "sequence",
+        "title": "Smooth weighted round-robin",
+        "actors": [
+          "self",
+          "weights",
+          "sid"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Weighted round-robin sends traffic in proportion to server weights.",
-            "rows": [
+            "caption": "Servers are not always equal.",
+            "messages": [
               {
-                "cells": [
-                  "big",
-                  "5",
-                  "0"
-                ],
+                "from": "self",
+                "to": "weights",
+                "label": "<SmoothWeightedBalancer>",
+                "tone": "data"
+              },
+              {
+                "from": "weights",
+                "to": "sid",
+                "label": "{'big': 5, 'small-1': 1, 'small-2': 1}",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "small-1",
-                  "1",
-                  "0"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "small-2",
-                  "1",
-                  "0"
-                ],
-                "tone": "idle"
               }
-            ]
+            ],
+            "activeActor": "self"
           },
           {
             "at": "say2",
-            "caption": "Smooth weighted round-robin interleaves heavy and light servers.",
-            "rows": [
+            "caption": "A naive approach sends a heavy server's requests in a burst (A, A, A, B).",
+            "messages": [
               {
-                "cells": [
-                  "big",
-                  "5",
-                  "0"
-                ],
-                "tone": "ok"
+                "from": "self",
+                "to": "weights",
+                "label": "<SmoothWeightedBalancer>",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "small-1",
-                  "1",
-                  "0"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "small-2",
-                  "1",
-                  "0"
-                ],
+                "from": "weights",
+                "to": "sid",
+                "label": "{'big': 5, 'small-1': 1, 'small-2': 1}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "weights"
           },
           {
-            "at": "say5",
-            "caption": "Over a full cycle each server is chosen exactly weight times.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example runs a full cycle for weights 5, 1 and 1.",
+            "messages": [
               {
-                "cells": [
-                  "big",
-                  "5",
-                  "0"
-                ],
-                "tone": "ok"
+                "from": "self",
+                "to": "weights",
+                "label": "<SmoothWeightedBalancer>",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "small-1",
-                  "1",
-                  "0"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "small-2",
-                  "1",
-                  "0"
-                ],
+                "from": "weights",
+                "to": "sid",
+                "label": "{'big': 5, 'small-1': 1, 'small-2': 1}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "sid"
           }
         ]
       }
@@ -495,219 +337,277 @@
       "partTitle": "Least connections",
       "codeHash": "b9cc6d12968bbce96b8322e97af133fe19254f702bccaaa81b35795965a508e8",
       "spec": {
-        "template": "table",
-        "title": "Least connections tracking active requests per backend server",
-        "columns": [
-          "id",
-          "active"
+        "template": "flow",
+        "title": "Least connections",
+        "nodes": [
+          {
+            "id": "servers",
+            "label": "servers"
+          },
+          {
+            "id": "long_jobs",
+            "label": "long_jobs"
+          },
+          {
+            "id": "request",
+            "label": "request"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Least connections routes requests to the server with fewest active jobs.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "s1"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "idle"
+            "at": "say1",
+            "caption": "Round-robin assumes every request costs about the same.",
+            "values": {
+              "servers": {
+                "var": "servers",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "s2"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "idle"
+              "long_jobs": {
+                "var": "long_jobs",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "s3"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "idle"
+              "request": {
+                "var": "request",
+                "line": 6,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "servers": "data",
+              "long_jobs": "data",
+              "request": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "servers",
+                "long_jobs"
+              ],
+              [
+                "long_jobs",
+                "request"
+              ],
+              [
+                "request",
+                "s"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The balancer picks the first minimum server without reordering input.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "s1"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Least connections sends each new request to the server with the fewest.",
+            "values": {
+              "servers": {
+                "var": "servers",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "s2"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "idle"
+              "long_jobs": {
+                "var": "long_jobs",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "s3"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "idle"
+              "request": {
+                "var": "request",
+                "line": 7,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 2,
+                "hit": 2
               }
+            },
+            "tones": {
+              "servers": "data",
+              "long_jobs": "data",
+              "request": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "servers",
+                "long_jobs"
+              ],
+              [
+                "long_jobs",
+                "request"
+              ],
+              [
+                "request",
+                "s"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "Routing adapts smoothly across long and short job sequences.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "s1"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
-                "tone": "data"
+            "caption": "The example routes a sequence of requests, some long, some short.",
+            "values": {
+              "servers": {
+                "var": "servers",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "s2"
-                  },
-                  {
-                    "text": "1"
-                  }
-                ],
-                "tone": "ok"
+              "long_jobs": {
+                "var": "long_jobs",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "s3"
-                  },
-                  {
-                    "text": "1"
-                  }
-                ],
-                "tone": "ok"
+              "request": {
+                "var": "request",
+                "line": 8,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 2,
+                "hit": 3
               }
+            },
+            "tones": {
+              "servers": "ok",
+              "long_jobs": "ok",
+              "request": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "servers",
+                "long_jobs"
+              ],
+              [
+                "long_jobs",
+                "request"
+              ],
+              [
+                "request",
+                "s"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Least connections tracking active requests per backend server",
-        "columns": [
-          "id",
-          "active"
+        "template": "flow",
+        "title": "Least connections",
+        "nodes": [
+          {
+            "id": "servers",
+            "label": "servers"
+          },
+          {
+            "id": "long_jobs",
+            "label": "long_jobs"
+          },
+          {
+            "id": "request",
+            "label": "request"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Least connections routes requests to the server with fewest active jobs.",
-            "rows": [
-              {
-                "cells": [
-                  "s1",
-                  "0"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "s2",
-                  "0"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "s3",
-                  "0"
-                ],
-                "tone": "idle"
-              }
+            "at": "say1",
+            "caption": "Round-robin assumes every request costs about the same.",
+            "values": {
+              "servers": "[{'id': 's1', 'active': 0}, {'id': 's2'…",
+              "long_jobs": "{'s1'}",
+              "request": "0",
+              "s": "{'id': 's1', 'active': 0}"
+            },
+            "tones": {
+              "servers": "data",
+              "long_jobs": "data",
+              "request": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "servers",
+                "long_jobs"
+              ],
+              [
+                "long_jobs",
+                "request"
+              ],
+              [
+                "request",
+                "s"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The balancer picks the first minimum server without reordering input.",
-            "rows": [
-              {
-                "cells": [
-                  "s1",
-                  "3"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "s2",
-                  "0"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "s3",
-                  "0"
-                ],
-                "tone": "idle"
-              }
+            "at": "say2",
+            "caption": "Least connections sends each new request to the server with the fewest.",
+            "values": {
+              "servers": "[{'id': 's1', 'active': 0}, {'id': 's2'…",
+              "long_jobs": "{'s1'}",
+              "request": "0",
+              "s": "{'id': 's2', 'active': 0}"
+            },
+            "tones": {
+              "servers": "data",
+              "long_jobs": "data",
+              "request": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "servers",
+                "long_jobs"
+              ],
+              [
+                "long_jobs",
+                "request"
+              ],
+              [
+                "request",
+                "s"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "Routing adapts smoothly across long and short job sequences.",
-            "rows": [
-              {
-                "cells": [
-                  "s1",
-                  "3"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "s2",
-                  "1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "s3",
-                  "1"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The example routes a sequence of requests, some long, some short.",
+            "values": {
+              "servers": "[{'id': 's1', 'active': 0}, {'id': 's2'…",
+              "long_jobs": "{'s1'}",
+              "request": "0",
+              "s": "{'id': 's3', 'active': 0}"
+            },
+            "tones": {
+              "servers": "ok",
+              "long_jobs": "ok",
+              "request": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "servers",
+                "long_jobs"
+              ],
+              [
+                "long_jobs",
+                "request"
+              ],
+              [
+                "request",
+                "s"
+              ]
             ]
           }
         ]
@@ -717,166 +617,106 @@
       "partTitle": "Hashing for stickiness",
       "codeHash": "887b3991bcf1928ef56542bcac1871bb5bf8388ee662c2cec0b955362fde9572",
       "spec": {
-        "template": "table",
-        "title": "Sticky routing assignment of users to persistent servers",
-        "columns": [
-          "user",
-          "server"
+        "template": "states",
+        "title": "Hashing for stickiness",
+        "states": [
+          {
+            "id": "servers",
+            "label": "servers"
+          },
+          {
+            "id": "user",
+            "label": "user"
+          },
+          {
+            "id": "user_id",
+            "label": "user_id"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Sticky routing directs the same user key to a warm server cache.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "asha"
-                  },
-                  {
-                    "text": "s1"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Some workloads want the same client or key to reach the same server.",
+            "currentState": "servers",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Hashing client identifiers preserves affinity across requests.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "asha"
-                  },
-                  {
-                    "text": "s1"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bala"
-                  },
-                  {
-                    "text": "s1"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Sticky routing is also common for WebSocket and streaming connections.",
+            "currentState": "user",
+            "transition": {
+              "from": "servers",
+              "to": "user",
+              "label": {
+                "var": "user",
+                "line": 10,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
             "at": "say7",
-            "caption": "Hashing consistently maps each user identity to the same backend.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "asha"
-                  },
-                  {
-                    "text": "s1"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bala"
-                  },
-                  {
-                    "text": "s1"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "chitra"
-                  },
-                  {
-                    "text": "s2"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example shows that hashing sends each user to the same server every time.",
+            "currentState": "user_id",
+            "transition": {
+              "from": "user",
+              "to": "user_id",
+              "label": {
+                "var": "user_id",
+                "line": 6,
+                "hit": 2
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Sticky routing assignment of users to persistent servers",
-        "columns": [
-          "user",
-          "server"
+        "template": "states",
+        "title": "Hashing for stickiness",
+        "states": [
+          {
+            "id": "servers",
+            "label": "servers"
+          },
+          {
+            "id": "user",
+            "label": "user"
+          },
+          {
+            "id": "user_id",
+            "label": "user_id"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Sticky routing directs the same user key to a warm server cache.",
-            "rows": [
-              {
-                "cells": [
-                  "asha",
-                  "s1"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Some workloads want the same client or key to reach the same server.",
+            "currentState": "servers",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Hashing client identifiers preserves affinity across requests.",
-            "rows": [
-              {
-                "cells": [
-                  "asha",
-                  "s1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bala",
-                  "s1"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Sticky routing is also common for WebSocket and streaming connections.",
+            "currentState": "user",
+            "transition": {
+              "from": "servers",
+              "to": "user",
+              "label": "'asha'"
+            },
+            "tone": "data"
           },
           {
             "at": "say7",
-            "caption": "Hashing consistently maps each user identity to the same backend.",
-            "rows": [
-              {
-                "cells": [
-                  "asha",
-                  "s1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bala",
-                  "s1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "chitra",
-                  "s2"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "The example shows that hashing sends each user to the same server every time.",
+            "currentState": "user_id",
+            "transition": {
+              "from": "user",
+              "to": "user_id",
+              "label": "'bala'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -885,124 +725,126 @@
       "partTitle": "Health checks and removing servers",
       "codeHash": "a9528a46e96c301915085f0af1a1a4e7a5cd13f97b046234cbeba745b0baa0f6",
       "spec": {
-        "template": "table",
-        "title": "Health check thresholds for server pool membership state transitions",
-        "columns": [
-          "in_pool",
-          "fails",
-          "passes"
-        ],
+        "template": "cells",
+        "title": "Health checks and removing servers",
         "steps": [
           {
             "at": "say1",
-            "caption": "Active health checks call status endpoints every few seconds.",
-            "rows": [
+            "caption": "A balancer must only send traffic to healthy servers.",
+            "items": {
+              "var": "checks",
+              "line": 13,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Thresholds avoid flapping by requiring multiple consecutive checks.",
-            "rows": [
+            "at": "say2",
+            "caption": "Passive health checks watch real traffic.",
+            "items": {
+              "var": "checks",
+              "line": 14,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "False"
-                  },
-                  {
-                    "text": "3"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "error"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Servers drain current requests before being taken out of service.",
-            "rows": [
+            "at": "say8",
+            "caption": "The example applies thresholds to a series of health-check results.",
+            "items": {
+              "var": "checks",
+              "line": 14,
+              "hit": 10
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Health check thresholds for server pool membership state transitions",
-        "columns": [
-          "in_pool",
-          "fails",
-          "passes"
-        ],
+        "template": "cells",
+        "title": "Health checks and removing servers",
         "steps": [
           {
             "at": "say1",
-            "caption": "Active health checks call status endpoints every few seconds.",
-            "rows": [
+            "caption": "A balancer must only send traffic to healthy servers.",
+            "items": [
+              "True",
+              "False",
+              "False",
+              "True",
+              "False",
+              "False",
+              "False",
+              "True",
+              "True"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "True",
-                  "0",
-                  "0"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Thresholds avoid flapping by requiring multiple consecutive checks.",
-            "rows": [
+            "at": "say2",
+            "caption": "Passive health checks watch real traffic.",
+            "items": [
+              "True",
+              "False",
+              "False",
+              "True",
+              "False",
+              "False",
+              "False",
+              "True",
+              "True"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "False",
-                  "3",
-                  "0"
-                ],
-                "tone": "error"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Servers drain current requests before being taken out of service.",
-            "rows": [
+            "at": "say8",
+            "caption": "The example applies thresholds to a series of health-check results.",
+            "items": [
+              "True",
+              "False",
+              "False",
+              "True",
+              "False",
+              "False",
+              "False",
+              "True",
+              "True"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "True",
-                  "0",
-                  "2"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -1013,223 +855,130 @@
       "partTitle": "Choosing an algorithm",
       "codeHash": "ab3aaa437b33c6042d74d39570aaeaa06eb1f694c1c32b73c2a668c5b18a6413",
       "spec": {
-        "template": "flow",
-        "title": "Choosing an algorithm — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing an algorithm",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Choosing an algorithm",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing an algorithm [D.Psix.Sone].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing an algorithm [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Similar, short requests on similar servers.",
+            "items": {
+              "var": "load",
+              "line": 5,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Different server sizes.",
+            "items": {
+              "var": "load",
+              "line": 7,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing an algorithm [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "The example compares plain random choice with power of two choices.",
+            "items": {
+              "var": "load",
+              "line": 8,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Choosing an algorithm — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing an algorithm",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Choosing an algorithm",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing an algorithm [D23.P6.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing an algorithm [D23.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Similar, short requests on similar servers.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Different server sizes.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "1",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing an algorithm [D23.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "The example compares plain random choice with power of two choices.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "1",
+              "1",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

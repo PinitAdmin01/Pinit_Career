@@ -2,85 +2,97 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 27,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What quantisation does",
       "codeHash": "e89c4a20a4ca429334b835ce4c846c8aa3a27c1b2177e35bfbac63e68441ae5c",
       "spec": {
-        "template": "table",
-        "title": "Precision reduction mapping floats to quantized integer levels",
-        "columns": [
+        "template": "sequence",
+        "title": "What quantisation does",
+        "actors": [
           "params",
-          "bits",
-          "params"
+          "bits"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Quantisation maps high-precision floats to discrete integer levels.",
-            "rows": [
+            "caption": "Quantisation maps high-precision numbers, such as 16-bit floats, to.",
+            "activeActor": "params",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
-                "tone": "ok"
+                "from": "params",
+                "to": "bits",
+                "label": {
+                  "var": "params",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
-                "tone": "data"
+                "from": "bits",
+                "to": "params",
+                "label": {
+                  "var": "bits",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "With integer representations weights are stored in a single byte.",
-            "rows": [
+            "caption": "Trace how each updates weight during execution.",
+            "activeActor": "bits",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
+                "from": "params",
+                "to": "bits",
+                "label": {
+                  "var": "params",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "bits"
-                  }
-                ],
+                "from": "bits",
+                "to": "params",
+                "label": {
+                  "var": "bits",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today we implement the simplest version to understand them all.",
+            "activeActor": "bits",
+            "messages": [
+              {
+                "from": "params",
+                "to": "bits",
+                "label": {
+                  "var": "params",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bits",
+                "to": "params",
+                "label": {
+                  "var": "bits",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +100,69 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Precision reduction mapping floats to quantized integer levels",
-        "columns": [
+        "template": "sequence",
+        "title": "What quantisation does",
+        "actors": [
           "params",
-          "bits",
-          "params"
+          "bits"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Quantisation maps high-precision floats to discrete integer levels.",
-            "rows": [
+            "caption": "Quantisation maps high-precision numbers, such as 16-bit floats, to.",
+            "messages": [
               {
-                "cells": [
-                  "params",
-                  "bits",
-                  "params"
-                ],
-                "tone": "ok"
+                "from": "params",
+                "to": "bits",
+                "label": "70000000000",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "params",
-                  "bits",
-                  "params"
-                ],
-                "tone": "data"
+                "from": "bits",
+                "to": "params",
+                "label": "32",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "params"
           },
           {
             "at": "say2",
-            "caption": "With integer representations weights are stored in a single byte.",
-            "rows": [
+            "caption": "Trace how each updates weight during execution.",
+            "messages": [
               {
-                "cells": [
-                  "params",
-                  "bits",
-                  "params"
-                ],
+                "from": "params",
+                "to": "bits",
+                "label": "70000000000",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "params",
-                  "bits",
-                  "bits"
-                ],
+                "from": "bits",
+                "to": "params",
+                "label": "32",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "bits"
+          },
+          {
+            "at": "say10",
+            "caption": "Today we implement the simplest version to understand them all.",
+            "messages": [
+              {
+                "from": "params",
+                "to": "bits",
+                "label": "70000000000",
+                "tone": "data"
+              },
+              {
+                "from": "bits",
+                "to": "params",
+                "label": "16",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "bits"
           }
         ]
       }
@@ -147,78 +171,91 @@
       "partTitle": "Symmetric INT8 quantisation",
       "codeHash": "02af7a60cd88e64ff5064552324f95a8a7a41337a5e86a7be7c6841982e74f89",
       "spec": {
-        "template": "table",
-        "title": "Symmetric quantization scaling and integer clamping",
-        "columns": [
+        "template": "sequence",
+        "title": "Symmetric INT8 quantisation",
+        "actors": [
           "values",
-          "scale",
-          "back"
+          ".0",
+          "v"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Symmetric quantisation scales values by the largest absolute magnitude.",
-            "rows": [
+            "caption": "Symmetric quantisation uses one scale.",
+            "activeActor": "values",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "values"
-                  },
-                  {
-                    "text": "scale"
-                  },
-                  {
-                    "text": "back"
-                  }
-                ],
-                "tone": "ok"
+                "from": "values",
+                "to": ".0",
+                "label": {
+                  "var": "values",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "values"
-                  },
-                  {
-                    "text": "scale"
-                  },
-                  {
-                    "text": "back"
-                  }
-                ],
-                "tone": "data"
+                "from": ".0",
+                "to": "v",
+                "label": {
+                  "var": ".0",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Dequantising multiplies integer values back by the group scale.",
-            "rows": [
+            "at": "say2",
+            "caption": "Each value is quantised as q = round(v scale), clamped to the range 127 to 127.",
+            "activeActor": ".0",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "values"
-                  },
-                  {
-                    "text": "scale"
-                  },
-                  {
-                    "text": "back"
-                  }
-                ],
+                "from": "values",
+                "to": ".0",
+                "label": {
+                  "var": "values",
+                  "line": 2,
+                  "hit": 7
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "values"
-                  },
-                  {
-                    "text": "scale"
-                  },
-                  {
-                    "text": "values"
-                  }
-                ],
+                "from": ".0",
+                "to": "v",
+                "label": {
+                  "var": ".0",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "This simple scheme is the foundation of most practical quantisation methods.",
+            "activeActor": "v",
+            "messages": [
+              {
+                "from": "values",
+                "to": ".0",
+                "label": {
+                  "var": "values",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "v",
+                "label": {
+                  "var": ".0",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -226,57 +263,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Symmetric quantization scaling and integer clamping",
-        "columns": [
+        "template": "sequence",
+        "title": "Symmetric INT8 quantisation",
+        "actors": [
           "values",
-          "scale",
-          "back"
+          ".0",
+          "v"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Symmetric quantisation scales values by the largest absolute magnitude.",
-            "rows": [
+            "caption": "Symmetric quantisation uses one scale.",
+            "messages": [
               {
-                "cells": [
-                  "values",
-                  "scale",
-                  "back"
-                ],
-                "tone": "ok"
+                "from": "values",
+                "to": ".0",
+                "label": "[0.5, -1.27, 0, 1, 0.333]",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "values",
-                  "scale",
-                  "back"
-                ],
-                "tone": "data"
+                "from": ".0",
+                "to": "v",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "values"
           },
           {
-            "at": "say3",
-            "caption": "Dequantising multiplies integer values back by the group scale.",
-            "rows": [
+            "at": "say2",
+            "caption": "Each value is quantised as q = round(v scale), clamped to the range 127 to 127.",
+            "messages": [
               {
-                "cells": [
-                  "values",
-                  "scale",
-                  "back"
-                ],
+                "from": "values",
+                "to": ".0",
+                "label": "[0.5, -1.27, 0, 1, 0.333]",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "values",
-                  "scale",
-                  "values"
-                ],
+                "from": ".0",
+                "to": "v",
+                "label": "{'__other__': 'list_iterator'}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": ".0"
+          },
+          {
+            "at": "say10",
+            "caption": "This simple scheme is the foundation of most practical quantisation methods.",
+            "messages": [
+              {
+                "from": "values",
+                "to": ".0",
+                "label": "[0.5, -1.27, 0, 1, 0.333]",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "v",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "v"
           }
         ]
       }
@@ -285,78 +335,77 @@
       "partTitle": "Measuring quantisation error",
       "codeHash": "8ceaeabde8d9888563af52728dd2a486feac59b55871e63415a1b46939537783",
       "spec": {
-        "template": "table",
-        "title": "Round-trip reconstruction error and outlier distortion",
-        "columns": [
-          "normal",
-          "with_outlier",
-          "normal"
-        ],
+        "template": "bars",
+        "title": "Measuring quantisation error",
         "steps": [
           {
             "at": "say1",
-            "caption": "Round-trip error measures the difference between original and restored values.",
-            "rows": [
+            "caption": "The round-trip error is the difference between a value and its.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "normal"
-                  },
-                  {
-                    "text": "with_outlier"
-                  },
-                  {
-                    "text": "normal"
-                  }
-                ],
-                "tone": "ok"
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "normal"
-                  },
-                  {
-                    "text": "with_outlier"
-                  },
-                  {
-                    "text": "normal"
-                  }
-                ],
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 2,
+                  "hit": 7
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "A large outlier inflates the scale and increases rounding error.",
-            "rows": [
+            "at": "say2",
+            "caption": "For symmetric INT8, the error is at most half a step.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "normal"
-                  },
-                  {
-                    "text": "with_outlier"
-                  },
-                  {
-                    "text": "normal"
-                  }
-                ],
-                "tone": "data"
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "normal"
-                  },
-                  {
-                    "text": "with_outlier"
-                  },
-                  {
-                    "text": "with_outlier"
-                  }
-                ],
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 3,
+                  "hit": 7
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The final test is always model quality on real tasks, not just numerical error.",
+            "bars": [
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 2,
+                  "hit": 15
+                },
                 "tone": "ok"
               }
             ]
@@ -364,54 +413,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Round-trip reconstruction error and outlier distortion",
-        "columns": [
-          "normal",
-          "with_outlier",
-          "normal"
-        ],
+        "template": "bars",
+        "title": "Measuring quantisation error",
         "steps": [
           {
             "at": "say1",
-            "caption": "Round-trip error measures the difference between original and restored values.",
-            "rows": [
+            "caption": "The round-trip error is the difference between a value and its.",
+            "bars": [
               {
-                "cells": [
-                  "normal",
-                  "with_outlier",
-                  "normal"
-                ],
-                "tone": "ok"
+                "label": "v",
+                "value": 0.12,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "normal",
-                  "with_outlier",
-                  "normal"
-                ],
+                "label": "scale",
+                "value": 0.002440944881889764,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "A large outlier inflates the scale and increases rounding error.",
-            "rows": [
+            "at": "say2",
+            "caption": "For symmetric INT8, the error is at most half a step.",
+            "bars": [
               {
-                "cells": [
-                  "normal",
-                  "with_outlier",
-                  "normal"
-                ],
-                "tone": "data"
+                "label": "v",
+                "value": -0.05,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "normal",
-                  "with_outlier",
-                  "with_outlier"
-                ],
+                "label": "scale",
+                "value": 0.002440944881889764,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The final test is always model quality on real tasks, not just numerical error.",
+            "bars": [
+              {
+                "label": "v",
+                "value": 0.31,
+                "tone": "ok"
+              },
+              {
+                "label": "scale",
+                "value": 0.09448818897637795,
                 "tone": "ok"
               }
             ]
@@ -423,78 +471,131 @@
       "partTitle": "4-bit quantisation",
       "codeHash": "b85aa2ccd987ed8cecacb58bf46dca9b2c20c5b276d9248abcd1e0024fdd1a33",
       "spec": {
-        "template": "table",
-        "title": "Extreme 4-bit quantization and per-group scale distribution",
-        "columns": [
-          "group",
-          "bits",
-          "back"
-        ],
+        "template": "bars",
+        "title": "4-bit quantisation",
         "steps": [
           {
-            "at": "say2",
-            "caption": "With limited levels per-group scales are essential across weights.",
-            "rows": [
+            "at": "say1",
+            "caption": "Trace how quantisation updates stores during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "group"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "back"
-                  }
-                ],
-                "tone": "ok"
+                "label": "bits",
+                "value": {
+                  "var": "bits",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "group"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "back"
-                  }
-                ],
+                "label": "levels",
+                "value": {
+                  "var": "levels",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 3,
+                  "hit": 10
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Quantised formats space levels to match the distribution of neural weights.",
-            "rows": [
+            "at": "say2",
+            "caption": "With so few levels, per-group scales are essential, typically one scale.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "group"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "back"
-                  }
-                ],
-                "tone": "data"
+                "label": "bits",
+                "value": {
+                  "var": "bits",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "group"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "group"
-                  }
-                ],
+                "label": "levels",
+                "value": {
+                  "var": "levels",
+                  "line": 3,
+                  "hit": 10
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Evaluate each quantised model on the tasks that matter to you before.",
+            "bars": [
+              {
+                "label": "bits",
+                "value": {
+                  "var": "bits",
+                  "line": 3,
+                  "hit": 10
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "levels",
+                "value": {
+                  "var": "levels",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +603,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Extreme 4-bit quantization and per-group scale distribution",
-        "columns": [
-          "group",
-          "bits",
-          "back"
-        ],
+        "template": "bars",
+        "title": "4-bit quantisation",
         "steps": [
           {
-            "at": "say2",
-            "caption": "With limited levels per-group scales are essential across weights.",
-            "rows": [
+            "at": "say1",
+            "caption": "Trace how quantisation updates stores during execution.",
+            "bars": [
               {
-                "cells": [
-                  "group",
-                  "bits",
-                  "back"
-                ],
-                "tone": "ok"
+                "label": "bits",
+                "value": 8,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "group",
-                  "bits",
-                  "back"
-                ],
+                "label": "levels",
+                "value": 127,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 0.12,
+                "tone": "data"
+              },
+              {
+                "label": "scale",
+                "value": 0.002440944881889764,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Quantised formats space levels to match the distribution of neural weights.",
-            "rows": [
+            "at": "say2",
+            "caption": "With so few levels, per-group scales are essential, typically one scale.",
+            "bars": [
               {
-                "cells": [
-                  "group",
-                  "bits",
-                  "back"
-                ],
-                "tone": "data"
+                "label": "bits",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "group",
-                  "bits",
-                  "group"
-                ],
+                "label": "levels",
+                "value": 127,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": -0.05,
+                "tone": "ok"
+              },
+              {
+                "label": "scale",
+                "value": 0.002440944881889764,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Evaluate each quantised model on the tasks that matter to you before.",
+            "bars": [
+              {
+                "label": "bits",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "levels",
+                "value": 127,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 0.31,
+                "tone": "ok"
+              },
+              {
+                "label": "scale",
+                "value": 0.002440944881889764,
                 "tone": "ok"
               }
             ]
@@ -562,110 +692,161 @@
       "codeHash": "4112a822b3adf139ba08ee5b8325a7aa895eea08e7fe2485364d7f7ce6567c73",
       "spec": {
         "template": "flow",
-        "title": "Quantisation in training and serving — Execution Pipeline",
+        "title": "Quantisation in training and serving",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "server_gb",
+            "label": "server_gb"
           },
           {
-            "id": "proc",
-            "label": "2. Quantisation in tra...",
-            "tappable": true
+            "id": "params",
+            "label": "params"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "bits",
+            "label": "bits"
+          },
+          {
+            "id": "per_model",
+            "label": "per_model"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Quantisation in training and serving.",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Quantisation in tra... [D.Pfive.Stwo].",
+            "caption": "Training in low precision beyond BF16 is harder.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "server_gb": {
+                "var": "server_gb",
+                "line": 1,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 1,
+                "hit": 1
+              },
+              "bits": {
+                "var": "bits",
+                "line": 2,
+                "hit": 1
+              },
+              "per_model": {
+                "var": "per_model",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "server_gb": "data",
+              "params": "data",
+              "bits": "data",
+              "per_model": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "server_gb",
+                "params"
               ],
               [
-                "proc",
-                "out"
+                "params",
+                "bits"
+              ],
+              [
+                "bits",
+                "per_model"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Quantised base weights with LoRA adapters (QLoRA) are the main way.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "server_gb": {
+                "var": "server_gb",
+                "line": 2,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 2,
+                "hit": 1
+              },
+              "bits": {
+                "var": "bits",
+                "line": 3,
+                "hit": 1
+              },
+              "per_model": {
+                "var": "per_model",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "server_gb": "data",
+              "params": "data",
+              "bits": "data",
+              "per_model": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "server_gb",
+                "params"
+              ],
+              [
+                "params",
+                "bits"
+              ],
+              [
+                "bits",
+                "per_model"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Quantisation in training and serv.",
+            "at": "say10",
+            "caption": "Tomorrow looks at another way to make models cheaper to run.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "server_gb": {
+                "var": "server_gb",
+                "line": 3,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 3,
+                "hit": 1
+              },
+              "bits": {
+                "var": "bits",
+                "line": 4,
+                "hit": 1
+              },
+              "per_model": {
+                "var": "per_model",
+                "line": 2,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "server_gb": "ok",
+              "params": "ok",
+              "bits": "ok",
+              "per_model": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "server_gb",
+                "params"
               ],
               [
-                "proc",
-                "out"
+                "params",
+                "bits"
+              ],
+              [
+                "bits",
+                "per_model"
               ]
             ]
           }
@@ -673,110 +854,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Quantisation in training and serving — Execution Pipeline",
+        "title": "Quantisation in training and serving",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "server_gb",
+            "label": "server_gb"
           },
           {
-            "id": "proc",
-            "label": "2. Quantisation in tra...",
-            "tappable": true
+            "id": "params",
+            "label": "params"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "bits",
+            "label": "bits"
+          },
+          {
+            "id": "per_model",
+            "label": "per_model"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Quantisation in training and serving [D27.P5.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Quantisation in tra... [D27.P5.S2].",
+            "caption": "Training in low precision beyond BF16 is harder.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "server_gb": "640",
+              "params": "70000000000",
+              "bits": "16",
+              "per_model": "168"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "server_gb": "data",
+              "params": "data",
+              "bits": "data",
+              "per_model": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "server_gb",
+                "params"
               ],
               [
-                "proc",
-                "out"
+                "params",
+                "bits"
+              ],
+              [
+                "bits",
+                "per_model"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P5.S3].",
+            "at": "say2",
+            "caption": "Quantised base weights with LoRA adapters (QLoRA) are the main way.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "server_gb": "640",
+              "params": "70000000000",
+              "bits": "16",
+              "per_model": "168"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "server_gb": "data",
+              "params": "data",
+              "bits": "data",
+              "per_model": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "server_gb",
+                "params"
+              ],
+              [
+                "params",
+                "bits"
+              ],
+              [
+                "bits",
+                "per_model"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Quantisation in training and serv.. [D27.P5.S4].",
+            "at": "say10",
+            "caption": "Tomorrow looks at another way to make models cheaper to run.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "server_gb": "640",
+              "params": "70000000000",
+              "bits": "16",
+              "per_model": "168"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "server_gb": "ok",
+              "params": "ok",
+              "bits": "ok",
+              "per_model": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "server_gb",
+                "params"
               ],
               [
-                "proc",
-                "out"
+                "params",
+                "bits"
+              ],
+              [
+                "bits",
+                "per_model"
               ]
             ]
           }
@@ -788,110 +972,161 @@
       "codeHash": "358efde73f75f8e1ebf930644ec4b58e4a0b0fc1487e3b6cb0fe9e287d133c1c",
       "spec": {
         "template": "flow",
-        "title": "Practice time: quantisation — Execution Pipeline",
+        "title": "Practice time: quantisation",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "rng",
+            "label": "rng"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: quan...",
-            "tappable": true
+            "id": "weights",
+            "label": "weights"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "v",
+            "label": "v"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: quantisation [D.Psix.Sone].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: quan... [D.Psix.Stwo].",
+            "caption": "Quantize(values) returns the INT8 values and the scale (max |v| 127.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "rng": {
+                "var": "rng",
+                "line": 3,
+                "hit": 1
+              },
+              "weights": {
+                "var": "weights",
+                "line": 4,
+                "hit": 129
+              },
+              ".0": {
+                "var": ".0",
+                "line": 6,
+                "hit": 1
+              },
+              "v": {
+                "var": "v",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "rng": "data",
+              "weights": "data",
+              ".0": "data",
+              "v": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rng",
+                "weights"
               ],
               [
-                "proc",
-                "out"
+                "weights",
+                ".0"
+              ],
+              [
+                ".0",
+                "v"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "The checks include a round trip, the all-zero case and a case where values.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "rng": {
+                "var": "rng",
+                "line": 4,
+                "hit": 1
+              },
+              "weights": {
+                "var": "weights",
+                "line": 5,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 6,
+                "hit": 2
+              },
+              "v": {
+                "var": "v",
+                "line": 6,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "rng": "data",
+              "weights": "data",
+              ".0": "data",
+              "v": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "rng",
+                "weights"
+              ],
+              [
+                "weights",
+                ".0"
+              ],
+              [
+                ".0",
+                "v"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: quantisation.",
+            "at": "say10",
+            "caption": "If quantize gives the wrong integers, check that you use the unrounded.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "rng": {
+                "var": "rng",
+                "line": 4,
+                "hit": 2
+              },
+              "weights": {
+                "var": "weights",
+                "line": 8,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 6,
+                "hit": 3
+              },
+              "v": {
+                "var": "v",
+                "line": 6,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "rng": "ok",
+              "weights": "ok",
+              ".0": "ok",
+              "v": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rng",
+                "weights"
               ],
               [
-                "proc",
-                "out"
+                "weights",
+                ".0"
+              ],
+              [
+                ".0",
+                "v"
               ]
             ]
           }
@@ -899,110 +1134,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: quantisation — Execution Pipeline",
+        "title": "Practice time: quantisation",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "rng",
+            "label": "rng"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: quan...",
-            "tappable": true
+            "id": "weights",
+            "label": "weights"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "v",
+            "label": "v"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: quantisation [D27.P6.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: quan... [D27.P6.S2].",
+            "caption": "Quantize(values) returns the INT8 values and the scale (max |v| 127.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "rng": "<Random>",
+              "weights": "[0.0018941607657460846, 0.0250004876216…",
+              ".0": "{'__other__': 'list_iterator'}",
+              "v": "0.0018941607657460846"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "rng": "data",
+              "weights": "data",
+              ".0": "data",
+              "v": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rng",
+                "weights"
               ],
               [
-                "proc",
-                "out"
+                "weights",
+                ".0"
+              ],
+              [
+                ".0",
+                "v"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P6.S3].",
+            "at": "say2",
+            "caption": "The checks include a round trip, the all-zero case and a case where values.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "rng": "<Random>",
+              "weights": "[0.0018941607657460846, 0.0250004876216…",
+              ".0": "{'__other__': 'list_iterator'}",
+              "v": "0.025000487621671008"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "rng": "data",
+              "weights": "data",
+              ".0": "data",
+              "v": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "rng",
+                "weights"
+              ],
+              [
+                "weights",
+                ".0"
+              ],
+              [
+                ".0",
+                "v"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: quantisation [D27.P6.S4].",
+            "at": "say10",
+            "caption": "If quantize gives the wrong integers, check that you use the unrounded.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "rng": "<Random>",
+              "weights": "[0.0018941607657460846, 0.0250004876216…",
+              ".0": "{'__other__': 'list_iterator'}",
+              "v": "-0.01862756735441414"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "rng": "ok",
+              "weights": "ok",
+              ".0": "ok",
+              "v": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rng",
+                "weights"
               ],
               [
-                "proc",
-                "out"
+                "weights",
+                ".0"
+              ],
+              [
+                ".0",
+                "v"
               ]
             ]
           }

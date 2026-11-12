@@ -2,173 +2,169 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 1,
-  "promptSha": "a0a00a4afbf5b186c8ec7bd30769a8c9d82a72e35ce5943f3366281ba2645e4d",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What security protects: the CIA triad",
       "codeHash": "193e806c39883256a39229513b5026cef4c8328219fb10b81cd45375c0b5ab2a",
       "spec": {
-        "template": "table",
-        "title": "CIA triad information security core pillars and objectives",
-        "columns": [
-          "Pillar",
-          "Core Objective",
-          "Primary Threat",
-          "Protective Control"
+        "template": "sequence",
+        "title": "What security protects: the CIA triad",
+        "actors": [
+          "incidents",
+          "incident",
+          "harmed"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Information security engineering rests on confidentiality and integrity.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
+            "caption": "Security goals are usually described with three words.",
+            "activeActor": "incidents",
+            "messages": [
               {
-                "cells": [
-                  "Confidentiality",
-                  "Prevent unauthorized disclosure",
-                  "Data snooping and credential theft",
-                  "AES Encryption and RBAC"
-                ],
+                "from": "incidents",
+                "to": "incident",
+                "label": {
+                  "var": "incidents",
+                  "line": 1,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Integrity",
-                  "Guarantee information accuracy",
-                  "Tampering and unauthorized edits",
-                  "HMAC Signatures and Hash Digests"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Availability",
-                  "Ensure timely reliable access",
-                  "Denial of service outages",
-                  "Rate Limiting and CDN Redundancy"
-                ],
-                "tone": "data"
+                "from": "incident",
+                "to": "harmed",
+                "label": {
+                  "var": "incident",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Availability mandates dependable unimpeded access to computing resources.",
-            "activeRowIndex": 2,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "Confidentiality means only the right people can read information.",
+            "activeActor": "incident",
+            "messages": [
               {
-                "cells": [
-                  "Confidentiality",
-                  "Prevent unauthorized disclosure",
-                  "Data snooping and credential theft",
-                  "AES Encryption and RBAC"
-                ],
+                "from": "incidents",
+                "to": "incident",
+                "label": {
+                  "var": "incidents",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Integrity",
-                  "Guarantee information accuracy",
-                  "Tampering and unauthorized edits",
-                  "HMAC Signatures and Hash Digests"
-                ],
+                "from": "incident",
+                "to": "harmed",
+                "label": {
+                  "var": "incident",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Different organisations weigh the three differently.",
+            "activeActor": "harmed",
+            "messages": [
+              {
+                "from": "incidents",
+                "to": "incident",
+                "label": {
+                  "var": "incidents",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Availability",
-                  "Ensure timely reliable access",
-                  "Denial of service outages",
-                  "Rate Limiting and CDN Redundancy"
-                ],
-                "tone": "data"
+                "from": "incident",
+                "to": "harmed",
+                "label": {
+                  "var": "incident",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "CIA triad information security core pillars and objectives",
-        "columns": [
-          "Pillar",
-          "Core Objective",
-          "Primary Threat",
-          "Protective Control"
+        "template": "sequence",
+        "title": "What security protects: the CIA triad",
+        "actors": [
+          "incidents",
+          "incident",
+          "harmed"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Information security engineering rests on confidentiality and integrity.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
+            "caption": "Security goals are usually described with three words.",
+            "messages": [
               {
-                "cells": [
-                  "Confidentiality",
-                  "Prevent unauthorized disclosure",
-                  "Data snooping and credential theft",
-                  "AES Encryption and RBAC"
-                ],
+                "from": "incidents",
+                "to": "incident",
+                "label": "{'customer list emailed to the wrong pe…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Integrity",
-                  "Guarantee information accuracy",
-                  "Tampering and unauthorized edits",
-                  "HMAC Signatures and Hash Digests"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Availability",
-                  "Ensure timely reliable access",
-                  "Denial of service outages",
-                  "Rate Limiting and CDN Redundancy"
-                ],
-                "tone": "data"
+                "from": "incident",
+                "to": "harmed",
+                "label": "'customer list emailed to the wrong per…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "incidents"
           },
           {
-            "at": "say4",
-            "caption": "Availability mandates dependable unimpeded access to computing resources.",
-            "activeRowIndex": 2,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "Confidentiality means only the right people can read information.",
+            "messages": [
               {
-                "cells": [
-                  "Confidentiality",
-                  "Prevent unauthorized disclosure",
-                  "Data snooping and credential theft",
-                  "AES Encryption and RBAC"
-                ],
+                "from": "incidents",
+                "to": "incident",
+                "label": "{'customer list emailed to the wrong pe…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Integrity",
-                  "Guarantee information accuracy",
-                  "Tampering and unauthorized edits",
-                  "HMAC Signatures and Hash Digests"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Availability",
-                  "Ensure timely reliable access",
-                  "Denial of service outages",
-                  "Rate Limiting and CDN Redundancy"
-                ],
-                "tone": "data"
+                "from": "incident",
+                "to": "harmed",
+                "label": "'customer list emailed to the wrong per…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "incident"
+          },
+          {
+            "at": "say9",
+            "caption": "Different organisations weigh the three differently.",
+            "messages": [
+              {
+                "from": "incidents",
+                "to": "incident",
+                "label": "{'customer list emailed to the wrong pe…",
+                "tone": "data"
+              },
+              {
+                "from": "incident",
+                "to": "harmed",
+                "label": "'attacker changes a delivery address'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "harmed"
           }
         ]
       }
@@ -177,76 +173,108 @@
       "partTitle": "Threat modelling with STRIDE",
       "codeHash": "db417dc88618759158d4920bdec41c906d7f47b52107392e145ff8345f8ffdd9",
       "spec": {
-        "template": "compare",
-        "title": "Quantitative risk formula factors versus qualitative risk impact tiers",
-        "left": {
-          "title": "Quantitative Risk Formula",
-          "items": [
-            "Risk equals Threat times Vulnerability times Impact",
-            "Measured numerically on standardized rating scales",
-            "Computes annualized loss expectancy for controls"
-          ]
-        },
-        "right": {
-          "title": "Qualitative Severity Tiers",
-          "items": [
-            "Critical enterprise payment gateway vulnerabilities",
-            "Moderate severity flaws in internal tools",
-            "Negligible operational risk on air-gapped systems"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Threat modelling with STRIDE",
+        "states": [
           {
-            "at": "say2",
-            "caption": "The standard risk formula expresses risk as threat times impact.",
-            "highlightSide": "left",
-            "statusBadge": "active"
+            "id": "STRIDE",
+            "label": "STRIDE"
           },
           {
-            "at": "say6",
-            "caption": "Air-gapped systems with zero exposure experience negligible risk.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "threats",
+            "label": "threats"
+          },
+          {
+            "id": "t",
+            "label": "t"
           }
         ],
-        "leftLabel": "Quantitative Risk Formula",
-        "rightLabel": "Qualitative Severity Tiers"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Threat modelling means systematically asking \"what could go wrong.",
+            "currentState": "STRIDE",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "STRIDE, created at Microsoft, gives six categories.",
+            "currentState": "threats",
+            "transition": {
+              "from": "STRIDE",
+              "to": "threats",
+              "label": {
+                "var": "threats",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Doing this early is far cheaper than fixing a design flaw after launch.",
+            "currentState": "t",
+            "transition": {
+              "from": "threats",
+              "to": "t",
+              "label": {
+                "var": "t",
+                "line": 7,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
+          }
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Quantitative risk formula factors versus qualitative risk impact tiers",
-        "left": {
-          "title": "Quantitative Risk Formula",
-          "items": [
-            "Risk equals Threat times Vulnerability times Impact",
-            "Measured numerically on standardized rating scales",
-            "Computes annualized loss expectancy for controls"
-          ]
-        },
-        "right": {
-          "title": "Qualitative Severity Tiers",
-          "items": [
-            "Critical enterprise payment gateway vulnerabilities",
-            "Moderate severity flaws in internal tools",
-            "Negligible operational risk on air-gapped systems"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Threat modelling with STRIDE",
+        "states": [
           {
-            "at": "say2",
-            "caption": "The standard risk formula expresses risk as threat times impact.",
-            "highlightSide": "left",
-            "statusBadge": "active"
+            "id": "STRIDE",
+            "label": "STRIDE"
           },
           {
-            "at": "say6",
-            "caption": "Air-gapped systems with zero exposure experience negligible risk.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "threats",
+            "label": "threats"
+          },
+          {
+            "id": "t",
+            "label": "t"
           }
         ],
-        "leftLabel": "Quantitative Risk Formula",
-        "rightLabel": "Qualitative Severity Tiers"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Threat modelling means systematically asking \"what could go wrong.",
+            "currentState": "STRIDE",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "STRIDE, created at Microsoft, gives six categories.",
+            "currentState": "threats",
+            "transition": {
+              "from": "STRIDE",
+              "to": "threats",
+              "label": "['Attacker impersonates support staff',…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Doing this early is far cheaper than fixing a design flaw after launch.",
+            "currentState": "t",
+            "transition": {
+              "from": "threats",
+              "to": "t",
+              "label": "'Attacker impersonates support staff'"
+            },
+            "tone": "ok"
+          }
+        ]
       }
     },
     {
@@ -254,73 +282,105 @@
       "codeHash": "68126b7e9a91666d4a697cbbdfc14f0a4dd74208058c6419e2783267346116c5",
       "spec": {
         "template": "states",
-        "title": "STRIDE threat taxonomy spoofing and tampering mitigation states",
+        "title": "Risk: likelihood times impact",
         "states": [
           {
-            "id": "unauthenticated",
-            "label": "Unverified Inbound Request"
+            "id": "risks",
+            "label": "risks"
           },
           {
-            "id": "spoofingDetected",
-            "label": "Spoofing Impersonation Flagged"
+            "id": "kv",
+            "label": "kv"
           },
           {
-            "id": "tamperingDetected",
-            "label": "Payload Integrity Hash Mismatch"
-          },
-          {
-            "id": "hmacVerified",
-            "label": "Cryptographic Signature Validated"
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Spoofing involves an adversary illegitimately claiming another identity.",
-            "activeStateId": "spoofingDetected",
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Not every threat deserves the same attention.",
+            "currentState": "risks",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Mitigating tampering mandates cryptographic signatures and integrity codes.",
-            "activeStateId": "hmacVerified",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "A common scale rates likelihood and impact from 1 (rare, minor) to 5.",
+            "currentState": "kv",
+            "transition": {
+              "from": "risks",
+              "to": "kv",
+              "label": {
+                "var": "kv",
+                "line": 5,
+                "hit": 2
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Keeping a risk register, a shared list of risks with owners and actions.",
+            "currentState": "name",
+            "transition": {
+              "from": "kv",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 5,
+                "hit": 6
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "STRIDE threat taxonomy spoofing and tampering mitigation states",
+        "title": "Risk: likelihood times impact",
         "states": [
           {
-            "id": "unauthenticated",
-            "label": "Unverified Inbound Request"
+            "id": "risks",
+            "label": "risks"
           },
           {
-            "id": "spoofingDetected",
-            "label": "Spoofing Impersonation Flagged"
+            "id": "kv",
+            "label": "kv"
           },
           {
-            "id": "tamperingDetected",
-            "label": "Payload Integrity Hash Mismatch"
-          },
-          {
-            "id": "hmacVerified",
-            "label": "Cryptographic Signature Validated"
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Spoofing involves an adversary illegitimately claiming another identity.",
-            "activeStateId": "spoofingDetected",
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Not every threat deserves the same attention.",
+            "currentState": "risks",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Mitigating tampering mandates cryptographic signatures and integrity codes.",
-            "activeStateId": "hmacVerified",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "A common scale rates likelihood and impact from 1 (rare, minor) to 5.",
+            "currentState": "kv",
+            "transition": {
+              "from": "risks",
+              "to": "kv",
+              "label": "['site defaced', [2, 3]]"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Keeping a risk register, a shared list of risks with owners and actions.",
+            "currentState": "name",
+            "transition": {
+              "from": "kv",
+              "to": "name",
+              "label": "'card data stolen'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -329,166 +389,106 @@
       "partTitle": "Defence in depth",
       "codeHash": "c7118f1935a49eadaad1339e88a041f8f983d88badc3c870a8344fc9b6f3a1e7",
       "spec": {
-        "template": "table",
-        "title": "STRIDE secondary threat categories and defensive architectural controls",
-        "columns": [
-          "Threat Category",
-          "System Target",
-          "Attack Impact",
-          "Primary Mitigation"
+        "template": "states",
+        "title": "Defence in depth",
+        "states": [
+          {
+            "id": "layers",
+            "label": "layers"
+          },
+          {
+            "id": "attack",
+            "label": "attack"
+          },
+          {
+            "id": "stopping",
+            "label": "stopping"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Non-repudiation is enforced through immutable audit logs.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Repudiation",
-                  "Banking Wire Transfer",
-                  "Denies transaction authorship",
-                  "Immutable Write-Once Audit Logs"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Information Disclosure",
-                  "Customer PII and Database",
-                  "Leaks confidential credentials",
-                  "TLS and Column-Level Encryption"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Denial of Service",
-                  "Public Edge Ingress API",
-                  "Exhausts memory and compute bandwidth",
-                  "Rate Limiting and CDN Buffering"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "No single control is perfect, so security uses layers.",
+            "currentState": "layers",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Denial of service attacks seek to render systems unusable.",
-            "activeRowIndex": 2,
-            "statusBadge": "failed",
-            "rows": [
-              {
-                "cells": [
-                  "Repudiation",
-                  "Banking Wire Transfer",
-                  "Denies transaction authorship",
-                  "Immutable Write-Once Audit Logs"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Information Disclosure",
-                  "Customer PII and Database",
-                  "Leaks confidential credentials",
-                  "TLS and Column-Level Encryption"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Denial of Service",
-                  "Public Edge Ingress API",
-                  "Exhausts memory and compute bandwidth",
-                  "Rate Limiting and CDN Buffering"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "For a web app, layers might include input validation, parameterised.",
+            "currentState": "attack",
+            "transition": {
+              "from": "layers",
+              "to": "attack",
+              "label": {
+                "var": "attack",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Assume breach is a related mindset.",
+            "currentState": "stopping",
+            "transition": {
+              "from": "attack",
+              "to": "stopping",
+              "label": {
+                "var": "stopping",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "STRIDE secondary threat categories and defensive architectural controls",
-        "columns": [
-          "Threat Category",
-          "System Target",
-          "Attack Impact",
-          "Primary Mitigation"
+        "template": "states",
+        "title": "Defence in depth",
+        "states": [
+          {
+            "id": "layers",
+            "label": "layers"
+          },
+          {
+            "id": "attack",
+            "label": "attack"
+          },
+          {
+            "id": "stopping",
+            "label": "stopping"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Non-repudiation is enforced through immutable audit logs.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Repudiation",
-                  "Banking Wire Transfer",
-                  "Denies transaction authorship",
-                  "Immutable Write-Once Audit Logs"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Information Disclosure",
-                  "Customer PII and Database",
-                  "Leaks confidential credentials",
-                  "TLS and Column-Level Encryption"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Denial of Service",
-                  "Public Edge Ingress API",
-                  "Exhausts memory and compute bandwidth",
-                  "Rate Limiting and CDN Buffering"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "No single control is perfect, so security uses layers.",
+            "currentState": "layers",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Denial of service attacks seek to render systems unusable.",
-            "activeRowIndex": 2,
-            "statusBadge": "failed",
-            "rows": [
-              {
-                "cells": [
-                  "Repudiation",
-                  "Banking Wire Transfer",
-                  "Denies transaction authorship",
-                  "Immutable Write-Once Audit Logs"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Information Disclosure",
-                  "Customer PII and Database",
-                  "Leaks confidential credentials",
-                  "TLS and Column-Level Encryption"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Denial of Service",
-                  "Public Edge Ingress API",
-                  "Exhausts memory and compute bandwidth",
-                  "Rate Limiting and CDN Buffering"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "For a web app, layers might include input validation, parameterised.",
+            "currentState": "attack",
+            "transition": {
+              "from": "layers",
+              "to": "attack",
+              "label": "'sqli'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Assume breach is a related mindset.",
+            "currentState": "stopping",
+            "transition": {
+              "from": "attack",
+              "to": "stopping",
+              "label": "['input validation', 'parameterised que…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -497,118 +497,162 @@
       "partTitle": "Ethics and the law",
       "codeHash": "bbd17bc980705d152ac2d118aaf8a8b308f4ec57688f68011ca259f1eade2b9f",
       "spec": {
-        "template": "sequence",
-        "title": "Least privilege authorization check and privilege escalation barrier",
-        "actors": [
+        "template": "boxes",
+        "title": "Ethics and the law",
+        "boxes": [
           {
-            "id": "client",
-            "label": "Client Identity"
+            "id": "scope",
+            "label": "scope"
           },
           {
-            "id": "authGuard",
-            "label": "RBAC Authorization Guard"
+            "id": "target",
+            "label": "target"
           },
           {
-            "id": "secureKernel",
-            "label": "Privileged Resource"
-          }
-        ],
-        "messages": [
-          {
-            "from": "client",
-            "to": "authGuard",
-            "label": "Request Access with Guest Permissions",
-            "tone": "data"
-          },
-          {
-            "from": "authGuard",
-            "to": "authGuard",
-            "label": "Audit Permissions Against Required Role",
-            "tone": "ok"
-          },
-          {
-            "from": "authGuard",
-            "to": "client",
-            "label": "Reject Unauthorized Administrative Attempt",
-            "tone": "error"
-          },
-          {
-            "from": "authGuard",
-            "to": "secureKernel",
-            "label": "Allow Verified Admin with Least Privilege",
-            "tone": "ok"
+            "id": "verdict",
+            "label": "verdict"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Elevation of privilege involves acquiring unauthorized rights.",
-            "activeMessageIndex": 2,
-            "statusBadge": "failed"
+            "caption": "Security skills can protect or harm.",
+            "values": {
+              "scope": {
+                "var": "scope",
+                "line": 1,
+                "hit": 1
+              },
+              "target": {
+                "var": "target",
+                "line": 2,
+                "hit": 1
+              },
+              "verdict": {
+                "var": "verdict",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "scope": "data",
+              "target": "data",
+              "verdict": "data"
+            }
           },
           {
-            "at": "say5",
-            "caption": "The principle of least privilege dictates minimum required permissions.",
-            "activeMessageIndex": 3,
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Only test systems you own or have written permission to test.",
+            "values": {
+              "scope": {
+                "var": "scope",
+                "line": 2,
+                "hit": 1
+              },
+              "target": {
+                "var": "target",
+                "line": 3,
+                "hit": 1
+              },
+              "verdict": {
+                "var": "verdict",
+                "line": 9,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "scope": "data",
+              "target": "data",
+              "verdict": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "When unsure whether something is allowed, stop and ask the system owner first.",
+            "values": {
+              "scope": {
+                "var": "scope",
+                "line": 3,
+                "hit": 1
+              },
+              "target": {
+                "var": "target",
+                "line": 4,
+                "hit": 1
+              },
+              "verdict": {
+                "var": "verdict",
+                "line": 2,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "scope": "ok",
+              "target": "ok",
+              "verdict": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "sequence",
-        "title": "Least privilege authorization check and privilege escalation barrier",
-        "actors": [
+        "template": "boxes",
+        "title": "Ethics and the law",
+        "boxes": [
           {
-            "id": "client",
-            "label": "Client Identity"
+            "id": "scope",
+            "label": "scope"
           },
           {
-            "id": "authGuard",
-            "label": "RBAC Authorization Guard"
+            "id": "target",
+            "label": "target"
           },
           {
-            "id": "secureKernel",
-            "label": "Privileged Resource"
-          }
-        ],
-        "messages": [
-          {
-            "from": "client",
-            "to": "authGuard",
-            "label": "Request Access with Guest Permissions",
-            "tone": "data"
-          },
-          {
-            "from": "authGuard",
-            "to": "authGuard",
-            "label": "Audit Permissions Against Required Role",
-            "tone": "ok"
-          },
-          {
-            "from": "authGuard",
-            "to": "client",
-            "label": "Reject Unauthorized Administrative Attempt",
-            "tone": "error"
-          },
-          {
-            "from": "authGuard",
-            "to": "secureKernel",
-            "label": "Allow Verified Admin with Least Privilege",
-            "tone": "ok"
+            "id": "verdict",
+            "label": "verdict"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Elevation of privilege involves acquiring unauthorized rights.",
-            "activeMessageIndex": 2,
-            "statusBadge": "failed"
+            "caption": "Security skills can protect or harm.",
+            "values": {
+              "scope": "{'in': {'api-staging.shop.example', 'st…",
+              "target": "'staging.shop.example'",
+              "verdict": "'allowed'"
+            },
+            "tones": {
+              "scope": "data",
+              "target": "data",
+              "verdict": "data"
+            }
           },
           {
-            "at": "say5",
-            "caption": "The principle of least privilege dictates minimum required permissions.",
-            "activeMessageIndex": 3,
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Only test systems you own or have written permission to test.",
+            "values": {
+              "scope": "{'in': {'api-staging.shop.example', 'st…",
+              "target": "'staging.shop.example'",
+              "verdict": "'allowed'"
+            },
+            "tones": {
+              "scope": "data",
+              "target": "data",
+              "verdict": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "When unsure whether something is allowed, stop and ask the system owner first.",
+            "values": {
+              "scope": "{'in': {'api-staging.shop.example', 'st…",
+              "target": "'staging.shop.example'",
+              "verdict": "'allowed'"
+            },
+            "tones": {
+              "scope": "ok",
+              "target": "ok",
+              "verdict": "ok"
+            }
           }
         ]
       }
@@ -618,110 +662,161 @@
       "codeHash": "2dff96a7eb0fe6223364b61ac6b2916f3e37259297f8fb7341ec24abe5b72524",
       "spec": {
         "template": "flow",
-        "title": "Defense-in-Depth Multi-Tier Architectural Audit — Execution Pipeline",
+        "title": "Practice time: STRIDE and risk",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "register",
+            "label": "register"
           },
           {
-            "id": "proc",
-            "label": "2. Defense-in-Depth Mu...",
-            "tappable": true
+            "id": "r",
+            "label": "r"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "threat",
+            "label": "threat"
+          },
+          {
+            "id": "l",
+            "label": "l"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Defense-in-Depth Multi-Tier Architectura.",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Defense-in-Depth Mu... [Done.Psix.Stwo].",
+            "caption": "Stride_categories(description).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "register": {
+                "var": "register",
+                "line": 1,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 3,
+                "hit": 1
+              },
+              "threat": {
+                "var": "threat",
+                "line": 3,
+                "hit": 4
+              },
+              "l": {
+                "var": "l",
+                "line": 3,
+                "hit": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "register": "data",
+              "r": "data",
+              "threat": "data",
+              "l": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "register",
+                "r"
               ],
               [
-                "proc",
-                "out"
+                "r",
+                "threat"
+              ],
+              [
+                "threat",
+                "l"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Psix.object-storage].",
+            "at": "say2",
+            "caption": "The checks include two categories in one description, capital letters,.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "register": {
+                "var": "register",
+                "line": 3,
+                "hit": 4
+              },
+              "r": {
+                "var": "r",
+                "line": 3,
+                "hit": 2
+              },
+              "threat": {
+                "var": "threat",
+                "line": 4,
+                "hit": 1
+              },
+              "l": {
+                "var": "l",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "register": "data",
+              "r": "data",
+              "threat": "data",
+              "l": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "register",
+                "r"
+              ],
+              [
+                "r",
+                "threat"
+              ],
+              [
+                "threat",
+                "l"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Defense-in-Depth Multi-Tier Archi.",
+            "at": "say9",
+            "caption": "Sharing the register with developers and managers makes security a team.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "register": {
+                "var": "register",
+                "line": 4,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 3,
+                "hit": 3
+              },
+              "threat": {
+                "var": "threat",
+                "line": 5,
+                "hit": 1
+              },
+              "l": {
+                "var": "l",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "register": "ok",
+              "r": "ok",
+              "threat": "ok",
+              "l": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "register",
+                "r"
               ],
               [
-                "proc",
-                "out"
+                "r",
+                "threat"
+              ],
+              [
+                "threat",
+                "l"
               ]
             ]
           }
@@ -729,110 +824,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Defense-in-Depth Multi-Tier Architectural Audit — Execution Pipeline",
+        "title": "Practice time: STRIDE and risk",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "register",
+            "label": "register"
           },
           {
-            "id": "proc",
-            "label": "2. Defense-in-Depth Mu...",
-            "tappable": true
+            "id": "r",
+            "label": "r"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "threat",
+            "label": "threat"
+          },
+          {
+            "id": "l",
+            "label": "l"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Defense-in-Depth Multi-Tier Architectura.. [D1.P6.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Defense-in-Depth Mu... [D1.P6.S2].",
+            "caption": "Stride_categories(description).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "register": "[['Admin panel exposed to the internet'…",
+              "r": "['Admin panel exposed to the internet',…",
+              "threat": "'Admin panel exposed to the internet'",
+              "l": "4"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "register": "data",
+              "r": "data",
+              "threat": "data",
+              "l": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "register",
+                "r"
               ],
               [
-                "proc",
-                "out"
+                "r",
+                "threat"
+              ],
+              [
+                "threat",
+                "l"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P6.S3].",
+            "at": "say2",
+            "caption": "The checks include two categories in one description, capital letters,.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "register": "[['Admin panel exposed to the internet'…",
+              "r": "['Order data modified in transit', 2, 4]",
+              "threat": "'Admin panel exposed to the internet'",
+              "l": "4"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "register": "data",
+              "r": "data",
+              "threat": "data",
+              "l": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "register",
+                "r"
+              ],
+              [
+                "r",
+                "threat"
+              ],
+              [
+                "threat",
+                "l"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Defense-in-Depth Multi-Tier Archi.. [D1.P6.S4].",
+            "at": "say9",
+            "caption": "Sharing the register with developers and managers makes security a team.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "register": "[['Admin panel exposed to the internet'…",
+              "r": "['Checkout flooded by bots', 3, 3]",
+              "threat": "'Admin panel exposed to the internet'",
+              "l": "4"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "register": "ok",
+              "r": "ok",
+              "threat": "ok",
+              "l": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "register",
+                "r"
               ],
               [
-                "proc",
-                "out"
+                "r",
+                "threat"
+              ],
+              [
+                "threat",
+                "l"
               ]
             ]
           }

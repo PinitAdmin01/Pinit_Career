@@ -2,88 +2,222 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 49,
-  "promptSha": "eb7e67616f167f4179d3d94499b1de77fa06e2d18f65fe70847060418c61ea9d",
-  "model": "gate-v2-verified",
+  "promptSha": "e6971116537f29d6e30f404f15cd4144598b946360c0cbd82a2649ecc5b3eda3",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "Circuit Breaker State Machine & Cascading Failures",
       "codeHash": "dcfba46689d1f5a4a7c3437fc1d7e789e300a759e45b348fa327c86b76dcefad",
       "spec": {
-        "template": "table",
-        "title": "Circuit Breaker State Machine & Cascading Failures",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "CircuitBreaker CLOSED, OPEN, and HALF_OPEN state machine",
+        "nodes": [
+          {
+            "id": "cl",
+            "label": "CLOSED"
+          },
+          {
+            "id": "op",
+            "label": "OPEN"
+          },
+          {
+            "id": "ho",
+            "label": "HALF_OPEN"
+          }
+        ],
+        "edges": [
+          {
+            "from": "cl",
+            "to": "op",
+            "label": "failure_threshold"
+          },
+          {
+            "from": "op",
+            "to": "ho",
+            "label": "recovery_time_s"
+          },
+          {
+            "from": "ho",
+            "to": "cl"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The distributed concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Circuit"
-                  },
-                  {
-                    "text": "Breaker"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Circuit breakers wrap remote calls inside a three-state safeguard.",
+            "values": {
+              "cl": {
+                "text": "CLOSED"
+              },
+              "op": {
+                "text": "OPEN"
+              },
+              "ho": {
+                "text": "HALF_OPEN"
               }
-            ]
+            },
+            "tones": {
+              "cl": "ok",
+              "op": "idle",
+              "ho": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The downstream logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "State"
-                  },
-                  {
-                    "text": "Machine"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Exceeding failure limits trips OPEN fast-failing without network waits.",
+            "values": {
+              "cl": {
+                "text": "failure_threshold"
+              },
+              "op": {
+                "text": "OPEN"
+              },
+              "ho": {
+                "text": "HALF_OPEN"
               }
-            ]
+            },
+            "tones": {
+              "cl": "idle",
+              "op": "error",
+              "ho": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Recovery sleep transitions to HALF_OPEN to probe downstream health.",
+            "values": {
+              "cl": {
+                "text": "CLOSED"
+              },
+              "op": {
+                "text": "OPEN"
+              },
+              "ho": {
+                "text": "HALF_OPEN"
+              }
+            },
+            "tones": {
+              "cl": "ok",
+              "op": "idle",
+              "ho": "data"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set failure_threshold to 1 so circuit trips OPEN on first simulated error.",
+            "values": {
+              "cl": {
+                "text": "Reduce"
+              },
+              "op": {
+                "text": "and"
+              },
+              "ho": {
+                "text": "how"
+              }
+            },
+            "tones": {
+              "cl": "data",
+              "op": "error",
+              "ho": "ok"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Circuit Breaker State Machine & Cascading Failures",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "CircuitBreaker CLOSED, OPEN, and HALF_OPEN state machine",
+        "nodes": [
+          {
+            "id": "cl",
+            "label": "CLOSED"
+          },
+          {
+            "id": "op",
+            "label": "OPEN"
+          },
+          {
+            "id": "ho",
+            "label": "HALF_OPEN"
+          }
+        ],
+        "edges": [
+          {
+            "from": "cl",
+            "to": "op",
+            "label": "failure_threshold"
+          },
+          {
+            "from": "op",
+            "to": "ho",
+            "label": "recovery_time_s"
+          },
+          {
+            "from": "ho",
+            "to": "cl"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The distributed concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Circuit",
-                  "Breaker"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Circuit breakers wrap remote calls inside a three-state safeguard.",
+            "values": {
+              "cl": "Normal Traffic Flowing",
+              "op": "Standby Trip State",
+              "ho": "Probe Recovery State"
+            },
+            "tones": {
+              "cl": "ok",
+              "op": "idle",
+              "ho": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The downstream logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "State",
-                  "Machine"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Exceeding failure limits trips OPEN fast-failing without network waits.",
+            "values": {
+              "cl": "3 Failures Hit",
+              "op": "FAST_FAIL Instantly",
+              "ho": "Waiting recovery_time_s=5"
+            },
+            "tones": {
+              "cl": "idle",
+              "op": "error",
+              "ho": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Recovery sleep transitions to HALF_OPEN to probe downstream health.",
+            "values": {
+              "cl": "Healed On Canary 200 OK",
+              "op": "Left OPEN State",
+              "ho": "Canary Probe Sent"
+            },
+            "tones": {
+              "cl": "ok",
+              "op": "idle",
+              "ho": "data"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set failure_threshold to 1 so circuit trips OPEN on first simulated error.",
+            "values": {
+              "cl": "Threshold = 1 Configured",
+              "op": "Tripped OPEN On Req 2",
+              "ho": "Req 6 Canary Healed"
+            },
+            "tones": {
+              "cl": "data",
+              "op": "error",
+              "ho": "ok"
+            },
+            "arrows": [],
+            "whatIf": "class CircuitState:\n    CLOSED = \"CLOSED\"\n    OPEN = \"OPEN\"\n    HALF_OPEN = \"HALF_OPEN\"\n\nclass CircuitBreaker:\n    def __init__(self, failure_threshold=3, recovery_time_s=5):\n        self.state = CircuitState.CLOSED\n        self.failure_threshold = failure_threshold\n        self.recovery_time_s = recovery_time_s\n        self.failure_count = 0\n        self.last_failure_time = 0\n        self.current_time = 1000.0\n\n    def call(self, func, *args, **kwargs):\n        # Check state transitions\n        if self.state == CircuitState.OPEN:\n            if self.current_time - self.last_failure_time >= self.recovery_time_s:\n                self.state = CircuitState.HALF_OPEN\n                print(f\"[CIRCUIT] Recovery time elapsed -> State transition to {self.state}\")\n            else:\n                return f\"FAST_FAIL: Circuit is OPEN (retry in {int(self.recovery_time_s - (self.current_time - self.last_failure_time))}s)\"\n\n        try:\n            res = func(*args, **kwargs)\n            if self.state == CircuitState.HALF_OPEN:\n                self.state = CircuitState.CLOSED\n                self.failure_count = 0\n                print(f\"[CIRCUIT] Canary request succeeded -> State healed to {self.state}\")\n            return res\n        except Exception as e:\n            self.failure_count += 1\n            self.last_failure_time = self.current_time\n            if self.failure_count >= self.failure_threshold:\n                self.state = CircuitState.OPEN\n                print(f\"[CIRCUIT] Failure threshold {self.failure_threshold} reached -> Circuit TRIPPED to {self.state}\")\n            return f\"ERROR: {e}\"\n\ncb = CircuitBreaker(failure_threshold=1, recovery_time_s=5)\n\ndef flaky_service(fail=False):\n    if fail:\n        raise RuntimeError(\"Downstream Service Unavailable (503)\")\n    return \"200 OK: Response Data\"\n\n# 1. Normal calls\nprint(\"Req 1:\", cb.call(flaky_service, fail=False))\n\n# 2. Trigger failures\nfor i in range(3):\n    print(f\"Req {i+2}:\", cb.call(flaky_service, fail=True))\n\n# 3. Fast fail while open\ncb.current_time += 2.0\nprint(\"Req 5:\", cb.call(flaky_service, fail=False))\n\n# 4. Advance time past recovery -> Canary probe\ncb.current_time += 4.0\nprint(\"Req 6:\", cb.call(flaky_service, fail=False))\nprint(\"Req 7:\", cb.call(flaky_service, fail=False))",
+            "checks": [
+              "[CIRCUIT] Failure threshold 1 reached -> Circuit TRIPPED to OPEN"
             ]
           }
         ]
@@ -93,81 +227,182 @@
       "partTitle": "Bulkhead Isolation & Concurrency Partitioning",
       "codeHash": "1cd5e9176eaec3a83bff203c517aebf297885989f9f57b7056e80f08271d7991",
       "spec": {
-        "template": "table",
-        "title": "Bulkhead Isolation & Concurrency Partitioning",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "BulkheadPool isolated concurrency partitions",
+        "boxes": [
+          {
+            "id": "act",
+            "label": "active"
+          },
+          {
+            "id": "q",
+            "label": "queued"
+          },
+          {
+            "id": "ex",
+            "label": "execute"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The circuit concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Bulkhead"
-                  },
-                  {
-                    "text": "Isolation"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Slow recommendation endpoints can exhaust shared checkout threads.",
+            "values": {
+              "act": {
+                "text": "active"
+              },
+              "q": {
+                "text": "queued"
+              },
+              "ex": {
+                "text": "max_concurrent"
               }
-            ]
+            },
+            "tones": {
+              "act": "error",
+              "q": "error",
+              "ex": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The applying logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Concurrency"
-                  },
-                  {
-                    "text": "Partitioning"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Isolated concurrency pools cap slow callers and shield healthy routes.",
+            "values": {
+              "act": {
+                "text": "max_concurrent"
+              },
+              "q": {
+                "text": "max_queue"
+              },
+              "ex": {
+                "text": "BulkheadPool"
               }
-            ]
+            },
+            "tones": {
+              "act": "ok",
+              "q": "data",
+              "ex": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Saturated recommendation bulkheads shed load without starving billing.",
+            "values": {
+              "act": {
+                "text": "active"
+              },
+              "q": {
+                "text": "queued"
+              },
+              "ex": {
+                "text": "execute"
+              }
+            },
+            "tones": {
+              "act": "error",
+              "q": "error",
+              "ex": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase max_queue in RecommendationPool so extra requests queue safely.",
+            "values": {
+              "act": {
+                "text": "Increase"
+              },
+              "q": {
+                "text": "RecommendationPool"
+              },
+              "ex": {
+                "text": "observe"
+              }
+            },
+            "tones": {
+              "act": "ok",
+              "q": "data",
+              "ex": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Bulkhead Isolation & Concurrency Partitioning",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "BulkheadPool isolated concurrency partitions",
+        "boxes": [
+          {
+            "id": "act",
+            "label": "active"
+          },
+          {
+            "id": "q",
+            "label": "queued"
+          },
+          {
+            "id": "ex",
+            "label": "execute"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The circuit concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Bulkhead",
-                  "Isolation"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Slow recommendation endpoints can exhaust shared checkout threads.",
+            "values": {
+              "act": "Shared Pool Full",
+              "q": "Threads Blocked 30s",
+              "ex": "Checkout Starved"
+            },
+            "tones": {
+              "act": "error",
+              "q": "error",
+              "ex": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The applying logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Concurrency",
-                  "Partitioning"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Isolated concurrency pools cap slow callers and shield healthy routes.",
+            "values": {
+              "act": "Recommendation: 2 Max",
+              "q": "Small Bounded Queue (1)",
+              "ex": "BillingPool Kept Free"
+            },
+            "tones": {
+              "act": "ok",
+              "q": "data",
+              "ex": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Saturated recommendation bulkheads shed load without starving billing.",
+            "values": {
+              "act": "Rec Pool 2/2 Full",
+              "q": "Rec_4 Shed Immediately",
+              "ex": "Checkout_Order_101 OK"
+            },
+            "tones": {
+              "act": "error",
+              "q": "error",
+              "ex": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase max_queue in RecommendationPool so extra requests queue safely.",
+            "values": {
+              "act": "Rec Pool 2/2 Active",
+              "q": "Rec_3..6 Queued (4/5)",
+              "ex": "0 Rejected (Absorbed)"
+            },
+            "tones": {
+              "act": "ok",
+              "q": "data",
+              "ex": "ok"
+            },
+            "whatIf": "class BulkheadPool:\n    def __init__(self, name, max_concurrent=2, max_queue=2):\n        self.name = name\n        self.max_concurrent = max_concurrent\n        self.max_queue = max_queue\n        self.active = 0\n        self.queued = 0\n\n    def execute(self, task_name):\n        if self.active < self.max_concurrent:\n            self.active += 1\n            return f\"[{self.name}] EXECUTING '{task_name}' (Active: {self.active}/{self.max_concurrent})\"\n        elif self.queued < self.max_queue:\n            self.queued += 1\n            return f\"[{self.name}] QUEUED '{task_name}' (Queue: {self.queued}/{self.max_queue})\"\n        else:\n            return f\"[{self.name}] REJECTED '{task_name}': Bulkhead Capacity Saturated\"\n\nbilling_bulkhead = BulkheadPool(\"BillingPool\", max_concurrent=2, max_queue=1)\nrecs_bulkhead = BulkheadPool(\"RecommendationPool\", max_concurrent=2, max_queue=5)\n\n# Saturate Recommendation pool\nprint(recs_bulkhead.execute(\"Rec_1\"))\nprint(recs_bulkhead.execute(\"Rec_2\"))\nprint(recs_bulkhead.execute(\"Rec_3\"))\nprint(recs_bulkhead.execute(\"Rec_4\"))\nprint(recs_bulkhead.execute(\"Rec_5\"))\nprint(recs_bulkhead.execute(\"Rec_6\"))\n\n# Billing pool remains completely unaffected and isolated\nprint(billing_bulkhead.execute(\"Checkout_Order_101\"))\nprint(billing_bulkhead.execute(\"Checkout_Order_102\"))\nprint(\"Bulkhead Invariant: Failing recommendations cannot starve mission-critical checkout threads.\")",
+            "checks": [
+              "[RecommendationPool] QUEUED 'Rec_4' (Queue: 2/5)",
+              "[RecommendationPool] QUEUED 'Rec_6' (Queue: 4/5)"
             ]
           }
         ]
@@ -177,81 +412,257 @@
       "partTitle": "Distributed Rate Limiting: Token Bucket Algorithm",
       "codeHash": "dcbe425b6017875f2f1771feb200b5e4e88305140fc385911220efa5f6a9a31a",
       "spec": {
-        "template": "table",
-        "title": "Distributed Rate Limiting: Token Bucket Algorithm",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "TokenBucketRateLimiter capacity and timed refill",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The rate concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Buckets refill tokens steadily and reject overflow calls with HTTP 429.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Distributed"
-                  },
-                  {
-                    "text": "Rate"
-                  }
-                ],
+                "text": "TokenBucketRateLimiter"
+              },
+              {
+                "text": "capacity"
+              },
+              {
+                "text": "tokens"
+              },
+              {
+                "text": "allow_request"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "bucket",
+                "index": 2,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "data",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The mathematical logic drives deterministic execution.",
-            "rows": [
+            "caption": "Short request bursts drain tokens before sustained rate caps kick in.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Limiting"
-                  },
-                  {
-                    "text": "Token"
-                  }
-                ],
+                "text": "capacity"
+              },
+              {
+                "text": "tokens"
+              },
+              {
+                "text": "refill_rate"
+              },
+              {
+                "text": "allow_request"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "empty",
+                "index": 1,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "data",
+              "1": "error",
+              "2": "idle",
+              "3": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Token bucket replenishes capacity smoothly between traffic bursts.",
+            "items": [
+              {
+                "text": "capacity"
+              },
+              {
+                "text": "refill_rate"
+              },
+              {
+                "text": "tokens"
+              },
+              {
+                "text": "allow_request"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "refill",
+                "index": 1,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set refill_rate to 2 in TokenBucketRateLimiter and verify faster replenishment.",
+            "items": [
+              {
+                "text": "Change"
+              },
+              {
+                "text": "2.0"
+              },
+              {
+                "text": "and"
+              },
+              {
+                "text": "how"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "refilled",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "idle",
+              "1": "data",
+              "2": "ok",
+              "3": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Distributed Rate Limiting: Token Bucket Algorithm",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "TokenBucketRateLimiter capacity and timed refill",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The rate concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Buckets refill tokens steadily and reject overflow calls with HTTP 429.",
+            "items": [
+              "Limiter Active",
+              "capacity = 3",
+              "tokens = 3.0",
+              "Allow Req 1..3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Distributed",
-                  "Rate"
-                ],
+                "name": "bucket",
+                "index": 2,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "data",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The mathematical logic drives deterministic execution.",
-            "rows": [
+            "caption": "Short request bursts drain tokens before sustained rate caps kick in.",
+            "items": [
+              "Burst Consumed 3",
+              "tokens = 0.0 Empty",
+              "refill_rate = 1.0/s",
+              "Req 4 -> RATE_LIMITED (429)"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Limiting",
-                  "Token"
-                ],
+                "name": "empty",
+                "index": 1,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "data",
+              "1": "error",
+              "2": "idle",
+              "3": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Token bucket replenishes capacity smoothly between traffic bursts.",
+            "items": [
+              "Max 3 Cap",
+              "+2.0 Tokens At t=2.0s",
+              "1.0 Left After Req 5",
+              "Req 5 ALLOWED"
+            ],
+            "pointers": [
+              {
+                "name": "refill",
+                "index": 1,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set refill_rate to 2 in TokenBucketRateLimiter and verify faster replenishment.",
+            "items": [
+              "capacity = 3",
+              "t=2.0s * 2.0/s -> Capped 3.0",
+              "Req 5 Consumes 1",
+              "Tokens remaining: 2.0"
+            ],
+            "pointers": [
+              {
+                "name": "refilled",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "idle",
+              "1": "data",
+              "2": "ok",
+              "3": "ok"
+            },
+            "whatIf": "class TokenBucketRateLimiter:\n    def __init__(self, capacity=3, refill_rate=1.0):\n        self.capacity = capacity\n        self.refill_rate = refill_rate\n        self.tokens = float(capacity)\n        self.last_refill = 0.0\n        self.current_time = 0.0\n\n    def allow_request(self, tokens_requested=1):\n        elapsed = self.current_time - self.last_refill\n        self.tokens = min(float(self.capacity), self.tokens + elapsed * self.refill_rate)\n        self.last_refill = self.current_time\n\n        if self.tokens >= tokens_requested:\n            self.tokens -= tokens_requested\n            return True, round(self.tokens, 1)\n        return False, round(self.tokens, 1)\n\nlimiter = TokenBucketRateLimiter(capacity=3, refill_rate=2.0)\n# Burst 4 requests at t=0\nfor i in range(1, 5):\n    allowed, remaining = limiter.allow_request(1)\n    status = \"ALLOWED\" if allowed else \"RATE_LIMITED (429)\"\n    print(f\"Req {i} at t=0.0s: {status} | Tokens remaining: {remaining}\")\n\n# Advance time by 2.0s (refills 2 tokens)\nlimiter.current_time = 2.0\nallowed, remaining = limiter.allow_request(1)\nprint(f\"Req 5 at t=2.0s: {'ALLOWED' if allowed else 'RATE_LIMITED'} | Tokens remaining: {remaining}\")\nprint(\"Rate Limiter Invariant: Smooth token replenishment handles bursts while capping sustained throughput.\")",
+            "checks": [
+              "Req 5 at t=2.0s: ALLOWED | Tokens remaining: 2.0"
             ]
           }
         ]
@@ -261,81 +672,203 @@
       "partTitle": "Resilience Composition: Circuit Breaker & Bulkhead Integration",
       "codeHash": "de799c7230dde2c7ea85f616c234908f41cf662741fc2ef510f814fe8e33cff8",
       "spec": {
-        "template": "table",
-        "title": "Resilience Composition: Circuit Breaker & Bulkhead",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "Layered bulkhead and circuit breaker defense chain",
+        "nodes": [
+          {
+            "id": "bulk",
+            "label": "max_concurrency"
+          },
+          {
+            "id": "cb",
+            "label": "circuit_open"
+          },
+          {
+            "id": "call",
+            "label": "call_service"
+          }
+        ],
+        "edges": [
+          {
+            "from": "bulk",
+            "to": "cb"
+          },
+          {
+            "from": "cb",
+            "to": "call"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The industrial concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Resilience"
-                  },
-                  {
-                    "text": "Composition"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Layered rate limits and bulkheads reject spikes at the gateway boundary.",
+            "values": {
+              "bulk": {
+                "text": "max_concurrency"
+              },
+              "cb": {
+                "text": "circuit_open"
+              },
+              "call": {
+                "text": "call_service"
               }
-            ]
+            },
+            "tones": {
+              "bulk": "data",
+              "cb": "idle",
+              "call": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The resilient logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Circuit"
-                  },
-                  {
-                    "text": "Breaker"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "OPEN breakers fail fast without opening new downstream network sockets.",
+            "values": {
+              "bulk": {
+                "text": "active_calls"
+              },
+              "cb": {
+                "text": "circuit_open"
+              },
+              "call": {
+                "text": "failures"
               }
-            ]
+            },
+            "tones": {
+              "bulk": "idle",
+              "cb": "error",
+              "call": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Unified mesh client enforces concurrency caps and circuit trips together.",
+            "values": {
+              "bulk": {
+                "text": "max_concurrency"
+              },
+              "cb": {
+                "text": "circuit_open"
+              },
+              "call": {
+                "text": "ResilientMeshClient"
+              }
+            },
+            "tones": {
+              "bulk": "ok",
+              "cb": "error",
+              "call": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Return cached inventory fallback data when circuit breaker is OPEN.",
+            "values": {
+              "bulk": {
+                "text": "Add"
+              },
+              "cb": {
+                "text": "method"
+              },
+              "call": {
+                "text": "returns"
+              }
+            },
+            "tones": {
+              "bulk": "ok",
+              "cb": "error",
+              "call": "data"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Resilience Composition: Circuit Breaker & Bulkhead",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "Layered bulkhead and circuit breaker defense chain",
+        "nodes": [
+          {
+            "id": "bulk",
+            "label": "max_concurrency"
+          },
+          {
+            "id": "cb",
+            "label": "circuit_open"
+          },
+          {
+            "id": "call",
+            "label": "call_service"
+          }
+        ],
+        "edges": [
+          {
+            "from": "bulk",
+            "to": "cb"
+          },
+          {
+            "from": "cb",
+            "to": "call"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The industrial concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Resilience",
-                  "Composition"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Layered rate limits and bulkheads reject spikes at the gateway boundary.",
+            "values": {
+              "bulk": "Cap = 2 Active Calls",
+              "cb": "Check Circuit Gate",
+              "call": "CheckStock_1 OK"
+            },
+            "tones": {
+              "bulk": "data",
+              "cb": "idle",
+              "call": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The resilient logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Circuit",
-                  "Breaker"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "OPEN breakers fail fast without opening new downstream network sockets.",
+            "values": {
+              "bulk": "0 Sockets Leaked",
+              "cb": "circuit_open = True",
+              "call": "2 Timeouts Recorded"
+            },
+            "tones": {
+              "bulk": "idle",
+              "cb": "error",
+              "call": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Unified mesh client enforces concurrency caps and circuit trips together.",
+            "values": {
+              "bulk": "finally: active_calls -= 1",
+              "cb": "Call 4 -> FAST_FAIL Fallback",
+              "call": "Calling Process Shielded"
+            },
+            "tones": {
+              "bulk": "ok",
+              "cb": "error",
+              "call": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Return cached inventory fallback data when circuit breaker is OPEN.",
+            "values": {
+              "bulk": "Active Bulkhead Clean",
+              "cb": "Circuit OPEN -> Fallback",
+              "call": "Served Cached Stock (12)"
+            },
+            "tones": {
+              "bulk": "ok",
+              "cb": "error",
+              "call": "data"
+            },
+            "arrows": [],
+            "whatIf": "class ResilientMeshClient:\n    def __init__(self, name, max_concurrency=2, failure_limit=2):\n        self.name = name\n        self.active_calls = 0\n        self.max_concurrency = max_concurrency\n        self.circuit_open = False\n        self.failures = 0\n        self.failure_limit = failure_limit\n\n    def cached_fallback(self, operation):\n        fb = {\"sku_default\": 12}\n        return f\"[{self.name}] CACHED_FALLBACK: {operation} -> {fb}\"\n\n    def call_service(self, operation, fail=False):\n        if self.circuit_open:\n            return self.cached_fallback(operation)\n\n        if self.active_calls >= self.max_concurrency:\n            return f\"[{self.name}] REJECTED: Bulkhead saturated ({self.active_calls}/{self.max_concurrency})\"\n\n        self.active_calls += 1\n        try:\n            if fail:\n                self.failures += 1\n                if self.failures >= self.failure_limit:\n                    self.circuit_open = True\n                    print(f\"[{self.name}] ALARM: Failure threshold reached -> Circuit tripped to OPEN\")\n                return f\"[{self.name}] ERROR: Downstream timeout\"\n            return f\"[{self.name}] SUCCESS: '{operation}' completed\"\n        finally:\n            self.active_calls -= 1\n\nclient = ResilientMeshClient(\"InventoryClient\", max_concurrency=2, failure_limit=2)\nprint(client.call_service(\"CheckStock_1\", fail=False))\nprint(client.call_service(\"CheckStock_2\", fail=True))\nprint(client.call_service(\"CheckStock_3\", fail=True))\nprint(client.call_service(\"CheckStock_4\", fail=False))\nprint(\"Resilience Composition: Circuit breaker and bulkhead shield calling process from latency cascading.\")",
+            "checks": [
+              "[InventoryClient] CACHED_FALLBACK: CheckStock_4"
             ]
           }
         ]
@@ -346,23 +879,41 @@
       "codeHash": "590cbf7a206857f21668c04e9fca300503f5928eb8c78c0697c032f6e5b227b7",
       "spec": {
         "template": "table",
-        "title": "E-Commerce Gateway Cascading Failure Remediation",
+        "title": "ProductionGatewaySimulator outage fallback isolation",
         "columns": [
-          "Stage",
-          "Concept"
+          "Dependency",
+          "Condition",
+          "Checkout Impact"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The production concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Bounded bulkheads isolate shipping calls before checkout pods starve.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Commerce"
+                    "text": "isolated_shipping_errors"
                   },
                   {
-                    "text": "Gateway"
+                    "text": "cached_shipping_fallbacks"
+                  },
+                  {
+                    "text": "successful_orders"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "process_checkout"
+                  },
+                  {
+                    "text": "circuit_tripped"
+                  },
+                  {
+                    "text": "ProductionGatewaySimulator"
                   }
                 ],
                 "tone": "data"
@@ -371,15 +922,100 @@
           },
           {
             "at": "say3",
-            "caption": "The within logic drives deterministic execution.",
+            "caption": "Tripped circuits return flat-rate estimates instantly in fallback mode.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Cascading"
+                    "text": "circuit_tripped"
                   },
                   {
-                    "text": "Failure"
+                    "text": "cached_shipping_fallbacks"
+                  },
+                  {
+                    "text": "successful_orders"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "isolated_shipping_errors"
+                  },
+                  {
+                    "text": "process_checkout"
+                  },
+                  {
+                    "text": "ProductionGatewaySimulator"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Outage simulation isolates third-party shipping errors with full checkouts.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "isolated_shipping_errors"
+                  },
+                  {
+                    "text": "circuit_tripped"
+                  },
+                  {
+                    "text": "successful_orders"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "cached_shipping_fallbacks"
+                  },
+                  {
+                    "text": "process_checkout"
+                  },
+                  {
+                    "text": "ProductionGatewaySimulator"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set shipping_api_down False during recovery to observe circuit healing.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Simulate"
+                  },
+                  {
+                    "text": "shipping"
+                  },
+                  {
+                    "text": "partner"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "partner"
+                  },
+                  {
+                    "text": "recovery"
+                  },
+                  {
+                    "text": "setting"
                   }
                 ],
                 "tone": "ok"
@@ -390,20 +1026,30 @@
       },
       "filled": {
         "template": "table",
-        "title": "E-Commerce Gateway Cascading Failure Remediation",
+        "title": "ProductionGatewaySimulator outage fallback isolation",
         "columns": [
-          "Stage",
-          "Concept"
+          "Dependency",
+          "Condition",
+          "Checkout Impact"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The production concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Bounded bulkheads isolate shipping calls before checkout pods starve.",
             "rows": [
               {
                 "cells": [
-                  "Commerce",
-                  "Gateway"
+                  "Shipping API Hung",
+                  "Bulkhead Caps Threads",
+                  "Payment Pods Free"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Order Database",
+                  "Zero Pool Exhaustion",
+                  "100% Healthy Writes"
                 ],
                 "tone": "data"
               }
@@ -411,15 +1057,73 @@
           },
           {
             "at": "say3",
-            "caption": "The within logic drives deterministic execution.",
+            "caption": "Tripped circuits return flat-rate estimates instantly in fallback mode.",
             "rows": [
               {
                 "cells": [
-                  "Cascading",
-                  "Failure"
+                  "Circuit OPEN After 2 Errs",
+                  "$9.99 FALLBACK_FLAT_RATE",
+                  "0.2ms Response"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Auth + Cart Services",
+                  "Isolated From Outage",
+                  "Zero Latency Spike"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Outage simulation isolates third-party shipping errors with full checkouts.",
+            "rows": [
+              {
+                "cells": [
+                  "Shipping Outage (3 Errors)",
+                  "Circuit Tripped OPEN",
+                  "4 / 4 Orders Confirmed"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "3 Fallbacks Served",
+                  "100.0% Checkout Success",
+                  "0 Dropped Transactions"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set shipping_api_down False during recovery to observe circuit healing.",
+            "rows": [
+              {
+                "cells": [
+                  "Shipping Outage (ORD_102/103)",
+                  "Fallback $9.99 Served",
+                  "2/2 Orders Confirmed"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Shipping Recovered (ORD_104)",
+                  "LIVE_API_RATE ($8.45)",
+                  "Live Shipping Active"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "class ProductionGatewaySimulator:\n    def __init__(self):\n        self.successful_orders = 0\n        self.isolated_shipping_errors = 0\n        self.cached_shipping_fallbacks = 0\n        self.circuit_tripped = False\n\n    def process_checkout(self, order_id, shipping_api_down=False):\n        payment_success = True\n\n        if shipping_api_down:\n            self.isolated_shipping_errors += 1\n            if self.isolated_shipping_errors >= 2:\n                self.circuit_tripped = True\n            shipping_rate = 9.99\n            self.cached_shipping_fallbacks += 1\n            shipping_status = \"FALLBACK_FLAT_RATE\"\n        else:\n            shipping_rate = 8.45\n            shipping_status = \"LIVE_API_RATE\"\n\n        self.successful_orders += 1\n        return {\n            \"order_id\": order_id,\n            \"payment\": \"CONFIRMED\",\n            \"shipping\": f\"${shipping_rate:.2f} ({shipping_status})\",\n            \"circuit_open\": self.circuit_tripped\n        }\n\nsim = ProductionGatewaySimulator()\nprint(\"Phase 1: Normal operations (Shipping API healthy)\")\nprint(sim.process_checkout(\"ORD_101\", shipping_api_down=False))\n\nprint()\nprint(\"Phase 2: Third-party shipping outage begins\")\nprint(sim.process_checkout(\"ORD_102\", shipping_api_down=True))\nprint(sim.process_checkout(\"ORD_103\", shipping_api_down=True))\nprint(sim.process_checkout(\"ORD_104\", shipping_api_down=False))\n\nprint()\nprint(\"=== Production Resilience Incident Report ===\")\nprint(f\"  total_checkouts_processed: {sim.successful_orders}\")\nprint(f\"  checkout_success_rate: 100.0%\")\nprint(f\"  shipping_failures_isolated: {sim.isolated_shipping_errors}\")\nprint(f\"  fallback_estimates_served: {sim.cached_shipping_fallbacks}\")\nprint(\"INVARIANT SATISFIED: Downstream dependency failure isolated with 0 impact on core order checkouts.\")",
+            "checks": [
+              "'order_id': 'ORD_104'",
+              "'shipping': '$8.45 (LIVE_API_RATE)'"
             ]
           }
         ]

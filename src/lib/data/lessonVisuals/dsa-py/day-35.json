@@ -2,89 +2,83 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 35,
-  "promptSha": "e0546c7e20fafdbe279472d77bc70e566a167e3c55116d013ec0e60776dc72b7",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "System Architecture: Range Query, String Indexing & Topology Composition",
       "codeHash": "a8d08a6c98cd02e119999d41f2da590f431a61b7b1551e1b36ca7633b5efc37e",
       "spec": {
-        "template": "table",
-        "title": "System Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "System Architecture: Range Query, String Indexing & Topology Com",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The milestone design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "System"
-                  },
-                  {
-                    "text": "Architecture"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Welcome to Milestone 7 of our Principal DSA Engineering track.",
+            "items": {
+              "var": "signatures",
+              "line": 156,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The integrated step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Range"
-                  },
-                  {
-                    "text": "Query"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Instead, principal engineers compose specialized algorithms whose.",
+            "items": {
+              "var": "signatures",
+              "line": 157,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say7",
+            "caption": "Review this complete self-contained initialization blueprint instantiating.",
+            "items": {
+              "var": "signatures",
+              "line": 159,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "System Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "System Architecture: Range Query, String Indexing & Topology Com",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The milestone design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "System",
-                  "Architecture"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Welcome to Milestone 7 of our Principal DSA Engineering track.",
+            "mode": "queue",
+            "items": [
+              "'ERR_TIMEOUT'",
+              "'DROP_PACKET'"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The integrated step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Range",
-                  "Query"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Instead, principal engineers compose specialized algorithms whose.",
+            "mode": "queue",
+            "items": [
+              "'ERR_TIMEOUT'",
+              "'DROP_PACKET'"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say7",
+            "caption": "Review this complete self-contained initialization blueprint instantiating.",
+            "mode": "queue",
+            "items": [
+              "'ERR_TIMEOUT'",
+              "'DROP_PACKET'"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -93,43 +87,131 @@
       "partTitle": "Dynamic Network Partitioning & Speculative Failover with Rollback DSU",
       "codeHash": "6936adc36e4ba177a9458e20d460a719f094ae45c3933f2ca64a79c95d4a3413",
       "spec": {
-        "template": "table",
-        "title": "Dynamic Network Partitioning & Speculative Failover with",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Dynamic Network Partitioning & Speculative Failover with Rollbac",
         "steps": [
           {
             "at": "say1",
-            "caption": "The clusters design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Edge clusters constantly undergo routing table churn, fiber cuts,.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Dynamic"
-                  },
-                  {
-                    "text": "Network"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "num_nodes",
+                "value": {
+                  "var": "num_nodes",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 13,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The naive step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Using RollbackDSU inside our ClusterTopologyGovernor, network automation.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Partitioning"
-                  },
-                  {
-                    "text": "Speculative"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "num_nodes",
+                "value": {
+                  "var": "num_nodes",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Execute the self-contained failover controller below joining separated.",
+            "bars": [
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "num_nodes",
+                "value": {
+                  "var": "num_nodes",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 17,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -137,35 +219,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Dynamic Network Partitioning & Speculative Failover with",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Dynamic Network Partitioning & Speculative Failover with Rollbac",
         "steps": [
           {
             "at": "say1",
-            "caption": "The clusters design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Edge clusters constantly undergo routing table churn, fiber cuts,.",
+            "bars": [
               {
-                "cells": [
-                  "Dynamic",
-                  "Network"
-                ],
+                "label": "size",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "num_nodes",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The naive step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Using RollbackDSU inside our ClusterTopologyGovernor, network automation.",
+            "bars": [
               {
-                "cells": [
-                  "Partitioning",
-                  "Speculative"
-                ],
+                "label": "size",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "num_nodes",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Execute the self-contained failover controller below joining separated.",
+            "bars": [
+              {
+                "label": "size",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "num_nodes",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -177,82 +307,79 @@
       "partTitle": "Real-Time Telemetry Counters & Multi-Pattern Log Auditing",
       "codeHash": "9868db99a9fc91419942687c062c36b60354f1ab9b3312b6e9e44ffb8ce3d5b3",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Real-Time Telemetry Counters & Multi-Pattern Log Auditing",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The nodes design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Real"
-                  },
-                  {
-                    "text": "Time"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Once nodes are organized into stable clusters, live worker pods stream.",
+            "items": {
+              "var": "signatures",
+              "line": 69,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The fenwick step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Telemetry"
-                  },
-                  {
-                    "text": "Counters"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Our TelemetryAndLogIngester combines the Fenwick Tree and Aho-Corasick.",
+            "items": {
+              "var": "signatures",
+              "line": 70,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say7",
+            "caption": "Inspect the dual ingest pipeline below processing node traffic volumes.",
+            "items": {
+              "var": "signatures",
+              "line": 70,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Real-Time Telemetry Counters & Multi-Pattern Log Auditing",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The nodes design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Real",
-                  "Time"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Once nodes are organized into stable clusters, live worker pods stream.",
+            "mode": "queue",
+            "items": [
+              "'OOM_KILL'",
+              "'UNION SELECT'",
+              "'AUTH_FAIL'"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The fenwick step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Telemetry",
-                  "Counters"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Our TelemetryAndLogIngester combines the Fenwick Tree and Aho-Corasick.",
+            "mode": "queue",
+            "items": [
+              "'OOM_KILL'",
+              "'UNION SELECT'",
+              "'AUTH_FAIL'"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say7",
+            "caption": "Inspect the dual ingest pipeline below processing node traffic volumes.",
+            "mode": "queue",
+            "items": [
+              "'OOM_KILL'",
+              "'UNION SELECT'",
+              "'AUTH_FAIL'"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -261,43 +388,131 @@
       "partTitle": "Interval Capacity Allocation & Burst Management with Lazy Segment Trees",
       "codeHash": "d7cc7eed5b3b318642d52a944c2cf1a4baaa767d883492cf0222a11347109fdb",
       "spec": {
-        "template": "table",
-        "title": "Interval Capacity Allocation & Burst Management with Lazy",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Interval Capacity Allocation & Burst Management with Lazy Segmen",
         "steps": [
           {
             "at": "say1",
-            "caption": "The complement design establishes the core structural invariant.",
-            "rows": [
+            "caption": "To complement live telemetry counters, our infrastructure platform.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Interval"
-                  },
-                  {
-                    "text": "Capacity"
-                  }
-                ],
+                "label": "node",
+                "value": {
+                  "var": "node",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "l",
+                "value": {
+                  "var": "l",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mid",
+                "value": {
+                  "var": "mid",
+                  "line": 13,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The thanks step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Whenever batch ETL jobs, marketing spikes, or scheduled failovers reserve.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Allocation"
-                  },
-                  {
-                    "text": "Burst"
-                  }
-                ],
+                "label": "node",
+                "value": {
+                  "var": "node",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "l",
+                "value": {
+                  "var": "l",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mid",
+                "value": {
+                  "var": "mid",
+                  "line": 13,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Examine this self-contained TimeWindowGovernor stacking baseline.",
+            "bars": [
+              {
+                "label": "node",
+                "value": {
+                  "var": "node",
+                  "line": 10,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "l",
+                "value": {
+                  "var": "l",
+                  "line": 10,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 10,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mid",
+                "value": {
+                  "var": "mid",
+                  "line": 13,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -305,35 +520,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Interval Capacity Allocation & Burst Management with Lazy",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Interval Capacity Allocation & Burst Management with Lazy Segmen",
         "steps": [
           {
             "at": "say1",
-            "caption": "The complement design establishes the core structural invariant.",
-            "rows": [
+            "caption": "To complement live telemetry counters, our infrastructure platform.",
+            "bars": [
               {
-                "cells": [
-                  "Interval",
-                  "Capacity"
-                ],
+                "label": "node",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "l",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 23,
+                "tone": "data"
+              },
+              {
+                "label": "mid",
+                "value": 11,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The thanks step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Whenever batch ETL jobs, marketing spikes, or scheduled failovers reserve.",
+            "bars": [
               {
-                "cells": [
-                  "Allocation",
-                  "Burst"
-                ],
+                "label": "node",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "l",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 23,
+                "tone": "ok"
+              },
+              {
+                "label": "mid",
+                "value": 5,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Examine this self-contained TimeWindowGovernor stacking baseline.",
+            "bars": [
+              {
+                "label": "node",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "l",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 11,
+                "tone": "ok"
+              },
+              {
+                "label": "mid",
+                "value": 2,
                 "tone": "ok"
               }
             ]
@@ -345,82 +608,79 @@
       "partTitle": "Complete Milestone 7 Capstone: Unified Enterprise Engine Audit",
       "codeHash": "88c4137199d7efe455da9b907982d1218c6ed71cb922fe04a8114a35c04a738a",
       "spec": {
-        "template": "table",
-        "title": "Complete Milestone 7 Capstone",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Complete Milestone 7 Capstone: Unified Enterprise Engine Audit",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The integrate design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Complete"
-                  },
-                  {
-                    "text": "Milestone"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "We now integrate all four Milestone 7 componentsRollbackDSU, FenwickTree.",
+            "items": {
+              "var": "threat_patterns",
+              "line": 156,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The appear step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Capstone"
-                  },
-                  {
-                    "text": "Unified"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Notice how each subsystem exposes focused domain methods.",
+            "items": {
+              "var": "threat_patterns",
+              "line": 157,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Run the complete Milestone 7 Capstone execution below and verify.",
+            "items": {
+              "var": "threat_patterns",
+              "line": 161,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Complete Milestone 7 Capstone",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Complete Milestone 7 Capstone: Unified Enterprise Engine Audit",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The integrate design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Complete",
-                  "Milestone"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "We now integrate all four Milestone 7 componentsRollbackDSU, FenwickTree.",
+            "mode": "queue",
+            "items": [
+              "'UNION SELECT'",
+              "'../..'",
+              "'ERR_PANIC'"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The appear step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Capstone",
-                  "Unified"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Notice how each subsystem exposes focused domain methods.",
+            "mode": "queue",
+            "items": [
+              "'UNION SELECT'",
+              "'../..'",
+              "'ERR_PANIC'"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say6",
+            "caption": "Run the complete Milestone 7 Capstone execution below and verify.",
+            "mode": "queue",
+            "items": [
+              "'UNION SELECT'",
+              "'../..'",
+              "'ERR_PANIC'"
+            ],
+            "action": "idle"
           }
         ]
       }

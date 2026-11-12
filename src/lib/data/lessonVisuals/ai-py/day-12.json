@@ -2,116 +2,228 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 12,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Lost in the middle",
       "codeHash": "3b3eb440b0e6640584cc203f12375c73b4fcad36abaa9af218facd64e546f473",
       "spec": {
-        "template": "bars",
-        "title": "Model retrieval accuracy degradation across prompt positions",
+        "template": "flow",
+        "title": "Lost in the middle",
+        "nodes": [
+          {
+            "id": "accuracy_by_position",
+            "label": "accuracy_by_position"
+          },
+          {
+            "id": "pos",
+            "label": "pos"
+          },
+          {
+            "id": "acc",
+            "label": "acc"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Accuracy dips significantly when information is placed in the middle.",
-            "bars": [
-              {
-                "label": "pos_1 (start)",
-                "value": {
-                  "text": "76"
-                },
-                "tone": "ok"
+            "caption": "Research found that models use information at the start and end of a long.",
+            "values": {
+              "accuracy_by_position": {
+                "var": "accuracy_by_position",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "label": "pos_10 (middle)",
-                "value": {
-                  "text": "54"
-                },
-                "tone": "error"
+              "pos": {
+                "var": "pos",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "label": "pos_20 (end)",
-                "value": {
-                  "text": "72"
-                },
-                "tone": "ok"
+              "acc": {
+                "var": "acc",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "accuracy_by_position": "data",
+              "pos": "data",
+              "acc": "data"
+            },
+            "arrows": [
+              [
+                "accuracy_by_position",
+                "pos"
+              ],
+              [
+                "pos",
+                "acc"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Placing relevant chunks at the edges defends against lost attention.",
-            "bars": [
-              {
-                "label": "edge_start",
-                "value": {
-                  "text": "76"
-                },
-                "tone": "ok"
+            "at": "say2",
+            "caption": "So even with the right chunk in the prompt, putting it in the middle of 20.",
+            "values": {
+              "accuracy_by_position": {
+                "var": "accuracy_by_position",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "label": "submerged_mid",
-                "value": {
-                  "text": "54"
-                },
-                "tone": "error"
+              "pos": {
+                "var": "pos",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "label": "edge_end",
-                "value": {
-                  "text": "72"
-                },
-                "tone": "ok"
+              "acc": {
+                "var": "acc",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "accuracy_by_position": "data",
+              "pos": "data",
+              "acc": "data"
+            },
+            "arrows": [
+              [
+                "accuracy_by_position",
+                "pos"
+              ],
+              [
+                "pos",
+                "acc"
+              ]
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Both defences also save tokens, so they help cost and quality at the same time.",
+            "values": {
+              "accuracy_by_position": {
+                "var": "accuracy_by_position",
+                "line": 3,
+                "hit": 1
+              },
+              "pos": {
+                "var": "pos",
+                "line": 2,
+                "hit": 2
+              },
+              "acc": {
+                "var": "acc",
+                "line": 2,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "accuracy_by_position": "ok",
+              "pos": "ok",
+              "acc": "ok"
+            },
+            "arrows": [
+              [
+                "accuracy_by_position",
+                "pos"
+              ],
+              [
+                "pos",
+                "acc"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Model retrieval accuracy degradation across prompt positions",
+        "template": "flow",
+        "title": "Lost in the middle",
+        "nodes": [
+          {
+            "id": "accuracy_by_position",
+            "label": "accuracy_by_position"
+          },
+          {
+            "id": "pos",
+            "label": "pos"
+          },
+          {
+            "id": "acc",
+            "label": "acc"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Accuracy dips significantly when information is placed in the middle.",
-            "bars": [
-              {
-                "label": "pos_1 (start)",
-                "value": 76,
-                "tone": "ok"
-              },
-              {
-                "label": "pos_10 (middle)",
-                "value": 54,
-                "tone": "error"
-              },
-              {
-                "label": "pos_20 (end)",
-                "value": 72,
-                "tone": "ok"
-              }
+            "caption": "Research found that models use information at the start and end of a long.",
+            "values": {
+              "accuracy_by_position": "{1: 0.76, 5: 0.62, 10: 0.54, 15: 0.57, …",
+              "pos": "1",
+              "acc": "0.76"
+            },
+            "tones": {
+              "accuracy_by_position": "data",
+              "pos": "data",
+              "acc": "data"
+            },
+            "arrows": [
+              [
+                "accuracy_by_position",
+                "pos"
+              ],
+              [
+                "pos",
+                "acc"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Placing relevant chunks at the edges defends against lost attention.",
-            "bars": [
-              {
-                "label": "edge_start",
-                "value": 76,
-                "tone": "ok"
-              },
-              {
-                "label": "submerged_mid",
-                "value": 54,
-                "tone": "error"
-              },
-              {
-                "label": "edge_end",
-                "value": 72,
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "So even with the right chunk in the prompt, putting it in the middle of 20.",
+            "values": {
+              "accuracy_by_position": "{1: 0.76, 5: 0.62, 10: 0.54, 15: 0.57, …",
+              "pos": "1",
+              "acc": "0.76"
+            },
+            "tones": {
+              "accuracy_by_position": "data",
+              "pos": "data",
+              "acc": "data"
+            },
+            "arrows": [
+              [
+                "accuracy_by_position",
+                "pos"
+              ],
+              [
+                "pos",
+                "acc"
+              ]
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Both defences also save tokens, so they help cost and quality at the same time.",
+            "values": {
+              "accuracy_by_position": "{1: 0.76, 5: 0.62, 10: 0.54, 15: 0.57, …",
+              "pos": "5",
+              "acc": "0.62"
+            },
+            "tones": {
+              "accuracy_by_position": "ok",
+              "pos": "ok",
+              "acc": "ok"
+            },
+            "arrows": [
+              [
+                "accuracy_by_position",
+                "pos"
+              ],
+              [
+                "pos",
+                "acc"
+              ]
             ]
           }
         ]
@@ -121,110 +233,176 @@
       "partTitle": "Arranging chunks from the outside in",
       "codeHash": "aaae9809a52e5a30d9d09a15ad0276509eed08cb4a1f51ab65ebfc50bcb1af70",
       "spec": {
-        "template": "boxes",
-        "title": "Outside in chunk placement reordering strategy",
-        "boxes": [
-          {
-            "id": "b0",
-            "label": "start"
-          },
-          {
-            "id": "b1",
-            "label": "middle"
-          },
-          {
-            "id": "b2",
-            "label": "end"
-          }
-        ],
+        "template": "bars",
+        "title": "Arranging chunks from the outside in",
         "steps": [
           {
             "at": "say1",
-            "caption": "Reordering places the highest ranked chunks at the prompt boundaries.",
-            "values": {
-              "b0": {
-                "text": "2nd"
+            "caption": "Arrange_lost_in_middle(chunks), with chunks ranked best first.",
+            "bars": [
+              {
+                "label": "left",
+                "value": {
+                  "var": "left",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "b1": {
-                "text": "3rd"
+              {
+                "label": "right",
+                "value": {
+                  "var": "right",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "b2": {
-                "text": "best"
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               }
-            },
-            "tones": {
-              "b0": "ok",
-              "b1": "data",
-              "b2": "ok"
-            }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Two pointers distribute ranked items from the outside towards the center.",
-            "values": {
-              "b0": {
-                "text": "2nd"
+            "at": "say2",
+            "caption": "The weakest chunks end up in the middle, where they matter least.",
+            "bars": [
+              {
+                "label": "left",
+                "value": {
+                  "var": "left",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
-              "b1": {
-                "text": "5th"
+              {
+                "label": "right",
+                "value": {
+                  "var": "right",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
-              "b2": {
-                "text": "best"
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "b0": "ok",
-              "b1": "data",
-              "b2": "ok"
-            }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "This reordering costs nothing, so it is worth doing whenever you send more.",
+            "bars": [
+              {
+                "label": "left",
+                "value": {
+                  "var": "left",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "right",
+                "value": {
+                  "var": "right",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Outside in chunk placement reordering strategy",
-        "boxes": [
-          {
-            "id": "b0",
-            "label": "start"
-          },
-          {
-            "id": "b1",
-            "label": "middle"
-          },
-          {
-            "id": "b2",
-            "label": "end"
-          }
-        ],
+        "template": "bars",
+        "title": "Arranging chunks from the outside in",
         "steps": [
           {
             "at": "say1",
-            "caption": "Reordering places the highest ranked chunks at the prompt boundaries.",
-            "values": {
-              "b0": "2nd",
-              "b1": "3rd",
-              "b2": "best"
-            },
-            "tones": {
-              "b0": "ok",
-              "b1": "data",
-              "b2": "ok"
-            }
+            "caption": "Arrange_lost_in_middle(chunks), with chunks ranked best first.",
+            "bars": [
+              {
+                "label": "left",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "right",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Two pointers distribute ranked items from the outside towards the center.",
-            "values": {
-              "b0": "2nd",
-              "b1": "5th",
-              "b2": "best"
-            },
-            "tones": {
-              "b0": "ok",
-              "b1": "data",
-              "b2": "ok"
-            }
+            "at": "say2",
+            "caption": "The weakest chunks end up in the middle, where they matter least.",
+            "bars": [
+              {
+                "label": "left",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "right",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "This reordering costs nothing, so it is worth doing whenever you send more.",
+            "bars": [
+              {
+                "label": "left",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "right",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -233,224 +411,162 @@
       "partTitle": "Estimating context size",
       "codeHash": "dad40b22adba01b9b02b1c86503ffdb8d658fcb292d06c5bc9892329331026fc",
       "spec": {
-        "template": "flow",
-        "title": "Estimating context size — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Estimating context ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Estimating context size",
+        "actors": [
+          "chunks",
+          "c",
+          "words"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Estimating context size [Dtwelve.Pthree.Sone].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Estimating context .",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Estimate_tokens(chunks) counts the words in all chunks and returns math.",
+            "activeActor": "chunks",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "c",
+                "label": {
+                  "var": "chunks",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "c",
+                "to": "words",
+                "label": {
+                  "var": "c",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Round up with math.",
+            "activeActor": "c",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "c",
+                "label": {
+                  "var": "chunks",
+                  "line": 4,
+                  "hit": 4
+                },
+                "tone": "data"
+              },
+              {
+                "from": "c",
+                "to": "words",
+                "label": {
+                  "var": "c",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Estimating context size.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "Counting before sending lets you trim early, instead of receiving an error.",
+            "activeActor": "words",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "c",
+                "label": {
+                  "var": "chunks",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "c",
+                "to": "words",
+                "label": {
+                  "var": "c",
+                  "line": 8,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Estimating context size — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Estimating context ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Estimating context size",
+        "actors": [
+          "chunks",
+          "c",
+          "words"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Estimating context size [D12.P3.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Estimating context ... [D12.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Estimate_tokens(chunks) counts the words in all chunks and returns math.",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "c",
+                "label": "[{'text': 'Refunds for UPI payments arr…",
+                "tone": "data"
+              },
+              {
+                "from": "c",
+                "to": "words",
+                "label": "{'text': 'Refunds for UPI payments arri…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "chunks"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Round up with math.",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "c",
+                "label": "[{'text': 'Refunds for UPI payments arr…",
+                "tone": "data"
+              },
+              {
+                "from": "c",
+                "to": "words",
+                "label": "{'text': 'Card refunds can take up to s…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "c"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Estimating context size [D12.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say6",
+            "caption": "Counting before sending lets you trim early, instead of receiving an error.",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "c",
+                "label": "[{'text': 'Refunds for UPI payments arr…",
+                "tone": "data"
+              },
+              {
+                "from": "c",
+                "to": "words",
+                "label": "{'text': 'Card refunds can take up to s…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "words"
           }
         ]
       }
@@ -459,94 +575,162 @@
       "partTitle": "Compressing chunks to what matters",
       "codeHash": "d5bcbd24b65f1088af8f2ec5e255e8a2a74dc32b3fd61bcec235dca3417f1337",
       "spec": {
-        "template": "compare",
-        "title": "Monolithic raw chunk versus extractive sentence compression",
-        "leftLabel": "Raw Chunk",
-        "rightLabel": "Compressed Sentence",
+        "template": "sequence",
+        "title": "Compressing chunks to what matters",
+        "actors": [
+          "STOP",
+          "chunk",
+          "question"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Contextual compression extracts useful sentences while removing filler text.",
-            "left": {
-              "code": "full chunk (4 sentences)",
-              "result": {
-                "text": "34 words"
+            "caption": "A retrieved chunk often contains one useful sentence and several unrelated.",
+            "activeActor": "STOP",
+            "messages": [
+              {
+                "from": "STOP",
+                "to": "chunk",
+                "label": {
+                  "var": "STOP",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "data"
-            },
-            "right": {
-              "code": "extracted sentence",
-              "result": {
-                "text": "8 words"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "chunk",
+                "to": "question",
+                "label": {
+                  "var": "chunk",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Extractive filtering preserves sentences sharing keywords with the question.",
-            "left": {
-              "code": "irrelevant sentences",
-              "result": {
-                "text": "parking and store hours"
+            "caption": "A simple extractive method.",
+            "activeActor": "chunk",
+            "messages": [
+              {
+                "from": "STOP",
+                "to": "chunk",
+                "label": {
+                  "var": "STOP",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "target sentence",
-              "result": {
-                "text": "UPI refunds in 2 days"
+              {
+                "from": "chunk",
+                "to": "question",
+                "label": {
+                  "var": "chunk",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Be careful not to over-compress.",
+            "activeActor": "question",
+            "messages": [
+              {
+                "from": "STOP",
+                "to": "chunk",
+                "label": {
+                  "var": "STOP",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            }
+              {
+                "from": "chunk",
+                "to": "question",
+                "label": {
+                  "var": "chunk",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Monolithic raw chunk versus extractive sentence compression",
-        "leftLabel": "Raw Chunk",
-        "rightLabel": "Compressed Sentence",
+        "template": "sequence",
+        "title": "Compressing chunks to what matters",
+        "actors": [
+          "STOP",
+          "chunk",
+          "question"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Contextual compression extracts useful sentences while removing filler text.",
-            "left": {
-              "code": "full chunk (4 sentences)",
-              "result": "34 words",
-              "tone": "data",
-              "checks": [
-                "34 words"
-              ]
-            },
-            "right": {
-              "code": "extracted sentence",
-              "result": "8 words",
-              "tone": "ok",
-              "checks": [
-                "8 words"
-              ]
-            }
+            "caption": "A retrieved chunk often contains one useful sentence and several unrelated.",
+            "messages": [
+              {
+                "from": "STOP",
+                "to": "chunk",
+                "label": "{'a', 'an', 'are', 'do', 'does', 'for',…",
+                "tone": "data"
+              },
+              {
+                "from": "chunk",
+                "to": "question",
+                "label": "'Our stores open at 9. Refunds for UPI …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "STOP"
           },
           {
             "at": "say2",
-            "caption": "Extractive filtering preserves sentences sharing keywords with the question.",
-            "left": {
-              "code": "irrelevant sentences",
-              "result": "parking and store hours",
-              "tone": "error",
-              "checks": [
-                "parking and store hours"
-              ]
-            },
-            "right": {
-              "code": "target sentence",
-              "result": "UPI refunds in 2 days",
-              "tone": "ok",
-              "checks": [
-                "UPI refunds in 2 days"
-              ]
-            }
+            "caption": "A simple extractive method.",
+            "messages": [
+              {
+                "from": "STOP",
+                "to": "chunk",
+                "label": "{'a', 'an', 'are', 'do', 'does', 'for',…",
+                "tone": "data"
+              },
+              {
+                "from": "chunk",
+                "to": "question",
+                "label": "'Our stores open at 9. Refunds for UPI …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "chunk"
+          },
+          {
+            "at": "say6",
+            "caption": "Be careful not to over-compress.",
+            "messages": [
+              {
+                "from": "STOP",
+                "to": "chunk",
+                "label": "{'a', 'an', 'are', 'do', 'does', 'for',…",
+                "tone": "data"
+              },
+              {
+                "from": "chunk",
+                "to": "question",
+                "label": "'Our stores open at 9. Refunds for UPI …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "question"
           }
         ]
       }
@@ -555,114 +739,194 @@
       "partTitle": "Removing near-duplicates",
       "codeHash": "b028ec75455d9352182213cab325dbdbd86b0a8d77cd4106238cc6cb081357ff",
       "spec": {
-        "template": "table",
-        "title": "Jaccard similarity duplicate detection and elimination",
-        "columns": [
-          "chunk_candidate",
-          "jaccard_similarity",
-          "action_taken"
+        "template": "boxes",
+        "title": "Removing near-duplicates",
+        "boxes": [
+          {
+            "id": "ranked",
+            "label": "ranked"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "sa",
+            "label": "sa"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Overlapping retrieval candidates often return duplicate information.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "UPI refunds arrive in 2 days"
-                  },
-                  {
-                    "text": "one"
-                  },
-                  {
-                    "text": "kept first"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Hybrid search and overlapping chunks often return the same information twice.",
+            "values": {
+              "ranked": {
+                "var": "ranked",
+                "line": 12,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 2,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 2,
+                "hit": 1
+              },
+              "sa": {
+                "var": "sa",
+                "line": 2,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "ranked": "data",
+              "a": "data",
+              "b": "data",
+              "sa": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Jaccard similarity compares texts as sets of words to detect duplicates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "UPI refunds arrive in 2 days"
-                  },
-                  {
-                    "text": "one"
-                  },
-                  {
-                    "text": "kept first"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Jaccard similarity compares two texts as sets of words.",
+            "values": {
+              "ranked": {
+                "var": "ranked",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "UPI refunds arrive in 2 days."
-                  },
-                  {
-                    "text": "one"
-                  },
-                  {
-                    "text": "dropped duplicate"
-                  }
-                ],
-                "tone": "error"
+              "a": {
+                "var": "a",
+                "line": 3,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 3,
+                "hit": 1
+              },
+              "sa": {
+                "var": "sa",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "ranked": "data",
+              "a": "data",
+              "b": "data",
+              "sa": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Embedding similarity can also be used for this, catching duplicates.",
+            "values": {
+              "ranked": {
+                "var": "ranked",
+                "line": 14,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 2,
+                "hit": 2
+              },
+              "b": {
+                "var": "b",
+                "line": 2,
+                "hit": 2
+              },
+              "sa": {
+                "var": "sa",
+                "line": 2,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "ranked": "ok",
+              "a": "ok",
+              "b": "ok",
+              "sa": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Jaccard similarity duplicate detection and elimination",
-        "columns": [
-          "chunk_candidate",
-          "jaccard_similarity",
-          "action_taken"
+        "template": "boxes",
+        "title": "Removing near-duplicates",
+        "boxes": [
+          {
+            "id": "ranked",
+            "label": "ranked"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "sa",
+            "label": "sa"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Overlapping retrieval candidates often return duplicate information.",
-            "rows": [
-              {
-                "cells": [
-                  "UPI refunds arrive in 2 days",
-                  "one",
-                  "kept first"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Hybrid search and overlapping chunks often return the same information twice.",
+            "values": {
+              "ranked": "['UPI refunds arrive in 2 days', 'UPI r…",
+              "a": "'UPI refunds arrive in 2 days'",
+              "b": "'UPI refunds arrive in 2 days.'",
+              "sa": "{'2', 'arrive', 'days', 'in', 'refunds'…"
+            },
+            "tones": {
+              "ranked": "data",
+              "a": "data",
+              "b": "data",
+              "sa": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Jaccard similarity compares texts as sets of words to detect duplicates.",
-            "rows": [
-              {
-                "cells": [
-                  "UPI refunds arrive in 2 days",
-                  "one",
-                  "kept first"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "UPI refunds arrive in 2 days.",
-                  "one",
-                  "dropped duplicate"
-                ],
-                "tone": "error"
-              }
-            ]
+            "caption": "Jaccard similarity compares two texts as sets of words.",
+            "values": {
+              "ranked": "['UPI refunds arrive in 2 days', 'UPI r…",
+              "a": "'UPI refunds arrive in 2 days'",
+              "b": "'UPI refunds arrive in 2 days.'",
+              "sa": "{'2', 'arrive', 'days', 'in', 'refunds'…"
+            },
+            "tones": {
+              "ranked": "data",
+              "a": "data",
+              "b": "data",
+              "sa": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Embedding similarity can also be used for this, catching duplicates.",
+            "values": {
+              "ranked": "['UPI refunds arrive in 2 days', 'UPI r…",
+              "a": "'UPI refunds arrive in 2 days.'",
+              "b": "'UPI refunds arrive in 2 days'",
+              "sa": "{'2', 'arrive', 'days.', 'in', 'refunds…"
+            },
+            "tones": {
+              "ranked": "ok",
+              "a": "ok",
+              "b": "ok",
+              "sa": "ok"
+            }
           }
         ]
       }
@@ -671,224 +935,194 @@
       "partTitle": "Fitting a token budget",
       "codeHash": "34b0bdff83534d7552fcdfd627b3b8d0446e83ede7024455ab9a50ca864ffe67",
       "spec": {
-        "template": "flow",
-        "title": "Fitting a token budget — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Fitting a token budget",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "ranked",
+            "label": "ranked"
           },
           {
-            "id": "proc",
-            "label": "2. Fitting a token budget",
-            "tappable": true
+            "id": "ranked_chunks",
+            "label": "ranked_chunks"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "budget",
+            "label": "budget"
+          },
+          {
+            "id": "chosen",
+            "label": "chosen"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Fitting a token budget [Dtwelve.Psix.Sone].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Fitting a token budget [Dtwelve.Psix.Stwo].",
+            "caption": "Rerank, remove duplicates, compress, then add chunks in order of relevance.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "ranked": {
+                "var": "ranked",
+                "line": 15,
+                "hit": 1
+              },
+              "ranked_chunks": {
+                "var": "ranked_chunks",
+                "line": 7,
+                "hit": 1
+              },
+              "budget": {
+                "var": "budget",
+                "line": 7,
+                "hit": 1
+              },
+              "chosen": {
+                "var": "chosen",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "ranked": "data",
+              "ranked_chunks": "data",
+              "budget": "data",
+              "chosen": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The budget is the context window minus the system prompt, the question.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "ranked": {
+                "var": "ranked",
+                "line": 16,
+                "hit": 1
+              },
+              "ranked_chunks": {
+                "var": "ranked_chunks",
+                "line": 8,
+                "hit": 1
+              },
+              "budget": {
+                "var": "budget",
+                "line": 8,
+                "hit": 1
+              },
+              "chosen": {
+                "var": "chosen",
+                "line": 8,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "ranked": "data",
+              "ranked_chunks": "data",
+              "budget": "data",
+              "chosen": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Fitting a token budget.",
+            "at": "say7",
+            "caption": "Tomorrow you will measure whether all these steps really improved the answers.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "ranked": {
+                "var": "ranked",
+                "line": 17,
+                "hit": 1
+              },
+              "ranked_chunks": {
+                "var": "ranked_chunks",
+                "line": 9,
+                "hit": 1
+              },
+              "budget": {
+                "var": "budget",
+                "line": 9,
+                "hit": 1
+              },
+              "chosen": {
+                "var": "chosen",
+                "line": 9,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "ranked": "ok",
+              "ranked_chunks": "ok",
+              "budget": "ok",
+              "chosen": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Fitting a token budget — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Fitting a token budget",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "ranked",
+            "label": "ranked"
           },
           {
-            "id": "proc",
-            "label": "2. Fitting a token budget",
-            "tappable": true
+            "id": "ranked_chunks",
+            "label": "ranked_chunks"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "budget",
+            "label": "budget"
+          },
+          {
+            "id": "chosen",
+            "label": "chosen"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Fitting a token budget [D12.P6.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Fitting a token budget [D12.P6.S2].",
+            "caption": "Rerank, remove duplicates, compress, then add chunks in order of relevance.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "ranked": "['UPI refunds arrive in 2 days.', 'Card…",
+              "ranked_chunks": "['UPI refunds arrive in 2 days.', 'Card…",
+              "budget": "20",
+              "chosen": "[]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "ranked": "data",
+              "ranked_chunks": "data",
+              "budget": "data",
+              "chosen": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P6.S3].",
+            "at": "say2",
+            "caption": "The budget is the context window minus the system prompt, the question.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "ranked": "['UPI refunds arrive in 2 days.', 'Card…",
+              "ranked_chunks": "['UPI refunds arrive in 2 days.', 'Card…",
+              "budget": "20",
+              "chosen": "[]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "ranked": "data",
+              "ranked_chunks": "data",
+              "budget": "data",
+              "chosen": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Fitting a token budget [D12.P6.S4].",
+            "at": "say7",
+            "caption": "Tomorrow you will measure whether all these steps really improved the answers.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "ranked": "['UPI refunds arrive in 2 days.', 'Card…",
+              "ranked_chunks": "['UPI refunds arrive in 2 days.', 'Card…",
+              "budget": "20",
+              "chosen": "[]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "ranked": "ok",
+              "ranked_chunks": "ok",
+              "budget": "ok",
+              "chosen": "ok"
+            }
           }
         ]
       }

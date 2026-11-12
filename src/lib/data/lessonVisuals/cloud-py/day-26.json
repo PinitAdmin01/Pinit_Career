@@ -2,257 +2,113 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 26,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why encryption, and where",
       "codeHash": "56bdb0a1f21548561e9fa2bf6cde605ab4957b37f2f24b035da0e9c881a51931",
       "spec": {
-        "template": "table",
-        "title": "Encryption layers across storage, transit and hardware key storage",
-        "columns": [
-          "data",
-          "key"
+        "template": "states",
+        "title": "Why encryption, and where",
+        "states": [
+          {
+            "id": "plaintext",
+            "label": "plaintext"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Data lives in memory, on disk and over the network.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "disk"
-                  },
-                  {
-                    "text": "S3"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Encryption turns readable data (plaintext) into scrambled data.",
+            "currentState": "plaintext",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Encryption at rest stops unauthorized reading of drive data.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "disk"
-                  },
-                  {
-                    "text": "S3"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "drive"
-                  },
-                  {
-                    "text": "RDS"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Encryption in transit protects data moving over networks, using TLS (the S.",
+            "currentState": "key",
+            "transition": {
+              "from": "plaintext",
+              "to": "key",
+              "label": {
+                "var": "key",
+                "line": 2,
+                "hit": 26
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Encryption in transit uses TLS across networks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "disk"
-                  },
-                  {
-                    "text": "S3"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "drive"
-                  },
-                  {
-                    "text": "RDS"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "network"
-                  },
-                  {
-                    "text": "TLS"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Encryption moves the problem from protecting data to protecting keys,.",
+            "currentState": "i",
+            "transition": {
+              "from": "key",
+              "to": "i",
+              "label": {
+                "var": "i",
+                "line": 2,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "AWS Key Management Service manages keys inside hardware security modules.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "disk"
-                  },
-                  {
-                    "text": "S3"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "drive"
-                  },
-                  {
-                    "text": "RDS"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "network"
-                  },
-                  {
-                    "text": "TLS"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "KMS"
-                  },
-                  {
-                    "text": "CloudTrail"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Encryption layers across storage, transit and hardware key storage",
-        "columns": [
-          "data",
-          "key"
+        "template": "states",
+        "title": "Why encryption, and where",
+        "states": [
+          {
+            "id": "plaintext",
+            "label": "plaintext"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Data lives in memory, on disk and over the network.",
-            "rows": [
-              {
-                "cells": [
-                  "disk",
-                  "S3"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Encryption turns readable data (plaintext) into scrambled data.",
+            "currentState": "plaintext",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Encryption at rest stops unauthorized reading of drive data.",
-            "rows": [
-              {
-                "cells": [
-                  "disk",
-                  "S3"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "drive",
-                  "RDS"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Encryption in transit protects data moving over networks, using TLS (the S.",
+            "currentState": "key",
+            "transition": {
+              "from": "plaintext",
+              "to": "key",
+              "label": "{'__other__': 'bytes'}"
+            },
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Encryption in transit uses TLS across networks.",
-            "rows": [
-              {
-                "cells": [
-                  "disk",
-                  "S3"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "drive",
-                  "RDS"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "network",
-                  "TLS"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "AWS Key Management Service manages keys inside hardware security modules.",
-            "rows": [
-              {
-                "cells": [
-                  "disk",
-                  "S3"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "drive",
-                  "RDS"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "network",
-                  "TLS"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "KMS",
-                  "CloudTrail"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say7",
+            "caption": "Encryption moves the problem from protecting data to protecting keys,.",
+            "currentState": "i",
+            "transition": {
+              "from": "key",
+              "to": "i",
+              "label": "2"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -261,195 +117,277 @@
       "partTitle": "KMS keys, policies and grants",
       "codeHash": "3f5156138bd9396a14363f8e7a1b142b08dee3f08747f6587df391b7e564d511",
       "spec": {
-        "template": "table",
-        "title": "KMS key policy statements and authorized callers",
-        "columns": [
-          "principal",
-          "actions"
+        "template": "flow",
+        "title": "KMS keys, policies and grants",
+        "nodes": [
+          {
+            "id": "policy",
+            "label": "policy"
+          },
+          {
+            "id": "principal",
+            "label": "principal"
+          },
+          {
+            "id": "action",
+            "label": "action"
+          },
+          {
+            "id": "via",
+            "label": "via"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A KMS key (once called a customer master key) is identified by an ARN such.",
+            "values": {
+              "policy": {
+                "var": "policy",
+                "line": 1,
+                "hit": 1
+              },
+              "principal": {
+                "var": "principal",
+                "line": 7,
+                "hit": 1
+              },
+              "action": {
+                "var": "action",
+                "line": 7,
+                "hit": 1
+              },
+              "via": {
+                "var": "via",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "policy": "data",
+              "principal": "data",
+              "action": "data",
+              "via": "data"
+            },
+            "arrows": [
+              [
+                "policy",
+                "principal"
+              ],
+              [
+                "principal",
+                "action"
+              ],
+              [
+                "action",
+                "via"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "AWS managed keys are created automatically by services such as.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "role/media-app"
-                  },
-                  {
-                    "text": "kms:Decrypt"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "AWS managed keys are created automatically by services such as S3 or RDS.",
+            "values": {
+              "policy": {
+                "var": "policy",
+                "line": 6,
+                "hit": 1
+              },
+              "principal": {
+                "var": "principal",
+                "line": 8,
+                "hit": 1
+              },
+              "action": {
+                "var": "action",
+                "line": 8,
+                "hit": 1
+              },
+              "via": {
+                "var": "via",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "policy": "data",
+              "principal": "data",
+              "action": "data",
+              "via": "data"
+            },
+            "arrows": [
+              [
+                "policy",
+                "principal"
+              ],
+              [
+                "principal",
+                "action"
+              ],
+              [
+                "action",
+                "via"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Every KMS key has a key policy controlling account access.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "role/media-app"
-                  },
-                  {
-                    "text": "kms:Decrypt"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Deleting a KMS key is irreversible and makes all data encrypted under it.",
+            "values": {
+              "policy": {
+                "var": "policy",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "arn:aws:iam::111122223333:root"
-                  },
-                  {
-                    "text": "kms:*"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Conditions make key policies precise for specific caller services.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "role/media-app"
-                  },
-                  {
-                    "text": "kms:Decrypt"
-                  }
-                ],
-                "tone": "ok"
+              "principal": {
+                "var": "principal",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "arn:aws:iam::111122223333:root"
-                  },
-                  {
-                    "text": "kms:*"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Grants provide temporary permissions that services use to decrypt disks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "role/media-app"
-                  },
-                  {
-                    "text": "kms:Decrypt"
-                  }
-                ],
-                "tone": "ok"
+              "action": {
+                "var": "action",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "arn:aws:iam::111122223333:root"
-                  },
-                  {
-                    "text": "kms:*"
-                  }
-                ],
-                "tone": "data"
+              "via": {
+                "var": "via",
+                "line": 7,
+                "hit": 2
               }
+            },
+            "tones": {
+              "policy": "ok",
+              "principal": "ok",
+              "action": "ok",
+              "via": "ok"
+            },
+            "arrows": [
+              [
+                "policy",
+                "principal"
+              ],
+              [
+                "principal",
+                "action"
+              ],
+              [
+                "action",
+                "via"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "KMS key policy statements and authorized callers",
-        "columns": [
-          "principal",
-          "actions"
+        "template": "flow",
+        "title": "KMS keys, policies and grants",
+        "nodes": [
+          {
+            "id": "policy",
+            "label": "policy"
+          },
+          {
+            "id": "principal",
+            "label": "principal"
+          },
+          {
+            "id": "action",
+            "label": "action"
+          },
+          {
+            "id": "via",
+            "label": "via"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A KMS key (once called a customer master key) is identified by an ARN such.",
+            "values": {
+              "policy": "[{'principal': 'arn:aws:iam::1111222233…",
+              "principal": "'role/media-app'",
+              "action": "'kms:Decrypt'",
+              "via": "'s3.ap-south-1.amazonaws.com'"
+            },
+            "tones": {
+              "policy": "data",
+              "principal": "data",
+              "action": "data",
+              "via": "data"
+            },
+            "arrows": [
+              [
+                "policy",
+                "principal"
+              ],
+              [
+                "principal",
+                "action"
+              ],
+              [
+                "action",
+                "via"
+              ]
+            ]
+          },
+          {
             "at": "say2",
             "caption": "AWS managed keys are created automatically by services such as S3 or RDS.",
-            "rows": [
-              {
-                "cells": [
-                  "role/media-app",
-                  "kms:Decrypt"
-                ],
-                "tone": "ok"
-              }
+            "values": {
+              "policy": "[{'principal': 'arn:aws:iam::1111222233…",
+              "principal": "'role/media-app'",
+              "action": "'kms:Decrypt'",
+              "via": "'s3.ap-south-1.amazonaws.com'"
+            },
+            "tones": {
+              "policy": "data",
+              "principal": "data",
+              "action": "data",
+              "via": "data"
+            },
+            "arrows": [
+              [
+                "policy",
+                "principal"
+              ],
+              [
+                "principal",
+                "action"
+              ],
+              [
+                "action",
+                "via"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Every KMS key has a key policy controlling account access.",
-            "rows": [
-              {
-                "cells": [
-                  "role/media-app",
-                  "kms:Decrypt"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "arn:aws:iam::111122223333:root",
-                  "kms:*"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Conditions make key policies precise for specific caller services.",
-            "rows": [
-              {
-                "cells": [
-                  "role/media-app",
-                  "kms:Decrypt"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "arn:aws:iam::111122223333:root",
-                  "kms:*"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Grants provide temporary permissions that services use to decrypt disks.",
-            "rows": [
-              {
-                "cells": [
-                  "role/media-app",
-                  "kms:Decrypt"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "arn:aws:iam::111122223333:root",
-                  "kms:*"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "Deleting a KMS key is irreversible and makes all data encrypted under it.",
+            "values": {
+              "policy": "[{'principal': 'arn:aws:iam::1111222233…",
+              "principal": "'role/media-app'",
+              "action": "'kms:Decrypt'",
+              "via": "'s3.ap-south-1.amazonaws.com'"
+            },
+            "tones": {
+              "policy": "ok",
+              "principal": "ok",
+              "action": "ok",
+              "via": "ok"
+            },
+            "arrows": [
+              [
+                "policy",
+                "principal"
+              ],
+              [
+                "principal",
+                "action"
+              ],
+              [
+                "action",
+                "via"
+              ]
             ]
           }
         ]
@@ -459,248 +397,132 @@
       "partTitle": "Envelope encryption",
       "codeHash": "8e543c3d030687433911946064e23d1f28f18535f9b506293d34cc2e98a9fedf",
       "spec": {
-        "template": "table",
-        "title": "Envelope encryption data key workflow and ciphertexts",
-        "columns": [
-          "master_key",
-          "data_key"
-        ],
+        "template": "bars",
+        "title": "Envelope encryption",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how encrypt updates most during execution.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "KMS returns the data key once in plaintext and once encrypted.",
-            "rows": [
+            "caption": "Envelope encryption solves this.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "KMS"
-                  },
-                  {
-                    "text": "data"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Encrypt data locally with the plaintext data key.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example walks through both directions and shows what is stored.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "KMS"
-                  },
-                  {
-                    "text": "data"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "fast"
-                  },
-                  {
-                    "text": "ciphertext"
-                  }
-                ],
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "To decrypt send the encrypted data key back to KMS.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "KMS"
-                  },
-                  {
-                    "text": "data"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "fast"
-                  },
-                  {
-                    "text": "ciphertext"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "KMS"
-                  },
-                  {
-                    "text": "locally"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The master key never leaves KMS during envelope encryption.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "KMS"
-                  },
-                  {
-                    "text": "data"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "fast"
-                  },
-                  {
-                    "text": "ciphertext"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "KMS"
-                  },
-                  {
-                    "text": "locally"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "S3"
-                  },
-                  {
-                    "text": "DynamoDB"
-                  }
-                ],
-                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Envelope encryption data key workflow and ciphertexts",
-        "columns": [
-          "master_key",
-          "data_key"
-        ],
+        "template": "bars",
+        "title": "Envelope encryption",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how encrypt updates most during execution.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": 19,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "KMS returns the data key once in plaintext and once encrypted.",
-            "rows": [
+            "caption": "Envelope encryption solves this.",
+            "bars": [
               {
-                "cells": [
-                  "KMS",
-                  "data"
-                ],
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 55,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Encrypt data locally with the plaintext data key.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example walks through both directions and shows what is stored.",
+            "bars": [
               {
-                "cells": [
-                  "KMS",
-                  "data"
-                ],
+                "label": "i",
+                "value": 2,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "fast",
-                  "ciphertext"
-                ],
+                "label": "b",
+                "value": 190,
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "To decrypt send the encrypted data key back to KMS.",
-            "rows": [
-              {
-                "cells": [
-                  "KMS",
-                  "data"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "fast",
-                  "ciphertext"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "KMS",
-                  "locally"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The master key never leaves KMS during envelope encryption.",
-            "rows": [
-              {
-                "cells": [
-                  "KMS",
-                  "data"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "fast",
-                  "ciphertext"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "KMS",
-                  "locally"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "S3",
-                  "DynamoDB"
-                ],
-                "tone": "data"
               }
             ]
           }
@@ -711,249 +533,277 @@
       "partTitle": "Auditing key policies",
       "codeHash": "df8e1fd5b731990a55ec2d098db0451fd72ecb0191edc02099a72f4a7475913a",
       "spec": {
-        "template": "table",
-        "title": "Auditing key policies for wildcard actions and open principals",
-        "columns": [
-          "risks",
-          "policy"
+        "template": "flow",
+        "title": "Auditing key policies",
+        "nodes": [
+          {
+            "id": "pol",
+            "label": "pol"
+          },
+          {
+            "id": "policy",
+            "label": "policy"
+          },
+          {
+            "id": "risks",
+            "label": "risks"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A key policy that is too open undoes KMS protection.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "risks"
-                  },
-                  {
-                    "text": "policy"
-                  }
-                ],
-                "tone": "data"
+            "caption": "A key policy that is too open undoes the protection KMS offers.",
+            "values": {
+              "pol": {
+                "var": "pol",
+                "line": 14,
+                "hit": 2
+              },
+              "policy": {
+                "var": "policy",
+                "line": 2,
+                "hit": 1
+              },
+              "risks": {
+                "var": "risks",
+                "line": 2,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "pol": "data",
+              "policy": "data",
+              "risks": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "pol",
+                "policy"
+              ],
+              [
+                "policy",
+                "risks"
+              ],
+              [
+                "risks",
+                "s"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "A public principal with no condition lets anyone use the key.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "risks"
-                  },
-                  {
-                    "text": "policy"
-                  }
-                ],
-                "tone": "data"
+            "caption": "First, a public principal.",
+            "values": {
+              "pol": {
+                "var": "pol",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "PUBLIC_PRINCIPAL"
-                  },
-                  {
-                    "text": "Allow"
-                  }
-                ],
-                "tone": "error"
+              "policy": {
+                "var": "policy",
+                "line": 3,
+                "hit": 1
+              },
+              "risks": {
+                "var": "risks",
+                "line": 3,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "pol": "data",
+              "policy": "data",
+              "risks": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "pol",
+                "policy"
+              ],
+              [
+                "policy",
+                "risks"
+              ],
+              [
+                "risks",
+                "s"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "A principal with a strong condition narrows down key access.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "risks"
-                  },
-                  {
-                    "text": "policy"
-                  }
-                ],
-                "tone": "data"
+            "at": "say7",
+            "caption": "The example audits a policy with one of each risk.",
+            "values": {
+              "pol": {
+                "var": "pol",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "PUBLIC_PRINCIPAL"
-                  },
-                  {
-                    "text": "Allow"
-                  }
-                ],
-                "tone": "error"
+              "policy": {
+                "var": "policy",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "kms:ViaService"
-                  },
-                  {
-                    "text": "kms:CallerAccount"
-                  }
-                ],
-                "tone": "ok"
+              "risks": {
+                "var": "risks",
+                "line": 4,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Broad wildcard actions should remain restricted to account root.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "risks"
-                  },
-                  {
-                    "text": "policy"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "PUBLIC_PRINCIPAL"
-                  },
-                  {
-                    "text": "Allow"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "kms:ViaService"
-                  },
-                  {
-                    "text": "kms:CallerAccount"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "KMS_WILDCARD"
-                  },
-                  {
-                    "text": "kms:*"
-                  }
-                ],
-                "tone": "idle"
-              }
+            },
+            "tones": {
+              "pol": "ok",
+              "policy": "ok",
+              "risks": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "pol",
+                "policy"
+              ],
+              [
+                "policy",
+                "risks"
+              ],
+              [
+                "risks",
+                "s"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Auditing key policies for wildcard actions and open principals",
-        "columns": [
-          "risks",
-          "policy"
+        "template": "flow",
+        "title": "Auditing key policies",
+        "nodes": [
+          {
+            "id": "pol",
+            "label": "pol"
+          },
+          {
+            "id": "policy",
+            "label": "policy"
+          },
+          {
+            "id": "risks",
+            "label": "risks"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A key policy that is too open undoes KMS protection.",
-            "rows": [
-              {
-                "cells": [
-                  "risks",
-                  "policy"
-                ],
-                "tone": "data"
-              }
+            "caption": "A key policy that is too open undoes the protection KMS offers.",
+            "values": {
+              "pol": "{'Statement': [{'Effect': 'Allow', 'Pri…",
+              "policy": "{'Statement': [{'Effect': 'Allow', 'Pri…",
+              "risks": "set()",
+              "s": "{'Effect': 'Allow', 'Principal': {'AWS'…"
+            },
+            "tones": {
+              "pol": "data",
+              "policy": "data",
+              "risks": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "pol",
+                "policy"
+              ],
+              [
+                "policy",
+                "risks"
+              ],
+              [
+                "risks",
+                "s"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "A public principal with no condition lets anyone use the key.",
-            "rows": [
-              {
-                "cells": [
-                  "risks",
-                  "policy"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "PUBLIC_PRINCIPAL",
-                  "Allow"
-                ],
-                "tone": "error"
-              }
+            "caption": "First, a public principal.",
+            "values": {
+              "pol": "{'Statement': [{'Effect': 'Allow', 'Pri…",
+              "policy": "{'Statement': [{'Effect': 'Allow', 'Pri…",
+              "risks": "set()",
+              "s": "{'Effect': 'Allow', 'Principal': {'AWS'…"
+            },
+            "tones": {
+              "pol": "data",
+              "policy": "data",
+              "risks": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "pol",
+                "policy"
+              ],
+              [
+                "policy",
+                "risks"
+              ],
+              [
+                "risks",
+                "s"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "A principal with a strong condition narrows down key access.",
-            "rows": [
-              {
-                "cells": [
-                  "risks",
-                  "policy"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "PUBLIC_PRINCIPAL",
-                  "Allow"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "kms:ViaService",
-                  "kms:CallerAccount"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Broad wildcard actions should remain restricted to account root.",
-            "rows": [
-              {
-                "cells": [
-                  "risks",
-                  "policy"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "PUBLIC_PRINCIPAL",
-                  "Allow"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "kms:ViaService",
-                  "kms:CallerAccount"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "KMS_WILDCARD",
-                  "kms:*"
-                ],
-                "tone": "idle"
-              }
+            "at": "say7",
+            "caption": "The example audits a policy with one of each risk.",
+            "values": {
+              "pol": "{'Statement': [{'Effect': 'Allow', 'Pri…",
+              "policy": "{'Statement': [{'Effect': 'Allow', 'Pri…",
+              "risks": "set()",
+              "s": "{'Effect': 'Allow', 'Principal': {'AWS'…"
+            },
+            "tones": {
+              "pol": "ok",
+              "policy": "ok",
+              "risks": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "pol",
+                "policy"
+              ],
+              [
+                "policy",
+                "risks"
+              ],
+              [
+                "risks",
+                "s"
+              ]
             ]
           }
         ]
@@ -964,110 +814,161 @@
       "codeHash": "5b452bd1930b5e99cf70977ed7fbd4043b53d47c5eea81b7c1f15c64107be00b",
       "spec": {
         "template": "flow",
-        "title": "Rotation, secrets and CloudTrail — Execution Pipeline",
+        "title": "Rotation, secrets and CloudTrail",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "keys",
+            "label": "keys"
           },
           {
-            "id": "proc",
-            "label": "2. Rotation, secrets a...",
-            "tappable": true
+            "id": "today",
+            "label": "today"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "alias",
+            "label": "alias"
+          },
+          {
+            "id": "last",
+            "label": "last"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Rotation, secrets and CloudTrail [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Rotation, secrets a... [D.Pfive.Stwo].",
+            "caption": "Key rotation limits how much data any one key version protects.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "keys": {
+                "var": "keys",
+                "line": 3,
+                "hit": 1
+              },
+              "today": {
+                "var": "today",
+                "line": 4,
+                "hit": 1
+              },
+              "alias": {
+                "var": "alias",
+                "line": 5,
+                "hit": 1
+              },
+              "last": {
+                "var": "last",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "keys": "data",
+              "today": "data",
+              "alias": "data",
+              "last": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "keys",
+                "today"
               ],
               [
-                "proc",
-                "out"
+                "today",
+                "alias"
+              ],
+              [
+                "alias",
+                "last"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Rotation keeps the same key id and ARN.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "keys": {
+                "var": "keys",
+                "line": 4,
+                "hit": 1
+              },
+              "today": {
+                "var": "today",
+                "line": 5,
+                "hit": 1
+              },
+              "alias": {
+                "var": "alias",
+                "line": 6,
+                "hit": 1
+              },
+              "last": {
+                "var": "last",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "keys": "data",
+              "today": "data",
+              "alias": "data",
+              "last": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "keys",
+                "today"
+              ],
+              [
+                "today",
+                "alias"
+              ],
+              [
+                "alias",
+                "last"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Rotation, secrets and CloudTrail.",
+            "at": "say7",
+            "caption": "Good key hygiene is boring by design.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "keys": {
+                "var": "keys",
+                "line": 5,
+                "hit": 1
+              },
+              "today": {
+                "var": "today",
+                "line": 6,
+                "hit": 1
+              },
+              "alias": {
+                "var": "alias",
+                "line": 7,
+                "hit": 1
+              },
+              "last": {
+                "var": "last",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "keys": "ok",
+              "today": "ok",
+              "alias": "ok",
+              "last": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "keys",
+                "today"
               ],
               [
-                "proc",
-                "out"
+                "today",
+                "alias"
+              ],
+              [
+                "alias",
+                "last"
               ]
             ]
           }
@@ -1075,110 +976,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Rotation, secrets and CloudTrail — Execution Pipeline",
+        "title": "Rotation, secrets and CloudTrail",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "keys",
+            "label": "keys"
           },
           {
-            "id": "proc",
-            "label": "2. Rotation, secrets a...",
-            "tappable": true
+            "id": "today",
+            "label": "today"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "alias",
+            "label": "alias"
+          },
+          {
+            "id": "last",
+            "label": "last"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Rotation, secrets and CloudTrail [D26.P5.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Rotation, secrets a... [D26.P5.S2].",
+            "caption": "Key rotation limits how much data any one key version protects.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "keys": "{'alias/pinit-pii': {'__other__': 'date…",
+              "today": "{'__other__': 'date'}",
+              "alias": "'alias/pinit-pii'",
+              "last": "{'__other__': 'date'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "keys": "data",
+              "today": "data",
+              "alias": "data",
+              "last": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "keys",
+                "today"
               ],
               [
-                "proc",
-                "out"
+                "today",
+                "alias"
+              ],
+              [
+                "alias",
+                "last"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P5.S3].",
+            "at": "say2",
+            "caption": "Rotation keeps the same key id and ARN.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "keys": "{'alias/pinit-pii': {'__other__': 'date…",
+              "today": "{'__other__': 'date'}",
+              "alias": "'alias/pinit-pii'",
+              "last": "{'__other__': 'date'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "keys": "data",
+              "today": "data",
+              "alias": "data",
+              "last": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "keys",
+                "today"
+              ],
+              [
+                "today",
+                "alias"
+              ],
+              [
+                "alias",
+                "last"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Rotation, secrets and CloudTrail [D26.P5.S4].",
+            "at": "say7",
+            "caption": "Good key hygiene is boring by design.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "keys": "{'alias/pinit-pii': {'__other__': 'date…",
+              "today": "{'__other__': 'date'}",
+              "alias": "'alias/pinit-pii'",
+              "last": "{'__other__': 'date'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "keys": "ok",
+              "today": "ok",
+              "alias": "ok",
+              "last": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "keys",
+                "today"
               ],
               [
-                "proc",
-                "out"
+                "today",
+                "alias"
+              ],
+              [
+                "alias",
+                "last"
               ]
             ]
           }
@@ -1189,224 +1093,162 @@
       "partTitle": "Practice time: envelopes and policies",
       "codeHash": "271f1d9bf61c2c1ffcff7094ca13d6efeba352ddefa3f9482e9af6943a76b9f4",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: envelopes and policies — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: enve...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: envelopes and policies",
+        "actors": [
+          "raw",
+          "as_hex",
+          "back"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: envelopes and policies.",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: enve... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Xor_bytes(data, key) is one line with enumerate and a bytes(.",
+            "activeActor": "raw",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "as_hex",
+                "label": {
+                  "var": "raw",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "as_hex",
+                "to": "back",
+                "label": {
+                  "var": "as_hex",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Envelope_encrypt returns three fields.",
+            "activeActor": "as_hex",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "as_hex",
+                "label": {
+                  "var": "raw",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "as_hex",
+                "to": "back",
+                "label": {
+                  "var": "as_hex",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: envelopes and poli.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the hex round trip that trips people up.",
+            "activeActor": "back",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "as_hex",
+                "label": {
+                  "var": "raw",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "as_hex",
+                "to": "back",
+                "label": {
+                  "var": "as_hex",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: envelopes and policies — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: enve...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: envelopes and policies",
+        "actors": [
+          "raw",
+          "as_hex",
+          "back"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: envelopes and policies [D26.P6.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: enve... [D26.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Xor_bytes(data, key) is one line with enumerate and a bytes(.",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "as_hex",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "data"
+              },
+              {
+                "from": "as_hex",
+                "to": "back",
+                "label": "'000ff0ff'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "raw"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Envelope_encrypt returns three fields.",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "as_hex",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "data"
+              },
+              {
+                "from": "as_hex",
+                "to": "back",
+                "label": "'000ff0ff'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "as_hex"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: envelopes and poli.. [D26.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example shows the hex round trip that trips people up.",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "as_hex",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "data"
+              },
+              {
+                "from": "as_hex",
+                "to": "back",
+                "label": "'000ff0ff'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "back"
           }
         ]
       }

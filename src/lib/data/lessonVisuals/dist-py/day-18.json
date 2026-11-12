@@ -2,231 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 18,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why shard?",
       "codeHash": "1c5cd1824287520c65fb9d3852b189ba0af227ca30b2fc35447913a785b61029",
       "spec": {
-        "template": "flow",
-        "title": "Why shard? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Why shard?",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Why shard?",
+        "actors": [
+          "rows_per_day",
+          "bytes_per_row",
+          "server_capacity_tb"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Why shard? [D.Pone.Sone].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Why shard? [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A single database server has limits.",
+            "activeActor": "rows_per_day",
+            "messages": [
+              {
+                "from": "rows_per_day",
+                "to": "bytes_per_row",
+                "label": {
+                  "var": "rows_per_day",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bytes_per_row",
+                "to": "server_capacity_tb",
+                "label": {
+                  "var": "bytes_per_row",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Sharding (horizontal partitioning) splits the rows of a table across.",
+            "activeActor": "bytes_per_row",
+            "messages": [
+              {
+                "from": "rows_per_day",
+                "to": "bytes_per_row",
+                "label": {
+                  "var": "rows_per_day",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bytes_per_row",
+                "to": "server_capacity_tb",
+                "label": {
+                  "var": "bytes_per_row",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Why shard? [D.Pone.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example estimates when a single server runs out of room.",
+            "activeActor": "server_capacity_tb",
+            "messages": [
+              {
+                "from": "rows_per_day",
+                "to": "bytes_per_row",
+                "label": {
+                  "var": "rows_per_day",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bytes_per_row",
+                "to": "server_capacity_tb",
+                "label": {
+                  "var": "bytes_per_row",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Why shard? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Why shard?",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Why shard?",
+        "actors": [
+          "rows_per_day",
+          "bytes_per_row",
+          "server_capacity_tb"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Why shard? [D18.P1.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Why shard? [D18.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A single database server has limits.",
+            "messages": [
+              {
+                "from": "rows_per_day",
+                "to": "bytes_per_row",
+                "label": "2000000",
+                "tone": "data"
+              },
+              {
+                "from": "bytes_per_row",
+                "to": "server_capacity_tb",
+                "label": "1000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "rows_per_day"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Sharding (horizontal partitioning) splits the rows of a table across.",
+            "messages": [
+              {
+                "from": "rows_per_day",
+                "to": "bytes_per_row",
+                "label": "2000000",
+                "tone": "data"
+              },
+              {
+                "from": "bytes_per_row",
+                "to": "server_capacity_tb",
+                "label": "1000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "bytes_per_row"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Why shard? [D18.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example estimates when a single server runs out of room.",
+            "messages": [
+              {
+                "from": "rows_per_day",
+                "to": "bytes_per_row",
+                "label": "2000000",
+                "tone": "data"
+              },
+              {
+                "from": "bytes_per_row",
+                "to": "server_capacity_tb",
+                "label": "1000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "server_capacity_tb"
           }
         ]
       }
@@ -235,165 +173,165 @@
       "partTitle": "Range sharding",
       "codeHash": "c1d84218a3814a62947f21f3d3e324e0f103a8a307c3c437d8f317170d806cc3",
       "spec": {
-        "template": "table",
-        "title": "Range sharding contiguous intervals and write hotspot vulnerability",
-        "columns": [
-          "user_id",
-          "range_shard"
+        "template": "flow",
+        "title": "Range sharding",
+        "nodes": [
+          {
+            "id": "user_id",
+            "label": "user_id"
+          },
+          {
+            "id": "new_signups",
+            "label": "new_signups"
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Range sharding assigns contiguous key ranges to shards.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "1000"
-                  },
-                  {
-                    "text": "shard_1"
-                  }
-                ],
-                "tone": "ok"
+            "values": {
+              "user_id": {
+                "var": "user_id",
+                "line": 2,
+                "hit": 1
+              },
+              "new_signups": {
+                "var": "new_signups",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "user_id": "data",
+              "new_signups": "data"
+            },
+            "arrows": [
+              [
+                "user_id",
+                "new_signups"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Function range_shard returns shard based on key boundaries.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "1000"
-                  },
-                  {
-                    "text": "shard_1"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Range_shard(user_id) returns shard_1 for up to 1000, shard_2 for up.",
+            "values": {
+              "user_id": {
+                "var": "user_id",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "2000"
-                  },
-                  {
-                    "text": "shard_2"
-                  }
-                ],
-                "tone": "ok"
+              "new_signups": {
+                "var": "new_signups",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "user_id": "data",
+              "new_signups": "data"
+            },
+            "arrows": [
+              [
+                "user_id",
+                "new_signups"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Increasing IDs cause hot spots where writes land on the last shard.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "1000"
-                  },
-                  {
-                    "text": "shard_1"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example routes a few ids and shows how new users pile onto the last range.",
+            "values": {
+              "user_id": {
+                "var": "user_id",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "2000"
-                  },
-                  {
-                    "text": "shard_2"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "99999"
-                  },
-                  {
-                    "text": "shard_3"
-                  }
-                ],
-                "tone": "error"
+              "new_signups": {
+                "var": "new_signups",
+                "line": 10,
+                "hit": 2
               }
+            },
+            "tones": {
+              "user_id": "ok",
+              "new_signups": "ok"
+            },
+            "arrows": [
+              [
+                "user_id",
+                "new_signups"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Range sharding contiguous intervals and write hotspot vulnerability",
-        "columns": [
-          "user_id",
-          "range_shard"
+        "template": "flow",
+        "title": "Range sharding",
+        "nodes": [
+          {
+            "id": "user_id",
+            "label": "user_id"
+          },
+          {
+            "id": "new_signups",
+            "label": "new_signups"
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Range sharding assigns contiguous key ranges to shards.",
-            "rows": [
-              {
-                "cells": [
-                  "1000",
-                  "shard_1"
-                ],
-                "tone": "ok"
-              }
+            "values": {
+              "user_id": "1",
+              "new_signups": "{'__other__': 'range'}"
+            },
+            "tones": {
+              "user_id": "data",
+              "new_signups": "data"
+            },
+            "arrows": [
+              [
+                "user_id",
+                "new_signups"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Function range_shard returns shard based on key boundaries.",
-            "rows": [
-              {
-                "cells": [
-                  "1000",
-                  "shard_1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "2000",
-                  "shard_2"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Range_shard(user_id) returns shard_1 for up to 1000, shard_2 for up.",
+            "values": {
+              "user_id": "1",
+              "new_signups": "{'__other__': 'range'}"
+            },
+            "tones": {
+              "user_id": "data",
+              "new_signups": "data"
+            },
+            "arrows": [
+              [
+                "user_id",
+                "new_signups"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Increasing IDs cause hot spots where writes land on the last shard.",
-            "rows": [
-              {
-                "cells": [
-                  "1000",
-                  "shard_1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "2000",
-                  "shard_2"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "99999",
-                  "shard_3"
-                ],
-                "tone": "error"
-              }
+            "at": "say7",
+            "caption": "The example routes a few ids and shows how new users pile onto the last range.",
+            "values": {
+              "user_id": "1000",
+              "new_signups": "{'__other__': 'range'}"
+            },
+            "tones": {
+              "user_id": "ok",
+              "new_signups": "ok"
+            },
+            "arrows": [
+              [
+                "user_id",
+                "new_signups"
+              ]
             ]
           }
         ]
@@ -403,184 +341,106 @@
       "partTitle": "Hash and directory sharding",
       "codeHash": "3e731ee9a2822aaa6d60320fe93e1aebbd630f259fadb076c38a4b62bb7419ee",
       "spec": {
-        "template": "table",
-        "title": "Directory sharding lookup with fallback hash routing across nodes",
-        "columns": [
-          "customer_id",
-          "directory"
+        "template": "states",
+        "title": "Hash and directory sharding",
+        "states": [
+          {
+            "id": "directory",
+            "label": "directory"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "customer_id",
+            "label": "customer_id"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Hash sharding spreads keys evenly across all available shards.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "megamart"
-                  },
-                  {
-                    "text": "shard_dedicated_1"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Hash sharding applies a hash to the key and takes it modulo the number.",
+            "currentState": "directory",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Directory sharding allows dedicated shard placement for large tenants.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "megamart"
-                  },
-                  {
-                    "text": "shard_dedicated_1"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "asha-store"
-                  },
-                  {
-                    "text": "shard_dedicated_1"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Range queries must ask every shard, since neighbouring keys are scattered.",
+            "currentState": "c",
+            "transition": {
+              "from": "directory",
+              "to": "c",
+              "label": {
+                "var": "c",
+                "line": 11,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Function shard_for_customer uses directory for listed customers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "megamart"
-                  },
-                  {
-                    "text": "shard_dedicated_1"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "asha-store"
-                  },
-                  {
-                    "text": "shard_dedicated_1"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bala-bakes"
-                  },
-                  {
-                    "text": "shard_dedicated_1"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "chai-point"
-                  },
-                  {
-                    "text": "shard_dedicated_1"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Consistent hashing avoids moving most keys when the number of shards changes.",
+            "currentState": "customer_id",
+            "transition": {
+              "from": "c",
+              "to": "customer_id",
+              "label": {
+                "var": "customer_id",
+                "line": 2,
+                "hit": 2
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Directory sharding lookup with fallback hash routing across nodes",
-        "columns": [
-          "customer_id",
-          "directory"
+        "template": "states",
+        "title": "Hash and directory sharding",
+        "states": [
+          {
+            "id": "directory",
+            "label": "directory"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "customer_id",
+            "label": "customer_id"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Hash sharding spreads keys evenly across all available shards.",
-            "rows": [
-              {
-                "cells": [
-                  "megamart",
-                  "shard_dedicated_1"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Hash sharding applies a hash to the key and takes it modulo the number.",
+            "currentState": "directory",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Directory sharding allows dedicated shard placement for large tenants.",
-            "rows": [
-              {
-                "cells": [
-                  "megamart",
-                  "shard_dedicated_1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "asha-store",
-                  "shard_dedicated_1"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Range queries must ask every shard, since neighbouring keys are scattered.",
+            "currentState": "c",
+            "transition": {
+              "from": "directory",
+              "to": "c",
+              "label": "'megamart'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Function shard_for_customer uses directory for listed customers.",
-            "rows": [
-              {
-                "cells": [
-                  "megamart",
-                  "shard_dedicated_1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "asha-store",
-                  "shard_dedicated_1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bala-bakes",
-                  "shard_dedicated_1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "chai-point",
-                  "shard_dedicated_1"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say7",
+            "caption": "Consistent hashing avoids moving most keys when the number of shards changes.",
+            "currentState": "customer_id",
+            "transition": {
+              "from": "c",
+              "to": "customer_id",
+              "label": "'asha-store'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -589,223 +449,124 @@
       "partTitle": "Choosing a shard key",
       "codeHash": "aab13462ff1bcd15384ca97d6518208dcb7fc48a3bdd56b99efad6810c6e4a0f",
       "spec": {
-        "template": "flow",
-        "title": "Choosing a shard key — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing a shard key",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Choosing a shard key",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing a shard key [D.Pfour.Sone].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing a shard key [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "The shard key decides everything.",
+            "items": {
+              "var": "keys",
+              "line": 6,
+              "hit": 10
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "For a multi-tenant SaaS app, the tenant (customer) id is often ideal.",
+            "items": {
+              "var": "keys",
+              "line": 6,
+              "hit": 20
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing a shard key [D.Pfour.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The code measures skew for two candidate keys.",
+            "items": {
+              "var": "keys",
+              "line": 8,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Choosing a shard key — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing a shard key",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Choosing a shard key",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing a shard key [D18.P4.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing a shard key [D18.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The shard key decides everything.",
+            "items": [
+              "'IN'",
+              "'IN'",
+              "'IN'",
+              "'IN'",
+              "'US'",
+              "'IN'",
+              "'SG'",
+              "'IN'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "For a multi-tenant SaaS app, the tenant (customer) id is often ideal.",
+            "items": [
+              "'t1'",
+              "'t2'",
+              "'t3'",
+              "'t1'",
+              "'t4'",
+              "'t5'",
+              "'t6'",
+              "'t2'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing a shard key [D18.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The code measures skew for two candidate keys.",
+            "items": [
+              "'t1'",
+              "'t2'",
+              "'t3'",
+              "'t1'",
+              "'t4'",
+              "'t5'",
+              "'t6'",
+              "'t2'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -815,60 +576,91 @@
       "partTitle": "Resharding",
       "codeHash": "cef6f7efb5e4aa2ed06356777c67b6a51ebe390d4699ec1b7b4e8b88379a8079",
       "spec": {
-        "template": "table",
-        "title": "Online resharding logical partition migration across physical servers",
-        "columns": [
-          "key",
-          "placement"
+        "template": "sequence",
+        "title": "Resharding",
+        "actors": [
+          "LOGICAL",
+          "placement",
+          "ls"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Moving data while the system runs is online resharding.",
-            "rows": [
+            "caption": "Data grows and shards fill up, so you will eventually need more shards.",
+            "activeActor": "LOGICAL",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "user-42"
-                  },
-                  {
-                    "text": "server-2"
-                  }
-                ],
+                "from": "LOGICAL",
+                "to": "placement",
+                "label": {
+                  "var": "LOGICAL",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "placement",
+                "to": "ls",
+                "label": {
+                  "var": "placement",
+                  "line": 2,
+                  "hit": 17
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Mapping logical shards to servers allows smooth online resharding.",
-            "rows": [
+            "at": "say2",
+            "caption": "Consistent hashing or a fixed large number of logical shards avoids that.",
+            "activeActor": "placement",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "user-42"
-                  },
-                  {
-                    "text": "server-2"
-                  }
-                ],
+                "from": "LOGICAL",
+                "to": "placement",
+                "label": {
+                  "var": "LOGICAL",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "placement",
+                "to": "ls",
+                "label": {
+                  "var": "placement",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Moves copy data and switch routing to the new server.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example maps logical shards to servers and moves some to a new server.",
+            "activeActor": "ls",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "user-42"
-                  },
-                  {
-                    "text": "server-2"
-                  }
-                ],
+                "from": "LOGICAL",
+                "to": "placement",
+                "label": {
+                  "var": "LOGICAL",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "placement",
+                "to": "ls",
+                "label": {
+                  "var": "placement",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -876,51 +668,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Online resharding logical partition migration across physical servers",
-        "columns": [
-          "key",
-          "placement"
+        "template": "sequence",
+        "title": "Resharding",
+        "actors": [
+          "LOGICAL",
+          "placement",
+          "ls"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Moving data while the system runs is online resharding.",
-            "rows": [
+            "caption": "Data grows and shards fill up, so you will eventually need more shards.",
+            "messages": [
               {
-                "cells": [
-                  "user-42",
-                  "server-2"
-                ],
+                "from": "LOGICAL",
+                "to": "placement",
+                "label": "16",
+                "tone": "data"
+              },
+              {
+                "from": "placement",
+                "to": "ls",
+                "label": "{0: 'server-0', 1: 'server-1', 2: 'serv…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "LOGICAL"
           },
           {
-            "at": "say3",
-            "caption": "Mapping logical shards to servers allows smooth online resharding.",
-            "rows": [
+            "at": "say2",
+            "caption": "Consistent hashing or a fixed large number of logical shards avoids that.",
+            "messages": [
               {
-                "cells": [
-                  "user-42",
-                  "server-2"
-                ],
+                "from": "LOGICAL",
+                "to": "placement",
+                "label": "16",
+                "tone": "data"
+              },
+              {
+                "from": "placement",
+                "to": "ls",
+                "label": "{0: 'server-0', 1: 'server-1', 2: 'serv…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "placement"
           },
           {
-            "at": "say4",
-            "caption": "Moves copy data and switch routing to the new server.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example maps logical shards to servers and moves some to a new server.",
+            "messages": [
               {
-                "cells": [
-                  "user-42",
-                  "server-2"
-                ],
+                "from": "LOGICAL",
+                "to": "placement",
+                "label": "16",
+                "tone": "data"
+              },
+              {
+                "from": "placement",
+                "to": "ls",
+                "label": "{0: 'server-0', 1: 'server-1', 2: 'serv…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "ls"
           }
         ]
       }
@@ -929,132 +740,162 @@
       "partTitle": "Queries across shards",
       "codeHash": "2dea5404b67c1d39638e75eab814f58954795ac6898a63de39402dedcd8969cb",
       "spec": {
-        "template": "compare",
-        "title": "Query routing targeted single shard lookup versus scatter-gather fan-out",
-        "leftLabel": "Single Shard Key Query",
-        "rightLabel": "Scatter-Gather Cross-Shard",
+        "template": "sequence",
+        "title": "Queries across shards",
+        "actors": [
+          "shards",
+          "r",
+          "partial"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Query with shard key routes directly to one shard.",
-            "left": {
-              "code": "key includes shard_0",
-              "result": {
-                "text": "book"
+            "caption": "A query that includes the shard key goes to one shard.",
+            "activeActor": "shards",
+            "messages": [
+              {
+                "from": "shards",
+                "to": "r",
+                "label": {
+                  "var": "shards",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "scatter across all shards",
-              "result": {
-                "text": "bag"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "r",
+                "to": "partial",
+                "label": {
+                  "var": "r",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Queries without shard key scatter to all shards and gather results.",
-            "left": {
-              "code": "single shard lookup",
-              "result": {
-                "text": "pen"
+            "caption": "Trace how query updates without during execution.",
+            "activeActor": "r",
+            "messages": [
+              {
+                "from": "shards",
+                "to": "r",
+                "label": {
+                  "var": "shards",
+                  "line": 8,
+                  "hit": 3
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "scatter gather top results",
-              "result": {
-                "text": "shoe"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "r",
+                "to": "partial",
+                "label": {
+                  "var": "r",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Scatter-gather latency is bounded by the slowest shard.",
-            "left": {
-              "code": "direct shard response",
-              "result": {
-                "text": "book"
+            "at": "say7",
+            "caption": "The example gathers a top-3 across three shards.",
+            "activeActor": "partial",
+            "messages": [
+              {
+                "from": "shards",
+                "to": "r",
+                "label": {
+                  "var": "shards",
+                  "line": 8,
+                  "hit": 6
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "slowest shard tail latency",
-              "result": {
-                "text": "cap"
-              },
-              "tone": "idle"
-            }
+              {
+                "from": "r",
+                "to": "partial",
+                "label": {
+                  "var": "r",
+                  "line": 8,
+                  "hit": 4
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Query routing targeted single shard lookup versus scatter-gather fan-out",
-        "leftLabel": "Single Shard Key Query",
-        "rightLabel": "Scatter-Gather Cross-Shard",
+        "template": "sequence",
+        "title": "Queries across shards",
+        "actors": [
+          "shards",
+          "r",
+          "partial"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Query with shard key routes directly to one shard.",
-            "left": {
-              "code": "key includes shard_0",
-              "result": "book",
-              "tone": "ok",
-              "checks": [
-                "book"
-              ]
-            },
-            "right": {
-              "code": "scatter across all shards",
-              "result": "bag",
-              "tone": "ok",
-              "checks": [
-                "bag"
-              ]
-            }
+            "caption": "A query that includes the shard key goes to one shard.",
+            "messages": [
+              {
+                "from": "shards",
+                "to": "r",
+                "label": "{'shard_0': [['pen', 120], ['book', 540…",
+                "tone": "data"
+              },
+              {
+                "from": "r",
+                "to": "partial",
+                "label": "['pen', 120]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "shards"
           },
           {
             "at": "say2",
-            "caption": "Queries without shard key scatter to all shards and gather results.",
-            "left": {
-              "code": "single shard lookup",
-              "result": "pen",
-              "tone": "ok",
-              "checks": [
-                "pen"
-              ]
-            },
-            "right": {
-              "code": "scatter gather top results",
-              "result": "shoe",
-              "tone": "ok",
-              "checks": [
-                "shoe"
-              ]
-            }
+            "caption": "Trace how query updates without during execution.",
+            "messages": [
+              {
+                "from": "shards",
+                "to": "r",
+                "label": "{'shard_0': [['pen', 120], ['book', 540…",
+                "tone": "data"
+              },
+              {
+                "from": "r",
+                "to": "partial",
+                "label": "['book', 540]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "r"
           },
           {
-            "at": "say3",
-            "caption": "Scatter-gather latency is bounded by the slowest shard.",
-            "left": {
-              "code": "direct shard response",
-              "result": "book",
-              "tone": "ok",
-              "checks": [
-                "book"
-              ]
-            },
-            "right": {
-              "code": "slowest shard tail latency",
-              "result": "cap",
-              "tone": "idle",
-              "checks": [
-                "cap"
-              ]
-            }
+            "at": "say7",
+            "caption": "The example gathers a top-3 across three shards.",
+            "messages": [
+              {
+                "from": "shards",
+                "to": "r",
+                "label": "{'shard_0': [['pen', 120], ['book', 540…",
+                "tone": "data"
+              },
+              {
+                "from": "r",
+                "to": "partial",
+                "label": "['bag', 800]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "partial"
           }
         ]
       }

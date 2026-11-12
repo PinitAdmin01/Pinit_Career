@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 16,
-  "promptSha": "26f4af67bd3ebc4d24b050efd3cf94e5fe56e996df3fa5dadb8881c83bbfd868",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Trees: nodes with children",
@@ -12,21 +12,49 @@
         "template": "table",
         "title": "Trees: nodes with children",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The tree concept establishes the core structural baseline.",
+            "caption": "A tree is made of nodes, like a linked list, but each node can point.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Trees"
+                    "text": "self"
                   },
                   {
-                    "text": "nodes"
+                    "var": "self",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "val"
+                  },
+                  {
+                    "var": "val",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "left"
+                  },
+                  {
+                    "var": "left",
+                    "line": 3,
+                    "hit": 1
                   }
                 ],
                 "tone": "data"
@@ -34,16 +62,72 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The trees logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "In a binary tree each node has at most two children, called left and right.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "with"
+                    "text": "self"
                   },
                   {
-                    "text": "children"
+                    "var": "self",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "val"
+                  },
+                  {
+                    "var": "val",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "left"
+                  },
+                  {
+                    "var": "left",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Almost every tree function is recursive, because a tree is a node plus two.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
                   }
                 ],
                 "tone": "ok"
@@ -56,31 +140,79 @@
         "template": "table",
         "title": "Trees: nodes with children",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The tree concept establishes the core structural baseline.",
+            "caption": "A tree is made of nodes, like a linked list, but each node can point.",
             "rows": [
               {
                 "cells": [
-                  "Trees",
-                  "nodes"
+                  "self",
+                  "<TreeNode>"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "val",
+                  "4"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "left",
+                  "None"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The trees logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "In a binary tree each node has at most two children, called left and right.",
             "rows": [
               {
                 "cells": [
-                  "with",
-                  "children"
+                  "self",
+                  "<TreeNode>"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "val",
+                  "4"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "left",
+                  "None"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Almost every tree function is recursive, because a tree is a node plus two.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "nodes: 5"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "root: 1 left child: 2 right child: 3"
                 ],
                 "tone": "ok"
               }
@@ -93,80 +225,108 @@
       "partTitle": "Depth-first walks: preorder, inorder, postorder",
       "codeHash": "2bd6cb4e282d2c8bbe48e662e66e802687bf9aeb8182788787849c066115b15a",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Depth-first walks: preorder, inorder, postorder",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The depth concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A depth-first walk goes as deep as possible down one branch before coming back.",
+            "items": {
+              "var": "out",
+              "line": 10,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Depth"
-                  },
-                  {
-                    "text": "first"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The inorder logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Preorder visits the node, then the left subtree, then the right.",
+            "items": {
+              "var": "out",
+              "line": 11,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "walks"
-                  },
-                  {
-                    "text": "preorder"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "All three are the same recursive function with the visit line in.",
+            "items": {
+              "var": "out",
+              "line": 12,
+              "hit": 4
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Depth-first walks: preorder, inorder, postorder",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The depth concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A depth-first walk goes as deep as possible down one branch before coming back.",
+            "items": [
+              "1",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Depth",
-                  "first"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The inorder logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Preorder visits the node, then the left subtree, then the right.",
+            "items": [
+              "1",
+              "2",
+              "4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "walks",
-                  "preorder"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "All three are the same recursive function with the visit line in.",
+            "items": [
+              "1",
+              "2",
+              "4",
+              "5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -180,21 +340,49 @@
         "template": "table",
         "title": "Level order with a queue",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
+            "caption": "Practice 1 walks the tree level by level.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Level"
+                    "text": "self"
                   },
                   {
-                    "text": "order"
+                    "var": "self",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "val"
+                  },
+                  {
+                    "var": "val",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "left"
+                  },
+                  {
+                    "var": "left",
+                    "line": 3,
+                    "hit": 1
                   }
                 ],
                 "tone": "data"
@@ -202,16 +390,72 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The taking logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Start with the root in a deque.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "with"
+                    "text": "self"
                   },
                   {
-                    "text": "queue"
+                    "var": "self",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "val"
+                  },
+                  {
+                    "var": "val",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "left"
+                  },
+                  {
+                    "var": "left",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Level order answers questions like \"what is visible from the right side.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
                   }
                 ],
                 "tone": "ok"
@@ -224,31 +468,79 @@
         "template": "table",
         "title": "Level order with a queue",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
+            "caption": "Practice 1 walks the tree level by level.",
             "rows": [
               {
                 "cells": [
-                  "Level",
-                  "order"
+                  "self",
+                  "<TreeNode>"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "val",
+                  "9"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "left",
+                  "None"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The taking logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Start with the root in a deque.",
             "rows": [
               {
                 "cells": [
-                  "with",
-                  "queue"
+                  "self",
+                  "<TreeNode>"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "val",
+                  "9"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "left",
+                  "None"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Level order answers questions like \"what is visible from the right side.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "[[3], [9, 20], [15, 7]]"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "[3, 20, 7]"
                 ],
                 "tone": "ok"
               }
@@ -264,21 +556,49 @@
         "template": "table",
         "title": "Maximum depth",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
+            "caption": "Practice 2 asks for the number of levels, the maximum depth.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Maximum"
+                    "text": "self"
                   },
                   {
-                    "text": "depth"
+                    "var": "self",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "val"
+                  },
+                  {
+                    "var": "val",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "left"
+                  },
+                  {
+                    "var": "left",
+                    "line": 3,
+                    "hit": 1
                   }
                 ],
                 "tone": "data"
@@ -286,16 +606,61 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The answer logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "The base case is an empty tree, which has depth 0.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Maximum"
+                    "text": "self"
                   },
                   {
-                    "text": "depth"
+                    "var": "self",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "val"
+                  },
+                  {
+                    "var": "val",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "left"
+                  },
+                  {
+                    "var": "left",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Depth matters for speed.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
                   }
                 ],
                 "tone": "ok"
@@ -308,31 +673,72 @@
         "template": "table",
         "title": "Maximum depth",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
+            "caption": "Practice 2 asks for the number of levels, the maximum depth.",
             "rows": [
               {
                 "cells": [
-                  "Maximum",
-                  "depth"
+                  "self",
+                  "<TreeNode>"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "val",
+                  "4"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "left",
+                  "None"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The answer logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "The base case is an empty tree, which has depth 0.",
             "rows": [
               {
                 "cells": [
-                  "Maximum",
-                  "depth"
+                  "self",
+                  "<TreeNode>"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "val",
+                  "4"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "left",
+                  "None"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Depth matters for speed.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "3 4 0"
                 ],
                 "tone": "ok"
               }
@@ -345,82 +751,70 @@
       "partTitle": "Walking a tree with your own stack",
       "codeHash": "d2b96363ad0facb9f685bdce9644db3fe9c859fadd60ce088703b6cfd341e610",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Walking a tree with your own stack",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The recursion concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Walking"
-                  },
-                  {
-                    "text": "tree"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Recursion uses Python's call stack.",
+            "items": {
+              "var": "out",
+              "line": 10,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The swapping logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "with"
-                  },
-                  {
-                    "text": "your"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "While the stack is not empty, pop a node, visit it, then push its right.",
+            "items": {
+              "var": "out",
+              "line": 11,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Trace how same updates stack during execution.",
+            "items": {
+              "var": "out",
+              "line": 11,
+              "hit": 3
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Walking a tree with your own stack",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The recursion concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Walking",
-                  "tree"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Recursion uses Python's call stack.",
+            "mode": "queue",
+            "items": [],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The swapping logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "with",
-                  "your"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "While the stack is not empty, pop a node, visit it, then push its right.",
+            "mode": "queue",
+            "items": [],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Trace how same updates stack during execution.",
+            "mode": "queue",
+            "items": [
+              "1",
+              "2"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -429,82 +823,91 @@
       "partTitle": "Trees from lists and tree problems in general",
       "codeHash": "504721a886a0f49e6c5db964fab528809bd9e1eea8d7b8cfbc9b8686c8962b7f",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Trees from lists and tree problems in general",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The interview concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Trees"
-                  },
-                  {
-                    "text": "from"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Interview platforms often describe trees as a list in level order,.",
+            "items": {
+              "var": "values",
+              "line": 10,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The before logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "lists"
-                  },
-                  {
-                    "text": "and"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Most tree problems follow one of two shapes.",
+            "items": {
+              "var": "values",
+              "line": 12,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Draw small trees on paper.",
+            "items": {
+              "var": "values",
+              "line": 16,
+              "hit": 2
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Trees from lists and tree problems in general",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The interview concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Trees",
-                  "from"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Interview platforms often describe trees as a list in level order,.",
+            "mode": "queue",
+            "items": [
+              "3",
+              "9",
+              "20",
+              "None",
+              "None",
+              "15",
+              "7"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The before logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "lists",
-                  "and"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Most tree problems follow one of two shapes.",
+            "mode": "queue",
+            "items": [
+              "3",
+              "9",
+              "20",
+              "None",
+              "None",
+              "15",
+              "7"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Draw small trees on paper.",
+            "mode": "queue",
+            "items": [
+              "3",
+              "9",
+              "20",
+              "None",
+              "None",
+              "15",
+              "7"
+            ],
+            "action": "idle"
           }
         ]
       }

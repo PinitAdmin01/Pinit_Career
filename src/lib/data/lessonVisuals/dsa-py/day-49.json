@@ -2,87 +2,113 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 49,
-  "promptSha": "c8ce9c73853ee881aa7f0418041e1d0f13bb41991a8e27d837f45f055bffdb50",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Subset Encoding with Integer Bitmasks & Bitwise State Transitions",
       "codeHash": "62ed4e43f1ea89c67377e7bc973920ae8ee04878376328dab64aacf37c384a09",
       "spec": {
-        "template": "table",
-        "title": "Subset Encoding with Integer Bitmasks & Bitwise State",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Subset Encoding with Integer Bitmasks & Bitwise State Transition",
         "steps": [
           {
             "at": "say1",
-            "caption": "The dynamic design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Standard dynamic programming indexes numbers or coordinates cleanly, yet.",
+            "items": {
+              "var": "bits",
+              "line": 17,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Subset"
-                  },
-                  {
-                    "text": "Encoding"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The operational step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Bit `i` equals `1` if item `i` is inside S and `0` otherwise (`mask & (1.",
+            "items": {
+              "var": "bits",
+              "line": 15,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Integer"
-                  },
-                  {
-                    "text": "Bitmasks"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect the essential bitmask primitives and subset enumeration loop.",
+            "items": {
+              "var": "bits",
+              "line": 17,
+              "hit": 3
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Subset Encoding with Integer Bitmasks & Bitwise State",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Subset Encoding with Integer Bitmasks & Bitwise State Transition",
         "steps": [
           {
             "at": "say1",
-            "caption": "The dynamic design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Standard dynamic programming indexes numbers or coordinates cleanly, yet.",
+            "items": [
+              "0",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Subset",
-                  "Encoding"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The operational step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Bit `i` equals `1` if item `i` is inside S and `0` otherwise (`mask & (1.",
+            "items": [
+              "0",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Integer",
-                  "Bitmasks"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect the essential bitmask primitives and subset enumeration loop.",
+            "items": [
+              "0",
+              "2",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,43 +119,131 @@
       "partTitle": "Worker-to-Task Minimum-Cost Assignment via Bitmask DP (O(N * 2^N))",
       "codeHash": "c3318e07e4a398cdc0e9eeedbbbcbfd6c6bc24a8f4d2e0d87e5f11ab85e5a67f",
       "spec": {
-        "template": "table",
-        "title": "Worker-to-Task Minimum-Cost Assignment via Bitmask DP (O(N *",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Worker-to-Task Minimum-Cost Assignment via Bitmask DP (O(N * 2^N",
         "steps": [
           {
             "at": "say1",
-            "caption": "The assigning design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Imagine assigning `N` tasks cleanly one-by-one to `N` specialized workers.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Worker"
-                  },
-                  {
-                    "text": "Task"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "full",
+                "value": {
+                  "var": "full",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mask",
+                "value": {
+                  "var": "mask",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 12,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The collapses step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Observe the huge Bitmask DP state reduction.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Minimum"
-                  },
-                  {
-                    "text": "Cost"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "full",
+                "value": {
+                  "var": "full",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mask",
+                "value": {
+                  "var": "mask",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Trace minimum-cost assignment and parent task traceback below on a 4x4.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "full",
+                "value": {
+                  "var": "full",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mask",
+                "value": {
+                  "var": "mask",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 14,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -137,35 +251,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Worker-to-Task Minimum-Cost Assignment via Bitmask DP (O(N *",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Worker-to-Task Minimum-Cost Assignment via Bitmask DP (O(N * 2^N",
         "steps": [
           {
             "at": "say1",
-            "caption": "The assigning design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Imagine assigning `N` tasks cleanly one-by-one to `N` specialized workers.",
+            "bars": [
               {
-                "cells": [
-                  "Worker",
-                  "Task"
-                ],
+                "label": "n",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "full",
+                "value": 16,
+                "tone": "data"
+              },
+              {
+                "label": "mask",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "w",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The collapses step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Observe the huge Bitmask DP state reduction.",
+            "bars": [
               {
-                "cells": [
-                  "Minimum",
-                  "Cost"
-                ],
+                "label": "n",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "full",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "mask",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Trace minimum-cost assignment and parent task traceback below on a 4x4.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "full",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "mask",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -177,80 +339,105 @@
       "partTitle": "Held-Karp Traveling Salesperson Problem (TSP) in O(N^2 * 2^N)",
       "codeHash": "dc1f30b591c2939f07f283ab2ce2832336618639f381675f5a601899513ff70e",
       "spec": {
-        "template": "table",
-        "title": "Held-Karp Traveling Salesperson Problem (TSP) in O(N^2 *",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Held-Karp Traveling Salesperson Problem (TSP) in O(N^2 * 2^N)",
         "steps": [
           {
             "at": "say1",
-            "caption": "The bitmask design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Can Bitmask DP conquer the famous NP-hard Traveling Salesperson Problem.",
+            "items": {
+              "var": "rev_path",
+              "line": 41,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Held"
-                  },
-                  {
-                    "text": "Karp"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The starting step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Unlike assignment DP, knowing only which cities `mask` were visited is NOT.",
+            "items": {
+              "var": "rev_path",
+              "line": 43,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Traveling"
-                  },
-                  {
-                    "text": "Salesperson"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Once every state fills, close the loop back home from `full_mask = (1 <<.",
+            "items": {
+              "var": "rev_path",
+              "line": 40,
+              "hit": 3
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Held-Karp Traveling Salesperson Problem (TSP) in O(N^2 *",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Held-Karp Traveling Salesperson Problem (TSP) in O(N^2 * 2^N)",
         "steps": [
           {
             "at": "say1",
-            "caption": "The bitmask design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Can Bitmask DP conquer the famous NP-hard Traveling Salesperson Problem.",
+            "items": [
+              "1",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Held",
-                  "Karp"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The starting step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Unlike assignment DP, knowing only which cities `mask` were visited is NOT.",
+            "items": [
+              "1",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Traveling",
-                  "Salesperson"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Once every state fills, close the loop back home from `full_mask = (1 <<.",
+            "items": [
+              "1",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -261,80 +448,84 @@
       "partTitle": "Submask Enumeration Trick: (sub - 1) & mask in O(3^N) Total Time",
       "codeHash": "501d1a5f3305acd862dd0cfdd991fafc9ca64aa447ce93296b8f04554d4d03e4",
       "spec": {
-        "template": "table",
-        "title": "Submask Enumeration Trick",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Submask Enumeration Trick: (sub - 1) & mask in O(3^N) Total Time",
         "steps": [
           {
             "at": "say1",
-            "caption": "The sometimes design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Sometimes Bitmask DP doesn't transition one single element at a time it.",
+            "items": {
+              "var": "pkg_weights",
+              "line": 36,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Submask"
-                  },
-                  {
-                    "text": "Enumeration"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The naive step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "For example, suppose 10 courier packages each have weights `w_i`,.",
+            "items": {
+              "var": "pkg_weights",
+              "line": 36,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Trick"
-                  },
-                  {
-                    "text": "mask"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Submask Enumeration Trick",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Submask Enumeration Trick: (sub - 1) & mask in O(3^N) Total Time",
         "steps": [
           {
             "at": "say1",
-            "caption": "The sometimes design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Sometimes Bitmask DP doesn't transition one single element at a time it.",
+            "items": [
+              "4",
+              "8",
+              "5",
+              "6",
+              "3",
+              "7",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Submask",
-                  "Enumeration"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The naive step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "For example, suppose 10 courier packages each have weights `w_i`,.",
+            "items": [
+              "4",
+              "8",
+              "5",
+              "6",
+              "3",
+              "7",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Trick",
-                  "mask"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -345,80 +536,114 @@
       "partTitle": "Production Application: Drone Delivery Route Optimizer & Batch Partition Planner",
       "codeHash": "0c2f2531a76949a45d772f2d87577b4c2ac0e8d92491e08749e392f60d1823ab",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Production Application: Drone Delivery Route Optimizer & Batch P",
         "steps": [
           {
             "at": "say1",
-            "caption": "The unite design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Trace how unite updates submask during execution.",
+            "items": {
+              "var": "weights",
+              "line": 73,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Real delivery hubs do not load arbitrary weights onto one vehicle.",
+            "items": {
+              "var": "weights",
+              "line": 76,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Drone"
-                  },
-                  {
-                    "text": "Delivery"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect and run `BitmaskRoutePlanner` below on a 6-stop urban drone parcel.",
+            "items": {
+              "var": "weights",
+              "line": 76,
+              "hit": 4
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Production Application: Drone Delivery Route Optimizer & Batch P",
         "steps": [
           {
             "at": "say1",
-            "caption": "The unite design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Trace how unite updates submask during execution.",
+            "items": [
+              "5",
+              "4",
+              "6",
+              "3",
+              "5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Real delivery hubs do not load arbitrary weights onto one vehicle.",
+            "items": [
+              "5",
+              "4",
+              "6",
+              "3",
+              "5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Drone",
-                  "Delivery"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect and run `BitmaskRoutePlanner` below on a 6-stop urban drone parcel.",
+            "items": [
+              "5",
+              "4",
+              "6",
+              "3",
+              "5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

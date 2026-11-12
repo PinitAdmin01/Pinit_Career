@@ -2,256 +2,284 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 12,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Text classification",
       "codeHash": "85125e48a26351151ca6106768d00cf550af23039175fe85970e41d849aceba2",
       "spec": {
-        "template": "table",
-        "title": "Supervised document sentiment classification and vocabulary",
-        "columns": [
-          "pos",
-          "neg"
+        "template": "flow",
+        "title": "Text classification",
+        "nodes": [
+          {
+            "id": "train",
+            "label": "train"
+          },
+          {
+            "id": "words",
+            "label": "words"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "label",
+            "label": "label"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Text classification assigns categorical sentiment or topic labels.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pos"
-                  },
-                  {
-                    "text": "neg"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Text classification assigns a label to a whole document.",
+            "values": {
+              "train": {
+                "var": "train",
+                "line": 1,
+                "hit": 1
+              },
+              "words": {
+                "var": "words",
+                "line": 3,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 1
+              },
+              "label": {
+                "var": "label",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "train": "data",
+              "words": "data",
+              "text": "data",
+              "label": "data"
+            },
+            "arrows": [
+              [
+                "train",
+                "words"
+              ],
+              [
+                "words",
+                "text"
+              ],
+              [
+                "text",
+                "label"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Supervised models learn distinguishing features from labeled training text.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pos"
-                  },
-                  {
-                    "text": "neg"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "It is supervised learning.",
+            "values": {
+              "train": {
+                "var": "train",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "acting"
-                  },
-                  {
-                    "text": "boring"
-                  }
-                ],
-                "tone": "ok"
+              "words": {
+                "var": "words",
+                "line": 4,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 5,
+                "hit": 1
+              },
+              "label": {
+                "var": "label",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "train": "data",
+              "words": "data",
+              "text": "data",
+              "label": "data"
+            },
+            "arrows": [
+              [
+                "train",
+                "words"
+              ],
+              [
+                "words",
+                "text"
+              ],
+              [
+                "text",
+                "label"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Naive Bayes provides an effective baseline for text sentiment classification.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pos"
-                  },
-                  {
-                    "text": "neg"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Always start a classification project with a simple baseline like Naive Bayes.",
+            "values": {
+              "train": {
+                "var": "train",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "acting"
-                  },
-                  {
-                    "text": "boring"
-                  }
-                ],
-                "tone": "ok"
+              "words": {
+                "var": "words",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "train"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
-                "tone": "data"
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 2
+              },
+              "label": {
+                "var": "label",
+                "line": 4,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Bag of words representations count term frequencies regardless of word order.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pos"
-                  },
-                  {
-                    "text": "neg"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "acting"
-                  },
-                  {
-                    "text": "boring"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "train"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "moving"
-                  },
-                  {
-                    "text": "label"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "train": "ok",
+              "words": "ok",
+              "text": "ok",
+              "label": "ok"
+            },
+            "arrows": [
+              [
+                "train",
+                "words"
+              ],
+              [
+                "words",
+                "text"
+              ],
+              [
+                "text",
+                "label"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Supervised document sentiment classification and vocabulary",
-        "columns": [
-          "pos",
-          "neg"
+        "template": "flow",
+        "title": "Text classification",
+        "nodes": [
+          {
+            "id": "train",
+            "label": "train"
+          },
+          {
+            "id": "words",
+            "label": "words"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "label",
+            "label": "label"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Text classification assigns categorical sentiment or topic labels.",
-            "rows": [
-              {
-                "cells": [
-                  "pos",
-                  "neg"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Text classification assigns a label to a whole document.",
+            "values": {
+              "train": "[['great fun great acting', 'pos'], ['f…",
+              "words": "{'pos': [], 'neg': []}",
+              "text": "'great fun great acting'",
+              "label": "'pos'"
+            },
+            "tones": {
+              "train": "data",
+              "words": "data",
+              "text": "data",
+              "label": "data"
+            },
+            "arrows": [
+              [
+                "train",
+                "words"
+              ],
+              [
+                "words",
+                "text"
+              ],
+              [
+                "text",
+                "label"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Supervised models learn distinguishing features from labeled training text.",
-            "rows": [
-              {
-                "cells": [
-                  "pos",
-                  "neg"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "acting",
-                  "boring"
-                ],
-                "tone": "ok"
-              }
+            "caption": "It is supervised learning.",
+            "values": {
+              "train": "[['great fun great acting', 'pos'], ['f…",
+              "words": "{'pos': [], 'neg': []}",
+              "text": "'great fun great acting'",
+              "label": "'pos'"
+            },
+            "tones": {
+              "train": "data",
+              "words": "data",
+              "text": "data",
+              "label": "data"
+            },
+            "arrows": [
+              [
+                "train",
+                "words"
+              ],
+              [
+                "words",
+                "text"
+              ],
+              [
+                "text",
+                "label"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Naive Bayes provides an effective baseline for text sentiment classification.",
-            "rows": [
-              {
-                "cells": [
-                  "pos",
-                  "neg"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "acting",
-                  "boring"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "train",
-                  "words"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Bag of words representations count term frequencies regardless of word order.",
-            "rows": [
-              {
-                "cells": [
-                  "pos",
-                  "neg"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "acting",
-                  "boring"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "train",
-                  "words"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "moving",
-                  "label"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Always start a classification project with a simple baseline like Naive Bayes.",
+            "values": {
+              "train": "[['great fun great acting', 'pos'], ['f…",
+              "words": "{'pos': ['great', 'fun', 'great', 'acti…",
+              "text": "'fun and moving'",
+              "label": "'pos'"
+            },
+            "tones": {
+              "train": "ok",
+              "words": "ok",
+              "text": "ok",
+              "label": "ok"
+            },
+            "arrows": [
+              [
+                "train",
+                "words"
+              ],
+              [
+                "words",
+                "text"
+              ],
+              [
+                "text",
+                "label"
+              ]
             ]
           }
         ]
@@ -261,249 +289,277 @@
       "partTitle": "Bayes' rule and the naive assumption",
       "codeHash": "5757aa3519b3c6f69c8aa7d2bdf8aff0490b7449f5e77d4bca3990e51e7b52f5",
       "spec": {
-        "template": "table",
-        "title": "Bayesian posterior score computation from priors and likelihoods",
-        "columns": [
-          "great",
-          "fun"
+        "template": "flow",
+        "title": "Bayes' rule and the naive assumption",
+        "nodes": [
+          {
+            "id": "prior",
+            "label": "prior"
+          },
+          {
+            "id": "like",
+            "label": "like"
+          },
+          {
+            "id": "review",
+            "label": "review"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Bayes rule decomposes posterior probability into prior and likelihood.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "great"
-                  },
-                  {
-                    "text": "fun"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Bayes' rule flips a conditional probability.",
+            "values": {
+              "prior": {
+                "var": "prior",
+                "line": 1,
+                "hit": 1
+              },
+              "like": {
+                "var": "like",
+                "line": 2,
+                "hit": 2
+              },
+              "review": {
+                "var": "review",
+                "line": 4,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "prior": "data",
+              "like": "data",
+              "review": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "prior",
+                "like"
+              ],
+              [
+                "like",
+                "review"
+              ],
+              [
+                "review",
+                "c"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Class priors represent the base rate occurrence of each category.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "great"
-                  },
-                  {
-                    "text": "fun"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "P(class) is the prior.",
+            "values": {
+              "prior": {
+                "var": "prior",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "prior"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
-                "tone": "ok"
+              "like": {
+                "var": "like",
+                "line": 4,
+                "hit": 1
+              },
+              "review": {
+                "var": "review",
+                "line": 5,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "prior": "data",
+              "like": "data",
+              "review": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "prior",
+                "like"
+              ],
+              [
+                "like",
+                "review"
+              ],
+              [
+                "review",
+                "c"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The naive assumption treats word occurrences as conditionally independent.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "great"
-                  },
-                  {
-                    "text": "fun"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say8",
+            "caption": "The example computes these products for a short review and two classes.",
+            "values": {
+              "prior": {
+                "var": "prior",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "prior"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
-                "tone": "ok"
+              "like": {
+                "var": "like",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "boring"
-                  }
-                ],
-                "tone": "idle"
+              "review": {
+                "var": "review",
+                "line": 6,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The winning prediction maximizes prior times cumulative word likelihood.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "great"
-                  },
-                  {
-                    "text": "fun"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "prior"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "boring"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "review"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "prior": "ok",
+              "like": "ok",
+              "review": "ok",
+              "c": "ok"
+            },
+            "arrows": [
+              [
+                "prior",
+                "like"
+              ],
+              [
+                "like",
+                "review"
+              ],
+              [
+                "review",
+                "c"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Bayesian posterior score computation from priors and likelihoods",
-        "columns": [
-          "great",
-          "fun"
+        "template": "flow",
+        "title": "Bayes' rule and the naive assumption",
+        "nodes": [
+          {
+            "id": "prior",
+            "label": "prior"
+          },
+          {
+            "id": "like",
+            "label": "like"
+          },
+          {
+            "id": "review",
+            "label": "review"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Bayes rule decomposes posterior probability into prior and likelihood.",
-            "rows": [
-              {
-                "cells": [
-                  "great",
-                  "fun"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Bayes' rule flips a conditional probability.",
+            "values": {
+              "prior": "{'pos': 0.5, 'neg': 0.5}",
+              "like": "{'pos': {'great': 0.3, 'fun': 0.2, 'bor…",
+              "review": "['great', 'fun']",
+              "c": "'pos'"
+            },
+            "tones": {
+              "prior": "data",
+              "like": "data",
+              "review": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "prior",
+                "like"
+              ],
+              [
+                "like",
+                "review"
+              ],
+              [
+                "review",
+                "c"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Class priors represent the base rate occurrence of each category.",
-            "rows": [
-              {
-                "cells": [
-                  "great",
-                  "fun"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "prior",
-                  "score"
-                ],
-                "tone": "ok"
-              }
+            "caption": "P(class) is the prior.",
+            "values": {
+              "prior": "{'pos': 0.5, 'neg': 0.5}",
+              "like": "{'pos': {'great': 0.3, 'fun': 0.2, 'bor…",
+              "review": "['great', 'fun']",
+              "c": "'pos'"
+            },
+            "tones": {
+              "prior": "data",
+              "like": "data",
+              "review": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "prior",
+                "like"
+              ],
+              [
+                "like",
+                "review"
+              ],
+              [
+                "review",
+                "c"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The naive assumption treats word occurrences as conditionally independent.",
-            "rows": [
-              {
-                "cells": [
-                  "great",
-                  "fun"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "prior",
-                  "score"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "like",
-                  "boring"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The winning prediction maximizes prior times cumulative word likelihood.",
-            "rows": [
-              {
-                "cells": [
-                  "great",
-                  "fun"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "prior",
-                  "score"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "like",
-                  "boring"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "review",
-                  "round"
-                ],
-                "tone": "ok"
-              }
+            "at": "say8",
+            "caption": "The example computes these products for a short review and two classes.",
+            "values": {
+              "prior": "{'pos': 0.5, 'neg': 0.5}",
+              "like": "{'pos': {'great': 0.3, 'fun': 0.2, 'bor…",
+              "review": "['great', 'fun']",
+              "c": "'pos'"
+            },
+            "tones": {
+              "prior": "ok",
+              "like": "ok",
+              "review": "ok",
+              "c": "ok"
+            },
+            "arrows": [
+              [
+                "prior",
+                "like"
+              ],
+              [
+                "like",
+                "review"
+              ],
+              [
+                "review",
+                "c"
+              ]
             ]
           }
         ]
@@ -513,249 +569,277 @@
       "partTitle": "Training: counting words per class",
       "codeHash": "734d8a7ab8d4ea515b653d98c4f259d6e612268e152e40e60664a286deece72f",
       "spec": {
-        "template": "table",
-        "title": "Class word frequency counting and Laplace smoothing",
-        "columns": [
-          "labels",
-          "counts"
+        "template": "flow",
+        "title": "Training: counting words per class",
+        "nodes": [
+          {
+            "id": "train",
+            "label": "train"
+          },
+          {
+            "id": "label",
+            "label": "label"
+          },
+          {
+            "id": "labels",
+            "label": "labels"
+          },
+          {
+            "id": "counts",
+            "label": "counts"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Training Naive Bayes reduces to counting word frequencies per class.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "labels"
-                  },
-                  {
-                    "text": "counts"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Training Naive Bayes is just counting, which is why it is so fast.",
+            "values": {
+              "train": {
+                "var": "train",
+                "line": 3,
+                "hit": 1
+              },
+              "label": {
+                "var": "label",
+                "line": 5,
+                "hit": 1
+              },
+              "labels": {
+                "var": "labels",
+                "line": 5,
+                "hit": 6
+              },
+              "counts": {
+                "var": "counts",
+                "line": 6,
+                "hit": 3
               }
+            },
+            "tones": {
+              "train": "data",
+              "label": "data",
+              "labels": "data",
+              "counts": "data"
+            },
+            "arrows": [
+              [
+                "train",
+                "label"
+              ],
+              [
+                "label",
+                "labels"
+              ],
+              [
+                "labels",
+                "counts"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Word likelihood divides term occurrences by total class tokens.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "labels"
-                  },
-                  {
-                    "text": "counts"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "The prior for a class is the share of training documents with that label.",
+            "values": {
+              "train": {
+                "var": "train",
+                "line": 5,
+                "hit": 6
               },
-              {
-                "cells": [
-                  {
-                    "text": "train"
-                  },
-                  {
-                    "text": "label"
-                  }
-                ],
-                "tone": "ok"
+              "label": {
+                "var": "label",
+                "line": 5,
+                "hit": 2
+              },
+              "labels": {
+                "var": "labels",
+                "line": 6,
+                "hit": 1
+              },
+              "counts": {
+                "var": "counts",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "train": "data",
+              "label": "data",
+              "labels": "data",
+              "counts": "data"
+            },
+            "arrows": [
+              [
+                "train",
+                "label"
+              ],
+              [
+                "label",
+                "labels"
+              ],
+              [
+                "labels",
+                "counts"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Unseen training words cause a zero score if left unhandled.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "labels"
-                  },
-                  {
-                    "text": "counts"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example trains priors and smoothed likelihoods from the tiny training set.",
+            "values": {
+              "train": {
+                "var": "train",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "train"
-                  },
-                  {
-                    "text": "label"
-                  }
-                ],
-                "tone": "ok"
+              "label": {
+                "var": "label",
+                "line": 5,
+                "hit": 3
               },
-              {
-                "cells": [
-                  {
-                    "text": "Counter"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "data"
+              "labels": {
+                "var": "labels",
+                "line": 6,
+                "hit": 2
+              },
+              "counts": {
+                "var": "counts",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Laplace add-one smoothing prevents zero probabilities for unseen terms.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "labels"
-                  },
-                  {
-                    "text": "counts"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "train"
-                  },
-                  {
-                    "text": "label"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Counter"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "counts"
-                  },
-                  {
-                    "text": "train"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "train": "ok",
+              "label": "ok",
+              "labels": "ok",
+              "counts": "ok"
+            },
+            "arrows": [
+              [
+                "train",
+                "label"
+              ],
+              [
+                "label",
+                "labels"
+              ],
+              [
+                "labels",
+                "counts"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Class word frequency counting and Laplace smoothing",
-        "columns": [
-          "labels",
-          "counts"
+        "template": "flow",
+        "title": "Training: counting words per class",
+        "nodes": [
+          {
+            "id": "train",
+            "label": "train"
+          },
+          {
+            "id": "label",
+            "label": "label"
+          },
+          {
+            "id": "labels",
+            "label": "labels"
+          },
+          {
+            "id": "counts",
+            "label": "counts"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Training Naive Bayes reduces to counting word frequencies per class.",
-            "rows": [
-              {
-                "cells": [
-                  "labels",
-                  "counts"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Training Naive Bayes is just counting, which is why it is so fast.",
+            "values": {
+              "train": "[['great fun great acting', 'pos'], ['f…",
+              "label": "'pos'",
+              "labels": "{'pos': 2, 'neg': 2}",
+              "counts": "{'pos': {}, 'neg': {}}"
+            },
+            "tones": {
+              "train": "data",
+              "label": "data",
+              "labels": "data",
+              "counts": "data"
+            },
+            "arrows": [
+              [
+                "train",
+                "label"
+              ],
+              [
+                "label",
+                "labels"
+              ],
+              [
+                "labels",
+                "counts"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Word likelihood divides term occurrences by total class tokens.",
-            "rows": [
-              {
-                "cells": [
-                  "labels",
-                  "counts"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "train",
-                  "label"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "The prior for a class is the share of training documents with that label.",
+            "values": {
+              "train": "[['great fun great acting', 'pos'], ['f…",
+              "label": "'pos'",
+              "labels": "{'pos': 2, 'neg': 2}",
+              "counts": "{'pos': {}, 'neg': {}}"
+            },
+            "tones": {
+              "train": "data",
+              "label": "data",
+              "labels": "data",
+              "counts": "data"
+            },
+            "arrows": [
+              [
+                "train",
+                "label"
+              ],
+              [
+                "label",
+                "labels"
+              ],
+              [
+                "labels",
+                "counts"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Unseen training words cause a zero score if left unhandled.",
-            "rows": [
-              {
-                "cells": [
-                  "labels",
-                  "counts"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "train",
-                  "label"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Counter",
-                  "text"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Laplace add-one smoothing prevents zero probabilities for unseen terms.",
-            "rows": [
-              {
-                "cells": [
-                  "labels",
-                  "counts"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "train",
-                  "label"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Counter",
-                  "text"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "counts",
-                  "train"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example trains priors and smoothed likelihoods from the tiny training set.",
+            "values": {
+              "train": "[['great fun great acting', 'pos'], ['f…",
+              "label": "'neg'",
+              "labels": "{'pos': 2, 'neg': 2}",
+              "counts": "{'pos': {'great': 2, 'fun': 1, 'acting'…"
+            },
+            "tones": {
+              "train": "ok",
+              "label": "ok",
+              "labels": "ok",
+              "counts": "ok"
+            },
+            "arrows": [
+              [
+                "train",
+                "label"
+              ],
+              [
+                "label",
+                "labels"
+              ],
+              [
+                "labels",
+                "counts"
+              ]
             ]
           }
         ]
@@ -765,143 +849,77 @@
       "partTitle": "Working in log space",
       "codeHash": "262e62a9080b6b1a801e5aae8499359b31449461e36e6d79ebe86e95d97428f2",
       "spec": {
-        "template": "table",
-        "title": "Log probability space conversion preventing arithmetic underflow",
-        "columns": [
-          "product",
-          "probs"
-        ],
+        "template": "bars",
+        "title": "Working in log space",
         "steps": [
           {
             "at": "say1",
-            "caption": "Multiplying many small probabilities triggers floating point underflow.",
-            "rows": [
+            "caption": "Multiplying hundreds of small probabilities quickly produces numbers too.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "product"
-                  },
-                  {
-                    "text": "probs"
-                  }
-                ],
-                "tone": "ok"
+                "label": "product",
+                "value": {
+                  "var": "product",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Logarithms convert product operations into numerically stable sums.",
-            "rows": [
+            "caption": "The fix is logarithms.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "product"
-                  },
-                  {
-                    "text": "probs"
-                  }
-                ],
+                "label": "product",
+                "value": {
+                  "var": "product",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "log"
-                  }
-                ],
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Sums of log probabilities remain well within computer dynamic range.",
-            "rows": [
+            "at": "say7",
+            "caption": "Trace how example updates shows during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "product"
-                  },
-                  {
-                    "text": "probs"
-                  }
-                ],
+                "label": "product",
+                "value": {
+                  "var": "product",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "log"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sum"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Monotonic log scaling preserves the identical maximum scoring class.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "product"
-                  },
-                  {
-                    "text": "probs"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "log"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sum"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "probs"
-                  },
-                  {
-                    "text": "product"
-                  }
-                ],
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -909,103 +927,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Log probability space conversion preventing arithmetic underflow",
-        "columns": [
-          "product",
-          "probs"
-        ],
+        "template": "bars",
+        "title": "Working in log space",
         "steps": [
           {
             "at": "say1",
-            "caption": "Multiplying many small probabilities triggers floating point underflow.",
-            "rows": [
+            "caption": "Multiplying hundreds of small probabilities quickly produces numbers too.",
+            "bars": [
               {
-                "cells": [
-                  "product",
-                  "probs"
-                ],
-                "tone": "ok"
+                "label": "product",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": 0.001,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Logarithms convert product operations into numerically stable sums.",
-            "rows": [
+            "caption": "The fix is logarithms.",
+            "bars": [
               {
-                "cells": [
-                  "product",
-                  "probs"
-                ],
+                "label": "product",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "math",
-                  "log"
-                ],
+                "label": "p",
+                "value": 0.001,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Sums of log probabilities remain well within computer dynamic range.",
-            "rows": [
+            "at": "say7",
+            "caption": "Trace how example updates shows during execution.",
+            "bars": [
               {
-                "cells": [
-                  "product",
-                  "probs"
-                ],
+                "label": "product",
+                "value": 0.001,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "math",
-                  "log"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sum",
-                  "round"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Monotonic log scaling preserves the identical maximum scoring class.",
-            "rows": [
-              {
-                "cells": [
-                  "product",
-                  "probs"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "log"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sum",
-                  "round"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "probs",
-                  "product"
-                ],
+                "label": "p",
+                "value": 0.001,
                 "tone": "ok"
               }
             ]
@@ -1017,223 +985,108 @@
       "partTitle": "Classifying and evaluating",
       "codeHash": "c59bc080d7fb58904805df0b1e422873989235265ae09599aff994e081ffe0db",
       "spec": {
-        "template": "flow",
-        "title": "Classifying and evaluating — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Classifying and eva...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Classifying and evaluating",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Classifying and evaluating [Dtwelve.Pfive.Sone].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Classifying and eva... [Dtwelve.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "To classify, compute each class's log score and pick the highest.",
+            "items": {
+              "var": "tokens",
+              "line": 8,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Words a class has never seen use a small unknown probability, standing.",
+            "items": {
+              "var": "tokens",
+              "line": 9,
+              "hit": 9
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Classifying and evaluating.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "The example classifies test reviews and builds a confusion matrix.",
+            "items": {
+              "var": "tokens",
+              "line": 9,
+              "hit": 12
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Classifying and evaluating — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Classifying and eva...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Classifying and evaluating",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Classifying and evaluating [D12.P5.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Classifying and eva... [D12.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "To classify, compute each class's log score and pick the highest.",
+            "items": [
+              "'great'",
+              "'fun'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Words a class has never seen use a small unknown probability, standing.",
+            "items": [
+              "'not'",
+              "'good'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Classifying and evaluating [D12.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "The example classifies test reviews and builds a confusion matrix.",
+            "items": [
+              "'fun'",
+              "'but'",
+              "'boring'",
+              "'boring'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -1243,223 +1096,133 @@
       "partTitle": "Practice time: score and classify",
       "codeHash": "617178d0ceb3ce900d7df8674b02e5a5d1231afed65c8799083526c1d48bd9e3",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: score and classify — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: scor...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Practice time: score and classify",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: score and classify.",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: scor... [Dtwelve.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "With no words, the score is just the prior.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "err"
+                  },
+                  {
+                    "var": "err",
+                    "line": 5,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Nb_classify(tokens, priors, likelihoods, unknown=1e-6).",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "err"
+                  },
+                  {
+                    "var": "err",
+                    "line": 5,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: score and classify.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the error that the unknown default prevents.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: score and classify — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: scor...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Practice time: score and classify",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: score and classify [D12.P6.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: scor... [D12.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "With no words, the score is just the prior.",
+            "rows": [
+              {
+                "cells": [
+                  "err",
+                  "<ValueError>"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Nb_classify(tokens, priors, likelihoods, unknown=1e-6).",
+            "rows": [
+              {
+                "cells": [
+                  "err",
+                  "<ValueError>"
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: score and classify [D12.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the error that the unknown default prevents.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "log(0): math domain error"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "log of the unknown default: -13.82"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

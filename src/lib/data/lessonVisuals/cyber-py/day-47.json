@@ -2,536 +2,448 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 47,
-  "promptSha": "2891487a944c26d22125d7bc239ea2e54f215e7a83685649238d0b19940d4dc1",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines — Foundations & Mathematical Invariants",
-      "codeHash": "26f5b780807c3b8383487bff599d83a4c57a6c90f8800771bbad0c7de301d83a",
+      "codeHash": "11b120ca5ea69d3e21dffe7e3c28ed285df6fe41e3bd55aa757523ae0300d005",
       "spec": {
-        "template": "flow",
-        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines — Foun",
-        "nodes": [
+        "template": "boxes",
+        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines ",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "SIGMA_DETECTION_TAXONOMY",
+            "label": "SIGMA_DETECTION_TAXONOMY"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Modern Security Operations Centers (SOC) ingest billions of telemetry.",
+            "values": {
+              "SIGMA_DETECTION_TAXONOMY": {
+                "var": "SIGMA_DETECTION_TAXONOMY",
+                "line": 1,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
+              },
+              "desc": {
+                "var": "desc",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "SIGMA_DETECTION_TAXONOMY": "data",
+              "name": "data",
+              "desc": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Historically, threat detection rules were tightly coupled to proprietary.",
+            "values": {
+              "SIGMA_DETECTION_TAXONOMY": {
+                "var": "SIGMA_DETECTION_TAXONOMY",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "name": {
+                "var": "name",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "desc": {
+                "var": "desc",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "SIGMA_DETECTION_TAXONOMY": "data",
+              "name": "data",
+              "desc": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Threat hunters analyze Sigma rules across open-source intelligence.",
+            "values": {
+              "SIGMA_DETECTION_TAXONOMY": {
+                "var": "SIGMA_DETECTION_TAXONOMY",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "desc": {
+                "var": "desc",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "SIGMA_DETECTION_TAXONOMY": "ok",
+              "name": "ok",
+              "desc": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines — Foun",
-        "nodes": [
+        "template": "boxes",
+        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines ",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "SIGMA_DETECTION_TAXONOMY",
+            "label": "SIGMA_DETECTION_TAXONOMY"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Modern Security Operations Centers (SOC) ingest billions of telemetry.",
+            "values": {
+              "SIGMA_DETECTION_TAXONOMY": "{'SELECTION_MATCH': 'Exact key-value ma…",
+              "name": "'BOOLEAN_CONDITION'",
+              "desc": "\"Logical combination of selections and …"
+            },
+            "tones": {
+              "SIGMA_DETECTION_TAXONOMY": "data",
+              "name": "data",
+              "desc": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Historically, threat detection rules were tightly coupled to proprietary.",
+            "values": {
+              "SIGMA_DETECTION_TAXONOMY": "{'SELECTION_MATCH': 'Exact key-value ma…",
+              "name": "'BOOLEAN_CONDITION'",
+              "desc": "\"Logical combination of selections and …"
+            },
+            "tones": {
+              "SIGMA_DETECTION_TAXONOMY": "data",
+              "name": "data",
+              "desc": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Threat hunters analyze Sigma rules across open-source intelligence.",
+            "values": {
+              "SIGMA_DETECTION_TAXONOMY": "{'SELECTION_MATCH': 'Exact key-value ma…",
+              "name": "'REGEX_FILTER'",
+              "desc": "'Regular expression pattern match again…"
+            },
+            "tones": {
+              "SIGMA_DETECTION_TAXONOMY": "ok",
+              "name": "ok",
+              "desc": "ok"
+            }
           }
         ]
       }
     },
     {
       "partTitle": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines — Core Algorithm & State Representation",
-      "codeHash": "03d9d47d5b2a4365dbb70cdc252b97ce39b3fbbdc5ad7d19801eaad8472de35f",
+      "codeHash": "5c0e8ec1fd7e2c975c9e2d4c5f05da3844c215552571d118b01adeb8b0002cda",
       "spec": {
         "template": "flow",
-        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines — Core",
+        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "rule",
+            "label": "rule"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "rule_dict",
+            "label": "rule_dict"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "selection",
+            "label": "selection"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "filter_dict",
+            "label": "filter_dict"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Compiling a Sigma rule into an in-memory Python matcher requires.",
+            "values": {
+              "rule": {
+                "var": "rule",
+                "line": 17,
+                "hit": 1
+              },
+              "rule_dict": {
+                "var": "rule_dict",
+                "line": 4,
+                "hit": 1
+              },
+              "selection": {
+                "var": "selection",
+                "line": 4,
+                "hit": 1
+              },
+              "filter_dict": {
+                "var": "filter_dict",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "rule": "data",
+              "rule_dict": "data",
+              "selection": "data",
+              "filter_dict": "data"
+            },
+            "arrows": [
+              [
+                "rule",
+                "rule_dict"
+              ],
+              [
+                "rule_dict",
+                "selection"
+              ],
+              [
+                "selection",
+                "filter_dict"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The compilation algorithm parses the `selection` mapping to extract.",
+            "values": {
+              "rule": {
+                "var": "rule",
+                "line": 24,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "rule_dict": {
+                "var": "rule_dict",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "selection": {
+                "var": "selection",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "filter_dict": {
+                "var": "filter_dict",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "rule": "data",
+              "rule_dict": "data",
+              "selection": "data",
+              "filter_dict": "data"
+            },
+            "arrows": [
+              [
+                "rule",
+                "rule_dict"
+              ],
+              [
+                "rule_dict",
+                "selection"
+              ],
+              [
+                "selection",
+                "filter_dict"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Stream processing workers execute in-memory compiled predicates against.",
+            "values": {
+              "rule": {
+                "var": "rule",
+                "line": 25,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "rule_dict": {
+                "var": "rule_dict",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "selection": {
+                "var": "selection",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "filter_dict": {
+                "var": "filter_dict",
+                "line": 15,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "rule": "ok",
+              "rule_dict": "ok",
+              "selection": "ok",
+              "filter_dict": "ok"
+            },
+            "arrows": [
+              [
+                "rule",
+                "rule_dict"
+              ],
+              [
+                "rule_dict",
+                "selection"
+              ],
+              [
+                "selection",
+                "filter_dict"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines — Core",
+        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "rule",
+            "label": "rule"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "rule_dict",
+            "label": "rule_dict"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "selection",
+            "label": "selection"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "filter_dict",
+            "label": "filter_dict"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Compiling a Sigma rule into an in-memory Python matcher requires.",
+            "values": {
+              "rule": "{'title': 'Suspicious PowerShell Encode…",
+              "rule_dict": "{'title': 'Suspicious PowerShell Encode…",
+              "selection": "{'process_name': 'powershell.exe', 'has…",
+              "filter_dict": "{'user': 'admin_service_account'}"
+            },
+            "tones": {
+              "rule": "data",
+              "rule_dict": "data",
+              "selection": "data",
+              "filter_dict": "data"
+            },
+            "arrows": [
+              [
+                "rule",
+                "rule_dict"
+              ],
+              [
+                "rule_dict",
+                "selection"
+              ],
+              [
+                "selection",
+                "filter_dict"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The compilation algorithm parses the `selection` mapping to extract.",
+            "values": {
+              "rule": "{'title': 'Suspicious PowerShell Encode…",
+              "rule_dict": "{'title': 'Suspicious PowerShell Encode…",
+              "selection": "{'process_name': 'powershell.exe', 'has…",
+              "filter_dict": "{'user': 'admin_service_account'}"
+            },
+            "tones": {
+              "rule": "data",
+              "rule_dict": "data",
+              "selection": "data",
+              "filter_dict": "data"
+            },
+            "arrows": [
+              [
+                "rule",
+                "rule_dict"
+              ],
+              [
+                "rule_dict",
+                "selection"
+              ],
+              [
+                "selection",
+                "filter_dict"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Stream processing workers execute in-memory compiled predicates against.",
+            "values": {
+              "rule": "{'title': 'Suspicious PowerShell Encode…",
+              "rule_dict": "{'title': 'Suspicious PowerShell Encode…",
+              "selection": "{'process_name': 'powershell.exe', 'has…",
+              "filter_dict": "{'user': 'admin_service_account'}"
+            },
+            "tones": {
+              "rule": "ok",
+              "rule_dict": "ok",
+              "selection": "ok",
+              "filter_dict": "ok"
+            },
+            "arrows": [
+              [
+                "rule",
+                "rule_dict"
+              ],
+              [
+                "rule_dict",
+                "selection"
+              ],
+              [
+                "selection",
+                "filter_dict"
+              ]
             ]
           }
         ]
@@ -539,798 +451,380 @@
     },
     {
       "partTitle": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "64d8aa07bb69c9245f3cf5b914a2f01a7812ec51fb65ad6065def5d5ace68fac",
+      "codeHash": "3609e20f6a4d3ae5774f4455f860b585d5275335af35d8b584ddae14636aeb22",
       "spec": {
-        "template": "flow",
-        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines — Thro",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines ",
+        "actors": [
+          "log_stream",
+          "events",
+          "window_sec"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Advanced attack campaigns rarely consist of a single isolated suspicious event.",
+            "activeActor": "log_stream",
+            "messages": [
+              {
+                "from": "log_stream",
+                "to": "events",
+                "label": {
+                  "var": "log_stream",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "events",
+                "to": "window_sec",
+                "label": {
+                  "var": "events",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Temporal correlation engines aggregate events within sliding time windows.",
+            "activeActor": "events",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "log_stream",
+                "to": "events",
+                "label": {
+                  "var": "log_stream",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "events",
+                "to": "window_sec",
+                "label": {
+                  "var": "events",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Enterprise security architectures implement multi-stage temporal.",
+            "activeActor": "window_sec",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "log_stream",
+                "to": "events",
+                "label": {
+                  "var": "log_stream",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "events",
+                "to": "window_sec",
+                "label": {
+                  "var": "events",
+                  "line": 6,
+                  "hit": 5
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines — Thro",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines ",
+        "actors": [
+          "log_stream",
+          "events",
+          "window_sec"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Advanced attack campaigns rarely consist of a single isolated suspicious event.",
+            "messages": [
+              {
+                "from": "log_stream",
+                "to": "events",
+                "label": "[{'source_ip': '198.51.100.22', 'status…",
+                "tone": "data"
+              },
+              {
+                "from": "events",
+                "to": "window_sec",
+                "label": "[{'source_ip': '198.51.100.22', 'status…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "log_stream"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Temporal correlation engines aggregate events within sliding time windows.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "log_stream",
+                "to": "events",
+                "label": "[{'source_ip': '198.51.100.22', 'status…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "events",
+                "to": "window_sec",
+                "label": "[{'source_ip': '198.51.100.22', 'status…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "events"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Enterprise security architectures implement multi-stage temporal.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "log_stream",
+                "to": "events",
+                "label": "[{'source_ip': '198.51.100.22', 'status…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "events",
+                "to": "window_sec",
+                "label": "[{'source_ip': '198.51.100.22', 'status…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "window_sec"
           }
         ]
       }
     },
     {
       "partTitle": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines — Resilience Guardrails & Failure Recovery",
-      "codeHash": "c5889ba780d2df31c780ccd8d447b6737e621ed008e88531a9a0267d480a4539",
+      "codeHash": "6904c229ee7a9780a458a1f89ef10fa0e79100b4563b5cc58305cf1e02ad3064",
       "spec": {
-        "template": "flow",
-        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines — Resi",
-        "nodes": [
+        "template": "states",
+        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "valid_rule",
+            "label": "valid_rule"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "invalid_rule",
+            "label": "invalid_rule"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "rule_dict",
+            "label": "rule_dict"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying community or custom Sigma rules to production requires strict.",
+            "currentState": "valid_rule",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "A malformed rule with missing sections or circular boolean expressions can.",
+            "currentState": "invalid_rule",
+            "transition": {
+              "from": "valid_rule",
+              "to": "invalid_rule",
+              "label": {
+                "var": "invalid_rule",
+                "line": 20,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Comprehensive validation gates eliminate malformed detection rules before.",
+            "currentState": "rule_dict",
+            "transition": {
+              "from": "invalid_rule",
+              "to": "rule_dict",
+              "label": {
+                "var": "rule_dict",
+                "line": 6,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines — Resi",
-        "nodes": [
+        "template": "states",
+        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "valid_rule",
+            "label": "valid_rule"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "invalid_rule",
+            "label": "invalid_rule"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "rule_dict",
+            "label": "rule_dict"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying community or custom Sigma rules to production requires strict.",
+            "currentState": "valid_rule",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "A malformed rule with missing sections or circular boolean expressions can.",
+            "currentState": "invalid_rule",
+            "transition": {
+              "from": "valid_rule",
+              "to": "invalid_rule",
+              "label": "{'title': 'Incomplete Rule', 'logsource…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Comprehensive validation gates eliminate malformed detection rules before.",
+            "currentState": "rule_dict",
+            "transition": {
+              "from": "invalid_rule",
+              "to": "rule_dict",
+              "label": "{'title': 'Netcat Reverse Shell', 'logs…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines — Production Telemetry & Verification Audit",
-      "codeHash": "7538e76df6a09f6aae9ab4b4d39e40dc628e268bdacf77325320739cc4834703",
+      "codeHash": "7ddb6d1b6ca670d2c98f910c3f1a13ab2980825214ecff9a4bddb3bc2a7e6d5b",
       "spec": {
-        "template": "flow",
-        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines — Prod",
-        "nodes": [
+        "template": "states",
+        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "rules_compiled",
+            "label": "rules_compiled"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "correlation_active",
+            "label": "correlation_active"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "false_positive_rate",
+            "label": "false_positive_rate"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Maintaining an effective threat detection pipeline requires continuous.",
+            "currentState": "rules_compiled",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "A SIEM detection auditor evaluates core operational metrics.",
+            "currentState": "correlation_active",
+            "transition": {
+              "from": "rules_compiled",
+              "to": "correlation_active",
+              "label": {
+                "var": "correlation_active",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Production SIEM operations maintain continuous telemetry instrumentation.",
+            "currentState": "false_positive_rate",
+            "transition": {
+              "from": "correlation_active",
+              "to": "false_positive_rate",
+              "label": {
+                "var": "false_positive_rate",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines — Prod",
-        "nodes": [
+        "template": "states",
+        "title": "Sigma Rule Compiler & Structured SIEM Log Correlation Pipelines ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "rules_compiled",
+            "label": "rules_compiled"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "correlation_active",
+            "label": "correlation_active"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "false_positive_rate",
+            "label": "false_positive_rate"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Maintaining an effective threat detection pipeline requires continuous.",
+            "currentState": "rules_compiled",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "A SIEM detection auditor evaluates core operational metrics.",
+            "currentState": "correlation_active",
+            "transition": {
+              "from": "rules_compiled",
+              "to": "correlation_active",
+              "label": "True"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Production SIEM operations maintain continuous telemetry instrumentation.",
+            "currentState": "false_positive_rate",
+            "transition": {
+              "from": "correlation_active",
+              "to": "false_positive_rate",
+              "label": "0.012"
+            },
+            "tone": "ok"
           }
         ]
       }

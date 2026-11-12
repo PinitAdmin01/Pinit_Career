@@ -2,230 +2,122 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 21,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What a gateway does",
       "codeHash": "bf7c9fc3f57f3ebbda09dfc382b3e8711fe3b34bbddb5cddc638d99858987467",
       "spec": {
-        "template": "flow",
-        "title": "What a gateway does — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. What a gateway does",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "What a gateway does",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for What a gateway does [D.Pone.Sone].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in What a gateway does [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "An API gateway is the single entry point for client traffic.",
+            "items": {
+              "var": "journey",
+              "line": 1,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Authentication, rate limiting, routing to the right service, circuit.",
+            "items": {
+              "var": "journey",
+              "line": 9,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for What a gateway does [D.Pone.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example lists a request's journey through the gateway.",
+            "items": {
+              "var": "journey",
+              "line": 8,
+              "hit": 6
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "What a gateway does — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. What a gateway does",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "What a gateway does",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for What a gateway does [D21.P1.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in What a gateway does [D21.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "An API gateway is the single entry point for client traffic.",
+            "items": [
+              "'authenticate the client'",
+              "\"check the client's rate limit (429 if …",
+              "'call the backend through the circuit b…",
+              "'map backend errors to 500'",
+              "'add X-Response-Time and request id hea…"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Authentication, rate limiting, routing to the right service, circuit.",
+            "items": [
+              "'authenticate the client'",
+              "\"check the client's rate limit (429 if …",
+              "'call the backend through the circuit b…",
+              "'map backend errors to 500'",
+              "'add X-Response-Time and request id hea…"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for What a gateway does [D21.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example lists a request's journey through the gateway.",
+            "items": [
+              "'authenticate the client'",
+              "\"check the client's rate limit (429 if …",
+              "'call the backend through the circuit b…",
+              "'map backend errors to 500'",
+              "'add X-Response-Time and request id hea…"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -235,166 +127,162 @@
       "partTitle": "Per-client rate limiting",
       "codeHash": "88dc5528a66dae7ab890184eb5586d566d792e847661a4479b973436838edd83",
       "spec": {
-        "template": "table",
-        "title": "Per-client token bucket limits and rate limit enforcement",
-        "columns": [
-          "client",
-          "capacity"
+        "template": "sequence",
+        "title": "Per-client rate limiting",
+        "actors": [
+          "self",
+          "capacity",
+          "refill_per_sec"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each client gets its own token bucket capacity and refill rate.",
-            "rows": [
+            "caption": "Each client (an API key or a user) gets its own token bucket.",
+            "activeActor": "self",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "free-app"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
+                "from": "self",
+                "to": "capacity",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capacity",
+                "to": "refill_per_sec",
+                "label": {
+                  "var": "capacity",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The gateway checks the bucket returning error if limit exceeded.",
-            "rows": [
+            "caption": "The gateway checks the bucket before doing any work.",
+            "activeActor": "capacity",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "free-app"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
-                "tone": "ok"
+                "from": "self",
+                "to": "capacity",
+                "label": {
+                  "var": "self",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "paid-app"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
+                "from": "capacity",
+                "to": "refill_per_sec",
+                "label": {
+                  "var": "capacity",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Rate limiting check first protects circuit breakers and backends.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example implements a small per-client limiter with a fake clock.",
+            "activeActor": "refill_per_sec",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "free-app"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
-                "tone": "ok"
+                "from": "self",
+                "to": "capacity",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "paid-app"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
+                "from": "capacity",
+                "to": "refill_per_sec",
+                "label": {
+                  "var": "capacity",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "free-app"
-                  },
-                  {
-                    "text": "1"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Per-client token bucket limits and rate limit enforcement",
-        "columns": [
-          "client",
-          "capacity"
+        "template": "sequence",
+        "title": "Per-client rate limiting",
+        "actors": [
+          "self",
+          "capacity",
+          "refill_per_sec"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each client gets its own token bucket capacity and refill rate.",
-            "rows": [
+            "caption": "Each client (an API key or a user) gets its own token bucket.",
+            "messages": [
               {
-                "cells": [
-                  "free-app",
-                  "3"
-                ],
+                "from": "self",
+                "to": "capacity",
+                "label": "<ClientLimiter>",
+                "tone": "data"
+              },
+              {
+                "from": "capacity",
+                "to": "refill_per_sec",
+                "label": "3",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "self"
           },
           {
             "at": "say2",
-            "caption": "The gateway checks the bucket returning error if limit exceeded.",
-            "rows": [
+            "caption": "The gateway checks the bucket before doing any work.",
+            "messages": [
               {
-                "cells": [
-                  "free-app",
-                  "3"
-                ],
-                "tone": "ok"
+                "from": "self",
+                "to": "capacity",
+                "label": "<ClientLimiter>",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "paid-app",
-                  "3"
-                ],
+                "from": "capacity",
+                "to": "refill_per_sec",
+                "label": "3",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "capacity"
           },
           {
-            "at": "say4",
-            "caption": "Rate limiting check first protects circuit breakers and backends.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example implements a small per-client limiter with a fake clock.",
+            "messages": [
               {
-                "cells": [
-                  "free-app",
-                  "3"
-                ],
-                "tone": "ok"
+                "from": "self",
+                "to": "capacity",
+                "label": "<ClientLimiter>",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "paid-app",
-                  "3"
-                ],
+                "from": "capacity",
+                "to": "refill_per_sec",
+                "label": "3",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "free-app",
-                  "1"
-                ],
-                "tone": "idle"
               }
-            ]
+            ],
+            "activeActor": "refill_per_sec"
           }
         ]
       }
@@ -403,132 +291,162 @@
       "partTitle": "Handling a request end to end",
       "codeHash": "83554f2223de05211aa68074440e3b4219fe088f8ff37fd6424fe53c5900198a",
       "spec": {
-        "template": "compare",
-        "title": "API gateway dispatch pipeline handling success rate limits and circuit trips",
-        "leftLabel": "Allowed 200 OK Response",
-        "rightLabel": "Error 429 / 503 Response",
+        "template": "sequence",
+        "title": "Handling a request end to end",
+        "actors": [
+          "c",
+          "client_id",
+          "err"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "If is_allowed returns False the gateway returns status rate-limited.",
-            "left": {
-              "code": "rate limit check passes",
-              "result": {
-                "text": "orders"
+            "caption": "Handle_gateway(client_id, is_allowed, breaker_call, backend).",
+            "activeActor": "c",
+            "messages": [
+              {
+                "from": "c",
+                "to": "client_id",
+                "label": {
+                  "var": "c",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "client exceeds limit",
-              "result": {
-                "text": "429"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "client_id",
+                "to": "err",
+                "label": {
+                  "var": "client_id",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "On open circuit breaker gateway returns unavailable otherwise OK.",
-            "left": {
-              "code": "successful backend call",
-              "result": {
-                "text": "order-7"
+            "caption": "Otherwise run breaker_call(backend).",
+            "activeActor": "client_id",
+            "messages": [
+              {
+                "from": "c",
+                "to": "client_id",
+                "label": {
+                  "var": "c",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "circuit breaker open",
-              "result": {
-                "text": "503"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "client_id",
+                "to": "err",
+                "label": {
+                  "var": "client_id",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say5",
-            "caption": "Status unavailable indicates temporary issue while server-error signals.",
-            "left": {
-              "code": "clean response",
-              "result": {
-                "text": "orders"
+            "at": "say7",
+            "caption": "The example exercises all four outcomes.",
+            "activeActor": "err",
+            "messages": [
+              {
+                "from": "c",
+                "to": "client_id",
+                "label": {
+                  "var": "c",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "unexpected backend failure",
-              "result": {
-                "text": "bad row in orders table"
-              },
-              "tone": "idle"
-            }
+              {
+                "from": "client_id",
+                "to": "err",
+                "label": {
+                  "var": "client_id",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "API gateway dispatch pipeline handling success rate limits and circuit trips",
-        "leftLabel": "Allowed 200 OK Response",
-        "rightLabel": "Error 429 / 503 Response",
+        "template": "sequence",
+        "title": "Handling a request end to end",
+        "actors": [
+          "c",
+          "client_id",
+          "err"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "If is_allowed returns False the gateway returns status 429.",
-            "left": {
-              "code": "rate limit check passes",
-              "result": "orders",
-              "tone": "ok",
-              "checks": [
-                "orders"
-              ]
-            },
-            "right": {
-              "code": "client exceeds limit",
-              "result": "429",
-              "tone": "error",
-              "checks": [
-                "429"
-              ]
-            }
+            "caption": "Handle_gateway(client_id, is_allowed, breaker_call, backend).",
+            "messages": [
+              {
+                "from": "c",
+                "to": "client_id",
+                "label": "'c1'",
+                "tone": "data"
+              },
+              {
+                "from": "client_id",
+                "to": "err",
+                "label": "'c1'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "c"
           },
           {
             "at": "say2",
-            "caption": "On open circuit breaker gateway returns 503 otherwise 200.",
-            "left": {
-              "code": "successful backend call",
-              "result": "order-7",
-              "tone": "ok",
-              "checks": [
-                "order-7"
-              ]
-            },
-            "right": {
-              "code": "circuit breaker open",
-              "result": "503",
-              "tone": "error",
-              "checks": [
-                "503"
-              ]
-            }
+            "caption": "Otherwise run breaker_call(backend).",
+            "messages": [
+              {
+                "from": "c",
+                "to": "client_id",
+                "label": "'c1'",
+                "tone": "data"
+              },
+              {
+                "from": "client_id",
+                "to": "err",
+                "label": "'c1'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "client_id"
           },
           {
-            "at": "say5",
-            "caption": "Status 503 indicates temporary issue while 500 signals server error.",
-            "left": {
-              "code": "clean response",
-              "result": "orders",
-              "tone": "ok",
-              "checks": [
-                "orders"
-              ]
-            },
-            "right": {
-              "code": "unexpected backend failure",
-              "result": "bad row in orders table",
-              "tone": "idle",
-              "checks": [
-                "bad row in orders table"
-              ]
-            }
+            "at": "say7",
+            "caption": "The example exercises all four outcomes.",
+            "messages": [
+              {
+                "from": "c",
+                "to": "client_id",
+                "label": "'c1'",
+                "tone": "data"
+              },
+              {
+                "from": "client_id",
+                "to": "err",
+                "label": "'c1'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "err"
           }
         ]
       }
@@ -537,224 +455,162 @@
       "partTitle": "Timing headers",
       "codeHash": "1e0565a7c1509a4c41428ef5b07daa90b3abb285b3b5a3ab9d1e11ff02b60d4e",
       "spec": {
-        "template": "flow",
-        "title": "Timing headers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Timing headers",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Timing headers",
+        "actors": [
+          "clock",
+          "request_id",
+          "start"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Timing headers [D.Pfour.Sone].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Timing headers [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Response_time_header(ms) returns \"X-Response-Time.",
+            "activeActor": "clock",
+            "messages": [
+              {
+                "from": "clock",
+                "to": "request_id",
+                "label": {
+                  "var": "clock",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "request_id",
+                "to": "start",
+                "label": {
+                  "var": "request_id",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Measure time at the gateway.",
+            "activeActor": "request_id",
+            "messages": [
+              {
+                "from": "clock",
+                "to": "request_id",
+                "label": {
+                  "var": "clock",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "request_id",
+                "to": "start",
+                "label": {
+                  "var": "request_id",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Timing headers [D.Pfour.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example measures and formats timings with a fake clock.",
+            "activeActor": "start",
+            "messages": [
+              {
+                "from": "clock",
+                "to": "request_id",
+                "label": {
+                  "var": "clock",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "request_id",
+                "to": "start",
+                "label": {
+                  "var": "request_id",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Timing headers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Timing headers",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Timing headers",
+        "actors": [
+          "clock",
+          "request_id",
+          "start"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Timing headers [D21.P4.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Timing headers [D21.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Response_time_header(ms) returns \"X-Response-Time.",
+            "messages": [
+              {
+                "from": "clock",
+                "to": "request_id",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "data"
+              },
+              {
+                "from": "request_id",
+                "to": "start",
+                "label": "'req-1'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "clock"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Measure time at the gateway.",
+            "messages": [
+              {
+                "from": "clock",
+                "to": "request_id",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "data"
+              },
+              {
+                "from": "request_id",
+                "to": "start",
+                "label": "'req-1'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "request_id"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Timing headers [D21.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example measures and formats timings with a fake clock.",
+            "messages": [
+              {
+                "from": "clock",
+                "to": "request_id",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "data"
+              },
+              {
+                "from": "request_id",
+                "to": "start",
+                "label": "'req-1'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "start"
           }
         ]
       }
@@ -763,132 +619,222 @@
       "partTitle": "Testing every gateway path",
       "codeHash": "53a09a46116ec6fa0fe90c480bbd8b38e98a16e945a1397f341f606dadd4d37c",
       "spec": {
-        "template": "compare",
-        "title": "Gateway test paths verifying rate limit short-circuiting and passthrough",
-        "leftLabel": "Allowed Request Execution",
-        "rightLabel": "Rate Limited Request",
+        "template": "flow",
+        "title": "Testing every gateway path",
+        "nodes": [
+          {
+            "id": "calls",
+            "label": "calls"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "client_id",
+            "label": "client_id"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The gateway sits in front of all services and tests every outcome.",
-            "left": {
-              "code": "request allowed through",
-              "result": {
-                "text": "ok"
+            "caption": "The gateway sits in front of everything, so its behaviour must be tested.",
+            "values": {
+              "calls": {
+                "var": "calls",
+                "line": 14,
+                "hit": 1
               },
-              "tone": "ok"
+              "c": {
+                "var": "c",
+                "line": 22,
+                "hit": 1
+              },
+              "client_id": {
+                "var": "client_id",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "rate limited early",
-              "result": {
-                "text": "429"
-              },
-              "tone": "error"
-            }
+            "tones": {
+              "calls": "data",
+              "c": "data",
+              "client_id": "data"
+            },
+            "arrows": [
+              [
+                "calls",
+                "c"
+              ],
+              [
+                "c",
+                "client_id"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Rate limited requests must not reach breaker or backend at all.",
-            "left": {
-              "code": "calls appends breaker and backend",
-              "result": {
-                "text": "backend"
+            "caption": "Also test the order.",
+            "values": {
+              "calls": {
+                "var": "calls",
+                "line": 15,
+                "hit": 1
               },
-              "tone": "ok"
+              "c": {
+                "var": "c",
+                "line": 23,
+                "hit": 1
+              },
+              "client_id": {
+                "var": "client_id",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "calls list remains empty",
-              "result": {
-                "text": "429"
-              },
-              "tone": "idle"
-            }
+            "tones": {
+              "calls": "data",
+              "c": "data",
+              "client_id": "data"
+            },
+            "arrows": [
+              [
+                "calls",
+                "c"
+              ],
+              [
+                "c",
+                "client_id"
+              ]
+            ]
           },
           {
-            "at": "say5",
-            "caption": "After enough backend errors later calls receive unavailable.",
-            "left": {
-              "code": "healthy execution path",
-              "result": {
-                "text": "ok"
+            "at": "say7",
+            "caption": "The example checks the order of calls for a rate-limited request.",
+            "values": {
+              "calls": {
+                "var": "calls",
+                "line": 18,
+                "hit": 1
               },
-              "tone": "ok"
+              "c": {
+                "var": "c",
+                "line": 23,
+                "hit": 1
+              },
+              "client_id": {
+                "var": "client_id",
+                "line": 5,
+                "hit": 2
+              }
             },
-            "right": {
-              "code": "circuit open fast fail",
-              "result": {
-                "text": "503"
-              },
-              "tone": "error"
-            }
+            "tones": {
+              "calls": "ok",
+              "c": "ok",
+              "client_id": "ok"
+            },
+            "arrows": [
+              [
+                "calls",
+                "c"
+              ],
+              [
+                "c",
+                "client_id"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Gateway test paths verifying rate limit short-circuiting and passthrough",
-        "leftLabel": "Allowed Request Execution",
-        "rightLabel": "Rate Limited Request",
+        "template": "flow",
+        "title": "Testing every gateway path",
+        "nodes": [
+          {
+            "id": "calls",
+            "label": "calls"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "client_id",
+            "label": "client_id"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The gateway sits in front of all services and tests every outcome.",
-            "left": {
-              "code": "request allowed through",
-              "result": "ok",
-              "tone": "ok",
-              "checks": [
-                "ok"
-              ]
+            "caption": "The gateway sits in front of everything, so its behaviour must be tested.",
+            "values": {
+              "calls": "[]",
+              "c": "'c'",
+              "client_id": "'c'"
             },
-            "right": {
-              "code": "rate limited early",
-              "result": "429",
-              "tone": "error",
-              "checks": [
-                "429"
+            "tones": {
+              "calls": "data",
+              "c": "data",
+              "client_id": "data"
+            },
+            "arrows": [
+              [
+                "calls",
+                "c"
+              ],
+              [
+                "c",
+                "client_id"
               ]
-            }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Rate limited requests must not reach breaker or backend at all.",
-            "left": {
-              "code": "calls appends breaker and backend",
-              "result": "backend",
-              "tone": "ok",
-              "checks": [
-                "backend"
-              ]
+            "caption": "Also test the order.",
+            "values": {
+              "calls": "[]",
+              "c": "'c'",
+              "client_id": "'c'"
             },
-            "right": {
-              "code": "calls list remains empty",
-              "result": "429",
-              "tone": "idle",
-              "checks": [
-                "429"
+            "tones": {
+              "calls": "data",
+              "c": "data",
+              "client_id": "data"
+            },
+            "arrows": [
+              [
+                "calls",
+                "c"
+              ],
+              [
+                "c",
+                "client_id"
               ]
-            }
+            ]
           },
           {
-            "at": "say5",
-            "caption": "After enough backend errors later calls receive 503.",
-            "left": {
-              "code": "healthy execution path",
-              "result": "ok",
-              "tone": "ok",
-              "checks": [
-                "ok"
-              ]
+            "at": "say7",
+            "caption": "The example checks the order of calls for a rate-limited request.",
+            "values": {
+              "calls": "[]",
+              "c": "'c'",
+              "client_id": "'c'"
             },
-            "right": {
-              "code": "circuit open fast fail",
-              "result": "503",
-              "tone": "error",
-              "checks": [
-                "503"
+            "tones": {
+              "calls": "ok",
+              "c": "ok",
+              "client_id": "ok"
+            },
+            "arrows": [
+              [
+                "calls",
+                "c"
+              ],
+              [
+                "c",
+                "client_id"
               ]
-            }
+            ]
           }
         ]
       }
@@ -897,202 +843,106 @@
       "partTitle": "Running gateways in production",
       "codeHash": "80518d41c1863336e99ed6b2495e5c2a59a65212f702eb6c895cc8d45a8778bc",
       "spec": {
-        "template": "table",
-        "title": "Gateway production traffic telemetry distribution by status code",
-        "columns": [
-          "status",
-          "counts"
+        "template": "states",
+        "title": "Running gateways in production",
+        "states": [
+          {
+            "id": "statuses",
+            "label": "statuses"
+          },
+          {
+            "id": "counts",
+            "label": "counts"
+          },
+          {
+            "id": "total",
+            "label": "total"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Multiple gateway instances run behind load balancers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "200"
-                  },
-                  {
-                    "text": "940"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Trace how several updates gateway during execution.",
+            "currentState": "statuses",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Monitor error rates by status code and rate limiting frequencies.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "200"
-                  },
-                  {
-                    "text": "940"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "429"
-                  },
-                  {
-                    "text": "35"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "503"
-                  },
-                  {
-                    "text": "20"
-                  }
-                ],
-                "tone": "error"
+            "at": "say2",
+            "caption": "Keep limiter state in a shared store, and circuit breaker state per.",
+            "currentState": "counts",
+            "transition": {
+              "from": "statuses",
+              "to": "counts",
+              "label": {
+                "var": "counts",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
             "at": "say7",
-            "caption": "Production telemetry summarises traffic by status code distribution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "200"
-                  },
-                  {
-                    "text": "940"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "429"
-                  },
-                  {
-                    "text": "35"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "503"
-                  },
-                  {
-                    "text": "20"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "500"
-                  },
-                  {
-                    "text": "5"
-                  }
-                ],
-                "tone": "error"
+            "caption": "The example summarises a minute of gateway traffic by status code.",
+            "currentState": "total",
+            "transition": {
+              "from": "counts",
+              "to": "total",
+              "label": {
+                "var": "total",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Gateway production traffic telemetry distribution by status code",
-        "columns": [
-          "status",
-          "counts"
+        "template": "states",
+        "title": "Running gateways in production",
+        "states": [
+          {
+            "id": "statuses",
+            "label": "statuses"
+          },
+          {
+            "id": "counts",
+            "label": "counts"
+          },
+          {
+            "id": "total",
+            "label": "total"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Multiple gateway instances run behind load balancers.",
-            "rows": [
-              {
-                "cells": [
-                  "200",
-                  "940"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Trace how several updates gateway during execution.",
+            "currentState": "statuses",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Monitor error rates by status code and rate limiting frequencies.",
-            "rows": [
-              {
-                "cells": [
-                  "200",
-                  "940"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "429",
-                  "35"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "503",
-                  "20"
-                ],
-                "tone": "error"
-              }
-            ]
+            "at": "say2",
+            "caption": "Keep limiter state in a shared store, and circuit breaker state per.",
+            "currentState": "counts",
+            "transition": {
+              "from": "statuses",
+              "to": "counts",
+              "label": "{200: 940, 429: 35, 503: 20, 500: 5}"
+            },
+            "tone": "data"
           },
           {
             "at": "say7",
-            "caption": "Production telemetry summarises traffic by status code distribution.",
-            "rows": [
-              {
-                "cells": [
-                  "200",
-                  "940"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "429",
-                  "35"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "503",
-                  "20"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "500",
-                  "5"
-                ],
-                "tone": "error"
-              }
-            ]
+            "caption": "The example summarises a minute of gateway traffic by status code.",
+            "currentState": "total",
+            "transition": {
+              "from": "counts",
+              "to": "total",
+              "label": "1000"
+            },
+            "tone": "ok"
           }
         ]
       }

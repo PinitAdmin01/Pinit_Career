@@ -2,122 +2,98 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 11,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "A saga is a chain of local transactions",
       "codeHash": "985dca5f452e4d4b1602ac869700a47477095777d26019df8ce7f2bbff2e6590",
       "spec": {
-        "template": "table",
-        "title": "Saga chain actions and corresponding compensating undo operations",
-        "columns": [
-          "action",
-          "compensation"
+        "template": "sequence",
+        "title": "A saga is a chain of local transactions",
+        "actors": [
+          "saga",
+          "i",
+          "action"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Booking a trip touches flight hotel and payment services.",
-            "rows": [
+            "caption": "Booking a trip might touch a flight service, a hotel service and a payment.",
+            "activeActor": "saga",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "reserve flight"
-                  },
-                  {
-                    "text": "cancel flight"
-                  }
-                ],
+                "from": "saga",
+                "to": "i",
+                "label": {
+                  "var": "saga",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "action",
+                "label": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "If a later step fails the saga runs compensating actions.",
-            "rows": [
+            "at": "say2",
+            "caption": "A saga splits the business transaction into steps.",
+            "activeActor": "i",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "reserve flight"
-                  },
-                  {
-                    "text": "cancel flight"
-                  }
-                ],
-                "tone": "ok"
+                "from": "saga",
+                "to": "i",
+                "label": {
+                  "var": "saga",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "reserve hotel"
-                  },
-                  {
-                    "text": "cancel hotel"
-                  }
-                ],
+                "from": "i",
+                "to": "action",
+                "label": {
+                  "var": "i",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "charge card"
-                  },
-                  {
-                    "text": "refund card"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example lists a trip booking saga with compensation for each step.",
-            "rows": [
+            "caption": "The example lists a trip-booking saga with a compensation for each step.",
+            "activeActor": "action",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "reserve flight"
-                  },
-                  {
-                    "text": "cancel flight"
-                  }
-                ],
-                "tone": "ok"
+                "from": "saga",
+                "to": "i",
+                "label": {
+                  "var": "saga",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "reserve hotel"
-                  },
-                  {
-                    "text": "cancel hotel"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "charge card"
-                  },
-                  {
-                    "text": "refund card"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "send confirmation"
-                  },
-                  {
-                    "text": "send cancellation"
-                  }
-                ],
+                "from": "i",
+                "to": "action",
+                "label": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -125,86 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Saga chain actions and corresponding compensating undo operations",
-        "columns": [
-          "action",
-          "compensation"
+        "template": "sequence",
+        "title": "A saga is a chain of local transactions",
+        "actors": [
+          "saga",
+          "i",
+          "action"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Booking a trip touches flight hotel and payment services.",
-            "rows": [
+            "caption": "Booking a trip might touch a flight service, a hotel service and a payment.",
+            "messages": [
               {
-                "cells": [
-                  "reserve flight",
-                  "cancel flight"
-                ],
+                "from": "saga",
+                "to": "i",
+                "label": "[['reserve flight', 'cancel flight'], […",
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "action",
+                "label": "1",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "saga"
           },
           {
-            "at": "say4",
-            "caption": "If a later step fails the saga runs compensating actions.",
-            "rows": [
+            "at": "say2",
+            "caption": "A saga splits the business transaction into steps.",
+            "messages": [
               {
-                "cells": [
-                  "reserve flight",
-                  "cancel flight"
-                ],
-                "tone": "ok"
+                "from": "saga",
+                "to": "i",
+                "label": "[['reserve flight', 'cancel flight'], […",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "reserve hotel",
-                  "cancel hotel"
-                ],
+                "from": "i",
+                "to": "action",
+                "label": "1",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "charge card",
-                  "refund card"
-                ],
-                "tone": "idle"
               }
-            ]
+            ],
+            "activeActor": "i"
           },
           {
             "at": "say7",
-            "caption": "The example lists a trip booking saga with compensation for each step.",
-            "rows": [
+            "caption": "The example lists a trip-booking saga with a compensation for each step.",
+            "messages": [
               {
-                "cells": [
-                  "reserve flight",
-                  "cancel flight"
-                ],
-                "tone": "ok"
+                "from": "saga",
+                "to": "i",
+                "label": "[['reserve flight', 'cancel flight'], […",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "reserve hotel",
-                  "cancel hotel"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "charge card",
-                  "refund card"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "send confirmation",
-                  "send cancellation"
-                ],
+                "from": "i",
+                "to": "action",
+                "label": "2",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "action"
           }
         ]
       }
@@ -213,236 +173,162 @@
       "partTitle": "Designing compensations",
       "codeHash": "c32e0febd3b01d9d0438084f1b4ffea626aa3332bc03d835fe22db269f9797cf",
       "spec": {
-        "template": "table",
-        "title": "Saga step classification reversible flags and pivot identification",
-        "columns": [
-          "name",
-          "reversible",
-          "can_fail"
+        "template": "sequence",
+        "title": "Designing compensations",
+        "actors": [
+          "steps",
+          "i",
+          "s"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A compensation provides semantic undo rather than rollback.",
-            "rows": [
+            "caption": "A compensation is a semantic undo, not a database rollback.",
+            "activeActor": "steps",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "validate address"
-                  },
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
+                "from": "steps",
+                "to": "i",
+                "label": {
+                  "var": "steps",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "s",
+                "label": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The step after which the saga will complete is the pivot.",
-            "rows": [
+            "at": "say2",
+            "caption": "Some actions cannot be undone.",
+            "activeActor": "i",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "validate address"
-                  },
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "ok"
+                "from": "steps",
+                "to": "i",
+                "label": {
+                  "var": "steps",
+                  "line": 7,
+                  "hit": 6
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "reserve stock"
-                  },
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "charge card"
-                  },
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
+                "from": "i",
+                "to": "s",
+                "label": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Steps order risky actions first and irreversible ones last.",
-            "rows": [
+            "caption": "The code orders steps so the risky ones come first and the irreversible.",
+            "activeActor": "s",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "validate address"
-                  },
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "ok"
+                "from": "steps",
+                "to": "i",
+                "label": {
+                  "var": "steps",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "reserve stock"
-                  },
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
+                "from": "i",
+                "to": "s",
+                "label": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 3
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "charge card"
-                  },
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ship parcel"
-                  },
-                  {
-                    "text": "False"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Saga step classification reversible flags and pivot identification",
-        "columns": [
-          "name",
-          "reversible",
-          "can_fail"
+        "template": "sequence",
+        "title": "Designing compensations",
+        "actors": [
+          "steps",
+          "i",
+          "s"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A compensation provides semantic undo rather than rollback.",
-            "rows": [
+            "caption": "A compensation is a semantic undo, not a database rollback.",
+            "messages": [
               {
-                "cells": [
-                  "validate address",
-                  "True",
-                  "True"
-                ],
+                "from": "steps",
+                "to": "i",
+                "label": "[{'name': 'validate address', 'reversib…",
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "s",
+                "label": "0",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "steps"
           },
           {
-            "at": "say4",
-            "caption": "The step after which the saga will complete is the pivot.",
-            "rows": [
+            "at": "say2",
+            "caption": "Some actions cannot be undone.",
+            "messages": [
               {
-                "cells": [
-                  "validate address",
-                  "True",
-                  "True"
-                ],
-                "tone": "ok"
+                "from": "steps",
+                "to": "i",
+                "label": "[{'name': 'validate address', 'reversib…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "reserve stock",
-                  "True",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "charge card",
-                  "True",
-                  "True"
-                ],
+                "from": "i",
+                "to": "s",
+                "label": "1",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "i"
           },
           {
             "at": "say7",
-            "caption": "Steps order risky actions first and irreversible ones last.",
-            "rows": [
+            "caption": "The code orders steps so the risky ones come first and the irreversible.",
+            "messages": [
               {
-                "cells": [
-                  "validate address",
-                  "True",
-                  "True"
-                ],
-                "tone": "ok"
+                "from": "steps",
+                "to": "i",
+                "label": "[{'name': 'validate address', 'reversib…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "reserve stock",
-                  "True",
-                  "True"
-                ],
+                "from": "i",
+                "to": "s",
+                "label": "2",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "charge card",
-                  "True",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ship parcel",
-                  "False",
-                  "False"
-                ],
-                "tone": "idle"
               }
-            ]
+            ],
+            "activeActor": "s"
           }
         ]
       }
@@ -451,132 +337,278 @@
       "partTitle": "Running a saga",
       "codeHash": "e4a9b4fc51e5f28e45a9305c99e915b8e5c868b8fec5432162a5e83d7fcf5a8b",
       "spec": {
-        "template": "compare",
-        "title": "Saga execution progression comparing completed against compensated",
-        "leftLabel": "All Actions Succeed",
-        "rightLabel": "Failure Triggers Compensation",
+        "template": "flow",
+        "title": "Running a saga",
+        "nodes": [
+          {
+            "id": "log",
+            "label": "log"
+          },
+          {
+            "id": "steps",
+            "label": "steps"
+          },
+          {
+            "id": "finished",
+            "label": "finished"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function run_saga runs actions in order remembering finished steps.",
-            "left": {
-              "code": "actions run in order",
-              "result": {
-                "text": "hotel"
+            "caption": "Run_saga(steps).",
+            "values": {
+              "log": {
+                "var": "log",
+                "line": 13,
+                "hit": 1
               },
-              "tone": "ok"
+              "steps": {
+                "var": "steps",
+                "line": 16,
+                "hit": 1
+              },
+              "finished": {
+                "var": "finished",
+                "line": 2,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "failure triggers rollback",
-              "result": {
-                "text": "payment"
-              },
-              "tone": "error"
-            }
+            "tones": {
+              "log": "data",
+              "steps": "data",
+              "finished": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "log",
+                "steps"
+              ],
+              [
+                "steps",
+                "finished"
+              ],
+              [
+                "finished",
+                "step"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "If action raises run compensate for finished steps newest first.",
-            "left": {
-              "code": "all steps finish cleanly",
-              "result": {
-                "text": "SAGA_COMPLETED"
+            "caption": "If an action raises, run compensate() for every finished step, newest.",
+            "values": {
+              "log": {
+                "var": "log",
+                "line": 14,
+                "hit": 1
               },
-              "tone": "ok"
+              "steps": {
+                "var": "steps",
+                "line": 2,
+                "hit": 1
+              },
+              "finished": {
+                "var": "finished",
+                "line": 3,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 4,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "compensate runs newest first",
-              "result": {
-                "text": "SAGA_COMPENSATED"
-              },
-              "tone": "error"
-            }
+            "tones": {
+              "log": "data",
+              "steps": "data",
+              "finished": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "log",
+                "steps"
+              ],
+              [
+                "steps",
+                "finished"
+              ],
+              [
+                "finished",
+                "step"
+              ]
+            ]
           },
           {
-            "at": "say3",
-            "caption": "If all actions succeed return SAGA_COMPLETED.",
-            "left": {
-              "code": "return final status",
-              "result": {
-                "text": "SAGA_COMPLETED"
+            "at": "say7",
+            "caption": "The example books a trip where the payment step fails.",
+            "values": {
+              "log": {
+                "var": "log",
+                "line": 17,
+                "hit": 1
               },
-              "tone": "ok"
+              "steps": {
+                "var": "steps",
+                "line": 3,
+                "hit": 1
+              },
+              "finished": {
+                "var": "finished",
+                "line": 4,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "return failure details",
-              "result": {
-                "text": "card declined"
-              },
-              "tone": "idle"
-            }
+            "tones": {
+              "log": "ok",
+              "steps": "ok",
+              "finished": "ok",
+              "step": "ok"
+            },
+            "arrows": [
+              [
+                "log",
+                "steps"
+              ],
+              [
+                "steps",
+                "finished"
+              ],
+              [
+                "finished",
+                "step"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Saga execution progression comparing completed against compensated",
-        "leftLabel": "All Actions Succeed",
-        "rightLabel": "Failure Triggers Compensation",
+        "template": "flow",
+        "title": "Running a saga",
+        "nodes": [
+          {
+            "id": "log",
+            "label": "log"
+          },
+          {
+            "id": "steps",
+            "label": "steps"
+          },
+          {
+            "id": "finished",
+            "label": "finished"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function run_saga runs actions in order remembering finished steps.",
-            "left": {
-              "code": "actions run in order",
-              "result": "hotel",
-              "tone": "ok",
-              "checks": [
-                "hotel"
-              ]
+            "caption": "Run_saga(steps).",
+            "values": {
+              "log": "[]",
+              "steps": "[{'name': 'flight', 'action': {'__other…",
+              "finished": "[]",
+              "step": "{'name': 'flight', 'action': {'__other_…"
             },
-            "right": {
-              "code": "failure triggers rollback",
-              "result": "payment",
-              "tone": "error",
-              "checks": [
-                "payment"
+            "tones": {
+              "log": "data",
+              "steps": "data",
+              "finished": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "log",
+                "steps"
+              ],
+              [
+                "steps",
+                "finished"
+              ],
+              [
+                "finished",
+                "step"
               ]
-            }
+            ]
           },
           {
             "at": "say2",
-            "caption": "If action raises run compensate for finished steps newest first.",
-            "left": {
-              "code": "all steps finish cleanly",
-              "result": "SAGA_COMPLETED",
-              "tone": "ok",
-              "checks": [
-                "SAGA_COMPLETED"
-              ]
+            "caption": "If an action raises, run compensate() for every finished step, newest.",
+            "values": {
+              "log": "[]",
+              "steps": "[{'name': 'flight', 'action': {'__other…",
+              "finished": "[]",
+              "step": "{'name': 'flight', 'action': {'__other_…"
             },
-            "right": {
-              "code": "compensate runs newest first",
-              "result": "SAGA_COMPENSATED",
-              "tone": "error",
-              "checks": [
-                "SAGA_COMPENSATED"
+            "tones": {
+              "log": "data",
+              "steps": "data",
+              "finished": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "log",
+                "steps"
+              ],
+              [
+                "steps",
+                "finished"
+              ],
+              [
+                "finished",
+                "step"
               ]
-            }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "If all actions succeed return SAGA_COMPLETED.",
-            "left": {
-              "code": "return final status",
-              "result": "SAGA_COMPLETED",
-              "tone": "ok",
-              "checks": [
-                "SAGA_COMPLETED"
-              ]
+            "at": "say7",
+            "caption": "The example books a trip where the payment step fails.",
+            "values": {
+              "log": "[]",
+              "steps": "[{'name': 'flight', 'action': {'__other…",
+              "finished": "[]",
+              "step": "{'name': 'flight', 'action': {'__other_…"
             },
-            "right": {
-              "code": "return failure details",
-              "result": "card declined",
-              "tone": "idle",
-              "checks": [
-                "card declined"
+            "tones": {
+              "log": "ok",
+              "steps": "ok",
+              "finished": "ok",
+              "step": "ok"
+            },
+            "arrows": [
+              [
+                "log",
+                "steps"
+              ],
+              [
+                "steps",
+                "finished"
+              ],
+              [
+                "finished",
+                "step"
               ]
-            }
+            ]
           }
         ]
       }
@@ -585,238 +617,106 @@
       "partTitle": "The saga log",
       "codeHash": "3cfcf5266f988116a2b9ebd88236f145bf11da99a53c4d61600ee516131d724c",
       "spec": {
-        "template": "table",
-        "title": "Durable saga transaction event log state recording and recovery",
-        "columns": [
-          "step",
-          "status"
+        "template": "states",
+        "title": "The saga log",
+        "states": [
+          {
+            "id": "events",
+            "label": "events"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          },
+          {
+            "id": "status",
+            "label": "status"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Every step outcome is written to a durable saga log.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "flight"
-                  },
-                  {
-                    "text": "DONE"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "hotel"
-                  },
-                  {
-                    "text": "DONE"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "A saga may run for seconds or days, and the service running it can crash.",
+            "currentState": "events",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "After restart the service reads log to resume forward or backward.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "flight"
-                  },
-                  {
-                    "text": "DONE"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "hotel"
-                  },
-                  {
-                    "text": "DONE"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "payment"
-                  },
-                  {
-                    "text": "FAILED"
-                  }
-                ],
-                "tone": "error"
+            "at": "say2",
+            "caption": "The log can be a table in the orchestrator's database or a stream of events.",
+            "currentState": "step",
+            "transition": {
+              "from": "events",
+              "to": "step",
+              "label": {
+                "var": "step",
+                "line": 2,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Function format_saga_log provides consistent log formatting.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "flight"
-                  },
-                  {
-                    "text": "DONE"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "hotel"
-                  },
-                  {
-                    "text": "DONE"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "payment"
-                  },
-                  {
-                    "text": "FAILED"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "hotel"
-                  },
-                  {
-                    "text": "COMPENSATED"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "flight"
-                  },
-                  {
-                    "text": "COMPENSATED"
-                  }
-                ],
-                "tone": "idle"
+            "at": "say7",
+            "caption": "The example prints a readable log for a compensated saga.",
+            "currentState": "status",
+            "transition": {
+              "from": "step",
+              "to": "status",
+              "label": {
+                "var": "status",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Durable saga transaction event log state recording and recovery",
-        "columns": [
-          "step",
-          "status"
+        "template": "states",
+        "title": "The saga log",
+        "states": [
+          {
+            "id": "events",
+            "label": "events"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          },
+          {
+            "id": "status",
+            "label": "status"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Every step outcome is written to a durable saga log.",
-            "rows": [
-              {
-                "cells": [
-                  "flight",
-                  "DONE"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "hotel",
-                  "DONE"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "A saga may run for seconds or days, and the service running it can crash.",
+            "currentState": "events",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "After restart the service reads log to resume forward or backward.",
-            "rows": [
-              {
-                "cells": [
-                  "flight",
-                  "DONE"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "hotel",
-                  "DONE"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "payment",
-                  "FAILED"
-                ],
-                "tone": "error"
-              }
-            ]
+            "at": "say2",
+            "caption": "The log can be a table in the orchestrator's database or a stream of events.",
+            "currentState": "step",
+            "transition": {
+              "from": "events",
+              "to": "step",
+              "label": "'flight'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Function format_saga_log provides consistent log formatting.",
-            "rows": [
-              {
-                "cells": [
-                  "flight",
-                  "DONE"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "hotel",
-                  "DONE"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "payment",
-                  "FAILED"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "hotel",
-                  "COMPENSATED"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "flight",
-                  "COMPENSATED"
-                ],
-                "tone": "idle"
-              }
-            ]
+            "at": "say7",
+            "caption": "The example prints a readable log for a compensated saga.",
+            "currentState": "status",
+            "transition": {
+              "from": "step",
+              "to": "status",
+              "label": "'DONE'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -825,223 +725,108 @@
       "partTitle": "Orchestration or choreography",
       "codeHash": "ea00fd83269bc7fd186eb903ba0d5516874207fe0ba4d0a346da8bc311aa1e8b",
       "spec": {
-        "template": "flow",
-        "title": "Orchestration or choreography — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Orchestration or ch...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Orchestration or choreography",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Orchestration or choreography.",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Orchestration or ch... [Deleven.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "In orchestration, one orchestrator service tells each participant what.",
+            "items": {
+              "var": "trail",
+              "line": 4,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The orchestrator itself must be reliable, so it stores its state durably.",
+            "items": {
+              "var": "trail",
+              "line": 4,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Orchestration or choreography.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example runs the same flow both ways.",
+            "items": {
+              "var": "trail",
+              "line": 5,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Orchestration or choreography — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Orchestration or ch...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Orchestration or choreography",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Orchestration or choreography [D11.P5.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Orchestration or ch... [D11.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In orchestration, one orchestrator service tells each participant what.",
+            "items": [
+              "'orchestrator -> book flight'",
+              "'orchestrator -> book hotel'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The orchestrator itself must be reliable, so it stores its state durably.",
+            "items": [
+              "'orchestrator -> book flight'",
+              "'orchestrator -> book hotel'",
+              "'orchestrator -> charge card'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Orchestration or choreography [D11.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example runs the same flow both ways.",
+            "items": [
+              "'orchestrator -> book flight'",
+              "'orchestrator -> book hotel'",
+              "'orchestrator -> charge card'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -1051,224 +836,160 @@
       "partTitle": "Isolation and other pitfalls",
       "codeHash": "917372107b764a93451224fe83b665d8fee480beaff4a1966954119f38e45c61",
       "spec": {
-        "template": "flow",
-        "title": "Isolation and other pitfalls — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Isolation and other...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Isolation and other pitfalls",
+        "actors": [
+          "seats",
+          "seat"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Isolation and other pitfalls.",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Isolation and other... [Deleven.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Sagas lack isolation.",
+            "activeActor": "seats",
+            "messages": [
+              {
+                "from": "seats",
+                "to": "seat",
+                "label": {
+                  "var": "seats",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "seat",
+                "to": "seats",
+                "label": {
+                  "var": "seat",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A common fix is a semantic lock.",
+            "activeActor": "seat",
+            "messages": [
+              {
+                "from": "seats",
+                "to": "seat",
+                "label": {
+                  "var": "seats",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "seat",
+                "to": "seats",
+                "label": {
+                  "var": "seat",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Isolation and other pitfalls.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Tomorrow you will look at the messaging system that often carries saga events.",
+            "activeActor": "seat",
+            "messages": [
+              {
+                "from": "seats",
+                "to": "seat",
+                "label": {
+                  "var": "seats",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "seat",
+                "to": "seats",
+                "label": {
+                  "var": "seat",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Isolation and other pitfalls — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Isolation and other...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Isolation and other pitfalls",
+        "actors": [
+          "seats",
+          "seat"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Isolation and other pitfalls [D11.P6.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Isolation and other... [D11.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Sagas lack isolation.",
+            "messages": [
+              {
+                "from": "seats",
+                "to": "seat",
+                "label": "{'12A': 'FREE'}",
+                "tone": "data"
+              },
+              {
+                "from": "seat",
+                "to": "seats",
+                "label": "'12A'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "seats"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "A common fix is a semantic lock.",
+            "messages": [
+              {
+                "from": "seats",
+                "to": "seat",
+                "label": "{'12A': 'FREE'}",
+                "tone": "data"
+              },
+              {
+                "from": "seat",
+                "to": "seats",
+                "label": "'12A'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "seat"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Isolation and other pitfalls [D11.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Tomorrow you will look at the messaging system that often carries saga events.",
+            "messages": [
+              {
+                "from": "seats",
+                "to": "seat",
+                "label": "{'12A': 'PENDING'}",
+                "tone": "data"
+              },
+              {
+                "from": "seat",
+                "to": "seats",
+                "label": "'12A'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "seat"
           }
         ]
       }

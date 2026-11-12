@@ -2,269 +2,121 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 59,
-  "promptSha": "8299c4840d44436e94531cc10240dfb1a0e2f3ff81e702acda2b160d78339077",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "RLHF PPO vs DPO vs GRPO (Group Relative Policy Optimization) Reward Advantage Math — Foundations & Mathematical Invariants",
-      "codeHash": "168412a4d190ddf36f4714d949bbb431f6e2b72766721dd2b20655d5b41f920e",
+      "partTitle": "RLHF Evolution — Foundations & Mathematical Invariants",
+      "codeHash": "b3dc670feaca471e7ed372164beeb5c545a5d4151c5a1661eb7c10746cb6af75",
       "spec": {
-        "template": "flow",
-        "title": "RLHF PPO vs DPO vs GRPO (Group Relative Policy Optimization) Reward Ad",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "RLHF Evolution — Foundations & Mathematical Invariants",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Pre-training equips foundation models with world knowledge and language.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "comp"
+                  },
+                  {
+                    "var": "comp",
+                    "line": 8,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Proximal Policy Optimization (PPO) pioneered RLHF by training an Actor.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "comp"
+                  },
+                  {
+                    "var": "comp",
+                    "line": 9,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Understanding the mathematical evolution from PPO to DPO and GRPO.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "RLHF PPO vs DPO vs GRPO (Group Relative Policy Optimization) Reward Ad",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "RLHF Evolution — Foundations & Mathematical Invariants",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Pre-training equips foundation models with world knowledge and language.",
+            "rows": [
+              {
+                "cells": [
+                  "comp",
+                  "{'PPO': {'critic_model': 'Required (Sep…"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Proximal Policy Optimization (PPO) pioneered RLHF by training an Actor.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "comp",
+                  "{'PPO': {'critic_model': 'Required (Sep…"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Understanding the mathematical evolution from PPO to DPO and GRPO.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "[ALIGNMENT_COMPARISON] PPO Critic=Required (Separate 70B), DPO Critic=None (Implicit Reward), GRPO Critic=None (Group Relative)"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -272,265 +124,219 @@
       }
     },
     {
-      "partTitle": "RLHF PPO vs DPO vs GRPO (Group Relative Policy Optimization) Reward Advantage Math — Core Algorithm & State Representation",
-      "codeHash": "bea8519adf32d2eea4b7c8c5cf6ab1f1c563606667e45d0528bd4f206448b5cf",
+      "partTitle": "RLHF Evolution — Core Algorithm & State Representation",
+      "codeHash": "41aecb071dadb7e68350835f7afaa6324a42d0b846abddca88003631bcf37f9c",
       "spec": {
-        "template": "flow",
-        "title": "RLHF PPO vs DPO vs GRPO (Group Relative Policy Optimization) Reward Ad",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "RLHF Evolution — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Implementing GRPO requires generating a group of G distinct candidate.",
+            "bars": [
+              {
+                "label": "clip_eps",
+                "value": {
+                  "var": "clip_eps",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mean_r",
+                "value": {
+                  "var": "mean_r",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "std_r",
+                "value": {
+                  "var": "std_r",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Each completion in the group is evaluated by a reward function (e.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "clip_eps",
+                "value": {
+                  "var": "clip_eps",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "mean_r",
+                "value": {
+                  "var": "mean_r",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "std_r",
+                "value": {
+                  "var": "std_r",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This elegant algorithm drives state-of-the-art mathematical reasoning.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "clip_eps",
+                "value": {
+                  "var": "clip_eps",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "mean_r",
+                "value": {
+                  "var": "mean_r",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "std_r",
+                "value": {
+                  "var": "std_r",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 8,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "RLHF PPO vs DPO vs GRPO (Group Relative Policy Optimization) Reward Ad",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "RLHF Evolution — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Implementing GRPO requires generating a group of G distinct candidate.",
+            "bars": [
+              {
+                "label": "clip_eps",
+                "value": 0.2,
+                "tone": "data"
+              },
+              {
+                "label": "mean_r",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "std_r",
+                "value": 0.4629100498862757,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Each completion in the group is evaluated by a reward function (e.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "clip_eps",
+                "value": 0.2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "mean_r",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "std_r",
+                "value": 0.4629100498862757,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "r",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This elegant algorithm drives state-of-the-art mathematical reasoning.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "clip_eps",
+                "value": 0.2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "mean_r",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "std_r",
+                "value": 0.4629100498862757,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "r",
+                "value": 0.5,
+                "tone": "ok"
               }
             ]
           }
@@ -538,797 +344,677 @@
       }
     },
     {
-      "partTitle": "RLHF PPO vs DPO vs GRPO (Group Relative Policy Optimization) Reward Advantage Math — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "b8bb403ae683c31045c8c9ad743a252f0e2342e171e774faf0c4b9ae92b5bc34",
+      "partTitle": "RLHF Evolution — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "d4974f6390d62287e941caccf3719a06c01f7cac55c719bcefb48fc95ecb8647",
       "spec": {
         "template": "flow",
-        "title": "RLHF PPO vs DPO vs GRPO (Group Relative Policy Optimization) Reward Ad",
+        "title": "RLHF Evolution — Throughput Optimization & Edge-Case Handling",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "model_b",
+            "label": "model_b"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "ppo_total_gb",
+            "label": "ppo_total_gb"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "dpo_total_gb",
+            "label": "dpo_total_gb"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "grpo_total_gb",
+            "label": "grpo_total_gb"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantifying memory savings across alignment methodologies reveals why GRPO.",
+            "values": {
+              "model_b": {
+                "var": "model_b",
+                "line": 3,
+                "hit": 1
+              },
+              "ppo_total_gb": {
+                "var": "ppo_total_gb",
+                "line": 3,
+                "hit": 1
+              },
+              "dpo_total_gb": {
+                "var": "dpo_total_gb",
+                "line": 5,
+                "hit": 1
+              },
+              "grpo_total_gb": {
+                "var": "grpo_total_gb",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "model_b": "data",
+              "ppo_total_gb": "data",
+              "dpo_total_gb": "data",
+              "grpo_total_gb": "data"
+            },
+            "arrows": [
+              [
+                "model_b",
+                "ppo_total_gb"
+              ],
+              [
+                "ppo_total_gb",
+                "dpo_total_gb"
+              ],
+              [
+                "dpo_total_gb",
+                "grpo_total_gb"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "In traditional PPO for a 70-billion-parameter model, hosting the Actor.",
+            "values": {
+              "model_b": {
+                "var": "model_b",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "ppo_total_gb": {
+                "var": "ppo_total_gb",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "dpo_total_gb": {
+                "var": "dpo_total_gb",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "grpo_total_gb": {
+                "var": "grpo_total_gb",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "model_b": "data",
+              "ppo_total_gb": "data",
+              "dpo_total_gb": "data",
+              "grpo_total_gb": "data"
+            },
+            "arrows": [
+              [
+                "model_b",
+                "ppo_total_gb"
+              ],
+              [
+                "ppo_total_gb",
+                "dpo_total_gb"
+              ],
+              [
+                "dpo_total_gb",
+                "grpo_total_gb"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "GRPO represents the cutting edge of cost-effective, high-stability.",
+            "values": {
+              "model_b": {
+                "var": "model_b",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "ppo_total_gb": {
+                "var": "ppo_total_gb",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "dpo_total_gb": {
+                "var": "dpo_total_gb",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "grpo_total_gb": {
+                "var": "grpo_total_gb",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "model_b": "ok",
+              "ppo_total_gb": "ok",
+              "dpo_total_gb": "ok",
+              "grpo_total_gb": "ok"
+            },
+            "arrows": [
+              [
+                "model_b",
+                "ppo_total_gb"
+              ],
+              [
+                "ppo_total_gb",
+                "dpo_total_gb"
+              ],
+              [
+                "dpo_total_gb",
+                "grpo_total_gb"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "RLHF PPO vs DPO vs GRPO (Group Relative Policy Optimization) Reward Ad",
+        "title": "RLHF Evolution — Throughput Optimization & Edge-Case Handling",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "model_b",
+            "label": "model_b"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "ppo_total_gb",
+            "label": "ppo_total_gb"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "dpo_total_gb",
+            "label": "dpo_total_gb"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "grpo_total_gb",
+            "label": "grpo_total_gb"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantifying memory savings across alignment methodologies reveals why GRPO.",
+            "values": {
+              "model_b": "70",
+              "ppo_total_gb": "4480",
+              "dpo_total_gb": "1260",
+              "grpo_total_gb": "1260"
+            },
+            "tones": {
+              "model_b": "data",
+              "ppo_total_gb": "data",
+              "dpo_total_gb": "data",
+              "grpo_total_gb": "data"
+            },
+            "arrows": [
+              [
+                "model_b",
+                "ppo_total_gb"
+              ],
+              [
+                "ppo_total_gb",
+                "dpo_total_gb"
+              ],
+              [
+                "dpo_total_gb",
+                "grpo_total_gb"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "In traditional PPO for a 70-billion-parameter model, hosting the Actor.",
+            "values": {
+              "model_b": "70",
+              "ppo_total_gb": "4480",
+              "dpo_total_gb": "1260",
+              "grpo_total_gb": "1260"
+            },
+            "tones": {
+              "model_b": "data",
+              "ppo_total_gb": "data",
+              "dpo_total_gb": "data",
+              "grpo_total_gb": "data"
+            },
+            "arrows": [
+              [
+                "model_b",
+                "ppo_total_gb"
+              ],
+              [
+                "ppo_total_gb",
+                "dpo_total_gb"
+              ],
+              [
+                "dpo_total_gb",
+                "grpo_total_gb"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "GRPO represents the cutting edge of cost-effective, high-stability.",
+            "values": {
+              "model_b": "70",
+              "ppo_total_gb": "4480",
+              "dpo_total_gb": "1260",
+              "grpo_total_gb": "1260"
+            },
+            "tones": {
+              "model_b": "ok",
+              "ppo_total_gb": "ok",
+              "dpo_total_gb": "ok",
+              "grpo_total_gb": "ok"
+            },
+            "arrows": [
+              [
+                "model_b",
+                "ppo_total_gb"
+              ],
+              [
+                "ppo_total_gb",
+                "dpo_total_gb"
+              ],
+              [
+                "dpo_total_gb",
+                "grpo_total_gb"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "RLHF PPO vs DPO vs GRPO (Group Relative Policy Optimization) Reward Advantage Math — Resilience Guardrails & Failure Recovery",
-      "codeHash": "f8278afbcfb698449a0cca4832d1b0cf876395ec7d4bce745937835631beb6fc",
+      "partTitle": "RLHF Evolution — Resilience Guardrails & Failure Recovery",
+      "codeHash": "4ea0f51aafaba44f8bcec750327ac916760996da543046dd120daaaa3d60d7eb",
       "spec": {
         "template": "flow",
-        "title": "RLHF PPO vs DPO vs GRPO (Group Relative Policy Optimization) Reward Ad",
+        "title": "RLHF Evolution — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "kl_drift",
+            "label": "kl_drift"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_kl",
+            "label": "max_kl"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "status",
+            "label": "status"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "ok",
+            "label": "ok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "During reinforcement learning alignment, policies can exploit reward.",
+            "values": {
+              "kl_drift": {
+                "var": "kl_drift",
+                "line": 2,
+                "hit": 1
+              },
+              "max_kl": {
+                "var": "max_kl",
+                "line": 2,
+                "hit": 1
+              },
+              "status": {
+                "var": "status",
+                "line": 6,
+                "hit": 1
+              },
+              "ok": {
+                "var": "ok",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "kl_drift": "data",
+              "max_kl": "data",
+              "status": "data",
+              "ok": "data"
+            },
+            "arrows": [
+              [
+                "kl_drift",
+                "max_kl"
+              ],
+              [
+                "max_kl",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "This failure modeknown as reward hacking or policy collapseoccurs when.",
+            "values": {
+              "kl_drift": {
+                "var": "kl_drift",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "max_kl": {
+                "var": "max_kl",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "status": {
+                "var": "status",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "ok": {
+                "var": "ok",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "kl_drift": "data",
+              "max_kl": "data",
+              "status": "data",
+              "ok": "data"
+            },
+            "arrows": [
+              [
+                "kl_drift",
+                "max_kl"
+              ],
+              [
+                "max_kl",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "Rigorous safety monitoring protects foundation models from catastrophic.",
+            "values": {
+              "kl_drift": {
+                "var": "kl_drift",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "max_kl": {
+                "var": "max_kl",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "status": {
+                "var": "status",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "ok": {
+                "var": "ok",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "kl_drift": "ok",
+              "max_kl": "ok",
+              "status": "ok",
+              "ok": "ok"
+            },
+            "arrows": [
+              [
+                "kl_drift",
+                "max_kl"
+              ],
+              [
+                "max_kl",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "RLHF PPO vs DPO vs GRPO (Group Relative Policy Optimization) Reward Ad",
+        "title": "RLHF Evolution — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "kl_drift",
+            "label": "kl_drift"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_kl",
+            "label": "max_kl"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "status",
+            "label": "status"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "ok",
+            "label": "ok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "During reinforcement learning alignment, policies can exploit reward.",
+            "values": {
+              "kl_drift": "0.042",
+              "max_kl": "0.1",
+              "status": "'KL_DIVERGENCE_BOUNDED'",
+              "ok": "True"
+            },
+            "tones": {
+              "kl_drift": "data",
+              "max_kl": "data",
+              "status": "data",
+              "ok": "data"
+            },
+            "arrows": [
+              [
+                "kl_drift",
+                "max_kl"
+              ],
+              [
+                "max_kl",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "This failure modeknown as reward hacking or policy collapseoccurs when.",
+            "values": {
+              "kl_drift": "0.042",
+              "max_kl": "0.1",
+              "status": "'KL_DIVERGENCE_BOUNDED'",
+              "ok": "True"
+            },
+            "tones": {
+              "kl_drift": "data",
+              "max_kl": "data",
+              "status": "data",
+              "ok": "data"
+            },
+            "arrows": [
+              [
+                "kl_drift",
+                "max_kl"
+              ],
+              [
+                "max_kl",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "Rigorous safety monitoring protects foundation models from catastrophic.",
+            "values": {
+              "kl_drift": "0.042",
+              "max_kl": "0.1",
+              "status": "'KL_DIVERGENCE_BOUNDED'",
+              "ok": "True"
+            },
+            "tones": {
+              "kl_drift": "ok",
+              "max_kl": "ok",
+              "status": "ok",
+              "ok": "ok"
+            },
+            "arrows": [
+              [
+                "kl_drift",
+                "max_kl"
+              ],
+              [
+                "max_kl",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "RLHF PPO vs DPO vs GRPO (Group Relative Policy Optimization) Reward Advantage Math — Production Telemetry & Verification Audit",
-      "codeHash": "9cb87ce988bd54aa61200de0664af7f5d962773aeb3a6d9c3e113547af304f01",
+      "partTitle": "RLHF Evolution — Production Telemetry & Verification Audit",
+      "codeHash": "a3103e4c4faeeab31dc8d42596417e0a8e9ed3db4cfdb0cdcb1bf93a24202217",
       "spec": {
-        "template": "flow",
-        "title": "RLHF PPO vs DPO vs GRPO (Group Relative Policy Optimization) Reward Ad",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "RLHF Evolution — Production Telemetry & Verification Audit",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing validates the empirical alignment.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "audit"
+                  },
+                  {
+                    "var": "audit",
+                    "line": 10,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Auditors record group reward standard deviations, 99th-percentile KL.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "audit"
+                  },
+                  {
+                    "var": "audit",
+                    "line": 11,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "With GRPO alignment certified, the distributed training platform is fully.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "RLHF PPO vs DPO vs GRPO (Group Relative Policy Optimization) Reward Ad",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "RLHF Evolution — Production Telemetry & Verification Audit",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing validates the empirical alignment.",
+            "rows": [
+              {
+                "cells": [
+                  "audit",
+                  "{'status': 'CERTIFIED', 'algorithm': 'G…"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Auditors record group reward standard deviations, 99th-percentile KL.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "audit",
+                  "{'status': 'CERTIFIED', 'algorithm': 'G…"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "With GRPO alignment certified, the distributed training platform is fully.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "Alignment Telemetry Audit: CERTIFIED (Algorithm: GRPO (Group Relative Policy Optimization), Pass@1: 82.4%)"
+                ],
+                "tone": "ok"
               }
             ]
           }

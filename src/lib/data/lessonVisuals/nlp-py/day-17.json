@@ -2,256 +2,284 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 17,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Looking back at the whole input",
       "codeHash": "ef9bdf38aa32256416387ca19c1cbcf927c6f75045e648c01ee4065a82abb667",
       "spec": {
-        "template": "table",
-        "title": "Attention relevance scores and dynamic context vectors",
-        "columns": [
-          "source",
-          "target"
+        "template": "flow",
+        "title": "Looking back at the whole input",
+        "nodes": [
+          {
+            "id": "source",
+            "label": "source"
+          },
+          {
+            "id": "attention",
+            "label": "attention"
+          },
+          {
+            "id": "target",
+            "label": "target"
+          },
+          {
+            "id": "weights",
+            "label": "weights"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Attention provides dynamic context vectors tailored at each decoding step.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "target"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Instead of one context vector, the decoder gets a fresh context at every.",
+            "values": {
+              "source": {
+                "var": "source",
+                "line": 1,
+                "hit": 1
+              },
+              "attention": {
+                "var": "attention",
+                "line": 2,
+                "hit": 1
+              },
+              "target": {
+                "var": "target",
+                "line": 8,
+                "hit": 1
+              },
+              "weights": {
+                "var": "weights",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "source": "data",
+              "attention": "data",
+              "target": "data",
+              "weights": "data"
+            },
+            "arrows": [
+              [
+                "source",
+                "attention"
+              ],
+              [
+                "attention",
+                "target"
+              ],
+              [
+                "target",
+                "weights"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "The decoder scores relevance against all available encoder hidden states.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "target"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The encoder keeps a state for every input word.",
+            "values": {
+              "source": {
+                "var": "source",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "attention"
-                  },
-                  {
-                    "text": "weights"
-                  }
-                ],
-                "tone": "ok"
+              "attention": {
+                "var": "attention",
+                "line": 8,
+                "hit": 1
+              },
+              "target": {
+                "var": "target",
+                "line": 9,
+                "hit": 1
+              },
+              "weights": {
+                "var": "weights",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "source": "data",
+              "attention": "data",
+              "target": "data",
+              "weights": "data"
+            },
+            "arrows": [
+              [
+                "source",
+                "attention"
+              ],
+              [
+                "attention",
+                "target"
+              ],
+              [
+                "target",
+                "weights"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Relevance weights sum to unity forming a weighted mix of encoder states.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "target"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say8",
+            "caption": "This one idea, computing a weighted mix of all positions based.",
+            "values": {
+              "source": {
+                "var": "source",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "attention"
-                  },
-                  {
-                    "text": "weights"
-                  }
-                ],
-                "tone": "ok"
+              "attention": {
+                "var": "attention",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "focus"
-                  },
-                  {
-                    "text": "index"
-                  }
-                ],
-                "tone": "data"
+              "target": {
+                "var": "target",
+                "line": 10,
+                "hit": 1
+              },
+              "weights": {
+                "var": "weights",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Attention weights reveal interpretable alignment between source and target.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "target"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "attention"
-                  },
-                  {
-                    "text": "weights"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "focus"
-                  },
-                  {
-                    "text": "index"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "target"
-                  },
-                  {
-                    "text": "source"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "source": "ok",
+              "attention": "ok",
+              "target": "ok",
+              "weights": "ok"
+            },
+            "arrows": [
+              [
+                "source",
+                "attention"
+              ],
+              [
+                "attention",
+                "target"
+              ],
+              [
+                "target",
+                "weights"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Attention relevance scores and dynamic context vectors",
-        "columns": [
-          "source",
-          "target"
+        "template": "flow",
+        "title": "Looking back at the whole input",
+        "nodes": [
+          {
+            "id": "source",
+            "label": "source"
+          },
+          {
+            "id": "attention",
+            "label": "attention"
+          },
+          {
+            "id": "target",
+            "label": "target"
+          },
+          {
+            "id": "weights",
+            "label": "weights"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Attention provides dynamic context vectors tailored at each decoding step.",
-            "rows": [
-              {
-                "cells": [
-                  "source",
-                  "target"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Instead of one context vector, the decoder gets a fresh context at every.",
+            "values": {
+              "source": "['i', 'am', 'very', 'happy']",
+              "attention": "{'je': [0.9, 0.05, 0.03, 0.02], 'suis':…",
+              "target": "'je'",
+              "weights": "[0.9, 0.05, 0.03, 0.02]"
+            },
+            "tones": {
+              "source": "data",
+              "attention": "data",
+              "target": "data",
+              "weights": "data"
+            },
+            "arrows": [
+              [
+                "source",
+                "attention"
+              ],
+              [
+                "attention",
+                "target"
+              ],
+              [
+                "target",
+                "weights"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "The decoder scores relevance against all available encoder hidden states.",
-            "rows": [
-              {
-                "cells": [
-                  "source",
-                  "target"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "attention",
-                  "weights"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The encoder keeps a state for every input word.",
+            "values": {
+              "source": "['i', 'am', 'very', 'happy']",
+              "attention": "{'je': [0.9, 0.05, 0.03, 0.02], 'suis':…",
+              "target": "'je'",
+              "weights": "[0.9, 0.05, 0.03, 0.02]"
+            },
+            "tones": {
+              "source": "data",
+              "attention": "data",
+              "target": "data",
+              "weights": "data"
+            },
+            "arrows": [
+              [
+                "source",
+                "attention"
+              ],
+              [
+                "attention",
+                "target"
+              ],
+              [
+                "target",
+                "weights"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Relevance weights sum to unity forming a weighted mix of encoder states.",
-            "rows": [
-              {
-                "cells": [
-                  "source",
-                  "target"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "attention",
-                  "weights"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "focus",
-                  "index"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Attention weights reveal interpretable alignment between source and target.",
-            "rows": [
-              {
-                "cells": [
-                  "source",
-                  "target"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "attention",
-                  "weights"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "focus",
-                  "index"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "target",
-                  "source"
-                ],
-                "tone": "ok"
-              }
+            "at": "say8",
+            "caption": "This one idea, computing a weighted mix of all positions based.",
+            "values": {
+              "source": "['i', 'am', 'very', 'happy']",
+              "attention": "{'je': [0.9, 0.05, 0.03, 0.02], 'suis':…",
+              "target": "'je'",
+              "weights": "[0.9, 0.05, 0.03, 0.02]"
+            },
+            "tones": {
+              "source": "ok",
+              "attention": "ok",
+              "target": "ok",
+              "weights": "ok"
+            },
+            "arrows": [
+              [
+                "source",
+                "attention"
+              ],
+              [
+                "attention",
+                "target"
+              ],
+              [
+                "target",
+                "weights"
+              ]
             ]
           }
         ]
@@ -261,249 +289,277 @@
       "partTitle": "Scores to weights: softmax",
       "codeHash": "bca0148b051d093ab468a0ba3eae0f6859015a0256dcefffec1e80d552523fd4",
       "spec": {
-        "template": "table",
-        "title": "Softmax exponentiation and numerically stable normalization",
-        "columns": [
-          "scores",
-          "exps"
+        "template": "flow",
+        "title": "Scores to weights: softmax",
+        "nodes": [
+          {
+            "id": "scores",
+            "label": "scores"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "exps",
+            "label": "exps"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Attention computes raw alignment scores matching current decoder needs.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "exps"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Attention first computes a raw score for each encoder state.",
+            "values": {
+              "scores": {
+                "var": "scores",
+                "line": 8,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 8,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 9,
+                "hit": 1
+              },
+              "exps": {
+                "var": "exps",
+                "line": 9,
+                "hit": 4
               }
+            },
+            "tones": {
+              "scores": "data",
+              "m": "data",
+              "s": "data",
+              "exps": "data"
+            },
+            "arrows": [
+              [
+                "scores",
+                "m"
+              ],
+              [
+                "m",
+                "s"
+              ],
+              [
+                "s",
+                "exps"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Softmax exponentiates raw scores into normalized positive weight fractions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "exps"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Raw scores can be any numbers.",
+            "values": {
+              "scores": {
+                "var": "scores",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "softmax"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
+              "m": {
+                "var": "m",
+                "line": 9,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 9,
+                "hit": 2
+              },
+              "exps": {
+                "var": "exps",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "scores": "data",
+              "m": "data",
+              "s": "data",
+              "exps": "data"
+            },
+            "arrows": [
+              [
+                "scores",
+                "m"
+              ],
+              [
+                "m",
+                "s"
+              ],
+              [
+                "s",
+                "exps"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Exponentiation naturally exaggerates score differences across candidates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "exps"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example shows the overflow and the stable version side by side.",
+            "values": {
+              "scores": {
+                "var": "scores",
+                "line": 9,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "softmax"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
+              "m": {
+                "var": "m",
+                "line": 9,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "naive_softmax"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "idle"
+              "s": {
+                "var": "s",
+                "line": 9,
+                "hit": 3
+              },
+              "exps": {
+                "var": "exps",
+                "line": 10,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Subtracting maximum scores prevents numerical floating point overflow.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "exps"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "softmax"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "naive_softmax"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "round"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "scores": "ok",
+              "m": "ok",
+              "s": "ok",
+              "exps": "ok"
+            },
+            "arrows": [
+              [
+                "scores",
+                "m"
+              ],
+              [
+                "m",
+                "s"
+              ],
+              [
+                "s",
+                "exps"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Softmax exponentiation and numerically stable normalization",
-        "columns": [
-          "scores",
-          "exps"
+        "template": "flow",
+        "title": "Scores to weights: softmax",
+        "nodes": [
+          {
+            "id": "scores",
+            "label": "scores"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "exps",
+            "label": "exps"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Attention computes raw alignment scores matching current decoder needs.",
-            "rows": [
-              {
-                "cells": [
-                  "scores",
-                  "exps"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Attention first computes a raw score for each encoder state.",
+            "values": {
+              "scores": "[2, 1, 0.1]",
+              "m": "2",
+              "s": "2",
+              "exps": "[1, 0.36787944117144233, 0.149568619222…"
+            },
+            "tones": {
+              "scores": "data",
+              "m": "data",
+              "s": "data",
+              "exps": "data"
+            },
+            "arrows": [
+              [
+                "scores",
+                "m"
+              ],
+              [
+                "m",
+                "s"
+              ],
+              [
+                "s",
+                "exps"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Softmax exponentiates raw scores into normalized positive weight fractions.",
-            "rows": [
-              {
-                "cells": [
-                  "scores",
-                  "exps"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "softmax",
-                  "math"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Raw scores can be any numbers.",
+            "values": {
+              "scores": "[2, 1, 0.1]",
+              "m": "2",
+              "s": "1",
+              "exps": "[1, 0.36787944117144233, 0.149568619222…"
+            },
+            "tones": {
+              "scores": "data",
+              "m": "data",
+              "s": "data",
+              "exps": "data"
+            },
+            "arrows": [
+              [
+                "scores",
+                "m"
+              ],
+              [
+                "m",
+                "s"
+              ],
+              [
+                "s",
+                "exps"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Exponentiation naturally exaggerates score differences across candidates.",
-            "rows": [
-              {
-                "cells": [
-                  "scores",
-                  "exps"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "softmax",
-                  "math"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "naive_softmax",
-                  "round"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Subtracting maximum scores prevents numerical floating point overflow.",
-            "rows": [
-              {
-                "cells": [
-                  "scores",
-                  "exps"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "softmax",
-                  "math"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "naive_softmax",
-                  "round"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "round",
-                  "scores"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example shows the overflow and the stable version side by side.",
+            "values": {
+              "scores": "[2, 1, 0.1]",
+              "m": "2",
+              "s": "0.1",
+              "exps": "[1, 0.36787944117144233, 0.149568619222…"
+            },
+            "tones": {
+              "scores": "ok",
+              "m": "ok",
+              "s": "ok",
+              "exps": "ok"
+            },
+            "arrows": [
+              [
+                "scores",
+                "m"
+              ],
+              [
+                "m",
+                "s"
+              ],
+              [
+                "s",
+                "exps"
+              ]
             ]
           }
         ]
@@ -513,248 +569,105 @@
       "partTitle": "The context vector",
       "codeHash": "7fc005e3fdcfc9ba808352aaa187aac4fcb58ec21ca543e08c208a5dc1721803",
       "spec": {
-        "template": "table",
-        "title": "Context vector synthesis from attention weights and values",
-        "columns": [
-          "weights",
-          "values"
-        ],
+        "template": "cells",
+        "title": "The context vector",
         "steps": [
           {
             "at": "say1",
-            "caption": "The context vector computes a weighted sum over encoder value vectors.",
-            "rows": [
+            "caption": "With weights in hand, the context vector is the weighted sum of.",
+            "items": {
+              "var": "v",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "values"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Sharp weights isolate individual values while dispersed weights blend vectors.",
-            "rows": [
+            "caption": "If the weights are [1, 0, 0], the context is exactly the first value.",
+            "items": {
+              "var": "v",
+              "line": 2,
+              "hit": 8
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "values"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "context_vector"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The decoder combines current context vectors with recurrent internal state.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "values"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "context_vector"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sum"
-                  },
-                  {
-                    "text": "weights"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Context vectors maintain constant dimensionality regardless of sequence length.",
-            "rows": [
+            "at": "say8",
+            "caption": "In Transformers the same operation appears as \"attention output = weights.",
+            "items": {
+              "var": "v",
+              "line": 2,
+              "hit": 15
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "values"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "context_vector"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sum"
-                  },
-                  {
-                    "text": "weights"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "values"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Context vector synthesis from attention weights and values",
-        "columns": [
-          "weights",
-          "values"
-        ],
+        "template": "cells",
+        "title": "The context vector",
         "steps": [
           {
             "at": "say1",
-            "caption": "The context vector computes a weighted sum over encoder value vectors.",
-            "rows": [
+            "caption": "With weights in hand, the context vector is the weighted sum of.",
+            "items": [
+              "1",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "weights",
-                  "values"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Sharp weights isolate individual values while dispersed weights blend vectors.",
-            "rows": [
+            "caption": "If the weights are [1, 0, 0], the context is exactly the first value.",
+            "items": [
+              "1",
+              "1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "weights",
-                  "values"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "context_vector",
-                  "round"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The decoder combines current context vectors with recurrent internal state.",
-            "rows": [
-              {
-                "cells": [
-                  "weights",
-                  "values"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "context_vector",
-                  "round"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sum",
-                  "weights"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Context vectors maintain constant dimensionality regardless of sequence length.",
-            "rows": [
+            "at": "say8",
+            "caption": "In Transformers the same operation appears as \"attention output = weights.",
+            "items": [
+              "1",
+              "1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "weights",
-                  "values"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "context_vector",
-                  "round"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sum",
-                  "weights"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "values",
-                  "round"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -765,248 +678,105 @@
       "partTitle": "Bahdanau and Luong scoring",
       "codeHash": "61b9f0481cc6ee4574e3b2c9f1a7263bba3e6fea0cf412b07483a855152f8c9c",
       "spec": {
-        "template": "table",
-        "title": "Additive Bahdanau versus multiplicative Luong alignment scoring",
-        "columns": [
-          "decoder",
-          "dot"
-        ],
+        "template": "cells",
+        "title": "Bahdanau and Luong scoring",
         "steps": [
           {
             "at": "say1",
-            "caption": "Alignment mechanisms compute relevance scores through distinct architectures.",
-            "rows": [
+            "caption": "How is the raw relevance score computed.",
+            "items": {
+              "var": "decoder",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "decoder"
-                  },
-                  {
-                    "text": "dot"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Bahdanau additive scoring feeds combined states through tanh neural layers.",
-            "rows": [
+            "caption": "Bahdanau (additive) attention feeds the decoder state and each encoder.",
+            "items": {
+              "var": "decoder",
+              "line": 9,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "decoder"
-                  },
-                  {
-                    "text": "dot"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "additive"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Luong multiplicative attention evaluates alignment via direct dot products.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "decoder"
-                  },
-                  {
-                    "text": "dot"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "additive"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "encoder_states"
-                  },
-                  {
-                    "text": "tanh"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Dot products scale with directional alignment between query and state vectors.",
-            "rows": [
+            "at": "say7",
+            "caption": "Both produce scores.",
+            "items": {
+              "var": "decoder",
+              "line": 6,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "decoder"
-                  },
-                  {
-                    "text": "dot"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "additive"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "encoder_states"
-                  },
-                  {
-                    "text": "tanh"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "dot"
-                  },
-                  {
-                    "text": "decoder"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Additive Bahdanau versus multiplicative Luong alignment scoring",
-        "columns": [
-          "decoder",
-          "dot"
-        ],
+        "template": "cells",
+        "title": "Bahdanau and Luong scoring",
         "steps": [
           {
             "at": "say1",
-            "caption": "Alignment mechanisms compute relevance scores through distinct architectures.",
-            "rows": [
+            "caption": "How is the raw relevance score computed.",
+            "items": [
+              "1",
+              "0.5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "decoder",
-                  "dot"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Bahdanau additive scoring feeds combined states through tanh neural layers.",
-            "rows": [
+            "caption": "Bahdanau (additive) attention feeds the decoder state and each encoder.",
+            "items": [
+              "1",
+              "0.5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "decoder",
-                  "dot"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "additive",
-                  "math"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Luong multiplicative attention evaluates alignment via direct dot products.",
-            "rows": [
-              {
-                "cells": [
-                  "decoder",
-                  "dot"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "additive",
-                  "math"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "encoder_states",
-                  "tanh"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Dot products scale with directional alignment between query and state vectors.",
-            "rows": [
+            "at": "say7",
+            "caption": "Both produce scores.",
+            "items": [
+              "1",
+              "0.5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "decoder",
-                  "dot"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "additive",
-                  "math"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "encoder_states",
-                  "tanh"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "dot",
-                  "decoder"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -1017,223 +787,127 @@
       "partTitle": "Attention everywhere",
       "codeHash": "0be2e5cac97758285e7127055a1d1f5eb9fb664b45e1f796f148e7aa93aafaeb",
       "spec": {
-        "template": "flow",
-        "title": "Attention everywhere — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Attention everywhere",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Attention everywhere",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Attention everywhere [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Attention everywhere [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Attention quickly spread beyond translation.",
+            "items": {
+              "var": "words",
+              "line": 1,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "It also helped interpretability.",
+            "items": {
+              "var": "words",
+              "line": 4,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Attention everywhere [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "From tomorrow, every lesson builds on self-attention.",
+            "items": {
+              "var": "words",
+              "line": 4,
+              "hit": 4
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Attention everywhere — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Attention everywhere",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Attention everywhere",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Attention everywhere [D17.P5.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Attention everywhere [D17.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Attention quickly spread beyond translation.",
+            "items": [
+              "'the'",
+              "'animal'",
+              "'did'",
+              "'not'",
+              "'cross'",
+              "'because'",
+              "'it'",
+              "'was'",
+              "'tired'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "It also helped interpretability.",
+            "items": [
+              "'the'",
+              "'animal'",
+              "'did'",
+              "'not'",
+              "'cross'",
+              "'because'",
+              "'it'",
+              "'was'",
+              "'tired'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Attention everywhere [D17.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "From tomorrow, every lesson builds on self-attention.",
+            "items": [
+              "'the'",
+              "'animal'",
+              "'did'",
+              "'not'",
+              "'cross'",
+              "'because'",
+              "'it'",
+              "'was'",
+              "'tired'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -1243,223 +917,217 @@
       "partTitle": "Practice time: softmax and context",
       "codeHash": "53e034a66e87cdb9837bdc5b28a7b124705fc214404b77a934796eb02634aef7",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: softmax and context — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: soft...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: softmax and context",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: softmax and context.",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: soft... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Softmax(scores).",
+            "bars": [
+              {
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include equal scores (equal weights), [2.",
+            "bars": [
+              {
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: softmax and context.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example chains all three steps.",
+            "bars": [
+              {
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 9,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: softmax and context — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: soft...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: softmax and context",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: softmax and context [D17.P6.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: soft... [D17.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Softmax(scores).",
+            "bars": [
+              {
+                "label": "q",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "w",
+                "value": 0.47422635216524245,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include equal scores (equal weights), [2.",
+            "bars": [
+              {
+                "label": "q",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": 0.174458125423321,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: softmax and context [D17.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example chains all three steps.",
+            "bars": [
+              {
+                "label": "q",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": 0.3513155224114366,
+                "tone": "ok"
+              }
             ]
           }
         ]

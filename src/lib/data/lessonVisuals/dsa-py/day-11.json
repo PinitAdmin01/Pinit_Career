@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 11,
-  "promptSha": "a94d633a19281cc67dab84a4c6bd62ba2012e0eb3f2da413161e7bd6367c37e0",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "A function that calls itself",
@@ -12,21 +12,23 @@
         "template": "table",
         "title": "A function that calls itself",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The recursive concept establishes the core structural baseline.",
+            "caption": "A recursive function solves a problem by calling itself on a smaller.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "function"
+                    "text": "n"
                   },
                   {
-                    "text": "that"
+                    "var": "n",
+                    "line": 2,
+                    "hit": 1
                   }
                 ],
                 "tone": "data"
@@ -34,16 +36,68 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The recursive logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "The base case is the smallest version, which you answer directly without.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "calls"
+                    "text": "n"
                   },
                   {
-                    "text": "itself"
+                    "var": "n",
+                    "line": 2,
+                    "hit": 2
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Every recursive call allocates a new stack frame containing local.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 4"
+                  },
+                  {
+                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -56,31 +110,65 @@
         "template": "table",
         "title": "A function that calls itself",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The recursive concept establishes the core structural baseline.",
+            "caption": "A recursive function solves a problem by calling itself on a smaller.",
             "rows": [
               {
                 "cells": [
-                  "function",
-                  "that"
+                  "n",
+                  "5"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The recursive logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "The base case is the smallest version, which you answer directly without.",
             "rows": [
               {
                 "cells": [
-                  "calls",
-                  "itself"
+                  "n",
+                  "4"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Every recursive call allocates a new stack frame containing local.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "120"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "3"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "2"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 4",
+                  "1"
                 ],
                 "tone": "ok"
               }
@@ -93,43 +181,104 @@
       "partTitle": "The call stack",
       "codeHash": "5b8b1c95e3a82fa6b3cf9719af13c4a3e8a8b52487358bd9a60fbdb4823bc42b",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "The call stack",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The time concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Each time a function is called, Python puts a frame on the call stack.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "The"
-                  },
-                  {
-                    "text": "call"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "depth",
+                "value": {
+                  "var": "depth",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "result",
+                "value": {
+                  "var": "result",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The stack logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Recursion stacks up frames.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "stack"
-                  },
-                  {
-                    "text": "call"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "depth",
+                "value": {
+                  "var": "depth",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "result",
+                "value": {
+                  "var": "result",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Printing with indentation by depth, like the code below, is a great way.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "depth",
+                "value": {
+                  "var": "depth",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "result",
+                "value": {
+                  "var": "result",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -137,35 +286,68 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "The call stack",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The time concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Each time a function is called, Python puts a frame on the call stack.",
+            "bars": [
               {
-                "cells": [
-                  "The",
-                  "call"
-                ],
+                "label": "n",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "depth",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "result",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The stack logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Recursion stacks up frames.",
+            "bars": [
               {
-                "cells": [
-                  "stack",
-                  "call"
-                ],
+                "label": "n",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "depth",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "result",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Printing with indentation by depth, like the code below, is a great way.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "depth",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "result",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -177,43 +359,77 @@
       "partTitle": "Recursion on lists and repeated work",
       "codeHash": "c6b0126c06fe8120a45c2184a46150e360c8de9675698969c69f28ff3974b446",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Recursion on lists and repeated work",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The recursion concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Recursion is natural for things that contain smaller versions of themselves.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Recursion"
-                  },
-                  {
-                    "text": "lists"
-                  }
-                ],
+                "label": "calls",
+                "value": {
+                  "var": "calls",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The memoization logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Fibonacci is the classic warning.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "and"
-                  },
-                  {
-                    "text": "repeated"
-                  }
-                ],
+                "label": "calls",
+                "value": {
+                  "var": "calls",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "For now, remember.",
+            "bars": [
+              {
+                "label": "calls",
+                "value": {
+                  "var": "calls",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 6,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +437,53 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Recursion on lists and repeated work",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The recursion concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Recursion is natural for things that contain smaller versions of themselves.",
+            "bars": [
               {
-                "cells": [
-                  "Recursion",
-                  "lists"
-                ],
+                "label": "calls",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": 20,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The memoization logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Fibonacci is the classic warning.",
+            "bars": [
               {
-                "cells": [
-                  "and",
-                  "repeated"
-                ],
+                "label": "calls",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 19,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "For now, remember.",
+            "bars": [
+              {
+                "label": "calls",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 18,
                 "tone": "ok"
               }
             ]
@@ -261,80 +495,110 @@
       "partTitle": "Backtracking: choose, explore, un-choose",
       "codeHash": "4a9a00844daa1b34409e4ab563b0a3387d4bf47739a5ffd0d87d238e38a34d39",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Backtracking: choose, explore, un-choose",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The backtracking concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Backtracking is recursion that builds answers step by step and undoes each.",
+            "items": {
+              "var": "nums",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Backtracking"
-                  },
-                  {
-                    "text": "choose"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The practice logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The pattern has three moves.",
+            "items": {
+              "var": "nums",
+              "line": 2,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "explore"
-                  },
-                  {
-                    "text": "choose"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Backtracking combines depth-first exploration with systematic pruning.",
+            "items": {
+              "var": "nums",
+              "line": 13,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Backtracking: choose, explore, un-choose",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The backtracking concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Backtracking is recursion that builds answers step by step and undoes each.",
+            "items": [
+              "1",
+              "2",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Backtracking",
-                  "choose"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The practice logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The pattern has three moves.",
+            "items": [
+              "1",
+              "2",
+              "3",
+              "4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "explore",
-                  "choose"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Backtracking combines depth-first exploration with systematic pruning.",
+            "items": [
+              "1",
+              "2",
+              "3",
+              "4"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -345,80 +609,108 @@
       "partTitle": "Permutations: every possible order",
       "codeHash": "2beb5130c912ec706f212b02e76d31442425ffc2e211b43c9b7d4ca358fe7c59",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Permutations: every possible order",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 2 asks for every order of the numbers.",
+            "items": {
+              "var": "nums",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Permutations"
-                  },
-                  {
-                    "text": "every"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The current logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Use the same choose, explore, un-choose pattern, but at each step you may.",
+            "items": {
+              "var": "nums",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "possible"
-                  },
-                  {
-                    "text": "order"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Permutations grow very fast.",
+            "items": {
+              "var": "nums",
+              "line": 19,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Permutations: every possible order",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 2 asks for every order of the numbers.",
+            "items": [
+              "1",
+              "2",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Permutations",
-                  "every"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The current logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Use the same choose, explore, un-choose pattern, but at each step you may.",
+            "items": [
+              "1",
+              "2",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "possible",
-                  "order"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Permutations grow very fast.",
+            "items": [
+              "1",
+              "2",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -429,80 +721,123 @@
       "partTitle": "Pruning: stopping early",
       "codeHash": "c983a461ee891db93218c6f41f66aaad5cd1e7ee37caed33dc5c37df43a25d8d",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Pruning: stopping early",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The backtracking concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Backtracking can be slow because it explores every branch.",
+            "items": {
+              "var": "nums",
+              "line": 20,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Pruning"
-                  },
-                  {
-                    "text": "stopping"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The good logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Find combinations of numbers that add up to a target.",
+            "items": {
+              "var": "nums",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "early"
-                  },
-                  {
-                    "text": "stopping"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The code counts how many calls are made with and without the early stop.",
+            "items": {
+              "var": "nums",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Pruning: stopping early",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The backtracking concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Backtracking can be slow because it explores every branch.",
+            "items": [
+              "2",
+              "3",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Pruning",
-                  "stopping"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The good logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Find combinations of numbers that add up to a target.",
+            "items": [
+              "2",
+              "3",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "early",
-                  "stopping"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The code counts how many calls are made with and without the early stop.",
+            "items": [
+              "2",
+              "3",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

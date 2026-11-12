@@ -2,1334 +2,1116 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 37,
-  "promptSha": "c5cd745b67fd8064c157d4a47f6064b75fa1668db09f7439e3cb37c9fc81a0ee",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "FSDP (Fully Sharded Data Parallel) All-Gather Prefetching & Hybrid Sharding — Foundations & Mathematical Invariants",
-      "codeHash": "ebeb7975669537ab6257d0bf347642a31d63ce11a422379db75ec3ab6c20cafd",
+      "partTitle": "FSDP All-Gather Prefetching & Hybrid Sharding — Foundations & Mathematical Invariants",
+      "codeHash": "7bff606213c54c19b7fbd66b1c3dce4d4c1c577fc409c72c38118e956dd84087",
       "spec": {
         "template": "flow",
-        "title": "FSDP (Fully Sharded Data Parallel) All-Gather Prefetching & Hybrid Sha",
+        "title": "FSDP All-Gather Prefetching & Hybrid Sharding — Foundations & Ma",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "FSDP_ARCHITECTURE_TAXONOMY",
+            "label": "FSDP_ARCHITECTURE_TAXONOMY"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "PyTorch Fully Sharded Data Parallel (FSDP) is the native PyTorch paradigm.",
+            "values": {
+              "FSDP_ARCHITECTURE_TAXONOMY": {
+                "var": "FSDP_ARCHITECTURE_TAXONOMY",
+                "line": 1,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
+              },
+              "desc": {
+                "var": "desc",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "FSDP_ARCHITECTURE_TAXONOMY": "data",
+              "name": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "FSDP_ARCHITECTURE_TAXONOMY",
+                "name"
+              ],
+              [
+                "name",
+                "desc"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "While conceptually identical to DeepSpeed ZeRO-3, FSDP integrates directly.",
+            "values": {
+              "FSDP_ARCHITECTURE_TAXONOMY": {
+                "var": "FSDP_ARCHITECTURE_TAXONOMY",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "name": {
+                "var": "name",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "desc": {
+                "var": "desc",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "FSDP_ARCHITECTURE_TAXONOMY": "data",
+              "name": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "FSDP_ARCHITECTURE_TAXONOMY",
+                "name"
+              ],
+              [
+                "name",
+                "desc"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "PyTorch FSDP integrates directly with native module hierarchies to provide.",
+            "values": {
+              "FSDP_ARCHITECTURE_TAXONOMY": {
+                "var": "FSDP_ARCHITECTURE_TAXONOMY",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "desc": {
+                "var": "desc",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "FSDP_ARCHITECTURE_TAXONOMY": "ok",
+              "name": "ok",
+              "desc": "ok"
+            },
+            "arrows": [
+              [
+                "FSDP_ARCHITECTURE_TAXONOMY",
+                "name"
+              ],
+              [
+                "name",
+                "desc"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "FSDP (Fully Sharded Data Parallel) All-Gather Prefetching & Hybrid Sha",
+        "title": "FSDP All-Gather Prefetching & Hybrid Sharding — Foundations & Ma",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "FSDP_ARCHITECTURE_TAXONOMY",
+            "label": "FSDP_ARCHITECTURE_TAXONOMY"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "PyTorch Fully Sharded Data Parallel (FSDP) is the native PyTorch paradigm.",
+            "values": {
+              "FSDP_ARCHITECTURE_TAXONOMY": "{'FULL_SHARD': 'Equivalent to ZeRO-3: s…",
+              "name": "'FULL_SHARD'",
+              "desc": "'Equivalent to ZeRO-3: shards parameter…"
+            },
+            "tones": {
+              "FSDP_ARCHITECTURE_TAXONOMY": "data",
+              "name": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "FSDP_ARCHITECTURE_TAXONOMY",
+                "name"
+              ],
+              [
+                "name",
+                "desc"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "While conceptually identical to DeepSpeed ZeRO-3, FSDP integrates directly.",
+            "values": {
+              "FSDP_ARCHITECTURE_TAXONOMY": "{'FULL_SHARD': 'Equivalent to ZeRO-3: s…",
+              "name": "'FULL_SHARD'",
+              "desc": "'Equivalent to ZeRO-3: shards parameter…"
+            },
+            "tones": {
+              "FSDP_ARCHITECTURE_TAXONOMY": "data",
+              "name": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "FSDP_ARCHITECTURE_TAXONOMY",
+                "name"
+              ],
+              [
+                "name",
+                "desc"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "PyTorch FSDP integrates directly with native module hierarchies to provide.",
+            "values": {
+              "FSDP_ARCHITECTURE_TAXONOMY": "{'FULL_SHARD': 'Equivalent to ZeRO-3: s…",
+              "name": "'HYBRID_SHARD'",
+              "desc": "'Full sharding within fast intra-node N…"
+            },
+            "tones": {
+              "FSDP_ARCHITECTURE_TAXONOMY": "ok",
+              "name": "ok",
+              "desc": "ok"
+            },
+            "arrows": [
+              [
+                "FSDP_ARCHITECTURE_TAXONOMY",
+                "name"
+              ],
+              [
+                "name",
+                "desc"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "FSDP (Fully Sharded Data Parallel) All-Gather Prefetching & Hybrid Sharding — Core Algorithm & State Representation",
-      "codeHash": "9e9e07031bff118953e6f1a212edf282f50197090e52560ab8eff9216a78f975",
+      "partTitle": "FSDP All-Gather Prefetching & Hybrid Sharding — Core Algorithm & State Representation",
+      "codeHash": "2c4c4b2ecc6180ff9b5ae8ebb858719c6f6bf0b00910aa72ebb0ea1c8755746f",
       "spec": {
         "template": "flow",
-        "title": "FSDP (Fully Sharded Data Parallel) All-Gather Prefetching & Hybrid Sha",
+        "title": "FSDP All-Gather Prefetching & Hybrid Sharding — Core Algorithm &",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "compute_time_ms",
+            "label": "compute_time_ms"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "allgather_comm_time_ms",
+            "label": "allgather_comm_time_ms"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "exposed_latency",
+            "label": "exposed_latency"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "overlap_efficiency",
+            "label": "overlap_efficiency"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The FSDP stream overlap simulator evaluates the temporal interaction.",
+            "values": {
+              "compute_time_ms": {
+                "var": "compute_time_ms",
+                "line": 6,
+                "hit": 1
+              },
+              "allgather_comm_time_ms": {
+                "var": "allgather_comm_time_ms",
+                "line": 6,
+                "hit": 1
+              },
+              "exposed_latency": {
+                "var": "exposed_latency",
+                "line": 6,
+                "hit": 1
+              },
+              "overlap_efficiency": {
+                "var": "overlap_efficiency",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "compute_time_ms": "data",
+              "allgather_comm_time_ms": "data",
+              "exposed_latency": "data",
+              "overlap_efficiency": "data"
+            },
+            "arrows": [
+              [
+                "compute_time_ms",
+                "allgather_comm_time_ms"
+              ],
+              [
+                "allgather_comm_time_ms",
+                "exposed_latency"
+              ],
+              [
+                "exposed_latency",
+                "overlap_efficiency"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The algorithm compares the layer computation duration (in milliseconds).",
+            "values": {
+              "compute_time_ms": {
+                "var": "compute_time_ms",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "allgather_comm_time_ms": {
+                "var": "allgather_comm_time_ms",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "exposed_latency": {
+                "var": "exposed_latency",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "overlap_efficiency": {
+                "var": "overlap_efficiency",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "compute_time_ms": "data",
+              "allgather_comm_time_ms": "data",
+              "exposed_latency": "data",
+              "overlap_efficiency": "data"
+            },
+            "arrows": [
+              [
+                "compute_time_ms",
+                "allgather_comm_time_ms"
+              ],
+              [
+                "allgather_comm_time_ms",
+                "exposed_latency"
+              ],
+              [
+                "exposed_latency",
+                "overlap_efficiency"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Production training recipes tune layer granularity (wrapping policies).",
+            "values": {
+              "compute_time_ms": {
+                "var": "compute_time_ms",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "allgather_comm_time_ms": {
+                "var": "allgather_comm_time_ms",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "exposed_latency": {
+                "var": "exposed_latency",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "overlap_efficiency": {
+                "var": "overlap_efficiency",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "compute_time_ms": "ok",
+              "allgather_comm_time_ms": "ok",
+              "exposed_latency": "ok",
+              "overlap_efficiency": "ok"
+            },
+            "arrows": [
+              [
+                "compute_time_ms",
+                "allgather_comm_time_ms"
+              ],
+              [
+                "allgather_comm_time_ms",
+                "exposed_latency"
+              ],
+              [
+                "exposed_latency",
+                "overlap_efficiency"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "FSDP (Fully Sharded Data Parallel) All-Gather Prefetching & Hybrid Sha",
+        "title": "FSDP All-Gather Prefetching & Hybrid Sharding — Core Algorithm &",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "compute_time_ms",
+            "label": "compute_time_ms"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "allgather_comm_time_ms",
+            "label": "allgather_comm_time_ms"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "exposed_latency",
+            "label": "exposed_latency"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "overlap_efficiency",
+            "label": "overlap_efficiency"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The FSDP stream overlap simulator evaluates the temporal interaction.",
+            "values": {
+              "compute_time_ms": "12",
+              "allgather_comm_time_ms": "8",
+              "exposed_latency": "0",
+              "overlap_efficiency": "100"
+            },
+            "tones": {
+              "compute_time_ms": "data",
+              "allgather_comm_time_ms": "data",
+              "exposed_latency": "data",
+              "overlap_efficiency": "data"
+            },
+            "arrows": [
+              [
+                "compute_time_ms",
+                "allgather_comm_time_ms"
+              ],
+              [
+                "allgather_comm_time_ms",
+                "exposed_latency"
+              ],
+              [
+                "exposed_latency",
+                "overlap_efficiency"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The algorithm compares the layer computation duration (in milliseconds).",
+            "values": {
+              "compute_time_ms": "12",
+              "allgather_comm_time_ms": "8",
+              "exposed_latency": "0",
+              "overlap_efficiency": "100"
+            },
+            "tones": {
+              "compute_time_ms": "data",
+              "allgather_comm_time_ms": "data",
+              "exposed_latency": "data",
+              "overlap_efficiency": "data"
+            },
+            "arrows": [
+              [
+                "compute_time_ms",
+                "allgather_comm_time_ms"
+              ],
+              [
+                "allgather_comm_time_ms",
+                "exposed_latency"
+              ],
+              [
+                "exposed_latency",
+                "overlap_efficiency"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Production training recipes tune layer granularity (wrapping policies).",
+            "values": {
+              "compute_time_ms": "12",
+              "allgather_comm_time_ms": "8",
+              "exposed_latency": "0",
+              "overlap_efficiency": "54.5"
+            },
+            "tones": {
+              "compute_time_ms": "ok",
+              "allgather_comm_time_ms": "ok",
+              "exposed_latency": "ok",
+              "overlap_efficiency": "ok"
+            },
+            "arrows": [
+              [
+                "compute_time_ms",
+                "allgather_comm_time_ms"
+              ],
+              [
+                "allgather_comm_time_ms",
+                "exposed_latency"
+              ],
+              [
+                "exposed_latency",
+                "overlap_efficiency"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "FSDP (Fully Sharded Data Parallel) All-Gather Prefetching & Hybrid Sharding — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "64f7059baa468b2b0e29f0c390a25788f0c827943adedccad7a7a72f3a833399",
+      "partTitle": "FSDP All-Gather Prefetching & Hybrid Sharding — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "d5d84976808029bc5615955c250727dad90029edeed5db2713d64ec65d336970",
       "spec": {
-        "template": "flow",
-        "title": "FSDP (Fully Sharded Data Parallel) All-Gather Prefetching & Hybrid Sha",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "FSDP All-Gather Prefetching & Hybrid Sharding — Throughput Optim",
+        "actors": [
+          "total_gpus",
+          "gpus_per_node",
+          "num_nodes"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In massive clusters spanning hundreds of physical servers, full sharding.",
+            "activeActor": "total_gpus",
+            "messages": [
+              {
+                "from": "total_gpus",
+                "to": "gpus_per_node",
+                "label": {
+                  "var": "total_gpus",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "gpus_per_node",
+                "to": "num_nodes",
+                "label": {
+                  "var": "gpus_per_node",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how even updates gbps during execution.",
+            "activeActor": "gpus_per_node",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "total_gpus",
+                "to": "gpus_per_node",
+                "label": {
+                  "var": "total_gpus",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "gpus_per_node",
+                "to": "num_nodes",
+                "label": {
+                  "var": "gpus_per_node",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deploying hybrid sharding increases Model FLOPs Utilization by over twenty.",
+            "activeActor": "num_nodes",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "total_gpus",
+                "to": "gpus_per_node",
+                "label": {
+                  "var": "total_gpus",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "gpus_per_node",
+                "to": "num_nodes",
+                "label": {
+                  "var": "gpus_per_node",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "FSDP (Fully Sharded Data Parallel) All-Gather Prefetching & Hybrid Sha",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "FSDP All-Gather Prefetching & Hybrid Sharding — Throughput Optim",
+        "actors": [
+          "total_gpus",
+          "gpus_per_node",
+          "num_nodes"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In massive clusters spanning hundreds of physical servers, full sharding.",
+            "messages": [
+              {
+                "from": "total_gpus",
+                "to": "gpus_per_node",
+                "label": "64",
+                "tone": "data"
+              },
+              {
+                "from": "gpus_per_node",
+                "to": "num_nodes",
+                "label": "8",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "total_gpus"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how even updates gbps during execution.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "total_gpus",
+                "to": "gpus_per_node",
+                "label": "64",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "gpus_per_node",
+                "to": "num_nodes",
+                "label": "8",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "gpus_per_node"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deploying hybrid sharding increases Model FLOPs Utilization by over twenty.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "total_gpus",
+                "to": "gpus_per_node",
+                "label": "64",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "gpus_per_node",
+                "to": "num_nodes",
+                "label": "8",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "num_nodes"
           }
         ]
       }
     },
     {
-      "partTitle": "FSDP (Fully Sharded Data Parallel) All-Gather Prefetching & Hybrid Sharding — Resilience Guardrails & Failure Recovery",
-      "codeHash": "ac47b61867d43b78a276f07ca18b5d08580790782b21c10c2fc716f505268edf",
+      "partTitle": "FSDP All-Gather Prefetching & Hybrid Sharding — Resilience Guardrails & Failure Recovery",
+      "codeHash": "47a0ca8f6d0eb61244ed29228f5914f98d27c1074cf1a59a42fd2f750bc57c87",
       "spec": {
-        "template": "flow",
-        "title": "FSDP (Fully Sharded Data Parallel) All-Gather Prefetching & Hybrid Sha",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "FSDP All-Gather Prefetching & Hybrid Sharding — Resilience Guard",
+        "actors": [
+          "param_dtype",
+          "reduce_dtype",
+          "buffer_dtype"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Configuring mixed precision in FSDP requires balancing floating-point.",
+            "activeActor": "param_dtype",
+            "messages": [
+              {
+                "from": "param_dtype",
+                "to": "reduce_dtype",
+                "label": {
+                  "var": "param_dtype",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "reduce_dtype",
+                "to": "buffer_dtype",
+                "label": {
+                  "var": "reduce_dtype",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how mixed updates precision during execution.",
+            "activeActor": "reduce_dtype",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "param_dtype",
+                "to": "reduce_dtype",
+                "label": {
+                  "var": "param_dtype",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "reduce_dtype",
+                "to": "buffer_dtype",
+                "label": {
+                  "var": "reduce_dtype",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Enforcing strict precision guardrails ensures that multi-week training.",
+            "activeActor": "buffer_dtype",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "param_dtype",
+                "to": "reduce_dtype",
+                "label": {
+                  "var": "param_dtype",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "reduce_dtype",
+                "to": "buffer_dtype",
+                "label": {
+                  "var": "reduce_dtype",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "FSDP (Fully Sharded Data Parallel) All-Gather Prefetching & Hybrid Sha",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "FSDP All-Gather Prefetching & Hybrid Sharding — Resilience Guard",
+        "actors": [
+          "param_dtype",
+          "reduce_dtype",
+          "buffer_dtype"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Configuring mixed precision in FSDP requires balancing floating-point.",
+            "messages": [
+              {
+                "from": "param_dtype",
+                "to": "reduce_dtype",
+                "label": "'bfloat16'",
+                "tone": "data"
+              },
+              {
+                "from": "reduce_dtype",
+                "to": "buffer_dtype",
+                "label": "'float32'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "param_dtype"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how mixed updates precision during execution.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "param_dtype",
+                "to": "reduce_dtype",
+                "label": "'bfloat16'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "reduce_dtype",
+                "to": "buffer_dtype",
+                "label": "'float32'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "reduce_dtype"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Enforcing strict precision guardrails ensures that multi-week training.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "param_dtype",
+                "to": "reduce_dtype",
+                "label": "'bfloat16'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "reduce_dtype",
+                "to": "buffer_dtype",
+                "label": "'float32'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "buffer_dtype"
           }
         ]
       }
     },
     {
-      "partTitle": "FSDP (Fully Sharded Data Parallel) All-Gather Prefetching & Hybrid Sharding — Production Telemetry & Verification Audit",
-      "codeHash": "bb9c6936eac8dbae38c35a136f8aad6fd6692c2448a0bcccc4a60120d43b6efe",
+      "partTitle": "FSDP All-Gather Prefetching & Hybrid Sharding — Production Telemetry & Verification Audit",
+      "codeHash": "84ae2455a164efe360b56cf2fcdc2e26ca82107ab1c820c8946a23e95c150174",
       "spec": {
         "template": "flow",
-        "title": "FSDP (Fully Sharded Data Parallel) All-Gather Prefetching & Hybrid Sha",
+        "title": "FSDP All-Gather Prefetching & Hybrid Sharding — Production Telem",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "overlap_simulated",
+            "label": "overlap_simulated"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "hybrid_planned",
+            "label": "hybrid_planned"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "precision_validated",
+            "label": "precision_validated"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "checks",
+            "label": "checks"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing PyTorch FSDP requires continuous telemetry tracking.",
+            "values": {
+              "overlap_simulated": {
+                "var": "overlap_simulated",
+                "line": 5,
+                "hit": 1
+              },
+              "hybrid_planned": {
+                "var": "hybrid_planned",
+                "line": 5,
+                "hit": 1
+              },
+              "precision_validated": {
+                "var": "precision_validated",
+                "line": 5,
+                "hit": 1
+              },
+              "checks": {
+                "var": "checks",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "overlap_simulated": "data",
+              "hybrid_planned": "data",
+              "precision_validated": "data",
+              "checks": "data"
+            },
+            "arrows": [
+              [
+                "overlap_simulated",
+                "hybrid_planned"
+              ],
+              [
+                "hybrid_planned",
+                "precision_validated"
+              ],
+              [
+                "precision_validated",
+                "checks"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "An FSDP architecture auditor verifies that stream prefetch simulation.",
+            "values": {
+              "overlap_simulated": {
+                "var": "overlap_simulated",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "hybrid_planned": {
+                "var": "hybrid_planned",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "precision_validated": {
+                "var": "precision_validated",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "checks": {
+                "var": "checks",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "overlap_simulated": "data",
+              "hybrid_planned": "data",
+              "precision_validated": "data",
+              "checks": "data"
+            },
+            "arrows": [
+              [
+                "overlap_simulated",
+                "hybrid_planned"
+              ],
+              [
+                "hybrid_planned",
+                "precision_validated"
+              ],
+              [
+                "precision_validated",
+                "checks"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Continuous FSDP auditing ensures that multi-node training clusters achieve.",
+            "values": {
+              "overlap_simulated": {
+                "var": "overlap_simulated",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "hybrid_planned": {
+                "var": "hybrid_planned",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "precision_validated": {
+                "var": "precision_validated",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "checks": {
+                "var": "checks",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "overlap_simulated": "ok",
+              "hybrid_planned": "ok",
+              "precision_validated": "ok",
+              "checks": "ok"
+            },
+            "arrows": [
+              [
+                "overlap_simulated",
+                "hybrid_planned"
+              ],
+              [
+                "hybrid_planned",
+                "precision_validated"
+              ],
+              [
+                "precision_validated",
+                "checks"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "FSDP (Fully Sharded Data Parallel) All-Gather Prefetching & Hybrid Sha",
+        "title": "FSDP All-Gather Prefetching & Hybrid Sharding — Production Telem",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "overlap_simulated",
+            "label": "overlap_simulated"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "hybrid_planned",
+            "label": "hybrid_planned"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "precision_validated",
+            "label": "precision_validated"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "checks",
+            "label": "checks"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing PyTorch FSDP requires continuous telemetry tracking.",
+            "values": {
+              "overlap_simulated": "True",
+              "hybrid_planned": "True",
+              "precision_validated": "True",
+              "checks": "{'ALLGATHER_OVERLAP_SIM': True, 'HYBRID…"
+            },
+            "tones": {
+              "overlap_simulated": "data",
+              "hybrid_planned": "data",
+              "precision_validated": "data",
+              "checks": "data"
+            },
+            "arrows": [
+              [
+                "overlap_simulated",
+                "hybrid_planned"
+              ],
+              [
+                "hybrid_planned",
+                "precision_validated"
+              ],
+              [
+                "precision_validated",
+                "checks"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "An FSDP architecture auditor verifies that stream prefetch simulation.",
+            "values": {
+              "overlap_simulated": "True",
+              "hybrid_planned": "True",
+              "precision_validated": "True",
+              "checks": "{'ALLGATHER_OVERLAP_SIM': True, 'HYBRID…"
+            },
+            "tones": {
+              "overlap_simulated": "data",
+              "hybrid_planned": "data",
+              "precision_validated": "data",
+              "checks": "data"
+            },
+            "arrows": [
+              [
+                "overlap_simulated",
+                "hybrid_planned"
+              ],
+              [
+                "hybrid_planned",
+                "precision_validated"
+              ],
+              [
+                "precision_validated",
+                "checks"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Continuous FSDP auditing ensures that multi-node training clusters achieve.",
+            "values": {
+              "overlap_simulated": "True",
+              "hybrid_planned": "True",
+              "precision_validated": "True",
+              "checks": "{'ALLGATHER_OVERLAP_SIM': True, 'HYBRID…"
+            },
+            "tones": {
+              "overlap_simulated": "ok",
+              "hybrid_planned": "ok",
+              "precision_validated": "ok",
+              "checks": "ok"
+            },
+            "arrows": [
+              [
+                "overlap_simulated",
+                "hybrid_planned"
+              ],
+              [
+                "hybrid_planned",
+                "precision_validated"
+              ],
+              [
+                "precision_validated",
+                "checks"
+              ]
             ]
           }
         ]

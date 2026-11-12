@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 51,
-  "promptSha": "e042a6c7d69b7b8261096606d68a860fdf093b0e8a04dabe749e1221a09a0afc",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signed URLs — Foundations & Mathematical Invariants",
-      "codeHash": "e2d49db1d30b4e353399d766a1aded9758a755f3affae922308f85a656c9203b",
+      "codeHash": "110e572617d18e731a53c8a984e1384232981f6a697d261d27e12b1b38071572",
       "spec": {
-        "template": "flow",
-        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signed URLs",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signe",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In global enterprise architectures, edge network topologies rely.",
+            "bars": [
+              {
+                "label": "cache_hits",
+                "value": {
+                  "var": "cache_hits",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cache_misses",
+                "value": {
+                  "var": "cache_misses",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_requests",
+                "value": {
+                  "var": "total_requests",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "chr_standard",
+                "value": {
+                  "var": "chr_standard",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Consolidating origin requests across multi-tiered regional caches.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "cache_hits",
+                "value": {
+                  "var": "cache_hits",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "cache_misses",
+                "value": {
+                  "var": "cache_misses",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "total_requests",
+                "value": {
+                  "var": "total_requests",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "chr_standard",
+                "value": {
+                  "var": "chr_standard",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "In production cloud platforms, maximizing edge caching efficiency directly.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "cache_hits",
+                "value": {
+                  "var": "cache_hits",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "cache_misses",
+                "value": {
+                  "var": "cache_misses",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "total_requests",
+                "value": {
+                  "var": "total_requests",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "chr_standard",
+                "value": {
+                  "var": "chr_standard",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signed URLs",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signe",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In global enterprise architectures, edge network topologies rely.",
+            "bars": [
+              {
+                "label": "cache_hits",
+                "value": 850000,
+                "tone": "data"
+              },
+              {
+                "label": "cache_misses",
+                "value": 150000,
+                "tone": "data"
+              },
+              {
+                "label": "total_requests",
+                "value": 1000000,
+                "tone": "data"
+              },
+              {
+                "label": "chr_standard",
+                "value": 85,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Consolidating origin requests across multi-tiered regional caches.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "cache_hits",
+                "value": 850000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "cache_misses",
+                "value": 150000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "total_requests",
+                "value": 1000000,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "chr_standard",
+                "value": 85,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "In production cloud platforms, maximizing edge caching efficiency directly.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "cache_hits",
+                "value": 850000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "cache_misses",
+                "value": 150000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "total_requests",
+                "value": 1000000,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "chr_standard",
+                "value": 85,
+                "tone": "ok"
               }
             ]
           }
@@ -273,265 +227,279 @@
     },
     {
       "partTitle": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signed URLs — Core Algorithm & State Representation",
-      "codeHash": "687519eb62b5c205662584fe76eee826ae18e71561a3b930cf1a0d367aa2ef05",
+      "codeHash": "3bd78827df9e6ebcc8e4e97153670bafe2f74bb18f2dd818fcc1098f87c13bbf",
       "spec": {
         "template": "flow",
-        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signed URLs",
+        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signe",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "requirement",
+            "label": "requirement"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cf_functions_capabilities",
+            "label": "cf_functions_capabilities"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "lambda_edge_capabilities",
+            "label": "lambda_edge_capabilities"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "r1",
+            "label": "r1"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Edge compute functions inspect incoming request headers directly.",
+            "values": {
+              "requirement": {
+                "var": "requirement",
+                "line": 4,
+                "hit": 1
+              },
+              "cf_functions_capabilities": {
+                "var": "cf_functions_capabilities",
+                "line": 4,
+                "hit": 1
+              },
+              "lambda_edge_capabilities": {
+                "var": "lambda_edge_capabilities",
+                "line": 7,
+                "hit": 1
+              },
+              "r1": {
+                "var": "r1",
+                "line": 27,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "requirement": "data",
+              "cf_functions_capabilities": "data",
+              "lambda_edge_capabilities": "data",
+              "r1": "data"
+            },
+            "arrows": [
+              [
+                "requirement",
+                "cf_functions_capabilities"
+              ],
+              [
+                "cf_functions_capabilities",
+                "lambda_edge_capabilities"
+              ],
+              [
+                "lambda_edge_capabilities",
+                "r1"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Scoping cache keys deterministically eliminates redundant cache entries.",
+            "values": {
+              "requirement": {
+                "var": "requirement",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "cf_functions_capabilities": {
+                "var": "cf_functions_capabilities",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "lambda_edge_capabilities": {
+                "var": "lambda_edge_capabilities",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "r1": {
+                "var": "r1",
+                "line": 28,
+                "hit": 1
               }
+            },
+            "tones": {
+              "requirement": "data",
+              "cf_functions_capabilities": "data",
+              "lambda_edge_capabilities": "data",
+              "r1": "data"
+            },
+            "arrows": [
+              [
+                "requirement",
+                "cf_functions_capabilities"
+              ],
+              [
+                "cf_functions_capabilities",
+                "lambda_edge_capabilities"
+              ],
+              [
+                "lambda_edge_capabilities",
+                "r1"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Careful header normalization collapses redundant cache variants.",
+            "values": {
+              "requirement": {
+                "var": "requirement",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "cf_functions_capabilities": {
+                "var": "cf_functions_capabilities",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "lambda_edge_capabilities": {
+                "var": "lambda_edge_capabilities",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "r1": {
+                "var": "r1",
+                "line": 29,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "requirement": "ok",
+              "cf_functions_capabilities": "ok",
+              "lambda_edge_capabilities": "ok",
+              "r1": "ok"
+            },
+            "arrows": [
+              [
+                "requirement",
+                "cf_functions_capabilities"
+              ],
+              [
+                "cf_functions_capabilities",
+                "lambda_edge_capabilities"
+              ],
+              [
+                "lambda_edge_capabilities",
+                "r1"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signed URLs",
+        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signe",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "requirement",
+            "label": "requirement"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cf_functions_capabilities",
+            "label": "cf_functions_capabilities"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "lambda_edge_capabilities",
+            "label": "lambda_edge_capabilities"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "r1",
+            "label": "r1"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Edge compute functions inspect incoming request headers directly.",
+            "values": {
+              "requirement": "'query_strip'",
+              "cf_functions_capabilities": "['url_rewrite', 'header_normalization',…",
+              "lambda_edge_capabilities": "['body_parsing', 'external_api_call', '…",
+              "r1": "{'selected': 'CloudFront Functions', 'l…"
+            },
+            "tones": {
+              "requirement": "data",
+              "cf_functions_capabilities": "data",
+              "lambda_edge_capabilities": "data",
+              "r1": "data"
+            },
+            "arrows": [
+              [
+                "requirement",
+                "cf_functions_capabilities"
+              ],
+              [
+                "cf_functions_capabilities",
+                "lambda_edge_capabilities"
+              ],
+              [
+                "lambda_edge_capabilities",
+                "r1"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Scoping cache keys deterministically eliminates redundant cache entries.",
+            "values": {
+              "requirement": "'query_strip'",
+              "cf_functions_capabilities": "['url_rewrite', 'header_normalization',…",
+              "lambda_edge_capabilities": "['body_parsing', 'external_api_call', '…",
+              "r1": "{'selected': 'CloudFront Functions', 'l…"
+            },
+            "tones": {
+              "requirement": "data",
+              "cf_functions_capabilities": "data",
+              "lambda_edge_capabilities": "data",
+              "r1": "data"
+            },
+            "arrows": [
+              [
+                "requirement",
+                "cf_functions_capabilities"
+              ],
+              [
+                "cf_functions_capabilities",
+                "lambda_edge_capabilities"
+              ],
+              [
+                "lambda_edge_capabilities",
+                "r1"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Careful header normalization collapses redundant cache variants.",
+            "values": {
+              "requirement": "'query_strip'",
+              "cf_functions_capabilities": "['url_rewrite', 'header_normalization',…",
+              "lambda_edge_capabilities": "['body_parsing', 'external_api_call', '…",
+              "r1": "{'selected': 'CloudFront Functions', 'l…"
+            },
+            "tones": {
+              "requirement": "ok",
+              "cf_functions_capabilities": "ok",
+              "lambda_edge_capabilities": "ok",
+              "r1": "ok"
+            },
+            "arrows": [
+              [
+                "requirement",
+                "cf_functions_capabilities"
+              ],
+              [
+                "cf_functions_capabilities",
+                "lambda_edge_capabilities"
+              ],
+              [
+                "lambda_edge_capabilities",
+                "r1"
+              ]
             ]
           }
         ]
@@ -539,265 +507,279 @@
     },
     {
       "partTitle": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signed URLs — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "fdb2a6a5c4802f607d1c4b5c1b22cb4032d41933760376a112341a25a803c484",
+      "codeHash": "2b657a3c321c28a03d91881380e940fd5846abc253a428af8abe9747a6b89f90",
       "spec": {
         "template": "flow",
-        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signed URLs",
+        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signe",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "now",
+            "label": "now"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "resource_url",
+            "label": "resource_url"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "expiry_epoch",
+            "label": "expiry_epoch"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "secret_key",
+            "label": "secret_key"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cryptographic token validation performed at network edge routers offloads.",
+            "values": {
+              "now": {
+                "var": "now",
+                "line": 33,
+                "hit": 1
+              },
+              "resource_url": {
+                "var": "resource_url",
+                "line": 8,
+                "hit": 1
+              },
+              "expiry_epoch": {
+                "var": "expiry_epoch",
+                "line": 8,
+                "hit": 1
+              },
+              "secret_key": {
+                "var": "secret_key",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "now": "data",
+              "resource_url": "data",
+              "expiry_epoch": "data",
+              "secret_key": "data"
+            },
+            "arrows": [
+              [
+                "now",
+                "resource_url"
+              ],
+              [
+                "resource_url",
+                "expiry_epoch"
+              ],
+              [
+                "expiry_epoch",
+                "secret_key"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Configuring custom policy documents allows platform operators to enforce.",
+            "values": {
+              "now": {
+                "var": "now",
+                "line": 34,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "resource_url": {
+                "var": "resource_url",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "expiry_epoch": {
+                "var": "expiry_epoch",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "secret_key": {
+                "var": "secret_key",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "now": "data",
+              "resource_url": "data",
+              "expiry_epoch": "data",
+              "secret_key": "data"
+            },
+            "arrows": [
+              [
+                "now",
+                "resource_url"
+              ],
+              [
+                "resource_url",
+                "expiry_epoch"
+              ],
+              [
+                "expiry_epoch",
+                "secret_key"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Because verification occurs at edge locations in microseconds, legitimate.",
+            "values": {
+              "now": {
+                "var": "now",
+                "line": 35,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "resource_url": {
+                "var": "resource_url",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "expiry_epoch": {
+                "var": "expiry_epoch",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "secret_key": {
+                "var": "secret_key",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "now": "ok",
+              "resource_url": "ok",
+              "expiry_epoch": "ok",
+              "secret_key": "ok"
+            },
+            "arrows": [
+              [
+                "now",
+                "resource_url"
+              ],
+              [
+                "resource_url",
+                "expiry_epoch"
+              ],
+              [
+                "expiry_epoch",
+                "secret_key"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signed URLs",
+        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signe",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "now",
+            "label": "now"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "resource_url",
+            "label": "resource_url"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "expiry_epoch",
+            "label": "expiry_epoch"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "secret_key",
+            "label": "secret_key"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cryptographic token validation performed at network edge routers offloads.",
+            "values": {
+              "now": "1794484055",
+              "resource_url": "'https://cdn.example.com/premium/video.…",
+              "expiry_epoch": "1794487655",
+              "secret_key": "'super_secret_key'"
+            },
+            "tones": {
+              "now": "data",
+              "resource_url": "data",
+              "expiry_epoch": "data",
+              "secret_key": "data"
+            },
+            "arrows": [
+              [
+                "now",
+                "resource_url"
+              ],
+              [
+                "resource_url",
+                "expiry_epoch"
+              ],
+              [
+                "expiry_epoch",
+                "secret_key"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Configuring custom policy documents allows platform operators to enforce.",
+            "values": {
+              "now": "1794484055",
+              "resource_url": "'https://cdn.example.com/premium/video.…",
+              "expiry_epoch": "1794487655",
+              "secret_key": "'super_secret_key'"
+            },
+            "tones": {
+              "now": "data",
+              "resource_url": "data",
+              "expiry_epoch": "data",
+              "secret_key": "data"
+            },
+            "arrows": [
+              [
+                "now",
+                "resource_url"
+              ],
+              [
+                "resource_url",
+                "expiry_epoch"
+              ],
+              [
+                "expiry_epoch",
+                "secret_key"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Because verification occurs at edge locations in microseconds, legitimate.",
+            "values": {
+              "now": "1794484055",
+              "resource_url": "'https://cdn.example.com/premium/video.…",
+              "expiry_epoch": "1794487655",
+              "secret_key": "'super_secret_key'"
+            },
+            "tones": {
+              "now": "ok",
+              "resource_url": "ok",
+              "expiry_epoch": "ok",
+              "secret_key": "ok"
+            },
+            "arrows": [
+              [
+                "now",
+                "resource_url"
+              ],
+              [
+                "resource_url",
+                "expiry_epoch"
+              ],
+              [
+                "expiry_epoch",
+                "secret_key"
+              ]
             ]
           }
         ]
@@ -805,265 +787,279 @@
     },
     {
       "partTitle": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signed URLs — Resilience Guardrails & Failure Recovery",
-      "codeHash": "b20829c98d5527ead9f1e5a7d66e343ce56d7a6ee6402506f581eb9bba001083",
+      "codeHash": "58fdd86410c71edbfeb90f838627096c33a4db62dff9d680a26b78ac39b63dcf",
       "spec": {
         "template": "flow",
-        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signed URLs",
+        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signe",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "group",
+            "label": "group"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "origin_group",
+            "label": "origin_group"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "primary_status",
+            "label": "primary_status"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "secondary_status",
+            "label": "secondary_status"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated origin failover policies monitor backend HTTP response status.",
+            "values": {
+              "group": {
+                "var": "group",
+                "line": 18,
+                "hit": 1
+              },
+              "origin_group": {
+                "var": "origin_group",
+                "line": 7,
+                "hit": 1
+              },
+              "primary_status": {
+                "var": "primary_status",
+                "line": 7,
+                "hit": 1
+              },
+              "secondary_status": {
+                "var": "secondary_status",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "group": "data",
+              "origin_group": "data",
+              "primary_status": "data",
+              "secondary_status": "data"
+            },
+            "arrows": [
+              [
+                "group",
+                "origin_group"
+              ],
+              [
+                "origin_group",
+                "primary_status"
+              ],
+              [
+                "primary_status",
+                "secondary_status"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Edge cache revalidation directives ensure that transient origin database.",
+            "values": {
+              "group": {
+                "var": "group",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "origin_group": {
+                "var": "origin_group",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "primary_status": {
+                "var": "primary_status",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "secondary_status": {
+                "var": "secondary_status",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "group": "data",
+              "origin_group": "data",
+              "primary_status": "data",
+              "secondary_status": "data"
+            },
+            "arrows": [
+              [
+                "group",
+                "origin_group"
+              ],
+              [
+                "origin_group",
+                "primary_status"
+              ],
+              [
+                "primary_status",
+                "secondary_status"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Centralized configuration management ensures failover criteria and timeout.",
+            "values": {
+              "group": {
+                "var": "group",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "origin_group": {
+                "var": "origin_group",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "primary_status": {
+                "var": "primary_status",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "secondary_status": {
+                "var": "secondary_status",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "group": "ok",
+              "origin_group": "ok",
+              "primary_status": "ok",
+              "secondary_status": "ok"
+            },
+            "arrows": [
+              [
+                "group",
+                "origin_group"
+              ],
+              [
+                "origin_group",
+                "primary_status"
+              ],
+              [
+                "primary_status",
+                "secondary_status"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signed URLs",
+        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signe",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "group",
+            "label": "group"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "origin_group",
+            "label": "origin_group"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "primary_status",
+            "label": "primary_status"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "secondary_status",
+            "label": "secondary_status"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated origin failover policies monitor backend HTTP response status.",
+            "values": {
+              "group": "{'primary': 'origin-alb.internal', 'sec…",
+              "origin_group": "{'primary': 'origin-alb.internal', 'sec…",
+              "primary_status": "200",
+              "secondary_status": "200"
+            },
+            "tones": {
+              "group": "data",
+              "origin_group": "data",
+              "primary_status": "data",
+              "secondary_status": "data"
+            },
+            "arrows": [
+              [
+                "group",
+                "origin_group"
+              ],
+              [
+                "origin_group",
+                "primary_status"
+              ],
+              [
+                "primary_status",
+                "secondary_status"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Edge cache revalidation directives ensure that transient origin database.",
+            "values": {
+              "group": "{'primary': 'origin-alb.internal', 'sec…",
+              "origin_group": "{'primary': 'origin-alb.internal', 'sec…",
+              "primary_status": "200",
+              "secondary_status": "200"
+            },
+            "tones": {
+              "group": "data",
+              "origin_group": "data",
+              "primary_status": "data",
+              "secondary_status": "data"
+            },
+            "arrows": [
+              [
+                "group",
+                "origin_group"
+              ],
+              [
+                "origin_group",
+                "primary_status"
+              ],
+              [
+                "primary_status",
+                "secondary_status"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Centralized configuration management ensures failover criteria and timeout.",
+            "values": {
+              "group": "{'primary': 'origin-alb.internal', 'sec…",
+              "origin_group": "{'primary': 'origin-alb.internal', 'sec…",
+              "primary_status": "503",
+              "secondary_status": "200"
+            },
+            "tones": {
+              "group": "ok",
+              "origin_group": "ok",
+              "primary_status": "ok",
+              "secondary_status": "ok"
+            },
+            "arrows": [
+              [
+                "group",
+                "origin_group"
+              ],
+              [
+                "origin_group",
+                "primary_status"
+              ],
+              [
+                "primary_status",
+                "secondary_status"
+              ]
             ]
           }
         ]
@@ -1071,266 +1067,164 @@
     },
     {
       "partTitle": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signed URLs — Production Telemetry & Verification Audit",
-      "codeHash": "6a5ad0e9584b60352f23b5fe701c8b32d14e935c79a6b2e8dc36391c692fb8af",
+      "codeHash": "8353b76323cc048535723495109319ed8b87f96b93390f5b4f3217b393e36087",
       "spec": {
-        "template": "flow",
-        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signed URLs",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signe",
+        "actors": [
+          "m_good",
+          "m_bad",
+          "metrics"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Real-time CDN metrics streamed to centralized telemetry pipelines enable.",
+            "activeActor": "m_good",
+            "messages": [
+              {
+                "from": "m_good",
+                "to": "m_bad",
+                "label": {
+                  "var": "m_good",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "m_bad",
+                "to": "metrics",
+                "label": {
+                  "var": "m_bad",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Automated configuration auditing verifies that modern TLS cipher suites.",
+            "activeActor": "m_bad",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "m_good",
+                "to": "m_bad",
+                "label": {
+                  "var": "m_good",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "m_bad",
+                "to": "metrics",
+                "label": {
+                  "var": "m_bad",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Comprehensive telemetry auditing certifies that global edge infrastructure.",
+            "activeActor": "metrics",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "m_good",
+                "to": "m_bad",
+                "label": {
+                  "var": "m_good",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "m_bad",
+                "to": "metrics",
+                "label": {
+                  "var": "m_bad",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signed URLs",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "CloudFront Edge Functions, Origin Shield Cache Hit Ratio & Signe",
+        "actors": [
+          "m_good",
+          "m_bad",
+          "metrics"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Real-time CDN metrics streamed to centralized telemetry pipelines enable.",
+            "messages": [
+              {
+                "from": "m_good",
+                "to": "m_bad",
+                "label": "{'cache_hit_rate': 94.5, '5xx_error_rat…",
+                "tone": "data"
+              },
+              {
+                "from": "m_bad",
+                "to": "metrics",
+                "label": "{'cache_hit_rate': 62.1, '5xx_error_rat…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "m_good"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Automated configuration auditing verifies that modern TLS cipher suites.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "m_good",
+                "to": "m_bad",
+                "label": "{'cache_hit_rate': 94.5, '5xx_error_rat…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "m_bad",
+                "to": "metrics",
+                "label": "{'cache_hit_rate': 62.1, '5xx_error_rat…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "m_bad"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Comprehensive telemetry auditing certifies that global edge infrastructure.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "m_good",
+                "to": "m_bad",
+                "label": "{'cache_hit_rate': 94.5, '5xx_error_rat…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "m_bad",
+                "to": "metrics",
+                "label": "{'cache_hit_rate': 62.1, '5xx_error_rat…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "metrics"
           }
         ]
       }

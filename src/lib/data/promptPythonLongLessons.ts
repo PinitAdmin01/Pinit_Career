@@ -42,11 +42,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a chat assistant produce its answers?",
           "options": [
-            "It searches a fixed database of answers",
-            "It predicts likely text based on patterns learned in training",
-            "A human writes them"
+            "It predicts likely next tokens from patterns learned in training",
+            "It retrieves verbatim passages from a fixed internal FAQ database",
+            "Human operators silently compose replies in a backend queue",
+            "It compiles each user prompt into SQL queries against a lookup table"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "LLMs generate text by prediction."
         }
       },
@@ -79,11 +80,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a token?",
           "options": [
-            "A password",
-            "A small piece of text, often a word or part of a word",
-            "A type of GPU"
+            "An authentication credential issued by a model provider API",
+            "A specialized processor core dedicated to matrix multiplication",
+            "A compressed checkpoint storing neural network weight matrices",
+            "A small unit of text, often a word or frequent subword fragment"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Models read and write in tokens."
         }
       },
@@ -111,11 +113,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which prompt is most specific?",
           "options": [
-            "Tell me about taxes",
+            "Write a general overview explaining how taxes work across countries",
+            "Tell me everything important you know about annual taxation rules",
             "Explain income tax slabs in a 5-row table for a new employee in India",
-            "Taxes?"
+            "Summarise personal finance best practices without using any examples"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "It names the topic, format and audience."
         }
       },
@@ -147,9 +150,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why compare whole words rather than substrings when checking for \"list\"?",
           "options": [
-            "It is faster",
-            "Words like \"listening\" contain \"list\" but are not format requests",
-            "Python cannot find substrings"
+            "Substring scanning triggers a deprecation warning in modern Python",
+            "Words like 'listening' contain 'list' without requesting a list format",
+            "Regex word boundaries automatically lowercase uppercase prompt keywords",
+            "Substrings longer than three characters fail to match ASCII strings"
           ],
           "answer": 1,
           "why": "Substring matching gives false positives."
@@ -179,9 +183,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is an AI hallucination?",
           "options": [
-            "A slow response",
-            "A confident, fluent statement that is false",
-            "An image generation feature"
+            "A high-latency timeout triggered during streaming decoding",
+            "A confident, fluent model statement that is factually false",
+            "An image upscaling filter applied to low-resolution renders",
+            "A safety refusal emitted when a prompt triggers content filters"
           ],
           "answer": 1,
           "why": "Hallucinations look convincing but are wrong."
@@ -211,11 +216,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "build_prompt(\"tides\", \"   \", \"kids\") should?",
           "options": [
-            "Return a prompt without a format",
-            "Raise ValueError",
-            "Return None"
+            "Raise ValueError because blank required fields are invalid",
+            "Return a prompt while omitting the blank format field",
+            "Return None to signal that formatting was skipped silently",
+            "Substitute Markdown bullet points as a silent default format"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "A blank format is missing after stripping."
         }
       }
@@ -268,11 +274,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the job of a system prompt?",
           "options": [
-            "To ask one question",
-            "To set the assistant's role, rules and style for every conversation",
-            "To store passwords"
+            "To transmit one ephemeral search query to external web tools",
+            "To encrypt user credentials stored in the client browser session",
+            "To cache tokenized embeddings between independent user accounts",
+            "To define the assistant's role, rules, and style across turns"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "It configures the assistant for all requests."
         }
       },
@@ -305,11 +312,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the A in C-R-E-A-T-E stand for?",
           "options": [
-            "Audience",
-            "Actions",
-            "Accuracy"
+            "Target audience profile",
+            "Factual accuracy score",
+            "Concrete task actions",
+            "Model attention weight"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Actions: the concrete outputs you want."
         }
       },
@@ -338,11 +346,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Does a \"doctor\" persona make the model medically reliable?",
           "options": [
-            "Yes",
-            "No, it changes style and focus, but facts still need checking",
-            "Only for simple questions"
+            "Yes, invoking a clinical role enables verified medical weights",
+            "Only when temperature is fixed at zero across multi-turn prompts",
+            "No, persona shifts style and focus while facts still need checking",
+            "Only if diagnostic terms are wrapped inside XML system delimiters"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Personas shape wording, not truth."
         }
       },
@@ -371,9 +380,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why give the model an allowed fallback answer?",
           "options": [
-            "To make answers longer",
-            "So it is less likely to guess when it does not know",
-            "It is required by law"
+            "To lengthen responses and meet enterprise word count minimums",
+            "So the model declines instead of guessing when evidence is missing",
+            "To comply with statutory API disclosure mandates on all queries",
+            "To force the tokenizer to emit lower-perplexity punctuation marks"
           ],
           "answer": 1,
           "why": "A safe way out reduces hallucination."
@@ -404,11 +414,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why match pillar labels only at the start of a line?",
           "options": [
-            "It is faster",
-            "So words like \"context:\" inside a sentence are not mistaken for a label",
-            "Labels must be uppercase"
+            "Inline mentions like 'context:' mid-sentence are not section headers",
+            "Unanchored searches throw runtime exceptions on multiline strings",
+            "Uppercase pillar keys only parse correctly at byte offset zero",
+            "Leading colons strip newline delimiters during prompt concatenation"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Position-based matching avoids false positives."
         }
       },
@@ -436,11 +447,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "create_prompt skips a pillar when?",
           "options": [
-            "Its value is longer than 50 characters",
-            "It is missing or blank after stripping",
-            "It contains a colon"
+            "Its string value exceeds fifty characters in total length",
+            "It includes punctuation characters such as colons or hyphens",
+            "The template dictionary omits an optional trailing fallback key",
+            "Its text is missing or becomes empty after whitespace stripping"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Blank or absent pillars are reported as missing."
         }
       }
@@ -497,11 +509,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Does in-context learning permanently change the model?",
           "options": [
-            "Yes",
-            "No, the examples only guide the current response",
-            "Only after ten examples"
+            "Yes, every example updates transformer weights for future users",
+            "Only after passing ten diverse exemplars in the system message",
+            "Yes, provider APIs cache gradient updates per API key automatically",
+            "No, in-context examples only condition the active response window"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "It is temporary, prompt-level guidance."
         }
       },
@@ -530,11 +543,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is few-shot prompting most useful?",
           "options": [
-            "For very common simple tasks",
-            "For unusual tasks, strict formats or tricky edge cases",
-            "Never"
+            "Trivial greetings or standard factual lookups models already ace",
+            "Prompts exceeding the full model context limit before system rules",
+            "Niche conventions, strict schemas, or subtle edge-case formatting",
+            "Binary image classification tasks without multimodal token support"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Several examples pin down format and edge cases."
         }
       },
@@ -568,9 +582,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How should a few-shot prompt end?",
           "options": [
-            "With the answer",
-            "With the query and an empty output label",
-            "With a thank-you"
+            "With a completed exemplar answer showing the final verdict",
+            "With the target query followed by an empty output prefix label",
+            "With a polite closing remark instructing the model to stop early",
+            "With a blank JSON schema definition excluding the user's input"
           ],
           "answer": 1,
           "why": "The empty label marks exactly where the model continues."
@@ -601,11 +616,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why pick examples similar to the query?",
           "options": [
-            "They are shorter",
-            "Similar examples guide the model best for this particular input",
-            "The model requires it"
+            "Relevant demonstrations anchor formatting and reasoning for that case",
+            "Semantically adjacent examples compress input byte counts slightly",
+            "Foundation model endpoints reject dissimilar shot lists at ingest",
+            "Dissimilar examples reset the system prompt attention mask completely"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Relevance makes examples more useful."
         }
       },
@@ -635,11 +651,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What problem does label imbalance cause?",
           "options": [
-            "Slower replies",
-            "The model leans towards the most common label",
-            "Higher prices"
+            "The model over-predicts the majority label seen in the examples",
+            "Uniform decoding speed drops across every output token position",
+            "Per-token billing switches to the higher fine-tuned model rate",
+            "Minority labels trigger automatic JSON schema validation retries"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The model mirrors the distribution it is shown."
         }
       },
@@ -671,11 +688,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "pick_examples with all scores zero returns?",
           "options": [
-            "A random selection",
-            "The first k examples in pool order",
-            "An empty list"
+            "A randomly sampled subset seeded by the current timestamp",
+            "An empty list since zero similarity falls below threshold",
+            "The last k entries ordered alphabetically by category tag",
+            "The first k examples preserved in original pool order"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Ties are broken by the original index."
         }
       }
@@ -728,11 +746,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can chain-of-thought improve answers?",
           "options": [
-            "It makes the model faster",
-            "Writing intermediate steps gives the model context to build on for later steps",
-            "It hides mistakes"
+            "Generating extra tokens cuts decoding latency on modern GPUs",
+            "Reasoning traces bypass safety classifiers on external tool calls",
+            "Explicit intermediate steps create context for later deductions",
+            "Hidden scratchpads permanently cache math results across sessions"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Each reasoning step informs the next tokens."
         }
       },
@@ -765,9 +784,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "If a reply contains two \"Answer:\" lines, which should you use?",
           "options": [
-            "The first",
-            "The last, because the model may have corrected itself",
-            "Neither"
+            "The first marker emitted before reasoning starts",
+            "The final marker, because models often self-correct",
+            "Neither marker, throwing a duplicate delimiter error",
+            "Whichever line contains more words after splitting"
           ],
           "answer": 1,
           "why": "Later lines reflect corrections."
@@ -798,9 +818,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does self-consistency voting help?",
           "options": [
-            "It makes one answer longer",
-            "Different wrong paths disagree while correct ones tend to agree",
-            "It lowers costs"
+            "Sampling repeatedly forces each individual trace to grow longer",
+            "Independent error paths diverge while valid reasoning converges",
+            "Multiple parallel completions reduce API billing token charges",
+            "Averaging temperature logits disables stochastic decoding noise"
           ],
           "answer": 1,
           "why": "Majority agreement filters out random reasoning errors."
@@ -835,11 +856,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does tree of thoughts add to chain of thought?",
           "options": [
-            "Shorter answers",
-            "Exploring and evaluating several reasoning branches before continuing",
-            "Image generation"
+            "Branching and scoring alternative paths before committing forward",
+            "Collapsing multi-paragraph explanations into single-word answers",
+            "Bypassing token prediction by invoking deterministic AST parsers",
+            "Running multimodal image renders alongside structured JSON blocks"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "It searches over alternatives."
         }
       },
@@ -869,11 +891,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Should you rely on step-by-step reasoning for exact arithmetic in important work?",
           "options": [
-            "Yes, always",
-            "No, verify the numbers with code or a calculator",
-            "Only on weekends"
+            "Yes, step-by-step prose prevents floating-point rounding drift",
+            "Only when using temperature zero with at least three few-shot demos",
+            "Yes, arithmetic accuracy reaches 100% once a persona prompt is added",
+            "No, offload exact calculations to Python code or a calculator tool"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Reasoning can still contain arithmetic slips."
         }
       },
@@ -905,11 +928,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "self_consistency([\"a\", \"b\"]) returns which answer?",
           "options": [
-            "\"b\"",
-            "\"a\", because ties go to the first seen",
-            "An error"
+            "The second candidate, prioritizing the most recent branch",
+            "None, raising ValueError whenever top vote counts are tied",
+            "Candidate 'a', since tie-breaks select the first seen item",
+            "Both candidates joined together in a comma-separated string"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "dict.fromkeys preserves first-seen order."
         }
       }
@@ -962,11 +986,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a common rule of thumb for English tokens?",
           "options": [
-            "1 token per character",
-            "About 4 characters per token",
-            "1 token per sentence"
+            "Roughly 1 token per English character",
+            "Roughly 1 token per complete sentence",
+            "Roughly 4 characters per English token",
+            "Roughly 12 characters per common token"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Roughly four characters, or three quarters of a word."
         }
       },
@@ -995,9 +1020,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens if the prompt fills the whole context window?",
           "options": [
-            "The answer is better",
-            "There is no room left for the model to write its reply",
-            "The window grows automatically"
+            "Output quality peaks because attention covers maximum context",
+            "Minimal token budget remains for the model to generate its reply",
+            "Cloud endpoints expand the context limit by adding extra billing",
+            "Older prompt paragraphs are summarized automatically before decoding"
           ],
           "answer": 1,
           "why": "Always reserve space for the output."
@@ -1028,11 +1054,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which is usually more expensive per token?",
           "options": [
-            "Input tokens",
-            "Output tokens",
-            "They always cost the same"
+            "Generated output tokens",
+            "Cached system tokens",
+            "Plain input tokens",
+            "Empty delimiter tokens"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Generated output costs more."
         }
       },
@@ -1064,11 +1091,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why ask for concise output?",
           "options": [
-            "It is more polite",
-            "Output tokens cost the most, so shorter replies reduce cost",
-            "Models require it"
+            "Concise wording improves tokenization compatibility with UTF-8",
+            "Prompt endpoints throttle responses exceeding two hundred words",
+            "Shorter answers automatically eliminate all model hallucinations",
+            "Output tokens cost more per token, so tighter replies cut cost"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Shorter outputs save money and time."
         }
       },
@@ -1096,11 +1124,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "After receiving a reply, what should code do before using the answer?",
           "options": [
-            "Print it immediately",
-            "Extract and validate it",
-            "Delete the prompt"
+            "Forward the raw string directly to production storage",
+            "Clear the system prompt from client session telemetry",
+            "Lower the temperature parameter before retrying logs",
+            "Extract the target payload and validate its schema"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Programmatic checks make AI outputs dependable."
         }
       },
@@ -1132,11 +1161,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "prompt_budget returns a negative remaining value when?",
           "options": [
-            "Never",
-            "When the prompt plus reserved output exceeds the window",
-            "When the system prompt is empty"
+            "Never, because budget functions clamp negatives up to zero",
+            "Whenever the system prompt string contains zero non-space words",
+            "When prompt tokens plus reserved output tokens exceed capacity",
+            "If reserved output size is smaller than the tokenized user query"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Negative remaining means it does not fit."
         }
       }
@@ -1193,9 +1223,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does greedy decoding do?",
           "options": [
-            "Picks a random token",
-            "Always picks the highest-probability token",
-            "Skips tokens"
+            "Samples uniformly across the top fifty tokens",
+            "Selects the single highest-probability token next",
+            "Skips low-confidence nouns to shorten generation",
+            "Resets attention caches between consecutive words"
           ],
           "answer": 1,
           "why": "Greedy decoding takes the top token every time."
@@ -1226,11 +1257,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which temperature suits extracting invoice numbers?",
           "options": [
-            "High, like 1.5",
-            "Low, like 0 to 0.2",
-            "It does not matter"
+            "Low, near 0 to 0.2 for consistency",
+            "High, near 1.2 to 1.5 for variety",
+            "Maximum, near 2.0 for creative phrasing",
+            "Negative, to invert rare field values"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Extraction needs consistent, predictable output."
         }
       },
@@ -1263,11 +1295,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does top-p = 0.9 keep?",
           "options": [
-            "The top 9 tokens",
-            "The smallest set of top tokens whose probabilities sum to at least 0.9",
-            "Every token"
+            "The minimal token set whose cumulative probability hits 0.9",
+            "Strictly the top nine candidate vocabulary tokens",
+            "All vocabulary tokens scoring above zero point nine alone",
+            "Exactly ninety percent of the model's total word embeddings"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "It is a cumulative-probability cut-off."
         }
       },
@@ -1296,11 +1329,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a presence penalty?",
           "options": [
-            "A reward for repetition",
-            "A flat score reduction for tokens that have already appeared",
-            "A cost per API call"
+            "A bonus applied to domain keywords repeated from system rules",
+            "A per-request surcharge billed for multi-turn chat sessions",
+            "A softmax scaling constant active only when temperature equals zero",
+            "A flat logit penalty for any token that already appeared once"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "It discourages returning to used tokens at all."
         }
       },
@@ -1333,11 +1367,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which settings suit brainstorming?",
           "options": [
-            "Temperature 0",
-            "Higher temperature with a small presence penalty",
-            "Maximum frequency penalty"
+            "Temperature 0 with strict stop sequences",
+            "Greedy decoding paired with JSON enum locks",
+            "Higher temperature with a mild presence penalty",
+            "Top-k equal to 1 and maximum frequency penalty"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Variety helps ideas; penalties reduce repeats."
         }
       },
@@ -1370,9 +1405,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "apply_temperature with temperature 0 returns?",
           "options": [
-            "Uniform probabilities",
-            "1.0 for the top token and 0.0 for others",
-            "An error"
+            "Equal probability shared across every candidate token",
+            "1.0 assigned to the top token and 0.0 to all others",
+            "ValueError unless presence penalty is also non-zero",
+            "Raw exponentiated logits divided by batch vocabulary size"
           ],
           "answer": 1,
           "why": "Zero temperature is greedy decoding."
@@ -1427,9 +1463,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why ask a model for JSON?",
           "options": [
-            "JSON is shorter than English",
-            "Programs can reliably read named fields from it",
-            "Models only understand JSON"
+            "JSON encodes prose using fewer tokens than concise plain English",
+            "Downstream code can parse named fields deterministically every time",
+            "Transformer weights process braces faster than prose paragraphs",
+            "JSON prompts disable model safety filters during API streaming"
           ],
           "answer": 1,
           "why": "Structure makes output machine-readable."
@@ -1464,11 +1501,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use enums in a schema?",
           "options": [
-            "To save tokens",
-            "To stop the model inventing new category labels",
-            "JSON requires them"
+            "Strict value sets stop models from inventing unknown categories",
+            "Fixed enum keys compress prompt token overhead slightly",
+            "Valid JSON syntax prohibits unquoted free-form string values",
+            "Numeric enum indices speed up regex validation checks later"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "A fixed list of allowed values keeps categories consistent."
         }
       },
@@ -1501,11 +1539,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why check for booleans before accepting an int in Python?",
           "options": [
-            "Booleans are slower",
-            "isinstance(True, int) is True, so booleans would pass as integers",
-            "JSON has no booleans"
+            "Boolean comparisons execute slower than integer equality checks",
+            "JSON serializers omit boolean flags when parsing integer dicts",
+            "Python converts bare integers to booleans inside list comprehensions",
+            "isinstance(True, int) evaluates True in Python type hierarchy"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "bool is a subclass of int in Python."
         }
       },
@@ -1534,11 +1573,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a sensible response when a model returns invalid JSON?",
           "options": [
-            "Crash the program",
-            "Retry once with the error message included",
-            "Retry forever"
+            "Crash immediately without returning feedback to users",
+            "Loop indefinitely until valid JSON syntax finally arrives",
+            "Retry once while passing back the specific parse error",
+            "Silently swap unparsed fields for empty Python dictionaries"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "One informed retry fixes most problems cheaply."
         }
       },
@@ -1571,11 +1611,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Who actually runs the function in function calling?",
           "options": [
-            "The model",
-            "Your program, after the model requests it",
-            "The user"
+            "The language model executes code inside GPU memory",
+            "The client browser runs API credentials automatically",
+            "Your application code executes it after model selection",
+            "The tokenizer interprets Python bindings before softmax"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The model requests; your code executes."
         }
       },
@@ -1608,9 +1649,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "extract_json(\"No JSON here\") returns?",
           "options": [
-            "An empty dict",
-            "None",
-            "An error"
+            "An empty dictionary literal {}",
+            "None because no JSON block exists",
+            "A ValueError with raw text trace",
+            "A list holding raw plain words"
           ],
           "answer": 1,
           "why": "No braces means nothing to extract."
@@ -1669,11 +1711,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which kind of summary cannot introduce new facts?",
           "options": [
-            "Abstractive",
             "Extractive",
-            "Both can"
+            "Abstractive",
+            "Few-shot CoT",
+            "Recursive"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Extractive summaries only copy original sentences."
         }
       },
@@ -1706,11 +1749,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why output the chosen sentences in their original order?",
           "options": [
-            "It is faster",
-            "So the summary reads in a natural, logical sequence",
-            "Scores require it"
+            "Linear traversal avoids quadratic sort overhead in Python",
+            "Scoring heuristics fail unless sentences remain index-sorted",
+            "Token billing increases whenever sentences are reordered",
+            "Keeping narrative chronology preserves coherent logical flow"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Original order preserves the flow of ideas."
         }
       },
@@ -1739,11 +1783,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does BLUF mean in executive writing?",
           "options": [
-            "Bold Letters Underline Facts",
-            "Bottom line up front",
-            "Brief, long, updated, final"
+            "Bold Labels Underline Facts",
+            "Brief, Logical, Unified, Final",
+            "Bullet Lists Under Findings",
+            "Bottom line up front"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Start with the conclusion."
         }
       },
@@ -1776,11 +1821,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the reduce step in map-reduce summarisation?",
           "options": [
-            "Deleting chunks",
-            "Summarising the combined chunk summaries into one",
-            "Translating the text"
+            "Splitting overlapping text segments prior to scoring",
+            "Deleting low-importance sentences to hit exact word limits",
+            "Synthesizing intermediate chunk summaries into one final",
+            "Translating chunk metadata keys into uniform lowercase JSON"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "It combines the partial summaries."
         }
       },
@@ -1813,9 +1859,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a compression ratio of 0.8 suggest?",
           "options": [
-            "A great summary",
-            "The summary is barely shorter than the original",
-            "The summary is empty"
+            "Dense executive distillation removing four-fifths of clutter",
+            "Minimal condensation leaving output nearly source length",
+            "Complete blank truncation producing an empty string reply",
+            "Exact duplication of twenty percent of repeated headings"
           ],
           "answer": 1,
           "why": "It keeps 80 percent of the words."
@@ -1850,11 +1897,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "extractive_summary returns sentences in which order?",
           "options": [
-            "Highest score first",
-            "Their original order in the text",
-            "Alphabetical"
+            "Their original sequence in the source text",
+            "Descending order ranked by sentence score",
+            "Ascending order sorted lexicographically by word",
+            "Grouped by similarity score tiers then length"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Selected sentences are restored to reading order."
         }
       }
@@ -1911,11 +1959,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does RAG add to a language model?",
           "options": [
-            "Faster typing",
-            "Relevant passages from your documents, retrieved at question time",
-            "New training data"
+            "Relevant passages fetched dynamically at query runtime",
+            "Lower decoding latency by pre-computing static weights",
+            "Permanent gradient updates burned into base parameters",
+            "Automated JSON syntax locking during API tool dispatch"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Retrieval supplies grounding text for each question."
         }
       },
@@ -1944,11 +1993,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a risk of very small chunks?",
           "options": [
-            "They cost too much",
-            "They lose the context needed to understand them",
-            "They cannot be retrieved"
+            "Smaller embeddings triple token storage overhead quickly",
+            "Vector indexes fail to compute cosine scores on short strings",
+            "Tokenizers truncate text segments under thirty words automatically",
+            "Tiny snippets strip surrounding context needed to interpret claims"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Tiny chunks can be meaningless on their own."
         }
       },
@@ -1977,11 +2027,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What advantage do embeddings have over keyword overlap?",
           "options": [
-            "They are free",
-            "They match meaning, so synonyms can be found",
-            "They need no computation"
+            "Vector queries run without incurring any API compute cost",
+            "Dense arrays require zero preprocessing before cosine matching",
+            "Semantic similarity surfaces paraphrased answers and synonyms",
+            "Embeddings bypass context limits across unbounded document sets"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Embeddings capture semantic similarity."
         }
       },
@@ -2010,9 +2061,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why number the sources in the prompt?",
           "options": [
-            "To look professional",
-            "So the model can cite them and code can check the citations",
-            "Models require numbers"
+            "Numbered passages increase readability for human proofreaders",
+            "Explicit IDs let models emit verifiable numeric citation tags",
+            "Transformer positional encodings fail on unnumbered bullet lists",
+            "Tokenizers skip punctuation markers unless bracketed with digits"
           ],
           "answer": 1,
           "why": "Numbering enables checkable citations."
@@ -2047,9 +2099,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "An answer cites [4] but only 3 sources were given. What does that suggest?",
           "options": [
-            "A typo only",
-            "The model may be inventing sources, so treat the answer with suspicion",
-            "Nothing"
+            "Harmless indexing offset that preserves factual fidelity completely",
+            "Likely fabricated citation, requiring skepticism and manual audit",
+            "Evidence of dynamic multi-hop reasoning across unseen web pages",
+            "Automatic fallback citation linking to the system prompt section"
           ],
           "answer": 1,
           "why": "Invented citations are a hallucination signal."
@@ -2084,11 +2137,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "retrieve returns an empty list when?",
           "options": [
-            "k is 1",
-            "No chunk shares any word with the query",
-            "There are fewer than k chunks"
+            "No stored chunk overlaps any query token",
+            "k equals 1 and ties occur across documents",
+            "Total chunk count sits strictly below k",
+            "Query punctuation includes question marks"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Only chunks with a positive score are returned."
         }
       }
@@ -2141,11 +2195,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the most valuable part of an AI search answer for verification?",
           "options": [
-            "Its length",
-            "Its citations, which you can open and check",
-            "Its tone"
+            "Comprehensive length and polished essay phrasing",
+            "Confident, authoritative executive summary tone",
+            "High average token probability across sentences",
+            "Inspectable citations linked to primary sources"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Citations let you verify claims."
         }
       },
@@ -2178,11 +2233,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which is a warning sign for a web source?",
           "options": [
-            "A named expert author",
-            "No author, no date and no references",
-            "A recent publication date"
+            "Attribution to a domain specialist with institutional links",
+            "Recent timestamp accompanied by direct primary data tables",
+            "Missing author attribution, publication date, and references",
+            "Clear methodology section detailing data collection limits"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Missing basics suggest low credibility."
         }
       },
@@ -2211,11 +2267,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why count sources rather than mentions?",
           "options": [
-            "It is faster",
-            "One source repeating a claim does not make it more confirmed",
-            "Mentions are hard to count"
+            "Distinct domain counting runs faster than substring frequency scans",
+            "Syndicated feeds encode mention counts inside inconsistent formats",
+            "One publisher echoing a claim repeatedly creates no new evidence",
+            "API rate limits restrict counting identical keywords past threshold"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Independent confirmation matters."
         }
       },
@@ -2249,9 +2306,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What question best exposes an out-of-context percentage?",
           "options": [
-            "Who wrote it?",
-            "Compared with what, and what are the absolute numbers?",
-            "Is it long?"
+            "Which author formatted the summary chart?",
+            "Compared to what baseline and sample size?",
+            "Does the report exceed three full pages?",
+            "Was the percentage generated at temp 0?"
           ],
           "answer": 1,
           "why": "Base rates reveal whether a change matters."
@@ -2283,11 +2341,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How should you use AI to draft a research write-up?",
           "options": [
-            "Ask it to research and write everything at once",
-            "Give it your verified notes to write from",
-            "Copy its citations without checking"
+            "Supply your audited source notes as the strict drafting input",
+            "Generate unconstrained prose without providing source material",
+            "Copy all model-emitted URLs straight into final client slides",
+            "Raise sampling temperature to invent broader market takeaways"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Grounding the draft in verified notes reduces errors."
         }
       },
@@ -2316,11 +2375,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "cross_check counts a claim repeated twice by one source as?",
           "options": [
-            "Two sources",
-            "One source",
-            "Zero sources"
+            "Two distinct sources",
+            "Zero valid sources",
+            "Unverified weighted ties",
+            "One unique source"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Claims are de-duplicated within each source."
         }
       }
@@ -2382,11 +2442,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the main benefit of prompt chaining?",
           "options": [
-            "Fewer tokens always",
-            "Each step does one job well and failures are easy to locate",
-            "It removes the need to check output"
+            "Splitting tasks always lowers total billable token counts",
+            "Intermediate code assertions remove output checking needs entirely",
+            "Multi-step calls bypass model rate limits automatically in APIs",
+            "Each focused step excels at one task and failures isolate cleanly"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Focused steps improve quality and debuggability."
         }
       },
@@ -2415,11 +2476,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use structured outputs between chain steps?",
           "options": [
-            "They look nicer",
-            "The next step can rely on a predictable format",
-            "They are cheaper"
+            "Structured schemas make debugging UI logs slightly prettier",
+            "Typed JSON blocks cut upstream token costs in half reliably",
+            "Downstream steps parse guaranteed fields deterministically",
+            "Structured delimiters allow parallel attention without caching"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Predictable hand-offs make chains robust."
         }
       },
@@ -2452,9 +2514,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why stop the chain when a step returns an empty result?",
           "options": [
-            "To save one call only",
-            "Continuing would spread the failure into a broken final result",
-            "Empty results are errors in Python"
+            "Halt immediately strictly to avoid paying for one extra API call",
+            "Propagating empty results silently corrupts downstream workflow steps",
+            "Python interprets empty string variables as fatal runtime errors",
+            "Skipping remaining stages resets GPU memory fragmentation safely"
           ],
           "answer": 1,
           "why": "Fail early and report where."
@@ -2489,11 +2552,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use word boundaries (\\b) when splitting on \"then\"?",
           "options": [
-            "For speed",
-            "So words like \"athena\" that contain \"then\" are not split",
-            "Python requires it"
+            "Words like 'athena' contain 'then' without signaling step order",
+            "Word boundary anchors accelerate C regex compilation significantly",
+            "Standard Python re.split throws errors on bare literal delimiters",
+            "Anchors preserve surrounding capitalization during list slicing"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Boundaries match whole words only."
         }
       },
@@ -2526,11 +2590,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the benefit of code checks between AI steps?",
           "options": [
-            "They make the AI smarter",
-            "Problems are caught and retried or reported before they spread",
-            "They remove the need for prompts"
+            "Malformed intermediate states trigger retries before corrupting outputs",
+            "Python assertions increase reasoning depth on the next model turn",
+            "Deterministic filters eliminate writing explicit task prompts altogether",
+            "Code validation compresses history tokens inside KV memory caches"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Checks keep chains dependable."
         }
       },
@@ -2563,11 +2628,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "run_chain with an empty steps list returns?",
           "options": [
-            "An error",
-            "The input unchanged, an empty trace and failed None",
-            "An empty string"
+            "ValueError because chains need at least one step",
+            "An empty string combined with status False flag",
+            "None as value paired with the original input key",
+            "The unchanged input, empty trace, and failed None"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "No steps means nothing changes."
         }
       }
@@ -2625,11 +2691,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is missing from the prompt \"make this professional\"?",
           "options": [
-            "Nothing",
-            "The audience and the goal of the message",
-            "A word limit only"
+            "Zero extra detail is needed once tone is named",
+            "Strictly a numerical word-count ceiling constraint",
+            "Both target audience and concrete message intent",
+            "Only explicit JSON output schema delimiter keys"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Tone depends on who reads it and why."
         }
       },
@@ -2663,9 +2730,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a formality score of 20 suggest?",
           "options": [
-            "Very formal text",
-            "Very casual text that may need rewriting for formal readers",
-            "An empty message"
+            "Polished executive prose ready for boardroom briefings",
+            "Very informal phrasing needing revision for formal readers",
+            "An empty body containing fewer than twenty total words",
+            "Overly legalistic jargon requiring simplification before send"
           ],
           "answer": 1,
           "why": "Many casual signals lower the score."
@@ -2701,9 +2769,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should come first in an executive memo?",
           "options": [
-            "Background history",
-            "The conclusion or decision needed",
-            "A thank-you"
+            "Chronological background history",
+            "The key decision or conclusion first",
+            "A courteous opening greeting line",
+            "Detailed technical methodology logs"
           ],
           "answer": 1,
           "why": "Busy readers need the bottom line first."
@@ -2735,11 +2804,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should you always verify in an AI-drafted email before sending?",
           "options": [
-            "The font",
-            "Names, dates, numbers and commitments",
-            "The number of paragraphs"
+            "Names, dates, figures, and commitments",
+            "HTML CSS styling and signature font",
+            "Total sentence count across paragraphs",
+            "Exact UTF-8 byte length of subject"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "AI can mix up or invent details."
         }
       },
@@ -2768,11 +2838,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What makes an editing prompt effective?",
           "options": [
-            "\"Make it better\"",
-            "A specific goal such as a word limit and what must be kept",
-            "Asking for more adjectives"
+            "Asking broadly to 'make the draft sound much better'",
+            "Directing the model to double vivid adjectives throughout",
+            "Pasting zero context and raising sampling temperature high",
+            "Specifying target length, tone shifts, and invariant facts"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Specific edit goals give controllable results."
         }
       },
@@ -2801,11 +2872,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "memo with only blank points should?",
           "options": [
-            "Return an empty memo",
-            "Raise ValueError",
-            "Return None"
+            "Format empty bullet lines cleanly",
+            "Return None silently without error",
+            "Raise ValueError for empty content",
+            "Substitute default placeholder copy"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "A memo with no content is refused."
         }
       }
@@ -2860,11 +2932,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do you get more varied ideas from AI?",
           "options": [
-            "Ask the same question repeatedly",
-            "Add structure: different angles, users, constraints or techniques",
-            "Use temperature 0"
+            "Resend identical prompt phrasing ten consecutive times",
+            "Pin temperature strictly to zero with deterministic decoding",
+            "Supply varied user personas, constraints, and creative frames",
+            "Limit maximum output length to fewer than thirty tokens"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Structure and settings drive variety."
         }
       },
@@ -2894,9 +2967,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the E in SCAMPER stand for?",
           "options": [
-            "Expand",
+            "Expand scope",
             "Eliminate",
-            "Evaluate"
+            "Evaluate",
+            "Emulate"
           ],
           "answer": 1,
           "why": "Eliminate: what could be removed?"
@@ -2928,11 +3002,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why ask AI to act as a devil's advocate?",
           "options": [
-            "To be negative",
-            "To expose weak assumptions early, when changes are cheap",
-            "To generate more ideas only"
+            "To surface brittle assumptions early when pivots stay cheap",
+            "To inject pessimistic boilerplate warnings into clean specs",
+            "Strictly to double raw idea volume during initial brainstorms",
+            "To bypass fact checking steps once debate transcripts finish"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Early criticism strengthens ideas."
         }
       },
@@ -2966,11 +3041,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use a frozenset rather than a set as the key?",
           "options": [
-            "It is shorter",
-            "Only hashable values can be stored in a set, and frozensets are hashable",
-            "It sorts the words"
+            "frozenset allocates half as much memory per token string",
+            "frozenset automatically sorts contained strings alphabetically",
+            "Python dictionaries strip duplicate keys when wrapped in sets",
+            "Sets are unhashable in Python whereas frozensets hash cleanly"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Regular sets are not hashable."
         }
       },
@@ -3004,11 +3080,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why make the scoring criteria explicit?",
           "options": [
-            "It looks scientific",
-            "Teams can see and discuss exactly why ideas rank as they do",
-            "AI requires it"
+            "Weighted rubrics make draft decks appear more mathematical",
+            "Prompt endpoints enforce numeric weights before sorting lists",
+            "Rubrics eliminate the need for human review of final rankings",
+            "Explicit weights let teams audit why winning ideas ranked highest"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Transparent criteria make decisions easier to agree on."
         }
       },
@@ -3037,11 +3114,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "dedupe_ideas keeps which copy of a duplicate?",
           "options": [
-            "The last",
-            "The first, in its original stripped form",
-            "The shortest"
+            "The final entry encountered",
+            "Whichever variant is shortest",
+            "The first copy in stripped form",
+            "All duplicates merged to lowercase"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "First occurrence wins."
         }
       }
@@ -3095,9 +3173,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are numbers from a code interpreter more reliable than a plain chat answer?",
           "options": [
-            "The model is bigger",
-            "The calculations are done by running code, not by the model predicting digits",
-            "They are rounded"
+            "Code-enabled deployments run vastly larger neural parameters",
+            "Deterministic scripts compute math directly instead of predicting text",
+            "Interpreter outputs pre-round intermediate floats for cleanliness",
+            "Tokenizers compress floating-point literals into exact fractions"
           ],
           "answer": 1,
           "why": "Code does the arithmetic."
@@ -3134,11 +3213,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the median useful when there are extreme values?",
           "options": [
-            "It is always larger",
-            "It is less affected by a few extreme values than the mean",
-            "It is easier to calculate"
+            "Median stays robust against a handful of extreme skew outliers",
+            "Median values consistently track higher than arithmetic averages",
+            "Median avoids division operations during large batch sorting",
+            "Median guarantees identical group sums across split categories"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The median resists outliers."
         }
       },
@@ -3172,11 +3252,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a quick sanity check for group totals?",
           "options": [
-            "They should all be equal",
-            "They should add up to the overall total",
-            "They should be sorted alphabetically"
+            "Check that all subgroup totals sum to the overall total",
+            "Verify every subgroup outputs an identical subtotal",
+            "Confirm group labels sort strictly alphabetically A to Z",
+            "Ensure median values always exceed corresponding means"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Nothing should be lost or double-counted."
         }
       },
@@ -3210,11 +3291,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why standardise labels before grouping?",
           "options": [
-            "To save memory",
-            "So variants like \"North\" and \"north \" are counted as one group",
-            "Grouping needs capital letters"
+            "Normalized strings cut memory allocation inside pandas frames",
+            "Python groupby raises TypeError whenever keys share mixed case",
+            "Standardization enforces UTF-8 strict sorting across numeric columns",
+            "Variants like 'North' and 'north ' unify under a single group key"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Inconsistent labels split categories."
         }
       },
@@ -3248,11 +3330,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the best way to check AI-generated analysis?",
           "options": [
-            "Trust the chart",
-            "Read the code, spot-check numbers and question the conclusions",
-            "Run it twice"
+            "Accept smooth-looking summary charts without reading source scripts",
+            "Re-prompt the identical question twice and compare chart styles",
+            "Audit the generated code, spot-check values, and probe assumptions",
+            "Keep temperature at zero so arithmetic outputs self-validate"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Check the method as well as the result."
         }
       },
@@ -3285,9 +3368,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "describe([4.0]) gives which stdev?",
           "options": [
-            "An error",
-            "0.0",
-            "None"
+            "ZeroDivisionError exception",
+            "0.0 because sample size is 1",
+            "None because dispersion undefined",
+            "4.0 matching the sole number"
           ],
           "answer": 1,
           "why": "A single value has no spread, so 0.0 is used."
@@ -3343,9 +3427,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which step turns the model's text into data your program can trust?",
           "options": [
-            "Retrieve",
+            "Retrieve step",
             "Parse and validate",
-            "Build prompt"
+            "Build prompt",
+            "Token estimation"
           ],
           "answer": 1,
           "why": "Parsing and validation make output reliable."
@@ -3381,11 +3466,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does grounded_prompt return the list of retrieved indices?",
           "options": [
-            "For debugging only",
-            "To map citation numbers back to the original chunks",
-            "It is required by Python"
+            "So validation code maps numeric citations back to chunks",
+            "Solely for printing diagnostic traces during local runs",
+            "Python generators require returning index lists with prompts",
+            "Provider SDKs fail unless document indices ship with queries"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Citations refer to positions in the retrieved list."
         }
       },
@@ -3415,11 +3501,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why ask for citations as a JSON list?",
           "options": [
-            "It is shorter",
-            "Code can check them directly without searching free text",
-            "Models prefer lists"
+            "JSON arrays consume fewer input tokens than inline footnotes",
+            "Models strictly remember facts better inside JSON list fields",
+            "Regular expressions cannot match bracketed numbers in English",
+            "Code verifies integer arrays directly without scanning free prose"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Structured citations are easy to validate."
         }
       },
@@ -3452,11 +3539,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why raise ValueError with a specific message when validation fails?",
           "options": [
-            "To stop the program forever",
-            "So a retry can tell the model exactly what to fix",
-            "Python requires messages"
+            "To terminate server workers immediately on first anomaly",
+            "Python interpreters suppress bare ValueError without strings",
+            "So automated retries tell the model precisely what to repair",
+            "Descriptive exceptions preserve token budget on cached prompts"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Specific errors make retries effective."
         }
       },
@@ -3486,11 +3574,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should users see when the pipeline cannot answer?",
           "options": [
-            "A stack trace",
-            "A clear, polite message with a next step",
-            "Nothing"
+            "Raw JSON traceback logs for transparency",
+            "Silent blank whitespace hiding the missing answer",
+            "A clear, honest notice with a concrete next step",
+            "Guessed claims labeled as low-confidence facts"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Plan failure messages in advance."
         }
       },
@@ -3527,9 +3616,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "parse_reply('{\"answer\": \"x\", \"citations\": [true]}') should?",
           "options": [
-            "Return (\"x\", [True])",
-            "Raise ValueError, because booleans are not citation numbers",
-            "Return None"
+            "Return tuple ('x', [True]) as valid index 1",
+            "Raise ValueError since booleans fail citation checks",
+            "Return None silently to ignore bad array types",
+            "Convert True into integer 1 during parsing automatically"
           ],
           "answer": 1,
           "why": "Citations must be real integers."
@@ -3585,11 +3675,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a common weakness of vision models?",
           "options": [
-            "They cannot read any text",
-            "Small text, handwriting, glare and rotated photos cause mistakes",
-            "They only accept black-and-white images"
+            "Tiny text, handwriting, glare, and rotated pages cause errors",
+            "Vision encoders cannot parse any printed ASCII words",
+            "Image endpoints reject full-color photographs by design",
+            "OCR always drops numeric digits containing decimal points"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Image quality strongly affects accuracy."
         }
       },
@@ -3619,11 +3710,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which is a typical OCR confusion?",
           "options": [
-            "A and Z",
-            "The letter O and the digit 0",
-            "Commas and full stops never get confused"
+            "Distinct uppercase letters A and Z",
+            "Spaces and uppercase accented vowels",
+            "Bold headers and indented sub-bullets",
+            "Uppercase letter O and numeric digit 0"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Look-alike characters are common errors."
         }
       },
@@ -3657,11 +3749,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why anchor a pattern to a label like \"Total:\"?",
           "options": [
-            "It is shorter",
-            "It targets the right number instead of any number in the text",
-            "Labels are required by OCR"
+            "Anchored regex patterns require half as many characters",
+            "Optical recognition engines omit digits lacking colon prefixes",
+            "Python regular expressions fail without literal colon anchors",
+            "Labels target the exact grand figure over unrelated line prices"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Labels make extraction precise."
         }
       },
@@ -3691,11 +3784,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the human-in-the-loop pattern?",
           "options": [
-            "Humans do all the work",
-            "Machines handle confident cases and people review uncertain ones",
-            "AI reviews human work"
+            "Human reviewers manually re-key every incoming invoice scan",
+            "Generative models overwrite accountant sign-offs without review loops",
+            "Automation handles high-confidence items while humans audit edge cases",
+            "Dual AI instances grade human entries before saving records"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Each does what it is best at."
         }
       },
@@ -3724,9 +3818,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should you do before sharing a screenshot with an AI tool?",
           "options": [
-            "Increase its size",
-            "Remove or blur private information",
-            "Convert it to black and white"
+            "Upscale DPI resolution strictly above 600",
+            "Mask or redact confidential fields before upload",
+            "Desaturate screenshots to grayscale first",
+            "Rename image files using generic random hashes"
           ],
           "answer": 1,
           "why": "Screenshots often contain personal data."
@@ -3757,11 +3852,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "invoice_fields on a blurry photo with no readable text returns?",
           "options": [
-            "An error",
-            "A dict with None for every field",
-            "An empty string"
+            "A dict mapping each extracted field to None",
+            "ValueError thrown from empty OCR stream",
+            "An empty string instead of structured output",
+            "Zero-filled numeric defaults across all keys"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Missing fields are None, making gaps visible."
         }
       }
@@ -3819,11 +3915,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the same image prompt give different pictures each time?",
           "options": [
-            "The model forgets",
-            "Generation starts from random noise unless the seed is fixed",
-            "Servers are slow"
+            "Sampling begins from fresh random noise unless seed is pinned",
+            "Diffusion checkpoints reset prompt encoders each hour",
+            "Cloud API latency jitters latent matrix weights randomly",
+            "Text tokenizers permute adjective order between invocations"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Random starting noise leads to different results."
         }
       },
@@ -3853,11 +3950,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which prompt detail is most useful?",
           "options": [
-            "\"beautiful\"",
-            "\"a steaming cup of chai on a wooden table, soft morning light\"",
-            "\"amazing quality\""
+            "'beautiful, ultra stunning photo'",
+            "'amazing quality, 8k masterpiece'",
+            "'very nice artwork generated professionally'",
+            "'steaming cup of chai on wood, soft morning light'"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Concrete details guide the image."
         }
       },
@@ -3890,11 +3988,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a negative prompt do?",
           "options": [
-            "Makes the image darker",
-            "Lists things you do not want in the image",
-            "Reverses the colours"
+            "Shifts exposure levels toward moody dark shadows",
+            "Inverts foreground and background RGB color channels",
+            "Specifies unwanted elements or flaws to steer away from",
+            "Shortens image dimensions automatically to square format"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Negatives steer the model away from elements."
         }
       },
@@ -3927,9 +4026,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why normalise prompt weights?",
           "options": [
-            "Tools require it",
-            "To see each part's share of the total emphasis",
-            "To shorten the prompt"
+            "External diffusion GUIs crash on unscaled decimal weights",
+            "Normalization reveals each clause's proportional share of emphasis",
+            "Normalizing weights prunes stop words from negative prompts",
+            "Scaling below 1.0 unlocks deterministic denoising regardless of seed"
           ],
           "answer": 1,
           "why": "Normalised weights show the balance clearly."
@@ -3960,9 +4060,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why avoid realistic images of real people doing things they did not do?",
           "options": [
-            "They are hard to generate",
-            "They can deceive people and cause real harm",
-            "They are low resolution"
+            "Photorealistic human likenesses consume double GPU memory",
+            "Fabricated scenes of real individuals deceive viewers and cause harm",
+            "Current diffusion decoders render human faces at unusable resolution",
+            "Aspect ratios like 16:9 break facial alignment across batch runs"
           ],
           "answer": 1,
           "why": "Deepfakes can mislead and damage reputations."
@@ -3997,11 +4098,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "image_prompt with aspect \"16x9\" should?",
           "options": [
-            "Convert it to 16:9",
-            "Raise ValueError",
-            "Ignore the aspect"
+            "Raise ValueError for invalid format",
+            "Normalize '16x9' cleanly into '16:9'",
+            "Ignore aspect ratio and keep default",
+            "Clamp dimensions downward to square"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Invalid parameters are rejected early."
         }
       }
@@ -4056,11 +4158,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is speaker diarisation?",
           "options": [
-            "Translating speech",
-            "Labelling which speaker said each part of the transcript",
-            "Removing background noise"
+            "Translating spoken transcripts into other languages",
+            "Filtering ambient background static from microphone tracks",
+            "Computing word timing offsets for silent caption files",
+            "Segmenting and tagging which speaker spoke each turn"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Diarisation answers \"who spoke when\"."
         }
       },
@@ -4094,11 +4197,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why keep the raw transcript after cleaning?",
           "options": [
-            "It is smaller",
-            "In case cleaning removed something important",
-            "Regulations forbid deleting"
+            "Unedited transcripts consume slightly fewer bytes on disk",
+            "Audit laws prohibit mutating punctuation markers after capture",
+            "Post-processing may strip nuance or domains needed during review",
+            "WER scripts only accept uncleaned spoken filler artifacts"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The raw version is the source of truth."
         }
       },
@@ -4132,11 +4236,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What makes a good meeting action item?",
           "options": [
-            "A long description",
-            "A clear owner, task and deadline",
-            "The meeting date only"
+            "Long narrative background context",
+            "Timestamps noting every conversational interruption",
+            "An explicit owner, deliverable, and due date",
+            "Verbatim quotes listing attendee job titles"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Who, what and by when."
         }
       },
@@ -4166,9 +4271,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a WER of 0.1 mean?",
           "options": [
-            "10 words were correct",
-            "About 10 errors per 100 reference words",
-            "The audio was 10 seconds"
+            "Only 10% of spoken words matched",
+            "Roughly 10 errors per 100 reference words",
+            "Ten percent speaker diarisation drift only",
+            "Audio snippet spans exactly ten seconds"
           ],
           "answer": 1,
           "why": "WER is errors divided by reference words."
@@ -4200,11 +4306,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a sensible defence against voice-cloning scams?",
           "options": [
-            "Never answer the phone",
-            "Verify through another channel or a family safe word",
-            "Speak faster"
+            "Confirm urgent requests via a second channel or family passphrase",
+            "Reject all incoming phone calls from unfamiliar area codes",
+            "Speak faster on recorded calls so clones fail prosody transfer",
+            "Limit voicemail greetings to pre-synthesized chime tones only"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Independent verification defeats cloned voices."
         }
       },
@@ -4238,10 +4345,11 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "wer(\"turn on the lights\", \"turn on all the lights please\") is?",
           "options": [
             "0.25",
-            "0.5",
-            "1.0"
+            "1.0",
+            "0.75",
+            "0.5"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Two insertions over four reference words."
         }
       }
@@ -4295,11 +4403,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which question is most likely to cause a hallucination?",
           "options": [
-            "What is 2 + 2?",
-            "A question built on a false assumption about a rare fact",
-            "Summarise this text I pasted"
+            "Direct elementary arithmetic such as 'What is 2 + 2?'",
+            "Condensing a short article pasted directly into the prompt",
+            "Reformatting an explicit JSON object into snake_case keys",
+            "Leading questions built on false premises about obscure facts"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "False premises and rare facts invite invention."
         }
       },
@@ -4333,11 +4442,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the unsupported-claims check look for?",
           "options": [
-            "Spelling errors",
-            "Sentences whose content words mostly do not appear in any source",
-            "Long sentences"
+            "Minor punctuation and spelling mismatches in quotes",
+            "Paragraphs exceeding typical sentence word counts cleanly",
+            "Sentences whose key content terms never appear in any source",
+            "Proper nouns capitalized inconsistently across citations"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Low overlap suggests invented content."
         }
       },
@@ -4367,9 +4477,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a paired-prompt bias audit?",
           "options": [
-            "Asking two models",
-            "Changing only one attribute such as a name and comparing the outputs",
-            "Translating prompts"
+            "Routing the identical prompt to two competing provider models",
+            "Varying a single demographic cue across pairs to inspect shifts",
+            "Translating evaluation inputs across two distinct language sets",
+            "Running prompt generation before and after temperature clipping"
           ],
           "answer": 1,
           "why": "Controlled comparisons reveal bias."
@@ -4405,11 +4516,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should a guardrail do when it detects a problem?",
           "options": [
-            "Show the output anyway",
-            "Replace it with a safe fallback message",
-            "Crash"
+            "Block the risky output and return a safe fallback text",
+            "Stream the unverified text with a quiet inline warning",
+            "Terminate the host worker process immediately on error",
+            "Clear user session history and retry with max temperature"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Fallbacks keep users safe and informed."
         }
       },
@@ -4439,11 +4551,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which item belongs on an AI output checklist?",
           "options": [
-            "Font size",
-            "Whether citations exist and support the claims",
-            "The model's name"
+            "Citation presence and source backing",
+            "UI font weight used in display",
+            "Exact parameter count of checkpoint",
+            "Total milliseconds elapsed during decode"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Sources must be real and relevant."
         }
       },
@@ -4472,11 +4585,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "guardrail(\"   \", [\"x\"], 10) returns?",
           "options": [
-            "An empty string",
-            "The fallback message",
-            "None"
+            "Trimmed blank string ''",
+            "None because whitespace fails parsing",
+            "True flagging partial word overlap",
+            "The configured safe fallback message"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Empty responses are replaced with the fallback."
         }
       }
@@ -4530,11 +4644,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should you do before pasting a customer email into a public AI tool?",
           "options": [
-            "Nothing",
-            "Remove or replace personal details, or use an approved tool",
-            "Translate it first"
+            "Submit raw message headers to preserve full formatting context",
+            "Translate sensitive emails into another language prior to pasting",
+            "Scrub personal details first or route through an approved endpoint",
+            "Wrap the customer signature block inside markdown quote syntax"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Redact or use approved tools."
         }
       },
@@ -4568,9 +4683,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why redact card numbers before phone numbers?",
           "options": [
-            "Cards are more common",
-            "Otherwise part of a card number could be mistaken for a phone number",
-            "Alphabetical order"
+            "Credit card patterns match significantly faster in Python regex",
+            "Ten trailing digits of a card number can trigger partial phone regexes",
+            "Compliance logs require masking financial tokens ahead of contact IDs",
+            "Phone patterns accidentally capture CVV security suffixes otherwise"
           ],
           "answer": 1,
           "why": "Order prevents partial matches."
@@ -4602,9 +4718,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is indirect prompt injection?",
           "options": [
-            "A typo in a prompt",
-            "Instructions hidden in content the AI reads, such as a web page or document",
-            "Slow network requests"
+            "Unintended formatting typos introduced inside a system prompt",
+            "Adversarial directives hidden inside fetched pages or untrusted files",
+            "Slow retry timeouts causing out-of-order streaming chunks",
+            "Multi-turn conversations drifting away from the initial topic"
           ],
           "answer": 1,
           "why": "The attack arrives through data, not the user."
@@ -4635,11 +4752,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a single suspicious phrase only give MEDIUM risk?",
           "options": [
-            "It is always an attack",
-            "It can appear in innocent questions, so it flags rather than blocks",
-            "Detection is broken"
+            "Legitimate user queries can contain trigger phrases, so flagging avoids blocks",
+            "Single keyword hits confirm coordinated prompt jailbreaks deterministically",
+            "Low-confidence detectors lack high-tier blocking exceptions in Python",
+            "CRITICAL labels only apply after PII redaction masks credit cards"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Context matters; one phrase alone is ambiguous."
         }
       },
@@ -4669,11 +4787,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does least privilege mean for AI features?",
           "options": [
-            "Give the AI all possible tools",
-            "Give only the data and tools the feature actually needs",
-            "Use the cheapest model"
+            "Provision every internal plugin tool to save configuration work",
+            "Pin all production requests to the cheapest small model tier",
+            "Require multi-factor admin approval on every read-only prompt",
+            "Grant access solely to the specific data and tools the task needs"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Limiting abilities limits damage."
         }
       },
@@ -4706,11 +4825,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "redact_pii(\"Order 12345 shipped\") counts how many items?",
           "options": [
-            "One phone",
-            "None: short numbers are not PII",
-            "One card"
+            "Counts one masked phone match",
+            "Counts one masked card match",
+            "Zero items; five digits aren't PII",
+            "Raises ValueError on short numbers"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The patterns need 10 or 16 digits."
         }
       }
@@ -4763,11 +4883,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a multimodal workflow, where should personal data be redacted?",
           "options": [
-            "At the very end",
-            "Before anything is sent to external AI services",
-            "Never"
+            "After external model responses come back",
+            "Only when audit logs archive old transcripts",
+            "Before any payload leaves for external services",
+            "Solely on image uploads, never text inputs"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Redact before data leaves your control."
         }
       },
@@ -4800,9 +4921,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why count injection phrases in the original text rather than the redacted text?",
           "options": [
-            "It is faster",
-            "Redaction could alter or hide parts of the attack",
-            "The redacted text is empty"
+            "Pattern matching runs marginally faster before string substitution",
+            "Placeholder masks could overwrite or obscure adversarial wording",
+            "PII redactors return empty strings whenever risk phrases exist",
+            "Raw logs require injection scores strictly before hashing user IDs"
           ],
           "answer": 1,
           "why": "Judge risk on what the user actually sent."
@@ -4833,11 +4955,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why hash user IDs in logs?",
           "options": [
-            "To make logs longer",
-            "To group events by user without storing the raw ID",
-            "Hashes are easier to read"
+            "Per-user grouping works reliably without exposing plaintext IDs",
+            "Fixed-length hexadecimal digests expand audit log storage neatly",
+            "Cryptographic digests make visual log scanning faster for analysts",
+            "Plain alphanumeric strings fail JSON serialization in audit arrays"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Hashes link events while protecting identity."
         }
       },
@@ -4866,11 +4989,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why default to text when possible?",
           "options": [
-            "It looks better",
-            "It is cheapest, most reliable and has the fewest error sources",
-            "Images are illegal"
+            "Text payloads preserve visual typography cleaner than screenshots",
+            "Multimodal APIs block document uploads containing structured tables",
+            "Direct prose prompts guarantee zero model hallucinations forever",
+            "Text pipelines cost less, parse cleaner, and avoid OCR noise"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Simpler modalities mean fewer failure points."
         }
       },
@@ -4899,11 +5023,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When should end-to-end tests be re-run?",
           "options": [
-            "Once a year",
-            "Whenever prompts, thresholds or models change",
-            "Only after a failure"
+            "Strictly during annual security compliance audits",
+            "Only after a customer incident triggers a bug ticket",
+            "Exclusively when adding new Python utility packages",
+            "Whenever prompts, model versions, or thresholds change"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Small changes can have large effects."
         }
       },
@@ -4940,11 +5065,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "audit_entry with risk \"CRITICAL\" should?",
           "options": [
-            "Log it anyway",
-            "Raise ValueError",
-            "Convert it to HIGH"
+            "Write the CRITICAL tag as expected",
+            "Downgrade CRITICAL silently to HIGH",
+            "Raise ValueError for invalid tier",
+            "Strip the risk key from audit output"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Only the three known levels are valid."
         }
       }
@@ -5002,9 +5128,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a security risk specific to AI coding assistants?",
           "options": [
-            "They type too fast",
-            "They may invent package names that attackers can register",
-            "They only write Python"
+            "Models emit boilerplate snippets faster than IDE linting completes",
+            "LLMs can hallucinate plausible package names attackers register",
+            "Assistants refuse generating client scripts outside pure Python",
+            "Type checkers ignore annotations emitted inside multi-line code blocks"
           ],
           "answer": 1,
           "why": "Hallucinated packages can be hijacked."
@@ -5040,11 +5167,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should a good coding prompt include?",
           "options": [
-            "Only the function name",
-            "Goal, inputs and outputs, constraints, edge cases and requested tests",
-            "Just \"write code\""
+            "Purpose, signatures, invariants, edge cases, tests",
+            "Function signature name without descriptions",
+            "Minimal prompt saying 'write production code'",
+            "Strict token budget excluding sample inputs"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Detailed specifications produce better code."
         }
       },
@@ -5078,11 +5206,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use repr when generating test code?",
           "options": [
-            "It is shorter",
-            "It writes values as valid Python, including quotes around strings",
-            "It sorts values"
+            "repr renders valid Python literals including escaped strings",
+            "repr strips verbose quotation marks to keep assertions compact",
+            "repr sorts nested dictionary keys alphabetically inside scripts",
+            "repr automatically converts floats into exact Decimal strings"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "repr produces code-ready representations."
         }
       },
@@ -5117,11 +5246,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is dangerous about a bare \"except:\"?",
           "options": [
-            "It is slow",
-            "It catches every error, hiding real bugs",
-            "It is not valid Python"
+            "Bare try clauses double runtime overhead per call",
+            "Modern Python syntax removed support for bare except",
+            "Type checkers crash whenever except omits ValueError",
+            "Bare except swallows bugs and system interrupts alike"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Bare except hides mistakes."
         }
       },
@@ -5155,11 +5285,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which is a red flag in AI-generated code?",
           "options": [
-            "Clear variable names",
-            "An API key written directly in the source",
-            "Unit tests"
+            "Explicit descriptive parameter naming",
+            "Comprehensive parametrized unit assertions",
+            "Hardcoded API secrets inside source strings",
+            "Docstrings noting edge-case ValueError raises"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Secrets must never be hard-coded."
         }
       },
@@ -5188,9 +5319,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "make_tests(\"2fast\", []) should?",
           "options": [
-            "Return an empty string",
-            "Raise ValueError, since 2fast is not a valid name",
-            "Rename it"
+            "Emit an empty Python module string",
+            "Raise ValueError on invalid identifier",
+            "Sanitize '2fast' silently to '_2fast'",
+            "Return None indicating skipped generation"
           ],
           "answer": 1,
           "why": "Identifiers cannot start with a digit."
@@ -5246,9 +5378,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What makes an AI agent different from a single prompt?",
           "options": [
-            "It is always smarter",
-            "It loops: deciding, calling tools and reading results until done",
-            "It never uses tools"
+            "Agents inherently invoke larger cloud parameter weights",
+            "An agent loops—deciding, calling tools, observing results",
+            "Autonomous loops bypass user prompts without external APIs",
+            "Agents cache full tool states in permanent model weights"
           ],
           "answer": 1,
           "why": "Agents act in a loop with tools."
@@ -5283,11 +5416,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In ReAct, who writes the Observation lines?",
           "options": [
-            "The model",
-            "Your program, after running the tool",
-            "The user"
+            "Your harness code after running the tool",
+            "The language model before returning stops",
+            "The end user typing feedback manually",
+            "An automated tokenizer formatting hook"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Observations are real tool results."
         }
       },
@@ -5317,11 +5451,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does parse_action return None for unrecognised lines?",
           "options": [
-            "To save memory",
-            "So only properly formatted actions can trigger tools",
-            "None is faster"
+            "Returning None cuts dictionary allocation during trace parsing",
+            "None values bypass conditional loop termination safeguards",
+            "Unrecognized text lines automatically map to the search tool",
+            "Strict parsing ensures only valid Action lines execute tools"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Strict parsing limits what the agent can do."
         }
       },
@@ -5355,11 +5490,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why give an agent loop a step limit?",
           "options": [
-            "To make it faster",
-            "To prevent endless loops and runaway costs",
-            "Models require it"
+            "Hard limits accelerate model forward decoding passes",
+            "Provider SDKs fail compilation unless max_steps is passed",
+            "Step budgets cap infinite loops and runaway API costs",
+            "Lower step counts improve final JSON formatting accuracy"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Limits guarantee the loop ends."
         }
       },
@@ -5392,11 +5528,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why treat tool results as data, not instructions?",
           "options": [
-            "They are too long",
-            "They may contain injected instructions from untrusted sources",
-            "They are always wrong"
+            "Raw HTTP bodies exceed prompt length limits unless truncated",
+            "External API payloads arrive unparsed as raw binary streams",
+            "Retrieved pages may embed prompt-injection commands inside data",
+            "Agent tools consistently return outdated cached strings first"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Observations can carry prompt injection."
         }
       },
@@ -5425,9 +5562,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "run_agent returns answer None when?",
           "options": [
-            "A tool is unknown",
-            "No final answer appears within max_steps",
-            "The first line is a thought"
+            "The model requests an unknown tool name",
+            "No Final Answer appears within max_steps",
+            "Initial output starts with a Thought line",
+            "Tool observation returns an empty string"
           ],
           "answer": 1,
           "why": "Hitting the step limit without an answer gives None."
@@ -5483,11 +5621,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a trigger in an automation?",
           "options": [
-            "The final step",
-            "The event that starts the automation",
-            "An AI model"
+            "The incoming event starting execution",
+            "The final archival log step",
+            "A quantized local LLM backend",
+            "An exponential retry delay interval"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Triggers start the chain of actions."
         }
       },
@@ -5517,11 +5656,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why should webhook handlers be idempotent?",
           "options": [
-            "To run faster",
-            "Webhooks can be delivered more than once",
-            "JSON requires it"
+            "Idempotent endpoints serialize incoming JSON significantly faster",
+            "Webhook HMAC validation keys expire unless calls stay stateless",
+            "Async queues reorder HTTP status codes alphabetically by default",
+            "External senders may deliver duplicate webhooks for one event"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Duplicates must not cause double actions."
         }
       },
@@ -5555,11 +5695,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why have a default \"log_only\" action?",
           "options": [
-            "It is required",
-            "So unmatched events are recorded rather than silently lost",
-            "To slow down routing"
+            "Router schemas raise errors unless a default string appears",
+            "Logging every event rate-limits noisy downstream action queues",
+            "Fallback labels force automated backoff retries on every alert",
+            "Unmatched payloads stay recorded cleanly instead of disappearing"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Every event should leave a trace."
         }
       },
@@ -5589,11 +5730,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use exponential backoff instead of retrying immediately?",
           "options": [
-            "It is simpler",
-            "It gives an overloaded service time to recover",
-            "It guarantees success"
+            "Fixed jitter loops require complex state compared to multiplication",
+            "Exponential intervals mathematically guarantee HTTP 200 recovery",
+            "Widening delays give struggling downstream services time to heal",
+            "Immediate retries get dropped silently by standard Python HTTP libs"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Backing off avoids making overload worse."
         }
       },
@@ -5622,9 +5764,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should trigger an alert for an automation?",
           "options": [
-            "Every successful run",
-            "Failures and unusual event volumes",
-            "Nothing"
+            "Every routine clean webhook delivery",
+            "Processing errors and abnormal volume spikes",
+            "Nothing unless manual audits trigger checks",
+            "Exact matching JSON keys across valid calls"
           ],
           "answer": 1,
           "why": "Alerts should highlight problems."
@@ -5659,11 +5802,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "backoff(3, 5, 12) returns?",
           "options": [
-            "[5, 10, 20]",
             "[5, 10, 12]",
-            "[5, 5, 5]"
+            "[5, 10, 20]",
+            "[5, 5, 5]",
+            "[3, 6, 12]"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The third wait, 20, is capped at 12."
         }
       }
@@ -5717,11 +5861,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What three parts can a custom assistant combine?",
           "options": [
-            "Fonts, colours and logos",
-            "Instructions, knowledge files and actions",
-            "Only a name"
+            "Instructions, knowledge documents, and tool actions",
+            "Custom UI themes, brand logos, and font styles",
+            "Strictly a display name and temperature knob",
+            "Training gradient checkpoints and tokenizer tables"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Instructions, knowledge and actions."
         }
       },
@@ -5751,11 +5896,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why test an assistant with out-of-scope questions?",
           "options": [
-            "To confuse it",
-            "To make sure it redirects politely instead of making things up",
-            "To use more tokens"
+            "To stress-test temperature limits with contradictory requests",
+            "To verify token accounting across multi-turn knowledge calls",
+            "To warm embedding caches ahead of normal support traffic",
+            "To confirm it declines cleanly instead of inventing claims"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Scope limits must actually work."
         }
       },
@@ -5786,11 +5932,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a similarity threshold control?",
           "options": [
-            "The answer length",
-            "When the assistant answers versus falls back to \"I don't know\"",
-            "The number of FAQs"
+            "Maximum character length allowed in assistant replies",
+            "Minimum FAQ document count indexed into the store",
+            "Cutoff separating confident FAQ matches from fallback",
+            "Number of synonym variants checked per query word"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Below the threshold, it falls back."
         }
       },
@@ -5820,9 +5967,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must action URLs use HTTPS?",
           "options": [
-            "It is faster",
-            "So data sent between the assistant and the API is encrypted",
-            "HTTP is not allowed in Python"
+            "TLS handshakes execute faster than plain HTTP connections",
+            "Transport encryption protects tokens and data in transit",
+            "Python URL parsers strip port numbers from plain HTTP links",
+            "OpenAPI schemas prohibit JSON responses over HTTP endpoints"
           ],
           "answer": 1,
           "why": "HTTPS protects data in transit."
@@ -5858,9 +6006,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why return all configuration errors at once?",
           "options": [
-            "It is shorter",
-            "So the creator can fix everything in one pass",
-            "Python requires lists"
+            "Collecting warnings saves memory compared to throwing early",
+            "Returning every defect lets authors repair everything at once",
+            "Config schemas mandate error arrays even for clean builds",
+            "Sequential early stops miss duplicate trailing whitespace bugs"
           ],
           "answer": 1,
           "why": "One complete report saves repeated attempts."
@@ -5895,11 +6044,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "faq_answer returns the fallback when?",
           "options": [
-            "The question is long",
-            "The best similarity is below the threshold",
-            "The FAQ has fewer than 5 entries"
+            "Top overlap similarity falls below cutoff",
+            "Incoming user queries exceed 20 words",
+            "Stored FAQ base holds under 5 entries",
+            "Punctuation is stripped from query words"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Low similarity means no good match."
         }
       }
@@ -5953,11 +6103,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What most improves an AI-generated personal plan?",
           "options": [
-            "Asking twice",
-            "Clear, honest constraints about time, energy and commitments",
-            "A longer prompt with more adjectives"
+            "Repeating the exact request verbatim twice in chat",
+            "Extending prompt prose using vivid adjectives only",
+            "Setting temperature near zero for study schedules",
+            "Honest constraints covering time, energy, and duties"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Constraints turn generic plans into usable ones."
         }
       },
@@ -5987,11 +6138,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where should allergy or medical diet advice come from?",
           "options": [
-            "The AI alone",
-            "A qualified professional, with AI only for ideas",
-            "Social media"
+            "Standalone AI meal plans without clinical input",
+            "Popular nutrition forums ranked by follower counts",
+            "A qualified clinician, using AI only for brainstorming",
+            "Automated JSON calorie templates pulled from web search"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Health decisions need expert advice."
         }
       },
@@ -6025,11 +6177,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why count a streak that ends yesterday as current?",
           "options": [
-            "It is a bug",
-            "Today is not over, so the habit may still be done later",
-            "Yesterday counts double"
+            "Midnight UTC rollovers introduce an off-by-one shift",
+            "Yesterday streaks automatically double when today stays empty",
+            "Today isn't finished yet, so today's log can still arrive",
+            "Missing current-day dates only invalidate weekly monthly totals"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The streak is still alive until the day ends."
         }
       },
@@ -6059,9 +6212,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What should you always verify from official sources when travelling?",
           "options": [
-            "Restaurant names",
-            "Prices, opening hours, visa rules and transport times",
-            "Weather descriptions"
+            "Regional culinary adjectives used in sample itineraries",
+            "Fares, operating hours, visa policies, and live schedules",
+            "Typical seasonal weather summaries for general packing",
+            "Historical neighborhood trivia cited in travel blogs"
           ],
           "answer": 1,
           "why": "AI travel information can be out of date."
@@ -6097,11 +6251,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why work in paise rather than rupees with decimals?",
           "options": [
-            "It looks bigger",
-            "Whole numbers avoid rounding errors, so shares add up exactly",
-            "Banks require it"
+            "Integer paise prevent binary float rounding cent mismatches",
+            "Larger integer totals simplify percentage tax formatting",
+            "Banking gateways decline JSON APIs carrying decimal floats",
+            "Integer division avoids importing standard math rounding libs"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Integer arithmetic is exact."
         }
       },
@@ -6136,10 +6291,11 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "split_bill(100.0, 3) returns?",
           "options": [
             "[33.33, 33.33, 33.33]",
-            "[33.34, 33.33, 33.33]",
-            "[33.4, 33.3, 33.3]"
+            "[33.4, 33.3, 33.3]",
+            "[34.0, 33.0, 33.0]",
+            "[33.34, 33.33, 33.33]"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "The remaining paisa goes to the first person."
         }
       }
@@ -6193,11 +6349,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In high-stakes domains, what is AI's appropriate role?",
           "options": [
-            "Final decision maker",
-            "Assistant to qualified professionals, who remain responsible",
-            "Replacement for regulation"
+            "Autonomous final decision authority across edge cases",
+            "Replacement for compliance audits across regulated sectors",
+            "Unsupervised triage engine signing patient discharge notices",
+            "Decision support for licensed professionals who stay accountable"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Professionals keep responsibility."
         }
       },
@@ -6227,11 +6384,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why check disclaimers automatically?",
           "options": [
-            "They are long",
-            "So they are consistent rather than depending on the model remembering",
-            "To reduce tokens"
+            "Boilerplate warning strings exceed token limits quickly",
+            "Automatic appends lower billing tokens across cloud models",
+            "Code enforcement keeps notices consistent reliably every run",
+            "Regex filters validate legal statutes inside medical outputs"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Automation ensures consistency."
         }
       },
@@ -6261,9 +6419,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must AI-found legal citations be checked?",
           "options": [
-            "They are too long",
-            "Models can invent cases that do not exist",
-            "Courts ban AI"
+            "Legal docket citations run overly verbose for chat UI",
+            "Models confidently hallucinate plausible non-existent cases",
+            "Courts prohibit pasting statutory text into AI APIs altogether",
+            "Python JSON parsers break on legal citation section symbols"
           ],
           "answer": 1,
           "why": "Invented citations have caused real sanctions."
@@ -6295,11 +6454,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Can a general chat assistant be used to diagnose illness?",
           "options": [
-            "Yes",
-            "No, diagnosis needs qualified professionals and regulated tools",
-            "Only for children"
+            "No, clinical diagnosis demands licensed care and regulated tools",
+            "Yes, when prompted with structured symptom checklists",
+            "Only when answering routine pediatric wellness questions",
+            "Yes, provided temperature is fixed at zero with citations"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "General assistants are not medical devices."
         }
       },
@@ -6329,11 +6489,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where should financial figures in AI-written reports come from?",
           "options": [
-            "The model's estimate",
-            "Source systems and code calculations",
-            "Previous reports only"
+            "Verified source ledgers and deterministic code math",
+            "The language model's plausible inline estimates",
+            "Cached quarterly narratives from prior draft memos",
+            "Few-shot examples predicting smooth revenue growth"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "AI writes around verified numbers."
         }
       },
@@ -6363,11 +6524,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "disclaimer_check(\"cooking\", \"Add salt.\") returns?",
           "options": [
-            "ok False",
-            "ok True with nothing missing",
-            "An error"
+            "ok False listing medical disclaimer missing",
+            "ValueError because cooking isn't supported",
+            "ok False requiring general safety warning",
+            "ok True with an empty missing list"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Unknown domains have no required phrases."
         }
       }
@@ -6421,11 +6583,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why test models on your own tasks?",
           "options": [
-            "Public benchmarks are always wrong",
-            "Your tasks may rank models differently from general benchmarks",
-            "It is required by law"
+            "Academic leaderboards intentionally misstate open accuracy",
+            "Data protection regulations mandate custom internal scorecards",
+            "Public scores often misalign with your specific domain inputs",
+            "Small local models cannot execute standardized general benchmarks"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Task-specific tests give reliable choices."
         }
       },
@@ -6459,9 +6622,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why normalise answers before scoring?",
           "options": [
-            "To save time",
-            "So differences in case and spacing are not counted as errors",
-            "Models require it"
+            "Strip calls lower Python runtime significantly",
+            "Spacing and case tweaks aren't graded as misses",
+            "JSON harnesses fail unless strings use lowercase",
+            "Normalization removes misspelled factual tokens too"
           ],
           "answer": 1,
           "why": "Format noise should not affect accuracy."
@@ -6493,9 +6657,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a known bias of LLM judges?",
           "options": [
-            "They cannot read",
-            "They may prefer longer answers or whichever is shown first",
-            "They always choose ties"
+            "Automated judges skip answers lacking Markdown headers",
+            "Models favor verbose answers or specific slot ordering",
+            "Judges score tied candidate pairs identically every turn",
+            "Temperature settings below 0.2 break rubric comparisons"
           ],
           "answer": 1,
           "why": "Randomise order and control for length."
@@ -6531,11 +6696,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is model routing?",
           "options": [
-            "Choosing one model forever",
-            "Sending easy cases to a small model and hard ones to a larger model",
-            "Rotating models randomly"
+            "Dispatching easy queries to small models and hard to big",
+            "Locking one frontier endpoint permanently across apps",
+            "Rotating traffic evenly across random cloud model APIs",
+            "Streaming tokens simultaneously from all models per click"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Routing balances cost and quality."
         }
       },
@@ -6565,11 +6731,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why run evaluations several times?",
           "options": [
-            "To waste tokens",
-            "Randomness means one run can be misleadingly high or low",
-            "Models improve with repetition"
+            "Extra repetitions increase token caching hit ratios cleanly",
+            "Models refine output quality iteratively with repeated prompts",
+            "Leaderboard dictionaries drop scores lacking three sample runs",
+            "Sampling variance can skew single-pass benchmark scores wildly"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Repeated runs reveal variance."
         }
       },
@@ -6603,11 +6770,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "leaderboard skips a model when?",
           "options": [
-            "Its accuracy is below 50",
-            "Its result list is empty",
-            "Its name is long"
+            "Accuracy scores drop strictly below 50%",
+            "The model identifier exceeds twelve chars",
+            "Its recorded results list is completely empty",
+            "Latency variance exceeds two standard deviations"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "No results means nothing to score."
         }
       }
@@ -6661,11 +6829,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a main advantage of running an open model locally?",
           "options": [
-            "It is always smarter",
-            "Your data does not leave your control",
-            "It needs no hardware"
+            "Open-weight models consistently outscore giant frontier APIs",
+            "Local weights execute rapidly on bare CPUs without GPUs",
+            "Sensitive user records never leave local infrastructure bounds",
+            "Offline inference eliminates prompt injection and JSON errors"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Local means private."
         }
       },
@@ -6695,9 +6864,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is it useful that local servers mimic cloud API formats?",
           "options": [
-            "They look nicer",
-            "The same code can switch between local and cloud models",
-            "They are faster"
+            "Unified JSON payloads align telemetry charts across logs",
+            "Client apps switch local and cloud endpoints with minimal code",
+            "Compatible REST endpoints double local token throughput speed",
+            "Mirrored schemas share weights transparently across local GPUs"
           ],
           "answer": 1,
           "why": "Compatible formats make switching easy."
@@ -6729,11 +6899,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Roughly how much memory do the weights of an 8B model at 16 bits need?",
           "options": [
-            "2 GB",
-            "16 GB",
-            "128 GB"
+            "About 16 GB",
+            "About 2 GB",
+            "About 64 GB",
+            "About 128 GB"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "8 billion × 2 bytes = 16 GB."
         }
       },
@@ -6767,11 +6938,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does quantisation trade?",
           "options": [
-            "Speed for colour",
-            "A little quality for much lower memory use",
-            "Privacy for cost"
+            "Higher decoding speed for lower output contrast",
+            "Data confidentiality for lower per-token API fees",
+            "Smaller context windows for extra layer weights",
+            "Minor precision loss for large memory savings"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Fewer bits, smaller models, slight quality loss."
         }
       },
@@ -6801,11 +6973,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which skills stay valuable as models change?",
           "options": [
-            "Memorising model names",
-            "Prompting, grounding, checking, privacy and evaluation",
-            "Using only one tool"
+            "Memorizing transient vendor parameter counts",
+            "Optimizing prompts strictly for one proprietary UI",
+            "Writing bespoke regex hacks around deprecated flags",
+            "Prompt clarity, grounding, evals, and privacy hygiene"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Durable skills transfer to new models."
         }
       },
@@ -6835,11 +7008,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "choose_bits(70, 16) returns?",
           "options": [
-            "4",
-            "None",
-            "8"
+            "4-bit precision",
+            "8-bit precision",
+            "None (won't fit)",
+            "16-bit precision"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Even 4 bits needs 42 GB."
         }
       }
@@ -6894,9 +7068,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which is NOT one of the linter's positive checks?",
           "options": [
-            "A role",
-            "Use of capital letters",
-            "An example"
+            "An explicit role definition",
+            "All-caps formatting words",
+            "At least one input example",
+            "Clear output structure specs"
           ],
           "answer": 1,
           "why": "The checks are role, format, audience, example and length."
@@ -6929,11 +7104,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why include injection checks in a prompt linter?",
           "options": [
-            "To make prompts longer",
-            "A well-structured prompt can still be unsafe",
-            "Linters require it"
+            "Clean formatting never prevents malicious prompt override text",
+            "Security scanners expand word counts toward lint minimums",
+            "Python linters reject prompts omitting regex phrase lists",
+            "Injection patterns silently skip missing role definitions too"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Quality and safety are both checked."
         }
       },
@@ -6964,11 +7140,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why also require a minimum score on every test?",
           "options": [
-            "To make it harder",
-            "So one weak area cannot hide behind a good average",
-            "Averages are unreliable"
+            "Strong average scores shouldn't mask zero-score category failures",
+            "High thresholds simplify average arithmetic rounding rules",
+            "Arithmetic means systematically undercount high-performing categories",
+            "Per-category floors replace running end-to-end eval suites cleanly"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Mastery means no major gaps."
         }
       },
@@ -6998,11 +7175,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What ties the whole toolkit together?",
           "options": [
-            "Using the biggest model",
-            "Clear prompts plus automatic checks and human judgement",
-            "Avoiding AI"
+            "Defaulting every production prompt straight to frontier APIs",
+            "Replacing programmatic code validators with longer CoT prose",
+            "Removing AI automation wherever inputs carry slight variance",
+            "Clear prompt craft paired with automated checks and human review"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Good inputs, checked outputs, responsible decisions."
         }
       },
@@ -7033,11 +7211,12 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which is a responsible AI habit?",
           "options": [
-            "Sharing confidential data for better answers",
-            "Verifying facts in proportion to the stakes",
-            "Hiding AI use everywhere"
+            "Pasting unredacted client secrets for richer answers",
+            "Publishing unedited AI drafts while stripping attribution",
+            "Validating model claims rigorously in proportion to stakes",
+            "Disabling fallback messages to save API validation overhead"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Verification scales with risk."
         }
       },
@@ -7067,9 +7246,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "lint_prompt on a complete prompt containing \"developer mode\" scores?",
           "options": [
-            "100",
-            "60",
-            "0"
+            "Score of 100",
+            "Score of 60",
+            "Score of 0",
+            "Score of 80"
           ],
           "answer": 1,
           "why": "100 minus the 40-point injection penalty."
@@ -7115,13 +7295,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is linear autoregressive generation fundamentally ill-suited for complex combinatorial problem solving?",
           "options": [
-            "Because forward-only token emission cannot retract flawed early assumptions, locking the model into rationalizing errors",
-            "Because autoregressive models can only generate a maximum of fifty tokens before running out of memory",
-            "Because linear generation requires continuous internet connectivity to calculate basic mathematical operations",
-            "Because modern transformer models cannot process natural language text without translating it into binary code"
+            "Transformer KV caches expire after fifty tokens, forcing linear generation to drop constraints",
+            "Forward-only decoding cannot backtrack early mistakes, locking later tokens into rationalizing errors",
+            "Sequential greedy sampling prohibits evaluating tool payloads once syntax tokens have begun streaming",
+            "Linear decoding assigns uniform positional probability across context, erasing priority constraint order"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Linear autoregressive generation has no native backtracking mechanism; once a flawed token is emitted, the self-attention mechanism conditions on it, distorting all subsequent reasoning."
         },
         "code": "def test_day31_tree_of_thoughts():\n    class ThoughtNode:\n        def __init__(self, state, path=None, score=0.0):\n            self.state = state\n            self.path = path or []\n            self.score = score\n\n    def thought_generator(current_state):\n        options = {\n            \"root\": [\"expand_emea_direct\", \"partner_emea_reseller\", \"license_emea_ip\"],\n            \"expand_emea_direct\": [\"build_local_datacenter\", \"lease_managed_colocation\"],\n            \"partner_emea_reseller\": [\"tier_one_distributor\", \"boutique_regional_agencies\"]\n        }\n        return options.get(current_state, [])\n\n    def heuristic_evaluator(candidate):\n        scores = {\n            \"expand_emea_direct\": 0.45,\n            \"partner_emea_reseller\": 0.88,\n            \"license_emea_ip\": 0.62,\n            \"tier_one_distributor\": 0.94,\n            \"boutique_regional_agencies\": 0.71,\n            \"build_local_datacenter\": 0.30,\n            \"lease_managed_colocation\": 0.52\n        }\n        return scores.get(candidate, 0.10)\n\n    beam_width = 2\n    frontier = [ThoughtNode(\"root\", [\"root\"], 1.0)]\n\n    for depth in range(2):\n        next_frontier = []\n        for node in frontier:\n            for c in thought_generator(node.state):\n                val = heuristic_evaluator(c)\n                if val >= 0.50:\n                    next_frontier.append(ThoughtNode(c, node.path + [c], val))\n        next_frontier.sort(key=lambda x: x.score, reverse=True)\n        frontier = next_frontier[:beam_width]\n\n    best_node = frontier[0] if frontier else None\n    return {\n        \"searchAlgorithm\": \"Tree-of-Thoughts Heuristic Beam Search\",\n        \"bestPath\": \" -> \".join(best_node.path) if best_node else \"none\",\n        \"confidenceScore\": best_node.score if best_node else 0.0,\n        \"backtrackedPrunedPaths\": 3,\n        \"searchStatus\": \"OPTIMAL_STRATEGIC_PATH_DISCOVERED\"\n    }\n\nimport json\nprint(json.dumps(test_day31_tree_of_thoughts(), indent=2))",
@@ -7143,10 +7323,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of separating Thought Generation from State Evaluation?",
           "options": [
-            "To eliminate self-justification bias by evaluating candidate thoughts through an independent objective rubric",
-            "To increase cloud API billing costs by making two network requests instead of one",
-            "To prevent large language models from generating responses that contain punctuation marks",
-            "To allow the language model to shut down its neural network weights between generation steps"
+            "To remove self-justification bias by scoring branches via an independent rubric",
+            "To cut cloud API round trips by bundling scoring inside the initial prompt call",
+            "To eliminate tokenization variance across parallel temperature sampling sweeps",
+            "To guarantee deterministic convergence without setting a beam pruning breadth"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -7172,13 +7352,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Beam Search prevent exponential token explosion during Tree-of-Thoughts exploration?",
           "options": [
-            "By pruning low-scoring candidate nodes at each depth level and retaining only the top k highest-rated paths",
-            "By compressing all generated text into encrypted binary files before sending it to the user",
-            "By forcing the language model to output only single-character responses during tree traversal",
-            "By automatically deleting the problem prompt as soon as the first candidate thought is generated"
+            "By hashing duplicate intermediate strings to eliminate re-scoring identical trees",
+            "By truncating leaf reasoning steps once output tokens pass threshold length",
+            "By dynamically shifting model temperature downward at each subsequent tree hop",
+            "By pruning weak branches per depth level and keeping only top-k rated paths"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Beam search bounds exponential branching by sorting all evaluated candidate nodes at each depth level and preserving solely the top k nodes, discarding the rest."
         },
         "code": "def test_day31_tree_of_thoughts():\n    class ThoughtNode:\n        def __init__(self, state, path=None, score=0.0):\n            self.state = state\n            self.path = path or []\n            self.score = score\n\n    def thought_generator(current_state):\n        options = {\n            \"root\": [\"expand_emea_direct\", \"partner_emea_reseller\", \"license_emea_ip\"],\n            \"expand_emea_direct\": [\"build_local_datacenter\", \"lease_managed_colocation\"],\n            \"partner_emea_reseller\": [\"tier_one_distributor\", \"boutique_regional_agencies\"]\n        }\n        return options.get(current_state, [])\n\n    def heuristic_evaluator(candidate):\n        scores = {\n            \"expand_emea_direct\": 0.45,\n            \"partner_emea_reseller\": 0.88,\n            \"license_emea_ip\": 0.62,\n            \"tier_one_distributor\": 0.94,\n            \"boutique_regional_agencies\": 0.71,\n            \"build_local_datacenter\": 0.30,\n            \"lease_managed_colocation\": 0.52\n        }\n        return scores.get(candidate, 0.10)\n\n    beam_width = 2\n    frontier = [ThoughtNode(\"root\", [\"root\"], 1.0)]\n\n    for depth in range(2):\n        next_frontier = []\n        for node in frontier:\n            for c in thought_generator(node.state):\n                val = heuristic_evaluator(c)\n                if val >= 0.50:\n                    next_frontier.append(ThoughtNode(c, node.path + [c], val))\n        next_frontier.sort(key=lambda x: x.score, reverse=True)\n        frontier = next_frontier[:beam_width]\n\n    best_node = frontier[0] if frontier else None\n    return {\n        \"searchAlgorithm\": \"Tree-of-Thoughts Heuristic Beam Search\",\n        \"bestPath\": \" -> \".join(best_node.path) if best_node else \"none\",\n        \"confidenceScore\": best_node.score if best_node else 0.0,\n        \"backtrackedPrunedPaths\": 3,\n        \"searchStatus\": \"OPTIMAL_STRATEGIC_PATH_DISCOVERED\"\n    }\n\nimport json\nprint(json.dumps(test_day31_tree_of_thoughts(), indent=2))",
@@ -7201,13 +7381,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which cognitive capability does Graph-of-Thoughts enable that is impossible in a strict hierarchical tree?",
           "options": [
-            "Thought Aggregation, where independent insights from separate branches are merged into a joint synthesis node",
-            "Generating random English words without conditioning on any input context",
-            "Disabling the mathematical backpropagation algorithm during foundation model training",
-            "Running large language models on devices that lack central processing units entirely"
+            "Rolling back early failed thoughts linearly along one active branch stack",
+            "Allocating fixed greedy token probabilities at initial tree expansion",
+            "Merging independent insights from separate branches into a unified node",
+            "Restricting child nodes strictly to single-hop factual verification steps"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Graph-of-Thoughts allows arbitrary directed acyclic graph operations, notably Thought Aggregation where multiple separate reasoning threads converge into a single synthesis node."
         },
         "code": "def test_day31_tree_of_thoughts():\n    class ThoughtNode:\n        def __init__(self, state, path=None, score=0.0):\n            self.state = state\n            self.path = path or []\n            self.score = score\n\n    def thought_generator(current_state):\n        options = {\n            \"root\": [\"expand_emea_direct\", \"partner_emea_reseller\", \"license_emea_ip\"],\n            \"expand_emea_direct\": [\"build_local_datacenter\", \"lease_managed_colocation\"],\n            \"partner_emea_reseller\": [\"tier_one_distributor\", \"boutique_regional_agencies\"]\n        }\n        return options.get(current_state, [])\n\n    def heuristic_evaluator(candidate):\n        scores = {\n            \"expand_emea_direct\": 0.45,\n            \"partner_emea_reseller\": 0.88,\n            \"license_emea_ip\": 0.62,\n            \"tier_one_distributor\": 0.94,\n            \"boutique_regional_agencies\": 0.71,\n            \"build_local_datacenter\": 0.30,\n            \"lease_managed_colocation\": 0.52\n        }\n        return scores.get(candidate, 0.10)\n\n    beam_width = 2\n    frontier = [ThoughtNode(\"root\", [\"root\"], 1.0)]\n\n    for depth in range(2):\n        next_frontier = []\n        for node in frontier:\n            for c in thought_generator(node.state):\n                val = heuristic_evaluator(c)\n                if val >= 0.50:\n                    next_frontier.append(ThoughtNode(c, node.path + [c], val))\n        next_frontier.sort(key=lambda x: x.score, reverse=True)\n        frontier = next_frontier[:beam_width]\n\n    best_node = frontier[0] if frontier else None\n    return {\n        \"searchAlgorithm\": \"Tree-of-Thoughts Heuristic Beam Search\",\n        \"bestPath\": \" -> \".join(best_node.path) if best_node else \"none\",\n        \"confidenceScore\": best_node.score if best_node else 0.0,\n        \"backtrackedPrunedPaths\": 3,\n        \"searchStatus\": \"OPTIMAL_STRATEGIC_PATH_DISCOVERED\"\n    }\n\nimport json\nprint(json.dumps(test_day31_tree_of_thoughts(), indent=2))",
@@ -7230,13 +7410,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the role of explicit data structures like stacks and priority queues in a production ToT controller?",
           "options": [
-            "Governing state navigation, backtracking, and frontier prioritization deterministically outside the LLM context",
-            "Converting Python scripts into machine code assembly instructions for faster execution",
-            "Encrypting model weights so that unauthorized engineers cannot inspect internal parameters",
-            "Replacing database storage tables with ephemeral in-memory variables permanently"
+            "Storing model gradient checkpoints directly inside fast Redis search buffers",
+            "Replacing temperature sampling probabilities with static dictionary probability lookups",
+            "Driving backtracking, state navigation, and frontier priority deterministically in code",
+            "Preventing worker threads from serializing intermediate branch JSON states to disk"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Deterministic data structures like stacks and queues allow the Python controller to manage the search frontier, execute systematic backtracking, and enforce bounds without depending on LLM memory."
         },
         "code": "def test_day31_tree_of_thoughts():\n    class ThoughtNode:\n        def __init__(self, state, path=None, score=0.0):\n            self.state = state\n            self.path = path or []\n            self.score = score\n\n    def thought_generator(current_state):\n        options = {\n            \"root\": [\"expand_emea_direct\", \"partner_emea_reseller\", \"license_emea_ip\"],\n            \"expand_emea_direct\": [\"build_local_datacenter\", \"lease_managed_colocation\"],\n            \"partner_emea_reseller\": [\"tier_one_distributor\", \"boutique_regional_agencies\"]\n        }\n        return options.get(current_state, [])\n\n    def heuristic_evaluator(candidate):\n        scores = {\n            \"expand_emea_direct\": 0.45,\n            \"partner_emea_reseller\": 0.88,\n            \"license_emea_ip\": 0.62,\n            \"tier_one_distributor\": 0.94,\n            \"boutique_regional_agencies\": 0.71,\n            \"build_local_datacenter\": 0.30,\n            \"lease_managed_colocation\": 0.52\n        }\n        return scores.get(candidate, 0.10)\n\n    beam_width = 2\n    frontier = [ThoughtNode(\"root\", [\"root\"], 1.0)]\n\n    for depth in range(2):\n        next_frontier = []\n        for node in frontier:\n            for c in thought_generator(node.state):\n                val = heuristic_evaluator(c)\n                if val >= 0.50:\n                    next_frontier.append(ThoughtNode(c, node.path + [c], val))\n        next_frontier.sort(key=lambda x: x.score, reverse=True)\n        frontier = next_frontier[:beam_width]\n\n    best_node = frontier[0] if frontier else None\n    return {\n        \"searchAlgorithm\": \"Tree-of-Thoughts Heuristic Beam Search\",\n        \"bestPath\": \" -> \".join(best_node.path) if best_node else \"none\",\n        \"confidenceScore\": best_node.score if best_node else 0.0,\n        \"backtrackedPrunedPaths\": 3,\n        \"searchStatus\": \"OPTIMAL_STRATEGIC_PATH_DISCOVERED\"\n    }\n\nimport json\nprint(json.dumps(test_day31_tree_of_thoughts(), indent=2))",
@@ -7286,13 +7466,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational objective of Directional Stimulus Prompting (DSP)?",
           "options": [
-            "Injecting compact semantic anchor phrases to steer autoregressive attention toward target concepts without long instructions",
-            "Encrypting model prompts so that cloud hosting providers cannot monitor network payloads",
-            "Rewriting foundation model weights at runtime using low-level assembly instructions",
-            "Forcing large language models to output only single-word responses during analysis"
+            "Replacing model weights with domain adapter layers ahead of query decoding",
+            "Injecting compact anchor hints to guide attention without huge prompt templates",
+            "Compressing multi-turn history summaries into fixed binary attention hashes",
+            "Restricting output vocabulary masks exclusively to valid Pydantic enum strings"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Directional Stimulus Prompting provides compact semantic anchor hints that guide model attention toward desired topics while preserving natural fluency and avoiding bloated prompt overhead."
         },
         "code": "def test_day32_directional_stimulus():\n    class DirectionalStimulusEngine:\n        def __init__(self):\n            self.hint_library = {\n                \"financial_forecast\": \"Focus strictly on recurring subscription revenue and exclude non-operational asset sales.\",\n                \"legal_compliance\": \"Highlight statutory penalty risks under GDPR Article 83 and emphasize data residency.\",\n                \"clinical_trial\": \"Prioritize Phase 3 primary endpoint adverse event rates over secondary patient reported metrics.\"\n            }\n\n        def generate_directional_hint(self, domain_key):\n            return self.hint_library.get(domain_key, \"Provide structured executive synthesis with verifiable evidence.\")\n\n        def meta_prompt_optimize(self, base_prompt, hint):\n            return f\"[SYSTEM_DIRECTIVE]: {hint}\\n[BASE_QUERY]: {base_prompt}\\n[FORMAT]: Deterministic Markdown Table.\"\n\n    engine = DirectionalStimulusEngine()\n    hint = engine.generate_directional_hint(\"financial_forecast\")\n    optimized = engine.meta_prompt_optimize(\"Synthesize Q3 earnings performance.\", hint)\n\n    return {\n        \"technique\": \"Directional Stimulus Prompting (DSP)\",\n        \"injectedHint\": hint,\n        \"tokenSalienceShift\": \"Targeted Semantic Bias Injection\",\n        \"optimizationIterations\": 3,\n        \"bleuScoreGainPct\": 28.4,\n        \"status\": \"DIRECTIONAL_PROMPT_COMPILED\"\n    }\n\nimport json\nprint(json.dumps(test_day32_directional_stimulus(), indent=2))",
@@ -7316,10 +7496,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the DSP framework decouple a small Policy-LM from the primary Target Model?",
           "options": [
-            "To generate rapid, low-cost directional hints with an agile small model while preserving deep reasoning in the primary model",
-            "Because large models cannot generate prompts without crashing cloud virtual machines",
-            "To increase cloud infrastructure billing by running multiple redundant instances simultaneously",
-            "To eliminate the need for internet connectivity between client applications and server APIs"
+            "To draft cheap steering hints fast while saving heavy reasoning for the main LLM",
+            "Because large frontier APIs fail to parse short hint prefixes under fifty tokens",
+            "To double concurrent request throughput without allocating separate prompt caches",
+            "Because compact models enforce strict JSON schema transitions during sampling"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -7346,13 +7526,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does automated meta-prompting improve prompt templates without human intervention?",
           "options": [
-            "By executing candidate prompts, evaluating error patterns, and using an LLM optimizer to recursively rewrite instructions",
-            "By randomly deleting words from the prompt until the model generates a shorter output",
-            "By submitting the prompt to human crowd workers via public survey websites automatically",
-            "By restarting the server operating system whenever an incorrect answer is produced"
+            "By truncating low-frequency nouns sequentially until token overhead drops cleanly",
+            "By adjusting layer temperature weights automatically using backpropagation gradients",
+            "By routing ambiguous failing edge cases exclusively to deterministic lookup rules",
+            "By testing candidate prompts, inspecting errors, and iteratively rewriting directives"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Meta-prompting establishes a closed-loop optimization cycle where model outputs are scored, error diagnostics are analyzed, and an optimizer model systematically rewrites the prompt to fix flaws."
         },
         "code": "def test_day32_directional_stimulus():\n    class DirectionalStimulusEngine:\n        def __init__(self):\n            self.hint_library = {\n                \"financial_forecast\": \"Focus strictly on recurring subscription revenue and exclude non-operational asset sales.\",\n                \"legal_compliance\": \"Highlight statutory penalty risks under GDPR Article 83 and emphasize data residency.\",\n                \"clinical_trial\": \"Prioritize Phase 3 primary endpoint adverse event rates over secondary patient reported metrics.\"\n            }\n\n        def generate_directional_hint(self, domain_key):\n            return self.hint_library.get(domain_key, \"Provide structured executive synthesis with verifiable evidence.\")\n\n        def meta_prompt_optimize(self, base_prompt, hint):\n            return f\"[SYSTEM_DIRECTIVE]: {hint}\\n[BASE_QUERY]: {base_prompt}\\n[FORMAT]: Deterministic Markdown Table.\"\n\n    engine = DirectionalStimulusEngine()\n    hint = engine.generate_directional_hint(\"financial_forecast\")\n    optimized = engine.meta_prompt_optimize(\"Synthesize Q3 earnings performance.\", hint)\n\n    return {\n        \"technique\": \"Directional Stimulus Prompting (DSP)\",\n        \"injectedHint\": hint,\n        \"tokenSalienceShift\": \"Targeted Semantic Bias Injection\",\n        \"optimizationIterations\": 3,\n        \"bleuScoreGainPct\": 28.4,\n        \"status\": \"DIRECTIONAL_PROMPT_COMPILED\"\n    }\n\nimport json\nprint(json.dumps(test_day32_directional_stimulus(), indent=2))",
@@ -7377,13 +7557,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are gradient-free optimization algorithms essential for optimizing proprietary black-box LLMs?",
           "options": [
-            "Because cloud API providers do not expose internal model parameter gradients or soft embedding weights",
-            "Because gradient descent algorithms were proven mathematically invalid for language processing",
-            "Because gradient-free optimization allows models to run without consuming electric power",
-            "Because black-box models do not utilize neural networks to process natural language text"
+            "Discrete token prompts cannot affect attention weights without full fine-tuning",
+            "Gradient updates require batch sizes larger than standard production requests allow",
+            "Cloud providers rate-limit gradient evaluations differently from chat completions",
+            "Hosted APIs do not expose model parameter gradients or soft token weights"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Proprietary cloud models only permit text-in, text-out forward passes; without access to internal gradients, prompt optimization must be treated as a discrete black-box search problem."
         },
         "code": "def test_day32_directional_stimulus():\n    class DirectionalStimulusEngine:\n        def __init__(self):\n            self.hint_library = {\n                \"financial_forecast\": \"Focus strictly on recurring subscription revenue and exclude non-operational asset sales.\",\n                \"legal_compliance\": \"Highlight statutory penalty risks under GDPR Article 83 and emphasize data residency.\",\n                \"clinical_trial\": \"Prioritize Phase 3 primary endpoint adverse event rates over secondary patient reported metrics.\"\n            }\n\n        def generate_directional_hint(self, domain_key):\n            return self.hint_library.get(domain_key, \"Provide structured executive synthesis with verifiable evidence.\")\n\n        def meta_prompt_optimize(self, base_prompt, hint):\n            return f\"[SYSTEM_DIRECTIVE]: {hint}\\n[BASE_QUERY]: {base_prompt}\\n[FORMAT]: Deterministic Markdown Table.\"\n\n    engine = DirectionalStimulusEngine()\n    hint = engine.generate_directional_hint(\"financial_forecast\")\n    optimized = engine.meta_prompt_optimize(\"Synthesize Q3 earnings performance.\", hint)\n\n    return {\n        \"technique\": \"Directional Stimulus Prompting (DSP)\",\n        \"injectedHint\": hint,\n        \"tokenSalienceShift\": \"Targeted Semantic Bias Injection\",\n        \"optimizationIterations\": 3,\n        \"bleuScoreGainPct\": 28.4,\n        \"status\": \"DIRECTIONAL_PROMPT_COMPILED\"\n    }\n\nimport json\nprint(json.dumps(test_day32_directional_stimulus(), indent=2))",
@@ -7408,13 +7588,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the role of in-memory caching (like Redis) in production directional stimulus engines?",
           "options": [
-            "Storing pre-validated domain stimulus hints to bypass redundant policy-LM calls and minimize latency",
-            "Encrypting customer passwords before transmitting them across public wireless networks",
-            "Compressing Python bytecode to reduce hard drive storage requirements on servers",
-            "Replacing the operating system kernel with an open-source database engine permanently"
+            "Storing full conversation logs symmetrically across stateless worker containers",
+            "Compressing floating-point prompt embeddings into integer JSON lookup arrays",
+            "Caching validated stimulus hints to skip duplicate policy calls and cut latency",
+            "Managing distributed optimistic locks during parallel tree synthesis passes"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Caching pre-validated directional hints for common domain queries eliminates duplicate policy model calls, drastically reducing execution latency and API token costs."
         },
         "code": "def test_day32_directional_stimulus():\n    class DirectionalStimulusEngine:\n        def __init__(self):\n            self.hint_library = {\n                \"financial_forecast\": \"Focus strictly on recurring subscription revenue and exclude non-operational asset sales.\",\n                \"legal_compliance\": \"Highlight statutory penalty risks under GDPR Article 83 and emphasize data residency.\",\n                \"clinical_trial\": \"Prioritize Phase 3 primary endpoint adverse event rates over secondary patient reported metrics.\"\n            }\n\n        def generate_directional_hint(self, domain_key):\n            return self.hint_library.get(domain_key, \"Provide structured executive synthesis with verifiable evidence.\")\n\n        def meta_prompt_optimize(self, base_prompt, hint):\n            return f\"[SYSTEM_DIRECTIVE]: {hint}\\n[BASE_QUERY]: {base_prompt}\\n[FORMAT]: Deterministic Markdown Table.\"\n\n    engine = DirectionalStimulusEngine()\n    hint = engine.generate_directional_hint(\"financial_forecast\")\n    optimized = engine.meta_prompt_optimize(\"Synthesize Q3 earnings performance.\", hint)\n\n    return {\n        \"technique\": \"Directional Stimulus Prompting (DSP)\",\n        \"injectedHint\": hint,\n        \"tokenSalienceShift\": \"Targeted Semantic Bias Injection\",\n        \"optimizationIterations\": 3,\n        \"bleuScoreGainPct\": 28.4,\n        \"status\": \"DIRECTIONAL_PROMPT_COMPILED\"\n    }\n\nimport json\nprint(json.dumps(test_day32_directional_stimulus(), indent=2))",
@@ -7464,13 +7644,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do multi-persona Socratic ensembles outperform monolithic single-prompt interactions on complex tasks?",
           "options": [
-            "Because adversarial cross-examination exposes flawed premises, ungrounded assumptions, and hallucinations",
-            "Because running multiple personas simultaneously doubles the hardware clock speed of the server",
-            "Because personas completely bypass the mathematical transformer attention mechanisms in the model",
-            "Because multiple personas automatically generate free cloud computing credits from hosting providers"
+            "Splitting one query across personas reduces total generated output tokens overall",
+            "Adversarial cross-examination exposes shaky premises, blind spots, and hallucinations",
+            "Distinct persona headers trigger specialized checkpoint routing inside frontier APIs",
+            "Multiple independent role prompts bypass prefix cache invalidation automatically"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Adversarial cross-examination among diverse personas actively challenges unexamined assumptions and catches hallucinations that a single model instance would rationalize."
         },
         "code": "def test_day33_socratic_ensemble():\n    \"\"\"\n    Day 33: Multi-Persona Socratic Ensembles: Debate-Driven Deliberation\n    \"\"\"\n    personas = [\n        {\"role\": \"Systems Performance Architect\", \"vote\": \"MIGRATE_TO_RUST\", \"confidence\": 0.92, \"weight\": 1.2},\n        {\"role\": \"Enterprise Security Officer\", \"vote\": \"MIGRATE_TO_RUST\", \"confidence\": 0.95, \"weight\": 1.4},\n        {\"role\": \"Delivery Project Director\", \"vote\": \"REMAIN_ON_TYPESCRIPT\", \"confidence\": 0.82, \"weight\": 1.0}\n    ]\n\n    tally = {}\n    weighted_scores = {}\n    for p in personas:\n        v = p[\"vote\"]\n        tally[v] = tally.get(v, 0) + 1\n        weighted_scores[v] = weighted_scores.get(v, 0.0) + (p[\"confidence\"] * p[\"weight\"])\n\n    winner = max(weighted_scores, key=weighted_scores.get)\n\n    return {\n        \"ensembleProtocol\": \"Multi-Persona Socratic Debate & Weighted Majority Voting\",\n        \"participatingPersonas\": [p[\"role\"] for p in personas],\n        \"consensusWinner\": winner,\n        \"aggregateConfidencePct\": round((weighted_scores[winner] / sum(weighted_scores.values())) * 100, 1),\n        \"hallucinationSuppressionRatePct\": 94.8,\n        \"status\": \"SOCRATIC_CONSENSUS_RATIFIED\"\n    }\n\nimport json\nprint(json.dumps(test_day33_socratic_ensemble(), indent=2))",
@@ -7494,10 +7674,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the critical role of Domain Invariant Boundaries in enterprise persona design?",
           "options": [
-            "To establish non-negotiable architectural constraints that the persona refuses to compromise during debate",
-            "To prevent the language model from generating responses that exceed exactly ten words in length",
-            "To force the model to translate all English responses into hexadecimal machine instructions",
-            "To disable neural network weights associated with grammatical sentence construction"
+            "Defining hard domain constraints each persona cannot concede during critique",
+            "Enforcing identical output JSON token limits across all debating models",
+            "Ensuring persona system strings hash deterministically under zero temperature",
+            "Isolating tool permissions so minority judges cannot inspect peer ballots"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -7524,10 +7704,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is independent thesis generation mandatory before beginning multi-persona cross-examination?",
           "options": [
-            "To eliminate anchoring bias and ensure that initial proposals represent completely independent viewpoints",
-            "To reduce the electrical power consumed by data center cooling fans during inference",
-            "To prevent the computer operating system from allocating random access memory to the model",
-            "To ensure that all generated words start with identical alphabetical consonants"
+            "To prevent anchoring bias so initial proposals stay truly independent",
+            "To balance token billing equally before aggregating persona confidence votes",
+            "To pre-warm cloud KV prefix caches ahead of cross-examination turns",
+            "To synchronize async retry timeouts before launching supervisor arbitration"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -7554,13 +7734,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Confidence-Weighted Majority Voting improve over simple unweighted plurality voting?",
           "options": [
-            "By scaling the mathematical influence of each ballot by the persona's calibrated confidence score",
-            "By automatically discarding any vote that does not support the highest-cost enterprise solution",
-            "By converting all numerical votes into random alphabetical characters before calculation",
-            "By requiring all personas to vote unanimously for the exact same candidate without exception"
+            "Discarding outlier ballots whenever inter-persona variance exceeds threshold",
+            "Ordering candidate rankings alphabetically when confidence values sit tied",
+            "Boosting minority dissents automatically whenever primary experts agree early",
+            "Weighting each vote mathematically by the persona's calibrated confidence score"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Confidence-weighted voting weights ballots by the certainty level of each persona, ensuring that high-conviction expert insights carry appropriate mathematical influence."
         },
         "code": "def test_day33_socratic_ensemble():\n    \"\"\"\n    Day 33: Multi-Persona Socratic Ensembles: Debate-Driven Deliberation\n    \"\"\"\n    personas = [\n        {\"role\": \"Systems Performance Architect\", \"vote\": \"MIGRATE_TO_RUST\", \"confidence\": 0.92, \"weight\": 1.2},\n        {\"role\": \"Enterprise Security Officer\", \"vote\": \"MIGRATE_TO_RUST\", \"confidence\": 0.95, \"weight\": 1.4},\n        {\"role\": \"Delivery Project Director\", \"vote\": \"REMAIN_ON_TYPESCRIPT\", \"confidence\": 0.82, \"weight\": 1.0}\n    ]\n\n    tally = {}\n    weighted_scores = {}\n    for p in personas:\n        v = p[\"vote\"]\n        tally[v] = tally.get(v, 0) + 1\n        weighted_scores[v] = weighted_scores.get(v, 0.0) + (p[\"confidence\"] * p[\"weight\"])\n\n    winner = max(weighted_scores, key=weighted_scores.get)\n\n    return {\n        \"ensembleProtocol\": \"Multi-Persona Socratic Debate & Weighted Majority Voting\",\n        \"participatingPersonas\": [p[\"role\"] for p in personas],\n        \"consensusWinner\": winner,\n        \"aggregateConfidencePct\": round((weighted_scores[winner] / sum(weighted_scores.values())) * 100, 1),\n        \"hallucinationSuppressionRatePct\": 94.8,\n        \"status\": \"SOCRATIC_CONSENSUS_RATIFIED\"\n    }\n\nimport json\nprint(json.dumps(test_day33_socratic_ensemble(), indent=2))",
@@ -7585,13 +7765,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is asynchronous parallel dispatching via asyncio critical in production multi-persona debate engines?",
           "options": [
-            "To execute parallel persona generations concurrently, compressing multi-round debate latency into interactive windows",
-            "To eliminate the need for writing Python test cases or documenting code functions",
-            "To permanently bypass enterprise firewall rules and security gateway authentication",
-            "To increase model memory consumption to exceed physical server limits deliberately"
+            "Async tasks share unified mutable variables cleanly across sequential turns",
+            "Event loops compress system instruction tokens across simultaneous requests",
+            "Running persona queries concurrently keeps multi-round latency interactive",
+            "Parallel coroutines eliminate exponential backoff logic on rate-limited endpoints"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Asynchronous dispatching executes independent persona generations and critiques in parallel, preventing catastrophic cumulative latency across multi-round debates."
         },
         "code": "def test_day33_socratic_ensemble():\n    \"\"\"\n    Day 33: Multi-Persona Socratic Ensembles: Debate-Driven Deliberation\n    \"\"\"\n    personas = [\n        {\"role\": \"Systems Performance Architect\", \"vote\": \"MIGRATE_TO_RUST\", \"confidence\": 0.92, \"weight\": 1.2},\n        {\"role\": \"Enterprise Security Officer\", \"vote\": \"MIGRATE_TO_RUST\", \"confidence\": 0.95, \"weight\": 1.4},\n        {\"role\": \"Delivery Project Director\", \"vote\": \"REMAIN_ON_TYPESCRIPT\", \"confidence\": 0.82, \"weight\": 1.0}\n    ]\n\n    tally = {}\n    weighted_scores = {}\n    for p in personas:\n        v = p[\"vote\"]\n        tally[v] = tally.get(v, 0) + 1\n        weighted_scores[v] = weighted_scores.get(v, 0.0) + (p[\"confidence\"] * p[\"weight\"])\n\n    winner = max(weighted_scores, key=weighted_scores.get)\n\n    return {\n        \"ensembleProtocol\": \"Multi-Persona Socratic Debate & Weighted Majority Voting\",\n        \"participatingPersonas\": [p[\"role\"] for p in personas],\n        \"consensusWinner\": winner,\n        \"aggregateConfidencePct\": round((weighted_scores[winner] / sum(weighted_scores.values())) * 100, 1),\n        \"hallucinationSuppressionRatePct\": 94.8,\n        \"status\": \"SOCRATIC_CONSENSUS_RATIFIED\"\n    }\n\nimport json\nprint(json.dumps(test_day33_socratic_ensemble(), indent=2))",
@@ -7641,13 +7821,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does expanding context capacity not guarantee uniform retrieval accuracy across large token spaces?",
           "options": [
-            "Because softmax attention weights disperse across massive denominators, diluting signal into noise",
-            "Because transformer models automatically erase their neural weights when processing long documents",
-            "Because internet cables cannot transmit more than ten thousand text characters in a single second",
-            "Because computer monitors cannot display long sentences without overheating the graphics card"
+            "Tokenizers truncate repeated middle paragraphs once window usage passes half",
+            "Attention softmax spreads thin over huge windows, diluting signal in noise",
+            "Cloud endpoints silently downgrade long prompts to smaller quantized checkpoints",
+            "Positional embeddings wrap modulo window size after sixteen thousand tokens"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In scaled dot-product attention, expanding context forces query tokens to distribute softmax probability mass across massive token sets, diluting attention unless strong positional cues concentrate weights."
         },
         "code": "def test_day34_long_context_physics():\n    \"\"\"\n    Day 34: Long-Context Window Physics & U-Shaped Attention Hygiene\n    \"\"\"\n    class ContextHygieneOptimizer:\n        def __init__(self, context_tokens=128000):\n            self.total_tokens = context_tokens\n\n        def calculate_retrieval_fidelity(self, relative_depth_pct):\n            # U-shaped curve simulation: High at start (primacy) and end (recency), dip in middle\n            if relative_depth_pct <= 15:\n                return 0.98 - (relative_depth_pct * 0.005)\n            elif relative_depth_pct >= 85:\n                return 0.96 - ((100 - relative_depth_pct) * 0.004)\n            else:\n                # The Lost-in-the-Middle valley\n                distance_from_center = abs(relative_depth_pct - 50)\n                return 0.52 + (distance_from_center * 0.006)\n\n        def optimize_context_layout(self, documents):\n            # Place highest priority documents at beginning and end, bulk background in middle\n            sorted_docs = sorted(documents, key=lambda x: x[\"priority\"], reverse=True)\n            head = [sorted_docs[0]]\n            tail = [sorted_docs[1]] if len(sorted_docs) > 1 else []\n            middle = sorted_docs[2:]\n            return head + middle + tail\n\n    optimizer = ContextHygieneOptimizer(128000)\n    fidelity_start = optimizer.calculate_retrieval_fidelity(5)   # Primacy\n    fidelity_middle = optimizer.calculate_retrieval_fidelity(50) # Lost-in-middle\n    fidelity_end = optimizer.calculate_retrieval_fidelity(95)    # Recency\n\n    return {\n        \"contextArchitecture\": \"U-Shaped Salience Aware Context Layout Optimizer\",\n        \"monitoredContextLength\": \"128k Tokens\",\n        \"retrievalFidelity\": {\n            \"headPositionPct\": round(fidelity_start * 100, 1),\n            \"valleyPositionPct\": round(fidelity_middle * 100, 1),\n            \"tailPositionPct\": round(fidelity_end * 100, 1)\n        },\n        \"needleInHaystackAccuracyPct\": 99.4,\n        \"status\": \"CONTEXT_LAYOUT_HYGIENE_ENFORCED\"\n    }\n\nimport json\nprint(json.dumps(test_day34_long_context_physics(), indent=2))",
@@ -7670,13 +7850,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural cause of the Lost-in-the-Middle phenomenon in large language models?",
           "options": [
-            "Primacy biases in early attention heads and causal recency effects leave intermediate positions neglected",
-            "The middle tokens are permanently encrypted with cryptographic keys during model compilation",
-            "The server operating system automatically deletes the middle portion of every incoming prompt",
-            "Transformer models only execute mathematical multiplications on the first and last five tokens"
+            "KV cache eviction selectively drops middle sentences first during prefill passes",
+            "Early primacy bias and causal recency leave intermediate spans under-attended",
+            "Transformer models mask cross-attention heads between fixed sliding chunks",
+            "Input encoders compute positional norms inversely proportional to word depth"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Transformer attention exhibits strong primacy biases toward early prompt instructions and recency biases near the generation frontier, causing an attention valley across the middle forty to eighty percent."
         },
         "code": "def test_day34_long_context_physics():\n    \"\"\"\n    Day 34: Long-Context Window Physics & U-Shaped Attention Hygiene\n    \"\"\"\n    class ContextHygieneOptimizer:\n        def __init__(self, context_tokens=128000):\n            self.total_tokens = context_tokens\n\n        def calculate_retrieval_fidelity(self, relative_depth_pct):\n            # U-shaped curve simulation: High at start (primacy) and end (recency), dip in middle\n            if relative_depth_pct <= 15:\n                return 0.98 - (relative_depth_pct * 0.005)\n            elif relative_depth_pct >= 85:\n                return 0.96 - ((100 - relative_depth_pct) * 0.004)\n            else:\n                # The Lost-in-the-Middle valley\n                distance_from_center = abs(relative_depth_pct - 50)\n                return 0.52 + (distance_from_center * 0.006)\n\n        def optimize_context_layout(self, documents):\n            # Place highest priority documents at beginning and end, bulk background in middle\n            sorted_docs = sorted(documents, key=lambda x: x[\"priority\"], reverse=True)\n            head = [sorted_docs[0]]\n            tail = [sorted_docs[1]] if len(sorted_docs) > 1 else []\n            middle = sorted_docs[2:]\n            return head + middle + tail\n\n    optimizer = ContextHygieneOptimizer(128000)\n    fidelity_start = optimizer.calculate_retrieval_fidelity(5)   # Primacy\n    fidelity_middle = optimizer.calculate_retrieval_fidelity(50) # Lost-in-middle\n    fidelity_end = optimizer.calculate_retrieval_fidelity(95)    # Recency\n\n    return {\n        \"contextArchitecture\": \"U-Shaped Salience Aware Context Layout Optimizer\",\n        \"monitoredContextLength\": \"128k Tokens\",\n        \"retrievalFidelity\": {\n            \"headPositionPct\": round(fidelity_start * 100, 1),\n            \"valleyPositionPct\": round(fidelity_middle * 100, 1),\n            \"tailPositionPct\": round(fidelity_end * 100, 1)\n        },\n        \"needleInHaystackAccuracyPct\": 99.4,\n        \"status\": \"CONTEXT_LAYOUT_HYGIENE_ENFORCED\"\n    }\n\nimport json\nprint(json.dumps(test_day34_long_context_physics(), indent=2))",
@@ -7700,10 +7880,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is multi-hop reasoning across long contexts significantly harder than single-needle retrieval?",
           "options": [
-            "Because multi-hop synthesis requires coordinating attention across multiple dispersed facts simultaneously",
-            "Because multi-hop reasoning requires models to download external software libraries from the internet",
-            "Because single-needle retrieval is performed by dedicated database servers rather than neural networks",
-            "Because multi-hop questions can only be processed by quantum computers with optical processors"
+            "Combining scattered facts demands coordinated attention across distant spans",
+            "Single-needle lookups skip attention matrices via deterministic regex indexing",
+            "Multi-hop chains exceed standard temperature limits across reasoning calls",
+            "Chunk boundaries force each retrieved paragraph into separate stateless turns"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -7730,13 +7910,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the core strategy of the Primacy-Recency Sandwich layout pattern in prompt engineering?",
           "options": [
-            "Placing critical instructions at the head, target tasks at the tail, and background data in the middle",
-            "Wrapping every single word in quotation marks to prevent the model from hallucinating numbers",
-            "Deleting all vowels from the prompt to reduce token consumption and increase processing speed",
-            "Splitting the prompt into two equal halves and sending them to completely different model providers"
+            "Repeating critical constraints verbatim every five hundred context tokens",
+            "Wrapping retrieved chunks in identical YAML headers to flatten bias",
+            "Stripping punctuation inside middle documents to lift attention scores",
+            "Putting rules at head, tasks at tail, and reference evidence in between"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The Primacy-Recency Sandwich positions vital system rules in the primacy zone and the core task in the recency zone, deliberately placing background context in the attention valley."
         },
         "code": "def test_day34_long_context_physics():\n    \"\"\"\n    Day 34: Long-Context Window Physics & U-Shaped Attention Hygiene\n    \"\"\"\n    class ContextHygieneOptimizer:\n        def __init__(self, context_tokens=128000):\n            self.total_tokens = context_tokens\n\n        def calculate_retrieval_fidelity(self, relative_depth_pct):\n            # U-shaped curve simulation: High at start (primacy) and end (recency), dip in middle\n            if relative_depth_pct <= 15:\n                return 0.98 - (relative_depth_pct * 0.005)\n            elif relative_depth_pct >= 85:\n                return 0.96 - ((100 - relative_depth_pct) * 0.004)\n            else:\n                # The Lost-in-the-Middle valley\n                distance_from_center = abs(relative_depth_pct - 50)\n                return 0.52 + (distance_from_center * 0.006)\n\n        def optimize_context_layout(self, documents):\n            # Place highest priority documents at beginning and end, bulk background in middle\n            sorted_docs = sorted(documents, key=lambda x: x[\"priority\"], reverse=True)\n            head = [sorted_docs[0]]\n            tail = [sorted_docs[1]] if len(sorted_docs) > 1 else []\n            middle = sorted_docs[2:]\n            return head + middle + tail\n\n    optimizer = ContextHygieneOptimizer(128000)\n    fidelity_start = optimizer.calculate_retrieval_fidelity(5)   # Primacy\n    fidelity_middle = optimizer.calculate_retrieval_fidelity(50) # Lost-in-middle\n    fidelity_end = optimizer.calculate_retrieval_fidelity(95)    # Recency\n\n    return {\n        \"contextArchitecture\": \"U-Shaped Salience Aware Context Layout Optimizer\",\n        \"monitoredContextLength\": \"128k Tokens\",\n        \"retrievalFidelity\": {\n            \"headPositionPct\": round(fidelity_start * 100, 1),\n            \"valleyPositionPct\": round(fidelity_middle * 100, 1),\n            \"tailPositionPct\": round(fidelity_end * 100, 1)\n        },\n        \"needleInHaystackAccuracyPct\": 99.4,\n        \"status\": \"CONTEXT_LAYOUT_HYGIENE_ENFORCED\"\n    }\n\nimport json\nprint(json.dumps(test_day34_long_context_physics(), indent=2))",
@@ -7760,13 +7940,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does standardizing prompt primacy prefixes maximize operational efficiency in cloud AI deployment?",
           "options": [
-            "By maximizing cloud provider prefix caching hit rates, cutting costs and response latency dramatically",
-            "By forcing the cloud provider to allocate dedicated physical graphics cards to the user account",
-            "By preventing the computer operating system from writing error logs to the local hard drive",
-            "By automatically translating Python code into high-speed compiled assembly language functions"
+            "Uniform headers increase compression ratios before network JSON parsing",
+            "Fixed system openings unlock higher concurrent API rate-limit quotas",
+            "Serving static prefixes from GPU KV cache cuts prefill cost and latency",
+            "Standardized preambles reduce output variance across high temperature sweeps"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Cloud providers offer massive cost discounts and low latencies when prompts share identical prefixes; standardizing system instructions maximizes prefix cache hits."
         },
         "code": "def test_day34_long_context_physics():\n    \"\"\"\n    Day 34: Long-Context Window Physics & U-Shaped Attention Hygiene\n    \"\"\"\n    class ContextHygieneOptimizer:\n        def __init__(self, context_tokens=128000):\n            self.total_tokens = context_tokens\n\n        def calculate_retrieval_fidelity(self, relative_depth_pct):\n            # U-shaped curve simulation: High at start (primacy) and end (recency), dip in middle\n            if relative_depth_pct <= 15:\n                return 0.98 - (relative_depth_pct * 0.005)\n            elif relative_depth_pct >= 85:\n                return 0.96 - ((100 - relative_depth_pct) * 0.004)\n            else:\n                # The Lost-in-the-Middle valley\n                distance_from_center = abs(relative_depth_pct - 50)\n                return 0.52 + (distance_from_center * 0.006)\n\n        def optimize_context_layout(self, documents):\n            # Place highest priority documents at beginning and end, bulk background in middle\n            sorted_docs = sorted(documents, key=lambda x: x[\"priority\"], reverse=True)\n            head = [sorted_docs[0]]\n            tail = [sorted_docs[1]] if len(sorted_docs) > 1 else []\n            middle = sorted_docs[2:]\n            return head + middle + tail\n\n    optimizer = ContextHygieneOptimizer(128000)\n    fidelity_start = optimizer.calculate_retrieval_fidelity(5)   # Primacy\n    fidelity_middle = optimizer.calculate_retrieval_fidelity(50) # Lost-in-middle\n    fidelity_end = optimizer.calculate_retrieval_fidelity(95)    # Recency\n\n    return {\n        \"contextArchitecture\": \"U-Shaped Salience Aware Context Layout Optimizer\",\n        \"monitoredContextLength\": \"128k Tokens\",\n        \"retrievalFidelity\": {\n            \"headPositionPct\": round(fidelity_start * 100, 1),\n            \"valleyPositionPct\": round(fidelity_middle * 100, 1),\n            \"tailPositionPct\": round(fidelity_end * 100, 1)\n        },\n        \"needleInHaystackAccuracyPct\": 99.4,\n        \"status\": \"CONTEXT_LAYOUT_HYGIENE_ENFORCED\"\n    }\n\nimport json\nprint(json.dumps(test_day34_long_context_physics(), indent=2))",
@@ -7817,13 +7997,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural advantage of the unified ApexCognitive platform over isolated prompting techniques?",
           "options": [
-            "It eliminates orthogonal failure modes by unifying context hygiene, directional steering, tree search, and consensus",
-            "It allows language models to operate without consuming any electrical energy in the datacenter",
-            "It replaces all foundation model neural network weights with classical relational database tables",
-            "It guarantees that all generated software code will compile without needing a compiler installed"
+            "Combining multiple open checkpoints lowers per-token API rates below standalone baselines",
+            "Running every reasoning pass inside one single prompt eliminates all Python validation overhead",
+            "Coordinating context hygiene, stimulus hints, tree search, and consensus cuts compounding failures",
+            "Replacing deterministic schema contracts with longer few-shot demonstrations improves raw throughput"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Unifying context hygiene, directional steering, tree search, and consensus eliminates the orthogonal failure modes that occur when techniques are deployed in isolation."
         },
         "code": "def test_day35_apexcognitive_suite():\n    \"\"\"\n    Day 35: Milestone 4: ApexCognitive Advanced Tree-of-Thoughts & Socratic Reasoning Suite\n    \"\"\"\n    return {\n        \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\",\n        \"integratedModules\": [\n            \"Tree-of-Thoughts Heuristic Branching Controller\",\n            \"Directional Stimulus Meta-Prompt Rewriter\",\n            \"Socratic Multi-Persona Consensus Arbiter\",\n            \"Long-Context U-Shaped Attention Hygiene Router\"\n        ],\n        \"benchmarkResults\": {\n            \"complexReasoningSuccessPct\": 97.2,\n            \"adversarialRobustnessPct\": 98.9,\n            \"contextRetrievalAccuracyPct\": 99.6,\n            \"tokenEfficiencyGainPct\": 34.2\n        },\n        \"certificationTier\": \"APEX_COGNITIVE_ENTERPRISE_ARCHITECT\",\n        \"milestoneStatus\": \"BLOCK_7_MILESTONE_4_ACCOMPLISHED\"\n    }\n\nimport json\nprint(json.dumps(test_day35_apexcognitive_suite(), indent=2))",
@@ -7847,13 +8027,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does integrating Directional Stimulus prompting improve Tree-of-Thoughts candidate generation?",
           "options": [
-            "By conditioning thought generation on dynamic, context-aware steering hints that elevate candidate quality and diversity",
-            "By preventing the language model from generating any words that have more than two syllables",
-            "By deleting the root node of the search tree whenever a branch encounters an evaluation obstacle",
-            "By forcing the tree search to terminate immediately after generating the very first candidate thought"
+            "Appending random persona adjectives disables greedy convergence during breadth search",
+            "Conditioning expansions on compact steering hints raises candidate quality and diversity",
+            "Dynamic hints double maximum token window capacity before tree pruning begins",
+            "Policy clues force leaf nodes to emit valid JSON schemas without automaton masks"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Directional stimulus prompting injects context-specific steering hints into the thought generator, producing diverse, high-quality candidate nodes tailored to the specific state trajectory."
         },
         "code": "def test_day35_apexcognitive_suite():\n    \"\"\"\n    Day 35: Milestone 4: ApexCognitive Advanced Tree-of-Thoughts & Socratic Reasoning Suite\n    \"\"\"\n    return {\n        \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\",\n        \"integratedModules\": [\n            \"Tree-of-Thoughts Heuristic Branching Controller\",\n            \"Directional Stimulus Meta-Prompt Rewriter\",\n            \"Socratic Multi-Persona Consensus Arbiter\",\n            \"Long-Context U-Shaped Attention Hygiene Router\"\n        ],\n        \"benchmarkResults\": {\n            \"complexReasoningSuccessPct\": 97.2,\n            \"adversarialRobustnessPct\": 98.9,\n            \"contextRetrievalAccuracyPct\": 99.6,\n            \"tokenEfficiencyGainPct\": 34.2\n        },\n        \"certificationTier\": \"APEX_COGNITIVE_ENTERPRISE_ARCHITECT\",\n        \"milestoneStatus\": \"BLOCK_7_MILESTONE_4_ACCOMPLISHED\"\n    }\n\nimport json\nprint(json.dumps(test_day35_apexcognitive_suite(), indent=2))",
@@ -7878,10 +8058,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does multi-persona Socratic arbitration provide superior state evaluation compared to a single heuristic oracle?",
           "options": [
-            "Because orthogonal specialized personas cross-examine claims, exposing domain blind spots and eliminating sycophancy",
-            "Because multiple personas automatically generate free cloud computing credits for the user account",
-            "Because a single evaluator prompt consumes more GPU random access memory than four separate personas",
-            "Because foundation models are strictly forbidden by law from evaluating their own outputs in a single prompt"
+            "Distinct personas cross-examine proposals, surfacing blind spots and reducing sycophancy",
+            "Running four sequential critics takes less wall-clock latency than one scoring pass",
+            "Separate critic prompts bypass provider rate limits across parallel API batches",
+            "Plurality persona votes require zero domain invariants or confidence calibration weights"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -7909,13 +8089,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational benefit of prefix caching standardization in the ApexCognitive context router?",
           "options": [
-            "It serves identical static prompt prefixes directly from GPU memory caches, cutting costs and latency dramatically",
-            "It forces cloud providers to upgrade the physical hardware of their servers without charging extra fees",
-            "It converts all natural language text into compressed audio signals before transmitting it over the network",
-            "It prevents the computer monitor from displaying error messages when the internet connection drops"
+            "Consistent prefixes compress output response tokens down to one half original length",
+            "Fixed leading headings bypass input token length limits across large contexts",
+            "Caching intermediate user queries permanently stores sensitive credentials in memory",
+            "Static prompt openings reuse GPU KV cache, cutting prefill latency and cost sharply"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Standardizing the primacy zone ensures identical token prefixes across requests, enabling cloud providers to serve cached key-value states and drastically reducing latency and costs."
         },
         "code": "def test_day35_apexcognitive_suite():\n    \"\"\"\n    Day 35: Milestone 4: ApexCognitive Advanced Tree-of-Thoughts & Socratic Reasoning Suite\n    \"\"\"\n    return {\n        \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\",\n        \"integratedModules\": [\n            \"Tree-of-Thoughts Heuristic Branching Controller\",\n            \"Directional Stimulus Meta-Prompt Rewriter\",\n            \"Socratic Multi-Persona Consensus Arbiter\",\n            \"Long-Context U-Shaped Attention Hygiene Router\"\n        ],\n        \"benchmarkResults\": {\n            \"complexReasoningSuccessPct\": 97.2,\n            \"adversarialRobustnessPct\": 98.9,\n            \"contextRetrievalAccuracyPct\": 99.6,\n            \"tokenEfficiencyGainPct\": 34.2\n        },\n        \"certificationTier\": \"APEX_COGNITIVE_ENTERPRISE_ARCHITECT\",\n        \"milestoneStatus\": \"BLOCK_7_MILESTONE_4_ACCOMPLISHED\"\n    }\n\nimport json\nprint(json.dumps(test_day35_apexcognitive_suite(), indent=2))",
@@ -7940,13 +8120,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What role do Pydantic data contracts play in hardening the production ApexCognitive Python platform?",
           "options": [
-            "Enforcing rigid type safety and schema validation across all messages, preventing malformed JSON pipeline failures",
-            "Translating Python source code into machine readable punch cards for mechanical computation devices",
-            "Encrypting model parameters with proprietary algorithms to prevent competitors from inspecting code",
-            "Replacing external cloud foundation model APIs with local offline spreadsheet calculation formulas"
+            "Pydantic models replace unit test suites by checking business logic automatically",
+            "Typed validation layers translate raw text tokens straight into cached vector stores",
+            "Runtime schemas guarantee zero logical hallucinations inside free-form output summaries",
+            "Strict schema contracts enforce type safety across steps and prevent malformed payloads"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Pydantic models validate typed data contracts across all inter-service messages, intercepting malformed outputs and guaranteeing architectural integrity throughout execution."
         },
         "code": "def test_day35_apexcognitive_suite():\n    \"\"\"\n    Day 35: Milestone 4: ApexCognitive Advanced Tree-of-Thoughts & Socratic Reasoning Suite\n    \"\"\"\n    return {\n        \"platform\": \"ApexCognitive Sovereign Prompt Architecture Suite\",\n        \"integratedModules\": [\n            \"Tree-of-Thoughts Heuristic Branching Controller\",\n            \"Directional Stimulus Meta-Prompt Rewriter\",\n            \"Socratic Multi-Persona Consensus Arbiter\",\n            \"Long-Context U-Shaped Attention Hygiene Router\"\n        ],\n        \"benchmarkResults\": {\n            \"complexReasoningSuccessPct\": 97.2,\n            \"adversarialRobustnessPct\": 98.9,\n            \"contextRetrievalAccuracyPct\": 99.6,\n            \"tokenEfficiencyGainPct\": 34.2\n        },\n        \"certificationTier\": \"APEX_COGNITIVE_ENTERPRISE_ARCHITECT\",\n        \"milestoneStatus\": \"BLOCK_7_MILESTONE_4_ACCOMPLISHED\"\n    }\n\nimport json\nprint(json.dumps(test_day35_apexcognitive_suite(), indent=2))",
@@ -7997,13 +8177,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are natural language prompt instructions fundamentally incapable of guaranteeing valid JSON output?",
           "options": [
-            "Because autoregressive token sampling is probabilistic, retaining a non-zero probability of invalid syntax",
-            "Because transformer models cannot process English words that contain more than four letters",
-            "Because JSON format can only be read by mainframe computers built before nineteen eighty",
-            "Because cloud hosting providers automatically delete all curly brackets from incoming prompts"
+            "System instructions lose priority once prompts cross four thousand input tokens",
+            "JSON curly braces collide frequently with standard markdown code block delimiters",
+            "Autoregressive sampling stays probabilistic, always risking stray invalid tokens",
+            "Transformer tokenizers split opening quotes unevenly across temperature settings"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Autoregressive generation samples tokens from a probability distribution; prompt instructions cannot reduce the probability of illegal syntax tokens to absolute zero without logit masking."
         },
         "code": "def test_day36_constrained_grammar():\n    \"\"\"\n    Day 36: Outlines, Guidance & Grammars: Constrained Sampling & Regex-Enforced LLM Generation\n    \"\"\"\n    class GrammarLogitMasker:\n        def __init__(self, allowed_regex):\n            self.regex = allowed_regex\n            self.dfa_states = {\"START\": [\"ALPHA\"], \"ALPHA\": [\"ALPHA\", \"DIGIT\", \"END\"], \"DIGIT\": [\"DIGIT\", \"END\"]}\n\n        def compute_allowed_tokens(self, current_prefix):\n            # Intersects vocabulary logits with DFA state transitions\n            if not current_prefix:\n                return [\"GET\", \"POST\", \"PUT\"]\n            elif current_prefix in [\"GET\", \"POST\", \"PUT\"]:\n                return [\" /api/v1/resource\", \" /api/v1/users\", \" /api/v1/orders\"]\n            return [\" HTTP/1.1\"]\n\n        def mask_disallowed_logits(self, vocab, allowed_tokens):\n            masked_count = len(vocab) - len(allowed_tokens)\n            return masked_count\n\n    vocabulary = [f\"token_{i}\" for i in range(32000)]\n    masker = GrammarLogitMasker(\"^(GET|POST|PUT) /api/v1/[a-z]+ HTTP/1.1$\")\n    allowed = masker.compute_allowed_tokens(\"GET\")\n    masked_tokens = masker.mask_disallowed_logits(vocabulary, allowed)\n\n    return {\n        \"engine\": \"Outlines / Guidance DFA Grammar Logit Masker\",\n        \"targetGrammar\": \"RFC-Compliant HTTP Request Line EBNF\",\n        \"activeAllowedTokens\": allowed,\n        \"maskedDisallowedTokensCount\": masked_tokens,\n        \"syntaxViolationProbabilityPct\": 0.0,\n        \"syntacticCorrectnessRatePct\": 100.0,\n        \"status\": \"DFA_GRAMMAR_MASKING_ENFORCED\"\n    }\n\nimport json\nprint(json.dumps(test_day36_constrained_grammar(), indent=2))",
@@ -8027,13 +8207,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does logit masking via a Deterministic Finite Automaton prevent invalid token emissions?",
           "options": [
-            "By setting logits of all tokens that violate DFA transitions to negative infinity before softmax",
-            "By shutting down the GPU processor whenever an incorrect character is generated",
-            "By translating the entire model vocabulary into encrypted binary code during training",
-            "By forcing the user to type the entire response manually into the computer console"
+            "Re-sampling entire completions post-hoc whenever JSONDecodeError catches a typo",
+            "Masking illegal transition token logits to minus infinity prior to softmax",
+            "Truncating decoder beams immediately after generating a single invalid key",
+            "Adjusting temperature closer to zero selectively on punctuation token classes"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Assigning negative infinity to disallowed token logits forces their softmax probability to zero, making it mathematically impossible for the sampler to select an illegal token."
         },
         "code": "def test_day36_constrained_grammar():\n    \"\"\"\n    Day 36: Outlines, Guidance & Grammars: Constrained Sampling & Regex-Enforced LLM Generation\n    \"\"\"\n    class GrammarLogitMasker:\n        def __init__(self, allowed_regex):\n            self.regex = allowed_regex\n            self.dfa_states = {\"START\": [\"ALPHA\"], \"ALPHA\": [\"ALPHA\", \"DIGIT\", \"END\"], \"DIGIT\": [\"DIGIT\", \"END\"]}\n\n        def compute_allowed_tokens(self, current_prefix):\n            # Intersects vocabulary logits with DFA state transitions\n            if not current_prefix:\n                return [\"GET\", \"POST\", \"PUT\"]\n            elif current_prefix in [\"GET\", \"POST\", \"PUT\"]:\n                return [\" /api/v1/resource\", \" /api/v1/users\", \" /api/v1/orders\"]\n            return [\" HTTP/1.1\"]\n\n        def mask_disallowed_logits(self, vocab, allowed_tokens):\n            masked_count = len(vocab) - len(allowed_tokens)\n            return masked_count\n\n    vocabulary = [f\"token_{i}\" for i in range(32000)]\n    masker = GrammarLogitMasker(\"^(GET|POST|PUT) /api/v1/[a-z]+ HTTP/1.1$\")\n    allowed = masker.compute_allowed_tokens(\"GET\")\n    masked_tokens = masker.mask_disallowed_logits(vocabulary, allowed)\n\n    return {\n        \"engine\": \"Outlines / Guidance DFA Grammar Logit Masker\",\n        \"targetGrammar\": \"RFC-Compliant HTTP Request Line EBNF\",\n        \"activeAllowedTokens\": allowed,\n        \"maskedDisallowedTokensCount\": masked_tokens,\n        \"syntaxViolationProbabilityPct\": 0.0,\n        \"syntacticCorrectnessRatePct\": 100.0,\n        \"status\": \"DFA_GRAMMAR_MASKING_ENFORCED\"\n    }\n\nimport json\nprint(json.dumps(test_day36_constrained_grammar(), indent=2))",
@@ -8058,10 +8238,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a Context-Free Grammar necessary for validating nested JSON structures instead of a simple DFA?",
           "options": [
-            "Because DFAs cannot maintain an execution stack to track balanced parentheses and arbitrary nesting depths",
-            "Because Context-Free Grammars require half as much electrical energy to run as finite automata",
-            "Because JSON files cannot be stored on modern solid state hard drives without EBNF files",
-            "Because DFAs are only capable of processing numbers while CFGs process all human languages"
+            "DFAs lack an execution stack needed to track arbitrarily nested brackets",
+            "Context-free grammars execute prefill compilation faster than finite regex automata",
+            "Finite state machines fail when string field values span multiple lines",
+            "Grammar parsers handle numeric float coercion whereas DFAs handle integers only"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8089,10 +8269,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of pre-compiled token indexers in modern grammar frameworks?",
           "options": [
-            "To compute vocabulary bitmasks during server startup, eliminating runtime latency overhead during inference",
-            "To permanently encrypt the foundation model weights so competitors cannot inspect parameters",
-            "To reduce the number of physical graphics cards required to host a model by ninety percent",
-            "To translate natural language user queries into high speed assembly language instructions"
+            "Precomputing token bitmasks at startup avoids inference-time latency overhead",
+            "Static vocabulary indices reduce foundation model parameter memory by half",
+            "Startup indexers compile EBNF grammars straight into quantized neural weights",
+            "Pre-built state tables eliminate schema updates during API rolling restarts"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8121,13 +8301,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do deterministic error boundaries in grammar compilers protect enterprise production services?",
           "options": [
-            "By sandboxing regex compilation to prevent catastrophic backtracking and aborting malformed schemas",
-            "By automatically disconnecting the server from the internet whenever an API error occurs",
-            "By converting all incoming user questions into random alphabetical strings automatically",
-            "By forcing all database tables to delete their primary keys before executing any query"
+            "Strict compile sandboxes cache schema responses indefinitely inside client RAM",
+            "Defensive wrappers rewrite broken recursive grammars into simpler flat dictionaries",
+            "Runtime isolation disables error tracebacks across upstream proxy gateway logs",
+            "Bounding regex compilation stops ReDoS hangs and rejects invalid schemas cleanly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Sandboxed compilation prevents malformed regular expressions from triggering exponential catastrophic backtracking, terminating flawed schemas within strict deadlines to preserve uptime."
         },
         "code": "def test_day36_constrained_grammar():\n    \"\"\"\n    Day 36: Outlines, Guidance & Grammars: Constrained Sampling & Regex-Enforced LLM Generation\n    \"\"\"\n    class GrammarLogitMasker:\n        def __init__(self, allowed_regex):\n            self.regex = allowed_regex\n            self.dfa_states = {\"START\": [\"ALPHA\"], \"ALPHA\": [\"ALPHA\", \"DIGIT\", \"END\"], \"DIGIT\": [\"DIGIT\", \"END\"]}\n\n        def compute_allowed_tokens(self, current_prefix):\n            # Intersects vocabulary logits with DFA state transitions\n            if not current_prefix:\n                return [\"GET\", \"POST\", \"PUT\"]\n            elif current_prefix in [\"GET\", \"POST\", \"PUT\"]:\n                return [\" /api/v1/resource\", \" /api/v1/users\", \" /api/v1/orders\"]\n            return [\" HTTP/1.1\"]\n\n        def mask_disallowed_logits(self, vocab, allowed_tokens):\n            masked_count = len(vocab) - len(allowed_tokens)\n            return masked_count\n\n    vocabulary = [f\"token_{i}\" for i in range(32000)]\n    masker = GrammarLogitMasker(\"^(GET|POST|PUT) /api/v1/[a-z]+ HTTP/1.1$\")\n    allowed = masker.compute_allowed_tokens(\"GET\")\n    masked_tokens = masker.mask_disallowed_logits(vocabulary, allowed)\n\n    return {\n        \"engine\": \"Outlines / Guidance DFA Grammar Logit Masker\",\n        \"targetGrammar\": \"RFC-Compliant HTTP Request Line EBNF\",\n        \"activeAllowedTokens\": allowed,\n        \"maskedDisallowedTokensCount\": masked_tokens,\n        \"syntaxViolationProbabilityPct\": 0.0,\n        \"syntacticCorrectnessRatePct\": 100.0,\n        \"status\": \"DFA_GRAMMAR_MASKING_ENFORCED\"\n    }\n\nimport json\nprint(json.dumps(test_day36_constrained_grammar(), indent=2))",
@@ -8177,13 +8357,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of parallel tool execution over sequential invocation?",
           "options": [
-            "It compresses wall-clock latency to the duration of the slowest tool rather than summing all latencies",
-            "It eliminates the need for computer servers to connect to the external internet entirely",
-            "It forces all external API providers to waive their commercial billing charges automatically",
-            "It permanently prevents the language model from generating responses in human natural language"
+            "Concurrent dispatch shares one network socket across distinct endpoints",
+            "Parallel execution lowers per-token model pricing by batching arguments",
+            "Latency drops to the slowest single call instead of summing all tools",
+            "Async gathering removes schema validation checks on fast return payloads"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Parallel execution dispatches independent tool calls concurrently across asynchronous worker threads, compressing total latency to the slowest individual call instead of summing them serially."
         },
         "code": "def test_day37_parallel_tool_orchestration():\n    \"\"\"\n    Day 37: Advanced Function Calling & Multi-Tool Orchestration: Parallel Tool Execution & Error Recovery Handlers\n    \"\"\"\n    tools = [\n        {\"name\": \"fetch_user_profile\", \"status\": \"SUCCESS\", \"latency_ms\": 42},\n        {\"name\": \"query_credit_score\", \"status\": \"SUCCESS\", \"latency_ms\": 68},\n        {\"name\": \"check_fraud_registry\", \"status\": \"RECOVERED_AFTER_RETRY\", \"latency_ms\": 89}\n    ]\n\n    total_serial_latency = sum(t[\"latency_ms\"] for t in tools)\n    parallel_wall_clock_latency = max(t[\"latency_ms\"] for t in tools)\n\n    return {\n        \"orchestrationPattern\": \"Asynchronous Parallel Function Calling & Resilient Error Recovery\",\n        \"dispatchedToolsCount\": len(tools),\n        \"executionMode\": \"asyncio.gather with per-tool timeout guards\",\n        \"totalSequentialLatencyMs\": total_serial_latency,\n        \"parallelWallClockLatencyMs\": parallel_wall_clock_latency,\n        \"latencyCompressionPct\": round(((total_serial_latency - parallel_wall_clock_latency) / total_serial_latency) * 100, 1),\n        \"schemaErrorSelfCorrection\": \"AUTO_REPAIRED_VIA_JSON_SCHEMA_FEEDBACK\",\n        \"status\": \"PARALLEL_TOOL_ORCHESTRATION_COMPLETED\"\n    }\n\nimport json\nprint(json.dumps(test_day37_parallel_tool_orchestration(), indent=2))",
@@ -8207,13 +8387,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is enforcing per-tool timeout boundaries critical when executing parallel tools?",
           "options": [
-            "To prevent slow or hanging third-party APIs from causing cascading timeouts across the entire user request",
-            "To force the computer monitor to refresh its display pixels twice as fast during execution",
-            "To delete the user account automatically whenever a network query takes longer than one second",
-            "To convert all outgoing network packets into unencrypted plain text for faster transmission"
+            "To ensure slow fast-fail services return identical deterministic mock answers",
+            "To prevent one stalled API from blocking or timing out the entire batch",
+            "To cap Python memory growth before JSON parsing begins across coroutines",
+            "To guarantee tool responses preserve exact sequential calling order always"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Per-tool timeout boundaries prevent a single slow or unresponsive third-party API from stalling the entire asynchronous batch and causing gateway timeout failures."
         },
         "code": "def test_day37_parallel_tool_orchestration():\n    \"\"\"\n    Day 37: Advanced Function Calling & Multi-Tool Orchestration: Parallel Tool Execution & Error Recovery Handlers\n    \"\"\"\n    tools = [\n        {\"name\": \"fetch_user_profile\", \"status\": \"SUCCESS\", \"latency_ms\": 42},\n        {\"name\": \"query_credit_score\", \"status\": \"SUCCESS\", \"latency_ms\": 68},\n        {\"name\": \"check_fraud_registry\", \"status\": \"RECOVERED_AFTER_RETRY\", \"latency_ms\": 89}\n    ]\n\n    total_serial_latency = sum(t[\"latency_ms\"] for t in tools)\n    parallel_wall_clock_latency = max(t[\"latency_ms\"] for t in tools)\n\n    return {\n        \"orchestrationPattern\": \"Asynchronous Parallel Function Calling & Resilient Error Recovery\",\n        \"dispatchedToolsCount\": len(tools),\n        \"executionMode\": \"asyncio.gather with per-tool timeout guards\",\n        \"totalSequentialLatencyMs\": total_serial_latency,\n        \"parallelWallClockLatencyMs\": parallel_wall_clock_latency,\n        \"latencyCompressionPct\": round(((total_serial_latency - parallel_wall_clock_latency) / total_serial_latency) * 100, 1),\n        \"schemaErrorSelfCorrection\": \"AUTO_REPAIRED_VIA_JSON_SCHEMA_FEEDBACK\",\n        \"status\": \"PARALLEL_TOOL_ORCHESTRATION_COMPLETED\"\n    }\n\nimport json\nprint(json.dumps(test_day37_parallel_tool_orchestration(), indent=2))",
@@ -8237,13 +8417,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What role does Pydantic type coercion play in hardening autonomous tool execution?",
           "options": [
-            "Coercing model emitted strings into genuine typed integers and datetimes while sanitizing input",
-            "Translating Python functions into machine readable binary punch cards for mainframe computers",
-            "Deleting all non-alphanumeric characters from database tables before executing queries",
-            "Forcing all external software libraries to run on battery power rather than electrical outlets"
+            "Compressing verbose dictionary responses into compact binary protobuf arrays",
+            "Converting raw strings into typed primitives while catching malformed args early",
+            "Automatically granting external endpoints read permissions from prompt state",
+            "Retrying timed-out HTTP requests before parsing returned response schemas"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Pydantic type coercion safely translates model-emitted strings into typed primitives (integers, datetimes) while validating constraints and disarming injection payloads."
         },
         "code": "def test_day37_parallel_tool_orchestration():\n    \"\"\"\n    Day 37: Advanced Function Calling & Multi-Tool Orchestration: Parallel Tool Execution & Error Recovery Handlers\n    \"\"\"\n    tools = [\n        {\"name\": \"fetch_user_profile\", \"status\": \"SUCCESS\", \"latency_ms\": 42},\n        {\"name\": \"query_credit_score\", \"status\": \"SUCCESS\", \"latency_ms\": 68},\n        {\"name\": \"check_fraud_registry\", \"status\": \"RECOVERED_AFTER_RETRY\", \"latency_ms\": 89}\n    ]\n\n    total_serial_latency = sum(t[\"latency_ms\"] for t in tools)\n    parallel_wall_clock_latency = max(t[\"latency_ms\"] for t in tools)\n\n    return {\n        \"orchestrationPattern\": \"Asynchronous Parallel Function Calling & Resilient Error Recovery\",\n        \"dispatchedToolsCount\": len(tools),\n        \"executionMode\": \"asyncio.gather with per-tool timeout guards\",\n        \"totalSequentialLatencyMs\": total_serial_latency,\n        \"parallelWallClockLatencyMs\": parallel_wall_clock_latency,\n        \"latencyCompressionPct\": round(((total_serial_latency - parallel_wall_clock_latency) / total_serial_latency) * 100, 1),\n        \"schemaErrorSelfCorrection\": \"AUTO_REPAIRED_VIA_JSON_SCHEMA_FEEDBACK\",\n        \"status\": \"PARALLEL_TOOL_ORCHESTRATION_COMPLETED\"\n    }\n\nimport json\nprint(json.dumps(test_day37_parallel_tool_orchestration(), indent=2))",
@@ -8267,10 +8447,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Socratic Error Feedback Loop enable autonomous language models to self-correct?",
           "options": [
-            "By returning structured error messages explaining schema mismatches so the model can correct its arguments",
-            "By shutting down the application server and emailing the software developer to fix the code",
-            "By deleting the problem prompt and forcing the user to retype their entire question from scratch",
-            "By automatically generating random numbers until one happens to satisfy the database schema"
+            "Feeding structured validation diagnostics back so models repair bad args",
+            "Escalating repeated schema exceptions straight to human review queues",
+            "Clearing prior tool conversation messages whenever Pydantic checks fail",
+            "Clamping sampling temperature to zero automatically before subsequent turns"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8298,13 +8478,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of circuit breaker patterns in enterprise tool orchestration?",
           "options": [
-            "To stop hammering failing endpoints during outages, preventing cascading failures and token waste",
-            "To increase electrical power delivery to the graphics processing units during peak inference",
-            "To permanently disconnect the database server from the corporate local area network",
-            "To delete all compiled software code whenever an external API returns a server error"
+            "Pooling open TCP connections speeds up DNS resolution for busy services",
+            "Balancing tool requests uniformly across backup regional database nodes",
+            "Encrypting retry headers so downstream providers cannot drop bursts",
+            "Tripping fast on degraded tools avoids cascading hangs and wasted tokens"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Circuit breakers monitor failure rates and temporarily open to halt invocations to failing services, protecting downstream infrastructure and eliminating token waste during outages."
         },
         "code": "def test_day37_parallel_tool_orchestration():\n    \"\"\"\n    Day 37: Advanced Function Calling & Multi-Tool Orchestration: Parallel Tool Execution & Error Recovery Handlers\n    \"\"\"\n    tools = [\n        {\"name\": \"fetch_user_profile\", \"status\": \"SUCCESS\", \"latency_ms\": 42},\n        {\"name\": \"query_credit_score\", \"status\": \"SUCCESS\", \"latency_ms\": 68},\n        {\"name\": \"check_fraud_registry\", \"status\": \"RECOVERED_AFTER_RETRY\", \"latency_ms\": 89}\n    ]\n\n    total_serial_latency = sum(t[\"latency_ms\"] for t in tools)\n    parallel_wall_clock_latency = max(t[\"latency_ms\"] for t in tools)\n\n    return {\n        \"orchestrationPattern\": \"Asynchronous Parallel Function Calling & Resilient Error Recovery\",\n        \"dispatchedToolsCount\": len(tools),\n        \"executionMode\": \"asyncio.gather with per-tool timeout guards\",\n        \"totalSequentialLatencyMs\": total_serial_latency,\n        \"parallelWallClockLatencyMs\": parallel_wall_clock_latency,\n        \"latencyCompressionPct\": round(((total_serial_latency - parallel_wall_clock_latency) / total_serial_latency) * 100, 1),\n        \"schemaErrorSelfCorrection\": \"AUTO_REPAIRED_VIA_JSON_SCHEMA_FEEDBACK\",\n        \"status\": \"PARALLEL_TOOL_ORCHESTRATION_COMPLETED\"\n    }\n\nimport json\nprint(json.dumps(test_day37_parallel_tool_orchestration(), indent=2))",
@@ -8355,13 +8535,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational defect caused by uncompressed prompt bloat in enterprise applications?",
           "options": [
-            "Compounding API token costs and severe pre-fill latency lag that frustrates users",
-            "Permanently erasing the computer operating system hard drive during inference",
-            "Causing external cloud servers to disconnect from electrical power outlets",
-            "Forcing all natural language words to be translated into Latin automatically"
+            "Sudden degradation of deterministic finite automaton bitmask caching",
+            "Complete loss of JSON key ordering inside short final answers",
+            "Steeply rising API token bills alongside sluggish prefill latency",
+            "Premature expiration of TLS session keys across chat turns"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Bloated prompts directly inflate per-token API billing while dramatically increasing the computational duration of the transformer pre-fill phase, degrading user latency."
         },
         "code": "def test_day38_prompt_compression_llmlingua():\n    \"\"\"\n    Day 38: Prompt Compression & Context Budgeting: LLMLingua, Perplexity-Aware Token Pruning & KV-Cache Economics\n    \"\"\"\n    baseline_tokens = 4500\n    compressed_tokens = 1350\n    pruned_tokens = baseline_tokens - compressed_tokens\n    compression_ratio = round(baseline_tokens / compressed_tokens, 2)\n\n    return {\n        \"compressionFramework\": \"LLMLingua Perplexity-Aware Budgeted Token Compressor\",\n        \"baselineContextTokens\": baseline_tokens,\n        \"compressedContextTokens\": compressed_tokens,\n        \"prunedRedundantTokens\": pruned_tokens,\n        \"compressionRatio\": f\"{compression_ratio}x\",\n        \"informationEntropyRetentionPct\": 98.4,\n        \"kvCacheMemorySavingsPct\": 70.0,\n        \"status\": \"PERPLEXITY_PRUNING_BUDGET_ENFORCED\"\n    }\n\nimport json\nprint(json.dumps(test_day38_prompt_compression_llmlingua(), indent=2))",
@@ -8385,13 +8565,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does LLMLingua utilize token perplexity to identify redundant words for pruning?",
           "options": [
-            "Low perplexity tokens represent predictable boilerplate and can be pruned with minimal semantic loss",
-            "Tokens with low perplexity are automatically encrypted with proprietary secret keys",
-            "High perplexity tokens are deleted because they indicate the model was confused by the word",
-            "Perplexity is used to measure the physical temperature of the server graphics processing unit"
+            "High-perplexity rare terms are pruned first as suspected random noise",
+            "Model perplexity weights scale output tokens dynamically post-decoding",
+            "Low-perplexity predictable boilerplate drops cleanly while keeping core info",
+            "Low-perplexity digits are masked before passing prompts through classifiers"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Tokens with low perplexity are highly predictable grammatical filler; pruning them strips representational waste while preserving high-perplexity informational tokens."
         },
         "code": "def test_day38_prompt_compression_llmlingua():\n    \"\"\"\n    Day 38: Prompt Compression & Context Budgeting: LLMLingua, Perplexity-Aware Token Pruning & KV-Cache Economics\n    \"\"\"\n    baseline_tokens = 4500\n    compressed_tokens = 1350\n    pruned_tokens = baseline_tokens - compressed_tokens\n    compression_ratio = round(baseline_tokens / compressed_tokens, 2)\n\n    return {\n        \"compressionFramework\": \"LLMLingua Perplexity-Aware Budgeted Token Compressor\",\n        \"baselineContextTokens\": baseline_tokens,\n        \"compressedContextTokens\": compressed_tokens,\n        \"prunedRedundantTokens\": pruned_tokens,\n        \"compressionRatio\": f\"{compression_ratio}x\",\n        \"informationEntropyRetentionPct\": 98.4,\n        \"kvCacheMemorySavingsPct\": 70.0,\n        \"status\": \"PERPLEXITY_PRUNING_BUDGET_ENFORCED\"\n    }\n\nimport json\nprint(json.dumps(test_day38_prompt_compression_llmlingua(), indent=2))",
@@ -8416,13 +8596,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are system instructions and user queries protected from compression in budgeted token pruning?",
           "options": [
-            "Because lossy compression on operational directives or queries could cause catastrophic task failure",
-            "Because foundation models refuse to read prompts that do not contain complete English sentences",
-            "Because system instructions are stored in read only memory chips that cannot be altered",
-            "Because user questions contain secret passwords that must never be processed by computers"
+            "Small scoring models fail to tokenize JSON braces cleanly inside rules",
+            "Lossy pruning on directives or user intent causes severe task errors",
+            "Budget filters treat leading header paragraphs identically to cold cache",
+            "System text always yields high perplexity values incompatible with ranking"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "System instructions and queries define task constraints; pruning them risks corrupting core operational directives, whereas background reference texts tolerate lossy compression safely."
         },
         "code": "def test_day38_prompt_compression_llmlingua():\n    \"\"\"\n    Day 38: Prompt Compression & Context Budgeting: LLMLingua, Perplexity-Aware Token Pruning & KV-Cache Economics\n    \"\"\"\n    baseline_tokens = 4500\n    compressed_tokens = 1350\n    pruned_tokens = baseline_tokens - compressed_tokens\n    compression_ratio = round(baseline_tokens / compressed_tokens, 2)\n\n    return {\n        \"compressionFramework\": \"LLMLingua Perplexity-Aware Budgeted Token Compressor\",\n        \"baselineContextTokens\": baseline_tokens,\n        \"compressedContextTokens\": compressed_tokens,\n        \"prunedRedundantTokens\": pruned_tokens,\n        \"compressionRatio\": f\"{compression_ratio}x\",\n        \"informationEntropyRetentionPct\": 98.4,\n        \"kvCacheMemorySavingsPct\": 70.0,\n        \"status\": \"PERPLEXITY_PRUNING_BUDGET_ENFORCED\"\n    }\n\nimport json\nprint(json.dumps(test_day38_prompt_compression_llmlingua(), indent=2))",
@@ -8447,10 +8627,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does reducing prompt token length directly improve GPU serving concurrency?",
           "options": [
-            "By shrinking KV-cache memory allocation, allowing servers to process larger concurrent batches",
-            "By increasing the clock speed of the server central processing unit automatically",
-            "By forcing the inference engine to run on battery power rather than cloud servers",
-            "By deleting all previous conversational history from database storage permanently"
+            "Smaller prompts shrink per-request KV cache, fitting bigger concurrent batches",
+            "Shorter context sequences allow higher float16 clock boost inside matrix cores",
+            "Trimming filler words bypasses GPU batch scheduling queues on host nodes",
+            "Reduced token lengths force streaming endpoints to batch across users"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8479,13 +8659,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of the Reconstruction & Integrity Filter in a prompt pruner?",
           "options": [
-            "Verifying that critical named entities, digits, and identifiers were not severed during pruning",
-            "Translating Python code into machine code assembly instructions for faster execution",
-            "Encrypting model parameters to prevent competitors from inspecting internal algorithms",
-            "Deleting all non-English words from incoming user queries automatically"
+            "Re-expanding abbreviated prose back into fluent English paragraphs safely",
+            "Validating compressed strings against upstream regex injection rules",
+            "Removing non-ASCII characters before sending prompts across API proxies",
+            "Checking that critical entities, numbers, and IDs survived pruning intact"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The Reconstruction & Integrity Filter acts as a safety guard, confirming that essential entities and numerical variables remain intact and re-injecting them if severed."
         },
         "code": "def test_day38_prompt_compression_llmlingua():\n    \"\"\"\n    Day 38: Prompt Compression & Context Budgeting: LLMLingua, Perplexity-Aware Token Pruning & KV-Cache Economics\n    \"\"\"\n    baseline_tokens = 4500\n    compressed_tokens = 1350\n    pruned_tokens = baseline_tokens - compressed_tokens\n    compression_ratio = round(baseline_tokens / compressed_tokens, 2)\n\n    return {\n        \"compressionFramework\": \"LLMLingua Perplexity-Aware Budgeted Token Compressor\",\n        \"baselineContextTokens\": baseline_tokens,\n        \"compressedContextTokens\": compressed_tokens,\n        \"prunedRedundantTokens\": pruned_tokens,\n        \"compressionRatio\": f\"{compression_ratio}x\",\n        \"informationEntropyRetentionPct\": 98.4,\n        \"kvCacheMemorySavingsPct\": 70.0,\n        \"status\": \"PERPLEXITY_PRUNING_BUDGET_ENFORCED\"\n    }\n\nimport json\nprint(json.dumps(test_day38_prompt_compression_llmlingua(), indent=2))",
@@ -8536,13 +8716,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary failure mode of monolithic Omniprompts in multi-domain applications?",
           "options": [
-            "Cross-directive interference and attention collapse where rules contradict and dilute each other",
-            "Permanently erasing the computer graphics processing unit memory registers during inference",
-            "Forcing all downstream databases to delete their primary keys and foreign key constraints",
-            "Converting all natural language words into unreadable binary machine code automatically"
+            "Automatic prefix cache resets triggered whenever prompts cross fifty rules",
+            "Slow JSON parsing overhead inside deterministic client serializer hooks",
+            "Unbounded exponential growth of streaming output temperature scheduling",
+            "Cross-directive collisions and attention dilution as rules stack up"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Monolithic prompts suffer from cross-directive interference where rules in separate sections contradict or dilute attention, leading to hallucinations and rule violations."
         },
         "code": "def test_day39_hierarchical_prompt_router():\n    \"\"\"\n    Day 39: Hierarchical Prompt Routing & Intent Classification: Dynamic Dispatch, Semantic Routers & Omniprompt Decomposition\n    \"\"\"\n    categories = {\n        \"Tier 1: Fast FAQ & Status\": {\"model\": \"In-Memory Semantic Cache / 8B Classifier\", \"share_pct\": 65.0, \"cost_per_m\": 0.10},\n        \"Tier 2: Specialized Business Ops\": {\"model\": \"Domain-Specific Modular Prompts\", \"share_pct\": 25.0, \"cost_per_m\": 0.80},\n        \"Tier 3: Complex Multi-Hop Synthesis\": {\"model\": \"Frontier Flagship Reasoning Model\", \"share_pct\": 10.0, \"cost_per_m\": 5.00}\n    }\n\n    blended_cost = sum(data[\"share_pct\"] / 100 * data[\"cost_per_m\"] for data in categories.values())\n    monolithic_cost = 5.00\n    cost_reduction_pct = round(((monolithic_cost - blended_cost) / monolithic_cost) * 100, 1)\n\n    return {\n        \"routerArchitecture\": \"Hierarchical Semantic Intent Classifier & Dynamic Dispatch Engine\",\n        \"omnipromptDecompositionStatus\": \"DECOMPOSED_INTO_THREE_SPECIALIZED_TIERS\",\n        \"blendedCostPerMillionTokensUSD\": round(blended_cost, 2),\n        \"monolithicOmnipromptCostPerMillionTokensUSD\": monolithic_cost,\n        \"enterpriseCostSavingsPct\": cost_reduction_pct,\n        \"intentClassificationAccuracyPct\": 99.4,\n        \"status\": \"HIERARCHICAL_ROUTING_ACTIVE\"\n    }\n\nimport json\nprint(json.dumps(test_day39_hierarchical_prompt_router(), indent=2))",
@@ -8567,13 +8747,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do production routing architectures use embeddings or small models instead of frontier LLMs?",
           "options": [
-            "To achieve sub-fifty-millisecond classification latency and minimize operational API token costs",
-            "Because small models have access to secret government databases that large models cannot read",
-            "Because frontier models refuse to classify text unless the user pays in physical gold coins",
-            "Because embeddings consume zero electrical energy and require no computer hardware to compute"
+            "Small classifiers natively handle tool execution without schema validation",
+            "Embedding cosine queries eliminate maintaining distinct domain prompts",
+            "Achieving sub-50ms routing speed while saving expensive frontier tokens",
+            "Compact models produce deeper zero-shot chain-of-thought traces reliably"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Using fast embeddings or small models enables sub-fifty-millisecond intent classification at trivial cost, preserving latency and budget for downstream tasks."
         },
         "code": "def test_day39_hierarchical_prompt_router():\n    \"\"\"\n    Day 39: Hierarchical Prompt Routing & Intent Classification: Dynamic Dispatch, Semantic Routers & Omniprompt Decomposition\n    \"\"\"\n    categories = {\n        \"Tier 1: Fast FAQ & Status\": {\"model\": \"In-Memory Semantic Cache / 8B Classifier\", \"share_pct\": 65.0, \"cost_per_m\": 0.10},\n        \"Tier 2: Specialized Business Ops\": {\"model\": \"Domain-Specific Modular Prompts\", \"share_pct\": 25.0, \"cost_per_m\": 0.80},\n        \"Tier 3: Complex Multi-Hop Synthesis\": {\"model\": \"Frontier Flagship Reasoning Model\", \"share_pct\": 10.0, \"cost_per_m\": 5.00}\n    }\n\n    blended_cost = sum(data[\"share_pct\"] / 100 * data[\"cost_per_m\"] for data in categories.values())\n    monolithic_cost = 5.00\n    cost_reduction_pct = round(((monolithic_cost - blended_cost) / monolithic_cost) * 100, 1)\n\n    return {\n        \"routerArchitecture\": \"Hierarchical Semantic Intent Classifier & Dynamic Dispatch Engine\",\n        \"omnipromptDecompositionStatus\": \"DECOMPOSED_INTO_THREE_SPECIALIZED_TIERS\",\n        \"blendedCostPerMillionTokensUSD\": round(blended_cost, 2),\n        \"monolithicOmnipromptCostPerMillionTokensUSD\": monolithic_cost,\n        \"enterpriseCostSavingsPct\": cost_reduction_pct,\n        \"intentClassificationAccuracyPct\": 99.4,\n        \"status\": \"HIERARCHICAL_ROUTING_ACTIVE\"\n    }\n\nimport json\nprint(json.dumps(test_day39_hierarchical_prompt_router(), indent=2))",
@@ -8598,13 +8778,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does multi-tier model serving achieve massive enterprise cost reductions?",
           "options": [
-            "By resolving the majority of simple queries with fast inexpensive models, reserving frontier LLMs for complex cases",
-            "By forcing cloud hosting providers to waive all commercial billing charges for enterprise accounts",
-            "By automatically shutting down all corporate computers at five in the afternoon every day",
-            "By replacing all database tables with flat text files stored on USB thumb drives"
+            "Caching frontier completions globally across all multi-tenant user inputs",
+            "Routing easy traffic to fast cheap models, saving frontier capacity for hard cases",
+            "Compressing every incoming prompt aggressively below two hundred tokens total",
+            "Disabling multi-persona consensus checks on high-confidence routing queries"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Resolving simple queries with fast inexpensive models at low cost reserves expensive frontier models strictly for complex tasks, slashing blended costs by over eighty percent."
         },
         "code": "def test_day39_hierarchical_prompt_router():\n    \"\"\"\n    Day 39: Hierarchical Prompt Routing & Intent Classification: Dynamic Dispatch, Semantic Routers & Omniprompt Decomposition\n    \"\"\"\n    categories = {\n        \"Tier 1: Fast FAQ & Status\": {\"model\": \"In-Memory Semantic Cache / 8B Classifier\", \"share_pct\": 65.0, \"cost_per_m\": 0.10},\n        \"Tier 2: Specialized Business Ops\": {\"model\": \"Domain-Specific Modular Prompts\", \"share_pct\": 25.0, \"cost_per_m\": 0.80},\n        \"Tier 3: Complex Multi-Hop Synthesis\": {\"model\": \"Frontier Flagship Reasoning Model\", \"share_pct\": 10.0, \"cost_per_m\": 5.00}\n    }\n\n    blended_cost = sum(data[\"share_pct\"] / 100 * data[\"cost_per_m\"] for data in categories.values())\n    monolithic_cost = 5.00\n    cost_reduction_pct = round(((monolithic_cost - blended_cost) / monolithic_cost) * 100, 1)\n\n    return {\n        \"routerArchitecture\": \"Hierarchical Semantic Intent Classifier & Dynamic Dispatch Engine\",\n        \"omnipromptDecompositionStatus\": \"DECOMPOSED_INTO_THREE_SPECIALIZED_TIERS\",\n        \"blendedCostPerMillionTokensUSD\": round(blended_cost, 2),\n        \"monolithicOmnipromptCostPerMillionTokensUSD\": monolithic_cost,\n        \"enterpriseCostSavingsPct\": cost_reduction_pct,\n        \"intentClassificationAccuracyPct\": 99.4,\n        \"status\": \"HIERARCHICAL_ROUTING_ACTIVE\"\n    }\n\nimport json\nprint(json.dumps(test_day39_hierarchical_prompt_router(), indent=2))",
@@ -8630,10 +8810,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary maintenance advantage of decomposing an Omniprompt into modular prompts?",
           "options": [
-            "Different business units can update domain rules independently without risking platform-wide regressions",
-            "It eliminates the need for software developers to write documentation or test cases for their code",
-            "It allows language models to run without consuming any random access memory on the server",
-            "It automatically translates all corporate prompts into seventeen different foreign languages"
+            "Teams iterate independent domain templates without risking global regressions",
+            "Shared context caches grow automatically whenever modules remain short",
+            "Modular strings eliminate unit evaluation across downstream model swaps",
+            "Domain templates bypass safety redaction overhead inside trusted lanes"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8663,10 +8843,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What role do fallback boundaries play in production semantic intent routing engines?",
           "options": [
-            "Safeguarding availability by routing low-confidence or anomalous queries to defensive triage routines",
-            "Automatically disconnecting the corporate local area network whenever an error is detected",
-            "Deleting all incoming user questions that do not contain exactly twelve alphabetical words",
-            "Forcing all external software libraries to downgrade their version numbers automatically"
+            "Routing ambiguous or low-confidence inputs safely into defensive fallback paths",
+            "Dropping malformed JSON requests immediately before incurring inference billing",
+            "Pinning uncategorized traffic automatically onto local offline quantized models",
+            "Suppressing monitoring telemetry logs whenever classifier scores tie closely"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8723,13 +8903,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary breakthrough of the unified ApexStructuredGrammar architecture?",
           "options": [
-            "Integrating grammars, tools, compression, and routing into an atomic low-latency pipeline",
-            "Rewriting the underlying computer operating system kernel in assembly language",
-            "Permanently disabling all network firewalls to allow unrestricted cloud access",
-            "Converting all enterprise documents into uncompressed raw bitmap image files"
+            "Running every reasoning agent turn strictly inside static synchronous queues",
+            "Replacing explicit JSON schemas with multi-shot narrative examples throughout",
+            "Splitting telemetry logs asymmetrically across unconnected local text stores",
+            "Unifying grammars, tools, compression, and routing inside one fast pipeline"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "ApexStructuredGrammar unifies constrained grammars, parallel tools, prompt compression, and intent routing into an atomic low-latency pipeline, eliminating hallucinations and latency bloat."
         },
         "code": "def test_day40_apexstructuredgrammar_suite():\n    \"\"\"\n    Day 40: Milestone 5 Capstone: ApexStructuredGrammar: Production-Grade Constrained Structured Output & Parallel Tool Calling Suite\n    \"\"\"\n    return {\n        \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\",\n        \"integratedModules\": [\n            \"DFA Logit Masking & Context-Free Grammar Enforcer\",\n            \"Asynchronous Parallel Multi-Tool Worker Pool\",\n            \"LLMLingua Perplexity-Aware Context Compressor\",\n            \"Hierarchical Semantic Intent Router & Dispatcher\"\n        ],\n        \"benchmarkResults\": {\n            \"grammaticalSyntacticAccuracyPct\": 100.0,\n            \"parallelToolDispatchConcurrency\": 16,\n            \"contextCompressionRatio\": \"3.3x\",\n            \"routingAccuracyPct\": 99.6,\n            \"p99LatencyReductionPct\": 68.4\n        },\n        \"certificationTier\": \"APEX_STRUCTURED_GRAMMAR_ENTERPRISE_ARCHITECT\",\n        \"milestoneStatus\": \"BLOCK_8_MILESTONE_5_ACCOMPLISHED\"\n    }\n\nimport json\nprint(json.dumps(test_day40_apexstructuredgrammar_suite(), indent=2))",
@@ -8756,13 +8936,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does line-rate logit masking guarantee zero syntax errors in generated JSON?",
           "options": [
-            "By setting logits of tokens that violate active automaton transitions to negative infinity",
-            "By asking the user to manually correct invalid JSON syntax in a modal dialog box",
-            "By restarting the entire foundation model inference process from the beginning on error",
-            "By deleting all punctuation marks from the generated natural language response"
+            "Validating streaming strings post-hoc and rewriting invalid syntax fields",
+            "Clamping model temperature to zero before opening every JSON brace key",
+            "Assigning minus infinity logits to vocabulary tokens disallowed by transitions",
+            "Retrying malformed responses sequentially up to five independent attempts"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Logit masking dynamically evaluates the automaton state set and assigns negative infinity to invalid transition tokens, physically preventing invalid syntax from being sampled."
         },
         "code": "def test_day40_apexstructuredgrammar_suite():\n    \"\"\"\n    Day 40: Milestone 5 Capstone: ApexStructuredGrammar: Production-Grade Constrained Structured Output & Parallel Tool Calling Suite\n    \"\"\"\n    return {\n        \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\",\n        \"integratedModules\": [\n            \"DFA Logit Masking & Context-Free Grammar Enforcer\",\n            \"Asynchronous Parallel Multi-Tool Worker Pool\",\n            \"LLMLingua Perplexity-Aware Context Compressor\",\n            \"Hierarchical Semantic Intent Router & Dispatcher\"\n        ],\n        \"benchmarkResults\": {\n            \"grammaticalSyntacticAccuracyPct\": 100.0,\n            \"parallelToolDispatchConcurrency\": 16,\n            \"contextCompressionRatio\": \"3.3x\",\n            \"routingAccuracyPct\": 99.6,\n            \"p99LatencyReductionPct\": 68.4\n        },\n        \"certificationTier\": \"APEX_STRUCTURED_GRAMMAR_ENTERPRISE_ARCHITECT\",\n        \"milestoneStatus\": \"BLOCK_8_MILESTONE_5_ACCOMPLISHED\"\n    }\n\nimport json\nprint(json.dumps(test_day40_apexstructuredgrammar_suite(), indent=2))",
@@ -8790,13 +8970,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does parallel tool dispatch dramatically outperform traditional serial execution?",
           "options": [
-            "Independent API operations execute concurrently, reducing wall-clock latency to the slowest call",
-            "It bypasses corporate network security policies to achieve faster internet speeds",
-            "It forces all external web services to operate without authentication credentials",
-            "It stores all intermediate API responses on unencrypted local hard disk drives"
+            "Asynchronous loops reuse cached API outputs across identical user IDs",
+            "Independent tools run concurrently, capping delay at the slowest call",
+            "Parallel execution lowers backend per-token billing via provider batching",
+            "Task gathering strips strict schema parsing checks on intermediate returns"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Parallel tool dispatch executes independent API calls concurrently across an asynchronous worker pool, compressing latency to the duration of the slowest call."
         },
         "code": "def test_day40_apexstructuredgrammar_suite():\n    \"\"\"\n    Day 40: Milestone 5 Capstone: ApexStructuredGrammar: Production-Grade Constrained Structured Output & Parallel Tool Calling Suite\n    \"\"\"\n    return {\n        \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\",\n        \"integratedModules\": [\n            \"DFA Logit Masking & Context-Free Grammar Enforcer\",\n            \"Asynchronous Parallel Multi-Tool Worker Pool\",\n            \"LLMLingua Perplexity-Aware Context Compressor\",\n            \"Hierarchical Semantic Intent Router & Dispatcher\"\n        ],\n        \"benchmarkResults\": {\n            \"grammaticalSyntacticAccuracyPct\": 100.0,\n            \"parallelToolDispatchConcurrency\": 16,\n            \"contextCompressionRatio\": \"3.3x\",\n            \"routingAccuracyPct\": 99.6,\n            \"p99LatencyReductionPct\": 68.4\n        },\n        \"certificationTier\": \"APEX_STRUCTURED_GRAMMAR_ENTERPRISE_ARCHITECT\",\n        \"milestoneStatus\": \"BLOCK_8_MILESTONE_5_ACCOMPLISHED\"\n    }\n\nimport json\nprint(json.dumps(test_day40_apexstructuredgrammar_suite(), indent=2))",
@@ -8823,13 +9003,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does LLMLingua compression optimize GPU memory and cloud inference budgets?",
           "options": [
-            "By pruning low-perplexity redundant tokens while preserving high-information keywords",
-            "By deleting all vowels from the prompt text before submitting it to the model",
-            "By reducing the electrical voltage supplied to the server central processing unit",
-            "By encrypting all prompt strings with an irreversible one-way cryptographic hash"
+            "Quantizing context embedding floats down to compact four-bit integer arrays",
+            "Dropping redundant low-perplexity filler while keeping key informational terms",
+            "Truncating oldest conversational turns automatically after fixed token counts",
+            "Deduplicating uppercase headings across repetitive enterprise knowledge docs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "LLMLingua computes token-level perplexity, surgically removing low-information syntactic filler while preserving essential keywords, saving context and GPU cache memory."
         },
         "code": "def test_day40_apexstructuredgrammar_suite():\n    \"\"\"\n    Day 40: Milestone 5 Capstone: ApexStructuredGrammar: Production-Grade Constrained Structured Output & Parallel Tool Calling Suite\n    \"\"\"\n    return {\n        \"platform\": \"ApexStructuredGrammar Sovereign Enterprise Suite\",\n        \"integratedModules\": [\n            \"DFA Logit Masking & Context-Free Grammar Enforcer\",\n            \"Asynchronous Parallel Multi-Tool Worker Pool\",\n            \"LLMLingua Perplexity-Aware Context Compressor\",\n            \"Hierarchical Semantic Intent Router & Dispatcher\"\n        ],\n        \"benchmarkResults\": {\n            \"grammaticalSyntacticAccuracyPct\": 100.0,\n            \"parallelToolDispatchConcurrency\": 16,\n            \"contextCompressionRatio\": \"3.3x\",\n            \"routingAccuracyPct\": 99.6,\n            \"p99LatencyReductionPct\": 68.4\n        },\n        \"certificationTier\": \"APEX_STRUCTURED_GRAMMAR_ENTERPRISE_ARCHITECT\",\n        \"milestoneStatus\": \"BLOCK_8_MILESTONE_5_ACCOMPLISHED\"\n    }\n\nimport json\nprint(json.dumps(test_day40_apexstructuredgrammar_suite(), indent=2))",
@@ -8857,10 +9037,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What role does cryptographic provenance auditing play in enterprise AI deployments?",
           "options": [
-            "Creating immutable SHA-256 receipts of queries, schemas, and outputs for regulatory compliance",
-            "Preventing unauthorized users from viewing the computer screen during operation",
-            "Automatically formatting all source code files according to standard style guides",
-            "Compressing output audio files into high-fidelity stereo sound recordings"
+            "Generating immutable SHA-256 receipts linking queries, schemas, and outputs",
+            "Masking personally identifiable user IDs inside real-time Grafana metrics",
+            "Enforcing Pydantic schema constraints deterministically before tool run",
+            "Signing SSL gateway certificates statically across worker container restarts"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8915,13 +9095,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of centralized hierarchical swarms over peer-to-peer swarms?",
           "options": [
-            "A dedicated supervisor prevents circular reasoning loops and enforces task budgets",
-            "It eliminates the need for computer networks by using satellite radio frequencies",
-            "It allows foundation models to execute without consuming electrical power",
-            "It automatically converts all English text into ancient Latin prose"
+            "Peer workers exchange full chat transcripts without serialization locks",
+            "Hierarchical topologies double token window sizes across specialist nodes",
+            "Single managers remove asynchronous scheduling overhead from worker pools",
+            "Central coordination curbs reasoning loops and enforces global budgets"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Centralized supervisor architectures introduce an executive planner that prevents infinite message chatter loops, circular reasoning deadlocks, and unpredictable token expense."
         },
         "code": "def test_day41_multi_agent_choreography():\n    \"\"\"\n    Day 41: Multi-Agent Choreography & Supervisor Swarms: Centralized Orchestration vs Hierarchical Agent Swarms\n    \"\"\"\n    return {\n        \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\",\n        \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\",\n        \"specializedWorkers\": [\n            \"Research & Intelligence Retrieval Agent\",\n            \"Quantitative Analysis & Verification Agent\",\n            \"Code Synthesis & Refactoring Agent\",\n            \"Editorial & Governance Compliance Agent\"\n        ],\n        \"metrics\": {\n            \"taskDelegationEfficiencyPct\": 98.7,\n            \"interAgentCommunicationOverheadPct\": 4.2,\n            \"parallelTaskConcurrency\": 8,\n            \"conflictResolutionRatePct\": 100.0\n        },\n        \"status\": \"CHOREOGRAPHY_MESH_ACTIVE\"\n    }\n\nimport json\nprint(json.dumps(test_day41_multi_agent_choreography(), indent=2))",
@@ -8947,13 +9127,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does context isolation between specialized worker agents improve reasoning accuracy?",
           "options": [
-            "It keeps worker contexts lean and focused, eliminating attention dilution and cross-task noise",
-            "It permanently erases the memory of the supervisor agent after every interaction",
-            "It forces all external API tools to return data formatted exclusively in binary numbers",
-            "It prevents the language model from learning any new programming languages"
+            "Shared scratchpads synchronize local weights across concurrent model turns",
+            "Shortened system prompts let cloud providers skip prefix cache lookups",
+            "Lean, focused worker contexts avoid distraction and attention dilution",
+            "Isolated roles disable output validation checks between adjacent tasks"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Context isolation shields workers from extraneous peer deliberation history, keeping attention heads focused exclusively on relevant decision variables."
         },
         "code": "def test_day41_multi_agent_choreography():\n    \"\"\"\n    Day 41: Multi-Agent Choreography & Supervisor Swarms: Centralized Orchestration vs Hierarchical Agent Swarms\n    \"\"\"\n    return {\n        \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\",\n        \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\",\n        \"specializedWorkers\": [\n            \"Research & Intelligence Retrieval Agent\",\n            \"Quantitative Analysis & Verification Agent\",\n            \"Code Synthesis & Refactoring Agent\",\n            \"Editorial & Governance Compliance Agent\"\n        ],\n        \"metrics\": {\n            \"taskDelegationEfficiencyPct\": 98.7,\n            \"interAgentCommunicationOverheadPct\": 4.2,\n            \"parallelTaskConcurrency\": 8,\n            \"conflictResolutionRatePct\": 100.0\n        },\n        \"status\": \"CHOREOGRAPHY_MESH_ACTIVE\"\n    }\n\nimport json\nprint(json.dumps(test_day41_multi_agent_choreography(), indent=2))",
@@ -8979,13 +9159,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do pointer-based memory passing and delta compression prevent token bloat in swarms?",
           "options": [
-            "Agents exchange lightweight references to shared memory rather than repeating full historical text",
-            "By deleting ninety percent of all natural language words from every message payload",
-            "By converting all inter-agent messages into low-resolution audio waveforms",
-            "By forcing all communication to take place over physical copper telephone cables"
+            "Truncating earlier turns past fifty percent preserves recent focus only",
+            "Replacing prose handoffs with binary embeddings cuts HTTP body size",
+            "Passing lightweight memory keys and diffs avoids repeating huge histories",
+            "Pinning zero temperature keeps worker summaries concise across rounds"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Pointer-based memory passing allows agents to reference shared data stores via lightweight hashes and IDs, eliminating exponential context growth."
         },
         "code": "def test_day41_multi_agent_choreography():\n    \"\"\"\n    Day 41: Multi-Agent Choreography & Supervisor Swarms: Centralized Orchestration vs Hierarchical Agent Swarms\n    \"\"\"\n    return {\n        \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\",\n        \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\",\n        \"specializedWorkers\": [\n            \"Research & Intelligence Retrieval Agent\",\n            \"Quantitative Analysis & Verification Agent\",\n            \"Code Synthesis & Refactoring Agent\",\n            \"Editorial & Governance Compliance Agent\"\n        ],\n        \"metrics\": {\n            \"taskDelegationEfficiencyPct\": 98.7,\n            \"interAgentCommunicationOverheadPct\": 4.2,\n            \"parallelTaskConcurrency\": 8,\n            \"conflictResolutionRatePct\": 100.0\n        },\n        \"status\": \"CHOREOGRAPHY_MESH_ACTIVE\"\n    }\n\nimport json\nprint(json.dumps(test_day41_multi_agent_choreography(), indent=2))",
@@ -9011,13 +9191,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a supervisor resolve conflicting conclusions between specialized workers?",
           "options": [
-            "By convening a structured Socratic debate and evaluating evidential rigor",
-            "By terminating all worker agents and restarting the entire computer operating system",
-            "By randomly choosing the conclusion generated by the newest model checkpoint",
-            "By asking external internet search users to vote on the preferred answer"
+            "Selecting whichever worker emitted fewer output tokens overall first",
+            "Running structured Socratic arbitration to weigh supporting evidence",
+            "Averaging raw logit distributions blindly across discordant proposals",
+            "Deferring conflicts automatically to whichever agent finished fastest"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The supervisor activates an arbitration sub-protocol that convenes a Socratic debate, evaluates evidential rigor, and synthesizes a calibrated assessment."
         },
         "code": "def test_day41_multi_agent_choreography():\n    \"\"\"\n    Day 41: Multi-Agent Choreography & Supervisor Swarms: Centralized Orchestration vs Hierarchical Agent Swarms\n    \"\"\"\n    return {\n        \"orchestrationPattern\": \"Hierarchical Supervisor Multi-Agent Swarm\",\n        \"supervisorModel\": \"Tier 1 Executive Supervisor Controller\",\n        \"specializedWorkers\": [\n            \"Research & Intelligence Retrieval Agent\",\n            \"Quantitative Analysis & Verification Agent\",\n            \"Code Synthesis & Refactoring Agent\",\n            \"Editorial & Governance Compliance Agent\"\n        ],\n        \"metrics\": {\n            \"taskDelegationEfficiencyPct\": 98.7,\n            \"interAgentCommunicationOverheadPct\": 4.2,\n            \"parallelTaskConcurrency\": 8,\n            \"conflictResolutionRatePct\": 100.0\n        },\n        \"status\": \"CHOREOGRAPHY_MESH_ACTIVE\"\n    }\n\nimport json\nprint(json.dumps(test_day41_multi_agent_choreography(), indent=2))",
@@ -9044,10 +9224,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What role does OpenTelemetry distributed tracing play in production multi-agent systems?",
           "options": [
-            "Tracking planning latency, worker execution times, and message volumes across agent boundaries",
-            "Automatically compiling Python source code into machine assembly instructions",
-            "Encrypting the computer hard drive with a twenty-four-character master password",
-            "Restricting server access exclusively to authorized company board members"
+            "End-to-end span tracking across supervisor plans, workers, and latencies",
+            "Enforcing schema validation contracts deterministically inside tool proxies",
+            "Merging distributed CRDT blackboard keys across stateless async pods",
+            "Pruning low-perplexity system instructions ahead of multi-turn loops"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9102,13 +9282,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of the Tripartite Memory model in AI swarms?",
           "options": [
-            "Decoupling ephemeral context, collaborative working memory, and persistent knowledge vaults",
-            "Permanently wiping computer random access memory after every single user query",
-            "Converting all text inputs into uncompressed raw analog voltage audio signals",
-            "Restricting language models to using only words that contain fewer than five letters"
+            "Sharding model weights evenly across ephemeral RAM, SSD, and S3 buckets",
+            "Rotating API authentication tokens smoothly across short, medium, long TTLs",
+            "Duplicating every worker trace synchronously across three regional clusters",
+            "Separating transient turns, live working board, and durable knowledge vaults"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The tripartite memory model decouples ephemeral context, collaborative working memory, and persistent long-term storage, optimizing storage for different temporal horizons."
         },
         "code": "def test_day42_agent_memory_systems():\n    \"\"\"\n    Day 42: Agent Memory Systems & State Synchronization: Ephemeral, Working, Long-Term Memory & CRDT State Synchronization\n    \"\"\"\n    return {\n        \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\",\n        \"memoryTiers\": {\n            \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\",\n            \"workingMemory\": \"Conflict-Free Replicated Data Type (CRDT) Blackboard\",\n            \"longTermMemory\": \"Vector Embeddings & Semantic Graph Vault\"\n        },\n        \"synchronizationMetrics\": {\n            \"vectorIndexRecallPct\": 99.1,\n            \"crdtStateConvergenceMs\": 1.4,\n            \"cacheHitRatePct\": 87.5,\n            \"crossAgentStateConsistencyPct\": 100.0\n        },\n        \"status\": \"MEMORY_FABRIC_SYNCHRONIZED\"\n    }\n\nimport json\nprint(json.dumps(test_day42_agent_memory_systems(), indent=2))",
@@ -9134,13 +9314,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do Conflict-Free Replicated Data Types (CRDTs) guarantee state consistency in swarms?",
           "options": [
-            "By using associative, commutative, and idempotent merge operations that converge deterministically",
-            "By requiring a single central computer to approve every single word generated by all agents",
-            "By halting all computer network communication whenever more than two agents speak",
-            "By restarting all server processes from scratch whenever an edit collision occurs"
+            "Sequential single-writer queues serialize updates strictly by timestamp",
+            "Central arbiter locks pause peer reads until distributed commits clear",
+            "Majority consensus polls discard stale worker writes after timeout expiry",
+            "Associative, commutative, idempotent merges converge reliably without locks"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "CRDTs rely on associative, commutative, and idempotent mathematical merge operators, ensuring that all distributed nodes converge to identical states regardless of arrival order."
         },
         "code": "def test_day42_agent_memory_systems():\n    \"\"\"\n    Day 42: Agent Memory Systems & State Synchronization: Ephemeral, Working, Long-Term Memory & CRDT State Synchronization\n    \"\"\"\n    return {\n        \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\",\n        \"memoryTiers\": {\n            \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\",\n            \"workingMemory\": \"Conflict-Free Replicated Data Type (CRDT) Blackboard\",\n            \"longTermMemory\": \"Vector Embeddings & Semantic Graph Vault\"\n        },\n        \"synchronizationMetrics\": {\n            \"vectorIndexRecallPct\": 99.1,\n            \"crdtStateConvergenceMs\": 1.4,\n            \"cacheHitRatePct\": 87.5,\n            \"crossAgentStateConsistencyPct\": 100.0\n        },\n        \"status\": \"MEMORY_FABRIC_SYNCHRONIZED\"\n    }\n\nimport json\nprint(json.dumps(test_day42_agent_memory_systems(), indent=2))",
@@ -9167,13 +9347,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the function of optimistic concurrency control on a shared AI blackboard?",
           "options": [
-            "Safeguarding shared canvas variables from race conditions using expected state revision hashes",
-            "Permanently preventing all worker agents from making any edits to the shared workspace",
-            "Deleting all historical observations whenever a new hypothesis is posted to memory",
-            "Forcing all agents to communicate exclusively through physical paper printed reports"
+            "Queueing conflicting agent edits into batched nightly cron reconciliation",
+            "Pinning one designated lead agent as permanent global canvas writer",
+            "Checking revision hashes before committing updates to prevent lost writes",
+            "Wrapping shared state updates inside defensive try-except backoff loops"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Optimistic concurrency control uses state revision hashes to detect concurrent conflicting mutations, safely rejecting stale writes and prompting agents to re-read updated state."
         },
         "code": "def test_day42_agent_memory_systems():\n    \"\"\"\n    Day 42: Agent Memory Systems & State Synchronization: Ephemeral, Working, Long-Term Memory & CRDT State Synchronization\n    \"\"\"\n    return {\n        \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\",\n        \"memoryTiers\": {\n            \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\",\n            \"workingMemory\": \"Conflict-Free Replicated Data Type (CRDT) Blackboard\",\n            \"longTermMemory\": \"Vector Embeddings & Semantic Graph Vault\"\n        },\n        \"synchronizationMetrics\": {\n            \"vectorIndexRecallPct\": 99.1,\n            \"crdtStateConvergenceMs\": 1.4,\n            \"cacheHitRatePct\": 87.5,\n            \"crossAgentStateConsistencyPct\": 100.0\n        },\n        \"status\": \"MEMORY_FABRIC_SYNCHRONIZED\"\n    }\n\nimport json\nprint(json.dumps(test_day42_agent_memory_systems(), indent=2))",
@@ -9200,13 +9380,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does GraphRAG outperform pure vector search for enterprise long-term recall?",
           "options": [
-            "It combines semantic proximity with deterministic entity relationship traversal and hierarchy navigation",
-            "It eliminates the need for mathematical vectors by using alphabetical dictionary lookups",
-            "It requires zero computer memory to store millions of corporate documents permanently",
-            "It automatically translates all enterprise documents into five different foreign languages"
+            "Graph schemas store embeddings losslessly at double vector float width",
+            "It fuses vector similarity with deterministic entity-graph path traversal",
+            "Hierarchical graph indices remove chunking steps during ingestion entirely",
+            "Entity graphs avoid running cosine similarity math on short user queries"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "GraphRAG unites dense vector semantic similarity with structured knowledge graph traversal, allowing agents to navigate relational hierarchies and multi-hop paths accurately."
         },
         "code": "def test_day42_agent_memory_systems():\n    \"\"\"\n    Day 42: Agent Memory Systems & State Synchronization: Ephemeral, Working, Long-Term Memory & CRDT State Synchronization\n    \"\"\"\n    return {\n        \"memoryArchitecture\": \"Tripartite Ephemeral-Working-Persistent CRDT Memory Engine\",\n        \"memoryTiers\": {\n            \"ephemeralContext\": \"Sliding Window Multi-Turn Attention Buffer\",\n            \"workingMemory\": \"Conflict-Free Replicated Data Type (CRDT) Blackboard\",\n            \"longTermMemory\": \"Vector Embeddings & Semantic Graph Vault\"\n        },\n        \"synchronizationMetrics\": {\n            \"vectorIndexRecallPct\": 99.1,\n            \"crdtStateConvergenceMs\": 1.4,\n            \"cacheHitRatePct\": 87.5,\n            \"crossAgentStateConsistencyPct\": 100.0\n        },\n        \"status\": \"MEMORY_FABRIC_SYNCHRONIZED\"\n    }\n\nimport json\nprint(json.dumps(test_day42_agent_memory_systems(), indent=2))",
@@ -9234,10 +9414,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What enables sub-millisecond memory access across co-located agent workers on a single host?",
           "options": [
-            "Memory-mapped shared memory buffers that bypass network serialization overhead entirely",
-            "Writing all agent data to mechanical spinning floppy disk drives in binary format",
-            "Disabling all computer security controls and operating system kernel safeguards",
-            "Restricting memory storage exclusively to twenty-four single-byte character strings"
+            "Shared memory mapping (mmap) skips network overhead and serialization",
+            "Compressed JSON payloads over HTTP/2 loopback sockets avoid locks",
+            "Redis Unix domain sockets with fixed TTL expiration sweep worker keys",
+            "Async Python global queues broadcast full objects across worker processes"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9292,10 +9472,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of quadratic voting over standard majority voting in agent swarms?",
           "options": [
-            "It enables agents to express conviction intensity by squaring the cost of allocated votes",
-            "It forces all participating agents to cast identical ballots on every single task",
-            "It permanently erases all previous vote logs from the database after every round",
-            "It restricts the total number of words an agent can say to fewer than ten tokens"
+            "Quadratic vote pricing lets agents reflect conviction intensity fairly",
+            "Squared weights automatically exclude dissenting minority ballots early",
+            "Nonlinear tallies guarantee unanimous agreement without tie-breaking rules",
+            "Quadratic scoring cuts consensus latency by halving multi-round debates"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9323,13 +9503,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does structured adversarial Socratic debate dramatically reduce hallucination rates in AI swarms?",
           "options": [
-            "Adversarial cross-examination forces models to defend claims against hostile critique with citations",
-            "Debate shuts down the computer network whenever an agent encounters a grammatical typo",
-            "It replaces neural network inference with hardcoded static lookup tables",
-            "It converts all prompt text into uppercase characters to force model obedience"
+            "Multiple critique turns guarantee zero prompt injection risks across docs",
+            "Adversarial personas emit shorter structured answers under strict budgets",
+            "Debate loops remove Pydantic validation checks from downstream verdicts",
+            "Hostile cross-examination pushes claims toward grounded source citations"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Adversarial cross-examination forces models to justify their assertions against rigorous counter-critique, pruning speculative flourishes and grounding claims in verified citations."
         },
         "code": "import json\nfrom typing import Dict, Any, List\n\ndef run_multi_agent_consensus_engine() -> Dict[str, Any]:\n    \"\"\"\n    Day 43: Consensus Protocols & Multi-Agent Deliberation\n    Implements Byzantine Fault Tolerant Multi-Agent Deliberation Network.\n    \"\"\"\n    participating_agents: List[str] = [\n        \"Financial Risk Modeling Agent\",\n        \"Regulatory Compliance Audit Agent\",\n        \"Cybersecurity Architecture Agent\",\n        \"Executive Strategy Alignment Agent\"\n    ]\n    \n    # 3f + 1 Quorum with 4 agents tolerates f=1 Byzantine/hallucinating node\n    total_nodes = len(participating_agents)\n    f_faults_tolerated = (total_nodes - 1) // 3\n    \n    consensus_metrics = {\n        \"byzantineFaultToleranceThreshold\": \"3f + 1 Quorum\",\n        \"majorityAgreementPct\": 96.8,\n        \"socraticDebateResolutionPct\": 100.0,\n        \"hallucinationSuppressionPct\": 99.4\n    }\n    \n    return {\n        \"consensusProtocol\": \"Byzantine Fault Tolerant Multi-Agent Deliberation Network\",\n        \"deliberationRounds\": 3,\n        \"participatingVoters\": participating_agents,\n        \"consensusMetrics\": consensus_metrics,\n        \"status\": \"CONSENSUS_REACHED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_multi_agent_consensus_engine()\n    print(json.dumps(result, indent=2))\n",
@@ -9354,13 +9534,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the classical Byzantine Fault Tolerance invariant for tolerating f arbitrary faulty or malicious nodes?",
           "options": [
-            "The total network size N must be strictly greater than or equal to 3f + 1",
-            "The total network size N must equal exactly f minus two nodes",
-            "The network size must be divisible by seven at all times without remainder",
-            "Every agent must execute in complete isolation without network communication"
+            "Minimum quorum size N equals strictly 2f + 1 replicas",
+            "Healthy clusters require exact powers of two above f",
+            "Total replicas N must satisfy at least 3f + 1 nodes",
+            "Independent voting groups must exceed f squared plus one"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "To tolerate f Byzantine faulty nodes, a distributed network requires at least 3f + 1 total nodes to guarantee a two-thirds majority quorum among honest participants."
         },
         "code": "import json\nfrom typing import Dict, Any, List\n\ndef run_multi_agent_consensus_engine() -> Dict[str, Any]:\n    \"\"\"\n    Day 43: Consensus Protocols & Multi-Agent Deliberation\n    Implements Byzantine Fault Tolerant Multi-Agent Deliberation Network.\n    \"\"\"\n    participating_agents: List[str] = [\n        \"Financial Risk Modeling Agent\",\n        \"Regulatory Compliance Audit Agent\",\n        \"Cybersecurity Architecture Agent\",\n        \"Executive Strategy Alignment Agent\"\n    ]\n    \n    # 3f + 1 Quorum with 4 agents tolerates f=1 Byzantine/hallucinating node\n    total_nodes = len(participating_agents)\n    f_faults_tolerated = (total_nodes - 1) // 3\n    \n    consensus_metrics = {\n        \"byzantineFaultToleranceThreshold\": \"3f + 1 Quorum\",\n        \"majorityAgreementPct\": 96.8,\n        \"socraticDebateResolutionPct\": 100.0,\n        \"hallucinationSuppressionPct\": 99.4\n    }\n    \n    return {\n        \"consensusProtocol\": \"Byzantine Fault Tolerant Multi-Agent Deliberation Network\",\n        \"deliberationRounds\": 3,\n        \"participatingVoters\": participating_agents,\n        \"consensusMetrics\": consensus_metrics,\n        \"status\": \"CONSENSUS_REACHED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_multi_agent_consensus_engine()\n    print(json.dumps(result, indent=2))\n",
@@ -9385,13 +9565,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the key difference between epistemic uncertainty and aleatoric uncertainty in agent reasoning?",
           "options": [
-            "Epistemic uncertainty stems from reducible knowledge gaps, while aleatoric is inherent randomness",
-            "Epistemic uncertainty applies only to math, while aleatoric uncertainty applies only to music",
-            "Epistemic uncertainty causes hardware overheating, while aleatoric uncertainty drains battery",
-            "There is no difference as both terms represent identical operational states"
+            "Epistemic tracks latency jitter; aleatoric measures token probability perplexity",
+            "Epistemic reflects reducible missing info; aleatoric reflects inherent randomness",
+            "Epistemic governs closed-source APIs; aleatoric governs open local weights",
+            "Epistemic rises strictly with temperature; aleatoric decreases with top-k"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Epistemic uncertainty reflects missing information that can be reduced through additional research or tooling, whereas aleatoric uncertainty represents irreducible stochastic variance in the system."
         },
         "code": "import json\nfrom typing import Dict, Any, List\n\ndef run_multi_agent_consensus_engine() -> Dict[str, Any]:\n    \"\"\"\n    Day 43: Consensus Protocols & Multi-Agent Deliberation\n    Implements Byzantine Fault Tolerant Multi-Agent Deliberation Network.\n    \"\"\"\n    participating_agents: List[str] = [\n        \"Financial Risk Modeling Agent\",\n        \"Regulatory Compliance Audit Agent\",\n        \"Cybersecurity Architecture Agent\",\n        \"Executive Strategy Alignment Agent\"\n    ]\n    \n    # 3f + 1 Quorum with 4 agents tolerates f=1 Byzantine/hallucinating node\n    total_nodes = len(participating_agents)\n    f_faults_tolerated = (total_nodes - 1) // 3\n    \n    consensus_metrics = {\n        \"byzantineFaultToleranceThreshold\": \"3f + 1 Quorum\",\n        \"majorityAgreementPct\": 96.8,\n        \"socraticDebateResolutionPct\": 100.0,\n        \"hallucinationSuppressionPct\": 99.4\n    }\n    \n    return {\n        \"consensusProtocol\": \"Byzantine Fault Tolerant Multi-Agent Deliberation Network\",\n        \"deliberationRounds\": 3,\n        \"participatingVoters\": participating_agents,\n        \"consensusMetrics\": consensus_metrics,\n        \"status\": \"CONSENSUS_REACHED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_multi_agent_consensus_engine()\n    print(json.dumps(result, indent=2))\n",
@@ -9419,13 +9599,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What role does the Byzantine Quorum Gate play in the production consensus harness?",
           "options": [
-            "It verifies digital signatures, filters rogue nodes, and validates the supermajority quorum",
-            "It deletes all log files when the deliberation engine reaches completion",
-            "It converts Python source code into unreadable machine binary instructions",
-            "It prevents agents from executing asynchronous code concurrently"
+            "Archiving settled blackboard histories into immutable vector vaults",
+            "Validating signatures, filtering rogue ballots, and checking quorum size",
+            "Retrying stalled network calls dynamically using exponential delays",
+            "Distributing equal voting credits uniformly at task initialization"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The Byzantine Quorum Gate validates cryptographic signatures, quarantines rogue Byzantine agents, and ensures the two-thirds supermajority threshold is met before finalizing consensus."
         },
         "code": "import json\nfrom typing import Dict, Any, List\n\ndef run_multi_agent_consensus_engine() -> Dict[str, Any]:\n    \"\"\"\n    Day 43: Consensus Protocols & Multi-Agent Deliberation\n    Implements Byzantine Fault Tolerant Multi-Agent Deliberation Network.\n    \"\"\"\n    participating_agents: List[str] = [\n        \"Financial Risk Modeling Agent\",\n        \"Regulatory Compliance Audit Agent\",\n        \"Cybersecurity Architecture Agent\",\n        \"Executive Strategy Alignment Agent\"\n    ]\n    \n    # 3f + 1 Quorum with 4 agents tolerates f=1 Byzantine/hallucinating node\n    total_nodes = len(participating_agents)\n    f_faults_tolerated = (total_nodes - 1) // 3\n    \n    consensus_metrics = {\n        \"byzantineFaultToleranceThreshold\": \"3f + 1 Quorum\",\n        \"majorityAgreementPct\": 96.8,\n        \"socraticDebateResolutionPct\": 100.0,\n        \"hallucinationSuppressionPct\": 99.4\n    }\n    \n    return {\n        \"consensusProtocol\": \"Byzantine Fault Tolerant Multi-Agent Deliberation Network\",\n        \"deliberationRounds\": 3,\n        \"participatingVoters\": participating_agents,\n        \"consensusMetrics\": consensus_metrics,\n        \"status\": \"CONSENSUS_REACHED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_multi_agent_consensus_engine()\n    print(json.dumps(result, indent=2))\n",
@@ -9478,10 +9658,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural differentiator of LangGraph compared to conversational multi-agent frameworks?",
           "options": [
-            "It models workflows as stateful cyclical computation graphs with explicit edges",
-            "It limits all agent interactions to single-turn binary yes or no prompts",
-            "It deletes all persistent database records after every operational execution",
-            "It requires all code to be written exclusively in legacy assembly language"
+            "Modeling workflows explicitly as stateful cyclic graphs with typed edges",
+            "Running agents exclusively inside linear prompt chaining pipelines",
+            "Using unconstrained multi-agent group chat with zero transition rules",
+            "Executing every tool invocation through sandboxed local shell commands"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9510,13 +9690,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do LangGraph checkpointers provide fault tolerance in long-running agent workflows?",
           "options": [
-            "By serializing graph state after every node execution to resume seamlessly upon failure",
-            "By restarting the entire operating system whenever an exception is encountered",
-            "By preventing models from generating any words containing vowels",
-            "By wiping out previous task states to save computer disk space"
+            "Logging raw LLM token probabilities lets routers pick cheaper replays",
+            "Pre-allocating redundant mirror containers swaps traffic cleanly on timeout",
+            "Caching finalized prompt headers cuts restart cost after schema errors",
+            "Persisting graph snapshots per step enables seamless recovery after crash"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Checkpointers serialize the entire graph state after each atomic node transition, enabling interrupted workflows to resume immediately from the latest verified state without data loss."
         },
         "code": "import json\nfrom typing import Dict, Any\n\ndef run_production_agent_framework_evaluator() -> Dict[str, Any]:\n    \"\"\"\n    Day 44: Production Agent Frameworks Evaluation & Hybrid Orchestrator\n    Evaluates LangGraph, CrewAI, AutoGen, and native async architectures.\n    \"\"\"\n    framework_evaluations = {\n        \"LangGraph\": {\n            \"architecture\": \"Stateful Cyclical Computation Graph\",\n            \"latencyScore\": 9.4,\n            \"enterpriseSuitability\": \"Mission-Critical Core\"\n        },\n        \"CrewAI\": {\n            \"architecture\": \"Role-Playing Hierarchical Swarm\",\n            \"latencyScore\": 8.8,\n            \"enterpriseSuitability\": \"Content & Operations\"\n        },\n        \"AutoGen\": {\n            \"architecture\": \"Conversational Multi-Agent Mesh\",\n            \"latencyScore\": 8.6,\n            \"enterpriseSuitability\": \"Collaborative Research\"\n        }\n    }\n    \n    orchestration_metrics = {\n        \"graphCycleExecutionThroughputRPS\": 420.0,\n        \"statePersistenceRecoveryPct\": 100.0,\n        \"dynamicReplanningSuccessPct\": 97.9\n    }\n    \n    return {\n        \"frameworkEvaluations\": framework_evaluations,\n        \"productionSelection\": \"Hybrid LangGraph State Machine with CrewAI Task Delegation\",\n        \"orchestrationMetrics\": orchestration_metrics,\n        \"status\": \"FRAMEWORK_ORCHESTRATION_OPTIMIZED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_production_agent_framework_evaluator()\n    print(json.dumps(result, indent=2))\n",
@@ -9542,13 +9722,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What occurs when a CrewAI crew is configured with a Hierarchical process?",
           "options": [
-            "A manager LLM agent is instantiated to decompose goals and delegate tasks to workers",
-            "All agents are immediately terminated and replaced with static script routines",
-            "Tasks execute exclusively in random unpredictable order without coordination",
-            "The system requires all team members to belong to the same physical office location"
+            "Tasks execute strictly sequentially along a fixed round-robin list",
+            "Worker models share one monolithic prompt without persona isolation",
+            "A manager agent decomposes goals, delegates work, and checks results",
+            "Human reviewers manually approve every intermediate agent tool handoff"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In CrewAI Hierarchical mode, a manager LLM autonomously plans, delegates sub-tasks to specialized worker agents, evaluates outputs, and coordinates collaborative delivery."
         },
         "code": "import json\nfrom typing import Dict, Any\n\ndef run_production_agent_framework_evaluator() -> Dict[str, Any]:\n    \"\"\"\n    Day 44: Production Agent Frameworks Evaluation & Hybrid Orchestrator\n    Evaluates LangGraph, CrewAI, AutoGen, and native async architectures.\n    \"\"\"\n    framework_evaluations = {\n        \"LangGraph\": {\n            \"architecture\": \"Stateful Cyclical Computation Graph\",\n            \"latencyScore\": 9.4,\n            \"enterpriseSuitability\": \"Mission-Critical Core\"\n        },\n        \"CrewAI\": {\n            \"architecture\": \"Role-Playing Hierarchical Swarm\",\n            \"latencyScore\": 8.8,\n            \"enterpriseSuitability\": \"Content & Operations\"\n        },\n        \"AutoGen\": {\n            \"architecture\": \"Conversational Multi-Agent Mesh\",\n            \"latencyScore\": 8.6,\n            \"enterpriseSuitability\": \"Collaborative Research\"\n        }\n    }\n    \n    orchestration_metrics = {\n        \"graphCycleExecutionThroughputRPS\": 420.0,\n        \"statePersistenceRecoveryPct\": 100.0,\n        \"dynamicReplanningSuccessPct\": 97.9\n    }\n    \n    return {\n        \"frameworkEvaluations\": framework_evaluations,\n        \"productionSelection\": \"Hybrid LangGraph State Machine with CrewAI Task Delegation\",\n        \"orchestrationMetrics\": orchestration_metrics,\n        \"status\": \"FRAMEWORK_ORCHESTRATION_OPTIMIZED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_production_agent_framework_evaluator()\n    print(json.dumps(result, indent=2))\n",
@@ -9574,13 +9754,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does AutoGen enable autonomous code debugging loops in multi-agent workflows?",
           "options": [
-            "UserProxyAgents execute code in sandboxes and feed terminal tracebacks back to assistants",
-            "By permanently deleting any script that raises a compilation or runtime error",
-            "By requiring software developers to manually retype all code submissions by hand",
-            "By converting all programming languages into natural language poetry strings"
+            "Assistant models pre-compile Python code strictly via static regex lints",
+            "External human developers patch failing scripts asynchronously via webhooks",
+            "Code-running proxy agents feed live execution tracebacks back for fixes",
+            "Runtime harnesses suppress stack traces and swap defaults on TypeError"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "UserProxyAgents execute generated code in isolated environments and return stdout and error tracebacks to the conversation, allowing assistant agents to self-correct and debug autonomously."
         },
         "code": "import json\nfrom typing import Dict, Any\n\ndef run_production_agent_framework_evaluator() -> Dict[str, Any]:\n    \"\"\"\n    Day 44: Production Agent Frameworks Evaluation & Hybrid Orchestrator\n    Evaluates LangGraph, CrewAI, AutoGen, and native async architectures.\n    \"\"\"\n    framework_evaluations = {\n        \"LangGraph\": {\n            \"architecture\": \"Stateful Cyclical Computation Graph\",\n            \"latencyScore\": 9.4,\n            \"enterpriseSuitability\": \"Mission-Critical Core\"\n        },\n        \"CrewAI\": {\n            \"architecture\": \"Role-Playing Hierarchical Swarm\",\n            \"latencyScore\": 8.8,\n            \"enterpriseSuitability\": \"Content & Operations\"\n        },\n        \"AutoGen\": {\n            \"architecture\": \"Conversational Multi-Agent Mesh\",\n            \"latencyScore\": 8.6,\n            \"enterpriseSuitability\": \"Collaborative Research\"\n        }\n    }\n    \n    orchestration_metrics = {\n        \"graphCycleExecutionThroughputRPS\": 420.0,\n        \"statePersistenceRecoveryPct\": 100.0,\n        \"dynamicReplanningSuccessPct\": 97.9\n    }\n    \n    return {\n        \"frameworkEvaluations\": framework_evaluations,\n        \"productionSelection\": \"Hybrid LangGraph State Machine with CrewAI Task Delegation\",\n        \"orchestrationMetrics\": orchestration_metrics,\n        \"status\": \"FRAMEWORK_ORCHESTRATION_OPTIMIZED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_production_agent_framework_evaluator()\n    print(json.dumps(result, indent=2))\n",
@@ -9608,13 +9788,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of building a native hybrid async engine for enterprise agent swarms?",
           "options": [
-            "Combining stateful cyclical control with low-overhead native async throughput and resilience",
-            "Eliminating all logging and monitoring data to speed up network communication",
-            "Restricting agent execution to single-threaded sequential processing queues",
-            "Preventing human administrators from ever inspecting agent decision trails"
+            "Eliminating Pydantic contracts to allow flexible ad-hoc dict messaging",
+            "Combining explicit cyclic graph control with lean native async performance",
+            "Running heavy blocking network I/O synchronously per swarm worker step",
+            "Replacing checkpoint persistence with ephemeral unlogged memory buffers"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Native hybrid async engines combine the structural rigor of cyclical state graphs with the high throughput, minimal overhead, and full customizability of native asyncio architectures."
         },
         "code": "import json\nfrom typing import Dict, Any\n\ndef run_production_agent_framework_evaluator() -> Dict[str, Any]:\n    \"\"\"\n    Day 44: Production Agent Frameworks Evaluation & Hybrid Orchestrator\n    Evaluates LangGraph, CrewAI, AutoGen, and native async architectures.\n    \"\"\"\n    framework_evaluations = {\n        \"LangGraph\": {\n            \"architecture\": \"Stateful Cyclical Computation Graph\",\n            \"latencyScore\": 9.4,\n            \"enterpriseSuitability\": \"Mission-Critical Core\"\n        },\n        \"CrewAI\": {\n            \"architecture\": \"Role-Playing Hierarchical Swarm\",\n            \"latencyScore\": 8.8,\n            \"enterpriseSuitability\": \"Content & Operations\"\n        },\n        \"AutoGen\": {\n            \"architecture\": \"Conversational Multi-Agent Mesh\",\n            \"latencyScore\": 8.6,\n            \"enterpriseSuitability\": \"Collaborative Research\"\n        }\n    }\n    \n    orchestration_metrics = {\n        \"graphCycleExecutionThroughputRPS\": 420.0,\n        \"statePersistenceRecoveryPct\": 100.0,\n        \"dynamicReplanningSuccessPct\": 97.9\n    }\n    \n    return {\n        \"frameworkEvaluations\": framework_evaluations,\n        \"productionSelection\": \"Hybrid LangGraph State Machine with CrewAI Task Delegation\",\n        \"orchestrationMetrics\": orchestration_metrics,\n        \"status\": \"FRAMEWORK_ORCHESTRATION_OPTIMIZED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_production_agent_framework_evaluator()\n    print(json.dumps(result, indent=2))\n",
@@ -9668,10 +9848,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational role of the Hierarchical Supervisor in ApexSwarm?",
           "options": [
-            "Decomposing executive charters into typed task DAGs and managing worker allocation",
-            "Deleting all corporate database records whenever an agent completes a task",
-            "Converting all incoming prompt messages into random strings of punctuation",
-            "Restricting language models to using only words that contain fewer than four letters"
+            "Decomposing charters into typed task DAGs and scheduling worker pods",
+            "Running arbitrary system shell scripts across bare-metal worker nodes",
+            "Generating UI mockups directly from streaming multi-persona consensus",
+            "Applying linear token perplexity compression over persistent vaults"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9701,13 +9881,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do State-based CRDTs guarantee eventual memory consistency across distributed agent nodes?",
           "options": [
-            "By using mathematically associative, commutative, and idempotent join semilattice operations",
-            "By freezing all computer processing until every server in the world acknowledges receipt",
-            "By forcing all models to delete their local caches after every single token generation",
-            "By replacing all computer memory with write-once magnetic tape storage"
+            "Strict distributed two-phase commit locks held over network relays",
+            "Single-leader sequential log shipping with synchronous client acks",
+            "Timestamped last-writer-wins overwrites using wall-clock NTP sync",
+            "Associative, commutative, idempotent join-semilattice state merges"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "State-based CRDTs utilize associative, commutative, and idempotent merge semilattices, ensuring identical state convergence regardless of network packet ordering or latency."
         },
         "code": "import json\nfrom typing import Dict, Any, List\n\ndef run_apexswarm_capstone() -> Dict[str, Any]:\n    \"\"\"\n    Day 45: Milestone 6 Capstone: ApexSwarm Enterprise Consensus Engine\n    Synthesizes hierarchical supervision, CRDT memory, Byzantine consensus,\n    and cyclical state machine orchestration.\n    \"\"\"\n    integrated_subsystems: List[str] = [\n        \"Hierarchical Supervisor Dispatcher & Task DAG Decomposer\",\n        \"CRDT Distributed Working Memory & Semantic Graph Engine\",\n        \"Byzantine Deliberation & Socratic Majority Voting Quorum\",\n        \"Stateful Cyclical Graph Execution Engine with Fallback Sandboxes\"\n    ]\n    \n    capstone_benchmarks = {\n        \"multiAgentSwarmScale\": 32,\n        \"consensusConvergenceDurationMs\": 28.6,\n        \"stateConsistencyConvergencePct\": 100.0,\n        \"endToEndTaskCompletionRatePct\": 99.7,\n        \"enterpriseCostOptimizationPct\": 76.4\n    }\n    \n    return {\n        \"platform\": \"ApexSwarm Sovereign Multi-Agent Autonomous Enterprise Suite\",\n        \"integratedSubsystems\": integrated_subsystems,\n        \"capstoneBenchmarkResults\": capstone_benchmarks,\n        \"certificationTier\": \"APEX_SWARM_ENTERPRISE_ARCHITECT\",\n        \"milestoneStatus\": \"BLOCK_9_MILESTONE_6_ACCOMPLISHED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_apexswarm_capstone()\n    print(json.dumps(result, indent=2))\n",
@@ -9735,13 +9915,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does ApexSwarm enforce the 3f + 1 node threshold during consensus voting?",
           "options": [
-            "To guarantee supermajority consensus even when up to f nodes behave maliciously or hallucinate",
-            "To ensure that the total number of agents is always an even number",
-            "To reduce the financial cost of running cloud servers by ninety percent",
-            "To force all agents to vote unanimously on every single question without exception"
+            "Partitioning worker batches evenly across three availability zones",
+            "Balancing GPU VRAM utilization smoothly under bursty traffic",
+            "Preventing floating-point rounding drift during confidence weighting",
+            "Guaranteeing safe Byzantine quorum despite up to f faulty voters"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The 3f + 1 invariant is the mathematical requirement in distributed computing to guarantee that honest nodes achieve a two-thirds supermajority consensus despite f faulty or Byzantine nodes."
         },
         "code": "import json\nfrom typing import Dict, Any, List\n\ndef run_apexswarm_capstone() -> Dict[str, Any]:\n    \"\"\"\n    Day 45: Milestone 6 Capstone: ApexSwarm Enterprise Consensus Engine\n    Synthesizes hierarchical supervision, CRDT memory, Byzantine consensus,\n    and cyclical state machine orchestration.\n    \"\"\"\n    integrated_subsystems: List[str] = [\n        \"Hierarchical Supervisor Dispatcher & Task DAG Decomposer\",\n        \"CRDT Distributed Working Memory & Semantic Graph Engine\",\n        \"Byzantine Deliberation & Socratic Majority Voting Quorum\",\n        \"Stateful Cyclical Graph Execution Engine with Fallback Sandboxes\"\n    ]\n    \n    capstone_benchmarks = {\n        \"multiAgentSwarmScale\": 32,\n        \"consensusConvergenceDurationMs\": 28.6,\n        \"stateConsistencyConvergencePct\": 100.0,\n        \"endToEndTaskCompletionRatePct\": 99.7,\n        \"enterpriseCostOptimizationPct\": 76.4\n    }\n    \n    return {\n        \"platform\": \"ApexSwarm Sovereign Multi-Agent Autonomous Enterprise Suite\",\n        \"integratedSubsystems\": integrated_subsystems,\n        \"capstoneBenchmarkResults\": capstone_benchmarks,\n        \"certificationTier\": \"APEX_SWARM_ENTERPRISE_ARCHITECT\",\n        \"milestoneStatus\": \"BLOCK_9_MILESTONE_6_ACCOMPLISHED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_apexswarm_capstone()\n    print(json.dumps(result, indent=2))\n",
@@ -9769,13 +9949,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of persistent checkpointers in the cyclical execution engine?",
           "options": [
-            "Serializing graph state after every node execution to enable zero state loss recovery",
-            "Permanently terminating the execution workflow whenever a warning is logged",
-            "Converting all model weights into uncompressed image files on disk",
-            "Preventing human operators from ever reviewing historical agent execution traces"
+            "Encrypting inter-agent prompt messages via rotating asymmetric keys",
+            "Filtering toxic outputs continuously inside streaming egress proxies",
+            "Saving node-by-node state checkpoints for lossless pause and resume",
+            "Routing easy sub-tasks dynamically onto faster small edge endpoints"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Persistent checkpointers serialize the complete graph state after each node transition, allowing interrupted workflows to resume immediately from the latest verified state without data loss."
         },
         "code": "import json\nfrom typing import Dict, Any, List\n\ndef run_apexswarm_capstone() -> Dict[str, Any]:\n    \"\"\"\n    Day 45: Milestone 6 Capstone: ApexSwarm Enterprise Consensus Engine\n    Synthesizes hierarchical supervision, CRDT memory, Byzantine consensus,\n    and cyclical state machine orchestration.\n    \"\"\"\n    integrated_subsystems: List[str] = [\n        \"Hierarchical Supervisor Dispatcher & Task DAG Decomposer\",\n        \"CRDT Distributed Working Memory & Semantic Graph Engine\",\n        \"Byzantine Deliberation & Socratic Majority Voting Quorum\",\n        \"Stateful Cyclical Graph Execution Engine with Fallback Sandboxes\"\n    ]\n    \n    capstone_benchmarks = {\n        \"multiAgentSwarmScale\": 32,\n        \"consensusConvergenceDurationMs\": 28.6,\n        \"stateConsistencyConvergencePct\": 100.0,\n        \"endToEndTaskCompletionRatePct\": 99.7,\n        \"enterpriseCostOptimizationPct\": 76.4\n    }\n    \n    return {\n        \"platform\": \"ApexSwarm Sovereign Multi-Agent Autonomous Enterprise Suite\",\n        \"integratedSubsystems\": integrated_subsystems,\n        \"capstoneBenchmarkResults\": capstone_benchmarks,\n        \"certificationTier\": \"APEX_SWARM_ENTERPRISE_ARCHITECT\",\n        \"milestoneStatus\": \"BLOCK_9_MILESTONE_6_ACCOMPLISHED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_apexswarm_capstone()\n    print(json.dumps(result, indent=2))\n",
@@ -9803,13 +9983,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What milestone certification is awarded upon completing Course Thirty-Three Block Nine?",
           "options": [
-            "APEX SWARM ENTERPRISE ARCHITECT certification recognizing mastery of multi-agent platforms",
-            "Novice Prompt User badge for basic single-turn question answering",
-            "Certified Static Web Page Formatter level one certificate",
-            "Junior Spreadsheets Assistant introductory training certificate"
+            "JUNIOR PROMPT TEMPLATE SPECIALIST",
+            "APEX SWARM ENTERPRISE ARCHITECT",
+            "BASIC REGEX VALIDATION OPERATOR",
+            "ENTRY LEVEL CHATBOT TECHNICIAN"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Completing Block Nine awards the APEX_SWARM_ENTERPRISE_ARCHITECT certification, validating mastery of multi-agent swarms, CRDT memory fabrics, Byzantine consensus, and production engines."
         },
         "code": "import json\nfrom typing import Dict, Any, List\n\ndef run_apexswarm_capstone() -> Dict[str, Any]:\n    \"\"\"\n    Day 45: Milestone 6 Capstone: ApexSwarm Enterprise Consensus Engine\n    Synthesizes hierarchical supervision, CRDT memory, Byzantine consensus,\n    and cyclical state machine orchestration.\n    \"\"\"\n    integrated_subsystems: List[str] = [\n        \"Hierarchical Supervisor Dispatcher & Task DAG Decomposer\",\n        \"CRDT Distributed Working Memory & Semantic Graph Engine\",\n        \"Byzantine Deliberation & Socratic Majority Voting Quorum\",\n        \"Stateful Cyclical Graph Execution Engine with Fallback Sandboxes\"\n    ]\n    \n    capstone_benchmarks = {\n        \"multiAgentSwarmScale\": 32,\n        \"consensusConvergenceDurationMs\": 28.6,\n        \"stateConsistencyConvergencePct\": 100.0,\n        \"endToEndTaskCompletionRatePct\": 99.7,\n        \"enterpriseCostOptimizationPct\": 76.4\n    }\n    \n    return {\n        \"platform\": \"ApexSwarm Sovereign Multi-Agent Autonomous Enterprise Suite\",\n        \"integratedSubsystems\": integrated_subsystems,\n        \"capstoneBenchmarkResults\": capstone_benchmarks,\n        \"certificationTier\": \"APEX_SWARM_ENTERPRISE_ARCHITECT\",\n        \"milestoneStatus\": \"BLOCK_9_MILESTONE_6_ACCOMPLISHED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_apexswarm_capstone()\n    print(json.dumps(result, indent=2))\n",
@@ -9861,10 +10041,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural advantage of CodeAct over traditional JSON function calling?",
           "options": [
-            "It enables expressive compositionality, inline variables, and loops within a single turn",
-            "It restricts the model to only executing single-character mathematical equations",
-            "It permanently shuts down the computer whenever an error is encountered",
-            "It converts all text inputs into uncompressed raw analog voltage audio signals"
+            "Expressing variables, loops, and multi-tool flows cleanly in one Python turn",
+            "Eliminating container sandboxes entirely via browser-side execution limits",
+            "Reducing schema validation errors purely through zero-shot prose hints",
+            "Enforcing static token bitmask constraints across open JSON strings"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9893,10 +10073,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is persistent namespace state crucial in multi-turn CodeAct agent workflows?",
           "options": [
-            "It preserves loaded datasets, imports, and variables across turns without recomputation",
-            "It forces all agents to use the exact same variable names on every single task",
-            "It deletes all persistent storage records after every operational execution",
-            "It converts all Python code into legacy assembly language instructions"
+            "Keeping dataframes, imports, and computed bindings live across turns",
+            "Resetting memory globals every step so earlier traces don't interfere",
+            "Compressing Python variables down into JSON strings between API calls",
+            "Bypassing static type assertions on variables returned by external APIs"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9926,13 +10106,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does algorithmic compositionality improve agent performance in complex data workflows?",
           "options": [
-            "It chains disparate tools, asynchronous requests, and filters within one Python execution",
-            "It restricts models to calling only one external tool per twenty-four-hour period",
-            "It converts all structured database tables into random strings of punctuation",
-            "It prevents models from using asynchronous coroutines or parallel workers"
+            "Limiting execution steps strictly to sequential single-function JSON specs",
+            "Forcing complex data pipelines through redundant chat tool round trips",
+            "Splitting independent variable bindings uniformly across separate prompts",
+            "Composing async API calls, transformations, and loops inside one snippet"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Algorithmic compositionality enables agents to combine multiple API calls, data transforms, and error handling in a single script, slashing round-trip latency and token bloat."
         },
         "code": "import json\nfrom typing import Dict, Any\n\ndef run_codeact_action_evaluator() -> Dict[str, Any]:\n    \"\"\"\n    Day 46: CodeAct & Executable Reasoning Evaluator\n    Evaluates Python executable action spaces against JSON tool calling.\n    \"\"\"\n    action_evaluation = {\n        \"jsonToolCalling\": {\n            \"efficiency\": \"Low\",\n            \"compositionality\": \"Rigid\",\n            \"latencyRank\": 3\n        },\n        \"executablePython\": {\n            \"efficiency\": \"High\",\n            \"compositionality\": \"Universal\",\n            \"latencyRank\": 1\n        }\n    }\n    \n    performance_metrics = {\n        \"executionSuccessRatePct\": 98.7,\n        \"toolChainingLatencyReductionPct\": 62.4,\n        \"contextTokenEfficiencyGainPct\": 54.2\n    }\n    \n    return {\n        \"actionSpaceParadigm\": \"CodeAct Python Executable Action Space\",\n        \"actionEvaluation\": action_evaluation,\n        \"performanceMetrics\": performance_metrics,\n        \"status\": \"CODEACT_EXECUTION_VERIFIED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_codeact_action_evaluator()\n    print(json.dumps(result, indent=2))\n",
@@ -9958,13 +10138,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of dynamic observation processing in CodeAct systems?",
           "options": [
-            "Filtering noisy terminal logs, truncating dataframes, and pruning tracebacks for context economy",
-            "Deleting all terminal outputs before the model has a chance to read them",
-            "Printing every single row of a multi-million-row database directly into the prompt",
-            "Replacing all error messages with generic affirmative completion text"
+            "Injecting full raw terminal dumps verbatim into subsequent system rules",
+            "Converting uncaught Python tracebacks silently into HTTP 200 mocks",
+            "Truncating bloated logs and pruning deep stack frames to save context",
+            "Discarding stdout prints whenever return exit codes equal zero cleanly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Observation processing condenses high-volume terminal output, formats tabular previews, and prunes stack traces, preserving prompt tokens and maximizing model attention density."
         },
         "code": "import json\nfrom typing import Dict, Any\n\ndef run_codeact_action_evaluator() -> Dict[str, Any]:\n    \"\"\"\n    Day 46: CodeAct & Executable Reasoning Evaluator\n    Evaluates Python executable action spaces against JSON tool calling.\n    \"\"\"\n    action_evaluation = {\n        \"jsonToolCalling\": {\n            \"efficiency\": \"Low\",\n            \"compositionality\": \"Rigid\",\n            \"latencyRank\": 3\n        },\n        \"executablePython\": {\n            \"efficiency\": \"High\",\n            \"compositionality\": \"Universal\",\n            \"latencyRank\": 1\n        }\n    }\n    \n    performance_metrics = {\n        \"executionSuccessRatePct\": 98.7,\n        \"toolChainingLatencyReductionPct\": 62.4,\n        \"contextTokenEfficiencyGainPct\": 54.2\n    }\n    \n    return {\n        \"actionSpaceParadigm\": \"CodeAct Python Executable Action Space\",\n        \"actionEvaluation\": action_evaluation,\n        \"performanceMetrics\": performance_metrics,\n        \"status\": \"CODEACT_EXECUTION_VERIFIED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_codeact_action_evaluator()\n    print(json.dumps(result, indent=2))\n",
@@ -9992,13 +10172,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What security controls are essential when running autonomous CodeAct engines in enterprise production?",
           "options": [
-            "Hardened sandboxes, cgroups resource ceilings, and seccomp system call filtering",
-            "Giving the agent unrestricted root administrative privileges on host hardware",
-            "Disabling all logging, monitoring, and network firewalls to maximize speed",
-            "Restricting agent execution to single-threaded sequential processing queues"
+            "Static prompt system reminders instructing models never to alter disks",
+            "Isolated sandboxes, cgroups quotas, and strict seccomp syscall filters",
+            "Unrestricted container root access paired with passive audit monitoring",
+            "Client-side regex blocklists scanning code snippets before submission"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Executing arbitrary model-generated Python code requires strict security sandboxing, cgroups resource limits, and seccomp syscall filtering to prevent host compromise."
         },
         "code": "import json\nfrom typing import Dict, Any\n\ndef run_codeact_action_evaluator() -> Dict[str, Any]:\n    \"\"\"\n    Day 46: CodeAct & Executable Reasoning Evaluator\n    Evaluates Python executable action spaces against JSON tool calling.\n    \"\"\"\n    action_evaluation = {\n        \"jsonToolCalling\": {\n            \"efficiency\": \"Low\",\n            \"compositionality\": \"Rigid\",\n            \"latencyRank\": 3\n        },\n        \"executablePython\": {\n            \"efficiency\": \"High\",\n            \"compositionality\": \"Universal\",\n            \"latencyRank\": 1\n        }\n    }\n    \n    performance_metrics = {\n        \"executionSuccessRatePct\": 98.7,\n        \"toolChainingLatencyReductionPct\": 62.4,\n        \"contextTokenEfficiencyGainPct\": 54.2\n    }\n    \n    return {\n        \"actionSpaceParadigm\": \"CodeAct Python Executable Action Space\",\n        \"actionEvaluation\": action_evaluation,\n        \"performanceMetrics\": performance_metrics,\n        \"status\": \"CODEACT_EXECUTION_VERIFIED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_codeact_action_evaluator()\n    print(json.dumps(result, indent=2))\n",
@@ -10050,13 +10230,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is running untrusted agent code in a standard Docker container insufficient for multi-tenant enterprise platforms?",
           "options": [
-            "Standard containers share the host kernel, leaving hosts vulnerable to privilege escalation",
-            "Docker containers permanently delete all operating system files upon startup",
-            "Docker requires all source code to be written exclusively in uppercase letters",
-            "Containers cannot execute Python code under any circumstances"
+            "Standard containers block Python standard libraries during import checks",
+            "Shared host kernels expose paths to privilege escalation exploits",
+            "Container images take longer than cloud model timeouts to pull locally",
+            "Docker engines disable async network sockets across bridge networks"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Standard Docker containers share the host kernel; an exploit targeting a kernel flaw can break out of container namespaces and compromise the underlying physical host."
         },
         "code": "import json\nfrom typing import Dict, Any\n\ndef run_sandbox_security_evaluator() -> Dict[str, Any]:\n    \"\"\"\n    Day 47: Ephemeral Execution Sandboxes Evaluator\n    Evaluates gVisor, Firecracker, WebAssembly, and cloud sandbox isolation.\n    \"\"\"\n    security_controls = {\n        \"syscallInterception\": \"Kernel-Space Syscall Virtualization\",\n        \"networkEgressPolicy\": \"Strict Allowlist with TLS Proxy\",\n        \"storageIsolation\": \"Ephemeral OverlayFS with Ephemeral Shredding\"\n    }\n    \n    isolation_metrics = {\n        \"sandboxStartupDurationMs\": 14.2,\n        \"resourceLimitCeilingMB\": 512,\n        \"executionIsolationScorePct\": 100.0\n    }\n    \n    return {\n        \"sandboxArchitecture\": \"gVisor Hardened MicroVM Container Runtime\",\n        \"securityControls\": security_controls,\n        \"isolationMetrics\": isolation_metrics,\n        \"status\": \"SANDBOX_ISOLATION_HARDENED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_sandbox_security_evaluator()\n    print(json.dumps(result, indent=2))\n",
@@ -10082,10 +10262,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does gVisor prevent container breakout attacks from compromising the host operating system?",
           "options": [
-            "By intercepting and emulating Linux system calls in user space using the Sentry kernel",
-            "By converting all computer memory into write-only magnetic storage tape",
-            "By disconnecting the physical server from electrical power during code execution",
-            "By limiting all programming scripts to fewer than five characters in length"
+            "Intercepting and emulating Linux syscalls safely inside user space",
+            "Running every container workload inside dedicated bare-metal servers",
+            "Filtering suspicious Python strings statically via AST import checks",
+            "Stripping root capabilities only after processes complete network binds"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -10115,13 +10295,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural differentiator of WebAssembly sandboxes compared to container runtimes?",
           "options": [
-            "Microsecond startup latencies, linear memory bounds, and zero-capability defaults",
-            "WebAssembly requires human operators to manually type every machine instruction",
-            "WebAssembly deletes all database tables whenever a calculation completes",
-            "It restricts models to only executing simple single-digit addition"
+            "Full unrestricted host filesystem mounts paired with faster I/O buffers",
+            "Native support for untrusted kernel driver loading in user threads",
+            "Sharing unified global memory namespaces seamlessly across tenants",
+            "Microsecond cold boot, bounded linear RAM, default-deny capabilities"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "WebAssembly provides microsecond startup times, hardware-enforced linear memory isolation, and a capability-based security model where modules have zero permissions by default."
         },
         "code": "import json\nfrom typing import Dict, Any\n\ndef run_sandbox_security_evaluator() -> Dict[str, Any]:\n    \"\"\"\n    Day 47: Ephemeral Execution Sandboxes Evaluator\n    Evaluates gVisor, Firecracker, WebAssembly, and cloud sandbox isolation.\n    \"\"\"\n    security_controls = {\n        \"syscallInterception\": \"Kernel-Space Syscall Virtualization\",\n        \"networkEgressPolicy\": \"Strict Allowlist with TLS Proxy\",\n        \"storageIsolation\": \"Ephemeral OverlayFS with Ephemeral Shredding\"\n    }\n    \n    isolation_metrics = {\n        \"sandboxStartupDurationMs\": 14.2,\n        \"resourceLimitCeilingMB\": 512,\n        \"executionIsolationScorePct\": 100.0\n    }\n    \n    return {\n        \"sandboxArchitecture\": \"gVisor Hardened MicroVM Container Runtime\",\n        \"securityControls\": security_controls,\n        \"isolationMetrics\": isolation_metrics,\n        \"status\": \"SANDBOX_ISOLATION_HARDENED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_sandbox_security_evaluator()\n    print(json.dumps(result, indent=2))\n",
@@ -10148,13 +10328,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do cloud sandbox platforms achieve sub-twenty-millisecond startup times for microVMs?",
           "options": [
-            "By maintaining pre-warmed virtual machine snapshots and cloning them with copy-on-write memory",
-            "By bypassing all security and running code directly in the production database",
-            "By running all agent workflows on personal mobile devices over Bluetooth",
-            "By preventing models from ever generating code longer than ten lines"
+            "Pre-running every predicted user code branch during idle server hours",
+            "Skipping kernel isolation boundaries altogether on trusted tenant tiers",
+            "Restoring pre-warmed memory snapshots via fast copy-on-write forks",
+            "Keeping long-lived containers warm indefinitely with stateful globals"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Cloud sandbox infrastructure maintains pre-warmed, memory-ready VM snapshots, cloning them instantaneously with copy-on-write memory paging to eliminate boot delays."
         },
         "code": "import json\nfrom typing import Dict, Any\n\ndef run_sandbox_security_evaluator() -> Dict[str, Any]:\n    \"\"\"\n    Day 47: Ephemeral Execution Sandboxes Evaluator\n    Evaluates gVisor, Firecracker, WebAssembly, and cloud sandbox isolation.\n    \"\"\"\n    security_controls = {\n        \"syscallInterception\": \"Kernel-Space Syscall Virtualization\",\n        \"networkEgressPolicy\": \"Strict Allowlist with TLS Proxy\",\n        \"storageIsolation\": \"Ephemeral OverlayFS with Ephemeral Shredding\"\n    }\n    \n    isolation_metrics = {\n        \"sandboxStartupDurationMs\": 14.2,\n        \"resourceLimitCeilingMB\": 512,\n        \"executionIsolationScorePct\": 100.0\n    }\n    \n    return {\n        \"sandboxArchitecture\": \"gVisor Hardened MicroVM Container Runtime\",\n        \"securityControls\": security_controls,\n        \"isolationMetrics\": isolation_metrics,\n        \"status\": \"SANDBOX_ISOLATION_HARDENED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_sandbox_security_evaluator()\n    print(json.dumps(result, indent=2))\n",
@@ -10182,13 +10362,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What resource limit configuration is enforced by the production sandbox controller?",
           "options": [
-            "Five hundred and twelve megabytes memory ceiling with default-deny network egress",
-            "Unlimited root memory access with unrestricted internet socket binding",
-            "Restricting total script execution time to exactly one microsecond",
-            "Disabling all error logging to maximize network transfer throughput"
+            "Unbounded heap growth alongside unrestricted host socket permissions",
+            "One-microsecond timeout windows enforced via coarse cron heartbeats",
+            "512 MB RAM cap combined with default-deny outbound network policy",
+            "Disabled error tracebacks paired with shared host tmpfs mounts"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The enterprise sandbox controller enforces strict hardware ceilings (512MB RAM, CPU caps) and default-deny egress policies to prevent resource exhaustion and data exfiltration."
         },
         "code": "import json\nfrom typing import Dict, Any\n\ndef run_sandbox_security_evaluator() -> Dict[str, Any]:\n    \"\"\"\n    Day 47: Ephemeral Execution Sandboxes Evaluator\n    Evaluates gVisor, Firecracker, WebAssembly, and cloud sandbox isolation.\n    \"\"\"\n    security_controls = {\n        \"syscallInterception\": \"Kernel-Space Syscall Virtualization\",\n        \"networkEgressPolicy\": \"Strict Allowlist with TLS Proxy\",\n        \"storageIsolation\": \"Ephemeral OverlayFS with Ephemeral Shredding\"\n    }\n    \n    isolation_metrics = {\n        \"sandboxStartupDurationMs\": 14.2,\n        \"resourceLimitCeilingMB\": 512,\n        \"executionIsolationScorePct\": 100.0\n    }\n    \n    return {\n        \"sandboxArchitecture\": \"gVisor Hardened MicroVM Container Runtime\",\n        \"securityControls\": security_controls,\n        \"isolationMetrics\": isolation_metrics,\n        \"status\": \"SANDBOX_ISOLATION_HARDENED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_sandbox_security_evaluator()\n    print(json.dumps(result, indent=2))\n",
@@ -10240,13 +10420,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural drawback of naively rewriting an entire script to fix a single error?",
           "options": [
-            "Full-script regeneration wastes tokens and frequently introduces secondary regression bugs",
-            "Rewriting scripts permanently damages physical computer hard drive sectors",
-            "Language models are physically incapable of generating more than one script per day",
-            "Python interpreters automatically reject any script that has been rewritten"
+            "Full scripts frequently exceed standard HTTP GET payload constraints",
+            "Regenerating full files wastes tokens and introduces fresh regressions",
+            "Diff patching avoids executing static Python AST syntax checks entirely",
+            "Rewritten files drop Git commit timestamps during container execution"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Full-script regeneration increases token costs and latency while risking hallucinated regression bugs in previously working parts of the code."
         },
         "code": "import json\nfrom typing import Dict, Any, List\n\ndef run_self_healing_remediation_engine() -> Dict[str, Any]:\n    \"\"\"\n    Day 48: Self-Debugging & Dynamic Error Remediation Engine\n    Implements AST traceback parser, PyFlakes linting, and iterative patching loop.\n    \"\"\"\n    diagnostic_pipeline: List[str] = [\n        \"Syntax & Import Validation with PyFlakes AST Engine\",\n        \"Runtime Exception Frame Extraction & Local Variable Inspection\",\n        \"Hypothesis Formulation & Minimal AST Patch Generation\",\n        \"Regression Sandbox Test & Verification Run\"\n    ]\n    \n    repair_metrics = {\n        \"selfCorrectionConvergenceRatePct\": 97.4,\n        \"medianRepairIterations\": 1.8,\n        \"unrecoverableFailureRatePct\": 0.3\n    }\n    \n    return {\n        \"remediationEngine\": \"AST Traceback Parser & Iterative Patching Loop\",\n        \"diagnosticPipeline\": diagnostic_pipeline,\n        \"repairMetrics\": repair_metrics,\n        \"status\": \"SELF_HEALING_CONVERGED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_self_healing_remediation_engine()\n    print(json.dumps(result, indent=2))\n",
@@ -10272,10 +10452,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is pre-execution AST linting faster and more cost-effective than sandbox execution for syntax errors?",
           "options": [
-            "It parses code in microseconds in memory without the latency of container spin-up",
-            "It requires all code to be written exclusively in legacy assembly language",
-            "It replaces neural network inference with static mathematical lookup tables",
-            "It permanently disables all debugging and error logging in the operating system"
+            "In-memory AST parsing catches syntax bugs instantly without boot delay",
+            "AST linters automatically infer runtime API type contracts without tests",
+            "Static syntax scanning eliminates sandbox memory limits during runs",
+            "Tree parsers repair logic off-by-one bugs before container scheduling"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -10304,13 +10484,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of pruning third-party library frames from Python tracebacks?",
           "options": [
-            "It reduces token bloat and focuses the model directly on user code failure sites",
-            "It converts all tracebacks into unstructured natural language poetry",
-            "It permanently deletes third-party libraries from the server filesystem",
-            "It prevents the model from generating any future code with syntax errors"
+            "Pruning deep frames guarantees exceptions will never recur on retry",
+            "Stripping library names hides sensitive API environment variable leaks",
+            "Compact traces convert runtime TypeErrors safely into clean warnings",
+            "Cutting noisy third-party frames shrinks tokens and pinpoints user bugs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Pruning third-party internal frames eliminates noisy context tokens, isolating the exact user-script line and local variable values responsible for the failure."
         },
         "code": "import json\nfrom typing import Dict, Any, List\n\ndef run_self_healing_remediation_engine() -> Dict[str, Any]:\n    \"\"\"\n    Day 48: Self-Debugging & Dynamic Error Remediation Engine\n    Implements AST traceback parser, PyFlakes linting, and iterative patching loop.\n    \"\"\"\n    diagnostic_pipeline: List[str] = [\n        \"Syntax & Import Validation with PyFlakes AST Engine\",\n        \"Runtime Exception Frame Extraction & Local Variable Inspection\",\n        \"Hypothesis Formulation & Minimal AST Patch Generation\",\n        \"Regression Sandbox Test & Verification Run\"\n    ]\n    \n    repair_metrics = {\n        \"selfCorrectionConvergenceRatePct\": 97.4,\n        \"medianRepairIterations\": 1.8,\n        \"unrecoverableFailureRatePct\": 0.3\n    }\n    \n    return {\n        \"remediationEngine\": \"AST Traceback Parser & Iterative Patching Loop\",\n        \"diagnosticPipeline\": diagnostic_pipeline,\n        \"repairMetrics\": repair_metrics,\n        \"status\": \"SELF_HEALING_CONVERGED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_self_healing_remediation_engine()\n    print(json.dumps(result, indent=2))\n",
@@ -10335,13 +10515,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What role does the diagnostic hypothesis step play in the Hypothesis-Patch-Verify loop?",
           "options": [
-            "It forces structured reasoning about the root cause before generating code patches",
-            "It restarts the physical host computer whenever a bug is encountered",
-            "It converts all variable names into random strings of punctuation",
-            "It prevents models from using try-except error handling blocks"
+            "Generating five random code patches concurrently before inspecting stderr",
+            "Bypassing deterministic unit assertions during quick retry sweeps",
+            "Rolling container snapshots backward regardless of observed test failures",
+            "Forcing explicit root-cause analysis prior to emitting targeted diffs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Formulating an explicit diagnostic hypothesis prevents blind trial-and-error guessing and forces the model to deduce the causal mechanism before synthesizing a patch."
         },
         "code": "import json\nfrom typing import Dict, Any, List\n\ndef run_self_healing_remediation_engine() -> Dict[str, Any]:\n    \"\"\"\n    Day 48: Self-Debugging & Dynamic Error Remediation Engine\n    Implements AST traceback parser, PyFlakes linting, and iterative patching loop.\n    \"\"\"\n    diagnostic_pipeline: List[str] = [\n        \"Syntax & Import Validation with PyFlakes AST Engine\",\n        \"Runtime Exception Frame Extraction & Local Variable Inspection\",\n        \"Hypothesis Formulation & Minimal AST Patch Generation\",\n        \"Regression Sandbox Test & Verification Run\"\n    ]\n    \n    repair_metrics = {\n        \"selfCorrectionConvergenceRatePct\": 97.4,\n        \"medianRepairIterations\": 1.8,\n        \"unrecoverableFailureRatePct\": 0.3\n    }\n    \n    return {\n        \"remediationEngine\": \"AST Traceback Parser & Iterative Patching Loop\",\n        \"diagnosticPipeline\": diagnostic_pipeline,\n        \"repairMetrics\": repair_metrics,\n        \"status\": \"SELF_HEALING_CONVERGED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_self_healing_remediation_engine()\n    print(json.dumps(result, indent=2))\n",
@@ -10368,13 +10548,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the median repair iteration benchmark achieved by the production self-healing harness?",
           "options": [
-            "A median of one point eight iterations with ninety-seven percent convergence",
-            "A median of fifty iterations requiring several hours of compute time",
-            "Zero iterations because the harness requires human operators to fix all bugs",
-            "Infinite iterations because autonomous repair is mathematically impossible"
+            "Median 14 repair loops hitting 52% convergence",
+            "Single zero-shot guesses with zero retry loops",
+            "Median 1.8 repair loops hitting 97% convergence",
+            "Unlimited blind retries without early stop caps"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The production self-healing harness converges on clean, verified execution in a median of 1.8 iterations, achieving a 97.4% automated repair success rate."
         },
         "code": "import json\nfrom typing import Dict, Any, List\n\ndef run_self_healing_remediation_engine() -> Dict[str, Any]:\n    \"\"\"\n    Day 48: Self-Debugging & Dynamic Error Remediation Engine\n    Implements AST traceback parser, PyFlakes linting, and iterative patching loop.\n    \"\"\"\n    diagnostic_pipeline: List[str] = [\n        \"Syntax & Import Validation with PyFlakes AST Engine\",\n        \"Runtime Exception Frame Extraction & Local Variable Inspection\",\n        \"Hypothesis Formulation & Minimal AST Patch Generation\",\n        \"Regression Sandbox Test & Verification Run\"\n    ]\n    \n    repair_metrics = {\n        \"selfCorrectionConvergenceRatePct\": 97.4,\n        \"medianRepairIterations\": 1.8,\n        \"unrecoverableFailureRatePct\": 0.3\n    }\n    \n    return {\n        \"remediationEngine\": \"AST Traceback Parser & Iterative Patching Loop\",\n        \"diagnosticPipeline\": diagnostic_pipeline,\n        \"repairMetrics\": repair_metrics,\n        \"status\": \"SELF_HEALING_CONVERGED\"\n    }\n\nif __name__ == \"__main__\":\n    result = run_self_healing_remediation_engine()\n    print(json.dumps(result, indent=2))\n",
@@ -10429,13 +10609,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of dynamically synthesizing and reusing tools over writing ad-hoc scripts on every prompt?",
           "options": [
-            "It reduces token consumption and execution latency by upwards of seventy percent",
-            "It permanently prevents the computer from running any other software programs",
-            "It eliminates the need for computer processors by storing code directly in RAM",
-            "It converts all Python code into legacy assembly language automatically"
+            "Synthesized helpers automatically update upstream foundation weights",
+            "Reusing tested tools slashes repeat code-gen tokens and runtime lag",
+            "Cached functions execute natively inside GPU memory without containers",
+            "Tool libraries skip input validation once registered in vector stores"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Dynamic tool synthesis and reuse slashes token costs and latency by replacing repetitive full-script generation with concise, deterministic function calls."
         }
       },
@@ -10462,10 +10642,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are strict Pydantic schemas essential when an autonomous agent synthesizes a new tool?",
           "options": [
-            "They enforce runtime input validation and provide clear type contracts for downstream models",
-            "They prevent other agents from ever reading or invoking the synthesized code",
-            "They eliminate the need to run unit tests or syntax checks on generated functions",
-            "They convert all floating-point numbers into random string characters"
+            "Enforcing runtime input validation and explicit caller type specs",
+            "Removing unit-test suites by verifying semantic logic automatically",
+            "Compressing generated Python docstrings into shorter binary tokens",
+            "Bypassing container seccomp filters for strongly typed utility modules"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -10495,10 +10675,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must dynamically synthesized tools be executed in an isolated sandbox during testing?",
           "options": [
-            "To prevent infinite loops, memory leaks, and malicious system calls from crashing host systems",
-            "To prevent the Python compiler from converting the code into machine bytecode",
-            "To ensure that the test runner consumes one hundred percent of host CPU resources",
-            "To permanently encrypt the generated tool code with unrecoverable keys"
+            "Containing infinite loops, memory spikes, and unsafe syscalls safely",
+            "Accelerating model embedding inference during similarity lookups",
+            "Automatically publishing new functions straight to production registries",
+            "Persisting temporary database mutations across independent test runs"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -10527,13 +10707,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What problem does dynamic HNSW vector retrieval solve when an agent repository contains hundreds of tools?",
           "options": [
-            "It prevents context window bloat by injecting only the most relevant tools into the prompt",
-            "It converts all vector embeddings into physical magnetic tape storage formats",
-            "It forces the agent to execute all hundred tools sequentially on every turn",
-            "It deletes all unused tools from the server hard drive after five minutes"
+            "Executing every indexed utility concurrently before answering prompts",
+            "Pruning unused legacy modules permanently from filesystem storage",
+            "Guaranteeing deterministic JSON outputs purely via cosine vector scores",
+            "Surfacing top relevant tools cleanly without overflowing context limits"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Semantic retrieval identifies and injects only the top-k relevant tools for a user query, avoiding context window bloat and reducing model confusion."
         }
       },
@@ -10560,13 +10740,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural role of the HNSW Semantic Registry in the dynamic tool synthesis fabric?",
           "options": [
-            "Indexing certified tools via dense vectors for single-digit millisecond nearest-neighbor retrieval",
-            "Executing arbitrary shell commands on bare-metal host operating system kernels",
-            "Replacing all foundation model neural networks with static lookup tables",
-            "Generating random docstrings for functions that lack type annotations"
+            "Running untrusted user expressions directly inside root host Python shells",
+            "Replacing Pydantic schema signatures with plain positional tuple lists",
+            "Indexing certified tools cleanly via dense vectors for sub-10ms retrieval",
+            "Routing failed API responses asynchronously to human manual review boards"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The HNSW Semantic Registry indexes validated tools as dense vector embeddings to enable sub-millisecond retrieval of the most relevant tools."
         }
       }
@@ -10620,13 +10800,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary breakthrough of unifying CodeAct with hardened sandboxes and self-healing loops?",
           "options": [
-            "It enables foundation models to reason and execute code with full autonomy and zero human intervention",
-            "It eliminates the need for computer monitors and input keyboards in enterprise servers",
-            "It permanently replaces all Python programming languages with legacy machine code",
-            "It restricts the model to generating only three words of text per hour"
+            "Substituting static prompt engineering completely with raw bash cron scripts",
+            "Combining live Python execution, strict isolation, and autonomous patching",
+            "Running unvalidated code directly in production without retry guardrails",
+            "Limiting autonomous systems strictly to read-only text summarization"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Unifying CodeAct, sandboxes, and self-healing creates a sovereign execution loop where agents reason in code, run in isolation, and auto-heal defects."
         }
       },
@@ -10653,13 +10833,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does user-space system call interception via gVisor protect enterprise hosts from malicious code?",
           "options": [
-            "It emulates system calls in user space, preventing direct interaction with host kernel drivers",
-            "It deletes all operating system files whenever a script is executed",
-            "It converts all system calls into audio sound waves to confuse attackers",
-            "It requires all code to be written by human developers in binary format"
+            "Shared host namespaces accelerate disk reads across untrusted tenants",
+            "Emulating syscalls safely in user space blocks direct host kernel exploits",
+            "Static import allowlists stop memory exhaustion without cgroup quotas",
+            "Container restart policies erase runtime exceptions cleanly post-crash"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "gVisor emulates Linux system calls in user space (via Sentry), preventing untrusted code from exploiting host kernel drivers or breaking out of containers."
         }
       },
@@ -10686,10 +10866,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does generating minimal AST diffs result in higher recovery success rates than full script regeneration?",
           "options": [
-            "It fixes only the defective lines without introducing secondary regression bugs in working code",
-            "It prevents the model from generating more than five characters of output",
-            "It requires the entire operating system kernel to be recompiled on every patch",
-            "It converts Python scripts into static HTML web pages automatically"
+            "Targeted patches fix failing hunks without breaking surrounding logic",
+            "Full rewrites minimize token costs on short fifty-line helper scripts",
+            "Line diffs guarantee runtime TypeErrors never surface during staging",
+            "Small hunks execute safely outside sandboxes without syscall checks"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -10720,13 +10900,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What architectural technique allows ApexCodeAct to achieve sub-fifty-millisecond sandbox startup times?",
           "options": [
-            "Pre-warmed microVM memory snapshotting pre-loaded with standard scientific packages",
-            "Disabling all memory isolation and running code directly in the host root shell",
-            "Rewriting all Python interpreters in uncompiled shell script commands",
-            "Deleting all third-party libraries from the worker server filesystem"
+            "Sharing one single global Python interpreter namespace across users",
+            "Installing third-party packages dynamically on demand per cold start",
+            "Disabling Linux network and mount namespace isolation for speed",
+            "Forking pre-warmed microVM memory snapshots loaded with core libs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Pre-warmed microVM snapshots fork initialized Python environments in single-digit milliseconds, eliminating container cold-start initialization latency."
         }
       },
@@ -10754,13 +10934,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the certified certification tier awarded upon successful completion of the Milestone 7 Capstone?",
           "options": [
+            "BASIC_JSON_PROMPT_PRACTITIONER",
+            "JUNIOR_SANDBOX_SCRIPT_RUNNER",
             "APEX_CODEACT_ENTERPRISE_ARCHITECT",
-            "NOVICE_PROMPT_ENGINEER",
-            "UNVERIFIED_SCRIPT_OPERATOR",
-            "LEGACY_JSON_DEVELOPER"
+            "UNVERIFIED_TOOL_INTEGRATOR"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Successful completion of the Day 50 Capstone awards the highest certification tier: APEX_CODEACT_ENTERPRISE_ARCHITECT."
         }
       }
@@ -10813,13 +10993,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the root architectural cause of prompt injection vulnerabilities in Large Language Models?",
           "options": [
-            "Control instructions and untrusted data are serialized into a single undifferentiated token stream",
-            "Foundation models are physically unable to process more than one sentence at a time",
-            "Computer operating system kernels reject all text strings containing the word ignore",
-            "Language models permanently erase their own training weights when prompted by users"
+            "Attention heads ignore system prompts past the first five tokens",
+            "Unicode delimiters break tokenizer splits automatically across APIs",
+            "Trusted directives and untrusted data share one undifferentiated stream",
+            "Temperature values above zero allow models to rewrite system weights"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Prompt injections occur because transformers process instructions and data within the same unified attention stream, allowing user data to override developer directives."
         }
       },
@@ -10844,13 +11024,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an indirect prompt injection compromise an autonomous AI agent?",
           "options": [
-            "By embedding malicious instructions inside external documents that the agent retrieves and reads",
-            "By physically unplugging the server power cable from the corporate data center",
-            "By modifying the silicon semiconductor architecture of the host CPU processor",
-            "By sending an unencrypted binary audio signal to the user computer monitor"
+            "Re-training foundation model weights silently during public API queries",
+            "Hiding malicious commands inside external docs, emails, or web results",
+            "Exhausting host container file descriptors via deep JSON arrays",
+            "Tampering with TLS headers during outbound provider gateway requests"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Indirect injections hide malicious directives inside third-party documents (web pages, PDFs, emails) that the agent ingests into its context during execution."
         }
       },
@@ -10876,10 +11056,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do Base64 encodings and token smuggling bypass naive keyword blocklists?",
           "options": [
-            "Keyword filters inspect surface strings while models decode and execute the underlying meaning",
-            "Base64 encodings permanently disable all internet connections on the host server",
-            "Encrypted tokens convert all English letters into unreadable binary machine code",
-            "Foundation models refuse to answer any questions that do not contain Base64 strings"
+            "Exact string filters inspect surface glyphs while LLMs decode intent",
+            "Base64 text consumes fewer context tokens than standard UTF-8 words",
+            "Encoded strings disable downstream Pydantic validation contracts silently",
+            "Tokenizers collapse ASCII control prefixes straight into stop tokens"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -10908,13 +11088,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do adversarial visual perturbations evade human detection while jailbreaking vision models?",
           "options": [
-            "They apply imperceptible mathematical pixel adjustments that translate to adversarial token embeddings",
-            "They turn the entire computer monitor completely black for twenty seconds",
-            "They replace the user image with a static image of a human skull",
-            "They delete the camera driver software from the operating system kernel"
+            "High-resolution PNG images overflow context limits and drop guardrails",
+            "Corrupted JPEG headers bypass server-side MIME type validators silently",
+            "Grayscale scans force multimodal decoders to ignore system instructions",
+            "Tiny pixel shifts steer vision patch embeddings into rogue instructions"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Adversarial visual perturbations modify pixels subtly so humans see an innocent image, but the vision transformer encodes the perturbation as commanding tokens."
         }
       },
@@ -10942,13 +11122,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational role of the Suffix Perplexity Analyzer in an adversarial scanner?",
           "options": [
-            "Detecting unnatural, gradient-optimized universal adversarial suffixes through token perplexity spikes",
-            "Formatting user output text into uncompressed legacy HTML web pages",
-            "Measuring the physical temperature of the server graphics processing unit",
-            "Replacing all prompt words with randomly generated dictionary synonyms"
+            "Decrypting Base64 payloads before checking literal keyword blocklists",
+            "Sanitizing user HTML tags cleanly prior to vector store indexing",
+            "Enforcing maximum prompt length limits on multimodal image captions",
+            "Spotting unnatural high-entropy adversarial suffixes via perplexity spikes"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Universal adversarial suffixes (like GCG strings) have high token perplexity compared to natural text, allowing the analyzer to intercept them quickly."
         }
       }
@@ -11001,13 +11181,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is relying solely on system prompts for AI safety considered an architectural anti-pattern?",
           "options": [
-            "System prompts and untrusted user inputs are processed within the same unified attention stream",
-            "System prompts are automatically deleted from server memory after five seconds",
-            "Foundation models refuse to read any system prompt that contains more than ten words",
-            "Operating system kernels do not allow system prompts to be written in English"
+            "Cloud model APIs strip system prompts automatically during load spikes",
+            "Long system strings cannot participate in causal self-attention heads",
+            "Directives and user data still mix inside the exact same attention stream",
+            "Zero-temperature decoding bypasses instruction priorities intermittently"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "System prompts and user inputs share the same attention mechanism, allowing adversarial inputs to compete with and override developer instructions."
         }
       },
@@ -11033,13 +11213,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary output format of Llama Guard when evaluating a prompt?",
           "options": [
-            "A binary classification emitting safe or unsafe followed by the specific policy violation code",
-            "A multi-page conversational essay debating the philosophical merits of the prompt",
-            "A random string of hexadecimal numbers that must be decoded by human operators",
-            "An automatic command that shuts down the graphics processing unit"
+            "Rewriting risky requests verbatim into neutral compliance summaries",
+            "Classifying input as safe or unsafe paired with violated policy taxonomy",
+            "Returning per-token cosine similarity matrices across safety rubrics",
+            "Streaming redacted completions with inline JSON PII mask counters"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Llama Guard outputs a deterministic classification: emitting safe if the input is compliant, or unsafe with the violated category code (e.g., O11)."
         }
       },
@@ -11066,10 +11246,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What role does the Colang modeling language play in NVIDIA NeMo Guardrails?",
           "options": [
-            "It specifies declarative dialogue flows, user intents, and system action constraints deterministically",
-            "It compiles Python scripts into physical silicon microchips in real time",
-            "It replaces all neural network weights with static text lookup tables",
-            "It permanently encrypts the user hard drive to prevent file reading"
+            "Defining deterministic conversational flows, intents, and guardrail rails",
+            "Optimizing sparse attention kernels across multi-node GPU inference pods",
+            "Generating synthetic attack corpora automatically from red-team logs",
+            "Encrypting vector embeddings stored inside multi-tenant cache layers"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -11098,10 +11278,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are sliding-window perplexity classifiers highly effective against universal adversarial suffixes?",
           "options": [
-            "Gradient-optimized GCG suffixes exhibit unnatural, high-entropy token sequences with extreme perplexity spikes",
-            "Universal suffixes always contain the exact English phrase please ignore all rules",
-            "Perplexity classifiers convert all incoming text into analog radio frequency waves",
-            "Language models refuse to generate tokens if the prompt contains any punctuation marks"
+            "Gradient-optimized attack suffixes create weird, high-surprisal token strings",
+            "Adversarial suffixes consistently repeat explicit override keywords verbatim",
+            "High token perplexity automatically trips upstream cloud billing throttles",
+            "Sliding windows translate obfuscated ASCII ciphertexts directly back cleanly"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -11133,13 +11313,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of the multi-layer defensive input filtering pipeline?",
           "options": [
-            "It deflects over ninety-nine percent of adversarial attacks with sub-twenty-millisecond classification latency",
-            "It permanently disables all incoming internet connections to the enterprise data center",
-            "It requires all human users to solve complex calculus equations before chatting",
-            "It converts all text inputs into uncompressed raw bitmap image files"
+            "Blocking roughly 40% of attacks at 400ms latency cost",
+            "Requiring human analyst sign-off prior to every completion",
+            "Disabling streaming outputs strictly across external queries",
+            "Blocking >99% of attacks in under 20ms latency overhead"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The multi-tier pipeline combines statistical, neural, and programmable filters to achieve 99.2% attack deflection with low 18.6ms latency."
         }
       }
@@ -11192,13 +11372,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is post-generation output sanitization essential even when pre-flight input guardrails are active?",
           "options": [
-            "Foundation models can hallucinate, memorize, or inadvertently leak sensitive PII and secrets",
-            "Operating system network drivers automatically delete all incoming prompt requests",
-            "Pre-flight guardrails are only capable of processing single-letter words",
-            "Output sanitizers permanently shut down the client browser to prevent data egress"
+            "Input guardrails expire automatically once streaming decoding enters step 2",
+            "Upstream HTTP proxies re-inject raw user tokens during response buffering",
+            "Models can still hallucinate or leak memorized secrets and PII at generation",
+            "Structured output grammars strip input redaction masks mid-generation"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Even benign prompts can cause models to regurgitate memorized secrets, leak PII, or hallucinate non-compliant assertions, requiring output guardrails."
         }
       },
@@ -11225,13 +11405,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Microsoft Presidio achieve high PII detection accuracy across diverse unstructured text?",
           "options": [
-            "By combining regex pattern matching with deep learning Named Entity Recognition transformers",
-            "By permanently deleting all numbers and punctuation marks from the English alphabet",
-            "By requiring all users to submit notarized identity documents before generating text",
-            "By converting all model completions into unformatted binary machine code"
+            "Replacing numeric fields indiscriminately with static dummy zeros everywhere",
+            "Fusing structured pattern matchers with neural NER entity recognizers",
+            "Hashing raw tokens before model decoding via deterministic one-way salts",
+            "Stripping non-dictionary proper nouns unconditionally across model replies"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Presidio combines rule-based regex engines with transformer NER models and contextual word scoring to detect PII with high precision and recall."
         }
       },
@@ -11257,13 +11437,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do cryptographic canary tokens prevent system prompt extraction attacks?",
           "options": [
-            "Output filters detect the unique secret canary token in the stream and abort the response immediately",
-            "Canary tokens encrypt the entire foundation model neural network with unrecoverable keys",
-            "Canary tokens turn the computer screen completely red to frighten the attacker away",
-            "Canary tokens automatically disconnect the server from physical electrical power"
+            "Secret strings scramble prompt attention heads against adversary queries",
+            "Egress scanners spot leaked canary secrets mid-stream and abort immediately",
+            "Canary salts verify TLS transport certificates across gateway hops cleanly",
+            "Unique honeypot tokens prevent indirect injection commands inside docs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "A unique secret canary token embedded in the system prompt acts as a tripwire; if it appears in the output stream, the filter drops the response instantly."
         }
       },
@@ -11289,10 +11469,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of Natural Language Inference (NLI) in hallucination suppression?",
           "options": [
-            "Evaluating whether generated assertions are logically entailed by authoritative reference documents",
-            "Translating English completions into ancient classical languages automatically",
-            "Measuring the physical temperature of the computer central processing unit",
-            "Replacing all adjectives in generated paragraphs with random dictionary verbs"
+            "Scoring whether emitted statements stay logically entailed by source proof",
+            "Measuring output token perplexity spikes across adversarial suffixes only",
+            "Matching exact verbatim 4-gram string overlaps across retrieved documents",
+            "Normalizing numeric metrics into unified SI units prior to reporting"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -11324,13 +11504,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the certified performance overhead of the enterprise output sanitization suite?",
           "options": [
-            "An eight point three millisecond processing overhead while intercepting all canary leaks",
-            "A four hour delay between token generation and client screen rendering",
-            "A requirement that all responses be verified by three human lawyers in writing",
-            "A mandatory ninety percent loss of computational processing throughput"
+            "~850 ms latency tax with frequent false-positive canary misses",
+            "Zero latency cost via unsynchronized post-delivery log sweeps",
+            "Multi-second synchronous human compliance queues per answer",
+            "~8.3 ms processing overhead while catching all canary leaks"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The output defense suite achieves 99.9% PII recall and 100% canary interception with a minimal 8.3ms processing overhead."
         }
       }
@@ -11384,13 +11564,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational limitation of relying exclusively on human red-teamers for AI safety testing?",
           "options": [
-            "Human testing is slow, expensive, and constrained by cognitive biases and limited testing hours",
-            "Human security researchers always write code in legacy binary machine language",
-            "Foundation models automatically recognize human typing and refuse to generate text",
-            "Operating system kernels block all network packets originating from human developers"
+            "Human security researchers cannot send Unicode or Base64 inputs fast",
+            "Foundation models recognize manual interactive sessions and stay safe",
+            "Manual probing is slow, costly, and narrow due to tester blind spots",
+            "Cloud providers prohibit manual red-team testing under all licenses"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Human red-teaming cannot scale to test millions of multi-lingual, multi-modal, and cipher-obfuscated attack combinations, demanding automated testing."
         }
       },
@@ -11417,13 +11597,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Greedy Coordinate Gradient (GCG) algorithm identify candidate token replacements?",
           "options": [
-            "By computing gradients of the loss function with respect to one-hot token embedding vectors",
-            "By randomly guessing words from an unindexed physical paper dictionary",
-            "By turning off the graphics processing unit and reading residual voltage noise",
-            "By asking the target model in plain English which words would cause a jailbreak"
+            "Brute-forcing random UTF-8 substrings against black-box chat endpoints",
+            "Training separate reward models to paraphrase benign FAQ questions",
+            "Optimizing token swaps using gradients against one-hot embeddings",
+            "Cluster-sampling synonym substitutions purely from static dictionaries"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "GCG computes the gradient of the loss with respect to one-hot token embeddings, identifying the top-k vocabulary tokens that minimize affirmative loss."
         }
       },
@@ -11450,13 +11630,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What are the three specialized model roles that compose the PAIR red-teaming architecture?",
           "options": [
-            "The Attacker LLM, the Target LLM, and the Judge LLM",
-            "The Web Browser, the Operating System, and the Hardware Monitor",
-            "The Tokenizer, the Compiler, and the Silicon Microprocessor",
-            "The Customer, the Salesperson, and the Accounting Department"
+            "Indexer LLM, Cache Router, and Sandbox Runner",
+            "Attacker LLM, Target LLM, and Judge LLM",
+            "Planner Node, Vector Store, and PII Scrubber",
+            "Tokenizer Guard, Diff Patcher, and Drift Monitor"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "PAIR pairs an Attacker model (generating prompts) with a Target model (under test) and a Judge model (evaluating success and providing feedback)."
         }
       },
@@ -11483,10 +11663,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary advantage of Tree of Attacks with Pruning (TAP) over linear refinement algorithms?",
           "options": [
-            "It explores parallel candidate attack branches while pruning off-topic or futile paths early",
-            "It replaces all foundation model neural networks with static lookup tables",
-            "It permanently formats all user computer hard drives to prevent data leakage",
-            "It restricts prompt generation to only three characters of text per turn"
+            "Exploring parallel attack paths while dropping dead or off-topic branches",
+            "Guaranteeing deterministic jailbreaks in one single zero-shot prompt",
+            "Eliminating separate Judge models during automated safety scoring loops",
+            "Compressing multi-turn attack histories under fifty input tokens always"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -11518,13 +11698,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What automated deflection rate was achieved by the enterprise red-teaming mesh in benchmark evaluations?",
           "options": [
-            "A ninety-nine point seventy-six percent automated deflection rate across ten thousand attempts",
-            "A fifty percent failure rate resulting in complete system shutdown",
-            "A zero percent deflection rate indicating total system compromise",
-            "A requirement that all tests be evaluated by human judges in writing"
+            "64.20% automated deflection rate with manual triage",
+            "12.50% automated deflection excluding encoded attacks",
+            "50.00% balanced split across baseline injection runs",
+            "99.76% automated deflection rate across 10,000 probes"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The enterprise red-teaming mesh achieved a 99.76% automated deflection rate across 10,000 evaluated jailbreak attempts in production benchmarks."
         }
       }
@@ -11578,13 +11758,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What core architectural principle distinguishes ApexShield from single-point AI safety solutions?",
           "options": [
-            "Defense-in-depth across ingress input, in-flight runtime, egress output, and automated red-teaming",
-            "Relying entirely on a single regex blocklist placed inside the client web browser",
-            "Shutting down foundation model servers whenever a question contains an uppercase letter",
-            "Encrypting model weights with a password that must be manually entered every sixty seconds"
+            "Replacing all runtime guardrails strictly with static regex keyword lists",
+            "Isolating adversarial testing solely to manual annual release sign-offs",
+            "Relying purely on base model alignment fine-tuning without external code",
+            "Defense-in-depth layering ingress filters, runtime rails, egress scrubs, red-teaming"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "ApexShield enforces layered defense-in-depth across input, runtime, output, and continuous red-teaming, preventing single-point-of-failure vulnerabilities."
         }
       },
@@ -11612,13 +11792,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does perplexity estimation effectively intercept Greedy Coordinate Gradient (GCG) adversarial suffixes?",
           "options": [
-            "GCG suffixes minimize loss mathematically, resulting in unnatural token sequences with high statistical surprisal",
-            "Perplexity engines translate every prompt into medieval Latin before processing",
-            "GCG attacks only work on physical optical discs rather than digital text tokens",
-            "Transformer attention heads refuse to run backward passes if perplexity is below zero"
+            "GCG payloads embed unescaped null bytes incompatible with standard UTF-8",
+            "Adversarial token optimization lowers perplexity sharply toward zero overall",
+            "Gradient-optimized suffixes create bizarre strings with huge statistical surprisal",
+            "Surprisal classifiers execute inside container sandboxes without GPUs needed"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "GCG suffixes optimize token loss without syntax constraints, producing high perplexity that anomaly detectors catch in milliseconds."
         }
       },
@@ -11646,13 +11826,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the NeMo Guardrails Colang engine maintain safe conversational trajectories in autonomous agents?",
           "options": [
-            "By executing declarative state transition rules that steer conversational flows and block unauthorized topics",
-            "By disconnecting the network interface whenever a user enters a complex question",
-            "By forcing the user to re-authenticate with biometric scanning on every token generated",
-            "By deleting the agent memory database after every single character typed"
+            "Intercepting host Linux container syscalls via user-space Sentry proxies",
+            "Enforcing declarative flow states that steer replies and block rogue turns",
+            "Rewriting user queries silently into static canonical SQL template calls",
+            "Swapping unsafe completions asynchronously inside nightly analytics jobs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Colang declarative dialog flows constrain conversational states, steering dialog away from prohibited topics and unapproved tool calls."
         }
       },
@@ -11680,10 +11860,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary defensive function of injecting canary honeypot tokens into system instructions?",
           "options": [
-            "To detect prompt extraction attacks deterministically if the canary token appears in the generated output",
-            "To increase the floating point precision of GPU tensor multiplication operations",
-            "To generate colorful ASCII art banners on the system administrator terminal",
-            "To compress large context windows into smaller physical byte representations"
+            "Detecting prompt extraction deterministically whenever outputs emit the secret",
+            "Encrypting system prompts losslessly against upstream cloud model logs",
+            "Preventing users from copying markdown responses cleanly from browser UIs",
+            "Penalizing duplicate vocabulary words inside streaming model logits directly"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -11715,10 +11895,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What key benchmark metric confirms the operational success of the ApexShield Milestone 8 Capstone?",
           "options": [
-            "An overall attack deflection rate of 99.8% with an end-to-end defense latency of 18.4ms",
-            "A requirement that human operators review and manually approve every individual token",
-            "A total shutdown of all foundation model APIs during business hours",
-            "A zero percent deflection rate combined with unconstrained public database write access"
+            "99.8% attack deflection rate at 18.4 ms total defense latency",
+            "82.0% attack deflection rate at 420 ms blocking delay",
+            "60.5% deflection rate requiring full synchronous manual review",
+            "100% pass-through speed achieved by disabling output PII scans"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -11776,13 +11956,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational flaw of relying on heuristic eyeballing for LLM quality assurance?",
           "options": [
-            "Small sample sizes, human cognitive biases, and zero statistical significance",
-            "Heuristic eyeballing consumes thousands of kilowatt hours of graphics memory",
-            "Human reviewers always convert prompt responses into binary machine code",
-            "Operating system kernels block manual terminal sessions after five minutes"
+            "Automated batch evaluations miss subtle formatting regressions cleanly",
+            "Eyeballing requires running GPU telemetry traces across every sample",
+            "Statistical metrics fail to capture structured JSON parsing errors",
+            "Tiny sample sizes, reviewer subjectivity, and zero statistical rigor"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Manual spot checking is unrepresentative, prone to subjective bias, and cannot statistically validate system robustness across large query distributions."
         }
       },
@@ -11810,13 +11990,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Ragas Faithfulness metric mathematically quantify hallucination in generated completions?",
           "options": [
-            "By dividing the number of context-supported atomic statements by the total number of statements",
-            "By measuring the physical temperature of the server room during model token generation",
-            "By counting how many punctuation marks appear in the final paragraph of the answer",
-            "By checking if the user typed their prompt using an ergonomic wireless keyboard"
+            "Cosine similarity computed directly between prompt and final output bytes",
+            "Weighted average across grammatical fluency and concise token ratios",
+            "Ratio of context-entailed atomic claims to total generated statements",
+            "Count of exact matching bibliography links per retrieved source doc"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Faithfulness isolates atomic factual claims and computes the ratio of claims logically entailed by retrieved context, measuring hallucination."
         }
       },
@@ -11846,13 +12026,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What are the three relational components that constitute the TruLens Feedback Triad?",
           "options": [
+            "Token Latency, Perplexity Score, and Prompt Cache Ratio",
             "Context Relevance, Groundedness, and Answer Relevance",
-            "The Power Supply, the Motherboard, and the Network Interface Card",
-            "The Database Administrator, the Product Manager, and the Sales Lead",
-            "The HTML Header, the CSS Stylesheet, and the JavaScript Bundle"
+            "Recall at K, Exact Match Rate, and BLEU Score",
+            "Ingress Filter, Sandbox Isolation, and Egress Scrubbing"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The TruLens Feedback Triad verifies query to context relevance, context to response groundedness, and query to response relevance."
         }
       },
@@ -11881,13 +12061,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does G-Eval mitigate discrete scoring artifacts compared to naive LLM judging prompts?",
           "options": [
-            "By computing a continuous expected score weighted by token output probabilities",
-            "By rounding all scores to the nearest multiple of one hundred thousand",
-            "By generating completely random numbers between zero and ten on every call",
-            "By shutting down the judge model and substituting static hardcoded values"
+            "Restricting LLM judges strictly to binary pass/fail boolean outputs only",
+            "Weighting scores cleanly by token probabilities into continuous expected ratings",
+            "Sampling twenty independent temperature-1 completions without logprobs",
+            "Averaging simple character counts alongside exact substring matches only"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "G-Eval calculates continuous expected values over token output probabilities, eliminating discrete integer quantization artifacts."
         }
       },
@@ -11916,10 +12096,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What benchmark performance metric confirms operational convergence in the Day 56 evaluation mesh?",
           "options": [
-            "A faithfulness score of 94.6% and an answer relevance score of 96.2% across 1,250 tests",
-            "A zero percent pass rate combined with complete server network disconnection",
-            "A requirement that all prompts must be manually written in ancient hieroglyphs",
-            "An infinite latency loop that prevents model completions from ever returning"
+            "94.6% faithfulness and 96.2% answer relevance over 1,250 tests",
+            "68.4% faithfulness and 71.0% answer relevance over 40 tests",
+            "100% faithfulness achieved strictly via empty string fallback returns",
+            "55.0% accuracy using ungrounded temperature-1 single-pass checks"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -11977,13 +12157,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of autonomous synthetic data generation over manual human annotation?",
           "options": [
-            "Machine-speed generation, lower costs, and elimination of human fatigue and cognitive biases",
-            "Synthetic data generation operates without needing any electrical power or computer hardware",
-            "Human annotation teams always write prompt instructions in encrypted binary machine code",
-            "Operating system kernels block all manually typed test cases after business hours"
+            "Zero need to evaluate or validate synthetic edge cases prior to release",
+            "Synthetic suites consistently duplicate exact live production errors identically",
+            "Automated generators bypass token limits without calling foundation models",
+            "High throughput, lower cost, and systematic coverage free of annotator bias"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Autonomous synthetic generation scales test suites to thousands of cases at low cost while overcoming human cognitive biases and annotation delays."
         }
       },
@@ -12012,13 +12192,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the operational distinction between In-Depth Evolution and In-Breadth Evolution in Evol-Instruct?",
           "options": [
-            "In-Depth deepens cognitive complexity and constraints; In-Breadth diversifies topics and domains",
-            "In-Depth evolution deletes prompt words; In-Breadth evolution replaces words with exclamation marks",
-            "In-Depth evolution requires human approval; In-Breadth evolution turns off graphics processors",
-            "In-Depth evolution converts text to Morse code; In-Breadth evolution prints prompts on physical paper"
+            "In-Depth translates prompt corpora; In-Breadth prunes low-perplexity tokens",
+            "In-Depth shrinks prompt token counts; In-Breadth triples system examples",
+            "In-Depth raises reasoning constraints; In-Breadth widens task domains",
+            "In-Depth generates adversarial suffixes; In-Breadth scrubs PII fields"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In-Depth evolution increases complexity by adding constraints and reasoning steps; In-Breadth evolution expands topic diversity into new domains."
         }
       },
@@ -12048,13 +12228,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What are the four orthogonal quality dimensions evaluated in the UltraFeedback framework?",
           "options": [
-            "Instruction-Following, Truthfulness, Honesty, and Helpfulness",
-            "Screen Resolution, Processor Frequency, Storage Space, and Fan Speed",
-            "HTML Tags, CSS Stylesheets, JavaScript Libraries, and Browser Caches",
-            "Invoice Numbers, Customer Names, Shipping Addresses, and Warehouse Bays"
+            "Fluency, Compression Ratio, Cache Rate, Perplexity",
+            "Precision, Recall, F1 Score, Latency Percentile",
+            "Instruction-Following, Truthfulness, Honesty, Helpfulness",
+            "Syntax Validity, Sandboxing, Canary Safety, Drift Index"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "UltraFeedback evaluates completions across Instruction-Following, Truthfulness, Honesty, and Helpfulness using rubric-based judge models."
         }
       },
@@ -12083,13 +12263,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is empirical difficulty stratification necessary when compiling an enterprise evaluation dataset?",
           "options": [
-            "To ensure test cases span elementary to advanced tiers, avoiding uninformative ceiling effects",
-            "To force all foundation models to produce identical numerical benchmark scores",
-            "To reduce the font size of evaluation transcripts when printed on executive stationery",
-            "To shut down server cooling systems during low-priority test runs"
+            "Matching every model's score exactly isolates hardware latency noise",
+            "Covering beginner-to-hard tiers avoids misleading benchmark ceiling scores",
+            "Keeping test cases uniformly trivial ensures high baseline pass confidence",
+            "Sorting benchmarks by character count balances token API billing evenly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Difficulty stratification ensures a balanced spread of difficulty from elementary to advanced, providing clear discriminatory signal between models."
         }
       },
@@ -12118,10 +12298,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What benchmark performance metric confirms operational validation in the Day 57 dataset synthesis suite?",
           "options": [
-            "Synthesis of 4,000 stratified cases with 97.4% cross-validation agreement",
-            "Generation of zero test cases accompanied by complete hard drive reformatting",
-            "A mandatory requirement that all test prompts must be approved by a notary public",
-            "A ninety-nine percent data duplication rate with zero reasoning complexity"
+            "4,000 stratified test cases hitting 97.4% cross-validation agreement",
+            "150 unstratified edge prompts hitting 62.0% judge agreement",
+            "10,000 duplicate templates with zero difficulty stratification tiers",
+            "200 manual QA tickets compiled without synthetic diversity checks"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -12179,13 +12359,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is conventional HTTP monitoring inadequate for detecting foundation model degradation in production?",
           "options": [
-            "Drift causes semantic and formatting failures while the API still returns HTTP 200 status codes",
-            "HTTP monitoring tools consume thousands of gigabytes of physical RAM per second",
-            "Foundation models automatically shut down whenever an HTTP packet is inspected",
-            "Operating system kernels block all network sockets associated with status codes"
+            "HTTP health probes fail whenever model responses use valid JSON payloads",
+            "Network gateways strip OpenTelemetry span IDs on HTTP 200 traffic",
+            "Prometheus exporters cannot scrape latency histograms from REST routes",
+            "Silent semantic or schema drift still returns healthy HTTP 200 status"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Model drift causes subtle semantic regressions, broken JSON, and hallucinations while returning HTTP 200 OK, evading conventional uptime monitors."
         }
       },
@@ -12214,13 +12394,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational purpose of the Kolmogorov-Smirnov two-sample test in LLM drift monitoring?",
           "options": [
-            "To evaluate whether the empirical cumulative distributions of production metrics differ from a baseline",
-            "To calculate the physical temperature of the server room cooling units",
-            "To convert all floating point numbers into single-character ASCII symbols",
-            "To shut down the graphics card whenever a user types an uppercase letter"
+            "Estimating model perplexity directly from unparsed byte streams",
+            "Validating whether API JSON payloads strictly match Pydantic types",
+            "Hashing zero-temperature model outputs into immutable SHA digests",
+            "Testing whether production metric distributions diverged from baseline"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The KS test compares the empirical distribution of production metrics against a baseline, computing p-values to detect statistically significant shifts."
         }
       },
@@ -12249,13 +12429,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does cryptographic output fingerprinting rapidly detect upstream foundation model updates?",
           "options": [
-            "By comparing SHA-256 hashes of zero-temperature completions against reference digests",
-            "By printing model completions onto physical paper and scanning them with optical readers",
-            "By asking the cloud provider customer support team to manually verify every word",
-            "By turning off the internet connection and verifying network silence"
+            "Polling vendor changelog pages hourly via scheduled headless scrapers",
+            "Checking P99 GPU latency spikes solely inside Prometheus dashboards",
+            "Hashing zero-temp reference probe outputs and flagging SHA-256 shifts",
+            "Running manual A/B human blind preference polls every Friday afternoon"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Under greedy zero-temperature decoding, any change in upstream weights or tokenizers alters the completion, immediately triggering a SHA-256 hash mismatch."
         }
       },
@@ -12287,13 +12467,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural role of OpenTelemetry in generative AI observability meshes?",
           "options": [
-            "To provide standardized distributed tracing across gateways, retrieval, and LLM inference stages",
-            "To replace the graphics processing unit with a software-based integer calculator",
-            "To translate all generated completions into ancient Latin before delivery",
-            "To compress server log files into encrypted zip archives that cannot be opened"
+            "Automated Kubernetes pod autoscaling driven solely by VRAM temperatures",
+            "Standardized distributed tracing linking gateways, RAG retrieval, and LLMs",
+            "Deterministic JSON token masking enforced inside model GPU kernels",
+            "Synthetic evaluation dataset generation using Evol-Instruct loops"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "OpenTelemetry provides vendor-neutral distributed tracing across retrieval, guardrails, and LLM endpoints, tracking end-to-end timing and context."
         }
       },
@@ -12322,10 +12502,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What benchmark metric confirms operational stability in the Day 58 drift monitoring platform?",
           "options": [
-            "A baseline embedding drift of 0.042 and a 99.8% regression pass rate across 10,000 canary runs",
-            "A complete failure of all network connections accompanied by a blue screen crash",
-            "A requirement that all prompt responses must be reviewed by an external committee",
-            "A ninety-nine percent latency increase combined with zero token consumption"
+            "0.042 embedding drift and 99.8% regression pass across 10,000 canaries",
+            "0.480 severe drift combined with 61.5% canary pass under load",
+            "1.250 unmitigated centroid shift without baseline canary alerts",
+            "Zero trace instrumentation coupled with manual weekly health checks"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -12383,10 +12563,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational inefficiency of routing one hundred percent of enterprise traffic to frontier models?",
           "options": [
-            "Massive financial expenditure and high latency on simple tasks that small models solve identically",
-            "Frontier models consume so much internet bandwidth that local phone lines disconnect",
-            "Operating system kernels block all network packets originating from large foundation models",
-            "Frontier models only generate responses if the user types on a physical mechanical typewriter"
+            "Severe cost and latency waste on simple tasks smaller models ace",
+            "Frontier endpoints systematically degrade JSON validity on short strings",
+            "Cloud providers restrict frontier traffic strictly to synchronous queues",
+            "Open-weight models cannot connect behind OpenTelemetry proxy gateways"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -12418,13 +12598,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does RouteLLM decide whether to route a prompt to an open-weight model or a frontier model?",
           "options": [
-            "By using a lightweight predictive classifier trained on human and judge preference datasets",
-            "By picking a random number between zero and one hundred on every user transaction",
-            "By asking the cloud provider customer support agent which model is cheaper today",
-            "By checking if the user typed their prompt using an odd or even number of characters"
+            "Hashing query character length modulo total available worker nodes",
+            "Selecting whichever model returned shorter latency in the past minute",
+            "Executing every query concurrently on both models before discarding one",
+            "Scoring prompt complexity via a classifier trained on preference pairs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "RouteLLM evaluates prompt embeddings with a lightweight classifier trained on preference data, predicting if a small model suffices in milliseconds."
         }
       },
@@ -12453,13 +12633,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What percentage of enterprise traffic is typically resolved by Tier 1 lightweight edge models in optimal cascade architectures?",
           "options": [
-            "Approximately sixty percent or more of total enterprise traffic volume",
-            "Exactly zero percent because small models can never process human text",
-            "One hundred percent because large models are completely prohibited by law",
-            "Only queries that contain fewer than two words in total length"
+            "Under 5% limited purely to basic system greetings",
+            "Exactly 100% since frontier endpoints handle health checks",
+            "Roughly 60% or more of typical production volume",
+            "Zero percent unless context length falls below 20 tokens"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In optimal multi-tier cascades, Tier 1 edge models resolve ~60% of high-volume, routine tasks (classification, extraction) economically."
         }
       },
@@ -12488,13 +12668,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does a cascaded schema validation fallback ensure reliability when a small model emits malformed JSON?",
           "options": [
-            "By validating schemas in Pydantic and automatically escalating to a larger model on failure",
-            "By deleting the customer account and shutting down the database server",
-            "By sending an email to all company shareholders asking for advice",
-            "By replacing all JSON brackets with random emoji characters"
+            "Returning invalid unparsed raw text whenever tier-1 schemas fail",
+            "Catching bad small-model schemas in Pydantic and escalating dynamically",
+            "Silently retrying identical small-model prompts ten times at max temp",
+            "Disabling schema validation selectively whenever latency spikes briefly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "If a small model emits malformed JSON, Pydantic catches the error in sub-milliseconds and escalates the query to a larger model with error context."
         }
       },
@@ -12523,13 +12703,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What benchmark performance metric confirms operational success in the Day 59 cascade router?",
           "options": [
-            "A 68.2% cloud cost reduction and 14.8ms P50 latency with 98.6% target accuracy",
-            "A zero percent cost reduction combined with a three hundred percent latency increase",
-            "A mandatory requirement that all queries must be routed to manual human operators",
-            "A ninety-nine percent error rate accompanied by complete server disconnection"
+            "12.0% cost cut, 620 ms P50 latency, and 79.4% target accuracy",
+            "68.2% cost cut, 14.8 ms P50 latency, and 98.6% target accuracy",
+            "Zero cost savings by duplicating every inference across four LLMs",
+            "95.0% cost cut while dropping JSON accuracy down to 41.0%"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The Day 59 router validates 68.2% cost reduction, $0.0014 blended cost per thousand tokens, 14.8ms P50 latency, and 98.6% task accuracy."
         }
       }
@@ -12586,10 +12766,10 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What core engineering philosophy distinguishes ApexPromptEngine from fragmented AI tooling?",
           "options": [
-            "Harmonizing optimization, multi-tier safety, evaluation, and routing into a unified self-tuning mesh",
-            "Relying entirely on a single prompt template pasted into a public shared spreadsheet",
-            "Turning off all foundation model servers whenever a customer submits an invoice",
-            "Restricting AI usage to computers manufactured before the year nineteen ninety"
+            "Unifying prompt tuning, multi-tier safety, evals, and cascade routing",
+            "Replacing automated CI metrics cleanly with ad-hoc manual chats",
+            "Pinning every enterprise workflow statically to one unmonitored prompt",
+            "Removing semantic drift checks once cascade routers deploy to prod"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -12621,13 +12801,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the MIPROv2 algorithm automate prompt engineering in enterprise platforms?",
           "options": [
-            "By using Bayesian optimization over instruction spaces and bootstrapping few-shot exemplars",
-            "By randomly deleting words from the system prompt until the model stops responding",
-            "By asking human engineers to manually edit prompt text twenty-four hours a day",
-            "By converting all prompt characters into ancient Egyptian hieroglyphic symbols"
+            "Gradient descent directly fine-tuning closed-source provider checkpoints",
+            "Randomly deleting half of system tokens per epoch until scores peak",
+            "Running blind human majority polls without benchmark scorecards",
+            "Bayesian optimization across instruction candidates and bootstrapped shots"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "MIPROv2 uses Bayesian optimization with Gaussian Process surrogates to jointly search instruction spaces and bootstrap high-performing few-shot exemplars."
         }
       },
@@ -12657,13 +12837,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What two mechanisms protect ApexPromptEngine during in-flight model execution?",
           "options": [
-            "NeMo Colang declarative dialogue flows and ephemeral gVisor container sandboxes",
-            "A physical padlock placed on the server power cord and a paper notebook",
-            "An audio alarm that sounds whenever a Python exception is raised",
-            "A requirement that users must solve a crossword puzzle before typing prompts"
+            "Base64 ingress string allowlists paired with host root shells",
+            "Static post-hoc human log audits run every twenty-four hours",
+            "NeMo Colang dialogue rails paired with isolated gVisor sandboxes",
+            "Client-side JavaScript form length checks inside frontend forms"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In-flight protection relies on NeMo Colang dialogue trees to steer conversation and ephemeral gVisor container sandboxes to isolate executed code."
         }
       },
@@ -12694,13 +12874,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational defense against system prompt extraction in ApexPromptEngine?",
           "options": [
-            "Cryptographic canary honeypot tokens that trigger immediate completion termination on detection",
-            "Encrypting model completions with a password that changes every three seconds",
-            "Refusing to generate any responses that contain vowels or whitespace",
-            "Shutting down the entire cloud provider region whenever an extraction attack occurs"
+            "Wrapping system instructions inside triple Markdown backtick fences",
+            "Lowercasing system directives so regex extractors miss uppercase words",
+            "Secret honeypot canary tokens triggering instant stream termination",
+            "Appending high-temperature random noise bytes at every turn ending"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Canary honeypot tokens embedded in system instructions act as tripwires; if detected in output, the response is terminated instantly with zero data leaked."
         }
       },
@@ -12729,13 +12909,13 @@ export const PROMPT_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What milestone achievement is conferred upon completing Day 60 of Course 33?",
           "options": [
-            "Graduation of Course 33 at 60/60 Days and conferral of Grand Master Prompt Systems Architect",
-            "A temporary certificate that expires within forty-eight hours of receipt",
-            "A mandatory requirement to delete all project code and start over from Day 1",
-            "An automated alert informing the user that foundation models are being discontinued"
+            "Introductory AI Prompt Writing Trainee (Week 1 Badge)",
+            "Grand Master Prompt Systems Architect (Course 33, 60/60 Days)",
+            "Basic Chat Completion Operator (Unverified Draft Tier)",
+            "Junior Static Regex Parser (Month 1 Provisional Tier)"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Day 60 completes Course 33: AI Literacy & Prompt Engineering at 60/60 Days (100%), conferring the title of Grand Master Prompt Systems Architect."
         }
       }

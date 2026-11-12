@@ -2,230 +2,224 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 46,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Memory Wall in Autoregressive Decoding: Static Allocation vs Internal Fragmentation",
       "codeHash": "97454d689f20406b730434117a7a33062fb78db91ab9823aaee61b2a3002dbc0",
       "spec": {
-        "template": "flow",
-        "title": "The Memory Wall in Autoregressive Decoding: S... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Memory Wall in ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The Memory Wall in Autoregressive Decoding: Static Allocation vs",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The Memory Wall in Autoregressive Decodi...",
-            "values": {
-              "in": "Day 46 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The Memory Wall in ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Efficient Inference, Speculative Decoding, and Extreme Quantization.",
+            "bars": [
+              {
+                "label": "layers",
+                "value": {
+                  "var": "layers",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "kv_heads",
+                "value": {
+                  "var": "kv_heads",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "head_dim",
+                "value": {
+                  "var": "head_dim",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "batch_size",
+                "value": {
+                  "var": "batch_size",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand the imperative for PagedAttention, we must examine.",
+            "bars": [
+              {
+                "label": "layers",
+                "value": {
+                  "var": "layers",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "kv_heads",
+                "value": {
+                  "var": "kv_heads",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "head_dim",
+                "value": {
+                  "var": "head_dim",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "batch_size",
+                "value": {
+                  "var": "batch_size",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The Memory Wall in Autoregressive...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we construct a memory wall audit simulator.",
+            "bars": [
+              {
+                "label": "layers",
+                "value": {
+                  "var": "layers",
+                  "line": 37,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "kv_heads",
+                "value": {
+                  "var": "kv_heads",
+                  "line": 37,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "head_dim",
+                "value": {
+                  "var": "head_dim",
+                  "line": 37,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "batch_size",
+                "value": {
+                  "var": "batch_size",
+                  "line": 37,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The Memory Wall in Autoregressive Decoding: S... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Memory Wall in ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The Memory Wall in Autoregressive Decoding: Static Allocation vs",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The Memory Wall in Autoregressive Decodi...",
-            "values": {
-              "in": "Day 46 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Memory Wall in ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Efficient Inference, Speculative Decoding, and Extreme Quantization.",
+            "bars": [
+              {
+                "label": "layers",
+                "value": 40,
+                "tone": "data"
+              },
+              {
+                "label": "kv_heads",
+                "value": 40,
+                "tone": "data"
+              },
+              {
+                "label": "head_dim",
+                "value": 128,
+                "tone": "data"
+              },
+              {
+                "label": "batch_size",
+                "value": 16,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand the imperative for PagedAttention, we must examine.",
+            "bars": [
+              {
+                "label": "layers",
+                "value": 40,
+                "tone": "ok"
+              },
+              {
+                "label": "kv_heads",
+                "value": 40,
+                "tone": "ok"
+              },
+              {
+                "label": "head_dim",
+                "value": 128,
+                "tone": "ok"
+              },
+              {
+                "label": "batch_size",
+                "value": 16,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Memory Wall in Autoregressive...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we construct a memory wall audit simulator.",
+            "bars": [
+              {
+                "label": "layers",
+                "value": 40,
+                "tone": "ok"
+              },
+              {
+                "label": "kv_heads",
+                "value": 40,
+                "tone": "ok"
+              },
+              {
+                "label": "head_dim",
+                "value": 128,
+                "tone": "ok"
+              },
+              {
+                "label": "batch_size",
+                "value": 16,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -235,223 +229,217 @@
       "partTitle": "PagedAttention Algorithm & Virtual Memory Page Tables: The vLLM Architecture",
       "codeHash": "6710e5b0044f5ae764f71b0a4911998b24928093bb2215ddb1528c41bc88904b",
       "spec": {
-        "template": "flow",
-        "title": "PagedAttention Algorithm & Virtual Memory Pag... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. PagedAttention Algo...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "PagedAttention Algorithm & Virtual Memory Page Tables: The vLLM ",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for PagedAttention Algorithm & Virtual Memor...",
-            "values": {
-              "in": "Day 46 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in PagedAttention Algo....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having identified the memory wall of contiguous allocation, we now explore.",
+            "bars": [
+              {
+                "label": "total_blocks",
+                "value": {
+                  "var": "total_blocks",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "block_size",
+                "value": {
+                  "var": "block_size",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "needed_blocks",
+                "value": {
+                  "var": "needed_blocks",
+                  "line": 41,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The core architectural breakthrough of PagedAttention is the complete.",
+            "bars": [
+              {
+                "label": "total_blocks",
+                "value": {
+                  "var": "total_blocks",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "block_size",
+                "value": {
+                  "var": "block_size",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 36,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "needed_blocks",
+                "value": {
+                  "var": "needed_blocks",
+                  "line": 42,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for PagedAttention Algorithm & Virtua...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we construct a complete.",
+            "bars": [
+              {
+                "label": "total_blocks",
+                "value": {
+                  "var": "total_blocks",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "block_size",
+                "value": {
+                  "var": "block_size",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 36,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "needed_blocks",
+                "value": {
+                  "var": "needed_blocks",
+                  "line": 45,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "PagedAttention Algorithm & Virtual Memory Pag... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. PagedAttention Algo...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "PagedAttention Algorithm & Virtual Memory Page Tables: The vLLM ",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for PagedAttention Algorithm & Virtual Memor...",
-            "values": {
-              "in": "Day 46 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in PagedAttention Algo....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having identified the memory wall of contiguous allocation, we now explore.",
+            "bars": [
+              {
+                "label": "total_blocks",
+                "value": 16,
+                "tone": "data"
+              },
+              {
+                "label": "block_size",
+                "value": 16,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "needed_blocks",
+                "value": 3,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The core architectural breakthrough of PagedAttention is the complete.",
+            "bars": [
+              {
+                "label": "total_blocks",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "block_size",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "needed_blocks",
+                "value": 3,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for PagedAttention Algorithm & Virtua...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we construct a complete.",
+            "bars": [
+              {
+                "label": "total_blocks",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "block_size",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "needed_blocks",
+                "value": 3,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -462,110 +450,161 @@
       "codeHash": "93b613213b3ecff686e1d40948c5bfe80564a171c62d924db0cc5a29353f8c3a",
       "spec": {
         "template": "flow",
-        "title": "Prefix Caching, Radix Trees & Shared Prompt M... — Execution Pipeline",
+        "title": "Prefix Caching, Radix Trees & Shared Prompt Multi-Turn Efficienc",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Prefix Caching, Rad...",
-            "tappable": true
+            "id": "block_size",
+            "label": "block_size"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "cache",
+            "label": "cache"
+          },
+          {
+            "id": "system_prompt",
+            "label": "system_prompt"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Prefix Caching, Radix Trees & Shared Pro...",
-            "values": {
-              "in": "Day 46 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Prefix Caching, Rad....",
+            "caption": "Building upon PagedAttention block management, we now examine the advanced.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": {
+                "var": "self",
+                "line": 27,
+                "hit": 1
+              },
+              "block_size": {
+                "var": "block_size",
+                "line": 27,
+                "hit": 1
+              },
+              "cache": {
+                "var": "cache",
+                "line": 78,
+                "hit": 1
+              },
+              "system_prompt": {
+                "var": "system_prompt",
+                "line": 80,
+                "hit": 49
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "block_size": "data",
+              "cache": "data",
+              "system_prompt": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "block_size"
               ],
               [
-                "proc",
-                "out"
+                "block_size",
+                "cache"
+              ],
+              [
+                "cache",
+                "system_prompt"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "In production enterprise deployments, large language models do not process.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": {
+                "var": "self",
+                "line": 28,
+                "hit": 1
+              },
+              "block_size": {
+                "var": "block_size",
+                "line": 28,
+                "hit": 1
+              },
+              "cache": {
+                "var": "cache",
+                "line": 80,
+                "hit": 1
+              },
+              "system_prompt": {
+                "var": "system_prompt",
+                "line": 81,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "block_size": "data",
+              "cache": "data",
+              "system_prompt": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "block_size"
+              ],
+              [
+                "block_size",
+                "cache"
+              ],
+              [
+                "cache",
+                "system_prompt"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Prefix Caching, Radix Trees & Sha...",
+            "at": "say8",
+            "caption": "In the following Python script, we construct a complete.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": {
+                "var": "self",
+                "line": 29,
+                "hit": 1
+              },
+              "block_size": {
+                "var": "block_size",
+                "line": 29,
+                "hit": 1
+              },
+              "cache": {
+                "var": "cache",
+                "line": 80,
+                "hit": 2
+              },
+              "system_prompt": {
+                "var": "system_prompt",
+                "line": 81,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "block_size": "ok",
+              "cache": "ok",
+              "system_prompt": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "block_size"
               ],
               [
-                "proc",
-                "out"
+                "block_size",
+                "cache"
+              ],
+              [
+                "cache",
+                "system_prompt"
               ]
             ]
           }
@@ -573,110 +612,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Prefix Caching, Radix Trees & Shared Prompt M... — Execution Pipeline",
+        "title": "Prefix Caching, Radix Trees & Shared Prompt Multi-Turn Efficienc",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Prefix Caching, Rad...",
-            "tappable": true
+            "id": "block_size",
+            "label": "block_size"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "cache",
+            "label": "cache"
+          },
+          {
+            "id": "system_prompt",
+            "label": "system_prompt"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Prefix Caching, Radix Trees & Shared Pro...",
-            "values": {
-              "in": "Day 46 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Prefix Caching, Rad....",
+            "caption": "Building upon PagedAttention block management, we now examine the advanced.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": "<RadixTreePrefixCache>",
+              "block_size": "16",
+              "cache": "<RadixTreePrefixCache>",
+              "system_prompt": "['sys_0', 'sys_1', 'sys_2', 'sys_3', 's…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "block_size": "data",
+              "cache": "data",
+              "system_prompt": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "block_size"
               ],
               [
-                "proc",
-                "out"
+                "block_size",
+                "cache"
+              ],
+              [
+                "cache",
+                "system_prompt"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "In production enterprise deployments, large language models do not process.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": "<RadixTreePrefixCache>",
+              "block_size": "16",
+              "cache": "<RadixTreePrefixCache>",
+              "system_prompt": "['sys_0', 'sys_1', 'sys_2', 'sys_3', 's…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "block_size": "data",
+              "cache": "data",
+              "system_prompt": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "block_size"
+              ],
+              [
+                "block_size",
+                "cache"
+              ],
+              [
+                "cache",
+                "system_prompt"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Prefix Caching, Radix Trees & Sha...",
+            "at": "say8",
+            "caption": "In the following Python script, we construct a complete.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": "<RadixTreePrefixCache>",
+              "block_size": "16",
+              "cache": "<RadixTreePrefixCache>",
+              "system_prompt": "['sys_0', 'sys_1', 'sys_2', 'sys_3', 's…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "block_size": "ok",
+              "cache": "ok",
+              "system_prompt": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "block_size"
               ],
               [
-                "proc",
-                "out"
+                "block_size",
+                "cache"
+              ],
+              [
+                "cache",
+                "system_prompt"
               ]
             ]
           }
@@ -687,223 +729,217 @@
       "partTitle": "FlashDecoding & Split-K Parallelism for Extreme Context Lengths",
       "codeHash": "bd0f0c51072dd17f0ca71b9ed807cae8aa3665582624a4dbf7e6ee7a65df3299",
       "spec": {
-        "template": "flow",
-        "title": "FlashDecoding & Split-K Parallelism for Extre... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. FlashDecoding & Spl...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "FlashDecoding & Split-K Parallelism for Extreme Context Lengths",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for FlashDecoding & Split-K Parallelism for ...",
-            "values": {
-              "in": "Day 46 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in FlashDecoding & Spl....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having mastered block-based memory management and prefix caching, we now.",
+            "bars": [
+              {
+                "label": "chunk_size",
+                "value": {
+                  "var": "chunk_size",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "q_query",
+                "value": {
+                  "var": "q_query",
+                  "line": 87,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand the scaling dynamics, let us contrast prefill attention.",
+            "bars": [
+              {
+                "label": "chunk_size",
+                "value": {
+                  "var": "chunk_size",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "q_query",
+                "value": {
+                  "var": "q_query",
+                  "line": 88,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 34,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 34,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for FlashDecoding & Split-K Paralleli...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we construct a complete.",
+            "bars": [
+              {
+                "label": "chunk_size",
+                "value": {
+                  "var": "chunk_size",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "q_query",
+                "value": {
+                  "var": "q_query",
+                  "line": 88,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 34,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 34,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "FlashDecoding & Split-K Parallelism for Extre... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. FlashDecoding & Spl...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "FlashDecoding & Split-K Parallelism for Extreme Context Lengths",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for FlashDecoding & Split-K Parallelism for ...",
-            "values": {
-              "in": "Day 46 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in FlashDecoding & Spl....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having mastered block-based memory management and prefix caching, we now.",
+            "bars": [
+              {
+                "label": "chunk_size",
+                "value": 16,
+                "tone": "data"
+              },
+              {
+                "label": "q_query",
+                "value": 0.85,
+                "tone": "data"
+              },
+              {
+                "label": "q",
+                "value": 0.85,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand the scaling dynamics, let us contrast prefill attention.",
+            "bars": [
+              {
+                "label": "chunk_size",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "q_query",
+                "value": 0.85,
+                "tone": "ok"
+              },
+              {
+                "label": "q",
+                "value": 0.85,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 0.09983341664682815,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for FlashDecoding & Split-K Paralleli...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we construct a complete.",
+            "bars": [
+              {
+                "label": "chunk_size",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "q_query",
+                "value": 0.85,
+                "tone": "ok"
+              },
+              {
+                "label": "q",
+                "value": 0.85,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 0.19866933079506122,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -913,223 +949,106 @@
       "partTitle": "Masterclass Synthesis: Building the ApexPagedAttention Engine",
       "codeHash": "f3194ad4cac97e25b8f5768de3629339c9dfa2ca47a9bbdf9415772fd689124b",
       "spec": {
-        "template": "flow",
-        "title": "Masterclass Synthesis: Building the ApexPaged... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Synthes...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Masterclass Synthesis: Building the ApexPagedAttention Engine",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Masterclass Synthesis: Building.",
-            "values": {
-              "in": "Day 46 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Masterclass Synthes....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Building the ApexPagedAttention Engine.",
+            "items": {
+              "var": "allocated",
+              "line": 47,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "In this masterclass capstone, you assume the executive position of Vice.",
+            "items": {
+              "var": "allocated",
+              "line": 49,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Masterclass Synthesis: Building t...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "By conquering this milestone, you master the operational backbone.",
+            "items": {
+              "var": "allocated",
+              "line": 50,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Masterclass Synthesis: Building the ApexPaged... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Synthes...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Masterclass Synthesis: Building the ApexPagedAttention Engine",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Synthesis: Building.",
-            "values": {
-              "in": "Day 46 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Synthes....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Building the ApexPagedAttention Engine.",
+            "items": [
+              "0",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In this masterclass capstone, you assume the executive position of Vice.",
+            "items": [
+              "0",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Synthesis: Building t...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "By conquering this milestone, you master the operational backbone.",
+            "items": [
+              "0",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]

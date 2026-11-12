@@ -2,118 +2,169 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 50,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "High-Throughput Serving Architecture: Unifying PagedAttention, Speculative Decoding, AWQ & Continuous Batching",
       "codeHash": "037e5d975213535990965451ac0b9d212b8cc335336ea930b2338d61cb6ebf41",
       "spec": {
         "template": "flow",
-        "title": "High-Throughput Serving Architecture: Unifyin... — Execution Pipeline",
+        "title": "High-Throughput Serving Architecture: Unifying PagedAttention, S",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "config",
+            "label": "config"
           },
           {
-            "id": "proc",
-            "label": "2. High-Throughput Ser...",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "suite",
+            "label": "suite"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for High-Throughput Serving Architecture: Un...",
-            "values": {
-              "in": "Day 50 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in High-Throughput Ser....",
+            "caption": "(1) The KV cache memory wall, static contiguous allocation fragmentation.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "config": {
+                "var": "config",
+                "line": 52,
+                "hit": 2
+              },
+              "self": {
+                "var": "self",
+                "line": 28,
+                "hit": 1
+              },
+              "suite": {
+                "var": "suite",
+                "line": 63,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 37,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "config": "data",
+              "self": "data",
+              "suite": "data",
+              ".0": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "config",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "suite"
+              ],
+              [
+                "suite",
+                ".0"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "In this grand milestone capstone, you step into the role of Chief Systems.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "config": {
+                "var": "config",
+                "line": 28,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 30,
+                "hit": 1
+              },
+              "suite": {
+                "var": "suite",
+                "line": 64,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 37,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "config": "data",
+              "self": "data",
+              "suite": "data",
+              ".0": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "config",
+                "self"
+              ],
+              [
+                "self",
+                "suite"
+              ],
+              [
+                "suite",
+                ".0"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for High-Throughput Serving Architect...",
+            "at": "say8",
+            "caption": "In the following Python script, we establish the core architectural.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "config": {
+                "var": "config",
+                "line": 30,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 31,
+                "hit": 1
+              },
+              "suite": {
+                "var": "suite",
+                "line": 65,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 37,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "config": "ok",
+              "self": "ok",
+              "suite": "ok",
+              ".0": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "config",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "suite"
+              ],
+              [
+                "suite",
+                ".0"
               ]
             ]
           }
@@ -121,110 +172,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "High-Throughput Serving Architecture: Unifyin... — Execution Pipeline",
+        "title": "High-Throughput Serving Architecture: Unifying PagedAttention, S",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "config",
+            "label": "config"
           },
           {
-            "id": "proc",
-            "label": "2. High-Throughput Ser...",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "suite",
+            "label": "suite"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for High-Throughput Serving Architecture: Un...",
-            "values": {
-              "in": "Day 50 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in High-Throughput Ser....",
+            "caption": "(1) The KV cache memory wall, static contiguous allocation fragmentation.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "config": "<ApexInferenceConfig>",
+              "self": "<ApexInferenceMasterSuite>",
+              "suite": "<ApexInferenceMasterSuite>",
+              ".0": "{'__other__': 'list_iterator'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "config": "data",
+              "self": "data",
+              "suite": "data",
+              ".0": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "config",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "suite"
+              ],
+              [
+                "suite",
+                ".0"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "In this grand milestone capstone, you step into the role of Chief Systems.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "config": "<ApexInferenceConfig>",
+              "self": "<ApexInferenceMasterSuite>",
+              "suite": "<ApexInferenceMasterSuite>",
+              ".0": "{'__other__': 'list_iterator'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "config": "data",
+              "self": "data",
+              "suite": "data",
+              ".0": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "config",
+                "self"
+              ],
+              [
+                "self",
+                "suite"
+              ],
+              [
+                "suite",
+                ".0"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for High-Throughput Serving Architect...",
+            "at": "say8",
+            "caption": "In the following Python script, we establish the core architectural.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "config": "<ApexInferenceConfig>",
+              "self": "<ApexInferenceMasterSuite>",
+              "suite": "<ApexInferenceMasterSuite>",
+              ".0": "{'__other__': 'list_iterator'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "config": "ok",
+              "self": "ok",
+              "suite": "ok",
+              ".0": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "config",
+                "self"
               ],
               [
-                "proc",
-                "out"
+                "self",
+                "suite"
+              ],
+              [
+                "suite",
+                ".0"
               ]
             ]
           }
@@ -235,223 +289,109 @@
       "partTitle": "Subsystem 1: Paged KV Cache Orchestration & Memory Defragmentation Simulator",
       "codeHash": "2095e034cb36dd6d7d07fa51dfdeb34d0d15878b8c9540f0b50b78da1d48b2e7",
       "spec": {
-        "template": "flow",
-        "title": "Subsystem 1: Paged KV Cache Orchestration & M... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Subsystem 1: Paged ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Subsystem 1: Paged KV Cache Orchestration & Memory Defragmentati",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Subsystem one: Paged KV Cache Orchestratio...",
-            "values": {
-              "in": "Day 50 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Subsystem one: Paged ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "We now examine the execution details of Subsystem 1.",
+            "items": {
+              "var": "parent_b",
+              "line": 49,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The Mechanics of PagedAttention Memory Orchestration decouples logical.",
+            "items": {
+              "var": "parent_b",
+              "line": 51,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Subsystem one: Paged KV Cache Orche...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "In the following Python script, we construct Subsystem 1 in pure standard.",
+            "items": {
+              "var": "parent_b",
+              "line": 51,
+              "hit": 4
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Subsystem 1: Paged KV Cache Orchestration & M... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Subsystem 1: Paged ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Subsystem 1: Paged KV Cache Orchestration & Memory Defragmentati",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 1: Paged KV Cache Orchestratio...",
-            "values": {
-              "in": "Day 50 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 1: Paged ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "We now examine the execution details of Subsystem 1.",
+            "items": [
+              "0",
+              "1",
+              "2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The Mechanics of PagedAttention Memory Orchestration decouples logical.",
+            "items": [
+              "0",
+              "1",
+              "2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 1: Paged KV Cache Orche...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct Subsystem 1 in pure standard.",
+            "items": [
+              "0",
+              "1",
+              "2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -461,223 +401,217 @@
       "partTitle": "Subsystem 2: Dynamic Draft Model Speculation Loop with Rejection Sampling",
       "codeHash": "293b4035bbb3a274aa0514ff9092a82dc8add90403c26f2f7956cc18386a5966",
       "spec": {
-        "template": "flow",
-        "title": "Subsystem 2: Dynamic Draft Model Speculation ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Subsystem 2: Dynami...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Subsystem 2: Dynamic Draft Model Speculation Loop with Rejection",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Subsystem two: Dynamic Draft Model Specula...",
-            "values": {
-              "in": "Day 50 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Subsystem two: Dynami....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "We now transition to Subsystem 2 of the ApexInference Master Suite.",
+            "bars": [
+              {
+                "label": "cost_ratio_gam",
+                "value": {
+                  "var": "cost_ratio_gamma",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cycle_id",
+                "value": {
+                  "var": "cycle_id",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "accepted",
+                "value": {
+                  "var": "accepted",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The Physical Necessity of Speculative Decoding stems from.",
+            "bars": [
+              {
+                "label": "cost_ratio_gam",
+                "value": {
+                  "var": "cost_ratio_gamma",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cycle_id",
+                "value": {
+                  "var": "cycle_id",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "accepted",
+                "value": {
+                  "var": "accepted",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Subsystem two: Dynamic Draft Model ...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "In the following Python script, we construct Subsystem 2 in pure standard.",
+            "bars": [
+              {
+                "label": "cost_ratio_gam",
+                "value": {
+                  "var": "cost_ratio_gamma",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cycle_id",
+                "value": {
+                  "var": "cycle_id",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "accepted",
+                "value": {
+                  "var": "accepted",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Subsystem 2: Dynamic Draft Model Speculation ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Subsystem 2: Dynami...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Subsystem 2: Dynamic Draft Model Speculation Loop with Rejection",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 2: Dynamic Draft Model Specula...",
-            "values": {
-              "in": "Day 50 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 2: Dynami....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "We now transition to Subsystem 2 of the ApexInference Master Suite.",
+            "bars": [
+              {
+                "label": "cost_ratio_gam",
+                "value": 0.05,
+                "tone": "data"
+              },
+              {
+                "label": "cycle_id",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "accepted",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The Physical Necessity of Speculative Decoding stems from.",
+            "bars": [
+              {
+                "label": "cost_ratio_gam",
+                "value": 0.05,
+                "tone": "ok"
+              },
+              {
+                "label": "cycle_id",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "accepted",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 2: Dynamic Draft Model ...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "In the following Python script, we construct Subsystem 2 in pure standard.",
+            "bars": [
+              {
+                "label": "cost_ratio_gam",
+                "value": 0.05,
+                "tone": "ok"
+              },
+              {
+                "label": "cycle_id",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "accepted",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -688,110 +622,161 @@
       "codeHash": "ce5d48c7d6fb249d873b59de30cdc2719f6e5dd29034efaac402194163617e99",
       "spec": {
         "template": "flow",
-        "title": "Subsystem 3 & 4: Hybrid AWQ/SmoothQuant Low-P... — Execution Pipeline",
+        "title": "Subsystem 3 & 4: Hybrid AWQ/SmoothQuant Low-Precision Execution ",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Subsystem 3 & 4: Hy...",
-            "tappable": true
+            "id": "quant_bits",
+            "label": "quant_bits"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "engine",
+            "label": "engine"
+          },
+          {
+            "id": "W",
+            "label": "W"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Subsystem three & four: Hybrid AWQ/SmoothQuant.",
-            "values": {
-              "in": "Day 50 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Subsystem three & four: Hy....",
+            "caption": "We now examine Subsystem 3 of the ApexInference Master Suite.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": {
+                "var": "self",
+                "line": 22,
+                "hit": 1
+              },
+              "quant_bits": {
+                "var": "quant_bits",
+                "line": 22,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 69,
+                "hit": 1
+              },
+              "W": {
+                "var": "W",
+                "line": 71,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "quant_bits": "data",
+              "engine": "data",
+              "W": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "quant_bits"
               ],
               [
-                "proc",
-                "out"
+                "quant_bits",
+                "engine"
+              ],
+              [
+                "engine",
+                "W"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The Dual-Phased Quantization Architecture recognizes that foundation.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": {
+                "var": "self",
+                "line": 23,
+                "hit": 1
+              },
+              "quant_bits": {
+                "var": "quant_bits",
+                "line": 23,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 72,
+                "hit": 1
+              },
+              "W": {
+                "var": "W",
+                "line": 78,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "quant_bits": "data",
+              "engine": "data",
+              "W": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "quant_bits"
+              ],
+              [
+                "quant_bits",
+                "engine"
+              ],
+              [
+                "engine",
+                "W"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Subsystem three & four: Hybrid.",
+            "at": "say10",
+            "caption": "Furthermore, Subsystem 4 enforces Chunked Prefill.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": {
+                "var": "self",
+                "line": 31,
+                "hit": 1
+              },
+              "quant_bits": {
+                "var": "quant_bits",
+                "line": 23,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 73,
+                "hit": 1
+              },
+              "W": {
+                "var": "W",
+                "line": 79,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "quant_bits": "ok",
+              "engine": "ok",
+              "W": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "quant_bits"
               ],
               [
-                "proc",
-                "out"
+                "quant_bits",
+                "engine"
+              ],
+              [
+                "engine",
+                "W"
               ]
             ]
           }
@@ -799,110 +784,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Subsystem 3 & 4: Hybrid AWQ/SmoothQuant Low-P... — Execution Pipeline",
+        "title": "Subsystem 3 & 4: Hybrid AWQ/SmoothQuant Low-Precision Execution ",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Subsystem 3 & 4: Hy...",
-            "tappable": true
+            "id": "quant_bits",
+            "label": "quant_bits"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "engine",
+            "label": "engine"
+          },
+          {
+            "id": "W",
+            "label": "W"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 3 & 4: Hybrid AWQ/SmoothQuant ...",
-            "values": {
-              "in": "Day 50 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 3 & 4: Hy....",
+            "caption": "We now examine Subsystem 3 of the ApexInference Master Suite.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": "<QuantizedKernelSubsystem>",
+              "quant_bits": "4",
+              "engine": "<QuantizedKernelSubsystem>",
+              "W": "[[0.25, -0.4, 0.15, 0.35], [0.1, 0.2, -…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "quant_bits": "data",
+              "engine": "data",
+              "W": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "quant_bits"
               ],
               [
-                "proc",
-                "out"
+                "quant_bits",
+                "engine"
+              ],
+              [
+                "engine",
+                "W"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The Dual-Phased Quantization Architecture recognizes that foundation.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": "<QuantizedKernelSubsystem>",
+              "quant_bits": "4",
+              "engine": "<QuantizedKernelSubsystem>",
+              "W": "[[0.25, -0.4, 0.15, 0.35], [0.1, 0.2, -…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "quant_bits": "data",
+              "engine": "data",
+              "W": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "quant_bits"
+              ],
+              [
+                "quant_bits",
+                "engine"
+              ],
+              [
+                "engine",
+                "W"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 3 & 4: Hybrid AWQ/Smoot...",
+            "at": "say10",
+            "caption": "Furthermore, Subsystem 4 enforces Chunked Prefill.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": "<QuantizedKernelSubsystem>",
+              "quant_bits": "4",
+              "engine": "<QuantizedKernelSubsystem>",
+              "W": "[[0.25, -0.4, 0.15, 0.35], [0.1, 0.2, -…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "quant_bits": "ok",
+              "engine": "ok",
+              "W": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "quant_bits"
               ],
               [
-                "proc",
-                "out"
+                "quant_bits",
+                "engine"
+              ],
+              [
+                "engine",
+                "W"
               ]
             ]
           }
@@ -913,223 +901,217 @@
       "partTitle": "Subsystem 5: Milestone 10 Capstone Defense, Throughput Benchmarking & ApexInference Sovereign Certification",
       "codeHash": "f55e3a128d1d8c6c19e13bb476f7a21a10a3cd5b9b1aa3eecab5dee4e1b2ddb7",
       "spec": {
-        "template": "flow",
-        "title": "Subsystem 5: Milestone 10 Capstone Defense, T... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Subsystem 5: Milest...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Subsystem 5: Milestone 10 Capstone Defense, Throughput Benchmark",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Subsystem five: Milestone ten Capstone Defen...",
-            "values": {
-              "in": "Day 50 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Subsystem five: Milest....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "You have arrived at the final defense and certification of Milestone 10.",
+            "bars": [
+              {
+                "label": "reclaimed_pct",
+                "value": {
+                  "var": "reclaimed_pct",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "speedup",
+                "value": {
+                  "var": "speedup",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "comp_pct",
+                "value": {
+                  "var": "comp_pct",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bubble_pct",
+                "value": {
+                  "var": "bubble_pct",
+                  "line": 38,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In this grand capstone synthesis, you present your final technical defense.",
+            "bars": [
+              {
+                "label": "reclaimed_pct",
+                "value": {
+                  "var": "reclaimed_pct",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "speedup",
+                "value": {
+                  "var": "speedup",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "comp_pct",
+                "value": {
+                  "var": "comp_pct",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bubble_pct",
+                "value": {
+                  "var": "bubble_pct",
+                  "line": 39,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Subsystem five: Milestone ten Capston...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Congratulations on conquering Milestone 10.",
+            "bars": [
+              {
+                "label": "reclaimed_pct",
+                "value": {
+                  "var": "reclaimed_pct",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "speedup",
+                "value": {
+                  "var": "speedup",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "comp_pct",
+                "value": {
+                  "var": "comp_pct",
+                  "line": 38,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bubble_pct",
+                "value": {
+                  "var": "bubble_pct",
+                  "line": 41,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Subsystem 5: Milestone 10 Capstone Defense, T... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Subsystem 5: Milest...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Subsystem 5: Milestone 10 Capstone Defense, Throughput Benchmark",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 5: Milestone 10 Capstone Defen...",
-            "values": {
-              "in": "Day 50 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 5: Milest....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "You have arrived at the final defense and certification of Milestone 10.",
+            "bars": [
+              {
+                "label": "reclaimed_pct",
+                "value": 88.5,
+                "tone": "data"
+              },
+              {
+                "label": "speedup",
+                "value": 3.24,
+                "tone": "data"
+              },
+              {
+                "label": "comp_pct",
+                "value": 75,
+                "tone": "data"
+              },
+              {
+                "label": "bubble_pct",
+                "value": 96.2,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In this grand capstone synthesis, you present your final technical defense.",
+            "bars": [
+              {
+                "label": "reclaimed_pct",
+                "value": 88.5,
+                "tone": "ok"
+              },
+              {
+                "label": "speedup",
+                "value": 3.24,
+                "tone": "ok"
+              },
+              {
+                "label": "comp_pct",
+                "value": 75,
+                "tone": "ok"
+              },
+              {
+                "label": "bubble_pct",
+                "value": 96.2,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 5: Milestone 10 Capston...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Congratulations on conquering Milestone 10.",
+            "bars": [
+              {
+                "label": "reclaimed_pct",
+                "value": 88.5,
+                "tone": "ok"
+              },
+              {
+                "label": "speedup",
+                "value": 3.24,
+                "tone": "ok"
+              },
+              {
+                "label": "comp_pct",
+                "value": 75,
+                "tone": "ok"
+              },
+              {
+                "label": "bubble_pct",
+                "value": 96.2,
+                "tone": "ok"
+              }
             ]
           }
         ]

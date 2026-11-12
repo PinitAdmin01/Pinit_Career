@@ -2,256 +2,228 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 28,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why automatic metrics",
       "codeHash": "290c7a34ba9066e8cc12b2b89c57600d0c103333a6f8e1a23a7746e6da45c65e",
       "spec": {
-        "template": "table",
-        "title": "Automatic evaluation metric candidate reference matching",
-        "columns": [
-          "reference",
-          "candidate"
+        "template": "flow",
+        "title": "Why automatic metrics",
+        "nodes": [
+          {
+            "id": "reference",
+            "label": "reference"
+          },
+          {
+            "id": "candidate",
+            "label": "candidate"
+          },
+          {
+            "id": "shared",
+            "label": "shared"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Automatic evaluation methods replace slow and expensive human evaluation.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "reference"
-                  },
-                  {
-                    "text": "candidate"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Human judgement is the gold standard for generated text, but it is slow.",
+            "values": {
+              "reference": {
+                "var": "reference",
+                "line": 1,
+                "hit": 1
+              },
+              "candidate": {
+                "var": "candidate",
+                "line": 2,
+                "hit": 1
+              },
+              "shared": {
+                "var": "shared",
+                "line": 3,
+                "hit": 7
               }
+            },
+            "tones": {
+              "reference": "data",
+              "candidate": "data",
+              "shared": "data"
+            },
+            "arrows": [
+              [
+                "reference",
+                "candidate"
+              ],
+              [
+                "candidate",
+                "shared"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Automatic metrics compare candidate text against human reference text.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "reference"
-                  },
-                  {
-                    "text": "candidate"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Automatic metrics compare the model's output (the candidate) with one.",
+            "values": {
+              "reference": {
+                "var": "reference",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "shared"
-                  },
-                  {
-                    "text": "split"
-                  }
-                ],
-                "tone": "ok"
+              "candidate": {
+                "var": "candidate",
+                "line": 3,
+                "hit": 1
+              },
+              "shared": {
+                "var": "shared",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "reference": "data",
+              "candidate": "data",
+              "shared": "data"
+            },
+            "arrows": [
+              [
+                "reference",
+                "candidate"
+              ],
+              [
+                "candidate",
+                "shared"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Overlap metrics tally shared words and phrases between candidate pairs.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "reference"
-                  },
-                  {
-                    "text": "candidate"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Always report which metric and which references you used.",
+            "values": {
+              "reference": {
+                "var": "reference",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "shared"
-                  },
-                  {
-                    "text": "split"
-                  }
-                ],
-                "tone": "ok"
+              "candidate": {
+                "var": "candidate",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "shared"
-                  },
-                  {
-                    "text": "len"
-                  }
-                ],
-                "tone": "data"
+              "shared": {
+                "var": "shared",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example counts shared words between candidate and reference strings.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "reference"
-                  },
-                  {
-                    "text": "candidate"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "shared"
-                  },
-                  {
-                    "text": "split"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "shared"
-                  },
-                  {
-                    "text": "len"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "reference"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "reference": "ok",
+              "candidate": "ok",
+              "shared": "ok"
+            },
+            "arrows": [
+              [
+                "reference",
+                "candidate"
+              ],
+              [
+                "candidate",
+                "shared"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Automatic evaluation metric candidate reference matching",
-        "columns": [
-          "reference",
-          "candidate"
+        "template": "flow",
+        "title": "Why automatic metrics",
+        "nodes": [
+          {
+            "id": "reference",
+            "label": "reference"
+          },
+          {
+            "id": "candidate",
+            "label": "candidate"
+          },
+          {
+            "id": "shared",
+            "label": "shared"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Automatic evaluation methods replace slow and expensive human evaluation.",
-            "rows": [
-              {
-                "cells": [
-                  "reference",
-                  "candidate"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Human judgement is the gold standard for generated text, but it is slow.",
+            "values": {
+              "reference": "['the', 'cat', 'is', 'on', 'the', 'mat']",
+              "candidate": "['the', 'cat', 'sat', 'on', 'the', 'mat…",
+              "shared": "['the', 'cat', 'on', 'the', 'mat']"
+            },
+            "tones": {
+              "reference": "data",
+              "candidate": "data",
+              "shared": "data"
+            },
+            "arrows": [
+              [
+                "reference",
+                "candidate"
+              ],
+              [
+                "candidate",
+                "shared"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Automatic metrics compare candidate text against human reference text.",
-            "rows": [
-              {
-                "cells": [
-                  "reference",
-                  "candidate"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "shared",
-                  "split"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Automatic metrics compare the model's output (the candidate) with one.",
+            "values": {
+              "reference": "['the', 'cat', 'is', 'on', 'the', 'mat']",
+              "candidate": "['the', 'cat', 'sat', 'on', 'the', 'mat…",
+              "shared": "['the', 'cat', 'on', 'the', 'mat']"
+            },
+            "tones": {
+              "reference": "data",
+              "candidate": "data",
+              "shared": "data"
+            },
+            "arrows": [
+              [
+                "reference",
+                "candidate"
+              ],
+              [
+                "candidate",
+                "shared"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Overlap metrics tally shared words and phrases between candidate pairs.",
-            "rows": [
-              {
-                "cells": [
-                  "reference",
-                  "candidate"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "shared",
-                  "split"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "shared",
-                  "len"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example counts shared words between candidate and reference strings.",
-            "rows": [
-              {
-                "cells": [
-                  "reference",
-                  "candidate"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "shared",
-                  "split"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "shared",
-                  "len"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "reference",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Always report which metric and which references you used.",
+            "values": {
+              "reference": "['the', 'cat', 'is', 'on', 'the', 'mat']",
+              "candidate": "['the', 'cat', 'sat', 'on', 'the', 'mat…",
+              "shared": "['the', 'cat', 'on', 'the', 'mat']"
+            },
+            "tones": {
+              "reference": "ok",
+              "candidate": "ok",
+              "shared": "ok"
+            },
+            "arrows": [
+              [
+                "reference",
+                "candidate"
+              ],
+              [
+                "candidate",
+                "shared"
+              ]
             ]
           }
         ]
@@ -261,248 +233,117 @@
       "partTitle": "BLEU: clipped n-gram precision",
       "codeHash": "96e7c65a45e313daad57b62cfa06ae49b6ed64088bace3e655163dc11c56c526",
       "spec": {
-        "template": "table",
-        "title": "BLEU modified n-gram precision and count clipping",
-        "columns": [
-          "candidate",
-          "reference"
-        ],
+        "template": "cells",
+        "title": "BLEU: clipped n-gram precision",
         "steps": [
           {
             "at": "say1",
-            "caption": "BLEU measures precision by calculating shared candidate n-grams.",
-            "rows": [
+            "caption": "What share of the candidate's n-grams appear in the reference.",
+            "items": {
+              "var": "ref",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "candidate"
-                  },
-                  {
-                    "text": "reference"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Count clipping bounds repeated words to their actual reference count.",
-            "rows": [
+            "at": "say2",
+            "caption": "Naive precision can be gamed.",
+            "items": {
+              "var": "ref",
+              "line": 9,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "candidate"
-                  },
-                  {
-                    "text": "reference"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cand"
-                  },
-                  {
-                    "text": "ref"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Combining precisions across n-gram lengths rewards coherent phrases.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "candidate"
-                  },
-                  {
-                    "text": "reference"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cand"
-                  },
-                  {
-                    "text": "ref"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "clipped"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Counter frequencies determine minimum matches between candidate counts.",
-            "rows": [
+            "caption": "Counter makes clipping easy.",
+            "items": {
+              "var": "ref",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "candidate"
-                  },
-                  {
-                    "text": "reference"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cand"
-                  },
-                  {
-                    "text": "ref"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "clipped"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "modified_precision"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "BLEU modified n-gram precision and count clipping",
-        "columns": [
-          "candidate",
-          "reference"
-        ],
+        "template": "cells",
+        "title": "BLEU: clipped n-gram precision",
         "steps": [
           {
             "at": "say1",
-            "caption": "BLEU measures precision by calculating shared candidate n-grams.",
-            "rows": [
+            "caption": "What share of the candidate's n-grams appear in the reference.",
+            "items": [
+              "'the'",
+              "'cat'",
+              "'is'",
+              "'on'",
+              "'the'",
+              "'mat'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "candidate",
-                  "reference"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Count clipping bounds repeated words to their actual reference count.",
-            "rows": [
+            "at": "say2",
+            "caption": "Naive precision can be gamed.",
+            "items": [
+              "'the'",
+              "'cat'",
+              "'is'",
+              "'on'",
+              "'the'",
+              "'mat'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "candidate",
-                  "reference"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cand",
-                  "ref"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Combining precisions across n-gram lengths rewards coherent phrases.",
-            "rows": [
-              {
-                "cells": [
-                  "candidate",
-                  "reference"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cand",
-                  "ref"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "clipped",
-                  "sum"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Counter frequencies determine minimum matches between candidate counts.",
-            "rows": [
+            "caption": "Counter makes clipping easy.",
+            "items": [
+              "'the'",
+              "'cat'",
+              "'is'",
+              "'on'",
+              "'the'",
+              "'mat'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "candidate",
-                  "reference"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cand",
-                  "ref"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "clipped",
-                  "sum"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "modified_precision",
-                  "round"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -513,223 +354,133 @@
       "partTitle": "The brevity penalty",
       "codeHash": "4889223e94af70b4bbeccf6b7ef23529c5dda94177c45d5a482bb11a8fe153b1",
       "spec": {
-        "template": "flow",
-        "title": "The brevity penalty — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The brevity penalty",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The brevity penalty",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The brevity penalty [D.Pthree.Sone].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The brevity penalty [D.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Precision has another loophole.",
+            "bars": [
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "BLEU adds a brevity penalty (BP).",
+            "bars": [
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The brevity penalty [D.Pthree.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the penalty for several candidate lengths against.",
+            "bars": [
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The brevity penalty — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The brevity penalty",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The brevity penalty",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The brevity penalty [D28.P3.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The brevity penalty [D28.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Precision has another loophole.",
+            "bars": [
+              {
+                "label": "c",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 10,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "BLEU adds a brevity penalty (BP).",
+            "bars": [
+              {
+                "label": "c",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 10,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The brevity penalty [D28.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the penalty for several candidate lengths against.",
+            "bars": [
+              {
+                "label": "c",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 10,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -739,248 +490,117 @@
       "partTitle": "ROUGE for summaries",
       "codeHash": "290b85e0ccb454ef72adaeb1c29bae43126e7e352303fb2b27df090056e7e1ae",
       "spec": {
-        "template": "table",
-        "title": "ROUGE recall calculation and content coverage",
-        "columns": [
-          "candidate",
-          "reference"
-        ],
+        "template": "cells",
+        "title": "ROUGE for summaries",
         "steps": [
           {
             "at": "say1",
-            "caption": "Summary evaluation measures recall of important content from reference.",
-            "rows": [
+            "caption": "For summaries, what matters most is whether the important content from.",
+            "items": {
+              "var": "ref",
+              "line": 9,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "candidate"
-                  },
-                  {
-                    "text": "reference"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Recall measures reference words matched by candidate words divided by length.",
-            "rows": [
+            "caption": "ROUGE-1 recall = the number of reference words also found in the candidate.",
+            "items": {
+              "var": "ref",
+              "line": 10,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "candidate"
-                  },
-                  {
-                    "text": "reference"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cand"
-                  },
-                  {
-                    "text": "overlap"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Combining recall with precision as an harmonic metric prevents verbosity.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "candidate"
-                  },
-                  {
-                    "text": "reference"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cand"
-                  },
-                  {
-                    "text": "overlap"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Counter"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "ROUGE uses clipped counts normalized by the reference length.",
-            "rows": [
+            "caption": "The design mirrors BLEU.",
+            "items": {
+              "var": "ref",
+              "line": 10,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "candidate"
-                  },
-                  {
-                    "text": "reference"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cand"
-                  },
-                  {
-                    "text": "overlap"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Counter"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "rouge1_recall"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "ROUGE recall calculation and content coverage",
-        "columns": [
-          "candidate",
-          "reference"
-        ],
+        "template": "cells",
+        "title": "ROUGE for summaries",
         "steps": [
           {
             "at": "say1",
-            "caption": "Summary evaluation measures recall of important content from reference.",
-            "rows": [
+            "caption": "For summaries, what matters most is whether the important content from.",
+            "items": [
+              "'the'",
+              "'cat'",
+              "'sat'",
+              "'on'",
+              "'the'",
+              "'mat'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "candidate",
-                  "reference"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Recall measures reference words matched by candidate words divided by length.",
-            "rows": [
+            "caption": "ROUGE-1 recall = the number of reference words also found in the candidate.",
+            "items": [
+              "'the'",
+              "'cat'",
+              "'sat'",
+              "'on'",
+              "'the'",
+              "'mat'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "candidate",
-                  "reference"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cand",
-                  "overlap"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Combining recall with precision as an harmonic metric prevents verbosity.",
-            "rows": [
-              {
-                "cells": [
-                  "candidate",
-                  "reference"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cand",
-                  "overlap"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Counter",
-                  "sum"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "ROUGE uses clipped counts normalized by the reference length.",
-            "rows": [
+            "caption": "The design mirrors BLEU.",
+            "items": [
+              "'the'",
+              "'cat'",
+              "'sat'",
+              "'on'",
+              "'the'",
+              "'mat'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "candidate",
-                  "reference"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cand",
-                  "overlap"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Counter",
-                  "sum"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "rouge1_recall",
-                  "round"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -991,249 +611,277 @@
       "partTitle": "The limits of overlap metrics",
       "codeHash": "701e76c9887f4444f68c6e28c23cfa868209826f30de93dfa73d5bb047649d36",
       "spec": {
-        "template": "table",
-        "title": "Semantic paraphrase divergence and superficial lexical overlap",
-        "columns": [
-          "paraphrase",
-          "word_salad"
+        "template": "flow",
+        "title": "The limits of overlap metrics",
+        "nodes": [
+          {
+            "id": "ref",
+            "label": "ref"
+          },
+          {
+            "id": "paraphrase",
+            "label": "paraphrase"
+          },
+          {
+            "id": "word_salad",
+            "label": "word_salad"
+          },
+          {
+            "id": "w",
+            "label": "w"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Overlap metrics reward matching words rather than matching sentence meaning.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "paraphrase"
-                  },
-                  {
-                    "text": "word_salad"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Overlap metrics reward matching words, not matching meaning.",
+            "values": {
+              "ref": {
+                "var": "ref",
+                "line": 3,
+                "hit": 1
+              },
+              "paraphrase": {
+                "var": "paraphrase",
+                "line": 4,
+                "hit": 1
+              },
+              "word_salad": {
+                "var": "word_salad",
+                "line": 5,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 6,
+                "hit": 2
               }
+            },
+            "tones": {
+              "ref": "data",
+              "paraphrase": "data",
+              "word_salad": "data",
+              "w": "data"
+            },
+            "arrows": [
+              [
+                "ref",
+                "paraphrase"
+              ],
+              [
+                "paraphrase",
+                "word_salad"
+              ],
+              [
+                "word_salad",
+                "w"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Unordered word sequences can score well despite lacking grammatical fluency.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "paraphrase"
-                  },
-                  {
-                    "text": "word_salad"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "They also miss fluency and truth.",
+            "values": {
+              "ref": {
+                "var": "ref",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "ref"
-                  },
-                  {
-                    "text": "recall"
-                  }
-                ],
-                "tone": "ok"
+              "paraphrase": {
+                "var": "paraphrase",
+                "line": 5,
+                "hit": 1
+              },
+              "word_salad": {
+                "var": "word_salad",
+                "line": 6,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 6,
+                "hit": 3
               }
+            },
+            "tones": {
+              "ref": "data",
+              "paraphrase": "data",
+              "word_salad": "data",
+              "w": "data"
+            },
+            "arrows": [
+              [
+                "ref",
+                "paraphrase"
+              ],
+              [
+                "paraphrase",
+                "word_salad"
+              ],
+              [
+                "word_salad",
+                "w"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Embedding based evaluations compare contextual embeddings to capture synonyms.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "paraphrase"
-                  },
-                  {
-                    "text": "word_salad"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "A metric is a tool for decisions, not the goal itself.",
+            "values": {
+              "ref": {
+                "var": "ref",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "ref"
-                  },
-                  {
-                    "text": "recall"
-                  }
-                ],
-                "tone": "ok"
+              "paraphrase": {
+                "var": "paraphrase",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Counter"
-                  },
-                  {
-                    "text": "split"
-                  }
-                ],
-                "tone": "data"
+              "word_salad": {
+                "var": "word_salad",
+                "line": 7,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 6,
+                "hit": 4
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example shows a paraphrase scoring poorly on ROUGE overlap.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "paraphrase"
-                  },
-                  {
-                    "text": "word_salad"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ref"
-                  },
-                  {
-                    "text": "recall"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Counter"
-                  },
-                  {
-                    "text": "split"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "paraphrase"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "ref": "ok",
+              "paraphrase": "ok",
+              "word_salad": "ok",
+              "w": "ok"
+            },
+            "arrows": [
+              [
+                "ref",
+                "paraphrase"
+              ],
+              [
+                "paraphrase",
+                "word_salad"
+              ],
+              [
+                "word_salad",
+                "w"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Semantic paraphrase divergence and superficial lexical overlap",
-        "columns": [
-          "paraphrase",
-          "word_salad"
+        "template": "flow",
+        "title": "The limits of overlap metrics",
+        "nodes": [
+          {
+            "id": "ref",
+            "label": "ref"
+          },
+          {
+            "id": "paraphrase",
+            "label": "paraphrase"
+          },
+          {
+            "id": "word_salad",
+            "label": "word_salad"
+          },
+          {
+            "id": "w",
+            "label": "w"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Overlap metrics reward matching words rather than matching sentence meaning.",
-            "rows": [
-              {
-                "cells": [
-                  "paraphrase",
-                  "word_salad"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Overlap metrics reward matching words, not matching meaning.",
+            "values": {
+              "ref": "['the', 'film', 'was', 'excellent', 'an…",
+              "paraphrase": "['a', 'great', 'movie', 'with', 'wonder…",
+              "word_salad": "['the', 'the', 'film', 'excellent', 'we…",
+              "w": "'the'"
+            },
+            "tones": {
+              "ref": "data",
+              "paraphrase": "data",
+              "word_salad": "data",
+              "w": "data"
+            },
+            "arrows": [
+              [
+                "ref",
+                "paraphrase"
+              ],
+              [
+                "paraphrase",
+                "word_salad"
+              ],
+              [
+                "word_salad",
+                "w"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Unordered word sequences can score well despite lacking grammatical fluency.",
-            "rows": [
-              {
-                "cells": [
-                  "paraphrase",
-                  "word_salad"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ref",
-                  "recall"
-                ],
-                "tone": "ok"
-              }
+            "caption": "They also miss fluency and truth.",
+            "values": {
+              "ref": "['the', 'film', 'was', 'excellent', 'an…",
+              "paraphrase": "['a', 'great', 'movie', 'with', 'wonder…",
+              "word_salad": "['the', 'the', 'film', 'excellent', 'we…",
+              "w": "'film'"
+            },
+            "tones": {
+              "ref": "data",
+              "paraphrase": "data",
+              "word_salad": "data",
+              "w": "data"
+            },
+            "arrows": [
+              [
+                "ref",
+                "paraphrase"
+              ],
+              [
+                "paraphrase",
+                "word_salad"
+              ],
+              [
+                "word_salad",
+                "w"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Embedding based evaluations compare contextual embeddings to capture synonyms.",
-            "rows": [
-              {
-                "cells": [
-                  "paraphrase",
-                  "word_salad"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ref",
-                  "recall"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Counter",
-                  "split"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example shows a paraphrase scoring poorly on ROUGE overlap.",
-            "rows": [
-              {
-                "cells": [
-                  "paraphrase",
-                  "word_salad"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ref",
-                  "recall"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Counter",
-                  "split"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "paraphrase",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "A metric is a tool for decisions, not the goal itself.",
+            "values": {
+              "ref": "['the', 'film', 'was', 'excellent', 'an…",
+              "paraphrase": "['a', 'great', 'movie', 'with', 'wonder…",
+              "word_salad": "['the', 'the', 'film', 'excellent', 'we…",
+              "w": "'was'"
+            },
+            "tones": {
+              "ref": "ok",
+              "paraphrase": "ok",
+              "word_salad": "ok",
+              "w": "ok"
+            },
+            "arrows": [
+              [
+                "ref",
+                "paraphrase"
+              ],
+              [
+                "paraphrase",
+                "word_salad"
+              ],
+              [
+                "word_salad",
+                "w"
+              ]
             ]
           }
         ]
@@ -1244,110 +892,161 @@
       "codeHash": "941205eaa9bc1afb31b922eef16395a7e94022bcd0a5db29f88e695a2fe12aac",
       "spec": {
         "template": "flow",
-        "title": "Practice time: penalties and recall — Execution Pipeline",
+        "title": "Practice time: penalties and recall",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "ref",
+            "label": "ref"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: pena...",
-            "tappable": true
+            "id": "cand",
+            "label": "cand"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "candidate",
+            "label": "candidate"
+          },
+          {
+            "id": "reference",
+            "label": "reference"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: penalties and recall.",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: pena... [D.Psix.Stwo].",
+            "caption": "Three cases in order.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "ref": {
+                "var": "ref",
+                "line": 11,
+                "hit": 1
+              },
+              "cand": {
+                "var": "cand",
+                "line": 12,
+                "hit": 1
+              },
+              "candidate": {
+                "var": "candidate",
+                "line": 5,
+                "hit": 1
+              },
+              "reference": {
+                "var": "reference",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "ref": "data",
+              "cand": "data",
+              "candidate": "data",
+              "reference": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ref",
+                "cand"
               ],
               [
-                "proc",
-                "out"
+                "cand",
+                "candidate"
+              ],
+              [
+                "candidate",
+                "reference"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Trace how checks updates gives during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "ref": {
+                "var": "ref",
+                "line": 12,
+                "hit": 1
+              },
+              "cand": {
+                "var": "cand",
+                "line": 13,
+                "hit": 1
+              },
+              "candidate": {
+                "var": "candidate",
+                "line": 6,
+                "hit": 1
+              },
+              "reference": {
+                "var": "reference",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "ref": "data",
+              "cand": "data",
+              "candidate": "data",
+              "reference": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "ref",
+                "cand"
+              ],
+              [
+                "cand",
+                "candidate"
+              ],
+              [
+                "candidate",
+                "reference"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: penalties and recall.",
+            "at": "say7",
+            "caption": "The example does exactly that.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "ref": {
+                "var": "ref",
+                "line": 7,
+                "hit": 1
+              },
+              "cand": {
+                "var": "cand",
+                "line": 12,
+                "hit": 2
+              },
+              "candidate": {
+                "var": "candidate",
+                "line": 7,
+                "hit": 1
+              },
+              "reference": {
+                "var": "reference",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "ref": "ok",
+              "cand": "ok",
+              "candidate": "ok",
+              "reference": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ref",
+                "cand"
               ],
               [
-                "proc",
-                "out"
+                "cand",
+                "candidate"
+              ],
+              [
+                "candidate",
+                "reference"
               ]
             ]
           }
@@ -1355,110 +1054,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: penalties and recall — Execution Pipeline",
+        "title": "Practice time: penalties and recall",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "ref",
+            "label": "ref"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: pena...",
-            "tappable": true
+            "id": "cand",
+            "label": "cand"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "candidate",
+            "label": "candidate"
+          },
+          {
+            "id": "reference",
+            "label": "reference"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: penalties and recall [D28.P6.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: pena... [D28.P6.S2].",
+            "caption": "Three cases in order.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "ref": "['the', 'cat', 'is', 'on', 'the', 'mat']",
+              "cand": "'the cat sat on the mat'",
+              "candidate": "['the', 'cat', 'sat', 'on', 'the', 'mat…",
+              "reference": "['the', 'cat', 'is', 'on', 'the', 'mat']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "ref": "data",
+              "cand": "data",
+              "candidate": "data",
+              "reference": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ref",
+                "cand"
               ],
               [
-                "proc",
-                "out"
+                "cand",
+                "candidate"
+              ],
+              [
+                "candidate",
+                "reference"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P6.S3].",
+            "at": "say2",
+            "caption": "Trace how checks updates gives during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "ref": "['the', 'cat', 'is', 'on', 'the', 'mat']",
+              "cand": "'the cat sat on the mat'",
+              "candidate": "['the', 'cat', 'sat', 'on', 'the', 'mat…",
+              "reference": "['the', 'cat', 'is', 'on', 'the', 'mat']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "ref": "data",
+              "cand": "data",
+              "candidate": "data",
+              "reference": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "ref",
+                "cand"
+              ],
+              [
+                "cand",
+                "candidate"
+              ],
+              [
+                "candidate",
+                "reference"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: penalties and recall [D28.P6.S4].",
+            "at": "say7",
+            "caption": "The example does exactly that.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "ref": "{'the': 2, 'cat': 1, 'is': 1, 'on': 1, …",
+              "cand": "'the cat'",
+              "candidate": "['the', 'cat', 'sat', 'on', 'the', 'mat…",
+              "reference": "['the', 'cat', 'is', 'on', 'the', 'mat']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "ref": "ok",
+              "cand": "ok",
+              "candidate": "ok",
+              "reference": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ref",
+                "cand"
               ],
               [
-                "proc",
-                "out"
+                "cand",
+                "candidate"
+              ],
+              [
+                "candidate",
+                "reference"
               ]
             ]
           }

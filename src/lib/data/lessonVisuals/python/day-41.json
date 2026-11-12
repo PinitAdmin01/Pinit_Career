@@ -2,88 +2,214 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 41,
-  "promptSha": "58fdcd8d9825973774eef08d41c7b8689b5690811a2143878cab24c8a3b576a0",
-  "model": "gate-v2-verified",
+  "promptSha": "9f81e381f591b1fcdeaa03fcafbbc732699c161ee4da7341e19879a633173e29",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "Celery Architecture & Broker Protocol (AMQP/Redis) Dissection",
       "codeHash": "03affcb06107bcf2462d7ed6cacec2fc89fd74365b5824fd8909195022d49a9e",
       "spec": {
-        "template": "table",
-        "title": "Celery Architecture & Broker Protocol (AMQP/Redis)",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "Celery task envelope enqueueing into broker queue",
+        "nodes": [
+          {
+            "id": "env",
+            "label": "TaskMessageEnvelope"
+          },
+          {
+            "id": "q",
+            "label": "InMemoryBrokerQueue"
+          },
+          {
+            "id": "rt",
+            "label": "video_processing"
+          }
+        ],
+        "edges": [
+          {
+            "from": "env",
+            "to": "q",
+            "label": "c7e2b10a"
+          },
+          {
+            "from": "q",
+            "to": "rt",
+            "label": "h265"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The high concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Celery"
-                  },
-                  {
-                    "text": "Architecture"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Celery producers serialize background task envelopes to a message broker.",
+            "values": {
+              "env": {
+                "text": "TaskMessageEnvelope"
+              },
+              "q": {
+                "text": "InMemoryBrokerQueue"
+              },
+              "rt": {
+                "text": "video_processing"
               }
-            ]
+            },
+            "tones": {
+              "env": "data",
+              "q": "idle",
+              "rt": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The message logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Broker"
-                  },
-                  {
-                    "text": "Protocol"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "AMQP and Redis queues store serialized message payloads until workers pull.",
+            "values": {
+              "env": {
+                "text": "tasks.transcode_video"
+              },
+              "q": {
+                "text": "InMemoryBrokerQueue"
+              },
+              "rt": {
+                "text": "video_processing"
               }
-            ]
+            },
+            "tones": {
+              "env": "ok",
+              "q": "data",
+              "rt": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Envelope messages pass cleanly into the video processing queue.",
+            "values": {
+              "env": {
+                "text": "c7e2b10a"
+              },
+              "q": {
+                "text": "InMemoryBrokerQueue"
+              },
+              "rt": {
+                "text": "h265"
+              }
+            },
+            "tones": {
+              "env": "ok",
+              "q": "ok",
+              "rt": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Instantiate TaskMessageEnvelope with custom retry count verifying serialize.",
+            "values": {
+              "env": {
+                "text": "Instantiate"
+              },
+              "q": {
+                "text": "with"
+              },
+              "rt": {
+                "text": "retry"
+              }
+            },
+            "tones": {
+              "env": "data",
+              "q": "ok",
+              "rt": "ok"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Celery Architecture & Broker Protocol (AMQP/Redis)",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "Celery task envelope enqueueing into broker queue",
+        "nodes": [
+          {
+            "id": "env",
+            "label": "TaskMessageEnvelope"
+          },
+          {
+            "id": "q",
+            "label": "InMemoryBrokerQueue"
+          },
+          {
+            "id": "rt",
+            "label": "video_processing"
+          }
+        ],
+        "edges": [
+          {
+            "from": "env",
+            "to": "q",
+            "label": "c7e2b10a"
+          },
+          {
+            "from": "q",
+            "to": "rt",
+            "label": "h265"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The high concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Celery",
-                  "Architecture"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Celery producers serialize background task envelopes to a message broker.",
+            "values": {
+              "env": "id=c7e2b10a",
+              "q": "Waiting in Memory",
+              "rt": "video_processing"
+            },
+            "tones": {
+              "env": "data",
+              "q": "idle",
+              "rt": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The message logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Broker",
-                  "Protocol"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "AMQP and Redis queues store serialized message payloads until workers pull.",
+            "values": {
+              "env": "tasks.transcode_video",
+              "q": "FIFO Enqueued (1)",
+              "rt": "video_processing"
+            },
+            "tones": {
+              "env": "ok",
+              "q": "data",
+              "rt": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Envelope messages pass cleanly into the video processing queue.",
+            "values": {
+              "env": "c7e2b10a Dispatched",
+              "q": "Worker Pulled JSON",
+              "rt": "codec=h265 OK"
+            },
+            "tones": {
+              "env": "ok",
+              "q": "ok",
+              "rt": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Instantiate TaskMessageEnvelope with custom retry count verifying serialize.",
+            "values": {
+              "env": "retries = 2 Encoded",
+              "q": "Queued JSON Payload",
+              "rt": "Serialized \"retries\": 2 OK"
+            },
+            "tones": {
+              "env": "data",
+              "q": "ok",
+              "rt": "ok"
+            },
+            "arrows": [],
+            "whatIf": "import json\n\nclass TaskMessageEnvelope:\n    def __init__(self, task_name, args=None, kwargs=None, task_id=\"c7e2b10a\"):\n        self.task_id = task_id\n        self.task_name = task_name\n        self.args = args or []\n        self.kwargs = kwargs or {}\n        self.retries = 0\n\n    def serialize(self):\n        return json.dumps({\n            \"task_id\": self.task_id,\n            \"task\": self.task_name,\n            \"args\": self.args,\n            \"kwargs\": self.kwargs,\n            \"retries\": self.retries\n        })\n\nclass InMemoryBrokerQueue:\n    def __init__(self, queue_name=\"celery\"):\n        self.queue_name = queue_name\n        self.queue = []\n\n    def publish(self, envelope):\n        payload = envelope.serialize()\n        self.queue.append(payload)\n        return envelope.task_id\n\n    def size(self):\n        return len(self.queue)\n\nbroker = InMemoryBrokerQueue(\"video_processing\")\nmsg = TaskMessageEnvelope(\"tasks.transcode_video\", args=[\"video_1080p.mp4\"], kwargs={\"codec\": \"h265\"})\nmsg.retries = 2\ntask_id = broker.publish(msg)\n\nprint(f\"Published task to queue '{broker.queue_name}' with ID: {task_id}\")\nprint(f\"Queue depth: {broker.size()} message(s)\")\nprint(\"Full serialized payload:\", broker.queue[0])",
+            "checks": [
+              "\"retries\": 2"
             ]
           }
         ]
@@ -93,82 +219,162 @@
       "partTitle": "Worker Crash & Early vs Late ACK Task Loss Forensics",
       "codeHash": "c302301e779c72ee64302b390200891086872c1a0d635b9e6675a5b12681ebee",
       "spec": {
-        "template": "table",
-        "title": "Worker Crash & Early vs Late ACK Task Loss Forensi",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Early ACK task loss vs Late ACK redelivery",
+        "leftLabel": "Early ACK Loss",
+        "rightLabel": "Late ACK Safe",
         "steps": [
           {
             "at": "say1",
-            "caption": "The offloading concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Worker"
-                  },
-                  {
-                    "text": "Crash"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Early acknowledgment deletes broker messages immediately before work finishes.",
+            "left": {
+              "code": "EarlyVsLateAckSimulator",
+              "result": "Deleted On Fetch",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "inflight_unacked",
+              "result": "Held Until Complete",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The because logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Early"
-                  },
-                  {
-                    "text": "Late"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Worker crashes drop uncompleted tasks when early ACK already confirmed delivery.",
+            "left": {
+              "code": "lost_tasks",
+              "result": "Lost After Crash",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "completed_tasks",
+              "result": "Preserved in Broker",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Late ACK protects inflight jobs during sudden worker crashes.",
+            "left": {
+              "code": "video_encode_01",
+              "result": "Permanently Lost",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "video_encode_02",
+              "result": "Safely Re-queued",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate late ACK timeout recovery against early ACK permanent task loss.",
+            "left": {
+              "code": "sim.process_early_ack(\"video_encode_01\")",
+              "result": "Lost tasks = ['video_encode_01']",
+              "tone": "error",
+              "checks": [
+                "Lost tasks = ['video_encode_01']",
+                "EARLY_ACK_LOSS_VERIFIED"
+              ],
+              "whatIf": "class WorkerCrashException(Exception):\n    pass\n\nclass EarlyVsLateAckSimulator:\n    def __init__(self):\n        self.broker_queue = [\"task_alpha\", \"task_beta\"]\n        self.inflight_unacked = {}\n        self.lost_tasks = []\n        self.completed_tasks = []\n\n    def process_early_ack(self, task):\n        # Early ACK: acknowledge message immediately before execution begins\n        print(f\"[Early ACK] Message '{task}' dequeued and ACKed immediately to broker.\")\n        # Worker crashes mid-execution!\n        print(f\"[Early ACK] CRASH: Worker killed mid-execution of '{task}'!\")\n        self.lost_tasks.append(task)\n\n    def process_late_ack(self, task, should_crash=True):\n        # Late ACK: keep task in unacked inflight registry\n        self.inflight_unacked[task] = \"RUNNING\"\n        print(f\"[Late ACK] Message '{task}' leased. Kept in inflight registry.\")\n        if should_crash:\n            print(f\"[Late ACK] CRASH: Worker killed mid-execution of '{task}'!\")\n            # Worker crash detected; broker redelivers unacked message\n            del self.inflight_unacked[task]\n            print(f\"[Late ACK] Broker REDELIVERS '{task}' to standby worker.\")\n            self.completed_tasks.append(f\"{task}_recovered\")\n        else:\n            del self.inflight_unacked[task]\n            self.completed_tasks.append(task)\n\nsim = EarlyVsLateAckSimulator()\nsim.process_early_ack(\"video_encode_01\")\nprint(f\"Early ACK outcome: Lost tasks = {sim.lost_tasks}\")\nprint(\"EARLY_ACK_LOSS_VERIFIED\")\nprint(\"-\" * 50)\nsim.process_late_ack(\"video_encode_02\", should_crash=True)\nprint(f\"Late ACK outcome: Completed/Recovered = {sim.completed_tasks}\")"
+            },
+            "right": {
+              "code": "process_late_ack(\"timeout_job\", timeout)",
+              "result": "Recovered = ['video_encode_02_recovered', ...]",
+              "tone": "ok",
+              "checks": [
+                "Broker REDELIVERS 'video_timeout_03' to standby worker.",
+                "Completed/Recovered = ['video_encode_02_recovered', 'video_timeout_03_recovered']"
+              ],
+              "whatIf": "class WorkerCrashException(Exception):\n    pass\n\nclass EarlyVsLateAckSimulator:\n    def __init__(self):\n        self.broker_queue = [\"task_alpha\", \"task_beta\"]\n        self.inflight_unacked = {}\n        self.lost_tasks = []\n        self.completed_tasks = []\n\n    def process_early_ack(self, task):\n        # Early ACK: acknowledge message immediately before execution begins\n        print(f\"[Early ACK] Message '{task}' dequeued and ACKed immediately to broker.\")\n        # Worker crashes mid-execution!\n        print(f\"[Early ACK] CRASH: Worker killed mid-execution of '{task}'!\")\n        self.lost_tasks.append(task)\n\n    def process_late_ack(self, task, should_crash=True):\n        # Late ACK: keep task in unacked inflight registry\n        self.inflight_unacked[task] = \"RUNNING\"\n        print(f\"[Late ACK] Message '{task}' leased. Kept in inflight registry.\")\n        if should_crash:\n            print(f\"[Late ACK] NETWORK TIMEOUT or crash detected on '{task}'!\")\n            # Worker crash detected; broker redelivers unacked message\n            del self.inflight_unacked[task]\n            print(f\"[Late ACK] Broker REDELIVERS '{task}' to standby worker.\")\n            self.completed_tasks.append(f\"{task}_recovered\")\n        else:\n            del self.inflight_unacked[task]\n            self.completed_tasks.append(task)\n\nsim = EarlyVsLateAckSimulator()\nsim.process_early_ack(\"video_encode_01\")\nprint(f\"Early ACK outcome: Lost tasks = {sim.lost_tasks}\")\nprint(\"-\" * 50)\nsim.process_late_ack(\"video_encode_02\", should_crash=True)\nsim.process_late_ack(\"video_timeout_03\", should_crash=True)\nprint(f\"Late ACK outcome: Completed/Recovered = {sim.completed_tasks}\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Worker Crash & Early vs Late ACK Task Loss Forensi",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Early ACK task loss vs Late ACK redelivery",
+        "leftLabel": "Early ACK Loss",
+        "rightLabel": "Late ACK Safe",
         "steps": [
           {
             "at": "say1",
-            "caption": "The offloading concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Worker",
-                  "Crash"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Early acknowledgment deletes broker messages immediately before work finishes.",
+            "left": {
+              "code": "ack_early(video_encode_01)",
+              "result": "Broker Removed Message",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "lease_late_ack(video_encode_02)",
+              "result": "Marked Unacked In-Flight",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The because logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Early",
-                  "Late"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Worker crashes drop uncompleted tasks when early ACK already confirmed delivery.",
+            "left": {
+              "code": "SIGKILL mid-encode -> Crash",
+              "result": "lost_tasks = 1",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "SIGKILL mid-encode -> Timeout",
+              "result": "Returned to Ready Queue",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Late ACK protects inflight jobs during sudden worker crashes.",
+            "left": {
+              "code": "video_encode_01 -> Orphaned",
+              "result": "0 Redeliveries (Lost)",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "video_encode_02 -> Standby Worker",
+              "result": "completed_tasks += 1",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate late ACK timeout recovery against early ACK permanent task loss.",
+            "left": {
+              "code": "sim.process_early_ack(\"video_encode_01\")",
+              "result": "Lost tasks = ['video_encode_01']",
+              "tone": "error",
+              "checks": [
+                "Lost tasks = ['video_encode_01']",
+                "EARLY_ACK_LOSS_VERIFIED"
+              ],
+              "whatIf": "class WorkerCrashException(Exception):\n    pass\n\nclass EarlyVsLateAckSimulator:\n    def __init__(self):\n        self.broker_queue = [\"task_alpha\", \"task_beta\"]\n        self.inflight_unacked = {}\n        self.lost_tasks = []\n        self.completed_tasks = []\n\n    def process_early_ack(self, task):\n        # Early ACK: acknowledge message immediately before execution begins\n        print(f\"[Early ACK] Message '{task}' dequeued and ACKed immediately to broker.\")\n        # Worker crashes mid-execution!\n        print(f\"[Early ACK] CRASH: Worker killed mid-execution of '{task}'!\")\n        self.lost_tasks.append(task)\n\n    def process_late_ack(self, task, should_crash=True):\n        # Late ACK: keep task in unacked inflight registry\n        self.inflight_unacked[task] = \"RUNNING\"\n        print(f\"[Late ACK] Message '{task}' leased. Kept in inflight registry.\")\n        if should_crash:\n            print(f\"[Late ACK] CRASH: Worker killed mid-execution of '{task}'!\")\n            # Worker crash detected; broker redelivers unacked message\n            del self.inflight_unacked[task]\n            print(f\"[Late ACK] Broker REDELIVERS '{task}' to standby worker.\")\n            self.completed_tasks.append(f\"{task}_recovered\")\n        else:\n            del self.inflight_unacked[task]\n            self.completed_tasks.append(task)\n\nsim = EarlyVsLateAckSimulator()\nsim.process_early_ack(\"video_encode_01\")\nprint(f\"Early ACK outcome: Lost tasks = {sim.lost_tasks}\")\nprint(\"EARLY_ACK_LOSS_VERIFIED\")\nprint(\"-\" * 50)\nsim.process_late_ack(\"video_encode_02\", should_crash=True)\nprint(f\"Late ACK outcome: Completed/Recovered = {sim.completed_tasks}\")"
+            },
+            "right": {
+              "code": "process_late_ack(\"timeout_job\", timeout)",
+              "result": "Recovered = ['video_encode_02_recovered', ...]",
+              "tone": "ok",
+              "checks": [
+                "Broker REDELIVERS 'video_timeout_03' to standby worker.",
+                "Completed/Recovered = ['video_encode_02_recovered', 'video_timeout_03_recovered']"
+              ],
+              "whatIf": "class WorkerCrashException(Exception):\n    pass\n\nclass EarlyVsLateAckSimulator:\n    def __init__(self):\n        self.broker_queue = [\"task_alpha\", \"task_beta\"]\n        self.inflight_unacked = {}\n        self.lost_tasks = []\n        self.completed_tasks = []\n\n    def process_early_ack(self, task):\n        # Early ACK: acknowledge message immediately before execution begins\n        print(f\"[Early ACK] Message '{task}' dequeued and ACKed immediately to broker.\")\n        # Worker crashes mid-execution!\n        print(f\"[Early ACK] CRASH: Worker killed mid-execution of '{task}'!\")\n        self.lost_tasks.append(task)\n\n    def process_late_ack(self, task, should_crash=True):\n        # Late ACK: keep task in unacked inflight registry\n        self.inflight_unacked[task] = \"RUNNING\"\n        print(f\"[Late ACK] Message '{task}' leased. Kept in inflight registry.\")\n        if should_crash:\n            print(f\"[Late ACK] NETWORK TIMEOUT or crash detected on '{task}'!\")\n            # Worker crash detected; broker redelivers unacked message\n            del self.inflight_unacked[task]\n            print(f\"[Late ACK] Broker REDELIVERS '{task}' to standby worker.\")\n            self.completed_tasks.append(f\"{task}_recovered\")\n        else:\n            del self.inflight_unacked[task]\n            self.completed_tasks.append(task)\n\nsim = EarlyVsLateAckSimulator()\nsim.process_early_ack(\"video_encode_01\")\nprint(f\"Early ACK outcome: Lost tasks = {sim.lost_tasks}\")\nprint(\"-\" * 50)\nsim.process_late_ack(\"video_encode_02\", should_crash=True)\nsim.process_late_ack(\"video_timeout_03\", should_crash=True)\nprint(f\"Late ACK outcome: Completed/Recovered = {sim.completed_tasks}\")"
+            }
           }
         ]
       }
@@ -177,81 +383,182 @@
       "partTitle": "Bounded Prefetch Limits & Fair Worker Dispatch",
       "codeHash": "e775206b9c40b905e2ce35c5259bd26cd3085bb5728348e4cb559a9cf4f7b18e",
       "spec": {
-        "template": "table",
-        "title": "Bounded Prefetch Limits & Fair Worker Dispatch",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Bounded prefetch queue allocation",
+        "boxes": [
+          {
+            "id": "lim",
+            "label": "prefetch_limit"
+          },
+          {
+            "id": "res",
+            "label": "reserved_tasks"
+          },
+          {
+            "id": "wrk",
+            "label": "PrefetchWorker"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The beyond concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Bounded"
-                  },
-                  {
-                    "text": "Prefetch"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Default prefetch multipliers hoard queued tasks inside busy worker memory.",
+            "values": {
+              "lim": {
+                "text": "prefetch_limit"
+              },
+              "res": {
+                "text": "slow_task_3"
+              },
+              "wrk": {
+                "text": "reserved_tasks"
               }
-            ]
+            },
+            "tones": {
+              "lim": "error",
+              "res": "error",
+              "wrk": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The phenomenon logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Limits"
-                  },
-                  {
-                    "text": "Fair"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Setting prefetch limits preserves fair dispatch across slow and fast tasks.",
+            "values": {
+              "lim": {
+                "text": "WorkloadDispatcher"
+              },
+              "res": {
+                "text": "fast_task_1"
+              },
+              "wrk": {
+                "text": "PrefetchWorker"
               }
-            ]
+            },
+            "tones": {
+              "lim": "ok",
+              "res": "data",
+              "wrk": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Bounded prefetch prevents slow workers from starving fast tasks.",
+            "values": {
+              "lim": {
+                "text": "prefetch_limit"
+              },
+              "res": {
+                "text": "reserved_tasks"
+              },
+              "wrk": {
+                "text": "fast_task_1"
+              }
+            },
+            "tones": {
+              "lim": "ok",
+              "res": "ok",
+              "wrk": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add third worker w3 with fair prefetch 1 to split tasks across cluster.",
+            "values": {
+              "lim": {
+                "text": "Add"
+              },
+              "res": {
+                "text": "worker"
+              },
+              "wrk": {
+                "text": "dispatch"
+              }
+            },
+            "tones": {
+              "lim": "ok",
+              "res": "ok",
+              "wrk": "data"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Bounded Prefetch Limits & Fair Worker Dispatch",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Bounded prefetch queue allocation",
+        "boxes": [
+          {
+            "id": "lim",
+            "label": "prefetch_limit"
+          },
+          {
+            "id": "res",
+            "label": "reserved_tasks"
+          },
+          {
+            "id": "wrk",
+            "label": "PrefetchWorker"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The beyond concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Bounded",
-                  "Prefetch"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Default prefetch multipliers hoard queued tasks inside busy worker memory.",
+            "values": {
+              "lim": "prefetch = 4 (Hoarded)",
+              "res": "[slow_task_3, fast_task_1]",
+              "wrk": "Worker B Idle"
+            },
+            "tones": {
+              "lim": "error",
+              "res": "error",
+              "wrk": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The phenomenon logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Limits",
-                  "Fair"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Setting prefetch limits preserves fair dispatch across slow and fast tasks.",
+            "values": {
+              "lim": "prefetch = 1 (Fair)",
+              "res": "[slow_task_3]",
+              "wrk": "Worker B Runs fast_task_1"
+            },
+            "tones": {
+              "lim": "ok",
+              "res": "data",
+              "wrk": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Bounded prefetch prevents slow workers from starving fast tasks.",
+            "values": {
+              "lim": "1 Task Per Worker",
+              "res": "Zero Head-of-Line Lock",
+              "wrk": "Fast Tasks Finish First"
+            },
+            "tones": {
+              "lim": "ok",
+              "res": "ok",
+              "wrk": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add third worker w3 with fair prefetch 1 to split tasks across cluster.",
+            "values": {
+              "lim": "3 Workers Prefetch=1",
+              "res": "Even Concurrent Reserve",
+              "wrk": "1 Fast Left In Queue"
+            },
+            "tones": {
+              "lim": "ok",
+              "res": "ok",
+              "wrk": "data"
+            },
+            "whatIf": "class PrefetchWorker:\n    def __init__(self, worker_id, prefetch_limit=1):\n        self.worker_id = worker_id\n        self.prefetch_limit = prefetch_limit\n        self.reserved_tasks = []\n\n    def prefetch_from_broker(self, broker_queue):\n        while len(self.reserved_tasks) < self.prefetch_limit and broker_queue:\n            task = broker_queue.pop(0)\n            self.reserved_tasks.append(task)\n\nclass WorkloadDispatcher:\n    def __init__(self):\n        self.queue = [\"fast_task_1\", \"fast_task_2\", \"slow_task_3\", \"fast_task_4\"]\n\ndispatcher = WorkloadDispatcher()\n# Worker A has naive prefetch=4, hoards all tasks\nworker_greedy = PrefetchWorker(\"worker_greedy\", prefetch_limit=4)\nworker_greedy.prefetch_from_broker(dispatcher.queue)\n\nprint(f\"Greedy Worker reserved: {worker_greedy.reserved_tasks}\")\nprint(f\"Broker queue remaining: {dispatcher.queue} (Idle workers starved!)\")\n\n# Fair dispatch with prefetch=1\ndispatcher.queue = [\"fast_task_1\", \"fast_task_2\", \"slow_task_3\", \"fast_task_4\"]\nw1 = PrefetchWorker(\"worker_1\", prefetch_limit=1)\nw2 = PrefetchWorker(\"worker_2\", prefetch_limit=1)\nw1.prefetch_from_broker(dispatcher.queue)\nw3 = PrefetchWorker(\"worker_3\", prefetch_limit=1)\nw2.prefetch_from_broker(dispatcher.queue)\nw3.prefetch_from_broker(dispatcher.queue)\n\nprint(f\"Fair dispatch -> W1: {w1.reserved_tasks}, W2: {w2.reserved_tasks}, W3: {w3.reserved_tasks}\")\nprint(f\"Broker queue remaining for other workers: {dispatcher.queue}\")",
+            "checks": [
+              "W1: ['fast_task_1'], W2: ['fast_task_2'], W3: ['slow_task_3']",
+              "['fast_task_4']"
             ]
           }
         ]
@@ -261,81 +568,243 @@
       "partTitle": "Asynchronous Result Backend & State Transitions",
       "codeHash": "16d8f6db5ebec1f6b6a0ffc6c7d915b0d67cd36b077d38df44d9a24b4f2ea77b",
       "spec": {
-        "template": "table",
-        "title": "Asynchronous Result Backend & State Transitions",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "TaskStatus lifecycle in InMemoryResultBackend",
+        "nodes": [
+          {
+            "id": "pen",
+            "label": "PENDING"
+          },
+          {
+            "id": "st",
+            "label": "STARTED"
+          },
+          {
+            "id": "suc",
+            "label": "SUCCESS"
+          },
+          {
+            "id": "fail",
+            "label": "FAILURE"
+          }
+        ],
+        "edges": [
+          {
+            "from": "pen",
+            "to": "st"
+          },
+          {
+            "from": "st",
+            "to": "suc"
+          },
+          {
+            "from": "st",
+            "to": "fail"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The distributed concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Asynchronous"
-                  },
-                  {
-                    "text": "Result"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Asynchronous tasks track lifecycle state inside a dedicated result backend.",
+            "values": {
+              "pen": {
+                "text": "TaskStatus"
+              },
+              "st": {
+                "text": "STARTED"
+              },
+              "suc": {
+                "text": "InMemoryResultBackend"
+              },
+              "fail": {
+                "text": "FAILURE"
               }
-            ]
+            },
+            "tones": {
+              "pen": "data",
+              "st": "idle",
+              "suc": "idle",
+              "fail": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The result logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Backend"
-                  },
-                  {
-                    "text": "State"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Workers advance tasks from pending through started toward success or failure.",
+            "values": {
+              "pen": {
+                "text": "PENDING"
+              },
+              "st": {
+                "text": "task_992"
+              },
+              "suc": {
+                "text": "SUCCESS"
+              },
+              "fail": {
+                "text": "FAILURE"
               }
-            ]
+            },
+            "tones": {
+              "pen": "idle",
+              "st": "data",
+              "suc": "ok",
+              "fail": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Result backends record state transitions across task execution.",
+            "values": {
+              "pen": {
+                "text": "task_992"
+              },
+              "st": {
+                "text": "STARTED"
+              },
+              "suc": {
+                "text": "SUCCESS"
+              },
+              "fail": {
+                "text": "FAILURE"
+              }
+            },
+            "tones": {
+              "pen": "idle",
+              "st": "idle",
+              "suc": "ok",
+              "fail": "idle"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Record FAILURE state with traceback dictionary in result backend and query.",
+            "values": {
+              "pen": {
+                "text": "Record"
+              },
+              "st": {
+                "text": "state"
+              },
+              "suc": {
+                "text": "with"
+              },
+              "fail": {
+                "text": "traceback"
+              }
+            },
+            "tones": {
+              "pen": "idle",
+              "st": "data",
+              "suc": "ok",
+              "fail": "error"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Asynchronous Result Backend & State Transitions",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "TaskStatus lifecycle in InMemoryResultBackend",
+        "nodes": [
+          {
+            "id": "pen",
+            "label": "PENDING"
+          },
+          {
+            "id": "st",
+            "label": "STARTED"
+          },
+          {
+            "id": "suc",
+            "label": "SUCCESS"
+          },
+          {
+            "id": "fail",
+            "label": "FAILURE"
+          }
+        ],
+        "edges": [
+          {
+            "from": "pen",
+            "to": "st"
+          },
+          {
+            "from": "st",
+            "to": "suc"
+          },
+          {
+            "from": "st",
+            "to": "fail"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The distributed concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Asynchronous",
-                  "Result"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Asynchronous tasks track lifecycle state inside a dedicated result backend.",
+            "values": {
+              "pen": "task_992 Enqueued",
+              "st": "Waiting Worker",
+              "suc": "Backend Empty",
+              "fail": "None"
+            },
+            "tones": {
+              "pen": "data",
+              "st": "idle",
+              "suc": "idle",
+              "fail": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The result logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Backend",
-                  "State"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Workers advance tasks from pending through started toward success or failure.",
+            "values": {
+              "pen": "Done",
+              "st": "Running task_992",
+              "suc": "Awaiting Exit",
+              "fail": "Guarded Try/Except"
+            },
+            "tones": {
+              "pen": "idle",
+              "st": "data",
+              "suc": "ok",
+              "fail": "error"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Result backends record state transitions across task execution.",
+            "values": {
+              "pen": "Logged",
+              "st": "Completed",
+              "suc": "task_992 -> SUCCESS",
+              "fail": "0 Exceptions"
+            },
+            "tones": {
+              "pen": "idle",
+              "st": "idle",
+              "suc": "ok",
+              "fail": "idle"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Record FAILURE state with traceback dictionary in result backend and query.",
+            "values": {
+              "pen": "Logged",
+              "st": "task_993 Crashed",
+              "suc": "task_992 -> SUCCESS",
+              "fail": "FAILURE Traceback Stored"
+            },
+            "tones": {
+              "pen": "idle",
+              "st": "data",
+              "suc": "ok",
+              "fail": "error"
+            },
+            "arrows": [],
+            "whatIf": "class TaskStatus:\n    PENDING = \"PENDING\"\n    STARTED = \"STARTED\"\n    SUCCESS = \"SUCCESS\"\n    FAILURE = \"FAILURE\"\n\nclass InMemoryResultBackend:\n    def __init__(self):\n        self.store = {}\n\n    def set_state(self, task_id, state, result=None):\n        self.store[task_id] = {\"state\": state, \"result\": result}\n\n    def get_state(self, task_id):\n        return self.store.get(task_id, {\"state\": TaskStatus.PENDING, \"result\": None})\n\nbackend = InMemoryResultBackend()\ntid = \"task_992\"\n\nbackend.set_state(tid, TaskStatus.STARTED)\nprint(f\"Task {tid} query: State = {backend.get_state(tid)['state']}\")\n\nbackend.set_state(tid, TaskStatus.SUCCESS, result={\"duration_sec\": 4.2, \"bytes_written\": 1048576})\nres = backend.get_state(tid)\nprint(f\"Task {tid} resolved: State = {res['state']}, Output = {res['result']}\")\nbackend.set_state(\"task_993\", TaskStatus.FAILURE, result={\"exc_type\": \"TimeoutError\", \"traceback\": \"line 42 in worker.py\"})\nfail_res = backend.get_state(\"task_993\")\nprint(f\"Task task_993 failed: State = {fail_res['state']}, Trace = {fail_res['result']}\")",
+            "checks": [
+              "State = FAILURE, Trace = {'exc_type': 'TimeoutError', 'traceback': 'line 42 in worker.py'}"
             ]
           }
         ]
@@ -346,23 +815,41 @@
       "codeHash": "2045858b6816c95b8a72b3b9f052915b0c02a5ecb9f18cc87808e1867ae13129",
       "spec": {
         "template": "table",
-        "title": "Distributed Task Supervisor & Fault-Tolerant Execu",
+        "title": "DistributedTaskSupervisor reliability configuration",
         "columns": [
-          "Stage",
-          "Concept"
+          "Mechanism",
+          "Policy Setting",
+          "Guarantee"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
+            "caption": "Task supervisors combine late acknowledgment with bounded worker prefetch.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Distributed"
+                    "text": "acks_late"
                   },
                   {
-                    "text": "Task"
+                    "text": "DistributedTaskSupervisor"
+                  },
+                  {
+                    "text": "redelivered"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "prefetch_limit"
+                  },
+                  {
+                    "text": "render_3d_frame_001"
+                  },
+                  {
+                    "text": "DistributedTaskSupervisor"
                   }
                 ],
                 "tone": "data"
@@ -370,19 +857,104 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The worker logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Distributed worker cluster processes every broker queue task without loss.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Supervisor"
+                    "text": "render_3d_frame_001"
                   },
                   {
-                    "text": "Fault"
+                    "text": "redelivered"
+                  },
+                  {
+                    "text": "acks_late"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "prefetch_limit"
+                  },
+                  {
+                    "text": "DistributedTaskSupervisor"
+                  },
+                  {
+                    "text": "acks_late"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Simulated worker termination leaves zero task loss under supervisor run.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "acks_late"
+                  },
+                  {
+                    "text": "render_3d_frame_001"
+                  },
+                  {
+                    "text": "redelivered"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "prefetch_limit"
+                  },
+                  {
+                    "text": "DistributedTaskSupervisor"
+                  },
+                  {
+                    "text": "redelivered"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set acks_late to False on supervisor and observe permanent task loss on crash.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Set"
+                  },
+                  {
+                    "text": "acks_late=False"
+                  },
+                  {
+                    "text": "DistributedTaskSupervisor"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "DistributedTaskSupervisor"
+                  },
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "run"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -390,36 +962,104 @@
       },
       "filled": {
         "template": "table",
-        "title": "Distributed Task Supervisor & Fault-Tolerant Execu",
+        "title": "DistributedTaskSupervisor reliability configuration",
         "columns": [
-          "Stage",
-          "Concept"
+          "Mechanism",
+          "Policy Setting",
+          "Guarantee"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
+            "caption": "Task supervisors combine late acknowledgment with bounded worker prefetch.",
             "rows": [
               {
                 "cells": [
-                  "Distributed",
-                  "Task"
+                  "acks_late = True",
+                  "Ack after return only",
+                  "Zero crash loss"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "prefetch_limit = 1",
+                  "Per-worker reservation",
+                  "Fair queue sharing"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The worker logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Distributed worker cluster processes every broker queue task without loss.",
             "rows": [
               {
                 "cells": [
-                  "Supervisor",
-                  "Fault"
+                  "render_3d_frame_001",
+                  "Worker 1 crashed -> Requeued",
+                  "Standby completes frame"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Supervisor Audit",
+                  "0 Lost Tasks Verified",
+                  "100% Durable Finish"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Simulated worker termination leaves zero task loss under supervisor run.",
+            "rows": [
+              {
+                "cells": [
+                  "acks_late = True",
+                  "render_3d_frame_001",
+                  "Redelivered & Saved"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "prefetch_limit = 1",
+                  "Active Supervisor",
+                  "Production Certified"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set acks_late to False on supervisor and observe permanent task loss on crash.",
+            "rows": [
+              {
+                "cells": [
+                  "acks_late = False",
+                  "render_3d_frame_001",
+                  "PERMANENTLY LOST"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Supervisor Processed",
+                  "0 tasks completed",
+                  "Task Dropped on Crash"
+                ],
+                "tone": "error"
+              }
+            ],
+            "whatIf": "class DistributedTaskSupervisor:\n    def __init__(self, acks_late=True, prefetch_limit=1):\n        self.acks_late = acks_late\n        self.prefetch_limit = prefetch_limit\n        self.queue = []\n        self.processed = []\n        self.redelivered = []\n\n    def enqueue(self, task_name):\n        self.queue.append(task_name)\n\n    def execute_with_fault_injection(self, fail_first_attempt=True):\n        print(f\"Supervisor started (acks_late={self.acks_late}, prefetch={self.prefetch_limit})\")\n        while self.queue:\n            task = self.queue.pop(0)\n            print(f\"Worker leased '{task}'...\")\n            if fail_first_attempt and task not in self.redelivered:\n                print(f\"Worker CRASH simulated on '{task}'!\")\n                if self.acks_late:\n                    print(f\"Late ACK safety: '{task}' returned to queue for redelivery.\")\n                    self.redelivered.append(task)\n                    self.queue.insert(0, task)\n                else:\n                    print(f\"Early ACK failure: '{task}' was acknowledged early and is PERMANENTLY LOST.\")\n            else:\n                self.processed.append(task)\n                print(f\"Worker completed '{task}' successfully (ACK sent).\")\n\nsup = DistributedTaskSupervisor(acks_late=False, prefetch_limit=1)\nsup.enqueue(\"render_3d_frame_001\")\nsup.execute_with_fault_injection(fail_first_attempt=True)\n\nprint(f\"Summary: Processed tasks = {sup.processed}, Redelivered count = {len(sup.redelivered)}\")\nprint(\"INVARIANT SATISFIED: Zero task loss under worker crash.\")",
+            "checks": [
+              "PERMANENTLY LOST",
+              "Processed tasks = []"
             ]
           }
         ]

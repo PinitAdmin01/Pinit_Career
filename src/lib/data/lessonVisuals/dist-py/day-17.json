@@ -2,231 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 17,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Merging without coordination",
       "codeHash": "6c94a19b5771b55c50277aa5c332801c595ec6b3df6cbeb14eccf51e02d03b43",
       "spec": {
-        "template": "flow",
-        "title": "Merging without coordination — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Merging without coo...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Merging without coordination",
+        "actors": [
+          "branch_counts",
+          "naive_total",
+          "report"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Merging without coordination [D.Pone.Sone].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Merging without coo... [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A CRDT (conflict-free replicated data type) is a data structure.",
+            "activeActor": "branch_counts",
+            "messages": [
+              {
+                "from": "branch_counts",
+                "to": "naive_total",
+                "label": {
+                  "var": "branch_counts",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "naive_total",
+                "to": "report",
+                "label": {
+                  "var": "naive_total",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The merge must be commutative (order does not matter), associative.",
+            "activeActor": "naive_total",
+            "messages": [
+              {
+                "from": "branch_counts",
+                "to": "naive_total",
+                "label": {
+                  "var": "branch_counts",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "naive_total",
+                "to": "report",
+                "label": {
+                  "var": "naive_total",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Merging without coordination.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Choosing the right structure makes the merge rule simple and safe.",
+            "activeActor": "report",
+            "messages": [
+              {
+                "from": "branch_counts",
+                "to": "naive_total",
+                "label": {
+                  "var": "branch_counts",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "naive_total",
+                "to": "report",
+                "label": {
+                  "var": "naive_total",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Merging without coordination — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Merging without coo...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Merging without coordination",
+        "actors": [
+          "branch_counts",
+          "naive_total",
+          "report"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Merging without coordination [D17.P1.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Merging without coo... [D17.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A CRDT (conflict-free replicated data type) is a data structure.",
+            "messages": [
+              {
+                "from": "branch_counts",
+                "to": "naive_total",
+                "label": "{'A': 5, 'B': 3}",
+                "tone": "data"
+              },
+              {
+                "from": "naive_total",
+                "to": "report",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "branch_counts"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The merge must be commutative (order does not matter), associative.",
+            "messages": [
+              {
+                "from": "branch_counts",
+                "to": "naive_total",
+                "label": "{'A': 5, 'B': 3}",
+                "tone": "data"
+              },
+              {
+                "from": "naive_total",
+                "to": "report",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "naive_total"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Merging without coordination [D17.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Choosing the right structure makes the merge rule simple and safe.",
+            "messages": [
+              {
+                "from": "branch_counts",
+                "to": "naive_total",
+                "label": "{'A': 5, 'B': 3}",
+                "tone": "data"
+              },
+              {
+                "from": "naive_total",
+                "to": "report",
+                "label": "8",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "report"
           }
         ]
       }
@@ -235,82 +173,91 @@
       "partTitle": "The G-Counter",
       "codeHash": "a3346c1903602f84d391b4ccef2575780570ab6d5679771e37bf1dab27729fc1",
       "spec": {
-        "template": "table",
-        "title": "Grow-only counter replica increments and element-wise max merge",
-        "columns": [
+        "template": "sequence",
+        "title": "The G-Counter",
+        "actors": [
+          "self",
           "node",
-          "counts"
+          "a"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A grow-only counter keeps one entry per node.",
-            "rows": [
+            "caption": "A grow-only counter (G-Counter) keeps one entry per node.",
+            "activeActor": "self",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "A"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
+                "from": "self",
+                "to": "node",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "node",
+                "to": "a",
+                "label": {
+                  "var": "node",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The value is the sum of entries while merge takes maximum.",
-            "rows": [
+            "caption": "The value is the sum of all entries.",
+            "activeActor": "node",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "A"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
-                "tone": "ok"
+                "from": "self",
+                "to": "node",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "B"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
+                "from": "node",
+                "to": "a",
+                "label": {
+                  "var": "node",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Max merge satisfies commutative and idempotent properties.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example increments on two replicas, merges both ways, and gets.",
+            "activeActor": "a",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "A"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
-                "tone": "ok"
+                "from": "self",
+                "to": "node",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "B"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
+                "from": "node",
+                "to": "a",
+                "label": {
+                  "var": "node",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -318,65 +265,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Grow-only counter replica increments and element-wise max merge",
-        "columns": [
+        "template": "sequence",
+        "title": "The G-Counter",
+        "actors": [
+          "self",
           "node",
-          "counts"
+          "a"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A grow-only counter keeps one entry per node.",
-            "rows": [
+            "caption": "A grow-only counter (G-Counter) keeps one entry per node.",
+            "messages": [
               {
-                "cells": [
-                  "A",
-                  "3"
-                ],
+                "from": "self",
+                "to": "node",
+                "label": "<GCounter>",
+                "tone": "data"
+              },
+              {
+                "from": "node",
+                "to": "a",
+                "label": "'A'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "self"
           },
           {
             "at": "say2",
-            "caption": "The value is the sum of entries while merge takes maximum.",
-            "rows": [
+            "caption": "The value is the sum of all entries.",
+            "messages": [
               {
-                "cells": [
-                  "A",
-                  "3"
-                ],
-                "tone": "ok"
+                "from": "self",
+                "to": "node",
+                "label": "<GCounter>",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "B",
-                  "2"
-                ],
+                "from": "node",
+                "to": "a",
+                "label": "'B'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "node"
           },
           {
-            "at": "say5",
-            "caption": "Max merge satisfies commutative and idempotent properties.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example increments on two replicas, merges both ways, and gets.",
+            "messages": [
               {
-                "cells": [
-                  "A",
-                  "3"
-                ],
-                "tone": "ok"
+                "from": "self",
+                "to": "node",
+                "label": "<GCounter>",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "B",
-                  "2"
-                ],
+                "from": "node",
+                "to": "a",
+                "label": "'B'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "a"
           }
         ]
       }
@@ -385,169 +337,277 @@
       "partTitle": "The PN-Counter",
       "codeHash": "4f1fc7584346ed3066ad1a30980db0c32e1588286a55ce7714f6556ed5ce3ef0",
       "spec": {
-        "template": "table",
-        "title": "Positive-negative counter independent maps and net value resolution",
-        "columns": [
-          "node",
-          "p",
-          "n"
+        "template": "flow",
+        "title": "The PN-Counter",
+        "nodes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "node",
+            "label": "node"
+          },
+          {
+            "id": "mumbai",
+            "label": "mumbai"
+          },
+          {
+            "id": "delhi",
+            "label": "delhi"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A PN-Counter combines positive P and negative N counters.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "mumbai"
-                  },
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A G-Counter cannot go down.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "node": {
+                "var": "node",
+                "line": 3,
+                "hit": 1
+              },
+              "mumbai": {
+                "var": "mumbai",
+                "line": 15,
+                "hit": 1
+              },
+              "delhi": {
+                "var": "delhi",
+                "line": 15,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "node": "data",
+              "mumbai": "data",
+              "delhi": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "node"
+              ],
+              [
+                "node",
+                "mumbai"
+              ],
+              [
+                "mumbai",
+                "delhi"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Function value computes sum of P minus sum of N.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "mumbai"
-                  },
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Increment adds to this node's P entry, decrement adds to its N entry.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "delhi"
-                  },
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "4"
-                  }
-                ],
-                "tone": "ok"
+              "node": {
+                "var": "node",
+                "line": 3,
+                "hit": 2
+              },
+              "mumbai": {
+                "var": "mumbai",
+                "line": 16,
+                "hit": 1
+              },
+              "delhi": {
+                "var": "delhi",
+                "line": 16,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "node": "data",
+              "mumbai": "data",
+              "delhi": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "node"
+              ],
+              [
+                "node",
+                "mumbai"
+              ],
+              [
+                "mumbai",
+                "delhi"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Both halves only grow so the max merge still works.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "mumbai"
-                  },
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example runs increments and decrements on two replicas and merges them.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "delhi"
-                  },
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "4"
-                  }
-                ],
-                "tone": "ok"
+              "node": {
+                "var": "node",
+                "line": 12,
+                "hit": 1
+              },
+              "mumbai": {
+                "var": "mumbai",
+                "line": 17,
+                "hit": 1
+              },
+              "delhi": {
+                "var": "delhi",
+                "line": 17,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "ok",
+              "node": "ok",
+              "mumbai": "ok",
+              "delhi": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "node"
+              ],
+              [
+                "node",
+                "mumbai"
+              ],
+              [
+                "mumbai",
+                "delhi"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Positive-negative counter independent maps and net value resolution",
-        "columns": [
-          "node",
-          "p",
-          "n"
+        "template": "flow",
+        "title": "The PN-Counter",
+        "nodes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "node",
+            "label": "node"
+          },
+          {
+            "id": "mumbai",
+            "label": "mumbai"
+          },
+          {
+            "id": "delhi",
+            "label": "delhi"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A PN-Counter combines positive P and negative N counters.",
-            "rows": [
-              {
-                "cells": [
-                  "mumbai",
-                  "10",
-                  "3"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A G-Counter cannot go down.",
+            "values": {
+              "self": "<PNCounter>",
+              "node": "'mumbai'",
+              "mumbai": "<PNCounter>",
+              "delhi": "<PNCounter>"
+            },
+            "tones": {
+              "self": "data",
+              "node": "data",
+              "mumbai": "data",
+              "delhi": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "node"
+              ],
+              [
+                "node",
+                "mumbai"
+              ],
+              [
+                "mumbai",
+                "delhi"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Function value computes sum of P minus sum of N.",
-            "rows": [
-              {
-                "cells": [
-                  "mumbai",
-                  "10",
-                  "3"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "delhi",
-                  "5",
-                  "4"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Increment adds to this node's P entry, decrement adds to its N entry.",
+            "values": {
+              "self": "<PNCounter>",
+              "node": "'delhi'",
+              "mumbai": "<PNCounter>",
+              "delhi": "<PNCounter>"
+            },
+            "tones": {
+              "self": "data",
+              "node": "data",
+              "mumbai": "data",
+              "delhi": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "node"
+              ],
+              [
+                "node",
+                "mumbai"
+              ],
+              [
+                "mumbai",
+                "delhi"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Both halves only grow so the max merge still works.",
-            "rows": [
-              {
-                "cells": [
-                  "mumbai",
-                  "10",
-                  "3"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "delhi",
-                  "5",
-                  "4"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example runs increments and decrements on two replicas and merges them.",
+            "values": {
+              "self": "<PNCounter>",
+              "node": "'mumbai'",
+              "mumbai": "<PNCounter>",
+              "delhi": "<PNCounter>"
+            },
+            "tones": {
+              "self": "ok",
+              "node": "ok",
+              "mumbai": "ok",
+              "delhi": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "node"
+              ],
+              [
+                "node",
+                "mumbai"
+              ],
+              [
+                "mumbai",
+                "delhi"
+              ]
             ]
           }
         ]
@@ -557,132 +617,106 @@
       "partTitle": "Last-writer-wins registers",
       "codeHash": "059b24b13cb5a26960db1f0d70b9f2cab869312dca71514674df3ec7d0df31f4",
       "spec": {
-        "template": "compare",
-        "title": "Last-writer-wins register timestamp ordering and deterministic tie-breaking",
-        "leftLabel": "Higher Timestamp Wins",
-        "rightLabel": "Tie-Break by Node ID",
+        "template": "states",
+        "title": "Last-writer-wins registers",
+        "states": [
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "y",
+            "label": "y"
+          },
+          {
+            "id": "z",
+            "label": "z"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A last-writer-wins register keeps value with highest timestamp.",
-            "left": {
-              "code": "resolve_lww(x, y)",
-              "result": {
-                "text": "Asha Kumar"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "resolve_lww(y, z)",
-              "result": {
-                "text": "Asha R"
-              },
-              "tone": "ok"
-            }
+            "caption": "For a single value (a profile name, a setting), a last-writer-wins (LWW).",
+            "currentState": "x",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Higher timestamp wins and on tie higher node id wins.",
-            "left": {
-              "code": "ts 110 beats ts 105",
-              "result": {
-                "text": "Asha Kumar"
-              },
-              "tone": "ok"
+            "caption": "Resolve_lww(a, b) compares (ts, node) pairs.",
+            "currentState": "y",
+            "transition": {
+              "from": "x",
+              "to": "y",
+              "label": {
+                "var": "y",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "node n3 beats node n2",
-              "result": {
-                "text": "Asha R"
-              },
-              "tone": "ok"
-            }
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Tie break ensures every replica converges to the same value.",
-            "left": {
-              "code": "resolve_lww symmetric winner",
-              "result": {
-                "text": "Asha Kumar"
-              },
-              "tone": "ok"
+            "at": "say7",
+            "caption": "The example resolves several pairs, including a tie.",
+            "currentState": "z",
+            "transition": {
+              "from": "y",
+              "to": "z",
+              "label": {
+                "var": "z",
+                "line": 8,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "deterministic tie-break winner",
-              "result": {
-                "text": "Asha R"
-              },
-              "tone": "ok"
-            }
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Last-writer-wins register timestamp ordering and deterministic tie-breaking",
-        "leftLabel": "Higher Timestamp Wins",
-        "rightLabel": "Tie-Break by Node ID",
+        "template": "states",
+        "title": "Last-writer-wins registers",
+        "states": [
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "y",
+            "label": "y"
+          },
+          {
+            "id": "z",
+            "label": "z"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A last-writer-wins register keeps value with highest timestamp.",
-            "left": {
-              "code": "resolve_lww(x, y)",
-              "result": "Asha Kumar",
-              "tone": "ok",
-              "checks": [
-                "Asha Kumar"
-              ]
-            },
-            "right": {
-              "code": "resolve_lww(y, z)",
-              "result": "Asha R",
-              "tone": "ok",
-              "checks": [
-                "Asha R"
-              ]
-            }
+            "caption": "For a single value (a profile name, a setting), a last-writer-wins (LWW).",
+            "currentState": "x",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Higher timestamp wins and on tie higher node id wins.",
-            "left": {
-              "code": "ts 110 beats ts 105",
-              "result": "Asha Kumar",
-              "tone": "ok",
-              "checks": [
-                "Asha Kumar"
-              ]
+            "caption": "Resolve_lww(a, b) compares (ts, node) pairs.",
+            "currentState": "y",
+            "transition": {
+              "from": "x",
+              "to": "y",
+              "label": "{'value': 'Asha Kumar', 'ts': 110, 'nod…"
             },
-            "right": {
-              "code": "node n3 beats node n2",
-              "result": "Asha R",
-              "tone": "ok",
-              "checks": [
-                "Asha R"
-              ]
-            }
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Tie break ensures every replica converges to the same value.",
-            "left": {
-              "code": "resolve_lww symmetric winner",
-              "result": "Asha Kumar",
-              "tone": "ok",
-              "checks": [
-                "Asha Kumar"
-              ]
+            "at": "say7",
+            "caption": "The example resolves several pairs, including a tie.",
+            "currentState": "z",
+            "transition": {
+              "from": "y",
+              "to": "z",
+              "label": "{'value': 'Asha R', 'ts': 110, 'node': …"
             },
-            "right": {
-              "code": "deterministic tie-break winner",
-              "result": "Asha R",
-              "tone": "ok",
-              "checks": [
-                "Asha R"
-              ]
-            }
+            "tone": "ok"
           }
         ]
       }
@@ -691,132 +725,162 @@
       "partTitle": "Sets that merge: add-wins sets",
       "codeHash": "e5f9bf7564bea0cd6e642ebcf6b3b460ad79ba6afd4b20125a240ad2eafe6999",
       "spec": {
-        "template": "compare",
-        "title": "Observed-remove set concurrent tag preservation and add-wins resolution",
-        "leftLabel": "Observed-Remove Set (OR-Set)",
-        "rightLabel": "Concurrent Operations",
+        "template": "sequence",
+        "title": "Sets that merge: add-wins sets",
+        "actors": [
+          "base",
+          "phone",
+          "laptop"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "If one replica adds milk and another removes it concurrently.",
-            "left": {
-              "code": "phone adds with new tag t2",
-              "result": {
-                "text": "milk"
+            "caption": "If one replica adds \"milk\" and another removes it concurrently, what.",
+            "activeActor": "base",
+            "messages": [
+              {
+                "from": "base",
+                "to": "phone",
+                "label": {
+                  "var": "base",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "laptop removes old tag t1",
-              "result": {
-                "text": "milk"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "phone",
+                "to": "laptop",
+                "label": {
+                  "var": "phone",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Observed-remove set preserves new tags so concurrent add wins.",
-            "left": {
-              "code": "add with new tag survives",
-              "result": {
-                "text": "milk"
+            "at": "say2",
+            "caption": "A grow-only set (G-Set) allows only additions.",
+            "activeActor": "phone",
+            "messages": [
+              {
+                "from": "base",
+                "to": "phone",
+                "label": {
+                  "var": "base",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "remove only deleted tag t1",
-              "result": {
-                "text": "milk"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "phone",
+                "to": "laptop",
+                "label": {
+                  "var": "phone",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say6",
-            "caption": "An add on one replica survives a concurrent remove on another.",
-            "left": {
-              "code": "merged items retain milk",
-              "result": {
-                "text": "milk"
+            "at": "say7",
+            "caption": "Libraries such as Automerge and Yjs provide ready-made CRDTs for lists.",
+            "activeActor": "laptop",
+            "messages": [
+              {
+                "from": "base",
+                "to": "phone",
+                "label": {
+                  "var": "base",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "item preserved in final set",
-              "result": {
-                "text": "milk"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "phone",
+                "to": "laptop",
+                "label": {
+                  "var": "phone",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Observed-remove set concurrent tag preservation and add-wins resolution",
-        "leftLabel": "Observed-Remove Set (OR-Set)",
-        "rightLabel": "Concurrent Operations",
+        "template": "sequence",
+        "title": "Sets that merge: add-wins sets",
+        "actors": [
+          "base",
+          "phone",
+          "laptop"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "If one replica adds milk and another removes it concurrently.",
-            "left": {
-              "code": "phone adds with new tag t2",
-              "result": "milk",
-              "tone": "ok",
-              "checks": [
-                "milk"
-              ]
-            },
-            "right": {
-              "code": "laptop removes old tag t1",
-              "result": "milk",
-              "tone": "ok",
-              "checks": [
-                "milk"
-              ]
-            }
+            "caption": "If one replica adds \"milk\" and another removes it concurrently, what.",
+            "messages": [
+              {
+                "from": "base",
+                "to": "phone",
+                "label": "{'adds': {['milk', 't1']}, 'removes': s…",
+                "tone": "data"
+              },
+              {
+                "from": "phone",
+                "to": "laptop",
+                "label": "{'adds': {['milk', 't1'], ['milk', 't2'…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "base"
           },
           {
-            "at": "say3",
-            "caption": "Observed-remove set preserves new tags so concurrent add wins.",
-            "left": {
-              "code": "add with new tag survives",
-              "result": "milk",
-              "tone": "ok",
-              "checks": [
-                "milk"
-              ]
-            },
-            "right": {
-              "code": "remove only deleted tag t1",
-              "result": "milk",
-              "tone": "ok",
-              "checks": [
-                "milk"
-              ]
-            }
+            "at": "say2",
+            "caption": "A grow-only set (G-Set) allows only additions.",
+            "messages": [
+              {
+                "from": "base",
+                "to": "phone",
+                "label": "{'adds': {['milk', 't1']}, 'removes': s…",
+                "tone": "data"
+              },
+              {
+                "from": "phone",
+                "to": "laptop",
+                "label": "{'adds': {['milk', 't1'], ['milk', 't2'…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "phone"
           },
           {
-            "at": "say6",
-            "caption": "An add on one replica survives a concurrent remove on another.",
-            "left": {
-              "code": "merged items retain milk",
-              "result": "milk",
-              "tone": "ok",
-              "checks": [
-                "milk"
-              ]
-            },
-            "right": {
-              "code": "item preserved in final set",
-              "result": "milk",
-              "tone": "ok",
-              "checks": [
-                "milk"
-              ]
-            }
+            "at": "say7",
+            "caption": "Libraries such as Automerge and Yjs provide ready-made CRDTs for lists.",
+            "messages": [
+              {
+                "from": "base",
+                "to": "phone",
+                "label": "{'adds': {['milk', 't1']}, 'removes': s…",
+                "tone": "data"
+              },
+              {
+                "from": "phone",
+                "to": "laptop",
+                "label": "{'adds': {['milk', 't1'], ['milk', 't2'…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "laptop"
           }
         ]
       }
@@ -825,223 +889,106 @@
       "partTitle": "When to use CRDTs",
       "codeHash": "b75a3ec3b02bbee84d07005d4723d24ea934e8d955a175e3c8881b0d0478891b",
       "spec": {
-        "template": "flow",
-        "title": "When to use CRDTs — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. When to use CRDTs",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "When to use CRDTs",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for When to use CRDTs [D.Psix.Sone].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in When to use CRDTs [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Use CRDTs when replicas must accept writes independently.",
+            "items": {
+              "var": "args",
+              "line": 6,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Trace how give updates high during execution.",
+            "items": {
+              "var": "args",
+              "line": 6,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for When to use CRDTs [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "The decision helper sums up when CRDTs fit.",
+            "items": {
+              "var": "args",
+              "line": 6,
+              "hit": 5
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "When to use CRDTs — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. When to use CRDTs",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "When to use CRDTs",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for When to use CRDTs [D17.P6.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in When to use CRDTs [D17.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Use CRDTs when replicas must accept writes independently.",
+            "items": [
+              "True",
+              "False"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how give updates high during execution.",
+            "items": [
+              "True",
+              "False"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for When to use CRDTs [D17.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "The decision helper sums up when CRDTs fit.",
+            "items": [
+              "False",
+              "False"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]

@@ -135,7 +135,8 @@ describe('Gate v2 (Task E-13)', () => {
     }
 
     const CERT_24M_COURSES = new Set([
-      'python', 'dsa-py', 'sql-mastery', 'ai-py', 'dist-py', 'cloud-py', 'nlp-py', 'quant-py', 'prompt-py', 'train-py', 'vec-py', 'safe-py',
+      // [FIX-STAGE: wave0-include-cyber-py] Enforce Gate v2 on cyber-py alongside the other 11 Python certification courses
+      'python', 'dsa-py', 'sql-mastery', 'ai-py', 'dist-py', 'cloud-py', 'nlp-py', 'quant-py', 'prompt-py', 'cyber-py', 'train-py', 'vec-py', 'safe-py',
       'react-basics', 'node-web', 'dsa-optim', 'devops', 'cloud', 'dist', 'cyber', 'ai', 'sre-web', 'stream-web', 'aideploy-web'
     ]);
 
@@ -323,6 +324,45 @@ describe('Gate v2 (Task E-13)', () => {
       assert.ok(COURSE_ALLOWED_TEMPLATES.devops.includes('workflow'));
       assert.ok(COURSE_ALLOWED_TEMPLATES.cloud.includes('workflow'));
       assert.ok(COURSE_ALLOWED_TEMPLATES['aideploy-web'].includes('workflow'));
+    });
+
+    it('Hardened guards: R3 rejects missing nodes/boxes arrays, R5 rejects synthetic captions & [Done.*], visualRules does not crash', () => {
+      const { getTappableLabelsForVisual } = require('@/lib/visuals/visualRules');
+      // 1. visualRules must not throw on malformed boxes/flow visuals lacking arrays
+      assert.deepEqual(
+        getTappableLabelsForVisual({ template: 'boxes', title: 'Malformed Boxes', steps: [] } as any),
+        []
+      );
+      assert.deepEqual(
+        getTappableLabelsForVisual({ template: 'flow', title: 'Malformed Flow', steps: [] } as any),
+        []
+      );
+
+      // 2. R3 rejects boxes missing boxes array
+      const missingBoxes = getValidBaseDayFile();
+      missingBoxes.entries[0].spec = {
+        template: 'boxes',
+        title: 'Broken Boxes Spec',
+        steps: (missingBoxes.entries[0].spec as any).steps,
+      };
+      const resBoxes = checkDayFile(missingBoxes);
+      assert.equal(resBoxes.passed, false);
+      assert.ok(resBoxes.errors.some((e) => e.includes('R3:') && e.includes('boxes is missing')));
+
+      // 3. R5 rejects synthetic baseline captions and [Done.*] tokens
+      const synthetic = getValidBaseDayFile();
+      (synthetic.entries[0].spec as any).steps[0].caption =
+        'The welcome concept establishes the core structural baseline.';
+      const resSynth = checkDayFile(synthetic);
+      assert.equal(resSynth.passed, false);
+      assert.ok(resSynth.errors.some((e) => e.includes('R5:') && e.includes('synthetic placeholder')));
+
+      const doneToken = getValidBaseDayFile();
+      (doneToken.entries[0].spec as any).steps[0].caption =
+        'Execute transformation in Python [Done.Pone.Sone].';
+      const resDone = checkDayFile(doneToken);
+      assert.equal(resDone.passed, false);
+      assert.ok(resDone.errors.some((e) => e.includes('R5:') && e.includes('[Done.*]')));
     });
   });
 });

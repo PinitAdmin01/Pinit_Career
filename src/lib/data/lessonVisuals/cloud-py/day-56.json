@@ -2,535 +2,331 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 56,
-  "promptSha": "d29fa9e369c4a6a9b211c8cf92e5ff1a4c3347459d48d2f642bc70ba05f94552",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "FinOps Unit Economics — Foundations & Mathematical Invariants",
-      "codeHash": "ece6bce1f4b137c0fbc5e19dd5a9a58bbf809135de0d7bc7a6ee857c7ab55e53",
+      "codeHash": "7f7e87b2d643d468e8237f557821fb015f2574e47adc4beb07142ad07c281184",
       "spec": {
-        "template": "flow",
+        "template": "states",
         "title": "FinOps Unit Economics — Foundations & Mathematical Invariants",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "direct",
+            "label": "direct"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "shared_infra_cost",
+            "label": "shared_infra_cost"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "direct_tenant_costs",
+            "label": "direct_tenant_costs"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In enterprise cloud environments, FinOps empowers cross-functional teams.",
+            "currentState": "direct",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Establishing consistent unit cost baselines allows finance leaders.",
+            "currentState": "shared_infra_cost",
+            "transition": {
+              "from": "direct",
+              "to": "shared_infra_cost",
+              "label": {
+                "var": "shared_infra_cost",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "In high-scale enterprise platforms, automated cost attribution provides.",
+            "currentState": "direct_tenant_costs",
+            "transition": {
+              "from": "shared_infra_cost",
+              "to": "direct_tenant_costs",
+              "label": {
+                "var": "direct_tenant_costs",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "states",
         "title": "FinOps Unit Economics — Foundations & Mathematical Invariants",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "direct",
+            "label": "direct"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "shared_infra_cost",
+            "label": "shared_infra_cost"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "direct_tenant_costs",
+            "label": "direct_tenant_costs"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In enterprise cloud environments, FinOps empowers cross-functional teams.",
+            "currentState": "direct",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Establishing consistent unit cost baselines allows finance leaders.",
+            "currentState": "shared_infra_cost",
+            "transition": {
+              "from": "direct",
+              "to": "shared_infra_cost",
+              "label": "300"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "In high-scale enterprise platforms, automated cost attribution provides.",
+            "currentState": "direct_tenant_costs",
+            "transition": {
+              "from": "shared_infra_cost",
+              "to": "direct_tenant_costs",
+              "label": "{'tenant_alpha': 120.5, 'tenant_beta': …"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "FinOps Unit Economics — Core Algorithm & State Representation",
-      "codeHash": "ccd2b6c9d9bbd2749adc9eca6805c193bab228451d726daf5640b5489cf59d2d",
+      "codeHash": "2ab121b365bbd21a149c39c1f240d60ccaefcab831d2a93e8d6f932cd26693e5",
       "spec": {
-        "template": "flow",
+        "template": "bars",
         "title": "FinOps Unit Economics — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Establishing automated chargeback routines encourages development teams.",
+            "bars": [
+              {
+                "label": "cluster_bill",
+                "value": {
+                  "var": "cluster_bill",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_cluster_",
+                "value": {
+                  "var": "total_cluster_cost",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_core_hou",
+                "value": {
+                  "var": "total_core_hours",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cores",
+                "value": {
+                  "var": "cores",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Granular container resource telemetry provides the mathematical basis.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "cluster_bill",
+                "value": {
+                  "var": "cluster_bill",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_cluster_",
+                "value": {
+                  "var": "total_cluster_cost",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "total_core_hou",
+                "value": {
+                  "var": "total_core_hours",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "cores",
+                "value": {
+                  "var": "cores",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Clear financial visibility eliminates internal friction between.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "cluster_bill",
+                "value": {
+                  "var": "cluster_bill",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_cluster_",
+                "value": {
+                  "var": "total_cluster_cost",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "total_core_hou",
+                "value": {
+                  "var": "total_core_hours",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "cores",
+                "value": {
+                  "var": "cores",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "bars",
         "title": "FinOps Unit Economics — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Establishing automated chargeback routines encourages development teams.",
+            "bars": [
+              {
+                "label": "cluster_bill",
+                "value": 2600,
+                "tone": "data"
+              },
+              {
+                "label": "total_cluster_",
+                "value": 2600,
+                "tone": "data"
+              },
+              {
+                "label": "total_core_hou",
+                "value": 5200,
+                "tone": "data"
+              },
+              {
+                "label": "cores",
+                "value": 1200,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Granular container resource telemetry provides the mathematical basis.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "cluster_bill",
+                "value": 2600,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_cluster_",
+                "value": 2600,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "total_core_hou",
+                "value": 5200,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "cores",
+                "value": 1200,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Clear financial visibility eliminates internal friction between.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "cluster_bill",
+                "value": 2600,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_cluster_",
+                "value": 2600,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "total_core_hou",
+                "value": 5200,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "cores",
+                "value": 1200,
+                "tone": "ok"
               }
             ]
           }
@@ -539,264 +335,218 @@
     },
     {
       "partTitle": "FinOps Unit Economics — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "e6bddc0ff06fde02929518e84f3dd6c72ed689db7780a7280a38e51c00067a30",
+      "codeHash": "dfb3e5c073d6d5635353d680a65b12dd38d08da8b765d57e7b8ff5a4b31f7d29",
       "spec": {
-        "template": "flow",
-        "title": "FinOps Unit Economics — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "FinOps Unit Economics — Throughput Optimization & Edge-Case Hand",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Machine learning anomaly detectors distinguish between normal organic.",
+            "bars": [
+              {
+                "label": "historical_dai",
+                "value": {
+                  "var": "historical_daily_avg",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "current_spend",
+                "value": {
+                  "var": "current_spend",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "std_dev",
+                "value": {
+                  "var": "std_dev",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "z_score",
+                "value": {
+                  "var": "z_score",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Real-time alerting webhooks deliver immediate root-cause attribution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "historical_dai",
+                "value": {
+                  "var": "historical_daily_avg",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "current_spend",
+                "value": {
+                  "var": "current_spend",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "std_dev",
+                "value": {
+                  "var": "std_dev",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "z_score",
+                "value": {
+                  "var": "z_score",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Platform engineering teams establish automated escalation paths.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "historical_dai",
+                "value": {
+                  "var": "historical_daily_avg",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "current_spend",
+                "value": {
+                  "var": "current_spend",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "std_dev",
+                "value": {
+                  "var": "std_dev",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "z_score",
+                "value": {
+                  "var": "z_score",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "FinOps Unit Economics — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "FinOps Unit Economics — Throughput Optimization & Edge-Case Hand",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Machine learning anomaly detectors distinguish between normal organic.",
+            "bars": [
+              {
+                "label": "historical_dai",
+                "value": 200,
+                "tone": "data"
+              },
+              {
+                "label": "current_spend",
+                "value": 230,
+                "tone": "data"
+              },
+              {
+                "label": "std_dev",
+                "value": 20,
+                "tone": "data"
+              },
+              {
+                "label": "z_score",
+                "value": 1.5,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Real-time alerting webhooks deliver immediate root-cause attribution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "historical_dai",
+                "value": 200,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "current_spend",
+                "value": 230,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "std_dev",
+                "value": 20,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "z_score",
+                "value": 1.5,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Platform engineering teams establish automated escalation paths.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "historical_dai",
+                "value": 200,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "current_spend",
+                "value": 230,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "std_dev",
+                "value": 20,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "z_score",
+                "value": 1.5,
+                "tone": "ok"
               }
             ]
           }
@@ -805,134 +555,165 @@
     },
     {
       "partTitle": "FinOps Unit Economics — Resilience Guardrails & Failure Recovery",
-      "codeHash": "3c9f098e4925d6256fcfec3056392383d2a851db4c177ff7e3c81b6861697146",
+      "codeHash": "fdf2955d2e9376e928447193871a08b7eb99fcb353f065aac4ee2b2e679f00c7",
       "spec": {
         "template": "flow",
         "title": "FinOps Unit Economics — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "budget_limit",
+            "label": "budget_limit"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "actual_spend",
+            "label": "actual_spend"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "is_production",
+            "label": "is_production"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "spend_ratio",
+            "label": "spend_ratio"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated budget guardrails guarantee that sandbox experimental projects.",
+            "values": {
+              "budget_limit": {
+                "var": "budget_limit",
+                "line": 4,
+                "hit": 1
+              },
+              "actual_spend": {
+                "var": "actual_spend",
+                "line": 4,
+                "hit": 1
+              },
+              "is_production": {
+                "var": "is_production",
+                "line": 4,
+                "hit": 1
+              },
+              "spend_ratio": {
+                "var": "spend_ratio",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "budget_limit": "data",
+              "actual_spend": "data",
+              "is_production": "data",
+              "spend_ratio": "data"
+            },
+            "arrows": [
+              [
+                "budget_limit",
+                "actual_spend"
+              ],
+              [
+                "actual_spend",
+                "is_production"
+              ],
+              [
+                "is_production",
+                "spend_ratio"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Automated budget guardrails enforce strict spending limits.",
+            "values": {
+              "budget_limit": {
+                "var": "budget_limit",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "actual_spend": {
+                "var": "actual_spend",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "is_production": {
+                "var": "is_production",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "spend_ratio": {
+                "var": "spend_ratio",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "budget_limit": "data",
+              "actual_spend": "data",
+              "is_production": "data",
+              "spend_ratio": "data"
+            },
+            "arrows": [
+              [
+                "budget_limit",
+                "actual_spend"
+              ],
+              [
+                "actual_spend",
+                "is_production"
+              ],
+              [
+                "is_production",
+                "spend_ratio"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Clear governance protocols ensure that automated budget actions operate.",
+            "values": {
+              "budget_limit": {
+                "var": "budget_limit",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "actual_spend": {
+                "var": "actual_spend",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "is_production": {
+                "var": "is_production",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "spend_ratio": {
+                "var": "spend_ratio",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "budget_limit": "ok",
+              "actual_spend": "ok",
+              "is_production": "ok",
+              "spend_ratio": "ok"
+            },
+            "arrows": [
+              [
+                "budget_limit",
+                "actual_spend"
+              ],
+              [
+                "actual_spend",
+                "is_production"
+              ],
+              [
+                "is_production",
+                "spend_ratio"
+              ]
             ]
           }
         ]
@@ -942,128 +723,111 @@
         "title": "FinOps Unit Economics — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "budget_limit",
+            "label": "budget_limit"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "actual_spend",
+            "label": "actual_spend"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "is_production",
+            "label": "is_production"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "spend_ratio",
+            "label": "spend_ratio"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated budget guardrails guarantee that sandbox experimental projects.",
+            "values": {
+              "budget_limit": "1000",
+              "actual_spend": "1350",
+              "is_production": "False",
+              "spend_ratio": "1.35"
+            },
+            "tones": {
+              "budget_limit": "data",
+              "actual_spend": "data",
+              "is_production": "data",
+              "spend_ratio": "data"
+            },
+            "arrows": [
+              [
+                "budget_limit",
+                "actual_spend"
+              ],
+              [
+                "actual_spend",
+                "is_production"
+              ],
+              [
+                "is_production",
+                "spend_ratio"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Automated budget guardrails enforce strict spending limits.",
+            "values": {
+              "budget_limit": "1000",
+              "actual_spend": "1350",
+              "is_production": "False",
+              "spend_ratio": "1.35"
+            },
+            "tones": {
+              "budget_limit": "data",
+              "actual_spend": "data",
+              "is_production": "data",
+              "spend_ratio": "data"
+            },
+            "arrows": [
+              [
+                "budget_limit",
+                "actual_spend"
+              ],
+              [
+                "actual_spend",
+                "is_production"
+              ],
+              [
+                "is_production",
+                "spend_ratio"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Clear governance protocols ensure that automated budget actions operate.",
+            "values": {
+              "budget_limit": "1000",
+              "actual_spend": "1350",
+              "is_production": "False",
+              "spend_ratio": "1.35"
+            },
+            "tones": {
+              "budget_limit": "ok",
+              "actual_spend": "ok",
+              "is_production": "ok",
+              "spend_ratio": "ok"
+            },
+            "arrows": [
+              [
+                "budget_limit",
+                "actual_spend"
+              ],
+              [
+                "actual_spend",
+                "is_production"
+              ],
+              [
+                "is_production",
+                "spend_ratio"
+              ]
             ]
           }
         ]
@@ -1071,265 +835,279 @@
     },
     {
       "partTitle": "FinOps Unit Economics — Production Telemetry & Verification Audit",
-      "codeHash": "00959220ea02660990657f7c9734b357c3fac6bc52f858ddc7f0e1714eee7c00",
+      "codeHash": "406e62d703f37543c784778cd3ae08a0de0f7c92ee601eff958173d0b08e63ef",
       "spec": {
         "template": "flow",
-        "title": "FinOps Unit Economics — Production Telemetry & Verification Audit",
+        "title": "FinOps Unit Economics — Production Telemetry & Verification Audi",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "infra",
+            "label": "infra"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "resources",
+            "label": "resources"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "compliant_count",
+            "label": "compliant_count"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "unallocated_resources",
+            "label": "unallocated_resources"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Continuous tag governance auditing ensures that newly provisioned cloud.",
+            "values": {
+              "infra": {
+                "var": "infra",
+                "line": 28,
+                "hit": 1
+              },
+              "resources": {
+                "var": "resources",
+                "line": 6,
+                "hit": 1
+              },
+              "compliant_count": {
+                "var": "compliant_count",
+                "line": 6,
+                "hit": 1
+              },
+              "unallocated_resources": {
+                "var": "unallocated_resources",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "infra": "data",
+              "resources": "data",
+              "compliant_count": "data",
+              "unallocated_resources": "data"
+            },
+            "arrows": [
+              [
+                "infra",
+                "resources"
+              ],
+              [
+                "resources",
+                "compliant_count"
+              ],
+              [
+                "compliant_count",
+                "unallocated_resources"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Automated compliance scorecards identify untagged resources.",
+            "values": {
+              "infra": {
+                "var": "infra",
+                "line": 34,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "resources": {
+                "var": "resources",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "compliant_count": {
+                "var": "compliant_count",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "unallocated_resources": {
+                "var": "unallocated_resources",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "infra": "data",
+              "resources": "data",
+              "compliant_count": "data",
+              "unallocated_resources": "data"
+            },
+            "arrows": [
+              [
+                "infra",
+                "resources"
+              ],
+              [
+                "resources",
+                "compliant_count"
+              ],
+              [
+                "compliant_count",
+                "unallocated_resources"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Verifying cost attribution pipelines ensures that enterprise cloud.",
+            "values": {
+              "infra": {
+                "var": "infra",
+                "line": 35,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "resources": {
+                "var": "resources",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "compliant_count": {
+                "var": "compliant_count",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "unallocated_resources": {
+                "var": "unallocated_resources",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "infra": "ok",
+              "resources": "ok",
+              "compliant_count": "ok",
+              "unallocated_resources": "ok"
+            },
+            "arrows": [
+              [
+                "infra",
+                "resources"
+              ],
+              [
+                "resources",
+                "compliant_count"
+              ],
+              [
+                "compliant_count",
+                "unallocated_resources"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "FinOps Unit Economics — Production Telemetry & Verification Audit",
+        "title": "FinOps Unit Economics — Production Telemetry & Verification Audi",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "infra",
+            "label": "infra"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "resources",
+            "label": "resources"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "compliant_count",
+            "label": "compliant_count"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "unallocated_resources",
+            "label": "unallocated_resources"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Continuous tag governance auditing ensures that newly provisioned cloud.",
+            "values": {
+              "infra": "[{'id': 'vol-1', 'tags': {'TenantId': '…",
+              "resources": "[{'id': 'vol-1', 'tags': {'TenantId': '…",
+              "compliant_count": "0",
+              "unallocated_resources": "[]"
+            },
+            "tones": {
+              "infra": "data",
+              "resources": "data",
+              "compliant_count": "data",
+              "unallocated_resources": "data"
+            },
+            "arrows": [
+              [
+                "infra",
+                "resources"
+              ],
+              [
+                "resources",
+                "compliant_count"
+              ],
+              [
+                "compliant_count",
+                "unallocated_resources"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Automated compliance scorecards identify untagged resources.",
+            "values": {
+              "infra": "[{'id': 'vol-1', 'tags': {'TenantId': '…",
+              "resources": "[{'id': 'vol-1', 'tags': {'TenantId': '…",
+              "compliant_count": "0",
+              "unallocated_resources": "[]"
+            },
+            "tones": {
+              "infra": "data",
+              "resources": "data",
+              "compliant_count": "data",
+              "unallocated_resources": "data"
+            },
+            "arrows": [
+              [
+                "infra",
+                "resources"
+              ],
+              [
+                "resources",
+                "compliant_count"
+              ],
+              [
+                "compliant_count",
+                "unallocated_resources"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Verifying cost attribution pipelines ensures that enterprise cloud.",
+            "values": {
+              "infra": "[{'id': 'vol-1', 'tags': {'TenantId': '…",
+              "resources": "[{'id': 'vol-1', 'tags': {'TenantId': '…",
+              "compliant_count": "0",
+              "unallocated_resources": "[]"
+            },
+            "tones": {
+              "infra": "ok",
+              "resources": "ok",
+              "compliant_count": "ok",
+              "unallocated_resources": "ok"
+            },
+            "arrows": [
+              [
+                "infra",
+                "resources"
+              ],
+              [
+                "resources",
+                "compliant_count"
+              ],
+              [
+                "compliant_count",
+                "unallocated_resources"
+              ]
             ]
           }
         ]

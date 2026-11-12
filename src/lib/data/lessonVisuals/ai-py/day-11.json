@@ -2,119 +2,201 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 11,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Recall first, precision second",
       "codeHash": "634eacb6b436ae95d8c790ddcb0cf626fc32edc004506a113c0d1d0427977927",
       "spec": {
-        "template": "flow",
-        "title": "Two-stage retrieval and reranking pipeline architecture",
-        "nodes": [
+        "template": "boxes",
+        "title": "Recall first, precision second",
+        "boxes": [
           {
-            "id": "n1",
-            "label": "search"
+            "id": "first_stage",
+            "label": "first_stage"
           },
           {
-            "id": "n2",
-            "label": "reranking"
+            "id": "answer_chunk",
+            "label": "answer_chunk"
           },
           {
-            "id": "n3",
-            "label": "answer"
+            "id": "rank",
+            "label": "rank"
+          },
+          {
+            "id": "keep",
+            "label": "keep"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Stage one hybrid search fetches candidates generously to avoid misses.",
+            "at": "say1",
+            "caption": "Retrieval has two goals that pull against each other.",
             "values": {
-              "n1": {
-                "text": "candidates"
+              "first_stage": {
+                "var": "first_stage",
+                "line": 1,
+                "hit": 1
               },
-              "n2": {
-                "text": "search"
+              "answer_chunk": {
+                "var": "answer_chunk",
+                "line": 2,
+                "hit": 1
               },
-              "n3": {
-                "text": "answer"
+              "rank": {
+                "var": "rank",
+                "line": 3,
+                "hit": 1
+              },
+              "keep": {
+                "var": "keep",
+                "line": 4,
+                "hit": 1
               }
             },
             "tones": {
-              "n1": "ok",
-              "n2": "data",
-              "n3": "data"
+              "first_stage": "data",
+              "answer_chunk": "data",
+              "rank": "data",
+              "keep": "data"
             }
           },
           {
-            "at": "say3",
-            "caption": "Stage two reranking reads each candidate carefully against the question.",
+            "at": "say2",
+            "caption": "A good pattern is two stages.",
             "values": {
-              "n1": {
-                "text": "window"
+              "first_stage": {
+                "var": "first_stage",
+                "line": 2,
+                "hit": 1
               },
-              "n2": {
-                "text": "reranking"
+              "answer_chunk": {
+                "var": "answer_chunk",
+                "line": 3,
+                "hit": 1
               },
-              "n3": {
-                "text": "answer"
+              "rank": {
+                "var": "rank",
+                "line": 4,
+                "hit": 1
+              },
+              "keep": {
+                "var": "keep",
+                "line": 5,
+                "hit": 1
               }
             },
             "tones": {
-              "n1": "ok",
-              "n2": "ok",
-              "n3": "ok"
+              "first_stage": "data",
+              "answer_chunk": "data",
+              "rank": "data",
+              "keep": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Reranking is one of the cheapest, biggest quality improvements you can add.",
+            "values": {
+              "first_stage": {
+                "var": "first_stage",
+                "line": 3,
+                "hit": 1
+              },
+              "answer_chunk": {
+                "var": "answer_chunk",
+                "line": 4,
+                "hit": 1
+              },
+              "rank": {
+                "var": "rank",
+                "line": 5,
+                "hit": 1
+              },
+              "keep": {
+                "var": "keep",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "first_stage": "ok",
+              "answer_chunk": "ok",
+              "rank": "ok",
+              "keep": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Two-stage retrieval and reranking pipeline architecture",
-        "nodes": [
+        "template": "boxes",
+        "title": "Recall first, precision second",
+        "boxes": [
           {
-            "id": "n1",
-            "label": "search"
+            "id": "first_stage",
+            "label": "first_stage"
           },
           {
-            "id": "n2",
-            "label": "reranking"
+            "id": "answer_chunk",
+            "label": "answer_chunk"
           },
           {
-            "id": "n3",
-            "label": "answer"
+            "id": "rank",
+            "label": "rank"
+          },
+          {
+            "id": "keep",
+            "label": "keep"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Stage one hybrid search fetches candidates generously to avoid misses.",
+            "at": "say1",
+            "caption": "Retrieval has two goals that pull against each other.",
             "values": {
-              "n1": "candidates",
-              "n2": "search",
-              "n3": "answer"
+              "first_stage": "['shipping times', 'return window', 're…",
+              "answer_chunk": "'refund timeline for UPI payments'",
+              "rank": "3",
+              "keep": "2"
             },
             "tones": {
-              "n1": "ok",
-              "n2": "data",
-              "n3": "data"
-            },
-            "arrows": []
+              "first_stage": "data",
+              "answer_chunk": "data",
+              "rank": "data",
+              "keep": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "Stage two reranking reads each candidate carefully against the question.",
+            "at": "say2",
+            "caption": "A good pattern is two stages.",
             "values": {
-              "n1": "window",
-              "n2": "reranking",
-              "n3": "answer"
+              "first_stage": "['shipping times', 'return window', 're…",
+              "answer_chunk": "'refund timeline for UPI payments'",
+              "rank": "3",
+              "keep": "2"
             },
             "tones": {
-              "n1": "ok",
-              "n2": "ok",
-              "n3": "ok"
+              "first_stage": "data",
+              "answer_chunk": "data",
+              "rank": "data",
+              "keep": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Reranking is one of the cheapest, biggest quality improvements you can add.",
+            "values": {
+              "first_stage": "['shipping times', 'return window', 're…",
+              "answer_chunk": "'refund timeline for UPI payments'",
+              "rank": "3",
+              "keep": "3"
             },
-            "arrows": []
+            "tones": {
+              "first_stage": "ok",
+              "answer_chunk": "ok",
+              "rank": "ok",
+              "keep": "ok"
+            }
           }
         ]
       }
@@ -123,94 +205,278 @@
       "partTitle": "Bi-encoders and cross-encoders",
       "codeHash": "56f265dce831694ca391d4194d81a99bb51332a09d7d2057cd5c0f54fbaff7bb",
       "spec": {
-        "template": "compare",
-        "title": "Bi-encoder representation versus cross-encoder joint scoring",
-        "leftLabel": "Bi-Encoder",
-        "rightLabel": "Cross-Encoder",
+        "template": "flow",
+        "title": "Bi-encoders and cross-encoders",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "q_words",
+            "label": "q_words"
+          },
+          {
+            "id": "t_words",
+            "label": "t_words"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Bi-encoder search turns questions and documents into vectors separately.",
-            "left": {
-              "code": "separate vectors",
-              "result": {
-                "text": "fast retrieval"
+            "caption": "Embedding search uses a bi-encoder.",
+            "values": {
+              "query": {
+                "var": "query",
+                "line": 7,
+                "hit": 1
               },
-              "tone": "ok"
+              "text": {
+                "var": "text",
+                "line": 8,
+                "hit": 1
+              },
+              "q_words": {
+                "var": "q_words",
+                "line": 2,
+                "hit": 1
+              },
+              "t_words": {
+                "var": "t_words",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "joint input pair",
-              "result": {
-                "text": "deep interaction"
-              },
-              "tone": "data"
-            }
+            "tones": {
+              "query": "data",
+              "text": "data",
+              "q_words": "data",
+              "t_words": "data"
+            },
+            "arrows": [
+              [
+                "query",
+                "text"
+              ],
+              [
+                "text",
+                "q_words"
+              ],
+              [
+                "q_words",
+                "t_words"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Cross-encoders read question and document together for higher accuracy.",
-            "left": {
-              "code": "independent dots",
-              "result": {
-                "text": "approximate match"
+            "caption": "A cross-encoder reads the question and one document together, as a pair.",
+            "values": {
+              "query": {
+                "var": "query",
+                "line": 8,
+                "hit": 1
               },
-              "tone": "data"
+              "text": {
+                "var": "text",
+                "line": 2,
+                "hit": 1
+              },
+              "q_words": {
+                "var": "q_words",
+                "line": 3,
+                "hit": 1
+              },
+              "t_words": {
+                "var": "t_words",
+                "line": 4,
+                "hit": 10
+              }
             },
-            "right": {
-              "code": "joint attention",
-              "result": {
-                "text": "exact relevance"
+            "tones": {
+              "query": "data",
+              "text": "data",
+              "q_words": "data",
+              "t_words": "data"
+            },
+            "arrows": [
+              [
+                "query",
+                "text"
+              ],
+              [
+                "text",
+                "q_words"
+              ],
+              [
+                "q_words",
+                "t_words"
+              ]
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "In our code, a small scoring function stands in for the cross-encoder, so.",
+            "values": {
+              "query": {
+                "var": "query",
+                "line": 2,
+                "hit": 1
               },
-              "tone": "ok"
-            }
+              "text": {
+                "var": "text",
+                "line": 3,
+                "hit": 1
+              },
+              "q_words": {
+                "var": "q_words",
+                "line": 4,
+                "hit": 10
+              },
+              "t_words": {
+                "var": "t_words",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "query": "ok",
+              "text": "ok",
+              "q_words": "ok",
+              "t_words": "ok"
+            },
+            "arrows": [
+              [
+                "query",
+                "text"
+              ],
+              [
+                "text",
+                "q_words"
+              ],
+              [
+                "q_words",
+                "t_words"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Bi-encoder representation versus cross-encoder joint scoring",
-        "leftLabel": "Bi-Encoder",
-        "rightLabel": "Cross-Encoder",
+        "template": "flow",
+        "title": "Bi-encoders and cross-encoders",
+        "nodes": [
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "q_words",
+            "label": "q_words"
+          },
+          {
+            "id": "t_words",
+            "label": "t_words"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Bi-encoder search turns questions and documents into vectors separately.",
-            "left": {
-              "code": "separate vectors",
-              "result": "fast retrieval",
-              "tone": "ok",
-              "checks": [
-                "fast retrieval"
-              ]
+            "caption": "Embedding search uses a bi-encoder.",
+            "values": {
+              "query": "'refund time for upi payment'",
+              "text": "'Refunds for UPI payment arrive in 2 da…",
+              "q_words": "{'for', 'payment', 'refund', 'time', 'u…",
+              "t_words": "['refunds', 'for', 'upi', 'payment', 'a…"
             },
-            "right": {
-              "code": "joint input pair",
-              "result": "deep interaction",
-              "tone": "data",
-              "checks": [
-                "deep interaction"
+            "tones": {
+              "query": "data",
+              "text": "data",
+              "q_words": "data",
+              "t_words": "data"
+            },
+            "arrows": [
+              [
+                "query",
+                "text"
+              ],
+              [
+                "text",
+                "q_words"
+              ],
+              [
+                "q_words",
+                "t_words"
               ]
-            }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Cross-encoders read question and document together for higher accuracy.",
-            "left": {
-              "code": "independent dots",
-              "result": "approximate match",
-              "tone": "data",
-              "checks": [
-                "approximate match"
-              ]
+            "caption": "A cross-encoder reads the question and one document together, as a pair.",
+            "values": {
+              "query": "'refund time for upi payment'",
+              "text": "'Refunds for UPI payment arrive in 2 da…",
+              "q_words": "{'for', 'payment', 'refund', 'time', 'u…",
+              "t_words": "['refunds', 'for', 'upi', 'payment', 'a…"
             },
-            "right": {
-              "code": "joint attention",
-              "result": "exact relevance",
-              "tone": "ok",
-              "checks": [
-                "exact relevance"
+            "tones": {
+              "query": "data",
+              "text": "data",
+              "q_words": "data",
+              "t_words": "data"
+            },
+            "arrows": [
+              [
+                "query",
+                "text"
+              ],
+              [
+                "text",
+                "q_words"
+              ],
+              [
+                "q_words",
+                "t_words"
               ]
-            }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "In our code, a small scoring function stands in for the cross-encoder, so.",
+            "values": {
+              "query": "'refund time for upi payment'",
+              "text": "'Refunds for UPI payment arrive in 2 da…",
+              "q_words": "{'for', 'payment', 'refund', 'time', 'u…",
+              "t_words": "['refunds', 'for', 'upi', 'payment', 'a…"
+            },
+            "tones": {
+              "query": "ok",
+              "text": "ok",
+              "q_words": "ok",
+              "t_words": "ok"
+            },
+            "arrows": [
+              [
+                "query",
+                "text"
+              ],
+              [
+                "text",
+                "q_words"
+              ],
+              [
+                "q_words",
+                "t_words"
+              ]
+            ]
           }
         ]
       }
@@ -219,158 +485,162 @@
       "partTitle": "Reranking the candidates",
       "codeHash": "10cf3f885b3ac280638f165987b497469ef9a0734777da0a152660e8325c3b41",
       "spec": {
-        "template": "table",
-        "title": "Candidate scoring and sorting table by cross-encoder relevance",
-        "columns": [
-          "chunk_id",
-          "chunk_text",
-          "relevance_score"
+        "template": "sequence",
+        "title": "Reranking the candidates",
+        "actors": [
+          "chunks",
+          "query",
+          "text"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Scoring attaches a relevance score to each chunk to determine candidates.",
-            "rows": [
+            "caption": "Rerank(query, chunks, score_fn, top_n).",
+            "activeActor": "chunks",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "c2"
-                  },
-                  {
-                    "text": "UPI refund arrives in 2 days"
-                  },
-                  {
-                    "text": "five"
-                  }
-                ],
-                "tone": "ok"
+                "from": "chunks",
+                "to": "query",
+                "label": {
+                  "var": "chunks",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "c3"
-                  },
-                  {
-                    "text": "Card refund takes 7 days"
-                  },
-                  {
-                    "text": "two"
-                  }
-                ],
-                "tone": "data"
+                "from": "query",
+                "to": "text",
+                "label": {
+                  "var": "query",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Reranked order replaces the initial order to position the best chunk first.",
-            "rows": [
+            "at": "say2",
+            "caption": "Passing score_fn in as a parameter keeps the function flexible.",
+            "activeActor": "query",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "c2"
-                  },
-                  {
-                    "text": "UPI refund arrives in 2 days"
-                  },
-                  {
-                    "text": "five"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "c3"
-                  },
-                  {
-                    "text": "Card refund takes 7 days"
-                  },
-                  {
-                    "text": "two"
-                  }
-                ],
+                "from": "chunks",
+                "to": "query",
+                "label": {
+                  "var": "chunks",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "c1"
-                  },
-                  {
-                    "text": "Store hours are 9 to 9"
-                  },
-                  {
-                    "text": "zero"
-                  }
-                ],
-                "tone": "error"
+                "from": "query",
+                "to": "text",
+                "label": {
+                  "var": "query",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "More chunks cost tokens and, as tomorrow shows, can even hurt answers.",
+            "activeActor": "text",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "query",
+                "label": {
+                  "var": "chunks",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "text",
+                "label": {
+                  "var": "query",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Candidate scoring and sorting table by cross-encoder relevance",
-        "columns": [
-          "chunk_id",
-          "chunk_text",
-          "relevance_score"
+        "template": "sequence",
+        "title": "Reranking the candidates",
+        "actors": [
+          "chunks",
+          "query",
+          "text"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Scoring attaches a relevance score to each chunk to determine candidates.",
-            "rows": [
+            "caption": "Rerank(query, chunks, score_fn, top_n).",
+            "messages": [
               {
-                "cells": [
-                  "c2",
-                  "UPI refund arrives in 2 days",
-                  "five"
-                ],
-                "tone": "ok"
+                "from": "chunks",
+                "to": "query",
+                "label": "[{'id': 'c1', 'text': 'Store hours are …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "c3",
-                  "Card refund takes 7 days",
-                  "two"
-                ],
-                "tone": "data"
+                "from": "query",
+                "to": "text",
+                "label": "'when does my upi refund arrive'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "chunks"
           },
           {
-            "at": "say4",
-            "caption": "Reranked order replaces the initial order to position the best chunk first.",
-            "rows": [
+            "at": "say2",
+            "caption": "Passing score_fn in as a parameter keeps the function flexible.",
+            "messages": [
               {
-                "cells": [
-                  "c2",
-                  "UPI refund arrives in 2 days",
-                  "five"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "c3",
-                  "Card refund takes 7 days",
-                  "two"
-                ],
+                "from": "chunks",
+                "to": "query",
+                "label": "[{'id': 'c1', 'text': 'Store hours are …",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "c1",
-                  "Store hours are 9 to 9",
-                  "zero"
-                ],
-                "tone": "error"
+                "from": "query",
+                "to": "text",
+                "label": "'when does my upi refund arrive'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "query"
+          },
+          {
+            "at": "say6",
+            "caption": "More chunks cost tokens and, as tomorrow shows, can even hurt answers.",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "query",
+                "label": "[{'id': 'c1', 'text': 'Store hours are …",
+                "tone": "data"
+              },
+              {
+                "from": "query",
+                "to": "text",
+                "label": "'when does my upi refund arrive'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "text"
           }
         ]
       }
@@ -379,24 +649,36 @@
       "partTitle": "Dropping weak chunks",
       "codeHash": "91de90cc96c569013089e659ad2435ae36484e138d0810997f9d1c27446c1099",
       "spec": {
-        "template": "bars",
-        "title": "Threshold filtering discarding low relevance candidates",
+        "template": "sequence",
+        "title": "Dropping weak chunks",
+        "actors": [
+          "results",
+          "min_score",
+          "r"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Filtering drops weak chunks to avoid prompting models with irrelevant text.",
-            "bars": [
+            "caption": "Even the top reranked chunks may be irrelevant if the documents simply do.",
+            "activeActor": "results",
+            "messages": [
               {
-                "label": "c2 (score 0.91)",
-                "value": {
-                  "text": "91"
+                "from": "results",
+                "to": "min_score",
+                "label": {
+                  "var": "results",
+                  "line": 10,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "c3 (score 0.52)",
-                "value": {
-                  "text": "52"
+                "from": "min_score",
+                "to": "r",
+                "label": {
+                  "var": "min_score",
+                  "line": 2,
+                  "hit": 1
                 },
                 "tone": "ok"
               }
@@ -404,73 +686,125 @@
           },
           {
             "at": "say2",
-            "caption": "Applying a minimum score threshold discards results below relevance levels.",
-            "bars": [
+            "caption": "Filter_by_min_score(results, min_score) keeps only results.",
+            "activeActor": "min_score",
+            "messages": [
               {
-                "label": "c2 (score 0.91)",
-                "value": {
-                  "text": "91"
+                "from": "results",
+                "to": "min_score",
+                "label": {
+                  "var": "results",
+                  "line": 2,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "c3 (score 0.52)",
-                "value": {
-                  "text": "52"
+                "from": "min_score",
+                "to": "r",
+                "label": {
+                  "var": "min_score",
+                  "line": 2,
+                  "hit": 2
                 },
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Log how often nothing passes.",
+            "activeActor": "r",
+            "messages": [
+              {
+                "from": "results",
+                "to": "min_score",
+                "label": {
+                  "var": "results",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "label": "c1 (score 0.08)",
-                "value": {
-                  "text": "8"
+                "from": "min_score",
+                "to": "r",
+                "label": {
+                  "var": "min_score",
+                  "line": 2,
+                  "hit": 3
                 },
-                "tone": "error"
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Threshold filtering discarding low relevance candidates",
+        "template": "sequence",
+        "title": "Dropping weak chunks",
+        "actors": [
+          "results",
+          "min_score",
+          "r"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Filtering drops weak chunks to avoid prompting models with irrelevant text.",
-            "bars": [
+            "caption": "Even the top reranked chunks may be irrelevant if the documents simply do.",
+            "messages": [
               {
-                "label": "c2 (score 0.91)",
-                "value": 91,
-                "tone": "ok"
+                "from": "results",
+                "to": "min_score",
+                "label": "[{'id': 'c2', 'relevance_score': 0.91},…",
+                "tone": "data"
               },
               {
-                "label": "c3 (score 0.52)",
-                "value": 52,
+                "from": "min_score",
+                "to": "r",
+                "label": "0.5",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "results"
           },
           {
             "at": "say2",
-            "caption": "Applying a minimum score threshold discards results below relevance levels.",
-            "bars": [
+            "caption": "Filter_by_min_score(results, min_score) keeps only results.",
+            "messages": [
               {
-                "label": "c2 (score 0.91)",
-                "value": 91,
-                "tone": "ok"
+                "from": "results",
+                "to": "min_score",
+                "label": "[{'id': 'c2', 'relevance_score': 0.91},…",
+                "tone": "data"
               },
               {
-                "label": "c3 (score 0.52)",
-                "value": 52,
+                "from": "min_score",
+                "to": "r",
+                "label": "0.5",
                 "tone": "ok"
-              },
-              {
-                "label": "c1 (score 0.08)",
-                "value": 8,
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "min_score"
+          },
+          {
+            "at": "say6",
+            "caption": "Log how often nothing passes.",
+            "messages": [
+              {
+                "from": "results",
+                "to": "min_score",
+                "label": "[{'id': 'c2', 'relevance_score': 0.91},…",
+                "tone": "data"
+              },
+              {
+                "from": "min_score",
+                "to": "r",
+                "label": "0.5",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "r"
           }
         ]
       }
@@ -479,224 +813,162 @@
       "partTitle": "Measuring context precision",
       "codeHash": "1144e3a412ff24285701a42663fd54412d3291a22dae7c1cc72374c1b91ea73c",
       "spec": {
-        "template": "flow",
-        "title": "Measuring context precision — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Measuring context p...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Measuring context precision",
+        "actors": [
+          "relevant",
+          "before",
+          "after"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Measuring context precision.",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Measuring context p... [Deleven.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Context precision asks.",
+            "activeActor": "relevant",
+            "messages": [
+              {
+                "from": "relevant",
+                "to": "before",
+                "label": {
+                  "var": "relevant",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "before",
+                "to": "after",
+                "label": {
+                  "var": "before",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A rank-aware version rewards putting relevant chunks first.",
+            "activeActor": "before",
+            "messages": [
+              {
+                "from": "relevant",
+                "to": "before",
+                "label": {
+                  "var": "relevant",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "before",
+                "to": "after",
+                "label": {
+                  "var": "before",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Measuring context precision.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "Trace how builds updates fuller during execution.",
+            "activeActor": "after",
+            "messages": [
+              {
+                "from": "relevant",
+                "to": "before",
+                "label": {
+                  "var": "relevant",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "before",
+                "to": "after",
+                "label": {
+                  "var": "before",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Measuring context precision — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Measuring context p...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Measuring context precision",
+        "actors": [
+          "relevant",
+          "before",
+          "after"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Measuring context precision [D11.P5.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Measuring context p... [D11.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Context precision asks.",
+            "messages": [
+              {
+                "from": "relevant",
+                "to": "before",
+                "label": "{'c2', 'c5'}",
+                "tone": "data"
+              },
+              {
+                "from": "before",
+                "to": "after",
+                "label": "['c1', 'c2', 'c4', 'c5']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "relevant"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "A rank-aware version rewards putting relevant chunks first.",
+            "messages": [
+              {
+                "from": "relevant",
+                "to": "before",
+                "label": "{'c2', 'c5'}",
+                "tone": "data"
+              },
+              {
+                "from": "before",
+                "to": "after",
+                "label": "['c1', 'c2', 'c4', 'c5']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "before"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Measuring context precision [D11.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say6",
+            "caption": "Trace how builds updates fuller during execution.",
+            "messages": [
+              {
+                "from": "relevant",
+                "to": "before",
+                "label": "{'c2', 'c5'}",
+                "tone": "data"
+              },
+              {
+                "from": "before",
+                "to": "after",
+                "label": "['c1', 'c2', 'c4', 'c5']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "after"
           }
         ]
       }
@@ -705,224 +977,194 @@
       "partTitle": "Cost and speed of reranking",
       "codeHash": "1d9ae77504cae2615cda4ac0c9821afb139ad81e351e18b8413c588ddd70e6e0",
       "spec": {
-        "template": "flow",
-        "title": "Cost and speed of reranking — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Cost and speed of reranking",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "proc",
-            "label": "2. Cost and speed of r...",
-            "tappable": true
+            "id": "candidates",
+            "label": "candidates"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "batch_size",
+            "label": "batch_size"
+          },
+          {
+            "id": "ms_per_batch",
+            "label": "ms_per_batch"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Cost and speed of reranking [Deleven.Psix.Sone].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Cost and speed of r... [Deleven.Psix.Stwo].",
+            "caption": "Reranking adds time.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 1
+              },
+              "candidates": {
+                "var": "candidates",
+                "line": 2,
+                "hit": 1
+              },
+              "batch_size": {
+                "var": "batch_size",
+                "line": 2,
+                "hit": 1
+              },
+              "ms_per_batch": {
+                "var": "ms_per_batch",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "n": "data",
+              "candidates": "data",
+              "batch_size": "data",
+              "ms_per_batch": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The number of candidates is your main knob.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "n": {
+                "var": "n",
+                "line": 6,
+                "hit": 1
+              },
+              "candidates": {
+                "var": "candidates",
+                "line": 3,
+                "hit": 1
+              },
+              "batch_size": {
+                "var": "batch_size",
+                "line": 3,
+                "hit": 1
+              },
+              "ms_per_batch": {
+                "var": "ms_per_batch",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "n": "data",
+              "candidates": "data",
+              "batch_size": "data",
+              "ms_per_batch": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Cost and speed of reranking.",
+            "at": "say5",
+            "caption": "Always report the whole pipeline's time, since users feel the total, not.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 2
+              },
+              "candidates": {
+                "var": "candidates",
+                "line": 2,
+                "hit": 2
+              },
+              "batch_size": {
+                "var": "batch_size",
+                "line": 2,
+                "hit": 2
+              },
+              "ms_per_batch": {
+                "var": "ms_per_batch",
+                "line": 2,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "n": "ok",
+              "candidates": "ok",
+              "batch_size": "ok",
+              "ms_per_batch": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cost and speed of reranking — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Cost and speed of reranking",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "proc",
-            "label": "2. Cost and speed of r...",
-            "tappable": true
+            "id": "candidates",
+            "label": "candidates"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "batch_size",
+            "label": "batch_size"
+          },
+          {
+            "id": "ms_per_batch",
+            "label": "ms_per_batch"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Cost and speed of reranking [D11.P6.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Cost and speed of r... [D11.P6.S2].",
+            "caption": "Reranking adds time.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "n": "10",
+              "candidates": "10",
+              "batch_size": "16",
+              "ms_per_batch": "60"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "n": "data",
+              "candidates": "data",
+              "batch_size": "data",
+              "ms_per_batch": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P6.S3].",
+            "at": "say2",
+            "caption": "The number of candidates is your main knob.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "n": "10",
+              "candidates": "10",
+              "batch_size": "16",
+              "ms_per_batch": "60"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "n": "data",
+              "candidates": "data",
+              "batch_size": "data",
+              "ms_per_batch": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Cost and speed of reranking [D11.P6.S4].",
+            "at": "say5",
+            "caption": "Always report the whole pipeline's time, since users feel the total, not.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "n": "20",
+              "candidates": "20",
+              "batch_size": "16",
+              "ms_per_batch": "60"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "n": "ok",
+              "candidates": "ok",
+              "batch_size": "ok",
+              "ms_per_batch": "ok"
+            }
           }
         ]
       }

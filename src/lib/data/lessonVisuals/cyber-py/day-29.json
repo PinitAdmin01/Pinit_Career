@@ -2,81 +2,169 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 29,
-  "promptSha": "05b8ae1693612e6c6bcffc6d65e5e9de64ff858d1940255a65d0856da479eb13",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The incident response lifecycle",
       "codeHash": "cc550d7a5935120fc0e13a5897a1ed3289dfde7d1cc12eeae2cbff2ec2f3f95d",
       "spec": {
-        "template": "states",
-        "title": "NIST incident response lifecycle phases and continuous containment workflow",
-        "states": [
+        "template": "boxes",
+        "title": "The incident response lifecycle",
+        "boxes": [
           {
-            "id": "prep",
-            "label": "Preparation Phase"
+            "id": "phases",
+            "label": "phases"
           },
           {
-            "id": "detection",
-            "label": "Detection and Analysis"
+            "id": "phase",
+            "label": "phase"
           },
           {
-            "id": "containment",
-            "label": "Containment Eradication Recovery"
-          },
-          {
-            "id": "postIncident",
-            "label": "Post Incident Lessons Learned"
+            "id": "action",
+            "label": "action"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Incident response lifecycle phases guide structured containment and recovery.",
-            "activeStateId": "detection",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Detection and analysis.",
+            "values": {
+              "phases": {
+                "var": "phases",
+                "line": 1,
+                "hit": 1
+              },
+              "phase": {
+                "var": "phase",
+                "line": 5,
+                "hit": 1
+              },
+              "action": {
+                "var": "action",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "phases": "data",
+              "phase": "data",
+              "action": "data"
+            }
           },
           {
-            "at": "say6",
-            "caption": "Containment strategies prevent damage spread while removing attacker footholds.",
-            "activeStateId": "containment",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Preparation means having a plan, contacts, tools, logging and practised.",
+            "values": {
+              "phases": {
+                "var": "phases",
+                "line": 5,
+                "hit": 1
+              },
+              "phase": {
+                "var": "phase",
+                "line": 6,
+                "hit": 1
+              },
+              "action": {
+                "var": "action",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "phases": "data",
+              "phase": "data",
+              "action": "data"
+            }
+          },
+          {
+            "at": "say10",
+            "caption": "Keep the plan and contact list somewhere reachable even if the main.",
+            "values": {
+              "phases": {
+                "var": "phases",
+                "line": 6,
+                "hit": 1
+              },
+              "phase": {
+                "var": "phase",
+                "line": 5,
+                "hit": 2
+              },
+              "action": {
+                "var": "action",
+                "line": 5,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "phases": "ok",
+              "phase": "ok",
+              "action": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "NIST incident response lifecycle phases and continuous containment workflow",
-        "states": [
+        "template": "boxes",
+        "title": "The incident response lifecycle",
+        "boxes": [
           {
-            "id": "prep",
-            "label": "Preparation Phase"
+            "id": "phases",
+            "label": "phases"
           },
           {
-            "id": "detection",
-            "label": "Detection and Analysis"
+            "id": "phase",
+            "label": "phase"
           },
           {
-            "id": "containment",
-            "label": "Containment Eradication Recovery"
-          },
-          {
-            "id": "postIncident",
-            "label": "Post Incident Lessons Learned"
+            "id": "action",
+            "label": "action"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Incident response lifecycle phases guide structured containment and recovery.",
-            "activeStateId": "detection",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Detection and analysis.",
+            "values": {
+              "phases": "[['preparation', 'incident plan, contac…",
+              "phase": "'preparation'",
+              "action": "'incident plan, contacts, logging, prac…"
+            },
+            "tones": {
+              "phases": "data",
+              "phase": "data",
+              "action": "data"
+            }
           },
           {
-            "at": "say6",
-            "caption": "Containment strategies prevent damage spread while removing attacker footholds.",
-            "activeStateId": "containment",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Preparation means having a plan, contacts, tools, logging and practised.",
+            "values": {
+              "phases": "[['preparation', 'incident plan, contac…",
+              "phase": "'preparation'",
+              "action": "'incident plan, contacts, logging, prac…"
+            },
+            "tones": {
+              "phases": "data",
+              "phase": "data",
+              "action": "data"
+            }
+          },
+          {
+            "at": "say10",
+            "caption": "Keep the plan and contact list somewhere reachable even if the main.",
+            "values": {
+              "phases": "[['preparation', 'incident plan, contac…",
+              "phase": "'detection and analysis'",
+              "action": "'confirm the alert and assess severity'"
+            },
+            "tones": {
+              "phases": "ok",
+              "phase": "ok",
+              "action": "ok"
+            }
           }
         ]
       }
@@ -85,183 +173,221 @@
       "partTitle": "Containment choices",
       "codeHash": "fad6341bd47b9e471c8abcef844abe549fb562bdf17877fdc738c2e788278b59",
       "spec": {
-        "template": "table",
-        "title": "RFC 3227 order of volatility hierarchy and cryptographic evidence handling",
-        "columns": [
-          "Volatility Tier",
-          "Evidence Artifact",
-          "Preservation Urgency"
+        "template": "flow",
+        "title": "Containment choices",
+        "nodes": [
+          {
+            "id": "playbook",
+            "label": "playbook"
+          },
+          {
+            "id": "incident",
+            "label": "incident"
+          },
+          {
+            "id": "steps",
+            "label": "steps"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Order of volatility mandates capturing memory prior to hard disk storage.",
-            "activeRowIndex": 1,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Tier One",
-                  "CPU Registers and Cache",
-                  "Immediate In-Memory Capture"
-                ],
-                "tone": "data"
+            "at": "say1",
+            "caption": "Containment options include isolating a machine from the network.",
+            "values": {
+              "playbook": {
+                "var": "playbook",
+                "line": 1,
+                "hit": 2
               },
-              {
-                "cells": [
-                  "Tier Two",
-                  "Volatile System RAM",
-                  "Capture Prior to Machine Shutdown"
-                ],
-                "tone": "data"
+              "incident": {
+                "var": "incident",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Tier Three",
-                  "Network State and Sockets",
-                  "Extract Active Process Connections"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Tier Four",
-                  "Hard Disk Raw Image",
-                  "Bit for Bit Cryptographic Hash"
-                ],
-                "tone": "data"
+              "steps": {
+                "var": "steps",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "playbook": "data",
+              "incident": "data",
+              "steps": "data"
+            },
+            "arrows": [
+              [
+                "playbook",
+                "incident"
+              ],
+              [
+                "incident",
+                "steps"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Cryptographic hash algorithms verify evidence integrity bit for bit in court.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Tier One",
-                  "CPU Registers and Cache",
-                  "Immediate In-Memory Capture"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Short-term containment stops the bleeding.",
+            "values": {
+              "playbook": {
+                "var": "playbook",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Tier Two",
-                  "Volatile System RAM",
-                  "Capture Prior to Machine Shutdown"
-                ],
-                "tone": "data"
+              "incident": {
+                "var": "incident",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Tier Three",
-                  "Network State and Sockets",
-                  "Extract Active Process Connections"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Tier Four",
-                  "Hard Disk Raw Image",
-                  "Bit for Bit Cryptographic Hash"
-                ],
-                "tone": "data"
+              "steps": {
+                "var": "steps",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "playbook": "data",
+              "incident": "data",
+              "steps": "data"
+            },
+            "arrows": [
+              [
+                "playbook",
+                "incident"
+              ],
+              [
+                "incident",
+                "steps"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Before eradication, make sure you understand how the attacker got in,.",
+            "values": {
+              "playbook": {
+                "var": "playbook",
+                "line": 5,
+                "hit": 1
+              },
+              "incident": {
+                "var": "incident",
+                "line": 4,
+                "hit": 2
+              },
+              "steps": {
+                "var": "steps",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "playbook": "ok",
+              "incident": "ok",
+              "steps": "ok"
+            },
+            "arrows": [
+              [
+                "playbook",
+                "incident"
+              ],
+              [
+                "incident",
+                "steps"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "RFC 3227 order of volatility hierarchy and cryptographic evidence handling",
-        "columns": [
-          "Volatility Tier",
-          "Evidence Artifact",
-          "Preservation Urgency"
+        "template": "flow",
+        "title": "Containment choices",
+        "nodes": [
+          {
+            "id": "playbook",
+            "label": "playbook"
+          },
+          {
+            "id": "incident",
+            "label": "incident"
+          },
+          {
+            "id": "steps",
+            "label": "steps"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Order of volatility mandates capturing memory prior to hard disk storage.",
-            "activeRowIndex": 1,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Tier One",
-                  "CPU Registers and Cache",
-                  "Immediate In-Memory Capture"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Tier Two",
-                  "Volatile System RAM",
-                  "Capture Prior to Machine Shutdown"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Tier Three",
-                  "Network State and Sockets",
-                  "Extract Active Process Connections"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Tier Four",
-                  "Hard Disk Raw Image",
-                  "Bit for Bit Cryptographic Hash"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Containment options include isolating a machine from the network.",
+            "values": {
+              "playbook": "{'ransomware on a laptop': ['isolate fr…",
+              "incident": "'ransomware on a laptop'",
+              "steps": "['isolate from network', 'keep powered …"
+            },
+            "tones": {
+              "playbook": "data",
+              "incident": "data",
+              "steps": "data"
+            },
+            "arrows": [
+              [
+                "playbook",
+                "incident"
+              ],
+              [
+                "incident",
+                "steps"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Cryptographic hash algorithms verify evidence integrity bit for bit in court.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Tier One",
-                  "CPU Registers and Cache",
-                  "Immediate In-Memory Capture"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Tier Two",
-                  "Volatile System RAM",
-                  "Capture Prior to Machine Shutdown"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Tier Three",
-                  "Network State and Sockets",
-                  "Extract Active Process Connections"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Tier Four",
-                  "Hard Disk Raw Image",
-                  "Bit for Bit Cryptographic Hash"
-                ],
-                "tone": "data"
-              }
+            "at": "say2",
+            "caption": "Short-term containment stops the bleeding.",
+            "values": {
+              "playbook": "{'ransomware on a laptop': ['isolate fr…",
+              "incident": "'ransomware on a laptop'",
+              "steps": "['isolate from network', 'keep powered …"
+            },
+            "tones": {
+              "playbook": "data",
+              "incident": "data",
+              "steps": "data"
+            },
+            "arrows": [
+              [
+                "playbook",
+                "incident"
+              ],
+              [
+                "incident",
+                "steps"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Before eradication, make sure you understand how the attacker got in,.",
+            "values": {
+              "playbook": "{'ransomware on a laptop': ['isolate fr…",
+              "incident": "'stolen API key'",
+              "steps": "['revoke the key', 'issue a new key', '…"
+            },
+            "tones": {
+              "playbook": "ok",
+              "incident": "ok",
+              "steps": "ok"
+            },
+            "arrows": [
+              [
+                "playbook",
+                "incident"
+              ],
+              [
+                "incident",
+                "steps"
+              ]
             ]
           }
         ]
@@ -271,128 +397,162 @@
       "partTitle": "Evidence and chain of custody",
       "codeHash": "5fc89b6a5fcab025c801d82d7f2e8b368c71f91b4ef4948c2366a8375a90fe40",
       "spec": {
-        "template": "flow",
-        "title": "Automated network host isolation architecture and containment rules",
-        "nodes": [
-          {
-            "id": "compromise",
-            "label": "Compromised Endpoint Host",
-            "tappable": false
-          },
-          {
-            "id": "firewall",
-            "label": "Local Host Isolation Firewall",
-            "tappable": false
-          },
-          {
-            "id": "dropped",
-            "label": "Drop Inbound and Outbound Traffic",
-            "tappable": false
-          },
-          {
-            "id": "console",
-            "label": "Encrypted EDR Management Tunnel",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "compromise",
-            "to": "firewall",
-            "label": "Agent Command"
-          },
-          {
-            "from": "firewall",
-            "to": "dropped",
-            "label": "Sever Network"
-          },
-          {
-            "from": "firewall",
-            "to": "console",
-            "label": "Maintain Port 8443"
-          }
+        "template": "sequence",
+        "title": "Evidence and chain of custody",
+        "actors": [
+          "entries",
+          "prev",
+          "e"
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Isolation rules immediately drop incoming and outgoing traffic across ports.",
-            "activeNodes": [
-              "firewall",
-              "dropped"
-            ],
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Digital evidence must be collected so that it can be trusted later.",
+            "activeActor": "entries",
+            "messages": [
+              {
+                "from": "entries",
+                "to": "prev",
+                "label": {
+                  "var": "entries",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "prev",
+                "to": "e",
+                "label": {
+                  "var": "prev",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say6",
-            "caption": "Host isolation maintains secure telemetry connections with management consoles.",
-            "activeNodes": [
-              "firewall",
-              "console"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Chain of custody records who collected each item, when, how, where it was.",
+            "activeActor": "prev",
+            "messages": [
+              {
+                "from": "entries",
+                "to": "prev",
+                "label": {
+                  "var": "entries",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "prev",
+                "to": "e",
+                "label": {
+                  "var": "prev",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Use write-blockers or read-only copies when imaging disks, so the act.",
+            "activeActor": "e",
+            "messages": [
+              {
+                "from": "entries",
+                "to": "prev",
+                "label": {
+                  "var": "entries",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "prev",
+                "to": "e",
+                "label": {
+                  "var": "prev",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Automated network host isolation architecture and containment rules",
-        "nodes": [
-          {
-            "id": "compromise",
-            "label": "Compromised Endpoint Host",
-            "tappable": false
-          },
-          {
-            "id": "firewall",
-            "label": "Local Host Isolation Firewall",
-            "tappable": false
-          },
-          {
-            "id": "dropped",
-            "label": "Drop Inbound and Outbound Traffic",
-            "tappable": false
-          },
-          {
-            "id": "console",
-            "label": "Encrypted EDR Management Tunnel",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "compromise",
-            "to": "firewall",
-            "label": "Agent Command"
-          },
-          {
-            "from": "firewall",
-            "to": "dropped",
-            "label": "Sever Network"
-          },
-          {
-            "from": "firewall",
-            "to": "console",
-            "label": "Maintain Port 8443"
-          }
+        "template": "sequence",
+        "title": "Evidence and chain of custody",
+        "actors": [
+          "entries",
+          "prev",
+          "e"
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Isolation rules immediately drop incoming and outgoing traffic across ports.",
-            "activeNodes": [
-              "firewall",
-              "dropped"
+            "at": "say1",
+            "caption": "Digital evidence must be collected so that it can be trusted later.",
+            "messages": [
+              {
+                "from": "entries",
+                "to": "prev",
+                "label": "['09:00 laptop seized by Officer Rao', …",
+                "tone": "data"
+              },
+              {
+                "from": "prev",
+                "to": "e",
+                "label": "'00000000000000000000000000000000000000…",
+                "tone": "ok"
+              }
             ],
-            "statusBadge": "failed"
+            "activeActor": "entries"
           },
           {
-            "at": "say6",
-            "caption": "Host isolation maintains secure telemetry connections with management consoles.",
-            "activeNodes": [
-              "firewall",
-              "console"
+            "at": "say2",
+            "caption": "Chain of custody records who collected each item, when, how, where it was.",
+            "messages": [
+              {
+                "from": "entries",
+                "to": "prev",
+                "label": "['09:00 laptop seized by Officer Rao', …",
+                "tone": "data"
+              },
+              {
+                "from": "prev",
+                "to": "e",
+                "label": "'00000000000000000000000000000000000000…",
+                "tone": "ok"
+              }
             ],
-            "statusBadge": "completed"
+            "activeActor": "prev"
+          },
+          {
+            "at": "say10",
+            "caption": "Use write-blockers or read-only copies when imaging disks, so the act.",
+            "messages": [
+              {
+                "from": "entries",
+                "to": "prev",
+                "label": "['09:00 laptop seized by Officer Rao', …",
+                "tone": "data"
+              },
+              {
+                "from": "prev",
+                "to": "e",
+                "label": "'3bf05236773d361303a51199b51f5f710b615e…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "e"
           }
         ]
       }
@@ -401,224 +561,106 @@
       "partTitle": "Detecting tampering",
       "codeHash": "9fef8c0bb0c511f364ee0c0bb359164e68a838ff841fe3f7082b9f1c4b00ed99",
       "spec": {
-        "template": "flow",
-        "title": "Post-Incident Eradication, Root Cause Analysi... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Detecting tampering",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "entries",
+            "label": "entries"
           },
           {
-            "id": "proc",
-            "label": "2. Post-Incident Eradi...",
-            "tappable": true
+            "id": "es",
+            "label": "es"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "prev",
+            "label": "prev"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Post-Incident Eradication, Root Cause An.",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Post-Incident Eradi... [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "To verify a custody log, recompute the chain from the entries and compare.",
+            "currentState": "entries",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The first index where they differ is where tampering (or corruption) happened.",
+            "currentState": "es",
+            "transition": {
+              "from": "entries",
+              "to": "es",
+              "label": {
+                "var": "es",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Post-Incident Eradication, Root C.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Record who ran each verification and when, so the verification itself.",
+            "currentState": "prev",
+            "transition": {
+              "from": "es",
+              "to": "prev",
+              "label": {
+                "var": "prev",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Post-Incident Eradication, Root Cause Analysi... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Detecting tampering",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "entries",
+            "label": "entries"
           },
           {
-            "id": "proc",
-            "label": "2. Post-Incident Eradi...",
-            "tappable": true
+            "id": "es",
+            "label": "es"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "prev",
+            "label": "prev"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Post-Incident Eradication, Root Cause An.. [D29.P4.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Post-Incident Eradi... [D29.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "To verify a custody log, recompute the chain from the entries and compare.",
+            "currentState": "entries",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The first index where they differ is where tampering (or corruption) happened.",
+            "currentState": "es",
+            "transition": {
+              "from": "entries",
+              "to": "es",
+              "label": "['seized', 'imaged', 'copied', 'analyse…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Post-Incident Eradication, Root C.. [D29.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Record who ran each verification and when, so the verification itself.",
+            "currentState": "prev",
+            "transition": {
+              "from": "es",
+              "to": "prev",
+              "label": "'329c5e22208def5f2d4126b742ebcc6182fdc0…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -627,186 +669,214 @@
       "partTitle": "Recovery and the blameless review",
       "codeHash": "2b61e3b0d0c6af80398bd19aa323502aeb3b26526f9cecdba5a81cf839d0802a",
       "spec": {
-        "template": "compare",
-        "title": "Standard operating system process listing versus hidden memory rootkits",
-        "left": {
-          "title": "Standard Process Listing",
-          "items": [
-            "Traverses ActiveProcessLinks doubly-linked list",
-            "Enumerates standard operating system process threads",
-            "Visible to standard administrative commands and pslist",
-            "Represents benign user applications and services"
-          ]
-        },
-        "right": {
-          "title": "Hidden Rootkit Processes",
-          "items": [
-            "Unlinked from active operating system process list",
-            "Remains active inside kernel thread scheduler",
-            "Exposed through structure discrepancy tools like psxview",
-            "Hides injected dynamic libraries and in-memory malware"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Recovery and the blameless review",
+        "states": [
           {
-            "at": "say6",
-            "caption": "Rootkit malware unlinks processes to evade standard system process listings.",
-            "highlightSide": "right",
-            "statusBadge": "failed"
+            "id": "actions",
+            "label": "actions"
           },
           {
-            "at": "say7",
-            "caption": "Structure discrepancy analysis reveals hidden rootkit processes in memory.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "what",
+            "label": "what"
           }
         ],
-        "leftLabel": "Standard Process Listing",
-        "rightLabel": "Hidden Rootkit Processes"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Recovery restores systems from known-good sources, such as clean images.",
+            "currentState": "actions",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Backups must be protected from the attacker.",
+            "currentState": "a",
+            "transition": {
+              "from": "actions",
+              "to": "a",
+              "label": {
+                "var": "a",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Follow up on review actions at a fixed date, because unfinished actions.",
+            "currentState": "what",
+            "transition": {
+              "from": "a",
+              "to": "what",
+              "label": {
+                "var": "what",
+                "line": 4,
+                "hit": 5
+              }
+            },
+            "tone": "ok"
+          }
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Standard operating system process listing versus hidden memory rootkits",
-        "left": {
-          "title": "Standard Process Listing",
-          "items": [
-            "Traverses ActiveProcessLinks doubly-linked list",
-            "Enumerates standard operating system process threads",
-            "Visible to standard administrative commands and pslist",
-            "Represents benign user applications and services"
-          ]
-        },
-        "right": {
-          "title": "Hidden Rootkit Processes",
-          "items": [
-            "Unlinked from active operating system process list",
-            "Remains active inside kernel thread scheduler",
-            "Exposed through structure discrepancy tools like psxview",
-            "Hides injected dynamic libraries and in-memory malware"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Recovery and the blameless review",
+        "states": [
           {
-            "at": "say6",
-            "caption": "Rootkit malware unlinks processes to evade standard system process listings.",
-            "highlightSide": "right",
-            "statusBadge": "failed"
+            "id": "actions",
+            "label": "actions"
           },
           {
-            "at": "say7",
-            "caption": "Structure discrepancy analysis reveals hidden rootkit processes in memory.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "what",
+            "label": "what"
           }
         ],
-        "leftLabel": "Standard Process Listing",
-        "rightLabel": "Hidden Rootkit Processes"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Recovery restores systems from known-good sources, such as clean images.",
+            "currentState": "actions",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Backups must be protected from the attacker.",
+            "currentState": "a",
+            "transition": {
+              "from": "actions",
+              "to": "a",
+              "label": "['detection rule for mass file renames'…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Follow up on review actions at a fixed date, because unfinished actions.",
+            "currentState": "what",
+            "transition": {
+              "from": "a",
+              "to": "what",
+              "label": "'enforce MFA on the VPN'"
+            },
+            "tone": "ok"
+          }
+        ]
       }
     },
     {
       "partTitle": "Practice time: custody chains",
       "codeHash": "cf8f6d05ccffe7a799e08e7c077d65f90648cdf3d812c0b6fc1d05925bde5bdb",
       "spec": {
-        "template": "sequence",
-        "title": "Forensic super-timeline aggregation and chronological event correlation",
-        "actors": [
+        "template": "states",
+        "title": "Practice time: custody chains",
+        "states": [
           {
-            "id": "authLog",
-            "label": "Authentication Log"
+            "id": "log",
+            "label": "log"
           },
           {
-            "id": "filesystemMft",
-            "label": "Filesystem MFT"
+            "id": "hashes",
+            "label": "hashes"
           },
           {
-            "id": "processExec",
-            "label": "Process Execution Log"
-          }
-        ],
-        "messages": [
-          {
-            "from": "authLog",
-            "to": "filesystemMft",
-            "label": "Record Remote SSH Authentication",
-            "tone": "data"
-          },
-          {
-            "from": "processExec",
-            "to": "filesystemMft",
-            "label": "Record Shell Payload Invocation",
-            "tone": "data"
-          },
-          {
-            "from": "filesystemMft",
-            "to": "processExec",
-            "label": "Correlate Staging File Creation Timestamp",
-            "tone": "success"
+            "id": "prev",
+            "label": "prev"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Super timelines aggregate chronological events across forensic data sources.",
-            "activeMessageIndex": 0,
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Chain_hashes(entries).",
+            "currentState": "log",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "Correlating timestamps reveals adversary staging and data exfiltration paths.",
-            "activeMessageIndex": 2,
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "The checks confirm one hash per entry, the genesis rule, that each hash.",
+            "currentState": "hashes",
+            "transition": {
+              "from": "log",
+              "to": "hashes",
+              "label": {
+                "var": "hashes",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Practising the response, not just reading about it, is what makes teams.",
+            "currentState": "prev",
+            "transition": {
+              "from": "hashes",
+              "to": "prev",
+              "label": {
+                "var": "prev",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "sequence",
-        "title": "Forensic super-timeline aggregation and chronological event correlation",
-        "actors": [
+        "template": "states",
+        "title": "Practice time: custody chains",
+        "states": [
           {
-            "id": "authLog",
-            "label": "Authentication Log"
+            "id": "log",
+            "label": "log"
           },
           {
-            "id": "filesystemMft",
-            "label": "Filesystem MFT"
+            "id": "hashes",
+            "label": "hashes"
           },
           {
-            "id": "processExec",
-            "label": "Process Execution Log"
-          }
-        ],
-        "messages": [
-          {
-            "from": "authLog",
-            "to": "filesystemMft",
-            "label": "Record Remote SSH Authentication",
-            "tone": "data"
-          },
-          {
-            "from": "processExec",
-            "to": "filesystemMft",
-            "label": "Record Shell Payload Invocation",
-            "tone": "data"
-          },
-          {
-            "from": "filesystemMft",
-            "to": "processExec",
-            "label": "Correlate Staging File Creation Timestamp",
-            "tone": "success"
+            "id": "prev",
+            "label": "prev"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Super timelines aggregate chronological events across forensic data sources.",
-            "activeMessageIndex": 0,
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Chain_hashes(entries).",
+            "currentState": "log",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "Correlating timestamps reveals adversary staging and data exfiltration paths.",
-            "activeMessageIndex": 2,
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "The checks confirm one hash per entry, the genesis rule, that each hash.",
+            "currentState": "hashes",
+            "transition": {
+              "from": "log",
+              "to": "hashes",
+              "label": "[]"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Practising the response, not just reading about it, is what makes teams.",
+            "currentState": "prev",
+            "transition": {
+              "from": "hashes",
+              "to": "prev",
+              "label": "'ad3042cac242455ba5abd1d1dc763886357789…"
+            },
+            "tone": "ok"
           }
         ]
       }

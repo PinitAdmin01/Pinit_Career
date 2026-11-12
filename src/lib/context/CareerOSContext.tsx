@@ -1,9 +1,25 @@
 'use client';
 
 import React, { useMemo } from 'react';
-import { UIStateProvider, useUIState, UIStateContextType } from '@/lib/context/UIStateContext';
-import { FinanceProvider, useFinance, FinanceContextType } from '@/lib/context/FinanceContext';
-import { UserProgressProvider, useUserProgress, UserProgressContextType, OnboardingAnswers } from '@/lib/context/UserProgressContext';
+import {
+  UIStateProvider,
+  useUIState,
+  useOptionalUIState,
+  UIStateContextType,
+} from '@/lib/context/UIStateContext';
+import {
+  FinanceProvider,
+  useFinance,
+  useOptionalFinance,
+  FinanceContextType,
+} from '@/lib/context/FinanceContext';
+import {
+  UserProgressProvider,
+  useUserProgress,
+  useOptionalUserProgress,
+  UserProgressContextType,
+  OnboardingAnswers,
+} from '@/lib/context/UserProgressContext';
 import { useVault, VaultItem } from '@/hooks/useVault';
 import { usePins, PinTransaction, PinSource, PIN_COSTS, PIN_EARN } from '@/hooks/usePins';
 import { useAppStore } from '@/lib/store/useAppStore';
@@ -53,4 +69,30 @@ export function useCareerOS(): CareerOSContextType {
     // User progress & roadmap progression slices
     ...progress,
   }), [ui, finance, progress]);
+}
+
+/**
+ * [FIX-STAGE: Wave 1A - Hook Order Safety]
+ * Unconditional optional CareerOS hook safe for SSR / isolated modals / unit tests.
+ * Never throws and never violates react-hooks/rules-of-hooks (no try/catch around hooks).
+ */
+export function useOptionalCareerOS(): Partial<CareerOSContextType> {
+  const ui = useOptionalUIState();
+  const finance = useOptionalFinance();
+  const progress = useOptionalUserProgress();
+
+  return useMemo(() => {
+    if (!ui || !finance || !progress) {
+      console.log('[PinIT][Fix:CareerOSContext] Rendered outside full CareerOSProvider; falling back to partial context.', {
+        hasUI: Boolean(ui),
+        hasFinance: Boolean(finance),
+        hasProgress: Boolean(progress),
+      });
+    }
+    return {
+      ...(ui ?? {}),
+      ...(finance ?? {}),
+      ...(progress ?? {}),
+    };
+  }, [ui, finance, progress]);
 }

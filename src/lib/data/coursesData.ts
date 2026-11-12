@@ -30,6 +30,8 @@ import { IOT_NETWORK_30_DAYS_QUESTS } from './iotNetwork30DayData';
 import { IOT_EDGE_AI_30_DAYS_QUESTS } from './iotEdgeAi30DayData';
 import { IOT_SECURITY_30_DAYS_QUESTS } from './iotSecurity30DayData';
 import { PYTHON_30_DAYS_QUESTS } from './python30DayData';
+// [FIX-STAGE: phase2d-m2-practice] Wire 60 runnable Python Month 2 practice tasks (Days 31-60)
+import { PYTHON_MONTH2_QUESTS } from './pythonMonth2Tasks';
 import { QUANT_SYSTEMS_30_DAYS_QUESTS } from './quant30DayData';
 import { BCOM_ACCOUNTING_30_DAYS_QUESTS } from './bcomAccounting30DayData';
 import { BCOM_FINANCE_30_DAYS_QUESTS } from './bcomFinance30DayData';
@@ -158,7 +160,7 @@ const RAW_COURSES: Course[] = [
     title: 'Cloud Engineering in Python (AWS)',
     desc: 'The AWS cloud course with every practice task in Python: VPCs and subnets, IAM policies, auto scaling, load balancers, S3, Lambda, DynamoDB, RDS, queues and events, Terraform, monitoring, security, FinOps and disaster recovery.',
     difficulty: 'Advanced',
-    durationWeeks: 6,
+    durationWeeks: 8,
     icon: '☁️',
     quests: CLOUD_PYTHON_30_DAYS_QUESTS as any
   },
@@ -167,7 +169,7 @@ const RAW_COURSES: Course[] = [
     title: 'Vector Search Engines in Python',
     desc: 'How vector databases and retrieval for AI work, with every lesson example and practice task in Python: embeddings and similarity, exact k-NN, BM25, hybrid search, chunking and filters, k-means, IVF, product, scalar and binary quantisation, LSH, graph search and HNSW, tuning, upserts and deletes, sharding, access control, re-ranking, query rewriting, RAG context and citations, semantic caching, index migrations, nDCG, monitoring, capacity planning and privacy.',
     difficulty: 'Advanced',
-    durationWeeks: 6,
+    durationWeeks: 8,
     icon: '🔍',
     quests: VECTOR_PYTHON_30_DAYS_QUESTS as any
   },
@@ -176,7 +178,7 @@ const RAW_COURSES: Course[] = [
     title: 'Production AI Safety & Guardrails in Python',
     desc: 'How to make AI products safe in production, with every lesson example and practice task in Python: risk registers and the OWASP LLM Top 10, input validation, prompt injection, untrusted documents, output schemas, card masking, moderation thresholds, precision and recall, groundedness and citations, refusals, safe tool use, human approval, rate limits, red-teaming, obfuscation, fairness, calibration, abstention, regression gates, audit logs, incident response, model cards, the EU AI Act and NIST AI RMF, data hygiene, watermarking, reward models and monitoring.',
     difficulty: 'Advanced',
-    durationWeeks: 6,
+    durationWeeks: 8,
     icon: '🛡️',
     quests: SAFETY_PYTHON_30_DAYS_QUESTS as any
   },
@@ -212,7 +214,7 @@ const RAW_COURSES: Course[] = [
     title: 'Data Structures & Algorithms in Python',
     desc: 'The DSA course with every lesson example and practice task in Python: complexity, lists, hash maps, trees, graphs and dynamic programming.',
     difficulty: 'Intermediate',
-    durationWeeks: 6,
+    durationWeeks: 8,
     icon: '🐍',
     quests: DSA_PYTHON_30_DAYS_QUESTS as any
   },
@@ -239,7 +241,7 @@ const RAW_COURSES: Course[] = [
     title: 'Cybersecurity in Python',
     desc: 'Defensive security with every lesson example and practice task in Python: threat modelling, SQL injection, XSS, CSRF, WAF rules, cryptography, password hashing, certificates, JWTs, TOTP, access control, rate limiting, SSRF, safe deserialisation, secret scanning, dependency audits, log detection, IDS rules, CVSS scoring, zero trust, cloud IAM and incident response.',
     difficulty: 'Advanced',
-    durationWeeks: 6,
+    durationWeeks: 8,
     icon: '🛡️',
     quests: CYBER_PYTHON_30_DAYS_QUESTS as any
   },
@@ -266,7 +268,7 @@ const RAW_COURSES: Course[] = [
     title: 'Distributed Systems in Python',
     desc: 'The distributed systems course with every lesson example and practice task in Python: retries, consistent hashing, locks, Raft, sagas, queues, CRDTs, sharding and circuit breakers.',
     difficulty: 'Advanced',
-    durationWeeks: 6,
+    durationWeeks: 8,
     icon: '🌐',
     quests: DIST_PYTHON_30_DAYS_QUESTS as any
   },
@@ -275,7 +277,7 @@ const RAW_COURSES: Course[] = [
     title: 'Distributed Model Training in Python',
     desc: 'How large models are trained on many GPUs, with every lesson example and practice task in Python: memory and compute planning, data parallelism, all-reduce, gradient accumulation, mixed precision, ZeRO and FSDP, tensor and pipeline parallelism, checkpointing, optimizers and schedules, fault tolerance, communication costs, scaling laws, MFU, mixture of experts, LoRA, quantisation, distillation and cluster cost.',
     difficulty: 'Advanced',
-    durationWeeks: 6,
+    durationWeeks: 8,
     icon: '🔥',
     quests: TRAIN_PYTHON_30_DAYS_QUESTS as any
   },
@@ -293,7 +295,7 @@ const RAW_COURSES: Course[] = [
     title: 'AI Engineering in Python',
     desc: 'The AI Engineering course with every lesson example and practice task in Python: prompts, structured output, tool calling, embeddings, RAG, agents, caching and fine-tuning maths.',
     difficulty: 'Intermediate',
-    durationWeeks: 4,
+    durationWeeks: 8,
     icon: '🤖',
     quests: AI_PYTHON_30_DAYS_QUESTS as any
   },
@@ -361,13 +363,14 @@ const RAW_COURSES: Course[] = [
     quests: IOT_SECURITY_30_DAYS_QUESTS as any
   },
   {
+    // [FIX-STAGE: wave1c-python-duration-weeks] Aligned durationWeeks from 4 -> 8 to match 60-day curriculum
     id: 'course-python-backend',
     title: 'Python Programming & Backend Systems',
     desc: 'Master Python data models, async ASGI services with FastAPI, relational databases with SQLAlchemy ORM, token authentication, and secure production deployments.',
     difficulty: 'Intermediate',
-    durationWeeks: 4,
+    durationWeeks: 8,
     icon: '🐍',
-    quests: PYTHON_30_DAYS_QUESTS as any
+    quests: [...PYTHON_30_DAYS_QUESTS, ...PYTHON_MONTH2_QUESTS] as any
   },
   {
     id: 'course-quant-systems',
@@ -383,7 +386,7 @@ const RAW_COURSES: Course[] = [
     title: 'Quantitative Trading Systems in Python',
     desc: 'Electronic trading engineering with every lesson example and practice task in Python: order books and matching engines, VWAP and TWAP, market impact, micro-price, market making, FIX and ITCH, kernel bypass, lock-free queues, cache and SIMD, Black-Scholes and implied volatility, VaR and Expected Shortfall, portfolios, stat arb, smart order routing, latency physics, backtest integrity, risk controls, crypto perpetuals and FPGAs.',
     difficulty: 'Advanced',
-    durationWeeks: 4,
+    durationWeeks: 8,
     icon: '📈',
     quests: QUANT_PYTHON_30_DAYS_QUESTS as any
   },
@@ -537,7 +540,7 @@ const RAW_COURSES: Course[] = [
     title: 'Everyday AI & Prompt Engineering in Python',
     desc: 'Practical AI literacy with every lesson example and practice task in Python: prompt structure, few-shot and chain-of-thought, token budgets, decoding settings, JSON validation, summarisation, RAG with citations, source checking, prompt chains, OCR, image prompts, transcription, hallucination and bias checks, PII redaction, injection defence, agents, automation, custom assistants, model evaluation and local models.',
     difficulty: 'Beginner',
-    durationWeeks: 4,
+    durationWeeks: 8,
     icon: '🤖',
     quests: PROMPT_PYTHON_30_DAYS_QUESTS as any
   },
@@ -582,7 +585,7 @@ const RAW_COURSES: Course[] = [
     title: 'NLP in Python',
     desc: 'Natural language processing with every lesson example and practice task in Python: text cleaning, TF-IDF search, embeddings, HMM taggers, NER, Naive Bayes, RNNs and LSTMs, attention, Transformers, BPE, BERT, GPT, question answering, retrieval, decoding, metrics and LoRA.',
     difficulty: 'Advanced',
-    durationWeeks: 6,
+    durationWeeks: 8,
     icon: '📚',
     quests: NLP_PYTHON_30_DAYS_QUESTS as any
   }

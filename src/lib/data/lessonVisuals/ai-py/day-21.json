@@ -2,231 +2,169 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 21,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What the research assistant does",
       "codeHash": "df0fc86aa3a9661833cbc5623a6af7042d78d59e61a46c04be7ae850b80396d7",
       "spec": {
-        "template": "flow",
-        "title": "What the research assistant does — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. What the research a...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "What the research assistant does",
+        "actors": [
+          "roles",
+          "role",
+          "job"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for What the research assistant does [D.Pone.Sone].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in What the research a... [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The user gives a goal, such as \"Summarise the growth of electric.",
+            "activeActor": "roles",
+            "messages": [
+              {
+                "from": "roles",
+                "to": "role",
+                "label": {
+                  "var": "roles",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "role",
+                "to": "job",
+                "label": {
+                  "var": "role",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A supervisor turns the goal into a plan.",
+            "activeActor": "role",
+            "messages": [
+              {
+                "from": "roles",
+                "to": "role",
+                "label": {
+                  "var": "roles",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "role",
+                "to": "job",
+                "label": {
+                  "var": "role",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for What the research assistant does.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Today you will build it with fake tools and agents, so every part can be.",
+            "activeActor": "job",
+            "messages": [
+              {
+                "from": "roles",
+                "to": "role",
+                "label": {
+                  "var": "roles",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "role",
+                "to": "job",
+                "label": {
+                  "var": "role",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "What the research assistant does — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. What the research a...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "What the research assistant does",
+        "actors": [
+          "roles",
+          "role",
+          "job"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for What the research assistant does [D21.P1.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in What the research a... [D21.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "The user gives a goal, such as \"Summarise the growth of electric.",
+            "messages": [
+              {
+                "from": "roles",
+                "to": "role",
+                "label": "{'Supervisor': 'plans the steps and wri…",
+                "tone": "data"
+              },
+              {
+                "from": "role",
+                "to": "job",
+                "label": "'Supervisor'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "roles"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "A supervisor turns the goal into a plan.",
+            "messages": [
+              {
+                "from": "roles",
+                "to": "role",
+                "label": "{'Supervisor': 'plans the steps and wri…",
+                "tone": "data"
+              },
+              {
+                "from": "role",
+                "to": "job",
+                "label": "'Supervisor'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "role"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for What the research assistant does [D21.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Today you will build it with fake tools and agents, so every part can be.",
+            "messages": [
+              {
+                "from": "roles",
+                "to": "role",
+                "label": "{'Supervisor': 'plans the steps and wri…",
+                "tone": "data"
+              },
+              {
+                "from": "role",
+                "to": "job",
+                "label": "'ResearcherAgent'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "job"
           }
         ]
       }
@@ -235,157 +173,194 @@
       "partTitle": "The supervisor interface",
       "codeHash": "72f7561fc27421bea24b88f56206d68536b6fe4b64b84e3ae13ecd56002e661a",
       "spec": {
-        "template": "flow",
-        "title": "Supervisor planning dispatch and synthesis interface contract",
-        "nodes": [
+        "template": "boxes",
+        "title": "The supervisor interface",
+        "boxes": [
           {
-            "id": "plan",
-            "label": "create_plan"
+            "id": "sup",
+            "label": "sup"
           },
           {
-            "id": "agent",
-            "label": "get_agent"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "synth",
-            "label": "synthesize"
-          }
-        ],
-        "edges": [
-          {
-            "from": "plan",
-            "to": "agent"
+            "id": "goal",
+            "label": "goal"
           },
           {
-            "from": "agent",
-            "to": "synth"
+            "id": "step",
+            "label": "step"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Supervisor plans steps and passes each to specialist agent.",
+            "caption": "The supervisor exposes three methods.",
             "values": {
-              "plan": {
-                "text": "ResearcherAgent"
+              "sup": {
+                "var": "sup",
+                "line": 20,
+                "hit": 1
               },
-              "agent": {
-                "text": "CoderAgent"
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              "synth": {
-                "text": "WriterAgent"
+              "goal": {
+                "var": "goal",
+                "line": 4,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 21,
+                "hit": 1
               }
             },
             "tones": {
-              "plan": "ok",
-              "agent": "data",
-              "synth": "idle"
+              "sup": "data",
+              "self": "data",
+              "goal": "data",
+              "step": "data"
             }
           },
           {
             "at": "say2",
-            "caption": "Class defines create_plan get_agent and synthesize methods.",
+            "caption": "Get_agent(name) returns a function that runs a task and returns its output.",
             "values": {
-              "plan": {
-                "text": "ResearcherAgent"
+              "sup": {
+                "var": "sup",
+                "line": 21,
+                "hit": 1
               },
-              "agent": {
-                "text": "CoderAgent"
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               },
-              "synth": {
-                "text": "WriterAgent"
+              "goal": {
+                "var": "goal",
+                "line": 5,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 22,
+                "hit": 1
               }
             },
             "tones": {
-              "plan": "ok",
-              "agent": "ok",
-              "synth": "data"
+              "sup": "data",
+              "self": "data",
+              "goal": "data",
+              "step": "data"
             }
           },
           {
-            "at": "say6",
-            "caption": "Writing interface first is good habit for multi-part system.",
+            "at": "say7",
+            "caption": "The fake supervisor below returns a fixed plan so the flow is easy to follow.",
             "values": {
-              "plan": {
-                "text": "ResearcherAgent"
+              "sup": {
+                "var": "sup",
+                "line": 22,
+                "hit": 1
               },
-              "agent": {
-                "text": "CoderAgent"
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
               },
-              "synth": {
-                "text": "WriterAgent"
+              "goal": {
+                "var": "goal",
+                "line": 6,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 21,
+                "hit": 2
               }
             },
             "tones": {
-              "plan": "ok",
-              "agent": "ok",
-              "synth": "ok"
+              "sup": "ok",
+              "self": "ok",
+              "goal": "ok",
+              "step": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Supervisor planning dispatch and synthesis interface contract",
-        "nodes": [
+        "template": "boxes",
+        "title": "The supervisor interface",
+        "boxes": [
           {
-            "id": "plan",
-            "label": "create_plan"
+            "id": "sup",
+            "label": "sup"
           },
           {
-            "id": "agent",
-            "label": "get_agent"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "synth",
-            "label": "synthesize"
+            "id": "goal",
+            "label": "goal"
+          },
+          {
+            "id": "step",
+            "label": "step"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Supervisor plans steps and passes each to specialist agent.",
+            "caption": "The supervisor exposes three methods.",
             "values": {
-              "plan": "ResearcherAgent",
-              "agent": "CoderAgent",
-              "synth": "WriterAgent"
+              "sup": "<FakeSupervisor>",
+              "self": "<FakeSupervisor>",
+              "goal": "'EV report'",
+              "step": "{'id': 1, 'agent': 'ResearcherAgent', '…"
             },
             "tones": {
-              "plan": "ok",
-              "agent": "data",
-              "synth": "idle"
-            },
-            "arrows": []
+              "sup": "data",
+              "self": "data",
+              "goal": "data",
+              "step": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Class defines create_plan get_agent and synthesize methods.",
+            "caption": "Get_agent(name) returns a function that runs a task and returns its output.",
             "values": {
-              "plan": "ResearcherAgent",
-              "agent": "CoderAgent",
-              "synth": "WriterAgent"
+              "sup": "<FakeSupervisor>",
+              "self": "<FakeSupervisor>",
+              "goal": "'EV report'",
+              "step": "{'id': 1, 'agent': 'ResearcherAgent', '…"
             },
             "tones": {
-              "plan": "ok",
-              "agent": "ok",
-              "synth": "data"
-            },
-            "arrows": []
+              "sup": "data",
+              "self": "data",
+              "goal": "data",
+              "step": "data"
+            }
           },
           {
-            "at": "say6",
-            "caption": "Writing interface first is good habit for multi-part system.",
+            "at": "say7",
+            "caption": "The fake supervisor below returns a fixed plan so the flow is easy to follow.",
             "values": {
-              "plan": "ResearcherAgent",
-              "agent": "CoderAgent",
-              "synth": "WriterAgent"
+              "sup": "<FakeSupervisor>",
+              "self": "<FakeSupervisor>",
+              "goal": "'EV report'",
+              "step": "{'id': 2, 'agent': 'CoderAgent', 'task'…"
             },
             "tones": {
-              "plan": "ok",
-              "agent": "ok",
-              "synth": "ok"
-            },
-            "arrows": []
+              "sup": "ok",
+              "self": "ok",
+              "goal": "ok",
+              "step": "ok"
+            }
           }
         ]
       }
@@ -394,192 +369,194 @@
       "partTitle": "Orchestrating the plan",
       "codeHash": "a694dfb36fcfda0e41b658fa31dbf2960348d76175f6fc9ff5404eb56e8d63b1",
       "spec": {
-        "template": "table",
-        "title": "Multi-agent plan execution log and audit trail",
-        "columns": [
-          "step_id",
-          "agent_name",
-          "output_log"
+        "template": "boxes",
+        "title": "Orchestrating the plan",
+        "boxes": [
+          {
+            "id": "goal",
+            "label": "goal"
+          },
+          {
+            "id": "supervisor",
+            "label": "supervisor"
+          },
+          {
+            "id": "logs",
+            "label": "logs"
+          },
+          {
+            "id": "self",
+            "label": "self"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Orchestrate agents runs every step in order logging output.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "find sales"
-                  },
-                  {
-                    "text": "Researcher"
-                  },
-                  {
-                    "text": "sales grew 30% [source: report]"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Orchestrate_agents(goal, supervisor).",
+            "values": {
+              "goal": {
+                "var": "goal",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "summarise"
-                  },
-                  {
-                    "text": "Writer"
-                  },
-                  {
-                    "text": "Sales grew about 30%."
-                  }
-                ],
-                "tone": "ok"
+              "supervisor": {
+                "var": "supervisor",
+                "line": 10,
+                "hit": 1
+              },
+              "logs": {
+                "var": "logs",
+                "line": 10,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "goal": "data",
+              "supervisor": "data",
+              "logs": "data",
+              "self": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Return goal achieved status with steps executed and report.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "find sales"
-                  },
-                  {
-                    "text": "Researcher"
-                  },
-                  {
-                    "text": "sales grew 30% [source: report]"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Return {\"status\".",
+            "values": {
+              "goal": {
+                "var": "goal",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "summarise"
-                  },
-                  {
-                    "text": "Writer"
-                  },
-                  {
-                    "text": "Sales grew about 30%."
-                  }
-                ],
-                "tone": "ok"
+              "supervisor": {
+                "var": "supervisor",
+                "line": 11,
+                "hit": 1
+              },
+              "logs": {
+                "var": "logs",
+                "line": 11,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "goal": "data",
+              "supervisor": "data",
+              "logs": "data",
+              "self": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The logs are audit trail showing what each agent produced.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "find sales"
-                  },
-                  {
-                    "text": "Researcher"
-                  },
-                  {
-                    "text": "sales grew 30% [source: report]"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The status field leaves room for other outcomes you will add later, such.",
+            "values": {
+              "goal": {
+                "var": "goal",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "summarise"
-                  },
-                  {
-                    "text": "Writer"
-                  },
-                  {
-                    "text": "Sales grew about 30%."
-                  }
-                ],
-                "tone": "ok"
+              "supervisor": {
+                "var": "supervisor",
+                "line": 12,
+                "hit": 1
+              },
+              "logs": {
+                "var": "logs",
+                "line": 12,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 3
               }
-            ]
+            },
+            "tones": {
+              "goal": "ok",
+              "supervisor": "ok",
+              "logs": "ok",
+              "self": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Multi-agent plan execution log and audit trail",
-        "columns": [
-          "step_id",
-          "agent_name",
-          "output_log"
+        "template": "boxes",
+        "title": "Orchestrating the plan",
+        "boxes": [
+          {
+            "id": "goal",
+            "label": "goal"
+          },
+          {
+            "id": "supervisor",
+            "label": "supervisor"
+          },
+          {
+            "id": "logs",
+            "label": "logs"
+          },
+          {
+            "id": "self",
+            "label": "self"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Orchestrate agents runs every step in order logging output.",
-            "rows": [
-              {
-                "cells": [
-                  "find sales",
-                  "Researcher",
-                  "sales grew 30% [source: report]"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "summarise",
-                  "Writer",
-                  "Sales grew about 30%."
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Orchestrate_agents(goal, supervisor).",
+            "values": {
+              "goal": "'EV two-wheelers'",
+              "supervisor": "<FakeSupervisor>",
+              "logs": "[]",
+              "self": "<FakeSupervisor>"
+            },
+            "tones": {
+              "goal": "data",
+              "supervisor": "data",
+              "logs": "data",
+              "self": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Return goal achieved status with steps executed and report.",
-            "rows": [
-              {
-                "cells": [
-                  "find sales",
-                  "Researcher",
-                  "sales grew 30% [source: report]"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "summarise",
-                  "Writer",
-                  "Sales grew about 30%."
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Return {\"status\".",
+            "values": {
+              "goal": "'EV two-wheelers'",
+              "supervisor": "<FakeSupervisor>",
+              "logs": "[]",
+              "self": "<FakeSupervisor>"
+            },
+            "tones": {
+              "goal": "data",
+              "supervisor": "data",
+              "logs": "data",
+              "self": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The logs are audit trail showing what each agent produced.",
-            "rows": [
-              {
-                "cells": [
-                  "find sales",
-                  "Researcher",
-                  "sales grew 30% [source: report]"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "summarise",
-                  "Writer",
-                  "Sales grew about 30%."
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say7",
+            "caption": "The status field leaves room for other outcomes you will add later, such.",
+            "values": {
+              "goal": "'EV two-wheelers'",
+              "supervisor": "<FakeSupervisor>",
+              "logs": "[]",
+              "self": "<FakeSupervisor>"
+            },
+            "tones": {
+              "goal": "ok",
+              "supervisor": "ok",
+              "logs": "ok",
+              "self": "ok"
+            }
           }
         ]
       }
@@ -588,132 +565,278 @@
       "partTitle": "Validating the report",
       "codeHash": "ee71c84a69c807e7e26ba948364752762f2c442bf66a38cee7f15e60dd8c5ecf",
       "spec": {
-        "template": "compare",
-        "title": "Validation of cited sources and minimum report character length",
-        "leftLabel": "Short / Unsourced",
-        "rightLabel": "Valid Report",
+        "template": "flow",
+        "title": "Validating the report",
+        "nodes": [
+          {
+            "id": "result",
+            "label": "result"
+          },
+          {
+            "id": "report",
+            "label": "report"
+          },
+          {
+            "id": "sentences",
+            "label": "sentences"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Valid report returns True only when report string exceeds length.",
-            "left": {
-              "code": "report = {\"report\": \"   short  \"}",
+            "caption": "Has_valid_report(result) returns True only if result has a \"report\".",
+            "values": {
               "result": {
-                "text": "   short  "
+                "var": "result",
+                "line": 4,
+                "hit": 1
               },
-              "tone": "error"
+              "report": {
+                "var": "report",
+                "line": 4,
+                "hit": 1
+              },
+              "sentences": {
+                "var": "sentences",
+                "line": 8,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 9,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "report = \"Sales grew 30% in 2024 [source: report-12]\"",
-              "result": {
-                "text": "[source:"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "result": "data",
+              "report": "data",
+              "sentences": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "result",
+                "report"
+              ],
+              [
+                "report",
+                "sentences"
+              ],
+              [
+                "sentences",
+                "s"
+              ]
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Real systems check that every number has a source citation.",
-            "left": {
-              "code": "unsourced sentences detected by regex",
+            "at": "say2",
+            "caption": "Trace how result updates report during execution.",
+            "values": {
               "result": {
-                "text": "   short  "
+                "var": "result",
+                "line": 5,
+                "hit": 1
               },
-              "tone": "error"
+              "report": {
+                "var": "report",
+                "line": 5,
+                "hit": 1
+              },
+              "sentences": {
+                "var": "sentences",
+                "line": 9,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 9,
+                "hit": 2
+              }
             },
-            "right": {
-              "code": "all numeric claims cite source tags",
-              "result": {
-                "text": "[source:"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "result": "data",
+              "report": "data",
+              "sentences": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "result",
+                "report"
+              ],
+              [
+                "report",
+                "sentences"
+              ],
+              [
+                "sentences",
+                "s"
+              ]
+            ]
           },
           {
-            "at": "say6",
-            "caption": "Never show broken report to user as if it were success.",
-            "left": {
-              "code": "broken report without verified data",
+            "at": "say7",
+            "caption": "Validation is cheap compared with the whole run, so always do it.",
+            "values": {
               "result": {
-                "text": "   short  "
+                "var": "result",
+                "line": 4,
+                "hit": 2
               },
-              "tone": "error"
+              "report": {
+                "var": "report",
+                "line": 4,
+                "hit": 2
+              },
+              "sentences": {
+                "var": "sentences",
+                "line": 9,
+                "hit": 2
+              },
+              "s": {
+                "var": "s",
+                "line": 9,
+                "hit": 2
+              }
             },
-            "right": {
-              "code": "clean verified research output delivered",
-              "result": {
-                "text": "[source:"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "result": "ok",
+              "report": "ok",
+              "sentences": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "result",
+                "report"
+              ],
+              [
+                "report",
+                "sentences"
+              ],
+              [
+                "sentences",
+                "s"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Validation of cited sources and minimum report character length",
-        "leftLabel": "Short / Unsourced",
-        "rightLabel": "Valid Report",
+        "template": "flow",
+        "title": "Validating the report",
+        "nodes": [
+          {
+            "id": "result",
+            "label": "result"
+          },
+          {
+            "id": "report",
+            "label": "report"
+          },
+          {
+            "id": "sentences",
+            "label": "sentences"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Valid report returns True only when report string exceeds length.",
-            "left": {
-              "code": "report = {\"report\": \"   short  \"}",
-              "result": "   short  ",
-              "tone": "error",
-              "checks": [
-                "   short  "
-              ]
+            "caption": "Has_valid_report(result) returns True only if result has a \"report\".",
+            "values": {
+              "result": "{'report': '   short  '}",
+              "report": "'   short  '",
+              "sentences": "['Sales grew 30% in 2024 [source: repor…",
+              "s": "'Sales grew 30% in 2024 [source: report…"
             },
-            "right": {
-              "code": "report = \"Sales grew 30% in 2024 [source: report-12]\"",
-              "result": "[source:",
-              "tone": "ok",
-              "checks": [
-                "[source:"
+            "tones": {
+              "result": "data",
+              "report": "data",
+              "sentences": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "result",
+                "report"
+              ],
+              [
+                "report",
+                "sentences"
+              ],
+              [
+                "sentences",
+                "s"
               ]
-            }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Real systems check that every number has a source citation.",
-            "left": {
-              "code": "unsourced sentences detected by regex",
-              "result": "   short  ",
-              "tone": "error",
-              "checks": [
-                "   short  "
-              ]
+            "at": "say2",
+            "caption": "Trace how result updates report during execution.",
+            "values": {
+              "result": "{'report': '   short  '}",
+              "report": "'   short  '",
+              "sentences": "['Sales grew 30% in 2024 [source: repor…",
+              "s": "'Next year may reach 1.5 million.'"
             },
-            "right": {
-              "code": "all numeric claims cite source tags",
-              "result": "[source:",
-              "tone": "ok",
-              "checks": [
-                "[source:"
+            "tones": {
+              "result": "data",
+              "report": "data",
+              "sentences": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "result",
+                "report"
+              ],
+              [
+                "report",
+                "sentences"
+              ],
+              [
+                "sentences",
+                "s"
               ]
-            }
+            ]
           },
           {
-            "at": "say6",
-            "caption": "Never show broken report to user as if it were success.",
-            "left": {
-              "code": "broken report without verified data",
-              "result": "   short  ",
-              "tone": "error",
-              "checks": [
-                "   short  "
-              ]
+            "at": "say7",
+            "caption": "Validation is cheap compared with the whole run, so always do it.",
+            "values": {
+              "result": "{}",
+              "report": "None",
+              "sentences": "['Sales grew 30% in 2024 [source: repor…",
+              "s": "'Next year may reach 1.5 million.'"
             },
-            "right": {
-              "code": "clean verified research output delivered",
-              "result": "[source:",
-              "tone": "ok",
-              "checks": [
-                "[source:"
+            "tones": {
+              "result": "ok",
+              "report": "ok",
+              "sentences": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "result",
+                "report"
+              ],
+              [
+                "report",
+                "sentences"
+              ],
+              [
+                "sentences",
+                "s"
               ]
-            }
+            ]
           }
         ]
       }
@@ -723,43 +846,69 @@
       "codeHash": "fee6635b9b312cd2c72d3e4fc5eea336922aba46f1cb944919f290cea147c758",
       "spec": {
         "template": "bars",
-        "title": "EV two-wheeler sales growth metrics across annual datasets",
+        "title": "Tools with sources and safe code",
         "steps": [
           {
             "at": "say1",
-            "caption": "Researcher search tool returns results with source ID.",
+            "caption": "The researcher's search tool should return results with a source ID,.",
             "bars": [
               {
-                "label": "sales_2023_millions",
+                "label": "old",
                 "value": {
-                  "text": "0.88"
+                  "var": "old",
+                  "line": 10,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "sales_2024_millions",
+                "label": "new",
                 "value": {
-                  "text": "1.14"
+                  "var": "new",
+                  "line": 10,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "g",
+                "value": {
+                  "var": "g",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Coder tool computes growth rates using safe fixed operations.",
+            "caption": "The coder's tool should compute with numbers the researcher found, using.",
             "bars": [
               {
-                "label": "sales_2023_millions",
+                "label": "old",
                 "value": {
-                  "text": "0.88"
+                  "var": "old",
+                  "line": 10,
+                  "hit": 1
                 },
                 "tone": "ok"
               },
               {
-                "label": "sales_2024_millions",
+                "label": "new",
                 "value": {
-                  "text": "1.14"
+                  "var": "new",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "g",
+                "value": {
+                  "var": "g",
+                  "line": 14,
+                  "hit": 1
                 },
                 "tone": "ok"
               }
@@ -767,19 +916,32 @@
           },
           {
             "at": "say7",
-            "caption": "Keeping source attached from search to report makes answer checkable.",
+            "caption": "Keeping the source attached from search to report is what makes the final.",
             "bars": [
               {
-                "label": "sales_2023_millions",
+                "label": "old",
                 "value": {
-                  "text": "0.88"
+                  "var": "old",
+                  "line": 10,
+                  "hit": 1
                 },
                 "tone": "ok"
               },
               {
-                "label": "sales_2024_millions",
+                "label": "new",
                 "value": {
-                  "text": "1.14"
+                  "var": "new",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "g",
+                "value": {
+                  "var": "g",
+                  "line": 15,
+                  "hit": 1
                 },
                 "tone": "ok"
               }
@@ -789,52 +951,67 @@
       },
       "filled": {
         "template": "bars",
-        "title": "EV two-wheeler sales growth metrics across annual datasets",
+        "title": "Tools with sources and safe code",
         "steps": [
           {
             "at": "say1",
-            "caption": "Researcher search tool returns results with source ID.",
+            "caption": "The researcher's search tool should return results with a source ID,.",
             "bars": [
               {
-                "label": "sales_2023_millions",
+                "label": "old",
                 "value": 0.88,
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "sales_2024_millions",
+                "label": "new",
                 "value": 1.14,
-                "tone": "ok"
+                "tone": "data"
+              },
+              {
+                "label": "g",
+                "value": 29.5,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Coder tool computes growth rates using safe fixed operations.",
+            "caption": "The coder's tool should compute with numbers the researcher found, using.",
             "bars": [
               {
-                "label": "sales_2023_millions",
+                "label": "old",
                 "value": 0.88,
                 "tone": "ok"
               },
               {
-                "label": "sales_2024_millions",
+                "label": "new",
                 "value": 1.14,
+                "tone": "ok"
+              },
+              {
+                "label": "g",
+                "value": 29.5,
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Keeping source attached from search to report makes answer checkable.",
+            "caption": "Keeping the source attached from search to report is what makes the final.",
             "bars": [
               {
-                "label": "sales_2023_millions",
+                "label": "old",
                 "value": 0.88,
                 "tone": "ok"
               },
               {
-                "label": "sales_2024_millions",
+                "label": "new",
                 "value": 1.14,
+                "tone": "ok"
+              },
+              {
+                "label": "g",
+                "value": 29.5,
                 "tone": "ok"
               }
             ]
@@ -846,223 +1023,133 @@
       "partTitle": "Hardening the assistant",
       "codeHash": "ef242879668a1500b820e046a31980cfb131ed54c426c3f4dede4098da3de18e",
       "spec": {
-        "template": "flow",
-        "title": "Hardening the assistant — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Hardening the assis...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Hardening the assistant",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Hardening the assistant [D.Psix.Sone].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Hardening the assis... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Trace how budget updates whole during execution.",
+            "bars": [
+              {
+                "label": "max_steps",
+                "value": {
+                  "var": "max_steps",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "If a step fails, log the error and continue if the remaining steps can.",
+            "bars": [
+              {
+                "label": "max_steps",
+                "value": {
+                  "var": "max_steps",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Hardening the assistant [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "This is Milestone 3.",
+            "bars": [
+              {
+                "label": "max_steps",
+                "value": {
+                  "var": "max_steps",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Hardening the assistant — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Hardening the assis...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Hardening the assistant",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Hardening the assistant [D21.P6.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Hardening the assis... [D21.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Trace how budget updates whole during execution.",
+            "bars": [
+              {
+                "label": "max_steps",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "If a step fails, log the error and continue if the remaining steps can.",
+            "bars": [
+              {
+                "label": "max_steps",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Hardening the assistant [D21.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "This is Milestone 3.",
+            "bars": [
+              {
+                "label": "max_steps",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           }
         ]

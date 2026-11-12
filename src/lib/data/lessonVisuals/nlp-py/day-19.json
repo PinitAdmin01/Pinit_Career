@@ -2,255 +2,124 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 19,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why more than one head",
       "codeHash": "b981e2b630f5ecc892c5653a7f370045549711b5eadc5412191457a6806e15be",
       "spec": {
-        "template": "table",
-        "title": "Multi-head parallel representation subspaces and specialized roles",
-        "columns": [
-          "words",
-          "heads"
-        ],
+        "template": "cells",
+        "title": "Why more than one head",
         "steps": [
           {
             "at": "say1",
-            "caption": "In one sentence a word relates to others in several ways at once.",
-            "rows": [
+            "caption": "In one sentence, a word relates to others in several ways at once.",
+            "items": {
+              "var": "words",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "heads"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Single attention mechanisms conflate multiple contextual targets into one blend.",
-            "rows": [
+            "caption": "A single attention computes one set of weights per word, which is one blend.",
+            "items": {
+              "var": "words",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "heads"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "index"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Multi-head attention evaluates multiple distinct projections in parallel.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "heads"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "index"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "weights"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Individual heads specialize in specific linguistic dependencies.",
-            "rows": [
+            "at": "say8",
+            "caption": "Heads are not assigned roles by anyone.",
+            "items": {
+              "var": "words",
+              "line": 6,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "heads"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "index"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "weights"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "index"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Multi-head parallel representation subspaces and specialized roles",
-        "columns": [
-          "words",
-          "heads"
-        ],
+        "template": "cells",
+        "title": "Why more than one head",
         "steps": [
           {
             "at": "say1",
-            "caption": "In one sentence a word relates to others in several ways at once.",
-            "rows": [
+            "caption": "In one sentence, a word relates to others in several ways at once.",
+            "items": [
+              "'the'",
+              "'cat'",
+              "'sat'",
+              "'on'",
+              "'the'",
+              "'mat'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "words",
-                  "heads"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Single attention mechanisms conflate multiple contextual targets into one blend.",
-            "rows": [
+            "caption": "A single attention computes one set of weights per word, which is one blend.",
+            "items": [
+              "'the'",
+              "'cat'",
+              "'sat'",
+              "'on'",
+              "'the'",
+              "'mat'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "words",
-                  "heads"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "weights",
-                  "index"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Multi-head attention evaluates multiple distinct projections in parallel.",
-            "rows": [
-              {
-                "cells": [
-                  "words",
-                  "heads"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "weights",
-                  "index"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "words",
-                  "weights"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Individual heads specialize in specific linguistic dependencies.",
-            "rows": [
+            "at": "say8",
+            "caption": "Heads are not assigned roles by anyone.",
+            "items": [
+              "'the'",
+              "'cat'",
+              "'sat'",
+              "'on'",
+              "'the'",
+              "'mat'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "words",
-                  "heads"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "weights",
-                  "index"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "words",
-                  "weights"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "index",
-                  "words"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -261,143 +130,131 @@
       "partTitle": "Splitting the model dimension",
       "codeHash": "6e1570a2d1e98aca2f6e3a54655666aac62ea85ba6617c38d4107697faebe37c",
       "spec": {
-        "template": "table",
-        "title": "Model dimension partitioning and head configuration constraints",
-        "columns": [
-          "d_model",
-          "heads"
-        ],
+        "template": "bars",
+        "title": "Splitting the model dimension",
         "steps": [
           {
             "at": "say1",
-            "caption": "Multi-head attention partitions model dimensionality among parallel heads.",
-            "rows": [
+            "caption": "Multi-head attention does not make the model bigger by the number of heads.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "d_model"
-                  },
-                  {
-                    "text": "heads"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Total model dimension must divide evenly across assigned head counts.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "d_model"
-                  },
-                  {
-                    "text": "heads"
-                  }
-                ],
-                "tone": "ok"
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "head_dim"
-                  },
-                  {
-                    "text": "ValueError"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The head dimension calculation ensures positive and divisible inputs.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "d_model"
-                  },
-                  {
-                    "text": "heads"
-                  }
-                ],
-                "tone": "ok"
+                "label": "h",
+                "value": {
+                  "var": "h",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "head_dim"
-                  },
-                  {
-                    "text": "ValueError"
-                  }
-                ],
-                "tone": "ok"
+                "label": "d_model",
+                "value": {
+                  "var": "d_model",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "heads"
-                  },
-                  {
-                    "text": "head_dim"
-                  }
-                ],
+                "label": "heads",
+                "value": {
+                  "var": "heads",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Validating tensor dimensions early prevents silent runtime failures.",
-            "rows": [
+            "at": "say2",
+            "caption": "With d_model = 512 and 8 heads, each head works with vectors of size 512 /.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "d_model"
-                  },
-                  {
-                    "text": "heads"
-                  }
-                ],
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "head_dim"
-                  },
-                  {
-                    "text": "ValueError"
-                  }
-                ],
+                "label": "h",
+                "value": {
+                  "var": "h",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "heads"
-                  },
-                  {
-                    "text": "head_dim"
-                  }
-                ],
-                "tone": "data"
+                "label": "d_model",
+                "value": {
+                  "var": "d_model",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "ValueError"
-                  },
-                  {
-                    "text": "d_model"
-                  }
-                ],
+                "label": "heads",
+                "value": {
+                  "var": "heads",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The example checks several configurations.",
+            "bars": [
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "h",
+                "value": {
+                  "var": "h",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_model",
+                "value": {
+                  "var": "d_model",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "heads",
+                "value": {
+                  "var": "heads",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -405,103 +262,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Model dimension partitioning and head configuration constraints",
-        "columns": [
-          "d_model",
-          "heads"
-        ],
+        "template": "bars",
+        "title": "Splitting the model dimension",
         "steps": [
           {
             "at": "say1",
-            "caption": "Multi-head attention partitions model dimensionality among parallel heads.",
-            "rows": [
+            "caption": "Multi-head attention does not make the model bigger by the number of heads.",
+            "bars": [
               {
-                "cells": [
-                  "d_model",
-                  "heads"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Total model dimension must divide evenly across assigned head counts.",
-            "rows": [
-              {
-                "cells": [
-                  "d_model",
-                  "heads"
-                ],
-                "tone": "ok"
+                "label": "d",
+                "value": 512,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "head_dim",
-                  "ValueError"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The head dimension calculation ensures positive and divisible inputs.",
-            "rows": [
-              {
-                "cells": [
-                  "d_model",
-                  "heads"
-                ],
-                "tone": "ok"
+                "label": "h",
+                "value": 8,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "head_dim",
-                  "ValueError"
-                ],
-                "tone": "ok"
+                "label": "d_model",
+                "value": 512,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "heads",
-                  "head_dim"
-                ],
+                "label": "heads",
+                "value": 8,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Validating tensor dimensions early prevents silent runtime failures.",
-            "rows": [
+            "at": "say2",
+            "caption": "With d_model = 512 and 8 heads, each head works with vectors of size 512 /.",
+            "bars": [
               {
-                "cells": [
-                  "d_model",
-                  "heads"
-                ],
+                "label": "d",
+                "value": 512,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "head_dim",
-                  "ValueError"
-                ],
+                "label": "h",
+                "value": 8,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "heads",
-                  "head_dim"
-                ],
-                "tone": "data"
+                "label": "d_model",
+                "value": 512,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "ValueError",
-                  "d_model"
-                ],
+                "label": "heads",
+                "value": 8,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The example checks several configurations.",
+            "bars": [
+              {
+                "label": "d",
+                "value": 512,
+                "tone": "ok"
+              },
+              {
+                "label": "h",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "d_model",
+                "value": 768,
+                "tone": "ok"
+              },
+              {
+                "label": "heads",
+                "value": 12,
                 "tone": "ok"
               }
             ]
@@ -513,248 +350,123 @@
       "partTitle": "Splitting and merging vectors",
       "codeHash": "f63dd6ee3896680823c3a5736701d8cd70be74d038fadeb310079e2182497c44",
       "spec": {
-        "template": "table",
-        "title": "Head tensor chunk slicing and lossless concatenation merge",
-        "columns": [
-          "vector",
-          "chunks"
-        ],
+        "template": "cells",
+        "title": "Splitting and merging vectors",
         "steps": [
           {
             "at": "say1",
-            "caption": "Projected representations split into consecutive chunks for each head.",
-            "rows": [
+            "caption": "In practice, each head gets its own projections, but a convenient.",
+            "items": {
+              "var": "v",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "vector"
-                  },
-                  {
-                    "text": "chunks"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Individual head outputs concatenate back into one unified vector.",
-            "rows": [
+            "caption": "Each head runs scaled dot-product attention on its chunk.",
+            "items": {
+              "var": "v",
+              "line": 12,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "vector"
-                  },
-                  {
-                    "text": "chunks"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "split_heads"
-                  },
-                  {
-                    "text": "merge_heads"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Splitting into equal consecutive chunks divides heads cleanly.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "vector"
-                  },
-                  {
-                    "text": "chunks"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "split_heads"
-                  },
-                  {
-                    "text": "merge_heads"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "heads"
-                  },
-                  {
-                    "text": "ValueError"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The round trip property guarantees lossless vector reconstruction.",
-            "rows": [
+            "at": "say7",
+            "caption": "After merging, one more learned matrix (the output projection) mixes.",
+            "items": {
+              "var": "v",
+              "line": 13,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "vector"
-                  },
-                  {
-                    "text": "chunks"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "split_heads"
-                  },
-                  {
-                    "text": "merge_heads"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "heads"
-                  },
-                  {
-                    "text": "ValueError"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "vector"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Head tensor chunk slicing and lossless concatenation merge",
-        "columns": [
-          "vector",
-          "chunks"
-        ],
+        "template": "cells",
+        "title": "Splitting and merging vectors",
         "steps": [
           {
             "at": "say1",
-            "caption": "Projected representations split into consecutive chunks for each head.",
-            "rows": [
+            "caption": "In practice, each head gets its own projections, but a convenient.",
+            "items": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "vector",
-                  "chunks"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Individual head outputs concatenate back into one unified vector.",
-            "rows": [
+            "caption": "Each head runs scaled dot-product attention on its chunk.",
+            "items": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "vector",
-                  "chunks"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "split_heads",
-                  "merge_heads"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Splitting into equal consecutive chunks divides heads cleanly.",
-            "rows": [
-              {
-                "cells": [
-                  "vector",
-                  "chunks"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "split_heads",
-                  "merge_heads"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "heads",
-                  "ValueError"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The round trip property guarantees lossless vector reconstruction.",
-            "rows": [
+            "at": "say7",
+            "caption": "After merging, one more learned matrix (the output projection) mixes.",
+            "items": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "vector",
-                  "chunks"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "split_heads",
-                  "merge_heads"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "heads",
-                  "ValueError"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "chunks",
-                  "vector"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -765,143 +477,131 @@
       "partTitle": "Running the heads",
       "codeHash": "acbe70f3befe7768dce6c75a52163c9beff08ce655e297f03c67328669c5e21e",
       "spec": {
-        "template": "table",
-        "title": "Parallel head attention execution and output projection mixing",
-        "columns": [
-          "keys",
-          "values"
-        ],
+        "template": "bars",
+        "title": "Running the heads",
         "steps": [
           {
             "at": "say1",
-            "caption": "Each attention head executes independent scoring and weighted summing.",
-            "rows": [
+            "caption": "Each head runs the full attention calculation from yesterday on its own.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "keys"
-                  },
-                  {
-                    "text": "values"
-                  }
-                ],
-                "tone": "ok"
+                "label": "h",
+                "value": {
+                  "var": "h",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Independent head computations execute in parallel across GPU processors.",
-            "rows": [
+            "caption": "Because heads are independent, they run in parallel, which suits GPUs well.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "keys"
-                  },
-                  {
-                    "text": "values"
-                  }
-                ],
+                "label": "h",
+                "value": {
+                  "var": "h",
+                  "line": 14,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "attend"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Concatenated head outputs are combined through a final output projection.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "keys"
-                  },
-                  {
-                    "text": "values"
-                  }
-                ],
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "attend"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "attend"
-                  },
-                  {
-                    "text": "keys"
-                  }
-                ],
-                "tone": "data"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say8",
-            "caption": "Distinct heads produce diverse attention weights from identical input tokens.",
-            "rows": [
+            "caption": "Notice that each head gets different attention weights from the same tokens.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "keys"
-                  },
-                  {
-                    "text": "values"
-                  }
-                ],
+                "label": "h",
+                "value": {
+                  "var": "h",
+                  "line": 15,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "attend"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 3
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "attend"
-                  },
-                  {
-                    "text": "keys"
-                  }
-                ],
-                "tone": "data"
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "values"
-                  },
-                  {
-                    "text": "attend"
-                  }
-                ],
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -909,103 +609,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Parallel head attention execution and output projection mixing",
-        "columns": [
-          "keys",
-          "values"
-        ],
+        "template": "bars",
+        "title": "Running the heads",
         "steps": [
           {
             "at": "say1",
-            "caption": "Each attention head executes independent scoring and weighted summing.",
-            "rows": [
+            "caption": "Each head runs the full attention calculation from yesterday on its own.",
+            "bars": [
               {
-                "cells": [
-                  "keys",
-                  "values"
-                ],
-                "tone": "ok"
+                "label": "h",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 2.82842712474619,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Independent head computations execute in parallel across GPU processors.",
-            "rows": [
+            "caption": "Because heads are independent, they run in parallel, which suits GPUs well.",
+            "bars": [
               {
-                "cells": [
-                  "keys",
-                  "values"
-                ],
+                "label": "h",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "attend",
-                  "math"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Concatenated head outputs are combined through a final output projection.",
-            "rows": [
-              {
-                "cells": [
-                  "keys",
-                  "values"
-                ],
+                "label": "a",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "attend",
-                  "math"
-                ],
+                "label": "b",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "attend",
-                  "keys"
-                ],
-                "tone": "data"
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say8",
-            "caption": "Distinct heads produce diverse attention weights from identical input tokens.",
-            "rows": [
+            "caption": "Notice that each head gets different attention weights from the same tokens.",
+            "bars": [
               {
-                "cells": [
-                  "keys",
-                  "values"
-                ],
+                "label": "h",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "attend",
-                  "math"
-                ],
+                "label": "a",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "attend",
-                  "keys"
-                ],
-                "tone": "data"
+                "label": "b",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "values",
-                  "attend"
-                ],
+                "label": "x",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -1018,110 +698,161 @@
       "codeHash": "de0312bd17a786e7cd899828d7c16baa102ebe767498184f02b6f54556873d02",
       "spec": {
         "template": "flow",
-        "title": "What heads learn, and efficient variants — Execution Pipeline",
+        "title": "What heads learn, and efficient variants",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "heads",
+            "label": "heads"
           },
           {
-            "id": "proc",
-            "label": "2. What heads learn, a...",
-            "tappable": true
+            "id": "head_dim",
+            "label": "head_dim"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for What heads learn, and efficient variants.",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in What heads learn, a... [D.Pfive.Stwo].",
+            "caption": "Visualising attention heads in trained models reveals recognisable patterns.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "heads": {
+                "var": "heads",
+                "line": 1,
+                "hit": 1
+              },
+              "head_dim": {
+                "var": "head_dim",
+                "line": 1,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 1,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "heads": "data",
+              "head_dim": "data",
+              "tokens": "data",
+              "name": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "heads",
+                "head_dim"
               ],
               [
-                "proc",
-                "out"
+                "head_dim",
+                "tokens"
+              ],
+              [
+                "tokens",
+                "name"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "This helped researchers understand models, though a head's weights are.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "heads": {
+                "var": "heads",
+                "line": 2,
+                "hit": 1
+              },
+              "head_dim": {
+                "var": "head_dim",
+                "line": 2,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 2,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "heads": "data",
+              "head_dim": "data",
+              "tokens": "data",
+              "name": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "heads",
+                "head_dim"
+              ],
+              [
+                "head_dim",
+                "tokens"
+              ],
+              [
+                "tokens",
+                "name"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for What heads learn, and efficient v.",
+            "at": "say7",
+            "caption": "Engineering choices like these are why modern models can serve long.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "heads": {
+                "var": "heads",
+                "line": 3,
+                "hit": 1
+              },
+              "head_dim": {
+                "var": "head_dim",
+                "line": 3,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 3,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "heads": "ok",
+              "head_dim": "ok",
+              "tokens": "ok",
+              "name": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "heads",
+                "head_dim"
               ],
               [
-                "proc",
-                "out"
+                "head_dim",
+                "tokens"
+              ],
+              [
+                "tokens",
+                "name"
               ]
             ]
           }
@@ -1129,110 +860,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "What heads learn, and efficient variants — Execution Pipeline",
+        "title": "What heads learn, and efficient variants",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "heads",
+            "label": "heads"
           },
           {
-            "id": "proc",
-            "label": "2. What heads learn, a...",
-            "tappable": true
+            "id": "head_dim",
+            "label": "head_dim"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for What heads learn, and efficient variants [D19.P5.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in What heads learn, a... [D19.P5.S2].",
+            "caption": "Visualising attention heads in trained models reveals recognisable patterns.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "heads": "32",
+              "head_dim": "128",
+              "tokens": "4096",
+              "name": "'multi-head'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "heads": "data",
+              "head_dim": "data",
+              "tokens": "data",
+              "name": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "heads",
+                "head_dim"
               ],
               [
-                "proc",
-                "out"
+                "head_dim",
+                "tokens"
+              ],
+              [
+                "tokens",
+                "name"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P5.S3].",
+            "at": "say2",
+            "caption": "This helped researchers understand models, though a head's weights are.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "heads": "32",
+              "head_dim": "128",
+              "tokens": "4096",
+              "name": "'multi-head'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "heads": "data",
+              "head_dim": "data",
+              "tokens": "data",
+              "name": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "heads",
+                "head_dim"
+              ],
+              [
+                "head_dim",
+                "tokens"
+              ],
+              [
+                "tokens",
+                "name"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for What heads learn, and efficient v.. [D19.P5.S4].",
+            "at": "say7",
+            "caption": "Engineering choices like these are why modern models can serve long.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "heads": "32",
+              "head_dim": "128",
+              "tokens": "4096",
+              "name": "'multi-head'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "heads": "ok",
+              "head_dim": "ok",
+              "tokens": "ok",
+              "name": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "heads",
+                "head_dim"
               ],
               [
-                "proc",
-                "out"
+                "head_dim",
+                "tokens"
+              ],
+              [
+                "tokens",
+                "name"
               ]
             ]
           }
@@ -1243,223 +977,153 @@
       "partTitle": "Practice time: dimensions and heads",
       "codeHash": "765cd3cca82ff03442e4724aaf09b64ae157baac022c1759f2943348d505de76",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: dimensions and heads — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: dime...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Practice time: dimensions and heads",
+        "columns": [
+          "Output",
+          "Printed Result"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: dimensions and heads.",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: dime... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Head_dim(d_model, heads).",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Line 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Line 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Line 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: dimensions and heads.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Measuring a shelf for boxes.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Line 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Line 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Line 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: dimensions and heads — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: dime...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Practice time: dimensions and heads",
+        "columns": [
+          "Output",
+          "Printed Result"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: dimensions and heads [D19.P6.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: dime... [D19.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Head_dim(d_model, heads).",
+            "rows": [
+              {
+                "cells": [
+                  "Line 1",
+                  "512 / 8  = 64.0 float"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Line 2",
+                  "512 // 8 = 64 int"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Line 3",
+                  "512 % 7  = 1 (non-zero: not evenly divisible)"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: dimensions and heads [D19.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Measuring a shelf for boxes.",
+            "rows": [
+              {
+                "cells": [
+                  "Line 1",
+                  "512 / 8  = 64.0 float"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Line 2",
+                  "512 // 8 = 64 int"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Line 3",
+                  "512 % 7  = 1 (non-zero: not evenly divisible)"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

@@ -2,173 +2,113 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 14,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Managed relational databases",
       "codeHash": "c34508cc584b3b7b4ecf70f1b2044855993872fcf751a3fb73e39fd2513046d6",
       "spec": {
-        "template": "table",
-        "title": "Managed database operations division of responsibility between AWS and user",
-        "columns": [
-          "job",
-          "responsibility"
+        "template": "states",
+        "title": "Managed relational databases",
+        "states": [
+          {
+            "id": "jobs",
+            "label": "jobs"
+          },
+          {
+            "id": "rds_does",
+            "label": "rds_does"
+          },
+          {
+            "id": "job",
+            "label": "job"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Amazon Relational Database Service (RDS) runs PostgreSQL, MySQL, MariaDB.",
+            "currentState": "jobs",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "RDS automates routine database installation and infrastructure maintenance.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "install database"
-                  },
-                  {
-                    "text": "AWS"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "RDS handles installation, operating system and database patching.",
+            "currentState": "rds_does",
+            "transition": {
+              "from": "jobs",
+              "to": "rds_does",
+              "label": {
+                "var": "rds_does",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Automated backups and standby failover run inside private network subnets.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "install database"
-                  },
-                  {
-                    "text": "AWS"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "nightly backups"
-                  },
-                  {
-                    "text": "AWS"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Use RDS or Aurora unless you truly need something they do not allow, such.",
+            "currentState": "job",
+            "transition": {
+              "from": "rds_does",
+              "to": "job",
+              "label": {
+                "var": "job",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example compares operational database jobs managed by AWS versus users.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "install database"
-                  },
-                  {
-                    "text": "AWS"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "nightly backups"
-                  },
-                  {
-                    "text": "AWS"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "design tables"
-                  },
-                  {
-                    "text": "you"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Managed database operations division of responsibility between AWS and user",
-        "columns": [
-          "job",
-          "responsibility"
+        "template": "states",
+        "title": "Managed relational databases",
+        "states": [
+          {
+            "id": "jobs",
+            "label": "jobs"
+          },
+          {
+            "id": "rds_does",
+            "label": "rds_does"
+          },
+          {
+            "id": "job",
+            "label": "job"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Amazon Relational Database Service (RDS) runs PostgreSQL, MySQL, MariaDB.",
+            "currentState": "jobs",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "RDS automates routine database installation and infrastructure maintenance.",
-            "rows": [
-              {
-                "cells": [
-                  "install database",
-                  "AWS"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "RDS handles installation, operating system and database patching.",
+            "currentState": "rds_does",
+            "transition": {
+              "from": "jobs",
+              "to": "rds_does",
+              "label": "{'failover to standby', 'install databa…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Automated backups and standby failover run inside private network subnets.",
-            "rows": [
-              {
-                "cells": [
-                  "install database",
-                  "AWS"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "nightly backups",
-                  "AWS"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example compares operational database jobs managed by AWS versus users.",
-            "rows": [
-              {
-                "cells": [
-                  "install database",
-                  "AWS"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "nightly backups",
-                  "AWS"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "design tables",
-                  "you"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say7",
+            "caption": "Use RDS or Aurora unless you truly need something they do not allow, such.",
+            "currentState": "job",
+            "transition": {
+              "from": "rds_does",
+              "to": "job",
+              "label": "'install database'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -177,165 +117,221 @@
       "partTitle": "Multi-AZ: a standby in another zone",
       "codeHash": "f4508efcb1df9127546ad0b99856eefbf5b1e6dd1adc1e6887debb2e3f9a4854",
       "spec": {
-        "template": "table",
-        "title": "Multi-AZ synchronous replication and automated primary failover",
-        "columns": [
-          "environment",
-          "primary_az"
+        "template": "flow",
+        "title": "Multi-AZ: a standby in another zone",
+        "nodes": [
+          {
+            "id": "prod",
+            "label": "prod"
+          },
+          {
+            "id": "dev",
+            "label": "dev"
+          },
+          {
+            "id": "cluster",
+            "label": "cluster"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Multi-AZ maintains synchronous database standby replicas across zones.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "prod"
-                  },
-                  {
-                    "text": "us-east-1a"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "With Multi-AZ turned on, RDS keeps a standby copy of your database in.",
+            "values": {
+              "prod": {
+                "var": "prod",
+                "line": 7,
+                "hit": 1
+              },
+              "dev": {
+                "var": "dev",
+                "line": 8,
+                "hit": 1
+              },
+              "cluster": {
+                "var": "cluster",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "prod": "data",
+              "dev": "data",
+              "cluster": "data"
+            },
+            "arrows": [
+              [
+                "prod",
+                "dev"
+              ],
+              [
+                "dev",
+                "cluster"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Upon primary failure the standby promotes automatically updating DNS endpoints.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "prod"
-                  },
-                  {
-                    "text": "us-east-1a"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Synchronous means a write is confirmed only after both copies have it.",
+            "values": {
+              "prod": {
+                "var": "prod",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "prod"
-                  },
-                  {
-                    "text": "us-east-1b"
-                  }
-                ],
-                "tone": "ok"
+              "dev": {
+                "var": "dev",
+                "line": 9,
+                "hit": 1
+              },
+              "cluster": {
+                "var": "cluster",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "prod": "data",
+              "dev": "data",
+              "cluster": "data"
+            },
+            "arrows": [
+              [
+                "prod",
+                "dev"
+              ],
+              [
+                "dev",
+                "cluster"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example simulates failover outcomes with and without Multi-AZ enabled.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "prod"
-                  },
-                  {
-                    "text": "us-east-1a"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example simulates an AZ outage with and without Multi-AZ.",
+            "values": {
+              "prod": {
+                "var": "prod",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "prod"
-                  },
-                  {
-                    "text": "us-east-1b"
-                  }
-                ],
-                "tone": "ok"
+              "dev": {
+                "var": "dev",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "dev"
-                  },
-                  {
-                    "text": "us-east-1a"
-                  }
-                ],
-                "tone": "data"
+              "cluster": {
+                "var": "cluster",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "prod": "ok",
+              "dev": "ok",
+              "cluster": "ok"
+            },
+            "arrows": [
+              [
+                "prod",
+                "dev"
+              ],
+              [
+                "dev",
+                "cluster"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Multi-AZ synchronous replication and automated primary failover",
-        "columns": [
-          "environment",
-          "primary_az"
+        "template": "flow",
+        "title": "Multi-AZ: a standby in another zone",
+        "nodes": [
+          {
+            "id": "prod",
+            "label": "prod"
+          },
+          {
+            "id": "dev",
+            "label": "dev"
+          },
+          {
+            "id": "cluster",
+            "label": "cluster"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Multi-AZ maintains synchronous database standby replicas across zones.",
-            "rows": [
-              {
-                "cells": [
-                  "prod",
-                  "us-east-1a"
-                ],
-                "tone": "ok"
-              }
+            "caption": "With Multi-AZ turned on, RDS keeps a standby copy of your database in.",
+            "values": {
+              "prod": "{'primary_az': 'us-east-1a', 'standby_a…",
+              "dev": "{'primary_az': 'us-east-1a', 'standby_a…",
+              "cluster": "{'primary_az': 'us-east-1a', 'standby_a…"
+            },
+            "tones": {
+              "prod": "data",
+              "dev": "data",
+              "cluster": "data"
+            },
+            "arrows": [
+              [
+                "prod",
+                "dev"
+              ],
+              [
+                "dev",
+                "cluster"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Upon primary failure the standby promotes automatically updating DNS endpoints.",
-            "rows": [
-              {
-                "cells": [
-                  "prod",
-                  "us-east-1a"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "prod",
-                  "us-east-1b"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Synchronous means a write is confirmed only after both copies have it.",
+            "values": {
+              "prod": "{'primary_az': 'us-east-1a', 'standby_a…",
+              "dev": "{'primary_az': 'us-east-1a', 'standby_a…",
+              "cluster": "{'primary_az': 'us-east-1b', 'standby_a…"
+            },
+            "tones": {
+              "prod": "data",
+              "dev": "data",
+              "cluster": "data"
+            },
+            "arrows": [
+              [
+                "prod",
+                "dev"
+              ],
+              [
+                "dev",
+                "cluster"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example simulates failover outcomes with and without Multi-AZ enabled.",
-            "rows": [
-              {
-                "cells": [
-                  "prod",
-                  "us-east-1a"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "prod",
-                  "us-east-1b"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "dev",
-                  "us-east-1a"
-                ],
-                "tone": "data"
-              }
+            "caption": "The example simulates an AZ outage with and without Multi-AZ.",
+            "values": {
+              "prod": "{'primary_az': 'us-east-1b', 'standby_a…",
+              "dev": "{'primary_az': 'us-east-1a', 'standby_a…",
+              "cluster": "{'primary_az': 'us-east-1b', 'standby_a…"
+            },
+            "tones": {
+              "prod": "ok",
+              "dev": "ok",
+              "cluster": "ok"
+            },
+            "arrows": [
+              [
+                "prod",
+                "dev"
+              ],
+              [
+                "dev",
+                "cluster"
+              ]
             ]
           }
         ]
@@ -345,164 +341,216 @@
       "partTitle": "Read replicas: scaling reads",
       "codeHash": "3e1e54ba35d4fbe7cc4026d1d897b55da53c48c83e4e8bb017a4de8081991940",
       "spec": {
-        "template": "table",
-        "title": "Asynchronous read replication and eventual consistency lag tracking",
-        "columns": [
-          "node",
-          "status"
-        ],
+        "template": "bars",
+        "title": "Read replicas: scaling reads",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Many apps read far more than they write.",
+            "bars": [
+              {
+                "label": "value",
+                "value": {
+                  "var": "value",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "now",
+                "value": {
+                  "var": "now",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "arrive",
+                "value": {
+                  "var": "arrive",
+                  "line": 10,
+                  "hit": 6
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Asynchronous replication to read replicas can introduce slight replica lag.",
-            "rows": [
+            "caption": "Replication to read replicas is asynchronous.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "primary"
-                  },
-                  {
-                    "text": "asynchronous"
-                  }
-                ],
+                "label": "value",
+                "value": {
+                  "var": "value",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "replica"
-                  },
-                  {
-                    "text": "replica lag"
-                  }
-                ],
-                "tone": "data"
+                "label": "now",
+                "value": {
+                  "var": "now",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "arrive",
+                "value": {
+                  "var": "arrive",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Multi-AZ ensures availability while read replicas scale read throughput.",
-            "rows": [
+            "at": "say7",
+            "caption": "Aurora makes replicas cheaper and faster because they share the same.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "primary"
-                  },
-                  {
-                    "text": "asynchronous"
-                  }
-                ],
+                "label": "value",
+                "value": {
+                  "var": "value",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "replica"
-                  },
-                  {
-                    "text": "replica lag"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example demonstrates replication delay before writes appear on replicas.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "primary"
-                  },
-                  {
-                    "text": "asynchronous"
-                  }
-                ],
+                "label": "now",
+                "value": {
+                  "var": "now",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "replica"
-                  },
-                  {
-                    "text": "replica lag"
-                  }
-                ],
-                "tone": "data"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 15,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "arrive",
+                "value": {
+                  "var": "arrive",
+                  "line": 10,
+                  "hit": 7
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Asynchronous read replication and eventual consistency lag tracking",
-        "columns": [
-          "node",
-          "status"
-        ],
+        "template": "bars",
+        "title": "Read replicas: scaling reads",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Many apps read far more than they write.",
+            "bars": [
+              {
+                "label": "value",
+                "value": 120,
+                "tone": "data"
+              },
+              {
+                "label": "now",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "t",
+                "value": 10.1,
+                "tone": "data"
+              },
+              {
+                "label": "arrive",
+                "value": 10.8,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Asynchronous replication to read replicas can introduce slight replica lag.",
-            "rows": [
+            "caption": "Replication to read replicas is asynchronous.",
+            "bars": [
               {
-                "cells": [
-                  "primary",
-                  "asynchronous"
-                ],
+                "label": "value",
+                "value": 120,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "replica",
-                  "replica lag"
-                ],
-                "tone": "data"
+                "label": "now",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "t",
+                "value": 10.1,
+                "tone": "ok"
+              },
+              {
+                "label": "arrive",
+                "value": 10.8,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Multi-AZ ensures availability while read replicas scale read throughput.",
-            "rows": [
+            "at": "say7",
+            "caption": "Aurora makes replicas cheaper and faster because they share the same.",
+            "bars": [
               {
-                "cells": [
-                  "primary",
-                  "asynchronous"
-                ],
+                "label": "value",
+                "value": 120,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "replica",
-                  "replica lag"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example demonstrates replication delay before writes appear on replicas.",
-            "rows": [
-              {
-                "cells": [
-                  "primary",
-                  "asynchronous"
-                ],
+                "label": "now",
+                "value": 10.1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "replica",
-                  "replica lag"
-                ],
-                "tone": "data"
+                "label": "t",
+                "value": 10.5,
+                "tone": "ok"
+              },
+              {
+                "label": "arrive",
+                "value": 10.8,
+                "tone": "ok"
               }
             ]
           }
@@ -513,165 +561,277 @@
       "partTitle": "Routing queries in the application",
       "codeHash": "12e5dc69d2a82d783973fbe160b14a644bb9ec54036f79e0eccc1f4f3f0e8e5d",
       "spec": {
-        "template": "table",
-        "title": "Database read and write query routing between writer and reader endpoints",
-        "columns": [
-          "query_type",
-          "target"
+        "template": "flow",
+        "title": "Routing queries in the application",
+        "nodes": [
+          {
+            "id": "queries",
+            "label": "queries"
+          },
+          {
+            "id": "sql",
+            "label": "sql"
+          },
+          {
+            "id": "primary",
+            "label": "primary"
+          },
+          {
+            "id": "replicas",
+            "label": "replicas"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "RDS gives you separate endpoints.",
+            "values": {
+              "queries": {
+                "var": "queries",
+                "line": 8,
+                "hit": 1
+              },
+              "sql": {
+                "var": "sql",
+                "line": 4,
+                "hit": 1
+              },
+              "primary": {
+                "var": "primary",
+                "line": 4,
+                "hit": 1
+              },
+              "replicas": {
+                "var": "replicas",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "queries": "data",
+              "sql": "data",
+              "primary": "data",
+              "replicas": "data"
+            },
+            "arrows": [
+              [
+                "queries",
+                "sql"
+              ],
+              [
+                "sql",
+                "primary"
+              ],
+              [
+                "primary",
+                "replicas"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Read queries route to read replicas while write statements target primary.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "SELECT 1"
-                  },
-                  {
-                    "text": "reader-1"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The application decides where each query goes.",
+            "values": {
+              "queries": {
+                "var": "queries",
+                "line": 10,
+                "hit": 8
+              },
+              "sql": {
+                "var": "sql",
+                "line": 5,
+                "hit": 1
+              },
+              "primary": {
+                "var": "primary",
+                "line": 5,
+                "hit": 1
+              },
+              "replicas": {
+                "var": "replicas",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "queries": "data",
+              "sql": "data",
+              "primary": "data",
+              "replicas": "data"
+            },
+            "arrows": [
+              [
+                "queries",
+                "sql"
+              ],
+              [
+                "sql",
+                "primary"
+              ],
+              [
+                "primary",
+                "replicas"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Round robin spreads read traffic evenly across all available replicas.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "SELECT 1"
-                  },
-                  {
-                    "text": "reader-1"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example routes a stream of queries and counts where they went.",
+            "values": {
+              "queries": {
+                "var": "queries",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "SELECT 1"
-                  },
-                  {
-                    "text": "reader-2"
-                  }
-                ],
-                "tone": "ok"
+              "sql": {
+                "var": "sql",
+                "line": 4,
+                "hit": 2
+              },
+              "primary": {
+                "var": "primary",
+                "line": 4,
+                "hit": 2
+              },
+              "replicas": {
+                "var": "replicas",
+                "line": 4,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "When no replicas exist all queries automatically fall back to the primary.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "SELECT 1"
-                  },
-                  {
-                    "text": "reader-1"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "SELECT 1"
-                  },
-                  {
-                    "text": "reader-2"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "SELECT 1"
-                  },
-                  {
-                    "text": "writer"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "queries": "ok",
+              "sql": "ok",
+              "primary": "ok",
+              "replicas": "ok"
+            },
+            "arrows": [
+              [
+                "queries",
+                "sql"
+              ],
+              [
+                "sql",
+                "primary"
+              ],
+              [
+                "primary",
+                "replicas"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Database read and write query routing between writer and reader endpoints",
-        "columns": [
-          "query_type",
-          "target"
+        "template": "flow",
+        "title": "Routing queries in the application",
+        "nodes": [
+          {
+            "id": "queries",
+            "label": "queries"
+          },
+          {
+            "id": "sql",
+            "label": "sql"
+          },
+          {
+            "id": "primary",
+            "label": "primary"
+          },
+          {
+            "id": "replicas",
+            "label": "replicas"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "RDS gives you separate endpoints.",
+            "values": {
+              "queries": "['SELECT * FROM products', '  select na…",
+              "sql": "'SELECT * FROM products'",
+              "primary": "'writer'",
+              "replicas": "['reader-1', 'reader-2']"
+            },
+            "tones": {
+              "queries": "data",
+              "sql": "data",
+              "primary": "data",
+              "replicas": "data"
+            },
+            "arrows": [
+              [
+                "queries",
+                "sql"
+              ],
+              [
+                "sql",
+                "primary"
+              ],
+              [
+                "primary",
+                "replicas"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Read queries route to read replicas while write statements target primary.",
-            "rows": [
-              {
-                "cells": [
-                  "SELECT 1",
-                  "reader-1"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The application decides where each query goes.",
+            "values": {
+              "queries": "['SELECT * FROM products', '  select na…",
+              "sql": "'SELECT * FROM products'",
+              "primary": "'writer'",
+              "replicas": "['reader-1', 'reader-2']"
+            },
+            "tones": {
+              "queries": "data",
+              "sql": "data",
+              "primary": "data",
+              "replicas": "data"
+            },
+            "arrows": [
+              [
+                "queries",
+                "sql"
+              ],
+              [
+                "sql",
+                "primary"
+              ],
+              [
+                "primary",
+                "replicas"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Round robin spreads read traffic evenly across all available replicas.",
-            "rows": [
-              {
-                "cells": [
-                  "SELECT 1",
-                  "reader-1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "SELECT 1",
-                  "reader-2"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "When no replicas exist all queries automatically fall back to the primary.",
-            "rows": [
-              {
-                "cells": [
-                  "SELECT 1",
-                  "reader-1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "SELECT 1",
-                  "reader-2"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "SELECT 1",
-                  "writer"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "The example routes a stream of queries and counts where they went.",
+            "values": {
+              "queries": "['SELECT * FROM products', '  select na…",
+              "sql": "'  select name from users'",
+              "primary": "'writer'",
+              "replicas": "['reader-1', 'reader-2']"
+            },
+            "tones": {
+              "queries": "ok",
+              "sql": "ok",
+              "primary": "ok",
+              "replicas": "ok"
+            },
+            "arrows": [
+              [
+                "queries",
+                "sql"
+              ],
+              [
+                "sql",
+                "primary"
+              ],
+              [
+                "primary",
+                "replicas"
+              ]
             ]
           }
         ]
@@ -682,110 +842,161 @@
       "codeHash": "c52c23235f8278393697e4c85c17ede923b32a386d946f0ef86a81ca71e4f029",
       "spec": {
         "template": "flow",
-        "title": "Backups, snapshots and connection pooling — Execution Pipeline",
+        "title": "Backups, snapshots and connection pooling",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "retention_days",
+            "label": "retention_days"
           },
           {
-            "id": "proc",
-            "label": "2. Backups, snapshots ...",
-            "tappable": true
+            "id": "now_day",
+            "label": "now_day"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "restore_to",
+            "label": "restore_to"
+          },
+          {
+            "id": "ok",
+            "label": "ok"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Backups, snapshots and connection pooling.",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Backups, snapshots ... [D.Pfive.Stwo].",
+            "caption": "RDS takes automated daily backups and keeps transaction logs, so you can.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "retention_days": {
+                "var": "retention_days",
+                "line": 1,
+                "hit": 1
+              },
+              "now_day": {
+                "var": "now_day",
+                "line": 2,
+                "hit": 1
+              },
+              "restore_to": {
+                "var": "restore_to",
+                "line": 3,
+                "hit": 1
+              },
+              "ok": {
+                "var": "ok",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "retention_days": "data",
+              "now_day": "data",
+              "restore_to": "data",
+              "ok": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "retention_days",
+                "now_day"
               ],
               [
-                "proc",
-                "out"
+                "now_day",
+                "restore_to"
+              ],
+              [
+                "restore_to",
+                "ok"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Manual snapshots are kept until you delete them, which is useful before.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "retention_days": {
+                "var": "retention_days",
+                "line": 2,
+                "hit": 1
+              },
+              "now_day": {
+                "var": "now_day",
+                "line": 3,
+                "hit": 1
+              },
+              "restore_to": {
+                "var": "restore_to",
+                "line": 4,
+                "hit": 1
+              },
+              "ok": {
+                "var": "ok",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "retention_days": "data",
+              "now_day": "data",
+              "restore_to": "data",
+              "ok": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "retention_days",
+                "now_day"
+              ],
+              [
+                "now_day",
+                "restore_to"
+              ],
+              [
+                "restore_to",
+                "ok"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Backups, snapshots and connection.",
+            "at": "say7",
+            "caption": "Together, Multi-AZ, replicas, point-in-time recovery and pooling make.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "retention_days": {
+                "var": "retention_days",
+                "line": 3,
+                "hit": 1
+              },
+              "now_day": {
+                "var": "now_day",
+                "line": 4,
+                "hit": 1
+              },
+              "restore_to": {
+                "var": "restore_to",
+                "line": 5,
+                "hit": 1
+              },
+              "ok": {
+                "var": "ok",
+                "line": 3,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "retention_days": "ok",
+              "now_day": "ok",
+              "restore_to": "ok",
+              "ok": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "retention_days",
+                "now_day"
               ],
               [
-                "proc",
-                "out"
+                "now_day",
+                "restore_to"
+              ],
+              [
+                "restore_to",
+                "ok"
               ]
             ]
           }
@@ -793,110 +1004,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Backups, snapshots and connection pooling — Execution Pipeline",
+        "title": "Backups, snapshots and connection pooling",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "retention_days",
+            "label": "retention_days"
           },
           {
-            "id": "proc",
-            "label": "2. Backups, snapshots ...",
-            "tappable": true
+            "id": "now_day",
+            "label": "now_day"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "restore_to",
+            "label": "restore_to"
+          },
+          {
+            "id": "ok",
+            "label": "ok"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Backups, snapshots and connection pooling [D14.P5.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Backups, snapshots ... [D14.P5.S2].",
+            "caption": "RDS takes automated daily backups and keeps transaction logs, so you can.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "retention_days": "7",
+              "now_day": "100",
+              "restore_to": "99.5",
+              "ok": "True"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "retention_days": "data",
+              "now_day": "data",
+              "restore_to": "data",
+              "ok": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "retention_days",
+                "now_day"
               ],
               [
-                "proc",
-                "out"
+                "now_day",
+                "restore_to"
+              ],
+              [
+                "restore_to",
+                "ok"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P5.S3].",
+            "at": "say2",
+            "caption": "Manual snapshots are kept until you delete them, which is useful before.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "retention_days": "7",
+              "now_day": "100",
+              "restore_to": "99.5",
+              "ok": "True"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "retention_days": "data",
+              "now_day": "data",
+              "restore_to": "data",
+              "ok": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "retention_days",
+                "now_day"
+              ],
+              [
+                "now_day",
+                "restore_to"
+              ],
+              [
+                "restore_to",
+                "ok"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Backups, snapshots and connection.. [D14.P5.S4].",
+            "at": "say7",
+            "caption": "Together, Multi-AZ, replicas, point-in-time recovery and pooling make.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "retention_days": "7",
+              "now_day": "100",
+              "restore_to": "99.5",
+              "ok": "True"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "retention_days": "ok",
+              "now_day": "ok",
+              "restore_to": "ok",
+              "ok": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "retention_days",
+                "now_day"
               ],
               [
-                "proc",
-                "out"
+                "now_day",
+                "restore_to"
+              ],
+              [
+                "restore_to",
+                "ok"
               ]
             ]
           }
@@ -907,224 +1121,162 @@
       "partTitle": "Practice time: fail over and route",
       "codeHash": "2d5a68826e596468052d7c276fb40530fecb1f3c4ac018593cd02849d2b6b677",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: fail over and route — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: fail...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: fail over and route",
+        "actors": [
+          "replicas",
+          "err",
+          "safe"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: fail over and route.",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: fail... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Failover(cluster).",
+            "activeActor": "replicas",
+            "messages": [
+              {
+                "from": "replicas",
+                "to": "err",
+                "label": {
+                  "var": "replicas",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "err",
+                "to": "safe",
+                "label": {
+                  "var": "err",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Then swap in one line with tuple assignment, and return success with.",
+            "activeActor": "err",
+            "messages": [
+              {
+                "from": "replicas",
+                "to": "err",
+                "label": {
+                  "var": "replicas",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "err",
+                "to": "safe",
+                "label": {
+                  "var": "err",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: fail over and route.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the ZeroDivisionError you avoid by checking the list first.",
+            "activeActor": "safe",
+            "messages": [
+              {
+                "from": "replicas",
+                "to": "err",
+                "label": {
+                  "var": "replicas",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "err",
+                "to": "safe",
+                "label": {
+                  "var": "err",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: fail over and route — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: fail...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: fail over and route",
+        "actors": [
+          "replicas",
+          "err",
+          "safe"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: fail over and route [D14.P6.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: fail... [D14.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Failover(cluster).",
+            "messages": [
+              {
+                "from": "replicas",
+                "to": "err",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "err",
+                "to": "safe",
+                "label": "<ZeroDivisionError>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "replicas"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Then swap in one line with tuple assignment, and return success with.",
+            "messages": [
+              {
+                "from": "replicas",
+                "to": "err",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "err",
+                "to": "safe",
+                "label": "<ZeroDivisionError>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "err"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: fail over and route [D14.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example shows the ZeroDivisionError you avoid by checking the list first.",
+            "messages": [
+              {
+                "from": "replicas",
+                "to": "err",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "err",
+                "to": "safe",
+                "label": "<ZeroDivisionError>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "safe"
           }
         ]
       }

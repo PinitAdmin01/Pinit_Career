@@ -2,269 +2,121 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 48,
-  "promptSha": "d2090c3efb06161db805ab197f75a49b433684fbd22e382c1815e6c93fff5ce3",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "FlashAttention IO-Awareness — Foundations & Mathematical Invariants",
-      "codeHash": "565a07ad356ffa8f7e9dff35a6f101483db63568f7afb49ceef01e6d7c0e62da",
+      "partTitle": "FlashAttention — Foundations & Mathematical Invariants",
+      "codeHash": "7d2d4decc34a5f3e2c9485800cc8e62900578da2cafc7aaed4b6f183a4404d1e",
       "spec": {
-        "template": "flow",
-        "title": "FlashAttention IO-Awareness — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "FlashAttention — Foundations & Mathematical Invariants",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Standard self-attention computes Q*K^T, applies softmax, and multiplies.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "info"
+                  },
+                  {
+                    "var": "info",
+                    "line": 10,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how sequence updates length during execution.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "info"
+                  },
+                  {
+                    "var": "info",
+                    "line": 11,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This hardware-level IO optimization transforms standard attention from.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "FlashAttention IO-Awareness — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "FlashAttention — Foundations & Mathematical Invariants",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Standard self-attention computes Q*K^T, applies softmax, and multiplies.",
+            "rows": [
+              {
+                "cells": [
+                  "info",
+                  "{'concept': 'IO_AWARE_TILING', 'standar…"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how sequence updates length during execution.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "info",
+                  "{'concept': 'IO_AWARE_TILING', 'standar…"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This hardware-level IO optimization transforms standard attention from.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "[IO_AWARE_TILING] Tiles Q,K,V into SRAM, reducing HBM traffic from O(N^2) to linear (2x_to_4x speedup)"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -272,265 +124,397 @@
       }
     },
     {
-      "partTitle": "FlashAttention IO-Awareness — Core Algorithm & State Representation",
-      "codeHash": "dcfa0664e092ce09fcf3c89e7fbf457154923943450ef62ea105c313d7f7ca9d",
+      "partTitle": "FlashAttention — Core Algorithm & State Representation",
+      "codeHash": "1b0bad1a89baffa8a67c93d48a93311a5ca1eaa80bad462ecc86ccd00ea0a57f",
       "spec": {
         "template": "flow",
-        "title": "FlashAttention IO-Awareness — Core Algorithm & State Representation",
+        "title": "FlashAttention — Core Algorithm & State Representation",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "block_maxes",
+            "label": "block_maxes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "block_sums",
+            "label": "block_sums"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "m",
+            "label": "m"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "l",
+            "label": "l"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Computing softmax across tiled blocks without materializing the full row.",
+            "values": {
+              "block_maxes": {
+                "var": "block_maxes",
+                "line": 3,
+                "hit": 1
+              },
+              "block_sums": {
+                "var": "block_sums",
+                "line": 3,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 3,
+                "hit": 1
+              },
+              "l": {
+                "var": "l",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "block_maxes": "data",
+              "block_sums": "data",
+              "m": "data",
+              "l": "data"
+            },
+            "arrows": [
+              [
+                "block_maxes",
+                "block_sums"
+              ],
+              [
+                "block_sums",
+                "m"
+              ],
+              [
+                "m",
+                "l"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Standard softmax requires finding the global row maximum m across all.",
+            "values": {
+              "block_maxes": {
+                "var": "block_maxes",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "block_sums": {
+                "var": "block_sums",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "m": {
+                "var": "m",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "l": {
+                "var": "l",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "block_maxes": "data",
+              "block_sums": "data",
+              "m": "data",
+              "l": "data"
+            },
+            "arrows": [
+              [
+                "block_maxes",
+                "block_sums"
+              ],
+              [
+                "block_sums",
+                "m"
+              ],
+              [
+                "m",
+                "l"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "This algorithmic precision guarantees that tiled attention produces.",
+            "values": {
+              "block_maxes": {
+                "var": "block_maxes",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "block_sums": {
+                "var": "block_sums",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "m": {
+                "var": "m",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "l": {
+                "var": "l",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "block_maxes": "ok",
+              "block_sums": "ok",
+              "m": "ok",
+              "l": "ok"
+            },
+            "arrows": [
+              [
+                "block_maxes",
+                "block_sums"
+              ],
+              [
+                "block_sums",
+                "m"
+              ],
+              [
+                "m",
+                "l"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "FlashAttention IO-Awareness — Core Algorithm & State Representation",
+        "title": "FlashAttention — Core Algorithm & State Representation",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "block_maxes",
+            "label": "block_maxes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "block_sums",
+            "label": "block_sums"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "m",
+            "label": "m"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "l",
+            "label": "l"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Computing softmax across tiled blocks without materializing the full row.",
+            "values": {
+              "block_maxes": "[4.2, 5.8, 3.9]",
+              "block_sums": "[12.5, 18.2, 10.1]",
+              "m": "-inf",
+              "l": "0"
+            },
+            "tones": {
+              "block_maxes": "data",
+              "block_sums": "data",
+              "m": "data",
+              "l": "data"
+            },
+            "arrows": [
+              [
+                "block_maxes",
+                "block_sums"
+              ],
+              [
+                "block_sums",
+                "m"
+              ],
+              [
+                "m",
+                "l"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Standard softmax requires finding the global row maximum m across all.",
+            "values": {
+              "block_maxes": "[4.2, 5.8, 3.9]",
+              "block_sums": "[12.5, 18.2, 10.1]",
+              "m": "-inf",
+              "l": "0"
+            },
+            "tones": {
+              "block_maxes": "data",
+              "block_sums": "data",
+              "m": "data",
+              "l": "data"
+            },
+            "arrows": [
+              [
+                "block_maxes",
+                "block_sums"
+              ],
+              [
+                "block_sums",
+                "m"
+              ],
+              [
+                "m",
+                "l"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "This algorithmic precision guarantees that tiled attention produces.",
+            "values": {
+              "block_maxes": "[4.2, 5.8, 3.9]",
+              "block_sums": "[12.5, 18.2, 10.1]",
+              "m": "-inf",
+              "l": "0"
+            },
+            "tones": {
+              "block_maxes": "ok",
+              "block_sums": "ok",
+              "m": "ok",
+              "l": "ok"
+            },
+            "arrows": [
+              [
+                "block_maxes",
+                "block_sums"
+              ],
+              [
+                "block_sums",
+                "m"
+              ],
+              [
+                "m",
+                "l"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "FlashAttention — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "a5c3f9247698e8a8cbe195c09e81866c4d77cbfebe947ce1ee0f253b12719c4d",
+      "spec": {
+        "template": "table",
+        "title": "FlashAttention — Throughput Optimization & Edge-Case Handling",
+        "columns": [
+          "Symbol",
+          "Executed Value"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The evolution of FlashAttention across three generations demonstrates.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "vers"
+                  },
+                  {
+                    "var": "vers",
+                    "line": 8,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Trace how flashattention updates introduced during execution.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "vers"
+                  },
+                  {
+                    "var": "vers",
+                    "line": 9,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Trace how flashattention updates leverages during execution.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "FlashAttention — Throughput Optimization & Edge-Case Handling",
+        "columns": [
+          "Symbol",
+          "Executed Value"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The evolution of FlashAttention across three generations demonstrates.",
+            "rows": [
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
+                "cells": [
+                  "vers",
+                  "{'FA1': {'hbm_speedup': '2.0x', 'key_fe…"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how flashattention updates introduced during execution.",
+            "rows": [
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
+                "cells": [
+                  "vers",
+                  "{'FA1': {'hbm_speedup': '2.0x', 'key_fe…"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Trace how flashattention updates leverages during execution.",
+            "rows": [
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "FlashAttention Evolution: FA1=2.0x -> FA2=2.8x -> FA3=4.2x (TMA on Hopper)"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -538,797 +522,281 @@
       }
     },
     {
-      "partTitle": "FlashAttention IO-Awareness — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "90eafc21e16fddfc9b1d8f1f4ae8df957850c921795c5e0c75285197cd93a449",
+      "partTitle": "FlashAttention — Resilience Guardrails & Failure Recovery",
+      "codeHash": "232900c18d825b54dd151a305361941a337089925cf57418e32c13b6d3fa4a9c",
       "spec": {
-        "template": "flow",
-        "title": "FlashAttention IO-Awareness — Throughput Optimization & Edge-Case Hand",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "FlashAttention — Resilience Guardrails & Failure Recovery",
+        "actors": [
+          "head_dim",
+          "sram_bytes",
+          "status"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying FlashAttention kernels requires strict verification of head.",
+            "activeActor": "head_dim",
+            "messages": [
+              {
+                "from": "head_dim",
+                "to": "sram_bytes",
+                "label": {
+                  "var": "head_dim",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "sram_bytes",
+                "to": "status",
+                "label": {
+                  "var": "sram_bytes",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "FlashAttention kernels require head dimensions to be a multiple of 8 (e.",
+            "activeActor": "sram_bytes",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "head_dim",
+                "to": "sram_bytes",
+                "label": {
+                  "var": "head_dim",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "sram_bytes",
+                "to": "status",
+                "label": {
+                  "var": "sram_bytes",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Enforcing these hardware constraints guarantees that FlashAttention.",
+            "activeActor": "status",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "head_dim",
+                "to": "sram_bytes",
+                "label": {
+                  "var": "head_dim",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "sram_bytes",
+                "to": "status",
+                "label": {
+                  "var": "sram_bytes",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "FlashAttention IO-Awareness — Throughput Optimization & Edge-Case Hand",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "FlashAttention — Resilience Guardrails & Failure Recovery",
+        "actors": [
+          "head_dim",
+          "sram_bytes",
+          "status"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying FlashAttention kernels requires strict verification of head.",
+            "messages": [
+              {
+                "from": "head_dim",
+                "to": "sram_bytes",
+                "label": "128",
+                "tone": "data"
+              },
+              {
+                "from": "sram_bytes",
+                "to": "status",
+                "label": "233472",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "head_dim"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "FlashAttention kernels require head dimensions to be a multiple of 8 (e.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "head_dim",
+                "to": "sram_bytes",
+                "label": "128",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "sram_bytes",
+                "to": "status",
+                "label": "233472",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "sram_bytes"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Enforcing these hardware constraints guarantees that FlashAttention.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "head_dim",
+                "to": "sram_bytes",
+                "label": "128",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "sram_bytes",
+                "to": "status",
+                "label": "233472",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "status"
           }
         ]
       }
     },
     {
-      "partTitle": "FlashAttention IO-Awareness — Resilience Guardrails & Failure Recovery",
-      "codeHash": "2fd6835cb141ea3926716241ae87205fac20d8bff4078002f3c17f69d7c93d11",
+      "partTitle": "FlashAttention — Production Telemetry & Verification Audit",
+      "codeHash": "81a8c9e918f8a4a618a9a2f52935ae8c54c8c53fa84fde44faaaee9feba12dd6",
       "spec": {
-        "template": "flow",
-        "title": "FlashAttention IO-Awareness — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "FlashAttention — Production Telemetry & Verification Audit",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing monitors sustained TFLOPs and theoretical.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "telemetry"
+                  },
+                  {
+                    "var": "telemetry",
+                    "line": 10,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Auditors record sustained compute performance, IO memory traffic reduction.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "telemetry"
+                  },
+                  {
+                    "var": "telemetry",
+                    "line": 11,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This comprehensive audit confirms that IO-aware attention is operating.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "FlashAttention IO-Awareness — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "FlashAttention — Production Telemetry & Verification Audit",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Production telemetry auditing monitors sustained TFLOPs and theoretical.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "telemetry",
+                  "{'status': 'CERTIFIED', 'kernel_version…"
+                ],
+                "tone": "data"
               }
             ]
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "FlashAttention IO-Awareness — Production Telemetry & Verification Audit",
-      "codeHash": "0a1fa84bbea3a714cc1b77e07340d3226b7e9b81d04b6bf69e1b6c5d1b53860d",
-      "spec": {
-        "template": "flow",
-        "title": "FlashAttention IO-Awareness — Production Telemetry & Verification Audi",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Auditors record sustained compute performance, IO memory traffic reduction.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "telemetry",
+                  "{'status': 'CERTIFIED', 'kernel_version…"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This comprehensive audit confirms that IO-aware attention is operating.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "FlashAttention IO-Awareness — Production Telemetry & Verification Audi",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "FlashAttention Audit: CERTIFIED (FlashAttention-3, Peak: 74.8%, IO: 8.4x)"
+                ],
+                "tone": "ok"
               }
             ]
           }

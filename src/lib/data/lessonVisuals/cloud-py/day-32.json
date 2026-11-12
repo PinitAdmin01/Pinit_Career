@@ -2,536 +2,392 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 32,
-  "promptSha": "77a8d4e1efbec4a4a3454b5204de92e41d9feed15e6372f020b515b20a78ab8a",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Zero-Trust Workload Identity — Foundations & Mathematical Invariants",
-      "codeHash": "14e5499fc4025f4e4bc05e98b2798ef0e09b3c58a11a455b2104acbe97b880b8",
+      "codeHash": "12741125c8ee25e07811a2628c347f40e82b7a71e779d7ba8f8e108a539a489f",
       "spec": {
-        "template": "flow",
-        "title": "Zero-Trust Workload Identity — Foundations & Mathematical Invariants",
-        "nodes": [
+        "template": "states",
+        "title": "Zero-Trust Workload Identity — Foundations & Mathematical Invari",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "trusted_issuer",
+            "label": "trusted_issuer"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "trusted_aud",
+            "label": "trusted_aud"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Historically, connecting continuous integration (CI/CD) pipelines.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Zero-Trust Workload Identity completely eliminates long-lived credentials.",
+            "currentState": "trusted_issuer",
+            "transition": {
+              "from": "self",
+              "to": "trusted_issuer",
+              "label": {
+                "var": "trusted_issuer",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say8",
+            "caption": "Short-lived STS credentials automatically expire after their configured.",
+            "currentState": "trusted_aud",
+            "transition": {
+              "from": "trusted_issuer",
+              "to": "trusted_aud",
+              "label": {
+                "var": "trusted_aud",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Zero-Trust Workload Identity — Foundations & Mathematical Invariants",
-        "nodes": [
+        "template": "states",
+        "title": "Zero-Trust Workload Identity — Foundations & Mathematical Invari",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "trusted_issuer",
+            "label": "trusted_issuer"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "trusted_aud",
+            "label": "trusted_aud"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Historically, connecting continuous integration (CI/CD) pipelines.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Zero-Trust Workload Identity completely eliminates long-lived credentials.",
+            "currentState": "trusted_issuer",
+            "transition": {
+              "from": "self",
+              "to": "trusted_issuer",
+              "label": "'https://token.actions.githubuserconten…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say8",
+            "caption": "Short-lived STS credentials automatically expire after their configured.",
+            "currentState": "trusted_aud",
+            "transition": {
+              "from": "trusted_issuer",
+              "to": "trusted_aud",
+              "label": "'sts.amazonaws.com'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Zero-Trust Workload Identity — Core Algorithm & State Representation",
-      "codeHash": "1eec428eb1aa9de9bc0cc87a516ece47bcb03266fa9e6caa2e6545690dd1122f",
+      "codeHash": "f3131c9771434bbd9f30582491f4925f6c94ab44968480a8e5a0c3221d842f78",
       "spec": {
         "template": "flow",
-        "title": "Zero-Trust Workload Identity — Core Algorithm & State Representation",
+        "title": "Zero-Trust Workload Identity — Core Algorithm & State Representa",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "policy",
+            "label": "policy"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "claims_valid",
+            "label": "claims_valid"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "claims_attacker",
+            "label": "claims_attacker"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "trust_policy",
+            "label": "trust_policy"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The critical security barrier in OIDC federation is the IAM Role Trust.",
+            "values": {
+              "policy": {
+                "var": "policy",
+                "line": 12,
+                "hit": 1
+              },
+              "claims_valid": {
+                "var": "claims_valid",
+                "line": 24,
+                "hit": 1
+              },
+              "claims_attacker": {
+                "var": "claims_attacker",
+                "line": 25,
+                "hit": 1
+              },
+              "trust_policy": {
+                "var": "trust_policy",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "policy": "data",
+              "claims_valid": "data",
+              "claims_attacker": "data",
+              "trust_policy": "data"
+            },
+            "arrows": [
+              [
+                "policy",
+                "claims_valid"
+              ],
+              [
+                "claims_valid",
+                "claims_attacker"
+              ],
+              [
+                "claims_attacker",
+                "trust_policy"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "An IAM trust policy specifies WHICH external entities can assume the role.",
+            "values": {
+              "policy": {
+                "var": "policy",
+                "line": 24,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "claims_valid": {
+                "var": "claims_valid",
+                "line": 25,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "claims_attacker": {
+                "var": "claims_attacker",
+                "line": 27,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "trust_policy": {
+                "var": "trust_policy",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "policy": "data",
+              "claims_valid": "data",
+              "claims_attacker": "data",
+              "trust_policy": "data"
+            },
+            "arrows": [
+              [
+                "policy",
+                "claims_valid"
+              ],
+              [
+                "claims_valid",
+                "claims_attacker"
+              ],
+              [
+                "claims_attacker",
+                "trust_policy"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Auditing trust policies for wildcard conditions prevents open token.",
+            "values": {
+              "policy": {
+                "var": "policy",
+                "line": 25,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "claims_valid": {
+                "var": "claims_valid",
+                "line": 27,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "claims_attacker": {
+                "var": "claims_attacker",
+                "line": 28,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "trust_policy": {
+                "var": "trust_policy",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "policy": "ok",
+              "claims_valid": "ok",
+              "claims_attacker": "ok",
+              "trust_policy": "ok"
+            },
+            "arrows": [
+              [
+                "policy",
+                "claims_valid"
+              ],
+              [
+                "claims_valid",
+                "claims_attacker"
+              ],
+              [
+                "claims_attacker",
+                "trust_policy"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Zero-Trust Workload Identity — Core Algorithm & State Representation",
+        "title": "Zero-Trust Workload Identity — Core Algorithm & State Representa",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "policy",
+            "label": "policy"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "claims_valid",
+            "label": "claims_valid"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "claims_attacker",
+            "label": "claims_attacker"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "trust_policy",
+            "label": "trust_policy"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The critical security barrier in OIDC federation is the IAM Role Trust.",
+            "values": {
+              "policy": "{'Effect': 'Allow', 'Principal': {'Fede…",
+              "claims_valid": "{'aud': 'sts.amazonaws.com', 'sub': 're…",
+              "claims_attacker": "{'aud': 'sts.amazonaws.com', 'sub': 're…",
+              "trust_policy": "{'Effect': 'Allow', 'Principal': {'Fede…"
+            },
+            "tones": {
+              "policy": "data",
+              "claims_valid": "data",
+              "claims_attacker": "data",
+              "trust_policy": "data"
+            },
+            "arrows": [
+              [
+                "policy",
+                "claims_valid"
+              ],
+              [
+                "claims_valid",
+                "claims_attacker"
+              ],
+              [
+                "claims_attacker",
+                "trust_policy"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "An IAM trust policy specifies WHICH external entities can assume the role.",
+            "values": {
+              "policy": "{'Effect': 'Allow', 'Principal': {'Fede…",
+              "claims_valid": "{'aud': 'sts.amazonaws.com', 'sub': 're…",
+              "claims_attacker": "{'aud': 'sts.amazonaws.com', 'sub': 're…",
+              "trust_policy": "{'Effect': 'Allow', 'Principal': {'Fede…"
+            },
+            "tones": {
+              "policy": "data",
+              "claims_valid": "data",
+              "claims_attacker": "data",
+              "trust_policy": "data"
+            },
+            "arrows": [
+              [
+                "policy",
+                "claims_valid"
+              ],
+              [
+                "claims_valid",
+                "claims_attacker"
+              ],
+              [
+                "claims_attacker",
+                "trust_policy"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Auditing trust policies for wildcard conditions prevents open token.",
+            "values": {
+              "policy": "{'Effect': 'Allow', 'Principal': {'Fede…",
+              "claims_valid": "{'aud': 'sts.amazonaws.com', 'sub': 're…",
+              "claims_attacker": "{'aud': 'sts.amazonaws.com', 'sub': 're…",
+              "trust_policy": "{'Effect': 'Allow', 'Principal': {'Fede…"
+            },
+            "tones": {
+              "policy": "ok",
+              "claims_valid": "ok",
+              "claims_attacker": "ok",
+              "trust_policy": "ok"
+            },
+            "arrows": [
+              [
+                "policy",
+                "claims_valid"
+              ],
+              [
+                "claims_valid",
+                "claims_attacker"
+              ],
+              [
+                "claims_attacker",
+                "trust_policy"
+              ]
             ]
           }
         ]
@@ -539,264 +395,218 @@
     },
     {
       "partTitle": "Zero-Trust Workload Identity — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "207751fa3ea0bd437c12110d40fb8d6a533345279bd8add4046bbf3ac5b66051",
+      "codeHash": "40200b8238659a515dbf1ff5ffee03737dbeb89184a98bc59c19279512b4ddb0",
       "spec": {
-        "template": "flow",
-        "title": "Zero-Trust Workload Identity — Throughput Optimization & Edge-Case Han",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Zero-Trust Workload Identity — Throughput Optimization & Edge-Ca",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Pre-fetching temporary credentials using non-blocking asynchronous.",
+            "bars": [
+              {
+                "label": "ttl_sec",
+                "value": {
+                  "var": "ttl_sec",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "refresh_before",
+                "value": {
+                  "var": "refresh_before_sec",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "current_time",
+                "value": {
+                  "var": "current_time",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "now",
+                "value": {
+                  "var": "now",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In high-throughput microservice architectures or distributed data.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "ttl_sec",
+                "value": {
+                  "var": "ttl_sec",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "refresh_before",
+                "value": {
+                  "var": "refresh_before_sec",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "current_time",
+                "value": {
+                  "var": "current_time",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "now",
+                "value": {
+                  "var": "now",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Trace how refreshing updates temporary during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "ttl_sec",
+                "value": {
+                  "var": "ttl_sec",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "refresh_before",
+                "value": {
+                  "var": "refresh_before_sec",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "current_time",
+                "value": {
+                  "var": "current_time",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "now",
+                "value": {
+                  "var": "now",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Zero-Trust Workload Identity — Throughput Optimization & Edge-Case Han",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Zero-Trust Workload Identity — Throughput Optimization & Edge-Ca",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Pre-fetching temporary credentials using non-blocking asynchronous.",
+            "bars": [
+              {
+                "label": "ttl_sec",
+                "value": 3600,
+                "tone": "data"
+              },
+              {
+                "label": "refresh_before",
+                "value": 900,
+                "tone": "data"
+              },
+              {
+                "label": "current_time",
+                "value": 1000,
+                "tone": "data"
+              },
+              {
+                "label": "now",
+                "value": 1000,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In high-throughput microservice architectures or distributed data.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "ttl_sec",
+                "value": 3600,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "refresh_before",
+                "value": 900,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "current_time",
+                "value": 1000,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "now",
+                "value": 1000,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Trace how refreshing updates temporary during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "ttl_sec",
+                "value": 3600,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "refresh_before",
+                "value": 900,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "current_time",
+                "value": 1000,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "now",
+                "value": 1000,
+                "tone": "ok"
               }
             ]
           }
@@ -805,265 +615,279 @@
     },
     {
       "partTitle": "Zero-Trust Workload Identity — Resilience Guardrails & Failure Recovery",
-      "codeHash": "d9f8973cc7b3e8ef84f53eb7648c0e1a17706db65c9f10432e4df6c11b6cad4b",
+      "codeHash": "4474242aa72b532c4f64bbbc96ab085a4afe1aab091090b80a8a3bdb34a4b706",
       "spec": {
         "template": "flow",
-        "title": "Zero-Trust Workload Identity — Resilience Guardrails & Failure Recover",
+        "title": "Zero-Trust Workload Identity — Resilience Guardrails & Failure R",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "jwks_cache_ttl_sec",
+            "label": "jwks_cache_ttl_sec"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "mgr",
+            "label": "mgr"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "token",
+            "label": "token"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "What happens if an external OIDC identity provider experiences a major.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "jwks_cache_ttl_sec": {
+                "var": "jwks_cache_ttl_sec",
+                "line": 3,
+                "hit": 1
+              },
+              "mgr": {
+                "var": "mgr",
+                "line": 16,
+                "hit": 1
+              },
+              "token": {
+                "var": "token",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "jwks_cache_ttl_sec": "data",
+              "mgr": "data",
+              "token": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "jwks_cache_ttl_sec"
+              ],
+              [
+                "jwks_cache_ttl_sec",
+                "mgr"
+              ],
+              [
+                "mgr",
+                "token"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "If AWS STS cannot download the provider's JWKS public keys, all subsequent.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "jwks_cache_ttl_sec": {
+                "var": "jwks_cache_ttl_sec",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "mgr": {
+                "var": "mgr",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "token": {
+                "var": "token",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "jwks_cache_ttl_sec": "data",
+              "mgr": "data",
+              "token": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "jwks_cache_ttl_sec"
+              ],
+              [
+                "jwks_cache_ttl_sec",
+                "mgr"
+              ],
+              [
+                "mgr",
+                "token"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Configuring emergency MFA break-glass roles ensures that operations teams.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "jwks_cache_ttl_sec": {
+                "var": "jwks_cache_ttl_sec",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "mgr": {
+                "var": "mgr",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "token": {
+                "var": "token",
+                "line": 14,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "jwks_cache_ttl_sec": "ok",
+              "mgr": "ok",
+              "token": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "jwks_cache_ttl_sec"
+              ],
+              [
+                "jwks_cache_ttl_sec",
+                "mgr"
+              ],
+              [
+                "mgr",
+                "token"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Zero-Trust Workload Identity — Resilience Guardrails & Failure Recover",
+        "title": "Zero-Trust Workload Identity — Resilience Guardrails & Failure R",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "jwks_cache_ttl_sec",
+            "label": "jwks_cache_ttl_sec"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "mgr",
+            "label": "mgr"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "token",
+            "label": "token"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "What happens if an external OIDC identity provider experiences a major.",
+            "values": {
+              "self": "<OIDCResilienceManager>",
+              "jwks_cache_ttl_sec": "86400",
+              "mgr": "<OIDCResilienceManager>",
+              "token": "'tok'"
+            },
+            "tones": {
+              "self": "data",
+              "jwks_cache_ttl_sec": "data",
+              "mgr": "data",
+              "token": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "jwks_cache_ttl_sec"
+              ],
+              [
+                "jwks_cache_ttl_sec",
+                "mgr"
+              ],
+              [
+                "mgr",
+                "token"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "If AWS STS cannot download the provider's JWKS public keys, all subsequent.",
+            "values": {
+              "self": "<OIDCResilienceManager>",
+              "jwks_cache_ttl_sec": "86400",
+              "mgr": "<OIDCResilienceManager>",
+              "token": "'tok'"
+            },
+            "tones": {
+              "self": "data",
+              "jwks_cache_ttl_sec": "data",
+              "mgr": "data",
+              "token": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "jwks_cache_ttl_sec"
+              ],
+              [
+                "jwks_cache_ttl_sec",
+                "mgr"
+              ],
+              [
+                "mgr",
+                "token"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Configuring emergency MFA break-glass roles ensures that operations teams.",
+            "values": {
+              "self": "<OIDCResilienceManager>",
+              "jwks_cache_ttl_sec": "86400",
+              "mgr": "<OIDCResilienceManager>",
+              "token": "'tok'"
+            },
+            "tones": {
+              "self": "ok",
+              "jwks_cache_ttl_sec": "ok",
+              "mgr": "ok",
+              "token": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "jwks_cache_ttl_sec"
+              ],
+              [
+                "jwks_cache_ttl_sec",
+                "mgr"
+              ],
+              [
+                "mgr",
+                "token"
+              ]
             ]
           }
         ]
@@ -1071,265 +895,279 @@
     },
     {
       "partTitle": "Zero-Trust Workload Identity — Production Telemetry & Verification Audit",
-      "codeHash": "0754050da57d13398a95905ea94e85f11774e895a026c9f6301f1465f007178b",
+      "codeHash": "1e87e62cd29fe22cf320a819df1951c52bb4fdb02ecf6e3dec8354fa3d95b069",
       "spec": {
         "template": "flow",
-        "title": "Zero-Trust Workload Identity — Production Telemetry & Verification Aud",
+        "title": "Zero-Trust Workload Identity — Production Telemetry & Verificati",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "events",
+            "label": "events"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cloudtrail_events",
+            "label": "cloudtrail_events"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "violations",
+            "label": "violations"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "ev",
+            "label": "ev"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cross-referencing CloudTrail AssumeRole events against corporate HR.",
+            "values": {
+              "events": {
+                "var": "events",
+                "line": 15,
+                "hit": 1
+              },
+              "cloudtrail_events": {
+                "var": "cloudtrail_events",
+                "line": 2,
+                "hit": 1
+              },
+              "violations": {
+                "var": "violations",
+                "line": 2,
+                "hit": 1
+              },
+              "ev": {
+                "var": "ev",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "events": "data",
+              "cloudtrail_events": "data",
+              "violations": "data",
+              "ev": "data"
+            },
+            "arrows": [
+              [
+                "events",
+                "cloudtrail_events"
+              ],
+              [
+                "cloudtrail_events",
+                "violations"
+              ],
+              [
+                "violations",
+                "ev"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Maintaining a zero-trust workload identity architecture requires.",
+            "values": {
+              "events": {
+                "var": "events",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "cloudtrail_events": {
+                "var": "cloudtrail_events",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "violations": {
+                "var": "violations",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "ev": {
+                "var": "ev",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "events": "data",
+              "cloudtrail_events": "data",
+              "violations": "data",
+              "ev": "data"
+            },
+            "arrows": [
+              [
+                "events",
+                "cloudtrail_events"
+              ],
+              [
+                "cloudtrail_events",
+                "violations"
+              ],
+              [
+                "violations",
+                "ev"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Tracking STS token duration distributions ensures that microservices.",
+            "values": {
+              "events": {
+                "var": "events",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "cloudtrail_events": {
+                "var": "cloudtrail_events",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "violations": {
+                "var": "violations",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "ev": {
+                "var": "ev",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "events": "ok",
+              "cloudtrail_events": "ok",
+              "violations": "ok",
+              "ev": "ok"
+            },
+            "arrows": [
+              [
+                "events",
+                "cloudtrail_events"
+              ],
+              [
+                "cloudtrail_events",
+                "violations"
+              ],
+              [
+                "violations",
+                "ev"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Zero-Trust Workload Identity — Production Telemetry & Verification Aud",
+        "title": "Zero-Trust Workload Identity — Production Telemetry & Verificati",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "events",
+            "label": "events"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cloudtrail_events",
+            "label": "cloudtrail_events"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "violations",
+            "label": "violations"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "ev",
+            "label": "ev"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cross-referencing CloudTrail AssumeRole events against corporate HR.",
+            "values": {
+              "events": "[{'principal': 'github_ci_deployer', 'u…",
+              "cloudtrail_events": "[{'principal': 'github_ci_deployer', 'u…",
+              "violations": "[]",
+              "ev": "{'principal': 'github_ci_deployer', 'us…"
+            },
+            "tones": {
+              "events": "data",
+              "cloudtrail_events": "data",
+              "violations": "data",
+              "ev": "data"
+            },
+            "arrows": [
+              [
+                "events",
+                "cloudtrail_events"
+              ],
+              [
+                "cloudtrail_events",
+                "violations"
+              ],
+              [
+                "violations",
+                "ev"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Maintaining a zero-trust workload identity architecture requires.",
+            "values": {
+              "events": "[{'principal': 'github_ci_deployer', 'u…",
+              "cloudtrail_events": "[{'principal': 'github_ci_deployer', 'u…",
+              "violations": "[]",
+              "ev": "{'principal': 'github_ci_deployer', 'us…"
+            },
+            "tones": {
+              "events": "data",
+              "cloudtrail_events": "data",
+              "violations": "data",
+              "ev": "data"
+            },
+            "arrows": [
+              [
+                "events",
+                "cloudtrail_events"
+              ],
+              [
+                "cloudtrail_events",
+                "violations"
+              ],
+              [
+                "violations",
+                "ev"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Tracking STS token duration distributions ensures that microservices.",
+            "values": {
+              "events": "[{'principal': 'github_ci_deployer', 'u…",
+              "cloudtrail_events": "[{'principal': 'github_ci_deployer', 'u…",
+              "violations": "[]",
+              "ev": "{'principal': 'github_ci_deployer', 'us…"
+            },
+            "tones": {
+              "events": "ok",
+              "cloudtrail_events": "ok",
+              "violations": "ok",
+              "ev": "ok"
+            },
+            "arrows": [
+              [
+                "events",
+                "cloudtrail_events"
+              ],
+              [
+                "cloudtrail_events",
+                "violations"
+              ],
+              [
+                "violations",
+                "ev"
+              ]
             ]
           }
         ]

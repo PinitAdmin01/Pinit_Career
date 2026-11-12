@@ -2,255 +2,121 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 10,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Tagging is a sequence problem",
       "codeHash": "d909adf4c278890acdeff0d099c9d25675f4f3ba4a5e799a2532af696ada8ba0",
       "spec": {
-        "template": "table",
-        "title": "Part of speech sequence ambiguity and context resolution",
-        "columns": [
-          "time",
-          "flies"
-        ],
+        "template": "cells",
+        "title": "Tagging is a sequence problem",
         "steps": [
           {
             "at": "say1",
-            "caption": "Part of speech tagging assigns categorical grammatical labels across words.",
-            "rows": [
+            "caption": "Part-of-speech tagging assigns a tag (NOUN, VERB, ADJ.",
+            "items": {
+              "var": "sentence",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "time"
-                  },
-                  {
-                    "text": "flies"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Individual vocabulary words frequently demonstrate syntactic ambiguity.",
-            "rows": [
+            "caption": "Many words are ambiguous.",
+            "items": {
+              "var": "sentence",
+              "line": 6,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "time"
-                  },
-                  {
-                    "text": "flies"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "arrow"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Sequential context surrounding a word determines the appropriate label.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "time"
-                  },
-                  {
-                    "text": "flies"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "arrow"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "NOUN"
-                  },
-                  {
-                    "text": "VERB"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Hidden Markov models treat sequence tags as unobserved latent states.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example shows how often ambiguous words appear in a short sentence.",
+            "items": {
+              "var": "sentence",
+              "line": 5,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "time"
-                  },
-                  {
-                    "text": "flies"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "like"
-                  },
-                  {
-                    "text": "arrow"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "NOUN"
-                  },
-                  {
-                    "text": "VERB"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "DET"
-                  },
-                  {
-                    "text": "ADP"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Part of speech sequence ambiguity and context resolution",
-        "columns": [
-          "time",
-          "flies"
-        ],
+        "template": "cells",
+        "title": "Tagging is a sequence problem",
         "steps": [
           {
             "at": "say1",
-            "caption": "Part of speech tagging assigns categorical grammatical labels across words.",
-            "rows": [
+            "caption": "Part-of-speech tagging assigns a tag (NOUN, VERB, ADJ.",
+            "items": [
+              "'time'",
+              "'flies'",
+              "'like'",
+              "'an'",
+              "'arrow'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "time",
-                  "flies"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Individual vocabulary words frequently demonstrate syntactic ambiguity.",
-            "rows": [
+            "caption": "Many words are ambiguous.",
+            "items": [
+              "'time'",
+              "'flies'",
+              "'like'",
+              "'an'",
+              "'arrow'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "time",
-                  "flies"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "like",
-                  "arrow"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Sequential context surrounding a word determines the appropriate label.",
-            "rows": [
-              {
-                "cells": [
-                  "time",
-                  "flies"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "like",
-                  "arrow"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "NOUN",
-                  "VERB"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Hidden Markov models treat sequence tags as unobserved latent states.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example shows how often ambiguous words appear in a short sentence.",
+            "items": [
+              "'time'",
+              "'flies'",
+              "'like'",
+              "'an'",
+              "'arrow'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "time",
-                  "flies"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "like",
-                  "arrow"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "NOUN",
-                  "VERB"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "DET",
-                  "ADP"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -261,248 +127,105 @@
       "partTitle": "The hidden Markov model",
       "codeHash": "c33725f0baf4be3c2b1e90f4dadd93a606a7a7546a2d0a8838c46dca93e6bea5",
       "spec": {
-        "template": "table",
-        "title": "Hidden Markov model parameter distributions and joint probability",
-        "columns": [
-          "start",
-          "emit"
-        ],
+        "template": "cells",
+        "title": "The hidden Markov model",
         "steps": [
           {
             "at": "say1",
-            "caption": "An HMM models sequence probability via three distinct parameter distributions.",
-            "rows": [
+            "caption": "An HMM has three sets of probabilities, all estimated by counting in.",
+            "items": {
+              "var": "tags",
+              "line": 11,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "emit"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Transition probabilities model bigram grammatical transitions between tags.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "emit"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "trans"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Emission probabilities measure how likely a given tag produces an observed word.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "emit"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "trans"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "fish"
-                  },
-                  {
-                    "text": "swim"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Joint sequence probability computes the cumulative product across transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Start probabilities.",
+            "items": {
+              "var": "tags",
+              "line": 12,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "emit"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "trans"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "fish"
-                  },
-                  {
-                    "text": "swim"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The example scores two possible taggings of \"fish swim\".",
+            "items": {
+              "var": "tags",
+              "line": 7,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "NOUN"
-                  },
-                  {
-                    "text": "VERB"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Hidden Markov model parameter distributions and joint probability",
-        "columns": [
-          "start",
-          "emit"
-        ],
+        "template": "cells",
+        "title": "The hidden Markov model",
         "steps": [
           {
             "at": "say1",
-            "caption": "An HMM models sequence probability via three distinct parameter distributions.",
-            "rows": [
+            "caption": "An HMM has three sets of probabilities, all estimated by counting in.",
+            "items": [
+              "'NOUN'",
+              "'VERB'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "start",
-                  "emit"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Transition probabilities model bigram grammatical transitions between tags.",
-            "rows": [
-              {
-                "cells": [
-                  "start",
-                  "emit"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "trans",
-                  "tags"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Emission probabilities measure how likely a given tag produces an observed word.",
-            "rows": [
-              {
-                "cells": [
-                  "start",
-                  "emit"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "trans",
-                  "tags"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "fish",
-                  "swim"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Joint sequence probability computes the cumulative product across transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Start probabilities.",
+            "items": [
+              "'NOUN'",
+              "'VERB'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "start",
-                  "emit"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "trans",
-                  "tags"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "fish",
-                  "swim"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The example scores two possible taggings of \"fish swim\".",
+            "items": [
+              "'VERB'",
+              "'NOUN'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "NOUN",
-                  "VERB"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -513,143 +236,131 @@
       "partTitle": "Why brute force fails",
       "codeHash": "5a4b9476c2a71f4ad2a596a4e1146e15d8c007d6e866e4a4af4760e2d4e2ab57",
       "spec": {
-        "template": "table",
-        "title": "Exponential search space complexity versus dynamic programming",
-        "columns": [
-          "brute",
-          "viterbi"
-        ],
+        "template": "bars",
+        "title": "Why brute force fails",
         "steps": [
           {
             "at": "say1",
-            "caption": "Evaluating all candidate sequences exhaustively tests every combination.",
-            "rows": [
+            "caption": "To find the best tagging, we could score every possible tag sequence.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "brute"
-                  },
-                  {
-                    "text": "viterbi"
-                  }
-                ],
-                "tone": "ok"
+                "label": "tags",
+                "value": {
+                  "var": "tags",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "words",
+                "value": {
+                  "var": "words",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "brute",
+                "value": {
+                  "var": "brute",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "viterbi",
+                "value": {
+                  "var": "viterbi",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The number of candidate sequences grows far too many to compute.",
-            "rows": [
+            "caption": "But the count is (number of tags) to the power (number of words).",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "brute"
-                  },
-                  {
-                    "text": "viterbi"
-                  }
-                ],
+                "label": "tags",
+                "value": {
+                  "var": "tags",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "tags"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
+                "label": "words",
+                "value": {
+                  "var": "words",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "brute",
+                "value": {
+                  "var": "brute",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "viterbi",
+                "value": {
+                  "var": "viterbi",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Dynamic programming caches partial path results to achieve linear complexity.",
-            "rows": [
+            "at": "say7",
+            "caption": "Recognising overlapping sub-problems is one of the most useful skills.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "brute"
-                  },
-                  {
-                    "text": "viterbi"
-                  }
-                ],
+                "label": "tags",
+                "value": {
+                  "var": "tags",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "tags"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
+                "label": "words",
+                "value": {
+                  "var": "words",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "brute"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The Viterbi algorithm efficiently finds optimal hidden sequence paths.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "brute"
-                  },
-                  {
-                    "text": "viterbi"
-                  }
-                ],
+                "label": "brute",
+                "value": {
+                  "var": "brute",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "tags"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "brute"
-                  },
-                  {
-                    "text": "tags"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "viterbi"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
+                "label": "viterbi",
+                "value": {
+                  "var": "viterbi",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -657,103 +368,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Exponential search space complexity versus dynamic programming",
-        "columns": [
-          "brute",
-          "viterbi"
-        ],
+        "template": "bars",
+        "title": "Why brute force fails",
         "steps": [
           {
             "at": "say1",
-            "caption": "Evaluating all candidate sequences exhaustively tests every combination.",
-            "rows": [
+            "caption": "To find the best tagging, we could score every possible tag sequence.",
+            "bars": [
               {
-                "cells": [
-                  "brute",
-                  "viterbi"
-                ],
-                "tone": "ok"
+                "label": "tags",
+                "value": 17,
+                "tone": "data"
+              },
+              {
+                "label": "words",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "brute",
+                "value": 4913,
+                "tone": "data"
+              },
+              {
+                "label": "viterbi",
+                "value": 867,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The number of candidate sequences grows far too many to compute.",
-            "rows": [
+            "caption": "But the count is (number of tags) to the power (number of words).",
+            "bars": [
               {
-                "cells": [
-                  "brute",
-                  "viterbi"
-                ],
+                "label": "tags",
+                "value": 17,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "tags",
-                  "words"
-                ],
+                "label": "words",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "brute",
+                "value": 4913,
+                "tone": "ok"
+              },
+              {
+                "label": "viterbi",
+                "value": 867,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Dynamic programming caches partial path results to achieve linear complexity.",
-            "rows": [
+            "at": "say7",
+            "caption": "Recognising overlapping sub-problems is one of the most useful skills.",
+            "bars": [
               {
-                "cells": [
-                  "brute",
-                  "viterbi"
-                ],
+                "label": "tags",
+                "value": 17,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "tags",
-                  "words"
-                ],
+                "label": "words",
+                "value": 3,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "brute",
-                  "tags"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The Viterbi algorithm efficiently finds optimal hidden sequence paths.",
-            "rows": [
-              {
-                "cells": [
-                  "brute",
-                  "viterbi"
-                ],
+                "label": "brute",
+                "value": 4913,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "tags",
-                  "words"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "brute",
-                  "tags"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "viterbi",
-                  "words"
-                ],
+                "label": "viterbi",
+                "value": 867,
                 "tone": "ok"
               }
             ]
@@ -765,249 +456,277 @@
       "partTitle": "The Viterbi algorithm",
       "codeHash": "4f55b238c85df1e99a73cb9228a71f9e5d82defa8a1e2e5e92de3dd168913360",
       "spec": {
-        "template": "table",
-        "title": "Viterbi trellis recurrence and optimal path decoding",
-        "columns": [
-          "dogs",
-          "fish"
+        "template": "flow",
+        "title": "The Viterbi algorithm",
+        "nodes": [
+          {
+            "id": "states",
+            "label": "states"
+          },
+          {
+            "id": "start",
+            "label": "start"
+          },
+          {
+            "id": "trans",
+            "label": "trans"
+          },
+          {
+            "id": "emit",
+            "label": "emit"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Viterbi maintains the highest probability path arriving at each state.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "dogs"
-                  },
-                  {
-                    "text": "fish"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Viterbi walks through the sentence one word at a time.",
+            "values": {
+              "states": {
+                "var": "states",
+                "line": 1,
+                "hit": 1
+              },
+              "start": {
+                "var": "start",
+                "line": 2,
+                "hit": 1
+              },
+              "trans": {
+                "var": "trans",
+                "line": 3,
+                "hit": 1
+              },
+              "emit": {
+                "var": "emit",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "states": "data",
+              "start": "data",
+              "trans": "data",
+              "emit": "data"
+            },
+            "arrows": [
+              [
+                "states",
+                "start"
+              ],
+              [
+                "start",
+                "trans"
+              ],
+              [
+                "trans",
+                "emit"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Start computes path probability multiplying start and emit for the first word.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "dogs"
-                  },
-                  {
-                    "text": "fish"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "For each tag, probability = start[tag] times emit[tag][first word],.",
+            "values": {
+              "states": {
+                "var": "states",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "emit"
-                  }
-                ],
-                "tone": "ok"
+              "start": {
+                "var": "start",
+                "line": 3,
+                "hit": 1
+              },
+              "trans": {
+                "var": "trans",
+                "line": 4,
+                "hit": 1
+              },
+              "emit": {
+                "var": "emit",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "states": "data",
+              "start": "data",
+              "trans": "data",
+              "emit": "data"
+            },
+            "arrows": [
+              [
+                "states",
+                "start"
+              ],
+              [
+                "start",
+                "trans"
+              ],
+              [
+                "trans",
+                "emit"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Each step updates paths by taking max transition products across states.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "dogs"
-                  },
-                  {
-                    "text": "fish"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example runs Viterbi on \"dogs fish\" and prints the table after each word.",
+            "values": {
+              "states": {
+                "var": "states",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "emit"
-                  }
-                ],
-                "tone": "ok"
+              "start": {
+                "var": "start",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "trans"
-                  },
-                  {
-                    "text": "best"
-                  }
-                ],
-                "tone": "data"
+              "trans": {
+                "var": "trans",
+                "line": 5,
+                "hit": 1
+              },
+              "emit": {
+                "var": "emit",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Backtracking from the highest final state yields the optimal tag sequence.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "dogs"
-                  },
-                  {
-                    "text": "fish"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "emit"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "trans"
-                  },
-                  {
-                    "text": "best"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "states"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "states": "ok",
+              "start": "ok",
+              "trans": "ok",
+              "emit": "ok"
+            },
+            "arrows": [
+              [
+                "states",
+                "start"
+              ],
+              [
+                "start",
+                "trans"
+              ],
+              [
+                "trans",
+                "emit"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Viterbi trellis recurrence and optimal path decoding",
-        "columns": [
-          "dogs",
-          "fish"
+        "template": "flow",
+        "title": "The Viterbi algorithm",
+        "nodes": [
+          {
+            "id": "states",
+            "label": "states"
+          },
+          {
+            "id": "start",
+            "label": "start"
+          },
+          {
+            "id": "trans",
+            "label": "trans"
+          },
+          {
+            "id": "emit",
+            "label": "emit"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Viterbi maintains the highest probability path arriving at each state.",
-            "rows": [
-              {
-                "cells": [
-                  "dogs",
-                  "fish"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Viterbi walks through the sentence one word at a time.",
+            "values": {
+              "states": "['NOUN', 'VERB']",
+              "start": "{'NOUN': 0.7, 'VERB': 0.3}",
+              "trans": "{'NOUN': {'NOUN': 0.3, 'VERB': 0.7}, 'V…",
+              "emit": "{'NOUN': {'fish': 0.6, 'dogs': 0.3}, 'V…"
+            },
+            "tones": {
+              "states": "data",
+              "start": "data",
+              "trans": "data",
+              "emit": "data"
+            },
+            "arrows": [
+              [
+                "states",
+                "start"
+              ],
+              [
+                "start",
+                "trans"
+              ],
+              [
+                "trans",
+                "emit"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Start computes path probability multiplying start and emit for the first word.",
-            "rows": [
-              {
-                "cells": [
-                  "dogs",
-                  "fish"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "start",
-                  "emit"
-                ],
-                "tone": "ok"
-              }
+            "caption": "For each tag, probability = start[tag] times emit[tag][first word],.",
+            "values": {
+              "states": "['NOUN', 'VERB']",
+              "start": "{'NOUN': 0.7, 'VERB': 0.3}",
+              "trans": "{'NOUN': {'NOUN': 0.3, 'VERB': 0.7}, 'V…",
+              "emit": "{'NOUN': {'fish': 0.6, 'dogs': 0.3}, 'V…"
+            },
+            "tones": {
+              "states": "data",
+              "start": "data",
+              "trans": "data",
+              "emit": "data"
+            },
+            "arrows": [
+              [
+                "states",
+                "start"
+              ],
+              [
+                "start",
+                "trans"
+              ],
+              [
+                "trans",
+                "emit"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Each step updates paths by taking max transition products across states.",
-            "rows": [
-              {
-                "cells": [
-                  "dogs",
-                  "fish"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "start",
-                  "emit"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "trans",
-                  "best"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Backtracking from the highest final state yields the optimal tag sequence.",
-            "rows": [
-              {
-                "cells": [
-                  "dogs",
-                  "fish"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "start",
-                  "emit"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "trans",
-                  "best"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "states",
-                  "words"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example runs Viterbi on \"dogs fish\" and prints the table after each word.",
+            "values": {
+              "states": "['NOUN', 'VERB']",
+              "start": "{'NOUN': 0.7, 'VERB': 0.3}",
+              "trans": "{'NOUN': {'NOUN': 0.3, 'VERB': 0.7}, 'V…",
+              "emit": "{'NOUN': {'fish': 0.6, 'dogs': 0.3}, 'V…"
+            },
+            "tones": {
+              "states": "ok",
+              "start": "ok",
+              "trans": "ok",
+              "emit": "ok"
+            },
+            "arrows": [
+              [
+                "states",
+                "start"
+              ],
+              [
+                "start",
+                "trans"
+              ],
+              [
+                "trans",
+                "emit"
+              ]
             ]
           }
         ]
@@ -1018,110 +737,93 @@
       "codeHash": "8fcedbc857f45b223dcb189bfd565232b78aa94209a5aa861a5541f999e6f080",
       "spec": {
         "template": "flow",
-        "title": "From HMMs to modern taggers — Execution Pipeline",
+        "title": "From HMMs to modern taggers",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "w",
+            "label": "w"
           },
           {
-            "id": "proc",
-            "label": "2. From HMMs to modern...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "word",
+            "label": "word"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for From HMMs to modern taggers [Dten.Pfive.Sone].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in From HMMs to modern... [Dten.Pfive.Stwo].",
+            "caption": "Trace how taggers updates reach during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "w": {
+                "var": "w",
+                "line": 8,
+                "hit": 1
+              },
+              "word": {
+                "var": "word",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "w": "data",
+              "word": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "w",
+                "word"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dten.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Their limits come from the assumptions.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "w": {
+                "var": "w",
+                "line": 9,
+                "hit": 1
+              },
+              "word": {
+                "var": "word",
+                "line": 2,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "w": "data",
+              "word": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "w",
+                "word"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for From HMMs to modern taggers.",
+            "at": "say7",
+            "caption": "Understanding HMMs makes modern sequence models much easier to follow.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "w": {
+                "var": "w",
+                "line": 8,
+                "hit": 2
+              },
+              "word": {
+                "var": "word",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "w": "ok",
+              "word": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "w",
+                "word"
               ]
             ]
           }
@@ -1129,110 +831,69 @@
       },
       "filled": {
         "template": "flow",
-        "title": "From HMMs to modern taggers — Execution Pipeline",
+        "title": "From HMMs to modern taggers",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "w",
+            "label": "w"
           },
           {
-            "id": "proc",
-            "label": "2. From HMMs to modern...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "word",
+            "label": "word"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for From HMMs to modern taggers [D10.P5.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in From HMMs to modern... [D10.P5.S2].",
+            "caption": "Trace how taggers updates reach during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "w": "'quickly'",
+              "word": "'quickly'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "w": "data",
+              "word": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "w",
+                "word"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P5.S3].",
+            "at": "say2",
+            "caption": "Their limits come from the assumptions.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "w": "'quickly'",
+              "word": "'blorping'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "w": "data",
+              "word": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "w",
+                "word"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for From HMMs to modern taggers [D10.P5.S4].",
+            "at": "say7",
+            "caption": "Understanding HMMs makes modern sequence models much easier to follow.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "w": "'blorping'",
+              "word": "'blorping'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "w": "ok",
+              "word": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "w",
+                "word"
               ]
             ]
           }
@@ -1243,223 +904,106 @@
       "partTitle": "Practice time: Viterbi",
       "codeHash": "d466b278095d251bc98b15b549f14de14e78a5c9ebfdef5f5a0fbb60e25a1d33",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: Viterbi — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: Viterbi",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: Viterbi",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: Viterbi [Dten.Psix.Sone].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: Viterbi [Dten.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Viterbi(words, states, start, trans, emit).",
+            "items": {
+              "var": "states",
+              "line": 3,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dten.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "For each following word, build a new dictionary.",
+            "items": {
+              "var": "states",
+              "line": 7,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: Viterbi [Dten.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Checking a clever algorithm against a slow, obviously correct one is.",
+            "items": {
+              "var": "states",
+              "line": 14,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: Viterbi — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: Viterbi",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: Viterbi",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: Viterbi [D10.P6.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: Viterbi [D10.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Viterbi(words, states, start, trans, emit).",
+            "items": [
+              "'NOUN'",
+              "'VERB'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "For each following word, build a new dictionary.",
+            "items": [
+              "'NOUN'",
+              "'VERB'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: Viterbi [D10.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Checking a clever algorithm against a slow, obviously correct one is.",
+            "items": [
+              "'NOUN'",
+              "'VERB'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]

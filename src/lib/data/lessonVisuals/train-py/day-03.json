@@ -2,85 +2,97 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 3,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why mini-batches",
       "codeHash": "e7c8f4beb63a80710b4b4122c5943db6b28b461a33219efaa9e943a478791978",
       "spec": {
-        "template": "table",
-        "title": "Mini-batch stochastic gradient descent and epoch progression",
-        "columns": [
-          "batch",
+        "template": "sequence",
+        "title": "Why mini-batches",
+        "actors": [
           "dataset",
-          "epoch"
+          "batch"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Stochastic gradient descent updates parameters through frequent noisy steps.",
-            "rows": [
+            "at": "say1",
+            "caption": "Computing the gradient over billions of tokens before a single update.",
+            "activeActor": "dataset",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "batch"
-                  },
-                  {
-                    "text": "dataset"
-                  },
-                  {
-                    "text": "epoch"
-                  }
-                ],
-                "tone": "ok"
+                "from": "dataset",
+                "to": "batch",
+                "label": {
+                  "var": "dataset",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "batch"
-                  },
-                  {
-                    "text": "dataset"
-                  },
-                  {
-                    "text": "epoch"
-                  }
-                ],
-                "tone": "data"
+                "from": "batch",
+                "to": "dataset",
+                "label": {
+                  "var": "batch",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "A complete epoch partitions the dataset into uniform training mini-batches.",
-            "rows": [
+            "at": "say2",
+            "caption": "Instead we compute the gradient on a small random sample, a mini-batch.",
+            "activeActor": "batch",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "batch"
-                  },
-                  {
-                    "text": "dataset"
-                  },
-                  {
-                    "text": "epoch"
-                  }
-                ],
+                "from": "dataset",
+                "to": "batch",
+                "label": {
+                  "var": "dataset",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "batch"
-                  },
-                  {
-                    "text": "dataset"
-                  },
-                  {
-                    "text": "batch"
-                  }
-                ],
+                "from": "batch",
+                "to": "dataset",
+                "label": {
+                  "var": "batch",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Choosing the batch size is a balance between speed, memory and training.",
+            "activeActor": "batch",
+            "messages": [
+              {
+                "from": "dataset",
+                "to": "batch",
+                "label": {
+                  "var": "dataset",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "batch",
+                "to": "dataset",
+                "label": {
+                  "var": "batch",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +100,69 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Mini-batch stochastic gradient descent and epoch progression",
-        "columns": [
-          "batch",
+        "template": "sequence",
+        "title": "Why mini-batches",
+        "actors": [
           "dataset",
-          "epoch"
+          "batch"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Stochastic gradient descent updates parameters through frequent noisy steps.",
-            "rows": [
+            "at": "say1",
+            "caption": "Computing the gradient over billions of tokens before a single update.",
+            "messages": [
               {
-                "cells": [
-                  "batch",
-                  "dataset",
-                  "epoch"
-                ],
-                "tone": "ok"
+                "from": "dataset",
+                "to": "batch",
+                "label": "1000000",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "batch",
-                  "dataset",
-                  "epoch"
-                ],
-                "tone": "data"
+                "from": "batch",
+                "to": "dataset",
+                "label": "32",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "dataset"
           },
           {
-            "at": "say5",
-            "caption": "A complete epoch partitions the dataset into uniform training mini-batches.",
-            "rows": [
+            "at": "say2",
+            "caption": "Instead we compute the gradient on a small random sample, a mini-batch.",
+            "messages": [
               {
-                "cells": [
-                  "batch",
-                  "dataset",
-                  "epoch"
-                ],
+                "from": "dataset",
+                "to": "batch",
+                "label": "1000000",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "batch",
-                  "dataset",
-                  "batch"
-                ],
+                "from": "batch",
+                "to": "dataset",
+                "label": "32",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "batch"
+          },
+          {
+            "at": "say10",
+            "caption": "Choosing the batch size is a balance between speed, memory and training.",
+            "messages": [
+              {
+                "from": "dataset",
+                "to": "batch",
+                "label": "1000000",
+                "tone": "data"
+              },
+              {
+                "from": "batch",
+                "to": "dataset",
+                "label": "256",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "batch"
           }
         ]
       }
@@ -147,78 +171,91 @@
       "partTitle": "Making batches",
       "codeHash": "15c9ef22ff28648e7f619bee433d66d5d661ca960043e349786e81ab1d81c072",
       "spec": {
-        "template": "table",
-        "title": "Dataset batch partitioning and truncation handling",
-        "columns": [
-          "start",
-          "end",
-          "size"
+        "template": "sequence",
+        "title": "Making batches",
+        "actors": [
+          "n",
+          "size",
+          "drop_last"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Batching slices datasets into continuous index ranges for fast loading.",
-            "rows": [
+            "caption": "A simple way to batch is by index ranges.",
+            "activeActor": "n",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "end"
-                  },
-                  {
-                    "text": "size"
-                  }
-                ],
-                "tone": "ok"
+                "from": "n",
+                "to": "size",
+                "label": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "end"
-                  },
-                  {
-                    "text": "size"
-                  }
-                ],
-                "tone": "data"
+                "from": "size",
+                "to": "drop_last",
+                "label": {
+                  "var": "size",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Drop incomplete training batches so every step keeps uniform shape.",
-            "rows": [
+            "at": "say2",
+            "caption": "The last batch is often smaller when the dataset size is not a multiple.",
+            "activeActor": "size",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "end"
-                  },
-                  {
-                    "text": "size"
-                  }
-                ],
+                "from": "n",
+                "to": "size",
+                "label": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "end"
-                  },
-                  {
-                    "text": "start"
-                  }
-                ],
+                "from": "size",
+                "to": "drop_last",
+                "label": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Losing a few examples per epoch is usually harmless on large datasets.",
+            "activeActor": "drop_last",
+            "messages": [
+              {
+                "from": "n",
+                "to": "size",
+                "label": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "size",
+                "to": "drop_last",
+                "label": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -226,57 +263,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Dataset batch partitioning and truncation handling",
-        "columns": [
-          "start",
-          "end",
-          "size"
+        "template": "sequence",
+        "title": "Making batches",
+        "actors": [
+          "n",
+          "size",
+          "drop_last"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Batching slices datasets into continuous index ranges for fast loading.",
-            "rows": [
+            "caption": "A simple way to batch is by index ranges.",
+            "messages": [
               {
-                "cells": [
-                  "start",
-                  "end",
-                  "size"
-                ],
-                "tone": "ok"
+                "from": "n",
+                "to": "size",
+                "label": "10",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "start",
-                  "end",
-                  "size"
-                ],
-                "tone": "data"
+                "from": "size",
+                "to": "drop_last",
+                "label": "4",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "n"
           },
           {
-            "at": "say3",
-            "caption": "Drop incomplete training batches so every step keeps uniform shape.",
-            "rows": [
+            "at": "say2",
+            "caption": "The last batch is often smaller when the dataset size is not a multiple.",
+            "messages": [
               {
-                "cells": [
-                  "start",
-                  "end",
-                  "size"
-                ],
+                "from": "n",
+                "to": "size",
+                "label": "10",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "start",
-                  "end",
-                  "start"
-                ],
+                "from": "size",
+                "to": "drop_last",
+                "label": "4",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "size"
+          },
+          {
+            "at": "say10",
+            "caption": "Losing a few examples per epoch is usually harmless on large datasets.",
+            "messages": [
+              {
+                "from": "n",
+                "to": "size",
+                "label": "10",
+                "tone": "data"
+              },
+              {
+                "from": "size",
+                "to": "drop_last",
+                "label": "4",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "drop_last"
           }
         ]
       }
@@ -286,41 +336,45 @@
       "codeHash": "a1c279911c712bfef3e3f220efc0a1a9debd7d2575498cdaef956dd91f26ec31",
       "spec": {
         "template": "table",
-        "title": "Batch size variance reduction and gradient noise analysis",
+        "title": "Batch size and gradient noise",
         "columns": [
-          "data",
-          "batch",
-          "means"
+          "Output",
+          "Printed Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A bigger batch gives an accurate gradient estimate with less noise.",
+            "caption": "A bigger batch gives a more accurate gradient estimate, with less noise.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "data"
+                    "text": "Line 1"
                   },
                   {
-                    "text": "batch"
-                  },
-                  {
-                    "text": "means"
+                    "out": 1
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "cells": [
                   {
-                    "text": "data"
+                    "text": "Line 2"
                   },
                   {
-                    "text": "batch"
+                    "out": 2
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Line 3"
                   },
                   {
-                    "text": "means"
+                    "out": 3
                   }
                 ],
                 "tone": "data"
@@ -328,33 +382,38 @@
             ]
           },
           {
-            "at": "say4",
-            "caption": "Sampling variance shrinks with the square root of expanding batch size.",
+            "at": "example",
+            "caption": "Asking more people in a survey.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "data"
+                    "text": "Line 1"
                   },
                   {
-                    "text": "batch"
-                  },
-                  {
-                    "text": "means"
+                    "out": 1
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
               },
               {
                 "cells": [
                   {
-                    "text": "data"
+                    "text": "Line 2"
                   },
                   {
-                    "text": "batch"
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Line 3"
                   },
                   {
-                    "text": "data"
+                    "out": 3
                   }
                 ],
                 "tone": "ok"
@@ -365,52 +424,61 @@
       },
       "filled": {
         "template": "table",
-        "title": "Batch size variance reduction and gradient noise analysis",
+        "title": "Batch size and gradient noise",
         "columns": [
-          "data",
-          "batch",
-          "means"
+          "Output",
+          "Printed Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A bigger batch gives an accurate gradient estimate with less noise.",
+            "caption": "A bigger batch gives a more accurate gradient estimate, with less noise.",
             "rows": [
               {
                 "cells": [
-                  "data",
-                  "batch",
-                  "means"
+                  "Line 1",
+                  "batch    8: spread of estimates 0.348"
                 ],
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "cells": [
-                  "data",
-                  "batch",
-                  "means"
+                  "Line 2",
+                  "batch   64: spread of estimates 0.130"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Line 3",
+                  "batch  512: spread of estimates 0.043"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Sampling variance shrinks with the square root of expanding batch size.",
+            "at": "example",
+            "caption": "Asking more people in a survey.",
             "rows": [
               {
                 "cells": [
-                  "data",
-                  "batch",
-                  "means"
+                  "Line 1",
+                  "batch    8: spread of estimates 0.348"
                 ],
-                "tone": "data"
+                "tone": "ok"
               },
               {
                 "cells": [
-                  "data",
-                  "batch",
-                  "data"
+                  "Line 2",
+                  "batch   64: spread of estimates 0.130"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Line 3",
+                  "batch  512: spread of estimates 0.043"
                 ],
                 "tone": "ok"
               }
@@ -423,78 +491,131 @@
       "partTitle": "Learning rate scaling rules",
       "codeHash": "1749f032d89f947c0c7bc2b035b977234f45fdccc74ff8a04ce0f8b7c494dfec",
       "spec": {
-        "template": "table",
-        "title": "Learning rate scaling rules: linear versus square root",
-        "columns": [
-          "batch",
-          "linear",
-          "sqrt"
-        ],
+        "template": "bars",
+        "title": "Learning rate scaling rules",
         "steps": [
           {
             "at": "say1",
-            "caption": "Linear scaling adjusts the learning rate proportionally with batch growth.",
-            "rows": [
+            "caption": "When you multiply the batch size by k, a common starting point is.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "batch"
-                  },
-                  {
-                    "text": "linear"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
-                "tone": "ok"
+                "label": "base_lr",
+                "value": {
+                  "var": "base_lr",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "batch"
-                  },
-                  {
-                    "text": "linear"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
+                "label": "base_batch",
+                "value": {
+                  "var": "base_batch",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "batch",
+                "value": {
+                  "var": "batch",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Adaptive optimizers often perform better using square root scaling rules.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how goyal updates colleagues during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "batch"
-                  },
-                  {
-                    "text": "linear"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
-                "tone": "data"
+                "label": "base_lr",
+                "value": {
+                  "var": "base_lr",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "batch"
-                  },
-                  {
-                    "text": "linear"
-                  },
-                  {
-                    "text": "batch"
-                  }
-                ],
+                "label": "base_batch",
+                "value": {
+                  "var": "base_batch",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "batch",
+                "value": {
+                  "var": "batch",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Unknown rule names should raise an error rather than silently falling back.",
+            "bars": [
+              {
+                "label": "base_lr",
+                "value": {
+                  "var": "base_lr",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "base_batch",
+                "value": {
+                  "var": "base_batch",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "batch",
+                "value": {
+                  "var": "batch",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +623,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Learning rate scaling rules: linear versus square root",
-        "columns": [
-          "batch",
-          "linear",
-          "sqrt"
-        ],
+        "template": "bars",
+        "title": "Learning rate scaling rules",
         "steps": [
           {
             "at": "say1",
-            "caption": "Linear scaling adjusts the learning rate proportionally with batch growth.",
-            "rows": [
+            "caption": "When you multiply the batch size by k, a common starting point is.",
+            "bars": [
               {
-                "cells": [
-                  "batch",
-                  "linear",
-                  "sqrt"
-                ],
-                "tone": "ok"
+                "label": "base_lr",
+                "value": 0.0003,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "batch",
-                  "linear",
-                  "sqrt"
-                ],
+                "label": "base_batch",
+                "value": 256,
+                "tone": "data"
+              },
+              {
+                "label": "batch",
+                "value": 256,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Adaptive optimizers often perform better using square root scaling rules.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how goyal updates colleagues during execution.",
+            "bars": [
               {
-                "cells": [
-                  "batch",
-                  "linear",
-                  "sqrt"
-                ],
-                "tone": "data"
+                "label": "base_lr",
+                "value": 0.0003,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "batch",
-                  "linear",
-                  "batch"
-                ],
+                "label": "base_batch",
+                "value": 256,
+                "tone": "ok"
+              },
+              {
+                "label": "batch",
+                "value": 256,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Unknown rule names should raise an error rather than silently falling back.",
+            "bars": [
+              {
+                "label": "base_lr",
+                "value": 0.0003,
+                "tone": "ok"
+              },
+              {
+                "label": "base_batch",
+                "value": 256,
+                "tone": "ok"
+              },
+              {
+                "label": "batch",
+                "value": 256,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -562,110 +712,161 @@
       "codeHash": "31c2a214d0ffc31222dd40bdabe6f086ea262fdb709dbc8e419ff2169745f182",
       "spec": {
         "template": "flow",
-        "title": "Mini-batch training loop — Execution Pipeline",
+        "title": "Mini-batch training loop",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "xs",
+            "label": "xs"
           },
           {
-            "id": "proc",
-            "label": "2. Mini-batch training...",
-            "tappable": true
+            "id": "ys",
+            "label": "ys"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "w",
+            "label": "w"
+          },
+          {
+            "id": "b",
+            "label": "b"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Mini-batch training loop [Dthree.Pfive.Sone].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Mini-batch training... [Dthree.Pfive.Stwo].",
+            "caption": "Putting it together.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "xs": {
+                "var": "xs",
+                "line": 3,
+                "hit": 1
+              },
+              "ys": {
+                "var": "ys",
+                "line": 3,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 4,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "xs": "data",
+              "ys": "data",
+              "w": "data",
+              "b": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "xs",
+                "ys"
               ],
               [
-                "proc",
-                "out"
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "b"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Each epoch visits every example once, in a new random order.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "xs": {
+                "var": "xs",
+                "line": 4,
+                "hit": 1
+              },
+              "ys": {
+                "var": "ys",
+                "line": 4,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 5,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "xs": "data",
+              "ys": "data",
+              "w": "data",
+              "b": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "xs",
+                "ys"
+              ],
+              [
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "b"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Mini-batch training loop.",
+            "at": "say10",
+            "caption": "Tomorrow the batches are split across several workers for the first time.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "xs": {
+                "var": "xs",
+                "line": 5,
+                "hit": 1
+              },
+              "ys": {
+                "var": "ys",
+                "line": 5,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 6,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "xs": "ok",
+              "ys": "ok",
+              "w": "ok",
+              "b": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "xs",
+                "ys"
               ],
               [
-                "proc",
-                "out"
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "b"
               ]
             ]
           }
@@ -673,110 +874,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Mini-batch training loop — Execution Pipeline",
+        "title": "Mini-batch training loop",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "xs",
+            "label": "xs"
           },
           {
-            "id": "proc",
-            "label": "2. Mini-batch training...",
-            "tappable": true
+            "id": "ys",
+            "label": "ys"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "w",
+            "label": "w"
+          },
+          {
+            "id": "b",
+            "label": "b"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Mini-batch training loop [D3.P5.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Mini-batch training... [D3.P5.S2].",
+            "caption": "Putting it together.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "xs": "[0, 1, 2, 3, 4, 5]",
+              "ys": "[1, 3, 5, 7, 9, 11]",
+              "w": "0",
+              "b": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "xs": "data",
+              "ys": "data",
+              "w": "data",
+              "b": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "xs",
+                "ys"
               ],
               [
-                "proc",
-                "out"
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "b"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P5.S3].",
+            "at": "say2",
+            "caption": "Each epoch visits every example once, in a new random order.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "xs": "[0, 1, 2, 3, 4, 5]",
+              "ys": "[1, 3, 5, 7, 9, 11]",
+              "w": "0",
+              "b": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "xs": "data",
+              "ys": "data",
+              "w": "data",
+              "b": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "xs",
+                "ys"
+              ],
+              [
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "b"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Mini-batch training loop [D3.P5.S4].",
+            "at": "say10",
+            "caption": "Tomorrow the batches are split across several workers for the first time.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "xs": "[0, 1, 2, 3, 4, 5]",
+              "ys": "[1, 3, 5, 7, 9, 11]",
+              "w": "0",
+              "b": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "xs": "ok",
+              "ys": "ok",
+              "w": "ok",
+              "b": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "xs",
+                "ys"
               ],
               [
-                "proc",
-                "out"
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "b"
               ]
             ]
           }
@@ -788,110 +992,161 @@
       "codeHash": "bbb6c04b16cc46b90b609455218648adda0f8377866d68f0b9da28b22c392b94",
       "spec": {
         "template": "flow",
-        "title": "Practice time: batches and scaling — Execution Pipeline",
+        "title": "Practice time: batches and scaling",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: batc...",
-            "tappable": true
+            "id": "base_lr",
+            "label": "base_lr"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "base_batch",
+            "label": "base_batch"
+          },
+          {
+            "id": "batch",
+            "label": "batch"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: batches and scaling.",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: batc... [Dthree.Psix.Stwo].",
+            "caption": "Make_batches(n, batch_size, drop_last=False).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "n": {
+                "var": "n",
+                "line": 3,
+                "hit": 1
+              },
+              "base_lr": {
+                "var": "base_lr",
+                "line": 3,
+                "hit": 1
+              },
+              "base_batch": {
+                "var": "base_batch",
+                "line": 3,
+                "hit": 1
+              },
+              "batch": {
+                "var": "batch",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "n": "data",
+              "base_lr": "data",
+              "base_batch": "data",
+              "batch": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "n",
+                "base_lr"
               ],
               [
-                "proc",
-                "out"
+                "base_lr",
+                "base_batch"
+              ],
+              [
+                "base_batch",
+                "batch"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The checks include ten items in batches of four, with and without.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "n": {
+                "var": "n",
+                "line": 4,
+                "hit": 1
+              },
+              "base_lr": {
+                "var": "base_lr",
+                "line": 4,
+                "hit": 1
+              },
+              "base_batch": {
+                "var": "base_batch",
+                "line": 4,
+                "hit": 1
+              },
+              "batch": {
+                "var": "batch",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "n": "data",
+              "base_lr": "data",
+              "base_batch": "data",
+              "batch": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "n",
+                "base_lr"
+              ],
+              [
+                "base_lr",
+                "base_batch"
+              ],
+              [
+                "base_batch",
+                "batch"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: batches and scaling.",
+            "at": "say10",
+            "caption": "Keep today's helper functions.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 1
+              },
+              "base_lr": {
+                "var": "base_lr",
+                "line": 5,
+                "hit": 1
+              },
+              "base_batch": {
+                "var": "base_batch",
+                "line": 5,
+                "hit": 1
+              },
+              "batch": {
+                "var": "batch",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "n": "ok",
+              "base_lr": "ok",
+              "base_batch": "ok",
+              "batch": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "n",
+                "base_lr"
               ],
               [
-                "proc",
-                "out"
+                "base_lr",
+                "base_batch"
+              ],
+              [
+                "base_batch",
+                "batch"
               ]
             ]
           }
@@ -899,110 +1154,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: batches and scaling — Execution Pipeline",
+        "title": "Practice time: batches and scaling",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: batc...",
-            "tappable": true
+            "id": "base_lr",
+            "label": "base_lr"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "base_batch",
+            "label": "base_batch"
+          },
+          {
+            "id": "batch",
+            "label": "batch"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: batches and scaling [D3.P6.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: batc... [D3.P6.S2].",
+            "caption": "Make_batches(n, batch_size, drop_last=False).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "n": "1000000",
+              "base_lr": "0.001",
+              "base_batch": "256",
+              "batch": "256"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "n": "data",
+              "base_lr": "data",
+              "base_batch": "data",
+              "batch": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "n",
+                "base_lr"
               ],
               [
-                "proc",
-                "out"
+                "base_lr",
+                "base_batch"
+              ],
+              [
+                "base_batch",
+                "batch"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P6.S3].",
+            "at": "say2",
+            "caption": "The checks include ten items in batches of four, with and without.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "n": "1000000",
+              "base_lr": "0.001",
+              "base_batch": "256",
+              "batch": "256"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "n": "data",
+              "base_lr": "data",
+              "base_batch": "data",
+              "batch": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "n",
+                "base_lr"
+              ],
+              [
+                "base_lr",
+                "base_batch"
+              ],
+              [
+                "base_batch",
+                "batch"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: batches and scaling [D3.P6.S4].",
+            "at": "say10",
+            "caption": "Keep today's helper functions.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "n": "1000000",
+              "base_lr": "0.001",
+              "base_batch": "256",
+              "batch": "256"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "n": "ok",
+              "base_lr": "ok",
+              "base_batch": "ok",
+              "batch": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "n",
+                "base_lr"
               ],
               [
-                "proc",
-                "out"
+                "base_lr",
+                "base_batch"
+              ],
+              [
+                "base_batch",
+                "batch"
               ]
             ]
           }

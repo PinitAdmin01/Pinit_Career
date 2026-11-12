@@ -1,6 +1,16 @@
 {
   "leaves": [
     {
+      "id": "LEV-1794464189596-WZVQV",
+      "studentId": "srv_stu1_1794464189594",
+      "student_id": "srv_stu1_1794464189594",
+      "startDate": "2026-10-01",
+      "endDate": "2026-10-03",
+      "reason": "Viral Fever",
+      "type": "Medical Leave",
+      "status": "Pending"
+    },
+    {
       "id": "LEV-1789725958472-S77VU",
       "studentId": "srv_stu1_1789725951426",
       "student_id": "srv_stu1_1789725951426",

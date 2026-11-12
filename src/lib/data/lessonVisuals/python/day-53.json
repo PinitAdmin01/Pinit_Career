@@ -2,89 +2,167 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 53,
-  "promptSha": "49ec4071126e833378c45a6b0158f9282249959d50fd34f1df398f11290456b9",
-  "model": "gate-v2-verified",
+  "promptSha": "b1be46b6ef9981752841d5af11cdc9b2592b9097efdd8d8715fa061c0d0b4c41",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "Structured JSON Logging vs Plaintext Architecture",
       "codeHash": "94b72886c207497db16c521f0f1c9550cfb62e13c8964184d1d730974fca800c",
       "spec": {
-        "template": "table",
-        "title": "Structured JSON Logging vs Plaintext Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Unstructured plaintext logs vs StructuredJSONLogger JSON envelopes",
+        "leftLabel": "Plaintext print() String",
+        "rightLabel": "StructuredJSONLogger Envelope",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The high concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Structured"
-                  },
-                  {
-                    "text": "JSON"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Structured JSON envelopes standardize timestamp, level, and service keys.",
+            "left": {
+              "code": "format_log",
+              "result": "Requires Brittle Regex",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "service_name",
+              "result": "Standard ISO + Level + Keys",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The emitting logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Logging"
-                  },
-                  {
-                    "text": "Plaintext"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Single-line JSON envelopes keep stack traces searchable in log aggregators.",
+            "left": {
+              "code": "metadata",
+              "result": "Multi-Line Error Split",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "StructuredJSONLogger",
+              "result": "Fast Field Indexing",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Formatting single-line JSON log envelopes pairs metadata with service keys.",
+            "left": {
+              "code": "level",
+              "result": "Flat Unindexed String",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "format_log",
+              "result": "json.dumps() Sort Keys",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add user_role admin metadata to log1 and verify JSON serialization.",
+            "left": {
+              "code": "format_log(\"info\", ..., amount=129.50)",
+              "result": "2 metadata keys serialized",
+              "tone": "idle",
+              "checks": [
+                "Log Record 1 (2 keys):",
+                "\"order_id\": \"ord_9901\""
+              ],
+              "whatIf": "import json\n\nclass StructuredJSONLogger:\n    def __init__(self, service_name: str):\n        self.service_name = service_name\n\n    def format_log(self, level: str, message: str, **kwargs) -> str:\n        log_record = {\n            \"timestamp\": \"2026-10-18T12:00:00.000Z\",\n            \"level\": level.upper(),\n            \"service\": self.service_name,\n            \"message\": message,\n            \"metadata\": kwargs\n        }\n        return json.dumps(log_record, sort_keys=True)\n\nlogger = StructuredJSONLogger(\"order-service\")\nlog1 = logger.format_log(\"info\", \"Order placed successfully\", order_id=\"ord_9901\", amount=129.50)\nlog2 = logger.format_log(\"error\", \"Payment processing failed\", order_id=\"ord_9902\", error_code=\"ERR_CARD_DECLINED\")\n\nprint(\"Log Record 1 (2 keys):\")\nprint(log1)\nprint(\"Log Record 2:\")\nprint(log2)\nprint(\"Structured Logging Invariant: Single-line JSON envelopes enable high-speed indexation and filtering.\")"
+            },
+            "right": {
+              "code": "format_log(..., user_role=\"admin\")",
+              "result": "{\"user_role\": \"admin\"} Indexed In JSON",
+              "tone": "ok",
+              "checks": [
+                "\"user_role\": \"admin\""
+              ],
+              "whatIf": "import json\n\nclass StructuredJSONLogger:\n    def __init__(self, service_name: str):\n        self.service_name = service_name\n\n    def format_log(self, level: str, message: str, **kwargs) -> str:\n        log_record = {\n            \"timestamp\": \"2026-10-18T12:00:00.000Z\",\n            \"level\": level.upper(),\n            \"service\": self.service_name,\n            \"message\": message,\n            \"metadata\": kwargs\n        }\n        return json.dumps(log_record, sort_keys=True)\n\nlogger = StructuredJSONLogger(\"order-service\")\nlog1 = logger.format_log(\"info\", \"Order placed successfully\", order_id=\"ord_9901\", amount=129.50, user_role=\"admin\")\nlog2 = logger.format_log(\"error\", \"Payment processing failed\", order_id=\"ord_9902\", error_code=\"ERR_CARD_DECLINED\")\n\nprint(\"Log Record 1:\")\nprint(log1)\nprint(\"Log Record 2:\")\nprint(log2)\nprint(\"Structured Logging Invariant: Single-line JSON envelopes enable high-speed indexation and filtering.\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Structured JSON Logging vs Plaintext Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Unstructured plaintext logs vs StructuredJSONLogger JSON envelopes",
+        "leftLabel": "Plaintext print() String",
+        "rightLabel": "StructuredJSONLogger Envelope",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The high concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Structured",
-                  "JSON"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Structured JSON envelopes standardize timestamp, level, and service keys.",
+            "left": {
+              "code": "print(f\"Order {id} placed\")",
+              "result": "No Schema Or Fields",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "{\"timestamp\", \"level\", \"service\"}",
+              "result": "Queryable Key-Value Schema",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The emitting logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Logging",
-                  "Plaintext"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Single-line JSON envelopes keep stack traces searchable in log aggregators.",
+            "left": {
+              "code": "Traceback Splits Over 20 Lines",
+              "result": "Broken Search Correlation",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Single-Line Valid JSON",
+              "result": "Query metadata.order_id Fast",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Formatting single-line JSON log envelopes pairs metadata with service keys.",
+            "left": {
+              "code": "Unstructured Error Text",
+              "result": "Slow Text Scan",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "level=\"ERROR\", ERR_CARD_DECLINED",
+              "result": "Indexed By Loki / Elastic",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add user_role admin metadata to log1 and verify JSON serialization.",
+            "left": {
+              "code": "format_log(\"info\", ..., amount=129.50)",
+              "result": "2 metadata keys serialized",
+              "tone": "idle",
+              "checks": [
+                "Log Record 1 (2 keys):",
+                "\"order_id\": \"ord_9901\""
+              ],
+              "whatIf": "import json\n\nclass StructuredJSONLogger:\n    def __init__(self, service_name: str):\n        self.service_name = service_name\n\n    def format_log(self, level: str, message: str, **kwargs) -> str:\n        log_record = {\n            \"timestamp\": \"2026-10-18T12:00:00.000Z\",\n            \"level\": level.upper(),\n            \"service\": self.service_name,\n            \"message\": message,\n            \"metadata\": kwargs\n        }\n        return json.dumps(log_record, sort_keys=True)\n\nlogger = StructuredJSONLogger(\"order-service\")\nlog1 = logger.format_log(\"info\", \"Order placed successfully\", order_id=\"ord_9901\", amount=129.50)\nlog2 = logger.format_log(\"error\", \"Payment processing failed\", order_id=\"ord_9902\", error_code=\"ERR_CARD_DECLINED\")\n\nprint(\"Log Record 1 (2 keys):\")\nprint(log1)\nprint(\"Log Record 2:\")\nprint(log2)\nprint(\"Structured Logging Invariant: Single-line JSON envelopes enable high-speed indexation and filtering.\")"
+            },
+            "right": {
+              "code": "format_log(..., user_role=\"admin\")",
+              "result": "{\"user_role\": \"admin\"} Indexed In JSON",
+              "tone": "ok",
+              "checks": [
+                "\"user_role\": \"admin\""
+              ],
+              "whatIf": "import json\n\nclass StructuredJSONLogger:\n    def __init__(self, service_name: str):\n        self.service_name = service_name\n\n    def format_log(self, level: str, message: str, **kwargs) -> str:\n        log_record = {\n            \"timestamp\": \"2026-10-18T12:00:00.000Z\",\n            \"level\": level.upper(),\n            \"service\": self.service_name,\n            \"message\": message,\n            \"metadata\": kwargs\n        }\n        return json.dumps(log_record, sort_keys=True)\n\nlogger = StructuredJSONLogger(\"order-service\")\nlog1 = logger.format_log(\"info\", \"Order placed successfully\", order_id=\"ord_9901\", amount=129.50, user_role=\"admin\")\nlog2 = logger.format_log(\"error\", \"Payment processing failed\", order_id=\"ord_9902\", error_code=\"ERR_CARD_DECLINED\")\n\nprint(\"Log Record 1:\")\nprint(log1)\nprint(\"Log Record 2:\")\nprint(log2)\nprint(\"Structured Logging Invariant: Single-line JSON envelopes enable high-speed indexation and filtering.\")"
+            }
           }
         ]
       }
@@ -93,81 +171,203 @@
       "partTitle": "Correlation IDs & Request Tracing Across Services",
       "codeHash": "9e422b59958316a43e33dc64460674d0f6222f276523ec4a6a69965bca28eb96",
       "spec": {
-        "template": "table",
-        "title": "Correlation IDs & Request Tracing Across Services",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "CorrelationIDTracker header propagation across services",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "inbound_headers"
+          },
+          {
+            "id": "trk",
+            "label": "CorrelationIDTracker"
+          },
+          {
+            "id": "get",
+            "label": "get_or_generate_correlation_id"
+          }
+        ],
+        "edges": [
+          {
+            "from": "in",
+            "to": "trk"
+          },
+          {
+            "from": "trk",
+            "to": "get"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The user concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Correlation"
-                  },
-                  {
-                    "text": "IDs"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Correlation IDs assign globally unique UUID identifiers at the API gateway.",
+            "values": {
+              "in": {
+                "text": "inbound_headers"
+              },
+              "trk": {
+                "text": "CorrelationIDTracker"
+              },
+              "get": {
+                "text": "get_or_generate_correlation_id"
               }
-            ]
+            },
+            "tones": {
+              "in": "data",
+              "trk": "data",
+              "get": "ok"
+            }
           },
           {
             "at": "say3",
-            "caption": "The gateway logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Request"
-                  },
-                  {
-                    "text": "Tracing"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Microservices pass X-Correlation-ID headers downstream onto every log entry.",
+            "values": {
+              "in": {
+                "text": "inbound_headers"
+              },
+              "trk": {
+                "text": "CorrelationIDTracker"
+              },
+              "get": {
+                "text": "get_or_generate_correlation_id"
               }
-            ]
+            },
+            "tones": {
+              "in": "ok",
+              "trk": "ok",
+              "get": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Tracker extracts X-Correlation-ID headers or creates fresh identifiers.",
+            "values": {
+              "in": {
+                "text": "inbound_headers"
+              },
+              "trk": {
+                "text": "CorrelationIDTracker"
+              },
+              "get": {
+                "text": "get_or_generate_correlation_id"
+              }
+            },
+            "tones": {
+              "in": "ok",
+              "trk": "ok",
+              "get": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Pass custom lowercase request header and verify extraction cleanly.",
+            "values": {
+              "in": {
+                "text": "Pass"
+              },
+              "trk": {
+                "text": "header"
+              },
+              "get": {
+                "text": "req-abc-123"
+              }
+            },
+            "tones": {
+              "in": "data",
+              "trk": "ok",
+              "get": "ok"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Correlation IDs & Request Tracing Across Services",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "CorrelationIDTracker header propagation across services",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "inbound_headers"
+          },
+          {
+            "id": "trk",
+            "label": "CorrelationIDTracker"
+          },
+          {
+            "id": "get",
+            "label": "get_or_generate_correlation_id"
+          }
+        ],
+        "edges": [
+          {
+            "from": "in",
+            "to": "trk"
+          },
+          {
+            "from": "trk",
+            "to": "get"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The user concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Correlation",
-                  "IDs"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Correlation IDs assign globally unique UUID identifiers at the API gateway.",
+            "values": {
+              "in": "No Correlation Header",
+              "trk": "Edge Gateway Ingress",
+              "get": "Generated corr-c7b35c15-..."
+            },
+            "tones": {
+              "in": "data",
+              "trk": "data",
+              "get": "ok"
+            }
           },
           {
             "at": "say3",
-            "caption": "The gateway logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Request",
-                  "Tracing"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Microservices pass X-Correlation-ID headers downstream onto every log entry.",
+            "values": {
+              "in": "Auth -> Inventory -> Billing",
+              "trk": "Injected On HTTP / gRPC",
+              "get": "Stamped On All Logs"
+            },
+            "tones": {
+              "in": "ok",
+              "trk": "ok",
+              "get": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Tracker extracts X-Correlation-ID headers or creates fresh identifiers.",
+            "values": {
+              "in": "Req 1: X-Correlation-ID",
+              "trk": "Preserved Ext / Gen Req 2",
+              "get": "corr-client-ext-9988"
+            },
+            "tones": {
+              "in": "ok",
+              "trk": "ok",
+              "get": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Pass custom lowercase request header and verify extraction cleanly.",
+            "values": {
+              "in": "Header x-request-id Passed",
+              "trk": "Case-Insensitive Lookup",
+              "get": "req-abc-123 Extracted"
+            },
+            "tones": {
+              "in": "data",
+              "trk": "ok",
+              "get": "ok"
+            },
+            "arrows": [],
+            "whatIf": "class CorrelationIDTracker:\n    @staticmethod\n    def get_or_generate_correlation_id(inbound_headers: dict) -> str:\n        for k, v in inbound_headers.items():\n            if k.lower() in [\"x-correlation-id\", \"x-request-id\"]:\n                return v\n        return \"corr-c7b35c15-f056-4dc6\"\n\ntracker = CorrelationIDTracker()\n# 1. Inbound request with existing header\nh1 = {\"X-Correlation-ID\": \"corr-client-ext-9988\"}\ncid1 = tracker.get_or_generate_correlation_id(h1)\n\n# 2. Inbound request without header\nh2 = {\"Host\": \"api.production.com\", \"x-request-id\": \"req-abc-123\"}\ncid2 = tracker.get_or_generate_correlation_id(h2)\n\nprint(f\"Request 1 (Existing Header): Correlation-ID = '{cid1}'\")\nprint(f\"Request 2 (Generated Header): Correlation-ID = '{cid2}'\")\nprint(\"Correlation Invariant: Unique correlation IDs thread causal identity across all service hops.\")",
+            "checks": [
+              "Request 2 (Generated Header): Correlation-ID = 'req-abc-123'"
             ]
           }
         ]
@@ -177,81 +377,182 @@
       "partTitle": "Automated Context Injection via Contextvars",
       "codeHash": "96024fd67db4a2f4c90644328221567ec8949b990fda29163990a5911d3b2a29",
       "spec": {
-        "template": "table",
-        "title": "Automated Context Injection via Contextvars",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "ContextualLoggerSimulator automatic trace enrichment",
+        "boxes": [
+          {
+            "id": "ctx",
+            "label": "set_context"
+          },
+          {
+            "id": "cid",
+            "label": "correlation_id"
+          },
+          {
+            "id": "tid",
+            "label": "trace_id"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The correlation concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Automated"
-                  },
-                  {
-                    "text": "Context"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Context variables carry trace identifiers cleanly across async coroutines.",
+            "values": {
+              "ctx": {
+                "text": "ContextualLoggerSimulator"
+              },
+              "cid": {
+                "text": "correlation_id"
+              },
+              "tid": {
+                "text": "trace_id"
               }
-            ]
+            },
+            "tones": {
+              "ctx": "data",
+              "cid": "data",
+              "tid": "data"
+            }
           },
           {
             "at": "say3",
-            "caption": "The register logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Injection"
-                  },
-                  {
-                    "text": "via"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Logging filters read context variables and embed IDs into every record.",
+            "values": {
+              "ctx": {
+                "text": "set_context"
+              },
+              "cid": {
+                "text": "correlation_id"
+              },
+              "tid": {
+                "text": "trace_id"
               }
-            ]
+            },
+            "tones": {
+              "ctx": "ok",
+              "cid": "ok",
+              "tid": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Automated context enriches log records with correlation and trace IDs.",
+            "values": {
+              "ctx": {
+                "text": "log"
+              },
+              "cid": {
+                "text": "correlation_id"
+              },
+              "tid": {
+                "text": "trace_id"
+              }
+            },
+            "tones": {
+              "ctx": "ok",
+              "cid": "ok",
+              "tid": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Update ctx_logger trace_id and verify subsequent log records carry it.",
+            "values": {
+              "ctx": {
+                "text": "Set"
+              },
+              "cid": {
+                "text": "trace_id"
+              },
+              "tid": {
+                "text": "and"
+              }
+            },
+            "tones": {
+              "ctx": "ok",
+              "cid": "ok",
+              "tid": "data"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Automated Context Injection via Contextvars",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "ContextualLoggerSimulator automatic trace enrichment",
+        "boxes": [
+          {
+            "id": "ctx",
+            "label": "set_context"
+          },
+          {
+            "id": "cid",
+            "label": "correlation_id"
+          },
+          {
+            "id": "tid",
+            "label": "trace_id"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The correlation concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Automated",
-                  "Context"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Context variables carry trace identifiers cleanly across async coroutines.",
+            "values": {
+              "ctx": "Middleware Binds ContextVar",
+              "cid": "Zero Parameter Passing",
+              "tid": "Isolated Per Async Task"
+            },
+            "tones": {
+              "ctx": "data",
+              "cid": "data",
+              "tid": "data"
+            }
           },
           {
             "at": "say3",
-            "caption": "The register logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Injection",
-                  "via"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Logging filters read context variables and embed IDs into every record.",
+            "values": {
+              "ctx": "corr_9912 + trace_4bf92f35",
+              "cid": "Injected Into Record",
+              "tid": "Trace-to-Log Linked"
+            },
+            "tones": {
+              "ctx": "ok",
+              "cid": "ok",
+              "tid": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Automated context enriches log records with correlation and trace IDs.",
+            "values": {
+              "ctx": "logger.log(\"INFO\", ...)",
+              "cid": "correlation_id: corr_9912",
+              "tid": "trace_id: trace_4bf92f35"
+            },
+            "tones": {
+              "ctx": "ok",
+              "cid": "ok",
+              "tid": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Update ctx_logger trace_id and verify subsequent log records carry it.",
+            "values": {
+              "ctx": "ctx_logger.log(\"INFO\", ...)",
+              "cid": "correlation_id: corr_9912",
+              "tid": "trace_updated_99ff Applied"
+            },
+            "tones": {
+              "ctx": "ok",
+              "cid": "ok",
+              "tid": "data"
+            },
+            "whatIf": "import json\n\nclass ContextualLoggerSimulator:\n    def __init__(self):\n        self._context = {\"correlation_id\": None, \"trace_id\": None}\n\n    def set_context(self, correlation_id: str, trace_id: str):\n        self._context[\"correlation_id\"] = correlation_id\n        self._context[\"trace_id\"] = trace_id\n\n    def log(self, level: str, message: str, **kwargs):\n        record = {\n            \"level\": level,\n            \"message\": message,\n            \"correlation_id\": self._context[\"correlation_id\"],\n            \"trace_id\": self._context[\"trace_id\"],\n            \"extra\": kwargs\n        }\n        return json.dumps(record, sort_keys=True)\n\nctx_logger = ContextualLoggerSimulator()\nctx_logger.set_context(correlation_id=\"corr_9912\", trace_id=\"trace_4bf92f35\")\n\nentry = ctx_logger.log(\"INFO\", \"Executing database transaction\", db_table=\"users\")\nprint(\"Enriched Log Record:\")\nprint(entry)\nctx_logger.set_context(correlation_id=\"corr_9912\", trace_id=\"trace_updated_99ff\")\nentry2 = ctx_logger.log(\"INFO\", \"Commit audit entry\", db_table=\"audits\")\nprint(\"Updated Log Record:\")\nprint(entry2)\nprint(\"Context Injection Invariant: Context variables automatically enrich every log call with trace IDs.\")",
+            "checks": [
+              "\"trace_id\": \"trace_updated_99ff\"",
+              "\"db_table\": \"audits\""
             ]
           }
         ]
@@ -261,81 +562,258 @@
       "partTitle": "Automated PII Redaction & Security Masking",
       "codeHash": "73abed2a25b3a89d29516b78da791069d22c556d3076abab364384822881b868",
       "spec": {
-        "template": "table",
-        "title": "Automated PII Redaction & Security Masking",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "PIISanitizer regex masking prior to stdout emission",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The structured concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Leaking raw credentials into centralized logs violates GDPR and PCI-DSS.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Automated"
-                  },
-                  {
-                    "text": "PII"
-                  }
-                ],
-                "tone": "data"
+                "text": "PIISanitizer"
+              },
+              {
+                "text": "card_number"
+              },
+              {
+                "text": "auth_header"
+              },
+              {
+                "text": "sanitize_payload"
               }
-            ]
+            ],
+            "pointers": [
+              {
+                "name": "leak",
+                "index": 1,
+                "tone": "error"
+              }
+            ],
+            "tones": {
+              "0": "data",
+              "1": "error",
+              "2": "error",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The protect logic drives deterministic execution.",
-            "rows": [
+            "caption": "Redaction filters match credit card numbers and Bearer tokens with regexes.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Redaction"
-                  },
-                  {
-                    "text": "Security"
-                  }
-                ],
+                "text": "CREDIT_CARD_REGEX"
+              },
+              {
+                "text": "BEARER_TOKEN_REGEX"
+              },
+              {
+                "text": "sanitize_string"
+              },
+              {
+                "text": "sanitize_payload"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "scan",
+                "index": 2,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "ok",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Compiled regex filters replace cards and Bearer tokens before log output.",
+            "items": [
+              {
+                "text": "card_number"
+              },
+              {
+                "text": "auth_header"
+              },
+              {
+                "text": "sanitize_string"
+              },
+              {
+                "text": "sanitize_payload"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "clean",
+                "index": 3,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Extend PIISanitizer with email regex and redact email address before logging.",
+            "items": [
+              {
+                "text": "Add"
+              },
+              {
+                "text": "field"
+              },
+              {
+                "text": "and"
+              },
+              {
+                "text": "PIISanitizer"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "masked",
+                "index": 1,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "data"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Automated PII Redaction & Security Masking",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "PIISanitizer regex masking prior to stdout emission",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The structured concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Leaking raw credentials into centralized logs violates GDPR and PCI-DSS.",
+            "items": [
+              "Raw Dictionary",
+              "4111-2222-3333-4444",
+              "Bearer eyJhbGci...",
+              "Unfiltered Risk"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Automated",
-                  "PII"
-                ],
-                "tone": "data"
+                "name": "leak",
+                "index": 1,
+                "tone": "error"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "error",
+              "2": "error",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The protect logic drives deterministic execution.",
-            "rows": [
+            "caption": "Redaction filters match credit card numbers and Bearer tokens with regexes.",
+            "items": [
+              "Card Pattern Match",
+              "JWT / Bearer Match",
+              "Pre-Output Interceptor",
+              "Walking Nested Dict"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Redaction",
-                  "Security"
-                ],
+                "name": "scan",
+                "index": 2,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "ok",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Compiled regex filters replace cards and Bearer tokens before log output.",
+            "items": [
+              "[REDACTED_CC]",
+              "Bearer [REDACTED_TOKEN]",
+              "User Preserved Cleanly",
+              "PCI / GDPR Compliant"
+            ],
+            "pointers": [
+              {
+                "name": "clean",
+                "index": 3,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Extend PIISanitizer with email regex and redact email address before logging.",
+            "items": [
+              "[REDACTED_CC]",
+              "[REDACTED_EMAIL]",
+              "Bearer [REDACTED_TOKEN]",
+              "Alice Cooper Safe"
+            ],
+            "pointers": [
+              {
+                "name": "masked",
+                "index": 1,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "data"
+            },
+            "whatIf": "import re\nimport json\n\nclass PIISanitizer:\n    CREDIT_CARD_REGEX = re.compile(r'\\b(?:\\d{4}[ -]?){3}\\d{4}\\b')\n    BEARER_TOKEN_REGEX = re.compile(r'Bearer\\s+[A-Za-z0-9_\\-\\.]{15,}')\n    EMAIL_REGEX = re.compile(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}')\n\n    @classmethod\n    def sanitize_string(cls, text: str) -> str:\n        text = cls.CREDIT_CARD_REGEX.sub(\"[REDACTED_CC]\", text)\n        text = cls.BEARER_TOKEN_REGEX.sub(\"Bearer [REDACTED_TOKEN]\", text)\n        text = cls.EMAIL_REGEX.sub(\"[REDACTED_EMAIL]\", text)\n        return text\n\n    @classmethod\n    def sanitize_payload(cls, data: dict) -> dict:\n        sanitized = {}\n        for k, v in data.items():\n            if isinstance(v, str):\n                sanitized[k] = cls.sanitize_string(v)\n            elif isinstance(v, dict):\n                sanitized[k] = cls.sanitize_payload(v)\n            else:\n                sanitized[k] = v\n        return sanitized\n\nraw_data = {\n    \"user\": \"Alice Cooper\",\n    \"email\": \"alice@example.com\",\n    \"card_number\": \"4111-2222-3333-4444\",\n    \"auth_header\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.xyz\"\n}\n\nclean_data = PIISanitizer.sanitize_payload(raw_data)\nprint(\"Sanitized Payload:\")\nprint(json.dumps(clean_data, sort_keys=True))\nprint(\"PII Redaction Invariant: Sensitive credentials and card numbers are masked before log emission.\")",
+            "checks": [
+              "\"email\": \"[REDACTED_EMAIL]\"",
+              "[REDACTED_CC]"
             ]
           }
         ]
@@ -346,43 +824,146 @@
       "codeHash": "f51aaeb898ef45bffd3f1131f0925aa25ee0f08e3a1c1daea7ee458256d46f04",
       "spec": {
         "template": "table",
-        "title": "Production Incident Triage & Log Query Forensics L",
+        "title": "ProductionIncidentLogAnalyzer corr_9901 timeline isolation",
         "columns": [
-          "Stage",
-          "Concept"
+          "Timestamp",
+          "Level",
+          "Incident Event"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Engineers query structured logs by correlation ID to trace failed requests.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Production"
+                    "text": "corr_9901"
                   },
                   {
-                    "text": "Incident"
+                    "text": "query_by_correlation_id"
+                  },
+                  {
+                    "text": "logs"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "corr_9902"
+                  },
+                  {
+                    "text": "ProductionIncidentLogAnalyzer"
+                  },
+                  {
+                    "text": "logs"
+                  }
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The query logic drives deterministic execution.",
+            "caption": "Filtered log records expose the chronological database lock timeout root cause.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Triage"
+                    "text": "corr_9901"
                   },
                   {
-                    "text": "Log"
+                    "text": "WARN"
+                  },
+                  {
+                    "text": "query_by_correlation_id"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "corr_9901"
+                  },
+                  {
+                    "text": "ERROR"
+                  },
+                  {
+                    "text": "logs"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Filtering noisy streams by correlation ID isolates the failed cause.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "corr_9901"
+                  },
+                  {
+                    "text": "INFO"
+                  },
+                  {
+                    "text": "query_by_correlation_id"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "corr_9901"
+                  },
+                  {
+                    "text": "ERROR"
+                  },
+                  {
+                    "text": "ProductionIncidentLogAnalyzer"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Query analyzer for corr_9902 to isolate product search event cleanly.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Query"
+                  },
+                  {
+                    "text": "analyzer"
+                  },
+                  {
+                    "text": "for"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "for"
+                  },
+                  {
+                    "text": "corr_9902"
+                  },
+                  {
+                    "text": "and"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -390,36 +971,104 @@
       },
       "filled": {
         "template": "table",
-        "title": "Production Incident Triage & Log Query Forensics L",
+        "title": "ProductionIncidentLogAnalyzer corr_9901 timeline isolation",
         "columns": [
-          "Stage",
-          "Concept"
+          "Timestamp",
+          "Level",
+          "Incident Event"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Engineers query structured logs by correlation ID to trace failed requests.",
             "rows": [
               {
                 "cells": [
-                  "Production",
-                  "Incident"
+                  "12:00:01",
+                  "Query corr_9901",
+                  "Cart checkout initiated"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "12:00:02",
+                  "Filtered Out corr_9902",
+                  "Product search noise"
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The query logic drives deterministic execution.",
+            "caption": "Filtered log records expose the chronological database lock timeout root cause.",
             "rows": [
               {
                 "cells": [
-                  "Triage",
-                  "Log"
+                  "12:00:03",
+                  "WARN",
+                  "DB lock timeout on table orders"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "12:00:04",
+                  "ERROR",
+                  "Payment failed: lock timeout"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Filtering noisy streams by correlation ID isolates the failed cause.",
+            "rows": [
+              {
+                "cells": [
+                  "3 Matching Events",
+                  "Ordered Timeline",
+                  "Root Cause: DB Lock"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Noise Excluded",
+                  "corr_9901 Only",
+                  "Fast MTTR Triage"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Query analyzer for corr_9902 to isolate product search event cleanly.",
+            "rows": [
+              {
+                "cells": [
+                  "12:00:02",
+                  "INFO",
+                  "corr_9902: Product search query"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Filter Result",
+                  "1 Isolated Event",
+                  "Noise corr_9901 Excluded"
+                ],
+                "tone": "data"
+              }
+            ],
+            "whatIf": "class ProductionIncidentLogAnalyzer:\n    def __init__(self):\n        self.logs = [\n            {\"timestamp\": \"12:00:01\", \"correlation_id\": \"corr_9901\", \"level\": \"INFO\", \"msg\": \"Cart checkout initiated\"},\n            {\"timestamp\": \"12:00:02\", \"correlation_id\": \"corr_9902\", \"level\": \"INFO\", \"msg\": \"Product search query\"},\n            {\"timestamp\": \"12:00:03\", \"correlation_id\": \"corr_9901\", \"level\": \"WARN\", \"msg\": \"DB lock timeout on table 'orders', retrying\"},\n            {\"timestamp\": \"12:00:04\", \"correlation_id\": \"corr_9901\", \"level\": \"ERROR\", \"msg\": \"Payment failed: DB lock timeout exceeded\"},\n        ]\n\n    def query_by_correlation_id(self, target_id: str):\n        return [l for l in self.logs if l[\"correlation_id\"] == target_id]\n\nanalyzer = ProductionIncidentLogAnalyzer()\nincident_logs = analyzer.query_by_correlation_id(\"corr_9902\")\n\nprint(f\"=== Filtered Incident Logs for 'corr_9902' (Total: {len(incident_logs)}) ===\")\nfor log in incident_logs:\n    print(f\"  [{log['timestamp']}] {log['level']}: {log['msg']}\")\nprint(\"INVARIANT SATISFIED: Correlation IDs reconstruct complete execution timelines across noisy log streams.\")",
+            "checks": [
+              "Filtered Incident Logs for 'corr_9902' (Total: 1)",
+              "[12:00:02] INFO: Product search query"
             ]
           }
         ]

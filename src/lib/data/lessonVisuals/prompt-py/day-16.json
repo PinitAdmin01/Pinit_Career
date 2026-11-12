@@ -2,85 +2,98 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 16,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Multimodal AI",
       "codeHash": "633aeb67fed75d5a73fdc0db6996754243af27cc9a6c6760022858fef727e098",
       "spec": {
-        "template": "table",
-        "title": "Multimodal image reasoning and task extraction mapping",
-        "columns": [
+        "template": "sequence",
+        "title": "Multimodal AI",
+        "actors": [
+          "image_tasks",
           "image",
-          "prompt",
-          "image"
+          "prompt"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Multimodal models accept visual inputs such as images and screenshots.",
-            "rows": [
+            "caption": "Multimodal models accept more than text.",
+            "activeActor": "image_tasks",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "image"
-                  },
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "image"
-                  }
-                ],
-                "tone": "ok"
+                "from": "image_tasks",
+                "to": "image",
+                "label": {
+                  "var": "image_tasks",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "image"
-                  },
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "image"
-                  }
-                ],
-                "tone": "data"
+                "from": "image",
+                "to": "prompt",
+                "label": {
+                  "var": "image",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Vision models describe visual scenes and answer questions about layout.",
-            "rows": [
+            "at": "say2",
+            "caption": "You can upload a photo of a whiteboard and ask for tidy notes,.",
+            "activeActor": "image",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "image"
-                  },
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "image"
-                  }
-                ],
+                "from": "image_tasks",
+                "to": "image",
+                "label": {
+                  "var": "image_tasks",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "image"
-                  },
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "receipt"
-                  }
-                ],
+                "from": "image",
+                "to": "prompt",
+                "label": {
+                  "var": "image",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Cropping the image to the relevant area, such as just the table, often.",
+            "activeActor": "prompt",
+            "messages": [
+              {
+                "from": "image_tasks",
+                "to": "image",
+                "label": {
+                  "var": "image_tasks",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "image",
+                "to": "prompt",
+                "label": {
+                  "var": "image",
+                  "line": 7,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Multimodal image reasoning and task extraction mapping",
-        "columns": [
+        "template": "sequence",
+        "title": "Multimodal AI",
+        "actors": [
+          "image_tasks",
           "image",
-          "prompt",
-          "image"
+          "prompt"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Multimodal models accept visual inputs such as images and screenshots.",
-            "rows": [
+            "caption": "Multimodal models accept more than text.",
+            "messages": [
               {
-                "cells": [
-                  "image",
-                  "prompt",
-                  "image"
-                ],
-                "tone": "ok"
+                "from": "image_tasks",
+                "to": "image",
+                "label": "{'whiteboard photo': 'Turn this whitebo…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "image",
-                  "prompt",
-                  "image"
-                ],
-                "tone": "data"
+                "from": "image",
+                "to": "prompt",
+                "label": "'whiteboard photo'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "image_tasks"
           },
           {
-            "at": "say3",
-            "caption": "Vision models describe visual scenes and answer questions about layout.",
-            "rows": [
+            "at": "say2",
+            "caption": "You can upload a photo of a whiteboard and ask for tidy notes,.",
+            "messages": [
               {
-                "cells": [
-                  "image",
-                  "prompt",
-                  "image"
-                ],
+                "from": "image_tasks",
+                "to": "image",
+                "label": "{'whiteboard photo': 'Turn this whitebo…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "image",
-                  "prompt",
-                  "receipt"
-                ],
+                "from": "image",
+                "to": "prompt",
+                "label": "'whiteboard photo'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "image"
+          },
+          {
+            "at": "say9",
+            "caption": "Cropping the image to the relevant area, such as just the table, often.",
+            "messages": [
+              {
+                "from": "image_tasks",
+                "to": "image",
+                "label": "{'whiteboard photo': 'Turn this whitebo…",
+                "tone": "data"
+              },
+              {
+                "from": "image",
+                "to": "prompt",
+                "label": "'error screenshot'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "prompt"
           }
         ]
       }
@@ -147,78 +173,91 @@
       "partTitle": "How OCR works",
       "codeHash": "294d18e061d3fdfe45c1bffe40bcbd6e3cc42568f7ae899b2d2df1c4996c4a5e",
       "spec": {
-        "template": "table",
-        "title": "Optical character recognition confusion matrix and cleaning",
-        "columns": [
+        "template": "sequence",
+        "title": "How OCR works",
+        "actors": [
           "fixes",
-          "text",
-          "fixes"
+          "raw",
+          "ch"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Optical character recognition turns scanned document images into text.",
-            "rows": [
+            "caption": "Optical character recognition (OCR) turns images of text into actual text.",
+            "activeActor": "fixes",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "fixes"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "fixes"
-                  }
-                ],
-                "tone": "ok"
+                "from": "fixes",
+                "to": "raw",
+                "label": {
+                  "var": "fixes",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "fixes"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "fixes"
-                  }
-                ],
-                "tone": "data"
+                "from": "raw",
+                "to": "ch",
+                "label": {
+                  "var": "raw",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Predictable errors follow typical patterns like letter and digit confusion.",
-            "rows": [
+            "at": "say2",
+            "caption": "Classic OCR finds lines and characters, then recognises each one.",
+            "activeActor": "raw",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "fixes"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "fixes"
-                  }
-                ],
+                "from": "fixes",
+                "to": "raw",
+                "label": {
+                  "var": "fixes",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "fixes"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "clean_number"
-                  }
-                ],
+                "from": "raw",
+                "to": "ch",
+                "label": {
+                  "var": "raw",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Good scanning, flat, well lit and straight, prevents most OCR errors.",
+            "activeActor": "ch",
+            "messages": [
+              {
+                "from": "fixes",
+                "to": "raw",
+                "label": {
+                  "var": "fixes",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "raw",
+                "to": "ch",
+                "label": {
+                  "var": "raw",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -226,57 +265,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Optical character recognition confusion matrix and cleaning",
-        "columns": [
+        "template": "sequence",
+        "title": "How OCR works",
+        "actors": [
           "fixes",
-          "text",
-          "fixes"
+          "raw",
+          "ch"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Optical character recognition turns scanned document images into text.",
-            "rows": [
+            "caption": "Optical character recognition (OCR) turns images of text into actual text.",
+            "messages": [
               {
-                "cells": [
-                  "fixes",
-                  "text",
-                  "fixes"
-                ],
-                "tone": "ok"
+                "from": "fixes",
+                "to": "raw",
+                "label": "{'O': '0', 'o': '0', 'l': '1', 'I': '1'…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "fixes",
-                  "text",
-                  "fixes"
-                ],
-                "tone": "data"
+                "from": "raw",
+                "to": "ch",
+                "label": "'1,18O.5O'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "fixes"
           },
           {
-            "at": "say3",
-            "caption": "Predictable errors follow typical patterns like letter and digit confusion.",
-            "rows": [
+            "at": "say2",
+            "caption": "Classic OCR finds lines and characters, then recognises each one.",
+            "messages": [
               {
-                "cells": [
-                  "fixes",
-                  "text",
-                  "fixes"
-                ],
+                "from": "fixes",
+                "to": "raw",
+                "label": "{'O': '0', 'o': '0', 'l': '1', 'I': '1'…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "fixes",
-                  "text",
-                  "clean_number"
-                ],
+                "from": "raw",
+                "to": "ch",
+                "label": "'1,18O.5O'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "raw"
+          },
+          {
+            "at": "say9",
+            "caption": "Good scanning, flat, well lit and straight, prevents most OCR errors.",
+            "messages": [
+              {
+                "from": "fixes",
+                "to": "raw",
+                "label": "{'O': '0', 'o': '0', 'l': '1', 'I': '1'…",
+                "tone": "data"
+              },
+              {
+                "from": "raw",
+                "to": "ch",
+                "label": "'2O24-O3-l8'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ch"
           }
         ]
       }
@@ -285,78 +337,91 @@
       "partTitle": "Extracting fields with regular expressions",
       "codeHash": "e0698ae2ddcf0793c9a8add44c09db9540d79b047e3def6ba677da97003b9152",
       "spec": {
-        "template": "table",
-        "title": "Regex pattern extraction for scanned invoice data",
-        "columns": [
+        "template": "sequence",
+        "title": "Extracting fields with regular expressions",
+        "actors": [
           "scan",
-          "date",
-          "total"
+          "no",
+          "date"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Regular expression matching extracts invoice fields such as date and total.",
-            "rows": [
+            "caption": "After OCR, you usually need specific fields.",
+            "activeActor": "scan",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "scan"
-                  },
-                  {
-                    "text": "date"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "ok"
+                "from": "scan",
+                "to": "no",
+                "label": {
+                  "var": "scan",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "scan"
-                  },
-                  {
-                    "text": "date"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "data"
+                "from": "no",
+                "to": "date",
+                "label": {
+                  "var": "no",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Anchoring patterns to known labels makes field extraction far more reliable.",
-            "rows": [
+            "at": "say2",
+            "caption": "Regular expressions describe text patterns.",
+            "activeActor": "no",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "scan"
-                  },
-                  {
-                    "text": "date"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
+                "from": "scan",
+                "to": "no",
+                "label": {
+                  "var": "scan",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "scan"
-                  },
-                  {
-                    "text": "date"
-                  },
-                  {
-                    "text": "scan"
-                  }
-                ],
+                "from": "no",
+                "to": "date",
+                "label": {
+                  "var": "no",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Case-insensitive matching (re.",
+            "activeActor": "date",
+            "messages": [
+              {
+                "from": "scan",
+                "to": "no",
+                "label": {
+                  "var": "scan",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "no",
+                "to": "date",
+                "label": {
+                  "var": "no",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +429,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Regex pattern extraction for scanned invoice data",
-        "columns": [
+        "template": "sequence",
+        "title": "Extracting fields with regular expressions",
+        "actors": [
           "scan",
-          "date",
-          "total"
+          "no",
+          "date"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Regular expression matching extracts invoice fields such as date and total.",
-            "rows": [
+            "caption": "After OCR, you usually need specific fields.",
+            "messages": [
               {
-                "cells": [
-                  "scan",
-                  "date",
-                  "total"
-                ],
-                "tone": "ok"
+                "from": "scan",
+                "to": "no",
+                "label": "'ACME Traders\nINVOICE NO: INV-2024-0042…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "scan",
-                  "date",
-                  "total"
-                ],
-                "tone": "data"
+                "from": "no",
+                "to": "date",
+                "label": "{'__other__': 'Match'}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "scan"
           },
           {
-            "at": "say3",
-            "caption": "Anchoring patterns to known labels makes field extraction far more reliable.",
-            "rows": [
+            "at": "say2",
+            "caption": "Regular expressions describe text patterns.",
+            "messages": [
               {
-                "cells": [
-                  "scan",
-                  "date",
-                  "total"
-                ],
+                "from": "scan",
+                "to": "no",
+                "label": "'ACME Traders\nINVOICE NO: INV-2024-0042…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "scan",
-                  "date",
-                  "scan"
-                ],
+                "from": "no",
+                "to": "date",
+                "label": "{'__other__': 'Match'}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "no"
+          },
+          {
+            "at": "say9",
+            "caption": "Case-insensitive matching (re.",
+            "messages": [
+              {
+                "from": "scan",
+                "to": "no",
+                "label": "'ACME Traders\nINVOICE NO: INV-2024-0042…",
+                "tone": "data"
+              },
+              {
+                "from": "no",
+                "to": "date",
+                "label": "{'__other__': 'Match'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "date"
           }
         ]
       }
@@ -423,9 +501,9 @@
       "partTitle": "Confidence and human review",
       "codeHash": "2150a336c3dcecd52ad7d12144901c3ed231ab9940263a35ca53789b43158e05",
       "spec": {
-        "template": "table",
-        "title": "Human-in-the-loop triage based on OCR confidence thresholds",
-        "columns": [
+        "template": "sequence",
+        "title": "Confidence and human review",
+        "actors": [
           "words",
           "threshold",
           "review"
@@ -433,68 +511,81 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Confidence scores let pipelines decide whether to accept text automatically.",
-            "rows": [
+            "caption": "Automation works best when it knows its limits.",
+            "activeActor": "words",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "threshold"
-                  },
-                  {
-                    "text": "review"
-                  }
-                ],
-                "tone": "ok"
+                "from": "words",
+                "to": "threshold",
+                "label": {
+                  "var": "words",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "threshold"
-                  },
-                  {
-                    "text": "review"
-                  }
-                ],
-                "tone": "data"
+                "from": "threshold",
+                "to": "review",
+                "label": {
+                  "var": "threshold",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The system routes words below the target threshold to human review.",
-            "rows": [
+            "caption": "Trace how common updates rule during execution.",
+            "activeActor": "threshold",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "threshold"
-                  },
-                  {
-                    "text": "review"
-                  }
-                ],
+                "from": "words",
+                "to": "threshold",
+                "label": {
+                  "var": "words",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "threshold"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
+                "from": "threshold",
+                "to": "review",
+                "label": {
+                  "var": "threshold",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Corrections made by reviewers are valuable data.",
+            "activeActor": "review",
+            "messages": [
+              {
+                "from": "words",
+                "to": "threshold",
+                "label": {
+                  "var": "words",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "review",
+                "label": {
+                  "var": "threshold",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -502,9 +593,9 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Human-in-the-loop triage based on OCR confidence thresholds",
-        "columns": [
+        "template": "sequence",
+        "title": "Confidence and human review",
+        "actors": [
           "words",
           "threshold",
           "review"
@@ -512,47 +603,60 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Confidence scores let pipelines decide whether to accept text automatically.",
-            "rows": [
+            "caption": "Automation works best when it knows its limits.",
+            "messages": [
               {
-                "cells": [
-                  "words",
-                  "threshold",
-                  "review"
-                ],
-                "tone": "ok"
+                "from": "words",
+                "to": "threshold",
+                "label": "[['Total', 0.99], ['1,18O.50', 0.62], […",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "words",
-                  "threshold",
-                  "review"
-                ],
-                "tone": "data"
+                "from": "threshold",
+                "to": "review",
+                "label": "0.8",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "words"
           },
           {
             "at": "say2",
-            "caption": "The system routes words below the target threshold to human review.",
-            "rows": [
+            "caption": "Trace how common updates rule during execution.",
+            "messages": [
               {
-                "cells": [
-                  "words",
-                  "threshold",
-                  "review"
-                ],
+                "from": "words",
+                "to": "threshold",
+                "label": "[['Total', 0.99], ['1,18O.50', 0.62], […",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "words",
-                  "threshold",
-                  "words"
-                ],
+                "from": "threshold",
+                "to": "review",
+                "label": "0.8",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "threshold"
+          },
+          {
+            "at": "say9",
+            "caption": "Corrections made by reviewers are valuable data.",
+            "messages": [
+              {
+                "from": "words",
+                "to": "threshold",
+                "label": "[['Total', 0.99], ['1,18O.50', 0.62], […",
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "review",
+                "label": "0.8",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "review"
           }
         ]
       }
@@ -562,110 +666,93 @@
       "codeHash": "70bf03e72951864acce836dc0381418e9a682b65d4ac3e9efa079f05af2ec744",
       "spec": {
         "template": "flow",
-        "title": "Screenshots and user interfaces — Execution Pipeline",
+        "title": "Screenshots and user interfaces",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "expected",
+            "label": "expected"
           },
           {
-            "id": "proc",
-            "label": "2. Screenshots and use...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "found_by_vision",
+            "label": "found_by_vision"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Screenshots and user interfaces.",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Screenshots and use.",
+            "caption": "Vision models can read app screenshots.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "expected": {
+                "var": "expected",
+                "line": 1,
+                "hit": 1
+              },
+              "found_by_vision": {
+                "var": "found_by_vision",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "expected": "data",
+              "found_by_vision": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "expected",
+                "found_by_vision"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "They are useful for accessibility.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "expected": {
+                "var": "expected",
+                "line": 2,
+                "hit": 1
+              },
+              "found_by_vision": {
+                "var": "found_by_vision",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "expected": "data",
+              "found_by_vision": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "expected",
+                "found_by_vision"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Screenshots and user interfaces.",
+            "at": "say8",
+            "caption": "Describing a screenshot in words is also a good way to report bugs clearly.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "expected": {
+                "var": "expected",
+                "line": 3,
+                "hit": 1
+              },
+              "found_by_vision": {
+                "var": "found_by_vision",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "expected": "ok",
+              "found_by_vision": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "expected",
+                "found_by_vision"
               ]
             ]
           }
@@ -673,110 +760,69 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Screenshots and user interfaces — Execution Pipeline",
+        "title": "Screenshots and user interfaces",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "expected",
+            "label": "expected"
           },
           {
-            "id": "proc",
-            "label": "2. Screenshots and use...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "found_by_vision",
+            "label": "found_by_vision"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Screenshots and user interfaces [D16.P5.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Screenshots and use... [D16.P5.S2].",
+            "caption": "Vision models can read app screenshots.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "expected": "{'Create account', 'Forgot password?', …",
+              "found_by_vision": "{'Create account', 'Forgot pasword?', '…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "expected": "data",
+              "found_by_vision": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "expected",
+                "found_by_vision"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P5.S3].",
+            "at": "say2",
+            "caption": "They are useful for accessibility.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "expected": "{'Create account', 'Forgot password?', …",
+              "found_by_vision": "{'Create account', 'Forgot pasword?', '…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "expected": "data",
+              "found_by_vision": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "expected",
+                "found_by_vision"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Screenshots and user interfaces [D16.P5.S4].",
+            "at": "say8",
+            "caption": "Describing a screenshot in words is also a good way to report bugs clearly.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "expected": "{'Create account', 'Forgot password?', …",
+              "found_by_vision": "{'Create account', 'Forgot pasword?', '…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "expected": "ok",
+              "found_by_vision": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "expected",
+                "found_by_vision"
               ]
             ]
           }
@@ -787,224 +833,162 @@
       "partTitle": "Practice time: extract and review",
       "codeHash": "d0a9b9dee2a5e5876b93b5bd076dbde8528517316719f401c430780ecf94b2ad",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: extract and review — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: extr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: extract and review",
+        "actors": [
+          "scan",
+          "confidences",
+          "fields"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: extract and review.",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: extr... [Dsixteen.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Trace how practice updates search during execution.",
+            "activeActor": "scan",
+            "messages": [
+              {
+                "from": "scan",
+                "to": "confidences",
+                "label": {
+                  "var": "scan",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "confidences",
+                "to": "fields",
+                "label": {
+                  "var": "confidences",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Return a dict with None for missing fields.",
+            "activeActor": "confidences",
+            "messages": [
+              {
+                "from": "scan",
+                "to": "confidences",
+                "label": {
+                  "var": "scan",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "confidences",
+                "to": "fields",
+                "label": {
+                  "var": "confidences",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: extract and review.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "These two functions form the core of real document-processing systems used.",
+            "activeActor": "fields",
+            "messages": [
+              {
+                "from": "scan",
+                "to": "confidences",
+                "label": {
+                  "var": "scan",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "confidences",
+                "to": "fields",
+                "label": {
+                  "var": "confidences",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: extract and review — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: extr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: extract and review",
+        "actors": [
+          "scan",
+          "confidences",
+          "fields"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: extract and review [D16.P6.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: extr... [D16.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Trace how practice updates search during execution.",
+            "messages": [
+              {
+                "from": "scan",
+                "to": "confidences",
+                "label": "'Invoice #A77 issued 2023-12-01. Total:…",
+                "tone": "data"
+              },
+              {
+                "from": "confidences",
+                "to": "fields",
+                "label": "[['A77', 0.95], ['2023-12-01', 0.91], […",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "scan"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Return a dict with None for missing fields.",
+            "messages": [
+              {
+                "from": "scan",
+                "to": "confidences",
+                "label": "'Invoice #A77 issued 2023-12-01. Total:…",
+                "tone": "data"
+              },
+              {
+                "from": "confidences",
+                "to": "fields",
+                "label": "[['A77', 0.95], ['2023-12-01', 0.91], […",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "confidences"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: extract and review [D16.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "These two functions form the core of real document-processing systems used.",
+            "messages": [
+              {
+                "from": "scan",
+                "to": "confidences",
+                "label": "'Invoice #A77 issued 2023-12-01. Total:…",
+                "tone": "data"
+              },
+              {
+                "from": "confidences",
+                "to": "fields",
+                "label": "[['A77', 0.95], ['2023-12-01', 0.91], […",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "fields"
           }
         ]
       }

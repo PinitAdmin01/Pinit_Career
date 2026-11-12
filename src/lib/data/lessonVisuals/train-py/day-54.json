@@ -2,269 +2,121 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 54,
-  "promptSha": "78733e089d381a39c96a48165fe1ac8ef4908ff3aaa96bd73290106e719321a5",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Knowledge Distillation — Foundations & Mathematical Invariants",
-      "codeHash": "48029ee627fb68407963fa75c65f5cf84eae1ce3842c96dad9c8e67b761cea7f",
+      "codeHash": "9d4237fea67f651c73782074856861a23506b5882f034724ec6beae4eedc3e12",
       "spec": {
-        "template": "flow",
+        "template": "table",
         "title": "Knowledge Distillation — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While large teacher models achieve superior reasoning capabilities, their.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "info"
+                  },
+                  {
+                    "var": "info",
+                    "line": 10,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Knowledge Distillation solves this deployment challenge by training.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "info"
+                  },
+                  {
+                    "var": "info",
+                    "line": 11,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Knowledge distillation serves as a cornerstone compression technique.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "table",
         "title": "Knowledge Distillation — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While large teacher models achieve superior reasoning capabilities, their.",
+            "rows": [
+              {
+                "cells": [
+                  "info",
+                  "{'concept': 'KNOWLEDGE_DISTILLATION_KL_…"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Knowledge Distillation solves this deployment challenge by training.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "info",
+                  "{'concept': 'KNOWLEDGE_DISTILLATION_KL_…"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Knowledge distillation serves as a cornerstone compression technique.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "[KNOWLEDGE_DISTILLATION_KL_DIV] generates_softened_probability_targets -> compact_model_mimicking_teacher_dark_knowledge (Formula: (1-alpha)*L_CE + alpha*T^2*KL_Div)"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -273,134 +125,165 @@
     },
     {
       "partTitle": "Knowledge Distillation — Core Algorithm & State Representation",
-      "codeHash": "6442d3ba1c7eeeda301bd8c009ab5b4a5c64ffc70212961b512696133e1d9772",
+      "codeHash": "75b640ee0c0c0bf9c9b502813de9768393828009ef0e036c505e380bc4ded202",
       "spec": {
         "template": "flow",
         "title": "Knowledge Distillation — Core Algorithm & State Representation",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "logits",
+            "label": "logits"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "temperature",
+            "label": "temperature"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "z",
+            "label": "z"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "scaled",
+            "label": "scaled"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Simulating softened probability distributions across different temperature.",
+            "values": {
+              "logits": {
+                "var": "logits",
+                "line": 4,
+                "hit": 1
+              },
+              "temperature": {
+                "var": "temperature",
+                "line": 4,
+                "hit": 1
+              },
+              "z": {
+                "var": "z",
+                "line": 4,
+                "hit": 1
+              },
+              "scaled": {
+                "var": "scaled",
+                "line": 4,
+                "hit": 5
+              }
+            },
+            "tones": {
+              "logits": "data",
+              "temperature": "data",
+              "z": "data",
+              "scaled": "data"
+            },
+            "arrows": [
+              [
+                "logits",
+                "temperature"
+              ],
+              [
+                "temperature",
+                "z"
+              ],
+              [
+                "z",
+                "scaled"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "At standard temperature T = 1.",
+            "values": {
+              "logits": {
+                "var": "logits",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "temperature": {
+                "var": "temperature",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "z": {
+                "var": "z",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "scaled": {
+                "var": "scaled",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "logits": "data",
+              "temperature": "data",
+              "z": "data",
+              "scaled": "data"
+            },
+            "arrows": [
+              [
+                "logits",
+                "temperature"
+              ],
+              [
+                "temperature",
+                "z"
+              ],
+              [
+                "z",
+                "scaled"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "This algorithmic formulation allows student models to absorb months.",
+            "values": {
+              "logits": {
+                "var": "logits",
+                "line": 4,
+                "hit": 3
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "temperature": {
+                "var": "temperature",
+                "line": 4,
+                "hit": 3
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "z": {
+                "var": "z",
+                "line": 4,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "scaled": {
+                "var": "scaled",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "logits": "ok",
+              "temperature": "ok",
+              "z": "ok",
+              "scaled": "ok"
+            },
+            "arrows": [
+              [
+                "logits",
+                "temperature"
+              ],
+              [
+                "temperature",
+                "z"
+              ],
+              [
+                "z",
+                "scaled"
+              ]
             ]
           }
         ]
@@ -410,128 +293,111 @@
         "title": "Knowledge Distillation — Core Algorithm & State Representation",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "logits",
+            "label": "logits"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "temperature",
+            "label": "temperature"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "z",
+            "label": "z"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "scaled",
+            "label": "scaled"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Simulating softened probability distributions across different temperature.",
+            "values": {
+              "logits": "[6, 2, 1, -1]",
+              "temperature": "1",
+              "z": "6",
+              "scaled": "[6, 2, 1, -1]"
+            },
+            "tones": {
+              "logits": "data",
+              "temperature": "data",
+              "z": "data",
+              "scaled": "data"
+            },
+            "arrows": [
+              [
+                "logits",
+                "temperature"
+              ],
+              [
+                "temperature",
+                "z"
+              ],
+              [
+                "z",
+                "scaled"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "At standard temperature T = 1.",
+            "values": {
+              "logits": "[6, 2, 1, -1]",
+              "temperature": "1",
+              "z": "2",
+              "scaled": "[6, 2, 1, -1]"
+            },
+            "tones": {
+              "logits": "data",
+              "temperature": "data",
+              "z": "data",
+              "scaled": "data"
+            },
+            "arrows": [
+              [
+                "logits",
+                "temperature"
+              ],
+              [
+                "temperature",
+                "z"
+              ],
+              [
+                "z",
+                "scaled"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "This algorithmic formulation allows student models to absorb months.",
+            "values": {
+              "logits": "[6, 2, 1, -1]",
+              "temperature": "1",
+              "z": "1",
+              "scaled": "[6, 2, 1, -1]"
+            },
+            "tones": {
+              "logits": "ok",
+              "temperature": "ok",
+              "z": "ok",
+              "scaled": "ok"
+            },
+            "arrows": [
+              [
+                "logits",
+                "temperature"
+              ],
+              [
+                "temperature",
+                "z"
+              ],
+              [
+                "z",
+                "scaled"
+              ]
             ]
           }
         ]
@@ -539,265 +405,279 @@
     },
     {
       "partTitle": "Knowledge Distillation — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "8229d754112bc9e3eb457a56e7af2f5981c5cce0b7e302777b14d6c6ffc4df3c",
+      "codeHash": "4465f6b1e88b4a726cbd69db42bd95a2f33356d9654eea173667c3666c8ecfea",
       "spec": {
         "template": "flow",
-        "title": "Knowledge Distillation — Throughput Optimization & Edge-Case Handling",
+        "title": "Knowledge Distillation — Throughput Optimization & Edge-Case Han",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "teacher_b",
+            "label": "teacher_b"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "student_b",
+            "label": "student_b"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "compression_ratio",
+            "label": "compression_ratio"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "inference_throughput_speedup",
+            "label": "inference_throughput_speedup"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Knowledge distillation provides exceptional compression ratios when.",
+            "values": {
+              "teacher_b": {
+                "var": "teacher_b",
+                "line": 2,
+                "hit": 1
+              },
+              "student_b": {
+                "var": "student_b",
+                "line": 2,
+                "hit": 1
+              },
+              "compression_ratio": {
+                "var": "compression_ratio",
+                "line": 2,
+                "hit": 1
+              },
+              "inference_throughput_speedup": {
+                "var": "inference_throughput_speedup",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "teacher_b": "data",
+              "student_b": "data",
+              "compression_ratio": "data",
+              "inference_throughput_speedup": "data"
+            },
+            "arrows": [
+              [
+                "teacher_b",
+                "student_b"
+              ],
+              [
+                "student_b",
+                "compression_ratio"
+              ],
+              [
+                "compression_ratio",
+                "inference_throughput_speedup"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Distilling a 70-billion-parameter teacher model into.",
+            "values": {
+              "teacher_b": {
+                "var": "teacher_b",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "student_b": {
+                "var": "student_b",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "compression_ratio": {
+                "var": "compression_ratio",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "inference_throughput_speedup": {
+                "var": "inference_throughput_speedup",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "teacher_b": "data",
+              "student_b": "data",
+              "compression_ratio": "data",
+              "inference_throughput_speedup": "data"
+            },
+            "arrows": [
+              [
+                "teacher_b",
+                "student_b"
+              ],
+              [
+                "student_b",
+                "compression_ratio"
+              ],
+              [
+                "compression_ratio",
+                "inference_throughput_speedup"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "Knowledge distillation is therefore an essential pillar of cost-effective.",
+            "values": {
+              "teacher_b": {
+                "var": "teacher_b",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "student_b": {
+                "var": "student_b",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "compression_ratio": {
+                "var": "compression_ratio",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "inference_throughput_speedup": {
+                "var": "inference_throughput_speedup",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "teacher_b": "ok",
+              "student_b": "ok",
+              "compression_ratio": "ok",
+              "inference_throughput_speedup": "ok"
+            },
+            "arrows": [
+              [
+                "teacher_b",
+                "student_b"
+              ],
+              [
+                "student_b",
+                "compression_ratio"
+              ],
+              [
+                "compression_ratio",
+                "inference_throughput_speedup"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Knowledge Distillation — Throughput Optimization & Edge-Case Handling",
+        "title": "Knowledge Distillation — Throughput Optimization & Edge-Case Han",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "teacher_b",
+            "label": "teacher_b"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "student_b",
+            "label": "student_b"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "compression_ratio",
+            "label": "compression_ratio"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "inference_throughput_speedup",
+            "label": "inference_throughput_speedup"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Knowledge distillation provides exceptional compression ratios when.",
+            "values": {
+              "teacher_b": "70",
+              "student_b": "8",
+              "compression_ratio": "8.75",
+              "inference_throughput_speedup": "8.3125"
+            },
+            "tones": {
+              "teacher_b": "data",
+              "student_b": "data",
+              "compression_ratio": "data",
+              "inference_throughput_speedup": "data"
+            },
+            "arrows": [
+              [
+                "teacher_b",
+                "student_b"
+              ],
+              [
+                "student_b",
+                "compression_ratio"
+              ],
+              [
+                "compression_ratio",
+                "inference_throughput_speedup"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Distilling a 70-billion-parameter teacher model into.",
+            "values": {
+              "teacher_b": "70",
+              "student_b": "8",
+              "compression_ratio": "8.75",
+              "inference_throughput_speedup": "8.3125"
+            },
+            "tones": {
+              "teacher_b": "data",
+              "student_b": "data",
+              "compression_ratio": "data",
+              "inference_throughput_speedup": "data"
+            },
+            "arrows": [
+              [
+                "teacher_b",
+                "student_b"
+              ],
+              [
+                "student_b",
+                "compression_ratio"
+              ],
+              [
+                "compression_ratio",
+                "inference_throughput_speedup"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "Knowledge distillation is therefore an essential pillar of cost-effective.",
+            "values": {
+              "teacher_b": "70",
+              "student_b": "8",
+              "compression_ratio": "8.75",
+              "inference_throughput_speedup": "8.3125"
+            },
+            "tones": {
+              "teacher_b": "ok",
+              "student_b": "ok",
+              "compression_ratio": "ok",
+              "inference_throughput_speedup": "ok"
+            },
+            "arrows": [
+              [
+                "teacher_b",
+                "student_b"
+              ],
+              [
+                "student_b",
+                "compression_ratio"
+              ],
+              [
+                "compression_ratio",
+                "inference_throughput_speedup"
+              ]
             ]
           }
         ]
@@ -805,530 +685,280 @@
     },
     {
       "partTitle": "Knowledge Distillation — Resilience Guardrails & Failure Recovery",
-      "codeHash": "6a0a4fd57055891d5a5d939b38a3c8d5aacc2af5a3b1ae5256d8c2a03c79969c",
+      "codeHash": "86ef9024e7da5a29d9475e1636a28ec528b1b7252b8d3ead5800f94cacf22899",
       "spec": {
-        "template": "flow",
-        "title": "Knowledge Distillation — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Knowledge Distillation — Resilience Guardrails & Failure Recover",
+        "actors": [
+          "temperature",
+          "alpha",
+          "status"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Preflight validation guardrails ensure that distillation hyperparameters.",
+            "activeActor": "temperature",
+            "messages": [
+              {
+                "from": "temperature",
+                "to": "alpha",
+                "label": {
+                  "var": "temperature",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "alpha",
+                "to": "status",
+                "label": {
+                  "var": "alpha",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how temperature updates parameter during execution.",
+            "activeActor": "alpha",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "temperature",
+                "to": "alpha",
+                "label": {
+                  "var": "temperature",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "alpha",
+                "to": "status",
+                "label": {
+                  "var": "alpha",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Rigorous preflight validation is an indispensable requirement.",
+            "activeActor": "status",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "temperature",
+                "to": "alpha",
+                "label": {
+                  "var": "temperature",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "alpha",
+                "to": "status",
+                "label": {
+                  "var": "alpha",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Knowledge Distillation — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Knowledge Distillation — Resilience Guardrails & Failure Recover",
+        "actors": [
+          "temperature",
+          "alpha",
+          "status"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Preflight validation guardrails ensure that distillation hyperparameters.",
+            "messages": [
+              {
+                "from": "temperature",
+                "to": "alpha",
+                "label": "2.5",
+                "tone": "data"
+              },
+              {
+                "from": "alpha",
+                "to": "status",
+                "label": "0.7",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "temperature"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how temperature updates parameter during execution.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "temperature",
+                "to": "alpha",
+                "label": "2.5",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "alpha",
+                "to": "status",
+                "label": "0.7",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "alpha"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Rigorous preflight validation is an indispensable requirement.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "temperature",
+                "to": "alpha",
+                "label": "2.5",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "alpha",
+                "to": "status",
+                "label": "0.7",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "status"
           }
         ]
       }
     },
     {
       "partTitle": "Knowledge Distillation — Production Telemetry & Verification Audit",
-      "codeHash": "8ae9d00b7398a377e16a48542aa09a3b3dd59b2fea4b14536bcf56565e03ece8",
+      "codeHash": "7aee63e9effbd095ea8041ed2d2372cb0a4048778cf1af5bc3780c86f57ec270",
       "spec": {
-        "template": "flow",
-        "title": "Knowledge Distillation — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Knowledge Distillation — Production Telemetry & Verification Aud",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing validates the empirical convergence.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "audit"
+                  },
+                  {
+                    "var": "audit",
+                    "line": 10,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Auditors record temperature settings, alpha weights, KL divergence loss.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "audit"
+                  },
+                  {
+                    "var": "audit",
+                    "line": 11,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "With distillation certified, organizations can deploy state-of-the-art.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Knowledge Distillation — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Knowledge Distillation — Production Telemetry & Verification Aud",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing validates the empirical convergence.",
+            "rows": [
+              {
+                "cells": [
+                  "audit",
+                  "{'status': 'CERTIFIED', 'temperature': …"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Auditors record temperature settings, alpha weights, KL divergence loss.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "audit",
+                  "{'status': 'CERTIFIED', 'temperature': …"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "With distillation certified, organizations can deploy state-of-the-art.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "Distillation Audit: CERTIFIED (KL Loss: 0.0482, Retention: 96.8%)"
+                ],
+                "tone": "ok"
               }
             ]
           }

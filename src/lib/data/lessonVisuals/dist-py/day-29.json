@@ -2,231 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 29,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "When a region fails",
       "codeHash": "6ce75c8e326f857992bf2b8e4c7e846a6185232037a098d0188ccdc013408ae1",
       "spec": {
-        "template": "flow",
-        "title": "When a region fails — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. When a region fails",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "When a region fails",
+        "actors": [
+          "orders_per_minute",
+          "rpo_minutes",
+          "lost"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for When a region fails [D.Pone.Sone].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in When a region fails [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Regions do go down.",
+            "activeActor": "orders_per_minute",
+            "messages": [
+              {
+                "from": "orders_per_minute",
+                "to": "rpo_minutes",
+                "label": {
+                  "var": "orders_per_minute",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "rpo_minutes",
+                "to": "lost",
+                "label": {
+                  "var": "rpo_minutes",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Disaster recovery (DR) is the plan for keeping the business running when.",
+            "activeActor": "rpo_minutes",
+            "messages": [
+              {
+                "from": "orders_per_minute",
+                "to": "rpo_minutes",
+                "label": {
+                  "var": "orders_per_minute",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "rpo_minutes",
+                "to": "lost",
+                "label": {
+                  "var": "rpo_minutes",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for When a region fails [D.Pone.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows what an RPO means for a stream of orders.",
+            "activeActor": "lost",
+            "messages": [
+              {
+                "from": "orders_per_minute",
+                "to": "rpo_minutes",
+                "label": {
+                  "var": "orders_per_minute",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "rpo_minutes",
+                "to": "lost",
+                "label": {
+                  "var": "rpo_minutes",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "When a region fails — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. When a region fails",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "When a region fails",
+        "actors": [
+          "orders_per_minute",
+          "rpo_minutes",
+          "lost"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for When a region fails [D29.P1.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in When a region fails [D29.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Regions do go down.",
+            "messages": [
+              {
+                "from": "orders_per_minute",
+                "to": "rpo_minutes",
+                "label": "1200",
+                "tone": "data"
+              },
+              {
+                "from": "rpo_minutes",
+                "to": "lost",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "orders_per_minute"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Disaster recovery (DR) is the plan for keeping the business running when.",
+            "messages": [
+              {
+                "from": "orders_per_minute",
+                "to": "rpo_minutes",
+                "label": "1200",
+                "tone": "data"
+              },
+              {
+                "from": "rpo_minutes",
+                "to": "lost",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "rpo_minutes"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for When a region fails [D29.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example shows what an RPO means for a stream of orders.",
+            "messages": [
+              {
+                "from": "orders_per_minute",
+                "to": "rpo_minutes",
+                "label": "1200",
+                "tone": "data"
+              },
+              {
+                "from": "rpo_minutes",
+                "to": "lost",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "lost"
           }
         ]
       }
@@ -235,166 +173,162 @@
       "partTitle": "Checking compliance",
       "codeHash": "8c476311077f9e5a4219e9ab070f076ed6d232d12edc62377879900eaaf9dbfb",
       "spec": {
-        "template": "table",
-        "title": "Disaster recovery compliance auditing service RPO and RTO targets",
-        "columns": [
-          "service",
-          "grade"
+        "template": "sequence",
+        "title": "Checking compliance",
+        "actors": [
+          "services",
+          "name",
+          "numbers"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Compliance checks verify whether actual metrics meet target goals.",
-            "rows": [
+            "caption": "Dr_compliance(actual_rpo, actual_rto, target_rpo, target_rto) in minutes.",
+            "activeActor": "services",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "payments"
-                  },
-                  {
-                    "text": "TIER_1"
-                  }
-                ],
+                "from": "services",
+                "to": "name",
+                "label": {
+                  "var": "services",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "numbers",
+                "label": {
+                  "var": "name",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Report data loss objectives and downtime recovery targets separately.",
-            "rows": [
+            "at": "say2",
+            "caption": "Actual numbers come from drills and incidents, not from the design document.",
+            "activeActor": "name",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "payments"
-                  },
-                  {
-                    "text": "TIER_1"
-                  }
-                ],
-                "tone": "ok"
+                "from": "services",
+                "to": "name",
+                "label": {
+                  "var": "services",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "search"
-                  },
-                  {
-                    "text": "TIER_1"
-                  }
-                ],
+                "from": "name",
+                "to": "numbers",
+                "label": {
+                  "var": "name",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Critical payment services have tighter recovery targets than reports.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example checks three services against their targets.",
+            "activeActor": "numbers",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "payments"
-                  },
-                  {
-                    "text": "TIER_1"
-                  }
-                ],
-                "tone": "ok"
+                "from": "services",
+                "to": "name",
+                "label": {
+                  "var": "services",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "search"
-                  },
-                  {
-                    "text": "TIER_1"
-                  }
-                ],
+                "from": "name",
+                "to": "numbers",
+                "label": {
+                  "var": "name",
+                  "line": 8,
+                  "hit": 2
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "reports"
-                  },
-                  {
-                    "text": "FAILED"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Disaster recovery compliance auditing service RPO and RTO targets",
-        "columns": [
-          "service",
-          "grade"
+        "template": "sequence",
+        "title": "Checking compliance",
+        "actors": [
+          "services",
+          "name",
+          "numbers"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Compliance checks verify whether actual metrics meet target goals.",
-            "rows": [
+            "caption": "Dr_compliance(actual_rpo, actual_rto, target_rpo, target_rto) in minutes.",
+            "messages": [
               {
-                "cells": [
-                  "payments",
-                  "TIER_1"
-                ],
+                "from": "services",
+                "to": "name",
+                "label": "{'payments': [1, 12, 5, 15], 'search': …",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "numbers",
+                "label": "'payments'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "services"
           },
           {
-            "at": "say4",
-            "caption": "Report data loss objectives and downtime recovery targets separately.",
-            "rows": [
+            "at": "say2",
+            "caption": "Actual numbers come from drills and incidents, not from the design document.",
+            "messages": [
               {
-                "cells": [
-                  "payments",
-                  "TIER_1"
-                ],
-                "tone": "ok"
+                "from": "services",
+                "to": "name",
+                "label": "{'payments': [1, 12, 5, 15], 'search': …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "search",
-                  "TIER_1"
-                ],
+                "from": "name",
+                "to": "numbers",
+                "label": "'payments'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "name"
           },
           {
-            "at": "say6",
-            "caption": "Critical payment services have tighter recovery targets than reports.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example checks three services against their targets.",
+            "messages": [
               {
-                "cells": [
-                  "payments",
-                  "TIER_1"
-                ],
-                "tone": "ok"
+                "from": "services",
+                "to": "name",
+                "label": "{'payments': [1, 12, 5, 15], 'search': …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "search",
-                  "TIER_1"
-                ],
+                "from": "name",
+                "to": "numbers",
+                "label": "'search'",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "reports",
-                  "FAILED"
-                ],
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "numbers"
           }
         ]
       }
@@ -403,235 +337,277 @@
       "partTitle": "The DR strategies",
       "codeHash": "2078efe3eef95c4a836ace848cea207355ccbb72d128c71322fdc74a5f18e40d",
       "spec": {
-        "template": "table",
-        "title": "Disaster recovery strategy trade-offs across RPO and RTO bounds",
-        "columns": [
-          "name",
-          "rpo",
-          "rto"
+        "template": "flow",
+        "title": "The DR strategies",
+        "nodes": [
+          {
+            "id": "STRATEGIES",
+            "label": "STRATEGIES"
+          },
+          {
+            "id": "targets",
+            "label": "targets"
+          },
+          {
+            "id": "target_rpo",
+            "label": "target_rpo"
+          },
+          {
+            "id": "target_rto",
+            "label": "target_rto"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Backup and restore is cheapest but takes longer to recover after disaster.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "backup and restore"
-                  },
-                  {
-                    "text": "1440"
-                  },
-                  {
-                    "text": "480"
-                  }
-                ],
-                "tone": "idle"
+            "caption": "Backup and restore.",
+            "values": {
+              "STRATEGIES": {
+                "var": "STRATEGIES",
+                "line": 1,
+                "hit": 1
+              },
+              "targets": {
+                "var": "targets",
+                "line": 14,
+                "hit": 1
+              },
+              "target_rpo": {
+                "var": "target_rpo",
+                "line": 9,
+                "hit": 1
+              },
+              "target_rto": {
+                "var": "target_rto",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "STRATEGIES": "data",
+              "targets": "data",
+              "target_rpo": "data",
+              "target_rto": "data"
+            },
+            "arrows": [
+              [
+                "STRATEGIES",
+                "targets"
+              ],
+              [
+                "targets",
+                "target_rpo"
+              ],
+              [
+                "target_rpo",
+                "target_rto"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Warm standby maintains scaled down replicas ready to scale up quickly.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "backup and restore"
-                  },
-                  {
-                    "text": "1440"
-                  },
-                  {
-                    "text": "480"
-                  }
-                ],
-                "tone": "idle"
+            "at": "say2",
+            "caption": "Data is continuously replicated to the second region, and a minimal core.",
+            "values": {
+              "STRATEGIES": {
+                "var": "STRATEGIES",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "pilot light"
-                  },
-                  {
-                    "text": "15"
-                  },
-                  {
-                    "text": "60"
-                  }
-                ],
-                "tone": "idle"
+              "targets": {
+                "var": "targets",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "warm standby"
-                  },
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "15"
-                  }
-                ],
-                "tone": "ok"
+              "target_rpo": {
+                "var": "target_rpo",
+                "line": 10,
+                "hit": 1
+              },
+              "target_rto": {
+                "var": "target_rto",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "STRATEGIES": "data",
+              "targets": "data",
+              "target_rpo": "data",
+              "target_rto": "data"
+            },
+            "arrows": [
+              [
+                "STRATEGIES",
+                "targets"
+              ],
+              [
+                "targets",
+                "target_rpo"
+              ],
+              [
+                "target_rpo",
+                "target_rto"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Select the most cost effective strategy that satisfies service targets.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "backup and restore"
-                  },
-                  {
-                    "text": "1440"
-                  },
-                  {
-                    "text": "480"
-                  }
-                ],
-                "tone": "idle"
+            "at": "say7",
+            "caption": "The example chooses a strategy from targets.",
+            "values": {
+              "STRATEGIES": {
+                "var": "STRATEGIES",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "pilot light"
-                  },
-                  {
-                    "text": "15"
-                  },
-                  {
-                    "text": "60"
-                  }
-                ],
-                "tone": "idle"
+              "targets": {
+                "var": "targets",
+                "line": 14,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "warm standby"
-                  },
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "15"
-                  }
-                ],
-                "tone": "ok"
+              "target_rpo": {
+                "var": "target_rpo",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "active-active"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "1"
-                  }
-                ],
-                "tone": "ok"
+              "target_rto": {
+                "var": "target_rto",
+                "line": 11,
+                "hit": 1
               }
+            },
+            "tones": {
+              "STRATEGIES": "ok",
+              "targets": "ok",
+              "target_rpo": "ok",
+              "target_rto": "ok"
+            },
+            "arrows": [
+              [
+                "STRATEGIES",
+                "targets"
+              ],
+              [
+                "targets",
+                "target_rpo"
+              ],
+              [
+                "target_rpo",
+                "target_rto"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Disaster recovery strategy trade-offs across RPO and RTO bounds",
-        "columns": [
-          "name",
-          "rpo",
-          "rto"
+        "template": "flow",
+        "title": "The DR strategies",
+        "nodes": [
+          {
+            "id": "STRATEGIES",
+            "label": "STRATEGIES"
+          },
+          {
+            "id": "targets",
+            "label": "targets"
+          },
+          {
+            "id": "target_rpo",
+            "label": "target_rpo"
+          },
+          {
+            "id": "target_rto",
+            "label": "target_rto"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Backup and restore is cheapest but takes longer to recover after disaster.",
-            "rows": [
-              {
-                "cells": [
-                  "backup and restore",
-                  "1440",
-                  "480"
-                ],
-                "tone": "idle"
-              }
+            "caption": "Backup and restore.",
+            "values": {
+              "STRATEGIES": "[['backup and restore', 1440, 480], ['p…",
+              "targets": "[1440, 1440]",
+              "target_rpo": "1440",
+              "target_rto": "1440"
+            },
+            "tones": {
+              "STRATEGIES": "data",
+              "targets": "data",
+              "target_rpo": "data",
+              "target_rto": "data"
+            },
+            "arrows": [
+              [
+                "STRATEGIES",
+                "targets"
+              ],
+              [
+                "targets",
+                "target_rpo"
+              ],
+              [
+                "target_rpo",
+                "target_rto"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Warm standby maintains scaled down replicas ready to scale up quickly.",
-            "rows": [
-              {
-                "cells": [
-                  "backup and restore",
-                  "1440",
-                  "480"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "pilot light",
-                  "15",
-                  "60"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "warm standby",
-                  "5",
-                  "15"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Data is continuously replicated to the second region, and a minimal core.",
+            "values": {
+              "STRATEGIES": "[['backup and restore', 1440, 480], ['p…",
+              "targets": "[1440, 1440]",
+              "target_rpo": "1440",
+              "target_rto": "1440"
+            },
+            "tones": {
+              "STRATEGIES": "data",
+              "targets": "data",
+              "target_rpo": "data",
+              "target_rto": "data"
+            },
+            "arrows": [
+              [
+                "STRATEGIES",
+                "targets"
+              ],
+              [
+                "targets",
+                "target_rpo"
+              ],
+              [
+                "target_rpo",
+                "target_rto"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Select the most cost effective strategy that satisfies service targets.",
-            "rows": [
-              {
-                "cells": [
-                  "backup and restore",
-                  "1440",
-                  "480"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "pilot light",
-                  "15",
-                  "60"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "warm standby",
-                  "5",
-                  "15"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "active-active",
-                  "0",
-                  "1"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example chooses a strategy from targets.",
+            "values": {
+              "STRATEGIES": "[['backup and restore', 1440, 480], ['p…",
+              "targets": "[30, 90]",
+              "target_rpo": "1440",
+              "target_rto": "1440"
+            },
+            "tones": {
+              "STRATEGIES": "ok",
+              "targets": "ok",
+              "target_rpo": "ok",
+              "target_rto": "ok"
+            },
+            "arrows": [
+              [
+                "STRATEGIES",
+                "targets"
+              ],
+              [
+                "targets",
+                "target_rpo"
+              ],
+              [
+                "target_rpo",
+                "target_rto"
+              ]
             ]
           }
         ]
@@ -641,166 +617,106 @@
       "partTitle": "Active-passive failover",
       "codeHash": "d7b8b4b736708f2bb8321f7c391fc7049bbdcec145c5d3e9aee9c8fc6797618a",
       "spec": {
-        "template": "table",
-        "title": "Active-passive failover runbook execution steps and safety fences",
-        "columns": [
-          "step",
-          "action"
+        "template": "states",
+        "title": "Active-passive failover",
+        "states": [
+          {
+            "id": "runbook",
+            "label": "runbook"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Active passive deployments maintain standby replicas in secondary regions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "detect"
-                  },
-                  {
-                    "text": "alerts show region ap-south-1 unreachable for 5 minutes"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
+            "caption": "In active-passive designs, one region serves traffic and the other stands.",
+            "currentState": "runbook",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Failover steps promote standby databases and redirect global routing.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "detect"
-                  },
-                  {
-                    "text": "alerts show region ap-south-1 unreachable for 5 minutes"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "fence"
-                  },
-                  {
-                    "text": "mark old primary as read-only / block its writes"
-                  }
-                ],
-                "tone": "error"
+            "caption": "Detect the failure, decide to fail over (often a human decision.",
+            "currentState": "i",
+            "transition": {
+              "from": "runbook",
+              "to": "i",
+              "label": {
+                "var": "i",
+                "line": 11,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Fencing prevents split brain before promoting secondary databases.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "detect"
-                  },
-                  {
-                    "text": "alerts show region ap-south-1 unreachable for 5 minutes"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "fence"
-                  },
-                  {
-                    "text": "mark old primary as read-only / block its writes"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "promote"
-                  },
-                  {
-                    "text": "promote the database replica in ap-southeast-1"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example walks through a failover runbook.",
+            "currentState": "step",
+            "transition": {
+              "from": "i",
+              "to": "step",
+              "label": {
+                "var": "step",
+                "line": 10,
+                "hit": 2
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Active-passive failover runbook execution steps and safety fences",
-        "columns": [
-          "step",
-          "action"
+        "template": "states",
+        "title": "Active-passive failover",
+        "states": [
+          {
+            "id": "runbook",
+            "label": "runbook"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Active passive deployments maintain standby replicas in secondary regions.",
-            "rows": [
-              {
-                "cells": [
-                  "detect",
-                  "alerts show region ap-south-1 unreachable for 5 minutes"
-                ],
-                "tone": "idle"
-              }
-            ]
+            "caption": "In active-passive designs, one region serves traffic and the other stands.",
+            "currentState": "runbook",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Failover steps promote standby databases and redirect global routing.",
-            "rows": [
-              {
-                "cells": [
-                  "detect",
-                  "alerts show region ap-south-1 unreachable for 5 minutes"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "fence",
-                  "mark old primary as read-only / block its writes"
-                ],
-                "tone": "error"
-              }
-            ]
+            "caption": "Detect the failure, decide to fail over (often a human decision.",
+            "currentState": "i",
+            "transition": {
+              "from": "runbook",
+              "to": "i",
+              "label": "1"
+            },
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Fencing prevents split brain before promoting secondary databases.",
-            "rows": [
-              {
-                "cells": [
-                  "detect",
-                  "alerts show region ap-south-1 unreachable for 5 minutes"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "fence",
-                  "mark old primary as read-only / block its writes"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "promote",
-                  "promote the database replica in ap-southeast-1"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say7",
+            "caption": "The example walks through a failover runbook.",
+            "currentState": "step",
+            "transition": {
+              "from": "i",
+              "to": "step",
+              "label": "'decide'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -809,224 +725,162 @@
       "partTitle": "Active-active challenges",
       "codeHash": "3ecc7248997b61a48cde67bf6ec425cb2eee17226b05b29b711e4156c72bb2be",
       "spec": {
-        "template": "flow",
-        "title": "Active-active challenges — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Active-active chall...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Active-active challenges",
+        "actors": [
+          "home_region",
+          "healthy",
+          "user"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Active-active challenges [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Active-active chall... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In active-active, both regions accept writes.",
+            "activeActor": "home_region",
+            "messages": [
+              {
+                "from": "home_region",
+                "to": "healthy",
+                "label": {
+                  "var": "home_region",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "healthy",
+                "to": "user",
+                "label": {
+                  "var": "healthy",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The hard part is data.",
+            "activeActor": "healthy",
+            "messages": [
+              {
+                "from": "home_region",
+                "to": "healthy",
+                "label": {
+                  "var": "home_region",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "healthy",
+                "to": "user",
+                "label": {
+                  "var": "healthy",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Active-active challenges [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example routes users to a home region to avoid write conflicts.",
+            "activeActor": "user",
+            "messages": [
+              {
+                "from": "home_region",
+                "to": "healthy",
+                "label": {
+                  "var": "home_region",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "healthy",
+                "to": "user",
+                "label": {
+                  "var": "healthy",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Active-active challenges — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Active-active chall...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Active-active challenges",
+        "actors": [
+          "home_region",
+          "healthy",
+          "user"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Active-active challenges [D29.P5.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Active-active chall... [D29.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "In active-active, both regions accept writes.",
+            "messages": [
+              {
+                "from": "home_region",
+                "to": "healthy",
+                "label": "{'asha': 'mumbai', 'bala': 'singapore',…",
+                "tone": "data"
+              },
+              {
+                "from": "healthy",
+                "to": "user",
+                "label": "{'mumbai': True, 'singapore': True}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "home_region"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The hard part is data.",
+            "messages": [
+              {
+                "from": "home_region",
+                "to": "healthy",
+                "label": "{'asha': 'mumbai', 'bala': 'singapore',…",
+                "tone": "data"
+              },
+              {
+                "from": "healthy",
+                "to": "user",
+                "label": "{'mumbai': True, 'singapore': True}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "healthy"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Active-active challenges [D29.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example routes users to a home region to avoid write conflicts.",
+            "messages": [
+              {
+                "from": "home_region",
+                "to": "healthy",
+                "label": "{'asha': 'mumbai', 'bala': 'singapore',…",
+                "tone": "data"
+              },
+              {
+                "from": "healthy",
+                "to": "user",
+                "label": "{'mumbai': True, 'singapore': True}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "user"
           }
         ]
       }
@@ -1035,93 +889,91 @@
       "partTitle": "Drills and reporting",
       "codeHash": "f17d8b3f16ffe47e6ee58f39acdaeb5b46537d1332cd3378c217a3ea59ac109f",
       "spec": {
-        "template": "table",
-        "title": "Disaster recovery drill historical outcomes and SLA targets",
-        "columns": [
-          "month",
-          "status"
+        "template": "sequence",
+        "title": "Drills and reporting",
+        "actors": [
+          "drills",
+          "target",
+          "month"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Regular disaster recovery drills validate failover plans under practice.",
-            "rows": [
+            "caption": "A DR plan that has never been tested does not work.",
+            "activeActor": "drills",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "Jan"
-                  },
-                  {
-                    "text": "above target"
-                  }
-                ],
-                "tone": "error"
+                "from": "drills",
+                "to": "target",
+                "label": {
+                  "var": "drills",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "target",
+                "to": "month",
+                "label": {
+                  "var": "target",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Measure actual recovery time and data loss metrics during each exercise.",
-            "rows": [
+            "caption": "Measure actual RPO and RTO in each drill and compare with targets, as.",
+            "activeActor": "target",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "Jan"
-                  },
-                  {
-                    "text": "above target"
-                  }
-                ],
-                "tone": "error"
+                "from": "drills",
+                "to": "target",
+                "label": {
+                  "var": "drills",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "Jul"
-                  },
-                  {
-                    "text": "above target"
-                  }
-                ],
-                "tone": "error"
+                "from": "target",
+                "to": "month",
+                "label": {
+                  "var": "target",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Update operational runbooks after every drill to fix discovered gaps.",
-            "rows": [
+            "at": "say6",
+            "caption": "The example reports a series of drills over time.",
+            "activeActor": "month",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "Jan"
-                  },
-                  {
-                    "text": "above target"
-                  }
-                ],
-                "tone": "error"
+                "from": "drills",
+                "to": "target",
+                "label": {
+                  "var": "drills",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "Jul"
-                  },
-                  {
-                    "text": "above target"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Oct"
-                  },
-                  {
-                    "text": "meets target"
-                  }
-                ],
+                "from": "target",
+                "to": "month",
+                "label": {
+                  "var": "target",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -1129,72 +981,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Disaster recovery drill historical outcomes and SLA targets",
-        "columns": [
-          "month",
-          "status"
+        "template": "sequence",
+        "title": "Drills and reporting",
+        "actors": [
+          "drills",
+          "target",
+          "month"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Regular disaster recovery drills validate failover plans under practice.",
-            "rows": [
+            "caption": "A DR plan that has never been tested does not work.",
+            "messages": [
               {
-                "cells": [
-                  "Jan",
-                  "above target"
-                ],
-                "tone": "error"
+                "from": "drills",
+                "to": "target",
+                "label": "[['Jan', 42], ['Apr', 31], ['Jul', 18],…",
+                "tone": "data"
+              },
+              {
+                "from": "target",
+                "to": "month",
+                "label": "15",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "drills"
           },
           {
             "at": "say2",
-            "caption": "Measure actual recovery time and data loss metrics during each exercise.",
-            "rows": [
+            "caption": "Measure actual RPO and RTO in each drill and compare with targets, as.",
+            "messages": [
               {
-                "cells": [
-                  "Jan",
-                  "above target"
-                ],
-                "tone": "error"
+                "from": "drills",
+                "to": "target",
+                "label": "[['Jan', 42], ['Apr', 31], ['Jul', 18],…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "Jul",
-                  "above target"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Update operational runbooks after every drill to fix discovered gaps.",
-            "rows": [
-              {
-                "cells": [
-                  "Jan",
-                  "above target"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "Jul",
-                  "above target"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "Oct",
-                  "meets target"
-                ],
+                "from": "target",
+                "to": "month",
+                "label": "15",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "target"
+          },
+          {
+            "at": "say6",
+            "caption": "The example reports a series of drills over time.",
+            "messages": [
+              {
+                "from": "drills",
+                "to": "target",
+                "label": "[['Jan', 42], ['Apr', 31], ['Jul', 18],…",
+                "tone": "data"
+              },
+              {
+                "from": "target",
+                "to": "month",
+                "label": "15",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "month"
           }
         ]
       }

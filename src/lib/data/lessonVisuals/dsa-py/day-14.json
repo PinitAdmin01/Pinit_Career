@@ -2,50 +2,84 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 14,
-  "promptSha": "aef5170e6b1bf563f16bfc3c1e91253a07fd3e8968507050a3e28505d1c0f31c",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The O(N log N) wall and how to get round it",
       "codeHash": "545ba6fda74879ccdd67e1b1c9544019893e71a10a92f6a6e7431f2dd6427608",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "The O(N log N) wall and how to get round it",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The sort concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Any sort that works only by comparing pairs of items needs about N log N.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "The"
-                  },
-                  {
-                    "text": "log"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "comparisons",
+                "value": {
+                  "var": "comparisons",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The comparison logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "You can count them.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "wall"
-                  },
-                  {
-                    "text": "and"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "comparisons",
+                "value": {
+                  "var": "comparisons",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "The Omega(N log N) decision tree lower bound proves that no.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "comparisons",
+                "value": {
+                  "var": "comparisons",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -53,35 +87,53 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "The O(N log N) wall and how to get round it",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The sort concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Any sort that works only by comparing pairs of items needs about N log N.",
+            "bars": [
               {
-                "cells": [
-                  "The",
-                  "log"
-                ],
+                "label": "n",
+                "value": 1000,
+                "tone": "data"
+              },
+              {
+                "label": "comparisons",
+                "value": 9966,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The comparison logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "You can count them.",
+            "bars": [
               {
-                "cells": [
-                  "wall",
-                  "and"
-                ],
+                "label": "n",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "comparisons",
+                "value": 9966,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "The Omega(N log N) decision tree lower bound proves that no.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "comparisons",
+                "value": 9966,
                 "tone": "ok"
               }
             ]
@@ -93,80 +145,123 @@
       "partTitle": "Counting sort",
       "codeHash": "30691a8e26d3bc453f6689782b5c0dbc81ef82931b3ac79c96a48e050e8bbf34",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Counting sort",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Counting sort sorts whole numbers from 0 to max_val.",
+            "items": {
+              "var": "marks",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Counting"
-                  },
-                  {
-                    "text": "sort"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The pass logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Walk the data once and add 1 to counts[x] for each number.",
+            "items": {
+              "var": "marks",
+              "line": 11,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Counting"
-                  },
-                  {
-                    "text": "sort"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "If K is huge compared with N, for example sorting 10 numbers that can be.",
+            "items": {
+              "var": "marks",
+              "line": 11,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Counting sort",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Counting sort sorts whole numbers from 0 to max_val.",
+            "items": [
+              "7",
+              "3",
+              "9",
+              "3",
+              "0",
+              "10",
+              "7",
+              "7"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Counting",
-                  "sort"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The pass logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Walk the data once and add 1 to counts[x] for each number.",
+            "items": [
+              "7",
+              "3",
+              "9",
+              "3",
+              "0",
+              "10",
+              "7",
+              "7"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Counting",
-                  "sort"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "If K is huge compared with N, for example sorting 10 numbers that can be.",
+            "items": [
+              "7",
+              "3",
+              "9",
+              "3",
+              "0",
+              "10",
+              "7",
+              "7"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,80 +272,117 @@
       "partTitle": "Sorting 0s, 1s and 2s in one pass",
       "codeHash": "db6e771c2f998be83969fe9450518535b61457d3a910cc1369bf8ca08f4c78cc",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Sorting 0s, 1s and 2s in one pass",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 1 is the Dutch national flag problem.",
+            "items": {
+              "var": "nums",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Sorting"
-                  },
-                  {
-                    "text": "and"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The nums logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Use three pointers.",
+            "items": {
+              "var": "nums",
+              "line": 3,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "one"
-                  },
-                  {
-                    "text": "pass"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "The Dutch National Flag algorithm partitions an array into three.",
+            "items": {
+              "var": "nums",
+              "line": 3,
+              "hit": 3
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Sorting 0s, 1s and 2s in one pass",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 1 is the Dutch national flag problem.",
+            "items": [
+              "2",
+              "0",
+              "2",
+              "1",
+              "1",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Sorting",
-                  "and"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The nums logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Use three pointers.",
+            "items": [
+              "0",
+              "0",
+              "2",
+              "1",
+              "1",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "one",
-                  "pass"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "The Dutch National Flag algorithm partitions an array into three.",
+            "items": [
+              "0",
+              "0",
+              "2",
+              "1",
+              "1",
+              "2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -261,80 +393,105 @@
       "partTitle": "Stable counting sort for records",
       "codeHash": "7dadc583af723f44a93f115fa2a9584ce96b3be55537041bc3d2a4d01ca9ef7c",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Stable counting sort for records",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The real concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Real data is usually records, not bare numbers.",
+            "items": {
+              "var": "r",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Stable"
-                  },
-                  {
-                    "text": "counting"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The bucket logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The stable version builds one bucket per key value and appends each record.",
+            "items": {
+              "var": "r",
+              "line": 3,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "sort"
-                  },
-                  {
-                    "text": "for"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "It is still O(N + K).",
+            "items": {
+              "var": "r",
+              "line": 5,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Stable counting sort for records",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The real concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Real data is usually records, not bare numbers.",
+            "items": [
+              "'Anil'",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Stable",
-                  "counting"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The bucket logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The stable version builds one bucket per key value and appends each record.",
+            "items": [
+              "'Divya'",
+              "1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "sort",
-                  "for"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "It is still O(N + K).",
+            "items": [
+              "'Bela'",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -345,82 +502,94 @@
       "partTitle": "Radix sort: digit by digit",
       "codeHash": "e74dc53abeb63ad850669a6a9a3c7d06be876434b243f70364ec805f60d1c923",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Radix sort: digit by digit",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The counting concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Radix"
-                  },
-                  {
-                    "text": "sort"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Counting sort needs a small range.",
+            "items": {
+              "var": "nums",
+              "line": 2,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The numbers logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "digit"
-                  },
-                  {
-                    "text": "digit"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Start with the ones digit, then the tens, then the hundreds.",
+            "items": {
+              "var": "nums",
+              "line": 3,
+              "hit": 2
+            },
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "LSD (Least Significant Digit) Radix Sort strictly requires a stable.",
+            "items": {
+              "var": "nums",
+              "line": 4,
+              "hit": 10
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Radix sort: digit by digit",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The counting concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Radix",
-                  "sort"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Counting sort needs a small range.",
+            "mode": "stack",
+            "items": [
+              "170",
+              "45",
+              "75",
+              "90",
+              "802",
+              "24",
+              "2",
+              "66"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The numbers logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "digit",
-                  "digit"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Start with the ones digit, then the tens, then the hundreds.",
+            "mode": "stack",
+            "items": [
+              "170",
+              "45",
+              "75",
+              "90",
+              "802",
+              "24",
+              "2",
+              "66"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "LSD (Least Significant Digit) Radix Sort strictly requires a stable.",
+            "mode": "stack",
+            "items": [
+              "170",
+              "45",
+              "75",
+              "90",
+              "802",
+              "24",
+              "2",
+              "66"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -429,43 +598,77 @@
       "partTitle": "Choosing a sort",
       "codeHash": "55241ffd9690b3194fcbd69cc4afa23b5b0de83407987fd2a19953a4d424c607",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Choosing a sort",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The know concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "You now know several sorts.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Choosing"
-                  },
-                  {
-                    "text": "sort"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "value_range",
+                "value": {
+                  "var": "value_range",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The three logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Reach for counting sort when you have many whole numbers in a small range.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Choosing"
-                  },
-                  {
-                    "text": "sort"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "value_range",
+                "value": {
+                  "var": "value_range",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "In interviews, say the constraint that makes a special sort possible.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "value_range",
+                "value": {
+                  "var": "value_range",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -473,35 +676,53 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Choosing a sort",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The know concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "You now know several sorts.",
+            "bars": [
               {
-                "cells": [
-                  "Choosing",
-                  "sort"
-                ],
+                "label": "n",
+                "value": 1000000,
+                "tone": "data"
+              },
+              {
+                "label": "value_range",
+                "value": 101,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The three logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Reach for counting sort when you have many whole numbers in a small range.",
+            "bars": [
               {
-                "cells": [
-                  "Choosing",
-                  "sort"
-                ],
+                "label": "n",
+                "value": 1000000,
+                "tone": "ok"
+              },
+              {
+                "label": "value_range",
+                "value": 101,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "In interviews, say the constraint that makes a special sort possible.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1000000,
+                "tone": "ok"
+              },
+              {
+                "label": "value_range",
+                "value": 101,
                 "tone": "ok"
               }
             ]

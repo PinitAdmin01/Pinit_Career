@@ -2,238 +2,284 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 23,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Orchestration and Step Functions",
       "codeHash": "5ea9d57bd650d89f5e1f1d9f94e28af962589f1e41ed698c9cb775cdbaf59064",
       "spec": {
-        "template": "table",
-        "title": "State machine execution path and sequential transitions",
-        "columns": [
-          "state",
-          "next"
+        "template": "flow",
+        "title": "Orchestration and Step Functions",
+        "nodes": [
+          {
+            "id": "workflow",
+            "label": "workflow"
+          },
+          {
+            "id": "state",
+            "label": "state"
+          },
+          {
+            "id": "history",
+            "label": "history"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "State machines coordinate transitions between workflow steps.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ValidateOrder"
-                  },
-                  {
-                    "text": "ChargeCard"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "AWS Step Functions runs workflows called state machines.",
+            "values": {
+              "workflow": {
+                "var": "workflow",
+                "line": 1,
+                "hit": 2
+              },
+              "state": {
+                "var": "state",
+                "line": 5,
+                "hit": 1
+              },
+              "history": {
+                "var": "history",
+                "line": 5,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "workflow": "data",
+              "state": "data",
+              "history": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "workflow",
+                "state"
+              ],
+              [
+                "state",
+                "history"
+              ],
+              [
+                "history",
+                "step"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Orchestration coordinates process execution from one central place.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ValidateOrder"
-                  },
-                  {
-                    "text": "ChargeCard"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "That is orchestration.",
+            "values": {
+              "workflow": {
+                "var": "workflow",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "ChargeCard"
-                  },
-                  {
-                    "text": "ShipOrder"
-                  }
-                ],
-                "tone": "ok"
+              "state": {
+                "var": "state",
+                "line": 6,
+                "hit": 1
+              },
+              "history": {
+                "var": "history",
+                "line": 6,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "workflow": "data",
+              "state": "data",
+              "history": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "workflow",
+                "state"
+              ],
+              [
+                "state",
+                "history"
+              ],
+              [
+                "history",
+                "step"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Standard workflows reliably record every execution step.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ValidateOrder"
-                  },
-                  {
-                    "text": "ChargeCard"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example runs a tiny three-step workflow and records each transition.",
+            "values": {
+              "workflow": {
+                "var": "workflow",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "ChargeCard"
-                  },
-                  {
-                    "text": "ShipOrder"
-                  }
-                ],
-                "tone": "ok"
+              "state": {
+                "var": "state",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "ShipOrder"
-                  },
-                  {
-                    "text": "ShipOrder"
-                  }
-                ],
-                "tone": "ok"
+              "history": {
+                "var": "history",
+                "line": 7,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 11,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Orchestration provides clear order and auditability.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ValidateOrder"
-                  },
-                  {
-                    "text": "ChargeCard"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ChargeCard"
-                  },
-                  {
-                    "text": "ShipOrder"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ShipOrder"
-                  },
-                  {
-                    "text": "ShipOrder"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "workflow": "ok",
+              "state": "ok",
+              "history": "ok",
+              "step": "ok"
+            },
+            "arrows": [
+              [
+                "workflow",
+                "state"
+              ],
+              [
+                "state",
+                "history"
+              ],
+              [
+                "history",
+                "step"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "State machine execution path and sequential transitions",
-        "columns": [
-          "state",
-          "next"
+        "template": "flow",
+        "title": "Orchestration and Step Functions",
+        "nodes": [
+          {
+            "id": "workflow",
+            "label": "workflow"
+          },
+          {
+            "id": "state",
+            "label": "state"
+          },
+          {
+            "id": "history",
+            "label": "history"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "State machines coordinate transitions between workflow steps.",
-            "rows": [
-              {
-                "cells": [
-                  "ValidateOrder",
-                  "ChargeCard"
-                ],
-                "tone": "ok"
-              }
+            "caption": "AWS Step Functions runs workflows called state machines.",
+            "values": {
+              "workflow": "{'StartAt': 'ValidateOrder', 'States': …",
+              "state": "'ValidateOrder'",
+              "history": "[]",
+              "step": "{'Next': 'ChargeCard'}"
+            },
+            "tones": {
+              "workflow": "data",
+              "state": "data",
+              "history": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "workflow",
+                "state"
+              ],
+              [
+                "state",
+                "history"
+              ],
+              [
+                "history",
+                "step"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Orchestration coordinates process execution from one central place.",
-            "rows": [
-              {
-                "cells": [
-                  "ValidateOrder",
-                  "ChargeCard"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ChargeCard",
-                  "ShipOrder"
-                ],
-                "tone": "ok"
-              }
+            "caption": "That is orchestration.",
+            "values": {
+              "workflow": "{'StartAt': 'ValidateOrder', 'States': …",
+              "state": "'ValidateOrder'",
+              "history": "[]",
+              "step": "{'Next': 'ChargeCard'}"
+            },
+            "tones": {
+              "workflow": "data",
+              "state": "data",
+              "history": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "workflow",
+                "state"
+              ],
+              [
+                "state",
+                "history"
+              ],
+              [
+                "history",
+                "step"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Standard workflows reliably record every execution step.",
-            "rows": [
-              {
-                "cells": [
-                  "ValidateOrder",
-                  "ChargeCard"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ChargeCard",
-                  "ShipOrder"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ShipOrder",
-                  "ShipOrder"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Orchestration provides clear order and auditability.",
-            "rows": [
-              {
-                "cells": [
-                  "ValidateOrder",
-                  "ChargeCard"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ChargeCard",
-                  "ShipOrder"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ShipOrder",
-                  "ShipOrder"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "The example runs a tiny three-step workflow and records each transition.",
+            "values": {
+              "workflow": "{'StartAt': 'ValidateOrder', 'States': …",
+              "state": "'ValidateOrder'",
+              "history": "['ValidateOrder']",
+              "step": "{'Next': 'ChargeCard'}"
+            },
+            "tones": {
+              "workflow": "ok",
+              "state": "ok",
+              "history": "ok",
+              "step": "ok"
+            },
+            "arrows": [
+              [
+                "workflow",
+                "state"
+              ],
+              [
+                "state",
+                "history"
+              ],
+              [
+                "history",
+                "step"
+              ]
             ]
           }
         ]
@@ -243,231 +289,277 @@
       "partTitle": "Amazon States Language",
       "codeHash": "001eeb7cb20f6537bb76c14e24deb162c5d2569a8f53f61595cc35a316830d49",
       "spec": {
-        "template": "table",
-        "title": "Amazon States Language state types and syntax validation",
-        "columns": [
-          "name",
-          "type"
+        "template": "flow",
+        "title": "Amazon States Language",
+        "nodes": [
+          {
+            "id": "VALID",
+            "label": "VALID"
+          },
+          {
+            "id": "defn",
+            "label": "defn"
+          },
+          {
+            "id": "states",
+            "label": "states"
+          },
+          {
+            "id": "problems",
+            "label": "problems"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Amazon States Language defines state machine transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Charge"
-                  },
-                  {
-                    "text": "Task"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "State machines are written in Amazon States Language (ASL), a JSON format.",
+            "values": {
+              "VALID": {
+                "var": "VALID",
+                "line": 1,
+                "hit": 1
+              },
+              "defn": {
+                "var": "defn",
+                "line": 11,
+                "hit": 2
+              },
+              "states": {
+                "var": "states",
+                "line": 4,
+                "hit": 1
+              },
+              "problems": {
+                "var": "problems",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "VALID": "data",
+              "defn": "data",
+              "states": "data",
+              "problems": "data"
+            },
+            "arrows": [
+              [
+                "VALID",
+                "defn"
+              ],
+              [
+                "defn",
+                "states"
+              ],
+              [
+                "states",
+                "problems"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Each state declares an execution Type for its task.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Charge"
-                  },
-                  {
-                    "text": "Task"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Each state has a Type.",
+            "values": {
+              "VALID": {
+                "var": "VALID",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Ship"
-                  },
-                  {
-                    "text": "Task"
-                  }
-                ],
-                "tone": "ok"
+              "defn": {
+                "var": "defn",
+                "line": 4,
+                "hit": 1
+              },
+              "states": {
+                "var": "states",
+                "line": 5,
+                "hit": 1
+              },
+              "problems": {
+                "var": "problems",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "VALID": "data",
+              "defn": "data",
+              "states": "data",
+              "problems": "data"
+            },
+            "arrows": [
+              [
+                "VALID",
+                "defn"
+              ],
+              [
+                "defn",
+                "states"
+              ],
+              [
+                "states",
+                "problems"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "States connect sequentially with Next or terminate with End.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Charge"
-                  },
-                  {
-                    "text": "Task"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example validates a definition with a typo in one Next field.",
+            "values": {
+              "VALID": {
+                "var": "VALID",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Ship"
-                  },
-                  {
-                    "text": "Task"
-                  }
-                ],
-                "tone": "ok"
+              "defn": {
+                "var": "defn",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Done"
-                  },
-                  {
-                    "text": "Finish"
-                  }
-                ],
-                "tone": "idle"
+              "states": {
+                "var": "states",
+                "line": 6,
+                "hit": 1
+              },
+              "problems": {
+                "var": "problems",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Validators check StartAt and Next targets across state definitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Charge"
-                  },
-                  {
-                    "text": "Task"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Ship"
-                  },
-                  {
-                    "text": "Task"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Done"
-                  },
-                  {
-                    "text": "Finish"
-                  }
-                ],
-                "tone": "error"
-              }
+            },
+            "tones": {
+              "VALID": "ok",
+              "defn": "ok",
+              "states": "ok",
+              "problems": "ok"
+            },
+            "arrows": [
+              [
+                "VALID",
+                "defn"
+              ],
+              [
+                "defn",
+                "states"
+              ],
+              [
+                "states",
+                "problems"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Amazon States Language state types and syntax validation",
-        "columns": [
-          "name",
-          "type"
+        "template": "flow",
+        "title": "Amazon States Language",
+        "nodes": [
+          {
+            "id": "VALID",
+            "label": "VALID"
+          },
+          {
+            "id": "defn",
+            "label": "defn"
+          },
+          {
+            "id": "states",
+            "label": "states"
+          },
+          {
+            "id": "problems",
+            "label": "problems"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Amazon States Language defines state machine transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Charge",
-                  "Task"
-                ],
-                "tone": "ok"
-              }
+            "caption": "State machines are written in Amazon States Language (ASL), a JSON format.",
+            "values": {
+              "VALID": "{'Choice', 'Fail', 'Map', 'Parallel', '…",
+              "defn": "{'StartAt': 'Charge', 'States': {'Charg…",
+              "states": "{'Charge': {'Type': 'Task', 'Next': 'Sh…",
+              "problems": "[]"
+            },
+            "tones": {
+              "VALID": "data",
+              "defn": "data",
+              "states": "data",
+              "problems": "data"
+            },
+            "arrows": [
+              [
+                "VALID",
+                "defn"
+              ],
+              [
+                "defn",
+                "states"
+              ],
+              [
+                "states",
+                "problems"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Each state declares an execution Type for its task.",
-            "rows": [
-              {
-                "cells": [
-                  "Charge",
-                  "Task"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Ship",
-                  "Task"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Each state has a Type.",
+            "values": {
+              "VALID": "{'Choice', 'Fail', 'Map', 'Parallel', '…",
+              "defn": "{'StartAt': 'Charge', 'States': {'Charg…",
+              "states": "{'Charge': {'Type': 'Task', 'Next': 'Sh…",
+              "problems": "[]"
+            },
+            "tones": {
+              "VALID": "data",
+              "defn": "data",
+              "states": "data",
+              "problems": "data"
+            },
+            "arrows": [
+              [
+                "VALID",
+                "defn"
+              ],
+              [
+                "defn",
+                "states"
+              ],
+              [
+                "states",
+                "problems"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "States connect sequentially with Next or terminate with End.",
-            "rows": [
-              {
-                "cells": [
-                  "Charge",
-                  "Task"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Ship",
-                  "Task"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Done",
-                  "Finish"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Validators check StartAt and Next targets across state definitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Charge",
-                  "Task"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Ship",
-                  "Task"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Done",
-                  "Finish"
-                ],
-                "tone": "error"
-              }
+            "at": "say7",
+            "caption": "The example validates a definition with a typo in one Next field.",
+            "values": {
+              "VALID": "{'Choice', 'Fail', 'Map', 'Parallel', '…",
+              "defn": "{'StartAt': 'Charge', 'States': {'Charg…",
+              "states": "{'Charge': {'Type': 'Task', 'Next': 'Sh…",
+              "problems": "[]"
+            },
+            "tones": {
+              "VALID": "ok",
+              "defn": "ok",
+              "states": "ok",
+              "problems": "ok"
+            },
+            "arrows": [
+              [
+                "VALID",
+                "defn"
+              ],
+              [
+                "defn",
+                "states"
+              ],
+              [
+                "states",
+                "problems"
+              ]
             ]
           }
         ]
@@ -477,232 +569,162 @@
       "partTitle": "The saga pattern",
       "codeHash": "7ee51f0c2a8a76d7919e007e560bb054fc1a20e3ddfa871cece4a27e977dcae9",
       "spec": {
-        "template": "table",
-        "title": "Distributed transaction saga execution and compensation undo",
-        "columns": [
+        "template": "sequence",
+        "title": "The saga pattern",
+        "actors": [
+          "log",
           "name",
-          "status"
+          "fail"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Multi-service workflows lack a single distributed database transaction.",
-            "rows": [
+            "caption": "A business process often spans several services, each with its own database.",
+            "activeActor": "log",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "ReserveHotel"
-                  },
-                  {
-                    "text": "success"
-                  }
-                ],
+                "from": "log",
+                "to": "name",
+                "label": {
+                  "var": "log",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "fail",
+                "label": {
+                  "var": "name",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Sagas pair each completed step with a compensating undo action.",
-            "rows": [
+            "caption": "A saga handles this.",
+            "activeActor": "name",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "ReserveHotel"
-                  },
-                  {
-                    "text": "success"
-                  }
-                ],
-                "tone": "ok"
+                "from": "log",
+                "to": "name",
+                "label": {
+                  "var": "log",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "BookFlight"
-                  },
-                  {
-                    "text": "success"
-                  }
-                ],
+                "from": "name",
+                "to": "fail",
+                "label": {
+                  "var": "name",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Failures trigger compensations in reverse order for succeeded steps.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example books a trip where the card is declined, and shows.",
+            "activeActor": "fail",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "ReserveHotel"
-                  },
-                  {
-                    "text": "success"
-                  }
-                ],
-                "tone": "ok"
+                "from": "log",
+                "to": "name",
+                "label": {
+                  "var": "log",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "BookFlight"
-                  },
-                  {
-                    "text": "success"
-                  }
-                ],
+                "from": "name",
+                "to": "fail",
+                "label": {
+                  "var": "name",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ChargeCard"
-                  },
-                  {
-                    "text": "failed_step"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Undoing completed actions in reverse order preserves consistency.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ReserveHotel"
-                  },
-                  {
-                    "text": "success"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "BookFlight"
-                  },
-                  {
-                    "text": "success"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ChargeCard"
-                  },
-                  {
-                    "text": "failed_step"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Distributed transaction saga execution and compensation undo",
-        "columns": [
+        "template": "sequence",
+        "title": "The saga pattern",
+        "actors": [
+          "log",
           "name",
-          "status"
+          "fail"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Multi-service workflows lack a single distributed database transaction.",
-            "rows": [
+            "caption": "A business process often spans several services, each with its own database.",
+            "messages": [
               {
-                "cells": [
-                  "ReserveHotel",
-                  "success"
-                ],
+                "from": "log",
+                "to": "name",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "fail",
+                "label": "'ReserveHotel'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "log"
           },
           {
             "at": "say2",
-            "caption": "Sagas pair each completed step with a compensating undo action.",
-            "rows": [
+            "caption": "A saga handles this.",
+            "messages": [
               {
-                "cells": [
-                  "ReserveHotel",
-                  "success"
-                ],
-                "tone": "ok"
+                "from": "log",
+                "to": "name",
+                "label": "[]",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "BookFlight",
-                  "success"
-                ],
+                "from": "name",
+                "to": "fail",
+                "label": "'ReserveHotel'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "name"
           },
           {
-            "at": "say3",
-            "caption": "Failures trigger compensations in reverse order for succeeded steps.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example books a trip where the card is declined, and shows.",
+            "messages": [
               {
-                "cells": [
-                  "ReserveHotel",
-                  "success"
-                ],
-                "tone": "ok"
+                "from": "log",
+                "to": "name",
+                "label": "[]",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "BookFlight",
-                  "success"
-                ],
+                "from": "name",
+                "to": "fail",
+                "label": "'BookFlight'",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ChargeCard",
-                  "failed_step"
-                ],
-                "tone": "error"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Undoing completed actions in reverse order preserves consistency.",
-            "rows": [
-              {
-                "cells": [
-                  "ReserveHotel",
-                  "success"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "BookFlight",
-                  "success"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ChargeCard",
-                  "failed_step"
-                ],
-                "tone": "error"
-              }
-            ]
+            ],
+            "activeActor": "fail"
           }
         ]
       }
@@ -711,178 +733,106 @@
       "partTitle": "Retries, catches and timeouts",
       "codeHash": "ef4df87f655e696e540fbc366746f649b86f0eb8d4109be811c9df7a34964ee9",
       "spec": {
-        "template": "table",
-        "title": "Declarative task retry policies and catch fallbacks",
-        "columns": [
-          "fn",
-          "error"
+        "template": "states",
+        "title": "Retries, catches and timeouts",
+        "states": [
+          {
+            "id": "retry_on",
+            "label": "retry_on"
+          },
+          {
+            "id": "max_attempts",
+            "label": "max_attempts"
+          },
+          {
+            "id": "interval",
+            "label": "interval"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Step Functions tasks declare declarative Retry and Catch rules.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "flaky"
-                  },
-                  {
-                    "text": "TimeoutError"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Steps call real services, which fail sometimes.",
+            "currentState": "retry_on",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Retry rules configure intervals and progressive backoff rates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "flaky"
-                  },
-                  {
-                    "text": "TimeoutError"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A Retry rule lists error names, an interval, a maximum number of attempts.",
+            "currentState": "max_attempts",
+            "transition": {
+              "from": "retry_on",
+              "to": "max_attempts",
+              "label": {
+                "var": "max_attempts",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Catch transitions route exhausted retries to failure states.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "flaky"
-                  },
-                  {
-                    "text": "TimeoutError"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "declined"
-                  },
-                  {
-                    "text": "ValueError"
-                  }
-                ],
-                "tone": "error"
+            "at": "say7",
+            "caption": "This is declarative error handling.",
+            "currentState": "interval",
+            "transition": {
+              "from": "max_attempts",
+              "to": "interval",
+              "label": {
+                "var": "interval",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Permanent errors route directly to Catch without repeated retries.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "flaky"
-                  },
-                  {
-                    "text": "TimeoutError"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "declined"
-                  },
-                  {
-                    "text": "ValueError"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Declarative task retry policies and catch fallbacks",
-        "columns": [
-          "fn",
-          "error"
+        "template": "states",
+        "title": "Retries, catches and timeouts",
+        "states": [
+          {
+            "id": "retry_on",
+            "label": "retry_on"
+          },
+          {
+            "id": "max_attempts",
+            "label": "max_attempts"
+          },
+          {
+            "id": "interval",
+            "label": "interval"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Step Functions tasks declare declarative Retry and Catch rules.",
-            "rows": [
-              {
-                "cells": [
-                  "flaky",
-                  "TimeoutError"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Steps call real services, which fail sometimes.",
+            "currentState": "retry_on",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Retry rules configure intervals and progressive backoff rates.",
-            "rows": [
-              {
-                "cells": [
-                  "flaky",
-                  "TimeoutError"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "A Retry rule lists error names, an interval, a maximum number of attempts.",
+            "currentState": "max_attempts",
+            "transition": {
+              "from": "retry_on",
+              "to": "max_attempts",
+              "label": "3"
+            },
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Catch transitions route exhausted retries to failure states.",
-            "rows": [
-              {
-                "cells": [
-                  "flaky",
-                  "TimeoutError"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "declined",
-                  "ValueError"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Permanent errors route directly to Catch without repeated retries.",
-            "rows": [
-              {
-                "cells": [
-                  "flaky",
-                  "TimeoutError"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "declined",
-                  "ValueError"
-                ],
-                "tone": "error"
-              }
-            ]
+            "at": "say7",
+            "caption": "This is declarative error handling.",
+            "currentState": "interval",
+            "transition": {
+              "from": "max_attempts",
+              "to": "interval",
+              "label": "2"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -891,223 +841,133 @@
       "partTitle": "Parallel steps and human approval",
       "codeHash": "12719c6ee81bb8389ca2280024510dce7307d0bb5bd1cd808cb2d278fda6a672",
       "spec": {
-        "template": "flow",
-        "title": "Parallel steps and human approval — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Parallel steps and ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Parallel steps and human approval",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Parallel steps and human approval.",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Parallel steps and ... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Parallel states run independent branches at the same time and wait for all.",
+            "bars": [
+              {
+                "label": "sequential",
+                "value": {
+                  "var": "sequential",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "parallel",
+                "value": {
+                  "var": "parallel",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The total time of a Parallel state is roughly the time of its slowest.",
+            "bars": [
+              {
+                "label": "sequential",
+                "value": {
+                  "var": "sequential",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "parallel",
+                "value": {
+                  "var": "parallel",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Parallel steps and human approval.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Look for independent steps in any workflow.",
+            "bars": [
+              {
+                "label": "sequential",
+                "value": {
+                  "var": "sequential",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "parallel",
+                "value": {
+                  "var": "parallel",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Parallel steps and human approval — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Parallel steps and ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Parallel steps and human approval",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Parallel steps and human approval [D23.P5.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Parallel steps and ... [D23.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Parallel states run independent branches at the same time and wait for all.",
+            "bars": [
+              {
+                "label": "sequential",
+                "value": 650,
+                "tone": "data"
+              },
+              {
+                "label": "parallel",
+                "value": 450,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The total time of a Parallel state is roughly the time of its slowest.",
+            "bars": [
+              {
+                "label": "sequential",
+                "value": 650,
+                "tone": "ok"
+              },
+              {
+                "label": "parallel",
+                "value": 450,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Parallel steps and human approval [D23.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Look for independent steps in any workflow.",
+            "bars": [
+              {
+                "label": "sequential",
+                "value": 650,
+                "tone": "ok"
+              },
+              {
+                "label": "parallel",
+                "value": 450,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -1118,110 +978,161 @@
       "codeHash": "22a420c7e97b19fc7fff190fc6928e0e8cc9adfc6e79bee78452deb82d7ee319",
       "spec": {
         "template": "flow",
-        "title": "Practice time: saga and validator — Execution Pipeline",
+        "title": "Practice time: saga and validator",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "log",
+            "label": "log"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: saga...",
-            "tappable": true
+            "id": "steps",
+            "label": "steps"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "done",
+            "label": "done"
+          },
+          {
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: saga and validator [D.Psix.Sone].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: saga... [D.Psix.Stwo].",
+            "caption": "Run_saga(steps).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "log": {
+                "var": "log",
+                "line": 1,
+                "hit": 1
+              },
+              "steps": {
+                "var": "steps",
+                "line": 2,
+                "hit": 1
+              },
+              "done": {
+                "var": "done",
+                "line": 3,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "log": "data",
+              "steps": "data",
+              "done": "data",
+              "name": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "log",
+                "steps"
               ],
               [
-                "proc",
-                "out"
+                "steps",
+                "done"
+              ],
+              [
+                "done",
+                "name"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "On failure, loop over reversed(done), call each undo, collect the names.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "log": {
+                "var": "log",
+                "line": 2,
+                "hit": 1
+              },
+              "steps": {
+                "var": "steps",
+                "line": 3,
+                "hit": 1
+              },
+              "done": {
+                "var": "done",
+                "line": 4,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "log": "data",
+              "steps": "data",
+              "done": "data",
+              "name": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "log",
+                "steps"
+              ],
+              [
+                "steps",
+                "done"
+              ],
+              [
+                "done",
+                "name"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: saga and validator.",
+            "at": "say7",
+            "caption": "The example shows the bug of adding a step to done before running it.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "log": {
+                "var": "log",
+                "line": 3,
+                "hit": 1
+              },
+              "steps": {
+                "var": "steps",
+                "line": 4,
+                "hit": 1
+              },
+              "done": {
+                "var": "done",
+                "line": 5,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "log": "ok",
+              "steps": "ok",
+              "done": "ok",
+              "name": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "log",
+                "steps"
               ],
               [
-                "proc",
-                "out"
+                "steps",
+                "done"
+              ],
+              [
+                "done",
+                "name"
               ]
             ]
           }
@@ -1229,110 +1140,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: saga and validator — Execution Pipeline",
+        "title": "Practice time: saga and validator",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "log",
+            "label": "log"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: saga...",
-            "tappable": true
+            "id": "steps",
+            "label": "steps"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "done",
+            "label": "done"
+          },
+          {
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: saga and validator [D23.P6.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: saga... [D23.P6.S2].",
+            "caption": "Run_saga(steps).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "log": "[]",
+              "steps": "[['A', False], ['B', True]]",
+              "done": "[]",
+              "name": "'A'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "log": "data",
+              "steps": "data",
+              "done": "data",
+              "name": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "log",
+                "steps"
               ],
               [
-                "proc",
-                "out"
+                "steps",
+                "done"
+              ],
+              [
+                "done",
+                "name"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P6.S3].",
+            "at": "say2",
+            "caption": "On failure, loop over reversed(done), call each undo, collect the names.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "log": "[]",
+              "steps": "[['A', False], ['B', True]]",
+              "done": "[]",
+              "name": "'A'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "log": "data",
+              "steps": "data",
+              "done": "data",
+              "name": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "log",
+                "steps"
+              ],
+              [
+                "steps",
+                "done"
+              ],
+              [
+                "done",
+                "name"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: saga and validator [D23.P6.S4].",
+            "at": "say7",
+            "caption": "The example shows the bug of adding a step to done before running it.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "log": "[]",
+              "steps": "[['A', False], ['B', True]]",
+              "done": "['A']",
+              "name": "'A'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "log": "ok",
+              "steps": "ok",
+              "done": "ok",
+              "name": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "log",
+                "steps"
               ],
               [
-                "proc",
-                "out"
+                "steps",
+                "done"
+              ],
+              [
+                "done",
+                "name"
               ]
             ]
           }

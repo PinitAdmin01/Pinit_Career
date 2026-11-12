@@ -2,83 +2,139 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 11,
-  "promptSha": "a7156492b3708c1cb59540cae3cabc1a22fe1d61d108820f309494d95954c953",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Authentication versus authorisation",
       "codeHash": "1293399e1ac8c18603a93df3b03a8e2c1bcf734854559856b5775787d4483d2d",
       "spec": {
-        "template": "compare",
-        "title": "Authentication identity verification versus authorization access governance",
-        "left": {
-          "title": "Authentication Identity",
-          "items": [
-            "Verifies who the user claims to be",
-            "Evaluates passwords or one-time codes",
-            "Establishes authenticated principal id"
-          ]
-        },
-        "right": {
-          "title": "Authorization Access",
-          "items": [
-            "Governs what principals may perform",
-            "Evaluates permissions against actions",
-            "Groups permissions into assigned roles"
-          ]
-        },
-        "steps": [
+        "template": "boxes",
+        "title": "Authentication versus authorisation",
+        "boxes": [
           {
-            "at": "say2",
-            "caption": "Authentication verifies the identity of an authenticated principal.",
-            "highlightSide": "left",
-            "statusBadge": "active"
+            "id": "user",
+            "label": "user"
           },
           {
-            "at": "say5",
-            "caption": "Individual permissions are grouped into roles assigned to users.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "action",
+            "label": "action"
           }
         ],
-        "leftLabel": "Authentication Identity",
-        "rightLabel": "Authorization Access"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Authentication answers \"who are you.",
+            "values": {
+              "user": {
+                "var": "user",
+                "line": 1,
+                "hit": 1
+              },
+              "action": {
+                "var": "action",
+                "line": 9,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "user": "data",
+              "action": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "It is the most common serious web vulnerability.",
+            "values": {
+              "user": {
+                "var": "user",
+                "line": 2,
+                "hit": 1
+              },
+              "action": {
+                "var": "action",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "user": "data",
+              "action": "data"
+            }
+          },
+          {
+            "at": "say10",
+            "caption": "Logging authorisation failures helps detect users probing for access they.",
+            "values": {
+              "user": {
+                "var": "user",
+                "line": 9,
+                "hit": 1
+              },
+              "action": {
+                "var": "action",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "user": "ok",
+              "action": "ok"
+            }
+          }
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Authentication identity verification versus authorization access governance",
-        "left": {
-          "title": "Authentication Identity",
-          "items": [
-            "Verifies who the user claims to be",
-            "Evaluates passwords or one-time codes",
-            "Establishes authenticated principal id"
-          ]
-        },
-        "right": {
-          "title": "Authorization Access",
-          "items": [
-            "Governs what principals may perform",
-            "Evaluates permissions against actions",
-            "Groups permissions into assigned roles"
-          ]
-        },
-        "steps": [
+        "template": "boxes",
+        "title": "Authentication versus authorisation",
+        "boxes": [
           {
-            "at": "say2",
-            "caption": "Authentication verifies the identity of an authenticated principal.",
-            "highlightSide": "left",
-            "statusBadge": "active"
+            "id": "user",
+            "label": "user"
           },
           {
-            "at": "say5",
-            "caption": "Individual permissions are grouped into roles assigned to users.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "action",
+            "label": "action"
           }
         ],
-        "leftLabel": "Authentication Identity",
-        "rightLabel": "Authorization Access"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Authentication answers \"who are you.",
+            "values": {
+              "user": "{'id': 'u7', 'logged_in': True, 'permis…",
+              "action": "'read_reports'"
+            },
+            "tones": {
+              "user": "data",
+              "action": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "It is the most common serious web vulnerability.",
+            "values": {
+              "user": "{'id': 'u7', 'logged_in': True, 'permis…",
+              "action": "'read_reports'"
+            },
+            "tones": {
+              "user": "data",
+              "action": "data"
+            }
+          },
+          {
+            "at": "say10",
+            "caption": "Logging authorisation failures helps detect users probing for access they.",
+            "values": {
+              "user": "{'id': 'u7', 'logged_in': True, 'permis…",
+              "action": "'read_reports'"
+            },
+            "tones": {
+              "user": "ok",
+              "action": "ok"
+            }
+          }
+        ]
       }
     },
     {
@@ -86,101 +142,277 @@
       "codeHash": "bef58aa19b50fab1554578164e7bfffbb26759eeb52923db92b7a0b61d49c761",
       "spec": {
         "template": "flow",
-        "title": "Hierarchical role inheritance directed acyclic graph and transitive closure",
+        "title": "Role-based access control",
         "nodes": [
           {
-            "id": "superAdmin",
-            "label": "SuperAdmin"
+            "id": "perms",
+            "label": "perms"
           },
           {
-            "id": "manager",
-            "label": "Manager"
+            "id": "parents",
+            "label": "parents"
           },
           {
-            "id": "staffMember",
-            "label": "StaffMember"
-          }
-        ],
-        "edges": [
-          {
-            "from": "superAdmin",
-            "to": "manager",
-            "label": "Inherits"
+            "id": "role",
+            "label": "role"
           },
           {
-            "from": "manager",
-            "to": "staffMember",
-            "label": "Inherits"
+            "id": "stack",
+            "label": "stack"
           }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "SuperAdmin inherits all permissions from Manager and StaffMember.",
-            "activeNodes": [
-              "superAdmin",
-              "manager"
-            ],
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Role-based access control (RBAC) assigns permissions to roles, and roles.",
+            "values": {
+              "perms": {
+                "var": "perms",
+                "line": 1,
+                "hit": 1
+              },
+              "parents": {
+                "var": "parents",
+                "line": 2,
+                "hit": 1
+              },
+              "role": {
+                "var": "role",
+                "line": 13,
+                "hit": 1
+              },
+              "stack": {
+                "var": "stack",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "perms": "data",
+              "parents": "data",
+              "role": "data",
+              "stack": "data"
+            },
+            "arrows": [
+              [
+                "perms",
+                "parents"
+              ],
+              [
+                "parents",
+                "role"
+              ],
+              [
+                "role",
+                "stack"
+              ]
+            ]
           },
           {
-            "at": "say6",
-            "caption": "The authorizer traverses the role hierarchy tree to resolve all roles.",
-            "activeNodes": [
-              "manager",
-              "staffMember"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Viewer, editor, admin.",
+            "values": {
+              "perms": {
+                "var": "perms",
+                "line": 2,
+                "hit": 1
+              },
+              "parents": {
+                "var": "parents",
+                "line": 3,
+                "hit": 1
+              },
+              "role": {
+                "var": "role",
+                "line": 4,
+                "hit": 1
+              },
+              "stack": {
+                "var": "stack",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "perms": "data",
+              "parents": "data",
+              "role": "data",
+              "stack": "data"
+            },
+            "arrows": [
+              [
+                "perms",
+                "parents"
+              ],
+              [
+                "parents",
+                "role"
+              ],
+              [
+                "role",
+                "stack"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Separation of duties, such as preventing one person from both creating.",
+            "values": {
+              "perms": {
+                "var": "perms",
+                "line": 3,
+                "hit": 1
+              },
+              "parents": {
+                "var": "parents",
+                "line": 13,
+                "hit": 1
+              },
+              "role": {
+                "var": "role",
+                "line": 5,
+                "hit": 1
+              },
+              "stack": {
+                "var": "stack",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "perms": "ok",
+              "parents": "ok",
+              "role": "ok",
+              "stack": "ok"
+            },
+            "arrows": [
+              [
+                "perms",
+                "parents"
+              ],
+              [
+                "parents",
+                "role"
+              ],
+              [
+                "role",
+                "stack"
+              ]
+            ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Hierarchical role inheritance directed acyclic graph and transitive closure",
+        "title": "Role-based access control",
         "nodes": [
           {
-            "id": "superAdmin",
-            "label": "SuperAdmin"
+            "id": "perms",
+            "label": "perms"
           },
           {
-            "id": "manager",
-            "label": "Manager"
+            "id": "parents",
+            "label": "parents"
           },
           {
-            "id": "staffMember",
-            "label": "StaffMember"
-          }
-        ],
-        "edges": [
-          {
-            "from": "superAdmin",
-            "to": "manager",
-            "label": "Inherits"
+            "id": "role",
+            "label": "role"
           },
           {
-            "from": "manager",
-            "to": "staffMember",
-            "label": "Inherits"
+            "id": "stack",
+            "label": "stack"
           }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "SuperAdmin inherits all permissions from Manager and StaffMember.",
-            "activeNodes": [
-              "superAdmin",
-              "manager"
-            ],
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Role-based access control (RBAC) assigns permissions to roles, and roles.",
+            "values": {
+              "perms": "{'viewer': {'read'}, 'editor': {'write'…",
+              "parents": "{'admin': ['editor'], 'editor': ['viewe…",
+              "role": "'viewer'",
+              "stack": "['viewer']"
+            },
+            "tones": {
+              "perms": "data",
+              "parents": "data",
+              "role": "data",
+              "stack": "data"
+            },
+            "arrows": [
+              [
+                "perms",
+                "parents"
+              ],
+              [
+                "parents",
+                "role"
+              ],
+              [
+                "role",
+                "stack"
+              ]
+            ]
           },
           {
-            "at": "say6",
-            "caption": "The authorizer traverses the role hierarchy tree to resolve all roles.",
-            "activeNodes": [
-              "manager",
-              "staffMember"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Viewer, editor, admin.",
+            "values": {
+              "perms": "{'viewer': {'read'}, 'editor': {'write'…",
+              "parents": "{'admin': ['editor'], 'editor': ['viewe…",
+              "role": "'viewer'",
+              "stack": "['viewer']"
+            },
+            "tones": {
+              "perms": "data",
+              "parents": "data",
+              "role": "data",
+              "stack": "data"
+            },
+            "arrows": [
+              [
+                "perms",
+                "parents"
+              ],
+              [
+                "parents",
+                "role"
+              ],
+              [
+                "role",
+                "stack"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Separation of duties, such as preventing one person from both creating.",
+            "values": {
+              "perms": "{'viewer': {'read'}, 'editor': {'write'…",
+              "parents": "{'admin': ['editor'], 'editor': ['viewe…",
+              "role": "'viewer'",
+              "stack": "[]"
+            },
+            "tones": {
+              "perms": "ok",
+              "parents": "ok",
+              "role": "ok",
+              "stack": "ok"
+            },
+            "arrows": [
+              [
+                "perms",
+                "parents"
+              ],
+              [
+                "parents",
+                "role"
+              ],
+              [
+                "role",
+                "stack"
+              ]
+            ]
           }
         ]
       }
@@ -189,202 +421,162 @@
       "partTitle": "Attribute-based access control",
       "codeHash": "196accb5b73e62158828690b9bcabed7a311078495c0049e4751727e5bf65fd1",
       "spec": {
-        "template": "table",
-        "title": "Attribute-based access control evaluation dimensions and categories",
-        "columns": [
-          "Attribute Family",
-          "Context Category",
-          "Representative Parameters",
-          "Evaluation Scope"
+        "template": "sequence",
+        "title": "Attribute-based access control",
+        "actors": [
+          "doc",
+          "users",
+          "u"
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Subject attributes describe characteristics of the requesting actor.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
+            "at": "say1",
+            "caption": "Attribute-based access control (ABAC) decides using attributes of.",
+            "activeActor": "doc",
+            "messages": [
               {
-                "cells": [
-                  "Subject Attributes",
-                  "Requesting Actor",
-                  "Department and Clearance Level",
-                  "Identity Claims"
-                ],
+                "from": "doc",
+                "to": "users",
+                "label": {
+                  "var": "doc",
+                  "line": 1,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Resource Attributes",
-                  "Target Object",
-                  "Classification and Owner Identifier",
-                  "Data Governance"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Action Attributes",
-                  "Operation Type",
-                  "Read Write and Export Requests",
-                  "Operational Intent"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Environment Attributes",
-                  "Runtime Posture",
-                  "Subnet Geolocation and Device Health",
-                  "Zero Trust Posture"
-                ],
-                "tone": "data"
+                "from": "users",
+                "to": "u",
+                "label": {
+                  "var": "users",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say8",
-            "caption": "Policy rules combine attributes into mathematical predicates.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "A user may read a document if their clearance is at least the document's.",
+            "activeActor": "users",
+            "messages": [
               {
-                "cells": [
-                  "Subject Attributes",
-                  "Requesting Actor",
-                  "Department and Clearance Level",
-                  "Identity Claims"
-                ],
+                "from": "doc",
+                "to": "users",
+                "label": {
+                  "var": "doc",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Resource Attributes",
-                  "Target Object",
-                  "Classification and Owner Identifier",
-                  "Data Governance"
-                ],
+                "from": "users",
+                "to": "u",
+                "label": {
+                  "var": "users",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "ABAC rules need tests just like code, because a small mistake can open.",
+            "activeActor": "u",
+            "messages": [
+              {
+                "from": "doc",
+                "to": "users",
+                "label": {
+                  "var": "doc",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Action Attributes",
-                  "Operation Type",
-                  "Read Write and Export Requests",
-                  "Operational Intent"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Environment Attributes",
-                  "Runtime Posture",
-                  "Subnet Geolocation and Device Health",
-                  "Zero Trust Posture"
-                ],
-                "tone": "data"
+                "from": "users",
+                "to": "u",
+                "label": {
+                  "var": "users",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Attribute-based access control evaluation dimensions and categories",
-        "columns": [
-          "Attribute Family",
-          "Context Category",
-          "Representative Parameters",
-          "Evaluation Scope"
+        "template": "sequence",
+        "title": "Attribute-based access control",
+        "actors": [
+          "doc",
+          "users",
+          "u"
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Subject attributes describe characteristics of the requesting actor.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
+            "at": "say1",
+            "caption": "Attribute-based access control (ABAC) decides using attributes of.",
+            "messages": [
               {
-                "cells": [
-                  "Subject Attributes",
-                  "Requesting Actor",
-                  "Department and Clearance Level",
-                  "Identity Claims"
-                ],
+                "from": "doc",
+                "to": "users",
+                "label": "{'classification': 2, 'department': 'fi…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Resource Attributes",
-                  "Target Object",
-                  "Classification and Owner Identifier",
-                  "Data Governance"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Action Attributes",
-                  "Operation Type",
-                  "Read Write and Export Requests",
-                  "Operational Intent"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Environment Attributes",
-                  "Runtime Posture",
-                  "Subnet Geolocation and Device Health",
-                  "Zero Trust Posture"
-                ],
-                "tone": "data"
+                "from": "users",
+                "to": "u",
+                "label": "[{'name': 'Asha', 'clearance': 3, 'depa…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "doc"
           },
           {
-            "at": "say8",
-            "caption": "Policy rules combine attributes into mathematical predicates.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "A user may read a document if their clearance is at least the document's.",
+            "messages": [
               {
-                "cells": [
-                  "Subject Attributes",
-                  "Requesting Actor",
-                  "Department and Clearance Level",
-                  "Identity Claims"
-                ],
+                "from": "doc",
+                "to": "users",
+                "label": "{'classification': 2, 'department': 'fi…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Resource Attributes",
-                  "Target Object",
-                  "Classification and Owner Identifier",
-                  "Data Governance"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Action Attributes",
-                  "Operation Type",
-                  "Read Write and Export Requests",
-                  "Operational Intent"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Environment Attributes",
-                  "Runtime Posture",
-                  "Subnet Geolocation and Device Health",
-                  "Zero Trust Posture"
-                ],
-                "tone": "data"
+                "from": "users",
+                "to": "u",
+                "label": "[{'name': 'Asha', 'clearance': 3, 'depa…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "users"
+          },
+          {
+            "at": "say9",
+            "caption": "ABAC rules need tests just like code, because a small mistake can open.",
+            "messages": [
+              {
+                "from": "doc",
+                "to": "users",
+                "label": "{'classification': 2, 'department': 'fi…",
+                "tone": "data"
+              },
+              {
+                "from": "users",
+                "to": "u",
+                "label": "[{'name': 'Asha', 'clearance': 3, 'depa…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "u"
           }
         ]
       }
@@ -394,73 +586,105 @@
       "codeHash": "ce87ae5ca640798f51a477f47d5f5c959575ab9c8737bc13e56d1a74bd7e365a",
       "spec": {
         "template": "states",
-        "title": "Environmental posture evaluation stages and contextual verification",
+        "title": "Least privilege and privilege creep",
         "states": [
           {
-            "id": "subnetVerified",
-            "label": "Subnet Geolocation Checked"
+            "id": "has",
+            "label": "has"
           },
           {
-            "id": "hoursEnforced",
-            "label": "Business Hours Evaluated"
+            "id": "role_needs",
+            "label": "role_needs"
           },
           {
-            "id": "deviceScored",
-            "label": "Device Compliance Scored"
-          },
-          {
-            "id": "accessPermitted",
-            "label": "Environmental Posture Permitted"
+            "id": "excess",
+            "label": "excess"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Network rules evaluate corporate subnets and internal access.",
-            "activeStateId": "subnetVerified",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Least privilege means every account has only the access it needs, for only.",
+            "currentState": "has",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Unexpected IP addresses trigger an immediate authentication challenge.",
-            "activeStateId": "accessPermitted",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Privilege creep happens when people change jobs and keep old access.",
+            "currentState": "role_needs",
+            "transition": {
+              "from": "has",
+              "to": "role_needs",
+              "label": {
+                "var": "role_needs",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Break-glass accounts for emergencies should be tightly controlled.",
+            "currentState": "excess",
+            "transition": {
+              "from": "role_needs",
+              "to": "excess",
+              "label": {
+                "var": "excess",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Environmental posture evaluation stages and contextual verification",
+        "title": "Least privilege and privilege creep",
         "states": [
           {
-            "id": "subnetVerified",
-            "label": "Subnet Geolocation Checked"
+            "id": "has",
+            "label": "has"
           },
           {
-            "id": "hoursEnforced",
-            "label": "Business Hours Evaluated"
+            "id": "role_needs",
+            "label": "role_needs"
           },
           {
-            "id": "deviceScored",
-            "label": "Device Compliance Scored"
-          },
-          {
-            "id": "accessPermitted",
-            "label": "Environmental Posture Permitted"
+            "id": "excess",
+            "label": "excess"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Network rules evaluate corporate subnets and internal access.",
-            "activeStateId": "subnetVerified",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Least privilege means every account has only the access it needs, for only.",
+            "currentState": "has",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Unexpected IP addresses trigger an immediate authentication challenge.",
-            "activeStateId": "accessPermitted",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Privilege creep happens when people change jobs and keep old access.",
+            "currentState": "role_needs",
+            "transition": {
+              "from": "has",
+              "to": "role_needs",
+              "label": "{'read', 'write'}"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Break-glass accounts for emergencies should be tightly controlled.",
+            "currentState": "excess",
+            "transition": {
+              "from": "role_needs",
+              "to": "excess",
+              "label": "['approve_payments', 'export_data', 'ma…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -469,300 +693,214 @@
       "partTitle": "Testing authorisation",
       "codeHash": "9d7521c75b61b3976d427178ae0167d89917a89df0548c3ec96f67cf2ccbf880",
       "spec": {
-        "template": "compare",
-        "title": "Vertical administrative escalation versus horizontal tenant tampering",
-        "left": {
-          "title": "Vertical Privilege Escalation",
-          "items": [
-            "Low privilege users acquire rights of superior roles",
-            "Endpoints assume only administrators will call them",
-            "Missing server side role and capability validation"
-          ]
-        },
-        "right": {
-          "title": "Horizontal Privilege Escalation",
-          "items": [
-            "Attackers access resources of peer privilege tiers",
-            "Tampering with object identifiers in request paths",
-            "Failing to enforce tenant and ownership query scoping"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Testing authorisation",
+        "states": [
           {
-            "at": "say2",
-            "caption": "Vertical privilege escalation occurs when users acquire superior rights.",
-            "highlightSide": "left",
-            "statusBadge": "failed"
+            "id": "perms",
+            "label": "perms"
           },
           {
-            "at": "say7",
-            "caption": "Data access queries must enforce ownership scoping to protect resources.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "expected",
+            "label": "expected"
+          },
+          {
+            "id": "role",
+            "label": "role"
           }
         ],
-        "leftLabel": "Vertical Privilege Escalation",
-        "rightLabel": "Horizontal Privilege Escalation"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Authorisation bugs are rarely found by normal testing, because testers.",
+            "currentState": "perms",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "An authorisation matrix lists every role against every action with.",
+            "currentState": "expected",
+            "transition": {
+              "from": "perms",
+              "to": "expected",
+              "label": {
+                "var": "expected",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Tomorrow focuses on the most common access-control bug in APIs.",
+            "currentState": "role",
+            "transition": {
+              "from": "expected",
+              "to": "role",
+              "label": {
+                "var": "role",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Vertical administrative escalation versus horizontal tenant tampering",
-        "left": {
-          "title": "Vertical Privilege Escalation",
-          "items": [
-            "Low privilege users acquire rights of superior roles",
-            "Endpoints assume only administrators will call them",
-            "Missing server side role and capability validation"
-          ]
-        },
-        "right": {
-          "title": "Horizontal Privilege Escalation",
-          "items": [
-            "Attackers access resources of peer privilege tiers",
-            "Tampering with object identifiers in request paths",
-            "Failing to enforce tenant and ownership query scoping"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Testing authorisation",
+        "states": [
           {
-            "at": "say2",
-            "caption": "Vertical privilege escalation occurs when users acquire superior rights.",
-            "highlightSide": "left",
-            "statusBadge": "failed"
+            "id": "perms",
+            "label": "perms"
           },
           {
-            "at": "say7",
-            "caption": "Data access queries must enforce ownership scoping to protect resources.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "expected",
+            "label": "expected"
+          },
+          {
+            "id": "role",
+            "label": "role"
           }
         ],
-        "leftLabel": "Vertical Privilege Escalation",
-        "rightLabel": "Horizontal Privilege Escalation"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Authorisation bugs are rarely found by normal testing, because testers.",
+            "currentState": "perms",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "An authorisation matrix lists every role against every action with.",
+            "currentState": "expected",
+            "transition": {
+              "from": "perms",
+              "to": "expected",
+              "label": "{['viewer', 'write']: False, ['editor',…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Tomorrow focuses on the most common access-control bug in APIs.",
+            "currentState": "role",
+            "transition": {
+              "from": "expected",
+              "to": "role",
+              "label": "'viewer'"
+            },
+            "tone": "ok"
+          }
+        ]
       }
     },
     {
       "partTitle": "Practice time: RBAC and ABAC",
       "codeHash": "69d765846a129ebb92c6bcbf2a6aac749bacb8e6992591dd690adde263378083",
       "spec": {
-        "template": "flow",
-        "title": "Engineering an Enterprise Policy Decision Poi... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Practice time: RBAC and ABAC",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "perms",
+            "label": "perms"
           },
           {
-            "id": "proc",
-            "label": "2. Engineering an Ente...",
-            "tappable": true
+            "id": "user",
+            "label": "user"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "doc",
+            "label": "doc"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Engineering an Enterprise Policy Decisio.",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Engineering an Ente... [Deleven.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Rbac_allowed(user_roles, permission, role_perms, parents).",
+            "currentState": "perms",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include two-level inheritance, a denied permission, multiple.",
+            "currentState": "user",
+            "transition": {
+              "from": "perms",
+              "to": "user",
+              "label": {
+                "var": "user",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Engineering an Enterprise Policy .",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "Clear, small authorisation functions are far easier to review than checks.",
+            "currentState": "doc",
+            "transition": {
+              "from": "user",
+              "to": "doc",
+              "label": {
+                "var": "doc",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Engineering an Enterprise Policy Decision Poi... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Practice time: RBAC and ABAC",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "perms",
+            "label": "perms"
           },
           {
-            "id": "proc",
-            "label": "2. Engineering an Ente...",
-            "tappable": true
+            "id": "user",
+            "label": "user"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "doc",
+            "label": "doc"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Engineering an Enterprise Policy Decisio.. [D11.P6.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Engineering an Ente... [D11.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Rbac_allowed(user_roles, permission, role_perms, parents).",
+            "currentState": "perms",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include two-level inheritance, a denied permission, multiple.",
+            "currentState": "user",
+            "transition": {
+              "from": "perms",
+              "to": "user",
+              "label": "{'id': 'u1', 'roles': ['editor'], 'clea…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Engineering an Enterprise Policy .. [D11.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "Clear, small authorisation functions are far easier to review than checks.",
+            "currentState": "doc",
+            "transition": {
+              "from": "user",
+              "to": "doc",
+              "label": "{'owner': 'u2', 'classification': 1, 'd…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

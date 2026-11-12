@@ -2,142 +2,172 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 17,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What a checkpoint contains",
       "codeHash": "a3276f9a166a4b8af4e60ee6f9cfb2805be46ea7018f2295f1a35141f5d57c0e",
       "spec": {
-        "template": "table",
-        "title": "Components and state saved inside a training checkpoint",
-        "columns": [
-          "step",
-          "weights",
-          "optimizer"
+        "template": "flow",
+        "title": "What a checkpoint contains",
+        "nodes": [
+          {
+            "id": "checkpoint",
+            "label": "checkpoint"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A checkpoint must hold everything needed to continue training smoothly.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "optimizer"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A checkpoint must hold everything needed to continue training exactly.",
+            "values": {
+              "checkpoint": {
+                "var": "checkpoint",
+                "line": 1,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "optimizer"
-                  }
-                ],
-                "tone": "data"
+              "key": {
+                "var": "key",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "checkpoint": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "checkpoint",
+                "key"
+              ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "For training checkpoints optimizer states are often larger than the weights.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "optimizer"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "That means model weights, optimizer states, the step count, the learning.",
+            "values": {
+              "checkpoint": {
+                "var": "checkpoint",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "ok"
+              "key": {
+                "var": "key",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "checkpoint": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "checkpoint",
+                "key"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today we use JSON to keep things readable.",
+            "values": {
+              "checkpoint": {
+                "var": "checkpoint",
+                "line": 5,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "checkpoint": "ok",
+              "key": "ok"
+            },
+            "arrows": [
+              [
+                "checkpoint",
+                "key"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Components and state saved inside a training checkpoint",
-        "columns": [
-          "step",
-          "weights",
-          "optimizer"
+        "template": "flow",
+        "title": "What a checkpoint contains",
+        "nodes": [
+          {
+            "id": "checkpoint",
+            "label": "checkpoint"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A checkpoint must hold everything needed to continue training smoothly.",
-            "rows": [
-              {
-                "cells": [
-                  "step",
-                  "weights",
-                  "optimizer"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "step",
-                  "weights",
-                  "optimizer"
-                ],
-                "tone": "data"
-              }
+            "caption": "A checkpoint must hold everything needed to continue training exactly.",
+            "values": {
+              "checkpoint": "{'version': 1, 'step': 12000, 'weights'…",
+              "key": "'version'"
+            },
+            "tones": {
+              "checkpoint": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "checkpoint",
+                "key"
+              ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "For training checkpoints optimizer states are often larger than the weights.",
-            "rows": [
-              {
-                "cells": [
-                  "step",
-                  "weights",
-                  "optimizer"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "step",
-                  "weights",
-                  "step"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "That means model weights, optimizer states, the step count, the learning.",
+            "values": {
+              "checkpoint": "{'version': 1, 'step': 12000, 'weights'…",
+              "key": "'version'"
+            },
+            "tones": {
+              "checkpoint": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "checkpoint",
+                "key"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today we use JSON to keep things readable.",
+            "values": {
+              "checkpoint": "{'version': 1, 'step': 12000, 'weights'…",
+              "key": "'step'"
+            },
+            "tones": {
+              "checkpoint": "ok",
+              "key": "ok"
+            },
+            "arrows": [
+              [
+                "checkpoint",
+                "key"
+              ]
             ]
           }
         ]
@@ -147,135 +177,277 @@
       "partTitle": "Saving and loading safely",
       "codeHash": "aa22960721ac339f5acb5ca4a4895d96bf9e14c6b4175d6ce478e99f22112ffa",
       "spec": {
-        "template": "table",
-        "title": "Deterministic serialization and safe deserialization validation",
-        "columns": [
-          "step",
-          "weights",
-          "loaded"
+        "template": "flow",
+        "title": "Saving and loading safely",
+        "nodes": [
+          {
+            "id": "state",
+            "label": "state"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "loaded",
+            "label": "loaded"
+          },
+          {
+            "id": "missing",
+            "label": "missing"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Saving turns the checkpoint dictionary into bytes while loading restores it.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "loaded"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Saving turns the checkpoint dictionary into bytes or text.",
+            "values": {
+              "state": {
+                "var": "state",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "loaded"
-                  }
-                ],
-                "tone": "data"
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 1
+              },
+              "loaded": {
+                "var": "loaded",
+                "line": 6,
+                "hit": 1
+              },
+              "missing": {
+                "var": "missing",
+                "line": 7,
+                "hit": 5
               }
+            },
+            "tones": {
+              "state": "data",
+              "text": "data",
+              "loaded": "data",
+              "missing": "data"
+            },
+            "arrows": [
+              [
+                "state",
+                "text"
+              ],
+              [
+                "text",
+                "loaded"
+              ],
+              [
+                "loaded",
+                "missing"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Deterministic output ensures identical states produce identical files.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "loaded"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Practice 1 is save_checkpoint(step, weights, optimizer_state, seed).",
+            "values": {
+              "state": {
+                "var": "state",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "weights"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "ok"
+              "text": {
+                "var": "text",
+                "line": 5,
+                "hit": 1
+              },
+              "loaded": {
+                "var": "loaded",
+                "line": 7,
+                "hit": 1
+              },
+              "missing": {
+                "var": "missing",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "state": "data",
+              "text": "data",
+              "loaded": "data",
+              "missing": "data"
+            },
+            "arrows": [
+              [
+                "state",
+                "text"
+              ],
+              [
+                "text",
+                "loaded"
+              ],
+              [
+                "loaded",
+                "missing"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Test loading right after saving in development, so format bugs appear early.",
+            "values": {
+              "state": {
+                "var": "state",
+                "line": 5,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 6,
+                "hit": 1
+              },
+              "loaded": {
+                "var": "loaded",
+                "line": 7,
+                "hit": 2
+              },
+              "missing": {
+                "var": "missing",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "state": "ok",
+              "text": "ok",
+              "loaded": "ok",
+              "missing": "ok"
+            },
+            "arrows": [
+              [
+                "state",
+                "text"
+              ],
+              [
+                "text",
+                "loaded"
+              ],
+              [
+                "loaded",
+                "missing"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Deterministic serialization and safe deserialization validation",
-        "columns": [
-          "step",
-          "weights",
-          "loaded"
+        "template": "flow",
+        "title": "Saving and loading safely",
+        "nodes": [
+          {
+            "id": "state",
+            "label": "state"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "loaded",
+            "label": "loaded"
+          },
+          {
+            "id": "missing",
+            "label": "missing"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Saving turns the checkpoint dictionary into bytes while loading restores it.",
-            "rows": [
-              {
-                "cells": [
-                  "step",
-                  "weights",
-                  "loaded"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "step",
-                  "weights",
-                  "loaded"
-                ],
-                "tone": "data"
-              }
+            "caption": "Saving turns the checkpoint dictionary into bytes or text.",
+            "values": {
+              "state": "{'version': 1, 'step': 500, 'weights': …",
+              "text": "'{\"optimizer\": {\"t\": 500}, \"seed\": 7, \"…",
+              "loaded": "{'optimizer': {'t': 500}, 'seed': 7, 's…",
+              "missing": "[]"
+            },
+            "tones": {
+              "state": "data",
+              "text": "data",
+              "loaded": "data",
+              "missing": "data"
+            },
+            "arrows": [
+              [
+                "state",
+                "text"
+              ],
+              [
+                "text",
+                "loaded"
+              ],
+              [
+                "loaded",
+                "missing"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Deterministic output ensures identical states produce identical files.",
-            "rows": [
-              {
-                "cells": [
-                  "step",
-                  "weights",
-                  "loaded"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "step",
-                  "weights",
-                  "step"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Practice 1 is save_checkpoint(step, weights, optimizer_state, seed).",
+            "values": {
+              "state": "{'version': 1, 'step': 500, 'weights': …",
+              "text": "'{\"optimizer\": {\"t\": 500}, \"seed\": 7, \"…",
+              "loaded": "{'optimizer': {'t': 500}, 'seed': 7, 's…",
+              "missing": "[]"
+            },
+            "tones": {
+              "state": "data",
+              "text": "data",
+              "loaded": "data",
+              "missing": "data"
+            },
+            "arrows": [
+              [
+                "state",
+                "text"
+              ],
+              [
+                "text",
+                "loaded"
+              ],
+              [
+                "loaded",
+                "missing"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Test loading right after saving in development, so format bugs appear early.",
+            "values": {
+              "state": "{'version': 1, 'step': 500, 'weights': …",
+              "text": "'{\"optimizer\": {\"t\": 500}, \"seed\": 7, \"…",
+              "loaded": "{'optimizer': {'t': 500}, 'seed': 7, 's…",
+              "missing": "[]"
+            },
+            "tones": {
+              "state": "ok",
+              "text": "ok",
+              "loaded": "ok",
+              "missing": "ok"
+            },
+            "arrows": [
+              [
+                "state",
+                "text"
+              ],
+              [
+                "text",
+                "loaded"
+              ],
+              [
+                "loaded",
+                "missing"
+              ]
             ]
           }
         ]
@@ -285,135 +457,277 @@
       "partTitle": "Sharded checkpoints",
       "codeHash": "36ff16a98f3dd06d72002cd1b1a289e8050d5666613df59120cedb664406c2a0",
       "spec": {
-        "template": "table",
-        "title": "Distributed sharded checkpoint validation across ranks",
-        "columns": [
-          "step",
-          "written",
-          "reason"
+        "template": "flow",
+        "title": "Sharded checkpoints",
+        "nodes": [
+          {
+            "id": "checkpoints",
+            "label": "checkpoints"
+          },
+          {
+            "id": "needed",
+            "label": "needed"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          },
+          {
+            "id": "written",
+            "label": "written"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "With FSDP or ZeRO no single GPU holds the model so each rank saves its shard.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "written"
-                  },
-                  {
-                    "text": "reason"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "With FSDP or ZeRO, no single GPU holds the whole model, so each rank saves.",
+            "values": {
+              "checkpoints": {
+                "var": "checkpoints",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "written"
-                  },
-                  {
-                    "text": "reason"
-                  }
-                ],
-                "tone": "data"
+              "needed": {
+                "var": "needed",
+                "line": 2,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 3,
+                "hit": 1
+              },
+              "written": {
+                "var": "written",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "checkpoints": "data",
+              "needed": "data",
+              "step": "data",
+              "written": "data"
+            },
+            "arrows": [
+              [
+                "checkpoints",
+                "needed"
+              ],
+              [
+                "needed",
+                "step"
+              ],
+              [
+                "step",
+                "written"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Saving shards in parallel is much faster than gathering everything first.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "written"
-                  },
-                  {
-                    "text": "reason"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Saving shards in parallel is much faster than gathering everything onto.",
+            "values": {
+              "checkpoints": {
+                "var": "checkpoints",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "written"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "ok"
+              "needed": {
+                "var": "needed",
+                "line": 3,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 4,
+                "hit": 1
+              },
+              "written": {
+                "var": "written",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "checkpoints": "data",
+              "needed": "data",
+              "step": "data",
+              "written": "data"
+            },
+            "arrows": [
+              [
+                "checkpoints",
+                "needed"
+              ],
+              [
+                "needed",
+                "step"
+              ],
+              [
+                "step",
+                "written"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Keeping the last few checkpoints, not just the latest, protects against.",
+            "values": {
+              "checkpoints": {
+                "var": "checkpoints",
+                "line": 3,
+                "hit": 1
+              },
+              "needed": {
+                "var": "needed",
+                "line": 4,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 5,
+                "hit": 1
+              },
+              "written": {
+                "var": "written",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "checkpoints": "ok",
+              "needed": "ok",
+              "step": "ok",
+              "written": "ok"
+            },
+            "arrows": [
+              [
+                "checkpoints",
+                "needed"
+              ],
+              [
+                "needed",
+                "step"
+              ],
+              [
+                "step",
+                "written"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Distributed sharded checkpoint validation across ranks",
-        "columns": [
-          "step",
-          "written",
-          "reason"
+        "template": "flow",
+        "title": "Sharded checkpoints",
+        "nodes": [
+          {
+            "id": "checkpoints",
+            "label": "checkpoints"
+          },
+          {
+            "id": "needed",
+            "label": "needed"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          },
+          {
+            "id": "written",
+            "label": "written"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "With FSDP or ZeRO no single GPU holds the model so each rank saves its shard.",
-            "rows": [
-              {
-                "cells": [
-                  "step",
-                  "written",
-                  "reason"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "step",
-                  "written",
-                  "reason"
-                ],
-                "tone": "data"
-              }
+            "caption": "With FSDP or ZeRO, no single GPU holds the whole model, so each rank saves.",
+            "values": {
+              "checkpoints": "[[1000, {0, 1, 2, 3}, set()], [2000, {0…",
+              "needed": "{0, 1, 2, 3}",
+              "step": "1000",
+              "written": "{0, 1, 2, 3}"
+            },
+            "tones": {
+              "checkpoints": "data",
+              "needed": "data",
+              "step": "data",
+              "written": "data"
+            },
+            "arrows": [
+              [
+                "checkpoints",
+                "needed"
+              ],
+              [
+                "needed",
+                "step"
+              ],
+              [
+                "step",
+                "written"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Saving shards in parallel is much faster than gathering everything first.",
-            "rows": [
-              {
-                "cells": [
-                  "step",
-                  "written",
-                  "reason"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "step",
-                  "written",
-                  "step"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Saving shards in parallel is much faster than gathering everything onto.",
+            "values": {
+              "checkpoints": "[[1000, {0, 1, 2, 3}, set()], [2000, {0…",
+              "needed": "{0, 1, 2, 3}",
+              "step": "1000",
+              "written": "{0, 1, 2, 3}"
+            },
+            "tones": {
+              "checkpoints": "data",
+              "needed": "data",
+              "step": "data",
+              "written": "data"
+            },
+            "arrows": [
+              [
+                "checkpoints",
+                "needed"
+              ],
+              [
+                "needed",
+                "step"
+              ],
+              [
+                "step",
+                "written"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Keeping the last few checkpoints, not just the latest, protects against.",
+            "values": {
+              "checkpoints": "[[1000, {0, 1, 2, 3}, set()], [2000, {0…",
+              "needed": "{0, 1, 2, 3}",
+              "step": "1000",
+              "written": "{0, 1, 2, 3}"
+            },
+            "tones": {
+              "checkpoints": "ok",
+              "needed": "ok",
+              "step": "ok",
+              "written": "ok"
+            },
+            "arrows": [
+              [
+                "checkpoints",
+                "needed"
+              ],
+              [
+                "needed",
+                "step"
+              ],
+              [
+                "step",
+                "written"
+              ]
             ]
           }
         ]
@@ -423,135 +737,277 @@
       "partTitle": "How often to checkpoint",
       "codeHash": "e225c09709672aead324d14f7c830e0890a6f2f5f477a417b02b11d9b3ed8076",
       "spec": {
-        "template": "table",
-        "title": "Optimal checkpoint interval balancing save time and failure rate",
-        "columns": [
-          "gpus",
-          "save_minutes",
-          "interval"
+        "template": "flow",
+        "title": "How often to checkpoint",
+        "nodes": [
+          {
+            "id": "save_minutes",
+            "label": "save_minutes"
+          },
+          {
+            "id": "gpus",
+            "label": "gpus"
+          },
+          {
+            "id": "mtbf_hours",
+            "label": "mtbf_hours"
+          },
+          {
+            "id": "interval",
+            "label": "interval"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Checkpointing too rarely means a failure loses many hours of work.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "save_minutes"
-                  },
-                  {
-                    "text": "interval"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Checkpoint too rarely and a failure loses many hours of work.",
+            "values": {
+              "save_minutes": {
+                "var": "save_minutes",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "save_minutes"
-                  },
-                  {
-                    "text": "interval"
-                  }
-                ],
-                "tone": "data"
+              "gpus": {
+                "var": "gpus",
+                "line": 4,
+                "hit": 1
+              },
+              "mtbf_hours": {
+                "var": "mtbf_hours",
+                "line": 4,
+                "hit": 1
+              },
+              "interval": {
+                "var": "interval",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "save_minutes": "data",
+              "gpus": "data",
+              "mtbf_hours": "data",
+              "interval": "data"
+            },
+            "arrows": [
+              [
+                "save_minutes",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "mtbf_hours"
+              ],
+              [
+                "mtbf_hours",
+                "interval"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Large clusters fail more often because more hardware brings higher risk.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "save_minutes"
-                  },
-                  {
-                    "text": "interval"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "A classic rule, from Young and Daly, sets the interval near the square.",
+            "values": {
+              "save_minutes": {
+                "var": "save_minutes",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "save_minutes"
-                  },
-                  {
-                    "text": "gpus"
-                  }
-                ],
-                "tone": "ok"
+              "gpus": {
+                "var": "gpus",
+                "line": 5,
+                "hit": 1
+              },
+              "mtbf_hours": {
+                "var": "mtbf_hours",
+                "line": 5,
+                "hit": 1
+              },
+              "interval": {
+                "var": "interval",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "save_minutes": "data",
+              "gpus": "data",
+              "mtbf_hours": "data",
+              "interval": "data"
+            },
+            "arrows": [
+              [
+                "save_minutes",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "mtbf_hours"
+              ],
+              [
+                "mtbf_hours",
+                "interval"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Planning the checkpoint strategy is part of the training plan, not.",
+            "values": {
+              "save_minutes": {
+                "var": "save_minutes",
+                "line": 5,
+                "hit": 1
+              },
+              "gpus": {
+                "var": "gpus",
+                "line": 6,
+                "hit": 1
+              },
+              "mtbf_hours": {
+                "var": "mtbf_hours",
+                "line": 6,
+                "hit": 1
+              },
+              "interval": {
+                "var": "interval",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "save_minutes": "ok",
+              "gpus": "ok",
+              "mtbf_hours": "ok",
+              "interval": "ok"
+            },
+            "arrows": [
+              [
+                "save_minutes",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "mtbf_hours"
+              ],
+              [
+                "mtbf_hours",
+                "interval"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Optimal checkpoint interval balancing save time and failure rate",
-        "columns": [
-          "gpus",
-          "save_minutes",
-          "interval"
+        "template": "flow",
+        "title": "How often to checkpoint",
+        "nodes": [
+          {
+            "id": "save_minutes",
+            "label": "save_minutes"
+          },
+          {
+            "id": "gpus",
+            "label": "gpus"
+          },
+          {
+            "id": "mtbf_hours",
+            "label": "mtbf_hours"
+          },
+          {
+            "id": "interval",
+            "label": "interval"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Checkpointing too rarely means a failure loses many hours of work.",
-            "rows": [
-              {
-                "cells": [
-                  "gpus",
-                  "save_minutes",
-                  "interval"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "gpus",
-                  "save_minutes",
-                  "interval"
-                ],
-                "tone": "data"
-              }
+            "caption": "Checkpoint too rarely and a failure loses many hours of work.",
+            "values": {
+              "save_minutes": "3",
+              "gpus": "64",
+              "mtbf_hours": "200",
+              "interval": "268.32815729997475"
+            },
+            "tones": {
+              "save_minutes": "data",
+              "gpus": "data",
+              "mtbf_hours": "data",
+              "interval": "data"
+            },
+            "arrows": [
+              [
+                "save_minutes",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "mtbf_hours"
+              ],
+              [
+                "mtbf_hours",
+                "interval"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Large clusters fail more often because more hardware brings higher risk.",
-            "rows": [
-              {
-                "cells": [
-                  "gpus",
-                  "save_minutes",
-                  "interval"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "gpus",
-                  "save_minutes",
-                  "gpus"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "A classic rule, from Young and Daly, sets the interval near the square.",
+            "values": {
+              "save_minutes": "3",
+              "gpus": "64",
+              "mtbf_hours": "200",
+              "interval": "268.32815729997475"
+            },
+            "tones": {
+              "save_minutes": "data",
+              "gpus": "data",
+              "mtbf_hours": "data",
+              "interval": "data"
+            },
+            "arrows": [
+              [
+                "save_minutes",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "mtbf_hours"
+              ],
+              [
+                "mtbf_hours",
+                "interval"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Planning the checkpoint strategy is part of the training plan, not.",
+            "values": {
+              "save_minutes": "3",
+              "gpus": "64",
+              "mtbf_hours": "200",
+              "interval": "268.32815729997475"
+            },
+            "tones": {
+              "save_minutes": "ok",
+              "gpus": "ok",
+              "mtbf_hours": "ok",
+              "interval": "ok"
+            },
+            "arrows": [
+              [
+                "save_minutes",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "mtbf_hours"
+              ],
+              [
+                "mtbf_hours",
+                "interval"
+              ]
             ]
           }
         ]
@@ -561,224 +1017,160 @@
       "partTitle": "Resuming exactly",
       "codeHash": "f83ece10742efb896db5b82fb5fcca91b7dde70a39ff45bea33afef755ce292a",
       "spec": {
-        "template": "flow",
-        "title": "Resuming exactly — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Resuming exactly",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Resuming exactly",
+        "actors": [
+          "saved_t",
+          "t"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Resuming exactly [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Resuming exactly [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Resuming means loading the checkpoint and restoring every piece.",
+            "activeActor": "saved_t",
+            "messages": [
+              {
+                "from": "saved_t",
+                "to": "t",
+                "label": {
+                  "var": "saved_t",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "saved_t",
+                "label": {
+                  "var": "t",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "If everything is restored, the loss curve continues smoothly, as if.",
+            "activeActor": "t",
+            "messages": [
+              {
+                "from": "saved_t",
+                "to": "t",
+                "label": {
+                  "var": "saved_t",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "saved_t",
+                "label": {
+                  "var": "t",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Resuming exactly [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Tomorrow builds on this with elastic training that adapts to changes.",
+            "activeActor": "t",
+            "messages": [
+              {
+                "from": "saved_t",
+                "to": "t",
+                "label": {
+                  "var": "saved_t",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "saved_t",
+                "label": {
+                  "var": "t",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Resuming exactly — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Resuming exactly",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Resuming exactly",
+        "actors": [
+          "saved_t",
+          "t"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Resuming exactly [D17.P5.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Resuming exactly [D17.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Resuming means loading the checkpoint and restoring every piece.",
+            "messages": [
+              {
+                "from": "saved_t",
+                "to": "t",
+                "label": "1000",
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "saved_t",
+                "label": "1001",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "saved_t"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "If everything is restored, the loss curve continues smoothly, as if.",
+            "messages": [
+              {
+                "from": "saved_t",
+                "to": "t",
+                "label": "1000",
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "saved_t",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "t"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Resuming exactly [D17.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say10",
+            "caption": "Tomorrow builds on this with elastic training that adapts to changes.",
+            "messages": [
+              {
+                "from": "saved_t",
+                "to": "t",
+                "label": "1000",
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "saved_t",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "t"
           }
         ]
       }
@@ -787,224 +1179,162 @@
       "partTitle": "Practice time: checkpoints",
       "codeHash": "dfc19383915f16871d8522d015bac7fc93a8dc713038ec3137139fb2b3cce000",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: checkpoints — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: chec...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: checkpoints",
+        "actors": [
+          "saved",
+          "step",
+          "shards"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: checkpoints [D.Psix.Sone].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: chec... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Save_checkpoint(step, weights, optimizer_state, seed) returns sorted-key.",
+            "activeActor": "saved",
+            "messages": [
+              {
+                "from": "saved",
+                "to": "step",
+                "label": {
+                  "var": "saved",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "step",
+                "to": "shards",
+                "label": {
+                  "var": "step",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks save and load a checkpoint, confirm the text is sorted-key.",
+            "activeActor": "step",
+            "messages": [
+              {
+                "from": "saved",
+                "to": "step",
+                "label": {
+                  "var": "saved",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "step",
+                "to": "shards",
+                "label": {
+                  "var": "step",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: checkpoints.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If your latest_valid picks the wrong step, print the validity of each.",
+            "activeActor": "shards",
+            "messages": [
+              {
+                "from": "saved",
+                "to": "step",
+                "label": {
+                  "var": "saved",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "step",
+                "to": "shards",
+                "label": {
+                  "var": "step",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: checkpoints — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: chec...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: checkpoints",
+        "actors": [
+          "saved",
+          "step",
+          "shards"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: checkpoints [D17.P6.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: chec... [D17.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Save_checkpoint(step, weights, optimizer_state, seed) returns sorted-key.",
+            "messages": [
+              {
+                "from": "saved",
+                "to": "step",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "step",
+                "to": "shards",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "saved"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks save and load a checkpoint, confirm the text is sorted-key.",
+            "messages": [
+              {
+                "from": "saved",
+                "to": "step",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "step",
+                "to": "shards",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "step"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: checkpoints [D17.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say10",
+            "caption": "If your latest_valid picks the wrong step, print the validity of each.",
+            "messages": [
+              {
+                "from": "saved",
+                "to": "step",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "step",
+                "to": "shards",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "shards"
           }
         ]
       }

@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 29,
-  "promptSha": "bf3fff54d426ccb54ed7fe34fa7b40b676a93cb2af4a85bd8ffe6e4091597f08",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Numbers in binary",
@@ -12,21 +12,23 @@
         "template": "table",
         "title": "Numbers in binary",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The computers concept establishes the core structural baseline.",
+            "caption": "Computers store whole numbers in binary.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Numbers"
+                    "text": "n"
                   },
                   {
-                    "text": "binary"
+                    "var": "n",
+                    "line": 1,
+                    "hit": 1
                   }
                 ],
                 "tone": "data"
@@ -34,16 +36,68 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The manipulation logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "11 is 1011 in binary.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Numbers"
+                    "text": "n"
                   },
                   {
-                    "text": "binary"
+                    "var": "n",
+                    "line": 2,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Before any trick, get comfortable converting small numbers between decimal.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 4"
+                  },
+                  {
+                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -56,31 +110,65 @@
         "template": "table",
         "title": "Numbers in binary",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The computers concept establishes the core structural baseline.",
+            "caption": "Computers store whole numbers in binary.",
             "rows": [
               {
                 "cells": [
-                  "Numbers",
-                  "binary"
+                  "n",
+                  "1"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The manipulation logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "11 is 1011 in binary.",
             "rows": [
               {
                 "cells": [
-                  "Numbers",
-                  "binary"
+                  "n",
+                  "1"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Before any trick, get comfortable converting small numbers between decimal.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "1 = 00000001"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "2 = 00000010"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "5 = 00000101"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 4",
+                  "11 = 00001011"
                 ],
                 "tone": "ok"
               }
@@ -93,43 +181,104 @@
       "partTitle": "The bitwise operators",
       "codeHash": "20651d565d29952a5521d5f26a5ccec2bfaecf507b4ff449e5608e95bdeab237",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "The bitwise operators",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The keeps concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A & b (AND) keeps a bit only if it is 1 in both.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "The"
-                  },
-                  {
-                    "text": "bitwise"
-                  }
-                ],
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The common logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "A << k shifts the bits left by k places, which multiplies by 2 to the power k.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "operators"
-                  },
-                  {
-                    "text": "bitwise"
-                  }
-                ],
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Bitwise XOR possesses two fundamental algebraic properties.",
+            "bars": [
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -137,35 +286,68 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "The bitwise operators",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The keeps concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A & b (AND) keeps a bit only if it is 1 in both.",
+            "bars": [
               {
-                "cells": [
-                  "The",
-                  "bitwise"
-                ],
+                "label": "a",
+                "value": 12,
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": 5,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The common logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "A << k shifts the bits left by k places, which multiplies by 2 to the power k.",
+            "bars": [
               {
-                "cells": [
-                  "operators",
-                  "bitwise"
-                ],
+                "label": "a",
+                "value": 12,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 5,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Bitwise XOR possesses two fundamental algebraic properties.",
+            "bars": [
+              {
+                "label": "a",
+                "value": 12,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 5,
                 "tone": "ok"
               }
             ]
@@ -177,80 +359,114 @@
       "partTitle": "XOR magic: single number",
       "codeHash": "d602dd10928d03a00a0b03a9b4deb496f9c04cfdde8b0b39e6a06c0417ac031b",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "XOR magic: single number",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Every number in a list appears twice, except one.",
+            "items": {
+              "var": "nums",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "XOR"
-                  },
-                  {
-                    "text": "magic"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The numbers logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "XOR has three useful rules.",
+            "items": {
+              "var": "nums",
+              "line": 4,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "single"
-                  },
-                  {
-                    "text": "number"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "The same rules find a missing number from 0 to n.",
+            "items": {
+              "var": "nums",
+              "line": 3,
+              "hit": 6
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "XOR magic: single number",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Every number in a list appears twice, except one.",
+            "items": [
+              "4",
+              "1",
+              "2",
+              "1",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "XOR",
-                  "magic"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The numbers logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "XOR has three useful rules.",
+            "items": [
+              "4",
+              "1",
+              "2",
+              "1",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "single",
-                  "number"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "The same rules find a missing number from 0 to n.",
+            "items": [
+              "4",
+              "1",
+              "2",
+              "1",
+              "2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -261,43 +477,77 @@
       "partTitle": "Counting 1 bits",
       "codeHash": "3c5ac8b49ca5d19e23008a7fc1db7e9f3ae917bc993859556e2c7cc725a5d67b",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Counting 1 bits",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Count how many 1 bits a number has.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Counting"
-                  },
-                  {
-                    "text": "bits"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "count",
+                "value": {
+                  "var": "count",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The clever logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The simple way checks the lowest bit with n & 1, then shifts right, once.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Counting"
-                  },
-                  {
-                    "text": "bits"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "count",
+                "value": {
+                  "var": "count",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Brian Kernighan's algorithm (n = n & (n - 1)) clears the lowest set bit.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "count",
+                "value": {
+                  "var": "count",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -305,35 +555,53 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Counting 1 bits",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Count how many 1 bits a number has.",
+            "bars": [
               {
-                "cells": [
-                  "Counting",
-                  "bits"
-                ],
+                "label": "n",
+                "value": 12,
+                "tone": "data"
+              },
+              {
+                "label": "count",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The clever logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The simple way checks the lowest bit with n & 1, then shifts right, once.",
+            "bars": [
               {
-                "cells": [
-                  "Counting",
-                  "bits"
-                ],
+                "label": "n",
+                "value": 12,
+                "tone": "ok"
+              },
+              {
+                "label": "count",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Brian Kernighan's algorithm (n = n & (n - 1)) clears the lowest set bit.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 11,
+                "tone": "ok"
+              },
+              {
+                "label": "count",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -345,80 +613,111 @@
       "partTitle": "Bitmasks as tiny sets",
       "codeHash": "ec7d9a30c5a4051845d014fb1d44a423d29ed962240c973e6ba1624923c510aa",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Bitmasks as tiny sets",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The number concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A number with n bits can represent any subset of n items.",
+            "items": {
+              "var": "toppings",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Bitmasks"
-                  },
-                  {
-                    "text": "tiny"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The looping logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Adding item i is mask | (1 << i), checking it is mask & (1 << i),.",
+            "items": {
+              "var": "toppings",
+              "line": 9,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "sets"
-                  },
-                  {
-                    "text": "tiny"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Bitmask DP, where the mask is part of the DP state, solves problems like.",
+            "items": {
+              "var": "toppings",
+              "line": 10,
+              "hit": 3
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Bitmasks as tiny sets",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The number concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A number with n bits can represent any subset of n items.",
+            "items": [
+              "'cheese'",
+              "'corn'",
+              "'onion'",
+              "'paneer'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Bitmasks",
-                  "tiny"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The looping logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Adding item i is mask | (1 << i), checking it is mask & (1 << i),.",
+            "items": [
+              "'cheese'",
+              "'corn'",
+              "'onion'",
+              "'paneer'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "sets",
-                  "tiny"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Bitmask DP, where the mask is part of the DP state, solves problems like.",
+            "items": [
+              "'cheese'",
+              "'corn'",
+              "'onion'",
+              "'paneer'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -429,43 +728,104 @@
       "partTitle": "Using bits wisely",
       "codeHash": "6504aaf071a4dd5c5359370398c288aaf2bb4653db7a6459968c1515a62a4ea4",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Using bits wisely",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The tricks concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Bit tricks are fast and compact, but they are harder to read.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Using"
-                  },
-                  {
-                    "text": "bits"
-                  }
-                ],
+                "label": "flags",
+                "value": {
+                  "var": "flags",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "day",
+                "value": {
+                  "var": "day",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The python logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Use bits when memory really matters (millions of flags), when a format.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "wisely"
-                  },
-                  {
-                    "text": "bits"
-                  }
-                ],
+                "label": "flags",
+                "value": {
+                  "var": "flags",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "day",
+                "value": {
+                  "var": "day",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Tomorrow is the capstone, where you combine graphs, heaps and DP into.",
+            "bars": [
+              {
+                "label": "flags",
+                "value": {
+                  "var": "flags",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "day",
+                "value": {
+                  "var": "day",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -473,35 +833,68 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Using bits wisely",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The tricks concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Bit tricks are fast and compact, but they are harder to read.",
+            "bars": [
               {
-                "cells": [
-                  "Using",
-                  "bits"
-                ],
+                "label": "flags",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "day",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The python logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Use bits when memory really matters (millions of flags), when a format.",
+            "bars": [
               {
-                "cells": [
-                  "wisely",
-                  "bits"
-                ],
+                "label": "flags",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "day",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Tomorrow is the capstone, where you combine graphs, heaps and DP into.",
+            "bars": [
+              {
+                "label": "flags",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "day",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 6,
                 "tone": "ok"
               }
             ]

@@ -2,1335 +2,861 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 34,
-  "promptSha": "d61932332e4dd9f92345a4a159814d6280167724988bc5e3b36b1c45fc23f37d",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "X.509 Certificate Chain Validation, Key Pinning & OCSP Stapling Verification — Foundations & Mathematical Invariants",
-      "codeHash": "2d71e33365e27a3895f7916e42803d94ab4fc8189d23d46c937a392b96f48eaf",
+      "partTitle": "X.509 Certificate Chain Validation — Foundations & Mathematical Invariants",
+      "codeHash": "081ea966bb2c7041a84a15bd5d1135e5d8487aa67bf2f13ee4a6214b7400c1d6",
       "spec": {
-        "template": "flow",
-        "title": "X. Certificate Chain Validation, Key Pinning & OCSP Stapling Verificat",
-        "nodes": [
+        "template": "states",
+        "title": "X.509 Certificate Chain Validation — Foundations & Mathematical ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "subject",
+            "label": "subject"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "issuer",
+            "label": "issuer"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Public Key Infrastructure forms the trust foundation of modern Internet.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Trace how certificate updates binds during execution.",
+            "currentState": "subject",
+            "transition": {
+              "from": "self",
+              "to": "subject",
+              "label": {
+                "var": "subject",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say8",
+            "caption": "Public Key Infrastructure provides the bedrock of enterprise identity.",
+            "currentState": "issuer",
+            "transition": {
+              "from": "subject",
+              "to": "issuer",
+              "label": {
+                "var": "issuer",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "X.509 Certificate Chain Validation — Foundations & Mathematical ",
+        "states": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "subject",
+            "label": "subject"
+          },
+          {
+            "id": "issuer",
+            "label": "issuer"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Public Key Infrastructure forms the trust foundation of modern Internet.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how certificate updates binds during execution.",
+            "currentState": "subject",
+            "transition": {
+              "from": "self",
+              "to": "subject",
+              "label": "'CN=Institutional Root CA'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say8",
+            "caption": "Public Key Infrastructure provides the bedrock of enterprise identity.",
+            "currentState": "issuer",
+            "transition": {
+              "from": "subject",
+              "to": "issuer",
+              "label": "'CN=Institutional Root CA'"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "X.509 Certificate Chain Validation — Core Algorithm & State Representation",
+      "codeHash": "2ce4018dd5d3720fe6526ff05e61b424cce6a3fbb21b91093e39fba76a69cae0",
+      "spec": {
+        "template": "boxes",
+        "title": "X.509 Certificate Chain Validation — Core Algorithm & State Repr",
+        "boxes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "subject",
+            "label": "subject"
+          },
+          {
+            "id": "issuer",
+            "label": "issuer"
+          },
+          {
+            "id": "is_ca",
+            "label": "is_ca"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Validating an X.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "subject": {
+                "var": "subject",
+                "line": 3,
+                "hit": 1
+              },
+              "issuer": {
+                "var": "issuer",
+                "line": 3,
+                "hit": 1
+              },
+              "is_ca": {
+                "var": "is_ca",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "subject": "data",
+              "issuer": "data",
+              "is_ca": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "The chain validation algorithm enforces three mandatory structural.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
+              },
+              "subject": {
+                "var": "subject",
+                "line": 4,
+                "hit": 1
+              },
+              "issuer": {
+                "var": "issuer",
+                "line": 4,
+                "hit": 1
+              },
+              "is_ca": {
+                "var": "is_ca",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "subject": "data",
+              "issuer": "data",
+              "is_ca": "data"
+            }
+          },
+          {
+            "at": "say8",
+            "caption": "Validating certificate path length constraints prevents intermediate.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
+              },
+              "subject": {
+                "var": "subject",
+                "line": 5,
+                "hit": 1
+              },
+              "issuer": {
+                "var": "issuer",
+                "line": 5,
+                "hit": 1
+              },
+              "is_ca": {
+                "var": "is_ca",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "ok",
+              "subject": "ok",
+              "issuer": "ok",
+              "is_ca": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "X.509 Certificate Chain Validation — Core Algorithm & State Repr",
+        "boxes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "subject",
+            "label": "subject"
+          },
+          {
+            "id": "issuer",
+            "label": "issuer"
+          },
+          {
+            "id": "is_ca",
+            "label": "is_ca"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Validating an X.",
+            "values": {
+              "self": "<X509Cert>",
+              "subject": "'CN=Root CA'",
+              "issuer": "'CN=Root CA'",
+              "is_ca": "True"
+            },
+            "tones": {
+              "self": "data",
+              "subject": "data",
+              "issuer": "data",
+              "is_ca": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "The chain validation algorithm enforces three mandatory structural.",
+            "values": {
+              "self": "<X509Cert>",
+              "subject": "'CN=Root CA'",
+              "issuer": "'CN=Root CA'",
+              "is_ca": "True"
+            },
+            "tones": {
+              "self": "data",
+              "subject": "data",
+              "issuer": "data",
+              "is_ca": "data"
+            }
+          },
+          {
+            "at": "say8",
+            "caption": "Validating certificate path length constraints prevents intermediate.",
+            "values": {
+              "self": "<X509Cert>",
+              "subject": "'CN=Root CA'",
+              "issuer": "'CN=Root CA'",
+              "is_ca": "True"
+            },
+            "tones": {
+              "self": "ok",
+              "subject": "ok",
+              "issuer": "ok",
+              "is_ca": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "X.509 Certificate Chain Validation — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "6f5f975546fdb2eaf5a12a97caefb5eb6dc2e352360fd74d7e0774012c85cffc",
+      "spec": {
+        "template": "flow",
+        "title": "X.509 Certificate Chain Validation — Throughput Optimization & E",
+        "nodes": [
+          {
+            "id": "resp",
+            "label": "resp"
+          },
+          {
+            "id": "ocsp_response",
+            "label": "ocsp_response"
+          },
+          {
+            "id": "expected_nonce",
+            "label": "expected_nonce"
+          },
+          {
+            "id": "valid",
+            "label": "valid"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Real-time certificate validation can introduce severe latency if clients.",
+            "values": {
+              "resp": {
+                "var": "resp",
+                "line": 10,
+                "hit": 1
+              },
+              "ocsp_response": {
+                "var": "ocsp_response",
+                "line": 4,
+                "hit": 1
+              },
+              "expected_nonce": {
+                "var": "expected_nonce",
+                "line": 4,
+                "hit": 1
+              },
+              "valid": {
+                "var": "valid",
+                "line": 11,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "resp": "data",
+              "ocsp_response": "data",
+              "expected_nonce": "data",
+              "valid": "data"
+            },
+            "arrows": [
+              [
+                "resp",
+                "ocsp_response"
+              ],
+              [
+                "ocsp_response",
+                "expected_nonce"
+              ],
+              [
+                "expected_nonce",
+                "valid"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Synchronous OCSP lookups force the client to make an outbound HTTP request.",
+            "values": {
+              "resp": {
+                "var": "resp",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "ocsp_response": {
+                "var": "ocsp_response",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "expected_nonce": {
+                "var": "expected_nonce",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "valid": {
+                "var": "valid",
+                "line": 12,
+                "hit": 1
               }
+            },
+            "tones": {
+              "resp": "data",
+              "ocsp_response": "data",
+              "expected_nonce": "data",
+              "valid": "data"
+            },
+            "arrows": [
+              [
+                "resp",
+                "ocsp_response"
+              ],
+              [
+                "ocsp_response",
+                "expected_nonce"
+              ],
+              [
+                "expected_nonce",
+                "valid"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "OCSP stapling guarantees optimal handshake performance by offloading.",
+            "values": {
+              "resp": {
+                "var": "resp",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "ocsp_response": {
+                "var": "ocsp_response",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "expected_nonce": {
+                "var": "expected_nonce",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "valid": {
+                "var": "valid",
+                "line": 12,
+                "hit": 1
               }
+            },
+            "tones": {
+              "resp": "ok",
+              "ocsp_response": "ok",
+              "expected_nonce": "ok",
+              "valid": "ok"
+            },
+            "arrows": [
+              [
+                "resp",
+                "ocsp_response"
+              ],
+              [
+                "ocsp_response",
+                "expected_nonce"
+              ],
+              [
+                "expected_nonce",
+                "valid"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "X. Certificate Chain Validation, Key Pinning & OCSP Stapling Verificat",
+        "title": "X.509 Certificate Chain Validation — Throughput Optimization & E",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "resp",
+            "label": "resp"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "ocsp_response",
+            "label": "ocsp_response"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "expected_nonce",
+            "label": "expected_nonce"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "valid",
+            "label": "valid"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Real-time certificate validation can introduce severe latency if clients.",
+            "values": {
+              "resp": "{'status': 'GOOD', 'nonce': 'NONCE_SESS…",
+              "ocsp_response": "{'status': 'GOOD', 'nonce': 'NONCE_SESS…",
+              "expected_nonce": "'NONCE_SESSION_84920482'",
+              "valid": "True"
+            },
+            "tones": {
+              "resp": "data",
+              "ocsp_response": "data",
+              "expected_nonce": "data",
+              "valid": "data"
+            },
+            "arrows": [
+              [
+                "resp",
+                "ocsp_response"
+              ],
+              [
+                "ocsp_response",
+                "expected_nonce"
+              ],
+              [
+                "expected_nonce",
+                "valid"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Synchronous OCSP lookups force the client to make an outbound HTTP request.",
+            "values": {
+              "resp": "{'status': 'GOOD', 'nonce': 'NONCE_SESS…",
+              "ocsp_response": "{'status': 'GOOD', 'nonce': 'NONCE_SESS…",
+              "expected_nonce": "'NONCE_SESSION_84920482'",
+              "valid": "True"
+            },
+            "tones": {
+              "resp": "data",
+              "ocsp_response": "data",
+              "expected_nonce": "data",
+              "valid": "data"
+            },
+            "arrows": [
+              [
+                "resp",
+                "ocsp_response"
+              ],
+              [
+                "ocsp_response",
+                "expected_nonce"
+              ],
+              [
+                "expected_nonce",
+                "valid"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "OCSP stapling guarantees optimal handshake performance by offloading.",
+            "values": {
+              "resp": "{'status': 'GOOD', 'nonce': 'NONCE_SESS…",
+              "ocsp_response": "{'status': 'GOOD', 'nonce': 'NONCE_SESS…",
+              "expected_nonce": "'NONCE_SESSION_84920482'",
+              "valid": "True"
+            },
+            "tones": {
+              "resp": "ok",
+              "ocsp_response": "ok",
+              "expected_nonce": "ok",
+              "valid": "ok"
+            },
+            "arrows": [
+              [
+                "resp",
+                "ocsp_response"
+              ],
+              [
+                "ocsp_response",
+                "expected_nonce"
+              ],
+              [
+                "expected_nonce",
+                "valid"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "X.509 Certificate Chain Validation, Key Pinning & OCSP Stapling Verification — Core Algorithm & State Representation",
-      "codeHash": "01f7f552d6aafbe79288aa58e741b2ef99dfe7d18904ccbfc28191c7c6f41f39",
+      "partTitle": "X.509 Certificate Chain Validation — Resilience Guardrails & Failure Recovery",
+      "codeHash": "482ebf4f315c7bf2b0e731a24bad8a3bb6b5a0db80876b86779e246495d03ff3",
       "spec": {
-        "template": "flow",
-        "title": "X. Certificate Chain Validation, Key Pinning & OCSP Stapling Verificat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "X.509 Certificate Chain Validation — Resilience Guardrails & Fai",
+        "actors": [
+          "valid_key",
+          "pin",
+          "self"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Even with hierarchical chain validation, public PKI remains vulnerable.",
+            "activeActor": "valid_key",
+            "messages": [
+              {
+                "from": "valid_key",
+                "to": "pin",
+                "label": {
+                  "var": "valid_key",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "pin",
+                "to": "self",
+                "label": {
+                  "var": "pin",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Public Key Pinning establishes an unyielding resilience guardrail.",
+            "activeActor": "pin",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "valid_key",
+                "to": "pin",
+                "label": {
+                  "var": "valid_key",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "pin",
+                "to": "self",
+                "label": {
+                  "var": "pin",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Public key pinning protects high-value mobile and enterprise applications.",
+            "activeActor": "self",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "valid_key",
+                "to": "pin",
+                "label": {
+                  "var": "valid_key",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "pin",
+                "to": "self",
+                "label": {
+                  "var": "pin",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "X. Certificate Chain Validation, Key Pinning & OCSP Stapling Verificat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "X.509 Certificate Chain Validation — Resilience Guardrails & Fai",
+        "actors": [
+          "valid_key",
+          "pin",
+          "self"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Even with hierarchical chain validation, public PKI remains vulnerable.",
+            "messages": [
+              {
+                "from": "valid_key",
+                "to": "pin",
+                "label": "'AUTHENTIC_PUB_KEY_INSTITUTIONAL'",
+                "tone": "data"
+              },
+              {
+                "from": "pin",
+                "to": "self",
+                "label": "'b82f0bd4e666113ec7d8a5175a0bc0d75a2fcd…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "valid_key"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Public Key Pinning establishes an unyielding resilience guardrail.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "valid_key",
+                "to": "pin",
+                "label": "'AUTHENTIC_PUB_KEY_INSTITUTIONAL'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "pin",
+                "to": "self",
+                "label": "'b82f0bd4e666113ec7d8a5175a0bc0d75a2fcd…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "pin"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Public key pinning protects high-value mobile and enterprise applications.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "valid_key",
+                "to": "pin",
+                "label": "'AUTHENTIC_PUB_KEY_INSTITUTIONAL'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "pin",
+                "to": "self",
+                "label": "'b82f0bd4e666113ec7d8a5175a0bc0d75a2fcd…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "self"
           }
         ]
       }
     },
     {
-      "partTitle": "X.509 Certificate Chain Validation, Key Pinning & OCSP Stapling Verification — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "580ea7008a889b1f21bece94dd21f27501fd4dc4f46a0e957a0c20e986bb2700",
+      "partTitle": "X.509 Certificate Chain Validation — Production Telemetry & Verification Audit",
+      "codeHash": "b189cc95586d48e72846179c5cf3e1e703adb1c9ad5c49ef91d764ab49e1a7c3",
       "spec": {
-        "template": "flow",
-        "title": "X. Certificate Chain Validation, Key Pinning & OCSP Stapling Verificat",
-        "nodes": [
+        "template": "states",
+        "title": "X.509 Certificate Chain Validation — Production Telemetry & Veri",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "chain_valid",
+            "label": "chain_valid"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "ocsp_stapled",
+            "label": "ocsp_stapled"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "pin_matched",
+            "label": "pin_matched"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating large-scale PKI infrastructure demands rigorous production.",
+            "currentState": "chain_valid",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Automated monitoring systems continuously track certificate expiration.",
+            "currentState": "ocsp_stapled",
+            "transition": {
+              "from": "chain_valid",
+              "to": "ocsp_stapled",
+              "label": {
+                "var": "ocsp_stapled",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say8",
+            "caption": "Automated PKI telemetry alerts infrastructure engineering teams weeks.",
+            "currentState": "pin_matched",
+            "transition": {
+              "from": "ocsp_stapled",
+              "to": "pin_matched",
+              "label": {
+                "var": "pin_matched",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "X. Certificate Chain Validation, Key Pinning & OCSP Stapling Verificat",
-        "nodes": [
+        "template": "states",
+        "title": "X.509 Certificate Chain Validation — Production Telemetry & Veri",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "chain_valid",
+            "label": "chain_valid"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "ocsp_stapled",
+            "label": "ocsp_stapled"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "pin_matched",
+            "label": "pin_matched"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Operating large-scale PKI infrastructure demands rigorous production.",
+            "currentState": "chain_valid",
+            "tone": "data"
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "X.509 Certificate Chain Validation, Key Pinning & OCSP Stapling Verification — Resilience Guardrails & Failure Recovery",
-      "codeHash": "006483aa46c25a848b2c7fccf6865887418297fa3bf31361c6c3ef8f83a46005",
-      "spec": {
-        "template": "flow",
-        "title": "X. Certificate Chain Validation, Key Pinning & OCSP Stapling Verificat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Automated monitoring systems continuously track certificate expiration.",
+            "currentState": "ocsp_stapled",
+            "transition": {
+              "from": "chain_valid",
+              "to": "ocsp_stapled",
+              "label": "True"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "X. Certificate Chain Validation, Key Pinning & OCSP Stapling Verificat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "X.509 Certificate Chain Validation, Key Pinning & OCSP Stapling Verification — Production Telemetry & Verification Audit",
-      "codeHash": "af09d732eb1549a9105bec59157e4d7a42c1683479513306fe79af9f241733a1",
-      "spec": {
-        "template": "flow",
-        "title": "X. Certificate Chain Validation, Key Pinning & OCSP Stapling Verificat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "X. Certificate Chain Validation, Key Pinning & OCSP Stapling Verificat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say8",
+            "caption": "Automated PKI telemetry alerts infrastructure engineering teams weeks.",
+            "currentState": "pin_matched",
+            "transition": {
+              "from": "ocsp_stapled",
+              "to": "pin_matched",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }

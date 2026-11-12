@@ -2,87 +2,121 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 15,
-  "promptSha": "23bb561a811fe1657bed6b4381c195ca2b2c7125a7941fc5fa38e2ffd8c7adb9",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Streams and why sorting every time is too slow",
       "codeHash": "2d1cf4dfcc2395222767b0d1c1e1d4287b9d5c223aec62adc3b8a535bdd3554a",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Streams and why sorting every time is too slow",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The stream concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A stream is data that keeps arriving.",
+            "items": {
+              "var": "response_ms",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Streams"
-                  },
-                  {
-                    "text": "and"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The count logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The median is the middle value when the numbers are sorted.",
+            "items": {
+              "var": "response_ms",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "why"
-                  },
-                  {
-                    "text": "sorting"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "In high-frequency financial trading systems, incoming trade prices form.",
+            "items": {
+              "var": "response_ms",
+              "line": 9,
+              "hit": 3
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Streams and why sorting every time is too slow",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The stream concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A stream is data that keeps arriving.",
+            "items": [
+              "120",
+              "95",
+              "110",
+              "105",
+              "5000"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Streams",
-                  "and"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The count logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The median is the middle value when the numbers are sorted.",
+            "items": [
+              "120",
+              "95",
+              "110",
+              "105",
+              "5000"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "why",
-                  "sorting"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "In high-frequency financial trading systems, incoming trade prices form.",
+            "items": [
+              "120",
+              "95",
+              "110",
+              "105",
+              "5000"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,80 +127,107 @@
       "partTitle": "heapq: a min-heap in Python",
       "codeHash": "c0c0e21c853ef51f7b221b3dcdc2fa13b142e4b20e91ef931f9e70c0b002dbef",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "heapq: a min-heap in Python",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The heap concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A heap is a structure where the smallest item is always at the front,.",
+            "items": {
+              "var": "h",
+              "line": 5,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "heapq"
-                  },
-                  {
-                    "text": "min"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The python logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how heapq updates heappush during execution.",
+            "items": {
+              "var": "h",
+              "line": 5,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "heap"
-                  },
-                  {
-                    "text": "Python"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Today, use heapq as a tool.",
+            "items": {
+              "var": "h",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "heapq: a min-heap in Python",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The heap concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A heap is a structure where the smallest item is always at the front,.",
+            "items": [
+              "2",
+              "7"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "heapq",
-                  "min"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The python logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how heapq updates heappush during execution.",
+            "items": [
+              "2",
+              "4",
+              "9",
+              "7"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "heap",
-                  "Python"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Today, use heapq as a tool.",
+            "items": [
+              "7",
+              "9"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -177,80 +238,107 @@
       "partTitle": "Two heaps split the numbers in half",
       "codeHash": "1f1a114ff45c1a87df507c3d4053da592d9bc2e9581be623cee97bdcd39cb940",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Two heaps split the numbers in half",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The trick concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Keep the smaller half of the numbers in a max-heap called low, and.",
+            "items": {
+              "var": "low",
+              "line": 5,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Two"
-                  },
-                  {
-                    "text": "heaps"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The keep logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The top of low is the largest of the small half.",
+            "items": {
+              "var": "low",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "split"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "The dual-heap size invariant strictly mandates that len(max_heap) ==.",
+            "items": {
+              "var": "low",
+              "line": 7,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Two heaps split the numbers in half",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The trick concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Keep the smaller half of the numbers in a max-heap called low, and.",
+            "items": [
+              "-3",
+              "-1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Two",
-                  "heaps"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The keep logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The top of low is the largest of the small half.",
+            "items": [
+              "-5",
+              "-1",
+              "-3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "split",
-                  "the"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "The dual-heap size invariant strictly mandates that len(max_heap) ==.",
+            "items": [
+              "-5",
+              "-1",
+              "-3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -261,43 +349,77 @@
       "partTitle": "Adding a number and rebalancing",
       "codeHash": "7e373c130d58345034004d442904d57b66d80f96c756c662e555572f9e8ab048",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Adding a number and rebalancing",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 1 builds MedianFinder with add_num and find_median.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Adding"
-                  },
-                  {
-                    "text": "number"
-                  }
-                ],
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "num",
+                "value": {
+                  "var": "num",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The high logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "A simple safe way.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "and"
-                  },
-                  {
-                    "text": "rebalancing"
-                  }
-                ],
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "num",
+                "value": {
+                  "var": "num",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Three heap operations per add, each O(log N).",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "num",
+                "value": {
+                  "var": "num",
+                  "line": 11,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -305,35 +427,53 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Adding a number and rebalancing",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 1 builds MedianFinder with add_num and find_median.",
+            "bars": [
               {
-                "cells": [
-                  "Adding",
-                  "number"
-                ],
+                "label": "x",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "num",
+                "value": 5,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The high logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "A simple safe way.",
+            "bars": [
               {
-                "cells": [
-                  "and",
-                  "rebalancing"
-                ],
+                "label": "x",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "num",
+                "value": 5,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Three heap operations per add, each O(log N).",
+            "bars": [
+              {
+                "label": "x",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "num",
+                "value": 5,
                 "tone": "ok"
               }
             ]
@@ -345,80 +485,111 @@
       "partTitle": "Running medians of a stream",
       "codeHash": "6762975b3a74951c859dbc8af65e40a6cdc4097234383d3f9bee85dfd5056689",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Running medians of a stream",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 2 returns the median after each number is added.",
+            "items": {
+              "var": "nums",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Running"
-                  },
-                  {
-                    "text": "medians"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The notice logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Check the answers by hand for a short stream.",
+            "items": {
+              "var": "nums",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "stream"
-                  },
-                  {
-                    "text": "medians"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The same engine is used for real-time dashboards, where you want.",
+            "items": {
+              "var": "nums",
+              "line": 10,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Running medians of a stream",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 2 returns the median after each number is added.",
+            "items": [
+              "5",
+              "15",
+              "1",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Running",
-                  "medians"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The notice logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Check the answers by hand for a short stream.",
+            "items": [
+              "5",
+              "15",
+              "1",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "stream",
-                  "medians"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The same engine is used for real-time dashboards, where you want.",
+            "items": [
+              "5",
+              "15",
+              "1",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -432,38 +603,88 @@
         "template": "table",
         "title": "Milestone review: what you built",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The milestone concept establishes the core structural baseline.",
+            "caption": "This milestone combined several ideas.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Milestone"
+                    "text": "out 1"
                   },
                   {
-                    "text": "review"
+                    "out": 1
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The million logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Compare the costs.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "what"
+                    "text": "out 1"
                   },
                   {
-                    "text": "you"
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "You are now ready for trees and heaps in detail next week.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
                   }
                 ],
                 "tone": "ok"
@@ -476,31 +697,65 @@
         "template": "table",
         "title": "Milestone review: what you built",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The milestone concept establishes the core structural baseline.",
+            "caption": "This milestone combined several ideas.",
             "rows": [
               {
                 "cells": [
-                  "Milestone",
-                  "review"
+                  "out 1",
+                  "same median: True"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "both finished: True"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The million logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Compare the costs.",
             "rows": [
               {
                 "cells": [
-                  "what",
-                  "you"
+                  "out 1",
+                  "same median: True"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "both finished: True"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "You are now ready for trees and heaps in detail next week.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "same median: True"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "both finished: True"
                 ],
                 "tone": "ok"
               }

@@ -2,1334 +2,940 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 45,
-  "promptSha": "603dbdccdd4366f3c45679d153475dad3fb0d107a327e8d526b80082ad08fd2a",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Milestone 9 — Foundations & Mathematical Invariants",
-      "codeHash": "6e254150ccf1011f05a252c6747dfca9327e080f3f3f1fa2e3bdbc337cce6dff",
+      "partTitle": "Combining Transactional Outbox, CDC & Orchestrated Sagas",
+      "codeHash": "86f7125e3893763c7b34926a50f1d13b33fbaaa0a28070c98fdd7b0d8410ae9b",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Combining Transactional Outbox, CDC & Orchestrated Sagas",
+        "actors": [
+          "self",
+          "name",
+          "initial_balance"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Trace how days updates through during execution.",
+            "activeActor": "self",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "name",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "name",
+                "to": "initial_balance",
+                "label": {
+                  "var": "name",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Why do real payment, logistics, and cloud control planes combine Outbox.",
+            "activeActor": "name",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "name",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "name",
+                "to": "initial_balance",
+                "label": {
+                  "var": "name",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Construct the atomic Outbox + Dedup + Saga Step service template below.",
+            "activeActor": "initial_balance",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "name",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "name",
+                "to": "initial_balance",
+                "label": {
+                  "var": "name",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Combining Transactional Outbox, CDC & Orchestrated Sagas",
+        "actors": [
+          "self",
+          "name",
+          "initial_balance"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Trace how days updates through during execution.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "name",
+                "label": "<OutboxSagaWorker>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "name",
+                "to": "initial_balance",
+                "label": "'wallet'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "self"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Why do real payment, logistics, and cloud control planes combine Outbox.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "name",
+                "label": "<OutboxSagaWorker>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "name",
+                "to": "initial_balance",
+                "label": "'wallet'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "name"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Construct the atomic Outbox + Dedup + Saga Step service template below.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "name",
+                "label": "<OutboxSagaWorker>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "name",
+                "to": "initial_balance",
+                "label": "'wallet'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "initial_balance"
           }
         ]
       }
     },
     {
-      "partTitle": "Milestone 9 — Core Algorithm & State Representation",
-      "codeHash": "99f307f40ed4d79c212ffffd1d5a650277a19b24ccc85719256dee71e249b301",
+      "partTitle": "2PC-vs-Saga Architectural Selector & Latency Trade-Offs",
+      "codeHash": "95c95e7a404e5e8a0ff834cc500988566722cd0959cbf8f82d0c36d5b144bced",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "2PC-vs-Saga Architectural Selector & Latency Trade-Offs",
+        "actors": [
+          "spans_external_apis",
+          "expected_hold_ms",
+          "strict_isolation_required"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Senior distributed architects do not blindly pick 2PC OR Sagas.",
+            "activeActor": "spans_external_apis",
+            "messages": [
+              {
+                "from": "spans_external_apis",
+                "to": "expected_hold_ms",
+                "label": {
+                  "var": "spans_external_apis",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "expected_hold_ms",
+                "to": "strict_isolation_required",
+                "label": {
+                  "var": "expected_hold_ms",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Choose **2PC (ideally Raft-replicated)** when.",
+            "activeActor": "expected_hold_ms",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "spans_external_apis",
+                "to": "expected_hold_ms",
+                "label": {
+                  "var": "spans_external_apis",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "expected_hold_ms",
+                "to": "strict_isolation_required",
+                "label": {
+                  "var": "expected_hold_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say5",
+            "caption": "Build an explicit policy evaluator below routing workload profiles.",
+            "activeActor": "strict_isolation_required",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "spans_external_apis",
+                "to": "expected_hold_ms",
+                "label": {
+                  "var": "spans_external_apis",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "expected_hold_ms",
+                "to": "strict_isolation_required",
+                "label": {
+                  "var": "expected_hold_ms",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "2PC-vs-Saga Architectural Selector & Latency Trade-Offs",
+        "actors": [
+          "spans_external_apis",
+          "expected_hold_ms",
+          "strict_isolation_required"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Senior distributed architects do not blindly pick 2PC OR Sagas.",
+            "messages": [
+              {
+                "from": "spans_external_apis",
+                "to": "expected_hold_ms",
+                "label": "False",
+                "tone": "data"
+              },
+              {
+                "from": "expected_hold_ms",
+                "to": "strict_isolation_required",
+                "label": "5",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "spans_external_apis"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Choose **2PC (ideally Raft-replicated)** when.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "spans_external_apis",
+                "to": "expected_hold_ms",
+                "label": "False",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "expected_hold_ms",
+                "to": "strict_isolation_required",
+                "label": "5",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "expected_hold_ms"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say5",
+            "caption": "Build an explicit policy evaluator below routing workload profiles.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "spans_external_apis",
+                "to": "expected_hold_ms",
+                "label": "False",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "expected_hold_ms",
+                "to": "strict_isolation_required",
+                "label": "12",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "strict_isolation_required"
           }
         ]
       }
     },
     {
-      "partTitle": "Milestone 9 — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "00f29f8cd7218caff292311e9081af1f3c2d71f5916c22b43f4dd415846edc42",
+      "partTitle": "End-to-End Relay + Orchestrator + Compensate Pipeline Trace",
+      "codeHash": "ab56d57b3daa14047b70070e62481bd6a9fc47d60a2279697ad600130dd21959",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "End-to-End Relay + Orchestrator + Compensate Pipeline Trace",
+        "actors": [
+          "self",
+          "name",
+          "bal"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Now compose the full asynchronous message-passing trace between.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "name",
+                "label": {
+                  "var": "self",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "bal",
+                "label": {
+                  "var": "name",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Watch how every stage progresses asynchronously over aggregate-partitioned.",
+            "activeActor": "name",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "name",
+                "label": {
+                  "var": "self",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "name",
+                "to": "bal",
+                "label": {
+                  "var": "name",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Run the full message-driven multi-worker Outbox Saga pipeline below.",
+            "activeActor": "bal",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "name",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "name",
+                "to": "bal",
+                "label": {
+                  "var": "name",
+                  "line": 31,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "End-to-End Relay + Orchestrator + Compensate Pipeline Trace",
+        "actors": [
+          "self",
+          "name",
+          "bal"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Now compose the full asynchronous message-passing trace between.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "name",
+                "label": "<OutboxSagaWorker>",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "bal",
+                "label": "'inv'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Watch how every stage progresses asynchronously over aggregate-partitioned.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "name",
+                "label": "<OutboxSagaWorker>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "name",
+                "to": "bal",
+                "label": "'inv'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "name"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Run the full message-driven multi-worker Outbox Saga pipeline below.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "name",
+                "label": "<PipelineCoordinator>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "name",
+                "to": "bal",
+                "label": "'pay'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "bal"
           }
         ]
       }
     },
     {
-      "partTitle": "Milestone 9 — Resilience Guardrails & Failure Recovery",
-      "codeHash": "aa5d713fadee470ab8548e6b15a6a9289bd9f90168d88800440d3863947e2754",
+      "partTitle": "Stuck Saga Detection, Dead-Letter Triage & Poison Compensation",
+      "codeHash": "8ac47775e348267a59bdd2bdbb9e4a59450efed0f66737f502b621f0614ce516",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Stuck Saga Detection, Dead-Letter Triage & Poison Compensation",
+        "actors": [
+          "sagas",
+          "active_sagas",
+          "now_ms"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Unlike normal business failures (`T_3` rejected cleanly -> unwind `T_2.",
+            "activeActor": "sagas",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "sagas",
+                "to": "active_sagas",
+                "label": {
+                  "var": "sagas",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "active_sagas",
+                "to": "now_ms",
+                "label": {
+                  "var": "active_sagas",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "You MUST NEVER skip a failed compensation `C_2` silently and mark the saga.",
+            "activeActor": "active_sagas",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "sagas",
+                "to": "active_sagas",
+                "label": {
+                  "var": "sagas",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "active_sagas",
+                "to": "now_ms",
+                "label": {
+                  "var": "active_sagas",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Inspect the saga SLA watchdog and poison-compensation escalation.",
+            "activeActor": "now_ms",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "sagas",
+                "to": "active_sagas",
+                "label": {
+                  "var": "sagas",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "active_sagas",
+                "to": "now_ms",
+                "label": {
+                  "var": "active_sagas",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Stuck Saga Detection, Dead-Letter Triage & Poison Compensation",
+        "actors": [
+          "sagas",
+          "active_sagas",
+          "now_ms"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Unlike normal business failures (`T_3` rejected cleanly -> unwind `T_2.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "sagas",
+                "to": "active_sagas",
+                "label": "[{'id': 's1', 'status': 'FORWARD', 'upd…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "active_sagas",
+                "to": "now_ms",
+                "label": "[{'id': 's1', 'status': 'FORWARD', 'upd…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "sagas"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "You MUST NEVER skip a failed compensation `C_2` silently and mark the saga.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "sagas",
+                "to": "active_sagas",
+                "label": "[{'id': 's1', 'status': 'FORWARD', 'upd…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "active_sagas",
+                "to": "now_ms",
+                "label": "[{'id': 's1', 'status': 'FORWARD', 'upd…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "active_sagas"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Inspect the saga SLA watchdog and poison-compensation escalation.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "sagas",
+                "to": "active_sagas",
+                "label": "[{'id': 's1', 'status': 'FORWARD', 'upd…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "active_sagas",
+                "to": "now_ms",
+                "label": "[{'id': 's1', 'status': 'FORWARD', 'upd…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "now_ms"
           }
         ]
       }
     },
     {
-      "partTitle": "Milestone 9 — Production Telemetry & Verification Audit",
-      "codeHash": "fdcd1490a78a96dff95a5c5e2ca3027e28f49357cb4aa06b33a229a3d9c798c1",
+      "partTitle": "Milestone 9 Verification Suite: Zero Orphan State & Parity",
+      "codeHash": "fdf61dfb5941e15a26a7f47ec4e427f8e65ee3e1aafef30c3cbe7a5d24df8a27",
       "spec": {
         "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
+        "title": "Milestone 9 Verification Suite: Zero Orphan State & Parity",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "gates",
+            "label": "gates"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "bal",
+            "label": "bal"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "seen",
+            "label": "seen"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "k",
+            "label": "k"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "at": "say1",
+            "caption": "Trace how sign updates milestone during execution.",
+            "values": {
+              "gates": {
+                "var": "gates",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "bal": {
+                "var": "bal",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "seen": {
+                "var": "seen",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "k": {
+                "var": "k",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "gates": "data",
+              "bal": "data",
+              "seen": "data",
+              "k": "data"
+            },
+            "arrows": [
+              [
+                "gates",
+                "bal"
+              ],
+              [
+                "bal",
+                "seen"
+              ],
+              [
+                "seen",
+                "k"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Never treat unit-tested individual helpers as proof that full distributed.",
+            "values": {
+              "gates": {
+                "var": "gates",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "bal": {
+                "var": "bal",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "seen": {
+                "var": "seen",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "k": {
+                "var": "k",
+                "line": 11,
+                "hit": 1
               }
+            },
+            "tones": {
+              "gates": "data",
+              "bal": "data",
+              "seen": "data",
+              "k": "data"
+            },
+            "arrows": [
+              [
+                "gates",
+                "bal"
+              ],
+              [
+                "bal",
+                "seen"
+              ],
+              [
+                "seen",
+                "k"
+              ]
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "caption": "Trace how execute updates full during execution.",
+            "values": {
+              "gates": {
+                "var": "gates",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "bal": {
+                "var": "bal",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "seen": {
+                "var": "seen",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "k": {
+                "var": "k",
+                "line": 12,
+                "hit": 1
               }
+            },
+            "tones": {
+              "gates": "ok",
+              "bal": "ok",
+              "seen": "ok",
+              "k": "ok"
+            },
+            "arrows": [
+              [
+                "gates",
+                "bal"
+              ],
+              [
+                "bal",
+                "seen"
+              ],
+              [
+                "seen",
+                "k"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
+        "title": "Milestone 9 Verification Suite: Zero Orphan State & Parity",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "gates",
+            "label": "gates"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "bal",
+            "label": "bal"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "seen",
+            "label": "seen"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "k",
+            "label": "k"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "at": "say1",
+            "caption": "Trace how sign updates milestone during execution.",
+            "values": {
+              "gates": "{}",
+              "bal": "200",
+              "seen": "set()",
+              "k": "'c1'"
+            },
+            "tones": {
+              "gates": "data",
+              "bal": "data",
+              "seen": "data",
+              "k": "data"
+            },
+            "arrows": [
+              [
+                "gates",
+                "bal"
+              ],
+              [
+                "bal",
+                "seen"
+              ],
+              [
+                "seen",
+                "k"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "at": "say2",
+            "caption": "Never treat unit-tested individual helpers as proof that full distributed.",
+            "values": {
+              "gates": "{'2pc_presumed_abort': True}",
+              "bal": "200",
+              "seen": "set()",
+              "k": "'c1'"
+            },
+            "tones": {
+              "gates": "data",
+              "bal": "data",
+              "seen": "data",
+              "k": "data"
+            },
+            "arrows": [
+              [
+                "gates",
+                "bal"
+              ],
+              [
+                "bal",
+                "seen"
+              ],
+              [
+                "seen",
+                "k"
+              ]
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "caption": "Trace how execute updates full during execution.",
+            "values": {
+              "gates": "{'2pc_presumed_abort': True, 'outbox_at…",
+              "bal": "200",
+              "seen": "set()",
+              "k": "'c1'"
+            },
+            "tones": {
+              "gates": "ok",
+              "bal": "ok",
+              "seen": "ok",
+              "k": "ok"
+            },
+            "arrows": [
+              [
+                "gates",
+                "bal"
+              ],
+              [
+                "bal",
+                "seen"
+              ],
+              [
+                "seen",
+                "k"
+              ]
             ]
           }
         ]

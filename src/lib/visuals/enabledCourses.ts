@@ -28,7 +28,8 @@
 // - 'sre-web': Multi-Cloud Reliability & Site Reliability Engineering (Month 10 Web Full-Stack) released via [task:L-sre-web]
 // - 'stream-web': High-Throughput Streaming in TypeScript (Month 11 Web Full-Stack) released via [task:L-stream-web]
 export const ENABLED_COURSES: readonly string[] = [
-  'python', 'dsa-py', 'sql-mastery', 'ai-py', 'dist-py', 'cloud-py', 'nlp-py', 'quant-py', 'prompt-py', 'train-py', 'vec-py', 'safe-py',
+  // [FIX-STAGE: wave0-enable-cyber-py] Include 'cyber-py' so course-cyber-python Day 1-60 visuals render in production
+  'python', 'dsa-py', 'sql-mastery', 'ai-py', 'dist-py', 'cloud-py', 'nlp-py', 'quant-py', 'prompt-py', 'cyber-py', 'train-py', 'vec-py', 'safe-py',
   'react-basics', 'node-web', 'dsa-optim', 'devops', 'cloud', 'dist', 'cyber', 'ai', 'sre-web', 'stream-web', 'aideploy-web',
   'iot_edge', 'iot-edge', 'iot_sec', 'iot-sec', 'iot_net', 'iot-net', 'iot_emb', 'iot-emb',
   'bcom_ops', 'bcom-ops', 'bcom_scrm', 'bcom-scrm', 'bcom_ent', 'bcom-ent', 'bcom_ecom', 'bcom-ecom',

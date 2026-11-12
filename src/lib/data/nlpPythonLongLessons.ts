@@ -42,11 +42,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why lowercase text before counting words?",
           "options": [
-            "It makes text shorter",
-            "So \"The\" and \"the\" count as the same word",
-            "Python cannot read capitals"
+            "Variants like 'The' and 'the' merge into a single word",
+            "Compressing mixed-case text lowers UTF-8 dictionary size",
+            "Python string splitting breaks on leading capital letters",
+            "Upper-case nouns automatically classify as proper stopwords"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Lowercasing merges words that differ only in case."
         }
       },
@@ -78,11 +79,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why normalise Unicode before comparing text?",
           "options": [
-            "To make text uppercase",
-            "The same visible character can be stored in different ways",
-            "Unicode is slow"
+            "Unicode normalization forces all code points into uppercase",
+            "Decomposed code points execute slower during regex tokenization",
+            "Raw ASCII byte arrays reject multi-byte accented characters",
+            "Visually identical glyphs can use distinct UTF-8 sequences"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Normalisation gives every string one standard representation."
         }
       },
@@ -110,11 +112,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does unicodedata.combining(ch) tell you?",
           "options": [
-            "Whether ch is a vowel",
-            "Whether ch is a combining mark such as an accent",
-            "Whether ch is uppercase"
+            "Whether ch represents an unvoiced vowel glyph",
+            "Whether ch is a punctuation stop separator",
+            "Whether ch is a combining mark like an accent",
+            "Whether ch maps to an upper-case ASCII letter"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Combining marks attach to the previous character; the function returns non-zero for them."
         }
       },
@@ -146,9 +149,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is text.split() alone a weak tokenizer?",
           "options": [
-            "It is slow",
-            "It keeps punctuation attached and cannot split \"Hello,world\"",
-            "It removes numbers"
+            "Whitespace splitting executes slowly on large corpora",
+            "Glued punctuation and strings like 'Hello,world' stay merged",
+            "Empty splits strip numeric digits from currency tokens",
+            "Space boundaries split hyphenated proper compounds cleanly"
           ],
           "answer": 1,
           "why": "Plain split only breaks on whitespace, so punctuation stays glued to words."
@@ -182,9 +186,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When can removing stopwords hurt?",
           "options": [
-            "Never",
-            "In sentiment analysis, where words like \"not\" change the meaning",
-            "Only with numbers"
+            "Rarely, because stopwords carry zero grammatical meaning",
+            "In tasks like sentiment where negators such as 'not' matter",
+            "Exclusively when training corpora consist purely of digits",
+            "Only when word frequencies are normalized by TF-IDF ratios"
           ],
           "answer": 1,
           "why": "Some \"stop\" words carry crucial meaning for certain tasks."
@@ -218,11 +223,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why lowercase BEFORE filtering stopwords?",
           "options": [
-            "It is faster",
-            "Otherwise \"The\" would not match the lowercase stopword \"the\"",
-            "Stopwords must be uppercase"
+            "Otherwise 'The' misses matching lowercase 'the' in stopwords",
+            "Lowercasing first reduces the memory size of stopword sets",
+            "Python set lookups enforce uniform lowercase ASCII keys",
+            "Case-sensitive filtering strips leading sentence punctuation"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The stopword list is lowercase, so tokens must be lowercased first."
         }
       }
@@ -274,11 +280,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a lemma?",
           "options": [
-            "A spelling mistake",
-            "The dictionary base form of a word",
-            "A punctuation mark"
+            "An unnormalized Unicode spelling glitch",
+            "Any trailing morphological inflection tag",
+            "A frequency-weighted character n-gram pair",
+            "The canonical dictionary base word form"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "The lemma is the form you would look up in a dictionary, such as \"run\" for \"running\"."
         }
       },
@@ -310,11 +317,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Porter stems \"studies\" to \"studi\". Is that a problem for search?",
           "options": [
-            "Yes, it is not a real word",
-            "Not usually: all forms map to the same stem, so they still match",
-            "Yes, search needs real words"
+            "Yes, truncating stems corrupts inverted index lookup speed",
+            "Yes, search scoring requires valid grammatical dictionary heads",
+            "Usually fine: related inflections still collapse to one bucket",
+            "No, unless stopword filtering removes the truncated root forms"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Stems only need to be consistent for matching; they need not be dictionary words."
         }
       },
@@ -346,11 +354,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a lemmatiser need the part of speech?",
           "options": [
-            "To count letters",
-            "The base form depends on the role, e.g. \"meeting\" noun vs verb",
-            "It does not need it"
+            "Part-of-speech labels determine Unicode byte alignment cleanly",
+            "Stemming heuristics skip irregular verbs lacking POS metadata",
+            "Grammatical role disambiguates lemmas like noun vs verb 'meeting'",
+            "Lemmatizer lookup dictionaries sort entries primarily by POS"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Different parts of speech can have different lemmas for the same spelling."
         }
       },
@@ -378,9 +387,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which does a lemmatiser handle that a suffix stemmer cannot?",
           "options": [
-            "Removing \"ing\"",
-            "Irregular forms like \"mice\" -> \"mouse\"",
-            "Lowercasing"
+            "Stripping common trailing 'ing' suffixes",
+            "Irregular pairs like 'mice' back to 'mouse'",
+            "Converting capital letters to lowercase",
+            "Splitting hyphenated tokens on delimiters"
           ],
           "answer": 1,
           "why": "Irregular forms need dictionary knowledge, not suffix rules."
@@ -414,9 +424,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "For a search box where users never see the processed words, which is often good enough?",
           "options": [
-            "Stemming",
-            "Hand-written grammar",
-            "Neither"
+            "Suffix stemming",
+            "Rule-based syntax parsing",
+            "Char bigram splitting",
+            "Word2Vec alignment"
           ],
           "answer": 0,
           "why": "Stemming is fast and consistent, which is usually enough for matching in search."
@@ -446,11 +457,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "For simple_stem(\"sing\"), why is nothing stripped?",
           "options": [
-            "\"sing\" has no suffix",
-            "Stripping \"ing\" would leave fewer than 3 letters",
-            "It is a verb"
+            "The stemmer rules omit irregular verb endings",
+            "Three-consonant clusters block suffix stripping rules",
+            "Short four-letter tokens always skip rule lookups",
+            "Removing 'ing' leaves a stem shorter than 3 letters"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "The minimum length rule protects short words from being destroyed."
         }
       }
@@ -506,11 +518,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a bigram model assume?",
           "options": [
-            "Every word is equally likely",
-            "Each word depends only on the previous word",
-            "Word order does not matter"
+            "Every token in the lexicon shares equal base probability",
+            "Word sequence ordering plays zero role in probability sums",
+            "Sentence likelihood grows strictly with raw unigram counts",
+            "Each token's likelihood depends only on its predecessor"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "The Markov assumption: only the previous word matters."
         }
       },
@@ -543,10 +556,11 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "\"like\" appears 3 times and \"like tea\" twice. What is the MLE P(tea | like)?",
           "options": [
             "1/3",
+            "3/4",
             "2/3",
-            "1"
+            "1.0"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Bigram count 2 divided by context count 3."
         }
       },
@@ -574,9 +588,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does one unseen bigram make an MLE sentence probability 0?",
           "options": [
-            "Because of rounding",
-            "The sentence probability is a product, and one factor is 0",
-            "Because of the start symbol"
+            "Log-probability rounding truncates tail tokens down silently",
+            "Sentence probability multiplies factors, so one zero zeros all",
+            "Missing start boundary tokens reset bigram count denominators",
+            "Unseen pairs divide context denominators by zero at inference"
           ],
           "answer": 1,
           "why": "Any zero factor makes the whole product zero."
@@ -610,11 +625,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Laplace smoothing, why add V to the denominator?",
           "options": [
-            "To make numbers bigger",
-            "So the probabilities still add up to 1 after adding 1 to every possible next word",
-            "It is optional"
+            "So probabilities sum to 1 after adding 1 to each vocabulary token",
+            "To inflate unsmoothed likelihoods evenly across test sentences",
+            "To discount overly frequent stopwords out of top predictions",
+            "To match sentence log-perplexity denominators cleanly at cutoff"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "One extra count for each of V words adds V to the total."
         }
       },
@@ -642,9 +658,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Model A has perplexity 50 on a test set, model B has 120. Which is better?",
           "options": [
-            "A",
-            "B",
-            "They are equal"
+            "Model A (lower perplexity)",
+            "Model B (higher perplexity)",
+            "Both assign identical odds",
+            "Cannot compare without vocab size"
           ],
           "answer": 0,
           "why": "Lower perplexity means the model is less surprised by real text."
@@ -678,11 +695,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "laplace_bigram_prob(0, 0, 4) returns?",
           "options": [
-            "0.0",
-            "0.25",
-            "1.0"
+            "0.00",
+            "0.50",
+            "1.00",
+            "0.25"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "(0 + 1) / (0 + 4) = 0.25: a brand-new context spreads probability evenly."
         }
       }
@@ -734,11 +752,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are document vectors usually sparse?",
           "options": [
-            "Because of rounding",
-            "Each document uses only a small part of the whole vocabulary",
-            "Because vectors must be short"
+            "IDF scaling zeros out all high-frequency words",
+            "Dictionary hashing bounds every row to four keys",
+            "A single document uses a tiny slice of full vocab",
+            "Term counts truncate above vocabulary thresholds"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Most vocabulary words do not appear in a given document, so most entries are zero."
         }
       },
@@ -766,11 +785,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What information does bag of words throw away?",
           "options": [
-            "Which words appear",
-            "How often words appear",
-            "The order of the words"
+            "Which unique words appear",
+            "Sequence and word ordering",
+            "Exact token occurrence counts",
+            "Total document word lengths"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "Only counts are kept; order is lost."
         }
       },
@@ -798,9 +818,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why divide the count by the document length?",
           "options": [
-            "To make numbers integers",
-            "So long documents do not win just by being long",
-            "IDF requires it"
+            "Normalizing ensures all term frequencies remain small integers",
+            "Ratio scaling stops long documents winning strictly by length",
+            "Inverse document frequency mathematically requires fractional TFs",
+            "Cosine normalization throws exceptions on unscaled integer counts"
           ],
           "answer": 1,
           "why": "TF measures importance within a document regardless of its size."
@@ -834,11 +855,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A word appears in every document. What is its IDF?",
           "options": [
-            "1",
-            "0",
-            "Very large"
+            "0.0",
+            "1.0",
+            "log(N)",
+            "N"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "log(N / N) = log(1) = 0: it cannot tell documents apart."
         }
       },
@@ -870,11 +892,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When is a word's TF-IDF weight high?",
           "options": [
-            "When it is common everywhere",
-            "When it is frequent in this document and rare in others",
-            "When it is long"
+            "When the word appears uniformly in every corpus article",
+            "When its substring character length exceeds the corpus mean",
+            "When inverse frequency logs stay negative across small sets",
+            "When common inside one document yet scarce across others"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "TF rewards frequency here; IDF rewards rarity elsewhere."
         }
       },
@@ -907,10 +930,11 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "tf_idf(5, 50, 1000, 1000) returns?",
           "options": [
             "0.1",
+            "0.5",
             "0.0",
             "1.0"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The word is in all 1,000 documents, so IDF is log10(1) = 0."
         }
       }
@@ -962,11 +986,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must documents and queries be cleaned the same way?",
           "options": [
-            "To save memory",
-            "Otherwise query words will not match the indexed forms",
-            "Queries are always longer"
+            "Matching pipelines lower inverted-index heap memory usage",
+            "User queries generally exceed average indexed text lengths",
+            "Otherwise query terms fail matching normalized index keys",
+            "Python dictionaries reject mixed-case unstemmed token tuples"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Matching only works if both sides produce the same tokens."
         }
       },
@@ -998,9 +1023,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an inverted index map?",
           "options": [
-            "Documents to their length",
-            "Each word to the documents containing it",
-            "Queries to answers"
+            "Documents directly to raw word counts",
+            "Each unique term to posting documents",
+            "Normalized user queries to top labels",
+            "Corpus IDs to dense continuous floats"
           ],
           "answer": 1,
           "why": "Word to postings list is what makes lookups fast."
@@ -1034,11 +1060,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why sort by (-score, id)?",
           "options": [
-            "To sort ids backwards",
-            "High scores first, with ties always in the same order",
-            "Because Python requires tuples"
+            "Descending relevance puts best matches first with stable ties",
+            "Descending document IDs simplify paging backward cleanly",
+            "Python sorting algorithms require explicit tuple key expressions",
+            "Negated scores avoid floating-point comparison precision drift"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The negative score sorts descending; the id breaks ties deterministically."
         }
       },
@@ -1070,11 +1097,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What guarantees documents and queries are processed identically?",
           "options": [
-            "Writing the steps twice carefully",
-            "Calling one shared cleaning function for both",
-            "Using uppercase"
+            "Manually mirroring regex pipelines in query handlers",
+            "Uppercasing raw search tokens strictly before indexing",
+            "Comparing stemmed indices periodically with unit tests",
+            "Invoking one single shared preprocessor for both"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "A single shared function cannot drift out of sync."
         }
       },
@@ -1107,11 +1135,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Precision at 3 is 2/3. What does that mean?",
           "options": [
-            "Two of the top three results are relevant",
-            "Two-thirds of all relevant documents were found",
-            "The engine is 67 percent fast"
+            "Two-thirds of relevant docs were retrieved",
+            "Two out of three queries returned results",
+            "Mean normalized rank score equals 0.67",
+            "Two of the top three retrieved docs match"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Precision at k counts relevant results among the top k."
         }
       },
@@ -1143,11 +1172,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the index give the search step?",
           "options": [
-            "The final ranking",
-            "A short list of candidate documents to score",
-            "The query"
+            "A finalized BM25 score sorted list",
+            "Normalized stopwords stripped out",
+            "Candidate docs matching query terms",
+            "Cosine norm scalars per corpus id"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The index narrows the work to documents that contain query words."
         }
       }
@@ -1203,9 +1233,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is cosine better than distance for comparing documents of different lengths?",
           "options": [
-            "It is faster",
-            "It depends only on direction, not on vector length",
-            "It is always positive"
+            "Dot-product cosine executes faster on sparse vectors",
+            "Angle similarity tracks topic direction, ignoring length",
+            "Cosine outputs always remain strictly positive across inputs",
+            "Euclidean distance fails when vocabulary counts contain zero"
           ],
           "answer": 1,
           "why": "Scaling a vector does not change its angle, so length has no effect on cosine."
@@ -1239,11 +1270,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the length of the vector [3, 4]?",
           "options": [
-            "7",
             "5",
-            "12"
+            "7",
+            "12",
+            "3.5"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "sqrt(3*3 + 4*4) = sqrt(25) = 5."
         }
       },
@@ -1275,11 +1307,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A query is all stopwords, so its vector is all zeros. What should cosine return?",
           "options": [
-            "An error",
             "0.0",
-            "1.0"
+            "ZeroDivisionError",
+            "1.0",
+            "-1.0"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "A zero vector has no direction, so it is treated as similar to nothing."
         }
       },
@@ -1307,11 +1340,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why round similarities before sorting with a tie-break?",
           "options": [
-            "To save memory",
-            "Values that should be equal may differ slightly, making tie order unpredictable",
-            "Sorting needs integers"
+            "Truncating floats shrinks memory footprints across indexes",
+            "Sorting keys require uniform integer precision before ranking",
+            "Rounding guarantees exact transitive ordering across vectors",
+            "Float noise skews analytically equal scores and breaks tie order"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Rounding makes mathematically equal scores compare as equal."
         }
       },
@@ -1339,11 +1373,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do \"car\" and \"automobile\" get cosine 0 in bag-of-words vectors?",
           "options": [
-            "They are misspelled",
-            "Each word is a separate dimension with no notion of meaning",
-            "Cosine cannot handle nouns"
+            "Misspelled surface characters drop both terms from vocabs",
+            "Cosine similarity normalizes strictly across shared noun stems",
+            "Sparse axes remain orthogonal, encoding zero semantic overlap",
+            "Inverse document weights collapse synonyms down to zero"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Count vectors treat every word as unrelated to every other word."
         }
       },
@@ -1375,9 +1410,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does sorted(vectors, key=...) iterate over when vectors is a dict?",
           "options": [
-            "The values",
-            "The keys",
-            "Key-value pairs"
+            "Dict values in sorted order",
+            "Dictionary keys directly",
+            "(key, value) tuples",
+            "Flattened vector norms"
           ],
           "answer": 1,
           "why": "Iterating a dictionary gives its keys, here the document ids."
@@ -1435,9 +1471,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the distributional hypothesis?",
           "options": [
-            "Words are distributed randomly",
-            "Words that appear in similar contexts have similar meanings",
-            "Longer words are more important"
+            "Token occurrences distribute uniformly across web text",
+            "Words sharing similar contexts tend to share semantics",
+            "Longer compound nouns anchor paragraph topic meanings",
+            "Orthographic spelling similarity predicts close meaning"
           ],
           "answer": 1,
           "why": "Meaning can be learned from the contexts a word appears in."
@@ -1471,11 +1508,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In skip-gram, what does the model predict?",
           "options": [
-            "The centre word from its context",
-            "Context words from the centre word",
-            "The next sentence"
+            "Surrounding context words from center word",
+            "The target center word from context words",
+            "Missing masked punctuation inside paragraphs",
+            "The next paragraph's overall sentiment tag"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Skip-gram predicts the surrounding words from the centre word; CBOW does the reverse."
         }
       },
@@ -1507,11 +1545,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do \"car\" and \"automobile\" score high with embeddings but 0 with bag of words?",
           "options": [
-            "Embeddings ignore spelling, and similar contexts give similar vectors",
-            "Embeddings are longer",
-            "Bag of words is broken"
+            "Dense continuous vectors allocate higher dimensional norm values",
+            "Sparse bag-of-words metrics intentionally penalize long synonyms",
+            "Co-occurrence matrices force synonyms to share identical stems",
+            "Embeddings capture shared context despite different spelling"
           ],
-          "answer": 0,
+          "answer": 3,
           "why": "Embeddings place words by the contexts they appear in, not by their spelling."
         }
       },
@@ -1539,11 +1578,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does king - man + woman compute?",
           "options": [
-            "A random vector",
-            "A vector expected to be near \"queen\"",
-            "The average of three words"
+            "A normalized zero centroid vector",
+            "The arithmetic average of all three",
+            "A point close to the 'queen' vector",
+            "An orthogonal gender basis axis"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The difference king - man captures royalty; adding woman gives a vector near queen."
         }
       },
@@ -1575,11 +1615,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why exclude the input words when solving analogies?",
           "options": [
-            "They are misspelled",
-            "The result vector is often closest to one of the inputs, which is not a useful answer",
-            "To make it faster"
+            "Excluding known terms slashes cosine loop time during search",
+            "Vector subtraction cancels norm components of exact input keys",
+            "Query vectors often sit nearest one input term, obscuring analogies",
+            "Normalized dot products overflow to 1.0 unless seed words filter"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Without exclusion, answers like \"king\" often win."
         }
       },
@@ -1607,9 +1648,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "nearest_word(v, emb, {\"king\"}): what happens to \"king\"?",
           "options": [
-            "It is ranked first",
-            "It is never returned",
-            "It raises an error"
+            "Ranks 'king' cleanly in spot 1",
+            "Skips returning 'king' entirely",
+            "Raises ValueError on exclusion",
+            "Returns cosine score equal to -1"
           ],
           "answer": 1,
           "why": "Excluded words are filtered out before choosing."
@@ -1663,11 +1705,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does out of vocabulary (OOV) mean?",
           "options": [
-            "A spelling mistake only",
-            "A word the model has no vector for because it never saw it in training",
-            "A stopword"
+            "Tokens absent from the fixed training lookup vocabulary",
+            "Typo strings flagged strictly during grammar normalization",
+            "High-frequency stopwords pruned ahead of embedding training",
+            "Ambiguous polysemous words carrying multiple distinct senses"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "OOV words are missing from the model's vocabulary, so they have no learned vector."
         }
       },
@@ -1699,11 +1742,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why add < and > around the word?",
           "options": [
-            "For decoration",
-            "So prefixes and suffixes are distinguished from the same letters inside words",
-            "To make n-grams longer"
+            "Boundary symbols help compress lookup dictionaries evenly",
+            "Character window slicing requires even token lengths cleanly",
+            "Brackets protect multi-byte UTF-8 punctuation from lowercasing",
+            "Markers separate true prefix/suffix slices from inner substrings"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Boundary markers turn \"<ru\" into a clear start-of-word signal."
         }
       },
@@ -1731,11 +1775,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do \"running\" and \"runner\" get similar FastText vectors?",
           "options": [
-            "They have the same length",
-            "Their vectors are built from many shared character n-grams",
-            "FastText looks them up in a dictionary"
+            "Both words contain matching exact character byte lengths",
+            "FastText groups inflected lemmas in a hidden synonym map",
+            "Skip-gram context windows ignore all trailing derivational suffixes",
+            "Both sum representations from many shared char n-grams"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Shared n-grams contribute the same vectors to both words."
         }
       },
@@ -1767,11 +1812,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does FastText do for a word it never saw in training?",
           "options": [
-            "Returns an error",
-            "Builds a vector from the vectors of its known character n-grams",
-            "Uses a random vector"
+            "Throws a KeyError signaling missing vocabulary item",
+            "Samples a fixed uniform random noise embedding once",
+            "Sums vectors from the unknown word's known char n-grams",
+            "Falls back strictly to a single global <unk> bucket vector"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Subword vectors let it compose a vector for any word."
         }
       },
@@ -1799,9 +1845,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does FastText hash n-grams into buckets?",
           "options": [
-            "To encrypt them",
-            "To cap memory: there are too many possible n-grams to store separately",
-            "To sort them"
+            "Hashing anonymizes private vocabulary logs prior to export",
+            "Bucket hashing caps huge exponential char n-gram tables safely",
+            "Consistent hashes sort subword chunks lexicographically fast",
+            "Modular bucketing eliminates collisions across common bigrams"
           ],
           "answer": 1,
           "why": "Hashing limits the table size at the cost of occasional collisions."
@@ -1831,11 +1878,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "char_ngrams(\"cat\", 3, 3) should end with which item?",
           "options": [
-            "\"cat\"",
-            "\"<cat>\"",
-            "\"at>\""
+            "'at>'",
+            "'cat'",
+            "'<ca'",
+            "'<cat>'"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The whole word, wrapped in boundary markers, is added last."
         }
       }
@@ -1891,11 +1939,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a co-occurrence count measure?",
           "options": [
-            "How long a word is",
-            "How often two words appear near each other in the corpus",
-            "How rare a word is"
+            "How often two terms co-occur within context windows",
+            "Average character byte length across unique terms",
+            "Inverse corpus rarity computed per document head",
+            "Minimum edit distance between adjacent word pairs"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Counts of nearby word pairs across the whole corpus."
         }
       },
@@ -1924,10 +1973,11 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "A probe word relates equally to both \"ice\" and \"steam\". Its ratio is close to?",
           "options": [
             "0",
-            "1",
-            "100"
+            "10",
+            "100",
+            "1"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Equal relation gives equal probabilities, so the ratio is about 1."
         }
       },
@@ -1955,11 +2005,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why cap the weight at 1 for very frequent pairs?",
           "options": [
-            "To save memory",
-            "So extremely common pairs like \"the of\" cannot dominate training",
-            "Because logs need it"
+            "Clipping floating counts reduces gradient disk storage size",
+            "Logarithmic weighting hits NaN whenever integer counts rise high",
+            "Caps prevent ultra-common filler pairs from swamping regression",
+            "Weight clamping balances symmetric co-occurrence matrix signs"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Capping stops frequent but uninformative pairs from overwhelming the rest."
         }
       },
@@ -1987,9 +2038,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What limitation do Word2Vec, GloVe and FastText share?",
           "options": [
-            "They cannot handle English",
-            "Each word gets one vector regardless of its meaning in context",
-            "They need labelled data"
+            "Static dictionaries cannot represent lowercase punctuation tokens",
+            "Each surface form gets one fixed vector regardless of context",
+            "Objective matrices require manually labeled word sense tags",
+            "Subword hashing fails whenever words exceed fifteen characters"
           ],
           "answer": 1,
           "why": "Static embeddings cannot tell \"river bank\" from \"money bank\"."
@@ -2019,9 +2071,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why check embedding coverage before using pre-trained vectors?",
           "options": [
-            "To speed up training",
-            "Missing domain words silently lose important information",
-            "Coverage is always 100 percent"
+            "High vocabulary coverage reduces model inference disk load",
+            "Missing domain terms silently degrade into zero or empty signals",
+            "Uncovered words raise KeyErrors during cosine batch pooling",
+            "Standard news embeddings cover roughly 100% of every niche"
           ],
           "answer": 1,
           "why": "Low coverage means key words get no vector."
@@ -2055,11 +2108,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "glove_weight(100) returns?",
           "options": [
-            "0.75",
             "1.0",
-            "100"
+            "0.75",
+            "100",
+            "0.50"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "At x = x_max the ratio is 1, and 1 to any power is 1."
         }
       }
@@ -2111,11 +2165,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is part-of-speech tagging a sequence problem?",
           "options": [
-            "Tags are alphabetical",
-            "The best tag for a word depends on the neighbouring tags",
-            "Every word has one tag"
+            "Tag dictionaries require alphabetical binary lookup indexing",
+            "Every surface English token holds strictly one valid tag",
+            "Sequential tagging compresses document word lengths by half",
+            "A word's valid part of speech depends on adjacent tags"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Context from neighbouring words and tags resolves ambiguity."
         }
       },
@@ -2147,11 +2202,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an emission probability P(word | tag) describe?",
           "options": [
-            "How likely a tag follows another",
-            "How likely a tag produces a particular word",
-            "How long a sentence is"
+            "How often one syntactic tag immediately follows another",
+            "Expected total sentence length conditioned on an opening noun",
+            "How likely a hidden tag generates a specific surface word",
+            "Log odds comparing unigram token counts against corpus totals"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Emissions link the hidden tag to the observed word."
         }
       },
@@ -2183,11 +2239,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is brute-force tagging impractical?",
           "options": [
-            "It gives wrong answers",
-            "The number of tag sequences grows exponentially with sentence length",
-            "It needs a GPU"
+            "Exhaustive enumeration consistently picks suboptimal paths",
+            "Matrix emission lookups require dedicated parallel hardware",
+            "Candidate tag paths multiply exponentially with sentence length",
+            "Greedy transition sums underflow double floats after ten words"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "tags ** words explodes quickly; dynamic programming avoids it."
         }
       },
@@ -2223,9 +2280,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does Viterbi keep for each tag at each step?",
           "options": [
-            "Every path ending in that tag",
-            "Only the best path ending in that tag and its probability",
-            "Nothing, it restarts each word"
+            "All historical sub-paths terminating in that state",
+            "Strictly the highest-scoring path to each state",
+            "Normalized transition weights minus word scores",
+            "Only the initial tag probability before pruning"
           ],
           "answer": 1,
           "why": "Keeping only the best path per tag is what makes it efficient and still exact."
@@ -2259,11 +2317,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do HMM taggers struggle with unknown words?",
           "options": [
-            "They are too long",
-            "Their emission probability is 0 for every tag",
-            "They are always verbs"
+            "Zero emission likelihoods wipe out every candidate tag score",
+            "Unfamiliar words violate hidden Markov chain transition rules",
+            "HMM decoders assign unknown tokens deterministically to verbs",
+            "Backpointers break whenever surface lengths exceed eight chars"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Without smoothing or guesses, an unseen word gives every path probability 0."
         }
       },
@@ -2291,11 +2350,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "For a one-word sentence, what decides the Viterbi tag?",
           "options": [
-            "Transitions only",
-            "Start probability times emission probability",
-            "Alphabetical order"
+            "Transition matrix weights alone",
+            "Lexicographic label sort order",
+            "Uniform prior divided by vocab",
+            "Start times emission probability"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "With one word there are no transitions; start and emission decide."
         }
       }
@@ -2347,11 +2407,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can NER not simply label each word as PERSON or not?",
           "options": [
-            "Words are too short",
-            "Entities can span several words, and we need to know where each begins and ends",
-            "Names are always one word"
+            "Word-level binary labels collapse punctuation tokens inside spans",
+            "Proper person names only exist as single whitespace-split strings",
+            "Sequence decoders require at least three distinct output classes",
+            "Entities span multiple words requiring exact boundary start/end tags"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Multi-word entities need boundary information, not just a type per word."
         }
       },
@@ -2383,11 +2444,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does BIO need B- tags instead of only I- tags?",
           "options": [
-            "B is shorter",
-            "To separate two adjacent entities of the same type",
-            "I- tags are not allowed"
+            "Single-character prefixes conserve tag dictionary string memory",
+            "CRF matrices forbid transitions directly from O into I- tags",
+            "B- separates two back-to-back entities sharing the same label",
+            "Span extractors treat lone I- markers identically to empty tags"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Without B-, \"Asha\" and \"Ravi\" would merge into one entity."
         }
       },
@@ -2419,11 +2481,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which sequence is valid?",
           "options": [
-            "O I-LOC",
-            "B-LOC I-PER",
-            "B-LOC I-LOC I-LOC"
+            "O -> I-LOC",
+            "B-LOC -> I-LOC -> I-LOC",
+            "B-LOC -> I-PER",
+            "I-ORG -> O -> I-ORG"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": "I-LOC correctly continues a LOC entity that began with B-LOC."
         }
       },
@@ -2455,11 +2518,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must the conversion close an open entity after the loop ends?",
           "options": [
-            "To save memory",
-            "An entity at the end of the sentence would otherwise be lost",
-            "Python requires it"
+            "Final-token entities would never get emitted once looping ends",
+            "Closing trailing spans releases Python generator memory early",
+            "Strict list slicing in Python throws IndexError at end offset",
+            "Span precision scores count unclosed final tokens twice"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The last entity is never closed by a following O or B- tag."
         }
       },
@@ -2491,11 +2555,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "The model finds \"New\" as LOC but gold is \"New Delhi\". Is that entity correct?",
           "options": [
-            "Yes, partly",
-            "No, entity-level evaluation needs an exact span and type match",
-            "Only for recall"
+            "No, entity evaluation demands exact span boundaries and type",
+            "Yes, partial boundary overlap gets half credit in NER F1",
+            "Yes for precision calculation, though excluded from span recall",
+            "Only when the remaining token 'Delhi' receives an O tag"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Strict entity-level scoring requires exact boundaries and type."
         }
       },
@@ -2523,11 +2588,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "bio_spans([\"A\", \"B\"], [\"B-ORG\", \"B-ORG\"]) returns?",
           "options": [
-            "[(\"ORG\", \"A B\")]",
-            "[(\"ORG\", \"A\"), (\"ORG\", \"B\")]",
-            "[]"
+            "[('ORG', 'A B')]",
+            "[] (empty list)",
+            "[('ORG', 'A'), ('I-ORG', 'B')]",
+            "[('ORG', 'A'), ('ORG', 'B')]"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Each B- starts a new entity, so there are two separate ORG entities."
         }
       }
@@ -2579,11 +2645,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does text classification need to learn from?",
           "options": [
-            "Unlabelled documents only",
-            "Documents with known labels",
-            "A dictionary"
+            "Raw unannotated document dumps",
+            "Pre-compiled stem dictionaries",
+            "Labeled training documents",
+            "Unsupervised K-means centroids"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Classification is supervised: it learns from labelled examples."
         }
       },
@@ -2612,9 +2679,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is \"naive\" about Naive Bayes?",
           "options": [
-            "It ignores the prior",
-            "It assumes words are independent given the class",
-            "It only works for two classes"
+            "The classifier omits uneven prior category frequencies",
+            "It assumes token occurrences are independent given class",
+            "It restricts linear separation solely to binary problems",
+            "Maximum likelihood priors ignore smooth add-one counts"
           ],
           "answer": 1,
           "why": "Treating words as independent is the simplifying, naive assumption."
@@ -2648,9 +2716,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why smooth the word likelihoods?",
           "options": [
-            "To make training faster",
-            "An unseen word would otherwise give the whole class probability 0",
-            "To remove stopwords"
+            "Uniform Laplace counts noticeably accelerate argmax loops",
+            "One unseen test word otherwise zeros the whole class product",
+            "Additive priors strip low-information stopwords cleanly",
+            "Smoothing scales conditional likelihoods cleanly onto [0, 1]"
           ],
           "answer": 1,
           "why": "Smoothing keeps unseen words from zeroing out a class."
@@ -2684,11 +2753,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why add log probabilities instead of multiplying probabilities?",
           "options": [
-            "Addition is more accurate for integers",
-            "Products of many small probabilities underflow to 0",
-            "Logs make probabilities positive"
+            "Multiplying many small likelihoods underflows IEEE floats to 0",
+            "Integer addition avoids rounding truncation in log tables",
+            "Log transforms shift small fractional probabilities positive",
+            "Summing priors runs asymptotically faster than products"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Log sums avoid underflow while preserving which class scores highest."
         }
       },
@@ -2721,11 +2791,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A spam filter is 99 percent accurate, but 1 percent of emails are spam and it never flags any. What is wrong?",
           "options": [
-            "Nothing, 99 percent is great",
-            "Accuracy hides that recall for spam is 0",
-            "The prior is too high"
+            "Nothing wrong: 99% exceeds baseline benchmarks safely",
+            "Class priors must stay calibrated under 50% per dataset",
+            "Log likelihoods need Laplace alpha increased past 1.0",
+            "High accuracy masks 0% recall on the rare spam minority"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "With unbalanced classes, check precision and recall per class, not just accuracy."
         }
       },
@@ -2753,11 +2824,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "nb_classify([], {\"a\": 0.3, \"b\": 0.7}, {\"a\": {}, \"b\": {}}) returns?",
           "options": [
-            "\"a\"",
-            "\"b\"",
-            "None"
+            "'a'",
+            "None",
+            "'b'",
+            "ValueError"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "With no words, the class with the larger prior wins."
         }
       }
@@ -2809,11 +2881,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is an RNN's hidden state?",
           "options": [
-            "The final output only",
-            "A vector summarising the sequence read so far",
-            "The list of all words"
+            "Strictly the final predicted softmax class logits",
+            "The complete concatenated embedding sequence up to t",
+            "A fixed vector summarizing sequence context seen so far",
+            "Static positional weights shared identically across steps"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The hidden state is the network's running memory."
         }
       },
@@ -2845,9 +2918,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does an RNN apply tanh?",
           "options": [
-            "To make numbers integers",
-            "To keep the hidden state between -1 and 1 as the sequence grows",
-            "To delete old information"
+            "Tanh converts dense continuous activations into whole integers",
+            "Squashing bounds state values to [-1, 1], curbing magnitude blowup",
+            "Hyperbolic tangents erase outdated past hidden signals on step",
+            "Nonlinear normalization ensures orthogonal gradient propagation"
           ],
           "answer": 1,
           "why": "tanh bounds the state so it cannot grow without limit."
@@ -2877,11 +2951,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can an RNN not process all words of a sentence at once in parallel?",
           "options": [
-            "It has too few weights",
-            "Each step needs the previous hidden state",
-            "GPUs do not support tanh"
+            "Computing state h_t strictly depends on previous state h_(t-1)",
+            "Recurrent architectures allocate too few matrices per token",
+            "Graphics tensor kernels fail running tanh over matrix columns",
+            "Shared projection weights prevent loading sequences at once"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Sequential dependence forces step-by-step processing."
         }
       },
@@ -2909,11 +2984,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the vanishing gradient problem cause?",
           "options": [
-            "Training becomes faster",
-            "Early inputs in long sequences get almost no learning signal",
-            "The model runs out of memory"
+            "Gradient updates accelerate rapidly in late dense layers",
+            "Recurrent loops exhaust host memory after fifty word steps",
+            "Validation losses oscillate upward uncontrollably toward infinity",
+            "Earlier steps receive negligible learning signal across long spans"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Shrinking gradients stop the network learning long-range dependencies."
         }
       },
@@ -2941,11 +3017,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does gradient clipping fix?",
           "options": [
-            "Vanishing gradients",
-            "Exploding gradients",
-            "Out-of-vocabulary words"
+            "Vanishing hidden gradients",
+            "Out-of-vocabulary unknown words",
+            "Overfitting on tiny vocabularies",
+            "Exploding gradient spikes"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Clipping limits overly large gradients; it cannot restore vanished ones."
         }
       },
@@ -2975,7 +3052,8 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "VANISHING",
             "STABLE",
-            "EXPLODING"
+            "EXPLODING",
+            "ZEROED"
           ],
           "answer": 2,
           "why": "1.5 ** 20 is over 3,000, which is above 1,000."
@@ -3031,7 +3109,8 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "-1 to 1",
             "0 to 1",
-            "Any number"
+            "0 to inf",
+            "-inf to inf"
           ],
           "answer": 1,
           "why": "Gates use the sigmoid function, whose output is between 0 and 1."
@@ -3061,11 +3140,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a forget gate value of 1.0 mean?",
           "options": [
-            "Erase the memory",
-            "Keep the old cell state completely",
-            "Ignore the input"
+            "Retain prior memory cell contents intact",
+            "Reset all stored memory cells cleanly",
+            "Mask current input token weights to 0",
+            "Double gradient scaling at next step"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "f = 1 multiplies the old cell state by 1, keeping it."
         }
       },
@@ -3097,11 +3177,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the output gate control?",
           "options": [
-            "How much old memory is erased",
-            "How much of the cell state is exposed as the hidden state",
-            "The learning rate"
+            "How much internal cell state feeds into h_t",
+            "How much old cell history fades per step",
+            "What learning rate scales weight updates next",
+            "Whether hidden bias vectors clip after overflow"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "h = o × tanh(c): the output gate decides how much memory to show."
         }
       },
@@ -3133,11 +3214,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a GRU, what does an update gate z = 0 do?",
           "options": [
-            "Replaces the state with the candidate",
-            "Keeps the previous state unchanged",
-            "Resets everything to 0"
+            "Overwrites memory fully with new candidate state",
+            "Clears all accumulated hidden features down to zero",
+            "Doubles input gating projections at time t",
+            "Keeps the prior hidden state vector untouched"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "With z = 0, h_t = h_{t-1}."
         }
       },
@@ -3169,11 +3251,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do LSTMs suffer less from vanishing gradients?",
           "options": [
-            "They have more layers",
-            "The cell state path is gated addition, so signals are not squashed at every step",
-            "They use ReLU"
+            "LSTMs stack deeper recurrent projections per word step",
+            "Replacing tanh with unbounded ReLU scales late tokens cleanly",
+            "Gated additive cell highway avoids repeated squash products",
+            "Separate gate matrices eliminate cyclic backprop weights"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "A forget gate near 1 lets gradients flow across many steps."
         }
       },
@@ -3203,7 +3286,8 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "0.45",
             "0.39",
-            "0.51"
+            "0.51",
+            "0.63"
           ],
           "answer": 1,
           "why": "0.9 × 0.5 + 0.3 × (-0.2) = 0.45 - 0.06 = 0.39."
@@ -3257,9 +3341,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "For NER, what does the output layer produce?",
           "options": [
-            "One label for the whole sentence",
-            "One label per token",
-            "A summary vector"
+            "One sequence-level tag",
+            "One predicted tag per token",
+            "A fixed document summary",
+            "Two start-end integer spans"
           ],
           "answer": 1,
           "why": "Tagging tasks predict a label for every token."
@@ -3293,11 +3378,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why skip unknown tokens instead of treating them as zero vectors?",
           "options": [
-            "Zeros are not allowed",
-            "Zeros would pull the average towards 0 and weaken the real signal",
-            "Unknown tokens are always stopwords"
+            "Zeros drag mean embeddings toward origin, diluting real signals",
+            "Zero arrays trigger division exceptions during pooling layers",
+            "Unknown surface words consistently act as non-informative filler",
+            "Sentence encoders only support odd token vector dimensions"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Averaging in zero vectors dilutes the meaning of the known words."
         }
       },
@@ -3329,11 +3415,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why read a sentence in both directions?",
           "options": [
-            "It is twice as fast",
-            "Each word's representation can use both left and right context",
-            "To remove stopwords"
+            "Dual sweeps halve inference GPU memory per batch sample",
+            "Reverse passes automatically filter grammatical stop tokens",
+            "BiLSTM projections skip storing hidden cell states cleanly",
+            "Each token representation fuses both left and right context"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Many words are disambiguated by what follows them."
         }
       },
@@ -3365,11 +3452,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a CRF layer add on top of a BiLSTM tagger?",
           "options": [
-            "More embeddings",
-            "Transition scores so the whole tag sequence is decoded consistently",
-            "A second language"
+            "Additional dense pre-trained subword token vectors",
+            "Secondary bidirectional character-level n-gram pooling",
+            "Learnable tag transition scores enforcing valid sequences",
+            "Softmax temperature normalization across multi-word spans"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "The CRF scores tag transitions and Viterbi finds the best valid sequence."
         }
       },
@@ -3401,11 +3489,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why did attention and Transformers replace BiLSTMs?",
           "options": [
-            "BiLSTMs could not handle English",
-            "Sequential processing is slow and long-range context is squeezed through a fixed state",
-            "BiLSTMs need no training"
+            "BiLSTMs fail encoding variable Unicode languages cleanly",
+            "Transformers avoid backprop training via static embeddings",
+            "Serial recurrent steps stall speed and pinch long context",
+            "Bidirectional encoders remove token positional indexing"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Attention reaches any position directly and Transformers train in parallel."
         }
       },
@@ -3439,7 +3528,8 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "None",
             "[]",
-            "An error"
+            "ValueError",
+            "[0.0]"
           ],
           "answer": 1,
           "why": "No inputs means no positions, so an empty list."
@@ -3493,11 +3583,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the encoder produce in a basic seq2seq model?",
           "options": [
-            "The translated sentence",
-            "A context vector summarising the input",
-            "A list of tags"
+            "A fixed vector summarizing input",
+            "The completed translated sentence",
+            "Sequence of BIO tag labels",
+            "Next-word perplexity histogram"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The encoder compresses the input into a context vector for the decoder."
         }
       },
@@ -3525,11 +3616,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do basic seq2seq models translate long sentences poorly?",
           "options": [
-            "They are slow",
-            "The whole input is squeezed into one fixed-size context vector",
-            "They cannot read punctuation"
+            "Recurrent encoders exceed token limits cleanly at step 20",
+            "Basic seq2seq decoders omit punctuation vocabulary tokens",
+            "Reverse input order scrambles long noun phrases early",
+            "Entire source meanings squeeze into one fixed bottleneck"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "The fixed-size context vector is a bottleneck for long inputs."
         }
       },
@@ -3561,11 +3653,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does autoregressive decoding mean?",
           "options": [
-            "All output tokens are produced at once",
-            "Each output token is generated using the previously generated tokens",
-            "The output is always shorter"
+            "Producing every translated target word simultaneously in one pass",
+            "Sorting output sentences by beam length after translation stops",
+            "Copying unaligned source words verbatim into target streams",
+            "Generating each target token conditioned on prior output tokens"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Each step feeds on the tokens generated before it."
         }
       },
@@ -3597,11 +3690,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is teacher forcing?",
           "options": [
-            "Feeding the correct previous word to the decoder during training",
-            "A way to translate faster",
-            "Removing the encoder"
+            "Accelerating greedy inference via multi-token prediction heads",
+            "Omitting encoder layers whenever source sentences stay short",
+            "Supplying ground-truth prior tokens to the decoder in training",
+            "Doubling dropout noise ratios across rare vocabulary tokens"
           ],
-          "answer": 0,
+          "answer": 2,
           "why": "The decoder is given the true previous token rather than its own prediction."
         }
       },
@@ -3629,9 +3723,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What problem does scheduled sampling address?",
           "options": [
-            "Slow tokenisation",
-            "Exposure bias: the model never practising on its own mistakes",
-            "Large vocabularies"
+            "Excessive subword vocabulary fragmentation overhead",
+            "Exposure bias from never recovering after own mistakes",
+            "Gradient explosion across bidirectional attention layers",
+            "Out-of-vocabulary proper nouns dropping to zero scores"
           ],
           "answer": 1,
           "why": "Gradually feeding its own predictions teaches the model to recover from errors."
@@ -3665,11 +3760,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "decoder_inputs([\"x\"], [\"y\"], False) returns?",
           "options": [
-            "[\"<s>\", \"y\"]",
-            "[\"<s>\"]",
-            "[\"y\"]"
+            "['<s>']",
+            "['<s>', 'y']",
+            "['y']",
+            "[]"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "One target means one input step, which is always <s>."
         }
       }
@@ -3726,11 +3822,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does attention give the decoder at each step?",
           "options": [
-            "A random source word",
-            "A fresh, weighted mix of all encoder states",
-            "Only the last encoder state"
+            "A custom weighted mix of all encoder states",
+            "One randomly sampled encoder word state",
+            "Solely the final trailing encoder hidden vector",
+            "Normalized positional coordinates minus word meaning"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Attention recomputes a context from all encoder states at every step."
         }
       },
@@ -3762,11 +3859,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why subtract the maximum score before softmax?",
           "options": [
-            "To change the result",
-            "To avoid overflow; the result is mathematically the same",
-            "To make weights negative"
+            "Subtracting shifts softmax toward harsher discrete argmax winners",
+            "Zero-centered logits produce cleaner negative probability weights",
+            "Normalization avoids dividing by floating-point batch sums",
+            "Max shifting avoids exponent overflow while leaving math identical"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Shifting all scores by a constant does not change softmax, but it keeps exponents small."
         }
       },
@@ -3795,11 +3893,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Weights [0, 1, 0] over values v1, v2, v3. What is the context?",
           "options": [
-            "The average of all three",
-            "Exactly v2",
-            "Zero"
+            "Mean across v1, v2, v3",
+            "Zero vector",
+            "Vector v2 exactly",
+            "Sum v1 + v3"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "All the weight on the second value returns it unchanged."
         }
       },
@@ -3831,9 +3930,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Luong attention score an encoder state?",
           "options": [
-            "With a random number",
-            "With a dot product against the decoder state",
-            "By its position"
+            "Using fixed cosine word length offsets",
+            "Taking dot products with decoder state",
+            "Indexing solely by relative token span",
+            "Summing absolute unigram IDF scalars"
           ],
           "answer": 1,
           "why": "Multiplicative attention uses (possibly weighted) dot products."
@@ -3863,9 +3963,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is self-attention?",
           "options": [
-            "A decoder attending to an encoder",
-            "Words in a sequence attending to other words in the same sequence",
-            "A model attending to its own weights"
+            "Target decoder vectors attending across source encoder states",
+            "Tokens inside one sequence attending to other tokens inside it",
+            "Output softmax probabilities normalizing model weight layers",
+            "Recurrent gates selectively gating own hidden memory buffers"
           ],
           "answer": 1,
           "why": "Self-attention relates positions within one sequence."
@@ -3903,11 +4004,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "softmax([1.0, 1.0]) returns?",
           "options": [
-            "[1.0, 1.0]",
             "[0.5, 0.5]",
-            "[0.0, 1.0]"
+            "[1.0, 1.0]",
+            "[0.0, 1.0]",
+            "[0.25, 0.75]"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Equal scores get equal weights that sum to 1."
         }
       }
@@ -3963,11 +4065,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why did Transformers train so much faster than RNNs?",
           "options": [
-            "They have fewer parameters",
-            "They process all positions in parallel instead of one after another",
-            "They skip training"
+            "Transformers allocate far fewer total weights than small RNNs",
+            "Transformers skip computing backpropagation across embedding layers",
+            "Fixed window convolutions replace recurrent state multiplication cleanly",
+            "Self-attention computes all sequence positions simultaneously in parallel"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Without recurrence, the whole sequence is computed at once on parallel hardware."
         }
       },
@@ -3999,11 +4102,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In self-attention, what is the value vector?",
           "options": [
-            "The score",
-            "The information a word passes on when attended to",
-            "The word's position"
+            "Unnormalized compatibility scalar score",
+            "Sinusoidal sequence index position offset",
+            "The content vector passed forward when attended",
+            "Cumulative causal masking binary toggle"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Values are what gets mixed into the output according to the weights."
         }
       },
@@ -4035,11 +4139,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why divide attention scores by sqrt(d_k)?",
           "options": [
-            "To make them integers",
-            "Large dot products saturate softmax and slow learning",
-            "To reverse the order"
+            "Integer scaling ensures deterministic integer dot indices",
+            "Dividing swaps key and query ordering across multi-heads",
+            "Big dot products saturate softmax into near-zero gradients",
+            "Variance scaling keeps norm values clamped within [0, 1]"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Scaling keeps scores moderate so softmax gradients stay useful."
         }
       },
@@ -4071,9 +4176,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In softmax(QK^T / sqrt(d_k)) V, what does V contribute?",
           "options": [
-            "The scores",
-            "The information that is mixed into each output",
-            "The scaling"
+            "Raw alignment dot compatibility scores",
+            "Content vectors blended into each output",
+            "Softmax variance normalization constants",
+            "Relative offset bias lookup scalars"
           ],
           "answer": 1,
           "why": "Values are combined according to the attention weights."
@@ -4107,11 +4213,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does a residual connection do?",
           "options": [
-            "Deletes the input",
-            "Adds a sub-layer's input to its output, giving a direct path",
-            "Normalises the vector"
+            "Adds sublayer input directly to output, preserving flow",
+            "Resets intermediate token vectors to zero mean",
+            "Normalizes key vectors across multi-head blocks cleanly",
+            "Drops low-weighted tokens before FFN projections run"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Residuals let information and gradients bypass each sub-layer."
         }
       },
@@ -4140,10 +4247,11 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "scaled_score([1, 0, 1, 0], [1, 1, 1, 1]) equals?",
           "options": [
             "2.0",
-            "1.0",
-            "0.5"
+            "0.5",
+            "4.0",
+            "1.0"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "The dot product is 2 and sqrt(4) is 2, so the score is 1.0."
         }
       }
@@ -4200,11 +4308,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why use several attention heads?",
           "options": [
-            "To use more memory",
-            "Each head can focus on a different kind of relationship at the same time",
-            "Heads replace embeddings"
+            "Extra heads consume double memory to stabilize dropout rates",
+            "Attention heads replace static subword embedding tables completely",
+            "Splitting embeddings avoids normalizing query dot scores by sqrt(d)",
+            "Parallel heads capture diverse syntactic and semantic links at once"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Multiple heads let the model attend in several ways simultaneously."
         }
       },
@@ -4233,10 +4342,11 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "d_model = 768 with 12 heads. What is the head dimension?",
           "options": [
             "12",
+            "96",
             "64",
             "768"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Dividing the total model dimension 768 equally across 12 attention heads yields 64 dimensions per head."
         }
       },
@@ -4268,9 +4378,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What must merge_heads(split_heads(v, h)) return?",
           "options": [
-            "An empty list",
-            "Exactly v",
-            "The first chunk"
+            "An empty flattened list []",
+            "Original vector v unchanged",
+            "Only the initial slice chunk",
+            "Transposed head matrix values"
           ],
           "answer": 1,
           "why": "Merging undoes splitting; the round trip returns the original vector."
@@ -4305,11 +4416,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "After the heads run, what combines their outputs?",
           "options": [
-            "They are averaged and discarded",
-            "They are concatenated, then mixed by an output projection",
-            "Only the best head is kept"
+            "Concatenated then mixed through output matrix W_o",
+            "Mean-pooled then truncated down to head zero",
+            "Filtered keeping solely the top highest-norm head",
+            "Added directly onto raw positional byte tables"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Concatenation plus a learned output matrix combines all heads."
         }
       },
@@ -4337,11 +4449,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does grouped-query attention share between heads?",
           "options": [
-            "Queries",
-            "Keys and values",
-            "Nothing"
+            "Key and Value heads",
+            "Query projections",
+            "Softmax temperature",
+            "FFN intermediate width"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Several query heads share one set of keys and values, saving memory."
         }
       },
@@ -4373,11 +4486,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "split_heads([1, 2, 3, 4, 5, 6, 7, 8], 3) should?",
           "options": [
-            "Return 3 uneven chunks",
-            "Raise ValueError",
-            "Return 8 chunks"
+            "Pad trailing zeros to make 3 chunks",
+            "Truncate length-8 input down to 6",
+            "Return 8 single-element sublists",
+            "Raise ValueError for uneven division"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "8 is not divisible by 3, so the split is invalid."
         }
       }
@@ -4429,11 +4543,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do Transformers need positional encodings?",
           "options": [
-            "To save memory",
-            "Self-attention by itself ignores word order",
-            "To remove stopwords"
+            "Index signals cut key-value GPU memory allocation cleanly",
+            "Fixed coordinate vectors strip duplicate stop tokens out",
+            "Attention acts permutation-invariant without position order",
+            "Softmax normalization fails whenever words share identical keys"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Attention treats the input as an unordered set, so order must be added."
         }
       },
@@ -4467,7 +4582,8 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "sin",
             "cos",
-            "tan"
+            "tan",
+            "log"
           ],
           "answer": 1,
           "why": "Even dimensions use sine and odd dimensions use cosine."
@@ -4497,9 +4613,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How is the positional encoding combined with the token embedding in the original Transformer?",
           "options": [
-            "Multiplied",
-            "Added",
-            "Ignored"
+            "Multiplied elementwise",
+            "Added elementwise",
+            "Concatenated at tail",
+            "Applied at softmax"
           ],
           "answer": 1,
           "why": "The two vectors of equal size are added element by element."
@@ -4533,11 +4650,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does RoPE make the query-key dot product depend on?",
           "options": [
-            "The absolute position of the query only",
-            "The relative distance between query and key positions",
-            "The word's spelling"
+            "The relative separation distance between query and key",
+            "Only the absolute token index of the active query",
+            "Surface spelling character edit length differences",
+            "Global average sequence length divided by depth"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Rotations cancel so that only the position difference matters."
         }
       },
@@ -4565,11 +4683,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What limitation do learned absolute position embeddings have?",
           "options": [
-            "They cannot learn",
-            "They cannot handle positions beyond the maximum length seen in training",
-            "They are too small"
+            "Gradient updates freeze position rows during early fine-tuning",
+            "Low-dimensional vectors collapse adjacent stopwords onto equal bins",
+            "Additive lookup rows introduce quadratic attention FLOP overhead",
+            "Fixed tables fail generalizing beyond max training position length"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "A learned table has entries only up to the trained length."
         }
       },
@@ -4598,10 +4717,11 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "positional_encoding(0, 1, 8) returns?",
           "options": [
             "0.0",
+            "0.5",
             "1.0",
-            "0.5"
+            "-1.0"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "At position 0 the angle is 0, and dimension 1 uses cos(0) = 1."
         }
       }
@@ -4653,11 +4773,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can Transformer layers be stacked many times?",
           "options": [
-            "They share weights",
-            "Each layer outputs the same shape it receives",
-            "They have no parameters"
+            "Every stacked layer shares identical tied weights",
+            "Attention layers skip trainable weight parameters",
+            "Output tensor shape matches input shape identically",
+            "Final pooling projects variable widths back to 1"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Matching input and output shapes let layers be chained freely."
         }
       },
@@ -4689,9 +4810,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the first token (position 0) get added in even dimensions?",
           "options": [
-            "1",
-            "0",
-            "Its index"
+            "1.0",
+            "0.0",
+            "cos(1)",
+            "1 / d_model"
           ],
           "answer": 1,
           "why": "sin(0) = 0, so even dimensions at position 0 are unchanged."
@@ -4725,11 +4847,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does layer normalisation make each vector have?",
           "options": [
-            "All values equal to 1",
-            "Mean 0 and standard deviation 1 (before the learned scale and shift)",
-            "Only positive values"
+            "Zero mean and unit standard deviation before gamma/beta",
+            "All coordinates strictly clamped uniformly onto +1.0",
+            "Strictly non-negative activations matching ReLU bounds",
+            "Unit L2 vector norm projected across sequence time steps"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "It centres and scales each vector across its dimensions."
         }
       },
@@ -4761,11 +4884,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In LayerNorm(x + SubLayer(x)), what does \"x +\" provide?",
           "options": [
-            "Positional information",
-            "A residual path so the input can pass straight through",
-            "The attention weights"
+            "Absolute sinusoidal index coordinates per layer",
+            "Cached previous-turn Key-Value attention score sums",
+            "Scaled variance divisors balancing FFN outputs",
+            "Direct residual path letting input and gradients flow"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "The residual keeps the input and lets gradients flow directly."
         }
       },
@@ -4802,10 +4926,11 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "What shape does the encoder layer output for 3 tokens with d_model = 4?",
           "options": [
             "(4, 3)",
-            "(3, 4)",
-            "(1, 4)"
+            "(1, 4)",
+            "(3, 3)",
+            "(3, 4)"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "One d_model-sized vector per token, the same shape as the input."
         }
       },
@@ -4837,11 +4962,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "layer_norm([5.0, 5.0]) returns?",
           "options": [
-            "An error",
+            "ZeroDivisionError",
+            "[1.0, 1.0]",
             "[0.0, 0.0]",
-            "[1.0, 1.0]"
+            "[5.0, 5.0]"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Every value equals the mean, so each becomes 0; eps prevents division by zero."
         }
       }
@@ -4893,9 +5019,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the main advantage of subword tokens over word tokens?",
           "options": [
-            "Shorter sequences than words",
-            "No unknown words, with a manageable vocabulary",
-            "They ignore spelling"
+            "Character streams always shorten sequences below words",
+            "Eliminates unknown tokens with a compact vocabulary size",
+            "Subword splits automatically normalize regional misspellings",
+            "Variable byte pieces simplify positional dot calculations"
           ],
           "answer": 1,
           "why": "Rare words split into known pieces, so nothing is out of vocabulary."
@@ -4929,11 +5056,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does each BPE training step do?",
           "options": [
-            "Deletes rare words",
-            "Merges the most frequent adjacent pair of tokens into a new token",
-            "Splits words into characters"
+            "Combines the top-frequency adjacent token pair into one unit",
+            "Prunes rare least-frequent tokens out of candidate tables",
+            "Divides every multi-syllable word strictly down to bytes",
+            "Re-computes sentence TF-IDF weights over updated merge rules"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Repeatedly merging frequent pairs builds the subword vocabulary."
         }
       },
@@ -4965,11 +5093,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "merge_pair([\"a\", \"a\", \"a\"], (\"a\", \"a\"), \"aa\") returns?",
           "options": [
-            "[\"aa\", \"aa\"]",
-            "[\"aa\", \"a\"]",
-            "[\"a\", \"aa\"]"
+            "['aa', 'a']",
+            "['aa', 'aa']",
+            "['a', 'aa']",
+            "['aaa']"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Scanning left to right, the first two merge; the third a has no partner left."
         }
       },
@@ -4997,11 +5126,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How is a new word tokenised with BPE?",
           "options": [
-            "Looked up in a dictionary",
-            "Split into characters, then the learned merges are applied in order",
-            "Replaced with an unknown token"
+            "Direct single-step lookup inside a sorted full-word dictionary",
+            "Substitute whole out-of-vocab strings directly with <unk>",
+            "Pick longest random substring spans greedily from right end",
+            "Start from characters, then apply learned merges sequentially"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "The ordered merge list is applied to the characters of the word."
         }
       },
@@ -5033,11 +5163,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In BERT's WordPiece, what does \"##\" mean?",
           "options": [
-            "A hashtag",
-            "The piece continues a word rather than starting one",
-            "An unknown token"
+            "A markdown hashtag prefix marker",
+            "An unknown character placeholder tag",
+            "Subword continuing inside an open word",
+            "Document separator delimiter boundary"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "\"##ing\" marks a piece attached to the previous piece."
         }
       },
@@ -5069,9 +5200,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "most_frequent_pair([\"a\"]) returns?",
           "options": [
-            "(\"a\", \"a\")",
+            "('a', 'a')",
             "None",
-            "[]"
+            "('a',)",
+            "ValueError"
           ],
           "answer": 1,
           "why": "One token has no adjacent pair."
@@ -5125,9 +5257,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do BERT's word vectors differ from Word2Vec's?",
           "options": [
-            "They are shorter",
-            "They depend on the surrounding sentence",
-            "They ignore the word itself"
+            "BERT uses much shorter 64-dim lookup vectors",
+            "Contextualized representations shift per sentence",
+            "Static spelling hashes ignore token embeddings",
+            "BERT enforces strictly left-to-right token vectors"
           ],
           "answer": 1,
           "why": "BERT produces contextual vectors, so the same word can get different vectors in different sentences."
@@ -5161,11 +5294,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does BERT sometimes leave a selected token unchanged?",
           "options": [
-            "To save time",
-            "Because [MASK] never appears at fine-tuning time, so the model must handle real tokens too",
-            "It is a bug"
+            "[MASK] vanishes at inference, so BERT learns real tokens too",
+            "Keeping raw tokens reduces GPU masking tensor overhead",
+            "Random unmasking compensates for tokenizer BPE boundary typos",
+            "Unmasked steps align sequence lengths across short sentences"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The 80/10/10 mix reduces the mismatch between pre-training and later use."
         }
       },
@@ -5193,11 +5327,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why compute \"unchanged\" as selected - mask - random?",
           "options": [
-            "It is faster",
-            "So the three parts always add up to the selected total",
-            "BERT requires it"
+            "Subtraction executes cleanly faster than float percentage multiplies",
+            "Fixed integer remainders satisfy BERT positional index alignment",
+            "Rounding up ensures identical token counts across small batches",
+            "So mask + random + unchanged cleanly sum back to selected"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Using the remainder avoids rounding mismatches."
         }
       },
@@ -5229,11 +5364,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Where does BERT put the [CLS] token?",
           "options": [
-            "At the end",
-            "At the very start of every input",
-            "Between the two sentences"
+            "Trailing end of final sequence",
+            "Center separator splitting sentence B",
+            "First position opening every input",
+            "Overwritten directly onto masked words"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "[CLS] always comes first; its final vector summarises the input."
         }
       },
@@ -5261,11 +5397,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does fine-tuning BERT need relatively little labelled data?",
           "options": [
-            "BERT has no parameters",
-            "Pre-training already taught it general language knowledge",
-            "Labels are not needed at all"
+            "Fine-tuning skips gradient updates inside attention layers",
+            "Sequence classification relies purely on static dictionary words",
+            "Pre-training already baked broad language skill into weights",
+            "Masked objectives eliminate human task labels altogether"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Most of the learning happened during pre-training on unlabelled text."
         }
       },
@@ -5293,9 +5430,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "bert_input([\"hello\"]) returns?",
           "options": [
-            "([\"hello\"], [0])",
-            "([\"[CLS]\", \"hello\", \"[SEP]\"], [0, 0, 0])",
-            "([\"[CLS]\", \"hello\"], [0, 1])"
+            "(['hello'], [0])",
+            "(['[CLS]', 'hello', '[SEP]'], [0, 0, 0])",
+            "(['[CLS]', 'hello'], [0, 1])",
+            "(['[CLS]', 'hello', '[SEP]'], [1, 1, 1])"
           ],
           "answer": 1,
           "why": "A single sentence is wrapped in [CLS] and [SEP], all segment 0."
@@ -5349,11 +5487,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is GPT trained to do?",
           "options": [
-            "Fill in masked words using both sides",
-            "Predict the next token from the previous ones",
-            "Classify sentences"
+            "Predict each upcoming token given only prior left context",
+            "Unmask random middle spans using future right context",
+            "Pool sequence CLS vectors straight into multi-class buckets",
+            "Translate source paragraphs bidirectionally via cross-attention"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "GPT is an autoregressive next-token predictor."
         }
       },
@@ -5381,11 +5520,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why add minus infinity to blocked attention scores?",
           "options": [
-            "To make scores negative",
-            "After softmax, e^(-inf) = 0, so blocked positions get zero weight",
-            "To speed up training"
+            "Negative penalties invert directional alignment gradients cleanly",
+            "Sparse infinite masks double GPU multiplication FLOP rates",
+            "Blocked infinity constants stabilize layer norm mean shifts",
+            "Exponentiating minus infinity yields 0 weight post-softmax"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Minus infinity becomes exactly zero weight after softmax."
         }
       },
@@ -5417,11 +5557,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a causal mask, what can position 0 attend to?",
           "options": [
-            "Every position",
-            "Only itself",
-            "Nothing"
+            "Every token across sequence",
+            "No positions (all masked)",
+            "Position 1 lookahead token",
+            "Strictly itself (position 0)"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "The first position has no earlier tokens, so it attends only to itself."
         }
       },
@@ -5453,11 +5594,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does the KV cache store?",
           "options": [
-            "The generated text",
-            "The keys and values of earlier tokens, so they are not recomputed",
-            "The model weights"
+            "Compressed UTF-8 decoded prompt tokens",
+            "Sharded read-only FP16 transformer matrices",
+            "Previously computed Keys and Values for reuse",
+            "Gradient momentum accumulators across runs"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Caching keys and values makes each generation step cheap."
         }
       },
@@ -5487,7 +5629,8 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
           "options": [
             "Encoder-only",
             "Decoder-only",
-            "Neither"
+            "Encoder-decoder",
+            "BiLSTM-CRF"
           ],
           "answer": 1,
           "why": "Decoder-only models such as GPT are trained autoregressively with a causal mask."
@@ -5517,11 +5660,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "kv_cache_bytes(1, 1, 1, 1) returns?",
           "options": [
+            "4",
             "1",
             "2",
-            "4"
+            "8"
           ],
-          "answer": 2,
+          "answer": 0,
           "why": "2 (keys and values) × 1 × 1 × 1 × 1 × 1 batch × 2 bytes = 4."
         }
       }
@@ -5573,11 +5717,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does an extractive QA model output?",
           "options": [
-            "A newly written answer",
-            "The start and end positions of an answer span in the passage",
-            "A yes/no label only"
+            "Start and end span indices inside the passage",
+            "Freely generated paraphrased summary prose",
+            "A single global yes/no truthfulness label",
+            "Normalized passage vector cosine scores"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Extractive QA points to a span of the given passage."
         }
       },
@@ -5605,11 +5750,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How is the score of a span from i to j computed?",
           "options": [
-            "start[i] × end[j]",
-            "start[i] + end[j]",
-            "max(start[i], end[j])"
+            "start[i] * end[j]",
+            "max(start[i], end[j])",
+            "end[j] - start[i]",
+            "start[i] + end[j]"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "With logits, the span score is the sum of the start and end scores."
         }
       },
@@ -5641,11 +5787,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why constrain spans to i <= j < i + max_len?",
           "options": [
-            "To make the model faster to train",
-            "To rule out impossible or overly long answers",
-            "Because logits are negative"
+            "Strict span windows accelerate GPU softmax computation speed",
+            "Logit bounds eliminate negative exponent overflow near end tokens",
+            "Bounds block backward indices and unrealistically huge spans",
+            "Fixed span caps force exact-match normalization on long clauses"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Valid answers start before they end and have a sensible length."
         }
       },
@@ -5677,9 +5824,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which of these does SQuAD normalisation remove?",
           "options": [
-            "Numbers",
-            "The articles a, an and the",
-            "Capital letters only at the start"
+            "All numeric currency digits",
+            "Articles: 'a', 'an', 'the'",
+            "Initial letter capitalization only",
+            "Technical acronyms in all caps"
           ],
           "answer": 1,
           "why": "Articles, punctuation and case differences are removed before comparing."
@@ -5713,9 +5861,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A prediction contains the full correct answer plus two extra words. What happens?",
           "options": [
-            "EM 1, F1 1",
-            "EM 0, F1 below 1 but above 0",
-            "EM 0, F1 0"
+            "EM 1.0 and F1 1.0",
+            "EM 0, F1 between 0 and 1",
+            "EM 0.0 and F1 0.0",
+            "EM 0.5 and F1 1.0"
           ],
           "answer": 1,
           "why": "Extra words break exact match but still share tokens, so F1 gives partial credit."
@@ -5749,11 +5898,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "exact_match(\"The Eiffel Tower\", \"eiffel tower\") returns?",
           "options": [
-            "0",
             "1",
-            "True"
+            "0",
+            "True",
+            "0.5"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "After normalisation both are \"eiffel tower\", so the result is 1."
         }
       }
@@ -5809,11 +5959,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What problem does dense retrieval solve that sparse retrieval has?",
           "options": [
-            "Slow indexing",
-            "Vocabulary mismatch between query and document words",
-            "Large documents"
+            "Linear scaling bottlenecks on exact inverted keyword tables",
+            "Multi-megabyte document word-count normalization overhead",
+            "UTF-8 byte segmentation glitches on capitalized queries",
+            "Lexical term mismatch when queries paraphrase passages"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Embeddings match meaning, not just exact words."
         }
       },
@@ -5846,11 +5997,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are ANN indexes called approximate?",
           "options": [
-            "They round the vectors",
-            "They may occasionally miss the true nearest vector in exchange for huge speed-ups",
-            "They only work on text"
+            "Vector indexes quantize coordinates silently down to integers",
+            "Approximate matching only functions over raw text keywords",
+            "Speed-focused graphs occasionally miss the exact top neighbor",
+            "Cosine sorting drops documents lacking exact term frequency"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "ANN trades a small chance of missing the best match for much faster search."
         }
       },
@@ -5882,11 +6034,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is a cross-encoder more accurate than a bi-encoder?",
           "options": [
-            "It is larger",
-            "It reads query and document together, so words can attend to each other",
-            "It uses TF-IDF"
+            "Cross-encoders hold larger 1024-dim static word tables",
+            "Rerankers blend dense similarity vectors cleanly with TF-IDF",
+            "Joint input lets query and document tokens cross-attend directly",
+            "Bi-encoders normalize dot products using noisy L1 distances"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Joint encoding lets the model compare the texts directly."
         }
       },
@@ -5918,9 +6071,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What happens if k1 is too small?",
           "options": [
-            "Stage 2 becomes slow",
-            "The right document may be dropped before re-ranking",
-            "Nothing"
+            "Stage-2 cross-encoder inference slows down quadratically",
+            "True relevant docs drop before re-ranking even sees them",
+            "Nothing changes since stage 2 scans the whole corpus",
+            "Python stable sort raises ValueError on empty sets"
           ],
           "answer": 1,
           "why": "Stage 2 can only re-rank what stage 1 kept, so low recall at k1 hurts."
@@ -5951,11 +6105,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Python's sorted being \"stable\" useful here?",
           "options": [
-            "It makes sorting faster",
-            "Equal scores keep their stage-1 order automatically",
-            "It removes duplicates"
+            "Equal re-rank scores keep initial stage-1 rank cleanly",
+            "Stable Timsort executes noticeably faster on floats",
+            "Stable passes deduplicate identical document snippets automatically",
+            "Dictionary iteration preserves insertion keys before sorting"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Stability means ties preserve the original order."
         }
       },
@@ -5983,11 +6138,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "rerank([\"a\", \"b\"], {\"b\": 0.5}, 2) returns?",
           "options": [
-            "[\"a\", \"b\"]",
-            "[\"b\"]",
-            "[]"
+            "['a', 'b']",
+            "[]",
+            "['b', 'a']",
+            "['b']"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Only scored candidates are kept."
         }
       }
@@ -6044,11 +6200,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a downside of pure greedy decoding for open-ended writing?",
           "options": [
-            "It is random",
-            "It tends to be repetitive and bland",
-            "It is slow"
+            "Greedy picks scatter incoherent random words",
+            "Greedy max selection runs slower than sampling",
+            "Probability normalization breaks past 50 tokens",
+            "Outputs loop into repetitive bland phrasing"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Always taking the top token often produces dull, looping text."
         }
       },
@@ -6081,11 +6238,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does lowering the temperature below 1 do?",
           "options": [
-            "Flattens the distribution",
-            "Sharpens it, favouring the most likely tokens more",
-            "Removes the top token"
+            "Flattens odds evenly toward random uniform choices",
+            "Eliminates the single most probable candidate token",
+            "Sharpens the distribution onto highest-odds tokens",
+            "Forces softmax denominators strictly to power-of-two sums"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Dividing logits by t < 1 increases the gaps between them."
         }
       },
@@ -6118,9 +6276,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the main weakness of a fixed k?",
           "options": [
-            "It is too slow",
-            "The right number of options differs between confident and uncertain steps",
-            "It cannot be combined with temperature"
+            "Sorting fixed top-k slices adds prohibitive decoding latency",
+            "Valid next choices shrink on sure steps and widen on unsure ones",
+            "Fixed integer thresholds cannot combine with temperature scaling",
+            "Low top-k cuts exclude high-probability stopwords completely"
           ],
           "answer": 1,
           "why": "A fixed cutoff ignores how spread out the distribution is."
@@ -6154,11 +6313,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does top-p adapt compared with top-k?",
           "options": [
-            "It always keeps p tokens",
-            "It keeps few tokens when the model is confident and more when it is unsure",
-            "It ignores probabilities"
+            "Trims tiny sets on sure steps while keeping wide sets on uncertainty",
+            "Nucleus selection always maintains an equal candidate pool",
+            "Top-p ignores logit weights and uniformly picks top cumulative slices",
+            "Adaptive bounds skip normalizing remaining exponentiated probabilities"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "The nucleus grows or shrinks with how spread out the probabilities are."
         }
       },
@@ -6191,11 +6351,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Which setting suits extracting invoice numbers from text?",
           "options": [
-            "Temperature 1.2",
-            "Temperature 0 (greedy)",
-            "Top-p 0.99 with temperature 1.5"
+            "Temperature 0 (greedy determinism)",
+            "Temperature 1.2 for creative wording",
+            "Top-p 0.99 paired with Temp 1.5",
+            "High presence penalty with Temp 1.0"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Extraction has one right answer, so deterministic decoding is best."
         }
       },
@@ -6228,10 +6389,11 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "apply_temperature([1.0, 3.0, 3.0], 0) returns?",
           "options": [
             "[0.0, 0.5, 0.5]",
-            "[0.0, 1.0, 0.0]",
-            "[0.0, 0.0, 1.0]"
+            "[0.0, 0.0, 1.0]",
+            "[0.33, 0.33, 0.34]",
+            "[0.0, 1.0, 0.0]"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Greedy picks the first position of the maximum logit."
         }
       }
@@ -6283,11 +6445,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What do overlap metrics like BLEU and ROUGE compare?",
           "options": [
-            "Output length only",
-            "The candidate text with human-written reference texts",
-            "Model sizes"
+            "Solely generated token counts against limits",
+            "Checkpoint parameter size versus latency bounds",
+            "Candidate text against human reference strings",
+            "Perplexity variance across unseen test batches"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "They measure n-gram overlap between candidate and references."
         }
       },
@@ -6315,9 +6478,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does BLEU clip n-gram counts?",
           "options": [
-            "To speed it up",
-            "So repeating a common word cannot inflate the score",
-            "To ignore punctuation"
+            "Capping n-gram counts cuts string loop time noticeably",
+            "Stops spamming repeated words like 'the' inflating scores",
+            "Clipping ignores mismatched trailing sentence punctuation",
+            "Bounded precision prevents scores exceeding 100% cleanly"
           ],
           "answer": 1,
           "why": "Clipping stops candidates from gaming precision with repeated words."
@@ -6351,9 +6515,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "A candidate of length 8 against a reference of length 10. What is the brevity penalty?",
           "options": [
-            "1.0",
-            "About 0.78",
-            "0.0"
+            "1.00",
+            "0.78",
+            "0.00",
+            "1.25"
           ],
           "answer": 1,
           "why": "exp(1 - 10/8) = exp(-0.25) ≈ 0.7788."
@@ -6387,11 +6552,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "ROUGE-1 recall divides the clipped overlap by?",
           "options": [
-            "The candidate length",
-            "The reference length",
-            "The vocabulary size"
+            "Reference n-gram count",
+            "Candidate n-gram count",
+            "Vocabulary token total",
+            "Shortest summary span"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Recall asks how much of the reference was covered."
         }
       },
@@ -6423,11 +6589,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a known weakness of BLEU and ROUGE?",
           "options": [
-            "They are too slow",
-            "They reward matching words, not matching meaning, and miss paraphrases",
-            "They need GPUs"
+            "Statistical overlap loops run slowly on CPU workers",
+            "Overlap counts require GPU embeddings for tie breaks",
+            "Scores fluctuate wildly depending on random temperature",
+            "Metrics score surface wording, missing valid paraphrases"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Paraphrases can score low and word salad can score high."
         }
       },
@@ -6460,10 +6627,11 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "brevity_penalty(12, 10) returns?",
           "options": [
             "0.8187",
+            "1.2",
             "1.0",
-            "1.2"
+            "0.8333"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "A candidate longer than the reference gets no penalty."
         }
       }
@@ -6519,11 +6687,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does parameter-efficient fine-tuning change?",
           "options": [
-            "Every weight of the model",
-            "Only a small number of new parameters, with the original weights frozen",
-            "Only the tokenizer"
+            "Full transformer projection matrices end-to-end",
+            "Strictly subword tokenizer vocabulary merge tables",
+            "Tiny new low-rank weights while freezing base weights",
+            "Only positional rotary frequency scaling matrices"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "PEFT freezes the base model and trains a small add-on."
         }
       },
@@ -6555,9 +6724,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How many trainable numbers does LoRA need for a d × k matrix with rank r?",
           "options": [
-            "d × k",
-            "r × (d + k)",
-            "r × d × k"
+            "d * k",
+            "r * (d + k)",
+            "r * d * k",
+            "d + k + r"
           ],
           "answer": 1,
           "why": "B has d × r entries and A has r × k entries."
@@ -6591,11 +6761,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is B initialised to zeros in LoRA?",
           "options": [
-            "To save memory",
-            "So training starts exactly from the original model's behaviour",
-            "B is never trained"
+            "Delta W starts at zero so step 0 preserves base behavior",
+            "Zero matrices conserve initial AdamW GPU memory allocations",
+            "Matrix B stays frozen while gradients update Matrix A alone",
+            "Zero initialization prevents float16 overflow on step 1"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "With B = 0 the update B × A is zero at the start."
         }
       },
@@ -6627,11 +6798,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the advantage of merging LoRA weights?",
           "options": [
-            "Better accuracy",
-            "No extra computation at inference time",
-            "Smaller training data"
+            "Merging consistently improves downstream eval F1 scores",
+            "Merged models require drastically smaller SFT training corpora",
+            "Combined matrices let you undo task adapters mid-request",
+            "Zero extra runtime latency beyond base forward pass"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "The merged model has the original shape and speed."
         }
       },
@@ -6659,11 +6831,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When might a small rank such as 4 be enough?",
           "options": [
-            "Never",
-            "For simple adjustments like output style or format",
-            "Only for image models"
+            "Never; ranks under 64 lose all downstream reasoning skill",
+            "Solely when training frozen vision patch CNN backbones",
+            "Only when pre-training base transformers from random seeds",
+            "Targeted style shifts or crisp output JSON formatting"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Simple behaviour changes often need only a few directions."
         }
       },
@@ -6692,10 +6865,11 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
           "question": "lora_params(100, 50, 10)[\"lora\"] equals?",
           "options": [
             "500",
+            "5000",
             "1500",
-            "5000"
+            "60"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "10 × (100 + 50) = 1,500."
         }
       }
@@ -6747,9 +6921,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is retrieval-augmented generation (RAG)?",
           "options": [
-            "Training a model on every document",
-            "Retrieving relevant passages and giving them to a model to answer from",
-            "Translating documents"
+            "Fine-tuning all model weights nightly on updated docs",
+            "Fetching relevant docs dynamically into generation context",
+            "Translating unstructured raw corpus PDFs to embeddings",
+            "Caching model outputs permanently inside key-value vectors"
           ],
           "answer": 1,
           "why": "RAG grounds the model's answer in retrieved passages."
@@ -6783,11 +6958,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do chunks often overlap?",
           "options": [
-            "To use more storage",
-            "So information at a boundary is fully contained in at least one chunk",
-            "Overlap is required by BM25"
+            "Splits won't sever facts straddling chunk boundary edges",
+            "Overlapping chunks increase vector store compression efficiency",
+            "Exact BM25 scoring requires mirrored duplicate edge terms",
+            "Overlaps guarantee cosine matching scores reach at least 0.5"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "Overlap prevents answers from being cut across chunk boundaries."
         }
       },
@@ -6819,11 +6995,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why return no passages when nothing shares a word with the question?",
           "options": [
-            "To save time",
-            "So the system can say it does not know instead of answering from irrelevant text",
-            "Because cosine fails"
+            "Lets pipeline decline cleanly rather than bluffing off junk docs",
+            "Empty passage lists lower LLM decoding latency significantly",
+            "Cosine normalization triggers ZeroDivisionError on mismatched queries",
+            "BM25 loops silently swap unmatched docs to alphabetical order"
           ],
-          "answer": 1,
+          "answer": 0,
           "why": "An honest \"no answer\" beats a confident answer from unrelated passages."
         }
       },
@@ -6855,11 +7032,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is a hallucination in a RAG system?",
           "options": [
-            "A slow answer",
-            "A stated fact that is not supported by the retrieved sources",
-            "A missing citation number"
+            "Excessive prefill latency waiting on dense vector queries",
+            "Omitting optional bracketed page citation tags cleanly",
+            "Selecting the second-best ranked passage via stable sort",
+            "An asserted claim lacking support in retrieved docs"
           ],
-          "answer": 1,
+          "answer": 3,
           "why": "Hallucinations are claims the sources do not support."
         }
       },
@@ -6891,11 +7069,12 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why measure each stage separately?",
           "options": [
-            "It is required by law",
-            "To find which stage causes a problem",
-            "To make the report longer"
+            "Regulatory safety rules mandate per-component telemetry",
+            "Weighted pipeline reports require stage scores to sum to 1",
+            "Pinpointing whether misses stem from retrieval or generation",
+            "Isolating stages skips end-to-end benchmark evaluation runs"
           ],
-          "answer": 1,
+          "answer": 2,
           "why": "Stage-level metrics show where to improve."
         }
       },
@@ -6923,9 +7102,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the capstone pipeline, what should the system do when no passage is relevant?",
           "options": [
-            "Answer anyway from the model's memory",
-            "Say it does not know",
-            "Pick a random passage"
+            "Generate guesses purely from parametric weights",
+            "Decline honestly that sources lack answers",
+            "Sample the top lexical passage anyway for fill",
+            "Raise temperature to synthesize plausible claims"
           ],
           "answer": 1,
           "why": "Admitting \"no answer\" is safer than answering without evidence."
@@ -7006,13 +7186,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does standard Multi-Head Attention (MHA) become severely memory bandwidth-bound during autoregressive token generation?",
           "options": [
-            "Each newly decoded token requires streaming the entire accumulated KV-cache across all layers and heads from high-latency HBM into on-chip SRAM to perform a single matrix-vector multiply, resulting in an arithmetic intensity of ~1 FLOP/byte.",
-            "Because GPU Tensor Cores are mathematically incapable of performing dot products on vectors whose length is not a multiple of 1024.",
-            "Because modern GPUs do not support caching operations inside high bandwidth memory without manual host CPU interrupts.",
-            "Because MHA forces the Query tensor to duplicate itself across all previous sequence positions at every forward pass."
+            "Cross-attention head scaling forces quadratic matrix inversions across cached embeddings on every step",
+            "Each new token streams the full accumulated HBM KV-cache into SRAM for one vector multiply (~1 FLOP/byte)",
+            "Host CPU synchronization barriers halt tensor core pipelines before appending each generated Key tensor",
+            "Transformer Query projections expand dynamically with sequence length, saturating local L1 register files"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "During autoregressive decoding, generating each token requires reading the full KV-cache from HBM to perform a matrix-vector dot product (GEMV). This yields an arithmetic intensity of ~1 FLOP/byte, saturating memory bandwidth while leaving GPU compute units severely underutilized.",
           "explanation": "During autoregressive decoding, generating each token requires reading the full KV-cache from HBM to perform a matrix-vector dot product (GEMV). This yields an arithmetic intensity of ~1 FLOP/byte, saturating memory bandwidth while leaving GPU compute units severely underutilized."
         }
@@ -7054,10 +7234,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational trade-off introduced when replacing Multi-Head Attention (MHA) with Multi-Query Attention (MQA)?",
           "options": [
-            "MQA reduces KV-cache memory footprint and memory bandwidth consumption by a factor of H, but can degrade model capacity and perplexity because all Query heads share a single Key-Value representation subspace.",
-            "MQA increases inference latency by requiring quadratic matrix inversions across the shared Key tensor.",
-            "MQA eliminates the need for Query projection matrices, forcing tokens to be represented as one-hot sparse vectors.",
-            "MQA requires doubling the feed-forward network dimensions to compensate for the absence of positional encodings."
+            "MQA cuts KV-cache size by Hx, though sharing one K/V head can slightly hurt model quality and perplexity",
+            "MQA eliminates Query projection matrices, requiring extra feed-forward width to keep token capacity intact",
+            "MQA doubles per-step attention softmax FLOPs because shared Keys must broadcast across query dimensions",
+            "MQA prevents positional rotary transformations from caching cleanly across long conversational sequences"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -7102,13 +7282,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why has Grouped-Query Attention (GQA) with an intermediate grouping ratio (e.g., 8:1) been universally embraced over both MHA and MQA in modern LLMs like LLaMA 3?",
           "options": [
-            "It achieves the optimal Pareto frontier, recovering virtually 100% of MHA modeling capacity and benchmark performance while reducing KV-cache memory bandwidth and VRAM footprint by 8x.",
-            "Because GQA completely removes the need for matrix multiplication on GPU Tensor Cores.",
-            "Because GQA enforces absolute sinusoidal positional encodings without floating point arithmetic.",
-            "To prevent Query heads from attending to past tokens during pre-training."
+            "GQA forces independent Query heads to share one unified FFN gate projection to balance memory traffic",
+            "GQA eliminates softmax scaling division across groups, accelerating prefill speed by an extra factor",
+            "GQA quantizes Key and Value activations dynamically down to INT4 arrays inside SRAM attention kernels",
+            "GQA recovers nearly full MHA modeling quality while shrinking KV-cache VRAM and bandwidth by 8x"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "GQA provides the best of both worlds: by grouping query heads to share a smaller number of KV heads, it recovers almost all the representational quality of MHA while achieving up to an 8x reduction in KV-cache memory and bandwidth.",
           "explanation": "GQA provides the best of both worlds: by grouping query heads to share a smaller number of KV heads, it recovers almost all the representational quality of MHA while achieving up to an 8x reduction in KV-cache memory and bandwidth."
         }
@@ -7150,13 +7330,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Sliding Window Attention (SWA) maintain multi-layer information propagation while bounding cache memory to O(W)?",
           "options": [
-            "Each individual layer attends only to the preceding W tokens, but stacking L layers allows token representations to propagate context across a cumulative receptive field of L * W tokens.",
-            "Because SWA stores all historical tokens permanently in the CPU host memory via PCIe bus interrupts.",
-            "Because SWA relies on external recurrent hidden states that bypass the attention mechanism entirely.",
-            "Because the sliding window dynamically doubles in size whenever sequence perplexity exceeds 10.0."
+            "Hierarchical recurrent states carry older compressed token summaries forward past sliding window cutoffs",
+            "Global sink tokens re-materialize stale evicted Keys cleanly from host DRAM when perplexity rises",
+            "Stacking L layers each attending W tokens propagates context linearly across an L * W receptive span",
+            "Sparse dilated window strides automatically double attention spans on upper transformer decoder layers"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Although each layer only attends locally to W tokens, stacking L transformer layers allows information to propagate hierarchically, yielding an effective receptive field of L * W tokens while strictly capping each layer's KV-cache to W tokens.",
           "explanation": "Although each layer only attends locally to W tokens, stacking L transformer layers allows information to propagate hierarchically, yielding an effective receptive field of L * W tokens while strictly capping each layer's KV-cache to W tokens."
         }
@@ -7198,13 +7378,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In an 80-layer, 64-head 70B parameter model operating at sequence length 8,192 in FP16, why does transitioning from MHA to GQA (8 KV heads) enable an 8x increase in serving concurrency?",
           "options": [
-            "The KV-cache memory footprint per token drops by a factor of 8 from 64 heads to 8 heads, freeing massive GPU VRAM previously saturated by redundant key-value activations.",
-            "Because GQA reduces the number of Transformer layers from 80 down to 10.",
-            "Because GQA compresses floating-point representations into 2-bit integers during runtime execution.",
-            "Because GQA transfers model weights to the client browser to eliminate server-side VRAM consumption."
+            "Reducing Key-Value heads cuts total trainable transformer weight storage down by an identical factor of 8",
+            "Eight-way grouping fuses attention and MLP projections together so prefill runs asynchronously per layer",
+            "Moving from 64 to 8 KV heads slashes per-token cache by 8x, freeing massive VRAM for concurrent streams",
+            "Grouped KV tensors bypass FP16 accumulation buffers cleanly when batch sequence sizes hit 8,192 tokens"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In GQA with 8 KV heads, the KV-cache storage per token scales strictly with the number of KV heads (8 instead of 64). This reduces memory consumption by 8x, allowing 8x more concurrent sequences to fit into GPU memory.",
           "explanation": "In GQA with 8 KV heads, the KV-cache storage per token scales strictly with the number of KV heads (8 instead of 64). This reduces memory consumption by 8x, allowing 8x more concurrent sequences to fit into GPU memory."
         }
@@ -7270,13 +7450,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is positional encoding mathematically mandatory for Transformer self-attention architectures when processing natural language?",
           "options": [
-            "Scaled dot-product self-attention is strictly permutation-equivariant; without positional signals, word order is lost and the model treats any permutation of a sentence as identical.",
-            "Because GPU matrix multiplication hardware requires positional vectors to compute non-zero memory addresses.",
-            "Because softmax normalization yields NaN values if all input embedding elements are strictly non-zero.",
-            "Because attention heads cannot project queries and keys unless sequence lengths are powers of two."
+            "Scaled dot products become numerically unstable unless positional bias centers query-key variances",
+            "Self-attention is permutation-equivariant, so without position signals shuffled words yield identical context",
+            "Soft-max normalization requires strictly odd sequence positional offsets before causal masking applies",
+            "Value projections lose directional norm identity across stacked residual decoder layers without coordinates"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Without positional encodings, self-attention treats input sequences as unordered multisets (permutation equivariance). Swapping words yields the exact same permuted representations, rendering grammatical syntax and narrative progression undetectable.",
           "explanation": "Without positional encodings, self-attention treats input sequences as unordered multisets (permutation equivariance). Swapping words yields the exact same permuted representations, rendering grammatical syntax and narrative progression undetectable."
         }
@@ -7319,10 +7499,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What operational failure occurs when a language model trained with learned absolute position embeddings (like GPT-2) is prompted with a sequence longer than its pre-training context length?",
           "options": [
-            "It raises an out-of-bounds indexing error or outputs degenerate gibberish because the position embedding table has no trained parameters beyond L_max.",
-            "The model automatically shifts into a recurrent LSTM network to process overflow tokens.",
-            "The model compresses the entire sequence into a single floating-point number using lossy quantization.",
-            "The GPU Tensor Cores overheat due to unaligned matrix multiplication dimensions."
+            "Index lookup fails out of bounds or outputs degenerate text because trained embeddings stop at L_max",
+            "Causal masks wrap position indices modulo L_max, blending trailing prompts directly onto early tokens",
+            "Attention heads revert silently into uniform unweighted mean pooling past the maximum trained index",
+            "Autoregressive decoders automatically compress overflow prompt tokens using fixed subword averages"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -7367,13 +7547,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Rotary Position Embedding (RoPE) naturally encode relative position while being computed via absolute position indices?",
           "options": [
-            "The inner product between 2D rotated query vector R_m q and key vector R_n k simplifies via complex orthogonal algebra to depend strictly on the relative distance rotation R_(n-m).",
-            "Because RoPE replaces the Transformer feed-forward network with a circular convolution operator.",
-            "Because RoPE converts all negative numbers to positive numbers using the absolute value function.",
-            "Because RoPE requires sequence lengths to be prime numbers to prevent harmonic interference."
+            "Complex Fourier normalization shifts absolute positional vectors uniformly onto relative cyclic differences",
+            "Subtractive offset matrices adjust Value attention tensors post-softmax proportionally to token spacing",
+            "Exponential decay biases scale cosine frequencies inversely across sequence distances to preserve order",
+            "Rotating q by m and k by n cancels in orthogonal dot product R_m q . R_n k to depend strictly on (n - m)"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "By rotating Query by angle m*theta and Key by n*theta in 2D sub-planes, their inner product simplifies to q^T R_(n-m) k. The absolute coordinates cancel out, embedding relative distance directly into the attention logits.",
           "explanation": "By rotating Query by angle m*theta and Key by n*theta in 2D sub-planes, their inner product simplifies to q^T R_(n-m) k. The absolute coordinates cancel out, embedding relative distance directly into the attention logits."
         }
@@ -7416,13 +7596,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Attention with Linear Biases (ALiBi) achieve zero-shot sequence length extrapolation without retraining?",
           "options": [
-            "It eliminates position embeddings from token representations and injects a static, non-learned negative linear penalty proportional to token distance directly into the attention logits.",
-            "It dynamically trains a recurrent neural network to predict future positional coordinates during inference.",
-            "It interpolates learned position vectors using cubic spline regression inside GPU shared memory.",
-            "It restricts sequences to palindromes so that relative distance always evaluates to zero."
+            "It interpolates learned positional lookup tables smoothly inside SRAM using piecewise cubic splines",
+            "It doubles RoPE rotary base frequencies dynamically at inference time whenever prompts cross training caps",
+            "It trains lightweight sliding recurrent gates that emit relative position bias offsets cleanly per head",
+            "It skips input position embeddings and subtracts fixed linear distance penalties directly from logits"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "ALiBi injects a static, non-learned penalty -m*(i - j) directly into the attention score matrix. Because this linear penalty depends only on relative token distance, it generalizes seamlessly to unseen lengths without out-of-distribution coordinate artifacts.",
           "explanation": "ALiBi injects a static, non-learned penalty -m*(i - j) directly into the attention score matrix. Because this linear penalty depends only on relative token distance, it generalizes seamlessly to unseen lengths without out-of-distribution coordinate artifacts."
         }
@@ -7465,13 +7645,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why did modern foundation models such as LLaMA 3 and Mistral standardize on RoPE rather than ALiBi despite ALiBi's simpler extrapolation formulation?",
           "options": [
-            "ALiBi's monotonic negative distance penalty over-penalizes long-range token interactions, impairing complex reasoning and long-context retrieval where distant facts must maintain high attention weights.",
-            "Because ALiBi requires re-training from scratch whenever sequence lengths decrease during inference.",
-            "Because RoPE eliminates the need for Key-Value projections in Transformer attention layers.",
-            "Because ALiBi is patented by commercial database vendors and cannot be used in open-weights models."
+            "ALiBi requires training separate head bias checkpoints whenever downstream sequence lengths vary widely",
+            "RoPE eliminates Key-Value linear projections cleanly, reducing active VRAM usage during causal inference",
+            "ALiBi's monotonic distance penalty impairs long-range reasoning where distant facts need high attention",
+            "ALiBi introduces quadratic memory overhead inside FlashAttention kernels when causal masks skip blocks"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "ALiBi forces a monotonic negative penalty on distant tokens. This creates an unavoidable blind spot on long-context tasks (such as needle-in-a-haystack retrieval) where distant tokens must be retrieved with high fidelity regardless of position.",
           "explanation": "ALiBi forces a monotonic negative penalty on distant tokens. This creates an unavoidable blind spot on long-context tasks (such as needle-in-a-haystack retrieval) where distant tokens must be retrieved with high fidelity regardless of position."
         }
@@ -7537,13 +7717,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does standard scaled dot-product attention achieve poor hardware FLOP utilization on modern GPUs (like NVIDIA A100/H100)?",
           "options": [
-            "It is memory bandwidth-bound, materializing intermediate N x N attention score and probability matrices in high-latency HBM rather than executing fused computations within fast on-chip SRAM.",
-            "Because modern GPUs lack floating-point units capable of executing exponential operations in hardware.",
-            "Because PyTorch forces attention operations to synchronize with the host CPU at every matrix element.",
-            "Because Tensor Cores can only execute integer arithmetic and cannot process FP16 tensors."
+            "Logit exponentiation lacks hardware instruction fusion on Hopper/Ampere units during forward passes",
+            "Streaming huge N x N intermediate score matrices to and from slow HBM throttles Tensor Cores idle",
+            "Synchronizing global maximum reductions across thread blocks stalls SM warps repeatedly per head",
+            "Standard dot-product attention casts FP16 activations up to FP64 intermediates, saturating caches"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Standard attention repeatedly writes and reads quadratic N x N intermediate matrices to slow external HBM across multiple kernel launches. This memory bandwidth bottleneck leaves compute units idling for up to 80% of runtime.",
           "explanation": "Standard attention repeatedly writes and reads quadratic N x N intermediate matrices to slow external HBM across multiple kernel launches. This memory bandwidth bottleneck leaves compute units idling for up to 80% of runtime."
         }
@@ -7586,10 +7766,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Online Softmax algorithm eliminate the need to materialize the full sequence of attention logits prior to computing normalization denominators?",
           "options": [
-            "It tracks running row maximums and denominators incrementally across blocks, rescaling previous partial accumulators by e^(m_old - m_new) whenever a higher logit is encountered in subsequent blocks.",
-            "It replaces the exponential function with a linear polynomial approximation that does not require normalization.",
-            "It quantizes all negative numbers to zero, eliminating the need for denominator summation.",
-            "It computes the softmax operation entirely on the host CPU using 64-bit integer instructions."
+            "Tracking running row maxes and sums across tiles, rescaling prior totals by e^(m_old - m_new) cleanly",
+            "Replacing exact exponential softmax terms with piece-wise bounded linear attention polynomials per block",
+            "Quantizing low off-diagonal query-key similarities down to zero before executing row denominator loops",
+            "Executing row-wise max reductions upfront on compact sampled subsets to freeze global denominators early"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -7635,10 +7815,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In FlashAttention, what key algorithmic choice allows the backward pass to consume sub-quadratic O(N) memory rather than storing the N x N attention matrix?",
           "options": [
-            "It does not store the intermediate N x N attention probability matrix in HBM during the forward pass, but instead recomputes it block-by-block in fast SRAM during backpropagation using saved softmax normalizers.",
-            "It computes gradients using numerical finite difference approximations that require zero activation caching.",
-            "It eliminates the backward pass by optimizing parameters using zeroth-order genetic evolutionary algorithms.",
-            "It offloads the entire backward pass to host system RAM via PCIe Gen5 direct memory access."
+            "Saving only row normalization stats lets backward passes recompute attention tiles quickly in fast SRAM",
+            "Approximating activation gradients dynamically via zeroth-order forward perturbation steps on weight slices",
+            "Quantizing stored N x N attention probability blocks lossily down to 2-bit integers in HBM memory",
+            "Skipping Key-Value backward gradient accumulation whenever cached softmax entropy stays below threshold"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -7685,13 +7865,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary structural innovation of FlashAttention-2 over FlashAttention-1 that reduces thread synchronization overhead and accelerates execution?",
           "options": [
-            "It inverts the loop nesting order so the outer loop iterates over Query blocks, allowing thread blocks to compute outputs independently with zero atomic synchronization while deferring normalization division.",
-            "It replaces FP16 floating-point values with 1-bit boolean flags.",
-            "It eliminates the Key-Value projection matrices from the model architecture.",
-            "It uses fast Fourier transforms to convert attention into a circular convolution."
+            "Shifting outer loops over Key blocks minimizes shared-memory transpose traffic during matrix tiling",
+            "Moving softmax scaling multiplication after Value accumulation removes inter-warp communication barriers",
+            "Computing causal mask checks inside Value projection kernels avoids branching inside inner tile loops",
+            "Iterating outer loops over Query blocks gives independent outputs per thread block with zero sync locks"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "FlashAttention-2 places the Query loop on the outside. Each thread block owns a distinct Query tile, eliminating the need for atomic locks across blocks and deferring softmax normalization division until loop completion.",
           "explanation": "FlashAttention-2 places the Query loop on the outside. Each thread block owns a distinct Query tile, eliminating the need for atomic locks across blocks and deferring softmax normalization division until loop completion."
         }
@@ -7735,13 +7915,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does FlashAttention optimize the computation of causal (autoregressive) attention masks within its tiled execution loops?",
           "options": [
-            "It completely skips computing entire Key-Value blocks that fall strictly in the upper triangle where all key positions exceed the current query block indices, eliminating wasted memory loads and FLOPs.",
-            "It converts the causal mask into a learned neural network that predicts future tokens.",
-            "It executes the causal mask on the CPU while the GPU processes non-causal tokens.",
-            "It forces all negative attention scores to positive infinity to bypass the softmax operator."
+            "Zeroing upper-triangular outputs post-matmul inside Tensor Core accumulators eliminates mask memory arrays",
+            "Splitting causal decoder heads dynamically into odd and even sparse lanes avoids loading half keys",
+            "Skipping entire upper-triangular K/V blocks where all keys follow active query indices cuts FLOPs sharply",
+            "Compressing lower-triangular indices offline via run-length masks removes inner loop comparisons cleanly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Because token indices are ordered monotonically, any block pair where key indices are strictly greater than query indices falls completely in the masked upper triangle. FlashAttention identifies these blocks a priori and skips them entirely.",
           "explanation": "Because token indices are ordered monotonically, any block pair where key indices are strictly greater than query indices falls completely in the masked upper triangle. FlashAttention identifies these blocks a priori and skips them entirely."
         }
@@ -7808,13 +7988,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is pure word-level tokenization fundamentally unviable for modern foundation language models?",
           "options": [
-            "It suffers from vocabulary explosion and fails completely on out-of-vocabulary (OOV) words, misspellings, and novel terminology by collapsing them into uninformative `<unk>` tokens.",
-            "Because GPUs can only process sequences whose tokens are single alphanumeric characters.",
-            "Because word-level tokenization requires storing all human words in hardware ROM prior to boot.",
-            "Because word-level tokenization prevents the Transformer from utilizing multi-head attention."
+            "Whole-word tokens prevent Transformers from learning positional relationships across sentence clauses",
+            "Vocabularies explode in size while rare words, typos, and new domain terms collapse into <unk>",
+            "Word dictionaries cannot encode lowercase ASCII text alongside mixed punctuation cleanly in UTF-8",
+            "Large embedding tables double self-attention FLOP counts quadratically inside decoded output heads"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Human language generates an infinite variety of inflected words and novel terms. Word-level vocabularies cannot cover all terms without exploding in size, and collapsing unseen words to `<unk>` destroys downstream semantic reasoning.",
           "explanation": "Human language generates an infinite variety of inflected words and novel terms. Word-level vocabularies cannot cover all terms without exploding in size, and collapsing unseen words to `<unk>` destroys downstream semantic reasoning."
         }
@@ -7857,13 +8037,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "During inference in a Byte-Pair Encoding (BPE) tokenizer, how are candidate subword merges selected when multiple adjacent symbol pairs are eligible for merging?",
           "options": [
-            "Merges are applied strictly in the chronological order in which they were learned during training, prioritizing higher-ranked merge rules.",
-            "The tokenizer selects the pair that produces the longest character string regardless of training order.",
-            "The tokenizer chooses pairs randomly using Monte Carlo dropout sampling.",
-            "The tokenizer sends the candidate pairs to the neural network embedding layer for dynamic scoring."
+            "Merges prioritize whichever valid adjacent pair yields the longest resulting combined substring",
+            "Adjacent pairs merge greedily in exact priority rank order learned during tokenizer training",
+            "Pair merges sample stochastically proportionally to smoothed bigram frequencies across words",
+            "Candidate pairs score inside lightweight MLP merge predictors before grouping final subwords"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "BPE inference is deterministic: it evaluates candidate symbol pairs against the ordered merge table learned during pre-training, always executing the highest-priority (earliest learned) merge rule first.",
           "explanation": "BPE inference is deterministic: it evaluates candidate symbol pairs against the ordered merge table learned during pre-training, always executing the highest-priority (earliest learned) merge rule first."
         }
@@ -7907,10 +8087,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the Unigram tokenization algorithm (used in SentencePiece) fundamentally differ in approach from Byte-Pair Encoding (BPE)?",
           "options": [
-            "Unigram starts with a massive candidate vocabulary and iteratively prunes subwords that minimize corpus loss using Viterbi dynamic programming, whereas BPE starts with basic characters and greedily merges pairs bottom-up.",
-            "Unigram operates only on images, while BPE operates on text strings.",
-            "Unigram does not support English text, functioning only on ideographic scripts.",
-            "Unigram requires all subword tokens to have exactly 4 characters."
+            "Unigram prunes top-down from a giant vocab via Viterbi loss; BPE merges frequent pairs bottom-up",
+            "Unigram merges pairs greedily from frequency counts while BPE prunes down via expectation maximization",
+            "Unigram enforces uniform byte character lengths while BPE adapts merges purely to whitespace spans",
+            "Unigram builds strictly word-aligned tokens whereas BPE allows tokens to cross whitespace bounds"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -7957,13 +8137,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Byte-Level Byte-Pair Encoding (BBPE) completely eliminate the Out-of-Vocabulary (`<unk>`) problem in modern LLMs?",
           "options": [
-            "Its base vocabulary contains all 256 possible byte values of UTF-8, allowing any arbitrary Unicode sequence, rare symbol, or binary data to be represented without unmapped characters.",
-            "Because it downloads missing word definitions dynamically from Wikipedia during inference.",
-            "Because it replaces unknown characters with random English words.",
-            "Because it restricts language models to processing 7-bit ASCII text only."
+            "Byte tokenization appends dynamic lookup embeddings cleanly whenever unseen Unicode points arrive",
+            "Unicode normalization decomposes arbitrary character scripts strictly into compact 7-bit ASCII symbols",
+            "Character-level fallback splits out-of-vocab words silently into special zero-padded blank markers",
+            "Seeding base tokens with all 256 raw UTF-8 byte values encodes any arbitrary text without <unk>"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Because all digital text is fundamentally stored as sequences of bytes (0-255), including all 256 byte values in the base vocabulary guarantees that every possible character can be parsed into valid tokens.",
           "explanation": "Because all digital text is fundamentally stored as sequences of bytes (0-255), including all 256 byte values in the base vocabulary guarantees that every possible character can be parsed into valid tokens."
         }
@@ -8007,13 +8187,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the underlying cause of 'glitch tokens' (such as 'SolidGoldMagikarp') that induce erratic or hallucinated behavior in production LLMs?",
           "options": [
-            "They represent tokens allocated during tokenizer vocabulary building that received zero or negligible gradient updates during neural network pre-training due to dataset deduplication and filtering.",
-            "They are encrypted backdoor tokens inserted by foreign intelligence agencies.",
-            "They are tokens whose UTF-8 byte lengths are prime numbers.",
-            "They are caused by physical bit-flips in GPU DRAM memory modules during inference."
+            "Colliding UTF-8 byte prefixes map distinct special control tokens onto identical BPE table slots",
+            "Under-scaled FP16 optimizer momentum vectors zero out random embedding rows during initial decay",
+            "Tokenizer vocab strings filtered out before pre-training stay untrained, leaving erratic weights",
+            "High-frequency stopword merges saturate causal position rotary angles after long prefill prompts"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Glitch tokens occur when a token is created during tokenizer training on noisy raw web scrapes, but subsequent dataset filtering completely removes those tokens from the actual pre-training dataset. The token's embedding remains randomly initialized, causing erratic latent space activations.",
           "explanation": "Glitch tokens occur when a token is created during tokenizer training on noisy raw web scrapes, but subsequent dataset filtering completely removes those tokens from the actual pre-training dataset. The token's embedding remains randomly initialized, causing erratic latent space activations."
         }
@@ -8079,13 +8259,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do modern foundation decoder architectures place RMSNorm before the attention and feed-forward sub-layers (Pre-LN) rather than after them (Post-LN)?",
           "options": [
-            "Pre-LN stabilizes gradient flow through the residual highway, preventing vanishing or exploding gradients and enabling training of deep networks without fragile learning rate warmups.",
-            "Because Post-LN requires running matrix multiplications on the host CPU.",
-            "Because Pre-LN reduces the number of tokens in the vocabulary.",
-            "Because Post-LN is mathematically incompatible with 16-bit floating point representations."
+            "Pre-LN doubles transformer attention speed by fusing normalization inside matrix projections",
+            "Post-LN forces intermediate activations outside representable 16-bit floating ranges early",
+            "Pre-LN preserves an unperturbed residual gradient highway, stabilizing deep training cleanly",
+            "Pre-LN reduces total trainable scale parameters across deep feed-forward transformer blocks"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In Pre-LN, each sub-layer adds its output directly to the identity residual stream: x_{l+1} = x_l + F(Norm(x_l)). Gradients propagate back along the residual stream without passing through normalization scaling, guaranteeing numerical stability in deep architectures.",
           "explanation": "In Pre-LN, each sub-layer adds its output directly to the identity residual stream: x_{l+1} = x_l + F(Norm(x_l)). Gradients propagate back along the residual stream without passing through normalization scaling, guaranteeing numerical stability in deep architectures."
         }
@@ -8130,13 +8310,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the ApexTokenizer engine, what ensures that whitespace and newline characters are preserved losslessly across encode and decode cycles?",
           "options": [
-            "Whitespace and newline characters are mapped directly to distinct dedicated UTF-8 byte representations rather than being stripped or collapsed as regex delimiters.",
-            "Because whitespace is automatically converted into alphanumeric letter sequences during pre-processing.",
-            "Because the tokenizer runs an external spellchecker that inserts missing spaces during decode.",
-            "Because whitespace characters are saved in a separate relational database on disk."
+            "Regex lookahead passes re-insert stripped newline tokens cleanly during post-decode text reconstruction",
+            "Spaces and newlines map to explicit byte tokens rather than vanishing during pre-split normalization",
+            "Whitespace indices store inside an out-of-band offset dictionary attached alongside token integer IDs",
+            "SentencePiece delimiters strip duplicate tabs first and restore standard four-space indents uniformly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "By operating directly on raw UTF-8 bytes (0-255), whitespace (byte 0x20) and newlines (byte 0x0A) are treated as first-class atomic tokens. They are never discarded or normalized away, guaranteeing 100% lossless string reconstruction.",
           "explanation": "By operating directly on raw UTF-8 bytes (0-255), whitespace (byte 0x20) and newlines (byte 0x0A) are treated as first-class atomic tokens. They are never discarded or normalized away, guaranteeing 100% lossless string reconstruction."
         }
@@ -8181,10 +8361,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When applying Rotary Position Embeddings (RoPE) inside a Grouped-Query Attention (GQA) layer, at what exact computational stage must the rotary embeddings be multiplied with the representations?",
           "options": [
-            "RoPE must be applied to the Query and Key head tensors immediately after linear projection and reshaping, but prior to computing the attention dot product.",
-            "RoPE must be added to the input word embeddings before the first RMSNorm layer.",
-            "RoPE must be applied to the Value tensors after softmax normalization.",
-            "RoPE must be multiplied with the final output tensor after the output projection matrix W_o."
+            "Right after Q and K linear projections and head reshaping, immediately prior to dot products",
+            "On raw token lookup embeddings upfront immediately prior to the first Pre-LN RMSNorm block",
+            "Across Value head vectors post-softmax right before multi-head concatenation through W_o",
+            "Uniformly across Q, K, and V output tensors right after causal triangular mask application"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8232,13 +8412,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is RMSNorm computationally more efficient than standard LayerNorm while providing identical empirical convergence in large language models?",
           "options": [
-            "RMSNorm dispenses with computing and subtracting the activation mean, relying solely on root-mean-square variance scaling to eliminate two global reduction operations per layer.",
-            "Because RMSNorm uses 8-bit integer tables instead of floating-point registers.",
-            "Because RMSNorm runs only on the first token of a sequence.",
-            "Because RMSNorm eliminates the learned scale parameter gamma."
+            "RMSNorm eliminates all per-channel trainable scale weights to cut parameter VRAM footprints",
+            "RMSNorm operates solely on cached Key tensors without scaling outgoing decoder token streams",
+            "RMSNorm replaces expensive square-root variance divisions cleanly via fast bit-shift rounding",
+            "RMSNorm skips computing and subtracting means, eliminating costly global reductions cleanly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "LayerNorm computes both mean and variance, requiring two passes over the hidden dimension. RMSNorm proves that mean centering is unnecessary, calculating only the root mean square. This cuts memory reduction overhead by ~30% with zero loss in training stability.",
           "explanation": "LayerNorm computes both mean and variance, requiring two passes over the hidden dimension. RMSNorm proves that mean centering is unnecessary, calculating only the root mean square. This cuts memory reduction overhead by ~30% with zero loss in training stability."
         }
@@ -8283,13 +8463,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the completed ApexDecoderBlock architecture, what catastrophic failure occurs if the residual connection `X = X + attention_out` is omitted after the attention sub-layer?",
           "options": [
-            "Gradients vanish rapidly during backpropagation through deep layers, destroying the identity gradient highway and preventing the model from converging.",
-            "The model begins generating random numbers because the attention output becomes infinite.",
-            "The tokenizer merge table is corrupted on disk.",
-            "The model switches automatically from decoder-only to encoder-only mode."
+            "Unbound attention dot scores diverge rapidly to Infinity on the initial forward token step",
+            "Transformer softmax weights collapse uniformly onto the first token inside every context block",
+            "Feed-forward SwiGLU activations clip cleanly to zero across sequential decoding generations",
+            "Breaking the residual gradient path causes vanishing gradients that stall deep convergence"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Residual connections create an identity mapping highway: dL/dx = dL/dx_{next} * (I + dF/dx). Omitting the residual addition removes the identity term I, causing gradients to vanish exponentially through stacked layers during backpropagation.",
           "explanation": "Residual connections create an identity mapping highway: dL/dx = dL/dx_{next} * (I + dF/dx). Omitting the residual addition removes the identity term I, causing gradients to vanish exponentially through stacked layers during backpropagation."
         }
@@ -8335,13 +8515,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the foundational compute budget formula C ≈ 6ND for a decoder-only Transformer, why is the scalar coefficient exactly 6?",
           "options": [
-            "The forward pass requires 2 FLOPs per parameter per token (1 multiply, 1 add), while the backward pass requires 4 FLOPs per parameter per token (2 for activation gradients, 2 for weight gradients), totaling 6 FLOPs.",
-            "Because a Transformer contains 6 fundamental attention matrices: W_q, W_k, W_v, W_o, W_gate, and W_down.",
-            "Because modern GPUs feature 6 distinct execution pipelines within each Streaming Multiprocessor.",
-            "Because the model processes tokens across 6 distinct linguistic context windows simultaneously."
+            "Each Transformer layer executes 6 identical attention and MLP matrix projections sequentially",
+            "Standard dense checkpoints require 6 bytes per parameter across activations and optimizer states",
+            "Forward matrix ops take 2 FLOPs per param/token plus 4 FLOPs in backward (activations + weights)",
+            "Mixed-precision training averages 6 gradient scaling sweeps per compute-optimal prefill batch"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Each parameter incurs 1 multiply-accumulate (2 FLOPs) on the forward pass, and 2 multiply-accumulates (4 FLOPs) on the backward pass (one to propagate gradients backward through activations, and one to compute weight gradients with respect to inputs), totaling 6 FLOPs per parameter per token.",
           "explanation": "Each parameter incurs 1 multiply-accumulate (2 FLOPs) on the forward pass, and 2 multiply-accumulates (4 FLOPs) on the backward pass (one to propagate gradients backward through activations, and one to compute weight gradients with respect to inputs), totaling 6 FLOPs per parameter per token."
         }
@@ -8379,13 +8559,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What primary methodological artifact in Kaplan et al.'s 2020 experimental setup led to their recommendation to scale parameters much faster than tokens (N ∝ C^0.73 vs D ∝ C^0.27)?",
           "options": [
-            "The learning rate schedule was not retuned for each individual run, causing models evaluated under fixed cosine decay horizons to appear under-trained on tokens while favoring fast-converging large models.",
-            "The researchers measured execution speed using CPU threads rather than GPU Tensor Cores.",
-            "The study evaluated only recurrent LSTM architectures rather than autoregressive Transformers.",
-            "The tokenizer dropped all numerical digits during pre-processing, causing loss distortion."
+            "Kaplan datasets omitted high-density source code tokens that alter transformer scaling curves",
+            "Fixing one cosine decay schedule horizon penalized token scaling vs fast-converging big nets",
+            "Vocabulary byte lengths distorted perplexity measurements across under-trained token budgets",
+            "Gradient accumulation batch sizes stayed fixed below optimal critical noise scale bounds"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Kaplan et al. used a fixed cosine learning rate schedule without adjusting the decay horizon to match total training steps for each run. Because models were evaluated before undergoing proper learning rate cooldown, the benefits of training on larger token counts were masked, artificially penalizing token scaling.",
           "explanation": "Kaplan et al. used a fixed cosine learning rate schedule without adjusting the decay horizon to match total training steps for each run. Because models were evaluated before undergoing proper learning rate cooldown, the benefits of training on larger token counts were masked, artificially penalizing token scaling."
         }
@@ -8423,10 +8603,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "According to Hoffmann et al.'s Chinchilla scaling laws, what is the compute-optimal ratio of pre-training tokens to model parameters for large language models?",
           "options": [
-            "Approximately 20:1 (20 tokens per model parameter), meaning parameters and tokens should scale in equal proportion: N ∝ C^0.5 and D ∝ C^0.5.",
-            "Approximately 1:1 (1 token per model parameter), meaning model size should scale much faster than dataset size: N ∝ C^0.73.",
-            "Approximately 200:1, meaning parameters should remain frozen while only data is scaled.",
-            "The ratio depends entirely on the batch size and is independent of total compute."
+            "Roughly 20 tokens per model parameter, scaling N and D equally at C^0.5",
+            "Roughly 2 tokens per model parameter, favoring N at C^0.73 over data scale",
+            "Roughly 200 tokens per parameter, holding model width mostly fixed early",
+            "Arbitrary ratios independent of compute once learning rates warmup cleanly"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8467,10 +8647,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do modern frontier AI labs deliberately train models like LLaMA-3 8B on 15 trillion tokens (a 1,875:1 token-to-parameter ratio), far exceeding the Chinchilla compute-optimal recommendation of 20:1?",
           "options": [
-            "Because pre-training is a one-time capital cost, whereas inference cost scales directly with model parameter count N; heavily over-training a compact model drastically slashes lifetime serving latency and hardware costs.",
-            "Because models smaller than 10B parameters cannot run on NVIDIA GPUs unless trained on at least 10 trillion tokens.",
-            "Because Chinchilla scaling laws were proven to be mathematically invalid for English language corpora.",
-            "Because training on fewer than 10 trillion tokens causes Transformer attention matrices to become non-invertible."
+            "Training cost pays once, while smaller N slashes recurring inference latency and GPU bills forever",
+            "Models under 10B fail converging on complex coding benchmarks below ten trillion seen tokens",
+            "Transformer embedding layers require minimum 1,000:1 token saturation to clear glitch weights",
+            "FlashAttention throughput saturates GPU memory bandwidth cleanly past Chinchilla optima ratios"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8512,13 +8692,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What does Model FLOPs Utilization (MFU) measure, and why is it essential when translating theoretical compute budgets into physical training schedules?",
           "options": [
-            "MFU measures the ratio of executed model floating-point operations to the theoretical maximum peak throughput of the hardware, capturing distributed communication bubbles, memory bandwidth overhead, and kernel stalls.",
-            "MFU measures the percentage of GPU VRAM consumed by model weights during forward passes.",
-            "MFU measures the ratio of training tokens to validation tokens in the dataset.",
-            "MFU measures the rate at which floating-point numbers underflow to zero in 16-bit precision."
+            "Percentage of total GPU HBM allocated solely to active static transformer weights and KV caches",
+            "Fraction of total pre-training corpus tokens processed per dollar across regional clusters",
+            "Efficiency metric measuring 16-bit gradient underflow recovery across dynamic loss scaling",
+            "Ratio of achieved model FLOPs to peak hardware FLOPs, exposing comms stalls and bubbles"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "MFU = (Observed_FLOPs_per_sec) / (Num_GPUs * Peak_FLOPs_per_sec). Because real-world distributed clusters lose time to all-reduce synchronization, pipeline bubbles, and non-GEMM memory bandwidth operations, MFU (typically 40-55%) is required to determine actual wall-clock training time.",
           "explanation": "MFU = (Observed_FLOPs_per_sec) / (Num_GPUs * Peak_FLOPs_per_sec). Because real-world distributed clusters lose time to all-reduce synchronization, pipeline bubbles, and non-GEMM memory bandwidth operations, MFU (typically 40-55%) is required to determine actual wall-clock training time."
         }
@@ -8583,13 +8763,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In standard mixed-precision training with the AdamW optimizer, why do optimizer states consume 12 bytes per parameter, accounting for 75% of the static model memory footprint?",
           "options": [
-            "AdamW stores three full 32-bit (4-byte) floating-point tensors for every parameter: an FP32 master weight copy to prevent underflow, an FP32 first momentum vector (mean gradient), and an FP32 second momentum vector (gradient variance).",
-            "Because AdamW maintains 12 duplicate copies of the neural network weights across 12 distinct GPU threads.",
-            "Because 12 bytes are reserved for storing the token string labels inside GPU VRAM.",
-            "Because the PyTorch CUDA caching allocator pads all optimizer allocations to 12-byte boundaries."
+            "Mixed-precision graphs allocate twelve checkpoint shards redundantly across intra-node ranks",
+            "PyTorch CUDA caching buffers align gradient buckets on 12-byte cache lines during backward",
+            "AdamW keeps three FP32 buffers (4 bytes each): master weights, mean momentum m, variance v",
+            "Attention backward passes store three quantized intermediate softmax copies per dense parameter"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "AdamW maintains 3 separate FP32 tensors: the FP32 master weight (4 bytes), the first momentum buffer m_t (4 bytes), and the second momentum buffer v_t (4 bytes). Total: 4 + 4 + 4 = 12 bytes per parameter, dwarfing the 4 bytes consumed by FP16 weights and gradients.",
           "explanation": "AdamW maintains 3 separate FP32 tensors: the FP32 master weight (4 bytes), the first momentum buffer m_t (4 bytes), and the second momentum buffer v_t (4 bytes). Total: 4 + 4 + 4 = 12 bytes per parameter, dwarfing the 4 bytes consumed by FP16 weights and gradients."
         }
@@ -8627,13 +8807,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural difference between ZeRO-Stage 2 and ZeRO-Stage 3, and what communication overhead does ZeRO-Stage 3 introduce?",
           "options": [
-            "ZeRO-Stage 2 partitions optimizer states and gradients while replicating weights; ZeRO-Stage 3 additionally partitions weights across ranks, requiring just-in-time All-Gather reconstruction during forward and backward passes, introducing a 50% communication volume increase (1.5x baseline).",
-            "ZeRO-Stage 2 runs on CPUs while ZeRO-Stage 3 runs on GPUs.",
-            "ZeRO-Stage 3 eliminates activation checkpointing while ZeRO-Stage 2 mandates it.",
-            "ZeRO-Stage 3 replaces the AdamW optimizer with Stochastic Gradient Descent."
+            "ZeRO-2 shards model weights statically across nodes while ZeRO-3 caches gradients in RAM",
+            "ZeRO-3 shards parameters too, requiring all-gather recomms at 1.5x comms over ZeRO-2",
+            "ZeRO-3 removes cross-GPU collective ops cleanly via asynchronous peer weight reads",
+            "ZeRO-2 supports pipeline parallelism only while ZeRO-3 mandates pure intra-node NVLink"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "ZeRO-2 keeps weights replicated on every GPU (consuming 2 bytes/param permanently). ZeRO-3 shards weights completely, fetching them via All-Gather right before layer execution and discarding them immediately, incurring 3N words of communication compared to 2N words in standard DDP (a 1.5x multiplier).",
           "explanation": "ZeRO-2 keeps weights replicated on every GPU (consuming 2 bytes/param permanently). ZeRO-3 shards weights completely, fetching them via All-Gather right before layer execution and discarding them immediately, incurring 3N words of communication compared to 2N words in standard DDP (a 1.5x multiplier)."
         }
@@ -8671,13 +8851,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In Megatron-LM's Tensor Parallelism design, how many All-Reduce communication collectives are executed per Transformer decoder layer during the forward pass?",
           "options": [
-            "Exactly 2 All-Reduces: one following the Row-Parallel Self-Attention output projection W_o, and one following the Row-Parallel MLP down-projection W_down.",
-            "Zero All-Reduces, because Tensor Parallelism communicates purely via Point-to-Point Send/Recv.",
-            "One All-Reduce per attention head (e.g., 32 All-Reduces for 32 heads).",
-            "Four All-Reduces: one after every single matrix multiplication."
+            "Four All-Reduces per layer: synchronized across Q, K, V, and FFN up-projections evenly",
+            "Two All-Reduces per layer: one post row-parallel attention W_o and one post MLP W_down",
+            "One global All-Reduce per layer combining both self-attention and MLP outputs simultaneously",
+            "Zero All-Reduces, relying purely on adjacent point-to-point Send/Recv pipeline passes"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "By pairing Column-Parallel projections (W_q,k,v and W_gate,up) with Row-Parallel projections (W_o and W_down), communication is delayed until the end of each sub-layer. Exactly one All-Reduce sums the Row-Parallel partial results in Attention, and one in MLP, totaling 2 per layer.",
           "explanation": "By pairing Column-Parallel projections (W_q,k,v and W_gate,up) with Row-Parallel projections (W_o and W_down), communication is delayed until the end of each sub-layer. Exactly one All-Reduce sums the Row-Parallel partial results in Attention, and one in MLP, totaling 2 per layer."
         }
@@ -8715,10 +8895,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In a 3D parallelism cluster configuration (DP x TP x PP), why must Tensor Parallelism (TP) be strictly mapped to intra-node GPUs rather than across different server chassis?",
           "options": [
-            "Tensor Parallelism requires two All-Reduce communication collectives for every single layer in the model; executing these high-frequency synchronizations over inter-node networks creates catastrophic latency stalls that destroy hardware throughput.",
-            "Because modern GPU drivers disable Tensor Cores if an Ethernet cable is detected.",
-            "Because Pipeline Parallelism can only run on odd-numbered GPU ranks.",
-            "Because Data Parallelism is physically incompatible with NVLink bridges."
+            "Two All-Reduces per layer on slow cross-node links stall GPUs with severe comms latency",
+            "NVIDIA NCCL drivers disable Tensor Core BF16 collectives over InfiniBand Ethernet links",
+            "Layer weights cannot shard cleanly along column dimensions across heterogeneous server chassis",
+            "Data-parallel gradient buckets collide with tensor-parallel synchronization rings over NICs"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -8760,13 +8940,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In our unified DistributedClusterEngine simulation, what prevents memory from leaking during repeated forward passes under ZeRO-Stage 3?",
           "options": [
-            "Full weights dynamically reconstructed via All-Gather are immediately discarded from memory once their specific layer matrix multiplication completes, retaining only the permanent 1/DP parameter shard in VRAM.",
-            "Because all weights are stored in the host operating system's virtual swap file on hard disk.",
-            "Because the model deletes half its attention heads after every batch.",
-            "Because PyTorch automatically frees the GPU memory cache every 5 milliseconds."
+            "Inactive optimizer momentum states page asynchronously into pinned host RAM between micro-batches",
+            "Dynamic gradient checkpoints discard intermediate tensor buffers across backward passes early",
+            "KV cache block allocators cap static activation reservations under fixed cluster headroom limits",
+            "Unsharded all-gathered layer weights free right after matmul, leaving only the 1/DP shard"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "ZeRO-3's memory invariance relies on ephemeral weight reconstruction: weights for layer L are gathered just-in-time for GEMM execution and immediately freed before proceeding to layer L+1. This ensures VRAM never holds more than one layer's un-sharded weights at any instant.",
           "explanation": "ZeRO-3's memory invariance relies on ephemeral weight reconstruction: weights for layer L are gathered just-in-time for GEMM execution and immediately freed before proceeding to layer L+1. This ensures VRAM never holds more than one layer's un-sharded weights at any instant."
         }
@@ -8831,13 +9011,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Bfloat16 (BF16) largely eliminate the training instability and underflow failures common in IEEE FP16 when training large language models?",
           "options": [
-            "BF16 preserves an 8-bit exponent field identical to IEEE FP32, providing an expansive dynamic range up to 10^38 and down to 10^(-38) that accommodates deep Transformer gradient distributions without underflow or overflow.",
-            "BF16 uses 64 bits of precision internally on NVIDIA Tensor Cores.",
-            "BF16 automatically disables the AdamW optimizer's second momentum buffer.",
-            "BF16 stores gradients as lossless integers rather than floating-point numbers."
+            "BF16 allocates extra mantissa precision bits specifically tuned for small gradient updates",
+            "BF16 eliminates scaling overflow checks cleanly by clamping activations at +/- 65,504 natively",
+            "BF16 keeps FP32's full 8-bit exponent range (~10^-38 to 10^38), avoiding FP16 underflow",
+            "BF16 converts transformer AdamW optimizer moments straight into fixed-point INT8 counters"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "BF16's 8-bit exponent grants it an identical dynamic range to FP32 (~10^38), ensuring gradients never underflow to zero or overflow to Inf. In contrast, FP16's 5-bit exponent limits its ceiling to 65,504 and normal floor to 6.1e-5.",
           "explanation": "BF16's 8-bit exponent grants it an identical dynamic range to FP32 (~10^38), ensuring gradients never underflow to zero or overflow to Inf. In contrast, FP16's 5-bit exponent limits its ceiling to 65,504 and normal floor to 6.1e-5."
         }
@@ -8876,13 +9056,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the mixed-precision training loop, why is it mandatory to maintain a persistent FP32 Master Copy of the model weights rather than storing weights exclusively in FP16 or BF16?",
           "options": [
-            "Because individual parameter updates (the product of learning rate and gradient) are typically smaller than 16-bit machine epsilon; adding them directly to 16-bit weights causes truncation rounding to zero, freezing model weights permanently.",
-            "Because NVIDIA Tensor Cores cannot execute backward passes without FP32 weights on disk.",
-            "Because maintaining FP32 master weights eliminates the need for activation checkpointing.",
-            "Because the PyTorch DataLoader requires 32-bit labels for text classification."
+            "Tensor Core backward matrix multiplications require native FP32 input weight strides in SRAM",
+            "Checkpointing weights in 16-bit corrupts random dropout states across multi-node restarts",
+            "Tiny gradient updates below 16-bit epsilon round silently to zero directly on 16-bit weights",
+            "Learning rate cosine schedules cannot compute smooth weight decay on 16-bit parameters"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In FP16, machine epsilon is ~9.77e-4, and in BF16 it is ~7.81e-3. Typical gradient updates lr * Grad are 1e-7 to 1e-9. Adding a number smaller than machine epsilon to a weight of magnitude ~1.0 results in 1.0 + eps = 1.0, discarding the update completely.",
           "explanation": "In FP16, machine epsilon is ~9.77e-4, and in BF16 it is ~7.81e-3. Typical gradient updates lr * Grad are 1e-7 to 1e-9. Adding a number smaller than machine epsilon to a weight of magnitude ~1.0 results in 1.0 + eps = 1.0, discarding the update completely."
         }
@@ -8920,13 +9100,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When a numerical overflow (NaN or Inf) is detected in the scaled gradients during mixed-precision training, what two actions does the Dynamic Loss Scaler take?",
           "options": [
-            "It skips the optimizer update step entirely (preserving the existing FP32 master weights from corruption) and multiplies the loss scale factor by a backoff factor (typically 0.5).",
-            "It restarts the training cluster from the initial random seed.",
-            "It replaces all weights with zeros and increases the learning rate by 10x.",
-            "It converts the entire model permanently into 8-bit integer precision."
+            "Zero out corrupted gradient buckets cleanly and boost learning rate slightly next batch",
+            "Skip updating master weights to guard integrity, and cut dynamic loss scale (e.g. x0.5)",
+            "Convert layer activations upward to FP32 permanently for remaining training epoch steps",
+            "Flush optimizer momentum states immediately and double the loss scaling multiplier up"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "If a NaN/Inf gradient is applied to the master weights, the weights become permanently corrupted with NaNs. Skipping the optimizer step protects the master weights, while cutting the scale factor by 0.5 ensures subsequent steps stay below the FP16 overflow ceiling.",
           "explanation": "If a NaN/Inf gradient is applied to the master weights, the weights become permanently corrupted with NaNs. Skipping the optimizer step protects the master weights, while cutting the scale factor by 0.5 ensures subsequent steps stay below the FP16 overflow ceiling."
         }
@@ -8964,10 +9144,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must the sum-of-squares in RMSNorm and the exponential summation in Attention Softmax be accumulated in FP32 even when training in 16-bit precision?",
           "options": [
-            "Summing squares or exponentials across thousands of hidden dimensions or sequence tokens easily exceeds the 65,504 limit of 16-bit floating point, causing catastrophic overflow to Infinity if accumulated in 16-bit precision.",
-            "Because modern GPUs do not support addition operations in 16-bit precision.",
-            "Because FP32 accumulation forces the attention heads to become sparse.",
-            "Because PyTorch automatically deletes intermediate activations unless computed in FP32."
+            "Large vector sums of squares or exponentials easily exceed FP16's 65,504 ceiling to Inf",
+            "NVIDIA Tensor Core execution units lack parallel 16-bit vector reduction addition circuits",
+            "PyTorch RMSNorm autograd detaches intermediate activations unless cast directly into FP32",
+            "Softmax stability tricks fail dividing small probability numerators under 16-bit precision"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9009,13 +9189,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In our MixedPrecisionEngine simulation, what protects the FP32 master weights when an unexpected gradient spike causes the scaled gradient to exceed 65,504?",
           "options": [
-            "The optimizer step detects the overflow and aborts immediately without updating the master weights, while halving the dynamic loss scale factor to ensure subsequent steps remain bounded.",
-            "The engine resets the learning rate to zero permanently.",
-            "The engine deletes the optimizer state tensors and restarts the training process.",
-            "The engine clips all gradients to zero and ignores all future gradient steps."
+            "Hard gradient norm clipping rescales individual activation elements down below 65,504 first",
+            "Backup master copies reload from pinned host memory immediately after backward Nan checks",
+            "Adaptive AdamW variance estimates automatically suppress outlier spikes without skipping steps",
+            "Overflow detection aborts the step cleanly before modifying master weights and halves scale"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "When scaled_grad > 65504, the engine returns OVERFLOW_SKIPPED. The AdamW moments and FP32 master weights are not touched, preventing NaN corruption. Halving the scale factor brings future scaled gradients back into the FP16 representable range.",
           "explanation": "When scaled_grad > 65504, the engine returns OVERFLOW_SKIPPED. The AdamW moments and FP32 master weights are not touched, preventing NaN corruption. Halving the scale factor brings future scaled gradients back into the FP16 representable range."
         }
@@ -9080,13 +9260,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do web-scale pre-training pipelines mandate that candidate documents contain a minimum stopword density (e.g., at least 15% stopwords like 'the', 'is', 'and')?",
           "options": [
-            "Natural human language relies on functional grammatical words to establish syntactic structure; text with negligible stopword density almost invariably represents keyword-stuffed SEO spam, database dumps, or machine-generated noise.",
-            "Because stopwords consume less GPU memory than substantive nouns.",
-            "Because modern tokenizers cannot encode sentences unless they begin with a stopword.",
-            "Because stopwords force the attention matrices to become lower-triangular."
+            "Dense transformer tokenizers merge low-stopword paragraphs poorly into fragmented byte spans",
+            "Pre-training attention heads require common stopwords as anchor keys to build causal context",
+            "Languages lacking standard Latin stopwords trigger perplexity spikes across BPE merges",
+            "Real prose needs functional glue words; zero-stopword text is usually SEO spam or table dumps"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Natural human syntax requires functional grammatical glue (articles, prepositions, conjunctions). Text lacking stopwords (e.g. 'buy luxury watch cheap sale discount') represents unnatural keyword spam or data exports that degrade language model fluency.",
           "explanation": "Natural human syntax requires functional grammatical glue (articles, prepositions, conjunctions). Text lacking stopwords (e.g. 'buy luxury watch cheap sale discount') represents unnatural keyword spam or data exports that degrade language model fluency."
         }
@@ -9125,13 +9305,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In pre-training data engineering, why is it necessary to discard documents that exhibit excessively LOW perplexity under a reference language model, rather than only filtering high-perplexity documents?",
           "options": [
-            "Abnormally low-perplexity text almost always consists of non-informative, repetitive boilerplate templates, cookie disclosures, or identical copyright notices rather than rich, substantive prose.",
-            "Because low-perplexity documents cause GPU Tensor Cores to overheat.",
-            "Because low-perplexity text causes the tokenizer vocabulary to overflow.",
-            "Because modern language models cannot learn from grammatical sentences."
+            "Models overfit trivial grammatical syntax if low-perplexity prose exceeds half the batch",
+            "Repeating predictable sentences causes FP16 gradient underflow inside early embedding layers",
+            "Ultra-low perplexity text is usually empty boilerplate, cookie banners, or repetitive spam",
+            "Reference language models flag valid fluent encyclopedia articles cleanly via zero perplexity"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Extremely low perplexity under an n-gram model indicates predictable, repetitive boilerplate (e.g. 'All rights reserved. Terms of service. Click here.'). Filtering both high-perplexity (gibberish) and low-perplexity (boilerplate) tails isolates rich human prose.",
           "explanation": "Extremely low perplexity under an n-gram model indicates predictable, repetitive boilerplate (e.g. 'All rights reserved. Terms of service. Click here.'). Filtering both high-perplexity (gibberish) and low-perplexity (boilerplate) tails isolates rich human prose."
         }
@@ -9169,13 +9349,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What mathematical principle enables the MinHash algorithm to estimate the Jaccard similarity of two multi-megabyte documents using only small fixed-length integer vectors?",
           "options": [
-            "Under a random hash function h, the probability that min(h(A)) == min(h(B)) is exactly equal to the Jaccard similarity |A ∩ B| / |A ∪ B|; therefore, the fraction of matching hashes in a signature provides an unbiased estimator of true set similarity.",
-            "MinHash trains a deep convolutional neural network to compress text into latent embeddings.",
-            "MinHash sorts all words in alphabetical order and deletes all vowels.",
-            "MinHash computes the Fourier transform of the document's character frequencies."
+            "Cosine similarity between sorted shingle hash histograms bounds set overlap deterministically",
+            "Probability that min(h(A)) == min(h(B)) equals Jaccard |A cap B| / |A cup B| cleanly",
+            "Pairwise Hamming distances over TF-IDF sparse bitmaps preserve exact token set containment",
+            "Polynomial rolling hashes over bigrams invert exact multi-megabyte document edit distance"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Broder's theorem proves P[min(h(A)) == min(h(B))] = Jaccard(A, B). By computing K independent minimum hashes, the proportion of matching integers across two K-dimensional signatures directly estimates their Jaccard similarity.",
           "explanation": "Broder's theorem proves P[min(h(A)) == min(h(B))] = Jaccard(A, B). By computing K independent minimum hashes, the proportion of matching integers across two K-dimensional signatures directly estimates their Jaccard similarity."
         }
@@ -9214,10 +9394,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why do modern foundation model pre-training campaigns deliberately upsample source code repositories (e.g. GitHub) to 20-25% of the data mixture, even for models intended primarily for natural language conversation?",
           "options": [
-            "Empirical research demonstrates that training on structured programming code significantly enhances general multi-step logical deduction, planning, and reasoning capabilities across all natural language tasks.",
-            "Because source code uses less disk space than English text.",
-            "Because modern GPUs can only process tokens formatted as valid Python syntax.",
-            "Because code training eliminates the need for tokenizers."
+            "Structured source code strongly boosts multi-step logical deduction and planning overall",
+            "Code repositories contain high stopword diversity that stabilizes long RoPE position caches",
+            "Syntactic brackets balance attention softmax magnitudes evenly across deep transformer blocks",
+            "Higher indentation density noticeably accelerates byte-pair tokenizer encoding throughput"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9269,10 +9449,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In our WebDataEngine pipeline, what ensures that document near-duplicates (such as syndicated articles with a few words changed) are detected while completely different articles are accepted?",
           "options": [
-            "The MinHash signature compares overlapping 3-gram word shingles; documents sharing more than 60% of their shingles produce matching minimum hashes across at least 60% of signature positions, triggering duplicate rejection.",
-            "The engine performs an exact character-by-character equality check.",
-            "The engine compares file creation timestamps on the server.",
-            "The engine converts all text to uppercase and checks word length."
+            "Comparing MinHash signatures across 3-gram word shingles matches docs sharing >=60% content",
+            "Computing normalized Levenshtein character edit distance pairwise across ingested corpus IDs",
+            "Checking exact full-string SHA-256 hashes after trimming leading copyright paragraph headers",
+            "Clustering sentence-level TF-IDF centroids via exact nearest cosine thresholds over batches"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9342,13 +9522,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In our 3D cluster topology simulator (DP x PP x TP), what mathematical invariant ensures that Tensor Parallelism (TP) communications never cross high-latency inter-node InfiniBand networks?",
           "options": [
-            "By configuring TP <= GPUs_per_node (e.g. TP=2 with 8 GPUs/node), adjacent TP ranks always share the same physical node chassis and communicate over high-speed intra-node NVLink.",
-            "Because all GPUs in a cluster share a single global PCIe bus.",
-            "Because Tensor Parallelism does not require any inter-GPU communication.",
-            "Because Pipeline Parallelism automatically converts InfiniBand packets into NVLink packets."
+            "Assigning TP ranks across adjacent chassis racks distributes memory bandwidth loads evenly",
+            "Enabling Pipeline Parallelism merges All-Reduce collectives silently onto PCIe switches",
+            "Matching DP rank counts strictly to intra-node GPU counts eliminates inter-node gradient comms",
+            "Setting TP <= GPUs_per_node keeps high-frequency All-Reduces fast over intra-node NVLink"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "TP requires high-frequency All-Reduces for every layer. By enforcing TP <= 8 on 8-GPU nodes and mapping TP ranks locally: global_rank % TP, ranks in the same TP group reside on the same motherboard and communicate over 900 GB/s NVLink.",
           "explanation": "TP requires high-frequency All-Reduces for every layer. By enforcing TP <= 8 on 8-GPU nodes and mapping TP ranks locally: global_rank % TP, ranks in the same TP group reside on the same motherboard and communicate over 900 GB/s NVLink."
         }
@@ -9388,13 +9568,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In our ZeRO-3 parameter sharding engine, how is memory prevented from exploding during the forward pass of a 100-layer foundation model?",
           "options": [
-            "Reconstructed full weights for layer L are held in memory only during layer L's matrix multiplication and are immediately discarded before proceeding to layer L+1, ensuring VRAM never holds more than one layer's un-sharded weights at any instant.",
-            "The model deletes all weights after the first training step.",
-            "The engine compresses weights using lossy MP3 audio compression.",
-            "The GPU offloads all computation to CPU threads."
+            "Gradient accumulation stages checkpoint unsharded parameters asynchronously onto host system RAM",
+            "Dynamic 4-bit weight quantization compresses replicated parameter matrices inside active memory",
+            "All-gathered full layer weights free right after forward matmul, capping live params to 1 layer",
+            "Layer-wise pipelining keeps backward weights pinned across contiguous NVLink GPU peer caches"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "ZeRO-3 relies on transient, ephemeral weight assembly. Once layer L completes its forward GEMM, its gathered weights are discarded. Peak memory is bounded by the size of a single layer rather than the full model.",
           "explanation": "ZeRO-3 relies on transient, ephemeral weight assembly. Once layer L completes its forward GEMM, its gathered weights are discarded. Peak memory is bounded by the size of a single layer rather than the full model."
         }
@@ -9433,13 +9613,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the Megatron-LM Tensor Parallel MLP architecture, why is no inter-GPU communication required between the Column-Parallel up-projection and the activation function?",
           "options": [
-            "Because non-linear activation functions like Swish, GeLU, and ReLU operate strictly element-wise on individual scalar inputs; each GPU can compute the activation on its local column slice independently.",
-            "Because NVIDIA Tensor Cores automatically synchronize intermediate activations using optical lasers.",
-            "Because the activation function is computed on the host CPU.",
-            "Because the up-projection is computed in 8-bit integer precision."
+            "Column-parallel projections share unified activation tensors asynchronously via background rings",
+            "GeLU/SwiGLU runs purely element-wise, so each GPU transforms its local column slice directly",
+            "Activation gradients stay invariant across tensor-parallel columns during backward forward swaps",
+            "Row-parallel down-projections absorb missing inter-GPU non-linearity terms automatically afterwards"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Element-wise non-linear activations (Swish(z) = z * sigmoid(z)) do not mix activations across column channels. Therefore, rank i can evaluate the activation on its local slice W_col,i * X with zero inter-GPU communication.",
           "explanation": "Element-wise non-linear activations (Swish(z) = z * sigmoid(z)) do not mix activations across column channels. Therefore, rank i can evaluate the activation on its local slice W_col,i * X with zero inter-GPU communication."
         }
@@ -9478,13 +9658,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In our ScalingController implementation, why is the scale factor doubled after a fixed interval of consecutive successful steps?",
           "options": [
-            "To shift small gradients as high as possible into the FP16 normal range, maximizing numerical precision and preventing gradients in early layers from underflowing to zero.",
-            "To make the model run twice as fast on GPU Tensor Cores.",
-            "To automatically double the batch size during training.",
-            "To eliminate the need for AdamW momentum buffers."
+            "To double effective batch learning rate smoothly across stable post-warmup cosine epochs",
+            "To push tiny gradients high into normal FP16 range, preventing precision loss or zero underflow",
+            "To compensate for BF16 mantissa truncation rounding on high-magnitude output logits cleanly",
+            "To match optimizer momentum scale variance evenly with dynamic mixed-precision activations"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The dynamic loss scale should be as large as possible without overflowing. Doubling the scale after consecutive clean steps shifts smaller gradient components into higher-precision FP16 bit ranges, preventing underflow vanishing.",
           "explanation": "The dynamic loss scale should be as large as possible without overflowing. Doubling the scale after consecutive clean steps shifts smaller gradient components into higher-precision FP16 bit ranges, preventing underflow vanishing."
         }
@@ -9525,10 +9705,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In our complete ApexClusterSimulator architecture, what ensures that the training cluster achieves both maximum memory efficiency and maximum numerical stability across months of pre-training?",
           "options": [
-            "ZeRO-3 shards all 16 bytes/param of weights, gradients, and optimizer states across data-parallel ranks to eliminate memory duplication, while FP32 master weights and dynamic loss scaling prevent precision underflow and gradient corruption.",
-            "The simulator runs all matrix operations on host CPU threads instead of GPUs.",
-            "The model deletes half its layers whenever an overflow is detected.",
-            "The training loop resets the random seed after every batch."
+            "ZeRO-3 shards all 16 bytes/param across DP ranks while FP32 masters + scaling guard precision",
+            "ZeRO-2 partitions activations cleanly while tensor parallelism drops FP32 optimizer masters",
+            "Full weight replication combined with INT8 master checkpoints lowers inter-node network stalls",
+            "Gradient clipping paired with static fixed loss scaling eliminates overflow checks in pre-training"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9596,13 +9776,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural difference between the pre-training loss objective and the Supervised Fine-Tuning (SFT) loss objective?",
           "options": [
-            "Pre-training computes cross-entropy loss over every token in an unstructured document, whereas SFT computes cross-entropy loss exclusively over the assistant's completion tokens, masking prompt tokens with ignore_index=-100.",
-            "Pre-training uses mean squared error loss while SFT uses binary cross-entropy loss.",
-            "Pre-training optimizes the encoder while SFT optimizes only the positional embeddings.",
-            "Pre-training operates in 8-bit precision while SFT strictly requires 64-bit double precision."
+            "Pre-training minimizes pairwise ranking margins; SFT optimizes token-level L2 reconstruction",
+            "Pre-training skips causal masking globally while SFT enforces strict left-to-right token loss",
+            "Pre-training evaluates perplexity purely on assistant tags; SFT trains on human prompt prefixes",
+            "Pre-training computes loss across all tokens; SFT masks prompts (-100) to train only completions"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "In SFT, prompt tokens are given as conditioning context. Gradients are accumulated only on the target assistant completion tokens to teach the model response generation without penalizing the arbitrary phrasing of user prompts.",
           "explanation": "In SFT, prompt tokens are given as conditioning context. Gradients are accumulated only on the target assistant completion tokens to teach the model response generation without penalizing the arbitrary phrasing of user prompts."
         }
@@ -9643,13 +9823,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why are special tokens such as `<|im_start|>` in ChatML and `<|eot_id|>` in LLaMA-3 explicitly added to the tokenizer's reserved vocabulary rather than being tokenized as standard words?",
           "options": [
-            "To prevent the BPE tokenizer from splitting them into individual subwords like '<', '|', 'im', and to prevent users from injecting malicious control characters into user prompts.",
-            "To compress the token sequence and save GPU memory.",
-            "Because GPUs can only compute matrix multiplications on tokens with numbers below 100.",
-            "To force the model to generate in English rather than other languages."
+            "Reserved token slots bypass rotary positional encoding transformations cleanly at attention",
+            "Special delimiters compress multi-turn chat templates into single shared KV prefix pages",
+            "Atomic reserved IDs avoid subword splitting and stop user inputs forging spoofed chat turns",
+            "Control tokens hold fixed frozen zero-gradient embeddings throughout supervised fine-tuning"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Special tokens must be treated as atomic, indivisible tokens in the vocabulary. If not reserved, user input containing literal '<|eot_id|>' would be parsed as control characters, exposing the system to prompt injection attacks.",
           "explanation": "Special tokens must be treated as atomic, indivisible tokens in the vocabulary. If not reserved, user input containing literal '<|eot_id|>' would be parsed as control characters, exposing the system to prompt injection attacks."
         }
@@ -9687,13 +9867,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary danger of training an SFT model WITHOUT prompt loss masking (i.e. computing loss on prompt tokens)?",
           "options": [
-            "The model wastes capacity memorizing arbitrary user prompt phrasing and may develop an unwanted tendency to echo user prompts back or recite system instructions during inference.",
-            "The model's weights will permanently turn into NaN values within three steps.",
-            "The model will refuse to output any tokens longer than 10 characters.",
-            "The GPU will run out of VRAM due to CUDA memory leakage."
+            "Unmasked question cross-entropy terms divide gradient loss variance unequally, tripping NaNs",
+            "Optimizing user prompt tokens shifts assistant decoding temperature downward toward repetition",
+            "Models waste capacity memorizing user questions and tend to echo prompts or leak instructions",
+            "Attention masks bleed backwards from assistant answers directly into unmasked system headers"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Computing loss on prompt tokens penalizes the model for phrasing differences in human questions, skewing the loss function and causing the model to memorize prompt syntax rather than learning how to generate compliant responses.",
           "explanation": "Computing loss on prompt tokens penalizes the model for phrasing differences in human questions, skewing the loss function and causing the model to memorize prompt syntax rather than learning how to generate compliant responses."
         }
@@ -9732,13 +9912,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "When packing multiple short dialogues into a single contiguous 4096-token sequence during SFT, how is cross-contamination between independent dialogues prevented?",
           "options": [
-            "By using FlashAttention with cumulative sequence length offsets (cu_seqlens) to enforce a block-diagonal causal attention mask, ensuring queries in dialogue i only attend to keys and values within dialogue i.",
-            "By separating dialogues with 500 padding tokens.",
-            "By training on only one GPU.",
-            "By reversing the order of sentences in every second dialogue."
+            "Padding 512 separator <pad> vectors between conversations prevents cross-attention leakage",
+            "FlashAttention cu_seqlens enforces block-diagonal causal masks isolating packed dialogues",
+            "Applying negative rotary phase shifts between concatenated dialogues resets positional memory",
+            "Resetting KV cache prefixes dynamically across custom delimiter tags skips cross-dialog reads"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Sample packing without attention masking leads to cross-talk between unrelated conversations. Block-diagonal attention masking (via cu_seqlens) restricts self-attention within individual document boundaries.",
           "explanation": "Sample packing without attention masking leads to cross-talk between unrelated conversations. Block-diagonal attention masking (via cu_seqlens) restricts self-attention within individual document boundaries."
         }
@@ -9777,10 +9957,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is 'Mode Collapse' in the context of Supervised Fine-Tuning of large language models?",
           "options": [
-            "A failure mode where the model is fine-tuned too aggressively on narrow instruction data, causing it to lose diverse reasoning capabilities and collapse onto repetitive, generic response templates.",
-            "When the GPU cooling fan breaks down during training.",
-            "When the model's vocabulary size shrinks to zero.",
-            "When the context window size automatically resets to 512 tokens."
+            "Over-tuning on narrow instructions erases diverse reasoning, collapsing into rigid templates",
+            "Quantization noise clips sparse softmax probability distributions down onto greedy top-1 hits",
+            "Multi-epoch packing merges separate assistant personas silently inside shared transformer heads",
+            "High KL regularization locks policy models permanently onto unaligned raw pre-training outputs"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -9851,13 +10031,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "According to the Intrinsic Rank Hypothesis in LLM adaptation, why can foundation models be fine-tuned effectively using low-rank matrices where r << d?",
           "options": [
-            "Because task-specific parameter updates reside on a low-dimensional manifold; the effective rank required to adapt model capabilities to downstream tasks is orders of magnitude smaller than the full weight dimension.",
-            "Because neural network weights can only store even numbers.",
-            "To force all linear projections to have square matrix shapes.",
-            "Because computer graphics cards are unable to perform matrix multiplications when rank exceeds 100."
+            "Transformer weights decompose natively into symmetric orthogonal pairs when frozen post-train",
+            "Attention heads only utilize fewer than sixteen effective singular directions per task update",
+            "Gradient descent steps vanish cleanly along high-rank residual connections unless clipped small",
+            "Fine-tuning updates lie on a tiny low-dimensional subspace, so low rank r << d adapts cleanly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The Intrinsic Rank Hypothesis proves that task adaptation updates have low effective dimensionality, allowing low-rank decompositions (r << d) to capture task nuances with minimal parameters.",
           "explanation": "The Intrinsic Rank Hypothesis proves that task adaptation updates have low effective dimensionality, allowing low-rank decompositions (r << d) to capture task nuances with minimal parameters."
         }
@@ -9899,13 +10079,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Matrix B in a LoRA adapter initialized strictly to zero while Matrix A is initialized with a Gaussian distribution?",
           "options": [
-            "To ensure that at step t=0, the adapter update Delta W = B * A evaluates exactly to zero, guaranteeing that model outputs at initialization match the pre-trained model with zero disruption.",
-            "Because computer memory cannot store non-zero numbers in two matrices simultaneously.",
-            "To force the model to forget all pre-trained training data.",
-            "Because zero-initialization of Matrix B makes the GPU fans spin more quietly."
+            "Initializing both A and B randomly causes immediate exploding activations on step 1 backward",
+            "Zero-initialized B stays frozen in Stage 1 while Gaussian A learns low-rank projection bases",
+            "Symmetric orthogonal zeroes cancel backward AdamW first-moment drift across adapter modules",
+            "Delta W = B * A equals exactly zero at step 0, preserving base pre-trained outputs cleanly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Initializing B to zero ensures Delta W = BA = 0 at step 0, preserving the pre-trained model's exact initial representations without noise.",
           "explanation": "Initializing B to zero ensures Delta W = BA = 0 at step 0, preserving the pre-trained model's exact initial representations without noise."
         }
@@ -9948,13 +10128,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is 4-bit NormalFloat (NF4) mathematically superior to standard 4-bit Integer (Int4) quantization for neural network weights?",
           "options": [
-            "Because neural weights follow a zero-mean Gaussian distribution; NF4 assigns equal probability mass (6.25%) to each of the 16 quantization bins, maximizing information-theoretic entropy and minimizing quantization error.",
-            "Because NF4 removes all odd numbers from the model weights.",
-            "To prevent computer screens from experiencing color banding during training.",
-            "Because integer quantization only works on 32-bit computer processors."
+            "Uniform linear INT4 intervals overflow activation magnitudes during 16-bit scaling passes",
+            "NF4 maps negative weight outliers selectively onto higher-precision floating sign bits cleanly",
+            "Gaussian-distributed neural weights match NF4 equal-probability bins, cutting rounding loss",
+            "NormalFloat rounding drops low-importance zero weights silently to enforce structured sparsity"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "NF4 bins are distributed according to quantiles of a normal distribution, giving each bin equal probability mass and maximizing information entropy.",
           "explanation": "NF4 bins are distributed according to quantiles of a normal distribution, giving each bin equal probability mass and maximizing information entropy."
         }
@@ -9999,13 +10179,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of Multi-LoRA serving over deploying separate fine-tuned models for each enterprise task?",
           "options": [
-            "A single base foundation model instance remains resident in GPU memory while lightweight adapters (20-50MB each) are dynamically batched, saving over 90% of GPU hardware costs while serving hundreds of specialized domain tasks.",
-            "It prevents users from asking more than one question per day.",
-            "To force all enterprise users to share the exact same computer login.",
-            "Because multi-LoRA serving removes all punctuation marks from model responses."
+            "Multi-LoRA merges distinct task adapters simultaneously at runtime without kernel switching lag",
+            "One resident base model batches tiny 20-50 MB task adapters together, cutting GPU fleet cost",
+            "Dynamic adapter caching quantizes frozen base projections down cleanly to 2-bit integers",
+            "Task adapters run independently inside host CPU threads while base layers execute on GPUs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Multi-LoRA serving shares the massive base model weights in VRAM across many lightweight task adapters, drastically reducing hardware costs.",
           "explanation": "Multi-LoRA serving shares the massive base model weights in VRAM across many lightweight task adapters, drastically reducing hardware costs."
         }
@@ -10050,10 +10230,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural and operational benefit of offline weight merging (W_merged = W0 + (alpha/r)BA) prior to production deployment?",
           "options": [
-            "It folds the low-rank adapter weights directly into the base model weights, producing a single standard checkpoint that eliminates all inference latency overhead and requires zero custom PEFT runtime kernels.",
-            "It reduces the size of the computer hard drive by 50%.",
-            "To force all model weights to be encrypted using a Caesar cipher.",
-            "Because software licenses forbid using the letter B during inference."
+            "Folding (alpha/r)BA directly into W0 removes adapter runtime branching and custom kernel lag",
+            "Pre-merging adapter deltas shrinks total storage file footprint on disk by roughly fifty percent",
+            "Unified weights preserve distinct per-tenant customization boundaries cleanly inside single batches",
+            "Static merging stabilizes mixed-precision dynamic loss scaling across continued post-training"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -10124,10 +10304,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Maximum Likelihood Estimation (MLE) token cross-entropy loss fundamentally incapable of solving the Helpful-Honest-Harmless alignment trilemma on its own?",
           "options": [
-            "Because token cross-entropy only rewards matching static demonstration tokens; it cannot provide negative reinforcement against hazardous completions, evaluate trajectory-level quality, or balance conflicting HHH trade-offs.",
-            "Because cross-entropy loss can only be computed on computers with GPUs.",
-            "To force all neural networks to generate identical responses.",
-            "Because text tokens cannot be converted into numbers."
+            "Next-token MLE only mimics static text; it cannot penalize unsafe outputs or score whole replies",
+            "Cross-entropy optimization systematically biases log-likelihoods strictly toward shorter strings",
+            "MLE training ignores assistant mask boundaries when balancing helpfulness vs refusal trade-offs",
+            "Supervised gradients saturate too quickly before learning nuanced human stylistic tone matches"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -10172,13 +10352,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the Bradley-Terry preference model, how is the probability that response y_w is preferred over response y_l mathematically formulated?",
           "options": [
-            "As the logistic sigmoid of their scalar reward differential: P(y_w > y_l | x) = sigma(r(x, y_w) - r(x, y_l)) = 1 / (1 + exp(-(r_w - r_l))).",
-            "By multiplying the number of characters in both responses.",
-            "As the square root of the number of words in response y_w divided by y_l.",
-            "By rolling two six-sided dice and checking which is higher."
+            "Normalized exponential softmax dividing winner score r_w cleanly by summed (r_w + r_l)",
+            "Linear clipped hinge margin tracking max(0, margin - (r_w - r_l)) across preference pairs",
+            "Squared Gaussian density proportional to exponential distance (r_w - r_l)^2 over variance",
+            "Logistic sigmoid over reward difference: P(y_w > y_l) = 1 / (1 + exp(-(r_w - r_l)))"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The Bradley-Terry model computes pairwise preference probability as the logistic sigmoid of the reward score difference sigma(r_w - r_l).",
           "explanation": "The Bradley-Terry model computes pairwise preference probability as the logistic sigmoid of the reward score difference sigma(r_w - r_l)."
         }
@@ -10221,13 +10401,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is 'Reward Hacking through Verbosity' in Reinforcement Learning from Human Feedback (RLHF)?",
           "options": [
-            "A pathology where the policy model exploits the reward model's length bias by generating excessively verbose, repetitive text to achieve higher reward scores without providing additional factual substance.",
-            "An attack where a hacker steals computer hard drives from a data center.",
-            "To force language models to output all words in capital letters.",
-            "Because long sentences consume less electricity during inference."
+            "Adversarial users craft extra-long prompts to overflow reward model max context limits",
+            "Truncated training episodes reward early EOS emission to avoid late penalty accumulation",
+            "Models exploit reward length biases by padding fluffy, repetitive prose to inflate scores",
+            "PPO advantage estimates diverge upwards unless human judges write equally verbose rubrics"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Reward hacking occurs when a policy exploits reward model loopholes (like length bias) to maximize scalar rewards without improving true response quality.",
           "explanation": "Reward hacking occurs when a policy exploits reward model loopholes (like length bias) to maximize scalar rewards without improving true response quality."
         }
@@ -10269,13 +10449,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of the KL divergence penalty (-beta * D_KL(pi_theta || pi_ref)) in PPO reinforcement learning from human feedback?",
           "options": [
-            "To act as an elastic anchor that prevents the policy model from drifting too far from the initial pre-trained model, preventing reward hacking and preserving natural language fluency.",
-            "To speed up the internet download speed of the model checkpoint.",
-            "To convert all negative numbers in the policy into positive numbers.",
-            "Because software licenses require models to drift by exactly 10% per week."
+            "Accelerating PPO advantage convergence cleanly without computing value critic baselines",
+            "Tethering the policy near pi_ref to preserve fluent prose and prevent reward-hacking drift",
+            "Constraining multi-GPU policy updates to match reference checkpoint FP16 weight sparsity",
+            "Balancing helpfulness and safety logits evenly across frozen output softmax layers"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The KL divergence penalty tethers the policy to the reference model, preventing policy degradation and reward model exploitation.",
           "explanation": "The KL divergence penalty tethers the policy to the reference model, preventing policy degradation and reward model exploitation."
         }
@@ -10318,13 +10498,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural role of the ApexReward Bradley-Terry Suite in the post-training alignment pipeline?",
           "options": [
-            "To convert human pairwise preferences into a differentiable scalar reward model with length bias mitigation and ECE calibration, providing reliable reward signals for downstream policy alignment.",
-            "To erase all files from the training cluster after each run.",
-            "To force all user prompts to be translated into Morse code.",
-            "Because language models are unable to generate text without a scalar reward."
+            "Rewriting pairwise human preferences dynamically into length-normalized synthetic SFT datasets",
+            "Training calibrated Bradley-Terry scalar reward scorers guarded against verbosity bias",
+            "Replacing causal transformer attention masks cleanly inside policy actor PPO optimization loops",
+            "Auditing quantized FP16 weights against pre-trained reference model logits post-deployment"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The reward suite translates human comparative preferences into a calibrated scalar reward function that guides policy optimization.",
           "explanation": "The reward suite translates human comparative preferences into a calibrated scalar reward function that guides policy optimization."
         }
@@ -10393,10 +10573,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the key mathematical breakthrough of Direct Preference Optimization (DPO) that eliminates the traditional RLHF trilemma?",
           "options": [
-            "Under Bradley-Terry preference modeling and KL constraints, the optimal policy implicitly parameterizes the reward function via r(x,y) = beta * log(pi(y|x) / pi_ref(y|x)), causing the partition function Z(x) to cancel out completely in pairwise comparisons.",
-            "DPO replaces all neural networks with static lookup tables stored on local SSDs.",
-            "DPO increases GPU memory consumption by training eight synchronized models simultaneously.",
-            "Because language models cannot generate text without an external reinforcement learning agent."
+            "Optimal reward writes in closed form via policy log-ratio, canceling Z(x) cleanly without RL",
+            "DPO distills a frozen reward critic directly into dense attention matrices during one epoch",
+            "Replacing PPO clipping with quadratic hinge losses eliminates training a separate actor copy",
+            "Implicit preference weights drop KL reference regularization altogether during alignment"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -10442,13 +10622,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the gradient of the DPO loss, what is the role of the term (1 - sigma(u / beta))?",
           "options": [
-            "It acts as a dynamic error-weighting multiplier: when the policy incorrectly prefers the losing completion, the term approaches 1.0 to deliver strong corrective gradients, and when the policy correctly prefers the winner, it vanishes toward 0 to prevent gradient overshoot.",
-            "It deletes the training dataset if the loss increases.",
-            "It calculates the physical temperature of the GPU memory chips.",
-            "To force all gradient values to be rounded to the nearest integer."
+            "Normalizes sequence log-likelihood sums evenly across unequal winner vs loser token lengths",
+            "Applies fixed KL penalty backoff whenever reference policy probabilities drop below threshold",
+            "Clips noisy outlier human annotation pairs symmetrically inside pairwise mini-batch steps",
+            "Scales correction strongly toward 1 when ranked backwards, vanishing to 0 once ordered right"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "The term (1 - sigma(u)) weights the gradient by how incorrect the current policy is, naturally stabilizing training as the model converges.",
           "explanation": "The term (1 - sigma(u)) weights the gradient by how incorrect the current policy is, naturally stabilizing training as the model converges."
         }
@@ -10492,13 +10672,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural advantage of Odds Ratio Preference Optimization (ORPO) over Direct Preference Optimization (DPO)?",
           "options": [
-            "ORPO combines supervised fine-tuning (SFT) and preference alignment into a single-stage loss using odds ratios, eliminating the need to maintain a separate reference model and cutting GPU training memory by approximately 50%.",
-            "ORPO requires training six separate reward models simultaneously.",
-            "ORPO only works on text containing fewer than ten words.",
-            "Because odds ratios cannot be computed using floating point numbers."
+            "ORPO replaces sequence log-probabilities with margin-free token cross-entropy for faster convergence",
+            "ORPO trains a dual-critic preference ensemble simultaneously across multi-node NVLink clusters",
+            "ORPO merges SFT and odds-ratio preference in one loss, dropping the reference model (~50% VRAM)",
+            "ORPO decouples helpfulness alignment completely from base token likelihood updates via LoRA"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "ORPO eliminates the reference model requirement by penalizing odds ratios directly alongside SFT cross-entropy loss in a single training stage.",
           "explanation": "ORPO eliminates the reference model requirement by penalizing odds ratios directly alongside SFT cross-entropy loss in a single training stage."
         }
@@ -10537,13 +10717,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does raw unnormalized DPO risk suffering from verbosity hacking?",
           "options": [
-            "Because sequence log-probabilities sum negative token values across the sequence, allowing a verbose response with many small positive log-ratios to accumulate a larger overall margin than a concise, high-density response.",
-            "Because language models stop functioning when a response has more than 50 tokens.",
-            "Because human annotators refuse to read text displayed on computer monitors.",
-            "To ensure that computer hard drives run out of storage space faster."
+            "Unnormalized DPO checkpoints automatically raise temperature near 1.2 after long prefill prompts",
+            "Reference policies assign disproportionately higher baseline odds to concise single-word replies",
+            "Summing token log-ratios lets long bloated answers accumulate larger margins than tight ones",
+            "Variable EOS token penalties force decoded sequences toward training max context bounds"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Unnormalized sequence log-probabilities accumulate token ratios, allowing verbose fluff to exploit cumulative margins.",
           "explanation": "Unnormalized sequence log-probabilities accumulate token ratios, allowing verbose fluff to exploit cumulative margins."
         }
@@ -10586,13 +10766,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of the ApexDirect Suite in frontier post-training infrastructure?",
           "options": [
-            "To deliver reference-free and length-normalized direct preference optimization (DPO/ORPO) that eliminates the complexity of RLHF PPO loops while achieving robust, verbosity-proof alignment.",
-            "To format all training text into CSV spreadsheets.",
-            "To disable attention heads during inference.",
-            "Because language models cannot generate text without an external reinforcement learning policy."
+            "Synthesizing contrastive multi-turn RLHF datasets directly from uncalibrated reward scores",
+            "Providing length-normalized DPO and reference-free ORPO alignment without fragile PPO RL",
+            "Pruning low-ranking adapter modules iteratively post-SFT via online KL divergence sweeps",
+            "Deploying continuous speculative decoding across parallel preference-aligned policy replicas"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The ApexDirect suite unifies DPO, ORPO, and length-normalization into a stable, cost-effective post-training pipeline.",
           "explanation": "The ApexDirect suite unifies DPO, ORPO, and length-normalization into a stable, cost-effective post-training pipeline."
         }
@@ -10660,10 +10840,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of the ApexAlign Master Suite in enterprise AI development?",
           "options": [
-            "To unify the entire post-training lifecycle—including multi-turn SFT prompt masking, LoRA parameter-efficient adaptation, Bradley-Terry reward modeling, and length-normalized DPO/ORPO—into an end-to-end, certifiable alignment pipeline.",
-            "To compress video files for mobile streaming.",
-            "To generate random passwords for database administrators.",
-            "Because language models cannot read English text without an external operating system."
+            "Unifying masked SFT, LoRA, Bradley-Terry reward calibration, and DPO/ORPO into one pipeline",
+            "Coordinating web-scale pre-training MinHash deduplication alongside distributed ZeRO-3 sharding",
+            "Scheduling FlashAttention continuous batching and AWQ quantization inside production gateways",
+            "Auditing multimodal vision projector layers alongside synthetic Evol-Instruct benchmark suites"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -10708,13 +10888,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is prompt loss masking essential when performing Supervised Fine-Tuning (SFT) on conversational multi-turn data?",
           "options": [
-            "To prevent the model from wasting parameter capacity memorizing the phrasing of human questions and system headers, ensuring gradients update the network exclusively to improve assistant completion quality.",
-            "To hide secret passwords from the internet service provider.",
-            "To ensure that GPU fans run at maximum speed during training.",
-            "Because language models cannot process text without a binary mask."
+            "Zeroing cross-attention visibility across concatenated documents during sequence batch packing",
+            "Hiding sensitive system prompt canary directives before saving checkpoint weights to disk",
+            "Stabilizing rotary positional encodings evenly across variable-length multi-turn conversations",
+            "Preventing gradient waste on user prompt phrasing so training optimizes only assistant replies"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Prompt loss masking forces the model to learn conditional generation rather than wasting capacity memorizing prompt tokens.",
           "explanation": "Prompt loss masking forces the model to learn conditional generation rather than wasting capacity memorizing prompt tokens."
         }
@@ -10756,13 +10936,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of the Expected Calibration Error (ECE) audit in the ApexAlign reward subsystem?",
           "options": [
-            "To quantify whether the reward model's predicted pairwise probabilities match true empirical human agreement rates across confidence bins, ensuring the model is neither overconfident nor underconfident before downstream policy alignment.",
-            "To erase unnecessary log files from the server's hard drive.",
-            "To test whether the computer monitor's refresh rate is 60Hz or 144Hz.",
-            "Because reward models cannot output numbers without calibration."
+            "Benchmarking floating-point quantization rounding variance across calibrated NF4 weight layers",
+            "Evaluating whether PPO KL divergence stays uniformly bounded within target safety ceilings",
+            "Verifying that SFT completion perplexity tracks unseen validation domain corpora cleanly",
+            "Measuring whether predicted win probabilities match true empirical human agreement per bin"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "ECE measures the difference between model confidence and empirical accuracy, preventing overconfident reward pathologies.",
           "explanation": "ECE measures the difference between model confidence and empirical accuracy, preventing overconfident reward pathologies."
         }
@@ -10803,13 +10983,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does the ApexAlign Dual-Path Dispatcher select between Length-Normalized DPO and Monolithic ORPO?",
           "options": [
-            "By inspecting available GPU VRAM headroom and reference cache availability: routing to Length-Normalized DPO when VRAM headroom is abundant, and pivoting to Monolithic ORPO when memory is constrained to eliminate reference models and save 50% VRAM.",
-            "Relying solely on static hardcoded defaults for Subsystem without reconciling Dual-Path against live boundary conditions.",
-            "By checking whether today is an odd or even day of the month.",
-            "Because DPO and ORPO cannot be executed on the same computer."
+            "Selecting ORPO strictly for code alignment tasks and DPO purely for general English chat",
+            "Switching to DPO automatically whenever batch sequence length exceeds 2,048 packed tokens",
+            "Routing to Length-Normalized DPO when VRAM is ample, or memory-saving ORPO under tight VRAM",
+            "Running both ORPO and DPO concurrently across separate tensor-parallel ranks per mini-batch"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Dual-path dispatch balances alignment precision (DPO) and memory efficiency (ORPO) based on system resources.",
           "explanation": "Dual-path dispatch balances alignment precision (DPO) and memory efficiency (ORPO) based on system resources."
         }
@@ -10851,13 +11031,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is verified by the cryptographic attestation hash in the ApexAlign Milestone 9 Fiduciary Certificate?",
           "options": [
-            "An immutable SHA-256 digest binding the foundation model identity, SFT prompt masking proofs, LoRA parameter savings, reward calibration ECE score, and DPO convergence metrics to ensure end-to-end auditability and compliance reproducibility.",
-            "The current weather conditions at the training datacenter.",
-            "The number of times the user pressed the Enter key during the test.",
-            "Because language models require a hash code to boot up."
+            "A signed asymmetric key locking deployed model weights against unauthorized LoRA merging attempts",
+            "An immutable SHA-256 digest binding model ID, SFT mask proofs, LoRA savings, ECE, and DPO metrics",
+            "An encrypted telemetry blob tracking live P99 tail latency and speculative acceptance factors",
+            "A hash ledger recording pre-training dataset MinHash signatures across web-scale corpus dumps"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The cryptographic attestation hash provides an immutable mathematical record verifying that all alignment invariants were satisfied.",
           "explanation": "The cryptographic attestation hash provides an immutable mathematical record verifying that all alignment invariants were satisfied."
         }
@@ -10926,10 +11106,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary cause of memory fragmentation in traditional contiguous KV cache allocation during autoregressive decoding?",
           "options": [
-            "Static contiguous pre-allocation reserves the maximum context length buffer (e.g. 4096 tokens) upfront in contiguous GPU memory for each request, stranding 60% to 85% of allocated memory when requests generate fewer tokens than the maximum.",
-            "GPU memory chips lose electric charge when processing mathematical attention formulas.",
-            "Key and Value tensors are deleted from memory after every attention calculation.",
-            "Because modern operating systems do not allow language models to allocate more than 1 megabyte of memory."
+            "Reserving max-length contiguous buffers per request strands 60-85% VRAM unused on short turns",
+            "Recomputing previous token Key-Value vectors every step saturates HBM memory bus capacity",
+            "Aligned 32-bit pointer offsets double storage overhead whenever batch sizes aren't powers of 2",
+            "Continuous sequence concatenation forces frequent global HBM defragmentation compaction pauses"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -10974,10 +11154,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does PagedAttention eliminate memory fragmentation and enable memory sharing in LLM serving?",
           "options": [
-            "By partitioning the KV cache into fixed-size physical blocks (e.g. 16 tokens) mapped via block tables, confining internal fragmentation to the final block and allowing multiple sequences to share identical physical prompt blocks via reference counting.",
-            "By storing all KV caches on optical compact discs.",
-            "By deleting all keys and values whenever a new token is generated.",
-            "To force all language models to generate only single-word answers."
+            "Splitting KV caches into fixed 16-token blocks via page tables cuts waste and shares ref prefixes",
+            "Storing sparse quantized 4-bit Keys inside contiguous virtual memory mapped directly over NVLink",
+            "Evicting low-attention early token blocks asynchronously into pinned host DRAM between decode steps",
+            "Reallocating oversized prefill chunks dynamically into uniform variable-byte compressed blocks"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -11022,13 +11202,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of implementing Radix Tree Prefix Caching in multi-turn conversational LLM serving?",
           "options": [
-            "It identifies shared prompt prefixes (such as system prompts and conversational history) in O(L) time and reuses their existing physical KV blocks, eliminating redundant prefill computation and slashing Time-To-First-Token (TTFT) latency by up to 80% to 95%.",
-            "It converts text into sound waves so that computers can speak aloud.",
-            "It increases network latency by rerouting packets through satellite orbits.",
-            "Because language models cannot generate text without an external cache file."
+            "Indexing candidate retrieved documents in parallel cuts dense embedding lookup latency cleanly",
+            "Pre-caching common high-frequency n-grams accelerates greedy autoregressive token sampling steps",
+            "Routing multi-turn requests persistently to sticky replicas preserves SRAM weights across bursts",
+            "Matching shared system/history prefixes in O(L) reuses live KV blocks, slashing TTFT by 80-95%"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Prefix caching avoids recomputing prefill for identical prompt prefixes across requests or conversation turns, dramatically reducing TTFT.",
           "explanation": "Prefix caching avoids recomputing prefill for identical prompt prefixes across requests or conversation turns, dramatically reducing TTFT."
         }
@@ -11070,13 +11250,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does FlashDecoding achieve up to 8x speedup over standard attention during long-context autoregressive decoding?",
           "options": [
-            "By parallelizing along the sequence (K) dimension using Split-K chunks, saturating all GPU Streaming Multiprocessors (SMs) concurrently rather than stranding them idle while a single thread block sequentially scans the context.",
-            "By discarding all tokens that occurred more than 10 steps ago.",
-            "By replacing floating-point calculations with random approximations.",
-            "Because long-context models cannot run without splitting text into paragraphs."
+            "Replacing QK^T attention matmuls with low-rank linear kernels cuts long-context FLOPs 8x cleanly",
+            "Offloading Key-Value transpose ops onto async tensor DMA engines eliminates SRAM stall bubbles",
+            "Split-K parallelism across sequence length saturates all GPU SMs simultaneously on single queries",
+            "Prefetching quantized INT4 weight pages concurrently hides HBM latency across short token steps"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "FlashDecoding splits the K-cache into chunks processed concurrently across all GPU SMs, overcoming the single-SM decoding bottleneck.",
           "explanation": "FlashDecoding splits the K-cache into chunks processed concurrently across all GPU SMs, overcoming the single-SM decoding bottleneck."
         }
@@ -11119,13 +11299,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural accomplishment of the ApexPagedAttention Engine in enterprise inference clusters?",
           "options": [
-            "It unifies block-based KV cache paging, Radix Tree prefix caching, and Copy-on-Write sequence forking to eliminate memory fragmentation, slashing serving costs and unlocking 4x to 8x higher batch concurrency.",
-            "It shuts down the server whenever GPU temperature reaches 40 degrees Celsius.",
-            "It prints all generated tokens in alphabetical order.",
-            "Because modern GPUs cannot perform matrix multiplication without PagedAttention."
+            "Automating cross-node tensor parallel weight sharding eliminates GPU OOM crashes during SFT runs",
+            "Fusing paged KV blocks, Radix prefix reuse, and CoW forking yields 4-8x higher batch concurrency",
+            "Integrating CUDA Graph dispatch and continuous prefill eliminates CPU launch gaps during decoding",
+            "Unifying AWQ INT4 weights with SmoothQuant activations shrinks checkpoint RAM demands by 75%"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "ApexPagedAttention unifies paging, prefix caching, and CoW forking to eliminate memory waste and maximize concurrent serving throughput.",
           "explanation": "ApexPagedAttention unifies paging, prefix caching, and CoW forking to eliminate memory waste and maximize concurrent serving throughput."
         }
@@ -11194,13 +11374,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is autoregressive token decoding in large language models bounded by memory bandwidth rather than compute power?",
           "options": [
-            "Because generating one token requires streaming the entire model's weights (e.g. 140 GB for a 70B model) from GPU HBM merely to perform 2 FLOPs per parameter on a single vector, yielding an arithmetic intensity of 1.0 FLOP/byte that leaves compute cores 99% idle.",
-            "Because language models do not use floating-point numbers.",
-            "Because graphics cards turn off their fans during text generation.",
-            "To prevent computer monitors from overheating during inference."
+            "Causal self-attention requires quadratic O(N^2) matrix multiplications on every output token",
+            "Streaming huge HBM model weights just for 1-token matvec gives ~1 FLOP/byte, starving cores",
+            "Softmax reduction synchronization barriers stall Tensor Core pipelines across multi-head blocks",
+            "Dynamic KV cache pointer dereferencing saturates on-chip SRAM L1 cache miss queues quickly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Autoregressive decoding has arithmetic intensity of 1.0 FLOP/byte, stalling compute units waiting for weight transfers from memory.",
           "explanation": "Autoregressive decoding has arithmetic intensity of 1.0 FLOP/byte, stalling compute units waiting for weight transfers from memory."
         }
@@ -11243,10 +11423,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is speculative decoding mathematically guaranteed to produce output text with zero quality degradation compared to the target model?",
           "options": [
-            "Because target-draft rejection sampling accepts candidate tokens with probability min(1, p(x)/q(x)) and samples rejected tokens from the positive residual distribution max(0, p(x) - q(x)), ensuring the marginal probability of emitting any token equals target distribution p(x) exactly.",
-            "Because the target model forces the user to retype the prompt if a mistake occurs.",
-            "Because draft models are always programmed to copy dictionary definitions.",
-            "To ensure that computer hard drives run at exactly 7200 RPM during inference."
+            "Rejection sampling (min(1, p/q)) plus residual resampling yields exact target distribution p(x)",
+            "Enforcing identical greedy argmax decoding across draft and target checkpoints guarantees matches",
+            "Sharing KV cache tensors cleanly between quantized and unquantized heads keeps logits exact",
+            "Calibrating draft temperature dynamically against target entropy aligns marginal word probabilities"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -11292,13 +11472,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the mathematical equation governing the expected wall-clock speedup factor S in speculative decoding?",
           "options": [
-            "S(K, alpha, gamma) = (1 - alpha^(K+1)) / [ (1 - alpha) * (1 + K * gamma) ], where K is lookahead, alpha is token acceptance rate, and gamma is draft-to-target latency ratio.",
-            "S = K * 100 divided by the number of letters in the prompt.",
-            "S is equal to the GPU temperature multiplied by the clock speed.",
-            "Because speculative decoding speed cannot be modeled mathematically."
+            "S = K * alpha / (1 + gamma) scaling linearly with accepted token count and draft overhead ratio",
+            "S = 1 / (1 - alpha + K * gamma) representing asymptotic infinite-horizon token accept efficiency",
+            "S = (1 + alpha * K) / (K * gamma) bounding expected speedup when draft models run synchronously",
+            "S = (1 - alpha^(K+1)) / [(1 - alpha) * (1 + K * gamma)] from lookahead K, accept alpha, cost gamma"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Speedup equals expected emitted tokens (1 - alpha^(K+1))/(1 - alpha) divided by relative cycle time (1 + K * gamma).",
           "explanation": "Speedup equals expected emitted tokens (1 - alpha^(K+1))/(1 - alpha) divided by relative cycle time (1 + K * gamma)."
         }
@@ -11341,13 +11521,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural advantage of Medusa multi-head speculation over classical speculative decoding?",
           "options": [
-            "Medusa attaches multiple lightweight multi-token prediction heads directly to the base model's final layer, eliminating the memory and operational overhead of hosting a separate draft model while using tree attention to verify multiple candidate branches simultaneously.",
-            "Medusa deletes all model weights after each inference run.",
-            "Medusa converts all text into French before generating answers.",
-            "Because language models cannot generate more than one token without crashing."
+            "Quantizing standalone draft models dynamically inside target SRAM eliminates KV transfer pauses",
+            "Tree attention allows independent CPU worker threads to validate draft branches asynchronously",
+            "Attaching extra prediction heads directly on top avoids hosting a separate draft model checkpoint",
+            "Medusa bypasses rejection sampling overhead by accepting top-k candidate tokens unconditionally"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Medusa uses base-model prediction heads and tree attention, eliminating the need for a separate draft model.",
           "explanation": "Medusa uses base-model prediction heads and tree attention, eliminating the need for a separate draft model."
         }
@@ -11390,13 +11570,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural accomplishment of the ApexSpeculative Engine in production inference deployments?",
           "options": [
-            "It unifies target-draft rejection sampling, Medusa tree speculation, and dynamic lookahead tuning to overcome the memory-bound decoding wall, accelerating token generation by 2.5x to 3.8x with provably zero quality degradation.",
-            "It translates user prompts into emojis.",
-            "It deletes the draft model whenever an acceptance rate drops below 10%.",
-            "Because modern GPUs cannot run language models without speculative decoding."
+            "Paged KV block tables and Radix trees expand concurrent multi-turn serving capacity up to 8x",
+            "Dynamic loss scaling paired with FP32 masters stabilizes mixed-precision transformer training",
+            "Rejection sampling, Medusa trees, and adaptive lookahead deliver 2.5-3.8x lossless speedup",
+            "Online Softmax tiling eliminates quadratic HBM intermediate attention storage during prefill"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The ApexSpeculative engine unifies rejection sampling, Medusa heads, and tree attention to achieve 2.5x-3.8x speedups without quality loss.",
           "explanation": "The ApexSpeculative engine unifies rejection sampling, Medusa heads, and tree attention to achieve 2.5x-3.8x speedups without quality loss."
         }
@@ -11465,13 +11645,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the mathematical difference between symmetric and asymmetric uniform quantization?",
           "options": [
-            "Asymmetric quantization uses a non-zero integer zero-point Z to map skewed distributions into unsigned ranges [0, 2^b - 1], whereas symmetric quantization forces zero-point Z = 0 to center the discrete range symmetrically around zero, simplifying hardware integer arithmetic.",
-            "Symmetric quantization only works on positive numbers, while asymmetric only works on negative numbers.",
-            "Asymmetric quantization multiplies all numbers by the square root of two.",
-            "Because modern GPUs do not support integer division."
+            "Symmetric preserves full IEEE FP16 sign bits whereas asymmetric stores only unsigned integers",
+            "Asymmetric maps skewed values using an offset zero-point Z; symmetric pins Z=0 for fast math",
+            "Asymmetric recomputes dynamic group scales per token while symmetric uses fixed static tensors",
+            "Symmetric clips activation outliers tightly before scaling; asymmetric preserves raw range bounds"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Symmetric forces Z=0 around zero, while asymmetric computes a non-zero zero-point to cover asymmetric ranges.",
           "explanation": "Symmetric forces Z=0 around zero, while asymmetric computes a non-zero zero-point to cover asymmetric ranges."
         }
@@ -11513,10 +11693,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does GPTQ prevent catastrophic perplexity degradation when quantizing language models to 4 bits?",
           "options": [
-            "By using second-order Taylor expansion and inverse-Hessian curvature H^(-1) = (2 X^T X)^(-1) to systematically adjust all remaining unquantized weights whenever a parameter is rounded, canceling out cumulative output activation errors.",
-            "By replacing all transformer attention layers with linear regression.",
-            "By deleting all negative weights from the neural network.",
-            "To ensure that all models run at exactly 100 frames per second."
+            "Inverse-Hessian updates adjust remaining weights per rounding step to cancel output errors",
+            "Scaling prominent outlier weight channels upward prior to rounding shields perplexity loss",
+            "Storing sensitive 1% weight columns in unquantized FP16 skips rounding errors cleanly in matmuls",
+            "Iterative post-quantization LoRA fine-tuning recovers lost downstream accuracy over one epoch"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -11562,13 +11742,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the core insight of Activation-Aware Weight Quantization (AWQ)?",
           "options": [
-            "Weights are not equally important; weights connected to channels with large activation magnitudes (outliers) dictate model perplexity, and scaling these weights up by per-channel factors s before quantization protects them from rounding error without requiring slow mixed-precision kernels.",
-            "All weights should be replaced with random noise during inference.",
-            "AWQ requires training the language model for an additional 100 epochs.",
-            "Because 4-bit numbers cannot represent positive values."
+            "Identifying zero-variance gradient rows cleanly prunes dead linear weights before INT4 cast",
+            "Shifting activation outliers down into shared weight matrices eliminates W8A8 integer clipping",
+            "Second-order Hessian inverses compensate neighboring weights simultaneously inside dense rows",
+            "Scaling up weights tied to huge activation channels protects them without mixed-precision lag"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "AWQ protects the 1% most salient weights (indicated by activation outliers) via per-channel scaling, preserving accuracy in pure INT4.",
           "explanation": "AWQ protects the 1% most salient weights (indicated by activation outliers) via per-channel scaling, preserving accuracy in pure INT4."
         }
@@ -11611,13 +11791,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does SmoothQuant achieve accurate W8A8 (8-bit weight, 8-bit activation) quantization despite emergent activation outliers?",
           "options": [
-            "By applying a mathematically equivalent per-channel linear transformation (Y = (X * s^(-1)) * (s * W)), dividing activations by scale factor s to suppress outliers into a clean INT8 range while multiplying weights by s to absorb the dynamic range difficulty.",
-            "By replacing all transformer activations with zero.",
-            "By converting all models to run in binary 1-bit logic.",
-            "Because language models stop generating text when activations exceed 1.0."
+            "Keeping high-magnitude activation channels permanently in FP16 avoids clipping INT8 accumulators",
+            "Applying dynamic inverse-Hessian weight compensation stabilizes W8A8 matrix errors per layer",
+            "NormalFloat binning allocates denser quantization steps strictly around heavy outlier tails",
+            "Migrating outlier scale s from activations into weights (X/s)*(sW) fits both cleanly in INT8"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "SmoothQuant divides activations by s to smooth outliers and multiplies weights by s, keeping output mathematically identical.",
           "explanation": "SmoothQuant divides activations by s to smooth outliers and multiplies weights by s, keeping output mathematically identical."
         }
@@ -11660,13 +11840,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational benefit of the ApexQuant Suite in enterprise AI deployments?",
           "options": [
-            "It integrates AWQ salient channel protection, GPTQ second-order curvature compensation, and SmoothQuant outlier migration to compress 70B models from 140 GB to 35 GB in INT4, cutting GPU hardware costs by 75% with provably minimal perplexity loss.",
-            "It turns off the computer after every prediction.",
-            "It converts text into hexadecimal strings.",
-            "Because language models cannot run on computers without quantization."
+            "PagedAttention and Radix caching share prompt KV pages cleanly to boost serving batches 8x",
+            "Medusa multi-head speculation accelerates greedy decoding 3x cleanly with zero output change",
+            "AWQ, GPTQ, and SmoothQuant shrink 70B models from 140 GB to 35 GB INT4, cutting GPU cost 75%",
+            "FlashDecoding Split-K tiling eliminates CPU synchronization lag across long-context serving"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The ApexQuant suite unifies AWQ, GPTQ, and SmoothQuant to slash memory footprint by 75% while preserving foundation model reasoning.",
           "explanation": "The ApexQuant suite unifies AWQ, GPTQ, and SmoothQuant to slash memory footprint by 75% while preserving foundation model reasoning."
         }
@@ -11736,13 +11916,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of Continuous (Iteration-Level) Batching over Static Batching in LLM serving?",
           "options": [
-            "Continuous batching operates at individual token iterations, instantly evicting finished requests and injecting new incoming requests into vacant slots at every step, completely eliminating batch bubble waste and increasing throughput by 10x to 25x.",
-            "Continuous batching forces all prompts to be exactly 10 words long.",
-            "Continuous batching turns off the GPU when requests arrive.",
-            "Because static batching does not support English grammar."
+            "Grouping uniform length queries into offline static buckets prevents tail-token GPU starvation",
+            "Step-level scheduling swaps finished sequences out and injects new prompts cleanly, booming throughput",
+            "Pre-allocating contiguous KV chunks dynamically doubles tensor core arithmetic intensity on decode",
+            "Deferring new prompt prefill turns indefinitely eliminates compute bubbles across steady queues"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Continuous batching schedules per-token iterations rather than per-request, instantly replacing completed requests to eliminate bubbles.",
           "explanation": "Continuous batching schedules per-token iterations rather than per-request, instantly replacing completed requests to eliminate bubbles."
         }
@@ -11786,10 +11966,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary benefit of Chunked Prefill in high-concurrency LLM serving?",
           "options": [
-            "It divides large input prompts into smaller fixed-size chunks co-scheduled alongside active decoding tokens in mixed batches, preventing large prompts from monopolizing the GPU and eliminating Inter-Token Latency (ITL) stutter for streaming users.",
-            "It deletes half the user's question to speed up the internet connection.",
-            "It forces all text to be stored in uncompressed audio format.",
-            "Because modern GPUs cannot process prompts longer than 100 tokens."
+            "Slicing huge prefills into small chunks mixed with decode tokens stops streaming ITL stalls",
+            "Offloading long system prompts to separate CPU workers keeps GPU decode latency strictly flat",
+            "Prefill chunking halves total input KV-cache footprint by pooling consecutive patch tokens 2x2",
+            "Running prompt prefill at lower FP8 precision clears batch queues ahead of greedy decode steps"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -11836,10 +12016,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do TensorRT-LLM and CUDA Graphs eliminate CPU launch overhead during autoregressive decoding?",
           "options": [
-            "By pre-capturing entire sequences of fused kernel launches into static, immutable execution graphs instantiated on-chip in GPU driver memory, allowing the CPU to trigger hundreds of operations with a single sub-microsecond launch command.",
-            "By replacing GPU graphics drivers with text files.",
-            "By deleting intermediate layer normalizations.",
-            "Because PyTorch cannot execute on NVIDIA GPUs."
+            "Capturing fixed kernel sequences on-GPU cuts CPU launch overhead down to one microsecond call",
+            "Compiling transformer blocks into fused Python Cython extensions removes GIL wait stalls",
+            "Pre-computing static lookup keys inside driver shared caches eliminates attention matmuls",
+            "Asynchronous peer NCCL streams overlap Python request tokenization directly inside GPU warps"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -11885,13 +12065,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is P99 tail latency more critical than mean latency when evaluating LLM serving Service Level Agreements (SLAs)?",
           "options": [
-            "Because mean latency averages out severe sporadic latency spikes, masking jarring pauses where users experience hundreds of milliseconds of streaming freeze, whereas P99 tail latency guarantees that 99% of all tokens arrive within predictable, smooth bounds.",
-            "Because P99 latency is always a prime number.",
-            "Because mean latency cannot be measured on computer servers.",
-            "To ensure that all requests take exactly the same number of seconds."
+            "Mean latency estimates diverge inaccurately under skewed Poisson continuous batch arrivals",
+            "Monitoring frameworks cannot aggregate mean ITL distributions accurately across bucketed graphs",
+            "P99 directly bounds peak GPU VRAM consumption under worst-case batch prefill saturation",
+            "Averages mask jarring 500ms stalls, whereas P99 guarantees smooth streaming across 99% of tokens"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "P99 latency captures the worst-case experience of users, revealing pauses and jitter that average metrics conceal.",
           "explanation": "P99 latency captures the worst-case experience of users, revealing pauses and jitter that average metrics conceal."
         }
@@ -11934,13 +12114,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural accomplishment of the ApexContinuousServing Engine in enterprise production clusters?",
           "options": [
-            "It unifies iteration-level continuous batching, chunked prefill co-scheduling, and bucketed CUDA Graph dispatch to eliminate batch bubble waste and prefill latency spikes, unlocking 15x to 25x higher throughput with sub-50ms P99 streaming latency.",
-            "It replaces all GPU servers with web browsers.",
-            "It shuts down the internet connection when latency exceeds 10 ms.",
-            "Because language models cannot serve multiple users simultaneously without crashing."
+            "Combining AWQ INT4 compression with GPTQ compensation trims model storage demands cleanly by 75%",
+            "Coupling Radix Prefix Trees with Split-K attention accelerates cold multi-turn prompt prefills 8x",
+            "Continuous batching, chunked prefill, and bucketed CUDA Graphs yield 15-25x throughput at <50ms P99",
+            "Pairing Bradley-Terry calibration with ORPO preference loss stabilizes post-training without PPO"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The ApexContinuousServing engine unifies continuous batching, chunked prefill, and CUDA graphs for maximum throughput and low latency.",
           "explanation": "The ApexContinuousServing engine unifies continuous batching, chunked prefill, and CUDA graphs for maximum throughput and low latency."
         }
@@ -12009,13 +12189,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of the ApexInference Master Suite in enterprise foundation model deployment?",
           "options": [
-            "To unify PagedAttention KV cache paging, speculative decoding, AWQ/SmoothQuant low-precision execution, and continuous chunked-prefill scheduling into an integrated high-throughput serving platform, delivering 15x to 30x higher throughput under strict P99 latency SLAs.",
-            "To generate audio podcasts from spreadsheet files.",
-            "To format hard drives on GPU servers.",
-            "Because foundation models cannot generate text without an external operating system."
+            "Integrating pre-training web MinHash dedup, BF16 dynamic scaling, and 3D ZeRO-3 clusters cleanly",
+            "Unifying PagedAttention, speculative decoding, AWQ/SmoothQuant, and continuous scheduling at SLA",
+            "Synthesizing contrastive CLIP projectors, AnyRes tiling, and masked multimodal SFT grounders",
+            "Executing Evol-Instruct data calibration alongside Llama Guard ingress filters in enterprise RAG"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "ApexInference unifies memory paging, speculative sampling, quantization, and continuous batching into an optimal enterprise serving stack.",
           "explanation": "ApexInference unifies memory paging, speculative sampling, quantization, and continuous batching into an optimal enterprise serving stack."
         }
@@ -12058,13 +12238,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does PagedAttention eliminate memory fragmentation in Subsystem 1 of the ApexInference Suite?",
           "options": [
-            "By allocating physical GPU memory in fixed-size blocks (e.g. 16 tokens) mapped via virtual page tables, confining internal fragmentation to the final block of each sequence and enabling zero-copy prompt sharing via reference counting.",
-            "By replacing all floating-point numbers with integer zeroes.",
-            "By turning off the GPU's memory controllers.",
-            "Because modern GPUs cannot store more than 16 tokens."
+            "Speculative rejection sampling aligns draft predictions identically back onto target distributions",
+            "Fixed 16-token blocks and virtual tables confine waste and share prompt pages via ref counting",
+            "Per-channel activation scaling migrates heavy outliers safely into INT8 weight range matrices",
+            "Bucketed CUDA Graph captures launch complete transformer decode passes without CPU stalls"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "PagedAttention partitions KV tensors into fixed-size blocks mapped through page tables, eliminating contiguous allocation waste.",
           "explanation": "PagedAttention partitions KV tensors into fixed-size blocks mapped through page tables, eliminating contiguous allocation waste."
         }
@@ -12108,10 +12288,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What mathematical property ensures that speculative decoding produces output text with zero quality degradation?",
           "options": [
-            "Target-draft rejection sampling accepts tokens with probability min(1, p/q) and samples rejected tokens from the positive residual distribution max(0, p - q), mathematically ensuring the marginal output probability equals target distribution p(x) exactly.",
-            "The draft model is trained on a secret dictionary of approved tokens.",
-            "The target model ignores all candidate tokens that contain vowels.",
-            "Because language models cannot generate text without an external referee."
+            "Accepting at min(1, p/q) and resampling misses from max(0, p-q) preserves exact target p(x)",
+            "Sharing identical subword BPE vocabularies forces draft logits into exact target alignment cleanly",
+            "Quantizing target verifier matrices asymmetrically cancels stochastic sampling jitter completely",
+            "Parallel Medusa heads guarantee identical greedy argmax paths without rejection steps"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -12158,13 +12338,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the ApexInference Suite apply a dual-mode quantization strategy (AWQ INT4 for decoding and SmoothQuant W8A8 for prefill)?",
           "options": [
-            "Because autoregressive decoding is memory-bandwidth bound (where INT4 weight compression delivers maximum latency reduction), while prefill is compute-bound (where INT8 weight-activation quantization doubles Tensor Core matrix multiplication throughput).",
-            "Because INT4 numbers cannot be used during the prefill phase.",
-            "Because SmoothQuant deletes all weights after prefill finishes.",
-            "To prevent computers from using floating-point math."
+            "INT4 quantization cannot represent negative prompt embeddings cleanly during initial prefill sweeps",
+            "SmoothQuant W8A8 requires zero dynamic scaling while INT4 needs pre-computed Hessian inverses",
+            "Auto-regressive KV caches allocate strictly in INT8 blocks while transformer weights fit INT4",
+            "Memory-bound decode speeds up from INT4 weight bandwidth savings; compute-bound prefill loves W8A8"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Decoding is memory-bound (solved by W4A16 weight compression); prefill is compute-bound (solved by W8A8 integer matrix multiplication).",
           "explanation": "Decoding is memory-bound (solved by W4A16 weight compression); prefill is compute-bound (solved by W8A8 integer matrix multiplication)."
         }
@@ -12209,13 +12389,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is verified by the cryptographic attestation hash in the ApexInference Milestone 10 Fiduciary Certificate?",
           "options": [
-            "An immutable SHA-256 digest binding the foundation model identity, PagedAttention memory recovery, speculative speedup factor, AWQ INT4 compression ratio, and P99 ITL latency metrics to ensure mathematical reproducibility and statutory governance.",
-            "The number of fans installed in the server room.",
-            "The temperature of the CPU cooling liquid.",
-            "Because language models require a hash code to output text."
+            "Cryptographic Merkle seal logging every training corpus document SHA hash and stopword ratio",
+            "Asymmetric token signature preventing runtime adversarial suffix injection across tool APIs",
+            "SHA-256 digest binding model ID, PagedAttention savings, speculative speedup, AWQ ratio, and P99 ITL",
+            "Attestation checksum validating Bradley-Terry reward ECE and SFT prompt-mask compliance"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The cryptographic attestation hash provides an immutable mathematical record verifying that all serving invariants were satisfied.",
           "explanation": "The cryptographic attestation hash provides an immutable mathematical record verifying that all serving invariants were satisfied."
         }
@@ -12276,13 +12456,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the CLIP dual-encoder architecture solve the classic Symbol Grounding Problem in natural language processing?",
           "options": [
-            "By mapping continuous visual patch features and discrete text token representations into a shared geometric latent space where text vectors are topologically aligned with perceptual sensory data",
-            "By replacing textual tokenizers with convolutional neural network layers that parse character strings as 2D bitmap images",
-            "By converting all training images into ASCII text art and processing them through standard autoregressive causal language models",
-            "By freezing the text encoder and training only the final linear classification layer on ImageNet discrete class labels"
+            "Replacing discrete text subwords completely with raw continuous RGB patch convolution streams",
+            "Fine-tuning frozen language decoders over discrete single-word ImageNet labels via cross-entropy",
+            "Aligning image patch vectors and text embeddings in one shared geometric space connects words to sight",
+            "Training bidirectional sequence autoencoders strictly to reconstruct masked raw visual pixel grids"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "CLIP solves symbol grounding by co-projecting visual and textual encoders into a unified metric space, anchoring linguistic concepts directly to physical visual representations via contrastive cosine alignment.",
           "explanation": "CLIP solves symbol grounding by co-projecting visual and textual encoders into a unified metric space, anchoring linguistic concepts directly to physical visual representations via contrastive cosine alignment."
         }
@@ -12316,13 +12496,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the mathematical role of the temperature parameter tau in the Symmetric InfoNCE contrastive loss?",
           "options": [
-            "It scales the cosine similarity logits prior to the softmax operator, controlling the entropy of the probability distribution and determining the gradient penalty assigned to hard negative distractors",
-            "It acts as a physical thermal regulator that limits GPU clock frequency during heavy matrix multiplication",
-            "It defines the learning rate decay schedule applied to the AdamW optimizer during multi-node training",
-            "It controls the dropout probability applied to the feed-forward projection layers of the vision encoder"
+            "Stabilizing backward mixed-precision gradient accumulation by clamping peak FP16 activation norms",
+            "Scaling cosine similarities before softmax sharpens entropy and tunes hard-negative penalties",
+            "Controlling dropout probability cleanly across dual vision and text projection bottleneck heads",
+            "Preventing positional rotary embedding phase drift across unpaired multimodal batch items"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Temperature tau scales logits before softmax. Lower tau sharpens probabilities and forces large penalties on near-miss negatives; higher tau flattens probabilities.",
           "explanation": "Temperature tau scales logits before softmax. Lower tau sharpens probabilities and forces large penalties on near-miss negatives; higher tau flattens probabilities."
         }
@@ -12355,10 +12535,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Prompt Ensembling (averaging embeddings across templates like 'A photo of {c}' and 'A close-up of {c}') outperform single raw-word prompts?",
           "options": [
-            "It bridges the distribution mismatch between isolated class labels and web pre-training captions while averaging out template-specific syntactic noise",
-            "It doubles the dimension of the embedding vector d_e, allowing the vision encoder to store higher resolution RGB pixel channels",
-            "It forces the GPU memory controller to execute double-precision 64-bit floating point matrix multiplications",
-            "It activates autoregressive causal decoding within the Vision Transformer patch projection heads"
+            "Averaging across phrasing templates bridges caption style gaps and cancels syntactic template noise",
+            "Combining distinct templates widens latent vector dimensionality to capture richer RGB details",
+            "Prompt ensembles bypass contrastive InfoNCE normalization cleanly via cosine voting weights",
+            "Multiple phrasing headers trigger higher-resolution center cropping inside Vision Transformers"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -12394,13 +12574,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary cause of the Modality Gap Phenomenon in contrastive vision-language models like CLIP?",
           "options": [
-            "Different architectural inductive biases and non-linear layer activations cause feature vectors to collapse into two separate narrow geometric cones pointing in different directions, which InfoNCE does not eliminate because relative ranking is invariant to constant vector shifts",
-            "A hardware bug in floating-point matrix multiplication units on NVIDIA Ampere and Hopper architectures",
-            "The text encoder tokenizer uses BPE while the vision encoder uses WordPiece, causing token IDs to clash",
-            "Image pixels are stored in 8-bit integers while text characters are stored in UTF-8 Unicode bytes"
+            "WordPiece text tokens collide semantically with unaligned continuous sinusoidal visual position patches",
+            "Frozen language projection matrices amplify variance unevenly along orthogonal visual axes cleanly",
+            "Asymmetric temperature scaling restricts cross-modal cosine scores strictly below positive thresholds",
+            "Distinct encoders collapse modalities into two narrow separated cones; InfoNCE tolerates constant shifts"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Different architectural structures and non-linearities drive features into distinct narrow cones; because contrastive ranking depends on relative differences, InfoNCE loss does not penalize this constant separation vector.",
           "explanation": "Different architectural structures and non-linearities drive features into distinct narrow cones; because contrastive ranking depends on relative differences, InfoNCE loss does not penalize this constant separation vector."
         }
@@ -12436,13 +12616,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In an enterprise multi-modal architecture, what is the key advantage of deploying the ApexCLIP engine for zero-shot categorization over traditional supervised classifiers?",
           "options": [
-            "New categories can be added or updated dynamically at runtime without retraining or fine-tuning, simply by synthesizing natural language class descriptions and caching their text embeddings",
-            "It converts high-resolution images into compressed JPEG files that take less disk storage on web servers",
-            "It replaces the need for floating-point calculations with pure integer boolean logic gates",
-            "It eliminates the need for GPUs entirely by routing all image inference through CPU L1 caches"
+            "Compressing multi-megabyte raw image batches silently down into lightweight 16-token text summaries",
+            "Eliminating vision backbone forward passes cleanly whenever cached class text prototypes match",
+            "Guaranteeing calibrated zero-shot accuracy without prompt templates on arbitrary industrial scans",
+            "Supporting open-ended classes dynamically at runtime simply by caching new text label embeddings"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Zero-shot classification allows adding arbitrary new categories at runtime with zero training; you merely encode the text description of the new class and calculate cosine similarity against image vectors.",
           "explanation": "Zero-shot classification allows adding arbitrary new categories at runtime with zero training; you merely encode the text description of the new class and calculate cosine similarity against image vectors."
         }
@@ -12502,13 +12682,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why can projected visual patch vectors H_v be directly concatenated with textual token embeddings inside an autoregressive LLM decoder?",
           "options": [
-            "Because the projector transforms visual features into the identical dimensional embedding space d_LLM, allowing LLM self-attention matrices (Q, K, V) to operate across vision and text tokens without architectural modification",
-            "Because the vision encoder automatically translates raw RGB pixel values into English ASCII strings before projection",
-            "Because modern GPUs convert all floating point matrices into 8-bit audio waveforms before running attention",
-            "Because the language model replaces its multi-head attention mechanisms with 2D convolutional filter banks"
+            "Visual encoders translate salient image objects into discrete BPE subword strings prior to embedding",
+            "Shared adapter weights compress continuous image tensors cleanly into tokenized binary positional keys",
+            "The projector aligns visual vectors to exact dimension d_LLM, letting self-attention fuse both seamlessly",
+            "Cross-attention bridge modules inject RGB features exclusively into final transformer output logits"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Once projected into the exact hidden dimension d_LLM of the language model, visual patch vectors are structurally indistinguishable from word embeddings, enabling unified self-attention across both modalities.",
           "explanation": "Once projected into the exact hidden dimension d_LLM of the language model, visual patch vectors are structurally indistinguishable from word embeddings, enabling unified self-attention across both modalities."
         }
@@ -12542,13 +12722,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does a 2-layer MLP adapter with GELU non-linearities outperform a single linear projection matrix W_p in visual instruction tuning?",
           "options": [
-            "It possesses the expressive capacity to perform non-linear manifold warping and semantic filtering, suppressing low-level optical noise while aligning visual features to linguistic manifolds",
-            "It converts visual tokens into high-frequency MP3 audio files that the language model listens to via audio attention",
-            "It reduces the memory footprint of the Vision Transformer by compressing floating point numbers into 2-bit integers",
-            "It eliminates the need for autoregressive decoding by solving next-token prediction in closed form"
+            "Two-layer projectors halve KV cache token sequence lengths automatically before LLM decoding",
+            "Nonlinear MLP warps manifolds cleanly, filtering visual noise better than one linear matrix",
+            "GELU gates enforce sparse zero activation across background background image patches natively",
+            "Multi-layer adapters allow unfreezing Vision Transformer stems without destabilizing LLM weights"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "A 2-layer MLP with non-linear activations can perform non-linear manifold alignment and semantic filtering, whereas a single linear layer can only execute affine transformations.",
           "explanation": "A 2-layer MLP with non-linear activations can perform non-linear manifold alignment and semantic filtering, whereas a single linear layer can only execute affine transformations."
         }
@@ -12586,10 +12766,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of using a Perceiver Resampler over a standard 1-to-1 MLP Projector in production multimodal serving?",
           "options": [
-            "It compresses an arbitrary number of high-resolution visual patch tokens N into a fixed budget of K dense latent tokens, capping KV cache growth and preserving LLM context length",
-            "It converts floating point visual tokens into RGB pixel images displayed directly on client screens",
-            "It eliminates the need for cross-entropy loss by training models via unsupervised clustering",
-            "It replaces the pre-trained Vision Transformer with a lightweight discrete Fourier transform"
+            "Cross-attending arbitrary patch counts N into a fixed small latent budget K caps KV cache cleanly",
+            "Resamplers preserve raw exact 2D bounding coordinates losslessly across arbitrary image resolutions",
+            "Fixed latent bottlenecks eliminate Stage-1 alignment pre-training entirely ahead of SFT tuning",
+            "Linear projection pooling removes positional rotary embeddings needed across visual sequence blocks"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -12627,10 +12807,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the Large Language Model kept completely FROZEN during Stage 1 (Feature Alignment Pre-Training) of LLaVA training?",
           "options": [
-            "To prevent randomized projector gradients from perturbing the pre-trained LLM weights and destroying its fundamental linguistic syntax and reasoning capabilities",
-            "Because modern GPUs do not support backpropagation through transformer decoder layers",
-            "To prevent the LLM from outputting visual tokens back into the vision encoder",
-            "Because Stage 1 training is executed without using any electricity or compute cycles"
+            "Guarding base LLM language skill against corruption from noisy random initial projector gradients",
+            "Lowering peak training VRAM costs by skipping optimizer state storage across frozen ViT patches",
+            "Preventing Vision Transformer patch encoders from memorizing synthetic instruction QA templates",
+            "Speeding up causal autoregressive loss computation by zeroing all textual completion targets early"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -12669,13 +12849,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What role do the special delimiter tokens <im_start> and <im_end> play in the unified multimodal token sequence fed into an LLM decoder?",
           "options": [
-            "They explicitly frame the boundaries of the continuous visual token sequence, allowing the LLM's positional embeddings and attention masks to distinguish visual patch representations from conversational linguistic tokens",
-            "They trigger the physical camera shutter on the server hardware to capture another photo",
-            "They encrypt the visual tokens using AES-256 before writing them to the operating system swap space",
-            "They convert the transformer decoder into a bidirectional BERT masked language model"
+            "Signaling dynamic image resolution aspect ratios directly to upstream Vision Transformer encoders",
+            "Triggering speculative rejection verification specifically on grounded coordinate output digits",
+            "Compressing redundant static background patch embeddings cleanly during multi-turn prefix caching",
+            "Framing visual spans cleanly so positional masks distinguish visual patches from conversation tokens"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Framing delimiters <im_start> and <im_end> define the boundary of the visual tokens in the autoregressive sequence, providing explicit structural context for multi-modal attention.",
           "explanation": "Framing delimiters <im_start> and <im_end> define the boundary of the visual tokens in the autoregressive sequence, providing explicit structural context for multi-modal attention."
         }
@@ -12736,13 +12916,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does resizing high-resolution document scans to a fixed 336x336 square canvas cause multimodal LLMs to fail at OCR and table extraction?",
           "options": [
-            "Because downsampling destroys over 95% of native pixel area, blurring small font characters into indistinct smudges, while anisotropic squishing deforms text aspect ratios",
-            "Because language models are hardcoded to reject any image whose width is less than 500 pixels",
-            "Because resizing images alters the ASCII character encoding of the user prompt",
-            "Because Vision Transformers require odd-numbered pixel dimensions to compute self-attention"
+            "Square crops truncate right-hand document margins automatically prior to transformer patching",
+            "Fixed vision checkpoints reject portrait PDF documents whenever height exceeds width ratios",
+            "Aggressive downscaling blurs tiny fonts away while uneven squishing distorts aspect ratios badly",
+            "Patch positional tables fail generalizing cleanly across clean black-and-white scanned page fonts"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Massive downsampling destroys fine spatial details and small text, while non-uniform scaling distorts character shapes, crippling optical recognition.",
           "explanation": "Massive downsampling destroys fine spatial details and small text, while non-uniform scaling distorts character shapes, crippling optical recognition."
         }
@@ -12776,13 +12956,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does the AnyRes dynamic tiling architecture always include a downsampled Global Overview tile in addition to the sliced local tiles?",
           "options": [
-            "To preserve global semantic relationships and spatial context across the entire image that would otherwise be lost when patches are processed in isolated local sub-tiles",
-            "To allow the user to view a tiny thumbnail icon in the corner of their web browser",
-            "To double the clock speed of the GPU memory bus during forward inference passes",
-            "Because Vision Transformers cannot run unless the batch size is an odd number"
+            "Providing a fast fallback visual summary whenever local tile KV cache memory hits concurrency caps",
+            "Preserving whole-image global layout and context lost across isolated zoomed local crop tiles",
+            "Simplifying 2D visual newline indexing cleanly when grid aspect dimensions stay non-square",
+            "Stabilizing vision projector layer normalization variance across high-contrast text crops"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Local tiles provide high resolution but lack global receptive field. The global overview anchors the holistic scene context so the LLM understands how tiles connect.",
           "explanation": "Local tiles provide high resolution but lack global receptive field. The global overview anchors the holistic scene context so the LLM understands how tiles connect."
         }
@@ -12817,13 +12997,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of inserting Visual Newline Tokens (<\\n_v>) into the flattened visual token sequence?",
           "options": [
-            "They provide explicit 2D row-break delimiters that signal the end of a horizontal spatial patch row, allowing LLM attention heads to learn 2D spatial coordinates and vertical relationships",
-            "They tell the web browser to print the image onto physical paper using an inkjet printer",
-            "They convert the visual token representations from floating point numbers into JSON string dictionaries",
-            "They trigger the operating system to clear all CPU L2 caches between inference requests"
+            "Replacing rotary sinusoidal position encodings cleanly across flattened high-res image grids",
+            "Marking exact horizontal patch row breaks lets 1D self-attention track 2D vertical layout cleanly",
+            "Partitioning continuous visual patches into isolated packed sequences without cross-attention bleed",
+            "Resetting KV prefix cache boundaries dynamically between overlapping document crop sub-tiles"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Visual newlines delineate horizontal row boundaries in the flattened sequence, giving the LLM's attention heads the periodic inductive bias needed for 2D spatial grounding.",
           "explanation": "Visual newlines delineate horizontal row boundaries in the flattened sequence, giving the LLM's attention heads the periodic inductive bias needed for 2D spatial grounding."
         }
@@ -12859,10 +13039,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does 2x2 spatial token pooling reduce the KV cache footprint and prefill latency of high-resolution multimodal LLMs?",
           "options": [
-            "By merging 2x2 contiguous blocks of 4 spatial patch tokens into a single summary token via stride-2 pooling, slashing local token counts by 75% and reducing quadratic attention FLOPs",
-            "By deleting all color channels from incoming images and storing pixels as 1-bit black and white bitmaps",
-            "By rounding all floating-point numbers to zero during transformer decoder forward steps",
-            "By skipping the entire prefill phase and guessing the answer randomly"
+            "Stride-2 pooling groups 2x2 patches into one summary token, cutting local tokens and FLOPs 75%",
+            "Dropping alternating low-contrast image tiles preserves OCR readability while halving batch VRAM",
+            "Merging multi-scale RGB channels into single luminance grayscale embeddings trims sequence sizes",
+            "Quantizing pooled projection activations straight into 4-bit integers accelerates self-attention"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -12903,13 +13083,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the ApexAnyRes multimodal architecture, how do dynamic tiling, spatial pooling, and visual newlines work together to optimize high-resolution visual processing?",
           "options": [
-            "Dynamic tiling preserves native aspect ratio and eliminates squishing, spatial pooling compresses local token volume by 75% to control KV cache costs, and visual newlines preserve 2D spatial geometry in the 1D token stream",
-            "They convert the transformer decoder into a hardware graphics GPU driver that renders 3D video games",
-            "They force the model to delete all user text prompts and generate random ASCII art",
-            "They replace neural network weights with static lookup tables stored in ROM"
+            "Unified ViT backbones drop pre-trained text tokens cleanly in favor of continuous spatial boxes",
+            "Perceiver resamplers fuse high-resolution OCR crops strictly alongside pure-text LoRA weights",
+            "Causal coordinate decoders replace global overview tiles cleanly to cap P99 TTFT latency",
+            "Dynamic grids keep aspect ratio intact, 2x2 pooling cuts tokens 75%, and newlines hold 2D geometry"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Dynamic tiling preserves resolution and aspect ratio, pooling controls token inflation and KV cache memory, and visual newlines maintain 2D spatial relationships.",
           "explanation": "Dynamic tiling preserves resolution and aspect ratio, pooling controls token inflation and KV cache memory, and visual newlines maintain 2D spatial relationships."
         }
@@ -12970,13 +13150,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is it vital to co-train Multimodal LLMs on a balanced mixture of multimodal instruction data (70%) and pure text reasoning data (30%) during SFT?",
           "options": [
-            "To prevent Multimodal Catastrophic Forgetting, ensuring the model preserves its pure textual mathematical, coding, and logical reasoning capabilities while learning visual dialogue",
-            "To prevent the GPU cooling fans from spinning too fast during training",
-            "Because text tokens require double the electricity of visual tokens",
-            "To ensure that the language model converts all images into black and white text"
+            "Balancing GPU utilization evenly between frozen Vision Transformers and active LLM FFN blocks",
+            "Ensuring special <im_start> delimiter tokens retain balanced sampling priors across empty inputs",
+            "Guarding math, code, and pure logic skills against multimodal catastrophic forgetting during SFT",
+            "Stabilizing dynamic BF16 loss scaling across uneven mixed visual/textual mini-batch token shapes"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Co-training with pure text prevents the language model from losing its complex textual reasoning, code generation, and math skills during visual alignment.",
           "explanation": "Co-training with pure text prevents the language model from losing its complex textual reasoning, code generation, and math skills during visual alignment."
         }
@@ -13012,13 +13192,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural advantage of reformulating object detection bounding boxes as quantized discrete coordinate tokens in multimodal LLMs?",
           "options": [
-            "It eliminates the need for specialized convolutional detection heads and regression losses, casting object detection as standard autoregressive next-token prediction unified with language generation",
-            "It makes the image file size smaller on the client's hard drive",
-            "It forces the GPU to operate exclusively in 8-bit integer mode",
-            "It prevents the model from generating text responses"
+            "Quantized integer coordinates eliminate image resolution tiling grids cleanly in production",
+            "Discrete token bins run continuous bounding regression twice faster inside GPU attention kernels",
+            "Casting boxes as discrete text tokens drops separate CV heads and unifies grounding in next-token gen",
+            "Vocabulary coordinate tokens bypass causal attention masking cleanly for tighter IoU recall"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Discretizing spatial coordinates into vocabulary tokens unifies object detection and language generation under a single autoregressive cross-entropy loss function without custom regression heads.",
           "explanation": "Discretizing spatial coordinates into vocabulary tokens unifies object detection and language generation under a single autoregressive cross-entropy loss function without custom regression heads."
         }
@@ -13054,13 +13234,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the key difference between Referring Expression Comprehension (REC) and Referring Expression Generation (REG)?",
           "options": [
-            "REC takes natural language text and outputs spatial bounding box coordinates, whereas REG takes spatial bounding box coordinates and outputs natural language text descriptions",
-            "REC is trained using reinforcement learning while REG is trained using unsupervised clustering",
-            "REC operates only on audio files while REG operates only on video files",
-            "REC requires an internet connection while REG runs completely offline"
+            "REC uses Stage-1 contrastive InfoNCE training; REG runs purely inside autoregressive decoders",
+            "REC maps text descriptions to box coordinates; REG maps box coordinates back to text captions",
+            "REC handles high-resolution OCR scans cleanly; REG focuses strictly on coarse object bounding boxes",
+            "REC requires supervised ground-truth masks; REG generates unlabeled synthetic preference pairs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "REC is text-to-box grounding (comprehending which box text refers to); REG is box-to-text generation (generating descriptions of targeted spatial regions).",
           "explanation": "REC is text-to-box grounding (comprehending which box text refers to); REG is box-to-text generation (generating descriptions of targeted spatial regions)."
         }
@@ -13096,10 +13276,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why must the Visual Prefix tokens be strictly masked out (loss weight 0.0 / ignore_index -100) during Multimodal Supervised Fine-Tuning?",
           "options": [
-            "To prevent the language model decoder from wasting gradient updates attempting to predict continuous visual patch features, focusing 100% of optimization on conversational response generation conditioned on visual context",
-            "Because visual tokens cause floating-point overflow if multiplied by negative numbers",
-            "To prevent the vision encoder from turning off its power supply during training",
-            "Because PyTorch only allows loss computation on tokens whose text length is greater than 10 characters"
+            "Discrete next-token cross-entropy cannot predict continuous visual patches, so loss stays on answers",
+            "Unmasked visual prefixes trigger floating-point NaNs inside softmax denominators during Stage 2",
+            "Masking visual slots halves total CUDA memory required for storing transformer KV cache tensors",
+            "Ignoring image prefixes guarantees zero leakage across packed multi-turn chat dialogues cleanly"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -13140,13 +13320,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In the ApexGround Multimodal Instruction Tuning Suite, how does visual grounding via discrete coordinate tokens differ from classical computer vision bounding box detection?",
           "options": [
-            "It casts bounding boxes as discrete integer vocabulary tokens generated autoregressively by the language model, eliminating specialized detection heads and unifying localization with natural language generation",
-            "It requires connecting an external laser measurement device to the server's USB port",
-            "It converts bounding boxes into 2D QR codes printed in the terminal",
-            "It replaces the language model decoder with a support vector machine"
+            "Projecting continuous convolutional YOLO feature maps silently into shared CLIP embedding spaces",
+            "Enforcing coordinate accuracy via post-hoc Pydantic grammar regex masks over raw OCR outputs",
+            "Training dual parallel regression heads alongside DPO preference alignment over image captions",
+            "Generating quantized box tokens directly within autoregressive text instead of external CV heads"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Coordinate tokenization discretizes 2D bounding boxes into standard vocabulary tokens, allowing the language model to perform object localization autoregressively without specialized detection heads.",
           "explanation": "Coordinate tokenization discretizes 2D bounding boxes into standard vocabulary tokens, allowing the language model to perform object localization autoregressively without specialized detection heads."
         }
@@ -13208,13 +13388,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of the unified ApexOmni master multimodal architecture over fragmented computer vision pipelines?",
           "options": [
-            "It replaces separate OCR, detection, and LLM microservices with a single end-to-end autoregressive decoder, eliminating network hops, schema drift, and cascading errors",
-            "It requires all input images to be converted into monochrome PNG files",
-            "It doubles the physical size of the computer monitor",
-            "It executes all matrix multiplications exclusively on quantum computers"
+            "Processing every raw JPEG image strictly as 1D plain text skips GPU Vision Transformer inference",
+            "Dedicated single-task vision heads consistently trade modularity for slightly lower accuracy bounds",
+            "Deploying independent microservices simplifies continuous batch scheduling inside multi-GPU clusters",
+            "Collapsing separate OCR, detector, and LLM services into one model removes hops and cascading bugs"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Unifying vision and language into a single autoregressive decoder eliminates brittle microservice pipelines and unifies grounding, OCR, and reasoning under one loss function.",
           "explanation": "Unifying vision and language into a single autoregressive decoder eliminates brittle microservice pipelines and unifies grounding, OCR, and reasoning under one loss function."
         }
@@ -13250,13 +13430,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of Subsystem 1 in the ApexOmni multimodal architecture?",
           "options": [
-            "To dynamically match arbitrary image aspect ratios to optimal tile grids, slice high-resolution local tiles alongside a global overview, and inject visual newlines for 2D spatial preservation",
-            "To print high-resolution images onto thermal receipt tape",
-            "To downsample all images to 16x16 black-and-white icons",
-            "To encrypt raw pixels using SHA-256 before writing them to the GPU frame buffer"
+            "Compressing multimodal input tokens symmetrically via 2-layer GELU MLP alignment bottleneck layers",
+            "Discretizing continuous ground-truth bounding boxes into normalized autoregressive coordinate words",
+            "Matching aspect grids cleanly, slicing local + global tiles, and inserting 2D visual newline breaks",
+            "Auditing visual prefix loss masks and computing cryptographic SHA-256 governance certification seals"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Subsystem 1 handles dynamic AnyRes tiling, 2x2 token pooling, and 2D visual newline formatting to eliminate distortion while preserving spatial resolution.",
           "explanation": "Subsystem 1 handles dynamic AnyRes tiling, 2x2 token pooling, and 2D visual newline formatting to eliminate distortion while preserving spatial resolution."
         }
@@ -13294,13 +13474,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why does Subsystem 2 apply Layer Normalization both before and after the 2-layer GELU MLP projection?",
           "options": [
-            "To guarantee zero mean and unit variance across visual tokens, preventing activation scale explosions or layer-norm saturation in the initial transformer decoder layers",
-            "To compress the visual tokens into 1-bit binary flags",
-            "To convert floating point numbers into RGB hex color codes",
-            "To delete the visual tokens from memory after the first forward step"
+            "Dual normalization compresses multi-resolution image token vectors down into compact INT8 scalars",
+            "Enforcing zero-mean unit-variance scales guards early decoder layers against activation spikes",
+            "Symmetric layer scaling aligns modality cones tightly without needing InfoNCE contrastive loss",
+            "Normalizing MLP weights enforces unit L2 geometry cleanly across spatial coordinate output tokens"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Layer normalization stabilizes input and output activation distributions, preventing numerical instability and ensuring visual tokens match the statistical scale of text embeddings.",
           "explanation": "Layer normalization stabilizes input and output activation distributions, preventing numerical instability and ensuring visual tokens match the statistical scale of text embeddings."
         }
@@ -13337,10 +13517,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How do Subsystems 3 and 4 collaborate to enable robust visual grounding in conversational multimodal LLMs?",
           "options": [
-            "Subsystem 3 discretizes continuous bounding boxes into coordinate tokens generated autoregressively by the LLM, while Subsystem 4 masks visual prefix tokens so gradients optimize only the grounded response",
-            "Subsystem 3 deletes the image from memory while Subsystem 4 shuts down the GPU",
-            "Subsystem 3 converts bounding boxes into audio alerts while Subsystem 4 prints the text in green",
-            "Subsystem 3 replaces the neural network with a fixed relational database table"
+            "Subsystem 3 discretizes boxes into tokens; Subsystem 4 masks visual prefixes so loss trains text",
+            "Subsystem 3 slices AnyRes image tiles; Subsystem 4 normalizes 2-layer GELU projector variances",
+            "Subsystem 3 detects adversarial visual noise; Subsystem 4 validates JSON coordinate schemas",
+            "Subsystem 3 aligns CLIP image cones; Subsystem 4 evaluates FActScore atomic grounding claims"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -13380,10 +13560,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of Subsystem 5 in the ApexOmni Milestone 11 Capstone architecture?",
           "options": [
-            "To execute an automated audit across all multimodal subsystems—verifying aspect-ratio matching, token pooling, projection variance, grounding IoU, and masked SFT loss—and emit a cryptographic SHA-256 Sovereign Certification",
-            "To print a physical paper diploma on an office printer",
-            "To format the hard drive and reinstall the operating system",
-            "To disconnect the server from the internet"
+            "Running automated subsystem audits (tiling, pooling, variance, IoU, SFT mask) + emitting SHA seal",
+            "Serving continuous dynamic multi-LoRA adapters alongside bucketed CUDA Graphs at sub-50ms P99",
+            "Synthesizing contrastive paired vision-language captions via Evol-Instruct difficulty scaling",
+            "Filtering multimodal PII leaks dynamically inside egress token streaming compliance proxies"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -13444,13 +13624,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural objective of the critique-revision loop in Constitutional AI Supervised Learning?",
           "options": [
-            "To systematically eliminate toxic, unsubstantiated, or harmful outputs by prompting the model against explicit written principles without requiring direct human annotator intervention",
-            "To accelerate GPU tensor parallelism by compressing model weights into 4-bit integer representations during inference",
-            "To increase the maximum context length of the Transformer decoder using Rotary Position Embeddings",
-            "To compute cross-entropy loss gradients directly against web-scraped Common Crawl document tokens"
+            "Distilling large proprietary preference reward models cheaply into frozen INT4 edge classifiers",
+            "Boosting zero-shot multimodal OCR accuracy by refining image crop tiles iteratively per step",
+            "Scaling raw pre-training dataset volume exponentially by crawling unfiltered synthetic web dumps",
+            "Revising harmful or ungrounded drafts against explicit written rules without constant human labels"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Constitutional AI replaces labor-intensive human labeling with an automated, principle-driven critique-revision loop that inspects draft responses against explicit constitutional principles and rewrites them into safe, high-quality supervised training data.",
           "explanation": "Constitutional AI replaces labor-intensive human labeling with an automated, principle-driven critique-revision loop that inspects draft responses against explicit constitutional principles and rewrites them into safe, high-quality supervised training data."
         }
@@ -13472,13 +13652,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational distinction between In-Depth Evolution and In-Breadth Evolution in the Evol-Instruct algorithm?",
           "options": [
-            "In-Depth Evolution increases cognitive difficulty by adding constraints, deepening reasoning, and concretizing, whereas In-Breadth Evolution expands domain diversity by generating novel sibling topics",
-            "In-Depth Evolution applies quantization to reduce memory footprints, while In-Breadth Evolution scales context length via FlashAttention",
-            "In-Depth Evolution converts tokens into character n-grams, while In-Breadth Evolution converts text into image pixels",
-            "In-Depth Evolution runs exclusively on CPU cores, while In-Breadth Evolution requires distributed TPU pods"
+            "In-Depth widens synthetic language coverage cleanly; In-Breadth trims noisy low-perplexity drafts",
+            "In-Depth deduplicates near-identical examples via MinHash; In-Breadth enforces 13-gram checks",
+            "In-Depth raises constraint & reasoning complexity; In-Breadth generates fresh diverse sibling topics",
+            "In-Depth fine-tunes policy weights via ORPO; In-Breadth calibrates Bradley-Terry ECE curves"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "In Evol-Instruct, In-Depth Evolution applies mutation operators that increase problem complexity, constraints, and reasoning steps, while In-Breadth Evolution mutates prompts horizontally across diverse conceptual domains to maximize dataset breadth.",
           "explanation": "In Evol-Instruct, In-Depth Evolution applies mutation operators that increase problem complexity, constraints, and reasoning steps, while In-Breadth Evolution mutates prompts horizontally across diverse conceptual domains to maximize dataset breadth."
         }
@@ -13502,13 +13682,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is 13-gram exact matching widely adopted as the industry standard protocol for benchmark decontamination in synthetic LLM pre-training corpora?",
           "options": [
-            "A 13-word contiguous sequence is statistically improbable to occur by pure chance, providing a robust signature of test set leakage without triggering false positive alerts on common idioms",
-            "A 13-gram matches the exact word length of the Transformer multi-head attention key-query dot product projection",
-            "Thirteen words corresponds exactly to the cache line width of NVIDIA H100 GPU high-bandwidth memory",
-            "Standard English grammar strictly prohibits sentences from containing more than twelve words without a comma"
+            "Exact 13-token BPE substrings match standard transformer causal sliding window boundary widths",
+            "13 contiguous matching words almost never occur by chance, catching test leaks without false hits",
+            "Shorter 3-gram checks miss paraphrased test leaks unless scaled evenly up to 13-word hashes",
+            "Industry evaluation benchmarks mandate 13-word sliding MinHash signatures across SFT losses"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In natural language corpora, a contiguous string of 13 exact words is long enough that random stylistic collisions are virtually zero, making it an ideal deterministic threshold for detecting benchmark test set contamination.",
           "explanation": "In natural language corpora, a contiguous string of 13 exact words is long enough that random stylistic collisions are virtually zero, making it an ideal deterministic threshold for detecting benchmark test set contamination."
         }
@@ -13532,13 +13712,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does an automated difficulty calibrator utilize model pass rate across candidate completions to assign task difficulty?",
           "options": [
-            "A low pass rate across ensemble models indicates high task difficulty, contributing positively to the difficulty rating",
-            "A high pass rate indicates that the prompt violates grammar rules and should be discarded",
-            "Pass rates are used to calculate the physical temperature of the server GPU fans",
-            "A zero pass rate automatically proves the prompt is corrupted by benchmark contamination"
+            "Higher model ensemble pass rates reveal subtle ambiguous bugs needing manual human labeling",
+            "Lower pass rates across reference models empirically identify harder, higher-signal challenges",
+            "Equal 50% ensemble pass rates signal redundant synthetic prompts safe to drop cleanly via filter",
+            "Unanimous 0% pass counts confirm clean difficulty calibration free of benchmark contamination"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "In empirical difficulty calibration, tasks that have low pass rates when attempted by candidate models require higher cognitive reasoning and are therefore tagged with higher difficulty ratings.",
           "explanation": "In empirical difficulty calibration, tasks that have low pass rates when attempted by candidate models require higher cognitive reasoning and are therefore tagged with higher difficulty ratings."
         }
@@ -13561,10 +13741,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural advantage of attaching an immutable audit signature and constitutional principle lineage to each synthetic record?",
           "options": [
-            "It provides verifiable provenance for regulatory compliance and safety attestation, proving how each record was generated, filtered, and aligned",
-            "It automatically doubles GPU tensor core clock frequencies during training",
-            "It converts floating-point weights into ternary {-1, 0, 1} bit representations",
-            "It eliminates the need to perform backpropagation during stochastic gradient descent"
+            "Providing verifiable lineage proving how every synthetic sample was created, filtered, and aligned",
+            "Compressing repeated prompt histories transparently inside production Radix Tree KV prefix caches",
+            "Speeding up BPE tokenizer merges cleanly across unseen domain terms during SFT sequence packing",
+            "Preventing indirect prompt injection commands embedded inside third-party RAG document splits"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -13616,13 +13796,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the core architectural mechanism underlying Indirect Prompt Injection attacks in enterprise LLM systems?",
           "options": [
-            "Adversarial instructions are embedded inside external untrusted data sources (such as web pages or RAG documents) that the LLM ingests into its unified attention context window",
-            "The attacker physically desolders the HBM3 memory chips from the server GPU chassis",
-            "The attacker reverses the polarity of the Transformer cross-attention positional encodings",
-            "The attacker floods the network router with excessive SYN packets to cause a buffer overflow"
+            "Encoded Base64 user strings bypass static Pydantic output validation schemas cleanly on decode",
+            "Fine-tuned LoRA adapters accidentally overwrite core safety refusal subspaces inside frozen weights",
+            "High sampling temperatures push next-token decoding logits outside safe pre-trained distributions",
+            "Untrusted retrieved pages or docs carry rogue commands straight into the shared prompt attention window"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Indirect Prompt Injection exploits the fact that LLMs process control instructions and retrieved external text within the same context window, allowing third-party data to hijack model execution.",
           "explanation": "Indirect Prompt Injection exploits the fact that LLMs process control instructions and retrieved external text within the same context window, allowing third-party data to hijack model execution."
         }
@@ -13646,13 +13826,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "In evolutionary automated red-teaming, how is the fitness score of a candidate adversarial prompt primarily evaluated?",
           "options": [
-            "By measuring whether the target model's response bypasses standard refusal phrasing and produces affirmative compliance with actionable prohibited information",
-            "By checking whether the prompt length matches the exact dimension of the Transformer key-value cache page size",
-            "By counting the number of punctuation marks contained in the input text",
-            "By evaluating the execution speed of the GPU CUDA kernel in milliseconds"
+            "Checking whether adversarial suffix perplexity drops smoothly toward baseline English prose rates",
+            "Measuring exact KL divergence drift triggered inside reference safety alignment policy heads",
+            "Scoring whether target replies drop refusals and emit actionable restricted content cleanly",
+            "Counting how many encoded Base64 substrings survive input sanitization regex filters cleanly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The fitness function in automated red-teaming penalizes standard refusal outputs ('I cannot...') and rewards affirmative compliance ('Sure, here is...'), driving genetic mutations toward successful policy bypasses.",
           "explanation": "The fitness function in automated red-teaming penalizes standard refusal outputs ('I cannot...') and rewards affirmative compliance ('Sure, here is...'), driving genetic mutations toward successful policy bypasses."
         }
@@ -13676,13 +13856,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational advantage of structuring Llama Guard as an instruction-tuned model that outputs 'safe' or 'unsafe' on its very first token?",
           "options": [
-            "The serving system can inspect the logit probability of the first generated token and terminate malicious generation immediately without waiting for complete sequence completion",
-            "It allows Llama Guard to execute directly on consumer smartwatch microcontrollers without RAM",
-            "It completely replaces the need for floating-point matrix multiplication in the Transformer",
-            "It ensures that all user prompts are automatically translated into ancient Greek before processing"
+            "Binary first-token output compresses multi-turn context windows cleanly down to single-byte flags",
+            "Single-token classifiers bypass transformer KV cache paging inside dedicated CPU worker pools",
+            "Inspecting first-token 'safe'/'unsafe' logprobs aborts risky traffic instantly without decoding more",
+            "Position-0 classification eliminates calibration drift across diverse human safety policy taxonomies"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "By generating 'safe' or 'unsafe' as the very first token, serving gateways can inspect token logits in single-digit milliseconds and abort execution before harmful tokens are decoded.",
           "explanation": "By generating 'safe' or 'unsafe' as the very first token, serving gateways can inspect token logits in single-digit milliseconds and abort execution before harmful tokens are decoded."
         }
@@ -13706,13 +13886,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Activation Addition steer language model refusal behavior at inference time without modifying underlying model weights?",
           "options": [
-            "By adding a pre-computed concept directional vector directly into the intermediate residual stream activations, shifting the representation toward the refusal subspace",
-            "By deleting 50% of the Transformer feedforward network weights during inference",
-            "By changing the physical power supply voltage of the PCIe bus",
-            "By restricting the vocabulary of the BPE tokenizer to words of length less than 5 characters"
+            "Re-weighting LoRA matrix rank adapters dynamically per request without reloading base weights",
+            "Injecting pre-computed concept steering vectors into residual activations shifts behavior live",
+            "Appending high-priority written constitutional principles directly ahead of decoded output tokens",
+            "Adjusting logit softmax scaling temperature sharply downward whenever unsafe tokens score near top"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Activation Addition intervenes in the forward pass by algebraically adding a scaled concept steering vector to the residual stream hidden states, shifting model behavior without altering pre-trained weight matrices.",
           "explanation": "Activation Addition intervenes in the forward pass by algebraically adding a scaled concept steering vector to the residual stream hidden states, shifting model behavior without altering pre-trained weight matrices."
         }
@@ -13736,10 +13916,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary function of an ApexGuard Cryptographic Attestation Seal in enterprise governance?",
           "options": [
-            "It cryptographically binds the audit results, compliance rate, and tested configurations into a tamper-evident digest for regulatory compliance",
-            "It encrypts the model's FP16 attention weight matrices on the NVLink interconnect",
-            "It prevents the CPU from overheating during continuous batching operations",
-            "It converts token logits into randomized hash collisions to confuse attackers"
+            "Tamper-evident digest binding test pass metrics, compliance ratios, and configs for compliance audits",
+            "Zero-knowledge signature verifying pre-training dataset 13-gram decontamination cleanly on release",
+            "Continuous runtime hash guarding deployed AWQ INT4 weights against bit-level corruption in VRAM",
+            "Cryptographic canary token inserted inside system instructions to intercept extraction leaks live"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -13791,13 +13971,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is the explicit interleaving of Thought and Action superior to pure Chain-of-Thought or pure Action execution in agentic tasks?",
           "options": [
-            "Thoughts enable dynamic reasoning, plan decomposition, and recovery from unexpected tool errors, while Actions provide external factual grounding and prevent hallucinations",
-            "It increases the clock frequency of the GPU memory bus by 400 MHz",
-            "It converts autoregressive decoding from discrete tokens into continuous audio waveforms",
-            "It ensures that the model ignores all user inputs and runs in an infinite loop"
+            "Interleaving reasoning tags compresses multi-step tool call histories inside sliding window limits",
+            "Explicit Thought delimiters prevent tool outputs from leaking untrusted commands into context",
+            "Alternating steps remove schema type validation requirements across downstream JSON API proxies",
+            "Thoughts drive planning and error recovery, while Actions supply live external grounding cleanly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "In ReAct, Thoughts provide internal reasoning to plan and adapt, while Actions ground the model with empirical external facts, eliminating hallucinations and enabling error recovery.",
           "explanation": "In ReAct, Thoughts provide internal reasoning to plan and adapt, while Actions ground the model with empirical external facts, eliminating hallucinations and enabling error recovery."
         }
@@ -13821,13 +14001,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Grammar-Constrained Decoding guarantee that an autoregressive language model generates syntactically valid JSON without parsing errors?",
           "options": [
-            "By compiling the JSON schema into a Finite State Machine that dynamically masks invalid vocabulary token logits to negative infinity before sampling",
-            "By retraining the Transformer weights using reinforcement learning on a cluster of supercomputers",
-            "By increasing the temperature parameter to 2.0 so the model explores diverse punctuation",
-            "By translating the JSON into Python bytecode and running it through an interpreter"
+            "Post-hoc regex extraction loops re-sample entire JSON completions silently on decode parse errors",
+            "Constrained prompt templates guarantee valid bracket nesting strictly under temperature zero settings",
+            "Special reserved JSON tokens lock decoder states deterministically without modifying sampling logits",
+            "Compiling schemas into finite-state masks zeroes invalid token logits (-inf) cleanly before sampling"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Grammar-constrained decoding uses a schema Finite State Machine (FSM) to identify valid tokens at each decoding step and sets all invalid token logits to -inf, making the probability of generating a syntax error mathematically zero.",
           "explanation": "Grammar-constrained decoding uses a schema Finite State Machine (FSM) to identify valid tokens at each decoding step and sets all invalid token logits to -inf, making the probability of generating a syntax error mathematically zero."
         }
@@ -13850,13 +14030,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is separating tools into Read-Only and Mutating actions with Human-in-the-Loop (HITL) gates critical in enterprise agent architectures?",
           "options": [
-            "It prevents automated agents from executing irreversible real-world state changes (such as wire transfers or record deletions) without human fiduciary authorization",
-            "It reduces the size of the vocabulary embeddings by 50%",
-            "It forces the GPU to operate in single-threaded mode to prevent race conditions",
-            "It converts relational database tables into static CSV files on disk"
+            "Separating tool permissions lets read-only queries bypass container sandboxes for lower latency",
+            "Categorizing tools upfront shrinks system prompt token counts cleanly across large API catalogs",
+            "Blocking autonomous agents from irreversible state writes (transfers, deletes) without human sign-off",
+            "HITL checkpoints pause multi-turn reasoning solely to log OpenTelemetry latency histograms cleanly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Mutating actions carry high real-world financial or legal risk; enforcing HITL gates ensures that automated agents cannot unilaterally alter external databases or transfer funds without human sign-off.",
           "explanation": "Mutating actions carry high real-world financial or legal risk; enforcing HITL gates ensures that automated agents cannot unilaterally alter external databases or transfer funds without human sign-off."
         }
@@ -13880,13 +14060,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational role of an action loop detector in enterprise agent runtimes?",
           "options": [
-            "To identify and terminate repetitive or oscillating action patterns, preventing the agent from burning API quotas in unrecoverable error loops",
-            "To compress floating-point weights into 8-bit integer formats during decoding",
-            "To automatically increase the learning rate during backward passes",
-            "To route network packets across different geographical data centers"
+            "Preventing indirect prompt injection strings returned in tool logs from escalating privileges",
+            "Spotting oscillating or stalled tool calls early to break infinite budget-burning loops safely",
+            "Coordinating parallel async coroutine tool calls cleanly so slower endpoints never stall queues",
+            "Caching identical repeated read-only tool payloads automatically inside local Redis prefix stores"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Action loop detectors calculate hashes of consecutive tool calls to prevent the agent from getting trapped in infinite, costly retry loops when external services fail.",
           "explanation": "Action loop detectors calculate hashes of consecutive tool calls to prevent the agent from getting trapped in infinite, costly retry loops when external services fail."
         }
@@ -13911,10 +14091,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural purpose of computing an immutable SHA-256 audit seal over the entire agent trajectory in ApexAgent?",
           "options": [
-            "To provide tamper-evident cryptographic provenance of every thought, tool call, parameter, and observation for regulatory compliance and post-incident forensics",
-            "To increase the GPU VRAM bandwidth by 50 GB/s during batch decoding",
-            "To compress the Transformer KV cache into a 1-bit binary representation",
-            "To translate the Python source code into WebAssembly bytecodes"
+            "Preserving tamper-evident cryptographic provenance across every thought, tool arg, and result for audits",
+            "Accelerating multi-step speculative token generation across complex JSON-constrained tool calls cleanly",
+            "Guaranteeing bitwise determinism when replaying probabilistic agent sessions at high sampling temps",
+            "Compressing verbose terminal observation dumps into immutable compact vector memory summaries"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -13965,10 +14145,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational cause of Benchmark Saturation in frontier LLM evaluations?",
           "options": [
-            "Models achieve performance scores so close to the theoretical human ceiling that multiple-choice tests can no longer differentiate subtle reasoning, nuance, or real-world reliability",
-            "The GPU runs out of physical disk space when saving checkpoint weights",
-            "The benchmark dataset gets permanently deleted by the operating system garbage collector",
-            "The Transformer model forgets how to output numerical tokens"
+            "Frontier models hit human ceilings on static tests, hiding subtle nuance and real failure modes",
+            "Modern tokenizers break multiple-choice letter tokens cleanly across packed evaluation prompts",
+            "Open benchmarks leak disproportionately across closed-weight APIs while missing small open models",
+            "Large LLM-as-a-Judge models assign inflated ceiling scores purely to verbose structured JSON replies"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -13994,13 +14174,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is Length-Controlled Win-Rate (AlpacaEval 2.0) necessary when using LLM-as-a-Judge for open-ended model evaluation?",
           "options": [
-            "Judge LLMs systematically exhibit verbosity bias, preferring longer outputs regardless of factual content; length control statistically discounts this artifact",
-            "Language models cannot generate responses longer than 50 words without crashing",
-            "It forces all candidate responses to be exactly 100 characters in length",
-            "It converts floating-point preference weights into integer matrix multiplications"
+            "Token length normalization compresses uneven paired answers cleanly into identical eval windows",
+            "Short responses consistently score false zeros unless scaled proportionally to frontier reference len",
+            "Length caps force creative open-ended judges to prioritize JSON adherence over factual depth",
+            "LLM judges systematically favor longer outputs, so regression control factors length out fairly"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "Judge language models have an inherent cognitive bias favoring longer responses; length-controlled win-rate applies statistical regression to neutralize this bias.",
           "explanation": "Judge language models have an inherent cognitive bias favoring longer responses; length-controlled win-rate applies statistical regression to neutralize this bias."
         }
@@ -14023,13 +14203,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Position-Swapped Pairwise Grading eliminate position bias in LLM-as-a-Judge evaluations?",
           "options": [
-            "By evaluating candidate completions in both forward (A, B) and reversed (B, A) orders and declaring a victory only when the model wins consistently across both orderings",
-            "By randomly deleting half of the prompt tokens before presenting the question to the judge",
-            "By running the judge model at zero temperature on consumer smartphones",
-            "By forcing the judge model to respond only in hexadecimal numbers"
+            "Randomly shuffling evaluation rubric criteria before grading suppresses early prompt primacy bias",
+            "Swapping system vs assistant prompt order exposes sycophantic bias toward first-seen arguments",
+            "Judging pairs in both (A,B) and (B,A) orders and crowning winners only on consistent victories",
+            "Pairing multiple temperature sweeps cancels stochastic order flip artifacts across short trials"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Evaluating completions in both (A, B) and (B, A) positions guarantees that models benefiting from presentation order are neutralized, awarding a win only if the judge consistently chooses the same model.",
           "explanation": "Evaluating completions in both (A, B) and (B, A) positions guarantees that models benefiting from presentation order are neutralized, awarding a win only if the judge consistently chooses the same model."
         }
@@ -14053,13 +14233,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "Why is claim-level atomic decomposition (such as FActScore) superior to sentence-level or document-level evaluation when measuring model hallucination rates?",
           "options": [
-            "A single complex sentence often contains multiple independent assertions; decomposing into atomic claims isolates exact false statements from surrounding factual context",
-            "It reduces the size of the model's vocabulary embeddings by half",
-            "It allows the model to execute without using any electricity",
-            "It converts text into musical notes for acoustic analysis"
+            "Sentence-level BLEU metrics overlook multi-sentence paraphrase coherence across long technical guides",
+            "Breaking dense paragraphs into atomic claims pinpoints individual falsehoods inside mostly true prose",
+            "Atomic verification runs faster cleanly without calling external source knowledge retrieval pipelines",
+            "Decomposing claims converts binary hallucination ratings naturally into calibrated Bradley-Terry wins"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "Complex enterprise sentences often interleave accurate facts with subtle hallucinations; atomic decomposition isolates individual factual assertions so each can be independently verified against ground truth.",
           "explanation": "Complex enterprise sentences often interleave accurate facts with subtle hallucinations; atomic decomposition isolates individual factual assertions so each can be independently verified against ground truth."
         }
@@ -14084,13 +14264,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary operational purpose of synthesizing MT-Bench, length-controlled win-rate, and factual hallucination rates into a unified ApexEval scorecard?",
           "options": [
-            "To provide an auditable, multidimensional evaluation profile balancing conversational depth, uncorrupted win-rates, and factual compliance before authorizing enterprise model deployment",
-            "To train a new Transformer tokenizer from scratch without any text files",
-            "To double the number of physical H100 GPUs installed in the server rack",
-            "To translate the model parameters into JavaScript for execution in a browser"
+            "Automating Evol-Instruct benchmark synthesis cleanly whenever legacy multi-choice sets saturate",
+            "Synthesizing dialogue depth, length-fair win rates, and factual fidelity into one release audit",
+            "Routing production chat queries dynamically across frontier and open models to optimize API spend",
+            "Validating Multimodal AnyRes coordinate grounding IoU cleanly prior to cryptographic SHA sealing"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "A single benchmark metric is vulnerable to gaming or saturation; synthesizing multi-turn reasoning, length-controlled win rates, and factual hallucination rates provides a rigorous, multi-dimensional certificate of model readiness.",
           "explanation": "A single benchmark metric is vulnerable to gaming or saturation; synthesizing multi-turn reasoning, length-controlled win rates, and factual hallucination rates provides a rigorous, multi-dimensional certificate of model readiness."
         }
@@ -14139,10 +14319,10 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary architectural advantage of Grouped-Query Attention (GQA) with an 8:1 query-to-key-value head ratio in ApexLinguist v2?",
           "options": [
-            "It reduces KV cache memory consumption by 8x during autoregressive decoding while retaining near-identical representational capacity to full Multi-Head Attention",
-            "It converts the model's weights into integer ASCII strings on disk",
-            "It allows the model to bypass the need for an embedding layer entirely",
-            "It forces the Transformer to run exclusively on optical quantum processors"
+            "Shrinking decoding KV cache VRAM by 8x while retaining near-full Multi-Head Attention quality",
+            "Cutting pre-training compute FLOPs roughly 8x below classical Chinchilla 20:1 scaling laws cleanly",
+            "Doubling transformer rotary extrapolation limits cleanly without retraining sinusoidal embeddings",
+            "Eliminating causal triangular mask checks cleanly inside FlashAttention prefill SRAM matrix tiles"
           ],
           "answer": 0,
           "answerIndex": 0,
@@ -14169,13 +14349,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary mathematical breakthrough of Direct Preference Optimization (DPO) over classical PPO-based RLHF?",
           "options": [
-            "DPO derives an exact closed-form substitution that optimizes the policy directly on pairwise preference data, eliminating the need to train a separate reward model or run unstable RL inner loops",
-            "DPO replaces all neural network layers with random forest classifiers",
-            "DPO eliminates the need for any training data whatsoever",
-            "DPO runs exclusively on quantum annealers with zero power dissipation"
+            "Combining PPO scalar critics alongside ORPO odds ratios cuts GPU training memory roughly in half",
+            "Replacing static SFT prompt masking cleanly with unsupervised Bradley-Terry difficulty calibration",
+            "Stabilizing multi-node ZeRO-3 optimizer momentum buffers cleanly under low-precision BF16 training",
+            "Optimizing directly on pairwise preferences via closed-form policy substitution without RL reward nets"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 3,
+          "answerIndex": 3,
           "why": "DPO proves that the optimal policy under the RLHF objective can be expressed analytically as a function of the reward, allowing direct optimization on preference pairs without training a separate reward model or executing reinforcement learning.",
           "explanation": "DPO proves that the optimal policy under the RLHF objective can be expressed analytically as a function of the reward, allowing direct optimization on preference pairs without training a separate reward model or executing reinforcement learning."
         }
@@ -14199,13 +14379,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "How does Speculative Decoding accelerate inference speed in the ApexLinguist serving gateway without changing model outputs?",
           "options": [
-            "A small draft model proposes candidate tokens in parallel, which the large target model verifies simultaneously in a single forward pass using causal attention masking",
-            "It downsamples the text from 60 Hz to 30 Hz",
-            "It rounds all numerical tokens to the nearest ten",
-            "It converts the Transformer weights into compressed MP3 audio files"
+            "Dynamic batch routers escalate malformed small-model JSON outputs seamlessly upward to frontier LLMs",
+            "Paged virtual KV tables swap shared prompt blocks zero-copy across concurrent streaming generations",
+            "Fast draft guesses K tokens ahead that the target model verifies simultaneously in one causal pass",
+            "Pre-captured CUDA Graphs fold host Python scheduling launches cleanly into single driver commands"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "Speculative decoding uses a fast, lightweight draft model to speculate multiple tokens, which the frontier target model verifies in parallel in a single forward pass, accepting matching prefixes and generating identical probability distributions.",
           "explanation": "Speculative decoding uses a fast, lightweight draft model to speculate multiple tokens, which the frontier target model verifies in parallel in a single forward pass, accepting matching prefixes and generating identical probability distributions."
         }
@@ -14230,13 +14410,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the primary role of the Constitutional Self-Critique pass at the conclusion of an autonomous agent mission in ApexLinguist v2?",
           "options": [
-            "To verify that the model's final response adheres strictly to enterprise fiduciary principles, cites verified observation keys, and includes required compliance disclosures",
-            "To reboot the physical server racks and clear the BIOS NVRAM",
-            "To convert all numbers in the response into roman numerals",
-            "To delete the database backups to free up storage space"
+            "Checking output streams deterministically for leaked secret honeypot canary tokens before flushing",
+            "Adding pre-computed refusal steering vectors dynamically inside residual layers during edge decoding",
+            "Verifying claims stay grounded in observed evidence, obey principles, and carry required notices",
+            "Running MinHash 13-gram matching across emitted answers to prevent unintended copyright memorization"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 2,
+          "answerIndex": 2,
           "why": "The constitutional self-critique pass acts as an automated final quality gate, ensuring that the agent's completed synthesis satisfies ethical, legal, and fiduciary compliance standards before presentation to human decision-makers.",
           "explanation": "The constitutional self-critique pass acts as an automated final quality gate, ensuring that the agent's completed synthesis satisfies ethical, legal, and fiduciary compliance standards before presentation to human decision-makers."
         }
@@ -14261,13 +14441,13 @@ export const NLP_PYTHON_LONG_LESSONS: LongLesson[] = [
         "check": {
           "question": "What is the ultimate significance of the Cryptographic Graduation Seal in the ApexLinguist v2 Boardroom Defense?",
           "options": [
-            "It mathematically and immutably binds the architecture specifications, multi-turn benchmarks, safety certifications, and platform scope across all 37 courses and 2,220 days into an unfalsifiable cryptographic proof of completion",
-            "It converts the entire codebase into an MP4 video file for social media",
-            "It automatically lowers the fan speed of the server cooling units",
-            "It deletes all git branches and resets the repository to the initial commit"
+            "Certifying automated 13-gram benchmark decontamination cleanly across synthetic pre-training dumps",
+            "Cryptographically binding architecture specs, evals, safety proofs, and 37-course scope cleanly",
+            "Locking deployed INT4 AWQ checkpoint weights against runtime prompt injection weight updates",
+            "Tracking OpenTelemetry P99 tail latency SLAs continuously across distributed inference nodes"
           ],
-          "answer": 0,
-          "answerIndex": 0,
+          "answer": 1,
+          "answerIndex": 1,
           "why": "The cryptographic graduation seal generates a tamper-evident SHA-256 hash linking the complete architectural benchmarks, safety audits, and completion status of all 37 courses and 2,220 days into an irrefutable proof of achievement.",
           "explanation": "The cryptographic graduation seal generates a tamper-evident SHA-256 hash linking the complete architectural benchmarks, safety audits, and completion status of all 37 courses and 2,220 days into an irrefutable proof of achievement."
         }

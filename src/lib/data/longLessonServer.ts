@@ -64,6 +64,7 @@ function loadCourseArchive(fileKey: string): ReadonlyArray<LongLesson> | null {
 
 export function getLongLessonServer(prefix: string, dayNum: number): LongLesson | null {
   // Option 1 (Primary): Fast on-demand read from precompiled gzip archive
+  // [FIX-STAGE: phase2b-archive-fallback-telemetry] Surface archive/fallback errors clearly without spamming hot hits.
   try {
     const manifest = loadManifest();
     if (manifest) {
@@ -76,8 +77,12 @@ export function getLongLessonServer(prefix: string, dayNum: number): LongLesson 
         }
       }
     }
-  } catch {
-    // Silently fall through to Option 2 fallback
+  } catch (err) {
+    console.warn('[PinIT][Fix:LongLessonServer] Precompiled archive load failed; falling back to TS barrel.', {
+      prefix,
+      dayNum,
+      error: err instanceof Error ? err.message : String(err),
+    });
   }
 
   // Option 2 (Fallback): Direct dynamic require from longLessons.ts if archive was missing, corrupt, or unbuilt
@@ -89,7 +94,12 @@ export function getLongLessonServer(prefix: string, dayNum: number): LongLesson 
         getLongLesson: (p: string, d: number) => LongLesson | null;
       };
       return barrel.getLongLesson(prefix, dayNum);
-    } catch {
+    } catch (err) {
+      console.error('[PinIT][Fix:LongLessonServer] Fallback TS barrel lookup failed.', {
+        prefix,
+        dayNum,
+        error: err instanceof Error ? err.message : String(err),
+      });
       return null;
     }
   }

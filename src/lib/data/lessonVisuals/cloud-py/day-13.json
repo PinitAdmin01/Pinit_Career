@@ -2,100 +2,98 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 13,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Tables, items and keys",
       "codeHash": "57ec6f6bb450712085256151207872239cc6550405dd0834b2a0c88d560363e3",
       "spec": {
-        "template": "table",
-        "title": "DynamoDB table items organized by composite partition and sort keys",
-        "columns": [
-          "partition_key",
-          "order"
+        "template": "sequence",
+        "title": "Tables, items and keys",
+        "actors": [
+          "table",
+          "pk",
+          "start"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Composite keys combine a partition key and sort key to store items.",
-            "rows": [
+            "at": "say1",
+            "caption": "Amazon DynamoDB is a fully managed key-value and document database.",
+            "activeActor": "table",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "user#1"
-                  },
-                  {
-                    "text": "ord-7"
-                  }
-                ],
+                "from": "table",
+                "to": "pk",
+                "label": {
+                  "var": "table",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "pk",
+                "to": "start",
+                "label": {
+                  "var": "pk",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Items sharing the same partition key live together ordered by sort key.",
-            "rows": [
+            "at": "say2",
+            "caption": "A table holds items (like rows).",
+            "activeActor": "pk",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "user#1"
-                  },
-                  {
-                    "text": "ord-7"
-                  }
-                ],
-                "tone": "ok"
+                "from": "table",
+                "to": "pk",
+                "label": {
+                  "var": "table",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "user#1"
-                  },
-                  {
-                    "text": "ord-9"
-                  }
-                ],
+                "from": "pk",
+                "to": "start",
+                "label": {
+                  "var": "pk",
+                  "line": 7,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example queries items across composite keys within a date range.",
-            "rows": [
+            "caption": "The example models a table with a composite key and runs a Query for one.",
+            "activeActor": "start",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "user#1"
-                  },
-                  {
-                    "text": "ord-7"
-                  }
-                ],
-                "tone": "ok"
+                "from": "table",
+                "to": "pk",
+                "label": {
+                  "var": "table",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "user#1"
-                  },
-                  {
-                    "text": "ord-9"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "user#2"
-                  },
-                  {
-                    "text": "ord-10"
-                  }
-                ],
+                "from": "pk",
+                "to": "start",
+                "label": {
+                  "var": "pk",
+                  "line": 7,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -103,72 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "DynamoDB table items organized by composite partition and sort keys",
-        "columns": [
-          "partition_key",
-          "order"
+        "template": "sequence",
+        "title": "Tables, items and keys",
+        "actors": [
+          "table",
+          "pk",
+          "start"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Composite keys combine a partition key and sort key to store items.",
-            "rows": [
+            "at": "say1",
+            "caption": "Amazon DynamoDB is a fully managed key-value and document database.",
+            "messages": [
               {
-                "cells": [
-                  "user#1",
-                  "ord-7"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Items sharing the same partition key live together ordered by sort key.",
-            "rows": [
-              {
-                "cells": [
-                  "user#1",
-                  "ord-7"
-                ],
-                "tone": "ok"
+                "from": "table",
+                "to": "pk",
+                "label": "{'user#1': [['2026-08-30', 'ord-7'], ['…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "user#1",
-                  "ord-9"
-                ],
+                "from": "pk",
+                "to": "start",
+                "label": "'user#1'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "table"
+          },
+          {
+            "at": "say2",
+            "caption": "A table holds items (like rows).",
+            "messages": [
+              {
+                "from": "table",
+                "to": "pk",
+                "label": "{'user#1': [['2026-08-30', 'ord-7'], ['…",
+                "tone": "data"
+              },
+              {
+                "from": "pk",
+                "to": "start",
+                "label": "'user#1'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "pk"
           },
           {
             "at": "say7",
-            "caption": "The example queries items across composite keys within a date range.",
-            "rows": [
+            "caption": "The example models a table with a composite key and runs a Query for one.",
+            "messages": [
               {
-                "cells": [
-                  "user#1",
-                  "ord-7"
-                ],
-                "tone": "ok"
+                "from": "table",
+                "to": "pk",
+                "label": "{'user#1': [['2026-08-30', 'ord-7'], ['…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "user#1",
-                  "ord-9"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "user#2",
-                  "ord-10"
-                ],
+                "from": "pk",
+                "to": "start",
+                "label": "'user#1'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "start"
           }
         ]
       }
@@ -178,40 +174,23 @@
       "codeHash": "23b15a722111b2eded4a829b52bd964aab9a59704dc0aac788029e434a9851ab",
       "spec": {
         "template": "table",
-        "title": "Access pattern alignment evaluating partition key candidate attributes",
+        "title": "Designing keys from access patterns",
         "columns": [
-          "key",
-          "status"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In DynamoDB list your access patterns first and design keys to serve them.",
+            "caption": "In SQL databases you design tables first and write queries later.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "user"
+                    "text": "out 1"
                   },
                   {
-                    "text": "PAID"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Good partition keys feature many distinct values that distribute evenly.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "user"
-                  },
-                  {
-                    "text": "PAID"
+                    "out": 1
                   }
                 ],
                 "tone": "ok"
@@ -219,27 +198,10 @@
               {
                 "cells": [
                   {
-                    "text": "user"
+                    "text": "out 2"
                   },
                   {
-                    "text": "NEW"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example evaluates candidate partition keys based on traffic spread.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "user"
-                  },
-                  {
-                    "text": "PAID"
+                    "out": 2
                   }
                 ],
                 "tone": "ok"
@@ -247,10 +209,88 @@
               {
                 "cells": [
                   {
-                    "text": "user"
+                    "text": "out 3"
                   },
                   {
-                    "text": "NEW"
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "An access pattern is a sentence such as \"get a user's profile\", \"list.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "If you cannot name your access patterns yet, DynamoDB may not be the right.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
                   }
                 ],
                 "tone": "ok"
@@ -261,60 +301,88 @@
       },
       "filled": {
         "template": "table",
-        "title": "Access pattern alignment evaluating partition key candidate attributes",
+        "title": "Designing keys from access patterns",
         "columns": [
-          "key",
-          "status"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In DynamoDB list your access patterns first and design keys to serve them.",
+            "caption": "In SQL databases you design tables first and write queries later.",
             "rows": [
               {
                 "cells": [
-                  "user",
-                  "PAID"
+                  "out 1",
+                  "user     distinct  50  busiest value gets 2% of traffic"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "country  distinct   2  busiest value gets 90% of traffic"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "status   distinct   2  busiest value gets 75% of traffic"
                 ],
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Good partition keys feature many distinct values that distribute evenly.",
+            "at": "say2",
+            "caption": "An access pattern is a sentence such as \"get a user's profile\", \"list.",
             "rows": [
               {
                 "cells": [
-                  "user",
-                  "PAID"
+                  "out 1",
+                  "user     distinct  50  busiest value gets 2% of traffic"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "user",
-                  "NEW"
+                  "out 2",
+                  "country  distinct   2  busiest value gets 90% of traffic"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "status   distinct   2  busiest value gets 75% of traffic"
                 ],
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example evaluates candidate partition keys based on traffic spread.",
+            "at": "say7",
+            "caption": "If you cannot name your access patterns yet, DynamoDB may not be the right.",
             "rows": [
               {
                 "cells": [
-                  "user",
-                  "PAID"
+                  "out 1",
+                  "user     distinct  50  busiest value gets 2% of traffic"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "user",
-                  "NEW"
+                  "out 2",
+                  "country  distinct   2  busiest value gets 90% of traffic"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "status   distinct   2  busiest value gets 75% of traffic"
                 ],
                 "tone": "ok"
               }
@@ -327,82 +395,91 @@
       "partTitle": "Hot partitions",
       "codeHash": "a1d765a19d567f393fe6bc20ba1beea9125f54bc2a0bd04368298c17050d5acd",
       "spec": {
-        "template": "table",
-        "title": "Hot partition detection and write sharding mitigation strategies",
-        "columns": [
-          "pattern",
-          "impact"
+        "template": "sequence",
+        "title": "Hot partitions",
+        "actors": [
+          "log",
+          "counts",
+          ".0"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When one partition receives excessive traffic it creates a hot partition.",
-            "rows": [
+            "caption": "Each physical partition has limits on reads and writes per second.",
+            "activeActor": "log",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "celeb"
-                  },
-                  {
-                    "text": "hot partition"
-                  }
-                ],
-                "tone": "error"
+                "from": "log",
+                "to": "counts",
+                "label": {
+                  "var": "log",
+                  "line": 3,
+                  "hit": 31
+                },
+                "tone": "data"
+              },
+              {
+                "from": "counts",
+                "to": ".0",
+                "label": {
+                  "var": "counts",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Write sharding appends randomized suffixes to distribute partition writes.",
-            "rows": [
+            "at": "say2",
+            "caption": "A celebrity's profile, a single \"global counter\" item, or a date-based key.",
+            "activeActor": "counts",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "celeb"
-                  },
-                  {
-                    "text": "hot partition"
-                  }
-                ],
-                "tone": "error"
+                "from": "log",
+                "to": "counts",
+                "label": {
+                  "var": "log",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "celeb"
-                  },
-                  {
-                    "text": "write sharding"
-                  }
-                ],
+                "from": "counts",
+                "to": ".0",
+                "label": {
+                  "var": "counts",
+                  "line": 5,
+                  "hit": 33
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example identifies disproportionate key access and verifies sharding.",
-            "rows": [
+            "caption": "The example finds a hot key in a log and shows how sharding spreads it.",
+            "activeActor": ".0",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "celeb"
-                  },
-                  {
-                    "text": "hot partition"
-                  }
-                ],
-                "tone": "error"
+                "from": "log",
+                "to": "counts",
+                "label": {
+                  "var": "log",
+                  "line": 5,
+                  "hit": 33
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "celeb"
-                  },
-                  {
-                    "text": "write sharding"
-                  }
-                ],
+                "from": "counts",
+                "to": ".0",
+                "label": {
+                  "var": "counts",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -410,65 +487,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Hot partition detection and write sharding mitigation strategies",
-        "columns": [
-          "pattern",
-          "impact"
+        "template": "sequence",
+        "title": "Hot partitions",
+        "actors": [
+          "log",
+          "counts",
+          ".0"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When one partition receives excessive traffic it creates a hot partition.",
-            "rows": [
+            "caption": "Each physical partition has limits on reads and writes per second.",
+            "messages": [
               {
-                "cells": [
-                  "celeb",
-                  "hot partition"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Write sharding appends randomized suffixes to distribute partition writes.",
-            "rows": [
-              {
-                "cells": [
-                  "celeb",
-                  "hot partition"
-                ],
-                "tone": "error"
+                "from": "log",
+                "to": "counts",
+                "label": "['celeb', 'celeb', 'celeb', 'celeb', 'c…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "celeb",
-                  "write sharding"
-                ],
+                "from": "counts",
+                "to": ".0",
+                "label": "{'celeb': 70, 'user0': 1, 'user1': 1, '…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "log"
+          },
+          {
+            "at": "say2",
+            "caption": "A celebrity's profile, a single \"global counter\" item, or a date-based key.",
+            "messages": [
+              {
+                "from": "log",
+                "to": "counts",
+                "label": "['celeb', 'celeb', 'celeb', 'celeb', 'c…",
+                "tone": "data"
+              },
+              {
+                "from": "counts",
+                "to": ".0",
+                "label": "{'celeb': 70, 'user0': 1, 'user1': 1, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "counts"
           },
           {
             "at": "say7",
-            "caption": "The example identifies disproportionate key access and verifies sharding.",
-            "rows": [
+            "caption": "The example finds a hot key in a log and shows how sharding spreads it.",
+            "messages": [
               {
-                "cells": [
-                  "celeb",
-                  "hot partition"
-                ],
-                "tone": "error"
+                "from": "log",
+                "to": "counts",
+                "label": "['celeb', 'celeb', 'celeb', 'celeb', 'c…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "celeb",
-                  "write sharding"
-                ],
+                "from": "counts",
+                "to": ".0",
+                "label": "{'celeb': 70, 'user0': 1, 'user1': 1, '…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": ".0"
           }
         ]
       }
@@ -477,165 +559,221 @@
       "partTitle": "Global secondary indexes",
       "codeHash": "ea0c42b79feefc7344fe62920ecea39c3fe4ed9fd332de762c1826502da0b01f",
       "spec": {
-        "template": "table",
-        "title": "Secondary index mapping queries across alternate status attributes",
-        "columns": [
-          "status",
-          "order"
+        "template": "flow",
+        "title": "Global secondary indexes",
+        "nodes": [
+          {
+            "id": "orders",
+            "label": "orders"
+          },
+          {
+            "id": "gsi",
+            "label": "gsi"
+          },
+          {
+            "id": "item",
+            "label": "item"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Your primary key serves your main access pattern.",
+            "values": {
+              "orders": {
+                "var": "orders",
+                "line": 1,
+                "hit": 1
+              },
+              "gsi": {
+                "var": "gsi",
+                "line": 7,
+                "hit": 1
+              },
+              "item": {
+                "var": "item",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "orders": "data",
+              "gsi": "data",
+              "item": "data"
+            },
+            "arrows": [
+              [
+                "orders",
+                "gsi"
+              ],
+              [
+                "gsi",
+                "item"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "A global secondary index organizes data using an alternative partition key.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "SHIPPED"
-                  },
-                  {
-                    "text": "o1"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A global secondary index (GSI) is a second copy of chosen attributes.",
+            "values": {
+              "orders": {
+                "var": "orders",
+                "line": 7,
+                "hit": 1
+              },
+              "gsi": {
+                "var": "gsi",
+                "line": 8,
+                "hit": 1
+              },
+              "item": {
+                "var": "item",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "orders": "data",
+              "gsi": "data",
+              "item": "data"
+            },
+            "arrows": [
+              [
+                "orders",
+                "gsi"
+              ],
+              [
+                "gsi",
+                "item"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "DynamoDB automatically synchronizes secondary indexes during table writes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "SHIPPED"
-                  },
-                  {
-                    "text": "o1"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Add indexes for real access patterns only.",
+            "values": {
+              "orders": {
+                "var": "orders",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "PENDING"
-                  },
-                  {
-                    "text": "o2"
-                  }
-                ],
-                "tone": "data"
+              "gsi": {
+                "var": "gsi",
+                "line": 9,
+                "hit": 1
+              },
+              "item": {
+                "var": "item",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example builds a secondary index by status and queries matching orders.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "SHIPPED"
-                  },
-                  {
-                    "text": "o1"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "PENDING"
-                  },
-                  {
-                    "text": "o2"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "PENDING"
-                  },
-                  {
-                    "text": "o3"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "orders": "ok",
+              "gsi": "ok",
+              "item": "ok"
+            },
+            "arrows": [
+              [
+                "orders",
+                "gsi"
+              ],
+              [
+                "gsi",
+                "item"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Secondary index mapping queries across alternate status attributes",
-        "columns": [
-          "status",
-          "order"
+        "template": "flow",
+        "title": "Global secondary indexes",
+        "nodes": [
+          {
+            "id": "orders",
+            "label": "orders"
+          },
+          {
+            "id": "gsi",
+            "label": "gsi"
+          },
+          {
+            "id": "item",
+            "label": "item"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Your primary key serves your main access pattern.",
+            "values": {
+              "orders": "[{'customer': 'c1', 'order': 'o1', 'sta…",
+              "gsi": "{}",
+              "item": "{'customer': 'c1', 'order': 'o1', 'stat…"
+            },
+            "tones": {
+              "orders": "data",
+              "gsi": "data",
+              "item": "data"
+            },
+            "arrows": [
+              [
+                "orders",
+                "gsi"
+              ],
+              [
+                "gsi",
+                "item"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "A global secondary index organizes data using an alternative partition key.",
-            "rows": [
-              {
-                "cells": [
-                  "SHIPPED",
-                  "o1"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A global secondary index (GSI) is a second copy of chosen attributes.",
+            "values": {
+              "orders": "[{'customer': 'c1', 'order': 'o1', 'sta…",
+              "gsi": "{}",
+              "item": "{'customer': 'c1', 'order': 'o1', 'stat…"
+            },
+            "tones": {
+              "orders": "data",
+              "gsi": "data",
+              "item": "data"
+            },
+            "arrows": [
+              [
+                "orders",
+                "gsi"
+              ],
+              [
+                "gsi",
+                "item"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "DynamoDB automatically synchronizes secondary indexes during table writes.",
-            "rows": [
-              {
-                "cells": [
-                  "SHIPPED",
-                  "o1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "PENDING",
-                  "o2"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example builds a secondary index by status and queries matching orders.",
-            "rows": [
-              {
-                "cells": [
-                  "SHIPPED",
-                  "o1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "PENDING",
-                  "o2"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "PENDING",
-                  "o3"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "Add indexes for real access patterns only.",
+            "values": {
+              "orders": "[{'customer': 'c1', 'order': 'o1', 'sta…",
+              "gsi": "{}",
+              "item": "{'customer': 'c1', 'order': 'o1', 'stat…"
+            },
+            "tones": {
+              "orders": "ok",
+              "gsi": "ok",
+              "item": "ok"
+            },
+            "arrows": [
+              [
+                "orders",
+                "gsi"
+              ],
+              [
+                "gsi",
+                "item"
+              ]
             ]
           }
         ]
@@ -646,110 +784,161 @@
       "codeHash": "3136670291bc4799a1b5d0fd5087bcab8ad1fa42b8f9c5e1318db311bc0779ec",
       "spec": {
         "template": "flow",
-        "title": "Capacity: RCUs and WCUs — Execution Pipeline",
+        "title": "Capacity: RCUs and WCUs",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "size",
+            "label": "size"
           },
           {
-            "id": "proc",
-            "label": "2. Capacity: RCUs and ...",
-            "tappable": true
+            "id": "per_sec",
+            "label": "per_sec"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "strong",
+            "label": "strong"
+          },
+          {
+            "id": "units",
+            "label": "units"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Capacity: RCUs and WCUs [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Capacity: RCUs and ... [D.Pfive.Stwo].",
+            "caption": "DynamoDB has two billing modes.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "size": {
+                "var": "size",
+                "line": 7,
+                "hit": 1
+              },
+              "per_sec": {
+                "var": "per_sec",
+                "line": 7,
+                "hit": 1
+              },
+              "strong": {
+                "var": "strong",
+                "line": 7,
+                "hit": 1
+              },
+              "units": {
+                "var": "units",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "size": "data",
+              "per_sec": "data",
+              "strong": "data",
+              "units": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "size",
+                "per_sec"
               ],
               [
-                "proc",
-                "out"
+                "per_sec",
+                "strong"
+              ],
+              [
+                "strong",
+                "units"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "One read capacity unit (RCU) is one strongly consistent read per second.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "size": {
+                "var": "size",
+                "line": 4,
+                "hit": 1
+              },
+              "per_sec": {
+                "var": "per_sec",
+                "line": 4,
+                "hit": 1
+              },
+              "strong": {
+                "var": "strong",
+                "line": 4,
+                "hit": 1
+              },
+              "units": {
+                "var": "units",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "size": "data",
+              "per_sec": "data",
+              "strong": "data",
+              "units": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "size",
+                "per_sec"
+              ],
+              [
+                "per_sec",
+                "strong"
+              ],
+              [
+                "strong",
+                "units"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Capacity: RCUs and WCUs [D.Pfive.Sfour].",
+            "at": "say7",
+            "caption": "The example prices reads for a few item sizes and consistency choices.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "size": {
+                "var": "size",
+                "line": 5,
+                "hit": 1
+              },
+              "per_sec": {
+                "var": "per_sec",
+                "line": 5,
+                "hit": 1
+              },
+              "strong": {
+                "var": "strong",
+                "line": 5,
+                "hit": 1
+              },
+              "units": {
+                "var": "units",
+                "line": 4,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "size": "ok",
+              "per_sec": "ok",
+              "strong": "ok",
+              "units": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "size",
+                "per_sec"
               ],
               [
-                "proc",
-                "out"
+                "per_sec",
+                "strong"
+              ],
+              [
+                "strong",
+                "units"
               ]
             ]
           }
@@ -757,110 +946,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Capacity: RCUs and WCUs — Execution Pipeline",
+        "title": "Capacity: RCUs and WCUs",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "size",
+            "label": "size"
           },
           {
-            "id": "proc",
-            "label": "2. Capacity: RCUs and ...",
-            "tappable": true
+            "id": "per_sec",
+            "label": "per_sec"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "strong",
+            "label": "strong"
+          },
+          {
+            "id": "units",
+            "label": "units"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Capacity: RCUs and WCUs [D13.P5.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Capacity: RCUs and ... [D13.P5.S2].",
+            "caption": "DynamoDB has two billing modes.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "size": "1000",
+              "per_sec": "100",
+              "strong": "True",
+              "units": "100"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "size": "data",
+              "per_sec": "data",
+              "strong": "data",
+              "units": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "size",
+                "per_sec"
               ],
               [
-                "proc",
-                "out"
+                "per_sec",
+                "strong"
+              ],
+              [
+                "strong",
+                "units"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P5.S3].",
+            "at": "say2",
+            "caption": "One read capacity unit (RCU) is one strongly consistent read per second.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "size": "1000",
+              "per_sec": "100",
+              "strong": "True",
+              "units": "100"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "size": "data",
+              "per_sec": "data",
+              "strong": "data",
+              "units": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "size",
+                "per_sec"
+              ],
+              [
+                "per_sec",
+                "strong"
+              ],
+              [
+                "strong",
+                "units"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Capacity: RCUs and WCUs [D13.P5.S4].",
+            "at": "say7",
+            "caption": "The example prices reads for a few item sizes and consistency choices.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "size": "1000",
+              "per_sec": "100",
+              "strong": "True",
+              "units": "100"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "size": "ok",
+              "per_sec": "ok",
+              "strong": "ok",
+              "units": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "size",
+                "per_sec"
               ],
               [
-                "proc",
-                "out"
+                "per_sec",
+                "strong"
+              ],
+              [
+                "strong",
+                "units"
               ]
             ]
           }
@@ -872,110 +1064,127 @@
       "codeHash": "d10ed24bb072bb0a3e9c8476e7a3cb0ac7b80faa4741940cc0a9962e55a452fe",
       "spec": {
         "template": "flow",
-        "title": "Practice time: hot keys and capacity — Execution Pipeline",
+        "title": "Practice time: hot keys and capacity",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "size",
+            "label": "size"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: hot ...",
-            "tappable": true
+            "id": "per_sec",
+            "label": "per_sec"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "chunks",
+            "label": "chunks"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: hot keys and capacity.",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: hot ... [D.Psix.Stwo].",
+            "caption": "Return [] for an empty log first, then count with Counter and keep keys.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "size": {
+                "var": "size",
+                "line": 2,
+                "hit": 1
+              },
+              "per_sec": {
+                "var": "per_sec",
+                "line": 2,
+                "hit": 1
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "size": "data",
+              "per_sec": "data",
+              "chunks": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "size",
+                "per_sec"
               ],
               [
-                "proc",
-                "out"
+                "per_sec",
+                "chunks"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Sorting the result makes the output predictable, which is what the checks.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "size": {
+                "var": "size",
+                "line": 3,
+                "hit": 1
+              },
+              "per_sec": {
+                "var": "per_sec",
+                "line": 3,
+                "hit": 1
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "size": "data",
+              "per_sec": "data",
+              "chunks": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "size",
+                "per_sec"
+              ],
+              [
+                "per_sec",
+                "chunks"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: hot keys and capac.",
+            "at": "say7",
+            "caption": "The example shows the effect of the two roundings.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "size": {
+                "var": "size",
+                "line": 4,
+                "hit": 1
+              },
+              "per_sec": {
+                "var": "per_sec",
+                "line": 4,
+                "hit": 1
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "size": "ok",
+              "per_sec": "ok",
+              "chunks": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "size",
+                "per_sec"
               ],
               [
-                "proc",
-                "out"
+                "per_sec",
+                "chunks"
               ]
             ]
           }
@@ -983,110 +1192,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: hot keys and capacity — Execution Pipeline",
+        "title": "Practice time: hot keys and capacity",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "size",
+            "label": "size"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: hot ...",
-            "tappable": true
+            "id": "per_sec",
+            "label": "per_sec"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "chunks",
+            "label": "chunks"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: hot keys and capacity [D13.P6.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: hot ... [D13.P6.S2].",
+            "caption": "Return [] for an empty log first, then count with Counter and keep keys.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "size": "1000",
+              "per_sec": "3",
+              "chunks": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "size": "data",
+              "per_sec": "data",
+              "chunks": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "size",
+                "per_sec"
               ],
               [
-                "proc",
-                "out"
+                "per_sec",
+                "chunks"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P6.S3].",
+            "at": "say2",
+            "caption": "Sorting the result makes the output predictable, which is what the checks.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "size": "1000",
+              "per_sec": "3",
+              "chunks": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "size": "data",
+              "per_sec": "data",
+              "chunks": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "size",
+                "per_sec"
+              ],
+              [
+                "per_sec",
+                "chunks"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: hot keys and capac.. [D13.P6.S4].",
+            "at": "say7",
+            "caption": "The example shows the effect of the two roundings.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "size": "1000",
+              "per_sec": "3",
+              "chunks": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "size": "ok",
+              "per_sec": "ok",
+              "chunks": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "size",
+                "per_sec"
               ],
               [
-                "proc",
-                "out"
+                "per_sec",
+                "chunks"
               ]
             ]
           }

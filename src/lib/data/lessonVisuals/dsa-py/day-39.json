@@ -2,87 +2,118 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 39,
-  "promptSha": "78592e34718fd8c9c313dca3bdd22880d52fbff625fedd6910487c543899c290",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Dynamic Programming Over Intermediate Vertices: The k-Layer Recurrence",
       "codeHash": "025e27595b0264f7ad21248ec2f39ed8c411c00a6d27c3ed624e830a9230e9ab",
       "spec": {
-        "template": "table",
-        "title": "Dynamic Programming Over Intermediate Vertices",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Dynamic Programming Over Intermediate Vertices: The k-Layer Recu",
         "steps": [
           {
             "at": "say1",
-            "caption": "The distributed design establishes the core structural invariant.",
-            "rows": [
+            "caption": "When a distributed routing engine or logistics planner needs shortest.",
+            "items": {
+              "var": "row",
+              "line": 22,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Dynamic"
-                  },
-                  {
-                    "text": "Programming"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The dynamic step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Floyd-Warshall computes the complete All-Pairs Shortest Path (APSP).",
+            "items": {
+              "var": "row",
+              "line": 22,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Intermediate"
-                  },
-                  {
-                    "text": "Vertices"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Furthermore, updating `dist[i][j]` in place works safely in a single 2D.",
+            "items": {
+              "var": "row",
+              "line": 22,
+              "hit": 5
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Dynamic Programming Over Intermediate Vertices",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Dynamic Programming Over Intermediate Vertices: The k-Layer Recu",
         "steps": [
           {
             "at": "say1",
-            "caption": "The distributed design establishes the core structural invariant.",
-            "rows": [
+            "caption": "When a distributed routing engine or logistics planner needs shortest.",
+            "items": [
+              "0",
+              "3",
+              "5",
+              "6"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Dynamic",
-                  "Programming"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The dynamic step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Floyd-Warshall computes the complete All-Pairs Shortest Path (APSP).",
+            "items": [
+              "3",
+              "6",
+              "0",
+              "1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Intermediate",
-                  "Vertices"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Furthermore, updating `dist[i][j]` in place works safely in a single 2D.",
+            "items": [
+              "2",
+              "5",
+              "7",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,80 +124,108 @@
       "partTitle": "All-Pairs Path Reconstruction via Next-Hop Forwarding Tables",
       "codeHash": "c0c7c18bd60b44a77fd0995ee4e5ecbf927a10ce9105fea26db6f016f95c7255",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "All-Pairs Path Reconstruction via Next-Hop Forwarding Tables",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The knowing design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Trace how knowing updates routing during execution.",
+            "items": {
+              "var": "path",
+              "line": 32,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Pairs"
-                  },
-                  {
-                    "text": "Path"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The initialization step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Rather than storing bulky full paths in every cell which would blow up.",
+            "items": {
+              "var": "path",
+              "line": 30,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Reconstruction"
-                  },
-                  {
-                    "text": "Next"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Trace `reconstruct_path(u, v)` in the code below to verify both distance.",
+            "items": {
+              "var": "path",
+              "line": 30,
+              "hit": 4
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "All-Pairs Path Reconstruction via Next-Hop Forwarding Tables",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The knowing design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Trace how knowing updates routing during execution.",
+            "items": [
+              "0",
+              "1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Pairs",
-                  "Path"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The initialization step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Rather than storing bulky full paths in every cell which would blow up.",
+            "items": [
+              "0",
+              "1",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Reconstruction",
-                  "Next"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Trace `reconstruct_path(u, v)` in the code below to verify both distance.",
+            "items": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,43 +236,131 @@
       "partTitle": "Detecting Negative Cycles Globally & Disconnected Pairs Safely",
       "codeHash": "8a6b6a7a269882ec2e73f4889204d8f526278d5bb769e6c9ac5093ce8cfea867",
       "spec": {
-        "template": "table",
-        "title": "Detecting Negative Cycles Globally & Disconnected Pairs",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Detecting Negative Cycles Globally & Disconnected Pairs Safely",
         "steps": [
           {
             "at": "say1",
-            "caption": "The negative design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Negative cycles corrupt shortest paths not only at the cycle vertices.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Detecting"
-                  },
-                  {
-                    "text": "Negative"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "First, observe how Floyd-Warshall diagnoses whether any negative cycle.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Cycles"
-                  },
-                  {
-                    "text": "Globally"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Look below at how a clean negative-infinity propagation pass after.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 8,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +368,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Detecting Negative Cycles Globally & Disconnected Pairs",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Detecting Negative Cycles Globally & Disconnected Pairs Safely",
         "steps": [
           {
             "at": "say1",
-            "caption": "The negative design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Negative cycles corrupt shortest paths not only at the cycle vertices.",
+            "bars": [
               {
-                "cells": [
-                  "Detecting",
-                  "Negative"
-                ],
+                "label": "n",
+                "value": 6,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "u",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "First, observe how Floyd-Warshall diagnoses whether any negative cycle.",
+            "bars": [
               {
-                "cells": [
-                  "Cycles",
-                  "Globally"
-                ],
+                "label": "n",
+                "value": 6,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Look below at how a clean negative-infinity propagation pass after.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 6,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 2,
                 "tone": "ok"
               }
             ]
@@ -261,80 +456,114 @@
       "partTitle": "Warshall Boolean Transitive Closure & Minimax Bottleneck Path Semirings",
       "codeHash": "2230c16d06a5a93a2e7bb303aa4139fb4a1f5b6fada32c0b7123797b86a0cde2",
       "spec": {
-        "template": "table",
-        "title": "Warshall Boolean Transitive Closure & Minimax Bottleneck",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Warshall Boolean Transitive Closure & Minimax Bottleneck Path Se",
         "steps": [
           {
             "at": "say1",
-            "caption": "The floyd design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Notice that Floyd-Warshall is not tied exclusively to `(min, +)` arithmetic.",
+            "items": {
+              "var": "reach",
+              "line": 2,
+              "hit": 6
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Warshall"
-                  },
-                  {
-                    "text": "Boolean"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The another step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "`reach[i][j] = reach[i][j] or (reach[i][k] and reach[k][j])`.",
+            "items": {
+              "var": "reach",
+              "line": 4,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Transitive"
-                  },
-                  {
-                    "text": "Closure"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Compare Boolean Warshall reachability, bitset Warshall speedup,.",
+            "items": {
+              "var": "reach",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Warshall Boolean Transitive Closure & Minimax Bottleneck",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Warshall Boolean Transitive Closure & Minimax Bottleneck Path Se",
         "steps": [
           {
             "at": "say1",
-            "caption": "The floyd design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Notice that Floyd-Warshall is not tied exclusively to `(min, +)` arithmetic.",
+            "items": [
+              "1",
+              "2",
+              "4",
+              "8",
+              "16"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Warshall",
-                  "Boolean"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The another step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "`reach[i][j] = reach[i][j] or (reach[i][k] and reach[k][j])`.",
+            "items": [
+              "3",
+              "6",
+              "12",
+              "8",
+              "16"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Transitive",
-                  "Closure"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Compare Boolean Warshall reachability, bitset Warshall speedup,.",
+            "items": [
+              "19",
+              "6",
+              "12",
+              "8",
+              "16"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -345,80 +574,117 @@
       "partTitle": "Production Application: Multi-Region Cloud Mesh Latency & Bottleneck Matrix",
       "codeHash": "56d87742e6b7952a8437038a52c5bcd252c2a58e046227635b7abf8de5d190f2",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Production Application: Multi-Region Cloud Mesh Latency & Bottle",
         "steps": [
           {
             "at": "say1",
-            "caption": "The combine design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us combine all-pairs Floyd-Warshall distances, next-hop forwarding.",
+            "items": {
+              "var": "regions",
+              "line": 50,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The engine step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Distributed databases such as Spanner or CockroachDB frequently choose.",
+            "items": {
+              "var": "regions",
+              "line": 4,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Multi"
-                  },
-                  {
-                    "text": "Region"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Trace how region updates cloud during execution.",
+            "items": {
+              "var": "regions",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Production Application: Multi-Region Cloud Mesh Latency & Bottle",
         "steps": [
           {
             "at": "say1",
-            "caption": "The combine design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us combine all-pairs Floyd-Warshall distances, next-hop forwarding.",
+            "items": [
+              "'us-east'",
+              "'us-west'",
+              "'eu-west'",
+              "'eu-cent'",
+              "'ap-south'",
+              "'ap-east'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The engine step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Distributed databases such as Spanner or CockroachDB frequently choose.",
+            "items": [
+              "'us-east'",
+              "'us-west'",
+              "'eu-west'",
+              "'eu-cent'",
+              "'ap-south'",
+              "'ap-east'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Multi",
-                  "Region"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Trace how region updates cloud during execution.",
+            "items": [
+              "'us-east'",
+              "'us-west'",
+              "'eu-west'",
+              "'eu-cent'",
+              "'ap-south'",
+              "'ap-east'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

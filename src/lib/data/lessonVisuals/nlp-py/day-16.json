@@ -2,255 +2,114 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 16,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Sequence in, sequence out",
       "codeHash": "f9c737bd9c9f2f087e11f711922b361bdb3ba470aa21d9d2e916dfd10c72e82d",
       "spec": {
-        "template": "table",
-        "title": "Sequence to sequence encoder decoder mapping architecture",
-        "columns": [
-          "source",
-          "target"
-        ],
+        "template": "cells",
+        "title": "Sequence in, sequence out",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Many tasks turn one sequence into another of a different length.",
+            "items": {
+              "var": "source",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "The sequence to sequence architecture coordinates dual networks.",
-            "rows": [
+            "caption": "Trace how sequence updates sequence during execution.",
+            "items": {
+              "var": "source",
+              "line": 5,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "target"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The encoder network compresses variable inputs into a fixed context vector.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "target"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "pairs"
-                  },
-                  {
-                    "text": "split"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The decoder iteratively predicts output tokens conditioned on context.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "target"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "pairs"
-                  },
-                  {
-                    "text": "split"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Encoder and decoder models train jointly end to end across paired sequences.",
-            "rows": [
+            "at": "say7",
+            "caption": "Seq2seq powered the first neural machine translation systems, including.",
+            "items": {
+              "var": "source",
+              "line": 2,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "target"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "pairs"
-                  },
-                  {
-                    "text": "split"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "len"
-                  },
-                  {
-                    "text": "target"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Sequence to sequence encoder decoder mapping architecture",
-        "columns": [
-          "source",
-          "target"
-        ],
+        "template": "cells",
+        "title": "Sequence in, sequence out",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Many tasks turn one sequence into another of a different length.",
+            "items": [
+              "'i'",
+              "'am'",
+              "'happy'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "The sequence to sequence architecture coordinates dual networks.",
-            "rows": [
+            "caption": "Trace how sequence updates sequence during execution.",
+            "items": [
+              "'thank'",
+              "'you'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "source",
-                  "target"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The encoder network compresses variable inputs into a fixed context vector.",
-            "rows": [
-              {
-                "cells": [
-                  "source",
-                  "target"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pairs",
-                  "split"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The decoder iteratively predicts output tokens conditioned on context.",
-            "rows": [
-              {
-                "cells": [
-                  "source",
-                  "target"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pairs",
-                  "split"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "source",
-                  "print"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Encoder and decoder models train jointly end to end across paired sequences.",
-            "rows": [
+            "at": "say7",
+            "caption": "Seq2seq powered the first neural machine translation systems, including.",
+            "items": [
+              "'good'",
+              "'morning'",
+              "'friend'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "source",
-                  "target"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pairs",
-                  "split"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "source",
-                  "print"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "len",
-                  "target"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -261,143 +120,77 @@
       "partTitle": "The context vector bottleneck",
       "codeHash": "70275a85f0fd4ca06f5890402d5b0fa105b5e705123c78fb416a9d0d26bd8133",
       "spec": {
-        "template": "table",
-        "title": "Context vector compression constraint and memory bottleneck",
-        "columns": [
-          "words",
-          "kept"
-        ],
+        "template": "bars",
+        "title": "The context vector bottleneck",
         "steps": [
           {
             "at": "say1",
-            "caption": "A fixed length vector forces arbitrary sentence sizes into finite capacity.",
-            "rows": [
+            "caption": "In the basic design, the whole input sentence must fit into one fixed-size.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "kept"
-                  }
-                ],
-                "tone": "ok"
+                "label": "SLOTS",
+                "value": {
+                  "var": "SLOTS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "lost",
+                "value": {
+                  "var": "lost",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Information bottlenecks cause performance degradation for extended sentences.",
-            "rows": [
+            "caption": "That is a bottleneck.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "kept"
-                  }
-                ],
+                "label": "SLOTS",
+                "value": {
+                  "var": "SLOTS",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "sentence"
-                  },
-                  {
-                    "text": "lost"
-                  }
-                ],
-                "tone": "idle"
+                "label": "lost",
+                "value": {
+                  "var": "lost",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Reversing input sentence tokens helped early seqtwoseq models align.",
-            "rows": [
+            "at": "say7",
+            "caption": "Bottlenecks like this are a recurring theme in engineering.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "kept"
-                  }
-                ],
+                "label": "SLOTS",
+                "value": {
+                  "var": "SLOTS",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "sentence"
-                  },
-                  {
-                    "text": "lost"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "SLOTS"
-                  },
-                  {
-                    "text": "split"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Attention mechanisms resolve bottleneck constraints by viewing all states.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "kept"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sentence"
-                  },
-                  {
-                    "text": "lost"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "SLOTS"
-                  },
-                  {
-                    "text": "split"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "len"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
+                "label": "lost",
+                "value": {
+                  "var": "lost",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -405,103 +198,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Context vector compression constraint and memory bottleneck",
-        "columns": [
-          "words",
-          "kept"
-        ],
+        "template": "bars",
+        "title": "The context vector bottleneck",
         "steps": [
           {
             "at": "say1",
-            "caption": "A fixed length vector forces arbitrary sentence sizes into finite capacity.",
-            "rows": [
+            "caption": "In the basic design, the whole input sentence must fit into one fixed-size.",
+            "bars": [
               {
-                "cells": [
-                  "words",
-                  "kept"
-                ],
-                "tone": "ok"
+                "label": "SLOTS",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "lost",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Information bottlenecks cause performance degradation for extended sentences.",
-            "rows": [
+            "caption": "That is a bottleneck.",
+            "bars": [
               {
-                "cells": [
-                  "words",
-                  "kept"
-                ],
+                "label": "SLOTS",
+                "value": 4,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "sentence",
-                  "lost"
-                ],
-                "tone": "idle"
+                "label": "lost",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Reversing input sentence tokens helped early seq2seq models align context.",
-            "rows": [
+            "at": "say7",
+            "caption": "Bottlenecks like this are a recurring theme in engineering.",
+            "bars": [
               {
-                "cells": [
-                  "words",
-                  "kept"
-                ],
+                "label": "SLOTS",
+                "value": 4,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "sentence",
-                  "lost"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "SLOTS",
-                  "split"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Attention mechanisms resolve bottleneck constraints by viewing all states.",
-            "rows": [
-              {
-                "cells": [
-                  "words",
-                  "kept"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sentence",
-                  "lost"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "SLOTS",
-                  "split"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "len",
-                  "words"
-                ],
+                "label": "lost",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -513,249 +256,221 @@
       "partTitle": "Decoding one token at a time",
       "codeHash": "694a33cd3aa281c1a98e29fe927eb4b5600dee6a281fa15be9fc7a1238db546b",
       "spec": {
-        "template": "table",
-        "title": "Autoregressive token generation and beam search hypotheses",
-        "columns": [
-          "word",
-          "output"
+        "template": "flow",
+        "title": "Decoding one token at a time",
+        "nodes": [
+          {
+            "id": "next_word",
+            "label": "next_word"
+          },
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "output",
+            "label": "output"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Autoregressive generation predicts each output token conditioned on past steps.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "word"
-                  },
-                  {
-                    "text": "output"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The decoder generates autoregressively.",
+            "values": {
+              "next_word": {
+                "var": "next_word",
+                "line": 1,
+                "hit": 1
+              },
+              "word": {
+                "var": "word",
+                "line": 7,
+                "hit": 1
+              },
+              "output": {
+                "var": "output",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "next_word": "data",
+              "word": "data",
+              "output": "data"
+            },
+            "arrows": [
+              [
+                "next_word",
+                "word"
+              ],
+              [
+                "word",
+                "output"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Greedy decoding selects the individual highest probability token.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "word"
-                  },
-                  {
-                    "text": "output"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Trace how step updates receives during execution.",
+            "values": {
+              "next_word": {
+                "var": "next_word",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "next_word"
-                  },
-                  {
-                    "text": "word"
-                  }
-                ],
-                "tone": "ok"
+              "word": {
+                "var": "word",
+                "line": 8,
+                "hit": 1
+              },
+              "output": {
+                "var": "output",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "next_word": "data",
+              "word": "data",
+              "output": "data"
+            },
+            "arrows": [
+              [
+                "next_word",
+                "word"
+              ],
+              [
+                "word",
+                "output"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Beam search tracks multiple candidate partial hypotheses concurrently.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "word"
-                  },
-                  {
-                    "text": "output"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Trace how style updates models during execution.",
+            "values": {
+              "next_word": {
+                "var": "next_word",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "next_word"
-                  },
-                  {
-                    "text": "word"
-                  }
-                ],
-                "tone": "ok"
+              "word": {
+                "var": "word",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "output"
-                  },
-                  {
-                    "text": "next_word"
-                  }
-                ],
-                "tone": "data"
+              "output": {
+                "var": "output",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Decoding halts when encountering special end boundary tokens.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "word"
-                  },
-                  {
-                    "text": "output"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "next_word"
-                  },
-                  {
-                    "text": "word"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "output"
-                  },
-                  {
-                    "text": "next_word"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "word"
-                  },
-                  {
-                    "text": "output"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "next_word": "ok",
+              "word": "ok",
+              "output": "ok"
+            },
+            "arrows": [
+              [
+                "next_word",
+                "word"
+              ],
+              [
+                "word",
+                "output"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Autoregressive token generation and beam search hypotheses",
-        "columns": [
-          "word",
-          "output"
+        "template": "flow",
+        "title": "Decoding one token at a time",
+        "nodes": [
+          {
+            "id": "next_word",
+            "label": "next_word"
+          },
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "output",
+            "label": "output"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Autoregressive generation predicts each output token conditioned on past steps.",
-            "rows": [
-              {
-                "cells": [
-                  "word",
-                  "output"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The decoder generates autoregressively.",
+            "values": {
+              "next_word": "{'<s>': {'je': 0.7, 'moi': 0.3}, 'je': …",
+              "word": "'<s>'",
+              "output": "[]"
+            },
+            "tones": {
+              "next_word": "data",
+              "word": "data",
+              "output": "data"
+            },
+            "arrows": [
+              [
+                "next_word",
+                "word"
+              ],
+              [
+                "word",
+                "output"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Greedy decoding selects the individual highest probability token.",
-            "rows": [
-              {
-                "cells": [
-                  "word",
-                  "output"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "next_word",
-                  "word"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Trace how step updates receives during execution.",
+            "values": {
+              "next_word": "{'<s>': {'je': 0.7, 'moi': 0.3}, 'je': …",
+              "word": "'<s>'",
+              "output": "[]"
+            },
+            "tones": {
+              "next_word": "data",
+              "word": "data",
+              "output": "data"
+            },
+            "arrows": [
+              [
+                "next_word",
+                "word"
+              ],
+              [
+                "word",
+                "output"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Beam search tracks multiple candidate partial hypotheses concurrently.",
-            "rows": [
-              {
-                "cells": [
-                  "word",
-                  "output"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "next_word",
-                  "word"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "output",
-                  "next_word"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Decoding halts when encountering special end boundary tokens.",
-            "rows": [
-              {
-                "cells": [
-                  "word",
-                  "output"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "next_word",
-                  "word"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "output",
-                  "next_word"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "word",
-                  "output"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Trace how style updates models during execution.",
+            "values": {
+              "next_word": "{'<s>': {'je': 0.7, 'moi': 0.3}, 'je': …",
+              "word": "'je'",
+              "output": "[]"
+            },
+            "tones": {
+              "next_word": "ok",
+              "word": "ok",
+              "output": "ok"
+            },
+            "arrows": [
+              [
+                "next_word",
+                "word"
+              ],
+              [
+                "word",
+                "output"
+              ]
             ]
           }
         ]
@@ -765,248 +480,111 @@
       "partTitle": "Teacher forcing",
       "codeHash": "141ab4fe51491c1d3b0d20d698c3fe701581a1d1c6a4cccb90bf963a0f1124c0",
       "spec": {
-        "template": "table",
-        "title": "Teacher forcing training vs free running sequential inference",
-        "columns": [
-          "targets",
-          "predictions"
-        ],
+        "template": "cells",
+        "title": "Teacher forcing",
         "steps": [
           {
+            "at": "say1",
+            "caption": "During training we know the correct output.",
+            "items": {
+              "var": "targets",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Teacher forcing inputs the actual ground truth token at training steps.",
-            "rows": [
+            "caption": "Teacher forcing feeds the correct previous word.",
+            "items": {
+              "var": "targets",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "targets"
-                  },
-                  {
-                    "text": "predictions"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Free running generation evaluates decoding using predicted tokens.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "targets"
-                  },
-                  {
-                    "text": "predictions"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "decoder_inputs"
-                  },
-                  {
-                    "text": "teacher"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The decoder inputs routine prefixes start symbols to the input sequence.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "targets"
-                  },
-                  {
-                    "text": "predictions"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "decoder_inputs"
-                  },
-                  {
-                    "text": "teacher"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "list"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Pure teacher forcing induces exposure bias when facing uncorrected errors.",
-            "rows": [
+            "at": "say7",
+            "caption": "Tomorrow's scheduled sampling blends the two.",
+            "items": {
+              "var": "targets",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "targets"
-                  },
-                  {
-                    "text": "predictions"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "decoder_inputs"
-                  },
-                  {
-                    "text": "teacher"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "list"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "len"
-                  },
-                  {
-                    "text": "targets"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Teacher forcing training vs free running sequential inference",
-        "columns": [
-          "targets",
-          "predictions"
-        ],
+        "template": "cells",
+        "title": "Teacher forcing",
         "steps": [
           {
+            "at": "say1",
+            "caption": "During training we know the correct output.",
+            "items": [
+              "'je'",
+              "'suis'",
+              "'très'",
+              "'content'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Teacher forcing inputs the actual ground truth token at training steps.",
-            "rows": [
+            "caption": "Teacher forcing feeds the correct previous word.",
+            "items": [
+              "'je'",
+              "'suis'",
+              "'très'",
+              "'content'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "targets",
-                  "predictions"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Free running generation evaluates decoding using predicted tokens.",
-            "rows": [
-              {
-                "cells": [
-                  "targets",
-                  "predictions"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "decoder_inputs",
-                  "teacher"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The decoder inputs routine prefixes start symbols to the input sequence.",
-            "rows": [
-              {
-                "cells": [
-                  "targets",
-                  "predictions"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "decoder_inputs",
-                  "teacher"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "source",
-                  "list"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Pure teacher forcing induces exposure bias when facing uncorrected errors.",
-            "rows": [
+            "at": "say7",
+            "caption": "Tomorrow's scheduled sampling blends the two.",
+            "items": [
+              "'je'",
+              "'suis'",
+              "'très'",
+              "'content'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "targets",
-                  "predictions"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "decoder_inputs",
-                  "teacher"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "source",
-                  "list"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "len",
-                  "targets"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -1017,223 +595,118 @@
       "partTitle": "Scheduled sampling",
       "codeHash": "dc2cc2d794cc41749ab01df200e65e5de61c8ec41e512a480337f630f6e045d1",
       "spec": {
-        "template": "flow",
-        "title": "Scheduled sampling — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Scheduled sampling",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Scheduled sampling",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Scheduled sampling [Dsixteen.Pfive.Sone].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Scheduled sampling [Dsixteen.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Start training with mostly teacher forcing, then gradually feed the model.",
+            "items": {
+              "var": "schedule",
+              "line": 5,
+              "hit": 7
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The teacher forcing ratio is the probability of using the true word.",
+            "items": {
+              "var": "schedule",
+              "line": 5,
+              "hit": 11
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Scheduled sampling.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Schedules like this, gradually changing a training setting, are common.",
+            "items": {
+              "var": "schedule",
+              "line": 4,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Scheduled sampling — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Scheduled sampling",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Scheduled sampling",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Scheduled sampling [D16.P5.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Scheduled sampling [D16.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Start training with mostly teacher forcing, then gradually feed the model.",
+            "items": [
+              "1",
+              "0.8",
+              "0.6",
+              "0.4",
+              "0.2",
+              "0.1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The teacher forcing ratio is the probability of using the true word.",
+            "items": [
+              "1",
+              "0.8",
+              "0.6",
+              "0.4",
+              "0.2",
+              "0.1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Scheduled sampling [D16.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Schedules like this, gradually changing a training setting, are common.",
+            "items": [
+              "1",
+              "0.9",
+              "0.8",
+              "0.7",
+              "0.6",
+              "0.5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -1243,223 +716,112 @@
       "partTitle": "Practice time: schedules and inputs",
       "codeHash": "061546e791f15d6a14e400a5710e6353255beb002a5c6aa57d6c8f6925869516",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: schedules and inputs — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: sche...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: schedules and inputs",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: schedules and inputs.",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: sche... [Dsixteen.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Teacher_forcing_ratio(epoch, max_epochs, decay=1.",
+            "items": {
+              "var": "targets",
+              "line": 4,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Trace how checks updates epoch during execution.",
+            "items": {
+              "var": "targets",
+              "line": 10,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: schedules and inputs.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Seeding randomness is how researchers make experiments repeatable.",
+            "items": {
+              "var": "targets",
+              "line": 9,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: schedules and inputs — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: sche...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: schedules and inputs",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: schedules and inputs [D16.P6.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: sche... [D16.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Teacher_forcing_ratio(epoch, max_epochs, decay=1.",
+            "items": [
+              "'je'",
+              "'suis'",
+              "'très'",
+              "'content'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates epoch during execution.",
+            "items": [
+              "'je'",
+              "'suis'",
+              "'très'",
+              "'content'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: schedules and inputs [D16.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Seeding randomness is how researchers make experiments repeatable.",
+            "items": [
+              "'je'",
+              "'suis'",
+              "'très'",
+              "'content'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

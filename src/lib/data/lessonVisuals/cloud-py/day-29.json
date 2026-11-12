@@ -2,256 +2,284 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 29,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "RTO and RPO",
       "codeHash": "bb5d7910cd5a2d9e5bbec6014a77ab817d8f1319af3bc1671e9f47b9e895f7f2",
       "spec": {
-        "template": "table",
-        "title": "Recovery Time Objective and Recovery Point Objective metric bounds",
-        "columns": [
-          "rto",
-          "rpo"
+        "template": "flow",
+        "title": "RTO and RPO",
+        "nodes": [
+          {
+            "id": "disaster_at",
+            "label": "disaster_at"
+          },
+          {
+            "id": "rpo",
+            "label": "rpo"
+          },
+          {
+            "id": "rto",
+            "label": "rto"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Disaster recovery starts with two numbers defining downtime and data loss.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rto"
-                  },
-                  {
-                    "text": "rpo"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Two numbers define every disaster recovery plan.",
+            "values": {
+              "disaster_at": {
+                "var": "disaster_at",
+                "line": 1,
+                "hit": 1
+              },
+              "rpo": {
+                "var": "rpo",
+                "line": 2,
+                "hit": 1
+              },
+              "rto": {
+                "var": "rto",
+                "line": 2,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 3,
+                "hit": 2
               }
+            },
+            "tones": {
+              "disaster_at": "data",
+              "rpo": "data",
+              "rto": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "disaster_at",
+                "rpo"
+              ],
+              [
+                "rpo",
+                "rto"
+              ],
+              [
+                "rto",
+                "m"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Recovery Time Objective measures how long users see maintenance pages.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rto"
-                  },
-                  {
-                    "text": "rpo"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Recovery Time Objective (RTO) is how long the service may be down after.",
+            "values": {
+              "disaster_at": {
+                "var": "disaster_at",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "disaster_at"
-                  },
-                  {
-                    "text": "rto"
-                  }
-                ],
-                "tone": "idle"
+              "rpo": {
+                "var": "rpo",
+                "line": 3,
+                "hit": 1
+              },
+              "rto": {
+                "var": "rto",
+                "line": 3,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 3,
+                "hit": 3
               }
+            },
+            "tones": {
+              "disaster_at": "data",
+              "rpo": "data",
+              "rto": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "disaster_at",
+                "rpo"
+              ],
+              [
+                "rpo",
+                "rto"
+              ],
+              [
+                "rto",
+                "m"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Recovery Point Objective measures orders lost before the disaster.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rto"
-                  },
-                  {
-                    "text": "rpo"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Write the targets down and get them agreed.",
+            "values": {
+              "disaster_at": {
+                "var": "disaster_at",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "disaster_at"
-                  },
-                  {
-                    "text": "rto"
-                  }
-                ],
-                "tone": "idle"
+              "rpo": {
+                "var": "rpo",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "disaster_at"
-                  },
-                  {
-                    "text": "rpo"
-                  }
-                ],
-                "tone": "error"
+              "rto": {
+                "var": "rto",
+                "line": 4,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 3,
+                "hit": 4
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Tighter targets require duplicate systems running across another Region.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rto"
-                  },
-                  {
-                    "text": "rpo"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "disaster_at"
-                  },
-                  {
-                    "text": "rto"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "disaster_at"
-                  },
-                  {
-                    "text": "rpo"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "rto"
-                  },
-                  {
-                    "text": "rpo"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "disaster_at": "ok",
+              "rpo": "ok",
+              "rto": "ok",
+              "m": "ok"
+            },
+            "arrows": [
+              [
+                "disaster_at",
+                "rpo"
+              ],
+              [
+                "rpo",
+                "rto"
+              ],
+              [
+                "rto",
+                "m"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Recovery Time Objective and Recovery Point Objective metric bounds",
-        "columns": [
-          "rto",
-          "rpo"
+        "template": "flow",
+        "title": "RTO and RPO",
+        "nodes": [
+          {
+            "id": "disaster_at",
+            "label": "disaster_at"
+          },
+          {
+            "id": "rpo",
+            "label": "rpo"
+          },
+          {
+            "id": "rto",
+            "label": "rto"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Disaster recovery starts with two numbers defining downtime and data loss.",
-            "rows": [
-              {
-                "cells": [
-                  "rto",
-                  "rpo"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Two numbers define every disaster recovery plan.",
+            "values": {
+              "disaster_at": "840",
+              "rpo": "15",
+              "rto": "60",
+              "m": "825"
+            },
+            "tones": {
+              "disaster_at": "data",
+              "rpo": "data",
+              "rto": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "disaster_at",
+                "rpo"
+              ],
+              [
+                "rpo",
+                "rto"
+              ],
+              [
+                "rto",
+                "m"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Recovery Time Objective measures how long users see maintenance pages.",
-            "rows": [
-              {
-                "cells": [
-                  "rto",
-                  "rpo"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "disaster_at",
-                  "rto"
-                ],
-                "tone": "idle"
-              }
+            "caption": "Recovery Time Objective (RTO) is how long the service may be down after.",
+            "values": {
+              "disaster_at": "840",
+              "rpo": "15",
+              "rto": "60",
+              "m": "840"
+            },
+            "tones": {
+              "disaster_at": "data",
+              "rpo": "data",
+              "rto": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "disaster_at",
+                "rpo"
+              ],
+              [
+                "rpo",
+                "rto"
+              ],
+              [
+                "rto",
+                "m"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Recovery Point Objective measures orders lost before the disaster.",
-            "rows": [
-              {
-                "cells": [
-                  "rto",
-                  "rpo"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "disaster_at",
-                  "rto"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "disaster_at",
-                  "rpo"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Tighter targets require duplicate systems running across another Region.",
-            "rows": [
-              {
-                "cells": [
-                  "rto",
-                  "rpo"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "disaster_at",
-                  "rto"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "disaster_at",
-                  "rpo"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "rto",
-                  "rpo"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "Write the targets down and get them agreed.",
+            "values": {
+              "disaster_at": "840",
+              "rpo": "15",
+              "rto": "60",
+              "m": "900"
+            },
+            "tones": {
+              "disaster_at": "ok",
+              "rpo": "ok",
+              "rto": "ok",
+              "m": "ok"
+            },
+            "arrows": [
+              [
+                "disaster_at",
+                "rpo"
+              ],
+              [
+                "rpo",
+                "rto"
+              ],
+              [
+                "rto",
+                "m"
+              ]
             ]
           }
         ]
@@ -261,249 +289,277 @@
       "partTitle": "The four DR strategies",
       "codeHash": "024a85c577eba67b6407d80f93aaabd8235aebd00c3dafd793bc19ec78372604",
       "spec": {
-        "template": "table",
-        "title": "Disaster recovery strategies comparing recovery time and relative cost",
-        "columns": [
-          "strategies",
-          "hours"
+        "template": "flow",
+        "title": "The four DR strategies",
+        "nodes": [
+          {
+            "id": "strategies",
+            "label": "strategies"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "rto",
+            "label": "rto"
+          },
+          {
+            "id": "rpo",
+            "label": "rpo"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "AWS describes four strategies from cheapest to most expensive.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "strategies"
-                  },
-                  {
-                    "text": "hours"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "AWS describes four strategies, from cheapest and slowest to most expensive.",
+            "values": {
+              "strategies": {
+                "var": "strategies",
+                "line": 1,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 8,
+                "hit": 1
+              },
+              "rto": {
+                "var": "rto",
+                "line": 8,
+                "hit": 1
+              },
+              "rpo": {
+                "var": "rpo",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "strategies": "data",
+              "name": "data",
+              "rto": "data",
+              "rpo": "data"
+            },
+            "arrows": [
+              [
+                "strategies",
+                "name"
+              ],
+              [
+                "name",
+                "rto"
+              ],
+              [
+                "rto",
+                "rpo"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Backup and restore rebuilds infrastructure from code with hours RTO.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "strategies"
-                  },
-                  {
-                    "text": "hours"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Backup and restore.",
+            "values": {
+              "strategies": {
+                "var": "strategies",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Backup and restore"
-                  },
-                  {
-                    "text": "hours"
-                  }
-                ],
-                "tone": "ok"
+              "name": {
+                "var": "name",
+                "line": 9,
+                "hit": 1
+              },
+              "rto": {
+                "var": "rto",
+                "line": 9,
+                "hit": 1
+              },
+              "rpo": {
+                "var": "rpo",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "strategies": "data",
+              "name": "data",
+              "rto": "data",
+              "rpo": "data"
+            },
+            "arrows": [
+              [
+                "strategies",
+                "name"
+              ],
+              [
+                "name",
+                "rto"
+              ],
+              [
+                "rto",
+                "rpo"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Pilot light keeps core data live in the second Region.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "strategies"
-                  },
-                  {
-                    "text": "hours"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Different parts of one company can use different strategies.",
+            "values": {
+              "strategies": {
+                "var": "strategies",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Backup and restore"
-                  },
-                  {
-                    "text": "hours"
-                  }
-                ],
-                "tone": "ok"
+              "name": {
+                "var": "name",
+                "line": 8,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "Pilot light"
-                  },
-                  {
-                    "text": "minutes"
-                  }
-                ],
-                "tone": "data"
+              "rto": {
+                "var": "rto",
+                "line": 8,
+                "hit": 2
+              },
+              "rpo": {
+                "var": "rpo",
+                "line": 8,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Warm standby runs a smaller working copy ready to scale up.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "strategies"
-                  },
-                  {
-                    "text": "hours"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Backup and restore"
-                  },
-                  {
-                    "text": "hours"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Pilot light"
-                  },
-                  {
-                    "text": "minutes"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Warm standby"
-                  },
-                  {
-                    "text": "minutes"
-                  }
-                ],
-                "tone": "idle"
-              }
+            },
+            "tones": {
+              "strategies": "ok",
+              "name": "ok",
+              "rto": "ok",
+              "rpo": "ok"
+            },
+            "arrows": [
+              [
+                "strategies",
+                "name"
+              ],
+              [
+                "name",
+                "rto"
+              ],
+              [
+                "rto",
+                "rpo"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Disaster recovery strategies comparing recovery time and relative cost",
-        "columns": [
-          "strategies",
-          "hours"
+        "template": "flow",
+        "title": "The four DR strategies",
+        "nodes": [
+          {
+            "id": "strategies",
+            "label": "strategies"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "rto",
+            "label": "rto"
+          },
+          {
+            "id": "rpo",
+            "label": "rpo"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "AWS describes four strategies from cheapest to most expensive.",
-            "rows": [
-              {
-                "cells": [
-                  "strategies",
-                  "hours"
-                ],
-                "tone": "ok"
-              }
+            "caption": "AWS describes four strategies, from cheapest and slowest to most expensive.",
+            "values": {
+              "strategies": "[['Backup and restore', 'hours', 'hours…",
+              "name": "'Backup and restore'",
+              "rto": "'hours'",
+              "rpo": "'hours'"
+            },
+            "tones": {
+              "strategies": "data",
+              "name": "data",
+              "rto": "data",
+              "rpo": "data"
+            },
+            "arrows": [
+              [
+                "strategies",
+                "name"
+              ],
+              [
+                "name",
+                "rto"
+              ],
+              [
+                "rto",
+                "rpo"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Backup and restore rebuilds infrastructure from code with hours RTO.",
-            "rows": [
-              {
-                "cells": [
-                  "strategies",
-                  "hours"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Backup and restore",
-                  "hours"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Backup and restore.",
+            "values": {
+              "strategies": "[['Backup and restore', 'hours', 'hours…",
+              "name": "'Backup and restore'",
+              "rto": "'hours'",
+              "rpo": "'hours'"
+            },
+            "tones": {
+              "strategies": "data",
+              "name": "data",
+              "rto": "data",
+              "rpo": "data"
+            },
+            "arrows": [
+              [
+                "strategies",
+                "name"
+              ],
+              [
+                "name",
+                "rto"
+              ],
+              [
+                "rto",
+                "rpo"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Pilot light keeps core data live in the second Region.",
-            "rows": [
-              {
-                "cells": [
-                  "strategies",
-                  "hours"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Backup and restore",
-                  "hours"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Pilot light",
-                  "minutes"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Warm standby runs a smaller working copy ready to scale up.",
-            "rows": [
-              {
-                "cells": [
-                  "strategies",
-                  "hours"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Backup and restore",
-                  "hours"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Pilot light",
-                  "minutes"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Warm standby",
-                  "minutes"
-                ],
-                "tone": "idle"
-              }
+            "at": "say7",
+            "caption": "Different parts of one company can use different strategies.",
+            "values": {
+              "strategies": "[['Backup and restore', 'hours', 'hours…",
+              "name": "'Pilot light'",
+              "rto": "'10s of minutes'",
+              "rpo": "'minutes'"
+            },
+            "tones": {
+              "strategies": "ok",
+              "name": "ok",
+              "rto": "ok",
+              "rpo": "ok"
+            },
+            "arrows": [
+              [
+                "strategies",
+                "name"
+              ],
+              [
+                "name",
+                "rto"
+              ],
+              [
+                "rto",
+                "rpo"
+              ]
             ]
           }
         ]
@@ -513,250 +569,162 @@
       "partTitle": "Choosing a strategy from targets",
       "codeHash": "e5bd51db0a7d7a62368c9ccaedb7b0908cd74d5fb2f757076b67354c992bc329",
       "spec": {
-        "template": "table",
-        "title": "Matching business RTO and RPO targets to disaster recovery tiers",
-        "columns": [
-          "rto",
-          "rpo"
+        "template": "sequence",
+        "title": "Choosing a strategy from targets",
+        "actors": [
+          "TIERS",
+          "system",
+          "rto"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Choose the cheapest strategy that meets both business targets.",
-            "rows": [
+            "caption": "Practice 1 is dr_strategy(rto_minutes, rpo_minutes).",
+            "activeActor": "TIERS",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "BackupAndRestore"
-                  },
-                  {
-                    "text": "BackupAndRestore"
-                  }
-                ],
+                "from": "TIERS",
+                "to": "system",
+                "label": {
+                  "var": "TIERS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "system",
+                "to": "rto",
+                "label": {
+                  "var": "system",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Backup and restore handles day-level recovery while pilot light is faster.",
-            "rows": [
+            "caption": "Pilot light handles RTO of at least 60 and RPO of at least 10.",
+            "activeActor": "system",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "BackupAndRestore"
-                  },
-                  {
-                    "text": "BackupAndRestore"
-                  }
-                ],
-                "tone": "ok"
+                "from": "TIERS",
+                "to": "system",
+                "label": {
+                  "var": "TIERS",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "PilotLight"
-                  },
-                  {
-                    "text": "PilotLight"
-                  }
-                ],
+                "from": "system",
+                "to": "rto",
+                "label": {
+                  "var": "system",
+                  "line": 11,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Keep strategy tiers ordered from cheapest to most expensive in a list.",
-            "rows": [
+            "at": "say7",
+            "caption": "Choosing by table also makes the decision easy to explain to non-engineers.",
+            "activeActor": "rto",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "BackupAndRestore"
-                  },
-                  {
-                    "text": "BackupAndRestore"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "PilotLight"
-                  },
-                  {
-                    "text": "PilotLight"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "WarmStandby"
-                  },
-                  {
-                    "text": "WarmStandby"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Both targets matter when selecting protection because lost data hurts.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "BackupAndRestore"
-                  },
-                  {
-                    "text": "BackupAndRestore"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "PilotLight"
-                  },
-                  {
-                    "text": "PilotLight"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "WarmStandby"
-                  },
-                  {
-                    "text": "WarmStandby"
-                  }
-                ],
+                "from": "TIERS",
+                "to": "system",
+                "label": {
+                  "var": "TIERS",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "MultiSiteActiveActive"
-                  },
-                  {
-                    "text": "MultiSiteActiveActive"
-                  }
-                ],
-                "tone": "idle"
+                "from": "system",
+                "to": "rto",
+                "label": {
+                  "var": "system",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Matching business RTO and RPO targets to disaster recovery tiers",
-        "columns": [
-          "rto",
-          "rpo"
+        "template": "sequence",
+        "title": "Choosing a strategy from targets",
+        "actors": [
+          "TIERS",
+          "system",
+          "rto"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Choose the cheapest strategy that meets both business targets.",
-            "rows": [
+            "caption": "Practice 1 is dr_strategy(rto_minutes, rpo_minutes).",
+            "messages": [
               {
-                "cells": [
-                  "BackupAndRestore",
-                  "BackupAndRestore"
-                ],
+                "from": "TIERS",
+                "to": "system",
+                "label": "[['BackupAndRestore', 1440, 60], ['Pilo…",
+                "tone": "data"
+              },
+              {
+                "from": "system",
+                "to": "rto",
+                "label": "'internal wiki'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "TIERS"
           },
           {
             "at": "say2",
-            "caption": "Backup and restore handles day-level recovery while pilot light is faster.",
-            "rows": [
+            "caption": "Pilot light handles RTO of at least 60 and RPO of at least 10.",
+            "messages": [
               {
-                "cells": [
-                  "BackupAndRestore",
-                  "BackupAndRestore"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "PilotLight",
-                  "PilotLight"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Keep strategy tiers ordered from cheapest to most expensive in a list.",
-            "rows": [
-              {
-                "cells": [
-                  "BackupAndRestore",
-                  "BackupAndRestore"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "PilotLight",
-                  "PilotLight"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "WarmStandby",
-                  "WarmStandby"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Both targets matter when selecting protection because lost data hurts.",
-            "rows": [
-              {
-                "cells": [
-                  "BackupAndRestore",
-                  "BackupAndRestore"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "PilotLight",
-                  "PilotLight"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "WarmStandby",
-                  "WarmStandby"
-                ],
+                "from": "TIERS",
+                "to": "system",
+                "label": "[['BackupAndRestore', 1440, 60], ['Pilo…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "MultiSiteActiveActive",
-                  "MultiSiteActiveActive"
-                ],
-                "tone": "idle"
+                "from": "system",
+                "to": "rto",
+                "label": "'internal wiki'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "system"
+          },
+          {
+            "at": "say7",
+            "caption": "Choosing by table also makes the decision easy to explain to non-engineers.",
+            "messages": [
+              {
+                "from": "TIERS",
+                "to": "system",
+                "label": "[['BackupAndRestore', 1440, 60], ['Pilo…",
+                "tone": "data"
+              },
+              {
+                "from": "system",
+                "to": "rto",
+                "label": "'online shop'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "rto"
           }
         ]
       }
@@ -765,250 +733,106 @@
       "partTitle": "Pricing downtime and data loss",
       "codeHash": "3b389275a511e4744b5d64e2f070ddd2c4e7387642476833bd6016fa7ec62d95",
       "spec": {
-        "template": "table",
-        "title": "Calculating financial costs of downtime and data loss per minute",
-        "columns": [
-          "lost_sales",
-          "lost_data"
+        "template": "states",
+        "title": "Pricing downtime and data loss",
+        "states": [
+          {
+            "id": "disasters_per_year",
+            "label": "disasters_per_year"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "rto",
+            "label": "rto"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Estimate what a disaster costs without protection to justify DR spending.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "lost_sales"
-                  },
-                  {
-                    "text": "lost_data"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "To justify DR spending, estimate what a disaster would cost without it.",
+            "currentState": "disasters_per_year",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Downtime cost calculates orders lost during RTO minutes without sales.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "lost_sales"
-                  },
-                  {
-                    "text": "lost_data"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "lost_sales"
-                  },
-                  {
-                    "text": "per_minute"
-                  }
-                ],
-                "tone": "idle"
+            "caption": "During the RTO no sales happen.",
+            "currentState": "name",
+            "transition": {
+              "from": "disasters_per_year",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Data loss cost calculates orders taken during the RPO window.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "lost_sales"
-                  },
-                  {
-                    "text": "lost_data"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "lost_sales"
-                  },
-                  {
-                    "text": "per_minute"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "lost_data"
-                  },
-                  {
-                    "text": "per_minute"
-                  }
-                ],
-                "tone": "error"
+            "at": "say7",
+            "caption": "The example compares the expected yearly loss under two strategies.",
+            "currentState": "rto",
+            "transition": {
+              "from": "name",
+              "to": "rto",
+              "label": {
+                "var": "rto",
+                "line": 3,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Outage cost computes lost sales, lost data and total disaster impact.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "lost_sales"
-                  },
-                  {
-                    "text": "lost_data"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "lost_sales"
-                  },
-                  {
-                    "text": "per_minute"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "lost_data"
-                  },
-                  {
-                    "text": "per_minute"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "per_minute"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Calculating financial costs of downtime and data loss per minute",
-        "columns": [
-          "lost_sales",
-          "lost_data"
+        "template": "states",
+        "title": "Pricing downtime and data loss",
+        "states": [
+          {
+            "id": "disasters_per_year",
+            "label": "disasters_per_year"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "rto",
+            "label": "rto"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Estimate what a disaster costs without protection to justify DR spending.",
-            "rows": [
-              {
-                "cells": [
-                  "lost_sales",
-                  "lost_data"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "To justify DR spending, estimate what a disaster would cost without it.",
+            "currentState": "disasters_per_year",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Downtime cost calculates orders lost during RTO minutes without sales.",
-            "rows": [
-              {
-                "cells": [
-                  "lost_sales",
-                  "lost_data"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "lost_sales",
-                  "per_minute"
-                ],
-                "tone": "idle"
-              }
-            ]
+            "caption": "During the RTO no sales happen.",
+            "currentState": "name",
+            "transition": {
+              "from": "disasters_per_year",
+              "to": "name",
+              "label": "'backup and restore'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Data loss cost calculates orders taken during the RPO window.",
-            "rows": [
-              {
-                "cells": [
-                  "lost_sales",
-                  "lost_data"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "lost_sales",
-                  "per_minute"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "lost_data",
-                  "per_minute"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Outage cost computes lost sales, lost data and total disaster impact.",
-            "rows": [
-              {
-                "cells": [
-                  "lost_sales",
-                  "lost_data"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "lost_sales",
-                  "per_minute"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "lost_data",
-                  "per_minute"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "total",
-                  "per_minute"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say7",
+            "caption": "The example compares the expected yearly loss under two strategies.",
+            "currentState": "rto",
+            "transition": {
+              "from": "name",
+              "to": "rto",
+              "label": "480"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -1017,223 +841,133 @@
       "partTitle": "Backups that actually work",
       "codeHash": "28c91f65f1dd99bd43c033b27b4d24058bc55b91554ff574d5c89f928f3882ef",
       "spec": {
-        "template": "flow",
-        "title": "Backups that actually work — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Backups that actual...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Backups that actually work",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Backups that actually work [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Backups that actual... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "AWS Backup manages backup plans across services (EBS, RDS, DynamoDB, EFS.",
+            "bars": [
+              {
+                "label": "backup_every_m",
+                "value": {
+                  "var": "backup_every_minutes",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "rpo",
+                "value": {
+                  "var": "rpo",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Follow the 3-2-1 idea.",
+            "bars": [
+              {
+                "label": "backup_every_m",
+                "value": {
+                  "var": "backup_every_minutes",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rpo",
+                "value": {
+                  "var": "rpo",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Backups that actually work.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Many teams discover in their first drill that the restore takes three.",
+            "bars": [
+              {
+                "label": "backup_every_m",
+                "value": {
+                  "var": "backup_every_minutes",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rpo",
+                "value": {
+                  "var": "rpo",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Backups that actually work — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Backups that actual...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Backups that actually work",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Backups that actually work [D29.P5.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Backups that actual... [D29.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "AWS Backup manages backup plans across services (EBS, RDS, DynamoDB, EFS.",
+            "bars": [
+              {
+                "label": "backup_every_m",
+                "value": 60,
+                "tone": "data"
+              },
+              {
+                "label": "rpo",
+                "value": 15,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Follow the 3-2-1 idea.",
+            "bars": [
+              {
+                "label": "backup_every_m",
+                "value": 60,
+                "tone": "ok"
+              },
+              {
+                "label": "rpo",
+                "value": 15,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Backups that actually work [D29.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Many teams discover in their first drill that the restore takes three.",
+            "bars": [
+              {
+                "label": "backup_every_m",
+                "value": 60,
+                "tone": "ok"
+              },
+              {
+                "label": "rpo",
+                "value": 15,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -1243,223 +977,217 @@
       "partTitle": "Practice time: choose and price",
       "codeHash": "43a199321083b5f1d8147c590f2de47e691b0071869337c840af92bcdc670393",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: choose and price — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: choo...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: choose and price",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: choose and price [D.Psix.Sone].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: choo... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Store the tiers as a list of (name, minimum RTO, minimum RPO).",
+            "bars": [
+              {
+                "label": "rto",
+                "value": {
+                  "var": "rto",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "rpo",
+                "value": {
+                  "var": "rpo",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a long RTO with a tight RPO, which should NOT get.",
+            "bars": [
+              {
+                "label": "rto",
+                "value": {
+                  "var": "rto",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rpo",
+                "value": {
+                  "var": "rpo",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: choose and price.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the RTO-only mistake.",
+            "bars": [
+              {
+                "label": "rto",
+                "value": {
+                  "var": "rto",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rpo",
+                "value": {
+                  "var": "rpo",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: choose and price — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: choo...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: choose and price",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: choose and price [D29.P6.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: choo... [D29.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Store the tiers as a list of (name, minimum RTO, minimum RPO).",
+            "bars": [
+              {
+                "label": "rto",
+                "value": 2000,
+                "tone": "data"
+              },
+              {
+                "label": "rpo",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 1440,
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": 60,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a long RTO with a tight RPO, which should NOT get.",
+            "bars": [
+              {
+                "label": "rto",
+                "value": 2000,
+                "tone": "ok"
+              },
+              {
+                "label": "rpo",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 1440,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 60,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: choose and price [D29.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the RTO-only mistake.",
+            "bars": [
+              {
+                "label": "rto",
+                "value": 2000,
+                "tone": "ok"
+              },
+              {
+                "label": "rpo",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 60,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 10,
+                "tone": "ok"
+              }
             ]
           }
         ]

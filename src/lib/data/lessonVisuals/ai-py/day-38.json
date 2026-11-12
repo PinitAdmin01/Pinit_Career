@@ -2,1334 +2,1004 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 38,
-  "promptSha": "5f646b9e166206fd291f9d2d7009f71c55149964edc94411414e59258c61bd54",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Plan-and-Solve Agents — Foundations & Mathematical Invariants",
-      "codeHash": "f16dfe3860acb7dbb150626268bd45033df135c2e861106d84630079b45644e6",
+      "partTitle": "Explicit Task Nodes and Dependency Edges",
+      "codeHash": "1ffccfaf3b33a61a683b9533f62310bf783089f66e178c4511b6d9ccda2f8a82",
       "spec": {
-        "template": "flow",
-        "title": "Plan-and-Solve Agents — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Explicit Task Nodes and Dependency Edges",
+        "actors": [
+          "good",
+          "bad",
+          "tasks"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "ReAct thinks step by step sequentially, making every tool turn wait.",
+            "activeActor": "good",
+            "messages": [
+              {
+                "from": "good",
+                "to": "bad",
+                "label": {
+                  "var": "good",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bad",
+                "to": "tasks",
+                "label": {
+                  "var": "bad",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Plan-and-Solve agents generate an explicit structured task plan upfront.",
+            "activeActor": "bad",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "good",
+                "to": "bad",
+                "label": {
+                  "var": "good",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "bad",
+                "to": "tasks",
+                "label": {
+                  "var": "bad",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Compare the printed dictionaries below.",
+            "activeActor": "tasks",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "good",
+                "to": "bad",
+                "label": {
+                  "var": "good",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "bad",
+                "to": "tasks",
+                "label": {
+                  "var": "bad",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Plan-and-Solve Agents — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Explicit Task Nodes and Dependency Edges",
+        "actors": [
+          "good",
+          "bad",
+          "tasks"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "ReAct thinks step by step sequentially, making every tool turn wait.",
+            "messages": [
+              {
+                "from": "good",
+                "to": "bad",
+                "label": "[{'id': 'fetch', 'deps': []}, {'id': 'm…",
+                "tone": "data"
+              },
+              {
+                "from": "bad",
+                "to": "tasks",
+                "label": "[{'id': 'a', 'deps': ['a']}, {'id': 'b'…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "good"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Plan-and-Solve agents generate an explicit structured task plan upfront.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "good",
+                "to": "bad",
+                "label": "[{'id': 'fetch', 'deps': []}, {'id': 'm…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "bad",
+                "to": "tasks",
+                "label": "[{'id': 'a', 'deps': ['a']}, {'id': 'b'…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "bad"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Compare the printed dictionaries below.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "good",
+                "to": "bad",
+                "label": "[{'id': 'fetch', 'deps': []}, {'id': 'm…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "bad",
+                "to": "tasks",
+                "label": "[{'id': 'a', 'deps': ['a']}, {'id': 'b'…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "tasks"
           }
         ]
       }
     },
     {
-      "partTitle": "Plan-and-Solve Agents — Core Algorithm & State Representation",
-      "codeHash": "90fc33ae86183b8430c98257794b32b4b7b2fa4142897dfb719ecdfe16e7c97d",
+      "partTitle": "Cycle Detection via Kahn's Topological Sort",
+      "codeHash": "9096176f88185afcfb79874e87da91b3cc751e1095f0065533672c7349f43c4e",
       "spec": {
-        "template": "flow",
-        "title": "Plan-and-Solve Agents — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Cycle Detection via Kahn's Topological Sort",
+        "actors": [
+          "dag",
+          "cyc",
+          "tasks"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Passing reference checks alone still leaves a classic planning bug exposed.",
+            "activeActor": "dag",
+            "messages": [
+              {
+                "from": "dag",
+                "to": "cyc",
+                "label": {
+                  "var": "dag",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cyc",
+                "to": "tasks",
+                "label": {
+                  "var": "cyc",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Kahn's algorithm resolves execution order cleanly while doubling as.",
+            "activeActor": "cyc",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "dag",
+                "to": "cyc",
+                "label": {
+                  "var": "dag",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "cyc",
+                "to": "tasks",
+                "label": {
+                  "var": "cyc",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Notice how deterministic alphabetical sorting inside Kahn's queue.",
+            "activeActor": "tasks",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "dag",
+                "to": "cyc",
+                "label": {
+                  "var": "dag",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "cyc",
+                "to": "tasks",
+                "label": {
+                  "var": "cyc",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Plan-and-Solve Agents — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Cycle Detection via Kahn's Topological Sort",
+        "actors": [
+          "dag",
+          "cyc",
+          "tasks"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Passing reference checks alone still leaves a classic planning bug exposed.",
+            "messages": [
+              {
+                "from": "dag",
+                "to": "cyc",
+                "label": "[{'id': 'a', 'deps': []}, {'id': 'b', '…",
+                "tone": "data"
+              },
+              {
+                "from": "cyc",
+                "to": "tasks",
+                "label": "[{'id': 'x', 'deps': ['y']}, {'id': 'y'…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "dag"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Kahn's algorithm resolves execution order cleanly while doubling as.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "dag",
+                "to": "cyc",
+                "label": "[{'id': 'a', 'deps': []}, {'id': 'b', '…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "cyc",
+                "to": "tasks",
+                "label": "[{'id': 'x', 'deps': ['y']}, {'id': 'y'…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "cyc"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Notice how deterministic alphabetical sorting inside Kahn's queue.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "dag",
+                "to": "cyc",
+                "label": "[{'id': 'a', 'deps': []}, {'id': 'b', '…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "cyc",
+                "to": "tasks",
+                "label": "[{'id': 'x', 'deps': ['y']}, {'id': 'y'…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "tasks"
           }
         ]
       }
     },
     {
-      "partTitle": "Plan-and-Solve Agents — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "1748e19248cf15b6445095120a9913451d3426766e84d8f9e1df479db92c526d",
+      "partTitle": "Wave-Based Parallel Ready-Set Scheduling",
+      "codeHash": "1d1e230f82d3978af992dfa7bb8cdeceb864157f372afae55e792a17527268b7",
       "spec": {
-        "template": "flow",
-        "title": "Plan-and-Solve Agents — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "boxes",
+        "title": "Wave-Based Parallel Ready-Set Scheduling",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "plan",
+            "label": "plan"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tasks",
+            "label": "tasks"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "t",
+            "label": "t"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "remaining",
+            "label": "remaining"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Validating an acyclic graph reveals immediate parallelism opportunities.",
+            "values": {
+              "plan": {
+                "var": "plan",
+                "line": 15,
+                "hit": 1
+              },
+              "tasks": {
+                "var": "tasks",
+                "line": 2,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 2,
+                "hit": 1
+              },
+              "remaining": {
+                "var": "remaining",
+                "line": 2,
+                "hit": 6
+              }
+            },
+            "tones": {
+              "plan": "data",
+              "tasks": "data",
+              "t": "data",
+              "remaining": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Grouping tasks into discrete execution waves identifies every pending task.",
+            "values": {
+              "plan": {
+                "var": "plan",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tasks": {
+                "var": "tasks",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "t": {
+                "var": "t",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "remaining": {
+                "var": "remaining",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "plan": "data",
+              "tasks": "data",
+              "t": "data",
+              "remaining": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Observe Wave 1 dispatching billing, crm, and tickets in parallel before.",
+            "values": {
+              "plan": {
+                "var": "plan",
+                "line": 23,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tasks": {
+                "var": "tasks",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "t": {
+                "var": "t",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "remaining": {
+                "var": "remaining",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "plan": "ok",
+              "tasks": "ok",
+              "t": "ok",
+              "remaining": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Plan-and-Solve Agents — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "boxes",
+        "title": "Wave-Based Parallel Ready-Set Scheduling",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "plan",
+            "label": "plan"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tasks",
+            "label": "tasks"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "t",
+            "label": "t"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "remaining",
+            "label": "remaining"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Validating an acyclic graph reveals immediate parallelism opportunities.",
+            "values": {
+              "plan": "[{'id': 'crm', 'deps': []}, {'id': 'bil…",
+              "tasks": "[{'id': 'crm', 'deps': []}, {'id': 'bil…",
+              "t": "{'id': 'crm', 'deps': []}",
+              "remaining": "{'crm': set(), 'billing': set(), 'ticke…"
+            },
+            "tones": {
+              "plan": "data",
+              "tasks": "data",
+              "t": "data",
+              "remaining": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Grouping tasks into discrete execution waves identifies every pending task.",
+            "values": {
+              "plan": "[{'id': 'crm', 'deps': []}, {'id': 'bil…",
+              "tasks": "[{'id': 'crm', 'deps': []}, {'id': 'bil…",
+              "t": "{'id': 'billing', 'deps': []}",
+              "remaining": "{'crm': set(), 'billing': set(), 'ticke…"
+            },
+            "tones": {
+              "plan": "data",
+              "tasks": "data",
+              "t": "data",
+              "remaining": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say7",
+            "caption": "Observe Wave 1 dispatching billing, crm, and tickets in parallel before.",
+            "values": {
+              "plan": "[{'id': 'crm', 'deps': []}, {'id': 'bil…",
+              "tasks": "[{'id': 'crm', 'deps': []}, {'id': 'bil…",
+              "t": "{'id': 'tickets', 'deps': []}",
+              "remaining": "{'crm': set(), 'billing': set(), 'ticke…"
+            },
+            "tones": {
+              "plan": "ok",
+              "tasks": "ok",
+              "t": "ok",
+              "remaining": "ok"
+            }
           }
         ]
       }
     },
     {
-      "partTitle": "Plan-and-Solve Agents — Resilience Guardrails & Failure Recovery",
-      "codeHash": "744c2a40870374b57d5553ec4b4ca3b4da49e2022fe0bc6e7181e3eb10f09aac",
+      "partTitle": "Cascading Downstream Skips When Upstream Steps Fail",
+      "codeHash": "589da9ed58803925eb1587e9aae63364a54d464c7bc4cc496d2e04db815235d1",
       "spec": {
-        "template": "flow",
-        "title": "Plan-and-Solve Agents — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "boxes",
+        "title": "Cascading Downstream Skips When Upstream Steps Fail",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "plan",
+            "label": "plan"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tasks",
+            "label": "tasks"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "failing_id",
+            "label": "failing_id"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "t",
+            "label": "t"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Real plans fail halfway.",
+            "values": {
+              "plan": {
+                "var": "plan",
+                "line": 14,
+                "hit": 1
+              },
+              "tasks": {
+                "var": "tasks",
+                "line": 2,
+                "hit": 1
+              },
+              "failing_id": {
+                "var": "failing_id",
+                "line": 2,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "plan": "data",
+              "tasks": "data",
+              "failing_id": "data",
+              "t": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Tracking explicit node statuses (`DONE`, `FAILED`, `SKIPPED`) cleanly.",
+            "values": {
+              "plan": {
+                "var": "plan",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tasks": {
+                "var": "tasks",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "failing_id": {
+                "var": "failing_id",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "t": {
+                "var": "t",
+                "line": 2,
+                "hit": 2
               }
-            ]
+            },
+            "tones": {
+              "plan": "data",
+              "tasks": "data",
+              "failing_id": "data",
+              "t": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Pairing explicit failure statuses cleanly inside task graph logs gives.",
+            "values": {
+              "plan": {
+                "var": "plan",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tasks": {
+                "var": "tasks",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "failing_id": {
+                "var": "failing_id",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "t": {
+                "var": "t",
+                "line": 2,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "plan": "ok",
+              "tasks": "ok",
+              "failing_id": "ok",
+              "t": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Plan-and-Solve Agents — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "boxes",
+        "title": "Cascading Downstream Skips When Upstream Steps Fail",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "plan",
+            "label": "plan"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tasks",
+            "label": "tasks"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "failing_id",
+            "label": "failing_id"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "t",
+            "label": "t"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Real plans fail halfway.",
+            "values": {
+              "plan": "[{'id': 'fetch_crm', 'deps': []}, {'id'…",
+              "tasks": "[{'id': 'fetch_crm', 'deps': []}, {'id'…",
+              "failing_id": "'fetch_bill'",
+              "t": "{'id': 'fetch_crm', 'deps': []}"
+            },
+            "tones": {
+              "plan": "data",
+              "tasks": "data",
+              "failing_id": "data",
+              "t": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Tracking explicit node statuses (`DONE`, `FAILED`, `SKIPPED`) cleanly.",
+            "values": {
+              "plan": "[{'id': 'fetch_crm', 'deps': []}, {'id'…",
+              "tasks": "[{'id': 'fetch_crm', 'deps': []}, {'id'…",
+              "failing_id": "'fetch_bill'",
+              "t": "{'id': 'fetch_bill', 'deps': []}"
+            },
+            "tones": {
+              "plan": "data",
+              "tasks": "data",
+              "failing_id": "data",
+              "t": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Pairing explicit failure statuses cleanly inside task graph logs gives.",
+            "values": {
+              "plan": "[{'id': 'fetch_crm', 'deps': []}, {'id'…",
+              "tasks": "[{'id': 'fetch_crm', 'deps': []}, {'id'…",
+              "failing_id": "'fetch_bill'",
+              "t": "{'id': 'score_rev', 'deps': ['fetch_bil…"
+            },
+            "tones": {
+              "plan": "ok",
+              "tasks": "ok",
+              "failing_id": "ok",
+              "t": "ok"
+            }
           }
         ]
       }
     },
     {
-      "partTitle": "Plan-and-Solve Agents — Production Telemetry & Verification Audit",
-      "codeHash": "49064bf0b87e6b172be674d2e6eddb85e5ef7dd52a3416f36bd44288f3776f8f",
+      "partTitle": "Critical Path Calculation and Parallel Speedup Telemetry",
+      "codeHash": "19aca5671e6c36097757b380f9f07f5dc559f612f6e010b6a227ebde11b83851",
       "spec": {
         "template": "flow",
-        "title": "Plan-and-Solve Agents — Production Telemetry & Verification Audit",
+        "title": "Critical Path Calculation and Parallel Speedup Telemetry",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "dag",
+            "label": "dag"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tasks",
+            "label": "tasks"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "ef",
+            "label": "ef"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "t",
+            "label": "t"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Before introducing async worker complexity into an orchestrator, measure.",
+            "values": {
+              "dag": {
+                "var": "dag",
+                "line": 10,
+                "hit": 1
+              },
+              "tasks": {
+                "var": "tasks",
+                "line": 2,
+                "hit": 1
+              },
+              "ef": {
+                "var": "ef",
+                "line": 2,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "dag": "data",
+              "tasks": "data",
+              "ef": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "dag",
+                "tasks"
+              ],
+              [
+                "tasks",
+                "ef"
+              ],
+              [
+                "ef",
+                "t"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Total parallel wall-clock latency equals the slowest cumulative path.",
+            "values": {
+              "dag": {
+                "var": "dag",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tasks": {
+                "var": "tasks",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "ef": {
+                "var": "ef",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "t": {
+                "var": "t",
+                "line": 4,
+                "hit": 2
               }
+            },
+            "tones": {
+              "dag": "data",
+              "tasks": "data",
+              "ef": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "dag",
+                "tasks"
+              ],
+              [
+                "tasks",
+                "ef"
+              ],
+              [
+                "ef",
+                "t"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Inspect the final critical_path readout carefully.",
+            "values": {
+              "dag": {
+                "var": "dag",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tasks": {
+                "var": "tasks",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "ef": {
+                "var": "ef",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "t": {
+                "var": "t",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "dag": "ok",
+              "tasks": "ok",
+              "ef": "ok",
+              "t": "ok"
+            },
+            "arrows": [
+              [
+                "dag",
+                "tasks"
+              ],
+              [
+                "tasks",
+                "ef"
+              ],
+              [
+                "ef",
+                "t"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Plan-and-Solve Agents — Production Telemetry & Verification Audit",
+        "title": "Critical Path Calculation and Parallel Speedup Telemetry",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "dag",
+            "label": "dag"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tasks",
+            "label": "tasks"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "ef",
+            "label": "ef"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "t",
+            "label": "t"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Before introducing async worker complexity into an orchestrator, measure.",
+            "values": {
+              "dag": "[{'id': 'db', 'deps': [], 'ms': 300}, {…",
+              "tasks": "[{'id': 'db', 'deps': [], 'ms': 300}, {…",
+              "ef": "{}",
+              "t": "{'id': 'db', 'deps': [], 'ms': 300}"
+            },
+            "tones": {
+              "dag": "data",
+              "tasks": "data",
+              "ef": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "dag",
+                "tasks"
+              ],
+              [
+                "tasks",
+                "ef"
+              ],
+              [
+                "ef",
+                "t"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Total parallel wall-clock latency equals the slowest cumulative path.",
+            "values": {
+              "dag": "[{'id': 'db', 'deps': [], 'ms': 300}, {…",
+              "tasks": "[{'id': 'db', 'deps': [], 'ms': 300}, {…",
+              "ef": "{}",
+              "t": "{'id': 'db', 'deps': [], 'ms': 300}"
+            },
+            "tones": {
+              "dag": "data",
+              "tasks": "data",
+              "ef": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "dag",
+                "tasks"
+              ],
+              [
+                "tasks",
+                "ef"
+              ],
+              [
+                "ef",
+                "t"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Inspect the final critical_path readout carefully.",
+            "values": {
+              "dag": "[{'id': 'db', 'deps': [], 'ms': 300}, {…",
+              "tasks": "[{'id': 'db', 'deps': [], 'ms': 300}, {…",
+              "ef": "{}",
+              "t": "{'id': 'db', 'deps': [], 'ms': 300}"
+            },
+            "tones": {
+              "dag": "ok",
+              "tasks": "ok",
+              "ef": "ok",
+              "t": "ok"
+            },
+            "arrows": [
+              [
+                "dag",
+                "tasks"
+              ],
+              [
+                "tasks",
+                "ef"
+              ],
+              [
+                "ef",
+                "t"
+              ]
             ]
           }
         ]

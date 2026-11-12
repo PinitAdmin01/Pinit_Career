@@ -2,1068 +2,696 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 33,
-  "promptSha": "9a6cc50300ba430ae32c6dbc747243254dbc455c60d18c17bed4cdab2241e439",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Key Derivation Functions — Foundations & Mathematical Invariants",
-      "codeHash": "d08466b95d96de48b101487c4b382cb9f4369e23300853c0c222e2dc193c20aa",
+      "codeHash": "28b5ae3b2caa0d67693ab11f5f6e80ac9747de995060e59972ee5bc785e4d58d",
       "spec": {
-        "template": "flow",
+        "template": "states",
         "title": "Key Derivation Functions — Foundations & Mathematical Invariants",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "salt",
+            "label": "salt"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "password",
+            "label": "password"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "memory_cost_kb",
+            "label": "memory_cost_kb"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Key Derivation Functions (KDFs) transform low-entropy human passwords.",
+            "currentState": "salt",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Trace how legacy updates hashing during execution.",
+            "currentState": "password",
+            "transition": {
+              "from": "salt",
+              "to": "password",
+              "label": {
+                "var": "password",
+                "line": 6,
+                "hit": 2
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "In high-security financial environments, salt generation must strictly.",
+            "currentState": "memory_cost_kb",
+            "transition": {
+              "from": "password",
+              "to": "memory_cost_kb",
+              "label": {
+                "var": "memory_cost_kb",
+                "line": 6,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "states",
         "title": "Key Derivation Functions — Foundations & Mathematical Invariants",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "salt",
+            "label": "salt"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "password",
+            "label": "password"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "memory_cost_kb",
+            "label": "memory_cost_kb"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Key Derivation Functions (KDFs) transform low-entropy human passwords.",
+            "currentState": "salt",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Trace how legacy updates hashing during execution.",
+            "currentState": "password",
+            "transition": {
+              "from": "salt",
+              "to": "password",
+              "label": "{'__other__': 'bytes'}"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "In high-security financial environments, salt generation must strictly.",
+            "currentState": "memory_cost_kb",
+            "transition": {
+              "from": "password",
+              "to": "memory_cost_kb",
+              "label": "32"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Key Derivation Functions — Core Algorithm & State Representation",
-      "codeHash": "c2ed9b72e2b6b3970696e010ff96cacf57ef3840072a89372379fc44f947c0ff",
+      "codeHash": "4a8dd5989f47de14b20e7064378ab153307c4a3c94dbfc8e5564a5fb0e2cbd00",
       "spec": {
-        "template": "flow",
+        "template": "states",
         "title": "Key Derivation Functions — Core Algorithm & State Representation",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "h1",
+            "label": "h1"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "h2",
+            "label": "h2"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "h3",
+            "label": "h3"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Argon2id algorithm structures internal state as a two-dimensional.",
+            "currentState": "h1",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Trace how during updates initialization during execution.",
+            "currentState": "h2",
+            "transition": {
+              "from": "h1",
+              "to": "h2",
+              "label": {
+                "var": "h2",
+                "line": 11,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Cryptographic side-channel analysts frequently use high-precision software.",
+            "currentState": "h3",
+            "transition": {
+              "from": "h2",
+              "to": "h3",
+              "label": {
+                "var": "h3",
+                "line": 13,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "states",
         "title": "Key Derivation Functions — Core Algorithm & State Representation",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "h1",
+            "label": "h1"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "h2",
+            "label": "h2"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "h3",
+            "label": "h3"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Argon2id algorithm structures internal state as a two-dimensional.",
+            "currentState": "h1",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Trace how during updates initialization during execution.",
+            "currentState": "h2",
+            "transition": {
+              "from": "h1",
+              "to": "h2",
+              "label": "{'__other__': 'bytes'}"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Cryptographic side-channel analysts frequently use high-precision software.",
+            "currentState": "h3",
+            "transition": {
+              "from": "h2",
+              "to": "h3",
+              "label": "{'__other__': 'bytes'}"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Key Derivation Functions — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "13355ee5a90953d17f27f35fab992d9374f97a42fc0f18e6449b6ecee76af92e",
+      "codeHash": "c098202e0d95fb12c14a3e20722f3a542083d4c17a4c739a9c8b53ff6babf89d",
       "spec": {
-        "template": "flow",
-        "title": "Key Derivation Functions — Throughput Optimization & Edge-Case Handlin",
-        "nodes": [
+        "template": "boxes",
+        "title": "Key Derivation Functions — Throughput Optimization & Edge-Case H",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "password",
+            "label": "password"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "salt",
+            "label": "salt"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "results",
+            "label": "results"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "mem",
+            "label": "mem"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying memory-hard KDFs requires balancing defensive crack resistance.",
+            "values": {
+              "password": {
+                "var": "password",
+                "line": 6,
+                "hit": 1
+              },
+              "salt": {
+                "var": "salt",
+                "line": 6,
+                "hit": 1
+              },
+              "results": {
+                "var": "results",
+                "line": 6,
+                "hit": 1
+              },
+              "mem": {
+                "var": "mem",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "password": "data",
+              "salt": "data",
+              "results": "data",
+              "mem": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Trace how hash updates derivation during execution.",
+            "values": {
+              "password": {
+                "var": "password",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "salt": {
+                "var": "salt",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "results": {
+                "var": "results",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "mem": {
+                "var": "mem",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "password": "data",
+              "salt": "data",
+              "results": "data",
+              "mem": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Parallel lane configuration in Argon2id allows multi-threaded server.",
+            "values": {
+              "password": {
+                "var": "password",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "salt": {
+                "var": "salt",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "results": {
+                "var": "results",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "mem": {
+                "var": "mem",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "password": "ok",
+              "salt": "ok",
+              "results": "ok",
+              "mem": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Key Derivation Functions — Throughput Optimization & Edge-Case Handlin",
-        "nodes": [
+        "template": "boxes",
+        "title": "Key Derivation Functions — Throughput Optimization & Edge-Case H",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "password",
+            "label": "password"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "salt",
+            "label": "salt"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "results",
+            "label": "results"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "mem",
+            "label": "mem"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying memory-hard KDFs requires balancing defensive crack resistance.",
+            "values": {
+              "password": "{'__other__': 'bytes'}",
+              "salt": "{'__other__': 'bytes'}",
+              "results": "{}",
+              "mem": "16"
+            },
+            "tones": {
+              "password": "data",
+              "salt": "data",
+              "results": "data",
+              "mem": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Trace how hash updates derivation during execution.",
+            "values": {
+              "password": "{'__other__': 'bytes'}",
+              "salt": "{'__other__': 'bytes'}",
+              "results": "{}",
+              "mem": "16"
+            },
+            "tones": {
+              "password": "data",
+              "salt": "data",
+              "results": "data",
+              "mem": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Parallel lane configuration in Argon2id allows multi-threaded server.",
+            "values": {
+              "password": "{'__other__': 'bytes'}",
+              "salt": "{'__other__': 'bytes'}",
+              "results": "{}",
+              "mem": "16"
+            },
+            "tones": {
+              "password": "ok",
+              "salt": "ok",
+              "results": "ok",
+              "mem": "ok"
+            }
           }
         ]
       }
     },
     {
       "partTitle": "Key Derivation Functions — Resilience Guardrails & Failure Recovery",
-      "codeHash": "388a40e7ed94a42192f74eb5c9595e6689886b7070049e20a3d0db1980e14791",
+      "codeHash": "b30fce3722159120c3264589b0f85eca9736296f3cb673eccc760ca3e16b908a",
       "spec": {
         "template": "flow",
-        "title": "Key Derivation Functions — Resilience Guardrails & Failure Recovery",
+        "title": "Key Derivation Functions — Resilience Guardrails & Failure Recov",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "user_old_hash",
+            "label": "user_old_hash"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "user_current_hash",
+            "label": "user_current_hash"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "stored_params",
+            "label": "stored_params"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "mem",
+            "label": "mem"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cryptographic hardware capabilities advance continuously according.",
+            "values": {
+              "user_old_hash": {
+                "var": "user_old_hash",
+                "line": 11,
+                "hit": 1
+              },
+              "user_current_hash": {
+                "var": "user_current_hash",
+                "line": 12,
+                "hit": 1
+              },
+              "stored_params": {
+                "var": "stored_params",
+                "line": 7,
+                "hit": 1
+              },
+              "mem": {
+                "var": "mem",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "user_old_hash": "data",
+              "user_current_hash": "data",
+              "stored_params": "data",
+              "mem": "data"
+            },
+            "arrows": [
+              [
+                "user_old_hash",
+                "user_current_hash"
+              ],
+              [
+                "user_current_hash",
+                "stored_params"
+              ],
+              [
+                "stored_params",
+                "mem"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "When an organization upgrades its security policy from 32MB to 64MB memory.",
+            "values": {
+              "user_old_hash": {
+                "var": "user_old_hash",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "user_current_hash": {
+                "var": "user_current_hash",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "stored_params": {
+                "var": "stored_params",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "mem": {
+                "var": "mem",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "user_old_hash": "data",
+              "user_current_hash": "data",
+              "stored_params": "data",
+              "mem": "data"
+            },
+            "arrows": [
+              [
+                "user_old_hash",
+                "user_current_hash"
+              ],
+              [
+                "user_current_hash",
+                "stored_params"
+              ],
+              [
+                "stored_params",
+                "mem"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Automated password rotation policies work in synergy with memory-hard key.",
+            "values": {
+              "user_old_hash": {
+                "var": "user_old_hash",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "user_current_hash": {
+                "var": "user_current_hash",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "stored_params": {
+                "var": "stored_params",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "mem": {
+                "var": "mem",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "user_old_hash": "ok",
+              "user_current_hash": "ok",
+              "stored_params": "ok",
+              "mem": "ok"
+            },
+            "arrows": [
+              [
+                "user_old_hash",
+                "user_current_hash"
+              ],
+              [
+                "user_current_hash",
+                "stored_params"
+              ],
+              [
+                "stored_params",
+                "mem"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Key Derivation Functions — Resilience Guardrails & Failure Recovery",
+        "title": "Key Derivation Functions — Resilience Guardrails & Failure Recov",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "user_old_hash",
+            "label": "user_old_hash"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "user_current_hash",
+            "label": "user_current_hash"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "stored_params",
+            "label": "stored_params"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "mem",
+            "label": "mem"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cryptographic hardware capabilities advance continuously according.",
+            "values": {
+              "user_old_hash": "{'memory_kb': 32, 'iterations': 2}",
+              "user_current_hash": "{'memory_kb': 64, 'iterations': 3}",
+              "stored_params": "{'memory_kb': 32, 'iterations': 2}",
+              "mem": "32"
+            },
+            "tones": {
+              "user_old_hash": "data",
+              "user_current_hash": "data",
+              "stored_params": "data",
+              "mem": "data"
+            },
+            "arrows": [
+              [
+                "user_old_hash",
+                "user_current_hash"
+              ],
+              [
+                "user_current_hash",
+                "stored_params"
+              ],
+              [
+                "stored_params",
+                "mem"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "When an organization upgrades its security policy from 32MB to 64MB memory.",
+            "values": {
+              "user_old_hash": "{'memory_kb': 32, 'iterations': 2}",
+              "user_current_hash": "{'memory_kb': 64, 'iterations': 3}",
+              "stored_params": "{'memory_kb': 32, 'iterations': 2}",
+              "mem": "32"
+            },
+            "tones": {
+              "user_old_hash": "data",
+              "user_current_hash": "data",
+              "stored_params": "data",
+              "mem": "data"
+            },
+            "arrows": [
+              [
+                "user_old_hash",
+                "user_current_hash"
+              ],
+              [
+                "user_current_hash",
+                "stored_params"
+              ],
+              [
+                "stored_params",
+                "mem"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Automated password rotation policies work in synergy with memory-hard key.",
+            "values": {
+              "user_old_hash": "{'memory_kb': 32, 'iterations': 2}",
+              "user_current_hash": "{'memory_kb': 64, 'iterations': 3}",
+              "stored_params": "{'memory_kb': 32, 'iterations': 2}",
+              "mem": "32"
+            },
+            "tones": {
+              "user_old_hash": "ok",
+              "user_current_hash": "ok",
+              "stored_params": "ok",
+              "mem": "ok"
+            },
+            "arrows": [
+              [
+                "user_old_hash",
+                "user_current_hash"
+              ],
+              [
+                "user_current_hash",
+                "stored_params"
+              ],
+              [
+                "stored_params",
+                "mem"
+              ]
             ]
           }
         ]
@@ -1071,266 +699,164 @@
     },
     {
       "partTitle": "Key Derivation Functions — Production Telemetry & Verification Audit",
-      "codeHash": "7d240ec2d7a0e49792eda8a8066c42f1ffcedccdfc8b18e3c281e3c3d26fe45d",
+      "codeHash": "ebc4df96180ea4aa1153b939857d0688bf01717c7f2906aa2f5a97d3de512360",
       "spec": {
-        "template": "flow",
-        "title": "Key Derivation Functions — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Key Derivation Functions — Production Telemetry & Verification A",
+        "actors": [
+          "memory_hard",
+          "timing_safe",
+          "salt_entropy_valid"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production KDF infrastructure requires continuous telemetry monitoring.",
+            "activeActor": "memory_hard",
+            "messages": [
+              {
+                "from": "memory_hard",
+                "to": "timing_safe",
+                "label": {
+                  "var": "memory_hard",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "timing_safe",
+                "to": "salt_entropy_valid",
+                "label": {
+                  "var": "timing_safe",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Monitoring metrics track average derivation latency, CPU utilization per.",
+            "activeActor": "timing_safe",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "memory_hard",
+                "to": "timing_safe",
+                "label": {
+                  "var": "memory_hard",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "timing_safe",
+                "to": "salt_entropy_valid",
+                "label": {
+                  "var": "timing_safe",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Benchmarking KDF execution under concurrent thread load ensures.",
+            "activeActor": "salt_entropy_valid",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "memory_hard",
+                "to": "timing_safe",
+                "label": {
+                  "var": "memory_hard",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "timing_safe",
+                "to": "salt_entropy_valid",
+                "label": {
+                  "var": "timing_safe",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Key Derivation Functions — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Key Derivation Functions — Production Telemetry & Verification A",
+        "actors": [
+          "memory_hard",
+          "timing_safe",
+          "salt_entropy_valid"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production KDF infrastructure requires continuous telemetry monitoring.",
+            "messages": [
+              {
+                "from": "memory_hard",
+                "to": "timing_safe",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "timing_safe",
+                "to": "salt_entropy_valid",
+                "label": "True",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "memory_hard"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Monitoring metrics track average derivation latency, CPU utilization per.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "memory_hard",
+                "to": "timing_safe",
+                "label": "True",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "timing_safe",
+                "to": "salt_entropy_valid",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "timing_safe"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Benchmarking KDF execution under concurrent thread load ensures.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "memory_hard",
+                "to": "timing_safe",
+                "label": "True",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "timing_safe",
+                "to": "salt_entropy_valid",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "salt_entropy_valid"
           }
         ]
       }

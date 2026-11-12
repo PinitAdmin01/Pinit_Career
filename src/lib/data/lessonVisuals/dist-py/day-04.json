@@ -2,230 +2,118 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 4,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The problem with hash mod N",
       "codeHash": "57d75a425343e6e8f06a6b627c86ab157fcc4a29377836f9406cf5f1f19a505c",
       "spec": {
-        "template": "flow",
-        "title": "The problem with hash mod N — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The problem with ha...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "The problem with hash mod N",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The problem with hash mod N [Dfour.Pone.Sone].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The problem with ha... [Dfour.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A simple way to spread keys over N servers is server = hash(key) % N.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfour.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The problem appears when N changes.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The problem with hash mod N.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example measures how many keys move with mod-N.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The problem with hash mod N — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The problem with ha...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "The problem with hash mod N",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The problem with hash mod N [D4.P1.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The problem with ha... [D4.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A simple way to spread keys over N servers is server = hash(key) % N.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "4 -> 5 servers with mod N: 79.8% of keys moved"
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The problem appears when N changes.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "4 -> 5 servers with mod N: 79.8% of keys moved"
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The problem with hash mod N [D4.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example measures how many keys move with mod-N.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "4 -> 5 servers with mod N: 79.8% of keys moved"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -235,112 +123,91 @@
       "partTitle": "The hash ring",
       "codeHash": "f2235928584fbf98abb83f9f8231dee465a145377a35885b551b4fe2d7c5a52c",
       "spec": {
-        "template": "table",
-        "title": "Consistent hash ring clockwise key to server mapping",
-        "columns": [
-          "key_pos",
+        "template": "sequence",
+        "title": "The hash ring",
+        "actors": [
+          "ring",
           "positions",
-          "owner"
+          "key_pos"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Consistent hashing places servers and keys on hash ring circle.",
-            "rows": [
+            "caption": "Consistent hashing places both servers and keys on a circle of hash.",
+            "activeActor": "ring",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "90"
-                  },
-                  {
-                    "text": "server-A"
-                  }
-                ],
+                "from": "ring",
+                "to": "positions",
+                "label": {
+                  "var": "ring",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "positions",
+                "to": "key_pos",
+                "label": {
+                  "var": "positions",
+                  "line": 4,
+                  "hit": 4
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Keys map to first server clockwise wrapping back to start.",
-            "rows": [
+            "caption": "Each key belongs to the first server found by moving clockwise from.",
+            "activeActor": "positions",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "90"
-                  },
-                  {
-                    "text": "server-A"
-                  }
-                ],
-                "tone": "ok"
+                "from": "ring",
+                "to": "positions",
+                "label": {
+                  "var": "ring",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "150"
-                  },
-                  {
-                    "text": "200"
-                  },
-                  {
-                    "text": "server-B"
-                  }
-                ],
+                "from": "positions",
+                "to": "key_pos",
+                "label": {
+                  "var": "positions",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Bisect finds first server position greater than or equal to key.",
-            "rows": [
+            "at": "say7",
+            "caption": "Trace how small updates ring during execution.",
+            "activeActor": "key_pos",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "90"
-                  },
-                  {
-                    "text": "server-A"
-                  }
-                ],
-                "tone": "ok"
+                "from": "ring",
+                "to": "positions",
+                "label": {
+                  "var": "ring",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "150"
-                  },
-                  {
-                    "text": "200"
-                  },
-                  {
-                    "text": "server-B"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "350"
-                  },
-                  {
-                    "text": "90"
-                  },
-                  {
-                    "text": "server-A"
-                  }
-                ],
+                "from": "positions",
+                "to": "key_pos",
+                "label": {
+                  "var": "positions",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -348,79 +215,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Consistent hash ring clockwise key to server mapping",
-        "columns": [
-          "key_pos",
+        "template": "sequence",
+        "title": "The hash ring",
+        "actors": [
+          "ring",
           "positions",
-          "owner"
+          "key_pos"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Consistent hashing places servers and keys on hash ring circle.",
-            "rows": [
+            "caption": "Consistent hashing places both servers and keys on a circle of hash.",
+            "messages": [
               {
-                "cells": [
-                  "10",
-                  "90",
-                  "server-A"
-                ],
+                "from": "ring",
+                "to": "positions",
+                "label": "[[90, 'server-A'], [200, 'server-B'], […",
+                "tone": "data"
+              },
+              {
+                "from": "positions",
+                "to": "key_pos",
+                "label": "[90, 200, 300]",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "ring"
           },
           {
             "at": "say2",
-            "caption": "Keys map to first server clockwise wrapping back to start.",
-            "rows": [
+            "caption": "Each key belongs to the first server found by moving clockwise from.",
+            "messages": [
               {
-                "cells": [
-                  "10",
-                  "90",
-                  "server-A"
-                ],
-                "tone": "ok"
+                "from": "ring",
+                "to": "positions",
+                "label": "[[90, 'server-A'], [200, 'server-B'], […",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "150",
-                  "200",
-                  "server-B"
-                ],
+                "from": "positions",
+                "to": "key_pos",
+                "label": "[90, 200, 300]",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "positions"
           },
           {
-            "at": "say4",
-            "caption": "Bisect finds first server position greater than or equal to key.",
-            "rows": [
+            "at": "say7",
+            "caption": "Trace how small updates ring during execution.",
+            "messages": [
               {
-                "cells": [
-                  "10",
-                  "90",
-                  "server-A"
-                ],
-                "tone": "ok"
+                "from": "ring",
+                "to": "positions",
+                "label": "[[90, 'server-A'], [200, 'server-B'], […",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "150",
-                  "200",
-                  "server-B"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "350",
-                  "90",
-                  "server-A"
-                ],
+                "from": "positions",
+                "to": "key_pos",
+                "label": "[90, 200, 300]",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "key_pos"
           }
         ]
       }
@@ -429,159 +287,162 @@
       "partTitle": "Building the ring with virtual nodes",
       "codeHash": "871d37946f7afd4b449e527293a3a85343305b0f42aed27462e0caed9934bae6",
       "spec": {
-        "template": "flow",
-        "title": "Consistent hash ring virtual nodes and membership changes",
-        "nodes": [
-          {
-            "id": "A",
-            "label": "A"
-          },
-          {
-            "id": "B",
-            "label": "B"
-          },
-          {
-            "id": "C",
-            "label": "C"
-          }
-        ],
-        "edges": [
-          {
-            "from": "A",
-            "to": "B",
-            "label": "ring"
-          },
-          {
-            "from": "B",
-            "to": "C",
-            "label": "ring"
-          }
+        "template": "sequence",
+        "title": "Building the ring with virtual nodes",
+        "actors": [
+          "self",
+          "ring",
+          "node"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Ring manages node membership with add_node and remove_node.",
-            "values": {
-              "A": {
-                "text": "A"
+            "caption": "ConsistentHashRing with add_node(node, vnodes), remove_node(node).",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "ring",
+                "label": {
+                  "var": "self",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "B": {
-                "text": "B"
-              },
-              "C": {
-                "text": "C"
+              {
+                "from": "ring",
+                "to": "node",
+                "label": {
+                  "var": "ring",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "A": "ok",
-              "B": "ok",
-              "C": "ok"
-            }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Each node is placed multiple times using virtual node hashes.",
-            "values": {
-              "A": {
-                "text": "A"
+            "caption": "Trace how each updates node during execution.",
+            "activeActor": "ring",
+            "messages": [
+              {
+                "from": "self",
+                "to": "ring",
+                "label": {
+                  "var": "self",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "B": {
-                "text": "B"
-              },
-              "C": {
-                "text": "C"
+              {
+                "from": "ring",
+                "to": "node",
+                "label": {
+                  "var": "ring",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "A": "data",
-              "B": "data",
-              "C": "data"
-            }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Removing node B redistributes only keys previously assigned to B.",
-            "values": {
-              "A": {
-                "text": "A"
+            "at": "say6",
+            "caption": "The example uses md5-based hashes and shows keys moving only from.",
+            "activeActor": "node",
+            "messages": [
+              {
+                "from": "self",
+                "to": "ring",
+                "label": {
+                  "var": "self",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "B": {
-                "text": "B"
-              },
-              "C": {
-                "text": "C"
+              {
+                "from": "ring",
+                "to": "node",
+                "label": {
+                  "var": "ring",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "A": "ok",
-              "B": "error",
-              "C": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Consistent hash ring virtual nodes and membership changes",
-        "nodes": [
-          {
-            "id": "A",
-            "label": "A"
-          },
-          {
-            "id": "B",
-            "label": "B"
-          },
-          {
-            "id": "C",
-            "label": "C"
-          }
+        "template": "sequence",
+        "title": "Building the ring with virtual nodes",
+        "actors": [
+          "self",
+          "ring",
+          "node"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Ring manages node membership with add_node and remove_node.",
-            "values": {
-              "A": "A",
-              "B": "B",
-              "C": "C"
-            },
-            "tones": {
-              "A": "ok",
-              "B": "ok",
-              "C": "ok"
-            },
-            "arrows": []
+            "caption": "ConsistentHashRing with add_node(node, vnodes), remove_node(node).",
+            "messages": [
+              {
+                "from": "self",
+                "to": "ring",
+                "label": "<ConsistentHashRing>",
+                "tone": "data"
+              },
+              {
+                "from": "ring",
+                "to": "node",
+                "label": "<ConsistentHashRing>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
           },
           {
             "at": "say2",
-            "caption": "Each node is placed multiple times using virtual node hashes.",
-            "values": {
-              "A": "A",
-              "B": "B",
-              "C": "C"
-            },
-            "tones": {
-              "A": "data",
-              "B": "data",
-              "C": "data"
-            },
-            "arrows": []
+            "caption": "Trace how each updates node during execution.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "ring",
+                "label": "<ConsistentHashRing>",
+                "tone": "data"
+              },
+              {
+                "from": "ring",
+                "to": "node",
+                "label": "<ConsistentHashRing>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ring"
           },
           {
-            "at": "say3",
-            "caption": "Removing node B redistributes only keys previously assigned to B.",
-            "values": {
-              "A": "A",
-              "B": "B",
-              "C": "C"
-            },
-            "tones": {
-              "A": "ok",
-              "B": "error",
-              "C": "ok"
-            },
-            "arrows": []
+            "at": "say6",
+            "caption": "The example uses md5-based hashes and shows keys moving only from.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "ring",
+                "label": "<ConsistentHashRing>",
+                "tone": "data"
+              },
+              {
+                "from": "ring",
+                "to": "node",
+                "label": "<ConsistentHashRing>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "node"
           }
         ]
       }
@@ -590,132 +451,278 @@
       "partTitle": "Why virtual nodes balance load",
       "codeHash": "21ab815d4013d957cb23cf783b4a8fe1e15913a3cfffb19627200e30c07c4dde",
       "spec": {
-        "template": "compare",
-        "title": "Load distribution fairness comparing single node versus virtual nodes",
-        "leftLabel": "Single Virtual Node",
-        "rightLabel": "100 Virtual Nodes",
+        "template": "flow",
+        "title": "Why virtual nodes balance load",
+        "nodes": [
+          {
+            "id": "nodes",
+            "label": "nodes"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Single point per node results in uneven partition sizes by chance.",
-            "left": {
-              "code": "shares(nodes, 1) uneven",
-              "result": {
-                "text": "1"
+            "caption": "With only one point per node, the ring's arcs have very uneven sizes by chance.",
+            "values": {
+              "nodes": {
+                "var": "nodes",
+                "line": 14,
+                "hit": 1
               },
-              "tone": "error"
+              "s": {
+                "var": "s",
+                "line": 6,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 9,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 9,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "shares(nodes, 100) balanced",
-              "result": {
-                "text": "100"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "nodes": "data",
+              "s": "data",
+              "n": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "nodes",
+                "s"
+              ],
+              [
+                "s",
+                "n"
+              ],
+              [
+                "n",
+                "i"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "Virtual nodes average out ring arcs making load distribution fair.",
-            "left": {
-              "code": "node A share skewed",
-              "result": {
-                "text": "A"
+            "caption": "Virtual nodes give each server many points spread around the ring.",
+            "values": {
+              "nodes": {
+                "var": "nodes",
+                "line": 9,
+                "hit": 10
               },
-              "tone": "error"
+              "s": {
+                "var": "s",
+                "line": 6,
+                "hit": 2
+              },
+              "n": {
+                "var": "n",
+                "line": 9,
+                "hit": 2
+              },
+              "i": {
+                "var": "i",
+                "line": 9,
+                "hit": 2
+              }
             },
-            "right": {
-              "code": "node A share balanced",
-              "result": {
-                "text": "A"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "nodes": "data",
+              "s": "data",
+              "n": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "nodes",
+                "s"
+              ],
+              [
+                "s",
+                "n"
+              ],
+              [
+                "n",
+                "i"
+              ]
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Failed node load spreads across neighbours when virtual nodes are used.",
-            "left": {
-              "code": "node B single point",
-              "result": {
-                "text": "B"
+            "at": "say7",
+            "caption": "The experiment compares key shares with 1 and with 100 virtual nodes.",
+            "values": {
+              "nodes": {
+                "var": "nodes",
+                "line": 10,
+                "hit": 1
               },
-              "tone": "error"
+              "s": {
+                "var": "s",
+                "line": 6,
+                "hit": 3
+              },
+              "n": {
+                "var": "n",
+                "line": 9,
+                "hit": 3
+              },
+              "i": {
+                "var": "i",
+                "line": 9,
+                "hit": 3
+              }
             },
-            "right": {
-              "code": "node B replica points",
-              "result": {
-                "text": "B"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "nodes": "ok",
+              "s": "ok",
+              "n": "ok",
+              "i": "ok"
+            },
+            "arrows": [
+              [
+                "nodes",
+                "s"
+              ],
+              [
+                "s",
+                "n"
+              ],
+              [
+                "n",
+                "i"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Load distribution fairness comparing single node versus virtual nodes",
-        "leftLabel": "Single Virtual Node",
-        "rightLabel": "100 Virtual Nodes",
+        "template": "flow",
+        "title": "Why virtual nodes balance load",
+        "nodes": [
+          {
+            "id": "nodes",
+            "label": "nodes"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Single point per node results in uneven partition sizes by chance.",
-            "left": {
-              "code": "shares(nodes, 1) uneven",
-              "result": "1",
-              "tone": "error",
-              "checks": [
-                "1"
-              ]
+            "caption": "With only one point per node, the ring's arcs have very uneven sizes by chance.",
+            "values": {
+              "nodes": "['A', 'B', 'C', 'D']",
+              "s": "'A#0'",
+              "n": "'A'",
+              "i": "0"
             },
-            "right": {
-              "code": "shares(nodes, 100) balanced",
-              "result": "100",
-              "tone": "ok",
-              "checks": [
-                "100"
+            "tones": {
+              "nodes": "data",
+              "s": "data",
+              "n": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "nodes",
+                "s"
+              ],
+              [
+                "s",
+                "n"
+              ],
+              [
+                "n",
+                "i"
               ]
-            }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Virtual nodes average out ring arcs making load distribution fair.",
-            "left": {
-              "code": "node A share skewed",
-              "result": "A",
-              "tone": "error",
-              "checks": [
-                "A"
-              ]
+            "caption": "Virtual nodes give each server many points spread around the ring.",
+            "values": {
+              "nodes": "['A', 'B', 'C', 'D']",
+              "s": "'B#0'",
+              "n": "'A'",
+              "i": "0"
             },
-            "right": {
-              "code": "node A share balanced",
-              "result": "A",
-              "tone": "ok",
-              "checks": [
-                "A"
+            "tones": {
+              "nodes": "data",
+              "s": "data",
+              "n": "data",
+              "i": "data"
+            },
+            "arrows": [
+              [
+                "nodes",
+                "s"
+              ],
+              [
+                "s",
+                "n"
+              ],
+              [
+                "n",
+                "i"
               ]
-            }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Failed node load spreads across neighbours when virtual nodes are used.",
-            "left": {
-              "code": "node B single point",
-              "result": "B",
-              "tone": "error",
-              "checks": [
-                "B"
-              ]
+            "at": "say7",
+            "caption": "The experiment compares key shares with 1 and with 100 virtual nodes.",
+            "values": {
+              "nodes": "['A', 'B', 'C', 'D']",
+              "s": "'C#0'",
+              "n": "'B'",
+              "i": "0"
             },
-            "right": {
-              "code": "node B replica points",
-              "result": "B",
-              "tone": "ok",
-              "checks": [
-                "B"
+            "tones": {
+              "nodes": "ok",
+              "s": "ok",
+              "n": "ok",
+              "i": "ok"
+            },
+            "arrows": [
+              [
+                "nodes",
+                "s"
+              ],
+              [
+                "s",
+                "n"
+              ],
+              [
+                "n",
+                "i"
               ]
-            }
+            ]
           }
         ]
       }
@@ -725,27 +732,34 @@
       "codeHash": "d4f68f8cfb3e62ef9fc3bb0611b5464f8a8450b4fb1dbad85b99b10177298d51",
       "spec": {
         "template": "table",
-        "title": "Key migration estimations upon adding nodes to hash ring",
+        "title": "How many keys move?",
         "columns": [
-          "nodes",
-          "keys_moved",
-          "fraction"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Adding node to ring moves small share of keys to new node.",
+            "caption": "When a node joins a ring of N nodes, it takes a fair share of the keys.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "9"
+                    "text": "out 1"
                   },
                   {
-                    "text": "keys_moved"
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
                   },
                   {
-                    "text": "fraction"
+                    "out": 2
                   }
                 ],
                 "tone": "ok"
@@ -754,18 +768,15 @@
           },
           {
             "at": "say2",
-            "caption": "Function migration_estimate returns number of keys moved.",
+            "caption": "Migration_estimate(total_keys, nodes) returns that share as a percentage.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "9"
+                    "text": "out 1"
                   },
                   {
-                    "text": "keys_moved"
-                  },
-                  {
-                    "text": "fraction"
+                    "out": 1
                   }
                 ],
                 "tone": "ok"
@@ -773,13 +784,10 @@
               {
                 "cells": [
                   {
-                    "text": "1"
+                    "text": "out 2"
                   },
                   {
-                    "text": "keys_moved"
-                  },
-                  {
-                    "text": "fraction"
+                    "out": 2
                   }
                 ],
                 "tone": "ok"
@@ -787,19 +795,16 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "Consistent hashing moves far fewer keys than modulo distribution.",
+            "at": "say6",
+            "caption": "Add nodes during quiet hours and one at a time, so each change moves only.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "9"
+                    "text": "out 1"
                   },
                   {
-                    "text": "keys_moved"
-                  },
-                  {
-                    "text": "fraction"
+                    "out": 1
                   }
                 ],
                 "tone": "ok"
@@ -807,30 +812,13 @@
               {
                 "cells": [
                   {
-                    "text": "1"
+                    "text": "out 2"
                   },
                   {
-                    "text": "keys_moved"
-                  },
-                  {
-                    "text": "fraction"
+                    "out": 2
                   }
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "9"
-                  },
-                  {
-                    "text": "20_000"
-                  },
-                  {
-                    "text": "fraction"
-                  }
-                ],
-                "tone": "data"
               }
             ]
           }
@@ -838,22 +826,27 @@
       },
       "filled": {
         "template": "table",
-        "title": "Key migration estimations upon adding nodes to hash ring",
+        "title": "How many keys move?",
         "columns": [
-          "nodes",
-          "keys_moved",
-          "fraction"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Adding node to ring moves small share of keys to new node.",
+            "caption": "When a node joins a ring of N nodes, it takes a fair share of the keys.",
             "rows": [
               {
                 "cells": [
-                  "9",
-                  "keys_moved",
-                  "fraction"
+                  "out 1",
+                  "estimate: {'fraction': '10.0%', 'keys_moved': 2000}"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "measured: 10.4%"
                 ],
                 "tone": "ok"
               }
@@ -861,53 +854,41 @@
           },
           {
             "at": "say2",
-            "caption": "Function migration_estimate returns number of keys moved.",
+            "caption": "Migration_estimate(total_keys, nodes) returns that share as a percentage.",
             "rows": [
               {
                 "cells": [
-                  "9",
-                  "keys_moved",
-                  "fraction"
+                  "out 1",
+                  "estimate: {'fraction': '10.0%', 'keys_moved': 2000}"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "1",
-                  "keys_moved",
-                  "fraction"
+                  "out 2",
+                  "measured: 10.4%"
                 ],
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Consistent hashing moves far fewer keys than modulo distribution.",
+            "at": "say6",
+            "caption": "Add nodes during quiet hours and one at a time, so each change moves only.",
             "rows": [
               {
                 "cells": [
-                  "9",
-                  "keys_moved",
-                  "fraction"
+                  "out 1",
+                  "estimate: {'fraction': '10.0%', 'keys_moved': 2000}"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "1",
-                  "keys_moved",
-                  "fraction"
+                  "out 2",
+                  "measured: 10.4%"
                 ],
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "9",
-                  "20_000",
-                  "fraction"
-                ],
-                "tone": "data"
               }
             ]
           }
@@ -918,224 +899,162 @@
       "partTitle": "Replicas on the ring",
       "codeHash": "063503631fcfe3e45156157b5b742c9d68ef958ede8e8f51003fa89dd7a41d7b",
       "spec": {
-        "template": "flow",
-        "title": "Replicas on the ring — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Replicas on the ring",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Replicas on the ring",
+        "actors": [
+          "s",
+          "n",
+          "i"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Replicas on the ring [Dfour.Psix.Sone].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Replicas on the ring [Dfour.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "For fault tolerance, each key is stored on several nodes.",
+            "activeActor": "s",
+            "messages": [
+              {
+                "from": "s",
+                "to": "n",
+                "label": {
+                  "var": "s",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "i",
+                "label": {
+                  "var": "n",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfour.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Skip positions belonging to a node already chosen, since virtual nodes.",
+            "activeActor": "n",
+            "messages": [
+              {
+                "from": "s",
+                "to": "n",
+                "label": {
+                  "var": "s",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "i",
+                "label": {
+                  "var": "n",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Replicas on the ring [Dfour.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "Walking the ring clockwise and skipping duplicates is a small loop, shown.",
+            "activeActor": "i",
+            "messages": [
+              {
+                "from": "s",
+                "to": "n",
+                "label": {
+                  "var": "s",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "i",
+                "label": {
+                  "var": "n",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Replicas on the ring — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Replicas on the ring",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Replicas on the ring",
+        "actors": [
+          "s",
+          "n",
+          "i"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Replicas on the ring [D4.P6.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Replicas on the ring [D4.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "For fault tolerance, each key is stored on several nodes.",
+            "messages": [
+              {
+                "from": "s",
+                "to": "n",
+                "label": "'A#0'",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "i",
+                "label": "'A'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "s"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Skip positions belonging to a node already chosen, since virtual nodes.",
+            "messages": [
+              {
+                "from": "s",
+                "to": "n",
+                "label": "'A#1'",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "i",
+                "label": "'A'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "n"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Replicas on the ring [D4.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say6",
+            "caption": "Walking the ring clockwise and skipping duplicates is a small loop, shown.",
+            "messages": [
+              {
+                "from": "s",
+                "to": "n",
+                "label": "'A#2'",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "i",
+                "label": "'A'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "i"
           }
         ]
       }

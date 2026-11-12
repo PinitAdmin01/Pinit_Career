@@ -2,1335 +2,885 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 36,
-  "promptSha": "1391b0d2b420e1b526a571e8661de3f5067d27410ae3966a1238bb8c5caf2ff2",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "SWIM Failure Detector — Foundations & Mathematical Invariants",
-      "codeHash": "fb9cce8176f3e953a5f73899fc5bb5b2965ca5267bc1e06b3b368d5fc8249741",
+      "partTitle": "Why All-to-All Heartbeats Fail at Scale",
+      "codeHash": "a4f0f70458d1ccaf1d75963a0757e52ae8eb5128cf10071c8b4b84a8cbf960e6",
       "spec": {
-        "template": "flow",
-        "title": "SWIM Failure Detector — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Why All-to-All Heartbeats Fail at Scale",
+        "actors": [
+          "cluster_sizes",
+          "n",
+          "all_to_all"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The simplest way to detect dead servers is having every node periodically.",
+            "activeActor": "cluster_sizes",
+            "messages": [
+              {
+                "from": "cluster_sizes",
+                "to": "n",
+                "label": {
+                  "var": "cluster_sizes",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "all_to_all",
+                "label": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how bandwidth updates math during execution.",
+            "activeActor": "n",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "cluster_sizes",
+                "to": "n",
+                "label": {
+                  "var": "cluster_sizes",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "n",
+                "to": "all_to_all",
+                "label": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Trace how simulate updates fixed during execution.",
+            "activeActor": "all_to_all",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "cluster_sizes",
+                "to": "n",
+                "label": {
+                  "var": "cluster_sizes",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "n",
+                "to": "all_to_all",
+                "label": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
+        "template": "sequence",
+        "title": "Why All-to-All Heartbeats Fail at Scale",
+        "actors": [
+          "cluster_sizes",
+          "n",
+          "all_to_all"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The simplest way to detect dead servers is having every node periodically.",
+            "messages": [
+              {
+                "from": "cluster_sizes",
+                "to": "n",
+                "label": "[10, 50, 200, 1000]",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "all_to_all",
+                "label": "10",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "cluster_sizes"
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how bandwidth updates math during execution.",
+            "messages": [
+              {
+                "from": "cluster_sizes",
+                "to": "n",
+                "label": "[10, 50, 200, 1000]",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "all_to_all",
+                "label": "10",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "n"
+          },
+          {
+            "at": "say8",
+            "caption": "Trace how simulate updates fixed during execution.",
+            "messages": [
+              {
+                "from": "cluster_sizes",
+                "to": "n",
+                "label": "[10, 50, 200, 1000]",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "all_to_all",
+                "label": "10",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "all_to_all"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Indirect Probing via Ping-Req Across Link Partitions",
+      "codeHash": "b4d681d7a11cfe02beabb72ca831826e0d9e337993d96a16c1b1564651808076",
+      "spec": {
         "template": "flow",
-        "title": "SWIM Failure Detector — Foundations & Mathematical Invariants",
+        "title": "Indirect Probing via Ping-Req Across Link Partitions",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "target",
+            "label": "target"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "direct_links",
+            "label": "direct_links"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "relays",
+            "label": "relays"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "relay_links",
+            "label": "relay_links"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Asymmetric network partitions are far more common in cloud VPCs than clean.",
+            "values": {
+              "target": {
+                "var": "target",
+                "line": 3,
+                "hit": 1
+              },
+              "direct_links": {
+                "var": "direct_links",
+                "line": 3,
+                "hit": 1
+              },
+              "relays": {
+                "var": "relays",
+                "line": 3,
+                "hit": 1
+              },
+              "relay_links": {
+                "var": "relay_links",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "target": "data",
+              "direct_links": "data",
+              "relays": "data",
+              "relay_links": "data"
+            },
+            "arrows": [
+              [
+                "target",
+                "direct_links"
+              ],
+              [
+                "direct_links",
+                "relays"
+              ],
+              [
+                "relays",
+                "relay_links"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "If node A marked B dead immediately after one direct PING timed out,.",
+            "values": {
+              "target": {
+                "var": "target",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "direct_links": {
+                "var": "direct_links",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "relays": {
+                "var": "relays",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "relay_links": {
+                "var": "relay_links",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "target": "data",
+              "direct_links": "data",
+              "relays": "data",
+              "relay_links": "data"
+            },
+            "arrows": [
+              [
+                "target",
+                "direct_links"
+              ],
+              [
+                "direct_links",
+                "relays"
+              ],
+              [
+                "relays",
+                "relay_links"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Trace the direct + indirect relay probe flow below across symmetric dead.",
+            "values": {
+              "target": {
+                "var": "target",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "direct_links": {
+                "var": "direct_links",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "relays": {
+                "var": "relays",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "relay_links": {
+                "var": "relay_links",
+                "line": 3,
+                "hit": 2
               }
+            },
+            "tones": {
+              "target": "ok",
+              "direct_links": "ok",
+              "relays": "ok",
+              "relay_links": "ok"
+            },
+            "arrows": [
+              [
+                "target",
+                "direct_links"
+              ],
+              [
+                "direct_links",
+                "relays"
+              ],
+              [
+                "relays",
+                "relay_links"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Indirect Probing via Ping-Req Across Link Partitions",
+        "nodes": [
+          {
+            "id": "target",
+            "label": "target"
+          },
+          {
+            "id": "direct_links",
+            "label": "direct_links"
+          },
+          {
+            "id": "relays",
+            "label": "relays"
+          },
+          {
+            "id": "relay_links",
+            "label": "relay_links"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Asymmetric network partitions are far more common in cloud VPCs than clean.",
+            "values": {
+              "target": "'B'",
+              "direct_links": "{'B': True}",
+              "relays": "['C', 'D', 'E']",
+              "relay_links": "{}"
+            },
+            "tones": {
+              "target": "data",
+              "direct_links": "data",
+              "relays": "data",
+              "relay_links": "data"
+            },
+            "arrows": [
+              [
+                "target",
+                "direct_links"
+              ],
+              [
+                "direct_links",
+                "relays"
+              ],
+              [
+                "relays",
+                "relay_links"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say2",
+            "caption": "If node A marked B dead immediately after one direct PING timed out,.",
+            "values": {
+              "target": "'B'",
+              "direct_links": "{'B': True}",
+              "relays": "['C', 'D', 'E']",
+              "relay_links": "{}"
+            },
+            "tones": {
+              "target": "data",
+              "direct_links": "data",
+              "relays": "data",
+              "relay_links": "data"
+            },
+            "arrows": [
+              [
+                "target",
+                "direct_links"
+              ],
+              [
+                "direct_links",
+                "relays"
+              ],
+              [
+                "relays",
+                "relay_links"
+              ]
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Trace the direct + indirect relay probe flow below across symmetric dead.",
+            "values": {
+              "target": "'B'",
+              "direct_links": "{'B': False}",
+              "relays": "['C', 'D', 'E']",
+              "relay_links": "{['D', 'B']: True}"
+            },
+            "tones": {
+              "target": "ok",
+              "direct_links": "ok",
+              "relays": "ok",
+              "relay_links": "ok"
+            },
+            "arrows": [
+              [
+                "target",
+                "direct_links"
+              ],
+              [
+                "direct_links",
+                "relays"
+              ],
+              [
+                "relays",
+                "relay_links"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "SWIM Failure Detector — Core Algorithm & State Representation",
-      "codeHash": "24d84f1e12f8f1b81cdf53140e4175e79cc1d8da4c5c901f33261c66dcfc4e90",
+      "partTitle": "Suspicion Sub-Protocol & Incarnation Refutation",
+      "codeHash": "fd6698d8096180ffe725556f691084bbcf765ec0193bed8cf3e2b3e23024d1a9",
       "spec": {
-        "template": "flow",
-        "title": "SWIM Failure Detector — Core Algorithm & State Representation",
-        "nodes": [
+        "template": "states",
+        "title": "Suspicion Sub-Protocol & Incarnation Refutation",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "self_id",
+            "label": "self_id"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "suspect_ttl",
+            "label": "suspect_ttl"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Even when k relays fail to reach B during one intervalperhaps B just.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "SWIM introduces an intermediate probation stage called SUSPECT lasting.",
+            "currentState": "self_id",
+            "transition": {
+              "from": "self",
+              "to": "self_id",
+              "label": {
+                "var": "self_id",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say8",
+            "caption": "Walk through the full ALIVE -> SUSPECT -> refute / expire state machine below.",
+            "currentState": "suspect_ttl",
+            "transition": {
+              "from": "self_id",
+              "to": "suspect_ttl",
+              "label": {
+                "var": "suspect_ttl",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "SWIM Failure Detector — Core Algorithm & State Representation",
-        "nodes": [
+        "template": "states",
+        "title": "Suspicion Sub-Protocol & Incarnation Refutation",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "self_id",
+            "label": "self_id"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "suspect_ttl",
+            "label": "suspect_ttl"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Even when k relays fail to reach B during one intervalperhaps B just.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "SWIM introduces an intermediate probation stage called SUSPECT lasting.",
+            "currentState": "self_id",
+            "transition": {
+              "from": "self",
+              "to": "self_id",
+              "label": "'A'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say8",
+            "caption": "Walk through the full ALIVE -> SUSPECT -> refute / expire state machine below.",
+            "currentState": "suspect_ttl",
+            "transition": {
+              "from": "self_id",
+              "to": "suspect_ttl",
+              "label": "3"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "SWIM Failure Detector — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "4f5f3a93d87485fac81bfdb6c253bac934cef01e107d9d49768f64e572a84a84",
+      "partTitle": "Piggyback Dissemination Budgets & Retransmission Bounds",
+      "codeHash": "f54980a9b9686d4da9f4809a313c6ef13c4045a12ec840aef49e7cb337d11455",
       "spec": {
-        "template": "flow",
-        "title": "SWIM Failure Detector — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Piggyback Dissemination Budgets & Retransmission Bounds",
+        "actors": [
+          "self",
+          "n_nodes",
+          "mult"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "SWIM piggybacks membership state rumors directly onto normal PING.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "n_nodes",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "n_nodes",
+                "to": "mult",
+                "label": {
+                  "var": "n_nodes",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Production SWIM implementations (like HashiCorp Memberlist) enforce.",
+            "activeActor": "n_nodes",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "n_nodes",
+                "label": {
+                  "var": "self",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "n_nodes",
+                "to": "mult",
+                "label": {
+                  "var": "n_nodes",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Trace the priority piggyback buffer and retransmission eviction loop below.",
+            "activeActor": "mult",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "n_nodes",
+                "label": {
+                  "var": "self",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "n_nodes",
+                "to": "mult",
+                "label": {
+                  "var": "n_nodes",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "SWIM Failure Detector — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Piggyback Dissemination Budgets & Retransmission Bounds",
+        "actors": [
+          "self",
+          "n_nodes",
+          "mult"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "SWIM piggybacks membership state rumors directly onto normal PING.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "n_nodes",
+                "label": "<PiggybackBuffer>",
+                "tone": "data"
+              },
+              {
+                "from": "n_nodes",
+                "to": "mult",
+                "label": "16",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Production SWIM implementations (like HashiCorp Memberlist) enforce.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "n_nodes",
+                "label": "<PiggybackBuffer>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "n_nodes",
+                "to": "mult",
+                "label": "16",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "n_nodes"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Trace the priority piggyback buffer and retransmission eviction loop below.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "n_nodes",
+                "label": "<PiggybackBuffer>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "n_nodes",
+                "to": "mult",
+                "label": "16",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "mult"
           }
         ]
       }
     },
     {
-      "partTitle": "SWIM Failure Detector — Resilience Guardrails & Failure Recovery",
-      "codeHash": "31008809c9732b254feabc9530446e1d7fa4fd3ea5e784e7c932c68c42be301a",
+      "partTitle": "Lifeguard Enhancements: Defending Stressed Nodes From False Blame",
+      "codeHash": "0a6621d5fdc9d45ea6257522612ddf1b6808dcca0aa65f138654325da0dfc136",
       "spec": {
-        "template": "flow",
-        "title": "SWIM Failure Detector — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Lifeguard Enhancements: Defending Stressed Nodes From False Blam",
+        "actors": [
+          "self",
+          "base_timeout_ms",
+          "max_lhm"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Standard SWIM assumes that if local CPU load stalls one node A's event.",
+            "activeActor": "self",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "base_timeout_ms",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "base_timeout_ms",
+                "to": "max_lhm",
+                "label": {
+                  "var": "base_timeout_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "HashiCorp engineers discovered this exact failure cascade under container.",
+            "activeActor": "base_timeout_ms",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "base_timeout_ms",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "base_timeout_ms",
+                "to": "max_lhm",
+                "label": {
+                  "var": "base_timeout_ms",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Watch how cleanly LHM stops a starved observer from blaming healthy.",
+            "activeActor": "max_lhm",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "base_timeout_ms",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "base_timeout_ms",
+                "to": "max_lhm",
+                "label": {
+                  "var": "base_timeout_ms",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "SWIM Failure Detector — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Lifeguard Enhancements: Defending Stressed Nodes From False Blam",
+        "actors": [
+          "self",
+          "base_timeout_ms",
+          "max_lhm"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Standard SWIM assumes that if local CPU load stalls one node A's event.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "base_timeout_ms",
+                "label": "<LifeguardObserver>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "base_timeout_ms",
+                "to": "max_lhm",
+                "label": "200",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "self"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "HashiCorp engineers discovered this exact failure cascade under container.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "base_timeout_ms",
+                "label": "<LifeguardObserver>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "base_timeout_ms",
+                "to": "max_lhm",
+                "label": "200",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "base_timeout_ms"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Watch how cleanly LHM stops a starved observer from blaming healthy.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "base_timeout_ms",
+                "label": "<LifeguardObserver>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "base_timeout_ms",
+                "to": "max_lhm",
+                "label": "200",
+                "tone": "ok"
               }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "SWIM Failure Detector — Production Telemetry & Verification Audit",
-      "codeHash": "03c228f490efe2c42556a0b7814f5ae590fd3fed7ff4cc1cc2fb68767a0814d3",
-      "spec": {
-        "template": "flow",
-        "title": "SWIM Failure Detector — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "SWIM Failure Detector — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "max_lhm"
           }
         ]
       }

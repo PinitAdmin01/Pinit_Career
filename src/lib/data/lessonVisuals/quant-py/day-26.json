@@ -2,119 +2,98 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 26,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why backtests lie",
       "codeHash": "57543202590ee66ac819443c3b0f267c2176529fa56f68ea1c6e47a8e69ff337",
       "spec": {
-        "template": "table",
-        "title": "Backtest performance comparison and lookahead avoidance",
-        "columns": [
+        "template": "sequence",
+        "title": "Why backtests lie",
+        "actors": [
           "returns",
-          "honest",
-          "cheating"
+          ".0",
+          "i"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Backtesting replays market history to assess algorithmic trading viability.",
-            "rows": [
+            "caption": "A backtest replays history to estimate how a strategy would have performed.",
+            "activeActor": "returns",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "returns"
-                  },
-                  {
-                    "text": "honest"
-                  },
-                  {
-                    "text": "cheating"
-                  }
-                ],
+                "from": "returns",
+                "to": ".0",
+                "label": {
+                  "var": "returns",
+                  "line": 4,
+                  "hit": 251
+                },
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "i",
+                "label": {
+                  "var": ".0",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Careless testing ignores hidden costs and unachievable trading edges.",
-            "rows": [
+            "caption": "Common sins include using information that was not available at the time.",
+            "activeActor": ".0",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "returns"
-                  },
-                  {
-                    "text": "honest"
-                  },
-                  {
-                    "text": "cheating"
-                  }
-                ],
-                "tone": "ok"
+                "from": "returns",
+                "to": ".0",
+                "label": {
+                  "var": "returns",
+                  "line": 5,
+                  "hit": 251
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "returns"
-                  },
-                  {
-                    "text": "honest"
-                  },
-                  {
-                    "text": "cheating"
-                  }
-                ],
+                "from": ".0",
+                "to": "i",
+                "label": {
+                  "var": ".0",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Professional discipline separates robust quant models from fitted noise.",
-            "rows": [
+            "at": "say8",
+            "caption": "If a backtest looks too good to be true, it almost certainly is.",
+            "activeActor": "i",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "returns"
-                  },
-                  {
-                    "text": "honest"
-                  },
-                  {
-                    "text": "cheating"
-                  }
-                ],
-                "tone": "ok"
+                "from": "returns",
+                "to": ".0",
+                "label": {
+                  "var": "returns",
+                  "line": 6,
+                  "hit": 252
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "returns"
-                  },
-                  {
-                    "text": "honest"
-                  },
-                  {
-                    "text": "cheating"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "returns"
-                  },
-                  {
-                    "text": "honest"
-                  },
-                  {
-                    "text": "cheating"
-                  }
-                ],
+                "from": ".0",
+                "to": "i",
+                "label": {
+                  "var": ".0",
+                  "line": 5,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -122,79 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Backtest performance comparison and lookahead avoidance",
-        "columns": [
+        "template": "sequence",
+        "title": "Why backtests lie",
+        "actors": [
           "returns",
-          "honest",
-          "cheating"
+          ".0",
+          "i"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Backtesting replays market history to assess algorithmic trading viability.",
-            "rows": [
+            "caption": "A backtest replays history to estimate how a strategy would have performed.",
+            "messages": [
               {
-                "cells": [
-                  "returns",
-                  "honest",
-                  "cheating"
-                ],
+                "from": "returns",
+                "to": ".0",
+                "label": "[-0.011788417512306717, -0.011481606807…",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "i",
+                "label": "{'__other__': 'enumerate'}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "returns"
           },
           {
             "at": "say2",
-            "caption": "Careless testing ignores hidden costs and unachievable trading edges.",
-            "rows": [
+            "caption": "Common sins include using information that was not available at the time.",
+            "messages": [
               {
-                "cells": [
-                  "returns",
-                  "honest",
-                  "cheating"
-                ],
-                "tone": "ok"
+                "from": "returns",
+                "to": ".0",
+                "label": "[-0.011788417512306717, -0.011481606807…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "returns",
-                  "honest",
-                  "cheating"
-                ],
+                "from": ".0",
+                "to": "i",
+                "label": "{'__other__': 'enumerate'}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": ".0"
           },
           {
-            "at": "say5",
-            "caption": "Professional discipline separates robust quant models from fitted noise.",
-            "rows": [
+            "at": "say8",
+            "caption": "If a backtest looks too good to be true, it almost certainly is.",
+            "messages": [
               {
-                "cells": [
-                  "returns",
-                  "honest",
-                  "cheating"
-                ],
-                "tone": "ok"
+                "from": "returns",
+                "to": ".0",
+                "label": "[-0.011788417512306717, -0.011481606807…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "returns",
-                  "honest",
-                  "cheating"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "returns",
-                  "honest",
-                  "cheating"
-                ],
+                "from": ".0",
+                "to": "i",
+                "label": "{'__other__': 'enumerate'}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "i"
           }
         ]
       }
@@ -203,9 +173,9 @@
       "partTitle": "Lookahead bias",
       "codeHash": "36913a7de3932ee4878e5f2fd906f22179e2730455ddf27eb4a58e215a6e974e",
       "spec": {
-        "template": "table",
-        "title": "Lookahead contamination in rolling window metrics",
-        "columns": [
+        "template": "sequence",
+        "title": "Lookahead bias",
+        "actors": [
           "prices",
           "full_mean",
           "past"
@@ -213,102 +183,81 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Lookahead bias occurs when future prices contaminate historical decisions.",
-            "rows": [
+            "caption": "Lookahead bias means using data at a decision time that was not yet known.",
+            "activeActor": "prices",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "prices"
-                  },
-                  {
-                    "text": "full_mean"
-                  },
-                  {
-                    "text": "past"
-                  }
-                ],
+                "from": "prices",
+                "to": "full_mean",
+                "label": {
+                  "var": "prices",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "full_mean",
+                "to": "past",
+                "label": {
+                  "var": "full_mean",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Computing statistics across future datasets distorts historical spreads.",
-            "rows": [
+            "at": "say2",
+            "caption": "Classic examples.",
+            "activeActor": "full_mean",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "prices"
-                  },
-                  {
-                    "text": "full_mean"
-                  },
-                  {
-                    "text": "past"
-                  }
-                ],
-                "tone": "ok"
+                "from": "prices",
+                "to": "full_mean",
+                "label": {
+                  "var": "prices",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "prices"
-                  },
-                  {
-                    "text": "full_mean"
-                  },
-                  {
-                    "text": "past"
-                  }
-                ],
+                "from": "full_mean",
+                "to": "past",
+                "label": {
+                  "var": "full_mean",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Decisions must strictly rely on data available prior to execution time.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example shows the whole-dataset normalisation mistake and its fix.",
+            "activeActor": "past",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "prices"
-                  },
-                  {
-                    "text": "full_mean"
-                  },
-                  {
-                    "text": "past"
-                  }
-                ],
-                "tone": "ok"
+                "from": "prices",
+                "to": "full_mean",
+                "label": {
+                  "var": "prices",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "prices"
-                  },
-                  {
-                    "text": "full_mean"
-                  },
-                  {
-                    "text": "past"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "prices"
-                  },
-                  {
-                    "text": "full_mean"
-                  },
-                  {
-                    "text": "past"
-                  }
-                ],
+                "from": "full_mean",
+                "to": "past",
+                "label": {
+                  "var": "full_mean",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -316,9 +265,9 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Lookahead contamination in rolling window metrics",
-        "columns": [
+        "template": "sequence",
+        "title": "Lookahead bias",
+        "actors": [
           "prices",
           "full_mean",
           "past"
@@ -326,69 +275,60 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Lookahead bias occurs when future prices contaminate historical decisions.",
-            "rows": [
+            "caption": "Lookahead bias means using data at a decision time that was not yet known.",
+            "messages": [
               {
-                "cells": [
-                  "prices",
-                  "full_mean",
-                  "past"
-                ],
+                "from": "prices",
+                "to": "full_mean",
+                "label": "[100, 102, 101, 105, 110, 120]",
+                "tone": "data"
+              },
+              {
+                "from": "full_mean",
+                "to": "past",
+                "label": "106.33333333333333",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "prices"
           },
           {
-            "at": "say3",
-            "caption": "Computing statistics across future datasets distorts historical spreads.",
-            "rows": [
+            "at": "say2",
+            "caption": "Classic examples.",
+            "messages": [
               {
-                "cells": [
-                  "prices",
-                  "full_mean",
-                  "past"
-                ],
-                "tone": "ok"
+                "from": "prices",
+                "to": "full_mean",
+                "label": "[100, 102, 101, 105, 110, 120]",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "prices",
-                  "full_mean",
-                  "past"
-                ],
+                "from": "full_mean",
+                "to": "past",
+                "label": "106.33333333333333",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "full_mean"
           },
           {
-            "at": "say4",
-            "caption": "Decisions must strictly rely on data available prior to execution time.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example shows the whole-dataset normalisation mistake and its fix.",
+            "messages": [
               {
-                "cells": [
-                  "prices",
-                  "full_mean",
-                  "past"
-                ],
-                "tone": "ok"
+                "from": "prices",
+                "to": "full_mean",
+                "label": "[100, 102, 101, 105, 110, 120]",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "prices",
-                  "full_mean",
-                  "past"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "prices",
-                  "full_mean",
-                  "past"
-                ],
+                "from": "full_mean",
+                "to": "past",
+                "label": "106.33333333333333",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "past"
           }
         ]
       }
@@ -397,191 +337,221 @@
       "partTitle": "Survivorship bias",
       "codeHash": "90eb8f092b16b648baa1e14fdd9f42f592f6fc55d36154ebb42b4827e8524a7f",
       "spec": {
-        "template": "table",
-        "title": "Survivorship bias in historical universe definitions",
-        "columns": [
-          "companies",
-          "survivors",
-          "avg"
+        "template": "flow",
+        "title": "Survivorship bias",
+        "nodes": [
+          {
+            "id": "companies",
+            "label": "companies"
+          },
+          {
+            "id": "survivors",
+            "label": "survivors"
+          },
+          {
+            "id": "d",
+            "label": "d"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Survivorship bias omits failed and delisted firms from backtest histories.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "companies"
-                  },
-                  {
-                    "text": "survivors"
-                  },
-                  {
-                    "text": "avg"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Survivorship bias comes from testing only on assets that still exist.",
+            "values": {
+              "companies": {
+                "var": "companies",
+                "line": 1,
+                "hit": 1
+              },
+              "survivors": {
+                "var": "survivors",
+                "line": 2,
+                "hit": 6
+              },
+              "d": {
+                "var": "d",
+                "line": 3,
+                "hit": 2
               }
+            },
+            "tones": {
+              "companies": "data",
+              "survivors": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "companies",
+                "survivors"
+              ],
+              [
+                "survivors",
+                "d"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Selecting surviving index constituents inflates historical performance.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "companies"
-                  },
-                  {
-                    "text": "survivors"
-                  },
-                  {
-                    "text": "avg"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Trace how backtest updates stocks during execution.",
+            "values": {
+              "companies": {
+                "var": "companies",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "companies"
-                  },
-                  {
-                    "text": "survivors"
-                  },
-                  {
-                    "text": "avg"
-                  }
-                ],
-                "tone": "ok"
+              "survivors": {
+                "var": "survivors",
+                "line": 3,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 3,
+                "hit": 3
               }
+            },
+            "tones": {
+              "companies": "data",
+              "survivors": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "companies",
+                "survivors"
+              ],
+              [
+                "survivors",
+                "d"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Point in time universes reconstruct assets active at each past interval.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "companies"
-                  },
-                  {
-                    "text": "survivors"
-                  },
-                  {
-                    "text": "avg"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say8",
+            "caption": "Always ask of any dataset.",
+            "values": {
+              "companies": {
+                "var": "companies",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "companies"
-                  },
-                  {
-                    "text": "survivors"
-                  },
-                  {
-                    "text": "avg"
-                  }
-                ],
-                "tone": "ok"
+              "survivors": {
+                "var": "survivors",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "companies"
-                  },
-                  {
-                    "text": "survivors"
-                  },
-                  {
-                    "text": "avg"
-                  }
-                ],
-                "tone": "ok"
+              "d": {
+                "var": "d",
+                "line": 3,
+                "hit": 3
               }
+            },
+            "tones": {
+              "companies": "ok",
+              "survivors": "ok",
+              "d": "ok"
+            },
+            "arrows": [
+              [
+                "companies",
+                "survivors"
+              ],
+              [
+                "survivors",
+                "d"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Survivorship bias in historical universe definitions",
-        "columns": [
-          "companies",
-          "survivors",
-          "avg"
+        "template": "flow",
+        "title": "Survivorship bias",
+        "nodes": [
+          {
+            "id": "companies",
+            "label": "companies"
+          },
+          {
+            "id": "survivors",
+            "label": "survivors"
+          },
+          {
+            "id": "d",
+            "label": "d"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Survivorship bias omits failed and delisted firms from backtest histories.",
-            "rows": [
-              {
-                "cells": [
-                  "companies",
-                  "survivors",
-                  "avg"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Survivorship bias comes from testing only on assets that still exist.",
+            "values": {
+              "companies": "{'A': 0.12, 'B': 0.08, 'C': 0.15, 'D (b…",
+              "survivors": "{'A': 0.12, 'B': 0.08, 'C': 0.15}",
+              "d": "{'A': 0.12, 'B': 0.08, 'C': 0.15}"
+            },
+            "tones": {
+              "companies": "data",
+              "survivors": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "companies",
+                "survivors"
+              ],
+              [
+                "survivors",
+                "d"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Selecting surviving index constituents inflates historical performance.",
-            "rows": [
-              {
-                "cells": [
-                  "companies",
-                  "survivors",
-                  "avg"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "companies",
-                  "survivors",
-                  "avg"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Trace how backtest updates stocks during execution.",
+            "values": {
+              "companies": "{'A': 0.12, 'B': 0.08, 'C': 0.15, 'D (b…",
+              "survivors": "{'A': 0.12, 'B': 0.08, 'C': 0.15}",
+              "d": "{'A': 0.12, 'B': 0.08, 'C': 0.15, 'D (b…"
+            },
+            "tones": {
+              "companies": "data",
+              "survivors": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "companies",
+                "survivors"
+              ],
+              [
+                "survivors",
+                "d"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Point in time universes reconstruct assets active at each past interval.",
-            "rows": [
-              {
-                "cells": [
-                  "companies",
-                  "survivors",
-                  "avg"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "companies",
-                  "survivors",
-                  "avg"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "companies",
-                  "survivors",
-                  "avg"
-                ],
-                "tone": "ok"
-              }
+            "at": "say8",
+            "caption": "Always ask of any dataset.",
+            "values": {
+              "companies": "{'A': 0.12, 'B': 0.08, 'C': 0.15, 'D (b…",
+              "survivors": "{'A': 0.12, 'B': 0.08, 'C': 0.15}",
+              "d": "{'A': 0.12, 'B': 0.08, 'C': 0.15, 'D (b…"
+            },
+            "tones": {
+              "companies": "ok",
+              "survivors": "ok",
+              "d": "ok"
+            },
+            "arrows": [
+              [
+                "companies",
+                "survivors"
+              ],
+              [
+                "survivors",
+                "d"
+              ]
             ]
           }
         ]
@@ -591,190 +561,132 @@
       "partTitle": "Overfitting and multiple testing",
       "codeHash": "72ed3c9f09fe8f5d8071af2c34f9168d2e817903f7fde98a7532b82ff3346c10",
       "spec": {
-        "template": "table",
-        "title": "Statistical multiple testing and Sharpe ratio haircut",
-        "columns": [
-          "daily",
-          "sharpe",
-          "best"
-        ],
+        "template": "bars",
+        "title": "Overfitting and multiple testing",
         "steps": [
           {
             "at": "say1",
-            "caption": "Overfitting captures random noise rather than persistent market patterns.",
-            "rows": [
+            "caption": "Overfitting means tuning a strategy so closely to past data that it.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "daily"
-                  },
-                  {
-                    "text": "sharpe"
-                  },
-                  {
-                    "text": "best"
-                  }
-                ],
-                "tone": "ok"
+                "label": "best",
+                "value": {
+                  "var": "best",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "sharpe",
+                "value": {
+                  "var": "sharpe",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Testing multiple variants elevates the likelihood of false positive luck.",
-            "rows": [
+            "caption": "The more parameters you tweak and the more variants you test, the more.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "daily"
-                  },
-                  {
-                    "text": "sharpe"
-                  },
-                  {
-                    "text": "best"
-                  }
-                ],
+                "label": "best",
+                "value": {
+                  "var": "best",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "daily"
-                  },
-                  {
-                    "text": "sharpe"
-                  },
-                  {
-                    "text": "best"
-                  }
-                ],
+                "label": "sharpe",
+                "value": {
+                  "var": "sharpe",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Sharpe haircut adjustments discount performance for exploratory trials.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example tests 100 strategies of pure noise and reports the best Sharpe.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "daily"
-                  },
-                  {
-                    "text": "sharpe"
-                  },
-                  {
-                    "text": "best"
-                  }
-                ],
+                "label": "best",
+                "value": {
+                  "var": "best",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "daily"
-                  },
-                  {
-                    "text": "sharpe"
-                  },
-                  {
-                    "text": "best"
-                  }
-                ],
+                "label": "sharpe",
+                "value": {
+                  "var": "sharpe",
+                  "line": 7,
+                  "hit": 2
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "daily"
-                  },
-                  {
-                    "text": "sharpe"
-                  },
-                  {
-                    "text": "best"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Statistical multiple testing and Sharpe ratio haircut",
-        "columns": [
-          "daily",
-          "sharpe",
-          "best"
-        ],
+        "template": "bars",
+        "title": "Overfitting and multiple testing",
         "steps": [
           {
             "at": "say1",
-            "caption": "Overfitting captures random noise rather than persistent market patterns.",
-            "rows": [
+            "caption": "Overfitting means tuning a strategy so closely to past data that it.",
+            "bars": [
               {
-                "cells": [
-                  "daily",
-                  "sharpe",
-                  "best"
-                ],
-                "tone": "ok"
+                "label": "best",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "sharpe",
+                "value": 0.022243915088169613,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Testing multiple variants elevates the likelihood of false positive luck.",
-            "rows": [
+            "caption": "The more parameters you tweak and the more variants you test, the more.",
+            "bars": [
               {
-                "cells": [
-                  "daily",
-                  "sharpe",
-                  "best"
-                ],
+                "label": "best",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "daily",
-                  "sharpe",
-                  "best"
-                ],
+                "label": "sharpe",
+                "value": 0.022243915088169613,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Sharpe haircut adjustments discount performance for exploratory trials.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example tests 100 strategies of pure noise and reports the best Sharpe.",
+            "bars": [
               {
-                "cells": [
-                  "daily",
-                  "sharpe",
-                  "best"
-                ],
+                "label": "best",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "daily",
-                  "sharpe",
-                  "best"
-                ],
+                "label": "sharpe",
+                "value": 0.022243915088169613,
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "daily",
-                  "sharpe",
-                  "best"
-                ],
-                "tone": "idle"
               }
             ]
           }
@@ -785,223 +697,217 @@
       "partTitle": "Honest research practice",
       "codeHash": "3aed15de94d6c7f4c30f5342933e036bac696e3c59dc8fea30415e55067c65af",
       "spec": {
-        "template": "flow",
-        "title": "Honest research practice — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Honest research pra...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Honest research practice",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Honest research practice [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Honest research pra... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Split data into training, validation and a final test set that is touched.",
+            "bars": [
+              {
+                "label": "days",
+                "value": {
+                  "var": "days",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "train",
+                "value": {
+                  "var": "train",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "test",
+                "value": {
+                  "var": "test",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Walk-forward testing repeatedly trains on a past window and tests on.",
+            "bars": [
+              {
+                "label": "days",
+                "value": {
+                  "var": "days",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "train",
+                "value": {
+                  "var": "train",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "test",
+                "value": {
+                  "var": "test",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Honest research practice [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Finally, paper trade or trade tiny sizes live before scaling up.",
+            "bars": [
+              {
+                "label": "days",
+                "value": {
+                  "var": "days",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "train",
+                "value": {
+                  "var": "train",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "test",
+                "value": {
+                  "var": "test",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Honest research practice — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Honest research pra...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Honest research practice",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Honest research practice [D26.P5.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Honest research pra... [D26.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Split data into training, validation and a final test set that is touched.",
+            "bars": [
+              {
+                "label": "days",
+                "value": 250,
+                "tone": "data"
+              },
+              {
+                "label": "train",
+                "value": 120,
+                "tone": "data"
+              },
+              {
+                "label": "test",
+                "value": 30,
+                "tone": "data"
+              },
+              {
+                "label": "start",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Walk-forward testing repeatedly trains on a past window and tests on.",
+            "bars": [
+              {
+                "label": "days",
+                "value": 250,
+                "tone": "ok"
+              },
+              {
+                "label": "train",
+                "value": 120,
+                "tone": "ok"
+              },
+              {
+                "label": "test",
+                "value": 30,
+                "tone": "ok"
+              },
+              {
+                "label": "start",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Honest research practice [D26.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Finally, paper trade or trade tiny sizes live before scaling up.",
+            "bars": [
+              {
+                "label": "days",
+                "value": 250,
+                "tone": "ok"
+              },
+              {
+                "label": "train",
+                "value": 120,
+                "tone": "ok"
+              },
+              {
+                "label": "test",
+                "value": 30,
+                "tone": "ok"
+              },
+              {
+                "label": "start",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -1011,223 +917,175 @@
       "partTitle": "Practice time: audit and haircut",
       "codeHash": "62ae83f48be4e59d665d35e7cfcbaacca0bc692f04e19d65030445abe6a343c9",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: audit and haircut — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: audi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: audit and haircut",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: audit and haircut [D.Psix.Sone].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: audi... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Lookahead_audit(decisions).",
+            "bars": [
+              {
+                "label": "sr",
+                "value": {
+                  "var": "sr",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a decision using data exactly at the decision time.",
+            "bars": [
+              {
+                "label": "sr",
+                "value": {
+                  "var": "sr",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: audit and haircut.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Tomorrow adds the last line of defence.",
+            "bars": [
+              {
+                "label": "sr",
+                "value": {
+                  "var": "sr",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: audit and haircut — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: audi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: audit and haircut",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: audit and haircut [D26.P6.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: audi... [D26.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Lookahead_audit(decisions).",
+            "bars": [
+              {
+                "label": "sr",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "s",
+                "value": 0.5,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a decision using data exactly at the decision time.",
+            "bars": [
+              {
+                "label": "sr",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": 0.5,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: audit and haircut [D26.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Tomorrow adds the last line of defence.",
+            "bars": [
+              {
+                "label": "sr",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": 0.5,
+                "tone": "ok"
+              }
             ]
           }
         ]

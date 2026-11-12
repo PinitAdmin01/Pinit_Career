@@ -2,89 +2,169 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 5,
-  "promptSha": "58cccaa6a768d9470590fcdb900d9d89bd9adf3c0026931e4fe0b8bb5a0560a2",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What a WAF does",
       "codeHash": "e790ad297ef7fc250af78d3329cbebfd0a6cdb1ab64eac9c02fd58910bbd9f97",
       "spec": {
-        "template": "states",
-        "title": "Unified Web Application Firewall inspection pipeline execution states",
-        "states": [
+        "template": "boxes",
+        "title": "What a WAF does",
+        "boxes": [
           {
-            "id": "requestReceived",
-            "label": "HTTP Request Ingress Ingestion"
+            "id": "rules",
+            "label": "rules"
           },
           {
-            "id": "threatClassified",
-            "label": "Stage One STRIDE Threat Classified"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "sqliInspected",
-            "label": "Stage Two SQL Injection Scanned"
-          },
-          {
-            "id": "xssSanitized",
-            "label": "Stage Three XSS Sanitized and CSP Prepared"
-          },
-          {
-            "id": "csrfValidated",
-            "label": "Stage Four CSRF Origin and Token Approved"
+            "id": "patterns",
+            "label": "patterns"
           }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "The pipeline evaluates incoming requests across sequential inspection stages.",
-            "activeStateId": "threatClassified",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "A web application firewall (WAF) inspects HTTP requests before they reach.",
+            "values": {
+              "rules": {
+                "var": "rules",
+                "line": 1,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 1
+              },
+              "patterns": {
+                "var": "patterns",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "rules": "data",
+              "name": "data",
+              "patterns": "data"
+            }
           },
           {
-            "at": "say6",
-            "caption": "If all stages pass the request is enriched with security headers.",
-            "activeStateId": "csrfValidated",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Commercial and open-source WAFs (for example Cloudflare, AWS WAF.",
+            "values": {
+              "rules": {
+                "var": "rules",
+                "line": 6,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
+              },
+              "patterns": {
+                "var": "patterns",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "rules": "data",
+              "name": "data",
+              "patterns": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Virtual patching, blocking a specific known attack at the WAF while.",
+            "values": {
+              "rules": {
+                "var": "rules",
+                "line": 7,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 2
+              },
+              "patterns": {
+                "var": "patterns",
+                "line": 6,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "rules": "ok",
+              "name": "ok",
+              "patterns": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Unified Web Application Firewall inspection pipeline execution states",
-        "states": [
+        "template": "boxes",
+        "title": "What a WAF does",
+        "boxes": [
           {
-            "id": "requestReceived",
-            "label": "HTTP Request Ingress Ingestion"
+            "id": "rules",
+            "label": "rules"
           },
           {
-            "id": "threatClassified",
-            "label": "Stage One STRIDE Threat Classified"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "sqliInspected",
-            "label": "Stage Two SQL Injection Scanned"
-          },
-          {
-            "id": "xssSanitized",
-            "label": "Stage Three XSS Sanitized and CSP Prepared"
-          },
-          {
-            "id": "csrfValidated",
-            "label": "Stage Four CSRF Origin and Token Approved"
+            "id": "patterns",
+            "label": "patterns"
           }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "The pipeline evaluates incoming requests across sequential inspection stages.",
-            "activeStateId": "threatClassified",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "A web application firewall (WAF) inspects HTTP requests before they reach.",
+            "values": {
+              "rules": "{'SQLI': [\"' or \", 'union select', '--'…",
+              "name": "'SQLI'",
+              "patterns": "[\"' or \", 'union select', '--']"
+            },
+            "tones": {
+              "rules": "data",
+              "name": "data",
+              "patterns": "data"
+            }
           },
           {
-            "at": "say6",
-            "caption": "If all stages pass the request is enriched with security headers.",
-            "activeStateId": "csrfValidated",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Commercial and open-source WAFs (for example Cloudflare, AWS WAF.",
+            "values": {
+              "rules": "{'SQLI': [\"' or \", 'union select', '--'…",
+              "name": "'SQLI'",
+              "patterns": "[\"' or \", 'union select', '--']"
+            },
+            "tones": {
+              "rules": "data",
+              "name": "data",
+              "patterns": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Virtual patching, blocking a specific known attack at the WAF while.",
+            "values": {
+              "rules": "{'SQLI': [\"' or \", 'union select', '--'…",
+              "name": "'XSS'",
+              "patterns": "['<script', 'javascript:', 'onerror=']"
+            },
+            "tones": {
+              "rules": "ok",
+              "name": "ok",
+              "patterns": "ok"
+            }
           }
         ]
       }
@@ -93,165 +173,277 @@
       "partTitle": "Path traversal",
       "codeHash": "b296aa2268eca0b4f821639dd7392e1dbc5460e415168288a034f803732fa4bc",
       "spec": {
-        "template": "table",
-        "title": "WAF automated STRIDE threat vector classification matrix",
-        "columns": [
-          "Request Pattern",
-          "Triggered Condition",
-          "STRIDE Category",
-          "Mitigation Action"
+        "template": "flow",
+        "title": "Path traversal",
+        "nodes": [
+          {
+            "id": "base",
+            "label": "base"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "full",
+            "label": "full"
+          },
+          {
+            "id": "inside",
+            "label": "inside"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Requests attempting to invoke hidden endpoints are tagged as risks.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Admin Path Probing",
-                  "Path contains /admin or /debug",
-                  "Elevation of Privilege",
-                  "Strict RBAC Verification"
-                ],
-                "tone": "data"
+            "at": "say1",
+            "caption": "Path traversal attacks use sequences like.",
+            "values": {
+              "base": {
+                "var": "base",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Rapid Payload Bursts",
-                  "High request rate from single IP",
-                  "Denial of Service",
-                  "Dynamic Rate Limiter Throttling"
-                ],
-                "tone": "data"
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Header Tampering",
-                  "Mismatched authorization signature",
-                  "Spoofing & Tampering",
-                  "Honeypot Redirect & Drop"
-                ],
-                "tone": "data"
+              "full": {
+                "var": "full",
+                "line": 5,
+                "hit": 1
+              },
+              "inside": {
+                "var": "inside",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "base": "data",
+              "name": "data",
+              "full": "data",
+              "inside": "data"
+            },
+            "arrows": [
+              [
+                "base",
+                "name"
+              ],
+              [
+                "name",
+                "full"
+              ],
+              [
+                "full",
+                "inside"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Requests with high frequency bursts are tagged as denial of service.",
-            "activeRowIndex": 1,
-            "statusBadge": "failed",
-            "rows": [
-              {
-                "cells": [
-                  "Admin Path Probing",
-                  "Path contains /admin or /debug",
-                  "Elevation of Privilege",
-                  "Strict RBAC Verification"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "An app that serves files with open(\"uploads/\" + name) is vulnerable if.",
+            "values": {
+              "base": {
+                "var": "base",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Rapid Payload Bursts",
-                  "High request rate from single IP",
-                  "Denial of Service",
-                  "Dynamic Rate Limiter Throttling"
-                ],
-                "tone": "data"
+              "name": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Header Tampering",
-                  "Mismatched authorization signature",
-                  "Spoofing & Tampering",
-                  "Honeypot Redirect & Drop"
-                ],
-                "tone": "data"
+              "full": {
+                "var": "full",
+                "line": 6,
+                "hit": 1
+              },
+              "inside": {
+                "var": "inside",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "base": "data",
+              "name": "data",
+              "full": "data",
+              "inside": "data"
+            },
+            "arrows": [
+              [
+                "base",
+                "name"
+              ],
+              [
+                "name",
+                "full"
+              ],
+              [
+                "full",
+                "inside"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Storing uploaded files under random generated names, with the original.",
+            "values": {
+              "base": {
+                "var": "base",
+                "line": 5,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 1
+              },
+              "full": {
+                "var": "full",
+                "line": 7,
+                "hit": 1
+              },
+              "inside": {
+                "var": "inside",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "base": "ok",
+              "name": "ok",
+              "full": "ok",
+              "inside": "ok"
+            },
+            "arrows": [
+              [
+                "base",
+                "name"
+              ],
+              [
+                "name",
+                "full"
+              ],
+              [
+                "full",
+                "inside"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "WAF automated STRIDE threat vector classification matrix",
-        "columns": [
-          "Request Pattern",
-          "Triggered Condition",
-          "STRIDE Category",
-          "Mitigation Action"
+        "template": "flow",
+        "title": "Path traversal",
+        "nodes": [
+          {
+            "id": "base",
+            "label": "base"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "full",
+            "label": "full"
+          },
+          {
+            "id": "inside",
+            "label": "inside"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Requests attempting to invoke hidden endpoints are tagged as risks.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Admin Path Probing",
-                  "Path contains /admin or /debug",
-                  "Elevation of Privilege",
-                  "Strict RBAC Verification"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Rapid Payload Bursts",
-                  "High request rate from single IP",
-                  "Denial of Service",
-                  "Dynamic Rate Limiter Throttling"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Header Tampering",
-                  "Mismatched authorization signature",
-                  "Spoofing & Tampering",
-                  "Honeypot Redirect & Drop"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Path traversal attacks use sequences like.",
+            "values": {
+              "base": "'/srv/app/uploads'",
+              "name": "'report.pdf'",
+              "full": "'/srv/app/uploads/report.pdf'",
+              "inside": "True"
+            },
+            "tones": {
+              "base": "data",
+              "name": "data",
+              "full": "data",
+              "inside": "data"
+            },
+            "arrows": [
+              [
+                "base",
+                "name"
+              ],
+              [
+                "name",
+                "full"
+              ],
+              [
+                "full",
+                "inside"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Requests with high frequency bursts are tagged as denial of service.",
-            "activeRowIndex": 1,
-            "statusBadge": "failed",
-            "rows": [
-              {
-                "cells": [
-                  "Admin Path Probing",
-                  "Path contains /admin or /debug",
-                  "Elevation of Privilege",
-                  "Strict RBAC Verification"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Rapid Payload Bursts",
-                  "High request rate from single IP",
-                  "Denial of Service",
-                  "Dynamic Rate Limiter Throttling"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Header Tampering",
-                  "Mismatched authorization signature",
-                  "Spoofing & Tampering",
-                  "Honeypot Redirect & Drop"
-                ],
-                "tone": "data"
-              }
+            "at": "say2",
+            "caption": "An app that serves files with open(\"uploads/\" + name) is vulnerable if.",
+            "values": {
+              "base": "'/srv/app/uploads'",
+              "name": "'report.pdf'",
+              "full": "'/srv/app/uploads/report.pdf'",
+              "inside": "True"
+            },
+            "tones": {
+              "base": "data",
+              "name": "data",
+              "full": "data",
+              "inside": "data"
+            },
+            "arrows": [
+              [
+                "base",
+                "name"
+              ],
+              [
+                "name",
+                "full"
+              ],
+              [
+                "full",
+                "inside"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Storing uploaded files under random generated names, with the original.",
+            "values": {
+              "base": "'/srv/app/uploads'",
+              "name": "'report.pdf'",
+              "full": "'/srv/app/uploads/report.pdf'",
+              "inside": "True"
+            },
+            "tones": {
+              "base": "ok",
+              "name": "ok",
+              "full": "ok",
+              "inside": "ok"
+            },
+            "arrows": [
+              [
+                "base",
+                "name"
+              ],
+              [
+                "name",
+                "full"
+              ],
+              [
+                "full",
+                "inside"
+              ]
             ]
           }
         ]
@@ -261,194 +453,270 @@
       "partTitle": "Combining the rules",
       "codeHash": "aaa9323ca9586ea87d2a0124a9df9c131210d06368b98ec22b1a1707967762ad",
       "spec": {
-        "template": "compare",
-        "title": "Malicious SQL payload detection versus sanitized input parameterization",
-        "left": {
-          "title": "Detected Malicious Payload",
-          "items": [
-            "Contains tautology pattern OR 1=1",
-            "Comment delimiters -- and /* detected",
-            "Triggers immediate WAF rejection and audit log"
-          ]
-        },
-        "right": {
-          "title": "Sanitized Parameterized Query",
-          "items": [
-            "Stripped of illegal control characters",
-            "Unicode representations normalized",
-            "Forwarded to database via prepared statement"
-          ]
-        },
+        "template": "sequence",
+        "title": "Combining the rules",
+        "actors": [
+          "k",
+          "req",
+          "text"
+        ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Key patterns include tautology expressions and comment delimiters.",
-            "highlightSide": "left",
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "The WAF joins the request's path, query and body into one lower-cased.",
+            "activeActor": "k",
+            "messages": [
+              {
+                "from": "k",
+                "to": "req",
+                "label": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "req",
+                "to": "text",
+                "label": {
+                  "var": "req",
+                  "line": 4,
+                  "hit": 5
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say6",
-            "caption": "The engine sanitizes acceptable inputs stripping control characters.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "It then applies each rule family and collects the names of those that match.",
+            "activeActor": "req",
+            "messages": [
+              {
+                "from": "k",
+                "to": "req",
+                "label": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "req",
+                "to": "text",
+                "label": {
+                  "var": "req",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Scoring, where each matched rule adds points and blocking happens above.",
+            "activeActor": "text",
+            "messages": [
+              {
+                "from": "k",
+                "to": "req",
+                "label": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "data"
+              },
+              {
+                "from": "req",
+                "to": "text",
+                "label": {
+                  "var": "req",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
-        ],
-        "leftLabel": "Detected Malicious Payload",
-        "rightLabel": "Sanitized Parameterized Query"
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Malicious SQL payload detection versus sanitized input parameterization",
-        "left": {
-          "title": "Detected Malicious Payload",
-          "items": [
-            "Contains tautology pattern OR 1=1",
-            "Comment delimiters -- and /* detected",
-            "Triggers immediate WAF rejection and audit log"
-          ]
-        },
-        "right": {
-          "title": "Sanitized Parameterized Query",
-          "items": [
-            "Stripped of illegal control characters",
-            "Unicode representations normalized",
-            "Forwarded to database via prepared statement"
-          ]
-        },
+        "template": "sequence",
+        "title": "Combining the rules",
+        "actors": [
+          "k",
+          "req",
+          "text"
+        ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Key patterns include tautology expressions and comment delimiters.",
-            "highlightSide": "left",
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "The WAF joins the request's path, query and body into one lower-cased.",
+            "messages": [
+              {
+                "from": "k",
+                "to": "req",
+                "label": "'path'",
+                "tone": "data"
+              },
+              {
+                "from": "req",
+                "to": "text",
+                "label": "{'path': '/search', 'query': 'q=shoes'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "k"
           },
           {
-            "at": "say6",
-            "caption": "The engine sanitizes acceptable inputs stripping control characters.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "It then applies each rule family and collects the names of those that match.",
+            "messages": [
+              {
+                "from": "k",
+                "to": "req",
+                "label": "'query'",
+                "tone": "data"
+              },
+              {
+                "from": "req",
+                "to": "text",
+                "label": "{'path': '/search', 'query': 'q=shoes'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "req"
+          },
+          {
+            "at": "say9",
+            "caption": "Scoring, where each matched rule adds points and blocking happens above.",
+            "messages": [
+              {
+                "from": "k",
+                "to": "req",
+                "label": "'body'",
+                "tone": "data"
+              },
+              {
+                "from": "req",
+                "to": "text",
+                "label": "{'path': '/search', 'query': 'q=shoes'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "text"
           }
-        ],
-        "leftLabel": "Detected Malicious Payload",
-        "rightLabel": "Sanitized Parameterized Query"
+        ]
       }
     },
     {
       "partTitle": "Safe upload filenames",
       "codeHash": "79fac48ca7ebfb5532346ae804527b7a8afc6472e12232a5b92201c5a8f57599",
       "spec": {
-        "template": "sequence",
-        "title": "WAF input entity encoding and CSP response header injection sequence",
-        "actors": [
+        "template": "states",
+        "title": "Safe upload filenames",
+        "states": [
           {
-            "id": "client",
-            "label": "HTTP Client"
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "wafXss",
-            "label": "WAF XSS Sanitizer"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "appBackend",
-            "label": "Application Backend"
-          }
-        ],
-        "messages": [
-          {
-            "from": "client",
-            "to": "wafXss",
-            "label": "Transmit Request with Script Tags in Body",
-            "tone": "error"
-          },
-          {
-            "from": "wafXss",
-            "to": "appBackend",
-            "label": "Forward Payload with HTML Entities Encoded",
-            "tone": "ok"
-          },
-          {
-            "from": "appBackend",
-            "to": "wafXss",
-            "label": "Generate Raw HTTP Response Data",
-            "tone": "data"
-          },
-          {
-            "from": "wafXss",
-            "to": "client",
-            "label": "Attach Strict CSP Nonce Header to Response",
-            "tone": "ok"
+            "id": "base",
+            "label": "base"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Dangerous characters are transformed into safe named entities.",
-            "activeMessageIndex": 1,
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "File uploads are a favourite target.",
+            "currentState": "n",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "The waf generates a cryptographic nonce and attaches a strict header.",
-            "activeMessageIndex": 3,
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Trace how practice updates name during execution.",
+            "currentState": "name",
+            "transition": {
+              "from": "n",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Serving uploads from a separate domain, with its own cookies, stops.",
+            "currentState": "base",
+            "transition": {
+              "from": "name",
+              "to": "base",
+              "label": {
+                "var": "base",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "sequence",
-        "title": "WAF input entity encoding and CSP response header injection sequence",
-        "actors": [
+        "template": "states",
+        "title": "Safe upload filenames",
+        "states": [
           {
-            "id": "client",
-            "label": "HTTP Client"
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "wafXss",
-            "label": "WAF XSS Sanitizer"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "appBackend",
-            "label": "Application Backend"
-          }
-        ],
-        "messages": [
-          {
-            "from": "client",
-            "to": "wafXss",
-            "label": "Transmit Request with Script Tags in Body",
-            "tone": "error"
-          },
-          {
-            "from": "wafXss",
-            "to": "appBackend",
-            "label": "Forward Payload with HTML Entities Encoded",
-            "tone": "ok"
-          },
-          {
-            "from": "appBackend",
-            "to": "wafXss",
-            "label": "Generate Raw HTTP Response Data",
-            "tone": "data"
-          },
-          {
-            "from": "wafXss",
-            "to": "client",
-            "label": "Attach Strict CSP Nonce Header to Response",
-            "tone": "ok"
+            "id": "base",
+            "label": "base"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Dangerous characters are transformed into safe named entities.",
-            "activeMessageIndex": 1,
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "File uploads are a favourite target.",
+            "currentState": "n",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "The waf generates a cryptographic nonce and attaches a strict header.",
-            "activeMessageIndex": 3,
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Trace how practice updates name during execution.",
+            "currentState": "name",
+            "transition": {
+              "from": "n",
+              "to": "name",
+              "label": "'../../etc/passwd'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Serving uploads from a separate domain, with its own cookies, stops.",
+            "currentState": "base",
+            "transition": {
+              "from": "name",
+              "to": "base",
+              "label": "'passwd'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -457,202 +725,106 @@
       "partTitle": "Testing security rules",
       "codeHash": "b21cfecf2dbf9d76427f16232188f9f473d613c32c6c7fec434db42d886a5f75",
       "spec": {
-        "template": "table",
-        "title": "WAF CSRF validation rules and defense-in-depth criteria",
-        "columns": [
-          "HTTP Method",
-          "Origin Header Check",
-          "CSRF Token Check",
-          "Inspection Outcome"
+        "template": "states",
+        "title": "Testing security rules",
+        "states": [
+          {
+            "id": "tests",
+            "label": "tests"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "expected",
+            "label": "expected"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The waf checks the origin or referer header against approved lists.",
-            "activeRowIndex": 1,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "GET /products",
-                  "Not Required (Safe Read)",
-                  "Not Required (Idempotent)",
-                  "Approved (Passes to Handler)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "POST /transfer",
-                  "Matches Approved Origin",
-                  "Valid Token Provided",
-                  "Approved (Passes to Handler)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "POST /transfer",
-                  "Unauthorized Origin evil.com",
-                  "Missing or Invalid Token",
-                  "Rejected (STATUS_CSRF_ATTACK_PREVENTED)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "POST /transfer",
-                  "Absent Origin Header",
-                  "Valid Referer and Valid Token",
-                  "Approved (Fallback Permitted)"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Security rules need tests just like any other code.",
+            "currentState": "tests",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "If the origin is unauthorized the request is rejected immediately.",
-            "activeRowIndex": 2,
-            "statusBadge": "failed",
-            "rows": [
-              {
-                "cells": [
-                  "GET /products",
-                  "Not Required (Safe Read)",
-                  "Not Required (Idempotent)",
-                  "Approved (Passes to Handler)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "POST /transfer",
-                  "Matches Approved Origin",
-                  "Valid Token Provided",
-                  "Approved (Passes to Handler)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "POST /transfer",
-                  "Unauthorized Origin evil.com",
-                  "Missing or Invalid Token",
-                  "Rejected (STATUS_CSRF_ATTACK_PREVENTED)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "POST /transfer",
-                  "Absent Origin Header",
-                  "Valid Referer and Valid Token",
-                  "Approved (Fallback Permitted)"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Collect realistic \"good\" examples, such as names with apostrophes.",
+            "currentState": "text",
+            "transition": {
+              "from": "tests",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 2,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Automated security testing in CI makes regressions visible before they.",
+            "currentState": "expected",
+            "transition": {
+              "from": "text",
+              "to": "expected",
+              "label": {
+                "var": "expected",
+                "line": 9,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "WAF CSRF validation rules and defense-in-depth criteria",
-        "columns": [
-          "HTTP Method",
-          "Origin Header Check",
-          "CSRF Token Check",
-          "Inspection Outcome"
+        "template": "states",
+        "title": "Testing security rules",
+        "states": [
+          {
+            "id": "tests",
+            "label": "tests"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "expected",
+            "label": "expected"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The waf checks the origin or referer header against approved lists.",
-            "activeRowIndex": 1,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "GET /products",
-                  "Not Required (Safe Read)",
-                  "Not Required (Idempotent)",
-                  "Approved (Passes to Handler)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "POST /transfer",
-                  "Matches Approved Origin",
-                  "Valid Token Provided",
-                  "Approved (Passes to Handler)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "POST /transfer",
-                  "Unauthorized Origin evil.com",
-                  "Missing or Invalid Token",
-                  "Rejected (STATUS_CSRF_ATTACK_PREVENTED)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "POST /transfer",
-                  "Absent Origin Header",
-                  "Valid Referer and Valid Token",
-                  "Approved (Fallback Permitted)"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Security rules need tests just like any other code.",
+            "currentState": "tests",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "If the origin is unauthorized the request is rejected immediately.",
-            "activeRowIndex": 2,
-            "statusBadge": "failed",
-            "rows": [
-              {
-                "cells": [
-                  "GET /products",
-                  "Not Required (Safe Read)",
-                  "Not Required (Idempotent)",
-                  "Approved (Passes to Handler)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "POST /transfer",
-                  "Matches Approved Origin",
-                  "Valid Token Provided",
-                  "Approved (Passes to Handler)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "POST /transfer",
-                  "Unauthorized Origin evil.com",
-                  "Missing or Invalid Token",
-                  "Rejected (STATUS_CSRF_ATTACK_PREVENTED)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "POST /transfer",
-                  "Absent Origin Header",
-                  "Valid Referer and Valid Token",
-                  "Approved (Fallback Permitted)"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Collect realistic \"good\" examples, such as names with apostrophes.",
+            "currentState": "text",
+            "transition": {
+              "from": "tests",
+              "to": "text",
+              "label": "\"O'Brien\""
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Automated security testing in CI makes regressions visible before they.",
+            "currentState": "expected",
+            "transition": {
+              "from": "text",
+              "to": "expected",
+              "label": "False"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -661,224 +833,106 @@
       "partTitle": "Milestone practice: WAF and filenames",
       "codeHash": "1766187f49b6cf91fae8270d304401c7a62b29511f229792db6cf9a2281911a5",
       "spec": {
-        "template": "flow",
-        "title": "Capstone Pipeline Integration: Multi-Stage Th... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone practice: WAF and filenames",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "upload",
+            "label": "upload"
           },
           {
-            "id": "proc",
-            "label": "2. Capstone Pipeline I...",
-            "tappable": true
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Capstone Pipeline Integration: Multi-Sta.",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Capstone Pipeline I... [Dfive.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Waf_check(request).",
+            "currentState": "upload",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfive.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include a normal request, a mixed-case script tag, a request.",
+            "currentState": "text",
+            "transition": {
+              "from": "upload",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Capstone Pipeline Integration: Mu.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "A small, well-tested WAF plus secure code is far stronger than either alone.",
+            "currentState": "name",
+            "transition": {
+              "from": "text",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 8,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Capstone Pipeline Integration: Multi-Stage Th... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone practice: WAF and filenames",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "upload",
+            "label": "upload"
           },
           {
-            "id": "proc",
-            "label": "2. Capstone Pipeline I...",
-            "tappable": true
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Capstone Pipeline Integration: Multi-Sta.. [D5.P6.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Capstone Pipeline I... [D5.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Waf_check(request).",
+            "currentState": "upload",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include a normal request, a mixed-case script tag, a request.",
+            "currentState": "text",
+            "transition": {
+              "from": "upload",
+              "to": "text",
+              "label": "'/upload  filename=../../app/config.py'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Capstone Pipeline Integration: Mu.. [D5.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "A small, well-tested WAF plus secure code is far stronger than either alone.",
+            "currentState": "name",
+            "transition": {
+              "from": "text",
+              "to": "name",
+              "label": "'../../app/config.py'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

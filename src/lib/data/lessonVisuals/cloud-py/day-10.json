@@ -2,172 +2,172 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 10,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "How buckets leak",
       "codeHash": "5a6440486112cb4f24db6ed17e576bc17c443f3e5c58a9845de9cb981d95f501",
       "spec": {
-        "template": "table",
-        "title": "S3 Block Public Access safety check and exposure classification",
-        "columns": [
-          "bucket",
-          "status"
+        "template": "flow",
+        "title": "How buckets leak",
+        "nodes": [
+          {
+            "id": "buckets",
+            "label": "buckets"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "New object-storage buckets remain private unless configuration changes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "invoices-prod"
-                  },
-                  {
-                    "text": "ok:"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "By default, a new S3 bucket is private.",
+            "values": {
+              "buckets": {
+                "var": "buckets",
+                "line": 1,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "buckets": "data",
+              "b": "data"
+            },
+            "arrows": [
+              [
+                "buckets",
+                "b"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Block Public Access overrides policies or ACLs that would expose data.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "invoices-prod"
-                  },
-                  {
-                    "text": "ok:"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "The usual causes are a bucket policy that allows \"Principal\".",
+            "values": {
+              "buckets": {
+                "var": "buckets",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "marketing-site"
-                  },
-                  {
-                    "text": "PUBLIC:"
-                  }
-                ],
-                "tone": "error"
+              "b": {
+                "var": "b",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "buckets": "data",
+              "b": "data"
+            },
+            "arrows": [
+              [
+                "buckets",
+                "b"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example scans bucket configurations flagging risky permissions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "invoices-prod"
-                  },
-                  {
-                    "text": "ok:"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example scans a list of bucket settings and flags the risky ones.",
+            "values": {
+              "buckets": {
+                "var": "buckets",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "marketing-site"
-                  },
-                  {
-                    "text": "PUBLIC:"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "backup-2026"
-                  },
-                  {
-                    "text": "WARNING, public access not blocked:"
-                  }
-                ],
-                "tone": "data"
+              "b": {
+                "var": "b",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "buckets": "ok",
+              "b": "ok"
+            },
+            "arrows": [
+              [
+                "buckets",
+                "b"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "S3 Block Public Access safety check and exposure classification",
-        "columns": [
-          "bucket",
-          "status"
+        "template": "flow",
+        "title": "How buckets leak",
+        "nodes": [
+          {
+            "id": "buckets",
+            "label": "buckets"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "New S3 buckets remain private unless configuration changes grant access.",
-            "rows": [
-              {
-                "cells": [
-                  "invoices-prod",
-                  "ok:"
-                ],
-                "tone": "ok"
-              }
+            "caption": "By default, a new S3 bucket is private.",
+            "values": {
+              "buckets": "[{'name': 'invoices-prod', 'block_publi…",
+              "b": "{'name': 'invoices-prod', 'block_public…"
+            },
+            "tones": {
+              "buckets": "data",
+              "b": "data"
+            },
+            "arrows": [
+              [
+                "buckets",
+                "b"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Block Public Access overrides policies or ACLs that would expose data.",
-            "rows": [
-              {
-                "cells": [
-                  "invoices-prod",
-                  "ok:"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "marketing-site",
-                  "PUBLIC:"
-                ],
-                "tone": "error"
-              }
+            "at": "say2",
+            "caption": "The usual causes are a bucket policy that allows \"Principal\".",
+            "values": {
+              "buckets": "[{'name': 'invoices-prod', 'block_publi…",
+              "b": "{'name': 'invoices-prod', 'block_public…"
+            },
+            "tones": {
+              "buckets": "data",
+              "b": "data"
+            },
+            "arrows": [
+              [
+                "buckets",
+                "b"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example scans bucket configurations flagging risky permissions.",
-            "rows": [
-              {
-                "cells": [
-                  "invoices-prod",
-                  "ok:"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "marketing-site",
-                  "PUBLIC:"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "backup-2026",
-                  "WARNING, public access not blocked:"
-                ],
-                "tone": "data"
-              }
+            "caption": "The example scans a list of bucket settings and flags the risky ones.",
+            "values": {
+              "buckets": "[{'name': 'invoices-prod', 'block_publi…",
+              "b": "{'name': 'invoices-prod', 'block_public…"
+            },
+            "tones": {
+              "buckets": "ok",
+              "b": "ok"
+            },
+            "arrows": [
+              [
+                "buckets",
+                "b"
+              ]
             ]
           }
         ]
@@ -177,147 +177,221 @@
       "partTitle": "Bucket policies",
       "codeHash": "a862fad1375e58269b2aa5ab91fa56769de3afbc84546b0295bfb41a6d07649a",
       "spec": {
-        "template": "table",
-        "title": "Bucket policy statements and target resource specifications",
-        "columns": [
-          "Action",
-          "Resource"
+        "template": "flow",
+        "title": "Bucket policies",
+        "nodes": [
+          {
+            "id": "role",
+            "label": "role"
+          },
+          {
+            "id": "policy",
+            "label": "policy"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A bucket policy declares JSON resource permissions attached to the bucket.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "s3:ListBucket"
-                  },
-                  {
-                    "text": "arn:aws:s3:::reports"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A bucket policy is a JSON resource policy attached to the bucket itself.",
+            "values": {
+              "role": {
+                "var": "role",
+                "line": 3,
+                "hit": 1
+              },
+              "policy": {
+                "var": "policy",
+                "line": 4,
+                "hit": 2
+              },
+              "s": {
+                "var": "s",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "role": "data",
+              "policy": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "role",
+                "policy"
+              ],
+              [
+                "policy",
+                "s"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Resources distinguish bucket listing actions from individual object reads.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "s3:ListBucket"
-                  },
-                  {
-                    "text": "arn:aws:s3:::reports"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Identity policies (on users and roles) say what an identity may do.",
+            "values": {
+              "role": {
+                "var": "role",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "s3:GetObject"
-                  },
-                  {
-                    "text": "arn:aws:s3:::reports/*"
-                  }
-                ],
-                "tone": "ok"
+              "policy": {
+                "var": "policy",
+                "line": 10,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 11,
+                "hit": 1
               }
+            },
+            "tones": {
+              "role": "data",
+              "policy": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "role",
+                "policy"
+              ],
+              [
+                "policy",
+                "s"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example prints policy statements allowing role access to list and read.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "s3:ListBucket"
-                  },
-                  {
-                    "text": "arn:aws:s3:::reports"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example prints a policy that lets one role read objects and list.",
+            "values": {
+              "role": {
+                "var": "role",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "s3:GetObject"
-                  },
-                  {
-                    "text": "arn:aws:s3:::reports/*"
-                  }
-                ],
-                "tone": "ok"
+              "policy": {
+                "var": "policy",
+                "line": 11,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 10,
+                "hit": 2
               }
+            },
+            "tones": {
+              "role": "ok",
+              "policy": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "role",
+                "policy"
+              ],
+              [
+                "policy",
+                "s"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Bucket policy statements and target resource specifications",
-        "columns": [
-          "Action",
-          "Resource"
+        "template": "flow",
+        "title": "Bucket policies",
+        "nodes": [
+          {
+            "id": "role",
+            "label": "role"
+          },
+          {
+            "id": "policy",
+            "label": "policy"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A bucket policy declares JSON resource permissions attached to the bucket.",
-            "rows": [
-              {
-                "cells": [
-                  "s3:ListBucket",
-                  "arn:aws:s3:::reports"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A bucket policy is a JSON resource policy attached to the bucket itself.",
+            "values": {
+              "role": "'arn:aws:iam::111122223333:role/report-…",
+              "policy": "{'Version': '2012-10-17', 'Statement': …",
+              "s": "{'Effect': 'Allow', 'Principal': {'AWS'…"
+            },
+            "tones": {
+              "role": "data",
+              "policy": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "role",
+                "policy"
+              ],
+              [
+                "policy",
+                "s"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Resources distinguish bucket listing actions from individual object reads.",
-            "rows": [
-              {
-                "cells": [
-                  "s3:ListBucket",
-                  "arn:aws:s3:::reports"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "s3:GetObject",
-                  "arn:aws:s3:::reports/*"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Identity policies (on users and roles) say what an identity may do.",
+            "values": {
+              "role": "'arn:aws:iam::111122223333:role/report-…",
+              "policy": "{'Version': '2012-10-17', 'Statement': …",
+              "s": "{'Effect': 'Allow', 'Principal': {'AWS'…"
+            },
+            "tones": {
+              "role": "data",
+              "policy": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "role",
+                "policy"
+              ],
+              [
+                "policy",
+                "s"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example prints policy statements allowing role access to list and read.",
-            "rows": [
-              {
-                "cells": [
-                  "s3:ListBucket",
-                  "arn:aws:s3:::reports"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "s3:GetObject",
-                  "arn:aws:s3:::reports/*"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The example prints a policy that lets one role read objects and list.",
+            "values": {
+              "role": "'arn:aws:iam::111122223333:role/report-…",
+              "policy": "{'Version': '2012-10-17', 'Statement': …",
+              "s": "{'Effect': 'Allow', 'Principal': {'AWS'…"
+            },
+            "tones": {
+              "role": "ok",
+              "policy": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "role",
+                "policy"
+              ],
+              [
+                "policy",
+                "s"
+              ]
             ]
           }
         ]
@@ -327,165 +401,277 @@
       "partTitle": "Enforcing HTTPS with aws:SecureTransport",
       "codeHash": "b592a819a6a7a1c1a99713dd9b1d3aa6a449d5168f1aa5f37b121ad5fb558dd0",
       "spec": {
-        "template": "table",
-        "title": "TLS enforcement verification checking SecureTransport condition",
-        "columns": [
-          "policy",
-          "Effect"
+        "template": "flow",
+        "title": "Enforcing HTTPS with aws:SecureTransport",
+        "nodes": [
+          {
+            "id": "deny_http",
+            "label": "deny_http"
+          },
+          {
+            "id": "allow_http",
+            "label": "allow_http"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "pol",
+            "label": "pol"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Data in transit must be protected by forbidding plain unencrypted HTTP.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "deny http"
-                  },
-                  {
-                    "text": "Deny"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Data must be protected in transit, not just at rest.",
+            "values": {
+              "deny_http": {
+                "var": "deny_http",
+                "line": 8,
+                "hit": 2
+              },
+              "allow_http": {
+                "var": "allow_http",
+                "line": 10,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 11,
+                "hit": 1
+              },
+              "pol": {
+                "var": "pol",
+                "line": 11,
+                "hit": 1
               }
+            },
+            "tones": {
+              "deny_http": "data",
+              "allow_http": "data",
+              "name": "data",
+              "pol": "data"
+            },
+            "arrows": [
+              [
+                "deny_http",
+                "allow_http"
+              ],
+              [
+                "allow_http",
+                "name"
+              ],
+              [
+                "name",
+                "pol"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "A Deny statement with false SecureTransport condition enforces encryption.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "deny http"
-                  },
-                  {
-                    "text": "Deny"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Every request carries a condition key, aws:SecureTransport, which.",
+            "values": {
+              "deny_http": {
+                "var": "deny_http",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "allow http"
-                  },
-                  {
-                    "text": "Allow"
-                  }
-                ],
-                "tone": "error"
+              "allow_http": {
+                "var": "allow_http",
+                "line": 11,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 12,
+                "hit": 1
+              },
+              "pol": {
+                "var": "pol",
+                "line": 12,
+                "hit": 1
               }
+            },
+            "tones": {
+              "deny_http": "data",
+              "allow_http": "data",
+              "name": "data",
+              "pol": "data"
+            },
+            "arrows": [
+              [
+                "deny_http",
+                "allow_http"
+              ],
+              [
+                "allow_http",
+                "name"
+              ],
+              [
+                "name",
+                "pol"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example checks candidate policies verifying TLS transport enforcement.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "deny http"
-                  },
-                  {
-                    "text": "Deny"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example checks three policies.",
+            "values": {
+              "deny_http": {
+                "var": "deny_http",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "allow http"
-                  },
-                  {
-                    "text": "Allow"
-                  }
-                ],
-                "tone": "error"
+              "allow_http": {
+                "var": "allow_http",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "empty"
-                  },
-                  {
-                    "text": "Deny"
-                  }
-                ],
-                "tone": "data"
+              "name": {
+                "var": "name",
+                "line": 11,
+                "hit": 2
+              },
+              "pol": {
+                "var": "pol",
+                "line": 11,
+                "hit": 2
               }
+            },
+            "tones": {
+              "deny_http": "ok",
+              "allow_http": "ok",
+              "name": "ok",
+              "pol": "ok"
+            },
+            "arrows": [
+              [
+                "deny_http",
+                "allow_http"
+              ],
+              [
+                "allow_http",
+                "name"
+              ],
+              [
+                "name",
+                "pol"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "TLS enforcement verification checking SecureTransport condition",
-        "columns": [
-          "policy",
-          "Effect"
+        "template": "flow",
+        "title": "Enforcing HTTPS with aws:SecureTransport",
+        "nodes": [
+          {
+            "id": "deny_http",
+            "label": "deny_http"
+          },
+          {
+            "id": "allow_http",
+            "label": "allow_http"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "pol",
+            "label": "pol"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Data in transit must be protected by forbidding plain unencrypted HTTP.",
-            "rows": [
-              {
-                "cells": [
-                  "deny http",
-                  "Deny"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Data must be protected in transit, not just at rest.",
+            "values": {
+              "deny_http": "{'Effect': 'Deny', 'Principal': '*', 'A…",
+              "allow_http": "{'Effect': 'Allow', 'Principal': '*', '…",
+              "name": "'deny http'",
+              "pol": "[{'Effect': 'Deny', 'Principal': '*', '…"
+            },
+            "tones": {
+              "deny_http": "data",
+              "allow_http": "data",
+              "name": "data",
+              "pol": "data"
+            },
+            "arrows": [
+              [
+                "deny_http",
+                "allow_http"
+              ],
+              [
+                "allow_http",
+                "name"
+              ],
+              [
+                "name",
+                "pol"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "A Deny statement with false SecureTransport condition enforces encryption.",
-            "rows": [
-              {
-                "cells": [
-                  "deny http",
-                  "Deny"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "allow http",
-                  "Allow"
-                ],
-                "tone": "error"
-              }
+            "at": "say2",
+            "caption": "Every request carries a condition key, aws:SecureTransport, which.",
+            "values": {
+              "deny_http": "{'Effect': 'Deny', 'Principal': '*', 'A…",
+              "allow_http": "{'Effect': 'Allow', 'Principal': '*', '…",
+              "name": "'deny http'",
+              "pol": "[{'Effect': 'Deny', 'Principal': '*', '…"
+            },
+            "tones": {
+              "deny_http": "data",
+              "allow_http": "data",
+              "name": "data",
+              "pol": "data"
+            },
+            "arrows": [
+              [
+                "deny_http",
+                "allow_http"
+              ],
+              [
+                "allow_http",
+                "name"
+              ],
+              [
+                "name",
+                "pol"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example checks candidate policies verifying TLS transport enforcement.",
-            "rows": [
-              {
-                "cells": [
-                  "deny http",
-                  "Deny"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "allow http",
-                  "Allow"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "empty",
-                  "Deny"
-                ],
-                "tone": "data"
-              }
+            "caption": "The example checks three policies.",
+            "values": {
+              "deny_http": "{'Effect': 'Deny', 'Principal': '*', 'A…",
+              "allow_http": "{'Effect': 'Allow', 'Principal': '*', '…",
+              "name": "'allow http'",
+              "pol": "[{'Effect': 'Allow', 'Principal': '*', …"
+            },
+            "tones": {
+              "deny_http": "ok",
+              "allow_http": "ok",
+              "name": "ok",
+              "pol": "ok"
+            },
+            "arrows": [
+              [
+                "deny_http",
+                "allow_http"
+              ],
+              [
+                "allow_http",
+                "name"
+              ],
+              [
+                "name",
+                "pol"
+              ]
             ]
           }
         ]
@@ -495,238 +681,160 @@
       "partTitle": "Bucket naming rules",
       "codeHash": "a10e46679c362bba683d54b8d032b3aa369d75fbb19cabdcf758ab2de6f71c11",
       "spec": {
-        "template": "table",
-        "title": "Global S3 bucket naming validation checks and violation reasons",
-        "columns": [
-          "name",
-          "validation"
+        "template": "sequence",
+        "title": "Bucket naming rules",
+        "actors": [
+          "n",
+          "name"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Bucket names are globally unique across accounts following DNS rules.",
-            "rows": [
+            "caption": "Bucket names are global across all AWS accounts, and they appear in URLs.",
+            "activeActor": "n",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "pinit-media-prod"
-                  },
-                  {
-                    "text": "valid"
-                  }
-                ],
-                "tone": "ok"
+                "from": "n",
+                "to": "name",
+                "label": {
+                  "var": "n",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "Pinit_Media"
-                  },
-                  {
-                    "text": "length, characters, or start/end"
-                  }
-                ],
-                "tone": "error"
+                "from": "name",
+                "to": "n",
+                "label": {
+                  "var": "name",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Names must not contain consecutive dots or resemble an IP address.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how name updates characters during execution.",
+            "activeActor": "name",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "pinit-media-prod"
-                  },
-                  {
-                    "text": "valid"
-                  }
-                ],
+                "from": "n",
+                "to": "name",
+                "label": {
+                  "var": "n",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "n",
+                "label": {
+                  "var": "name",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Pinit_Media"
-                  },
-                  {
-                    "text": "length, characters, or start/end"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "my..bucket"
-                  },
-                  {
-                    "text": "two dots in a row"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "10.0.0.1"
-                  },
-                  {
-                    "text": "looks like an IP address"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example tests candidate bucket names explaining each validation failure.",
-            "rows": [
+            "caption": "The example tests a list of candidate names and explains each failure.",
+            "activeActor": "name",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "pinit-media-prod"
-                  },
-                  {
-                    "text": "valid"
-                  }
-                ],
+                "from": "n",
+                "to": "name",
+                "label": {
+                  "var": "n",
+                  "line": 12,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "n",
+                "label": {
+                  "var": "name",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Pinit_Media"
-                  },
-                  {
-                    "text": "length, characters, or start/end"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "my..bucket"
-                  },
-                  {
-                    "text": "two dots in a row"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "10.0.0.1"
-                  },
-                  {
-                    "text": "looks like an IP address"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Global S3 bucket naming validation checks and violation reasons",
-        "columns": [
-          "name",
-          "validation"
+        "template": "sequence",
+        "title": "Bucket naming rules",
+        "actors": [
+          "n",
+          "name"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Bucket names are globally unique across accounts following DNS rules.",
-            "rows": [
+            "caption": "Bucket names are global across all AWS accounts, and they appear in URLs.",
+            "messages": [
               {
-                "cells": [
-                  "pinit-media-prod",
-                  "valid"
-                ],
-                "tone": "ok"
+                "from": "n",
+                "to": "name",
+                "label": "'pinit-media-prod'",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "Pinit_Media",
-                  "length, characters, or start/end"
-                ],
-                "tone": "error"
+                "from": "name",
+                "to": "n",
+                "label": "'pinit-media-prod'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "n"
           },
           {
-            "at": "say3",
-            "caption": "Names must not contain consecutive dots or resemble an IP address.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how name updates characters during execution.",
+            "messages": [
               {
-                "cells": [
-                  "pinit-media-prod",
-                  "valid"
-                ],
+                "from": "n",
+                "to": "name",
+                "label": "'pinit-media-prod'",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "n",
+                "label": "'pinit-media-prod'",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Pinit_Media",
-                  "length, characters, or start/end"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "my..bucket",
-                  "two dots in a row"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "10.0.0.1",
-                  "looks like an IP address"
-                ],
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "name"
           },
           {
             "at": "say7",
-            "caption": "The example tests candidate bucket names explaining each validation failure.",
-            "rows": [
+            "caption": "The example tests a list of candidate names and explains each failure.",
+            "messages": [
               {
-                "cells": [
-                  "pinit-media-prod",
-                  "valid"
-                ],
+                "from": "n",
+                "to": "name",
+                "label": "'Pinit_Media'",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "n",
+                "label": "'pinit-media-prod'",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Pinit_Media",
-                  "length, characters, or start/end"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "my..bucket",
-                  "two dots in a row"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "10.0.0.1",
-                  "looks like an IP address"
-                ],
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "name"
           }
         ]
       }
@@ -735,224 +843,106 @@
       "partTitle": "Encryption at rest",
       "codeHash": "d4a7d6fbb4ed4edccf26a2be90a8d89d53fdd3e67500d35efe37486470dccfe0",
       "spec": {
-        "template": "flow",
-        "title": "Encryption at rest — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Encryption at rest",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "args",
+            "label": "args"
           },
           {
-            "id": "proc",
-            "label": "2. Encryption at rest",
-            "tappable": true
+            "id": "data_class",
+            "label": "data_class"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "need_audit",
+            "label": "need_audit"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Encryption at rest [Dten.Pfive.Sone].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Encryption at rest [Dten.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "You get encryption at rest with no work at all.",
+            "currentState": "args",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dten.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "You control the key's policy, can see every use of the key in the audit.",
+            "currentState": "data_class",
+            "transition": {
+              "from": "args",
+              "to": "data_class",
+              "label": {
+                "var": "data_class",
+                "line": 4,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Encryption at rest [Dten.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example chooses an encryption option from a data classification.",
+            "currentState": "need_audit",
+            "transition": {
+              "from": "data_class",
+              "to": "need_audit",
+              "label": {
+                "var": "need_audit",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Encryption at rest — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Encryption at rest",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "args",
+            "label": "args"
           },
           {
-            "id": "proc",
-            "label": "2. Encryption at rest",
-            "tappable": true
+            "id": "data_class",
+            "label": "data_class"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "need_audit",
+            "label": "need_audit"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Encryption at rest [D10.P5.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Encryption at rest [D10.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "You get encryption at rest with no work at all.",
+            "currentState": "args",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "You control the key's policy, can see every use of the key in the audit.",
+            "currentState": "data_class",
+            "transition": {
+              "from": "args",
+              "to": "data_class",
+              "label": "'public'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Encryption at rest [D10.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example chooses an encryption option from a data classification.",
+            "currentState": "need_audit",
+            "transition": {
+              "from": "data_class",
+              "to": "need_audit",
+              "label": "False"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -962,110 +952,161 @@
       "codeHash": "ec300f6e6fc43f8187537e1d209106bcc6a48775863dd039dad62660882295cd",
       "spec": {
         "template": "flow",
-        "title": "Practice time: lock the bucket down — Execution Pipeline",
+        "title": "Practice time: lock the bucket down",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "bucket",
+            "label": "bucket"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: lock...",
-            "tappable": true
+            "id": "s",
+            "label": "s"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "checks",
+            "label": "checks"
+          },
+          {
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: lock the bucket down.",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: lock... [Dten.Psix.Stwo].",
+            "caption": "Enforces_tls(policy).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "bucket": {
+                "var": "bucket",
+                "line": 1,
+                "hit": 2
+              },
+              "s": {
+                "var": "s",
+                "line": 8,
+                "hit": 2
+              },
+              "checks": {
+                "var": "checks",
+                "line": 3,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 10,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "bucket": "data",
+              "s": "data",
+              "checks": "data",
+              "name": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "bucket",
+                "s"
               ],
               [
-                "proc",
-                "out"
+                "s",
+                "checks"
+              ],
+              [
+                "checks",
+                "name"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dten.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Remember that the value is the STRING \"false\", not the Python value False.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "bucket": {
+                "var": "bucket",
+                "line": 4,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 6,
+                "hit": 3
+              },
+              "checks": {
+                "var": "checks",
+                "line": 10,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 11,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "bucket": "data",
+              "s": "data",
+              "checks": "data",
+              "name": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "bucket",
+                "s"
+              ],
+              [
+                "s",
+                "checks"
+              ],
+              [
+                "checks",
+                "name"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: lock the bucket down.",
+            "at": "say7",
+            "caption": "The example builds a tiny baseline report for one bucket.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "bucket": {
+                "var": "bucket",
+                "line": 5,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 7,
+                "hit": 1
+              },
+              "checks": {
+                "var": "checks",
+                "line": 11,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 10,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "bucket": "ok",
+              "s": "ok",
+              "checks": "ok",
+              "name": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "bucket",
+                "s"
               ],
               [
-                "proc",
-                "out"
+                "s",
+                "checks"
+              ],
+              [
+                "checks",
+                "name"
               ]
             ]
           }
@@ -1073,110 +1114,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: lock the bucket down — Execution Pipeline",
+        "title": "Practice time: lock the bucket down",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "bucket",
+            "label": "bucket"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: lock...",
-            "tappable": true
+            "id": "s",
+            "label": "s"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "checks",
+            "label": "checks"
+          },
+          {
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: lock the bucket down [D10.P6.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: lock... [D10.P6.S2].",
+            "caption": "Enforces_tls(policy).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "bucket": "{'name': 'pinit-invoices-prod', 'block_…",
+              "s": "{'Effect': 'Deny', 'Condition': {'Bool'…",
+              "checks": "{'public access blocked': True, 'encryp…",
+              "name": "'public access blocked'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "bucket": "data",
+              "s": "data",
+              "checks": "data",
+              "name": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "bucket",
+                "s"
               ],
               [
-                "proc",
-                "out"
+                "s",
+                "checks"
+              ],
+              [
+                "checks",
+                "name"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P6.S3].",
+            "at": "say2",
+            "caption": "Remember that the value is the STRING \"false\", not the Python value False.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "bucket": "{'name': 'pinit-invoices-prod', 'block_…",
+              "s": "{'Effect': 'Deny', 'Condition': {'Bool'…",
+              "checks": "{'public access blocked': True, 'encryp…",
+              "name": "'public access blocked'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "bucket": "data",
+              "s": "data",
+              "checks": "data",
+              "name": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "bucket",
+                "s"
+              ],
+              [
+                "s",
+                "checks"
+              ],
+              [
+                "checks",
+                "name"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: lock the bucket down [D10.P6.S4].",
+            "at": "say7",
+            "caption": "The example builds a tiny baseline report for one bucket.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "bucket": "{'name': 'pinit-invoices-prod', 'block_…",
+              "s": "{'Effect': 'Deny', 'Condition': {'Bool'…",
+              "checks": "{'public access blocked': True, 'encryp…",
+              "name": "'encrypted with KMS'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "bucket": "ok",
+              "s": "ok",
+              "checks": "ok",
+              "name": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "bucket",
+                "s"
               ],
               [
-                "proc",
-                "out"
+                "s",
+                "checks"
+              ],
+              [
+                "checks",
+                "name"
               ]
             ]
           }

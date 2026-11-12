@@ -2,166 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 5,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The cache-aside pattern",
       "codeHash": "786cd581bba9bdc08c5171e0640278d5d73bd18786c6bc2edccf9883396d6b54",
       "spec": {
-        "template": "flow",
-        "title": "Cache-aside pattern read and miss database retrieval workflow",
-        "nodes": [
-          {
-            "id": "cache",
-            "label": "cache"
-          },
-          {
-            "id": "database",
-            "label": "database"
-          },
-          {
-            "id": "value",
-            "label": "value"
-          }
-        ],
-        "edges": [
-          {
-            "from": "cache",
-            "to": "database",
-            "label": "miss"
-          },
-          {
-            "from": "database",
-            "to": "value",
-            "label": "load"
-          }
+        "template": "sequence",
+        "title": "The cache-aside pattern",
+        "actors": [
+          "db_calls",
+          "DATABASE",
+          "cache"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Cache-aside checks cache first and loads value from database on miss.",
-            "values": {
-              "cache": {
-                "text": "user:1"
+            "at": "say1",
+            "caption": "Databases are slow and expensive compared with memory.",
+            "activeActor": "db_calls",
+            "messages": [
+              {
+                "from": "db_calls",
+                "to": "DATABASE",
+                "label": {
+                  "var": "db_calls",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "database": {
-                "text": "Asha"
-              },
-              "value": {
-                "text": "Asha"
+              {
+                "from": "DATABASE",
+                "to": "cache",
+                "label": {
+                  "var": "DATABASE",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "cache": "idle",
-              "database": "data",
-              "value": "ok"
-            }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Database write updates storage while cache entry is invalidated.",
-            "values": {
-              "cache": {
-                "text": "user:2"
+            "at": "say2",
+            "caption": "In cache-aside, the application manages the cache.",
+            "activeActor": "DATABASE",
+            "messages": [
+              {
+                "from": "db_calls",
+                "to": "DATABASE",
+                "label": {
+                  "var": "db_calls",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "database": {
-                "text": "Bala"
-              },
-              "value": {
-                "text": "Bala"
+              {
+                "from": "DATABASE",
+                "to": "cache",
+                "label": {
+                  "var": "DATABASE",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "cache": "ok",
-              "database": "ok",
-              "value": "ok"
-            }
+            ]
           },
           {
             "at": "say6",
-            "caption": "Cache hit rate measures share of reads served without database.",
-            "values": {
-              "cache": {
-                "text": "user:1"
+            "caption": "The hit rate, the share of reads served by the cache, is the number to watch.",
+            "activeActor": "cache",
+            "messages": [
+              {
+                "from": "db_calls",
+                "to": "DATABASE",
+                "label": {
+                  "var": "db_calls",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "database": {
-                "text": "Asha"
-              },
-              "value": {
-                "text": "Asha"
+              {
+                "from": "DATABASE",
+                "to": "cache",
+                "label": {
+                  "var": "DATABASE",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "cache": "ok",
-              "database": "idle",
-              "value": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cache-aside pattern read and miss database retrieval workflow",
-        "nodes": [
-          {
-            "id": "cache",
-            "label": "cache"
-          },
-          {
-            "id": "database",
-            "label": "database"
-          },
-          {
-            "id": "value",
-            "label": "value"
-          }
+        "template": "sequence",
+        "title": "The cache-aside pattern",
+        "actors": [
+          "db_calls",
+          "DATABASE",
+          "cache"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Cache-aside checks cache first and loads value from database on miss.",
-            "values": {
-              "cache": "user:1",
-              "database": "Asha",
-              "value": "Asha"
-            },
-            "tones": {
-              "cache": "idle",
-              "database": "data",
-              "value": "ok"
-            },
-            "arrows": []
+            "at": "say1",
+            "caption": "Databases are slow and expensive compared with memory.",
+            "messages": [
+              {
+                "from": "db_calls",
+                "to": "DATABASE",
+                "label": "0",
+                "tone": "data"
+              },
+              {
+                "from": "DATABASE",
+                "to": "cache",
+                "label": "{'user:1': 'Asha', 'user:2': 'Bala'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "db_calls"
           },
           {
-            "at": "say3",
-            "caption": "Database write updates storage while cache entry is invalidated.",
-            "values": {
-              "cache": "user:2",
-              "database": "Bala",
-              "value": "Bala"
-            },
-            "tones": {
-              "cache": "ok",
-              "database": "ok",
-              "value": "ok"
-            },
-            "arrows": []
+            "at": "say2",
+            "caption": "In cache-aside, the application manages the cache.",
+            "messages": [
+              {
+                "from": "db_calls",
+                "to": "DATABASE",
+                "label": "0",
+                "tone": "data"
+              },
+              {
+                "from": "DATABASE",
+                "to": "cache",
+                "label": "{'user:1': 'Asha', 'user:2': 'Bala'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "DATABASE"
           },
           {
             "at": "say6",
-            "caption": "Cache hit rate measures share of reads served without database.",
-            "values": {
-              "cache": "user:1",
-              "database": "Asha",
-              "value": "Asha"
-            },
-            "tones": {
-              "cache": "ok",
-              "database": "idle",
-              "value": "ok"
-            },
-            "arrows": []
+            "caption": "The hit rate, the share of reads served by the cache, is the number to watch.",
+            "messages": [
+              {
+                "from": "db_calls",
+                "to": "DATABASE",
+                "label": "0",
+                "tone": "data"
+              },
+              {
+                "from": "DATABASE",
+                "to": "cache",
+                "label": "{'user:1': 'Asha', 'user:2': 'Bala'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "cache"
           }
         ]
       }
@@ -170,192 +173,162 @@
       "partTitle": "Expiry with TTL",
       "codeHash": "76870aab7f4cf4a3de7026d4dc676ee6adeed4676511484800720dd01193ff28",
       "spec": {
-        "template": "table",
-        "title": "Time to live cache expiration evaluation across timestamps",
-        "columns": [
-          "timestamp",
-          "ttl",
-          "key"
+        "template": "sequence",
+        "title": "Expiry with TTL",
+        "actors": [
+          "calls",
+          "self",
+          "cache"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Time to live limits how long cached entry is trusted.",
-            "rows": [
+            "caption": "Cached data goes stale when the database changes.",
+            "activeActor": "calls",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "60"
-                  },
-                  {
-                    "text": "price:sku-42"
-                  }
-                ],
+                "from": "calls",
+                "to": "self",
+                "label": {
+                  "var": "calls",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "cache",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Read checks whether current timestamp is before expiry time.",
-            "rows": [
+            "caption": "Store each value with its expiry time.",
+            "activeActor": "self",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "60"
-                  },
-                  {
-                    "text": "price:sku-42"
-                  }
-                ],
-                "tone": "ok"
+                "from": "calls",
+                "to": "self",
+                "label": {
+                  "var": "calls",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "30"
-                  },
-                  {
-                    "text": "60"
-                  },
-                  {
-                    "text": "price:sku-42"
-                  }
-                ],
+                "from": "self",
+                "to": "cache",
+                "label": {
+                  "var": "self",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Reading entry after multiple seconds triggers database reload.",
-            "rows": [
+            "at": "say6",
+            "caption": "TTLs are a safety net even when you also invalidate on writes, catching.",
+            "activeActor": "cache",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "60"
-                  },
-                  {
-                    "text": "price:sku-42"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "30"
-                  },
-                  {
-                    "text": "60"
-                  },
-                  {
-                    "text": "price:sku-42"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "90"
-                  },
-                  {
-                    "text": "60"
-                  },
-                  {
-                    "text": "price:sku-42"
-                  }
-                ],
+                "from": "calls",
+                "to": "self",
+                "label": {
+                  "var": "calls",
+                  "line": 15,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "cache",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Time to live cache expiration evaluation across timestamps",
-        "columns": [
-          "timestamp",
-          "ttl",
-          "key"
+        "template": "sequence",
+        "title": "Expiry with TTL",
+        "actors": [
+          "calls",
+          "self",
+          "cache"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Time to live limits how long cached entry is trusted.",
-            "rows": [
+            "caption": "Cached data goes stale when the database changes.",
+            "messages": [
               {
-                "cells": [
-                  "0",
-                  "60",
-                  "price:sku-42"
-                ],
+                "from": "calls",
+                "to": "self",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "cache",
+                "label": "<TtlCache>",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "calls"
           },
           {
             "at": "say2",
-            "caption": "Read checks whether current timestamp is before expiry time.",
-            "rows": [
+            "caption": "Store each value with its expiry time.",
+            "messages": [
               {
-                "cells": [
-                  "0",
-                  "60",
-                  "price:sku-42"
-                ],
-                "tone": "ok"
+                "from": "calls",
+                "to": "self",
+                "label": "[]",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "30",
-                  "60",
-                  "price:sku-42"
-                ],
+                "from": "self",
+                "to": "cache",
+                "label": "<TtlCache>",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "self"
           },
           {
-            "at": "say5",
-            "caption": "Reading entry after 60 seconds triggers database reload.",
-            "rows": [
+            "at": "say6",
+            "caption": "TTLs are a safety net even when you also invalidate on writes, catching.",
+            "messages": [
               {
-                "cells": [
-                  "0",
-                  "60",
-                  "price:sku-42"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "30",
-                  "60",
-                  "price:sku-42"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "90",
-                  "60",
-                  "price:sku-42"
-                ],
+                "from": "calls",
+                "to": "self",
+                "label": "[]",
                 "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "cache",
+                "label": "<TtlCache>",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "cache"
           }
         ]
       }
@@ -364,132 +337,278 @@
       "partTitle": "The thundering herd",
       "codeHash": "91936a63835ce2fd91d94f66393b88db3696abce9e3e04ac34335334d72260fc",
       "spec": {
-        "template": "compare",
-        "title": "Thundering herd stampede defense using cached fetch consolidation",
-        "leftLabel": "Uncached Stampede",
-        "rightLabel": "Consolidated Burst",
+        "template": "flow",
+        "title": "The thundering herd",
+        "nodes": [
+          {
+            "id": "calls",
+            "label": "calls"
+          },
+          {
+            "id": "burst",
+            "label": "burst"
+          },
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Popular key expiry triggers simultaneous queries to database.",
-            "left": {
-              "code": "burst requests on expired key",
-              "result": {
-                "text": "hot"
+            "caption": "When a popular key expires, many requests arrive for it at the same moment.",
+            "values": {
+              "calls": {
+                "var": "calls",
+                "line": 16,
+                "hit": 1
               },
-              "tone": "error"
+              "burst": {
+                "var": "burst",
+                "line": 18,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "first request populates cache",
-              "result": {
-                "text": "hot"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "calls": "data",
+              "burst": "data",
+              "self": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "calls",
+                "burst"
+              ],
+              [
+                "burst",
+                "self"
+              ],
+              [
+                "self",
+                "key"
+              ]
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Function get_many calls fetch at most once per distinct key.",
-            "left": {
-              "code": "redundant database calls",
-              "result": {
-                "text": "cold"
+            "at": "say2",
+            "caption": "For a hot key read thousands of times per second, that can knock over.",
+            "values": {
+              "calls": {
+                "var": "calls",
+                "line": 17,
+                "hit": 1
               },
-              "tone": "error"
+              "burst": {
+                "var": "burst",
+                "line": 19,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 7,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "single fetch per distinct key",
-              "result": {
-                "text": "cold"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "calls": "data",
+              "burst": "data",
+              "self": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "calls",
+                "burst"
+              ],
+              [
+                "burst",
+                "self"
+              ],
+              [
+                "self",
+                "key"
+              ]
+            ]
           },
           {
             "at": "say6",
-            "caption": "Ten requests cause only two database calls across keys.",
-            "left": {
-              "code": "stampede overwhelms database",
-              "result": {
-                "text": "hot"
+            "caption": "The example shows ten requests for two keys causing only two database calls.",
+            "values": {
+              "calls": {
+                "var": "calls",
+                "line": 18,
+                "hit": 1
               },
-              "tone": "error"
+              "burst": {
+                "var": "burst",
+                "line": 20,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 9,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "subsequent requests hit cache",
-              "result": {
-                "text": "hot"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "calls": "ok",
+              "burst": "ok",
+              "self": "ok",
+              "key": "ok"
+            },
+            "arrows": [
+              [
+                "calls",
+                "burst"
+              ],
+              [
+                "burst",
+                "self"
+              ],
+              [
+                "self",
+                "key"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Thundering herd stampede defense using cached fetch consolidation",
-        "leftLabel": "Uncached Stampede",
-        "rightLabel": "Consolidated Burst",
+        "template": "flow",
+        "title": "The thundering herd",
+        "nodes": [
+          {
+            "id": "calls",
+            "label": "calls"
+          },
+          {
+            "id": "burst",
+            "label": "burst"
+          },
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Popular key expiry triggers simultaneous queries to database.",
-            "left": {
-              "code": "burst requests on expired key",
-              "result": "hot",
-              "tone": "error",
-              "checks": [
-                "hot"
-              ]
+            "caption": "When a popular key expires, many requests arrive for it at the same moment.",
+            "values": {
+              "calls": "[]",
+              "burst": "['hot', 'hot', 'hot', 'hot', 'hot', 'ho…",
+              "self": "<TtlCache>",
+              "key": "'hot'"
             },
-            "right": {
-              "code": "first request populates cache",
-              "result": "hot",
-              "tone": "ok",
-              "checks": [
-                "hot"
+            "tones": {
+              "calls": "data",
+              "burst": "data",
+              "self": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "calls",
+                "burst"
+              ],
+              [
+                "burst",
+                "self"
+              ],
+              [
+                "self",
+                "key"
               ]
-            }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Function get_many calls fetch at most once per distinct key.",
-            "left": {
-              "code": "redundant database calls",
-              "result": "cold",
-              "tone": "error",
-              "checks": [
-                "cold"
-              ]
+            "at": "say2",
+            "caption": "For a hot key read thousands of times per second, that can knock over.",
+            "values": {
+              "calls": "[]",
+              "burst": "['hot', 'hot', 'hot', 'hot', 'hot', 'ho…",
+              "self": "<TtlCache>",
+              "key": "'hot'"
             },
-            "right": {
-              "code": "single fetch per distinct key",
-              "result": "cold",
-              "tone": "ok",
-              "checks": [
-                "cold"
+            "tones": {
+              "calls": "data",
+              "burst": "data",
+              "self": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "calls",
+                "burst"
+              ],
+              [
+                "burst",
+                "self"
+              ],
+              [
+                "self",
+                "key"
               ]
-            }
+            ]
           },
           {
             "at": "say6",
-            "caption": "Ten requests cause only two database calls across keys.",
-            "left": {
-              "code": "stampede overwhelms database",
-              "result": "hot",
-              "tone": "error",
-              "checks": [
-                "hot"
-              ]
+            "caption": "The example shows ten requests for two keys causing only two database calls.",
+            "values": {
+              "calls": "[]",
+              "burst": "['hot', 'hot', 'hot', 'hot', 'hot', 'ho…",
+              "self": "<TtlCache>",
+              "key": "'hot'"
             },
-            "right": {
-              "code": "subsequent requests hit cache",
-              "result": "hot",
-              "tone": "ok",
-              "checks": [
-                "hot"
+            "tones": {
+              "calls": "ok",
+              "burst": "ok",
+              "self": "ok",
+              "key": "ok"
+            },
+            "arrows": [
+              [
+                "calls",
+                "burst"
+              ],
+              [
+                "burst",
+                "self"
+              ],
+              [
+                "self",
+                "key"
               ]
-            }
+            ]
           }
         ]
       }
@@ -498,224 +617,106 @@
       "partTitle": "Spreading expiries with jitter",
       "codeHash": "ba7d7fff599cc69a9c3ac93f13cf9c8746b1f0260abb757b5a4cfbdfc33ea67c",
       "spec": {
-        "template": "flow",
-        "title": "Spreading expiries with jitter — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Spreading expiries with jitter",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "rng",
+            "label": "rng"
           },
           {
-            "id": "proc",
-            "label": "2. Spreading expiries ...",
-            "tappable": true
+            "id": "base",
+            "label": "base"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "max_jitter",
+            "label": "max_jitter"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Spreading expiries with jitter.",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Spreading expiries ... [Dfive.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A related problem.",
+            "currentState": "rng",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Ttl_with_jitter(base, max_jitter, rng) returns base plus a random whole.",
+            "currentState": "base",
+            "transition": {
+              "from": "rng",
+              "to": "base",
+              "label": {
+                "var": "base",
+                "line": 5,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Spreading expiries with jitter.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say6",
+            "caption": "Randomness breaks up synchronised crowds.",
+            "currentState": "max_jitter",
+            "transition": {
+              "from": "base",
+              "to": "max_jitter",
+              "label": {
+                "var": "max_jitter",
+                "line": 5,
+                "hit": 3
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Spreading expiries with jitter — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Spreading expiries with jitter",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "rng",
+            "label": "rng"
           },
           {
-            "id": "proc",
-            "label": "2. Spreading expiries ...",
-            "tappable": true
+            "id": "base",
+            "label": "base"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "max_jitter",
+            "label": "max_jitter"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Spreading expiries with jitter [D5.P4.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Spreading expiries ... [D5.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A related problem.",
+            "currentState": "rng",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Ttl_with_jitter(base, max_jitter, rng) returns base plus a random whole.",
+            "currentState": "base",
+            "transition": {
+              "from": "rng",
+              "to": "base",
+              "label": "300"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Spreading expiries with jitter [D5.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say6",
+            "caption": "Randomness breaks up synchronised crowds.",
+            "currentState": "max_jitter",
+            "transition": {
+              "from": "base",
+              "to": "max_jitter",
+              "label": "30"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -724,132 +725,162 @@
       "partTitle": "Invalidation on writes",
       "codeHash": "3d97d3cc960e7adad5b54f560d11a29c073ebd65fe23cb029e7ff11977b849fa",
       "spec": {
-        "template": "compare",
-        "title": "Cache invalidation comparison delete on write versus no invalidation",
-        "leftLabel": "No Invalidation (Stale)",
-        "rightLabel": "Invalidation (Delete)",
+        "template": "sequence",
+        "title": "Invalidation on writes",
+        "actors": [
+          "database",
+          "cache",
+          "key"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cache invalidation deletes cache entry after database update.",
-            "left": {
-              "code": "write without invalidation",
-              "result": {
-                "text": "499"
+            "caption": "When data changes, the cache must stop serving the old value.",
+            "activeActor": "database",
+            "messages": [
+              {
+                "from": "database",
+                "to": "cache",
+                "label": {
+                  "var": "database",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "write with cache.pop(key)",
-              "result": {
-                "text": "449"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "cache",
+                "to": "key",
+                "label": {
+                  "var": "cache",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Deleting cache entry is safer than updating during concurrent writes.",
-            "left": {
-              "code": "stale cache entry retained",
-              "result": {
-                "text": "499"
+            "caption": "Deleting is safer than updating the cache directly.",
+            "activeActor": "cache",
+            "messages": [
+              {
+                "from": "database",
+                "to": "cache",
+                "label": {
+                  "var": "database",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "fresh load from database",
-              "result": {
-                "text": "399"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "cache",
+                "to": "key",
+                "label": {
+                  "var": "cache",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say6",
-            "caption": "Deleting cache entry on write fixes stale read problem cleanly.",
-            "left": {
-              "code": "stale read returned 499",
-              "result": {
-                "text": "499"
+            "caption": "The example shows the stale-read problem without invalidation, and the fix.",
+            "activeActor": "key",
+            "messages": [
+              {
+                "from": "database",
+                "to": "cache",
+                "label": {
+                  "var": "database",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "fresh read returns 399",
-              "result": {
-                "text": "399"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "cache",
+                "to": "key",
+                "label": {
+                  "var": "cache",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Cache invalidation comparison delete on write versus no invalidation",
-        "leftLabel": "No Invalidation (Stale)",
-        "rightLabel": "Invalidation (Delete)",
+        "template": "sequence",
+        "title": "Invalidation on writes",
+        "actors": [
+          "database",
+          "cache",
+          "key"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cache invalidation deletes cache entry after database update.",
-            "left": {
-              "code": "write without invalidation",
-              "result": "499",
-              "tone": "error",
-              "checks": [
-                "499"
-              ]
-            },
-            "right": {
-              "code": "write with cache.pop(key)",
-              "result": "449",
-              "tone": "ok",
-              "checks": [
-                "449"
-              ]
-            }
+            "caption": "When data changes, the cache must stop serving the old value.",
+            "messages": [
+              {
+                "from": "database",
+                "to": "cache",
+                "label": "{'price:sku-42': 499}",
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "key",
+                "label": "{}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "database"
           },
           {
             "at": "say2",
-            "caption": "Deleting cache entry is safer than updating during concurrent writes.",
-            "left": {
-              "code": "stale cache entry retained",
-              "result": "499",
-              "tone": "error",
-              "checks": [
-                "499"
-              ]
-            },
-            "right": {
-              "code": "fresh load from database",
-              "result": "399",
-              "tone": "ok",
-              "checks": [
-                "399"
-              ]
-            }
+            "caption": "Deleting is safer than updating the cache directly.",
+            "messages": [
+              {
+                "from": "database",
+                "to": "cache",
+                "label": "{'price:sku-42': 499}",
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "key",
+                "label": "{}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "cache"
           },
           {
             "at": "say6",
-            "caption": "Deleting cache entry on write fixes stale read problem cleanly.",
-            "left": {
-              "code": "stale read returned 499",
-              "result": "499",
-              "tone": "error",
-              "checks": [
-                "499"
-              ]
-            },
-            "right": {
-              "code": "fresh read returns 399",
-              "result": "399",
-              "tone": "ok",
-              "checks": [
-                "399"
-              ]
-            }
+            "caption": "The example shows the stale-read problem without invalidation, and the fix.",
+            "messages": [
+              {
+                "from": "database",
+                "to": "cache",
+                "label": "{'price:sku-42': 499}",
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "key",
+                "label": "{}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "key"
           }
         ]
       }
@@ -858,224 +889,162 @@
       "partTitle": "Milestone 1: a bounded, distributed cache",
       "codeHash": "cdcca954231acd15c7b85ccd0d9740e4f66c8d8468870c8adab6ae9e9807c4c5",
       "spec": {
-        "template": "flow",
-        "title": "Milestone 1: a bounded, distributed cache — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Milestone 1: a boun...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Milestone 1: a bounded, distributed cache",
+        "actors": [
+          "self",
+          "capacity",
+          "cache"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Milestone one: a bounded, distributed cache.",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Milestone one: a boun... [Dfive.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Memory is limited, so a cache needs an eviction policy.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capacity",
+                "to": "cache",
+                "label": {
+                  "var": "capacity",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfive.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Python's OrderedDict makes LRU easy.",
+            "activeActor": "capacity",
+            "messages": [
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": {
+                  "var": "self",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capacity",
+                "to": "cache",
+                "label": {
+                  "var": "capacity",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Milestone one: a bounded, distribut.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "Coordinating many machines with locks, leader election, unique IDs.",
+            "activeActor": "cache",
+            "messages": [
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": {
+                  "var": "self",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capacity",
+                "to": "cache",
+                "label": {
+                  "var": "capacity",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone 1: a bounded, distributed cache — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Milestone 1: a boun...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Milestone 1: a bounded, distributed cache",
+        "actors": [
+          "self",
+          "capacity",
+          "cache"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Milestone 1: a bounded, distributed cache [D5.P6.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Milestone 1: a boun... [D5.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Memory is limited, so a cache needs an eviction policy.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": "<LruCache>",
+                "tone": "data"
+              },
+              {
+                "from": "capacity",
+                "to": "cache",
+                "label": "3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Python's OrderedDict makes LRU easy.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": "<LruCache>",
+                "tone": "data"
+              },
+              {
+                "from": "capacity",
+                "to": "cache",
+                "label": "3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "capacity"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Milestone 1: a bounded, distribut.. [D5.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say6",
+            "caption": "Coordinating many machines with locks, leader election, unique IDs.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "capacity",
+                "label": "<LruCache>",
+                "tone": "data"
+              },
+              {
+                "from": "capacity",
+                "to": "cache",
+                "label": "3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "cache"
           }
         ]
       }

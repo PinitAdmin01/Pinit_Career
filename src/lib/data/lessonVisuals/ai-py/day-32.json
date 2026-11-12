@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 32,
-  "promptSha": "afc99127f0b26dae0aaa8aeba4b2b784c2b7721e49863ca0bffc4997c968a274",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Cross-Encoder Reranking & Contextual Compression Pipelines — Foundations & Mathematical Invariants",
-      "codeHash": "39c099674bd38096be5f6511626ef7685f9a264e8412318e34d6e437a65c94b6",
+      "partTitle": "Coarse-to-Fine Funnel Economics and Latency Budgets",
+      "codeHash": "579215e74479dd18f8692be4344a3663c91f25915aad187d05f3695db84a2993",
       "spec": {
-        "template": "flow",
-        "title": "Cross-Encoder Reranking & Contextual Compression Pipelines — Foundatio",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Coarse-to-Fine Funnel Economics and Latency Budgets",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Bi-encoders encode queries and documents separately, enabling millisecond.",
+            "bars": [
+              {
+                "label": "sla",
+                "value": {
+                  "var": "sla",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "sla_ms",
+                "value": {
+                  "var": "sla_ms",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "base_retrieval",
+                "value": {
+                  "var": "base_retrieval_ms",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "ms_per_chunk",
+                "value": {
+                  "var": "ms_per_chunk",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Cross-encoders feed '[CLS] query [SEP] document' jointly through every.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "sla",
+                "value": {
+                  "var": "sla",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "sla_ms",
+                "value": {
+                  "var": "sla_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "base_retrieval",
+                "value": {
+                  "var": "base_retrieval_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "ms_per_chunk",
+                "value": {
+                  "var": "ms_per_chunk",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect plan_rerank_budget() below computing exact feasible pool size.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "sla",
+                "value": {
+                  "var": "sla",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "sla_ms",
+                "value": {
+                  "var": "sla_ms",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "base_retrieval",
+                "value": {
+                  "var": "base_retrieval_ms",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "ms_per_chunk",
+                "value": {
+                  "var": "ms_per_chunk",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cross-Encoder Reranking & Contextual Compression Pipelines — Foundatio",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Coarse-to-Fine Funnel Economics and Latency Budgets",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Bi-encoders encode queries and documents separately, enabling millisecond.",
+            "bars": [
+              {
+                "label": "sla",
+                "value": 30,
+                "tone": "data"
+              },
+              {
+                "label": "sla_ms",
+                "value": 30,
+                "tone": "data"
+              },
+              {
+                "label": "base_retrieval",
+                "value": 11,
+                "tone": "data"
+              },
+              {
+                "label": "ms_per_chunk",
+                "value": 1.6,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Cross-encoders feed '[CLS] query [SEP] document' jointly through every.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "sla",
+                "value": 30,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "sla_ms",
+                "value": 30,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "base_retrieval",
+                "value": 11,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "ms_per_chunk",
+                "value": 1.6,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect plan_rerank_budget() below computing exact feasible pool size.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "sla",
+                "value": 65,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "sla_ms",
+                "value": 30,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "base_retrieval",
+                "value": 11,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "ms_per_chunk",
+                "value": 1.6,
+                "tone": "ok"
               }
             ]
           }
@@ -272,1064 +226,836 @@
       }
     },
     {
-      "partTitle": "Cross-Encoder Reranking & Contextual Compression Pipelines — Core Algorithm & State Representation",
-      "codeHash": "152c7312be8e20a545993a99e2bce7694d2aef09953bfaa7d20594a24ed4ba59",
+      "partTitle": "Logit Sigmoid Calibration and Abstention Gates",
+      "codeHash": "37820f524e14a63de0fb3cb22fcd9664e512685ea1e1e289ddab24b9e07ba370",
       "spec": {
-        "template": "flow",
-        "title": "Cross-Encoder Reranking & Contextual Compression Pipelines — Core Algo",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Logit Sigmoid Calibration and Abstention Gates",
+        "actors": [
+          "candidates",
+          "threshold",
+          "calibrated"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how cross updates encoder during execution.",
+            "activeActor": "candidates",
+            "messages": [
+              {
+                "from": "candidates",
+                "to": "threshold",
+                "label": {
+                  "var": "candidates",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "calibrated",
+                "label": {
+                  "var": "threshold",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Passing raw logits through the logistic sigmoid 1 / (1 + exp(-logit)) maps.",
+            "activeActor": "threshold",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "candidates",
+                "to": "threshold",
+                "label": {
+                  "var": "candidates",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "threshold",
+                "to": "calibrated",
+                "label": {
+                  "var": "threshold",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Run the calibration filter below on both an on-topic billing question.",
+            "activeActor": "calibrated",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "candidates",
+                "to": "threshold",
+                "label": {
+                  "var": "candidates",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "threshold",
+                "to": "calibrated",
+                "label": {
+                  "var": "threshold",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cross-Encoder Reranking & Contextual Compression Pipelines — Core Algo",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Logit Sigmoid Calibration and Abstention Gates",
+        "actors": [
+          "candidates",
+          "threshold",
+          "calibrated"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how cross updates encoder during execution.",
+            "messages": [
+              {
+                "from": "candidates",
+                "to": "threshold",
+                "label": "[['faq_1', 2.8], ['faq_2', 0.3], ['faq_…",
+                "tone": "data"
+              },
+              {
+                "from": "threshold",
+                "to": "calibrated",
+                "label": "0.45",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "candidates"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Passing raw logits through the logistic sigmoid 1 / (1 + exp(-logit)) maps.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "candidates",
+                "to": "threshold",
+                "label": "[['faq_1', 2.8], ['faq_2', 0.3], ['faq_…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "threshold",
+                "to": "calibrated",
+                "label": "0.45",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "threshold"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Run the calibration filter below on both an on-topic billing question.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "candidates",
+                "to": "threshold",
+                "label": "[['faq_1', 2.8], ['faq_2', 0.3], ['faq_…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "threshold",
+                "to": "calibrated",
+                "label": "0.45",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "calibrated"
           }
         ]
       }
     },
     {
-      "partTitle": "Cross-Encoder Reranking & Contextual Compression Pipelines — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "2e5eeb99eebb4224224e19fb60a3472fe6a0e8e001cacb262ceab1a092d07bb4",
+      "partTitle": "Sentence-Level Extractive Contextual Compression",
+      "codeHash": "53c1111d8815a265976791eb391317826391a3e6ec198b7cead158ac46cf88da",
       "spec": {
-        "template": "flow",
-        "title": "Cross-Encoder Reranking & Contextual Compression Pipelines — Throughpu",
-        "nodes": [
+        "template": "boxes",
+        "title": "Sentence-Level Extractive Contextual Compression",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "chunk",
+            "label": "chunk"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "query",
+            "label": "query"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "chunk_text",
+            "label": "chunk_text"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_words",
+            "label": "max_words"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "at": "say1",
+            "caption": "Trace how often updates token during execution.",
+            "values": {
+              "chunk": {
+                "var": "chunk",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "query": {
+                "var": "query",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "chunk_text": {
+                "var": "chunk_text",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "max_words": {
+                "var": "max_words",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "chunk": "data",
+              "query": "data",
+              "chunk_text": "data",
+              "max_words": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Extractive contextual compression splits retrieved chunks into sentences.",
+            "values": {
+              "chunk": {
+                "var": "chunk",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "query": {
+                "var": "query",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "chunk_text": {
+                "var": "chunk_text",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "max_words": {
+                "var": "max_words",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "chunk": "data",
+              "query": "data",
+              "chunk_text": "data",
+              "max_words": "data"
+            }
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "caption": "Observe compress_chunk() below shrinking a five-sentence policy chunk down.",
+            "values": {
+              "chunk": {
+                "var": "chunk",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "query": {
+                "var": "query",
+                "line": 5,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "chunk_text": {
+                "var": "chunk_text",
+                "line": 5,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "max_words": {
+                "var": "max_words",
+                "line": 5,
+                "hit": 2
               }
-            ]
+            },
+            "tones": {
+              "chunk": "ok",
+              "query": "ok",
+              "chunk_text": "ok",
+              "max_words": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cross-Encoder Reranking & Contextual Compression Pipelines — Throughpu",
-        "nodes": [
+        "template": "boxes",
+        "title": "Sentence-Level Extractive Contextual Compression",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "chunk",
+            "label": "chunk"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "query",
+            "label": "query"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "chunk_text",
+            "label": "chunk_text"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_words",
+            "label": "max_words"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Trace how often updates token during execution.",
+            "values": {
+              "chunk": "'Welcome to Acme Cloud. Regions reset e…",
+              "query": "'API keys expire revoked'",
+              "chunk_text": "'Welcome to Acme Cloud. Regions reset e…",
+              "max_words": "20"
+            },
+            "tones": {
+              "chunk": "data",
+              "query": "data",
+              "chunk_text": "data",
+              "max_words": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say2",
+            "caption": "Extractive contextual compression splits retrieved chunks into sentences.",
+            "values": {
+              "chunk": "'Welcome to Acme Cloud. Regions reset e…",
+              "query": "'API keys expire revoked'",
+              "chunk_text": "'Welcome to Acme Cloud. Regions reset e…",
+              "max_words": "20"
+            },
+            "tones": {
+              "chunk": "data",
+              "query": "data",
+              "chunk_text": "data",
+              "max_words": "data"
+            }
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "Observe compress_chunk() below shrinking a five-sentence policy chunk down.",
+            "values": {
+              "chunk": "'Welcome to Acme Cloud. Regions reset e…",
+              "query": "'API keys expire revoked'",
+              "chunk_text": "'Welcome to Acme Cloud. Regions reset e…",
+              "max_words": "20"
+            },
+            "tones": {
+              "chunk": "ok",
+              "query": "ok",
+              "chunk_text": "ok",
+              "max_words": "ok"
+            }
           }
         ]
       }
     },
     {
-      "partTitle": "Cross-Encoder Reranking & Contextual Compression Pipelines — Resilience Guardrails & Failure Recovery",
-      "codeHash": "6cf8d4120b7e1b58ae8e1660f3c19ddfd139a3df61883716285ef63ab93f8dfd",
+      "partTitle": "Maximal Marginal Relevance for Diversity Over Duplicate Chunks",
+      "codeHash": "5b62cb2933f2aaeb4fab089b24c629d4db6048ac16fe91aba949c66e5aa84f35",
       "spec": {
-        "template": "flow",
-        "title": "Cross-Encoder Reranking & Contextual Compression Pipelines — Resilienc",
-        "nodes": [
+        "template": "boxes",
+        "title": "Maximal Marginal Relevance for Diversity Over Duplicate Chunks",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cands",
+            "label": "cands"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "candidates",
+            "label": "candidates"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "k",
+            "label": "k"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "lam",
+            "label": "lam"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "at": "say1",
+            "caption": "Naive top-k selection frequently packs five nearly identical versions.",
+            "values": {
+              "cands": {
+                "var": "cands",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "candidates": {
+                "var": "candidates",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "k": {
+                "var": "k",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "lam": {
+                "var": "lam",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "cands": "data",
+              "candidates": "data",
+              "k": "data",
+              "lam": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Maximal Marginal Relevance (MMR) resolves redundancy by iteratively.",
+            "values": {
+              "cands": {
+                "var": "cands",
+                "line": 26,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "candidates": {
+                "var": "candidates",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "k": {
+                "var": "k",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "lam": {
+                "var": "lam",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "cands": "data",
+              "candidates": "data",
+              "k": "data",
+              "lam": "data"
+            }
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "caption": "Trace mmr_select() below.",
+            "values": {
+              "cands": {
+                "var": "cands",
+                "line": 26,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "candidates": {
+                "var": "candidates",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "k": {
+                "var": "k",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "lam": {
+                "var": "lam",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "cands": "ok",
+              "candidates": "ok",
+              "k": "ok",
+              "lam": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cross-Encoder Reranking & Contextual Compression Pipelines — Resilienc",
-        "nodes": [
+        "template": "boxes",
+        "title": "Maximal Marginal Relevance for Diversity Over Duplicate Chunks",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cands",
+            "label": "cands"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "candidates",
+            "label": "candidates"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "k",
+            "label": "k"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "lam",
+            "label": "lam"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Naive top-k selection frequently packs five nearly identical versions.",
+            "values": {
+              "cands": "[{'id': 'faq_main', 'score': 0.95, 'tex…",
+              "candidates": "[{'id': 'faq_main', 'score': 0.95, 'tex…",
+              "k": "3",
+              "lam": "0.6"
+            },
+            "tones": {
+              "cands": "data",
+              "candidates": "data",
+              "k": "data",
+              "lam": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say2",
+            "caption": "Maximal Marginal Relevance (MMR) resolves redundancy by iteratively.",
+            "values": {
+              "cands": "[{'id': 'faq_main', 'score': 0.95, 'tex…",
+              "candidates": "[{'id': 'faq_main', 'score': 0.95, 'tex…",
+              "k": "3",
+              "lam": "0.6"
+            },
+            "tones": {
+              "cands": "data",
+              "candidates": "data",
+              "k": "data",
+              "lam": "data"
+            }
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "Trace mmr_select() below.",
+            "values": {
+              "cands": "[{'id': 'faq_main', 'score': 0.95, 'tex…",
+              "candidates": "[{'id': 'faq_main', 'score': 0.95, 'tex…",
+              "k": "3",
+              "lam": "0.6"
+            },
+            "tones": {
+              "cands": "ok",
+              "candidates": "ok",
+              "k": "ok",
+              "lam": "ok"
+            }
           }
         ]
       }
     },
     {
-      "partTitle": "Cross-Encoder Reranking & Contextual Compression Pipelines — Production Telemetry & Verification Audit",
-      "codeHash": "2ffbccf6c4ca79cd56a1afd963e3013a50a802ce8ff7ce3c242bad4683122541",
+      "partTitle": "Reranking Telemetry: Token Reduction and Precision Gains",
+      "codeHash": "42771494564689644a6bcf7412c38c1a8b10fbc64a54a10f817bb8fd7f3d7111",
       "spec": {
         "template": "flow",
-        "title": "Cross-Encoder Reranking & Contextual Compression Pipelines — Productio",
+        "title": "Reranking Telemetry: Token Reduction and Precision Gains",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "batch",
+            "label": "batch"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "traces",
+            "label": "traces"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": ".0",
+            "label": ".0"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Reranking and compression sit on the hot path of every RAG query, so.",
+            "values": {
+              "batch": {
+                "var": "batch",
+                "line": 15,
+                "hit": 1
+              },
+              "traces": {
+                "var": "traces",
+                "line": 2,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 2,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "batch": "data",
+              "traces": "data",
+              "n": "data",
+              ".0": "data"
+            },
+            "arrows": [
+              [
+                "batch",
+                "traces"
+              ],
+              [
+                "traces",
+                "n"
+              ],
+              [
+                "n",
+                ".0"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Four lightweight numbers capture stage health clearly.",
+            "values": {
+              "batch": {
+                "var": "batch",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "traces": {
+                "var": "traces",
+                "line": 3,
+                "hit": 5
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "n": {
+                "var": "n",
+                "line": 3,
+                "hit": 5
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              ".0": {
+                "var": ".0",
+                "line": 3,
+                "hit": 2
               }
+            },
+            "tones": {
+              "batch": "data",
+              "traces": "data",
+              "n": "data",
+              ".0": "data"
+            },
+            "arrows": [
+              [
+                "batch",
+                "traces"
+              ],
+              [
+                "traces",
+                "n"
+              ],
+              [
+                "n",
+                ".0"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Inspect summarize_stage() below aggregating a batch of traced queries.",
+            "values": {
+              "batch": {
+                "var": "batch",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "traces": {
+                "var": "traces",
+                "line": 4,
+                "hit": 5
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "n": {
+                "var": "n",
+                "line": 4,
+                "hit": 5
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              ".0": {
+                "var": ".0",
+                "line": 3,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "batch": "ok",
+              "traces": "ok",
+              "n": "ok",
+              ".0": "ok"
+            },
+            "arrows": [
+              [
+                "batch",
+                "traces"
+              ],
+              [
+                "traces",
+                "n"
+              ],
+              [
+                "n",
+                ".0"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Cross-Encoder Reranking & Contextual Compression Pipelines — Productio",
+        "title": "Reranking Telemetry: Token Reduction and Precision Gains",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "batch",
+            "label": "batch"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "traces",
+            "label": "traces"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": ".0",
+            "label": ".0"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Reranking and compression sit on the hot path of every RAG query, so.",
+            "values": {
+              "batch": "[{'orig_words': 420, 'kept_words': 150,…",
+              "traces": "[{'orig_words': 420, 'kept_words': 150,…",
+              "n": "3",
+              ".0": "{'__other__': 'list_iterator'}"
+            },
+            "tones": {
+              "batch": "data",
+              "traces": "data",
+              "n": "data",
+              ".0": "data"
+            },
+            "arrows": [
+              [
+                "batch",
+                "traces"
+              ],
+              [
+                "traces",
+                "n"
+              ],
+              [
+                "n",
+                ".0"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Four lightweight numbers capture stage health clearly.",
+            "values": {
+              "batch": "[{'orig_words': 420, 'kept_words': 150,…",
+              "traces": "[{'orig_words': 420, 'kept_words': 150,…",
+              "n": "3",
+              ".0": "{'__other__': 'list_iterator'}"
+            },
+            "tones": {
+              "batch": "data",
+              "traces": "data",
+              "n": "data",
+              ".0": "data"
+            },
+            "arrows": [
+              [
+                "batch",
+                "traces"
+              ],
+              [
+                "traces",
+                "n"
+              ],
+              [
+                "n",
+                ".0"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say7",
+            "caption": "Inspect summarize_stage() below aggregating a batch of traced queries.",
+            "values": {
+              "batch": "[{'orig_words': 420, 'kept_words': 150,…",
+              "traces": "[{'orig_words': 420, 'kept_words': 150,…",
+              "n": "3",
+              ".0": "{'__other__': 'list_iterator'}"
+            },
+            "tones": {
+              "batch": "ok",
+              "traces": "ok",
+              "n": "ok",
+              ".0": "ok"
+            },
+            "arrows": [
+              [
+                "batch",
+                "traces"
+              ],
+              [
+                "traces",
+                "n"
+              ],
+              [
+                "n",
+                ".0"
+              ]
             ]
           }
         ]

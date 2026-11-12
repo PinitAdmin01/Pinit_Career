@@ -2,230 +2,140 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 59,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Frontier Evaluation Crisis: Static Benchmarks, Saturation Dynamics & Contamination",
       "codeHash": "622693a66866daed5c8dab7f8641a841c2ab823570a67c770259f344e6123c68",
       "spec": {
-        "template": "flow",
-        "title": "The Frontier Evaluation Crisis: Static Benchm... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Frontier Evalua...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The Frontier Evaluation Crisis: Static Benchmarks, Saturation Dy",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The Frontier Evaluation Crisis: Static B...",
-            "values": {
-              "in": "Day 59 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The Frontier Evalua....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "As language models approach and exceed human-level proficiency across.",
+            "bars": [
+              {
+                "label": "headroom",
+                "value": {
+                  "var": "headroom",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pct_ceiling",
+                "value": {
+                  "var": "pct_ceiling",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "However, in frontier frontier model development, traditional static.",
+            "bars": [
+              {
+                "label": "headroom",
+                "value": {
+                  "var": "headroom",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pct_ceiling",
+                "value": {
+                  "var": "pct_ceiling",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The Frontier Evaluation Crisis: S...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "To counter this distortion, frontier evaluation methodology has evolved.",
+            "bars": [
+              {
+                "label": "headroom",
+                "value": {
+                  "var": "headroom",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pct_ceiling",
+                "value": {
+                  "var": "pct_ceiling",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The Frontier Evaluation Crisis: Static Benchm... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Frontier Evalua...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The Frontier Evaluation Crisis: Static Benchmarks, Saturation Dy",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The Frontier Evaluation Crisis: Static B...",
-            "values": {
-              "in": "Day 59 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Frontier Evalua....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "As language models approach and exceed human-level proficiency across.",
+            "bars": [
+              {
+                "label": "headroom",
+                "value": 0.0030000000000000027,
+                "tone": "data"
+              },
+              {
+                "label": "pct_ceiling",
+                "value": 99.66592427616926,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "However, in frontier frontier model development, traditional static.",
+            "bars": [
+              {
+                "label": "headroom",
+                "value": 0.0030000000000000027,
+                "tone": "ok"
+              },
+              {
+                "label": "pct_ceiling",
+                "value": 99.66592427616926,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Frontier Evaluation Crisis: S...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "To counter this distortion, frontier evaluation methodology has evolved.",
+            "bars": [
+              {
+                "label": "headroom",
+                "value": 0.0030000000000000027,
+                "tone": "ok"
+              },
+              {
+                "label": "pct_ceiling",
+                "value": 99.66592427616926,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -235,223 +145,112 @@
       "partTitle": "Multi-Turn & Open-Ended Evaluation: MT-Bench Dynamics & AlpacaEval Win-Rate",
       "codeHash": "5788573c59879cebf7ab45069931df032ac09e13b7425e987833e43a9f89df23",
       "spec": {
-        "template": "flow",
-        "title": "Multi-Turn & Open-Ended Evaluation: MT-Bench ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Multi-Turn & Open-E...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Multi-Turn & Open-Ended Evaluation: MT-Bench Dynamics & AlpacaEv",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Multi-Turn & Open-Ended Evaluation: MT-B...",
-            "values": {
-              "in": "Day 59 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Multi-Turn & Open-E....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "To evaluate models in naturalistic, open-ended conditions, two.",
+            "items": {
+              "var": "cand_lengths",
+              "line": 23,
+              "hit": 5
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "MT-Bench specifically addresses a critical blindspot of single-turn benchmarks.",
+            "items": {
+              "var": "cand_lengths",
+              "line": 25,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Multi-Turn & Open-Ended Evaluatio...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "In multi-turn MT-Bench dynamics, analysis of the conversational transition.",
+            "items": {
+              "var": "cand_lengths",
+              "line": 27,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Multi-Turn & Open-Ended Evaluation: MT-Bench ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Multi-Turn & Open-E...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Multi-Turn & Open-Ended Evaluation: MT-Bench Dynamics & AlpacaEv",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Multi-Turn & Open-Ended Evaluation: MT-B...",
-            "values": {
-              "in": "Day 59 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Multi-Turn & Open-E....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "To evaluate models in naturalistic, open-ended conditions, two.",
+            "items": [
+              "6",
+              "13",
+              "2",
+              "2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "MT-Bench specifically addresses a critical blindspot of single-turn benchmarks.",
+            "items": [
+              "6",
+              "13",
+              "2",
+              "2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Multi-Turn & Open-Ended Evaluatio...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "In multi-turn MT-Bench dynamics, analysis of the conversational transition.",
+            "items": [
+              "6",
+              "13",
+              "2",
+              "2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -461,223 +260,217 @@
       "partTitle": "LLM-as-a-Judge Architecture & Calibration: Position, Verbosity & Bradley-Terry Scaling",
       "codeHash": "4c07bf82c87b6929d41058acad076ffb40447a5384e5275cb4fdc77f909a2296",
       "spec": {
-        "template": "flow",
-        "title": "LLM-as-a-Judge Architecture & Calibration: Po... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. LLM-as-a-Judge Arch...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "LLM-as-a-Judge Architecture & Calibration: Position, Verbosity &",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for LLM-as-a-Judge Architecture & Calibratio...",
-            "values": {
-              "in": "Day 59 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in LLM-as-a-Judge Arch....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The widespread adoption of automated evaluation rests upon.",
+            "bars": [
+              {
+                "label": "elo_apex",
+                "value": {
+                  "var": "elo_apex",
+                  "line": 55,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "elo_base",
+                "value": {
+                  "var": "elo_base",
+                  "line": 55,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r_a",
+                "value": {
+                  "var": "r_a",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r_b",
+                "value": {
+                  "var": "r_b",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The three primary cognitive distortions in LLM-as-a-Judge systems are.",
+            "bars": [
+              {
+                "label": "elo_apex",
+                "value": {
+                  "var": "elo_apex",
+                  "line": 56,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "elo_base",
+                "value": {
+                  "var": "elo_base",
+                  "line": 56,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r_a",
+                "value": {
+                  "var": "r_a",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r_b",
+                "value": {
+                  "var": "r_b",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for LLM-as-a-Judge Architecture & Cal...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The mathematical estimation of Bradley-Terry latent skill ratings relies.",
+            "bars": [
+              {
+                "label": "elo_apex",
+                "value": {
+                  "var": "elo_apex",
+                  "line": 58,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "elo_base",
+                "value": {
+                  "var": "elo_base",
+                  "line": 58,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r_a",
+                "value": {
+                  "var": "r_a",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r_b",
+                "value": {
+                  "var": "r_b",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "LLM-as-a-Judge Architecture & Calibration: Po... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. LLM-as-a-Judge Arch...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "LLM-as-a-Judge Architecture & Calibration: Position, Verbosity &",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for LLM-as-a-Judge Architecture & Calibratio...",
-            "values": {
-              "in": "Day 59 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in LLM-as-a-Judge Arch....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The widespread adoption of automated evaluation rests upon.",
+            "bars": [
+              {
+                "label": "elo_apex",
+                "value": 1200,
+                "tone": "data"
+              },
+              {
+                "label": "elo_base",
+                "value": 1200,
+                "tone": "data"
+              },
+              {
+                "label": "r_a",
+                "value": 1200,
+                "tone": "data"
+              },
+              {
+                "label": "r_b",
+                "value": 1200,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The three primary cognitive distortions in LLM-as-a-Judge systems are.",
+            "bars": [
+              {
+                "label": "elo_apex",
+                "value": 1200,
+                "tone": "ok"
+              },
+              {
+                "label": "elo_base",
+                "value": 1200,
+                "tone": "ok"
+              },
+              {
+                "label": "r_a",
+                "value": 1200,
+                "tone": "ok"
+              },
+              {
+                "label": "r_b",
+                "value": 1200,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for LLM-as-a-Judge Architecture & Cal...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The mathematical estimation of Bradley-Terry latent skill ratings relies.",
+            "bars": [
+              {
+                "label": "elo_apex",
+                "value": 1200,
+                "tone": "ok"
+              },
+              {
+                "label": "elo_base",
+                "value": 1200,
+                "tone": "ok"
+              },
+              {
+                "label": "r_a",
+                "value": 1200,
+                "tone": "ok"
+              },
+              {
+                "label": "r_b",
+                "value": 1200,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -687,223 +480,217 @@
       "partTitle": "Fiduciary & Compliance Auditing: Hallucination Rates, Citation Fidelity & Risk Matrices",
       "codeHash": "ff0f029ed54b1460198520aebc14e24b43ab28d0b304437051832e00c45240c6",
       "spec": {
-        "template": "flow",
-        "title": "Fiduciary & Compliance Auditing: Hallucinatio... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Fiduciary & Complia...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Fiduciary & Compliance Auditing: Hallucination Rates, Citation F",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Fiduciary & Compliance Auditing: Halluci...",
-            "values": {
-              "in": "Day 59 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Fiduciary & Complia....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In enterprise deploymentsparticularly across healthcare, corporate law.",
+            "bars": [
+              {
+                "label": "hallucination_",
+                "value": {
+                  "var": "hallucination_count",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "hallucination_",
+                "value": {
+                  "var": "hallucination_rate",
+                  "line": 37,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "citation_fidel",
+                "value": {
+                  "var": "citation_fidelity",
+                  "line": 38,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The primary quantitative metric in factual auditing is the Hallucination.",
+            "bars": [
+              {
+                "label": "hallucination_",
+                "value": {
+                  "var": "hallucination_count",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 37,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hallucination_",
+                "value": {
+                  "var": "hallucination_rate",
+                  "line": 38,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "citation_fidel",
+                "value": {
+                  "var": "citation_fidelity",
+                  "line": 41,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Fiduciary & Compliance Auditing: ...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In addition to factual consistency, fiduciary auditing evaluates citation.",
+            "bars": [
+              {
+                "label": "hallucination_",
+                "value": {
+                  "var": "hallucination_count",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 38,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hallucination_",
+                "value": {
+                  "var": "hallucination_rate",
+                  "line": 41,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "citation_fidel",
+                "value": {
+                  "var": "citation_fidelity",
+                  "line": 44,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Fiduciary & Compliance Auditing: Hallucinatio... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Fiduciary & Complia...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Fiduciary & Compliance Auditing: Hallucination Rates, Citation F",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Fiduciary & Compliance Auditing: Halluci...",
-            "values": {
-              "in": "Day 59 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Fiduciary & Complia....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In enterprise deploymentsparticularly across healthcare, corporate law.",
+            "bars": [
+              {
+                "label": "hallucination_",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "hallucination_",
+                "value": 66.66666666666666,
+                "tone": "data"
+              },
+              {
+                "label": "citation_fidel",
+                "value": 33.33333333333333,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The primary quantitative metric in factual auditing is the Hallucination.",
+            "bars": [
+              {
+                "label": "hallucination_",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "hallucination_",
+                "value": 66.66666666666666,
+                "tone": "ok"
+              },
+              {
+                "label": "citation_fidel",
+                "value": 33.33333333333333,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Fiduciary & Compliance Auditing: ...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In addition to factual consistency, fiduciary auditing evaluates citation.",
+            "bars": [
+              {
+                "label": "hallucination_",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "hallucination_",
+                "value": 66.66666666666666,
+                "tone": "ok"
+              },
+              {
+                "label": "citation_fidel",
+                "value": 33.33333333333333,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -914,110 +701,161 @@
       "codeHash": "686067736aa4f809ed2ea7bc7590108153ee45a8a15b581d33c325195e2cd4a8",
       "spec": {
         "template": "flow",
-        "title": "Masterclass Implementation: ApexEval Enterpri... — Execution Pipeline",
+        "title": "Masterclass Implementation: ApexEval Enterprise Multi-Metric Aud",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Masterclass Impleme...",
-            "tappable": true
+            "id": "platform",
+            "label": "platform"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "model_id",
+            "label": "model_id"
+          },
+          {
+            "id": "mt_turn_scores",
+            "label": "mt_turn_scores"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Masterclass Implementation: ApexEval Ent...",
-            "values": {
-              "in": "Day 59 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Masterclass Impleme....",
+            "caption": "We now synthesize all evaluation principles into the masterclass platform.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": {
+                "var": "self",
+                "line": 20,
+                "hit": 1
+              },
+              "platform": {
+                "var": "platform",
+                "line": 71,
+                "hit": 1
+              },
+              "model_id": {
+                "var": "model_id",
+                "line": 37,
+                "hit": 1
+              },
+              "mt_turn_scores": {
+                "var": "mt_turn_scores",
+                "line": 37,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "platform": "data",
+              "model_id": "data",
+              "mt_turn_scores": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "platform"
               ],
               [
-                "proc",
-                "out"
+                "platform",
+                "model_id"
+              ],
+              [
+                "model_id",
+                "mt_turn_scores"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "When an organization evaluates candidate models (e.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": {
+                "var": "self",
+                "line": 37,
+                "hit": 1
+              },
+              "platform": {
+                "var": "platform",
+                "line": 72,
+                "hit": 1
+              },
+              "model_id": {
+                "var": "model_id",
+                "line": 40,
+                "hit": 1
+              },
+              "mt_turn_scores": {
+                "var": "mt_turn_scores",
+                "line": 40,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "platform": "data",
+              "model_id": "data",
+              "mt_turn_scores": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "platform"
+              ],
+              [
+                "platform",
+                "model_id"
+              ],
+              [
+                "model_id",
+                "mt_turn_scores"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Masterclass Implementation: ApexE...",
+            "at": "say9",
+            "caption": "Finally, ApexEval generates multi-format executive exports suitable.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": {
+                "var": "self",
+                "line": 40,
+                "hit": 1
+              },
+              "platform": {
+                "var": "platform",
+                "line": 73,
+                "hit": 1
+              },
+              "model_id": {
+                "var": "model_id",
+                "line": 41,
+                "hit": 1
+              },
+              "mt_turn_scores": {
+                "var": "mt_turn_scores",
+                "line": 41,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "platform": "ok",
+              "model_id": "ok",
+              "mt_turn_scores": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "platform"
               ],
               [
-                "proc",
-                "out"
+                "platform",
+                "model_id"
+              ],
+              [
+                "model_id",
+                "mt_turn_scores"
               ]
             ]
           }
@@ -1025,110 +863,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Masterclass Implementation: ApexEval Enterpri... — Execution Pipeline",
+        "title": "Masterclass Implementation: ApexEval Enterprise Multi-Metric Aud",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Masterclass Impleme...",
-            "tappable": true
+            "id": "platform",
+            "label": "platform"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "model_id",
+            "label": "model_id"
+          },
+          {
+            "id": "mt_turn_scores",
+            "label": "mt_turn_scores"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Implementation: ApexEval Ent...",
-            "values": {
-              "in": "Day 59 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Impleme....",
+            "caption": "We now synthesize all evaluation principles into the masterclass platform.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": "<ApexEvalPlatform>",
+              "platform": "<ApexEvalPlatform>",
+              "model_id": "'ApexLinguist-Frontier-70B'",
+              "mt_turn_scores": "[8.8, 8.5, 9.1, 8.7, 8.9]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "platform": "data",
+              "model_id": "data",
+              "mt_turn_scores": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "platform"
               ],
               [
-                "proc",
-                "out"
+                "platform",
+                "model_id"
+              ],
+              [
+                "model_id",
+                "mt_turn_scores"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "When an organization evaluates candidate models (e.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": "<ApexEvalPlatform>",
+              "platform": "<ApexEvalPlatform>",
+              "model_id": "'ApexLinguist-Frontier-70B'",
+              "mt_turn_scores": "[8.8, 8.5, 9.1, 8.7, 8.9]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "platform": "data",
+              "model_id": "data",
+              "mt_turn_scores": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "platform"
+              ],
+              [
+                "platform",
+                "model_id"
+              ],
+              [
+                "model_id",
+                "mt_turn_scores"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Implementation: ApexE...",
+            "at": "say9",
+            "caption": "Finally, ApexEval generates multi-format executive exports suitable.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": "<ApexEvalPlatform>",
+              "platform": "<ApexEvalPlatform>",
+              "model_id": "'ApexLinguist-Frontier-70B'",
+              "mt_turn_scores": "[8.8, 8.5, 9.1, 8.7, 8.9]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "platform": "ok",
+              "model_id": "ok",
+              "mt_turn_scores": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "platform"
               ],
               [
-                "proc",
-                "out"
+                "platform",
+                "model_id"
+              ],
+              [
+                "model_id",
+                "mt_turn_scores"
               ]
             ]
           }

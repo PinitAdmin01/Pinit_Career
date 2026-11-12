@@ -2,88 +2,188 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 37,
-  "promptSha": "bc3ceb38b075e95a07e9c3e5005e51844576438d29a538f49a2a674dcc69ad16",
-  "model": "gate-v2-verified",
+  "promptSha": "cfdce5832287fc5d6b4ab167d77fbbd0b0f65f559e3e2cfbc2158f58754fcea9",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "Unit of Work & Identity Map Enterprise Patterns Deep Dive",
       "codeHash": "81659eb92368728fb5cf0b66284e8ba122a207a83e7c1866414836c0a46fdbbb",
       "spec": {
-        "template": "table",
-        "title": "Unit of Work & Identity Map Enterprise Patterns De",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Identity Map single-instance reference coherence",
+        "boxes": [
+          {
+            "id": "u1",
+            "label": "user1"
+          },
+          {
+            "id": "u2",
+            "label": "user2"
+          },
+          {
+            "id": "map",
+            "label": "identity_map"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Unit"
-                  },
-                  {
-                    "text": "Work"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Identity Map prevents redundant database selects within one request.",
+            "values": {
+              "u1": {
+                "text": "Alice"
+              },
+              "u2": {
+                "text": "User"
+              },
+              "map": {
+                "text": "Identity Map"
               }
-            ]
+            },
+            "tones": {
+              "u1": "data",
+              "u2": "idle",
+              "map": "ok"
+            }
           },
           {
             "at": "say3",
-            "caption": "The instead logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Identity"
-                  },
-                  {
-                    "text": "Map"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Repeated queries for primary key 42 return the identical RAM object.",
+            "values": {
+              "u1": {
+                "text": "42"
+              },
+              "u2": {
+                "text": "42"
+              },
+              "map": {
+                "text": "True"
               }
-            ]
+            },
+            "tones": {
+              "u1": "ok",
+              "u2": "ok",
+              "map": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Changing one reference exposes dirty state immediately across user2.",
+            "values": {
+              "u1": {
+                "text": "Alice Cooper"
+              },
+              "u2": {
+                "text": "Alice Cooper"
+              },
+              "map": {
+                "text": "dirty"
+              }
+            },
+            "tones": {
+              "u1": "data",
+              "u2": "data",
+              "map": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Query distinct primary key confirming separate cached object instance.",
+            "values": {
+              "u1": {
+                "text": "Query"
+              },
+              "u2": {
+                "text": "primary"
+              },
+              "map": {
+                "text": "e.g."
+              }
+            },
+            "tones": {
+              "u1": "ok",
+              "u2": "data",
+              "map": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Unit of Work & Identity Map Enterprise Patterns De",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Identity Map single-instance reference coherence",
+        "boxes": [
+          {
+            "id": "u1",
+            "label": "user1"
+          },
+          {
+            "id": "u2",
+            "label": "user2"
+          },
+          {
+            "id": "map",
+            "label": "identity_map"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Unit",
-                  "Work"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Identity Map prevents redundant database selects within one request.",
+            "values": {
+              "u1": "User(id=42, 'Alice')",
+              "u2": "Not loaded",
+              "map": "{(User,42): obj}"
+            },
+            "tones": {
+              "u1": "data",
+              "u2": "idle",
+              "map": "ok"
+            }
           },
           {
             "at": "say3",
-            "caption": "The instead logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Identity",
-                  "Map"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Repeated queries for primary key 42 return the identical RAM object.",
+            "values": {
+              "u1": "0x7f1a (cached1=False)",
+              "u2": "0x7f1a (cached2=True)",
+              "map": "user1 is user2 == True"
+            },
+            "tones": {
+              "u1": "ok",
+              "u2": "ok",
+              "map": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Changing one reference exposes dirty state immediately across user2.",
+            "values": {
+              "u1": "'Alice Cooper' (dirty)",
+              "u2": "'Alice Cooper' (shared)",
+              "map": "Deferred until commit()"
+            },
+            "tones": {
+              "u1": "data",
+              "u2": "data",
+              "map": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Query distinct primary key confirming separate cached object instance.",
+            "values": {
+              "u1": "pk=42 'Alice Cooper' (shared)",
+              "u2": "pk=43 'Bob' (distinct obj)",
+              "map": "2 Distinct Instances Cached"
+            },
+            "tones": {
+              "u1": "ok",
+              "u2": "data",
+              "map": "ok"
+            },
+            "whatIf": "class MockIdentityMap:\n    def __init__(self):\n        self.map = {}  # (Model, ID) -> Object Instance\n\n    def load(self, model_cls, pk, name):\n        key = (model_cls, pk)\n        if key in self.map:\n            return self.map[key], True  # Cache hit (Same instance)\n        instance = {\"pk\": pk, \"name\": name, \"dirty\": False}\n        self.map[key] = instance\n        return instance, False\n\nidentity_map = MockIdentityMap()\nuser1, cached1 = identity_map.load(\"User\", 42, \"Alice\")\nuser2, cached2 = identity_map.load(\"User\", 42, \"Alice\")\n\n# Modify attribute\nuser1[\"name\"] = \"Alice Cooper\"\nuser1[\"dirty\"] = True\n\nprint(\"=== IDENTITY MAP PHYSICS LAB ===\")\nprint(f\"Initial Query Cached:      {cached1}\")\nprint(f\"Second Query Cached:       {cached2} (Identity Map Hit)\")\nprint(f\"Same Instance in Memory:   {user1 is user2}\")\nprint(f\"User 2 Sees Mutation:      {user2['name']}\")\nuser3, cached3 = identity_map.load(\"User\", 43, \"Bob\")\nprint(f\"PK 43 Cached Hit: {cached3} | Distinct From PK 42: {user3 is not user1} | Count: {len(identity_map.map)}\")\nprint(\"Identity Map guarantees single-instance object coherence.\")",
+            "checks": [
+              "PK 43 Cached Hit: False | Distinct From PK 42: True | Count: 2"
             ]
           }
         ]
@@ -93,82 +193,164 @@
       "partTitle": "Long-Lived Session Memory Leak & Dirty State Forensics",
       "codeHash": "b5094c9a7620735d647e21e38946cb51609e4db35c5bd6e22df9960028aae394",
       "spec": {
-        "template": "table",
-        "title": "Long-Lived Session Memory Leak & Dirty State Foren",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Global long-lived session vs request-scoped cleanup",
+        "leftLabel": "Global Session (Leaky)",
+        "rightLabel": "Request-Scoped Session",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Long"
-                  },
-                  {
-                    "text": "Lived"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Global sessions accumulate every row inside unbounded worker caches.",
+            "left": {
+              "code": "global_session.process_request(...)",
+              "result": "Unbounded RAM Growth",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "with get_session() as s: ...",
+              "result": "Cleared per Task",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The even logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Session"
-                  },
-                  {
-                    "text": "Memory"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Uncommitted failed mutations from earlier callers leak on later commits.",
+            "left": {
+              "code": "dirty_queue + process_request('usr_202')",
+              "result": "Cross-Tenant Pollution",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "session.rollback(); session.close()",
+              "result": "Zero State Leakage",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Ephemeral session closing clears dirty state and frees RAM cleanly.",
+            "left": {
+              "code": "len(global_session.identity_map)",
+              "result": "Grows Every Request",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "session.close()",
+              "result": "0 Tracked Entities",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Call session.close() per request to wipe identity_map and dirty_queue.",
+            "left": {
+              "code": "global_session (no close)",
+              "result": "Tracked: 2 (Leaked) | Dirty: 0",
+              "tone": "error",
+              "checks": [
+                "Leaked Cache Mode: identity_map=2 keys preserved",
+                "Total Tracked Entities:    2",
+                "Uncommitted Dirty Leftover: 0 items"
+              ],
+              "whatIf": "class SessionLifecycleSimulator:\n    def __init__(self):\n        self.identity_map = {}\n        self.dirty_queue = []\n\n    def process_request(self, user_id, new_email, should_commit=True):\n        # Simulate loading into identity map\n        entity = {\"id\": user_id, \"email\": new_email}\n        self.identity_map[user_id] = entity\n        self.dirty_queue.append(entity)\n        if should_commit:\n            self.dirty_queue.clear()  # Flushed\n\n# Bad: Long-lived session accumulating state\nglobal_session = SessionLifecycleSimulator()\n# Request 1: Fails before commit\nglobal_session.process_request(\"usr_101\", \"unvalidated@hack.com\", should_commit=False)\n# Request 2: Succeeds and commits\nglobal_session.process_request(\"usr_202\", \"valid@work.com\", should_commit=True)\n\nprint(\"=== SESSION CONTAMINATION FORENSICS ===\")\nprint(f\"Leaked Cache Mode: identity_map={len(global_session.identity_map)} keys preserved\")\nprint(f\"Total Tracked Entities:    {len(global_session.identity_map)} (RAM Leak Risk)\")\nprint(f\"Uncommitted Dirty Leftover: {len(global_session.dirty_queue)} items\")\nprint(\"Long-lived sessions cause state contamination and memory bloat.\")"
+            },
+            "right": {
+              "code": "session.close() resets maps",
+              "result": "Tracked: 0 (Clean) | Dirty: 0",
+              "tone": "ok",
+              "checks": [
+                "Total Tracked Entities:    0",
+                "Uncommitted Dirty Leftover: 0 items"
+              ],
+              "whatIf": "class SessionLifecycleSimulator:\n    def __init__(self):\n        self.identity_map = {}\n        self.dirty_queue = []\n\n    def process_request(self, user_id, new_email, should_commit=True):\n        entity = {\"id\": user_id, \"email\": new_email}\n        self.identity_map[user_id] = entity\n        self.dirty_queue.append(entity)\n        if should_commit:\n            self.dirty_queue.clear()\n        self.close()\n\n    def close(self):\n        self.identity_map.clear()\n        self.dirty_queue.clear()\n\n# Bad: Long-lived session accumulating state\nglobal_session = SessionLifecycleSimulator()\n# Request 1: Fails before commit\nglobal_session.process_request(\"usr_101\", \"unvalidated@hack.com\", should_commit=False)\n# Request 2: Succeeds and commits\nglobal_session.process_request(\"usr_202\", \"valid@work.com\", should_commit=True)\n\nprint(\"=== SESSION CONTAMINATION FORENSICS ===\")\nprint(f\"Total Tracked Entities:    {len(global_session.identity_map)} (RAM Leak Risk)\")\nprint(f\"Uncommitted Dirty Leftover: {len(global_session.dirty_queue)} items\")\nprint(\"Long-lived sessions cause state contamination and memory bloat.\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Long-Lived Session Memory Leak & Dirty State Foren",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Global long-lived session vs request-scoped cleanup",
+        "leftLabel": "Global Session (Leaky)",
+        "rightLabel": "Request-Scoped Session",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Long",
-                  "Lived"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Global sessions accumulate every row inside unbounded worker caches.",
+            "left": {
+              "code": "global_session.process_request(...)",
+              "result": "Unbounded RAM Growth",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "with get_session() as s: ...",
+              "result": "Cleared per Task",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The even logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Session",
-                  "Memory"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Uncommitted failed mutations from earlier callers leak on later commits.",
+            "left": {
+              "code": "dirty_queue + process_request('usr_202')",
+              "result": "Cross-Tenant Pollution",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "session.rollback(); session.close()",
+              "result": "Zero State Leakage",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Ephemeral session closing clears dirty state and frees RAM cleanly.",
+            "left": {
+              "code": "len(global_session.identity_map)",
+              "result": "Grows Every Request",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "session.close()",
+              "result": "0 Tracked Entities",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Call session.close() per request to wipe identity_map and dirty_queue.",
+            "left": {
+              "code": "global_session (no close)",
+              "result": "Tracked: 2 (Leaked) | Dirty: 0",
+              "tone": "error",
+              "checks": [
+                "Leaked Cache Mode: identity_map=2 keys preserved",
+                "Total Tracked Entities:    2",
+                "Uncommitted Dirty Leftover: 0 items"
+              ],
+              "whatIf": "class SessionLifecycleSimulator:\n    def __init__(self):\n        self.identity_map = {}\n        self.dirty_queue = []\n\n    def process_request(self, user_id, new_email, should_commit=True):\n        # Simulate loading into identity map\n        entity = {\"id\": user_id, \"email\": new_email}\n        self.identity_map[user_id] = entity\n        self.dirty_queue.append(entity)\n        if should_commit:\n            self.dirty_queue.clear()  # Flushed\n\n# Bad: Long-lived session accumulating state\nglobal_session = SessionLifecycleSimulator()\n# Request 1: Fails before commit\nglobal_session.process_request(\"usr_101\", \"unvalidated@hack.com\", should_commit=False)\n# Request 2: Succeeds and commits\nglobal_session.process_request(\"usr_202\", \"valid@work.com\", should_commit=True)\n\nprint(\"=== SESSION CONTAMINATION FORENSICS ===\")\nprint(f\"Leaked Cache Mode: identity_map={len(global_session.identity_map)} keys preserved\")\nprint(f\"Total Tracked Entities:    {len(global_session.identity_map)} (RAM Leak Risk)\")\nprint(f\"Uncommitted Dirty Leftover: {len(global_session.dirty_queue)} items\")\nprint(\"Long-lived sessions cause state contamination and memory bloat.\")"
+            },
+            "right": {
+              "code": "session.close() resets maps",
+              "result": "Tracked: 0 (Clean) | Dirty: 0",
+              "tone": "ok",
+              "checks": [
+                "Total Tracked Entities:    0",
+                "Uncommitted Dirty Leftover: 0 items"
+              ],
+              "whatIf": "class SessionLifecycleSimulator:\n    def __init__(self):\n        self.identity_map = {}\n        self.dirty_queue = []\n\n    def process_request(self, user_id, new_email, should_commit=True):\n        entity = {\"id\": user_id, \"email\": new_email}\n        self.identity_map[user_id] = entity\n        self.dirty_queue.append(entity)\n        if should_commit:\n            self.dirty_queue.clear()\n        self.close()\n\n    def close(self):\n        self.identity_map.clear()\n        self.dirty_queue.clear()\n\n# Bad: Long-lived session accumulating state\nglobal_session = SessionLifecycleSimulator()\n# Request 1: Fails before commit\nglobal_session.process_request(\"usr_101\", \"unvalidated@hack.com\", should_commit=False)\n# Request 2: Succeeds and commits\nglobal_session.process_request(\"usr_202\", \"valid@work.com\", should_commit=True)\n\nprint(\"=== SESSION CONTAMINATION FORENSICS ===\")\nprint(f\"Total Tracked Entities:    {len(global_session.identity_map)} (RAM Leak Risk)\")\nprint(f\"Uncommitted Dirty Leftover: {len(global_session.dirty_queue)} items\")\nprint(\"Long-lived sessions cause state contamination and memory bloat.\")"
+            }
           }
         ]
       }
@@ -177,81 +359,293 @@
       "partTitle": "Unit of Work & Dirty-Tracking Session Implementation",
       "codeHash": "3279c0bb7065cf495a52b0effa7360da81422e9aec5d80d148baaafcaa66dddf",
       "spec": {
-        "template": "table",
-        "title": "Unit of Work & Dirty-Tracking Session Implementati",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "UnitOfWorkSession flush and SQL emission flow",
+        "nodes": [
+          {
+            "id": "pend",
+            "label": "pending"
+          },
+          {
+            "id": "map",
+            "label": "identity_map"
+          },
+          {
+            "id": "dirty",
+            "label": "dirty"
+          },
+          {
+            "id": "sql",
+            "label": "emitted_sql"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Unit"
-                  },
-                  {
-                    "text": "Work"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "New objects register in pending queues before database primary keys exist.",
+            "values": {
+              "pend": {
+                "text": "Charlie"
+              },
+              "map": {
+                "text": "Identity Map"
+              },
+              "dirty": {
+                "text": "Persistent"
+              },
+              "sql": {
+                "text": "flush"
               }
+            },
+            "tones": {
+              "pend": "data",
+              "map": "idle",
+              "dirty": "idle",
+              "sql": "idle"
+            },
+            "arrows": [
+              [
+                "pend",
+                "map"
+              ]
             ]
           },
           {
             "at": "say3",
-            "caption": "The attributes logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Dirty"
-                  },
-                  {
-                    "text": "Tracking"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Session flush emits INSERT and targeted UPDATE statements atomically.",
+            "values": {
+              "pend": {
+                "text": "INSERT"
+              },
+              "map": {
+                "text": "10"
+              },
+              "dirty": {
+                "text": "UPDATE"
+              },
+              "sql": {
+                "text": "emitted_sql"
               }
+            },
+            "tones": {
+              "pend": "ok",
+              "map": "data",
+              "dirty": "ok",
+              "sql": "ok"
+            },
+            "arrows": [
+              [
+                "pend",
+                "map"
+              ],
+              [
+                "map",
+                "dirty"
+              ],
+              [
+                "dirty",
+                "sql"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Second flush writes only mutated fields before clearing dirty state.",
+            "values": {
+              "pend": {
+                "text": "clear"
+              },
+              "map": {
+                "text": "Charlie Chaplin"
+              },
+              "dirty": {
+                "text": "mark_dirty"
+              },
+              "sql": {
+                "text": "UPDATE"
+              }
+            },
+            "tones": {
+              "pend": "ok",
+              "map": "ok",
+              "dirty": "ok",
+              "sql": "ok"
+            },
+            "arrows": [
+              [
+                "map",
+                "dirty"
+              ],
+              [
+                "dirty",
+                "sql"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add deleted list and emit SQL DELETE while removing from identity_map.",
+            "values": {
+              "pend": {
+                "text": "Add"
+              },
+              "map": {
+                "text": "list"
+              },
+              "dirty": {
+                "text": "emit"
+              },
+              "sql": {
+                "text": "statements"
+              }
+            },
+            "tones": {
+              "pend": "ok",
+              "map": "ok",
+              "dirty": "ok",
+              "sql": "data"
+            },
+            "arrows": [
+              [
+                "map",
+                "dirty"
+              ],
+              [
+                "dirty",
+                "sql"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Unit of Work & Dirty-Tracking Session Implementati",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "UnitOfWorkSession flush and SQL emission flow",
+        "nodes": [
+          {
+            "id": "pend",
+            "label": "pending"
+          },
+          {
+            "id": "map",
+            "label": "identity_map"
+          },
+          {
+            "id": "dirty",
+            "label": "dirty"
+          },
+          {
+            "id": "sql",
+            "label": "emitted_sql"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Unit",
-                  "Work"
-                ],
-                "tone": "data"
-              }
+            "at": "say2",
+            "caption": "New objects register in pending queues before database primary keys exist.",
+            "values": {
+              "pend": "{'id': 10, 'name': 'Charlie'}",
+              "map": "Empty",
+              "dirty": "Empty",
+              "sql": "0 statements"
+            },
+            "tones": {
+              "pend": "data",
+              "map": "idle",
+              "dirty": "idle",
+              "sql": "idle"
+            },
+            "arrows": [
+              [
+                "pend",
+                "map"
+              ]
             ]
           },
           {
             "at": "say3",
-            "caption": "The attributes logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Dirty",
-                  "Tracking"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Session flush emits INSERT and targeted UPDATE statements atomically.",
+            "values": {
+              "pend": "Cleared",
+              "map": "{10: Charlie}",
+              "dirty": "set()",
+              "sql": "INSERT INTO users..."
+            },
+            "tones": {
+              "pend": "ok",
+              "map": "data",
+              "dirty": "ok",
+              "sql": "ok"
+            },
+            "arrows": [
+              [
+                "pend",
+                "map"
+              ],
+              [
+                "map",
+                "dirty"
+              ],
+              [
+                "dirty",
+                "sql"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Second flush writes only mutated fields before clearing dirty state.",
+            "values": {
+              "pend": "Cleared",
+              "map": "{10: 'Charlie Chaplin'}",
+              "dirty": "Cleared",
+              "sql": "UPDATE users SET name=..."
+            },
+            "tones": {
+              "pend": "ok",
+              "map": "ok",
+              "dirty": "ok",
+              "sql": "ok"
+            },
+            "arrows": [
+              [
+                "map",
+                "dirty"
+              ],
+              [
+                "dirty",
+                "sql"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add deleted list and emit SQL DELETE while removing from identity_map.",
+            "values": {
+              "pend": "Empty []",
+              "map": "Empty {} (Evicted ID 10)",
+              "dirty": "Cleared",
+              "sql": "DELETE FROM users WHERE id=10"
+            },
+            "tones": {
+              "pend": "ok",
+              "map": "ok",
+              "dirty": "ok",
+              "sql": "data"
+            },
+            "arrows": [
+              [
+                "map",
+                "dirty"
+              ],
+              [
+                "dirty",
+                "sql"
+              ]
+            ],
+            "whatIf": "class UnitOfWorkSession:\n    def __init__(self):\n        self.identity_map = {}  # pk -> entity\n        self.pending = []       # new objects\n        self.dirty = set()\n        self.deleted = []\n        self.emitted_sql = []\n\n    def mark_deleted(self, pk):\n        self.deleted.append(pk)\n\n    def add(self, entity):\n        self.pending.append(entity)\n\n    def mark_dirty(self, pk):\n        self.dirty.add(pk)\n\n    def flush(self):\n        # 1. Emit INSERTs for pending\n        for p in self.pending:\n            self.emitted_sql.append(f\"INSERT INTO users (id, name) VALUES ({p['id']}, '{p['name']}')\")\n            self.identity_map[p['id']] = p\n        self.pending.clear()\n        # 2. Emit UPDATEs for dirty\n        for pk in self.dirty:\n            obj = self.identity_map[pk]\n            self.emitted_sql.append(f\"UPDATE users SET name='{obj['name']}' WHERE id={pk}\")\n        self.dirty.clear()\n        for pk in self.deleted:\n            self.emitted_sql.append(f\"DELETE FROM users WHERE id={pk}\")\n            self.identity_map.pop(pk, None)\n        self.deleted.clear()\n\nuow = UnitOfWorkSession()\nuow.add({\"id\": 10, \"name\": \"Charlie\"})\nuow.flush()\n\n# Modify persistent object\nuow.identity_map[10][\"name\"] = \"Charlie Chaplin\"\nuow.mark_dirty(10)\nuow.flush()\n\nprint(\"=== UNIT OF WORK FLUSH ENGINE ===\")\nprint(f\"Emitted SQL Statements: {len(uow.emitted_sql)}\")\nprint(f\"Statement 1:            {uow.emitted_sql[0]}\")\nprint(f\"Statement 2:            {uow.emitted_sql[1]}\")\nuow.mark_deleted(10)\nuow.flush()\nprint(f\"Statement 3:            {uow.emitted_sql[2]} | Remaining Map: {len(uow.identity_map)}\")\nprint(\"Topological dirty state flushing executed successfully.\")",
+            "checks": [
+              "Statement 3:            DELETE FROM users WHERE id=10 | Remaining Map: 0"
             ]
           }
         ]
@@ -262,40 +656,143 @@
       "codeHash": "5406d9b43d8298ed10624c1772400d9fb977907cd824ffe7a0fb3e9b66973bcf",
       "spec": {
         "template": "table",
-        "title": "Financial Ledger Transactional Atomicity Hardening",
+        "title": "LedgerTransferEngine savepoint rollback ledger",
         "columns": [
-          "Stage",
-          "Concept"
+          "Transfer Call",
+          "Sender",
+          "Recipient"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Single transaction blocks eliminate partial debits from early commits.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Financial"
+                    "text": "150.0"
                   },
                   {
-                    "text": "Ledger"
+                    "text": "1000.0"
+                  },
+                  {
+                    "text": "200.0"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Committed"
+                  },
+                  {
+                    "text": "sender"
+                  },
+                  {
+                    "text": "recipient"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The network logic drives deterministic execution.",
+            "at": "say5",
+            "caption": "Network drops restore savepoint snapshots cleanly with zero partial debit.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Transactional"
+                    "text": "atomic_transfer"
                   },
                   {
-                    "text": "Atomicity"
+                    "text": "150.0"
+                  },
+                  {
+                    "text": "Committed"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "simulate_crash"
+                  },
+                  {
+                    "text": "300.0"
+                  },
+                  {
+                    "text": "Rolled back"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Hardened transaction keeps debit, credit, and logs all-or-nothing.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Committed"
+                  },
+                  {
+                    "text": "150.0"
+                  },
+                  {
+                    "text": "snapshot"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Rolled back"
+                  },
+                  {
+                    "text": "300.0"
+                  },
+                  {
+                    "text": "atomic_transfer"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Verify recipient balance stays preserved after rollback.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Verify"
+                  },
+                  {
+                    "text": "that"
+                  },
+                  {
+                    "text": "recipient"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "recipient"
+                  },
+                  {
+                    "text": "balance"
+                  },
+                  {
+                    "text": "preserved"
                   }
                 ],
                 "tone": "ok"
@@ -306,36 +803,104 @@
       },
       "filled": {
         "template": "table",
-        "title": "Financial Ledger Transactional Atomicity Hardening",
+        "title": "LedgerTransferEngine savepoint rollback ledger",
         "columns": [
-          "Stage",
-          "Concept"
+          "Transfer Call",
+          "Sender",
+          "Recipient"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Single transaction blocks eliminate partial debits from early commits.",
             "rows": [
               {
                 "cells": [
-                  "Financial",
-                  "Ledger"
+                  "Initial Balances",
+                  "$1000.0",
+                  "$200.0"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "Transfer $150.0 (OK)",
+                  "$850.0",
+                  "$350.0"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The network logic drives deterministic execution.",
+            "at": "say5",
+            "caption": "Network drops restore savepoint snapshots cleanly with zero partial debit.",
             "rows": [
               {
                 "cells": [
-                  "Transactional",
-                  "Atomicity"
+                  "Transfer 1 ($150.0)",
+                  "$850.0 (Committed)",
+                  "$350.0 (Committed)"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Transfer 2 ($300.0 Crash)",
+                  "$850.0 (Restored)",
+                  "$350.0 (Restored)"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Hardened transaction keeps debit, credit, and logs all-or-nothing.",
+            "rows": [
+              {
+                "cells": [
+                  "Successful Commit",
+                  "$850.0",
+                  "$350.0"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Mid-Transfer Crash Rollback",
+                  "$850.0 (Unchanged)",
+                  "$350.0 (Unchanged)"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Verify recipient balance stays preserved after rollback.",
+            "rows": [
+              {
+                "cells": [
+                  "Transfer 1 (Commit)",
+                  "$850.0",
+                  "$350.0"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Transfer 2 (Rollback)",
+                  "$850.0 (Preserved)",
+                  "$350.0 (Preserved)"
                 ],
                 "tone": "ok"
               }
+            ],
+            "whatIf": "class LedgerTransferEngine:\n    def __init__(self):\n        self.accounts = {\"sender\": 1000.0, \"recipient\": 200.0}\n\n    def atomic_transfer(self, amount: float, simulate_crash=False):\n        snapshot = dict(self.accounts)  # Savepoint\n        try:\n            # 1. Debit sender\n            self.accounts[\"sender\"] -= amount\n            # 2. Simulate failure before recipient credit\n            if simulate_crash:\n                raise RuntimeError(\"Database connection dropped mid-transfer!\")\n            # 3. Credit recipient\n            self.accounts[\"recipient\"] += amount\n            return True, \"Committed\"\n        except Exception as e:\n            # Unit of Work Rollback\n            self.accounts = snapshot\n            return False, f\"Rolled back: {str(e)}\"\n\nengine = LedgerTransferEngine()\n# Successful transfer\nok1, msg1 = engine.atomic_transfer(150.0, simulate_crash=False)\n# Failing transfer with simulated network crash\nok2, msg2 = engine.atomic_transfer(300.0, simulate_crash=True)\n\nprint(\"=== FINANCIAL LEDGER ATOMICITY LAB ===\")\nprint(f\"Transfer 1 Success: {ok1} | Sender Bal: ${engine.accounts['sender']}\")\nprint(f\"Transfer 2 Success: {ok2} | Reason: {msg2}\")\nprint(f\"Sender Bal Preserved: ${engine.accounts['sender']} (No Orphaned Debit)\")\nprint(f\"Recipient Bal Preserved: ${engine.accounts['recipient']} (Rollback Shielded)\")\nprint(\"ACID transactional atomicity verified under fault injection.\")",
+            "checks": [
+              "Sender Bal Preserved: $850.0",
+              "Recipient Bal Preserved: $350.0 (Rollback Shielded)"
             ]
           }
         ]
@@ -345,81 +910,257 @@
       "partTitle": "Full AsyncSession Lifecycle & Flush Synthesis Lab",
       "codeHash": "3eac33b2e357665bd9dc00511334a218e835188b956952a675528faf2f3d8758",
       "spec": {
-        "template": "table",
-        "title": "Full AsyncSession Lifecycle & Flush Synthesis Lab",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Request-scoped AsyncSession flush and cleanup steps",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Dependency opens AsyncSession and buffers mutations for Pydantic routes.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Full"
-                  },
-                  {
-                    "text": "AsyncSession"
-                  }
-                ],
+                "text": "session_map"
+              },
+              {
+                "text": "order_101"
+              },
+              {
+                "text": "processing"
+              },
+              {
+                "text": "flushes"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "open",
+                "index": 0,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The endpoint logic drives deterministic execution.",
-            "rows": [
+            "caption": "Success paths flush and failures rollback before closing every session.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Lifecycle"
-                  },
-                  {
-                    "text": "Flush"
-                  }
-                ],
+                "text": "flushes"
+              },
+              {
+                "text": "rollbacks"
+              },
+              {
+                "text": "closed_cleanly"
+              },
+              {
+                "text": "identity_map"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "rollback",
+                "index": 1,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "error",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Request dependency isolates commit and rollback before clean teardown.",
+            "items": [
+              {
+                "text": "flushes"
+              },
+              {
+                "text": "rollbacks"
+              },
+              {
+                "text": "closed_cleanly"
+              },
+              {
+                "text": "order_101"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "closed",
+                "index": 2,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Assert identity_map stores 'order_101' with 'processing' after rollback.",
+            "items": [
+              {
+                "text": "Assert"
+              },
+              {
+                "text": "order_101"
+              },
+              {
+                "text": "has"
+              },
+              {
+                "text": "processing"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "verified",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "data"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Full AsyncSession Lifecycle & Flush Synthesis Lab",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Request-scoped AsyncSession flush and cleanup steps",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Dependency opens AsyncSession and buffers mutations for Pydantic routes.",
+            "items": [
+              "Open Session",
+              "order_101 Buffered",
+              "status=processing",
+              "Pending Flush"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Full",
-                  "AsyncSession"
-                ],
+                "name": "open",
+                "index": 0,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The endpoint logic drives deterministic execution.",
-            "rows": [
+            "caption": "Success paths flush and failures rollback before closing every session.",
+            "items": [
+              "flushes: 1",
+              "rollbacks: 1",
+              "closed_cleanly: 2",
+              "identity_map: 1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Lifecycle",
-                  "Flush"
-                ],
+                "name": "rollback",
+                "index": 1,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "error",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Request dependency isolates commit and rollback before clean teardown.",
+            "items": [
+              "flushes: 1",
+              "rollbacks: 1",
+              "closed_cleanly: 2",
+              "order_101 Persisted"
+            ],
+            "pointers": [
+              {
+                "name": "closed",
+                "index": 2,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Assert identity_map stores 'order_101' with 'processing' after rollback.",
+            "items": [
+              "flushes: 1",
+              "rollbacks: 1",
+              "closed: 2",
+              "order_101: 'processing'"
+            ],
+            "pointers": [
+              {
+                "name": "verified",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "data"
+            },
+            "whatIf": "class UnifiedDataLayer:\n    def __init__(self):\n        self.identity_map = {}\n        self.stats = {\"flushes\": 0, \"rollbacks\": 0, \"closed_cleanly\": 0}\n\n    def run_request_lifecycle(self, should_fail=False):\n        # 1. Open session (scoped)\n        session_map = {}\n        try:\n            # 2. Mutate entity\n            session_map[\"order_101\"] = {\"id\": 101, \"status\": \"processing\"}\n            if should_fail:\n                raise ValueError(\"Business rule violation: Insufficient inventory\")\n            # 3. Commit & Flush\n            self.identity_map.update(session_map)\n            self.stats[\"flushes\"] += 1\n        except Exception:\n            # 4. Rollback\n            self.stats[\"rollbacks\"] += 1\n        finally:\n            # 5. Clean teardown\n            session_map.clear()\n            self.stats[\"closed_cleanly\"] += 1\n\nudl = UnifiedDataLayer()\nudl.run_request_lifecycle(should_fail=False)\nudl.run_request_lifecycle(should_fail=True)\n\nprint(\"=== ASYNCSESSION LIFECYCLE SYNTHESIS ===\")\nprint(f\"Successful Flushes:       {udl.stats['flushes']}\")\nprint(f\"Handled Rollbacks:        {udl.stats['rollbacks']}\")\nprint(f\"Clean Session Teardowns:  {udl.stats['closed_cleanly']}\")\nprint(f\"Persistent Entities:      {len(udl.identity_map)}\")\nassert udl.identity_map[\"order_101\"][\"status\"] == \"processing\"\nprint(f\"Verified Persistent Status: order_101 -> {udl.identity_map['order_101']['status']}\")\nprint(\"Full Unit of Work and Identity Map lifecycle certified.\")",
+            "checks": [
+              "Verified Persistent Status: order_101 -> processing"
             ]
           }
         ]

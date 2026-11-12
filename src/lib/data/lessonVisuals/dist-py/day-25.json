@@ -2,118 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 25,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The chatty client problem",
       "codeHash": "8538c31837b080cd0d286c490f7f395fb639942904b769e35b9aa7069ab7344f",
       "spec": {
         "template": "flow",
-        "title": "The chatty client problem — Execution Pipeline",
+        "title": "The chatty client problem",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "mobile_round_trip_ms",
+            "label": "mobile_round_trip_ms"
           },
           {
-            "id": "proc",
-            "label": "2. The chatty client p...",
-            "tappable": true
+            "id": "internal_call_ms",
+            "label": "internal_call_ms"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "services",
+            "label": "services"
+          },
+          {
+            "id": "direct",
+            "label": "direct"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The chatty client problem [D.Pone.Sone].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The chatty client p... [D.Pone.Stwo].",
+            "caption": "A mobile profile screen may need the user, their recent orders and their.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "mobile_round_trip_ms": {
+                "var": "mobile_round_trip_ms",
+                "line": 1,
+                "hit": 1
+              },
+              "internal_call_ms": {
+                "var": "internal_call_ms",
+                "line": 2,
+                "hit": 1
+              },
+              "services": {
+                "var": "services",
+                "line": 3,
+                "hit": 1
+              },
+              "direct": {
+                "var": "direct",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "mobile_round_trip_ms": "data",
+              "internal_call_ms": "data",
+              "services": "data",
+              "direct": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "mobile_round_trip_ms",
+                "internal_call_ms"
               ],
               [
-                "proc",
-                "out"
+                "internal_call_ms",
+                "services"
+              ],
+              [
+                "services",
+                "direct"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
+            "at": "say2",
+            "caption": "If the app calls each service directly, it makes several round trips over.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "mobile_round_trip_ms": {
+                "var": "mobile_round_trip_ms",
+                "line": 2,
+                "hit": 1
+              },
+              "internal_call_ms": {
+                "var": "internal_call_ms",
+                "line": 3,
+                "hit": 1
+              },
+              "services": {
+                "var": "services",
+                "line": 4,
+                "hit": 1
+              },
+              "direct": {
+                "var": "direct",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "mobile_round_trip_ms": "data",
+              "internal_call_ms": "data",
+              "services": "data",
+              "direct": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "mobile_round_trip_ms",
+                "internal_call_ms"
+              ],
+              [
+                "internal_call_ms",
+                "services"
+              ],
+              [
+                "services",
+                "direct"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The chatty client problem [D.Pone.Sfour].",
+            "at": "say7",
+            "caption": "The example compares the total wait for direct calls versus one BFF call.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "mobile_round_trip_ms": {
+                "var": "mobile_round_trip_ms",
+                "line": 3,
+                "hit": 1
+              },
+              "internal_call_ms": {
+                "var": "internal_call_ms",
+                "line": 4,
+                "hit": 1
+              },
+              "services": {
+                "var": "services",
+                "line": 5,
+                "hit": 1
+              },
+              "direct": {
+                "var": "direct",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "mobile_round_trip_ms": "ok",
+              "internal_call_ms": "ok",
+              "services": "ok",
+              "direct": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "mobile_round_trip_ms",
+                "internal_call_ms"
               ],
               [
-                "proc",
-                "out"
+                "internal_call_ms",
+                "services"
+              ],
+              [
+                "services",
+                "direct"
               ]
             ]
           }
@@ -121,110 +172,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "The chatty client problem — Execution Pipeline",
+        "title": "The chatty client problem",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "mobile_round_trip_ms",
+            "label": "mobile_round_trip_ms"
           },
           {
-            "id": "proc",
-            "label": "2. The chatty client p...",
-            "tappable": true
+            "id": "internal_call_ms",
+            "label": "internal_call_ms"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "services",
+            "label": "services"
+          },
+          {
+            "id": "direct",
+            "label": "direct"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The chatty client problem [D25.P1.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The chatty client p... [D25.P1.S2].",
+            "caption": "A mobile profile screen may need the user, their recent orders and their.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "mobile_round_trip_ms": "250",
+              "internal_call_ms": "15",
+              "services": "['users', 'orders', 'reviews']",
+              "direct": "750"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "mobile_round_trip_ms": "data",
+              "internal_call_ms": "data",
+              "services": "data",
+              "direct": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "mobile_round_trip_ms",
+                "internal_call_ms"
               ],
               [
-                "proc",
-                "out"
+                "internal_call_ms",
+                "services"
+              ],
+              [
+                "services",
+                "direct"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P1.S3].",
+            "at": "say2",
+            "caption": "If the app calls each service directly, it makes several round trips over.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "mobile_round_trip_ms": "250",
+              "internal_call_ms": "15",
+              "services": "['users', 'orders', 'reviews']",
+              "direct": "750"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "mobile_round_trip_ms": "data",
+              "internal_call_ms": "data",
+              "services": "data",
+              "direct": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "mobile_round_trip_ms",
+                "internal_call_ms"
+              ],
+              [
+                "internal_call_ms",
+                "services"
+              ],
+              [
+                "services",
+                "direct"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The chatty client problem [D25.P1.S4].",
+            "at": "say7",
+            "caption": "The example compares the total wait for direct calls versus one BFF call.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "mobile_round_trip_ms": "250",
+              "internal_call_ms": "15",
+              "services": "['users', 'orders', 'reviews']",
+              "direct": "750"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "mobile_round_trip_ms": "ok",
+              "internal_call_ms": "ok",
+              "services": "ok",
+              "direct": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "mobile_round_trip_ms",
+                "internal_call_ms"
               ],
               [
-                "proc",
-                "out"
+                "internal_call_ms",
+                "services"
+              ],
+              [
+                "services",
+                "direct"
               ]
             ]
           }
@@ -235,132 +289,106 @@
       "partTitle": "Aggregating a profile",
       "codeHash": "45d4539b035d7932b6700c301bdbe87cbea825d047db309443f2f97dc201f4ea",
       "spec": {
-        "template": "compare",
-        "title": "Profile aggregation handling complete and degraded optional reviews",
-        "leftLabel": "Healthy Response",
-        "rightLabel": "Degraded Partial",
+        "template": "states",
+        "title": "Aggregating a profile",
+        "states": [
+          {
+            "id": "uid",
+            "label": "uid"
+          },
+          {
+            "id": "user_id",
+            "label": "user_id"
+          },
+          {
+            "id": "user",
+            "label": "user"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The aggregator calls services returning user details and orders.",
-            "left": {
-              "code": "get_user(user_id)",
-              "result": {
-                "text": "Asha"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "reviews_down(uid)",
-              "result": {
-                "text": "reviews timed out"
-              },
-              "tone": "idle"
-            }
+            "caption": "Aggregate_profile(user_id, get_user, get_orders, get_reviews) calls.",
+            "currentState": "uid",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Optional service failures return partial true instead of failing.",
-            "left": {
-              "code": "partial",
-              "result": {
-                "text": "False"
-              },
-              "tone": "ok"
+            "caption": "Reviews are optional.",
+            "currentState": "user_id",
+            "transition": {
+              "from": "uid",
+              "to": "user_id",
+              "label": {
+                "var": "user_id",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "partial",
-              "result": {
-                "text": "True"
-              },
-              "tone": "idle"
-            }
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "The partial flag signals clients that optional data is unavailable.",
-            "left": {
-              "code": "partial",
-              "result": {
-                "text": "False"
-              },
-              "tone": "ok"
+            "at": "say7",
+            "caption": "The example builds the profile twice.",
+            "currentState": "user",
+            "transition": {
+              "from": "user_id",
+              "to": "user",
+              "label": {
+                "var": "user",
+                "line": 4,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "partial",
-              "result": {
-                "text": "True"
-              },
-              "tone": "idle"
-            }
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Profile aggregation handling complete and degraded optional reviews",
-        "leftLabel": "Healthy Response",
-        "rightLabel": "Degraded Partial",
+        "template": "states",
+        "title": "Aggregating a profile",
+        "states": [
+          {
+            "id": "uid",
+            "label": "uid"
+          },
+          {
+            "id": "user_id",
+            "label": "user_id"
+          },
+          {
+            "id": "user",
+            "label": "user"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The aggregator calls services returning user details and orders.",
-            "left": {
-              "code": "get_user(user_id)",
-              "result": "Asha",
-              "tone": "ok",
-              "checks": [
-                "Asha"
-              ]
-            },
-            "right": {
-              "code": "reviews_down(uid)",
-              "result": "reviews timed out",
-              "tone": "idle",
-              "checks": [
-                "reviews timed out"
-              ]
-            }
+            "caption": "Aggregate_profile(user_id, get_user, get_orders, get_reviews) calls.",
+            "currentState": "uid",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Optional service failures return partial true instead of failing.",
-            "left": {
-              "code": "partial",
-              "result": "False",
-              "tone": "ok",
-              "checks": [
-                "False"
-              ]
+            "caption": "Reviews are optional.",
+            "currentState": "user_id",
+            "transition": {
+              "from": "uid",
+              "to": "user_id",
+              "label": "'u1'"
             },
-            "right": {
-              "code": "partial",
-              "result": "True",
-              "tone": "idle",
-              "checks": [
-                "True"
-              ]
-            }
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "The partial flag signals clients that optional data is unavailable.",
-            "left": {
-              "code": "partial",
-              "result": "False",
-              "tone": "ok",
-              "checks": [
-                "False"
-              ]
+            "at": "say7",
+            "caption": "The example builds the profile twice.",
+            "currentState": "user",
+            "transition": {
+              "from": "user_id",
+              "to": "user",
+              "label": "{'name': 'Asha'}"
             },
-            "right": {
-              "code": "partial",
-              "result": "True",
-              "tone": "idle",
-              "checks": [
-                "True"
-              ]
-            }
+            "tone": "ok"
           }
         ]
       }
@@ -369,164 +397,105 @@
       "partTitle": "Calling services in parallel",
       "codeHash": "d9a483ce63ccbe84b9df2b317859f71c7d7e83459ff3434f3d2b4299884c9856",
       "spec": {
-        "template": "table",
-        "title": "Service latency budget and parallel execution timeout thresholds",
-        "columns": [
-          "service",
-          "latency_ms"
-        ],
+        "template": "cells",
+        "title": "Calling services in parallel",
         "steps": [
           {
             "at": "say1",
-            "caption": "Parallel calls make the total latency equal to the slowest dependency.",
-            "rows": [
+            "caption": "Calling services one after another adds their latencies.",
+            "items": {
+              "var": "within",
+              "line": 5,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "users"
-                  },
-                  {
-                    "text": "40"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Setting timeouts ensures slow services do not delay the whole response.",
-            "rows": [
+            "at": "say2",
+            "caption": "In Python, concurrent.",
+            "items": {
+              "var": "within",
+              "line": 6,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "users"
-                  },
-                  {
-                    "text": "40"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "reviews"
-                  },
-                  {
-                    "text": "90"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Sequential total adds latencies while parallel execution takes the maximum.",
-            "rows": [
+            "caption": "The rule of thumb.",
+            "items": {
+              "var": "within",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "users"
-                  },
-                  {
-                    "text": "40"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "reviews"
-                  },
-                  {
-                    "text": "90"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "orders"
-                  },
-                  {
-                    "text": "120"
-                  }
-                ],
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Service latency budget and parallel execution timeout thresholds",
-        "columns": [
-          "service",
-          "latency_ms"
-        ],
+        "template": "cells",
+        "title": "Calling services in parallel",
         "steps": [
           {
             "at": "say1",
-            "caption": "Parallel calls make the total latency equal to the slowest dependency.",
-            "rows": [
+            "caption": "Calling services one after another adds their latencies.",
+            "items": [
+              "'users'",
+              "'reviews'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "users",
-                  "40"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Setting timeouts ensures slow services do not delay the whole response.",
-            "rows": [
+            "at": "say2",
+            "caption": "In Python, concurrent.",
+            "items": [
+              "'users'",
+              "'reviews'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "users",
-                  "40"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "reviews",
-                  "90"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Sequential total adds latencies while parallel execution takes the maximum.",
-            "rows": [
+            "caption": "The rule of thumb.",
+            "items": [
+              "'users'",
+              "'reviews'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "users",
-                  "40"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "reviews",
-                  "90"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "orders",
-                  "120"
-                ],
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -537,146 +506,74 @@
       "partTitle": "CORS headers for browsers",
       "codeHash": "cf1a98a622a7c87804284521442a5636ad62859aa7861776c684d7b7e2147f1a",
       "spec": {
-        "template": "table",
-        "title": "Allowed origins and permitted methods for cross-origin security",
-        "columns": [
-          "origin",
-          "methods"
-        ],
+        "template": "cells",
+        "title": "CORS headers for browsers",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Browsers block a web page from calling an API on a different origin.",
+            "items": {
+              "var": "methods",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "CORS headers inform the browser which origins and methods are allowed.",
-            "rows": [
+            "caption": "Cross-Origin Resource Sharing (CORS) headers tell the browser which other.",
+            "items": {
+              "var": "methods",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "https://app.pinit.example"
-                  },
-                  {
-                    "text": "GET"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Only echo origins present in an explicit allow list for security.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "https://app.pinit.example"
-                  },
-                  {
-                    "text": "GET"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "https://admin.pinit.example"
-                  },
-                  {
-                    "text": "POST"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The gateway restricts cross-origin access to company applications.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "https://app.pinit.example"
-                  },
-                  {
-                    "text": "GET"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "https://admin.pinit.example"
-                  },
-                  {
-                    "text": "POST"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Allowed origins and permitted methods for cross-origin security",
-        "columns": [
-          "origin",
-          "methods"
-        ],
+        "template": "cells",
+        "title": "CORS headers for browsers",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Browsers block a web page from calling an API on a different origin.",
+            "items": [
+              "'GET'",
+              "'POST'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "CORS headers inform the browser which origins and methods are allowed.",
-            "rows": [
+            "caption": "Cross-Origin Resource Sharing (CORS) headers tell the browser which other.",
+            "items": [
+              "'GET'",
+              "'POST'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "https://app.pinit.example",
-                  "GET"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Only echo origins present in an explicit allow list for security.",
-            "rows": [
-              {
-                "cells": [
-                  "https://app.pinit.example",
-                  "GET"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "https://admin.pinit.example",
-                  "POST"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The gateway restricts cross-origin access to company applications.",
-            "rows": [
-              {
-                "cells": [
-                  "https://app.pinit.example",
-                  "GET"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "https://admin.pinit.example",
-                  "POST"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -687,132 +584,160 @@
       "partTitle": "One BFF per client type",
       "codeHash": "0e69ec79aba67b8f19c27db5e448fd8e2ec7b1d1474f5ed19a5fdfec202be42e",
       "spec": {
-        "template": "compare",
-        "title": "Client tailored response payload shapes for mobile and web clients",
-        "leftLabel": "Mobile BFF",
-        "rightLabel": "Web BFF",
+        "template": "sequence",
+        "title": "One BFF per client type",
+        "actors": [
+          "profile",
+          "p"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Different clients require tailored data shapes for optimal rendering.",
-            "left": {
-              "code": "mobile_bff(p)",
-              "result": {
-                "text": "Asha"
+            "caption": "Different clients need different shapes of data.",
+            "activeActor": "profile",
+            "messages": [
+              {
+                "from": "profile",
+                "to": "p",
+                "label": {
+                  "var": "profile",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "web_bff(p)",
-              "result": {
-                "text": "Asha"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "p",
+                "to": "profile",
+                "label": {
+                  "var": "p",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Dedicated BFF layers evolve independently alongside client applications.",
-            "left": {
-              "code": "points",
-              "result": {
-                "text": "340"
+            "caption": "A BFF per client type lets each evolve independently, owned by the team.",
+            "activeActor": "p",
+            "messages": [
+              {
+                "from": "profile",
+                "to": "p",
+                "label": {
+                  "var": "profile",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "addresses",
-              "result": {
-                "text": "home"
-              },
-              "tone": "data"
-            }
+              {
+                "from": "p",
+                "to": "profile",
+                "label": {
+                  "var": "p",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Keeping BFF layers thin prevents duplicating business logic across services.",
-            "left": {
-              "code": "points",
-              "result": {
-                "text": "340"
+            "at": "say7",
+            "caption": "The example shapes the same data for mobile and web.",
+            "activeActor": "p",
+            "messages": [
+              {
+                "from": "profile",
+                "to": "p",
+                "label": {
+                  "var": "profile",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "addresses",
-              "result": {
-                "text": "office"
-              },
-              "tone": "data"
-            }
+              {
+                "from": "p",
+                "to": "profile",
+                "label": {
+                  "var": "p",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Client tailored response payload shapes for mobile and web clients",
-        "leftLabel": "Mobile BFF",
-        "rightLabel": "Web BFF",
+        "template": "sequence",
+        "title": "One BFF per client type",
+        "actors": [
+          "profile",
+          "p"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Different clients require tailored data shapes for optimal rendering.",
-            "left": {
-              "code": "mobile_bff(p)",
-              "result": "Asha",
-              "tone": "ok",
-              "checks": [
-                "Asha"
-              ]
-            },
-            "right": {
-              "code": "web_bff(p)",
-              "result": "Asha",
-              "tone": "ok",
-              "checks": [
-                "Asha"
-              ]
-            }
+            "caption": "Different clients need different shapes of data.",
+            "messages": [
+              {
+                "from": "profile",
+                "to": "p",
+                "label": "{'name': 'Asha', 'orders': ['o1', 'o2',…",
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "profile",
+                "label": "{'name': 'Asha', 'orders': ['o1', 'o2',…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "profile"
           },
           {
             "at": "say2",
-            "caption": "Dedicated BFF layers evolve independently alongside client applications.",
-            "left": {
-              "code": "points",
-              "result": "340",
-              "tone": "ok",
-              "checks": [
-                "340"
-              ]
-            },
-            "right": {
-              "code": "addresses",
-              "result": "home",
-              "tone": "data",
-              "checks": [
-                "home"
-              ]
-            }
+            "caption": "A BFF per client type lets each evolve independently, owned by the team.",
+            "messages": [
+              {
+                "from": "profile",
+                "to": "p",
+                "label": "{'name': 'Asha', 'orders': ['o1', 'o2',…",
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "profile",
+                "label": "{'name': 'Asha', 'orders': ['o1', 'o2',…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "p"
           },
           {
-            "at": "say3",
-            "caption": "Keeping BFF layers thin prevents duplicating business logic across services.",
-            "left": {
-              "code": "points",
-              "result": "340",
-              "tone": "ok",
-              "checks": [
-                "340"
-              ]
-            },
-            "right": {
-              "code": "addresses",
-              "result": "office",
-              "tone": "data",
-              "checks": [
-                "office"
-              ]
-            }
+            "at": "say7",
+            "caption": "The example shapes the same data for mobile and web.",
+            "messages": [
+              {
+                "from": "profile",
+                "to": "p",
+                "label": "{'name': 'Asha', 'orders': ['o1', 'o2',…",
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "profile",
+                "label": "{'name': 'Asha', 'orders': ['o1', 'o2',…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "p"
           }
         ]
       }
@@ -821,224 +746,162 @@
       "partTitle": "Operating the edge",
       "codeHash": "de41d2107975e44b3f5dd4392ba019c09fe29cc74b2cf851f6f5a2560cd9df90",
       "spec": {
-        "template": "flow",
-        "title": "Operating the edge — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Operating the edge",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Operating the edge",
+        "actors": [
+          "responses",
+          ".0",
+          "r"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Operating the edge [D.Psix.Sone].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Operating the edge [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Every request passes through the gateway and a BFF, so they must be fast.",
+            "activeActor": "responses",
+            "messages": [
+              {
+                "from": "responses",
+                "to": ".0",
+                "label": {
+                  "var": "responses",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "r",
+                "label": {
+                  "var": ".0",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Cache aggregated responses briefly when possible.",
+            "activeActor": ".0",
+            "messages": [
+              {
+                "from": "responses",
+                "to": ".0",
+                "label": {
+                  "var": "responses",
+                  "line": 2,
+                  "hit": 102
+                },
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "r",
+                "label": {
+                  "var": ".0",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Operating the edge [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example counts partial responses in a sample of BFF logs.",
+            "activeActor": "r",
+            "messages": [
+              {
+                "from": "responses",
+                "to": ".0",
+                "label": {
+                  "var": "responses",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "r",
+                "label": {
+                  "var": ".0",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Operating the edge — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Operating the edge",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Operating the edge",
+        "actors": [
+          "responses",
+          ".0",
+          "r"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Operating the edge [D25.P6.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Operating the edge [D25.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Every request passes through the gateway and a BFF, so they must be fast.",
+            "messages": [
+              {
+                "from": "responses",
+                "to": ".0",
+                "label": "[{'partial': False}, {'partial': False}…",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "r",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "responses"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Cache aggregated responses briefly when possible.",
+            "messages": [
+              {
+                "from": "responses",
+                "to": ".0",
+                "label": "[{'partial': False}, {'partial': False}…",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "r",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": ".0"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Operating the edge [D25.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example counts partial responses in a sample of BFF logs.",
+            "messages": [
+              {
+                "from": "responses",
+                "to": ".0",
+                "label": "[{'partial': False}, {'partial': False}…",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "r",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "r"
           }
         ]
       }

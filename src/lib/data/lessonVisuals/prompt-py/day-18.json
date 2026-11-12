@@ -2,85 +2,98 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 18,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Speech-to-text",
       "codeHash": "35e68e28231c537b1b94c4a42fb0ce9373e44c929becf13d47cd46aaeb3dd284",
       "spec": {
-        "template": "table",
-        "title": "Automatic speech recognition and speaker diarization",
-        "columns": [
+        "template": "sequence",
+        "title": "Speech-to-text",
+        "actors": [
+          "transcript",
           "time",
-          "speaker",
-          "text"
+          "speaker"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Automatic speech recognition converts spoken audio into written text.",
-            "rows": [
+            "caption": "Speech-to-text (automatic speech recognition, ASR) converts spoken audio.",
+            "activeActor": "transcript",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "time"
-                  },
-                  {
-                    "text": "speaker"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
+                "from": "transcript",
+                "to": "time",
+                "label": {
+                  "var": "transcript",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "time"
-                  },
-                  {
-                    "text": "speaker"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "data"
+                "from": "time",
+                "to": "speaker",
+                "label": {
+                  "var": "time",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Transcription accuracy depends on audio quality and technical vocabulary.",
-            "rows": [
+            "at": "say2",
+            "caption": "OpenAI's Whisper, Google's and Microsoft's speech services, and features.",
+            "activeActor": "time",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "time"
-                  },
-                  {
-                    "text": "speaker"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
+                "from": "transcript",
+                "to": "time",
+                "label": {
+                  "var": "transcript",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "time"
-                  },
-                  {
-                    "text": "speaker"
-                  },
-                  {
-                    "text": "transcript"
-                  }
-                ],
+                "from": "time",
+                "to": "speaker",
+                "label": {
+                  "var": "time",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Timestamps in transcripts let you jump back to the exact moment in.",
+            "activeActor": "speaker",
+            "messages": [
+              {
+                "from": "transcript",
+                "to": "time",
+                "label": {
+                  "var": "transcript",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "time",
+                "to": "speaker",
+                "label": {
+                  "var": "time",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Automatic speech recognition and speaker diarization",
-        "columns": [
+        "template": "sequence",
+        "title": "Speech-to-text",
+        "actors": [
+          "transcript",
           "time",
-          "speaker",
-          "text"
+          "speaker"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Automatic speech recognition converts spoken audio into written text.",
-            "rows": [
+            "caption": "Speech-to-text (automatic speech recognition, ASR) converts spoken audio.",
+            "messages": [
               {
-                "cells": [
-                  "time",
-                  "speaker",
-                  "text"
-                ],
-                "tone": "ok"
+                "from": "transcript",
+                "to": "time",
+                "label": "[['00:01', 'Asha', 'Thanks everyone for…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "time",
-                  "speaker",
-                  "text"
-                ],
-                "tone": "data"
+                "from": "time",
+                "to": "speaker",
+                "label": "'00:01'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "transcript"
           },
           {
-            "at": "say3",
-            "caption": "Transcription accuracy depends on audio quality and technical vocabulary.",
-            "rows": [
+            "at": "say2",
+            "caption": "OpenAI's Whisper, Google's and Microsoft's speech services, and features.",
+            "messages": [
               {
-                "cells": [
-                  "time",
-                  "speaker",
-                  "text"
-                ],
+                "from": "transcript",
+                "to": "time",
+                "label": "[['00:01', 'Asha', 'Thanks everyone for…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "time",
-                  "speaker",
-                  "transcript"
-                ],
+                "from": "time",
+                "to": "speaker",
+                "label": "'00:01'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "time"
+          },
+          {
+            "at": "say10",
+            "caption": "Timestamps in transcripts let you jump back to the exact moment in.",
+            "messages": [
+              {
+                "from": "transcript",
+                "to": "time",
+                "label": "[['00:01', 'Asha', 'Thanks everyone for…",
+                "tone": "data"
+              },
+              {
+                "from": "time",
+                "to": "speaker",
+                "label": "'00:05'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "speaker"
           }
         ]
       }
@@ -147,78 +173,90 @@
       "partTitle": "Cleaning transcripts",
       "codeHash": "d46d5f8a089b58a155ce63d62dfb260d047ad2a909244d53084503ffca7ae7dc",
       "spec": {
-        "template": "table",
-        "title": "Disfluency removal and transcript text cleaning",
-        "columns": [
+        "template": "sequence",
+        "title": "Cleaning transcripts",
+        "actors": [
           "raw",
-          "text",
-          "raw"
+          "text"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Raw transcripts contain messy filler words, stuttering, and repetitions.",
-            "rows": [
+            "caption": "Raw transcripts are messy.",
+            "activeActor": "raw",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "raw"
-                  }
-                ],
-                "tone": "ok"
+                "from": "raw",
+                "to": "text",
+                "label": {
+                  "var": "raw",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "raw"
-                  }
-                ],
-                "tone": "data"
+                "from": "text",
+                "to": "raw",
+                "label": {
+                  "var": "text",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Cleaning raw transcripts makes downstream summaries better and cheaper.",
-            "rows": [
+            "caption": "Cleaning them makes summaries better and cheaper, since fewer tokens are.",
+            "activeActor": "text",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "raw"
-                  }
-                ],
+                "from": "raw",
+                "to": "text",
+                "label": {
+                  "var": "raw",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
+                "from": "text",
+                "to": "raw",
+                "label": {
+                  "var": "text",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Consistent speaker names matter as well.",
+            "activeActor": "text",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "text",
+                "label": {
+                  "var": "raw",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "raw",
+                "label": {
+                  "var": "text",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -226,57 +264,69 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Disfluency removal and transcript text cleaning",
-        "columns": [
+        "template": "sequence",
+        "title": "Cleaning transcripts",
+        "actors": [
           "raw",
-          "text",
-          "raw"
+          "text"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Raw transcripts contain messy filler words, stuttering, and repetitions.",
-            "rows": [
+            "caption": "Raw transcripts are messy.",
+            "messages": [
               {
-                "cells": [
-                  "raw",
-                  "text",
-                  "raw"
-                ],
-                "tone": "ok"
+                "from": "raw",
+                "to": "text",
+                "label": "'Um so we we need to uh finish the the …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "raw",
-                  "text",
-                  "raw"
-                ],
-                "tone": "data"
+                "from": "text",
+                "to": "raw",
+                "label": "'so we we need to finish the the report…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "raw"
           },
           {
             "at": "say2",
-            "caption": "Cleaning raw transcripts makes downstream summaries better and cheaper.",
-            "rows": [
+            "caption": "Cleaning them makes summaries better and cheaper, since fewer tokens are.",
+            "messages": [
               {
-                "cells": [
-                  "raw",
-                  "text",
-                  "raw"
-                ],
+                "from": "raw",
+                "to": "text",
+                "label": "'Um so we we need to uh finish the the …",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "raw",
-                  "text",
-                  "text"
-                ],
+                "from": "text",
+                "to": "raw",
+                "label": "'so we need to finish the report by Fri…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "text"
+          },
+          {
+            "at": "say9",
+            "caption": "Consistent speaker names matter as well.",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "text",
+                "label": "'Um so we we need to uh finish the the …",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "raw",
+                "label": "'so we need to finish the report by Fri…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "text"
           }
         ]
       }
@@ -285,135 +335,277 @@
       "partTitle": "Finding action items",
       "codeHash": "fda8edc46be841cbb0ceef46b2c85f32eaaebb0eaad150fc6dfb8afab3c09380",
       "spec": {
-        "template": "table",
-        "title": "Commitment and action item extraction from dialogues",
-        "columns": [
-          "speaker",
-          "text",
-          "lines"
+        "template": "flow",
+        "title": "Finding action items",
+        "nodes": [
+          {
+            "id": "lines",
+            "label": "lines"
+          },
+          {
+            "id": "line",
+            "label": "line"
+          },
+          {
+            "id": "speaker",
+            "label": "speaker"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The most valuable output of any team meeting is its concrete action items.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "speaker"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "lines"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The most valuable output of a meeting is its action items.",
+            "values": {
+              "lines": {
+                "var": "lines",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "speaker"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "lines"
-                  }
-                ],
-                "tone": "data"
+              "line": {
+                "var": "line",
+                "line": 4,
+                "hit": 1
+              },
+              "speaker": {
+                "var": "speaker",
+                "line": 5,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "lines": "data",
+              "line": "data",
+              "speaker": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "lines",
+                "line"
+              ],
+              [
+                "line",
+                "speaker"
+              ],
+              [
+                "speaker",
+                "text"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Verbal commitments and explicit markers identify assigned action items.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "speaker"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "lines"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Commitments often use phrases like \"I'll\", \"we will\", \"X will\",.",
+            "values": {
+              "lines": {
+                "var": "lines",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "speaker"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "speaker"
-                  }
-                ],
-                "tone": "ok"
+              "line": {
+                "var": "line",
+                "line": 5,
+                "hit": 1
+              },
+              "speaker": {
+                "var": "speaker",
+                "line": 6,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "lines": "data",
+              "line": "data",
+              "speaker": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "lines",
+                "line"
+              ],
+              [
+                "line",
+                "speaker"
+              ],
+              [
+                "speaker",
+                "text"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Checking the list against the recording for the first few meetings tells.",
+            "values": {
+              "lines": {
+                "var": "lines",
+                "line": 5,
+                "hit": 1
+              },
+              "line": {
+                "var": "line",
+                "line": 6,
+                "hit": 1
+              },
+              "speaker": {
+                "var": "speaker",
+                "line": 7,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "lines": "ok",
+              "line": "ok",
+              "speaker": "ok",
+              "text": "ok"
+            },
+            "arrows": [
+              [
+                "lines",
+                "line"
+              ],
+              [
+                "line",
+                "speaker"
+              ],
+              [
+                "speaker",
+                "text"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Commitment and action item extraction from dialogues",
-        "columns": [
-          "speaker",
-          "text",
-          "lines"
+        "template": "flow",
+        "title": "Finding action items",
+        "nodes": [
+          {
+            "id": "lines",
+            "label": "lines"
+          },
+          {
+            "id": "line",
+            "label": "line"
+          },
+          {
+            "id": "speaker",
+            "label": "speaker"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The most valuable output of any team meeting is its concrete action items.",
-            "rows": [
-              {
-                "cells": [
-                  "speaker",
-                  "text",
-                  "lines"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "speaker",
-                  "text",
-                  "lines"
-                ],
-                "tone": "data"
-              }
+            "caption": "The most valuable output of a meeting is its action items.",
+            "values": {
+              "lines": "['Asha: Thanks for joining.', \"Ravi: I'…",
+              "line": "'Asha: Thanks for joining.'",
+              "speaker": "'Asha'",
+              "text": "' Thanks for joining.'"
+            },
+            "tones": {
+              "lines": "data",
+              "line": "data",
+              "speaker": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "lines",
+                "line"
+              ],
+              [
+                "line",
+                "speaker"
+              ],
+              [
+                "speaker",
+                "text"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Verbal commitments and explicit markers identify assigned action items.",
-            "rows": [
-              {
-                "cells": [
-                  "speaker",
-                  "text",
-                  "lines"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "speaker",
-                  "text",
-                  "speaker"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Commitments often use phrases like \"I'll\", \"we will\", \"X will\",.",
+            "values": {
+              "lines": "['Asha: Thanks for joining.', \"Ravi: I'…",
+              "line": "'Asha: Thanks for joining.'",
+              "speaker": "'Asha'",
+              "text": "' Thanks for joining.'"
+            },
+            "tones": {
+              "lines": "data",
+              "line": "data",
+              "speaker": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "lines",
+                "line"
+              ],
+              [
+                "line",
+                "speaker"
+              ],
+              [
+                "speaker",
+                "text"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Checking the list against the recording for the first few meetings tells.",
+            "values": {
+              "lines": "['Asha: Thanks for joining.', \"Ravi: I'…",
+              "line": "'Asha: Thanks for joining.'",
+              "speaker": "'Asha'",
+              "text": "' Thanks for joining.'"
+            },
+            "tones": {
+              "lines": "ok",
+              "line": "ok",
+              "speaker": "ok",
+              "text": "ok"
+            },
+            "arrows": [
+              [
+                "lines",
+                "line"
+              ],
+              [
+                "line",
+                "speaker"
+              ],
+              [
+                "speaker",
+                "text"
+              ]
             ]
           }
         ]
@@ -423,78 +615,77 @@
       "partTitle": "Measuring transcription quality",
       "codeHash": "b518108a006a31ebdd2f6350cf38a8feec89f8c2ff6d64a6b0089b26b4456190",
       "spec": {
-        "template": "table",
-        "title": "Word error rate edit distance computation",
-        "columns": [
-          "ref",
-          "hyp",
-          "prev"
-        ],
+        "template": "bars",
+        "title": "Measuring transcription quality",
         "steps": [
           {
             "at": "say1",
-            "caption": "Word error rate provides the standard metric for transcription accuracy.",
-            "rows": [
+            "caption": "Word error rate (WER) is the standard measure of transcription accuracy.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "ref"
-                  },
-                  {
-                    "text": "hyp"
-                  },
-                  {
-                    "text": "prev"
-                  }
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "ref"
-                  },
-                  {
-                    "text": "hyp"
-                  },
-                  {
-                    "text": "prev"
-                  }
-                ],
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The metric counts word substitutions, insertions, and deletions in text.",
-            "rows": [
+            "caption": "It counts the minimum number of word substitutions, insertions.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "ref"
-                  },
-                  {
-                    "text": "hyp"
-                  },
-                  {
-                    "text": "prev"
-                  }
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "ref"
-                  },
-                  {
-                    "text": "hyp"
-                  },
-                  {
-                    "text": "cur"
-                  }
-                ],
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Names, numbers and technical terms matter more than filler words, so also.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 6,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +693,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Word error rate edit distance computation",
-        "columns": [
-          "ref",
-          "hyp",
-          "prev"
-        ],
+        "template": "bars",
+        "title": "Measuring transcription quality",
         "steps": [
           {
             "at": "say1",
-            "caption": "Word error rate provides the standard metric for transcription accuracy.",
-            "rows": [
+            "caption": "Word error rate (WER) is the standard measure of transcription accuracy.",
+            "bars": [
               {
-                "cells": [
-                  "ref",
-                  "hyp",
-                  "prev"
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": 1,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "ref",
-                  "hyp",
-                  "prev"
-                ],
+                "label": "j",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The metric counts word substitutions, insertions, and deletions in text.",
-            "rows": [
+            "caption": "It counts the minimum number of word substitutions, insertions.",
+            "bars": [
               {
-                "cells": [
-                  "ref",
-                  "hyp",
-                  "prev"
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "ref",
-                  "hyp",
-                  "cur"
-                ],
+                "label": "j",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Names, numbers and technical terms matter more than filler words, so also.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": 2,
                 "tone": "ok"
               }
             ]
@@ -561,224 +751,160 @@
       "partTitle": "Text-to-speech and voice assistants",
       "codeHash": "8e431ccf18e9f8116d8ae25cf7fdd09a7f82a988c41729ac1941a88d8dc4701d",
       "spec": {
-        "template": "flow",
-        "title": "Text-to-speech and voice assistants — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Text-to-speech and ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Text-to-speech and voice assistants",
+        "actors": [
+          "written",
+          "spoken"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Text-to-speech and voice assistants.",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Text-to-speech and ... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Text-to-speech (TTS) turns written text into natural-sounding speech.",
+            "activeActor": "written",
+            "messages": [
+              {
+                "from": "written",
+                "to": "spoken",
+                "label": {
+                  "var": "written",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "spoken",
+                "to": "written",
+                "label": {
+                  "var": "spoken",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Modern TTS can sound very human and even clone a voice from a short.",
+            "activeActor": "spoken",
+            "messages": [
+              {
+                "from": "written",
+                "to": "spoken",
+                "label": {
+                  "var": "written",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "spoken",
+                "to": "written",
+                "label": {
+                  "var": "spoken",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Text-to-speech and voice assistants.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Speed and pauses matter for listeners.",
+            "activeActor": "spoken",
+            "messages": [
+              {
+                "from": "written",
+                "to": "spoken",
+                "label": {
+                  "var": "written",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "spoken",
+                "to": "written",
+                "label": {
+                  "var": "spoken",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Text-to-speech and voice assistants — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Text-to-speech and ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Text-to-speech and voice assistants",
+        "actors": [
+          "written",
+          "spoken"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Text-to-speech and voice assistants [D18.P5.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Text-to-speech and ... [D18.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Text-to-speech (TTS) turns written text into natural-sounding speech.",
+            "messages": [
+              {
+                "from": "written",
+                "to": "spoken",
+                "label": "'Pay ₹1,250 by 05/06; see Table 3 for d…",
+                "tone": "data"
+              },
+              {
+                "from": "spoken",
+                "to": "written",
+                "label": "'Pay one thousand two hundred and fifty…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "written"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Modern TTS can sound very human and even clone a voice from a short.",
+            "messages": [
+              {
+                "from": "written",
+                "to": "spoken",
+                "label": "'Pay ₹1,250 by 05/06; see Table 3 for d…",
+                "tone": "data"
+              },
+              {
+                "from": "spoken",
+                "to": "written",
+                "label": "'Pay one thousand two hundred and fifty…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "spoken"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Text-to-speech and voice assistants [D18.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say9",
+            "caption": "Speed and pauses matter for listeners.",
+            "messages": [
+              {
+                "from": "written",
+                "to": "spoken",
+                "label": "'Pay ₹1,250 by 05/06; see Table 3 for d…",
+                "tone": "data"
+              },
+              {
+                "from": "spoken",
+                "to": "written",
+                "label": "'Pay one thousand two hundred and fifty…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "spoken"
           }
         ]
       }
@@ -787,224 +913,162 @@
       "partTitle": "Practice time: action items and WER",
       "codeHash": "2e60f05963133ebeb3635f5b39bb1e6ddc9b2ed3af82a7976d42b73276a2a5a9",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: action items and WER — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: acti...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: action items and WER",
+        "actors": [
+          "raw",
+          "clean",
+          "line"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: action items and WER.",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: acti... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Action_items(transcript).",
+            "activeActor": "raw",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "clean",
+                "label": {
+                  "var": "raw",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "clean",
+                "to": "line",
+                "label": {
+                  "var": "clean",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Return (speaker, text) pairs in order.",
+            "activeActor": "clean",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "clean",
+                "label": {
+                  "var": "raw",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "clean",
+                "to": "line",
+                "label": {
+                  "var": "clean",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: action items and WER.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Together, these tools turn an hour-long meeting into a short list.",
+            "activeActor": "line",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "clean",
+                "label": {
+                  "var": "raw",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "clean",
+                "to": "line",
+                "label": {
+                  "var": "clean",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: action items and WER — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: acti...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: action items and WER",
+        "actors": [
+          "raw",
+          "clean",
+          "line"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: action items and WER [D18.P6.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: acti... [D18.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Action_items(transcript).",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "clean",
+                "label": "\"Ravi: Um I'll I'll share the deck by M…",
+                "tone": "data"
+              },
+              {
+                "from": "clean",
+                "to": "line",
+                "label": "\"Ravi: I'll I'll share the deck by Mond…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "raw"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Return (speaker, text) pairs in order.",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "clean",
+                "label": "\"Ravi: Um I'll I'll share the deck by M…",
+                "tone": "data"
+              },
+              {
+                "from": "clean",
+                "to": "line",
+                "label": "\"Ravi: I'll share the deck by Monday.\nM…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "clean"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: action items and WER [D18.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "Together, these tools turn an hour-long meeting into a short list.",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "clean",
+                "label": "\"Ravi: Um I'll I'll share the deck by M…",
+                "tone": "data"
+              },
+              {
+                "from": "clean",
+                "to": "line",
+                "label": "\"Ravi: I'll share the deck by Monday.\nM…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "line"
           }
         ]
       }

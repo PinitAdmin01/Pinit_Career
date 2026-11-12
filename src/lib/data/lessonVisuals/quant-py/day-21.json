@@ -2,225 +2,169 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 21,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Aggregating Greeks",
       "codeHash": "043fe861974f2e620158a8b8a34c0df9f115f49dfdd165e4354d170feb8500ec",
       "spec": {
-        "template": "table",
-        "title": "Aggregating portfolio Greeks across multiple strike positions",
-        "columns": [
-          "name",
-          "qty",
-          "delta",
-          "vega"
+        "template": "sequence",
+        "title": "Aggregating Greeks",
+        "actors": [
+          "positions",
+          "p",
+          ".0"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Trading desks manage option strikes and expiries.",
-            "rows": [
+            "caption": "A desk holds many positions.",
+            "activeActor": "positions",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "100 call"
-                  },
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "0.6"
-                  },
-                  {
-                    "text": "0.4"
-                  }
-                ],
+                "from": "positions",
+                "to": "p",
+                "label": {
+                  "var": "positions",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": ".0",
+                "label": {
+                  "var": "p",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Net risk aggregates underlying delta and vega sensitivities across contracts.",
-            "rows": [
+            "caption": "Greeks add up across positions of the same underlying.",
+            "activeActor": "p",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "100 call"
-                  },
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "0.6"
-                  },
-                  {
-                    "text": "0.4"
-                  }
-                ],
-                "tone": "ok"
+                "from": "positions",
+                "to": "p",
+                "label": {
+                  "var": "positions",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "110 call"
-                  },
-                  {
-                    "text": "-5"
-                  },
-                  {
-                    "text": "0.3"
-                  },
-                  {
-                    "text": "0.5"
-                  }
-                ],
-                "tone": "idle"
+                "from": "p",
+                "to": ".0",
+                "label": {
+                  "var": "p",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Short option holdings contribute negative net exposure to risk reports.",
-            "rows": [
+            "at": "say8",
+            "caption": "A single net delta number replaces hundreds of positions when deciding how.",
+            "activeActor": ".0",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "100 call"
-                  },
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "0.6"
-                  },
-                  {
-                    "text": "0.4"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "110 call"
-                  },
-                  {
-                    "text": "-5"
-                  },
-                  {
-                    "text": "0.3"
-                  },
-                  {
-                    "text": "0.5"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "stock"
-                  },
-                  {
-                    "text": "200"
-                  },
-                  {
-                    "text": "1.0"
-                  },
-                  {
-                    "text": "0.0"
-                  }
-                ],
+                "from": "positions",
+                "to": "p",
+                "label": {
+                  "var": "positions",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": ".0",
+                "label": {
+                  "var": "p",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Aggregating portfolio Greeks across multiple strike positions",
-        "columns": [
-          "name",
-          "qty",
-          "delta",
-          "vega"
+        "template": "sequence",
+        "title": "Aggregating Greeks",
+        "actors": [
+          "positions",
+          "p",
+          ".0"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Trading desks manage option strikes and expiries.",
-            "rows": [
+            "caption": "A desk holds many positions.",
+            "messages": [
               {
-                "cells": [
-                  "100 call",
-                  "10",
-                  "0.6",
-                  "0.4"
-                ],
+                "from": "positions",
+                "to": "p",
+                "label": "[{'name': '100 call', 'qty': 10, 'delta…",
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": ".0",
+                "label": "{'name': '100 call', 'qty': 10, 'delta'…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "positions"
           },
           {
             "at": "say2",
-            "caption": "Net risk aggregates underlying delta and vega sensitivities across contracts.",
-            "rows": [
+            "caption": "Greeks add up across positions of the same underlying.",
+            "messages": [
               {
-                "cells": [
-                  "100 call",
-                  "10",
-                  "0.6",
-                  "0.4"
-                ],
-                "tone": "ok"
+                "from": "positions",
+                "to": "p",
+                "label": "[{'name': '100 call', 'qty': 10, 'delta…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "110 call",
-                  "-5",
-                  "0.3",
-                  "0.5"
-                ],
-                "tone": "idle"
+                "from": "p",
+                "to": ".0",
+                "label": "{'name': '100 call', 'qty': 10, 'delta'…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "p"
           },
           {
-            "at": "say3",
-            "caption": "Short option holdings contribute negative net exposure to risk reports.",
-            "rows": [
+            "at": "say8",
+            "caption": "A single net delta number replaces hundreds of positions when deciding how.",
+            "messages": [
               {
-                "cells": [
-                  "100 call",
-                  "10",
-                  "0.6",
-                  "0.4"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "110 call",
-                  "-5",
-                  "0.3",
-                  "0.5"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "stock",
-                  "200",
-                  "1.0",
-                  "0.0"
-                ],
+                "from": "positions",
+                "to": "p",
+                "label": "[{'name': '100 call', 'qty': 10, 'delta…",
                 "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": ".0",
+                "label": "{'name': '110 call', 'qty': -5, 'delta'…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": ".0"
           }
         ]
       }
@@ -229,216 +173,216 @@
       "partTitle": "Scenario revaluation",
       "codeHash": "b60b3353ac90ecb672d6f80fa0f0fea86c4fc184f3c33a7ec7f2f8eb993ff072",
       "spec": {
-        "template": "table",
-        "title": "Full scenario revaluation versus delta approximation",
-        "columns": [
-          "base",
-          "delta",
-          "full_pnl",
-          "gamma_gap"
-        ],
+        "template": "bars",
+        "title": "Scenario revaluation",
         "steps": [
           {
             "at": "say1",
-            "caption": "Risk engines revalue each option position fully under simulated shock moves.",
-            "rows": [
+            "caption": "Greeks describe small moves.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "delta"
-                  },
-                  {
-                    "text": "full_pnl"
-                  },
-                  {
-                    "text": "gamma_gap"
-                  }
-                ],
-                "tone": "ok"
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Each scenario updates the stock price and volatility parameters for pricing.",
-            "rows": [
+            "caption": "A scenario sets new values for risk factors.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "delta"
-                  },
-                  {
-                    "text": "full_pnl"
-                  },
-                  {
-                    "text": "gamma_gap"
-                  }
-                ],
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "delta"
-                  },
-                  {
-                    "text": "full_pnl"
-                  },
-                  {
-                    "text": "gamma_gap"
-                  }
-                ],
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Nonlinear gamma effects emerge between full revaluation and delta estimates.",
-            "rows": [
+            "at": "say7",
+            "caption": "This is the heaviest computation in the engine and the one that benefits.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "delta"
-                  },
-                  {
-                    "text": "full_pnl"
-                  },
-                  {
-                    "text": "gamma_gap"
-                  }
-                ],
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "delta"
-                  },
-                  {
-                    "text": "full_pnl"
-                  },
-                  {
-                    "text": "gamma_gap"
-                  }
-                ],
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "s_new"
-                  },
-                  {
-                    "text": "full_pnl"
-                  },
-                  {
-                    "text": "gamma_gap"
-                  }
-                ],
-                "tone": "data"
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Full scenario revaluation versus delta approximation",
-        "columns": [
-          "base",
-          "delta",
-          "full_pnl",
-          "gamma_gap"
-        ],
+        "template": "bars",
+        "title": "Scenario revaluation",
         "steps": [
           {
             "at": "say1",
-            "caption": "Risk engines revalue each option position fully under simulated shock moves.",
-            "rows": [
+            "caption": "Greeks describe small moves.",
+            "bars": [
               {
-                "cells": [
-                  "base",
-                  "delta",
-                  "full_pnl",
-                  "gamma_gap"
-                ],
-                "tone": "ok"
+                "label": "S",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "K",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "T",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 0.05,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Each scenario updates the stock price and volatility parameters for pricing.",
-            "rows": [
+            "caption": "A scenario sets new values for risk factors.",
+            "bars": [
               {
-                "cells": [
-                  "base",
-                  "delta",
-                  "full_pnl",
-                  "gamma_gap"
-                ],
+                "label": "S",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "call",
-                  "delta",
-                  "full_pnl",
-                  "gamma_gap"
-                ],
+                "label": "K",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "T",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 0.05,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Nonlinear gamma effects emerge between full revaluation and delta estimates.",
-            "rows": [
+            "at": "say7",
+            "caption": "This is the heaviest computation in the engine and the one that benefits.",
+            "bars": [
               {
-                "cells": [
-                  "base",
-                  "delta",
-                  "full_pnl",
-                  "gamma_gap"
-                ],
+                "label": "S",
+                "value": 90,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "call",
-                  "delta",
-                  "full_pnl",
-                  "gamma_gap"
-                ],
+                "label": "K",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "call",
-                  "s_new",
-                  "full_pnl",
-                  "gamma_gap"
-                ],
-                "tone": "data"
+                "label": "T",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 0.05,
+                "tone": "ok"
               }
             ]
           }
@@ -449,190 +393,105 @@
       "partTitle": "VaR and ES from scenarios",
       "codeHash": "c1d763c7cd0b3a78e6dea954ceb98db8864a7175961241c145d4e39a8d7a9d68",
       "spec": {
-        "template": "table",
-        "title": "Scenario tail distributions for Value at Risk and Expected Shortfall",
-        "columns": [
-          "pnl",
-          "k",
-          "tail"
-        ],
+        "template": "cells",
+        "title": "VaR and ES from scenarios",
         "steps": [
           {
             "at": "say1",
-            "caption": "Portfolio scenarios generate ordered distributions for tail risk evaluation.",
-            "rows": [
+            "caption": "Once each scenario has a portfolio P&L, VaR and ES come straight from.",
+            "items": {
+              "var": "tail",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "pnl"
-                  },
-                  {
-                    "text": "k"
-                  },
-                  {
-                    "text": "tail"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The worst scenario outcomes define quantile percent cutoffs in stress tests.",
-            "rows": [
+            "caption": "VaR is the second worst loss and ES is the average of the two worst.",
+            "items": {
+              "var": "tail",
+              "line": 2,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "pnl"
-                  },
-                  {
-                    "text": "k"
-                  },
-                  {
-                    "text": "tail"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "-120000"
-                  },
-                  {
-                    "text": "k"
-                  },
-                  {
-                    "text": "tail"
-                  }
-                ],
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Negative profit values reflect severe losses across historical tail samples.",
-            "rows": [
+            "at": "say7",
+            "caption": "This part of the engine is the same code you already wrote.",
+            "items": {
+              "var": "tail",
+              "line": 3,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "pnl"
-                  },
-                  {
-                    "text": "k"
-                  },
-                  {
-                    "text": "tail"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "-120000"
-                  },
-                  {
-                    "text": "k"
-                  },
-                  {
-                    "text": "tail"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "-80000"
-                  },
-                  {
-                    "text": "k"
-                  },
-                  {
-                    "text": "tail"
-                  }
-                ],
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Scenario tail distributions for Value at Risk and Expected Shortfall",
-        "columns": [
-          "pnl",
-          "k",
-          "tail"
-        ],
+        "template": "cells",
+        "title": "VaR and ES from scenarios",
         "steps": [
           {
             "at": "say1",
-            "caption": "Portfolio scenarios generate ordered distributions for tail risk evaluation.",
-            "rows": [
+            "caption": "Once each scenario has a portfolio P&L, VaR and ES come straight from.",
+            "items": [
+              "-120000",
+              "-80000"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "pnl",
-                  "k",
-                  "tail"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The worst scenario outcomes define quantile percent cutoffs in stress tests.",
-            "rows": [
+            "caption": "VaR is the second worst loss and ES is the average of the two worst.",
+            "items": [
+              "-120000",
+              "-80000"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "pnl",
-                  "k",
-                  "tail"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "-120000",
-                  "k",
-                  "tail"
-                ],
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Negative profit values reflect severe losses across historical tail samples.",
-            "rows": [
+            "at": "say7",
+            "caption": "This part of the engine is the same code you already wrote.",
+            "items": [
+              "-120000",
+              "-80000"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "pnl",
-                  "k",
-                  "tail"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "-120000",
-                  "k",
-                  "tail"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "-80000",
-                  "k",
-                  "tail"
-                ],
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -643,93 +502,131 @@
       "partTitle": "Delta hedging",
       "codeHash": "36cbed1ccd8abed6e61102d616b058783608f18fb16fe586eca676a39986d3aa",
       "spec": {
-        "template": "table",
-        "title": "Delta hedging calculations and contract unit rounding",
-        "columns": [
-          "net_delta",
-          "per_unit"
-        ],
+        "template": "bars",
+        "title": "Delta hedging",
         "steps": [
           {
             "at": "say1",
-            "caption": "Trading desks eliminate directional exposure through underlying shares.",
-            "rows": [
+            "caption": "A desk that does not want directional exposure hedges its net delta.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "net_delta"
-                  },
-                  {
-                    "text": "per_unit"
-                  }
-                ],
-                "tone": "ok"
+                "label": "nd",
+                "value": {
+                  "var": "nd",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "per",
+                "value": {
+                  "var": "per",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "net_delta",
+                "value": {
+                  "var": "net_delta",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "per_unit",
+                "value": {
+                  "var": "per_unit",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The hedge quantity balances fractional contracts into whole units.",
-            "rows": [
+            "caption": "The hedge quantity is -net_delta / delta_per_unit, rounded to whole units.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "net_delta"
-                  },
-                  {
-                    "text": "per_unit"
-                  }
-                ],
+                "label": "nd",
+                "value": {
+                  "var": "nd",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "204.5"
-                  },
-                  {
-                    "text": "1.0"
-                  }
-                ],
+                "label": "per",
+                "value": {
+                  "var": "per",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "net_delta",
+                "value": {
+                  "var": "net_delta",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "per_unit",
+                "value": {
+                  "var": "per_unit",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Python rounding logic resolves even numbers without directional drift.",
-            "rows": [
+            "at": "say7",
+            "caption": "Hedging turns a directional bet into a volatility position.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "net_delta"
-                  },
-                  {
-                    "text": "per_unit"
-                  }
-                ],
+                "label": "nd",
+                "value": {
+                  "var": "nd",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "204.5"
-                  },
-                  {
-                    "text": "1.0"
-                  }
-                ],
+                "label": "per",
+                "value": {
+                  "var": "per",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "-150.2"
-                  },
-                  {
-                    "text": "1.0"
-                  }
-                ],
+                "label": "net_delta",
+                "value": {
+                  "var": "net_delta",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "per_unit",
+                "value": {
+                  "var": "per_unit",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -737,69 +634,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Delta hedging calculations and contract unit rounding",
-        "columns": [
-          "net_delta",
-          "per_unit"
-        ],
+        "template": "bars",
+        "title": "Delta hedging",
         "steps": [
           {
             "at": "say1",
-            "caption": "Trading desks eliminate directional exposure through underlying shares.",
-            "rows": [
+            "caption": "A desk that does not want directional exposure hedges its net delta.",
+            "bars": [
               {
-                "cells": [
-                  "net_delta",
-                  "per_unit"
-                ],
-                "tone": "ok"
+                "label": "nd",
+                "value": 204.5,
+                "tone": "data"
+              },
+              {
+                "label": "per",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "net_delta",
+                "value": 204.5,
+                "tone": "data"
+              },
+              {
+                "label": "per_unit",
+                "value": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The hedge quantity balances fractional contracts into whole units.",
-            "rows": [
+            "caption": "The hedge quantity is -net_delta / delta_per_unit, rounded to whole units.",
+            "bars": [
               {
-                "cells": [
-                  "net_delta",
-                  "per_unit"
-                ],
+                "label": "nd",
+                "value": 204.5,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "204.5",
-                  "1.0"
-                ],
+                "label": "per",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "net_delta",
+                "value": 205.5,
+                "tone": "ok"
+              },
+              {
+                "label": "per_unit",
+                "value": 1,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Python rounding logic resolves even numbers without directional drift.",
-            "rows": [
+            "at": "say7",
+            "caption": "Hedging turns a directional bet into a volatility position.",
+            "bars": [
               {
-                "cells": [
-                  "net_delta",
-                  "per_unit"
-                ],
+                "label": "nd",
+                "value": 205.5,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "204.5",
-                  "1.0"
-                ],
+                "label": "per",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "-150.2",
-                  "1.0"
-                ],
+                "label": "net_delta",
+                "value": -150.2,
+                "tone": "ok"
+              },
+              {
+                "label": "per_unit",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -811,223 +722,217 @@
       "partTitle": "Running the engine continuously",
       "codeHash": "28490159e7eaa62aaf001a764da3d7e21a64731050e76116561c42a61b56c292",
       "spec": {
-        "template": "flow",
-        "title": "Running the engine continuously — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Running the engine ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Running the engine continuously",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Running the engine continuously [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Running the engine ... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A production risk engine recomputes Greeks and limits every time prices.",
+            "bars": [
+              {
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "net",
+                "value": {
+                  "var": "net",
+                  "line": 2,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "label": "full",
+                "value": {
+                  "var": "full",
+                  "line": 6,
+                  "hit": 6
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Positions stream in from the trading system.",
+            "bars": [
+              {
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "net",
+                "value": {
+                  "var": "net",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "full",
+                "value": {
+                  "var": "full",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Running the engine continuously.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "This design, fast incremental updates plus slower full checks, appears.",
+            "bars": [
+              {
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "net",
+                "value": {
+                  "var": "net",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "full",
+                "value": {
+                  "var": "full",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Running the engine continuously — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Running the engine ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Running the engine continuously",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Running the engine continuously [D21.P5.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Running the engine ... [D21.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A production risk engine recomputes Greeks and limits every time prices.",
+            "bars": [
+              {
+                "label": "q",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": 0.6,
+                "tone": "data"
+              },
+              {
+                "label": "net",
+                "value": 204.5,
+                "tone": "data"
+              },
+              {
+                "label": "full",
+                "value": 206.3,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Positions stream in from the trading system.",
+            "bars": [
+              {
+                "label": "q",
+                "value": -5,
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": 0.3,
+                "tone": "ok"
+              },
+              {
+                "label": "net",
+                "value": 204.5,
+                "tone": "ok"
+              },
+              {
+                "label": "full",
+                "value": 206.3,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Running the engine continuously [D21.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "This design, fast incremental updates plus slower full checks, appears.",
+            "bars": [
+              {
+                "label": "q",
+                "value": 200,
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "net",
+                "value": 204.5,
+                "tone": "ok"
+              },
+              {
+                "label": "full",
+                "value": 206.3,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -1038,110 +943,161 @@
       "codeHash": "54827b8a0614c35b2925e0bc966435d6536c38d708b4c4b3dd20a87cdc288e85",
       "spec": {
         "template": "flow",
-        "title": "Milestone practice: engine and hedge — Execution Pipeline",
+        "title": "Milestone practice: engine and hedge",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "positions",
+            "label": "positions"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
+            "id": "pnl",
+            "label": "pnl"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "q",
+            "label": "q"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Milestone practice: engine and hedge.",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Milestone practice:... [D.Psix.Stwo].",
+            "caption": "Risk_engine(positions, pnl_scenarios, confidence=0.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "positions": {
+                "var": "positions",
+                "line": 1,
+                "hit": 1
+              },
+              "pnl": {
+                "var": "pnl",
+                "line": 2,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 3,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "positions": "data",
+              "pnl": "data",
+              ".0": "data",
+              "q": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "positions",
+                "pnl"
               ],
               [
-                "proc",
-                "out"
+                "pnl",
+                ".0"
+              ],
+              [
+                ".0",
+                "q"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Trace how checks updates three during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "positions": {
+                "var": "positions",
+                "line": 2,
+                "hit": 1
+              },
+              "pnl": {
+                "var": "pnl",
+                "line": 3,
+                "hit": 5
+              },
+              ".0": {
+                "var": ".0",
+                "line": 3,
+                "hit": 2
+              },
+              "q": {
+                "var": "q",
+                "line": 3,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "positions": "data",
+              "pnl": "data",
+              ".0": "data",
+              "q": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "positions",
+                "pnl"
+              ],
+              [
+                "pnl",
+                ".0"
+              ],
+              [
+                ".0",
+                "q"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Milestone practice: engine and he.",
+            "at": "say7",
+            "caption": "The example runs the whole engine.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "positions": {
+                "var": "positions",
+                "line": 3,
+                "hit": 5
+              },
+              "pnl": {
+                "var": "pnl",
+                "line": 4,
+                "hit": 5
+              },
+              ".0": {
+                "var": ".0",
+                "line": 3,
+                "hit": 3
+              },
+              "q": {
+                "var": "q",
+                "line": 3,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "positions": "ok",
+              "pnl": "ok",
+              ".0": "ok",
+              "q": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "positions",
+                "pnl"
               ],
               [
-                "proc",
-                "out"
+                "pnl",
+                ".0"
+              ],
+              [
+                ".0",
+                "q"
               ]
             ]
           }
@@ -1149,110 +1105,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone practice: engine and hedge — Execution Pipeline",
+        "title": "Milestone practice: engine and hedge",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "positions",
+            "label": "positions"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
+            "id": "pnl",
+            "label": "pnl"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "q",
+            "label": "q"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Milestone practice: engine and hedge [D21.P6.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Milestone practice:... [D21.P6.S2].",
+            "caption": "Risk_engine(positions, pnl_scenarios, confidence=0.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "positions": "[[10, 0.6, 0.4], [-5, 0.3, 0.5], [200, …",
+              "pnl": "[-120000, -80000, -50000, 1000, 1000, 1…",
+              ".0": "{'__other__': 'list_iterator'}",
+              "q": "10"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "positions": "data",
+              "pnl": "data",
+              ".0": "data",
+              "q": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "positions",
+                "pnl"
               ],
               [
-                "proc",
-                "out"
+                "pnl",
+                ".0"
+              ],
+              [
+                ".0",
+                "q"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P6.S3].",
+            "at": "say2",
+            "caption": "Trace how checks updates three during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "positions": "[[10, 0.6, 0.4], [-5, 0.3, 0.5], [200, …",
+              "pnl": "[-120000, -80000, -50000, 1000, 1000, 1…",
+              ".0": "{'__other__': 'list_iterator'}",
+              "q": "-5"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "positions": "data",
+              "pnl": "data",
+              ".0": "data",
+              "q": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "positions",
+                "pnl"
+              ],
+              [
+                "pnl",
+                ".0"
+              ],
+              [
+                ".0",
+                "q"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Milestone practice: engine and he.. [D21.P6.S4].",
+            "at": "say7",
+            "caption": "The example runs the whole engine.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "positions": "[[10, 0.6, 0.4], [-5, 0.3, 0.5], [200, …",
+              "pnl": "[-120000, -80000, -50000, 1000, 1000, 1…",
+              ".0": "{'__other__': 'list_iterator'}",
+              "q": "200"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "positions": "ok",
+              "pnl": "ok",
+              ".0": "ok",
+              "q": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "positions",
+                "pnl"
               ],
               [
-                "proc",
-                "out"
+                "pnl",
+                ".0"
+              ],
+              [
+                ".0",
+                "q"
               ]
             ]
           }

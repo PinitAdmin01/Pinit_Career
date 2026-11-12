@@ -2,85 +2,84 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 12,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Stages and the naive pipeline",
       "codeHash": "d18102c3da4fac495e5cd60c8f449a91c6174d5797dc8b7f1038530aa5268f05",
       "spec": {
-        "template": "table",
-        "title": "Pipeline stage partitioning and naive sequential execution",
-        "columns": [
-          "stages",
-          "busy",
-          "idle"
-        ],
+        "template": "bars",
+        "title": "Stages and the naive pipeline",
         "steps": [
           {
             "at": "say1",
-            "caption": "In pipeline parallelism consecutive model layers partition into stages.",
-            "rows": [
+            "caption": "In pipeline parallelism, the model's layers are divided into consecutive.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "busy"
-                  },
-                  {
-                    "text": "idle"
-                  }
-                ],
-                "tone": "ok"
+                "label": "stages",
+                "value": {
+                  "var": "stages",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "busy"
-                  },
-                  {
-                    "text": "idle"
-                  }
-                ],
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Dividing batches into micro-batches keeps pipeline stages busy simultaneously.",
-            "rows": [
+            "at": "say2",
+            "caption": "Activations flow forward from stage to stage, and gradients flow backward.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "busy"
-                  },
-                  {
-                    "text": "idle"
-                  }
-                ],
-                "tone": "data"
+                "label": "stages",
+                "value": {
+                  "var": "stages",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "busy"
-                  },
-                  {
-                    "text": "stages"
-                  }
-                ],
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Memory per GPU falls because each holds only its stage's layers.",
+            "bars": [
+              {
+                "label": "stages",
+                "value": {
+                  "var": "stages",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -88,54 +87,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Pipeline stage partitioning and naive sequential execution",
-        "columns": [
-          "stages",
-          "busy",
-          "idle"
-        ],
+        "template": "bars",
+        "title": "Stages and the naive pipeline",
         "steps": [
           {
             "at": "say1",
-            "caption": "In pipeline parallelism consecutive model layers partition into stages.",
-            "rows": [
+            "caption": "In pipeline parallelism, the model's layers are divided into consecutive.",
+            "bars": [
               {
-                "cells": [
-                  "stages",
-                  "busy",
-                  "idle"
-                ],
-                "tone": "ok"
+                "label": "stages",
+                "value": 4,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "stages",
-                  "busy",
-                  "idle"
-                ],
+                "label": "t",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Dividing batches into micro-batches keeps pipeline stages busy simultaneously.",
-            "rows": [
+            "at": "say2",
+            "caption": "Activations flow forward from stage to stage, and gradients flow backward.",
+            "bars": [
               {
-                "cells": [
-                  "stages",
-                  "busy",
-                  "idle"
-                ],
-                "tone": "data"
+                "label": "stages",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "stages",
-                  "busy",
-                  "stages"
-                ],
+                "label": "t",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Memory per GPU falls because each holds only its stage's layers.",
+            "bars": [
+              {
+                "label": "stages",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "t",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -147,135 +145,277 @@
       "partTitle": "Micro-batches and the GPipe schedule",
       "codeHash": "479cac95ba491a3af8a081422e00b126bd393240f7b1f50aecf6fe27fab38b61",
       "spec": {
-        "template": "table",
-        "title": "GPipe timeline scheduling and pipeline bubble formation",
-        "columns": [
-          "stages",
-          "micro",
-          "row"
+        "template": "flow",
+        "title": "Micro-batches and the GPipe schedule",
+        "nodes": [
+          {
+            "id": "stages",
+            "label": "stages"
+          },
+          {
+            "id": "micro",
+            "label": "micro"
+          },
+          {
+            "id": "t",
+            "label": "t"
+          },
+          {
+            "id": "row",
+            "label": "row"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Pipeline stages process successive micro-batches across consecutive ticks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "micro"
-                  },
-                  {
-                    "text": "row"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "With micro-batches, stage 1 starts micro-batch 1, then moves on.",
+            "values": {
+              "stages": {
+                "var": "stages",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "micro"
-                  },
-                  {
-                    "text": "row"
-                  }
-                ],
-                "tone": "data"
+              "micro": {
+                "var": "micro",
+                "line": 1,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 2,
+                "hit": 1
+              },
+              "row": {
+                "var": "row",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "stages": "data",
+              "micro": "data",
+              "t": "data",
+              "row": "data"
+            },
+            "arrows": [
+              [
+                "stages",
+                "micro"
+              ],
+              [
+                "micro",
+                "t"
+              ],
+              [
+                "t",
+                "row"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Idle slots during startup and shutdown constitute the pipeline bubble.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "micro"
-                  },
-                  {
-                    "text": "row"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "At time t, stage s works on micro-batch t s + 1, if that micro-batch exists.",
+            "values": {
+              "stages": {
+                "var": "stages",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "micro"
-                  },
-                  {
-                    "text": "stages"
-                  }
-                ],
-                "tone": "ok"
+              "micro": {
+                "var": "micro",
+                "line": 2,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 3,
+                "hit": 1
+              },
+              "row": {
+                "var": "row",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "stages": "data",
+              "micro": "data",
+              "t": "data",
+              "row": "data"
+            },
+            "arrows": [
+              [
+                "stages",
+                "micro"
+              ],
+              [
+                "micro",
+                "t"
+              ],
+              [
+                "t",
+                "row"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Profiler traces of real pipeline runs look like this table, rotated.",
+            "values": {
+              "stages": {
+                "var": "stages",
+                "line": 3,
+                "hit": 1
+              },
+              "micro": {
+                "var": "micro",
+                "line": 3,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 4,
+                "hit": 1
+              },
+              "row": {
+                "var": "row",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "stages": "ok",
+              "micro": "ok",
+              "t": "ok",
+              "row": "ok"
+            },
+            "arrows": [
+              [
+                "stages",
+                "micro"
+              ],
+              [
+                "micro",
+                "t"
+              ],
+              [
+                "t",
+                "row"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "GPipe timeline scheduling and pipeline bubble formation",
-        "columns": [
-          "stages",
-          "micro",
-          "row"
+        "template": "flow",
+        "title": "Micro-batches and the GPipe schedule",
+        "nodes": [
+          {
+            "id": "stages",
+            "label": "stages"
+          },
+          {
+            "id": "micro",
+            "label": "micro"
+          },
+          {
+            "id": "t",
+            "label": "t"
+          },
+          {
+            "id": "row",
+            "label": "row"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Pipeline stages process successive micro-batches across consecutive ticks.",
-            "rows": [
-              {
-                "cells": [
-                  "stages",
-                  "micro",
-                  "row"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "stages",
-                  "micro",
-                  "row"
-                ],
-                "tone": "data"
-              }
+            "caption": "With micro-batches, stage 1 starts micro-batch 1, then moves on.",
+            "values": {
+              "stages": "3",
+              "micro": "4",
+              "t": "0",
+              "row": "[]"
+            },
+            "tones": {
+              "stages": "data",
+              "micro": "data",
+              "t": "data",
+              "row": "data"
+            },
+            "arrows": [
+              [
+                "stages",
+                "micro"
+              ],
+              [
+                "micro",
+                "t"
+              ],
+              [
+                "t",
+                "row"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Idle slots during startup and shutdown constitute the pipeline bubble.",
-            "rows": [
-              {
-                "cells": [
-                  "stages",
-                  "micro",
-                  "row"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "stages",
-                  "micro",
-                  "stages"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "At time t, stage s works on micro-batch t s + 1, if that micro-batch exists.",
+            "values": {
+              "stages": "3",
+              "micro": "4",
+              "t": "0",
+              "row": "[]"
+            },
+            "tones": {
+              "stages": "data",
+              "micro": "data",
+              "t": "data",
+              "row": "data"
+            },
+            "arrows": [
+              [
+                "stages",
+                "micro"
+              ],
+              [
+                "micro",
+                "t"
+              ],
+              [
+                "t",
+                "row"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Profiler traces of real pipeline runs look like this table, rotated.",
+            "values": {
+              "stages": "3",
+              "micro": "4",
+              "t": "0",
+              "row": "[]"
+            },
+            "tones": {
+              "stages": "ok",
+              "micro": "ok",
+              "t": "ok",
+              "row": "ok"
+            },
+            "arrows": [
+              [
+                "stages",
+                "micro"
+              ],
+              [
+                "micro",
+                "t"
+              ],
+              [
+                "t",
+                "row"
+              ]
             ]
           }
         ]
@@ -285,135 +425,165 @@
       "partTitle": "The bubble fraction",
       "codeHash": "f3b9aa4dea007fe4a78ff466459fb52b8b590b82ff58cb683a374e16036be580",
       "spec": {
-        "template": "table",
-        "title": "Pipeline bubble fraction formula and micro-batch scaling",
-        "columns": [
-          "bubble",
-          "stages",
-          "fraction"
+        "template": "flow",
+        "title": "The bubble fraction",
+        "nodes": [
+          {
+            "id": "p",
+            "label": "p"
+          },
+          {
+            "id": "row",
+            "label": "row"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The idle fraction depends on the ratio of micro-batches to pipeline stages.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bubble"
-                  },
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "fraction"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The fraction of time each stage sits idle in a GPipe schedule is (p 1) /.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "bubble"
-                  },
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "fraction"
-                  }
-                ],
-                "tone": "data"
+              "row": {
+                "var": "row",
+                "line": 2,
+                "hit": 5
               }
+            },
+            "tones": {
+              "p": "data",
+              "row": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "row"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Increasing micro-batches relative to stages reduces overall idle fraction.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bubble"
-                  },
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "fraction"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Trace how stages updates only during execution.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "bubble"
-                  },
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "bubble"
-                  }
-                ],
-                "tone": "ok"
+              "row": {
+                "var": "row",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "p": "data",
+              "row": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "row"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Always compute the bubble before choosing pipeline depth.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 2,
+                "hit": 2
+              },
+              "row": {
+                "var": "row",
+                "line": 1,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "p": "ok",
+              "row": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "row"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Pipeline bubble fraction formula and micro-batch scaling",
-        "columns": [
-          "bubble",
-          "stages",
-          "fraction"
+        "template": "flow",
+        "title": "The bubble fraction",
+        "nodes": [
+          {
+            "id": "p",
+            "label": "p"
+          },
+          {
+            "id": "row",
+            "label": "row"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The idle fraction depends on the ratio of micro-batches to pipeline stages.",
-            "rows": [
-              {
-                "cells": [
-                  "bubble",
-                  "stages",
-                  "fraction"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bubble",
-                  "stages",
-                  "fraction"
-                ],
-                "tone": "data"
-              }
+            "caption": "The fraction of time each stage sits idle in a GPipe schedule is (p 1) /.",
+            "values": {
+              "p": "2",
+              "row": "['m=1: 0.500', 'm=4: 0.200', 'm=16: 0.0…"
+            },
+            "tones": {
+              "p": "data",
+              "row": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "row"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Increasing micro-batches relative to stages reduces overall idle fraction.",
-            "rows": [
-              {
-                "cells": [
-                  "bubble",
-                  "stages",
-                  "fraction"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "bubble",
-                  "stages",
-                  "bubble"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Trace how stages updates only during execution.",
+            "values": {
+              "p": "2",
+              "row": "['m=1: 0.500', 'm=4: 0.200', 'm=16: 0.0…"
+            },
+            "tones": {
+              "p": "data",
+              "row": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "row"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Always compute the bubble before choosing pipeline depth.",
+            "values": {
+              "p": "2",
+              "row": "['m=1: 0.500', 'm=4: 0.200', 'm=16: 0.0…"
+            },
+            "tones": {
+              "p": "ok",
+              "row": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "row"
+              ]
             ]
           }
         ]
@@ -423,78 +593,91 @@
       "partTitle": "1F1B and memory",
       "codeHash": "bc5cca40bb7bcac75a07f26ceeeb770a7d5690dd133a1dfc5523341e332e8cf3",
       "spec": {
-        "template": "table",
-        "title": "One-forward-one-backward schedule activation memory bounds",
-        "columns": [
+        "template": "sequence",
+        "title": "1F1B and memory",
+        "actors": [
           "stages",
           "micro",
           "gpipe"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The schedule starts backward passes early to minimise stored activations.",
-            "rows": [
+            "at": "say1",
+            "caption": "GPipe stores activations for every micro-batch until the backward passes.",
+            "activeActor": "stages",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "micro"
-                  },
-                  {
-                    "text": "gpipe"
-                  }
-                ],
-                "tone": "ok"
+                "from": "stages",
+                "to": "micro",
+                "label": {
+                  "var": "stages",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "micro"
-                  },
-                  {
-                    "text": "gpipe"
-                  }
-                ],
-                "tone": "data"
+                "from": "micro",
+                "to": "gpipe",
+                "label": {
+                  "var": "micro",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Alternating passes caps stored activations to the number of pipeline stages.",
-            "rows": [
+            "at": "say2",
+            "caption": "The one-forward-one-backward (1F1B) schedule, used in PipeDream.",
+            "activeActor": "micro",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "micro"
-                  },
-                  {
-                    "text": "gpipe"
-                  }
-                ],
+                "from": "stages",
+                "to": "micro",
+                "label": {
+                  "var": "stages",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "micro"
-                  },
-                  {
-                    "text": "stages"
-                  }
-                ],
+                "from": "micro",
+                "to": "gpipe",
+                "label": {
+                  "var": "micro",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Embedding and output layers are often large and need special care in stage.",
+            "activeActor": "gpipe",
+            "messages": [
+              {
+                "from": "stages",
+                "to": "micro",
+                "label": {
+                  "var": "stages",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "micro",
+                "to": "gpipe",
+                "label": {
+                  "var": "micro",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,57 +685,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "One-forward-one-backward schedule activation memory bounds",
-        "columns": [
+        "template": "sequence",
+        "title": "1F1B and memory",
+        "actors": [
           "stages",
           "micro",
           "gpipe"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The schedule starts backward passes early to minimise stored activations.",
-            "rows": [
+            "at": "say1",
+            "caption": "GPipe stores activations for every micro-batch until the backward passes.",
+            "messages": [
               {
-                "cells": [
-                  "stages",
-                  "micro",
-                  "gpipe"
-                ],
-                "tone": "ok"
+                "from": "stages",
+                "to": "micro",
+                "label": "4",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "stages",
-                  "micro",
-                  "gpipe"
-                ],
-                "tone": "data"
+                "from": "micro",
+                "to": "gpipe",
+                "label": "4",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "stages"
           },
           {
-            "at": "say4",
-            "caption": "Alternating passes caps stored activations to the number of pipeline stages.",
-            "rows": [
+            "at": "say2",
+            "caption": "The one-forward-one-backward (1F1B) schedule, used in PipeDream.",
+            "messages": [
               {
-                "cells": [
-                  "stages",
-                  "micro",
-                  "gpipe"
-                ],
+                "from": "stages",
+                "to": "micro",
+                "label": "4",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "stages",
-                  "micro",
-                  "stages"
-                ],
+                "from": "micro",
+                "to": "gpipe",
+                "label": "4",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "micro"
+          },
+          {
+            "at": "say10",
+            "caption": "Embedding and output layers are often large and need special care in stage.",
+            "messages": [
+              {
+                "from": "stages",
+                "to": "micro",
+                "label": "4",
+                "tone": "data"
+              },
+              {
+                "from": "micro",
+                "to": "gpipe",
+                "label": "4",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "gpipe"
           }
         ]
       }
@@ -561,224 +757,162 @@
       "partTitle": "Balancing stages",
       "codeHash": "b1afb73d481a1fcf5a77ea5bafcf267cf0471efdac0a9233eeaf907a8c4ab30f",
       "spec": {
-        "template": "flow",
-        "title": "Balancing stages — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Balancing stages",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Balancing stages",
+        "actors": [
+          "layer_ms",
+          "times",
+          "stages"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Balancing stages [Dtwelve.Pfive.Sone].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Balancing stages [Dtwelve.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The slowest stage determines the pipeline's speed, so layers should be.",
+            "activeActor": "layer_ms",
+            "messages": [
+              {
+                "from": "layer_ms",
+                "to": "times",
+                "label": {
+                  "var": "layer_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "times",
+                "to": "stages",
+                "label": {
+                  "var": "times",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Transformer blocks are usually identical, which makes balancing easy, but.",
+            "activeActor": "times",
+            "messages": [
+              {
+                "from": "layer_ms",
+                "to": "times",
+                "label": {
+                  "var": "layer_ms",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "times",
+                "to": "stages",
+                "label": {
+                  "var": "times",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Balancing stages [Dtwelve.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Pipeline balancing is a small version of a classic scheduling problem.",
+            "activeActor": "stages",
+            "messages": [
+              {
+                "from": "layer_ms",
+                "to": "times",
+                "label": {
+                  "var": "layer_ms",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "times",
+                "to": "stages",
+                "label": {
+                  "var": "times",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Balancing stages — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Balancing stages",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Balancing stages",
+        "actors": [
+          "layer_ms",
+          "times",
+          "stages"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Balancing stages [D12.P5.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Balancing stages [D12.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "The slowest stage determines the pipeline's speed, so layers should be.",
+            "messages": [
+              {
+                "from": "layer_ms",
+                "to": "times",
+                "label": "[4, 3, 3, 3, 3, 3, 3, 6]",
+                "tone": "data"
+              },
+              {
+                "from": "times",
+                "to": "stages",
+                "label": "[4, 3, 3, 3, 3, 3, 3, 6]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "layer_ms"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Transformer blocks are usually identical, which makes balancing easy, but.",
+            "messages": [
+              {
+                "from": "layer_ms",
+                "to": "times",
+                "label": "[4, 3, 3, 3, 3, 3, 3, 6]",
+                "tone": "data"
+              },
+              {
+                "from": "times",
+                "to": "stages",
+                "label": "[4, 3, 3, 3, 3, 3, 3, 6]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "times"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Balancing stages [D12.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say10",
+            "caption": "Pipeline balancing is a small version of a classic scheduling problem.",
+            "messages": [
+              {
+                "from": "layer_ms",
+                "to": "times",
+                "label": "[4, 3, 3, 3, 3, 3, 3, 6]",
+                "tone": "data"
+              },
+              {
+                "from": "times",
+                "to": "stages",
+                "label": "[4, 3, 3, 3, 3, 3, 3, 6]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "stages"
           }
         ]
       }
@@ -787,223 +921,217 @@
       "partTitle": "Practice time: pipelines",
       "codeHash": "5a915a7db62c8a2d89cb4b12b8d5120a9c4d2c025dd15b6ea16b11b33748fbf8",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: pipelines — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: pipe...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: pipelines",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: pipelines [Dtwelve.Psix.Sone].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: pipe... [Dtwelve.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Bubble_fraction(stages, micro_batches) returns (p 1)/(m + p 1) rounded.",
+            "bars": [
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "idle",
+                "value": {
+                  "var": "idle",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include 4 stages with 1 and 8 micro-batches, a single stage.",
+            "bars": [
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "idle",
+                "value": {
+                  "var": "idle",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: pipelines.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If your timeline is off by one, check that micro-batches are numbered from 1.",
+            "bars": [
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "idle",
+                "value": {
+                  "var": "idle",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: pipelines — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: pipe...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: pipelines",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: pipelines [D12.P6.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: pipe... [D12.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Bubble_fraction(stages, micro_batches) returns (p 1)/(m + p 1) rounded.",
+            "bars": [
+              {
+                "label": "p",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "steps",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "idle",
+                "value": 6,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include 4 stages with 1 and 8 micro-batches, a single stage.",
+            "bars": [
+              {
+                "label": "p",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "idle",
+                "value": 6,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: pipelines [D12.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If your timeline is off by one, check that micro-batches are numbered from 1.",
+            "bars": [
+              {
+                "label": "p",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "idle",
+                "value": 6,
+                "tone": "ok"
+              }
             ]
           }
         ]

@@ -2,50 +2,111 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 30,
-  "promptSha": "17286ca2bf59b313b2ed74e981169aa2336e9c2b1032842aad65505fff72beb0",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The capstone problem",
       "codeHash": "6a0d7818f08696e092637a0d8b267a0c6cf7609c426319c9189ff6f0dea76b3e",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "The capstone problem",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The building concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "You are building the route engine for a flight search site.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "The"
-                  },
-                  {
-                    "text": "capstone"
-                  }
-                ],
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The plain logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Travellers want the cheapest ticket from src to dst, but many refuse more.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "problem"
-                  },
-                  {
-                    "text": "capstone"
-                  }
-                ],
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "In enterprise flight routing and navigation engines, finding the cheapest.",
+            "bars": [
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -53,35 +114,68 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "The capstone problem",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The building concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "You are building the route engine for a flight search site.",
+            "bars": [
               {
-                "cells": [
-                  "The",
-                  "capstone"
-                ],
+                "label": "u",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": 100,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The plain logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Travellers want the cheapest ticket from src to dst, but many refuse more.",
+            "bars": [
               {
-                "cells": [
-                  "problem",
-                  "capstone"
-                ],
+                "label": "u",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": 100,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "In enterprise flight routing and navigation engines, finding the cheapest.",
+            "bars": [
+              {
+                "label": "u",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": 100,
                 "tone": "ok"
               }
             ]
@@ -93,43 +187,131 @@
       "partTitle": "Bellman-Ford limited to k + 1 rounds",
       "codeHash": "4afe62ec70f13291c0991a399d7ed863887b2b4610a6cfd4efc21cdb09d330c0",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Bellman-Ford limited to k + 1 rounds",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The recall concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Relax every edge, round after round.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Bellman"
-                  },
-                  {
-                    "text": "Ford"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "src",
+                "value": {
+                  "var": "src",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "dst",
+                "value": {
+                  "var": "dst",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The important logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "That is exactly the stop limit we need.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "limited"
-                  },
-                  {
-                    "text": "rounds"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "src",
+                "value": {
+                  "var": "src",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "dst",
+                "value": {
+                  "var": "dst",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "By making an explicit snapshot of distances at the start of each round.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "src",
+                "value": {
+                  "var": "src",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "dst",
+                "value": {
+                  "var": "dst",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -137,35 +319,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Bellman-Ford limited to k + 1 rounds",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The recall concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Relax every edge, round after round.",
+            "bars": [
               {
-                "cells": [
-                  "Bellman",
-                  "Ford"
-                ],
+                "label": "n",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "src",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "dst",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The important logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "That is exactly the stop limit we need.",
+            "bars": [
               {
-                "cells": [
-                  "limited",
-                  "rounds"
-                ],
+                "label": "n",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "src",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "dst",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "By making an explicit snapshot of distances at the start of each round.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "src",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "dst",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -177,43 +407,131 @@
       "partTitle": "A heap-based alternative",
       "codeHash": "98e4bb1da3499c926b8616fa3bcd7eaec9e8e58aeefd7eeb29a29212b6b965c4",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "A heap-based alternative",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The second concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A second approach adapts Dijkstra.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "heap"
-                  },
-                  {
-                    "text": "based"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "src",
+                "value": {
+                  "var": "src",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "dst",
+                "value": {
+                  "var": "dst",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The avoid logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Only expand a state if its stops are within the limit.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "alternative"
-                  },
-                  {
-                    "text": "based"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "src",
+                "value": {
+                  "var": "src",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "dst",
+                "value": {
+                  "var": "dst",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Comparing two correct approaches and choosing one with reasons is what.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "src",
+                "value": {
+                  "var": "src",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "dst",
+                "value": {
+                  "var": "dst",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +539,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "A heap-based alternative",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The second concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A second approach adapts Dijkstra.",
+            "bars": [
               {
-                "cells": [
-                  "heap",
-                  "based"
-                ],
+                "label": "n",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "src",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "dst",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The avoid logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Only expand a state if its stops are within the limit.",
+            "bars": [
               {
-                "cells": [
-                  "alternative",
-                  "based"
-                ],
+                "label": "n",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "src",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "dst",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Comparing two correct approaches and choosing one with reasons is what.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "src",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "dst",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -261,80 +627,108 @@
       "partTitle": "Auditing the network",
       "codeHash": "63dfb1afa9b6045ccfd8b8ed3f143a02dce534ee341af29840a4b668e49b2ea0",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Auditing the network",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Audit_flight_graph(flights) returns a summary with the number of routes.",
+            "items": {
+              "var": "f",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Auditing"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The default logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "A set collects airports from both ends of every flight, so each is counted.",
+            "items": {
+              "var": "f",
+              "line": 2,
+              "hit": 7
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "network"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Always handle the empty case.",
+            "items": {
+              "var": "f",
+              "line": 3,
+              "hit": 3
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Auditing the network",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Audit_flight_graph(flights) returns a summary with the number of routes.",
+            "items": [
+              "0",
+              "1",
+              "100"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Auditing",
-                  "the"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The default logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "A set collects airports from both ends of every flight, so each is counted.",
+            "items": [
+              "0",
+              "2",
+              "150"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "network",
-                  "the"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Always handle the empty case.",
+            "items": [
+              "0",
+              "2",
+              "150"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -345,43 +739,131 @@
       "partTitle": "Putting the engine together",
       "codeHash": "543801be7d3a8e64a12003c922c9e5f2b6141f55cec25ccbf30ab62b7497db70",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Putting the engine together",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "The final engine wraps both functions in a class, adds input validation.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Putting"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The validate logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "To return the route, keep the route that produced each cost alongside it.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "engine"
-                  },
-                  {
-                    "text": "together"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Combining Bellman-Ford level-bounded relaxations with route recovery.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -389,35 +871,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Putting the engine together",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "The final engine wraps both functions in a class, adds input validation.",
+            "bars": [
               {
-                "cells": [
-                  "Putting",
-                  "the"
-                ],
+                "label": "n",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "u",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": 100,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The validate logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "To return the route, keep the route that produced each cost alongside it.",
+            "bars": [
               {
-                "cells": [
-                  "engine",
-                  "together"
-                ],
+                "label": "n",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": 100,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Combining Bellman-Ford level-bounded relaxations with route recovery.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": 100,
                 "tone": "ok"
               }
             ]
@@ -429,82 +959,130 @@
       "partTitle": "Looking back, and next steps",
       "codeHash": "e3254dc875d795b85a2c7163741e49c0106f5e4ce92567430786ccc9c58c8c19",
       "spec": {
-        "template": "table",
+        "template": "boxes",
         "title": "Looking back, and next steps",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "need",
+            "label": "need"
+          },
+          {
+            "id": "tool",
+            "label": "tool"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The began concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Looking"
-                  },
-                  {
-                    "text": "back"
-                  }
-                ],
-                "tone": "data"
+            "caption": "You began with Big-O and ended by comparing two graph algorithms.",
+            "values": {
+              "need": {
+                "var": "need",
+                "line": 12,
+                "hit": 1
+              },
+              "tool": {
+                "var": "tool",
+                "line": 12,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "need": "data",
+              "tool": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The keep logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "and"
-                  },
-                  {
-                    "text": "next"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Redo one practice problem from each week without looking at your old code.",
+            "values": {
+              "need": {
+                "var": "need",
+                "line": 13,
+                "hit": 1
+              },
+              "tool": {
+                "var": "tool",
+                "line": 13,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "need": "data",
+              "tool": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Finish the capstone project and final assessment to earn your certificate.",
+            "values": {
+              "need": {
+                "var": "need",
+                "line": 12,
+                "hit": 2
+              },
+              "tool": {
+                "var": "tool",
+                "line": 12,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "need": "ok",
+              "tool": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "boxes",
         "title": "Looking back, and next steps",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "need",
+            "label": "need"
+          },
+          {
+            "id": "tool",
+            "label": "tool"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The began concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Looking",
-                  "back"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "You began with Big-O and ended by comparing two graph algorithms.",
+            "values": {
+              "need": "'fast lookup'",
+              "tool": "'dict / set'"
+            },
+            "tones": {
+              "need": "data",
+              "tool": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The keep logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "and",
-                  "next"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Redo one practice problem from each week without looking at your old code.",
+            "values": {
+              "need": "'fast lookup'",
+              "tool": "'dict / set'"
+            },
+            "tones": {
+              "need": "data",
+              "tool": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Finish the capstone project and final assessment to earn your certificate.",
+            "values": {
+              "need": "'smallest repeatedly'",
+              "tool": "'heap'"
+            },
+            "tones": {
+              "need": "ok",
+              "tool": "ok"
+            }
           }
         ]
       }

@@ -2,230 +2,224 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 32,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Permutation Invariance & The Original Sinusoidal Positional Encoding",
       "codeHash": "e89904873ffa51e9ab250ed60e3ab4a838c02fb3630cfa66f3fd3c2fe43cad61",
       "spec": {
-        "template": "flow",
-        "title": "Permutation Invariance & The Original Sinusoi... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Permutation Invaria...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Permutation Invariance & The Original Sinusoidal Positional Enco",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Permutation Invariance & The Original Si...",
-            "values": {
-              "in": "Day 32 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Permutation Invaria....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In our exploration of modern Transformer mechanics, we arrive at one.",
+            "bars": [
+              {
+                "label": "seq_len",
+                "value": {
+                  "var": "seq_len",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d_model",
+                "value": {
+                  "var": "d_model",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "While permutation equivariance is a powerful inductive bias for sets.",
+            "bars": [
+              {
+                "label": "seq_len",
+                "value": {
+                  "var": "seq_len",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_model",
+                "value": {
+                  "var": "d_model",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Permutation Invariance & The Orig...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In our implementation below, we will construct a pure Python sinusoidal.",
+            "bars": [
+              {
+                "label": "seq_len",
+                "value": {
+                  "var": "seq_len",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_model",
+                "value": {
+                  "var": "d_model",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Permutation Invariance & The Original Sinusoi... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Permutation Invaria...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Permutation Invariance & The Original Sinusoidal Positional Enco",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Permutation Invariance & The Original Si...",
-            "values": {
-              "in": "Day 32 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Permutation Invaria....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In our exploration of modern Transformer mechanics, we arrive at one.",
+            "bars": [
+              {
+                "label": "seq_len",
+                "value": 16,
+                "tone": "data"
+              },
+              {
+                "label": "d_model",
+                "value": 32,
+                "tone": "data"
+              },
+              {
+                "label": "pos",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "While permutation equivariance is a powerful inductive bias for sets.",
+            "bars": [
+              {
+                "label": "seq_len",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "d_model",
+                "value": 32,
+                "tone": "ok"
+              },
+              {
+                "label": "pos",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Permutation Invariance & The Orig...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In our implementation below, we will construct a pure Python sinusoidal.",
+            "bars": [
+              {
+                "label": "seq_len",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "d_model",
+                "value": 32,
+                "tone": "ok"
+              },
+              {
+                "label": "pos",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -236,110 +230,161 @@
       "codeHash": "07bfe063609428f8e2cc9bccb300f0f8a15803eddd6b449404256f693a419011",
       "spec": {
         "template": "flow",
-        "title": "Learned Absolute Position Embeddings (BERT, G... — Execution Pipeline",
+        "title": "Learned Absolute Position Embeddings (BERT, GPT-2) & Context Rig",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Learned Absolute Po...",
-            "tappable": true
+            "id": "max_seq_len",
+            "label": "max_seq_len"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "d_model",
+            "label": "d_model"
+          },
+          {
+            "id": "pos",
+            "label": "pos"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Learned Absolute Position Embeddings (BE...",
-            "values": {
-              "in": "Day 32 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Learned Absolute Po....",
+            "caption": "Instead of calculating deterministic trigonometric waves, they.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "max_seq_len": {
+                "var": "max_seq_len",
+                "line": 3,
+                "hit": 1
+              },
+              "d_model": {
+                "var": "d_model",
+                "line": 3,
+                "hit": 1
+              },
+              "pos": {
+                "var": "pos",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "max_seq_len": "data",
+              "d_model": "data",
+              "pos": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "max_seq_len"
               ],
               [
-                "proc",
-                "out"
+                "max_seq_len",
+                "d_model"
+              ],
+              [
+                "d_model",
+                "pos"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Under this paradigm, the embedding for position pos is retrieved as.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
+              },
+              "max_seq_len": {
+                "var": "max_seq_len",
+                "line": 4,
+                "hit": 1
+              },
+              "d_model": {
+                "var": "d_model",
+                "line": 4,
+                "hit": 1
+              },
+              "pos": {
+                "var": "pos",
+                "line": 6,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "max_seq_len": "data",
+              "d_model": "data",
+              "pos": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "max_seq_len"
+              ],
+              [
+                "max_seq_len",
+                "d_model"
+              ],
+              [
+                "d_model",
+                "pos"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Learned Absolute Position Embeddi...",
+            "at": "say9",
+            "caption": "In the following simulation, we will construct a pure Python learned.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
+              },
+              "max_seq_len": {
+                "var": "max_seq_len",
+                "line": 6,
+                "hit": 1
+              },
+              "d_model": {
+                "var": "d_model",
+                "line": 6,
+                "hit": 1
+              },
+              "pos": {
+                "var": "pos",
+                "line": 6,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "max_seq_len": "ok",
+              "d_model": "ok",
+              "pos": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "max_seq_len"
               ],
               [
-                "proc",
-                "out"
+                "max_seq_len",
+                "d_model"
+              ],
+              [
+                "d_model",
+                "pos"
               ]
             ]
           }
@@ -347,110 +392,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Learned Absolute Position Embeddings (BERT, G... — Execution Pipeline",
+        "title": "Learned Absolute Position Embeddings (BERT, GPT-2) & Context Rig",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Learned Absolute Po...",
-            "tappable": true
+            "id": "max_seq_len",
+            "label": "max_seq_len"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "d_model",
+            "label": "d_model"
+          },
+          {
+            "id": "pos",
+            "label": "pos"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Learned Absolute Position Embeddings (BE...",
-            "values": {
-              "in": "Day 32 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Learned Absolute Po....",
+            "caption": "Instead of calculating deterministic trigonometric waves, they.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": "<LearnedPositionEmbeddingTable>",
+              "max_seq_len": "512",
+              "d_model": "4",
+              "pos": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "max_seq_len": "data",
+              "d_model": "data",
+              "pos": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "max_seq_len"
               ],
               [
-                "proc",
-                "out"
+                "max_seq_len",
+                "d_model"
+              ],
+              [
+                "d_model",
+                "pos"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Under this paradigm, the embedding for position pos is retrieved as.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": "<LearnedPositionEmbeddingTable>",
+              "max_seq_len": "512",
+              "d_model": "4",
+              "pos": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "max_seq_len": "data",
+              "d_model": "data",
+              "pos": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "max_seq_len"
+              ],
+              [
+                "max_seq_len",
+                "d_model"
+              ],
+              [
+                "d_model",
+                "pos"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Learned Absolute Position Embeddi...",
+            "at": "say9",
+            "caption": "In the following simulation, we will construct a pure Python learned.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": "<LearnedPositionEmbeddingTable>",
+              "max_seq_len": "512",
+              "d_model": "4",
+              "pos": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "max_seq_len": "ok",
+              "d_model": "ok",
+              "pos": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "max_seq_len"
               ],
               [
-                "proc",
-                "out"
+                "max_seq_len",
+                "d_model"
+              ],
+              [
+                "d_model",
+                "pos"
               ]
             ]
           }
@@ -461,223 +509,106 @@
       "partTitle": "Rotary Position Embedding (RoPE): 2D Complex Rotation Physics",
       "codeHash": "4be05063ebd9627734c427687e75477a28b255c9ff9395fdd29b687e7606aed3",
       "spec": {
-        "template": "flow",
-        "title": "Rotary Position Embedding (RoPE): 2D Complex ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Rotary Position Emb...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Rotary Position Embedding (RoPE): 2D Complex Rotation Physics",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Rotary Position Embedding (RoPE).",
-            "values": {
-              "in": "Day 32 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Rotary Position Emb....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "The limitations of both absolute sinusoids (which dilute through deep.",
+            "items": {
+              "var": "freqs",
+              "line": 22,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The foundational thesis of RoPE is that positional information should not.",
+            "items": {
+              "var": "freqs",
+              "line": 10,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Rotary Position Embedding (RoPE):...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "In the following code block, we will implement pure Python Rotary Position.",
+            "items": {
+              "var": "freqs",
+              "line": 15,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Rotary Position Embedding (RoPE): 2D Complex ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Rotary Position Emb...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Rotary Position Embedding (RoPE): 2D Complex Rotation Physics",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Rotary Position Embedding (RoPE): 2D Com...",
-            "values": {
-              "in": "Day 32 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Rotary Position Emb....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The limitations of both absolute sinusoids (which dilute through deep.",
+            "items": [
+              "1",
+              "0.01"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The foundational thesis of RoPE is that positional information should not.",
+            "items": [
+              "1",
+              "0.01"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Rotary Position Embedding (RoPE):...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following code block, we will implement pure Python Rotary Position.",
+            "items": [
+              "1",
+              "0.01"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -687,223 +618,112 @@
       "partTitle": "Attention with Linear Biases (ALiBi): Slope Biases & Train-Short-Test-Long Extrapolation",
       "codeHash": "831463d2f705274d24cdf49dae6ba0c157754a0eb48bccd6d1e24f998966832d",
       "spec": {
-        "template": "flow",
-        "title": "Attention with Linear Biases (ALiBi): Slope B... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Attention with Line...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Attention with Linear Biases (ALiBi): Slope Biases & Train-Short",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Attention with Linear Biases (ALiBi): Sl...",
-            "values": {
-              "in": "Day 32 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Attention with Line....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "While Rotary Position Embeddings (RoPE) revolutionized relative positional.",
+            "items": {
+              "var": "slopes",
+              "line": 27,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The philosophical premise of ALiBi is disarming in its simplicity.",
+            "items": {
+              "var": "slopes",
+              "line": 30,
+              "hit": 5
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Attention with Linear Biases (ALi...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "In our code implementation below, we will construct a pure Python ALiBi.",
+            "items": {
+              "var": "slopes",
+              "line": 31,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Attention with Linear Biases (ALiBi): Slope B... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Attention with Line...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Attention with Linear Biases (ALiBi): Slope Biases & Train-Short",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Attention with Linear Biases (ALiBi): Sl...",
-            "values": {
-              "in": "Day 32 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Attention with Line....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While Rotary Position Embeddings (RoPE) revolutionized relative positional.",
+            "items": [
+              "0.25",
+              "0.0625",
+              "0.015625",
+              "0.00390625"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The philosophical premise of ALiBi is disarming in its simplicity.",
+            "items": [
+              "0.25",
+              "0.0625",
+              "0.015625",
+              "0.00390625"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Attention with Linear Biases (ALi...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In our code implementation below, we will construct a pure Python ALiBi.",
+            "items": [
+              "0.25",
+              "0.0625",
+              "0.015625",
+              "0.00390625"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -913,223 +733,112 @@
       "partTitle": "Comparative Analysis: RoPE vs ALiBi in Foundation Model Engineering",
       "codeHash": "fa179aa69a4927e897425fdec42e72c6e98901cd0f87db4fc5eaccf3f80adb60",
       "spec": {
-        "template": "flow",
-        "title": "Comparative Analysis: RoPE vs ALiBi in Founda... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Comparative Analysi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Comparative Analysis: RoPE vs ALiBi in Foundation Model Engineer",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Comparative Analysis: RoPE vs ALiBi in F...",
-            "values": {
-              "in": "Day 32 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Comparative Analysi....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Having analyzed both Rotary Position Embeddings (RoPE) and Attention.",
+            "items": {
+              "var": "q_sem",
+              "line": 13,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "To understand why RoPE triumphed over ALiBi, we must examine.",
+            "items": {
+              "var": "q_sem",
+              "line": 21,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Comparative Analysis: RoPE vs ALi...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "In the following comparative script, we will simulate a 'needle in.",
+            "items": {
+              "var": "q_sem",
+              "line": 26,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Comparative Analysis: RoPE vs ALiBi in Founda... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Comparative Analysi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Comparative Analysis: RoPE vs ALiBi in Foundation Model Engineer",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Comparative Analysis: RoPE vs ALiBi in F...",
-            "values": {
-              "in": "Day 32 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Comparative Analysi....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having analyzed both Rotary Position Embeddings (RoPE) and Attention.",
+            "items": [
+              "2",
+              "2",
+              "2",
+              "2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand why RoPE triumphed over ALiBi, we must examine.",
+            "items": [
+              "2",
+              "2",
+              "2",
+              "2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Comparative Analysis: RoPE vs ALi...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following comparative script, we will simulate a 'needle in.",
+            "items": [
+              "2",
+              "2",
+              "2",
+              "2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

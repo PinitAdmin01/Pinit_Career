@@ -2,269 +2,500 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 49,
-  "promptSha": "538399fc369205a490552a3d450ea81147da7a51067982ca7c3ebe7be3573d60",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Bloom Filters & Sparse Indexes for Zero-Disk-Seek Key Lookups — Foundations & Mathematical Invariants",
-      "codeHash": "53f210e6550672c7df83ee5e02ef24b986679b34fdfc53616d1532cdb40d6b80",
+      "partTitle": "Eliminating Wasted SSTable Disk Reads on Non-Existent Keys",
+      "codeHash": "754cd05c96942ddf04a9968da7d934dcf70f60c2d22a5a6e5bc0d0f3365b23dd",
       "spec": {
         "template": "flow",
-        "title": "Bloom Filters & Sparse Indexes for Zero-Disk-Seek Key Lookups — Founda",
+        "title": "Eliminating Wasted SSTable Disk Reads on Non-Existent Keys",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "m_bits",
+            "label": "m_bits"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "k_hashes",
+            "label": "k_hashes"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "bf",
+            "label": "bf"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Even with clean sorted SSTables, LSM-Tree reads suffer a brutal worst case.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
+              },
+              "m_bits": {
+                "var": "m_bits",
+                "line": 5,
+                "hit": 1
+              },
+              "k_hashes": {
+                "var": "k_hashes",
+                "line": 5,
+                "hit": 1
+              },
+              "bf": {
+                "var": "bf",
+                "line": 24,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "m_bits": "data",
+              "k_hashes": "data",
+              "bf": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "m_bits"
+              ],
+              [
+                "m_bits",
+                "k_hashes"
+              ],
+              [
+                "k_hashes",
+                "bf"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Two lightweight per-SSTable structures held pinned in RAM eliminate nearly.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "m_bits": {
+                "var": "m_bits",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "k_hashes": {
+                "var": "k_hashes",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "bf": {
+                "var": "bf",
+                "line": 25,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "m_bits": "data",
+              "k_hashes": "data",
+              "bf": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "m_bits"
+              ],
+              [
+                "m_bits",
+                "k_hashes"
+              ],
+              [
+                "k_hashes",
+                "bf"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Build an exact bit-array Bloom Filter cleanly using stdlib hashlib digests.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "m_bits": {
+                "var": "m_bits",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "k_hashes": {
+                "var": "k_hashes",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "bf": {
+                "var": "bf",
+                "line": 25,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "m_bits": "ok",
+              "k_hashes": "ok",
+              "bf": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "m_bits"
+              ],
+              [
+                "m_bits",
+                "k_hashes"
+              ],
+              [
+                "k_hashes",
+                "bf"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Bloom Filters & Sparse Indexes for Zero-Disk-Seek Key Lookups — Founda",
+        "title": "Eliminating Wasted SSTable Disk Reads on Non-Existent Keys",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "m_bits",
+            "label": "m_bits"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "k_hashes",
+            "label": "k_hashes"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "bf",
+            "label": "bf"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Even with clean sorted SSTables, LSM-Tree reads suffer a brutal worst case.",
+            "values": {
+              "self": "<BloomFilter>",
+              "m_bits": "512",
+              "k_hashes": "5",
+              "bf": "<BloomFilter>"
+            },
+            "tones": {
+              "self": "data",
+              "m_bits": "data",
+              "k_hashes": "data",
+              "bf": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "m_bits"
+              ],
+              [
+                "m_bits",
+                "k_hashes"
+              ],
+              [
+                "k_hashes",
+                "bf"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Two lightweight per-SSTable structures held pinned in RAM eliminate nearly.",
+            "values": {
+              "self": "<BloomFilter>",
+              "m_bits": "512",
+              "k_hashes": "5",
+              "bf": "<BloomFilter>"
+            },
+            "tones": {
+              "self": "data",
+              "m_bits": "data",
+              "k_hashes": "data",
+              "bf": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "m_bits"
+              ],
+              [
+                "m_bits",
+                "k_hashes"
+              ],
+              [
+                "k_hashes",
+                "bf"
+              ]
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Build an exact bit-array Bloom Filter cleanly using stdlib hashlib digests.",
+            "values": {
+              "self": "<BloomFilter>",
+              "m_bits": "512",
+              "k_hashes": "5",
+              "bf": "<BloomFilter>"
+            },
+            "tones": {
+              "self": "ok",
+              "m_bits": "ok",
+              "k_hashes": "ok",
+              "bf": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "m_bits"
+              ],
+              [
+                "m_bits",
+                "k_hashes"
+              ],
+              [
+                "k_hashes",
+                "bf"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Optimal Bit Sizing (m) & Hash Count (k) Formulas",
+      "codeHash": "c75c62025be2b6e465d9c36643a9fbefd447b67b5e29b1149dba441ae8a42867",
+      "spec": {
+        "template": "states",
+        "title": "Optimal Bit Sizing (m) & Hash Count (k) Formulas",
+        "states": [
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": "p",
+            "label": "p"
+          },
+          {
+            "id": "n_keys",
+            "label": "n_keys"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Picking random bit sizes or hash counts ruins Bloom efficiency.",
+            "currentState": "n",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Classic information theory gives exact closed-form sizing equations.",
+            "currentState": "p",
+            "transition": {
+              "from": "n",
+              "to": "p",
+              "label": {
+                "var": "p",
+                "line": 15,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say6",
+            "caption": "Compute optimal `m`, `k`, and double-hashing speed optimization cleanly below.",
+            "currentState": "n_keys",
+            "transition": {
+              "from": "p",
+              "to": "n_keys",
+              "label": {
+                "var": "n_keys",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Optimal Bit Sizing (m) & Hash Count (k) Formulas",
+        "states": [
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": "p",
+            "label": "p"
+          },
+          {
+            "id": "n_keys",
+            "label": "n_keys"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Picking random bit sizes or hash counts ruins Bloom efficiency.",
+            "currentState": "n",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Classic information theory gives exact closed-form sizing equations.",
+            "currentState": "p",
+            "transition": {
+              "from": "n",
+              "to": "p",
+              "label": "0.01"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say6",
+            "caption": "Compute optimal `m`, `k`, and double-hashing speed optimization cleanly below.",
+            "currentState": "n_keys",
+            "transition": {
+              "from": "p",
+              "to": "n_keys",
+              "label": "1000"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Sparse Indexes & Fence Pointers for Single-Block SSD Seeks",
+      "codeHash": "fd960c3c9ff02c9e6a120b8546ef451aa887d2226df9002f2abac84fd2a3cf98",
+      "spec": {
+        "template": "cells",
+        "title": "Sparse Indexes & Fence Pointers for Single-Block SSD Seeks",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Once a Bloom filter confirms key `target` might exist inside a 512MB.",
+            "items": {
+              "var": "sparse_keys",
+              "line": 10,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Because every SSTable stores keys strictly in lexicographical sorted order.",
+            "items": {
+              "var": "sparse_keys",
+              "line": 11,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "caption": "Implement sparse block fence indexing (`build_sparse_index` +.",
+            "items": {
+              "var": "sparse_keys",
+              "line": 11,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "cells",
+        "title": "Sparse Indexes & Fence Pointers for Single-Block SSD Seeks",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Once a Bloom filter confirms key `target` might exist inside a 512MB.",
+            "items": [
+              "'k010'",
+              "'k018'"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Because every SSTable stores keys strictly in lexicographical sorted order.",
+            "items": [
+              "'k010'",
+              "'k018'"
+            ],
+            "pointers": [
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Implement sparse block fence indexing (`build_sparse_index` +.",
+            "items": [
+              "'k010'",
+              "'k018'"
+            ],
+            "pointers": [
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -272,1065 +503,329 @@
       }
     },
     {
-      "partTitle": "Bloom Filters & Sparse Indexes for Zero-Disk-Seek Key Lookups — Core Algorithm & State Representation",
-      "codeHash": "a6c60f43edaa6b9deee29e65625ffdd23007293368f1cbe0b406fb7138c4c969",
+      "partTitle": "Prefix Bloom Filters & Range-Scan Caveats",
+      "codeHash": "fd83837248cf73ddf1376802b1554897489fe59ee7218c9f1137cbaa61aaf3d8",
       "spec": {
-        "template": "flow",
-        "title": "Bloom Filters & Sparse Indexes for Zero-Disk-Seek Key Lookups — Core A",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Prefix Bloom Filters & Range-Scan Caveats",
+        "actors": [
+          "bits_with_acct42",
+          "sst_meta",
+          "full_prefix"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Pause on one major limitation of standard whole-key Bloom filters.",
+            "activeActor": "bits_with_acct42",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "bits_with_acct42",
+                "to": "sst_meta",
+                "label": {
+                  "var": "bits_with_acct42",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "sst_meta",
+                "to": "full_prefix",
+                "label": {
+                  "var": "sst_meta",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Think clearlywhy CANNOT a standard full-key Bloom filter skip SSTables.",
+            "activeActor": "sst_meta",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "bits_with_acct42",
+                "to": "sst_meta",
+                "label": {
+                  "var": "bits_with_acct42",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "sst_meta",
+                "to": "full_prefix",
+                "label": {
+                  "var": "sst_meta",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Combine range `[min_key, max_key]` bounds with Prefix Bloom checks below.",
+            "activeActor": "full_prefix",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "bits_with_acct42",
+                "to": "sst_meta",
+                "label": {
+                  "var": "bits_with_acct42",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "sst_meta",
+                "to": "full_prefix",
+                "label": {
+                  "var": "sst_meta",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Bloom Filters & Sparse Indexes for Zero-Disk-Seek Key Lookups — Core A",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Prefix Bloom Filters & Range-Scan Caveats",
+        "actors": [
+          "bits_with_acct42",
+          "sst_meta",
+          "full_prefix"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Pause on one major limitation of standard whole-key Bloom filters.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "bits_with_acct42",
+                "to": "sst_meta",
+                "label": "[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "sst_meta",
+                "to": "full_prefix",
+                "label": "{'min_key': 'acct:01|2026', 'max_key': …",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "bits_with_acct42"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Think clearlywhy CANNOT a standard full-key Bloom filter skip SSTables.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "bits_with_acct42",
+                "to": "sst_meta",
+                "label": "[0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "sst_meta",
+                "to": "full_prefix",
+                "label": "{'min_key': 'acct:01|2026', 'max_key': …",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "sst_meta"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Combine range `[min_key, max_key]` bounds with Prefix Bloom checks below.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "bits_with_acct42",
+                "to": "sst_meta",
+                "label": "[0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "sst_meta",
+                "to": "full_prefix",
+                "label": "{'min_key': 'acct:01|2026', 'max_key': …",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "full_prefix"
           }
         ]
       }
     },
     {
-      "partTitle": "Bloom Filters & Sparse Indexes for Zero-Disk-Seek Key Lookups — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "c8e571dd1a4b8ab64576d402d6101e0604e0de64d59ee0bb9902a82ecf943a87",
+      "partTitle": "End-to-End I/O Seek Savings: Bloom + Sparse Benchmark",
+      "codeHash": "92543baf763b831a5cbd8d743e4a0b62397cb94da864a9c72a10ffaa0b650738",
       "spec": {
-        "template": "flow",
-        "title": "Bloom Filters & Sparse Indexes for Zero-Disk-Seek Key Lookups — Throug",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "End-to-End I/O Seek Savings: Bloom + Sparse Benchmark",
+        "actors": [
+          "pairs",
+          "block_size",
+          "fp_bits"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Put both indexing layers together inside a complete SSTable Reader.",
+            "activeActor": "pairs",
+            "messages": [
+              {
+                "from": "pairs",
+                "to": "block_size",
+                "label": {
+                  "var": "pairs",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "block_size",
+                "to": "fp_bits",
+                "label": {
+                  "var": "block_size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Track exact disk block reads executed **without filters** (every negative.",
+            "activeActor": "block_size",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "pairs",
+                "to": "block_size",
+                "label": {
+                  "var": "pairs",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "block_size",
+                "to": "fp_bits",
+                "label": {
+                  "var": "block_size",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "caption": "Execute the full 8-SSTable comparative lookup benchmark below.",
+            "activeActor": "fp_bits",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "pairs",
+                "to": "block_size",
+                "label": {
+                  "var": "pairs",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "block_size",
+                "to": "fp_bits",
+                "label": {
+                  "var": "block_size",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Bloom Filters & Sparse Indexes for Zero-Disk-Seek Key Lookups — Throug",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "End-to-End I/O Seek Savings: Bloom + Sparse Benchmark",
+        "actors": [
+          "pairs",
+          "block_size",
+          "fp_bits"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Put both indexing layers together inside a complete SSTable Reader.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "pairs",
+                "to": "block_size",
+                "label": "[['k0_000', 'v'], ['k0_001', 'v'], ['k0…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "block_size",
+                "to": "fp_bits",
+                "label": "8",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "pairs"
+          },
+          {
+            "at": "say2",
+            "caption": "Track exact disk block reads executed **without filters** (every negative.",
+            "messages": [
+              {
+                "from": "pairs",
+                "to": "block_size",
+                "label": "[['k0_000', 'v'], ['k0_001', 'v'], ['k0…",
+                "tone": "data"
+              },
+              {
+                "from": "block_size",
+                "to": "fp_bits",
+                "label": "8",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "block_size"
           },
           {
             "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "caption": "Execute the full 8-SSTable comparative lookup benchmark below.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "pairs",
+                "to": "block_size",
+                "label": "[['k0_000', 'v'], ['k0_001', 'v'], ['k0…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "block_size",
+                "to": "fp_bits",
+                "label": "8",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Bloom Filters & Sparse Indexes for Zero-Disk-Seek Key Lookups — Resilience Guardrails & Failure Recovery",
-      "codeHash": "dcdc31b96f25505d66734360ae7841f61f710718985e23d962a7d02b2ca40f2a",
-      "spec": {
-        "template": "flow",
-        "title": "Bloom Filters & Sparse Indexes for Zero-Disk-Seek Key Lookups — Resili",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Bloom Filters & Sparse Indexes for Zero-Disk-Seek Key Lookups — Resili",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Bloom Filters & Sparse Indexes for Zero-Disk-Seek Key Lookups — Production Telemetry & Verification Audit",
-      "codeHash": "6f38d8ae13af6f6e6b6d880dd497db8b74c175713ee9aa7b9baa00e92bcd5bcd",
-      "spec": {
-        "template": "flow",
-        "title": "Bloom Filters & Sparse Indexes for Zero-Disk-Seek Key Lookups — Produc",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Bloom Filters & Sparse Indexes for Zero-Disk-Seek Key Lookups — Produc",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "fp_bits"
           }
         ]
       }

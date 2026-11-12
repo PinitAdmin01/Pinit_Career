@@ -2,1335 +2,883 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 42,
-  "promptSha": "57d3a385c1284c48b91cefd19f792c0910a68e8456ae6ea0afd27ffa75c425fa",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Two-Phase Commit (2PC) Coordinator Recovery & Blocking Hazard Analysis — Foundations & Mathematical Invariants",
-      "codeHash": "254397f3cea208e1d7e2f4b03633835b20b707784e2c30268919111facfb0071",
+      "partTitle": "Two-Phase Commit Prepare/Decision Protocol & WAL Durability",
+      "codeHash": "3c8c749c64728d58c355fbea7c427e7a4e832f3ff75290ec2cae681cca874181",
       "spec": {
-        "template": "flow",
-        "title": "Two-Phase Commit (PC) Coordinator Recovery & Blocking Hazard Analysis ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Two-Phase Commit Prepare/Decision Protocol & WAL Durability",
+        "actors": [
+          "coord_wal",
+          "self",
+          "pid"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cross-shard transactions spanning independent storage partitions (for.",
+            "activeActor": "coord_wal",
+            "messages": [
+              {
+                "from": "coord_wal",
+                "to": "self",
+                "label": {
+                  "var": "coord_wal",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "pid",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Classic Two-Phase Commit (2PC) splits coordination into a strict voting.",
+            "activeActor": "self",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "coord_wal",
+                "to": "self",
+                "label": {
+                  "var": "coord_wal",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "pid",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Trace how inspect updates backed during execution.",
+            "activeActor": "pid",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "coord_wal",
+                "to": "self",
+                "label": {
+                  "var": "coord_wal",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "self",
+                "to": "pid",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
+        "template": "sequence",
+        "title": "Two-Phase Commit Prepare/Decision Protocol & WAL Durability",
+        "actors": [
+          "coord_wal",
+          "self",
+          "pid"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Cross-shard transactions spanning independent storage partitions (for.",
+            "messages": [
+              {
+                "from": "coord_wal",
+                "to": "self",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "pid",
+                "label": "<Participant>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "coord_wal"
+          },
+          {
+            "at": "say2",
+            "caption": "Classic Two-Phase Commit (2PC) splits coordination into a strict voting.",
+            "messages": [
+              {
+                "from": "coord_wal",
+                "to": "self",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "pid",
+                "label": "<Participant>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
+            "at": "say7",
+            "caption": "Trace how inspect updates backed during execution.",
+            "messages": [
+              {
+                "from": "coord_wal",
+                "to": "self",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "pid",
+                "label": "<Participant>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "pid"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "The Blocking Hazard: Prepared Cohorts Trapped Under Coordinator Crash",
+      "codeHash": "6f0b964fb9825259889f2cd39a6d748ffbbecceb9f4575a4973ba187262b61c7",
+      "spec": {
         "template": "flow",
-        "title": "Two-Phase Commit (PC) Coordinator Recovery & Blocking Hazard Analysis ",
+        "title": "The Blocking Hazard: Prepared Cohorts Trapped Under Coordinator ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "inquiring_pid",
+            "label": "inquiring_pid"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "peer_states",
+            "label": "peer_states"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "pid",
+            "label": "pid"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "st",
+            "label": "st"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Now walk into the fatal Achilles' heel of standard 2PC.",
+            "values": {
+              "inquiring_pid": {
+                "var": "inquiring_pid",
+                "line": 3,
+                "hit": 1
+              },
+              "peer_states": {
+                "var": "peer_states",
+                "line": 3,
+                "hit": 1
+              },
+              "pid": {
+                "var": "pid",
+                "line": 3,
+                "hit": 1
+              },
+              "st": {
+                "var": "st",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "inquiring_pid": "data",
+              "peer_states": "data",
+              "pid": "data",
+              "st": "data"
+            },
+            "arrows": [
+              [
+                "inquiring_pid",
+                "peer_states"
+              ],
+              [
+                "peer_states",
+                "pid"
+              ],
+              [
+                "pid",
+                "st"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Trace how examine updates shard during execution.",
+            "values": {
+              "inquiring_pid": {
+                "var": "inquiring_pid",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "peer_states": {
+                "var": "peer_states",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "pid": {
+                "var": "pid",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "st": {
+                "var": "st",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "inquiring_pid": "data",
+              "peer_states": "data",
+              "pid": "data",
+              "st": "data"
+            },
+            "arrows": [
+              [
+                "inquiring_pid",
+                "peer_states"
+              ],
+              [
+                "peer_states",
+                "pid"
+              ],
+              [
+                "pid",
+                "st"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Demonstrate both cooperative termination resolution and true.",
+            "values": {
+              "inquiring_pid": {
+                "var": "inquiring_pid",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "peer_states": {
+                "var": "peer_states",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "pid": {
+                "var": "pid",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "st": {
+                "var": "st",
+                "line": 3,
+                "hit": 2
               }
+            },
+            "tones": {
+              "inquiring_pid": "ok",
+              "peer_states": "ok",
+              "pid": "ok",
+              "st": "ok"
+            },
+            "arrows": [
+              [
+                "inquiring_pid",
+                "peer_states"
+              ],
+              [
+                "peer_states",
+                "pid"
+              ],
+              [
+                "pid",
+                "st"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "The Blocking Hazard: Prepared Cohorts Trapped Under Coordinator ",
+        "nodes": [
+          {
+            "id": "inquiring_pid",
+            "label": "inquiring_pid"
+          },
+          {
+            "id": "peer_states",
+            "label": "peer_states"
+          },
+          {
+            "id": "pid",
+            "label": "pid"
+          },
+          {
+            "id": "st",
+            "label": "st"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Now walk into the fatal Achilles' heel of standard 2PC.",
+            "values": {
+              "inquiring_pid": "'p1'",
+              "peer_states": "{'p1': 'PREPARED', 'p2': 'COMMITTED'}",
+              "pid": "'p1'",
+              "st": "'PREPARED'"
+            },
+            "tones": {
+              "inquiring_pid": "data",
+              "peer_states": "data",
+              "pid": "data",
+              "st": "data"
+            },
+            "arrows": [
+              [
+                "inquiring_pid",
+                "peer_states"
+              ],
+              [
+                "peer_states",
+                "pid"
+              ],
+              [
+                "pid",
+                "st"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say2",
+            "caption": "Trace how examine updates shard during execution.",
+            "values": {
+              "inquiring_pid": "'p1'",
+              "peer_states": "{'p1': 'PREPARED', 'p2': 'COMMITTED'}",
+              "pid": "'p1'",
+              "st": "'PREPARED'"
+            },
+            "tones": {
+              "inquiring_pid": "data",
+              "peer_states": "data",
+              "pid": "data",
+              "st": "data"
+            },
+            "arrows": [
+              [
+                "inquiring_pid",
+                "peer_states"
+              ],
+              [
+                "peer_states",
+                "pid"
+              ],
+              [
+                "pid",
+                "st"
+              ]
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Demonstrate both cooperative termination resolution and true.",
+            "values": {
+              "inquiring_pid": "'p1'",
+              "peer_states": "{'p1': 'PREPARED', 'p2': 'COMMITTED'}",
+              "pid": "'p2'",
+              "st": "'COMMITTED'"
+            },
+            "tones": {
+              "inquiring_pid": "ok",
+              "peer_states": "ok",
+              "pid": "ok",
+              "st": "ok"
+            },
+            "arrows": [
+              [
+                "inquiring_pid",
+                "peer_states"
+              ],
+              [
+                "peer_states",
+                "pid"
+              ],
+              [
+                "pid",
+                "st"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Two-Phase Commit (2PC) Coordinator Recovery & Blocking Hazard Analysis — Core Algorithm & State Representation",
-      "codeHash": "3d58b50723bbd3c678f0ca718463cd994d650394752466bcbef2d70bf84e7707",
+      "partTitle": "Coordinator Crash-Recovery Replay & Presumed Abort",
+      "codeHash": "4fd12b43bd855555d7de9a6e4c3420f916ca313a239f1f6c686f00bb4ee24fef",
       "spec": {
-        "template": "flow",
-        "title": "Two-Phase Commit (PC) Coordinator Recovery & Blocking Hazard Analysis ",
-        "nodes": [
+        "template": "states",
+        "title": "Coordinator Crash-Recovery Replay & Presumed Abort",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "wal",
+            "label": "wal"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "wal_records",
+            "label": "wal_records"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "actions",
+            "label": "actions"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Once the crashed 2PC Coordinator reboots and reads its local WAL.",
+            "currentState": "wal",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say2",
+            "caption": "WAL holds `TX_START` AND `DECISION_COMMIT`, yet lacks `TX_END`.",
+            "currentState": "wal_records",
+            "transition": {
+              "from": "wal",
+              "to": "wal_records",
+              "label": {
+                "var": "wal_records",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+            "caption": "Walk through deterministic WAL recovery across all three crash windows below.",
+            "currentState": "actions",
+            "transition": {
+              "from": "wal_records",
+              "to": "actions",
+              "label": {
+                "var": "actions",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Two-Phase Commit (PC) Coordinator Recovery & Blocking Hazard Analysis ",
-        "nodes": [
+        "template": "states",
+        "title": "Coordinator Crash-Recovery Replay & Presumed Abort",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "wal",
+            "label": "wal"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "wal_records",
+            "label": "wal_records"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "actions",
+            "label": "actions"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Once the crashed 2PC Coordinator reboots and reads its local WAL.",
+            "currentState": "wal",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say2",
+            "caption": "WAL holds `TX_START` AND `DECISION_COMMIT`, yet lacks `TX_END`.",
+            "currentState": "wal_records",
+            "transition": {
+              "from": "wal",
+              "to": "wal_records",
+              "label": "{'tx1': ['START', 'DEC_COMMIT', 'END'],…"
+            },
+            "tone": "data"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "Walk through deterministic WAL recovery across all three crash windows below.",
+            "currentState": "actions",
+            "transition": {
+              "from": "wal_records",
+              "to": "actions",
+              "label": "{}"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Two-Phase Commit (2PC) Coordinator Recovery & Blocking Hazard Analysis — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "901c9fba50e329787adb6900a3ca403eb7d1965a42ab575ea43be65119a38c45",
+      "partTitle": "Overcoming Blocking via Consensus-Replicated Coordinators (Spanner/Cockroach)",
+      "codeHash": "9faf11358830f154b2cc2c9b2129af5e8b36db62a9d81193e690d6a7d9f88694",
       "spec": {
-        "template": "flow",
-        "title": "Two-Phase Commit (PC) Coordinator Recovery & Blocking Hazard Analysis ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Overcoming Blocking via Consensus-Replicated Coordinators (Spann",
+        "actors": [
+          "single_coord_alive",
+          "raft_alive_count",
+          "raft_size"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "How do modern geo-distributed SQL databases like Google Spanner, TiDB,.",
+            "activeActor": "single_coord_alive",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "single_coord_alive",
+                "to": "raft_alive_count",
+                "label": {
+                  "var": "single_coord_alive",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "raft_alive_count",
+                "to": "raft_size",
+                "label": {
+                  "var": "raft_alive_count",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "The breakthrough architectural shift.",
+            "activeActor": "raft_alive_count",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "single_coord_alive",
+                "to": "raft_alive_count",
+                "label": {
+                  "var": "single_coord_alive",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "raft_alive_count",
+                "to": "raft_size",
+                "label": {
+                  "var": "raft_alive_count",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Compare single-node vs Raft-replicated coordinator recovery availability below.",
+            "activeActor": "raft_size",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "single_coord_alive",
+                "to": "raft_alive_count",
+                "label": {
+                  "var": "single_coord_alive",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "raft_alive_count",
+                "to": "raft_size",
+                "label": {
+                  "var": "raft_alive_count",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Two-Phase Commit (PC) Coordinator Recovery & Blocking Hazard Analysis ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Overcoming Blocking via Consensus-Replicated Coordinators (Spann",
+        "actors": [
+          "single_coord_alive",
+          "raft_alive_count",
+          "raft_size"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "How do modern geo-distributed SQL databases like Google Spanner, TiDB,.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "single_coord_alive",
+                "to": "raft_alive_count",
+                "label": "False",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "raft_alive_count",
+                "to": "raft_size",
+                "label": "2",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "single_coord_alive"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "The breakthrough architectural shift.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "single_coord_alive",
+                "to": "raft_alive_count",
+                "label": "False",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "raft_alive_count",
+                "to": "raft_size",
+                "label": "2",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "raft_alive_count"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Compare single-node vs Raft-replicated coordinator recovery availability below.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "single_coord_alive",
+                "to": "raft_alive_count",
+                "label": "False",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "raft_alive_count",
+                "to": "raft_size",
+                "label": "2",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "raft_size"
           }
         ]
       }
     },
     {
-      "partTitle": "Two-Phase Commit (2PC) Coordinator Recovery & Blocking Hazard Analysis — Resilience Guardrails & Failure Recovery",
-      "codeHash": "40d945ee23076806dbfba37cd0cff4435c581bf4c8f450ac28a9aa0e63be838c",
+      "partTitle": "Lock Contention Hold Time & Deadlock/Abandonment Metrics",
+      "codeHash": "8b94390330d11f32dce1221a89ed221b260087c22d1ac086bbbd547feb4e4bf2",
       "spec": {
-        "template": "flow",
-        "title": "Two-Phase Commit (PC) Coordinator Recovery & Blocking Hazard Analysis ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Lock Contention Hold Time & Deadlock/Abandonment Metrics",
+        "actors": [
+          "requester_ts",
+          "holder_ts"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Even without coordinator crashes, classic 2PC exposes severe tail latency.",
+            "activeActor": "requester_ts",
+            "messages": [
+              {
+                "from": "requester_ts",
+                "to": "holder_ts",
+                "label": {
+                  "var": "requester_ts",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "holder_ts",
+                "to": "requester_ts",
+                "label": {
+                  "var": "holder_ts",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Little's Law applies directly to lock concurrency.",
+            "activeActor": "holder_ts",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "requester_ts",
+                "to": "holder_ts",
+                "label": {
+                  "var": "requester_ts",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "holder_ts",
+                "to": "requester_ts",
+                "label": {
+                  "var": "holder_ts",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say5",
+            "caption": "Implement Wound-Wait deterministic timestamp preemption below preventing.",
+            "activeActor": "holder_ts",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "requester_ts",
+                "to": "holder_ts",
+                "label": {
+                  "var": "requester_ts",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "holder_ts",
+                "to": "requester_ts",
+                "label": {
+                  "var": "holder_ts",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Two-Phase Commit (PC) Coordinator Recovery & Blocking Hazard Analysis ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Lock Contention Hold Time & Deadlock/Abandonment Metrics",
+        "actors": [
+          "requester_ts",
+          "holder_ts"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Even without coordinator crashes, classic 2PC exposes severe tail latency.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "requester_ts",
+                "to": "holder_ts",
+                "label": "100",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "holder_ts",
+                "to": "requester_ts",
+                "label": "200",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "requester_ts"
           },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Two-Phase Commit (2PC) Coordinator Recovery & Blocking Hazard Analysis — Production Telemetry & Verification Audit",
-      "codeHash": "184ce21b33e516e460ca4a1e010cb9d66815baa5dcbd40424be8152129d1296d",
-      "spec": {
-        "template": "flow",
-        "title": "Two-Phase Commit (PC) Coordinator Recovery & Blocking Hazard Analysis ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Little's Law applies directly to lock concurrency.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "requester_ts",
+                "to": "holder_ts",
+                "label": "100",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "holder_ts",
+                "to": "requester_ts",
+                "label": "200",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "holder_ts"
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "at": "say5",
+            "caption": "Implement Wound-Wait deterministic timestamp preemption below preventing.",
+            "messages": [
+              {
+                "from": "requester_ts",
+                "to": "holder_ts",
+                "label": "200",
+                "tone": "data"
+              },
+              {
+                "from": "holder_ts",
+                "to": "requester_ts",
+                "label": "100",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Two-Phase Commit (PC) Coordinator Recovery & Blocking Hazard Analysis ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "holder_ts"
           }
         ]
       }

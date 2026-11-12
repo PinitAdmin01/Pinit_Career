@@ -2,225 +2,169 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 27,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Lessons from disasters",
       "codeHash": "f4991aeb0c3b508acdcaa9ce747c223ddc724ab2c69e0f7ceb9d54ea9df7b4b7",
       "spec": {
-        "template": "table",
-        "title": "Machine speed execution losses and catastrophic runaway trading",
-        "columns": [
+        "template": "sequence",
+        "title": "Lessons from disasters",
+        "actors": [
           "orders_per_second",
           "loss_per_order",
-          "seconds",
-          "loss"
+          "seconds"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Software bugs can unleash millions of unintended orders in minutes.",
-            "rows": [
+            "caption": "Trace how august updates knight during execution.",
+            "activeActor": "orders_per_second",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "orders_per_second"
-                  },
-                  {
-                    "text": "loss_per_order"
-                  },
-                  {
-                    "text": "seconds"
-                  },
-                  {
-                    "text": "loss"
-                  }
-                ],
+                "from": "orders_per_second",
+                "to": "loss_per_order",
+                "label": {
+                  "var": "orders_per_second",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "loss_per_order",
+                "to": "seconds",
+                "label": {
+                  "var": "loss_per_order",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Machine speed execution requires automated safeguards to prevent disaster.",
-            "rows": [
+            "at": "say2",
+            "caption": "Fat-finger errors, such as typing an extra zero or entering a price in.",
+            "activeActor": "loss_per_order",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "orders_per_second"
-                  },
-                  {
-                    "text": "loss_per_order"
-                  },
-                  {
-                    "text": "seconds"
-                  },
-                  {
-                    "text": "loss"
-                  }
-                ],
-                "tone": "ok"
+                "from": "orders_per_second",
+                "to": "loss_per_order",
+                "label": {
+                  "var": "orders_per_second",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "1000"
-                  },
-                  {
-                    "text": "15.0"
-                  },
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "loss"
-                  }
-                ],
+                "from": "loss_per_order",
+                "to": "seconds",
+                "label": {
+                  "var": "loss_per_order",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Regulatory mandates require pre trade risk controls across all client orders.",
-            "rows": [
+            "at": "say8",
+            "caption": "Risk controls are not bureaucracy.",
+            "activeActor": "seconds",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "orders_per_second"
-                  },
-                  {
-                    "text": "loss_per_order"
-                  },
-                  {
-                    "text": "seconds"
-                  },
-                  {
-                    "text": "loss"
-                  }
-                ],
-                "tone": "ok"
+                "from": "orders_per_second",
+                "to": "loss_per_order",
+                "label": {
+                  "var": "orders_per_second",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "1000"
-                  },
-                  {
-                    "text": "15.0"
-                  },
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "loss"
-                  }
-                ],
+                "from": "loss_per_order",
+                "to": "seconds",
+                "label": {
+                  "var": "loss_per_order",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "1000"
-                  },
-                  {
-                    "text": "15.0"
-                  },
-                  {
-                    "text": "60"
-                  },
-                  {
-                    "text": "loss"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Machine speed execution losses and catastrophic runaway trading",
-        "columns": [
+        "template": "sequence",
+        "title": "Lessons from disasters",
+        "actors": [
           "orders_per_second",
           "loss_per_order",
-          "seconds",
-          "loss"
+          "seconds"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Software bugs can unleash millions of unintended orders in minutes.",
-            "rows": [
+            "caption": "Trace how august updates knight during execution.",
+            "messages": [
               {
-                "cells": [
-                  "orders_per_second",
-                  "loss_per_order",
-                  "seconds",
-                  "loss"
-                ],
+                "from": "orders_per_second",
+                "to": "loss_per_order",
+                "label": "1000",
+                "tone": "data"
+              },
+              {
+                "from": "loss_per_order",
+                "to": "seconds",
+                "label": "15",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "orders_per_second"
           },
           {
-            "at": "say3",
-            "caption": "Machine speed execution requires automated safeguards to prevent disaster.",
-            "rows": [
+            "at": "say2",
+            "caption": "Fat-finger errors, such as typing an extra zero or entering a price in.",
+            "messages": [
               {
-                "cells": [
-                  "orders_per_second",
-                  "loss_per_order",
-                  "seconds",
-                  "loss"
-                ],
-                "tone": "ok"
+                "from": "orders_per_second",
+                "to": "loss_per_order",
+                "label": "1000",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "1000",
-                  "15.0",
-                  "1",
-                  "loss"
-                ],
+                "from": "loss_per_order",
+                "to": "seconds",
+                "label": "15",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "loss_per_order"
           },
           {
-            "at": "say4",
-            "caption": "Regulatory mandates require pre trade risk controls across all client orders.",
-            "rows": [
+            "at": "say8",
+            "caption": "Risk controls are not bureaucracy.",
+            "messages": [
               {
-                "cells": [
-                  "orders_per_second",
-                  "loss_per_order",
-                  "seconds",
-                  "loss"
-                ],
-                "tone": "ok"
+                "from": "orders_per_second",
+                "to": "loss_per_order",
+                "label": "1000",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "1000",
-                  "15.0",
-                  "1",
-                  "loss"
-                ],
+                "from": "loss_per_order",
+                "to": "seconds",
+                "label": "15",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "1000",
-                  "15.0",
-                  "60",
-                  "loss"
-                ],
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "seconds"
           }
         ]
       }
@@ -229,190 +173,105 @@
       "partTitle": "Order-level checks",
       "codeHash": "95e601169ea6d63fbff6dadcfee72180bb54962a09d67962a7bd2e36d67b0fd4",
       "spec": {
-        "template": "table",
-        "title": "Order-level pre-trade boundary validation limits",
-        "columns": [
-          "max_qty",
-          "max_notional",
-          "collar_pct"
-        ],
+        "template": "cells",
+        "title": "Order-level checks",
         "steps": [
           {
             "at": "say1",
-            "caption": "Inline risk checks evaluate every outbound order before submission.",
-            "rows": [
+            "caption": "Pre-trade checks run on every order before it leaves the firm.",
+            "items": {
+              "var": "reasons",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "max_qty"
-                  },
-                  {
-                    "text": "max_notional"
-                  },
-                  {
-                    "text": "collar_pct"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Quantity and notional limits reject fat finger order sizes instantly.",
-            "rows": [
+            "caption": "A maximum quantity check stops orders with an extra zero.",
+            "items": {
+              "var": "reasons",
+              "line": 8,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "max_qty"
-                  },
-                  {
-                    "text": "max_notional"
-                  },
-                  {
-                    "text": "collar_pct"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "5000"
-                  },
-                  {
-                    "text": "250000"
-                  },
-                  {
-                    "text": "5"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Price collars protect against aberrant quotes relative to the market mid.",
-            "rows": [
+            "at": "say7",
+            "caption": "Other checks include restricted instruments, short-sale rules, duplicate.",
+            "items": {
+              "var": "reasons",
+              "line": 10,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "max_qty"
-                  },
-                  {
-                    "text": "max_notional"
-                  },
-                  {
-                    "text": "collar_pct"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "5000"
-                  },
-                  {
-                    "text": "250000"
-                  },
-                  {
-                    "text": "5"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "5000"
-                  },
-                  {
-                    "text": "250000"
-                  },
-                  {
-                    "text": "collar_pct"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Order-level pre-trade boundary validation limits",
-        "columns": [
-          "max_qty",
-          "max_notional",
-          "collar_pct"
-        ],
+        "template": "cells",
+        "title": "Order-level checks",
         "steps": [
           {
             "at": "say1",
-            "caption": "Inline risk checks evaluate every outbound order before submission.",
-            "rows": [
+            "caption": "Pre-trade checks run on every order before it leaves the firm.",
+            "items": [
+              "'MAX_QTY'",
+              "'MAX_NOTIONAL'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "max_qty",
-                  "max_notional",
-                  "collar_pct"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Quantity and notional limits reject fat finger order sizes instantly.",
-            "rows": [
+            "caption": "A maximum quantity check stops orders with an extra zero.",
+            "items": [
+              "'MAX_QTY'",
+              "'MAX_NOTIONAL'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "max_qty",
-                  "max_notional",
-                  "collar_pct"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "5000",
-                  "250000",
-                  "5"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Price collars protect against aberrant quotes relative to the market mid.",
-            "rows": [
+            "at": "say7",
+            "caption": "Other checks include restricted instruments, short-sale rules, duplicate.",
+            "items": [
+              "'MAX_QTY'",
+              "'MAX_NOTIONAL'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "max_qty",
-                  "max_notional",
-                  "collar_pct"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "5000",
-                  "250000",
-                  "5"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "5000",
-                  "250000",
-                  "collar_pct"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -423,164 +282,216 @@
       "partTitle": "Aggregate limits and kill switches",
       "codeHash": "3026487bba6b34cd0b257d8e90fd86029d95fd6df9f10f166556c30e960b834b",
       "spec": {
-        "template": "table",
-        "title": "Aggregate cumulative notional monitoring and kill switch logic",
-        "columns": [
-          "cap",
-          "total"
-        ],
+        "template": "bars",
+        "title": "Aggregate limits and kill switches",
         "steps": [
           {
             "at": "say1",
-            "caption": "Aggregating order volume detects systemic flooding across normal sizes.",
-            "rows": [
+            "caption": "Order-level checks miss problems that build up across many small orders.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "cap"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "ok"
+                "label": "cap",
+                "value": {
+                  "var": "cap",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Cumulative notional totals monitor daily position limits and exposure.",
-            "rows": [
+            "caption": "Aggregate limits track totals.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "cap"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
+                "label": "cap",
+                "value": {
+                  "var": "cap",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "150_000"
-                  },
-                  {
-                    "text": "0.0"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Kill switches halt trading activity when aggregate thresholds breach.",
-            "rows": [
+            "at": "say7",
+            "caption": "Once tripped, restarting should require a human decision.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "cap"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
+                "label": "cap",
+                "value": {
+                  "var": "cap",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "150_000"
-                  },
-                  {
-                    "text": "0.0"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "150_000"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "idle"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "qty",
+                "value": {
+                  "var": "qty",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Aggregate cumulative notional monitoring and kill switch logic",
-        "columns": [
-          "cap",
-          "total"
-        ],
+        "template": "bars",
+        "title": "Aggregate limits and kill switches",
         "steps": [
           {
             "at": "say1",
-            "caption": "Aggregating order volume detects systemic flooding across normal sizes.",
-            "rows": [
+            "caption": "Order-level checks miss problems that build up across many small orders.",
+            "bars": [
               {
-                "cells": [
-                  "cap",
-                  "total"
-                ],
-                "tone": "ok"
+                "label": "cap",
+                "value": 150000,
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "qty",
+                "value": 100,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Cumulative notional totals monitor daily position limits and exposure.",
-            "rows": [
+            "caption": "Aggregate limits track totals.",
+            "bars": [
               {
-                "cells": [
-                  "cap",
-                  "total"
-                ],
+                "label": "cap",
+                "value": 150000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "150_000",
-                  "0.0"
-                ],
+                "label": "total",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "qty",
+                "value": 100,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Kill switches halt trading activity when aggregate thresholds breach.",
-            "rows": [
+            "at": "say7",
+            "caption": "Once tripped, restarting should require a human decision.",
+            "bars": [
               {
-                "cells": [
-                  "cap",
-                  "total"
-                ],
+                "label": "cap",
+                "value": 150000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "150_000",
-                  "0.0"
-                ],
+                "label": "total",
+                "value": 50000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "150_000",
-                  "total"
-                ],
-                "tone": "idle"
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "qty",
+                "value": 100,
+                "tone": "ok"
               }
             ]
           }
@@ -591,165 +502,165 @@
       "partTitle": "Where the checks live",
       "codeHash": "46b2ebafebd96ddcd3c8ab1826431116ddf697ddd1a26e18ed0d6abbb8b7245a",
       "spec": {
-        "template": "table",
-        "title": "Layered defense architecture for pre-trade risk gating",
-        "columns": [
-          "qty",
-          "price"
+        "template": "flow",
+        "title": "Where the checks live",
+        "nodes": [
+          {
+            "id": "order",
+            "label": "order"
+          },
+          {
+            "id": "layers",
+            "label": "layers"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Layered defensive checks enforce risk boundaries at multiple points.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "qty"
-                  },
-                  {
-                    "text": "price"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Risk checks can run in several layers.",
+            "values": {
+              "order": {
+                "var": "order",
+                "line": 7,
+                "hit": 1
+              },
+              "layers": {
+                "var": "layers",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "order": "data",
+              "layers": "data"
+            },
+            "arrows": [
+              [
+                "order",
+                "layers"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Independent risk gateways isolate faults occurring inside algorithms.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "qty"
-                  },
-                  {
-                    "text": "price"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The strategy's own checks are fastest but share its bugs.",
+            "values": {
+              "order": {
+                "var": "order",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "2000"
-                  },
-                  {
-                    "text": "100.0"
-                  }
-                ],
-                "tone": "ok"
+              "layers": {
+                "var": "layers",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "order": "data",
+              "layers": "data"
+            },
+            "arrows": [
+              [
+                "order",
+                "layers"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Careful parameter governance limits administrative change approval.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "qty"
-                  },
-                  {
-                    "text": "price"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Never let a performance target justify removing a safety check.",
+            "values": {
+              "order": {
+                "var": "order",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "2000"
-                  },
-                  {
-                    "text": "100.0"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "9000"
-                  },
-                  {
-                    "text": "100.0"
-                  }
-                ],
-                "tone": "ok"
+              "layers": {
+                "var": "layers",
+                "line": 7,
+                "hit": 2
               }
+            },
+            "tones": {
+              "order": "ok",
+              "layers": "ok"
+            },
+            "arrows": [
+              [
+                "order",
+                "layers"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Layered defense architecture for pre-trade risk gating",
-        "columns": [
-          "qty",
-          "price"
+        "template": "flow",
+        "title": "Where the checks live",
+        "nodes": [
+          {
+            "id": "order",
+            "label": "order"
+          },
+          {
+            "id": "layers",
+            "label": "layers"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Layered defensive checks enforce risk boundaries at multiple points.",
-            "rows": [
-              {
-                "cells": [
-                  "qty",
-                  "price"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Risk checks can run in several layers.",
+            "values": {
+              "order": "{'qty': 2000, 'price': 100}",
+              "layers": "{'strategy': True, 'gateway': True}"
+            },
+            "tones": {
+              "order": "data",
+              "layers": "data"
+            },
+            "arrows": [
+              [
+                "order",
+                "layers"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Independent risk gateways isolate faults occurring inside algorithms.",
-            "rows": [
-              {
-                "cells": [
-                  "qty",
-                  "price"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "2000",
-                  "100.0"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The strategy's own checks are fastest but share its bugs.",
+            "values": {
+              "order": "{'qty': 2000, 'price': 100}",
+              "layers": "{'strategy': True, 'gateway': True}"
+            },
+            "tones": {
+              "order": "data",
+              "layers": "data"
+            },
+            "arrows": [
+              [
+                "order",
+                "layers"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Careful parameter governance limits administrative change approval.",
-            "rows": [
-              {
-                "cells": [
-                  "qty",
-                  "price"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "2000",
-                  "100.0"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "9000",
-                  "100.0"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Never let a performance target justify removing a safety check.",
+            "values": {
+              "order": "{'qty': 2000, 'price': 100}",
+              "layers": "{'strategy': True, 'gateway': True}"
+            },
+            "tones": {
+              "order": "ok",
+              "layers": "ok"
+            },
+            "arrows": [
+              [
+                "order",
+                "layers"
+              ]
             ]
           }
         ]
@@ -759,223 +670,133 @@
       "partTitle": "Testing the safety net",
       "codeHash": "b8d1b1ebe8e20e221a1805b3320aade08c692616ce0769d0715f707c615e32cb",
       "spec": {
-        "template": "flow",
-        "title": "Testing the safety net — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Testing the safety net",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Testing the safety net",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Testing the safety net [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Testing the safety net [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Risk controls that are never tested may fail when needed.",
+            "bars": [
+              {
+                "label": "cap",
+                "value": {
+                  "var": "cap",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "notional",
+                "value": {
+                  "var": "notional",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Unit tests cover each rule at, just below and just above its limit,.",
+            "bars": [
+              {
+                "label": "cap",
+                "value": {
+                  "var": "cap",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "notional",
+                "value": {
+                  "var": "notional",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Testing the safety net [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Knight Capital's failure was partly a deployment and testing failure.",
+            "bars": [
+              {
+                "label": "cap",
+                "value": {
+                  "var": "cap",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "notional",
+                "value": {
+                  "var": "notional",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Testing the safety net — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Testing the safety net",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Testing the safety net",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Testing the safety net [D27.P5.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Testing the safety net [D27.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Risk controls that are never tested may fail when needed.",
+            "bars": [
+              {
+                "label": "cap",
+                "value": 250000,
+                "tone": "data"
+              },
+              {
+                "label": "notional",
+                "value": 249999,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Unit tests cover each rule at, just below and just above its limit,.",
+            "bars": [
+              {
+                "label": "cap",
+                "value": 250000,
+                "tone": "ok"
+              },
+              {
+                "label": "notional",
+                "value": 249999,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Testing the safety net [D27.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Knight Capital's failure was partly a deployment and testing failure.",
+            "bars": [
+              {
+                "label": "cap",
+                "value": 250000,
+                "tone": "ok"
+              },
+              {
+                "label": "notional",
+                "value": 249999,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -986,110 +807,161 @@
       "codeHash": "3204718a1c4267b521f3d31f76ef1ce618be00fe92fd245adf7475cb032c7cc9",
       "spec": {
         "template": "flow",
-        "title": "Practice time: gate and switch — Execution Pipeline",
+        "title": "Practice time: gate and switch",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "timestamps_ms",
+            "label": "timestamps_ms"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: gate...",
-            "tappable": true
+            "id": "max_per_second",
+            "label": "max_per_second"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "window",
+            "label": "window"
+          },
+          {
+            "id": "decisions",
+            "label": "decisions"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: gate and switch [D.Psix.Sone].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: gate... [D.Psix.Stwo].",
+            "caption": "Pre_trade_check(order, limits, mid).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "timestamps_ms": {
+                "var": "timestamps_ms",
+                "line": 4,
+                "hit": 1
+              },
+              "max_per_second": {
+                "var": "max_per_second",
+                "line": 4,
+                "hit": 1
+              },
+              "window": {
+                "var": "window",
+                "line": 4,
+                "hit": 1
+              },
+              "decisions": {
+                "var": "decisions",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "timestamps_ms": "data",
+              "max_per_second": "data",
+              "window": "data",
+              "decisions": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "timestamps_ms",
+                "max_per_second"
               ],
               [
-                "proc",
-                "out"
+                "max_per_second",
+                "window"
+              ],
+              [
+                "window",
+                "decisions"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Return approved (True when there are no reasons) and the reasons in that order.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "timestamps_ms": {
+                "var": "timestamps_ms",
+                "line": 5,
+                "hit": 1
+              },
+              "max_per_second": {
+                "var": "max_per_second",
+                "line": 5,
+                "hit": 1
+              },
+              "window": {
+                "var": "window",
+                "line": 5,
+                "hit": 1
+              },
+              "decisions": {
+                "var": "decisions",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "timestamps_ms": "data",
+              "max_per_second": "data",
+              "window": "data",
+              "decisions": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "timestamps_ms",
+                "max_per_second"
+              ],
+              [
+                "max_per_second",
+                "window"
+              ],
+              [
+                "window",
+                "decisions"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: gate and switch.",
+            "at": "say7",
+            "caption": "Tomorrow applies all of this to a market that never closes and trades.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "timestamps_ms": {
+                "var": "timestamps_ms",
+                "line": 6,
+                "hit": 1
+              },
+              "max_per_second": {
+                "var": "max_per_second",
+                "line": 6,
+                "hit": 1
+              },
+              "window": {
+                "var": "window",
+                "line": 6,
+                "hit": 1
+              },
+              "decisions": {
+                "var": "decisions",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "timestamps_ms": "ok",
+              "max_per_second": "ok",
+              "window": "ok",
+              "decisions": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "timestamps_ms",
+                "max_per_second"
               ],
               [
-                "proc",
-                "out"
+                "max_per_second",
+                "window"
+              ],
+              [
+                "window",
+                "decisions"
               ]
             ]
           }
@@ -1097,110 +969,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: gate and switch — Execution Pipeline",
+        "title": "Practice time: gate and switch",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "timestamps_ms",
+            "label": "timestamps_ms"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: gate...",
-            "tappable": true
+            "id": "max_per_second",
+            "label": "max_per_second"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "window",
+            "label": "window"
+          },
+          {
+            "id": "decisions",
+            "label": "decisions"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: gate and switch [D27.P6.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: gate... [D27.P6.S2].",
+            "caption": "Pre_trade_check(order, limits, mid).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "timestamps_ms": "[0, 100, 200, 300, 900, 1100, 1250]",
+              "max_per_second": "3",
+              "window": "{'__other__': 'deque'}",
+              "decisions": "[]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "timestamps_ms": "data",
+              "max_per_second": "data",
+              "window": "data",
+              "decisions": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "timestamps_ms",
+                "max_per_second"
               ],
               [
-                "proc",
-                "out"
+                "max_per_second",
+                "window"
+              ],
+              [
+                "window",
+                "decisions"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P6.S3].",
+            "at": "say2",
+            "caption": "Return approved (True when there are no reasons) and the reasons in that order.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "timestamps_ms": "[0, 100, 200, 300, 900, 1100, 1250]",
+              "max_per_second": "3",
+              "window": "{'__other__': 'deque'}",
+              "decisions": "[]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "timestamps_ms": "data",
+              "max_per_second": "data",
+              "window": "data",
+              "decisions": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "timestamps_ms",
+                "max_per_second"
+              ],
+              [
+                "max_per_second",
+                "window"
+              ],
+              [
+                "window",
+                "decisions"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: gate and switch [D27.P6.S4].",
+            "at": "say7",
+            "caption": "Tomorrow applies all of this to a market that never closes and trades.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "timestamps_ms": "[0, 100, 200, 300, 900, 1100, 1250]",
+              "max_per_second": "3",
+              "window": "{'__other__': 'deque'}",
+              "decisions": "[]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "timestamps_ms": "ok",
+              "max_per_second": "ok",
+              "window": "ok",
+              "decisions": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "timestamps_ms",
+                "max_per_second"
               ],
               [
-                "proc",
-                "out"
+                "max_per_second",
+                "window"
+              ],
+              [
+                "window",
+                "decisions"
               ]
             ]
           }

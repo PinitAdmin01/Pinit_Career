@@ -2,144 +2,98 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 15,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The engine's flow",
       "codeHash": "8e687c5b72f5b8eae4c01a35ccfb69965a78f09ad162d00eba3ac3f6453b8db1",
       "spec": {
-        "template": "table",
-        "title": "Transaction engine stages from deduplication to key commit",
-        "columns": [
+        "template": "sequence",
+        "title": "The engine's flow",
+        "actors": [
+          "flow",
           "stage",
           "source"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An event arrives carrying an idempotency key.",
-            "rows": [
+            "caption": "Trace how event updates arrives during execution.",
+            "activeActor": "flow",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "dedupe"
-                  },
-                  {
-                    "text": "Day 13: drop events whose key is already committed"
-                  }
-                ],
+                "from": "flow",
+                "to": "stage",
+                "label": {
+                  "var": "flow",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "stage",
+                "to": "source",
+                "label": {
+                  "var": "stage",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "If a step fails compensate finished steps and send event to DLQ.",
-            "rows": [
+            "at": "say2",
+            "caption": "If the key was already processed, drop the event as a duplicate (Day 13).",
+            "activeActor": "stage",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "dedupe"
-                  },
-                  {
-                    "text": "Day 13: drop events whose key is already committed"
-                  }
-                ],
+                "from": "flow",
+                "to": "stage",
+                "label": {
+                  "var": "flow",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "stage",
+                "to": "source",
+                "label": {
+                  "var": "stage",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "saga steps"
-                  },
-                  {
-                    "text": "Day 11: run each step in order"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "compensate"
-                  },
-                  {
-                    "text": "Day 11: undo finished steps newest first"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "dead letter"
-                  },
-                  {
-                    "text": "Day 14: park the failed event with its error"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "On success record the key as COMMITTED so repeats are dropped.",
-            "rows": [
+            "at": "say7",
+            "caption": "Each part of this flow is small and already familiar.",
+            "activeActor": "source",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "dedupe"
-                  },
-                  {
-                    "text": "Day 13: drop events whose key is already committed"
-                  }
-                ],
-                "tone": "ok"
+                "from": "flow",
+                "to": "stage",
+                "label": {
+                  "var": "flow",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "saga steps"
-                  },
-                  {
-                    "text": "Day 11: run each step in order"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "compensate"
-                  },
-                  {
-                    "text": "Day 11: undo finished steps newest first"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "dead letter"
-                  },
-                  {
-                    "text": "Day 14: park the failed event with its error"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "commit key"
-                  },
-                  {
-                    "text": "Day 13: remember the key as COMMITTED"
-                  }
-                ],
+                "from": "stage",
+                "to": "source",
+                "label": {
+                  "var": "stage",
+                  "line": 8,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -147,100 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Transaction engine stages from deduplication to key commit",
-        "columns": [
+        "template": "sequence",
+        "title": "The engine's flow",
+        "actors": [
+          "flow",
           "stage",
           "source"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An event arrives carrying an idempotency key.",
-            "rows": [
+            "caption": "Trace how event updates arrives during execution.",
+            "messages": [
               {
-                "cells": [
-                  "dedupe",
-                  "Day 13: drop events whose key is already committed"
-                ],
+                "from": "flow",
+                "to": "stage",
+                "label": "[['dedupe', 'Day 13: drop events whose …",
+                "tone": "data"
+              },
+              {
+                "from": "stage",
+                "to": "source",
+                "label": "'dedupe'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "flow"
           },
           {
-            "at": "say5",
-            "caption": "If a step fails compensate finished steps and send event to DLQ.",
-            "rows": [
+            "at": "say2",
+            "caption": "If the key was already processed, drop the event as a duplicate (Day 13).",
+            "messages": [
               {
-                "cells": [
-                  "dedupe",
-                  "Day 13: drop events whose key is already committed"
-                ],
+                "from": "flow",
+                "to": "stage",
+                "label": "[['dedupe', 'Day 13: drop events whose …",
+                "tone": "data"
+              },
+              {
+                "from": "stage",
+                "to": "source",
+                "label": "'dedupe'",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "saga steps",
-                  "Day 11: run each step in order"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "compensate",
-                  "Day 11: undo finished steps newest first"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "dead letter",
-                  "Day 14: park the failed event with its error"
-                ],
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "stage"
           },
           {
-            "at": "say6",
-            "caption": "On success record the key as COMMITTED so repeats are dropped.",
-            "rows": [
+            "at": "say7",
+            "caption": "Each part of this flow is small and already familiar.",
+            "messages": [
               {
-                "cells": [
-                  "dedupe",
-                  "Day 13: drop events whose key is already committed"
-                ],
-                "tone": "ok"
+                "from": "flow",
+                "to": "stage",
+                "label": "[['dedupe', 'Day 13: drop events whose …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "saga steps",
-                  "Day 11: run each step in order"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "compensate",
-                  "Day 11: undo finished steps newest first"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "dead letter",
-                  "Day 14: park the failed event with its error"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "commit key",
-                  "Day 13: remember the key as COMMITTED"
-                ],
+                "from": "stage",
+                "to": "source",
+                "label": "'saga steps'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "source"
           }
         ]
       }
@@ -249,132 +173,160 @@
       "partTitle": "Dropping duplicates",
       "codeHash": "e1ca7db30a14a0a698c4696a40e41dc01d33e03fdfe3115157bd72c59f984a1e",
       "spec": {
-        "template": "compare",
-        "title": "Transaction idempotency check fresh processing versus duplicate drop",
-        "leftLabel": "First Arrival (Fresh)",
-        "rightLabel": "Duplicate Arrival",
+        "template": "sequence",
+        "title": "Dropping duplicates",
+        "actors": [
+          "store",
+          "event"
+        ],
         "steps": [
           {
             "at": "say1",
             "caption": "The store maps idempotency keys to their final state.",
-            "left": {
-              "code": "store key not present",
-              "result": {
-                "text": "COMMITTED"
+            "activeActor": "store",
+            "messages": [
+              {
+                "from": "store",
+                "to": "event",
+                "label": {
+                  "var": "store",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "store key already present",
-              "result": {
-                "text": "DUPLICATE_DROPPED"
-              },
-              "tone": "idle"
-            }
+              {
+                "from": "event",
+                "to": "store",
+                "label": {
+                  "var": "event",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Return DUPLICATE_DROPPED without running any step.",
-            "left": {
-              "code": "event runs cleanly",
-              "result": {
-                "text": "COMMITTED"
+            "caption": "Return DUPLICATE_DROPPED straight away, without running any step.",
+            "activeActor": "event",
+            "messages": [
+              {
+                "from": "store",
+                "to": "event",
+                "label": {
+                  "var": "store",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "skip execution immediately",
-              "result": {
-                "text": "DUPLICATE_DROPPED"
-              },
-              "tone": "idle"
-            }
+              {
+                "from": "event",
+                "to": "store",
+                "label": {
+                  "var": "event",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Unique key ensures only one copy can record COMMITTED.",
-            "left": {
-              "code": "first copy records committed",
-              "result": {
-                "text": "COMMITTED"
+            "at": "say7",
+            "caption": "The example sends the same event twice.",
+            "activeActor": "event",
+            "messages": [
+              {
+                "from": "store",
+                "to": "event",
+                "label": {
+                  "var": "store",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "second copy dropped",
-              "result": {
-                "text": "DUPLICATE_DROPPED"
-              },
-              "tone": "idle"
-            }
+              {
+                "from": "event",
+                "to": "store",
+                "label": {
+                  "var": "event",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Transaction idempotency check fresh processing versus duplicate drop",
-        "leftLabel": "First Arrival (Fresh)",
-        "rightLabel": "Duplicate Arrival",
+        "template": "sequence",
+        "title": "Dropping duplicates",
+        "actors": [
+          "store",
+          "event"
+        ],
         "steps": [
           {
             "at": "say1",
             "caption": "The store maps idempotency keys to their final state.",
-            "left": {
-              "code": "store key not present",
-              "result": "COMMITTED",
-              "tone": "ok",
-              "checks": [
-                "COMMITTED"
-              ]
-            },
-            "right": {
-              "code": "store key already present",
-              "result": "DUPLICATE_DROPPED",
-              "tone": "idle",
-              "checks": [
-                "DUPLICATE_DROPPED"
-              ]
-            }
+            "messages": [
+              {
+                "from": "store",
+                "to": "event",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "event",
+                "to": "store",
+                "label": "{'key': 'idemp_u42_order-7', 'amount': …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "store"
           },
           {
             "at": "say2",
-            "caption": "Return DUPLICATE_DROPPED without running any step.",
-            "left": {
-              "code": "event runs cleanly",
-              "result": "COMMITTED",
-              "tone": "ok",
-              "checks": [
-                "COMMITTED"
-              ]
-            },
-            "right": {
-              "code": "skip execution immediately",
-              "result": "DUPLICATE_DROPPED",
-              "tone": "idle",
-              "checks": [
-                "DUPLICATE_DROPPED"
-              ]
-            }
+            "caption": "Return DUPLICATE_DROPPED straight away, without running any step.",
+            "messages": [
+              {
+                "from": "store",
+                "to": "event",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "event",
+                "to": "store",
+                "label": "{'key': 'idemp_u42_order-7', 'amount': …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "event"
           },
           {
-            "at": "say4",
-            "caption": "Unique key ensures only one copy can record COMMITTED.",
-            "left": {
-              "code": "first copy records committed",
-              "result": "COMMITTED",
-              "tone": "ok",
-              "checks": [
-                "COMMITTED"
-              ]
-            },
-            "right": {
-              "code": "second copy dropped",
-              "result": "DUPLICATE_DROPPED",
-              "tone": "idle",
-              "checks": [
-                "DUPLICATE_DROPPED"
-              ]
-            }
+            "at": "say7",
+            "caption": "The example sends the same event twice.",
+            "messages": [
+              {
+                "from": "store",
+                "to": "event",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "event",
+                "to": "store",
+                "label": "{'key': 'idemp_u42_order-7', 'amount': …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "event"
           }
         ]
       }
@@ -383,132 +335,162 @@
       "partTitle": "The run_transaction function",
       "codeHash": "afbf0fe6c51517f880f27361a3e4a0e248988a6fee223e905df1a5ce1cdecb09",
       "spec": {
-        "template": "compare",
-        "title": "Transaction engine execution flow success versus compensated failure",
-        "leftLabel": "Successful Transaction",
-        "rightLabel": "Failed Step Compensated",
+        "template": "sequence",
+        "title": "The run_transaction function",
+        "actors": [
+          "log",
+          "store",
+          "dlq"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "If store has event key return DUPLICATE_DROPPED.",
-            "left": {
-              "code": "new key processed",
-              "result": {
-                "text": "COMMITTED"
+            "caption": "Run_transaction(event, store, steps, dlq).",
+            "activeActor": "log",
+            "messages": [
+              {
+                "from": "log",
+                "to": "store",
+                "label": {
+                  "var": "log",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "duplicate key dropped",
-              "result": {
-                "text": "DUPLICATE_DROPPED"
-              },
-              "tone": "idle"
-            }
+              {
+                "from": "store",
+                "to": "dlq",
+                "label": {
+                  "var": "store",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "If a step raises run compensate and return FAILED_COMPENSATED.",
-            "left": {
-              "code": "all steps finish cleanly",
-              "result": {
-                "text": "COMMITTED"
+            "caption": "Otherwise run each step's execute(), remembering finished steps.",
+            "activeActor": "store",
+            "messages": [
+              {
+                "from": "log",
+                "to": "store",
+                "label": {
+                  "var": "log",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "failed step appends to dlq",
-              "result": {
-                "text": "FAILED_COMPENSATED"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "store",
+                "to": "dlq",
+                "label": {
+                  "var": "store",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "If all steps succeed set key COMMITTED and return status.",
-            "left": {
-              "code": "reserve stock and charge card",
-              "result": {
-                "text": "COMMITTED"
+            "at": "say7",
+            "caption": "The example runs a successful order, a duplicate, and an order whose.",
+            "activeActor": "dlq",
+            "messages": [
+              {
+                "from": "log",
+                "to": "store",
+                "label": {
+                  "var": "log",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "undo finished steps in reverse",
-              "result": {
-                "text": "FAILED_COMPENSATED"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "store",
+                "to": "dlq",
+                "label": {
+                  "var": "store",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Transaction engine execution flow success versus compensated failure",
-        "leftLabel": "Successful Transaction",
-        "rightLabel": "Failed Step Compensated",
+        "template": "sequence",
+        "title": "The run_transaction function",
+        "actors": [
+          "log",
+          "store",
+          "dlq"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "If store has event key return DUPLICATE_DROPPED.",
-            "left": {
-              "code": "new key processed",
-              "result": "COMMITTED",
-              "tone": "ok",
-              "checks": [
-                "COMMITTED"
-              ]
-            },
-            "right": {
-              "code": "duplicate key dropped",
-              "result": "DUPLICATE_DROPPED",
-              "tone": "idle",
-              "checks": [
-                "DUPLICATE_DROPPED"
-              ]
-            }
+            "caption": "Run_transaction(event, store, steps, dlq).",
+            "messages": [
+              {
+                "from": "log",
+                "to": "store",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "store",
+                "to": "dlq",
+                "label": "{}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "log"
           },
           {
             "at": "say2",
-            "caption": "If a step raises run compensate and return FAILED_COMPENSATED.",
-            "left": {
-              "code": "all steps finish cleanly",
-              "result": "COMMITTED",
-              "tone": "ok",
-              "checks": [
-                "COMMITTED"
-              ]
-            },
-            "right": {
-              "code": "failed step appends to dlq",
-              "result": "FAILED_COMPENSATED",
-              "tone": "error",
-              "checks": [
-                "FAILED_COMPENSATED"
-              ]
-            }
+            "caption": "Otherwise run each step's execute(), remembering finished steps.",
+            "messages": [
+              {
+                "from": "log",
+                "to": "store",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "store",
+                "to": "dlq",
+                "label": "{}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "store"
           },
           {
-            "at": "say3",
-            "caption": "If all steps succeed set key COMMITTED and return status.",
-            "left": {
-              "code": "reserve stock and charge card",
-              "result": "COMMITTED",
-              "tone": "ok",
-              "checks": [
-                "COMMITTED"
-              ]
-            },
-            "right": {
-              "code": "undo finished steps in reverse",
-              "result": "FAILED_COMPENSATED",
-              "tone": "error",
-              "checks": [
-                "FAILED_COMPENSATED"
-              ]
-            }
+            "at": "say7",
+            "caption": "The example runs a successful order, a duplicate, and an order whose.",
+            "messages": [
+              {
+                "from": "log",
+                "to": "store",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "store",
+                "to": "dlq",
+                "label": "{}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "dlq"
           }
         ]
       }
@@ -517,224 +499,162 @@
       "partTitle": "Measuring duration",
       "codeHash": "fade56ccb3b826096637a8cb8ebcc7532b5041d0228ff8d180ebc1980a207058",
       "spec": {
-        "template": "flow",
-        "title": "Measuring duration — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Measuring duration",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Measuring duration",
+        "actors": [
+          "clock",
+          "durations",
+          "tx"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Measuring duration [D.Pfour.Sone].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Measuring duration [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Tx_duration(start_ms, end_ms) returns the time taken as a string like \"125ms\".",
+            "activeActor": "clock",
+            "messages": [
+              {
+                "from": "clock",
+                "to": "durations",
+                "label": {
+                  "var": "clock",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "durations",
+                "to": "tx",
+                "label": {
+                  "var": "durations",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Measure each transaction and each step.",
+            "activeActor": "durations",
+            "messages": [
+              {
+                "from": "clock",
+                "to": "durations",
+                "label": {
+                  "var": "clock",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "durations",
+                "to": "tx",
+                "label": {
+                  "var": "durations",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Measuring duration [D.Pfour.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example times three transactions with a fake clock.",
+            "activeActor": "tx",
+            "messages": [
+              {
+                "from": "clock",
+                "to": "durations",
+                "label": {
+                  "var": "clock",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "durations",
+                "to": "tx",
+                "label": {
+                  "var": "durations",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Measuring duration — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Measuring duration",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Measuring duration",
+        "actors": [
+          "clock",
+          "durations",
+          "tx"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Measuring duration [D15.P4.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Measuring duration [D15.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Tx_duration(start_ms, end_ms) returns the time taken as a string like \"125ms\".",
+            "messages": [
+              {
+                "from": "clock",
+                "to": "durations",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "data"
+              },
+              {
+                "from": "durations",
+                "to": "tx",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "clock"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Measure each transaction and each step.",
+            "messages": [
+              {
+                "from": "clock",
+                "to": "durations",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "data"
+              },
+              {
+                "from": "durations",
+                "to": "tx",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "durations"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Measuring duration [D15.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example times three transactions with a fake clock.",
+            "messages": [
+              {
+                "from": "clock",
+                "to": "durations",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "data"
+              },
+              {
+                "from": "durations",
+                "to": "tx",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "tx"
           }
         ]
       }
@@ -743,201 +663,277 @@
       "partTitle": "Testing every failure path",
       "codeHash": "438b182f2b8d1e43ff41fc56c7d33c44621c18c76bf546a5b6c6159d9c8bb6cf",
       "spec": {
-        "template": "table",
-        "title": "Transaction failure scenario table-driven test assertion cases",
-        "columns": [
-          "key",
-          "expected"
+        "template": "flow",
+        "title": "Testing every failure path",
+        "nodes": [
+          {
+            "id": "store",
+            "label": "store"
+          },
+          {
+            "id": "dlq",
+            "label": "dlq"
+          },
+          {
+            "id": "cases",
+            "label": "cases"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "A transaction engine must be tested on every path.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "new"
-                  },
-                  {
-                    "text": "COMMITTED"
-                  }
-                ],
-                "tone": "ok"
+            "values": {
+              "store": {
+                "var": "store",
+                "line": 13,
+                "hit": 1
+              },
+              "dlq": {
+                "var": "dlq",
+                "line": 13,
+                "hit": 1
+              },
+              "cases": {
+                "var": "cases",
+                "line": 14,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 20,
+                "hit": 1
               }
+            },
+            "tones": {
+              "store": "data",
+              "dlq": "data",
+              "cases": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "store",
+                "dlq"
+              ],
+              [
+                "dlq",
+                "cases"
+              ],
+              [
+                "cases",
+                "key"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Write each test as a table row with expected status.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "new"
-                  },
-                  {
-                    "text": "COMMITTED"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Write each test as a small table row.",
+            "values": {
+              "store": {
+                "var": "store",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "done-key"
-                  },
-                  {
-                    "text": "DUPLICATE_DROPPED"
-                  }
-                ],
-                "tone": "idle"
+              "dlq": {
+                "var": "dlq",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "fail-first"
-                  },
-                  {
-                    "text": "FAILED_COMPENSATED:"
-                  }
-                ],
-                "tone": "error"
+              "cases": {
+                "var": "cases",
+                "line": 20,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 21,
+                "hit": 1
               }
+            },
+            "tones": {
+              "store": "data",
+              "dlq": "data",
+              "cases": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "store",
+                "dlq"
+              ],
+              [
+                "dlq",
+                "cases"
+              ],
+              [
+                "cases",
+                "key"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example runs test scenarios and asserts the results.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "new"
-                  },
-                  {
-                    "text": "COMMITTED"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example runs four scenarios and asserts the results.",
+            "values": {
+              "store": {
+                "var": "store",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "done-key"
-                  },
-                  {
-                    "text": "DUPLICATE_DROPPED"
-                  }
-                ],
-                "tone": "idle"
+              "dlq": {
+                "var": "dlq",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "fail-first"
-                  },
-                  {
-                    "text": "FAILED_COMPENSATED:"
-                  }
-                ],
-                "tone": "error"
+              "cases": {
+                "var": "cases",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "fail-last"
-                  },
-                  {
-                    "text": "FAILED_COMPENSATED:undo b,undo a"
-                  }
-                ],
-                "tone": "error"
+              "key": {
+                "var": "key",
+                "line": 22,
+                "hit": 1
               }
+            },
+            "tones": {
+              "store": "ok",
+              "dlq": "ok",
+              "cases": "ok",
+              "key": "ok"
+            },
+            "arrows": [
+              [
+                "store",
+                "dlq"
+              ],
+              [
+                "dlq",
+                "cases"
+              ],
+              [
+                "cases",
+                "key"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Transaction failure scenario table-driven test assertion cases",
-        "columns": [
-          "key",
-          "expected"
+        "template": "flow",
+        "title": "Testing every failure path",
+        "nodes": [
+          {
+            "id": "store",
+            "label": "store"
+          },
+          {
+            "id": "dlq",
+            "label": "dlq"
+          },
+          {
+            "id": "cases",
+            "label": "cases"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "A transaction engine must be tested on every path.",
-            "rows": [
-              {
-                "cells": [
-                  "new",
-                  "COMMITTED"
-                ],
-                "tone": "ok"
-              }
+            "values": {
+              "store": "{'done-key': 'COMMITTED'}",
+              "dlq": "[]",
+              "cases": "[['new', [['a', False], ['b', False]], …",
+              "key": "'new'"
+            },
+            "tones": {
+              "store": "data",
+              "dlq": "data",
+              "cases": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "store",
+                "dlq"
+              ],
+              [
+                "dlq",
+                "cases"
+              ],
+              [
+                "cases",
+                "key"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Write each test as a table row with expected status.",
-            "rows": [
-              {
-                "cells": [
-                  "new",
-                  "COMMITTED"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "done-key",
-                  "DUPLICATE_DROPPED"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "fail-first",
-                  "FAILED_COMPENSATED:"
-                ],
-                "tone": "error"
-              }
+            "caption": "Write each test as a small table row.",
+            "values": {
+              "store": "{'done-key': 'COMMITTED'}",
+              "dlq": "[]",
+              "cases": "[['new', [['a', False], ['b', False]], …",
+              "key": "'new'"
+            },
+            "tones": {
+              "store": "data",
+              "dlq": "data",
+              "cases": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "store",
+                "dlq"
+              ],
+              [
+                "dlq",
+                "cases"
+              ],
+              [
+                "cases",
+                "key"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example runs test scenarios and asserts the results.",
-            "rows": [
-              {
-                "cells": [
-                  "new",
-                  "COMMITTED"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "done-key",
-                  "DUPLICATE_DROPPED"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "fail-first",
-                  "FAILED_COMPENSATED:"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "fail-last",
-                  "FAILED_COMPENSATED:undo b,undo a"
-                ],
-                "tone": "error"
-              }
+            "caption": "The example runs four scenarios and asserts the results.",
+            "values": {
+              "store": "{'done-key': 'COMMITTED'}",
+              "dlq": "[]",
+              "cases": "[['new', [['a', False], ['b', False]], …",
+              "key": "'new'"
+            },
+            "tones": {
+              "store": "ok",
+              "dlq": "ok",
+              "cases": "ok",
+              "key": "ok"
+            },
+            "arrows": [
+              [
+                "store",
+                "dlq"
+              ],
+              [
+                "dlq",
+                "cases"
+              ],
+              [
+                "cases",
+                "key"
+              ]
             ]
           }
         ]
@@ -947,224 +943,106 @@
       "partTitle": "Publishing events reliably: the outbox",
       "codeHash": "30d087eea6a08f1d03d909afefa6d29fad7db38b1db5968de912211572657762",
       "spec": {
-        "template": "flow",
-        "title": "Publishing events reliably: the outbox — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Publishing events reliably: the outbox",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "db",
+            "label": "db"
           },
           {
-            "id": "proc",
-            "label": "2. Publishing events r...",
-            "tappable": true
+            "id": "published",
+            "label": "published"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "order_id",
+            "label": "order_id"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Publishing events reliably: the outbox.",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Publishing events r... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "After committing, the engine often publishes an event such as \"OrderPlaced\".",
+            "currentState": "db",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The transactional outbox fixes this.",
+            "currentState": "published",
+            "transition": {
+              "from": "db",
+              "to": "published",
+              "label": {
+                "var": "published",
+                "line": 15,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Publishing events reliably: the o.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Next week covers time, clocks, CRDTs, sharding, replicas and circuit breakers.",
+            "currentState": "order_id",
+            "transition": {
+              "from": "published",
+              "to": "order_id",
+              "label": {
+                "var": "order_id",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Publishing events reliably: the outbox — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Publishing events reliably: the outbox",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "db",
+            "label": "db"
           },
           {
-            "id": "proc",
-            "label": "2. Publishing events r...",
-            "tappable": true
+            "id": "published",
+            "label": "published"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "order_id",
+            "label": "order_id"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Publishing events reliably: the outbox [D15.P6.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Publishing events r... [D15.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "After committing, the engine often publishes an event such as \"OrderPlaced\".",
+            "currentState": "db",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The transactional outbox fixes this.",
+            "currentState": "published",
+            "transition": {
+              "from": "db",
+              "to": "published",
+              "label": "[]"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Publishing events reliably: the o.. [D15.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Next week covers time, clocks, CRDTs, sharding, replicas and circuit breakers.",
+            "currentState": "order_id",
+            "transition": {
+              "from": "published",
+              "to": "order_id",
+              "label": "'order-7'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

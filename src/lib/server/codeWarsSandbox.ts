@@ -23,7 +23,150 @@ export interface SandboxExecutionParams {
   evaluatorCode: string;
 }
 
+// [FIX-STAGE: CodeWars Lexical Security Scanner] Strip JS comments and inert string literal bodies
+// before token scanning so explanatory comments ("// process items") and harmless string values
+// ("import status") do not cause false positives, while keeping dynamic bracket lookups and
+// template ${...} interpolations strictly inspectable.
+function extractSecurityScanSurfaces(code: string): { commentStripped: string; executableSurface: string } {
+  const len = code.length;
+  let commentStripped = '';
+  let executableSurface = '';
+  const braceStack: Array<{ inTemplate: boolean; depth: number }> = [];
+  let state: 'code' | 'line_comment' | 'block_comment' | 'single' | 'double' | 'template' = 'code';
+
+  for (let i = 0; i < len; i++) {
+    const ch = code[i];
+    const next = code[i + 1];
+
+    if (state === 'line_comment') {
+      if (ch === '\n') {
+        commentStripped += '\n';
+        executableSurface += '\n';
+        state = 'code';
+      }
+      continue;
+    }
+
+    if (state === 'block_comment') {
+      if (ch === '*' && next === '/') {
+        commentStripped += ' ';
+        executableSurface += ' ';
+        i++;
+        state = 'code';
+      } else if (ch === '\n') {
+        commentStripped += '\n';
+        executableSurface += '\n';
+      }
+      continue;
+    }
+
+    if (state === 'single' || state === 'double') {
+      commentStripped += ch;
+      if (ch === '\\' && i + 1 < len) {
+        commentStripped += next;
+        i++;
+        continue;
+      }
+      const quote = state === 'single' ? "'" : '"';
+      if (ch === quote) {
+        executableSurface += quote;
+        state = 'code';
+      }
+      continue;
+    }
+
+    if (state === 'template') {
+      commentStripped += ch;
+      if (ch === '\\' && i + 1 < len) {
+        commentStripped += next;
+        i++;
+        continue;
+      }
+      if (ch === '$' && next === '{') {
+        commentStripped += '{';
+        executableSurface += '${';
+        braceStack.push({ inTemplate: true, depth: 1 });
+        i++;
+        state = 'code';
+        continue;
+      }
+      if (ch === '`') {
+        executableSurface += '`';
+        state = 'code';
+      }
+      continue;
+    }
+
+    // state === 'code'
+    if (ch === '/' && next === '/') {
+      commentStripped += ' ';
+      executableSurface += ' ';
+      i++;
+      state = 'line_comment';
+      continue;
+    }
+    if (ch === '/' && next === '*') {
+      commentStripped += ' ';
+      executableSurface += ' ';
+      i++;
+      state = 'block_comment';
+      continue;
+    }
+    if (ch === "'") {
+      commentStripped += ch;
+      executableSurface += ch;
+      state = 'single';
+      continue;
+    }
+    if (ch === '"') {
+      commentStripped += ch;
+      executableSurface += ch;
+      state = 'double';
+      continue;
+    }
+    if (ch === '`') {
+      commentStripped += ch;
+      executableSurface += ch;
+      state = 'template';
+      continue;
+    }
+
+    if (braceStack.length > 0) {
+      const top = braceStack[braceStack.length - 1];
+      if (ch === '{') {
+        top.depth++;
+      } else if (ch === '}') {
+        top.depth--;
+        if (top.depth === 0) {
+          braceStack.pop();
+          commentStripped += ch;
+          executableSurface += ch;
+          state = 'template';
+          continue;
+        }
+      }
+    }
+
+    commentStripped += ch;
+    executableSurface += ch;
+  }
+
+  return { commentStripped, executableSurface };
+}
+
 export function validateVmCodeSecurity(code: string): { safe: boolean; reason?: string } {
+  const { commentStripped, executableSurface } = extractSecurityScanSurfaces(code);
+
+  const bracketPropertyAccessPattern =
+    /\[\s*['"`](?:constructor|__proto__|prototype|process|require|import|global|globalThis|child_process|fs|Function|eval|Reflect|getPrototypeOf|setPrototypeOf)['"`]\s*\]/i;
+  if (bracketPropertyAccessPattern.test(commentStripped)) {
+    console.warn('[PinIT][Fix:CodeWarsSandbox] Blocked bracket property traversal in submission');
+    return {
+      safe: false,
+      reason: 'Forbidden token bracket property traversal',
+    };
+  }
+
   const forbiddenPatterns = [
     { pattern: /\bprocess\b/i, token: 'process' },
     { pattern: /\brequire\b/i, token: 'require' },
@@ -43,7 +186,8 @@ export function validateVmCodeSecurity(code: string): { safe: boolean; reason?: 
   ];
 
   for (const { pattern, token } of forbiddenPatterns) {
-    if (pattern.test(code)) {
+    if (pattern.test(executableSurface)) {
+      console.warn(`[PinIT][Fix:CodeWarsSandbox] Blocked forbidden token "${token}" in submission`);
       return {
         safe: false,
         reason: `Forbidden token ${token}`,

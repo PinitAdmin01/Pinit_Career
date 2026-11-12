@@ -2,142 +2,284 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 14,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Plain SGD and its limits",
       "codeHash": "ec3b7c30b7ed2559dfeb95affcacb73758c20ccd8bcf1783430852522f839338",
       "spec": {
-        "template": "table",
-        "title": "Plain stochastic gradient descent and ill-conditioned ravines",
-        "columns": [
-          "grad",
-          "step",
-          "lr"
+        "template": "flow",
+        "title": "Plain SGD and its limits",
+        "nodes": [
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "y",
+            "label": "y"
+          },
+          {
+            "id": "lr",
+            "label": "lr"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Plain gradient descent struggles along ravines with unequal steepness.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "grad"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "lr"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Plain stochastic gradient descent updates each weight with w = w lr gradient.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "grad"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "lr"
-                  }
-                ],
-                "tone": "data"
+              "y": {
+                "var": "y",
+                "line": 4,
+                "hit": 1
+              },
+              "lr": {
+                "var": "lr",
+                "line": 4,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "x": "data",
+              "y": "data",
+              "lr": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "x",
+                "y"
+              ],
+              [
+                "y",
+                "lr"
+              ],
+              [
+                "lr",
+                "step"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Oscillating updates crawl slowly along flat valley floors toward minima.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "grad"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "lr"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "It needs no extra memory beyond the gradients, which is attractive.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "grad"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "grad"
-                  }
-                ],
-                "tone": "ok"
+              "y": {
+                "var": "y",
+                "line": 5,
+                "hit": 1
+              },
+              "lr": {
+                "var": "lr",
+                "line": 5,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "x": "data",
+              "y": "data",
+              "lr": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "x",
+                "y"
+              ],
+              [
+                "y",
+                "lr"
+              ],
+              [
+                "lr",
+                "step"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "We use a simple two-parameter function so every number can be followed.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 2,
+                "hit": 1
+              },
+              "y": {
+                "var": "y",
+                "line": 2,
+                "hit": 1
+              },
+              "lr": {
+                "var": "lr",
+                "line": 6,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "x": "ok",
+              "y": "ok",
+              "lr": "ok",
+              "step": "ok"
+            },
+            "arrows": [
+              [
+                "x",
+                "y"
+              ],
+              [
+                "y",
+                "lr"
+              ],
+              [
+                "lr",
+                "step"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Plain stochastic gradient descent and ill-conditioned ravines",
-        "columns": [
-          "grad",
-          "step",
-          "lr"
+        "template": "flow",
+        "title": "Plain SGD and its limits",
+        "nodes": [
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "y",
+            "label": "y"
+          },
+          {
+            "id": "lr",
+            "label": "lr"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Plain gradient descent struggles along ravines with unequal steepness.",
-            "rows": [
-              {
-                "cells": [
-                  "grad",
-                  "step",
-                  "lr"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "grad",
-                  "step",
-                  "lr"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Plain stochastic gradient descent updates each weight with w = w lr gradient.",
+            "values": {
+              "x": "1",
+              "y": "10",
+              "lr": "0.18",
+              "step": "1"
+            },
+            "tones": {
+              "x": "data",
+              "y": "data",
+              "lr": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "x",
+                "y"
+              ],
+              [
+                "y",
+                "lr"
+              ],
+              [
+                "lr",
+                "step"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Oscillating updates crawl slowly along flat valley floors toward minima.",
-            "rows": [
-              {
-                "cells": [
-                  "grad",
-                  "step",
-                  "lr"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "grad",
-                  "step",
-                  "grad"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "It needs no extra memory beyond the gradients, which is attractive.",
+            "values": {
+              "x": "1",
+              "y": "10",
+              "lr": "0.18",
+              "step": "1"
+            },
+            "tones": {
+              "x": "data",
+              "y": "data",
+              "lr": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "x",
+                "y"
+              ],
+              [
+                "y",
+                "lr"
+              ],
+              [
+                "lr",
+                "step"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "We use a simple two-parameter function so every number can be followed.",
+            "values": {
+              "x": "1",
+              "y": "10",
+              "lr": "0.18",
+              "step": "1"
+            },
+            "tones": {
+              "x": "ok",
+              "y": "ok",
+              "lr": "ok",
+              "step": "ok"
+            },
+            "arrows": [
+              [
+                "x",
+                "y"
+              ],
+              [
+                "y",
+                "lr"
+              ],
+              [
+                "lr",
+                "step"
+              ]
             ]
           }
         ]
@@ -147,78 +289,91 @@
       "partTitle": "Momentum",
       "codeHash": "f4ce220b2ad9e8c8c9be9fef24e0724a65fdba0428da2f6e348f2d4c62713c9f",
       "spec": {
-        "template": "table",
-        "title": "Momentum velocity accumulation and oscillation damping",
-        "columns": [
+        "template": "sequence",
+        "title": "Momentum",
+        "actors": [
           "beta",
-          "step",
-          "grad"
+          "x",
+          "y"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Momentum accumulates gradient velocity vectors across successive updates.",
-            "rows": [
+            "caption": "Momentum keeps a velocity v that accumulates past gradients.",
+            "activeActor": "beta",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "beta"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "grad"
-                  }
-                ],
-                "tone": "ok"
+                "from": "beta",
+                "to": "x",
+                "label": {
+                  "var": "beta",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "beta"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "grad"
-                  }
-                ],
-                "tone": "data"
+                "from": "x",
+                "to": "y",
+                "label": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Consistent directions accelerate progress while oscillations cancel out.",
-            "rows": [
+            "caption": "Consistent gradient directions build up speed.",
+            "activeActor": "x",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "beta"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "grad"
-                  }
-                ],
+                "from": "beta",
+                "to": "x",
+                "label": {
+                  "var": "beta",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "beta"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "beta"
-                  }
-                ],
+                "from": "x",
+                "to": "y",
+                "label": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "For transformers, adaptive methods like Adam usually work better.",
+            "activeActor": "y",
+            "messages": [
+              {
+                "from": "beta",
+                "to": "x",
+                "label": {
+                  "var": "beta",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "x",
+                "to": "y",
+                "label": {
+                  "var": "x",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -226,57 +381,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Momentum velocity accumulation and oscillation damping",
-        "columns": [
+        "template": "sequence",
+        "title": "Momentum",
+        "actors": [
           "beta",
-          "step",
-          "grad"
+          "x",
+          "y"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Momentum accumulates gradient velocity vectors across successive updates.",
-            "rows": [
+            "caption": "Momentum keeps a velocity v that accumulates past gradients.",
+            "messages": [
               {
-                "cells": [
-                  "beta",
-                  "step",
-                  "grad"
-                ],
-                "tone": "ok"
+                "from": "beta",
+                "to": "x",
+                "label": "0",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "beta",
-                  "step",
-                  "grad"
-                ],
-                "tone": "data"
+                "from": "x",
+                "to": "y",
+                "label": "1",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "beta"
           },
           {
             "at": "say2",
-            "caption": "Consistent directions accelerate progress while oscillations cancel out.",
-            "rows": [
+            "caption": "Consistent gradient directions build up speed.",
+            "messages": [
               {
-                "cells": [
-                  "beta",
-                  "step",
-                  "grad"
-                ],
+                "from": "beta",
+                "to": "x",
+                "label": "0",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "beta",
-                  "step",
-                  "beta"
-                ],
+                "from": "x",
+                "to": "y",
+                "label": "1",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "x"
+          },
+          {
+            "at": "say10",
+            "caption": "For transformers, adaptive methods like Adam usually work better.",
+            "messages": [
+              {
+                "from": "beta",
+                "to": "x",
+                "label": "0",
+                "tone": "data"
+              },
+              {
+                "from": "x",
+                "to": "y",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "y"
           }
         ]
       }
@@ -285,78 +453,91 @@
       "partTitle": "Adam",
       "codeHash": "1832d87194562a8f85fdcf6fd25103ba264daafdfc356820af3bedb7600c966a",
       "spec": {
-        "template": "table",
-        "title": "Adam adaptive moment estimation and bias correction dynamics",
-        "columns": [
-          "grad",
-          "range",
-          "step"
+        "template": "sequence",
+        "title": "Adam",
+        "actors": [
+          "p",
+          "m",
+          "v"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Adam maintains first momentum averages and squared second moment trackers.",
-            "rows": [
+            "caption": "Adam keeps two running averages per parameter.",
+            "activeActor": "p",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "grad"
-                  },
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "ok"
+                "from": "p",
+                "to": "m",
+                "label": {
+                  "var": "p",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "grad"
-                  },
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "data"
+                "from": "m",
+                "to": "v",
+                "label": {
+                  "var": "m",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Bias correction compensates for initial moment values starting near zero.",
-            "rows": [
+            "at": "say2",
+            "caption": "The update divides m by the square root of v, so each parameter gets its.",
+            "activeActor": "m",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "grad"
-                  },
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
+                "from": "p",
+                "to": "m",
+                "label": {
+                  "var": "p",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "grad"
-                  },
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "grad"
-                  }
-                ],
+                "from": "m",
+                "to": "v",
+                "label": {
+                  "var": "m",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Adam's two states are why it needs 8 extra bytes per parameter in FP32.",
+            "activeActor": "v",
+            "messages": [
+              {
+                "from": "p",
+                "to": "m",
+                "label": {
+                  "var": "p",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "m",
+                "to": "v",
+                "label": {
+                  "var": "m",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +545,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Adam adaptive moment estimation and bias correction dynamics",
-        "columns": [
-          "grad",
-          "range",
-          "step"
+        "template": "sequence",
+        "title": "Adam",
+        "actors": [
+          "p",
+          "m",
+          "v"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Adam maintains first momentum averages and squared second moment trackers.",
-            "rows": [
+            "caption": "Adam keeps two running averages per parameter.",
+            "messages": [
               {
-                "cells": [
-                  "grad",
-                  "range",
-                  "step"
-                ],
-                "tone": "ok"
+                "from": "p",
+                "to": "m",
+                "label": "[1, 10]",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "grad",
-                  "range",
-                  "step"
-                ],
-                "tone": "data"
+                "from": "m",
+                "to": "v",
+                "label": "[0, 0]",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "p"
           },
           {
-            "at": "say4",
-            "caption": "Bias correction compensates for initial moment values starting near zero.",
-            "rows": [
+            "at": "say2",
+            "caption": "The update divides m by the square root of v, so each parameter gets its.",
+            "messages": [
               {
-                "cells": [
-                  "grad",
-                  "range",
-                  "step"
-                ],
+                "from": "p",
+                "to": "m",
+                "label": "[1, 10]",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "grad",
-                  "range",
-                  "grad"
-                ],
+                "from": "m",
+                "to": "v",
+                "label": "[0, 0]",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "m"
+          },
+          {
+            "at": "say10",
+            "caption": "Adam's two states are why it needs 8 extra bytes per parameter in FP32.",
+            "messages": [
+              {
+                "from": "p",
+                "to": "m",
+                "label": "[1, 10]",
+                "tone": "data"
+              },
+              {
+                "from": "m",
+                "to": "v",
+                "label": "[0, 0]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "v"
           }
         ]
       }
@@ -423,78 +617,77 @@
       "partTitle": "Optimizers and memory",
       "codeHash": "9616a76e82ee94da5452c35f3c4223a9860039b6d553fb7cbaa6ea673416b0d7",
       "spec": {
-        "template": "table",
-        "title": "Optimizer memory footprint across SGD, Momentum, and Adam",
-        "columns": [
-          "params",
-          "states",
-          "name"
-        ],
+        "template": "bars",
+        "title": "Optimizers and memory",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Adaptive Adam tracking stores multiple state values for each parameter.",
-            "rows": [
+            "at": "say1",
+            "caption": "Optimizer states are a large part of training memory, and they depend.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "states"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "ok"
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "states"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Quantised optimizer variants reduce persistent state memory footprints.",
-            "rows": [
+            "at": "say2",
+            "caption": "One value per parameter.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "states"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "data"
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "states"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Knowing the state sizes lets you predict memory before trying a new optimizer.",
+            "bars": [
+              {
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +695,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Optimizer memory footprint across SGD, Momentum, and Adam",
-        "columns": [
-          "params",
-          "states",
-          "name"
-        ],
+        "template": "bars",
+        "title": "Optimizers and memory",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Adaptive Adam tracking stores multiple state values for each parameter.",
-            "rows": [
+            "at": "say1",
+            "caption": "Optimizer states are a large part of training memory, and they depend.",
+            "bars": [
               {
-                "cells": [
-                  "params",
-                  "states",
-                  "name"
-                ],
-                "tone": "ok"
+                "label": "params",
+                "value": 7000000000,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "params",
-                  "states",
-                  "name"
-                ],
+                "label": "b",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Quantised optimizer variants reduce persistent state memory footprints.",
-            "rows": [
+            "at": "say2",
+            "caption": "One value per parameter.",
+            "bars": [
               {
-                "cells": [
-                  "params",
-                  "states",
-                  "name"
-                ],
-                "tone": "data"
+                "label": "params",
+                "value": 7000000000,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "params",
-                  "states",
-                  "params"
-                ],
+                "label": "b",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Knowing the state sizes lets you predict memory before trying a new optimizer.",
+            "bars": [
+              {
+                "label": "params",
+                "value": 7000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 4,
                 "tone": "ok"
               }
             ]
@@ -561,223 +753,217 @@
       "partTitle": "Optimizers in distributed training",
       "codeHash": "ac6a72609cd78698ca46931e058273be02b0f2d2f013891e9b01185824d4ac53",
       "spec": {
-        "template": "flow",
-        "title": "Optimizers in distributed training — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Optimizers in distr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Optimizers in distributed training",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Optimizers in distributed training.",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Optimizers in distr... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "With data parallelism, every GPU runs the same optimizer step on the same.",
+            "bars": [
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "g",
+                "value": {
+                  "var": "g",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "lr",
+                "value": {
+                  "var": "lr",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "With ZeRO or FSDP, each GPU steps only its own shard of the parameters.",
+            "bars": [
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "g",
+                "value": {
+                  "var": "g",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": {
+                  "var": "lr",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Optimizers in distributed training.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Being able to implement an optimizer from scratch is a strong foundation.",
+            "bars": [
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "g",
+                "value": {
+                  "var": "g",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": {
+                  "var": "lr",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Optimizers in distributed training — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Optimizers in distr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Optimizers in distributed training",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Optimizers in distributed training [D14.P5.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Optimizers in distr... [D14.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "With data parallelism, every GPU runs the same optimizer step on the same.",
+            "bars": [
+              {
+                "label": "w",
+                "value": "[0.5, -1, 2, 0, 1.5, -0.5, 0.25, 1]",
+                "tone": "data"
+              },
+              {
+                "label": "g",
+                "value": "[0.2, -0.1, 0.4, 0, -0.3, 0.05, 0.1, -0…",
+                "tone": "data"
+              },
+              {
+                "label": "lr",
+                "value": 0.1,
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": 0.020000000000000004,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "With ZeRO or FSDP, each GPU steps only its own shard of the parameters.",
+            "bars": [
+              {
+                "label": "w",
+                "value": "[0.5, -1, 2, 0, 1.5, -0.5, 0.25, 1]",
+                "tone": "ok"
+              },
+              {
+                "label": "g",
+                "value": 0.2,
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": 0.020000000000000004,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Optimizers in distributed training [D14.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Being able to implement an optimizer from scratch is a strong foundation.",
+            "bars": [
+              {
+                "label": "w",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "g",
+                "value": 0.2,
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": -0.010000000000000002,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -788,110 +974,161 @@
       "codeHash": "92804ed71686daa762ba5621716555c851398a72b8b0c31e7f4438abc067272d",
       "spec": {
         "template": "flow",
-        "title": "Practice time: optimizers — Execution Pipeline",
+        "title": "Practice time: optimizers",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "xs",
+            "label": "xs"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: opti...",
-            "tappable": true
+            "id": "ys",
+            "label": "ys"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "w",
+            "label": "w"
+          },
+          {
+            "id": "m",
+            "label": "m"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: optimizers [D.Psix.Sone].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: opti... [D.Psix.Stwo].",
+            "caption": "Momentum_step(w, g, v, lr, beta).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "xs": {
+                "var": "xs",
+                "line": 3,
+                "hit": 1
+              },
+              "ys": {
+                "var": "ys",
+                "line": 3,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 4,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "xs": "data",
+              "ys": "data",
+              "w": "data",
+              "m": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "xs",
+                "ys"
               ],
               [
-                "proc",
-                "out"
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "m"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "The checks follow two steps where momentum builds up, and a case with beta.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "xs": {
+                "var": "xs",
+                "line": 4,
+                "hit": 1
+              },
+              "ys": {
+                "var": "ys",
+                "line": 4,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 5,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "xs": "data",
+              "ys": "data",
+              "w": "data",
+              "m": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "xs",
+                "ys"
+              ],
+              [
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "m"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: optimizers [D.Psix.Sfour].",
+            "at": "say10",
+            "caption": "If the second step differs, check that t is incremented before computing.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "xs": {
+                "var": "xs",
+                "line": 5,
+                "hit": 1
+              },
+              "ys": {
+                "var": "ys",
+                "line": 5,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 6,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "xs": "ok",
+              "ys": "ok",
+              "w": "ok",
+              "m": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "xs",
+                "ys"
               ],
               [
-                "proc",
-                "out"
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "m"
               ]
             ]
           }
@@ -899,110 +1136,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: optimizers — Execution Pipeline",
+        "title": "Practice time: optimizers",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "xs",
+            "label": "xs"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: opti...",
-            "tappable": true
+            "id": "ys",
+            "label": "ys"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "w",
+            "label": "w"
+          },
+          {
+            "id": "m",
+            "label": "m"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: optimizers [D14.P6.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: opti... [D14.P6.S2].",
+            "caption": "Momentum_step(w, g, v, lr, beta).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "xs": "[0, 1, 2, 3, 4]",
+              "ys": "[1, 3, 5, 7, 9]",
+              "w": "[0, 0]",
+              "m": "[0, 0]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "xs": "data",
+              "ys": "data",
+              "w": "data",
+              "m": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "xs",
+                "ys"
               ],
               [
-                "proc",
-                "out"
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "m"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P6.S3].",
+            "at": "say2",
+            "caption": "The checks follow two steps where momentum builds up, and a case with beta.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "xs": "[0, 1, 2, 3, 4]",
+              "ys": "[1, 3, 5, 7, 9]",
+              "w": "[0, 0]",
+              "m": "[0, 0]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "xs": "data",
+              "ys": "data",
+              "w": "data",
+              "m": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "xs",
+                "ys"
+              ],
+              [
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "m"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: optimizers [D14.P6.S4].",
+            "at": "say10",
+            "caption": "If the second step differs, check that t is incremented before computing.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "xs": "[0, 1, 2, 3, 4]",
+              "ys": "[1, 3, 5, 7, 9]",
+              "w": "[0, 0]",
+              "m": "[0, 0]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "xs": "ok",
+              "ys": "ok",
+              "w": "ok",
+              "m": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "xs",
+                "ys"
               ],
               [
-                "proc",
-                "out"
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "m"
               ]
             ]
           }

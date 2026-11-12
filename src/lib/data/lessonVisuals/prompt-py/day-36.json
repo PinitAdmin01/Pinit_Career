@@ -1,158 +1,177 @@
 {
-  "schemaVersion": "2.0.0",
-  "course": "prompt-py",
-  "day": 36,
+  "schemaVersion": 1,
   "prefix": "prompt-py",
+  "day": 36,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Failure Of Unconstrained Generation: Why Prompt Directives Cannot Guarantee Syntactic Correctness",
       "codeHash": "f1c1e5ecde526fb155a7d2d3be7587114065594966147d298e62a6cb1fd45b59",
       "spec": {
         "template": "table",
-        "title": "Unconstrained Generation Pitfalls And Logit Masking Foundations.",
+        "title": "The Failure Of Unconstrained Generation: Why Prompt Directives C",
         "columns": [
-          "Decoding Approach",
-          "Operational Mechanism",
-          "Syntactic Correctness Profile"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Unconstrained autoregressive generation cannot guarantee valid syntax.",
+            "caption": "In production enterprise software architectures, relying on natural.",
             "rows": [
-              [
-                "Prompt Pleading Mode",
-                "Natural Language Directives In Context",
-                "Probabilistic Non Zero Failure Risk"
-              ],
-              [
-                "Logit Masking Mode",
-                "Automata Guided Vocabulary Filtering",
-                "Guarantees Flawless Syntactic Output"
-              ]
+              {
+                "cells": [
+                  {
+                    "text": "i"
+                  },
+                  {
+                    "var": "i",
+                    "line": 22,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Prompt retry loops introduce unpredictable latency spikes and costs.",
+            "caption": "The traditional software engineering response to this generative.",
             "rows": [
-              [
-                "Downstream Retry Loop",
-                "Catch Parse Errors And Re Invoke API",
-                "Severe Latency And Token Cost Bloat"
-              ],
-              [
-                "Logit Level Intervention",
-                "Mask Disallowed Logits To Negative Infinity",
-                "Eliminates Downstream Parsing Crashes"
-              ]
+              {
+                "cells": [
+                  {
+                    "text": "i"
+                  },
+                  {
+                    "var": "i",
+                    "line": 22,
+                    "hit": 2
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Database migration scripts crash when unconstrained models emit errors.",
+            "at": "say9",
+            "caption": "The operational cost of unconstrained formatting errors compounds.",
             "rows": [
-              [
-                "Trajectory Warping Risk",
-                "Early Flawed Tokens Corrupting Attention",
-                "Model Continues Rationalizing Mistakes"
-              ],
-              [
-                "Prefix State Tracking",
-                "Evaluate Token Prefix Against Automaton",
-                "Prevents Invalid Generation Corridors"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Compare prompt retry loops against token level logit masking pipelines.",
-            "rows": [
-              [
-                "Enterprise API Economics",
-                "Unpredictable Repeated Token Invocations",
-                "Inflates Infrastructure Billing Ceilings"
-              ],
-              [
-                "Deterministic Latency SLA",
-                "Single Pass Constrained Generation Stream",
-                "Guarantees Predictable Real Time Speed"
-              ]
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 4"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
         "template": "table",
-        "title": "Unconstrained Generation Pitfalls And Logit Masking Foundations.",
+        "title": "The Failure Of Unconstrained Generation: Why Prompt Directives C",
         "columns": [
-          "Decoding Approach",
-          "Operational Mechanism",
-          "Syntactic Correctness Profile"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Unconstrained autoregressive generation cannot guarantee valid syntax.",
+            "caption": "In production enterprise software architectures, relying on natural.",
             "rows": [
-              [
-                "Prompt Pleading Mode",
-                "Natural Language Directives In Context",
-                "Probabilistic Non Zero Failure Risk"
-              ],
-              [
-                "Logit Masking Mode",
-                "Automata Guided Vocabulary Filtering",
-                "Guarantees Flawless Syntactic Output"
-              ]
+              {
+                "cells": [
+                  "i",
+                  "0"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Prompt retry loops introduce unpredictable latency spikes and costs.",
+            "caption": "The traditional software engineering response to this generative.",
             "rows": [
-              [
-                "Downstream Retry Loop",
-                "Catch Parse Errors And Re Invoke API",
-                "Severe Latency And Token Cost Bloat"
-              ],
-              [
-                "Logit Level Intervention",
-                "Mask Disallowed Logits To Negative Infinity",
-                "Eliminates Downstream Parsing Crashes"
-              ]
+              {
+                "cells": [
+                  "i",
+                  "1"
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Database migration scripts crash when unconstrained models emit errors.",
+            "at": "say9",
+            "caption": "The operational cost of unconstrained formatting errors compounds.",
             "rows": [
-              [
-                "Trajectory Warping Risk",
-                "Early Flawed Tokens Corrupting Attention",
-                "Model Continues Rationalizing Mistakes"
-              ],
-              [
-                "Prefix State Tracking",
-                "Evaluate Token Prefix Against Automaton",
-                "Prevents Invalid Generation Corridors"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Compare prompt retry loops against token level logit masking pipelines.",
-            "rows": [
-              [
-                "Enterprise API Economics",
-                "Unpredictable Repeated Token Invocations",
-                "Inflates Infrastructure Billing Ceilings"
-              ],
-              [
-                "Deterministic Latency SLA",
-                "Single Pass Constrained Generation Stream",
-                "Guarantees Predictable Real Time Speed"
-              ]
+              {
+                "cells": [
+                  "out 1",
+                  "{"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "  \"engine\": \"Outlines / Guidance DFA Grammar Logit Masker\","
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "  \"targetGrammar\": \"RFC-Compliant HTTP Request Line EBNF\","
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 4",
+                  "  \"activeAllowedTokens\": ["
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -163,150 +182,168 @@
       "codeHash": "f1c1e5ecde526fb155a7d2d3be7587114065594966147d298e62a6cb1fd45b59",
       "spec": {
         "template": "table",
-        "title": "Automata Driven Decoding Physics And Token Transition Indexing.",
+        "title": "Automata-Driven Decoding Mechanics: Deterministic Finite Automat",
         "columns": [
-          "Automaton Component",
-          "Mathematical Function",
-          "Inference Performance Impact"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Deterministic finite automata track and validate sequences linearly.",
+            "caption": "At the operational core of regex-constrained decoding lies.",
             "rows": [
-              [
-                "Deterministic State Machine",
-                "Character By Character Transition Tracker",
-                "Linear Computational Complexity Guarantee"
-              ],
-              [
-                "Token Vocabulary Intersect",
-                "Map BPE Tokens Onto DFA Transitions",
-                "Enables Sub Word Level Token Masking"
-              ]
+              {
+                "cells": [
+                  {
+                    "text": "i"
+                  },
+                  {
+                    "var": "i",
+                    "line": 22,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Pre compiled token transition maps enable real time logit masking.",
+            "caption": "Intersecting a character-level DFA with a token-level language model.",
             "rows": [
-              [
-                "Pre Compiled Bitmask Table",
-                "Pre Compute Allowed Tokens Per State",
-                "Sub Millisecond Forward Pass Masking"
-              ],
-              [
-                "Logit Masking Operator",
-                "Set Disallowed Logits To Negative Infinity",
-                "Forces Softmax Probability Mass To Zero"
-              ]
+              {
+                "cells": [
+                  {
+                    "text": "i"
+                  },
+                  {
+                    "var": "i",
+                    "line": 22,
+                    "hit": 2
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Character level automata restrict token sampling to valid ISO dates.",
+            "at": "say9",
+            "caption": "High-throughput vector indexing integrates DFA state transitions directly.",
             "rows": [
-              [
-                "Constituent Character Walk",
-                "Advance DFA Across Subword Byte Streams",
-                "Maintains Continuous Syntactic Lock"
-              ],
-              [
-                "Terminal State Coordinator",
-                "Allow End Of Sequence Only At Acceptance",
-                "Prevents Premature Generation Halts"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Trace how a regular expression converts into an automaton bitmask.",
-            "rows": [
-              [
-                "State Space Minimizer",
-                "Hopcroft Minimization Algorithm Execution",
-                "Prevents Exponential RAM State Explosion"
-              ],
-              [
-                "Deterministic Regex Lock",
-                "Enforce Strict International Formats",
-                "Eliminates Source Input Validation Bugs"
-              ]
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 4"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
         "template": "table",
-        "title": "Automata Driven Decoding Physics And Token Transition Indexing.",
+        "title": "Automata-Driven Decoding Mechanics: Deterministic Finite Automat",
         "columns": [
-          "Automaton Component",
-          "Mathematical Function",
-          "Inference Performance Impact"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Deterministic finite automata track and validate sequences linearly.",
+            "caption": "At the operational core of regex-constrained decoding lies.",
             "rows": [
-              [
-                "Deterministic State Machine",
-                "Character By Character Transition Tracker",
-                "Linear Computational Complexity Guarantee"
-              ],
-              [
-                "Token Vocabulary Intersect",
-                "Map BPE Tokens Onto DFA Transitions",
-                "Enables Sub Word Level Token Masking"
-              ]
+              {
+                "cells": [
+                  "i",
+                  "0"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Pre compiled token transition maps enable real time logit masking.",
+            "caption": "Intersecting a character-level DFA with a token-level language model.",
             "rows": [
-              [
-                "Pre Compiled Bitmask Table",
-                "Pre Compute Allowed Tokens Per State",
-                "Sub Millisecond Forward Pass Masking"
-              ],
-              [
-                "Logit Masking Operator",
-                "Set Disallowed Logits To Negative Infinity",
-                "Forces Softmax Probability Mass To Zero"
-              ]
+              {
+                "cells": [
+                  "i",
+                  "1"
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Character level automata restrict token sampling to valid ISO dates.",
+            "at": "say9",
+            "caption": "High-throughput vector indexing integrates DFA state transitions directly.",
             "rows": [
-              [
-                "Constituent Character Walk",
-                "Advance DFA Across Subword Byte Streams",
-                "Maintains Continuous Syntactic Lock"
-              ],
-              [
-                "Terminal State Coordinator",
-                "Allow End Of Sequence Only At Acceptance",
-                "Prevents Premature Generation Halts"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Trace how a regular expression converts into an automaton bitmask.",
-            "rows": [
-              [
-                "State Space Minimizer",
-                "Hopcroft Minimization Algorithm Execution",
-                "Prevents Exponential RAM State Explosion"
-              ],
-              [
-                "Deterministic Regex Lock",
-                "Enforce Strict International Formats",
-                "Eliminates Source Input Validation Bugs"
-              ]
+              {
+                "cells": [
+                  "out 1",
+                  "{"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "  \"engine\": \"Outlines / Guidance DFA Grammar Logit Masker\","
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "  \"targetGrammar\": \"RFC-Compliant HTTP Request Line EBNF\","
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 4",
+                  "  \"activeAllowedTokens\": ["
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -317,150 +354,168 @@
       "codeHash": "f1c1e5ecde526fb155a7d2d3be7587114065594966147d298e62a6cb1fd45b59",
       "spec": {
         "template": "table",
-        "title": "Context Free Grammars And Pushdown Automata Schema Validation.",
+        "title": "Context-Free Grammars & EBNF Parsers: Enforcing Arbitrary Hierar",
         "columns": [
-          "Grammar Class Level",
-          "Structural Capability",
-          "Enterprise Application Target"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Context free grammars govern recursive hierarchical structures like JSON.",
+            "caption": "While Deterministic Finite Automata excel at enforcing regular languages.",
             "rows": [
-              [
-                "Regular Grammar Limit",
-                "Linear Memory Without Recursive Stacks",
-                "Cannot Track Nested Parentheses Or Objects"
-              ],
-              [
-                "Context Free Grammar Level",
-                "Four Tuple Production Rules With Stacks",
-                "Recognizes Complex Hierarchical Languages"
-              ]
+              {
+                "cells": [
+                  {
+                    "text": "i"
+                  },
+                  {
+                    "var": "i",
+                    "line": 22,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Context free grammars define hierarchical production rules in EBNF.",
+            "caption": "A Context-Free Grammar is formally defined by a four-tuple comprising.",
             "rows": [
-              [
-                "Pushdown Execution Stack",
-                "Push Scopes On Open And Pop On Close",
-                "Guarantees Balanced Parentheses Matching"
-              ],
-              [
-                "Incremental Earley Engine",
-                "Evaluate Grammatical Frontier Per Token",
-                "Eliminates Quadratic Re Parsing Overhead"
-              ]
+              {
+                "cells": [
+                  {
+                    "text": "i"
+                  },
+                  {
+                    "var": "i",
+                    "line": 22,
+                    "hit": 2
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Pushdown automata maintain balanced brackets across nested objects.",
+            "at": "say10",
+            "caption": "Error localization and diagnostic feedback capabilities in incremental.",
             "rows": [
-              [
-                "JSON Schema Transpiler",
-                "Convert Pydantic Models Into EBNF Rules",
-                "Prevents Hallucinated Properties Or Types"
-              ],
-              [
-                "SQL Sandbox Compiler",
-                "Restrict Syntax To Read Only Statements",
-                "Prevents Catastrophic SQL Injection Risks"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Write an EBNF grammar enforcing strict read only SQL query syntax.",
-            "rows": [
-              [
-                "Dynamic Schema Injector",
-                "Inject Verified Database Column Names",
-                "Eliminates Non Existent Column Errors"
-              ],
-              [
-                "Machine Interface Contract",
-                "Enforce Typed Structural Interoperability",
-                "Seamless Microservice Communication"
-              ]
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 4"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
         "template": "table",
-        "title": "Context Free Grammars And Pushdown Automata Schema Validation.",
+        "title": "Context-Free Grammars & EBNF Parsers: Enforcing Arbitrary Hierar",
         "columns": [
-          "Grammar Class Level",
-          "Structural Capability",
-          "Enterprise Application Target"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Context free grammars govern recursive hierarchical structures like JSON.",
+            "caption": "While Deterministic Finite Automata excel at enforcing regular languages.",
             "rows": [
-              [
-                "Regular Grammar Limit",
-                "Linear Memory Without Recursive Stacks",
-                "Cannot Track Nested Parentheses Or Objects"
-              ],
-              [
-                "Context Free Grammar Level",
-                "Four Tuple Production Rules With Stacks",
-                "Recognizes Complex Hierarchical Languages"
-              ]
+              {
+                "cells": [
+                  "i",
+                  "0"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Context free grammars define hierarchical production rules in EBNF.",
+            "caption": "A Context-Free Grammar is formally defined by a four-tuple comprising.",
             "rows": [
-              [
-                "Pushdown Execution Stack",
-                "Push Scopes On Open And Pop On Close",
-                "Guarantees Balanced Parentheses Matching"
-              ],
-              [
-                "Incremental Earley Engine",
-                "Evaluate Grammatical Frontier Per Token",
-                "Eliminates Quadratic Re Parsing Overhead"
-              ]
+              {
+                "cells": [
+                  "i",
+                  "1"
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Pushdown automata maintain balanced brackets across nested objects.",
+            "at": "say10",
+            "caption": "Error localization and diagnostic feedback capabilities in incremental.",
             "rows": [
-              [
-                "JSON Schema Transpiler",
-                "Convert Pydantic Models Into EBNF Rules",
-                "Prevents Hallucinated Properties Or Types"
-              ],
-              [
-                "SQL Sandbox Compiler",
-                "Restrict Syntax To Read Only Statements",
-                "Prevents Catastrophic SQL Injection Risks"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Write an EBNF grammar enforcing strict read only SQL query syntax.",
-            "rows": [
-              [
-                "Dynamic Schema Injector",
-                "Inject Verified Database Column Names",
-                "Eliminates Non Existent Column Errors"
-              ],
-              [
-                "Machine Interface Contract",
-                "Enforce Typed Structural Interoperability",
-                "Seamless Microservice Communication"
-              ]
+              {
+                "cells": [
+                  "out 1",
+                  "{"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "  \"engine\": \"Outlines / Guidance DFA Grammar Logit Masker\","
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "  \"targetGrammar\": \"RFC-Compliant HTTP Request Line EBNF\","
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 4",
+                  "  \"activeAllowedTokens\": ["
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -471,150 +526,168 @@
       "codeHash": "f1c1e5ecde526fb155a7d2d3be7587114065594966147d298e62a6cb1fd45b59",
       "spec": {
         "template": "table",
-        "title": "Constrained Decoding Frameworks And High Speed Kernel Runtimes.",
+        "title": "Constrained Decoding Frameworks: Outlines, Guidance, GBNF & High",
         "columns": [
-          "Runtime Framework",
-          "Decoding Implementation",
-          "Latency Overhead Profile"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Constrained decoding frameworks bridge schemas with tensor operations.",
+            "caption": "Translating the mathematical principles of automata and context-free.",
             "rows": [
-              [
-                "Outlines Framework",
-                "Memory Mapped DFA Token Bitmask Indexers",
-                "Sub Millisecond Logit Masking Overhead"
-              ],
-              [
-                "Guidance Architecture",
-                "Interleave Static AST Text With Generative Streams",
-                "Accelerates Throughput By Bypassing Passes"
-              ]
+              {
+                "cells": [
+                  {
+                    "text": "i"
+                  },
+                  {
+                    "var": "i",
+                    "line": 22,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Outlines compiles schemas into optimized state machines on startup.",
+            "caption": "The Outlines framework pioneered pre-compiled index-based logit masking.",
             "rows": [
-              [
-                "GBNF Native Kernel",
-                "Low Level C Plus Plus Grammar Parsing In GGML",
-                "Zero Python Serialization Latency Overhead"
-              ],
-              [
-                "Async Batching Scheduler",
-                "Execute Grammar Masking In Continuous Batches",
-                "Preserves High Concurrent User Throughput"
-              ]
+              {
+                "cells": [
+                  {
+                    "text": "i"
+                  },
+                  {
+                    "var": "i",
+                    "line": 22,
+                    "hit": 2
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Native grammar kernels mask logits on GPU memory before token emission.",
+            "at": "say10",
+            "caption": "Hardware-accelerated logit masking integrates directly with custom neural.",
             "rows": [
-              [
-                "Trie Vocabulary Indexer",
-                "Resolve Multi Character Tokenization Ambiguities",
-                "Guarantees Accurate Byte Level Matching"
-              ],
-              [
-                "Distributed Cache Tier",
-                "Store Pre Compiled Grammar Bitmasks In Redis",
-                "Eliminates Redundant Cluster Compilation"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Benchmark inference latency with pre compiled regex token bitmasks.",
-            "rows": [
-              [
-                "Heterogeneous Model Bridge",
-                "Standardize Grammars Across Open And Closed Models",
-                "Ensures Unified Enterprise Contract Compliance"
-              ],
-              [
-                "GPU Tensor Accelerator",
-                "Direct TensorRT LLM Logit Kernel Integration",
-                "Delivers Maximum Production Token Velocity"
-              ]
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 4"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
         "template": "table",
-        "title": "Constrained Decoding Frameworks And High Speed Kernel Runtimes.",
+        "title": "Constrained Decoding Frameworks: Outlines, Guidance, GBNF & High",
         "columns": [
-          "Runtime Framework",
-          "Decoding Implementation",
-          "Latency Overhead Profile"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Constrained decoding frameworks bridge schemas with tensor operations.",
+            "caption": "Translating the mathematical principles of automata and context-free.",
             "rows": [
-              [
-                "Outlines Framework",
-                "Memory Mapped DFA Token Bitmask Indexers",
-                "Sub Millisecond Logit Masking Overhead"
-              ],
-              [
-                "Guidance Architecture",
-                "Interleave Static AST Text With Generative Streams",
-                "Accelerates Throughput By Bypassing Passes"
-              ]
+              {
+                "cells": [
+                  "i",
+                  "0"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Outlines compiles schemas into optimized state machines on startup.",
+            "caption": "The Outlines framework pioneered pre-compiled index-based logit masking.",
             "rows": [
-              [
-                "GBNF Native Kernel",
-                "Low Level C Plus Plus Grammar Parsing In GGML",
-                "Zero Python Serialization Latency Overhead"
-              ],
-              [
-                "Async Batching Scheduler",
-                "Execute Grammar Masking In Continuous Batches",
-                "Preserves High Concurrent User Throughput"
-              ]
+              {
+                "cells": [
+                  "i",
+                  "1"
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Native grammar kernels mask logits on GPU memory before token emission.",
+            "at": "say10",
+            "caption": "Hardware-accelerated logit masking integrates directly with custom neural.",
             "rows": [
-              [
-                "Trie Vocabulary Indexer",
-                "Resolve Multi Character Tokenization Ambiguities",
-                "Guarantees Accurate Byte Level Matching"
-              ],
-              [
-                "Distributed Cache Tier",
-                "Store Pre Compiled Grammar Bitmasks In Redis",
-                "Eliminates Redundant Cluster Compilation"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Benchmark inference latency with pre compiled regex token bitmasks.",
-            "rows": [
-              [
-                "Heterogeneous Model Bridge",
-                "Standardize Grammars Across Open And Closed Models",
-                "Ensures Unified Enterprise Contract Compliance"
-              ],
-              [
-                "GPU Tensor Accelerator",
-                "Direct TensorRT LLM Logit Kernel Integration",
-                "Delivers Maximum Production Token Velocity"
-              ]
+              {
+                "cells": [
+                  "out 1",
+                  "{"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "  \"engine\": \"Outlines / Guidance DFA Grammar Logit Masker\","
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "  \"targetGrammar\": \"RFC-Compliant HTTP Request Line EBNF\","
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 4",
+                  "  \"activeAllowedTokens\": ["
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -625,150 +698,168 @@
       "codeHash": "f1c1e5ecde526fb155a7d2d3be7587114065594966147d298e62a6cb1fd45b59",
       "spec": {
         "template": "table",
-        "title": "Enterprise Grammar Engineering And Production Service Deployment.",
+        "title": "Enterprise Grammar Engineering: Hardening Production Constrained",
         "columns": [
-          "Platform Service Layer",
-          "Component Implementation",
-          "Production Reliability SLA"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise grammar engineering implements modular python microservices.",
+            "caption": "Building an enterprise-grade constrained generation platform requires.",
             "rows": [
-              [
-                "Schema Ingestion Gateway",
-                "Accept High Level OpenAPI And Pydantic Schemas",
-                "Standardizes Microservice Contract Entry"
-              ],
-              [
-                "Asynchronous Compiler Pool",
-                "Background Multiprocessing Grammar Builds",
-                "Prevents Blocking Active Worker Threads"
-              ]
+              {
+                "cells": [
+                  {
+                    "text": "i"
+                  },
+                  {
+                    "var": "i",
+                    "line": 22,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Modular architectures center on schema ingestion and grammar compilers.",
+            "caption": "The software architecture of a production constrained generation service.",
             "rows": [
-              [
-                "Compilation Sandbox Guard",
-                "Hundred Millisecond Compilation Deadline Limits",
-                "Blocks Catastrophic Backtracking Exploits"
-              ],
-              [
-                "OpenTelemetry Trace Core",
-                "Emit Per Token Masking Latency Distributed Spans",
-                "Provides Real Time System Observability"
-              ]
+              {
+                "cells": [
+                  {
+                    "text": "i"
+                  },
+                  {
+                    "var": "i",
+                    "line": 22,
+                    "hit": 2
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Enterprise APIs safely query production tables with read only masks.",
+            "at": "say11",
+            "caption": "Decentralized key management frameworks safeguard sensitive encryption.",
             "rows": [
-              [
-                "Production Database Shield",
-                "Enforce Read Only SQL SELECT Grammar Policies",
-                "Prevents Data Warehouse Destruction Risks"
-              ],
-              [
-                "Cryptographic Provenance Vault",
-                "SHA Two Fifty Six Hash Of Prompt And Grammar",
-                "Satisfies External Regulatory Oversight"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a modular Python microservice compiling schemas into bitmasks.",
-            "rows": [
-              [
-                "Automated SLA Watchdog",
-                "Sub Second Constrained Inference Verification",
-                "Guarantees Uninterrupted Platform Uptime"
-              ],
-              [
-                "Dynamic Worker Cluster",
-                "Isolated Distributed Grammar Compilers",
-                "Guarantees High Concurrency Throughput"
-              ]
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 4"
+                  },
+                  {
+                    "out": 4
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
         "template": "table",
-        "title": "Enterprise Grammar Engineering And Production Service Deployment.",
+        "title": "Enterprise Grammar Engineering: Hardening Production Constrained",
         "columns": [
-          "Platform Service Layer",
-          "Component Implementation",
-          "Production Reliability SLA"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise grammar engineering implements modular python microservices.",
+            "caption": "Building an enterprise-grade constrained generation platform requires.",
             "rows": [
-              [
-                "Schema Ingestion Gateway",
-                "Accept High Level OpenAPI And Pydantic Schemas",
-                "Standardizes Microservice Contract Entry"
-              ],
-              [
-                "Asynchronous Compiler Pool",
-                "Background Multiprocessing Grammar Builds",
-                "Prevents Blocking Active Worker Threads"
-              ]
+              {
+                "cells": [
+                  "i",
+                  "0"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Modular architectures center on schema ingestion and grammar compilers.",
+            "caption": "The software architecture of a production constrained generation service.",
             "rows": [
-              [
-                "Compilation Sandbox Guard",
-                "Hundred Millisecond Compilation Deadline Limits",
-                "Blocks Catastrophic Backtracking Exploits"
-              ],
-              [
-                "OpenTelemetry Trace Core",
-                "Emit Per Token Masking Latency Distributed Spans",
-                "Provides Real Time System Observability"
-              ]
+              {
+                "cells": [
+                  "i",
+                  "1"
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Enterprise APIs safely query production tables with read only masks.",
+            "at": "say11",
+            "caption": "Decentralized key management frameworks safeguard sensitive encryption.",
             "rows": [
-              [
-                "Production Database Shield",
-                "Enforce Read Only SQL SELECT Grammar Policies",
-                "Prevents Data Warehouse Destruction Risks"
-              ],
-              [
-                "Cryptographic Provenance Vault",
-                "SHA Two Fifty Six Hash Of Prompt And Grammar",
-                "Satisfies External Regulatory Oversight"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a modular Python microservice compiling schemas into bitmasks.",
-            "rows": [
-              [
-                "Automated SLA Watchdog",
-                "Sub Second Constrained Inference Verification",
-                "Guarantees Uninterrupted Platform Uptime"
-              ],
-              [
-                "Dynamic Worker Cluster",
-                "Isolated Distributed Grammar Compilers",
-                "Guarantees High Concurrency Throughput"
-              ]
+              {
+                "cells": [
+                  "out 1",
+                  "{"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "  \"engine\": \"Outlines / Guidance DFA Grammar Logit Masker\","
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "  \"targetGrammar\": \"RFC-Compliant HTTP Request Line EBNF\","
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 4",
+                  "  \"activeAllowedTokens\": ["
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

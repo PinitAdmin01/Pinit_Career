@@ -2,231 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 6,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why locks across machines",
       "codeHash": "117065b672761281ececb3ca4838482b8e4c85d2229b03505d90424b7b46ad16",
       "spec": {
-        "template": "flow",
-        "title": "Why locks across machines — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Why locks across ma...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Why locks across machines",
+        "actors": [
+          "refund_paid",
+          "payments",
+          "name"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Why locks across machines [Dsix.Pone.Sone].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Why locks across ma... [Dsix.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "On one computer, a lock (mutex) stops two threads from changing the same.",
+            "activeActor": "refund_paid",
+            "messages": [
+              {
+                "from": "refund_paid",
+                "to": "payments",
+                "label": {
+                  "var": "refund_paid",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "payments",
+                "to": "name",
+                "label": {
+                  "var": "payments",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Without coordination, two workers can pick up the same job.",
+            "activeActor": "payments",
+            "messages": [
+              {
+                "from": "refund_paid",
+                "to": "payments",
+                "label": {
+                  "var": "refund_paid",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "payments",
+                "to": "name",
+                "label": {
+                  "var": "payments",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Why locks across machines.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Everything in this lesson is about making that \"only one\" guarantee.",
+            "activeActor": "name",
+            "messages": [
+              {
+                "from": "refund_paid",
+                "to": "payments",
+                "label": {
+                  "var": "refund_paid",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "payments",
+                "to": "name",
+                "label": {
+                  "var": "payments",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Why locks across machines — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Why locks across ma...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Why locks across machines",
+        "actors": [
+          "refund_paid",
+          "payments",
+          "name"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Why locks across machines [D6.P1.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Why locks across ma... [D6.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "On one computer, a lock (mutex) stops two threads from changing the same.",
+            "messages": [
+              {
+                "from": "refund_paid",
+                "to": "payments",
+                "label": "{'order-7': False}",
+                "tone": "data"
+              },
+              {
+                "from": "payments",
+                "to": "name",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "refund_paid"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Without coordination, two workers can pick up the same job.",
+            "messages": [
+              {
+                "from": "refund_paid",
+                "to": "payments",
+                "label": "{'order-7': False}",
+                "tone": "data"
+              },
+              {
+                "from": "payments",
+                "to": "name",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "payments"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Why locks across machines [D6.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Everything in this lesson is about making that \"only one\" guarantee.",
+            "messages": [
+              {
+                "from": "refund_paid",
+                "to": "payments",
+                "label": "{'order-7': False}",
+                "tone": "data"
+              },
+              {
+                "from": "payments",
+                "to": "name",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "name"
           }
         ]
       }
@@ -235,191 +173,277 @@
       "partTitle": "Leases: locks that expire",
       "codeHash": "14748251d73ce3cbe2e16f6d0d38e482d168bcd967f344d9085f9e2eaf1ea841",
       "spec": {
-        "template": "table",
-        "title": "Distributed lease lock acquisition and timeout transitions",
-        "columns": [
-          "now",
-          "owner",
-          "status"
+        "template": "flow",
+        "title": "Leases: locks that expire",
+        "nodes": [
+          {
+            "id": "leases",
+            "label": "leases"
+          },
+          {
+            "id": "resource",
+            "label": "resource"
+          },
+          {
+            "id": "owner",
+            "label": "owner"
+          },
+          {
+            "id": "now",
+            "label": "now"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Distributed leases expire after time to live preventing deadlocks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "worker-1"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "If a worker takes a lock and then crashes, a normal lock would stay held.",
+            "values": {
+              "leases": {
+                "var": "leases",
+                "line": 1,
+                "hit": 1
+              },
+              "resource": {
+                "var": "resource",
+                "line": 4,
+                "hit": 1
+              },
+              "owner": {
+                "var": "owner",
+                "line": 4,
+                "hit": 1
+              },
+              "now": {
+                "var": "now",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "leases": "data",
+              "resource": "data",
+              "owner": "data",
+              "now": "data"
+            },
+            "arrows": [
+              [
+                "leases",
+                "resource"
+              ],
+              [
+                "resource",
+                "owner"
+              ],
+              [
+                "owner",
+                "now"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Active lease held by worker prevents another worker from acquiring.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "worker-1"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The holder must finish (or renew the lease) before it expires.",
+            "values": {
+              "leases": {
+                "var": "leases",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "500"
-                  },
-                  {
-                    "text": "worker-2"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "error"
+              "resource": {
+                "var": "resource",
+                "line": 5,
+                "hit": 1
+              },
+              "owner": {
+                "var": "owner",
+                "line": 5,
+                "hit": 1
+              },
+              "now": {
+                "var": "now",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "leases": "data",
+              "resource": "data",
+              "owner": "data",
+              "now": "data"
+            },
+            "arrows": [
+              [
+                "leases",
+                "resource"
+              ],
+              [
+                "resource",
+                "owner"
+              ],
+              [
+                "owner",
+                "now"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "Expired lease allows new worker to acquire lock.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "worker-1"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Expiry fixes crashes, but introduces a new danger.",
+            "values": {
+              "leases": {
+                "var": "leases",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "500"
-                  },
-                  {
-                    "text": "worker-2"
-                  },
-                  {
-                    "text": "False"
-                  }
-                ],
-                "tone": "error"
+              "resource": {
+                "var": "resource",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "1200"
-                  },
-                  {
-                    "text": "worker-2"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "ok"
+              "owner": {
+                "var": "owner",
+                "line": 7,
+                "hit": 1
+              },
+              "now": {
+                "var": "now",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "leases": "ok",
+              "resource": "ok",
+              "owner": "ok",
+              "now": "ok"
+            },
+            "arrows": [
+              [
+                "leases",
+                "resource"
+              ],
+              [
+                "resource",
+                "owner"
+              ],
+              [
+                "owner",
+                "now"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Distributed lease lock acquisition and timeout transitions",
-        "columns": [
-          "now",
-          "owner",
-          "status"
+        "template": "flow",
+        "title": "Leases: locks that expire",
+        "nodes": [
+          {
+            "id": "leases",
+            "label": "leases"
+          },
+          {
+            "id": "resource",
+            "label": "resource"
+          },
+          {
+            "id": "owner",
+            "label": "owner"
+          },
+          {
+            "id": "now",
+            "label": "now"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Distributed leases expire after time to live preventing deadlocks.",
-            "rows": [
-              {
-                "cells": [
-                  "0",
-                  "worker-1",
-                  "True"
-                ],
-                "tone": "ok"
-              }
+            "caption": "If a worker takes a lock and then crashes, a normal lock would stay held.",
+            "values": {
+              "leases": "{}",
+              "resource": "'job-42'",
+              "owner": "'worker-1'",
+              "now": "0"
+            },
+            "tones": {
+              "leases": "data",
+              "resource": "data",
+              "owner": "data",
+              "now": "data"
+            },
+            "arrows": [
+              [
+                "leases",
+                "resource"
+              ],
+              [
+                "resource",
+                "owner"
+              ],
+              [
+                "owner",
+                "now"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Active lease held by worker prevents another worker from acquiring.",
-            "rows": [
-              {
-                "cells": [
-                  "0",
-                  "worker-1",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "500",
-                  "worker-2",
-                  "False"
-                ],
-                "tone": "error"
-              }
+            "caption": "The holder must finish (or renew the lease) before it expires.",
+            "values": {
+              "leases": "{}",
+              "resource": "'job-42'",
+              "owner": "'worker-1'",
+              "now": "0"
+            },
+            "tones": {
+              "leases": "data",
+              "resource": "data",
+              "owner": "data",
+              "now": "data"
+            },
+            "arrows": [
+              [
+                "leases",
+                "resource"
+              ],
+              [
+                "resource",
+                "owner"
+              ],
+              [
+                "owner",
+                "now"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "Expired lease allows new worker to acquire lock.",
-            "rows": [
-              {
-                "cells": [
-                  "0",
-                  "worker-1",
-                  "True"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "500",
-                  "worker-2",
-                  "False"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "1200",
-                  "worker-2",
-                  "True"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Expiry fixes crashes, but introduces a new danger.",
+            "values": {
+              "leases": "{'job-42': {'owner': 'worker-1', 'expir…",
+              "resource": "'job-42'",
+              "owner": "'worker-1'",
+              "now": "0"
+            },
+            "tones": {
+              "leases": "ok",
+              "resource": "ok",
+              "owner": "ok",
+              "now": "ok"
+            },
+            "arrows": [
+              [
+                "leases",
+                "resource"
+              ],
+              [
+                "resource",
+                "owner"
+              ],
+              [
+                "owner",
+                "now"
+              ]
             ]
           }
         ]
@@ -429,132 +453,106 @@
       "partTitle": "Fencing tokens",
       "codeHash": "59dd1f879c1d5e9677c8be085690acad6f335327da21a6507b386b56aee042f0",
       "spec": {
-        "template": "compare",
-        "title": "Fencing token monotonic counter validation on shared storage",
-        "leftLabel": "Fresh Token Write",
-        "rightLabel": "Stale Token Write",
+        "template": "states",
+        "title": "Fencing tokens",
+        "states": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "locks",
+            "label": "locks"
+          },
+          {
+            "id": "db",
+            "label": "db"
+          }
+        ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Its lease expires, worker-2 takes the lock and writes.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Fencing token counter increases every time lock is granted.",
-            "left": {
-              "code": "locks.acquire(\"invoice-9\", now=1500)",
-              "result": {
-                "text": "True"
-              },
-              "tone": "ok"
+            "caption": "The fix is a fencing token.",
+            "currentState": "locks",
+            "transition": {
+              "from": "self",
+              "to": "locks",
+              "label": {
+                "var": "locks",
+                "line": 31,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "delayed worker-1 holds expired lease",
-              "result": {
-                "text": "False"
-              },
-              "tone": "error"
-            }
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Storage tracks highest token rejecting writes with lower tokens.",
-            "left": {
-              "code": "db.write(token=2, \"from worker-2\")",
-              "result": {
-                "text": "from worker-2"
-              },
-              "tone": "ok"
+            "at": "say6",
+            "caption": "Fencing moves the final safety check to the resource itself, which is.",
+            "currentState": "db",
+            "transition": {
+              "from": "locks",
+              "to": "db",
+              "label": {
+                "var": "db",
+                "line": 32,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "db.write(token=1, \"from worker-1\")",
-              "result": {
-                "text": "REJECTED"
-              },
-              "tone": "error"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Checking lock on release stops worker releasing expired lock.",
-            "left": {
-              "code": "locks.release(\"invoice-9\", w2_id)",
-              "result": {
-                "text": "True"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "locks.release(\"invoice-9\", w1_id)",
-              "result": {
-                "text": "False"
-              },
-              "tone": "error"
-            }
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Fencing token monotonic counter validation on shared storage",
-        "leftLabel": "Fresh Token Write",
-        "rightLabel": "Stale Token Write",
+        "template": "states",
+        "title": "Fencing tokens",
+        "states": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "locks",
+            "label": "locks"
+          },
+          {
+            "id": "db",
+            "label": "db"
+          }
+        ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Its lease expires, worker-2 takes the lock and writes.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Fencing token counter increases every time lock is granted.",
-            "left": {
-              "code": "locks.acquire(\"invoice-9\", now=1500)",
-              "result": "True",
-              "tone": "ok",
-              "checks": [
-                "True"
-              ]
+            "caption": "The fix is a fencing token.",
+            "currentState": "locks",
+            "transition": {
+              "from": "self",
+              "to": "locks",
+              "label": "<LockManager>"
             },
-            "right": {
-              "code": "delayed worker-1 holds expired lease",
-              "result": "False",
-              "tone": "error",
-              "checks": [
-                "False"
-              ]
-            }
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Storage tracks highest token rejecting writes with lower tokens.",
-            "left": {
-              "code": "db.write(token=2, \"from worker-2\")",
-              "result": "from worker-2",
-              "tone": "ok",
-              "checks": [
-                "from worker-2"
-              ]
+            "at": "say6",
+            "caption": "Fencing moves the final safety check to the resource itself, which is.",
+            "currentState": "db",
+            "transition": {
+              "from": "locks",
+              "to": "db",
+              "label": "<Storage>"
             },
-            "right": {
-              "code": "db.write(token=1, \"from worker-1\")",
-              "result": "REJECTED",
-              "tone": "error",
-              "checks": [
-                "REJECTED"
-              ]
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Checking lock on release stops worker releasing expired lock.",
-            "left": {
-              "code": "locks.release(\"invoice-9\", w2_id)",
-              "result": "True",
-              "tone": "ok",
-              "checks": [
-                "True"
-              ]
-            },
-            "right": {
-              "code": "locks.release(\"invoice-9\", w1_id)",
-              "result": "False",
-              "tone": "error",
-              "checks": [
-                "False"
-              ]
-            }
+            "tone": "ok"
           }
         ]
       }
@@ -563,192 +561,162 @@
       "partTitle": "Clock drift and safety margins",
       "codeHash": "6fbf7fec1d1d43353608d61d79dd7b9a385a907f2b78a021a2829dd3023c2e2e",
       "spec": {
-        "template": "table",
-        "title": "Clock drift safety margin evaluation for distributed lease validity",
-        "columns": [
+        "template": "sequence",
+        "title": "Clock drift and safety margins",
+        "actors": [
           "now",
           "acquired_at",
-          "drift_ms"
+          "ttl_ms"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Clocks on different machines run fast or slow creating drift.",
-            "rows": [
+            "caption": "Leases depend on time, and clocks on different machines disagree.",
+            "activeActor": "now",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "50"
-                  }
-                ],
+                "from": "now",
+                "to": "acquired_at",
+                "label": {
+                  "var": "now",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "acquired_at",
+                "to": "ttl_ms",
+                "label": {
+                  "var": "acquired_at",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Safety margin treats lease valid while elapsed plus drift is below TTL.",
-            "rows": [
+            "at": "say2",
+            "caption": "If the holder's clock runs slow, it may think its lease is still valid.",
+            "activeActor": "acquired_at",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "50"
-                  }
-                ],
-                "tone": "ok"
+                "from": "now",
+                "to": "acquired_at",
+                "label": {
+                  "var": "now",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "900"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "50"
-                  }
-                ],
+                "from": "acquired_at",
+                "to": "ttl_ms",
+                "label": {
+                  "var": "acquired_at",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Holder stops working before lease ends leaving room for drift.",
-            "rows": [
+            "at": "say6",
+            "caption": "Trace how looks updates clocks during execution.",
+            "activeActor": "ttl_ms",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "50"
-                  }
-                ],
-                "tone": "ok"
+                "from": "now",
+                "to": "acquired_at",
+                "label": {
+                  "var": "now",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "900"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "50"
-                  }
-                ],
+                "from": "acquired_at",
+                "to": "ttl_ms",
+                "label": {
+                  "var": "acquired_at",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "1000"
-                  },
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "50"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Clock drift safety margin evaluation for distributed lease validity",
-        "columns": [
+        "template": "sequence",
+        "title": "Clock drift and safety margins",
+        "actors": [
           "now",
           "acquired_at",
-          "drift_ms"
+          "ttl_ms"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Clocks on different machines run fast or slow creating drift.",
-            "rows": [
+            "caption": "Leases depend on time, and clocks on different machines disagree.",
+            "messages": [
               {
-                "cells": [
-                  "0",
-                  "0",
-                  "50"
-                ],
+                "from": "now",
+                "to": "acquired_at",
+                "label": "0",
+                "tone": "data"
+              },
+              {
+                "from": "acquired_at",
+                "to": "ttl_ms",
+                "label": "0",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "now"
           },
           {
-            "at": "say3",
-            "caption": "Safety margin treats lease valid while elapsed plus drift is below TTL.",
-            "rows": [
+            "at": "say2",
+            "caption": "If the holder's clock runs slow, it may think its lease is still valid.",
+            "messages": [
               {
-                "cells": [
-                  "0",
-                  "0",
-                  "50"
-                ],
-                "tone": "ok"
+                "from": "now",
+                "to": "acquired_at",
+                "label": "0",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "900",
-                  "0",
-                  "50"
-                ],
+                "from": "acquired_at",
+                "to": "ttl_ms",
+                "label": "0",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "acquired_at"
           },
           {
-            "at": "say5",
-            "caption": "Holder stops working before lease ends leaving room for drift.",
-            "rows": [
+            "at": "say6",
+            "caption": "Trace how looks updates clocks during execution.",
+            "messages": [
               {
-                "cells": [
-                  "0",
-                  "0",
-                  "50"
-                ],
-                "tone": "ok"
+                "from": "now",
+                "to": "acquired_at",
+                "label": "0",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "900",
-                  "0",
-                  "50"
-                ],
+                "from": "acquired_at",
+                "to": "ttl_ms",
+                "label": "0",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "1000",
-                  "0",
-                  "50"
-                ],
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "ttl_ms"
           }
         ]
       }
@@ -757,132 +725,116 @@
       "partTitle": "Redlock and majority locks",
       "codeHash": "60fa1aa4ae872781401068e9c0b50cc036fa4b1b811695da967325539b990216",
       "spec": {
-        "template": "compare",
-        "title": "Redlock multi-node majority acquisition and validity evaluation",
-        "leftLabel": "Majority Quorum Acquired",
-        "rightLabel": "Quorum Miss / Timeout",
+        "template": "cells",
+        "title": "Redlock and majority locks",
         "steps": [
           {
             "at": "say1",
-            "caption": "Redlock spreads distributed locks across independent Redis nodes.",
-            "left": {
-              "code": "redlock 3 of 5 nodes",
-              "result": {
-                "text": "True"
-              },
-              "tone": "ok"
+            "caption": "A lock stored on one Redis server fails if that server fails.",
+            "items": {
+              "var": "node_ok",
+              "line": 2,
+              "hit": 1
             },
-            "right": {
-              "code": "redlock 2 of 5 nodes",
-              "result": {
-                "text": "False"
-              },
-              "tone": "error"
-            }
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Client holds lock only if majority succeeded quickly enough.",
-            "left": {
-              "code": "elapsed 40 ms within TTL",
-              "result": {
-                "text": "40"
-              },
-              "tone": "ok"
+            "caption": "A client tries to set the lock on all of them.",
+            "items": {
+              "var": "node_ok",
+              "line": 3,
+              "hit": 2
             },
-            "right": {
-              "code": "elapsed 1200 ms exceeds TTL",
-              "result": {
-                "text": "1200"
-              },
-              "tone": "error"
-            }
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Failing to reach majority releases partial locks immediately.",
-            "left": {
-              "code": "acquired >= majority",
-              "result": {
-                "text": "True"
-              },
-              "tone": "ok"
+            "at": "say6",
+            "caption": "The simulation grants the lock only with a majority of five nodes.",
+            "items": {
+              "var": "node_ok",
+              "line": 3,
+              "hit": 3
             },
-            "right": {
-              "code": "acquired < majority fails",
-              "result": {
-                "text": "False"
-              },
-              "tone": "error"
-            }
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Redlock multi-node majority acquisition and validity evaluation",
-        "leftLabel": "Majority Quorum Acquired",
-        "rightLabel": "Quorum Miss / Timeout",
+        "template": "cells",
+        "title": "Redlock and majority locks",
         "steps": [
           {
             "at": "say1",
-            "caption": "Redlock spreads distributed locks across independent Redis nodes.",
-            "left": {
-              "code": "redlock 3 of 5 nodes",
-              "result": "True",
-              "tone": "ok",
-              "checks": [
-                "True"
-              ]
-            },
-            "right": {
-              "code": "redlock 2 of 5 nodes",
-              "result": "False",
-              "tone": "error",
-              "checks": [
-                "False"
-              ]
-            }
+            "caption": "A lock stored on one Redis server fails if that server fails.",
+            "items": [
+              "True",
+              "True",
+              "True",
+              "False",
+              "False"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Client holds lock only if majority succeeded quickly enough.",
-            "left": {
-              "code": "elapsed 40 ms within TTL",
-              "result": "40",
-              "tone": "ok",
-              "checks": [
-                "40"
-              ]
-            },
-            "right": {
-              "code": "elapsed 1200 ms exceeds TTL",
-              "result": "1200",
-              "tone": "error",
-              "checks": [
-                "1200"
-              ]
-            }
+            "caption": "A client tries to set the lock on all of them.",
+            "items": [
+              "True",
+              "True",
+              "False",
+              "False",
+              "False"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Failing to reach majority releases partial locks immediately.",
-            "left": {
-              "code": "acquired >= majority",
-              "result": "True",
-              "tone": "ok",
-              "checks": [
-                "True"
-              ]
-            },
-            "right": {
-              "code": "acquired < majority fails",
-              "result": "False",
-              "tone": "error",
-              "checks": [
-                "False"
-              ]
-            }
+            "at": "say6",
+            "caption": "The simulation grants the lock only with a majority of five nodes.",
+            "items": [
+              "True",
+              "True",
+              "True",
+              "True",
+              "True"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
+            ]
           }
         ]
       }
@@ -891,224 +843,162 @@
       "partTitle": "Avoiding locks when you can",
       "codeHash": "237ab1a5ab0616a468e998ebc8500ce8c5eadea3adfe3eab2e9306882cabb71e",
       "spec": {
-        "template": "flow",
-        "title": "Avoiding locks when you can — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Avoiding locks when...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Avoiding locks when you can",
+        "actors": [
+          "record",
+          "seen_by_a",
+          "seen_by_b"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Avoiding locks when you can [Dsix.Psix.Sone].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Avoiding locks when... [Dsix.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Locks are slow and tricky.",
+            "activeActor": "record",
+            "messages": [
+              {
+                "from": "record",
+                "to": "seen_by_a",
+                "label": {
+                  "var": "record",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "seen_by_a",
+                "to": "seen_by_b",
+                "label": {
+                  "var": "seen_by_a",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Make repeated operations harmless, so it does not matter if two workers do.",
+            "activeActor": "seen_by_a",
+            "messages": [
+              {
+                "from": "record",
+                "to": "seen_by_a",
+                "label": {
+                  "var": "record",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "seen_by_a",
+                "to": "seen_by_b",
+                "label": {
+                  "var": "seen_by_a",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Avoiding locks when you can.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "Tomorrow you will see a special kind of lock.",
+            "activeActor": "seen_by_b",
+            "messages": [
+              {
+                "from": "record",
+                "to": "seen_by_a",
+                "label": {
+                  "var": "record",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "seen_by_a",
+                "to": "seen_by_b",
+                "label": {
+                  "var": "seen_by_a",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Avoiding locks when you can — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Avoiding locks when...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Avoiding locks when you can",
+        "actors": [
+          "record",
+          "seen_by_a",
+          "seen_by_b"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Avoiding locks when you can [D6.P6.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Avoiding locks when... [D6.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Locks are slow and tricky.",
+            "messages": [
+              {
+                "from": "record",
+                "to": "seen_by_a",
+                "label": "{'stock': 5, 'version': 1}",
+                "tone": "data"
+              },
+              {
+                "from": "seen_by_a",
+                "to": "seen_by_b",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "record"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Make repeated operations harmless, so it does not matter if two workers do.",
+            "messages": [
+              {
+                "from": "record",
+                "to": "seen_by_a",
+                "label": "{'stock': 5, 'version': 1}",
+                "tone": "data"
+              },
+              {
+                "from": "seen_by_a",
+                "to": "seen_by_b",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "seen_by_a"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Avoiding locks when you can [D6.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say6",
+            "caption": "Tomorrow you will see a special kind of lock.",
+            "messages": [
+              {
+                "from": "record",
+                "to": "seen_by_a",
+                "label": "{'stock': 5, 'version': 1}",
+                "tone": "data"
+              },
+              {
+                "from": "seen_by_a",
+                "to": "seen_by_b",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "seen_by_b"
           }
         ]
       }

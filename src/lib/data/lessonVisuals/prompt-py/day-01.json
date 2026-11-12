@@ -2,199 +2,169 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 1,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What generative AI is",
       "codeHash": "797e8446d9f938ae5f4c23ea8bc0d9448f971a50225669325d6c1a977f912b88",
       "spec": {
-        "template": "table",
-        "title": "Lookup retrieval versus generative statistical prediction",
-        "columns": [
-          "question",
-          "lookup",
-          "predict"
+        "template": "sequence",
+        "title": "What generative AI is",
+        "actors": [
+          "facts",
+          "q",
+          "question"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Generative models produce synthetic content in response to instructions.",
-            "rows": [
+            "caption": "Generative AI is software that creates new content, such as text, images.",
+            "activeActor": "facts",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "question"
-                  },
-                  {
-                    "text": "lookup"
-                  },
-                  {
-                    "text": "predict"
-                  }
-                ],
+                "from": "facts",
+                "to": "q",
+                "label": {
+                  "var": "facts",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "question",
+                "label": {
+                  "var": "q",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Statistical prediction replaces static database search engine queries.",
-            "rows": [
+            "at": "say2",
+            "caption": "Chat assistants like ChatGPT, Claude and Gemini are built on large.",
+            "activeActor": "q",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "question"
-                  },
-                  {
-                    "text": "lookup"
-                  },
-                  {
-                    "text": "predict"
-                  }
-                ],
-                "tone": "ok"
+                "from": "facts",
+                "to": "q",
+                "label": {
+                  "var": "facts",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "capital of France"
-                  },
-                  {
-                    "text": "Paris"
-                  },
-                  {
-                    "text": "Paris"
-                  }
-                ],
+                "from": "q",
+                "to": "question",
+                "label": {
+                  "var": "q",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Language models output plausible text rather than guaranteed factual truth.",
-            "rows": [
+            "at": "say7",
+            "caption": "Throughout the course we will use Python to make AI use more reliable.",
+            "activeActor": "question",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "question"
-                  },
-                  {
-                    "text": "lookup"
-                  },
-                  {
-                    "text": "predict"
-                  }
-                ],
-                "tone": "ok"
+                "from": "facts",
+                "to": "q",
+                "label": {
+                  "var": "facts",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "capital of France"
-                  },
-                  {
-                    "text": "Paris"
-                  },
-                  {
-                    "text": "Paris"
-                  }
-                ],
+                "from": "q",
+                "to": "question",
+                "label": {
+                  "var": "q",
+                  "line": 8,
+                  "hit": 2
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "capital of France"
-                  },
-                  {
-                    "text": "not found"
-                  },
-                  {
-                    "text": "a plausible-sounding guess"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Lookup retrieval versus generative statistical prediction",
-        "columns": [
-          "question",
-          "lookup",
-          "predict"
+        "template": "sequence",
+        "title": "What generative AI is",
+        "actors": [
+          "facts",
+          "q",
+          "question"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Generative models produce synthetic content in response to instructions.",
-            "rows": [
+            "caption": "Generative AI is software that creates new content, such as text, images.",
+            "messages": [
               {
-                "cells": [
-                  "question",
-                  "lookup",
-                  "predict"
-                ],
+                "from": "facts",
+                "to": "q",
+                "label": "{'capital of France': 'Paris', 'boiling…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "question",
+                "label": "'capital of France'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "facts"
           },
           {
-            "at": "say3",
-            "caption": "Statistical prediction replaces static database search engine queries.",
-            "rows": [
+            "at": "say2",
+            "caption": "Chat assistants like ChatGPT, Claude and Gemini are built on large.",
+            "messages": [
               {
-                "cells": [
-                  "question",
-                  "lookup",
-                  "predict"
-                ],
-                "tone": "ok"
+                "from": "facts",
+                "to": "q",
+                "label": "{'capital of France': 'Paris', 'boiling…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "capital of France",
-                  "Paris",
-                  "Paris"
-                ],
+                "from": "q",
+                "to": "question",
+                "label": "'capital of France'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "q"
           },
           {
-            "at": "say4",
-            "caption": "Language models output plausible text rather than guaranteed factual truth.",
-            "rows": [
+            "at": "say7",
+            "caption": "Throughout the course we will use Python to make AI use more reliable.",
+            "messages": [
               {
-                "cells": [
-                  "question",
-                  "lookup",
-                  "predict"
-                ],
-                "tone": "ok"
+                "from": "facts",
+                "to": "q",
+                "label": "{'capital of France': 'Paris', 'boiling…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "capital of France",
-                  "Paris",
-                  "Paris"
-                ],
+                "from": "q",
+                "to": "question",
+                "label": "'capital of Atlantis'",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "capital of France",
-                  "not found",
-                  "a plausible-sounding guess"
-                ],
-                "tone": "idle"
               }
-            ]
+            ],
+            "activeActor": "question"
           }
         ]
       }
@@ -203,192 +173,162 @@
       "partTitle": "Tokens and next-word prediction",
       "codeHash": "b8c825cd8c36c1bf51bf545e402f19b5d573ff9d76dc729ecbb5f0f1c58df581",
       "spec": {
-        "template": "table",
-        "title": "Tokenization chunks and sequential next-word counts",
-        "columns": [
+        "template": "sequence",
+        "title": "Tokens and next-word prediction",
+        "actors": [
+          "text",
           "words",
-          "following",
-          "sentence"
+          "following"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Language models parse input text into small token pieces.",
-            "rows": [
+            "caption": "Language models read and write text in small pieces called tokens.",
+            "activeActor": "text",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "following"
-                  },
-                  {
-                    "text": "sentence"
-                  }
-                ],
+                "from": "text",
+                "to": "words",
+                "label": {
+                  "var": "text",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "words",
+                "to": "following",
+                "label": {
+                  "var": "words",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Sequential generation scores candidate tokens at each iterative step.",
-            "rows": [
+            "caption": "The model produces a reply one token at a time.",
+            "activeActor": "words",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "following"
-                  },
-                  {
-                    "text": "sentence"
-                  }
-                ],
-                "tone": "ok"
+                "from": "text",
+                "to": "words",
+                "label": {
+                  "var": "text",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "following"
-                  },
-                  {
-                    "text": "sentence"
-                  }
-                ],
+                "from": "words",
+                "to": "following",
+                "label": {
+                  "var": "words",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Prompt words steer every subsequent token choice in model generation.",
-            "rows": [
+            "at": "say8",
+            "caption": "Notice that the toy soon repeats itself.",
+            "activeActor": "following",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "following"
-                  },
-                  {
-                    "text": "sentence"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "following"
-                  },
-                  {
-                    "text": "sentence"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "following"
-                  },
-                  {
-                    "text": "sentence"
-                  }
-                ],
+                "from": "text",
+                "to": "words",
+                "label": {
+                  "var": "text",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "words",
+                "to": "following",
+                "label": {
+                  "var": "words",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Tokenization chunks and sequential next-word counts",
-        "columns": [
+        "template": "sequence",
+        "title": "Tokens and next-word prediction",
+        "actors": [
+          "text",
           "words",
-          "following",
-          "sentence"
+          "following"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Language models parse input text into small token pieces.",
-            "rows": [
+            "caption": "Language models read and write text in small pieces called tokens.",
+            "messages": [
               {
-                "cells": [
-                  "words",
-                  "following",
-                  "sentence"
-                ],
+                "from": "text",
+                "to": "words",
+                "label": "'the cat sat on the mat . the cat ate t…",
+                "tone": "data"
+              },
+              {
+                "from": "words",
+                "to": "following",
+                "label": "['the', 'cat', 'sat', 'on', 'the', 'mat…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "text"
           },
           {
             "at": "say2",
-            "caption": "Sequential generation scores candidate tokens at each iterative step.",
-            "rows": [
+            "caption": "The model produces a reply one token at a time.",
+            "messages": [
               {
-                "cells": [
-                  "words",
-                  "following",
-                  "sentence"
-                ],
-                "tone": "ok"
+                "from": "text",
+                "to": "words",
+                "label": "'the cat sat on the mat . the cat ate t…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "words",
-                  "following",
-                  "sentence"
-                ],
+                "from": "words",
+                "to": "following",
+                "label": "['the', 'cat', 'sat', 'on', 'the', 'mat…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "words"
           },
           {
-            "at": "say3",
-            "caption": "Prompt words steer every subsequent token choice in model generation.",
-            "rows": [
+            "at": "say8",
+            "caption": "Notice that the toy soon repeats itself.",
+            "messages": [
               {
-                "cells": [
-                  "words",
-                  "following",
-                  "sentence"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "words",
-                  "following",
-                  "sentence"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "words",
-                  "following",
-                  "sentence"
-                ],
+                "from": "text",
+                "to": "words",
+                "label": "'the cat sat on the mat . the cat ate t…",
                 "tone": "data"
+              },
+              {
+                "from": "words",
+                "to": "following",
+                "label": "['the', 'cat', 'sat', 'on', 'the', 'mat…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "following"
           }
         ]
       }
@@ -397,9 +337,9 @@
       "partTitle": "What a prompt is",
       "codeHash": "512c701366adaaec10e0985c451fd89ff9575f3973009e9c5d41b8dff427984f",
       "spec": {
-        "template": "table",
-        "title": "Prompt components specifying topic format and audience",
-        "columns": [
+        "template": "sequence",
+        "title": "What a prompt is",
+        "actors": [
           "topic",
           "fmt",
           "audience"
@@ -407,102 +347,81 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Prompts provide background context instructions and examples to the model.",
-            "rows": [
+            "caption": "A prompt is everything you give the model before it starts writing.",
+            "activeActor": "topic",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "topic"
-                  },
-                  {
-                    "text": "fmt"
-                  },
-                  {
-                    "text": "audience"
-                  }
-                ],
+                "from": "topic",
+                "to": "fmt",
+                "label": {
+                  "var": "topic",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fmt",
+                "to": "audience",
+                "label": {
+                  "var": "fmt",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Precise prompt wording directly governs output quality.",
-            "rows": [
+            "caption": "Since the model continues from your prompt, prompt quality directly.",
+            "activeActor": "fmt",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "topic"
-                  },
-                  {
-                    "text": "fmt"
-                  },
-                  {
-                    "text": "audience"
-                  }
-                ],
-                "tone": "ok"
+                "from": "topic",
+                "to": "fmt",
+                "label": {
+                  "var": "topic",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "photosynthesis"
-                  },
-                  {
-                    "text": "3-bullet summary"
-                  },
-                  {
-                    "text": "a 10-year-old"
-                  }
-                ],
+                "from": "fmt",
+                "to": "audience",
+                "label": {
+                  "var": "fmt",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Effective prompts define the topic format and target audience explicitly.",
-            "rows": [
+            "at": "say7",
+            "caption": "Thinking of a prompt as a brief for a capable but literal assistant is.",
+            "activeActor": "audience",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "topic"
-                  },
-                  {
-                    "text": "fmt"
-                  },
-                  {
-                    "text": "audience"
-                  }
-                ],
-                "tone": "ok"
+                "from": "topic",
+                "to": "fmt",
+                "label": {
+                  "var": "topic",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "photosynthesis"
-                  },
-                  {
-                    "text": "3-bullet summary"
-                  },
-                  {
-                    "text": "a 10-year-old"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "compound interest"
-                  },
-                  {
-                    "text": "short table with an example"
-                  },
-                  {
-                    "text": "first-time savers"
-                  }
-                ],
+                "from": "fmt",
+                "to": "audience",
+                "label": {
+                  "var": "fmt",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -510,9 +429,9 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Prompt components specifying topic format and audience",
-        "columns": [
+        "template": "sequence",
+        "title": "What a prompt is",
+        "actors": [
           "topic",
           "fmt",
           "audience"
@@ -520,69 +439,60 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Prompts provide background context instructions and examples to the model.",
-            "rows": [
+            "caption": "A prompt is everything you give the model before it starts writing.",
+            "messages": [
               {
-                "cells": [
-                  "topic",
-                  "fmt",
-                  "audience"
-                ],
+                "from": "topic",
+                "to": "fmt",
+                "label": "'photosynthesis'",
+                "tone": "data"
+              },
+              {
+                "from": "fmt",
+                "to": "audience",
+                "label": "'3-bullet summary'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "topic"
           },
           {
             "at": "say2",
-            "caption": "Precise prompt wording directly governs output quality.",
-            "rows": [
+            "caption": "Since the model continues from your prompt, prompt quality directly.",
+            "messages": [
               {
-                "cells": [
-                  "topic",
-                  "fmt",
-                  "audience"
-                ],
-                "tone": "ok"
+                "from": "topic",
+                "to": "fmt",
+                "label": "'compound interest'",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "photosynthesis",
-                  "3-bullet summary",
-                  "a 10-year-old"
-                ],
+                "from": "fmt",
+                "to": "audience",
+                "label": "'short table with an example'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "fmt"
           },
           {
-            "at": "say4",
-            "caption": "Effective prompts define the topic format and target audience explicitly.",
-            "rows": [
+            "at": "say7",
+            "caption": "Thinking of a prompt as a brief for a capable but literal assistant is.",
+            "messages": [
               {
-                "cells": [
-                  "topic",
-                  "fmt",
-                  "audience"
-                ],
-                "tone": "ok"
+                "from": "topic",
+                "to": "fmt",
+                "label": "'the water cycle'",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "photosynthesis",
-                  "3-bullet summary",
-                  "a 10-year-old"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "compound interest",
-                  "short table with an example",
-                  "first-time savers"
-                ],
+                "from": "fmt",
+                "to": "audience",
+                "label": "'one-paragraph story'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "audience"
           }
         ]
       }
@@ -591,131 +501,91 @@
       "partTitle": "Checking prompts with code",
       "codeHash": "1027fd872d900dd1fad7f572c938d36dfa1a584b7b8937c70688653521562d0c",
       "spec": {
-        "template": "table",
-        "title": "Automated prompt structure and specificity verification",
-        "columns": [
-          "prompt",
-          "words",
-          "has_format",
-          "has_audience"
+        "template": "sequence",
+        "title": "Checking prompts with code",
+        "actors": [
+          "FORMATS",
+          "p",
+          "prompt"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Automated verification catches vague prompts prior to submission.",
-            "rows": [
+            "caption": "You can catch vague prompts automatically before sending them, which.",
+            "activeActor": "FORMATS",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "has_format"
-                  },
-                  {
-                    "text": "has_audience"
-                  }
-                ],
+                "from": "FORMATS",
+                "to": "p",
+                "label": {
+                  "var": "FORMATS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "prompt",
+                "label": {
+                  "var": "p",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Heuristics evaluate word counts format indicators and target audience tags.",
-            "rows": [
+            "caption": "A simple checker counts words and looks for signs of a format (words like.",
+            "activeActor": "p",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "has_format"
-                  },
-                  {
-                    "text": "has_audience"
-                  }
-                ],
-                "tone": "ok"
+                "from": "FORMATS",
+                "to": "p",
+                "label": {
+                  "var": "FORMATS",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "has_format"
-                  },
-                  {
-                    "text": "has_audience"
-                  }
-                ],
+                "from": "p",
+                "to": "prompt",
+                "label": {
+                  "var": "p",
+                  "line": 11,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The verification checker returns a final verdict of specific or vague.",
-            "rows": [
+            "at": "say7",
+            "caption": "Automated checks do not replace judgement.",
+            "activeActor": "prompt",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "has_format"
-                  },
-                  {
-                    "text": "has_audience"
-                  }
-                ],
-                "tone": "ok"
+                "from": "FORMATS",
+                "to": "p",
+                "label": {
+                  "var": "FORMATS",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "has_format"
-                  },
-                  {
-                    "text": "has_audience"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "has_format"
-                  },
-                  {
-                    "text": "has_audience"
-                  }
-                ],
+                "from": "p",
+                "to": "prompt",
+                "label": {
+                  "var": "p",
+                  "line": 9,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -723,86 +593,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Automated prompt structure and specificity verification",
-        "columns": [
-          "prompt",
-          "words",
-          "has_format",
-          "has_audience"
+        "template": "sequence",
+        "title": "Checking prompts with code",
+        "actors": [
+          "FORMATS",
+          "p",
+          "prompt"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Automated verification catches vague prompts prior to submission.",
-            "rows": [
+            "caption": "You can catch vague prompts automatically before sending them, which.",
+            "messages": [
               {
-                "cells": [
-                  "prompt",
-                  "words",
-                  "has_format",
-                  "has_audience"
-                ],
+                "from": "FORMATS",
+                "to": "p",
+                "label": "{'bullet', 'bullets', 'email', 'list', …",
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "prompt",
+                "label": "'help me'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "FORMATS"
           },
           {
             "at": "say2",
-            "caption": "Heuristics evaluate word counts format indicators and target audience tags.",
-            "rows": [
+            "caption": "A simple checker counts words and looks for signs of a format (words like.",
+            "messages": [
               {
-                "cells": [
-                  "prompt",
-                  "words",
-                  "has_format",
-                  "has_audience"
-                ],
-                "tone": "ok"
+                "from": "FORMATS",
+                "to": "p",
+                "label": "{'bullet', 'bullets', 'email', 'list', …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "prompt",
-                  "words",
-                  "has_format",
-                  "has_audience"
-                ],
+                "from": "p",
+                "to": "prompt",
+                "label": "'help me'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "p"
           },
           {
-            "at": "say3",
-            "caption": "The verification checker returns a final verdict of specific or vague.",
-            "rows": [
+            "at": "say7",
+            "caption": "Automated checks do not replace judgement.",
+            "messages": [
               {
-                "cells": [
-                  "prompt",
-                  "words",
-                  "has_format",
-                  "has_audience"
-                ],
-                "tone": "ok"
+                "from": "FORMATS",
+                "to": "p",
+                "label": "{'bullet', 'bullets', 'email', 'list', …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "prompt",
-                  "words",
-                  "has_format",
-                  "has_audience"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "prompt",
-                  "words",
-                  "has_format",
-                  "has_audience"
-                ],
+                "from": "p",
+                "to": "prompt",
+                "label": "'Write a summary of the meeting notes f…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "prompt"
           }
         ]
       }
@@ -812,110 +666,127 @@
       "codeHash": "619fc5a0cec391c4b6a638514ae3d80e2d16f66922e814c4007166c02e3995d4",
       "spec": {
         "template": "flow",
-        "title": "Strengths and limits — Execution Pipeline",
+        "title": "Strengths and limits",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "tasks",
+            "label": "tasks"
           },
           {
-            "id": "proc",
-            "label": "2. Strengths and limits",
-            "tappable": true
+            "id": "category",
+            "label": "category"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "items",
+            "label": "items"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Strengths and limits [Done.Pfive.Sone].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Strengths and limits [Done.Pfive.Stwo].",
+            "caption": "AI assistants are excellent at drafting, rewriting, summarising.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "tasks": {
+                "var": "tasks",
+                "line": 1,
+                "hit": 2
+              },
+              "category": {
+                "var": "category",
+                "line": 4,
+                "hit": 1
+              },
+              "items": {
+                "var": "items",
+                "line": 5,
+                "hit": 7
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "tasks": "data",
+              "category": "data",
+              "items": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "tasks",
+                "category"
               ],
               [
-                "proc",
-                "out"
+                "category",
+                "items"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "They are weaker at exact arithmetic, very recent events (after their.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "tasks": {
+                "var": "tasks",
+                "line": 4,
+                "hit": 1
+              },
+              "category": {
+                "var": "category",
+                "line": 5,
+                "hit": 1
+              },
+              "items": {
+                "var": "items",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "tasks": "data",
+              "category": "data",
+              "items": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "tasks",
+                "category"
+              ],
+              [
+                "category",
+                "items"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Strengths and limits [Done.Pfive.Sfour].",
+            "at": "say7",
+            "caption": "Knowing when not to use AI is as valuable as knowing how to use it.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "tasks": {
+                "var": "tasks",
+                "line": 5,
+                "hit": 1
+              },
+              "category": {
+                "var": "category",
+                "line": 5,
+                "hit": 2
+              },
+              "items": {
+                "var": "items",
+                "line": 4,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "tasks": "ok",
+              "category": "ok",
+              "items": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "tasks",
+                "category"
               ],
               [
-                "proc",
-                "out"
+                "category",
+                "items"
               ]
             ]
           }
@@ -923,110 +794,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Strengths and limits — Execution Pipeline",
+        "title": "Strengths and limits",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "tasks",
+            "label": "tasks"
           },
           {
-            "id": "proc",
-            "label": "2. Strengths and limits",
-            "tappable": true
+            "id": "category",
+            "label": "category"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "items",
+            "label": "items"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Strengths and limits [D1.P5.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Strengths and limits [D1.P5.S2].",
+            "caption": "AI assistants are excellent at drafting, rewriting, summarising.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "tasks": "{'draft a birthday message': 'good fit'…",
+              "category": "'good fit'",
+              "items": "['draft a birthday message', 'summarise…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "tasks": "data",
+              "category": "data",
+              "items": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "tasks",
+                "category"
               ],
               [
-                "proc",
-                "out"
+                "category",
+                "items"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P5.S3].",
+            "at": "say2",
+            "caption": "They are weaker at exact arithmetic, very recent events (after their.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "tasks": "{'draft a birthday message': 'good fit'…",
+              "category": "'good fit'",
+              "items": "['draft a birthday message', 'summarise…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "tasks": "data",
+              "category": "data",
+              "items": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "tasks",
+                "category"
+              ],
+              [
+                "category",
+                "items"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Strengths and limits [D1.P5.S4].",
+            "at": "say7",
+            "caption": "Knowing when not to use AI is as valuable as knowing how to use it.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "tasks": "{'draft a birthday message': 'good fit'…",
+              "category": "'good fit'",
+              "items": "['draft a birthday message', 'summarise…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "tasks": "ok",
+              "category": "ok",
+              "items": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "tasks",
+                "category"
               ],
               [
-                "proc",
-                "out"
+                "category",
+                "items"
               ]
             ]
           }
@@ -1037,224 +889,162 @@
       "partTitle": "Practice time: check and build prompts",
       "codeHash": "0720be7c847ba11597f254b082f75ab962033b3cc8785e147fab9d4da94fed4c",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: check and build prompts — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: chec...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: check and build prompts",
+        "actors": [
+          "topic",
+          "fmt",
+          "audience"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: check and build prompts.",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: chec... [Done.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Prompt_check(prompt).",
+            "activeActor": "topic",
+            "messages": [
+              {
+                "from": "topic",
+                "to": "fmt",
+                "label": {
+                  "var": "topic",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fmt",
+                "to": "audience",
+                "label": {
+                  "var": "fmt",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a long but vague prompt and the \"listening\" trap.",
+            "activeActor": "fmt",
+            "messages": [
+              {
+                "from": "topic",
+                "to": "fmt",
+                "label": {
+                  "var": "topic",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fmt",
+                "to": "audience",
+                "label": {
+                  "var": "fmt",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: check and build pr.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Tomorrow you will build much richer prompts with a six-part framework.",
+            "activeActor": "audience",
+            "messages": [
+              {
+                "from": "topic",
+                "to": "fmt",
+                "label": {
+                  "var": "topic",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fmt",
+                "to": "audience",
+                "label": {
+                  "var": "fmt",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: check and build prompts — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: chec...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: check and build prompts",
+        "actors": [
+          "topic",
+          "fmt",
+          "audience"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: check and build prompts [D1.P6.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: chec... [D1.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Prompt_check(prompt).",
+            "messages": [
+              {
+                "from": "topic",
+                "to": "fmt",
+                "label": "'budgeting'",
+                "tone": "data"
+              },
+              {
+                "from": "fmt",
+                "to": "audience",
+                "label": "'checklist'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "topic"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks include a long but vague prompt and the \"listening\" trap.",
+            "messages": [
+              {
+                "from": "topic",
+                "to": "fmt",
+                "label": "'budgeting'",
+                "tone": "data"
+              },
+              {
+                "from": "fmt",
+                "to": "audience",
+                "label": "'checklist'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "fmt"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: check and build pr.. [D1.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Tomorrow you will build much richer prompts with a six-part framework.",
+            "messages": [
+              {
+                "from": "topic",
+                "to": "fmt",
+                "label": "'budgeting'",
+                "tone": "data"
+              },
+              {
+                "from": "fmt",
+                "to": "audience",
+                "label": "'checklist'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "audience"
           }
         ]
       }

@@ -2,269 +2,811 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 58,
-  "promptSha": "ba2002fd14d9c2d9a5719094ec0864f25bd87eace7187523dbae366a8a1dc3c6",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Agentic Code Execution Sandboxes — Foundations & Mathematical Invariants",
-      "codeHash": "6c516117ef94e4b3e4da6136788bdd78c1d48c3bdd0125bf500e73f29273c410",
+      "partTitle": "Why Regex Blacklists Fail Completely Against Python Sandbox Escapes",
+      "codeHash": "a099a998740acfc87114d805230455ee72818f13fb0bc6689371c5092ade9d3a",
       "spec": {
-        "template": "flow",
-        "title": "Agentic Code Execution Sandboxes — Foundations & Mathematical Invarian",
-        "nodes": [
+        "template": "boxes",
+        "title": "Why Regex Blacklists Fail Completely Against Python Sandbox Esca",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "ALLOWED_IMPORTS",
+            "label": "ALLOWED_IMPORTS"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "BANNED_NAMES",
+            "label": "BANNED_NAMES"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "source_code",
+            "label": "source_code"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "tree",
+            "label": "tree"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "at": "say1",
+            "caption": "Allowing an LLM coding agent to evaluate generated Python scripts.",
+            "values": {
+              "ALLOWED_IMPORTS": {
+                "var": "ALLOWED_IMPORTS",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "BANNED_NAMES": {
+                "var": "BANNED_NAMES",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "source_code": {
+                "var": "source_code",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "tree": {
+                "var": "tree",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "ALLOWED_IMPORTS": "data",
+              "BANNED_NAMES": "data",
+              "source_code": "data",
+              "tree": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Worse still, naive string blacklists trying to block `'import os'` get.",
+            "values": {
+              "ALLOWED_IMPORTS": {
+                "var": "ALLOWED_IMPORTS",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "BANNED_NAMES": {
+                "var": "BANNED_NAMES",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "source_code": {
+                "var": "source_code",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "tree": {
+                "var": "tree",
+                "line": 11,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "ALLOWED_IMPORTS": "data",
+              "BANNED_NAMES": "data",
+              "source_code": "data",
+              "tree": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Inspect audit_python_ast() trapping dynamic imports and private dunder.",
+            "values": {
+              "ALLOWED_IMPORTS": {
+                "var": "ALLOWED_IMPORTS",
+                "line": 6,
+                "hit": 1
+              },
+              "BANNED_NAMES": {
+                "var": "BANNED_NAMES",
+                "line": 27,
+                "hit": 1
+              },
+              "source_code": {
+                "var": "source_code",
+                "line": 11,
+                "hit": 1
+              },
+              "tree": {
+                "var": "tree",
+                "line": 12,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "ALLOWED_IMPORTS": "ok",
+              "BANNED_NAMES": "ok",
+              "source_code": "ok",
+              "tree": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Why Regex Blacklists Fail Completely Against Python Sandbox Esca",
+        "boxes": [
+          {
+            "id": "ALLOWED_IMPORTS",
+            "label": "ALLOWED_IMPORTS"
+          },
+          {
+            "id": "BANNED_NAMES",
+            "label": "BANNED_NAMES"
+          },
+          {
+            "id": "source_code",
+            "label": "source_code"
+          },
+          {
+            "id": "tree",
+            "label": "tree"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Allowing an LLM coding agent to evaluate generated Python scripts.",
+            "values": {
+              "ALLOWED_IMPORTS": "{'collections', 'json', 'math', 'statis…",
+              "BANNED_NAMES": "{'__import__', 'compile', 'eval', 'exec…",
+              "source_code": "'import math\nx = math.sqrt(16)'",
+              "tree": "<Module>"
+            },
+            "tones": {
+              "ALLOWED_IMPORTS": "data",
+              "BANNED_NAMES": "data",
+              "source_code": "data",
+              "tree": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Worse still, naive string blacklists trying to block `'import os'` get.",
+            "values": {
+              "ALLOWED_IMPORTS": "{'collections', 'json', 'math', 'statis…",
+              "BANNED_NAMES": "{'__import__', 'compile', 'eval', 'exec…",
+              "source_code": "'import math\nx = math.sqrt(16)'",
+              "tree": "<Module>"
+            },
+            "tones": {
+              "ALLOWED_IMPORTS": "data",
+              "BANNED_NAMES": "data",
+              "source_code": "data",
+              "tree": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Inspect audit_python_ast() trapping dynamic imports and private dunder.",
+            "values": {
+              "ALLOWED_IMPORTS": "{'collections', 'json', 'math', 'statis…",
+              "BANNED_NAMES": "{'__import__', 'compile', 'eval', 'exec…",
+              "source_code": "'import math\nx = math.sqrt(16)'",
+              "tree": "<Module>"
+            },
+            "tones": {
+              "ALLOWED_IMPORTS": "ok",
+              "BANNED_NAMES": "ok",
+              "source_code": "ok",
+              "tree": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Enforcing Strict CPU Timeouts, RAM Caps & Fork Limits",
+      "codeHash": "6a566026ae7779158ad75836f6cd9342abfa9092020534d5b9ab91790ab1dd89",
+      "spec": {
+        "template": "boxes",
+        "title": "Enforcing Strict CPU Timeouts, RAM Caps & Fork Limits",
+        "boxes": [
+          {
+            "id": "SANDBOX_POLICY",
+            "label": "SANDBOX_POLICY"
+          },
+          {
+            "id": "usage",
+            "label": "usage"
+          },
+          {
+            "id": "policy",
+            "label": "policy"
+          },
+          {
+            "id": "violations",
+            "label": "violations"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Stopping malicious shell calls achieves only half of sandbox hardeningan.",
+            "values": {
+              "SANDBOX_POLICY": {
+                "var": "SANDBOX_POLICY",
+                "line": 1,
+                "hit": 1
+              },
+              "usage": {
+                "var": "usage",
+                "line": 4,
+                "hit": 1
+              },
+              "policy": {
+                "var": "policy",
+                "line": 4,
+                "hit": 1
+              },
+              "violations": {
+                "var": "violations",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "SANDBOX_POLICY": "data",
+              "usage": "data",
+              "policy": "data",
+              "violations": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Production execution runners bound resources along three independent OS.",
+            "values": {
+              "SANDBOX_POLICY": {
+                "var": "SANDBOX_POLICY",
+                "line": 3,
+                "hit": 1
+              },
+              "usage": {
+                "var": "usage",
+                "line": 5,
+                "hit": 1
+              },
+              "policy": {
+                "var": "policy",
+                "line": 5,
+                "hit": 1
+              },
+              "violations": {
+                "var": "violations",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "SANDBOX_POLICY": "data",
+              "usage": "data",
+              "policy": "data",
+              "violations": "data"
+            }
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "caption": "Inspect check_sandbox_limits() modeling admission bounds cleanly against.",
+            "values": {
+              "SANDBOX_POLICY": {
+                "var": "SANDBOX_POLICY",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "usage": {
+                "var": "usage",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "policy": {
+                "var": "policy",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "violations": {
+                "var": "violations",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "SANDBOX_POLICY": "ok",
+              "usage": "ok",
+              "policy": "ok",
+              "violations": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Enforcing Strict CPU Timeouts, RAM Caps & Fork Limits",
+        "boxes": [
+          {
+            "id": "SANDBOX_POLICY",
+            "label": "SANDBOX_POLICY"
+          },
+          {
+            "id": "usage",
+            "label": "usage"
+          },
+          {
+            "id": "policy",
+            "label": "policy"
+          },
+          {
+            "id": "violations",
+            "label": "violations"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Stopping malicious shell calls achieves only half of sandbox hardeningan.",
+            "values": {
+              "SANDBOX_POLICY": "{'max_cpu_sec': 5, 'max_mem_mb': 256, '…",
+              "usage": "{'cpu_sec': 0.4, 'mem_mb': 42, 'procs':…",
+              "policy": "{'max_cpu_sec': 5, 'max_mem_mb': 256, '…",
+              "violations": "[]"
+            },
+            "tones": {
+              "SANDBOX_POLICY": "data",
+              "usage": "data",
+              "policy": "data",
+              "violations": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Production execution runners bound resources along three independent OS.",
+            "values": {
+              "SANDBOX_POLICY": "{'max_cpu_sec': 5, 'max_mem_mb': 256, '…",
+              "usage": "{'cpu_sec': 0.4, 'mem_mb': 42, 'procs':…",
+              "policy": "{'max_cpu_sec': 5, 'max_mem_mb': 256, '…",
+              "violations": "[]"
+            },
+            "tones": {
+              "SANDBOX_POLICY": "data",
+              "usage": "data",
+              "policy": "data",
+              "violations": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect check_sandbox_limits() modeling admission bounds cleanly against.",
+            "values": {
+              "SANDBOX_POLICY": "{'max_cpu_sec': 5, 'max_mem_mb': 256, '…",
+              "usage": "{'cpu_sec': 0.4, 'mem_mb': 42, 'procs':…",
+              "policy": "{'max_cpu_sec': 5, 'max_mem_mb': 256, '…",
+              "violations": "[]"
+            },
+            "tones": {
+              "SANDBOX_POLICY": "ok",
+              "usage": "ok",
+              "policy": "ok",
+              "violations": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Environment Scrubbing: Zero Host Credentials in Worker Env",
+      "codeHash": "3a58166715ef008e9e78a64dfab6a15d21d84f0d94f26637f704842720a54c63",
+      "spec": {
+        "template": "flow",
+        "title": "Environment Scrubbing: Zero Host Credentials in Worker Env",
+        "nodes": [
+          {
+            "id": "BASE_ENV_KEYS",
+            "label": "BASE_ENV_KEYS"
+          },
+          {
+            "id": "host",
+            "label": "host"
+          },
+          {
+            "id": "host_env",
+            "label": "host_env"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Developer machines and Kubernetes worker pods sit stuffed with sensitive.",
+            "values": {
+              "BASE_ENV_KEYS": {
+                "var": "BASE_ENV_KEYS",
+                "line": 1,
+                "hit": 1
+              },
+              "host": {
+                "var": "host",
+                "line": 9,
+                "hit": 1
+              },
+              "host_env": {
+                "var": "host_env",
+                "line": 4,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "BASE_ENV_KEYS": "data",
+              "host": "data",
+              "host_env": "data",
+              "k": "data"
+            },
+            "arrows": [
+              [
+                "BASE_ENV_KEYS",
+                "host"
+              ],
+              [
+                "host",
+                "host_env"
+              ],
+              [
+                "host_env",
+                "k"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Launching a child Python process via `subprocess.",
+            "values": {
+              "BASE_ENV_KEYS": {
+                "var": "BASE_ENV_KEYS",
+                "line": 3,
+                "hit": 1
+              },
+              "host": {
+                "var": "host",
+                "line": 15,
+                "hit": 1
+              },
+              "host_env": {
+                "var": "host_env",
+                "line": 4,
+                "hit": 2
+              },
+              "k": {
+                "var": "k",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "BASE_ENV_KEYS": "data",
+              "host": "data",
+              "host_env": "data",
+              "k": "data"
+            },
+            "arrows": [
+              [
+                "BASE_ENV_KEYS",
+                "host"
+              ],
+              [
+                "host",
+                "host_env"
+              ],
+              [
+                "host_env",
+                "k"
+              ]
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Run build_clean_env() stripping every credential prefix cleanly before.",
+            "values": {
+              "BASE_ENV_KEYS": {
+                "var": "BASE_ENV_KEYS",
+                "line": 10,
+                "hit": 1
+              },
+              "host": {
+                "var": "host",
+                "line": 15,
+                "hit": 1
+              },
+              "host_env": {
+                "var": "host_env",
+                "line": 4,
+                "hit": 3
+              },
+              "k": {
+                "var": "k",
+                "line": 4,
+                "hit": 3
+              }
+            },
+            "tones": {
+              "BASE_ENV_KEYS": "ok",
+              "host": "ok",
+              "host_env": "ok",
+              "k": "ok"
+            },
+            "arrows": [
+              [
+                "BASE_ENV_KEYS",
+                "host"
+              ],
+              [
+                "host",
+                "host_env"
+              ],
+              [
+                "host_env",
+                "k"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Agentic Code Execution Sandboxes — Foundations & Mathematical Invarian",
+        "title": "Environment Scrubbing: Zero Host Credentials in Worker Env",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "BASE_ENV_KEYS",
+            "label": "BASE_ENV_KEYS"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "host",
+            "label": "host"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "host_env",
+            "label": "host_env"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "k",
+            "label": "k"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Developer machines and Kubernetes worker pods sit stuffed with sensitive.",
+            "values": {
+              "BASE_ENV_KEYS": "{'LANG', 'LC_ALL', 'PATH'}",
+              "host": "{'PATH': '/usr/local/bin:/usr/bin', 'LA…",
+              "host_env": "{'PATH': '/usr/local/bin:/usr/bin', 'LA…",
+              "k": "'PATH'"
+            },
+            "tones": {
+              "BASE_ENV_KEYS": "data",
+              "host": "data",
+              "host_env": "data",
+              "k": "data"
+            },
+            "arrows": [
+              [
+                "BASE_ENV_KEYS",
+                "host"
+              ],
+              [
+                "host",
+                "host_env"
+              ],
+              [
+                "host_env",
+                "k"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Launching a child Python process via `subprocess.",
+            "values": {
+              "BASE_ENV_KEYS": "{'LANG', 'LC_ALL', 'PATH'}",
+              "host": "{'PATH': '/usr/local/bin:/usr/bin', 'LA…",
+              "host_env": "{'PATH': '/usr/local/bin:/usr/bin', 'LA…",
+              "k": "'LANG'"
+            },
+            "tones": {
+              "BASE_ENV_KEYS": "data",
+              "host": "data",
+              "host_env": "data",
+              "k": "data"
+            },
+            "arrows": [
+              [
+                "BASE_ENV_KEYS",
+                "host"
+              ],
+              [
+                "host",
+                "host_env"
+              ],
+              [
+                "host_env",
+                "k"
+              ]
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Run build_clean_env() stripping every credential prefix cleanly before.",
+            "values": {
+              "BASE_ENV_KEYS": "{'LANG', 'LC_ALL', 'PATH'}",
+              "host": "{'PATH': '/usr/local/bin:/usr/bin', 'LA…",
+              "host_env": "{'PATH': '/usr/local/bin:/usr/bin', 'LA…",
+              "k": "'OPENAI_API_KEY'"
+            },
+            "tones": {
+              "BASE_ENV_KEYS": "ok",
+              "host": "ok",
+              "host_env": "ok",
+              "k": "ok"
+            },
+            "arrows": [
+              [
+                "BASE_ENV_KEYS",
+                "host"
+              ],
+              [
+                "host",
+                "host_env"
+              ],
+              [
+                "host_env",
+                "k"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Bounding Stdout Floods & Safe Sandbox Artifacts Cleanups",
+      "codeHash": "2ea2c5650e596991004a16e8be62934f1bb532d793902f95f1bc26611292927c",
+      "spec": {
+        "template": "bars",
+        "title": "Bounding Stdout Floods & Safe Sandbox Artifacts Cleanups",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "What crashes just as cleanly inside naive agent runtimes as infinite.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "max_chars",
+                "value": {
+                  "var": "max_chars",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "half",
+                "value": {
+                  "var": "half",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Strict capture wrappers clip captured `stdout` and `stderr`.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "max_chars",
+                "value": {
+                  "var": "max_chars",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "half",
+                "value": {
+                  "var": "half",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Inspect clip_sandbox_output() clipping massive debug dumps cleanly back.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "max_chars",
+                "value": {
+                  "var": "max_chars",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "label": "half",
+                "value": {
+                  "var": "half",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "bars",
+        "title": "Bounding Stdout Floods & Safe Sandbox Artifacts Cleanups",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "What crashes just as cleanly inside naive agent runtimes as infinite.",
+            "bars": [
+              {
+                "label": "max_chars",
+                "value": 80,
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+                "label": "half",
+                "value": 28,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Strict capture wrappers clip captured `stdout` and `stderr`.",
+            "bars": [
+              {
+                "label": "max_chars",
+                "value": 80,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "half",
+                "value": 28,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect clip_sandbox_output() clipping massive debug dumps cleanly back.",
+            "bars": [
+              {
+                "label": "max_chars",
+                "value": 80,
+                "tone": "ok"
+              },
+              {
+                "label": "half",
+                "value": 28,
+                "tone": "ok"
               }
             ]
           }
@@ -272,1063 +814,135 @@
       }
     },
     {
-      "partTitle": "Agentic Code Execution Sandboxes — Core Algorithm & State Representation",
-      "codeHash": "9e08bbdbe5d052b60fa31fa71799b86db9f5151ddb3f77207c70f2be21bb7c2a",
+      "partTitle": "Self-Correction Retry Caps on Deterministic Sandbox Failures",
+      "codeHash": "ebf4192ba762953c2220079fc1eb055a2474df48ca8d8446f58510cbb2e8b950",
       "spec": {
-        "template": "flow",
-        "title": "Agentic Code Execution Sandboxes — Core Algorithm & State Representati",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Self-Correction Retry Caps on Deterministic Sandbox Failures",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Sandbox errors fuel powerful **autonomous self-debugging**.",
+            "bars": [
+              {
+                "label": "max_retries",
+                "value": {
+                  "var": "max_retries",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "idx",
+                "value": {
+                  "var": "idx",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Yet leaving retry loops uncapped (`while not ok:`) burns entire tenant.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "max_retries",
+                "value": {
+                  "var": "max_retries",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "idx",
+                "value": {
+                  "var": "idx",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Run run_bounded_repair() tracking early exit cleanly on repeated.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "max_retries",
+                "value": {
+                  "var": "max_retries",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "idx",
+                "value": {
+                  "var": "idx",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Agentic Code Execution Sandboxes — Core Algorithm & State Representati",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Self-Correction Retry Caps on Deterministic Sandbox Failures",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Sandbox errors fuel powerful **autonomous self-debugging**.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "max_retries",
+                "value": 3,
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "idx",
+                "value": 1,
+                "tone": "data"
               }
             ]
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Agentic Code Execution Sandboxes — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "98dba53312f6efe96206c0848908edfe56dd54e8a5d624666bf59fdd9e7a1f42",
-      "spec": {
-        "template": "flow",
-        "title": "Agentic Code Execution Sandboxes — Throughput Optimization & Edge-Case",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Yet leaving retry loops uncapped (`while not ok:`) burns entire tenant.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "max_retries",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "idx",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Run run_bounded_repair() tracking early exit cleanly on repeated.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "max_retries",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Agentic Code Execution Sandboxes — Throughput Optimization & Edge-Case",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Agentic Code Execution Sandboxes — Resilience Guardrails & Failure Recovery",
-      "codeHash": "111b49a9d6f8447ab7972e8ae6a67bb38592d36b4330d00d9e29f3a019156a85",
-      "spec": {
-        "template": "flow",
-        "title": "Agentic Code Execution Sandboxes — Resilience Guardrails & Failure Rec",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Agentic Code Execution Sandboxes — Resilience Guardrails & Failure Rec",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Agentic Code Execution Sandboxes — Production Telemetry & Verification Audit",
-      "codeHash": "f74b9b3e6a7586d7984235915cb164c6c9d7e2845296d2ae8650efa1d6d7c2b5",
-      "spec": {
-        "template": "flow",
-        "title": "Agentic Code Execution Sandboxes — Production Telemetry & Verification",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Agentic Code Execution Sandboxes — Production Telemetry & Verification",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "idx",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           }

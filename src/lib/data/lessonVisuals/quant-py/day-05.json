@@ -2,255 +2,121 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 5,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The exchange core",
       "codeHash": "e7ed0e46a509a73301eb600b5116a5abfacb34b9bb94479f04c576abbc03efd6",
       "spec": {
-        "template": "table",
-        "title": "Exchange pipeline architecture and message execution flow",
-        "columns": [
-          "gateway",
-          "sequencer"
-        ],
+        "template": "cells",
+        "title": "The exchange core",
         "steps": [
           {
             "at": "say1",
-            "caption": "The gateway receives inbound orders and verifies incoming member submissions.",
-            "rows": [
+            "caption": "An exchange core has three stages in a line.",
+            "items": {
+              "var": "stages",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "gateway"
-                  },
-                  {
-                    "text": "sequencer"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Downstream market data updates notify members regarding executed trades.",
-            "rows": [
+            "caption": "Downstream, a market data publisher sends out book updates and trades,.",
+            "items": {
+              "var": "stages",
+              "line": 5,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "gateway"
-                  },
-                  {
-                    "text": "sequencer"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "order"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The sequencer produces a stream processed sequentially inside the loop.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "gateway"
-                  },
-                  {
-                    "text": "sequencer"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "order"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "matching"
-                  },
-                  {
-                    "text": "engine"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example prints the flow of one order through the pipeline stages.",
-            "rows": [
+            "at": "say7",
+            "caption": "Keep the stages in mind.",
+            "items": {
+              "var": "stages",
+              "line": 4,
+              "hit": 6
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "gateway"
-                  },
-                  {
-                    "text": "sequencer"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "order"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "matching"
-                  },
-                  {
-                    "text": "engine"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Exchange pipeline architecture and message execution flow",
-        "columns": [
-          "gateway",
-          "sequencer"
-        ],
+        "template": "cells",
+        "title": "The exchange core",
         "steps": [
           {
             "at": "say1",
-            "caption": "The gateway receives inbound orders and verifies incoming member submissions.",
-            "rows": [
+            "caption": "An exchange core has three stages in a line.",
+            "items": [
+              "'gateway: validate the order'",
+              "'sequencer: assign sequence number 1042'",
+              "'matching engine: match against the boo…",
+              "'market data: publish trade and new bes…",
+              "'drop copy: send the execution report t…"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "gateway",
-                  "sequencer"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Downstream market data updates notify members regarding executed trades.",
-            "rows": [
+            "caption": "Downstream, a market data publisher sends out book updates and trades,.",
+            "items": [
+              "'gateway: validate the order'",
+              "'sequencer: assign sequence number 1042'",
+              "'matching engine: match against the boo…",
+              "'market data: publish trade and new bes…",
+              "'drop copy: send the execution report t…"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "gateway",
-                  "sequencer"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "stages",
-                  "order"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The sequencer produces a stream processed sequentially inside the loop.",
-            "rows": [
-              {
-                "cells": [
-                  "gateway",
-                  "sequencer"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "stages",
-                  "order"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "matching",
-                  "engine"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example prints the flow of one order through the pipeline stages.",
-            "rows": [
+            "at": "say7",
+            "caption": "Keep the stages in mind.",
+            "items": [
+              "'gateway: validate the order'",
+              "'sequencer: assign sequence number 1042'",
+              "'matching engine: match against the boo…",
+              "'market data: publish trade and new bes…",
+              "'drop copy: send the execution report t…"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "gateway",
-                  "sequencer"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "stages",
-                  "order"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "matching",
-                  "engine"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "stages",
-                  "print"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -261,143 +127,131 @@
       "partTitle": "Processing a stream of orders",
       "codeHash": "c65e32668e46a048cc37e58317696550bf7833a42721e194d8709d702831dc28",
       "spec": {
-        "template": "table",
-        "title": "Sequential stream order matching and state transitions",
-        "columns": [
-          "bids",
-          "asks"
-        ],
+        "template": "bars",
+        "title": "Processing a stream of orders",
         "steps": [
           {
             "at": "say1",
-            "caption": "The matching engine processes orders sequentially against resting volume.",
-            "rows": [
+            "caption": "Practice 1 is run_matching(orders).",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "bids"
-                  },
-                  {
-                    "text": "asks"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Passing copies prevents mutating input dictionaries holding resting quantities.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bids"
-                  },
-                  {
-                    "text": "asks"
-                  }
-                ],
-                "tone": "ok"
+                "label": "left",
+                "value": {
+                  "var": "left",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "order"
-                  },
-                  {
-                    "text": "price"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Empty book sides return None rather than misleading zero price markers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bids"
-                  },
-                  {
-                    "text": "asks"
-                  }
-                ],
-                "tone": "ok"
+                "label": "fills",
+                "value": {
+                  "var": "fills",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "order"
-                  },
-                  {
-                    "text": "price"
-                  }
-                ],
-                "tone": "ok"
+                "label": "filled",
+                "value": {
+                  "var": "filled",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "None"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 14,
+                  "hit": 3
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example runs an order stream and prints the book state sequentially.",
-            "rows": [
+            "at": "say2",
+            "caption": "Reuse your Day 3 match_order and the Day 2 insert rules.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "bids"
-                  },
-                  {
-                    "text": "asks"
-                  }
-                ],
+                "label": "left",
+                "value": {
+                  "var": "left",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "order"
-                  },
-                  {
-                    "text": "price"
-                  }
-                ],
+                "label": "fills",
+                "value": {
+                  "var": "fills",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "None"
-                  }
-                ],
-                "tone": "data"
+                "label": "filled",
+                "value": {
+                  "var": "filled",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "best"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 14,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Read the output line by line and predict the next line before looking.",
+            "bars": [
+              {
+                "label": "left",
+                "value": {
+                  "var": "left",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fills",
+                "value": {
+                  "var": "fills",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "filled",
+                "value": {
+                  "var": "filled",
+                  "line": 16,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 14,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -405,103 +259,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Sequential stream order matching and state transitions",
-        "columns": [
-          "bids",
-          "asks"
-        ],
+        "template": "bars",
+        "title": "Processing a stream of orders",
         "steps": [
           {
             "at": "say1",
-            "caption": "The matching engine processes orders sequentially against resting volume.",
-            "rows": [
+            "caption": "Practice 1 is run_matching(orders).",
+            "bars": [
               {
-                "cells": [
-                  "bids",
-                  "asks"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Passing copies prevents mutating input dictionaries holding resting quantities.",
-            "rows": [
-              {
-                "cells": [
-                  "bids",
-                  "asks"
-                ],
-                "tone": "ok"
+                "label": "left",
+                "value": 100,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "order",
-                  "price"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Empty book sides return None rather than misleading zero price markers.",
-            "rows": [
-              {
-                "cells": [
-                  "bids",
-                  "asks"
-                ],
-                "tone": "ok"
+                "label": "fills",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "order",
-                  "price"
-                ],
-                "tone": "ok"
+                "label": "filled",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "side",
-                  "None"
-                ],
+                "label": "i",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example runs an order stream and prints the book state sequentially.",
-            "rows": [
+            "at": "say2",
+            "caption": "Reuse your Day 3 match_order and the Day 2 insert rules.",
+            "bars": [
               {
-                "cells": [
-                  "bids",
-                  "asks"
-                ],
+                "label": "left",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "order",
-                  "price"
-                ],
+                "label": "fills",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "side",
-                  "None"
-                ],
-                "tone": "data"
+                "label": "filled",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "best",
-                  "step"
-                ],
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Read the output line by line and predict the next line before looking.",
+            "bars": [
+              {
+                "label": "left",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "fills",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "filled",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -514,90 +348,25 @@
       "codeHash": "0b41160bc5c340c9e8b6684ef8f4c4bd9e259e83c8d3d9fda17a79a75b9842ec",
       "spec": {
         "template": "table",
-        "title": "Throughput measurement and execution clock profiling",
+        "title": "Measuring throughput",
         "columns": [
-          "start",
-          "orders"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Throughput counts total orders processed per second by the matching engine.",
+            "caption": "Throughput is how many orders the engine processes per second.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "start"
+                    "text": "rng"
                   },
                   {
-                    "text": "orders"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Throughput calculations return orders per second and nanoseconds per order.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "orders"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "price"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Accurate performance clocks measure execution intervals without jitter.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "orders"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "price"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "perf_counter_ns"
-                  },
-                  {
-                    "text": "time"
+                    "var": "rng",
+                    "line": 3,
+                    "hit": 1
                   }
                 ],
                 "tone": "data"
@@ -605,49 +374,35 @@
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example times matching loop throughput across random order streams.",
+            "at": "say2",
+            "caption": "Trace how orders updates take during execution.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "start"
+                    "text": "rng"
                   },
                   {
-                    "text": "orders"
+                    "var": "rng",
+                    "line": 4,
+                    "hit": 1
                   }
                 ],
                 "tone": "ok"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Timing output changes from run to run, so the example prints only whether.",
+            "rows": [
               {
                 "cells": [
                   {
-                    "text": "side"
+                    "text": "out 1"
                   },
                   {
-                    "text": "price"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "perf_counter_ns"
-                  },
-                  {
-                    "text": "time"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "random"
-                  },
-                  {
-                    "text": "round"
+                    "out": 1
                   }
                 ],
                 "tone": "ok"
@@ -658,101 +413,46 @@
       },
       "filled": {
         "template": "table",
-        "title": "Throughput measurement and execution clock profiling",
+        "title": "Measuring throughput",
         "columns": [
-          "start",
-          "orders"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Throughput counts total orders processed per second by the matching engine.",
+            "caption": "Throughput is how many orders the engine processes per second.",
             "rows": [
               {
                 "cells": [
-                  "start",
-                  "orders"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Throughput calculations return orders per second and nanoseconds per order.",
-            "rows": [
-              {
-                "cells": [
-                  "start",
-                  "orders"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "side",
-                  "price"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Accurate performance clocks measure execution intervals without jitter.",
-            "rows": [
-              {
-                "cells": [
-                  "start",
-                  "orders"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "side",
-                  "price"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "perf_counter_ns",
-                  "time"
+                  "rng",
+                  "<Random>"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example times matching loop throughput across random order streams.",
+            "at": "say2",
+            "caption": "Trace how orders updates take during execution.",
             "rows": [
               {
                 "cells": [
-                  "start",
-                  "orders"
+                  "rng",
+                  "<Random>"
                 ],
                 "tone": "ok"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Timing output changes from run to run, so the example prints only whether.",
+            "rows": [
               {
                 "cells": [
-                  "side",
-                  "price"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "perf_counter_ns",
-                  "time"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "random",
-                  "round"
+                  "out 1",
+                  "orders: 20000 | met 10,000 orders/s target: True"
                 ],
                 "tone": "ok"
               }
@@ -765,249 +465,221 @@
       "partTitle": "Latency distributions",
       "codeHash": "35e1e1e2fca86ef72f696e87bf48c0edf181ca2b72ae6b651b56b1c98b99c4d2",
       "spec": {
-        "template": "table",
-        "title": "Tail latency distributions and percentile metrics",
-        "columns": [
-          "mean",
-          "median"
+        "template": "flow",
+        "title": "Latency distributions",
+        "nodes": [
+          {
+            "id": "latencies",
+            "label": "latencies"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "p99",
+            "label": "p99"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Average latency hides slow execution spikes during volatile trading.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "mean"
-                  },
-                  {
-                    "text": "median"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Average latency hides the slow cases.",
+            "values": {
+              "latencies": {
+                "var": "latencies",
+                "line": 3,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 4,
+                "hit": 1
+              },
+              "p99": {
+                "var": "p99",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "latencies": "data",
+              "s": "data",
+              "p99": "data"
+            },
+            "arrows": [
+              [
+                "latencies",
+                "s"
+              ],
+              [
+                "s",
+                "p99"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Engineers report tail percentiles to quantify execution performance.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "mean"
-                  },
-                  {
-                    "text": "median"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Engineers report percentiles.",
+            "values": {
+              "latencies": {
+                "var": "latencies",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "latencies"
-                  },
-                  {
-                    "text": "sorted"
-                  }
-                ],
-                "tone": "ok"
+              "s": {
+                "var": "s",
+                "line": 5,
+                "hit": 1
+              },
+              "p99": {
+                "var": "p99",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "latencies": "data",
+              "s": "data",
+              "p99": "data"
+            },
+            "arrows": [
+              [
+                "latencies",
+                "s"
+              ],
+              [
+                "s",
+                "p99"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Memory allocation and garbage collection pauses trigger latency spikes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "mean"
-                  },
-                  {
-                    "text": "median"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "What is the p99, not just the average.",
+            "values": {
+              "latencies": {
+                "var": "latencies",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "latencies"
-                  },
-                  {
-                    "text": "sorted"
-                  }
-                ],
-                "tone": "ok"
+              "s": {
+                "var": "s",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "p99"
-                  },
-                  {
-                    "text": "statistics"
-                  }
-                ],
-                "tone": "data"
+              "p99": {
+                "var": "p99",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example compares sample mean and tail percentiles under latency spikes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "mean"
-                  },
-                  {
-                    "text": "median"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "latencies"
-                  },
-                  {
-                    "text": "sorted"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "p99"
-                  },
-                  {
-                    "text": "statistics"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "print"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "latencies": "ok",
+              "s": "ok",
+              "p99": "ok"
+            },
+            "arrows": [
+              [
+                "latencies",
+                "s"
+              ],
+              [
+                "s",
+                "p99"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Tail latency distributions and percentile metrics",
-        "columns": [
-          "mean",
-          "median"
+        "template": "flow",
+        "title": "Latency distributions",
+        "nodes": [
+          {
+            "id": "latencies",
+            "label": "latencies"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "p99",
+            "label": "p99"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Average latency hides slow execution spikes during volatile trading.",
-            "rows": [
-              {
-                "cells": [
-                  "mean",
-                  "median"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Average latency hides the slow cases.",
+            "values": {
+              "latencies": "[400, 400, 400, 400, 400, 400, 400, 400…",
+              "s": "[400, 400, 400, 400, 400, 400, 400, 400…",
+              "p99": "3000"
+            },
+            "tones": {
+              "latencies": "data",
+              "s": "data",
+              "p99": "data"
+            },
+            "arrows": [
+              [
+                "latencies",
+                "s"
+              ],
+              [
+                "s",
+                "p99"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Engineers report tail percentiles to quantify execution performance.",
-            "rows": [
-              {
-                "cells": [
-                  "mean",
-                  "median"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "latencies",
-                  "sorted"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Engineers report percentiles.",
+            "values": {
+              "latencies": "[400, 400, 400, 400, 400, 400, 400, 400…",
+              "s": "[400, 400, 400, 400, 400, 400, 400, 400…",
+              "p99": "3000"
+            },
+            "tones": {
+              "latencies": "data",
+              "s": "data",
+              "p99": "data"
+            },
+            "arrows": [
+              [
+                "latencies",
+                "s"
+              ],
+              [
+                "s",
+                "p99"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Memory allocation and garbage collection pauses trigger latency spikes.",
-            "rows": [
-              {
-                "cells": [
-                  "mean",
-                  "median"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "latencies",
-                  "sorted"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "p99",
-                  "statistics"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example compares sample mean and tail percentiles under latency spikes.",
-            "rows": [
-              {
-                "cells": [
-                  "mean",
-                  "median"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "latencies",
-                  "sorted"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "p99",
-                  "statistics"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "print",
-                  "round"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "What is the p99, not just the average.",
+            "values": {
+              "latencies": "[400, 400, 400, 400, 400, 400, 400, 400…",
+              "s": "[400, 400, 400, 400, 400, 400, 400, 400…",
+              "p99": "3000"
+            },
+            "tones": {
+              "latencies": "ok",
+              "s": "ok",
+              "p99": "ok"
+            },
+            "arrows": [
+              [
+                "latencies",
+                "s"
+              ],
+              [
+                "s",
+                "p99"
+              ]
             ]
           }
         ]
@@ -1017,224 +689,162 @@
       "partTitle": "Market data and recovery",
       "codeHash": "e98784a8e1301e213b5caa613024ecc3675f025d5aef24882aff0c220ca4035f",
       "spec": {
-        "template": "flow",
-        "title": "Market data and recovery — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Market data and rec...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Market data and recovery",
+        "actors": [
+          "received",
+          "gaps",
+          "prev"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Market data and recovery [Dfive.Pfive.Sone].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Market data and rec... [Dfive.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Every change to the book must be published so participants can see it.",
+            "activeActor": "received",
+            "messages": [
+              {
+                "from": "received",
+                "to": "gaps",
+                "label": {
+                  "var": "received",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "gaps",
+                "to": "prev",
+                "label": {
+                  "var": "gaps",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Exchanges publish incremental updates with sequence numbers.",
+            "activeActor": "gaps",
+            "messages": [
+              {
+                "from": "received",
+                "to": "gaps",
+                "label": {
+                  "var": "received",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "gaps",
+                "to": "prev",
+                "label": {
+                  "var": "gaps",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Market data and recovery.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Gap detection is one of the simplest and most important checks in any.",
+            "activeActor": "prev",
+            "messages": [
+              {
+                "from": "received",
+                "to": "gaps",
+                "label": {
+                  "var": "received",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "gaps",
+                "to": "prev",
+                "label": {
+                  "var": "gaps",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Market data and recovery — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Market data and rec...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Market data and recovery",
+        "actors": [
+          "received",
+          "gaps",
+          "prev"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Market data and recovery [D5.P5.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Market data and rec... [D5.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Every change to the book must be published so participants can see it.",
+            "messages": [
+              {
+                "from": "received",
+                "to": "gaps",
+                "label": "[1038, 1039, 1040, 1041, 1043, 1044, 10…",
+                "tone": "data"
+              },
+              {
+                "from": "gaps",
+                "to": "prev",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "received"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Exchanges publish incremental updates with sequence numbers.",
+            "messages": [
+              {
+                "from": "received",
+                "to": "gaps",
+                "label": "[1038, 1039, 1040, 1041, 1043, 1044, 10…",
+                "tone": "data"
+              },
+              {
+                "from": "gaps",
+                "to": "prev",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "gaps"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Market data and recovery [D5.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Gap detection is one of the simplest and most important checks in any.",
+            "messages": [
+              {
+                "from": "received",
+                "to": "gaps",
+                "label": "[1038, 1039, 1040, 1041, 1043, 1044, 10…",
+                "tone": "data"
+              },
+              {
+                "from": "gaps",
+                "to": "prev",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "prev"
           }
         ]
       }
@@ -1244,110 +854,161 @@
       "codeHash": "6a029eee1322d152f4282269240f45c8c3b28f43fb3b080fa0e38c8da03b252f",
       "spec": {
         "template": "flow",
-        "title": "Milestone practice: run and measure — Execution Pipeline",
+        "title": "Milestone practice: run and measure",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "steps",
+            "label": "steps"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
+            "id": "order",
+            "label": "order"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "result",
+            "label": "result"
+          },
+          {
+            "id": "book",
+            "label": "book"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Milestone practice: run and measure.",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Milestone practice:... [Dfive.Psix.Stwo].",
+            "caption": "Run_matching(orders).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "steps": {
+                "var": "steps",
+                "line": 1,
+                "hit": 1
+              },
+              "order": {
+                "var": "order",
+                "line": 8,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 8,
+                "hit": 1
+              },
+              "book": {
+                "var": "book",
+                "line": 8,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "steps": "data",
+              "order": "data",
+              "result": "data",
+              "book": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "steps",
+                "order"
               ],
               [
-                "proc",
-                "out"
+                "order",
+                "result"
+              ],
+              [
+                "result",
+                "book"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfive.Psix.object-storage].",
+            "at": "say2",
+            "caption": "The expected result for the checked stream.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "steps": {
+                "var": "steps",
+                "line": 8,
+                "hit": 1
+              },
+              "order": {
+                "var": "order",
+                "line": 9,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 9,
+                "hit": 1
+              },
+              "book": {
+                "var": "book",
+                "line": 9,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "steps": "data",
+              "order": "data",
+              "result": "data",
+              "book": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "steps",
+                "order"
+              ],
+              [
+                "order",
+                "result"
+              ],
+              [
+                "result",
+                "book"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Milestone practice: run and measure.",
+            "at": "say7",
+            "caption": "The example works through the checked stream by hand, as a table.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "steps": {
+                "var": "steps",
+                "line": 9,
+                "hit": 1
+              },
+              "order": {
+                "var": "order",
+                "line": 8,
+                "hit": 2
+              },
+              "result": {
+                "var": "result",
+                "line": 8,
+                "hit": 2
+              },
+              "book": {
+                "var": "book",
+                "line": 8,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "steps": "ok",
+              "order": "ok",
+              "result": "ok",
+              "book": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "steps",
+                "order"
               ],
               [
-                "proc",
-                "out"
+                "order",
+                "result"
+              ],
+              [
+                "result",
+                "book"
               ]
             ]
           }
@@ -1355,110 +1016,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone practice: run and measure — Execution Pipeline",
+        "title": "Milestone practice: run and measure",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "steps",
+            "label": "steps"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
+            "id": "order",
+            "label": "order"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "result",
+            "label": "result"
+          },
+          {
+            "id": "book",
+            "label": "book"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Milestone practice: run and measure [D5.P6.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Milestone practice:... [D5.P6.S2].",
+            "caption": "Run_matching(orders).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "steps": "[['SELL 100 @ 10.2', 'rests', 'ask 10.2…",
+              "order": "'SELL 100 @ 10.2'",
+              "result": "'rests'",
+              "book": "'ask 10.2'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "steps": "data",
+              "order": "data",
+              "result": "data",
+              "book": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "steps",
+                "order"
               ],
               [
-                "proc",
-                "out"
+                "order",
+                "result"
+              ],
+              [
+                "result",
+                "book"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P6.S3].",
+            "at": "say2",
+            "caption": "The expected result for the checked stream.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "steps": "[['SELL 100 @ 10.2', 'rests', 'ask 10.2…",
+              "order": "'SELL 100 @ 10.2'",
+              "result": "'rests'",
+              "book": "'ask 10.2'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "steps": "data",
+              "order": "data",
+              "result": "data",
+              "book": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "steps",
+                "order"
+              ],
+              [
+                "order",
+                "result"
+              ],
+              [
+                "result",
+                "book"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Milestone practice: run and measure [D5.P6.S4].",
+            "at": "say7",
+            "caption": "The example works through the checked stream by hand, as a table.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "steps": "[['SELL 100 @ 10.2', 'rests', 'ask 10.2…",
+              "order": "'SELL 50 @ 10.1'",
+              "result": "'rests'",
+              "book": "'ask 10.1'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "steps": "ok",
+              "order": "ok",
+              "result": "ok",
+              "book": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "steps",
+                "order"
               ],
               [
-                "proc",
-                "out"
+                "order",
+                "result"
+              ],
+              [
+                "result",
+                "book"
               ]
             ]
           }

@@ -2,85 +2,98 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 23,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What an agent is",
       "codeHash": "baeeb3402838ca2ef9b9c48f016c9fba87e750336d082ae2ba59a2c8d31c606b",
       "spec": {
-        "template": "table",
-        "title": "Agent tool registration and iterative thought execution",
-        "columns": [
+        "template": "sequence",
+        "title": "What an agent is",
+        "actors": [
           "tools",
-          "description",
-          "tools"
+          "name",
+          "description"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An autonomous agent operates in a loop calling external tools to act.",
-            "rows": [
+            "caption": "An AI agent is a language model in a loop that can use tools.",
+            "activeActor": "tools",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "tools"
-                  },
-                  {
-                    "text": "description"
-                  },
-                  {
-                    "text": "tools"
-                  }
-                ],
-                "tone": "ok"
+                "from": "tools",
+                "to": "name",
+                "label": {
+                  "var": "tools",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "tools"
-                  },
-                  {
-                    "text": "description"
-                  },
-                  {
-                    "text": "tools"
-                  }
-                ],
-                "tone": "data"
+                "from": "name",
+                "to": "description",
+                "label": {
+                  "var": "name",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The agent thinks, calls an appropriate tool, and inspects the result.",
-            "rows": [
+            "caption": "Instead of answering in one step, it thinks about what to do, calls.",
+            "activeActor": "name",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "tools"
-                  },
-                  {
-                    "text": "description"
-                  },
-                  {
-                    "text": "tools"
-                  }
-                ],
+                "from": "tools",
+                "to": "name",
+                "label": {
+                  "var": "tools",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "tools"
-                  },
-                  {
-                    "text": "description"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
+                "from": "name",
+                "to": "description",
+                "label": {
+                  "var": "name",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Starting with read-only tools, such as search and lookup, is a safe way.",
+            "activeActor": "description",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "name",
+                "label": {
+                  "var": "tools",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "description",
+                "label": {
+                  "var": "name",
+                  "line": 6,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Agent tool registration and iterative thought execution",
-        "columns": [
+        "template": "sequence",
+        "title": "What an agent is",
+        "actors": [
           "tools",
-          "description",
-          "tools"
+          "name",
+          "description"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An autonomous agent operates in a loop calling external tools to act.",
-            "rows": [
+            "caption": "An AI agent is a language model in a loop that can use tools.",
+            "messages": [
               {
-                "cells": [
-                  "tools",
-                  "description",
-                  "tools"
-                ],
-                "tone": "ok"
+                "from": "tools",
+                "to": "name",
+                "label": "{'calculator': 'evaluate an arithmetic …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "tools",
-                  "description",
-                  "tools"
-                ],
-                "tone": "data"
+                "from": "name",
+                "to": "description",
+                "label": "'calculator'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "tools"
           },
           {
             "at": "say2",
-            "caption": "The agent thinks, calls an appropriate tool, and inspects the result.",
-            "rows": [
+            "caption": "Instead of answering in one step, it thinks about what to do, calls.",
+            "messages": [
               {
-                "cells": [
-                  "tools",
-                  "description",
-                  "tools"
-                ],
+                "from": "tools",
+                "to": "name",
+                "label": "{'calculator': 'evaluate an arithmetic …",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "tools",
-                  "description",
-                  "name"
-                ],
+                "from": "name",
+                "to": "description",
+                "label": "'calculator'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "name"
+          },
+          {
+            "at": "say9",
+            "caption": "Starting with read-only tools, such as search and lookup, is a safe way.",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "name",
+                "label": "{'calculator': 'evaluate an arithmetic …",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "description",
+                "label": "'search_flights'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "description"
           }
         ]
       }
@@ -148,16 +174,15 @@
       "codeHash": "66f62ae177a21bc39144600ef32016db3ff6b1ad82395032181e478f68665979",
       "spec": {
         "template": "table",
-        "title": "ReAct cycle: Reason, Act, Observe iteration",
+        "title": "The ReAct loop",
         "columns": [
-          "trace",
-          "trace",
-          "trace"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "ReAct pattern alternates between thought, action, and observation steps.",
+            "caption": "The model alternates between Thought, Action and Observation lines.",
             "rows": [
               {
                 "cells": [
@@ -165,24 +190,9 @@
                     "text": "trace"
                   },
                   {
-                    "text": "trace"
-                  },
-                  {
-                    "text": "trace"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "trace"
-                  },
-                  {
-                    "text": "trace"
-                  },
-                  {
-                    "text": "trace"
+                    "var": "trace",
+                    "line": 1,
+                    "hit": 1
                   }
                 ],
                 "tone": "data"
@@ -190,8 +200,8 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The iterative cycle continues until the model delivers a final answer.",
+            "at": "say2",
+            "caption": "The model reasons about what to do next.",
             "rows": [
               {
                 "cells": [
@@ -199,24 +209,59 @@
                     "text": "trace"
                   },
                   {
-                    "text": "trace"
-                  },
-                  {
-                    "text": "trace"
+                    "var": "trace",
+                    "line": 10,
+                    "hit": 1
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Reading traces like this is the fastest way to understand why an agent did.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               },
               {
                 "cells": [
                   {
-                    "text": "trace"
+                    "text": "out 2"
                   },
                   {
-                    "text": "trace"
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
                   },
                   {
-                    "text": "trace"
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 4"
+                  },
+                  {
+                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -227,52 +272,67 @@
       },
       "filled": {
         "template": "table",
-        "title": "ReAct cycle: Reason, Act, Observe iteration",
+        "title": "The ReAct loop",
         "columns": [
-          "trace",
-          "trace",
-          "trace"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "ReAct pattern alternates between thought, action, and observation steps.",
+            "caption": "The model alternates between Thought, Action and Observation lines.",
             "rows": [
               {
                 "cells": [
                   "trace",
-                  "trace",
-                  "trace"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "trace",
-                  "trace",
-                  "trace"
+                  "['Thought: I need the total cost of 7 p…"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The iterative cycle continues until the model delivers a final answer.",
+            "at": "say2",
+            "caption": "The model reasons about what to do next.",
             "rows": [
               {
                 "cells": [
                   "trace",
-                  "trace",
-                  "trace"
+                  "['Thought: I need the total cost of 7 p…"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Reading traces like this is the fastest way to understand why an agent did.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "Thought: I need the total cost of 7 pens at 12 rupees."
+                ],
+                "tone": "ok"
               },
               {
                 "cells": [
-                  "trace",
-                  "trace",
-                  "trace"
+                  "out 2",
+                  "Action: calculator[7 * 12]"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "Observation: 84"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 4",
+                  "Thought: Now subtract from 100."
                 ],
                 "tone": "ok"
               }
@@ -285,135 +345,165 @@
       "partTitle": "Parsing actions",
       "codeHash": "c2f0b8e9dc3e0b9ac03017b9a66c566c504cace9642d9eef71a1993011b1dae2",
       "spec": {
-        "template": "table",
-        "title": "Action command regex parsing and argument extraction",
-        "columns": [
-          "line",
-          "parse_action",
-          "line"
+        "template": "flow",
+        "title": "Parsing actions",
+        "nodes": [
+          {
+            "id": "line",
+            "label": "line"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Parsing routines reliably find the target tool name and input argument.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "line"
-                  },
-                  {
-                    "text": "parse_action"
-                  },
-                  {
-                    "text": "line"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Your program must reliably find the tool name and input in each Action line.",
+            "values": {
+              "line": {
+                "var": "line",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "line"
-                  },
-                  {
-                    "text": "parse_action"
-                  },
-                  {
-                    "text": "line"
-                  }
-                ],
-                "tone": "data"
+              "m": {
+                "var": "m",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "line": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "line",
+                "m"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Regular expression matching extracts tool calls and separates arguments.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "line"
-                  },
-                  {
-                    "text": "parse_action"
-                  },
-                  {
-                    "text": "line"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Practice 1 is parse_action(line), which uses a regular expression.",
+            "values": {
+              "line": {
+                "var": "line",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "line"
-                  },
-                  {
-                    "text": "parse_action"
-                  },
-                  {
-                    "text": "parse_action"
-                  }
-                ],
-                "tone": "ok"
+              "m": {
+                "var": "m",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "line": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "line",
+                "m"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Returning None for anything unexpected is safer than guessing what.",
+            "values": {
+              "line": {
+                "var": "line",
+                "line": 5,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "line": "ok",
+              "m": "ok"
+            },
+            "arrows": [
+              [
+                "line",
+                "m"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Action command regex parsing and argument extraction",
-        "columns": [
-          "line",
-          "parse_action",
-          "line"
+        "template": "flow",
+        "title": "Parsing actions",
+        "nodes": [
+          {
+            "id": "line",
+            "label": "line"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Parsing routines reliably find the target tool name and input argument.",
-            "rows": [
-              {
-                "cells": [
-                  "line",
-                  "parse_action",
-                  "line"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "line",
-                  "parse_action",
-                  "line"
-                ],
-                "tone": "data"
-              }
+            "caption": "Your program must reliably find the tool name and input in each Action line.",
+            "values": {
+              "line": "'Action: calculator[7 * 12]'",
+              "m": "{'__other__': 'Match'}"
+            },
+            "tones": {
+              "line": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "line",
+                "m"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Regular expression matching extracts tool calls and separates arguments.",
-            "rows": [
-              {
-                "cells": [
-                  "line",
-                  "parse_action",
-                  "line"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "line",
-                  "parse_action",
-                  "parse_action"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Practice 1 is parse_action(line), which uses a regular expression.",
+            "values": {
+              "line": "'Action: calculator[7 * 12]'",
+              "m": "{'__other__': 'Match'}"
+            },
+            "tones": {
+              "line": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "line",
+                "m"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Returning None for anything unexpected is safer than guessing what.",
+            "values": {
+              "line": "'Action: calculator[7 * 12]'",
+              "m": "{'__other__': 'Match'}"
+            },
+            "tones": {
+              "line": "ok",
+              "m": "ok"
+            },
+            "arrows": [
+              [
+                "line",
+                "m"
+              ]
             ]
           }
         ]
@@ -423,9 +513,9 @@
       "partTitle": "Running the loop",
       "codeHash": "c66952ca139e25c47cfa2f4bb29a9942f1ca59c8bbd27749978e11b0eb90592b",
       "spec": {
-        "template": "table",
-        "title": "Agent runtime loop execution with safety bounds",
-        "columns": [
+        "template": "sequence",
+        "title": "Running the loop",
+        "actors": [
           "tools",
           "outputs",
           "observations"
@@ -433,68 +523,81 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The agent loop reads outputs sequentially and dispatches tool commands.",
-            "rows": [
+            "caption": "The agent loop reads model outputs one at a time.",
+            "activeActor": "tools",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "tools"
-                  },
-                  {
-                    "text": "outputs"
-                  },
-                  {
-                    "text": "observations"
-                  }
-                ],
-                "tone": "ok"
+                "from": "tools",
+                "to": "outputs",
+                "label": {
+                  "var": "tools",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "tools"
-                  },
-                  {
-                    "text": "outputs"
-                  },
-                  {
-                    "text": "observations"
-                  }
-                ],
-                "tone": "data"
+                "from": "outputs",
+                "to": "observations",
+                "label": {
+                  "var": "outputs",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Enforcing a step limit prevents endless loops when actions fail repeatedly.",
-            "rows": [
+            "at": "say2",
+            "caption": "Unknown tools produce an observation such as \"unknown tool.",
+            "activeActor": "outputs",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "tools"
-                  },
-                  {
-                    "text": "outputs"
-                  },
-                  {
-                    "text": "observations"
-                  }
-                ],
+                "from": "tools",
+                "to": "outputs",
+                "label": {
+                  "var": "tools",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "tools"
-                  },
-                  {
-                    "text": "outputs"
-                  },
-                  {
-                    "text": "tools"
-                  }
-                ],
+                "from": "outputs",
+                "to": "observations",
+                "label": {
+                  "var": "outputs",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Recording the number of steps and tool calls per task also shows how.",
+            "activeActor": "observations",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "outputs",
+                "label": {
+                  "var": "tools",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "observations",
+                "label": {
+                  "var": "outputs",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,9 +605,9 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Agent runtime loop execution with safety bounds",
-        "columns": [
+        "template": "sequence",
+        "title": "Running the loop",
+        "actors": [
           "tools",
           "outputs",
           "observations"
@@ -512,47 +615,60 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The agent loop reads outputs sequentially and dispatches tool commands.",
-            "rows": [
+            "caption": "The agent loop reads model outputs one at a time.",
+            "messages": [
               {
-                "cells": [
-                  "tools",
-                  "outputs",
-                  "observations"
-                ],
-                "tone": "ok"
+                "from": "tools",
+                "to": "outputs",
+                "label": "{'add': {'__other__': 'function'}, 'upp…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "tools",
-                  "outputs",
-                  "observations"
-                ],
-                "tone": "data"
+                "from": "outputs",
+                "to": "observations",
+                "label": "['Thought: add first', 'Action: add[2,3…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "tools"
           },
           {
-            "at": "say3",
-            "caption": "Enforcing a step limit prevents endless loops when actions fail repeatedly.",
-            "rows": [
+            "at": "say2",
+            "caption": "Unknown tools produce an observation such as \"unknown tool.",
+            "messages": [
               {
-                "cells": [
-                  "tools",
-                  "outputs",
-                  "observations"
-                ],
+                "from": "tools",
+                "to": "outputs",
+                "label": "{'add': {'__other__': 'function'}, 'upp…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "tools",
-                  "outputs",
-                  "tools"
-                ],
+                "from": "outputs",
+                "to": "observations",
+                "label": "['Thought: add first', 'Action: add[2,3…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "outputs"
+          },
+          {
+            "at": "say9",
+            "caption": "Recording the number of steps and tool calls per task also shows how.",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "outputs",
+                "label": "{'add': {'__other__': 'function'}, 'upp…",
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "observations",
+                "label": "['Thought: add first', 'Action: add[2,3…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "observations"
           }
         ]
       }
@@ -561,224 +677,162 @@
       "partTitle": "Designing agents safely",
       "codeHash": "ccab34922ab031a5fa9b446ea9bff480303fab8e62011f5ca4b0d043706c569a",
       "spec": {
-        "template": "flow",
-        "title": "Designing agents safely — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Designing agents sa...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Designing agents safely",
+        "actors": [
+          "ALLOWED_DOMAINS",
+          "to",
+          "body"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Designing agents safely [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Designing agents sa... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Give agents the fewest and narrowest tools possible (least privilege.",
+            "activeActor": "ALLOWED_DOMAINS",
+            "messages": [
+              {
+                "from": "ALLOWED_DOMAINS",
+                "to": "to",
+                "label": {
+                  "var": "ALLOWED_DOMAINS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "to",
+                "to": "body",
+                "label": {
+                  "var": "to",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Require human confirmation for irreversible or costly actions.",
+            "activeActor": "to",
+            "messages": [
+              {
+                "from": "ALLOWED_DOMAINS",
+                "to": "to",
+                "label": {
+                  "var": "ALLOWED_DOMAINS",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "to",
+                "to": "body",
+                "label": {
+                  "var": "to",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Designing agents safely [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Test agents with tasks designed to tempt them into mistakes, such.",
+            "activeActor": "body",
+            "messages": [
+              {
+                "from": "ALLOWED_DOMAINS",
+                "to": "to",
+                "label": {
+                  "var": "ALLOWED_DOMAINS",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "to",
+                "to": "body",
+                "label": {
+                  "var": "to",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Designing agents safely — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Designing agents sa...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Designing agents safely",
+        "actors": [
+          "ALLOWED_DOMAINS",
+          "to",
+          "body"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Designing agents safely [D23.P5.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Designing agents sa... [D23.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Give agents the fewest and narrowest tools possible (least privilege.",
+            "messages": [
+              {
+                "from": "ALLOWED_DOMAINS",
+                "to": "to",
+                "label": "{'company.com'}",
+                "tone": "data"
+              },
+              {
+                "from": "to",
+                "to": "body",
+                "label": "'boss@company.com'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ALLOWED_DOMAINS"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Require human confirmation for irreversible or costly actions.",
+            "messages": [
+              {
+                "from": "ALLOWED_DOMAINS",
+                "to": "to",
+                "label": "{'company.com'}",
+                "tone": "data"
+              },
+              {
+                "from": "to",
+                "to": "body",
+                "label": "'boss@company.com'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "to"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Designing agents safely [D23.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "Test agents with tasks designed to tempt them into mistakes, such.",
+            "messages": [
+              {
+                "from": "ALLOWED_DOMAINS",
+                "to": "to",
+                "label": "{'company.com'}",
+                "tone": "data"
+              },
+              {
+                "from": "to",
+                "to": "body",
+                "label": "'boss@company.com'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "body"
           }
         ]
       }
@@ -787,224 +841,162 @@
       "partTitle": "Practice time: parse and run",
       "codeHash": "02fd967c7bdbb027a5d5b7c4a7a2c915ed2fffed52de30002b2da3be19c4f474",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: parse and run — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: pars...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: parse and run",
+        "actors": [
+          "tools",
+          "outputs",
+          "obs"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: parse and run [D.Psix.Sone].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: pars... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Parse_action(line).",
+            "activeActor": "tools",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "outputs",
+                "label": {
+                  "var": "tools",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "obs",
+                "label": {
+                  "var": "outputs",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include nested brackets, extra spaces, a thought line and.",
+            "activeActor": "outputs",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "outputs",
+                "label": {
+                  "var": "tools",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "obs",
+                "label": {
+                  "var": "outputs",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: parse and run.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Keeping the loop, the tools and the parser separate makes each easy.",
+            "activeActor": "obs",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "outputs",
+                "label": {
+                  "var": "tools",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "obs",
+                "label": {
+                  "var": "outputs",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: parse and run — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: pars...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: parse and run",
+        "actors": [
+          "tools",
+          "outputs",
+          "obs"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: parse and run [D23.P6.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: pars... [D23.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Parse_action(line).",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "outputs",
+                "label": "{'c_to_f': {'__other__': 'function'}, '…",
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "obs",
+                "label": "['Thought: convert 31 C', 'Action: c_to…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "tools"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks include nested brackets, extra spaces, a thought line and.",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "outputs",
+                "label": "{'c_to_f': {'__other__': 'function'}, '…",
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "obs",
+                "label": "['Thought: convert 31 C', 'Action: c_to…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "outputs"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: parse and run [D23.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "Keeping the loop, the tools and the parser separate makes each easy.",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "outputs",
+                "label": "{'c_to_f': {'__other__': 'function'}, '…",
+                "tone": "data"
+              },
+              {
+                "from": "outputs",
+                "to": "obs",
+                "label": "['Thought: convert 31 C', 'Action: c_to…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "obs"
           }
         ]
       }

@@ -2,231 +2,137 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 17,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "From one tool call to an agent",
       "codeHash": "36b11b9b6c7b3cf1d8dbac7fac130bcd120955f8764a568718ba81a24dbcabdb",
       "spec": {
-        "template": "flow",
-        "title": "From one tool call to an agent — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "From one tool call to an agent",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "steps",
+            "label": "steps"
           },
           {
-            "id": "proc",
-            "label": "2. From one tool call ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "s",
+            "label": "s"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for From one tool call to an agent [D.Pone.Sone].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in From one tool call ... [D.Pone.Stwo].",
+            "caption": "A single tool call answers simple questions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "steps": {
+                "var": "steps",
+                "line": 1,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "steps": "data",
+              "s": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
+            "at": "say2",
+            "caption": "An agent is a model running in a loop.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "steps": {
+                "var": "steps",
+                "line": 6,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "steps": "data",
+              "s": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for From one tool call to an agent.",
+            "at": "say6",
+            "caption": "Today you will build a small ReAct loop with a fake model, so every step.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "steps": {
+                "var": "steps",
+                "line": 7,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 8,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "steps": "ok",
+              "s": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "From one tool call to an agent — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "From one tool call to an agent",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "steps",
+            "label": "steps"
           },
           {
-            "id": "proc",
-            "label": "2. From one tool call ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "s",
+            "label": "s"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for From one tool call to an agent [D17.P1.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in From one tool call ... [D17.P1.S2].",
+            "caption": "A single tool call answers simple questions.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "steps": "['Thought: I need the population of Mys…",
+              "s": "'Thought: I need the population of Mysu…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "steps": "data",
+              "s": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P1.S3].",
+            "at": "say2",
+            "caption": "An agent is a model running in a loop.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "steps": "['Thought: I need the population of Mys…",
+              "s": "'Thought: I need the population of Mysu…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "steps": "data",
+              "s": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for From one tool call to an agent [D17.P1.S4].",
+            "at": "say6",
+            "caption": "Today you will build a small ReAct loop with a fake model, so every step.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "steps": "['Thought: I need the population of Mys…",
+              "s": "'Thought: I need the population of Mysu…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "steps": "ok",
+              "s": "ok"
+            }
           }
         ]
       }
@@ -235,132 +141,222 @@
       "partTitle": "Parsing a ReAct step",
       "codeHash": "d9a157f8fc9c0556d70dca1f239e8cae07cbb1d556d45ef4280eac4c8baf6d2a",
       "spec": {
-        "template": "compare",
-        "title": "Parsing ReAct step output into action step or final answer",
-        "leftLabel": "Action Step",
-        "rightLabel": "Final Answer",
+        "template": "flow",
+        "title": "Parsing a ReAct step",
+        "nodes": [
+          {
+            "id": "output",
+            "label": "output"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          },
+          {
+            "id": "line",
+            "label": "line"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Parse ReAct step returns action step or final answer.",
-            "left": {
-              "code": "Thought: need weather\nAction: get_weather",
-              "result": {
-                "text": "ACTION_STEP"
+            "caption": "Parse_react_step(output).",
+            "values": {
+              "output": {
+                "var": "output",
+                "line": 2,
+                "hit": 1
               },
-              "tone": "data"
+              "step": {
+                "var": "step",
+                "line": 4,
+                "hit": 1
+              },
+              "line": {
+                "var": "line",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "Thought: done\nFinal Answer: It is 31 C in Chennai.",
-              "result": {
-                "text": "FINAL_ANSWER"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "output": "data",
+              "step": "data",
+              "line": "data"
+            },
+            "arrows": [
+              [
+                "output",
+                "step"
+              ],
+              [
+                "step",
+                "line"
+              ]
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Trap check for action input line before action line.",
-            "left": {
-              "code": "Action Input: Chennai",
-              "result": {
-                "text": "Chennai"
+            "at": "say2",
+            "caption": "Loop over output.",
+            "values": {
+              "output": {
+                "var": "output",
+                "line": 4,
+                "hit": 1
               },
-              "tone": "data"
+              "step": {
+                "var": "step",
+                "line": 5,
+                "hit": 1
+              },
+              "line": {
+                "var": "line",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "Action: get_weather",
-              "result": {
-                "text": "get_weather"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "output": "data",
+              "step": "data",
+              "line": "data"
+            },
+            "arrows": [
+              [
+                "output",
+                "step"
+              ],
+              [
+                "step",
+                "line"
+              ]
+            ]
           },
           {
             "at": "say6",
-            "caption": "Parse result type field acts on action step and stops on final answer.",
-            "left": {
-              "code": "step = {type: ACTION_STEP, action: get_weather}",
-              "result": {
-                "text": "ACTION_STEP"
+            "caption": "A clear parse result with a type field makes the main loop simple.",
+            "values": {
+              "output": {
+                "var": "output",
+                "line": 5,
+                "hit": 1
               },
-              "tone": "data"
+              "step": {
+                "var": "step",
+                "line": 6,
+                "hit": 1
+              },
+              "line": {
+                "var": "line",
+                "line": 7,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "step = {type: FINAL_ANSWER, answer: Chennai}",
-              "result": {
-                "text": "FINAL_ANSWER"
-              },
-              "tone": "ok"
-            }
+            "tones": {
+              "output": "ok",
+              "step": "ok",
+              "line": "ok"
+            },
+            "arrows": [
+              [
+                "output",
+                "step"
+              ],
+              [
+                "step",
+                "line"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Parsing ReAct step output into action step or final answer",
-        "leftLabel": "Action Step",
-        "rightLabel": "Final Answer",
+        "template": "flow",
+        "title": "Parsing a ReAct step",
+        "nodes": [
+          {
+            "id": "output",
+            "label": "output"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          },
+          {
+            "id": "line",
+            "label": "line"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Parse ReAct step returns action step or final answer.",
-            "left": {
-              "code": "Thought: need weather\nAction: get_weather",
-              "result": "ACTION_STEP",
-              "tone": "data",
-              "checks": [
-                "ACTION_STEP"
-              ]
+            "caption": "Parse_react_step(output).",
+            "values": {
+              "output": "'Thought: need weather\nAction: get_weat…",
+              "step": "{'type': 'ACTION_STEP', 'thought': '', …",
+              "line": "'Thought: need weather'"
             },
-            "right": {
-              "code": "Thought: done\nFinal Answer: It is 31 C in Chennai.",
-              "result": "FINAL_ANSWER",
-              "tone": "ok",
-              "checks": [
-                "FINAL_ANSWER"
+            "tones": {
+              "output": "data",
+              "step": "data",
+              "line": "data"
+            },
+            "arrows": [
+              [
+                "output",
+                "step"
+              ],
+              [
+                "step",
+                "line"
               ]
-            }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Trap check for action input line before action line.",
-            "left": {
-              "code": "Action Input: Chennai",
-              "result": "Chennai",
-              "tone": "data",
-              "checks": [
-                "Chennai"
-              ]
+            "at": "say2",
+            "caption": "Loop over output.",
+            "values": {
+              "output": "'Thought: need weather\nAction: get_weat…",
+              "step": "{'type': 'ACTION_STEP', 'thought': '', …",
+              "line": "'Thought: need weather'"
             },
-            "right": {
-              "code": "Action: get_weather",
-              "result": "get_weather",
-              "tone": "ok",
-              "checks": [
-                "get_weather"
+            "tones": {
+              "output": "data",
+              "step": "data",
+              "line": "data"
+            },
+            "arrows": [
+              [
+                "output",
+                "step"
+              ],
+              [
+                "step",
+                "line"
               ]
-            }
+            ]
           },
           {
             "at": "say6",
-            "caption": "Parse result type field acts on action step and stops on final answer.",
-            "left": {
-              "code": "step = {type: ACTION_STEP, action: get_weather}",
-              "result": "ACTION_STEP",
-              "tone": "data",
-              "checks": [
-                "ACTION_STEP"
-              ]
+            "caption": "A clear parse result with a type field makes the main loop simple.",
+            "values": {
+              "output": "'Thought: need weather\nAction: get_weat…",
+              "step": "{'type': 'ACTION_STEP', 'thought': '', …",
+              "line": "'Thought: need weather'"
             },
-            "right": {
-              "code": "step = {type: FINAL_ANSWER, answer: Chennai}",
-              "result": "FINAL_ANSWER",
-              "tone": "ok",
-              "checks": [
-                "FINAL_ANSWER"
+            "tones": {
+              "output": "ok",
+              "step": "ok",
+              "line": "ok"
+            },
+            "arrows": [
+              [
+                "output",
+                "step"
+              ],
+              [
+                "step",
+                "line"
               ]
-            }
+            ]
           }
         ]
       }
@@ -369,157 +365,162 @@
       "partTitle": "The agent loop",
       "codeHash": "7eae3fbb7c381d21190d2755fff1fb471dd1ea2b1e18417e03e10f9bdd7c8582",
       "spec": {
-        "template": "flow",
-        "title": "ReAct agent dispatch loop between tool and observation scratchpad",
-        "nodes": [
-          {
-            "id": "tool",
-            "label": "tool"
-          },
-          {
-            "id": "observation",
-            "label": "observation"
-          },
-          {
-            "id": "scratchpad",
-            "label": "scratchpad"
-          }
-        ],
-        "edges": [
-          {
-            "from": "tool",
-            "to": "observation"
-          },
-          {
-            "from": "observation",
-            "to": "scratchpad"
-          }
+        "template": "sequence",
+        "title": "The agent loop",
+        "actors": [
+          "script",
+          "TOOLS",
+          "scratchpad"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Loop parses step runs tool and appends observation.",
-            "values": {
-              "tool": {
-                "text": "lookup"
+            "caption": "Send the conversation to the model, parse its step, and if it is.",
+            "activeActor": "script",
+            "messages": [
+              {
+                "from": "script",
+                "to": "TOOLS",
+                "label": {
+                  "var": "script",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "observation": {
-                "text": "rupees"
-              },
-              "scratchpad": {
-                "text": "Action"
+              {
+                "from": "TOOLS",
+                "to": "scratchpad",
+                "label": {
+                  "var": "TOOLS",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "tool": "ok",
-              "observation": "data",
-              "scratchpad": "idle"
-            }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Keep scratchpad list of previous steps and observations.",
-            "values": {
-              "tool": {
-                "text": "lookup"
+            "caption": "Keep a scratchpad.",
+            "activeActor": "TOOLS",
+            "messages": [
+              {
+                "from": "script",
+                "to": "TOOLS",
+                "label": {
+                  "var": "script",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "observation": {
-                "text": "rupees"
-              },
-              "scratchpad": {
-                "text": "Action"
+              {
+                "from": "TOOLS",
+                "to": "scratchpad",
+                "label": {
+                  "var": "TOOLS",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "tool": "ok",
-              "observation": "ok",
-              "scratchpad": "data"
-            }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Unknown tool returns error observation so agent can recover.",
-            "values": {
-              "tool": {
-                "text": "lookup"
+            "at": "say6",
+            "caption": "Notice how little code the loop needs.",
+            "activeActor": "scratchpad",
+            "messages": [
+              {
+                "from": "script",
+                "to": "TOOLS",
+                "label": {
+                  "var": "script",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "observation": {
-                "text": "rupees"
-              },
-              "scratchpad": {
-                "text": "Action"
+              {
+                "from": "TOOLS",
+                "to": "scratchpad",
+                "label": {
+                  "var": "TOOLS",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
-            },
-            "tones": {
-              "tool": "ok",
-              "observation": "ok",
-              "scratchpad": "ok"
-            }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "ReAct agent dispatch loop between tool and observation scratchpad",
-        "nodes": [
-          {
-            "id": "tool",
-            "label": "tool"
-          },
-          {
-            "id": "observation",
-            "label": "observation"
-          },
-          {
-            "id": "scratchpad",
-            "label": "scratchpad"
-          }
+        "template": "sequence",
+        "title": "The agent loop",
+        "actors": [
+          "script",
+          "TOOLS",
+          "scratchpad"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Loop parses step runs tool and appends observation.",
-            "values": {
-              "tool": "lookup",
-              "observation": "rupees",
-              "scratchpad": "Action"
-            },
-            "tones": {
-              "tool": "ok",
-              "observation": "data",
-              "scratchpad": "idle"
-            },
-            "arrows": []
+            "caption": "Send the conversation to the model, parse its step, and if it is.",
+            "messages": [
+              {
+                "from": "script",
+                "to": "TOOLS",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "data"
+              },
+              {
+                "from": "TOOLS",
+                "to": "scratchpad",
+                "label": "{'lookup': {'__other__': 'function'}, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "script"
           },
           {
             "at": "say2",
-            "caption": "Keep scratchpad list of previous steps and observations.",
-            "values": {
-              "tool": "lookup",
-              "observation": "rupees",
-              "scratchpad": "Action"
-            },
-            "tones": {
-              "tool": "ok",
-              "observation": "ok",
-              "scratchpad": "data"
-            },
-            "arrows": []
+            "caption": "Keep a scratchpad.",
+            "messages": [
+              {
+                "from": "script",
+                "to": "TOOLS",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "data"
+              },
+              {
+                "from": "TOOLS",
+                "to": "scratchpad",
+                "label": "{'lookup': {'__other__': 'function'}, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "TOOLS"
           },
           {
-            "at": "say4",
-            "caption": "Unknown tool returns error observation so agent can recover.",
-            "values": {
-              "tool": "lookup",
-              "observation": "rupees",
-              "scratchpad": "Action"
-            },
-            "tones": {
-              "tool": "ok",
-              "observation": "ok",
-              "scratchpad": "ok"
-            },
-            "arrows": []
+            "at": "say6",
+            "caption": "Notice how little code the loop needs.",
+            "messages": [
+              {
+                "from": "script",
+                "to": "TOOLS",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "data"
+              },
+              {
+                "from": "TOOLS",
+                "to": "scratchpad",
+                "label": "{'lookup': {'__other__': 'function'}, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "scratchpad"
           }
         ]
       }
@@ -528,234 +529,174 @@
       "partTitle": "Stopping runaway agents",
       "codeHash": "0f5e9f722a87979fc3df89b4f053f6777c0d4c1fdc0ef718c64e2738132ad3ab",
       "spec": {
-        "template": "table",
-        "title": "Runaway agent brake conditions iteration limit and cycle detection",
-        "columns": [
-          "action",
-          "condition",
-          "status"
-        ],
+        "template": "bars",
+        "title": "Stopping runaway agents",
         "steps": [
           {
             "at": "say1",
-            "caption": "Agents can loop bouncing between tools costing tokens.",
-            "rows": [
+            "caption": "Searching the same thing again and again, or bouncing between two tools.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "search a"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "finished in"
-                  }
-                ],
-                "tone": "ok"
+                "label": "max_iter",
+                "value": {
+                  "var": "max_iter",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "read b"
-                  },
-                  {
-                    "text": "action"
-                  },
-                  {
-                    "text": "finished in"
-                  }
-                ],
-                "tone": "ok"
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "current",
+                "value": {
+                  "var": "current",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The loop checks max_iterations_reached before every step.",
-            "rows": [
+            "caption": "Max_iterations_reached(current, max_iter=5) returns True once current.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "search a"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "finished in"
-                  }
-                ],
+                "label": "max_iter",
+                "value": {
+                  "var": "max_iter",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "read b"
-                  },
-                  {
-                    "text": "action"
-                  },
-                  {
-                    "text": "finished in"
-                  }
-                ],
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "search a"
-                  },
-                  {
-                    "text": "seen"
-                  },
-                  {
-                    "text": "stopped: repeated action"
-                  }
-                ],
-                "tone": "error"
+                "label": "current",
+                "value": {
+                  "var": "current",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Add brakes detecting repeated action and token budget limit.",
-            "rows": [
+            "at": "say6",
+            "caption": "Brakes are not optional.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "search a"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "finished in"
-                  }
-                ],
+                "label": "max_iter",
+                "value": {
+                  "var": "max_iter",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "read b"
-                  },
-                  {
-                    "text": "action"
-                  },
-                  {
-                    "text": "finished in"
-                  }
-                ],
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "search a"
-                  },
-                  {
-                    "text": "seen"
-                  },
-                  {
-                    "text": "stopped: repeated action"
-                  }
-                ],
-                "tone": "error"
+                "label": "current",
+                "value": {
+                  "var": "current",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Runaway agent brake conditions iteration limit and cycle detection",
-        "columns": [
-          "action",
-          "condition",
-          "status"
-        ],
+        "template": "bars",
+        "title": "Stopping runaway agents",
         "steps": [
           {
             "at": "say1",
-            "caption": "Agents can loop bouncing between tools costing tokens.",
-            "rows": [
+            "caption": "Searching the same thing again and again, or bouncing between two tools.",
+            "bars": [
               {
-                "cells": [
-                  "search a",
-                  "step",
-                  "finished in"
-                ],
-                "tone": "ok"
+                "label": "max_iter",
+                "value": 5,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "read b",
-                  "action",
-                  "finished in"
-                ],
-                "tone": "ok"
+                "label": "step",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "current",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The loop checks max_iterations_reached before every step.",
-            "rows": [
+            "caption": "Max_iterations_reached(current, max_iter=5) returns True once current.",
+            "bars": [
               {
-                "cells": [
-                  "search a",
-                  "step",
-                  "finished in"
-                ],
+                "label": "max_iter",
+                "value": 5,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "read b",
-                  "action",
-                  "finished in"
-                ],
+                "label": "step",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "search a",
-                  "seen",
-                  "stopped: repeated action"
-                ],
-                "tone": "error"
+                "label": "current",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Add brakes detecting repeated action and token budget limit.",
-            "rows": [
+            "at": "say6",
+            "caption": "Brakes are not optional.",
+            "bars": [
               {
-                "cells": [
-                  "search a",
-                  "step",
-                  "finished in"
-                ],
+                "label": "max_iter",
+                "value": 5,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "read b",
-                  "action",
-                  "finished in"
-                ],
+                "label": "step",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "search a",
-                  "seen",
-                  "stopped: repeated action"
-                ],
-                "tone": "error"
+                "label": "current",
+                "value": 2,
+                "tone": "ok"
               }
             ]
           }
@@ -766,224 +707,162 @@
       "partTitle": "Writing a good agent prompt",
       "codeHash": "9dd6b00cc508f8f9967952b0ec06f771b7a3f7276316b55407067e7fc20e9ca2",
       "spec": {
-        "template": "flow",
-        "title": "Writing a good agent prompt — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Writing a good agen...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Writing a good agent prompt",
+        "actors": [
+          "tools",
+          "prompt",
+          "name"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Writing a good agent prompt [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Writing a good agen... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The agent's system prompt describes the goal, the tools (with clear.",
+            "activeActor": "tools",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "prompt",
+                "label": {
+                  "var": "tools",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "prompt",
+                "to": "name",
+                "label": {
+                  "var": "prompt",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Include the format rules explicitly.",
+            "activeActor": "prompt",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "prompt",
+                "label": {
+                  "var": "tools",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "prompt",
+                "to": "name",
+                "label": {
+                  "var": "prompt",
+                  "line": 3,
+                  "hit": 4
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Writing a good agent prompt.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "Improve prompts and tools based on those logs, then rerun a fixed set.",
+            "activeActor": "name",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "prompt",
+                "label": {
+                  "var": "tools",
+                  "line": 3,
+                  "hit": 4
+                },
+                "tone": "data"
+              },
+              {
+                "from": "prompt",
+                "to": "name",
+                "label": {
+                  "var": "prompt",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Writing a good agent prompt — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Writing a good agen...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Writing a good agent prompt",
+        "actors": [
+          "tools",
+          "prompt",
+          "name"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Writing a good agent prompt [D17.P5.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Writing a good agen... [D17.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "The agent's system prompt describes the goal, the tools (with clear.",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "prompt",
+                "label": "{'search': 'Search the company help cen…",
+                "tone": "data"
+              },
+              {
+                "from": "prompt",
+                "to": "name",
+                "label": "\"You are a support agent. Solve the use…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "tools"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Include the format rules explicitly.",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "prompt",
+                "label": "{'search': 'Search the company help cen…",
+                "tone": "data"
+              },
+              {
+                "from": "prompt",
+                "to": "name",
+                "label": "\"You are a support agent. Solve the use…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "prompt"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Writing a good agent prompt [D17.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say6",
+            "caption": "Improve prompts and tools based on those logs, then rerun a fixed set.",
+            "messages": [
+              {
+                "from": "tools",
+                "to": "prompt",
+                "label": "{'search': 'Search the company help cen…",
+                "tone": "data"
+              },
+              {
+                "from": "prompt",
+                "to": "name",
+                "label": "\"You are a support agent. Solve the use…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "name"
           }
         ]
       }
@@ -992,146 +871,162 @@
       "partTitle": "When not to use an agent",
       "codeHash": "e26b511410709a5422a5f764f15a807cb2dcb1d85982f239fe99837faec402b0",
       "spec": {
-        "template": "bars",
-        "title": "Average step count comparison across agent and pipeline architectures",
+        "template": "boxes",
+        "title": "When not to use an agent",
+        "boxes": [
+          {
+            "id": "designs",
+            "label": "designs"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fixed pipelines work better and cost less than agents.",
-            "bars": [
-              {
-                "label": "fixed_pipeline",
-                "value": {
-                  "text": "3.0"
-                },
-                "tone": "ok"
+            "caption": "Agents are exciting, but many products work better as fixed pipelines.",
+            "values": {
+              "designs": {
+                "var": "designs",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "label": "router_pipeline",
-                "value": {
-                  "text": "3.4"
-                },
-                "tone": "ok"
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "designs": "data",
+              "name": "data",
+              "m": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "A router picks fixed pipelines running known steps.",
-            "bars": [
-              {
-                "label": "fixed_pipeline",
-                "value": {
-                  "text": "3.0"
-                },
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Pipelines are faster, cheaper, easier to test and more predictable.",
+            "values": {
+              "designs": {
+                "var": "designs",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "label": "router_pipeline",
-                "value": {
-                  "text": "3.4"
-                },
-                "tone": "ok"
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "label": "free_agent",
-                "value": {
-                  "text": "7.8"
-                },
-                "tone": "data"
+              "m": {
+                "var": "m",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "designs": "data",
+              "name": "data",
+              "m": "data"
+            }
           },
           {
-            "at": "say5",
-            "caption": "Measure agents on success rate average steps and cost per task.",
-            "bars": [
-              {
-                "label": "fixed_pipeline",
-                "value": {
-                  "text": "3.0"
-                },
-                "tone": "ok"
+            "at": "say6",
+            "caption": "Tomorrow you will combine several specialised agents under a supervisor.",
+            "values": {
+              "designs": {
+                "var": "designs",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "label": "router_pipeline",
-                "value": {
-                  "text": "3.4"
-                },
-                "tone": "ok"
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 2
               },
-              {
-                "label": "free_agent",
-                "value": {
-                  "text": "7.8"
-                },
-                "tone": "data"
+              "m": {
+                "var": "m",
+                "line": 6,
+                "hit": 2
               }
-            ]
+            },
+            "tones": {
+              "designs": "ok",
+              "name": "ok",
+              "m": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Average step count comparison across agent and pipeline architectures",
+        "template": "boxes",
+        "title": "When not to use an agent",
+        "boxes": [
+          {
+            "id": "designs",
+            "label": "designs"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fixed pipelines work better and cost less than agents.",
-            "bars": [
-              {
-                "label": "fixed_pipeline",
-                "value": 3,
-                "tone": "ok"
-              },
-              {
-                "label": "router_pipeline",
-                "value": 3.4,
-                "tone": "ok"
-              }
-            ]
+            "caption": "Agents are exciting, but many products work better as fixed pipelines.",
+            "values": {
+              "designs": "{'fixed pipeline': {'success': 0.86, 's…",
+              "name": "'fixed pipeline'",
+              "m": "{'success': 0.86, 'steps': 3, 'cost': 0…"
+            },
+            "tones": {
+              "designs": "data",
+              "name": "data",
+              "m": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "A router picks fixed pipelines running known steps.",
-            "bars": [
-              {
-                "label": "fixed_pipeline",
-                "value": 3,
-                "tone": "ok"
-              },
-              {
-                "label": "router_pipeline",
-                "value": 3.4,
-                "tone": "ok"
-              },
-              {
-                "label": "free_agent",
-                "value": 7.8,
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Pipelines are faster, cheaper, easier to test and more predictable.",
+            "values": {
+              "designs": "{'fixed pipeline': {'success': 0.86, 's…",
+              "name": "'fixed pipeline'",
+              "m": "{'success': 0.86, 'steps': 3, 'cost': 0…"
+            },
+            "tones": {
+              "designs": "data",
+              "name": "data",
+              "m": "data"
+            }
           },
           {
-            "at": "say5",
-            "caption": "Measure agents on success rate average steps and cost per task.",
-            "bars": [
-              {
-                "label": "fixed_pipeline",
-                "value": 3,
-                "tone": "ok"
-              },
-              {
-                "label": "router_pipeline",
-                "value": 3.4,
-                "tone": "ok"
-              },
-              {
-                "label": "free_agent",
-                "value": 7.8,
-                "tone": "data"
-              }
-            ]
+            "at": "say6",
+            "caption": "Tomorrow you will combine several specialised agents under a supervisor.",
+            "values": {
+              "designs": "{'fixed pipeline': {'success': 0.86, 's…",
+              "name": "'router + pipelines'",
+              "m": "{'success': 0.9, 'steps': 3.4, 'cost': …"
+            },
+            "tones": {
+              "designs": "ok",
+              "name": "ok",
+              "m": "ok"
+            }
           }
         ]
       }

@@ -176,6 +176,34 @@ function executeInBrowserWorker(
   });
 }
 
+let cachedPythonBin: string | null = null;
+
+// [FIX-STAGE: Portable Python Interpreter Resolution] Replace hardcoded user-home pgAdmin paths
+// with PYTHON_PATH env override and a cached cross-platform PATH probe.
+function resolvePythonExecutable(req: any): string {
+  const envPath = process.env.PYTHON_PATH?.trim();
+  if (envPath) return envPath;
+  if (cachedPythonBin) return cachedPythonBin;
+
+  const { spawnSync } = req('child_process');
+  const candidates = process.platform === 'win32' ? ['python', 'python3'] : ['python3', 'python'];
+  for (const candidate of candidates) {
+    try {
+      const probe = spawnSync(candidate, ['--version'], { stdio: 'ignore', timeout: 1500 });
+      if (probe && probe.status === 0) {
+        cachedPythonBin = candidate;
+        console.log('[PinIT][Fix:PythonRunner] Resolved portable Python executable:', candidate);
+        return candidate;
+      }
+    } catch {
+      // Ignore probe miss and try next candidate
+    }
+  }
+  console.warn('[PinIT][Fix:PythonRunner] No working Python executable found via PATH; falling back to "python"');
+  cachedPythonBin = 'python';
+  return cachedPythonBin;
+}
+
 function executeInNode(
   script: string,
   extractVars: string[],
@@ -202,8 +230,7 @@ function executeInNode(
       const tmpDir = os.tmpdir();
       const scriptFile = path.join(tmpDir, `pinit_py_${Date.now()}_${Math.random().toString(36).slice(2)}.py`);
 
-      const winPgAdmin = 'C:\\Users\\vinay\\pgsql18\\pgsql\\pgAdmin 4\\python\\python.exe';
-      const pythonBin = process.env.PYTHON_PATH || (process.platform === 'win32' && fs.existsSync(winPgAdmin) ? winPgAdmin : 'python');
+      const pythonBin = resolvePythonExecutable(req);
 
       let wrappedScript = script + '\n\n';
       wrappedScript += 'import json, sys\n';

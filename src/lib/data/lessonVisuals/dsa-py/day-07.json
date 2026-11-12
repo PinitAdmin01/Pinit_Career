@@ -2,50 +2,84 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 7,
-  "promptSha": "226cf87439258fabe089589d8e0cd5c76b00f8ee1b57268dea766add40f46de6",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Hashing: turning a key into a position",
       "codeHash": "573408272f417bf88417c2dda71dda56c7e6d0bde1c3772a7baccee78b82a7bd",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Hashing: turning a key into a position",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The hash concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A hash table stores items in a list of buckets.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Hashing"
-                  },
-                  {
-                    "text": "turning"
-                  }
-                ],
+                "label": "buckets",
+                "value": {
+                  "var": "buckets",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The python logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The same key always gives the same hash, so to find a key later you.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "key"
-                  },
-                  {
-                    "text": "into"
-                  }
-                ],
+                "label": "buckets",
+                "value": {
+                  "var": "buckets",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "This cryptographic randomization prevents malicious algorithmic complexity.",
+            "bars": [
+              {
+                "label": "buckets",
+                "value": {
+                  "var": "buckets",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -53,35 +87,53 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Hashing: turning a key into a position",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The hash concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A hash table stores items in a list of buckets.",
+            "bars": [
               {
-                "cells": [
-                  "Hashing",
-                  "turning"
-                ],
+                "label": "buckets",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The python logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The same key always gives the same hash, so to find a key later you.",
+            "bars": [
               {
-                "cells": [
-                  "key",
-                  "into"
-                ],
+                "label": "buckets",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "This cryptographic randomization prevents malicious algorithmic complexity.",
+            "bars": [
+              {
+                "label": "buckets",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 97,
                 "tone": "ok"
               }
             ]
@@ -93,80 +145,105 @@
       "partTitle": "Collisions and chaining",
       "codeHash": "f9d752dcd75f005edad97702041f1cc94736092c68a8e98dae994a4e8ca96e9c",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Collisions and chaining",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The different concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Two different keys can land in the same bucket.",
+            "items": {
+              "var": "pair",
+              "line": 10,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Collisions"
-                  },
-                  {
-                    "text": "and"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The long logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The simplest fix is chaining.",
+            "items": {
+              "var": "pair",
+              "line": 11,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "chaining"
-                  },
-                  {
-                    "text": "and"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Practice 1 today asks you to build exactly this.",
+            "items": {
+              "var": "pair",
+              "line": 14,
+              "hit": 3
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Collisions and chaining",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The different concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Two different keys can land in the same bucket.",
+            "items": [
+              "1",
+              "10"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Collisions",
-                  "and"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The long logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The simplest fix is chaining.",
+            "items": [
+              "1",
+              "10"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "chaining",
-                  "and"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Practice 1 today asks you to build exactly this.",
+            "items": [
+              "5",
+              "50"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -177,43 +254,131 @@
       "partTitle": "Load factor and resizing",
       "codeHash": "fda41c91440594e1f8f401567fb62f3a52d4fd013cf81d5ca967385fb5cd4d57",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Load factor and resizing",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The load concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "The load factor is the number of items divided by the number of buckets.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Load"
-                  },
-                  {
-                    "text": "factor"
-                  }
-                ],
+                "label": "items",
+                "value": {
+                  "var": "items",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "buckets",
+                "value": {
+                  "var": "buckets",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "new_key",
+                "value": {
+                  "var": "new_key",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "load",
+                "value": {
+                  "var": "load",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The inserting logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "As the load factor rises, chains get longer and lookups slow down.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "and"
-                  },
-                  {
-                    "text": "resizing"
-                  }
-                ],
+                "label": "items",
+                "value": {
+                  "var": "items",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "buckets",
+                "value": {
+                  "var": "buckets",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "new_key",
+                "value": {
+                  "var": "new_key",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "load",
+                "value": {
+                  "var": "load",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Python dictionaries enforce a two-thirds maximum load factor threshold.",
+            "bars": [
+              {
+                "label": "items",
+                "value": {
+                  "var": "items",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "buckets",
+                "value": {
+                  "var": "buckets",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "new_key",
+                "value": {
+                  "var": "new_key",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "load",
+                "value": {
+                  "var": "load",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +386,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Load factor and resizing",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The load concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "The load factor is the number of items divided by the number of buckets.",
+            "bars": [
               {
-                "cells": [
-                  "Load",
-                  "factor"
-                ],
+                "label": "items",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "buckets",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "new_key",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "load",
+                "value": 0.125,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The inserting logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "As the load factor rises, chains get longer and lookups slow down.",
+            "bars": [
               {
-                "cells": [
-                  "and",
-                  "resizing"
-                ],
+                "label": "items",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "buckets",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "new_key",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "load",
+                "value": 0.125,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Python dictionaries enforce a two-thirds maximum load factor threshold.",
+            "bars": [
+              {
+                "label": "items",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "buckets",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "new_key",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "load",
+                "value": 0.125,
                 "tone": "ok"
               }
             ]
@@ -261,80 +474,117 @@
       "partTitle": "Counting with a dict",
       "codeHash": "daf981b9e542c7199f371c09a680a0e5330dfec3218602d30abdfaef0f30f22a",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Counting with a dict",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The common concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "The most common real use of a hash table is counting.",
+            "items": {
+              "var": "votes",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Counting"
-                  },
-                  {
-                    "text": "with"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The counting logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how collections updates counter during execution.",
+            "items": {
+              "var": "votes",
+              "line": 5,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "dict"
-                  },
-                  {
-                    "text": "with"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Remember the difference from Day 1.",
+            "items": {
+              "var": "votes",
+              "line": 6,
+              "hit": 5
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Counting with a dict",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The common concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "The most common real use of a hash table is counting.",
+            "items": [
+              "'asha'",
+              "'ravi'",
+              "'asha'",
+              "'meena'",
+              "'asha'",
+              "'ravi'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Counting",
-                  "with"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The counting logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how collections updates counter during execution.",
+            "items": [
+              "'asha'",
+              "'ravi'",
+              "'asha'",
+              "'meena'",
+              "'asha'",
+              "'ravi'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "dict",
-                  "with"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Remember the difference from Day 1.",
+            "items": [
+              "'asha'",
+              "'ravi'",
+              "'asha'",
+              "'meena'",
+              "'asha'",
+              "'ravi'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -345,80 +595,110 @@
       "partTitle": "Two sum with a hash map",
       "codeHash": "54e8cc239abe96f3fbc5aa88622b1a1a6db998ee933bf6a6c3cd62b9faed0f4a",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Two sum with a hash map",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 2 is two sum, one of the most asked interview questions.",
+            "items": {
+              "var": "nums",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Two"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The store logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The slow way checks every pair.",
+            "items": {
+              "var": "nums",
+              "line": 4,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "with"
-                  },
-                  {
-                    "text": "hash"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Check for the partner before storing x, so a number is never paired.",
+            "items": {
+              "var": "nums",
+              "line": 4,
+              "hit": 3
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Two sum with a hash map",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 2 is two sum, one of the most asked interview questions.",
+            "items": [
+              "2",
+              "7",
+              "11",
+              "15"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Two",
-                  "sum"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The store logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The slow way checks every pair.",
+            "items": [
+              "2",
+              "7",
+              "11",
+              "15"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "with",
-                  "hash"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Check for the partner before storing x, so a number is never paired.",
+            "items": [
+              "3",
+              "2",
+              "4"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -429,82 +709,79 @@
       "partTitle": "Sets and what can be a key",
       "codeHash": "5ec3affec39b735cc081474d7ce713f22fccfc550705f14cd2b88289e9bbefba",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Sets and what can be a key",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The hash concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Sets"
-                  },
-                  {
-                    "text": "and"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A set is a hash table with keys and no values.",
+            "items": {
+              "var": "key",
+              "line": 7,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The need logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "what"
-                  },
-                  {
-                    "text": "can"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Keys in a dict and items in a set must be hashable.",
+            "items": {
+              "var": "key",
+              "line": 8,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say4",
+            "caption": "Trace how dicts updates also during execution.",
+            "items": {
+              "var": "key",
+              "line": 6,
+              "hit": 5
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Sets and what can be a key",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The hash concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Sets",
-                  "and"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A set is a hash table with keys and no values.",
+            "mode": "stack",
+            "items": [
+              "'a'",
+              "'e'",
+              "'t'"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The need logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "what",
-                  "can"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Keys in a dict and items in a set must be hashable.",
+            "mode": "stack",
+            "items": [
+              "'a'",
+              "'e'",
+              "'t'"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say4",
+            "caption": "Trace how dicts updates also during execution.",
+            "mode": "stack",
+            "items": [
+              "'a'",
+              "'e'",
+              "'t'"
+            ],
+            "action": "idle"
           }
         ]
       }

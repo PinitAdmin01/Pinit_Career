@@ -2,269 +2,112 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 52,
-  "promptSha": "bdecce6641dbadd0270478f28fb91601d92c634cd8169dc80f1519d7ec2b261e",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Load Shedding, Adaptive Concurrency Limits (Little's Law) & Priority Queues — Foundations & Mathematical Invariants",
-      "codeHash": "eefed95fb6b47f5f32b09a1e5a50c998fefdfe058c76ed7295e6c3da8c7bf750",
+      "partTitle": "Queueing Death Spirals: Why Fixed Timeouts Alone Fail Under Overload",
+      "codeHash": "a54fb22a8dc22be98f0cf7b1fdb91e25894e2ee32e367271389a8a810c3ccd2f",
       "spec": {
-        "template": "flow",
-        "title": "Load Shedding, Adaptive Concurrency Limits (Little's Law) & Priority Q",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Queueing Death Spirals: Why Fixed Timeouts Alone Fail Under Over",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Every backend API server has finite CPU cores and database connection pools.",
+            "items": {
+              "var": "queue",
+              "line": 9,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Watch the destructive **Queueing Death Spiral (Metastable Failure)**.",
+            "items": {
+              "var": "queue",
+              "line": 6,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Simulate how unbounded FIFO queues drive 0% goodput past overload vs.",
+            "items": {
+              "var": "queue",
+              "line": 7,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Load Shedding, Adaptive Concurrency Limits (Little's Law) & Priority Q",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Queueing Death Spirals: Why Fixed Timeouts Alone Fail Under Over",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "at": "say1",
+            "caption": "Every backend API server has finite CPU cores and database connection pools.",
+            "items": [
+              "0",
+              "0"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say2",
+            "caption": "Watch the destructive **Queueing Death Spiral (Metastable Failure)**.",
+            "items": [
+              "0",
+              "0"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "caption": "Simulate how unbounded FIFO queues drive 0% goodput past overload vs.",
+            "items": [
+              "0",
+              "0"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -272,1065 +115,717 @@
       }
     },
     {
-      "partTitle": "Load Shedding, Adaptive Concurrency Limits (Little's Law) & Priority Queues — Core Algorithm & State Representation",
-      "codeHash": "345a596b536433886ef054b4e04123072564625e0f4651deffaed92af27d6dd9",
+      "partTitle": "Little's Law & Netflix Concurrency Limits (AIMD / Gradient2)",
+      "codeHash": "3a9e9413269d536329cd92760e9008e24be2acad50a3731b4a62d0fb5361c338",
       "spec": {
-        "template": "flow",
-        "title": "Load Shedding, Adaptive Concurrency Limits (Little's Law) & Priority Q",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Little's Law & Netflix Concurrency Limits (AIMD / Gradient2)",
+        "actors": [
+          "self",
+          "initial",
+          "min_limit"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "How can a service automatically discover its true optimal saturation.",
+            "activeActor": "self",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "initial",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "initial",
+                "to": "min_limit",
+                "label": {
+                  "var": "initial",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Apply **Little's Law** directly to backend throughput.",
+            "activeActor": "initial",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "initial",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "initial",
+                "to": "min_limit",
+                "label": {
+                  "var": "initial",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Implement Gradient2 adaptive concurrency tuning below tracking smooth.",
+            "activeActor": "min_limit",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "initial",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "initial",
+                "to": "min_limit",
+                "label": {
+                  "var": "initial",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
+        "template": "sequence",
+        "title": "Little's Law & Netflix Concurrency Limits (AIMD / Gradient2)",
+        "actors": [
+          "self",
+          "initial",
+          "min_limit"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "How can a service automatically discover its true optimal saturation.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "initial",
+                "label": "<AdaptiveConcurrencyLimiter>",
+                "tone": "data"
+              },
+              {
+                "from": "initial",
+                "to": "min_limit",
+                "label": "20",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
+            "at": "say2",
+            "caption": "Apply **Little's Law** directly to backend throughput.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "initial",
+                "label": "<AdaptiveConcurrencyLimiter>",
+                "tone": "data"
+              },
+              {
+                "from": "initial",
+                "to": "min_limit",
+                "label": "20",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "initial"
+          },
+          {
+            "at": "say6",
+            "caption": "Implement Gradient2 adaptive concurrency tuning below tracking smooth.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "initial",
+                "label": "<AdaptiveConcurrencyLimiter>",
+                "tone": "data"
+              },
+              {
+                "from": "initial",
+                "to": "min_limit",
+                "label": "20",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "min_limit"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "CoDel Queue Discipline & Deadline-Aware Admission",
+      "codeHash": "e76a6e164758def37a4f5f700591a46fc6cb74a8ef16459cc6685ae12e3589d4",
+      "spec": {
+        "template": "sequence",
+        "title": "CoDel Queue Discipline & Deadline-Aware Admission",
+        "actors": [
+          "remaining_budget_ms",
+          "estimated_work_ms",
+          "safety_margin_ms"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Latency-ratio heuristics can wobble if base endpoint complexity itself.",
+            "activeActor": "remaining_budget_ms",
+            "messages": [
+              {
+                "from": "remaining_budget_ms",
+                "to": "estimated_work_ms",
+                "label": {
+                  "var": "remaining_budget_ms",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "estimated_work_ms",
+                "to": "safety_margin_ms",
+                "label": {
+                  "var": "estimated_work_ms",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Look closely at why CoDel works reliably across changing workloads.",
+            "activeActor": "estimated_work_ms",
+            "messages": [
+              {
+                "from": "remaining_budget_ms",
+                "to": "estimated_work_ms",
+                "label": {
+                  "var": "remaining_budget_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "estimated_work_ms",
+                "to": "safety_margin_ms",
+                "label": {
+                  "var": "estimated_work_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Implement CoDel sojourn tracking plus deadline-aware admission rejection.",
+            "activeActor": "safety_margin_ms",
+            "messages": [
+              {
+                "from": "remaining_budget_ms",
+                "to": "estimated_work_ms",
+                "label": {
+                  "var": "remaining_budget_ms",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "estimated_work_ms",
+                "to": "safety_margin_ms",
+                "label": {
+                  "var": "estimated_work_ms",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "CoDel Queue Discipline & Deadline-Aware Admission",
+        "actors": [
+          "remaining_budget_ms",
+          "estimated_work_ms",
+          "safety_margin_ms"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Latency-ratio heuristics can wobble if base endpoint complexity itself.",
+            "messages": [
+              {
+                "from": "remaining_budget_ms",
+                "to": "estimated_work_ms",
+                "label": "18",
+                "tone": "data"
+              },
+              {
+                "from": "estimated_work_ms",
+                "to": "safety_margin_ms",
+                "label": "20",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "remaining_budget_ms"
+          },
+          {
+            "at": "say2",
+            "caption": "Look closely at why CoDel works reliably across changing workloads.",
+            "messages": [
+              {
+                "from": "remaining_budget_ms",
+                "to": "estimated_work_ms",
+                "label": "18",
+                "tone": "data"
+              },
+              {
+                "from": "estimated_work_ms",
+                "to": "safety_margin_ms",
+                "label": "20",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "estimated_work_ms"
+          },
+          {
+            "at": "say5",
+            "caption": "Implement CoDel sojourn tracking plus deadline-aware admission rejection.",
+            "messages": [
+              {
+                "from": "remaining_budget_ms",
+                "to": "estimated_work_ms",
+                "label": "120",
+                "tone": "data"
+              },
+              {
+                "from": "estimated_work_ms",
+                "to": "safety_margin_ms",
+                "label": "20",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "safety_margin_ms"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Priority Queues & Progressive Shedding by Criticality Tier",
+      "codeHash": "99b92a53e491429586ff7c463a2b514a948d3ed51e78bc27178034e62b177cca",
+      "spec": {
         "template": "flow",
-        "title": "Load Shedding, Adaptive Concurrency Limits (Little's Law) & Priority Q",
+        "title": "Priority Queues & Progressive Shedding by Criticality Tier",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "CRIT_LEVEL",
+            "label": "CRIT_LEVEL"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "pls",
+            "label": "pls"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "util",
+            "label": "util"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Under a severe 3x traffic surgefor example Black Friday checkout or cyber.",
+            "values": {
+              "CRIT_LEVEL": {
+                "var": "CRIT_LEVEL",
+                "line": 1,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
+              },
+              "pls": {
+                "var": "pls",
+                "line": 18,
+                "hit": 1
+              },
+              "util": {
+                "var": "util",
+                "line": 19,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "CRIT_LEVEL": "data",
+              "self": "data",
+              "pls": "data",
+              "util": "data"
+            },
+            "arrows": [
+              [
+                "CRIT_LEVEL",
+                "self"
+              ],
+              [
+                "self",
+                "pls"
+              ],
+              [
+                "pls",
+                "util"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Resilient platforms like Google SRE's Load Shedders attach explicit.",
+            "values": {
+              "CRIT_LEVEL": {
+                "var": "CRIT_LEVEL",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "self": {
+                "var": "self",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "pls": {
+                "var": "pls",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "util": {
+                "var": "util",
+                "line": 20,
+                "hit": 1
               }
+            },
+            "tones": {
+              "CRIT_LEVEL": "data",
+              "self": "data",
+              "pls": "data",
+              "util": "data"
+            },
+            "arrows": [
+              [
+                "CRIT_LEVEL",
+                "self"
+              ],
+              [
+                "self",
+                "pls"
+              ],
+              [
+                "pls",
+                "util"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say5",
+            "caption": "Separate database/worker pools (Bulkheads) by tier or enforce adaptive.",
+            "values": {
+              "CRIT_LEVEL": {
+                "var": "CRIT_LEVEL",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "self": {
+                "var": "self",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "pls": {
+                "var": "pls",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "util": {
+                "var": "util",
+                "line": 20,
+                "hit": 2
               }
+            },
+            "tones": {
+              "CRIT_LEVEL": "ok",
+              "self": "ok",
+              "pls": "ok",
+              "util": "ok"
+            },
+            "arrows": [
+              [
+                "CRIT_LEVEL",
+                "self"
+              ],
+              [
+                "self",
+                "pls"
+              ],
+              [
+                "pls",
+                "util"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Priority Queues & Progressive Shedding by Criticality Tier",
+        "nodes": [
+          {
+            "id": "CRIT_LEVEL",
+            "label": "CRIT_LEVEL"
+          },
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "pls",
+            "label": "pls"
+          },
+          {
+            "id": "util",
+            "label": "util"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Under a severe 3x traffic surgefor example Black Friday checkout or cyber.",
+            "values": {
+              "CRIT_LEVEL": "{'CRITICAL_PLUS': 0, 'CRITICAL': 1, 'SH…",
+              "self": "<PriorityLoadShedder>",
+              "pls": "<PriorityLoadShedder>",
+              "util": "0.5"
+            },
+            "tones": {
+              "CRIT_LEVEL": "data",
+              "self": "data",
+              "pls": "data",
+              "util": "data"
+            },
+            "arrows": [
+              [
+                "CRIT_LEVEL",
+                "self"
+              ],
+              [
+                "self",
+                "pls"
+              ],
+              [
+                "pls",
+                "util"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say2",
+            "caption": "Resilient platforms like Google SRE's Load Shedders attach explicit.",
+            "values": {
+              "CRIT_LEVEL": "{'CRITICAL_PLUS': 0, 'CRITICAL': 1, 'SH…",
+              "self": "<PriorityLoadShedder>",
+              "pls": "<PriorityLoadShedder>",
+              "util": "0.5"
+            },
+            "tones": {
+              "CRIT_LEVEL": "data",
+              "self": "data",
+              "pls": "data",
+              "util": "data"
+            },
+            "arrows": [
+              [
+                "CRIT_LEVEL",
+                "self"
+              ],
+              [
+                "self",
+                "pls"
+              ],
+              [
+                "pls",
+                "util"
+              ]
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Separate database/worker pools (Bulkheads) by tier or enforce adaptive.",
+            "values": {
+              "CRIT_LEVEL": "{'CRITICAL_PLUS': 0, 'CRITICAL': 1, 'SH…",
+              "self": "<PriorityLoadShedder>",
+              "pls": "<PriorityLoadShedder>",
+              "util": "0.5"
+            },
+            "tones": {
+              "CRIT_LEVEL": "ok",
+              "self": "ok",
+              "pls": "ok",
+              "util": "ok"
+            },
+            "arrows": [
+              [
+                "CRIT_LEVEL",
+                "self"
+              ],
+              [
+                "self",
+                "pls"
+              ],
+              [
+                "pls",
+                "util"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Load Shedding, Adaptive Concurrency Limits (Little's Law) & Priority Queues — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "4b510ab546c24d680a1841e362884010c651b08422758910a9bf190b5c1ed949",
+      "partTitle": "Simulating Goodput Protection & Priority Preservation Under 3x Load",
+      "codeHash": "48471838e0449767a5c541997246d4593acaf92ab708abc7df88801401c8e100",
       "spec": {
-        "template": "flow",
-        "title": "Load Shedding, Adaptive Concurrency Limits (Little's Law) & Priority Q",
-        "nodes": [
+        "template": "states",
+        "title": "Simulating Goodput Protection & Priority Preservation Under 3x L",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cap",
+            "label": "cap"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "critical_total",
+            "label": "critical_total"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sheddable_total",
+            "label": "sheddable_total"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Verify the unified Load Shedder combining Little's Law Adaptive Gradient.",
+            "currentState": "cap",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say2",
+            "caption": "Trace how feed updates mixed during execution.",
+            "currentState": "critical_total",
+            "transition": {
+              "from": "cap",
+              "to": "critical_total",
+              "label": {
+                "var": "critical_total",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+            "caption": "Execute the comparative overload resilience benchmark below and verify.",
+            "currentState": "sheddable_total",
+            "transition": {
+              "from": "critical_total",
+              "to": "sheddable_total",
+              "label": {
+                "var": "sheddable_total",
+                "line": 11,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Load Shedding, Adaptive Concurrency Limits (Little's Law) & Priority Q",
-        "nodes": [
+        "template": "states",
+        "title": "Simulating Goodput Protection & Priority Preservation Under 3x L",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cap",
+            "label": "cap"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "critical_total",
+            "label": "critical_total"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sheddable_total",
+            "label": "sheddable_total"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Verify the unified Load Shedder combining Little's Law Adaptive Gradient.",
+            "currentState": "cap",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say2",
+            "caption": "Trace how feed updates mixed during execution.",
+            "currentState": "critical_total",
+            "transition": {
+              "from": "cap",
+              "to": "critical_total",
+              "label": "10"
+            },
+            "tone": "data"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Load Shedding, Adaptive Concurrency Limits (Little's Law) & Priority Queues — Resilience Guardrails & Failure Recovery",
-      "codeHash": "afbac6a670c77e9d6a180356cba344f6ff8be08c968c95ad22d1ae248ee4aa7a",
-      "spec": {
-        "template": "flow",
-        "title": "Load Shedding, Adaptive Concurrency Limits (Little's Law) & Priority Q",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Load Shedding, Adaptive Concurrency Limits (Little's Law) & Priority Q",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Load Shedding, Adaptive Concurrency Limits (Little's Law) & Priority Queues — Production Telemetry & Verification Audit",
-      "codeHash": "7b0667e98c031ca0b8bb61557f8d084380faaaad5cdb883e402aa156e86d184f",
-      "spec": {
-        "template": "flow",
-        "title": "Load Shedding, Adaptive Concurrency Limits (Little's Law) & Priority Q",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Load Shedding, Adaptive Concurrency Limits (Little's Law) & Priority Q",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "Execute the comparative overload resilience benchmark below and verify.",
+            "currentState": "sheddable_total",
+            "transition": {
+              "from": "critical_total",
+              "to": "sheddable_total",
+              "label": "20"
+            },
+            "tone": "ok"
           }
         ]
       }

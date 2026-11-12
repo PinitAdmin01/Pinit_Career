@@ -12,7 +12,8 @@ import {
   DAY_166_MANIFEST,
   DAY_167_MANIFEST,
   DAY_167_ASSESSMENT,
-  COMPETENCY_ID_FULL_STACK_HTMX,
+  // [FIX-STAGE: wave0-fix-batch033-tsc] Match actual exported symbol from batch033.ts
+  COMPETENCY_ID_DJANGO_FULLSTACK_HTMX,
 } from '../../src/lib/curriculum/pythonFullStack/batch033';
 import { ContentValidator } from '../../src/lib/curriculum/contentValidator';
 

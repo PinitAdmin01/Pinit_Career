@@ -2,1335 +2,773 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 36,
-  "promptSha": "a5b55bdfba854203b17d6527c1df32bccff2a41ac96a58c150335a607e59ac4e",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "OAuth 2.1 PKCE Code Challenge Verifier & State CSRF Binding — Foundations & Mathematical Invariants",
-      "codeHash": "fcbbd3904a0869680023ceb3d36a91dd49dd179f458f3338b5df6167c35b51f5",
+      "partTitle": "OAuth 2.1 PKCE Code Challenge Verifier — Foundations & Mathematical Invariants",
+      "codeHash": "201b0f156ef7c6effc11721d9481defafcb6c589c4965671c4b1ec909164c4e2",
       "spec": {
         "template": "flow",
-        "title": "OAuth . PKCE Code Challenge Verifier & State CSRF Binding — Foundation",
+        "title": "OAuth 2.1 PKCE Code Challenge Verifier — Foundations & Mathemati",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "verifier",
+            "label": "verifier"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "code_verifier_str",
+            "label": "code_verifier_str"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "verifier_bytes",
+            "label": "verifier_bytes"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "digest",
+            "label": "digest"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how oauth updates authorization during execution.",
+            "values": {
+              "verifier": {
+                "var": "verifier",
+                "line": 12,
+                "hit": 1
+              },
+              "code_verifier_str": {
+                "var": "code_verifier_str",
+                "line": 6,
+                "hit": 1
+              },
+              "verifier_bytes": {
+                "var": "verifier_bytes",
+                "line": 6,
+                "hit": 1
+              },
+              "digest": {
+                "var": "digest",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "verifier": "data",
+              "code_verifier_str": "data",
+              "verifier_bytes": "data",
+              "digest": "data"
+            },
+            "arrows": [
+              [
+                "verifier",
+                "code_verifier_str"
+              ],
+              [
+                "code_verifier_str",
+                "verifier_bytes"
+              ],
+              [
+                "verifier_bytes",
+                "digest"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Adversaries operating on victim devices or local networks intercepted.",
+            "values": {
+              "verifier": {
+                "var": "verifier",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "code_verifier_str": {
+                "var": "code_verifier_str",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "verifier_bytes": {
+                "var": "verifier_bytes",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "digest": {
+                "var": "digest",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "verifier": "data",
+              "code_verifier_str": "data",
+              "verifier_bytes": "data",
+              "digest": "data"
+            },
+            "arrows": [
+              [
+                "verifier",
+                "code_verifier_str"
+              ],
+              [
+                "code_verifier_str",
+                "verifier_bytes"
+              ],
+              [
+                "verifier_bytes",
+                "digest"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Client application developers must securely store code verifiers.",
+            "values": {
+              "verifier": {
+                "var": "verifier",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "code_verifier_str": {
+                "var": "code_verifier_str",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "verifier_bytes": {
+                "var": "verifier_bytes",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "digest": {
+                "var": "digest",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "verifier": "ok",
+              "code_verifier_str": "ok",
+              "verifier_bytes": "ok",
+              "digest": "ok"
+            },
+            "arrows": [
+              [
+                "verifier",
+                "code_verifier_str"
+              ],
+              [
+                "code_verifier_str",
+                "verifier_bytes"
+              ],
+              [
+                "verifier_bytes",
+                "digest"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "OAuth . PKCE Code Challenge Verifier & State CSRF Binding — Foundation",
+        "title": "OAuth 2.1 PKCE Code Challenge Verifier — Foundations & Mathemati",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "verifier",
+            "label": "verifier"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "code_verifier_str",
+            "label": "code_verifier_str"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "verifier_bytes",
+            "label": "verifier_bytes"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "digest",
+            "label": "digest"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how oauth updates authorization during execution.",
+            "values": {
+              "verifier": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
+              "code_verifier_str": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
+              "verifier_bytes": "{'__other__': 'bytes'}",
+              "digest": "{'__other__': 'bytes'}"
+            },
+            "tones": {
+              "verifier": "data",
+              "code_verifier_str": "data",
+              "verifier_bytes": "data",
+              "digest": "data"
+            },
+            "arrows": [
+              [
+                "verifier",
+                "code_verifier_str"
+              ],
+              [
+                "code_verifier_str",
+                "verifier_bytes"
+              ],
+              [
+                "verifier_bytes",
+                "digest"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Adversaries operating on victim devices or local networks intercepted.",
+            "values": {
+              "verifier": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
+              "code_verifier_str": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
+              "verifier_bytes": "{'__other__': 'bytes'}",
+              "digest": "{'__other__': 'bytes'}"
+            },
+            "tones": {
+              "verifier": "data",
+              "code_verifier_str": "data",
+              "verifier_bytes": "data",
+              "digest": "data"
+            },
+            "arrows": [
+              [
+                "verifier",
+                "code_verifier_str"
+              ],
+              [
+                "code_verifier_str",
+                "verifier_bytes"
+              ],
+              [
+                "verifier_bytes",
+                "digest"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Client application developers must securely store code verifiers.",
+            "values": {
+              "verifier": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
+              "code_verifier_str": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
+              "verifier_bytes": "{'__other__': 'bytes'}",
+              "digest": "{'__other__': 'bytes'}"
+            },
+            "tones": {
+              "verifier": "ok",
+              "code_verifier_str": "ok",
+              "verifier_bytes": "ok",
+              "digest": "ok"
+            },
+            "arrows": [
+              [
+                "verifier",
+                "code_verifier_str"
+              ],
+              [
+                "code_verifier_str",
+                "verifier_bytes"
+              ],
+              [
+                "verifier_bytes",
+                "digest"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "OAuth 2.1 PKCE Code Challenge Verifier & State CSRF Binding — Core Algorithm & State Representation",
-      "codeHash": "8d11bb5b300c5cc1050299b9b0f7fc596f681c3ea137c5b4c83bf56f6b6c0b40",
+      "partTitle": "OAuth 2.1 PKCE Code Challenge Verifier — Core Algorithm & State Representation",
+      "codeHash": "0a091a9719695c450733ba46d57ea4e95303ba33175c6c2d16bbbf65071628cb",
       "spec": {
-        "template": "flow",
-        "title": "OAuth . PKCE Code Challenge Verifier & State CSRF Binding — Core Algor",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "OAuth 2.1 PKCE Code Challenge Verifier — Core Algorithm & State ",
+        "actors": [
+          "verifier",
+          "code_verifier_str",
+          "digest"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how implementing updates oauth during execution.",
+            "activeActor": "verifier",
+            "messages": [
+              {
+                "from": "verifier",
+                "to": "code_verifier_str",
+                "label": {
+                  "var": "verifier",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "code_verifier_str",
+                "to": "digest",
+                "label": {
+                  "var": "code_verifier_str",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "When a user grants consent, the server generates a cryptographically.",
+            "activeActor": "code_verifier_str",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "verifier",
+                "to": "code_verifier_str",
+                "label": {
+                  "var": "verifier",
+                  "line": 37,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "code_verifier_str",
+                "to": "digest",
+                "label": {
+                  "var": "code_verifier_str",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Authorization server grant tables should enforce automatic expiration.",
+            "activeActor": "digest",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "verifier",
+                "to": "code_verifier_str",
+                "label": {
+                  "var": "verifier",
+                  "line": 38,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "code_verifier_str",
+                "to": "digest",
+                "label": {
+                  "var": "code_verifier_str",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "OAuth . PKCE Code Challenge Verifier & State CSRF Binding — Core Algor",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "OAuth 2.1 PKCE Code Challenge Verifier — Core Algorithm & State ",
+        "actors": [
+          "verifier",
+          "code_verifier_str",
+          "digest"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how implementing updates oauth during execution.",
+            "messages": [
+              {
+                "from": "verifier",
+                "to": "code_verifier_str",
+                "label": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
+                "tone": "data"
+              },
+              {
+                "from": "code_verifier_str",
+                "to": "digest",
+                "label": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "verifier"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "When a user grants consent, the server generates a cryptographically.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "verifier",
+                "to": "code_verifier_str",
+                "label": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "code_verifier_str",
+                "to": "digest",
+                "label": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "code_verifier_str"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Authorization server grant tables should enforce automatic expiration.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "verifier",
+                "to": "code_verifier_str",
+                "label": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "code_verifier_str",
+                "to": "digest",
+                "label": "'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWF…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "digest"
           }
         ]
       }
     },
     {
-      "partTitle": "OAuth 2.1 PKCE Code Challenge Verifier & State CSRF Binding — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "e57b955434c0c0f2199f74114d6e7fb4ac1b0e0dd8cc850010085e163af5efe5",
+      "partTitle": "OAuth 2.1 PKCE Code Challenge Verifier — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "8881d5e6aca41214e9a8600dfe8acf5e93f917d9de36d2e5ee5fa6a3d03d50e6",
       "spec": {
-        "template": "flow",
-        "title": "OAuth . PKCE Code Challenge Verifier & State CSRF Binding — Throughput",
-        "nodes": [
+        "template": "states",
+        "title": "OAuth 2.1 PKCE Code Challenge Verifier — Throughput Optimization",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "session_id",
+            "label": "session_id"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "sig",
+            "label": "sig"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "state",
+            "label": "state"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In high-traffic enterprise architectures, authorization servers handle.",
+            "currentState": "session_id",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "State management must also defend against Cross-Site Request Forgery.",
+            "currentState": "sig",
+            "transition": {
+              "from": "session_id",
+              "to": "sig",
+              "label": {
+                "var": "sig",
+                "line": 9,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Session fixation defenses require regenerating session identifiers.",
+            "currentState": "state",
+            "transition": {
+              "from": "sig",
+              "to": "state",
+              "label": {
+                "var": "state",
+                "line": 24,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "OAuth . PKCE Code Challenge Verifier & State CSRF Binding — Throughput",
-        "nodes": [
+        "template": "states",
+        "title": "OAuth 2.1 PKCE Code Challenge Verifier — Throughput Optimization",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "session_id",
+            "label": "session_id"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "sig",
+            "label": "sig"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "state",
+            "label": "state"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In high-traffic enterprise architectures, authorization servers handle.",
+            "currentState": "session_id",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "State management must also defend against Cross-Site Request Forgery.",
+            "currentState": "sig",
+            "transition": {
+              "from": "session_id",
+              "to": "sig",
+              "label": "'5c5a96940683a320'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Session fixation defenses require regenerating session identifiers.",
+            "currentState": "state",
+            "transition": {
+              "from": "sig",
+              "to": "state",
+              "label": "'sess_usr_98124.5c5a96940683a320'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "OAuth 2.1 PKCE Code Challenge Verifier & State CSRF Binding — Resilience Guardrails & Failure Recovery",
-      "codeHash": "eb80d10baea40699a558a31dd7b6a59c87b4b1c90a2774f9557e757723130c21",
+      "partTitle": "OAuth 2.1 PKCE Code Challenge Verifier — Resilience Guardrails & Failure Recovery",
+      "codeHash": "17509233d0c89f16acf946a0ae6c12d081dbd9555679afb05f7eb771dac7a575",
       "spec": {
-        "template": "flow",
-        "title": "OAuth . PKCE Code Challenge Verifier & State CSRF Binding — Resilience",
-        "nodes": [
+        "template": "states",
+        "title": "OAuth 2.1 PKCE Code Challenge Verifier — Resilience Guardrails &",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "guard",
+            "label": "guard"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "code",
+            "label": "code"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production OAuth servers must implement aggressive automated guardrails.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "If an attacker attempts to redeem an authorization code that has already.",
+            "currentState": "guard",
+            "transition": {
+              "from": "self",
+              "to": "guard",
+              "label": {
+                "var": "guard",
+                "line": 13,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Token exchange endpoints should enforce strict rate limiting.",
+            "currentState": "code",
+            "transition": {
+              "from": "guard",
+              "to": "code",
+              "label": {
+                "var": "code",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "OAuth . PKCE Code Challenge Verifier & State CSRF Binding — Resilience",
-        "nodes": [
+        "template": "states",
+        "title": "OAuth 2.1 PKCE Code Challenge Verifier — Resilience Guardrails &",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "guard",
+            "label": "guard"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "code",
+            "label": "code"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production OAuth servers must implement aggressive automated guardrails.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "If an attacker attempts to redeem an authorization code that has already.",
+            "currentState": "guard",
+            "transition": {
+              "from": "self",
+              "to": "guard",
+              "label": "<AuthorizationCodeReuseGuard>"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Token exchange endpoints should enforce strict rate limiting.",
+            "currentState": "code",
+            "transition": {
+              "from": "guard",
+              "to": "code",
+              "label": "'AUTH_CODE_ALPHA'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "OAuth 2.1 PKCE Code Challenge Verifier & State CSRF Binding — Production Telemetry & Verification Audit",
-      "codeHash": "1b910dd5154b54d51b3b005afec2965bc00a0f7a19126366fa587afdab54d209",
+      "partTitle": "OAuth 2.1 PKCE Code Challenge Verifier — Production Telemetry & Verification Audit",
+      "codeHash": "4a0907a3e6c0150803223d67fb9500867dd428fa0cf81cfeacca98ae595d1a29",
       "spec": {
-        "template": "flow",
-        "title": "OAuth . PKCE Code Challenge Verifier & State CSRF Binding — Production",
-        "nodes": [
+        "template": "states",
+        "title": "OAuth 2.1 PKCE Code Challenge Verifier — Production Telemetry & ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "pkce_enforced",
+            "label": "pkce_enforced"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "state_bound",
+            "label": "state_bound"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "code_single_use",
+            "label": "code_single_use"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how operating updates zero during execution.",
+            "currentState": "pkce_enforced",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Telemetry dashboards track key operational metrics.",
+            "currentState": "state_bound",
+            "transition": {
+              "from": "pkce_enforced",
+              "to": "state_bound",
+              "label": {
+                "var": "state_bound",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Trace how production updates oauth during execution.",
+            "currentState": "code_single_use",
+            "transition": {
+              "from": "state_bound",
+              "to": "code_single_use",
+              "label": {
+                "var": "code_single_use",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "OAuth . PKCE Code Challenge Verifier & State CSRF Binding — Production",
-        "nodes": [
+        "template": "states",
+        "title": "OAuth 2.1 PKCE Code Challenge Verifier — Production Telemetry & ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "pkce_enforced",
+            "label": "pkce_enforced"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "state_bound",
+            "label": "state_bound"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "code_single_use",
+            "label": "code_single_use"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how operating updates zero during execution.",
+            "currentState": "pkce_enforced",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Telemetry dashboards track key operational metrics.",
+            "currentState": "state_bound",
+            "transition": {
+              "from": "pkce_enforced",
+              "to": "state_bound",
+              "label": "True"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Trace how production updates oauth during execution.",
+            "currentState": "code_single_use",
+            "transition": {
+              "from": "state_bound",
+              "to": "code_single_use",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }

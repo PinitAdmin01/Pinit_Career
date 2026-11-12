@@ -2,269 +2,121 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 47,
-  "promptSha": "28e518c1ded9bf77bfa9f551f192a5a3e48ec774658e39dd6c9555c86a20a221",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "FP8 Training — Foundations & Mathematical Invariants",
-      "codeHash": "02fa76423e6a49e93fab9ffee528be5b0e4fb5d75165c1b41ebe4dd59ea76ef3",
+      "codeHash": "ae84870c996e546010e9c678c60f1ce28c0b7edb477cb115e40634d5b7e07ace",
       "spec": {
-        "template": "flow",
-        "title": "FP Training — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "FP8 Training — Foundations & Mathematical Invariants",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how floating updates point during execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "formats"
+                  },
+                  {
+                    "var": "formats",
+                    "line": 7,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "E4M3 allocates 1 sign bit, 4 exponent bits, and 3 mantissa bits, offering.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "formats"
+                  },
+                  {
+                    "var": "formats",
+                    "line": 8,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This instruction-level integration guarantees that numerical conversion.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "FP Training — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "FP8 Training — Foundations & Mathematical Invariants",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how floating updates point during execution.",
+            "rows": [
+              {
+                "cells": [
+                  "formats",
+                  "{'E4M3': {'sign': 1, 'exponent': 4, 'ma…"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "E4M3 allocates 1 sign bit, 4 exponent bits, and 3 mantissa bits, offering.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "formats",
+                  "{'E4M3': {'sign': 1, 'exponent': 4, 'ma…"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This instruction-level integration guarantees that numerical conversion.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "[FP8_FORMATS] E4M3 max=448.0 (forward_activations_and_weights), E5M2 max=57344.0 (backward_gradients)"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -273,264 +125,176 @@
     },
     {
       "partTitle": "FP8 Training — Core Algorithm & State Representation",
-      "codeHash": "f04e850bbd5568097a11ef5bbaa11105d63e7765fdee31915f43858ebafe8bc2",
+      "codeHash": "47535ebdffea26d0d8ddf1d349beb0709bdf63a6146b0983c08a0ded65a4e90d",
       "spec": {
-        "template": "flow",
-        "title": "FP Training — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "FP8 Training — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantizing tensors to FP8 requires scaling floating-point numbers into.",
+            "bars": [
+              {
+                "label": "fp8_max",
+                "value": {
+                  "var": "fp8_max",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "current_max",
+                "value": {
+                  "var": "current_max",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Naive per-tensor scaling requires computing the maximum absolute value.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "fp8_max",
+                "value": {
+                  "var": "fp8_max",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "current_max",
+                "value": {
+                  "var": "current_max",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This robust mathematical stabilization enables multi-week FP8 foundation.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "fp8_max",
+                "value": {
+                  "var": "fp8_max",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "current_max",
+                "value": {
+                  "var": "current_max",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "FP Training — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "FP8 Training — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantizing tensors to FP8 requires scaling floating-point numbers into.",
+            "bars": [
+              {
+                "label": "fp8_max",
+                "value": 448,
+                "tone": "data"
+              },
+              {
+                "label": "current_max",
+                "value": 16,
+                "tone": "data"
+              },
+              {
+                "label": "scale",
+                "value": 26.599999999999998,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Naive per-tensor scaling requires computing the maximum absolute value.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "fp8_max",
+                "value": 448,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "current_max",
+                "value": 16,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "scale",
+                "value": 26.599999999999998,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This robust mathematical stabilization enables multi-week FP8 foundation.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "fp8_max",
+                "value": 448,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "current_max",
+                "value": 16,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "scale",
+                "value": 26.6,
+                "tone": "ok"
               }
             ]
           }
@@ -539,265 +303,279 @@
     },
     {
       "partTitle": "FP8 Training — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "1f3eb35ddc62d0f5d523027071cb966ca61040dad686c02d09ff9d0b937a3a41",
+      "codeHash": "411ec595c67cc5c597276d38c865583e473cfc84d1422bb9baa2a66023342eb6",
       "spec": {
         "template": "flow",
-        "title": "FP Training — Throughput Optimization & Edge-Case Handling",
+        "title": "FP8 Training — Throughput Optimization & Edge-Case Handling",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "hbm_bandwidth_tb_s",
+            "label": "hbm_bandwidth_tb_s"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tensor_core_tflops_fp16",
+            "label": "tensor_core_tflops_fp16"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "fp8_tensor_core_tflops",
+            "label": "fp8_tensor_core_tflops"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "mem_saving_pct",
+            "label": "mem_saving_pct"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how transitioning updates precision during execution.",
+            "values": {
+              "hbm_bandwidth_tb_s": {
+                "var": "hbm_bandwidth_tb_s",
+                "line": 3,
+                "hit": 1
+              },
+              "tensor_core_tflops_fp16": {
+                "var": "tensor_core_tflops_fp16",
+                "line": 3,
+                "hit": 1
+              },
+              "fp8_tensor_core_tflops": {
+                "var": "fp8_tensor_core_tflops",
+                "line": 3,
+                "hit": 1
+              },
+              "mem_saving_pct": {
+                "var": "mem_saving_pct",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "hbm_bandwidth_tb_s": "data",
+              "tensor_core_tflops_fp16": "data",
+              "fp8_tensor_core_tflops": "data",
+              "mem_saving_pct": "data"
+            },
+            "arrows": [
+              [
+                "hbm_bandwidth_tb_s",
+                "tensor_core_tflops_fp16"
+              ],
+              [
+                "tensor_core_tflops_fp16",
+                "fp8_tensor_core_tflops"
+              ],
+              [
+                "fp8_tensor_core_tflops",
+                "mem_saving_pct"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Trace how nvidia updates hopper during execution.",
+            "values": {
+              "hbm_bandwidth_tb_s": {
+                "var": "hbm_bandwidth_tb_s",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tensor_core_tflops_fp16": {
+                "var": "tensor_core_tflops_fp16",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "fp8_tensor_core_tflops": {
+                "var": "fp8_tensor_core_tflops",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "mem_saving_pct": {
+                "var": "mem_saving_pct",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "hbm_bandwidth_tb_s": "data",
+              "tensor_core_tflops_fp16": "data",
+              "fp8_tensor_core_tflops": "data",
+              "mem_saving_pct": "data"
+            },
+            "arrows": [
+              [
+                "hbm_bandwidth_tb_s",
+                "tensor_core_tflops_fp16"
+              ],
+              [
+                "tensor_core_tflops_fp16",
+                "fp8_tensor_core_tflops"
+              ],
+              [
+                "fp8_tensor_core_tflops",
+                "mem_saving_pct"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "This synergistic improvement in compute intensity and thermal stability.",
+            "values": {
+              "hbm_bandwidth_tb_s": {
+                "var": "hbm_bandwidth_tb_s",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tensor_core_tflops_fp16": {
+                "var": "tensor_core_tflops_fp16",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "fp8_tensor_core_tflops": {
+                "var": "fp8_tensor_core_tflops",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "mem_saving_pct": {
+                "var": "mem_saving_pct",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "hbm_bandwidth_tb_s": "ok",
+              "tensor_core_tflops_fp16": "ok",
+              "fp8_tensor_core_tflops": "ok",
+              "mem_saving_pct": "ok"
+            },
+            "arrows": [
+              [
+                "hbm_bandwidth_tb_s",
+                "tensor_core_tflops_fp16"
+              ],
+              [
+                "tensor_core_tflops_fp16",
+                "fp8_tensor_core_tflops"
+              ],
+              [
+                "fp8_tensor_core_tflops",
+                "mem_saving_pct"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "FP Training — Throughput Optimization & Edge-Case Handling",
+        "title": "FP8 Training — Throughput Optimization & Edge-Case Handling",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "hbm_bandwidth_tb_s",
+            "label": "hbm_bandwidth_tb_s"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tensor_core_tflops_fp16",
+            "label": "tensor_core_tflops_fp16"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "fp8_tensor_core_tflops",
+            "label": "fp8_tensor_core_tflops"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "mem_saving_pct",
+            "label": "mem_saving_pct"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how transitioning updates precision during execution.",
+            "values": {
+              "hbm_bandwidth_tb_s": "3.35",
+              "tensor_core_tflops_fp16": "989",
+              "fp8_tensor_core_tflops": "1978",
+              "mem_saving_pct": "50"
+            },
+            "tones": {
+              "hbm_bandwidth_tb_s": "data",
+              "tensor_core_tflops_fp16": "data",
+              "fp8_tensor_core_tflops": "data",
+              "mem_saving_pct": "data"
+            },
+            "arrows": [
+              [
+                "hbm_bandwidth_tb_s",
+                "tensor_core_tflops_fp16"
+              ],
+              [
+                "tensor_core_tflops_fp16",
+                "fp8_tensor_core_tflops"
+              ],
+              [
+                "fp8_tensor_core_tflops",
+                "mem_saving_pct"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Trace how nvidia updates hopper during execution.",
+            "values": {
+              "hbm_bandwidth_tb_s": "3.35",
+              "tensor_core_tflops_fp16": "989",
+              "fp8_tensor_core_tflops": "1978",
+              "mem_saving_pct": "50"
+            },
+            "tones": {
+              "hbm_bandwidth_tb_s": "data",
+              "tensor_core_tflops_fp16": "data",
+              "fp8_tensor_core_tflops": "data",
+              "mem_saving_pct": "data"
+            },
+            "arrows": [
+              [
+                "hbm_bandwidth_tb_s",
+                "tensor_core_tflops_fp16"
+              ],
+              [
+                "tensor_core_tflops_fp16",
+                "fp8_tensor_core_tflops"
+              ],
+              [
+                "fp8_tensor_core_tflops",
+                "mem_saving_pct"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "This synergistic improvement in compute intensity and thermal stability.",
+            "values": {
+              "hbm_bandwidth_tb_s": "3.35",
+              "tensor_core_tflops_fp16": "989",
+              "fp8_tensor_core_tflops": "1978",
+              "mem_saving_pct": "50"
+            },
+            "tones": {
+              "hbm_bandwidth_tb_s": "ok",
+              "tensor_core_tflops_fp16": "ok",
+              "fp8_tensor_core_tflops": "ok",
+              "mem_saving_pct": "ok"
+            },
+            "arrows": [
+              [
+                "hbm_bandwidth_tb_s",
+                "tensor_core_tflops_fp16"
+              ],
+              [
+                "tensor_core_tflops_fp16",
+                "fp8_tensor_core_tflops"
+              ],
+              [
+                "fp8_tensor_core_tflops",
+                "mem_saving_pct"
+              ]
             ]
           }
         ]
@@ -805,265 +583,279 @@
     },
     {
       "partTitle": "FP8 Training — Resilience Guardrails & Failure Recovery",
-      "codeHash": "1204c6b89780487089a9b7be6ac397e46fdfa0beeef3ac4e2cd6b52f624fc512",
+      "codeHash": "b6783d427dd450cee5f126c4afca0d3b44ddcfec20557a54a979967bb2cb984d",
       "spec": {
         "template": "flow",
-        "title": "FP Training — Resilience Guardrails & Failure Recovery",
+        "title": "FP8 Training — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "tensor_amax",
+            "label": "tensor_amax"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "scale",
+            "label": "scale"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "fp8_max",
+            "label": "fp8_max"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "scaled_val",
+            "label": "scaled_val"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Because E4M3 saturates at 448.",
+            "values": {
+              "tensor_amax": {
+                "var": "tensor_amax",
+                "line": 2,
+                "hit": 1
+              },
+              "scale": {
+                "var": "scale",
+                "line": 2,
+                "hit": 1
+              },
+              "fp8_max": {
+                "var": "fp8_max",
+                "line": 2,
+                "hit": 1
+              },
+              "scaled_val": {
+                "var": "scaled_val",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "tensor_amax": "data",
+              "scale": "data",
+              "fp8_max": "data",
+              "scaled_val": "data"
+            },
+            "arrows": [
+              [
+                "tensor_amax",
+                "scale"
+              ],
+              [
+                "scale",
+                "fp8_max"
+              ],
+              [
+                "fp8_max",
+                "scaled_val"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Severe clipping saturates activations into flat constants, destroying.",
+            "values": {
+              "tensor_amax": {
+                "var": "tensor_amax",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "scale": {
+                "var": "scale",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "fp8_max": {
+                "var": "fp8_max",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "scaled_val": {
+                "var": "scaled_val",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "tensor_amax": "data",
+              "scale": "data",
+              "fp8_max": "data",
+              "scaled_val": "data"
+            },
+            "arrows": [
+              [
+                "tensor_amax",
+                "scale"
+              ],
+              [
+                "scale",
+                "fp8_max"
+              ],
+              [
+                "fp8_max",
+                "scaled_val"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "Enforcing strict saturation boundaries guarantees that numerical precision.",
+            "values": {
+              "tensor_amax": {
+                "var": "tensor_amax",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "scale": {
+                "var": "scale",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "fp8_max": {
+                "var": "fp8_max",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "scaled_val": {
+                "var": "scaled_val",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "tensor_amax": "ok",
+              "scale": "ok",
+              "fp8_max": "ok",
+              "scaled_val": "ok"
+            },
+            "arrows": [
+              [
+                "tensor_amax",
+                "scale"
+              ],
+              [
+                "scale",
+                "fp8_max"
+              ],
+              [
+                "fp8_max",
+                "scaled_val"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "FP Training — Resilience Guardrails & Failure Recovery",
+        "title": "FP8 Training — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "tensor_amax",
+            "label": "tensor_amax"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "scale",
+            "label": "scale"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "fp8_max",
+            "label": "fp8_max"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "scaled_val",
+            "label": "scaled_val"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Because E4M3 saturates at 448.",
+            "values": {
+              "tensor_amax": "18.5",
+              "scale": "24",
+              "fp8_max": "448",
+              "scaled_val": "444"
+            },
+            "tones": {
+              "tensor_amax": "data",
+              "scale": "data",
+              "fp8_max": "data",
+              "scaled_val": "data"
+            },
+            "arrows": [
+              [
+                "tensor_amax",
+                "scale"
+              ],
+              [
+                "scale",
+                "fp8_max"
+              ],
+              [
+                "fp8_max",
+                "scaled_val"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Severe clipping saturates activations into flat constants, destroying.",
+            "values": {
+              "tensor_amax": "18.5",
+              "scale": "24",
+              "fp8_max": "448",
+              "scaled_val": "444"
+            },
+            "tones": {
+              "tensor_amax": "data",
+              "scale": "data",
+              "fp8_max": "data",
+              "scaled_val": "data"
+            },
+            "arrows": [
+              [
+                "tensor_amax",
+                "scale"
+              ],
+              [
+                "scale",
+                "fp8_max"
+              ],
+              [
+                "fp8_max",
+                "scaled_val"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "Enforcing strict saturation boundaries guarantees that numerical precision.",
+            "values": {
+              "tensor_amax": "18.5",
+              "scale": "24",
+              "fp8_max": "448",
+              "scaled_val": "444"
+            },
+            "tones": {
+              "tensor_amax": "ok",
+              "scale": "ok",
+              "fp8_max": "ok",
+              "scaled_val": "ok"
+            },
+            "arrows": [
+              [
+                "tensor_amax",
+                "scale"
+              ],
+              [
+                "scale",
+                "fp8_max"
+              ],
+              [
+                "fp8_max",
+                "scaled_val"
+              ]
             ]
           }
         ]
@@ -1071,264 +863,116 @@
     },
     {
       "partTitle": "FP8 Training — Production Telemetry & Verification Audit",
-      "codeHash": "562931eb9cf1ae69305ef6a1f1770bb9f5e561dd4f1ae413f007f6f405a80a67",
+      "codeHash": "8fc3aba026ad31d680cd6bc5d8ec92e5e3ad0f76b6fb8131e659d87794aadb5c",
       "spec": {
-        "template": "flow",
-        "title": "FP Training — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "FP8 Training — Production Telemetry & Verification Audit",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing validates the empirical execution efficiency.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "audit"
+                  },
+                  {
+                    "var": "audit",
+                    "line": 10,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Telemetry profilers measure GEMM Tensor Core utilization percentages.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "audit"
+                  },
+                  {
+                    "var": "audit",
+                    "line": 11,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This rigorous telemetry certification establishes full operational.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "FP Training — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "FP8 Training — Production Telemetry & Verification Audit",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing validates the empirical execution efficiency.",
+            "rows": [
+              {
+                "cells": [
+                  "audit",
+                  "{'status': 'CERTIFIED', 'format': 'HYBR…"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Telemetry profilers measure GEMM Tensor Core utilization percentages.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "audit",
+                  "{'status': 'CERTIFIED', 'format': 'HYBR…"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This rigorous telemetry certification establishes full operational.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "FP8 Telemetry Certified: CERTIFIED (GEMM Utilization: 84.5%)"
+                ],
+                "tone": "ok"
               }
             ]
           }

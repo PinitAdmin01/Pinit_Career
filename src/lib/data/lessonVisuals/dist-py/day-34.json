@@ -2,269 +2,115 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 34,
-  "promptSha": "61011e1af504ab07d72efc364fed8fda3c71f5b9823e511e18a2502eae01f54a",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Gossip Protocols — Foundations & Mathematical Invariants",
-      "codeHash": "0a3d73f87ccabf207bf17c1a90f3d45b0f7a88bbae80a1ecbd7a099ca5f09622",
+      "partTitle": "Push, Pull, and Push-Pull Epidemic Rumor Spreading",
+      "codeHash": "c758ebd2be288cf90023c289fe2f393753c85c64155c0e84b70609149d5eab0a",
       "spec": {
-        "template": "flow",
-        "title": "Gossip Protocols — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Push, Pull, and Push-Pull Epidemic Rumor Spreading",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Clusters of thousands of microservices need membership lists, routing.",
+            "items": {
+              "var": "peers",
+              "line": 11,
+              "hit": 65
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Epidemic gossip spreads updates in O(log N) communication rounds using.",
+            "items": {
+              "var": "peers",
+              "line": 13,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Simulate fixed-seed Push vs Push-Pull convergence rounds across 64 cluster.",
+            "items": {
+              "var": "peers",
+              "line": 11,
+              "hit": 66
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Gossip Protocols — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Push, Pull, and Push-Pull Epidemic Rumor Spreading",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Clusters of thousands of microservices need membership lists, routing.",
+            "items": [
+              "21",
+              "61",
+              "10"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "Epidemic gossip spreads updates in O(log N) communication rounds using.",
+            "items": [
+              "21",
+              "61",
+              "10"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say8",
+            "caption": "Simulate fixed-seed Push vs Push-Pull convergence rounds across 64 cluster.",
+            "items": [
+              "21",
+              "61",
+              "10"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -272,1065 +118,717 @@
       }
     },
     {
-      "partTitle": "Gossip Protocols — Core Algorithm & State Representation",
-      "codeHash": "3f7c6e067d7dca4421a967f323240d39888ca746096010cd05a1f6033f4d47e0",
+      "partTitle": "Rumor Mongering vs Anti-Entropy: Handling Cold Replicas",
+      "codeHash": "da9d237aea32d08fd5a995871692dbc7fb232d26c89cf2d55d66a111227e3f98",
       "spec": {
-        "template": "flow",
-        "title": "Gossip Protocols — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Rumor Mongering vs Anti-Entropy: Handling Cold Replicas",
+        "actors": [
+          "local",
+          "remote",
+          "local_versions"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Rumor mongering optimizes speed by gossiping hot recent changes for.",
+            "activeActor": "local",
+            "messages": [
+              {
+                "from": "local",
+                "to": "remote",
+                "label": {
+                  "var": "local",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "remote",
+                "to": "local_versions",
+                "label": {
+                  "var": "remote",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "What happens if a node rebooted, suffered a temporary partition,.",
+            "activeActor": "remote",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "local",
+                "to": "remote",
+                "label": {
+                  "var": "local",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "remote",
+                "to": "local_versions",
+                "label": {
+                  "var": "remote",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Trace the rumor decay counter and Scuttlebutt digest delta extraction below.",
+            "activeActor": "local_versions",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "local",
+                "to": "remote",
+                "label": {
+                  "var": "local",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "remote",
+                "to": "local_versions",
+                "label": {
+                  "var": "remote",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
+        "template": "sequence",
+        "title": "Rumor Mongering vs Anti-Entropy: Handling Cold Replicas",
+        "actors": [
+          "local",
+          "remote",
+          "local_versions"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Rumor mongering optimizes speed by gossiping hot recent changes for.",
+            "messages": [
+              {
+                "from": "local",
+                "to": "remote",
+                "label": "{'n1': 10, 'n2': 4, 'n3': 7}",
+                "tone": "data"
+              },
+              {
+                "from": "remote",
+                "to": "local_versions",
+                "label": "{'n1': 8, 'n2': 9, 'n4': 3}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "local"
+          },
+          {
+            "at": "say2",
+            "caption": "What happens if a node rebooted, suffered a temporary partition,.",
+            "messages": [
+              {
+                "from": "local",
+                "to": "remote",
+                "label": "{'n1': 10, 'n2': 4, 'n3': 7}",
+                "tone": "data"
+              },
+              {
+                "from": "remote",
+                "to": "local_versions",
+                "label": "{'n1': 8, 'n2': 9, 'n4': 3}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "remote"
+          },
+          {
+            "at": "say7",
+            "caption": "Trace the rumor decay counter and Scuttlebutt digest delta extraction below.",
+            "messages": [
+              {
+                "from": "local",
+                "to": "remote",
+                "label": "{'n1': 10, 'n2': 4, 'n3': 7}",
+                "tone": "data"
+              },
+              {
+                "from": "remote",
+                "to": "local_versions",
+                "label": "{'n1': 8, 'n2': 9, 'n4': 3}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "local_versions"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Merkle Trees: Logarithmic Key-Range Divergence Discovery",
+      "codeHash": "0cf5e6ded59130e705e78bf998c46c2be79cb1363a14ffc135ab6aefbb58c8ff",
+      "spec": {
+        "template": "sequence",
+        "title": "Merkle Trees: Logarithmic Key-Range Divergence Discovery",
+        "actors": [
+          "data_a",
+          "data_b",
+          "kv_items"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Reconciling ten million stored key-value rows across two replicas cannot.",
+            "activeActor": "data_a",
+            "messages": [
+              {
+                "from": "data_a",
+                "to": "data_b",
+                "label": {
+                  "var": "data_a",
+                  "line": 29,
+                  "hit": 33
+                },
+                "tone": "data"
+              },
+              {
+                "from": "data_b",
+                "to": "kv_items",
+                "label": {
+                  "var": "data_b",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A Merkle tree (binary cryptographic hash tree) partitions the sorted hash.",
+            "activeActor": "data_b",
+            "messages": [
+              {
+                "from": "data_a",
+                "to": "data_b",
+                "label": {
+                  "var": "data_a",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "data_b",
+                "to": "kv_items",
+                "label": {
+                  "var": "data_b",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Build two 8-leaf Merkle trees differing in one single key below and watch.",
+            "activeActor": "kv_items",
+            "messages": [
+              {
+                "from": "data_a",
+                "to": "data_b",
+                "label": {
+                  "var": "data_a",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "data_b",
+                "to": "kv_items",
+                "label": {
+                  "var": "data_b",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "Merkle Trees: Logarithmic Key-Range Divergence Discovery",
+        "actors": [
+          "data_a",
+          "data_b",
+          "kv_items"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Reconciling ten million stored key-value rows across two replicas cannot.",
+            "messages": [
+              {
+                "from": "data_a",
+                "to": "data_b",
+                "label": "{'k00': 'v0', 'k01': 'v1', 'k02': 'v2',…",
+                "tone": "data"
+              },
+              {
+                "from": "data_b",
+                "to": "kv_items",
+                "label": "{'k00': 'v0', 'k01': 'v1', 'k02': 'v2',…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "data_a"
+          },
+          {
+            "at": "say2",
+            "caption": "A Merkle tree (binary cryptographic hash tree) partitions the sorted hash.",
+            "messages": [
+              {
+                "from": "data_a",
+                "to": "data_b",
+                "label": "{'k00': 'v0', 'k01': 'v1', 'k02': 'v2',…",
+                "tone": "data"
+              },
+              {
+                "from": "data_b",
+                "to": "kv_items",
+                "label": "{'k00': 'v0', 'k01': 'v1', 'k02': 'v2',…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "data_b"
+          },
+          {
+            "at": "say8",
+            "caption": "Build two 8-leaf Merkle trees differing in one single key below and watch.",
+            "messages": [
+              {
+                "from": "data_a",
+                "to": "data_b",
+                "label": "{'k00': 'v0', 'k01': 'v1', 'k02': 'v2',…",
+                "tone": "data"
+              },
+              {
+                "from": "data_b",
+                "to": "kv_items",
+                "label": "{'k00': 'v0', 'k01': 'v1', 'k02': 'v2',…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "kv_items"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Dynamic Cluster Range Drift & Merkle Invalidation Cost",
+      "codeHash": "2f5878574082a65ee2c2c9dbe722bd571087253b6879c14c844327c80aed37b0",
+      "spec": {
         "template": "flow",
-        "title": "Gossip Protocols — Core Algorithm & State Representation",
+        "title": "Dynamic Cluster Range Drift & Merkle Invalidation Cost",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "key",
+            "label": "key"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "bits",
+            "label": "bits"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "digest",
+            "label": "digest"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "b_a",
+            "label": "b_a"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Merkle trees shine on static key boundaries, yet real distributed.",
+            "values": {
+              "key": {
+                "var": "key",
+                "line": 4,
+                "hit": 1
+              },
+              "bits": {
+                "var": "bits",
+                "line": 4,
+                "hit": 1
+              },
+              "digest": {
+                "var": "digest",
+                "line": 4,
+                "hit": 1
+              },
+              "b_a": {
+                "var": "b_a",
+                "line": 21,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "key": "data",
+              "bits": "data",
+              "digest": "data",
+              "b_a": "data"
+            },
+            "arrows": [
+              [
+                "key",
+                "bits"
+              ],
+              [
+                "bits",
+                "digest"
+              ],
+              [
+                "digest",
+                "b_a"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Think carefully before building fixed-width Merkle trees over mutable live.",
+            "values": {
+              "key": {
+                "var": "key",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "bits": {
+                "var": "bits",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "digest": {
+                "var": "digest",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "b_a": {
+                "var": "b_a",
+                "line": 22,
+                "hit": 1
               }
+            },
+            "tones": {
+              "key": "data",
+              "bits": "data",
+              "digest": "data",
+              "b_a": "data"
+            },
+            "arrows": [
+              [
+                "key",
+                "bits"
+              ],
+              [
+                "bits",
+                "digest"
+              ],
+              [
+                "digest",
+                "b_a"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Inspect the fixed hash-prefix range bucketing and tombstone-preserving.",
+            "values": {
+              "key": {
+                "var": "key",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "bits": {
+                "var": "bits",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "digest": {
+                "var": "digest",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "b_a": {
+                "var": "b_a",
+                "line": 23,
+                "hit": 1
               }
+            },
+            "tones": {
+              "key": "ok",
+              "bits": "ok",
+              "digest": "ok",
+              "b_a": "ok"
+            },
+            "arrows": [
+              [
+                "key",
+                "bits"
+              ],
+              [
+                "bits",
+                "digest"
+              ],
+              [
+                "digest",
+                "b_a"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Dynamic Cluster Range Drift & Merkle Invalidation Cost",
+        "nodes": [
+          {
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "bits",
+            "label": "bits"
+          },
+          {
+            "id": "digest",
+            "label": "digest"
+          },
+          {
+            "id": "b_a",
+            "label": "b_a"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Merkle trees shine on static key boundaries, yet real distributed.",
+            "values": {
+              "key": "'user:1'",
+              "bits": "3",
+              "digest": "{'__other__': 'bytes'}",
+              "b_a": "{'order:9': [4, 'PAID'], 'user:1': [5, …"
+            },
+            "tones": {
+              "key": "data",
+              "bits": "data",
+              "digest": "data",
+              "b_a": "data"
+            },
+            "arrows": [
+              [
+                "key",
+                "bits"
+              ],
+              [
+                "bits",
+                "digest"
+              ],
+              [
+                "digest",
+                "b_a"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say2",
+            "caption": "Think carefully before building fixed-width Merkle trees over mutable live.",
+            "values": {
+              "key": "'user:1'",
+              "bits": "3",
+              "digest": "{'__other__': 'bytes'}",
+              "b_a": "{'order:9': [4, 'PAID'], 'user:1': [5, …"
+            },
+            "tones": {
+              "key": "data",
+              "bits": "data",
+              "digest": "data",
+              "b_a": "data"
+            },
+            "arrows": [
+              [
+                "key",
+                "bits"
+              ],
+              [
+                "bits",
+                "digest"
+              ],
+              [
+                "digest",
+                "b_a"
+              ]
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Inspect the fixed hash-prefix range bucketing and tombstone-preserving.",
+            "values": {
+              "key": "'user:2'",
+              "bits": "3",
+              "digest": "{'__other__': 'bytes'}",
+              "b_a": "{'order:9': [4, 'PAID'], 'user:1': [5, …"
+            },
+            "tones": {
+              "key": "ok",
+              "bits": "ok",
+              "digest": "ok",
+              "b_a": "ok"
+            },
+            "arrows": [
+              [
+                "key",
+                "bits"
+              ],
+              [
+                "bits",
+                "digest"
+              ],
+              [
+                "digest",
+                "b_a"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Gossip Protocols — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "5a92a538d2f75ce26c7aafdb481e8d69209a272a369c41473072ca4fb3fa8ab3",
+      "partTitle": "Simulating Bandwidth-Bounded Anti-Entropy Convergence",
+      "codeHash": "908c7db78af41caad53af291ea238a2825e596f9f5932285f33e611502d53a4b",
       "spec": {
-        "template": "flow",
-        "title": "Gossip Protocols — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "Simulating Bandwidth-Bounded Anti-Entropy Convergence",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "prim",
+            "label": "prim"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "rep",
+            "label": "rep"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "bad_i",
+            "label": "bad_i"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "During mass cluster recovery after a rack power failure, triggering.",
+            "currentState": "prim",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say2",
+            "caption": "Reliable gossip and Merkle repair engines apply strict per-tick byte.",
+            "currentState": "rep",
+            "transition": {
+              "from": "prim",
+              "to": "rep",
+              "label": {
+                "var": "rep",
+                "line": 18,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+            "caption": "Simulate a rate-capped Merkle repair coordinator below healing divergent.",
+            "currentState": "bad_i",
+            "transition": {
+              "from": "rep",
+              "to": "bad_i",
+              "label": {
+                "var": "bad_i",
+                "line": 18,
+                "hit": 2
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Gossip Protocols — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "Simulating Bandwidth-Bounded Anti-Entropy Convergence",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "prim",
+            "label": "prim"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "rep",
+            "label": "rep"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "bad_i",
+            "label": "bad_i"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "During mass cluster recovery after a rack power failure, triggering.",
+            "currentState": "prim",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say2",
+            "caption": "Reliable gossip and Merkle repair engines apply strict per-tick byte.",
+            "currentState": "rep",
+            "transition": {
+              "from": "prim",
+              "to": "rep",
+              "label": "[{'k0': 0}, {'k1': 1}, {'k2': 2}, {'k3'…"
+            },
+            "tone": "data"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Gossip Protocols — Resilience Guardrails & Failure Recovery",
-      "codeHash": "9ddc71a06b5c59c28ee65f3b8782b9b45d148f11dd03f08cb89f3eaed2993007",
-      "spec": {
-        "template": "flow",
-        "title": "Gossip Protocols — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Gossip Protocols — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Gossip Protocols — Production Telemetry & Verification Audit",
-      "codeHash": "fac485523a09790369051a0349d54db6be13d2f2b5f985f0043b449c9350cb18",
-      "spec": {
-        "template": "flow",
-        "title": "Gossip Protocols — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Gossip Protocols — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "Simulate a rate-capped Merkle repair coordinator below healing divergent.",
+            "currentState": "bad_i",
+            "transition": {
+              "from": "rep",
+              "to": "bad_i",
+              "label": "3"
+            },
+            "tone": "ok"
           }
         ]
       }

@@ -2,1335 +2,687 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 43,
-  "promptSha": "b9c45f152eb03a99caa74716b57f9344215b463736f006197af461b020fce282",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Deserialization Exploit Prevention & Safe Schema Unmarshalling Guards — Foundations & Mathematical Invariants",
-      "codeHash": "d0735810baadcc12e8511064a5184cb972f4b49055749313e089a0530034b2e1",
+      "partTitle": "Deserialization Exploit Prevention — Foundations & Mathematical Invariants",
+      "codeHash": "f87ce859b9d092ef770c16195cbdbec588a0be2bfd9f19f7efef55ff85023101",
       "spec": {
-        "template": "flow",
-        "title": "Deserialization Exploit Prevention & Safe Schema Unmarshalling Guards ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Deserialization Exploit Prevention — Foundations & Mathematical ",
+        "actors": [
+          "v",
+          "desc"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Insecure deserialization has triggered some of the most devastating.",
+            "activeActor": "v",
+            "messages": [
+              {
+                "from": "v",
+                "to": "desc",
+                "label": {
+                  "var": "v",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "desc",
+                "to": "v",
+                "label": {
+                  "var": "desc",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The mathematical vulnerability stems from the Turing-completeness.",
+            "activeActor": "desc",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "v",
+                "to": "desc",
+                "label": {
+                  "var": "v",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "desc",
+                "to": "v",
+                "label": {
+                  "var": "desc",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Security teams must enforce strict linting rules and runtime policy checks.",
+            "activeActor": "desc",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "v",
+                "to": "desc",
+                "label": {
+                  "var": "v",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "desc",
+                "to": "v",
+                "label": {
+                  "var": "desc",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Deserialization Exploit Prevention & Safe Schema Unmarshalling Guards ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Deserialization Exploit Prevention — Foundations & Mathematical ",
+        "actors": [
+          "v",
+          "desc"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Insecure deserialization has triggered some of the most devastating.",
+            "messages": [
+              {
+                "from": "v",
+                "to": "desc",
+                "label": "'PICKLE_REDUCE'",
+                "tone": "data"
+              },
+              {
+                "from": "desc",
+                "to": "v",
+                "label": "'Python pickle __reduce__ executing arb…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "v"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The mathematical vulnerability stems from the Turing-completeness.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "v",
+                "to": "desc",
+                "label": "'PICKLE_REDUCE'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "desc",
+                "to": "v",
+                "label": "'Python pickle __reduce__ executing arb…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "desc"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Security teams must enforce strict linting rules and runtime policy checks.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "v",
+                "to": "desc",
+                "label": "'YAML_UNSAFE_LOAD'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "desc",
+                "to": "v",
+                "label": "'PyYAML full_load instantiating arbitra…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "desc"
           }
         ]
       }
     },
     {
-      "partTitle": "Deserialization Exploit Prevention & Safe Schema Unmarshalling Guards — Core Algorithm & State Representation",
-      "codeHash": "a638a40fc1ad7b06533c322993543100907979bda55cda77b98f362a3e7c2fe9",
+      "partTitle": "Deserialization Exploit Prevention — Core Algorithm & State Representation",
+      "codeHash": "260bd1fac19204c19aa9e84c00b4211d129698061312ca1d6d7e0aa5c82bd544",
       "spec": {
-        "template": "flow",
-        "title": "Deserialization Exploit Prevention & Safe Schema Unmarshalling Guards ",
-        "nodes": [
+        "template": "states",
+        "title": "Deserialization Exploit Prevention — Core Algorithm & State Repr",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "schema",
+            "label": "schema"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "payload",
+            "label": "payload"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "raw_json_str",
+            "label": "raw_json_str"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "To safely reconstitute application state from external network.",
+            "currentState": "schema",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Rather than accepting arbitrary classes, the unmarshalling engine parses.",
+            "currentState": "payload",
+            "transition": {
+              "from": "schema",
+              "to": "payload",
+              "label": {
+                "var": "payload",
+                "line": 17,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Enterprise services handling sensitive user profiles, billing.",
+            "currentState": "raw_json_str",
+            "transition": {
+              "from": "payload",
+              "to": "raw_json_str",
+              "label": {
+                "var": "raw_json_str",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Deserialization Exploit Prevention & Safe Schema Unmarshalling Guards ",
-        "nodes": [
+        "template": "states",
+        "title": "Deserialization Exploit Prevention — Core Algorithm & State Repr",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "schema",
+            "label": "schema"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "payload",
+            "label": "payload"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "raw_json_str",
+            "label": "raw_json_str"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "To safely reconstitute application state from external network.",
+            "currentState": "schema",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Rather than accepting arbitrary classes, the unmarshalling engine parses.",
+            "currentState": "payload",
+            "transition": {
+              "from": "schema",
+              "to": "payload",
+              "label": "'{\"user_id\": 482, \"username\": \"alice_se…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Enterprise services handling sensitive user profiles, billing.",
+            "currentState": "raw_json_str",
+            "transition": {
+              "from": "payload",
+              "to": "raw_json_str",
+              "label": "'{\"user_id\": 482, \"username\": \"alice_se…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Deserialization Exploit Prevention & Safe Schema Unmarshalling Guards — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "f0dcff112a5aa4eb3a643fc362b2cfba7ed8f481208f14077c714e46fcdbf61e",
+      "partTitle": "Deserialization Exploit Prevention — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "a279191a18a4135a66823a2776eb53834df15a3c50a06e8090c13f603cdb3c10",
       "spec": {
-        "template": "flow",
-        "title": "Deserialization Exploit Prevention & Safe Schema Unmarshalling Guards ",
-        "nodes": [
+        "template": "states",
+        "title": "Deserialization Exploit Prevention — Throughput Optimization & E",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "safe_bytes",
+            "label": "safe_bytes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "dangerous_bytes",
+            "label": "dangerous_bytes"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "bytecode",
+            "label": "bytecode"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When legacy systems or performance constraints mandate binary stream.",
+            "currentState": "safe_bytes",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The inspection algorithm parses the serialization stream's bytecode prior.",
+            "currentState": "dangerous_bytes",
+            "transition": {
+              "from": "safe_bytes",
+              "to": "dangerous_bytes",
+              "label": {
+                "var": "dangerous_bytes",
+                "line": 14,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Production message consumers should log blocked opcode events to security.",
+            "currentState": "bytecode",
+            "transition": {
+              "from": "dangerous_bytes",
+              "to": "bytecode",
+              "label": {
+                "var": "bytecode",
+                "line": 6,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Deserialization Exploit Prevention & Safe Schema Unmarshalling Guards ",
-        "nodes": [
+        "template": "states",
+        "title": "Deserialization Exploit Prevention — Throughput Optimization & E",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "safe_bytes",
+            "label": "safe_bytes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "dangerous_bytes",
+            "label": "dangerous_bytes"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "bytecode",
+            "label": "bytecode"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When legacy systems or performance constraints mandate binary stream.",
+            "currentState": "safe_bytes",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The inspection algorithm parses the serialization stream's bytecode prior.",
+            "currentState": "dangerous_bytes",
+            "transition": {
+              "from": "safe_bytes",
+              "to": "dangerous_bytes",
+              "label": "{'__other__': 'bytes'}"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Production message consumers should log blocked opcode events to security.",
+            "currentState": "bytecode",
+            "transition": {
+              "from": "dangerous_bytes",
+              "to": "bytecode",
+              "label": "{'__other__': 'bytes'}"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Deserialization Exploit Prevention & Safe Schema Unmarshalling Guards — Resilience Guardrails & Failure Recovery",
-      "codeHash": "acad10f48989e7b382160ee457e8f38c7f9f372967800a8cd0fb6a0177cc13a0",
+      "partTitle": "Deserialization Exploit Prevention — Resilience Guardrails & Failure Recovery",
+      "codeHash": "538f32ef38fb3b7e4d4298bf082b3e08aa10b08c65e1d9420f4aea9b9d080645",
       "spec": {
-        "template": "flow",
-        "title": "Deserialization Exploit Prevention & Safe Schema Unmarshalling Guards ",
-        "nodes": [
+        "template": "states",
+        "title": "Deserialization Exploit Prevention — Resilience Guardrails & Fai",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "small_payload",
+            "label": "small_payload"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "large_payload",
+            "label": "large_payload"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "raw_bytes",
+            "label": "raw_bytes"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Beyond remote code execution, deserialization engines face resource.",
+            "currentState": "small_payload",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "In XML and JSON parsers, recursive entity expansion attacks (such as.",
+            "currentState": "large_payload",
+            "transition": {
+              "from": "small_payload",
+              "to": "large_payload",
+              "label": {
+                "var": "large_payload",
+                "line": 12,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Telemetry systems should aggregate deserialization size violations.",
+            "currentState": "raw_bytes",
+            "transition": {
+              "from": "large_payload",
+              "to": "raw_bytes",
+              "label": {
+                "var": "raw_bytes",
+                "line": 6,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Deserialization Exploit Prevention & Safe Schema Unmarshalling Guards ",
-        "nodes": [
+        "template": "states",
+        "title": "Deserialization Exploit Prevention — Resilience Guardrails & Fai",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "small_payload",
+            "label": "small_payload"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "large_payload",
+            "label": "large_payload"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "raw_bytes",
+            "label": "raw_bytes"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Beyond remote code execution, deserialization engines face resource.",
+            "currentState": "small_payload",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "In XML and JSON parsers, recursive entity expansion attacks (such as.",
+            "currentState": "large_payload",
+            "transition": {
+              "from": "small_payload",
+              "to": "large_payload",
+              "label": "{'__other__': 'bytes'}"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Telemetry systems should aggregate deserialization size violations.",
+            "currentState": "raw_bytes",
+            "transition": {
+              "from": "large_payload",
+              "to": "raw_bytes",
+              "label": "{'__other__': 'bytes'}"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Deserialization Exploit Prevention & Safe Schema Unmarshalling Guards — Production Telemetry & Verification Audit",
-      "codeHash": "02004fea9d5633a7bf930b71a1b2580aacbaafebcf3186aac235865cb9089474",
+      "partTitle": "Deserialization Exploit Prevention — Production Telemetry & Verification Audit",
+      "codeHash": "59820cc97ff8fd61ec4db5177abfb2686b9c2a0303e6378a7ce826513f5d931e",
       "spec": {
-        "template": "flow",
-        "title": "Deserialization Exploit Prevention & Safe Schema Unmarshalling Guards ",
-        "nodes": [
+        "template": "boxes",
+        "title": "Deserialization Exploit Prevention — Production Telemetry & Veri",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "schema_enforced",
+            "label": "schema_enforced"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "opcodes_restricted",
+            "label": "opcodes_restricted"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "bomb_guard_active",
+            "label": "bomb_guard_active"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "safe_defaults",
+            "label": "safe_defaults"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production deployment of deserialization defenses requires automated.",
+            "values": {
+              "schema_enforced": {
+                "var": "schema_enforced",
+                "line": 5,
+                "hit": 1
+              },
+              "opcodes_restricted": {
+                "var": "opcodes_restricted",
+                "line": 5,
+                "hit": 1
+              },
+              "bomb_guard_active": {
+                "var": "bomb_guard_active",
+                "line": 5,
+                "hit": 1
+              },
+              "safe_defaults": {
+                "var": "safe_defaults",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "schema_enforced": "data",
+              "opcodes_restricted": "data",
+              "bomb_guard_active": "data",
+              "safe_defaults": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "A defense posture auditor evaluates whether all critical safety layers are.",
+            "values": {
+              "schema_enforced": {
+                "var": "schema_enforced",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "opcodes_restricted": {
+                "var": "opcodes_restricted",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "bomb_guard_active": {
+                "var": "bomb_guard_active",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "safe_defaults": {
+                "var": "safe_defaults",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "schema_enforced": "data",
+              "opcodes_restricted": "data",
+              "bomb_guard_active": "data",
+              "safe_defaults": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Robust telemetry and automated audit verification ensure that enterprise.",
+            "values": {
+              "schema_enforced": {
+                "var": "schema_enforced",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "opcodes_restricted": {
+                "var": "opcodes_restricted",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "bomb_guard_active": {
+                "var": "bomb_guard_active",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "safe_defaults": {
+                "var": "safe_defaults",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "schema_enforced": "ok",
+              "opcodes_restricted": "ok",
+              "bomb_guard_active": "ok",
+              "safe_defaults": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Deserialization Exploit Prevention & Safe Schema Unmarshalling Guards ",
-        "nodes": [
+        "template": "boxes",
+        "title": "Deserialization Exploit Prevention — Production Telemetry & Veri",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "schema_enforced",
+            "label": "schema_enforced"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "opcodes_restricted",
+            "label": "opcodes_restricted"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "bomb_guard_active",
+            "label": "bomb_guard_active"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "safe_defaults",
+            "label": "safe_defaults"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production deployment of deserialization defenses requires automated.",
+            "values": {
+              "schema_enforced": "True",
+              "opcodes_restricted": "True",
+              "bomb_guard_active": "True",
+              "safe_defaults": "True"
+            },
+            "tones": {
+              "schema_enforced": "data",
+              "opcodes_restricted": "data",
+              "bomb_guard_active": "data",
+              "safe_defaults": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "A defense posture auditor evaluates whether all critical safety layers are.",
+            "values": {
+              "schema_enforced": "True",
+              "opcodes_restricted": "True",
+              "bomb_guard_active": "True",
+              "safe_defaults": "True"
+            },
+            "tones": {
+              "schema_enforced": "data",
+              "opcodes_restricted": "data",
+              "bomb_guard_active": "data",
+              "safe_defaults": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Robust telemetry and automated audit verification ensure that enterprise.",
+            "values": {
+              "schema_enforced": "True",
+              "opcodes_restricted": "True",
+              "bomb_guard_active": "True",
+              "safe_defaults": "True"
+            },
+            "tones": {
+              "schema_enforced": "ok",
+              "opcodes_restricted": "ok",
+              "bomb_guard_active": "ok",
+              "safe_defaults": "ok"
+            }
           }
         ]
       }

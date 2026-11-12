@@ -2,118 +2,169 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 18,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why several agents?",
       "codeHash": "8feabdd25517ecd3793ed06e7100311ea7d5e4997e93d2595ee3b21aa2a10892",
       "spec": {
         "template": "flow",
-        "title": "Why several agents? — Execution Pipeline",
+        "title": "Why several agents?",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "agents",
+            "label": "agents"
           },
           {
-            "id": "proc",
-            "label": "2. Why several agents?",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "tools",
+            "label": "tools"
+          },
+          {
+            "id": "t",
+            "label": "t"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Why several agents? [D.Pone.Sone].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Why several agents? [D.Pone.Stwo].",
+            "caption": "Several focused agents, each with a short prompt and a few tools, are.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "agents": {
+                "var": "agents",
+                "line": 1,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 1
+              },
+              "tools": {
+                "var": "tools",
+                "line": 6,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 8,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "agents": "data",
+              "name": "data",
+              "tools": "data",
+              "t": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "agents",
+                "name"
               ],
               [
-                "proc",
-                "out"
+                "name",
+                "tools"
+              ],
+              [
+                "tools",
+                "t"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
+            "at": "say2",
+            "caption": "Typical specialists.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "agents": {
+                "var": "agents",
+                "line": 6,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
+              },
+              "tools": {
+                "var": "tools",
+                "line": 7,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 8,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "agents": "data",
+              "name": "data",
+              "tools": "data",
+              "t": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "agents",
+                "name"
+              ],
+              [
+                "name",
+                "tools"
+              ],
+              [
+                "tools",
+                "t"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Why several agents? [D.Pone.Sfour].",
+            "at": "say7",
+            "caption": "Today you will build a supervisor router and look at how agents hand work over.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "agents": {
+                "var": "agents",
+                "line": 7,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 2
+              },
+              "tools": {
+                "var": "tools",
+                "line": 6,
+                "hit": 2
+              },
+              "t": {
+                "var": "t",
+                "line": 8,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "agents": "ok",
+              "name": "ok",
+              "tools": "ok",
+              "t": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "agents",
+                "name"
               ],
               [
-                "proc",
-                "out"
+                "name",
+                "tools"
+              ],
+              [
+                "tools",
+                "t"
               ]
             ]
           }
@@ -121,110 +172,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Why several agents? — Execution Pipeline",
+        "title": "Why several agents?",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "agents",
+            "label": "agents"
           },
           {
-            "id": "proc",
-            "label": "2. Why several agents?",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "tools",
+            "label": "tools"
+          },
+          {
+            "id": "t",
+            "label": "t"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Why several agents? [D18.P1.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Why several agents? [D18.P1.S2].",
+            "caption": "Several focused agents, each with a short prompt and a few tools, are.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "agents": "{'ResearcherAgent': ['web_search', 'rea…",
+              "name": "'ResearcherAgent'",
+              "tools": "['web_search', 'read_page']",
+              "t": "['web_search', 'read_page']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "agents": "data",
+              "name": "data",
+              "tools": "data",
+              "t": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "agents",
+                "name"
               ],
               [
-                "proc",
-                "out"
+                "name",
+                "tools"
+              ],
+              [
+                "tools",
+                "t"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P1.S3].",
+            "at": "say2",
+            "caption": "Typical specialists.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "agents": "{'ResearcherAgent': ['web_search', 'rea…",
+              "name": "'ResearcherAgent'",
+              "tools": "['web_search', 'read_page']",
+              "t": "['run_tests', 'read_file']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "agents": "data",
+              "name": "data",
+              "tools": "data",
+              "t": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "agents",
+                "name"
+              ],
+              [
+                "name",
+                "tools"
+              ],
+              [
+                "tools",
+                "t"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Why several agents? [D18.P1.S4].",
+            "at": "say7",
+            "caption": "Today you will build a supervisor router and look at how agents hand work over.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "agents": "{'ResearcherAgent': ['web_search', 'rea…",
+              "name": "'CoderAgent'",
+              "tools": "['run_tests', 'read_file']",
+              "t": "['format_report']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "agents": "ok",
+              "name": "ok",
+              "tools": "ok",
+              "t": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "agents",
+                "name"
               ],
               [
-                "proc",
-                "out"
+                "name",
+                "tools"
+              ],
+              [
+                "tools",
+                "t"
               ]
             ]
           }
@@ -235,236 +289,162 @@
       "partTitle": "A supervisor that routes tasks",
       "codeHash": "9bbe31f6343ffa85bb57e99fd9dcd6b725bff6a48905699fdbdf6443a827b473",
       "spec": {
-        "template": "table",
-        "title": "Supervisor keyword router selecting specialized agent endpoints",
-        "columns": [
-          "input_prompt",
-          "target_agent",
-          "endpoint"
+        "template": "sequence",
+        "title": "A supervisor that routes tasks",
+        "actors": [
+          "agents",
+          "p",
+          "prompt"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Route task checks prompt keywords to select target agent.",
-            "rows": [
+            "caption": "Route_task(prompt, agents).",
+            "activeActor": "agents",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "Fix the BUG in login"
-                  },
-                  {
-                    "text": "CoderAgent"
-                  },
-                  {
-                    "text": "/agents/coder"
-                  }
-                ],
-                "tone": "ok"
+                "from": "agents",
+                "to": "p",
+                "label": {
+                  "var": "agents",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "Research EV sales in India"
-                  },
-                  {
-                    "text": "ResearcherAgent"
-                  },
-                  {
-                    "text": "/agents/research"
-                  }
-                ],
+                "from": "p",
+                "to": "prompt",
+                "label": {
+                  "var": "p",
+                  "line": 12,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Return chosen agent name and endpoint from agents dict.",
-            "rows": [
+            "caption": "Return the chosen agent's name and its endpoint from the agents dict.",
+            "activeActor": "p",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "Fix the BUG in login"
-                  },
-                  {
-                    "text": "CoderAgent"
-                  },
-                  {
-                    "text": "/agents/coder"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Research EV sales in India"
-                  },
-                  {
-                    "text": "ResearcherAgent"
-                  },
-                  {
-                    "text": "/agents/research"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Write a thank-you note"
-                  },
-                  {
-                    "text": "GeneralistAgent"
-                  },
-                  {
-                    "text": "/agents/general"
-                  }
-                ],
+                "from": "agents",
+                "to": "p",
+                "label": {
+                  "var": "agents",
+                  "line": 12,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "prompt",
+                "label": {
+                  "var": "p",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Always have a default route so unknown tasks get an answer.",
-            "rows": [
+            "caption": "Always have a default route.",
+            "activeActor": "prompt",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "Fix the BUG in login"
-                  },
-                  {
-                    "text": "CoderAgent"
-                  },
-                  {
-                    "text": "/agents/coder"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Research EV sales in India"
-                  },
-                  {
-                    "text": "ResearcherAgent"
-                  },
-                  {
-                    "text": "/agents/research"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Write a thank-you note"
-                  },
-                  {
-                    "text": "GeneralistAgent"
-                  },
-                  {
-                    "text": "/agents/general"
-                  }
-                ],
+                "from": "agents",
+                "to": "p",
+                "label": {
+                  "var": "agents",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "prompt",
+                "label": {
+                  "var": "p",
+                  "line": 12,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Supervisor keyword router selecting specialized agent endpoints",
-        "columns": [
-          "input_prompt",
-          "target_agent",
-          "endpoint"
+        "template": "sequence",
+        "title": "A supervisor that routes tasks",
+        "actors": [
+          "agents",
+          "p",
+          "prompt"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Route task checks prompt keywords to select target agent.",
-            "rows": [
+            "caption": "Route_task(prompt, agents).",
+            "messages": [
               {
-                "cells": [
-                  "Fix the BUG in login",
-                  "CoderAgent",
-                  "/agents/coder"
-                ],
-                "tone": "ok"
+                "from": "agents",
+                "to": "p",
+                "label": "{'CoderAgent': '/agents/coder', 'Resear…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "Research EV sales in India",
-                  "ResearcherAgent",
-                  "/agents/research"
-                ],
+                "from": "p",
+                "to": "prompt",
+                "label": "'Fix the BUG in login'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "agents"
           },
           {
             "at": "say2",
-            "caption": "Return chosen agent name and endpoint from agents dict.",
-            "rows": [
+            "caption": "Return the chosen agent's name and its endpoint from the agents dict.",
+            "messages": [
               {
-                "cells": [
-                  "Fix the BUG in login",
-                  "CoderAgent",
-                  "/agents/coder"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Research EV sales in India",
-                  "ResearcherAgent",
-                  "/agents/research"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Write a thank-you note",
-                  "GeneralistAgent",
-                  "/agents/general"
-                ],
+                "from": "agents",
+                "to": "p",
+                "label": "{'CoderAgent': '/agents/coder', 'Resear…",
                 "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "prompt",
+                "label": "'Fix the BUG in login'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "p"
           },
           {
             "at": "say7",
-            "caption": "Always have a default route so unknown tasks get an answer.",
-            "rows": [
+            "caption": "Always have a default route.",
+            "messages": [
               {
-                "cells": [
-                  "Fix the BUG in login",
-                  "CoderAgent",
-                  "/agents/coder"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Research EV sales in India",
-                  "ResearcherAgent",
-                  "/agents/research"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Write a thank-you note",
-                  "GeneralistAgent",
-                  "/agents/general"
-                ],
+                "from": "agents",
+                "to": "p",
+                "label": "{'CoderAgent': '/agents/coder', 'Resear…",
                 "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "prompt",
+                "label": "'Research EV sales in India'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "prompt"
           }
         ]
       }
@@ -473,132 +453,162 @@
       "partTitle": "Supervisor versus swarm",
       "codeHash": "6498c766154d99b2ba20694fc1b9110818515894310978ea86eaadf2efc0f504",
       "spec": {
-        "template": "compare",
-        "title": "Supervisor central routing versus autonomous swarm handoffs",
-        "leftLabel": "Supervisor Hub",
-        "rightLabel": "Swarm Mesh",
+        "template": "sequence",
+        "title": "Supervisor versus swarm",
+        "actors": [
+          "task",
+          "plan",
+          "log"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Supervisor assigns parts to specialists with central control.",
-            "left": {
-              "code": "supervisor -> ResearcherAgent: collect facts",
-              "result": {
-                "text": "supervisor"
+            "caption": "One agent receives the task, splits it, assigns parts to specialists.",
+            "activeActor": "task",
+            "messages": [
+              {
+                "from": "task",
+                "to": "plan",
+                "label": {
+                  "var": "task",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "ResearcherAgent -> WriterAgent",
-              "result": {
-                "text": "swarm"
-              },
-              "tone": "data"
-            }
+              {
+                "from": "plan",
+                "to": "log",
+                "label": {
+                  "var": "plan",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Swarm agents hand work directly to each other.",
-            "left": {
-              "code": "supervisor central plan dispatch",
-              "result": {
-                "text": "supervisor"
+            "caption": "Agents hand work directly to each other (\"I have found the data.",
+            "activeActor": "plan",
+            "messages": [
+              {
+                "from": "task",
+                "to": "plan",
+                "label": {
+                  "var": "task",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "direct peer agent handover transitions",
-              "result": {
-                "text": "swarm"
-              },
-              "tone": "data"
-            }
+              {
+                "from": "plan",
+                "to": "log",
+                "label": {
+                  "var": "plan",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Supervisors are easier to debug and limit in business workflows.",
-            "left": {
-              "code": "central budget and deterministic audit log",
-              "result": {
-                "text": "supervisor"
+            "at": "say7",
+            "caption": "Start with a supervisor.",
+            "activeActor": "log",
+            "messages": [
+              {
+                "from": "task",
+                "to": "plan",
+                "label": {
+                  "var": "task",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "flexible emergent handoff delegation",
-              "result": {
-                "text": "swarm"
-              },
-              "tone": "data"
-            }
+              {
+                "from": "plan",
+                "to": "log",
+                "label": {
+                  "var": "plan",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Supervisor central routing versus autonomous swarm handoffs",
-        "leftLabel": "Supervisor Hub",
-        "rightLabel": "Swarm Mesh",
+        "template": "sequence",
+        "title": "Supervisor versus swarm",
+        "actors": [
+          "task",
+          "plan",
+          "log"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Supervisor assigns parts to specialists with central control.",
-            "left": {
-              "code": "supervisor -> ResearcherAgent: collect facts",
-              "result": "supervisor",
-              "tone": "ok",
-              "checks": [
-                "supervisor"
-              ]
-            },
-            "right": {
-              "code": "ResearcherAgent -> WriterAgent",
-              "result": "swarm",
-              "tone": "data",
-              "checks": [
-                "swarm"
-              ]
-            }
+            "caption": "One agent receives the task, splits it, assigns parts to specialists.",
+            "messages": [
+              {
+                "from": "task",
+                "to": "plan",
+                "label": "'EV report'",
+                "tone": "data"
+              },
+              {
+                "from": "plan",
+                "to": "log",
+                "label": "[['ResearcherAgent', 'collect facts'], …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "task"
           },
           {
             "at": "say2",
-            "caption": "Swarm agents hand work directly to each other.",
-            "left": {
-              "code": "supervisor central plan dispatch",
-              "result": "supervisor",
-              "tone": "ok",
-              "checks": [
-                "supervisor"
-              ]
-            },
-            "right": {
-              "code": "direct peer agent handover transitions",
-              "result": "swarm",
-              "tone": "data",
-              "checks": [
-                "swarm"
-              ]
-            }
+            "caption": "Agents hand work directly to each other (\"I have found the data.",
+            "messages": [
+              {
+                "from": "task",
+                "to": "plan",
+                "label": "'EV report'",
+                "tone": "data"
+              },
+              {
+                "from": "plan",
+                "to": "log",
+                "label": "[['ResearcherAgent', 'collect facts'], …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "plan"
           },
           {
-            "at": "say3",
-            "caption": "Supervisors are easier to debug and limit in business workflows.",
-            "left": {
-              "code": "central budget and deterministic audit log",
-              "result": "supervisor",
-              "tone": "ok",
-              "checks": [
-                "supervisor"
-              ]
-            },
-            "right": {
-              "code": "flexible emergent handoff delegation",
-              "result": "swarm",
-              "tone": "data",
-              "checks": [
-                "swarm"
-              ]
-            }
+            "at": "say7",
+            "caption": "Start with a supervisor.",
+            "messages": [
+              {
+                "from": "task",
+                "to": "plan",
+                "label": "'EV report'",
+                "tone": "data"
+              },
+              {
+                "from": "plan",
+                "to": "log",
+                "label": "[['ResearcherAgent', 'collect facts'], …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "log"
           }
         ]
       }
@@ -608,105 +618,161 @@
       "codeHash": "326cfd3c8992fbb6e68e1dc5abf85a679feb855385a42093426e705d6f33adad",
       "spec": {
         "template": "sequence",
-        "title": "Structured message handoff between researcher and writer agents",
+        "title": "Handing over work clearly",
         "actors": [
-          "ResearcherAgent",
-          "WriterAgent"
+          "REQUIRED",
+          "sender",
+          "receiver"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A good hand-off message says what was found and what next agent should do.",
+            "caption": "Agents pass work through messages.",
+            "activeActor": "REQUIRED",
             "messages": [
               {
-                "from": "ResearcherAgent",
-                "to": "WriterAgent",
+                "from": "REQUIRED",
+                "to": "sender",
                 "label": {
-                  "text": "findings"
+                  "var": "REQUIRED",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "sender",
+                "to": "receiver",
+                "label": {
+                  "var": "sender",
+                  "line": 6,
+                  "hit": 1
                 },
                 "tone": "ok"
               }
-            ],
-            "activeActor": "ResearcherAgent"
+            ]
           },
           {
             "at": "say2",
-            "caption": "Use fixed structure with task findings and constraints.",
+            "caption": "Use a fixed structure (a dict or JSON).",
+            "activeActor": "sender",
             "messages": [
               {
-                "from": "ResearcherAgent",
-                "to": "WriterAgent",
+                "from": "REQUIRED",
+                "to": "sender",
                 "label": {
-                  "text": "task"
+                  "var": "REQUIRED",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "sender",
+                "to": "receiver",
+                "label": {
+                  "var": "sender",
+                  "line": 7,
+                  "hit": 1
                 },
                 "tone": "ok"
               }
-            ],
-            "activeActor": "WriterAgent"
+            ]
           },
           {
             "at": "say7",
-            "caption": "If a hand-off is missing a required field reject it early.",
+            "caption": "If a hand-off is missing a required field, reject it early, the same way.",
+            "activeActor": "receiver",
             "messages": [
               {
-                "from": "ResearcherAgent",
-                "to": "WriterAgent",
+                "from": "REQUIRED",
+                "to": "sender",
                 "label": {
-                  "text": "REQUIRED"
+                  "var": "REQUIRED",
+                  "line": 12,
+                  "hit": 1
                 },
-                "tone": "error"
+                "tone": "data"
+              },
+              {
+                "from": "sender",
+                "to": "receiver",
+                "label": {
+                  "var": "sender",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
-            ],
-            "activeActor": "WriterAgent"
+            ]
           }
         ]
       },
       "filled": {
         "template": "sequence",
-        "title": "Structured message handoff between researcher and writer agents",
+        "title": "Handing over work clearly",
         "actors": [
-          "ResearcherAgent",
-          "WriterAgent"
+          "REQUIRED",
+          "sender",
+          "receiver"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A good hand-off message says what was found and what next agent should do.",
+            "caption": "Agents pass work through messages.",
             "messages": [
               {
-                "from": "ResearcherAgent",
-                "to": "WriterAgent",
-                "label": "findings",
+                "from": "REQUIRED",
+                "to": "sender",
+                "label": "['from', 'to', 'task', 'findings']",
+                "tone": "data"
+              },
+              {
+                "from": "sender",
+                "to": "receiver",
+                "label": "'ResearcherAgent'",
                 "tone": "ok"
               }
             ],
-            "activeActor": "ResearcherAgent"
+            "activeActor": "REQUIRED"
           },
           {
             "at": "say2",
-            "caption": "Use fixed structure with task findings and constraints.",
+            "caption": "Use a fixed structure (a dict or JSON).",
             "messages": [
               {
-                "from": "ResearcherAgent",
-                "to": "WriterAgent",
-                "label": "task",
+                "from": "REQUIRED",
+                "to": "sender",
+                "label": "['from', 'to', 'task', 'findings']",
+                "tone": "data"
+              },
+              {
+                "from": "sender",
+                "to": "receiver",
+                "label": "'ResearcherAgent'",
                 "tone": "ok"
               }
             ],
-            "activeActor": "WriterAgent"
+            "activeActor": "sender"
           },
           {
             "at": "say7",
-            "caption": "If a hand-off is missing a required field reject it early.",
+            "caption": "If a hand-off is missing a required field, reject it early, the same way.",
             "messages": [
               {
-                "from": "ResearcherAgent",
-                "to": "WriterAgent",
-                "label": "REQUIRED",
-                "tone": "error"
+                "from": "REQUIRED",
+                "to": "sender",
+                "label": "['from', 'to', 'task', 'findings']",
+                "tone": "data"
+              },
+              {
+                "from": "sender",
+                "to": "receiver",
+                "label": "'ResearcherAgent'",
+                "tone": "ok"
               }
             ],
-            "activeActor": "WriterAgent"
+            "activeActor": "receiver"
           }
         ]
       }
@@ -715,236 +781,194 @@
       "partTitle": "Readable status logs",
       "codeHash": "a5ed283788fac570b4c4cdb0f4011ad748f82a60f7afb284705a7a0475e8f474",
       "spec": {
-        "template": "table",
-        "title": "Agent execution state monitoring and formatted status logging",
-        "columns": [
-          "agent_name",
-          "status_state",
-          "formatted_log"
+        "template": "boxes",
+        "title": "Readable status logs",
+        "boxes": [
+          {
+            "id": "STATUSES",
+            "label": "STATUSES"
+          },
+          {
+            "id": "run",
+            "label": "run"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "status",
+            "label": "status"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Format agent status returns name in capitals with status.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "coder"
-                  },
-                  {
-                    "text": "DONE"
-                  },
-                  {
-                    "text": "[CODER]: DONE"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "With several agents working, people need to see progress at a glance.",
+            "values": {
+              "STATUSES": {
+                "var": "STATUSES",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "researcher"
-                  },
-                  {
-                    "text": "RUNNING"
-                  },
-                  {
-                    "text": "RUNNING"
-                  }
-                ],
-                "tone": "data"
+              "run": {
+                "var": "run",
+                "line": 6,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
+              },
+              "status": {
+                "var": "status",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "STATUSES": "data",
+              "run": "data",
+              "name": "data",
+              "status": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "A consistent format makes logs easy to scan and search.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "coder"
-                  },
-                  {
-                    "text": "DONE"
-                  },
-                  {
-                    "text": "[CODER]: DONE"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A consistent format makes logs easy to scan, search and parse.",
+            "values": {
+              "STATUSES": {
+                "var": "STATUSES",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "researcher"
-                  },
-                  {
-                    "text": "RUNNING"
-                  },
-                  {
-                    "text": "RUNNING"
-                  }
-                ],
-                "tone": "data"
+              "run": {
+                "var": "run",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "writer"
-                  },
-                  {
-                    "text": "QUEUED"
-                  },
-                  {
-                    "text": "QUEUED"
-                  }
-                ],
-                "tone": "idle"
+              "name": {
+                "var": "name",
+                "line": 8,
+                "hit": 1
+              },
+              "status": {
+                "var": "status",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "STATUSES": "data",
+              "run": "data",
+              "name": "data",
+              "status": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "Status values come from small fixed set for dashboards.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "coder"
-                  },
-                  {
-                    "text": "DONE"
-                  },
-                  {
-                    "text": "[CODER]: DONE"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Tomorrow, agents will check and repair their own work with reflection.",
+            "values": {
+              "STATUSES": {
+                "var": "STATUSES",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "researcher"
-                  },
-                  {
-                    "text": "RUNNING"
-                  },
-                  {
-                    "text": "RUNNING"
-                  }
-                ],
-                "tone": "data"
+              "run": {
+                "var": "run",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "writer"
-                  },
-                  {
-                    "text": "QUEUED"
-                  },
-                  {
-                    "text": "QUEUED"
-                  }
-                ],
-                "tone": "idle"
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
+              },
+              "status": {
+                "var": "status",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "STATUSES": "ok",
+              "run": "ok",
+              "name": "ok",
+              "status": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Agent execution state monitoring and formatted status logging",
-        "columns": [
-          "agent_name",
-          "status_state",
-          "formatted_log"
+        "template": "boxes",
+        "title": "Readable status logs",
+        "boxes": [
+          {
+            "id": "STATUSES",
+            "label": "STATUSES"
+          },
+          {
+            "id": "run",
+            "label": "run"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "status",
+            "label": "status"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Format agent status returns name in capitals with status.",
-            "rows": [
-              {
-                "cells": [
-                  "coder",
-                  "DONE",
-                  "[CODER]: DONE"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "researcher",
-                  "RUNNING",
-                  "RUNNING"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "With several agents working, people need to see progress at a glance.",
+            "values": {
+              "STATUSES": "{'DONE', 'FAILED', 'QUEUED', 'RUNNING'}",
+              "run": "[['coder', 'DONE'], ['researcher', 'RUN…",
+              "name": "'coder'",
+              "status": "'DONE'"
+            },
+            "tones": {
+              "STATUSES": "data",
+              "run": "data",
+              "name": "data",
+              "status": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "A consistent format makes logs easy to scan and search.",
-            "rows": [
-              {
-                "cells": [
-                  "coder",
-                  "DONE",
-                  "[CODER]: DONE"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "researcher",
-                  "RUNNING",
-                  "RUNNING"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "writer",
-                  "QUEUED",
-                  "QUEUED"
-                ],
-                "tone": "idle"
-              }
-            ]
+            "caption": "A consistent format makes logs easy to scan, search and parse.",
+            "values": {
+              "STATUSES": "{'DONE', 'FAILED', 'QUEUED', 'RUNNING'}",
+              "run": "[['coder', 'DONE'], ['researcher', 'RUN…",
+              "name": "'coder'",
+              "status": "'DONE'"
+            },
+            "tones": {
+              "STATUSES": "data",
+              "run": "data",
+              "name": "data",
+              "status": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "Status values come from small fixed set for dashboards.",
-            "rows": [
-              {
-                "cells": [
-                  "coder",
-                  "DONE",
-                  "[CODER]: DONE"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "researcher",
-                  "RUNNING",
-                  "RUNNING"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "writer",
-                  "QUEUED",
-                  "QUEUED"
-                ],
-                "tone": "idle"
-              }
-            ]
+            "at": "say7",
+            "caption": "Tomorrow, agents will check and repair their own work with reflection.",
+            "values": {
+              "STATUSES": "{'DONE', 'FAILED', 'QUEUED', 'RUNNING'}",
+              "run": "[['coder', 'DONE'], ['researcher', 'RUN…",
+              "name": "'coder'",
+              "status": "'DONE'"
+            },
+            "tones": {
+              "STATUSES": "ok",
+              "run": "ok",
+              "name": "ok",
+              "status": "ok"
+            }
           }
         ]
       }
@@ -953,224 +977,194 @@
       "partTitle": "Keeping multi-agent systems under control",
       "codeHash": "563754d9b720933917e8bc64136cdd8dff5cbe6bb01c1bad03e999fa94934db3",
       "spec": {
-        "template": "flow",
-        "title": "Keeping multi-agent systems under control — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Keeping multi-agent systems under control",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "budget",
+            "label": "budget"
           },
           {
-            "id": "proc",
-            "label": "2. Keeping multi-agent...",
-            "tappable": true
+            "id": "used",
+            "label": "used"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "work",
+            "label": "work"
+          },
+          {
+            "id": "agent",
+            "label": "agent"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Keeping multi-agent systems under control.",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Keeping multi-agent... [D.Psix.Stwo].",
+            "caption": "Set a global budget for the whole run.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "budget": {
+                "var": "budget",
+                "line": 1,
+                "hit": 1
+              },
+              "used": {
+                "var": "used",
+                "line": 2,
+                "hit": 1
+              },
+              "work": {
+                "var": "work",
+                "line": 3,
+                "hit": 1
+              },
+              "agent": {
+                "var": "agent",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "budget": "data",
+              "used": "data",
+              "work": "data",
+              "agent": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Give each agent only the tools it needs.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "budget": {
+                "var": "budget",
+                "line": 2,
+                "hit": 1
+              },
+              "used": {
+                "var": "used",
+                "line": 3,
+                "hit": 1
+              },
+              "work": {
+                "var": "work",
+                "line": 4,
+                "hit": 1
+              },
+              "agent": {
+                "var": "agent",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "budget": "data",
+              "used": "data",
+              "work": "data",
+              "agent": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Keeping multi-agent systems under.",
+            "at": "say7",
+            "caption": "Multi-agent designs are a tool, not a goal.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "budget": {
+                "var": "budget",
+                "line": 3,
+                "hit": 1
+              },
+              "used": {
+                "var": "used",
+                "line": 4,
+                "hit": 1
+              },
+              "work": {
+                "var": "work",
+                "line": 5,
+                "hit": 1
+              },
+              "agent": {
+                "var": "agent",
+                "line": 8,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "budget": "ok",
+              "used": "ok",
+              "work": "ok",
+              "agent": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Keeping multi-agent systems under control — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Keeping multi-agent systems under control",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "budget",
+            "label": "budget"
           },
           {
-            "id": "proc",
-            "label": "2. Keeping multi-agent...",
-            "tappable": true
+            "id": "used",
+            "label": "used"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "work",
+            "label": "work"
+          },
+          {
+            "id": "agent",
+            "label": "agent"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Keeping multi-agent systems under control [D18.P6.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Keeping multi-agent... [D18.P6.S2].",
+            "caption": "Set a global budget for the whole run.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "budget": "{'steps': 12, 'tokens': 20000}",
+              "used": "{'steps': 0, 'tokens': 0}",
+              "work": "[['ResearcherAgent', 4200], ['Researche…",
+              "agent": "'ResearcherAgent'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "budget": "data",
+              "used": "data",
+              "work": "data",
+              "agent": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P6.S3].",
+            "at": "say2",
+            "caption": "Give each agent only the tools it needs.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "budget": "{'steps': 12, 'tokens': 20000}",
+              "used": "{'steps': 0, 'tokens': 0}",
+              "work": "[['ResearcherAgent', 4200], ['Researche…",
+              "agent": "'ResearcherAgent'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "budget": "data",
+              "used": "data",
+              "work": "data",
+              "agent": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Keeping multi-agent systems under.. [D18.P6.S4].",
+            "at": "say7",
+            "caption": "Multi-agent designs are a tool, not a goal.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "budget": "{'steps': 12, 'tokens': 20000}",
+              "used": "{'steps': 0, 'tokens': 0}",
+              "work": "[['ResearcherAgent', 4200], ['Researche…",
+              "agent": "'ResearcherAgent'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "budget": "ok",
+              "used": "ok",
+              "work": "ok",
+              "agent": "ok"
+            }
           }
         ]
       }

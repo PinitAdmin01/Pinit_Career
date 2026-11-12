@@ -2,270 +2,228 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 41,
-  "promptSha": "af08cdd9610ef5eca296e62c97b2bacc9fdc81642f15fcdf3edcdfbd3216bf3c",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStart Economics — Foundations & Mathematical Invariants",
-      "codeHash": "12158327bcf2a5ff06850c548dc0f26d07b840b606e0a6248170467ffbd9d171",
+      "codeHash": "ede23fa233ab396d44448447596ed13438218fd1ee50ac56af634e4330f619f8",
       "spec": {
         "template": "flow",
-        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & Sn",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "is_cold_start",
+            "label": "is_cold_start"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "init_duration_ms",
+            "label": "init_duration_ms"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "handler_duration_ms",
+            "label": "handler_duration_ms"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In serverless cloud architectures using AWS Lambda, function execution.",
+            "values": {
+              "is_cold_start": {
+                "var": "is_cold_start",
+                "line": 4,
+                "hit": 1
+              },
+              "init_duration_ms": {
+                "var": "init_duration_ms",
+                "line": 4,
+                "hit": 1
+              },
+              "handler_duration_ms": {
+                "var": "handler_duration_ms",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "is_cold_start": "data",
+              "init_duration_ms": "data",
+              "handler_duration_ms": "data"
+            },
+            "arrows": [
+              [
+                "is_cold_start",
+                "init_duration_ms"
+              ],
+              [
+                "init_duration_ms",
+                "handler_duration_ms"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "During a cold start, AWS Lambda must execute a multi-phase initialization.",
+            "values": {
+              "is_cold_start": {
+                "var": "is_cold_start",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "init_duration_ms": {
+                "var": "init_duration_ms",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "handler_duration_ms": {
+                "var": "handler_duration_ms",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "is_cold_start": "data",
+              "init_duration_ms": "data",
+              "handler_duration_ms": "data"
+            },
+            "arrows": [
+              [
+                "is_cold_start",
+                "init_duration_ms"
+              ],
+              [
+                "init_duration_ms",
+                "handler_duration_ms"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Cold starts represent a significant latency penalty for customer-facing.",
+            "values": {
+              "is_cold_start": {
+                "var": "is_cold_start",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "init_duration_ms": {
+                "var": "init_duration_ms",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "handler_duration_ms": {
+                "var": "handler_duration_ms",
+                "line": 4,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "is_cold_start": "ok",
+              "init_duration_ms": "ok",
+              "handler_duration_ms": "ok"
+            },
+            "arrows": [
+              [
+                "is_cold_start",
+                "init_duration_ms"
+              ],
+              [
+                "init_duration_ms",
+                "handler_duration_ms"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & Sn",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "is_cold_start",
+            "label": "is_cold_start"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "init_duration_ms",
+            "label": "init_duration_ms"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "handler_duration_ms",
+            "label": "handler_duration_ms"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In serverless cloud architectures using AWS Lambda, function execution.",
+            "values": {
+              "is_cold_start": "False",
+              "init_duration_ms": "1200",
+              "handler_duration_ms": "15"
+            },
+            "tones": {
+              "is_cold_start": "data",
+              "init_duration_ms": "data",
+              "handler_duration_ms": "data"
+            },
+            "arrows": [
+              [
+                "is_cold_start",
+                "init_duration_ms"
+              ],
+              [
+                "init_duration_ms",
+                "handler_duration_ms"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "During a cold start, AWS Lambda must execute a multi-phase initialization.",
+            "values": {
+              "is_cold_start": "False",
+              "init_duration_ms": "1200",
+              "handler_duration_ms": "15"
+            },
+            "tones": {
+              "is_cold_start": "data",
+              "init_duration_ms": "data",
+              "handler_duration_ms": "data"
+            },
+            "arrows": [
+              [
+                "is_cold_start",
+                "init_duration_ms"
+              ],
+              [
+                "init_duration_ms",
+                "handler_duration_ms"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say7",
+            "caption": "Cold starts represent a significant latency penalty for customer-facing.",
+            "values": {
+              "is_cold_start": "True",
+              "init_duration_ms": "1200",
+              "handler_duration_ms": "15"
+            },
+            "tones": {
+              "is_cold_start": "ok",
+              "init_duration_ms": "ok",
+              "handler_duration_ms": "ok"
+            },
+            "arrows": [
+              [
+                "is_cold_start",
+                "init_duration_ms"
+              ],
+              [
+                "init_duration_ms",
+                "handler_duration_ms"
+              ]
             ]
           }
         ]
@@ -273,265 +231,223 @@
     },
     {
       "partTitle": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStart Economics — Core Algorithm & State Representation",
-      "codeHash": "8ce07651d10604b828e12be9742b7a600ac536b9469720b3d169bb16b205c9b7",
+      "codeHash": "8de4e84398578ba92298f64d21f756fe40336d0a8e8f7cecf4da45d0a6256b47",
       "spec": {
         "template": "flow",
-        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & Sn",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "kernel",
+            "label": "kernel"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "module_name",
+            "label": "module_name"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Optimizing Python serverless performance requires understanding.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
+              },
+              "kernel": {
+                "var": "kernel",
+                "line": 21,
+                "hit": 1
+              },
+              "module_name": {
+                "var": "module_name",
+                "line": 16,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "kernel": "data",
+              "module_name": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "kernel"
+              ],
+              [
+                "kernel",
+                "module_name"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "In naive Lambda functions, developers place all `import` statements at.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "kernel": {
+                "var": "kernel",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "module_name": {
+                "var": "module_name",
+                "line": 17,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "kernel": "data",
+              "module_name": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "kernel"
+              ],
+              [
+                "kernel",
+                "module_name"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Caching database connection pools in global scope outside the handler.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "kernel": {
+                "var": "kernel",
+                "line": 23,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "module_name": {
+                "var": "module_name",
+                "line": 18,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "kernel": "ok",
+              "module_name": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "kernel"
+              ],
+              [
+                "kernel",
+                "module_name"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & Sn",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "kernel",
+            "label": "kernel"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "module_name",
+            "label": "module_name"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Optimizing Python serverless performance requires understanding.",
+            "values": {
+              "self": "<ServerlessOptimizationKernel>",
+              "kernel": "<ServerlessOptimizationKernel>",
+              "module_name": "'pandas'"
+            },
+            "tones": {
+              "self": "data",
+              "kernel": "data",
+              "module_name": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "kernel"
+              ],
+              [
+                "kernel",
+                "module_name"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "In naive Lambda functions, developers place all `import` statements at.",
+            "values": {
+              "self": "<ServerlessOptimizationKernel>",
+              "kernel": "<ServerlessOptimizationKernel>",
+              "module_name": "'pandas'"
+            },
+            "tones": {
+              "self": "data",
+              "kernel": "data",
+              "module_name": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "kernel"
+              ],
+              [
+                "kernel",
+                "module_name"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say7",
+            "caption": "Caching database connection pools in global scope outside the handler.",
+            "values": {
+              "self": "<ServerlessOptimizationKernel>",
+              "kernel": "<ServerlessOptimizationKernel>",
+              "module_name": "'pandas'"
+            },
+            "tones": {
+              "self": "ok",
+              "kernel": "ok",
+              "module_name": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "kernel"
+              ],
+              [
+                "kernel",
+                "module_name"
+              ]
             ]
           }
         ]
@@ -539,796 +455,490 @@
     },
     {
       "partTitle": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStart Economics — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "49c0322bb4191bac5acf857af2642287c2d590c1f3922457858972dc6efb8c44",
+      "codeHash": "a26aae33a3706a33d6ad09234bb62ab448bd39ca297183a1a1d8128de159bb1f",
       "spec": {
-        "template": "flow",
-        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & Sn",
+        "actors": [
+          "monthly_requests",
+          "avg_duration_ms",
+          "memory_mb"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "For mission-critical applications where even a rare 500ms cold start.",
+            "activeActor": "monthly_requests",
+            "messages": [
+              {
+                "from": "monthly_requests",
+                "to": "avg_duration_ms",
+                "label": {
+                  "var": "monthly_requests",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "avg_duration_ms",
+                "to": "memory_mb",
+                "label": {
+                  "var": "avg_duration_ms",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "However, Provisioned Concurrency introduces fixed hourly costs.",
+            "activeActor": "avg_duration_ms",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "monthly_requests",
+                "to": "avg_duration_ms",
+                "label": {
+                  "var": "monthly_requests",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "avg_duration_ms",
+                "to": "memory_mb",
+                "label": {
+                  "var": "avg_duration_ms",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "SnapStart microVM memory snapshotting delivers instant initialization.",
+            "activeActor": "memory_mb",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "monthly_requests",
+                "to": "avg_duration_ms",
+                "label": {
+                  "var": "monthly_requests",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "avg_duration_ms",
+                "to": "memory_mb",
+                "label": {
+                  "var": "avg_duration_ms",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & Sn",
+        "actors": [
+          "monthly_requests",
+          "avg_duration_ms",
+          "memory_mb"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "For mission-critical applications where even a rare 500ms cold start.",
+            "messages": [
+              {
+                "from": "monthly_requests",
+                "to": "avg_duration_ms",
+                "label": "10000000",
+                "tone": "data"
+              },
+              {
+                "from": "avg_duration_ms",
+                "to": "memory_mb",
+                "label": "100",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "monthly_requests"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "However, Provisioned Concurrency introduces fixed hourly costs.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "monthly_requests",
+                "to": "avg_duration_ms",
+                "label": "10000000",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "avg_duration_ms",
+                "to": "memory_mb",
+                "label": "100",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "avg_duration_ms"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "SnapStart microVM memory snapshotting delivers instant initialization.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "monthly_requests",
+                "to": "avg_duration_ms",
+                "label": "10000000",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "avg_duration_ms",
+                "to": "memory_mb",
+                "label": "100",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "memory_mb"
           }
         ]
       }
     },
     {
       "partTitle": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStart Economics — Resilience Guardrails & Failure Recovery",
-      "codeHash": "78e95b8fc58701876ac9d2a346c1d86193bb97c25c024fe35437fc2da80b9f76",
+      "codeHash": "544363801715a7726b8a6e53fbc7084c50d23596aba11b76629fcf40a531aa42",
       "spec": {
-        "template": "flow",
-        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
-        "nodes": [
+        "template": "states",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & Sn",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "account_total_limit",
+            "label": "account_total_limit"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "gov",
+            "label": "gov"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying serverless architectures in production introduces unique failure.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "If an unmonitored analytics function experiences an infinite loop.",
+            "currentState": "account_total_limit",
+            "transition": {
+              "from": "self",
+              "to": "account_total_limit",
+              "label": {
+                "var": "account_total_limit",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say7",
+            "caption": "Setting concurrency ceilings protects downstream relational databases.",
+            "currentState": "gov",
+            "transition": {
+              "from": "account_total_limit",
+              "to": "gov",
+              "label": {
+                "var": "gov",
+                "line": 24,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
-        "nodes": [
+        "template": "states",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & Sn",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "account_total_limit",
+            "label": "account_total_limit"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "gov",
+            "label": "gov"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying serverless architectures in production introduces unique failure.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "If an unmonitored analytics function experiences an infinite loop.",
+            "currentState": "account_total_limit",
+            "transition": {
+              "from": "self",
+              "to": "account_total_limit",
+              "label": "1000"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say7",
+            "caption": "Setting concurrency ceilings protects downstream relational databases.",
+            "currentState": "gov",
+            "transition": {
+              "from": "account_total_limit",
+              "to": "gov",
+              "label": "<ConcurrencyGovernor>"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStart Economics — Production Telemetry & Verification Audit",
-      "codeHash": "5926f93cf81e04443c937f97958f70b4dde958b4a0d8afa011a0ab0b118b2772",
+      "codeHash": "d27b3b48872b725321293b5fdf4418ae634cdcff1a538760d1eeb2c56112d94b",
       "spec": {
-        "template": "flow",
-        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & Sn",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Comprehensive serverless observability pipelines integrate distributed.",
+            "bars": [
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "throttles",
+                "value": {
+                  "var": "throttles",
+                  "line": 4,
+                  "hit": 6
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cold_start_pct",
+                "value": {
+                  "var": "cold_start_pct",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "avg_init_ms",
+                "value": {
+                  "var": "avg_init_ms",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Operating serverless architectures requires rigorous monitoring.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "throttles",
+                "value": {
+                  "var": "throttles",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "cold_start_pct",
+                "value": {
+                  "var": "cold_start_pct",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "avg_init_ms",
+                "value": {
+                  "var": "avg_init_ms",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Lambda power tuning benchmarks execution costs across memory tiers.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "throttles",
+                "value": {
+                  "var": "throttles",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "cold_start_pct",
+                "value": {
+                  "var": "cold_start_pct",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "avg_init_ms",
+                "value": {
+                  "var": "avg_init_ms",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & Sn",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Comprehensive serverless observability pipelines integrate distributed.",
+            "bars": [
+              {
+                "label": "total",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "throttles",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "cold_start_pct",
+                "value": 25,
+                "tone": "data"
+              },
+              {
+                "label": "avg_init_ms",
+                "value": 850,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Operating serverless architectures requires rigorous monitoring.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "throttles",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "cold_start_pct",
+                "value": 25,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "avg_init_ms",
+                "value": 850,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Lambda power tuning benchmarks execution costs across memory tiers.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "throttles",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "cold_start_pct",
+                "value": 25,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "avg_init_ms",
+                "value": 850,
+                "tone": "ok"
               }
             ]
           }

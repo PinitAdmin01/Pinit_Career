@@ -2,157 +2,369 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 23,
-  "promptSha": "ea8747e96343e558969fcb647e7991d4805fe0b5d5b39f408cb3b9de4be688c9",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Object lifetimes",
       "codeHash": "9a6a4bfbf0797e942892ddb70c25b075ba7f999006be5fc968a0b89403fdafc2",
       "spec": {
-        "template": "compare",
-        "title": "Spatial out-of-bounds bounds failure versus temporal lifetime invalidation",
-        "left": {
-          "title": "Spatial Safety Violations",
-          "items": [
-            "Operations access memory outside allocated buffer bounds",
-            "Out of bounds array indexing and off-by-one errors",
-            "Linear memory overwrites corrupting adjacent stack data"
-          ]
-        },
-        "right": {
-          "title": "Temporal Safety Violations",
-          "items": [
-            "Operations access memory outside valid object lifetimes",
-            "Dereferencing dangling pointers after free or delete",
-            "Use-after-free and double-free enabling heap hijacking"
-          ]
-        },
-        "steps": [
+        "template": "boxes",
+        "title": "Object lifetimes",
+        "boxes": [
           {
-            "at": "say2",
-            "caption": "Spatial memory safety is violated when operations access out of bounds data.",
-            "highlightSide": "left",
-            "statusBadge": "failed"
+            "id": "events",
+            "label": "events"
           },
           {
-            "at": "say4",
-            "caption": "Temporal memory safety is violated when operations access freed objects.",
-            "highlightSide": "right",
-            "statusBadge": "failed"
+            "id": "alive",
+            "label": "alive"
+          },
+          {
+            "id": "op",
+            "label": "op"
+          },
+          {
+            "id": "name",
+            "label": "name"
           }
         ],
-        "leftLabel": "Spatial Safety Violations",
-        "rightLabel": "Temporal Safety Violations"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "In languages with manual memory management, a program allocates memory.",
+            "values": {
+              "events": {
+                "var": "events",
+                "line": 1,
+                "hit": 1
+              },
+              "alive": {
+                "var": "alive",
+                "line": 2,
+                "hit": 1
+              },
+              "op": {
+                "var": "op",
+                "line": 3,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "events": "data",
+              "alive": "data",
+              "op": "data",
+              "name": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Every allocation has a lifetime.",
+            "values": {
+              "events": {
+                "var": "events",
+                "line": 2,
+                "hit": 1
+              },
+              "alive": {
+                "var": "alive",
+                "line": 3,
+                "hit": 1
+              },
+              "op": {
+                "var": "op",
+                "line": 4,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "events": "data",
+              "alive": "data",
+              "op": "data",
+              "name": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Temporal bugs are often intermittent, appearing only under particular.",
+            "values": {
+              "events": {
+                "var": "events",
+                "line": 3,
+                "hit": 1
+              },
+              "alive": {
+                "var": "alive",
+                "line": 4,
+                "hit": 1
+              },
+              "op": {
+                "var": "op",
+                "line": 5,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "events": "ok",
+              "alive": "ok",
+              "op": "ok",
+              "name": "ok"
+            }
+          }
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Spatial out-of-bounds bounds failure versus temporal lifetime invalidation",
-        "left": {
-          "title": "Spatial Safety Violations",
-          "items": [
-            "Operations access memory outside allocated buffer bounds",
-            "Out of bounds array indexing and off-by-one errors",
-            "Linear memory overwrites corrupting adjacent stack data"
-          ]
-        },
-        "right": {
-          "title": "Temporal Safety Violations",
-          "items": [
-            "Operations access memory outside valid object lifetimes",
-            "Dereferencing dangling pointers after free or delete",
-            "Use-after-free and double-free enabling heap hijacking"
-          ]
-        },
-        "steps": [
+        "template": "boxes",
+        "title": "Object lifetimes",
+        "boxes": [
           {
-            "at": "say2",
-            "caption": "Spatial memory safety is violated when operations access out of bounds data.",
-            "highlightSide": "left",
-            "statusBadge": "failed"
+            "id": "events",
+            "label": "events"
           },
           {
-            "at": "say4",
-            "caption": "Temporal memory safety is violated when operations access freed objects.",
-            "highlightSide": "right",
-            "statusBadge": "failed"
+            "id": "alive",
+            "label": "alive"
+          },
+          {
+            "id": "op",
+            "label": "op"
+          },
+          {
+            "id": "name",
+            "label": "name"
           }
         ],
-        "leftLabel": "Spatial Safety Violations",
-        "rightLabel": "Temporal Safety Violations"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "In languages with manual memory management, a program allocates memory.",
+            "values": {
+              "events": "[['alloc', 'buffer A'], ['use', 'buffer…",
+              "alive": "False",
+              "op": "'alloc'",
+              "name": "'buffer A'"
+            },
+            "tones": {
+              "events": "data",
+              "alive": "data",
+              "op": "data",
+              "name": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Every allocation has a lifetime.",
+            "values": {
+              "events": "[['alloc', 'buffer A'], ['use', 'buffer…",
+              "alive": "False",
+              "op": "'alloc'",
+              "name": "'buffer A'"
+            },
+            "tones": {
+              "events": "data",
+              "alive": "data",
+              "op": "data",
+              "name": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Temporal bugs are often intermittent, appearing only under particular.",
+            "values": {
+              "events": "[['alloc', 'buffer A'], ['use', 'buffer…",
+              "alive": "True",
+              "op": "'alloc'",
+              "name": "'buffer A'"
+            },
+            "tones": {
+              "events": "ok",
+              "alive": "ok",
+              "op": "ok",
+              "name": "ok"
+            }
+          }
+        ]
       }
     },
     {
       "partTitle": "Use-after-free and double free",
       "codeHash": "91beb298f103b0003b2c74093fc8e1a3fe23533ca56bd0428426fcb397c9d28e",
       "spec": {
-        "template": "states",
-        "title": "Use-after-free dangling pointer lifecycle and heap spray execution hijack",
-        "states": [
+        "template": "flow",
+        "title": "Use-after-free and double free",
+        "nodes": [
           {
-            "id": "chunkAllocated",
-            "label": "Initial Heap Object Allocated"
+            "id": "heap",
+            "label": "heap"
           },
           {
-            "id": "chunkFreed",
-            "label": "Memory Freed But Pointer Retained"
-          },
-          {
-            "id": "heapSprayed",
-            "label": "Attacker Sprays Heap with Controlled Data"
-          },
-          {
-            "id": "controlHijacked",
-            "label": "Dangling Pointer Dereferences Malicious Data"
+            "id": "old_reference",
+            "label": "old_reference"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Retaining a dangling pointer to deallocated memory creates vulnerabilities.",
-            "activeStateId": "chunkFreed",
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Use-after-free (UAF) happens when a program keeps a pointer to freed.",
+            "values": {
+              "heap": {
+                "var": "heap",
+                "line": 1,
+                "hit": 1
+              },
+              "old_reference": {
+                "var": "old_reference",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "heap": "data",
+              "old_reference": "data"
+            },
+            "arrows": [
+              [
+                "heap",
+                "old_reference"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "Attacker controlled function pointers hijack execution control flow.",
-            "activeStateId": "controlHijacked",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "The memory may already be reused for something else, so the program reads.",
+            "values": {
+              "heap": {
+                "var": "heap",
+                "line": 2,
+                "hit": 1
+              },
+              "old_reference": {
+                "var": "old_reference",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "heap": "data",
+              "old_reference": "data"
+            },
+            "arrows": [
+              [
+                "heap",
+                "old_reference"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Browsers use special allocators and sandboxing to limit what a UAF can achieve.",
+            "values": {
+              "heap": {
+                "var": "heap",
+                "line": 3,
+                "hit": 1
+              },
+              "old_reference": {
+                "var": "old_reference",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "heap": "ok",
+              "old_reference": "ok"
+            },
+            "arrows": [
+              [
+                "heap",
+                "old_reference"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Use-after-free dangling pointer lifecycle and heap spray execution hijack",
-        "states": [
+        "template": "flow",
+        "title": "Use-after-free and double free",
+        "nodes": [
           {
-            "id": "chunkAllocated",
-            "label": "Initial Heap Object Allocated"
+            "id": "heap",
+            "label": "heap"
           },
           {
-            "id": "chunkFreed",
-            "label": "Memory Freed But Pointer Retained"
-          },
-          {
-            "id": "heapSprayed",
-            "label": "Attacker Sprays Heap with Controlled Data"
-          },
-          {
-            "id": "controlHijacked",
-            "label": "Dangling Pointer Dereferences Malicious Data"
+            "id": "old_reference",
+            "label": "old_reference"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Retaining a dangling pointer to deallocated memory creates vulnerabilities.",
-            "activeStateId": "chunkFreed",
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Use-after-free (UAF) happens when a program keeps a pointer to freed.",
+            "values": {
+              "heap": "{0: 'invoice for Asha'}",
+              "old_reference": "0"
+            },
+            "tones": {
+              "heap": "data",
+              "old_reference": "data"
+            },
+            "arrows": [
+              [
+                "heap",
+                "old_reference"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "Attacker controlled function pointers hijack execution control flow.",
-            "activeStateId": "controlHijacked",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "The memory may already be reused for something else, so the program reads.",
+            "values": {
+              "heap": "{0: 'invoice for Asha'}",
+              "old_reference": "0"
+            },
+            "tones": {
+              "heap": "data",
+              "old_reference": "data"
+            },
+            "arrows": [
+              [
+                "heap",
+                "old_reference"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Browsers use special allocators and sandboxing to limit what a UAF can achieve.",
+            "values": {
+              "heap": "{}",
+              "old_reference": "0"
+            },
+            "tones": {
+              "heap": "ok",
+              "old_reference": "ok"
+            },
+            "arrows": [
+              [
+                "heap",
+                "old_reference"
+              ]
+            ]
           }
         ]
       }
@@ -161,202 +373,162 @@
       "partTitle": "Auditing lifetimes",
       "codeHash": "4dfa1a37650bbe5ab33da666a92b66deecf14b716b617a6349e18397032b7568",
       "spec": {
-        "template": "table",
-        "title": "Empirical memory safety telemetry and vulnerability classifications",
-        "columns": [
-          "Vulnerability Class",
-          "Mechanism Trigger",
-          "Root Cause Dynamic",
-          "Industry Precedence"
+        "template": "sequence",
+        "title": "Auditing lifetimes",
+        "actors": [
+          "events",
+          "state",
+          "problems"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A double free occurs when an application calls free on the same pointer.",
-            "activeRowIndex": 0,
-            "statusBadge": "failed",
-            "rows": [
+            "at": "say1",
+            "caption": "Tools such as AddressSanitizer and Valgrind track every allocation.",
+            "activeActor": "events",
+            "messages": [
               {
-                "cells": [
-                  "Double Free Error",
-                  "Multiple Calls to Free",
-                  "Free List Pointer Corruption",
-                  "C and C++ Manual Management"
-                ],
+                "from": "events",
+                "to": "state",
+                "label": {
+                  "var": "events",
+                  "line": 1,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Use After Free",
-                  "Dangling Pointer Dereference",
-                  "Heap Chunk Reuse Confusion",
-                  "Major Browser Vulnerabilities"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Buffer Overflow",
-                  "Unbounded Memory Copy",
-                  "Spatial Bound Failure",
-                  "Classic Stack Smashing Flaws"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Safe Management",
-                  "Automated Compile Ownership",
-                  "Deterministic Drop Lifecycle",
-                  "Memory Safe Language Model"
-                ],
-                "tone": "data"
+                "from": "state",
+                "to": "problems",
+                "label": {
+                  "var": "state",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The majority of vulnerabilities addressed across decades are memory bugs.",
-            "activeRowIndex": 1,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "You can model the same idea.",
+            "activeActor": "state",
+            "messages": [
               {
-                "cells": [
-                  "Double Free Error",
-                  "Multiple Calls to Free",
-                  "Free List Pointer Corruption",
-                  "C and C++ Manual Management"
-                ],
+                "from": "events",
+                "to": "state",
+                "label": {
+                  "var": "events",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Use After Free",
-                  "Dangling Pointer Dereference",
-                  "Heap Chunk Reuse Confusion",
-                  "Major Browser Vulnerabilities"
-                ],
+                "from": "state",
+                "to": "problems",
+                "label": {
+                  "var": "state",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Reports that name the event index make bugs easy to locate, just like line.",
+            "activeActor": "problems",
+            "messages": [
+              {
+                "from": "events",
+                "to": "state",
+                "label": {
+                  "var": "events",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Buffer Overflow",
-                  "Unbounded Memory Copy",
-                  "Spatial Bound Failure",
-                  "Classic Stack Smashing Flaws"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Safe Management",
-                  "Automated Compile Ownership",
-                  "Deterministic Drop Lifecycle",
-                  "Memory Safe Language Model"
-                ],
-                "tone": "data"
+                "from": "state",
+                "to": "problems",
+                "label": {
+                  "var": "state",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Empirical memory safety telemetry and vulnerability classifications",
-        "columns": [
-          "Vulnerability Class",
-          "Mechanism Trigger",
-          "Root Cause Dynamic",
-          "Industry Precedence"
+        "template": "sequence",
+        "title": "Auditing lifetimes",
+        "actors": [
+          "events",
+          "state",
+          "problems"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A double free occurs when an application calls free on the same pointer.",
-            "activeRowIndex": 0,
-            "statusBadge": "failed",
-            "rows": [
+            "at": "say1",
+            "caption": "Tools such as AddressSanitizer and Valgrind track every allocation.",
+            "messages": [
               {
-                "cells": [
-                  "Double Free Error",
-                  "Multiple Calls to Free",
-                  "Free List Pointer Corruption",
-                  "C and C++ Manual Management"
-                ],
+                "from": "events",
+                "to": "state",
+                "label": "[['alloc', 'p1'], ['alloc', 'p2'], ['fr…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Use After Free",
-                  "Dangling Pointer Dereference",
-                  "Heap Chunk Reuse Confusion",
-                  "Major Browser Vulnerabilities"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Buffer Overflow",
-                  "Unbounded Memory Copy",
-                  "Spatial Bound Failure",
-                  "Classic Stack Smashing Flaws"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Safe Management",
-                  "Automated Compile Ownership",
-                  "Deterministic Drop Lifecycle",
-                  "Memory Safe Language Model"
-                ],
-                "tone": "data"
+                "from": "state",
+                "to": "problems",
+                "label": "{}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "events"
           },
           {
-            "at": "say6",
-            "caption": "The majority of vulnerabilities addressed across decades are memory bugs.",
-            "activeRowIndex": 1,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "You can model the same idea.",
+            "messages": [
               {
-                "cells": [
-                  "Double Free Error",
-                  "Multiple Calls to Free",
-                  "Free List Pointer Corruption",
-                  "C and C++ Manual Management"
-                ],
+                "from": "events",
+                "to": "state",
+                "label": "[['alloc', 'p1'], ['alloc', 'p2'], ['fr…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Use After Free",
-                  "Dangling Pointer Dereference",
-                  "Heap Chunk Reuse Confusion",
-                  "Major Browser Vulnerabilities"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Buffer Overflow",
-                  "Unbounded Memory Copy",
-                  "Spatial Bound Failure",
-                  "Classic Stack Smashing Flaws"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Safe Management",
-                  "Automated Compile Ownership",
-                  "Deterministic Drop Lifecycle",
-                  "Memory Safe Language Model"
-                ],
-                "tone": "data"
+                "from": "state",
+                "to": "problems",
+                "label": "{}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "state"
+          },
+          {
+            "at": "say9",
+            "caption": "Reports that name the event index make bugs easy to locate, just like line.",
+            "messages": [
+              {
+                "from": "events",
+                "to": "state",
+                "label": "[['alloc', 'p1'], ['alloc', 'p2'], ['fr…",
+                "tone": "data"
+              },
+              {
+                "from": "state",
+                "to": "problems",
+                "label": "{}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "problems"
           }
         ]
       }
@@ -365,204 +537,214 @@
       "partTitle": "Generational handles",
       "codeHash": "1e3e9cc57c6a4991556180c88ffc6743bfff5ab02d3a27f97fdd7bdd8a02a548",
       "spec": {
-        "template": "compare",
-        "title": "Manual pointer lifecycle pitfalls versus Rust compile-time ownership",
-        "left": {
-          "title": "Unmanaged Manual Pointers",
-          "items": [
-            "Manual allocation and deallocation via malloc and free",
-            "Pointers can easily outlive their allocated object lifetime",
-            "Data races and dangling pointers discovered only at runtime"
-          ]
-        },
-        "right": {
-          "title": "Rust Compile-Time Ownership",
-          "items": [
-            "Each value has exactly one owner dropped on scope exit",
-            "Borrow checker enforces exclusive mutable reference rules",
-            "Complete spatial and temporal safety without garbage collector"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Generational handles",
+        "states": [
           {
-            "at": "say4",
-            "caption": "Rust ownership rules dictate that values are dropped when owners exit scope.",
-            "highlightSide": "right",
-            "statusBadge": "active"
+            "id": "slots",
+            "label": "slots"
           },
           {
-            "at": "say6",
-            "caption": "The borrow checker enforces strict rules on mutable and shared references.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "gens",
+            "label": "gens"
+          },
+          {
+            "id": "handle_a",
+            "label": "handle_a"
           }
         ],
-        "leftLabel": "Unmanaged Manual Pointers",
-        "rightLabel": "Rust Compile-Time Ownership"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A safe design replaces raw pointers with handles.",
+            "currentState": "slots",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "When a slot is freed and reused, its generation increases, so any old.",
+            "currentState": "gens",
+            "transition": {
+              "from": "slots",
+              "to": "gens",
+              "label": {
+                "var": "gens",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "The same idea protects database rows.",
+            "currentState": "handle_a",
+            "transition": {
+              "from": "gens",
+              "to": "handle_a",
+              "label": {
+                "var": "handle_a",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Manual pointer lifecycle pitfalls versus Rust compile-time ownership",
-        "left": {
-          "title": "Unmanaged Manual Pointers",
-          "items": [
-            "Manual allocation and deallocation via malloc and free",
-            "Pointers can easily outlive their allocated object lifetime",
-            "Data races and dangling pointers discovered only at runtime"
-          ]
-        },
-        "right": {
-          "title": "Rust Compile-Time Ownership",
-          "items": [
-            "Each value has exactly one owner dropped on scope exit",
-            "Borrow checker enforces exclusive mutable reference rules",
-            "Complete spatial and temporal safety without garbage collector"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Generational handles",
+        "states": [
           {
-            "at": "say4",
-            "caption": "Rust ownership rules dictate that values are dropped when owners exit scope.",
-            "highlightSide": "right",
-            "statusBadge": "active"
+            "id": "slots",
+            "label": "slots"
           },
           {
-            "at": "say6",
-            "caption": "The borrow checker enforces strict rules on mutable and shared references.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "gens",
+            "label": "gens"
+          },
+          {
+            "id": "handle_a",
+            "label": "handle_a"
           }
         ],
-        "leftLabel": "Unmanaged Manual Pointers",
-        "rightLabel": "Rust Compile-Time Ownership"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A safe design replaces raw pointers with handles.",
+            "currentState": "slots",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "When a slot is freed and reused, its generation increases, so any old.",
+            "currentState": "gens",
+            "transition": {
+              "from": "slots",
+              "to": "gens",
+              "label": "[0]"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "The same idea protects database rows.",
+            "currentState": "handle_a",
+            "transition": {
+              "from": "gens",
+              "to": "handle_a",
+              "label": "[0, 0]"
+            },
+            "tone": "ok"
+          }
+        ]
       }
     },
     {
       "partTitle": "Lifetimes beyond memory",
       "codeHash": "d4db0765bb4a1aebde457510ec636c677f33303d7777092d2ee8b2357040de29",
       "spec": {
-        "template": "flow",
-        "title": "AddressSanitizer poisoned redzone instrumentation and quarantine trapping",
-        "nodes": [
+        "template": "states",
+        "title": "Lifetimes beyond memory",
+        "states": [
           {
-            "id": "appMemory",
-            "label": "Application Memory Buffer",
-            "tappable": false
+            "id": "sessions",
+            "label": "sessions"
           },
           {
-            "id": "poisonedRedzone",
-            "label": "Poisoned Memory Redzone",
-            "tappable": false
+            "id": "session_id",
+            "label": "session_id"
           },
           {
-            "id": "shadowCheck",
-            "label": "Shadow Memory Interceptor",
-            "tappable": false
-          },
-          {
-            "id": "quarantineRing",
-            "label": "Quarantine Ring Buffer",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "appMemory",
-            "to": "poisonedRedzone",
-            "label": "Bounds"
-          },
-          {
-            "from": "poisonedRedzone",
-            "to": "shadowCheck",
-            "label": "Traps"
-          },
-          {
-            "from": "shadowCheck",
-            "to": "quarantineRing",
-            "label": "Quarantines"
+            "id": "s",
+            "label": "s"
           }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "ASan surrounds allocations with poisoned redzones where access is forbidden.",
-            "activeNodes": [
-              "appMemory",
-              "poisonedRedzone"
-            ],
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "The same bugs appear with other resources.",
+            "currentState": "sessions",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Freed memory chunks are placed into a quarantine buffer by the runtime.",
-            "activeNodes": [
-              "shadowCheck",
-              "quarantineRing"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Session fixation and reuse of revoked tokens are \"use after free\" at.",
+            "currentState": "session_id",
+            "transition": {
+              "from": "sessions",
+              "to": "session_id",
+              "label": {
+                "var": "session_id",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Tokens and invitations should be single-use where possible, like one-time.",
+            "currentState": "s",
+            "transition": {
+              "from": "session_id",
+              "to": "s",
+              "label": {
+                "var": "s",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "AddressSanitizer poisoned redzone instrumentation and quarantine trapping",
-        "nodes": [
+        "template": "states",
+        "title": "Lifetimes beyond memory",
+        "states": [
           {
-            "id": "appMemory",
-            "label": "Application Memory Buffer",
-            "tappable": false
+            "id": "sessions",
+            "label": "sessions"
           },
           {
-            "id": "poisonedRedzone",
-            "label": "Poisoned Memory Redzone",
-            "tappable": false
+            "id": "session_id",
+            "label": "session_id"
           },
           {
-            "id": "shadowCheck",
-            "label": "Shadow Memory Interceptor",
-            "tappable": false
-          },
-          {
-            "id": "quarantineRing",
-            "label": "Quarantine Ring Buffer",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "appMemory",
-            "to": "poisonedRedzone",
-            "label": "Bounds"
-          },
-          {
-            "from": "poisonedRedzone",
-            "to": "shadowCheck",
-            "label": "Traps"
-          },
-          {
-            "from": "shadowCheck",
-            "to": "quarantineRing",
-            "label": "Quarantines"
+            "id": "s",
+            "label": "s"
           }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "ASan surrounds allocations with poisoned redzones where access is forbidden.",
-            "activeNodes": [
-              "appMemory",
-              "poisonedRedzone"
-            ],
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "The same bugs appear with other resources.",
+            "currentState": "sessions",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Freed memory chunks are placed into a quarantine buffer by the runtime.",
-            "activeNodes": [
-              "shadowCheck",
-              "quarantineRing"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Session fixation and reuse of revoked tokens are \"use after free\" at.",
+            "currentState": "session_id",
+            "transition": {
+              "from": "sessions",
+              "to": "session_id",
+              "label": "'s1'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Tokens and invitations should be single-use where possible, like one-time.",
+            "currentState": "s",
+            "transition": {
+              "from": "session_id",
+              "to": "s",
+              "label": "{'user': 'asha', 'active': False}"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -571,224 +753,106 @@
       "partTitle": "Practice time: audits and handles",
       "codeHash": "1aa465be7e1817ee888f4dbc0237748b8632aa19175ead97cf76b21c84dc9748",
       "spec": {
-        "template": "flow",
-        "title": "Smart Pointers & RAII in Modern C++ Memory Ar... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Practice time: audits and handles",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Smart Pointers & RA...",
-            "tappable": true
+            "id": "table",
+            "label": "table"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "obj",
+            "label": "obj"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Smart Pointers & RAII in Modern C++ Memo.",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Smart Pointers & RA... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Lifetime_audit(events).",
+            "currentState": "self",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include every problem type, a re-allocated pointer that later.",
+            "currentState": "table",
+            "transition": {
+              "from": "self",
+              "to": "table",
+              "label": {
+                "var": "table",
+                "line": 14,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Smart Pointers & RAII in Modern C.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "The audit function is a miniature of what memory sanitisers do for real.",
+            "currentState": "obj",
+            "transition": {
+              "from": "table",
+              "to": "obj",
+              "label": {
+                "var": "obj",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Smart Pointers & RAII in Modern C++ Memory Ar... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Practice time: audits and handles",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Smart Pointers & RA...",
-            "tappable": true
+            "id": "table",
+            "label": "table"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "obj",
+            "label": "obj"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Smart Pointers & RAII in Modern C++ Memo.. [D23.P6.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Smart Pointers & RA... [D23.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Lifetime_audit(events).",
+            "currentState": "self",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include every problem type, a re-allocated pointer that later.",
+            "currentState": "table",
+            "transition": {
+              "from": "self",
+              "to": "table",
+              "label": "<Handles>"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Smart Pointers & RAII in Modern C.. [D23.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "The audit function is a miniature of what memory sanitisers do for real.",
+            "currentState": "obj",
+            "transition": {
+              "from": "table",
+              "to": "obj",
+              "label": "{'user': 'asha'}"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

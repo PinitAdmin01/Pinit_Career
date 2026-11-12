@@ -2,536 +2,392 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 44,
-  "promptSha": "572832e0f9de8553369f60cce52f64b6e96f068b49891444b0c7f7e4e928f7fb",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redrive Policies — Foundations & Mathematical Invariants",
-      "codeHash": "c58d35e622ffe5c7853f24df5fa4793c059116f82b5dddda0261c4b8c4528e69",
+      "codeHash": "de5746e010d3a46e600dc1653fcae16ddc99154569141f6e9ed9f5811ba82f9f",
       "spec": {
-        "template": "flow",
-        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redrive Po",
-        "nodes": [
+        "template": "states",
+        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redr",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "dedup_window_sec",
+            "label": "dedup_window_sec"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "fifo",
+            "label": "fifo"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Strict FIFO ordering is essential for financial ledgers, inventory.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Message deduplication windows ensure that transient network retry storms.",
+            "currentState": "dedup_window_sec",
+            "transition": {
+              "from": "self",
+              "to": "dedup_window_sec",
+              "label": {
+                "var": "dedup_window_sec",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say8",
+            "caption": "Analyze the mathematical FIFO deduplication and ordering guarantee model below.",
+            "currentState": "fifo",
+            "transition": {
+              "from": "dedup_window_sec",
+              "to": "fifo",
+              "label": {
+                "var": "fifo",
+                "line": 21,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redrive Po",
-        "nodes": [
+        "template": "states",
+        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redr",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "dedup_window_sec",
+            "label": "dedup_window_sec"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "fifo",
+            "label": "fifo"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Strict FIFO ordering is essential for financial ledgers, inventory.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Message deduplication windows ensure that transient network retry storms.",
+            "currentState": "dedup_window_sec",
+            "transition": {
+              "from": "self",
+              "to": "dedup_window_sec",
+              "label": "300"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say8",
+            "caption": "Analyze the mathematical FIFO deduplication and ordering guarantee model below.",
+            "currentState": "fifo",
+            "transition": {
+              "from": "dedup_window_sec",
+              "to": "fifo",
+              "label": "<SQSFiFoQueueModel>"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redrive Policies — Core Algorithm & State Representation",
-      "codeHash": "47d05f2258015e4c47a25616eb5dc584c4138df245b73390f3bcd8f2a216eb76",
+      "codeHash": "0f1164431866ab6d3237b580093a8f09d3cb14d654ea2ca068bfccdbdd7dfa7b",
       "spec": {
         "template": "flow",
-        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redrive Po",
+        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redr",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "q",
+            "label": "q"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "group_id",
+            "label": "group_id"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "message",
+            "label": "message"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Message Group IDs partition the queue into ordered sub-streams, allowing.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 21,
+                "hit": 1
+              },
+              "group_id": {
+                "var": "group_id",
+                "line": 7,
+                "hit": 1
+              },
+              "message": {
+                "var": "message",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "q": "data",
+              "group_id": "data",
+              "message": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "q"
+              ],
+              [
+                "q",
+                "group_id"
+              ],
+              [
+                "group_id",
+                "message"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "By assigning distinct group identifiers to each tenant or account.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "q": {
+                "var": "q",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "group_id": {
+                "var": "group_id",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "message": {
+                "var": "message",
+                "line": 7,
+                "hit": 2
               }
+            },
+            "tones": {
+              "self": "data",
+              "q": "data",
+              "group_id": "data",
+              "message": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "q"
+              ],
+              [
+                "q",
+                "group_id"
+              ],
+              [
+                "group_id",
+                "message"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Implement the multi-group concurrent FIFO scheduling and message group.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "q": {
+                "var": "q",
+                "line": 23,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "group_id": {
+                "var": "group_id",
+                "line": 7,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "message": {
+                "var": "message",
+                "line": 7,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "q": "ok",
+              "group_id": "ok",
+              "message": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "q"
+              ],
+              [
+                "q",
+                "group_id"
+              ],
+              [
+                "group_id",
+                "message"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redrive Po",
+        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redr",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "q",
+            "label": "q"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "group_id",
+            "label": "group_id"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "message",
+            "label": "message"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Message Group IDs partition the queue into ordered sub-streams, allowing.",
+            "values": {
+              "self": "<FIFOQueueWithGroups>",
+              "q": "<FIFOQueueWithGroups>",
+              "group_id": "'acct-1'",
+              "message": "'tx-1A'"
+            },
+            "tones": {
+              "self": "data",
+              "q": "data",
+              "group_id": "data",
+              "message": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "q"
+              ],
+              [
+                "q",
+                "group_id"
+              ],
+              [
+                "group_id",
+                "message"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "By assigning distinct group identifiers to each tenant or account.",
+            "values": {
+              "self": "<FIFOQueueWithGroups>",
+              "q": "<FIFOQueueWithGroups>",
+              "group_id": "'acct-1'",
+              "message": "'tx-1B'"
+            },
+            "tones": {
+              "self": "data",
+              "q": "data",
+              "group_id": "data",
+              "message": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "q"
+              ],
+              [
+                "q",
+                "group_id"
+              ],
+              [
+                "group_id",
+                "message"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Implement the multi-group concurrent FIFO scheduling and message group.",
+            "values": {
+              "self": "<FIFOQueueWithGroups>",
+              "q": "<FIFOQueueWithGroups>",
+              "group_id": "'acct-2'",
+              "message": "'tx-2A'"
+            },
+            "tones": {
+              "self": "ok",
+              "q": "ok",
+              "group_id": "ok",
+              "message": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "q"
+              ],
+              [
+                "q",
+                "group_id"
+              ],
+              [
+                "group_id",
+                "message"
+              ]
             ]
           }
         ]
@@ -539,264 +395,218 @@
     },
     {
       "partTitle": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redrive Policies — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "2be3d6de96e9908119776b756d0d24e43de60b6ee2482d6c82c2b46de7134d7d",
+      "codeHash": "4fe921ba69e54c31fcca329f7d79c3ff504b4cc7ec4afb06d0878ffaa05234a9",
       "spec": {
-        "template": "flow",
-        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redrive Po",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redr",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how high updates throughput during execution.",
+            "bars": [
+              {
+                "label": "daily_messages",
+                "value": {
+                  "var": "daily_messages",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "polling_interv",
+                "value": {
+                  "var": "polling_interval_sec",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "short_polling_",
+                "value": {
+                  "var": "short_polling_calls",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "long_polling_c",
+                "value": {
+                  "var": "long_polling_calls",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Tuning visibility timeouts dynamically ensures that compute-heavy batch.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "daily_messages",
+                "value": {
+                  "var": "daily_messages",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "polling_interv",
+                "value": {
+                  "var": "polling_interval_sec",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "short_polling_",
+                "value": {
+                  "var": "short_polling_calls",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "long_polling_c",
+                "value": {
+                  "var": "long_polling_calls",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Study the long-polling cost reduction and batch consumption throughput.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "daily_messages",
+                "value": {
+                  "var": "daily_messages",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "polling_interv",
+                "value": {
+                  "var": "polling_interval_sec",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "short_polling_",
+                "value": {
+                  "var": "short_polling_calls",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "long_polling_c",
+                "value": {
+                  "var": "long_polling_calls",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redrive Po",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redr",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how high updates throughput during execution.",
+            "bars": [
+              {
+                "label": "daily_messages",
+                "value": 5000,
+                "tone": "data"
+              },
+              {
+                "label": "polling_interv",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "short_polling_",
+                "value": 86400,
+                "tone": "data"
+              },
+              {
+                "label": "long_polling_c",
+                "value": 4320,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Tuning visibility timeouts dynamically ensures that compute-heavy batch.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "daily_messages",
+                "value": 5000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "polling_interv",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "short_polling_",
+                "value": 86400,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "long_polling_c",
+                "value": 4320,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Study the long-polling cost reduction and batch consumption throughput.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "daily_messages",
+                "value": 5000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "polling_interv",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "short_polling_",
+                "value": 86400,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "long_polling_c",
+                "value": 4320,
+                "tone": "ok"
               }
             ]
           }
@@ -805,265 +615,279 @@
     },
     {
       "partTitle": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redrive Policies — Resilience Guardrails & Failure Recovery",
-      "codeHash": "102b391231b585e259cba3712588f3309b4c33d07b843ecb10490d3cfb9257ed",
+      "codeHash": "f15ef03a754a331cf94721635c3553136e2692c50b4353fcfaaa6a2641fffad8",
       "spec": {
         "template": "flow",
-        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redrive Po",
+        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redr",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_receive_count",
+            "label": "max_receive_count"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "engine",
+            "label": "engine"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "msg_id",
+            "label": "msg_id"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated Dead Letter Queue redrive tasks allow operations teams.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "max_receive_count": {
+                "var": "max_receive_count",
+                "line": 3,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 35,
+                "hit": 1
+              },
+              "msg_id": {
+                "var": "msg_id",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "max_receive_count": "data",
+              "engine": "data",
+              "msg_id": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_receive_count"
+              ],
+              [
+                "max_receive_count",
+                "engine"
+              ],
+              [
+                "engine",
+                "msg_id"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Configuring maxReceiveCount safeguards consumer pools against poison pill.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "max_receive_count": {
+                "var": "max_receive_count",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "engine": {
+                "var": "engine",
+                "line": 36,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "msg_id": {
+                "var": "msg_id",
+                "line": 8,
+                "hit": 2
               }
+            },
+            "tones": {
+              "self": "data",
+              "max_receive_count": "data",
+              "engine": "data",
+              "msg_id": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_receive_count"
+              ],
+              [
+                "max_receive_count",
+                "engine"
+              ],
+              [
+                "engine",
+                "msg_id"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Simulate the poison pill detection, maxReceiveCount enforcement, and DLQ.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "max_receive_count": {
+                "var": "max_receive_count",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "engine": {
+                "var": "engine",
+                "line": 37,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "msg_id": {
+                "var": "msg_id",
+                "line": 8,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "max_receive_count": "ok",
+              "engine": "ok",
+              "msg_id": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_receive_count"
+              ],
+              [
+                "max_receive_count",
+                "engine"
+              ],
+              [
+                "engine",
+                "msg_id"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redrive Po",
+        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redr",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_receive_count",
+            "label": "max_receive_count"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "engine",
+            "label": "engine"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "msg_id",
+            "label": "msg_id"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated Dead Letter Queue redrive tasks allow operations teams.",
+            "values": {
+              "self": "<DeadLetterQueueRedriveEngine>",
+              "max_receive_count": "3",
+              "engine": "<DeadLetterQueueRedriveEngine>",
+              "msg_id": "'valid-1'"
+            },
+            "tones": {
+              "self": "data",
+              "max_receive_count": "data",
+              "engine": "data",
+              "msg_id": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_receive_count"
+              ],
+              [
+                "max_receive_count",
+                "engine"
+              ],
+              [
+                "engine",
+                "msg_id"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Configuring maxReceiveCount safeguards consumer pools against poison pill.",
+            "values": {
+              "self": "<DeadLetterQueueRedriveEngine>",
+              "max_receive_count": "3",
+              "engine": "<DeadLetterQueueRedriveEngine>",
+              "msg_id": "'poison-2'"
+            },
+            "tones": {
+              "self": "data",
+              "max_receive_count": "data",
+              "engine": "data",
+              "msg_id": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_receive_count"
+              ],
+              [
+                "max_receive_count",
+                "engine"
+              ],
+              [
+                "engine",
+                "msg_id"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Simulate the poison pill detection, maxReceiveCount enforcement, and DLQ.",
+            "values": {
+              "self": "<DeadLetterQueueRedriveEngine>",
+              "max_receive_count": "3",
+              "engine": "<DeadLetterQueueRedriveEngine>",
+              "msg_id": "'poison-2'"
+            },
+            "tones": {
+              "self": "ok",
+              "max_receive_count": "ok",
+              "engine": "ok",
+              "msg_id": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "max_receive_count"
+              ],
+              [
+                "max_receive_count",
+                "engine"
+              ],
+              [
+                "engine",
+                "msg_id"
+              ]
             ]
           }
         ]
@@ -1071,265 +895,279 @@
     },
     {
       "partTitle": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redrive Policies — Production Telemetry & Verification Audit",
-      "codeHash": "251117d6c1bd53c5b7165b845f433ef9a5d85018acec0f3c9c0a4e8c99fa07fe",
+      "codeHash": "6545e91abbbd2279ceef206319f0e537bdd02b73eec1bd923a608115650eda7e",
       "spec": {
         "template": "flow",
-        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redrive Po",
+        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redr",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "healthy",
+            "label": "healthy"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "degraded",
+            "label": "degraded"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "queue_telemetry",
+            "label": "queue_telemetry"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "depth",
+            "label": "depth"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Real-time monitoring of ApproximateNumberOfMessagesVisible.",
+            "values": {
+              "healthy": {
+                "var": "healthy",
+                "line": 21,
+                "hit": 1
+              },
+              "degraded": {
+                "var": "degraded",
+                "line": 22,
+                "hit": 1
+              },
+              "queue_telemetry": {
+                "var": "queue_telemetry",
+                "line": 2,
+                "hit": 1
+              },
+              "depth": {
+                "var": "depth",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "healthy": "data",
+              "degraded": "data",
+              "queue_telemetry": "data",
+              "depth": "data"
+            },
+            "arrows": [
+              [
+                "healthy",
+                "degraded"
+              ],
+              [
+                "degraded",
+                "queue_telemetry"
+              ],
+              [
+                "queue_telemetry",
+                "depth"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Verifying message deduplication and group concurrency through.",
+            "values": {
+              "healthy": {
+                "var": "healthy",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "degraded": {
+                "var": "degraded",
+                "line": 23,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "queue_telemetry": {
+                "var": "queue_telemetry",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "depth": {
+                "var": "depth",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "healthy": "data",
+              "degraded": "data",
+              "queue_telemetry": "data",
+              "depth": "data"
+            },
+            "arrows": [
+              [
+                "healthy",
+                "degraded"
+              ],
+              [
+                "degraded",
+                "queue_telemetry"
+              ],
+              [
+                "queue_telemetry",
+                "depth"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Run the automated SQS queue telemetry and consumer lag audit suite below.",
+            "values": {
+              "healthy": {
+                "var": "healthy",
+                "line": 23,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "degraded": {
+                "var": "degraded",
+                "line": 24,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "queue_telemetry": {
+                "var": "queue_telemetry",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "depth": {
+                "var": "depth",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "healthy": "ok",
+              "degraded": "ok",
+              "queue_telemetry": "ok",
+              "depth": "ok"
+            },
+            "arrows": [
+              [
+                "healthy",
+                "degraded"
+              ],
+              [
+                "degraded",
+                "queue_telemetry"
+              ],
+              [
+                "queue_telemetry",
+                "depth"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redrive Po",
+        "title": "SQS FIFO Message Group Concurrency, Deduplication IDs & DLQ Redr",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "healthy",
+            "label": "healthy"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "degraded",
+            "label": "degraded"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "queue_telemetry",
+            "label": "queue_telemetry"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "depth",
+            "label": "depth"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Real-time monitoring of ApproximateNumberOfMessagesVisible.",
+            "values": {
+              "healthy": "{'ApproximateNumberOfMessagesVisible': …",
+              "degraded": "{'ApproximateNumberOfMessagesVisible': …",
+              "queue_telemetry": "{'ApproximateNumberOfMessagesVisible': …",
+              "depth": "120"
+            },
+            "tones": {
+              "healthy": "data",
+              "degraded": "data",
+              "queue_telemetry": "data",
+              "depth": "data"
+            },
+            "arrows": [
+              [
+                "healthy",
+                "degraded"
+              ],
+              [
+                "degraded",
+                "queue_telemetry"
+              ],
+              [
+                "queue_telemetry",
+                "depth"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Verifying message deduplication and group concurrency through.",
+            "values": {
+              "healthy": "{'ApproximateNumberOfMessagesVisible': …",
+              "degraded": "{'ApproximateNumberOfMessagesVisible': …",
+              "queue_telemetry": "{'ApproximateNumberOfMessagesVisible': …",
+              "depth": "120"
+            },
+            "tones": {
+              "healthy": "data",
+              "degraded": "data",
+              "queue_telemetry": "data",
+              "depth": "data"
+            },
+            "arrows": [
+              [
+                "healthy",
+                "degraded"
+              ],
+              [
+                "degraded",
+                "queue_telemetry"
+              ],
+              [
+                "queue_telemetry",
+                "depth"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say7",
+            "caption": "Run the automated SQS queue telemetry and consumer lag audit suite below.",
+            "values": {
+              "healthy": "{'ApproximateNumberOfMessagesVisible': …",
+              "degraded": "{'ApproximateNumberOfMessagesVisible': …",
+              "queue_telemetry": "{'ApproximateNumberOfMessagesVisible': …",
+              "depth": "120"
+            },
+            "tones": {
+              "healthy": "ok",
+              "degraded": "ok",
+              "queue_telemetry": "ok",
+              "depth": "ok"
+            },
+            "arrows": [
+              [
+                "healthy",
+                "degraded"
+              ],
+              [
+                "degraded",
+                "queue_telemetry"
+              ],
+              [
+                "queue_telemetry",
+                "depth"
+              ]
             ]
           }
         ]

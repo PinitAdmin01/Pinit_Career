@@ -2,269 +2,779 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 41,
-  "promptSha": "27df35375879529e1c0e9542c84fe533280ef58a729da4a6528693a0a3860ec5",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Episodic, Semantic & Working Memory Buffers with Salience Eviction — Foundations & Mathematical Invariants",
-      "codeHash": "f19391f548e184820bc37376490aafefc768290ae0f9d9ca95cd43850576c809",
+      "partTitle": "Working Memory Sliding Buffers Under Strict Token Budgets",
+      "codeHash": "31265f61bf5a4e5579baad7223b49bfe3f4ae98389e23b5b4136269fe5f40cdc",
       "spec": {
-        "template": "flow",
-        "title": "Episodic, Semantic & Working Memory Buffers with Salience Eviction — F",
-        "nodes": [
+        "template": "boxes",
+        "title": "Working Memory Sliding Buffers Under Strict Token Budgets",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sys_m",
+            "label": "sys_m"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "history",
+            "label": "history"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "system_msg",
+            "label": "system_msg"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "turns",
+            "label": "turns"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Appending every prior chat message indefinitely into subsequent API.",
+            "values": {
+              "sys_m": {
+                "var": "sys_m",
+                "line": 12,
+                "hit": 1
+              },
+              "history": {
+                "var": "history",
+                "line": 13,
+                "hit": 1
+              },
+              "system_msg": {
+                "var": "system_msg",
+                "line": 2,
+                "hit": 1
+              },
+              "turns": {
+                "var": "turns",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "sys_m": "data",
+              "history": "data",
+              "system_msg": "data",
+              "turns": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Working memory preserves conversational coherence by retaining newest.",
+            "values": {
+              "sys_m": {
+                "var": "sys_m",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "history": {
+                "var": "history",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "system_msg": {
+                "var": "system_msg",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "turns": {
+                "var": "turns",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "sys_m": "data",
+              "history": "data",
+              "system_msg": "data",
+              "turns": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Run pack_working_memory() packing maximum recent context within.",
+            "values": {
+              "sys_m": {
+                "var": "sys_m",
+                "line": 15,
+                "hit": 1
+              },
+              "history": {
+                "var": "history",
+                "line": 19,
+                "hit": 1
+              },
+              "system_msg": {
+                "var": "system_msg",
+                "line": 4,
+                "hit": 1
+              },
+              "turns": {
+                "var": "turns",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "sys_m": "ok",
+              "history": "ok",
+              "system_msg": "ok",
+              "turns": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Working Memory Sliding Buffers Under Strict Token Budgets",
+        "boxes": [
+          {
+            "id": "sys_m",
+            "label": "sys_m"
+          },
+          {
+            "id": "history",
+            "label": "history"
+          },
+          {
+            "id": "system_msg",
+            "label": "system_msg"
+          },
+          {
+            "id": "turns",
+            "label": "turns"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Appending every prior chat message indefinitely into subsequent API.",
+            "values": {
+              "sys_m": "{'id': 'sys', 'tokens': 6}",
+              "history": "[{'id': 't1', 'tokens': 8}, {'id': 't2'…",
+              "system_msg": "{'id': 'sys', 'tokens': 6}",
+              "turns": "[{'id': 't1', 'tokens': 8}, {'id': 't2'…"
+            },
+            "tones": {
+              "sys_m": "data",
+              "history": "data",
+              "system_msg": "data",
+              "turns": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Working memory preserves conversational coherence by retaining newest.",
+            "values": {
+              "sys_m": "{'id': 'sys', 'tokens': 6}",
+              "history": "[{'id': 't1', 'tokens': 8}, {'id': 't2'…",
+              "system_msg": "{'id': 'sys', 'tokens': 6}",
+              "turns": "[{'id': 't1', 'tokens': 8}, {'id': 't2'…"
+            },
+            "tones": {
+              "sys_m": "data",
+              "history": "data",
+              "system_msg": "data",
+              "turns": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Run pack_working_memory() packing maximum recent context within.",
+            "values": {
+              "sys_m": "{'id': 'sys', 'tokens': 6}",
+              "history": "[{'id': 't1', 'tokens': 8}, {'id': 't2'…",
+              "system_msg": "{'id': 'sys', 'tokens': 6}",
+              "turns": "[{'id': 't1', 'tokens': 8}, {'id': 't2'…"
+            },
+            "tones": {
+              "sys_m": "ok",
+              "history": "ok",
+              "system_msg": "ok",
+              "turns": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Episodic Memory Ranking With Temporal Recency Decay",
+      "codeHash": "23a1906e06ec6cb5844c4552f67a001bb78db7ad3b29e51a6e6fb534b4bcb482",
+      "spec": {
+        "template": "flow",
+        "title": "Episodic Memory Ranking With Temporal Recency Decay",
+        "nodes": [
+          {
+            "id": "eps",
+            "label": "eps"
+          },
+          {
+            "id": "episodes",
+            "label": "episodes"
+          },
+          {
+            "id": "lam",
+            "label": "lam"
+          },
+          {
+            "id": "scored",
+            "label": "scored"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Beyond the active conversation buffer sits episodic memory.",
+            "values": {
+              "eps": {
+                "var": "eps",
+                "line": 11,
+                "hit": 1
+              },
+              "episodes": {
+                "var": "episodes",
+                "line": 4,
+                "hit": 1
+              },
+              "lam": {
+                "var": "lam",
+                "line": 4,
+                "hit": 1
+              },
+              "scored": {
+                "var": "scored",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "eps": "data",
+              "episodes": "data",
+              "lam": "data",
+              "scored": "data"
+            },
+            "arrows": [
+              [
+                "eps",
+                "episodes"
+              ],
+              [
+                "episodes",
+                "lam"
+              ],
+              [
+                "lam",
+                "scored"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Unlike static policy manuals whose validity endures indefinitely, past.",
+            "values": {
+              "eps": {
+                "var": "eps",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "episodes": {
+                "var": "episodes",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "lam": {
+                "var": "lam",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "scored": {
+                "var": "scored",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "eps": "data",
+              "episodes": "data",
+              "lam": "data",
+              "scored": "data"
+            },
+            "arrows": [
+              [
+                "eps",
+                "episodes"
+              ],
+              [
+                "episodes",
+                "lam"
+              ],
+              [
+                "lam",
+                "scored"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Observe rank_episodes() ordering fresh `ep_new` and mid-age `ep_mid`.",
+            "values": {
+              "eps": {
+                "var": "eps",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "episodes": {
+                "var": "episodes",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "lam": {
+                "var": "lam",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "scored": {
+                "var": "scored",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "eps": "ok",
+              "episodes": "ok",
+              "lam": "ok",
+              "scored": "ok"
+            },
+            "arrows": [
+              [
+                "eps",
+                "episodes"
+              ],
+              [
+                "episodes",
+                "lam"
+              ],
+              [
+                "lam",
+                "scored"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Episodic, Semantic & Working Memory Buffers with Salience Eviction — F",
+        "title": "Episodic Memory Ranking With Temporal Recency Decay",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "eps",
+            "label": "eps"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "episodes",
+            "label": "episodes"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "lam",
+            "label": "lam"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "scored",
+            "label": "scored"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Beyond the active conversation buffer sits episodic memory.",
+            "values": {
+              "eps": "[{'id': 'ep_old', 'relevance': 0.92, 'a…",
+              "episodes": "[{'id': 'ep_old', 'relevance': 0.92, 'a…",
+              "lam": "0.05",
+              "scored": "[]"
+            },
+            "tones": {
+              "eps": "data",
+              "episodes": "data",
+              "lam": "data",
+              "scored": "data"
+            },
+            "arrows": [
+              [
+                "eps",
+                "episodes"
+              ],
+              [
+                "episodes",
+                "lam"
+              ],
+              [
+                "lam",
+                "scored"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Unlike static policy manuals whose validity endures indefinitely, past.",
+            "values": {
+              "eps": "[{'id': 'ep_old', 'relevance': 0.92, 'a…",
+              "episodes": "[{'id': 'ep_old', 'relevance': 0.92, 'a…",
+              "lam": "0.05",
+              "scored": "[]"
+            },
+            "tones": {
+              "eps": "data",
+              "episodes": "data",
+              "lam": "data",
+              "scored": "data"
+            },
+            "arrows": [
+              [
+                "eps",
+                "episodes"
+              ],
+              [
+                "episodes",
+                "lam"
+              ],
+              [
+                "lam",
+                "scored"
+              ]
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Observe rank_episodes() ordering fresh `ep_new` and mid-age `ep_mid`.",
+            "values": {
+              "eps": "[{'id': 'ep_old', 'relevance': 0.92, 'a…",
+              "episodes": "[{'id': 'ep_old', 'relevance': 0.92, 'a…",
+              "lam": "0.05",
+              "scored": "[]"
+            },
+            "tones": {
+              "eps": "ok",
+              "episodes": "ok",
+              "lam": "ok",
+              "scored": "ok"
+            },
+            "arrows": [
+              [
+                "eps",
+                "episodes"
+              ],
+              [
+                "episodes",
+                "lam"
+              ],
+              [
+                "lam",
+                "scored"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Keyed Semantic Long-Term Memory Upserts and Overwrites",
+      "codeHash": "56204caad235439fdbfa7ca06aac2d7e6a75653e559240b083a107637defb70d",
+      "spec": {
+        "template": "sequence",
+        "title": "Keyed Semantic Long-Term Memory Upserts and Overwrites",
+        "actors": [
+          "profile",
+          "store",
+          "key"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Imagine a developer sets their preferred cloud region to `us-east-1`.",
+            "activeActor": "profile",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "profile",
+                "to": "store",
+                "label": {
+                  "var": "profile",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "store",
+                "to": "key",
+                "label": {
+                  "var": "store",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Semantic user facts behave completely differently from timestamped chat.",
+            "activeActor": "store",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "profile",
+                "to": "store",
+                "label": {
+                  "var": "profile",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "store",
+                "to": "key",
+                "label": {
+                  "var": "store",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "at": "say7",
+            "caption": "Inspect upsert_fact() testing initial creation, newer region migration.",
+            "activeActor": "key",
+            "messages": [
+              {
+                "from": "profile",
+                "to": "store",
+                "label": {
+                  "var": "profile",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "store",
+                "to": "key",
+                "label": {
+                  "var": "store",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "Keyed Semantic Long-Term Memory Upserts and Overwrites",
+        "actors": [
+          "profile",
+          "store",
+          "key"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Imagine a developer sets their preferred cloud region to `us-east-1`.",
+            "messages": [
+              {
+                "from": "profile",
+                "to": "store",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "store",
+                "to": "key",
+                "label": "{}",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
+            "activeActor": "profile"
+          },
+          {
+            "at": "say2",
+            "caption": "Semantic user facts behave completely differently from timestamped chat.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "profile",
+                "to": "store",
+                "label": "{'default_region': {'value': 'us-east-1…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "from": "store",
+                "to": "key",
+                "label": "{}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "store"
+          },
+          {
+            "at": "say7",
+            "caption": "Inspect upsert_fact() testing initial creation, newer region migration.",
+            "messages": [
+              {
+                "from": "profile",
+                "to": "store",
+                "label": "{'default_region': {'value': 'eu-centra…",
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+                "from": "store",
+                "to": "key",
+                "label": "{'default_region': {'value': 'us-east-1…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "key"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Salience-Weighted Eviction Under Fixed Capacity",
+      "codeHash": "e8924494b1e1c35334f1353b4b74191038930ec47f4356edfb8f0c33dfca2538",
+      "spec": {
+        "template": "bars",
+        "title": "Salience-Weighted Eviction Under Fixed Capacity",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Active multi-month enterprise users accumulate hundreds of minor.",
+            "bars": [
+              {
+                "label": "capacity",
+                "value": {
+                  "var": "capacity",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "salience",
+                "value": {
+                  "var": "salience",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If memory stores blindly apply FIFO queues or pure recency LRU eviction.",
+            "bars": [
+              {
+                "label": "capacity",
+                "value": {
+                  "var": "capacity",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "salience",
+                "value": {
+                  "var": "salience",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Watch retain_top_salient() below prioritize `m_hipaa` and `m_region` under.",
+            "bars": [
+              {
+                "label": "capacity",
+                "value": {
+                  "var": "capacity",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "salience",
+                "value": {
+                  "var": "salience",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "bars",
+        "title": "Salience-Weighted Eviction Under Fixed Capacity",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Active multi-month enterprise users accumulate hundreds of minor.",
+            "bars": [
+              {
+                "label": "capacity",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "salience",
+                "value": 0.41,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If memory stores blindly apply FIFO queues or pure recency LRU eviction.",
+            "bars": [
+              {
+                "label": "capacity",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "salience",
+                "value": 0.41,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Watch retain_top_salient() below prioritize `m_hipaa` and `m_region` under.",
+            "bars": [
+              {
+                "label": "capacity",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "salience",
+                "value": 0.41,
+                "tone": "ok"
               }
             ]
           }
@@ -272,1065 +782,165 @@
       }
     },
     {
-      "partTitle": "Episodic, Semantic & Working Memory Buffers with Salience Eviction — Core Algorithm & State Representation",
-      "codeHash": "9c3a693c1c8474aa0ed97e0bb8286963c9c17d83cbac0abb10521b6f95045cd7",
+      "partTitle": "Strict Tenant Scoping and PII Scrubbing Before Memory Writes",
+      "codeHash": "9d7a81c4051a87a1904a0dfc1e97ab60d6f49e446c92ca29eb2c8556c94e6407",
       "spec": {
-        "template": "flow",
-        "title": "Episodic, Semantic & Working Memory Buffers with Salience Eviction — C",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Strict Tenant Scoping and PII Scrubbing Before Memory Writes",
+        "actors": [
+          "SECRET_PATTERNS",
+          "text",
+          "clean"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Extracting facts carelessly into long-term vector tables introduces severe.",
+            "activeActor": "SECRET_PATTERNS",
+            "messages": [
+              {
+                "from": "SECRET_PATTERNS",
+                "to": "text",
+                "label": {
+                  "var": "SECRET_PATTERNS",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "clean",
+                "label": {
+                  "var": "text",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Redacting strictly at UI display time comes far too lateby then plaintexts.",
+            "activeActor": "text",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "SECRET_PATTERNS",
+                "to": "text",
+                "label": {
+                  "var": "SECRET_PATTERNS",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "text",
+                "to": "clean",
+                "label": {
+                  "var": "text",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Verify sanitize_memory_text() catching both API keys and formatted.",
+            "activeActor": "clean",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "SECRET_PATTERNS",
+                "to": "text",
+                "label": {
+                  "var": "SECRET_PATTERNS",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "text",
+                "to": "clean",
+                "label": {
+                  "var": "text",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Episodic, Semantic & Working Memory Buffers with Salience Eviction — C",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Strict Tenant Scoping and PII Scrubbing Before Memory Writes",
+        "actors": [
+          "SECRET_PATTERNS",
+          "text",
+          "clean"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Extracting facts carelessly into long-term vector tables introduces severe.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "SECRET_PATTERNS",
+                "to": "text",
+                "label": "[[{'__other__': 'Pattern'}, '[REDACTED_…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "text",
+                "to": "clean",
+                "label": "'Use sk-liveAbcd1234ef and card 4111-22…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "SECRET_PATTERNS"
           },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Episodic, Semantic & Working Memory Buffers with Salience Eviction — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "cc907c0ae5ddabd751f773be402833b2eba98877139bd2e5e4b2edde22235a3f",
-      "spec": {
-        "template": "flow",
-        "title": "Episodic, Semantic & Working Memory Buffers with Salience Eviction — T",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Redacting strictly at UI display time comes far too lateby then plaintexts.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "SECRET_PATTERNS",
+                "to": "text",
+                "label": "[[{'__other__': 'Pattern'}, '[REDACTED_…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "text",
+                "to": "clean",
+                "label": "'Use sk-liveAbcd1234ef and card 4111-22…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "text"
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "at": "say7",
+            "caption": "Verify sanitize_memory_text() catching both API keys and formatted.",
+            "messages": [
+              {
+                "from": "SECRET_PATTERNS",
+                "to": "text",
+                "label": "[[{'__other__': 'Pattern'}, '[REDACTED_…",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "clean",
+                "label": "'Use sk-liveAbcd1234ef and card 4111-22…",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Episodic, Semantic & Working Memory Buffers with Salience Eviction — T",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Episodic, Semantic & Working Memory Buffers with Salience Eviction — Resilience Guardrails & Failure Recovery",
-      "codeHash": "727e016837ab3a401dfef339bf5aa05a96a85b77a95edfada0e55373a7588dc9",
-      "spec": {
-        "template": "flow",
-        "title": "Episodic, Semantic & Working Memory Buffers with Salience Eviction — R",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Episodic, Semantic & Working Memory Buffers with Salience Eviction — R",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Episodic, Semantic & Working Memory Buffers with Salience Eviction — Production Telemetry & Verification Audit",
-      "codeHash": "589f3588566b193e2fb12080ad1712768c2705c2536a0c87576bdfa297958129",
-      "spec": {
-        "template": "flow",
-        "title": "Episodic, Semantic & Working Memory Buffers with Salience Eviction — P",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Episodic, Semantic & Working Memory Buffers with Salience Eviction — P",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "clean"
           }
         ]
       }

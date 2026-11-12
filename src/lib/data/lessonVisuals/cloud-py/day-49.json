@@ -2,802 +2,556 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 49,
-  "promptSha": "62820b8990b441fafe7b66508a98ffb379eda3684e5ed0a559840388a3a830b8",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "S3 Intelligent-Tiering, Object Lock WORM Compliance & Multipart Checksums — Foundations & Mathematical Invariants",
-      "codeHash": "e3972876cd60d9232ab1fbe7b51376f8e69dfffab828a633d3a83a0802b33129",
+      "codeHash": "6eb7fd753d29415dbee8b8257a1600ae0a4fd50e4ff2d03a8aee49d1be654b59",
       "spec": {
-        "template": "flow",
-        "title": "S Intelligent-Tiering, Object Lock WORM Compliance & Multipart Checksu",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "S3 Intelligent-Tiering, Object Lock WORM Compliance & Multipart ",
+        "actors": [
+          "tiers",
+          "gb_stored",
+          "tier_distribution"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automating lifecycle tiering across petabyte-scale storage lakes ensures.",
+            "activeActor": "tiers",
+            "messages": [
+              {
+                "from": "tiers",
+                "to": "gb_stored",
+                "label": {
+                  "var": "tiers",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "gb_stored",
+                "to": "tier_distribution",
+                "label": {
+                  "var": "gb_stored",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Because Intelligent-Tiering monitors byte-level access frequency.",
+            "activeActor": "gb_stored",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "tiers",
+                "to": "gb_stored",
+                "label": {
+                  "var": "tiers",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "gb_stored",
+                "to": "tier_distribution",
+                "label": {
+                  "var": "gb_stored",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Examine the S3 Intelligent-Tiering access tier state model and cost.",
+            "activeActor": "tier_distribution",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "tiers",
+                "to": "gb_stored",
+                "label": {
+                  "var": "tiers",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "gb_stored",
+                "to": "tier_distribution",
+                "label": {
+                  "var": "gb_stored",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "S Intelligent-Tiering, Object Lock WORM Compliance & Multipart Checksu",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "S3 Intelligent-Tiering, Object Lock WORM Compliance & Multipart ",
+        "actors": [
+          "tiers",
+          "gb_stored",
+          "tier_distribution"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automating lifecycle tiering across petabyte-scale storage lakes ensures.",
+            "messages": [
+              {
+                "from": "tiers",
+                "to": "gb_stored",
+                "label": "{'INTEL_FREQUENT': 0.2, 'INTEL_INFREQUE…",
+                "tone": "data"
+              },
+              {
+                "from": "gb_stored",
+                "to": "tier_distribution",
+                "label": "100000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "tiers"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Because Intelligent-Tiering monitors byte-level access frequency.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "tiers",
+                "to": "gb_stored",
+                "label": "{'INTEL_FREQUENT': 0.2, 'INTEL_INFREQUE…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "gb_stored",
+                "to": "tier_distribution",
+                "label": "100000",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "gb_stored"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Examine the S3 Intelligent-Tiering access tier state model and cost.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "tiers",
+                "to": "gb_stored",
+                "label": "{'INTEL_FREQUENT': 0.2, 'INTEL_INFREQUE…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "gb_stored",
+                "to": "tier_distribution",
+                "label": "100000",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "tier_distribution"
           }
         ]
       }
     },
     {
       "partTitle": "S3 Intelligent-Tiering, Object Lock WORM Compliance & Multipart Checksums — Core Algorithm & State Representation",
-      "codeHash": "547d12cfa3e2054f9caa233a1c0080270fb87a0c9c204e35cf9046564494b7de",
+      "codeHash": "551bd14186da846da360c9b3296a9fafb3890175578c2028575a5e6230b223a0",
       "spec": {
-        "template": "flow",
-        "title": "S Intelligent-Tiering, Object Lock WORM Compliance & Multipart Checksu",
-        "nodes": [
+        "template": "states",
+        "title": "S3 Intelligent-Tiering, Object Lock WORM Compliance & Multipart ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "v_compliance",
+            "label": "v_compliance"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "v_gov",
+            "label": "v_gov"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "object_version",
+            "label": "object_version"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Audit logs capture every Object Lock state transition, providing.",
+            "currentState": "v_compliance",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "WORM compliance retention guarantees that financial transaction records.",
+            "currentState": "v_gov",
+            "transition": {
+              "from": "v_compliance",
+              "to": "v_gov",
+              "label": {
+                "var": "v_gov",
+                "line": 25,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Inspect the Object Lock retention evaluator and compliance state.",
+            "currentState": "object_version",
+            "transition": {
+              "from": "v_gov",
+              "to": "object_version",
+              "label": {
+                "var": "object_version",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "S Intelligent-Tiering, Object Lock WORM Compliance & Multipart Checksu",
-        "nodes": [
+        "template": "states",
+        "title": "S3 Intelligent-Tiering, Object Lock WORM Compliance & Multipart ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "v_compliance",
+            "label": "v_compliance"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "v_gov",
+            "label": "v_gov"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "object_version",
+            "label": "object_version"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Audit logs capture every Object Lock state transition, providing.",
+            "currentState": "v_compliance",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "WORM compliance retention guarantees that financial transaction records.",
+            "currentState": "v_gov",
+            "transition": {
+              "from": "v_compliance",
+              "to": "v_gov",
+              "label": "{'legal_hold': False, 'retention': {'mo…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Inspect the Object Lock retention evaluator and compliance state.",
+            "currentState": "object_version",
+            "transition": {
+              "from": "v_gov",
+              "to": "object_version",
+              "label": "{'legal_hold': False, 'retention': {'mo…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "S3 Intelligent-Tiering, Object Lock WORM Compliance & Multipart Checksums — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "ba8b9816d7b6c56e03f8dd5bfc4316bc78a1e23fa998450b3843344a66763e7a",
+      "codeHash": "bd4c95e6844eb40fc5c1d7b7bf1ff482c1416737201b9d8743d278d3519eab0e",
       "spec": {
         "template": "flow",
-        "title": "S Intelligent-Tiering, Object Lock WORM Compliance & Multipart Checksu",
+        "title": "S3 Intelligent-Tiering, Object Lock WORM Compliance & Multipart ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "data_bytes",
+            "label": "data_bytes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "p1_hash",
+            "label": "p1_hash"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "p2_hash",
+            "label": "p2_hash"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "p3_hash",
+            "label": "p3_hash"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "High-performance multipart upload pipelines dynamically adjust part sizes.",
+            "values": {
+              "data_bytes": {
+                "var": "data_bytes",
+                "line": 8,
+                "hit": 1
+              },
+              "p1_hash": {
+                "var": "p1_hash",
+                "line": 18,
+                "hit": 1
+              },
+              "p2_hash": {
+                "var": "p2_hash",
+                "line": 19,
+                "hit": 1
+              },
+              "p3_hash": {
+                "var": "p3_hash",
+                "line": 20,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "data_bytes": "data",
+              "p1_hash": "data",
+              "p2_hash": "data",
+              "p3_hash": "data"
+            },
+            "arrows": [
+              [
+                "data_bytes",
+                "p1_hash"
+              ],
+              [
+                "p1_hash",
+                "p2_hash"
+              ],
+              [
+                "p2_hash",
+                "p3_hash"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Calculating mathematical checksums inline during transmission detects.",
+            "values": {
+              "data_bytes": {
+                "var": "data_bytes",
+                "line": 8,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "p1_hash": {
+                "var": "p1_hash",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "p2_hash": {
+                "var": "p2_hash",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "p3_hash": {
+                "var": "p3_hash",
+                "line": 22,
+                "hit": 1
               }
+            },
+            "tones": {
+              "data_bytes": "data",
+              "p1_hash": "data",
+              "p2_hash": "data",
+              "p3_hash": "data"
+            },
+            "arrows": [
+              [
+                "data_bytes",
+                "p1_hash"
+              ],
+              [
+                "p1_hash",
+                "p2_hash"
+              ],
+              [
+                "p2_hash",
+                "p3_hash"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Review the S3 multipart upload coordinator and composite checksum.",
+            "values": {
+              "data_bytes": {
+                "var": "data_bytes",
+                "line": 8,
+                "hit": 3
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "p1_hash": {
+                "var": "p1_hash",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "p2_hash": {
+                "var": "p2_hash",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "p3_hash": {
+                "var": "p3_hash",
+                "line": 23,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "data_bytes": "ok",
+              "p1_hash": "ok",
+              "p2_hash": "ok",
+              "p3_hash": "ok"
+            },
+            "arrows": [
+              [
+                "data_bytes",
+                "p1_hash"
+              ],
+              [
+                "p1_hash",
+                "p2_hash"
+              ],
+              [
+                "p2_hash",
+                "p3_hash"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "S Intelligent-Tiering, Object Lock WORM Compliance & Multipart Checksu",
+        "title": "S3 Intelligent-Tiering, Object Lock WORM Compliance & Multipart ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "data_bytes",
+            "label": "data_bytes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "p1_hash",
+            "label": "p1_hash"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "p2_hash",
+            "label": "p2_hash"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "p3_hash",
+            "label": "p3_hash"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "High-performance multipart upload pipelines dynamically adjust part sizes.",
+            "values": {
+              "data_bytes": "{'__other__': 'bytes'}",
+              "p1_hash": "'32e3e876dc248ef448d523cf9e79cb9ce105a3…",
+              "p2_hash": "'e4c0db82822b157a23c482cabe68875eb0f0a3…",
+              "p3_hash": "'7704c7805172bce4aee6461d869a42e621d547…"
+            },
+            "tones": {
+              "data_bytes": "data",
+              "p1_hash": "data",
+              "p2_hash": "data",
+              "p3_hash": "data"
+            },
+            "arrows": [
+              [
+                "data_bytes",
+                "p1_hash"
+              ],
+              [
+                "p1_hash",
+                "p2_hash"
+              ],
+              [
+                "p2_hash",
+                "p3_hash"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Calculating mathematical checksums inline during transmission detects.",
+            "values": {
+              "data_bytes": "{'__other__': 'bytes'}",
+              "p1_hash": "'32e3e876dc248ef448d523cf9e79cb9ce105a3…",
+              "p2_hash": "'e4c0db82822b157a23c482cabe68875eb0f0a3…",
+              "p3_hash": "'7704c7805172bce4aee6461d869a42e621d547…"
+            },
+            "tones": {
+              "data_bytes": "data",
+              "p1_hash": "data",
+              "p2_hash": "data",
+              "p3_hash": "data"
+            },
+            "arrows": [
+              [
+                "data_bytes",
+                "p1_hash"
+              ],
+              [
+                "p1_hash",
+                "p2_hash"
+              ],
+              [
+                "p2_hash",
+                "p3_hash"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Review the S3 multipart upload coordinator and composite checksum.",
+            "values": {
+              "data_bytes": "{'__other__': 'bytes'}",
+              "p1_hash": "'32e3e876dc248ef448d523cf9e79cb9ce105a3…",
+              "p2_hash": "'e4c0db82822b157a23c482cabe68875eb0f0a3…",
+              "p3_hash": "'7704c7805172bce4aee6461d869a42e621d547…"
+            },
+            "tones": {
+              "data_bytes": "ok",
+              "p1_hash": "ok",
+              "p2_hash": "ok",
+              "p3_hash": "ok"
+            },
+            "arrows": [
+              [
+                "data_bytes",
+                "p1_hash"
+              ],
+              [
+                "p1_hash",
+                "p2_hash"
+              ],
+              [
+                "p2_hash",
+                "p3_hash"
+              ]
             ]
           }
         ]
@@ -805,265 +559,279 @@
     },
     {
       "partTitle": "S3 Intelligent-Tiering, Object Lock WORM Compliance & Multipart Checksums — Resilience Guardrails & Failure Recovery",
-      "codeHash": "024d4c922420d69ba390f3e532b7f196b0fca3ae53d523f7a033c3f489e7f03e",
+      "codeHash": "a6e536e6819511dea40496cd2596aa5e7d6b1a0e02b5fa1701bf8b31cf32038f",
       "spec": {
         "template": "flow",
-        "title": "S Intelligent-Tiering, Object Lock WORM Compliance & Multipart Checksu",
+        "title": "S3 Intelligent-Tiering, Object Lock WORM Compliance & Multipart ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "versions",
+            "label": "versions"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "bucket_versioned",
+            "label": "bucket_versioned"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "object_versions",
+            "label": "object_versions"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "target_key",
+            "label": "target_key"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Configuring automated alerts on incomplete multipart upload metrics.",
+            "values": {
+              "versions": {
+                "var": "versions",
+                "line": 18,
+                "hit": 1
+              },
+              "bucket_versioned": {
+                "var": "bucket_versioned",
+                "line": 4,
+                "hit": 1
+              },
+              "object_versions": {
+                "var": "object_versions",
+                "line": 4,
+                "hit": 1
+              },
+              "target_key": {
+                "var": "target_key",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "versions": "data",
+              "bucket_versioned": "data",
+              "object_versions": "data",
+              "target_key": "data"
+            },
+            "arrows": [
+              [
+                "versions",
+                "bucket_versioned"
+              ],
+              [
+                "bucket_versioned",
+                "object_versions"
+              ],
+              [
+                "object_versions",
+                "target_key"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Lifecycle expiration rules that automatically purge incomplete multipart.",
+            "values": {
+              "versions": {
+                "var": "versions",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "bucket_versioned": {
+                "var": "bucket_versioned",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "object_versions": {
+                "var": "object_versions",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "target_key": {
+                "var": "target_key",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "versions": "data",
+              "bucket_versioned": "data",
+              "object_versions": "data",
+              "target_key": "data"
+            },
+            "arrows": [
+              [
+                "versions",
+                "bucket_versioned"
+              ],
+              [
+                "bucket_versioned",
+                "object_versions"
+              ],
+              [
+                "object_versions",
+                "target_key"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Review the lifecycle cleanup rule validator and versioning delete recovery.",
+            "values": {
+              "versions": {
+                "var": "versions",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "bucket_versioned": {
+                "var": "bucket_versioned",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "object_versions": {
+                "var": "object_versions",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "target_key": {
+                "var": "target_key",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "versions": "ok",
+              "bucket_versioned": "ok",
+              "object_versions": "ok",
+              "target_key": "ok"
+            },
+            "arrows": [
+              [
+                "versions",
+                "bucket_versioned"
+              ],
+              [
+                "bucket_versioned",
+                "object_versions"
+              ],
+              [
+                "object_versions",
+                "target_key"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "S Intelligent-Tiering, Object Lock WORM Compliance & Multipart Checksu",
+        "title": "S3 Intelligent-Tiering, Object Lock WORM Compliance & Multipart ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "versions",
+            "label": "versions"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "bucket_versioned",
+            "label": "bucket_versioned"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "object_versions",
+            "label": "object_versions"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "target_key",
+            "label": "target_key"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Configuring automated alerts on incomplete multipart upload metrics.",
+            "values": {
+              "versions": "[{'version_id': 'v1_init', 'is_delete_m…",
+              "bucket_versioned": "True",
+              "object_versions": "[{'version_id': 'v1_init', 'is_delete_m…",
+              "target_key": "'report.pdf'"
+            },
+            "tones": {
+              "versions": "data",
+              "bucket_versioned": "data",
+              "object_versions": "data",
+              "target_key": "data"
+            },
+            "arrows": [
+              [
+                "versions",
+                "bucket_versioned"
+              ],
+              [
+                "bucket_versioned",
+                "object_versions"
+              ],
+              [
+                "object_versions",
+                "target_key"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Lifecycle expiration rules that automatically purge incomplete multipart.",
+            "values": {
+              "versions": "[{'version_id': 'v1_init', 'is_delete_m…",
+              "bucket_versioned": "True",
+              "object_versions": "[{'version_id': 'v1_init', 'is_delete_m…",
+              "target_key": "'report.pdf'"
+            },
+            "tones": {
+              "versions": "data",
+              "bucket_versioned": "data",
+              "object_versions": "data",
+              "target_key": "data"
+            },
+            "arrows": [
+              [
+                "versions",
+                "bucket_versioned"
+              ],
+              [
+                "bucket_versioned",
+                "object_versions"
+              ],
+              [
+                "object_versions",
+                "target_key"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Review the lifecycle cleanup rule validator and versioning delete recovery.",
+            "values": {
+              "versions": "[{'version_id': 'v1_init', 'is_delete_m…",
+              "bucket_versioned": "True",
+              "object_versions": "[{'version_id': 'v1_init', 'is_delete_m…",
+              "target_key": "'report.pdf'"
+            },
+            "tones": {
+              "versions": "ok",
+              "bucket_versioned": "ok",
+              "object_versions": "ok",
+              "target_key": "ok"
+            },
+            "arrows": [
+              [
+                "versions",
+                "bucket_versioned"
+              ],
+              [
+                "bucket_versioned",
+                "object_versions"
+              ],
+              [
+                "object_versions",
+                "target_key"
+              ]
             ]
           }
         ]
@@ -1071,265 +839,279 @@
     },
     {
       "partTitle": "S3 Intelligent-Tiering, Object Lock WORM Compliance & Multipart Checksums — Production Telemetry & Verification Audit",
-      "codeHash": "024a554a578ddb85915df77ae352b5d23e0dbcc5dac0d707afb8685e3d3b8cb0",
+      "codeHash": "80df56b73cfedd3351c2aa33bedefe2002106ee8a5cf7504fe11d5a92cada195",
       "spec": {
         "template": "flow",
-        "title": "S Intelligent-Tiering, Object Lock WORM Compliance & Multipart Checksu",
+        "title": "S3 Intelligent-Tiering, Object Lock WORM Compliance & Multipart ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "b_compliant",
+            "label": "b_compliant"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "b_risky",
+            "label": "b_risky"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "bucket_config",
+            "label": "bucket_config"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "issues",
+            "label": "issues"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated policy analyzers evaluate bucket permissions continuously.",
+            "values": {
+              "b_compliant": {
+                "var": "b_compliant",
+                "line": 17,
+                "hit": 1
+              },
+              "b_risky": {
+                "var": "b_risky",
+                "line": 24,
+                "hit": 1
+              },
+              "bucket_config": {
+                "var": "bucket_config",
+                "line": 4,
+                "hit": 1
+              },
+              "issues": {
+                "var": "issues",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "b_compliant": "data",
+              "b_risky": "data",
+              "bucket_config": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "b_compliant",
+                "b_risky"
+              ],
+              [
+                "b_risky",
+                "bucket_config"
+              ],
+              [
+                "bucket_config",
+                "issues"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Amazon S3 Storage Lens dashboards synthesize organization-wide metrics.",
+            "values": {
+              "b_compliant": {
+                "var": "b_compliant",
+                "line": 25,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "b_risky": {
+                "var": "b_risky",
+                "line": 32,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "bucket_config": {
+                "var": "bucket_config",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "issues": {
+                "var": "issues",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "b_compliant": "data",
+              "b_risky": "data",
+              "bucket_config": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "b_compliant",
+                "b_risky"
+              ],
+              [
+                "b_risky",
+                "bucket_config"
+              ],
+              [
+                "bucket_config",
+                "issues"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Execute the S3 Storage Lens posture audit and WORM compliance verification.",
+            "values": {
+              "b_compliant": {
+                "var": "b_compliant",
+                "line": 26,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "b_risky": {
+                "var": "b_risky",
+                "line": 33,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "bucket_config": {
+                "var": "bucket_config",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "issues": {
+                "var": "issues",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "b_compliant": "ok",
+              "b_risky": "ok",
+              "bucket_config": "ok",
+              "issues": "ok"
+            },
+            "arrows": [
+              [
+                "b_compliant",
+                "b_risky"
+              ],
+              [
+                "b_risky",
+                "bucket_config"
+              ],
+              [
+                "bucket_config",
+                "issues"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "S Intelligent-Tiering, Object Lock WORM Compliance & Multipart Checksu",
+        "title": "S3 Intelligent-Tiering, Object Lock WORM Compliance & Multipart ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "b_compliant",
+            "label": "b_compliant"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "b_risky",
+            "label": "b_risky"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "bucket_config",
+            "label": "bucket_config"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "issues",
+            "label": "issues"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated policy analyzers evaluate bucket permissions continuously.",
+            "values": {
+              "b_compliant": "{'encryption_enabled': True, 'block_pub…",
+              "b_risky": "{'encryption_enabled': True, 'block_pub…",
+              "bucket_config": "{'encryption_enabled': True, 'block_pub…",
+              "issues": "[]"
+            },
+            "tones": {
+              "b_compliant": "data",
+              "b_risky": "data",
+              "bucket_config": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "b_compliant",
+                "b_risky"
+              ],
+              [
+                "b_risky",
+                "bucket_config"
+              ],
+              [
+                "bucket_config",
+                "issues"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Amazon S3 Storage Lens dashboards synthesize organization-wide metrics.",
+            "values": {
+              "b_compliant": "{'encryption_enabled': True, 'block_pub…",
+              "b_risky": "{'encryption_enabled': True, 'block_pub…",
+              "bucket_config": "{'encryption_enabled': True, 'block_pub…",
+              "issues": "[]"
+            },
+            "tones": {
+              "b_compliant": "data",
+              "b_risky": "data",
+              "bucket_config": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "b_compliant",
+                "b_risky"
+              ],
+              [
+                "b_risky",
+                "bucket_config"
+              ],
+              [
+                "bucket_config",
+                "issues"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Execute the S3 Storage Lens posture audit and WORM compliance verification.",
+            "values": {
+              "b_compliant": "{'encryption_enabled': True, 'block_pub…",
+              "b_risky": "{'encryption_enabled': True, 'block_pub…",
+              "bucket_config": "{'encryption_enabled': True, 'block_pub…",
+              "issues": "[]"
+            },
+            "tones": {
+              "b_compliant": "ok",
+              "b_risky": "ok",
+              "bucket_config": "ok",
+              "issues": "ok"
+            },
+            "arrows": [
+              [
+                "b_compliant",
+                "b_risky"
+              ],
+              [
+                "b_risky",
+                "bucket_config"
+              ],
+              [
+                "bucket_config",
+                "issues"
+              ]
             ]
           }
         ]

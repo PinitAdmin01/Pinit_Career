@@ -2,1335 +2,973 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 54,
-  "promptSha": "6a78f66c0c39c04597c24d744227ed94a01ce40fa44980948d61e7946bb7fad6",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Streaming SSE Token Assemblers, Tool-Call Delta Merging & Backpressure — Foundations & Mathematical Invariants",
-      "codeHash": "c46683067f3a3e4d14b61afdad540b8462f5c3dafcbbe28873a56a13b2f37d5c",
+      "partTitle": "Parsing Multi-Line SSE Frames and [DONE] Sentinels Cleanly",
+      "codeHash": "2a8fffacaf54de91890655d410bd84d7a6b7a87267c465199db2bd199becffb4",
       "spec": {
         "template": "flow",
-        "title": "Streaming SSE Token Assemblers, Tool-Call Delta Merging & Backpressure",
+        "title": "Parsing Multi-Line SSE Frames and [DONE] Sentinels Cleanly",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "tcp_reads",
+            "label": "tcp_reads"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "raw_chunks",
+            "label": "raw_chunks"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "buf",
+            "label": "buf"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "events",
+            "label": "events"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "at": "say1",
+            "caption": "Interactive AI interfaces stream tokens cleanly via **Server-Sent Events.",
+            "values": {
+              "tcp_reads": {
+                "var": "tcp_reads",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "raw_chunks": {
+                "var": "raw_chunks",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "buf": {
+                "var": "buf",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "events": {
+                "var": "events",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "tcp_reads": "data",
+              "raw_chunks": "data",
+              "buf": "data",
+              "events": "data"
+            },
+            "arrows": [
+              [
+                "tcp_reads",
+                "raw_chunks"
+              ],
+              [
+                "raw_chunks",
+                "buf"
+              ],
+              [
+                "buf",
+                "events"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Yet production HTTP clients never read neat single-line callbacks cleanly.",
+            "values": {
+              "tcp_reads": {
+                "var": "tcp_reads",
+                "line": 25,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "raw_chunks": {
+                "var": "raw_chunks",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "buf": {
+                "var": "buf",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "events": {
+                "var": "events",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "tcp_reads": "data",
+              "raw_chunks": "data",
+              "buf": "data",
+              "events": "data"
+            },
+            "arrows": [
+              [
+                "tcp_reads",
+                "raw_chunks"
+              ],
+              [
+                "raw_chunks",
+                "buf"
+              ],
+              [
+                "buf",
+                "events"
+              ]
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "caption": "Run parse_sse_chunks() demonstrating exact recovery even when TCP slices.",
+            "values": {
+              "tcp_reads": {
+                "var": "tcp_reads",
+                "line": 25,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "raw_chunks": {
+                "var": "raw_chunks",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "buf": {
+                "var": "buf",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "events": {
+                "var": "events",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "tcp_reads": "ok",
+              "raw_chunks": "ok",
+              "buf": "ok",
+              "events": "ok"
+            },
+            "arrows": [
+              [
+                "tcp_reads",
+                "raw_chunks"
+              ],
+              [
+                "raw_chunks",
+                "buf"
+              ],
+              [
+                "buf",
+                "events"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Streaming SSE Token Assemblers, Tool-Call Delta Merging & Backpressure",
+        "title": "Parsing Multi-Line SSE Frames and [DONE] Sentinels Cleanly",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "tcp_reads",
+            "label": "tcp_reads"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "raw_chunks",
+            "label": "raw_chunks"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "buf",
+            "label": "buf"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "events",
+            "label": "events"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "at": "say1",
+            "caption": "Interactive AI interfaces stream tokens cleanly via **Server-Sent Events.",
+            "values": {
+              "tcp_reads": "[': ping\ndata: {\"tok\": \"Hel', 'lo \"}\n\nd…",
+              "raw_chunks": "[': ping\ndata: {\"tok\": \"Hel', 'lo \"}\n\nd…",
+              "buf": "''",
+              "events": "[]"
+            },
+            "tones": {
+              "tcp_reads": "data",
+              "raw_chunks": "data",
+              "buf": "data",
+              "events": "data"
+            },
+            "arrows": [
+              [
+                "tcp_reads",
+                "raw_chunks"
+              ],
+              [
+                "raw_chunks",
+                "buf"
+              ],
+              [
+                "buf",
+                "events"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "at": "say2",
+            "caption": "Yet production HTTP clients never read neat single-line callbacks cleanly.",
+            "values": {
+              "tcp_reads": "[': ping\ndata: {\"tok\": \"Hel', 'lo \"}\n\nd…",
+              "raw_chunks": "[': ping\ndata: {\"tok\": \"Hel', 'lo \"}\n\nd…",
+              "buf": "''",
+              "events": "[]"
+            },
+            "tones": {
+              "tcp_reads": "data",
+              "raw_chunks": "data",
+              "buf": "data",
+              "events": "data"
+            },
+            "arrows": [
+              [
+                "tcp_reads",
+                "raw_chunks"
+              ],
+              [
+                "raw_chunks",
+                "buf"
+              ],
+              [
+                "buf",
+                "events"
+              ]
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "caption": "Run parse_sse_chunks() demonstrating exact recovery even when TCP slices.",
+            "values": {
+              "tcp_reads": "[': ping\ndata: {\"tok\": \"Hel', 'lo \"}\n\nd…",
+              "raw_chunks": "[': ping\ndata: {\"tok\": \"Hel', 'lo \"}\n\nd…",
+              "buf": "''",
+              "events": "[]"
+            },
+            "tones": {
+              "tcp_reads": "ok",
+              "raw_chunks": "ok",
+              "buf": "ok",
+              "events": "ok"
+            },
+            "arrows": [
+              [
+                "tcp_reads",
+                "raw_chunks"
+              ],
+              [
+                "raw_chunks",
+                "buf"
+              ],
+              [
+                "buf",
+                "events"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Streaming SSE Token Assemblers, Tool-Call Delta Merging & Backpressure — Core Algorithm & State Representation",
-      "codeHash": "3657fd580a73eef95d4c9b17c995bf743ff0940934999ecd45668e32f5cbdfb2",
+      "partTitle": "Merging Indexed Tool-Call Argument Deltas Across Stream Frames",
+      "codeHash": "9960afcc5d2d9e76e365c144d622bcfb9f150433f4e406e79d1ceaa9d339b2e8",
       "spec": {
-        "template": "flow",
-        "title": "Streaming SSE Token Assemblers, Tool-Call Delta Merging & Backpressure",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Merging Indexed Tool-Call Argument Deltas Across Stream Frames",
+        "actors": [
+          "stream",
+          "deltas",
+          "slots"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Streaming plain prose words renders right onto screens cleanly.",
+            "activeActor": "stream",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "stream",
+                "to": "deltas",
+                "label": {
+                  "var": "stream",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "deltas",
+                "to": "slots",
+                "label": {
+                  "var": "deltas",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Parallel tool calling interleaves **multiple concurrent indices (`index=0`.",
+            "activeActor": "deltas",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "stream",
+                "to": "deltas",
+                "label": {
+                  "var": "stream",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "deltas",
+                "to": "slots",
+                "label": {
+                  "var": "deltas",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Inspect merge_tool_deltas() reconstructing two parallel interleaved API.",
+            "activeActor": "slots",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "stream",
+                "to": "deltas",
+                "label": {
+                  "var": "stream",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "deltas",
+                "to": "slots",
+                "label": {
+                  "var": "deltas",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Streaming SSE Token Assemblers, Tool-Call Delta Merging & Backpressure",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Merging Indexed Tool-Call Argument Deltas Across Stream Frames",
+        "actors": [
+          "stream",
+          "deltas",
+          "slots"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Streaming plain prose words renders right onto screens cleanly.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "stream",
+                "to": "deltas",
+                "label": "[{'index': 0, 'id': 'call_a', 'name': '…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "deltas",
+                "to": "slots",
+                "label": "[{'index': 0, 'id': 'call_a', 'name': '…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "stream"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Parallel tool calling interleaves **multiple concurrent indices (`index=0`.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "stream",
+                "to": "deltas",
+                "label": "[{'index': 0, 'id': 'call_a', 'name': '…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "deltas",
+                "to": "slots",
+                "label": "[{'index': 0, 'id': 'call_a', 'name': '…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "deltas"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Inspect merge_tool_deltas() reconstructing two parallel interleaved API.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "stream",
+                "to": "deltas",
+                "label": "[{'index': 0, 'id': 'call_a', 'name': '…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "deltas",
+                "to": "slots",
+                "label": "[{'index': 0, 'id': 'call_a', 'name': '…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "slots"
           }
         ]
       }
     },
     {
-      "partTitle": "Streaming SSE Token Assemblers, Tool-Call Delta Merging & Backpressure — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "a2fa1293178bf365c852b484b682a2713e457d8820d8247bf2c716ae964b6f73",
+      "partTitle": "Guarding Mid-Stream Multi-Byte UTF-8 Surrogates and Emojis",
+      "codeHash": "56343c4884e9dac2276b868d362c2bc6fa63cedcd9009966f6d43c50afbbe595",
       "spec": {
-        "template": "flow",
-        "title": "Streaming SSE Token Assemblers, Tool-Call Delta Merging & Backpressure",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Guarding Mid-Stream Multi-Byte UTF-8 Surrogates and Emojis",
+        "actors": [
+          "raw",
+          "split_chunks",
+          "byte_chunks"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Raw HTTP chunk generators yielding fixed `byte_size` byte slices can split.",
+            "activeActor": "raw",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "split_chunks",
+                "label": {
+                  "var": "raw",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "split_chunks",
+                "to": "byte_chunks",
+                "label": {
+                  "var": "split_chunks",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how calling updates decode during execution.",
+            "activeActor": "split_chunks",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "raw",
+                "to": "split_chunks",
+                "label": {
+                  "var": "raw",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "split_chunks",
+                "to": "byte_chunks",
+                "label": {
+                  "var": "split_chunks",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect decode_split_utf8() smoothly streaming a sliced multi-byte.",
+            "activeActor": "byte_chunks",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "raw",
+                "to": "split_chunks",
+                "label": {
+                  "var": "raw",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "split_chunks",
+                "to": "byte_chunks",
+                "label": {
+                  "var": "split_chunks",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Streaming SSE Token Assemblers, Tool-Call Delta Merging & Backpressure",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Guarding Mid-Stream Multi-Byte UTF-8 Surrogates and Emojis",
+        "actors": [
+          "raw",
+          "split_chunks",
+          "byte_chunks"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Raw HTTP chunk generators yielding fixed `byte_size` byte slices can split.",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "split_chunks",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "data"
+              },
+              {
+                "from": "split_chunks",
+                "to": "byte_chunks",
+                "label": "[{'__other__': 'bytes'}, {'__other__': …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "raw"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how calling updates decode during execution.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "raw",
+                "to": "split_chunks",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "split_chunks",
+                "to": "byte_chunks",
+                "label": "[{'__other__': 'bytes'}, {'__other__': …",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "split_chunks"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect decode_split_utf8() smoothly streaming a sliced multi-byte.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "raw",
+                "to": "split_chunks",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "split_chunks",
+                "to": "byte_chunks",
+                "label": "[{'__other__': 'bytes'}, {'__other__': …",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "byte_chunks"
           }
         ]
       }
     },
     {
-      "partTitle": "Streaming SSE Token Assemblers, Tool-Call Delta Merging & Backpressure — Resilience Guardrails & Failure Recovery",
-      "codeHash": "7f2f0785eeed9b466d8b3f3f7c4f673b14cefb6542fa6dbc9733354a962a0212",
+      "partTitle": "Bounded Consumer Queues and Backpressure Handling Under Slow Clients",
+      "codeHash": "4fa342ed3adb251112a7e4ef73082e142719b9f5c0d0424b5e371286be5691ed",
       "spec": {
-        "template": "flow",
-        "title": "Streaming SSE Token Assemblers, Tool-Call Delta Merging & Backpressure",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Bounded Consumer Queues and Backpressure Handling Under Slow Cli",
+        "actors": [
+          "produced_tokens",
+          "drain_per_step",
+          "max_queue"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how streaming updates tokens during execution.",
+            "activeActor": "produced_tokens",
+            "messages": [
+              {
+                "from": "produced_tokens",
+                "to": "drain_per_step",
+                "label": {
+                  "var": "produced_tokens",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "drain_per_step",
+                "to": "max_queue",
+                "label": {
+                  "var": "drain_per_step",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Using an **unbounded queue (`asyncio.",
+            "activeActor": "drain_per_step",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "produced_tokens",
+                "to": "drain_per_step",
+                "label": {
+                  "var": "produced_tokens",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "drain_per_step",
+                "to": "max_queue",
+                "label": {
+                  "var": "drain_per_step",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Simulate handle_bounded_stream() testing smooth healthy drains vs clean.",
+            "activeActor": "max_queue",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "produced_tokens",
+                "to": "drain_per_step",
+                "label": {
+                  "var": "produced_tokens",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "drain_per_step",
+                "to": "max_queue",
+                "label": {
+                  "var": "drain_per_step",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Streaming SSE Token Assemblers, Tool-Call Delta Merging & Backpressure",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Bounded Consumer Queues and Backpressure Handling Under Slow Cli",
+        "actors": [
+          "produced_tokens",
+          "drain_per_step",
+          "max_queue"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how streaming updates tokens during execution.",
+            "messages": [
+              {
+                "from": "produced_tokens",
+                "to": "drain_per_step",
+                "label": "['t1', 't2', 't3', 't4', 't5']",
+                "tone": "data"
+              },
+              {
+                "from": "drain_per_step",
+                "to": "max_queue",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "produced_tokens"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Using an **unbounded queue (`asyncio.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "produced_tokens",
+                "to": "drain_per_step",
+                "label": "['t1', 't2', 't3', 't4', 't5']",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "drain_per_step",
+                "to": "max_queue",
+                "label": "1",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "drain_per_step"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Simulate handle_bounded_stream() testing smooth healthy drains vs clean.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "produced_tokens",
+                "to": "drain_per_step",
+                "label": "['t1', 't2', 't3', 't4', 't5']",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "drain_per_step",
+                "to": "max_queue",
+                "label": "1",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "max_queue"
           }
         ]
       }
     },
     {
-      "partTitle": "Streaming SSE Token Assemblers, Tool-Call Delta Merging & Backpressure — Production Telemetry & Verification Audit",
-      "codeHash": "c0b3141a50844c381acfb874b85190324ba22b8da6f3b33c78f29c39c4439fcb",
+      "partTitle": "Mid-Stream Cancel Settlement & Partial Usage Attribution",
+      "codeHash": "8aba7c4368011500878c04322d563387a71c0ea050bd2853e172a6d87e4ef790",
       "spec": {
-        "template": "flow",
-        "title": "Streaming SSE Token Assemblers, Tool-Call Delta Merging & Backpressure",
-        "nodes": [
+        "template": "boxes",
+        "title": "Mid-Stream Cancel Settlement & Partial Usage Attribution",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "reserved_usd",
+            "label": "reserved_usd"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cost_per_tok",
+            "label": "cost_per_tok"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "emitted_tokens",
+            "label": "emitted_tokens"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "cache_write_ok",
+            "label": "cache_write_ok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Users frequently tap `'Stop generating'` two paragraphs into an expensive.",
+            "values": {
+              "reserved_usd": {
+                "var": "reserved_usd",
+                "line": 2,
+                "hit": 1
+              },
+              "cost_per_tok": {
+                "var": "cost_per_tok",
+                "line": 2,
+                "hit": 1
+              },
+              "emitted_tokens": {
+                "var": "emitted_tokens",
+                "line": 2,
+                "hit": 1
+              },
+              "cache_write_ok": {
+                "var": "cache_write_ok",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "reserved_usd": "data",
+              "cost_per_tok": "data",
+              "emitted_tokens": "data",
+              "cache_write_ok": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Think about what breaks across naive wrappers if mid-stream cancellation.",
+            "values": {
+              "reserved_usd": {
+                "var": "reserved_usd",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "cost_per_tok": {
+                "var": "cost_per_tok",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "emitted_tokens": {
+                "var": "emitted_tokens",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "cache_write_ok": {
+                "var": "cache_write_ok",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "reserved_usd": "data",
+              "cost_per_tok": "data",
+              "emitted_tokens": "data",
+              "cache_write_ok": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Inspect close_canceled_stream() proving exact refund recovery and strict.",
+            "values": {
+              "reserved_usd": {
+                "var": "reserved_usd",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "cost_per_tok": {
+                "var": "cost_per_tok",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "emitted_tokens": {
+                "var": "emitted_tokens",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "cache_write_ok": {
+                "var": "cache_write_ok",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "reserved_usd": "ok",
+              "cost_per_tok": "ok",
+              "emitted_tokens": "ok",
+              "cache_write_ok": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Streaming SSE Token Assemblers, Tool-Call Delta Merging & Backpressure",
-        "nodes": [
+        "template": "boxes",
+        "title": "Mid-Stream Cancel Settlement & Partial Usage Attribution",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "reserved_usd",
+            "label": "reserved_usd"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cost_per_tok",
+            "label": "cost_per_tok"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "emitted_tokens",
+            "label": "emitted_tokens"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "cache_write_ok",
+            "label": "cache_write_ok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Users frequently tap `'Stop generating'` two paragraphs into an expensive.",
+            "values": {
+              "reserved_usd": "0.05",
+              "cost_per_tok": "0.00002",
+              "emitted_tokens": "180",
+              "cache_write_ok": "True"
+            },
+            "tones": {
+              "reserved_usd": "data",
+              "cost_per_tok": "data",
+              "emitted_tokens": "data",
+              "cache_write_ok": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Think about what breaks across naive wrappers if mid-stream cancellation.",
+            "values": {
+              "reserved_usd": "0.05",
+              "cost_per_tok": "0.00002",
+              "emitted_tokens": "180",
+              "cache_write_ok": "True"
+            },
+            "tones": {
+              "reserved_usd": "data",
+              "cost_per_tok": "data",
+              "emitted_tokens": "data",
+              "cache_write_ok": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say7",
+            "caption": "Inspect close_canceled_stream() proving exact refund recovery and strict.",
+            "values": {
+              "reserved_usd": "0.05",
+              "cost_per_tok": "0.00002",
+              "emitted_tokens": "180",
+              "cache_write_ok": "True"
+            },
+            "tones": {
+              "reserved_usd": "ok",
+              "cost_per_tok": "ok",
+              "emitted_tokens": "ok",
+              "cache_write_ok": "ok"
+            }
           }
         ]
       }

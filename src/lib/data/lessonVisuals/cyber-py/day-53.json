@@ -2,536 +2,448 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 53,
-  "promptSha": "70f7e6d1d89fb8470407e7e06d261ecfd21554524caf26c18e2f0e6d8beeb406",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Container Security Hardening — Foundations & Mathematical Invariants",
-      "codeHash": "b22f6d9205d86e4fbebceceb7e02b4a43f26c1c8a6b2782df1e391bc7cf2298b",
+      "codeHash": "e0645c4270d4917828c7b3c73c50e77dae5bcfef3d23cc063db3651b4dd6f2fa",
       "spec": {
-        "template": "flow",
-        "title": "Container Security Hardening — Foundations & Mathematical Invariants",
-        "nodes": [
+        "template": "boxes",
+        "title": "Container Security Hardening — Foundations & Mathematical Invari",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "CONTAINER_SECURITY_PILLARS",
+            "label": "CONTAINER_SECURITY_PILLARS"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "pillar",
+            "label": "pillar"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "summary",
+            "label": "summary"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Containers share the underlying host operating system kernel, relying.",
+            "values": {
+              "CONTAINER_SECURITY_PILLARS": {
+                "var": "CONTAINER_SECURITY_PILLARS",
+                "line": 1,
+                "hit": 1
+              },
+              "pillar": {
+                "var": "pillar",
+                "line": 7,
+                "hit": 1
+              },
+              "summary": {
+                "var": "summary",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "CONTAINER_SECURITY_PILLARS": "data",
+              "pillar": "data",
+              "summary": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Trace how because updates kernel during execution.",
+            "values": {
+              "CONTAINER_SECURITY_PILLARS": {
+                "var": "CONTAINER_SECURITY_PILLARS",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "pillar": {
+                "var": "pillar",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "summary": {
+                "var": "summary",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "CONTAINER_SECURITY_PILLARS": "data",
+              "pillar": "data",
+              "summary": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "Cloud security architects enforce least-privilege container configurations.",
+            "values": {
+              "CONTAINER_SECURITY_PILLARS": {
+                "var": "CONTAINER_SECURITY_PILLARS",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "pillar": {
+                "var": "pillar",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "summary": {
+                "var": "summary",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "CONTAINER_SECURITY_PILLARS": "ok",
+              "pillar": "ok",
+              "summary": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Container Security Hardening — Foundations & Mathematical Invariants",
-        "nodes": [
+        "template": "boxes",
+        "title": "Container Security Hardening — Foundations & Mathematical Invari",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "CONTAINER_SECURITY_PILLARS",
+            "label": "CONTAINER_SECURITY_PILLARS"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "pillar",
+            "label": "pillar"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "summary",
+            "label": "summary"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Containers share the underlying host operating system kernel, relying.",
+            "values": {
+              "CONTAINER_SECURITY_PILLARS": "{'ROOTLESS_USER': 'Running container pr…",
+              "pillar": "'CAPABILITY_DROP'",
+              "summary": "'Dropping dangerous Linux capabilities …"
+            },
+            "tones": {
+              "CONTAINER_SECURITY_PILLARS": "data",
+              "pillar": "data",
+              "summary": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Trace how because updates kernel during execution.",
+            "values": {
+              "CONTAINER_SECURITY_PILLARS": "{'ROOTLESS_USER': 'Running container pr…",
+              "pillar": "'CAPABILITY_DROP'",
+              "summary": "'Dropping dangerous Linux capabilities …"
+            },
+            "tones": {
+              "CONTAINER_SECURITY_PILLARS": "data",
+              "pillar": "data",
+              "summary": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say11",
+            "caption": "Cloud security architects enforce least-privilege container configurations.",
+            "values": {
+              "CONTAINER_SECURITY_PILLARS": "{'ROOTLESS_USER': 'Running container pr…",
+              "pillar": "'READONLY_ROOTFS'",
+              "summary": "'Mounting the root container filesystem…"
+            },
+            "tones": {
+              "CONTAINER_SECURITY_PILLARS": "ok",
+              "pillar": "ok",
+              "summary": "ok"
+            }
           }
         ]
       }
     },
     {
       "partTitle": "Container Security Hardening — Core Algorithm & State Representation",
-      "codeHash": "95961455717bd3c3f4761fe0a9b5db1888b2f7351a0bdcf799cbec65d8edef6b",
+      "codeHash": "ab62a897686cfcf1a609ad93abd61b99fd42347ddd03a51a3e82f976ce5bc5e0",
       "spec": {
         "template": "flow",
-        "title": "Container Security Hardening — Core Algorithm & State Representation",
+        "title": "Container Security Hardening — Core Algorithm & State Representa",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "hardened_drop",
+            "label": "hardened_drop"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "hardened_add",
+            "label": "hardened_add"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "insecure_drop",
+            "label": "insecure_drop"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "insecure_add",
+            "label": "insecure_add"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The capability auditing algorithm evaluates container manifests against.",
+            "values": {
+              "hardened_drop": {
+                "var": "hardened_drop",
+                "line": 15,
+                "hit": 1
+              },
+              "hardened_add": {
+                "var": "hardened_add",
+                "line": 16,
+                "hit": 1
+              },
+              "insecure_drop": {
+                "var": "insecure_drop",
+                "line": 17,
+                "hit": 1
+              },
+              "insecure_add": {
+                "var": "insecure_add",
+                "line": 18,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "hardened_drop": "data",
+              "hardened_add": "data",
+              "insecure_drop": "data",
+              "insecure_add": "data"
+            },
+            "arrows": [
+              [
+                "hardened_drop",
+                "hardened_add"
+              ],
+              [
+                "hardened_add",
+                "insecure_drop"
+              ],
+              [
+                "insecure_drop",
+                "insecure_add"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Standard best practice dictates dropping all capabilities (`drop.",
+            "values": {
+              "hardened_drop": {
+                "var": "hardened_drop",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "hardened_add": {
+                "var": "hardened_add",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "insecure_drop": {
+                "var": "insecure_drop",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "insecure_add": {
+                "var": "insecure_add",
+                "line": 20,
+                "hit": 1
               }
+            },
+            "tones": {
+              "hardened_drop": "data",
+              "hardened_add": "data",
+              "insecure_drop": "data",
+              "insecure_add": "data"
+            },
+            "arrows": [
+              [
+                "hardened_drop",
+                "hardened_add"
+              ],
+              [
+                "hardened_add",
+                "insecure_drop"
+              ],
+              [
+                "insecure_drop",
+                "insecure_add"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Kubernetes admission controllers inspect pod capability specifications.",
+            "values": {
+              "hardened_drop": {
+                "var": "hardened_drop",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "hardened_add": {
+                "var": "hardened_add",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "insecure_drop": {
+                "var": "insecure_drop",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "insecure_add": {
+                "var": "insecure_add",
+                "line": 21,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "hardened_drop": "ok",
+              "hardened_add": "ok",
+              "insecure_drop": "ok",
+              "insecure_add": "ok"
+            },
+            "arrows": [
+              [
+                "hardened_drop",
+                "hardened_add"
+              ],
+              [
+                "hardened_add",
+                "insecure_drop"
+              ],
+              [
+                "insecure_drop",
+                "insecure_add"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Container Security Hardening — Core Algorithm & State Representation",
+        "title": "Container Security Hardening — Core Algorithm & State Representa",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "hardened_drop",
+            "label": "hardened_drop"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "hardened_add",
+            "label": "hardened_add"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "insecure_drop",
+            "label": "insecure_drop"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "insecure_add",
+            "label": "insecure_add"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The capability auditing algorithm evaluates container manifests against.",
+            "values": {
+              "hardened_drop": "['ALL']",
+              "hardened_add": "['CAP_NET_BIND_SERVICE']",
+              "insecure_drop": "['CAP_SYS_CHROOT']",
+              "insecure_add": "['CAP_SYS_ADMIN']"
+            },
+            "tones": {
+              "hardened_drop": "data",
+              "hardened_add": "data",
+              "insecure_drop": "data",
+              "insecure_add": "data"
+            },
+            "arrows": [
+              [
+                "hardened_drop",
+                "hardened_add"
+              ],
+              [
+                "hardened_add",
+                "insecure_drop"
+              ],
+              [
+                "insecure_drop",
+                "insecure_add"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Standard best practice dictates dropping all capabilities (`drop.",
+            "values": {
+              "hardened_drop": "['ALL']",
+              "hardened_add": "['CAP_NET_BIND_SERVICE']",
+              "insecure_drop": "['CAP_SYS_CHROOT']",
+              "insecure_add": "['CAP_SYS_ADMIN']"
+            },
+            "tones": {
+              "hardened_drop": "data",
+              "hardened_add": "data",
+              "insecure_drop": "data",
+              "insecure_add": "data"
+            },
+            "arrows": [
+              [
+                "hardened_drop",
+                "hardened_add"
+              ],
+              [
+                "hardened_add",
+                "insecure_drop"
+              ],
+              [
+                "insecure_drop",
+                "insecure_add"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Kubernetes admission controllers inspect pod capability specifications.",
+            "values": {
+              "hardened_drop": "['ALL']",
+              "hardened_add": "['CAP_NET_BIND_SERVICE']",
+              "insecure_drop": "['CAP_SYS_CHROOT']",
+              "insecure_add": "['CAP_SYS_ADMIN']"
+            },
+            "tones": {
+              "hardened_drop": "ok",
+              "hardened_add": "ok",
+              "insecure_drop": "ok",
+              "insecure_add": "ok"
+            },
+            "arrows": [
+              [
+                "hardened_drop",
+                "hardened_add"
+              ],
+              [
+                "hardened_add",
+                "insecure_drop"
+              ],
+              [
+                "insecure_drop",
+                "insecure_add"
+              ]
             ]
           }
         ]
@@ -539,798 +451,380 @@
     },
     {
       "partTitle": "Container Security Hardening — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "70634a366c95ffbeda54bf79e94a4a54156aa15f72c4e613e0abb7e8a6d697f2",
+      "codeHash": "f09f5b1651878e21b9af98cabfc6c29284df91854cab247f58cc7eac574a0970",
       "spec": {
-        "template": "flow",
-        "title": "Container Security Hardening — Throughput Optimization & Edge-Case Han",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Container Security Hardening — Throughput Optimization & Edge-Ca",
+        "actors": [
+          "hardened_profile",
+          "profile_dict",
+          "default_action"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Linux system calls are the interface through which user-space processes.",
+            "activeActor": "hardened_profile",
+            "messages": [
+              {
+                "from": "hardened_profile",
+                "to": "profile_dict",
+                "label": {
+                  "var": "hardened_profile",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "profile_dict",
+                "to": "default_action",
+                "label": {
+                  "var": "profile_dict",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how roughly updates linux during execution.",
+            "activeActor": "profile_dict",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "hardened_profile",
+                "to": "profile_dict",
+                "label": {
+                  "var": "hardened_profile",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "profile_dict",
+                "to": "default_action",
+                "label": {
+                  "var": "profile_dict",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Hardened seccomp-BPF profiles intercept disallowed system calls at.",
+            "activeActor": "default_action",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "hardened_profile",
+                "to": "profile_dict",
+                "label": {
+                  "var": "hardened_profile",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "profile_dict",
+                "to": "default_action",
+                "label": {
+                  "var": "profile_dict",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Container Security Hardening — Throughput Optimization & Edge-Case Han",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Container Security Hardening — Throughput Optimization & Edge-Ca",
+        "actors": [
+          "hardened_profile",
+          "profile_dict",
+          "default_action"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Linux system calls are the interface through which user-space processes.",
+            "messages": [
+              {
+                "from": "hardened_profile",
+                "to": "profile_dict",
+                "label": "{'defaultAction': 'SCMP_ACT_ERRNO', 'sy…",
+                "tone": "data"
+              },
+              {
+                "from": "profile_dict",
+                "to": "default_action",
+                "label": "{'defaultAction': 'SCMP_ACT_ERRNO', 'sy…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "hardened_profile"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how roughly updates linux during execution.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "hardened_profile",
+                "to": "profile_dict",
+                "label": "{'defaultAction': 'SCMP_ACT_ERRNO', 'sy…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "profile_dict",
+                "to": "default_action",
+                "label": "{'defaultAction': 'SCMP_ACT_ERRNO', 'sy…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "profile_dict"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Hardened seccomp-BPF profiles intercept disallowed system calls at.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "hardened_profile",
+                "to": "profile_dict",
+                "label": "{'defaultAction': 'SCMP_ACT_ERRNO', 'sy…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "profile_dict",
+                "to": "default_action",
+                "label": "{'defaultAction': 'SCMP_ACT_ERRNO', 'sy…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "default_action"
           }
         ]
       }
     },
     {
       "partTitle": "Container Security Hardening — Resilience Guardrails & Failure Recovery",
-      "codeHash": "7385be70f9d5d1e2257cd7dfb529b141e05246f3c20ca2f70bb6124e5c71040c",
+      "codeHash": "74a8e951e00fbca193e4b3c11e05f8b15db398cc268328d3234b5167dbeb7663",
       "spec": {
-        "template": "flow",
-        "title": "Container Security Hardening — Resilience Guardrails & Failure Recover",
-        "nodes": [
+        "template": "states",
+        "title": "Container Security Hardening — Resilience Guardrails & Failure R",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "secure_ctx",
+            "label": "secure_ctx"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "root_ctx",
+            "label": "root_ctx"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "security_context",
+            "label": "security_context"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enforcing rootless execution guarantees that containerized processes run.",
+            "currentState": "secure_ctx",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The rootless container guardrail evaluates the pod `securityContext`.",
+            "currentState": "root_ctx",
+            "transition": {
+              "from": "secure_ctx",
+              "to": "root_ctx",
+              "label": {
+                "var": "root_ctx",
+                "line": 17,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Enforcing rootless execution combined with read-only root filesystems.",
+            "currentState": "security_context",
+            "transition": {
+              "from": "root_ctx",
+              "to": "security_context",
+              "label": {
+                "var": "security_context",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Container Security Hardening — Resilience Guardrails & Failure Recover",
-        "nodes": [
+        "template": "states",
+        "title": "Container Security Hardening — Resilience Guardrails & Failure R",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "secure_ctx",
+            "label": "secure_ctx"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "root_ctx",
+            "label": "root_ctx"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "security_context",
+            "label": "security_context"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enforcing rootless execution guarantees that containerized processes run.",
+            "currentState": "secure_ctx",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The rootless container guardrail evaluates the pod `securityContext`.",
+            "currentState": "root_ctx",
+            "transition": {
+              "from": "secure_ctx",
+              "to": "root_ctx",
+              "label": "{'runAsNonRoot': False, 'runAsUser': 0,…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Enforcing rootless execution combined with read-only root filesystems.",
+            "currentState": "security_context",
+            "transition": {
+              "from": "root_ctx",
+              "to": "security_context",
+              "label": "{'runAsNonRoot': True, 'runAsUser': 100…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Container Security Hardening — Production Telemetry & Verification Audit",
-      "codeHash": "c27239585afc9b56a657551f8dba902cb3f11f4db9f7cdcb4c24c9214a4a8cf4",
+      "codeHash": "89b766d3785c2a32c01510fd7072edfbf3e02532a9c4adcda698734549035f9c",
       "spec": {
-        "template": "flow",
-        "title": "Container Security Hardening — Production Telemetry & Verification Aud",
-        "nodes": [
+        "template": "states",
+        "title": "Container Security Hardening — Production Telemetry & Verificati",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "caps_ok",
+            "label": "caps_ok"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "seccomp_ok",
+            "label": "seccomp_ok"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "rootless_ok",
+            "label": "rootless_ok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing container security requires continuous telemetry.",
+            "currentState": "caps_ok",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "A container runtime certification auditor verifies that all four core.",
+            "currentState": "seccomp_ok",
+            "transition": {
+              "from": "caps_ok",
+              "to": "seccomp_ok",
+              "label": {
+                "var": "seccomp_ok",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Production container clusters maintain continuous telemetry monitoring.",
+            "currentState": "rootless_ok",
+            "transition": {
+              "from": "seccomp_ok",
+              "to": "rootless_ok",
+              "label": {
+                "var": "rootless_ok",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Container Security Hardening — Production Telemetry & Verification Aud",
-        "nodes": [
+        "template": "states",
+        "title": "Container Security Hardening — Production Telemetry & Verificati",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "caps_ok",
+            "label": "caps_ok"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "seccomp_ok",
+            "label": "seccomp_ok"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "rootless_ok",
+            "label": "rootless_ok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing container security requires continuous telemetry.",
+            "currentState": "caps_ok",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "A container runtime certification auditor verifies that all four core.",
+            "currentState": "seccomp_ok",
+            "transition": {
+              "from": "caps_ok",
+              "to": "seccomp_ok",
+              "label": "True"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Production container clusters maintain continuous telemetry monitoring.",
+            "currentState": "rootless_ok",
+            "transition": {
+              "from": "seccomp_ok",
+              "to": "rootless_ok",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }

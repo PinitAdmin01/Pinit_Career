@@ -2,269 +2,181 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 43,
-  "promptSha": "393959e13e47517bf8aeaf486f8c68133f52e4f4d2b19c08250cb2149cd38644",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Limit Order Book Reconstruction from L3 ITCH Add/Modify/Delete Event Streams — Foundations & Mathematical Invariants",
-      "codeHash": "d31b2dbeb7e5fd166fca53c8f70372634fc6bcfc5990f0a81a5775052c9dc2f1",
+      "codeHash": "3f8513ff9aed3ae7cc00deef738c69777c17745e864fbc0342aacac139938912",
       "spec": {
-        "template": "flow",
-        "title": "Limit Order Book Reconstruction from L ITCH Add/Modify/Delete Event St",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Limit Order Book Reconstruction from L3 ITCH Add/Modify/Delete E",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Modern electronic financial exchanges distribute market data through.",
+            "bars": [
+              {
+                "label": "best_bid",
+                "value": {
+                  "var": "best_bid",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "best_ask",
+                "value": {
+                  "var": "best_ask",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "spread",
+                "value": {
+                  "var": "spread",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how unlike updates level during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "best_bid",
+                "value": {
+                  "var": "best_bid",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "best_ask",
+                "value": {
+                  "var": "best_ask",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "spread",
+                "value": {
+                  "var": "spread",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic state maintenance guarantees that trading algorithms.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "best_bid",
+                "value": {
+                  "var": "best_bid",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "best_ask",
+                "value": {
+                  "var": "best_ask",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "spread",
+                "value": {
+                  "var": "spread",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Limit Order Book Reconstruction from L ITCH Add/Modify/Delete Event St",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Limit Order Book Reconstruction from L3 ITCH Add/Modify/Delete E",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Modern electronic financial exchanges distribute market data through.",
+            "bars": [
+              {
+                "label": "best_bid",
+                "value": 100.25,
+                "tone": "data"
+              },
+              {
+                "label": "best_ask",
+                "value": 100.3,
+                "tone": "data"
+              },
+              {
+                "label": "spread",
+                "value": 0.05,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how unlike updates level during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "best_bid",
+                "value": 100.25,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "best_ask",
+                "value": 100.3,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "spread",
+                "value": 0.05,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic state maintenance guarantees that trading algorithms.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "best_bid",
+                "value": 100.25,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "best_ask",
+                "value": 100.3,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "spread",
+                "value": 0.05,
+                "tone": "ok"
               }
             ]
           }
@@ -273,265 +185,279 @@
     },
     {
       "partTitle": "Limit Order Book Reconstruction from L3 ITCH Add/Modify/Delete Event Streams — Core Algorithm & State Representation",
-      "codeHash": "c9da70bfa91c27f21ae9af1f5c19a5f7322ffdcc65afe18e3a1cb06dd20962fa",
+      "codeHash": "969541dd7bdb02e4132a8c08425c0ca83303ac55821a77369a5d261e35d11749",
       "spec": {
         "template": "flow",
-        "title": "Limit Order Book Reconstruction from L ITCH Add/Modify/Delete Event St",
+        "title": "Limit Order Book Reconstruction from L3 ITCH Add/Modify/Delete E",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "engine",
+            "label": "engine"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "order_id",
+            "label": "order_id"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "side",
+            "label": "side"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core L3 reconstruction engine maintains two primary data structures.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 35,
+                "hit": 1
+              },
+              "order_id": {
+                "var": "order_id",
+                "line": 8,
+                "hit": 1
+              },
+              "side": {
+                "var": "side",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "engine": "data",
+              "order_id": "data",
+              "side": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "engine"
+              ],
+              [
+                "engine",
+                "order_id"
+              ],
+              [
+                "order_id",
+                "side"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The Order Index is a hash map mapping order reference IDs to order.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "engine": {
+                "var": "engine",
+                "line": 36,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "order_id": {
+                "var": "order_id",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "side": {
+                "var": "side",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "engine": "data",
+              "order_id": "data",
+              "side": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "engine"
+              ],
+              [
+                "engine",
+                "order_id"
+              ],
+              [
+                "order_id",
+                "side"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Sub-microsecond dictionary lookups enable the engine to track hundreds.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "engine": {
+                "var": "engine",
+                "line": 37,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "order_id": {
+                "var": "order_id",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "side": {
+                "var": "side",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "engine": "ok",
+              "order_id": "ok",
+              "side": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "engine"
+              ],
+              [
+                "engine",
+                "order_id"
+              ],
+              [
+                "order_id",
+                "side"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Limit Order Book Reconstruction from L ITCH Add/Modify/Delete Event St",
+        "title": "Limit Order Book Reconstruction from L3 ITCH Add/Modify/Delete E",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "engine",
+            "label": "engine"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "order_id",
+            "label": "order_id"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "side",
+            "label": "side"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core L3 reconstruction engine maintains two primary data structures.",
+            "values": {
+              "self": "<L3OrderBookEngine>",
+              "engine": "<L3OrderBookEngine>",
+              "order_id": "101",
+              "side": "'BUY'"
+            },
+            "tones": {
+              "self": "data",
+              "engine": "data",
+              "order_id": "data",
+              "side": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "engine"
+              ],
+              [
+                "engine",
+                "order_id"
+              ],
+              [
+                "order_id",
+                "side"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The Order Index is a hash map mapping order reference IDs to order.",
+            "values": {
+              "self": "<L3OrderBookEngine>",
+              "engine": "<L3OrderBookEngine>",
+              "order_id": "101",
+              "side": "'BUY'"
+            },
+            "tones": {
+              "self": "data",
+              "engine": "data",
+              "order_id": "data",
+              "side": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "engine"
+              ],
+              [
+                "engine",
+                "order_id"
+              ],
+              [
+                "order_id",
+                "side"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Sub-microsecond dictionary lookups enable the engine to track hundreds.",
+            "values": {
+              "self": "<L3OrderBookEngine>",
+              "engine": "<L3OrderBookEngine>",
+              "order_id": "101",
+              "side": "'BUY'"
+            },
+            "tones": {
+              "self": "ok",
+              "engine": "ok",
+              "order_id": "ok",
+              "side": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "engine"
+              ],
+              [
+                "engine",
+                "order_id"
+              ],
+              [
+                "order_id",
+                "side"
+              ]
             ]
           }
         ]
@@ -539,530 +465,298 @@
     },
     {
       "partTitle": "Limit Order Book Reconstruction from L3 ITCH Add/Modify/Delete Event Streams — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "311afe2a91fa4a409c94881872fa673824bda5b080d490812b0319f491071e48",
+      "codeHash": "e598ba19a4f12e0bc27c05560e91e24258c8128dcea4a313d4bfcd87ee6ac2e8",
       "spec": {
-        "template": "flow",
-        "title": "Limit Order Book Reconstruction from L ITCH Add/Modify/Delete Event St",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Limit Order Book Reconstruction from L3 ITCH Add/Modify/Delete E",
+        "actors": [
+          "p",
+          "price_float",
+          "tick"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "High-frequency algorithmic trading desks process millions of ITCH packets.",
+            "activeActor": "p",
+            "messages": [
+              {
+                "from": "p",
+                "to": "price_float",
+                "label": {
+                  "var": "p",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "price_float",
+                "to": "tick",
+                "label": {
+                  "var": "price_float",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Standard dynamic Python object allocations and dictionary hash lookups.",
+            "activeActor": "price_float",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "p",
+                "to": "price_float",
+                "label": {
+                  "var": "p",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "price_float",
+                "to": "tick",
+                "label": {
+                  "var": "price_float",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Sub-microsecond message dispatching ensures algorithmic quoting strategies.",
+            "activeActor": "tick",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "p",
+                "to": "price_float",
+                "label": {
+                  "var": "p",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "price_float",
+                "to": "tick",
+                "label": {
+                  "var": "price_float",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Limit Order Book Reconstruction from L ITCH Add/Modify/Delete Event St",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Limit Order Book Reconstruction from L3 ITCH Add/Modify/Delete E",
+        "actors": [
+          "p",
+          "price_float",
+          "tick"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "High-frequency algorithmic trading desks process millions of ITCH packets.",
+            "messages": [
+              {
+                "from": "p",
+                "to": "price_float",
+                "label": "150.25",
+                "tone": "data"
+              },
+              {
+                "from": "price_float",
+                "to": "tick",
+                "label": "150.25",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "p"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Standard dynamic Python object allocations and dictionary hash lookups.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "p",
+                "to": "price_float",
+                "label": "150.25",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "price_float",
+                "to": "tick",
+                "label": "150.25",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "price_float"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Sub-microsecond message dispatching ensures algorithmic quoting strategies.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "p",
+                "to": "price_float",
+                "label": "150.25",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "price_float",
+                "to": "tick",
+                "label": "150.25",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "tick"
           }
         ]
       }
     },
     {
       "partTitle": "Limit Order Book Reconstruction from L3 ITCH Add/Modify/Delete Event Streams — Resilience Guardrails & Failure Recovery",
-      "codeHash": "e3480655345fea6b6c4d0cbe7f189ec09ce231ecb116e38e0fa5337b6fea3cce",
+      "codeHash": "4f3a1ccc21098c6be5d0253cc06219793e206f776fad25d239f1342502929b08",
       "spec": {
-        "template": "flow",
-        "title": "Limit Order Book Reconstruction from L ITCH Add/Modify/Delete Event St",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Limit Order Book Reconstruction from L3 ITCH Add/Modify/Delete E",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operational resilience in L3 book reconstruction requires continuous.",
+            "bars": [
+              {
+                "label": "incoming_seq",
+                "value": {
+                  "var": "incoming_seq",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "gap_size",
+                "value": {
+                  "var": "gap_size",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how itch updates message during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "incoming_seq",
+                "value": {
+                  "var": "incoming_seq",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "gap_size",
+                "value": {
+                  "var": "gap_size",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Automated recovery pathways restore synchronized order book depth within.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "incoming_seq",
+                "value": {
+                  "var": "incoming_seq",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "gap_size",
+                "value": {
+                  "var": "gap_size",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Limit Order Book Reconstruction from L ITCH Add/Modify/Delete Event St",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Limit Order Book Reconstruction from L3 ITCH Add/Modify/Delete E",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operational resilience in L3 book reconstruction requires continuous.",
+            "bars": [
+              {
+                "label": "incoming_seq",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "gap_size",
+                "value": 2,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how itch updates message during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "incoming_seq",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "gap_size",
+                "value": 2,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Automated recovery pathways restore synchronized order book depth within.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "incoming_seq",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "gap_size",
+                "value": 2,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,264 +765,218 @@
     },
     {
       "partTitle": "Limit Order Book Reconstruction from L3 ITCH Add/Modify/Delete Event Streams — Production Telemetry & Verification Audit",
-      "codeHash": "16fa6e6c9c94c898a5a8d8908eb93f5323eae130c445cfd21f66694a701c311f",
+      "codeHash": "f5ae923afcd247c3b5d69befb987f9df995d471ea8d7f808a1c5348a00ff0777",
       "spec": {
-        "template": "flow",
-        "title": "Limit Order Book Reconstruction from L ITCH Add/Modify/Delete Event St",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Limit Order Book Reconstruction from L3 ITCH Add/Modify/Delete E",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for L3 reconstruction engines requires tracking.",
+            "bars": [
+              {
+                "label": "best_bid",
+                "value": {
+                  "var": "best_bid",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "best_ask",
+                "value": {
+                  "var": "best_ask",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bid_vol",
+                "value": {
+                  "var": "bid_vol",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "ask_vol",
+                "value": {
+                  "var": "ask_vol",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Every minute, telemetry collectors calculate message processing rates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "best_bid",
+                "value": {
+                  "var": "best_bid",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "best_ask",
+                "value": {
+                  "var": "best_ask",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "bid_vol",
+                "value": {
+                  "var": "bid_vol",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "ask_vol",
+                "value": {
+                  "var": "ask_vol",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic verification guarantees continuous data integrity across all.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "best_bid",
+                "value": {
+                  "var": "best_bid",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "best_ask",
+                "value": {
+                  "var": "best_ask",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "bid_vol",
+                "value": {
+                  "var": "bid_vol",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "ask_vol",
+                "value": {
+                  "var": "ask_vol",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Limit Order Book Reconstruction from L ITCH Add/Modify/Delete Event St",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Limit Order Book Reconstruction from L3 ITCH Add/Modify/Delete E",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for L3 reconstruction engines requires tracking.",
+            "bars": [
+              {
+                "label": "best_bid",
+                "value": 150.2,
+                "tone": "data"
+              },
+              {
+                "label": "best_ask",
+                "value": 150.25,
+                "tone": "data"
+              },
+              {
+                "label": "bid_vol",
+                "value": 600,
+                "tone": "data"
+              },
+              {
+                "label": "ask_vol",
+                "value": 400,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Every minute, telemetry collectors calculate message processing rates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "best_bid",
+                "value": 150.2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "best_ask",
+                "value": 150.25,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "bid_vol",
+                "value": 600,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "ask_vol",
+                "value": 400,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic verification guarantees continuous data integrity across all.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "best_bid",
+                "value": 150.2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "best_ask",
+                "value": 150.25,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "bid_vol",
+                "value": 600,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "ask_vol",
+                "value": 400,
+                "tone": "ok"
               }
             ]
           }

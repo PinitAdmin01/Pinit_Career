@@ -2,87 +2,130 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 44,
-  "promptSha": "e2a16743a9bf4140ae375a18623eca4e68bc0a2207626ba8222d878c7c096130",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Subsequence Alignment DP: Prefix Recurrence & Diagonal Matches",
       "codeHash": "ef1bcf6a0064afa8a636ef1952cd7146dbee824a4e7e6c6cdac983f4069494ea",
       "spec": {
-        "template": "table",
-        "title": "Subsequence Alignment DP",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Subsequence Alignment DP: Prefix Recurrence & Diagonal Matches",
         "steps": [
           {
             "at": "say1",
-            "caption": "The version design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Version-control tools (`git diff`), DNA bioinformatics aligners,.",
+            "items": {
+              "var": "row",
+              "line": 16,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Subsequence"
-                  },
-                  {
-                    "text": "Alignment"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The formulate step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Unlike a contiguous Substring, a Subsequence permits arbitrary gaps.",
+            "items": {
+              "var": "row",
+              "line": 16,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Prefix"
-                  },
-                  {
-                    "text": "Recurrence"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect and execute the full `(M + 1) x (N + 1)` LCS DP matrix printer.",
+            "items": {
+              "var": "row",
+              "line": 17,
+              "hit": 6
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Subsequence Alignment DP",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Subsequence Alignment DP: Prefix Recurrence & Diagonal Matches",
         "steps": [
           {
             "at": "say1",
-            "caption": "The version design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Version-control tools (`git diff`), DNA bioinformatics aligners,.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Subsequence",
-                  "Alignment"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The formulate step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Unlike a contiguous Substring, a Subsequence permits arbitrary gaps.",
+            "items": [
+              "0",
+              "1",
+              "1",
+              "1",
+              "1",
+              "1",
+              "1",
+              "1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Prefix",
-                  "Recurrence"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect and execute the full `(M + 1) x (N + 1)` LCS DP matrix printer.",
+            "items": [
+              "0",
+              "1",
+              "1",
+              "2",
+              "2",
+              "3",
+              "3",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,80 +136,114 @@
       "partTitle": "Reconstructing LCS Backtraces & Producing Unified Diff Scripts",
       "codeHash": "7c47ff3181abee62bd8de03960c31ce3d99bffff59460890adbaa31346e130eb",
       "spec": {
-        "template": "table",
-        "title": "Reconstructing LCS Backtraces & Producing Unified Diff",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Reconstructing LCS Backtraces & Producing Unified Diff Scripts",
         "steps": [
           {
             "at": "say1",
-            "caption": "The computing design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Computing only the scalar LCS length tells you how similar two files are.",
+            "items": {
+              "var": "old_cfg",
+              "line": 28,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Reconstructing"
-                  },
-                  {
-                    "text": "Backtraces"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The elements step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Just like Knapsack subset traceback, we walk backward from `(m, n)` toward.",
+            "items": {
+              "var": "old_cfg",
+              "line": 32,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Producing"
-                  },
-                  {
-                    "text": "Unified"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Watch our Python `compute_line_diff` helper construct an actual.",
+            "items": {
+              "var": "old_cfg",
+              "line": 33,
+              "hit": 4
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Reconstructing LCS Backtraces & Producing Unified Diff",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Reconstructing LCS Backtraces & Producing Unified Diff Scripts",
         "steps": [
           {
             "at": "say1",
-            "caption": "The computing design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Computing only the scalar LCS length tells you how similar two files are.",
+            "items": [
+              "'port: 8080'",
+              "'workers: 4'",
+              "'cache: false'",
+              "'timeout: 30s'",
+              "'log: debug'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Reconstructing",
-                  "Backtraces"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The elements step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Just like Knapsack subset traceback, we walk backward from `(m, n)` toward.",
+            "items": [
+              "'port: 8080'",
+              "'workers: 4'",
+              "'cache: false'",
+              "'timeout: 30s'",
+              "'log: debug'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Producing",
-                  "Unified"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Watch our Python `compute_line_diff` helper construct an actual.",
+            "items": [
+              "'port: 8080'",
+              "'workers: 4'",
+              "'cache: false'",
+              "'timeout: 30s'",
+              "'log: debug'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,80 +254,114 @@
       "partTitle": "Levenshtein Edit Distance: Insert, Delete, Replace State Transitions",
       "codeHash": "9ff7736c5462214e878f3510e86f4d1b612edf92e8a20c6aae9b820f35f1fed5",
       "spec": {
-        "template": "table",
-        "title": "Levenshtein Edit Distance",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Levenshtein Edit Distance: Insert, Delete, Replace State Transit",
         "steps": [
           {
             "at": "say1",
-            "caption": "The measures design establishes the core structural invariant.",
-            "rows": [
+            "caption": "While LCS measures longest shared backbone, spellcheckers, fuzzy search.",
+            "items": {
+              "var": "trace",
+              "line": 35,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Levenshtein"
-                  },
-                  {
-                    "text": "Edit"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The inside step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Levenshtein defines three primitive operations of cost 1.",
+            "items": {
+              "var": "trace",
+              "line": 37,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Distance"
-                  },
-                  {
-                    "text": "Insert"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Run the complete Levenshtein solver + operation trace below comparing.",
+            "items": {
+              "var": "trace",
+              "line": 38,
+              "hit": 5
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Levenshtein Edit Distance",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Levenshtein Edit Distance: Insert, Delete, Replace State Transit",
         "steps": [
           {
             "at": "say1",
-            "caption": "The measures design establishes the core structural invariant.",
-            "rows": [
+            "caption": "While LCS measures longest shared backbone, spellcheckers, fuzzy search.",
+            "items": [
+              "\"replace 'i'->'e' at pos 0\"",
+              "\"replace 'n'->'x' at pos 1\"",
+              "\"replace 't'->'e' at pos 2\"",
+              "\"replace 'e'->'c' at pos 3\"",
+              "\"replace 'n'->'u' at pos 4\""
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Levenshtein",
-                  "Edit"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The inside step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Levenshtein defines three primitive operations of cost 1.",
+            "items": [
+              "\"replace 'i'->'e' at pos 0\"",
+              "\"replace 'n'->'x' at pos 1\"",
+              "\"replace 't'->'e' at pos 2\"",
+              "\"replace 'e'->'c' at pos 3\"",
+              "\"replace 'n'->'u' at pos 4\""
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Distance",
-                  "Insert"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Run the complete Levenshtein solver + operation trace below comparing.",
+            "items": [
+              "\"replace 'i'->'e' at pos 0\"",
+              "\"replace 'n'->'x' at pos 1\"",
+              "\"replace 't'->'e' at pos 2\"",
+              "\"replace 'e'->'c' at pos 3\"",
+              "\"replace 'n'->'u' at pos 4\""
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -261,80 +372,120 @@
       "partTitle": "Rolling-Row O(min(M, N)) Space Compression for Long Sequences",
       "codeHash": "5171a263bb5566dd43e5556acd56c4f858a73c3f8fd5772dc8e6e415d7b243b2",
       "spec": {
-        "template": "table",
-        "title": "Rolling-Row O(min(M, N)) Space Compression for Long",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Rolling-Row O(min(M, N)) Space Compression for Long Sequences",
         "steps": [
           {
             "at": "say1",
-            "caption": "The tables design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Full 2D `(M + 1) x (N + 1)` tables allocate `O(M * N)` memory.",
+            "items": {
+              "var": "dp",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Rolling"
-                  },
-                  {
-                    "text": "Space"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The sleeker step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "When you only need the scalar Edit Distance or LCS score (for fuzzy.",
+            "items": {
+              "var": "dp",
+              "line": 14,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Compression"
-                  },
-                  {
-                    "text": "Long"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Verify that our 1-row `edit_distance_o_min_space` matches full 2D matrix.",
+            "items": {
+              "var": "dp",
+              "line": 14,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Rolling-Row O(min(M, N)) Space Compression for Long",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Rolling-Row O(min(M, N)) Space Compression for Long Sequences",
         "steps": [
           {
             "at": "say1",
-            "caption": "The tables design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Full 2D `(M + 1) x (N + 1)` tables allocate `O(M * N)` memory.",
+            "items": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Rolling",
-                  "Space"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The sleeker step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "When you only need the scalar Edit Distance or LCS score (for fuzzy.",
+            "items": [
+              "1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Compression",
-                  "Long"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Verify that our 1-row `edit_distance_o_min_space` matches full 2D matrix.",
+            "items": [
+              "1",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -345,80 +496,80 @@
       "partTitle": "Production Application: Fuzzy Command Autocorrect & Line-Diff Versioning Engine",
       "codeHash": "bd47edcbce79cc112d8bafb746e392038fd4b7c654a758ca71b0343bdaeafbeb",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Production Application: Fuzzy Command Autocorrect & Line-Diff Ve",
         "steps": [
           {
             "at": "say1",
-            "caption": "The synthesize design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us synthesize space-optimized Levenshtein similarity and exact LCS.",
+            "items": {
+              "var": "commands",
+              "line": 50,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Think of how modern CLIs (Git, Cargo, Kubectl) respond cleanly when a user.",
+            "items": {
+              "var": "commands",
+              "line": 50,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Fuzzy"
-                  },
-                  {
-                    "text": "Command"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Production Application: Fuzzy Command Autocorrect & Line-Diff Ve",
         "steps": [
           {
             "at": "say1",
-            "caption": "The synthesize design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us synthesize space-optimized Levenshtein similarity and exact LCS.",
+            "items": [
+              "'deploy-service'",
+              "'rollback-deployment'",
+              "'scale-replicas'",
+              "'inspect-logs'",
+              "'status-check'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Think of how modern CLIs (Git, Cargo, Kubectl) respond cleanly when a user.",
+            "items": [
+              "'deploy-service'",
+              "'rollback-deployment'",
+              "'scale-replicas'",
+              "'inspect-logs'",
+              "'status-check'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Fuzzy",
-                  "Command"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }

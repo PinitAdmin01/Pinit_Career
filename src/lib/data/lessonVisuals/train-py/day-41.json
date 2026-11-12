@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 41,
-  "promptSha": "7e793d810909d95738fd08885502348046b7085e3126757666706758c7d27d4a",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Pipeline Parallelism — Foundations & Mathematical Invariants",
-      "codeHash": "6b2ed8c7d64424e9e5df2e09d5ba1e057fb772bd523e1801f6a9d3f8409c04d2",
+      "codeHash": "556e4611aee178c571ff12f1e97d08b362f1797d1a42c43b7abd7ed72e645998",
       "spec": {
-        "template": "flow",
+        "template": "bars",
         "title": "Pipeline Parallelism — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Pipeline Parallelism divides a model with L layers into P consecutive.",
+            "bars": [
+              {
+                "label": "num_stages",
+                "value": {
+                  "var": "num_stages",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "num_microbatch",
+                "value": {
+                  "var": "num_microbatches",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how stage updates processes during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "num_stages",
+                "value": {
+                  "var": "num_stages",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "num_microbatch",
+                "value": {
+                  "var": "num_microbatches",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Mathematically, the pipeline bubble fraction is governed by the ratio.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "num_stages",
+                "value": {
+                  "var": "num_stages",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "num_microbatch",
+                "value": {
+                  "var": "num_microbatches",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "bars",
         "title": "Pipeline Parallelism — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Pipeline Parallelism divides a model with L layers into P consecutive.",
+            "bars": [
+              {
+                "label": "num_stages",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "num_microbatch",
+                "value": 32,
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": 32,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how stage updates processes during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "num_stages",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "num_microbatch",
+                "value": 32,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "p",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "m",
+                "value": 32,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Mathematically, the pipeline bubble fraction is governed by the ratio.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "num_stages",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "num_microbatch",
+                "value": 32,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "p",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "m",
+                "value": 32,
+                "tone": "ok"
               }
             ]
           }
@@ -273,264 +227,218 @@
     },
     {
       "partTitle": "Pipeline Parallelism — Core Algorithm & State Representation",
-      "codeHash": "d58957a13b4aa498d282362fb9a0ebf175aeeeb190116bd003580e4470bd3b21",
+      "codeHash": "b2250818367167e682726b7b474a6b8429c42a017fc2baf6441d46cbbf4153ed",
       "spec": {
-        "template": "flow",
+        "template": "bars",
         "title": "Pipeline Parallelism — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While GPipe executes all M forward passes before starting backward passes.",
+            "bars": [
+              {
+                "label": "stages",
+                "value": {
+                  "var": "stages",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "microbatches",
+                "value": {
+                  "var": "microbatches",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "warmup_steps",
+                "value": {
+                  "var": "warmup_steps",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "steady_steps",
+                "value": {
+                  "var": "steady_steps",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The 1F1B (One Forward, One Backward) schedule solves this memory explosion.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "stages",
+                "value": {
+                  "var": "stages",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "microbatches",
+                "value": {
+                  "var": "microbatches",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "warmup_steps",
+                "value": {
+                  "var": "warmup_steps",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "steady_steps",
+                "value": {
+                  "var": "steady_steps",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This predictable memory bound enables training with large microbatch.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "stages",
+                "value": {
+                  "var": "stages",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "microbatches",
+                "value": {
+                  "var": "microbatches",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "warmup_steps",
+                "value": {
+                  "var": "warmup_steps",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "steady_steps",
+                "value": {
+                  "var": "steady_steps",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "bars",
         "title": "Pipeline Parallelism — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While GPipe executes all M forward passes before starting backward passes.",
+            "bars": [
+              {
+                "label": "stages",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "microbatches",
+                "value": 16,
+                "tone": "data"
+              },
+              {
+                "label": "warmup_steps",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "steady_steps",
+                "value": 12,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The 1F1B (One Forward, One Backward) schedule solves this memory explosion.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "stages",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "microbatches",
+                "value": 16,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "warmup_steps",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "steady_steps",
+                "value": 12,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This predictable memory bound enables training with large microbatch.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "stages",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "microbatches",
+                "value": 16,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "warmup_steps",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "steady_steps",
+                "value": 12,
+                "tone": "ok"
               }
             ]
           }
@@ -539,265 +447,279 @@
     },
     {
       "partTitle": "Pipeline Parallelism — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "68df67d9f965f4ec2cd37abbf13c85985bba7a8a886ec2c00e7ac274bb954bff",
+      "codeHash": "bef98e535200e504179758ea76b2145f559a4d71f036cf52b53b66de8b48ab61",
       "spec": {
         "template": "flow",
-        "title": "Pipeline Parallelism — Throughput Optimization & Edge-Case Handling",
+        "title": "Pipeline Parallelism — Throughput Optimization & Edge-Case Handl",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "stages",
+            "label": "stages"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_bubble_pct",
+            "label": "max_bubble_pct"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "m",
+            "label": "m"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Minimizing the pipeline bubble fraction requires finding the optimal.",
+            "values": {
+              "stages": {
+                "var": "stages",
+                "line": 4,
+                "hit": 1
+              },
+              "max_bubble_pct": {
+                "var": "max_bubble_pct",
+                "line": 4,
+                "hit": 1
+              },
+              "p": {
+                "var": "p",
+                "line": 4,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "stages": "data",
+              "max_bubble_pct": "data",
+              "p": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "stages",
+                "max_bubble_pct"
+              ],
+              [
+                "max_bubble_pct",
+                "p"
+              ],
+              [
+                "p",
+                "m"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "In high-throughput foundation model training, the target pipeline bubble.",
+            "values": {
+              "stages": {
+                "var": "stages",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "max_bubble_pct": {
+                "var": "max_bubble_pct",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "p": {
+                "var": "p",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "m": {
+                "var": "m",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "stages": "data",
+              "max_bubble_pct": "data",
+              "p": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "stages",
+                "max_bubble_pct"
+              ],
+              [
+                "max_bubble_pct",
+                "p"
+              ],
+              [
+                "p",
+                "m"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "Rigorous tuning ensures that the chosen microbatch configuration maximizes.",
+            "values": {
+              "stages": {
+                "var": "stages",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "max_bubble_pct": {
+                "var": "max_bubble_pct",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "p": {
+                "var": "p",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "m": {
+                "var": "m",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "stages": "ok",
+              "max_bubble_pct": "ok",
+              "p": "ok",
+              "m": "ok"
+            },
+            "arrows": [
+              [
+                "stages",
+                "max_bubble_pct"
+              ],
+              [
+                "max_bubble_pct",
+                "p"
+              ],
+              [
+                "p",
+                "m"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Pipeline Parallelism — Throughput Optimization & Edge-Case Handling",
+        "title": "Pipeline Parallelism — Throughput Optimization & Edge-Case Handl",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "stages",
+            "label": "stages"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_bubble_pct",
+            "label": "max_bubble_pct"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "m",
+            "label": "m"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Minimizing the pipeline bubble fraction requires finding the optimal.",
+            "values": {
+              "stages": "8",
+              "max_bubble_pct": "10",
+              "p": "8",
+              "m": "64"
+            },
+            "tones": {
+              "stages": "data",
+              "max_bubble_pct": "data",
+              "p": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "stages",
+                "max_bubble_pct"
+              ],
+              [
+                "max_bubble_pct",
+                "p"
+              ],
+              [
+                "p",
+                "m"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "In high-throughput foundation model training, the target pipeline bubble.",
+            "values": {
+              "stages": "8",
+              "max_bubble_pct": "10",
+              "p": "8",
+              "m": "64"
+            },
+            "tones": {
+              "stages": "data",
+              "max_bubble_pct": "data",
+              "p": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "stages",
+                "max_bubble_pct"
+              ],
+              [
+                "max_bubble_pct",
+                "p"
+              ],
+              [
+                "p",
+                "m"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "Rigorous tuning ensures that the chosen microbatch configuration maximizes.",
+            "values": {
+              "stages": "8",
+              "max_bubble_pct": "10",
+              "p": "8",
+              "m": "64"
+            },
+            "tones": {
+              "stages": "ok",
+              "max_bubble_pct": "ok",
+              "p": "ok",
+              "m": "ok"
+            },
+            "arrows": [
+              [
+                "stages",
+                "max_bubble_pct"
+              ],
+              [
+                "max_bubble_pct",
+                "p"
+              ],
+              [
+                "p",
+                "m"
+              ]
             ]
           }
         ]
@@ -805,134 +727,165 @@
     },
     {
       "partTitle": "Pipeline Parallelism — Resilience Guardrails & Failure Recovery",
-      "codeHash": "cb7a41f34719f15af295d96a76cbd29fd9f6eeebe5185727a2f67090ec2d93b4",
+      "codeHash": "6d5d3a0ff983c71f1c6a8ae5827584a89326e3f43652b71e7636aa73e67a7c97",
       "spec": {
         "template": "flow",
         "title": "Pipeline Parallelism — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "stages",
+            "label": "stages"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "microbatches",
+            "label": "microbatches"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "status",
+            "label": "status"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "ok",
+            "label": "ok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Pipeline execution schedules are susceptible to deadlock if communication.",
+            "values": {
+              "stages": {
+                "var": "stages",
+                "line": 2,
+                "hit": 1
+              },
+              "microbatches": {
+                "var": "microbatches",
+                "line": 2,
+                "hit": 1
+              },
+              "status": {
+                "var": "status",
+                "line": 6,
+                "hit": 1
+              },
+              "ok": {
+                "var": "ok",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "stages": "data",
+              "microbatches": "data",
+              "status": "data",
+              "ok": "data"
+            },
+            "arrows": [
+              [
+                "stages",
+                "microbatches"
+              ],
+              [
+                "microbatches",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "A pipeline deadlock occurs when two adjacent stages simultaneously wait.",
+            "values": {
+              "stages": {
+                "var": "stages",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "microbatches": {
+                "var": "microbatches",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "status": {
+                "var": "status",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "ok": {
+                "var": "ok",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "stages": "data",
+              "microbatches": "data",
+              "status": "data",
+              "ok": "data"
+            },
+            "arrows": [
+              [
+                "stages",
+                "microbatches"
+              ],
+              [
+                "microbatches",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "Enforcing robust communication guardrails guarantees deterministic.",
+            "values": {
+              "stages": {
+                "var": "stages",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "microbatches": {
+                "var": "microbatches",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "status": {
+                "var": "status",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "ok": {
+                "var": "ok",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "stages": "ok",
+              "microbatches": "ok",
+              "status": "ok",
+              "ok": "ok"
+            },
+            "arrows": [
+              [
+                "stages",
+                "microbatches"
+              ],
+              [
+                "microbatches",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
             ]
           }
         ]
@@ -942,128 +895,111 @@
         "title": "Pipeline Parallelism — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "stages",
+            "label": "stages"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "microbatches",
+            "label": "microbatches"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "status",
+            "label": "status"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "ok",
+            "label": "ok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Pipeline execution schedules are susceptible to deadlock if communication.",
+            "values": {
+              "stages": "8",
+              "microbatches": "32",
+              "status": "'PIPELINE_FLOW_HEALTHY'",
+              "ok": "True"
+            },
+            "tones": {
+              "stages": "data",
+              "microbatches": "data",
+              "status": "data",
+              "ok": "data"
+            },
+            "arrows": [
+              [
+                "stages",
+                "microbatches"
+              ],
+              [
+                "microbatches",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "A pipeline deadlock occurs when two adjacent stages simultaneously wait.",
+            "values": {
+              "stages": "8",
+              "microbatches": "32",
+              "status": "'PIPELINE_FLOW_HEALTHY'",
+              "ok": "True"
+            },
+            "tones": {
+              "stages": "data",
+              "microbatches": "data",
+              "status": "data",
+              "ok": "data"
+            },
+            "arrows": [
+              [
+                "stages",
+                "microbatches"
+              ],
+              [
+                "microbatches",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "Enforcing robust communication guardrails guarantees deterministic.",
+            "values": {
+              "stages": "8",
+              "microbatches": "32",
+              "status": "'PIPELINE_FLOW_HEALTHY'",
+              "ok": "True"
+            },
+            "tones": {
+              "stages": "ok",
+              "microbatches": "ok",
+              "status": "ok",
+              "ok": "ok"
+            },
+            "arrows": [
+              [
+                "stages",
+                "microbatches"
+              ],
+              [
+                "microbatches",
+                "status"
+              ],
+              [
+                "status",
+                "ok"
+              ]
             ]
           }
         ]
@@ -1071,264 +1007,116 @@
     },
     {
       "partTitle": "Pipeline Parallelism — Production Telemetry & Verification Audit",
-      "codeHash": "5698502ea9d60e258ed894bde098a88c5a93aae960c65b8362cfd4a9da91dd0c",
+      "codeHash": "377a00c20f7b5ec393ac623800a6f74ef9c29228b3d39ad05b744aee19e84e0c",
       "spec": {
-        "template": "flow",
+        "template": "table",
         "title": "Pipeline Parallelism — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing monitors pipeline execution timing.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "res"
+                  },
+                  {
+                    "var": "res",
+                    "line": 11,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Telemetry collectors measure the duration of forward and backward.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "res"
+                  },
+                  {
+                    "var": "res",
+                    "line": 12,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This comprehensive telemetry certification confirms that pipeline parallel.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "table",
         "title": "Pipeline Parallelism — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing monitors pipeline execution timing.",
+            "rows": [
+              {
+                "cells": [
+                  "res",
+                  "{'status': 'CERTIFIED', 'schedule': '1F…"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Telemetry collectors measure the duration of forward and backward.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "res",
+                  "{'status': 'CERTIFIED', 'schedule': '1F…"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This comprehensive telemetry certification confirms that pipeline parallel.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "Pipeline Telemetry Certified: CERTIFIED (Schedule: 1F1B, Bubble: 9.86%)"
+                ],
+                "tone": "ok"
               }
             ]
           }

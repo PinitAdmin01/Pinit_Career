@@ -2,801 +2,495 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 37,
-  "promptSha": "8ebf3a70d73f2d10d68f1cc0722ff065466cf8a8594afdff93d4548bebbe097a",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing Node Provisioning — Foundations & Mathematical Invariants",
-      "codeHash": "0c450905b81995063e61c1bd90c1334e023bde8cad13ed7ebc5e85fce28ec069",
+      "codeHash": "72c1ef7815186dbf6e1d5548cd718a42c614fca3e455606c375ace9a7eb94964",
       "spec": {
-        "template": "flow",
-        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing Node Pr",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing N",
+        "actors": [
+          "current_replicas",
+          "current_metric",
+          "target_metric"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Scaling containerized cloud workloads efficiently requires managing two.",
+            "activeActor": "current_replicas",
+            "messages": [
+              {
+                "from": "current_replicas",
+                "to": "current_metric",
+                "label": {
+                  "var": "current_replicas",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "current_metric",
+                "to": "target_metric",
+                "label": {
+                  "var": "current_metric",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Kubernetes provides two complementary pod autoscaling controllers.",
+            "activeActor": "current_metric",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "current_replicas",
+                "to": "current_metric",
+                "label": {
+                  "var": "current_replicas",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "current_metric",
+                "to": "target_metric",
+                "label": {
+                  "var": "current_metric",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Separating scaling metrics prevents dangerous feedback loops where.",
+            "activeActor": "target_metric",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "current_replicas",
+                "to": "current_metric",
+                "label": {
+                  "var": "current_replicas",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "current_metric",
+                "to": "target_metric",
+                "label": {
+                  "var": "current_metric",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing Node Pr",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing N",
+        "actors": [
+          "current_replicas",
+          "current_metric",
+          "target_metric"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Scaling containerized cloud workloads efficiently requires managing two.",
+            "messages": [
+              {
+                "from": "current_replicas",
+                "to": "current_metric",
+                "label": "2",
+                "tone": "data"
+              },
+              {
+                "from": "current_metric",
+                "to": "target_metric",
+                "label": "80",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "current_replicas"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Kubernetes provides two complementary pod autoscaling controllers.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "current_replicas",
+                "to": "current_metric",
+                "label": "2",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "current_metric",
+                "to": "target_metric",
+                "label": "80",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "current_metric"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Separating scaling metrics prevents dangerous feedback loops where.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "current_replicas",
+                "to": "current_metric",
+                "label": "2",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "current_metric",
+                "to": "target_metric",
+                "label": "80",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "target_metric"
           }
         ]
       }
     },
     {
       "partTitle": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing Node Provisioning — Core Algorithm & State Representation",
-      "codeHash": "cecf136de3fcef5fe8eba5032c516eac521320209b3f503626b575ce351a0bfe",
+      "codeHash": "e8ec2a3de5b301cac89401fc2e27696a9674191708fbad1e831a43c04444f8ee",
       "spec": {
-        "template": "flow",
-        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing Node Pr",
-        "nodes": [
+        "template": "states",
+        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing N",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "pod_batch_cpu",
+            "label": "pod_batch_cpu"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "pod_batch_mem",
+            "label": "pod_batch_mem"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "total_cpu_needed",
+            "label": "total_cpu_needed"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Karpenter's core innovation is its Just-In-Time Bin-Packing Provisioning.",
+            "currentState": "pod_batch_cpu",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "When newly created pods cannot be scheduled due to insufficient CPU.",
+            "currentState": "pod_batch_mem",
+            "transition": {
+              "from": "pod_batch_cpu",
+              "to": "pod_batch_mem",
+              "label": {
+                "var": "pod_batch_mem",
+                "line": 22,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say8",
+            "caption": "Dynamic instance selection bypasses rigid Auto Scaling Groups, allowing.",
+            "currentState": "total_cpu_needed",
+            "transition": {
+              "from": "pod_batch_mem",
+              "to": "total_cpu_needed",
+              "label": {
+                "var": "total_cpu_needed",
+                "line": 12,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing Node Pr",
-        "nodes": [
+        "template": "states",
+        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing N",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "pod_batch_cpu",
+            "label": "pod_batch_cpu"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "pod_batch_mem",
+            "label": "pod_batch_mem"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "total_cpu_needed",
+            "label": "total_cpu_needed"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Karpenter's core innovation is its Just-In-Time Bin-Packing Provisioning.",
+            "currentState": "pod_batch_cpu",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "When newly created pods cannot be scheduled due to insufficient CPU.",
+            "currentState": "pod_batch_mem",
+            "transition": {
+              "from": "pod_batch_cpu",
+              "to": "pod_batch_mem",
+              "label": "6"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say8",
+            "caption": "Dynamic instance selection bypasses rigid Auto Scaling Groups, allowing.",
+            "currentState": "total_cpu_needed",
+            "transition": {
+              "from": "pod_batch_mem",
+              "to": "total_cpu_needed",
+              "label": "3"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing Node Provisioning — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "de8fb0b602c6e87cc3a86a02f0c162a18abd507baa2777df66e6cfe32bb15eb3",
+      "codeHash": "40963cdb60126b33197ee96f15dc3398367563ae669d56df2aa80130afccb54b",
       "spec": {
-        "template": "flow",
-        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing Node Pr",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing N",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In enterprise cloud environments, provisioning nodes is only half the battle.",
+            "bars": [
+              {
+                "label": "total_used_cpu",
+                "value": {
+                  "var": "total_used_cpu",
+                  "line": 5,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_cost",
+                "value": {
+                  "var": "total_cost",
+                  "line": 6,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "label": "consolidated_c",
+                "value": {
+                  "var": "consolidated_cost",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "savings",
+                "value": {
+                  "var": "savings",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Over time, as workloads complete or scale down, clusters experience.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_used_cpu",
+                "value": {
+                  "var": "total_used_cpu",
+                  "line": 6,
+                  "hit": 5
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_cost",
+                "value": {
+                  "var": "total_cost",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "consolidated_c",
+                "value": {
+                  "var": "consolidated_cost",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "savings",
+                "value": {
+                  "var": "savings",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Pairing Karpenter with EC2 Spot instances unlocks massive cost reductions.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_used_cpu",
+                "value": {
+                  "var": "total_used_cpu",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_cost",
+                "value": {
+                  "var": "total_cost",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "consolidated_c",
+                "value": {
+                  "var": "consolidated_cost",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "savings",
+                "value": {
+                  "var": "savings",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing Node Pr",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing N",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In enterprise cloud environments, provisioning nodes is only half the battle.",
+            "bars": [
+              {
+                "label": "total_used_cpu",
+                "value": 3.7,
+                "tone": "data"
+              },
+              {
+                "label": "total_cost",
+                "value": 0.46199999999999997,
+                "tone": "data"
+              },
+              {
+                "label": "consolidated_c",
+                "value": 0.272,
+                "tone": "data"
+              },
+              {
+                "label": "savings",
+                "value": 0.18999999999999995,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Over time, as workloads complete or scale down, clusters experience.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_used_cpu",
+                "value": 3.7,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_cost",
+                "value": 0.46199999999999997,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "consolidated_c",
+                "value": 0.272,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "savings",
+                "value": 0.18999999999999995,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Pairing Karpenter with EC2 Spot instances unlocks massive cost reductions.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_used_cpu",
+                "value": 3.7,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_cost",
+                "value": 0.46199999999999997,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "consolidated_c",
+                "value": 0.272,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "savings",
+                "value": 0.18999999999999995,
+                "tone": "ok"
               }
             ]
           }
@@ -805,264 +499,134 @@
     },
     {
       "partTitle": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing Node Provisioning — Resilience Guardrails & Failure Recovery",
-      "codeHash": "6c3345c9987a795208b2aa5c328df55df62356b2b2207dd06608c6e294c3405e",
+      "codeHash": "9ccb59cd402eb0d00403137a030381137b74b51d406b29074411b0a7cb32d7d1",
       "spec": {
-        "template": "flow",
-        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing Node Pr",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing N",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying aggressive autoscaling and consolidation in production.",
+            "bars": [
+              {
+                "label": "current_health",
+                "value": {
+                  "var": "current_healthy_replicas",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "min_available_",
+                "value": {
+                  "var": "min_available_required",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "What happens if Karpenter terminates an underutilized node hosting.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "current_health",
+                "value": {
+                  "var": "current_healthy_replicas",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "min_available_",
+                "value": {
+                  "var": "min_available_required",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Configuring node expiration TTLs guarantees continuous security patching.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "current_health",
+                "value": {
+                  "var": "current_healthy_replicas",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "min_available_",
+                "value": {
+                  "var": "min_available_required",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing Node Pr",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing N",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying aggressive autoscaling and consolidation in production.",
+            "bars": [
+              {
+                "label": "current_health",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "min_available_",
+                "value": 2,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "What happens if Karpenter terminates an underutilized node hosting.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "current_health",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "min_available_",
+                "value": 2,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Configuring node expiration TTLs guarantees continuous security patching.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "current_health",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "min_available_",
+                "value": 2,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,265 +635,279 @@
     },
     {
       "partTitle": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing Node Provisioning — Production Telemetry & Verification Audit",
-      "codeHash": "fb523f4f666b1c40db8995577f52f5079a6af1ebf2f62db7c2830e866354b6b9",
+      "codeHash": "bdee5ea6976af227aa932b2bc4716a368368a946c693c2f0d70d2992f00dec53",
       "spec": {
         "template": "flow",
-        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing Node Pr",
+        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing N",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "metrics_healthy",
+            "label": "metrics_healthy"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "metrics_degraded",
+            "label": "metrics_degraded"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "telemetry",
+            "label": "telemetry"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "alloc_eff",
+            "label": "alloc_eff"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating autonomous autoscaling infrastructure requires comprehensive.",
+            "values": {
+              "metrics_healthy": {
+                "var": "metrics_healthy",
+                "line": 19,
+                "hit": 1
+              },
+              "metrics_degraded": {
+                "var": "metrics_degraded",
+                "line": 20,
+                "hit": 1
+              },
+              "telemetry": {
+                "var": "telemetry",
+                "line": 2,
+                "hit": 1
+              },
+              "alloc_eff": {
+                "var": "alloc_eff",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "metrics_healthy": "data",
+              "metrics_degraded": "data",
+              "telemetry": "data",
+              "alloc_eff": "data"
+            },
+            "arrows": [
+              [
+                "metrics_healthy",
+                "metrics_degraded"
+              ],
+              [
+                "metrics_degraded",
+                "telemetry"
+              ],
+              [
+                "telemetry",
+                "alloc_eff"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Platform SRE teams track core Karpenter metrics exported to Prometheus.",
+            "values": {
+              "metrics_healthy": {
+                "var": "metrics_healthy",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "metrics_degraded": {
+                "var": "metrics_degraded",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "telemetry": {
+                "var": "telemetry",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "alloc_eff": {
+                "var": "alloc_eff",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "metrics_healthy": "data",
+              "metrics_degraded": "data",
+              "telemetry": "data",
+              "alloc_eff": "data"
+            },
+            "arrows": [
+              [
+                "metrics_healthy",
+                "metrics_degraded"
+              ],
+              [
+                "metrics_degraded",
+                "telemetry"
+              ],
+              [
+                "telemetry",
+                "alloc_eff"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Monitoring cluster allocation efficiency allows FinOps teams to optimize.",
+            "values": {
+              "metrics_healthy": {
+                "var": "metrics_healthy",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "metrics_degraded": {
+                "var": "metrics_degraded",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "telemetry": {
+                "var": "telemetry",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "alloc_eff": {
+                "var": "alloc_eff",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "metrics_healthy": "ok",
+              "metrics_degraded": "ok",
+              "telemetry": "ok",
+              "alloc_eff": "ok"
+            },
+            "arrows": [
+              [
+                "metrics_healthy",
+                "metrics_degraded"
+              ],
+              [
+                "metrics_degraded",
+                "telemetry"
+              ],
+              [
+                "telemetry",
+                "alloc_eff"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing Node Pr",
+        "title": "Horizontal vs Vertical Pod Autoscaling & Karpenter Bin-Packing N",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "metrics_healthy",
+            "label": "metrics_healthy"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "metrics_degraded",
+            "label": "metrics_degraded"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "telemetry",
+            "label": "telemetry"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "alloc_eff",
+            "label": "alloc_eff"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating autonomous autoscaling infrastructure requires comprehensive.",
+            "values": {
+              "metrics_healthy": "{'allocation_efficiency_pct': 84.5, 'av…",
+              "metrics_degraded": "{'allocation_efficiency_pct': 52, 'avg_…",
+              "telemetry": "{'allocation_efficiency_pct': 84.5, 'av…",
+              "alloc_eff": "84.5"
+            },
+            "tones": {
+              "metrics_healthy": "data",
+              "metrics_degraded": "data",
+              "telemetry": "data",
+              "alloc_eff": "data"
+            },
+            "arrows": [
+              [
+                "metrics_healthy",
+                "metrics_degraded"
+              ],
+              [
+                "metrics_degraded",
+                "telemetry"
+              ],
+              [
+                "telemetry",
+                "alloc_eff"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Platform SRE teams track core Karpenter metrics exported to Prometheus.",
+            "values": {
+              "metrics_healthy": "{'allocation_efficiency_pct': 84.5, 'av…",
+              "metrics_degraded": "{'allocation_efficiency_pct': 52, 'avg_…",
+              "telemetry": "{'allocation_efficiency_pct': 84.5, 'av…",
+              "alloc_eff": "84.5"
+            },
+            "tones": {
+              "metrics_healthy": "data",
+              "metrics_degraded": "data",
+              "telemetry": "data",
+              "alloc_eff": "data"
+            },
+            "arrows": [
+              [
+                "metrics_healthy",
+                "metrics_degraded"
+              ],
+              [
+                "metrics_degraded",
+                "telemetry"
+              ],
+              [
+                "telemetry",
+                "alloc_eff"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say7",
+            "caption": "Monitoring cluster allocation efficiency allows FinOps teams to optimize.",
+            "values": {
+              "metrics_healthy": "{'allocation_efficiency_pct': 84.5, 'av…",
+              "metrics_degraded": "{'allocation_efficiency_pct': 52, 'avg_…",
+              "telemetry": "{'allocation_efficiency_pct': 84.5, 'av…",
+              "alloc_eff": "84.5"
+            },
+            "tones": {
+              "metrics_healthy": "ok",
+              "metrics_degraded": "ok",
+              "telemetry": "ok",
+              "alloc_eff": "ok"
+            },
+            "arrows": [
+              [
+                "metrics_healthy",
+                "metrics_degraded"
+              ],
+              [
+                "metrics_degraded",
+                "telemetry"
+              ],
+              [
+                "telemetry",
+                "alloc_eff"
+              ]
             ]
           }
         ]

@@ -1,159 +1,170 @@
 {
-  "schemaVersion": "2.0.0",
-  "course": "prompt-py",
-  "day": 57,
+  "schemaVersion": 1,
   "prefix": "prompt-py",
+  "day": 57,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Data Bottleneck: From Manual Annotation To Autonomous Synthetic Generation",
       "codeHash": "76fc95e5dbca7028744b8a58a27d63ccb3b0dabc223757a130ef46b90a34d185",
       "spec": {
-        "template": "table",
-        "title": "From Manual Annotation To Autonomous Synthetic Generation.",
-        "columns": [
-          "Annotation Paradigm",
-          "Generation Scalability",
-          "Dataset Calibration SLA"
+        "template": "sequence",
+        "title": "The Data Bottleneck: From Manual Annotation To Autonomous Synthe",
+        "actors": [
+          "synthesis_stages",
+          "distribution",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Autonomous data synthesis breaks the human annotation bottleneck at scale.",
-            "rows": [
-              [
-                "Manual Human Curation",
-                "Constrained By Human Fatigue And High Costs",
-                "Severe Annotation Bottleneck"
-              ],
-              [
-                "Autonomous Generation",
-                "Manufactures Thousands Of Calibrated Test Cases",
-                "Rapid Machine Speed Scaling"
-              ]
+            "caption": "In the lifecycle of enterprise foundation model engineering,.",
+            "activeActor": "synthesis_stages",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": {
+                  "var": "synthesis_stages",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": {
+                  "var": "distribution",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "The evolution from manual data curation to autonomous synthetic dataset.",
-            "rows": [
-              [
-                "Seed Query Ingestion",
-                "Anchors Synthesis In Authentic Corporate Logs",
-                "High Operational Realism"
-              ],
-              [
-                "Difficulty Stratification",
-                "Spans Elementary To Advanced Reasoning Tiers",
-                "Balanced Diagnostic Signal"
-              ]
+            "activeActor": "distribution",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": {
+                  "var": "synthesis_stages",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": {
+                  "var": "distribution",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Autonomous synthesis engines manufacture thousands of calibrated tests.",
-            "rows": [
-              [
-                "Continuous Regeneration",
-                "Prevents Benchmark Memorization And Data Leakage",
-                "Fresh Out Of Sample Testing"
-              ],
-              [
-                "Cryptographic Lineage",
-                "Archives Immutable SHA Two Fifty Six Hashes",
-                "Strict Statutory Compliance"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Design an autonomous synthetic data pipeline scaling evaluation coverage.",
-            "rows": [
-              [
-                "Adversarial Stress Test",
-                "Injects Deceptive Edge Cases And Traps",
-                "High Alignment Verification"
-              ],
-              [
-                "Autonomous Dataset Mesh",
-                "Liberates Organizations From Annotation Delays",
-                "Enterprise Production Grade SLA"
-              ]
+            "at": "say13",
+            "caption": "Mastering autonomous golden dataset synthesis equips AI engineers with.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": {
+                  "var": "synthesis_stages",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": {
+                  "var": "distribution",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "From Manual Annotation To Autonomous Synthetic Generation.",
-        "columns": [
-          "Annotation Paradigm",
-          "Generation Scalability",
-          "Dataset Calibration SLA"
+        "template": "sequence",
+        "title": "The Data Bottleneck: From Manual Annotation To Autonomous Synthe",
+        "actors": [
+          "synthesis_stages",
+          "distribution",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Autonomous data synthesis breaks the human annotation bottleneck at scale.",
-            "rows": [
-              [
-                "Manual Human Curation",
-                "Constrained By Human Fatigue And High Costs",
-                "Severe Annotation Bottleneck"
-              ],
-              [
-                "Autonomous Generation",
-                "Manufactures Thousands Of Calibrated Test Cases",
-                "Rapid Machine Speed Scaling"
-              ]
-            ]
+            "caption": "In the lifecycle of enterprise foundation model engineering,.",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": "['Seed Prompt Ingestion & Domain Cluste…",
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": "{'elementaryTestCount': 500, 'intermedi…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "synthesis_stages"
           },
           {
             "at": "say2",
             "caption": "The evolution from manual data curation to autonomous synthetic dataset.",
-            "rows": [
-              [
-                "Seed Query Ingestion",
-                "Anchors Synthesis In Authentic Corporate Logs",
-                "High Operational Realism"
-              ],
-              [
-                "Difficulty Stratification",
-                "Spans Elementary To Advanced Reasoning Tiers",
-                "Balanced Diagnostic Signal"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": "['Seed Prompt Ingestion & Domain Cluste…",
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": "{'elementaryTestCount': 500, 'intermedi…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "distribution"
           },
           {
-            "at": "example",
-            "caption": "Autonomous synthesis engines manufacture thousands of calibrated tests.",
-            "rows": [
-              [
-                "Continuous Regeneration",
-                "Prevents Benchmark Memorization And Data Leakage",
-                "Fresh Out Of Sample Testing"
-              ],
-              [
-                "Cryptographic Lineage",
-                "Archives Immutable SHA Two Fifty Six Hashes",
-                "Strict Statutory Compliance"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Design an autonomous synthetic data pipeline scaling evaluation coverage.",
-            "rows": [
-              [
-                "Adversarial Stress Test",
-                "Injects Deceptive Edge Cases And Traps",
-                "High Alignment Verification"
-              ],
-              [
-                "Autonomous Dataset Mesh",
-                "Liberates Organizations From Annotation Delays",
-                "Enterprise Production Grade SLA"
-              ]
-            ]
+            "at": "say13",
+            "caption": "Mastering autonomous golden dataset synthesis equips AI engineers with.",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": "['Seed Prompt Ingestion & Domain Cluste…",
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": "{'elementaryTestCount': 500, 'intermedi…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -162,152 +173,162 @@
       "partTitle": "Evol-Instruct Mechanics: In-Depth And In-Breadth Prompt Mutation",
       "codeHash": "76fc95e5dbca7028744b8a58a27d63ccb3b0dabc223757a130ef46b90a34d185",
       "spec": {
-        "template": "table",
-        "title": "Evol-Instruct In Depth And In Breadth Prompt Mutation.",
-        "columns": [
-          "Mutation Vector",
-          "Algorithmic Operation",
-          "Complexity Amplification SLA"
+        "template": "sequence",
+        "title": "Evol-Instruct Mechanics: In-Depth And In-Breadth Prompt Mutation",
+        "actors": [
+          "synthesis_stages",
+          "distribution",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Evol-Instruct deepens constraints and broadens topics across lineages.",
-            "rows": [
-              [
-                "In Depth Constraint",
-                "Adds Specialized Accounting And Legal Rules",
-                "Deep Reasoning Friction"
-              ],
-              [
-                "In Depth Concretization",
-                "Embeds Abstract Concepts In Fictional Cases",
-                "Rich Contextual Synthesis"
-              ]
+            "caption": "Among the most influential breakthroughs in automated prompt dataset.",
+            "activeActor": "synthesis_stages",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": {
+                  "var": "synthesis_stages",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": {
+                  "var": "distribution",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Among the most influential breakthroughs in automated prompt dataset.",
-            "rows": [
-              [
-                "In Breadth Mutation",
-                "Transfers Concepts Across Diverse Disciplines",
-                "Broad Domain Diversification"
-              ],
-              [
-                "Mutation Gatekeeper",
-                "Verifies Candidate Logic And Grammatical Flow",
-                "Zero Gibberish Degradation"
-              ]
+            "caption": "In-Depth Evolution deepens the cognitive complexity of seed instructions.",
+            "activeActor": "distribution",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": {
+                  "var": "synthesis_stages",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": {
+                  "var": "distribution",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Evol-Instruct mutates simple prompts into complex multi-step tasks.",
-            "rows": [
-              [
-                "Counterfactual Premise",
-                "Forces Models To Reason Over Modified Premises",
-                "Eliminates Memorization SLA"
-              ],
-              [
-                "Multi Turn Dialogue Tree",
-                "Simulates User Follow Ups And Evolving Context",
-                "High Context Vigilance SLA"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement an Evol-Instruct mutation engine applying in-depth deepening.",
-            "rows": [
-              [
-                "Evol-Instruct Engine",
-                "Scales Few Seed Prompts Into Massive Datasets",
-                "Superhuman Complexity Growth"
-              ],
-              [
-                "Sovereign Mutation Mesh",
-                "Generates Highly Challenging Instruction Suites",
-                "Robust Model Verification SLA"
-              ]
+            "at": "say14",
+            "caption": "Mastering the algorithmic mechanics of Evol-Instruct empowers you.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": {
+                  "var": "synthesis_stages",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": {
+                  "var": "distribution",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Evol-Instruct In Depth And In Breadth Prompt Mutation.",
-        "columns": [
-          "Mutation Vector",
-          "Algorithmic Operation",
-          "Complexity Amplification SLA"
+        "template": "sequence",
+        "title": "Evol-Instruct Mechanics: In-Depth And In-Breadth Prompt Mutation",
+        "actors": [
+          "synthesis_stages",
+          "distribution",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Evol-Instruct deepens constraints and broadens topics across lineages.",
-            "rows": [
-              [
-                "In Depth Constraint",
-                "Adds Specialized Accounting And Legal Rules",
-                "Deep Reasoning Friction"
-              ],
-              [
-                "In Depth Concretization",
-                "Embeds Abstract Concepts In Fictional Cases",
-                "Rich Contextual Synthesis"
-              ]
-            ]
+            "caption": "Among the most influential breakthroughs in automated prompt dataset.",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": "['Seed Prompt Ingestion & Domain Cluste…",
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": "{'elementaryTestCount': 500, 'intermedi…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "synthesis_stages"
           },
           {
             "at": "say2",
-            "caption": "Among the most influential breakthroughs in automated prompt dataset.",
-            "rows": [
-              [
-                "In Breadth Mutation",
-                "Transfers Concepts Across Diverse Disciplines",
-                "Broad Domain Diversification"
-              ],
-              [
-                "Mutation Gatekeeper",
-                "Verifies Candidate Logic And Grammatical Flow",
-                "Zero Gibberish Degradation"
-              ]
-            ]
+            "caption": "In-Depth Evolution deepens the cognitive complexity of seed instructions.",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": "['Seed Prompt Ingestion & Domain Cluste…",
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": "{'elementaryTestCount': 500, 'intermedi…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "distribution"
           },
           {
-            "at": "example",
-            "caption": "Evol-Instruct mutates simple prompts into complex multi-step tasks.",
-            "rows": [
-              [
-                "Counterfactual Premise",
-                "Forces Models To Reason Over Modified Premises",
-                "Eliminates Memorization SLA"
-              ],
-              [
-                "Multi Turn Dialogue Tree",
-                "Simulates User Follow Ups And Evolving Context",
-                "High Context Vigilance SLA"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement an Evol-Instruct mutation engine applying in-depth deepening.",
-            "rows": [
-              [
-                "Evol-Instruct Engine",
-                "Scales Few Seed Prompts Into Massive Datasets",
-                "Superhuman Complexity Growth"
-              ],
-              [
-                "Sovereign Mutation Mesh",
-                "Generates Highly Challenging Instruction Suites",
-                "Robust Model Verification SLA"
-              ]
-            ]
+            "at": "say14",
+            "caption": "Mastering the algorithmic mechanics of Evol-Instruct empowers you.",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": "['Seed Prompt Ingestion & Domain Cluste…",
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": "{'elementaryTestCount': 500, 'intermedi…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -316,152 +337,162 @@
       "partTitle": "UltraFeedback And Multi-Criteria Annotation: Automated Ranking And Critique",
       "codeHash": "76fc95e5dbca7028744b8a58a27d63ccb3b0dabc223757a130ef46b90a34d185",
       "spec": {
-        "template": "table",
-        "title": "UltraFeedback Multi Criteria Annotation And Preference Ranking.",
-        "columns": [
-          "Evaluation Dimension",
-          "Rubric Objective",
-          "Annotation Accuracy SLA"
+        "template": "sequence",
+        "title": "UltraFeedback And Multi-Criteria Annotation: Automated Ranking A",
+        "actors": [
+          "synthesis_stages",
+          "distribution",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "UltraFeedback scores instruction adherence truthfulness and helpfulness.",
-            "rows": [
-              [
-                "Instruction Following",
-                "Verifies Adherence To Explicit Constraints",
-                "Strict Compliance Enforcement"
-              ],
-              [
-                "Truthfulness Grounding",
-                "Cross References Claims Against Trusted Sources",
-                "Zero Hallucination Tolerance"
-              ]
+            "caption": "Generating diverse, complex instructions is only the first half.",
+            "activeActor": "synthesis_stages",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": {
+                  "var": "synthesis_stages",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": {
+                  "var": "distribution",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Generating diverse complex instructions is only the first half of tasks.",
-            "rows": [
-              [
-                "Epistemic Honesty",
-                "Rewards Acknowledgment Of Unknown Information",
-                "Mitigates Confident Fabrication"
-              ],
-              [
-                "Helpfulness Evaluation",
-                "Measures Clarity Depth And Actionable Value",
-                "High User Value Guarantee"
-              ]
+            "caption": "The UltraFeedback pipeline executes a structured four-stage evaluation.",
+            "activeActor": "distribution",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": {
+                  "var": "synthesis_stages",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": {
+                  "var": "distribution",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "UltraFeedback evaluates completions across four orthogonal dimensions.",
-            "rows": [
-              [
-                "Textual Critique Core",
-                "Generates Diagnostic Feedback Explaining Scores",
-                "Rich Actionable Guidance"
-              ],
-              [
-                "Preference Pair Mining",
-                "Extracts Winning And Losing Response Trajectories",
-                "High Signal Alignment Training"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Construct an UltraFeedback rubric scoring truthfulness and compliance.",
-            "rows": [
-              [
-                "UltraFeedback Pipeline",
-                "Automates Multi Criteria Response Evaluation",
-                "Ninety Seven Percent Agreement"
-              ],
-              [
-                "Sovereign Annotation Mesh",
-                "Provides Industrial Grade Preference Annotation",
-                "Enterprise Gold Standard SLA"
-              ]
+            "at": "say15",
+            "caption": "Mastering the UltraFeedback framework equips you with an industrial-grade.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": {
+                  "var": "synthesis_stages",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": {
+                  "var": "distribution",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "UltraFeedback Multi Criteria Annotation And Preference Ranking.",
-        "columns": [
-          "Evaluation Dimension",
-          "Rubric Objective",
-          "Annotation Accuracy SLA"
+        "template": "sequence",
+        "title": "UltraFeedback And Multi-Criteria Annotation: Automated Ranking A",
+        "actors": [
+          "synthesis_stages",
+          "distribution",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "UltraFeedback scores instruction adherence truthfulness and helpfulness.",
-            "rows": [
-              [
-                "Instruction Following",
-                "Verifies Adherence To Explicit Constraints",
-                "Strict Compliance Enforcement"
-              ],
-              [
-                "Truthfulness Grounding",
-                "Cross References Claims Against Trusted Sources",
-                "Zero Hallucination Tolerance"
-              ]
-            ]
+            "caption": "Generating diverse, complex instructions is only the first half.",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": "['Seed Prompt Ingestion & Domain Cluste…",
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": "{'elementaryTestCount': 500, 'intermedi…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "synthesis_stages"
           },
           {
             "at": "say2",
-            "caption": "Generating diverse complex instructions is only the first half of tasks.",
-            "rows": [
-              [
-                "Epistemic Honesty",
-                "Rewards Acknowledgment Of Unknown Information",
-                "Mitigates Confident Fabrication"
-              ],
-              [
-                "Helpfulness Evaluation",
-                "Measures Clarity Depth And Actionable Value",
-                "High User Value Guarantee"
-              ]
-            ]
+            "caption": "The UltraFeedback pipeline executes a structured four-stage evaluation.",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": "['Seed Prompt Ingestion & Domain Cluste…",
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": "{'elementaryTestCount': 500, 'intermedi…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "distribution"
           },
           {
-            "at": "example",
-            "caption": "UltraFeedback evaluates completions across four orthogonal dimensions.",
-            "rows": [
-              [
-                "Textual Critique Core",
-                "Generates Diagnostic Feedback Explaining Scores",
-                "Rich Actionable Guidance"
-              ],
-              [
-                "Preference Pair Mining",
-                "Extracts Winning And Losing Response Trajectories",
-                "High Signal Alignment Training"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Construct an UltraFeedback rubric scoring truthfulness and compliance.",
-            "rows": [
-              [
-                "UltraFeedback Pipeline",
-                "Automates Multi Criteria Response Evaluation",
-                "Ninety Seven Percent Agreement"
-              ],
-              [
-                "Sovereign Annotation Mesh",
-                "Provides Industrial Grade Preference Annotation",
-                "Enterprise Gold Standard SLA"
-              ]
-            ]
+            "at": "say15",
+            "caption": "Mastering the UltraFeedback framework equips you with an industrial-grade.",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": "['Seed Prompt Ingestion & Domain Cluste…",
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": "{'elementaryTestCount': 500, 'intermedi…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -470,150 +501,220 @@
       "partTitle": "Difficulty Stratification, Deduplication, And Semantic Filtering",
       "codeHash": "76fc95e5dbca7028744b8a58a27d63ccb3b0dabc223757a130ef46b90a34d185",
       "spec": {
-        "template": "table",
-        "title": "Difficulty Stratification Deduplication And Semantic Filtering.",
-        "columns": [
-          "Filtration Stage",
-          "Deduplication Technique",
-          "Purification Efficiency SLA"
+        "template": "flow",
+        "title": "Difficulty Stratification, Deduplication, And Semantic Filtering",
+        "nodes": [
+          {
+            "id": "synthesis_stages",
+            "label": "synthesis_stages"
+          },
+          {
+            "id": "distribution",
+            "label": "distribution"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Difficulty stratification and MinHash clustering purify evaluation signal.",
-            "rows": [
+            "caption": "Generating thousands of synthetic test cases with Evol-Instruct.",
+            "values": {
+              "synthesis_stages": {
+                "var": "synthesis_stages",
+                "line": 6,
+                "hit": 1
+              },
+              "distribution": {
+                "var": "distribution",
+                "line": 13,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 29,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "synthesis_stages": "data",
+              "distribution": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "MinHash LSH Filter",
-                "Identifies Token Ngram Overlap At Scale",
-                "Purges Redundant Variations"
+                "synthesis_stages",
+                "distribution"
               ],
               [
-                "Dense Embedding Cluster",
-                "Maps Prompts Onto Semantic Manifolds",
-                "Identifies Underserved Domains"
+                "distribution",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Generating thousands of synthetic test cases with Evol-Instruct produces.",
-            "rows": [
+            "caption": "Semantic deduplication eliminates redundant instructions that consume.",
+            "values": {
+              "synthesis_stages": {
+                "var": "synthesis_stages",
+                "line": 14,
+                "hit": 1
+              },
+              "distribution": {
+                "var": "distribution",
+                "line": 20,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 30,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "synthesis_stages": "data",
+              "distribution": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Elementary Tier Gate",
-                "Validates Basic Fact Retrieval And Summaries",
-                "Five Hundred Curated Cases"
+                "synthesis_stages",
+                "distribution"
               ],
               [
-                "Intermediate Tier Gate",
-                "Validates Compositional Constraint Handling",
-                "Twelve Hundred Test Cases"
+                "distribution",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "MinHash deduplication purges redundant prompts to preserve test signal.",
-            "rows": [
+            "at": "say14",
+            "caption": "Mastering difficulty stratification, semantic deduplication, and quality.",
+            "values": {
+              "synthesis_stages": {
+                "var": "synthesis_stages",
+                "line": 15,
+                "hit": 1
+              },
+              "distribution": {
+                "var": "distribution",
+                "line": 21,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 30,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "synthesis_stages": "ok",
+              "distribution": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Advanced Reasoning Tier",
-                "Validates Multi Step Counterfactual Logic",
-                "Eighteen Hundred Test Cases"
+                "synthesis_stages",
+                "distribution"
               ],
               [
-                "Adversarial Edge Tier",
-                "Tests Resilience Under Deceptive Prompts",
-                "Five Hundred Edge Cases"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a MinHash LSH deduplication filter removing redundant prompt cases.",
-            "rows": [
-              [
-                "Stratification Mesh",
-                "Delivers Balanced Four Tier Dataset Envelopes",
-                "High Diagnostic Precision"
-              ],
-              [
-                "Dataset Quality Shield",
-                "Eliminates Unanswerable Synthesized Artifacts",
-                "Uncompromising Benchmark Quality"
+                "distribution",
+                "result"
               ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Difficulty Stratification Deduplication And Semantic Filtering.",
-        "columns": [
-          "Filtration Stage",
-          "Deduplication Technique",
-          "Purification Efficiency SLA"
+        "template": "flow",
+        "title": "Difficulty Stratification, Deduplication, And Semantic Filtering",
+        "nodes": [
+          {
+            "id": "synthesis_stages",
+            "label": "synthesis_stages"
+          },
+          {
+            "id": "distribution",
+            "label": "distribution"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Difficulty stratification and MinHash clustering purify evaluation signal.",
-            "rows": [
+            "caption": "Generating thousands of synthetic test cases with Evol-Instruct.",
+            "values": {
+              "synthesis_stages": "['Seed Prompt Ingestion & Domain Cluste…",
+              "distribution": "{'elementaryTestCount': 500, 'intermedi…",
+              "result": "{'datasetGenerator': 'Enterprise Autono…"
+            },
+            "tones": {
+              "synthesis_stages": "data",
+              "distribution": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "MinHash LSH Filter",
-                "Identifies Token Ngram Overlap At Scale",
-                "Purges Redundant Variations"
+                "synthesis_stages",
+                "distribution"
               ],
               [
-                "Dense Embedding Cluster",
-                "Maps Prompts Onto Semantic Manifolds",
-                "Identifies Underserved Domains"
+                "distribution",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Generating thousands of synthetic test cases with Evol-Instruct produces.",
-            "rows": [
+            "caption": "Semantic deduplication eliminates redundant instructions that consume.",
+            "values": {
+              "synthesis_stages": "['Seed Prompt Ingestion & Domain Cluste…",
+              "distribution": "{'elementaryTestCount': 500, 'intermedi…",
+              "result": "{'datasetGenerator': 'Enterprise Autono…"
+            },
+            "tones": {
+              "synthesis_stages": "data",
+              "distribution": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Elementary Tier Gate",
-                "Validates Basic Fact Retrieval And Summaries",
-                "Five Hundred Curated Cases"
+                "synthesis_stages",
+                "distribution"
               ],
               [
-                "Intermediate Tier Gate",
-                "Validates Compositional Constraint Handling",
-                "Twelve Hundred Test Cases"
+                "distribution",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "MinHash deduplication purges redundant prompts to preserve test signal.",
-            "rows": [
+            "at": "say14",
+            "caption": "Mastering difficulty stratification, semantic deduplication, and quality.",
+            "values": {
+              "synthesis_stages": "['Seed Prompt Ingestion & Domain Cluste…",
+              "distribution": "{'elementaryTestCount': 500, 'intermedi…",
+              "result": "{'datasetGenerator': 'Enterprise Autono…"
+            },
+            "tones": {
+              "synthesis_stages": "ok",
+              "distribution": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Advanced Reasoning Tier",
-                "Validates Multi Step Counterfactual Logic",
-                "Eighteen Hundred Test Cases"
+                "synthesis_stages",
+                "distribution"
               ],
               [
-                "Adversarial Edge Tier",
-                "Tests Resilience Under Deceptive Prompts",
-                "Five Hundred Edge Cases"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a MinHash LSH deduplication filter removing redundant prompt cases.",
-            "rows": [
-              [
-                "Stratification Mesh",
-                "Delivers Balanced Four Tier Dataset Envelopes",
-                "High Diagnostic Precision"
-              ],
-              [
-                "Dataset Quality Shield",
-                "Eliminates Unanswerable Synthesized Artifacts",
-                "Uncompromising Benchmark Quality"
+                "distribution",
+                "result"
               ]
             ]
           }
@@ -624,152 +725,162 @@
       "partTitle": "Enterprise Autonomous Golden Dataset Suite: 4,000 Verified Test Cases",
       "codeHash": "76fc95e5dbca7028744b8a58a27d63ccb3b0dabc223757a130ef46b90a34d185",
       "spec": {
-        "template": "table",
-        "title": "Enterprise Autonomous Golden Dataset Synthesis Suite.",
-        "columns": [
-          "Synthesis Component",
-          "Operational Metric",
-          "Quality Convergence SLA"
+        "template": "sequence",
+        "title": "Enterprise Autonomous Golden Dataset Suite: 4,000 Verified Test ",
+        "actors": [
+          "synthesis_stages",
+          "distribution",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise dataset suites generate four thousand stratified test cases.",
-            "rows": [
-              [
-                "Evol-Instruct Core",
-                "Executes In Depth And In Breadth Mutations",
-                "Four Thousand Unique Cases"
-              ],
-              [
-                "UltraFeedback Judge",
-                "Performs Multi Criteria Evaluation And Ranking",
-                "Ninety Seven Percent Agreement"
-              ]
+            "caption": "Translating synthetic data generation theory, Evol-Instruct mutation.",
+            "activeActor": "synthesis_stages",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": {
+                  "var": "synthesis_stages",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": {
+                  "var": "distribution",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Translating synthetic data generation theory and Evol-Instruct mutation.",
-            "rows": [
-              [
-                "Stratification Module",
-                "Distributes Cases Across Four Complexity Tiers",
-                "Balanced Benchmark Spread"
-              ],
-              [
-                "MinHash Deduplicator",
-                "Purges Twelve Hundred Redundant Prompts",
-                "Zero Redundant Compute Bloat"
-              ]
+            "caption": "The software architecture of the enterprise dataset synthesis engine.",
+            "activeActor": "distribution",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": {
+                  "var": "synthesis_stages",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": {
+                  "var": "distribution",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Enterprise synthesis suites generate four thousand stratified test cases.",
-            "rows": [
-              [
-                "OpenTelemetry Trace Bus",
-                "Exports Real Time Mutation Trees And Metrics",
-                "Total Enterprise Observability"
-              ],
-              [
-                "Compliance Vault",
-                "Archives Cryptographic Hashes Of Datasets",
-                "Full EU AI Act Provenance"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy an integrated golden dataset suite generating test batteries.",
-            "rows": [
-              [
-                "Apex Golden Dataset Mesh",
-                "Harmonizes Five Data Generation Subsystems",
-                "Four Thousand Verified Cases"
-              ],
-              [
-                "Production Ready Suite",
-                "Empowers Continuous Evaluation CI Pipelines",
-                "Mastery Of Synthetic Data"
-              ]
+            "at": "say14",
+            "caption": "Mastering the engineering architecture of enterprise autonomous golden.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": {
+                  "var": "synthesis_stages",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": {
+                  "var": "distribution",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Enterprise Autonomous Golden Dataset Synthesis Suite.",
-        "columns": [
-          "Synthesis Component",
-          "Operational Metric",
-          "Quality Convergence SLA"
+        "template": "sequence",
+        "title": "Enterprise Autonomous Golden Dataset Suite: 4,000 Verified Test ",
+        "actors": [
+          "synthesis_stages",
+          "distribution",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise dataset suites generate four thousand stratified test cases.",
-            "rows": [
-              [
-                "Evol-Instruct Core",
-                "Executes In Depth And In Breadth Mutations",
-                "Four Thousand Unique Cases"
-              ],
-              [
-                "UltraFeedback Judge",
-                "Performs Multi Criteria Evaluation And Ranking",
-                "Ninety Seven Percent Agreement"
-              ]
-            ]
+            "caption": "Translating synthetic data generation theory, Evol-Instruct mutation.",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": "['Seed Prompt Ingestion & Domain Cluste…",
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": "{'elementaryTestCount': 500, 'intermedi…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "synthesis_stages"
           },
           {
             "at": "say2",
-            "caption": "Translating synthetic data generation theory and Evol-Instruct mutation.",
-            "rows": [
-              [
-                "Stratification Module",
-                "Distributes Cases Across Four Complexity Tiers",
-                "Balanced Benchmark Spread"
-              ],
-              [
-                "MinHash Deduplicator",
-                "Purges Twelve Hundred Redundant Prompts",
-                "Zero Redundant Compute Bloat"
-              ]
-            ]
+            "caption": "The software architecture of the enterprise dataset synthesis engine.",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": "['Seed Prompt Ingestion & Domain Cluste…",
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": "{'elementaryTestCount': 500, 'intermedi…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "distribution"
           },
           {
-            "at": "example",
-            "caption": "Enterprise synthesis suites generate four thousand stratified test cases.",
-            "rows": [
-              [
-                "OpenTelemetry Trace Bus",
-                "Exports Real Time Mutation Trees And Metrics",
-                "Total Enterprise Observability"
-              ],
-              [
-                "Compliance Vault",
-                "Archives Cryptographic Hashes Of Datasets",
-                "Full EU AI Act Provenance"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy an integrated golden dataset suite generating test batteries.",
-            "rows": [
-              [
-                "Apex Golden Dataset Mesh",
-                "Harmonizes Five Data Generation Subsystems",
-                "Four Thousand Verified Cases"
-              ],
-              [
-                "Production Ready Suite",
-                "Empowers Continuous Evaluation CI Pipelines",
-                "Mastery Of Synthetic Data"
-              ]
-            ]
+            "at": "say14",
+            "caption": "Mastering the engineering architecture of enterprise autonomous golden.",
+            "messages": [
+              {
+                "from": "synthesis_stages",
+                "to": "distribution",
+                "label": "['Seed Prompt Ingestion & Domain Cluste…",
+                "tone": "data"
+              },
+              {
+                "from": "distribution",
+                "to": "result",
+                "label": "{'elementaryTestCount': 500, 'intermedi…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }

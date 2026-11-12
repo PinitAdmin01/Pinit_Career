@@ -2,1335 +2,827 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 39,
-  "promptSha": "5de74c3046c971b5df298ab3ca363d0b1e4dec48c7842db9c95a6206c4b9a153",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "SQLi & NoSQLi AST Parameterization Enforcers & Second-Order Payload Scanners — Foundations & Mathematical Invariants",
-      "codeHash": "7630a1e2f00697ed3b1e3005d91ff3c2dd146e4722e3921f457c64ebbac49fd2",
+      "partTitle": "SQLi & NoSQLi AST Parameterization Enforcers — Foundations & Mathematical Invariants",
+      "codeHash": "ab38f6c02d0d5e85232e20edf369fbe5d4d1f73c8a30bc7e7ea921880062f197",
       "spec": {
-        "template": "flow",
-        "title": "SQLi & NoSQLi AST Parameterization Enforcers & Second-Order Payload Sc",
-        "nodes": [
+        "template": "states",
+        "title": "SQLi & NoSQLi AST Parameterization Enforcers — Foundations & Mat",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "ac",
+            "label": "ac"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how injection updates flaws during execution.",
+            "currentState": "ac",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The mathematical root cause of injection is the failure to separate code.",
+            "currentState": "desc",
+            "transition": {
+              "from": "ac",
+              "to": "desc",
+              "label": {
+                "var": "desc",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "SQLi & NoSQLi AST Parameterization Enforcers — Foundations & Mat",
+        "states": [
+          {
+            "id": "ac",
+            "label": "ac"
+          },
+          {
+            "id": "desc",
+            "label": "desc"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Trace how injection updates flaws during execution.",
+            "currentState": "ac",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "The mathematical root cause of injection is the failure to separate code.",
+            "currentState": "desc",
+            "transition": {
+              "from": "ac",
+              "to": "desc",
+              "label": "\"Injecting boolean true predicates (' O…"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "SQLi & NoSQLi AST Parameterization Enforcers — Core Algorithm & State Representation",
+      "codeHash": "ccc15d6f44d5b9cf1d04adc2512f7f4151459686c50ad15d6842fc83b41576f2",
+      "spec": {
+        "template": "states",
+        "title": "SQLi & NoSQLi AST Parameterization Enforcers — Core Algorithm & ",
+        "states": [
+          {
+            "id": "template_sql",
+            "label": "template_sql"
+          },
+          {
+            "id": "params",
+            "label": "params"
+          },
+          {
+            "id": "placeholder_count",
+            "label": "placeholder_count"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The `ASTParameterizationEnforcer` inspects database query requests before.",
+            "currentState": "template_sql",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "For relational SQL, the enforcer counts the number of parameter.",
+            "currentState": "params",
+            "transition": {
+              "from": "template_sql",
+              "to": "params",
+              "label": {
+                "var": "params",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Automated test suites must include negative fuzzing cases with.",
+            "currentState": "placeholder_count",
+            "transition": {
+              "from": "params",
+              "to": "placeholder_count",
+              "label": {
+                "var": "placeholder_count",
+                "line": 10,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "SQLi & NoSQLi AST Parameterization Enforcers — Core Algorithm & ",
+        "states": [
+          {
+            "id": "template_sql",
+            "label": "template_sql"
+          },
+          {
+            "id": "params",
+            "label": "params"
+          },
+          {
+            "id": "placeholder_count",
+            "label": "placeholder_count"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The `ASTParameterizationEnforcer` inspects database query requests before.",
+            "currentState": "template_sql",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "For relational SQL, the enforcer counts the number of parameter.",
+            "currentState": "params",
+            "transition": {
+              "from": "template_sql",
+              "to": "params",
+              "label": "[482, 'ACTIVE']"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Automated test suites must include negative fuzzing cases with.",
+            "currentState": "placeholder_count",
+            "transition": {
+              "from": "params",
+              "to": "placeholder_count",
+              "label": "2"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "SQLi & NoSQLi AST Parameterization Enforcers — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "ebf153c07a6058362c0503466450db0c42dcc89e21815007538d6539350d2737",
+      "spec": {
+        "template": "boxes",
+        "title": "SQLi & NoSQLi AST Parameterization Enforcers — Throughput Optimi",
+        "boxes": [
+          {
+            "id": "db_record",
+            "label": "db_record"
+          },
+          {
+            "id": "record_dict",
+            "label": "record_dict"
+          },
+          {
+            "id": "tainted_fields",
+            "label": "tainted_fields"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A dangerous edge case in enterprise data pipelines is Second-Order SQL.",
+            "values": {
+              "db_record": {
+                "var": "db_record",
+                "line": 14,
+                "hit": 1
+              },
+              "record_dict": {
+                "var": "record_dict",
+                "line": 6,
+                "hit": 1
+              },
+              "tainted_fields": {
+                "var": "tainted_fields",
+                "line": 6,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "db_record": "data",
+              "record_dict": "data",
+              "tainted_fields": "data",
+              "key": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "In a second-order attack, an adversary submits an injection string (such.",
+            "values": {
+              "db_record": {
+                "var": "db_record",
+                "line": 15,
+                "hit": 1
+              },
+              "record_dict": {
+                "var": "record_dict",
+                "line": 7,
+                "hit": 1
+              },
+              "tainted_fields": {
+                "var": "tainted_fields",
+                "line": 7,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "db_record": "data",
+              "record_dict": "data",
+              "tainted_fields": "data",
+              "key": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Database connection strings should configure least-privilege user.",
+            "values": {
+              "db_record": {
+                "var": "db_record",
+                "line": 16,
+                "hit": 1
+              },
+              "record_dict": {
+                "var": "record_dict",
+                "line": 8,
+                "hit": 1
+              },
+              "tainted_fields": {
+                "var": "tainted_fields",
+                "line": 8,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 7,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "db_record": "ok",
+              "record_dict": "ok",
+              "tainted_fields": "ok",
+              "key": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "SQLi & NoSQLi AST Parameterization Enforcers — Throughput Optimi",
+        "boxes": [
+          {
+            "id": "db_record",
+            "label": "db_record"
+          },
+          {
+            "id": "record_dict",
+            "label": "record_dict"
+          },
+          {
+            "id": "tainted_fields",
+            "label": "tainted_fields"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A dangerous edge case in enterprise data pipelines is Second-Order SQL.",
+            "values": {
+              "db_record": "{'user_id': 104, 'bio': 'Senior Enginee…",
+              "record_dict": "{'user_id': 104, 'bio': 'Senior Enginee…",
+              "tainted_fields": "[]",
+              "key": "'user_id'"
+            },
+            "tones": {
+              "db_record": "data",
+              "record_dict": "data",
+              "tainted_fields": "data",
+              "key": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "In a second-order attack, an adversary submits an injection string (such.",
+            "values": {
+              "db_record": "{'user_id': 104, 'bio': 'Senior Enginee…",
+              "record_dict": "{'user_id': 104, 'bio': 'Senior Enginee…",
+              "tainted_fields": "[]",
+              "key": "'user_id'"
+            },
+            "tones": {
+              "db_record": "data",
+              "record_dict": "data",
+              "tainted_fields": "data",
+              "key": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Database connection strings should configure least-privilege user.",
+            "values": {
+              "db_record": "{'user_id': 104, 'bio': 'Senior Enginee…",
+              "record_dict": "{'user_id': 104, 'bio': 'Senior Enginee…",
+              "tainted_fields": "[]",
+              "key": "'bio'"
+            },
+            "tones": {
+              "db_record": "ok",
+              "record_dict": "ok",
+              "tainted_fields": "ok",
+              "key": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "SQLi & NoSQLi AST Parameterization Enforcers — Resilience Guardrails & Failure Recovery",
+      "codeHash": "d945817b2f154e50a2e5828f6c2ffdcc2a12a108e7cf58c46ee4891cec994a7a",
+      "spec": {
+        "template": "flow",
+        "title": "SQLi & NoSQLi AST Parameterization Enforcers — Resilience Guardr",
+        "nodes": [
+          {
+            "id": "valid_arg",
+            "label": "valid_arg"
+          },
+          {
+            "id": "risky_arg",
+            "label": "risky_arg"
+          },
+          {
+            "id": "token",
+            "label": "token"
+          },
+          {
+            "id": "raw_input",
+            "label": "raw_input"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Enterprise database security requires defense-in-depth guardrails.",
+            "values": {
+              "valid_arg": {
+                "var": "valid_arg",
+                "line": 9,
+                "hit": 1
+              },
+              "risky_arg": {
+                "var": "risky_arg",
+                "line": 10,
+                "hit": 1
+              },
+              "token": {
+                "var": "token",
+                "line": 5,
+                "hit": 1
+              },
+              "raw_input": {
+                "var": "raw_input",
+                "line": 5,
+                "hit": 7
+              }
+            },
+            "tones": {
+              "valid_arg": "data",
+              "risky_arg": "data",
+              "token": "data",
+              "raw_input": "data"
+            },
+            "arrows": [
+              [
+                "valid_arg",
+                "risky_arg"
+              ],
+              [
+                "risky_arg",
+                "token"
+              ],
+              [
+                "token",
+                "raw_input"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "The `QueryInvariantGuard` acts as an autonomous pre-execution firewall.",
+            "values": {
+              "valid_arg": {
+                "var": "valid_arg",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "risky_arg": {
+                "var": "risky_arg",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "token": {
+                "var": "token",
+                "line": 5,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "raw_input": {
+                "var": "raw_input",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "valid_arg": "data",
+              "risky_arg": "data",
+              "token": "data",
+              "raw_input": "data"
+            },
+            "arrows": [
+              [
+                "valid_arg",
+                "risky_arg"
+              ],
+              [
+                "risky_arg",
+                "token"
+              ],
+              [
+                "token",
+                "raw_input"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Real-time query firewalls inspect wire protocol packets to ensure.",
+            "values": {
+              "valid_arg": {
+                "var": "valid_arg",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "risky_arg": {
+                "var": "risky_arg",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "token": {
+                "var": "token",
+                "line": 5,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "raw_input": {
+                "var": "raw_input",
+                "line": 5,
+                "hit": 9
               }
+            },
+            "tones": {
+              "valid_arg": "ok",
+              "risky_arg": "ok",
+              "token": "ok",
+              "raw_input": "ok"
+            },
+            "arrows": [
+              [
+                "valid_arg",
+                "risky_arg"
+              ],
+              [
+                "risky_arg",
+                "token"
+              ],
+              [
+                "token",
+                "raw_input"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "SQLi & NoSQLi AST Parameterization Enforcers & Second-Order Payload Sc",
+        "title": "SQLi & NoSQLi AST Parameterization Enforcers — Resilience Guardr",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "valid_arg",
+            "label": "valid_arg"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "risky_arg",
+            "label": "risky_arg"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "token",
+            "label": "token"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "raw_input",
+            "label": "raw_input"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enterprise database security requires defense-in-depth guardrails.",
+            "values": {
+              "valid_arg": "'alice_corporate'",
+              "risky_arg": "\"alice' UNION SELECT password FROM user…",
+              "token": "'--'",
+              "raw_input": "'alice_corporate'"
+            },
+            "tones": {
+              "valid_arg": "data",
+              "risky_arg": "data",
+              "token": "data",
+              "raw_input": "data"
+            },
+            "arrows": [
+              [
+                "valid_arg",
+                "risky_arg"
+              ],
+              [
+                "risky_arg",
+                "token"
+              ],
+              [
+                "token",
+                "raw_input"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The `QueryInvariantGuard` acts as an autonomous pre-execution firewall.",
+            "values": {
+              "valid_arg": "'alice_corporate'",
+              "risky_arg": "\"alice' UNION SELECT password FROM user…",
+              "token": "'/*'",
+              "raw_input": "'alice_corporate'"
+            },
+            "tones": {
+              "valid_arg": "data",
+              "risky_arg": "data",
+              "token": "data",
+              "raw_input": "data"
+            },
+            "arrows": [
+              [
+                "valid_arg",
+                "risky_arg"
+              ],
+              [
+                "risky_arg",
+                "token"
+              ],
+              [
+                "token",
+                "raw_input"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Real-time query firewalls inspect wire protocol packets to ensure.",
+            "values": {
+              "valid_arg": "'alice_corporate'",
+              "risky_arg": "\"alice' UNION SELECT password FROM user…",
+              "token": "';'",
+              "raw_input": "\"alice' UNION SELECT password FROM user…"
+            },
+            "tones": {
+              "valid_arg": "ok",
+              "risky_arg": "ok",
+              "token": "ok",
+              "raw_input": "ok"
+            },
+            "arrows": [
+              [
+                "valid_arg",
+                "risky_arg"
+              ],
+              [
+                "risky_arg",
+                "token"
+              ],
+              [
+                "token",
+                "raw_input"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "SQLi & NoSQLi AST Parameterization Enforcers & Second-Order Payload Scanners — Core Algorithm & State Representation",
-      "codeHash": "0f84539ff77ad2accc5b765f4f8937d5cfafaf4af7ebbe2273658bfd688fad0f",
+      "partTitle": "SQLi & NoSQLi AST Parameterization Enforcers — Production Telemetry & Verification Audit",
+      "codeHash": "f7d8051cf57862eb1537c600036d376e609b02bf01eb3b26585486f18ef49975",
       "spec": {
-        "template": "flow",
-        "title": "SQLi & NoSQLi AST Parameterization Enforcers & Second-Order Payload Sc",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "SQLi & NoSQLi AST Parameterization Enforcers — Production Teleme",
+        "actors": [
+          "sql_parameterized",
+          "nosql_operators_blocked",
+          "second_order_detected"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating zero-injection database infrastructure demands continuous.",
+            "activeActor": "sql_parameterized",
+            "messages": [
+              {
+                "from": "sql_parameterized",
+                "to": "nosql_operators_blocked",
+                "label": {
+                  "var": "sql_parameterized",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "nosql_operators_blocked",
+                "to": "second_order_detected",
+                "label": {
+                  "var": "nosql_operators_blocked",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Production metrics monitor total query execution volume, parameterized.",
+            "activeActor": "nosql_operators_blocked",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "sql_parameterized",
+                "to": "nosql_operators_blocked",
+                "label": {
+                  "var": "sql_parameterized",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "nosql_operators_blocked",
+                "to": "second_order_detected",
+                "label": {
+                  "var": "nosql_operators_blocked",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Comprehensive injection defense telemetry provides compliance officers.",
+            "activeActor": "second_order_detected",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "sql_parameterized",
+                "to": "nosql_operators_blocked",
+                "label": {
+                  "var": "sql_parameterized",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "nosql_operators_blocked",
+                "to": "second_order_detected",
+                "label": {
+                  "var": "nosql_operators_blocked",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "SQLi & NoSQLi AST Parameterization Enforcers & Second-Order Payload Sc",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "SQLi & NoSQLi AST Parameterization Enforcers — Production Teleme",
+        "actors": [
+          "sql_parameterized",
+          "nosql_operators_blocked",
+          "second_order_detected"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Operating zero-injection database infrastructure demands continuous.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "sql_parameterized",
+                "to": "nosql_operators_blocked",
+                "label": "True",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "nosql_operators_blocked",
+                "to": "second_order_detected",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "sql_parameterized"
           },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "SQLi & NoSQLi AST Parameterization Enforcers & Second-Order Payload Scanners — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "5cb3e8a2514de932fbcc7a82e4708eb0ece5bf4ae1cd451267f27d11e29053e4",
-      "spec": {
-        "template": "flow",
-        "title": "SQLi & NoSQLi AST Parameterization Enforcers & Second-Order Payload Sc",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Production metrics monitor total query execution volume, parameterized.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "sql_parameterized",
+                "to": "nosql_operators_blocked",
+                "label": "True",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "nosql_operators_blocked",
+                "to": "second_order_detected",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "nosql_operators_blocked"
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "at": "say9",
+            "caption": "Comprehensive injection defense telemetry provides compliance officers.",
+            "messages": [
+              {
+                "from": "sql_parameterized",
+                "to": "nosql_operators_blocked",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "nosql_operators_blocked",
+                "to": "second_order_detected",
+                "label": "True",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "SQLi & NoSQLi AST Parameterization Enforcers & Second-Order Payload Sc",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "SQLi & NoSQLi AST Parameterization Enforcers & Second-Order Payload Scanners — Resilience Guardrails & Failure Recovery",
-      "codeHash": "929f92fd3c284732d27e0d4a4243f3a3df31931aa9a564a54733f9265e061599",
-      "spec": {
-        "template": "flow",
-        "title": "SQLi & NoSQLi AST Parameterization Enforcers & Second-Order Payload Sc",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "SQLi & NoSQLi AST Parameterization Enforcers & Second-Order Payload Sc",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "SQLi & NoSQLi AST Parameterization Enforcers & Second-Order Payload Scanners — Production Telemetry & Verification Audit",
-      "codeHash": "0f12fa8347f5d68cb0708f0068a5960281f2d350fdf3484744637a29c040cb2d",
-      "spec": {
-        "template": "flow",
-        "title": "SQLi & NoSQLi AST Parameterization Enforcers & Second-Order Payload Sc",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "SQLi & NoSQLi AST Parameterization Enforcers & Second-Order Payload Sc",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "second_order_detected"
           }
         ]
       }

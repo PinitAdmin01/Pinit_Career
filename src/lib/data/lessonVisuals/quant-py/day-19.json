@@ -2,150 +2,84 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 19,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Expected Shortfall",
       "codeHash": "3dedde8c65ef2f861ce39f2b993f06d884f0427f5956b8a8bb13245540657ff1",
       "spec": {
-        "template": "table",
-        "title": "Expected Shortfall conditional tail expectation and risk capital",
-        "columns": [
-          "calm",
-          "hidden"
-        ],
+        "template": "bars",
+        "title": "Expected Shortfall",
         "steps": [
           {
             "at": "say1",
-            "caption": "Expected Shortfall computes average losses beyond the VaR threshold.",
-            "rows": [
+            "caption": "Expected Shortfall (ES), also called Conditional VaR (CVaR), is.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "calm"
-                  },
-                  {
-                    "text": "hidden"
-                  }
-                ],
-                "tone": "ok"
+                "label": "confidence",
+                "value": {
+                  "var": "confidence",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Conditional expectations average severe losses situated within the worst tail.",
-            "rows": [
+            "caption": "If the 95 percent VaR is the 5th percentile loss, the 95 percent ES is.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "calm"
-                  },
-                  {
-                    "text": "hidden"
-                  }
-                ],
+                "label": "confidence",
+                "value": {
+                  "var": "confidence",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "tail"
-                  },
-                  {
-                    "text": "returns"
-                  }
-                ],
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Conditional VaR grows whenever catastrophic tail events get worse.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "calm"
-                  },
-                  {
-                    "text": "hidden"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tail"
-                  },
-                  {
-                    "text": "returns"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sum"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Expected Shortfall captures the catastrophic tail disaster that VaR hid.",
-            "rows": [
+            "caption": "ES captures the disaster that VaR hid.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "calm"
-                  },
-                  {
-                    "text": "hidden"
-                  }
-                ],
+                "label": "confidence",
+                "value": {
+                  "var": "confidence",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "tail"
-                  },
-                  {
-                    "text": "returns"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sum"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "var_es"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -153,103 +87,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Expected Shortfall conditional tail expectation and risk capital",
-        "columns": [
-          "calm",
-          "hidden"
-        ],
+        "template": "bars",
+        "title": "Expected Shortfall",
         "steps": [
           {
             "at": "say1",
-            "caption": "Expected Shortfall computes average losses beyond the VaR threshold.",
-            "rows": [
+            "caption": "Expected Shortfall (ES), also called Conditional VaR (CVaR), is.",
+            "bars": [
               {
-                "cells": [
-                  "calm",
-                  "hidden"
-                ],
-                "tone": "ok"
+                "label": "confidence",
+                "value": 0.95,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 5,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Conditional expectations average severe losses situated within the worst tail.",
-            "rows": [
+            "caption": "If the 95 percent VaR is the 5th percentile loss, the 95 percent ES is.",
+            "bars": [
               {
-                "cells": [
-                  "calm",
-                  "hidden"
-                ],
+                "label": "confidence",
+                "value": 0.95,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "tail",
-                  "returns"
-                ],
+                "label": "k",
+                "value": 5,
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Conditional VaR grows whenever catastrophic tail events get worse.",
-            "rows": [
-              {
-                "cells": [
-                  "calm",
-                  "hidden"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tail",
-                  "returns"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sum",
-                  "round"
-                ],
-                "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Expected Shortfall captures the catastrophic tail disaster that VaR hid.",
-            "rows": [
+            "caption": "ES captures the disaster that VaR hid.",
+            "bars": [
               {
-                "cells": [
-                  "calm",
-                  "hidden"
-                ],
+                "label": "confidence",
+                "value": 0.95,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "tail",
-                  "returns"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sum",
-                  "round"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "var_es",
-                  "print"
-                ],
+                "label": "k",
+                "value": 5,
                 "tone": "ok"
               }
             ]
@@ -261,249 +145,277 @@
       "partTitle": "Coherent risk measures",
       "codeHash": "22fa3b2f7ae8704538f5660fbb0f777ae3e33a45de98e5027698613c9d287369",
       "spec": {
-        "template": "table",
-        "title": "Axiomatic coherent risk measures and mathematical subadditivity",
-        "columns": [
-          "loss",
-          "prob"
+        "template": "flow",
+        "title": "Coherent risk measures",
+        "nodes": [
+          {
+            "id": "p",
+            "label": "p"
+          },
+          {
+            "id": "loss",
+            "label": "loss"
+          },
+          {
+            "id": "outcomes",
+            "label": "outcomes"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Theoretical risk frameworks define essential axioms for coherent measures.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "prob"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Trace how artzner updates delbaen during execution.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 3,
+                "hit": 1
+              },
+              "loss": {
+                "var": "loss",
+                "line": 3,
+                "hit": 1
+              },
+              "outcomes": {
+                "var": "outcomes",
+                "line": 4,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "p": "data",
+              "loss": "data",
+              "outcomes": "data",
+              "a": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "loss"
+              ],
+              [
+                "loss",
+                "outcomes"
+              ],
+              [
+                "outcomes",
+                "a"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Monotonicity and translation invariance govern foundational portfolio risk.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "prob"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A portfolio that always loses more has more risk.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "outcomes"
-                  },
-                  {
-                    "text": "product"
-                  }
-                ],
-                "tone": "ok"
+              "loss": {
+                "var": "loss",
+                "line": 4,
+                "hit": 1
+              },
+              "outcomes": {
+                "var": "outcomes",
+                "line": 5,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "p": "data",
+              "loss": "data",
+              "outcomes": "data",
+              "a": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "loss"
+              ],
+              [
+                "loss",
+                "outcomes"
+              ],
+              [
+                "outcomes",
+                "a"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Subadditivity guarantees combined portfolio risk never exceeds component sums.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "prob"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "This is not just theory.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "outcomes"
-                  },
-                  {
-                    "text": "product"
-                  }
-                ],
-                "tone": "ok"
+              "loss": {
+                "var": "loss",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "var95"
-                  },
-                  {
-                    "text": "cum"
-                  }
-                ],
-                "tone": "data"
+              "outcomes": {
+                "var": "outcomes",
+                "line": 6,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example shows VaR breaking subadditivity with independent default risk.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "prob"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "outcomes"
-                  },
-                  {
-                    "text": "product"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "var95"
-                  },
-                  {
-                    "text": "cum"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sorted"
-                  },
-                  {
-                    "text": "dist"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "p": "ok",
+              "loss": "ok",
+              "outcomes": "ok",
+              "a": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "loss"
+              ],
+              [
+                "loss",
+                "outcomes"
+              ],
+              [
+                "outcomes",
+                "a"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Axiomatic coherent risk measures and mathematical subadditivity",
-        "columns": [
-          "loss",
-          "prob"
+        "template": "flow",
+        "title": "Coherent risk measures",
+        "nodes": [
+          {
+            "id": "p",
+            "label": "p"
+          },
+          {
+            "id": "loss",
+            "label": "loss"
+          },
+          {
+            "id": "outcomes",
+            "label": "outcomes"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Theoretical risk frameworks define essential axioms for coherent measures.",
-            "rows": [
-              {
-                "cells": [
-                  "loss",
-                  "prob"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Trace how artzner updates delbaen during execution.",
+            "values": {
+              "p": "0.04",
+              "loss": "100",
+              "outcomes": "{}",
+              "a": "0"
+            },
+            "tones": {
+              "p": "data",
+              "loss": "data",
+              "outcomes": "data",
+              "a": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "loss"
+              ],
+              [
+                "loss",
+                "outcomes"
+              ],
+              [
+                "outcomes",
+                "a"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Monotonicity and translation invariance govern foundational portfolio risk.",
-            "rows": [
-              {
-                "cells": [
-                  "loss",
-                  "prob"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "outcomes",
-                  "product"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A portfolio that always loses more has more risk.",
+            "values": {
+              "p": "0.04",
+              "loss": "100",
+              "outcomes": "{}",
+              "a": "0"
+            },
+            "tones": {
+              "p": "data",
+              "loss": "data",
+              "outcomes": "data",
+              "a": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "loss"
+              ],
+              [
+                "loss",
+                "outcomes"
+              ],
+              [
+                "outcomes",
+                "a"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Subadditivity guarantees combined portfolio risk never exceeds component sums.",
-            "rows": [
-              {
-                "cells": [
-                  "loss",
-                  "prob"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "outcomes",
-                  "product"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "var95",
-                  "cum"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example shows VaR breaking subadditivity with independent default risk.",
-            "rows": [
-              {
-                "cells": [
-                  "loss",
-                  "prob"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "outcomes",
-                  "product"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "var95",
-                  "cum"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sorted",
-                  "dist"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "This is not just theory.",
+            "values": {
+              "p": "0.04",
+              "loss": "100",
+              "outcomes": "{}",
+              "a": "0"
+            },
+            "tones": {
+              "p": "ok",
+              "loss": "ok",
+              "outcomes": "ok",
+              "a": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "loss"
+              ],
+              [
+                "loss",
+                "outcomes"
+              ],
+              [
+                "outcomes",
+                "a"
+              ]
             ]
           }
         ]
@@ -513,143 +425,91 @@
       "partTitle": "Diversification in numbers",
       "codeHash": "dec7cc93b4c4d1dcec08f0dde6c56a2b2c25d117fbffca790c548fb343be3220",
       "spec": {
-        "template": "table",
-        "title": "Portfolio correlation matrix impacts and diversification benefits",
-        "columns": [
-          "combined",
-          "benefit"
+        "template": "sequence",
+        "title": "Diversification in numbers",
+        "actors": [
+          "a",
+          "b",
+          "rho"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Diversification benefits quantify risk reduction achieved by pooling positions.",
-            "rows": [
+            "caption": "Diversification benefit = sum of stand-alone risks - risk of the combined.",
+            "activeActor": "a",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "combined"
-                  },
-                  {
-                    "text": "benefit"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Uncorrelated and negatively correlated positions generate large risk reduction.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "combined"
-                  },
-                  {
-                    "text": "benefit"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Combined risks exceeding component sums signal data or metric flaws.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "combined"
-                  },
-                  {
-                    "text": "benefit"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "print"
-                  },
-                  {
-                    "text": "combined"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example shows combined risk across varying correlations between positions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "combined"
-                  },
-                  {
-                    "text": "benefit"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "print"
-                  },
-                  {
-                    "text": "combined"
-                  }
-                ],
+                "from": "a",
+                "to": "b",
+                "label": {
+                  "var": "a",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "print"
-                  },
-                  {
-                    "text": "benefit"
-                  }
-                ],
+                "from": "b",
+                "to": "rho",
+                "label": {
+                  "var": "b",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how desk updates risk during execution.",
+            "activeActor": "b",
+            "messages": [
+              {
+                "from": "a",
+                "to": "b",
+                "label": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "b",
+                "to": "rho",
+                "label": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Trace how builds updates whole during execution.",
+            "activeActor": "rho",
+            "messages": [
+              {
+                "from": "a",
+                "to": "b",
+                "label": {
+                  "var": "a",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "b",
+                "to": "rho",
+                "label": {
+                  "var": "b",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -657,106 +517,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Portfolio correlation matrix impacts and diversification benefits",
-        "columns": [
-          "combined",
-          "benefit"
+        "template": "sequence",
+        "title": "Diversification in numbers",
+        "actors": [
+          "a",
+          "b",
+          "rho"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Diversification benefits quantify risk reduction achieved by pooling positions.",
-            "rows": [
+            "caption": "Diversification benefit = sum of stand-alone risks - risk of the combined.",
+            "messages": [
               {
-                "cells": [
-                  "combined",
-                  "benefit"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Uncorrelated and negatively correlated positions generate large risk reduction.",
-            "rows": [
-              {
-                "cells": [
-                  "combined",
-                  "benefit"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "sqrt"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Combined risks exceeding component sums signal data or metric flaws.",
-            "rows": [
-              {
-                "cells": [
-                  "combined",
-                  "benefit"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "sqrt"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print",
-                  "combined"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example shows combined risk across varying correlations between positions.",
-            "rows": [
-              {
-                "cells": [
-                  "combined",
-                  "benefit"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "sqrt"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "print",
-                  "combined"
-                ],
+                "from": "a",
+                "to": "b",
+                "label": "100",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "print",
-                  "benefit"
-                ],
+                "from": "b",
+                "to": "rho",
+                "label": "80",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "a"
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how desk updates risk during execution.",
+            "messages": [
+              {
+                "from": "a",
+                "to": "b",
+                "label": "100",
+                "tone": "data"
+              },
+              {
+                "from": "b",
+                "to": "rho",
+                "label": "80",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "b"
+          },
+          {
+            "at": "say7",
+            "caption": "Trace how builds updates whole during execution.",
+            "messages": [
+              {
+                "from": "a",
+                "to": "b",
+                "label": "100",
+                "tone": "data"
+              },
+              {
+                "from": "b",
+                "to": "rho",
+                "label": "80",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "rho"
           }
         ]
       }
@@ -765,249 +589,277 @@
       "partTitle": "Stress testing",
       "codeHash": "4f43a3919d6ca48e89dc7ce7eb038946ea590e799d77410fad0172f54b89cde6",
       "spec": {
-        "template": "table",
-        "title": "Multi-factor stress scenario modeling and portfolio revaluation",
-        "columns": [
-          "move",
-          "vol_points"
+        "template": "flow",
+        "title": "Stress testing",
+        "nodes": [
+          {
+            "id": "book",
+            "label": "book"
+          },
+          {
+            "id": "scenarios",
+            "label": "scenarios"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Stress testing asks direct questions regarding portfolio exposure to crises.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "move"
-                  },
-                  {
-                    "text": "vol_points"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Statistical measures rely on history and assumptions.",
+            "values": {
+              "book": {
+                "var": "book",
+                "line": 1,
+                "hit": 1
+              },
+              "scenarios": {
+                "var": "scenarios",
+                "line": 2,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "book": "data",
+              "scenarios": "data",
+              "name": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "book",
+                "scenarios"
+              ],
+              [
+                "scenarios",
+                "name"
+              ],
+              [
+                "name",
+                "s"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Historical scenarios replay crises while hypothetical scenarios test shocks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "move"
-                  },
-                  {
-                    "text": "vol_points"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Historical scenarios replay real crises.",
+            "values": {
+              "book": {
+                "var": "book",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "book"
-                  },
-                  {
-                    "text": "scenarios"
-                  }
-                ],
-                "tone": "ok"
+              "scenarios": {
+                "var": "scenarios",
+                "line": 7,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 8,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "book": "data",
+              "scenarios": "data",
+              "name": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "book",
+                "scenarios"
+              ],
+              [
+                "scenarios",
+                "name"
+              ],
+              [
+                "name",
+                "s"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Scenario specifications apply sudden shocks to underlying market risk factors.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "move"
-                  },
-                  {
-                    "text": "vol_points"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Good stress tests are specific, severe but plausible, and cover what.",
+            "values": {
+              "book": {
+                "var": "book",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "book"
-                  },
-                  {
-                    "text": "scenarios"
-                  }
-                ],
-                "tone": "ok"
+              "scenarios": {
+                "var": "scenarios",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "delta_dollars"
-                  },
-                  {
-                    "text": "vega_per_point"
-                  }
-                ],
-                "tone": "data"
+              "name": {
+                "var": "name",
+                "line": 9,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example applies scenarios to a book with stock and volatility exposures.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "move"
-                  },
-                  {
-                    "text": "vol_points"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "book"
-                  },
-                  {
-                    "text": "scenarios"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "delta_dollars"
-                  },
-                  {
-                    "text": "vega_per_point"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "book"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "book": "ok",
+              "scenarios": "ok",
+              "name": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "book",
+                "scenarios"
+              ],
+              [
+                "scenarios",
+                "name"
+              ],
+              [
+                "name",
+                "s"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Multi-factor stress scenario modeling and portfolio revaluation",
-        "columns": [
-          "move",
-          "vol_points"
+        "template": "flow",
+        "title": "Stress testing",
+        "nodes": [
+          {
+            "id": "book",
+            "label": "book"
+          },
+          {
+            "id": "scenarios",
+            "label": "scenarios"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Stress testing asks direct questions regarding portfolio exposure to crises.",
-            "rows": [
-              {
-                "cells": [
-                  "move",
-                  "vol_points"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Statistical measures rely on history and assumptions.",
+            "values": {
+              "book": "{'delta_dollars': 2000000, 'vega_per_po…",
+              "scenarios": "{'equity crash': {'move': -0.2, 'vol_po…",
+              "name": "'equity crash'",
+              "s": "{'move': -0.2, 'vol_points': 15}"
+            },
+            "tones": {
+              "book": "data",
+              "scenarios": "data",
+              "name": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "book",
+                "scenarios"
+              ],
+              [
+                "scenarios",
+                "name"
+              ],
+              [
+                "name",
+                "s"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Historical scenarios replay crises while hypothetical scenarios test shocks.",
-            "rows": [
-              {
-                "cells": [
-                  "move",
-                  "vol_points"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "book",
-                  "scenarios"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Historical scenarios replay real crises.",
+            "values": {
+              "book": "{'delta_dollars': 2000000, 'vega_per_po…",
+              "scenarios": "{'equity crash': {'move': -0.2, 'vol_po…",
+              "name": "'equity crash'",
+              "s": "{'move': -0.2, 'vol_points': 15}"
+            },
+            "tones": {
+              "book": "data",
+              "scenarios": "data",
+              "name": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "book",
+                "scenarios"
+              ],
+              [
+                "scenarios",
+                "name"
+              ],
+              [
+                "name",
+                "s"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Scenario specifications apply sudden shocks to underlying market risk factors.",
-            "rows": [
-              {
-                "cells": [
-                  "move",
-                  "vol_points"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "book",
-                  "scenarios"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "delta_dollars",
-                  "vega_per_point"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example applies scenarios to a book with stock and volatility exposures.",
-            "rows": [
-              {
-                "cells": [
-                  "move",
-                  "vol_points"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "book",
-                  "scenarios"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "delta_dollars",
-                  "vega_per_point"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "items",
-                  "book"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Good stress tests are specific, severe but plausible, and cover what.",
+            "values": {
+              "book": "{'delta_dollars': 2000000, 'vega_per_po…",
+              "scenarios": "{'equity crash': {'move': -0.2, 'vol_po…",
+              "name": "'equity crash'",
+              "s": "{'move': -0.2, 'vol_points': 15}"
+            },
+            "tones": {
+              "book": "ok",
+              "scenarios": "ok",
+              "name": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "book",
+                "scenarios"
+              ],
+              [
+                "scenarios",
+                "name"
+              ],
+              [
+                "name",
+                "s"
+              ]
             ]
           }
         ]
@@ -1017,223 +869,175 @@
       "partTitle": "Reporting risk",
       "codeHash": "ff073fa9a06efea59d814e7d906925e4636d9f3ccf17215b891300e492fdc29a",
       "spec": {
-        "template": "flow",
-        "title": "Reporting risk — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reporting risk",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Reporting risk",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Reporting risk [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Reporting risk [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Risk numbers are only useful if decision makers understand them and act.",
+            "bars": [
+              {
+                "label": "used",
+                "value": {
+                  "var": "used",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "limit",
+                "value": {
+                  "var": "limit",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "usage",
+                "value": {
+                  "var": "usage",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A daily risk report shows VaR and ES at the firm and desk levels, limit.",
+            "bars": [
+              {
+                "label": "used",
+                "value": {
+                  "var": "used",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "limit",
+                "value": {
+                  "var": "limit",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "usage",
+                "value": {
+                  "var": "usage",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Reporting risk [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Trace how tomorrow updates portfolio during execution.",
+            "bars": [
+              {
+                "label": "used",
+                "value": {
+                  "var": "used",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "limit",
+                "value": {
+                  "var": "limit",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "usage",
+                "value": {
+                  "var": "usage",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Reporting risk — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reporting risk",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Reporting risk",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Reporting risk [D19.P5.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Reporting risk [D19.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Risk numbers are only useful if decision makers understand them and act.",
+            "bars": [
+              {
+                "label": "used",
+                "value": 82000,
+                "tone": "data"
+              },
+              {
+                "label": "limit",
+                "value": 100000,
+                "tone": "data"
+              },
+              {
+                "label": "usage",
+                "value": 0.82,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A daily risk report shows VaR and ES at the firm and desk levels, limit.",
+            "bars": [
+              {
+                "label": "used",
+                "value": 82000,
+                "tone": "ok"
+              },
+              {
+                "label": "limit",
+                "value": 100000,
+                "tone": "ok"
+              },
+              {
+                "label": "usage",
+                "value": 0.82,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Reporting risk [D19.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Trace how tomorrow updates portfolio during execution.",
+            "bars": [
+              {
+                "label": "used",
+                "value": 82000,
+                "tone": "ok"
+              },
+              {
+                "label": "limit",
+                "value": 100000,
+                "tone": "ok"
+              },
+              {
+                "label": "usage",
+                "value": 0.82,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -1243,223 +1047,175 @@
       "partTitle": "Practice time: tails and diversification",
       "codeHash": "c8c197bc01c40868cbabb3c0732dbc6d15291886ae36a894db09f7665d755c9d",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: tails and diversification — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: tail...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: tails and diversification",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: tails and diversification.",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: tail... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "K = max(1, round((1 - confidence) len(returns))).",
+            "bars": [
+              {
+                "label": "conf",
+                "value": {
+                  "var": "conf",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "confidence",
+                "value": {
+                  "var": "confidence",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates days during execution.",
+            "bars": [
+              {
+                "label": "conf",
+                "value": {
+                  "var": "conf",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "confidence",
+                "value": {
+                  "var": "confidence",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: tails and diversif.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "ES reacts to the size of the worst losses.",
+            "bars": [
+              {
+                "label": "conf",
+                "value": {
+                  "var": "conf",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "confidence",
+                "value": {
+                  "var": "confidence",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: tails and diversification — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: tail...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: tails and diversification",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: tails and diversification [D19.P6.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: tail... [D19.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "K = max(1, round((1 - confidence) len(returns))).",
+            "bars": [
+              {
+                "label": "conf",
+                "value": 0.95,
+                "tone": "data"
+              },
+              {
+                "label": "confidence",
+                "value": 0.95,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 2,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates days during execution.",
+            "bars": [
+              {
+                "label": "conf",
+                "value": 0.95,
+                "tone": "ok"
+              },
+              {
+                "label": "confidence",
+                "value": 0.95,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 2,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: tails and diversif.. [D19.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "ES reacts to the size of the worst losses.",
+            "bars": [
+              {
+                "label": "conf",
+                "value": 0.975,
+                "tone": "ok"
+              },
+              {
+                "label": "confidence",
+                "value": 0.95,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 2,
+                "tone": "ok"
+              }
             ]
           }
         ]

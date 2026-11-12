@@ -2,88 +2,188 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 60,
-  "promptSha": "ea02d25efb913022a9959483f015fb7671ccd05898f10258f316f7faf8eb9f73",
-  "model": "gate-v2-verified",
+  "promptSha": "50c0be7590f26d048b5b4070f970432f80ec3d88cb7c9f12144f824e3bf847e4",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "ApexPython Platform Architectural Blueprint & Formal Charter",
       "codeHash": "9a3ea3cfdda179bc265ed2f37efb7f99c065decf1779dfaa26bd169ffec4367e",
       "spec": {
-        "template": "table",
-        "title": "ApexPython Platform Architectural Blueprint & Form",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "PlatformCharter 8 core distributed backend domains",
+        "boxes": [
+          {
+            "id": "d1",
+            "label": "domains"
+          },
+          {
+            "id": "v",
+            "label": "verify_charter"
+          },
+          {
+            "id": "c",
+            "label": "PlatformCharter"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ApexPython"
-                  },
-                  {
-                    "text": "Platform"
-                  }
-                ],
-                "tone": "data"
+            "at": "say3",
+            "caption": "Architectural charter connects async engines, schemas, caching, and telemetry.",
+            "values": {
+              "d1": {
+                "text": "domains"
+              },
+              "v": {
+                "text": "verify_charter"
+              },
+              "c": {
+                "text": "PlatformCharter"
               }
-            ]
+            },
+            "tones": {
+              "d1": "data",
+              "v": "data",
+              "c": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The began logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Architectural"
-                  },
-                  {
-                    "text": "Blueprint"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say5",
+            "caption": "Unified ApexPython subsystems evolve safely under explicit interface contracts.",
+            "values": {
+              "d1": {
+                "text": "domains"
+              },
+              "v": {
+                "text": "verify_charter"
+              },
+              "c": {
+                "text": "PlatformCharter"
               }
-            ]
+            },
+            "tones": {
+              "d1": "ok",
+              "v": "ok",
+              "c": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Formal platform charter verifies integration across all eight core subsystems.",
+            "values": {
+              "d1": {
+                "text": "domains"
+              },
+              "v": {
+                "text": "verify_charter"
+              },
+              "c": {
+                "text": "PlatformCharter"
+              }
+            },
+            "tones": {
+              "d1": "ok",
+              "v": "ok",
+              "c": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Map curriculum stages across both months onto ApexPython subsystems.",
+            "values": {
+              "d1": {
+                "text": "Map"
+              },
+              "v": {
+                "text": "curriculum"
+              },
+              "c": {
+                "text": "across"
+              }
+            },
+            "tones": {
+              "d1": "data",
+              "v": "ok",
+              "c": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "ApexPython Platform Architectural Blueprint & Form",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "PlatformCharter 8 core distributed backend domains",
+        "boxes": [
+          {
+            "id": "d1",
+            "label": "domains"
+          },
+          {
+            "id": "v",
+            "label": "verify_charter"
+          },
+          {
+            "id": "c",
+            "label": "PlatformCharter"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "ApexPython",
-                  "Platform"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say3",
+            "caption": "Architectural charter connects async engines, schemas, caching, and telemetry.",
+            "values": {
+              "d1": "Month 1 + Month 2 Stages",
+              "v": "Async + Schema + Cache + OTel",
+              "c": "Unified Service Contracts"
+            },
+            "tones": {
+              "d1": "data",
+              "v": "data",
+              "c": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The began logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Architectural",
-                  "Blueprint"
-                ],
-                "tone": "ok"
-              }
+            "at": "say5",
+            "caption": "Unified ApexPython subsystems evolve safely under explicit interface contracts.",
+            "values": {
+              "d1": "Ledger, Kafka, gRPC, K8s",
+              "v": "Clear Module Boundaries",
+              "c": "Zero Ad-Hoc Coupling"
+            },
+            "tones": {
+              "d1": "ok",
+              "v": "ok",
+              "c": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Formal platform charter verifies integration across all eight core subsystems.",
+            "values": {
+              "d1": "8 / 8 Subsystems Mapped",
+              "v": "status = APPROVED",
+              "c": "ApexPython Charter Signed"
+            },
+            "tones": {
+              "d1": "ok",
+              "v": "ok",
+              "c": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Map curriculum stages across both months onto ApexPython subsystems.",
+            "values": {
+              "d1": "12 Curriculum Stages Mapped",
+              "v": "status = APPROVED",
+              "c": "Month 1 + 2 -> ApexPython"
+            },
+            "tones": {
+              "d1": "data",
+              "v": "ok",
+              "c": "ok"
+            },
+            "whatIf": "class PlatformCharter:\n    def __init__(self):\n        self.domains = [\n            \"Async Engine & Memory Optimization\",\n            \"Type-Safe Schemas & Validation\",\n            \"Distributed Redis Caching\",\n            \"Kafka Event-Driven Architecture\",\n            \"gRPC Binary Communication\",\n            \"Double-Entry Ledger Integrity\",\n            \"OpenTelemetry Tracing & RED Metrics\",\n            \"Kubernetes Lifecycle & Draining\"\n        ]\n\n    def verify_charter(self):\n        return {\n            \"total_domains\": len(self.domains),\n            \"status\": \"APPROVED\",\n            \"platform\": \"ApexPython Distributed Microservices Platform\"\n        }\n\ncharter = PlatformCharter()\nres = charter.verify_charter()\nprint(f\"Platform: {res['platform']}\")\nprint(f\"Master Domains Verified: {res['total_domains']}/8 Core Subsystems\")\nprint(f\"Architectural Charter Status: {res['status']}\")\nstages_m1_m2 = [\"S1:Types\", \"S2:Funcs\", \"S3:Data\", \"S4:OOP\", \"S5:Concurrency\", \"S6:FastAPI\", \"S7:SQLAlchemy\", \"S8:Celery\", \"S9:gRPC+Kafka\", \"S10:OTel\", \"S11:Capstone\", \"S12:Viva\"]\nprint(f\"Mapped {len(stages_m1_m2)} Stages Across 60 Days -> {', '.join(stages_m1_m2[:4])} ... {stages_m1_m2[-1]}\")\nprint(\"Charter Invariant: ApexPython establishes the definitive blueprint for high-scale Python microservices.\")",
+            "checks": [
+              "Mapped 12 Stages Across 60 Days -> S1:Types, S2:Funcs, S3:Data, S4:OOP ... S12:Viva"
             ]
           }
         ]
@@ -93,81 +193,206 @@
       "partTitle": "Multi-Failure Adversarial Red-Team Stress Test Harness",
       "codeHash": "5cf3f99fcdfe9ffae076e004946109ea0c5d4aef81e0d3877fd989f8ad534faf",
       "spec": {
-        "template": "table",
-        "title": "Multi-Failure Adversarial Red-Team Stress Test Har",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "ChaosStressHarness compound packet loss and DB failover buffering",
+        "nodes": [
+          {
+            "id": "inj",
+            "label": "inject_fault"
+          },
+          {
+            "id": "flt",
+            "label": "active_faults"
+          },
+          {
+            "id": "proc",
+            "label": "process_transaction"
+          }
+        ],
+        "edges": [
+          {
+            "from": "inj",
+            "to": "flt",
+            "label": "degraded_mode"
+          },
+          {
+            "from": "flt",
+            "to": "proc"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The before concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Multi"
-                  },
-                  {
-                    "text": "Failure"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Stress harness triggers primary database failover under concurrent load.",
+            "values": {
+              "inj": {
+                "text": "inject_fault"
+              },
+              "flt": {
+                "text": "active_faults"
+              },
+              "proc": {
+                "text": "ChaosStressHarness"
               }
-            ]
+            },
+            "tones": {
+              "inj": "error",
+              "flt": "error",
+              "proc": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The sudden logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Adversarial"
-                  },
-                  {
-                    "text": "Red"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say5",
+            "caption": "Resilient fallbacks buffer incoming transactions into queues with zero loss.",
+            "values": {
+              "inj": {
+                "text": "DB_FAILOVER"
+              },
+              "flt": {
+                "text": "degraded_mode"
+              },
+              "proc": {
+                "text": "process_transaction"
               }
-            ]
+            },
+            "tones": {
+              "inj": "error",
+              "flt": "data",
+              "proc": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Chaos test injects packet loss and DB failover with zero lost transactions.",
+            "values": {
+              "inj": {
+                "text": "inject_fault"
+              },
+              "flt": {
+                "text": "active_faults"
+              },
+              "proc": {
+                "text": "process_transaction"
+              }
+            },
+            "tones": {
+              "inj": "data",
+              "flt": "ok",
+              "proc": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Inject REDIS_NODE_EVICTION third fault with stale cache read fallback handling.",
+            "values": {
+              "inj": {
+                "text": "Add"
+              },
+              "flt": {
+                "text": "fault"
+              },
+              "proc": {
+                "text": "and"
+              }
+            },
+            "tones": {
+              "inj": "error",
+              "flt": "data",
+              "proc": "ok"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Multi-Failure Adversarial Red-Team Stress Test Har",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "ChaosStressHarness compound packet loss and DB failover buffering",
+        "nodes": [
+          {
+            "id": "inj",
+            "label": "inject_fault"
+          },
+          {
+            "id": "flt",
+            "label": "active_faults"
+          },
+          {
+            "id": "proc",
+            "label": "process_transaction"
+          }
+        ],
+        "edges": [
+          {
+            "from": "inj",
+            "to": "flt",
+            "label": "degraded_mode"
+          },
+          {
+            "from": "flt",
+            "to": "proc"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The before concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Multi",
-                  "Failure"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Stress harness triggers primary database failover under concurrent load.",
+            "values": {
+              "inj": "PACKET_LOSS_10% Injected",
+              "flt": "DB_FAILOVER Active",
+              "proc": "50k Requests Colliding"
+            },
+            "tones": {
+              "inj": "error",
+              "flt": "error",
+              "proc": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The sudden logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Adversarial",
-                  "Red"
-                ],
-                "tone": "ok"
-              }
+            "at": "say5",
+            "caption": "Resilient fallbacks buffer incoming transactions into queues with zero loss.",
+            "values": {
+              "inj": "Fallback Buffer Mode",
+              "flt": "degraded_mode = True",
+              "proc": "BUFFERED_IN_QUEUE Safe"
+            },
+            "tones": {
+              "inj": "error",
+              "flt": "data",
+              "proc": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Chaos test injects packet loss and DB failover with zero lost transactions.",
+            "values": {
+              "inj": "2 Faults Compounded",
+              "flt": "Circuit + Queue Active",
+              "proc": "TX-9901 -> Zero Data Loss"
+            },
+            "tones": {
+              "inj": "data",
+              "flt": "ok",
+              "proc": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Inject REDIS_NODE_EVICTION third fault with stale cache read fallback handling.",
+            "values": {
+              "inj": "3 Concurrent Faults Active",
+              "flt": "REDIS_NODE_EVICTION Guarded",
+              "proc": "STALE_CACHE_READ_FALLBACK OK"
+            },
+            "tones": {
+              "inj": "error",
+              "flt": "data",
+              "proc": "ok"
+            },
+            "arrows": [],
+            "whatIf": "class ChaosStressHarness:\n    def __init__(self):\n        self.active_faults = []\n        self.degraded_mode = False\n\n    def inject_fault(self, fault_type: str):\n        self.active_faults.append(fault_type)\n        if len(self.active_faults) >= 2:\n            self.degraded_mode = True\n\n    def process_transaction(self, tx_id: str) -> dict:\n        if \"REDIS_NODE_EVICTION\" in self.active_faults and \"DB_FAILOVER\" in self.active_faults:\n            return {\"tx_id\": tx_id, \"status\": \"STALE_CACHE_READ_FALLBACK\", \"loss\": False}\n        if \"DB_FAILOVER\" in self.active_faults:\n            return {\"tx_id\": tx_id, \"status\": \"BUFFERED_IN_QUEUE\", \"loss\": False}\n        return {\"tx_id\": tx_id, \"status\": \"COMMITTED\", \"loss\": False}\n\nharness = ChaosStressHarness()\nharness.inject_fault(\"PACKET_LOSS_10%\")\nharness.inject_fault(\"DB_FAILOVER\")\nharness.inject_fault(\"REDIS_NODE_EVICTION\")\n\ntx_result = harness.process_transaction(\"TX-9901\")\nprint(f\"Injected Faults: {', '.join(harness.active_faults)}\")\nprint(f\"Transaction Outcome: {tx_result['status']} (Zero Data Loss: {not tx_result['loss']})\")\nprint(\"Chaos Invariant: Red-team stress testing proves zero data loss under concurrent cascade failures.\")",
+            "checks": [
+              "Injected Faults: PACKET_LOSS_10%, DB_FAILOVER, REDIS_NODE_EVICTION",
+              "Transaction Outcome: STALE_CACHE_READ_FALLBACK (Zero Data Loss: True)"
             ]
           }
         ]
@@ -177,81 +402,259 @@
       "partTitle": "ApexPython Distributed Microservices Platform Implementation",
       "codeHash": "17252f75b29d7d98c825e2704edd0d5a4e6c492761862b969d4396cfa346eba6",
       "spec": {
-        "template": "table",
-        "title": "ApexPython Distributed Microservices Platform Impl",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "ApexPlatformEngine checkout execution across stock, ledger, and trace",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The assemble concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Purchase execution checks and decrements stock atomically in microseconds.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "ApexPython"
-                  },
-                  {
-                    "text": "Distributed"
-                  }
-                ],
+                "text": "redis_stock"
+              },
+              {
+                "text": "execute_flash_checkout"
+              },
+              {
+                "text": "ledger_balance"
+              },
+              {
+                "text": "telemetry_spans"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "inv",
+                "index": 0,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The next logic drives deterministic execution.",
-            "rows": [
+            "caption": "Financial settlement records ledger updates with exact Decimal precision.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Microservices"
-                  },
-                  {
-                    "text": "Platform"
-                  }
-                ],
+                "text": "redis_stock"
+              },
+              {
+                "text": "ledger_balance"
+              },
+              {
+                "text": "Decimal"
+              },
+              {
+                "text": "telemetry_spans"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "settle",
+                "index": 1,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "data",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "End-to-end checkout reserves stock, settles the vault ledger, and emits traces.",
+            "items": [
+              {
+                "text": "redis_stock"
+              },
+              {
+                "text": "ledger_balance"
+              },
+              {
+                "text": "telemetry_spans"
+              },
+              {
+                "text": "ApexPlatformEngine"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "span",
+                "index": 2,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Run 10 consecutive checkouts to drain stock to zero then verify OUT_OF_STOCK.",
+            "items": [
+              {
+                "text": "Execute"
+              },
+              {
+                "text": "checkouts"
+              },
+              {
+                "text": "verify"
+              },
+              {
+                "text": "remaining"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "soldout",
+                "index": 2,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "error",
+              "3": "data"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "ApexPython Distributed Microservices Platform Impl",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "ApexPlatformEngine checkout execution across stock, ledger, and trace",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The assemble concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Purchase execution checks and decrements stock atomically in microseconds.",
+            "items": [
+              "redis_stock: 10 -> 9",
+              "Check In Memory",
+              "Awaiting Settlement",
+              "Trace Pending"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "ApexPython",
-                  "Distributed"
-                ],
+                "name": "inv",
+                "index": 0,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The next logic drives deterministic execution.",
-            "rows": [
+            "caption": "Financial settlement records ledger updates with exact Decimal precision.",
+            "items": [
+              "Stock Reserved (9 left)",
+              "Vault: $1000 -> $1199.99",
+              "Decimal(\"199.99\") Exact",
+              "Logging Trace Span"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Microservices",
-                  "Platform"
-                ],
+                "name": "settle",
+                "index": 1,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "data",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "End-to-end checkout reserves stock, settles the vault ledger, and emits traces.",
+            "items": [
+              "remaining_stock: 9",
+              "vault_balance: $1199.99",
+              "trace: apex_trace_001",
+              "status: COMPLETED"
+            ],
+            "pointers": [
+              {
+                "name": "span",
+                "index": 2,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Run 10 consecutive checkouts to drain stock to zero then verify OUT_OF_STOCK.",
+            "items": [
+              "10 Checkouts Settled",
+              "remaining_stock: 0",
+              "11th -> OUT_OF_STOCK",
+              "Vault: $2999.90"
+            ],
+            "pointers": [
+              {
+                "name": "soldout",
+                "index": 2,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "error",
+              "3": "data"
+            },
+            "whatIf": "from decimal import Decimal\n\nclass ApexPlatformEngine:\n    def __init__(self):\n        self.redis_stock = 10\n        self.ledger_balance = Decimal(\"1000.00\")\n        self.telemetry_spans = []\n\n    def execute_flash_checkout(self, user_id: str, amount: Decimal) -> dict:\n        if self.redis_stock <= 0:\n            return {\"status\": \"OUT_OF_STOCK\"}\n        self.redis_stock -= 1\n        \n        self.ledger_balance += amount\n        \n        span = {\"trace_id\": \"apex_trace_001\", \"user\": user_id, \"amount\": str(amount)}\n        self.telemetry_spans.append(span)\n        \n        return {\n            \"status\": \"COMPLETED\",\n            \"remaining_stock\": self.redis_stock,\n            \"vault_balance\": str(self.ledger_balance),\n            \"trace_id\": span[\"trace_id\"]\n        }\n\napex = ApexPlatformEngine()\nfor idx in range(10):\n    checkout = apex.execute_flash_checkout(f\"user_{idx}\", Decimal(\"199.99\"))\nblocked = apex.execute_flash_checkout(\"user_11th\", Decimal(\"199.99\"))\nprint(f\"11th Checkout Result: {blocked['status']}\")\nprint(f\"Checkout Status: {checkout['status']}\")\nprint(f\"Remaining Stock: {checkout['remaining_stock']}\")\nprint(f\"Vault Balance: ${checkout['vault_balance']}\")\nprint(f\"Correlated Trace ID: {checkout['trace_id']}\")\nprint(\"Platform Invariant: Unified pipeline integrates reservation, double-entry settlement, and telemetry.\")",
+            "checks": [
+              "11th Checkout Result: OUT_OF_STOCK",
+              "Remaining Stock: 0",
+              "Vault Balance: $2999.90"
             ]
           }
         ]
@@ -262,43 +665,146 @@
       "codeHash": "f4c71506b4183db951ea3dacf648bb745ca8a523793efc5aee1796c36aa2d2f8",
       "spec": {
         "template": "table",
-        "title": "Chief Systems Architect Master Capstone Viva Defen",
+        "title": "MasterVivaExaminer architectural defense criteria scorecard",
         "columns": [
-          "Stage",
-          "Concept"
+          "Criteria Key",
+          "Proof Pillar",
+          "Examiner Verdict"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The enter concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Reviewers probe database failover buffering, Lua scripts, tracing, and probes.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Chief"
+                    "text": "defense_criteria"
                   },
                   {
-                    "text": "Systems"
+                    "text": "zero_loss_failover"
+                  },
+                  {
+                    "text": "MasterVivaExaminer"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "sub_millisecond_routing"
+                  },
+                  {
+                    "text": "evaluate_defense"
+                  },
+                  {
+                    "text": "MasterVivaExaminer"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The sliding logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Transactional billing pairs idempotency keys, postings, and hash chains.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Architect"
+                    "text": "exact_decimal_math"
                   },
                   {
-                    "text": "Master"
+                    "text": "zero_loss_failover"
+                  },
+                  {
+                    "text": "defense_criteria"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "slo_99_99_compliance"
+                  },
+                  {
+                    "text": "evaluate_defense"
+                  },
+                  {
+                    "text": "MasterVivaExaminer"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Master viva examiner scores routing, failover, decimal math, and compliance.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "sub_millisecond_routing"
+                  },
+                  {
+                    "text": "zero_loss_failover"
+                  },
+                  {
+                    "text": "evaluate_defense"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "exact_decimal_math"
+                  },
+                  {
+                    "text": "slo_99_99_compliance"
+                  },
+                  {
+                    "text": "defense_criteria"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set zero_loss_failover False so viva defense verdict catches incomplete gates.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Set"
+                  },
+                  {
+                    "text": "one"
+                  },
+                  {
+                    "text": "the"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "the"
+                  },
+                  {
+                    "text": "defense"
+                  },
+                  {
+                    "text": "criteria"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -306,36 +812,104 @@
       },
       "filled": {
         "template": "table",
-        "title": "Chief Systems Architect Master Capstone Viva Defen",
+        "title": "MasterVivaExaminer architectural defense criteria scorecard",
         "columns": [
-          "Stage",
-          "Concept"
+          "Criteria Key",
+          "Proof Pillar",
+          "Examiner Verdict"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The enter concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Reviewers probe database failover buffering, Lua scripts, tracing, and probes.",
             "rows": [
               {
                 "cells": [
-                  "Chief",
-                  "Systems"
+                  "zero_loss_failover",
+                  "Queue Buffering + Replicas",
+                  "Verified"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "sub_millisecond_routing",
+                  "Redis Lua + Shallow Probes",
+                  "Verified"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The sliding logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Transactional billing pairs idempotency keys, postings, and hash chains.",
             "rows": [
               {
                 "cells": [
-                  "Architect",
-                  "Master"
+                  "exact_decimal_math",
+                  "Double-Entry + SHA-256 Chain",
+                  "Verified"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "slo_99_99_compliance",
+                  "4.32m Budget + Graceful Drain",
+                  "Verified"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Master viva examiner scores routing, failover, decimal math, and compliance.",
+            "rows": [
+              {
+                "cells": [
+                  "All 4 Viva Criteria",
+                  "3 Principal/Staff Panel",
+                  "100/100"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "MasterVivaExaminer",
+                  "Full Architecture Proof",
+                  "UNANIMOUS_PASS"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set zero_loss_failover False so viva defense verdict catches incomplete gates.",
+            "rows": [
+              {
+                "cells": [
+                  "zero_loss_failover",
+                  "Set False In Audit",
+                  "FAILED_REQUIREMENTS (75/100)"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Remaining 3 Criteria",
+                  "True (Partial)",
+                  "Viva Gate Blocked"
+                ],
+                "tone": "data"
+              }
+            ],
+            "whatIf": "class MasterVivaExaminer:\n    def __init__(self):\n        self.defense_criteria = {\n            \"sub_millisecond_routing\": True,\n            \"zero_loss_failover\": False,\n            \"exact_decimal_math\": True,\n            \"slo_99_99_compliance\": True\n        }\n\n    def evaluate_defense(self) -> dict:\n        passed = all(self.defense_criteria.values())\n        return {\n            \"verdict\": \"UNANIMOUS_PASS\" if passed else \"FAILED_REQUIREMENTS\",\n            \"score\": \"100/100\" if passed else \"75/100\",\n            \"examiners\": [\"Principal Architect\", \"Director of Infrastructure\", \"Staff Security Engineer\"]\n        }\n\nviva = MasterVivaExaminer()\neval_summary = viva.evaluate_defense()\nprint(f\"Viva Examination Verdict: {eval_summary['verdict']}\")\nprint(f\"Score: {eval_summary['score']}\")\nprint(f\"Review Panel: {', '.join(eval_summary['examiners'])}\")\nprint(\"Defense Invariant: The viva gate certifies deep conceptual mastery and empirical system justification.\")",
+            "checks": [
+              "Viva Examination Verdict: FAILED_REQUIREMENTS",
+              "Score: 75/100"
             ]
           }
         ]
@@ -345,81 +919,203 @@
       "partTitle": "60-Day Python Backend Master Certification & Production Readiness Sign-Off",
       "codeHash": "fc7ea32c5d3efb59dba7e2cae180465c5c763e8f4876b08f2bd4b720e3c61734",
       "spec": {
-        "template": "table",
-        "title": "60-Day Python Backend Master Certification & Produ",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "MasterCertificationSignOff 60-day curriculum sign-off",
+        "nodes": [
+          {
+            "id": "m1",
+            "label": "award_certification"
+          },
+          {
+            "id": "id",
+            "label": "student_id"
+          },
+          {
+            "id": "cert",
+            "label": "MasterCertificationSignOff"
+          }
+        ],
+        "edges": [
+          {
+            "from": "id",
+            "to": "m1"
+          },
+          {
+            "from": "m1",
+            "to": "cert"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The congratulations concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Day"
-                  },
-                  {
-                    "text": "Python"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "First month built mastery across CPython memory, decorators, and concurrency.",
+            "values": {
+              "m1": {
+                "text": "award_certification"
+              },
+              "id": {
+                "text": "student_id"
+              },
+              "cert": {
+                "text": "MasterCertificationSignOff"
               }
-            ]
+            },
+            "tones": {
+              "m1": "data",
+              "id": "data",
+              "cert": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The mastered logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Backend"
-                  },
-                  {
-                    "text": "Master"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Second month uses schemas, SQLAlchemy, Kafka, caching, tracing, logging.",
+            "values": {
+              "m1": {
+                "text": "award_certification"
+              },
+              "id": {
+                "text": "student_id"
+              },
+              "cert": {
+                "text": "MasterCertificationSignOff"
               }
-            ]
+            },
+            "tones": {
+              "m1": "ok",
+              "id": "ok",
+              "cert": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Final certification sign-off issues the Python Backend Engineering credential.",
+            "values": {
+              "m1": {
+                "text": "award_certification"
+              },
+              "id": {
+                "text": "student_id"
+              },
+              "cert": {
+                "text": "MasterCertificationSignOff"
+              }
+            },
+            "tones": {
+              "m1": "ok",
+              "id": "ok",
+              "cert": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Customize student ID in certification generator verifying output format.",
+            "values": {
+              "m1": {
+                "text": "Customize"
+              },
+              "id": {
+                "text": "student"
+              },
+              "cert": {
+                "text": "certification"
+              }
+            },
+            "tones": {
+              "m1": "data",
+              "id": "ok",
+              "cert": "ok"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "60-Day Python Backend Master Certification & Produ",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "MasterCertificationSignOff 60-day curriculum sign-off",
+        "nodes": [
+          {
+            "id": "m1",
+            "label": "award_certification"
+          },
+          {
+            "id": "id",
+            "label": "student_id"
+          },
+          {
+            "id": "cert",
+            "label": "MasterCertificationSignOff"
+          }
+        ],
+        "edges": [
+          {
+            "from": "id",
+            "to": "m1"
+          },
+          {
+            "from": "m1",
+            "to": "cert"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The congratulations concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Day",
-                  "Python"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "First month built mastery across CPython memory, decorators, and concurrency.",
+            "values": {
+              "m1": "Days 01-30 Core Foundation",
+              "id": "Candidate: ARCHITECT-001",
+              "cert": "Pending Sign-Off"
+            },
+            "tones": {
+              "m1": "data",
+              "id": "data",
+              "cert": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The mastered logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Backend",
-                  "Master"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Second month uses schemas, SQLAlchemy, Kafka, caching, tracing, logging.",
+            "values": {
+              "m1": "Days 31-60 Distributed Stack",
+              "id": "All Milestones 6-10 Passed",
+              "cert": "Ready For Credential"
+            },
+            "tones": {
+              "m1": "ok",
+              "id": "ok",
+              "cert": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Final certification sign-off issues the Python Backend Engineering credential.",
+            "values": {
+              "m1": "CERT-PY-60-ARCHITECT-001",
+              "id": "ID Verified Cleanly",
+              "cert": "MASTER CAPSTONE VIVA PASSED"
+            },
+            "tones": {
+              "m1": "ok",
+              "id": "ok",
+              "cert": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Customize student ID in certification generator verifying output format.",
+            "values": {
+              "m1": "CERT-PY-60-ENG-2026-884",
+              "id": "Custom Student ID Applied",
+              "cert": "MASTER CAPSTONE VIVA PASSED"
+            },
+            "tones": {
+              "m1": "data",
+              "id": "ok",
+              "cert": "ok"
+            },
+            "arrows": [],
+            "whatIf": "class MasterCertificationSignOff:\n    @staticmethod\n    def award_certification(student_id: str) -> str:\n        cert_id = f\"CERT-PY-60-{student_id}\"\n        return f\"[MASTER CAPSTONE VIVA PASSED] 60-Day Python Backend Engineering Master Certification Awarded! ID: {cert_id}\"\n\ncert_msg = MasterCertificationSignOff.award_certification(\"ENG-2026-884\")\nprint(cert_msg)",
+            "checks": [
+              "[MASTER CAPSTONE VIVA PASSED] 60-Day Python Backend Engineering Master Certification Awarded! ID: CERT-PY-60-ENG-2026-884"
             ]
           }
         ]

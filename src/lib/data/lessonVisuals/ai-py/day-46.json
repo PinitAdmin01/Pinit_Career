@@ -2,269 +2,895 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 46,
-  "promptSha": "6235d03f768d0f50dddefaf4a426c3d7ef53c90f558c8f40a649978f63a47098",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "LLM-as-a-Judge Evaluation — Foundations & Mathematical Invariants",
-      "codeHash": "472a8b71f11706e62b5d0547d7475624638060f18ce20619d0a0e7c0148a470e",
+      "partTitle": "Reference-Free vs Reference-Guided Judging Trade-Offs",
+      "codeHash": "c320ded29d3382f7c08bac78e8da5b264a87c5d7028346af71c54581b17629c5",
       "spec": {
-        "template": "flow",
-        "title": "LLM-as-a-Judge Evaluation — Foundations & Mathematical Invariants",
-        "nodes": [
+        "template": "boxes",
+        "title": "Reference-Free vs Reference-Guided Judging Trade-Offs",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "tc",
+            "label": "tc"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "test_case",
+            "label": "test_case"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "has_gold",
+            "label": "has_gold"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "has_ctx",
+            "label": "has_ctx"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Exact-match or simple regex unit assertions validate flat JSON keys.",
+            "values": {
+              "tc": {
+                "var": "tc",
+                "line": 10,
+                "hit": 1
+              },
+              "test_case": {
+                "var": "test_case",
+                "line": 2,
+                "hit": 1
+              },
+              "has_gold": {
+                "var": "has_gold",
+                "line": 2,
+                "hit": 1
+              },
+              "has_ctx": {
+                "var": "has_ctx",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "tc": "data",
+              "test_case": "data",
+              "has_gold": "data",
+              "has_ctx": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "LLM-as-a-Judge unlocks scalable semantic verification across two distinct.",
+            "values": {
+              "tc": {
+                "var": "tc",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "test_case": {
+                "var": "test_case",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "has_gold": {
+                "var": "has_gold",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "has_ctx": {
+                "var": "has_ctx",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "tc": "data",
+              "test_case": "data",
+              "has_gold": "data",
+              "has_ctx": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Inspect select_judge_mode() dispatching explicit verification strategies.",
+            "values": {
+              "tc": {
+                "var": "tc",
+                "line": 10,
+                "hit": 2
+              },
+              "test_case": {
+                "var": "test_case",
+                "line": 4,
+                "hit": 1
+              },
+              "has_gold": {
+                "var": "has_gold",
+                "line": 4,
+                "hit": 1
+              },
+              "has_ctx": {
+                "var": "has_ctx",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "tc": "ok",
+              "test_case": "ok",
+              "has_gold": "ok",
+              "has_ctx": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Reference-Free vs Reference-Guided Judging Trade-Offs",
+        "boxes": [
+          {
+            "id": "tc",
+            "label": "tc"
+          },
+          {
+            "id": "test_case",
+            "label": "test_case"
+          },
+          {
+            "id": "has_gold",
+            "label": "has_gold"
+          },
+          {
+            "id": "has_ctx",
+            "label": "has_ctx"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Exact-match or simple regex unit assertions validate flat JSON keys.",
+            "values": {
+              "tc": "{'gold_answer': '90 days retention', 'r…",
+              "test_case": "{'gold_answer': '90 days retention', 'r…",
+              "has_gold": "True",
+              "has_ctx": "True"
+            },
+            "tones": {
+              "tc": "data",
+              "test_case": "data",
+              "has_gold": "data",
+              "has_ctx": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "LLM-as-a-Judge unlocks scalable semantic verification across two distinct.",
+            "values": {
+              "tc": "{'gold_answer': '90 days retention', 'r…",
+              "test_case": "{'gold_answer': '90 days retention', 'r…",
+              "has_gold": "True",
+              "has_ctx": "True"
+            },
+            "tones": {
+              "tc": "data",
+              "test_case": "data",
+              "has_gold": "data",
+              "has_ctx": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Inspect select_judge_mode() dispatching explicit verification strategies.",
+            "values": {
+              "tc": "{'gold_answer': '', 'retrieved_context'…",
+              "test_case": "{'gold_answer': '90 days retention', 'r…",
+              "has_gold": "True",
+              "has_ctx": "True"
+            },
+            "tones": {
+              "tc": "ok",
+              "test_case": "ok",
+              "has_gold": "ok",
+              "has_ctx": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Neutralizing Positional Bias via Dual-Order Swap Testing",
+      "codeHash": "dd102952ae5030a3d2e213b90a279481e68a8c72c39e924d325213ed2f7c22d8",
+      "spec": {
+        "template": "boxes",
+        "title": "Neutralizing Positional Bias via Dual-Order Swap Testing",
+        "boxes": [
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "y",
+            "label": "y"
+          },
+          {
+            "id": "cand_a",
+            "label": "cand_a"
+          },
+          {
+            "id": "cand_b",
+            "label": "cand_b"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Uncalibrated pairwise comparisons (`Which response wins.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 11,
+                "hit": 2
+              },
+              "y": {
+                "var": "y",
+                "line": 11,
+                "hit": 2
+              },
+              "cand_a": {
+                "var": "cand_a",
+                "line": 2,
+                "hit": 1
+              },
+              "cand_b": {
+                "var": "cand_b",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "x": "data",
+              "y": "data",
+              "cand_a": "data",
+              "cand_b": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Trusting single-order benchmarks poisons model-upgrade decisions instantly.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 11,
+                "hit": 3
+              },
+              "y": {
+                "var": "y",
+                "line": 11,
+                "hit": 3
+              },
+              "cand_a": {
+                "var": "cand_a",
+                "line": 3,
+                "hit": 1
+              },
+              "cand_b": {
+                "var": "cand_b",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "x": "data",
+              "y": "data",
+              "cand_a": "data",
+              "cand_b": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Watch dual_order_pairwise() neutralize a blatantly Slot-A-biased judge.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 12,
+                "hit": 2
+              },
+              "y": {
+                "var": "y",
+                "line": 12,
+                "hit": 2
+              },
+              "cand_a": {
+                "var": "cand_a",
+                "line": 5,
+                "hit": 1
+              },
+              "cand_b": {
+                "var": "cand_b",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "x": "ok",
+              "y": "ok",
+              "cand_a": "ok",
+              "cand_b": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Neutralizing Positional Bias via Dual-Order Swap Testing",
+        "boxes": [
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "y",
+            "label": "y"
+          },
+          {
+            "id": "cand_a",
+            "label": "cand_a"
+          },
+          {
+            "id": "cand_b",
+            "label": "cand_b"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Uncalibrated pairwise comparisons (`Which response wins.",
+            "values": {
+              "x": "'ans A'",
+              "y": "'ans B'",
+              "cand_a": "'ans A'",
+              "cand_b": "'ans B'"
+            },
+            "tones": {
+              "x": "data",
+              "y": "data",
+              "cand_a": "data",
+              "cand_b": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Trusting single-order benchmarks poisons model-upgrade decisions instantly.",
+            "values": {
+              "x": "'ans B'",
+              "y": "'ans A'",
+              "cand_a": "'ans A'",
+              "cand_b": "'ans B'"
+            },
+            "tones": {
+              "x": "data",
+              "y": "data",
+              "cand_a": "data",
+              "cand_b": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Watch dual_order_pairwise() neutralize a blatantly Slot-A-biased judge.",
+            "values": {
+              "x": "'verified ans'",
+              "y": "'draft ans'",
+              "cand_a": "'ans A'",
+              "cand_b": "'ans B'"
+            },
+            "tones": {
+              "x": "ok",
+              "y": "ok",
+              "cand_a": "ok",
+              "cand_b": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Detecting and Guarding Against Verbosity Bias",
+      "codeHash": "3c58cfad30171ba66e0cb7f49b3b83717038a1e2c934660060e5761c8f8962b0",
+      "spec": {
+        "template": "flow",
+        "title": "Detecting and Guarding Against Verbosity Bias",
+        "nodes": [
+          {
+            "id": "sample",
+            "label": "sample"
+          },
+          {
+            "id": "records",
+            "label": "records"
+          },
+          {
+            "id": "long_wins",
+            "label": "long_wins"
+          },
+          {
+            "id": "asym_cases",
+            "label": "asym_cases"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Even position-swapped comparisons stumble consistently over another subtle.",
+            "values": {
+              "sample": {
+                "var": "sample",
+                "line": 14,
+                "hit": 1
+              },
+              "records": {
+                "var": "records",
+                "line": 2,
+                "hit": 1
+              },
+              "long_wins": {
+                "var": "long_wins",
+                "line": 2,
+                "hit": 1
+              },
+              "asym_cases": {
+                "var": "asym_cases",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "sample": "data",
+              "records": "data",
+              "long_wins": "data",
+              "asym_cases": "data"
+            },
+            "arrows": [
+              [
+                "sample",
+                "records"
+              ],
+              [
+                "records",
+                "long_wins"
+              ],
+              [
+                "long_wins",
+                "asym_cases"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "If unchecked, optimizing against a verbosity-biased auto-grader rewards.",
+            "values": {
+              "sample": {
+                "var": "sample",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "records": {
+                "var": "records",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "long_wins": {
+                "var": "long_wins",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "asym_cases": {
+                "var": "asym_cases",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "sample": "data",
+              "records": "data",
+              "long_wins": "data",
+              "asym_cases": "data"
+            },
+            "arrows": [
+              [
+                "sample",
+                "records"
+              ],
+              [
+                "records",
+                "long_wins"
+              ],
+              [
+                "long_wins",
+                "asym_cases"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Inspect audit_verbosity_bias() catching runaway length correlation across.",
+            "values": {
+              "sample": {
+                "var": "sample",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "records": {
+                "var": "records",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "long_wins": {
+                "var": "long_wins",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "asym_cases": {
+                "var": "asym_cases",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "sample": "ok",
+              "records": "ok",
+              "long_wins": "ok",
+              "asym_cases": "ok"
+            },
+            "arrows": [
+              [
+                "sample",
+                "records"
+              ],
+              [
+                "records",
+                "long_wins"
+              ],
+              [
+                "long_wins",
+                "asym_cases"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "LLM-as-a-Judge Evaluation — Foundations & Mathematical Invariants",
+        "title": "Detecting and Guarding Against Verbosity Bias",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sample",
+            "label": "sample"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "records",
+            "label": "records"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "long_wins",
+            "label": "long_wins"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "asym_cases",
+            "label": "asym_cases"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Even position-swapped comparisons stumble consistently over another subtle.",
+            "values": {
+              "sample": "[{'len_a': 200, 'len_b': 60, 'win': 'A'…",
+              "records": "[{'len_a': 200, 'len_b': 60, 'win': 'A'…",
+              "long_wins": "0",
+              "asym_cases": "0"
+            },
+            "tones": {
+              "sample": "data",
+              "records": "data",
+              "long_wins": "data",
+              "asym_cases": "data"
+            },
+            "arrows": [
+              [
+                "sample",
+                "records"
+              ],
+              [
+                "records",
+                "long_wins"
+              ],
+              [
+                "long_wins",
+                "asym_cases"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If unchecked, optimizing against a verbosity-biased auto-grader rewards.",
+            "values": {
+              "sample": "[{'len_a': 200, 'len_b': 60, 'win': 'A'…",
+              "records": "[{'len_a': 200, 'len_b': 60, 'win': 'A'…",
+              "long_wins": "0",
+              "asym_cases": "0"
+            },
+            "tones": {
+              "sample": "data",
+              "records": "data",
+              "long_wins": "data",
+              "asym_cases": "data"
+            },
+            "arrows": [
+              [
+                "sample",
+                "records"
+              ],
+              [
+                "records",
+                "long_wins"
+              ],
+              [
+                "long_wins",
+                "asym_cases"
+              ]
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Inspect audit_verbosity_bias() catching runaway length correlation across.",
+            "values": {
+              "sample": "[{'len_a': 200, 'len_b': 60, 'win': 'A'…",
+              "records": "[{'len_a': 200, 'len_b': 60, 'win': 'A'…",
+              "long_wins": "0",
+              "asym_cases": "0"
+            },
+            "tones": {
+              "sample": "ok",
+              "records": "ok",
+              "long_wins": "ok",
+              "asym_cases": "ok"
+            },
+            "arrows": [
+              [
+                "sample",
+                "records"
+              ],
+              [
+                "records",
+                "long_wins"
+              ],
+              [
+                "long_wins",
+                "asym_cases"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Anchored Pointwise Rubrics and Cohen's Kappa Agreement",
+      "codeHash": "3b5c98d05ae431cde8c90ec9adac48f9ee407e43c7adf09a2e8386c627a5f740",
+      "spec": {
+        "template": "bars",
+        "title": "Anchored Pointwise Rubrics and Cohen's Kappa Agreement",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Free-form pointwise prompts ('Rate quality from 1 to 10') drift wildly.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "h",
+                "value": {
+                  "var": "h",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "po",
+                "value": {
+                  "var": "po",
+                  "line": 3,
+                  "hit": 12
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Replacing loose open scales with tight behavioral anchorsfor instance `1 =.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 12
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "h",
+                "value": {
+                  "var": "h",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "po",
+                "value": {
+                  "var": "po",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Compare `imbalanced miss` vs `strong match` outputs below using cohen_kappa().",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "label": "h",
+                "value": {
+                  "var": "h",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "po",
+                "value": {
+                  "var": "po",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "bars",
+        "title": "Anchored Pointwise Rubrics and Cohen's Kappa Agreement",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Free-form pointwise prompts ('Rate quality from 1 to 10') drift wildly.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "h",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "j",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "po",
+                "value": 0.9,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Replacing loose open scales with tight behavioral anchorsfor instance `1 =.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "h",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "po",
+                "value": 0.9,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Compare `imbalanced miss` vs `strong match` outputs below using cohen_kappa().",
+            "bars": [
+              {
+                "label": "n",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "h",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "po",
+                "value": 0.9,
+                "tone": "ok"
               }
             ]
           }
@@ -272,1063 +898,219 @@
       }
     },
     {
-      "partTitle": "LLM-as-a-Judge Evaluation — Core Algorithm & State Representation",
-      "codeHash": "792c65939243fa73425279230fb260b273d6bd38581a13072c97b9ed90f228da",
+      "partTitle": "Judge Alignment Gate Before Deploying New Evaluators",
+      "codeHash": "105ece787580160514cb2a4f01f1e7ace4fd932b2c4a1058aaac520641981ec0",
       "spec": {
-        "template": "flow",
-        "title": "LLM-as-a-Judge Evaluation — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Judge Alignment Gate Before Deploying New Evaluators",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated graders hold veto power over deployment pipelinesif.",
+            "bars": [
+              {
+                "label": "kappa",
+                "value": {
+                  "var": "kappa",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "swap_consisten",
+                "value": {
+                  "var": "swap_consistency",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "min_kappa",
+                "value": {
+                  "var": "min_kappa",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "min_swap",
+                "value": {
+                  "var": "min_swap",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Treat upgrading your LLM-as-a-Judge checkpoint or modifying rubric wording.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "kappa",
+                "value": {
+                  "var": "kappa",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "swap_consisten",
+                "value": {
+                  "var": "swap_consistency",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "min_kappa",
+                "value": {
+                  "var": "min_kappa",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "min_swap",
+                "value": {
+                  "var": "min_swap",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect verify_judge_readiness() automating pre-release evaluator.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "kappa",
+                "value": {
+                  "var": "kappa",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "swap_consisten",
+                "value": {
+                  "var": "swap_consistency",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "min_kappa",
+                "value": {
+                  "var": "min_kappa",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "min_swap",
+                "value": {
+                  "var": "min_swap",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "LLM-as-a-Judge Evaluation — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Judge Alignment Gate Before Deploying New Evaluators",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Automated graders hold veto power over deployment pipelinesif.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "kappa",
+                "value": 0.78,
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "swap_consisten",
+                "value": 0.94,
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "min_kappa",
+                "value": 0.7,
+                "tone": "data"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "min_swap",
+                "value": 0.9,
+                "tone": "data"
               }
             ]
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "LLM-as-a-Judge Evaluation — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "648f57388b3bf458dd7e678e359907c3a1c46860ffc4c426d8cacb99bd1aa3bc",
-      "spec": {
-        "template": "flow",
-        "title": "LLM-as-a-Judge Evaluation — Throughput Optimization & Edge-Case Handli",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Treat upgrading your LLM-as-a-Judge checkpoint or modifying rubric wording.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "kappa",
+                "value": 0.78,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "swap_consisten",
+                "value": 0.94,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "min_kappa",
+                "value": 0.7,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "min_swap",
+                "value": 0.9,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect verify_judge_readiness() automating pre-release evaluator.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "kappa",
+                "value": 0.78,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "swap_consisten",
+                "value": 0.94,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "min_kappa",
+                "value": 0.7,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "LLM-as-a-Judge Evaluation — Throughput Optimization & Edge-Case Handli",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "LLM-as-a-Judge Evaluation — Resilience Guardrails & Failure Recovery",
-      "codeHash": "f1e1b8b5fc956e180f2ef38f3702f29a0ba86a87c3f52bdd89f3e7ff04b5b321",
-      "spec": {
-        "template": "flow",
-        "title": "LLM-as-a-Judge Evaluation — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "LLM-as-a-Judge Evaluation — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "LLM-as-a-Judge Evaluation — Production Telemetry & Verification Audit",
-      "codeHash": "5091eab1b26597b49eec7b8c795435d37489b3584b4bc1eafdf9921d0ff743ef",
-      "spec": {
-        "template": "flow",
-        "title": "LLM-as-a-Judge Evaluation — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "LLM-as-a-Judge Evaluation — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "min_swap",
+                "value": 0.9,
+                "tone": "ok"
               }
             ]
           }

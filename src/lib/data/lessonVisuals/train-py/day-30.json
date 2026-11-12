@@ -2,85 +2,138 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 30,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Choosing a strategy that fits",
       "codeHash": "fb38097e9c5e846ed143df1c277ccc609c32f30e17710d20f789e942be3b9862",
       "spec": {
-        "template": "table",
-        "title": "ZeRO stage selection and memory headroom evaluation",
-        "columns": [
-          "params",
-          "gpus",
-          "gpu_gb"
-        ],
+        "template": "bars",
+        "title": "Choosing a strategy that fits",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Start with plain data parallelism then escalate to ZeRO sharding stages.",
-            "rows": [
+            "at": "say1",
+            "caption": "The first question for any run is whether it fits, and with which technique.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "gpu_gb"
-                  }
-                ],
-                "tone": "ok"
+                "label": "billions",
+                "value": {
+                  "var": "billions",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "gpu_gb"
-                  }
-                ],
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "gpus",
+                "value": {
+                  "var": "gpus",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "gpu_gb",
+                "value": {
+                  "var": "gpu_gb",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Simpler strategies communicate less and are easier to debug during runs.",
-            "rows": [
+            "at": "say2",
+            "caption": "Start with the simplest option and move up only when needed.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "gpu_gb"
-                  }
-                ],
-                "tone": "data"
+                "label": "billions",
+                "value": {
+                  "var": "billions",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "gpus",
+                "value": {
+                  "var": "gpus",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "gpu_gb",
+                "value": {
+                  "var": "gpu_gb",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Trace how instance updates note during execution.",
+            "bars": [
+              {
+                "label": "billions",
+                "value": {
+                  "var": "billions",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "gpus",
+                "value": {
+                  "var": "gpus",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "gpu_gb",
+                "value": {
+                  "var": "gpu_gb",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -88,54 +141,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "ZeRO stage selection and memory headroom evaluation",
-        "columns": [
-          "params",
-          "gpus",
-          "gpu_gb"
-        ],
+        "template": "bars",
+        "title": "Choosing a strategy that fits",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Start with plain data parallelism then escalate to ZeRO sharding stages.",
-            "rows": [
+            "at": "say1",
+            "caption": "The first question for any run is whether it fits, and with which technique.",
+            "bars": [
               {
-                "cells": [
-                  "params",
-                  "gpus",
-                  "gpu_gb"
-                ],
-                "tone": "ok"
+                "label": "billions",
+                "value": 1,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "params",
-                  "gpus",
-                  "gpu_gb"
-                ],
+                "label": "params",
+                "value": 1000000000,
+                "tone": "data"
+              },
+              {
+                "label": "gpus",
+                "value": 64,
+                "tone": "data"
+              },
+              {
+                "label": "gpu_gb",
+                "value": 80,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Simpler strategies communicate less and are easier to debug during runs.",
-            "rows": [
+            "at": "say2",
+            "caption": "Start with the simplest option and move up only when needed.",
+            "bars": [
               {
-                "cells": [
-                  "params",
-                  "gpus",
-                  "gpu_gb"
-                ],
-                "tone": "data"
+                "label": "billions",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "params",
-                  "gpus",
-                  "params"
-                ],
+                "label": "params",
+                "value": 1000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "gpus",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "gpu_gb",
+                "value": 80,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Trace how instance updates note during execution.",
+            "bars": [
+              {
+                "label": "billions",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "params",
+                "value": 1000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "gpus",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "gpu_gb",
+                "value": 80,
                 "tone": "ok"
               }
             ]
@@ -147,135 +229,221 @@
       "partTitle": "The complete plan",
       "codeHash": "f7996442e1524221a61712a2f15acac0dd6973f7fa53bb9c8bdf4a280c89c324",
       "spec": {
-        "template": "table",
-        "title": "Production distributed training specification document",
-        "columns": [
-          "plan",
-          "key",
-          "value"
+        "template": "flow",
+        "title": "The complete plan",
+        "nodes": [
+          {
+            "id": "plan",
+            "label": "plan"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "value",
+            "label": "value"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A complete training plan answers standard engineering questions beforehand.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "plan"
-                  },
-                  {
-                    "text": "key"
-                  },
-                  {
-                    "text": "value"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A complete training plan answers a standard set of questions.",
+            "values": {
+              "plan": {
+                "var": "plan",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "plan"
-                  },
-                  {
-                    "text": "key"
-                  },
-                  {
-                    "text": "value"
-                  }
-                ],
-                "tone": "data"
+              "key": {
+                "var": "key",
+                "line": 8,
+                "hit": 1
+              },
+              "value": {
+                "var": "value",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "plan": "data",
+              "key": "data",
+              "value": "data"
+            },
+            "arrows": [
+              [
+                "plan",
+                "key"
+              ],
+              [
+                "key",
+                "value"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Writing comprehensive execution plans is core engineering work in AI teams.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "plan"
-                  },
-                  {
-                    "text": "key"
-                  },
-                  {
-                    "text": "value"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Trace how model updates size during execution.",
+            "values": {
+              "plan": {
+                "var": "plan",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "plan"
-                  },
-                  {
-                    "text": "key"
-                  },
-                  {
-                    "text": "plan"
-                  }
-                ],
-                "tone": "ok"
+              "key": {
+                "var": "key",
+                "line": 9,
+                "hit": 1
+              },
+              "value": {
+                "var": "value",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "plan": "data",
+              "key": "data",
+              "value": "data"
+            },
+            "arrows": [
+              [
+                "plan",
+                "key"
+              ],
+              [
+                "key",
+                "value"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "A short risk section, listing what could go wrong and the planned.",
+            "values": {
+              "plan": {
+                "var": "plan",
+                "line": 9,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 8,
+                "hit": 2
+              },
+              "value": {
+                "var": "value",
+                "line": 8,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "plan": "ok",
+              "key": "ok",
+              "value": "ok"
+            },
+            "arrows": [
+              [
+                "plan",
+                "key"
+              ],
+              [
+                "key",
+                "value"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production distributed training specification document",
-        "columns": [
-          "plan",
-          "key",
-          "value"
+        "template": "flow",
+        "title": "The complete plan",
+        "nodes": [
+          {
+            "id": "plan",
+            "label": "plan"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "value",
+            "label": "value"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A complete training plan answers standard engineering questions beforehand.",
-            "rows": [
-              {
-                "cells": [
-                  "plan",
-                  "key",
-                  "value"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "plan",
-                  "key",
-                  "value"
-                ],
-                "tone": "data"
-              }
+            "caption": "A complete training plan answers a standard set of questions.",
+            "values": {
+              "plan": "[['model', '7B dense transformer'], ['d…",
+              "key": "'model'",
+              "value": "'7B dense transformer'"
+            },
+            "tones": {
+              "plan": "data",
+              "key": "data",
+              "value": "data"
+            },
+            "arrows": [
+              [
+                "plan",
+                "key"
+              ],
+              [
+                "key",
+                "value"
+              ]
             ]
           },
           {
-            "at": "say10",
-            "caption": "Writing comprehensive execution plans is core engineering work in AI teams.",
-            "rows": [
-              {
-                "cells": [
-                  "plan",
-                  "key",
-                  "value"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "plan",
-                  "key",
-                  "plan"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Trace how model updates size during execution.",
+            "values": {
+              "plan": "[['model', '7B dense transformer'], ['d…",
+              "key": "'model'",
+              "value": "'7B dense transformer'"
+            },
+            "tones": {
+              "plan": "data",
+              "key": "data",
+              "value": "data"
+            },
+            "arrows": [
+              [
+                "plan",
+                "key"
+              ],
+              [
+                "key",
+                "value"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "A short risk section, listing what could go wrong and the planned.",
+            "values": {
+              "plan": "[['model', '7B dense transformer'], ['d…",
+              "key": "'data'",
+              "value": "'140B tokens (20 per parameter)'"
+            },
+            "tones": {
+              "plan": "ok",
+              "key": "ok",
+              "value": "ok"
+            },
+            "arrows": [
+              [
+                "plan",
+                "key"
+              ],
+              [
+                "key",
+                "value"
+              ]
             ]
           }
         ]
@@ -285,135 +453,277 @@
       "partTitle": "Reporting a training run",
       "codeHash": "d5d6d89474ece60c7e38ef825455d27c049ebd6a85cdcd6097dd69009594cb1d",
       "spec": {
-        "template": "table",
-        "title": "Run performance report and numerical health metrics",
-        "columns": [
-          "good",
-          "loss",
-          "good"
+        "template": "flow",
+        "title": "Reporting a training run",
+        "nodes": [
+          {
+            "id": "log",
+            "label": "log"
+          },
+          {
+            "id": "good",
+            "label": "good"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "e",
+            "label": "e"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A final report summarises what actually happened during distributed training.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "good"
-                  },
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "good"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "During and after a run, a report summarises what actually happened.",
+            "values": {
+              "log": {
+                "var": "log",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "good"
-                  },
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "good"
-                  }
-                ],
-                "tone": "data"
+              "good": {
+                "var": "good",
+                "line": 7,
+                "hit": 5
+              },
+              ".0": {
+                "var": ".0",
+                "line": 10,
+                "hit": 1
+              },
+              "e": {
+                "var": "e",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "log": "data",
+              "good": "data",
+              ".0": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "log",
+                "good"
+              ],
+              [
+                "good",
+                ".0"
+              ],
+              [
+                ".0",
+                "e"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "NaN losses must be excluded when identifying the best validation loss.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "good"
-                  },
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "good"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Steps completed, final and best loss, any NaN or unstable steps,.",
+            "values": {
+              "log": {
+                "var": "log",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "good"
-                  },
-                  {
-                    "text": "loss"
-                  },
-                  {
-                    "text": "loss"
-                  }
-                ],
-                "tone": "ok"
+              "good": {
+                "var": "good",
+                "line": 8,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 10,
+                "hit": 2
+              },
+              "e": {
+                "var": "e",
+                "line": 10,
+                "hit": 2
               }
+            },
+            "tones": {
+              "log": "data",
+              "good": "data",
+              ".0": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "log",
+                "good"
+              ],
+              [
+                "good",
+                ".0"
+              ],
+              [
+                ".0",
+                "e"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Automating the report from the training log, as Practice 2 does, means it.",
+            "values": {
+              "log": {
+                "var": "log",
+                "line": 7,
+                "hit": 2
+              },
+              "good": {
+                "var": "good",
+                "line": 9,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 10,
+                "hit": 3
+              },
+              "e": {
+                "var": "e",
+                "line": 10,
+                "hit": 3
+              }
+            },
+            "tones": {
+              "log": "ok",
+              "good": "ok",
+              ".0": "ok",
+              "e": "ok"
+            },
+            "arrows": [
+              [
+                "log",
+                "good"
+              ],
+              [
+                "good",
+                ".0"
+              ],
+              [
+                ".0",
+                "e"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Run performance report and numerical health metrics",
-        "columns": [
-          "good",
-          "loss",
-          "good"
+        "template": "flow",
+        "title": "Reporting a training run",
+        "nodes": [
+          {
+            "id": "log",
+            "label": "log"
+          },
+          {
+            "id": "good",
+            "label": "good"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "e",
+            "label": "e"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A final report summarises what actually happened during distributed training.",
-            "rows": [
-              {
-                "cells": [
-                  "good",
-                  "loss",
-                  "good"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "good",
-                  "loss",
-                  "good"
-                ],
-                "tone": "data"
-              }
+            "caption": "During and after a run, a report summarises what actually happened.",
+            "values": {
+              "log": "[{'step': 1, 'loss': 4.2, 'tokens': 400…",
+              "good": "[4.2, 3.61234, 3.7]",
+              ".0": "{'__other__': 'list_iterator'}",
+              "e": "{'step': 1, 'loss': 4.2, 'tokens': 4000…"
+            },
+            "tones": {
+              "log": "data",
+              "good": "data",
+              ".0": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "log",
+                "good"
+              ],
+              [
+                "good",
+                ".0"
+              ],
+              [
+                ".0",
+                "e"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "NaN losses must be excluded when identifying the best validation loss.",
-            "rows": [
-              {
-                "cells": [
-                  "good",
-                  "loss",
-                  "good"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "good",
-                  "loss",
-                  "loss"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Steps completed, final and best loss, any NaN or unstable steps,.",
+            "values": {
+              "log": "[{'step': 1, 'loss': 4.2, 'tokens': 400…",
+              "good": "[4.2, 3.61234, 3.7]",
+              ".0": "{'__other__': 'list_iterator'}",
+              "e": "{'step': 2, 'loss': nan, 'tokens': 4000…"
+            },
+            "tones": {
+              "log": "data",
+              "good": "data",
+              ".0": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "log",
+                "good"
+              ],
+              [
+                "good",
+                ".0"
+              ],
+              [
+                ".0",
+                "e"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Automating the report from the training log, as Practice 2 does, means it.",
+            "values": {
+              "log": "[{'step': 1, 'loss': 4.2, 'tokens': 400…",
+              "good": "[4.2, 3.61234, 3.7]",
+              ".0": "{'__other__': 'list_iterator'}",
+              "e": "{'step': 3, 'loss': 3.61234, 'tokens': …"
+            },
+            "tones": {
+              "log": "ok",
+              "good": "ok",
+              ".0": "ok",
+              "e": "ok"
+            },
+            "arrows": [
+              [
+                "log",
+                "good"
+              ],
+              [
+                "good",
+                ".0"
+              ],
+              [
+                ".0",
+                "e"
+              ]
             ]
           }
         ]
@@ -423,134 +733,113 @@
       "partTitle": "Everything you can now calculate",
       "codeHash": "d403101b99884daff7ba9b76be2e71685b16143e2755da41c19595a7b9ba5bea",
       "spec": {
-        "template": "table",
-        "title": "Calculated fundamentals across memory compute reliability and planning",
-        "columns": [
-          "toolkit",
-          "theme",
-          "tools"
-        ],
+        "template": "cells",
+        "title": "Everything you can now calculate",
         "steps": [
           {
             "at": "say1",
-            "caption": "Learners build a comprehensive toolkit of calculations and simulations.",
-            "rows": [
+            "caption": "Over thirty days you have built a toolkit of calculations and simulations.",
+            "items": {
+              "var": "tools",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "toolkit"
-                  },
-                  {
-                    "text": "theme"
-                  },
-                  {
-                    "text": "tools"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "toolkit"
-                  },
-                  {
-                    "text": "theme"
-                  },
-                  {
-                    "text": "tools"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say8",
-            "caption": "Software frameworks change quickly but foundational principles stay the same.",
-            "rows": [
+            "at": "say2",
+            "caption": "Weights, training states, activations, ZeRO stages, checkpointing, LoRA.",
+            "items": {
+              "var": "tools",
+              "line": 5,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "toolkit"
-                  },
-                  {
-                    "text": "theme"
-                  },
-                  {
-                    "text": "tools"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Explaining one of these calculations clearly in an interview shows real.",
+            "items": {
+              "var": "tools",
+              "line": 5,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "toolkit"
-                  },
-                  {
-                    "text": "theme"
-                  },
-                  {
-                    "text": "toolkit"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Calculated fundamentals across memory compute reliability and planning",
-        "columns": [
-          "toolkit",
-          "theme",
-          "tools"
-        ],
+        "template": "cells",
+        "title": "Everything you can now calculate",
         "steps": [
           {
             "at": "say1",
-            "caption": "Learners build a comprehensive toolkit of calculations and simulations.",
-            "rows": [
+            "caption": "Over thirty days you have built a toolkit of calculations and simulations.",
+            "items": [
+              "'model_memory_gb'",
+              "'training_memory_gb'",
+              "'zero_memory_gb'",
+              "'activation_memory'",
+              "'lora_params'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "toolkit",
-                  "theme",
-                  "tools"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "toolkit",
-                  "theme",
-                  "tools"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say8",
-            "caption": "Software frameworks change quickly but foundational principles stay the same.",
-            "rows": [
+            "at": "say2",
+            "caption": "Weights, training states, activations, ZeRO stages, checkpointing, LoRA.",
+            "items": [
+              "'clip_by_global_norm'",
+              "'latest_valid'",
+              "'elastic_plan'",
+              "'lost_work'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "toolkit",
-                  "theme",
-                  "tools"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Explaining one of these calculations clearly in an interview shows real.",
+            "items": [
+              "'chinchilla'",
+              "'budget_report'",
+              "'place_job'",
+              "'run_cost'",
+              "'plan_training'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "toolkit",
-                  "theme",
-                  "toolkit"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -561,224 +850,162 @@
       "partTitle": "Where to go next",
       "codeHash": "193872d00702983437565a5ea2a264f72158db10d82795801d1a8b99b4d46784",
       "spec": {
-        "template": "flow",
-        "title": "Where to go next — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Where to go next",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Where to go next",
+        "actors": [
+          "weeks",
+          "i",
+          "w"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Where to go next [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Where to go next [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Read the papers behind this course.",
+            "activeActor": "weeks",
+            "messages": [
+              {
+                "from": "weeks",
+                "to": "i",
+                "label": {
+                  "var": "weeks",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "w",
+                "label": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Try the real tools.",
+            "activeActor": "i",
+            "messages": [
+              {
+                "from": "weeks",
+                "to": "i",
+                "label": {
+                  "var": "weeks",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "w",
+                "label": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Where to go next [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Congratulations on completing a demanding course.",
+            "activeActor": "w",
+            "messages": [
+              {
+                "from": "weeks",
+                "to": "i",
+                "label": {
+                  "var": "weeks",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "w",
+                "label": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Where to go next — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Where to go next",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Where to go next",
+        "actors": [
+          "weeks",
+          "i",
+          "w"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Where to go next [D30.P5.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Where to go next [D30.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Read the papers behind this course.",
+            "messages": [
+              {
+                "from": "weeks",
+                "to": "i",
+                "label": "['read ZeRO and Megatron-LM papers; sum…",
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "w",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "weeks"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Try the real tools.",
+            "messages": [
+              {
+                "from": "weeks",
+                "to": "i",
+                "label": "['read ZeRO and Megatron-LM papers; sum…",
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "w",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "i"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Where to go next [D30.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say11",
+            "caption": "Congratulations on completing a demanding course.",
+            "messages": [
+              {
+                "from": "weeks",
+                "to": "i",
+                "label": "['read ZeRO and Megatron-LM papers; sum…",
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "w",
+                "label": "2",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "w"
           }
         ]
       }
@@ -788,110 +1015,161 @@
       "codeHash": "a15087eb3c2f310c9316db3f98a3057ac947a0cb5b5283f99a2638a65eedaa1a",
       "spec": {
         "template": "flow",
-        "title": "Capstone practice: plan and report — Execution Pipeline",
+        "title": "Capstone practice: plan and report",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "plan",
+            "label": "plan"
           },
           {
-            "id": "proc",
-            "label": "2. Capstone practice: ...",
-            "tappable": true
+            "id": "actual",
+            "label": "actual"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "diff",
+            "label": "diff"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Capstone practice: plan and report.",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Capstone practice: ... [D.Psix.Stwo].",
+            "caption": "Plan_training(params, gpus, gpu_gb, activation_gb).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "plan": {
+                "var": "plan",
+                "line": 1,
+                "hit": 1
+              },
+              "actual": {
+                "var": "actual",
+                "line": 2,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 3,
+                "hit": 1
+              },
+              "diff": {
+                "var": "diff",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "plan": "data",
+              "actual": "data",
+              "key": "data",
+              "diff": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "plan",
+                "actual"
               ],
               [
-                "proc",
-                "out"
+                "actual",
+                "key"
+              ],
+              [
+                "key",
+                "diff"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "plan": {
+                "var": "plan",
+                "line": 2,
+                "hit": 1
+              },
+              "actual": {
+                "var": "actual",
+                "line": 3,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 4,
+                "hit": 1
+              },
+              "diff": {
+                "var": "diff",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "plan": "data",
+              "actual": "data",
+              "key": "data",
+              "diff": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "plan",
+                "actual"
+              ],
+              [
+                "actual",
+                "key"
+              ],
+              [
+                "key",
+                "diff"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Capstone practice: plan and report.",
+            "at": "say10",
+            "caption": "The skills you have built will stay useful as models and hardware keep growing.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "plan": {
+                "var": "plan",
+                "line": 3,
+                "hit": 1
+              },
+              "actual": {
+                "var": "actual",
+                "line": 4,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 5,
+                "hit": 1
+              },
+              "diff": {
+                "var": "diff",
+                "line": 3,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "plan": "ok",
+              "actual": "ok",
+              "key": "ok",
+              "diff": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "plan",
+                "actual"
               ],
               [
-                "proc",
-                "out"
+                "actual",
+                "key"
+              ],
+              [
+                "key",
+                "diff"
               ]
             ]
           }
@@ -899,110 +1177,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Capstone practice: plan and report — Execution Pipeline",
+        "title": "Capstone practice: plan and report",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "plan",
+            "label": "plan"
           },
           {
-            "id": "proc",
-            "label": "2. Capstone practice: ...",
-            "tappable": true
+            "id": "actual",
+            "label": "actual"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "diff",
+            "label": "diff"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Capstone practice: plan and report [D30.P6.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Capstone practice: ... [D30.P6.S2].",
+            "caption": "Plan_training(params, gpus, gpu_gb, activation_gb).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "plan": "{'GPU-hours': 13100, 'cost': 29000, 'fi…",
+              "actual": "{'GPU-hours': 14250, 'cost': 31500, 'fi…",
+              "key": "'GPU-hours'",
+              "diff": "0.08778625954198473"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "plan": "data",
+              "actual": "data",
+              "key": "data",
+              "diff": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "plan",
+                "actual"
               ],
               [
-                "proc",
-                "out"
+                "actual",
+                "key"
+              ],
+              [
+                "key",
+                "diff"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P6.S3].",
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "plan": "{'GPU-hours': 13100, 'cost': 29000, 'fi…",
+              "actual": "{'GPU-hours': 14250, 'cost': 31500, 'fi…",
+              "key": "'GPU-hours'",
+              "diff": "0.08778625954198473"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "plan": "data",
+              "actual": "data",
+              "key": "data",
+              "diff": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "plan",
+                "actual"
+              ],
+              [
+                "actual",
+                "key"
+              ],
+              [
+                "key",
+                "diff"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Capstone practice: plan and report [D30.P6.S4].",
+            "at": "say10",
+            "caption": "The skills you have built will stay useful as models and hardware keep growing.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "plan": "{'GPU-hours': 13100, 'cost': 29000, 'fi…",
+              "actual": "{'GPU-hours': 14250, 'cost': 31500, 'fi…",
+              "key": "'GPU-hours'",
+              "diff": "0.08778625954198473"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "plan": "ok",
+              "actual": "ok",
+              "key": "ok",
+              "diff": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "plan",
+                "actual"
               ],
               [
-                "proc",
-                "out"
+                "actual",
+                "key"
+              ],
+              [
+                "key",
+                "diff"
               ]
             ]
           }

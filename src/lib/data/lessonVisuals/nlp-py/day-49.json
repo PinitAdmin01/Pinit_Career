@@ -2,230 +2,224 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 49,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Static Batching vs Continuous (Iteration-Level) Batching: The Orca Architecture",
       "codeHash": "083db256e63c4cb15c333fd782c53d960aee3d26251f0c2048bee20c92c99a8f",
       "spec": {
-        "template": "flow",
-        "title": "Static Batching vs Continuous (Iteration-Leve... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Static Batching vs ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Static Batching vs Continuous (Iteration-Level) Batching: The Or",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Static Batching vs Continuous (Iteration...",
-            "values": {
-              "in": "Day 49 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Static Batching vs ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Over our previous three modules, we solved memory allocation.",
+            "bars": [
+              {
+                "label": "max_batch_slot",
+                "value": {
+                  "var": "max_batch_slots",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "max_len",
+                "value": {
+                  "var": "max_len",
+                  "line": 32,
+                  "hit": 6
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_steps",
+                "value": {
+                  "var": "total_steps",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "wasted_slots",
+                "value": {
+                  "var": "wasted_slots",
+                  "line": 34,
+                  "hit": 6
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand the necessity of continuous batching, we must examine.",
+            "bars": [
+              {
+                "label": "max_batch_slot",
+                "value": {
+                  "var": "max_batch_slots",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "max_len",
+                "value": {
+                  "var": "max_len",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total_steps",
+                "value": {
+                  "var": "total_steps",
+                  "line": 34,
+                  "hit": 6
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "wasted_slots",
+                "value": {
+                  "var": "wasted_slots",
+                  "line": 35,
+                  "hit": 6
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Static Batching vs Continuous (It...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct a complete.",
+            "bars": [
+              {
+                "label": "max_batch_slot",
+                "value": {
+                  "var": "max_batch_slots",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "max_len",
+                "value": {
+                  "var": "max_len",
+                  "line": 34,
+                  "hit": 6
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total_steps",
+                "value": {
+                  "var": "total_steps",
+                  "line": 35,
+                  "hit": 6
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "wasted_slots",
+                "value": {
+                  "var": "wasted_slots",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Static Batching vs Continuous (Iteration-Leve... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Static Batching vs ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Static Batching vs Continuous (Iteration-Level) Batching: The Or",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Static Batching vs Continuous (Iteration...",
-            "values": {
-              "in": "Day 49 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Static Batching vs ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Over our previous three modules, we solved memory allocation.",
+            "bars": [
+              {
+                "label": "max_batch_slot",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "max_len",
+                "value": 35,
+                "tone": "data"
+              },
+              {
+                "label": "total_steps",
+                "value": 35,
+                "tone": "data"
+              },
+              {
+                "label": "wasted_slots",
+                "value": 68,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand the necessity of continuous batching, we must examine.",
+            "bars": [
+              {
+                "label": "max_batch_slot",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "max_len",
+                "value": 35,
+                "tone": "ok"
+              },
+              {
+                "label": "total_steps",
+                "value": 35,
+                "tone": "ok"
+              },
+              {
+                "label": "wasted_slots",
+                "value": 68,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Static Batching vs Continuous (It...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct a complete.",
+            "bars": [
+              {
+                "label": "max_batch_slot",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "max_len",
+                "value": 35,
+                "tone": "ok"
+              },
+              {
+                "label": "total_steps",
+                "value": 35,
+                "tone": "ok"
+              },
+              {
+                "label": "wasted_slots",
+                "value": 68,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -235,223 +229,217 @@
       "partTitle": "Chunked Prefill & Mixed Prefill-Decode Schedules: Taming the Prefill Spike",
       "codeHash": "a4f702c8e736783511a4fd56ecc181a9292776493eebf11b156d4b959bcce6d2",
       "spec": {
-        "template": "flow",
-        "title": "Chunked Prefill & Mixed Prefill-Decode Schedu... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Chunked Prefill & M...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Chunked Prefill & Mixed Prefill-Decode Schedules: Taming the Pre",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Chunked Prefill & Mixed Prefill-Decode S...",
-            "values": {
-              "in": "Day 49 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Chunked Prefill & M....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While continuous batching eliminates decode bubble times, modern.",
+            "bars": [
+              {
+                "label": "chunk_size",
+                "value": {
+                  "var": "chunk_size",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "base_decode_la",
+                "value": {
+                  "var": "base_decode_lat_ms",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "prompt_len",
+                "value": {
+                  "var": "prompt_len",
+                  "line": 62,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "active_decodes",
+                "value": {
+                  "var": "active_decodes",
+                  "line": 63,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand this disruption, let us analyze what happens when a new.",
+            "bars": [
+              {
+                "label": "chunk_size",
+                "value": {
+                  "var": "chunk_size",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "base_decode_la",
+                "value": {
+                  "var": "base_decode_lat_ms",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "prompt_len",
+                "value": {
+                  "var": "prompt_len",
+                  "line": 63,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "active_decodes",
+                "value": {
+                  "var": "active_decodes",
+                  "line": 65,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Chunked Prefill & Mixed Prefill-D...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "In the following Python script, we construct a complete.",
+            "bars": [
+              {
+                "label": "chunk_size",
+                "value": {
+                  "var": "chunk_size",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "base_decode_la",
+                "value": {
+                  "var": "base_decode_lat_ms",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "prompt_len",
+                "value": {
+                  "var": "prompt_len",
+                  "line": 65,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "active_decodes",
+                "value": {
+                  "var": "active_decodes",
+                  "line": 66,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Chunked Prefill & Mixed Prefill-Decode Schedu... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Chunked Prefill & M...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Chunked Prefill & Mixed Prefill-Decode Schedules: Taming the Pre",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Chunked Prefill & Mixed Prefill-Decode S...",
-            "values": {
-              "in": "Day 49 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Chunked Prefill & M....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While continuous batching eliminates decode bubble times, modern.",
+            "bars": [
+              {
+                "label": "chunk_size",
+                "value": 1000,
+                "tone": "data"
+              },
+              {
+                "label": "base_decode_la",
+                "value": 12,
+                "tone": "data"
+              },
+              {
+                "label": "prompt_len",
+                "value": 4000,
+                "tone": "data"
+              },
+              {
+                "label": "active_decodes",
+                "value": 16,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand this disruption, let us analyze what happens when a new.",
+            "bars": [
+              {
+                "label": "chunk_size",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "base_decode_la",
+                "value": 12,
+                "tone": "ok"
+              },
+              {
+                "label": "prompt_len",
+                "value": 4000,
+                "tone": "ok"
+              },
+              {
+                "label": "active_decodes",
+                "value": 16,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Chunked Prefill & Mixed Prefill-D...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "In the following Python script, we construct a complete.",
+            "bars": [
+              {
+                "label": "chunk_size",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "base_decode_la",
+                "value": 12,
+                "tone": "ok"
+              },
+              {
+                "label": "prompt_len",
+                "value": 4000,
+                "tone": "ok"
+              },
+              {
+                "label": "active_decodes",
+                "value": 16,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -461,223 +449,217 @@
       "partTitle": "TensorRT-LLM & CUDA Graphs: Kernel Fusion, In-Flight Batching & Static Graph Dispatch",
       "codeHash": "27d2ac11516506242cba5926896976c707fcfa451ba9e92a9440bbcb8e4656ad",
       "spec": {
-        "template": "flow",
-        "title": "TensorRT-LLM & CUDA Graphs: Kernel Fusion, In... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. TensorRT-LLM & CUDA...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "TensorRT-LLM & CUDA Graphs: Kernel Fusion, In-Flight Batching & ",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for TensorRT-LLM & CUDA Graphs: Kernel Fusio...",
-            "values": {
-              "in": "Day 49 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in TensorRT-LLM & CUDA....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Beyond scheduling heuristics and chunking algorithms, achieving.",
+            "bars": [
+              {
+                "label": "num_layers",
+                "value": {
+                  "var": "num_layers",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "py_kernels",
+                "value": {
+                  "var": "py_kernels",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "py_launch_us",
+                "value": {
+                  "var": "py_launch_us",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_py_us",
+                "value": {
+                  "var": "total_py_us",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In traditional PyTorch inference pipelines, generating a single token.",
+            "bars": [
+              {
+                "label": "num_layers",
+                "value": {
+                  "var": "num_layers",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "py_kernels",
+                "value": {
+                  "var": "py_kernels",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "py_launch_us",
+                "value": {
+                  "var": "py_launch_us",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total_py_us",
+                "value": {
+                  "var": "total_py_us",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for TensorRT-LLM & CUDA Graphs: Kerne...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "In the following Python script, we construct a complete.",
+            "bars": [
+              {
+                "label": "num_layers",
+                "value": {
+                  "var": "num_layers",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "py_kernels",
+                "value": {
+                  "var": "py_kernels",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "py_launch_us",
+                "value": {
+                  "var": "py_launch_us",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total_py_us",
+                "value": {
+                  "var": "total_py_us",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "TensorRT-LLM & CUDA Graphs: Kernel Fusion, In... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. TensorRT-LLM & CUDA...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "TensorRT-LLM & CUDA Graphs: Kernel Fusion, In-Flight Batching & ",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for TensorRT-LLM & CUDA Graphs: Kernel Fusio...",
-            "values": {
-              "in": "Day 49 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in TensorRT-LLM & CUDA....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Beyond scheduling heuristics and chunking algorithms, achieving.",
+            "bars": [
+              {
+                "label": "num_layers",
+                "value": 80,
+                "tone": "data"
+              },
+              {
+                "label": "py_kernels",
+                "value": 14,
+                "tone": "data"
+              },
+              {
+                "label": "py_launch_us",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "total_py_us",
+                "value": 8960,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In traditional PyTorch inference pipelines, generating a single token.",
+            "bars": [
+              {
+                "label": "num_layers",
+                "value": 80,
+                "tone": "ok"
+              },
+              {
+                "label": "py_kernels",
+                "value": 14,
+                "tone": "ok"
+              },
+              {
+                "label": "py_launch_us",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "total_py_us",
+                "value": 8960,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for TensorRT-LLM & CUDA Graphs: Kerne...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "In the following Python script, we construct a complete.",
+            "bars": [
+              {
+                "label": "num_layers",
+                "value": 80,
+                "tone": "ok"
+              },
+              {
+                "label": "py_kernels",
+                "value": 14,
+                "tone": "ok"
+              },
+              {
+                "label": "py_launch_us",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "total_py_us",
+                "value": 8960,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -687,223 +669,133 @@
       "partTitle": "Production SLA Metrics: Time to First Token (TTFT), ITL & Tail Latency Guarantees",
       "codeHash": "af2394110f2164cbf6a096bebda5611f6756732e91256b009b7c017b50051c5e",
       "spec": {
-        "template": "flow",
-        "title": "Production SLA Metrics: Time to First Token (... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Production SLA Metr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Production SLA Metrics: Time to First Token (TTFT), ITL & Tail L",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Production SLA Metrics: Time to First To...",
-            "values": {
-              "in": "Day 49 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Production SLA Metr....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having mastered continuous batching, chunked prefill, and CUDA graph.",
+            "bars": [
+              {
+                "label": "ttft_limit_ms",
+                "value": {
+                  "var": "ttft_limit_ms",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "itl_limit_ms",
+                "value": {
+                  "var": "itl_limit_ms",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In traditional web applications, performance is characterized by a.",
+            "bars": [
+              {
+                "label": "ttft_limit_ms",
+                "value": {
+                  "var": "ttft_limit_ms",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "itl_limit_ms",
+                "value": {
+                  "var": "itl_limit_ms",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Production SLA Metrics: Time to F...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct a complete.",
+            "bars": [
+              {
+                "label": "ttft_limit_ms",
+                "value": {
+                  "var": "ttft_limit_ms",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "itl_limit_ms",
+                "value": {
+                  "var": "itl_limit_ms",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Production SLA Metrics: Time to First Token (... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Production SLA Metr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Production SLA Metrics: Time to First Token (TTFT), ITL & Tail L",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Production SLA Metrics: Time to First To...",
-            "values": {
-              "in": "Day 49 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Production SLA Metr....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having mastered continuous batching, chunked prefill, and CUDA graph.",
+            "bars": [
+              {
+                "label": "ttft_limit_ms",
+                "value": 500,
+                "tone": "data"
+              },
+              {
+                "label": "itl_limit_ms",
+                "value": 50,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In traditional web applications, performance is characterized by a.",
+            "bars": [
+              {
+                "label": "ttft_limit_ms",
+                "value": 500,
+                "tone": "ok"
+              },
+              {
+                "label": "itl_limit_ms",
+                "value": 50,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Production SLA Metrics: Time to F...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct a complete.",
+            "bars": [
+              {
+                "label": "ttft_limit_ms",
+                "value": 500,
+                "tone": "ok"
+              },
+              {
+                "label": "itl_limit_ms",
+                "value": 50,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -914,110 +806,161 @@
       "codeHash": "5c4eb38a670d82b3d7521326d97ec2dc32346b546a9a772c310742ec145c5ebb",
       "spec": {
         "template": "flow",
-        "title": "Masterclass Synthesis: Building the ApexConti... — Execution Pipeline",
+        "title": "Masterclass Synthesis: Building the ApexContinuousServing Engine",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Masterclass Synthes...",
-            "tappable": true
+            "id": "max_batch_size",
+            "label": "max_batch_size"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "chunk_size",
+            "label": "chunk_size"
+          },
+          {
+            "id": "engine",
+            "label": "engine"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Masterclass Synthesis: Building.",
-            "values": {
-              "in": "Day 49 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Masterclass Synthes....",
+            "caption": "Building the ApexContinuousServing Engine.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": {
+                "var": "self",
+                "line": 24,
+                "hit": 1
+              },
+              "max_batch_size": {
+                "var": "max_batch_size",
+                "line": 24,
+                "hit": 1
+              },
+              "chunk_size": {
+                "var": "chunk_size",
+                "line": 24,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 48,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "max_batch_size": "data",
+              "chunk_size": "data",
+              "engine": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "max_batch_size"
               ],
               [
-                "proc",
-                "out"
+                "max_batch_size",
+                "chunk_size"
+              ],
+              [
+                "chunk_size",
+                "engine"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "In this masterclass capstone, you assume the executive position of Vice.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": {
+                "var": "self",
+                "line": 25,
+                "hit": 1
+              },
+              "max_batch_size": {
+                "var": "max_batch_size",
+                "line": 25,
+                "hit": 1
+              },
+              "chunk_size": {
+                "var": "chunk_size",
+                "line": 25,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 49,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "max_batch_size": "data",
+              "chunk_size": "data",
+              "engine": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "max_batch_size"
+              ],
+              [
+                "max_batch_size",
+                "chunk_size"
+              ],
+              [
+                "chunk_size",
+                "engine"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Masterclass Synthesis: Building t...",
+            "at": "say9",
+            "caption": "By conquering this milestone, you master the operational summit of large.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": {
+                "var": "self",
+                "line": 28,
+                "hit": 1
+              },
+              "max_batch_size": {
+                "var": "max_batch_size",
+                "line": 25,
+                "hit": 1
+              },
+              "chunk_size": {
+                "var": "chunk_size",
+                "line": 25,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 50,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "max_batch_size": "ok",
+              "chunk_size": "ok",
+              "engine": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "max_batch_size"
               ],
               [
-                "proc",
-                "out"
+                "max_batch_size",
+                "chunk_size"
+              ],
+              [
+                "chunk_size",
+                "engine"
               ]
             ]
           }
@@ -1025,110 +968,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Masterclass Synthesis: Building the ApexConti... — Execution Pipeline",
+        "title": "Masterclass Synthesis: Building the ApexContinuousServing Engine",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Masterclass Synthes...",
-            "tappable": true
+            "id": "max_batch_size",
+            "label": "max_batch_size"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "chunk_size",
+            "label": "chunk_size"
+          },
+          {
+            "id": "engine",
+            "label": "engine"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Synthesis: Building.",
-            "values": {
-              "in": "Day 49 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Synthes....",
+            "caption": "Building the ApexContinuousServing Engine.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": "<ApexContinuousServingEngine>",
+              "max_batch_size": "4",
+              "chunk_size": "1000",
+              "engine": "<ApexContinuousServingEngine>"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "max_batch_size": "data",
+              "chunk_size": "data",
+              "engine": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "max_batch_size"
               ],
               [
-                "proc",
-                "out"
+                "max_batch_size",
+                "chunk_size"
+              ],
+              [
+                "chunk_size",
+                "engine"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "In this masterclass capstone, you assume the executive position of Vice.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": "<ApexContinuousServingEngine>",
+              "max_batch_size": "4",
+              "chunk_size": "1000",
+              "engine": "<ApexContinuousServingEngine>"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "max_batch_size": "data",
+              "chunk_size": "data",
+              "engine": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "max_batch_size"
+              ],
+              [
+                "max_batch_size",
+                "chunk_size"
+              ],
+              [
+                "chunk_size",
+                "engine"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Synthesis: Building t...",
+            "at": "say9",
+            "caption": "By conquering this milestone, you master the operational summit of large.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": "<ApexContinuousServingEngine>",
+              "max_batch_size": "4",
+              "chunk_size": "1000",
+              "engine": "<ApexContinuousServingEngine>"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "max_batch_size": "ok",
+              "chunk_size": "ok",
+              "engine": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "max_batch_size"
               ],
               [
-                "proc",
-                "out"
+                "max_batch_size",
+                "chunk_size"
+              ],
+              [
+                "chunk_size",
+                "engine"
               ]
             ]
           }

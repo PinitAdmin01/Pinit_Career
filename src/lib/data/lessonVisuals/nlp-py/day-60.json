@@ -2,230 +2,119 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 60,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "ApexLinguist v2 Sovereign Architecture: From Raw BPE Tokenizer to 100B Parameter LLM",
       "codeHash": "b3008d8e64ca191736a4c44bd823d9f2fd8c49ffecc6bea52a18b0116d1eb530",
       "spec": {
-        "template": "flow",
-        "title": "ApexLinguist v2 Sovereign Architecture: From ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. ApexLinguist v2 Sov...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "ApexLinguist v2 Sovereign Architecture: From Raw BPE Tokenizer t",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for ApexLinguist vtwo Sovereign Architecture: ...",
-            "values": {
-              "in": "Day 60 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in ApexLinguist vtwo Sov....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "The crowning summit and final grand capstone of the Natural Language.",
+            "items": {
+              "var": "x_input",
+              "line": 54,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Today, we unify these fifty-nine foundational disciplines into a.",
+            "items": {
+              "var": "x_input",
+              "line": 59,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for ApexLinguist vtwo Sovereign Archite...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "Furthermore, hardware acceleration at the 100B parameter scale mandates.",
+            "items": {
+              "var": "x_input",
+              "line": 60,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "ApexLinguist v2 Sovereign Architecture: From ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. ApexLinguist v2 Sov...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "ApexLinguist v2 Sovereign Architecture: From Raw BPE Tokenizer t",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for ApexLinguist v2 Sovereign Architecture: ...",
-            "values": {
-              "in": "Day 60 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in ApexLinguist v2 Sov....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The crowning summit and final grand capstone of the Natural Language.",
+            "items": [
+              "1.2",
+              "-0.5",
+              "0.8",
+              "0.1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Today, we unify these fifty-nine foundational disciplines into a.",
+            "items": [
+              "1.2",
+              "-0.5",
+              "0.8",
+              "0.1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for ApexLinguist v2 Sovereign Archite...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Furthermore, hardware acceleration at the 100B parameter scale mandates.",
+            "items": [
+              "1.2",
+              "-0.5",
+              "0.8",
+              "0.1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -235,223 +124,217 @@
       "partTitle": "The End-to-End Training & Alignment Pipeline: Pre-Training to DPO/ORPO Synthesis",
       "codeHash": "cd0042b2554a296380c28acf28d16d97d6709d326a953de9807b9c46b510ff89",
       "spec": {
-        "template": "flow",
-        "title": "The End-to-End Training & Alignment Pipeline:... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The End-to-End Trai...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The End-to-End Training & Alignment Pipeline: Pre-Training to DP",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The End-to-End Training & Alignment Pipe...",
-            "values": {
-              "in": "Day 60 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The End-to-End Trai....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having formalized the core Transformer architecture, we turn to the second.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": {
+                  "var": "beta",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "logp_policy_w",
+                "value": {
+                  "var": "logp_policy_w",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "logp_policy_l",
+                "value": {
+                  "var": "logp_policy_l",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "logp_ref_w",
+                "value": {
+                  "var": "logp_ref_w",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Stage 1 is Pre-Training at Planetary Scale.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": {
+                  "var": "beta",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "logp_policy_w",
+                "value": {
+                  "var": "logp_policy_w",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "logp_policy_l",
+                "value": {
+                  "var": "logp_policy_l",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "logp_ref_w",
+                "value": {
+                  "var": "logp_ref_w",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The End-to-End Training & Alignme...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "The developmental curriculum of ApexLinguist v2 also incorporates.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": {
+                  "var": "beta",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "logp_policy_w",
+                "value": {
+                  "var": "logp_policy_w",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "logp_policy_l",
+                "value": {
+                  "var": "logp_policy_l",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "logp_ref_w",
+                "value": {
+                  "var": "logp_ref_w",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The End-to-End Training & Alignment Pipeline:... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The End-to-End Trai...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The End-to-End Training & Alignment Pipeline: Pre-Training to DP",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The End-to-End Training & Alignment Pipe...",
-            "values": {
-              "in": "Day 60 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The End-to-End Trai....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having formalized the core Transformer architecture, we turn to the second.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": 0.1,
+                "tone": "data"
+              },
+              {
+                "label": "logp_policy_w",
+                "value": -12.4,
+                "tone": "data"
+              },
+              {
+                "label": "logp_policy_l",
+                "value": -24.8,
+                "tone": "data"
+              },
+              {
+                "label": "logp_ref_w",
+                "value": -15.2,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Stage 1 is Pre-Training at Planetary Scale.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "logp_policy_w",
+                "value": -12.4,
+                "tone": "ok"
+              },
+              {
+                "label": "logp_policy_l",
+                "value": -24.8,
+                "tone": "ok"
+              },
+              {
+                "label": "logp_ref_w",
+                "value": -15.2,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The End-to-End Training & Alignme...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "The developmental curriculum of ApexLinguist v2 also incorporates.",
+            "bars": [
+              {
+                "label": "beta",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "logp_policy_w",
+                "value": -12.4,
+                "tone": "ok"
+              },
+              {
+                "label": "logp_policy_l",
+                "value": -24.8,
+                "tone": "ok"
+              },
+              {
+                "label": "logp_ref_w",
+                "value": -15.2,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -461,223 +344,217 @@
       "partTitle": "Industrial Serving, High-Throughput KV Paging & Real-Time Guardrail Gateways",
       "codeHash": "ee25781c6f2e27012f81929c033a73914860424950bc05035d7fe9871499cd47",
       "spec": {
-        "template": "flow",
-        "title": "Industrial Serving, High-Throughput KV Paging... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Industrial Serving,...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Industrial Serving, High-Throughput KV Paging & Real-Time Guardr",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Industrial Serving, High-Throughput KV P...",
-            "values": {
-              "in": "Day 60 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Industrial Serving,....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A foundational language model is only as valuable as the inference.",
+            "bars": [
+              {
+                "label": "total_pages",
+                "value": {
+                  "var": "total_pages",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p_id",
+                "value": {
+                  "var": "p_id",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "page_id",
+                "value": {
+                  "var": "page_id",
+                  "line": 51,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bonus_idx",
+                "value": {
+                  "var": "bonus_idx",
+                  "line": 41,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Traditional serving pre-allocates contiguous virtual memory buffers.",
+            "bars": [
+              {
+                "label": "total_pages",
+                "value": {
+                  "var": "total_pages",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p_id",
+                "value": {
+                  "var": "p_id",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "page_id",
+                "value": {
+                  "var": "page_id",
+                  "line": 54,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bonus_idx",
+                "value": {
+                  "var": "bonus_idx",
+                  "line": 42,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Industrial Serving, High-Throughp...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Furthermore, inference latency jitter is virtually eliminated through CUDA.",
+            "bars": [
+              {
+                "label": "total_pages",
+                "value": {
+                  "var": "total_pages",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p_id",
+                "value": {
+                  "var": "p_id",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "page_id",
+                "value": {
+                  "var": "page_id",
+                  "line": 55,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bonus_idx",
+                "value": {
+                  "var": "bonus_idx",
+                  "line": 43,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Industrial Serving, High-Throughput KV Paging... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Industrial Serving,...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Industrial Serving, High-Throughput KV Paging & Real-Time Guardr",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Industrial Serving, High-Throughput KV P...",
-            "values": {
-              "in": "Day 60 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Industrial Serving,....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A foundational language model is only as valuable as the inference.",
+            "bars": [
+              {
+                "label": "total_pages",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "p_id",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "page_id",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "bonus_idx",
+                "value": 3,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Traditional serving pre-allocates contiguous virtual memory buffers.",
+            "bars": [
+              {
+                "label": "total_pages",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "p_id",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "page_id",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "bonus_idx",
+                "value": 3,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Industrial Serving, High-Throughp...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Furthermore, inference latency jitter is virtually eliminated through CUDA.",
+            "bars": [
+              {
+                "label": "total_pages",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "p_id",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "page_id",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "bonus_idx",
+                "value": 3,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -688,110 +565,161 @@
       "codeHash": "335bde19bd6a88a798e4dc5f57c3ca87d9eba6ba946b8a6ef188c84283177ee1",
       "spec": {
         "template": "flow",
-        "title": "Autonomous Tool Calling, Multi-Step ReAct & S... — Execution Pipeline",
+        "title": "Autonomous Tool Calling, Multi-Step ReAct & Synthetic Self-Corre",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Autonomous Tool Cal...",
-            "tappable": true
+            "id": "controller",
+            "label": "controller"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "required_payroll",
+            "label": "required_payroll"
+          },
+          {
+            "id": "t1",
+            "label": "t1"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Autonomous Tool Calling, Multi-Step ReAc...",
-            "values": {
-              "in": "Day 60 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Autonomous Tool Cal....",
+            "caption": "The fourth pillar of ApexLinguist v2 is Autonomous Agentic Reason.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": {
+                "var": "self",
+                "line": 16,
+                "hit": 1
+              },
+              "controller": {
+                "var": "controller",
+                "line": 46,
+                "hit": 1
+              },
+              "required_payroll": {
+                "var": "required_payroll",
+                "line": 21,
+                "hit": 1
+              },
+              "t1": {
+                "var": "t1",
+                "line": 21,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "controller": "data",
+              "required_payroll": "data",
+              "t1": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "controller"
               ],
               [
-                "proc",
-                "out"
+                "controller",
+                "required_payroll"
+              ],
+              [
+                "required_payroll",
+                "t1"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "When presented with an enterprise objectivesuch as 'Perform an automated.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": {
+                "var": "self",
+                "line": 17,
+                "hit": 1
+              },
+              "controller": {
+                "var": "controller",
+                "line": 47,
+                "hit": 1
+              },
+              "required_payroll": {
+                "var": "required_payroll",
+                "line": 22,
+                "hit": 1
+              },
+              "t1": {
+                "var": "t1",
+                "line": 22,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "controller": "data",
+              "required_payroll": "data",
+              "t1": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "controller"
+              ],
+              [
+                "controller",
+                "required_payroll"
+              ],
+              [
+                "required_payroll",
+                "t1"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Autonomous Tool Calling, Multi-St...",
+            "at": "say9",
+            "caption": "From an implementation standpoint, sovereign agent runtimes maintain.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": {
+                "var": "self",
+                "line": 21,
+                "hit": 1
+              },
+              "controller": {
+                "var": "controller",
+                "line": 49,
+                "hit": 1
+              },
+              "required_payroll": {
+                "var": "required_payroll",
+                "line": 23,
+                "hit": 1
+              },
+              "t1": {
+                "var": "t1",
+                "line": 23,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "controller": "ok",
+              "required_payroll": "ok",
+              "t1": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "controller"
               ],
               [
-                "proc",
-                "out"
+                "controller",
+                "required_payroll"
+              ],
+              [
+                "required_payroll",
+                "t1"
               ]
             ]
           }
@@ -799,110 +727,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Autonomous Tool Calling, Multi-Step ReAct & S... — Execution Pipeline",
+        "title": "Autonomous Tool Calling, Multi-Step ReAct & Synthetic Self-Corre",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Autonomous Tool Cal...",
-            "tappable": true
+            "id": "controller",
+            "label": "controller"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "required_payroll",
+            "label": "required_payroll"
+          },
+          {
+            "id": "t1",
+            "label": "t1"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Autonomous Tool Calling, Multi-Step ReAc...",
-            "values": {
-              "in": "Day 60 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Autonomous Tool Cal....",
+            "caption": "The fourth pillar of ApexLinguist v2 is Autonomous Agentic Reason.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": "<SovereignAgentController>",
+              "controller": "<SovereignAgentController>",
+              "required_payroll": "3000000",
+              "t1": "'I must inspect CASH_ON_HAND to verify …"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "controller": "data",
+              "required_payroll": "data",
+              "t1": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "controller"
               ],
               [
-                "proc",
-                "out"
+                "controller",
+                "required_payroll"
+              ],
+              [
+                "required_payroll",
+                "t1"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "When presented with an enterprise objectivesuch as 'Perform an automated.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": "<SovereignAgentController>",
+              "controller": "<SovereignAgentController>",
+              "required_payroll": "3000000",
+              "t1": "'I must inspect CASH_ON_HAND to verify …"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "controller": "data",
+              "required_payroll": "data",
+              "t1": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "controller"
+              ],
+              [
+                "controller",
+                "required_payroll"
+              ],
+              [
+                "required_payroll",
+                "t1"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Autonomous Tool Calling, Multi-St...",
+            "at": "say9",
+            "caption": "From an implementation standpoint, sovereign agent runtimes maintain.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": "<SovereignAgentController>",
+              "controller": "<SovereignAgentController>",
+              "required_payroll": "3000000",
+              "t1": "'I must inspect CASH_ON_HAND to verify …"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "controller": "ok",
+              "required_payroll": "ok",
+              "t1": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "controller"
               ],
               [
-                "proc",
-                "out"
+                "controller",
+                "required_payroll"
+              ],
+              [
+                "required_payroll",
+                "t1"
               ]
             ]
           }
@@ -913,223 +844,217 @@
       "partTitle": "Masterclass Implementation & Boardroom Defense: ApexLinguist v2 Grand Master Platform",
       "codeHash": "5470836aac575d10e1fc28eef54182cb42e62dd255c9ff6e5acf33bb9424c24f",
       "spec": {
-        "template": "flow",
-        "title": "Masterclass Implementation & Boardroom Defens... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Impleme...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Masterclass Implementation & Boardroom Defense: ApexLinguist v2 ",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Masterclass Implementation & Boardroom D...",
-            "values": {
-              "in": "Day 60 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Masterclass Impleme....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "We now arrive at the ultimate milestone of Course 37 and the grand.",
+            "bars": [
+              {
+                "label": "mt_bench",
+                "value": {
+                  "var": "mt_bench",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "lc_win_rate",
+                "value": {
+                  "var": "lc_win_rate",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "hallucination_",
+                "value": {
+                  "var": "hallucination_rate",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "speculative_sp",
+                "value": {
+                  "var": "speculative_speedup",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In this final masterclass session, we synthesize all four foundational.",
+            "bars": [
+              {
+                "label": "mt_bench",
+                "value": {
+                  "var": "mt_bench",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lc_win_rate",
+                "value": {
+                  "var": "lc_win_rate",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hallucination_",
+                "value": {
+                  "var": "hallucination_rate",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "speculative_sp",
+                "value": {
+                  "var": "speculative_speedup",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Masterclass Implementation & Boar...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "To conclude this masterwork, we affirm the sovereign principles that have.",
+            "bars": [
+              {
+                "label": "mt_bench",
+                "value": {
+                  "var": "mt_bench",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lc_win_rate",
+                "value": {
+                  "var": "lc_win_rate",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hallucination_",
+                "value": {
+                  "var": "hallucination_rate",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "speculative_sp",
+                "value": {
+                  "var": "speculative_speedup",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Masterclass Implementation & Boardroom Defens... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Impleme...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Masterclass Implementation & Boardroom Defense: ApexLinguist v2 ",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Implementation & Boardroom D...",
-            "values": {
-              "in": "Day 60 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Impleme....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "We now arrive at the ultimate milestone of Course 37 and the grand.",
+            "bars": [
+              {
+                "label": "mt_bench",
+                "value": 9.24,
+                "tone": "data"
+              },
+              {
+                "label": "lc_win_rate",
+                "value": 74.85,
+                "tone": "data"
+              },
+              {
+                "label": "hallucination_",
+                "value": 0.18,
+                "tone": "data"
+              },
+              {
+                "label": "speculative_sp",
+                "value": 3.25,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In this final masterclass session, we synthesize all four foundational.",
+            "bars": [
+              {
+                "label": "mt_bench",
+                "value": 9.24,
+                "tone": "ok"
+              },
+              {
+                "label": "lc_win_rate",
+                "value": 74.85,
+                "tone": "ok"
+              },
+              {
+                "label": "hallucination_",
+                "value": 0.18,
+                "tone": "ok"
+              },
+              {
+                "label": "speculative_sp",
+                "value": 3.25,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Implementation & Boar...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "To conclude this masterwork, we affirm the sovereign principles that have.",
+            "bars": [
+              {
+                "label": "mt_bench",
+                "value": 9.24,
+                "tone": "ok"
+              },
+              {
+                "label": "lc_win_rate",
+                "value": 74.85,
+                "tone": "ok"
+              },
+              {
+                "label": "hallucination_",
+                "value": 0.18,
+                "tone": "ok"
+              },
+              {
+                "label": "speculative_sp",
+                "value": 3.25,
+                "tone": "ok"
+              }
             ]
           }
         ]

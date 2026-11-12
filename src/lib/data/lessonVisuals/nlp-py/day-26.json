@@ -2,255 +2,115 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 26,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Sparse and dense retrieval",
       "codeHash": "b27cede4c7089440fa67ca719e4e97111663a073bc352a12aa6cf9634d922ffc",
       "spec": {
-        "template": "table",
-        "title": "Vocabulary overlap versus semantic vector similarity",
-        "columns": [
-          "query",
-          "doc"
-        ],
+        "template": "cells",
+        "title": "Sparse and dense retrieval",
         "steps": [
           {
             "at": "say1",
-            "caption": "Sparse retrieval relies on exact keyword matching across documents.",
-            "rows": [
+            "caption": "TF-IDF or BM25 over exact words.",
+            "items": {
+              "var": "a",
+              "line": 7,
+              "hit": 13
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "query"
-                  },
-                  {
-                    "text": "doc"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Vocabulary mismatch occurs when queries and documents use synonyms.",
-            "rows": [
+            "caption": "Its weakness is vocabulary mismatch.",
+            "items": {
+              "var": "a",
+              "line": 7,
+              "hit": 26
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "query"
-                  },
-                  {
-                    "text": "doc"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "emb"
-                  },
-                  {
-                    "text": "vec"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Dense retrieval maps queries and documents into continuous embedding vectors.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "query"
-                  },
-                  {
-                    "text": "doc"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "emb"
-                  },
-                  {
-                    "text": "vec"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "cos"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Semantic representations capture paraphrases and related terms cleanly.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example compares keyword overlap and embedding similarity for.",
+            "items": {
+              "var": "a",
+              "line": 7,
+              "hit": 26
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "query"
-                  },
-                  {
-                    "text": "doc"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "emb"
-                  },
-                  {
-                    "text": "vec"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "cos"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "emb"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Vocabulary overlap versus semantic vector similarity",
-        "columns": [
-          "query",
-          "doc"
-        ],
+        "template": "cells",
+        "title": "Sparse and dense retrieval",
         "steps": [
           {
             "at": "say1",
-            "caption": "Sparse retrieval relies on exact keyword matching across documents.",
-            "rows": [
+            "caption": "TF-IDF or BM25 over exact words.",
+            "items": [
+              "0.9",
+              "0.4",
+              "0.1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "query",
-                  "doc"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Vocabulary mismatch occurs when queries and documents use synonyms.",
-            "rows": [
+            "caption": "Its weakness is vocabulary mismatch.",
+            "items": [
+              "0.9",
+              "0.4",
+              "0.1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "query",
-                  "doc"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "emb",
-                  "vec"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Dense retrieval maps queries and documents into continuous embedding vectors.",
-            "rows": [
-              {
-                "cells": [
-                  "query",
-                  "doc"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "emb",
-                  "vec"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "cos"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Semantic representations capture paraphrases and related terms cleanly.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example compares keyword overlap and embedding similarity for.",
+            "items": [
+              "0.9",
+              "0.4",
+              "0.1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "query",
-                  "doc"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "emb",
-                  "vec"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "cos"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "emb",
-                  "print"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -261,249 +121,277 @@
       "partTitle": "Bi-encoders and approximate nearest neighbours",
       "codeHash": "e35907087a61ea1e44587754445e00303062714f727fe24e6721b87604d6d1b7",
       "spec": {
-        "template": "table",
-        "title": "Bi-encoder representation caching and cluster space partitioning",
-        "columns": [
-          "clusters",
-          "docs"
+        "template": "flow",
+        "title": "Bi-encoders and approximate nearest neighbours",
+        "nodes": [
+          {
+            "id": "clusters",
+            "label": "clusters"
+          },
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Bi-encoders encode queries and documents separately into dense vectors.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "clusters"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The models behind dense retrieval are called bi-encoders.",
+            "values": {
+              "clusters": {
+                "var": "clusters",
+                "line": 3,
+                "hit": 1
+              },
+              "docs": {
+                "var": "docs",
+                "line": 4,
+                "hit": 2
+              },
+              "q": {
+                "var": "q",
+                "line": 7,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 8,
+                "hit": 2
               }
+            },
+            "tones": {
+              "clusters": "data",
+              "docs": "data",
+              "q": "data",
+              "a": "data"
+            },
+            "arrows": [
+              [
+                "clusters",
+                "docs"
+              ],
+              [
+                "docs",
+                "q"
+              ],
+              [
+                "q",
+                "a"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Separate encoding precomputes document vectors for fast search.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "clusters"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Separate encoding is what makes them fast.",
+            "values": {
+              "clusters": {
+                "var": "clusters",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "query"
-                  },
-                  {
-                    "text": "best_c"
-                  }
-                ],
-                "tone": "ok"
+              "docs": {
+                "var": "docs",
+                "line": 7,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 8,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 8,
+                "hit": 3
               }
+            },
+            "tones": {
+              "clusters": "data",
+              "docs": "data",
+              "q": "data",
+              "a": "data"
+            },
+            "arrows": [
+              [
+                "clusters",
+                "docs"
+              ],
+              [
+                "docs",
+                "q"
+              ],
+              [
+                "q",
+                "a"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Approximate nearest neighbour indexes accelerate large scale similarity queries.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "clusters"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say8",
+            "caption": "This clustering trick is the idea behind FAISS's IVF indexes.",
+            "values": {
+              "clusters": {
+                "var": "clusters",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "query"
-                  },
-                  {
-                    "text": "best_c"
-                  }
-                ],
-                "tone": "ok"
+              "docs": {
+                "var": "docs",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "dist"
-                  }
-                ],
-                "tone": "data"
+              "q": {
+                "var": "q",
+                "line": 9,
+                "hit": 4
+              },
+              "a": {
+                "var": "a",
+                "line": 8,
+                "hit": 4
               }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Partitioning vectors into clusters confines search to the closest cluster.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "clusters"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "query"
-                  },
-                  {
-                    "text": "best_c"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "dist"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "clusters"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "clusters": "ok",
+              "docs": "ok",
+              "q": "ok",
+              "a": "ok"
+            },
+            "arrows": [
+              [
+                "clusters",
+                "docs"
+              ],
+              [
+                "docs",
+                "q"
+              ],
+              [
+                "q",
+                "a"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Bi-encoder representation caching and cluster space partitioning",
-        "columns": [
-          "clusters",
-          "docs"
+        "template": "flow",
+        "title": "Bi-encoders and approximate nearest neighbours",
+        "nodes": [
+          {
+            "id": "clusters",
+            "label": "clusters"
+          },
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Bi-encoders encode queries and documents separately into dense vectors.",
-            "rows": [
-              {
-                "cells": [
-                  "clusters",
-                  "docs"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The models behind dense retrieval are called bi-encoders.",
+            "values": {
+              "clusters": "{'vehicles': [0.9, 0.3], 'food': [0.1, …",
+              "docs": "{'vehicles': {'car repair': [0.88, 0.35…",
+              "q": "[0.85, 0.4]",
+              "a": "[0.85, 0.4]"
+            },
+            "tones": {
+              "clusters": "data",
+              "docs": "data",
+              "q": "data",
+              "a": "data"
+            },
+            "arrows": [
+              [
+                "clusters",
+                "docs"
+              ],
+              [
+                "docs",
+                "q"
+              ],
+              [
+                "q",
+                "a"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Separate encoding precomputes document vectors for fast search.",
-            "rows": [
-              {
-                "cells": [
-                  "clusters",
-                  "docs"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "query",
-                  "best_c"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Separate encoding is what makes them fast.",
+            "values": {
+              "clusters": "{'vehicles': [0.9, 0.3], 'food': [0.1, …",
+              "docs": "{'vehicles': {'car repair': [0.88, 0.35…",
+              "q": "[0.85, 0.4]",
+              "a": "[0.85, 0.4]"
+            },
+            "tones": {
+              "clusters": "data",
+              "docs": "data",
+              "q": "data",
+              "a": "data"
+            },
+            "arrows": [
+              [
+                "clusters",
+                "docs"
+              ],
+              [
+                "docs",
+                "q"
+              ],
+              [
+                "q",
+                "a"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Approximate nearest neighbour indexes accelerate large scale similarity queries.",
-            "rows": [
-              {
-                "cells": [
-                  "clusters",
-                  "docs"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "query",
-                  "best_c"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "dist"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Partitioning vectors into clusters confines search to the closest cluster.",
-            "rows": [
-              {
-                "cells": [
-                  "clusters",
-                  "docs"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "query",
-                  "best_c"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "dist"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "clusters",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "at": "say8",
+            "caption": "This clustering trick is the idea behind FAISS's IVF indexes.",
+            "values": {
+              "clusters": "{'vehicles': [0.9, 0.3], 'food': [0.1, …",
+              "docs": "{'vehicles': {'car repair': [0.88, 0.35…",
+              "q": "[0.85, 0.4]",
+              "a": "[0.85, 0.4]"
+            },
+            "tones": {
+              "clusters": "ok",
+              "docs": "ok",
+              "q": "ok",
+              "a": "ok"
+            },
+            "arrows": [
+              [
+                "clusters",
+                "docs"
+              ],
+              [
+                "docs",
+                "q"
+              ],
+              [
+                "q",
+                "a"
+              ]
             ]
           }
         ]
@@ -513,249 +401,221 @@
       "partTitle": "Cross-encoders",
       "codeHash": "8bfbe55899d8e318b82ccc02741ba4f25f90bd0bd14bd4d58fd55ebdecaac5d6",
       "spec": {
-        "template": "table",
-        "title": "Cross-encoder full pairwise sequence attention overhead",
-        "columns": [
-          "docs",
-          "bi_encoder_query_ms"
+        "template": "flow",
+        "title": "Cross-encoders",
+        "nodes": [
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "bi_encoder_query_ms",
+            "label": "bi_encoder_query_ms"
+          },
+          {
+            "id": "cross_encoder_pair_ms",
+            "label": "cross_encoder_pair_ms"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cross-encoders process query and document pairs jointly as one input.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "bi_encoder_query_ms"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A cross-encoder reads the query and the document together, as one input.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 1,
+                "hit": 1
+              },
+              "bi_encoder_query_ms": {
+                "var": "bi_encoder_query_ms",
+                "line": 2,
+                "hit": 1
+              },
+              "cross_encoder_pair_ms": {
+                "var": "cross_encoder_pair_ms",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "docs": "data",
+              "bi_encoder_query_ms": "data",
+              "cross_encoder_pair_ms": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "bi_encoder_query_ms"
+              ],
+              [
+                "bi_encoder_query_ms",
+                "cross_encoder_pair_ms"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Joint attention across words judges relevance with superior accuracy.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "bi_encoder_query_ms"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Because every query word can attend to every document word, cross-encoders.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "cross_encoder_pair_ms"
-                  }
-                ],
-                "tone": "ok"
+              "bi_encoder_query_ms": {
+                "var": "bi_encoder_query_ms",
+                "line": 3,
+                "hit": 1
+              },
+              "cross_encoder_pair_ms": {
+                "var": "cross_encoder_pair_ms",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "docs": "data",
+              "bi_encoder_query_ms": "data",
+              "cross_encoder_pair_ms": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "bi_encoder_query_ms"
+              ],
+              [
+                "bi_encoder_query_ms",
+                "cross_encoder_pair_ms"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Bi-encoders provide rapid shortlists while cross-encoders deliver precision.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "bi_encoder_query_ms"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "This speed-versus-accuracy trade-off appears throughout engineering,.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "cross_encoder_pair_ms"
-                  }
-                ],
-                "tone": "ok"
+              "bi_encoder_query_ms": {
+                "var": "bi_encoder_query_ms",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "bi_encoder_query_ms"
-                  },
-                  {
-                    "text": "cross_encoder_pair_ms"
-                  }
-                ],
-                "tone": "data"
+              "cross_encoder_pair_ms": {
+                "var": "cross_encoder_pair_ms",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "A two-stage pipeline combines fast shortlisting with accurate re-ranking.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "bi_encoder_query_ms"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "cross_encoder_pair_ms"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bi_encoder_query_ms"
-                  },
-                  {
-                    "text": "cross_encoder_pair_ms"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "docs": "ok",
+              "bi_encoder_query_ms": "ok",
+              "cross_encoder_pair_ms": "ok"
+            },
+            "arrows": [
+              [
+                "docs",
+                "bi_encoder_query_ms"
+              ],
+              [
+                "bi_encoder_query_ms",
+                "cross_encoder_pair_ms"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cross-encoder full pairwise sequence attention overhead",
-        "columns": [
-          "docs",
-          "bi_encoder_query_ms"
+        "template": "flow",
+        "title": "Cross-encoders",
+        "nodes": [
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "bi_encoder_query_ms",
+            "label": "bi_encoder_query_ms"
+          },
+          {
+            "id": "cross_encoder_pair_ms",
+            "label": "cross_encoder_pair_ms"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cross-encoders process query and document pairs jointly as one input.",
-            "rows": [
-              {
-                "cells": [
-                  "docs",
-                  "bi_encoder_query_ms"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A cross-encoder reads the query and the document together, as one input.",
+            "values": {
+              "docs": "5000000",
+              "bi_encoder_query_ms": "20",
+              "cross_encoder_pair_ms": "15"
+            },
+            "tones": {
+              "docs": "data",
+              "bi_encoder_query_ms": "data",
+              "cross_encoder_pair_ms": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "bi_encoder_query_ms"
+              ],
+              [
+                "bi_encoder_query_ms",
+                "cross_encoder_pair_ms"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Joint attention across words judges relevance with superior accuracy.",
-            "rows": [
-              {
-                "cells": [
-                  "docs",
-                  "bi_encoder_query_ms"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "docs",
-                  "cross_encoder_pair_ms"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Because every query word can attend to every document word, cross-encoders.",
+            "values": {
+              "docs": "5000000",
+              "bi_encoder_query_ms": "20",
+              "cross_encoder_pair_ms": "15"
+            },
+            "tones": {
+              "docs": "data",
+              "bi_encoder_query_ms": "data",
+              "cross_encoder_pair_ms": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "bi_encoder_query_ms"
+              ],
+              [
+                "bi_encoder_query_ms",
+                "cross_encoder_pair_ms"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Bi-encoders provide rapid shortlists while cross-encoders deliver precision.",
-            "rows": [
-              {
-                "cells": [
-                  "docs",
-                  "bi_encoder_query_ms"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "docs",
-                  "cross_encoder_pair_ms"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bi_encoder_query_ms",
-                  "cross_encoder_pair_ms"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "A two-stage pipeline combines fast shortlisting with accurate re-ranking.",
-            "rows": [
-              {
-                "cells": [
-                  "docs",
-                  "bi_encoder_query_ms"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "docs",
-                  "cross_encoder_pair_ms"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bi_encoder_query_ms",
-                  "cross_encoder_pair_ms"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "docs",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "This speed-versus-accuracy trade-off appears throughout engineering,.",
+            "values": {
+              "docs": "5000000",
+              "bi_encoder_query_ms": "20",
+              "cross_encoder_pair_ms": "15"
+            },
+            "tones": {
+              "docs": "ok",
+              "bi_encoder_query_ms": "ok",
+              "cross_encoder_pair_ms": "ok"
+            },
+            "arrows": [
+              [
+                "docs",
+                "bi_encoder_query_ms"
+              ],
+              [
+                "bi_encoder_query_ms",
+                "cross_encoder_pair_ms"
+              ]
             ]
           }
         ]
@@ -765,316 +625,108 @@
       "partTitle": "Designing the funnel",
       "codeHash": "7aeed710791fb1fd14866f8046d4a952bfd4e69275f186ff416dd7adceddf431",
       "spec": {
-        "template": "funnel",
-        "title": "Designing the funnel — Conversion Pipeline",
+        "template": "cells",
+        "title": "Designing the funnel",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Top-of-funnel acquisition baseline (sixteen,server-error prospects).",
-            "activeStageId": "top",
-            "stages": [
-              {
-                "id": "top",
-                "label": "Acquisition Reach",
-                "value": 16500,
-                "percentage": 100,
-                "tone": "data"
-              },
-              {
-                "id": "qual",
-                "label": "Qualified Intent",
-                "value": 7425,
-                "percentage": 45,
-                "dropoffRate": 55,
-                "tone": "ok"
-              },
-              {
-                "id": "target",
-                "label": "Active Evaluation",
-                "value": 2970,
-                "percentage": 18,
-                "dropoffRate": 60,
-                "tone": "ok"
-              },
-              {
-                "id": "final",
-                "label": "Retained Conversion",
-                "value": 1188,
-                "percentage": 7.2,
-                "dropoffRate": 60,
-                "tone": "idle"
-              }
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Qualification filter retains multiple% high-intent cohort.",
-            "activeStageId": "qual",
-            "stages": [
+            "caption": "A two-stage pipeline is a funnel.",
+            "items": {
+              "var": "design",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "top",
-                "label": "Acquisition Reach",
-                "value": 16500,
-                "percentage": 100,
-                "tone": "ok"
-              },
-              {
-                "id": "qual",
-                "label": "Qualified Intent",
-                "value": 7425,
-                "percentage": 45,
-                "dropoffRate": 55,
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
-              },
-              {
-                "id": "target",
-                "label": "Active Evaluation",
-                "value": 2970,
-                "percentage": 18,
-                "dropoffRate": 60,
-                "tone": "ok"
-              },
-              {
-                "id": "final",
-                "label": "Retained Conversion",
-                "value": 1188,
-                "percentage": 7.2,
-                "dropoffRate": 60,
-                "tone": "idle"
               }
             ]
           },
           {
-            "at": "example",
-            "caption": "Active pipeline evaluation stage (two,multiple engaged accounts).",
-            "activeStageId": "target",
-            "stages": [
+            "at": "say2",
+            "caption": "Trace how typical updates sizes during execution.",
+            "items": {
+              "var": "design",
+              "line": 8,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "id": "top",
-                "label": "Acquisition Reach",
-                "value": 16500,
-                "percentage": 100,
-                "tone": "ok"
-              },
-              {
-                "id": "qual",
-                "label": "Qualified Intent",
-                "value": 7425,
-                "percentage": 45,
-                "dropoffRate": 55,
-                "tone": "ok"
-              },
-              {
-                "id": "target",
-                "label": "Active Evaluation",
-                "value": 2970,
-                "percentage": 18,
-                "dropoffRate": 60,
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
-              {
-                "id": "final",
-                "label": "Retained Conversion",
-                "value": 1188,
-                "percentage": 7.2,
-                "dropoffRate": 60,
-                "tone": "idle"
               }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Closed-won & retained customer cohort verified (one,multiple).",
-            "activeStageId": "final",
-            "stages": [
+            "at": "say7",
+            "caption": "The example checks several designs.",
+            "items": {
+              "var": "design",
+              "line": 8,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "id": "top",
-                "label": "Acquisition Reach",
-                "value": 16500,
-                "percentage": 100,
-                "tone": "ok"
-              },
-              {
-                "id": "qual",
-                "label": "Qualified Intent",
-                "value": 7425,
-                "percentage": 45,
-                "dropoffRate": 55,
-                "tone": "ok"
-              },
-              {
-                "id": "target",
-                "label": "Active Evaluation",
-                "value": 2970,
-                "percentage": 18,
-                "dropoffRate": 60,
-                "tone": "ok"
-              },
-              {
-                "id": "final",
-                "label": "Retained Conversion",
-                "value": 1188,
-                "percentage": 7.2,
-                "dropoffRate": 60,
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "funnel",
-        "title": "Designing the funnel — Conversion Pipeline",
+        "template": "cells",
+        "title": "Designing the funnel",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Top-of-funnel acquisition baseline (16,500 prospects) [D26.P4.S1].",
-            "activeStageId": "top",
-            "stages": [
-              {
-                "id": "top",
-                "label": "Acquisition Reach",
-                "value": 16500,
-                "percentage": 100,
-                "tone": "data"
-              },
-              {
-                "id": "qual",
-                "label": "Qualified Intent",
-                "value": 7425,
-                "percentage": 45,
-                "dropoffRate": 55,
-                "tone": "ok"
-              },
-              {
-                "id": "target",
-                "label": "Active Evaluation",
-                "value": 2970,
-                "percentage": 18,
-                "dropoffRate": 60,
-                "tone": "ok"
-              },
-              {
-                "id": "final",
-                "label": "Retained Conversion",
-                "value": 1188,
-                "percentage": 7.2,
-                "dropoffRate": 60,
-                "tone": "idle"
-              }
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Qualification filter retains 45% high-intent cohort (7,425) [D26.P4.S2].",
-            "activeStageId": "qual",
-            "stages": [
+            "caption": "A two-stage pipeline is a funnel.",
+            "items": [
+              "1000000",
+              "100",
+              "5"
+            ],
+            "pointers": [
               {
-                "id": "top",
-                "label": "Acquisition Reach",
-                "value": 16500,
-                "percentage": 100,
-                "tone": "ok"
-              },
-              {
-                "id": "qual",
-                "label": "Qualified Intent",
-                "value": 7425,
-                "percentage": 45,
-                "dropoffRate": 55,
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
-              },
-              {
-                "id": "target",
-                "label": "Active Evaluation",
-                "value": 2970,
-                "percentage": 18,
-                "dropoffRate": 60,
-                "tone": "ok"
-              },
-              {
-                "id": "final",
-                "label": "Retained Conversion",
-                "value": 1188,
-                "percentage": 7.2,
-                "dropoffRate": 60,
-                "tone": "idle"
               }
             ]
           },
           {
-            "at": "example",
-            "caption": "Active pipeline evaluation stage (2,970 engaged accounts) [D26.P4.S3].",
-            "activeStageId": "target",
-            "stages": [
+            "at": "say2",
+            "caption": "Trace how typical updates sizes during execution.",
+            "items": [
+              "1000",
+              "10",
+              "10"
+            ],
+            "pointers": [
               {
-                "id": "top",
-                "label": "Acquisition Reach",
-                "value": 16500,
-                "percentage": 100,
-                "tone": "ok"
-              },
-              {
-                "id": "qual",
-                "label": "Qualified Intent",
-                "value": 7425,
-                "percentage": 45,
-                "dropoffRate": 55,
-                "tone": "ok"
-              },
-              {
-                "id": "target",
-                "label": "Active Evaluation",
-                "value": 2970,
-                "percentage": 18,
-                "dropoffRate": 60,
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
-              {
-                "id": "final",
-                "label": "Retained Conversion",
-                "value": 1188,
-                "percentage": 7.2,
-                "dropoffRate": 60,
-                "tone": "idle"
               }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Closed-won & retained customer cohort verified (1,188) [D26.P4.S4].",
-            "activeStageId": "final",
-            "stages": [
+            "at": "say7",
+            "caption": "The example checks several designs.",
+            "items": [
+              "10",
+              "20",
+              "0"
+            ],
+            "pointers": [
               {
-                "id": "top",
-                "label": "Acquisition Reach",
-                "value": 16500,
-                "percentage": 100,
-                "tone": "ok"
-              },
-              {
-                "id": "qual",
-                "label": "Qualified Intent",
-                "value": 7425,
-                "percentage": 45,
-                "dropoffRate": 55,
-                "tone": "ok"
-              },
-              {
-                "id": "target",
-                "label": "Active Evaluation",
-                "value": 2970,
-                "percentage": 18,
-                "dropoffRate": 60,
-                "tone": "ok"
-              },
-              {
-                "id": "final",
-                "label": "Retained Conversion",
-                "value": 1188,
-                "percentage": 7.2,
-                "dropoffRate": 60,
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -1085,248 +737,114 @@
       "partTitle": "Re-ranking stably",
       "codeHash": "dbfb88eb3e3aabda935bb8d362aa38f777d1027e6a480008134f06ec15b6e8e0",
       "spec": {
-        "template": "table",
-        "title": "Stable sorting and candidate ranking preservation",
-        "columns": [
-          "candidates",
-          "scores"
-        ],
+        "template": "cells",
+        "title": "Re-ranking stably",
         "steps": [
           {
             "at": "say1",
-            "caption": "Second stage scoring refines the initial candidate list by relevance.",
-            "rows": [
+            "caption": "Trace how stage updates takes during execution.",
+            "items": {
+              "var": "candidates",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "candidates"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Stable sorting preserves the original order when candidates have tied scores.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "candidates"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ranked"
-                  },
-                  {
-                    "text": "sorted"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Ties default to the order established by the initial retrieval stage.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "candidates"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ranked"
-                  },
-                  {
-                    "text": "sorted"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "candidates"
-                  },
-                  {
-                    "text": "ranked"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Shortlist re-ranking delivers sorted and filtered candidates reliably.",
-            "rows": [
+            "at": "say2",
+            "caption": "Sort by cross-encoder score, highest first, keep ties in the stage-1.",
+            "items": {
+              "var": "candidates",
+              "line": 3,
+              "hit": 11
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "candidates"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ranked"
-                  },
-                  {
-                    "text": "sorted"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "candidates"
-                  },
-                  {
-                    "text": "ranked"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "In retrieval-augmented generation, the re-ranked top few passages are what.",
+            "items": {
+              "var": "candidates",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "candidates"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stable sorting and candidate ranking preservation",
-        "columns": [
-          "candidates",
-          "scores"
-        ],
+        "template": "cells",
+        "title": "Re-ranking stably",
         "steps": [
           {
             "at": "say1",
-            "caption": "Second stage scoring refines the initial candidate list by relevance.",
-            "rows": [
+            "caption": "Trace how stage updates takes during execution.",
+            "items": [
+              "'d7'",
+              "'d2'",
+              "'d9'",
+              "'d4'",
+              "'d5'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "candidates",
-                  "scores"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Stable sorting preserves the original order when candidates have tied scores.",
-            "rows": [
-              {
-                "cells": [
-                  "candidates",
-                  "scores"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ranked",
-                  "sorted"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Ties default to the order established by the initial retrieval stage.",
-            "rows": [
-              {
-                "cells": [
-                  "candidates",
-                  "scores"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ranked",
-                  "sorted"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "candidates",
-                  "ranked"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Shortlist re-ranking delivers sorted and filtered candidates reliably.",
-            "rows": [
+            "at": "say2",
+            "caption": "Sort by cross-encoder score, highest first, keep ties in the stage-1.",
+            "items": [
+              "'d7'",
+              "'d2'",
+              "'d9'",
+              "'d4'",
+              "'d5'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "candidates",
-                  "scores"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ranked",
-                  "sorted"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "candidates",
-                  "ranked"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "In retrieval-augmented generation, the re-ranked top few passages are what.",
+            "items": [
+              "'d7'",
+              "'d2'",
+              "'d9'",
+              "'d4'",
+              "'d5'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "candidates",
-                  "print"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -1337,316 +855,111 @@
       "partTitle": "Practice time: funnel and re-rank",
       "codeHash": "250b4d2d71ff1216fca7b3cd1dde97665d821c63a651c03c63615a5763c386d6",
       "spec": {
-        "template": "funnel",
-        "title": "Practice time: funnel and re-rank — Conversion Pipeline",
+        "template": "cells",
+        "title": "Practice time: funnel and re-rank",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Top-of-funnel acquisition baseline (sixteen,server-error prospects).",
-            "activeStageId": "top",
-            "stages": [
-              {
-                "id": "top",
-                "label": "Acquisition Reach",
-                "value": 16500,
-                "percentage": 100,
-                "tone": "data"
-              },
-              {
-                "id": "qual",
-                "label": "Qualified Intent",
-                "value": 7425,
-                "percentage": 45,
-                "dropoffRate": 55,
-                "tone": "ok"
-              },
-              {
-                "id": "target",
-                "label": "Active Evaluation",
-                "value": 2970,
-                "percentage": 18,
-                "dropoffRate": 60,
-                "tone": "ok"
-              },
-              {
-                "id": "final",
-                "label": "Retained Conversion",
-                "value": 1188,
-                "percentage": 7.2,
-                "dropoffRate": 60,
-                "tone": "idle"
-              }
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Qualification filter retains multiple% high-intent cohort.",
-            "activeStageId": "qual",
-            "stages": [
+            "caption": "Three if statements appending codes in the given order.",
+            "items": {
+              "var": "shortlist",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "top",
-                "label": "Acquisition Reach",
-                "value": 16500,
-                "percentage": 100,
-                "tone": "ok"
-              },
-              {
-                "id": "qual",
-                "label": "Qualified Intent",
-                "value": 7425,
-                "percentage": 45,
-                "dropoffRate": 55,
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
-              },
-              {
-                "id": "target",
-                "label": "Active Evaluation",
-                "value": 2970,
-                "percentage": 18,
-                "dropoffRate": 60,
-                "tone": "ok"
-              },
-              {
-                "id": "final",
-                "label": "Retained Conversion",
-                "value": 1188,
-                "percentage": 7.2,
-                "dropoffRate": 60,
-                "tone": "idle"
               }
             ]
           },
           {
-            "at": "example",
-            "caption": "Active pipeline evaluation stage (two,multiple engaged accounts).",
-            "activeStageId": "target",
-            "stages": [
+            "at": "say2",
+            "caption": "A good funnel (empty list), a shortlist larger than the corpus, a re-rank.",
+            "items": {
+              "var": "shortlist",
+              "line": 3,
+              "hit": 8
+            },
+            "pointers": [
               {
-                "id": "top",
-                "label": "Acquisition Reach",
-                "value": 16500,
-                "percentage": 100,
-                "tone": "ok"
-              },
-              {
-                "id": "qual",
-                "label": "Qualified Intent",
-                "value": 7425,
-                "percentage": 45,
-                "dropoffRate": 55,
-                "tone": "ok"
-              },
-              {
-                "id": "target",
-                "label": "Active Evaluation",
-                "value": 2970,
-                "percentage": 18,
-                "dropoffRate": 60,
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
-              {
-                "id": "final",
-                "label": "Retained Conversion",
-                "value": 1188,
-                "percentage": 7.2,
-                "dropoffRate": 60,
-                "tone": "idle"
               }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Closed-won & retained customer cohort verified (one,multiple).",
-            "activeStageId": "final",
-            "stages": [
+            "at": "say7",
+            "caption": "The example computes recall at k1.",
+            "items": {
+              "var": "shortlist",
+              "line": 3,
+              "hit": 14
+            },
+            "pointers": [
               {
-                "id": "top",
-                "label": "Acquisition Reach",
-                "value": 16500,
-                "percentage": 100,
-                "tone": "ok"
-              },
-              {
-                "id": "qual",
-                "label": "Qualified Intent",
-                "value": 7425,
-                "percentage": 45,
-                "dropoffRate": 55,
-                "tone": "ok"
-              },
-              {
-                "id": "target",
-                "label": "Active Evaluation",
-                "value": 2970,
-                "percentage": 18,
-                "dropoffRate": 60,
-                "tone": "ok"
-              },
-              {
-                "id": "final",
-                "label": "Retained Conversion",
-                "value": 1188,
-                "percentage": 7.2,
-                "dropoffRate": 60,
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "funnel",
-        "title": "Practice time: funnel and re-rank — Conversion Pipeline",
+        "template": "cells",
+        "title": "Practice time: funnel and re-rank",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Top-of-funnel acquisition baseline (16,500 prospects) [D26.P6.S1].",
-            "activeStageId": "top",
-            "stages": [
-              {
-                "id": "top",
-                "label": "Acquisition Reach",
-                "value": 16500,
-                "percentage": 100,
-                "tone": "data"
-              },
-              {
-                "id": "qual",
-                "label": "Qualified Intent",
-                "value": 7425,
-                "percentage": 45,
-                "dropoffRate": 55,
-                "tone": "ok"
-              },
-              {
-                "id": "target",
-                "label": "Active Evaluation",
-                "value": 2970,
-                "percentage": 18,
-                "dropoffRate": 60,
-                "tone": "ok"
-              },
-              {
-                "id": "final",
-                "label": "Retained Conversion",
-                "value": 1188,
-                "percentage": 7.2,
-                "dropoffRate": 60,
-                "tone": "idle"
-              }
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Qualification filter retains 45% high-intent cohort (7,425) [D26.P6.S2].",
-            "activeStageId": "qual",
-            "stages": [
+            "caption": "Three if statements appending codes in the given order.",
+            "items": [
+              "'d3'",
+              "'d8'",
+              "'d1'",
+              "'d9'"
+            ],
+            "pointers": [
               {
-                "id": "top",
-                "label": "Acquisition Reach",
-                "value": 16500,
-                "percentage": 100,
-                "tone": "ok"
-              },
-              {
-                "id": "qual",
-                "label": "Qualified Intent",
-                "value": 7425,
-                "percentage": 45,
-                "dropoffRate": 55,
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
-              },
-              {
-                "id": "target",
-                "label": "Active Evaluation",
-                "value": 2970,
-                "percentage": 18,
-                "dropoffRate": 60,
-                "tone": "ok"
-              },
-              {
-                "id": "final",
-                "label": "Retained Conversion",
-                "value": 1188,
-                "percentage": 7.2,
-                "dropoffRate": 60,
-                "tone": "idle"
               }
             ]
           },
           {
-            "at": "example",
-            "caption": "Active pipeline evaluation stage (2,970 engaged accounts) [D26.P6.S3].",
-            "activeStageId": "target",
-            "stages": [
+            "at": "say2",
+            "caption": "A good funnel (empty list), a shortlist larger than the corpus, a re-rank.",
+            "items": [
+              "'d4'",
+              "'d6'",
+              "'d2'",
+              "'d8'"
+            ],
+            "pointers": [
               {
-                "id": "top",
-                "label": "Acquisition Reach",
-                "value": 16500,
-                "percentage": 100,
-                "tone": "ok"
-              },
-              {
-                "id": "qual",
-                "label": "Qualified Intent",
-                "value": 7425,
-                "percentage": 45,
-                "dropoffRate": 55,
-                "tone": "ok"
-              },
-              {
-                "id": "target",
-                "label": "Active Evaluation",
-                "value": 2970,
-                "percentage": 18,
-                "dropoffRate": 60,
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
-              {
-                "id": "final",
-                "label": "Retained Conversion",
-                "value": 1188,
-                "percentage": 7.2,
-                "dropoffRate": 60,
-                "tone": "idle"
               }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Closed-won & retained customer cohort verified (1,188) [D26.P6.S4].",
-            "activeStageId": "final",
-            "stages": [
+            "at": "say7",
+            "caption": "The example computes recall at k1.",
+            "items": [
+              "'d4'",
+              "'d6'",
+              "'d2'",
+              "'d8'"
+            ],
+            "pointers": [
               {
-                "id": "top",
-                "label": "Acquisition Reach",
-                "value": 16500,
-                "percentage": 100,
-                "tone": "ok"
-              },
-              {
-                "id": "qual",
-                "label": "Qualified Intent",
-                "value": 7425,
-                "percentage": 45,
-                "dropoffRate": 55,
-                "tone": "ok"
-              },
-              {
-                "id": "target",
-                "label": "Active Evaluation",
-                "value": 2970,
-                "percentage": 18,
-                "dropoffRate": 60,
-                "tone": "ok"
-              },
-              {
-                "id": "final",
-                "label": "Retained Conversion",
-                "value": 1188,
-                "percentage": 7.2,
-                "dropoffRate": 60,
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

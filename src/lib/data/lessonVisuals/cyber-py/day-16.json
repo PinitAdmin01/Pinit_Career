@@ -2,125 +2,113 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 16,
-  "promptSha": "19dc3477092d10a9366b4760cd785afd6d689f4a7349832f983fc86afbe12b18",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What SSRF is",
       "codeHash": "38c8336bfe16197ef18a4c2b0dbcb4b8efff98983016e1be6d7efc74d1130add",
       "spec": {
-        "template": "sequence",
-        "title": "Server-side request forgery metadata exploitation and credential theft",
-        "actors": [
+        "template": "states",
+        "title": "What SSRF is",
+        "states": [
           {
-            "id": "attacker",
-            "label": "External Attacker"
+            "id": "submitted",
+            "label": "submitted"
           },
           {
-            "id": "backend",
-            "label": "Vulnerable Backend"
+            "id": "url",
+            "label": "url"
           },
           {
-            "id": "metadata",
-            "label": "Cloud Metadata Service"
-          }
-        ],
-        "messages": [
-          {
-            "from": "attacker",
-            "to": "backend",
-            "label": "Submit Malicious URL with Link-Local Address",
-            "tone": "data"
-          },
-          {
-            "from": "backend",
-            "to": "metadata",
-            "label": "Issue Unsanitized HTTP Request to Internal Host",
-            "tone": "error"
-          },
-          {
-            "from": "metadata",
-            "to": "backend",
-            "label": "Disclose Temporary Security Credentials and Tokens",
-            "tone": "error"
-          },
-          {
-            "from": "backend",
-            "to": "attacker",
-            "label": "Exfiltrate Stolen Cloud Credentials in Response",
-            "tone": "error"
+            "id": ".0",
+            "label": ".0"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Attackers exploit this capability to force servers to query internal networks.",
-            "activeMessageIndex": 1,
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Many applications fetch URLs supplied by users.",
+            "currentState": "submitted",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "An attacker can harvest temporary security tokens and session credentials.",
-            "activeMessageIndex": 3,
-            "statusBadge": "failed"
+            "at": "say2",
+            "caption": "Server-side request forgery (SSRF) abuses this.",
+            "currentState": "url",
+            "transition": {
+              "from": "submitted",
+              "to": "url",
+              "label": {
+                "var": "url",
+                "line": 4,
+                "hit": 5
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Outbound requests from servers should be treated as carefully as inbound ones.",
+            "currentState": ".0",
+            "transition": {
+              "from": "url",
+              "to": ".0",
+              "label": {
+                "var": ".0",
+                "line": 4,
+                "hit": 3
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "sequence",
-        "title": "Server-side request forgery metadata exploitation and credential theft",
-        "actors": [
+        "template": "states",
+        "title": "What SSRF is",
+        "states": [
           {
-            "id": "attacker",
-            "label": "External Attacker"
+            "id": "submitted",
+            "label": "submitted"
           },
           {
-            "id": "backend",
-            "label": "Vulnerable Backend"
+            "id": "url",
+            "label": "url"
           },
           {
-            "id": "metadata",
-            "label": "Cloud Metadata Service"
-          }
-        ],
-        "messages": [
-          {
-            "from": "attacker",
-            "to": "backend",
-            "label": "Submit Malicious URL with Link-Local Address",
-            "tone": "data"
-          },
-          {
-            "from": "backend",
-            "to": "metadata",
-            "label": "Issue Unsanitized HTTP Request to Internal Host",
-            "tone": "error"
-          },
-          {
-            "from": "metadata",
-            "to": "backend",
-            "label": "Disclose Temporary Security Credentials and Tokens",
-            "tone": "error"
-          },
-          {
-            "from": "backend",
-            "to": "attacker",
-            "label": "Exfiltrate Stolen Cloud Credentials in Response",
-            "tone": "error"
+            "id": ".0",
+            "label": ".0"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Attackers exploit this capability to force servers to query internal networks.",
-            "activeMessageIndex": 1,
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Many applications fetch URLs supplied by users.",
+            "currentState": "submitted",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "An attacker can harvest temporary security tokens and session credentials.",
-            "activeMessageIndex": 3,
-            "statusBadge": "failed"
+            "at": "say2",
+            "caption": "Server-side request forgery (SSRF) abuses this.",
+            "currentState": "url",
+            "transition": {
+              "from": "submitted",
+              "to": "url",
+              "label": "'https://news.example.com/article'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Outbound requests from servers should be treated as carefully as inbound ones.",
+            "currentState": ".0",
+            "transition": {
+              "from": "url",
+              "to": ".0",
+              "label": "{'__other__': 'tuple_iterator'}"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -129,202 +117,130 @@
       "partTitle": "Cloud metadata endpoints",
       "codeHash": "580c7f69a4df430cf0bb5fd468c4fc6809d492db055e7c92c3ef2529815caa9d",
       "spec": {
-        "template": "table",
-        "title": "Private IPv4 address allocations and SSRF boundary filtering rules",
-        "columns": [
-          "Address Family",
-          "Network CIDR Range",
-          "Designated Purpose",
-          "SSRF Filter Policy"
+        "template": "boxes",
+        "title": "Cloud metadata endpoints",
+        "boxes": [
+          {
+            "id": "addr",
+            "label": "addr"
+          },
+          {
+            "id": "ip",
+            "label": "ip"
+          }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Reserved ranges include loopback networks and private address allocations.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Host Loopback Network",
-                  "Standard Loopback Space",
-                  "Internal Host IPC",
-                  "Drop Immediately"
-                ],
-                "tone": "data"
+            "at": "say1",
+            "caption": "Trace how cloud updates servers during execution.",
+            "values": {
+              "addr": {
+                "var": "addr",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Class A Private Subnet",
-                  "Enterprise VPC Allocation",
-                  "Internal Corporate Network",
-                  "Drop Immediately"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Class B Private Subnet",
-                  "Enterprise VPC Allocation",
-                  "Internal Staging Network",
-                  "Drop Immediately"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Link-Local Cloud Metadata",
-                  "Instance Metadata IP",
-                  "Cloud Runtime Tokens",
-                  "Drop Immediately"
-                ],
-                "tone": "data"
+              "ip": {
+                "var": "ip",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "addr": "data",
+              "ip": "data"
+            }
           },
           {
-            "at": "say8",
-            "caption": "Requests resolving to private addresses must be discarded immediately.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Host Loopback Network",
-                  "Standard Loopback Space",
-                  "Internal Host IPC",
-                  "Drop Immediately"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "If an attacker makes the server fetch that address through SSRF, they may.",
+            "values": {
+              "addr": {
+                "var": "addr",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Class A Private Subnet",
-                  "Enterprise VPC Allocation",
-                  "Internal Corporate Network",
-                  "Drop Immediately"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Class B Private Subnet",
-                  "Enterprise VPC Allocation",
-                  "Internal Staging Network",
-                  "Drop Immediately"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Link-Local Cloud Metadata",
-                  "Instance Metadata IP",
-                  "Cloud Runtime Tokens",
-                  "Drop Immediately"
-                ],
-                "tone": "data"
+              "ip": {
+                "var": "ip",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "addr": "data",
+              "ip": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "The metadata example shows why \"internal\" does not mean \"safe\".",
+            "values": {
+              "addr": {
+                "var": "addr",
+                "line": 5,
+                "hit": 1
+              },
+              "ip": {
+                "var": "ip",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "addr": "ok",
+              "ip": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Private IPv4 address allocations and SSRF boundary filtering rules",
-        "columns": [
-          "Address Family",
-          "Network CIDR Range",
-          "Designated Purpose",
-          "SSRF Filter Policy"
+        "template": "boxes",
+        "title": "Cloud metadata endpoints",
+        "boxes": [
+          {
+            "id": "addr",
+            "label": "addr"
+          },
+          {
+            "id": "ip",
+            "label": "ip"
+          }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Reserved ranges include loopback networks and private address allocations.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Host Loopback Network",
-                  "Standard Loopback Space",
-                  "Internal Host IPC",
-                  "Drop Immediately"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Class A Private Subnet",
-                  "Enterprise VPC Allocation",
-                  "Internal Corporate Network",
-                  "Drop Immediately"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Class B Private Subnet",
-                  "Enterprise VPC Allocation",
-                  "Internal Staging Network",
-                  "Drop Immediately"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Link-Local Cloud Metadata",
-                  "Instance Metadata IP",
-                  "Cloud Runtime Tokens",
-                  "Drop Immediately"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Trace how cloud updates servers during execution.",
+            "values": {
+              "addr": "'169.254.169.254'",
+              "ip": "{'__other__': 'IPv4Address'}"
+            },
+            "tones": {
+              "addr": "data",
+              "ip": "data"
+            }
           },
           {
-            "at": "say8",
-            "caption": "Requests resolving to private addresses must be discarded immediately.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Host Loopback Network",
-                  "Standard Loopback Space",
-                  "Internal Host IPC",
-                  "Drop Immediately"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Class A Private Subnet",
-                  "Enterprise VPC Allocation",
-                  "Internal Corporate Network",
-                  "Drop Immediately"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Class B Private Subnet",
-                  "Enterprise VPC Allocation",
-                  "Internal Staging Network",
-                  "Drop Immediately"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Link-Local Cloud Metadata",
-                  "Instance Metadata IP",
-                  "Cloud Runtime Tokens",
-                  "Drop Immediately"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "If an attacker makes the server fetch that address through SSRF, they may.",
+            "values": {
+              "addr": "'169.254.169.254'",
+              "ip": "{'__other__': 'IPv4Address'}"
+            },
+            "tones": {
+              "addr": "data",
+              "ip": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "The metadata example shows why \"internal\" does not mean \"safe\".",
+            "values": {
+              "addr": "'169.254.169.254'",
+              "ip": "{'__other__': 'IPv4Address'}"
+            },
+            "tones": {
+              "addr": "ok",
+              "ip": "ok"
+            }
           }
         ]
       }
@@ -333,74 +249,278 @@
       "partTitle": "Validating URLs",
       "codeHash": "84f1a7b96cb014967384bbe89bd7c0531c928edd8a1ea84466d8cb4bf37ecf1a",
       "spec": {
-        "template": "states",
-        "title": "DNS rebinding time-of-check race conditions and resolution pinning defense",
-        "states": [
+        "template": "flow",
+        "title": "Validating URLs",
+        "nodes": [
           {
-            "id": "initialLookup",
-            "label": "Attacker Nameserver Returns Public IP"
+            "id": "u",
+            "label": "u"
           },
           {
-            "id": "filterApproved",
-            "label": "SSRF Validator Approves Safe Public IP"
+            "id": "url",
+            "label": "url"
           },
           {
-            "id": "rebindTriggered",
-            "label": "Subsequent DNS Resolves Loopback Target"
+            "id": "m",
+            "label": "m"
           },
           {
-            "id": "pinningEnforced",
-            "label": "Resolution Pinning Connects to First IP"
+            "id": "host",
+            "label": "host"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The attacker nameserver returns a public address during initial resolution.",
-            "activeStateId": "initialLookup",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "A basic SSRF check parses the URL, allows only http and https, and rejects.",
+            "values": {
+              "u": {
+                "var": "u",
+                "line": 18,
+                "hit": 1
+              },
+              "url": {
+                "var": "url",
+                "line": 5,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 5,
+                "hit": 1
+              },
+              "host": {
+                "var": "host",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "u": "data",
+              "url": "data",
+              "m": "data",
+              "host": "data"
+            },
+            "arrows": [
+              [
+                "u",
+                "url"
+              ],
+              [
+                "url",
+                "m"
+              ],
+              [
+                "m",
+                "host"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "The application resolves the record once and connects directly to that IP.",
-            "activeStateId": "pinningEnforced",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Trace how practice updates returns during execution.",
+            "values": {
+              "u": {
+                "var": "u",
+                "line": 19,
+                "hit": 1
+              },
+              "url": {
+                "var": "url",
+                "line": 6,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 6,
+                "hit": 1
+              },
+              "host": {
+                "var": "host",
+                "line": 9,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "u": "data",
+              "url": "data",
+              "m": "data",
+              "host": "data"
+            },
+            "arrows": [
+              [
+                "u",
+                "url"
+              ],
+              [
+                "url",
+                "m"
+              ],
+              [
+                "m",
+                "host"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Network-level controls, such as a firewall that stops application servers.",
+            "values": {
+              "u": {
+                "var": "u",
+                "line": 18,
+                "hit": 2
+              },
+              "url": {
+                "var": "url",
+                "line": 8,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 8,
+                "hit": 1
+              },
+              "host": {
+                "var": "host",
+                "line": 11,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "u": "ok",
+              "url": "ok",
+              "m": "ok",
+              "host": "ok"
+            },
+            "arrows": [
+              [
+                "u",
+                "url"
+              ],
+              [
+                "url",
+                "m"
+              ],
+              [
+                "m",
+                "host"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "DNS rebinding time-of-check race conditions and resolution pinning defense",
-        "states": [
+        "template": "flow",
+        "title": "Validating URLs",
+        "nodes": [
           {
-            "id": "initialLookup",
-            "label": "Attacker Nameserver Returns Public IP"
+            "id": "u",
+            "label": "u"
           },
           {
-            "id": "filterApproved",
-            "label": "SSRF Validator Approves Safe Public IP"
+            "id": "url",
+            "label": "url"
           },
           {
-            "id": "rebindTriggered",
-            "label": "Subsequent DNS Resolves Loopback Target"
+            "id": "m",
+            "label": "m"
           },
           {
-            "id": "pinningEnforced",
-            "label": "Resolution Pinning Connects to First IP"
+            "id": "host",
+            "label": "host"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The attacker nameserver returns a public address during initial resolution.",
-            "activeStateId": "initialLookup",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "A basic SSRF check parses the URL, allows only http and https, and rejects.",
+            "values": {
+              "u": "'https://api.example.com/v1'",
+              "url": "'https://api.example.com/v1'",
+              "m": "{'__other__': 'Match'}",
+              "host": "'api.example.com'"
+            },
+            "tones": {
+              "u": "data",
+              "url": "data",
+              "m": "data",
+              "host": "data"
+            },
+            "arrows": [
+              [
+                "u",
+                "url"
+              ],
+              [
+                "url",
+                "m"
+              ],
+              [
+                "m",
+                "host"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "The application resolves the record once and connects directly to that IP.",
-            "activeStateId": "pinningEnforced",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Trace how practice updates returns during execution.",
+            "values": {
+              "u": "'https://api.example.com/v1'",
+              "url": "'https://api.example.com/v1'",
+              "m": "{'__other__': 'Match'}",
+              "host": "'api.example.com'"
+            },
+            "tones": {
+              "u": "data",
+              "url": "data",
+              "m": "data",
+              "host": "data"
+            },
+            "arrows": [
+              [
+                "u",
+                "url"
+              ],
+              [
+                "url",
+                "m"
+              ],
+              [
+                "m",
+                "host"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Network-level controls, such as a firewall that stops application servers.",
+            "values": {
+              "u": "'http://169.254.169.254/'",
+              "url": "'https://api.example.com/v1'",
+              "m": "{'__other__': 'Match'}",
+              "host": "'api.example.com'"
+            },
+            "tones": {
+              "u": "ok",
+              "url": "ok",
+              "m": "ok",
+              "host": "ok"
+            },
+            "arrows": [
+              [
+                "u",
+                "url"
+              ],
+              [
+                "url",
+                "m"
+              ],
+              [
+                "m",
+                "host"
+              ]
+            ]
           }
         ]
       }
@@ -409,204 +529,270 @@
       "partTitle": "Allow-lists for outbound requests",
       "codeHash": "77a00f161be781a2107c2cb2bbfe0910d6337401a4cd63b2dfa604c5f1bda9d4",
       "spec": {
-        "template": "compare",
-        "title": "Unauthenticated IMDSv1 protocol versus session-token hardened IMDSv2",
-        "left": {
-          "title": "Vulnerable IMDSv1 Architecture",
-          "items": [
-            "Serves sensitive credentials over simple GET requests",
-            "Exploitable through standard single request SSRF bugs",
-            "Lacks mandatory session tokens or cryptographic checks"
-          ]
-        },
-        "right": {
-          "title": "Hardened IMDSv2 Protocol",
-          "items": [
-            "Mandates session-oriented PUT request with token header",
-            "Requires secret session token on all subsequent GETs",
-            "Neutralizes typical SSRF exploits lacking custom headers"
-          ]
-        },
+        "template": "sequence",
+        "title": "Allow-lists for outbound requests",
+        "actors": [
+          "allow",
+          "u",
+          "url"
+        ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "IMDS requires a session oriented request with a mandatory token header.",
-            "highlightSide": "right",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Where possible, allow only the specific hosts a feature needs, such as.",
+            "activeActor": "allow",
+            "messages": [
+              {
+                "from": "allow",
+                "to": "u",
+                "label": {
+                  "var": "allow",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "u",
+                "to": "url",
+                "label": {
+                  "var": "u",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say6",
-            "caption": "Attackers cannot inject arbitrary headers to acquire session tokens.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Allow-lists fail safe.",
+            "activeActor": "u",
+            "messages": [
+              {
+                "from": "allow",
+                "to": "u",
+                "label": {
+                  "var": "allow",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "u",
+                "to": "url",
+                "label": {
+                  "var": "u",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Logging every outbound request helps investigate SSRF attempts afterwards.",
+            "activeActor": "url",
+            "messages": [
+              {
+                "from": "allow",
+                "to": "u",
+                "label": {
+                  "var": "allow",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "u",
+                "to": "url",
+                "label": {
+                  "var": "u",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
           }
-        ],
-        "leftLabel": "Vulnerable IMDSv1 Architecture",
-        "rightLabel": "Hardened IMDSv2 Protocol"
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Unauthenticated IMDSv1 protocol versus session-token hardened IMDSv2",
-        "left": {
-          "title": "Vulnerable IMDSv1 Architecture",
-          "items": [
-            "Serves sensitive credentials over simple GET requests",
-            "Exploitable through standard single request SSRF bugs",
-            "Lacks mandatory session tokens or cryptographic checks"
-          ]
-        },
-        "right": {
-          "title": "Hardened IMDSv2 Protocol",
-          "items": [
-            "Mandates session-oriented PUT request with token header",
-            "Requires secret session token on all subsequent GETs",
-            "Neutralizes typical SSRF exploits lacking custom headers"
-          ]
-        },
+        "template": "sequence",
+        "title": "Allow-lists for outbound requests",
+        "actors": [
+          "allow",
+          "u",
+          "url"
+        ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "IMDS requires a session oriented request with a mandatory token header.",
-            "highlightSide": "right",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Where possible, allow only the specific hosts a feature needs, such as.",
+            "messages": [
+              {
+                "from": "allow",
+                "to": "u",
+                "label": "{'api.partner.com', 'hooks.example.com'}",
+                "tone": "data"
+              },
+              {
+                "from": "u",
+                "to": "url",
+                "label": "'https://api.partner.com/orders'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "allow"
           },
           {
-            "at": "say6",
-            "caption": "Attackers cannot inject arbitrary headers to acquire session tokens.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Allow-lists fail safe.",
+            "messages": [
+              {
+                "from": "allow",
+                "to": "u",
+                "label": "{'api.partner.com', 'hooks.example.com'}",
+                "tone": "data"
+              },
+              {
+                "from": "u",
+                "to": "url",
+                "label": "'https://api.partner.com/orders'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "u"
+          },
+          {
+            "at": "say9",
+            "caption": "Logging every outbound request helps investigate SSRF attempts afterwards.",
+            "messages": [
+              {
+                "from": "allow",
+                "to": "u",
+                "label": "{'api.partner.com', 'hooks.example.com'}",
+                "tone": "data"
+              },
+              {
+                "from": "u",
+                "to": "url",
+                "label": "'https://api.partner.com.evil.io/'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "url"
           }
-        ],
-        "leftLabel": "Vulnerable IMDSv1 Architecture",
-        "rightLabel": "Hardened IMDSv2 Protocol"
+        ]
       }
     },
     {
       "partTitle": "Designing features safely",
       "codeHash": "bad6affe4117262b1c53ea2f3263a3c2cfbdee99a1bac5f1bd12720074e9a247",
       "spec": {
-        "template": "flow",
-        "title": "HTTP redirect evaluation filter preventing recursive SSRF bypass vectors",
-        "nodes": [
+        "template": "states",
+        "title": "Designing features safely",
+        "states": [
           {
-            "id": "initialRequest",
-            "label": "Initial Whitelisted External URL",
-            "tappable": false
+            "id": "design",
+            "label": "design"
           },
           {
-            "id": "externalHost",
-            "label": "External Server Returns HTTP Redirect",
-            "tappable": false
+            "id": "good_when_true",
+            "label": "good_when_true"
           },
           {
-            "id": "hopEvaluator",
-            "label": "Recursive Redirect Inspection Guard",
-            "tappable": false
-          },
-          {
-            "id": "blockedHop",
-            "label": "Private Internal Hop Quarantined",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "initialRequest",
-            "to": "externalHost",
-            "label": "Fetches"
-          },
-          {
-            "from": "externalHost",
-            "to": "hopEvaluator",
-            "label": "Redirects"
-          },
-          {
-            "from": "hopEvaluator",
-            "to": "blockedHop",
-            "label": "Blocks"
+            "id": "gaps",
+            "label": "gaps"
           }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "An attacker can supply an external domain that redirects to internal IPs.",
-            "activeNodes": [
-              "initialRequest",
-              "externalHost"
-            ],
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Ask first whether the feature really needs arbitrary URLs.",
+            "currentState": "design",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Inspect every redirect hop against the filter before following requests.",
-            "activeNodes": [
-              "hopEvaluator",
-              "blockedHop"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Run URL-fetching code in a separate, isolated service with no credentials.",
+            "currentState": "good_when_true",
+            "transition": {
+              "from": "design",
+              "to": "good_when_true",
+              "label": {
+                "var": "good_when_true",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Security reviews should specifically ask \"can a user make our server fetch.",
+            "currentState": "gaps",
+            "transition": {
+              "from": "good_when_true",
+              "to": "gaps",
+              "label": {
+                "var": "gaps",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "HTTP redirect evaluation filter preventing recursive SSRF bypass vectors",
-        "nodes": [
+        "template": "states",
+        "title": "Designing features safely",
+        "states": [
           {
-            "id": "initialRequest",
-            "label": "Initial Whitelisted External URL",
-            "tappable": false
+            "id": "design",
+            "label": "design"
           },
           {
-            "id": "externalHost",
-            "label": "External Server Returns HTTP Redirect",
-            "tappable": false
+            "id": "good_when_true",
+            "label": "good_when_true"
           },
           {
-            "id": "hopEvaluator",
-            "label": "Recursive Redirect Inspection Guard",
-            "tappable": false
-          },
-          {
-            "id": "blockedHop",
-            "label": "Private Internal Hop Quarantined",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "initialRequest",
-            "to": "externalHost",
-            "label": "Fetches"
-          },
-          {
-            "from": "externalHost",
-            "to": "hopEvaluator",
-            "label": "Redirects"
-          },
-          {
-            "from": "hopEvaluator",
-            "to": "blockedHop",
-            "label": "Blocks"
+            "id": "gaps",
+            "label": "gaps"
           }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "An attacker can supply an external domain that redirects to internal IPs.",
-            "activeNodes": [
-              "initialRequest",
-              "externalHost"
-            ],
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Ask first whether the feature really needs arbitrary URLs.",
+            "currentState": "design",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Inspect every redirect hop against the filter before following requests.",
-            "activeNodes": [
-              "hopEvaluator",
-              "blockedHop"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Run URL-fetching code in a separate, isolated service with no credentials.",
+            "currentState": "good_when_true",
+            "transition": {
+              "from": "design",
+              "to": "good_when_true",
+              "label": "{'only https allowed': True, 'internal …"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Security reviews should specifically ask \"can a user make our server fetch.",
+            "currentState": "gaps",
+            "transition": {
+              "from": "good_when_true",
+              "to": "gaps",
+              "label": "['redirects re-validated']"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -615,224 +801,106 @@
       "partTitle": "Practice time: SSRF checks and allow-lists",
       "codeHash": "05960c9cbe98cabb13c6b4fc8ec192a0061a8d1eadf2263f67b364554a467143",
       "spec": {
-        "template": "flow",
-        "title": "IMDSv2 Session Token Protocol & Network Hop L... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Practice time: SSRF checks and allow-lists",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "webhooks",
+            "label": "webhooks"
           },
           {
-            "id": "proc",
-            "label": "2. IMDSv2 Session Toke...",
-            "tappable": true
+            "id": "allow",
+            "label": "allow"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "url",
+            "label": "url"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for IMDSvtwo Session Token Protocol & Network .",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in IMDSvtwo Session Toke.",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Match the URL pattern (BAD_URL otherwise), lower-case the host, reject.",
+            "currentState": "webhooks",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include a public host, the metadata endpoint, a private address.",
+            "currentState": "allow",
+            "transition": {
+              "from": "webhooks",
+              "to": "allow",
+              "label": {
+                "var": "allow",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for IMDSvtwo Session Token Protocol & N.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "These checks belong in a shared library so every feature uses the same.",
+            "currentState": "url",
+            "transition": {
+              "from": "allow",
+              "to": "url",
+              "label": {
+                "var": "url",
+                "line": 8,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "IMDSv2 Session Token Protocol & Network Hop L... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Practice time: SSRF checks and allow-lists",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "webhooks",
+            "label": "webhooks"
           },
           {
-            "id": "proc",
-            "label": "2. IMDSv2 Session Toke...",
-            "tappable": true
+            "id": "allow",
+            "label": "allow"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "url",
+            "label": "url"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for IMDSv2 Session Token Protocol & Network .. [D16.P6.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in IMDSv2 Session Toke... [D16.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Match the URL pattern (BAD_URL otherwise), lower-case the host, reject.",
+            "currentState": "webhooks",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include a public host, the metadata endpoint, a private address.",
+            "currentState": "allow",
+            "transition": {
+              "from": "webhooks",
+              "to": "allow",
+              "label": "{'hooks.example.com'}"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for IMDSv2 Session Token Protocol & N.. [D16.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "These checks belong in a shared library so every feature uses the same.",
+            "currentState": "url",
+            "transition": {
+              "from": "allow",
+              "to": "url",
+              "label": "'https://hooks.example.com/orders'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

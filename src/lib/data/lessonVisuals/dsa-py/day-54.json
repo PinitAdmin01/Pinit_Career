@@ -2,87 +2,114 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 54,
-  "promptSha": "58d1e0002f23cade8cd112d1010dbfb38458e2b5105171dc8939da2cd419fac3",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Knuth's Algorithm R Reservoir Sampling: Uniform K-Samples in O(K) Memory",
       "codeHash": "80456938ce80e9cff7f48ce9aad70def8ce91a781b995b615dd558ee3622551f",
       "spec": {
-        "template": "table",
-        "title": "Knuth's Algorithm R Reservoir Sampling",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Knuth's Algorithm R Reservoir Sampling: Uniform K-Samples in O(K",
         "steps": [
           {
             "at": "say1",
-            "caption": "The suppose design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Suppose millions of log events stream past a router every minute and you.",
+            "items": {
+              "var": "reservoir",
+              "line": 8,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Knuth"
-                  },
-                  {
-                    "text": "Algorithm"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The watch step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Knuth's **Algorithm R** (Reservoir Sampling) solves this cleanly in strict.",
+            "items": {
+              "var": "reservoir",
+              "line": 8,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Reservoir"
-                  },
-                  {
-                    "text": "Sampling"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Important engineering note in Python.",
+            "items": {
+              "var": "reservoir",
+              "line": 7,
+              "hit": 4
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Knuth's Algorithm R Reservoir Sampling",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Knuth's Algorithm R Reservoir Sampling: Uniform K-Samples in O(K",
         "steps": [
           {
             "at": "say1",
-            "caption": "The suppose design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Suppose millions of log events stream past a router every minute and you.",
+            "items": [
+              "0",
+              "1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Knuth",
-                  "Algorithm"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The watch step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Knuth's **Algorithm R** (Reservoir Sampling) solves this cleanly in strict.",
+            "items": [
+              "0",
+              "1",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Reservoir",
-                  "Sampling"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Important engineering note in Python.",
+            "items": [
+              "0",
+              "1",
+              "2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,43 +120,131 @@
       "partTitle": "Bloom Filters & Deterministic SHA-256 Kirsch-Mitzenmacher Hashing",
       "codeHash": "39b4211abf078daf660e53400a3cf724d385a36809ef320e09b4eadfc1a0c9bb",
       "spec": {
-        "template": "table",
-        "title": "Bloom Filters & Deterministic SHA-256 Kirsch-Mitzenmacher",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Bloom Filters & Deterministic SHA-256 Kirsch-Mitzenmacher Hashin",
         "steps": [
           {
             "at": "say1",
-            "caption": "The suppose design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Suppose a crawler or database gateway needs to reject duplicate URLs.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Bloom"
-                  },
-                  {
-                    "text": "Filters"
-                  }
-                ],
+                "label": "expected_items",
+                "value": {
+                  "var": "expected_items",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fp_rate",
+                "value": {
+                  "var": "fp_rate",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 32,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The ironclad step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Under the hood, a Bloom Filter allocates one bit array of `m` bits (stored.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Deterministic"
-                  },
-                  {
-                    "text": "Kirsch"
-                  }
-                ],
+                "label": "expected_items",
+                "value": {
+                  "var": "expected_items",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fp_rate",
+                "value": {
+                  "var": "fp_rate",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Instead, compute ONE deterministic cryptographic `hashlib.",
+            "bars": [
+              {
+                "label": "expected_items",
+                "value": {
+                  "var": "expected_items",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fp_rate",
+                "value": {
+                  "var": "fp_rate",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 32,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -137,35 +252,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Bloom Filters & Deterministic SHA-256 Kirsch-Mitzenmacher",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Bloom Filters & Deterministic SHA-256 Kirsch-Mitzenmacher Hashin",
         "steps": [
           {
             "at": "say1",
-            "caption": "The suppose design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Suppose a crawler or database gateway needs to reject duplicate URLs.",
+            "bars": [
               {
-                "cells": [
-                  "Bloom",
-                  "Filters"
-                ],
+                "label": "expected_items",
+                "value": 500,
+                "tone": "data"
+              },
+              {
+                "label": "fp_rate",
+                "value": 0.02,
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": 4071,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The ironclad step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Under the hood, a Bloom Filter allocates one bit array of `m` bits (stored.",
+            "bars": [
               {
-                "cells": [
-                  "Deterministic",
-                  "Kirsch"
-                ],
+                "label": "expected_items",
+                "value": 500,
+                "tone": "ok"
+              },
+              {
+                "label": "fp_rate",
+                "value": 0.02,
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": 4071,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Instead, compute ONE deterministic cryptographic `hashlib.",
+            "bars": [
+              {
+                "label": "expected_items",
+                "value": 500,
+                "tone": "ok"
+              },
+              {
+                "label": "fp_rate",
+                "value": 0.02,
+                "tone": "ok"
+              },
+              {
+                "label": "m",
+                "value": 4071,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -177,43 +340,131 @@
       "partTitle": "Count-Min Sketch (d x w): Guaranteed Over-Estimate & Collision Bounding",
       "codeHash": "041f82eafef37f63fb356a2ed2ef1702b62478904a59beb738ac08f8f51f7508",
       "spec": {
-        "template": "table",
-        "title": "Count-Min Sketch (d x w)",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Count-Min Sketch (d x w): Guaranteed Over-Estimate & Collision B",
         "steps": [
           {
             "at": "say1",
-            "caption": "The bloom design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Bloom Filters test pure set **membership**, yet network firewalls.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Count"
-                  },
-                  {
-                    "text": "Sketch"
-                  }
-                ],
+                "label": "depth",
+                "value": {
+                  "var": "depth",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "width",
+                "value": {
+                  "var": "width",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "count",
+                "value": {
+                  "var": "count",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 15,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The delta step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Graham Cormode and S.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Guaranteed"
-                  },
-                  {
-                    "text": "Estimate"
-                  }
-                ],
+                "label": "depth",
+                "value": {
+                  "var": "depth",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "width",
+                "value": {
+                  "var": "width",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "count",
+                "value": {
+                  "var": "count",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect our deterministic SHA-256 `CountMinSketch` comparing exact vs.",
+            "bars": [
+              {
+                "label": "depth",
+                "value": {
+                  "var": "depth",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "width",
+                "value": {
+                  "var": "width",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "count",
+                "value": {
+                  "var": "count",
+                  "line": 15,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 15,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +472,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Count-Min Sketch (d x w)",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Count-Min Sketch (d x w): Guaranteed Over-Estimate & Collision B",
         "steps": [
           {
             "at": "say1",
-            "caption": "The bloom design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Bloom Filters test pure set **membership**, yet network firewalls.",
+            "bars": [
               {
-                "cells": [
-                  "Count",
-                  "Sketch"
-                ],
+                "label": "depth",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "width",
+                "value": 64,
+                "tone": "data"
+              },
+              {
+                "label": "count",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The delta step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Graham Cormode and S.",
+            "bars": [
               {
-                "cells": [
-                  "Guaranteed",
-                  "Estimate"
-                ],
+                "label": "depth",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "width",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "count",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect our deterministic SHA-256 `CountMinSketch` comparing exact vs.",
+            "bars": [
+              {
+                "label": "depth",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "width",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "count",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -261,43 +560,131 @@
       "partTitle": "HyperLogLog Intuition: Estimating Distinct Cardinality with Leading-Zero Registers",
       "codeHash": "6081d8c691d34d4cb9894c978eb72b2f10fc32f84254f73b81781bc4ea8179f5",
       "spec": {
-        "template": "table",
-        "title": "HyperLogLog Intuition",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "HyperLogLog Intuition: Estimating Distinct Cardinality with Lead",
         "steps": [
           {
             "at": "say1",
-            "caption": "The covered design establishes the core structural invariant.",
-            "rows": [
+            "caption": "We covered uniform sampling (Algorithm R), membership (Bloom Filter),.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "HyperLogLog"
-                  },
-                  {
-                    "text": "Intuition"
-                  }
-                ],
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 37,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bucket",
+                "value": {
+                  "var": "bucket",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "rem_bits",
+                "value": {
+                  "var": "rem_bits",
+                  "line": 22,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The taking step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how notice updates brilliant during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Estimating"
-                  },
-                  {
-                    "text": "Distinct"
-                  }
-                ],
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 38,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bucket",
+                "value": {
+                  "var": "bucket",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rem_bits",
+                "value": {
+                  "var": "rem_bits",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Trace how deterministic updates hyperloglogestimator during execution.",
+            "bars": [
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 39,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bucket",
+                "value": {
+                  "var": "bucket",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rem_bits",
+                "value": {
+                  "var": "rem_bits",
+                  "line": 24,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -305,35 +692,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "HyperLogLog Intuition",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "HyperLogLog Intuition: Estimating Distinct Cardinality with Lead",
         "steps": [
           {
             "at": "say1",
-            "caption": "The covered design establishes the core structural invariant.",
-            "rows": [
+            "caption": "We covered uniform sampling (Algorithm R), membership (Bloom Filter),.",
+            "bars": [
               {
-                "cells": [
-                  "HyperLogLog",
-                  "Intuition"
-                ],
+                "label": "b",
+                "value": 6,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "bucket",
+                "value": 48,
+                "tone": "data"
+              },
+              {
+                "label": "rem_bits",
+                "value": 58,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The taking step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how notice updates brilliant during execution.",
+            "bars": [
               {
-                "cells": [
-                  "Estimating",
-                  "Distinct"
-                ],
+                "label": "b",
+                "value": 6,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "bucket",
+                "value": 48,
+                "tone": "ok"
+              },
+              {
+                "label": "rem_bits",
+                "value": 58,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Trace how deterministic updates hyperloglogestimator during execution.",
+            "bars": [
+              {
+                "label": "b",
+                "value": 6,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "bucket",
+                "value": 48,
+                "tone": "ok"
+              },
+              {
+                "label": "rem_bits",
+                "value": 58,
                 "tone": "ok"
               }
             ]
@@ -345,43 +780,131 @@
       "partTitle": "Production Application: Real-Time Stream Deduplicator, Heavy-Hitter & Sample Auditor",
       "codeHash": "4cdf177888f8d9f78f3c8dc642e6d14921283017badec6407b9078394c7fdb3b",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Production Application: Real-Time Stream Deduplicator, Heavy-Hit",
         "steps": [
           {
             "at": "say1",
-            "caption": "The synthesize design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us synthesize ALL FOUR probabilistic stream tools inside ONE.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
+                "label": "expected_uniqu",
+                "value": {
+                  "var": "expected_unique",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "sample_k",
+                "value": {
+                  "var": "sample_k",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "seed",
+                "value": {
+                  "var": "seed",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 32,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The bloom step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Imagine millions of API requests streaming past an edge proxy with strict.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Real"
-                  },
-                  {
-                    "text": "Time"
-                  }
-                ],
+                "label": "expected_uniqu",
+                "value": {
+                  "var": "expected_unique",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "sample_k",
+                "value": {
+                  "var": "sample_k",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": {
+                  "var": "seed",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "(4) **Algorithm R Reservoir Sampler (`reservoir`)** captures an unbiased.",
+            "bars": [
+              {
+                "label": "expected_uniqu",
+                "value": {
+                  "var": "expected_unique",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "sample_k",
+                "value": {
+                  "var": "sample_k",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": {
+                  "var": "seed",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 36,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -389,35 +912,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Production Application: Real-Time Stream Deduplicator, Heavy-Hit",
         "steps": [
           {
             "at": "say1",
-            "caption": "The synthesize design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us synthesize ALL FOUR probabilistic stream tools inside ONE.",
+            "bars": [
               {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
+                "label": "expected_uniqu",
+                "value": 400,
+                "tone": "data"
+              },
+              {
+                "label": "sample_k",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "seed",
+                "value": 42,
+                "tone": "data"
+              },
+              {
+                "label": "j",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The bloom step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Imagine millions of API requests streaming past an edge proxy with strict.",
+            "bars": [
               {
-                "cells": [
-                  "Real",
-                  "Time"
-                ],
+                "label": "expected_uniqu",
+                "value": 400,
+                "tone": "ok"
+              },
+              {
+                "label": "sample_k",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": 42,
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "(4) **Algorithm R Reservoir Sampler (`reservoir`)** captures an unbiased.",
+            "bars": [
+              {
+                "label": "expected_uniqu",
+                "value": 400,
+                "tone": "ok"
+              },
+              {
+                "label": "sample_k",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "seed",
+                "value": 42,
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": 0,
                 "tone": "ok"
               }
             ]

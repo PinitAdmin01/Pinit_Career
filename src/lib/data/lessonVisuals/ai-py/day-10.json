@@ -2,119 +2,201 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 10,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Retrieval-augmented generation",
       "codeHash": "65e18b36f4796c24321d080f3f0f99b734da0ec4236b110459b2455ad7046c88",
       "spec": {
-        "template": "flow",
-        "title": "Sequential three-stage RAG execution pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Retrieval-augmented generation",
+        "boxes": [
           {
-            "id": "n1",
-            "label": "retrieve"
+            "id": "chunks",
+            "label": "chunks"
           },
           {
-            "id": "n2",
-            "label": "augment"
+            "id": "question",
+            "label": "question"
           },
           {
-            "id": "n3",
-            "label": "generate"
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "words",
+            "label": "words"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The pipeline has three steps: retrieve augment and generate.",
+            "at": "say1",
+            "caption": "A model only knows what it learned in training, which may be outdated.",
             "values": {
-              "n1": {
-                "text": "retrieve"
+              "chunks": {
+                "var": "chunks",
+                "line": 1,
+                "hit": 1
               },
-              "n2": {
-                "text": "prompt"
+              "question": {
+                "var": "question",
+                "line": 12,
+                "hit": 1
               },
-              "n3": {
-                "text": "question"
+              "k": {
+                "var": "k",
+                "line": 8,
+                "hit": 1
+              },
+              "words": {
+                "var": "words",
+                "line": 8,
+                "hit": 1
               }
             },
             "tones": {
-              "n1": "ok",
-              "n2": "data",
-              "n3": "data"
+              "chunks": "data",
+              "question": "data",
+              "k": "data",
+              "words": "data"
             }
           },
           {
-            "at": "say4",
-            "caption": "Naive retrieval pipelines provide an effective baseline for improvements.",
+            "at": "say2",
+            "caption": "It also gives you control.",
             "values": {
-              "n1": {
-                "text": "c1"
+              "chunks": {
+                "var": "chunks",
+                "line": 7,
+                "hit": 1
               },
-              "n2": {
-                "text": "c2"
+              "question": {
+                "var": "question",
+                "line": 8,
+                "hit": 1
               },
-              "n3": {
-                "text": "c3"
+              "k": {
+                "var": "k",
+                "line": 9,
+                "hit": 1
+              },
+              "words": {
+                "var": "words",
+                "line": 9,
+                "hit": 1
               }
             },
             "tones": {
-              "n1": "ok",
-              "n2": "ok",
-              "n3": "ok"
+              "chunks": "data",
+              "question": "data",
+              "k": "data",
+              "words": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "The weak point is usually retrieval.",
+            "values": {
+              "chunks": {
+                "var": "chunks",
+                "line": 12,
+                "hit": 1
+              },
+              "question": {
+                "var": "question",
+                "line": 9,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 9,
+                "hit": 2
+              },
+              "words": {
+                "var": "words",
+                "line": 9,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "chunks": "ok",
+              "question": "ok",
+              "k": "ok",
+              "words": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Sequential three-stage RAG execution pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Retrieval-augmented generation",
+        "boxes": [
           {
-            "id": "n1",
-            "label": "retrieve"
+            "id": "chunks",
+            "label": "chunks"
           },
           {
-            "id": "n2",
-            "label": "augment"
+            "id": "question",
+            "label": "question"
           },
           {
-            "id": "n3",
-            "label": "generate"
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "words",
+            "label": "words"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The pipeline has three steps: retrieve augment and generate.",
+            "at": "say1",
+            "caption": "A model only knows what it learned in training, which may be outdated.",
             "values": {
-              "n1": "retrieve",
-              "n2": "prompt",
-              "n3": "question"
+              "chunks": "{'c1': 'Refunds are issued within 5 wor…",
+              "question": "'how many days until refunds are issued'",
+              "k": "2",
+              "words": "{'are', 'days', 'how', 'issued', 'many'…"
             },
             "tones": {
-              "n1": "ok",
-              "n2": "data",
-              "n3": "data"
-            },
-            "arrows": []
+              "chunks": "data",
+              "question": "data",
+              "k": "data",
+              "words": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "Naive retrieval pipelines provide an effective baseline for improvements.",
+            "at": "say2",
+            "caption": "It also gives you control.",
             "values": {
-              "n1": "c1",
-              "n2": "c2",
-              "n3": "c3"
+              "chunks": "{'c1': 'Refunds are issued within 5 wor…",
+              "question": "'how many days until refunds are issued'",
+              "k": "2",
+              "words": "{'are', 'days', 'how', 'issued', 'many'…"
             },
             "tones": {
-              "n1": "ok",
-              "n2": "ok",
-              "n3": "ok"
+              "chunks": "data",
+              "question": "data",
+              "k": "data",
+              "words": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "The weak point is usually retrieval.",
+            "values": {
+              "chunks": "{'c1': 'Refunds are issued within 5 wor…",
+              "question": "'how many days until refunds are issued'",
+              "k": "2",
+              "words": "{'are', 'days', 'how', 'issued', 'many'…"
             },
-            "arrows": []
+            "tones": {
+              "chunks": "ok",
+              "question": "ok",
+              "k": "ok",
+              "words": "ok"
+            }
           }
         ]
       }
@@ -123,224 +205,130 @@
       "partTitle": "Keyword search: counting whole words",
       "codeHash": "693945df853c15491c9fd11ce32c6dec247855ee724bd82a70482df0276081f2",
       "spec": {
-        "template": "flow",
-        "title": "Keyword search: counting whole words — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Keyword search: counting whole words",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "doc",
+            "label": "doc"
           },
           {
-            "id": "proc",
-            "label": "2. Keyword search: cou...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "term",
+            "label": "term"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Keyword search: counting whole words.",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Keyword search: cou... [Dten.Ptwo.Stwo].",
+            "caption": "Before embeddings, search engines matched keywords.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "doc": {
+                "var": "doc",
+                "line": 4,
+                "hit": 1
+              },
+              "term": {
+                "var": "term",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "doc": "data",
+              "term": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dten.Ptwo.object-storage].",
+            "at": "say2",
+            "caption": "Count_term_frequency(doc, term) counts how many times a term appears as.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "doc": {
+                "var": "doc",
+                "line": 4,
+                "hit": 2
+              },
+              "term": {
+                "var": "term",
+                "line": 4,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "doc": "data",
+              "term": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Keyword search: counting whole wo.",
+            "at": "say6",
+            "caption": "Term frequency is the first ingredient of BM25, the standard keyword.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "doc": {
+                "var": "doc",
+                "line": 4,
+                "hit": 3
+              },
+              "term": {
+                "var": "term",
+                "line": 4,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "doc": "ok",
+              "term": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Keyword search: counting whole words — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Keyword search: counting whole words",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "doc",
+            "label": "doc"
           },
           {
-            "id": "proc",
-            "label": "2. Keyword search: cou...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "term",
+            "label": "term"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Keyword search: counting whole words [D10.P2.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Keyword search: cou... [D10.P2.S2].",
+            "caption": "Before embeddings, search engines matched keywords.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "doc": "'Docker and Kubernetes and docker'",
+              "term": "'Docker'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "doc": "data",
+              "term": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P2.S3].",
+            "at": "say2",
+            "caption": "Count_term_frequency(doc, term) counts how many times a term appears as.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "doc": "'Dockerfile builds a Docker image'",
+              "term": "'docker'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "doc": "data",
+              "term": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Keyword search: counting whole wo.. [D10.P2.S4].",
+            "at": "say6",
+            "caption": "Term frequency is the first ingredient of BM25, the standard keyword.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "doc": "'Error ERR-504 then ERR-504 again'",
+              "term": "'ERR-504'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "doc": "ok",
+              "term": "ok"
+            }
           }
         ]
       }
@@ -349,157 +337,277 @@
       "partTitle": "BM25 in brief",
       "codeHash": "7d7e0da7fc59ecea9a365e1fc0033f229a26010c43a435f7e57149d45476c18d",
       "spec": {
-        "template": "table",
-        "title": "BM25 ranking formula components and weights",
-        "columns": [
-          "bm25_feature",
-          "mechanism",
-          "retrieval_impact"
+        "template": "flow",
+        "title": "BM25 in brief",
+        "nodes": [
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "tokenised",
+            "label": "tokenised"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "t",
+            "label": "t"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "BM scores how well a document matches query words using term statistics.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "inverse doc frequency"
-                  },
-                  {
-                    "text": "rare words score higher"
-                  },
-                  {
-                    "text": "weights specific codes"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "BM25 scores how well a document matches a query's words.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "term saturation"
-                  },
-                  {
-                    "text": "diminishing count returns"
-                  },
-                  {
-                    "text": "prevents spam repeats"
-                  }
-                ],
-                "tone": "data"
+              "tokenised": {
+                "var": "tokenised",
+                "line": 4,
+                "hit": 4
+              },
+              ".0": {
+                "var": ".0",
+                "line": 5,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "docs": "data",
+              "tokenised": "data",
+              ".0": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "tokenised"
+              ],
+              [
+                "tokenised",
+                ".0"
+              ],
+              [
+                ".0",
+                "t"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Rare words carry high inverse document frequency to highlight specific terms.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "inverse doc frequency"
-                  },
-                  {
-                    "text": "rare words score higher"
-                  },
-                  {
-                    "text": "weights specific codes"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Rare words count more (inverse document frequency, IDF).",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "term saturation"
-                  },
-                  {
-                    "text": "diminishing count returns"
-                  },
-                  {
-                    "text": "prevents spam repeats"
-                  }
-                ],
-                "tone": "ok"
+              "tokenised": {
+                "var": "tokenised",
+                "line": 5,
+                "hit": 5
               },
-              {
-                "cells": [
-                  {
-                    "text": "length normalisation"
-                  },
-                  {
-                    "text": "penalises long pages"
-                  },
-                  {
-                    "text": "fair size balance"
-                  }
-                ],
-                "tone": "data"
+              ".0": {
+                "var": ".0",
+                "line": 5,
+                "hit": 2
+              },
+              "t": {
+                "var": "t",
+                "line": 5,
+                "hit": 2
               }
+            },
+            "tones": {
+              "docs": "data",
+              "tokenised": "data",
+              ".0": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "tokenised"
+              ],
+              [
+                "tokenised",
+                ".0"
+              ],
+              [
+                ".0",
+                "t"
+              ]
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "You rarely write BM25 yourself.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 4,
+                "hit": 2
+              },
+              "tokenised": {
+                "var": "tokenised",
+                "line": 7,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 5,
+                "hit": 3
+              },
+              "t": {
+                "var": "t",
+                "line": 5,
+                "hit": 3
+              }
+            },
+            "tones": {
+              "docs": "ok",
+              "tokenised": "ok",
+              ".0": "ok",
+              "t": "ok"
+            },
+            "arrows": [
+              [
+                "docs",
+                "tokenised"
+              ],
+              [
+                "tokenised",
+                ".0"
+              ],
+              [
+                ".0",
+                "t"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "BM25 ranking formula components and weights",
-        "columns": [
-          "bm25_feature",
-          "mechanism",
-          "retrieval_impact"
+        "template": "flow",
+        "title": "BM25 in brief",
+        "nodes": [
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "tokenised",
+            "label": "tokenised"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "t",
+            "label": "t"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "BM25 scores how well a document matches query words using term statistics.",
-            "rows": [
-              {
-                "cells": [
-                  "inverse doc frequency",
-                  "rare words score higher",
-                  "weights specific codes"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "term saturation",
-                  "diminishing count returns",
-                  "prevents spam repeats"
-                ],
-                "tone": "data"
-              }
+            "caption": "BM25 scores how well a document matches a query's words.",
+            "values": {
+              "docs": "['error ERR-504 gateway timeout', 'gate…",
+              "tokenised": "[['error', 'err-504', 'gateway', 'timeo…",
+              ".0": "{'__other__': 'list_iterator'}",
+              "t": "['error', 'err-504', 'gateway', 'timeou…"
+            },
+            "tones": {
+              "docs": "data",
+              "tokenised": "data",
+              ".0": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "tokenised"
+              ],
+              [
+                "tokenised",
+                ".0"
+              ],
+              [
+                ".0",
+                "t"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Rare words carry high inverse document frequency to highlight specific terms.",
-            "rows": [
-              {
-                "cells": [
-                  "inverse doc frequency",
-                  "rare words score higher",
-                  "weights specific codes"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "term saturation",
-                  "diminishing count returns",
-                  "prevents spam repeats"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "length normalisation",
-                  "penalises long pages",
-                  "fair size balance"
-                ],
-                "tone": "data"
-              }
+            "caption": "Rare words count more (inverse document frequency, IDF).",
+            "values": {
+              "docs": "['error ERR-504 gateway timeout', 'gate…",
+              "tokenised": "[['error', 'err-504', 'gateway', 'timeo…",
+              ".0": "{'__other__': 'list_iterator'}",
+              "t": "['gateway', 'settings', 'and', 'gateway…"
+            },
+            "tones": {
+              "docs": "data",
+              "tokenised": "data",
+              ".0": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "tokenised"
+              ],
+              [
+                "tokenised",
+                ".0"
+              ],
+              [
+                ".0",
+                "t"
+              ]
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "You rarely write BM25 yourself.",
+            "values": {
+              "docs": "['error ERR-504 gateway timeout', 'gate…",
+              "tokenised": "[['error', 'err-504', 'gateway', 'timeo…",
+              ".0": "{'__other__': 'list_iterator'}",
+              "t": "['the', 'the', 'the', 'gateway']"
+            },
+            "tones": {
+              "docs": "ok",
+              "tokenised": "ok",
+              ".0": "ok",
+              "t": "ok"
+            },
+            "arrows": [
+              [
+                "docs",
+                "tokenised"
+              ],
+              [
+                "tokenised",
+                ".0"
+              ],
+              [
+                ".0",
+                "t"
+              ]
             ]
           }
         ]
@@ -509,94 +617,160 @@
       "partTitle": "Dense plus sparse: hybrid search",
       "codeHash": "02dfd84223a26d6741004e662079e979d426edb227d606bb1b5247fe3de51984",
       "spec": {
-        "template": "compare",
-        "title": "Semantic dense search versus exact token sparse search",
-        "leftLabel": "Single Search Mode",
-        "rightLabel": "Hybrid Search",
+        "template": "sequence",
+        "title": "Dense plus sparse: hybrid search",
+        "actors": [
+          "dense_results",
+          "sparse_results"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dense search understands meaning while sparse search nails exact tokens.",
-            "left": {
-              "code": "dense misses exact code",
-              "result": {
-                "text": "misses exact codes"
+            "caption": "Vector (dense) search understands meaning.",
+            "activeActor": "dense_results",
+            "messages": [
+              {
+                "from": "dense_results",
+                "to": "sparse_results",
+                "label": {
+                  "var": "dense_results",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "sparse finds exact code",
-              "result": {
-                "text": "exact code matched"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "sparse_results",
+                "to": "dense_results",
+                "label": {
+                  "var": "sparse_results",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Hybrid search merges dense and sparse results to outperform either mode.",
-            "left": {
-              "code": "single query mode",
-              "result": {
-                "text": "partial matches only"
+            "at": "say2",
+            "caption": "Support and technical content, full of product names, versions and error.",
+            "activeActor": "sparse_results",
+            "messages": [
+              {
+                "from": "dense_results",
+                "to": "sparse_results",
+                "label": {
+                  "var": "dense_results",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "data"
-            },
-            "right": {
-              "code": "combined reciprocal fusion",
-              "result": {
-                "text": "optimal ranked union"
+              {
+                "from": "sparse_results",
+                "to": "dense_results",
+                "label": {
+                  "var": "sparse_results",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Many vector databases now offer hybrid search built in.",
+            "activeActor": "sparse_results",
+            "messages": [
+              {
+                "from": "dense_results",
+                "to": "sparse_results",
+                "label": {
+                  "var": "dense_results",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            }
+              {
+                "from": "sparse_results",
+                "to": "dense_results",
+                "label": {
+                  "var": "sparse_results",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Semantic dense search versus exact token sparse search",
-        "leftLabel": "Single Search Mode",
-        "rightLabel": "Hybrid Search",
+        "template": "sequence",
+        "title": "Dense plus sparse: hybrid search",
+        "actors": [
+          "dense_results",
+          "sparse_results"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dense search understands meaning while sparse search nails exact tokens.",
-            "left": {
-              "code": "dense misses exact code",
-              "result": "misses exact codes",
-              "tone": "error",
-              "checks": [
-                "misses exact codes"
-              ]
-            },
-            "right": {
-              "code": "sparse finds exact code",
-              "result": "exact code matched",
-              "tone": "ok",
-              "checks": [
-                "exact code matched"
-              ]
-            }
+            "caption": "Vector (dense) search understands meaning.",
+            "messages": [
+              {
+                "from": "dense_results",
+                "to": "sparse_results",
+                "label": "['login-help', 'password-reset', 'accou…",
+                "tone": "data"
+              },
+              {
+                "from": "sparse_results",
+                "to": "dense_results",
+                "label": "['err-504-guide', 'login-help', 'gatewa…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "dense_results"
           },
           {
-            "at": "say3",
-            "caption": "Hybrid search merges dense and sparse results to outperform either mode.",
-            "left": {
-              "code": "single query mode",
-              "result": "partial matches only",
-              "tone": "data",
-              "checks": [
-                "partial matches only"
-              ]
-            },
-            "right": {
-              "code": "combined reciprocal fusion",
-              "result": "optimal ranked union",
-              "tone": "ok",
-              "checks": [
-                "optimal ranked union"
-              ]
-            }
+            "at": "say2",
+            "caption": "Support and technical content, full of product names, versions and error.",
+            "messages": [
+              {
+                "from": "dense_results",
+                "to": "sparse_results",
+                "label": "['login-help', 'password-reset', 'accou…",
+                "tone": "data"
+              },
+              {
+                "from": "sparse_results",
+                "to": "dense_results",
+                "label": "['err-504-guide', 'login-help', 'gatewa…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "sparse_results"
+          },
+          {
+            "at": "say6",
+            "caption": "Many vector databases now offer hybrid search built in.",
+            "messages": [
+              {
+                "from": "dense_results",
+                "to": "sparse_results",
+                "label": "['login-help', 'password-reset', 'accou…",
+                "tone": "data"
+              },
+              {
+                "from": "sparse_results",
+                "to": "dense_results",
+                "label": "['err-504-guide', 'login-help', 'gatewa…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "sparse_results"
           }
         ]
       }
@@ -605,126 +779,174 @@
       "partTitle": "Reciprocal rank fusion",
       "codeHash": "70b007957ce9e5de1a71af48dd1081315527c035fcae3ee00555497904bb8eca",
       "spec": {
-        "template": "table",
-        "title": "Reciprocal rank fusion score aggregation table",
-        "columns": [
-          "document_id",
-          "dense_rank",
-          "sparse_rank",
-          "rrf_score"
-        ],
+        "template": "bars",
+        "title": "Reciprocal rank fusion",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Documents earn reciprocal rank scores based on position in each result list.",
-            "rows": [
+            "at": "say1",
+            "caption": "Reciprocal_rank_fusion(dense, sparse, k=60).",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "login-help"
-                  },
-                  {
-                    "text": "one"
-                  },
-                  {
-                    "text": "two"
-                  },
-                  {
-                    "text": "0.032522"
-                  }
-                ],
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "rank",
+                "value": {
+                  "var": "rank",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Every document earns 1 / (k + rank) from each list it appears in.",
+            "bars": [
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rank",
+                "value": {
+                  "var": "rank",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 7,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Documents appearing in both searches collect dual contributions to rise up.",
-            "rows": [
+            "at": "say5",
+            "caption": "Keep the first-seen order for ties, which a dict naturally does, so.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "login-help"
-                  },
-                  {
-                    "text": "one"
-                  },
-                  {
-                    "text": "two"
-                  },
-                  {
-                    "text": "0.032522"
-                  }
-                ],
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "err-504"
-                  },
-                  {
-                    "text": "none"
-                  },
-                  {
-                    "text": "one"
-                  },
-                  {
-                    "text": "0.016393"
-                  }
-                ],
-                "tone": "data"
+                "label": "rank",
+                "value": {
+                  "var": "rank",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Reciprocal rank fusion score aggregation table",
-        "columns": [
-          "document_id",
-          "dense_rank",
-          "sparse_rank",
-          "rrf_score"
-        ],
+        "template": "bars",
+        "title": "Reciprocal rank fusion",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Documents earn reciprocal rank scores based on position in each result list.",
-            "rows": [
+            "at": "say1",
+            "caption": "Reciprocal_rank_fusion(dense, sparse, k=60).",
+            "bars": [
               {
-                "cells": [
-                  "login-help",
-                  "one",
-                  "two",
-                  "0.032522"
-                ],
+                "label": "k",
+                "value": 60,
+                "tone": "data"
+              },
+              {
+                "label": "rank",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "s",
+                "value": 0.03252247488101534,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Every document earns 1 / (k + rank) from each list it appears in.",
+            "bars": [
+              {
+                "label": "k",
+                "value": 60,
+                "tone": "ok"
+              },
+              {
+                "label": "rank",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": 0.016129032258064516,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Documents appearing in both searches collect dual contributions to rise up.",
-            "rows": [
+            "at": "say5",
+            "caption": "Keep the first-seen order for ties, which a dict naturally does, so.",
+            "bars": [
               {
-                "cells": [
-                  "login-help",
-                  "one",
-                  "two",
-                  "0.032522"
-                ],
+                "label": "k",
+                "value": 60,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "err-504",
-                  "none",
-                  "one",
-                  "0.016393"
-                ],
-                "tone": "data"
+                "label": "rank",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": 0.01639344262295082,
+                "tone": "ok"
               }
             ]
           }
@@ -735,224 +957,162 @@
       "partTitle": "A grounded prompt with citations",
       "codeHash": "76a2f75f0ee45b0a3d175cc79d34a5042da117424531047b2e564702be47748f",
       "spec": {
-        "template": "flow",
-        "title": "A grounded prompt with citations — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A grounded prompt w...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "A grounded prompt with citations",
+        "actors": [
+          "chunks",
+          "cid",
+          "text"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for A grounded prompt with citations.",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in A grounded prompt w... [Dten.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The last step builds the prompt.",
+            "activeActor": "chunks",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "cid",
+                "label": {
+                  "var": "chunks",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cid",
+                "to": "text",
+                "label": {
+                  "var": "cid",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dten.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Instruct the model to answer only from the context, to cite chunk IDs like.",
+            "activeActor": "cid",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "cid",
+                "label": {
+                  "var": "chunks",
+                  "line": 4,
+                  "hit": 4
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cid",
+                "to": "text",
+                "label": {
+                  "var": "cid",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for A grounded prompt with citations.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "Tomorrow you will rerank retrieved chunks so the best ones come first,.",
+            "activeActor": "text",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "cid",
+                "label": {
+                  "var": "chunks",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cid",
+                "to": "text",
+                "label": {
+                  "var": "cid",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "A grounded prompt with citations — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A grounded prompt w...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "A grounded prompt with citations",
+        "actors": [
+          "chunks",
+          "cid",
+          "text"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for A grounded prompt with citations [D10.P6.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in A grounded prompt w... [D10.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "The last step builds the prompt.",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "cid",
+                "label": "{'c1': 'Refunds are issued within 5 wor…",
+                "tone": "data"
+              },
+              {
+                "from": "cid",
+                "to": "text",
+                "label": "'c1'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "chunks"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Instruct the model to answer only from the context, to cite chunk IDs like.",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "cid",
+                "label": "{'c1': 'Refunds are issued within 5 wor…",
+                "tone": "data"
+              },
+              {
+                "from": "cid",
+                "to": "text",
+                "label": "'c2'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "cid"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for A grounded prompt with citations [D10.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say6",
+            "caption": "Tomorrow you will rerank retrieved chunks so the best ones come first,.",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "cid",
+                "label": "{'c1': 'Refunds are issued within 5 wor…",
+                "tone": "data"
+              },
+              {
+                "from": "cid",
+                "to": "text",
+                "label": "'c2'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "text"
           }
         ]
       }

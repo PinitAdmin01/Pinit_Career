@@ -2,231 +2,167 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 24,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why discovery?",
       "codeHash": "ea9e71d859b396fa9d30581f41a2bb800737555c34638dc8332cf999b9faac2c",
       "spec": {
-        "template": "flow",
-        "title": "Why discovery? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Why discovery?",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Why discovery?",
+        "actors": [
+          "hard_coded",
+          "registry"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Why discovery? [D.Pone.Sone].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Why discovery? [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In the cloud, instances start and stop all the time.",
+            "activeActor": "hard_coded",
+            "messages": [
+              {
+                "from": "hard_coded",
+                "to": "registry",
+                "label": {
+                  "var": "hard_coded",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "registry",
+                "to": "hard_coded",
+                "label": {
+                  "var": "registry",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In a large system, hundreds of instances may change every day without.",
+            "activeActor": "registry",
+            "messages": [
+              {
+                "from": "hard_coded",
+                "to": "registry",
+                "label": {
+                  "var": "hard_coded",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "registry",
+                "to": "hard_coded",
+                "label": {
+                  "var": "registry",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Why discovery? [D.Pone.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "The example contrasts a hard-coded list with a registry lookup.",
+            "activeActor": "registry",
+            "messages": [
+              {
+                "from": "hard_coded",
+                "to": "registry",
+                "label": {
+                  "var": "hard_coded",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "registry",
+                "to": "hard_coded",
+                "label": {
+                  "var": "registry",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Why discovery? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Why discovery?",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Why discovery?",
+        "actors": [
+          "hard_coded",
+          "registry"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Why discovery? [D24.P1.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Why discovery? [D24.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "In the cloud, instances start and stop all the time.",
+            "messages": [
+              {
+                "from": "hard_coded",
+                "to": "registry",
+                "label": "['10.0.0.5:8080', '10.0.0.6:8080']",
+                "tone": "data"
+              },
+              {
+                "from": "registry",
+                "to": "hard_coded",
+                "label": "{'orders': ['10.0.1.21:8080', '10.0.1.2…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "hard_coded"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "In a large system, hundreds of instances may change every day without.",
+            "messages": [
+              {
+                "from": "hard_coded",
+                "to": "registry",
+                "label": "['10.0.0.5:8080', '10.0.0.6:8080']",
+                "tone": "data"
+              },
+              {
+                "from": "registry",
+                "to": "hard_coded",
+                "label": "{'orders': ['10.0.1.21:8080', '10.0.1.2…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "registry"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Why discovery? [D24.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "The example contrasts a hard-coded list with a registry lookup.",
+            "messages": [
+              {
+                "from": "hard_coded",
+                "to": "registry",
+                "label": "['10.0.0.5:8080', '10.0.0.6:8080']",
+                "tone": "data"
+              },
+              {
+                "from": "registry",
+                "to": "hard_coded",
+                "label": "{'orders': ['10.0.1.21:8080', '10.0.1.2…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "registry"
           }
         ]
       }
@@ -235,129 +171,277 @@
       "partTitle": "Registration with leases",
       "codeHash": "dd48b58475d52dd28cdd325605ce56fb34d1ac6478eb0e27f68efa7dfe5fa9f6",
       "spec": {
-        "template": "table",
-        "title": "Service registry instances and heartbeat lease expirations",
-        "columns": [
-          "id",
-          "url"
+        "template": "flow",
+        "title": "Registration with leases",
+        "nodes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "reg",
+            "label": "reg"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "instance_id",
+            "label": "instance_id"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When an instance starts it registers its id and address lease.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "o-1"
-                  },
-                  {
-                    "text": "http://10.0.1.21:8080"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "When an instance starts, it registers.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "reg": {
+                "var": "reg",
+                "line": 21,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 1
+              },
+              "instance_id": {
+                "var": "instance_id",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "reg": "data",
+              "name": "data",
+              "instance_id": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "reg"
+              ],
+              [
+                "reg",
+                "name"
+              ],
+              [
+                "name",
+                "instance_id"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "The instance sends regular heartbeats to renew its active lease.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "o-1"
-                  },
-                  {
-                    "text": "http://10.0.1.21:8080"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The instance must send heartbeats to renew its lease.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "o-2"
-                  },
-                  {
-                    "text": "http://10.0.1.22:8080"
-                  }
-                ],
-                "tone": "ok"
+              "reg": {
+                "var": "reg",
+                "line": 22,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 2
+              },
+              "instance_id": {
+                "var": "instance_id",
+                "line": 6,
+                "hit": 2
               }
+            },
+            "tones": {
+              "self": "data",
+              "reg": "data",
+              "name": "data",
+              "instance_id": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "reg"
+              ],
+              [
+                "reg",
+                "name"
+              ],
+              [
+                "name",
+                "instance_id"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Healthy returns active instances in registration order.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "o-1"
-                  },
-                  {
-                    "text": "http://10.0.1.21:8080"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example registers two instances and lets one expire.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 2
+              },
+              "reg": {
+                "var": "reg",
+                "line": 23,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 9,
+                "hit": 1
+              },
+              "instance_id": {
+                "var": "instance_id",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "ok",
+              "reg": "ok",
+              "name": "ok",
+              "instance_id": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "reg"
+              ],
+              [
+                "reg",
+                "name"
+              ],
+              [
+                "name",
+                "instance_id"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Service registry instances and heartbeat lease expirations",
-        "columns": [
-          "id",
-          "url"
+        "template": "flow",
+        "title": "Registration with leases",
+        "nodes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "reg",
+            "label": "reg"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "instance_id",
+            "label": "instance_id"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When an instance starts it registers its id and address lease.",
-            "rows": [
-              {
-                "cells": [
-                  "o-1",
-                  "http://10.0.1.21:8080"
-                ],
-                "tone": "ok"
-              }
+            "caption": "When an instance starts, it registers.",
+            "values": {
+              "self": "<ServiceRegistry>",
+              "reg": "<ServiceRegistry>",
+              "name": "'orders'",
+              "instance_id": "'o-1'"
+            },
+            "tones": {
+              "self": "data",
+              "reg": "data",
+              "name": "data",
+              "instance_id": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "reg"
+              ],
+              [
+                "reg",
+                "name"
+              ],
+              [
+                "name",
+                "instance_id"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "The instance sends regular heartbeats to renew its active lease.",
-            "rows": [
-              {
-                "cells": [
-                  "o-1",
-                  "http://10.0.1.21:8080"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "o-2",
-                  "http://10.0.1.22:8080"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The instance must send heartbeats to renew its lease.",
+            "values": {
+              "self": "<ServiceRegistry>",
+              "reg": "<ServiceRegistry>",
+              "name": "'orders'",
+              "instance_id": "'o-2'"
+            },
+            "tones": {
+              "self": "data",
+              "reg": "data",
+              "name": "data",
+              "instance_id": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "reg"
+              ],
+              [
+                "reg",
+                "name"
+              ],
+              [
+                "name",
+                "instance_id"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Healthy returns active instances in registration order.",
-            "rows": [
-              {
-                "cells": [
-                  "o-1",
-                  "http://10.0.1.21:8080"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example registers two instances and lets one expire.",
+            "values": {
+              "self": "<ServiceRegistry>",
+              "reg": "<ServiceRegistry>",
+              "name": "'orders'",
+              "instance_id": "'o-1'"
+            },
+            "tones": {
+              "self": "ok",
+              "reg": "ok",
+              "name": "ok",
+              "instance_id": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "reg"
+              ],
+              [
+                "reg",
+                "name"
+              ],
+              [
+                "name",
+                "instance_id"
+              ]
             ]
           }
         ]
@@ -367,192 +451,106 @@
       "partTitle": "Building instance URLs",
       "codeHash": "c6d0628efcaadf22ca638bafc22d9cc174c3e3414e2d8e441935004ec9f0e7b1",
       "spec": {
-        "template": "table",
-        "title": "Instance network endpoints and availability zone metadata",
-        "columns": [
-          "ip",
-          "port",
-          "zone"
+        "template": "states",
+        "title": "Building instance URLs",
+        "states": [
+          {
+            "id": "instances",
+            "label": "instances"
+          },
+          {
+            "id": "my_zone",
+            "label": "my_zone"
+          },
+          {
+            "id": "preferred",
+            "label": "preferred"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Helper functions format instance urls consistently everywhere.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "10.0.1.21"
-                  },
-                  {
-                    "text": "8080"
-                  },
-                  {
-                    "text": "ap-south-1a"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Instance_url(ip, port) returns \"http://IP:PORT\".",
+            "currentState": "instances",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Registries store address port and regional metadata separately.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "10.0.1.21"
-                  },
-                  {
-                    "text": "8080"
-                  },
-                  {
-                    "text": "ap-south-1a"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "10.0.2.14"
-                  },
-                  {
-                    "text": "8080"
-                  },
-                  {
-                    "text": "ap-south-1b"
-                  }
-                ],
-                "tone": "idle"
+            "caption": "Registries often store the address and port separately, plus metadata such.",
+            "currentState": "my_zone",
+            "transition": {
+              "from": "instances",
+              "to": "my_zone",
+              "label": {
+                "var": "my_zone",
+                "line": 10,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Clients prefer same-zone instances to reduce network latency.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "10.0.1.21"
-                  },
-                  {
-                    "text": "8080"
-                  },
-                  {
-                    "text": "ap-south-1a"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "10.0.2.14"
-                  },
-                  {
-                    "text": "8080"
-                  },
-                  {
-                    "text": "ap-south-1b"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "10.0.1.30"
-                  },
-                  {
-                    "text": "8081"
-                  },
-                  {
-                    "text": "ap-south-1a"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example builds URLs and prefers same-zone instances.",
+            "currentState": "preferred",
+            "transition": {
+              "from": "my_zone",
+              "to": "preferred",
+              "label": {
+                "var": "preferred",
+                "line": 11,
+                "hit": 2
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Instance network endpoints and availability zone metadata",
-        "columns": [
-          "ip",
-          "port",
-          "zone"
+        "template": "states",
+        "title": "Building instance URLs",
+        "states": [
+          {
+            "id": "instances",
+            "label": "instances"
+          },
+          {
+            "id": "my_zone",
+            "label": "my_zone"
+          },
+          {
+            "id": "preferred",
+            "label": "preferred"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Helper functions format instance urls consistently everywhere.",
-            "rows": [
-              {
-                "cells": [
-                  "10.0.1.21",
-                  "8080",
-                  "ap-south-1a"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Instance_url(ip, port) returns \"http://IP:PORT\".",
+            "currentState": "instances",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Registries store address port and regional metadata separately.",
-            "rows": [
-              {
-                "cells": [
-                  "10.0.1.21",
-                  "8080",
-                  "ap-south-1a"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "10.0.2.14",
-                  "8080",
-                  "ap-south-1b"
-                ],
-                "tone": "idle"
-              }
-            ]
+            "caption": "Registries often store the address and port separately, plus metadata such.",
+            "currentState": "my_zone",
+            "transition": {
+              "from": "instances",
+              "to": "my_zone",
+              "label": "'ap-south-1a'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Clients prefer same-zone instances to reduce network latency.",
-            "rows": [
-              {
-                "cells": [
-                  "10.0.1.21",
-                  "8080",
-                  "ap-south-1a"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "10.0.2.14",
-                  "8080",
-                  "ap-south-1b"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "10.0.1.30",
-                  "8081",
-                  "ap-south-1a"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say7",
+            "caption": "The example builds URLs and prefers same-zone instances.",
+            "currentState": "preferred",
+            "transition": {
+              "from": "my_zone",
+              "to": "preferred",
+              "label": "[{'ip': '10.0.1.21', 'port': 8080, 'zon…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -561,132 +559,107 @@
       "partTitle": "Client-side and server-side discovery",
       "codeHash": "f377545eb75f435a48dd2543d8e9390c107906174e09d9eac09d61d938cd8c2c",
       "spec": {
-        "template": "compare",
-        "title": "Architectural comparison between client-side and server-side discovery",
-        "leftLabel": "Client-side Discovery",
-        "rightLabel": "Server-side Discovery",
+        "template": "cells",
+        "title": "Client-side and server-side discovery",
         "steps": [
           {
             "at": "say1",
-            "caption": "Client-side discovery asks the registry and picks an instance.",
-            "left": {
-              "code": "client_side_call(\"orders\")",
-              "result": {
-                "text": "http://10.0.1.21:8080"
-              },
-              "tone": "ok"
+            "caption": "Client-side discovery.",
+            "items": {
+              "var": "instances",
+              "line": 5,
+              "hit": 1
             },
-            "right": {
-              "code": "server_side_call(\"orders\")",
-              "result": {
-                "text": "orders"
-              },
-              "tone": "data"
-            }
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Server-side discovery sends requests to a balancer or proxy.",
-            "left": {
-              "code": "client_side_call(\"orders\")",
-              "result": {
-                "text": "http://10.0.1.22:8080"
-              },
-              "tone": "ok"
+            "caption": "Server-side discovery.",
+            "items": {
+              "var": "instances",
+              "line": 5,
+              "hit": 2
             },
-            "right": {
-              "code": "server_side_call(\"orders\")",
-              "result": {
-                "text": "orders"
-              },
-              "tone": "data"
-            }
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say6",
-            "caption": "Server-side routing keeps client applications simple.",
-            "left": {
-              "code": "client_side_call(\"orders\")",
-              "result": {
-                "text": "http://10.0.1.21:8080"
-              },
-              "tone": "ok"
+            "at": "say8",
+            "caption": "The example shows both flows.",
+            "items": {
+              "var": "instances",
+              "line": 8,
+              "hit": 2
             },
-            "right": {
-              "code": "server_side_call(\"orders\")",
-              "result": {
-                "text": "orders"
-              },
-              "tone": "data"
-            }
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Architectural comparison between client-side and server-side discovery",
-        "leftLabel": "Client-side Discovery",
-        "rightLabel": "Server-side Discovery",
+        "template": "cells",
+        "title": "Client-side and server-side discovery",
         "steps": [
           {
             "at": "say1",
-            "caption": "Client-side discovery asks the registry and picks an instance.",
-            "left": {
-              "code": "client_side_call(\"orders\")",
-              "result": "http://10.0.1.21:8080",
-              "tone": "ok",
-              "checks": [
-                "http://10.0.1.21:8080"
-              ]
-            },
-            "right": {
-              "code": "server_side_call(\"orders\")",
-              "result": "orders",
-              "tone": "data",
-              "checks": [
-                "orders"
-              ]
-            }
+            "caption": "Client-side discovery.",
+            "items": [
+              "'http://10.0.1.21:8080'",
+              "'http://10.0.1.22:8080'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Server-side discovery sends requests to a balancer or proxy.",
-            "left": {
-              "code": "client_side_call(\"orders\")",
-              "result": "http://10.0.1.22:8080",
-              "tone": "ok",
-              "checks": [
-                "http://10.0.1.22:8080"
-              ]
-            },
-            "right": {
-              "code": "server_side_call(\"orders\")",
-              "result": "orders",
-              "tone": "data",
-              "checks": [
-                "orders"
-              ]
-            }
+            "caption": "Server-side discovery.",
+            "items": [
+              "'http://10.0.1.21:8080'",
+              "'http://10.0.1.22:8080'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say6",
-            "caption": "Server-side routing keeps client applications simple.",
-            "left": {
-              "code": "client_side_call(\"orders\")",
-              "result": "http://10.0.1.21:8080",
-              "tone": "ok",
-              "checks": [
-                "http://10.0.1.21:8080"
-              ]
-            },
-            "right": {
-              "code": "server_side_call(\"orders\")",
-              "result": "orders",
-              "tone": "data",
-              "checks": [
-                "orders"
-              ]
-            }
+            "at": "say8",
+            "caption": "The example shows both flows.",
+            "items": [
+              "'http://10.0.1.21:8080'",
+              "'http://10.0.1.22:8080'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
           }
         ]
       }
@@ -695,224 +668,162 @@
       "partTitle": "DNS-based discovery and caching",
       "codeHash": "66d63d265f0334d241b87491e6820b84c8777c93c33332d306766dac5f180233",
       "spec": {
-        "template": "flow",
-        "title": "DNS-based discovery and caching — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. DNS-based discovery...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "DNS-based discovery and caching",
+        "actors": [
+          "dns",
+          "cache",
+          "name"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for DNS-based discovery and caching [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in DNS-based discovery... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "DNS is the oldest discovery system.",
+            "activeActor": "dns",
+            "messages": [
+              {
+                "from": "dns",
+                "to": "cache",
+                "label": {
+                  "var": "dns",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "name",
+                "label": {
+                  "var": "cache",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "DNS answers are cached with a TTL.",
+            "activeActor": "cache",
+            "messages": [
+              {
+                "from": "dns",
+                "to": "cache",
+                "label": {
+                  "var": "dns",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "name",
+                "label": {
+                  "var": "cache",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for DNS-based discovery and caching.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows a cached lookup going stale after an instance is replaced.",
+            "activeActor": "name",
+            "messages": [
+              {
+                "from": "dns",
+                "to": "cache",
+                "label": {
+                  "var": "dns",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "name",
+                "label": {
+                  "var": "cache",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "DNS-based discovery and caching — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. DNS-based discovery...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "DNS-based discovery and caching",
+        "actors": [
+          "dns",
+          "cache",
+          "name"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for DNS-based discovery and caching [D24.P5.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in DNS-based discovery... [D24.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "DNS is the oldest discovery system.",
+            "messages": [
+              {
+                "from": "dns",
+                "to": "cache",
+                "label": "{'orders.internal': ['10.0.1.21']}",
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "name",
+                "label": "{}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "dns"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "DNS answers are cached with a TTL.",
+            "messages": [
+              {
+                "from": "dns",
+                "to": "cache",
+                "label": "{'orders.internal': ['10.0.1.21']}",
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "name",
+                "label": "{}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "cache"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for DNS-based discovery and caching [D24.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example shows a cached lookup going stale after an instance is replaced.",
+            "messages": [
+              {
+                "from": "dns",
+                "to": "cache",
+                "label": "{'orders.internal': ['10.0.1.21']}",
+                "tone": "data"
+              },
+              {
+                "from": "cache",
+                "to": "name",
+                "label": "{'orders.internal': [['10.0.1.21'], 30]}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "name"
           }
         ]
       }
@@ -921,192 +832,162 @@
       "partTitle": "Health beyond heartbeats",
       "codeHash": "93f8b9e014d6a5af4e8ec092ec14027a7d26e084564230d9fd89c290903831ce",
       "spec": {
-        "template": "table",
-        "title": "Process health checks separating liveness and readiness state",
-        "columns": [
-          "live",
-          "ready",
-          "reason"
+        "template": "sequence",
+        "title": "Health beyond heartbeats",
+        "actors": [
+          "db_ok",
+          "cache_ok",
+          "ready"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A heartbeat proves the process runs but not that dependencies work.",
-            "rows": [
+            "caption": "A heartbeat proves the process is running, not that it works.",
+            "activeActor": "db_ok",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "ok"
-                  }
-                ],
+                "from": "db_ok",
+                "to": "cache_ok",
+                "label": {
+                  "var": "db_ok",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cache_ok",
+                "to": "ready",
+                "label": {
+                  "var": "cache_ok",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Platforms distinguish liveness from readiness to route traffic.",
-            "rows": [
+            "at": "say2",
+            "caption": "A process stuck in an endless loop can still answer a simple heartbeat.",
+            "activeActor": "cache_ok",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "ok"
-                  }
-                ],
-                "tone": "ok"
+                "from": "db_ok",
+                "to": "cache_ok",
+                "label": {
+                  "var": "db_ok",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "ok (cache degraded)"
-                  }
-                ],
-                "tone": "idle"
+                "from": "cache_ok",
+                "to": "ready",
+                "label": {
+                  "var": "cache_ok",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Failed readiness removes an instance until health checks pass again.",
-            "rows": [
+            "at": "say9",
+            "caption": "The example reports liveness and readiness separately.",
+            "activeActor": "ready",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "ok"
-                  }
-                ],
+                "from": "db_ok",
+                "to": "cache_ok",
+                "label": {
+                  "var": "db_ok",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cache_ok",
+                "to": "ready",
+                "label": {
+                  "var": "cache_ok",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "ok (cache degraded)"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "True"
-                  },
-                  {
-                    "text": "False"
-                  },
-                  {
-                    "text": "database unreachable"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Process health checks separating liveness and readiness state",
-        "columns": [
-          "live",
-          "ready",
-          "reason"
+        "template": "sequence",
+        "title": "Health beyond heartbeats",
+        "actors": [
+          "db_ok",
+          "cache_ok",
+          "ready"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A heartbeat proves the process runs but not that dependencies work.",
-            "rows": [
+            "caption": "A heartbeat proves the process is running, not that it works.",
+            "messages": [
               {
-                "cells": [
-                  "True",
-                  "True",
-                  "ok"
-                ],
+                "from": "db_ok",
+                "to": "cache_ok",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "cache_ok",
+                "to": "ready",
+                "label": "True",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "db_ok"
           },
           {
-            "at": "say3",
-            "caption": "Platforms distinguish liveness from readiness to route traffic.",
-            "rows": [
+            "at": "say2",
+            "caption": "A process stuck in an endless loop can still answer a simple heartbeat.",
+            "messages": [
               {
-                "cells": [
-                  "True",
-                  "True",
-                  "ok"
-                ],
-                "tone": "ok"
+                "from": "db_ok",
+                "to": "cache_ok",
+                "label": "True",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "True",
-                  "True",
-                  "ok (cache degraded)"
-                ],
-                "tone": "idle"
+                "from": "cache_ok",
+                "to": "ready",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "cache_ok"
           },
           {
-            "at": "say4",
-            "caption": "Failed readiness removes an instance until health checks pass again.",
-            "rows": [
+            "at": "say9",
+            "caption": "The example reports liveness and readiness separately.",
+            "messages": [
               {
-                "cells": [
-                  "True",
-                  "True",
-                  "ok"
-                ],
+                "from": "db_ok",
+                "to": "cache_ok",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "cache_ok",
+                "to": "ready",
+                "label": "True",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "True",
-                  "True",
-                  "ok (cache degraded)"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "True",
-                  "False",
-                  "database unreachable"
-                ],
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "ready"
           }
         ]
       }

@@ -2,197 +2,181 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 23,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Fragmented markets",
       "codeHash": "f621c41febbebfefcd74c171e4372111a72d516b462d56a308a08e5967ac721f",
       "spec": {
-        "template": "table",
-        "title": "Multivenue order books and consolidated liquidity",
-        "columns": [
-          "name",
-          "price",
-          "size"
-        ],
+        "template": "bars",
+        "title": "Fragmented markets",
         "steps": [
           {
             "at": "say1",
-            "caption": "Fragmented venues trade identical stocks across diverse regional books.",
-            "rows": [
+            "caption": "A single stock can trade on many venues.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "NSE"
-                  },
-                  {
-                    "text": "100.00"
-                  },
-                  {
-                    "text": "300"
-                  }
-                ],
-                "tone": "ok"
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "best_price",
+                "value": {
+                  "var": "best_price",
+                  "line": 2,
+                  "hit": 5
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Each venue offers distinct book liquidity and quoted price levels.",
-            "rows": [
+            "caption": "Each venue has its own order book, so the best price may be on one venue.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "NSE"
-                  },
-                  {
-                    "text": "100.00"
-                  },
-                  {
-                    "text": "300"
-                  }
-                ],
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "BSE"
-                  },
-                  {
-                    "text": "100.00"
-                  },
-                  {
-                    "text": "200"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "best_price",
+                "value": {
+                  "var": "best_price",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Best execution rules seek optimal price and execution terms for clients.",
-            "rows": [
+            "at": "say8",
+            "caption": "Fragmentation creates both a challenge (finding liquidity) and.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "NSE"
-                  },
-                  {
-                    "text": "100.00"
-                  },
-                  {
-                    "text": "300"
-                  }
-                ],
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "BSE"
-                  },
-                  {
-                    "text": "100.00"
-                  },
-                  {
-                    "text": "200"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "DARK"
-                  },
-                  {
-                    "text": "99.995"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
-                "tone": "data"
+                "label": "best_price",
+                "value": {
+                  "var": "best_price",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Multivenue order books and consolidated liquidity",
-        "columns": [
-          "name",
-          "price",
-          "size"
-        ],
+        "template": "bars",
+        "title": "Fragmented markets",
         "steps": [
           {
             "at": "say1",
-            "caption": "Fragmented venues trade identical stocks across diverse regional books.",
-            "rows": [
+            "caption": "A single stock can trade on many venues.",
+            "bars": [
               {
-                "cells": [
-                  "NSE",
-                  "100.00",
-                  "300"
-                ],
-                "tone": "ok"
+                "label": "price",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "size",
+                "value": 300,
+                "tone": "data"
+              },
+              {
+                "label": "best_price",
+                "value": 99.995,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Each venue offers distinct book liquidity and quoted price levels.",
-            "rows": [
+            "caption": "Each venue has its own order book, so the best price may be on one venue.",
+            "bars": [
               {
-                "cells": [
-                  "NSE",
-                  "100.00",
-                  "300"
-                ],
+                "label": "price",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "BSE",
-                  "100.00",
-                  "200"
-                ],
+                "label": "size",
+                "value": 200,
+                "tone": "ok"
+              },
+              {
+                "label": "best_price",
+                "value": 99.995,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Best execution rules seek optimal price and execution terms for clients.",
-            "rows": [
+            "at": "say8",
+            "caption": "Fragmentation creates both a challenge (finding liquidity) and.",
+            "bars": [
               {
-                "cells": [
-                  "NSE",
-                  "100.00",
-                  "300"
-                ],
+                "label": "price",
+                "value": 99.995,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "BSE",
-                  "100.00",
-                  "200"
-                ],
+                "label": "size",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "DARK",
-                  "99.995",
-                  "100"
-                ],
-                "tone": "data"
+                "label": "best_price",
+                "value": 99.995,
+                "tone": "ok"
               }
             ]
           }
@@ -203,190 +187,132 @@
       "partTitle": "Fees, rebates and the maker-taker model",
       "codeHash": "25b86d1ca1a09e9c7c7343497c19ba33c1bcbb6eea6d5952a3ab20e567454100",
       "spec": {
-        "template": "table",
-        "title": "Exchange fee schedules, rebates and all-in costs",
-        "columns": [
-          "name",
-          "price",
-          "fee"
-        ],
+        "template": "bars",
+        "title": "Fees, rebates and the maker-taker model",
         "steps": [
           {
             "at": "say1",
-            "caption": "Exchange fee structures reward liquidity makers while charging takers.",
-            "rows": [
+            "caption": "Many exchanges charge traders who remove liquidity (takers,.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "NSE"
-                  },
-                  {
-                    "text": "100.00"
-                  },
-                  {
-                    "text": "0.003"
-                  }
-                ],
-                "tone": "ok"
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fee",
+                "value": {
+                  "var": "fee",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Transaction fees modify effective trade execution costs per share.",
-            "rows": [
+            "at": "say2",
+            "caption": "Typical US fees are around 0.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "NSE"
-                  },
-                  {
-                    "text": "100.00"
-                  },
-                  {
-                    "text": "0.003"
-                  }
-                ],
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "BSE"
-                  },
-                  {
-                    "text": "100.00"
-                  },
-                  {
-                    "text": "-0.001"
-                  }
-                ],
+                "label": "fee",
+                "value": {
+                  "var": "fee",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say8",
-            "caption": "Routers rank venues by combined price plus fee totals.",
-            "rows": [
+            "caption": "Routers rank venues by all-in price (price plus fee), not the quoted price.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "NSE"
-                  },
-                  {
-                    "text": "100.00"
-                  },
-                  {
-                    "text": "0.003"
-                  }
-                ],
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "BSE"
-                  },
-                  {
-                    "text": "100.00"
-                  },
-                  {
-                    "text": "-0.001"
-                  }
-                ],
+                "label": "fee",
+                "value": {
+                  "var": "fee",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "DARK"
-                  },
-                  {
-                    "text": "99.995"
-                  },
-                  {
-                    "text": "0.001"
-                  }
-                ],
-                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Exchange fee schedules, rebates and all-in costs",
-        "columns": [
-          "name",
-          "price",
-          "fee"
-        ],
+        "template": "bars",
+        "title": "Fees, rebates and the maker-taker model",
         "steps": [
           {
             "at": "say1",
-            "caption": "Exchange fee structures reward liquidity makers while charging takers.",
-            "rows": [
+            "caption": "Many exchanges charge traders who remove liquidity (takers,.",
+            "bars": [
               {
-                "cells": [
-                  "NSE",
-                  "100.00",
-                  "0.003"
-                ],
-                "tone": "ok"
+                "label": "price",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "fee",
+                "value": 0.003,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Transaction fees modify effective trade execution costs per share.",
-            "rows": [
+            "at": "say2",
+            "caption": "Typical US fees are around 0.",
+            "bars": [
               {
-                "cells": [
-                  "NSE",
-                  "100.00",
-                  "0.003"
-                ],
+                "label": "price",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "BSE",
-                  "100.00",
-                  "-0.001"
-                ],
+                "label": "fee",
+                "value": 0.003,
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say8",
-            "caption": "Routers rank venues by combined price plus fee totals.",
-            "rows": [
+            "caption": "Routers rank venues by all-in price (price plus fee), not the quoted price.",
+            "bars": [
               {
-                "cells": [
-                  "NSE",
-                  "100.00",
-                  "0.003"
-                ],
+                "label": "price",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "BSE",
-                  "100.00",
-                  "-0.001"
-                ],
+                "label": "fee",
+                "value": 0.003,
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "DARK",
-                  "99.995",
-                  "0.001"
-                ],
-                "tone": "data"
               }
             ]
           }
@@ -397,216 +323,216 @@
       "partTitle": "The smart order router",
       "codeHash": "db7c666c2acbeafe21c30fe17b8c55672cf2359e8898f3e1abe975ca50bbe1c7",
       "spec": {
-        "template": "table",
-        "title": "Smart order router fill allocations across order books",
-        "columns": [
-          "name",
-          "take",
-          "left",
-          "cost"
-        ],
+        "template": "bars",
+        "title": "The smart order router",
         "steps": [
           {
             "at": "say1",
-            "caption": "Smart order routers route client orders across available market venues.",
-            "rows": [
+            "caption": "A smart order router (SOR) splits an order across venues to achieve.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "DARK"
-                  },
-                  {
-                    "text": "take"
-                  },
-                  {
-                    "text": "left"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
-                "tone": "ok"
+                "label": "left",
+                "value": {
+                  "var": "left",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 3,
+                  "hit": 4
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fee",
+                "value": {
+                  "var": "fee",
+                  "line": 3,
+                  "hit": 4
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Sorting venues by total price fills child orders sequentially.",
-            "rows": [
+            "caption": "The simplest good strategy for a buy order.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "DARK"
-                  },
-                  {
-                    "text": "take"
-                  },
-                  {
-                    "text": "left"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
+                "label": "left",
+                "value": {
+                  "var": "left",
+                  "line": 3,
+                  "hit": 4
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "BSE"
-                  },
-                  {
-                    "text": "take"
-                  },
-                  {
-                    "text": "left"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 3,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fee",
+                "value": {
+                  "var": "fee",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Unfilled quantity alerts trigger whenever book liquidity falls short.",
-            "rows": [
+            "at": "say7",
+            "caption": "Real routers also consider fill probability, latency to each venue.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "DARK"
-                  },
-                  {
-                    "text": "take"
-                  },
-                  {
-                    "text": "left"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
+                "label": "left",
+                "value": {
+                  "var": "left",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "BSE"
-                  },
-                  {
-                    "text": "take"
-                  },
-                  {
-                    "text": "left"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "NSE"
-                  },
-                  {
-                    "text": "take"
-                  },
-                  {
-                    "text": "left"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
-                "tone": "data"
+                "label": "price",
+                "value": {
+                  "var": "price",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fee",
+                "value": {
+                  "var": "fee",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Smart order router fill allocations across order books",
-        "columns": [
-          "name",
-          "take",
-          "left",
-          "cost"
-        ],
+        "template": "bars",
+        "title": "The smart order router",
         "steps": [
           {
             "at": "say1",
-            "caption": "Smart order routers route client orders across available market venues.",
-            "rows": [
+            "caption": "A smart order router (SOR) splits an order across venues to achieve.",
+            "bars": [
               {
-                "cells": [
-                  "DARK",
-                  "take",
-                  "left",
-                  "cost"
-                ],
-                "tone": "ok"
+                "label": "left",
+                "value": 500,
+                "tone": "data"
+              },
+              {
+                "label": "cost",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "price",
+                "value": 99.995,
+                "tone": "data"
+              },
+              {
+                "label": "fee",
+                "value": 0.001,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Sorting venues by total price fills child orders sequentially.",
-            "rows": [
+            "caption": "The simplest good strategy for a buy order.",
+            "bars": [
               {
-                "cells": [
-                  "DARK",
-                  "take",
-                  "left",
-                  "cost"
-                ],
+                "label": "left",
+                "value": 500,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "BSE",
-                  "take",
-                  "left",
-                  "cost"
-                ],
+                "label": "cost",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "price",
+                "value": 99.995,
+                "tone": "ok"
+              },
+              {
+                "label": "fee",
+                "value": 0.001,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Unfilled quantity alerts trigger whenever book liquidity falls short.",
-            "rows": [
+            "at": "say7",
+            "caption": "Real routers also consider fill probability, latency to each venue.",
+            "bars": [
               {
-                "cells": [
-                  "DARK",
-                  "take",
-                  "left",
-                  "cost"
-                ],
+                "label": "left",
+                "value": 500,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "BSE",
-                  "take",
-                  "left",
-                  "cost"
-                ],
+                "label": "cost",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "NSE",
-                  "take",
-                  "left",
-                  "cost"
-                ],
-                "tone": "data"
+                "label": "price",
+                "value": 99.995,
+                "tone": "ok"
+              },
+              {
+                "label": "fee",
+                "value": 0.001,
+                "tone": "ok"
               }
             ]
           }
@@ -617,217 +543,277 @@
       "partTitle": "Dark pools and hidden liquidity",
       "codeHash": "6af2fc113fb5dcefbaacdf31fb33379f1bc26ef16e0932b6fc42910bd2de30c4",
       "spec": {
-        "template": "table",
-        "title": "Midpoint execution and dark pool price improvement",
-        "columns": [
-          "bid",
-          "ask",
-          "mid",
-          "shares"
+        "template": "flow",
+        "title": "Dark pools and hidden liquidity",
+        "nodes": [
+          {
+            "id": "bid",
+            "label": "bid"
+          },
+          {
+            "id": "ask",
+            "label": "ask"
+          },
+          {
+            "id": "shares",
+            "label": "shares"
+          },
+          {
+            "id": "mid",
+            "label": "mid"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dark pools match orders internally at the midpoint of public books.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "99.98"
-                  },
-                  {
-                    "text": "100.02"
-                  },
-                  {
-                    "text": "mid"
-                  },
-                  {
-                    "text": "5000"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Dark pools are venues that do not display their order books.",
+            "values": {
+              "bid": {
+                "var": "bid",
+                "line": 1,
+                "hit": 1
+              },
+              "ask": {
+                "var": "ask",
+                "line": 1,
+                "hit": 1
+              },
+              "shares": {
+                "var": "shares",
+                "line": 1,
+                "hit": 1
+              },
+              "mid": {
+                "var": "mid",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "bid": "data",
+              "ask": "data",
+              "shares": "data",
+              "mid": "data"
+            },
+            "arrows": [
+              [
+                "bid",
+                "ask"
+              ],
+              [
+                "ask",
+                "shares"
+              ],
+              [
+                "shares",
+                "mid"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Institutional trading avoids revealing sizable orders that shift price.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "99.98"
-                  },
-                  {
-                    "text": "100.02"
-                  },
-                  {
-                    "text": "mid"
-                  },
-                  {
-                    "text": "5000"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Large institutional investors use them to avoid revealing big orders.",
+            "values": {
+              "bid": {
+                "var": "bid",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "bid"
-                  },
-                  {
-                    "text": "ask"
-                  },
-                  {
-                    "text": "mid"
-                  },
-                  {
-                    "text": "5000"
-                  }
-                ],
-                "tone": "ok"
+              "ask": {
+                "var": "ask",
+                "line": 2,
+                "hit": 1
+              },
+              "shares": {
+                "var": "shares",
+                "line": 2,
+                "hit": 1
+              },
+              "mid": {
+                "var": "mid",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "bid": "data",
+              "ask": "data",
+              "shares": "data",
+              "mid": "data"
+            },
+            "arrows": [
+              [
+                "bid",
+                "ask"
+              ],
+              [
+                "ask",
+                "shares"
+              ],
+              [
+                "shares",
+                "mid"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Routers ping alternative dark pools to locate hidden book liquidity.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "99.98"
-                  },
-                  {
-                    "text": "100.02"
-                  },
-                  {
-                    "text": "mid"
-                  },
-                  {
-                    "text": "5000"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Regulators watch dark pools closely because too much dark trading can.",
+            "values": {
+              "bid": {
+                "var": "bid",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "bid"
-                  },
-                  {
-                    "text": "ask"
-                  },
-                  {
-                    "text": "mid"
-                  },
-                  {
-                    "text": "5000"
-                  }
-                ],
-                "tone": "ok"
+              "ask": {
+                "var": "ask",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "bid"
-                  },
-                  {
-                    "text": "ask"
-                  },
-                  {
-                    "text": "mid"
-                  },
-                  {
-                    "text": "shares"
-                  }
-                ],
-                "tone": "data"
+              "shares": {
+                "var": "shares",
+                "line": 3,
+                "hit": 1
+              },
+              "mid": {
+                "var": "mid",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "bid": "ok",
+              "ask": "ok",
+              "shares": "ok",
+              "mid": "ok"
+            },
+            "arrows": [
+              [
+                "bid",
+                "ask"
+              ],
+              [
+                "ask",
+                "shares"
+              ],
+              [
+                "shares",
+                "mid"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Midpoint execution and dark pool price improvement",
-        "columns": [
-          "bid",
-          "ask",
-          "mid",
-          "shares"
+        "template": "flow",
+        "title": "Dark pools and hidden liquidity",
+        "nodes": [
+          {
+            "id": "bid",
+            "label": "bid"
+          },
+          {
+            "id": "ask",
+            "label": "ask"
+          },
+          {
+            "id": "shares",
+            "label": "shares"
+          },
+          {
+            "id": "mid",
+            "label": "mid"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dark pools match orders internally at the midpoint of public books.",
-            "rows": [
-              {
-                "cells": [
-                  "99.98",
-                  "100.02",
-                  "mid",
-                  "5000"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Dark pools are venues that do not display their order books.",
+            "values": {
+              "bid": "99.98",
+              "ask": "100.02",
+              "shares": "5000",
+              "mid": "100"
+            },
+            "tones": {
+              "bid": "data",
+              "ask": "data",
+              "shares": "data",
+              "mid": "data"
+            },
+            "arrows": [
+              [
+                "bid",
+                "ask"
+              ],
+              [
+                "ask",
+                "shares"
+              ],
+              [
+                "shares",
+                "mid"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Institutional trading avoids revealing sizable orders that shift price.",
-            "rows": [
-              {
-                "cells": [
-                  "99.98",
-                  "100.02",
-                  "mid",
-                  "5000"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bid",
-                  "ask",
-                  "mid",
-                  "5000"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Large institutional investors use them to avoid revealing big orders.",
+            "values": {
+              "bid": "99.98",
+              "ask": "100.02",
+              "shares": "5000",
+              "mid": "100"
+            },
+            "tones": {
+              "bid": "data",
+              "ask": "data",
+              "shares": "data",
+              "mid": "data"
+            },
+            "arrows": [
+              [
+                "bid",
+                "ask"
+              ],
+              [
+                "ask",
+                "shares"
+              ],
+              [
+                "shares",
+                "mid"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Routers ping alternative dark pools to locate hidden book liquidity.",
-            "rows": [
-              {
-                "cells": [
-                  "99.98",
-                  "100.02",
-                  "mid",
-                  "5000"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bid",
-                  "ask",
-                  "mid",
-                  "5000"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bid",
-                  "ask",
-                  "mid",
-                  "shares"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "Regulators watch dark pools closely because too much dark trading can.",
+            "values": {
+              "bid": "99.98",
+              "ask": "100.02",
+              "shares": "5000",
+              "mid": "100"
+            },
+            "tones": {
+              "bid": "ok",
+              "ask": "ok",
+              "shares": "ok",
+              "mid": "ok"
+            },
+            "arrows": [
+              [
+                "bid",
+                "ask"
+              ],
+              [
+                "ask",
+                "shares"
+              ],
+              [
+                "shares",
+                "mid"
+              ]
             ]
           }
         ]
@@ -837,224 +823,162 @@
       "partTitle": "Measuring execution quality",
       "codeHash": "53d5150f3389fee22a6a25359d0e1642dbf8980a351039e1a922329e6fd2136d",
       "spec": {
-        "template": "flow",
-        "title": "Measuring execution quality — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Measuring execution...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Measuring execution quality",
+        "actors": [
+          "arrival",
+          "fills",
+          "q"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Measuring execution quality [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Measuring execution... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Transaction cost analysis (TCA) measures how well orders were executed.",
+            "activeActor": "arrival",
+            "messages": [
+              {
+                "from": "arrival",
+                "to": "fills",
+                "label": {
+                  "var": "arrival",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fills",
+                "to": "q",
+                "label": {
+                  "var": "fills",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Implementation shortfall compares the average execution price with.",
+            "activeActor": "fills",
+            "messages": [
+              {
+                "from": "arrival",
+                "to": "fills",
+                "label": {
+                  "var": "arrival",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fills",
+                "to": "q",
+                "label": {
+                  "var": "fills",
+                  "line": 3,
+                  "hit": 5
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Measuring execution quality.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "You cannot improve what you do not measure.",
+            "activeActor": "q",
+            "messages": [
+              {
+                "from": "arrival",
+                "to": "fills",
+                "label": {
+                  "var": "arrival",
+                  "line": 3,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fills",
+                "to": "q",
+                "label": {
+                  "var": "fills",
+                  "line": 4,
+                  "hit": 5
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Measuring execution quality — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Measuring execution...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Measuring execution quality",
+        "actors": [
+          "arrival",
+          "fills",
+          "q"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Measuring execution quality [D23.P5.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Measuring execution... [D23.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Transaction cost analysis (TCA) measures how well orders were executed.",
+            "messages": [
+              {
+                "from": "arrival",
+                "to": "fills",
+                "label": "99.99",
+                "tone": "data"
+              },
+              {
+                "from": "fills",
+                "to": "q",
+                "label": "[[100, 99.996], [200, 99.999], [200, 10…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "arrival"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Implementation shortfall compares the average execution price with.",
+            "messages": [
+              {
+                "from": "arrival",
+                "to": "fills",
+                "label": "99.99",
+                "tone": "data"
+              },
+              {
+                "from": "fills",
+                "to": "q",
+                "label": "[[100, 99.996], [200, 99.999], [200, 10…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "fills"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Measuring execution quality [D23.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "You cannot improve what you do not measure.",
+            "messages": [
+              {
+                "from": "arrival",
+                "to": "fills",
+                "label": "99.99",
+                "tone": "data"
+              },
+              {
+                "from": "fills",
+                "to": "q",
+                "label": "[[100, 99.996], [200, 99.999], [200, 10…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "q"
           }
         ]
       }
@@ -1063,223 +987,109 @@
       "partTitle": "Practice time: route and account",
       "codeHash": "d9cb3fb5896c4111f43f1d86b9a229854dc64021242c53116fde1e81c166ce33",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: route and account — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: rout...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: route and account",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: route and account [D.Psix.Sone].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: rout... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Route_buy(qty, venues).",
+            "items": {
+              "var": "v",
+              "line": 2,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Return fills, unfilled and avg_cost rounded to 4 decimals (0.",
+            "items": {
+              "var": "v",
+              "line": 2,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: route and account.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Tomorrow, the physical distance to each venue joins the picture.",
+            "items": {
+              "var": "v",
+              "line": 2,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: route and account — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: rout...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: route and account",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: route and account [D23.P6.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: rout... [D23.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Route_buy(qty, venues).",
+            "items": [
+              "'NSE'",
+              "99.99",
+              "0.003"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Return fills, unfilled and avg_cost rounded to 4 decimals (0.",
+            "items": [
+              "'BSE'",
+              "99.985",
+              "-0.002"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: route and account [D23.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Tomorrow, the physical distance to each venue joins the picture.",
+            "items": [
+              "'DARK'",
+              "99.99",
+              "0.001"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

@@ -2,9 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { loadPyodide, type PyodideInterface } from 'pyodide';
 
-import { getVisual } from '../src/lib/visuals/loadVisuals';
+import { getVisual, loadDayFile } from '../src/lib/visuals/loadVisuals';
 import { PYTHON_LONG_LESSONS } from '../src/lib/data/pythonLongLessons';
 import { LessonVisual, VisualTone } from '../src/lib/types/lessonVisual';
+import { checkDayFile } from '../src/lib/visuals/gate';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const ALLOWED_TONES: Set<VisualTone> = new Set(['data', 'ok', 'error', 'idle']);
 
@@ -417,4 +420,98 @@ test('V-04: All 18 visuals in Days 1-3 pass all C6 rules', async () => {
   }
 
   console.log('lesson visuals: all checks passed');
+});
+
+// [FIX-STAGE: option-b-m2-tryit-visuals] Verify all 60 Python days (330 visuals) and Month 2 Pyodide tryIt mutations
+async function runIsolatedPyodide(pyodide: PyodideInterface, code: string): Promise<string> {
+  pyodide.globals.set('__v05_code__', code);
+  const out = await pyodide.runPythonAsync(`
+import sys, io, traceback
+_buf = io.StringIO()
+_old_out, _old_err = sys.stdout, sys.stderr
+sys.stdout = sys.stderr = _buf
+_ns = {"__name__": "__main__"}
+try:
+    exec(compile(__v05_code__, "<v05_visual>", "exec"), _ns, _ns)
+except Exception:
+    traceback.print_exc()
+finally:
+    sys.stdout = _old_out
+    sys.stderr = _old_err
+_buf.getvalue()
+`);
+  return String(out ?? '');
+}
+
+test('V-05: All 330 Python visuals across Days 1-60 pass Gate v2 & Month 2 tryIt Pyodide execution', async () => {
+  const pyodide = await loadPyodide();
+  let totalVisuals = 0;
+  let totalMonth2TryItVerified = 0;
+
+  for (let day = 1; day <= 60; day++) {
+    const lesson = PYTHON_LONG_LESSONS.find((l) => l.day === day);
+    assert.ok(lesson, `PYTHON_LONG_LESSONS missing day ${day}`);
+
+    const expectedParts = day <= 30 ? 6 : 5;
+    assert.equal(lesson.parts.length, expectedParts, `Day ${day} expected ${expectedParts} parts`);
+
+    const dayPadded = String(day).padStart(2, '0');
+    const filePath = path.resolve(process.cwd(), `src/lib/data/lessonVisuals/python/day-${dayPadded}.json`);
+    assert.ok(fs.existsSync(filePath), `Missing visual file ${filePath}`);
+
+    const gateRes = checkDayFile(filePath);
+    assert.ok(gateRes.passed, `Day ${day} failed Gate v2: ${gateRes.errors.join(' | ')}`);
+
+    const dayFile = loadDayFile('python', day);
+    assert.ok(dayFile, `loadDayFile failed for python day ${day}`);
+    assert.equal(dayFile.entries.length, expectedParts, `Day ${day} entries count mismatch`);
+
+    for (let pIdx = 0; pIdx < expectedParts; pIdx++) {
+      const part = lesson.parts[pIdx];
+      const entry = dayFile.entries[pIdx];
+      assert.equal(entry.partTitle, part.title, `Day ${day} part ${pIdx} title mismatch`);
+
+      const loadedVisual = getVisual('python', day, pIdx);
+      assert.ok(loadedVisual, `getVisual returned null for python Day ${day} Part ${pIdx}`);
+      assert.equal(loadedVisual.template, entry.spec.template, `Template mismatch at Day ${day} Part ${pIdx}`);
+      assert.ok(Array.isArray(loadedVisual.steps) && loadedVisual.steps.length >= 2, `Invalid steps at Day ${day} Part ${pIdx}`);
+      totalVisuals++;
+
+      if (day >= 31) {
+        const steps = (entry.filled as any).steps as any[];
+        assert.equal(steps.length, 4, `Month 2 Day ${day} Part ${pIdx} must have 4 steps (including tryIt)`);
+        const tryStep = steps[3];
+        assert.equal(tryStep.at, 'tryIt', `Month 2 Day ${day} Part ${pIdx} step[3].at must be tryIt`);
+
+        const baseOut = await runIsolatedPyodide(pyodide, part.code);
+        if (entry.spec.template === 'compare') {
+          for (const side of ['left', 'right'] as const) {
+            const sideObj = tryStep[side];
+            assert.ok(sideObj && typeof sideObj.whatIf === 'string' && sideObj.whatIf.trim().length > 0, `D${day}P${pIdx}.${side}.whatIf missing`);
+            assert.notEqual(sideObj.whatIf.trim(), part.code.trim(), `D${day}P${pIdx}.${side}.whatIf must differ from part.code`);
+            assert.ok(Array.isArray(sideObj.checks) && sideObj.checks.length > 0, `D${day}P${pIdx}.${side}.checks empty`);
+            const mutOut = await runIsolatedPyodide(pyodide, sideObj.whatIf);
+            assert.notEqual(mutOut.trim(), baseOut.trim(), `D${day}P${pIdx}.${side}.whatIf stdout identical to baseline`);
+            for (const chk of sideObj.checks) {
+              assert.ok(mutOut.includes(chk), `D${day}P${pIdx}.${side}.whatIf missing check ${JSON.stringify(chk)}`);
+            }
+          }
+        } else {
+          assert.ok(typeof tryStep.whatIf === 'string' && tryStep.whatIf.trim().length > 0, `D${day}P${pIdx}.whatIf missing`);
+          assert.notEqual(tryStep.whatIf.trim(), part.code.trim(), `D${day}P${pIdx}.whatIf must differ from part.code`);
+          assert.ok(Array.isArray(tryStep.checks) && tryStep.checks.length > 0, `D${day}P${pIdx}.checks empty`);
+          const mutOut = await runIsolatedPyodide(pyodide, tryStep.whatIf);
+          assert.notEqual(mutOut.trim(), baseOut.trim(), `D${day}P${pIdx}.whatIf stdout identical to baseline`);
+          for (const chk of tryStep.checks) {
+            assert.ok(mutOut.includes(chk), `D${day}P${pIdx}.whatIf missing check ${JSON.stringify(chk)}`);
+          }
+        }
+        totalMonth2TryItVerified++;
+      }
+    }
+  }
+
+  assert.equal(totalVisuals, 330, 'Expected 330 total Python visuals across Days 1-60');
+  assert.equal(totalMonth2TryItVerified, 150, 'Expected 150 Month 2 tryIt visuals verified via Pyodide');
+  console.log(`[PinIT][Fix:OptionB] Verified ${totalVisuals} Python visuals across Days 1-60 (${totalMonth2TryItVerified} M2 tryIt live Pyodide checks)`);
 });

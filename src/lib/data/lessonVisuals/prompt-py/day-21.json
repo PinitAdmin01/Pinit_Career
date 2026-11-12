@@ -2,85 +2,98 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 21,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "A multimodal workflow",
       "codeHash": "ff76a32b519b717d3b4eaf35bd541ddbe8dad880d21a4acf89d40f4fe4dd6221",
       "spec": {
-        "template": "table",
-        "title": "Multimodal ticket processing and multi-stage verification",
-        "columns": [
+        "template": "sequence",
+        "title": "A multimodal workflow",
+        "actors": [
           "workflow",
-          "step",
-          "workflow"
+          "i",
+          "step"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Real tasks combine photographs, voice recordings, and repair ticket parts.",
-            "rows": [
+            "caption": "Real tasks mix media.",
+            "activeActor": "workflow",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "workflow"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "workflow"
-                  }
-                ],
-                "tone": "ok"
+                "from": "workflow",
+                "to": "i",
+                "label": {
+                  "var": "workflow",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "workflow"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "workflow"
-                  }
-                ],
-                "tone": "data"
+                "from": "i",
+                "to": "step",
+                "label": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The workflow transcribes voice notes and parses structured ticket fields.",
-            "rows": [
+            "caption": "Transcribe the voice note, read any text in the photo, combine both into.",
+            "activeActor": "i",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "workflow"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "workflow"
-                  }
-                ],
+                "from": "workflow",
+                "to": "i",
+                "label": {
+                  "var": "workflow",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "workflow"
-                  },
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
+                "from": "i",
+                "to": "step",
+                "label": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Designing the checks at the same time as the steps, not afterwards,.",
+            "activeActor": "step",
+            "messages": [
+              {
+                "from": "workflow",
+                "to": "i",
+                "label": {
+                  "var": "workflow",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "step",
+                "label": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Multimodal ticket processing and multi-stage verification",
-        "columns": [
+        "template": "sequence",
+        "title": "A multimodal workflow",
+        "actors": [
           "workflow",
-          "step",
-          "workflow"
+          "i",
+          "step"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Real tasks combine photographs, voice recordings, and repair ticket parts.",
-            "rows": [
+            "caption": "Real tasks mix media.",
+            "messages": [
               {
-                "cells": [
-                  "workflow",
-                  "step",
-                  "workflow"
-                ],
-                "tone": "ok"
+                "from": "workflow",
+                "to": "i",
+                "label": "[['transcribe voice note', 'WER spot-ch…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "workflow",
-                  "step",
-                  "workflow"
-                ],
-                "tone": "data"
+                "from": "i",
+                "to": "step",
+                "label": "1",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "workflow"
           },
           {
             "at": "say2",
-            "caption": "The workflow transcribes voice notes and parses structured ticket fields.",
-            "rows": [
+            "caption": "Transcribe the voice note, read any text in the photo, combine both into.",
+            "messages": [
               {
-                "cells": [
-                  "workflow",
-                  "step",
-                  "workflow"
-                ],
+                "from": "workflow",
+                "to": "i",
+                "label": "[['transcribe voice note', 'WER spot-ch…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "workflow",
-                  "step",
-                  "step"
-                ],
+                "from": "i",
+                "to": "step",
+                "label": "1",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "i"
+          },
+          {
+            "at": "say8",
+            "caption": "Designing the checks at the same time as the steps, not afterwards,.",
+            "messages": [
+              {
+                "from": "workflow",
+                "to": "i",
+                "label": "[['transcribe voice note', 'WER spot-ch…",
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "step",
+                "label": "2",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "step"
           }
         ]
       }
@@ -147,78 +173,77 @@
       "partTitle": "The safe request gate",
       "codeHash": "09bcfeae50a1492772e8a16648ea12c765ad627b9126dfc9f315e3ec3c72e55a",
       "spec": {
-        "template": "table",
-        "title": "Front-door safe request filtering and PII scrubbing",
-        "columns": [
-          "gate",
-          "clean",
-          "risk"
-        ],
+        "template": "bars",
+        "title": "The safe request gate",
         "steps": [
           {
             "at": "say1",
-            "caption": "A safe request gate sits at the front to inspect every incoming message.",
-            "rows": [
+            "caption": "A safe request gate sits in front of an AI feature and inspects every.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "gate"
-                  },
-                  {
-                    "text": "clean"
-                  },
-                  {
-                    "text": "risk"
-                  }
-                ],
-                "tone": "ok"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "gate"
-                  },
-                  {
-                    "text": "clean"
-                  },
-                  {
-                    "text": "risk"
-                  }
-                ],
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 6,
+                  "hit": 6
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The gate redacts emails and evaluates injection phrases in input text.",
-            "rows": [
+            "caption": "It redacts emails and phone numbers, counts suspicious injection phrases.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "gate"
-                  },
-                  {
-                    "text": "clean"
-                  },
-                  {
-                    "text": "risk"
-                  }
-                ],
-                "tone": "data"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 6,
+                  "hit": 6
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "gate"
-                  },
-                  {
-                    "text": "clean"
-                  },
-                  {
-                    "text": "clean"
-                  }
-                ],
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Keeping the gate small and well tested matters more than making it clever.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +251,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Front-door safe request filtering and PII scrubbing",
-        "columns": [
-          "gate",
-          "clean",
-          "risk"
-        ],
+        "template": "bars",
+        "title": "The safe request gate",
         "steps": [
           {
             "at": "say1",
-            "caption": "A safe request gate sits at the front to inspect every incoming message.",
-            "rows": [
+            "caption": "A safe request gate sits in front of an AI feature and inspects every.",
+            "bars": [
               {
-                "cells": [
-                  "gate",
-                  "clean",
-                  "risk"
-                ],
-                "tone": "ok"
+                "label": "n",
+                "value": 1,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "gate",
-                  "clean",
-                  "risk"
-                ],
+                "label": "hits",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The gate redacts emails and evaluates injection phrases in input text.",
-            "rows": [
+            "caption": "It redacts emails and phone numbers, counts suspicious injection phrases.",
+            "bars": [
               {
-                "cells": [
-                  "gate",
-                  "clean",
-                  "risk"
-                ],
-                "tone": "data"
+                "label": "n",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "gate",
-                  "clean",
-                  "clean"
-                ],
+                "label": "hits",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Keeping the gate small and well tested matters more than making it clever.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -285,78 +309,90 @@
       "partTitle": "Audit logs without personal data",
       "codeHash": "aac2e29f9a2e60b8f316c08a0f8a9f3fea12a8e279f9574b438c970951bbd46a",
       "spec": {
-        "template": "table",
-        "title": "Pseudonymous hashing and privacy-preserving audit logs",
-        "columns": [
-          "short_hash",
+        "template": "sequence",
+        "title": "Audit logs without personal data",
+        "actors": [
           "uid",
-          "short_hash"
+          "user_id"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Organisations need structured logs recording action events and detected risk.",
-            "rows": [
+            "caption": "Organisations need logs of AI use.",
+            "activeActor": "uid",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "short_hash"
-                  },
-                  {
-                    "text": "uid"
-                  },
-                  {
-                    "text": "short_hash"
-                  }
-                ],
-                "tone": "ok"
+                "from": "uid",
+                "to": "user_id",
+                "label": {
+                  "var": "uid",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "short_hash"
-                  },
-                  {
-                    "text": "uid"
-                  },
-                  {
-                    "text": "short_hash"
-                  }
-                ],
-                "tone": "data"
+                "from": "user_id",
+                "to": "uid",
+                "label": {
+                  "var": "user_id",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Hashing turns identifiers into fixed strings without leaking personal data.",
-            "rows": [
+            "at": "say2",
+            "caption": "But logs must not become a new store of personal data.",
+            "activeActor": "user_id",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "short_hash"
-                  },
-                  {
-                    "text": "uid"
-                  },
-                  {
-                    "text": "short_hash"
-                  }
-                ],
+                "from": "uid",
+                "to": "user_id",
+                "label": {
+                  "var": "uid",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "short_hash"
-                  },
-                  {
-                    "text": "uid"
-                  },
-                  {
-                    "text": "uid"
-                  }
-                ],
+                "from": "user_id",
+                "to": "uid",
+                "label": {
+                  "var": "user_id",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Validating the risk value before writing the log keeps log data clean.",
+            "activeActor": "user_id",
+            "messages": [
+              {
+                "from": "uid",
+                "to": "user_id",
+                "label": {
+                  "var": "uid",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "user_id",
+                "to": "uid",
+                "label": {
+                  "var": "user_id",
+                  "line": 4,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +400,69 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Pseudonymous hashing and privacy-preserving audit logs",
-        "columns": [
-          "short_hash",
+        "template": "sequence",
+        "title": "Audit logs without personal data",
+        "actors": [
           "uid",
-          "short_hash"
+          "user_id"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Organisations need structured logs recording action events and detected risk.",
-            "rows": [
+            "caption": "Organisations need logs of AI use.",
+            "messages": [
               {
-                "cells": [
-                  "short_hash",
-                  "uid",
-                  "short_hash"
-                ],
-                "tone": "ok"
+                "from": "uid",
+                "to": "user_id",
+                "label": "'asha@example.com'",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "short_hash",
-                  "uid",
-                  "short_hash"
-                ],
-                "tone": "data"
+                "from": "user_id",
+                "to": "uid",
+                "label": "'asha@example.com'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "uid"
           },
           {
-            "at": "say3",
-            "caption": "Hashing turns identifiers into fixed strings without leaking personal data.",
-            "rows": [
+            "at": "say2",
+            "caption": "But logs must not become a new store of personal data.",
+            "messages": [
               {
-                "cells": [
-                  "short_hash",
-                  "uid",
-                  "short_hash"
-                ],
+                "from": "uid",
+                "to": "user_id",
+                "label": "'asha@example.com'",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "short_hash",
-                  "uid",
-                  "uid"
-                ],
+                "from": "user_id",
+                "to": "uid",
+                "label": "'ravi@example.com'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "user_id"
+          },
+          {
+            "at": "say8",
+            "caption": "Validating the risk value before writing the log keeps log data clean.",
+            "messages": [
+              {
+                "from": "uid",
+                "to": "user_id",
+                "label": "'ravi@example.com'",
+                "tone": "data"
+              },
+              {
+                "from": "user_id",
+                "to": "uid",
+                "label": "'asha@example.com'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "user_id"
           }
         ]
       }
@@ -423,78 +471,90 @@
       "partTitle": "Choosing the right modality",
       "codeHash": "265bc45b7a01abc4daaac9b3366149f3834da8c51fc7dc563d4ef2404d59865c",
       "spec": {
-        "template": "table",
-        "title": "Task complexity and input modality heuristic routing",
-        "columns": [
-          "suggest",
+        "template": "sequence",
+        "title": "Choosing the right modality",
+        "actors": [
           "task",
-          "suggest"
+          "t"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Engineering teams choose the simplest modality that solves each task.",
-            "rows": [
+            "caption": "Not every problem needs every tool.",
+            "activeActor": "task",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "suggest"
-                  },
-                  {
-                    "text": "task"
-                  },
-                  {
-                    "text": "suggest"
-                  }
-                ],
-                "tone": "ok"
+                "from": "task",
+                "to": "t",
+                "label": {
+                  "var": "task",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "suggest"
-                  },
-                  {
-                    "text": "task"
-                  },
-                  {
-                    "text": "suggest"
-                  }
-                ],
-                "tone": "data"
+                "from": "t",
+                "to": "task",
+                "label": {
+                  "var": "t",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Text is cheapest while images are needed for handwritten form inputs.",
-            "rows": [
+            "caption": "Text is cheapest and most reliable.",
+            "activeActor": "t",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "suggest"
-                  },
-                  {
-                    "text": "task"
-                  },
-                  {
-                    "text": "suggest"
-                  }
-                ],
+                "from": "task",
+                "to": "t",
+                "label": {
+                  "var": "task",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "suggest"
-                  },
-                  {
-                    "text": "task"
-                  },
-                  {
-                    "text": "task"
-                  }
-                ],
+                "from": "t",
+                "to": "task",
+                "label": {
+                  "var": "t",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Accessibility is a strong reason to support several modalities, so people.",
+            "activeActor": "t",
+            "messages": [
+              {
+                "from": "task",
+                "to": "t",
+                "label": {
+                  "var": "task",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "task",
+                "label": {
+                  "var": "t",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,57 +562,69 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Task complexity and input modality heuristic routing",
-        "columns": [
-          "suggest",
+        "template": "sequence",
+        "title": "Choosing the right modality",
+        "actors": [
           "task",
-          "suggest"
+          "t"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Engineering teams choose the simplest modality that solves each task.",
-            "rows": [
+            "caption": "Not every problem needs every tool.",
+            "messages": [
               {
-                "cells": [
-                  "suggest",
-                  "task",
-                  "suggest"
-                ],
-                "tone": "ok"
+                "from": "task",
+                "to": "t",
+                "label": "'Summarise a PDF report'",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "suggest",
-                  "task",
-                  "suggest"
-                ],
-                "tone": "data"
+                "from": "t",
+                "to": "task",
+                "label": "'summarise a pdf report'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "task"
           },
           {
             "at": "say2",
-            "caption": "Text is cheapest while images are needed for handwritten form inputs.",
-            "rows": [
+            "caption": "Text is cheapest and most reliable.",
+            "messages": [
               {
-                "cells": [
-                  "suggest",
-                  "task",
-                  "suggest"
-                ],
+                "from": "task",
+                "to": "t",
+                "label": "'Summarise a PDF report'",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "suggest",
-                  "task",
-                  "task"
-                ],
+                "from": "t",
+                "to": "task",
+                "label": "'summarise a pdf report'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "t"
+          },
+          {
+            "at": "say8",
+            "caption": "Accessibility is a strong reason to support several modalities, so people.",
+            "messages": [
+              {
+                "from": "task",
+                "to": "t",
+                "label": "'Summarise a PDF report'",
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "task",
+                "label": "'summarise a pdf report'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "t"
           }
         ]
       }
@@ -562,110 +634,161 @@
       "codeHash": "fe88eed064ec4787a3755ecac63159aacc521be284901456eced355e00a54c89",
       "spec": {
         "template": "flow",
-        "title": "Testing the whole flow — Execution Pipeline",
+        "title": "Testing the whole flow",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "tests",
+            "label": "tests"
           },
           {
-            "id": "proc",
-            "label": "2. Testing the whole flow",
-            "tappable": true
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "expected",
+            "label": "expected"
+          },
+          {
+            "id": "risky",
+            "label": "risky"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Testing the whole flow [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Testing the whole flow [D.Pfive.Stwo].",
+            "caption": "A milestone system needs end-to-end tests.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "tests": {
+                "var": "tests",
+                "line": 6,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 9,
+                "hit": 1
+              },
+              "expected": {
+                "var": "expected",
+                "line": 9,
+                "hit": 1
+              },
+              "risky": {
+                "var": "risky",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "tests": "data",
+              "text": "data",
+              "expected": "data",
+              "risky": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "tests",
+                "text"
               ],
               [
-                "proc",
-                "out"
+                "text",
+                "expected"
+              ],
+              [
+                "expected",
+                "risky"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Include normal cases, edge cases (empty input, blurry image) and attack.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "tests": {
+                "var": "tests",
+                "line": 9,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 2,
+                "hit": 1
+              },
+              "expected": {
+                "var": "expected",
+                "line": 10,
+                "hit": 1
+              },
+              "risky": {
+                "var": "risky",
+                "line": 3,
+                "hit": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "tests": "data",
+              "text": "data",
+              "expected": "data",
+              "risky": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "tests",
+                "text"
+              ],
+              [
+                "text",
+                "expected"
+              ],
+              [
+                "expected",
+                "risky"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Testing the whole flow [D.Pfive.Sfour].",
+            "at": "say8",
+            "caption": "When a real-world failure happens, add it to the table so it can never.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "tests": {
+                "var": "tests",
+                "line": 10,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 3,
+                "hit": 4
+              },
+              "expected": {
+                "var": "expected",
+                "line": 11,
+                "hit": 1
+              },
+              "risky": {
+                "var": "risky",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "tests": "ok",
+              "text": "ok",
+              "expected": "ok",
+              "risky": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "tests",
+                "text"
               ],
               [
-                "proc",
-                "out"
+                "text",
+                "expected"
+              ],
+              [
+                "expected",
+                "risky"
               ]
             ]
           }
@@ -673,110 +796,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Testing the whole flow — Execution Pipeline",
+        "title": "Testing the whole flow",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "tests",
+            "label": "tests"
           },
           {
-            "id": "proc",
-            "label": "2. Testing the whole flow",
-            "tappable": true
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "expected",
+            "label": "expected"
+          },
+          {
+            "id": "risky",
+            "label": "risky"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Testing the whole flow [D21.P5.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Testing the whole flow [D21.P5.S2].",
+            "caption": "A milestone system needs end-to-end tests.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "tests": "[['Where is my parcel?', 'ALLOW'], ['',…",
+              "text": "'Where is my parcel?'",
+              "expected": "'ALLOW'",
+              "risky": "['ignore previous instructions', 'you a…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "tests": "data",
+              "text": "data",
+              "expected": "data",
+              "risky": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "tests",
+                "text"
               ],
               [
-                "proc",
-                "out"
+                "text",
+                "expected"
+              ],
+              [
+                "expected",
+                "risky"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P5.S3].",
+            "at": "say2",
+            "caption": "Include normal cases, edge cases (empty input, blurry image) and attack.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "tests": "[['Where is my parcel?', 'ALLOW'], ['',…",
+              "text": "'Where is my parcel?'",
+              "expected": "'ALLOW'",
+              "risky": "['ignore previous instructions', 'you a…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "tests": "data",
+              "text": "data",
+              "expected": "data",
+              "risky": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "tests",
+                "text"
+              ],
+              [
+                "text",
+                "expected"
+              ],
+              [
+                "expected",
+                "risky"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Testing the whole flow [D21.P5.S4].",
+            "at": "say8",
+            "caption": "When a real-world failure happens, add it to the table so it can never.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "tests": "[['Where is my parcel?', 'ALLOW'], ['',…",
+              "text": "'Where is my parcel?'",
+              "expected": "'ALLOW'",
+              "risky": "['ignore previous instructions', 'you a…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "tests": "ok",
+              "text": "ok",
+              "expected": "ok",
+              "risky": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "tests",
+                "text"
               ],
               [
-                "proc",
-                "out"
+                "text",
+                "expected"
+              ],
+              [
+                "expected",
+                "risky"
               ]
             ]
           }
@@ -787,223 +913,133 @@
       "partTitle": "Milestone practice: gate and audit log",
       "codeHash": "89791fd759d438343182b0c88128176266bed0214fccaf3e6aeb1cc49f04b6d3",
       "spec": {
-        "template": "flow",
-        "title": "Milestone practice: gate and audit log — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Milestone practice: gate and audit log",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Milestone practice: gate and audit log.",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Milestone practice:... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Redact emails then phones with re.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 7,
+                  "hit": 5
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A normal message with an email and a phone (allowed, LOW, 2 items.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 7,
+                  "hit": 5
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Milestone practice: gate and audi.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Together these two functions are a small but real security layer you could.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone practice: gate and audit log — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Milestone practice: gate and audit log",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Milestone practice: gate and audit log [D21.P6.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Milestone practice:... [D21.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Redact emails then phones with re.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "hits",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A normal message with an email and a phone (allowed, LOW, 2 items.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Milestone practice: gate and audi.. [D21.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Together these two functions are a small but real security layer you could.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]

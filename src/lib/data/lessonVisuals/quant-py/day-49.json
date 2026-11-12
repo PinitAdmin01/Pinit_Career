@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 49,
-  "promptSha": "f5803b57047f2ac0186ed0752fee35820bf0123931979355bb4f140693bd3b32",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tailed Returns — Foundations & Mathematical Invariants",
-      "codeHash": "24c9fed1697f1beedb68826b39e69ad0bedf2fccd96ff19bd94b75d3f3970540",
+      "codeHash": "b0b5a14592f4cd1652cb59f95efdfe08a749ee2418761593d6c3215c336c5fb2",
       "spec": {
-        "template": "flow",
-        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tailed Re",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tai",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Standard parametric Value-at-Risk assumes that asset returns follow.",
+            "bars": [
+              {
+                "label": "z_99",
+                "value": {
+                  "var": "z_99",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "z_alpha",
+                "value": {
+                  "var": "z_alpha",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "skewness",
+                "value": {
+                  "var": "skewness",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "excess_kurtosi",
+                "value": {
+                  "var": "excess_kurtosis",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In financial marketsespecially options portfoliosempirical return.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "z_99",
+                "value": {
+                  "var": "z_99",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "z_alpha",
+                "value": {
+                  "var": "z_alpha",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "skewness",
+                "value": {
+                  "var": "skewness",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "excess_kurtosi",
+                "value": {
+                  "var": "excess_kurtosis",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Mathematical moment adjustments guarantee that institutional capital.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "z_99",
+                "value": {
+                  "var": "z_99",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "z_alpha",
+                "value": {
+                  "var": "z_alpha",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "skewness",
+                "value": {
+                  "var": "skewness",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "excess_kurtosi",
+                "value": {
+                  "var": "excess_kurtosis",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tailed Re",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tai",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Standard parametric Value-at-Risk assumes that asset returns follow.",
+            "bars": [
+              {
+                "label": "z_99",
+                "value": -2.3263,
+                "tone": "data"
+              },
+              {
+                "label": "z_alpha",
+                "value": -2.3263,
+                "tone": "data"
+              },
+              {
+                "label": "skewness",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "excess_kurtosi",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In financial marketsespecially options portfoliosempirical return.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "z_99",
+                "value": -2.3263,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "z_alpha",
+                "value": -2.3263,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "skewness",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "excess_kurtosi",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Mathematical moment adjustments guarantee that institutional capital.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "z_99",
+                "value": -2.3263,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "z_alpha",
+                "value": -2.3263,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "skewness",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "excess_kurtosi",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           }
@@ -273,265 +227,279 @@
     },
     {
       "partTitle": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tailed Returns — Core Algorithm & State Representation",
-      "codeHash": "82b8129bf5312b54a905c0bcfa8b859c3041c2e3d3285d820f51d427b94170f7",
+      "codeHash": "87b598b5c3bf675476208a77d9071a6cdd0b1e208d7f6b078985fc5a34568c8f",
       "spec": {
         "template": "flow",
-        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tailed Re",
+        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tai",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "ret_series",
+            "label": "ret_series"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "returns",
+            "label": "returns"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "mean_r",
+            "label": "mean_r"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core Cornish-Fisher risk engine ingests historical or simulated.",
+            "values": {
+              "ret_series": {
+                "var": "ret_series",
+                "line": 36,
+                "hit": 1
+              },
+              "returns": {
+                "var": "returns",
+                "line": 4,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 4,
+                "hit": 1
+              },
+              "mean_r": {
+                "var": "mean_r",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "ret_series": "data",
+              "returns": "data",
+              "n": "data",
+              "mean_r": "data"
+            },
+            "arrows": [
+              [
+                "ret_series",
+                "returns"
+              ],
+              [
+                "returns",
+                "n"
+              ],
+              [
+                "n",
+                "mean_r"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "First, the engine computes the sample Mean $\\mu$, Variance $\\sigma^2$.",
+            "values": {
+              "ret_series": {
+                "var": "ret_series",
+                "line": 37,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "returns": {
+                "var": "returns",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "mean_r": {
+                "var": "mean_r",
+                "line": 6,
+                "hit": 12
               }
+            },
+            "tones": {
+              "ret_series": "data",
+              "returns": "data",
+              "n": "data",
+              "mean_r": "data"
+            },
+            "arrows": [
+              [
+                "ret_series",
+                "returns"
+              ],
+              [
+                "returns",
+                "n"
+              ],
+              [
+                "n",
+                "mean_r"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "Incorporating higher statistical moments into tail risk forecasting.",
+            "values": {
+              "ret_series": {
+                "var": "ret_series",
+                "line": 38,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "returns": {
+                "var": "returns",
+                "line": 6,
+                "hit": 12
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "n": {
+                "var": "n",
+                "line": 6,
+                "hit": 12
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "mean_r": {
+                "var": "mean_r",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "ret_series": "ok",
+              "returns": "ok",
+              "n": "ok",
+              "mean_r": "ok"
+            },
+            "arrows": [
+              [
+                "ret_series",
+                "returns"
+              ],
+              [
+                "returns",
+                "n"
+              ],
+              [
+                "n",
+                "mean_r"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tailed Re",
+        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tai",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "ret_series",
+            "label": "ret_series"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "returns",
+            "label": "returns"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "mean_r",
+            "label": "mean_r"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core Cornish-Fisher risk engine ingests historical or simulated.",
+            "values": {
+              "ret_series": "[0.01, 0.015, 0.008, 0.012, -0.005, 0.0…",
+              "returns": "[0.01, 0.015, 0.008, 0.012, -0.005, 0.0…",
+              "n": "10",
+              "mean_r": "-0.0036000000000000003"
+            },
+            "tones": {
+              "ret_series": "data",
+              "returns": "data",
+              "n": "data",
+              "mean_r": "data"
+            },
+            "arrows": [
+              [
+                "ret_series",
+                "returns"
+              ],
+              [
+                "returns",
+                "n"
+              ],
+              [
+                "n",
+                "mean_r"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "First, the engine computes the sample Mean $\\mu$, Variance $\\sigma^2$.",
+            "values": {
+              "ret_series": "[0.01, 0.015, 0.008, 0.012, -0.005, 0.0…",
+              "returns": "[0.01, 0.015, 0.008, 0.012, -0.005, 0.0…",
+              "n": "10",
+              "mean_r": "-0.0036000000000000003"
+            },
+            "tones": {
+              "ret_series": "data",
+              "returns": "data",
+              "n": "data",
+              "mean_r": "data"
+            },
+            "arrows": [
+              [
+                "ret_series",
+                "returns"
+              ],
+              [
+                "returns",
+                "n"
+              ],
+              [
+                "n",
+                "mean_r"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "Incorporating higher statistical moments into tail risk forecasting.",
+            "values": {
+              "ret_series": "[0.01, 0.015, 0.008, 0.012, -0.005, 0.0…",
+              "returns": "[0.01, 0.015, 0.008, 0.012, -0.005, 0.0…",
+              "n": "10",
+              "mean_r": "-0.0036000000000000003"
+            },
+            "tones": {
+              "ret_series": "ok",
+              "returns": "ok",
+              "n": "ok",
+              "mean_r": "ok"
+            },
+            "arrows": [
+              [
+                "ret_series",
+                "returns"
+              ],
+              [
+                "returns",
+                "n"
+              ],
+              [
+                "n",
+                "mean_r"
+              ]
             ]
           }
         ]
@@ -539,530 +507,382 @@
     },
     {
       "partTitle": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tailed Returns — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "1e5ea0c4e2a1b1b8d8a0d35cd07704ebe12e534ac8be91489186b818649654dc",
+      "codeHash": "cb7221c7457e708581be314b06d5b27bede3b19a0d4ef5b25f5ac7695d742fe9",
       "spec": {
-        "template": "flow",
-        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tailed Re",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tai",
+        "actors": [
+          "stats",
+          "returns",
+          "r"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enterprise risk management platforms evaluate Cornish-Fisher VaR across.",
+            "activeActor": "stats",
+            "messages": [
+              {
+                "from": "stats",
+                "to": "returns",
+                "label": {
+                  "var": "stats",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "returns",
+                "to": "r",
+                "label": {
+                  "var": "returns",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Computing high-order powers and moments sequentially across multi-year.",
+            "activeActor": "returns",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "stats",
+                "to": "returns",
+                "label": {
+                  "var": "stats",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "returns",
+                "to": "r",
+                "label": {
+                  "var": "returns",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic optimization ensures that enterprise risk reports finish.",
+            "activeActor": "r",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "stats",
+                "to": "returns",
+                "label": {
+                  "var": "stats",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "returns",
+                "to": "r",
+                "label": {
+                  "var": "returns",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tailed Re",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tai",
+        "actors": [
+          "stats",
+          "returns",
+          "r"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enterprise risk management platforms evaluate Cornish-Fisher VaR across.",
+            "messages": [
+              {
+                "from": "stats",
+                "to": "returns",
+                "label": "{'n': 0, 'mean': 0, 'm2': 0, 'm3': 0, '…",
+                "tone": "data"
+              },
+              {
+                "from": "returns",
+                "to": "r",
+                "label": "[0.01, -0.02, 0.015, -0.04, 0.005]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "stats"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Computing high-order powers and moments sequentially across multi-year.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "stats",
+                "to": "returns",
+                "label": "{'n': 0, 'mean': 0, 'm2': 0, 'm3': 0, '…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "returns",
+                "to": "r",
+                "label": "[0.01, -0.02, 0.015, -0.04, 0.005]",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "returns"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic optimization ensures that enterprise risk reports finish.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "stats",
+                "to": "returns",
+                "label": "{'n': 0, 'mean': 0, 'm2': 0, 'm3': 0, '…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "returns",
+                "to": "r",
+                "label": "[0.01, -0.02, 0.015, -0.04, 0.005]",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "r"
           }
         ]
       }
     },
     {
       "partTitle": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tailed Returns — Resilience Guardrails & Failure Recovery",
-      "codeHash": "10d8e7bfdfbdf609e4b7fb3598d4118c56d4ebf6dc1008dece2ad5d4107739ee",
+      "codeHash": "d60cab4f319c04eafecd0f326b6ba129befac3a293ed82fcab0120f0f7575c50",
       "spec": {
-        "template": "flow",
-        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tailed Re",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tai",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operational risk controllers enforce strict capital buffer guardrails.",
+            "bars": [
+              {
+                "label": "mvar_99_dollar",
+                "value": {
+                  "var": "mvar_99_dollars",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "liquid_collate",
+                "value": {
+                  "var": "liquid_collateral",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "z_95",
+                "value": {
+                  "var": "z_95",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "z_99",
+                "value": {
+                  "var": "z_99",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The Primary Capital Adequacy Guardrail asserts that total cash and liquid.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "mvar_99_dollar",
+                "value": {
+                  "var": "mvar_99_dollars",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "liquid_collate",
+                "value": {
+                  "var": "liquid_collateral",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "z_95",
+                "value": {
+                  "var": "z_95",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "z_99",
+                "value": {
+                  "var": "z_99",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Automated capital allocation monitoring ensures compliance with Basel III.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "mvar_99_dollar",
+                "value": {
+                  "var": "mvar_99_dollars",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "liquid_collate",
+                "value": {
+                  "var": "liquid_collateral",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "z_95",
+                "value": {
+                  "var": "z_95",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "z_99",
+                "value": {
+                  "var": "z_99",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tailed Re",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tai",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operational risk controllers enforce strict capital buffer guardrails.",
+            "bars": [
+              {
+                "label": "mvar_99_dollar",
+                "value": 1500000,
+                "tone": "data"
+              },
+              {
+                "label": "liquid_collate",
+                "value": 3500000,
+                "tone": "data"
+              },
+              {
+                "label": "z_95",
+                "value": -1.95,
+                "tone": "data"
+              },
+              {
+                "label": "z_99",
+                "value": -3.1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The Primary Capital Adequacy Guardrail asserts that total cash and liquid.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "mvar_99_dollar",
+                "value": 1500000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "liquid_collate",
+                "value": 3500000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "z_95",
+                "value": -1.95,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "z_99",
+                "value": -3.1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Automated capital allocation monitoring ensures compliance with Basel III.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "mvar_99_dollar",
+                "value": 1500000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "liquid_collate",
+                "value": 3500000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "z_95",
+                "value": -1.95,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "z_99",
+                "value": -3.1,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,264 +891,218 @@
     },
     {
       "partTitle": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tailed Returns — Production Telemetry & Verification Audit",
-      "codeHash": "fde8c5475aee025aa585c339be4df95b2b997df87915ff4f6e885a773e7c0809",
+      "codeHash": "e1ae5c4878baba3a148eaf6b6bd7678cfa8ee034822ff2ede43946a9dabe2a2b",
       "spec": {
-        "template": "flow",
-        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tailed Re",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tai",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for enterprise risk management requires daily.",
+            "bars": [
+              {
+                "label": "exceptions",
+                "value": {
+                  "var": "exceptions",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_days",
+                "value": {
+                  "var": "total_days",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p_alpha",
+                "value": {
+                  "var": "p_alpha",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The Kupiec Proportion of Failures (POF) test evaluates whether actual.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "exceptions",
+                "value": {
+                  "var": "exceptions",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_days",
+                "value": {
+                  "var": "total_days",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "p_alpha",
+                "value": {
+                  "var": "p_alpha",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Rigorous backtesting guarantees that enterprise risk management platforms.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "exceptions",
+                "value": {
+                  "var": "exceptions",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_days",
+                "value": {
+                  "var": "total_days",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "p_alpha",
+                "value": {
+                  "var": "p_alpha",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tailed Re",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Cornish-Fisher Modified Value-at-Risk (VaR) for Skewed & Fat-Tai",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for enterprise risk management requires daily.",
+            "bars": [
+              {
+                "label": "exceptions",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "total_days",
+                "value": 250,
+                "tone": "data"
+              },
+              {
+                "label": "p_alpha",
+                "value": 0.01,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 3,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The Kupiec Proportion of Failures (POF) test evaluates whether actual.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "exceptions",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_days",
+                "value": 250,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "p_alpha",
+                "value": 0.01,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "x",
+                "value": 3,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Rigorous backtesting guarantees that enterprise risk management platforms.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "exceptions",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_days",
+                "value": 250,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "p_alpha",
+                "value": 0.01,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "x",
+                "value": 3,
+                "tone": "ok"
               }
             ]
           }

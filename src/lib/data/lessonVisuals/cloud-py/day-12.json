@@ -2,172 +2,284 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 12,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "API Gateway in front of Lambda",
       "codeHash": "11a3bc80a1ab3c01d1eafc5db7c356cfa12ca23139a6325662baa09c8e0513bb",
       "spec": {
-        "template": "table",
-        "title": "API Gateway HTTP route mapping and backend handler resolution",
-        "columns": [
-          "method",
-          "handler"
+        "template": "flow",
+        "title": "API Gateway in front of Lambda",
+        "nodes": [
+          {
+            "id": "routes",
+            "label": "routes"
+          },
+          {
+            "id": "call",
+            "label": "call"
+          },
+          {
+            "id": "method",
+            "label": "method"
+          },
+          {
+            "id": "path",
+            "label": "path"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Amazon API Gateway acts as a managed front door forwarding calls to Lambda.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "GET"
-                  },
-                  {
-                    "text": "list_orders"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Amazon API Gateway is a managed front door for APIs.",
+            "values": {
+              "routes": {
+                "var": "routes",
+                "line": 1,
+                "hit": 2
+              },
+              "call": {
+                "var": "call",
+                "line": 14,
+                "hit": 1
+              },
+              "method": {
+                "var": "method",
+                "line": 5,
+                "hit": 1
+              },
+              "path": {
+                "var": "path",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "routes": "data",
+              "call": "data",
+              "method": "data",
+              "path": "data"
+            },
+            "arrows": [
+              [
+                "routes",
+                "call"
+              ],
+              [
+                "call",
+                "method"
+              ],
+              [
+                "method",
+                "path"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Routes map incoming HTTP methods and paths to designated backend handlers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "GET"
-                  },
-                  {
-                    "text": "list_orders"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "It handles the boring but essential parts.",
+            "values": {
+              "routes": {
+                "var": "routes",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "POST"
-                  },
-                  {
-                    "text": "create_order"
-                  }
-                ],
-                "tone": "ok"
+              "call": {
+                "var": "call",
+                "line": 15,
+                "hit": 1
+              },
+              "method": {
+                "var": "method",
+                "line": 6,
+                "hit": 1
+              },
+              "path": {
+                "var": "path",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "routes": "data",
+              "call": "data",
+              "method": "data",
+              "path": "data"
+            },
+            "arrows": [
+              [
+                "routes",
+                "call"
+              ],
+              [
+                "call",
+                "method"
+              ],
+              [
+                "method",
+                "path"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example routes incoming calls matching path parameters and dispatch targets.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "GET"
-                  },
-                  {
-                    "text": "list_orders"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "This pairing of API Gateway and Lambda is the classic serverless API.",
+            "values": {
+              "routes": {
+                "var": "routes",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "POST"
-                  },
-                  {
-                    "text": "create_order"
-                  }
-                ],
-                "tone": "ok"
+              "call": {
+                "var": "call",
+                "line": 14,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "DELETE"
-                  },
-                  {
-                    "text": "404"
-                  }
-                ],
-                "tone": "error"
+              "method": {
+                "var": "method",
+                "line": 7,
+                "hit": 1
+              },
+              "path": {
+                "var": "path",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "routes": "ok",
+              "call": "ok",
+              "method": "ok",
+              "path": "ok"
+            },
+            "arrows": [
+              [
+                "routes",
+                "call"
+              ],
+              [
+                "call",
+                "method"
+              ],
+              [
+                "method",
+                "path"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "API Gateway HTTP route mapping and backend handler resolution",
-        "columns": [
-          "method",
-          "handler"
+        "template": "flow",
+        "title": "API Gateway in front of Lambda",
+        "nodes": [
+          {
+            "id": "routes",
+            "label": "routes"
+          },
+          {
+            "id": "call",
+            "label": "call"
+          },
+          {
+            "id": "method",
+            "label": "method"
+          },
+          {
+            "id": "path",
+            "label": "path"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Amazon API Gateway acts as a managed front door forwarding calls to Lambda.",
-            "rows": [
-              {
-                "cells": [
-                  "GET",
-                  "list_orders"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Amazon API Gateway is a managed front door for APIs.",
+            "values": {
+              "routes": "{['GET', '/orders']: 'list_orders', ['P…",
+              "call": "['GET', '/orders']",
+              "method": "'GET'",
+              "path": "'/orders'"
+            },
+            "tones": {
+              "routes": "data",
+              "call": "data",
+              "method": "data",
+              "path": "data"
+            },
+            "arrows": [
+              [
+                "routes",
+                "call"
+              ],
+              [
+                "call",
+                "method"
+              ],
+              [
+                "method",
+                "path"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Routes map incoming HTTP methods and paths to designated backend handlers.",
-            "rows": [
-              {
-                "cells": [
-                  "GET",
-                  "list_orders"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "POST",
-                  "create_order"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "It handles the boring but essential parts.",
+            "values": {
+              "routes": "{['GET', '/orders']: 'list_orders', ['P…",
+              "call": "['GET', '/orders']",
+              "method": "'GET'",
+              "path": "'/orders'"
+            },
+            "tones": {
+              "routes": "data",
+              "call": "data",
+              "method": "data",
+              "path": "data"
+            },
+            "arrows": [
+              [
+                "routes",
+                "call"
+              ],
+              [
+                "call",
+                "method"
+              ],
+              [
+                "method",
+                "path"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example routes incoming calls matching path parameters and dispatch targets.",
-            "rows": [
-              {
-                "cells": [
-                  "GET",
-                  "list_orders"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "POST",
-                  "create_order"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "DELETE",
-                  "404"
-                ],
-                "tone": "error"
-              }
+            "at": "say7",
+            "caption": "This pairing of API Gateway and Lambda is the classic serverless API.",
+            "values": {
+              "routes": "{['GET', '/orders']: 'list_orders', ['P…",
+              "call": "['GET', '/orders/981']",
+              "method": "'GET'",
+              "path": "'/orders'"
+            },
+            "tones": {
+              "routes": "ok",
+              "call": "ok",
+              "method": "ok",
+              "path": "ok"
+            },
+            "arrows": [
+              [
+                "routes",
+                "call"
+              ],
+              [
+                "call",
+                "method"
+              ],
+              [
+                "method",
+                "path"
+              ]
             ]
           }
         ]
@@ -177,82 +289,91 @@
       "partTitle": "HTTP APIs and REST APIs",
       "codeHash": "57ca8ad38ff46cc6a456276c997f11f4ddfa74cee7084fae05faf250efe0e474",
       "spec": {
-        "template": "table",
-        "title": "Architectural feature comparison of HTTP API and REST API flavors",
-        "columns": [
-          "flavor",
-          "feature"
+        "template": "sequence",
+        "title": "HTTP APIs and REST APIs",
+        "actors": [
+          "PRICE_PER_MILLION",
+          "monthly_calls",
+          "row"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "API Gateway has two main flavours for normal web APIs, and people often.",
+            "activeActor": "PRICE_PER_MILLION",
+            "messages": [
+              {
+                "from": "PRICE_PER_MILLION",
+                "to": "monthly_calls",
+                "label": {
+                  "var": "PRICE_PER_MILLION",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "monthly_calls",
+                "to": "row",
+                "label": {
+                  "var": "monthly_calls",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "HTTP APIs provide a modern lightweight option supporting JWT authorizers.",
-            "rows": [
+            "caption": "HTTP APIs (sometimes called API Gateway v2) are the newer, simpler, faster.",
+            "activeActor": "monthly_calls",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "HTTP API"
-                  },
-                  {
-                    "text": "JWT authorizers"
-                  }
-                ],
+                "from": "PRICE_PER_MILLION",
+                "to": "monthly_calls",
+                "label": {
+                  "var": "PRICE_PER_MILLION",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "monthly_calls",
+                "to": "row",
+                "label": {
+                  "var": "monthly_calls",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "REST APIs include advanced features such as request validation and usage plans.",
-            "rows": [
+            "at": "say7",
+            "caption": "At small scale the difference is small.",
+            "activeActor": "row",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "HTTP API"
-                  },
-                  {
-                    "text": "JWT authorizers"
-                  }
-                ],
-                "tone": "ok"
+                "from": "PRICE_PER_MILLION",
+                "to": "monthly_calls",
+                "label": {
+                  "var": "PRICE_PER_MILLION",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "REST API"
-                  },
-                  {
-                    "text": "usage plans"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Default to HTTP APIs unless specific capabilities like usage plans are required.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "HTTP API"
-                  },
-                  {
-                    "text": "JWT authorizers"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "REST API"
-                  },
-                  {
-                    "text": "usage plans"
-                  }
-                ],
+                "from": "monthly_calls",
+                "to": "row",
+                "label": {
+                  "var": "monthly_calls",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -260,65 +381,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Architectural feature comparison of HTTP API and REST API flavors",
-        "columns": [
-          "flavor",
-          "feature"
+        "template": "sequence",
+        "title": "HTTP APIs and REST APIs",
+        "actors": [
+          "PRICE_PER_MILLION",
+          "monthly_calls",
+          "row"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "API Gateway has two main flavours for normal web APIs, and people often.",
+            "messages": [
+              {
+                "from": "PRICE_PER_MILLION",
+                "to": "monthly_calls",
+                "label": "{'HTTP API': 1, 'REST API': 3.5}",
+                "tone": "data"
+              },
+              {
+                "from": "monthly_calls",
+                "to": "row",
+                "label": "1000000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "PRICE_PER_MILLION"
+          },
+          {
             "at": "say2",
-            "caption": "HTTP APIs provide a modern lightweight option supporting JWT authorizers.",
-            "rows": [
+            "caption": "HTTP APIs (sometimes called API Gateway v2) are the newer, simpler, faster.",
+            "messages": [
               {
-                "cells": [
-                  "HTTP API",
-                  "JWT authorizers"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "REST APIs include advanced features such as request validation and usage plans.",
-            "rows": [
-              {
-                "cells": [
-                  "HTTP API",
-                  "JWT authorizers"
-                ],
-                "tone": "ok"
+                "from": "PRICE_PER_MILLION",
+                "to": "monthly_calls",
+                "label": "{'HTTP API': 1, 'REST API': 3.5}",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "REST API",
-                  "usage plans"
-                ],
+                "from": "monthly_calls",
+                "to": "row",
+                "label": "1000000",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "monthly_calls"
           },
           {
-            "at": "say4",
-            "caption": "Default to HTTP APIs unless specific capabilities like usage plans are required.",
-            "rows": [
+            "at": "say7",
+            "caption": "At small scale the difference is small.",
+            "messages": [
               {
-                "cells": [
-                  "HTTP API",
-                  "JWT authorizers"
-                ],
-                "tone": "ok"
+                "from": "PRICE_PER_MILLION",
+                "to": "monthly_calls",
+                "label": "{'HTTP API': 1, 'REST API': 3.5}",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "REST API",
-                  "usage plans"
-                ],
+                "from": "monthly_calls",
+                "to": "row",
+                "label": "1000000",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "row"
           }
         ]
       }
@@ -327,148 +453,106 @@
       "partTitle": "Lambda authorizers",
       "codeHash": "d6cc372f5f7e172f881c93ca2f1bd26a8652717167c15e62ba287d79eca0c39d",
       "spec": {
-        "template": "table",
-        "title": "Lambda authorizer evaluation returning IAM policy documents",
-        "columns": [
-          "token",
-          "Effect"
+        "template": "states",
+        "title": "Lambda authorizers",
+        "states": [
+          {
+            "id": "TOKENS",
+            "label": "TOKENS"
+          },
+          {
+            "id": "arn",
+            "label": "arn"
+          },
+          {
+            "id": "token",
+            "label": "token"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "API Gateway queries authorizers before forwarding calls to backend functions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tok-asha"
-                  },
-                  {
-                    "text": "Allow"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Before a call reaches your function, API Gateway can ask an authorizer.",
+            "currentState": "TOKENS",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "A Lambda authorizer inspects tokens returning an IAM policy with Allow or Deny.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tok-asha"
-                  },
-                  {
-                    "text": "Allow"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tok-stolen"
-                  },
-                  {
-                    "text": "Deny"
-                  }
-                ],
-                "tone": "error"
+            "at": "say2",
+            "caption": "A JWT authorizer checks standard tokens from providers such as Amazon.",
+            "currentState": "arn",
+            "transition": {
+              "from": "TOKENS",
+              "to": "arn",
+              "label": {
+                "var": "arn",
+                "line": 10,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
             "at": "say7",
-            "caption": "The example validates incoming tokens against user records and builds responses.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tok-asha"
-                  },
-                  {
-                    "text": "Allow"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tok-stolen"
-                  },
-                  {
-                    "text": "Deny"
-                  }
-                ],
-                "tone": "error"
+            "caption": "The example checks a token against a tiny user table and builds the response.",
+            "currentState": "token",
+            "transition": {
+              "from": "arn",
+              "to": "token",
+              "label": {
+                "var": "token",
+                "line": 12,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Lambda authorizer evaluation returning IAM policy documents",
-        "columns": [
-          "token",
-          "Effect"
+        "template": "states",
+        "title": "Lambda authorizers",
+        "states": [
+          {
+            "id": "TOKENS",
+            "label": "TOKENS"
+          },
+          {
+            "id": "arn",
+            "label": "arn"
+          },
+          {
+            "id": "token",
+            "label": "token"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "API Gateway queries authorizers before forwarding calls to backend functions.",
-            "rows": [
-              {
-                "cells": [
-                  "tok-asha",
-                  "Allow"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Before a call reaches your function, API Gateway can ask an authorizer.",
+            "currentState": "TOKENS",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "A Lambda authorizer inspects tokens returning an IAM policy with Allow or Deny.",
-            "rows": [
-              {
-                "cells": [
-                  "tok-asha",
-                  "Allow"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tok-stolen",
-                  "Deny"
-                ],
-                "tone": "error"
-              }
-            ]
+            "at": "say2",
+            "caption": "A JWT authorizer checks standard tokens from providers such as Amazon.",
+            "currentState": "arn",
+            "transition": {
+              "from": "TOKENS",
+              "to": "arn",
+              "label": "'arn:aws:execute-api:us-east-1:11112222…"
+            },
+            "tone": "data"
           },
           {
             "at": "say7",
-            "caption": "The example validates incoming tokens against user records and builds responses.",
-            "rows": [
-              {
-                "cells": [
-                  "tok-asha",
-                  "Allow"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tok-stolen",
-                  "Deny"
-                ],
-                "tone": "error"
-              }
-            ]
+            "caption": "The example checks a token against a tiny user table and builds the response.",
+            "currentState": "token",
+            "transition": {
+              "from": "arn",
+              "to": "token",
+              "label": "'tok-asha'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -477,93 +561,131 @@
       "partTitle": "Throttling and usage limits",
       "codeHash": "bd3ce71c3e4cf650f1e4c6973ce0dfceb62e6c00e51ee9ff82bb53ed19846915",
       "spec": {
-        "template": "table",
-        "title": "Token bucket rate limiting simulation tracking burst arrivals",
-        "columns": [
-          "sent",
-          "allowed"
-        ],
+        "template": "bars",
+        "title": "Throttling and usage limits",
         "steps": [
           {
+            "at": "say1",
+            "caption": "A public API must protect itself from floods, whether from a bug in.",
+            "bars": [
+              {
+                "label": "rate",
+                "value": {
+                  "var": "rate",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "burst",
+                "value": {
+                  "var": "burst",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "tokens",
+                "value": {
+                  "var": "tokens",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "tick",
+                "value": {
+                  "var": "tick",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "API Gateway throttles traffic using token buckets configured with burst limits.",
-            "rows": [
+            "caption": "API Gateway throttles with a token bucket.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "8"
-                  },
-                  {
-                    "text": "8"
-                  }
-                ],
+                "label": "rate",
+                "value": {
+                  "var": "rate",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "burst",
+                "value": {
+                  "var": "burst",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "tokens",
+                "value": {
+                  "var": "tokens",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "tick",
+                "value": {
+                  "var": "tick",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "When all tokens are exhausted excess incoming requests receive error responses.",
-            "rows": [
+            "at": "say7",
+            "caption": "Throttling at the gateway is cheap.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "8"
-                  },
-                  {
-                    "text": "8"
-                  }
-                ],
+                "label": "rate",
+                "value": {
+                  "var": "rate",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "12"
-                  },
-                  {
-                    "text": "10"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example simulates token bucket consumption under bursty arrival patterns.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "8"
-                  },
-                  {
-                    "text": "8"
-                  }
-                ],
+                "label": "burst",
+                "value": {
+                  "var": "burst",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "12"
-                  },
-                  {
-                    "text": "10"
-                  }
-                ],
-                "tone": "data"
+                "label": "tokens",
+                "value": {
+                  "var": "tokens",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "4"
-                  }
-                ],
+                "label": "tick",
+                "value": {
+                  "var": "tick",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -571,69 +693,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Token bucket rate limiting simulation tracking burst arrivals",
-        "columns": [
-          "sent",
-          "allowed"
-        ],
+        "template": "bars",
+        "title": "Throttling and usage limits",
         "steps": [
           {
+            "at": "say1",
+            "caption": "A public API must protect itself from floods, whether from a bug in.",
+            "bars": [
+              {
+                "label": "rate",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "burst",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "tokens",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "tick",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "API Gateway throttles traffic using token buckets configured with burst limits.",
-            "rows": [
+            "caption": "API Gateway throttles with a token bucket.",
+            "bars": [
               {
-                "cells": [
-                  "8",
-                  "8"
-                ],
+                "label": "rate",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "burst",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "tokens",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "tick",
+                "value": 0,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "When all tokens are exhausted excess incoming requests receive error responses.",
-            "rows": [
+            "at": "say7",
+            "caption": "Throttling at the gateway is cheap.",
+            "bars": [
               {
-                "cells": [
-                  "8",
-                  "8"
-                ],
+                "label": "rate",
+                "value": 4,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "12",
-                  "10"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example simulates token bucket consumption under bursty arrival patterns.",
-            "rows": [
-              {
-                "cells": [
-                  "8",
-                  "8"
-                ],
+                "label": "burst",
+                "value": 10,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "12",
-                  "10"
-                ],
-                "tone": "data"
+                "label": "tokens",
+                "value": 10,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "5",
-                  "4"
-                ],
+                "label": "tick",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -646,110 +782,127 @@
       "codeHash": "48e1700ea2ae9184839c62b912817137334374634ae3b6d70829d405cceccfea",
       "spec": {
         "template": "flow",
-        "title": "CORS for browser apps — Execution Pipeline",
+        "title": "CORS for browser apps",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "ALLOWED",
+            "label": "ALLOWED"
           },
           {
-            "id": "proc",
-            "label": "2. CORS for browser apps",
-            "tappable": true
+            "id": "origin",
+            "label": "origin"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "allowed_origins",
+            "label": "allowed_origins"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for CORS for browser apps [Dtwelve.Pfive.Sone].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in CORS for browser apps [Dtwelve.Pfive.Stwo].",
+            "caption": "Browsers enforce the same-origin policy.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "ALLOWED": {
+                "var": "ALLOWED",
+                "line": 1,
+                "hit": 1
+              },
+              "origin": {
+                "var": "origin",
+                "line": 4,
+                "hit": 1
+              },
+              "allowed_origins": {
+                "var": "allowed_origins",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "ALLOWED": "data",
+              "origin": "data",
+              "allowed_origins": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ALLOWED",
+                "origin"
               ],
               [
-                "proc",
-                "out"
+                "origin",
+                "allowed_origins"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Cross-Origin Resource Sharing (CORS) is how the API says \"this other.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "ALLOWED": {
+                "var": "ALLOWED",
+                "line": 3,
+                "hit": 1
+              },
+              "origin": {
+                "var": "origin",
+                "line": 6,
+                "hit": 1
+              },
+              "allowed_origins": {
+                "var": "allowed_origins",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "ALLOWED": "data",
+              "origin": "data",
+              "allowed_origins": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "ALLOWED",
+                "origin"
+              ],
+              [
+                "origin",
+                "allowed_origins"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for CORS for browser apps.",
+            "at": "say7",
+            "caption": "The example shows the allow-list in action for a real origin and.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "ALLOWED": {
+                "var": "ALLOWED",
+                "line": 11,
+                "hit": 1
+              },
+              "origin": {
+                "var": "origin",
+                "line": 7,
+                "hit": 1
+              },
+              "allowed_origins": {
+                "var": "allowed_origins",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "ALLOWED": "ok",
+              "origin": "ok",
+              "allowed_origins": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ALLOWED",
+                "origin"
               ],
               [
-                "proc",
-                "out"
+                "origin",
+                "allowed_origins"
               ]
             ]
           }
@@ -757,110 +910,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "CORS for browser apps — Execution Pipeline",
+        "title": "CORS for browser apps",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "ALLOWED",
+            "label": "ALLOWED"
           },
           {
-            "id": "proc",
-            "label": "2. CORS for browser apps",
-            "tappable": true
+            "id": "origin",
+            "label": "origin"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "allowed_origins",
+            "label": "allowed_origins"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for CORS for browser apps [D12.P5.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in CORS for browser apps [D12.P5.S2].",
+            "caption": "Browsers enforce the same-origin policy.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "ALLOWED": "['https://app.pinit.com', 'https://admi…",
+              "origin": "'https://app.pinit.com'",
+              "allowed_origins": "['https://app.pinit.com', 'https://admi…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "ALLOWED": "data",
+              "origin": "data",
+              "allowed_origins": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ALLOWED",
+                "origin"
               ],
               [
-                "proc",
-                "out"
+                "origin",
+                "allowed_origins"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P5.S3].",
+            "at": "say2",
+            "caption": "Cross-Origin Resource Sharing (CORS) is how the API says \"this other.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "ALLOWED": "['https://app.pinit.com', 'https://admi…",
+              "origin": "'https://app.pinit.com'",
+              "allowed_origins": "['https://app.pinit.com', 'https://admi…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "ALLOWED": "data",
+              "origin": "data",
+              "allowed_origins": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "ALLOWED",
+                "origin"
+              ],
+              [
+                "origin",
+                "allowed_origins"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for CORS for browser apps [D12.P5.S4].",
+            "at": "say7",
+            "caption": "The example shows the allow-list in action for a real origin and.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "ALLOWED": "['https://app.pinit.com', 'https://admi…",
+              "origin": "'https://app.pinit.com'",
+              "allowed_origins": "['https://app.pinit.com', 'https://admi…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "ALLOWED": "ok",
+              "origin": "ok",
+              "allowed_origins": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ALLOWED",
+                "origin"
               ],
               [
-                "proc",
-                "out"
+                "origin",
+                "allowed_origins"
               ]
             ]
           }
@@ -872,110 +1006,161 @@
       "codeHash": "4b2a76f1096eb82dbd427a71b7ad9249290229f12c3df79aea678ae72168b3ce",
       "spec": {
         "template": "flow",
-        "title": "Practice time: authorize and share — Execution Pipeline",
+        "title": "Practice time: authorize and share",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "ALLOWED",
+            "label": "ALLOWED"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: auth...",
-            "tappable": true
+            "id": "cases",
+            "label": "cases"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "origin",
+            "label": "origin"
+          },
+          {
+            "id": "should_allow",
+            "label": "should_allow"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: authorize and share.",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: auth... [Dtwelve.Psix.Stwo].",
+            "caption": "Authorizer_response(principal_id, effect, resource_arn).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "ALLOWED": {
+                "var": "ALLOWED",
+                "line": 1,
+                "hit": 1
+              },
+              "cases": {
+                "var": "cases",
+                "line": 5,
+                "hit": 1
+              },
+              "origin": {
+                "var": "origin",
+                "line": 6,
+                "hit": 1
+              },
+              "should_allow": {
+                "var": "should_allow",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "ALLOWED": "data",
+              "cases": "data",
+              "origin": "data",
+              "should_allow": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ALLOWED",
+                "cases"
               ],
               [
-                "proc",
-                "out"
+                "cases",
+                "origin"
+              ],
+              [
+                "origin",
+                "should_allow"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Then return the exact structure.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "ALLOWED": {
+                "var": "ALLOWED",
+                "line": 2,
+                "hit": 1
+              },
+              "cases": {
+                "var": "cases",
+                "line": 6,
+                "hit": 1
+              },
+              "origin": {
+                "var": "origin",
+                "line": 3,
+                "hit": 1
+              },
+              "should_allow": {
+                "var": "should_allow",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "ALLOWED": "data",
+              "cases": "data",
+              "origin": "data",
+              "should_allow": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "ALLOWED",
+                "cases"
+              ],
+              [
+                "cases",
+                "origin"
+              ],
+              [
+                "origin",
+                "should_allow"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: authorize and share.",
+            "at": "say7",
+            "caption": "The example shows a small test table for cors_headers, the way you would.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "ALLOWED": {
+                "var": "ALLOWED",
+                "line": 5,
+                "hit": 1
+              },
+              "cases": {
+                "var": "cases",
+                "line": 7,
+                "hit": 1
+              },
+              "origin": {
+                "var": "origin",
+                "line": 7,
+                "hit": 1
+              },
+              "should_allow": {
+                "var": "should_allow",
+                "line": 8,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "ALLOWED": "ok",
+              "cases": "ok",
+              "origin": "ok",
+              "should_allow": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ALLOWED",
+                "cases"
               ],
               [
-                "proc",
-                "out"
+                "cases",
+                "origin"
+              ],
+              [
+                "origin",
+                "should_allow"
               ]
             ]
           }
@@ -983,110 +1168,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: authorize and share — Execution Pipeline",
+        "title": "Practice time: authorize and share",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "ALLOWED",
+            "label": "ALLOWED"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: auth...",
-            "tappable": true
+            "id": "cases",
+            "label": "cases"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "origin",
+            "label": "origin"
+          },
+          {
+            "id": "should_allow",
+            "label": "should_allow"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: authorize and share [D12.P6.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: auth... [D12.P6.S2].",
+            "caption": "Authorizer_response(principal_id, effect, resource_arn).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "ALLOWED": "['https://app.pinit.com']",
+              "cases": "[['https://app.pinit.com', True], ['htt…",
+              "origin": "'https://app.pinit.com'",
+              "should_allow": "True"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "ALLOWED": "data",
+              "cases": "data",
+              "origin": "data",
+              "should_allow": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ALLOWED",
+                "cases"
               ],
               [
-                "proc",
-                "out"
+                "cases",
+                "origin"
+              ],
+              [
+                "origin",
+                "should_allow"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P6.S3].",
+            "at": "say2",
+            "caption": "Then return the exact structure.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "ALLOWED": "['https://app.pinit.com']",
+              "cases": "[['https://app.pinit.com', True], ['htt…",
+              "origin": "'https://app.pinit.com'",
+              "should_allow": "True"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "ALLOWED": "data",
+              "cases": "data",
+              "origin": "data",
+              "should_allow": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "ALLOWED",
+                "cases"
+              ],
+              [
+                "cases",
+                "origin"
+              ],
+              [
+                "origin",
+                "should_allow"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: authorize and share [D12.P6.S4].",
+            "at": "say7",
+            "caption": "The example shows a small test table for cors_headers, the way you would.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "ALLOWED": "['https://app.pinit.com']",
+              "cases": "[['https://app.pinit.com', True], ['htt…",
+              "origin": "'https://app.pinit.com'",
+              "should_allow": "True"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "ALLOWED": "ok",
+              "cases": "ok",
+              "origin": "ok",
+              "should_allow": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ALLOWED",
+                "cases"
               ],
               [
-                "proc",
-                "out"
+                "cases",
+                "origin"
+              ],
+              [
+                "origin",
+                "should_allow"
               ]
             ]
           }

@@ -2,50 +2,111 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 31,
-  "promptSha": "df7fa908d1cd239830e4be73c3287e16288bf5389eb34d51b5db30554b58c206",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Binary Indexed Tree Foundations: The Least Significant Bit Invariant",
       "codeHash": "0cd9f6c9622f2e03034bb3ff2b77f2eadd456314f5e6d7c61390ae5720efe5ac",
       "spec": {
-        "template": "table",
-        "title": "Binary Indexed Tree Foundations",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Binary Indexed Tree Foundations: The Least Significant Bit Invar",
         "steps": [
           {
             "at": "say1",
-            "caption": "The advanced design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Today we unlock the Fenwick Tree, also known as the Binary Indexed Tree (BIT).",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Binary"
-                  },
-                  {
-                    "text": "Indexed"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "lsb",
+                "value": {
+                  "var": "lsb",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "start_idx",
+                "value": {
+                  "var": "start_idx",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The mathematical step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "A Fenwick Tree resolves this fundamental trade-off.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Tree"
-                  },
-                  {
-                    "text": "Foundations"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lsb",
+                "value": {
+                  "var": "lsb",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "start_idx",
+                "value": {
+                  "var": "start_idx",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Take a look at the self-contained Python demonstration below.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lsb",
+                "value": {
+                  "var": "lsb",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "start_idx",
+                "value": {
+                  "var": "start_idx",
+                  "line": 6,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -53,35 +114,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Binary Indexed Tree Foundations",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Binary Indexed Tree Foundations: The Least Significant Bit Invar",
         "steps": [
           {
             "at": "say1",
-            "caption": "The advanced design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Today we unlock the Fenwick Tree, also known as the Binary Indexed Tree (BIT).",
+            "bars": [
               {
-                "cells": [
-                  "Binary",
-                  "Indexed"
-                ],
+                "label": "i",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "lsb",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "start_idx",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The mathematical step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "A Fenwick Tree resolves this fundamental trade-off.",
+            "bars": [
               {
-                "cells": [
-                  "Tree",
-                  "Foundations"
-                ],
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "lsb",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "start_idx",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Take a look at the self-contained Python demonstration below.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "lsb",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "start_idx",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -93,80 +187,123 @@
       "partTitle": "Point Updates and Range Sum Queries in O(log N)",
       "codeHash": "3040209c39f5e0fa94b4eafccebb84f57a4612e2e27579588f28c1cb67e368e6",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Point Updates and Range Sum Queries in O(log N)",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The understand design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now that we understand how each slot maps to an interval, let us implement.",
+            "items": {
+              "var": "values",
+              "line": 22,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Point"
-                  },
-                  {
-                    "text": "Updates"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The query step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "To apply a delta update at index i, we must update slot i and every parent.",
+            "items": {
+              "var": "values",
+              "line": 24,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Range"
-                  },
-                  {
-                    "text": "Queries"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Observe the complete FenwickTree class below.",
+            "items": {
+              "var": "values",
+              "line": 23,
+              "hit": 6
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Point Updates and Range Sum Queries in O(log N)",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The understand design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now that we understand how each slot maps to an interval, let us implement.",
+            "items": [
+              "3",
+              "2",
+              "-1",
+              "6",
+              "5",
+              "4",
+              "-3",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Point",
-                  "Updates"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The query step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "To apply a delta update at index i, we must update slot i and every parent.",
+            "items": [
+              "3",
+              "2",
+              "-1",
+              "6",
+              "5",
+              "4",
+              "-3",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Range",
-                  "Queries"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Observe the complete FenwickTree class below.",
+            "items": [
+              "3",
+              "2",
+              "-1",
+              "6",
+              "5",
+              "4",
+              "-3",
+              "2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,43 +314,131 @@
       "partTitle": "Dynamic Frequency Counting & Finding the K-th Smallest Element",
       "codeHash": "963f46f14c839fdbfa51b592a55086f4d32ba3c31011a4639a66b367884f6871",
       "spec": {
-        "template": "table",
-        "title": "Dynamic Frequency Counting & Finding the K-th Smallest",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Dynamic Frequency Counting & Finding the K-th Smallest Element",
         "steps": [
           {
             "at": "say1",
-            "caption": "The premier design establishes the core structural invariant.",
-            "rows": [
+            "caption": "A premier application of Fenwick Trees in backend analytics and real-time.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Dynamic"
-                  },
-                  {
-                    "text": "Frequency"
-                  }
-                ],
+                "label": "max_score",
+                "value": {
+                  "var": "max_score",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 46,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The rather step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "By indexing our Fenwick Tree by score value rather than positionwhere.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Counting"
-                  },
-                  {
-                    "text": "Finding"
-                  }
-                ],
+                "label": "max_score",
+                "value": {
+                  "var": "max_score",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 47,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect this self-contained ScoreRanker implementation below.",
+            "bars": [
+              {
+                "label": "max_score",
+                "value": {
+                  "var": "max_score",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 46,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +446,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Dynamic Frequency Counting & Finding the K-th Smallest",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Dynamic Frequency Counting & Finding the K-th Smallest Element",
         "steps": [
           {
             "at": "say1",
-            "caption": "The premier design establishes the core structural invariant.",
-            "rows": [
+            "caption": "A premier application of Fenwick Trees in backend analytics and real-time.",
+            "bars": [
               {
-                "cells": [
-                  "Dynamic",
-                  "Frequency"
-                ],
+                "label": "max_score",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "size",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "s",
+                "value": 45,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 45,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The rather step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "By indexing our Fenwick Tree by score value rather than positionwhere.",
+            "bars": [
               {
-                "cells": [
-                  "Counting",
-                  "Finding"
-                ],
+                "label": "max_score",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": 45,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 45,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect this self-contained ScoreRanker implementation below.",
+            "bars": [
+              {
+                "label": "max_score",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": 78,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 46,
                 "tone": "ok"
               }
             ]
@@ -261,43 +534,131 @@
       "partTitle": "2D Fenwick Tree: Matrix Prefix Sums and Bounding Box Queries",
       "codeHash": "fda7e686e3d200760b1d80d97711c372ae477e30cdb7cf894f8b0f26221ad126",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "2D Fenwick Tree: Matrix Prefix Sums and Bounding Box Queries",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The spatial design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Spatial indexing engines, image histogram pipelines, and real-time.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Fenwick"
-                  },
-                  {
-                    "text": "Tree"
-                  }
-                ],
+                "label": "rows",
+                "value": {
+                  "var": "rows",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cols",
+                "value": {
+                  "var": "cols",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The querying step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "To increment grid coordinates (r, c) by delta, an outer loop walks r.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Matrix"
-                  },
-                  {
-                    "text": "Prefix"
-                  }
-                ],
+                "label": "rows",
+                "value": {
+                  "var": "rows",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cols",
+                "value": {
+                  "var": "cols",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Review the complete 2D FenwickTree2D matrix processor below calculating.",
+            "bars": [
+              {
+                "label": "rows",
+                "value": {
+                  "var": "rows",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cols",
+                "value": {
+                  "var": "cols",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -305,35 +666,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "2D Fenwick Tree: Matrix Prefix Sums and Bounding Box Queries",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The spatial design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Spatial indexing engines, image histogram pipelines, and real-time.",
+            "bars": [
               {
-                "cells": [
-                  "Fenwick",
-                  "Tree"
-                ],
+                "label": "rows",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "cols",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The querying step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "To increment grid coordinates (r, c) by delta, an outer loop walks r.",
+            "bars": [
               {
-                "cells": [
-                  "Matrix",
-                  "Prefix"
-                ],
+                "label": "rows",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "cols",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Review the complete 2D FenwickTree2D matrix processor below calculating.",
+            "bars": [
+              {
+                "label": "rows",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "cols",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -345,43 +754,131 @@
       "partTitle": "Range Update & Point Query: The Difference Array Invariant",
       "codeHash": "35caca43480ecf0ce067589b424337dec606fff2ca15b0394be7890f0f04017d",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Range Update & Point Query: The Difference Array Invariant",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The fenwick design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Standard Fenwick Trees perform point updates and range sum queries.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Range"
-                  },
-                  {
-                    "text": "Update"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "delta",
+                "value": {
+                  "var": "delta",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "left",
+                "value": {
+                  "var": "left",
+                  "line": 27,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The delta step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "By wrapping a Fenwick Tree around a Difference Array D, where A[i] = sum(D[1.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Point"
-                  },
-                  {
-                    "text": "Query"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "delta",
+                "value": {
+                  "var": "delta",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "left",
+                "value": {
+                  "var": "left",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect this self-contained RangeUpdatePointQueryBIT implementation below.",
+            "bars": [
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "delta",
+                "value": {
+                  "var": "delta",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "left",
+                "value": {
+                  "var": "left",
+                  "line": 27,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -389,35 +886,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Range Update & Point Query: The Difference Array Invariant",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The fenwick design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Standard Fenwick Trees perform point updates and range sum queries.",
+            "bars": [
               {
-                "cells": [
-                  "Range",
-                  "Update"
-                ],
+                "label": "size",
+                "value": 11,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "delta",
+                "value": 50,
+                "tone": "data"
+              },
+              {
+                "label": "left",
+                "value": 3,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The delta step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "By wrapping a Fenwick Tree around a Difference Array D, where A[i] = sum(D[1.",
+            "bars": [
               {
-                "cells": [
-                  "Point",
-                  "Query"
-                ],
+                "label": "size",
+                "value": 11,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "delta",
+                "value": 50,
+                "tone": "ok"
+              },
+              {
+                "label": "left",
+                "value": 3,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect this self-contained RangeUpdatePointQueryBIT implementation below.",
+            "bars": [
+              {
+                "label": "size",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "delta",
+                "value": 50,
+                "tone": "ok"
+              },
+              {
+                "label": "left",
+                "value": 5,
                 "tone": "ok"
               }
             ]

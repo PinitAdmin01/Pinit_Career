@@ -2,150 +2,138 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 29,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why full fine-tuning is expensive",
       "codeHash": "2ef7dfc1219d2ff143b64695d2cf9d8dffdb4211015e84298ebc7b2ae97056c1",
       "spec": {
-        "template": "table",
-        "title": "Memory footprints across full tuning and parameter efficient adaptation",
-        "columns": [
-          "full",
-          "peft"
-        ],
+        "template": "bars",
+        "title": "Why full fine-tuning is expensive",
         "steps": [
           {
             "at": "say1",
-            "caption": "Full fine-tuning updates every weight throughout the entire architecture.",
-            "rows": [
+            "caption": "Full fine-tuning updates every weight of the model.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "peft"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Task adaptation changes occupy a small subspace within the weight space.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "peft"
-                  }
-                ],
-                "tone": "ok"
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "optimizer_factor"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Parameter-efficient fine-tuning freezes weights and trains fewer parameters.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "peft"
-                  }
-                ],
-                "tone": "ok"
+                "label": "bytes_per_para",
+                "value": {
+                  "var": "bytes_per_param",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "optimizer_factor"
-                  }
-                ],
-                "tone": "ok"
+                "label": "optimizer_fact",
+                "value": {
+                  "var": "optimizer_factor",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "bytes_per_param"
-                  },
-                  {
-                    "text": "trainable_share"
-                  }
-                ],
+                "label": "full",
+                "value": {
+                  "var": "full",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example estimates memory required across parameter training schemes.",
-            "rows": [
+            "at": "say2",
+            "caption": "It needs large GPUs, takes a long time, and produces a full new copy.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "peft"
-                  }
-                ],
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "optimizer_factor"
-                  }
-                ],
+                "label": "bytes_per_para",
+                "value": {
+                  "var": "bytes_per_param",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "bytes_per_param"
-                  },
-                  {
-                    "text": "trainable_share"
-                  }
-                ],
-                "tone": "data"
+                "label": "optimizer_fact",
+                "value": {
+                  "var": "optimizer_factor",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "full",
+                "value": {
+                  "var": "full",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "PEFT made it possible to fine-tune large models on a single consumer GPU.",
+            "bars": [
+              {
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bytes_per_para",
+                "value": {
+                  "var": "bytes_per_param",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "optimizer_fact",
+                "value": {
+                  "var": "optimizer_factor",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "full",
+                "value": {
+                  "var": "full",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -153,103 +141,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Memory footprints across full tuning and parameter efficient adaptation",
-        "columns": [
-          "full",
-          "peft"
-        ],
+        "template": "bars",
+        "title": "Why full fine-tuning is expensive",
         "steps": [
           {
             "at": "say1",
-            "caption": "Full fine-tuning updates every weight throughout the entire architecture.",
-            "rows": [
+            "caption": "Full fine-tuning updates every weight of the model.",
+            "bars": [
               {
-                "cells": [
-                  "full",
-                  "peft"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Task adaptation changes occupy a small subspace within the weight space.",
-            "rows": [
-              {
-                "cells": [
-                  "full",
-                  "peft"
-                ],
-                "tone": "ok"
+                "label": "params",
+                "value": 7000000000,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "params",
-                  "optimizer_factor"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Parameter-efficient fine-tuning freezes weights and trains fewer parameters.",
-            "rows": [
-              {
-                "cells": [
-                  "full",
-                  "peft"
-                ],
-                "tone": "ok"
+                "label": "bytes_per_para",
+                "value": 2,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "params",
-                  "optimizer_factor"
-                ],
-                "tone": "ok"
+                "label": "optimizer_fact",
+                "value": 3,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "bytes_per_param",
-                  "trainable_share"
-                ],
+                "label": "full",
+                "value": 39.1155481338501,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example estimates memory required across parameter training schemes.",
-            "rows": [
+            "at": "say2",
+            "caption": "It needs large GPUs, takes a long time, and produces a full new copy.",
+            "bars": [
               {
-                "cells": [
-                  "full",
-                  "peft"
-                ],
+                "label": "params",
+                "value": 7000000000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "params",
-                  "optimizer_factor"
-                ],
+                "label": "bytes_per_para",
+                "value": 2,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "bytes_per_param",
-                  "trainable_share"
-                ],
-                "tone": "data"
+                "label": "optimizer_fact",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "full",
-                  "print"
-                ],
+                "label": "full",
+                "value": 39.1155481338501,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "PEFT made it possible to fine-tune large models on a single consumer GPU.",
+            "bars": [
+              {
+                "label": "params",
+                "value": 7000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "bytes_per_para",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "optimizer_fact",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "full",
+                "value": 39.1155481338501,
                 "tone": "ok"
               }
             ]
@@ -261,248 +229,111 @@
       "partTitle": "Low-rank matrices",
       "codeHash": "db1d0d53dfb19cbcc3d01871345f5d384f8b90c2465defa57e77ac1a1acdaacd",
       "spec": {
-        "template": "table",
-        "title": "Matrix rank decomposition into low dimensional factors",
-        "columns": [
-          "B",
-          "A"
-        ],
+        "template": "cells",
+        "title": "Low-rank matrices",
         "steps": [
           {
+            "at": "say1",
+            "caption": "A weight matrix W of size d k has d k numbers.",
+            "items": {
+              "var": "row",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Factorizing rank into two thin matrices compresses parameter volume.",
-            "rows": [
+            "caption": "A low-rank matrix can be written as the product of two thin matrices.",
+            "items": {
+              "var": "row",
+              "line": 4,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "B"
-                  },
-                  {
-                    "text": "A"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Low rank updates express model modifications along few directions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "B"
-                  },
-                  {
-                    "text": "A"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "product"
-                  },
-                  {
-                    "text": "row"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Outer vector products show that every row is a multiple of another.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "B"
-                  },
-                  {
-                    "text": "A"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "product"
-                  },
-                  {
-                    "text": "row"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "This outer product illustration clarifies low rank matrix factorization.",
-            "rows": [
+            "caption": "This \"outer product\" picture is the simplest way to see what low rank means.",
+            "items": {
+              "var": "row",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "B"
-                  },
-                  {
-                    "text": "A"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "product"
-                  },
-                  {
-                    "text": "row"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "product"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Matrix rank decomposition into low dimensional factors",
-        "columns": [
-          "B",
-          "A"
-        ],
+        "template": "cells",
+        "title": "Low-rank matrices",
         "steps": [
           {
+            "at": "say1",
+            "caption": "A weight matrix W of size d k has d k numbers.",
+            "items": [
+              "0.5",
+              "1",
+              "0",
+              "2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Factorizing rank into two thin matrices compresses parameter volume.",
-            "rows": [
+            "caption": "A low-rank matrix can be written as the product of two thin matrices.",
+            "items": [
+              "1.5",
+              "3",
+              "0",
+              "6"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "B",
-                  "A"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Low rank updates express model modifications along few directions.",
-            "rows": [
-              {
-                "cells": [
-                  "B",
-                  "A"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "product",
-                  "row"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Outer vector products show that every row is a multiple of another.",
-            "rows": [
-              {
-                "cells": [
-                  "B",
-                  "A"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "product",
-                  "row"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "range",
-                  "sum"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "This outer product illustration clarifies low rank matrix factorization.",
-            "rows": [
+            "caption": "This \"outer product\" picture is the simplest way to see what low rank means.",
+            "items": [
+              "1.5",
+              "3",
+              "0",
+              "6"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "B",
-                  "A"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "product",
-                  "row"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "range",
-                  "sum"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "product",
-                  "print"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -513,248 +344,105 @@
       "partTitle": "How LoRA works",
       "codeHash": "47ba53f8ee86224cfe4f3b9cb70494d99169353130178ee118d68e5ab603ac99",
       "spec": {
-        "template": "table",
-        "title": "LoRA residual matrix additions and adapter integration",
-        "columns": [
-          "W",
-          "B"
-        ],
+        "template": "cells",
+        "title": "How LoRA works",
         "steps": [
           {
             "at": "say1",
-            "caption": "LoRA freezes original weight matrices and adds trainable factorized adapters.",
-            "rows": [
+            "caption": "W + (alpha / r) B A.",
+            "items": {
+              "var": "x",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "W"
-                  },
-                  {
-                    "text": "B"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Zero initialized matrices ensure initial outputs match the base model.",
-            "rows": [
+            "caption": "A is initialised with small random values and B with zeros, so at.",
+            "items": {
+              "var": "x",
+              "line": 8,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "W"
-                  },
-                  {
-                    "text": "B"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "A"
-                  },
-                  {
-                    "text": "alpha"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Each task requires only lightweight modular adapter matrices.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "W"
-                  },
-                  {
-                    "text": "B"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "A"
-                  },
-                  {
-                    "text": "alpha"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Wx"
-                  },
-                  {
-                    "text": "BAx"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example runs an input through W alone to show the update.",
-            "rows": [
+            "caption": "The example runs an input through W alone and through W + BA to show.",
+            "items": {
+              "var": "x",
+              "line": 10,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "W"
-                  },
-                  {
-                    "text": "B"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "A"
-                  },
-                  {
-                    "text": "alpha"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Wx"
-                  },
-                  {
-                    "text": "BAx"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "W"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "LoRA residual matrix additions and adapter integration",
-        "columns": [
-          "W",
-          "B"
-        ],
+        "template": "cells",
+        "title": "How LoRA works",
         "steps": [
           {
             "at": "say1",
-            "caption": "LoRA freezes original weight matrices and adds trainable factorized adapters.",
-            "rows": [
+            "caption": "W + (alpha / r) B A.",
+            "items": [
+              "1",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "W",
-                  "B"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Zero initialized matrices ensure initial outputs match the base model.",
-            "rows": [
+            "caption": "A is initialised with small random values and B with zeros, so at.",
+            "items": [
+              "1",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "W",
-                  "B"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "A",
-                  "alpha"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Each task requires only lightweight modular adapter matrices.",
-            "rows": [
-              {
-                "cells": [
-                  "W",
-                  "B"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "A",
-                  "alpha"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Wx",
-                  "BAx"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example runs an input through W alone to show the update.",
-            "rows": [
+            "caption": "The example runs an input through W alone and through W + BA to show.",
+            "items": [
+              "1",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "W",
-                  "B"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "A",
-                  "alpha"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Wx",
-                  "BAx"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "W",
-                  "print"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -765,143 +453,131 @@
       "partTitle": "Merging LoRA into the model",
       "codeHash": "ee96e11632a61e29e31708e5dc2238e65715ca3c153b8b1ec7e7662b4486188f",
       "spec": {
-        "template": "table",
-        "title": "Weight folding arithmetic and zero-latency deployment",
-        "columns": [
-          "merged",
-          "scale"
-        ],
+        "template": "bars",
+        "title": "Merging LoRA into the model",
         "steps": [
           {
             "at": "say1",
-            "caption": "Trained updates can merge permanently into the base model weights.",
-            "rows": [
+            "caption": "After training, you can merge the update into the weights.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "merged"
-                  },
-                  {
-                    "text": "scale"
-                  }
-                ],
-                "tone": "ok"
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The merged model preserves inference speed without runtime overhead.",
-            "rows": [
+            "caption": "The merged model has exactly the original shape and runs at exactly.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "merged"
-                  },
-                  {
-                    "text": "scale"
-                  }
-                ],
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "W"
-                  },
-                  {
-                    "text": "B"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Separate adapter configurations permit rapid switching across tasks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "merged"
-                  },
-                  {
-                    "text": "scale"
-                  }
-                ],
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "W"
-                  },
-                  {
-                    "text": "B"
-                  }
-                ],
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "A"
-                  },
-                  {
-                    "text": "alpha"
-                  }
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example merges an update and checks consistency with the adapter.",
-            "rows": [
+            "caption": "The example merges an update and checks the merged matrix gives the same.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "merged"
-                  },
-                  {
-                    "text": "scale"
-                  }
-                ],
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "W"
-                  },
-                  {
-                    "text": "B"
-                  }
-                ],
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "A"
-                  },
-                  {
-                    "text": "alpha"
-                  }
-                ],
-                "tone": "data"
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "lora_merge"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -909,103 +585,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Weight folding arithmetic and zero-latency deployment",
-        "columns": [
-          "merged",
-          "scale"
-        ],
+        "template": "bars",
+        "title": "Merging LoRA into the model",
         "steps": [
           {
             "at": "say1",
-            "caption": "Trained updates can merge permanently into the base model weights.",
-            "rows": [
+            "caption": "After training, you can merge the update into the weights.",
+            "bars": [
               {
-                "cells": [
-                  "merged",
-                  "scale"
-                ],
-                "tone": "ok"
+                "label": "alpha",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "scale",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The merged model preserves inference speed without runtime overhead.",
-            "rows": [
+            "caption": "The merged model has exactly the original shape and runs at exactly.",
+            "bars": [
               {
-                "cells": [
-                  "merged",
-                  "scale"
-                ],
+                "label": "alpha",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "W",
-                  "B"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Separate adapter configurations permit rapid switching across tasks.",
-            "rows": [
-              {
-                "cells": [
-                  "merged",
-                  "scale"
-                ],
+                "label": "r",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "W",
-                  "B"
-                ],
+                "label": "scale",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "A",
-                  "alpha"
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example merges an update and checks consistency with the adapter.",
-            "rows": [
+            "caption": "The example merges an update and checks the merged matrix gives the same.",
+            "bars": [
               {
-                "cells": [
-                  "merged",
-                  "scale"
-                ],
+                "label": "alpha",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "W",
-                  "B"
-                ],
+                "label": "r",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "A",
-                  "alpha"
-                ],
-                "tone": "data"
+                "label": "scale",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "lora_merge",
-                  "print"
-                ],
+                "label": "i",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -1018,110 +674,161 @@
       "codeHash": "76b0c4d40b65d88abeaa2efd4962eacc2b8d56f7e8573dfc5d87d6d4dde5e611",
       "spec": {
         "template": "flow",
-        "title": "Choosing rank and what to adapt — Execution Pipeline",
+        "title": "Choosing rank and what to adapt",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "layers",
+            "label": "layers"
           },
           {
-            "id": "proc",
-            "label": "2. Choosing rank and w...",
-            "tappable": true
+            "id": "matrices",
+            "label": "matrices"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "d",
+            "label": "d"
+          },
+          {
+            "id": "base",
+            "label": "base"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing rank and what to adapt [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing rank and w... [D.Pfive.Stwo].",
+            "caption": "Rank r controls capacity.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "layers": {
+                "var": "layers",
+                "line": 1,
+                "hit": 1
+              },
+              "matrices": {
+                "var": "matrices",
+                "line": 1,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 1,
+                "hit": 1
+              },
+              "base": {
+                "var": "base",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "layers": "data",
+              "matrices": "data",
+              "d": "data",
+              "base": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "layers",
+                "matrices"
               ],
               [
-                "proc",
-                "out"
+                "matrices",
+                "d"
+              ],
+              [
+                "d",
+                "base"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Higher rank means more trainable parameters and more risk of overfitting.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "layers": {
+                "var": "layers",
+                "line": 2,
+                "hit": 1
+              },
+              "matrices": {
+                "var": "matrices",
+                "line": 2,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 2,
+                "hit": 1
+              },
+              "base": {
+                "var": "base",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "layers": "data",
+              "matrices": "data",
+              "d": "data",
+              "base": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "layers",
+                "matrices"
+              ],
+              [
+                "matrices",
+                "d"
+              ],
+              [
+                "d",
+                "base"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing rank and what to adapt.",
+            "at": "say7",
+            "caption": "Trace how even updates rank during execution.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "layers": {
+                "var": "layers",
+                "line": 3,
+                "hit": 1
+              },
+              "matrices": {
+                "var": "matrices",
+                "line": 3,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 3,
+                "hit": 1
+              },
+              "base": {
+                "var": "base",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "layers": "ok",
+              "matrices": "ok",
+              "d": "ok",
+              "base": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "layers",
+                "matrices"
               ],
               [
-                "proc",
-                "out"
+                "matrices",
+                "d"
+              ],
+              [
+                "d",
+                "base"
               ]
             ]
           }
@@ -1129,110 +836,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Choosing rank and what to adapt — Execution Pipeline",
+        "title": "Choosing rank and what to adapt",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "layers",
+            "label": "layers"
           },
           {
-            "id": "proc",
-            "label": "2. Choosing rank and w...",
-            "tappable": true
+            "id": "matrices",
+            "label": "matrices"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "d",
+            "label": "d"
+          },
+          {
+            "id": "base",
+            "label": "base"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing rank and what to adapt [D29.P5.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing rank and w... [D29.P5.S2].",
+            "caption": "Rank r controls capacity.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "layers": "32",
+              "matrices": "4",
+              "d": "4096",
+              "base": "7000000000"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "layers": "data",
+              "matrices": "data",
+              "d": "data",
+              "base": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "layers",
+                "matrices"
               ],
               [
-                "proc",
-                "out"
+                "matrices",
+                "d"
+              ],
+              [
+                "d",
+                "base"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P5.S3].",
+            "at": "say2",
+            "caption": "Higher rank means more trainable parameters and more risk of overfitting.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "layers": "32",
+              "matrices": "4",
+              "d": "4096",
+              "base": "7000000000"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "layers": "data",
+              "matrices": "data",
+              "d": "data",
+              "base": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "layers",
+                "matrices"
+              ],
+              [
+                "matrices",
+                "d"
+              ],
+              [
+                "d",
+                "base"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing rank and what to adapt [D29.P5.S4].",
+            "at": "say7",
+            "caption": "Trace how even updates rank during execution.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "layers": "32",
+              "matrices": "4",
+              "d": "4096",
+              "base": "7000000000"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "layers": "ok",
+              "matrices": "ok",
+              "d": "ok",
+              "base": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "layers",
+                "matrices"
               ],
               [
-                "proc",
-                "out"
+                "matrices",
+                "d"
+              ],
+              [
+                "d",
+                "base"
               ]
             ]
           }
@@ -1243,223 +953,217 @@
       "partTitle": "Practice time: savings and merging",
       "codeHash": "a474c69658304c400b5ff81120587f564c4ecce9f9da6c43d9d9541b60a85f3f",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: savings and merging — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: savi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: savings and merging",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: savings and merging.",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: savi... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Return a dictionary with full = d * k, lora = r * (d + k), and saving_pct.",
+            "bars": [
+              {
+                "label": "full_model_gib",
+                "value": {
+                  "var": "full_model_gib",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "layers",
+                "value": {
+                  "var": "layers",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "matrices",
+                "value": {
+                  "var": "matrices",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates rank during execution.",
+            "bars": [
+              {
+                "label": "full_model_gib",
+                "value": {
+                  "var": "full_model_gib",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "layers",
+                "value": {
+                  "var": "layers",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "matrices",
+                "value": {
+                  "var": "matrices",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: savings and merging.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example does that.",
+            "bars": [
+              {
+                "label": "full_model_gib",
+                "value": {
+                  "var": "full_model_gib",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "layers",
+                "value": {
+                  "var": "layers",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "matrices",
+                "value": {
+                  "var": "matrices",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: savings and merging — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: savi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: savings and merging",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: savings and merging [D29.P6.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: savi... [D29.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Return a dictionary with full = d * k, lora = r * (d + k), and saving_pct.",
+            "bars": [
+              {
+                "label": "full_model_gib",
+                "value": 13,
+                "tone": "data"
+              },
+              {
+                "label": "layers",
+                "value": 32,
+                "tone": "data"
+              },
+              {
+                "label": "matrices",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": 4096,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates rank during execution.",
+            "bars": [
+              {
+                "label": "full_model_gib",
+                "value": 13,
+                "tone": "ok"
+              },
+              {
+                "label": "layers",
+                "value": 32,
+                "tone": "ok"
+              },
+              {
+                "label": "matrices",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": 4096,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: savings and merging [D29.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example does that.",
+            "bars": [
+              {
+                "label": "full_model_gib",
+                "value": 13,
+                "tone": "ok"
+              },
+              {
+                "label": "layers",
+                "value": 32,
+                "tone": "ok"
+              },
+              {
+                "label": "matrices",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": 4096,
+                "tone": "ok"
+              }
             ]
           }
         ]

@@ -2,89 +2,101 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 47,
-  "promptSha": "1e3e3e106847ab8a63c851575e2537e3fa0bcf48cda6aac70da5b679fca9e437",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Amortized O(N) Monotonic Stack Invariants & Next Greater Element",
       "codeHash": "f643d9d556993a4e9fc48489e945e000155501c8629559ad473e50e1a94a3e57",
       "spec": {
-        "template": "table",
-        "title": "Amortized O(N) Monotonic Stack Invariants & Next Greater",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Amortized O(N) Monotonic Stack Invariants & Next Greater Element",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The telemetry design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Amortized"
-                  },
-                  {
-                    "text": "Monotonic"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Many real-time telemetry questions ask for the 'next larger spike'.",
+            "items": {
+              "var": "temps",
+              "line": 24,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The pushing step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Stack"
-                  },
-                  {
-                    "text": "Invariants"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "A Monotonic Stack collapses that scan strictly to O(N) time.",
+            "items": {
+              "var": "temps",
+              "line": 25,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect both standard Next Greater Element and Circular Next Greater.",
+            "items": {
+              "var": "temps",
+              "line": 27,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Amortized O(N) Monotonic Stack Invariants & Next Greater",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Amortized O(N) Monotonic Stack Invariants & Next Greater Element",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The telemetry design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Amortized",
-                  "Monotonic"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Many real-time telemetry questions ask for the 'next larger spike'.",
+            "mode": "stack",
+            "items": [
+              "73",
+              "74",
+              "75",
+              "71",
+              "69",
+              "72",
+              "76",
+              "73"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The pushing step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Stack",
-                  "Invariants"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "A Monotonic Stack collapses that scan strictly to O(N) time.",
+            "mode": "stack",
+            "items": [
+              "73",
+              "74",
+              "75",
+              "71",
+              "69",
+              "72",
+              "76",
+              "73"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect both standard Next Greater Element and Circular Next Greater.",
+            "mode": "stack",
+            "items": [
+              "73",
+              "74",
+              "75",
+              "71",
+              "69",
+              "72",
+              "76",
+              "73"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -93,82 +105,88 @@
       "partTitle": "Largest Rectangle in Histogram & Maximal Binary Matrix Area",
       "codeHash": "57d67bce0ffad154d6b6914e5b5322e2d7b490ecc2fdca7cd10819d57ef7f723",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Largest Rectangle in Histogram & Maximal Binary Matrix Area",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The finest design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Largest"
-                  },
-                  {
-                    "text": "Rectangle"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "One of the finest geometric applications of a Monotonic Stack is finding.",
+            "items": {
+              "var": "bars",
+              "line": 32,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The maintaining step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Histogram"
-                  },
-                  {
-                    "text": "Maximal"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Think about any candidate bar `h = heights[idx]`.",
+            "items": {
+              "var": "bars",
+              "line": 33,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "Append one artificial trailing `0` bar at the end of `heights` (`heights +.",
+            "items": {
+              "var": "bars",
+              "line": 42,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Largest Rectangle in Histogram & Maximal Binary Matrix Area",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The finest design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Largest",
-                  "Rectangle"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "One of the finest geometric applications of a Monotonic Stack is finding.",
+            "mode": "stack",
+            "items": [
+              "2",
+              "1",
+              "5",
+              "6",
+              "2",
+              "3"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The maintaining step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Histogram",
-                  "Maximal"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Think about any candidate bar `h = heights[idx]`.",
+            "mode": "stack",
+            "items": [
+              "2",
+              "1",
+              "5",
+              "6",
+              "2",
+              "3"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "Append one artificial trailing `0` bar at the end of `heights` (`heights +.",
+            "mode": "stack",
+            "items": [
+              "2",
+              "1",
+              "5",
+              "6",
+              "2",
+              "3"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -177,82 +195,94 @@
       "partTitle": "Sliding Window Maximum/Minimum in O(N) via Monotonic Deque",
       "codeHash": "83e676cf3a72fe0420679dbe1378c0b0a324e6c5f44021a93b10c2a99ab43504",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Sliding Window Maximum/Minimum in O(N) via Monotonic Deque",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The monitoring design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Sliding"
-                  },
-                  {
-                    "text": "Window"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Monitoring fixed-size sliding windows `[i - k + 1.",
+            "items": {
+              "var": "series",
+              "line": 27,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The three step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Maximum"
-                  },
-                  {
-                    "text": "Minimum"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "A Monotonic Deque (`collections.",
+            "items": {
+              "var": "series",
+              "line": 28,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Once `i >= k - 1`, `nums[dq[0]]` IS immediately the maximum inside window.",
+            "items": {
+              "var": "series",
+              "line": 31,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Sliding Window Maximum/Minimum in O(N) via Monotonic Deque",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The monitoring design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Sliding",
-                  "Window"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Monitoring fixed-size sliding windows `[i - k + 1.",
+            "mode": "queue",
+            "items": [
+              "1",
+              "3",
+              "-1",
+              "-3",
+              "5",
+              "3",
+              "6",
+              "7"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The three step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Maximum",
-                  "Minimum"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "A Monotonic Deque (`collections.",
+            "mode": "queue",
+            "items": [
+              "1",
+              "3",
+              "-1",
+              "-3",
+              "5",
+              "3",
+              "6",
+              "7"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Once `i >= k - 1`, `nums[dq[0]]` IS immediately the maximum inside window.",
+            "mode": "queue",
+            "items": [
+              "1",
+              "3",
+              "-1",
+              "-3",
+              "5",
+              "3",
+              "6",
+              "7"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -261,82 +291,82 @@
       "partTitle": "Bounded Subarray Extremes & Monotonic Deque Prefix-Sum Optimization",
       "codeHash": "a602325e2f9e54ce251a024879b044ea81b905c31f2feefa9da067057ff5b35b",
       "spec": {
-        "template": "table",
-        "title": "Bounded Subarray Extremes & Monotonic Deque Prefix-Sum",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Bounded Subarray Extremes & Monotonic Deque Prefix-Sum Optimizat",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The monotonic design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Bounded"
-                  },
-                  {
-                    "text": "Subarray"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Monotonic deques unlock variable-width sliding windows and even prefix-sum.",
+            "items": {
+              "var": "nums",
+              "line": 4,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Extremes"
-                  },
-                  {
-                    "text": "Monotonic"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Find the longest contiguous subarray whose peak-to-valley spread `max.",
+            "items": {
+              "var": "nums",
+              "line": 5,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Verify both variable-window monotonic deque algorithms in Python below.",
+            "items": {
+              "var": "nums",
+              "line": 8,
+              "hit": 2
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Bounded Subarray Extremes & Monotonic Deque Prefix-Sum",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Bounded Subarray Extremes & Monotonic Deque Prefix-Sum Optimizat",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The monotonic design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Bounded",
-                  "Subarray"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Monotonic deques unlock variable-width sliding windows and even prefix-sum.",
+            "mode": "queue",
+            "items": [
+              "8",
+              "2",
+              "4",
+              "7"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Extremes",
-                  "Monotonic"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Find the longest contiguous subarray whose peak-to-valley spread `max.",
+            "mode": "queue",
+            "items": [
+              "8",
+              "2",
+              "4",
+              "7"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Verify both variable-window monotonic deque algorithms in Python below.",
+            "mode": "queue",
+            "items": [
+              "8",
+              "2",
+              "4",
+              "7"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -345,82 +375,106 @@
       "partTitle": "Production Application: Streaming Anomaly Spike & Bounded Latency Window Analyzer",
       "codeHash": "99c12c8152d64e08a3dd892f7804b4310824bc87ba6ac512a1243fc3d2a52612",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Production Application: Streaming Anomaly Spike & Bounded Latenc",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The synthesize design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Now let us synthesize Monotonic Stacks and Monotonic Deques inside.",
+            "items": {
+              "var": "trace",
+              "line": 52,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The series step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Streaming"
-                  },
-                  {
-                    "text": "Anomaly"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Distributed SRE teams audit RPC latency streams for three key stability.",
+            "items": {
+              "var": "trace",
+              "line": 53,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect and execute `StreamingWindowMonitor` below across a 12-sample.",
+            "items": {
+              "var": "trace",
+              "line": 55,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Production Application: Streaming Anomaly Spike & Bounded Latenc",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The synthesize design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Now let us synthesize Monotonic Stacks and Monotonic Deques inside.",
+            "mode": "queue",
+            "items": [
+              "12",
+              "14",
+              "15",
+              "13",
+              "45",
+              "52",
+              "48",
+              "50",
+              "16",
+              "14",
+              "15",
+              "13"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The series step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Streaming",
-                  "Anomaly"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Distributed SRE teams audit RPC latency streams for three key stability.",
+            "mode": "queue",
+            "items": [
+              "12",
+              "14",
+              "15",
+              "13",
+              "45",
+              "52",
+              "48",
+              "50",
+              "16",
+              "14",
+              "15",
+              "13"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect and execute `StreamingWindowMonitor` below across a 12-sample.",
+            "mode": "queue",
+            "items": [
+              "12",
+              "14",
+              "15",
+              "13",
+              "45",
+              "52",
+              "48",
+              "50",
+              "16",
+              "14",
+              "15",
+              "13"
+            ],
+            "action": "idle"
           }
         ]
       }

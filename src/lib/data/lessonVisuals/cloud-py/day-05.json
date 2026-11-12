@@ -2,302 +2,172 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 5,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The reference architecture",
       "codeHash": "c5d92d188e272c5bd8c313b35cd5bd6335ad5e8ff85f4664f314363fd3043094",
       "spec": {
-        "template": "table",
-        "title": "Standard multi-AZ reference architecture subnet layout",
-        "columns": [
-          "id",
-          "az",
-          "type",
-          "cidr"
+        "template": "flow",
+        "title": "The reference architecture",
+        "nodes": [
+          {
+            "id": "vpc",
+            "label": "vpc"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Public subnets hold internet facing components across availability zones.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "public-a"
-                  },
-                  {
-                    "text": "us-east-1a"
-                  },
-                  {
-                    "text": "PUBLIC"
-                  },
-                  {
-                    "text": "10.0.1.0/24"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Almost every serious AWS workload starts from the same network shape.",
+            "values": {
+              "vpc": {
+                "var": "vpc",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "public-b"
-                  },
-                  {
-                    "text": "us-east-1b"
-                  },
-                  {
-                    "text": "PUBLIC"
-                  },
-                  {
-                    "text": "10.0.2.0/24"
-                  }
-                ],
-                "tone": "ok"
+              "s": {
+                "var": "s",
+                "line": 12,
+                "hit": 1
               }
+            },
+            "tones": {
+              "vpc": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "vpc",
+                "s"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Private subnets isolate internal application databases from public routing.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "public-a"
-                  },
-                  {
-                    "text": "us-east-1a"
-                  },
-                  {
-                    "text": "PUBLIC"
-                  },
-                  {
-                    "text": "10.0.1.0/24"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "One VPC, for example 10.",
+            "values": {
+              "vpc": {
+                "var": "vpc",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "public-b"
-                  },
-                  {
-                    "text": "us-east-1b"
-                  },
-                  {
-                    "text": "PUBLIC"
-                  },
-                  {
-                    "text": "10.0.2.0/24"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "private-a"
-                  },
-                  {
-                    "text": "us-east-1a"
-                  },
-                  {
-                    "text": "PRIVATE"
-                  },
-                  {
-                    "text": "10.0.11.0/24"
-                  }
-                ],
-                "tone": "ok"
+              "s": {
+                "var": "s",
+                "line": 13,
+                "hit": 1
               }
+            },
+            "tones": {
+              "vpc": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "vpc",
+                "s"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example builds this subnet architecture design using structured data.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "public-a"
-                  },
-                  {
-                    "text": "us-east-1a"
-                  },
-                  {
-                    "text": "PUBLIC"
-                  },
-                  {
-                    "text": "10.0.1.0/24"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example builds this design as Python data.",
+            "values": {
+              "vpc": {
+                "var": "vpc",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "public-b"
-                  },
-                  {
-                    "text": "us-east-1b"
-                  },
-                  {
-                    "text": "PUBLIC"
-                  },
-                  {
-                    "text": "10.0.2.0/24"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "private-a"
-                  },
-                  {
-                    "text": "us-east-1a"
-                  },
-                  {
-                    "text": "PRIVATE"
-                  },
-                  {
-                    "text": "10.0.11.0/24"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "private-b"
-                  },
-                  {
-                    "text": "us-east-1b"
-                  },
-                  {
-                    "text": "PRIVATE"
-                  },
-                  {
-                    "text": "10.0.12.0/24"
-                  }
-                ],
-                "tone": "ok"
+              "s": {
+                "var": "s",
+                "line": 12,
+                "hit": 2
               }
+            },
+            "tones": {
+              "vpc": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "vpc",
+                "s"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Standard multi-AZ reference architecture subnet layout",
-        "columns": [
-          "id",
-          "az",
-          "type",
-          "cidr"
+        "template": "flow",
+        "title": "The reference architecture",
+        "nodes": [
+          {
+            "id": "vpc",
+            "label": "vpc"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Public subnets hold internet facing components across availability zones.",
-            "rows": [
-              {
-                "cells": [
-                  "public-a",
-                  "us-east-1a",
-                  "PUBLIC",
-                  "10.0.1.0/24"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "public-b",
-                  "us-east-1b",
-                  "PUBLIC",
-                  "10.0.2.0/24"
-                ],
-                "tone": "ok"
-              }
+            "at": "say1",
+            "caption": "Almost every serious AWS workload starts from the same network shape.",
+            "values": {
+              "vpc": "{'cidr': '10.0.0.0/16', 'has_internet_g…",
+              "s": "{'id': 'public-a', 'az': 'us-east-1a', …"
+            },
+            "tones": {
+              "vpc": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "vpc",
+                "s"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Private subnets isolate internal application databases from public routing.",
-            "rows": [
-              {
-                "cells": [
-                  "public-a",
-                  "us-east-1a",
-                  "PUBLIC",
-                  "10.0.1.0/24"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "public-b",
-                  "us-east-1b",
-                  "PUBLIC",
-                  "10.0.2.0/24"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "private-a",
-                  "us-east-1a",
-                  "PRIVATE",
-                  "10.0.11.0/24"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "One VPC, for example 10.",
+            "values": {
+              "vpc": "{'cidr': '10.0.0.0/16', 'has_internet_g…",
+              "s": "{'id': 'public-a', 'az': 'us-east-1a', …"
+            },
+            "tones": {
+              "vpc": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "vpc",
+                "s"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example builds this subnet architecture design using structured data.",
-            "rows": [
-              {
-                "cells": [
-                  "public-a",
-                  "us-east-1a",
-                  "PUBLIC",
-                  "10.0.1.0/24"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "public-b",
-                  "us-east-1b",
-                  "PUBLIC",
-                  "10.0.2.0/24"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "private-a",
-                  "us-east-1a",
-                  "PRIVATE",
-                  "10.0.11.0/24"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "private-b",
-                  "us-east-1b",
-                  "PRIVATE",
-                  "10.0.12.0/24"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The example builds this design as Python data.",
+            "values": {
+              "vpc": "{'cidr': '10.0.0.0/16', 'has_internet_g…",
+              "s": "{'id': 'public-b', 'az': 'us-east-1b', …"
+            },
+            "tones": {
+              "vpc": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "vpc",
+                "s"
+              ]
             ]
           }
         ]
@@ -307,165 +177,277 @@
       "partTitle": "NAT gateways: out but not in",
       "codeHash": "c02d60e84ced1d64562be9658fbf1e633916bd660efea29c5b8643ebe11ac3db",
       "spec": {
-        "template": "table",
-        "title": "NAT gateway stateful address translation table tracking outgoing flows",
-        "columns": [
-          "event",
-          "destination"
+        "template": "flow",
+        "title": "NAT gateways: out but not in",
+        "nodes": [
+          {
+            "id": "nat_table",
+            "label": "nat_table"
+          },
+          {
+            "id": "NAT_PUBLIC_IP",
+            "label": "NAT_PUBLIC_IP"
+          },
+          {
+            "id": "private_ip",
+            "label": "private_ip"
+          },
+          {
+            "id": "port",
+            "label": "port"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A NAT gateway allows outbound connections while blocking inbound attempts.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Leaves as:"
-                  },
-                  {
-                    "text": "54.12.3.4"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Servers in private subnets still need to reach the internet sometimes.",
+            "values": {
+              "nat_table": {
+                "var": "nat_table",
+                "line": 1,
+                "hit": 1
+              },
+              "NAT_PUBLIC_IP": {
+                "var": "NAT_PUBLIC_IP",
+                "line": 2,
+                "hit": 1
+              },
+              "private_ip": {
+                "var": "private_ip",
+                "line": 5,
+                "hit": 1
+              },
+              "port": {
+                "var": "port",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "nat_table": "data",
+              "NAT_PUBLIC_IP": "data",
+              "private_ip": "data",
+              "port": "data"
+            },
+            "arrows": [
+              [
+                "nat_table",
+                "NAT_PUBLIC_IP"
+              ],
+              [
+                "NAT_PUBLIC_IP",
+                "private_ip"
+              ],
+              [
+                "private_ip",
+                "port"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Swapping the private server address on replies forwards traffic safely.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Leaves as:"
-                  },
-                  {
-                    "text": "54.12.3.4"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "A NAT gateway (network address translation) lets them start connections.",
+            "values": {
+              "nat_table": {
+                "var": "nat_table",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Reply goes to:"
-                  },
-                  {
-                    "text": "10.0.11.25"
-                  }
-                ],
-                "tone": "ok"
+              "NAT_PUBLIC_IP": {
+                "var": "NAT_PUBLIC_IP",
+                "line": 4,
+                "hit": 1
+              },
+              "private_ip": {
+                "var": "private_ip",
+                "line": 6,
+                "hit": 1
+              },
+              "port": {
+                "var": "port",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "nat_table": "data",
+              "NAT_PUBLIC_IP": "data",
+              "private_ip": "data",
+              "port": "data"
+            },
+            "arrows": [
+              [
+                "nat_table",
+                "NAT_PUBLIC_IP"
+              ],
+              [
+                "NAT_PUBLIC_IP",
+                "private_ip"
+              ],
+              [
+                "private_ip",
+                "port"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example simulates address swaps for outbound connections and replies.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Leaves as:"
-                  },
-                  {
-                    "text": "54.12.3.4"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example simulates the address swap for an outgoing connection and its.",
+            "values": {
+              "nat_table": {
+                "var": "nat_table",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Reply goes to:"
-                  },
-                  {
-                    "text": "10.0.11.25"
-                  }
-                ],
-                "tone": "ok"
+              "NAT_PUBLIC_IP": {
+                "var": "NAT_PUBLIC_IP",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Unsolicited packet:"
-                  },
-                  {
-                    "text": "DROPPED: nobody asked for this"
-                  }
-                ],
-                "tone": "error"
+              "private_ip": {
+                "var": "private_ip",
+                "line": 7,
+                "hit": 1
+              },
+              "port": {
+                "var": "port",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "nat_table": "ok",
+              "NAT_PUBLIC_IP": "ok",
+              "private_ip": "ok",
+              "port": "ok"
+            },
+            "arrows": [
+              [
+                "nat_table",
+                "NAT_PUBLIC_IP"
+              ],
+              [
+                "NAT_PUBLIC_IP",
+                "private_ip"
+              ],
+              [
+                "private_ip",
+                "port"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "NAT gateway stateful address translation table tracking outgoing flows",
-        "columns": [
-          "event",
-          "destination"
+        "template": "flow",
+        "title": "NAT gateways: out but not in",
+        "nodes": [
+          {
+            "id": "nat_table",
+            "label": "nat_table"
+          },
+          {
+            "id": "NAT_PUBLIC_IP",
+            "label": "NAT_PUBLIC_IP"
+          },
+          {
+            "id": "private_ip",
+            "label": "private_ip"
+          },
+          {
+            "id": "port",
+            "label": "port"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A NAT gateway allows outbound connections while blocking inbound attempts.",
-            "rows": [
-              {
-                "cells": [
-                  "Leaves as:",
-                  "54.12.3.4"
-                ],
-                "tone": "ok"
-              }
+            "at": "say1",
+            "caption": "Servers in private subnets still need to reach the internet sometimes.",
+            "values": {
+              "nat_table": "{}",
+              "NAT_PUBLIC_IP": "'54.12.3.4'",
+              "private_ip": "'10.0.11.25'",
+              "port": "51000"
+            },
+            "tones": {
+              "nat_table": "data",
+              "NAT_PUBLIC_IP": "data",
+              "private_ip": "data",
+              "port": "data"
+            },
+            "arrows": [
+              [
+                "nat_table",
+                "NAT_PUBLIC_IP"
+              ],
+              [
+                "NAT_PUBLIC_IP",
+                "private_ip"
+              ],
+              [
+                "private_ip",
+                "port"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Swapping the private server address on replies forwards traffic safely.",
-            "rows": [
-              {
-                "cells": [
-                  "Leaves as:",
-                  "54.12.3.4"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Reply goes to:",
-                  "10.0.11.25"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "A NAT gateway (network address translation) lets them start connections.",
+            "values": {
+              "nat_table": "{}",
+              "NAT_PUBLIC_IP": "'54.12.3.4'",
+              "private_ip": "'10.0.11.25'",
+              "port": "51000"
+            },
+            "tones": {
+              "nat_table": "data",
+              "NAT_PUBLIC_IP": "data",
+              "private_ip": "data",
+              "port": "data"
+            },
+            "arrows": [
+              [
+                "nat_table",
+                "NAT_PUBLIC_IP"
+              ],
+              [
+                "NAT_PUBLIC_IP",
+                "private_ip"
+              ],
+              [
+                "private_ip",
+                "port"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example simulates address swaps for outbound connections and replies.",
-            "rows": [
-              {
-                "cells": [
-                  "Leaves as:",
-                  "54.12.3.4"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Reply goes to:",
-                  "10.0.11.25"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Unsolicited packet:",
-                  "DROPPED: nobody asked for this"
-                ],
-                "tone": "error"
-              }
+            "caption": "The example simulates the address swap for an outgoing connection and its.",
+            "values": {
+              "nat_table": "{}",
+              "NAT_PUBLIC_IP": "'54.12.3.4'",
+              "private_ip": "'10.0.11.25'",
+              "port": "51000"
+            },
+            "tones": {
+              "nat_table": "ok",
+              "NAT_PUBLIC_IP": "ok",
+              "private_ip": "ok",
+              "port": "ok"
+            },
+            "arrows": [
+              [
+                "nat_table",
+                "NAT_PUBLIC_IP"
+              ],
+              [
+                "NAT_PUBLIC_IP",
+                "private_ip"
+              ],
+              [
+                "private_ip",
+                "port"
+              ]
             ]
           }
         ]
@@ -475,93 +457,91 @@
       "partTitle": "The bastion host",
       "codeHash": "a443ce00bd63cde29eaa4a343a73994a0d63857f3ca99acc9a185650e85def3b",
       "spec": {
-        "template": "table",
-        "title": "Hardened bastion host ingress and app security group rules",
-        "columns": [
-          "group",
-          "source"
+        "template": "sequence",
+        "title": "The bastion host",
+        "actors": [
+          "OFFICE",
+          "plan",
+          "problems"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Its security group allows SSH access only from the company office IP range.",
-            "rows": [
+            "at": "say1",
+            "caption": "Sometimes an engineer needs to log in to a private server, for example.",
+            "activeActor": "OFFICE",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "bastion-sg"
-                  },
-                  {
-                    "text": "203.0.113.0/24"
-                  }
-                ],
+                "from": "OFFICE",
+                "to": "plan",
+                "label": {
+                  "var": "OFFICE",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "plan",
+                "to": "problems",
+                "label": {
+                  "var": "plan",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example checks that private servers accept SSH only from the bastion.",
-            "rows": [
+            "at": "say2",
+            "caption": "A bastion host (also called a jump box) is one small, hardened server in.",
+            "activeActor": "plan",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "bastion-sg"
-                  },
-                  {
-                    "text": "203.0.113.0/24"
-                  }
-                ],
-                "tone": "ok"
+                "from": "OFFICE",
+                "to": "plan",
+                "label": {
+                  "var": "OFFICE",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "app-sg"
-                  },
-                  {
-                    "text": "bastion-sg"
-                  }
-                ],
+                "from": "plan",
+                "to": "problems",
+                "label": {
+                  "var": "plan",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Security group references make chained ingress access rules easy to express.",
-            "rows": [
+            "caption": "Trace how notice updates security during execution.",
+            "activeActor": "problems",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "bastion-sg"
-                  },
-                  {
-                    "text": "203.0.113.0/24"
-                  }
-                ],
-                "tone": "ok"
+                "from": "OFFICE",
+                "to": "plan",
+                "label": {
+                  "var": "OFFICE",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "app-sg"
-                  },
-                  {
-                    "text": "bastion-sg"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "app-sg"
-                  },
-                  {
-                    "text": "alb-sg"
-                  }
-                ],
+                "from": "plan",
+                "to": "problems",
+                "label": {
+                  "var": "plan",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -569,72 +549,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Hardened bastion host ingress and app security group rules",
-        "columns": [
-          "group",
-          "source"
+        "template": "sequence",
+        "title": "The bastion host",
+        "actors": [
+          "OFFICE",
+          "plan",
+          "problems"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Its security group allows SSH access only from the company office IP range.",
-            "rows": [
+            "at": "say1",
+            "caption": "Sometimes an engineer needs to log in to a private server, for example.",
+            "messages": [
               {
-                "cells": [
-                  "bastion-sg",
-                  "203.0.113.0/24"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example checks that private servers accept SSH only from the bastion.",
-            "rows": [
-              {
-                "cells": [
-                  "bastion-sg",
-                  "203.0.113.0/24"
-                ],
-                "tone": "ok"
+                "from": "OFFICE",
+                "to": "plan",
+                "label": "'203.0.113.0/24'",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "app-sg",
-                  "bastion-sg"
-                ],
+                "from": "plan",
+                "to": "problems",
+                "label": "{'bastion-sg': [{'port': 22, 'source': …",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "OFFICE"
+          },
+          {
+            "at": "say2",
+            "caption": "A bastion host (also called a jump box) is one small, hardened server in.",
+            "messages": [
+              {
+                "from": "OFFICE",
+                "to": "plan",
+                "label": "'203.0.113.0/24'",
+                "tone": "data"
+              },
+              {
+                "from": "plan",
+                "to": "problems",
+                "label": "{'bastion-sg': [{'port': 22, 'source': …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "plan"
           },
           {
             "at": "say7",
-            "caption": "Security group references make chained ingress access rules easy to express.",
-            "rows": [
+            "caption": "Trace how notice updates security during execution.",
+            "messages": [
               {
-                "cells": [
-                  "bastion-sg",
-                  "203.0.113.0/24"
-                ],
-                "tone": "ok"
+                "from": "OFFICE",
+                "to": "plan",
+                "label": "'203.0.113.0/24'",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "app-sg",
-                  "bastion-sg"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "app-sg",
-                  "alb-sg"
-                ],
+                "from": "plan",
+                "to": "problems",
+                "label": "{'bastion-sg': [{'port': 22, 'source': …",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "problems"
           }
         ]
       }
@@ -643,166 +621,106 @@
       "partTitle": "Writing a validator that lists every problem",
       "codeHash": "ca8f1f9aa992d0d6bf70634e5fd9936d361aa777dc9599d6f848bdd2d55f74f9",
       "spec": {
-        "template": "table",
-        "title": "VPC validator rule checks and problem diagnostics",
-        "columns": [
-          "field",
-          "status"
+        "template": "states",
+        "title": "Writing a validator that lists every problem",
+        "states": [
+          {
+            "id": "draft",
+            "label": "draft"
+          },
+          {
+            "id": "vpc",
+            "label": "vpc"
+          },
+          {
+            "id": "subnets",
+            "label": "subnets"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Practice 1 is validate_vpc(vpc).",
+            "currentState": "draft",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "A good validator reports every discovered architectural issue in the plan.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "has_internet_gateway"
-                  },
-                  {
-                    "text": "PUBLIC"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A good validator reports ALL problems at once, not just the first.",
+            "currentState": "vpc",
+            "transition": {
+              "from": "draft",
+              "to": "vpc",
+              "label": {
+                "var": "vpc",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Append each problem code sequentially as validation rules fail.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "has_internet_gateway"
-                  },
-                  {
-                    "text": "PUBLIC"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "has_nat_gateway"
-                  },
-                  {
-                    "text": "NO_NAT_GATEWAY"
-                  }
-                ],
-                "tone": "error"
+            "at": "say7",
+            "caption": "The example runs a validator against a plan that has several mistakes at once.",
+            "currentState": "subnets",
+            "transition": {
+              "from": "vpc",
+              "to": "subnets",
+              "label": {
+                "var": "subnets",
+                "line": 3,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Returning standardized error codes makes validation easy to test.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "has_internet_gateway"
-                  },
-                  {
-                    "text": "PUBLIC"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "has_nat_gateway"
-                  },
-                  {
-                    "text": "NO_NAT_GATEWAY"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "PRIVATE"
-                  },
-                  {
-                    "text": "NEEDS_2_PRIVATE_SUBNETS"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "VPC validator rule checks and problem diagnostics",
-        "columns": [
-          "field",
-          "status"
+        "template": "states",
+        "title": "Writing a validator that lists every problem",
+        "states": [
+          {
+            "id": "draft",
+            "label": "draft"
+          },
+          {
+            "id": "vpc",
+            "label": "vpc"
+          },
+          {
+            "id": "subnets",
+            "label": "subnets"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Practice 1 is validate_vpc(vpc).",
+            "currentState": "draft",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "A good validator reports every discovered architectural issue in the plan.",
-            "rows": [
-              {
-                "cells": [
-                  "has_internet_gateway",
-                  "PUBLIC"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "A good validator reports ALL problems at once, not just the first.",
+            "currentState": "vpc",
+            "transition": {
+              "from": "draft",
+              "to": "vpc",
+              "label": "{'has_internet_gateway': True, 'has_nat…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Append each problem code sequentially as validation rules fail.",
-            "rows": [
-              {
-                "cells": [
-                  "has_internet_gateway",
-                  "PUBLIC"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "has_nat_gateway",
-                  "NO_NAT_GATEWAY"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Returning standardized error codes makes validation easy to test.",
-            "rows": [
-              {
-                "cells": [
-                  "has_internet_gateway",
-                  "PUBLIC"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "has_nat_gateway",
-                  "NO_NAT_GATEWAY"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "PRIVATE",
-                  "NEEDS_2_PRIVATE_SUBNETS"
-                ],
-                "tone": "error"
-              }
-            ]
+            "at": "say7",
+            "caption": "The example runs a validator against a plan that has several mistakes at once.",
+            "currentState": "subnets",
+            "transition": {
+              "from": "vpc",
+              "to": "subnets",
+              "label": "[{'az': 'us-east-1a', 'type': 'PUBLIC'}…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -811,223 +729,133 @@
       "partTitle": "Proving subnets do not overlap",
       "codeHash": "1f69e41112bf3a5d93c823c68897f69d55aaabffc569658be16ad8d9b30be7d1",
       "spec": {
-        "template": "flow",
-        "title": "Proving subnets do not overlap — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Proving subnets do ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Proving subnets do not overlap",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Proving subnets do not overlap.",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Proving subnets do ... [Dfive.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A plan can pass every rule above and still be broken if two subnets share.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The ipaddress module gives each network an.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Proving subnets do not overlap.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "After the milestone, keep your validator.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Proving subnets do not overlap — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Proving subnets do ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Proving subnets do not overlap",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Proving subnets do not overlap [D5.P5.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Proving subnets do ... [D5.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A plan can pass every rule above and still be broken if two subnets share.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "j",
+                "value": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The ipaddress module gives each network an.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Proving subnets do not overlap [D5.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "After the milestone, keep your validator.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": 2,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -1038,110 +866,161 @@
       "codeHash": "ce45d315760da920e7a18c90a132ae4b4ae5daa4695402360b16bc9b52ecf917",
       "spec": {
         "template": "flow",
-        "title": "Milestone review: from plan to production — Execution Pipeline",
+        "title": "Milestone review: from plan to production",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "plan",
+            "label": "plan"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone review: f...",
-            "tappable": true
+            "id": "nets",
+            "label": "nets"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "i",
+            "label": "i"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Milestone review: from plan to production.",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Milestone review: f... [Dfive.Psix.Stwo].",
+            "caption": "You now have everything to plan a real AWS network.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "plan": {
+                "var": "plan",
+                "line": 3,
+                "hit": 1
+              },
+              "nets": {
+                "var": "nets",
+                "line": 5,
+                "hit": 5
+              },
+              ".0": {
+                "var": ".0",
+                "line": 6,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "plan": "data",
+              "nets": "data",
+              ".0": "data",
+              "i": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "plan",
+                "nets"
               ],
               [
-                "proc",
-                "out"
+                "nets",
+                ".0"
+              ],
+              [
+                ".0",
+                "i"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfive.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Professionals turn such a plan into code with tools like Terraform or AWS.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "plan": {
+                "var": "plan",
+                "line": 5,
+                "hit": 1
+              },
+              "nets": {
+                "var": "nets",
+                "line": 6,
+                "hit": 12
+              },
+              ".0": {
+                "var": ".0",
+                "line": 6,
+                "hit": 2
+              },
+              "i": {
+                "var": "i",
+                "line": 6,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "plan": "data",
+              "nets": "data",
+              ".0": "data",
+              "i": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "plan",
+                "nets"
+              ],
+              [
+                "nets",
+                ".0"
+              ],
+              [
+                ".0",
+                "i"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Milestone review: from plan to pr.",
+            "at": "say7",
+            "caption": "Well done on reaching the first milestone.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "plan": {
+                "var": "plan",
+                "line": 5,
+                "hit": 2
+              },
+              "nets": {
+                "var": "nets",
+                "line": 7,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 6,
+                "hit": 3
+              },
+              "i": {
+                "var": "i",
+                "line": 6,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "plan": "ok",
+              "nets": "ok",
+              ".0": "ok",
+              "i": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "plan",
+                "nets"
               ],
               [
-                "proc",
-                "out"
+                "nets",
+                ".0"
+              ],
+              [
+                ".0",
+                "i"
               ]
             ]
           }
@@ -1149,110 +1028,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone review: from plan to production — Execution Pipeline",
+        "title": "Milestone review: from plan to production",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "plan",
+            "label": "plan"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone review: f...",
-            "tappable": true
+            "id": "nets",
+            "label": "nets"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "i",
+            "label": "i"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Milestone review: from plan to production [D5.P6.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Milestone review: f... [D5.P6.S2].",
+            "caption": "You now have everything to plan a real AWS network.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "plan": "[['public-a', 'us-east-1a', 'PUBLIC', '…",
+              "nets": "[<IPv4Network>, <IPv4Network>, <IPv4Net…",
+              ".0": "{'__other__': 'enumerate'}",
+              "i": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "plan": "data",
+              "nets": "data",
+              ".0": "data",
+              "i": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "plan",
+                "nets"
               ],
               [
-                "proc",
-                "out"
+                "nets",
+                ".0"
+              ],
+              [
+                ".0",
+                "i"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P6.S3].",
+            "at": "say2",
+            "caption": "Professionals turn such a plan into code with tools like Terraform or AWS.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "plan": "[['public-a', 'us-east-1a', 'PUBLIC', '…",
+              "nets": "[<IPv4Network>, <IPv4Network>, <IPv4Net…",
+              ".0": "{'__other__': 'enumerate'}",
+              "i": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "plan": "data",
+              "nets": "data",
+              ".0": "data",
+              "i": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "plan",
+                "nets"
+              ],
+              [
+                "nets",
+                ".0"
+              ],
+              [
+                ".0",
+                "i"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Milestone review: from plan to pr.. [D5.P6.S4].",
+            "at": "say7",
+            "caption": "Well done on reaching the first milestone.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "plan": "[['public-a', 'us-east-1a', 'PUBLIC', '…",
+              "nets": "[<IPv4Network>, <IPv4Network>, <IPv4Net…",
+              ".0": "{'__other__': 'enumerate'}",
+              "i": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "plan": "ok",
+              "nets": "ok",
+              ".0": "ok",
+              "i": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "plan",
+                "nets"
               ],
               [
-                "proc",
-                "out"
+                "nets",
+                ".0"
+              ],
+              [
+                ".0",
+                "i"
               ]
             ]
           }

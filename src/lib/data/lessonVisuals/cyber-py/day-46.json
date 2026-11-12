@@ -2,802 +2,588 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 46,
-  "promptSha": "6c598b7d9eddd43a2a75e50e5a2ba82be5731801c9e8dbc8ba93544757da5f24",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Secret Entropy Scanners — Foundations & Mathematical Invariants",
-      "codeHash": "3cd85d158e215c936a7e6eb34b2755aebad8420664f3cd408bfa1370b97a84e3",
+      "codeHash": "d26c51f0ddced5894b92007ad5548c375e240639067222521da4e4ca62592267",
       "spec": {
-        "template": "flow",
+        "template": "states",
         "title": "Secret Entropy Scanners — Foundations & Mathematical Invariants",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "english_text",
+            "label": "english_text"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "raw_secret",
+            "label": "raw_secret"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "string_val",
+            "label": "string_val"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Hardcoded credentials in source control repositories represent.",
+            "currentState": "english_text",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Developers inadvertently commit secrets when prototyping, testing local.",
+            "currentState": "raw_secret",
+            "transition": {
+              "from": "english_text",
+              "to": "raw_secret",
+              "label": {
+                "var": "raw_secret",
+                "line": 20,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Combining entropy calculations with structural heuristics creates.",
+            "currentState": "string_val",
+            "transition": {
+              "from": "raw_secret",
+              "to": "string_val",
+              "label": {
+                "var": "string_val",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "states",
         "title": "Secret Entropy Scanners — Foundations & Mathematical Invariants",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "english_text",
+            "label": "english_text"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "raw_secret",
+            "label": "raw_secret"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "string_val",
+            "label": "string_val"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Hardcoded credentials in source control repositories represent.",
+            "currentState": "english_text",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Developers inadvertently commit secrets when prototyping, testing local.",
+            "currentState": "raw_secret",
+            "transition": {
+              "from": "english_text",
+              "to": "raw_secret",
+              "label": "'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEK…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Combining entropy calculations with structural heuristics creates.",
+            "currentState": "string_val",
+            "transition": {
+              "from": "raw_secret",
+              "to": "string_val",
+              "label": "'This is standard documentation English…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Secret Entropy Scanners — Core Algorithm & State Representation",
-      "codeHash": "ce0f566edce81f64508f8b2a5c03dafd7ebed0979a831fba527adb86514246a9",
+      "codeHash": "4a2e26783c268045770f028ce5e9f6e0f93f96f7bf6da07cfc3286ae032605f3",
       "spec": {
-        "template": "flow",
+        "template": "boxes",
         "title": "Secret Entropy Scanners — Core Algorithm & State Representation",
-        "nodes": [
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sample_line",
+            "label": "sample_line"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "line_str",
+            "label": "line_str"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "findings",
+            "label": "findings"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While entropy detects high-randomness strings, it can produce false.",
+            "values": {
+              "sample_line": {
+                "var": "sample_line",
+                "line": 19,
+                "hit": 1
+              },
+              "line_str": {
+                "var": "line_str",
+                "line": 12,
+                "hit": 1
+              },
+              "findings": {
+                "var": "findings",
+                "line": 12,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 13,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "sample_line": "data",
+              "line_str": "data",
+              "findings": "data",
+              "name": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "To achieve high precision, production secret scanners combine entropy.",
+            "values": {
+              "sample_line": {
+                "var": "sample_line",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "line_str": {
+                "var": "line_str",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "findings": {
+                "var": "findings",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "name": {
+                "var": "name",
+                "line": 14,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "sample_line": "data",
+              "line_str": "data",
+              "findings": "data",
+              "name": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Integrating hybrid scanning into continuous delivery pipelines provides.",
+            "values": {
+              "sample_line": {
+                "var": "sample_line",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "line_str": {
+                "var": "line_str",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "findings": {
+                "var": "findings",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "name": {
+                "var": "name",
+                "line": 15,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "sample_line": "ok",
+              "line_str": "ok",
+              "findings": "ok",
+              "name": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "boxes",
         "title": "Secret Entropy Scanners — Core Algorithm & State Representation",
-        "nodes": [
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sample_line",
+            "label": "sample_line"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "line_str",
+            "label": "line_str"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "findings",
+            "label": "findings"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While entropy detects high-randomness strings, it can produce false.",
+            "values": {
+              "sample_line": "'AWS_ACCESS_KEY_ID = \"AKIAIOSFODNN7EXAM…",
+              "line_str": "'AWS_ACCESS_KEY_ID = \"AKIAIOSFODNN7EXAM…",
+              "findings": "[]",
+              "name": "'AWS_KEY_ID'"
+            },
+            "tones": {
+              "sample_line": "data",
+              "line_str": "data",
+              "findings": "data",
+              "name": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "To achieve high precision, production secret scanners combine entropy.",
+            "values": {
+              "sample_line": "'AWS_ACCESS_KEY_ID = \"AKIAIOSFODNN7EXAM…",
+              "line_str": "'AWS_ACCESS_KEY_ID = \"AKIAIOSFODNN7EXAM…",
+              "findings": "[]",
+              "name": "'AWS_KEY_ID'"
+            },
+            "tones": {
+              "sample_line": "data",
+              "line_str": "data",
+              "findings": "data",
+              "name": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Integrating hybrid scanning into continuous delivery pipelines provides.",
+            "values": {
+              "sample_line": "'AWS_ACCESS_KEY_ID = \"AKIAIOSFODNN7EXAM…",
+              "line_str": "'AWS_ACCESS_KEY_ID = \"AKIAIOSFODNN7EXAM…",
+              "findings": "[]",
+              "name": "'AWS_KEY_ID'"
+            },
+            "tones": {
+              "sample_line": "ok",
+              "line_str": "ok",
+              "findings": "ok",
+              "name": "ok"
+            }
           }
         ]
       }
     },
     {
       "partTitle": "Secret Entropy Scanners — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "14d3f6d27e2a106de0c8153b2985e78a21a2d77f3bef23b7b8d6c8d4ed70b71a",
+      "codeHash": "7967f501d5a1a554ff46fe99dbe2c33bb144d5a6b4239810c2076d8d899a6f63",
       "spec": {
         "template": "flow",
-        "title": "Secret Entropy Scanners — Throughput Optimization & Edge-Case Handling",
+        "title": "Secret Entropy Scanners — Throughput Optimization & Edge-Case Ha",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "diff",
+            "label": "diff"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "diff_lines",
+            "label": "diff_lines"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "entropy_threshold",
+            "label": "entropy_threshold"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "violations",
+            "label": "violations"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Scanning massive git repositories containing millions of commits.",
+            "values": {
+              "diff": {
+                "var": "diff",
+                "line": 21,
+                "hit": 1
+              },
+              "diff_lines": {
+                "var": "diff_lines",
+                "line": 6,
+                "hit": 1
+              },
+              "entropy_threshold": {
+                "var": "entropy_threshold",
+                "line": 6,
+                "hit": 1
+              },
+              "violations": {
+                "var": "violations",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "diff": "data",
+              "diff_lines": "data",
+              "entropy_threshold": "data",
+              "violations": "data"
+            },
+            "arrows": [
+              [
+                "diff",
+                "diff_lines"
+              ],
+              [
+                "diff_lines",
+                "entropy_threshold"
+              ],
+              [
+                "entropy_threshold",
+                "violations"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Rather than scanning entire repository snapshots repeatedly, incremental.",
+            "values": {
+              "diff": {
+                "var": "diff",
+                "line": 27,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "diff_lines": {
+                "var": "diff_lines",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "entropy_threshold": {
+                "var": "entropy_threshold",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "violations": {
+                "var": "violations",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "diff": "data",
+              "diff_lines": "data",
+              "entropy_threshold": "data",
+              "violations": "data"
+            },
+            "arrows": [
+              [
+                "diff",
+                "diff_lines"
+              ],
+              [
+                "diff_lines",
+                "entropy_threshold"
+              ],
+              [
+                "entropy_threshold",
+                "violations"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Security teams should run historical repository scans to identify secrets.",
+            "values": {
+              "diff": {
+                "var": "diff",
+                "line": 28,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "diff_lines": {
+                "var": "diff_lines",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "entropy_threshold": {
+                "var": "entropy_threshold",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "violations": {
+                "var": "violations",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "diff": "ok",
+              "diff_lines": "ok",
+              "entropy_threshold": "ok",
+              "violations": "ok"
+            },
+            "arrows": [
+              [
+                "diff",
+                "diff_lines"
+              ],
+              [
+                "diff_lines",
+                "entropy_threshold"
+              ],
+              [
+                "entropy_threshold",
+                "violations"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Secret Entropy Scanners — Throughput Optimization & Edge-Case Handling",
+        "title": "Secret Entropy Scanners — Throughput Optimization & Edge-Case Ha",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "diff",
+            "label": "diff"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "diff_lines",
+            "label": "diff_lines"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "entropy_threshold",
+            "label": "entropy_threshold"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "violations",
+            "label": "violations"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Scanning massive git repositories containing millions of commits.",
+            "values": {
+              "diff": "['--- a/config.py', '+++ b/config.py', …",
+              "diff_lines": "['--- a/config.py', '+++ b/config.py', …",
+              "entropy_threshold": "4",
+              "violations": "[]"
+            },
+            "tones": {
+              "diff": "data",
+              "diff_lines": "data",
+              "entropy_threshold": "data",
+              "violations": "data"
+            },
+            "arrows": [
+              [
+                "diff",
+                "diff_lines"
+              ],
+              [
+                "diff_lines",
+                "entropy_threshold"
+              ],
+              [
+                "entropy_threshold",
+                "violations"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Rather than scanning entire repository snapshots repeatedly, incremental.",
+            "values": {
+              "diff": "['--- a/config.py', '+++ b/config.py', …",
+              "diff_lines": "['--- a/config.py', '+++ b/config.py', …",
+              "entropy_threshold": "4",
+              "violations": "[]"
+            },
+            "tones": {
+              "diff": "data",
+              "diff_lines": "data",
+              "entropy_threshold": "data",
+              "violations": "data"
+            },
+            "arrows": [
+              [
+                "diff",
+                "diff_lines"
+              ],
+              [
+                "diff_lines",
+                "entropy_threshold"
+              ],
+              [
+                "entropy_threshold",
+                "violations"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Security teams should run historical repository scans to identify secrets.",
+            "values": {
+              "diff": "['--- a/config.py', '+++ b/config.py', …",
+              "diff_lines": "['--- a/config.py', '+++ b/config.py', …",
+              "entropy_threshold": "4",
+              "violations": "[]"
+            },
+            "tones": {
+              "diff": "ok",
+              "diff_lines": "ok",
+              "entropy_threshold": "ok",
+              "violations": "ok"
+            },
+            "arrows": [
+              [
+                "diff",
+                "diff_lines"
+              ],
+              [
+                "diff_lines",
+                "entropy_threshold"
+              ],
+              [
+                "entropy_threshold",
+                "violations"
+              ]
             ]
           }
         ]
@@ -805,532 +591,270 @@
     },
     {
       "partTitle": "Secret Entropy Scanners — Resilience Guardrails & Failure Recovery",
-      "codeHash": "7e5b04af52139a38adc80848f9cd1f3ba55d6891b79261f22ab7aebc60bddc61",
+      "codeHash": "afcd774d0920d7b9fab7c33600869e14f044256f56fb00cdb3107beff671bcf7",
       "spec": {
-        "template": "flow",
-        "title": "Secret Entropy Scanners — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Secret Entropy Scanners — Resilience Guardrails & Failure Recove",
+        "actors": [
+          "scanned_violations",
+          "e"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Preventing secrets from entering source repositories requires shifting.",
+            "activeActor": "scanned_violations",
+            "messages": [
+              {
+                "from": "scanned_violations",
+                "to": "e",
+                "label": {
+                  "var": "scanned_violations",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "e",
+                "to": "scanned_violations",
+                "label": {
+                  "var": "e",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Pre-commit hooks intercept git commit commands locally, running the secret.",
+            "activeActor": "e",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "scanned_violations",
+                "to": "e",
+                "label": {
+                  "var": "scanned_violations",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "e",
+                "to": "scanned_violations",
+                "label": {
+                  "var": "e",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Deploying pre-commit and pre-receive hooks provides defense-in-depth.",
+            "activeActor": "e",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "scanned_violations",
+                "to": "e",
+                "label": {
+                  "var": "scanned_violations",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "e",
+                "to": "scanned_violations",
+                "label": {
+                  "var": "e",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Secret Entropy Scanners — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Secret Entropy Scanners — Resilience Guardrails & Failure Recove",
+        "actors": [
+          "scanned_violations",
+          "e"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Preventing secrets from entering source repositories requires shifting.",
+            "messages": [
+              {
+                "from": "scanned_violations",
+                "to": "e",
+                "label": "[]",
+                "tone": "data"
+              },
+              {
+                "from": "e",
+                "to": "scanned_violations",
+                "label": "<PermissionError>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "scanned_violations"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Pre-commit hooks intercept git commit commands locally, running the secret.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "scanned_violations",
+                "to": "e",
+                "label": "[]",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "e",
+                "to": "scanned_violations",
+                "label": "<PermissionError>",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "e"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Deploying pre-commit and pre-receive hooks provides defense-in-depth.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "scanned_violations",
+                "to": "e",
+                "label": "[['AKIAIOSFODNN7EXAMPLE', 4.8]]",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "e",
+                "to": "scanned_violations",
+                "label": "<PermissionError>",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "e"
           }
         ]
       }
     },
     {
       "partTitle": "Secret Entropy Scanners — Production Telemetry & Verification Audit",
-      "codeHash": "282fef2d62081bed8c5b7bd8b433882c21469bc8a629f8bdadbca970e3fe4908",
+      "codeHash": "a5b4340ea1e0638eca86245f18d3f2f47d6dcfc2638ca6d26660143a1bef011e",
       "spec": {
-        "template": "flow",
-        "title": "Secret Entropy Scanners — Production Telemetry & Verification Audit",
-        "nodes": [
+        "template": "states",
+        "title": "Secret Entropy Scanners — Production Telemetry & Verification Au",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "entropy_calc_accurate",
+            "label": "entropy_calc_accurate"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "regex_patterns_valid",
+            "label": "regex_patterns_valid"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "git_diff_streamed",
+            "label": "git_diff_streamed"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Maintaining an organization-wide secret scanning program requires.",
+            "currentState": "entropy_calc_accurate",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "A secret scanner infrastructure auditor asserts that scanning hooks are.",
+            "currentState": "regex_patterns_valid",
+            "transition": {
+              "from": "entropy_calc_accurate",
+              "to": "regex_patterns_valid",
+              "label": {
+                "var": "regex_patterns_valid",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Mastering secret entropy analysis and git hook engineering empowers.",
+            "currentState": "git_diff_streamed",
+            "transition": {
+              "from": "regex_patterns_valid",
+              "to": "git_diff_streamed",
+              "label": {
+                "var": "git_diff_streamed",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Secret Entropy Scanners — Production Telemetry & Verification Audit",
-        "nodes": [
+        "template": "states",
+        "title": "Secret Entropy Scanners — Production Telemetry & Verification Au",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "entropy_calc_accurate",
+            "label": "entropy_calc_accurate"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "regex_patterns_valid",
+            "label": "regex_patterns_valid"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "git_diff_streamed",
+            "label": "git_diff_streamed"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Maintaining an organization-wide secret scanning program requires.",
+            "currentState": "entropy_calc_accurate",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "A secret scanner infrastructure auditor asserts that scanning hooks are.",
+            "currentState": "regex_patterns_valid",
+            "transition": {
+              "from": "entropy_calc_accurate",
+              "to": "regex_patterns_valid",
+              "label": "True"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Mastering secret entropy analysis and git hook engineering empowers.",
+            "currentState": "git_diff_streamed",
+            "transition": {
+              "from": "regex_patterns_valid",
+              "to": "git_diff_streamed",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }

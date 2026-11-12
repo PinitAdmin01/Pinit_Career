@@ -2,1335 +2,769 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 44,
-  "promptSha": "665d72e834fca30a250dbb7c777e1bcfe87a90650d8f2a15dea1716fd18b35f4",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Saga Orchestrator State Machines & Idempotent Compensating Transactions — Foundations & Mathematical Invariants",
-      "codeHash": "5082fd9cfbb7bf8df93c317cb953cced5655d93e7578db27168dabb52842cb71",
+      "partTitle": "Long-Lived Distributed Workflows Beyond 2PC Lock Lifetimes",
+      "codeHash": "de3ed77fb2513aade6f535e91ef4935ae37ccf43b440134f9023ceb4a8362606",
       "spec": {
-        "template": "flow",
-        "title": "Saga Orchestrator State Machines & Idempotent Compensating Transaction",
-        "nodes": [
+        "template": "states",
+        "title": "Long-Lived Distributed Workflows Beyond 2PC Lock Lifetimes",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "st",
+            "label": "st"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "workflow",
+            "label": "workflow"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "steps",
+            "label": "steps"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Two-Phase Commit works across internal database shards finishing inside.",
+            "currentState": "st",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The Saga Pattern breaks a single global workflow into a sequence.",
+            "currentState": "workflow",
+            "transition": {
+              "from": "st",
+              "to": "workflow",
+              "label": {
+                "var": "workflow",
+                "line": 21,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say7",
+            "caption": "Model forward vs backward reverse-order compensation flow cleanly below.",
+            "currentState": "steps",
+            "transition": {
+              "from": "workflow",
+              "to": "steps",
+              "label": {
+                "var": "steps",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Saga Orchestrator State Machines & Idempotent Compensating Transaction",
-        "nodes": [
+        "template": "states",
+        "title": "Long-Lived Distributed Workflows Beyond 2PC Lock Lifetimes",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "st",
+            "label": "st"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "workflow",
+            "label": "workflow"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "steps",
+            "label": "steps"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Two-Phase Commit works across internal database shards finishing inside.",
+            "currentState": "st",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The Saga Pattern breaks a single global workflow into a sequence.",
+            "currentState": "workflow",
+            "transition": {
+              "from": "st",
+              "to": "workflow",
+              "label": "[['reserve', {'__other__': 'function'},…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say7",
+            "caption": "Model forward vs backward reverse-order compensation flow cleanly below.",
+            "currentState": "steps",
+            "transition": {
+              "from": "workflow",
+              "to": "steps",
+              "label": "[['reserve', {'__other__': 'function'},…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Saga Orchestrator State Machines & Idempotent Compensating Transactions — Core Algorithm & State Representation",
-      "codeHash": "9f5f58535c70b78b73dd12ba101145e37b1455e11f4f8c9bae28845b775bed1a",
+      "partTitle": "Orchestration State Machines & Durable Step Logging",
+      "codeHash": "fcb239f33101167af1273fe25a96a1ed28c73071d11dc63979b2dcc75c6e9acc",
       "spec": {
-        "template": "flow",
-        "title": "Saga Orchestrator State Machines & Idempotent Compensating Transaction",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Orchestration State Machines & Durable Step Logging",
+        "actors": [
+          "self",
+          "orch",
+          "new_status"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Pure choreographywhere services broadcast events and react independently.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "orch",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "orch",
+                "to": "new_status",
+                "label": {
+                  "var": "orch",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A **Saga Orchestrator** centralizes workflow state transitions cleanly.",
+            "activeActor": "orch",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "orch",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "orch",
+                "to": "new_status",
+                "label": {
+                  "var": "orch",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say5",
+            "caption": "Build a durable crash-recoverable Saga Orchestrator state machine.",
+            "activeActor": "new_status",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "orch",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "orch",
+                "to": "new_status",
+                "label": {
+                  "var": "orch",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Saga Orchestrator State Machines & Idempotent Compensating Transaction",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Orchestration State Machines & Durable Step Logging",
+        "actors": [
+          "self",
+          "orch",
+          "new_status"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Pure choreographywhere services broadcast events and react independently.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "orch",
+                "label": "<DurableSagaOrchestrator>",
+                "tone": "data"
+              },
+              {
+                "from": "orch",
+                "to": "new_status",
+                "label": "<DurableSagaOrchestrator>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A **Saga Orchestrator** centralizes workflow state transitions cleanly.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "orch",
+                "label": "<DurableSagaOrchestrator>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "orch",
+                "to": "new_status",
+                "label": "<DurableSagaOrchestrator>",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "orch"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say5",
+            "caption": "Build a durable crash-recoverable Saga Orchestrator state machine.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "orch",
+                "label": "<DurableSagaOrchestrator>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "orch",
+                "to": "new_status",
+                "label": "<DurableSagaOrchestrator>",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "new_status"
           }
         ]
       }
     },
     {
-      "partTitle": "Saga Orchestrator State Machines & Idempotent Compensating Transactions — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "152c118130f2e8142516b86017a0fe1f0571d9eaf037fefb3765f38216213f0e",
+      "partTitle": "Idempotent Commands, Commutativity & Backward Crash Replay",
+      "codeHash": "349046307146794f02a06a61b0cbf39b59860cf7382cdaf4e2ed1a85ccada546",
       "spec": {
-        "template": "flow",
-        "title": "Saga Orchestrator State Machines & Idempotent Compensating Transaction",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Idempotent Commands, Commutativity & Backward Crash Replay",
+        "actors": [
+          "self",
+          "svc",
+          "order_key"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Look carefully at the double-crash window inside saga orchestration.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "svc",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "svc",
+                "to": "order_key",
+                "label": {
+                  "var": "svc",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Upon reboot, recovery inspects the durable log, sees `COMPENSATING` still.",
+            "activeActor": "svc",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "svc",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "svc",
+                "to": "order_key",
+                "label": {
+                  "var": "svc",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Simulate both idempotent duplicate compensation AND out-of-order.",
+            "activeActor": "order_key",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "svc",
+                "label": {
+                  "var": "self",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "svc",
+                "to": "order_key",
+                "label": {
+                  "var": "svc",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Saga Orchestrator State Machines & Idempotent Compensating Transaction",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Idempotent Commands, Commutativity & Backward Crash Replay",
+        "actors": [
+          "self",
+          "svc",
+          "order_key"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Look carefully at the double-crash window inside saga orchestration.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "svc",
+                "label": "<SafeSagaService>",
+                "tone": "data"
+              },
+              {
+                "from": "svc",
+                "to": "order_key",
+                "label": "<SafeSagaService>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Upon reboot, recovery inspects the durable log, sees `COMPENSATING` still.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "svc",
+                "label": "<SafeSagaService>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "svc",
+                "to": "order_key",
+                "label": "<SafeSagaService>",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "svc"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Simulate both idempotent duplicate compensation AND out-of-order.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "svc",
+                "label": "<SafeSagaService>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "svc",
+                "to": "order_key",
+                "label": "<SafeSagaService>",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "order_key"
           }
         ]
       }
     },
     {
-      "partTitle": "Saga Orchestrator State Machines & Idempotent Compensating Transactions — Resilience Guardrails & Failure Recovery",
-      "codeHash": "54e7d8daf5d96e7b5a3caabde9bde3682c66e260d49b43d5b84038136b72a744",
+      "partTitle": "Managing Isolation Anomalies & Semantic Locks in Sagas",
+      "codeHash": "35f4c2272311bac10fda23d81742e00a24f1b2b3454beaeec1c0844dd6be290e",
       "spec": {
-        "template": "flow",
-        "title": "Saga Orchestrator State Machines & Idempotent Compensating Transaction",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Managing Isolation Anomalies & Semantic Locks in Sagas",
+        "actors": [
+          "bal_snap",
+          "s1_old",
+          "bal_comm"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Sagas intentionally forfeit global ACID **Isolation** (the 'I' in ACID).",
+            "activeActor": "bal_snap",
+            "messages": [
+              {
+                "from": "bal_snap",
+                "to": "s1_old",
+                "label": {
+                  "var": "bal_snap",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "s1_old",
+                "to": "bal_comm",
+                "label": {
+                  "var": "s1_old",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace a real **Dirty Read** anomaly in flight booking.",
+            "activeActor": "s1_old",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "bal_snap",
+                "to": "s1_old",
+                "label": {
+                  "var": "bal_snap",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "s1_old",
+                "to": "bal_comm",
+                "label": {
+                  "var": "s1_old",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say5",
+            "caption": "Inspect commutative delta restoration vs blind snapshot overwrite.",
+            "activeActor": "bal_comm",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "bal_snap",
+                "to": "s1_old",
+                "label": {
+                  "var": "bal_snap",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "s1_old",
+                "to": "bal_comm",
+                "label": {
+                  "var": "s1_old",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Saga Orchestrator State Machines & Idempotent Compensating Transaction",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Managing Isolation Anomalies & Semantic Locks in Sagas",
+        "actors": [
+          "bal_snap",
+          "s1_old",
+          "bal_comm"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Sagas intentionally forfeit global ACID **Isolation** (the 'I' in ACID).",
+            "messages": [
+              {
+                "from": "bal_snap",
+                "to": "s1_old",
+                "label": "100",
+                "tone": "data"
+              },
+              {
+                "from": "s1_old",
+                "to": "bal_comm",
+                "label": "100",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "bal_snap"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace a real **Dirty Read** anomaly in flight booking.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "bal_snap",
+                "to": "s1_old",
+                "label": "100",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "s1_old",
+                "to": "bal_comm",
+                "label": "100",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "s1_old"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say5",
+            "caption": "Inspect commutative delta restoration vs blind snapshot overwrite.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "bal_snap",
+                "to": "s1_old",
+                "label": "150",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "s1_old",
+                "to": "bal_comm",
+                "label": "100",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "bal_comm"
           }
         ]
       }
     },
     {
-      "partTitle": "Saga Orchestrator State Machines & Idempotent Compensating Transactions — Production Telemetry & Verification Audit",
-      "codeHash": "80b052d2586e5669c5c22105db4279381f9734a87229446508995d725eff9914",
+      "partTitle": "End-to-End Saga Crash, Retry & Reverse Compensation Verification",
+      "codeHash": "b8927555326ff0d0fe01ade56cedfdbedbbfb828d98a5fe929fb12f85ff57ec6",
       "spec": {
-        "template": "flow",
-        "title": "Saga Orchestrator State Machines & Idempotent Compensating Transaction",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "End-to-End Saga Crash, Retry & Reverse Compensation Verification",
+        "actors": [
+          "ledger",
+          "applied_ops",
+          "key"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Now exercise a realistic multi-service saga coordinator across all four.",
+            "activeActor": "ledger",
+            "messages": [
+              {
+                "from": "ledger",
+                "to": "applied_ops",
+                "label": {
+                  "var": "ledger",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "applied_ops",
+                "to": "key",
+                "label": {
+                  "var": "applied_ops",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Observe the audit assertion invariants tightly.",
+            "activeActor": "applied_ops",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "ledger",
+                "to": "applied_ops",
+                "label": {
+                  "var": "ledger",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "applied_ops",
+                "to": "key",
+                "label": {
+                  "var": "applied_ops",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "caption": "Trace how execute updates full during execution.",
+            "activeActor": "key",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "ledger",
+                "to": "applied_ops",
+                "label": {
+                  "var": "ledger",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "applied_ops",
+                "to": "key",
+                "label": {
+                  "var": "applied_ops",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Saga Orchestrator State Machines & Idempotent Compensating Transaction",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "End-to-End Saga Crash, Retry & Reverse Compensation Verification",
+        "actors": [
+          "ledger",
+          "applied_ops",
+          "key"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Now exercise a realistic multi-service saga coordinator across all four.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "ledger",
+                "to": "applied_ops",
+                "label": "{'inv': 10, 'cash': 500}",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "applied_ops",
+                "to": "key",
+                "label": "set()",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "ledger"
+          },
+          {
+            "at": "say2",
+            "caption": "Observe the audit assertion invariants tightly.",
+            "messages": [
+              {
+                "from": "ledger",
+                "to": "applied_ops",
+                "label": "{'inv': 10, 'cash': 500}",
+                "tone": "data"
+              },
+              {
+                "from": "applied_ops",
+                "to": "key",
+                "label": "set()",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "applied_ops"
           },
           {
             "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "caption": "Trace how execute updates full during execution.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "ledger",
+                "to": "applied_ops",
+                "label": "{'inv': 10, 'cash': 500}",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "applied_ops",
+                "to": "key",
+                "label": "{'s1:T1:fwd'}",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "key"
           }
         ]
       }

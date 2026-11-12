@@ -2,173 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 27,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "A spectrum of guarantees",
       "codeHash": "46fed5e49e61b7f5c649c54b380e0070f04137e03fa1aebfc98419a486cf3bba",
       "spec": {
-        "template": "table",
-        "title": "Consistency model spectrum trade-offs between guarantees and availability",
-        "columns": [
+        "template": "sequence",
+        "title": "A spectrum of guarantees",
+        "actors": [
+          "models",
           "name",
           "promise"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A consistency model is a promise about what reads can return when data.",
+            "activeActor": "models",
+            "messages": [
+              {
+                "from": "models",
+                "to": "name",
+                "label": {
+                  "var": "models",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "promise",
+                "label": {
+                  "var": "name",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Linearizable systems behave like a single copy updated in real time.",
-            "rows": [
+            "caption": "Linearizable (strong).",
+            "activeActor": "name",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "Linearizable"
-                  },
-                  {
-                    "text": "one copy, real-time order"
-                  }
-                ],
+                "from": "models",
+                "to": "name",
+                "label": {
+                  "var": "models",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "promise",
+                "label": {
+                  "var": "name",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Causal consistency ensures causally related events appear in order.",
-            "rows": [
+            "at": "say7",
+            "caption": "Stronger models are easier to reason about but cost latency.",
+            "activeActor": "promise",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "Linearizable"
-                  },
-                  {
-                    "text": "one copy, real-time order"
-                  }
-                ],
-                "tone": "ok"
+                "from": "models",
+                "to": "name",
+                "label": {
+                  "var": "models",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "Causal"
-                  },
-                  {
-                    "text": "cause before effect for everyone"
-                  }
-                ],
+                "from": "name",
+                "to": "promise",
+                "label": {
+                  "var": "name",
+                  "line": 7,
+                  "hit": 2
+                },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Eventual consistency ensures replicas converge when writes stop.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Linearizable"
-                  },
-                  {
-                    "text": "one copy, real-time order"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Causal"
-                  },
-                  {
-                    "text": "cause before effect for everyone"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Eventual"
-                  },
-                  {
-                    "text": "replicas converge when writes stop"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Consistency model spectrum trade-offs between guarantees and availability",
-        "columns": [
+        "template": "sequence",
+        "title": "A spectrum of guarantees",
+        "actors": [
+          "models",
           "name",
           "promise"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A consistency model is a promise about what reads can return when data.",
+            "messages": [
+              {
+                "from": "models",
+                "to": "name",
+                "label": "[['Linearizable', 'one copy, real-time …",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "promise",
+                "label": "'Linearizable'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "models"
+          },
+          {
             "at": "say2",
-            "caption": "Linearizable systems behave like a single copy updated in real time.",
-            "rows": [
+            "caption": "Linearizable (strong).",
+            "messages": [
               {
-                "cells": [
-                  "Linearizable",
-                  "one copy, real-time order"
-                ],
+                "from": "models",
+                "to": "name",
+                "label": "[['Linearizable', 'one copy, real-time …",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "promise",
+                "label": "'Linearizable'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "name"
           },
           {
-            "at": "say5",
-            "caption": "Causal consistency ensures causally related events appear in order.",
-            "rows": [
+            "at": "say7",
+            "caption": "Stronger models are easier to reason about but cost latency.",
+            "messages": [
               {
-                "cells": [
-                  "Linearizable",
-                  "one copy, real-time order"
-                ],
-                "tone": "ok"
+                "from": "models",
+                "to": "name",
+                "label": "[['Linearizable', 'one copy, real-time …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "Causal",
-                  "cause before effect for everyone"
-                ],
+                "from": "name",
+                "to": "promise",
+                "label": "'Sequential'",
                 "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Eventual consistency ensures replicas converge when writes stop.",
-            "rows": [
-              {
-                "cells": [
-                  "Linearizable",
-                  "one copy, real-time order"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Causal",
-                  "cause before effect for everyone"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Eventual",
-                  "replicas converge when writes stop"
-                ],
-                "tone": "idle"
-              }
-            ]
+            ],
+            "activeActor": "promise"
           }
         ]
       }
@@ -177,224 +173,162 @@
       "partTitle": "Choosing a level by name",
       "codeHash": "0309f4da156d9b1b5637b47a65fdca4da61df1b135df93c5c261f281072d4083",
       "spec": {
-        "template": "flow",
-        "title": "Choosing a level by name — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing a level by...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Choosing a level by name",
+        "actors": [
+          "LEVELS",
+          "mode",
+          "err"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing a level by name [D.Ptwo.Sone].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing a level by... [D.Ptwo.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Consistency_level(mode) maps STRONG, CAUSAL and EVENTUAL to their.",
+            "activeActor": "LEVELS",
+            "messages": [
+              {
+                "from": "LEVELS",
+                "to": "mode",
+                "label": {
+                  "var": "LEVELS",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "mode",
+                "to": "err",
+                "label": {
+                  "var": "mode",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Ptwo.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Raising an error for unknown modes is safer than silently choosing a default.",
+            "activeActor": "mode",
+            "messages": [
+              {
+                "from": "LEVELS",
+                "to": "mode",
+                "label": {
+                  "var": "LEVELS",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "mode",
+                "to": "err",
+                "label": {
+                  "var": "mode",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing a level by name [D.Ptwo.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example looks up levels and shows the error for an unknown mode.",
+            "activeActor": "err",
+            "messages": [
+              {
+                "from": "LEVELS",
+                "to": "mode",
+                "label": {
+                  "var": "LEVELS",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "mode",
+                "to": "err",
+                "label": {
+                  "var": "mode",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Choosing a level by name — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing a level by...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Choosing a level by name",
+        "actors": [
+          "LEVELS",
+          "mode",
+          "err"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing a level by name [D27.P2.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing a level by... [D27.P2.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Consistency_level(mode) maps STRONG, CAUSAL and EVENTUAL to their.",
+            "messages": [
+              {
+                "from": "LEVELS",
+                "to": "mode",
+                "label": "{'STRONG': 'Linearizable (global real-t…",
+                "tone": "data"
+              },
+              {
+                "from": "mode",
+                "to": "err",
+                "label": "'STRONG'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "LEVELS"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P2.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Raising an error for unknown modes is safer than silently choosing a default.",
+            "messages": [
+              {
+                "from": "LEVELS",
+                "to": "mode",
+                "label": "{'STRONG': 'Linearizable (global real-t…",
+                "tone": "data"
+              },
+              {
+                "from": "mode",
+                "to": "err",
+                "label": "'STRONG'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "mode"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing a level by name [D27.P2.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example looks up levels and shows the error for an unknown mode.",
+            "messages": [
+              {
+                "from": "LEVELS",
+                "to": "mode",
+                "label": "{'STRONG': 'Linearizable (global real-t…",
+                "tone": "data"
+              },
+              {
+                "from": "mode",
+                "to": "err",
+                "label": "'STRONG'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "err"
           }
         ]
       }
@@ -403,166 +337,162 @@
       "partTitle": "Detecting stale reads",
       "codeHash": "33351221a42bcce9987ad7bf961262348d95041887bd0a5dff8686e4cc7a830f",
       "spec": {
-        "template": "table",
-        "title": "Audit linearizability history detecting stale reads from lagging replicas",
-        "columns": [
-          "started_at",
-          "observed"
+        "template": "sequence",
+        "title": "Detecting stale reads",
+        "actors": [
+          "writes",
+          "reads",
+          "stale"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Test systems by auditing recorded histories of reads and writes.",
-            "rows": [
+            "caption": "You can test a system by recording a history.",
+            "activeActor": "writes",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "20"
-                  },
-                  {
-                    "text": "v1"
-                  }
-                ],
+                "from": "writes",
+                "to": "reads",
+                "label": {
+                  "var": "writes",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "reads",
+                "to": "stale",
+                "label": {
+                  "var": "reads",
+                  "line": 12,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Reads are stale when returning older values after completed writes.",
-            "rows": [
+            "caption": "Audit_linearizability(reads, writes).",
+            "activeActor": "reads",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "20"
-                  },
-                  {
-                    "text": "v1"
-                  }
-                ],
-                "tone": "ok"
+                "from": "writes",
+                "to": "reads",
+                "label": {
+                  "var": "writes",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "60"
-                  },
-                  {
-                    "text": "v2"
-                  }
-                ],
+                "from": "reads",
+                "to": "stale",
+                "label": {
+                  "var": "reads",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Auditing identifies stale reads caused by replica propagation delay.",
-            "rows": [
+            "caption": "The example audits a history with one stale read from a lagging replica.",
+            "activeActor": "stale",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "20"
-                  },
-                  {
-                    "text": "v1"
-                  }
-                ],
-                "tone": "ok"
+                "from": "writes",
+                "to": "reads",
+                "label": {
+                  "var": "writes",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "60"
-                  },
-                  {
-                    "text": "v2"
-                  }
-                ],
+                "from": "reads",
+                "to": "stale",
+                "label": {
+                  "var": "reads",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "70"
-                  },
-                  {
-                    "text": "v1"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Audit linearizability history detecting stale reads from lagging replicas",
-        "columns": [
-          "started_at",
-          "observed"
+        "template": "sequence",
+        "title": "Detecting stale reads",
+        "actors": [
+          "writes",
+          "reads",
+          "stale"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Test systems by auditing recorded histories of reads and writes.",
-            "rows": [
+            "caption": "You can test a system by recording a history.",
+            "messages": [
               {
-                "cells": [
-                  "20",
-                  "v1"
-                ],
+                "from": "writes",
+                "to": "reads",
+                "label": "[{'value': 'v1', 'completed_at': 10}, {…",
+                "tone": "data"
+              },
+              {
+                "from": "reads",
+                "to": "stale",
+                "label": "[{'started_at': 20, 'observed': 'v1'}, …",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "writes"
           },
           {
             "at": "say2",
-            "caption": "Reads are stale when returning older values after completed writes.",
-            "rows": [
+            "caption": "Audit_linearizability(reads, writes).",
+            "messages": [
               {
-                "cells": [
-                  "20",
-                  "v1"
-                ],
-                "tone": "ok"
+                "from": "writes",
+                "to": "reads",
+                "label": "[{'value': 'v1', 'completed_at': 10}, {…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "60",
-                  "v2"
-                ],
+                "from": "reads",
+                "to": "stale",
+                "label": "[{'started_at': 20, 'observed': 'v1'}, …",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "reads"
           },
           {
             "at": "say7",
-            "caption": "Auditing identifies stale reads caused by replica propagation delay.",
-            "rows": [
+            "caption": "The example audits a history with one stale read from a lagging replica.",
+            "messages": [
               {
-                "cells": [
-                  "20",
-                  "v1"
-                ],
-                "tone": "ok"
+                "from": "writes",
+                "to": "reads",
+                "label": "[{'value': 'v1', 'completed_at': 10}, {…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "60",
-                  "v2"
-                ],
+                "from": "reads",
+                "to": "stale",
+                "label": "[{'started_at': 20, 'observed': 'v1'}, …",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "70",
-                  "v1"
-                ],
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "stale"
           }
         ]
       }
@@ -571,132 +501,162 @@
       "partTitle": "Causal consistency in practice",
       "codeHash": "78f0c1ccf0ca86abc7f7f4c4fda60d1cd6c04f8ddfe6b61882faa5cd909b5660",
       "spec": {
-        "template": "compare",
-        "title": "Causal dependency ordering delaying dependent replies until cause arrives",
-        "leftLabel": "Causal Delivery",
-        "rightLabel": "Arrived Messages",
+        "template": "sequence",
+        "title": "Causal consistency in practice",
+        "actors": [
+          "arrived",
+          "shown",
+          "waiting"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Causal consistency prevents confusing anomalies like answers before questions.",
-            "left": {
-              "code": "shown.append(m)",
-              "result": {
-                "text": "I lost my phone"
+            "caption": "Causal consistency is a sweet spot for many apps.",
+            "activeActor": "arrived",
+            "messages": [
+              {
+                "from": "arrived",
+                "to": "shown",
+                "label": {
+                  "var": "arrived",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "arrived[0]",
-              "result": {
-                "text": "Found it!"
-              },
-              "tone": "idle"
-            }
+              {
+                "from": "shown",
+                "to": "waiting",
+                "label": {
+                  "var": "shown",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Systems buffer dependent updates until causality dependencies are visible.",
-            "left": {
-              "code": "shown",
-              "result": {
-                "text": "I lost my phone"
+            "at": "say2",
+            "caption": "Asha posts \"I lost my phone\" then \"found it.",
+            "activeActor": "shown",
+            "messages": [
+              {
+                "from": "arrived",
+                "to": "shown",
+                "label": {
+                  "var": "arrived",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "waiting",
-              "result": {
-                "text": "Found it!"
-              },
-              "tone": "idle"
-            }
+              {
+                "from": "shown",
+                "to": "waiting",
+                "label": {
+                  "var": "shown",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say7",
-            "caption": "Replies wait until the originating message has been processed first.",
-            "left": {
-              "code": "shown",
-              "result": {
-                "text": "Found it!"
+            "caption": "The example holds back a reply until the message it answers has arrived.",
+            "activeActor": "waiting",
+            "messages": [
+              {
+                "from": "arrived",
+                "to": "shown",
+                "label": {
+                  "var": "arrived",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "waiting",
-              "result": {
-                "text": "I lost my phone"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "shown",
+                "to": "waiting",
+                "label": {
+                  "var": "shown",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Causal dependency ordering delaying dependent replies until cause arrives",
-        "leftLabel": "Causal Delivery",
-        "rightLabel": "Arrived Messages",
+        "template": "sequence",
+        "title": "Causal consistency in practice",
+        "actors": [
+          "arrived",
+          "shown",
+          "waiting"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Causal consistency prevents confusing anomalies like answers before questions.",
-            "left": {
-              "code": "shown.append(m)",
-              "result": "I lost my phone",
-              "tone": "ok",
-              "checks": [
-                "I lost my phone"
-              ]
-            },
-            "right": {
-              "code": "arrived[0]",
-              "result": "Found it!",
-              "tone": "idle",
-              "checks": [
-                "Found it!"
-              ]
-            }
+            "caption": "Causal consistency is a sweet spot for many apps.",
+            "messages": [
+              {
+                "from": "arrived",
+                "to": "shown",
+                "label": "[{'id': 'm2', 'text': 'Found it!', 'dep…",
+                "tone": "data"
+              },
+              {
+                "from": "shown",
+                "to": "waiting",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "arrived"
           },
           {
-            "at": "say3",
-            "caption": "Systems buffer dependent updates until causality dependencies are visible.",
-            "left": {
-              "code": "shown",
-              "result": "I lost my phone",
-              "tone": "ok",
-              "checks": [
-                "I lost my phone"
-              ]
-            },
-            "right": {
-              "code": "waiting",
-              "result": "Found it!",
-              "tone": "idle",
-              "checks": [
-                "Found it!"
-              ]
-            }
+            "at": "say2",
+            "caption": "Asha posts \"I lost my phone\" then \"found it.",
+            "messages": [
+              {
+                "from": "arrived",
+                "to": "shown",
+                "label": "[{'id': 'm2', 'text': 'Found it!', 'dep…",
+                "tone": "data"
+              },
+              {
+                "from": "shown",
+                "to": "waiting",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "shown"
           },
           {
             "at": "say7",
-            "caption": "Replies wait until the originating message has been processed first.",
-            "left": {
-              "code": "shown",
-              "result": "Found it!",
-              "tone": "ok",
-              "checks": [
-                "Found it!"
-              ]
-            },
-            "right": {
-              "code": "waiting",
-              "result": "I lost my phone",
-              "tone": "ok",
-              "checks": [
-                "I lost my phone"
-              ]
-            }
+            "caption": "The example holds back a reply until the message it answers has arrived.",
+            "messages": [
+              {
+                "from": "arrived",
+                "to": "shown",
+                "label": "[{'id': 'm2', 'text': 'Found it!', 'dep…",
+                "tone": "data"
+              },
+              {
+                "from": "shown",
+                "to": "waiting",
+                "label": "[]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "waiting"
           }
         ]
       }
@@ -706,110 +666,161 @@
       "codeHash": "913a414d4bb3cf0203769311e8dd9aca70cc67799f60c3bb25806753ae1c38be",
       "spec": {
         "template": "flow",
-        "title": "Eventual consistency done well — Execution Pipeline",
+        "title": "Eventual consistency done well",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "replicas",
+            "label": "replicas"
           },
           {
-            "id": "proc",
-            "label": "2. Eventual consistenc...",
-            "tappable": true
+            "id": "step",
+            "label": "step"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "newest",
+            "label": "newest"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Eventual consistency done well [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Eventual consistenc... [D.Pfive.Stwo].",
+            "caption": "Eventual consistency only promises convergence when writes stop,.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "replicas": {
+                "var": "replicas",
+                "line": 1,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 4,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 5,
+                "hit": 1
+              },
+              "newest": {
+                "var": "newest",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "replicas": "data",
+              "step": "data",
+              "i": "data",
+              "newest": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "replicas",
+                "step"
               ],
               [
-                "proc",
-                "out"
+                "step",
+                "i"
+              ],
+              [
+                "i",
+                "newest"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Trace how make updates work during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "replicas": {
+                "var": "replicas",
+                "line": 2,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 5,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 6,
+                "hit": 1
+              },
+              "newest": {
+                "var": "newest",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "replicas": "data",
+              "step": "data",
+              "i": "data",
+              "newest": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "replicas",
+                "step"
+              ],
+              [
+                "step",
+                "i"
+              ],
+              [
+                "i",
+                "newest"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Eventual consistency done well.",
+            "at": "say7",
+            "caption": "The simulation shows three replicas converging after the writes stop.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "replicas": {
+                "var": "replicas",
+                "line": 3,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 6,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 7,
+                "hit": 1
+              },
+              "newest": {
+                "var": "newest",
+                "line": 5,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "replicas": "ok",
+              "step": "ok",
+              "i": "ok",
+              "newest": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "replicas",
+                "step"
               ],
               [
-                "proc",
-                "out"
+                "step",
+                "i"
+              ],
+              [
+                "i",
+                "newest"
               ]
             ]
           }
@@ -817,110 +828,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Eventual consistency done well — Execution Pipeline",
+        "title": "Eventual consistency done well",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "replicas",
+            "label": "replicas"
           },
           {
-            "id": "proc",
-            "label": "2. Eventual consistenc...",
-            "tappable": true
+            "id": "step",
+            "label": "step"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "newest",
+            "label": "newest"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Eventual consistency done well [D27.P5.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Eventual consistenc... [D27.P5.S2].",
+            "caption": "Eventual consistency only promises convergence when writes stop,.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "replicas": "[{'v': 1}, {'v': 1}, {'v': 1}]",
+              "step": "1",
+              "i": "0",
+              "newest": "2"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "replicas": "data",
+              "step": "data",
+              "i": "data",
+              "newest": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "replicas",
+                "step"
               ],
               [
-                "proc",
-                "out"
+                "step",
+                "i"
+              ],
+              [
+                "i",
+                "newest"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P5.S3].",
+            "at": "say2",
+            "caption": "Trace how make updates work during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "replicas": "[{'v': 2}, {'v': 1}, {'v': 1}]",
+              "step": "1",
+              "i": "0",
+              "newest": "2"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "replicas": "data",
+              "step": "data",
+              "i": "data",
+              "newest": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "replicas",
+                "step"
+              ],
+              [
+                "step",
+                "i"
+              ],
+              [
+                "i",
+                "newest"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Eventual consistency done well [D27.P5.S4].",
+            "at": "say7",
+            "caption": "The simulation shows three replicas converging after the writes stop.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "replicas": "[{'v': 2}, {'v': 1}, {'v': 1}]",
+              "step": "1",
+              "i": "0",
+              "newest": "2"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "replicas": "ok",
+              "step": "ok",
+              "i": "ok",
+              "newest": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "replicas",
+                "step"
               ],
               [
-                "proc",
-                "out"
+                "step",
+                "i"
+              ],
+              [
+                "i",
+                "newest"
               ]
             ]
           }
@@ -931,166 +945,106 @@
       "partTitle": "Choosing per feature",
       "codeHash": "daa6f8d61fd0835e415364bea64ffb972df0038712dbe89edad1dba144ea3aa0",
       "spec": {
-        "template": "table",
-        "title": "Consistency model selection per application feature based on anomaly impact",
-        "columns": [
-          "feature",
-          "level"
+        "template": "states",
+        "title": "Choosing per feature",
+        "states": [
+          {
+            "id": "features",
+            "label": "features"
+          },
+          {
+            "id": "feature",
+            "label": "feature"
+          },
+          {
+            "id": "level",
+            "label": "level"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Applications choose consistency models per feature by anomaly severity.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "wallet balance"
-                  },
-                  {
-                    "text": "STRONG"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "You rarely pick one model for the whole system.",
+            "currentState": "features",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Critical wallet balances require strong linearizable consistency.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "wallet balance"
-                  },
-                  {
-                    "text": "STRONG"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "group chat"
-                  },
-                  {
-                    "text": "CAUSAL"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Stronger guarantees can always be added for a few critical operations.",
+            "currentState": "feature",
+            "transition": {
+              "from": "features",
+              "to": "feature",
+              "label": {
+                "var": "feature",
+                "line": 10,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Analytics and view counts use high throughput eventual consistency.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "wallet balance"
-                  },
-                  {
-                    "text": "STRONG"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "group chat"
-                  },
-                  {
-                    "text": "CAUSAL"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "video view count"
-                  },
-                  {
-                    "text": "EVENTUAL"
-                  }
-                ],
-                "tone": "idle"
+            "at": "say7",
+            "caption": "Tomorrow you will push content to the edge with CDNs, where freshness.",
+            "currentState": "level",
+            "transition": {
+              "from": "feature",
+              "to": "level",
+              "label": {
+                "var": "level",
+                "line": 9,
+                "hit": 2
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Consistency model selection per application feature based on anomaly impact",
-        "columns": [
-          "feature",
-          "level"
+        "template": "states",
+        "title": "Choosing per feature",
+        "states": [
+          {
+            "id": "features",
+            "label": "features"
+          },
+          {
+            "id": "feature",
+            "label": "feature"
+          },
+          {
+            "id": "level",
+            "label": "level"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Applications choose consistency models per feature by anomaly severity.",
-            "rows": [
-              {
-                "cells": [
-                  "wallet balance",
-                  "STRONG"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "You rarely pick one model for the whole system.",
+            "currentState": "features",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Critical wallet balances require strong linearizable consistency.",
-            "rows": [
-              {
-                "cells": [
-                  "wallet balance",
-                  "STRONG"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "group chat",
-                  "CAUSAL"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Stronger guarantees can always be added for a few critical operations.",
+            "currentState": "feature",
+            "transition": {
+              "from": "features",
+              "to": "feature",
+              "label": "'wallet balance'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Analytics and view counts use high throughput eventual consistency.",
-            "rows": [
-              {
-                "cells": [
-                  "wallet balance",
-                  "STRONG"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "group chat",
-                  "CAUSAL"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "video view count",
-                  "EVENTUAL"
-                ],
-                "tone": "idle"
-              }
-            ]
+            "at": "say7",
+            "caption": "Tomorrow you will push content to the edge with CDNs, where freshness.",
+            "currentState": "level",
+            "transition": {
+              "from": "feature",
+              "to": "level",
+              "label": "'STRONG'"
+            },
+            "tone": "ok"
           }
         ]
       }

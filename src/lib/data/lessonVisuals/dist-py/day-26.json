@@ -2,231 +2,113 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 26,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Following one request through many services",
       "codeHash": "ffc6a7b6a65c46692a24ebfb9ff26aa3823523a6f7238867a6b9106e079d5735",
       "spec": {
-        "template": "flow",
-        "title": "Following one request through many services — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Following one request through many services",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "spans",
+            "label": "spans"
           },
           {
-            "id": "proc",
-            "label": "2. Following one reque...",
-            "tappable": true
+            "id": "parent",
+            "label": "parent"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "depth",
+            "label": "depth"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Following one request through many servi.",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Following one reque... [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A single user action can touch a gateway, a BFF, five services and two.",
+            "currentState": "spans",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Distributed tracing links all that work together.",
+            "currentState": "parent",
+            "transition": {
+              "from": "spans",
+              "to": "parent",
+              "label": {
+                "var": "parent",
+                "line": 11,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Following one request through man.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example prints a small trace as an indented tree.",
+            "currentState": "depth",
+            "transition": {
+              "from": "parent",
+              "to": "depth",
+              "label": {
+                "var": "depth",
+                "line": 12,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Following one request through many services — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Following one request through many services",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "spans",
+            "label": "spans"
           },
           {
-            "id": "proc",
-            "label": "2. Following one reque...",
-            "tappable": true
+            "id": "parent",
+            "label": "parent"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "depth",
+            "label": "depth"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Following one request through many servi.. [D26.P1.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Following one reque... [D26.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A single user action can touch a gateway, a BFF, five services and two.",
+            "currentState": "spans",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Distributed tracing links all that work together.",
+            "currentState": "parent",
+            "transition": {
+              "from": "spans",
+              "to": "parent",
+              "label": "None"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Following one request through man.. [D26.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example prints a small trace as an indented tree.",
+            "currentState": "depth",
+            "transition": {
+              "from": "parent",
+              "to": "depth",
+              "label": "0"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -235,93 +117,91 @@
       "partTitle": "The W3C traceparent header",
       "codeHash": "d898ea29bf57ab62e8e4c04a3c24923cee6db2d48ad558f6c7bd166f61c5d18e",
       "spec": {
-        "template": "table",
-        "title": "W3C traceparent header components and field parsing breakdown",
-        "columns": [
+        "template": "sequence",
+        "title": "The W3C traceparent header",
+        "actors": [
+          "header",
           "version",
-          "flags"
+          "trace_id"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Services pass trace context in the standard HTTP traceparent header.",
-            "rows": [
+            "caption": "Services pass trace context to each other in a standard HTTP header.",
+            "activeActor": "header",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "00"
-                  },
-                  {
-                    "text": "01"
-                  }
-                ],
+                "from": "header",
+                "to": "version",
+                "label": {
+                  "var": "header",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "version",
+                "to": "trace_id",
+                "label": {
+                  "var": "version",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The header format includes version trace id parent id and flags.",
-            "rows": [
+            "caption": "Its format is version-traceid-parentid-flags, for example.",
+            "activeActor": "version",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "00"
-                  },
-                  {
-                    "text": "01"
-                  }
-                ],
-                "tone": "ok"
+                "from": "header",
+                "to": "version",
+                "label": {
+                  "var": "header",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "00"
-                  },
-                  {
-                    "text": "4bf92f3577b34da6a3ce929d0e0e4736"
-                  }
-                ],
-                "tone": "data"
+                "from": "version",
+                "to": "trace_id",
+                "label": {
+                  "var": "version",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Standard formats let services join the same trace across platforms.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example parses a real-looking header.",
+            "activeActor": "trace_id",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "00"
-                  },
-                  {
-                    "text": "01"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "00"
-                  },
-                  {
-                    "text": "4bf92f3577b34da6a3ce929d0e0e4736"
-                  }
-                ],
+                "from": "header",
+                "to": "version",
+                "label": {
+                  "var": "header",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "00"
-                  },
-                  {
-                    "text": "00f067aa0ba902b7"
-                  }
-                ],
+                "from": "version",
+                "to": "trace_id",
+                "label": {
+                  "var": "version",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -329,72 +209,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "W3C traceparent header components and field parsing breakdown",
-        "columns": [
+        "template": "sequence",
+        "title": "The W3C traceparent header",
+        "actors": [
+          "header",
           "version",
-          "flags"
+          "trace_id"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Services pass trace context in the standard HTTP traceparent header.",
-            "rows": [
+            "caption": "Services pass trace context to each other in a standard HTTP header.",
+            "messages": [
               {
-                "cells": [
-                  "00",
-                  "01"
-                ],
+                "from": "header",
+                "to": "version",
+                "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
+                "tone": "data"
+              },
+              {
+                "from": "version",
+                "to": "trace_id",
+                "label": "'00'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "header"
           },
           {
             "at": "say2",
-            "caption": "The header format includes version trace id parent id and flags.",
-            "rows": [
+            "caption": "Its format is version-traceid-parentid-flags, for example.",
+            "messages": [
               {
-                "cells": [
-                  "00",
-                  "01"
-                ],
-                "tone": "ok"
+                "from": "header",
+                "to": "version",
+                "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "00",
-                  "4bf92f3577b34da6a3ce929d0e0e4736"
-                ],
-                "tone": "data"
+                "from": "version",
+                "to": "trace_id",
+                "label": "'00'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "version"
           },
           {
-            "at": "say4",
-            "caption": "Standard formats let services join the same trace across platforms.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example parses a real-looking header.",
+            "messages": [
               {
-                "cells": [
-                  "00",
-                  "01"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "00",
-                  "4bf92f3577b34da6a3ce929d0e0e4736"
-                ],
+                "from": "header",
+                "to": "version",
+                "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "00",
-                  "00f067aa0ba902b7"
-                ],
+                "from": "version",
+                "to": "trace_id",
+                "label": "'00'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "trace_id"
           }
         ]
       }
@@ -403,132 +281,113 @@
       "partTitle": "Creating a child span",
       "codeHash": "ffc11fdecf1940054aab50b7f458e24c048d60dad63d00edd12a4a7c84ee37bf",
       "spec": {
-        "template": "compare",
-        "title": "Trace context propagation between child span and root span creation",
-        "leftLabel": "Child Span",
-        "rightLabel": "Root Span",
+        "template": "cells",
+        "title": "Creating a child span",
         "steps": [
           {
             "at": "say1",
-            "caption": "If the incoming header exists use its span id as parent.",
-            "left": {
-              "code": "child_span(incoming, ...)",
-              "result": {
-                "text": "orders-service"
-              },
-              "tone": "ok"
+            "caption": "Child_span(traceparent, name, new_span_id, new_trace_id).",
+            "items": {
+              "var": "parts",
+              "line": 2,
+              "hit": 1
             },
-            "right": {
-              "code": "child_span(None, ...)",
-              "result": {
-                "text": "gateway"
-              },
-              "tone": "ok"
-            }
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Otherwise start a new trace with no parent as root of call chain.",
-            "left": {
-              "code": "orders-service",
-              "result": {
-                "text": "orders-service"
-              },
-              "tone": "ok"
+            "caption": "Otherwise, start a new trace with new_trace_id and no parent.",
+            "items": {
+              "var": "parts",
+              "line": 7,
+              "hit": 1
             },
-            "right": {
-              "code": "gateway",
-              "result": {
-                "text": "gateway"
-              },
-              "tone": "data"
-            }
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say6",
-            "caption": "Tracing libraries perform context propagation automatically.",
-            "left": {
-              "code": "orders-service",
-              "result": {
-                "text": "orders-service"
-              },
-              "tone": "ok"
+            "at": "say7",
+            "caption": "The example continues an existing trace and starts a new one.",
+            "items": {
+              "var": "parts",
+              "line": 7,
+              "hit": 2
             },
-            "right": {
-              "code": "gateway",
-              "result": {
-                "text": "gateway"
-              },
-              "tone": "ok"
-            }
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Trace context propagation between child span and root span creation",
-        "leftLabel": "Child Span",
-        "rightLabel": "Root Span",
+        "template": "cells",
+        "title": "Creating a child span",
         "steps": [
           {
             "at": "say1",
-            "caption": "If the incoming header exists use its span id as parent.",
-            "left": {
-              "code": "child_span(incoming, ...)",
-              "result": "orders-service",
-              "tone": "ok",
-              "checks": [
-                "orders-service"
-              ]
-            },
-            "right": {
-              "code": "child_span(None, ...)",
-              "result": "gateway",
-              "tone": "ok",
-              "checks": [
-                "gateway"
-              ]
-            }
+            "caption": "Child_span(traceparent, name, new_span_id, new_trace_id).",
+            "items": [
+              "'00'",
+              "'4bf92f3577b34da6a3ce929d0e0e4736'",
+              "'00f067aa0ba902b7'",
+              "'01'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Otherwise start a new trace with no parent as root of call chain.",
-            "left": {
-              "code": "orders-service",
-              "result": "orders-service",
-              "tone": "ok",
-              "checks": [
-                "orders-service"
-              ]
-            },
-            "right": {
-              "code": "gateway",
-              "result": "gateway",
-              "tone": "data",
-              "checks": [
-                "gateway"
-              ]
-            }
+            "caption": "Otherwise, start a new trace with new_trace_id and no parent.",
+            "items": [
+              "'00'",
+              "'4bf92f3577b34da6a3ce929d0e0e4736'",
+              "'00f067aa0ba902b7'",
+              "'01'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
           },
           {
-            "at": "say6",
-            "caption": "Tracing libraries perform context propagation automatically.",
-            "left": {
-              "code": "orders-service",
-              "result": "orders-service",
-              "tone": "ok",
-              "checks": [
-                "orders-service"
-              ]
-            },
-            "right": {
-              "code": "gateway",
-              "result": "gateway",
-              "tone": "ok",
-              "checks": [
-                "gateway"
-              ]
-            }
+            "at": "say7",
+            "caption": "The example continues an existing trace and starts a new one.",
+            "items": [
+              "'00'",
+              "'4bf92f3577b34da6a3ce929d0e0e4736'",
+              "'00f067aa0ba902b7'",
+              "'01'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
+            ]
           }
         ]
       }
@@ -537,224 +396,162 @@
       "partTitle": "Validating headers",
       "codeHash": "a82004b406a15d773417edcd17b57f259e9788b08cc09a0e1220524feda8baed",
       "spec": {
-        "template": "flow",
-        "title": "Validating headers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Validating headers",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Validating headers",
+        "actors": [
+          "tests",
+          "h",
+          "header"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Validating headers [D.Pfour.Sone].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Validating headers [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Headers arrive from outside, so validate them.",
+            "activeActor": "tests",
+            "messages": [
+              {
+                "from": "tests",
+                "to": "h",
+                "label": {
+                  "var": "tests",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "h",
+                "to": "header",
+                "label": {
+                  "var": "h",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how fullmatch updates checks during execution.",
+            "activeActor": "h",
+            "messages": [
+              {
+                "from": "tests",
+                "to": "h",
+                "label": {
+                  "var": "tests",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "h",
+                "to": "header",
+                "label": {
+                  "var": "h",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Validating headers [D.Pfour.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example checks a valid header and several invalid ones.",
+            "activeActor": "header",
+            "messages": [
+              {
+                "from": "tests",
+                "to": "h",
+                "label": {
+                  "var": "tests",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "h",
+                "to": "header",
+                "label": {
+                  "var": "h",
+                  "line": 13,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Validating headers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Validating headers",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Validating headers",
+        "actors": [
+          "tests",
+          "h",
+          "header"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Validating headers [D26.P4.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Validating headers [D26.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Headers arrive from outside, so validate them.",
+            "messages": [
+              {
+                "from": "tests",
+                "to": "h",
+                "label": "['00-4bf92f3577b34da6a3ce929d0e0e4736-0…",
+                "tone": "data"
+              },
+              {
+                "from": "h",
+                "to": "header",
+                "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "tests"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Trace how fullmatch updates checks during execution.",
+            "messages": [
+              {
+                "from": "tests",
+                "to": "h",
+                "label": "['00-4bf92f3577b34da6a3ce929d0e0e4736-0…",
+                "tone": "data"
+              },
+              {
+                "from": "h",
+                "to": "header",
+                "label": "'00-4bf92f3577b34da6a3ce929d0e0e4736-00…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "h"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Validating headers [D26.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example checks a valid header and several invalid ones.",
+            "messages": [
+              {
+                "from": "tests",
+                "to": "h",
+                "label": "['00-4bf92f3577b34da6a3ce929d0e0e4736-0…",
+                "tone": "data"
+              },
+              {
+                "from": "h",
+                "to": "header",
+                "label": "'00-4BF92F3577B34DA6A3CE929D0E0E4736-00…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "header"
           }
         ]
       }
@@ -763,166 +560,162 @@
       "partTitle": "Sampling",
       "codeHash": "e3b486dc5bec923c4d92266d39c7b089c7b10fab26b591e82e47fb6e1591c04e",
       "spec": {
-        "template": "table",
-        "title": "Trace sampling decisions preserving errors and rate-limiting traces",
-        "columns": [
-          "trace_id",
-          "status"
+        "template": "sequence",
+        "title": "Sampling",
+        "actors": [
+          "traces",
+          "tid",
+          "err"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Sampling controls overhead since busy systems create millions of spans.",
-            "rows": [
+            "caption": "Recording every span of every request can be expensive.",
+            "activeActor": "traces",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "4bf92f3577b34da6a3ce929d0e0e4736"
-                  },
-                  {
-                    "text": "keep"
-                  }
-                ],
+                "from": "traces",
+                "to": "tid",
+                "label": {
+                  "var": "traces",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "tid",
+                "to": "err",
+                "label": {
+                  "var": "tid",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Sampling decisions always retain error traces for debugging.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how head updates based during execution.",
+            "activeActor": "tid",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "4bf92f3577b34da6a3ce929d0e0e4736"
-                  },
-                  {
-                    "text": "keep"
-                  }
-                ],
-                "tone": "ok"
+                "from": "traces",
+                "to": "tid",
+                "label": {
+                  "var": "traces",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "ffffffffffffffffffffffffffffffff"
-                  },
-                  {
-                    "text": "keep"
-                  }
-                ],
-                "tone": "error"
+                "from": "tid",
+                "to": "err",
+                "label": {
+                  "var": "tid",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Deterministic sampling by trace id keeps cluster decisions consistent.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example samples by trace id and keeps every error.",
+            "activeActor": "err",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "4bf92f3577b34da6a3ce929d0e0e4736"
-                  },
-                  {
-                    "text": "keep"
-                  }
-                ],
+                "from": "traces",
+                "to": "tid",
+                "label": {
+                  "var": "traces",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "tid",
+                "to": "err",
+                "label": {
+                  "var": "tid",
+                  "line": 8,
+                  "hit": 2
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "0af7651916cd43dd8448eb211c80319c"
-                  },
-                  {
-                    "text": "drop"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ffffffffffffffffffffffffffffffff"
-                  },
-                  {
-                    "text": "keep"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Trace sampling decisions preserving errors and rate-limiting traces",
-        "columns": [
-          "trace_id",
-          "status"
+        "template": "sequence",
+        "title": "Sampling",
+        "actors": [
+          "traces",
+          "tid",
+          "err"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Sampling controls overhead since busy systems create millions of spans.",
-            "rows": [
+            "caption": "Recording every span of every request can be expensive.",
+            "messages": [
               {
-                "cells": [
-                  "4bf92f3577b34da6a3ce929d0e0e4736",
-                  "keep"
-                ],
+                "from": "traces",
+                "to": "tid",
+                "label": "[['4bf92f3577b34da6a3ce929d0e0e4736', F…",
+                "tone": "data"
+              },
+              {
+                "from": "tid",
+                "to": "err",
+                "label": "'4bf92f3577b34da6a3ce929d0e0e4736'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "traces"
           },
           {
-            "at": "say5",
-            "caption": "Sampling decisions always retain error traces for debugging.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how head updates based during execution.",
+            "messages": [
               {
-                "cells": [
-                  "4bf92f3577b34da6a3ce929d0e0e4736",
-                  "keep"
-                ],
-                "tone": "ok"
+                "from": "traces",
+                "to": "tid",
+                "label": "[['4bf92f3577b34da6a3ce929d0e0e4736', F…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "ffffffffffffffffffffffffffffffff",
-                  "keep"
-                ],
-                "tone": "error"
+                "from": "tid",
+                "to": "err",
+                "label": "'4bf92f3577b34da6a3ce929d0e0e4736'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "tid"
           },
           {
-            "at": "say6",
-            "caption": "Deterministic sampling by trace id keeps cluster decisions consistent.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example samples by trace id and keeps every error.",
+            "messages": [
               {
-                "cells": [
-                  "4bf92f3577b34da6a3ce929d0e0e4736",
-                  "keep"
-                ],
+                "from": "traces",
+                "to": "tid",
+                "label": "[['4bf92f3577b34da6a3ce929d0e0e4736', F…",
+                "tone": "data"
+              },
+              {
+                "from": "tid",
+                "to": "err",
+                "label": "'0af7651916cd43dd8448eb211c80319c'",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "0af7651916cd43dd8448eb211c80319c",
-                  "drop"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "ffffffffffffffffffffffffffffffff",
-                  "keep"
-                ],
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "err"
           }
         ]
       }
@@ -931,165 +724,221 @@
       "partTitle": "Traces, logs and metrics together",
       "codeHash": "eaefa7460c586322cc75caff02ccb143a5bcd7a78dff18459db440d5f6a7a593",
       "spec": {
-        "template": "table",
-        "title": "Observability correlation linking distributed trace logs by identifier",
-        "columns": [
-          "service",
-          "msg"
+        "template": "flow",
+        "title": "Traces, logs and metrics together",
+        "nodes": [
+          {
+            "id": "logs",
+            "label": "logs"
+          },
+          {
+            "id": "slow_trace",
+            "label": "slow_trace"
+          },
+          {
+            "id": "line",
+            "label": "line"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Observability links metrics for detection traces for path and logs.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "gateway"
-                  },
-                  {
-                    "text": "request received"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Observability has three pillars.",
+            "values": {
+              "logs": {
+                "var": "logs",
+                "line": 1,
+                "hit": 1
+              },
+              "slow_trace": {
+                "var": "slow_trace",
+                "line": 7,
+                "hit": 1
+              },
+              "line": {
+                "var": "line",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "logs": "data",
+              "slow_trace": "data",
+              "line": "data"
+            },
+            "arrows": [
+              [
+                "logs",
+                "slow_trace"
+              ],
+              [
+                "slow_trace",
+                "line"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Recording trace identifiers in log lines enables rapid incident triage.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "gateway"
-                  },
-                  {
-                    "text": "request received"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Put the trace id in every log line, so you can jump from a slow trace.",
+            "values": {
+              "logs": {
+                "var": "logs",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "orders"
-                  },
-                  {
-                    "text": "query took 310 ms, missing index on orders.user_id"
-                  }
-                ],
-                "tone": "error"
+              "slow_trace": {
+                "var": "slow_trace",
+                "line": 8,
+                "hit": 1
+              },
+              "line": {
+                "var": "line",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "logs": "data",
+              "slow_trace": "data",
+              "line": "data"
+            },
+            "arrows": [
+              [
+                "logs",
+                "slow_trace"
+              ],
+              [
+                "slow_trace",
+                "line"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "Filtering distributed logs by trace identifier reconstructs requests.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "gateway"
-                  },
-                  {
-                    "text": "request received"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example joins log lines by trace id.",
+            "values": {
+              "logs": {
+                "var": "logs",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "orders"
-                  },
-                  {
-                    "text": "query took 310 ms, missing index on orders.user_id"
-                  }
-                ],
-                "tone": "error"
+              "slow_trace": {
+                "var": "slow_trace",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "gateway"
-                  },
-                  {
-                    "text": "responded 200 in 420 ms"
-                  }
-                ],
-                "tone": "ok"
+              "line": {
+                "var": "line",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "logs": "ok",
+              "slow_trace": "ok",
+              "line": "ok"
+            },
+            "arrows": [
+              [
+                "logs",
+                "slow_trace"
+              ],
+              [
+                "slow_trace",
+                "line"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Observability correlation linking distributed trace logs by identifier",
-        "columns": [
-          "service",
-          "msg"
+        "template": "flow",
+        "title": "Traces, logs and metrics together",
+        "nodes": [
+          {
+            "id": "logs",
+            "label": "logs"
+          },
+          {
+            "id": "slow_trace",
+            "label": "slow_trace"
+          },
+          {
+            "id": "line",
+            "label": "line"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Observability links metrics for detection traces for path and logs.",
-            "rows": [
-              {
-                "cells": [
-                  "gateway",
-                  "request received"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Observability has three pillars.",
+            "values": {
+              "logs": "[{'trace': '4bf9', 'service': 'gateway'…",
+              "slow_trace": "'4bf9'",
+              "line": "{'trace': '4bf9', 'service': 'gateway',…"
+            },
+            "tones": {
+              "logs": "data",
+              "slow_trace": "data",
+              "line": "data"
+            },
+            "arrows": [
+              [
+                "logs",
+                "slow_trace"
+              ],
+              [
+                "slow_trace",
+                "line"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Recording trace identifiers in log lines enables rapid incident triage.",
-            "rows": [
-              {
-                "cells": [
-                  "gateway",
-                  "request received"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "orders",
-                  "query took 310 ms, missing index on orders.user_id"
-                ],
-                "tone": "error"
-              }
+            "caption": "Put the trace id in every log line, so you can jump from a slow trace.",
+            "values": {
+              "logs": "[{'trace': '4bf9', 'service': 'gateway'…",
+              "slow_trace": "'4bf9'",
+              "line": "{'trace': '4bf9', 'service': 'gateway',…"
+            },
+            "tones": {
+              "logs": "data",
+              "slow_trace": "data",
+              "line": "data"
+            },
+            "arrows": [
+              [
+                "logs",
+                "slow_trace"
+              ],
+              [
+                "slow_trace",
+                "line"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "Filtering distributed logs by trace identifier reconstructs requests.",
-            "rows": [
-              {
-                "cells": [
-                  "gateway",
-                  "request received"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "orders",
-                  "query took 310 ms, missing index on orders.user_id"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "gateway",
-                  "responded 200 in 420 ms"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The example joins log lines by trace id.",
+            "values": {
+              "logs": "[{'trace': '4bf9', 'service': 'gateway'…",
+              "slow_trace": "'4bf9'",
+              "line": "{'trace': '4bf9', 'service': 'gateway',…"
+            },
+            "tones": {
+              "logs": "ok",
+              "slow_trace": "ok",
+              "line": "ok"
+            },
+            "arrows": [
+              [
+                "logs",
+                "slow_trace"
+              ],
+              [
+                "slow_trace",
+                "line"
+              ]
             ]
           }
         ]

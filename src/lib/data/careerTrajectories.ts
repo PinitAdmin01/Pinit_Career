@@ -223,7 +223,7 @@ export const CANONICAL_TRAJECTORIES: Record<string, CareerTrajectory> = {
       },
       {
         nodeId: 'node-py-dsa',
-        courseId: 'course-dsa-optim',
+        courseId: 'course-dsa-python',
         title: 'Data Structures & Algorithmic Problem Solving',
         shortDesc: 'Big-O complexity, recursion, hash tables, stacks, queues, and searching/sorting',
         icon: '🔢',
@@ -235,9 +235,9 @@ export const CANONICAL_TRAJECTORIES: Record<string, CareerTrajectory> = {
         nodeId: 'node-py-pro',
         courseId: 'course-python-backend',
         title: 'Python Backend APIs & System Architecture',
-        shortDesc: 'FastAPI, AsyncIO, RESTful interfaces, database integration, and Docker containerization',
+        shortDesc: 'FastAPI, AsyncIO, SQLAlchemy ORM, distributed queues, gRPC, and OpenTelemetry',
         icon: '🚀',
-        skillsLearned: ['FastAPI', 'AsyncIO', 'PostgreSQL/Redis', 'Docker Containers'],
+        skillsLearned: ['FastAPI & ASGI', 'SQLAlchemy ORM', 'Celery & Kafka', 'OpenTelemetry'],
         careerImpact: '+30% Pro Systems Mastery',
         estimatedDays: 30,
         gate: {
@@ -827,7 +827,11 @@ export function recommendCareerTrajectory(
     goalClean.includes('python zero to hero') ||
     goalClean.includes('python complete') ||
     goalClean === 'python programming' ||
-    goalClean === 'learn python'
+    goalClean === 'learn python' ||
+    // [FIX-STAGE: option-a-python-alignment] Route flagship Python backend & engineer roles to canonical trajectory
+    goalClean.includes('python software engineer') ||
+    (goalClean.includes('python') && goalClean.includes('basic to advance')) ||
+    (goalClean.includes('python') && goalClean.includes('backend') && !goalClean.includes('business'))
   ) {
     return {
       ...CANONICAL_TRAJECTORIES['python-basic-to-advance'],

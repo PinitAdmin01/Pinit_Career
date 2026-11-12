@@ -2,256 +2,284 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 22,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Words, characters or subwords?",
       "codeHash": "5db7f3f7ade8ae73a9b85da1f922d96d4dc3546c616d95abee94ef58dc2d7374",
       "spec": {
-        "template": "table",
-        "title": "Token granularity tradeoffs across words characters and subwords",
-        "columns": [
-          "words",
-          "subwords"
+        "template": "flow",
+        "title": "Words, characters or subwords?",
+        "nodes": [
+          {
+            "id": "sentence",
+            "label": "sentence"
+          },
+          {
+            "id": "words",
+            "label": "words"
+          },
+          {
+            "id": "chars",
+            "label": "chars"
+          },
+          {
+            "id": "subwords",
+            "label": "subwords"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fixed vocabulary choices determine sequence length and token granularity.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "subwords"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Every model needs a fixed vocabulary of tokens.",
+            "values": {
+              "sentence": {
+                "var": "sentence",
+                "line": 1,
+                "hit": 1
+              },
+              "words": {
+                "var": "words",
+                "line": 2,
+                "hit": 1
+              },
+              "chars": {
+                "var": "chars",
+                "line": 3,
+                "hit": 1
+              },
+              "subwords": {
+                "var": "subwords",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "sentence": "data",
+              "words": "data",
+              "chars": "data",
+              "subwords": "data"
+            },
+            "arrows": [
+              [
+                "sentence",
+                "words"
+              ],
+              [
+                "words",
+                "chars"
+              ],
+              [
+                "chars",
+                "subwords"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Word tokens keep sequences short but struggle with unknown vocabulary.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "subwords"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Sequences are short, but the vocabulary is huge and still misses new.",
+            "values": {
+              "sentence": {
+                "var": "sentence",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "sentence"
-                  },
-                  {
-                    "text": "chars"
-                  }
-                ],
-                "tone": "ok"
+              "words": {
+                "var": "words",
+                "line": 3,
+                "hit": 1
+              },
+              "chars": {
+                "var": "chars",
+                "line": 4,
+                "hit": 1
+              },
+              "subwords": {
+                "var": "subwords",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "sentence": "data",
+              "words": "data",
+              "chars": "data",
+              "subwords": "data"
+            },
+            "arrows": [
+              [
+                "sentence",
+                "words"
+              ],
+              [
+                "words",
+                "chars"
+              ],
+              [
+                "chars",
+                "subwords"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Character tokens prevent unknown items while sequences become very long.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "subwords"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Token counts matter in practice.",
+            "values": {
+              "sentence": {
+                "var": "sentence",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "sentence"
-                  },
-                  {
-                    "text": "chars"
-                  }
-                ],
-                "tone": "ok"
+              "words": {
+                "var": "words",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "sentence"
-                  },
-                  {
-                    "text": "split"
-                  }
-                ],
-                "tone": "data"
+              "chars": {
+                "var": "chars",
+                "line": 5,
+                "hit": 1
+              },
+              "subwords": {
+                "var": "subwords",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Subword tokens split rare terms into meaningful and flexible pieces.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "subwords"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sentence"
-                  },
-                  {
-                    "text": "chars"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sentence"
-                  },
-                  {
-                    "text": "split"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "sentence": "ok",
+              "words": "ok",
+              "chars": "ok",
+              "subwords": "ok"
+            },
+            "arrows": [
+              [
+                "sentence",
+                "words"
+              ],
+              [
+                "words",
+                "chars"
+              ],
+              [
+                "chars",
+                "subwords"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Token granularity tradeoffs across words characters and subwords",
-        "columns": [
-          "words",
-          "subwords"
+        "template": "flow",
+        "title": "Words, characters or subwords?",
+        "nodes": [
+          {
+            "id": "sentence",
+            "label": "sentence"
+          },
+          {
+            "id": "words",
+            "label": "words"
+          },
+          {
+            "id": "chars",
+            "label": "chars"
+          },
+          {
+            "id": "subwords",
+            "label": "subwords"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fixed vocabulary choices determine sequence length and token granularity.",
-            "rows": [
-              {
-                "cells": [
-                  "words",
-                  "subwords"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Every model needs a fixed vocabulary of tokens.",
+            "values": {
+              "sentence": "'unbelievable tokenisation results'",
+              "words": "['unbelievable', 'tokenisation', 'resul…",
+              "chars": "['u', 'n', 'b', 'e', 'l', 'i', 'e', 'v'…",
+              "subwords": "['un', 'believ', 'able', '_token', 'isa…"
+            },
+            "tones": {
+              "sentence": "data",
+              "words": "data",
+              "chars": "data",
+              "subwords": "data"
+            },
+            "arrows": [
+              [
+                "sentence",
+                "words"
+              ],
+              [
+                "words",
+                "chars"
+              ],
+              [
+                "chars",
+                "subwords"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Word tokens keep sequences short but struggle with unknown vocabulary.",
-            "rows": [
-              {
-                "cells": [
-                  "words",
-                  "subwords"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sentence",
-                  "chars"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Sequences are short, but the vocabulary is huge and still misses new.",
+            "values": {
+              "sentence": "'unbelievable tokenisation results'",
+              "words": "['unbelievable', 'tokenisation', 'resul…",
+              "chars": "['u', 'n', 'b', 'e', 'l', 'i', 'e', 'v'…",
+              "subwords": "['un', 'believ', 'able', '_token', 'isa…"
+            },
+            "tones": {
+              "sentence": "data",
+              "words": "data",
+              "chars": "data",
+              "subwords": "data"
+            },
+            "arrows": [
+              [
+                "sentence",
+                "words"
+              ],
+              [
+                "words",
+                "chars"
+              ],
+              [
+                "chars",
+                "subwords"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Character tokens prevent unknown items while sequences become very long.",
-            "rows": [
-              {
-                "cells": [
-                  "words",
-                  "subwords"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sentence",
-                  "chars"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sentence",
-                  "split"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Subword tokens split rare terms into meaningful and flexible pieces.",
-            "rows": [
-              {
-                "cells": [
-                  "words",
-                  "subwords"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sentence",
-                  "chars"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sentence",
-                  "split"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "words",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Token counts matter in practice.",
+            "values": {
+              "sentence": "'unbelievable tokenisation results'",
+              "words": "['unbelievable', 'tokenisation', 'resul…",
+              "chars": "['u', 'n', 'b', 'e', 'l', 'i', 'e', 'v'…",
+              "subwords": "['un', 'believ', 'able', '_token', 'isa…"
+            },
+            "tones": {
+              "sentence": "ok",
+              "words": "ok",
+              "chars": "ok",
+              "subwords": "ok"
+            },
+            "arrows": [
+              [
+                "sentence",
+                "words"
+              ],
+              [
+                "words",
+                "chars"
+              ],
+              [
+                "chars",
+                "subwords"
+              ]
             ]
           }
         ]
@@ -261,249 +289,221 @@
       "partTitle": "How byte-pair encoding learns",
       "codeHash": "f5195d24f78a5c2a26d0ca98c027e4ec850867005e3e094d88e465306d3bdb6a",
       "spec": {
-        "template": "table",
-        "title": "Byte-pair encoding iterative frequency-based merge process",
-        "columns": [
-          "pairs",
-          "best"
+        "template": "flow",
+        "title": "How byte-pair encoding learns",
+        "nodes": [
+          {
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "pairs",
+            "label": "pairs"
+          },
+          {
+            "id": "best",
+            "label": "best"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Byte-pair encoding serves as an adaptive compression method for words.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pairs"
-                  },
-                  {
-                    "text": "best"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Trace how byte updates pair during execution.",
+            "values": {
+              "tokens": {
+                "var": "tokens",
+                "line": 3,
+                "hit": 1
+              },
+              "pairs": {
+                "var": "pairs",
+                "line": 4,
+                "hit": 1
+              },
+              "best": {
+                "var": "best",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "tokens": "data",
+              "pairs": "data",
+              "best": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "pairs"
+              ],
+              [
+                "pairs",
+                "best"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Training starts with characters and finds the most frequent adjacent pair.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pairs"
-                  },
-                  {
-                    "text": "best"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Training starts with every word split into characters.",
+            "values": {
+              "tokens": {
+                "var": "tokens",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "Counter"
-                  }
-                ],
-                "tone": "ok"
+              "pairs": {
+                "var": "pairs",
+                "line": 5,
+                "hit": 1
+              },
+              "best": {
+                "var": "best",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "tokens": "data",
+              "pairs": "data",
+              "best": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "pairs"
+              ],
+              [
+                "pairs",
+                "best"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Each merge operation adds a newly formed token to the model vocabulary.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pairs"
-                  },
-                  {
-                    "text": "best"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example counts pairs in a tiny corpus and shows the first merge.",
+            "values": {
+              "tokens": {
+                "var": "tokens",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "Counter"
-                  }
-                ],
-                "tone": "ok"
+              "pairs": {
+                "var": "pairs",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "zip"
-                  },
-                  {
-                    "text": "list"
-                  }
-                ],
-                "tone": "data"
+              "best": {
+                "var": "best",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The ordered list of merges defines the rules to tokenise new text.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pairs"
-                  },
-                  {
-                    "text": "best"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "Counter"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "zip"
-                  },
-                  {
-                    "text": "list"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "pairs"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "tokens": "ok",
+              "pairs": "ok",
+              "best": "ok"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "pairs"
+              ],
+              [
+                "pairs",
+                "best"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Byte-pair encoding iterative frequency-based merge process",
-        "columns": [
-          "pairs",
-          "best"
+        "template": "flow",
+        "title": "How byte-pair encoding learns",
+        "nodes": [
+          {
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "pairs",
+            "label": "pairs"
+          },
+          {
+            "id": "best",
+            "label": "best"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Byte-pair encoding serves as an adaptive compression method for words.",
-            "rows": [
-              {
-                "cells": [
-                  "pairs",
-                  "best"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Trace how byte updates pair during execution.",
+            "values": {
+              "tokens": "['l', 'o', 'w', '_', 'l', 'o', 'w', 'e'…",
+              "pairs": "{['l', 'o']: 3, ['o', 'w']: 3, ['w', '_…",
+              "best": "['l', 'o']"
+            },
+            "tones": {
+              "tokens": "data",
+              "pairs": "data",
+              "best": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "pairs"
+              ],
+              [
+                "pairs",
+                "best"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Training starts with characters and finds the most frequent adjacent pair.",
-            "rows": [
-              {
-                "cells": [
-                  "pairs",
-                  "best"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tokens",
-                  "Counter"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Training starts with every word split into characters.",
+            "values": {
+              "tokens": "['l', 'o', 'w', '_', 'l', 'o', 'w', 'e'…",
+              "pairs": "{['l', 'o']: 3, ['o', 'w']: 3, ['w', '_…",
+              "best": "['l', 'o']"
+            },
+            "tones": {
+              "tokens": "data",
+              "pairs": "data",
+              "best": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "pairs"
+              ],
+              [
+                "pairs",
+                "best"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Each merge operation adds a newly formed token to the model vocabulary.",
-            "rows": [
-              {
-                "cells": [
-                  "pairs",
-                  "best"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tokens",
-                  "Counter"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "zip",
-                  "list"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The ordered list of merges defines the rules to tokenise new text.",
-            "rows": [
-              {
-                "cells": [
-                  "pairs",
-                  "best"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tokens",
-                  "Counter"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "zip",
-                  "list"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "pairs",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example counts pairs in a tiny corpus and shows the first merge.",
+            "values": {
+              "tokens": "['l', 'o', 'w', '_', 'l', 'o', 'w', 'e'…",
+              "pairs": "{['l', 'o']: 3, ['o', 'w']: 3, ['w', '_…",
+              "best": "['l', 'o']"
+            },
+            "tones": {
+              "tokens": "ok",
+              "pairs": "ok",
+              "best": "ok"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "pairs"
+              ],
+              [
+                "pairs",
+                "best"
+              ]
             ]
           }
         ]
@@ -513,248 +513,105 @@
       "partTitle": "Applying a merge",
       "codeHash": "a6a275b238426de60d7787ff5ad5f66a6fcdd9063aa34a70101ded2d8d6018ab",
       "spec": {
-        "template": "table",
-        "title": "Sequential token substitution during subword merge execution",
-        "columns": [
-          "pair",
-          "new_token"
-        ],
+        "template": "cells",
+        "title": "Applying a merge",
         "steps": [
           {
             "at": "say1",
-            "caption": "Scan left to right and replace each adjacent occurrence of the pair.",
-            "rows": [
+            "caption": "Practice 1 is merge_pair(tokens, pair, new_token).",
+            "items": {
+              "var": "pair",
+              "line": 11,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "pair"
-                  },
-                  {
-                    "text": "new_token"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Merged tokens are never reused for an overlapping match.",
-            "rows": [
+            "caption": "Merged tokens are not reused for an overlapping match.",
+            "items": {
+              "var": "pair",
+              "line": 4,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "pair"
-                  },
-                  {
-                    "text": "new_token"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "A while loop scans the current index and skips ahead when pairs match.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pair"
-                  },
-                  {
-                    "text": "new_token"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tuple"
-                  },
-                  {
-                    "text": "len"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Pair order matters because token sequences are strictly directional.",
-            "rows": [
+            "at": "say7",
+            "caption": "Watch the token count drop with each merge.",
+            "items": {
+              "var": "pair",
+              "line": 3,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "pair"
-                  },
-                  {
-                    "text": "new_token"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "out"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tuple"
-                  },
-                  {
-                    "text": "len"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "merge_pair"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Sequential token substitution during subword merge execution",
-        "columns": [
-          "pair",
-          "new_token"
-        ],
+        "template": "cells",
+        "title": "Applying a merge",
         "steps": [
           {
             "at": "say1",
-            "caption": "Scan left to right and replace each adjacent occurrence of the pair.",
-            "rows": [
+            "caption": "Practice 1 is merge_pair(tokens, pair, new_token).",
+            "items": [
+              "'t'",
+              "'h'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "pair",
-                  "new_token"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Merged tokens are never reused for an overlapping match.",
-            "rows": [
+            "caption": "Merged tokens are not reused for an overlapping match.",
+            "items": [
+              "'t'",
+              "'h'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "pair",
-                  "new_token"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out",
-                  "tokens"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "A while loop scans the current index and skips ahead when pairs match.",
-            "rows": [
-              {
-                "cells": [
-                  "pair",
-                  "new_token"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out",
-                  "tokens"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tuple",
-                  "len"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Pair order matters because token sequences are strictly directional.",
-            "rows": [
+            "at": "say7",
+            "caption": "Watch the token count drop with each merge.",
+            "items": [
+              "'t'",
+              "'h'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "pair",
-                  "new_token"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "out",
-                  "tokens"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tuple",
-                  "len"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "merge_pair",
-                  "tokens"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -765,223 +622,115 @@
       "partTitle": "Tokenising new text",
       "codeHash": "fe81fb96ca0fe6af091d3e2e8bfcffe8b2067e5c6a4428cfc90c11dab24e42e2",
       "spec": {
-        "template": "flow",
-        "title": "Tokenising new text — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Tokenising new text",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Tokenising new text",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Tokenising new text [D.Pfour.Sone].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Tokenising new text [D.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "After training, you have an ordered list of merges.",
+            "items": {
+              "var": "tokens",
+              "line": 4,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Frequent words end up as a single token.",
+            "items": {
+              "var": "tokens",
+              "line": 7,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Tokenising new text [D.Pfour.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Always count tokens, not words, when you estimate what a prompt will cost.",
+            "items": {
+              "var": "tokens",
+              "line": 11,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Tokenising new text — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Tokenising new text",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Tokenising new text",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Tokenising new text [D22.P4.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Tokenising new text [D22.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "After training, you have an ordered list of merges.",
+            "items": [
+              "'l'",
+              "'o'",
+              "'w'",
+              "'e'",
+              "'r'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Frequent words end up as a single token.",
+            "items": [
+              "'l'",
+              "'o'",
+              "'w'",
+              "'e'",
+              "'r'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Tokenising new text [D22.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Always count tokens, not words, when you estimate what a prompt will cost.",
+            "items": [
+              "'l'",
+              "'o'",
+              "'w'",
+              "'e'",
+              "'r'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -991,143 +740,77 @@
       "partTitle": "WordPiece and SentencePiece",
       "codeHash": "af6e6fdd043861368c1060c742614270fa41d3d31351dd7dd8368343fb21e9c2",
       "spec": {
-        "template": "table",
-        "title": "WordPiece prefix tokenization and longest match matching",
-        "columns": [
-          "start",
-          "piece"
-        ],
+        "template": "bars",
+        "title": "WordPiece and SentencePiece",
         "steps": [
           {
             "at": "say1",
-            "caption": "WordPiece chooses merges by likelihood rather than simple raw frequency.",
-            "rows": [
+            "caption": "WordPiece, used by BERT, is similar to BPE but chooses merges by how much.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "piece"
-                  }
-                ],
-                "tone": "ok"
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "end",
+                "value": {
+                  "var": "end",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Prefix symbols mark pieces that continue a word across token boundaries.",
-            "rows": [
+            "caption": "BERT marks pieces that continue a word with \"##\".",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "piece"
-                  }
-                ],
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "wordpiece"
-                  }
-                ],
+                "label": "end",
+                "value": {
+                  "var": "end",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Subword models share a data-driven vocabulary covering diverse vocabulary.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "piece"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "wordpiece"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "word"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
-                "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Greedy longest match selects the longest vocabulary piece that fits.",
-            "rows": [
+            "caption": "Greedy longest match takes the longest vocabulary piece that fits at.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "piece"
-                  }
-                ],
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "wordpiece"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "word"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "len"
-                  }
-                ],
+                "label": "end",
+                "value": {
+                  "var": "end",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -1135,103 +818,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "WordPiece prefix tokenization and longest match matching",
-        "columns": [
-          "start",
-          "piece"
-        ],
+        "template": "bars",
+        "title": "WordPiece and SentencePiece",
         "steps": [
           {
             "at": "say1",
-            "caption": "WordPiece chooses merges by likelihood rather than simple raw frequency.",
-            "rows": [
+            "caption": "WordPiece, used by BERT, is similar to BPE but chooses merges by how much.",
+            "bars": [
               {
-                "cells": [
-                  "start",
-                  "piece"
-                ],
-                "tone": "ok"
+                "label": "start",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "end",
+                "value": 7,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Prefix symbols mark pieces that continue a word across token boundaries.",
-            "rows": [
+            "caption": "BERT marks pieces that continue a word with \"##\".",
+            "bars": [
               {
-                "cells": [
-                  "start",
-                  "piece"
-                ],
+                "label": "start",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "vocab",
-                  "wordpiece"
-                ],
+                "label": "end",
+                "value": 7,
                 "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Subword models share a data-driven vocabulary covering diverse vocabulary.",
-            "rows": [
-              {
-                "cells": [
-                  "start",
-                  "piece"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "vocab",
-                  "wordpiece"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "word",
-                  "range"
-                ],
-                "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Greedy longest match selects the longest vocabulary piece that fits.",
-            "rows": [
+            "caption": "Greedy longest match takes the longest vocabulary piece that fits at.",
+            "bars": [
               {
-                "cells": [
-                  "start",
-                  "piece"
-                ],
+                "label": "start",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "vocab",
-                  "wordpiece"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "word",
-                  "range"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "start",
-                  "len"
-                ],
+                "label": "end",
+                "value": 7,
                 "tone": "ok"
               }
             ]
@@ -1243,223 +876,133 @@
       "partTitle": "Practice time: merges",
       "codeHash": "34c25e0d0c6c4c5c5ec9bbef05c0d2a40986fcb8921cace005cc997db10e9971",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: merges — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: merges",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: merges",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: merges [D.Psix.Sone].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: merges [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Merge_pair(tokens, pair, new_token).",
+            "bars": [
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A single merge in \"lower\", no overlap in \"aaa\", every occurrence in \"the.",
+            "bars": [
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: merges [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Watching the vocabulary grow one merge at a time makes BPE feel much less.",
+            "bars": [
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: merges — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: merges",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: merges",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: merges [D22.P6.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: merges [D22.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Merge_pair(tokens, pair, new_token).",
+            "bars": [
+              {
+                "label": "step",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A single merge in \"lower\", no overlap in \"aaa\", every occurrence in \"the.",
+            "bars": [
+              {
+                "label": "step",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: merges [D22.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Watching the vocabulary grow one merge at a time makes BPE feel much less.",
+            "bars": [
+              {
+                "label": "step",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]

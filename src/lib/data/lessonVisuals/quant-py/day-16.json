@@ -2,150 +2,84 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 16,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What an option is",
       "codeHash": "5ff58c2af4068788844f5f04baf8662779957afbf2bbf2c3173bfdfc9d59c19d",
       "spec": {
-        "template": "table",
-        "title": "Derivative contract payoffs and terminal expiry profiles",
-        "columns": [
-          "call",
-          "put"
-        ],
+        "template": "bars",
+        "title": "What an option is",
         "steps": [
           {
             "at": "say1",
-            "caption": "An option grants the right to buy or sell assets at a fixed strike.",
-            "rows": [
+            "caption": "An option is a contract giving the right, but not the obligation, to buy.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "put"
-                  }
-                ],
-                "tone": "ok"
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "European options restrict execution rights strictly to contract expiry dates.",
-            "rows": [
+            "caption": "A call is the right to buy.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "put"
-                  }
-                ],
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "max"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "At expiry, a call yields positive payoff when stock price exceeds the strike.",
-            "rows": [
+            "at": "say7",
+            "caption": "Notice the kink at the strike.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "put"
-                  }
-                ],
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "max"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "K"
-                  },
-                  {
-                    "text": "max"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example prints expiry payoffs of calls and puts across final stock prices.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "put"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "max"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "K"
-                  },
-                  {
-                    "text": "max"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "print"
-                  },
-                  {
-                    "text": "payoff"
-                  }
-                ],
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -153,103 +87,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Derivative contract payoffs and terminal expiry profiles",
-        "columns": [
-          "call",
-          "put"
-        ],
+        "template": "bars",
+        "title": "What an option is",
         "steps": [
           {
             "at": "say1",
-            "caption": "An option grants the right to buy or sell assets at a fixed strike.",
-            "rows": [
+            "caption": "An option is a contract giving the right, but not the obligation, to buy.",
+            "bars": [
               {
-                "cells": [
-                  "call",
-                  "put"
-                ],
-                "tone": "ok"
+                "label": "K",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "S",
+                "value": 70,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "European options restrict execution rights strictly to contract expiry dates.",
-            "rows": [
+            "caption": "A call is the right to buy.",
+            "bars": [
               {
-                "cells": [
-                  "call",
-                  "put"
-                ],
+                "label": "K",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "max",
-                  "print"
-                ],
+                "label": "S",
+                "value": 70,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "At expiry, a call yields positive payoff when stock price exceeds the strike.",
-            "rows": [
+            "at": "say7",
+            "caption": "Notice the kink at the strike.",
+            "bars": [
               {
-                "cells": [
-                  "call",
-                  "put"
-                ],
+                "label": "K",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "max",
-                  "print"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "K",
-                  "max"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example prints expiry payoffs of calls and puts across final stock prices.",
-            "rows": [
-              {
-                "cells": [
-                  "call",
-                  "put"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "max",
-                  "print"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "K",
-                  "max"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "print",
-                  "payoff"
-                ],
+                "label": "S",
+                "value": 90,
                 "tone": "ok"
               }
             ]
@@ -261,248 +145,107 @@
       "partTitle": "The Black-Scholes-Merton idea",
       "codeHash": "b4cfda74c925f31e7a3c686655b82bb6579ea6bcb302bc4d1eb40bf28af939c0",
       "spec": {
-        "template": "table",
-        "title": "Geometric Brownian motion and continuous delta replication",
-        "columns": [
-          "sigma",
-          "T"
-        ],
+        "template": "cells",
+        "title": "The Black-Scholes-Merton idea",
         "steps": [
           {
             "at": "say1",
-            "caption": "Dynamic trading replicates option payoffs to eliminate arbitrage opportunities.",
-            "rows": [
+            "caption": "Trace how fischer updates black during execution.",
+            "items": {
+              "var": "finals",
+              "line": 9,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "sigma"
-                  },
-                  {
-                    "text": "T"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Replication costs dictate option fair price to prevent risk-free profits.",
-            "rows": [
+            "caption": "If you can build the same payoff yourself, the option's fair price must.",
+            "items": {
+              "var": "finals",
+              "line": 9,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "sigma"
-                  },
-                  {
-                    "text": "T"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "random"
-                  },
-                  {
-                    "text": "finals"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The underlying stock follows a random walk governed by continuous volatility.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sigma"
-                  },
-                  {
-                    "text": "T"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "random"
-                  },
-                  {
-                    "text": "finals"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "exp"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example shows simulated final stock price paths under constant parameters.",
-            "rows": [
+            "at": "say7",
+            "caption": "Remarkably, the expected return of the stock does not appear in the formula.",
+            "items": {
+              "var": "finals",
+              "line": 8,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "sigma"
-                  },
-                  {
-                    "text": "T"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "random"
-                  },
-                  {
-                    "text": "finals"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "exp"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "print"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Geometric Brownian motion and continuous delta replication",
-        "columns": [
-          "sigma",
-          "T"
-        ],
+        "template": "cells",
+        "title": "The Black-Scholes-Merton idea",
         "steps": [
           {
             "at": "say1",
-            "caption": "Dynamic trading replicates option payoffs to eliminate arbitrage opportunities.",
-            "rows": [
+            "caption": "Trace how fischer updates black during execution.",
+            "items": [
+              "97.9",
+              "114.14"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "sigma",
-                  "T"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Replication costs dictate option fair price to prevent risk-free profits.",
-            "rows": [
+            "caption": "If you can build the same payoff yourself, the option's fair price must.",
+            "items": [
+              "97.9",
+              "114.14",
+              "98.49"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "sigma",
-                  "T"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "random",
-                  "finals"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The underlying stock follows a random walk governed by continuous volatility.",
-            "rows": [
-              {
-                "cells": [
-                  "sigma",
-                  "T"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "random",
-                  "finals"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "exp"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example shows simulated final stock price paths under constant parameters.",
-            "rows": [
+            "at": "say7",
+            "caption": "Remarkably, the expected return of the stock does not appear in the formula.",
+            "items": [
+              "97.9",
+              "114.14",
+              "98.49"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "sigma",
-                  "T"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "random",
-                  "finals"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "exp"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "print",
-                  "round"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -513,143 +256,131 @@
       "partTitle": "The formula",
       "codeHash": "bb3eaa99661253b0d673d241fe48324d6529ca87a870930802fe4fab5b857f6c",
       "spec": {
-        "template": "table",
-        "title": "Black-Scholes-Merton closed-form analytical pricing formula",
-        "columns": [
-          "call",
-          "put"
-        ],
+        "template": "bars",
+        "title": "The formula",
         "steps": [
           {
             "at": "say1",
-            "caption": "Black-Scholes computes European call and put valuations analytically.",
-            "rows": [
+            "caption": "Black-Scholes prices a European call as C = S N(d1) - K e^(-rT) N(d2),.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "put"
-                  }
-                ],
-                "tone": "ok"
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The normal cumulative distribution function calculates exercise probabilities.",
-            "rows": [
+            "caption": "N is the standard normal cumulative distribution function.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "put"
-                  }
-                ],
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "d1"
-                  },
-                  {
-                    "text": "d2"
-                  }
-                ],
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Normalized drift terms scale logarithmic ratios by parameter sigma.",
-            "rows": [
+            "at": "say7",
+            "caption": "Check your implementation against this benchmark.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "put"
-                  }
-                ],
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "d1"
-                  },
-                  {
-                    "text": "d2"
-                  }
-                ],
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example implements the formula and prices the benchmark option.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "put"
-                  }
-                ],
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "d1"
-                  },
-                  {
-                    "text": "d2"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "S"
-                  },
-                  {
-                    "text": "K"
-                  }
-                ],
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -657,103 +388,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Black-Scholes-Merton closed-form analytical pricing formula",
-        "columns": [
-          "call",
-          "put"
-        ],
+        "template": "bars",
+        "title": "The formula",
         "steps": [
           {
             "at": "say1",
-            "caption": "Black-Scholes computes European call and put valuations analytically.",
-            "rows": [
+            "caption": "Black-Scholes prices a European call as C = S N(d1) - K e^(-rT) N(d2),.",
+            "bars": [
               {
-                "cells": [
-                  "call",
-                  "put"
-                ],
-                "tone": "ok"
+                "label": "S",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "K",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "T",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 0.05,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The normal cumulative distribution function calculates exercise probabilities.",
-            "rows": [
+            "caption": "N is the standard normal cumulative distribution function.",
+            "bars": [
               {
-                "cells": [
-                  "call",
-                  "put"
-                ],
+                "label": "S",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "d1",
-                  "d2"
-                ],
+                "label": "K",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "T",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 0.05,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Normalized drift terms scale logarithmic ratios by parameter sigma.",
-            "rows": [
+            "at": "say7",
+            "caption": "Check your implementation against this benchmark.",
+            "bars": [
               {
-                "cells": [
-                  "call",
-                  "put"
-                ],
+                "label": "S",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "d1",
-                  "d2"
-                ],
+                "label": "K",
+                "value": 100,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "math",
-                  "sqrt"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example implements the formula and prices the benchmark option.",
-            "rows": [
-              {
-                "cells": [
-                  "call",
-                  "put"
-                ],
+                "label": "T",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "d1",
-                  "d2"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "sqrt"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "S",
-                  "K"
-                ],
+                "label": "r",
+                "value": 0.05,
                 "tone": "ok"
               }
             ]
@@ -765,143 +476,131 @@
       "partTitle": "The Greeks: delta and gamma",
       "codeHash": "766e3c7ec5b1c60fe35a8da142bfc64a850d99a724e377ca2644f5ea67f48937",
       "spec": {
-        "template": "table",
-        "title": "Option Greeks sensitivity analysis: delta and gamma dynamics",
-        "columns": [
-          "call",
-          "d1"
-        ],
+        "template": "bars",
+        "title": "The Greeks: delta and gamma",
         "steps": [
           {
             "at": "say1",
-            "caption": "Option Greeks quantify sensitivity against underlying asset price moves.",
-            "rows": [
+            "caption": "The Greeks measure how an option's price changes when an input changes.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "d1"
-                  }
-                ],
-                "tone": "ok"
+                "label": "d1",
+                "value": {
+                  "var": "d1",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bump",
+                "value": {
+                  "var": "bump",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Delta measures option price changes corresponding to unit moves in stock.",
-            "rows": [
+            "caption": "Delta is the change in option price for a 1 unit move in the stock.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "d1"
-                  }
-                ],
+                "label": "d1",
+                "value": {
+                  "var": "d1",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
+                "label": "bump",
+                "value": {
+                  "var": "bump",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Gamma measures how rapidly delta changes and dictates hedge rebalancing.",
-            "rows": [
+            "at": "say7",
+            "caption": "Checking analytic formulas against small numerical bumps is a standard way.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "d1"
-                  }
-                ],
+                "label": "d1",
+                "value": {
+                  "var": "d1",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
+                "label": "bump",
+                "value": {
+                  "var": "bump",
+                  "line": 11,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "sigma"
-                  },
-                  {
-                    "text": "exp"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example checks delta numerically by bumping underlying stock prices.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "d1"
-                  }
-                ],
+                "label": "S",
+                "value": {
+                  "var": "S",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sigma"
-                  },
-                  {
-                    "text": "exp"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "call"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -909,103 +608,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Option Greeks sensitivity analysis: delta and gamma dynamics",
-        "columns": [
-          "call",
-          "d1"
-        ],
+        "template": "bars",
+        "title": "The Greeks: delta and gamma",
         "steps": [
           {
             "at": "say1",
-            "caption": "Option Greeks quantify sensitivity against underlying asset price moves.",
-            "rows": [
+            "caption": "The Greeks measure how an option's price changes when an input changes.",
+            "bars": [
               {
-                "cells": [
-                  "call",
-                  "d1"
-                ],
-                "tone": "ok"
+                "label": "d1",
+                "value": 0.35000000000000003,
+                "tone": "data"
+              },
+              {
+                "label": "bump",
+                "value": 0.01,
+                "tone": "data"
+              },
+              {
+                "label": "S",
+                "value": 100.01,
+                "tone": "data"
+              },
+              {
+                "label": "K",
+                "value": 100,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Delta measures option price changes corresponding to unit moves in stock.",
-            "rows": [
+            "caption": "Delta is the change in option price for a 1 unit move in the stock.",
+            "bars": [
               {
-                "cells": [
-                  "call",
-                  "d1"
-                ],
+                "label": "d1",
+                "value": 0.35000000000000003,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "math",
-                  "sqrt"
-                ],
+                "label": "bump",
+                "value": 0.01,
+                "tone": "ok"
+              },
+              {
+                "label": "S",
+                "value": 100.01,
+                "tone": "ok"
+              },
+              {
+                "label": "K",
+                "value": 100,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Gamma measures how rapidly delta changes and dictates hedge rebalancing.",
-            "rows": [
+            "at": "say7",
+            "caption": "Checking analytic formulas against small numerical bumps is a standard way.",
+            "bars": [
               {
-                "cells": [
-                  "call",
-                  "d1"
-                ],
+                "label": "d1",
+                "value": 0.35049997500166646,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "math",
-                  "sqrt"
-                ],
+                "label": "bump",
+                "value": 0.01,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "sigma",
-                  "exp"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example checks delta numerically by bumping underlying stock prices.",
-            "rows": [
-              {
-                "cells": [
-                  "call",
-                  "d1"
-                ],
+                "label": "S",
+                "value": 99.99,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "math",
-                  "sqrt"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sigma",
-                  "exp"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "call",
-                  "math"
-                ],
+                "label": "K",
+                "value": 100,
                 "tone": "ok"
               }
             ]
@@ -1018,110 +697,161 @@
       "codeHash": "ab2f14543fadd2723bdfc6585bb302831bf44de36024ff07d015c5ba0028279d",
       "spec": {
         "template": "flow",
-        "title": "Put-call parity — Execution Pipeline",
+        "title": "Put-call parity",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "C",
+            "label": "C"
           },
           {
-            "id": "proc",
-            "label": "2. Put-call parity",
-            "tappable": true
+            "id": "P",
+            "label": "P"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "S",
+            "label": "S"
+          },
+          {
+            "id": "K",
+            "label": "K"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Put-call parity [Dsixteen.Pfive.Sone].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Put-call parity [Dsixteen.Pfive.Stwo].",
+            "caption": "Calls and puts with the same strike and expiry are linked by a simple.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "C": {
+                "var": "C",
+                "line": 4,
+                "hit": 1
+              },
+              "P": {
+                "var": "P",
+                "line": 4,
+                "hit": 1
+              },
+              "S": {
+                "var": "S",
+                "line": 4,
+                "hit": 1
+              },
+              "K": {
+                "var": "K",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "C": "data",
+              "P": "data",
+              "S": "data",
+              "K": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "C",
+                "P"
               ],
               [
-                "proc",
-                "out"
+                "P",
+                "S"
+              ],
+              [
+                "S",
+                "K"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Owning a call and selling a put gives exactly the same payoff at expiry.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "C": {
+                "var": "C",
+                "line": 4,
+                "hit": 2
+              },
+              "P": {
+                "var": "P",
+                "line": 4,
+                "hit": 2
+              },
+              "S": {
+                "var": "S",
+                "line": 4,
+                "hit": 2
+              },
+              "K": {
+                "var": "K",
+                "line": 4,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "C": "data",
+              "P": "data",
+              "S": "data",
+              "K": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "C",
+                "P"
+              ],
+              [
+                "P",
+                "S"
+              ],
+              [
+                "S",
+                "K"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Put-call parity [Dsixteen.Pfive.Sfour].",
+            "at": "say7",
+            "caption": "Trace how example updates checks during execution.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "C": {
+                "var": "C",
+                "line": 4,
+                "hit": 2
+              },
+              "P": {
+                "var": "P",
+                "line": 4,
+                "hit": 2
+              },
+              "S": {
+                "var": "S",
+                "line": 4,
+                "hit": 2
+              },
+              "K": {
+                "var": "K",
+                "line": 4,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "C": "ok",
+              "P": "ok",
+              "S": "ok",
+              "K": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "C",
+                "P"
               ],
               [
-                "proc",
-                "out"
+                "P",
+                "S"
+              ],
+              [
+                "S",
+                "K"
               ]
             ]
           }
@@ -1129,110 +859,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Put-call parity — Execution Pipeline",
+        "title": "Put-call parity",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "C",
+            "label": "C"
           },
           {
-            "id": "proc",
-            "label": "2. Put-call parity",
-            "tappable": true
+            "id": "P",
+            "label": "P"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "S",
+            "label": "S"
+          },
+          {
+            "id": "K",
+            "label": "K"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Put-call parity [D16.P5.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Put-call parity [D16.P5.S2].",
+            "caption": "Calls and puts with the same strike and expiry are linked by a simple.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "C": "10.4506",
+              "P": "5.5735",
+              "S": "100",
+              "K": "100"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "C": "data",
+              "P": "data",
+              "S": "data",
+              "K": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "C",
+                "P"
               ],
               [
-                "proc",
-                "out"
+                "P",
+                "S"
+              ],
+              [
+                "S",
+                "K"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P5.S3].",
+            "at": "say2",
+            "caption": "Owning a call and selling a put gives exactly the same payoff at expiry.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "C": "11",
+              "P": "5.5735",
+              "S": "100",
+              "K": "100"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "C": "data",
+              "P": "data",
+              "S": "data",
+              "K": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "C",
+                "P"
+              ],
+              [
+                "P",
+                "S"
+              ],
+              [
+                "S",
+                "K"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Put-call parity [D16.P5.S4].",
+            "at": "say7",
+            "caption": "Trace how example updates checks during execution.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "C": "11",
+              "P": "5.5735",
+              "S": "100",
+              "K": "100"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "C": "ok",
+              "P": "ok",
+              "S": "ok",
+              "K": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "C",
+                "P"
               ],
               [
-                "proc",
-                "out"
+                "P",
+                "S"
+              ],
+              [
+                "S",
+                "K"
               ]
             ]
           }
@@ -1243,224 +976,162 @@
       "partTitle": "Practice time: price and check",
       "codeHash": "d427ed5d503a149e1bf3c6b60cfb2cae6a4db999242308128e30cb8d22e8e67d",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: price and check — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: pric...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: price and check",
+        "actors": [
+          "S",
+          "T",
+          "K"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: price and check.",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: pric... [Dsixteen.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Black_scholes(S, K, T, r, sigma).",
+            "activeActor": "S",
+            "messages": [
+              {
+                "from": "S",
+                "to": "T",
+                "label": {
+                  "var": "S",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "T",
+                "to": "K",
+                "label": {
+                  "var": "T",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how round updates each during execution.",
+            "activeActor": "T",
+            "messages": [
+              {
+                "from": "S",
+                "to": "T",
+                "label": {
+                  "var": "S",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "T",
+                "to": "K",
+                "label": {
+                  "var": "T",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: price and check.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Pricing code is used by risk systems millions of times per day.",
+            "activeActor": "K",
+            "messages": [
+              {
+                "from": "S",
+                "to": "T",
+                "label": {
+                  "var": "S",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "T",
+                "to": "K",
+                "label": {
+                  "var": "T",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: price and check — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: pric...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: price and check",
+        "actors": [
+          "S",
+          "T",
+          "K"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: price and check [D16.P6.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: pric... [D16.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Black_scholes(S, K, T, r, sigma).",
+            "messages": [
+              {
+                "from": "S",
+                "to": "T",
+                "label": "80",
+                "tone": "data"
+              },
+              {
+                "from": "T",
+                "to": "K",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "S"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Trace how round updates each during execution.",
+            "messages": [
+              {
+                "from": "S",
+                "to": "T",
+                "label": "80",
+                "tone": "data"
+              },
+              {
+                "from": "T",
+                "to": "K",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "T"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: price and check [D16.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Pricing code is used by risk systems millions of times per day.",
+            "messages": [
+              {
+                "from": "S",
+                "to": "T",
+                "label": "80",
+                "tone": "data"
+              },
+              {
+                "from": "T",
+                "to": "K",
+                "label": "0.25",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "K"
           }
         ]
       }

@@ -2,269 +2,503 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 31,
-  "promptSha": "02bc60a648020afe7d48dc82afe3b955e44529050f385bb8f51cb2db0f8c56e9",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Lamport Logical Clocks & Total Ordering of Concurrent Events — Foundations & Mathematical Invariants",
-      "codeHash": "c1da7df0763d97bcedc7dcb912b74f27040cd5db7271e022b289ab20b66f00da",
+      "partTitle": "Happens-Before Relations Without Global Wall Clocks",
+      "codeHash": "87b7a07e30d7ec01737a7c772c8039c4f2f97d4f0b6a2e4bd8e2e0615aa721a5",
       "spec": {
         "template": "flow",
-        "title": "Lamport Logical Clocks & Total Ordering of Concurrent Events — Foundat",
+        "title": "Happens-Before Relations Without Global Wall Clocks",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "node_id",
+            "label": "node_id"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "n1",
+            "label": "n1"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "n2",
+            "label": "n2"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Every distributed node runs on its own quartz crystal oscillator, and even.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "node_id": {
+                "var": "node_id",
+                "line": 3,
+                "hit": 1
+              },
+              "n1": {
+                "var": "n1",
+                "line": 19,
+                "hit": 1
+              },
+              "n2": {
+                "var": "n2",
+                "line": 19,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "node_id": "data",
+              "n1": "data",
+              "n2": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "node_id"
+              ],
+              [
+                "node_id",
+                "n1"
+              ],
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Under the happens-before relation, denoted a -> b, three transitive rules.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "node_id": {
+                "var": "node_id",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "n1": {
+                "var": "n1",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "n2": {
+                "var": "n2",
+                "line": 20,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "node_id": "data",
+              "n1": "data",
+              "n2": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "node_id"
+              ],
+              [
+                "node_id",
+                "n1"
+              ],
+              [
+                "n1",
+                "n2"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Trace how local ticks and receive max-updates propagate scalar causal.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "node_id": {
+                "var": "node_id",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "n1": {
+                "var": "n1",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "n2": {
+                "var": "n2",
+                "line": 21,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "node_id": "ok",
+              "n1": "ok",
+              "n2": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "node_id"
+              ],
+              [
+                "node_id",
+                "n1"
+              ],
+              [
+                "n1",
+                "n2"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Lamport Logical Clocks & Total Ordering of Concurrent Events — Foundat",
+        "title": "Happens-Before Relations Without Global Wall Clocks",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "node_id",
+            "label": "node_id"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "n1",
+            "label": "n1"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "n2",
+            "label": "n2"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Every distributed node runs on its own quartz crystal oscillator, and even.",
+            "values": {
+              "self": "<LamportNode>",
+              "node_id": "'n1'",
+              "n1": "<LamportNode>",
+              "n2": "<LamportNode>"
+            },
+            "tones": {
+              "self": "data",
+              "node_id": "data",
+              "n1": "data",
+              "n2": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "node_id"
+              ],
+              [
+                "node_id",
+                "n1"
+              ],
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Under the happens-before relation, denoted a -> b, three transitive rules.",
+            "values": {
+              "self": "<LamportNode>",
+              "node_id": "'n1'",
+              "n1": "<LamportNode>",
+              "n2": "<LamportNode>"
+            },
+            "tones": {
+              "self": "data",
+              "node_id": "data",
+              "n1": "data",
+              "n2": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "node_id"
+              ],
+              [
+                "node_id",
+                "n1"
+              ],
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Trace how local ticks and receive max-updates propagate scalar causal.",
+            "values": {
+              "self": "<LamportNode>",
+              "node_id": "'n2'",
+              "n1": "<LamportNode>",
+              "n2": "<LamportNode>"
+            },
+            "tones": {
+              "self": "ok",
+              "node_id": "ok",
+              "n1": "ok",
+              "n2": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "node_id"
+              ],
+              [
+                "node_id",
+                "n1"
+              ],
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Total Ordering via Deterministic Node Tie-Breaking",
+      "codeHash": "e5f29e7d1c4f5321dcfcdaa5a742959c909af2359794d71678972e49df78cab2",
+      "spec": {
+        "template": "states",
+        "title": "Total Ordering via Deterministic Node Tie-Breaking",
+        "states": [
+          {
+            "id": "events_from_replicas",
+            "label": "events_from_replicas"
+          },
+          {
+            "id": "e",
+            "label": "e"
+          },
+          {
+            "id": "events",
+            "label": "events"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Distributed lock queues, state-machine logs, and conflict-free replication.",
+            "currentState": "events_from_replicas",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "If node A and node B both execute local mutations at logical counter 5.",
+            "currentState": "e",
+            "transition": {
+              "from": "events_from_replicas",
+              "to": "e",
+              "label": {
+                "var": "e",
+                "line": 2,
+                "hit": 2
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say8",
+            "caption": "Examine how independent updates from three nodes converge.",
+            "currentState": "events",
+            "transition": {
+              "from": "e",
+              "to": "events",
+              "label": {
+                "var": "events",
+                "line": 2,
+                "hit": 10
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Total Ordering via Deterministic Node Tie-Breaking",
+        "states": [
+          {
+            "id": "events_from_replicas",
+            "label": "events_from_replicas"
+          },
+          {
+            "id": "e",
+            "label": "e"
+          },
+          {
+            "id": "events",
+            "label": "events"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Distributed lock queues, state-machine logs, and conflict-free replication.",
+            "currentState": "events_from_replicas",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "If node A and node B both execute local mutations at logical counter 5.",
+            "currentState": "e",
+            "transition": {
+              "from": "events_from_replicas",
+              "to": "e",
+              "label": "[4, 'node-a', 'put(k, 10)']"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say8",
+            "caption": "Examine how independent updates from three nodes converge.",
+            "currentState": "events",
+            "transition": {
+              "from": "e",
+              "to": "events",
+              "label": "[[4, 'node-b', 'put(k, 15)'], [5, 'node…"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Lamport Distributed Mutual Exclusion Queues",
+      "codeHash": "223cc3de855bfb33e7856048ac27c882f7c7b577a0aba4d09afad6386e7b8610",
+      "spec": {
+        "template": "cells",
+        "title": "Lamport Distributed Mutual Exclusion Queues",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Total-order timestamps directly unlock one of the cleanest algorithms.",
+            "items": {
+              "var": "peers",
+              "line": 31,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "To acquire a shared critical section, node i stamps a REQUEST message.",
+            "items": {
+              "var": "peers",
+              "line": 9,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "at": "say8",
+            "caption": "Step through the request-ACK barrier logic below to verify how two.",
+            "items": {
+              "var": "peers",
+              "line": 34,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "cells",
+        "title": "Lamport Distributed Mutual Exclusion Queues",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Total-order timestamps directly unlock one of the cleanest algorithms.",
+            "items": [
+              "'A'",
+              "'B'",
+              "'C'"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "To acquire a shared critical section, node i stamps a REQUEST message.",
+            "items": [
+              "'A'",
+              "'B'",
+              "'C'"
+            ],
+            "pointers": [
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Step through the request-ACK barrier logic below to verify how two.",
+            "items": [
+              "'A'",
+              "'B'",
+              "'C'"
+            ],
+            "pointers": [
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -272,1065 +506,329 @@
       }
     },
     {
-      "partTitle": "Lamport Logical Clocks & Total Ordering of Concurrent Events — Core Algorithm & State Representation",
-      "codeHash": "e14550e6a0e2637004611bbc144be79a486d3a72ccfd74e087bcb32d0df0a15c",
+      "partTitle": "Handling Idle Nodes, Batch Drains, and Counter Drift Hazards",
+      "codeHash": "d4b90ab5ae1c851f24f431d22dfacd58c87fa5d6fc4f3f934fb354cc18766759",
       "spec": {
-        "template": "flow",
-        "title": "Lamport Logical Clocks & Total Ordering of Concurrent Events — Core Al",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Handling Idle Nodes, Batch Drains, and Counter Drift Hazards",
+        "actors": [
+          "MAX_U64",
+          "MAX_JUMP",
+          "self"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Real microservices do not send messages at uniform intervals.",
+            "activeActor": "MAX_U64",
+            "messages": [
+              {
+                "from": "MAX_U64",
+                "to": "MAX_JUMP",
+                "label": {
+                  "var": "MAX_U64",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "MAX_JUMP",
+                "to": "self",
+                "label": {
+                  "var": "MAX_JUMP",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Whenever node B receives its next message from node A, node B's Lamport.",
+            "activeActor": "MAX_JUMP",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "MAX_U64",
+                "to": "MAX_JUMP",
+                "label": {
+                  "var": "MAX_U64",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "MAX_JUMP",
+                "to": "self",
+                "label": {
+                  "var": "MAX_JUMP",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Inspect the guard logic below catching negative timestamps and forged.",
+            "activeActor": "self",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "MAX_U64",
+                "to": "MAX_JUMP",
+                "label": {
+                  "var": "MAX_U64",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "MAX_JUMP",
+                "to": "self",
+                "label": {
+                  "var": "MAX_JUMP",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Lamport Logical Clocks & Total Ordering of Concurrent Events — Core Al",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Handling Idle Nodes, Batch Drains, and Counter Drift Hazards",
+        "actors": [
+          "MAX_U64",
+          "MAX_JUMP",
+          "self"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Real microservices do not send messages at uniform intervals.",
+            "messages": [
+              {
+                "from": "MAX_U64",
+                "to": "MAX_JUMP",
+                "label": "18446744073709551615",
+                "tone": "data"
+              },
+              {
+                "from": "MAX_JUMP",
+                "to": "self",
+                "label": "100000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "MAX_U64"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Whenever node B receives its next message from node A, node B's Lamport.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "MAX_U64",
+                "to": "MAX_JUMP",
+                "label": "18446744073709551615",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "MAX_JUMP",
+                "to": "self",
+                "label": "100000",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "MAX_JUMP"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Inspect the guard logic below catching negative timestamps and forged.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "MAX_U64",
+                "to": "MAX_JUMP",
+                "label": "18446744073709551615",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "MAX_JUMP",
+                "to": "self",
+                "label": "100000",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "self"
           }
         ]
       }
     },
     {
-      "partTitle": "Lamport Logical Clocks & Total Ordering of Concurrent Events — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "9b31cc221226277aaf5b6575ee61178a5b5672d78bb534379078f98c547a2f54",
+      "partTitle": "Auditing Causal Integrity Across Simulated Cluster Logs",
+      "codeHash": "c72e0de8a50b7a365f1d6e39dd6d0e9828d62fcce44185d65af4953157b58a69",
       "spec": {
-        "template": "flow",
-        "title": "Lamport Logical Clocks & Total Ordering of Concurrent Events — Through",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Auditing Causal Integrity Across Simulated Cluster Logs",
+        "actors": [
+          "good_events",
+          "events",
+          "edges"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Testing Lamport clock implementations only on happy-path ping-pong tests.",
+            "activeActor": "good_events",
+            "messages": [
+              {
+                "from": "good_events",
+                "to": "events",
+                "label": {
+                  "var": "good_events",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "events",
+                "to": "edges",
+                "label": {
+                  "var": "events",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "An audit harness must verify two distinct invariants across arbitrary.",
+            "activeActor": "events",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "good_events",
+                "to": "events",
+                "label": {
+                  "var": "good_events",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "events",
+                "to": "edges",
+                "label": {
+                  "var": "events",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Run the full multi-node trace verifier below and inspect clean invariant.",
+            "activeActor": "edges",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "good_events",
+                "to": "events",
+                "label": {
+                  "var": "good_events",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "events",
+                "to": "edges",
+                "label": {
+                  "var": "events",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Lamport Logical Clocks & Total Ordering of Concurrent Events — Through",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Auditing Causal Integrity Across Simulated Cluster Logs",
+        "actors": [
+          "good_events",
+          "events",
+          "edges"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Testing Lamport clock implementations only on happy-path ping-pong tests.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "good_events",
+                "to": "events",
+                "label": "[['e1', 'n1', 1, 'n1'], ['e2', 'n1', 2,…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "events",
+                "to": "edges",
+                "label": "[['e1', 'n1', 1, 'n1'], ['e2', 'n1', 2,…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "good_events"
           },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Lamport Logical Clocks & Total Ordering of Concurrent Events — Resilience Guardrails & Failure Recovery",
-      "codeHash": "d824bc58a3f8d8523ad062d219f4ab13a8b67233b6d12d464987becbcf2bd743",
-      "spec": {
-        "template": "flow",
-        "title": "Lamport Logical Clocks & Total Ordering of Concurrent Events — Resilie",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "An audit harness must verify two distinct invariants across arbitrary.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "good_events",
+                "to": "events",
+                "label": "[['e1', 'n1', 1, 'n1'], ['e2', 'n1', 2,…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "events",
+                "to": "edges",
+                "label": "[['e1', 'n1', 1, 'n1'], ['e2', 'n1', 2,…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "events"
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "at": "say8",
+            "caption": "Run the full multi-node trace verifier below and inspect clean invariant.",
+            "messages": [
+              {
+                "from": "good_events",
+                "to": "events",
+                "label": "[['e1', 'n1', 1, 'n1'], ['e2', 'n1', 2,…",
+                "tone": "data"
+              },
+              {
+                "from": "events",
+                "to": "edges",
+                "label": "[['e1', 'n1', 1, 'n1'], ['e2', 'n1', 2,…",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Lamport Logical Clocks & Total Ordering of Concurrent Events — Resilie",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Lamport Logical Clocks & Total Ordering of Concurrent Events — Production Telemetry & Verification Audit",
-      "codeHash": "e838a0f32b502d6627d921361c5bc35da8a8fa9c198ed63cea98484299110d07",
-      "spec": {
-        "template": "flow",
-        "title": "Lamport Logical Clocks & Total Ordering of Concurrent Events — Product",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Lamport Logical Clocks & Total Ordering of Concurrent Events — Product",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "edges"
           }
         ]
       }

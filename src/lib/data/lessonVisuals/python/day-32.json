@@ -2,88 +2,309 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 32,
-  "promptSha": "bc6cb0190b6d444878d4437a4d154fad005346bf776732d23426371b707a9039",
-  "model": "gate-v2-verified",
+  "promptSha": "0761c8878e7593184d43b6c4d8c3b44a70f4e889597adf7551f112acbe85bccb",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "FastAPI Request Lifecycle & OpenAPI Schema Introspection",
       "codeHash": "1bbbe73bc5d45014f080c1d316bab128b5c9324d619f7c3c651c204b5348d69a",
       "spec": {
-        "template": "table",
-        "title": "FastAPI Request Lifecycle & OpenAPI Schema Introsp",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "ASGI request dispatch lifecycle",
+        "nodes": [
+          {
+            "id": "scope",
+            "label": "scope"
+          },
+          {
+            "id": "router",
+            "label": "Radix"
+          },
+          {
+            "id": "pyd",
+            "label": "Pydantic"
+          },
+          {
+            "id": "route",
+            "label": "APIRoute"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "FastAPI"
-                  },
-                  {
-                    "text": "Request"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Uvicorn builds an ASGI scope dictionary from incoming TCP traffic.",
+            "values": {
+              "scope": {
+                "text": "scope"
+              },
+              "router": {
+                "text": "Uvicorn"
+              },
+              "pyd": {
+                "text": "ASGI"
+              },
+              "route": {
+                "text": "GET"
               }
+            },
+            "tones": {
+              "scope": "data",
+              "router": "ok",
+              "pyd": "idle",
+              "route": "idle"
+            },
+            "arrows": [
+              [
+                "scope",
+                "router"
+              ]
             ]
           },
           {
             "at": "say3",
-            "caption": "The asgi logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Lifecycle"
-                  },
-                  {
-                    "text": "OpenAPI"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Radix router matching resolves path handlers in constant time.",
+            "values": {
+              "scope": {
+                "text": "/api/v1/health"
+              },
+              "router": {
+                "text": "Radix"
+              },
+              "pyd": {
+                "text": "Pydantic"
+              },
+              "route": {
+                "text": "APIRoute"
               }
+            },
+            "tones": {
+              "scope": "data",
+              "router": "ok",
+              "pyd": "data",
+              "route": "idle"
+            },
+            "arrows": [
+              [
+                "scope",
+                "router"
+              ],
+              [
+                "router",
+                "pyd"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Pydantic validates inputs before calling handlers or rejecting payloads.",
+            "values": {
+              "scope": {
+                "text": "/api/v1/health"
+              },
+              "router": {
+                "text": "routes"
+              },
+              "pyd": {
+                "text": "422"
+              },
+              "route": {
+                "text": "200 OK"
+              }
+            },
+            "tones": {
+              "scope": "ok",
+              "router": "ok",
+              "pyd": "ok",
+              "route": "ok"
+            },
+            "arrows": [
+              [
+                "scope",
+                "router"
+              ],
+              [
+                "router",
+                "pyd"
+              ],
+              [
+                "pyd",
+                "route"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Register webhooks route in SimulatedASGIApp and dispatch test POST scope.",
+            "values": {
+              "scope": {
+                "text": "Register"
+              },
+              "router": {
+                "text": "/api/v1/webhooks"
+              },
+              "pyd": {
+                "text": "returning"
+              },
+              "route": {
+                "text": "Accepted"
+              }
+            },
+            "tones": {
+              "scope": "data",
+              "router": "ok",
+              "pyd": "ok",
+              "route": "ok"
+            },
+            "arrows": [
+              [
+                "scope",
+                "router"
+              ],
+              [
+                "router",
+                "pyd"
+              ],
+              [
+                "pyd",
+                "route"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "FastAPI Request Lifecycle & OpenAPI Schema Introsp",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "ASGI request dispatch lifecycle",
+        "nodes": [
+          {
+            "id": "scope",
+            "label": "scope"
+          },
+          {
+            "id": "router",
+            "label": "Radix"
+          },
+          {
+            "id": "pyd",
+            "label": "Pydantic"
+          },
+          {
+            "id": "route",
+            "label": "APIRoute"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "FastAPI",
-                  "Request"
-                ],
-                "tone": "data"
-              }
+            "at": "say2",
+            "caption": "Uvicorn builds an ASGI scope dictionary from incoming TCP traffic.",
+            "values": {
+              "scope": "{'method':'GET'}",
+              "router": "Uvicorn",
+              "pyd": "ASGI",
+              "route": "GET"
+            },
+            "tones": {
+              "scope": "data",
+              "router": "ok",
+              "pyd": "idle",
+              "route": "idle"
+            },
+            "arrows": [
+              [
+                "scope",
+                "router"
+              ]
             ]
           },
           {
             "at": "say3",
-            "caption": "The asgi logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Lifecycle",
-                  "OpenAPI"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Radix router matching resolves path handlers in constant time.",
+            "values": {
+              "scope": "/api/v1/health",
+              "router": "Radix Tree",
+              "pyd": "Pydantic",
+              "route": "APIRoute"
+            },
+            "tones": {
+              "scope": "data",
+              "router": "ok",
+              "pyd": "data",
+              "route": "idle"
+            },
+            "arrows": [
+              [
+                "scope",
+                "router"
+              ],
+              [
+                "router",
+                "pyd"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Pydantic validates inputs before calling handlers or rejecting payloads.",
+            "values": {
+              "scope": "/api/v1/health",
+              "router": "Matched",
+              "pyd": "Valid (else 422)",
+              "route": "200 OK"
+            },
+            "tones": {
+              "scope": "ok",
+              "router": "ok",
+              "pyd": "ok",
+              "route": "ok"
+            },
+            "arrows": [
+              [
+                "scope",
+                "router"
+              ],
+              [
+                "router",
+                "pyd"
+              ],
+              [
+                "pyd",
+                "route"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Register webhooks route in SimulatedASGIApp and dispatch test POST scope.",
+            "values": {
+              "scope": "POST /api/v1/webhooks",
+              "router": "Matched Webhooks Route",
+              "pyd": "Scope Valid",
+              "route": "202 Accepted"
+            },
+            "tones": {
+              "scope": "data",
+              "router": "ok",
+              "pyd": "ok",
+              "route": "ok"
+            },
+            "arrows": [
+              [
+                "scope",
+                "router"
+              ],
+              [
+                "router",
+                "pyd"
+              ],
+              [
+                "pyd",
+                "route"
+              ]
+            ],
+            "whatIf": "class SimulatedASGIApp:\n    def __init__(self):\n        self.routes = {'/api/v1/health': '200 OK', '/api/v1/orders': '201 Created'}\n    \n    def handle_request(self, scope):\n        path = scope.get('path', '')\n        method = scope.get('method', 'GET')\n        if path in self.routes:\n            return {'status': self.routes[path], 'headers': [('content-type', 'application/json')]}\n        return {'status': '404 Not Found', 'headers': []}\n\nif __name__ == '__main__':\n    print('=== ASGI REQUEST LIFECYCLE SIMULATION ===')\n    app = SimulatedASGIApp()\n    app.routes['/api/v1/webhooks'] = '202 Accepted'\n    scope = {'type': 'http', 'method': 'POST', 'path': '/api/v1/webhooks', 'headers': []}\n    \n    resp = app.handle_request(scope)\n    print(f\"Inbound Request: {scope['method']} {scope['path']}\")\n    print(f\"ASGI Lifecycle Result: {resp['status']}\")\n    print('ASGI request dispatch completed successfully.')",
+            "checks": [
+              "Inbound Request: POST /api/v1/webhooks",
+              "ASGI Lifecycle Result: 202 Accepted"
             ]
           }
         ]
@@ -93,82 +314,160 @@
       "partTitle": "Dependency Graph Diamond Resolution Forensics",
       "codeHash": "a4cf4361cb3802807eca05bd6819b9a3290fc6a33bf4dfd597b9af24f8c5a3e2",
       "spec": {
-        "template": "table",
-        "title": "Dependency Graph Diamond Resolution Forensics",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Diamond dependency cache vs uncached calls",
+        "leftLabel": "use_cache=False (Naive)",
+        "rightLabel": "use_cache=True (FastAPI Default)",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Dependency"
-                  },
-                  {
-                    "text": "Graph"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Diamond paths both require the same shared database dependency.",
+            "left": {
+              "code": "tracker.get_db()",
+              "result": "DB_Session_1 + DB_Session_2",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "tracker.get_db(req_cache)",
+              "result": "Single Cached Session",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The opening logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Diamond"
-                  },
-                  {
-                    "text": "Resolution"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say4",
+            "caption": "Request cache memoizes the active session across child handlers.",
+            "left": {
+              "code": "db_calls == 2",
+              "result": "Duplicate Connections",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "db_calls == 1",
+              "result": "DB_Session_3 Shared",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Memoized Depends executes the database setup callable only once.",
+            "left": {
+              "code": "s1 != s2 | DB Calls: 2",
+              "result": "Exhausts Pool",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "s_cached1 == s_cached2",
+              "result": "Single Execution: True",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add third audit call sharing req_cache so tracker keeps db_calls constant.",
+            "left": {
+              "code": "tracker.get_db() x3 (uncached)",
+              "result": "db_calls grows to 3 (DB_Session_3)",
+              "tone": "error",
+              "checks": [
+                "DB Calls: 3"
+              ],
+              "whatIf": "class DependencyTracker:\n    def __init__(self):\n        self.db_calls = 0\n    \n    def get_db(self, cache=None):\n        if cache is not None and 'db' in cache:\n            return cache['db']\n        self.db_calls += 1\n        session = f'DB_Session_{self.db_calls}'\n        if cache is not None:\n            cache['db'] = session\n        return session\n\nif __name__ == '__main__':\n    print('=== DEPENDENCY DIAMOND RESOLUTION FORENSICS ===')\n    tracker = DependencyTracker()\n    \n    # Without cache (Naive double resolution)\n    s1 = tracker.get_db()\n    s2 = tracker.get_db()\n    s3 = tracker.get_db()\n    print(f'Naive Resolution (No Cache): {s1} != {s2} | DB Calls: {tracker.db_calls}')\n    \n    # With request-scoped cache (FastAPI default use_cache=True)\n    req_cache = {}\n    s_cached1 = tracker.get_db(req_cache)\n    s_cached2 = tracker.get_db(req_cache)\n    print(f'FastAPI Diamond Cache:       {s_cached1} == {s_cached2} | Single Execution: True')\n    print('Dependency memoization prevents redundant connection overhead.')"
+            },
+            "right": {
+              "code": "s_audit = tracker.get_db(req_cache)",
+              "result": "DB_Session_3 reused (audit_same=True, calls=3)",
+              "tone": "ok",
+              "checks": [
+                "DB_Session_3 == DB_Session_3 == DB_Session_3",
+                "Cached Calls Total: 3"
+              ],
+              "whatIf": "class DependencyTracker:\n    def __init__(self):\n        self.db_calls = 0\n    \n    def get_db(self, cache=None):\n        if cache is not None and 'db' in cache:\n            return cache['db']\n        self.db_calls += 1\n        session = f'DB_Session_{self.db_calls}'\n        if cache is not None:\n            cache['db'] = session\n        return session\n\nif __name__ == '__main__':\n    print('=== DEPENDENCY DIAMOND RESOLUTION FORENSICS ===')\n    tracker = DependencyTracker()\n    \n    # Without cache (Naive double resolution)\n    s1 = tracker.get_db()\n    s2 = tracker.get_db()\n    print(f'Naive Resolution (No Cache): {s1} != {s2} | DB Calls: {tracker.db_calls}')\n    \n    # With request-scoped cache (FastAPI default use_cache=True)\n    req_cache = {}\n    s_cached1 = tracker.get_db(req_cache)\n    s_cached2 = tracker.get_db(req_cache)\n    s_audit = tracker.get_db(req_cache)\n    print(f'FastAPI Diamond Cache:       {s_cached1} == {s_cached2} == {s_audit} | Cached Calls Total: {tracker.db_calls}')\n    print('Dependency memoization prevents redundant connection overhead.')"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Dependency Graph Diamond Resolution Forensics",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Diamond dependency cache vs uncached calls",
+        "leftLabel": "use_cache=False (Naive)",
+        "rightLabel": "use_cache=True (FastAPI Default)",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Dependency",
-                  "Graph"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Diamond paths both require the same shared database dependency.",
+            "left": {
+              "code": "tracker.get_db()",
+              "result": "DB_Session_1 + DB_Session_2",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "tracker.get_db(req_cache)",
+              "result": "Single Cached Session",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The opening logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Diamond",
-                  "Resolution"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say4",
+            "caption": "Request cache memoizes the active session across child handlers.",
+            "left": {
+              "code": "db_calls == 2",
+              "result": "Duplicate Connections",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "db_calls == 1",
+              "result": "DB_Session_3 Shared",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Memoized Depends executes the database setup callable only once.",
+            "left": {
+              "code": "s1 != s2 | DB Calls: 2",
+              "result": "Exhausts Pool",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "s_cached1 == s_cached2",
+              "result": "Single Execution: True",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add third audit call sharing req_cache so tracker keeps db_calls constant.",
+            "left": {
+              "code": "tracker.get_db() x3 (uncached)",
+              "result": "db_calls grows to 3 (DB_Session_3)",
+              "tone": "error",
+              "checks": [
+                "DB Calls: 3"
+              ],
+              "whatIf": "class DependencyTracker:\n    def __init__(self):\n        self.db_calls = 0\n    \n    def get_db(self, cache=None):\n        if cache is not None and 'db' in cache:\n            return cache['db']\n        self.db_calls += 1\n        session = f'DB_Session_{self.db_calls}'\n        if cache is not None:\n            cache['db'] = session\n        return session\n\nif __name__ == '__main__':\n    print('=== DEPENDENCY DIAMOND RESOLUTION FORENSICS ===')\n    tracker = DependencyTracker()\n    \n    # Without cache (Naive double resolution)\n    s1 = tracker.get_db()\n    s2 = tracker.get_db()\n    s3 = tracker.get_db()\n    print(f'Naive Resolution (No Cache): {s1} != {s2} | DB Calls: {tracker.db_calls}')\n    \n    # With request-scoped cache (FastAPI default use_cache=True)\n    req_cache = {}\n    s_cached1 = tracker.get_db(req_cache)\n    s_cached2 = tracker.get_db(req_cache)\n    print(f'FastAPI Diamond Cache:       {s_cached1} == {s_cached2} | Single Execution: True')\n    print('Dependency memoization prevents redundant connection overhead.')"
+            },
+            "right": {
+              "code": "s_audit = tracker.get_db(req_cache)",
+              "result": "DB_Session_3 reused (audit_same=True, calls=3)",
+              "tone": "ok",
+              "checks": [
+                "DB_Session_3 == DB_Session_3 == DB_Session_3",
+                "Cached Calls Total: 3"
+              ],
+              "whatIf": "class DependencyTracker:\n    def __init__(self):\n        self.db_calls = 0\n    \n    def get_db(self, cache=None):\n        if cache is not None and 'db' in cache:\n            return cache['db']\n        self.db_calls += 1\n        session = f'DB_Session_{self.db_calls}'\n        if cache is not None:\n            cache['db'] = session\n        return session\n\nif __name__ == '__main__':\n    print('=== DEPENDENCY DIAMOND RESOLUTION FORENSICS ===')\n    tracker = DependencyTracker()\n    \n    # Without cache (Naive double resolution)\n    s1 = tracker.get_db()\n    s2 = tracker.get_db()\n    print(f'Naive Resolution (No Cache): {s1} != {s2} | DB Calls: {tracker.db_calls}')\n    \n    # With request-scoped cache (FastAPI default use_cache=True)\n    req_cache = {}\n    s_cached1 = tracker.get_db(req_cache)\n    s_cached2 = tracker.get_db(req_cache)\n    s_audit = tracker.get_db(req_cache)\n    print(f'FastAPI Diamond Cache:       {s_cached1} == {s_cached2} == {s_audit} | Cached Calls Total: {tracker.db_calls}')\n    print('Dependency memoization prevents redundant connection overhead.')"
+            }
           }
         ]
       }
@@ -177,81 +476,257 @@
       "partTitle": "Topological Dependency DAG Resolver Implementation",
       "codeHash": "b11080fc62b161dcd60b00ac8583b080d0f139e5d66755db1517f2e46b95caac",
       "spec": {
-        "template": "table",
-        "title": "Topological Dependency DAG Resolver Implementation",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Topological execution queue via Kahn algorithm",
         "steps": [
           {
             "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Kahn topological sorting queues leaf nodes having zero edges.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Topological"
-                  },
-                  {
-                    "text": "Dependency"
-                  }
-                ],
-                "tone": "data"
+                "text": "get_db_session"
+              },
+              {
+                "text": "get_current_user"
+              },
+              {
+                "text": "check_rate_limit"
+              },
+              {
+                "text": "submit_loan_application"
               }
-            ]
+            ],
+            "pointers": [
+              {
+                "name": "in_degree=0",
+                "index": 0,
+                "tone": "ok"
+              }
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "idle",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The during logic drives deterministic execution.",
-            "rows": [
+            "caption": "Completing root sessions unlocks cached downstream user branches.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "DAG"
-                  },
-                  {
-                    "text": "Resolver"
-                  }
-                ],
+                "text": "get_db_session"
+              },
+              {
+                "text": "get_current_user"
+              },
+              {
+                "text": "check_rate_limit"
+              },
+              {
+                "text": "submit_loan_application"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "resolved",
+                "index": 2,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              1,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "data",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Directed graph finishes every dependency cleanly before submission.",
+            "items": [
+              {
+                "text": "get_db_session"
+              },
+              {
+                "text": "get_current_user"
+              },
+              {
+                "text": "check_rate_limit"
+              },
+              {
+                "text": "submit_loan_application"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "ready",
+                "index": 3,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Append audit_log_write node to extend topological DAG to four tiers.",
+            "items": [
+              {
+                "text": "Build"
+              },
+              {
+                "text": "run"
+              },
+              {
+                "text": "DAG"
+              },
+              {
+                "text": "Python"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "tier-4",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "data"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Topological Dependency DAG Resolver Implementation",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Topological execution queue via Kahn algorithm",
         "steps": [
           {
             "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Kahn topological sorting queues leaf nodes having zero edges.",
+            "items": [
+              "get_db_session",
+              "get_current_user",
+              "check_rate_limit",
+              "submit_loan_application"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Topological",
-                  "Dependency"
-                ],
-                "tone": "data"
+                "name": "in_degree=0",
+                "index": 0,
+                "tone": "ok"
               }
-            ]
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "idle",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The during logic drives deterministic execution.",
-            "rows": [
+            "caption": "Completing root sessions unlocks cached downstream user branches.",
+            "items": [
+              "get_db_session",
+              "get_current_user",
+              "check_rate_limit",
+              "submit_loan_application"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "DAG",
-                  "Resolver"
-                ],
+                "name": "resolved",
+                "index": 2,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              1,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "data",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Directed graph finishes every dependency cleanly before submission.",
+            "items": [
+              "get_db_session",
+              "get_current_user",
+              "check_rate_limit",
+              "submit_loan_application"
+            ],
+            "pointers": [
+              {
+                "name": "ready",
+                "index": 3,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Append audit_log_write node to extend topological DAG to four tiers.",
+            "items": [
+              "get_db_session",
+              "get_current_user",
+              "submit_loan_application",
+              "audit_log_write"
+            ],
+            "pointers": [
+              {
+                "name": "tier-4",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "data"
+            },
+            "whatIf": "class DependencyDAGResolver:\n    def __init__(self):\n        self.dependencies = {}\n    \n    def register(self, node, deps):\n        self.dependencies[node] = deps\n    \n    def resolve_topological_order(self):\n        in_degree = {k: 0 for k in self.dependencies}\n        for node, deps in self.dependencies.items():\n            for d in deps:\n                if d not in in_degree: in_degree[d] = 0\n        \n        order = []\n        resolved = set()\n        while len(resolved) < len(self.dependencies):\n            progress = False\n            for node, deps in self.dependencies.items():\n                if node not in resolved and all(d in resolved for d in deps):\n                    resolved.add(node)\n                    order.append(node)\n                    progress = True\n                    break\n            if not progress: break\n        return order\n\nif __name__ == '__main__':\n    print('=== TOPOLOGICAL DEPENDENCY DAG RESOLVER ===')\n    dag = DependencyDAGResolver()\n    dag.register('get_db_session', [])\n    dag.register('get_current_user', ['get_db_session'])\n    dag.register('check_rate_limit', ['get_db_session'])\n    dag.register('submit_loan_application', ['get_current_user', 'check_rate_limit'])\n    dag.register('audit_log_write', ['submit_loan_application'])\n    \n    exec_order = dag.resolve_topological_order()\n    print(f'Calculated Execution Order: {exec_order}')\n    print('DAG resolved with zero circular dependency violations.')",
+            "checks": [
+              "'submit_loan_application', 'audit_log_write'"
             ]
           }
         ]
@@ -262,40 +737,143 @@
       "codeHash": "eff05985562adbbe033fc530da8da481d7822f30d15e696fa2b76f6da14ad170",
       "spec": {
         "template": "table",
-        "title": "API Gateway Dependency Bottleneck Optimization",
+        "title": "Banking loan gateway dependency remediation",
         "columns": [
-          "Stage",
-          "Concept"
+          "Configuration",
+          "DB Conns",
+          "Latency"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
+            "caption": "Flame graphs show idle socket waits driving API gateway latency.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "API"
+                    "text": "use_cache=False"
                   },
                   {
-                    "text": "Gateway"
+                    "text": "db_connections"
+                  },
+                  {
+                    "text": "320ms"
                   }
                 ],
-                "tone": "data"
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "use_cache=True"
+                  },
+                  {
+                    "text": "memoized"
+                  },
+                  {
+                    "text": "7ms"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The loan logic drives deterministic execution.",
+            "caption": "Five dependencies without cache open redundant database sessions.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Dependency"
+                    "text": "use_cache=False"
                   },
                   {
-                    "text": "Bottleneck"
+                    "text": "5"
+                  },
+                  {
+                    "text": "320ms"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Auth0"
+                  },
+                  {
+                    "text": "2"
+                  },
+                  {
+                    "text": "60"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Consolidating shared dependencies drops 320ms latency down to 7ms.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Legacy Gateway"
+                  },
+                  {
+                    "text": "5"
+                  },
+                  {
+                    "text": "320ms"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Optimized Gateway"
+                  },
+                  {
+                    "text": "1"
+                  },
+                  {
+                    "text": "7ms"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Compare 5-dependency gateway endpoints with and without memoized auth cache.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Update"
+                  },
+                  {
+                    "text": "simulate_optimized_request"
+                  },
+                  {
+                    "text": "compare"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "compare"
+                  },
+                  {
+                    "text": "5-dependency"
+                  },
+                  {
+                    "text": "endpoint"
                   }
                 ],
                 "tone": "ok"
@@ -306,36 +884,104 @@
       },
       "filled": {
         "template": "table",
-        "title": "API Gateway Dependency Bottleneck Optimization",
+        "title": "Banking loan gateway dependency remediation",
         "columns": [
-          "Stage",
-          "Concept"
+          "Configuration",
+          "DB Conns",
+          "Latency"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The part concept establishes the core structural baseline.",
+            "caption": "Flame graphs show idle socket waits driving API gateway latency.",
             "rows": [
               {
                 "cells": [
-                  "API",
-                  "Gateway"
+                  "use_cache=False",
+                  "5 DB Conns",
+                  "320ms"
                 ],
-                "tone": "data"
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "use_cache=True",
+                  "1 DB Conn (Memoized)",
+                  "7ms"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The loan logic drives deterministic execution.",
+            "caption": "Five dependencies without cache open redundant database sessions.",
             "rows": [
               {
                 "cells": [
-                  "Dependency",
-                  "Bottleneck"
+                  "5 Uncached Deps",
+                  "5",
+                  "200ms DB Wait"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Duplicate Auth0",
+                  "2 Calls",
+                  "120ms Auth Wait"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Consolidating shared dependencies drops 320ms latency down to 7ms.",
+            "rows": [
+              {
+                "cells": [
+                  "Legacy Gateway",
+                  "5",
+                  "320ms"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Optimized Gateway",
+                  "1",
+                  "7ms (45x Gain)"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Compare 5-dependency gateway endpoints with and without memoized auth cache.",
+            "rows": [
+              {
+                "cells": [
+                  "5-Dep Unmemoized",
+                  "5",
+                  "500ms"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Memoized Auth Cache",
+                  "1",
+                  "7ms (71x speedup)"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "class BankGatewayRemediator:\n    def simulate_legacy_request(self):\n        db_connections = 5\n        auth_remote_calls = 2\n        latency_ms = (db_connections * 40) + (auth_remote_calls * 60) # 320ms\n        return latency_ms, db_connections\n    \n    def simulate_optimized_request(self):\n        db_connections = 1\n        auth_remote_calls = 1\n        latency_ms = 5 + 2\n        return latency_ms, db_connections\n\n    def simulate_five_dep_unmemoized(self):\n        return (5 * 40) + (5 * 60), 5\n\nif __name__ == '__main__':\n    print('=== BANKING API GATEWAY BOTTLENECK OPTIMIZATION LAB ===')\n    remediator = BankGatewayRemediator()\n    leg_lat, leg_conns = remediator.simulate_legacy_request()\n    opt_lat, opt_conns = remediator.simulate_optimized_request()\n    \n    print(f'Legacy Gateway:    Latency: {leg_lat} ms | DB Conns: {leg_conns} [BOTTLENECK]')\n    print(f'Optimized Gateway: Latency: {opt_lat} ms  | DB Conns: {opt_conns} [REMEDIATED]')\n    five_lat, five_conns = remediator.simulate_five_dep_unmemoized()\n    print(f'5-Dep Unmemoized Gateway: Latency: {five_lat} ms | Conns: {five_conns}')\n    print(f'Speedup vs 5-Dep Naive:  {five_lat // opt_lat}x faster with memoized cache.')",
+            "checks": [
+              "5-Dep Unmemoized Gateway: Latency: 500 ms",
+              "Speedup vs 5-Dep Naive:  71x"
             ]
           }
         ]
@@ -345,81 +991,182 @@
       "partTitle": "Async Generator Lifespan & Context Manager Synthesis",
       "codeHash": "9e500e96421eb11e75bc7c78829fe46f66d1d95c3d274d121ef2e3d2ee813f86",
       "spec": {
-        "template": "table",
-        "title": "Async Generator Lifespan & Context Manager Synthes",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Yield dependency acquisition and teardown",
+        "boxes": [
+          {
+            "id": "db",
+            "label": "DB_Transaction"
+          },
+          {
+            "id": "lock",
+            "label": "Redis_Distributed_Lock"
+          },
+          {
+            "id": "leaks",
+            "label": "active_resources"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Async"
-                  },
-                  {
-                    "text": "Generator"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Code before yield injects resources cleanly into route handlers.",
+            "values": {
+              "db": {
+                "text": "Acquired"
+              },
+              "lock": {
+                "text": "Acquired"
+              },
+              "leaks": {
+                "text": "active_resources"
               }
-            ]
+            },
+            "tones": {
+              "db": "data",
+              "lock": "data",
+              "leaks": "data"
+            }
           },
           {
             "at": "say3",
-            "caption": "The yield logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Lifespan"
-                  },
-                  {
-                    "text": "Context"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Post-yield teardown frees resources in strict reverse order.",
+            "values": {
+              "db": {
+                "text": "Released"
+              },
+              "lock": {
+                "text": "Released"
+              },
+              "leaks": {
+                "text": "[]"
               }
-            ]
+            },
+            "tones": {
+              "db": "ok",
+              "lock": "ok",
+              "leaks": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Deterministic yield cleanup guarantees zero leaked resource handles.",
+            "values": {
+              "db": {
+                "text": "Cleaned up"
+              },
+              "lock": {
+                "text": "Cleaned up"
+              },
+              "leaks": {
+                "text": "0"
+              }
+            },
+            "tones": {
+              "db": "ok",
+              "lock": "ok",
+              "leaks": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Verify async generator teardown releases Rate_Limiter_Slot cleanly.",
+            "values": {
+              "db": {
+                "text": "Model"
+              },
+              "lock": {
+                "text": "generator"
+              },
+              "leaks": {
+                "text": "lifecycle"
+              }
+            },
+            "tones": {
+              "db": "ok",
+              "lock": "ok",
+              "leaks": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Async Generator Lifespan & Context Manager Synthes",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Yield dependency acquisition and teardown",
+        "boxes": [
+          {
+            "id": "db",
+            "label": "DB_Transaction"
+          },
+          {
+            "id": "lock",
+            "label": "Redis_Distributed_Lock"
+          },
+          {
+            "id": "leaks",
+            "label": "active_resources"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Async",
-                  "Generator"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Code before yield injects resources cleanly into route handlers.",
+            "values": {
+              "db": "Acquired & Injected",
+              "lock": "Acquired & Injected",
+              "leaks": "2 Active"
+            },
+            "tones": {
+              "db": "data",
+              "lock": "data",
+              "leaks": "data"
+            }
           },
           {
             "at": "say3",
-            "caption": "The yield logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Lifespan",
-                  "Context"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Post-yield teardown frees resources in strict reverse order.",
+            "values": {
+              "db": "Released",
+              "lock": "Released",
+              "leaks": "0 Active"
+            },
+            "tones": {
+              "db": "ok",
+              "lock": "ok",
+              "leaks": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Deterministic yield cleanup guarantees zero leaked resource handles.",
+            "values": {
+              "db": "Cleaned up",
+              "lock": "Cleaned up",
+              "leaks": "0 Leaked"
+            },
+            "tones": {
+              "db": "ok",
+              "lock": "ok",
+              "leaks": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Verify async generator teardown releases Rate_Limiter_Slot cleanly.",
+            "values": {
+              "db": "DB_Transaction Released",
+              "lock": "Rate_Limiter_Slot Freed",
+              "leaks": "0 Active Leaks"
+            },
+            "tones": {
+              "db": "ok",
+              "lock": "ok",
+              "leaks": "ok"
+            },
+            "whatIf": "class LifespanResourceSimulator:\n    def __init__(self):\n        self.active_resources = []\n    \n    def yield_dependency(self, name):\n        # Setup phase (before yield)\n        self.active_resources.append(name)\n        print(f'[{name}] Acquired & Injected')\n        \n        # Yield simulate endpoint execution\n        # Teardown phase (after yield)\n        self.active_resources.remove(name)\n        print(f'[{name}] Released & Cleaned up')\n\nif __name__ == '__main__':\n    print('=== ASYNC GENERATOR LIFESPAN & TEARDOWN SYNTHESIS ===')\n    sim = LifespanResourceSimulator()\n    \n    sim.yield_dependency('DB_Transaction')\n    sim.yield_dependency('Redis_Distributed_Lock')\n    sim.yield_dependency('Rate_Limiter_Slot')\n    \n    print(f'Active Leaked Resources: {len(sim.active_resources)}')\n    print('Deterministic yield lifecycle management verified.')",
+            "checks": [
+              "[Rate_Limiter_Slot] Released & Cleaned up",
+              "Active Leaked Resources: 0"
             ]
           }
         ]

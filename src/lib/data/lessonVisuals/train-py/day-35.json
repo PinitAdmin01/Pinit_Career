@@ -2,270 +2,228 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 35,
-  "promptSha": "f1d4183e52b1d164d654c555030e40f502c3c93431c18e67f847bc1c7f3a0b5b",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Milestone 7 — Foundations & Mathematical Invariants",
-      "codeHash": "367c2cb5e4ca3477bb4da8322ad86904bfd2b378c67be52ff2968b65e04590ab",
+      "codeHash": "09a329430b1f8dd4d8ec509829c8de01750652d92fb31ce96676e8a947f72830",
       "spec": {
         "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
+        "title": "Milestone 7 — Foundations & Mathematical Invariants",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "MILESTONE_7_PILLARS",
+            "label": "MILESTONE_7_PILLARS"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "pillar",
+            "label": "pillar"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "summary",
+            "label": "summary"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how milestone updates synthesizes during execution.",
+            "values": {
+              "MILESTONE_7_PILLARS": {
+                "var": "MILESTONE_7_PILLARS",
+                "line": 1,
+                "hit": 1
+              },
+              "pillar": {
+                "var": "pillar",
+                "line": 7,
+                "hit": 1
+              },
+              "summary": {
+                "var": "summary",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "MILESTONE_7_PILLARS": "data",
+              "pillar": "data",
+              "summary": "data"
+            },
+            "arrows": [
+              [
+                "MILESTONE_7_PILLARS",
+                "pillar"
+              ],
+              [
+                "pillar",
+                "summary"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Training frontier foundation models requires harmonizing three.",
+            "values": {
+              "MILESTONE_7_PILLARS": {
+                "var": "MILESTONE_7_PILLARS",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "pillar": {
+                "var": "pillar",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "summary": {
+                "var": "summary",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "MILESTONE_7_PILLARS": "data",
+              "pillar": "data",
+              "summary": "data"
+            },
+            "arrows": [
+              [
+                "MILESTONE_7_PILLARS",
+                "pillar"
+              ],
+              [
+                "pillar",
+                "summary"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "Distributed infrastructure architects design comprehensive training plans.",
+            "values": {
+              "MILESTONE_7_PILLARS": {
+                "var": "MILESTONE_7_PILLARS",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "pillar": {
+                "var": "pillar",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "summary": {
+                "var": "summary",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "MILESTONE_7_PILLARS": "ok",
+              "pillar": "ok",
+              "summary": "ok"
+            },
+            "arrows": [
+              [
+                "MILESTONE_7_PILLARS",
+                "pillar"
+              ],
+              [
+                "pillar",
+                "summary"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
+        "title": "Milestone 7 — Foundations & Mathematical Invariants",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "MILESTONE_7_PILLARS",
+            "label": "MILESTONE_7_PILLARS"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "pillar",
+            "label": "pillar"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "summary",
+            "label": "summary"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how milestone updates synthesizes during execution.",
+            "values": {
+              "MILESTONE_7_PILLARS": "{'VRAM_ACCOUNTING': 'Rigorous profiling…",
+              "pillar": "'CHINCHILLA_FRONTIER'",
+              "summary": "'Compute-optimal FLOP allocation balanc…"
+            },
+            "tones": {
+              "MILESTONE_7_PILLARS": "data",
+              "pillar": "data",
+              "summary": "data"
+            },
+            "arrows": [
+              [
+                "MILESTONE_7_PILLARS",
+                "pillar"
+              ],
+              [
+                "pillar",
+                "summary"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Training frontier foundation models requires harmonizing three.",
+            "values": {
+              "MILESTONE_7_PILLARS": "{'VRAM_ACCOUNTING': 'Rigorous profiling…",
+              "pillar": "'CHINCHILLA_FRONTIER'",
+              "summary": "'Compute-optimal FLOP allocation balanc…"
+            },
+            "tones": {
+              "MILESTONE_7_PILLARS": "data",
+              "pillar": "data",
+              "summary": "data"
+            },
+            "arrows": [
+              [
+                "MILESTONE_7_PILLARS",
+                "pillar"
+              ],
+              [
+                "pillar",
+                "summary"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "Distributed infrastructure architects design comprehensive training plans.",
+            "values": {
+              "MILESTONE_7_PILLARS": "{'VRAM_ACCOUNTING': 'Rigorous profiling…",
+              "pillar": "'COLLECTIVE_COMM_MATH'",
+              "summary": "'Ring and Tree All-Reduce bandwidth mod…"
+            },
+            "tones": {
+              "MILESTONE_7_PILLARS": "ok",
+              "pillar": "ok",
+              "summary": "ok"
+            },
+            "arrows": [
+              [
+                "MILESTONE_7_PILLARS",
+                "pillar"
+              ],
+              [
+                "pillar",
+                "summary"
+              ]
             ]
           }
         ]
@@ -273,264 +231,218 @@
     },
     {
       "partTitle": "Milestone 7 — Core Algorithm & State Representation",
-      "codeHash": "6ee73520c57470b47590ba9ae54fe9f22e9b81ca1c93e38327004a8c4cd396ec",
+      "codeHash": "6b4651811bdbf6c4319466f3a309173827006a4b063a23454fd59234fda1860b",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Milestone 7 — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The cluster training planner engine coordinates memory estimation, FLOP.",
+            "bars": [
+              {
+                "label": "model_params_b",
+                "value": {
+                  "var": "model_params_b",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_tokens_b",
+                "value": {
+                  "var": "total_tokens_b",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "available_h100",
+                "value": {
+                  "var": "available_h100_count",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "static_vram_gb",
+                "value": {
+                  "var": "static_vram_gb",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Given model parameter count (in billions), training token volume (in.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "model_params_b",
+                "value": {
+                  "var": "model_params_b",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_tokens_b",
+                "value": {
+                  "var": "total_tokens_b",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "available_h100",
+                "value": {
+                  "var": "available_h100_count",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "static_vram_gb",
+                "value": {
+                  "var": "static_vram_gb",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Production AI teams use automated cluster planning engines to schedule.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "model_params_b",
+                "value": {
+                  "var": "model_params_b",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_tokens_b",
+                "value": {
+                  "var": "total_tokens_b",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "available_h100",
+                "value": {
+                  "var": "available_h100_count",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "static_vram_gb",
+                "value": {
+                  "var": "static_vram_gb",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Milestone 7 — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The cluster training planner engine coordinates memory estimation, FLOP.",
+            "bars": [
+              {
+                "label": "model_params_b",
+                "value": 7,
+                "tone": "data"
+              },
+              {
+                "label": "total_tokens_b",
+                "value": 2000,
+                "tone": "data"
+              },
+              {
+                "label": "available_h100",
+                "value": 128,
+                "tone": "data"
+              },
+              {
+                "label": "static_vram_gb",
+                "value": 104.3,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Given model parameter count (in billions), training token volume (in.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "model_params_b",
+                "value": 7,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_tokens_b",
+                "value": 2000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "available_h100",
+                "value": 128,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "static_vram_gb",
+                "value": 104.3,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Production AI teams use automated cluster planning engines to schedule.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "model_params_b",
+                "value": 7,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_tokens_b",
+                "value": 2000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "available_h100",
+                "value": 128,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "static_vram_gb",
+                "value": 104.3,
+                "tone": "ok"
               }
             ]
           }
@@ -539,265 +451,279 @@
     },
     {
       "partTitle": "Milestone 7 — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "061ba7a89869e653a0ed083b3b968141f57ef68fce981d467df7d8b0026a49e2",
+      "codeHash": "8aab8ae29ed9a895a4ea4c8698414a2d904b223aa5460801ffc1acf9e254ef2b",
       "spec": {
         "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
+        "title": "Milestone 7 — Throughput Optimization & Edge-Case Handling",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "vram_available_gb",
+            "label": "vram_available_gb"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "activation_per_sample_gb",
+            "label": "activation_per_sample_gb"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "allreduce_bandwidth_gbps",
+            "label": "allreduce_bandwidth_gbps"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_samples",
+            "label": "max_samples"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A central challenge in distributed training is balancing local microbatch.",
+            "values": {
+              "vram_available_gb": {
+                "var": "vram_available_gb",
+                "line": 5,
+                "hit": 1
+              },
+              "activation_per_sample_gb": {
+                "var": "activation_per_sample_gb",
+                "line": 5,
+                "hit": 1
+              },
+              "allreduce_bandwidth_gbps": {
+                "var": "allreduce_bandwidth_gbps",
+                "line": 5,
+                "hit": 1
+              },
+              "max_samples": {
+                "var": "max_samples",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "vram_available_gb": "data",
+              "activation_per_sample_gb": "data",
+              "allreduce_bandwidth_gbps": "data",
+              "max_samples": "data"
+            },
+            "arrows": [
+              [
+                "vram_available_gb",
+                "activation_per_sample_gb"
+              ],
+              [
+                "activation_per_sample_gb",
+                "allreduce_bandwidth_gbps"
+              ],
+              [
+                "allreduce_bandwidth_gbps",
+                "max_samples"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "If local microbatch size is too small, the GPU spends more time executing.",
+            "values": {
+              "vram_available_gb": {
+                "var": "vram_available_gb",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "activation_per_sample_gb": {
+                "var": "activation_per_sample_gb",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "allreduce_bandwidth_gbps": {
+                "var": "allreduce_bandwidth_gbps",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "max_samples": {
+                "var": "max_samples",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "vram_available_gb": "data",
+              "activation_per_sample_gb": "data",
+              "allreduce_bandwidth_gbps": "data",
+              "max_samples": "data"
+            },
+            "arrows": [
+              [
+                "vram_available_gb",
+                "activation_per_sample_gb"
+              ],
+              [
+                "activation_per_sample_gb",
+                "allreduce_bandwidth_gbps"
+              ],
+              [
+                "allreduce_bandwidth_gbps",
+                "max_samples"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Optimizing the memory-to-communication tradeoff ensures that multi-node.",
+            "values": {
+              "vram_available_gb": {
+                "var": "vram_available_gb",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "activation_per_sample_gb": {
+                "var": "activation_per_sample_gb",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "allreduce_bandwidth_gbps": {
+                "var": "allreduce_bandwidth_gbps",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "max_samples": {
+                "var": "max_samples",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "vram_available_gb": "ok",
+              "activation_per_sample_gb": "ok",
+              "allreduce_bandwidth_gbps": "ok",
+              "max_samples": "ok"
+            },
+            "arrows": [
+              [
+                "vram_available_gb",
+                "activation_per_sample_gb"
+              ],
+              [
+                "activation_per_sample_gb",
+                "allreduce_bandwidth_gbps"
+              ],
+              [
+                "allreduce_bandwidth_gbps",
+                "max_samples"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
+        "title": "Milestone 7 — Throughput Optimization & Edge-Case Handling",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "vram_available_gb",
+            "label": "vram_available_gb"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "activation_per_sample_gb",
+            "label": "activation_per_sample_gb"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "allreduce_bandwidth_gbps",
+            "label": "allreduce_bandwidth_gbps"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_samples",
+            "label": "max_samples"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A central challenge in distributed training is balancing local microbatch.",
+            "values": {
+              "vram_available_gb": "24",
+              "activation_per_sample_gb": "3.2",
+              "allreduce_bandwidth_gbps": "300",
+              "max_samples": "7"
+            },
+            "tones": {
+              "vram_available_gb": "data",
+              "activation_per_sample_gb": "data",
+              "allreduce_bandwidth_gbps": "data",
+              "max_samples": "data"
+            },
+            "arrows": [
+              [
+                "vram_available_gb",
+                "activation_per_sample_gb"
+              ],
+              [
+                "activation_per_sample_gb",
+                "allreduce_bandwidth_gbps"
+              ],
+              [
+                "allreduce_bandwidth_gbps",
+                "max_samples"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "If local microbatch size is too small, the GPU spends more time executing.",
+            "values": {
+              "vram_available_gb": "24",
+              "activation_per_sample_gb": "3.2",
+              "allreduce_bandwidth_gbps": "300",
+              "max_samples": "7"
+            },
+            "tones": {
+              "vram_available_gb": "data",
+              "activation_per_sample_gb": "data",
+              "allreduce_bandwidth_gbps": "data",
+              "max_samples": "data"
+            },
+            "arrows": [
+              [
+                "vram_available_gb",
+                "activation_per_sample_gb"
+              ],
+              [
+                "activation_per_sample_gb",
+                "allreduce_bandwidth_gbps"
+              ],
+              [
+                "allreduce_bandwidth_gbps",
+                "max_samples"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Optimizing the memory-to-communication tradeoff ensures that multi-node.",
+            "values": {
+              "vram_available_gb": "24",
+              "activation_per_sample_gb": "3.2",
+              "allreduce_bandwidth_gbps": "300",
+              "max_samples": "7"
+            },
+            "tones": {
+              "vram_available_gb": "ok",
+              "activation_per_sample_gb": "ok",
+              "allreduce_bandwidth_gbps": "ok",
+              "max_samples": "ok"
+            },
+            "arrows": [
+              [
+                "vram_available_gb",
+                "activation_per_sample_gb"
+              ],
+              [
+                "activation_per_sample_gb",
+                "allreduce_bandwidth_gbps"
+              ],
+              [
+                "allreduce_bandwidth_gbps",
+                "max_samples"
+              ]
             ]
           }
         ]
@@ -805,265 +731,279 @@
     },
     {
       "partTitle": "Milestone 7 — Resilience Guardrails & Failure Recovery",
-      "codeHash": "b64d310b140036dc953ca513328384e4245682dccb85a494a09351e6fa157651",
+      "codeHash": "65f67bd3a59b2b3b45fcfd2dfee1a7d2eea2729d72bde84edb142d91094a36fe",
       "spec": {
         "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
+        "title": "Milestone 7 — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "static_vram_gb",
+            "label": "static_vram_gb"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "local_batch_size",
+            "label": "local_batch_size"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "activation_per_batch_gb",
+            "label": "activation_per_batch_gb"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "h100_limit_gb",
+            "label": "h100_limit_gb"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Launching a job that crashes with an Out-Of-Memory (OOM) error five.",
+            "values": {
+              "static_vram_gb": {
+                "var": "static_vram_gb",
+                "line": 4,
+                "hit": 1
+              },
+              "local_batch_size": {
+                "var": "local_batch_size",
+                "line": 4,
+                "hit": 1
+              },
+              "activation_per_batch_gb": {
+                "var": "activation_per_batch_gb",
+                "line": 4,
+                "hit": 1
+              },
+              "h100_limit_gb": {
+                "var": "h100_limit_gb",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "static_vram_gb": "data",
+              "local_batch_size": "data",
+              "activation_per_batch_gb": "data",
+              "h100_limit_gb": "data"
+            },
+            "arrows": [
+              [
+                "static_vram_gb",
+                "local_batch_size"
+              ],
+              [
+                "local_batch_size",
+                "activation_per_batch_gb"
+              ],
+              [
+                "activation_per_batch_gb",
+                "h100_limit_gb"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The OOM pre-flight safety gate evaluates total projected VRAM consumption.",
+            "values": {
+              "static_vram_gb": {
+                "var": "static_vram_gb",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "local_batch_size": {
+                "var": "local_batch_size",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "activation_per_batch_gb": {
+                "var": "activation_per_batch_gb",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "h100_limit_gb": {
+                "var": "h100_limit_gb",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "static_vram_gb": "data",
+              "local_batch_size": "data",
+              "activation_per_batch_gb": "data",
+              "h100_limit_gb": "data"
+            },
+            "arrows": [
+              [
+                "static_vram_gb",
+                "local_batch_size"
+              ],
+              [
+                "local_batch_size",
+                "activation_per_batch_gb"
+              ],
+              [
+                "activation_per_batch_gb",
+                "h100_limit_gb"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Enforcing pre-flight verification eliminates out-of-memory crashes.",
+            "values": {
+              "static_vram_gb": {
+                "var": "static_vram_gb",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "local_batch_size": {
+                "var": "local_batch_size",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "activation_per_batch_gb": {
+                "var": "activation_per_batch_gb",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "h100_limit_gb": {
+                "var": "h100_limit_gb",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "static_vram_gb": "ok",
+              "local_batch_size": "ok",
+              "activation_per_batch_gb": "ok",
+              "h100_limit_gb": "ok"
+            },
+            "arrows": [
+              [
+                "static_vram_gb",
+                "local_batch_size"
+              ],
+              [
+                "local_batch_size",
+                "activation_per_batch_gb"
+              ],
+              [
+                "activation_per_batch_gb",
+                "h100_limit_gb"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
+        "title": "Milestone 7 — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "static_vram_gb",
+            "label": "static_vram_gb"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "local_batch_size",
+            "label": "local_batch_size"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "activation_per_batch_gb",
+            "label": "activation_per_batch_gb"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "h100_limit_gb",
+            "label": "h100_limit_gb"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Launching a job that crashes with an Out-Of-Memory (OOM) error five.",
+            "values": {
+              "static_vram_gb": "40",
+              "local_batch_size": "4",
+              "activation_per_batch_gb": "6",
+              "h100_limit_gb": "80"
+            },
+            "tones": {
+              "static_vram_gb": "data",
+              "local_batch_size": "data",
+              "activation_per_batch_gb": "data",
+              "h100_limit_gb": "data"
+            },
+            "arrows": [
+              [
+                "static_vram_gb",
+                "local_batch_size"
+              ],
+              [
+                "local_batch_size",
+                "activation_per_batch_gb"
+              ],
+              [
+                "activation_per_batch_gb",
+                "h100_limit_gb"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The OOM pre-flight safety gate evaluates total projected VRAM consumption.",
+            "values": {
+              "static_vram_gb": "40",
+              "local_batch_size": "4",
+              "activation_per_batch_gb": "6",
+              "h100_limit_gb": "80"
+            },
+            "tones": {
+              "static_vram_gb": "data",
+              "local_batch_size": "data",
+              "activation_per_batch_gb": "data",
+              "h100_limit_gb": "data"
+            },
+            "arrows": [
+              [
+                "static_vram_gb",
+                "local_batch_size"
+              ],
+              [
+                "local_batch_size",
+                "activation_per_batch_gb"
+              ],
+              [
+                "activation_per_batch_gb",
+                "h100_limit_gb"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Enforcing pre-flight verification eliminates out-of-memory crashes.",
+            "values": {
+              "static_vram_gb": "40",
+              "local_batch_size": "4",
+              "activation_per_batch_gb": "6",
+              "h100_limit_gb": "80"
+            },
+            "tones": {
+              "static_vram_gb": "ok",
+              "local_batch_size": "ok",
+              "activation_per_batch_gb": "ok",
+              "h100_limit_gb": "ok"
+            },
+            "arrows": [
+              [
+                "static_vram_gb",
+                "local_batch_size"
+              ],
+              [
+                "local_batch_size",
+                "activation_per_batch_gb"
+              ],
+              [
+                "activation_per_batch_gb",
+                "h100_limit_gb"
+              ]
             ]
           }
         ]
@@ -1071,266 +1011,164 @@
     },
     {
       "partTitle": "Milestone 7 — Production Telemetry & Verification Audit",
-      "codeHash": "9c7707fd88b4a6f72bb73ce1c9472999fecc4eb88425ed437158fb24d4d1c656",
+      "codeHash": "82ad2fffc0168482205665d7669a3f7ca151819c8aa9fddc2973a630a52b13bc",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Milestone 7 — Production Telemetry & Verification Audit",
+        "actors": [
+          "gates",
+          "all_passed",
+          "passed"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The capstone milestone culminates in a comprehensive end-to-end.",
+            "activeActor": "gates",
+            "messages": [
+              {
+                "from": "gates",
+                "to": "all_passed",
+                "label": {
+                  "var": "gates",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "all_passed",
+                "to": "passed",
+                "label": {
+                  "var": "all_passed",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A Milestone 7 certification auditor evaluates the operational status.",
+            "activeActor": "all_passed",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "gates",
+                "to": "all_passed",
+                "label": {
+                  "var": "gates",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "all_passed",
+                "to": "passed",
+                "label": {
+                  "var": "all_passed",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Milestone 7 certification confirms that cluster memory accounting.",
+            "activeActor": "passed",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "gates",
+                "to": "all_passed",
+                "label": {
+                  "var": "gates",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "all_passed",
+                "to": "passed",
+                "label": {
+                  "var": "all_passed",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Milestone 7 — Production Telemetry & Verification Audit",
+        "actors": [
+          "gates",
+          "all_passed",
+          "passed"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The capstone milestone culminates in a comprehensive end-to-end.",
+            "messages": [
+              {
+                "from": "gates",
+                "to": "all_passed",
+                "label": "{'GATE_1_MEMORY_ACCOUNTANT': True, 'GAT…",
+                "tone": "data"
+              },
+              {
+                "from": "all_passed",
+                "to": "passed",
+                "label": "True",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "gates"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A Milestone 7 certification auditor evaluates the operational status.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "gates",
+                "to": "all_passed",
+                "label": "{'GATE_1_MEMORY_ACCOUNTANT': True, 'GAT…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "all_passed",
+                "to": "passed",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "all_passed"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Milestone 7 certification confirms that cluster memory accounting.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "gates",
+                "to": "all_passed",
+                "label": "{'GATE_1_MEMORY_ACCOUNTANT': True, 'GAT…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "all_passed",
+                "to": "passed",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "passed"
           }
         ]
       }

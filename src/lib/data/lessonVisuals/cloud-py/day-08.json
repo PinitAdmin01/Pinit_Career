@@ -2,139 +2,113 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 8,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why a load balancer",
       "codeHash": "f5f19e3502942af149acd54a47fc1469c5cfdadfd3cb0a7bd0292f0bb300c31c",
       "spec": {
-        "template": "compare",
-        "title": "Architectural comparison of Application and Network Load Balancers",
-        "leftLabel": "Application Load Balancer",
-        "rightLabel": "Network Load Balancer",
+        "template": "states",
+        "title": "Why a load balancer",
+        "states": [
+          {
+            "id": "servers",
+            "label": "servers"
+          },
+          {
+            "id": "served",
+            "label": "served"
+          },
+          {
+            "id": "call_number",
+            "label": "call_number"
+          }
+        ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A load balancer is a single entry point that spreads incoming traffic.",
+            "currentState": "servers",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Application Load Balancers inspect paths and headers at application layer.",
-            "left": {
-              "code": "Protocol level",
-              "result": {
-                "text": "HTTP/HTTPS level"
-              },
-              "tone": "ok"
+            "caption": "AWS Elastic Load Balancing has three main types.",
+            "currentState": "served",
+            "transition": {
+              "from": "servers",
+              "to": "served",
+              "label": {
+                "var": "served",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "Protocol level",
-              "result": {
-                "text": "TCP/UDP level"
-              },
-              "tone": "data"
-            }
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Network Load Balancers handle millions of connections at transport layer.",
-            "left": {
-              "code": "OSI Layer",
-              "result": {
-                "text": "layer 7"
-              },
-              "tone": "ok"
+            "at": "say7",
+            "caption": "The example spreads twelve calls across three servers with round robin.",
+            "currentState": "call_number",
+            "transition": {
+              "from": "served",
+              "to": "call_number",
+              "label": {
+                "var": "call_number",
+                "line": 7,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "OSI Layer",
-              "result": {
-                "text": "layer 4"
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Round robin distributes incoming calls across available targets.",
-            "left": {
-              "code": "Routing feature",
-              "result": {
-                "text": "Round robin"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "Routing feature",
-              "result": {
-                "text": "Round robin"
-              },
-              "tone": "data"
-            }
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Architectural comparison of Application and Network Load Balancers",
-        "leftLabel": "Application Load Balancer",
-        "rightLabel": "Network Load Balancer",
+        "template": "states",
+        "title": "Why a load balancer",
+        "states": [
+          {
+            "id": "servers",
+            "label": "servers"
+          },
+          {
+            "id": "served",
+            "label": "served"
+          },
+          {
+            "id": "call_number",
+            "label": "call_number"
+          }
+        ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A load balancer is a single entry point that spreads incoming traffic.",
+            "currentState": "servers",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Application Load Balancers inspect paths and headers at application layer.",
-            "left": {
-              "code": "Protocol level",
-              "result": "HTTP/HTTPS level",
-              "tone": "ok",
-              "checks": [
-                "HTTP/HTTPS level"
-              ]
+            "caption": "AWS Elastic Load Balancing has three main types.",
+            "currentState": "served",
+            "transition": {
+              "from": "servers",
+              "to": "served",
+              "label": "{}"
             },
-            "right": {
-              "code": "Protocol level",
-              "result": "TCP/UDP level",
-              "tone": "data",
-              "checks": [
-                "TCP/UDP level"
-              ]
-            }
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Network Load Balancers handle millions of connections at transport layer.",
-            "left": {
-              "code": "OSI Layer",
-              "result": "layer 7",
-              "tone": "ok",
-              "checks": [
-                "layer 7"
-              ]
+            "at": "say7",
+            "caption": "The example spreads twelve calls across three servers with round robin.",
+            "currentState": "call_number",
+            "transition": {
+              "from": "served",
+              "to": "call_number",
+              "label": "0"
             },
-            "right": {
-              "code": "OSI Layer",
-              "result": "layer 4",
-              "tone": "ok",
-              "checks": [
-                "layer 4"
-              ]
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Round robin distributes incoming calls across available targets.",
-            "left": {
-              "code": "Routing feature",
-              "result": "Round robin",
-              "tone": "ok",
-              "checks": [
-                "Round robin"
-              ]
-            },
-            "right": {
-              "code": "Routing feature",
-              "result": "Round robin",
-              "tone": "data",
-              "checks": [
-                "Round robin"
-              ]
-            }
+            "tone": "ok"
           }
         ]
       }
@@ -143,165 +117,277 @@
       "partTitle": "Listeners, rules and target groups",
       "codeHash": "1748467abe0b7b7d2d9700df81f9f7488418af269c9fd616cb9545c70ab105a7",
       "spec": {
-        "template": "table",
-        "title": "ALB listener rule evaluation and target group dispatch routing",
-        "columns": [
-          "pattern",
-          "target_group"
+        "template": "flow",
+        "title": "Listeners, rules and target groups",
+        "nodes": [
+          {
+            "id": "rules",
+            "label": "rules"
+          },
+          {
+            "id": "path",
+            "label": "path"
+          },
+          {
+            "id": "rule",
+            "label": "rule"
+          },
+          {
+            "id": "p",
+            "label": "p"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Each listener has an ordered list of rules and a default action.",
+            "values": {
+              "rules": {
+                "var": "rules",
+                "line": 8,
+                "hit": 2
+              },
+              "path": {
+                "var": "path",
+                "line": 11,
+                "hit": 1
+              },
+              "rule": {
+                "var": "rule",
+                "line": 2,
+                "hit": 1
+              },
+              "p": {
+                "var": "p",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "rules": "data",
+              "path": "data",
+              "rule": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "rules",
+                "path"
+              ],
+              [
+                "path",
+                "rule"
+              ],
+              [
+                "rule",
+                "p"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "A rule has path pattern conditions routing to an assigned target group.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "/api/v1/*"
-                  },
-                  {
-                    "text": "tg-api"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A rule has conditions (path, host, header, method) and an action, usually.",
+            "values": {
+              "rules": {
+                "var": "rules",
+                "line": 11,
+                "hit": 1
+              },
+              "path": {
+                "var": "path",
+                "line": 2,
+                "hit": 1
+              },
+              "rule": {
+                "var": "rule",
+                "line": 3,
+                "hit": 1
+              },
+              "p": {
+                "var": "p",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "rules": "data",
+              "path": "data",
+              "rule": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "rules",
+                "path"
+              ],
+              [
+                "path",
+                "rule"
+              ],
+              [
+                "rule",
+                "p"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "An ALB serves a whole microservice system directing traffic across groups.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "/api/v1/*"
-                  },
-                  {
-                    "text": "tg-api"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example routes several paths through a small rule list.",
+            "values": {
+              "rules": {
+                "var": "rules",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "/static/*"
-                  },
-                  {
-                    "text": "tg-static"
-                  }
-                ],
-                "tone": "ok"
+              "path": {
+                "var": "path",
+                "line": 3,
+                "hit": 1
+              },
+              "rule": {
+                "var": "rule",
+                "line": 4,
+                "hit": 1
+              },
+              "p": {
+                "var": "p",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Rules are checked in priority order where the first match forward executes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "/api/v1/*"
-                  },
-                  {
-                    "text": "tg-api"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "/static/*"
-                  },
-                  {
-                    "text": "tg-static"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "/health"
-                  },
-                  {
-                    "text": "tg-health"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "rules": "ok",
+              "path": "ok",
+              "rule": "ok",
+              "p": "ok"
+            },
+            "arrows": [
+              [
+                "rules",
+                "path"
+              ],
+              [
+                "path",
+                "rule"
+              ],
+              [
+                "rule",
+                "p"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "ALB listener rule evaluation and target group dispatch routing",
-        "columns": [
-          "pattern",
-          "target_group"
+        "template": "flow",
+        "title": "Listeners, rules and target groups",
+        "nodes": [
+          {
+            "id": "rules",
+            "label": "rules"
+          },
+          {
+            "id": "path",
+            "label": "path"
+          },
+          {
+            "id": "rule",
+            "label": "rule"
+          },
+          {
+            "id": "p",
+            "label": "p"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Each listener has an ordered list of rules and a default action.",
+            "values": {
+              "rules": "[{'pattern': '/api/v1/*', 'target_group…",
+              "path": "'/api/v1/orders'",
+              "rule": "{'pattern': '/api/v1/*', 'target_group'…",
+              "p": "'/api/v1/*'"
+            },
+            "tones": {
+              "rules": "data",
+              "path": "data",
+              "rule": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "rules",
+                "path"
+              ],
+              [
+                "path",
+                "rule"
+              ],
+              [
+                "rule",
+                "p"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "A rule has path pattern conditions routing to an assigned target group.",
-            "rows": [
-              {
-                "cells": [
-                  "/api/v1/*",
-                  "tg-api"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A rule has conditions (path, host, header, method) and an action, usually.",
+            "values": {
+              "rules": "[{'pattern': '/api/v1/*', 'target_group…",
+              "path": "'/api/v1/orders'",
+              "rule": "{'pattern': '/api/v1/*', 'target_group'…",
+              "p": "'/api/v1/*'"
+            },
+            "tones": {
+              "rules": "data",
+              "path": "data",
+              "rule": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "rules",
+                "path"
+              ],
+              [
+                "path",
+                "rule"
+              ],
+              [
+                "rule",
+                "p"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "An ALB serves a whole microservice system directing traffic across groups.",
-            "rows": [
-              {
-                "cells": [
-                  "/api/v1/*",
-                  "tg-api"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "/static/*",
-                  "tg-static"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Rules are checked in priority order where the first match forward executes.",
-            "rows": [
-              {
-                "cells": [
-                  "/api/v1/*",
-                  "tg-api"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "/static/*",
-                  "tg-static"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "/health",
-                  "tg-health"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example routes several paths through a small rule list.",
+            "values": {
+              "rules": "[{'pattern': '/api/v1/*', 'target_group…",
+              "path": "'/api/v1/orders'",
+              "rule": "{'pattern': '/api/v1/*', 'target_group'…",
+              "p": "'/api/v1/*'"
+            },
+            "tones": {
+              "rules": "ok",
+              "path": "ok",
+              "rule": "ok",
+              "p": "ok"
+            },
+            "arrows": [
+              [
+                "rules",
+                "path"
+              ],
+              [
+                "path",
+                "rule"
+              ],
+              [
+                "rule",
+                "p"
+              ]
             ]
           }
         ]
@@ -311,146 +397,216 @@
       "partTitle": "Health checks and thresholds",
       "codeHash": "06450f72980aa4cb6c5a935968e2beba7b0cbd834c2b3836e8ebc242df3f8203",
       "spec": {
-        "template": "table",
-        "title": "Target group consecutive health check threshold evaluation",
-        "columns": [
-          "result",
-          "state"
-        ],
+        "template": "bars",
+        "title": "Health checks and thresholds",
         "steps": [
           {
             "at": "say1",
-            "caption": "A load balancer verifies target endpoints before dispatching user traffic.",
-            "rows": [
+            "caption": "A load balancer must never send users to a broken server.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "pass"
-                  },
-                  {
-                    "text": "HEALTHY"
-                  }
-                ],
-                "tone": "ok"
+                "label": "healthy_thresh",
+                "value": {
+                  "var": "healthy_threshold",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "unhealthy_thre",
+                "value": {
+                  "var": "unhealthy_threshold",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "passes",
+                "value": {
+                  "var": "passes",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fails",
+                "value": {
+                  "var": "fails",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Targets become healthy or unhealthy after consecutive passes or failures.",
-            "rows": [
+            "at": "say2",
+            "caption": "One slow answer should not remove a server, and one lucky answer should.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "pass"
-                  },
-                  {
-                    "text": "HEALTHY"
-                  }
-                ],
+                "label": "healthy_thresh",
+                "value": {
+                  "var": "healthy_threshold",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "FAIL"
-                  },
-                  {
-                    "text": "UNHEALTHY"
-                  }
-                ],
-                "tone": "error"
+                "label": "unhealthy_thre",
+                "value": {
+                  "var": "unhealthy_threshold",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "passes",
+                "value": {
+                  "var": "passes",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fails",
+                "value": {
+                  "var": "fails",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example replays consecutive probe results updating target health states.",
-            "rows": [
+            "caption": "The example replays a history of check results and prints the state after.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "pass"
-                  },
-                  {
-                    "text": "HEALTHY"
-                  }
-                ],
+                "label": "healthy_thresh",
+                "value": {
+                  "var": "healthy_threshold",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "FAIL"
-                  },
-                  {
-                    "text": "UNHEALTHY"
-                  }
-                ],
-                "tone": "error"
+                "label": "unhealthy_thre",
+                "value": {
+                  "var": "unhealthy_threshold",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "passes",
+                "value": {
+                  "var": "passes",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fails",
+                "value": {
+                  "var": "fails",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Target group consecutive health check threshold evaluation",
-        "columns": [
-          "result",
-          "state"
-        ],
+        "template": "bars",
+        "title": "Health checks and thresholds",
         "steps": [
           {
             "at": "say1",
-            "caption": "A load balancer verifies target endpoints before dispatching user traffic.",
-            "rows": [
+            "caption": "A load balancer must never send users to a broken server.",
+            "bars": [
               {
-                "cells": [
-                  "pass",
-                  "HEALTHY"
-                ],
-                "tone": "ok"
+                "label": "healthy_thresh",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "unhealthy_thre",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "passes",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "fails",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Targets become healthy or unhealthy after consecutive passes or failures.",
-            "rows": [
+            "at": "say2",
+            "caption": "One slow answer should not remove a server, and one lucky answer should.",
+            "bars": [
               {
-                "cells": [
-                  "pass",
-                  "HEALTHY"
-                ],
+                "label": "healthy_thresh",
+                "value": 3,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "FAIL",
-                  "UNHEALTHY"
-                ],
-                "tone": "error"
+                "label": "unhealthy_thre",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "passes",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "fails",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example replays consecutive probe results updating target health states.",
-            "rows": [
+            "caption": "The example replays a history of check results and prints the state after.",
+            "bars": [
               {
-                "cells": [
-                  "pass",
-                  "HEALTHY"
-                ],
+                "label": "healthy_thresh",
+                "value": 3,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "FAIL",
-                  "UNHEALTHY"
-                ],
-                "tone": "error"
+                "label": "unhealthy_thre",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "passes",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "fails",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           }
@@ -461,165 +617,277 @@
       "partTitle": "HTTPS and TLS termination",
       "codeHash": "010e38beeb06fd81f9cde4c851cc72dc9dcd4ce22814e625cd36ad2e93e940cf",
       "spec": {
-        "template": "table",
-        "title": "Listener port actions for TLS termination and HTTP redirection",
-        "columns": [
-          "port",
-          "action"
+        "template": "flow",
+        "title": "HTTPS and TLS termination",
+        "nodes": [
+          {
+            "id": "listeners",
+            "label": "listeners"
+          },
+          {
+            "id": "port",
+            "label": "port"
+          },
+          {
+            "id": "path",
+            "label": "path"
+          },
+          {
+            "id": "client_ip",
+            "label": "client_ip"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "TLS termination decrypts incoming traffic before forwarding to targets.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "443"
-                  },
-                  {
-                    "text": "FORWARD"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Almost all web traffic today uses HTTPS.",
+            "values": {
+              "listeners": {
+                "var": "listeners",
+                "line": 1,
+                "hit": 1
+              },
+              "port": {
+                "var": "port",
+                "line": 11,
+                "hit": 1
+              },
+              "path": {
+                "var": "path",
+                "line": 11,
+                "hit": 1
+              },
+              "client_ip": {
+                "var": "client_ip",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "listeners": "data",
+              "port": "data",
+              "path": "data",
+              "client_ip": "data"
+            },
+            "arrows": [
+              [
+                "listeners",
+                "port"
+              ],
+              [
+                "port",
+                "path"
+              ],
+              [
+                "path",
+                "client_ip"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "A common rule redirects unencrypted HTTP traffic to secure HTTPS listeners.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "80"
-                  },
-                  {
-                    "text": "REDIRECT_TO_HTTPS"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "This is called TLS termination.",
+            "values": {
+              "listeners": {
+                "var": "listeners",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "443"
-                  },
-                  {
-                    "text": "FORWARD"
-                  }
-                ],
-                "tone": "ok"
+              "port": {
+                "var": "port",
+                "line": 4,
+                "hit": 1
+              },
+              "path": {
+                "var": "path",
+                "line": 4,
+                "hit": 1
+              },
+              "client_ip": {
+                "var": "client_ip",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "listeners": "data",
+              "port": "data",
+              "path": "data",
+              "client_ip": "data"
+            },
+            "arrows": [
+              [
+                "listeners",
+                "port"
+              ],
+              [
+                "port",
+                "path"
+              ],
+              [
+                "path",
+                "client_ip"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "ALBs forward original client network information preserving user addresses.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "80"
-                  },
-                  {
-                    "text": "REDIRECT_TO_HTTPS"
-                  }
-                ],
-                "tone": "data"
+            "caption": "ALBs also add headers such as X-Forwarded-For so your app can still see.",
+            "values": {
+              "listeners": {
+                "var": "listeners",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "443"
-                  },
-                  {
-                    "text": "FORWARD"
-                  }
-                ],
-                "tone": "ok"
+              "port": {
+                "var": "port",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "8080"
-                  },
-                  {
-                    "text": "connection refused"
-                  }
-                ],
-                "tone": "error"
+              "path": {
+                "var": "path",
+                "line": 5,
+                "hit": 1
+              },
+              "client_ip": {
+                "var": "client_ip",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "listeners": "ok",
+              "port": "ok",
+              "path": "ok",
+              "client_ip": "ok"
+            },
+            "arrows": [
+              [
+                "listeners",
+                "port"
+              ],
+              [
+                "port",
+                "path"
+              ],
+              [
+                "path",
+                "client_ip"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Listener port actions for TLS termination and HTTP redirection",
-        "columns": [
-          "port",
-          "action"
+        "template": "flow",
+        "title": "HTTPS and TLS termination",
+        "nodes": [
+          {
+            "id": "listeners",
+            "label": "listeners"
+          },
+          {
+            "id": "port",
+            "label": "port"
+          },
+          {
+            "id": "path",
+            "label": "path"
+          },
+          {
+            "id": "client_ip",
+            "label": "client_ip"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "TLS termination decrypts incoming traffic before forwarding to targets.",
-            "rows": [
-              {
-                "cells": [
-                  "443",
-                  "FORWARD"
-                ],
-                "tone": "ok"
-              }
+            "at": "say1",
+            "caption": "Almost all web traffic today uses HTTPS.",
+            "values": {
+              "listeners": "{80: 'REDIRECT_TO_HTTPS', 443: 'FORWARD…",
+              "port": "80",
+              "path": "'/cart'",
+              "client_ip": "'49.36.10.7'"
+            },
+            "tones": {
+              "listeners": "data",
+              "port": "data",
+              "path": "data",
+              "client_ip": "data"
+            },
+            "arrows": [
+              [
+                "listeners",
+                "port"
+              ],
+              [
+                "port",
+                "path"
+              ],
+              [
+                "path",
+                "client_ip"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "A common rule redirects unencrypted HTTP traffic to secure HTTPS listeners.",
-            "rows": [
-              {
-                "cells": [
-                  "80",
-                  "REDIRECT_TO_HTTPS"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "443",
-                  "FORWARD"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "This is called TLS termination.",
+            "values": {
+              "listeners": "{80: 'REDIRECT_TO_HTTPS', 443: 'FORWARD…",
+              "port": "80",
+              "path": "'/cart'",
+              "client_ip": "'49.36.10.7'"
+            },
+            "tones": {
+              "listeners": "data",
+              "port": "data",
+              "path": "data",
+              "client_ip": "data"
+            },
+            "arrows": [
+              [
+                "listeners",
+                "port"
+              ],
+              [
+                "port",
+                "path"
+              ],
+              [
+                "path",
+                "client_ip"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "ALBs forward original client network information preserving user addresses.",
-            "rows": [
-              {
-                "cells": [
-                  "80",
-                  "REDIRECT_TO_HTTPS"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "443",
-                  "FORWARD"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "8080",
-                  "connection refused"
-                ],
-                "tone": "error"
-              }
+            "caption": "ALBs also add headers such as X-Forwarded-For so your app can still see.",
+            "values": {
+              "listeners": "{80: 'REDIRECT_TO_HTTPS', 443: 'FORWARD…",
+              "port": "80",
+              "path": "'/cart'",
+              "client_ip": "'49.36.10.7'"
+            },
+            "tones": {
+              "listeners": "ok",
+              "port": "ok",
+              "path": "ok",
+              "client_ip": "ok"
+            },
+            "arrows": [
+              [
+                "listeners",
+                "port"
+              ],
+              [
+                "port",
+                "path"
+              ],
+              [
+                "path",
+                "client_ip"
+              ]
             ]
           }
         ]
@@ -630,110 +898,127 @@
       "codeHash": "3c3f18d12d8f62a9981ed8419ba7e8de2b4e963315bce513a8022acbdf1bfeca",
       "spec": {
         "template": "flow",
-        "title": "Sticky sessions and connection draining — Execution Pipeline",
+        "title": "Sticky sessions and connection draining",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "servers",
+            "label": "servers"
           },
           {
-            "id": "proc",
-            "label": "2. Sticky sessions and...",
-            "tappable": true
+            "id": "cookie",
+            "label": "cookie"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "h",
+            "label": "h"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Sticky sessions and connection draining.",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Sticky sessions and... [Deight.Pfive.Stwo].",
+            "caption": "Some older apps keep a user's session in the memory of one server.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "servers": {
+                "var": "servers",
+                "line": 7,
+                "hit": 1
+              },
+              "cookie": {
+                "var": "cookie",
+                "line": 4,
+                "hit": 1
+              },
+              "h": {
+                "var": "h",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "servers": "data",
+              "cookie": "data",
+              "h": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "servers",
+                "cookie"
               ],
               [
-                "proc",
-                "out"
+                "cookie",
+                "h"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Sticky sessions fix this by setting a cookie so the ALB keeps sending.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "servers": {
+                "var": "servers",
+                "line": 4,
+                "hit": 1
+              },
+              "cookie": {
+                "var": "cookie",
+                "line": 5,
+                "hit": 1
+              },
+              "h": {
+                "var": "h",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "servers": "data",
+              "cookie": "data",
+              "h": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "servers",
+                "cookie"
+              ],
+              [
+                "cookie",
+                "h"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Sticky sessions and connection dr.",
+            "at": "say7",
+            "caption": "Prefer stateless servers.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "servers": {
+                "var": "servers",
+                "line": 5,
+                "hit": 1
+              },
+              "cookie": {
+                "var": "cookie",
+                "line": 4,
+                "hit": 2
+              },
+              "h": {
+                "var": "h",
+                "line": 4,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "servers": "ok",
+              "cookie": "ok",
+              "h": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "servers",
+                "cookie"
               ],
               [
-                "proc",
-                "out"
+                "cookie",
+                "h"
               ]
             ]
           }
@@ -741,110 +1026,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Sticky sessions and connection draining — Execution Pipeline",
+        "title": "Sticky sessions and connection draining",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "servers",
+            "label": "servers"
           },
           {
-            "id": "proc",
-            "label": "2. Sticky sessions and...",
-            "tappable": true
+            "id": "cookie",
+            "label": "cookie"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "h",
+            "label": "h"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Sticky sessions and connection draining [D8.P5.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Sticky sessions and... [D8.P5.S2].",
+            "caption": "Some older apps keep a user's session in the memory of one server.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "servers": "['app-a', 'app-b', 'app-c']",
+              "cookie": "'session-42'",
+              "h": "664465660589129313108173003517012857707…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "servers": "data",
+              "cookie": "data",
+              "h": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "servers",
+                "cookie"
               ],
               [
-                "proc",
-                "out"
+                "cookie",
+                "h"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P5.S3].",
+            "at": "say2",
+            "caption": "Sticky sessions fix this by setting a cookie so the ALB keeps sending.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "servers": "['app-a', 'app-b', 'app-c']",
+              "cookie": "'session-42'",
+              "h": "664465660589129313108173003517012857707…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "servers": "data",
+              "cookie": "data",
+              "h": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "servers",
+                "cookie"
+              ],
+              [
+                "cookie",
+                "h"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Sticky sessions and connection dr.. [D8.P5.S4].",
+            "at": "say7",
+            "caption": "Prefer stateless servers.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "servers": "['app-a', 'app-b', 'app-c']",
+              "cookie": "'session-42'",
+              "h": "664465660589129313108173003517012857707…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "servers": "ok",
+              "cookie": "ok",
+              "h": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "servers",
+                "cookie"
               ],
               [
-                "proc",
-                "out"
+                "cookie",
+                "h"
               ]
             ]
           }
@@ -855,224 +1121,162 @@
       "partTitle": "Practice time: route and check health",
       "codeHash": "100adaa7351966f90e3249c967042b27937666a8e38c50fc94599cdd20023b17",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: route and check health — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: rout...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: route and check health",
+        "actors": [
+          "history",
+          "total_passes",
+          "best_streak"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: route and check health.",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: rout... [Deight.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Route_alb(rules, path).",
+            "activeActor": "history",
+            "messages": [
+              {
+                "from": "history",
+                "to": "total_passes",
+                "label": {
+                  "var": "history",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "total_passes",
+                "to": "best_streak",
+                "label": {
+                  "var": "total_passes",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Be careful with the exact-match case.",
+            "activeActor": "total_passes",
+            "messages": [
+              {
+                "from": "history",
+                "to": "total_passes",
+                "label": {
+                  "var": "history",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "total_passes",
+                "to": "best_streak",
+                "label": {
+                  "var": "total_passes",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: route and check he.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example contrasts counting passes in a row with counting all passes.",
+            "activeActor": "best_streak",
+            "messages": [
+              {
+                "from": "history",
+                "to": "total_passes",
+                "label": {
+                  "var": "history",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "total_passes",
+                "to": "best_streak",
+                "label": {
+                  "var": "total_passes",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: route and check health — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: rout...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: route and check health",
+        "actors": [
+          "history",
+          "total_passes",
+          "best_streak"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: route and check health [D8.P6.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: rout... [D8.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Route_alb(rules, path).",
+            "messages": [
+              {
+                "from": "history",
+                "to": "total_passes",
+                "label": "[True, True, False, True, True]",
+                "tone": "data"
+              },
+              {
+                "from": "total_passes",
+                "to": "best_streak",
+                "label": "4",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "history"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Be careful with the exact-match case.",
+            "messages": [
+              {
+                "from": "history",
+                "to": "total_passes",
+                "label": "[True, True, False, True, True]",
+                "tone": "data"
+              },
+              {
+                "from": "total_passes",
+                "to": "best_streak",
+                "label": "4",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "total_passes"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: route and check he.. [D8.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example contrasts counting passes in a row with counting all passes.",
+            "messages": [
+              {
+                "from": "history",
+                "to": "total_passes",
+                "label": "[True, True, False, True, True]",
+                "tone": "data"
+              },
+              {
+                "from": "total_passes",
+                "to": "best_streak",
+                "label": "4",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "best_streak"
           }
         ]
       }

@@ -2,99 +2,98 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 13,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why evaluation comes first",
       "codeHash": "abc3bd15aec8d65d81dccceaa3bec318e7c0a92d87cf1ca2d1b342fab78df58f",
       "spec": {
-        "template": "table",
-        "title": "RAG evaluation triad failure taxonomy and metrics",
-        "columns": [
-          "metric_name",
-          "measurement_target",
-          "failure_symptom"
+        "template": "sequence",
+        "title": "Why evaluation comes first",
+        "actors": [
+          "golden",
+          ".0",
+          "g"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Evaluating retrieval and generation layers verifies whether answers are correct.",
-            "rows": [
+            "at": "say1",
+            "caption": "An AI feature that seems to work in a demo can fail on a third of real.",
+            "activeActor": "golden",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "context recall"
-                  },
-                  {
-                    "text": "retrieved needed chunks"
-                  },
-                  {
-                    "text": "missing key facts"
-                  }
-                ],
+                "from": "golden",
+                "to": ".0",
+                "label": {
+                  "var": "golden",
+                  "line": 1,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "faithfulness"
-                  },
-                  {
-                    "text": "supported by context"
-                  },
-                  {
-                    "text": "invented hallucinations"
-                  }
-                ],
-                "tone": "error"
+                "from": ".0",
+                "to": "g",
+                "label": {
+                  "var": ".0",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "The evaluation triad measures context recall faithfulness and relevance.",
-            "rows": [
+            "at": "say2",
+            "caption": "Evaluate three layers.",
+            "activeActor": ".0",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "context recall"
-                  },
-                  {
-                    "text": "retrieved needed chunks"
-                  },
-                  {
-                    "text": "missing key facts"
-                  }
-                ],
+                "from": "golden",
+                "to": ".0",
+                "label": {
+                  "var": "golden",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "faithfulness"
-                  },
-                  {
-                    "text": "supported by context"
-                  },
-                  {
-                    "text": "invented hallucinations"
-                  }
-                ],
-                "tone": "error"
+                "from": ".0",
+                "to": "g",
+                "label": {
+                  "var": ".0",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "The dataset becomes the most valuable asset of your AI project.",
+            "activeActor": "g",
+            "messages": [
+              {
+                "from": "golden",
+                "to": ".0",
+                "label": {
+                  "var": "golden",
+                  "line": 7,
+                  "hit": 5
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "answer relevance"
-                  },
-                  {
-                    "text": "addresses user question"
-                  },
-                  {
-                    "text": "off topic evasion"
-                  }
-                ],
+                "from": ".0",
+                "to": "g",
+                "label": {
+                  "var": ".0",
+                  "line": 7,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -102,65 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "RAG evaluation triad failure taxonomy and metrics",
-        "columns": [
-          "metric_name",
-          "measurement_target",
-          "failure_symptom"
+        "template": "sequence",
+        "title": "Why evaluation comes first",
+        "actors": [
+          "golden",
+          ".0",
+          "g"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Evaluating retrieval and generation layers verifies whether answers are correct.",
-            "rows": [
+            "at": "say1",
+            "caption": "An AI feature that seems to work in a demo can fail on a third of real.",
+            "messages": [
               {
-                "cells": [
-                  "context recall",
-                  "retrieved needed chunks",
-                  "missing key facts"
-                ],
+                "from": "golden",
+                "to": ".0",
+                "label": "[{'question': 'How long do UPI refunds …",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "faithfulness",
-                  "supported by context",
-                  "invented hallucinations"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The evaluation triad measures context recall faithfulness and relevance.",
-            "rows": [
-              {
-                "cells": [
-                  "context recall",
-                  "retrieved needed chunks",
-                  "missing key facts"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "faithfulness",
-                  "supported by context",
-                  "invented hallucinations"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "answer relevance",
-                  "addresses user question",
-                  "off topic evasion"
-                ],
+                "from": ".0",
+                "to": "g",
+                "label": "{'__other__': 'list_iterator'}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "golden"
+          },
+          {
+            "at": "say2",
+            "caption": "Evaluate three layers.",
+            "messages": [
+              {
+                "from": "golden",
+                "to": ".0",
+                "label": "[{'question': 'How long do UPI refunds …",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "g",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": ".0"
+          },
+          {
+            "at": "say6",
+            "caption": "The dataset becomes the most valuable asset of your AI project.",
+            "messages": [
+              {
+                "from": "golden",
+                "to": ".0",
+                "label": "[{'question': 'How long do UPI refunds …",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "g",
+                "label": "{'__other__': 'list_iterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "g"
           }
         ]
       }
@@ -169,98 +173,162 @@
       "partTitle": "Context recall",
       "codeHash": "35fdc6a54403899c518ed05226ba17f201aac689a9e27e1262514fd650dcaf62",
       "spec": {
-        "template": "bars",
-        "title": "Context recall and hit rate evaluation across test questions",
+        "template": "sequence",
+        "title": "Context recall",
+        "actors": [
+          "runs",
+          "retrieved",
+          "relevant"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Context recall measures the fraction of needed chunks retrieved.",
-            "bars": [
+            "caption": "Context recall asks.",
+            "activeActor": "runs",
+            "messages": [
               {
-                "label": "query_one",
-                "value": {
-                  "text": "100"
+                "from": "runs",
+                "to": "retrieved",
+                "label": {
+                  "var": "runs",
+                  "line": 4,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "query_two",
-                "value": {
-                  "text": "0"
+                "from": "retrieved",
+                "to": "relevant",
+                "label": {
+                  "var": "retrieved",
+                  "line": 2,
+                  "hit": 1
                 },
-                "tone": "error"
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Hit rate tracks the share of questions retrieving at least one chunk.",
-            "bars": [
+            "at": "say2",
+            "caption": "Averaged over the golden dataset, it tells you how often the model even.",
+            "activeActor": "retrieved",
+            "messages": [
               {
-                "label": "query_one",
-                "value": {
-                  "text": "100"
-                },
-                "tone": "ok"
-              },
-              {
-                "label": "query_two",
-                "value": {
-                  "text": "0"
-                },
-                "tone": "error"
-              },
-              {
-                "label": "query_three",
-                "value": {
-                  "text": "50"
+                "from": "runs",
+                "to": "retrieved",
+                "label": {
+                  "var": "runs",
+                  "line": 9,
+                  "hit": 1
                 },
                 "tone": "data"
+              },
+              {
+                "from": "retrieved",
+                "to": "relevant",
+                "label": {
+                  "var": "retrieved",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Always measure retrieval separately from generation, so you know.",
+            "activeActor": "relevant",
+            "messages": [
+              {
+                "from": "runs",
+                "to": "retrieved",
+                "label": {
+                  "var": "runs",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "retrieved",
+                "to": "relevant",
+                "label": {
+                  "var": "retrieved",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Context recall and hit rate evaluation across test questions",
+        "template": "sequence",
+        "title": "Context recall",
+        "actors": [
+          "runs",
+          "retrieved",
+          "relevant"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Context recall measures the fraction of needed chunks retrieved.",
-            "bars": [
+            "caption": "Context recall asks.",
+            "messages": [
               {
-                "label": "query_one",
-                "value": 100,
-                "tone": "ok"
+                "from": "runs",
+                "to": "retrieved",
+                "label": "[[['c2', 'c9', 'c3'], ['c2']], [['c5', …",
+                "tone": "data"
               },
               {
-                "label": "query_two",
-                "value": 0,
-                "tone": "error"
+                "from": "retrieved",
+                "to": "relevant",
+                "label": "['c2', 'c9', 'c3']",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "runs"
           },
           {
-            "at": "say5",
-            "caption": "Hit rate tracks the share of questions retrieving at least one chunk.",
-            "bars": [
+            "at": "say2",
+            "caption": "Averaged over the golden dataset, it tells you how often the model even.",
+            "messages": [
               {
-                "label": "query_one",
-                "value": 100,
-                "tone": "ok"
-              },
-              {
-                "label": "query_two",
-                "value": 0,
-                "tone": "error"
-              },
-              {
-                "label": "query_three",
-                "value": 50,
+                "from": "runs",
+                "to": "retrieved",
+                "label": "[[['c2', 'c9', 'c3'], ['c2']], [['c5', …",
                 "tone": "data"
+              },
+              {
+                "from": "retrieved",
+                "to": "relevant",
+                "label": "['c5', 'c6', 'c8']",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "retrieved"
+          },
+          {
+            "at": "say6",
+            "caption": "Always measure retrieval separately from generation, so you know.",
+            "messages": [
+              {
+                "from": "runs",
+                "to": "retrieved",
+                "label": "[[['c2', 'c9', 'c3'], ['c2']], [['c5', …",
+                "tone": "data"
+              },
+              {
+                "from": "retrieved",
+                "to": "relevant",
+                "label": "['c1', 'c3', 'c5']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "relevant"
           }
         ]
       }
@@ -269,94 +337,162 @@
       "partTitle": "Faithfulness",
       "codeHash": "f8e159220bc356d13386501f2df259ca6aac176353f65f4ee142f8acafc8f95d",
       "spec": {
-        "template": "compare",
-        "title": "Context grounded claim verification versus hallucinated content",
-        "leftLabel": "Hallucinatory Reply",
-        "rightLabel": "Grounded Reply",
+        "template": "sequence",
+        "title": "Faithfulness",
+        "actors": [
+          "context",
+          "claims",
+          "ctx"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Faithfulness checks whether every claim is supported by retrieved context.",
-            "left": {
-              "code": "claims: bonus included",
-              "result": {
-                "text": "unsupported claim"
+            "caption": "Faithfulness asks.",
+            "activeActor": "context",
+            "messages": [
+              {
+                "from": "context",
+                "to": "claims",
+                "label": {
+                  "var": "context",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "claims: UPI in 2 days",
-              "result": {
-                "text": "supported by text"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "claims",
+                "to": "ctx",
+                "label": {
+                  "var": "claims",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Grounded outputs achieve high faithfulness scores above the threshold.",
-            "left": {
-              "code": "score: 0.50",
-              "result": {
-                "text": "ungrounded"
+            "caption": "Evaluate_faithfulness(context, claims).",
+            "activeActor": "claims",
+            "messages": [
+              {
+                "from": "context",
+                "to": "claims",
+                "label": {
+                  "var": "context",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "score: 1.00",
-              "result": {
-                "text": "grounded"
+              {
+                "from": "claims",
+                "to": "ctx",
+                "label": {
+                  "var": "claims",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Guard against division by zero.",
+            "activeActor": "ctx",
+            "messages": [
+              {
+                "from": "context",
+                "to": "claims",
+                "label": {
+                  "var": "context",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            }
+              {
+                "from": "claims",
+                "to": "ctx",
+                "label": {
+                  "var": "claims",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Context grounded claim verification versus hallucinated content",
-        "leftLabel": "Hallucinatory Reply",
-        "rightLabel": "Grounded Reply",
+        "template": "sequence",
+        "title": "Faithfulness",
+        "actors": [
+          "context",
+          "claims",
+          "ctx"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Faithfulness checks whether every claim is supported by retrieved context.",
-            "left": {
-              "code": "claims: bonus included",
-              "result": "unsupported claim",
-              "tone": "error",
-              "checks": [
-                "unsupported claim"
-              ]
-            },
-            "right": {
-              "code": "claims: UPI in 2 days",
-              "result": "supported by text",
-              "tone": "ok",
-              "checks": [
-                "supported by text"
-              ]
-            }
+            "caption": "Faithfulness asks.",
+            "messages": [
+              {
+                "from": "context",
+                "to": "claims",
+                "label": "'UPI refunds arrive in 2 days. Card ref…",
+                "tone": "data"
+              },
+              {
+                "from": "claims",
+                "to": "ctx",
+                "label": "['UPI refunds arrive in 2 days', 'card …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "context"
           },
           {
             "at": "say2",
-            "caption": "Grounded outputs achieve high faithfulness scores above the threshold.",
-            "left": {
-              "code": "score: 0.50",
-              "result": "ungrounded",
-              "tone": "error",
-              "checks": [
-                "ungrounded"
-              ]
-            },
-            "right": {
-              "code": "score: 1.00",
-              "result": "grounded",
-              "tone": "ok",
-              "checks": [
-                "grounded"
-              ]
-            }
+            "caption": "Evaluate_faithfulness(context, claims).",
+            "messages": [
+              {
+                "from": "context",
+                "to": "claims",
+                "label": "'UPI refunds arrive in 2 days. Card ref…",
+                "tone": "data"
+              },
+              {
+                "from": "claims",
+                "to": "ctx",
+                "label": "['UPI refunds arrive in 2 days', 'card …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "claims"
+          },
+          {
+            "at": "say6",
+            "caption": "Guard against division by zero.",
+            "messages": [
+              {
+                "from": "context",
+                "to": "claims",
+                "label": "'UPI refunds arrive in 2 days. Card ref…",
+                "tone": "data"
+              },
+              {
+                "from": "claims",
+                "to": "ctx",
+                "label": "['UPI refunds arrive in 2 days', 'card …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ctx"
           }
         ]
       }
@@ -365,224 +501,194 @@
       "partTitle": "Answer relevance and model judges",
       "codeHash": "9592939bcf109ea1a36c8a5a63ff0be9b145b1fbd2d407524ef132f080c4927e",
       "spec": {
-        "template": "flow",
-        "title": "Answer relevance and model judges — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Answer relevance and model judges",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "answer",
+            "label": "answer"
           },
           {
-            "id": "proc",
-            "label": "2. Answer relevance an...",
-            "tappable": true
+            "id": "question",
+            "label": "question"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "prompt",
+            "label": "prompt"
+          },
+          {
+            "id": "verdict",
+            "label": "verdict"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Answer relevance and model judges.",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Answer relevance an... [D.Pfour.Stwo].",
+            "caption": "An answer can be faithful but useless.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "answer": {
+                "var": "answer",
+                "line": 14,
+                "hit": 1
+              },
+              "question": {
+                "var": "question",
+                "line": 5,
+                "hit": 1
+              },
+              "prompt": {
+                "var": "prompt",
+                "line": 12,
+                "hit": 1
+              },
+              "verdict": {
+                "var": "verdict",
+                "line": 15,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "answer": "data",
+              "question": "data",
+              "prompt": "data",
+              "verdict": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
+            "at": "say2",
+            "caption": "Answer relevance checks whether the answer addresses the question.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "answer": {
+                "var": "answer",
+                "line": 5,
+                "hit": 1
+              },
+              "question": {
+                "var": "question",
+                "line": 7,
+                "hit": 1
+              },
+              "prompt": {
+                "var": "prompt",
+                "line": 12,
+                "hit": 2
+              },
+              "verdict": {
+                "var": "verdict",
+                "line": 16,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "answer": "data",
+              "question": "data",
+              "prompt": "data",
+              "verdict": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Answer relevance and model judges.",
+            "at": "say6",
+            "caption": "Use a strong model as the judge, and keep its prompt fixed so scores are.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "answer": {
+                "var": "answer",
+                "line": 7,
+                "hit": 1
+              },
+              "question": {
+                "var": "question",
+                "line": 5,
+                "hit": 2
+              },
+              "prompt": {
+                "var": "prompt",
+                "line": 12,
+                "hit": 2
+              },
+              "verdict": {
+                "var": "verdict",
+                "line": 14,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "answer": "ok",
+              "question": "ok",
+              "prompt": "ok",
+              "verdict": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Answer relevance and model judges — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Answer relevance and model judges",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "answer",
+            "label": "answer"
           },
           {
-            "id": "proc",
-            "label": "2. Answer relevance an...",
-            "tappable": true
+            "id": "question",
+            "label": "question"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "prompt",
+            "label": "prompt"
+          },
+          {
+            "id": "verdict",
+            "label": "verdict"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Answer relevance and model judges [D13.P4.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Answer relevance an... [D13.P4.S2].",
+            "caption": "An answer can be faithful but useless.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "answer": "'UPI refunds arrive in 2 days.'",
+              "question": "'How long do UPI refunds take?'",
+              "prompt": "'Rate how well the answer addresses the…",
+              "verdict": "{'score': 5, 'reason': 'gives the time'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "answer": "data",
+              "question": "data",
+              "prompt": "data",
+              "verdict": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P4.S3].",
+            "at": "say2",
+            "caption": "Answer relevance checks whether the answer addresses the question.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "answer": "'UPI refunds arrive in 2 days.'",
+              "question": "'How long do UPI refunds take?'",
+              "prompt": "'Rate how well the answer addresses the…",
+              "verdict": "{'score': 5, 'reason': 'gives the time'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "answer": "data",
+              "question": "data",
+              "prompt": "data",
+              "verdict": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Answer relevance and model judges [D13.P4.S4].",
+            "at": "say6",
+            "caption": "Use a strong model as the judge, and keep its prompt fixed so scores are.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "answer": "'UPI refunds arrive in 2 days.'",
+              "question": "'How long do UPI refunds take?'",
+              "prompt": "'Rate how well the answer addresses the…",
+              "verdict": "{'score': 5, 'reason': 'gives the time'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "answer": "ok",
+              "question": "ok",
+              "prompt": "ok",
+              "verdict": "ok"
+            }
           }
         ]
       }
@@ -591,93 +697,193 @@
       "partTitle": "Combining scores with a harmonic mean",
       "codeHash": "81b73b9d6a3186ccb9d4fc0bd8a8fee33acb0905854caaab8a8037d0d758a80e",
       "spec": {
-        "template": "compare",
-        "title": "Arithmetic mean versus RAGAS harmonic mean composite penalty",
-        "leftLabel": "Arithmetic Mean",
-        "rightLabel": "Harmonic Mean",
+        "template": "boxes",
+        "title": "Combining scores with a harmonic mean",
+        "boxes": [
+          {
+            "id": "f",
+            "label": "f"
+          },
+          {
+            "id": "r",
+            "label": "r"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "faithfulness",
+            "label": "faithfulness"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Composite metric combines individual scores into a single dashboard index.",
-            "left": {
-              "code": "balanced scores (0.9, 0.9, 0.9)",
-              "result": {
-                "text": "mean 0.90"
+            "caption": "One number is handy for dashboards.",
+            "values": {
+              "f": {
+                "var": "f",
+                "line": 7,
+                "hit": 1
               },
-              "tone": "ok"
+              "r": {
+                "var": "r",
+                "line": 7,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 7,
+                "hit": 1
+              },
+              "faithfulness": {
+                "var": "faithfulness",
+                "line": 2,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "balanced scores (0.9, 0.9, 0.9)",
-              "result": {
-                "text": "composite 0.90"
-              },
-              "tone": "ok"
+            "tones": {
+              "f": "data",
+              "r": "data",
+              "c": "data",
+              "faithfulness": "data"
             }
           },
           {
-            "at": "say3",
-            "caption": "Harmonic mean is dragged down heavily whenever any component score is weak.",
-            "left": {
-              "code": "unbalanced (0.9, 0.9, 0.2)",
-              "result": {
-                "text": "arithmetic 0.67"
+            "at": "say2",
+            "caption": "Why harmonic and not a normal average.",
+            "values": {
+              "f": {
+                "var": "f",
+                "line": 8,
+                "hit": 1
               },
-              "tone": "data"
+              "r": {
+                "var": "r",
+                "line": 8,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 8,
+                "hit": 1
+              },
+              "faithfulness": {
+                "var": "faithfulness",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "unbalanced (0.9, 0.9, 0.2)",
-              "result": {
-                "text": "harmonic 0.42"
+            "tones": {
+              "f": "data",
+              "r": "data",
+              "c": "data",
+              "faithfulness": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "A system that fails one layer completely has failed.",
+            "values": {
+              "f": {
+                "var": "f",
+                "line": 7,
+                "hit": 2
               },
-              "tone": "error"
+              "r": {
+                "var": "r",
+                "line": 7,
+                "hit": 2
+              },
+              "c": {
+                "var": "c",
+                "line": 7,
+                "hit": 2
+              },
+              "faithfulness": {
+                "var": "faithfulness",
+                "line": 5,
+                "hit": 5
+              }
+            },
+            "tones": {
+              "f": "ok",
+              "r": "ok",
+              "c": "ok",
+              "faithfulness": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Arithmetic mean versus RAGAS harmonic mean composite penalty",
-        "leftLabel": "Arithmetic Mean",
-        "rightLabel": "Harmonic Mean",
+        "template": "boxes",
+        "title": "Combining scores with a harmonic mean",
+        "boxes": [
+          {
+            "id": "f",
+            "label": "f"
+          },
+          {
+            "id": "r",
+            "label": "r"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "faithfulness",
+            "label": "faithfulness"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Composite metric combines individual scores into a single dashboard index.",
-            "left": {
-              "code": "balanced scores (0.9, 0.9, 0.9)",
-              "result": "mean 0.90",
-              "tone": "ok",
-              "checks": [
-                "mean 0.90"
-              ]
+            "caption": "One number is handy for dashboards.",
+            "values": {
+              "f": "0.9",
+              "r": "0.9",
+              "c": "0.9",
+              "faithfulness": "0.9"
             },
-            "right": {
-              "code": "balanced scores (0.9, 0.9, 0.9)",
-              "result": "composite 0.90",
-              "tone": "ok",
-              "checks": [
-                "composite 0.90"
-              ]
+            "tones": {
+              "f": "data",
+              "r": "data",
+              "c": "data",
+              "faithfulness": "data"
             }
           },
           {
-            "at": "say3",
-            "caption": "Harmonic mean is dragged down heavily whenever any component score is weak.",
-            "left": {
-              "code": "unbalanced (0.9, 0.9, 0.2)",
-              "result": "arithmetic 0.67",
-              "tone": "data",
-              "checks": [
-                "arithmetic 0.67"
-              ]
+            "at": "say2",
+            "caption": "Why harmonic and not a normal average.",
+            "values": {
+              "f": "0.9",
+              "r": "0.9",
+              "c": "0.9",
+              "faithfulness": "0.9"
             },
-            "right": {
-              "code": "unbalanced (0.9, 0.9, 0.2)",
-              "result": "harmonic 0.42",
-              "tone": "error",
-              "checks": [
-                "harmonic 0.42"
-              ]
+            "tones": {
+              "f": "data",
+              "r": "data",
+              "c": "data",
+              "faithfulness": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "A system that fails one layer completely has failed.",
+            "values": {
+              "f": "0.9",
+              "r": "0.9",
+              "c": "0.2",
+              "faithfulness": "0.9"
+            },
+            "tones": {
+              "f": "ok",
+              "r": "ok",
+              "c": "ok",
+              "faithfulness": "ok"
             }
           }
         ]
@@ -688,110 +894,161 @@
       "codeHash": "a316bcaab62ac0eacd8b3d7d8d9eacc66b2622316111f85632ad75339a496e65",
       "spec": {
         "template": "flow",
-        "title": "Evaluation as a safety gate — Execution Pipeline",
+        "title": "Evaluation as a safety gate",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "baseline",
+            "label": "baseline"
           },
           {
-            "id": "proc",
-            "label": "2. Evaluation as a saf...",
-            "tappable": true
+            "id": "candidate",
+            "label": "candidate"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "base",
+            "label": "base"
+          },
+          {
+            "id": "new",
+            "label": "new"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Evaluation as a safety gate [D.Psix.Sone].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Evaluation as a saf... [D.Psix.Stwo].",
+            "caption": "Run the golden dataset after every change to prompts, chunking, models.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "baseline": {
+                "var": "baseline",
+                "line": 1,
+                "hit": 1
+              },
+              "candidate": {
+                "var": "candidate",
+                "line": 2,
+                "hit": 1
+              },
+              "base": {
+                "var": "base",
+                "line": 5,
+                "hit": 1
+              },
+              "new": {
+                "var": "new",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "baseline": "data",
+              "candidate": "data",
+              "base": "data",
+              "new": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "baseline",
+                "candidate"
               ],
               [
-                "proc",
-                "out"
+                "candidate",
+                "base"
+              ],
+              [
+                "base",
+                "new"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "This works like unit tests for AI quality.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "baseline": {
+                "var": "baseline",
+                "line": 2,
+                "hit": 1
+              },
+              "candidate": {
+                "var": "candidate",
+                "line": 4,
+                "hit": 1
+              },
+              "base": {
+                "var": "base",
+                "line": 5,
+                "hit": 2
+              },
+              "new": {
+                "var": "new",
+                "line": 5,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "baseline": "data",
+              "candidate": "data",
+              "base": "data",
+              "new": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "baseline",
+                "candidate"
+              ],
+              [
+                "candidate",
+                "base"
+              ],
+              [
+                "base",
+                "new"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Evaluation as a safety gate.",
+            "at": "say6",
+            "caption": "Tomorrow turns to security, where the same habit of testing with known.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "baseline": {
+                "var": "baseline",
+                "line": 4,
+                "hit": 1
+              },
+              "candidate": {
+                "var": "candidate",
+                "line": 10,
+                "hit": 1
+              },
+              "base": {
+                "var": "base",
+                "line": 5,
+                "hit": 3
+              },
+              "new": {
+                "var": "new",
+                "line": 5,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "baseline": "ok",
+              "candidate": "ok",
+              "base": "ok",
+              "new": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "baseline",
+                "candidate"
               ],
               [
-                "proc",
-                "out"
+                "candidate",
+                "base"
+              ],
+              [
+                "base",
+                "new"
               ]
             ]
           }
@@ -799,110 +1056,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Evaluation as a safety gate — Execution Pipeline",
+        "title": "Evaluation as a safety gate",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "baseline",
+            "label": "baseline"
           },
           {
-            "id": "proc",
-            "label": "2. Evaluation as a saf...",
-            "tappable": true
+            "id": "candidate",
+            "label": "candidate"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "base",
+            "label": "base"
+          },
+          {
+            "id": "new",
+            "label": "new"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Evaluation as a safety gate [D13.P6.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Evaluation as a saf... [D13.P6.S2].",
+            "caption": "Run the golden dataset after every change to prompts, chunking, models.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "baseline": "{'faithfulness': 0.91, 'relevance': 0.8…",
+              "candidate": "{'faithfulness': 0.86, 'relevance': 0.9…",
+              "base": "{'faithfulness': 0.91, 'relevance': 0.8…",
+              "new": "{'faithfulness': 0.86, 'relevance': 0.9…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "baseline": "data",
+              "candidate": "data",
+              "base": "data",
+              "new": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "baseline",
+                "candidate"
               ],
               [
-                "proc",
-                "out"
+                "candidate",
+                "base"
+              ],
+              [
+                "base",
+                "new"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P6.S3].",
+            "at": "say2",
+            "caption": "This works like unit tests for AI quality.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "baseline": "{'faithfulness': 0.91, 'relevance': 0.8…",
+              "candidate": "{'faithfulness': 0.86, 'relevance': 0.9…",
+              "base": "{'faithfulness': 0.91, 'relevance': 0.8…",
+              "new": "{'faithfulness': 0.86, 'relevance': 0.9…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "baseline": "data",
+              "candidate": "data",
+              "base": "data",
+              "new": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "baseline",
+                "candidate"
+              ],
+              [
+                "candidate",
+                "base"
+              ],
+              [
+                "base",
+                "new"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Evaluation as a safety gate [D13.P6.S4].",
+            "at": "say6",
+            "caption": "Tomorrow turns to security, where the same habit of testing with known.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "baseline": "{'faithfulness': 0.91, 'relevance': 0.8…",
+              "candidate": "{'faithfulness': 0.86, 'relevance': 0.9…",
+              "base": "{'faithfulness': 0.91, 'relevance': 0.8…",
+              "new": "{'faithfulness': 0.86, 'relevance': 0.9…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "baseline": "ok",
+              "candidate": "ok",
+              "base": "ok",
+              "new": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "baseline",
+                "candidate"
               ],
               [
-                "proc",
-                "out"
+                "candidate",
+                "base"
+              ],
+              [
+                "base",
+                "new"
               ]
             ]
           }

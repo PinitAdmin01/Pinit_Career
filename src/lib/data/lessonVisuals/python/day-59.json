@@ -2,88 +2,216 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 59,
-  "promptSha": "aef93ea278cb83edce3c8232fa3f71e47d2b4f3325da26bd42f1503dfeac4ed4",
-  "model": "gate-v2-verified",
+  "promptSha": "eddb4896e65b930f6d72e02e1966f965f61e88de02df73cccc0a9be267cffc36",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "Principal Architect RFC Formalization & Capacity Planning Models",
       "codeHash": "1242f427056c5cc1cdaa2376972f1d393695cba454888a8078ed8bb3aed78b62",
       "spec": {
-        "template": "table",
-        "title": "Principal Architect RFC Formalization & Capacity P",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "calculate_network_capacity bandwidth and NIC sizing",
+        "nodes": [
+          {
+            "id": "rps",
+            "label": "rps"
+          },
+          {
+            "id": "calc",
+            "label": "calculate_network_capacity"
+          },
+          {
+            "id": "nic",
+            "label": "recommended_nic"
+          }
+        ],
+        "edges": [
+          {
+            "from": "rps",
+            "to": "calc",
+            "label": "avg_payload_kb"
+          },
+          {
+            "from": "calc",
+            "to": "nic",
+            "label": "throughput_gbps"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Principal"
-                  },
-                  {
-                    "text": "Architect"
-                  }
-                ],
-                "tone": "data"
+            "at": "say3",
+            "caption": "Capacity models compute network cores and RAM directly from projected traffic.",
+            "values": {
+              "rps": {
+                "text": "rps"
+              },
+              "calc": {
+                "text": "avg_payload_kb"
+              },
+              "nic": {
+                "text": "throughput_gbps"
               }
-            ]
+            },
+            "tones": {
+              "rps": "data",
+              "calc": "data",
+              "nic": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The formal logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "RFC"
-                  },
-                  {
-                    "text": "Formalization"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say4",
+            "caption": "Principal architects use formulas across the critical path to plan hardware.",
+            "values": {
+              "rps": {
+                "text": "throughput_kb_per_sec"
+              },
+              "calc": {
+                "text": "throughput_mb_per_sec"
+              },
+              "nic": {
+                "text": "recommended_nic"
               }
-            ]
+            },
+            "tones": {
+              "rps": "ok",
+              "calc": "data",
+              "nic": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Bandwidth calculation converts 100k RPS and 4KB payloads into interface sizing.",
+            "values": {
+              "rps": {
+                "text": "calculate_network_capacity"
+              },
+              "calc": {
+                "text": "throughput_gbps"
+              },
+              "nic": {
+                "text": "recommended_nic"
+              }
+            },
+            "tones": {
+              "rps": "ok",
+              "calc": "ok",
+              "nic": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Recalculate network throughput when peak traffic and payload scale up.",
+            "values": {
+              "rps": {
+                "text": "Recalculate"
+              },
+              "calc": {
+                "text": "throughput"
+              },
+              "nic": {
+                "text": "traffic"
+              }
+            },
+            "tones": {
+              "rps": "data",
+              "calc": "data",
+              "nic": "error"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Principal Architect RFC Formalization & Capacity P",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "calculate_network_capacity bandwidth and NIC sizing",
+        "nodes": [
+          {
+            "id": "rps",
+            "label": "rps"
+          },
+          {
+            "id": "calc",
+            "label": "calculate_network_capacity"
+          },
+          {
+            "id": "nic",
+            "label": "recommended_nic"
+          }
+        ],
+        "edges": [
+          {
+            "from": "rps",
+            "to": "calc",
+            "label": "avg_payload_kb"
+          },
+          {
+            "from": "calc",
+            "to": "nic",
+            "label": "throughput_gbps"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Principal",
-                  "Architect"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say3",
+            "caption": "Capacity models compute network cores and RAM directly from projected traffic.",
+            "values": {
+              "rps": "100,000 RPS Peak",
+              "calc": "4.0 KB Payload",
+              "nic": "Computing Gbps..."
+            },
+            "tones": {
+              "rps": "data",
+              "calc": "data",
+              "nic": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The formal logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "RFC",
-                  "Formalization"
-                ],
-                "tone": "ok"
-              }
+            "at": "say4",
+            "caption": "Principal architects use formulas across the critical path to plan hardware.",
+            "values": {
+              "rps": "400,000 KB/s Ingress",
+              "calc": "390.62 MB/s Egress",
+              "nic": "10 Gbps NIC Validated"
+            },
+            "tones": {
+              "rps": "ok",
+              "calc": "data",
+              "nic": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Bandwidth calculation converts 100k RPS and 4KB payloads into interface sizing.",
+            "values": {
+              "rps": "100,000 * 4KB / 1024",
+              "calc": "3.12 Gbps Computed",
+              "nic": "10 Gbps NIC Headroom"
+            },
+            "tones": {
+              "rps": "ok",
+              "calc": "ok",
+              "nic": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Recalculate network throughput when peak traffic and payload scale up.",
+            "values": {
+              "rps": "250,000 * 8KB / 1024",
+              "calc": "15.62 Gbps Computed",
+              "nic": "40 Gbps NIC Required"
+            },
+            "tones": {
+              "rps": "data",
+              "calc": "data",
+              "nic": "error"
+            },
+            "arrows": [],
+            "whatIf": "def calculate_network_capacity(rps: int, avg_payload_kb: float):\n    throughput_kb_per_sec = rps * avg_payload_kb\n    throughput_mb_per_sec = throughput_kb_per_sec / 1024\n    throughput_gbps = (throughput_mb_per_sec * 8) / 1000\n    return {\n        \"rps\": rps,\n        \"mb_per_sec\": round(throughput_mb_per_sec, 2),\n        \"gbps\": round(throughput_gbps, 2),\n        \"recommended_nic\": \"10 Gbps\" if throughput_gbps < 8 else \"40 Gbps\"\n    }\n\ncap = calculate_network_capacity(rps=250_000, avg_payload_kb=8.0)\nprint(f\"Target Load: {cap['rps']:,} RPS\")\nprint(f\"Egress Bandwidth: {cap['mb_per_sec']} MB/s ({cap['gbps']} Gbps)\")\nprint(f\"Recommended Network Interface: {cap['recommended_nic']}\")\nprint(\"RFC Invariant: Capacity planning models mathematically ground hardware sizing.\")",
+            "checks": [
+              "Target Load: 250,000 RPS",
+              "Egress Bandwidth: 1953.12 MB/s (15.62 Gbps)",
+              "Recommended Network Interface: 40 Gbps"
             ]
           }
         ]
@@ -94,23 +222,41 @@
       "codeHash": "f7324b283a557a8eb45d6a8242b324f7c19b12d0139123196eb69aab5cb44a22",
       "spec": {
         "template": "table",
-        "title": "Adversarial Architecture Review & Failure Domain D",
+        "title": "FailureDomainMatrix redundancy and containment boundaries",
         "columns": [
-          "Stage",
-          "Concept"
+          "Failure Domain",
+          "Tolerance Policy",
+          "Business Impact"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The authoring concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Architecture packets isolate failure domains so localized crashes never cascade.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Adversarial"
+                    "text": "az_loss"
                   },
                   {
-                    "text": "Architecture"
+                    "text": "domains"
+                  },
+                  {
+                    "text": "FailureDomainMatrix"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "db_primary_crash"
+                  },
+                  {
+                    "text": "cache_eviction"
+                  },
+                  {
+                    "text": "evaluate_resilience"
                   }
                 ],
                 "tone": "data"
@@ -118,19 +264,104 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The documenting logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Documenting replica failover steps preserves writes during primary outages.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Review"
+                    "text": "db_primary_crash"
                   },
                   {
-                    "text": "Failure"
+                    "text": "domains"
+                  },
+                  {
+                    "text": "evaluate_resilience"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "az_loss"
+                  },
+                  {
+                    "text": "cache_eviction"
+                  },
+                  {
+                    "text": "FailureDomainMatrix"
                   }
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Failure domain matrix checks survivability guarantees across outage scenarios.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "az_loss"
+                  },
+                  {
+                    "text": "db_primary_crash"
+                  },
+                  {
+                    "text": "evaluate_resilience"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "cache_eviction"
+                  },
+                  {
+                    "text": "domains"
+                  },
+                  {
+                    "text": "FailureDomainMatrix"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add Kafka Broker Disk Full failure domain and verify resilience certification.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Add"
+                  },
+                  {
+                    "text": "failure"
+                  },
+                  {
+                    "text": "domain"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "domain"
+                  },
+                  {
+                    "text": "for"
+                  },
+                  {
+                    "text": "Kafka"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -138,36 +369,105 @@
       },
       "filled": {
         "template": "table",
-        "title": "Adversarial Architecture Review & Failure Domain D",
+        "title": "FailureDomainMatrix redundancy and containment boundaries",
         "columns": [
-          "Stage",
-          "Concept"
+          "Failure Domain",
+          "Tolerance Policy",
+          "Business Impact"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The authoring concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Architecture packets isolate failure domains so localized crashes never cascade.",
             "rows": [
               {
                 "cells": [
-                  "Adversarial",
-                  "Architecture"
+                  "az_loss",
+                  "N+1 Redundancy",
+                  "0 Downtime"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "db_primary_crash / cache",
+                  "Isolated Domains",
+                  "Contained Blast Radius"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The documenting logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Documenting replica failover steps preserves writes during primary outages.",
             "rows": [
               {
                 "cells": [
-                  "Review",
-                  "Failure"
+                  "db_primary_crash",
+                  "Automated Failover",
+                  "< 15s Read-Only Window"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "cache_eviction",
+                  "Circuit Breaker Fallback",
+                  "Graceful Degradation"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Failure domain matrix checks survivability guarantees across outage scenarios.",
+            "rows": [
+              {
+                "cells": [
+                  "az_loss & db_primary_crash",
+                  "Multi-Zone & Auto Failover",
+                  "Certified High Availability"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "cache_eviction",
+                  "Fallback Protected",
+                  "evaluate_resilience() == True"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add Kafka Broker Disk Full failure domain and verify resilience certification.",
+            "rows": [
+              {
+                "cells": [
+                  "az_loss & db_primary_crash",
+                  "Multi-Zone & Auto Failover",
+                  "Certified High Availability"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "kafka_broker_disk_full",
+                  "Tiered S3 Offload & Purge",
+                  "Graceful Retention Shedding"
+                ],
+                "tone": "data"
+              }
+            ],
+            "whatIf": "class FailureDomainMatrix:\n    def __init__(self):\n        self.domains = {\n            \"az_loss\": {\"tolerance\": \"N+1 Redundancy\", \"impact\": \"0 Downtime\"},\n            \"db_primary_crash\": {\"tolerance\": \"Automated Failover\", \"impact\": \"< 15s Read-Only\"},\n            \"cache_eviction\": {\"tolerance\": \"Circuit Breaker Fallback\", \"impact\": \"Graceful Degradation\"},\n            \"kafka_broker_disk_full\": {\"tolerance\": \"Tiered S3 Offload & Log Purge\", \"impact\": \"Graceful Retention Shedding\"}\n        }\n\n    def evaluate_resilience(self) -> bool:\n        return all(\"0 Downtime\" in v[\"impact\"] or \"<\" in v[\"impact\"] or \"Graceful\" in v[\"impact\"] for v in self.domains.values())\n\nmatrix = FailureDomainMatrix()\nprint(f\"Failure Domains Assessed: {len(matrix.domains)}\")\nfor k, v in matrix.domains.items():\n    print(f\"  [{k}] Tolerance: {v['tolerance']} -> Impact: {v['impact']}\")\nprint(f\"High-Availability Certification: {matrix.evaluate_resilience()}\")\nprint(\"Defense Invariant: Formal RFCs prove survivability across all failure domains.\")",
+            "checks": [
+              "Failure Domains Assessed: 4",
+              "[kafka_broker_disk_full] Tolerance: Tiered S3 Offload & Log Purge -> Impact: Graceful Retention Shedding",
+              "High-Availability Certification: True"
             ]
           }
         ]
@@ -177,81 +477,258 @@
       "partTitle": "Capacity Planning & Latency Budget Calculator Engine",
       "codeHash": "af20f22e8b57eaecc430d17a8e52c1539175013b385ca24bb7cecbf97c9d3a10",
       "spec": {
-        "template": "table",
-        "title": "Capacity Planning & Latency Budget Calculator Engi",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "LatencyBudgetAllocator 50ms p99 SLA hop breakdown",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The organization concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say3",
+            "caption": "Slow database or gateway budgets breach the 50ms contractual threshold.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Capacity"
-                  },
-                  {
-                    "text": "Planning"
-                  }
-                ],
+                "text": "target"
+              },
+              {
+                "text": "allocations"
+              },
+              {
+                "text": "allocate"
+              },
+              {
+                "text": "validate_budget"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "db",
+                "index": 1,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The database logic drives deterministic execution.",
-            "rows": [
+            "at": "say4",
+            "caption": "Granular latency budgets cap every network hop along the critical path.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Latency"
-                  },
-                  {
-                    "text": "Budget"
-                  }
-                ],
+                "text": "edge_tls_dns"
+              },
+              {
+                "text": "api_gateway"
+              },
+              {
+                "text": "redis_cache"
+              },
+              {
+                "text": "db_serializable"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "hop",
+                "index": 3,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Budget allocator confirms sum of component hops fits inside 50ms.",
+            "items": [
+              {
+                "text": "LatencyBudgetAllocator"
+              },
+              {
+                "text": "allocate"
+              },
+              {
+                "text": "validate_budget"
+              },
+              {
+                "text": "grpc_downstream"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "ok",
+                "index": 2,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add third-party 15ms payment gateway budget exceeding 50ms compliance target.",
+            "items": [
+              {
+                "text": "Add"
+              },
+              {
+                "text": "third-party"
+              },
+              {
+                "text": "gateway"
+              },
+              {
+                "text": "15ms"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "breach",
+                "index": 3,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "error",
+              "2": "idle",
+              "3": "error"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Capacity Planning & Latency Budget Calculator Engi",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "LatencyBudgetAllocator 50ms p99 SLA hop breakdown",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The organization concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say3",
+            "caption": "Slow database or gateway budgets breach the 50ms contractual threshold.",
+            "items": [
+              "Target p99: 50.0ms",
+              "40ms DB + 20ms GW = 60ms",
+              "Violates SLA Early",
+              "Must Rebalance Hops"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Capacity",
-                  "Planning"
-                ],
+                "name": "db",
+                "index": 1,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The database logic drives deterministic execution.",
-            "rows": [
+            "at": "say4",
+            "caption": "Granular latency budgets cap every network hop along the critical path.",
+            "items": [
+              "edge_tls: 5.0ms",
+              "gateway: 8.0ms",
+              "redis: 4.0ms",
+              "db: 22.0ms"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Latency",
-                  "Budget"
-                ],
+                "name": "hop",
+                "index": 3,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Budget allocator confirms sum of component hops fits inside 50ms.",
+            "items": [
+              "5 Hops Summed",
+              "Total = 47.0ms",
+              "compliant: True",
+              "+ grpc_downstream 8.0ms"
+            ],
+            "pointers": [
+              {
+                "name": "ok",
+                "index": 2,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add third-party 15ms payment gateway budget exceeding 50ms compliance target.",
+            "items": [
+              "6 Hops Summed",
+              "Total = 62.0ms",
+              "Target <= 50.0ms",
+              "compliant: False"
+            ],
+            "pointers": [
+              {
+                "name": "breach",
+                "index": 3,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "error",
+              "2": "idle",
+              "3": "error"
+            },
+            "whatIf": "class LatencyBudgetAllocator:\n    def __init__(self, target_p99_ms: float):\n        self.target = target_p99_ms\n        self.allocations = {}\n\n    def allocate(self, component: str, budget_ms: float):\n        self.allocations[component] = budget_ms\n\n    def validate_budget(self):\n        total = sum(self.allocations.values())\n        return {\n            \"total_ms\": total,\n            \"target_ms\": self.target,\n            \"compliant\": total <= self.target\n        }\n\nallocator = LatencyBudgetAllocator(target_p99_ms=50.0)\nallocator.allocate(\"edge_tls_dns\", 5.0)\nallocator.allocate(\"api_gateway\", 8.0)\nallocator.allocate(\"redis_cache\", 4.0)\nallocator.allocate(\"db_serializable\", 22.0)\nallocator.allocate(\"grpc_downstream\", 8.0)\nallocator.allocate(\"third_party_payment\", 15.0)\n\nreport = allocator.validate_budget()\nprint(f\"SLA Target p99: {report['target_ms']}ms | Allocated Total: {report['total_ms']}ms\")\nprint(f\"Latency Budget Compliant: {report['compliant']}\")\nprint(\"Budget Invariant: Granular component latency budgets guarantee end-to-end SLA compliance.\")",
+            "checks": [
+              "Allocated Total: 62.0ms",
+              "Latency Budget Compliant: False"
             ]
           }
         ]
@@ -261,81 +738,182 @@
       "partTitle": "Executive Architectural Review Board RFC Presentation",
       "codeHash": "506d6135c179b753d54fadc2083260a6e54a44ed9339222e7a4dfebe6fe980b2",
       "spec": {
-        "template": "table",
-        "title": "Executive Architectural Review Board RFC Presentat",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "calculate_cluster_sizing CPU cores, nodes, and RAM model",
+        "boxes": [
+          {
+            "id": "c",
+            "label": "cores_needed"
+          },
+          {
+            "id": "n",
+            "label": "nodes_needed"
+          },
+          {
+            "id": "r",
+            "label": "total_ram"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The presenting concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Executive"
-                  },
-                  {
-                    "text": "Architectural"
-                  }
-                ],
-                "tone": "data"
+            "at": "say3",
+            "caption": "Cluster sizing divides projected RPS by benchmarked single-core throughput.",
+            "values": {
+              "c": {
+                "text": "cores_needed"
+              },
+              "n": {
+                "text": "nodes_needed"
+              },
+              "r": {
+                "text": "rps_per_core"
               }
-            ]
+            },
+            "tones": {
+              "c": "data",
+              "n": "idle",
+              "r": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The principal logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Review"
-                  },
-                  {
-                    "text": "Board"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say4",
+            "caption": "Eight cores per server and N+1 headroom derive exact node and RAM totals.",
+            "values": {
+              "c": {
+                "text": "cores_needed"
+              },
+              "n": {
+                "text": "nodes_needed"
+              },
+              "r": {
+                "text": "total_ram"
               }
-            ]
+            },
+            "tones": {
+              "c": "ok",
+              "n": "ok",
+              "r": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Sizing model derives cluster core count, node count, and 160GB total RAM.",
+            "values": {
+              "c": {
+                "text": "cores_needed"
+              },
+              "n": {
+                "text": "nodes_needed"
+              },
+              "r": {
+                "text": "ram_gb_per_node"
+              }
+            },
+            "tones": {
+              "c": "ok",
+              "n": "ok",
+              "r": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Recalculate cluster node requirements with higher cores per node.",
+            "values": {
+              "c": {
+                "text": "Recalculate"
+              },
+              "n": {
+                "text": "node"
+              },
+              "r": {
+                "text": "single-core"
+              }
+            },
+            "tones": {
+              "c": "data",
+              "n": "ok",
+              "r": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Executive Architectural Review Board RFC Presentat",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "calculate_cluster_sizing CPU cores, nodes, and RAM model",
+        "boxes": [
+          {
+            "id": "c",
+            "label": "cores_needed"
+          },
+          {
+            "id": "n",
+            "label": "nodes_needed"
+          },
+          {
+            "id": "r",
+            "label": "total_ram"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The presenting concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Executive",
-                  "Architectural"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say3",
+            "caption": "Cluster sizing divides projected RPS by benchmarked single-core throughput.",
+            "values": {
+              "c": "100,000 / 2500 = 40 Cores",
+              "n": "ceil(40 / 8) Deriving...",
+              "r": "2500 RPS/Core Measured"
+            },
+            "tones": {
+              "c": "data",
+              "n": "idle",
+              "r": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The principal logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Review",
-                  "Board"
-                ],
-                "tone": "ok"
-              }
+            "at": "say4",
+            "caption": "Eight cores per server and N+1 headroom derive exact node and RAM totals.",
+            "values": {
+              "c": "40 CPU Cores Needed",
+              "n": "5 Nodes + 1.5x N+1 Margin",
+              "r": "total_ram = 160 GB"
+            },
+            "tones": {
+              "c": "ok",
+              "n": "ok",
+              "r": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Sizing model derives cluster core count, node count, and 160GB total RAM.",
+            "values": {
+              "c": "40 CPU Cores",
+              "n": "5 Cluster Nodes (8c)",
+              "r": "5 * 32 GB = 160 GB RAM"
+            },
+            "tones": {
+              "c": "ok",
+              "n": "ok",
+              "r": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Recalculate cluster node requirements with higher cores per node.",
+            "values": {
+              "c": "67 CPU Cores Needed",
+              "n": "5 Nodes (16 Cores Each)",
+              "r": "5 * 32 GB = 160 GB RAM"
+            },
+            "tones": {
+              "c": "data",
+              "n": "ok",
+              "r": "ok"
+            },
+            "whatIf": "import math\n\ndef calculate_cluster_sizing(rps: int, rps_per_core: int, ram_gb_per_node: int):\n    cores_needed = math.ceil(rps / rps_per_core)\n    nodes_needed = math.ceil(cores_needed / 16)\n    total_ram = nodes_needed * ram_gb_per_node\n    return {\n        \"cores\": cores_needed,\n        \"nodes\": nodes_needed,\n        \"total_ram_gb\": total_ram\n    }\n\ncluster = calculate_cluster_sizing(rps=100_000, rps_per_core=1500, ram_gb_per_node=32)\nprint(f\"Peak Sizing: {cluster['cores']} CPU Cores across {cluster['nodes']} Cluster Nodes\")\nprint(f\"Total Cluster RAM: {cluster['total_ram_gb']} GB\")\nprint(f\"Redundancy Factor: 1.5x N+1 provisioning ensures headroom for node failovers.\")\nprint(\"TCO Invariant: Principal engineering models substantiate infrastructure costs before executive boards.\")",
+            "checks": [
+              "Peak Sizing: 67 CPU Cores across 5 Cluster Nodes",
+              "Total Cluster RAM: 160 GB"
             ]
           }
         ]
@@ -346,40 +924,143 @@
       "codeHash": "bc0f1b882928a46ff0083032e6987b4e7cb15ce10ca18f3506d859f537c08051",
       "spec": {
         "template": "table",
-        "title": "Service Level Objectives (SLOs), Error Budgets & P",
+        "title": "SLOManager error budget burn evaluation",
         "columns": [
-          "Stage",
-          "Concept"
+          "Metric",
+          "Calculation",
+          "Governance Action"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Four nines availability grants a fixed monthly error budget of downtime minutes.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Service"
+                    "text": "SLOManager"
                   },
                   {
-                    "text": "Level"
+                    "text": "allowed_downtime_minutes"
+                  },
+                  {
+                    "text": "monthly_minutes"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "target"
+                  },
+                  {
+                    "text": "evaluate_outage"
+                  },
+                  {
+                    "text": "SLOManager"
+                  }
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The unexpected logic drives deterministic execution.",
+            "caption": "Outages consume error budget triggering deployment governance freeze gates.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Objectives"
+                    "text": "burn_percent"
                   },
                   {
-                    "text": "SLOs"
+                    "text": "remaining"
+                  },
+                  {
+                    "text": "evaluate_outage"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "allowed_downtime_minutes"
+                  },
+                  {
+                    "text": "SLOManager"
+                  },
+                  {
+                    "text": "target"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Budget manager tracks downtime allowance and computes incident burn rate.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "allowed_downtime_minutes"
+                  },
+                  {
+                    "text": "burn_percent"
+                  },
+                  {
+                    "text": "remaining"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "evaluate_outage"
+                  },
+                  {
+                    "text": "SLOManager"
+                  },
+                  {
+                    "text": "target"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Compare monthly downtime minutes allowed under three nines vs five nines SLA.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Compute"
+                  },
+                  {
+                    "text": "the"
+                  },
+                  {
+                    "text": "allowed"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "allowed"
+                  },
+                  {
+                    "text": "monthly"
+                  },
+                  {
+                    "text": "downtime"
                   }
                 ],
                 "tone": "ok"
@@ -390,36 +1071,103 @@
       },
       "filled": {
         "template": "table",
-        "title": "Service Level Objectives (SLOs), Error Budgets & P",
+        "title": "SLOManager error budget burn evaluation",
         "columns": [
-          "Stage",
-          "Concept"
+          "Metric",
+          "Calculation",
+          "Governance Action"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Four nines availability grants a fixed monthly error budget of downtime minutes.",
             "rows": [
               {
                 "cells": [
-                  "Service",
-                  "Level"
+                  "Target SLO: 99.99%",
+                  "30d * 0.01% = 4.32 min",
+                  "Baseline Error Budget"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "evaluate_outage()",
+                  "43,200 Monthly Mins",
+                  "Tracks Cumulative Burn"
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The unexpected logic drives deterministic execution.",
+            "caption": "Outages consume error budget triggering deployment governance freeze gates.",
             "rows": [
               {
                 "cells": [
-                  "Objectives",
-                  "SLOs"
+                  "1.5 Min Outage Impact",
+                  "34.7% Monthly Burn",
+                  "Freeze Risky Deploys If Dry"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Remaining Allowance",
+                  "2.82 Minutes Left",
+                  "Prioritize Stability"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Budget manager tracks downtime allowance and computes incident burn rate.",
+            "rows": [
+              {
+                "cells": [
+                  "4.32 Min Budget",
+                  "34.7% Burned -> 2.82 Left",
+                  "Within Budget Margin"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Post-Mortem + RFC Gate",
+                  "Verified Empirically",
+                  "[RFC DEFENSE APPROVED]"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Compare monthly downtime minutes allowed under three nines vs five nines SLA.",
+            "rows": [
+              {
+                "cells": [
+                  "99.9% Three Nines",
+                  "43.20 Min Allowed/Mo",
+                  "Lower Infra Cost"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "99.999% Five Nines",
+                  "0.43 Min Allowed/Mo",
+                  "Active-Active Multi-Region"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "class SLOManager:\n    def __init__(self, target_availability: float):\n        self.target = target_availability\n        self.monthly_minutes = 30 * 24 * 60\n        self.allowed_downtime_minutes = self.monthly_minutes * (1.0 - (target_availability / 100.0))\n\n    def evaluate_outage(self, outage_minutes: float):\n        remaining = self.allowed_downtime_minutes - outage_minutes\n        burn_percent = (outage_minutes / self.allowed_downtime_minutes) * 100.0\n        return {\n            \"allowed_min\": round(self.allowed_downtime_minutes, 2),\n            \"remaining_min\": round(max(0.0, remaining), 2),\n            \"burn_rate\": round(burn_percent, 1)\n        }\n\nslo = SLOManager(target_availability=99.99)\neval_res = slo.evaluate_outage(outage_minutes=1.5)\nprint(f\"Target SLO: 99.99% Availability\")\nprint(f\"Monthly Error Budget: {eval_res['allowed_min']} minutes\")\nprint(f\"Incident Impact: 1.5 min outage burned {eval_res['burn_rate']}% of error budget\")\nprint(f\"Remaining Budget: {eval_res['remaining_min']} minutes\")\nslo_3_nines = SLOManager(target_availability=99.9)\nslo_5_nines = SLOManager(target_availability=99.999)\nprint(f\"99.9% (Three Nines): {slo_3_nines.allowed_downtime_minutes:.2f} min/mo | 99.999% (Five Nines): {slo_5_nines.allowed_downtime_minutes:.2f} min/mo\")\nprint(\"[RFC DEFENSE APPROVED] Principal Architecture RFC Passed Review Board!\")",
+            "checks": [
+              "99.9% (Three Nines): 43.20 min/mo | 99.999% (Five Nines): 0.43 min/mo"
             ]
           }
         ]

@@ -2,269 +2,157 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 50,
-  "promptSha": "b7c74a3927cac3856d3a024c75310e5838f91582f2ecb899cf394223074a1604",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Milestone 10 — Foundations & Mathematical Invariants",
-      "codeHash": "0353af66e55f8a66ac7afcf5c0a20ff71dc84abafddf84a4f1a191422b4c099d",
+      "codeHash": "bd3bed0233b636ce56ea486e91af3f3ed6f8aca42a596c66364b4f2ca70d11a1",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Milestone 10 — Foundations & Mathematical Invariants",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Unifying disparate cloud data storage services under a standardized.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "workload_type"
+                  },
+                  {
+                    "var": "workload_type",
+                    "line": 10,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how milestone updates establishes during execution.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "workload_type"
+                  },
+                  {
+                    "var": "workload_type",
+                    "line": 11,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Review the storage router topology and multi-engine persistence.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Milestone 10 — Foundations & Mathematical Invariants",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Unifying disparate cloud data storage services under a standardized.",
+            "rows": [
+              {
+                "cells": [
+                  "workload_type",
+                  "'counter'"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how milestone updates establishes during execution.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "workload_type",
+                  "'counter'"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Review the storage router topology and multi-engine persistence.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "cells": [
+                  "out 1",
+                  "vote counter route: DynamoDB (Write-Sharded)"
+                ],
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "cells": [
+                  "out 2",
+                  "financial ledger route: Aurora Global Database"
+                ],
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 3",
+                  "compliance log route: Amazon S3 (Intelligent-Tiering)"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -273,264 +161,134 @@
     },
     {
       "partTitle": "Milestone 10 — Core Algorithm & State Representation",
-      "codeHash": "cbeb0e20740e22e2d8a4e20d14cd197692ca15e7e4249afca17731d7edb6520f",
+      "codeHash": "2a0f812eef8f948e316614a2f794f5b332e3cc42e4c4dc063e5dda3f78d9578e",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Milestone 10 — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Decoupling application business logic from underlying database schemas.",
+            "bars": [
+              {
+                "label": "content",
+                "value": {
+                  "var": "content",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "shard_id",
+                "value": {
+                  "var": "shard_id",
+                  "line": 10,
+                  "hit": 11
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Deterministic routing logic ensures that high-volume operations flow.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "content",
+                "value": {
+                  "var": "content",
+                  "line": 10,
+                  "hit": 11
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "shard_id",
+                "value": {
+                  "var": "shard_id",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Examine the integrated multi-tier persistence dispatcher and state.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "content",
+                "value": {
+                  "var": "content",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "shard_id",
+                "value": {
+                  "var": "shard_id",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Milestone 10 — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Decoupling application business logic from underlying database schemas.",
+            "bars": [
+              {
+                "label": "content",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "shard_id",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Deterministic routing logic ensures that high-volume operations flow.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "content",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "shard_id",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Examine the integrated multi-tier persistence dispatcher and state.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "content",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "shard_id",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           }
@@ -539,264 +297,218 @@
     },
     {
       "partTitle": "Milestone 10 — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "b35b5497af1b8ba85581caf6d36a707f2be9e0e8653580e5e4d0aa25b21853fa",
+      "codeHash": "8a7814ea2e732451db8979aafa69025b4ce552cdded858e5362baf62c0a992dc",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Milestone 10 — Throughput Optimization & Edge-Case Handling",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Benchmarking throughput across combined persistence tiers provides.",
+            "bars": [
+              {
+                "label": "max_batch_size",
+                "value": {
+                  "var": "max_batch_size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "active_clients",
+                "value": {
+                  "var": "active_clients",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "max_db_connect",
+                "value": {
+                  "var": "max_db_connections",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Fine-tuned connection pools and pipelined operations maximize resource.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "max_batch_size",
+                "value": {
+                  "var": "max_batch_size",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "active_clients",
+                "value": {
+                  "var": "active_clients",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "max_db_connect",
+                "value": {
+                  "var": "max_db_connections",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Review the high-throughput batch aggregator and RDS Proxy connection pool.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "max_batch_size",
+                "value": {
+                  "var": "max_batch_size",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "active_clients",
+                "value": {
+                  "var": "active_clients",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "max_db_connect",
+                "value": {
+                  "var": "max_db_connections",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Milestone 10 — Throughput Optimization & Edge-Case Handling",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Benchmarking throughput across combined persistence tiers provides.",
+            "bars": [
+              {
+                "label": "max_batch_size",
+                "value": 25,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "active_clients",
+                "value": 85,
+                "tone": "data"
+              },
+              {
+                "label": "max_db_connect",
+                "value": 10,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Fine-tuned connection pools and pipelined operations maximize resource.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "max_batch_size",
+                "value": 25,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "active_clients",
+                "value": 85,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "max_db_connect",
+                "value": 10,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Review the high-throughput batch aggregator and RDS Proxy connection pool.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "max_batch_size",
+                "value": 25,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "active_clients",
+                "value": 85,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "max_db_connect",
+                "value": 10,
+                "tone": "ok"
               }
             ]
           }
@@ -805,265 +517,279 @@
     },
     {
       "partTitle": "Milestone 10 — Resilience Guardrails & Failure Recovery",
-      "codeHash": "5f1167fac0cfe881f4be4b0108c2709953292655b420a068371742e7a810246c",
+      "codeHash": "c7604ee72202fb17bd701788eae4d9fb084426d39f2022be45633112655b02d3",
       "spec": {
         "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
+        "title": "Milestone 10 — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "failed_region",
+            "label": "failed_region"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "secondary_region",
+            "label": "secondary_region"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "aurora_status",
+            "label": "aurora_status"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "dynamo_status",
+            "label": "dynamo_status"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated failover rehearsals conducted periodically certify that disaster.",
+            "values": {
+              "failed_region": {
+                "var": "failed_region",
+                "line": 5,
+                "hit": 1
+              },
+              "secondary_region": {
+                "var": "secondary_region",
+                "line": 5,
+                "hit": 1
+              },
+              "aurora_status": {
+                "var": "aurora_status",
+                "line": 5,
+                "hit": 1
+              },
+              "dynamo_status": {
+                "var": "dynamo_status",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "failed_region": "data",
+              "secondary_region": "data",
+              "aurora_status": "data",
+              "dynamo_status": "data"
+            },
+            "arrows": [
+              [
+                "failed_region",
+                "secondary_region"
+              ],
+              [
+                "secondary_region",
+                "aurora_status"
+              ],
+              [
+                "aurora_status",
+                "dynamo_status"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Orchestrated disaster recovery workflows ensure seamless continuity.",
+            "values": {
+              "failed_region": {
+                "var": "failed_region",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "secondary_region": {
+                "var": "secondary_region",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "aurora_status": {
+                "var": "aurora_status",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "dynamo_status": {
+                "var": "dynamo_status",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "failed_region": "data",
+              "secondary_region": "data",
+              "aurora_status": "data",
+              "dynamo_status": "data"
+            },
+            "arrows": [
+              [
+                "failed_region",
+                "secondary_region"
+              ],
+              [
+                "secondary_region",
+                "aurora_status"
+              ],
+              [
+                "aurora_status",
+                "dynamo_status"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Observe the cross-tier disaster recovery failover coordinator and RPO/RTO.",
+            "values": {
+              "failed_region": {
+                "var": "failed_region",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "secondary_region": {
+                "var": "secondary_region",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "aurora_status": {
+                "var": "aurora_status",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "dynamo_status": {
+                "var": "dynamo_status",
+                "line": 11,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "failed_region": "ok",
+              "secondary_region": "ok",
+              "aurora_status": "ok",
+              "dynamo_status": "ok"
+            },
+            "arrows": [
+              [
+                "failed_region",
+                "secondary_region"
+              ],
+              [
+                "secondary_region",
+                "aurora_status"
+              ],
+              [
+                "aurora_status",
+                "dynamo_status"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
+        "title": "Milestone 10 — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "failed_region",
+            "label": "failed_region"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "secondary_region",
+            "label": "secondary_region"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "aurora_status",
+            "label": "aurora_status"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "dynamo_status",
+            "label": "dynamo_status"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated failover rehearsals conducted periodically certify that disaster.",
+            "values": {
+              "failed_region": "'us-east-1'",
+              "secondary_region": "'us-west-2'",
+              "aurora_status": "{'action': 'PROMOTE_SECONDARY', 'region…",
+              "dynamo_status": "{'action': 'AUTOMATIC_FAILOVER', 'activ…"
+            },
+            "tones": {
+              "failed_region": "data",
+              "secondary_region": "data",
+              "aurora_status": "data",
+              "dynamo_status": "data"
+            },
+            "arrows": [
+              [
+                "failed_region",
+                "secondary_region"
+              ],
+              [
+                "secondary_region",
+                "aurora_status"
+              ],
+              [
+                "aurora_status",
+                "dynamo_status"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Orchestrated disaster recovery workflows ensure seamless continuity.",
+            "values": {
+              "failed_region": "'us-east-1'",
+              "secondary_region": "'us-west-2'",
+              "aurora_status": "{'action': 'PROMOTE_SECONDARY', 'region…",
+              "dynamo_status": "{'action': 'AUTOMATIC_FAILOVER', 'activ…"
+            },
+            "tones": {
+              "failed_region": "data",
+              "secondary_region": "data",
+              "aurora_status": "data",
+              "dynamo_status": "data"
+            },
+            "arrows": [
+              [
+                "failed_region",
+                "secondary_region"
+              ],
+              [
+                "secondary_region",
+                "aurora_status"
+              ],
+              [
+                "aurora_status",
+                "dynamo_status"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Observe the cross-tier disaster recovery failover coordinator and RPO/RTO.",
+            "values": {
+              "failed_region": "'us-east-1'",
+              "secondary_region": "'us-west-2'",
+              "aurora_status": "{'action': 'PROMOTE_SECONDARY', 'region…",
+              "dynamo_status": "{'action': 'AUTOMATIC_FAILOVER', 'activ…"
+            },
+            "tones": {
+              "failed_region": "ok",
+              "secondary_region": "ok",
+              "aurora_status": "ok",
+              "dynamo_status": "ok"
+            },
+            "arrows": [
+              [
+                "failed_region",
+                "secondary_region"
+              ],
+              [
+                "secondary_region",
+                "aurora_status"
+              ],
+              [
+                "aurora_status",
+                "dynamo_status"
+              ]
             ]
           }
         ]
@@ -1071,265 +797,279 @@
     },
     {
       "partTitle": "Milestone 10 — Production Telemetry & Verification Audit",
-      "codeHash": "de782c317655945cbff68c1e829b9e577cfe83929d1d6aff900106bc101cc29a",
+      "codeHash": "4a1d68ebb808cab73c4d5722b3139dbb7990ca563dce060e90dd6d13f5ede595",
       "spec": {
         "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
+        "title": "Milestone 10 — Production Telemetry & Verification Audit",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "gates",
+            "label": "gates"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": ".0",
+            "label": ".0"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "g",
+            "label": "g"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "all_passed",
+            "label": "all_passed"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Rigorous automated gate audits provide absolute confidence that every.",
+            "values": {
+              "gates": {
+                "var": "gates",
+                "line": 4,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 16,
+                "hit": 1
+              },
+              "g": {
+                "var": "g",
+                "line": 16,
+                "hit": 1
+              },
+              "all_passed": {
+                "var": "all_passed",
+                "line": 16,
+                "hit": 7
+              }
+            },
+            "tones": {
+              "gates": "data",
+              ".0": "data",
+              "g": "data",
+              "all_passed": "data"
+            },
+            "arrows": [
+              [
+                "gates",
+                ".0"
+              ],
+              [
+                ".0",
+                "g"
+              ],
+              [
+                "g",
+                "all_passed"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The rigorous 5-gate certification audit validates partition write.",
+            "values": {
+              "gates": {
+                "var": "gates",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              ".0": {
+                "var": ".0",
+                "line": 16,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "g": {
+                "var": "g",
+                "line": 16,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "all_passed": {
+                "var": "all_passed",
+                "line": 17,
+                "hit": 1
               }
+            },
+            "tones": {
+              "gates": "data",
+              ".0": "data",
+              "g": "data",
+              "all_passed": "data"
+            },
+            "arrows": [
+              [
+                "gates",
+                ".0"
+              ],
+              [
+                ".0",
+                "g"
+              ],
+              [
+                "g",
+                "all_passed"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Execute the full 5-gate Milestone 10 certification test suite below.",
+            "values": {
+              "gates": {
+                "var": "gates",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              ".0": {
+                "var": ".0",
+                "line": 16,
+                "hit": 3
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "g": {
+                "var": "g",
+                "line": 16,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "all_passed": {
+                "var": "all_passed",
+                "line": 17,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "gates": "ok",
+              ".0": "ok",
+              "g": "ok",
+              "all_passed": "ok"
+            },
+            "arrows": [
+              [
+                "gates",
+                ".0"
+              ],
+              [
+                ".0",
+                "g"
+              ],
+              [
+                "g",
+                "all_passed"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
+        "title": "Milestone 10 — Production Telemetry & Verification Audit",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "gates",
+            "label": "gates"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": ".0",
+            "label": ".0"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "g",
+            "label": "g"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "all_passed",
+            "label": "all_passed"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Rigorous automated gate audits provide absolute confidence that every.",
+            "values": {
+              "gates": "{}",
+              ".0": "{'__other__': 'dict_valueiterator'}",
+              "g": "{'passed': True, 'skew_ratio': 1.25}",
+              "all_passed": "True"
+            },
+            "tones": {
+              "gates": "data",
+              ".0": "data",
+              "g": "data",
+              "all_passed": "data"
+            },
+            "arrows": [
+              [
+                "gates",
+                ".0"
+              ],
+              [
+                ".0",
+                "g"
+              ],
+              [
+                "g",
+                "all_passed"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The rigorous 5-gate certification audit validates partition write.",
+            "values": {
+              "gates": "{'GATE_1_DYNAMO_SHARDING': {'passed': T…",
+              ".0": "{'__other__': 'dict_valueiterator'}",
+              "g": "{'passed': True, 'lag_seconds': 0.42}",
+              "all_passed": "True"
+            },
+            "tones": {
+              "gates": "data",
+              ".0": "data",
+              "g": "data",
+              "all_passed": "data"
+            },
+            "arrows": [
+              [
+                "gates",
+                ".0"
+              ],
+              [
+                ".0",
+                "g"
+              ],
+              [
+                "g",
+                "all_passed"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Execute the full 5-gate Milestone 10 certification test suite below.",
+            "values": {
+              "gates": "{'GATE_1_DYNAMO_SHARDING': {'passed': T…",
+              ".0": "{'__other__': 'dict_valueiterator'}",
+              "g": "{'passed': True, 'worm_enforced': True}",
+              "all_passed": "True"
+            },
+            "tones": {
+              "gates": "ok",
+              ".0": "ok",
+              "g": "ok",
+              "all_passed": "ok"
+            },
+            "arrows": [
+              [
+                "gates",
+                ".0"
+              ],
+              [
+                ".0",
+                "g"
+              ],
+              [
+                "g",
+                "all_passed"
+              ]
             ]
           }
         ]

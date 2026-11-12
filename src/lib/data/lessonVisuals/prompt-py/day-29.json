@@ -2,85 +2,98 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 29,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Open-weight models",
       "codeHash": "6f6d0160ed763132e79d3b8bd052ddc5a76494711c18facca0f3a8bda6a1b450",
       "spec": {
-        "template": "table",
-        "title": "Open-weight models versus cloud API trade-offs",
-        "columns": [
-          "factor",
-          "local",
-          "cloud"
+        "template": "sequence",
+        "title": "Open-weight models",
+        "actors": [
+          "factors",
+          "f",
+          "local"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Open models publish trained weights for anyone to download.",
-            "rows": [
+            "caption": "Open-weight models, such as Meta's Llama, Mistral, Google's Gemma.",
+            "activeActor": "factors",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "factor"
-                  },
-                  {
-                    "text": "local"
-                  },
-                  {
-                    "text": "cloud"
-                  }
-                ],
-                "tone": "ok"
+                "from": "factors",
+                "to": "f",
+                "label": {
+                  "var": "factors",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "factor"
-                  },
-                  {
-                    "text": "local"
-                  },
-                  {
-                    "text": "cloud"
-                  }
-                ],
-                "tone": "data"
+                "from": "f",
+                "to": "local",
+                "label": {
+                  "var": "f",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Local servers keep sensitive data under direct user control.",
-            "rows": [
+            "caption": "You can run them on your own computer or servers, so data never leaves.",
+            "activeActor": "f",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "factor"
-                  },
-                  {
-                    "text": "local"
-                  },
-                  {
-                    "text": "cloud"
-                  }
-                ],
+                "from": "factors",
+                "to": "f",
+                "label": {
+                  "var": "factors",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "factor"
-                  },
-                  {
-                    "text": "local"
-                  },
-                  {
-                    "text": "factor"
-                  }
-                ],
+                "from": "f",
+                "to": "local",
+                "label": {
+                  "var": "f",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Community model hubs, such as Hugging Face, host thousands of variants.",
+            "activeActor": "local",
+            "messages": [
+              {
+                "from": "factors",
+                "to": "f",
+                "label": {
+                  "var": "factors",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "f",
+                "to": "local",
+                "label": {
+                  "var": "f",
+                  "line": 6,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Open-weight models versus cloud API trade-offs",
-        "columns": [
-          "factor",
-          "local",
-          "cloud"
+        "template": "sequence",
+        "title": "Open-weight models",
+        "actors": [
+          "factors",
+          "f",
+          "local"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Open models publish trained weights for anyone to download.",
-            "rows": [
+            "caption": "Open-weight models, such as Meta's Llama, Mistral, Google's Gemma.",
+            "messages": [
               {
-                "cells": [
-                  "factor",
-                  "local",
-                  "cloud"
-                ],
-                "tone": "ok"
+                "from": "factors",
+                "to": "f",
+                "label": "{'data stays on your machine': ['yes', …",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "factor",
-                  "local",
-                  "cloud"
-                ],
-                "tone": "data"
+                "from": "f",
+                "to": "local",
+                "label": "'data stays on your machine'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "factors"
           },
           {
             "at": "say2",
-            "caption": "Local servers keep sensitive data under direct user control.",
-            "rows": [
+            "caption": "You can run them on your own computer or servers, so data never leaves.",
+            "messages": [
               {
-                "cells": [
-                  "factor",
-                  "local",
-                  "cloud"
-                ],
+                "from": "factors",
+                "to": "f",
+                "label": "{'data stays on your machine': ['yes', …",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "factor",
-                  "local",
-                  "factor"
-                ],
+                "from": "f",
+                "to": "local",
+                "label": "'data stays on your machine'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "f"
+          },
+          {
+            "at": "say9",
+            "caption": "Community model hubs, such as Hugging Face, host thousands of variants.",
+            "messages": [
+              {
+                "from": "factors",
+                "to": "f",
+                "label": "{'data stays on your machine': ['yes', …",
+                "tone": "data"
+              },
+              {
+                "from": "f",
+                "to": "local",
+                "label": "'cost per request'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "local"
           }
         ]
       }
@@ -148,41 +174,25 @@
       "codeHash": "3ed32ee6a48ce136420869d4217f542318d22af3e995ce6c7da7f55675bea162",
       "spec": {
         "template": "table",
-        "title": "Local inference server configuration and API schema",
+        "title": "Running models with Ollama",
         "columns": [
-          "model",
-          "messages",
-          "options"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Ollama downloads and runs open model weights with simple commands.",
+            "caption": "Ollama is a popular free tool that downloads and runs open models with one.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "model"
+                    "text": "request"
                   },
                   {
-                    "text": "messages"
-                  },
-                  {
-                    "text": "options"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "model"
-                  },
-                  {
-                    "text": "messages"
-                  },
-                  {
-                    "text": "options"
+                    "var": "request",
+                    "line": 3,
+                    "hit": 3
                   }
                 ],
                 "tone": "data"
@@ -190,33 +200,68 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "Local HTTP endpoints expose compatible formats for application calls.",
+            "at": "say2",
+            "caption": "Other options include LM Studio (a desktop app with a chat window), llama.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "model"
+                    "text": "request"
                   },
                   {
-                    "text": "messages"
-                  },
-                  {
-                    "text": "options"
+                    "var": "request",
+                    "line": 7,
+                    "hit": 1
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Speed is measured in tokens per second.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               },
               {
                 "cells": [
                   {
-                    "text": "model"
+                    "text": "out 2"
                   },
                   {
-                    "text": "messages"
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
                   },
                   {
-                    "text": "model"
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 4"
+                  },
+                  {
+                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -227,52 +272,67 @@
       },
       "filled": {
         "template": "table",
-        "title": "Local inference server configuration and API schema",
+        "title": "Running models with Ollama",
         "columns": [
-          "model",
-          "messages",
-          "options"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Ollama downloads and runs open model weights with simple commands.",
+            "caption": "Ollama is a popular free tool that downloads and runs open models with one.",
             "rows": [
               {
                 "cells": [
-                  "model",
-                  "messages",
-                  "options"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "model",
-                  "messages",
-                  "options"
+                  "request",
+                  "{'model': 'llama3.1:8b', 'messages': [{…"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Local HTTP endpoints expose compatible formats for application calls.",
+            "at": "say2",
+            "caption": "Other options include LM Studio (a desktop app with a chat window), llama.",
             "rows": [
               {
                 "cells": [
-                  "model",
-                  "messages",
-                  "options"
+                  "request",
+                  "{'model': 'llama3.1:8b', 'messages': [{…"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Speed is measured in tokens per second.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "{"
+                ],
+                "tone": "ok"
               },
               {
                 "cells": [
-                  "model",
-                  "messages",
-                  "model"
+                  "out 2",
+                  "  \"model\": \"llama3.1:8b\","
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "  \"messages\": ["
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 4",
+                  "    {"
                 ],
                 "tone": "ok"
               }
@@ -285,78 +345,131 @@
       "partTitle": "Memory and hardware",
       "codeHash": "dbb8eb0018f2848bd6cd434d6abf29bad0ba117ca772e05b5bb5462281c80fdb",
       "spec": {
-        "template": "table",
-        "title": "GPU memory estimation and hardware sizing",
-        "columns": [
-          "params",
-          "bits",
-          "overhead"
-        ],
+        "template": "bars",
+        "title": "Memory and hardware",
         "steps": [
           {
             "at": "say1",
-            "caption": "Weights must fit directly into available GPU memory to execute fast.",
-            "rows": [
+            "caption": "A model's weights must fit in memory, ideally GPU memory (VRAM), to run fast.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "overhead"
-                  }
-                ],
-                "tone": "ok"
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "overhead"
-                  }
-                ],
+                "label": "params_billion",
+                "value": {
+                  "var": "params_billion",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bits",
+                "value": {
+                  "var": "bits",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "overhead",
+                "value": {
+                  "var": "overhead",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Parameters multiplied by precision bits determine storage requirements.",
-            "rows": [
+            "caption": "Weights take roughly parameters bits per weight 8 bytes.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "overhead"
-                  }
-                ],
-                "tone": "data"
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "bits"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
+                "label": "params_billion",
+                "value": {
+                  "var": "params_billion",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bits",
+                "value": {
+                  "var": "bits",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "overhead",
+                "value": {
+                  "var": "overhead",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "If a model barely fits, closing other programs or using a shorter context.",
+            "bars": [
+              {
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "params_billion",
+                "value": {
+                  "var": "params_billion",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bits",
+                "value": {
+                  "var": "bits",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "overhead",
+                "value": {
+                  "var": "overhead",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -364,54 +477,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "GPU memory estimation and hardware sizing",
-        "columns": [
-          "params",
-          "bits",
-          "overhead"
-        ],
+        "template": "bars",
+        "title": "Memory and hardware",
         "steps": [
           {
             "at": "say1",
-            "caption": "Weights must fit directly into available GPU memory to execute fast.",
-            "rows": [
+            "caption": "A model's weights must fit in memory, ideally GPU memory (VRAM), to run fast.",
+            "bars": [
               {
-                "cells": [
-                  "params",
-                  "bits",
-                  "overhead"
-                ],
-                "tone": "ok"
+                "label": "params",
+                "value": 3,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "params",
-                  "bits",
-                  "overhead"
-                ],
+                "label": "params_billion",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "bits",
+                "value": 16,
+                "tone": "data"
+              },
+              {
+                "label": "overhead",
+                "value": 1.2,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Parameters multiplied by precision bits determine storage requirements.",
-            "rows": [
+            "caption": "Weights take roughly parameters bits per weight 8 bytes.",
+            "bars": [
               {
-                "cells": [
-                  "params",
-                  "bits",
-                  "overhead"
-                ],
-                "tone": "data"
+                "label": "params",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "params",
-                  "bits",
-                  "params"
-                ],
+                "label": "params_billion",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "bits",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "overhead",
+                "value": 1.2,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "If a model barely fits, closing other programs or using a shorter context.",
+            "bars": [
+              {
+                "label": "params",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "params_billion",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "bits",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "overhead",
+                "value": 1.2,
                 "tone": "ok"
               }
             ]
@@ -423,78 +565,131 @@
       "partTitle": "Quantisation",
       "codeHash": "5a6713fe282590658c4a98a519b195c52ca9c91047eb598f84f43d53c9084b12",
       "spec": {
-        "template": "table",
-        "title": "Model quantisation levels and memory compression",
-        "columns": [
-          "params",
-          "vram",
-          "overhead"
-        ],
+        "template": "bars",
+        "title": "Quantisation",
         "steps": [
           {
             "at": "say1",
-            "caption": "Quantisation shrinks memory requirements by storing weights in fewer bits.",
-            "rows": [
+            "caption": "Quantisation stores weights with fewer bits.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "vram"
-                  },
-                  {
-                    "text": "overhead"
-                  }
-                ],
-                "tone": "ok"
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "vram"
-                  },
-                  {
-                    "text": "overhead"
-                  }
-                ],
+                "label": "vram",
+                "value": {
+                  "var": "vram",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "overhead",
+                "value": {
+                  "var": "overhead",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bits",
+                "value": {
+                  "var": "bits",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Reduced bit depth preserves acceptable quality for everyday tasks.",
-            "rows": [
+            "caption": "Quality drops a little with each step down.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "vram"
-                  },
-                  {
-                    "text": "overhead"
-                  }
-                ],
-                "tone": "data"
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "vram"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
+                "label": "vram",
+                "value": {
+                  "var": "vram",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "overhead",
+                "value": {
+                  "var": "overhead",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bits",
+                "value": {
+                  "var": "bits",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "A larger model at 4 bits often beats a smaller model at 16 bits of similar.",
+            "bars": [
+              {
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "vram",
+                "value": {
+                  "var": "vram",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "overhead",
+                "value": {
+                  "var": "overhead",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bits",
+                "value": {
+                  "var": "bits",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +697,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Model quantisation levels and memory compression",
-        "columns": [
-          "params",
-          "vram",
-          "overhead"
-        ],
+        "template": "bars",
+        "title": "Quantisation",
         "steps": [
           {
             "at": "say1",
-            "caption": "Quantisation shrinks memory requirements by storing weights in fewer bits.",
-            "rows": [
+            "caption": "Quantisation stores weights with fewer bits.",
+            "bars": [
               {
-                "cells": [
-                  "params",
-                  "vram",
-                  "overhead"
-                ],
-                "tone": "ok"
+                "label": "params",
+                "value": 8,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "params",
-                  "vram",
-                  "overhead"
-                ],
+                "label": "vram",
+                "value": 24,
+                "tone": "data"
+              },
+              {
+                "label": "overhead",
+                "value": 1.2,
+                "tone": "data"
+              },
+              {
+                "label": "bits",
+                "value": 16,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Reduced bit depth preserves acceptable quality for everyday tasks.",
-            "rows": [
+            "caption": "Quality drops a little with each step down.",
+            "bars": [
               {
-                "cells": [
-                  "params",
-                  "vram",
-                  "overhead"
-                ],
-                "tone": "data"
+                "label": "params",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "params",
-                  "vram",
-                  "params"
-                ],
+                "label": "vram",
+                "value": 24,
+                "tone": "ok"
+              },
+              {
+                "label": "overhead",
+                "value": 1.2,
+                "tone": "ok"
+              },
+              {
+                "label": "bits",
+                "value": 16,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "A larger model at 4 bits often beats a smaller model at 16 bits of similar.",
+            "bars": [
+              {
+                "label": "params",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "vram",
+                "value": 24,
+                "tone": "ok"
+              },
+              {
+                "label": "overhead",
+                "value": 1.2,
+                "tone": "ok"
+              },
+              {
+                "label": "bits",
+                "value": 16,
                 "tone": "ok"
               }
             ]
@@ -561,224 +785,162 @@
       "partTitle": "Keeping up with AI",
       "codeHash": "5b6e84ac873ec026480664629dc791f3482cf787a9a801c85e1df531287405b6",
       "spec": {
-        "template": "flow",
-        "title": "Keeping up with AI — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Keeping up with AI",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Keeping up with AI",
+        "actors": [
+          "log",
+          "date",
+          "what"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Keeping up with AI [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Keeping up with AI [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "New models, prices, features and risks appear every few months.",
+            "activeActor": "log",
+            "messages": [
+              {
+                "from": "log",
+                "to": "date",
+                "label": {
+                  "var": "log",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "date",
+                "to": "what",
+                "label": {
+                  "var": "date",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Follow a few reliable sources.",
+            "activeActor": "date",
+            "messages": [
+              {
+                "from": "log",
+                "to": "date",
+                "label": {
+                  "var": "log",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "date",
+                "to": "what",
+                "label": {
+                  "var": "date",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Keeping up with AI [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Teaching someone else what you learned is one of the best ways to make it.",
+            "activeActor": "what",
+            "messages": [
+              {
+                "from": "log",
+                "to": "date",
+                "label": {
+                  "var": "log",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "date",
+                "to": "what",
+                "label": {
+                  "var": "date",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Keeping up with AI — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Keeping up with AI",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Keeping up with AI",
+        "actors": [
+          "log",
+          "date",
+          "what"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Keeping up with AI [D29.P5.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Keeping up with AI [D29.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "New models, prices, features and risks appear every few months.",
+            "messages": [
+              {
+                "from": "log",
+                "to": "date",
+                "label": "[['2024-05-02', 'tried an 8B local mode…",
+                "tone": "data"
+              },
+              {
+                "from": "date",
+                "to": "what",
+                "label": "'2024-05-02'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "log"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Follow a few reliable sources.",
+            "messages": [
+              {
+                "from": "log",
+                "to": "date",
+                "label": "[['2024-05-02', 'tried an 8B local mode…",
+                "tone": "data"
+              },
+              {
+                "from": "date",
+                "to": "what",
+                "label": "'2024-05-02'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "date"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Keeping up with AI [D29.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say9",
+            "caption": "Teaching someone else what you learned is one of the best ways to make it.",
+            "messages": [
+              {
+                "from": "log",
+                "to": "date",
+                "label": "[['2024-05-02', 'tried an 8B local mode…",
+                "tone": "data"
+              },
+              {
+                "from": "date",
+                "to": "what",
+                "label": "'2024-06-10'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "what"
           }
         ]
       }
@@ -787,224 +949,162 @@
       "partTitle": "Practice time: fit and quantise",
       "codeHash": "31dae55750be6ed01bae1e4f9ecde565892d9d207fd53622861481fb381e8731",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: fit and quantise — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: fit ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: fit and quantise",
+        "actors": [
+          "gpus",
+          "models",
+          ".0"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: fit and quantise [D.Psix.Sone].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: fit ... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Return needed_gb and fits.",
+            "activeActor": "gpus",
+            "messages": [
+              {
+                "from": "gpus",
+                "to": "models",
+                "label": {
+                  "var": "gpus",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "models",
+                "to": ".0",
+                "label": {
+                  "var": "models",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates model during execution.",
+            "activeActor": "models",
+            "messages": [
+              {
+                "from": "gpus",
+                "to": "models",
+                "label": {
+                  "var": "gpus",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "models",
+                "to": ".0",
+                "label": {
+                  "var": "models",
+                  "line": 3,
+                  "hit": 6
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: fit and quantise.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Knowing the numbers lets you have informed conversations about AI hardware.",
+            "activeActor": ".0",
+            "messages": [
+              {
+                "from": "gpus",
+                "to": "models",
+                "label": {
+                  "var": "gpus",
+                  "line": 3,
+                  "hit": 6
+                },
+                "tone": "data"
+              },
+              {
+                "from": "models",
+                "to": ".0",
+                "label": {
+                  "var": "models",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: fit and quantise — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: fit ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: fit and quantise",
+        "actors": [
+          "gpus",
+          "models",
+          ".0"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: fit and quantise [D29.P6.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: fit ... [D29.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Return needed_gb and fits.",
+            "messages": [
+              {
+                "from": "gpus",
+                "to": "models",
+                "label": "[6, 12, 24, 48]",
+                "tone": "data"
+              },
+              {
+                "from": "models",
+                "to": ".0",
+                "label": "[3, 8, 13, 70]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "gpus"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Trace how checks updates model during execution.",
+            "messages": [
+              {
+                "from": "gpus",
+                "to": "models",
+                "label": "[6, 12, 24, 48]",
+                "tone": "data"
+              },
+              {
+                "from": "models",
+                "to": ".0",
+                "label": "[3, 8, 13, 70]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "models"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: fit and quantise [D29.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say9",
+            "caption": "Knowing the numbers lets you have informed conversations about AI hardware.",
+            "messages": [
+              {
+                "from": "gpus",
+                "to": "models",
+                "label": "[6, 12, 24, 48]",
+                "tone": "data"
+              },
+              {
+                "from": "models",
+                "to": ".0",
+                "label": "[3, 8, 13, 70]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": ".0"
           }
         ]
       }

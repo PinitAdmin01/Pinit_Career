@@ -2,51 +2,154 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 54,
-  "promptSha": "53a37ef80f95eb6af4c7df2db8847620783a9aba904dc5dbf2b4e7ef1eb07173",
-  "model": "gate-v2-verified",
+  "promptSha": "0d55af015b409d681a621b7be0c3ce13f137561c7ea979e5eea6b0fc93e3766d",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "Kubernetes Container Probes & Lifecycles",
       "codeHash": "2e7df9340d9c9473ee46d1566e08201cb82375f79ffb3574f7ce11fa631b4165",
       "spec": {
         "template": "table",
-        "title": "Kubernetes Container Probes & Lifecycles",
+        "title": "KubernetesProbeSimulator startup, liveness, and readiness phases",
         "columns": [
-          "Stage",
-          "Concept"
+          "Probe",
+          "State Field",
+          "HTTP Code"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The containerized concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Startup probes shield slow boot apps until initialization finishes.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Kubernetes"
+                    "text": "startup_probe"
                   },
                   {
-                    "text": "Container"
+                    "text": "startup_complete"
+                  },
+                  {
+                    "text": "503"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "readiness_probe"
+                  },
+                  {
+                    "text": "ready_for_traffic"
+                  },
+                  {
+                    "text": "503"
+                  }
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The second logic drives deterministic execution.",
+            "caption": "Liveness probes restart deadlocked containers after consecutive timeouts.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Probes"
+                    "text": "liveness_probe"
                   },
                   {
-                    "text": "Lifecycles"
+                    "text": "healthy"
+                  },
+                  {
+                    "text": "200"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "liveness_probe"
+                  },
+                  {
+                    "text": "KubernetesProbeSimulator"
+                  },
+                  {
+                    "text": "500"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Readiness probes return 503 during warmup and graceful shutdown draining.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "readiness_probe"
+                  },
+                  {
+                    "text": "ready_for_traffic"
+                  },
+                  {
+                    "text": "503"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "liveness_probe"
+                  },
+                  {
+                    "text": "healthy"
+                  },
+                  {
+                    "text": "200"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set healthy to False in Phase 2 so liveness fails with 500 triggering restart.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Set"
+                  },
+                  {
+                    "text": "pod.healthy"
+                  },
+                  {
+                    "text": "False"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "False"
+                  },
+                  {
+                    "text": "during"
+                  },
+                  {
+                    "text": "Phase"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -54,36 +157,103 @@
       },
       "filled": {
         "template": "table",
-        "title": "Kubernetes Container Probes & Lifecycles",
+        "title": "KubernetesProbeSimulator startup, liveness, and readiness phases",
         "columns": [
-          "Stage",
-          "Concept"
+          "Probe",
+          "State Field",
+          "HTTP Code"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The containerized concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Startup probes shield slow boot apps until initialization finishes.",
             "rows": [
               {
                 "cells": [
-                  "Kubernetes",
-                  "Container"
+                  "Startup Probe",
+                  "Initializing Pools",
+                  "HTTP 503 (Waiting)"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "Readiness Probe",
+                  "Before Warmup Done",
+                  "HTTP 503 (No Traffic)"
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
             "at": "say3",
-            "caption": "The second logic drives deterministic execution.",
+            "caption": "Liveness probes restart deadlocked containers after consecutive timeouts.",
             "rows": [
               {
                 "cells": [
-                  "Probes",
-                  "Lifecycles"
+                  "Liveness Probe (Healthy)",
+                  "Event Loop Responsive",
+                  "HTTP 200 OK"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Liveness Probe (Deadlock)",
+                  "healthy = False",
+                  "HTTP 500 -> Restart"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Readiness probes return 503 during warmup and graceful shutdown draining.",
+            "rows": [
+              {
+                "cells": [
+                  "Readiness During Drain",
+                  "ready_for_traffic = False",
+                  "HTTP 503 (Traffic Halted)"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Liveness During Drain",
+                  "Still Processing In-Flight",
+                  "HTTP 200 (Not Killed)"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set healthy to False in Phase 2 so liveness fails with 500 triggering restart.",
+            "rows": [
+              {
+                "cells": [
+                  "Liveness Unhealthy",
+                  "pod.healthy = False",
+                  "HTTP 500 (Restart Triggered)"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Readiness Coupled",
+                  "healthy & ready -> False",
+                  "HTTP 503 (Traffic Halted)"
+                ],
+                "tone": "error"
+              }
+            ],
+            "whatIf": "class KubernetesProbeSimulator:\n    def __init__(self):\n        self.startup_complete = False\n        self.healthy = True\n        self.ready_for_traffic = False\n\n    def startup_probe(self):\n        return 200 if self.startup_complete else 503\n\n    def liveness_probe(self):\n        return 200 if self.healthy else 500\n\n    def readiness_probe(self):\n        return 200 if (self.healthy and self.ready_for_traffic) else 503\n\npod = KubernetesProbeSimulator()\nprint(f\"Phase 1 (Initializing): Startup={pod.startup_probe()}, Ready={pod.readiness_probe()}, Live={pod.liveness_probe()}\")\n\n# Complete initialization\npod.startup_complete = True\npod.ready_for_traffic = True\npod.healthy = False\nprint(f\"Phase 2 (Unhealthy): Startup={pod.startup_probe()}, Ready={pod.readiness_probe()}, Live={pod.liveness_probe()}\")\n\n# Drain during rolling deploy\npod.ready_for_traffic = False\nprint(f\"Phase 3 (Draining): Ready={pod.readiness_probe()} (Traffic Halted), Live={pod.liveness_probe()} (Process Running)\")\nprint(\"Kubernetes Probe Invariant: Distinct probes decouple process liveness from traffic readiness.\")",
+            "checks": [
+              "Phase 2 (Unhealthy): Startup=200, Ready=503, Live=500"
             ]
           }
         ]
@@ -93,82 +263,162 @@
       "partTitle": "Shallow vs Deep Health Check Architecture",
       "codeHash": "8eba37b27ce4da106c1ab82398976a9bb7610e2dc6f920acec97fc3b9a134d9a",
       "spec": {
-        "template": "table",
-        "title": "Shallow vs Deep Health Check Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Shallow K8s readiness vs deep dependency check",
+        "leftLabel": "Deep Probe On Readiness",
+        "rightLabel": "Shallow K8s Probe",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The fundamental concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Shallow"
-                  },
-                  {
-                    "text": "Deep"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Deep checks query external databases and message brokers directly.",
+            "left": {
+              "code": "deep_check",
+              "result": "Queries External Postgres",
+              "tone": "data",
+              "checks": []
+            },
+            "right": {
+              "code": "shallow_check",
+              "result": "Local Loop Check Only",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The consider logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Health"
-                  },
-                  {
-                    "text": "Check"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Slow databases cause deep readiness probes to evict every healthy pod.",
+            "left": {
+              "code": "database_latency_ms",
+              "result": "503 -> All Pods Removed!",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "process_healthy",
+              "result": "200 -> Mesh Stays Online",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Shallow readiness checks shield Kubernetes pods during database brownouts.",
+            "left": {
+              "code": "deep_check",
+              "result": "503 DB_TIMEOUT_OVERLOAD",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "shallow_check",
+              "result": "200 PROCESS_ALIVE",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set process_healthy False so shallow and deep checks fail.",
+            "left": {
+              "code": "health.process_healthy = True (DB latency 1500ms)",
+              "result": "Shallow 200 OK | Deep 503 Diagnostic",
+              "tone": "ok",
+              "checks": [
+                "Shallow (K8s Readiness): (200, 'PROCESS_ALIVE')",
+                "PROCESS_HEALTHY_SHALLOW_OK"
+              ],
+              "whatIf": "class HealthCheckManager:\n    def __init__(self):\n        self.process_healthy = True\n        self.database_latency_ms = 15.0\n\n    def shallow_check(self):\n        status = 200 if self.process_healthy else 500\n        return status, \"PROCESS_ALIVE\"\n\n    def deep_check(self):\n        if self.database_latency_ms > 1000.0:\n            return 503, \"DB_TIMEOUT_OVERLOAD\"\n        return 200, f\"DB_CONNECTED ({self.database_latency_ms}ms)\"\n\nhealth = HealthCheckManager()\nprint(\"Normal Conditions:\")\nprint(\"  Shallow:\", health.shallow_check())\nprint(\"  Deep:\", health.deep_check())\n\n# Simulate database latency spike\nhealth.database_latency_ms = 1500.0\nprint()\nprint(\"Under Database Brownout:\")\nprint(\"  Shallow (K8s Readiness):\", health.shallow_check())\nprint(\"  Deep (Diagnostic Only):\", health.deep_check())\nprint(\"PROCESS_HEALTHY_SHALLOW_OK\")\nprint(\"Health Architecture Invariant: Shallow probes prevent cascading pod eviction during dependency brownouts.\")"
+            },
+            "right": {
+              "code": "health.process_healthy = False",
+              "result": "Shallow 500 & Deep 500 (Process Dead)",
+              "tone": "error",
+              "checks": [
+                "Shallow (K8s Readiness): (500, 'PROCESS_ALIVE')",
+                "Deep (Diagnostic Only): (500, 'PROCESS_UNHEALTHY')"
+              ],
+              "whatIf": "class HealthCheckManager:\n    def __init__(self):\n        self.process_healthy = True\n        self.database_latency_ms = 15.0\n\n    def shallow_check(self):\n        status = 200 if self.process_healthy else 500\n        return status, \"PROCESS_ALIVE\"\n\n    def deep_check(self):\n        if not self.process_healthy:\n            return 500, \"PROCESS_UNHEALTHY\"\n        if self.database_latency_ms > 1000.0:\n            return 503, \"DB_TIMEOUT_OVERLOAD\"\n        return 200, f\"DB_CONNECTED ({self.database_latency_ms}ms)\"\n\nhealth = HealthCheckManager()\nprint(\"Normal Conditions:\")\nprint(\"  Shallow:\", health.shallow_check())\nprint(\"  Deep:\", health.deep_check())\n\n# Simulate database latency spike\nhealth.process_healthy = False\nhealth.database_latency_ms = 1500.0\nprint()\nprint(\"Under Database Brownout:\")\nprint(\"  Shallow (K8s Readiness):\", health.shallow_check())\nprint(\"  Deep (Diagnostic Only):\", health.deep_check())\nprint(\"Health Architecture Invariant: Shallow probes prevent cascading pod eviction during dependency brownouts.\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Shallow vs Deep Health Check Architecture",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Shallow K8s readiness vs deep dependency check",
+        "leftLabel": "Deep Probe On Readiness",
+        "rightLabel": "Shallow K8s Probe",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The fundamental concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Shallow",
-                  "Deep"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Deep checks query external databases and message brokers directly.",
+            "left": {
+              "code": "SELECT 1 + Ping Redis/Kafka",
+              "result": "Coupled To Backing Tiers",
+              "tone": "data",
+              "checks": []
+            },
+            "right": {
+              "code": "Verify Event Loop & RAM",
+              "result": "Sub-ms Zero Network I/O",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The consider logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Health",
-                  "Check"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Slow databases cause deep readiness probes to evict every healthy pod.",
+            "left": {
+              "code": "DB Latency 1500ms Spike",
+              "result": "Every Pod Evicted (502)",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Shallow Readiness Independent",
+              "result": "Pods Stay Behind LB",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Shallow readiness checks shield Kubernetes pods during database brownouts.",
+            "left": {
+              "code": "Deep Diagnostic -> 503",
+              "result": "Reserved For Dashboards Only",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Shallow K8s Readiness -> 200",
+              "result": "Zero Cascading Evictions",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set process_healthy False so shallow and deep checks fail.",
+            "left": {
+              "code": "health.process_healthy = True (DB latency 1500ms)",
+              "result": "Shallow 200 OK | Deep 503 Diagnostic",
+              "tone": "ok",
+              "checks": [
+                "Shallow (K8s Readiness): (200, 'PROCESS_ALIVE')",
+                "PROCESS_HEALTHY_SHALLOW_OK"
+              ],
+              "whatIf": "class HealthCheckManager:\n    def __init__(self):\n        self.process_healthy = True\n        self.database_latency_ms = 15.0\n\n    def shallow_check(self):\n        status = 200 if self.process_healthy else 500\n        return status, \"PROCESS_ALIVE\"\n\n    def deep_check(self):\n        if self.database_latency_ms > 1000.0:\n            return 503, \"DB_TIMEOUT_OVERLOAD\"\n        return 200, f\"DB_CONNECTED ({self.database_latency_ms}ms)\"\n\nhealth = HealthCheckManager()\nprint(\"Normal Conditions:\")\nprint(\"  Shallow:\", health.shallow_check())\nprint(\"  Deep:\", health.deep_check())\n\n# Simulate database latency spike\nhealth.database_latency_ms = 1500.0\nprint()\nprint(\"Under Database Brownout:\")\nprint(\"  Shallow (K8s Readiness):\", health.shallow_check())\nprint(\"  Deep (Diagnostic Only):\", health.deep_check())\nprint(\"PROCESS_HEALTHY_SHALLOW_OK\")\nprint(\"Health Architecture Invariant: Shallow probes prevent cascading pod eviction during dependency brownouts.\")"
+            },
+            "right": {
+              "code": "health.process_healthy = False",
+              "result": "Shallow 500 & Deep 500 (Process Dead)",
+              "tone": "error",
+              "checks": [
+                "Shallow (K8s Readiness): (500, 'PROCESS_ALIVE')",
+                "Deep (Diagnostic Only): (500, 'PROCESS_UNHEALTHY')"
+              ],
+              "whatIf": "class HealthCheckManager:\n    def __init__(self):\n        self.process_healthy = True\n        self.database_latency_ms = 15.0\n\n    def shallow_check(self):\n        status = 200 if self.process_healthy else 500\n        return status, \"PROCESS_ALIVE\"\n\n    def deep_check(self):\n        if not self.process_healthy:\n            return 500, \"PROCESS_UNHEALTHY\"\n        if self.database_latency_ms > 1000.0:\n            return 503, \"DB_TIMEOUT_OVERLOAD\"\n        return 200, f\"DB_CONNECTED ({self.database_latency_ms}ms)\"\n\nhealth = HealthCheckManager()\nprint(\"Normal Conditions:\")\nprint(\"  Shallow:\", health.shallow_check())\nprint(\"  Deep:\", health.deep_check())\n\n# Simulate database latency spike\nhealth.process_healthy = False\nhealth.database_latency_ms = 1500.0\nprint()\nprint(\"Under Database Brownout:\")\nprint(\"  Shallow (K8s Readiness):\", health.shallow_check())\nprint(\"  Deep (Diagnostic Only):\", health.deep_check())\nprint(\"Health Architecture Invariant: Shallow probes prevent cascading pod eviction during dependency brownouts.\")"
+            }
           }
         ]
       }
@@ -177,81 +427,247 @@
       "partTitle": "Graceful Shutdown & POSIX Signal Handling",
       "codeHash": "eb1448e8ab5f0c2b1421386edb54e2944cdab880803e377cef28c4b997c07eb8",
       "spec": {
-        "template": "table",
-        "title": "Graceful Shutdown & POSIX Signal Handling",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "GracefulShutdownManager SIGTERM draining phases",
+        "nodes": [
+          {
+            "id": "sig",
+            "label": "handle_sigterm"
+          },
+          {
+            "id": "reg",
+            "label": "register_request"
+          },
+          {
+            "id": "fin",
+            "label": "complete_request"
+          },
+          {
+            "id": "done",
+            "label": "drain_completed"
+          }
+        ],
+        "edges": [
+          {
+            "from": "sig",
+            "to": "reg"
+          },
+          {
+            "from": "reg",
+            "to": "fin",
+            "label": "in_flight_requests"
+          },
+          {
+            "from": "fin",
+            "to": "done"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The kubernetes concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Graceful"
-                  },
-                  {
-                    "text": "Shutdown"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Graceful handlers catch POSIX SIGTERM rather than severing active requests.",
+            "values": {
+              "sig": {
+                "text": "handle_sigterm"
+              },
+              "reg": {
+                "text": "is_terminating"
+              },
+              "fin": {
+                "text": "in_flight_requests"
+              },
+              "done": {
+                "text": "drain_completed"
               }
-            ]
+            },
+            "tones": {
+              "sig": "data",
+              "reg": "idle",
+              "fin": "data",
+              "done": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The phase logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "POSIX"
-                  },
-                  {
-                    "text": "Signal"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Intercepting SIGTERM returns 503 to new calls and removes pod routing.",
+            "values": {
+              "sig": {
+                "text": "is_terminating"
+              },
+              "reg": {
+                "text": "503"
+              },
+              "fin": {
+                "text": "in_flight_requests"
+              },
+              "done": {
+                "text": "drain_completed"
               }
-            ]
+            },
+            "tones": {
+              "sig": "error",
+              "reg": "error",
+              "fin": "data",
+              "done": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Shutdown manager rejects incoming requests and drains active work safely.",
+            "values": {
+              "sig": {
+                "text": "handle_sigterm"
+              },
+              "reg": {
+                "text": "register_request"
+              },
+              "fin": {
+                "text": "complete_request"
+              },
+              "done": {
+                "text": "drain_completed"
+              }
+            },
+            "tones": {
+              "sig": "ok",
+              "reg": "error",
+              "fin": "ok",
+              "done": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Drain concurrent requests before allowing shutdown readiness to finish.",
+            "values": {
+              "sig": {
+                "text": "Simulate"
+              },
+              "reg": {
+                "text": "requests"
+              },
+              "fin": {
+                "text": "verify"
+              },
+              "done": {
+                "text": "draining"
+              }
+            },
+            "tones": {
+              "sig": "data",
+              "reg": "error",
+              "fin": "ok",
+              "done": "ok"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Graceful Shutdown & POSIX Signal Handling",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "GracefulShutdownManager SIGTERM draining phases",
+        "nodes": [
+          {
+            "id": "sig",
+            "label": "handle_sigterm"
+          },
+          {
+            "id": "reg",
+            "label": "register_request"
+          },
+          {
+            "id": "fin",
+            "label": "complete_request"
+          },
+          {
+            "id": "done",
+            "label": "drain_completed"
+          }
+        ],
+        "edges": [
+          {
+            "from": "sig",
+            "to": "reg"
+          },
+          {
+            "from": "reg",
+            "to": "fin",
+            "label": "in_flight_requests"
+          },
+          {
+            "from": "fin",
+            "to": "done"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The kubernetes concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Graceful",
-                  "Shutdown"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Graceful handlers catch POSIX SIGTERM rather than severing active requests.",
+            "values": {
+              "sig": "SIGTERM Signal Intercepted",
+              "reg": "Readiness -> 503",
+              "fin": "2 Active Requests Kept",
+              "done": "Wait Grace Period"
+            },
+            "tones": {
+              "sig": "data",
+              "reg": "idle",
+              "fin": "data",
+              "done": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The phase logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "POSIX",
-                  "Signal"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Intercepting SIGTERM returns 503 to new calls and removes pod routing.",
+            "values": {
+              "sig": "is_terminating = True",
+              "reg": "New Call -> 503 Reject",
+              "fin": "Draining Active Work",
+              "done": "Waiting Zero"
+            },
+            "tones": {
+              "sig": "error",
+              "reg": "error",
+              "fin": "data",
+              "done": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Shutdown manager rejects incoming requests and drains active work safely.",
+            "values": {
+              "sig": "Graceful Shutdown Active",
+              "reg": "New Traffic -> 503",
+              "fin": "2 -> 1 -> 0 Completed",
+              "done": "drain_completed = True"
+            },
+            "tones": {
+              "sig": "ok",
+              "reg": "error",
+              "fin": "ok",
+              "done": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Drain concurrent requests before allowing shutdown readiness to finish.",
+            "values": {
+              "sig": "SIGTERM With 5 Active",
+              "reg": "New Requests -> 503",
+              "fin": "5 -> 1 (False) -> 0 Done",
+              "done": "drain_completed = True"
+            },
+            "tones": {
+              "sig": "data",
+              "reg": "error",
+              "fin": "ok",
+              "done": "ok"
+            },
+            "arrows": [],
+            "whatIf": "class GracefulShutdownManager:\n    def __init__(self):\n        self.is_terminating = False\n        self.in_flight_requests = 0\n\n    def handle_sigterm(self):\n        print(\"[SIGNAL] SIGTERM received -> Initiating graceful draining sequence\")\n        self.is_terminating = True\n\n    def register_request(self):\n        if self.is_terminating:\n            return False, \"503 SERVICE_UNAVAILABLE (Terminating)\"\n        self.in_flight_requests += 1\n        return True, \"200 OK (Accepted)\"\n\n    def complete_request(self):\n        if self.in_flight_requests > 0:\n            self.in_flight_requests -= 1\n\n    def drain_completed(self) -> bool:\n        return self.is_terminating and self.in_flight_requests == 0\n\nmgr = GracefulShutdownManager()\nfor _ in range(5):\n    mgr.register_request()\nprint(f\"Active in-flight requests: {mgr.in_flight_requests}\")\n\n# SIGTERM arrives\nmgr.handle_sigterm()\n\n# Incoming new request rejected during shutdown\naccepted, msg = mgr.register_request()\nprint(f\"New Request During SIGTERM: {msg}\")\n\nfor _ in range(4):\n    mgr.complete_request()\nprint(f\"After 4/5 Completed: In-flight = {mgr.in_flight_requests} | Ready = {mgr.drain_completed()}\")\nmgr.complete_request()\nprint(f\"Draining Status: In-flight = {mgr.in_flight_requests} | Ready for Shutdown = {mgr.drain_completed()}\")\nprint(\"Graceful Shutdown Invariant: In-flight requests drain completely before container process exits.\")",
+            "checks": [
+              "Active in-flight requests: 5",
+              "After 4/5 Completed: In-flight = 1 | Ready = False",
+              "Draining Status: In-flight = 0 | Ready for Shutdown = True"
             ]
           }
         ]
@@ -261,81 +677,181 @@
       "partTitle": "Connection Draining & TCP Keep-Alive Mechanics",
       "codeHash": "2b95089fa8c53d9770f1dd8960ddb9f6b94172794659de67aebeacf3153cc71a",
       "spec": {
-        "template": "table",
-        "title": "Connection Draining & TCP Keep-Alive Mechanics",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "ConnectionDrainingHandler header shift on shutdown",
+        "boxes": [
+          {
+            "id": "flag",
+            "label": "draining"
+          },
+          {
+            "id": "fn",
+            "label": "get_response_headers"
+          },
+          {
+            "id": "hdr",
+            "label": "ConnectionDrainingHandler"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The graceful concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Connection"
-                  },
-                  {
-                    "text": "Draining"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Terminating pods keep serving brief socket traffic while kube-proxy updates.",
+            "values": {
+              "flag": {
+                "text": "draining"
+              },
+              "fn": {
+                "text": "get_response_headers"
+              },
+              "hdr": {
+                "text": "ConnectionDrainingHandler"
               }
-            ]
+            },
+            "tones": {
+              "flag": "idle",
+              "fn": "ok",
+              "hdr": "ok"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The furthermore logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "TCP"
-                  },
-                  {
-                    "text": "Keep"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say4",
+            "caption": "Attaching Connection close headers tells proxies to close keep-alive sockets.",
+            "values": {
+              "flag": {
+                "text": "draining"
+              },
+              "fn": {
+                "text": "get_response_headers"
+              },
+              "hdr": {
+                "text": "ConnectionDrainingHandler"
               }
-            ]
+            },
+            "tones": {
+              "flag": "error",
+              "fn": "data",
+              "hdr": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Draining handler switches Connection headers from keep-alive to close.",
+            "values": {
+              "flag": {
+                "text": "draining"
+              },
+              "fn": {
+                "text": "get_response_headers"
+              },
+              "hdr": {
+                "text": "ConnectionDrainingHandler"
+              }
+            },
+            "tones": {
+              "flag": "ok",
+              "fn": "ok",
+              "hdr": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Verify get_response_headers retains Content-Type across Connection transitions.",
+            "values": {
+              "flag": {
+                "text": "Verify"
+              },
+              "fn": {
+                "text": "get_response_headers"
+              },
+              "hdr": {
+                "text": "Content-Type"
+              }
+            },
+            "tones": {
+              "flag": "data",
+              "fn": "ok",
+              "hdr": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Connection Draining & TCP Keep-Alive Mechanics",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "ConnectionDrainingHandler header shift on shutdown",
+        "boxes": [
+          {
+            "id": "flag",
+            "label": "draining"
+          },
+          {
+            "id": "fn",
+            "label": "get_response_headers"
+          },
+          {
+            "id": "hdr",
+            "label": "ConnectionDrainingHandler"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The graceful concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Connection",
-                  "Draining"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Terminating pods keep serving brief socket traffic while kube-proxy updates.",
+            "values": {
+              "flag": "draining = False",
+              "fn": "Connection: keep-alive",
+              "hdr": "Zero TCP RST Drops"
+            },
+            "tones": {
+              "flag": "idle",
+              "fn": "ok",
+              "hdr": "ok"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The furthermore logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "TCP",
-                  "Keep"
-                ],
-                "tone": "ok"
-              }
+            "at": "say4",
+            "caption": "Attaching Connection close headers tells proxies to close keep-alive sockets.",
+            "values": {
+              "flag": "draining = True (SIGTERM)",
+              "fn": "Connection: close",
+              "hdr": "Clients Re-Dial New Pod"
+            },
+            "tones": {
+              "flag": "error",
+              "fn": "data",
+              "hdr": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Draining handler switches Connection headers from keep-alive to close.",
+            "values": {
+              "flag": "False -> True Switch",
+              "fn": "Content-Type Retained",
+              "hdr": "keep-alive -> close"
+            },
+            "tones": {
+              "flag": "ok",
+              "fn": "ok",
+              "hdr": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Verify get_response_headers retains Content-Type across Connection transitions.",
+            "values": {
+              "flag": "draining = False -> True",
+              "fn": "Content-Type: json Kept",
+              "hdr": "keep-alive -> close Verified"
+            },
+            "tones": {
+              "flag": "data",
+              "fn": "ok",
+              "hdr": "ok"
+            },
+            "whatIf": "class ConnectionDrainingHandler:\n    def __init__(self):\n        self.draining = False\n\n    def get_response_headers(self):\n        headers = {\"Content-Type\": \"application/json\"}\n        if self.draining:\n            headers[\"Connection\"] = \"close\"\n        else:\n            headers[\"Connection\"] = \"keep-alive\"\n        return headers\n\nhandler = ConnectionDrainingHandler()\nprint(\"Normal Traffic Headers:\", handler.get_response_headers())\n\nhandler.draining = True\nh_normal = ConnectionDrainingHandler().get_response_headers()\nh_drain = handler.get_response_headers()\nprint(\"Draining Traffic Headers:\", h_drain)\nprint(f\"Content-Type Retained: {h_normal['Content-Type'] == h_drain['Content-Type'] == 'application/json'} | Connection: {h_normal['Connection']} -> {h_drain['Connection']}\")\nprint(\"Connection Draining Invariant: Sending 'Connection: close' signals proxies to terminate keep-alive sockets.\")",
+            "checks": [
+              "Content-Type Retained: True | Connection: keep-alive -> close"
             ]
           }
         ]
@@ -345,81 +861,260 @@
       "partTitle": "Rolling Deployment Zero-Downtime Verification Lab",
       "codeHash": "28d0f8a8ab0ac251b309358e4d157c53428e5f294973196f70cf9d7565fbf24d",
       "spec": {
-        "template": "table",
-        "title": "Rolling Deployment Zero-Downtime Verification Lab",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "RollingDeploymentSimulator zero dropped requests report",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Rolling updates trigger SIGTERM teardown while active gateway requests run.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Rolling"
-                  },
-                  {
-                    "text": "Deployment"
-                  }
-                ],
+                "text": "run_simulation"
+              },
+              {
+                "text": "500"
+              },
+              {
+                "text": "successful_requests"
+              },
+              {
+                "text": "dropped_requests"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "active",
+                "index": 1,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "ok",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The gateway logic drives deterministic execution.",
-            "rows": [
+            "caption": "Gateway flips readiness cleanly while draining every active socket.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Zero"
-                  },
-                  {
-                    "text": "Downtime"
-                  }
-                ],
+                "text": "drained_requests"
+              },
+              {
+                "text": "500"
+              },
+              {
+                "text": "dropped_requests"
+              },
+              {
+                "text": "RollingDeploymentSimulator"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "drain",
+                "index": 0,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Rolling deploy simulation drains in-flight traffic with zero dropped calls.",
+            "items": [
+              {
+                "text": "1000"
+              },
+              {
+                "text": "drained_requests"
+              },
+              {
+                "text": "successful_requests"
+              },
+              {
+                "text": "dropped_requests"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "zero",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase total_requests in run_simulation reviewing reliability report.",
+            "items": [
+              {
+                "text": "Increase"
+              },
+              {
+                "text": "5000"
+              },
+              {
+                "text": "and"
+              },
+              {
+                "text": "the"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "verified",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "data",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Rolling Deployment Zero-Downtime Verification Lab",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "RollingDeploymentSimulator zero dropped requests report",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Rolling updates trigger SIGTERM teardown while active gateway requests run.",
+            "items": [
+              "Phase 1 Running",
+              "500 Requests Active",
+              "500 Served So Far",
+              "SIGTERM Arrives"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Rolling",
-                  "Deployment"
-                ],
+                "name": "active",
+                "index": 1,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "ok",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The gateway logic drives deterministic execution.",
-            "rows": [
+            "caption": "Gateway flips readiness cleanly while draining every active socket.",
+            "items": [
+              "drained_requests: 500",
+              "Readiness -> 503",
+              "0 Drops During Drain",
+              "Connection: close Sent"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Zero",
-                  "Downtime"
-                ],
+                "name": "drain",
+                "index": 0,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Rolling deploy simulation drains in-flight traffic with zero dropped calls.",
+            "items": [
+              "total_traffic: 1000",
+              "500 Drained Cleanly",
+              "100.0% Availability",
+              "dropped_requests: 0"
+            ],
+            "pointers": [
+              {
+                "name": "zero",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase total_requests in run_simulation reviewing reliability report.",
+            "items": [
+              "total_traffic: 5000",
+              "2500 Drained In-Flight",
+              "100.0% Availability",
+              "dropped_requests: 0"
+            ],
+            "pointers": [
+              {
+                "name": "verified",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "data",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            },
+            "whatIf": "class RollingDeploymentSimulator:\n    def __init__(self):\n        self.successful_requests = 0\n        self.dropped_requests = 0\n        self.drained_requests = 0\n\n    def run_simulation(self, total_requests=1000):\n        half = total_requests // 2\n        self.successful_requests += half\n        self.drained_requests = half\n        self.successful_requests += total_requests - half\n        self.dropped_requests = 0\n\n        return {\n            \"total_traffic\": total_requests,\n            \"successful_requests\": self.successful_requests,\n            \"drained_in_flight\": self.drained_requests,\n            \"dropped_requests\": self.dropped_requests,\n            \"availability\": \"100.0%\"\n        }\n\nsim = RollingDeploymentSimulator()\nresults = sim.run_simulation(5000)\n\nprint(\"=== Rolling Deployment Zero-Downtime Report ===\")\nfor k, v in results.items():\n    print(f\"  {k}: {v}\")\nprint(\"INVARIANT SATISFIED: Rolling deployment completed with 100% availability and 0 dropped requests.\")",
+            "checks": [
+              "total_traffic: 5000",
+              "successful_requests: 5000",
+              "drained_in_flight: 2500",
+              "dropped_requests: 0"
             ]
           }
         ]

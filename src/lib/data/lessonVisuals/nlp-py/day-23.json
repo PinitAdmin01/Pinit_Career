@@ -2,256 +2,284 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 23,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Contextual embeddings",
       "codeHash": "710f12de6e5f3a5630d3043d6002a57652759b4004d32e19b2f896eae3ebcba4",
       "spec": {
-        "template": "table",
-        "title": "Contextual semantic shifts and word representation sensitivity",
-        "columns": [
-          "nature",
-          "money"
+        "template": "flow",
+        "title": "Contextual embeddings",
+        "nodes": [
+          {
+            "id": "context_votes",
+            "label": "context_votes"
+          },
+          {
+            "id": "sentence",
+            "label": "sentence"
+          },
+          {
+            "id": "totals",
+            "label": "totals"
+          },
+          {
+            "id": "w",
+            "label": "w"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Traditional embeddings assign static vectors regardless of bank contexts.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "nature"
-                  },
-                  {
-                    "text": "money"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Word2Vec and GloVe give \"bank\" one vector, whether it means a river bank.",
+            "values": {
+              "context_votes": {
+                "var": "context_votes",
+                "line": 1,
+                "hit": 1
+              },
+              "sentence": {
+                "var": "sentence",
+                "line": 6,
+                "hit": 1
+              },
+              "totals": {
+                "var": "totals",
+                "line": 6,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "context_votes": "data",
+              "sentence": "data",
+              "totals": "data",
+              "w": "data"
+            },
+            "arrows": [
+              [
+                "context_votes",
+                "sentence"
+              ],
+              [
+                "sentence",
+                "totals"
+              ],
+              [
+                "totals",
+                "w"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Contextual models yield dynamic vectors that depend on the sentence.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "nature"
-                  },
-                  {
-                    "text": "money"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "BERT (Bidirectional Encoder Representations from Transformers, Devlin.",
+            "values": {
+              "context_votes": {
+                "var": "context_votes",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "river"
-                  },
-                  {
-                    "text": "water"
-                  }
-                ],
-                "tone": "ok"
+              "sentence": {
+                "var": "sentence",
+                "line": 7,
+                "hit": 1
+              },
+              "totals": {
+                "var": "totals",
+                "line": 7,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "context_votes": "data",
+              "sentence": "data",
+              "totals": "data",
+              "w": "data"
+            },
+            "arrows": [
+              [
+                "context_votes",
+                "sentence"
+              ],
+              [
+                "sentence",
+                "totals"
+              ],
+              [
+                "totals",
+                "w"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Self-attention mixes surrounding context words into the vector representation.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "nature"
-                  },
-                  {
-                    "text": "money"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example shows how context words would pull the meaning of \"bank\".",
+            "values": {
+              "context_votes": {
+                "var": "context_votes",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "river"
-                  },
-                  {
-                    "text": "water"
-                  }
-                ],
-                "tone": "ok"
+              "sentence": {
+                "var": "sentence",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "account"
-                  },
-                  {
-                    "text": "opened"
-                  }
-                ],
-                "tone": "data"
+              "totals": {
+                "var": "totals",
+                "line": 8,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Pre-training taught language knowledge before you fine-tune the task.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "nature"
-                  },
-                  {
-                    "text": "money"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "river"
-                  },
-                  {
-                    "text": "water"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "account"
-                  },
-                  {
-                    "text": "opened"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "totals"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "context_votes": "ok",
+              "sentence": "ok",
+              "totals": "ok",
+              "w": "ok"
+            },
+            "arrows": [
+              [
+                "context_votes",
+                "sentence"
+              ],
+              [
+                "sentence",
+                "totals"
+              ],
+              [
+                "totals",
+                "w"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Contextual semantic shifts and word representation sensitivity",
-        "columns": [
-          "nature",
-          "money"
+        "template": "flow",
+        "title": "Contextual embeddings",
+        "nodes": [
+          {
+            "id": "context_votes",
+            "label": "context_votes"
+          },
+          {
+            "id": "sentence",
+            "label": "sentence"
+          },
+          {
+            "id": "totals",
+            "label": "totals"
+          },
+          {
+            "id": "w",
+            "label": "w"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Traditional embeddings assign static vectors regardless of bank contexts.",
-            "rows": [
-              {
-                "cells": [
-                  "nature",
-                  "money"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Word2Vec and GloVe give \"bank\" one vector, whether it means a river bank.",
+            "values": {
+              "context_votes": "{'river': {'nature': 1}, 'sat': {'natur…",
+              "sentence": "'she sat on the river bank'",
+              "totals": "{'nature': 0, 'money': 0}",
+              "w": "'she'"
+            },
+            "tones": {
+              "context_votes": "data",
+              "sentence": "data",
+              "totals": "data",
+              "w": "data"
+            },
+            "arrows": [
+              [
+                "context_votes",
+                "sentence"
+              ],
+              [
+                "sentence",
+                "totals"
+              ],
+              [
+                "totals",
+                "w"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Contextual models yield dynamic vectors that depend on the sentence.",
-            "rows": [
-              {
-                "cells": [
-                  "nature",
-                  "money"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "river",
-                  "water"
-                ],
-                "tone": "ok"
-              }
+            "caption": "BERT (Bidirectional Encoder Representations from Transformers, Devlin.",
+            "values": {
+              "context_votes": "{'river': {'nature': 1}, 'sat': {'natur…",
+              "sentence": "'she sat on the river bank'",
+              "totals": "{'nature': 0, 'money': 0}",
+              "w": "'she'"
+            },
+            "tones": {
+              "context_votes": "data",
+              "sentence": "data",
+              "totals": "data",
+              "w": "data"
+            },
+            "arrows": [
+              [
+                "context_votes",
+                "sentence"
+              ],
+              [
+                "sentence",
+                "totals"
+              ],
+              [
+                "totals",
+                "w"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Self-attention mixes surrounding context words into the vector representation.",
-            "rows": [
-              {
-                "cells": [
-                  "nature",
-                  "money"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "river",
-                  "water"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "account",
-                  "opened"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Pre-training taught language knowledge before you fine-tune the task.",
-            "rows": [
-              {
-                "cells": [
-                  "nature",
-                  "money"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "river",
-                  "water"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "account",
-                  "opened"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "totals",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example shows how context words would pull the meaning of \"bank\".",
+            "values": {
+              "context_votes": "{'river': {'nature': 1}, 'sat': {'natur…",
+              "sentence": "'she sat on the river bank'",
+              "totals": "{'nature': 0, 'money': 0}",
+              "w": "'sat'"
+            },
+            "tones": {
+              "context_votes": "ok",
+              "sentence": "ok",
+              "totals": "ok",
+              "w": "ok"
+            },
+            "arrows": [
+              [
+                "context_votes",
+                "sentence"
+              ],
+              [
+                "sentence",
+                "totals"
+              ],
+              [
+                "totals",
+                "w"
+              ]
             ]
           }
         ]
@@ -261,143 +289,77 @@
       "partTitle": "Masked language modelling",
       "codeHash": "3979d0aa166206553fbf3f2040f99f6fe99be61e6e03f0ac35c613a5a204057a",
       "spec": {
-        "template": "table",
-        "title": "Masked language modelling token selection and corruption",
-        "columns": [
-          "tokens",
-          "masked"
-        ],
+        "template": "bars",
+        "title": "Masked language modelling",
         "steps": [
           {
             "at": "say1",
-            "caption": "Bidirectional context requires predicting hidden tokens without left bias.",
-            "rows": [
+            "caption": "To learn from both left and right context, BERT cannot simply predict.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "masked"
-                  }
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Masked language models hide words and train the model to predict them.",
-            "rows": [
+            "caption": "Instead it uses a masked language model.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "masked"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "picked"
-                  }
-                ],
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "BERT selects tokens across each sentence for prediction.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example applies the rule to a sentence with a seeded random generator.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "masked"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "picked"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "random"
-                  },
-                  {
-                    "text": "choice"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Representations build good features for every token across sentences.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "masked"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "picked"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "random"
-                  },
-                  {
-                    "text": "choice"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 8,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -405,103 +367,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Masked language modelling token selection and corruption",
-        "columns": [
-          "tokens",
-          "masked"
-        ],
+        "template": "bars",
+        "title": "Masked language modelling",
         "steps": [
           {
             "at": "say1",
-            "caption": "Bidirectional context requires predicting hidden tokens without left bias.",
-            "rows": [
+            "caption": "To learn from both left and right context, BERT cannot simply predict.",
+            "bars": [
               {
-                "cells": [
-                  "tokens",
-                  "masked"
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 0.5442292252959519,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Masked language models hide words and train the model to predict them.",
-            "rows": [
+            "caption": "Instead it uses a masked language model.",
+            "bars": [
               {
-                "cells": [
-                  "tokens",
-                  "masked"
-                ],
+                "label": "i",
+                "value": 3,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "vocab",
-                  "picked"
-                ],
+                "label": "r",
+                "value": 0.5442292252959519,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "BERT selects tokens across each sentence for prediction.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example applies the rule to a sentence with a seeded random generator.",
+            "bars": [
               {
-                "cells": [
-                  "tokens",
-                  "masked"
-                ],
+                "label": "i",
+                "value": 3,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "vocab",
-                  "picked"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "random",
-                  "choice"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Representations build good features for every token across sentences.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens",
-                  "masked"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "vocab",
-                  "picked"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "random",
-                  "choice"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "tokens",
-                  "print"
-                ],
+                "label": "r",
+                "value": 0.5442292252959519,
                 "tone": "ok"
               }
             ]
@@ -513,223 +425,217 @@
       "partTitle": "Counting the masking plan",
       "codeHash": "447c1574e87b88370ca9b81687bbd469403a534747bd66d9c333a806e300418c",
       "spec": {
-        "template": "flow",
-        "title": "Counting the masking plan — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Counting the maskin...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Counting the masking plan",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Counting the masking plan [D.Pthree.Sone].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Counting the maskin... [D.Pthree.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "For a batch of text, it helps to know how many tokens fall in each category.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "selected",
+                "value": {
+                  "var": "selected",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mask",
+                "value": {
+                  "var": "mask",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "rand",
+                "value": {
+                  "var": "rand",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how selected updates round during execution.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "selected",
+                "value": {
+                  "var": "selected",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mask",
+                "value": {
+                  "var": "mask",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rand",
+                "value": {
+                  "var": "rand",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Counting the masking plan.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Small bookkeeping details like this often decide whether numbers in.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "selected",
+                "value": {
+                  "var": "selected",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mask",
+                "value": {
+                  "var": "mask",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rand",
+                "value": {
+                  "var": "rand",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Counting the masking plan — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Counting the maskin...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Counting the masking plan",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Counting the masking plan [D23.P3.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Counting the maskin... [D23.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "For a batch of text, it helps to know how many tokens fall in each category.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1000,
+                "tone": "data"
+              },
+              {
+                "label": "selected",
+                "value": 150,
+                "tone": "data"
+              },
+              {
+                "label": "mask",
+                "value": 120,
+                "tone": "data"
+              },
+              {
+                "label": "rand",
+                "value": 15,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how selected updates round during execution.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "selected",
+                "value": 150,
+                "tone": "ok"
+              },
+              {
+                "label": "mask",
+                "value": 120,
+                "tone": "ok"
+              },
+              {
+                "label": "rand",
+                "value": 15,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Counting the masking plan [D23.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Small bookkeeping details like this often decide whether numbers in.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "selected",
+                "value": 150,
+                "tone": "ok"
+              },
+              {
+                "label": "mask",
+                "value": 120,
+                "tone": "ok"
+              },
+              {
+                "label": "rand",
+                "value": 15,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -739,248 +645,107 @@
       "partTitle": "BERT's input format",
       "codeHash": "ec3da2133870a0593afd45127771bba5ea1eea42df631d1d819c5ddb02a40388",
       "spec": {
-        "template": "table",
-        "title": "BERT special token framing and segment type identifiers",
-        "columns": [
-          "tokens",
-          "segments"
-        ],
+        "template": "cells",
+        "title": "BERT's input format",
         "steps": [
           {
             "at": "say1",
-            "caption": "Special tokens format inputs according to strict structural requirements.",
-            "rows": [
+            "caption": "BERT inputs follow a fixed format built from special tokens.",
+            "items": {
+              "var": "tokens_a",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "segments"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Classification tasks use the summary vector located at the input start.",
-            "rows": [
+            "caption": "[CLS] goes at the start of every input.",
+            "items": {
+              "var": "tokens_a",
+              "line": 3,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "segments"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tokens_a"
-                  },
-                  {
-                    "text": "tokens_b"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Boundary tokens separate two sentences when comparing sentence pairs.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "segments"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tokens_a"
-                  },
-                  {
-                    "text": "tokens_b"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "list"
-                  },
-                  {
-                    "text": "len"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Segment indicators tell the model which sentence each token belongs to.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example builds inputs for a single sentence and for a sentence pair.",
+            "items": {
+              "var": "tokens_a",
+              "line": 7,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "segments"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tokens_a"
-                  },
-                  {
-                    "text": "tokens_b"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "list"
-                  },
-                  {
-                    "text": "len"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bert_input"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "BERT special token framing and segment type identifiers",
-        "columns": [
-          "tokens",
-          "segments"
-        ],
+        "template": "cells",
+        "title": "BERT's input format",
         "steps": [
           {
             "at": "say1",
-            "caption": "Special tokens format inputs according to strict structural requirements.",
-            "rows": [
+            "caption": "BERT inputs follow a fixed format built from special tokens.",
+            "items": [
+              "'hello'",
+              "'world'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "tokens",
-                  "segments"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Classification tasks use the summary vector located at the input start.",
-            "rows": [
+            "caption": "[CLS] goes at the start of every input.",
+            "items": [
+              "'is'",
+              "'it'",
+              "'raining'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "tokens",
-                  "segments"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tokens_a",
-                  "tokens_b"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Boundary tokens separate two sentences when comparing sentence pairs.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens",
-                  "segments"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tokens_a",
-                  "tokens_b"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "list",
-                  "len"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Segment indicators tell the model which sentence each token belongs to.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example builds inputs for a single sentence and for a sentence pair.",
+            "items": [
+              "'is'",
+              "'it'",
+              "'raining'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "tokens",
-                  "segments"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tokens_a",
-                  "tokens_b"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "list",
-                  "len"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "bert_input",
-                  "print"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -991,249 +756,221 @@
       "partTitle": "Fine-tuning BERT",
       "codeHash": "97bf5d90a6acec5d6f506dcefd39fb90f6548d52ff6c28912077dc10a228a61c",
       "spec": {
-        "template": "table",
-        "title": "Downstream task classification heads and token level outputs",
-        "columns": [
-          "task",
-          "head"
+        "template": "flow",
+        "title": "Fine-tuning BERT",
+        "nodes": [
+          {
+            "id": "tasks",
+            "label": "tasks"
+          },
+          {
+            "id": "task",
+            "label": "task"
+          },
+          {
+            "id": "head",
+            "label": "head"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fine-tuning adapts pre-trained weights by training on labelled data.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "task"
-                  },
-                  {
-                    "text": "head"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "After pre-training, BERT is adapted to a task by adding a small output.",
+            "values": {
+              "tasks": {
+                "var": "tasks",
+                "line": 1,
+                "hit": 1
+              },
+              "task": {
+                "var": "task",
+                "line": 7,
+                "hit": 1
+              },
+              "head": {
+                "var": "head",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "tasks": "data",
+              "task": "data",
+              "head": "data"
+            },
+            "arrows": [
+              [
+                "tasks",
+                "task"
+              ],
+              [
+                "task",
+                "head"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Sentence classification directs the pooled vector into a classifier layer.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "task"
-                  },
-                  {
-                    "text": "head"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "For sentence classification (sentiment, topic), the [CLS] vector feeds.",
+            "values": {
+              "tasks": {
+                "var": "tasks",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "tasks"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
-                "tone": "ok"
+              "task": {
+                "var": "task",
+                "line": 8,
+                "hit": 1
+              },
+              "head": {
+                "var": "head",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "tasks": "data",
+              "task": "data",
+              "head": "data"
+            },
+            "arrows": [
+              [
+                "tasks",
+                "task"
+              ],
+              [
+                "task",
+                "head"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Token tagging evaluates every token vector with a tag classifier.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "task"
-                  },
-                  {
-                    "text": "head"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example maps each task type to the part of BERT's output it uses.",
+            "values": {
+              "tasks": {
+                "var": "tasks",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "tasks"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
-                "tone": "ok"
+              "task": {
+                "var": "task",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "tasks"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "data"
+              "head": {
+                "var": "head",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Pre-trained knowledge allows training with far less labelled data.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "task"
-                  },
-                  {
-                    "text": "head"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tasks"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tasks"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "task"
-                  },
-                  {
-                    "text": "tasks"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "tasks": "ok",
+              "task": "ok",
+              "head": "ok"
+            },
+            "arrows": [
+              [
+                "tasks",
+                "task"
+              ],
+              [
+                "task",
+                "head"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Downstream task classification heads and token level outputs",
-        "columns": [
-          "task",
-          "head"
+        "template": "flow",
+        "title": "Fine-tuning BERT",
+        "nodes": [
+          {
+            "id": "tasks",
+            "label": "tasks"
+          },
+          {
+            "id": "task",
+            "label": "task"
+          },
+          {
+            "id": "head",
+            "label": "head"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fine-tuning adapts pre-trained weights by training on labelled data.",
-            "rows": [
-              {
-                "cells": [
-                  "task",
-                  "head"
-                ],
-                "tone": "ok"
-              }
+            "caption": "After pre-training, BERT is adapted to a task by adding a small output.",
+            "values": {
+              "tasks": "{'sentiment of a review': 'the [CLS] ve…",
+              "task": "'sentiment of a review'",
+              "head": "'the [CLS] vector -> class probabilitie…"
+            },
+            "tones": {
+              "tasks": "data",
+              "task": "data",
+              "head": "data"
+            },
+            "arrows": [
+              [
+                "tasks",
+                "task"
+              ],
+              [
+                "task",
+                "head"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Sentence classification directs the pooled vector into a classifier layer.",
-            "rows": [
-              {
-                "cells": [
-                  "task",
-                  "head"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tasks",
-                  "items"
-                ],
-                "tone": "ok"
-              }
+            "caption": "For sentence classification (sentiment, topic), the [CLS] vector feeds.",
+            "values": {
+              "tasks": "{'sentiment of a review': 'the [CLS] ve…",
+              "task": "'sentiment of a review'",
+              "head": "'the [CLS] vector -> class probabilitie…"
+            },
+            "tones": {
+              "tasks": "data",
+              "task": "data",
+              "head": "data"
+            },
+            "arrows": [
+              [
+                "tasks",
+                "task"
+              ],
+              [
+                "task",
+                "head"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Token tagging evaluates every token vector with a tag classifier.",
-            "rows": [
-              {
-                "cells": [
-                  "task",
-                  "head"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tasks",
-                  "items"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tasks",
-                  "print"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Pre-trained knowledge allows training with far less labelled data.",
-            "rows": [
-              {
-                "cells": [
-                  "task",
-                  "head"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tasks",
-                  "items"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tasks",
-                  "print"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "task",
-                  "tasks"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example maps each task type to the part of BERT's output it uses.",
+            "values": {
+              "tasks": "{'sentiment of a review': 'the [CLS] ve…",
+              "task": "'named entities'",
+              "head": "'every token vector -> BIO tag'"
+            },
+            "tones": {
+              "tasks": "ok",
+              "task": "ok",
+              "head": "ok"
+            },
+            "arrows": [
+              [
+                "tasks",
+                "task"
+              ],
+              [
+                "task",
+                "head"
+              ]
             ]
           }
         ]
@@ -1243,223 +980,151 @@
       "partTitle": "Practice time: masking and inputs",
       "codeHash": "4aadf9dcdd0153d632cd134771ba4744e5dc669fe112c95a6dc82d2f4f9980ca",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: masking and inputs — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: mask...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Practice time: masking and inputs",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: masking and inputs [D.Psix.Sone].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: mask... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Unchanged = the remainder.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "tokens_b"
+                  },
+                  {
+                    "var": "tokens_b",
+                    "line": 1,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates tokens during execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "tokens_b"
+                  },
+                  {
+                    "var": "tokens_b",
+                    "line": 2,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: masking and inputs.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows why \"is not None\" and a plain truth test behave differently.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: masking and inputs — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: mask...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Practice time: masking and inputs",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: masking and inputs [D23.P6.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: mask... [D23.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Unchanged = the remainder.",
+            "rows": [
+              {
+                "cells": [
+                  "tokens_b",
+                  "None"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates tokens during execution.",
+            "rows": [
+              {
+                "cells": [
+                  "tokens_b",
+                  "None"
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: masking and inputs [D23.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows why \"is not None\" and a plain truth test behave differently.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "None   truthy: False  is not None: False"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "[]     truthy: False  is not None: True"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "['x']  truthy: True   is not None: True"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

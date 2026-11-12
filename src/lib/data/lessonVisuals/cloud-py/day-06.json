@@ -2,154 +2,228 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 6,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Identity and Access Management",
       "codeHash": "7827dcfbe95a9c1a79938fa4ad8336278ac124d8ad1f3ef22e13ee01f3ae620b",
       "spec": {
-        "template": "table",
-        "title": "AWS Identity and Access Management policy statement specifications",
-        "columns": [
-          "Effect",
-          "Resource"
+        "template": "flow",
+        "title": "Identity and Access Management",
+        "nodes": [
+          {
+            "id": "policy_text",
+            "label": "policy_text"
+          },
+          {
+            "id": "policy",
+            "label": "policy"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "AWS Identity and Access Management checks every API call on each resource.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Allow"
-                  },
-                  {
-                    "text": "arn:aws:s3:::photos/*"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "AWS Identity and Access Management (IAM) decides who can call which AWS.",
+            "values": {
+              "policy_text": {
+                "var": "policy_text",
+                "line": 3,
+                "hit": 1
+              },
+              "policy": {
+                "var": "policy",
+                "line": 10,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 11,
+                "hit": 1
               }
+            },
+            "tones": {
+              "policy_text": "data",
+              "policy": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "policy_text",
+                "policy"
+              ],
+              [
+                "policy",
+                "s"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "JSON policy statements declare explicit Effect rules and target resources.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Allow"
-                  },
-                  {
-                    "text": "arn:aws:s3:::photos/*"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "The who is called a principal.",
+            "values": {
+              "policy_text": {
+                "var": "policy_text",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Allow"
-                  },
-                  {
-                    "text": "arn:aws:s3:::photos/uploads/*"
-                  }
-                ],
-                "tone": "ok"
+              "policy": {
+                "var": "policy",
+                "line": 11,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 12,
+                "hit": 1
               }
+            },
+            "tones": {
+              "policy_text": "data",
+              "policy": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "policy_text",
+                "policy"
+              ],
+              [
+                "policy",
+                "s"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example reads structured statement permissions using json module parsing.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Allow"
-                  },
-                  {
-                    "text": "arn:aws:s3:::photos/*"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example reads a real-shaped policy with Python's json module.",
+            "values": {
+              "policy_text": {
+                "var": "policy_text",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Allow"
-                  },
-                  {
-                    "text": "arn:aws:s3:::photos/uploads/*"
-                  }
-                ],
-                "tone": "ok"
+              "policy": {
+                "var": "policy",
+                "line": 12,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 11,
+                "hit": 2
               }
+            },
+            "tones": {
+              "policy_text": "ok",
+              "policy": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "policy_text",
+                "policy"
+              ],
+              [
+                "policy",
+                "s"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "AWS Identity and Access Management policy statement specifications",
-        "columns": [
-          "Effect",
-          "Resource"
+        "template": "flow",
+        "title": "Identity and Access Management",
+        "nodes": [
+          {
+            "id": "policy_text",
+            "label": "policy_text"
+          },
+          {
+            "id": "policy",
+            "label": "policy"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "AWS Identity and Access Management checks every API call on each resource.",
-            "rows": [
-              {
-                "cells": [
-                  "Allow",
-                  "arn:aws:s3:::photos/*"
-                ],
-                "tone": "ok"
-              }
+            "caption": "AWS Identity and Access Management (IAM) decides who can call which AWS.",
+            "values": {
+              "policy_text": "'{\n  \"Version\": \"2012-10-17\",\n  \"Statem…",
+              "policy": "{'Version': '2012-10-17', 'Statement': …",
+              "s": "{'Effect': 'Allow', 'Action': 's3:GetOb…"
+            },
+            "tones": {
+              "policy_text": "data",
+              "policy": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "policy_text",
+                "policy"
+              ],
+              [
+                "policy",
+                "s"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "JSON policy statements declare explicit Effect rules and target resources.",
-            "rows": [
-              {
-                "cells": [
-                  "Allow",
-                  "arn:aws:s3:::photos/*"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Allow",
-                  "arn:aws:s3:::photos/uploads/*"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "The who is called a principal.",
+            "values": {
+              "policy_text": "'{\n  \"Version\": \"2012-10-17\",\n  \"Statem…",
+              "policy": "{'Version': '2012-10-17', 'Statement': …",
+              "s": "{'Effect': 'Allow', 'Action': 's3:GetOb…"
+            },
+            "tones": {
+              "policy_text": "data",
+              "policy": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "policy_text",
+                "policy"
+              ],
+              [
+                "policy",
+                "s"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example reads structured statement permissions using json module parsing.",
-            "rows": [
-              {
-                "cells": [
-                  "Allow",
-                  "arn:aws:s3:::photos/*"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Allow",
-                  "arn:aws:s3:::photos/uploads/*"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The example reads a real-shaped policy with Python's json module.",
+            "values": {
+              "policy_text": "'{\n  \"Version\": \"2012-10-17\",\n  \"Statem…",
+              "policy": "{'Version': '2012-10-17', 'Statement': …",
+              "s": "{'Effect': 'Allow', 'Action': ['s3:PutO…"
+            },
+            "tones": {
+              "policy_text": "ok",
+              "policy": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "policy_text",
+                "policy"
+              ],
+              [
+                "policy",
+                "s"
+              ]
             ]
           }
         ]
@@ -159,166 +233,162 @@
       "partTitle": "How AWS decides: explicit deny wins",
       "codeHash": "e4e15de853f23ae8531c169140d8576abb1502d70f305007384e9cb675e8a854",
       "spec": {
-        "template": "table",
-        "title": "IAM permission evaluation outcomes demonstrating explicit deny priority",
-        "columns": [
+        "template": "sequence",
+        "title": "How AWS decides: explicit deny wins",
+        "actors": [
+          "stmts",
           "action",
-          "result"
+          "res"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "An explicit Deny in matching policy statements overrides any permission.",
-            "rows": [
+            "at": "say1",
+            "caption": "AWS evaluates permissions with three simple rules, applied in this order.",
+            "activeActor": "stmts",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "s3:GetObject"
-                  },
-                  {
-                    "text": "DENY"
-                  }
-                ],
-                "tone": "error"
+                "from": "stmts",
+                "to": "action",
+                "label": {
+                  "var": "stmts",
+                  "line": 11,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "action",
+                "to": "res",
+                "label": {
+                  "var": "action",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Otherwise matching Allow permissions authorize the incoming request.",
-            "rows": [
+            "at": "say2",
+            "caption": "By default everything is denied.",
+            "activeActor": "action",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "s3:GetObject"
-                  },
-                  {
-                    "text": "DENY"
-                  }
-                ],
-                "tone": "error"
+                "from": "stmts",
+                "to": "action",
+                "label": {
+                  "var": "stmts",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "s3:GetObject"
-                  },
-                  {
-                    "text": "ALLOW"
-                  }
-                ],
+                "from": "action",
+                "to": "res",
+                "label": {
+                  "var": "action",
+                  "line": 14,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example evaluates outcomes demonstrating allowed and denied requests.",
-            "rows": [
+            "caption": "The example shows the three outcomes.",
+            "activeActor": "res",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "s3:GetObject"
-                  },
-                  {
-                    "text": "DENY"
-                  }
-                ],
-                "tone": "error"
+                "from": "stmts",
+                "to": "action",
+                "label": {
+                  "var": "stmts",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "s3:GetObject"
-                  },
-                  {
-                    "text": "ALLOW"
-                  }
-                ],
+                "from": "action",
+                "to": "res",
+                "label": {
+                  "var": "action",
+                  "line": 13,
+                  "hit": 2
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "s3:PutObject"
-                  },
-                  {
-                    "text": "DENY"
-                  }
-                ],
-                "tone": "error"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "IAM permission evaluation outcomes demonstrating explicit deny priority",
-        "columns": [
+        "template": "sequence",
+        "title": "How AWS decides: explicit deny wins",
+        "actors": [
+          "stmts",
           "action",
-          "result"
+          "res"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "An explicit Deny in matching policy statements overrides any permission.",
-            "rows": [
+            "at": "say1",
+            "caption": "AWS evaluates permissions with three simple rules, applied in this order.",
+            "messages": [
               {
-                "cells": [
-                  "s3:GetObject",
-                  "DENY"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Otherwise matching Allow permissions authorize the incoming request.",
-            "rows": [
-              {
-                "cells": [
-                  "s3:GetObject",
-                  "DENY"
-                ],
-                "tone": "error"
+                "from": "stmts",
+                "to": "action",
+                "label": "[{'effect': 'Allow', 'action': 's3:GetO…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "s3:GetObject",
-                  "ALLOW"
-                ],
+                "from": "action",
+                "to": "res",
+                "label": "'s3:GetObject'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "stmts"
+          },
+          {
+            "at": "say2",
+            "caption": "By default everything is denied.",
+            "messages": [
+              {
+                "from": "stmts",
+                "to": "action",
+                "label": "[{'effect': 'Allow', 'action': 's3:GetO…",
+                "tone": "data"
+              },
+              {
+                "from": "action",
+                "to": "res",
+                "label": "'s3:GetObject'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "action"
           },
           {
             "at": "say7",
-            "caption": "The example evaluates outcomes demonstrating allowed and denied requests.",
-            "rows": [
+            "caption": "The example shows the three outcomes.",
+            "messages": [
               {
-                "cells": [
-                  "s3:GetObject",
-                  "DENY"
-                ],
-                "tone": "error"
+                "from": "stmts",
+                "to": "action",
+                "label": "[{'effect': 'Allow', 'action': 's3:GetO…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "s3:GetObject",
-                  "ALLOW"
-                ],
+                "from": "action",
+                "to": "res",
+                "label": "'s3:GetObject'",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "s3:PutObject",
-                  "DENY"
-                ],
-                "tone": "error"
               }
-            ]
+            ],
+            "activeActor": "res"
           }
         ]
       }
@@ -327,166 +397,106 @@
       "partTitle": "Wildcards and least privilege",
       "codeHash": "7b78e9b1899f0144c7aac9ab2dd3ca575349dfdd4091de8217ad5e6ec5b0ce94",
       "spec": {
-        "template": "table",
-        "title": "Policy scope classification distinguishing least privilege and broad access",
-        "columns": [
-          "policy",
-          "status"
+        "template": "states",
+        "title": "Wildcards and least privilege",
+        "states": [
+          {
+            "id": "policies",
+            "label": "policies"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "stmts",
+            "label": "stmts"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Policies can use * as a wildcard.",
+            "currentState": "policies",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Wildcards granting full administrator access pose major security risks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rushed-app"
-                  },
-                  {
-                    "text": "ADMIN!"
-                  }
-                ],
-                "tone": "error"
+            "caption": "Wildcards are convenient and dangerous.",
+            "currentState": "name",
+            "transition": {
+              "from": "policies",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Least privilege limits policies strictly to necessary actions and resources.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rushed-app"
-                  },
-                  {
-                    "text": "ADMIN!"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "resize-fn"
-                  },
-                  {
-                    "text": "tight"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "In code reviews, any new \"*\" in a policy deserves a question.",
+            "currentState": "stmts",
+            "transition": {
+              "from": "name",
+              "to": "stmts",
+              "label": {
+                "var": "stmts",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example flags overly broad policies containing wildcards for review.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rushed-app"
-                  },
-                  {
-                    "text": "ADMIN!"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "resize-fn"
-                  },
-                  {
-                    "text": "tight"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ops-team"
-                  },
-                  {
-                    "text": "review"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Policy scope classification distinguishing least privilege and broad access",
-        "columns": [
-          "policy",
-          "status"
+        "template": "states",
+        "title": "Wildcards and least privilege",
+        "states": [
+          {
+            "id": "policies",
+            "label": "policies"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "stmts",
+            "label": "stmts"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Policies can use * as a wildcard.",
+            "currentState": "policies",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Wildcards granting full administrator access pose major security risks.",
-            "rows": [
-              {
-                "cells": [
-                  "rushed-app",
-                  "ADMIN!"
-                ],
-                "tone": "error"
-              }
-            ]
+            "caption": "Wildcards are convenient and dangerous.",
+            "currentState": "name",
+            "transition": {
+              "from": "policies",
+              "to": "name",
+              "label": "'resize-fn'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Least privilege limits policies strictly to necessary actions and resources.",
-            "rows": [
-              {
-                "cells": [
-                  "rushed-app",
-                  "ADMIN!"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "resize-fn",
-                  "tight"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example flags overly broad policies containing wildcards for review.",
-            "rows": [
-              {
-                "cells": [
-                  "rushed-app",
-                  "ADMIN!"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "resize-fn",
-                  "tight"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ops-team",
-                  "review"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say7",
+            "caption": "In code reviews, any new \"*\" in a policy deserves a question.",
+            "currentState": "stmts",
+            "transition": {
+              "from": "name",
+              "to": "stmts",
+              "label": "[['s3:GetObject', 'arn:aws:s3:::uploads…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -495,146 +505,174 @@
       "partTitle": "Roles and temporary credentials",
       "codeHash": "c9c2e0aaaec8a68db3b92b5de1dd355b090bfe84c4cb4ab47e653bfb8559936c",
       "spec": {
-        "template": "table",
-        "title": "IAM role trust relationships and caller authorization validation",
-        "columns": [
-          "caller",
-          "role"
-        ],
+        "template": "bars",
+        "title": "Roles and temporary credentials",
         "steps": [
           {
+            "at": "say1",
+            "caption": "An IAM role is an identity without a password or long-term keys.",
+            "bars": [
+              {
+                "label": "now",
+                "value": {
+                  "var": "now",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "duration",
+                "value": {
+                  "var": "duration",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "AWS services receive temporary permissions through assigned execution roles.",
-            "rows": [
+            "caption": "This is how AWS services get permissions.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "lambda.amazonaws.com"
-                  },
-                  {
-                    "text": "resize-fn-role"
-                  }
-                ],
+                "label": "now",
+                "value": {
+                  "var": "now",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "duration",
+                "value": {
+                  "var": "duration",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 12,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Every role requires a trust policy specifying which identities may assume it.",
-            "rows": [
+            "at": "say7",
+            "caption": "Prefer roles everywhere.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "lambda.amazonaws.com"
-                  },
-                  {
-                    "text": "resize-fn-role"
-                  }
-                ],
+                "label": "now",
+                "value": {
+                  "var": "now",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "ec2.amazonaws.com"
-                  },
-                  {
-                    "text": "None"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example simulates assuming a role and validating temporary credentials.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "lambda.amazonaws.com"
-                  },
-                  {
-                    "text": "resize-fn-role"
-                  }
-                ],
+                "label": "duration",
+                "value": {
+                  "var": "duration",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "ec2.amazonaws.com"
-                  },
-                  {
-                    "text": "None"
-                  }
-                ],
-                "tone": "error"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 11,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "IAM role trust relationships and caller authorization validation",
-        "columns": [
-          "caller",
-          "role"
-        ],
+        "template": "bars",
+        "title": "Roles and temporary credentials",
         "steps": [
           {
+            "at": "say1",
+            "caption": "An IAM role is an identity without a password or long-term keys.",
+            "bars": [
+              {
+                "label": "now",
+                "value": 1000,
+                "tone": "data"
+              },
+              {
+                "label": "duration",
+                "value": 3600,
+                "tone": "data"
+              },
+              {
+                "label": "t",
+                "value": 2000,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "AWS services receive temporary permissions through assigned execution roles.",
-            "rows": [
+            "caption": "This is how AWS services get permissions.",
+            "bars": [
               {
-                "cells": [
-                  "lambda.amazonaws.com",
-                  "resize-fn-role"
-                ],
+                "label": "now",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "duration",
+                "value": 3600,
+                "tone": "ok"
+              },
+              {
+                "label": "t",
+                "value": 2000,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Every role requires a trust policy specifying which identities may assume it.",
-            "rows": [
+            "at": "say7",
+            "caption": "Prefer roles everywhere.",
+            "bars": [
               {
-                "cells": [
-                  "lambda.amazonaws.com",
-                  "resize-fn-role"
-                ],
+                "label": "now",
+                "value": 1000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "ec2.amazonaws.com",
-                  "None"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example simulates assuming a role and validating temporary credentials.",
-            "rows": [
-              {
-                "cells": [
-                  "lambda.amazonaws.com",
-                  "resize-fn-role"
-                ],
+                "label": "duration",
+                "value": 3600,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "ec2.amazonaws.com",
-                  "None"
-                ],
-                "tone": "error"
+                "label": "t",
+                "value": 4600,
+                "tone": "ok"
               }
             ]
           }
@@ -646,110 +684,161 @@
       "codeHash": "ba7c489fc8e02950fdcccc1e857c2a0a51922dbbee4faac90ccbf38a66a01088",
       "spec": {
         "template": "flow",
-        "title": "Amazon Resource Names — Execution Pipeline",
+        "title": "Amazon Resource Names",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "a",
+            "label": "a"
           },
           {
-            "id": "proc",
-            "label": "2. Amazon Resource Names",
-            "tappable": true
+            "id": "arn",
+            "label": "arn"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "parts",
+            "label": "parts"
+          },
+          {
+            "id": "keys",
+            "label": "keys"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Amazon Resource Names [Dsix.Pfive.Sone].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Amazon Resource Names [Dsix.Pfive.Stwo].",
+            "caption": "Every AWS resource has an Amazon Resource Name (ARN), a unique string used.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "a": {
+                "var": "a",
+                "line": 8,
+                "hit": 1
+              },
+              "arn": {
+                "var": "arn",
+                "line": 2,
+                "hit": 1
+              },
+              "parts": {
+                "var": "parts",
+                "line": 2,
+                "hit": 1
+              },
+              "keys": {
+                "var": "keys",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "a": "data",
+              "arn": "data",
+              "parts": "data",
+              "keys": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "a",
+                "arn"
               ],
               [
-                "proc",
-                "out"
+                "arn",
+                "parts"
+              ],
+              [
+                "parts",
+                "keys"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "The format is arn:partition:service:region:account-id:resource.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "a": {
+                "var": "a",
+                "line": 11,
+                "hit": 1
+              },
+              "arn": {
+                "var": "arn",
+                "line": 3,
+                "hit": 1
+              },
+              "parts": {
+                "var": "parts",
+                "line": 3,
+                "hit": 1
+              },
+              "keys": {
+                "var": "keys",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "a": "data",
+              "arn": "data",
+              "parts": "data",
+              "keys": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "a",
+                "arn"
+              ],
+              [
+                "arn",
+                "parts"
+              ],
+              [
+                "parts",
+                "keys"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Amazon Resource Names [Dsix.Pfive.Sfour].",
+            "at": "say7",
+            "caption": "The example parses three different ARNs, including the tricky ones.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "a": {
+                "var": "a",
+                "line": 8,
+                "hit": 2
+              },
+              "arn": {
+                "var": "arn",
+                "line": 5,
+                "hit": 1
+              },
+              "parts": {
+                "var": "parts",
+                "line": 5,
+                "hit": 1
+              },
+              "keys": {
+                "var": "keys",
+                "line": 5,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "a": "ok",
+              "arn": "ok",
+              "parts": "ok",
+              "keys": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "a",
+                "arn"
               ],
               [
-                "proc",
-                "out"
+                "arn",
+                "parts"
+              ],
+              [
+                "parts",
+                "keys"
               ]
             ]
           }
@@ -757,110 +846,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Amazon Resource Names — Execution Pipeline",
+        "title": "Amazon Resource Names",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "a",
+            "label": "a"
           },
           {
-            "id": "proc",
-            "label": "2. Amazon Resource Names",
-            "tappable": true
+            "id": "arn",
+            "label": "arn"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "parts",
+            "label": "parts"
+          },
+          {
+            "id": "keys",
+            "label": "keys"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Amazon Resource Names [D6.P5.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Amazon Resource Names [D6.P5.S2].",
+            "caption": "Every AWS resource has an Amazon Resource Name (ARN), a unique string used.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "a": "'arn:aws:lambda:eu-west-1:111122223333:…",
+              "arn": "'arn:aws:lambda:eu-west-1:111122223333:…",
+              "parts": "['arn', 'aws', 'lambda', 'eu-west-1', '…",
+              "keys": "['partition', 'service', 'region', 'acc…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "a": "data",
+              "arn": "data",
+              "parts": "data",
+              "keys": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "a",
+                "arn"
               ],
               [
-                "proc",
-                "out"
+                "arn",
+                "parts"
+              ],
+              [
+                "parts",
+                "keys"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P5.S3].",
+            "at": "say2",
+            "caption": "The format is arn:partition:service:region:account-id:resource.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "a": "'arn:aws:lambda:eu-west-1:111122223333:…",
+              "arn": "'arn:aws:lambda:eu-west-1:111122223333:…",
+              "parts": "['arn', 'aws', 'lambda', 'eu-west-1', '…",
+              "keys": "['partition', 'service', 'region', 'acc…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "a": "data",
+              "arn": "data",
+              "parts": "data",
+              "keys": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "a",
+                "arn"
+              ],
+              [
+                "arn",
+                "parts"
+              ],
+              [
+                "parts",
+                "keys"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Amazon Resource Names [D6.P5.S4].",
+            "at": "say7",
+            "caption": "The example parses three different ARNs, including the tricky ones.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "a": "'arn:aws:iam::111122223333:role/admin'",
+              "arn": "'arn:aws:lambda:eu-west-1:111122223333:…",
+              "parts": "['arn', 'aws', 'lambda', 'eu-west-1', '…",
+              "keys": "['partition', 'service', 'region', 'acc…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "a": "ok",
+              "arn": "ok",
+              "parts": "ok",
+              "keys": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "a",
+                "arn"
               ],
               [
-                "proc",
-                "out"
+                "arn",
+                "parts"
+              ],
+              [
+                "parts",
+                "keys"
               ]
             ]
           }
@@ -872,110 +964,161 @@
       "codeHash": "42a0d3d286300d80815a2c2f0363eab704a5cc2b0b575cc1b4a94461910601d7",
       "spec": {
         "template": "flow",
-        "title": "Practice time: build the policy engine — Execution Pipeline",
+        "title": "Practice time: build the policy engine",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "stmts",
+            "label": "stmts"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: buil...",
-            "tappable": true
+            "id": "res",
+            "label": "res"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "p",
+            "label": "p"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: build the policy engine.",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: buil... [Dsix.Psix.Stwo].",
+            "caption": "Evaluate_iam(statements, request).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "stmts": {
+                "var": "stmts",
+                "line": 1,
+                "hit": 1
+              },
+              "res": {
+                "var": "res",
+                "line": 2,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 6,
+                "hit": 1
+              },
+              "p": {
+                "var": "p",
+                "line": 3,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "stmts": "data",
+              "res": "data",
+              "s": "data",
+              "p": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "stmts",
+                "res"
               ],
               [
-                "proc",
-                "out"
+                "res",
+                "s"
+              ],
+              [
+                "s",
+                "p"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Then collect the statements where both action and resource match.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "stmts": {
+                "var": "stmts",
+                "line": 2,
+                "hit": 1
+              },
+              "res": {
+                "var": "res",
+                "line": 3,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 7,
+                "hit": 1
+              },
+              "p": {
+                "var": "p",
+                "line": 3,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "stmts": "data",
+              "res": "data",
+              "s": "data",
+              "p": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "stmts",
+                "res"
+              ],
+              [
+                "res",
+                "s"
+              ],
+              [
+                "s",
+                "p"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: build the policy e.",
+            "at": "say7",
+            "caption": "The example shows the classic early-return bug next to the correct version.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "stmts": {
+                "var": "stmts",
+                "line": 3,
+                "hit": 1
+              },
+              "res": {
+                "var": "res",
+                "line": 5,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 8,
+                "hit": 1
+              },
+              "p": {
+                "var": "p",
+                "line": 3,
+                "hit": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "stmts": "ok",
+              "res": "ok",
+              "s": "ok",
+              "p": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "stmts",
+                "res"
               ],
               [
-                "proc",
-                "out"
+                "res",
+                "s"
+              ],
+              [
+                "s",
+                "p"
               ]
             ]
           }
@@ -983,110 +1126,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: build the policy engine — Execution Pipeline",
+        "title": "Practice time: build the policy engine",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "stmts",
+            "label": "stmts"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: buil...",
-            "tappable": true
+            "id": "res",
+            "label": "res"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "p",
+            "label": "p"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: build the policy engine [D6.P6.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: buil... [D6.P6.S2].",
+            "caption": "Evaluate_iam(statements, request).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "stmts": "[{'effect': 'Allow', 'resource': 'docs/…",
+              "res": "'docs/secret/plan.txt'",
+              "s": "{'effect': 'Allow', 'resource': 'docs/*…",
+              "p": "'docs/*'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "stmts": "data",
+              "res": "data",
+              "s": "data",
+              "p": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "stmts",
+                "res"
               ],
               [
-                "proc",
-                "out"
+                "res",
+                "s"
+              ],
+              [
+                "s",
+                "p"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P6.S3].",
+            "at": "say2",
+            "caption": "Then collect the statements where both action and resource match.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "stmts": "[{'effect': 'Allow', 'resource': 'docs/…",
+              "res": "'docs/secret/plan.txt'",
+              "s": "{'effect': 'Allow', 'resource': 'docs/*…",
+              "p": "'docs/*'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "stmts": "data",
+              "res": "data",
+              "s": "data",
+              "p": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "stmts",
+                "res"
+              ],
+              [
+                "res",
+                "s"
+              ],
+              [
+                "s",
+                "p"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: build the policy e.. [D6.P6.S4].",
+            "at": "say7",
+            "caption": "The example shows the classic early-return bug next to the correct version.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "stmts": "[{'effect': 'Allow', 'resource': 'docs/…",
+              "res": "'docs/secret/plan.txt'",
+              "s": "{'effect': 'Allow', 'resource': 'docs/*…",
+              "p": "'docs/secret/*'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "stmts": "ok",
+              "res": "ok",
+              "s": "ok",
+              "p": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "stmts",
+                "res"
               ],
               [
-                "proc",
-                "out"
+                "res",
+                "s"
+              ],
+              [
+                "s",
+                "p"
               ]
             ]
           }

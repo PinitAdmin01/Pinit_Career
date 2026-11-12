@@ -2,89 +2,95 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 32,
-  "promptSha": "d067bde8494efb7fcb3c62b75c62fa4418da3205a16dd4b171dd64a70a910a3b",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Segment Tree Architecture: The 4N Array Invariant",
       "codeHash": "4b9031172a103c68ec03f1f7b2ea168e632a6511f882f1e4b8f613aac619eca0",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Segment Tree Architecture: The 4N Array Invariant",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The fenwick design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Segment"
-                  },
-                  {
-                    "text": "Tree"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "While a Fenwick Tree works brilliantly for invertible operations like sum.",
+            "items": {
+              "var": "data",
+              "line": 19,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The eliminate step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Architecture"
-                  },
-                  {
-                    "text": "Array"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "A Segment Tree recursively splits an input array of length N into.",
+            "items": {
+              "var": "data",
+              "line": 3,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect the SegmentTree constructor below building bottom-up aggregates.",
+            "items": {
+              "var": "data",
+              "line": 14,
+              "hit": 2
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Segment Tree Architecture: The 4N Array Invariant",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The fenwick design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Segment",
-                  "Tree"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "While a Fenwick Tree works brilliantly for invertible operations like sum.",
+            "mode": "stack",
+            "items": [
+              "1",
+              "3",
+              "5",
+              "7",
+              "9",
+              "11"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The eliminate step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Architecture",
-                  "Array"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "A Segment Tree recursively splits an input array of length N into.",
+            "mode": "stack",
+            "items": [
+              "1",
+              "3",
+              "5",
+              "7",
+              "9",
+              "11"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect the SegmentTree constructor below building bottom-up aggregates.",
+            "mode": "stack",
+            "items": [
+              "1",
+              "3",
+              "5",
+              "7",
+              "9",
+              "11"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -93,80 +99,117 @@
       "partTitle": "Point Updates and Range Queries in O(log N)",
       "codeHash": "8b177f143732b64c978c6b609dfbe18455e9e085f596ca73c3d2d9decb0eca6e",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Point Updates and Range Queries in O(log N)",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The constructed design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Once constructed in O(N) time, a Segment Tree supports both arbitrary.",
+            "items": {
+              "var": "data",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Point"
-                  },
-                  {
-                    "text": "Updates"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The under step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Every range query over interval [ql, qr] classifies a node interval [l, r].",
+            "items": {
+              "var": "data",
+              "line": 12,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Range"
-                  },
-                  {
-                    "text": "Queries"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Below is the complete self-contained query and point-update implementation.",
+            "items": {
+              "var": "data",
+              "line": 11,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Point Updates and Range Queries in O(log N)",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The constructed design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Once constructed in O(N) time, a Segment Tree supports both arbitrary.",
+            "items": [
+              "1",
+              "3",
+              "5",
+              "7",
+              "9",
+              "11"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Point",
-                  "Updates"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The under step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Every range query over interval [ql, qr] classifies a node interval [l, r].",
+            "items": [
+              "1",
+              "3",
+              "5",
+              "7",
+              "9",
+              "11"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Range",
-                  "Queries"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Below is the complete self-contained query and point-update implementation.",
+            "items": [
+              "1",
+              "3",
+              "5",
+              "7",
+              "9",
+              "11"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,43 +220,131 @@
       "partTitle": "The Range Update Bottleneck & Motivation for Lazy Propagation",
       "codeHash": "f41a1d0babba445794f52d23cd67b6640845ccb7e9fa91dd20a6f13fd686b6c7",
       "spec": {
-        "template": "table",
-        "title": "The Range Update Bottleneck & Motivation for Lazy",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "The Range Update Bottleneck & Motivation for Lazy Propagation",
         "steps": [
           {
             "at": "say1",
-            "caption": "The single design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Single-element updates complete cleanly in O(log N) steps.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Range"
-                  },
-                  {
-                    "text": "Update"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "log_n",
+                "value": {
+                  "var": "log_n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "naive_steps",
+                "value": {
+                  "var": "naive_steps",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The world step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Executing K point updates in a loop requires O(K * log N) operations.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Bottleneck"
-                  },
-                  {
-                    "text": "Motivation"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "log_n",
+                "value": {
+                  "var": "log_n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "naive_steps",
+                "value": {
+                  "var": "naive_steps",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Run the complexity benchmark below comparing naive point-update loops.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "log_n",
+                "value": {
+                  "var": "log_n",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "naive_steps",
+                "value": {
+                  "var": "naive_steps",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +352,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "The Range Update Bottleneck & Motivation for Lazy",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "The Range Update Bottleneck & Motivation for Lazy Propagation",
         "steps": [
           {
             "at": "say1",
-            "caption": "The single design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Single-element updates complete cleanly in O(log N) steps.",
+            "bars": [
               {
-                "cells": [
-                  "Range",
-                  "Update"
-                ],
+                "label": "n",
+                "value": 1000,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 500,
+                "tone": "data"
+              },
+              {
+                "label": "log_n",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "naive_steps",
+                "value": 5000,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The world step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Executing K point updates in a loop requires O(K * log N) operations.",
+            "bars": [
               {
-                "cells": [
-                  "Bottleneck",
-                  "Motivation"
-                ],
+                "label": "n",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 500,
+                "tone": "ok"
+              },
+              {
+                "label": "log_n",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "naive_steps",
+                "value": 5000,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Run the complexity benchmark below comparing naive point-update loops.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 500,
+                "tone": "ok"
+              },
+              {
+                "label": "log_n",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "naive_steps",
+                "value": 5000,
                 "tone": "ok"
               }
             ]
@@ -261,43 +440,131 @@
       "partTitle": "Implementing Lazy Propagation: The Push-Down Invariant",
       "codeHash": "062fe4b23d6feca9486667666ca5d7cef2e49c1c5215183af5225ff2e54fc274",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Implementing Lazy Propagation: The Push-Down Invariant",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The implementing design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Implementing lazy propagation safely centers on one non-negotiable invariant.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Implementing"
-                  },
-                  {
-                    "text": "Lazy"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "node",
+                "value": {
+                  "var": "node",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "l",
+                "value": {
+                  "var": "l",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The operation step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Whenever an addition +val lands completely inside [l, r], self.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Propagation"
-                  },
-                  {
-                    "text": "Push"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "node",
+                "value": {
+                  "var": "node",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "l",
+                "value": {
+                  "var": "l",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Trace the self-contained LazyDemo below as it populates a root lazy tag.",
+            "bars": [
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "node",
+                "value": {
+                  "var": "node",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "l",
+                "value": {
+                  "var": "l",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -305,35 +572,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Implementing Lazy Propagation: The Push-Down Invariant",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The implementing design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Implementing lazy propagation safely centers on one non-negotiable invariant.",
+            "bars": [
               {
-                "cells": [
-                  "Implementing",
-                  "Lazy"
-                ],
+                "label": "size",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "node",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "l",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 3,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The operation step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Whenever an addition +val lands completely inside [l, r], self.",
+            "bars": [
               {
-                "cells": [
-                  "Propagation",
-                  "Push"
-                ],
+                "label": "size",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "node",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "l",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 3,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Trace the self-contained LazyDemo below as it populates a root lazy tag.",
+            "bars": [
+              {
+                "label": "size",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "node",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "l",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 3,
                 "tone": "ok"
               }
             ]
@@ -345,82 +660,94 @@
       "partTitle": "Complete Production-Grade Lazy Segment Tree",
       "codeHash": "96b2dfa7a7015ec6a4625b487eafff42b3e5501dcc798e7741f324a589934a75",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Complete Production-Grade Lazy Segment Tree",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The assemble design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Complete"
-                  },
-                  {
-                    "text": "Production"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Now we assemble the full production LazySegmentTree supporting O(log N).",
+            "items": {
+              "var": "data",
+              "line": 3,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The accumulate step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Grade"
-                  },
-                  {
-                    "text": "Lazy"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Both range_add and range_query share identical recursive geometry.",
+            "items": {
+              "var": "data",
+              "line": 4,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "Run the full LazySegmentTree demonstration below combining overlapping.",
+            "items": {
+              "var": "data",
+              "line": 11,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Complete Production-Grade Lazy Segment Tree",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The assemble design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Complete",
-                  "Production"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Now we assemble the full production LazySegmentTree supporting O(log N).",
+            "mode": "stack",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The accumulate step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Grade",
-                  "Lazy"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Both range_add and range_query share identical recursive geometry.",
+            "mode": "stack",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "Run the full LazySegmentTree demonstration below combining overlapping.",
+            "mode": "stack",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "action": "idle"
           }
         ]
       }

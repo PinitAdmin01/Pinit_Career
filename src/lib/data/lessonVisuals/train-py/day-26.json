@@ -2,142 +2,284 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 26,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why full fine-tuning is expensive",
       "codeHash": "778a5c295b072478fdfea598bc535f8c69d45b8b771042691472af372ca7bcd4",
       "spec": {
-        "template": "table",
-        "title": "Full fine-tuning overhead versus parameter-efficient adaptation",
-        "columns": [
-          "params",
-          "full",
-          "trainable"
+        "template": "flow",
+        "title": "Why full fine-tuning is expensive",
+        "nodes": [
+          {
+            "id": "params",
+            "label": "params"
+          },
+          {
+            "id": "full",
+            "label": "full"
+          },
+          {
+            "id": "trainable",
+            "label": "trainable"
+          },
+          {
+            "id": "peft",
+            "label": "peft"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Full fine-tuning updates every weight requiring extensive optimizer states.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "trainable"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Fine-tuning means continuing to train a pretrained model on new data, such.",
+            "values": {
+              "params": {
+                "var": "params",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "trainable"
-                  }
-                ],
-                "tone": "data"
+              "full": {
+                "var": "full",
+                "line": 2,
+                "hit": 1
+              },
+              "trainable": {
+                "var": "trainable",
+                "line": 3,
+                "hit": 1
+              },
+              "peft": {
+                "var": "peft",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "params": "data",
+              "full": "data",
+              "trainable": "data",
+              "peft": "data"
+            },
+            "arrows": [
+              [
+                "params",
+                "full"
+              ],
+              [
+                "full",
+                "trainable"
+              ],
+              [
+                "trainable",
+                "peft"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Frozen weights need no gradients and no optimizer states.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "trainable"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Full fine-tuning updates every weight, so it needs gradients and optimizer.",
+            "values": {
+              "params": {
+                "var": "params",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "full"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
-                "tone": "ok"
+              "full": {
+                "var": "full",
+                "line": 3,
+                "hit": 1
+              },
+              "trainable": {
+                "var": "trainable",
+                "line": 4,
+                "hit": 1
+              },
+              "peft": {
+                "var": "peft",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "params": "data",
+              "full": "data",
+              "trainable": "data",
+              "peft": "data"
+            },
+            "arrows": [
+              [
+                "params",
+                "full"
+              ],
+              [
+                "full",
+                "trainable"
+              ],
+              [
+                "trainable",
+                "peft"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Many organisations keep one base model and dozens of small LoRA adapters.",
+            "values": {
+              "params": {
+                "var": "params",
+                "line": 3,
+                "hit": 1
+              },
+              "full": {
+                "var": "full",
+                "line": 4,
+                "hit": 1
+              },
+              "trainable": {
+                "var": "trainable",
+                "line": 5,
+                "hit": 1
+              },
+              "peft": {
+                "var": "peft",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "params": "ok",
+              "full": "ok",
+              "trainable": "ok",
+              "peft": "ok"
+            },
+            "arrows": [
+              [
+                "params",
+                "full"
+              ],
+              [
+                "full",
+                "trainable"
+              ],
+              [
+                "trainable",
+                "peft"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Full fine-tuning overhead versus parameter-efficient adaptation",
-        "columns": [
-          "params",
-          "full",
-          "trainable"
+        "template": "flow",
+        "title": "Why full fine-tuning is expensive",
+        "nodes": [
+          {
+            "id": "params",
+            "label": "params"
+          },
+          {
+            "id": "full",
+            "label": "full"
+          },
+          {
+            "id": "trainable",
+            "label": "trainable"
+          },
+          {
+            "id": "peft",
+            "label": "peft"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Full fine-tuning updates every weight requiring extensive optimizer states.",
-            "rows": [
-              {
-                "cells": [
-                  "params",
-                  "full",
-                  "trainable"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "params",
-                  "full",
-                  "trainable"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Fine-tuning means continuing to train a pretrained model on new data, such.",
+            "values": {
+              "params": "7000000000",
+              "full": "112",
+              "trainable": "35000000",
+              "peft": "14.56"
+            },
+            "tones": {
+              "params": "data",
+              "full": "data",
+              "trainable": "data",
+              "peft": "data"
+            },
+            "arrows": [
+              [
+                "params",
+                "full"
+              ],
+              [
+                "full",
+                "trainable"
+              ],
+              [
+                "trainable",
+                "peft"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Frozen weights need no gradients and no optimizer states.",
-            "rows": [
-              {
-                "cells": [
-                  "params",
-                  "full",
-                  "trainable"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "params",
-                  "full",
-                  "params"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Full fine-tuning updates every weight, so it needs gradients and optimizer.",
+            "values": {
+              "params": "7000000000",
+              "full": "112",
+              "trainable": "35000000",
+              "peft": "14.56"
+            },
+            "tones": {
+              "params": "data",
+              "full": "data",
+              "trainable": "data",
+              "peft": "data"
+            },
+            "arrows": [
+              [
+                "params",
+                "full"
+              ],
+              [
+                "full",
+                "trainable"
+              ],
+              [
+                "trainable",
+                "peft"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Many organisations keep one base model and dozens of small LoRA adapters.",
+            "values": {
+              "params": "7000000000",
+              "full": "112",
+              "trainable": "35000000",
+              "peft": "14.56"
+            },
+            "tones": {
+              "params": "ok",
+              "full": "ok",
+              "trainable": "ok",
+              "peft": "ok"
+            },
+            "arrows": [
+              [
+                "params",
+                "full"
+              ],
+              [
+                "full",
+                "trainable"
+              ],
+              [
+                "trainable",
+                "peft"
+              ]
             ]
           }
         ]
@@ -147,9 +289,9 @@
       "partTitle": "The low-rank idea",
       "codeHash": "3189250570e82bf8aec9a6eac3303b4ca53c79ca23396a261b3d130689c051d0",
       "spec": {
-        "template": "table",
-        "title": "Low-rank matrix factorisation reducing active parameters",
-        "columns": [
+        "template": "sequence",
+        "title": "The low-rank idea",
+        "actors": [
           "layers",
           "d_in",
           "d_out"
@@ -157,68 +299,81 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "LoRA assumes the weight matrix update can be described with fewer numbers.",
-            "rows": [
+            "caption": "LoRA assumes that the change a fine-tune makes to a weight matrix can be.",
+            "activeActor": "layers",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "d_in"
-                  },
-                  {
-                    "text": "d_out"
-                  }
-                ],
-                "tone": "ok"
+                "from": "layers",
+                "to": "d_in",
+                "label": {
+                  "var": "layers",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "d_in"
-                  },
-                  {
-                    "text": "d_out"
-                  }
-                ],
-                "tone": "data"
+                "from": "d_in",
+                "to": "d_out",
+                "label": {
+                  "var": "d_in",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Instead of learning full updates it learns two thin matrices.",
-            "rows": [
+            "caption": "Instead of learning a full d_in d_out update, it learns two thin matrices.",
+            "activeActor": "d_in",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "d_in"
-                  },
-                  {
-                    "text": "d_out"
-                  }
-                ],
+                "from": "layers",
+                "to": "d_in",
+                "label": {
+                  "var": "layers",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "d_in"
-                  },
-                  {
-                    "text": "layers"
-                  }
-                ],
+                "from": "d_in",
+                "to": "d_out",
+                "label": {
+                  "var": "d_in",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Low-rank structure appears throughout mathematics and machine learning.",
+            "activeActor": "d_out",
+            "messages": [
+              {
+                "from": "layers",
+                "to": "d_in",
+                "label": {
+                  "var": "layers",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "d_in",
+                "to": "d_out",
+                "label": {
+                  "var": "d_in",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -226,9 +381,9 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Low-rank matrix factorisation reducing active parameters",
-        "columns": [
+        "template": "sequence",
+        "title": "The low-rank idea",
+        "actors": [
           "layers",
           "d_in",
           "d_out"
@@ -236,47 +391,60 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "LoRA assumes the weight matrix update can be described with fewer numbers.",
-            "rows": [
+            "caption": "LoRA assumes that the change a fine-tune makes to a weight matrix can be.",
+            "messages": [
               {
-                "cells": [
-                  "layers",
-                  "d_in",
-                  "d_out"
-                ],
-                "tone": "ok"
+                "from": "layers",
+                "to": "d_in",
+                "label": "32",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "layers",
-                  "d_in",
-                  "d_out"
-                ],
-                "tone": "data"
+                "from": "d_in",
+                "to": "d_out",
+                "label": "4096",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "layers"
           },
           {
             "at": "say2",
-            "caption": "Instead of learning full updates it learns two thin matrices.",
-            "rows": [
+            "caption": "Instead of learning a full d_in d_out update, it learns two thin matrices.",
+            "messages": [
               {
-                "cells": [
-                  "layers",
-                  "d_in",
-                  "d_out"
-                ],
+                "from": "layers",
+                "to": "d_in",
+                "label": "32",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "layers",
-                  "d_in",
-                  "layers"
-                ],
+                "from": "d_in",
+                "to": "d_out",
+                "label": "4096",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "d_in"
+          },
+          {
+            "at": "say10",
+            "caption": "Low-rank structure appears throughout mathematics and machine learning.",
+            "messages": [
+              {
+                "from": "layers",
+                "to": "d_in",
+                "label": "32",
+                "tone": "data"
+              },
+              {
+                "from": "d_in",
+                "to": "d_out",
+                "label": "4096",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "d_out"
           }
         ]
       }
@@ -285,78 +453,91 @@
       "partTitle": "The LoRA forward pass",
       "codeHash": "9739c92269c932e9d186511322c82360fa13933e11808b92936f04b372d0cd07",
       "spec": {
-        "template": "table",
-        "title": "LoRA forward pass combining frozen weights with adapter pathways",
-        "columns": [
-          "base",
-          "low",
-          "base"
+        "template": "sequence",
+        "title": "The LoRA forward pass",
+        "actors": [
+          "x",
+          "W",
+          "A"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A LoRA layer computes updates where base weight W remains frozen.",
-            "rows": [
+            "caption": "A LoRA layer computes y = xW + (alpha / r) (xA)B, where W is frozen.",
+            "activeActor": "x",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "low"
-                  },
-                  {
-                    "text": "base"
-                  }
-                ],
-                "tone": "ok"
+                "from": "x",
+                "to": "W",
+                "label": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "low"
-                  },
-                  {
-                    "text": "base"
-                  }
-                ],
-                "tone": "data"
+                "from": "W",
+                "to": "A",
+                "label": {
+                  "var": "W",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Matrix B is initialised to zeros so starting behaviour matches the original.",
-            "rows": [
+            "at": "say2",
+            "caption": "The scale alpha / r keeps the size of the update roughly independent.",
+            "activeActor": "W",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "low"
-                  },
-                  {
-                    "text": "base"
-                  }
-                ],
+                "from": "x",
+                "to": "W",
+                "label": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "low"
-                  },
-                  {
-                    "text": "low"
-                  }
-                ],
+                "from": "W",
+                "to": "A",
+                "label": {
+                  "var": "W",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Understanding the forward pass makes LoRA's settings (rank, alpha, target.",
+            "activeActor": "A",
+            "messages": [
+              {
+                "from": "x",
+                "to": "W",
+                "label": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "W",
+                "to": "A",
+                "label": {
+                  "var": "W",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +545,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "LoRA forward pass combining frozen weights with adapter pathways",
-        "columns": [
-          "base",
-          "low",
-          "base"
+        "template": "sequence",
+        "title": "The LoRA forward pass",
+        "actors": [
+          "x",
+          "W",
+          "A"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A LoRA layer computes updates where base weight W remains frozen.",
-            "rows": [
+            "caption": "A LoRA layer computes y = xW + (alpha / r) (xA)B, where W is frozen.",
+            "messages": [
               {
-                "cells": [
-                  "base",
-                  "low",
-                  "base"
-                ],
-                "tone": "ok"
+                "from": "x",
+                "to": "W",
+                "label": "[1, 2]",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "base",
-                  "low",
-                  "base"
-                ],
-                "tone": "data"
+                "from": "W",
+                "to": "A",
+                "label": "[[1, 0], [0, 1]]",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "x"
           },
           {
-            "at": "say3",
-            "caption": "Matrix B is initialised to zeros so starting behaviour matches the original.",
-            "rows": [
+            "at": "say2",
+            "caption": "The scale alpha / r keeps the size of the update roughly independent.",
+            "messages": [
               {
-                "cells": [
-                  "base",
-                  "low",
-                  "base"
-                ],
+                "from": "x",
+                "to": "W",
+                "label": "[1, 2]",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "base",
-                  "low",
-                  "low"
-                ],
+                "from": "W",
+                "to": "A",
+                "label": "[[1, 0], [0, 1]]",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "W"
+          },
+          {
+            "at": "say10",
+            "caption": "Understanding the forward pass makes LoRA's settings (rank, alpha, target.",
+            "messages": [
+              {
+                "from": "x",
+                "to": "W",
+                "label": "[1, 2]",
+                "tone": "data"
+              },
+              {
+                "from": "W",
+                "to": "A",
+                "label": "[[1, 0], [0, 1]]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "A"
           }
         ]
       }
@@ -423,78 +617,131 @@
       "partTitle": "Merging adapters",
       "codeHash": "8e180e93ccb46056f81c31b59d3a711c87d673add70a67b9e1f804e6003624db",
       "spec": {
-        "template": "table",
-        "title": "Merging adapter weights for zero-overhead inference execution",
-        "columns": [
-          "merged",
-          "lora",
-          "merged"
-        ],
+        "template": "bars",
+        "title": "Merging adapters",
         "steps": [
           {
             "at": "say1",
-            "caption": "After training the adapter can be merged into the base weight.",
-            "rows": [
+            "caption": "After training, the adapter can be merged into the base weight.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "merged"
-                  },
-                  {
-                    "text": "lora"
-                  },
-                  {
-                    "text": "merged"
-                  }
-                ],
-                "tone": "ok"
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "merged"
-                  },
-                  {
-                    "text": "lora"
-                  },
-                  {
-                    "text": "merged"
-                  }
-                ],
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 2,
+                  "hit": 4
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The merged layer produces identical outputs with no extra inference cost.",
-            "rows": [
+            "caption": "The merged layer produces exactly the same outputs as the LoRA layer,.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "merged"
-                  },
-                  {
-                    "text": "lora"
-                  },
-                  {
-                    "text": "merged"
-                  }
-                ],
-                "tone": "data"
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 6,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "merged"
-                  },
-                  {
-                    "text": "lora"
-                  },
-                  {
-                    "text": "lora"
-                  }
-                ],
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 2,
+                  "hit": 8
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Choosing between merging and serving separately is a deployment decision.",
+            "bars": [
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 6,
+                  "hit": 6
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 6,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 2,
+                  "hit": 13
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +749,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Merging adapter weights for zero-overhead inference execution",
-        "columns": [
-          "merged",
-          "lora",
-          "merged"
-        ],
+        "template": "bars",
+        "title": "Merging adapters",
         "steps": [
           {
             "at": "say1",
-            "caption": "After training the adapter can be merged into the base weight.",
-            "rows": [
+            "caption": "After training, the adapter can be merged into the base weight.",
+            "bars": [
               {
-                "cells": [
-                  "merged",
-                  "lora",
-                  "merged"
-                ],
-                "tone": "ok"
+                "label": "s",
+                "value": 2,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "merged",
-                  "lora",
-                  "merged"
-                ],
+                "label": "k",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "j",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The merged layer produces identical outputs with no extra inference cost.",
-            "rows": [
+            "caption": "The merged layer produces exactly the same outputs as the LoRA layer,.",
+            "bars": [
               {
-                "cells": [
-                  "merged",
-                  "lora",
-                  "merged"
-                ],
-                "tone": "data"
+                "label": "s",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "merged",
-                  "lora",
-                  "lora"
-                ],
+                "label": "k",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Choosing between merging and serving separately is a deployment decision.",
+            "bars": [
+              {
+                "label": "s",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -561,223 +837,175 @@
       "partTitle": "QLoRA and distributed fine-tuning",
       "codeHash": "56bdf9c4b700f2e199981bf7b164d850b35b4212e724929482cb1ef72d010490",
       "spec": {
-        "template": "flow",
-        "title": "QLoRA and distributed fine-tuning — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. QLoRA and distribut...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "QLoRA and distributed fine-tuning",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for QLoRA and distributed fine-tuning.",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in QLoRA and distribut... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "QLoRA combines LoRA with a 4-bit quantised base model, so even the frozen.",
+            "bars": [
+              {
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "trainable",
+                "value": {
+                  "var": "trainable",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how qlora updates model during execution.",
+            "bars": [
+              {
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "trainable",
+                "value": {
+                  "var": "trainable",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for QLoRA and distributed fine-tuning.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Tomorrow looks at quantisation itself.",
+            "bars": [
+              {
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "trainable",
+                "value": {
+                  "var": "trainable",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "QLoRA and distributed fine-tuning — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. QLoRA and distribut...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "QLoRA and distributed fine-tuning",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for QLoRA and distributed fine-tuning [D26.P5.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in QLoRA and distribut... [D26.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "QLoRA combines LoRA with a 4-bit quantised base model, so even the frozen.",
+            "bars": [
+              {
+                "label": "params",
+                "value": 70000000000,
+                "tone": "data"
+              },
+              {
+                "label": "trainable",
+                "value": 280000000,
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": 1120000000000,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how qlora updates model during execution.",
+            "bars": [
+              {
+                "label": "params",
+                "value": 70000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "trainable",
+                "value": 280000000,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 1120000000000,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for QLoRA and distributed fine-tuning [D26.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Tomorrow looks at quantisation itself.",
+            "bars": [
+              {
+                "label": "params",
+                "value": 70000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "trainable",
+                "value": 280000000,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 144480000000,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -788,110 +1016,161 @@
       "codeHash": "98bb873708214963ae06d2cd1ff328a85b8ee81a4fc20a2dbf5372f632f8fc2b",
       "spec": {
         "template": "flow",
-        "title": "Practice time: LoRA — Execution Pipeline",
+        "title": "Practice time: LoRA",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "layers",
+            "label": "layers"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: LoRA",
-            "tappable": true
+            "id": "hidden",
+            "label": "hidden"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "mlp",
+            "label": "mlp"
+          },
+          {
+            "id": "r",
+            "label": "r"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: LoRA [D.Psix.Sone].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: LoRA [D.Psix.Stwo].",
+            "caption": "Lora_params(layers, d_in, d_out, rank).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "layers": {
+                "var": "layers",
+                "line": 1,
+                "hit": 1
+              },
+              "hidden": {
+                "var": "hidden",
+                "line": 1,
+                "hit": 1
+              },
+              "mlp": {
+                "var": "mlp",
+                "line": 1,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 1,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "layers": "data",
+              "hidden": "data",
+              "mlp": "data",
+              "r": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "layers",
+                "hidden"
               ],
               [
-                "proc",
-                "out"
+                "hidden",
+                "mlp"
+              ],
+              [
+                "mlp",
+                "r"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "layers": {
+                "var": "layers",
+                "line": 2,
+                "hit": 1
+              },
+              "hidden": {
+                "var": "hidden",
+                "line": 2,
+                "hit": 1
+              },
+              "mlp": {
+                "var": "mlp",
+                "line": 2,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "layers": "data",
+              "hidden": "data",
+              "mlp": "data",
+              "r": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "layers",
+                "hidden"
+              ],
+              [
+                "hidden",
+                "mlp"
+              ],
+              [
+                "mlp",
+                "r"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: LoRA [D.Psix.Sfour].",
+            "at": "say10",
+            "caption": "If merge fails, check that the inner sum runs over the rank dimension of.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "layers": {
+                "var": "layers",
+                "line": 3,
+                "hit": 1
+              },
+              "hidden": {
+                "var": "hidden",
+                "line": 3,
+                "hit": 1
+              },
+              "mlp": {
+                "var": "mlp",
+                "line": 3,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "layers": "ok",
+              "hidden": "ok",
+              "mlp": "ok",
+              "r": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "layers",
+                "hidden"
               ],
               [
-                "proc",
-                "out"
+                "hidden",
+                "mlp"
+              ],
+              [
+                "mlp",
+                "r"
               ]
             ]
           }
@@ -899,110 +1178,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: LoRA — Execution Pipeline",
+        "title": "Practice time: LoRA",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "layers",
+            "label": "layers"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: LoRA",
-            "tappable": true
+            "id": "hidden",
+            "label": "hidden"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "mlp",
+            "label": "mlp"
+          },
+          {
+            "id": "r",
+            "label": "r"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: LoRA [D26.P6.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: LoRA [D26.P6.S2].",
+            "caption": "Lora_params(layers, d_in, d_out, rank).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "layers": "32",
+              "hidden": "4096",
+              "mlp": "11008",
+              "r": "16"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "layers": "data",
+              "hidden": "data",
+              "mlp": "data",
+              "r": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "layers",
+                "hidden"
               ],
               [
-                "proc",
-                "out"
+                "hidden",
+                "mlp"
+              ],
+              [
+                "mlp",
+                "r"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P6.S3].",
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "layers": "32",
+              "hidden": "4096",
+              "mlp": "11008",
+              "r": "16"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "layers": "data",
+              "hidden": "data",
+              "mlp": "data",
+              "r": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "layers",
+                "hidden"
+              ],
+              [
+                "hidden",
+                "mlp"
+              ],
+              [
+                "mlp",
+                "r"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: LoRA [D26.P6.S4].",
+            "at": "say10",
+            "caption": "If merge fails, check that the inner sum runs over the rank dimension of.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "layers": "32",
+              "hidden": "4096",
+              "mlp": "11008",
+              "r": "16"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "layers": "ok",
+              "hidden": "ok",
+              "mlp": "ok",
+              "r": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "layers",
+                "hidden"
               ],
               [
-                "proc",
-                "out"
+                "hidden",
+                "mlp"
+              ],
+              [
+                "mlp",
+                "r"
               ]
             ]
           }

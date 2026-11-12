@@ -2,118 +2,169 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 43,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Alignment Trilemma: Helpful, Honest & Harmless (HHH) Objectives",
       "codeHash": "3b802000497dbc400dbc4167d10ff772dc510800be4d549c89aeca84cb80624e",
       "spec": {
         "template": "flow",
-        "title": "The Alignment Trilemma: Helpful, Honest & Har... — Execution Pipeline",
+        "title": "The Alignment Trilemma: Helpful, Honest & Harmless (HHH) Objecti",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "evaluator",
+            "label": "evaluator"
           },
           {
-            "id": "proc",
-            "label": "2. The Alignment Trile...",
-            "tappable": true
+            "id": "candidates",
+            "label": "candidates"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "votes_1",
+            "label": "votes_1"
+          },
+          {
+            "id": "votes_2",
+            "label": "votes_2"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The Alignment Trilemma: Helpful, Honest ...",
-            "values": {
-              "in": "Day 43 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The Alignment Trile....",
+            "caption": "In our previous sessions, we mastered Supervised Fine-Tuning (SFT).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "evaluator": {
+                "var": "evaluator",
+                "line": 97,
+                "hit": 1
+              },
+              "candidates": {
+                "var": "candidates",
+                "line": 98,
+                "hit": 1
+              },
+              "votes_1": {
+                "var": "votes_1",
+                "line": 116,
+                "hit": 1
+              },
+              "votes_2": {
+                "var": "votes_2",
+                "line": 117,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "evaluator": "data",
+              "candidates": "data",
+              "votes_1": "data",
+              "votes_2": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "evaluator",
+                "candidates"
               ],
               [
-                "proc",
-                "out"
+                "candidates",
+                "votes_1"
+              ],
+              [
+                "votes_1",
+                "votes_2"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "To understand why SFT is fundamentally insufficient for frontier.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "evaluator": {
+                "var": "evaluator",
+                "line": 99,
+                "hit": 1
+              },
+              "candidates": {
+                "var": "candidates",
+                "line": 116,
+                "hit": 1
+              },
+              "votes_1": {
+                "var": "votes_1",
+                "line": 117,
+                "hit": 1
+              },
+              "votes_2": {
+                "var": "votes_2",
+                "line": 119,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "evaluator": "data",
+              "candidates": "data",
+              "votes_1": "data",
+              "votes_2": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "evaluator",
+                "candidates"
+              ],
+              [
+                "candidates",
+                "votes_1"
+              ],
+              [
+                "votes_1",
+                "votes_2"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The Alignment Trilemma: Helpful, ...",
+            "at": "say7",
+            "caption": "In the following Python script, we construct an AlignmentTrilemmaEvaluator.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "evaluator": {
+                "var": "evaluator",
+                "line": 100,
+                "hit": 1
+              },
+              "candidates": {
+                "var": "candidates",
+                "line": 117,
+                "hit": 1
+              },
+              "votes_1": {
+                "var": "votes_1",
+                "line": 119,
+                "hit": 1
+              },
+              "votes_2": {
+                "var": "votes_2",
+                "line": 120,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "evaluator": "ok",
+              "candidates": "ok",
+              "votes_1": "ok",
+              "votes_2": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "evaluator",
+                "candidates"
               ],
               [
-                "proc",
-                "out"
+                "candidates",
+                "votes_1"
+              ],
+              [
+                "votes_1",
+                "votes_2"
               ]
             ]
           }
@@ -121,110 +172,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "The Alignment Trilemma: Helpful, Honest & Har... — Execution Pipeline",
+        "title": "The Alignment Trilemma: Helpful, Honest & Harmless (HHH) Objecti",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "evaluator",
+            "label": "evaluator"
           },
           {
-            "id": "proc",
-            "label": "2. The Alignment Trile...",
-            "tappable": true
+            "id": "candidates",
+            "label": "candidates"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "votes_1",
+            "label": "votes_1"
+          },
+          {
+            "id": "votes_2",
+            "label": "votes_2"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The Alignment Trilemma: Helpful, Honest ...",
-            "values": {
-              "in": "Day 43 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Alignment Trile....",
+            "caption": "In our previous sessions, we mastered Supervised Fine-Tuning (SFT).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "evaluator": "<AlignmentTrilemmaEvaluator>",
+              "candidates": "[<CandidateResponse>, <CandidateRespons…",
+              "votes_1": "[1, 1, 1, 1, 1, 1, 1, 1, 0, 1]",
+              "votes_2": "[1, 1, 1, 1, 1, 1, 1, 0, 0, 1]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "evaluator": "data",
+              "candidates": "data",
+              "votes_1": "data",
+              "votes_2": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "evaluator",
+                "candidates"
               ],
               [
-                "proc",
-                "out"
+                "candidates",
+                "votes_1"
+              ],
+              [
+                "votes_1",
+                "votes_2"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "To understand why SFT is fundamentally insufficient for frontier.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "evaluator": "<AlignmentTrilemmaEvaluator>",
+              "candidates": "[<CandidateResponse>, <CandidateRespons…",
+              "votes_1": "[1, 1, 1, 1, 1, 1, 1, 1, 0, 1]",
+              "votes_2": "[1, 1, 1, 1, 1, 1, 1, 0, 0, 1]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "evaluator": "data",
+              "candidates": "data",
+              "votes_1": "data",
+              "votes_2": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "evaluator",
+                "candidates"
+              ],
+              [
+                "candidates",
+                "votes_1"
+              ],
+              [
+                "votes_1",
+                "votes_2"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Alignment Trilemma: Helpful, ...",
+            "at": "say7",
+            "caption": "In the following Python script, we construct an AlignmentTrilemmaEvaluator.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "evaluator": "<AlignmentTrilemmaEvaluator>",
+              "candidates": "[<CandidateResponse>, <CandidateRespons…",
+              "votes_1": "[1, 1, 1, 1, 1, 1, 1, 1, 0, 1]",
+              "votes_2": "[1, 1, 1, 1, 1, 1, 1, 0, 0, 1]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "evaluator": "ok",
+              "candidates": "ok",
+              "votes_1": "ok",
+              "votes_2": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "evaluator",
+                "candidates"
               ],
               [
-                "proc",
-                "out"
+                "candidates",
+                "votes_1"
+              ],
+              [
+                "votes_1",
+                "votes_2"
               ]
             ]
           }
@@ -235,223 +289,112 @@
       "partTitle": "The Bradley-Terry Preference Model: Pairwise Comparison Likelihood & Cross-Entropy Optimization",
       "codeHash": "ee537ead78dae4a569ef107cf531929fbdb0b753b1884836e7262100d1d9eac1",
       "spec": {
-        "template": "flow",
-        "title": "The Bradley-Terry Preference Model: Pairwise ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Bradley-Terry P...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "The Bradley-Terry Preference Model: Pairwise Comparison Likeliho",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The Bradley-Terry Preference Model: Pair...",
-            "values": {
-              "in": "Day 43 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The Bradley-Terry P....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Having established the necessity of preference-based training, we now.",
+            "items": {
+              "var": "initial_weights",
+              "line": 28,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The core mathematical formulation assumes that there exists a latent.",
+            "items": {
+              "var": "initial_weights",
+              "line": 29,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The Bradley-Terry Preference Mode...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "In the following Python script, we construct a complete.",
+            "items": {
+              "var": "initial_weights",
+              "line": 29,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The Bradley-Terry Preference Model: Pairwise ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Bradley-Terry P...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "The Bradley-Terry Preference Model: Pairwise Comparison Likeliho",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The Bradley-Terry Preference Model: Pair...",
-            "values": {
-              "in": "Day 43 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Bradley-Terry P....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having established the necessity of preference-based training, we now.",
+            "items": [
+              "0.1",
+              "0.1",
+              "0.1",
+              "0.1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The core mathematical formulation assumes that there exists a latent.",
+            "items": [
+              "0.1",
+              "0.1",
+              "0.1",
+              "0.1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Bradley-Terry Preference Mode...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we construct a complete.",
+            "items": [
+              "0.1",
+              "0.1",
+              "0.1",
+              "0.1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -461,223 +404,106 @@
       "partTitle": "Reward Model Architecture, Calibration & Length Bias Mitigation",
       "codeHash": "7bc2491a0724c109cf19738ff6bef9aa0c74773d3b145b324e9152642db75e5d",
       "spec": {
-        "template": "flow",
-        "title": "Reward Model Architecture, Calibration & Leng... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reward Model Archit...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Reward Model Architecture, Calibration & Length Bias Mitigation",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Reward Model Architecture, Calibration &...",
-            "values": {
-              "in": "Day 43 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Reward Model Archit....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "While the Bradley-Terry loss provides the training objective, designing.",
+            "items": {
+              "var": "p",
+              "line": 45,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The Architectural Anatomy of a Reward Model builds directly upon.",
+            "items": {
+              "var": "p",
+              "line": 45,
+              "hit": 7
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Reward Model Architecture, Calibr...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "In the following Python script, we construct.",
+            "items": {
+              "var": "p",
+              "line": 49,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Reward Model Architecture, Calibration & Leng... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reward Model Archit...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Reward Model Architecture, Calibration & Length Bias Mitigation",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Reward Model Architecture, Calibration &...",
-            "values": {
-              "in": "Day 43 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Reward Model Archit....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While the Bradley-Terry loss provides the training objective, designing.",
+            "items": [
+              "0.55",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The Architectural Anatomy of a Reward Model builds directly upon.",
+            "items": [
+              "0.83",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Reward Model Architecture, Calibr...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following Python script, we construct.",
+            "items": [
+              "0.58",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -687,223 +513,118 @@
       "partTitle": "Proximal Policy Optimization (PPO) Mechanics: Value Networks, Generalized Advantage Estimation (GAE) & KL Penalty",
       "codeHash": "477e8a8a1c3781de8642711bea16153be9783fd55bff6be76b1aaaaf59491be3",
       "spec": {
-        "template": "flow",
-        "title": "Proximal Policy Optimization (PPO) Mechanics:... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Proximal Policy Opt...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Proximal Policy Optimization (PPO) Mechanics: Value Networks, Ge",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Proximal Policy Optimization (PPO) Mecha...",
-            "values": {
-              "in": "Day 43 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Proximal Policy Opt....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "With a robust, calibrated, and length-normalized reward model established.",
+            "items": {
+              "var": "lp_actor",
+              "line": 96,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The 4-Model RLHF Architecture orchestrates four synchronized neural.",
+            "items": {
+              "var": "lp_actor",
+              "line": 99,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Proximal Policy Optimization (PPO...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "In the following Python script, we construct a complete PPOEngine.",
+            "items": {
+              "var": "lp_actor",
+              "line": 103,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Proximal Policy Optimization (PPO) Mechanics:... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Proximal Policy Opt...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Proximal Policy Optimization (PPO) Mechanics: Value Networks, Ge",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Proximal Policy Optimization (PPO) Mecha...",
-            "values": {
-              "in": "Day 43 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Proximal Policy Opt....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "With a robust, calibrated, and length-normalized reward model established.",
+            "items": [
+              "-1.15",
+              "-0.92",
+              "-1.4",
+              "-0.85",
+              "-1.05",
+              "-0.6"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The 4-Model RLHF Architecture orchestrates four synchronized neural.",
+            "items": [
+              "-1.15",
+              "-0.92",
+              "-1.4",
+              "-0.85",
+              "-1.05",
+              "-0.6"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Proximal Policy Optimization (PPO...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following Python script, we construct a complete PPOEngine.",
+            "items": [
+              "-1.15",
+              "-0.92",
+              "-1.4",
+              "-0.85",
+              "-1.05",
+              "-0.6"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -913,223 +634,217 @@
       "partTitle": "Masterclass Synthesis: Building the ApexReward Bradley-Terry Alignment Suite",
       "codeHash": "c65994192ada32b9b47d6ec46bd8e5e0041e036c2d4cef0612cb6248c2d7ada9",
       "spec": {
-        "template": "flow",
-        "title": "Masterclass Synthesis: Building the ApexRewar... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Synthes...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Masterclass Synthesis: Building the ApexReward Bradley-Terry Ali",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Masterclass Synthesis: Building.",
-            "values": {
-              "in": "Day 43 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Masterclass Synthes....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Building the ApexReward Bradley-Terry Alignment Suite.",
+            "bars": [
+              {
+                "label": "feature_dim",
+                "value": {
+                  "var": "feature_dim",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "epoch",
+                "value": {
+                  "var": "epoch",
+                  "line": 47,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "w_tok",
+                "value": {
+                  "var": "w_tok",
+                  "line": 49,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "l_tok",
+                "value": {
+                  "var": "l_tok",
+                  "line": 49,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In this masterclass capstone, you assume the executive position.",
+            "bars": [
+              {
+                "label": "feature_dim",
+                "value": {
+                  "var": "feature_dim",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "epoch",
+                "value": {
+                  "var": "epoch",
+                  "line": 48,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w_tok",
+                "value": {
+                  "var": "w_tok",
+                  "line": 50,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "l_tok",
+                "value": {
+                  "var": "l_tok",
+                  "line": 50,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Masterclass Synthesis: Building t...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "By conquering this milestone, you master the mathematical core of modern.",
+            "bars": [
+              {
+                "label": "feature_dim",
+                "value": {
+                  "var": "feature_dim",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "epoch",
+                "value": {
+                  "var": "epoch",
+                  "line": 49,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w_tok",
+                "value": {
+                  "var": "w_tok",
+                  "line": 51,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "l_tok",
+                "value": {
+                  "var": "l_tok",
+                  "line": 51,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Masterclass Synthesis: Building the ApexRewar... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Synthes...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Masterclass Synthesis: Building the ApexReward Bradley-Terry Ali",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Synthesis: Building.",
-            "values": {
-              "in": "Day 43 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Synthes....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Building the ApexReward Bradley-Terry Alignment Suite.",
+            "bars": [
+              {
+                "label": "feature_dim",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "epoch",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "w_tok",
+                "value": 140,
+                "tone": "data"
+              },
+              {
+                "label": "l_tok",
+                "value": 380,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In this masterclass capstone, you assume the executive position.",
+            "bars": [
+              {
+                "label": "feature_dim",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "epoch",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "w_tok",
+                "value": 140,
+                "tone": "ok"
+              },
+              {
+                "label": "l_tok",
+                "value": 380,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Synthesis: Building t...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "By conquering this milestone, you master the mathematical core of modern.",
+            "bars": [
+              {
+                "label": "feature_dim",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "epoch",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "w_tok",
+                "value": 140,
+                "tone": "ok"
+              },
+              {
+                "label": "l_tok",
+                "value": 380,
+                "tone": "ok"
+              }
             ]
           }
         ]

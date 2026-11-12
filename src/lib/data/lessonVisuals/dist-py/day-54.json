@@ -2,1333 +2,831 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 54,
-  "promptSha": "552790cc82467bbc0918cdafb15d4368bd310ff2895e61fd4ffa32e431252322",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Consistent Hashing with Bounded Load & Zone-Aware Replica Placement — Foundations & Mathematical Invariants",
-      "codeHash": "9deb6941ddc505144681a0d3b98982dbc36c344a4c99ad403c4d5b3ad7aa963a",
+      "partTitle": "Eliminating Hot-Shard Overload With Consistent Hashing Bounded Load",
+      "codeHash": "6fbe9fb9fb1850b01fb88ce990bb154c51e4044d3bb3e7ca71e146ef5a4a7f05",
       "spec": {
-        "template": "flow",
-        "title": "Consistent Hashing with Bounded Load & Zone-Aware Replica Placement — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Eliminating Hot-Shard Overload With Consistent Hashing Bounded L",
+        "actors": [
+          "self",
+          "nodes",
+          "epsilon"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Standard Consistent Hashing with virtual nodes guarantees smooth uniform.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "nodes",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "epsilon",
+                "label": {
+                  "var": "nodes",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If that single unlucky shard holding `hotkey:celebrity` collapses into GC.",
+            "activeActor": "nodes",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "nodes",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "nodes",
+                "to": "epsilon",
+                "label": {
+                  "var": "nodes",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Implement and verify Bounded-Load Consistent Hashing caps under Zipf-like.",
+            "activeActor": "epsilon",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "nodes",
+                "label": {
+                  "var": "self",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "nodes",
+                "to": "epsilon",
+                "label": {
+                  "var": "nodes",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
+        "template": "sequence",
+        "title": "Eliminating Hot-Shard Overload With Consistent Hashing Bounded L",
+        "actors": [
+          "self",
+          "nodes",
+          "epsilon"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Standard Consistent Hashing with virtual nodes guarantees smooth uniform.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "nodes",
+                "label": "<BoundedHashRing>",
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "epsilon",
+                "label": "['S0', 'S1', 'S2', 'S3']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
+            "at": "say2",
+            "caption": "If that single unlucky shard holding `hotkey:celebrity` collapses into GC.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "nodes",
+                "label": "<BoundedHashRing>",
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "epsilon",
+                "label": "['S0', 'S1', 'S2', 'S3']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "nodes"
+          },
+          {
+            "at": "say7",
+            "caption": "Implement and verify Bounded-Load Consistent Hashing caps under Zipf-like.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "nodes",
+                "label": "<BoundedHashRing>",
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "epsilon",
+                "label": "['S0', 'S1', 'S2', 'S3']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "epsilon"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Zone-Aware Replica Placement & Failure Domain Isolation",
+      "codeHash": "159ac90523e75b15f5d507cd90fee145d358aaf4c351661de1f93aa7155f2b19",
+      "spec": {
         "template": "flow",
-        "title": "Consistent Hashing with Bounded Load & Zone-Aware Replica Placement — ",
+        "title": "Zone-Aware Replica Placement & Failure Domain Isolation",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cluster",
+            "label": "cluster"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "z",
+            "label": "z"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "v",
+            "label": "v"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "at": "say1",
+            "caption": "Consistent hash rings placing replicas strictly onto the next N clockwise.",
+            "values": {
+              "cluster": {
+                "var": "cluster",
+                "line": 27,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "n": {
+                "var": "n",
+                "line": 32,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "z": {
+                "var": "z",
+                "line": 32,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "v": {
+                "var": "v",
+                "line": 32,
+                "hit": 3
               }
+            },
+            "tones": {
+              "cluster": "data",
+              "n": "data",
+              "z": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "cluster",
+                "n"
+              ],
+              [
+                "n",
+                "z"
+              ],
+              [
+                "z",
+                "v"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "When Zone `us-east-1a` suffers a fiber cut or power event, ALL THREE.",
+            "values": {
+              "cluster": {
+                "var": "cluster",
+                "line": 31,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "n": {
+                "var": "n",
+                "line": 31,
+                "hit": 3
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "z": {
+                "var": "z",
+                "line": 31,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "v": {
+                "var": "v",
+                "line": 31,
+                "hit": 4
               }
+            },
+            "tones": {
+              "cluster": "data",
+              "n": "data",
+              "z": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "cluster",
+                "n"
+              ],
+              [
+                "n",
+                "z"
+              ],
+              [
+                "z",
+                "v"
+              ]
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "caption": "Implement Zone-Aware clockwise replica placement verifying 0 co-located.",
+            "values": {
+              "cluster": {
+                "var": "cluster",
+                "line": 32,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "n": {
+                "var": "n",
+                "line": 32,
+                "hit": 3
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "z": {
+                "var": "z",
+                "line": 32,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "v": {
+                "var": "v",
+                "line": 31,
+                "hit": 5
               }
+            },
+            "tones": {
+              "cluster": "ok",
+              "n": "ok",
+              "z": "ok",
+              "v": "ok"
+            },
+            "arrows": [
+              [
+                "cluster",
+                "n"
+              ],
+              [
+                "n",
+                "z"
+              ],
+              [
+                "z",
+                "v"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Zone-Aware Replica Placement & Failure Domain Isolation",
+        "nodes": [
+          {
+            "id": "cluster",
+            "label": "cluster"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": "z",
+            "label": "z"
+          },
+          {
+            "id": "v",
+            "label": "v"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Consistent hash rings placing replicas strictly onto the next N clockwise.",
+            "values": {
+              "cluster": "[['n1', 'az-a'], ['n2', 'az-a'], ['n3',…",
+              "n": "'n1'",
+              "z": "'az-a'",
+              "v": "0"
+            },
+            "tones": {
+              "cluster": "data",
+              "n": "data",
+              "z": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "cluster",
+                "n"
+              ],
+              [
+                "n",
+                "z"
+              ],
+              [
+                "z",
+                "v"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "When Zone `us-east-1a` suffers a fiber cut or power event, ALL THREE.",
+            "values": {
+              "cluster": "[['n1', 'az-a'], ['n2', 'az-a'], ['n3',…",
+              "n": "'n1'",
+              "z": "'az-a'",
+              "v": "0"
+            },
+            "tones": {
+              "cluster": "data",
+              "n": "data",
+              "z": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "cluster",
+                "n"
+              ],
+              [
+                "n",
+                "z"
+              ],
+              [
+                "z",
+                "v"
+              ]
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Implement Zone-Aware clockwise replica placement verifying 0 co-located.",
+            "values": {
+              "cluster": "[['n1', 'az-a'], ['n2', 'az-a'], ['n3',…",
+              "n": "'n1'",
+              "z": "'az-a'",
+              "v": "0"
+            },
+            "tones": {
+              "cluster": "ok",
+              "n": "ok",
+              "z": "ok",
+              "v": "ok"
+            },
+            "arrows": [
+              [
+                "cluster",
+                "n"
+              ],
+              [
+                "n",
+                "z"
+              ],
+              [
+                "z",
+                "v"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Consistent Hashing with Bounded Load & Zone-Aware Replica Placement — Core Algorithm & State Representation",
-      "codeHash": "0bd1c44ce2aac69e8207c4a5b37f6bd26d6f3509c0ba492ca6b46a6c1f371b38",
+      "partTitle": "Minimizing Key Migration & Virtual-Node Tuning (Maglev vs Rings)",
+      "codeHash": "29772d8ea4808a6716fb2ca3d32cf93ac4e6f958fcbec4233645e325b3e945ca",
       "spec": {
-        "template": "flow",
-        "title": "Consistent Hashing with Bounded Load & Zone-Aware Replica Placement — ",
-        "nodes": [
+        "template": "states",
+        "title": "Minimizing Key Migration & Virtual-Node Tuning (Maglev vs Rings)",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "nodes",
+            "label": "nodes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "vnodes",
+            "label": "vnodes"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "pts",
+            "label": "pts"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Rebalancing storage shards when adding 1 new server into an `N = 20`-node.",
+            "currentState": "nodes",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Look closely at why naive vnode placement (`v = 4` tiny ring points per.",
+            "currentState": "vnodes",
+            "transition": {
+              "from": "nodes",
+              "to": "vnodes",
+              "label": {
+                "var": "vnodes",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say5",
+            "caption": "Trace how verify updates movement during execution.",
+            "currentState": "pts",
+            "transition": {
+              "from": "vnodes",
+              "to": "pts",
+              "label": {
+                "var": "pts",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Consistent Hashing with Bounded Load & Zone-Aware Replica Placement — ",
-        "nodes": [
+        "template": "states",
+        "title": "Minimizing Key Migration & Virtual-Node Tuning (Maglev vs Rings)",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "nodes",
+            "label": "nodes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "vnodes",
+            "label": "vnodes"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "pts",
+            "label": "pts"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Rebalancing storage shards when adding 1 new server into an `N = 20`-node.",
+            "currentState": "nodes",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Look closely at why naive vnode placement (`v = 4` tiny ring points per.",
+            "currentState": "vnodes",
+            "transition": {
+              "from": "nodes",
+              "to": "vnodes",
+              "label": "128"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say5",
+            "caption": "Trace how verify updates movement during execution.",
+            "currentState": "pts",
+            "transition": {
+              "from": "vnodes",
+              "to": "pts",
+              "label": "[]"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Consistent Hashing with Bounded Load & Zone-Aware Replica Placement — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "92bbdf3e32564ab2aca226b7122f4adbfc103db5bdf1c0df4345defa24598fe8",
+      "partTitle": "Zone-Local Affinity Reads vs Quorum Cross-Zone Write Paths",
+      "codeHash": "aaab6123b91e2375a0ba893c1ec6c429ea254f592395128b4ef29dc478b91df8",
       "spec": {
-        "template": "flow",
-        "title": "Consistent Hashing with Bounded Load & Zone-Aware Replica Placement — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Zone-Local Affinity Reads vs Quorum Cross-Zone Write Paths",
+        "actors": [
+          "reps",
+          "key_replicas",
+          "caller_zone"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Once every key holds three replicas isolated across `[az-a, az-b, az-c]`.",
+            "activeActor": "reps",
+            "messages": [
+              {
+                "from": "reps",
+                "to": "key_replicas",
+                "label": {
+                  "var": "reps",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "key_replicas",
+                "to": "caller_zone",
+                "label": {
+                  "var": "key_replicas",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Whenever a web backend running inside `az-a` handles an `R=1` read (or.",
+            "activeActor": "key_replicas",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "reps",
+                "to": "key_replicas",
+                "label": {
+                  "var": "reps",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "key_replicas",
+                "to": "caller_zone",
+                "label": {
+                  "var": "key_replicas",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "caption": "Simulate caller-zone-aware routing paired cleanly with health & load-cap.",
+            "activeActor": "caller_zone",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "reps",
+                "to": "key_replicas",
+                "label": {
+                  "var": "reps",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "key_replicas",
+                "to": "caller_zone",
+                "label": {
+                  "var": "key_replicas",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Consistent Hashing with Bounded Load & Zone-Aware Replica Placement — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Zone-Local Affinity Reads vs Quorum Cross-Zone Write Paths",
+        "actors": [
+          "reps",
+          "key_replicas",
+          "caller_zone"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Once every key holds three replicas isolated across `[az-a, az-b, az-c]`.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "reps",
+                "to": "key_replicas",
+                "label": "[['n1', 'az-a'], ['n3', 'az-b'], ['n5',…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "key_replicas",
+                "to": "caller_zone",
+                "label": "[['n1', 'az-a'], ['n3', 'az-b'], ['n5',…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "reps"
+          },
+          {
+            "at": "say2",
+            "caption": "Whenever a web backend running inside `az-a` handles an `R=1` read (or.",
+            "messages": [
+              {
+                "from": "reps",
+                "to": "key_replicas",
+                "label": "[['n1', 'az-a'], ['n3', 'az-b'], ['n5',…",
+                "tone": "data"
+              },
+              {
+                "from": "key_replicas",
+                "to": "caller_zone",
+                "label": "[['n1', 'az-a'], ['n3', 'az-b'], ['n5',…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "key_replicas"
           },
           {
             "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "caption": "Simulate caller-zone-aware routing paired cleanly with health & load-cap.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "reps",
+                "to": "key_replicas",
+                "label": "[['n1', 'az-a'], ['n3', 'az-b'], ['n5',…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "key_replicas",
+                "to": "caller_zone",
+                "label": "[['n1', 'az-a'], ['n3', 'az-b'], ['n5',…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "caller_zone"
           }
         ]
       }
     },
     {
-      "partTitle": "Consistent Hashing with Bounded Load & Zone-Aware Replica Placement — Resilience Guardrails & Failure Recovery",
-      "codeHash": "d259ccba0fece8443cee23bf9632e705fc3f6704aaf327a106d457df1000c312",
+      "partTitle": "Full Ring Audit: Bounded Load, AZ Survivability & Minimal Disruption",
+      "codeHash": "94ff163e8b89dca4f4f9a55fb10b97f624e2aca497978895b6068c9900dbe4cc",
       "spec": {
-        "template": "flow",
-        "title": "Consistent Hashing with Bounded Load & Zone-Aware Replica Placement — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Full Ring Audit: Bounded Load, AZ Survivability & Minimal Disrup",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Audit your shard-routing plane end-to-end against three hard quantitative.",
+            "items": {
+              "var": "r",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Verify max node load NEVER exceeds `ceil((1 + epsilon) * avg_load)`.",
+            "items": {
+              "var": "r",
+              "line": 7,
+              "hit": 7
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "caption": "Execute the deterministic 3-gate Sharding & Placement Audit below.",
+            "items": {
+              "var": "r",
+              "line": 7,
+              "hit": 12
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Consistent Hashing with Bounded Load & Zone-Aware Replica Placement — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Full Ring Audit: Bounded Load, AZ Survivability & Minimal Disrup",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "at": "say1",
+            "caption": "Audit your shard-routing plane end-to-end against three hard quantitative.",
+            "items": [
+              "28101818",
+              "'n2'",
+              "'a'"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verify max node load NEVER exceeds `ceil((1 + epsilon) * avg_load)`.",
+            "items": [
+              "76380967",
+              "'n2'",
+              "'a'"
+            ],
+            "pointers": [
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "caption": "Execute the deterministic 3-gate Sharding & Placement Audit below.",
+            "items": [
+              "157384641",
+              "'n6'",
+              "'c'"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Consistent Hashing with Bounded Load & Zone-Aware Replica Placement — Production Telemetry & Verification Audit",
-      "codeHash": "cb6829dd2d691040f5dfddc7540be4eda12260d65e1ccf7eb79b790926d7111d",
-      "spec": {
-        "template": "flow",
-        "title": "Consistent Hashing with Bounded Load & Zone-Aware Replica Placement — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Consistent Hashing with Bounded Load & Zone-Aware Replica Placement — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

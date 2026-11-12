@@ -2,85 +2,84 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 4,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The idea of data parallelism",
       "codeHash": "a9390d94a2747c2613bbcdb2d6ca4f9f0ac4c535984f6e11c04d0eb892ae38c8",
       "spec": {
-        "template": "table",
-        "title": "Data parallel architecture: replicated models and sharded inputs",
-        "columns": [
-          "data",
-          "rank",
-          "shard"
-        ],
+        "template": "bars",
+        "title": "The idea of data parallelism",
         "steps": [
           {
             "at": "say1",
-            "caption": "In data parallelism every worker maintains an identical model copy.",
-            "rows": [
+            "caption": "In data parallelism, every GPU holds a full copy of the model.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "rank"
-                  },
-                  {
-                    "text": "shard"
-                  }
-                ],
-                "tone": "ok"
+                "label": "world_size",
+                "value": {
+                  "var": "world_size",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "rank"
-                  },
-                  {
-                    "text": "shard"
-                  }
-                ],
+                "label": "rank",
+                "value": {
+                  "var": "rank",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Computed gradients are averaged across all workers before updating.",
-            "rows": [
+            "at": "say2",
+            "caption": "Each GPU processes a different slice of the data, called its shard,.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "rank"
-                  },
-                  {
-                    "text": "shard"
-                  }
-                ],
-                "tone": "data"
+                "label": "world_size",
+                "value": {
+                  "var": "world_size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "rank"
-                  },
-                  {
-                    "text": "data"
-                  }
-                ],
+                "label": "rank",
+                "value": {
+                  "var": "rank",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Each worker in a data-parallel job has a number called its rank, from 0.",
+            "bars": [
+              {
+                "label": "world_size",
+                "value": {
+                  "var": "world_size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rank",
+                "value": {
+                  "var": "rank",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -88,54 +87,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Data parallel architecture: replicated models and sharded inputs",
-        "columns": [
-          "data",
-          "rank",
-          "shard"
-        ],
+        "template": "bars",
+        "title": "The idea of data parallelism",
         "steps": [
           {
             "at": "say1",
-            "caption": "In data parallelism every worker maintains an identical model copy.",
-            "rows": [
+            "caption": "In data parallelism, every GPU holds a full copy of the model.",
+            "bars": [
               {
-                "cells": [
-                  "data",
-                  "rank",
-                  "shard"
-                ],
-                "tone": "ok"
+                "label": "world_size",
+                "value": 3,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "data",
-                  "rank",
-                  "shard"
-                ],
+                "label": "rank",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Computed gradients are averaged across all workers before updating.",
-            "rows": [
+            "at": "say2",
+            "caption": "Each GPU processes a different slice of the data, called its shard,.",
+            "bars": [
               {
-                "cells": [
-                  "data",
-                  "rank",
-                  "shard"
-                ],
-                "tone": "data"
+                "label": "world_size",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "data",
-                  "rank",
-                  "data"
-                ],
+                "label": "rank",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Each worker in a data-parallel job has a number called its rank, from 0.",
+            "bars": [
+              {
+                "label": "world_size",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "rank",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -147,78 +145,131 @@
       "partTitle": "The distributed sampler",
       "codeHash": "307b6b7b154c345fd92ad1ffd7dfc20fc2da0d703f121e308560fe5422554c73",
       "spec": {
-        "template": "table",
-        "title": "Distributed dataset sampling and rank index partition",
-        "columns": [
-          "indices",
-          "rank",
-          "total"
-        ],
+        "template": "bars",
+        "title": "The distributed sampler",
         "steps": [
           {
             "at": "say1",
-            "caption": "The distributed sampler assigns partitioned data shards to each rank.",
-            "rows": [
+            "caption": "A distributed sampler decides which examples each rank sees.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "indices"
-                  },
-                  {
-                    "text": "rank"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "ok"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "indices"
-                  },
-                  {
-                    "text": "rank"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
+                "label": "world",
+                "value": {
+                  "var": "world",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "rank",
+                "value": {
+                  "var": "rank",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The sampler pads the index list so repeating indices balance all ranks.",
-            "rows": [
+            "at": "say2",
+            "caption": "Every rank must process the same number of batches, otherwise some GPUs.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "indices"
-                  },
-                  {
-                    "text": "rank"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "data"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "indices"
-                  },
-                  {
-                    "text": "rank"
-                  },
-                  {
-                    "text": "indices"
-                  }
-                ],
+                "label": "world",
+                "value": {
+                  "var": "world",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rank",
+                "value": {
+                  "var": "rank",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Understanding the sampler explains why the number of steps per epoch.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "world",
+                "value": {
+                  "var": "world",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rank",
+                "value": {
+                  "var": "rank",
+                  "line": 8,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +277,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Distributed dataset sampling and rank index partition",
-        "columns": [
-          "indices",
-          "rank",
-          "total"
-        ],
+        "template": "bars",
+        "title": "The distributed sampler",
         "steps": [
           {
             "at": "say1",
-            "caption": "The distributed sampler assigns partitioned data shards to each rank.",
-            "rows": [
+            "caption": "A distributed sampler decides which examples each rank sees.",
+            "bars": [
               {
-                "cells": [
-                  "indices",
-                  "rank",
-                  "total"
-                ],
-                "tone": "ok"
+                "label": "n",
+                "value": 10,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "indices",
-                  "rank",
-                  "total"
-                ],
+                "label": "world",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": 12,
+                "tone": "data"
+              },
+              {
+                "label": "rank",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The sampler pads the index list so repeating indices balance all ranks.",
-            "rows": [
+            "at": "say2",
+            "caption": "Every rank must process the same number of batches, otherwise some GPUs.",
+            "bars": [
               {
-                "cells": [
-                  "indices",
-                  "rank",
-                  "total"
-                ],
-                "tone": "data"
+                "label": "n",
+                "value": 10,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "indices",
-                  "rank",
-                  "indices"
-                ],
+                "label": "world",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 12,
+                "tone": "ok"
+              },
+              {
+                "label": "rank",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Understanding the sampler explains why the number of steps per epoch.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "world",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 12,
+                "tone": "ok"
+              },
+              {
+                "label": "rank",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -285,135 +365,165 @@
       "partTitle": "Averaging gradients",
       "codeHash": "22b823118ee6aceada1928ebbb2c4ff24da60c94bc30b79d3c5bcd23c917d2b4",
       "spec": {
-        "template": "table",
-        "title": "Element-wise gradient reduction across distributed workers",
-        "columns": [
-          "avg",
-          "vals",
-          "worker_grads"
+        "template": "flow",
+        "title": "Averaging gradients",
+        "nodes": [
+          {
+            "id": "worker_grads",
+            "label": "worker_grads"
+          },
+          {
+            "id": "avg",
+            "label": "avg"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each rank computes gradients from its own shard during backward pass.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "avg"
-                  },
-                  {
-                    "text": "vals"
-                  },
-                  {
-                    "text": "worker_grads"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "After the backward pass, each rank has gradients computed from its own shard.",
+            "values": {
+              "worker_grads": {
+                "var": "worker_grads",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "avg"
-                  },
-                  {
-                    "text": "vals"
-                  },
-                  {
-                    "text": "worker_grads"
-                  }
-                ],
-                "tone": "data"
+              "avg": {
+                "var": "avg",
+                "line": 2,
+                "hit": 4
               }
+            },
+            "tones": {
+              "worker_grads": "data",
+              "avg": "data"
+            },
+            "arrows": [
+              [
+                "worker_grads",
+                "avg"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Collective all-reduce operations synchronise averaged gradients globally.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "avg"
-                  },
-                  {
-                    "text": "vals"
-                  },
-                  {
-                    "text": "worker_grads"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Averaging them element by element gives the gradient that a single machine.",
+            "values": {
+              "worker_grads": {
+                "var": "worker_grads",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "avg"
-                  },
-                  {
-                    "text": "vals"
-                  },
-                  {
-                    "text": "avg"
-                  }
-                ],
-                "tone": "ok"
+              "avg": {
+                "var": "avg",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "worker_grads": "data",
+              "avg": "data"
+            },
+            "arrows": [
+              [
+                "worker_grads",
+                "avg"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Rounding helps only for display and testing.",
+            "values": {
+              "worker_grads": {
+                "var": "worker_grads",
+                "line": 2,
+                "hit": 2
+              },
+              "avg": {
+                "var": "avg",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "worker_grads": "ok",
+              "avg": "ok"
+            },
+            "arrows": [
+              [
+                "worker_grads",
+                "avg"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Element-wise gradient reduction across distributed workers",
-        "columns": [
-          "avg",
-          "vals",
-          "worker_grads"
+        "template": "flow",
+        "title": "Averaging gradients",
+        "nodes": [
+          {
+            "id": "worker_grads",
+            "label": "worker_grads"
+          },
+          {
+            "id": "avg",
+            "label": "avg"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each rank computes gradients from its own shard during backward pass.",
-            "rows": [
-              {
-                "cells": [
-                  "avg",
-                  "vals",
-                  "worker_grads"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "avg",
-                  "vals",
-                  "worker_grads"
-                ],
-                "tone": "data"
-              }
+            "caption": "After the backward pass, each rank has gradients computed from its own shard.",
+            "values": {
+              "worker_grads": "[[0.2, -0.4, 1], [0.4, -0.2, 0], [0, -0…",
+              "avg": "[0.2, -0.3, 0.5]"
+            },
+            "tones": {
+              "worker_grads": "data",
+              "avg": "data"
+            },
+            "arrows": [
+              [
+                "worker_grads",
+                "avg"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Collective all-reduce operations synchronise averaged gradients globally.",
-            "rows": [
-              {
-                "cells": [
-                  "avg",
-                  "vals",
-                  "worker_grads"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "avg",
-                  "vals",
-                  "avg"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Averaging them element by element gives the gradient that a single machine.",
+            "values": {
+              "worker_grads": "[[0.2, -0.4, 1], [0.4, -0.2, 0], [0, -0…",
+              "avg": "[0.2, -0.3, 0.5]"
+            },
+            "tones": {
+              "worker_grads": "data",
+              "avg": "data"
+            },
+            "arrows": [
+              [
+                "worker_grads",
+                "avg"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Rounding helps only for display and testing.",
+            "values": {
+              "worker_grads": "[[0.2, -0.4, 1], [0.4, -0.2, 0], [0, -0…",
+              "avg": "[0.2, -0.3, 0.5]"
+            },
+            "tones": {
+              "worker_grads": "ok",
+              "avg": "ok"
+            },
+            "arrows": [
+              [
+                "worker_grads",
+                "avg"
+              ]
             ]
           }
         ]
@@ -423,135 +533,277 @@
       "partTitle": "Same result as one big batch",
       "codeHash": "b605220d5c1e23a97dc994584e0b24e32290438dc2df1d15df0be488fcf22a00",
       "spec": {
-        "template": "table",
-        "title": "Mathematical equivalence: distributed shards versus single-worker batch",
-        "columns": [
-          "single",
-          "workers",
-          "averaged"
+        "template": "flow",
+        "title": "Same result as one big batch",
+        "nodes": [
+          {
+            "id": "xs",
+            "label": "xs"
+          },
+          {
+            "id": "ys",
+            "label": "ys"
+          },
+          {
+            "id": "w",
+            "label": "w"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Equal shards ensure distributed updates match single machine batches.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "single"
-                  },
-                  {
-                    "text": "workers"
-                  },
-                  {
-                    "text": "averaged"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Data parallelism with equal shards gives the same update as one machine.",
+            "values": {
+              "xs": {
+                "var": "xs",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "single"
-                  },
-                  {
-                    "text": "workers"
-                  },
-                  {
-                    "text": "averaged"
-                  }
-                ],
-                "tone": "data"
+              "ys": {
+                "var": "ys",
+                "line": 1,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 2,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "xs": "data",
+              "ys": "data",
+              "w": "data",
+              "b": "data"
+            },
+            "arrows": [
+              [
+                "xs",
+                "ys"
+              ],
+              [
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "b"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Data parallelism does not change what the model learns during training.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "single"
-                  },
-                  {
-                    "text": "workers"
-                  },
-                  {
-                    "text": "averaged"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "The example verifies this on the line-fitting problem from Day 2.",
+            "values": {
+              "xs": {
+                "var": "xs",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "single"
-                  },
-                  {
-                    "text": "workers"
-                  },
-                  {
-                    "text": "single"
-                  }
-                ],
-                "tone": "ok"
+              "ys": {
+                "var": "ys",
+                "line": 2,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 3,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "xs": "data",
+              "ys": "data",
+              "w": "data",
+              "b": "data"
+            },
+            "arrows": [
+              [
+                "xs",
+                "ys"
+              ],
+              [
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "b"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Checking equivalence on toy problems is a good habit when writing.",
+            "values": {
+              "xs": {
+                "var": "xs",
+                "line": 3,
+                "hit": 1
+              },
+              "ys": {
+                "var": "ys",
+                "line": 3,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 7,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "xs": "ok",
+              "ys": "ok",
+              "w": "ok",
+              "b": "ok"
+            },
+            "arrows": [
+              [
+                "xs",
+                "ys"
+              ],
+              [
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "b"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Mathematical equivalence: distributed shards versus single-worker batch",
-        "columns": [
-          "single",
-          "workers",
-          "averaged"
+        "template": "flow",
+        "title": "Same result as one big batch",
+        "nodes": [
+          {
+            "id": "xs",
+            "label": "xs"
+          },
+          {
+            "id": "ys",
+            "label": "ys"
+          },
+          {
+            "id": "w",
+            "label": "w"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Equal shards ensure distributed updates match single machine batches.",
-            "rows": [
-              {
-                "cells": [
-                  "single",
-                  "workers",
-                  "averaged"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "single",
-                  "workers",
-                  "averaged"
-                ],
-                "tone": "data"
-              }
+            "caption": "Data parallelism with equal shards gives the same update as one machine.",
+            "values": {
+              "xs": "[0, 1, 2, 3, 4, 5]",
+              "ys": "[1, 3, 5, 7, 9, 11]",
+              "w": "0.5",
+              "b": "0"
+            },
+            "tones": {
+              "xs": "data",
+              "ys": "data",
+              "w": "data",
+              "b": "data"
+            },
+            "arrows": [
+              [
+                "xs",
+                "ys"
+              ],
+              [
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "b"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Data parallelism does not change what the model learns during training.",
-            "rows": [
-              {
-                "cells": [
-                  "single",
-                  "workers",
-                  "averaged"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "single",
-                  "workers",
-                  "single"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "The example verifies this on the line-fitting problem from Day 2.",
+            "values": {
+              "xs": "[0, 1, 2, 3, 4, 5]",
+              "ys": "[1, 3, 5, 7, 9, 11]",
+              "w": "0.5",
+              "b": "0"
+            },
+            "tones": {
+              "xs": "data",
+              "ys": "data",
+              "w": "data",
+              "b": "data"
+            },
+            "arrows": [
+              [
+                "xs",
+                "ys"
+              ],
+              [
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "b"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Checking equivalence on toy problems is a good habit when writing.",
+            "values": {
+              "xs": "[0, 1, 2, 3, 4, 5]",
+              "ys": "[1, 3, 5, 7, 9, 11]",
+              "w": "0.5",
+              "b": "0"
+            },
+            "tones": {
+              "xs": "ok",
+              "ys": "ok",
+              "w": "ok",
+              "b": "ok"
+            },
+            "arrows": [
+              [
+                "xs",
+                "ys"
+              ],
+              [
+                "ys",
+                "w"
+              ],
+              [
+                "w",
+                "b"
+              ]
             ]
           }
         ]
@@ -562,110 +814,127 @@
       "codeHash": "e7b501176624ac621baede22bc73804e03a091d2ca07b510ab434786b1bde249",
       "spec": {
         "template": "flow",
-        "title": "Where data parallelism struggles — Execution Pipeline",
+        "title": "Where data parallelism struggles",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "proc",
-            "label": "2. Where data parallel...",
-            "tappable": true
+            "id": "params",
+            "label": "params"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "grad_gb",
+            "label": "grad_gb"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Where data parallelism struggles.",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Where data parallel... [Dfour.Pfive.Stwo].",
+            "caption": "Every step, all GPUs must exchange gradients as large as the whole model.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "name": {
+                "var": "name",
+                "line": 1,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 1,
+                "hit": 1
+              },
+              "grad_gb": {
+                "var": "grad_gb",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "name": "data",
+              "params": "data",
+              "grad_gb": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "name",
+                "params"
               ],
               [
-                "proc",
-                "out"
+                "params",
+                "grad_gb"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Trace how model updates gradients during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "name": {
+                "var": "name",
+                "line": 2,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 2,
+                "hit": 1
+              },
+              "grad_gb": {
+                "var": "grad_gb",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "name": "data",
+              "params": "data",
+              "grad_gb": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "name",
+                "params"
+              ],
+              [
+                "params",
+                "grad_gb"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Where data parallelism struggles.",
+            "at": "say10",
+            "caption": "Knowing the weaknesses tells you when to move to more advanced techniques.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "name": {
+                "var": "name",
+                "line": 3,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 3,
+                "hit": 1
+              },
+              "grad_gb": {
+                "var": "grad_gb",
+                "line": 1,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "name": "ok",
+              "params": "ok",
+              "grad_gb": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "name",
+                "params"
               ],
               [
-                "proc",
-                "out"
+                "params",
+                "grad_gb"
               ]
             ]
           }
@@ -673,110 +942,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Where data parallelism struggles — Execution Pipeline",
+        "title": "Where data parallelism struggles",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "proc",
-            "label": "2. Where data parallel...",
-            "tappable": true
+            "id": "params",
+            "label": "params"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "grad_gb",
+            "label": "grad_gb"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Where data parallelism struggles [D4.P5.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Where data parallel... [D4.P5.S2].",
+            "caption": "Every step, all GPUs must exchange gradients as large as the whole model.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "name": "'125M'",
+              "params": "125000000",
+              "grad_gb": "0.25"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "name": "data",
+              "params": "data",
+              "grad_gb": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "name",
+                "params"
               ],
               [
-                "proc",
-                "out"
+                "params",
+                "grad_gb"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P5.S3].",
+            "at": "say2",
+            "caption": "Trace how model updates gradients during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "name": "'125M'",
+              "params": "125000000",
+              "grad_gb": "0.25"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "name": "data",
+              "params": "data",
+              "grad_gb": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "name",
+                "params"
+              ],
+              [
+                "params",
+                "grad_gb"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Where data parallelism struggles [D4.P5.S4].",
+            "at": "say10",
+            "caption": "Knowing the weaknesses tells you when to move to more advanced techniques.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "name": "'125M'",
+              "params": "125000000",
+              "grad_gb": "0.25"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "name": "ok",
+              "params": "ok",
+              "grad_gb": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "name",
+                "params"
               ],
               [
-                "proc",
-                "out"
+                "params",
+                "grad_gb"
               ]
             ]
           }
@@ -787,223 +1037,124 @@
       "partTitle": "Practice time: sharding and averaging",
       "codeHash": "d4874ad5180245caafb3076e0cb358dd74583ffa65b10d6a2e49903eda365f37",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: sharding and averaging — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: shar...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: sharding and averaging",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: sharding and averaging.",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: shar... [Dfour.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Shard_indices(n, world_size, rank).",
+            "items": {
+              "var": "xs",
+              "line": 1,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfour.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
+            "items": {
+              "var": "xs",
+              "line": 7,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: sharding and avera.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "If a check fails, print each rank's shard to see exactly which indices it.",
+            "items": {
+              "var": "xs",
+              "line": 6,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: sharding and averaging — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: shar...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: sharding and averaging",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: sharding and averaging [D4.P6.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: shar... [D4.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Shard_indices(n, world_size, rank).",
+            "items": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
+            "items": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: sharding and avera.. [D4.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If a check fails, print each rank's shard to see exactly which indices it.",
+            "items": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

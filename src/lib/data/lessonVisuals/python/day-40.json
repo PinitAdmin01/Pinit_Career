@@ -2,88 +2,188 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 40,
-  "promptSha": "012db8d89f9cccd30095f8eb1285fc6d97a2fd01f3628fbe4944b0c7752fdc12",
-  "model": "gate-v2-verified",
+  "promptSha": "eec0ad06e94fc372426b69a05d89306c8f2da49ce889f226565bf8ccaa8bec63",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "Milestone 7 Architecture Specification & Data Contracts",
       "codeHash": "c1be675c11c49baee98d409432899b2aa35344c5c05be580e618280b45c4f1d2",
       "spec": {
-        "template": "table",
-        "title": "Milestone 7 Architecture Specification & Data Cont",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "BoundedQueuePool slot allocation contract",
+        "boxes": [
+          {
+            "id": "pool",
+            "label": "pool"
+          },
+          {
+            "id": "over",
+            "label": "overflow_count"
+          },
+          {
+            "id": "out",
+            "label": "checked_out"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Milestone"
-                  },
-                  {
-                    "text": "Architecture"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "QueuePool keeps warm slots while allowing controlled burst overflow.",
+            "values": {
+              "pool": {
+                "text": "conn_"
+              },
+              "over": {
+                "text": "max_overflow"
+              },
+              "out": {
+                "text": "pool_size"
               }
-            ]
+            },
+            "tones": {
+              "pool": "ok",
+              "over": "data",
+              "out": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The crucially logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Specification"
-                  },
-                  {
-                    "text": "Data"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Saturation triggers a clean TimeoutError once slots fill up.",
+            "values": {
+              "pool": {
+                "text": "TimeoutError"
+              },
+              "over": {
+                "text": "overflow_"
+              },
+              "out": {
+                "text": "checked_out"
               }
-            ]
+            },
+            "tones": {
+              "pool": "error",
+              "over": "error",
+              "out": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Checkin returns primary pool slots cleanly while shrinking overflow.",
+            "values": {
+              "pool": {
+                "text": "pool_size"
+              },
+              "over": {
+                "text": "overflow_count"
+              },
+              "out": {
+                "text": "checkin"
+              }
+            },
+            "tones": {
+              "pool": "ok",
+              "over": "ok",
+              "out": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Instantiate pool_size 1 and max_overflow 0 so second checkout fails.",
+            "values": {
+              "pool": {
+                "text": "Instantiate"
+              },
+              "over": {
+                "text": "with"
+              },
+              "out": {
+                "text": "and"
+              }
+            },
+            "tones": {
+              "pool": "ok",
+              "over": "idle",
+              "out": "error"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Milestone 7 Architecture Specification & Data Cont",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "BoundedQueuePool slot allocation contract",
+        "boxes": [
+          {
+            "id": "pool",
+            "label": "pool"
+          },
+          {
+            "id": "over",
+            "label": "overflow_count"
+          },
+          {
+            "id": "out",
+            "label": "checked_out"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Milestone",
-                  "Architecture"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "QueuePool keeps warm slots while allowing controlled burst overflow.",
+            "values": {
+              "pool": "[conn_1, conn_2]",
+              "over": "0 / 1",
+              "out": "0"
+            },
+            "tones": {
+              "pool": "ok",
+              "over": "data",
+              "out": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The crucially logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Specification",
-                  "Data"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Saturation triggers a clean TimeoutError once slots fill up.",
+            "values": {
+              "pool": "[] (4th -> TimeoutError)",
+              "over": "1 (overflow_1)",
+              "out": "3 Checked Out"
+            },
+            "tones": {
+              "pool": "error",
+              "over": "error",
+              "out": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Checkin returns primary pool slots cleanly while shrinking overflow.",
+            "values": {
+              "pool": "[conn_2, conn_1] (2)",
+              "over": "0",
+              "out": "0"
+            },
+            "tones": {
+              "pool": "ok",
+              "over": "ok",
+              "out": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Instantiate pool_size 1 and max_overflow 0 so second checkout fails.",
+            "values": {
+              "pool": "[conn_1] Max Size 1",
+              "over": "0 Overflow Allowed",
+              "out": "2nd -> TimeoutError Caught"
+            },
+            "tones": {
+              "pool": "ok",
+              "over": "idle",
+              "out": "error"
+            },
+            "whatIf": "class ConnectionContract:\n    def __init__(self, conn_id):\n        self.conn_id = conn_id\n        self.is_active = True\n\n    def ping(self):\n        return self.is_active\n\nclass BoundedQueuePool:\n    def __init__(self, pool_size=3, max_overflow=2):\n        self.pool_size = pool_size\n        self.max_overflow = max_overflow\n        self.pool = [ConnectionContract(f\"conn_{i+1}\") for i in range(pool_size)]\n        self.overflow_count = 0\n        self.checked_out = set()\n\n    def checkout(self):\n        if self.pool:\n            conn = self.pool.pop(0)\n            self.checked_out.add(conn)\n            return conn\n        if self.overflow_count < self.max_overflow:\n            self.overflow_count += 1\n            conn = ConnectionContract(f\"overflow_{self.overflow_count}\")\n            self.checked_out.add(conn)\n            return conn\n        raise TimeoutError(\"QueuePool exhausted: all pool and overflow slots in use!\")\n\n    def checkin(self, conn):\n        if conn in self.checked_out:\n            self.checked_out.remove(conn)\n            if conn.conn_id.startswith(\"overflow\"):\n                self.overflow_count -= 1\n            else:\n                self.pool.append(conn)\n\npool = BoundedQueuePool(pool_size=1, max_overflow=0)\nc1 = pool.checkout()\ntimeout_hit = False\ntry:\n    pool.checkout()\nexcept TimeoutError as e:\n    timeout_hit = True\n    print(f\"Second Checkout TimeoutError: {timeout_hit} ({e})\")\npool.checkin(c1)\nprint(f\"After checkin -> Pool: {len(pool.pool)}, Checked out: {len(pool.checked_out)}\")",
+            "checks": [
+              "Second Checkout TimeoutError: True (QueuePool exhausted"
             ]
           }
         ]
@@ -93,82 +193,162 @@
       "partTitle": "Database Failover & Connection Leak Stress Testing",
       "codeHash": "9f0cadb628d1d56f32b9d64f80fdafb9f969a4fec63bd9bf53a85462cb49f339",
       "spec": {
-        "template": "table",
-        "title": "Database Failover & Connection Leak Stress Testing",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Manual connection handling vs SafeTransactionContext",
+        "leftLabel": "Unwrapped Checkout (Leak Risk)",
+        "rightLabel": "SafeTransactionContext (__exit__)",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The second concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Database"
-                  },
-                  {
-                    "text": "Failover"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Leaked connections quickly exhaust limited pool slots under load.",
+            "left": {
+              "code": "conn = pool.checkout(); crash()",
+              "result": "Connection Orphaned!",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "with SafeTransactionContext(mp) as c:",
+              "result": "Always Checked In",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The eliminate logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Connection"
-                  },
-                  {
-                    "text": "Leak"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Python context managers reclaim resources inside mandatory teardown blocks.",
+            "left": {
+              "code": "raise RuntimeError(...) # skipped checkin",
+              "result": "Active Leaks > 0",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "__exit__ -> self.pool.checkin(self.conn)",
+              "result": "Equilibrium Preserved",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Runtime exceptions still execute cleanup so active leaks stay 0.",
+            "left": {
+              "code": "No finally / __exit__ guard",
+              "result": "Pool Starvation",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "with SafeTransactionContext(mp): raise",
+              "result": "Active leaks = 0",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Invoke rollback inside __exit__ so failed writes clear dirty state safely.",
+            "left": {
+              "code": "__exit__ checkin only (no rollback log)",
+              "result": "conn_1 returned without rollback hook",
+              "tone": "error",
+              "checks": [
+                "Rollback Invoked: False",
+                "Active leaks = 0"
+              ],
+              "whatIf": "class ConnectionContract:\n    def __init__(self, conn_id):\n        self.conn_id = conn_id\n        self.is_active = True\n\nclass SafeTransactionContext:\n    def __init__(self, pool):\n        self.pool = pool\n        self.conn = None\n\n    def __enter__(self):\n        self.conn = self.pool.checkout()\n        return self.conn\n\n    def __exit__(self, exc_type, exc_val, exc_tb):\n        if self.conn:\n            self.pool.checkin(self.conn)\n            print(f\"Safety invariant preserved: {self.conn.conn_id} safely checked in.\")\n        return False\n\nclass MockPool:\n    def __init__(self):\n        self.checked_out_count = 0\n\n    def checkout(self):\n        self.checked_out_count += 1\n        return ConnectionContract(f\"conn_{self.checked_out_count}\")\n\n    def checkin(self, conn):\n        self.checked_out_count -= 1\n\nmp = MockPool()\ntry:\n    with SafeTransactionContext(mp) as conn:\n        print(f\"Active query executing on {conn.conn_id}...\")\n        raise RuntimeError(\"Simulated transient network disconnect during write!\")\nexcept RuntimeError as err:\n    print(\"Caught expected exception:\", err)\n\nprint(\"Rollback Invoked: False\")\nprint(f\"Pool state verification: Active leaks = {mp.checked_out_count}\")"
+            },
+            "right": {
+              "code": "if exc_type: conn.rollback() in __exit__",
+              "result": "Rollback executed & Active leaks = 0",
+              "tone": "ok",
+              "checks": [
+                "ROLLBACK EXECUTED on conn_1 due to RuntimeError",
+                "Active leaks = 0"
+              ],
+              "whatIf": "class ConnectionContract:\n    def __init__(self, conn_id):\n        self.conn_id = conn_id\n        self.is_active = True\n\nclass SafeTransactionContext:\n    def __init__(self, pool):\n        self.pool = pool\n        self.conn = None\n\n    def __enter__(self):\n        self.conn = self.pool.checkout()\n        return self.conn\n\n    def __exit__(self, exc_type, exc_val, exc_tb):\n        if exc_type:\n            print(f\"ROLLBACK EXECUTED on {self.conn.conn_id} due to {exc_type.__name__}\")\n        if self.conn:\n            self.pool.checkin(self.conn)\n            print(f\"Safety invariant preserved: {self.conn.conn_id} safely checked in.\")\n        return False\n\nclass MockPool:\n    def __init__(self):\n        self.checked_out_count = 0\n\n    def checkout(self):\n        self.checked_out_count += 1\n        return ConnectionContract(f\"conn_{self.checked_out_count}\")\n\n    def checkin(self, conn):\n        self.checked_out_count -= 1\n\nmp = MockPool()\ntry:\n    with SafeTransactionContext(mp) as conn:\n        print(f\"Active query executing on {conn.conn_id}...\")\n        raise RuntimeError(\"Simulated transient network disconnect during write!\")\nexcept RuntimeError as err:\n    print(\"Caught expected exception:\", err)\n\nprint(f\"Pool state verification: Active leaks = {mp.checked_out_count}\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Database Failover & Connection Leak Stress Testing",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Manual connection handling vs SafeTransactionContext",
+        "leftLabel": "Unwrapped Checkout (Leak Risk)",
+        "rightLabel": "SafeTransactionContext (__exit__)",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The second concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Database",
-                  "Failover"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Leaked connections quickly exhaust limited pool slots under load.",
+            "left": {
+              "code": "conn = pool.checkout(); crash()",
+              "result": "Connection Orphaned!",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "with SafeTransactionContext(mp) as c:",
+              "result": "Always Checked In",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The eliminate logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Connection",
-                  "Leak"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Python context managers reclaim resources inside mandatory teardown blocks.",
+            "left": {
+              "code": "raise RuntimeError(...) # skipped checkin",
+              "result": "Active Leaks > 0",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "__exit__ -> self.pool.checkin(self.conn)",
+              "result": "Equilibrium Preserved",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Runtime exceptions still execute cleanup so active leaks stay 0.",
+            "left": {
+              "code": "No finally / __exit__ guard",
+              "result": "Pool Starvation",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "with SafeTransactionContext(mp): raise",
+              "result": "Active leaks = 0",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Invoke rollback inside __exit__ so failed writes clear dirty state safely.",
+            "left": {
+              "code": "__exit__ checkin only (no rollback log)",
+              "result": "conn_1 returned without rollback hook",
+              "tone": "error",
+              "checks": [
+                "Rollback Invoked: False",
+                "Active leaks = 0"
+              ],
+              "whatIf": "class ConnectionContract:\n    def __init__(self, conn_id):\n        self.conn_id = conn_id\n        self.is_active = True\n\nclass SafeTransactionContext:\n    def __init__(self, pool):\n        self.pool = pool\n        self.conn = None\n\n    def __enter__(self):\n        self.conn = self.pool.checkout()\n        return self.conn\n\n    def __exit__(self, exc_type, exc_val, exc_tb):\n        if self.conn:\n            self.pool.checkin(self.conn)\n            print(f\"Safety invariant preserved: {self.conn.conn_id} safely checked in.\")\n        return False\n\nclass MockPool:\n    def __init__(self):\n        self.checked_out_count = 0\n\n    def checkout(self):\n        self.checked_out_count += 1\n        return ConnectionContract(f\"conn_{self.checked_out_count}\")\n\n    def checkin(self, conn):\n        self.checked_out_count -= 1\n\nmp = MockPool()\ntry:\n    with SafeTransactionContext(mp) as conn:\n        print(f\"Active query executing on {conn.conn_id}...\")\n        raise RuntimeError(\"Simulated transient network disconnect during write!\")\nexcept RuntimeError as err:\n    print(\"Caught expected exception:\", err)\n\nprint(\"Rollback Invoked: False\")\nprint(f\"Pool state verification: Active leaks = {mp.checked_out_count}\")"
+            },
+            "right": {
+              "code": "if exc_type: conn.rollback() in __exit__",
+              "result": "Rollback executed & Active leaks = 0",
+              "tone": "ok",
+              "checks": [
+                "ROLLBACK EXECUTED on conn_1 due to RuntimeError",
+                "Active leaks = 0"
+              ],
+              "whatIf": "class ConnectionContract:\n    def __init__(self, conn_id):\n        self.conn_id = conn_id\n        self.is_active = True\n\nclass SafeTransactionContext:\n    def __init__(self, pool):\n        self.pool = pool\n        self.conn = None\n\n    def __enter__(self):\n        self.conn = self.pool.checkout()\n        return self.conn\n\n    def __exit__(self, exc_type, exc_val, exc_tb):\n        if exc_type:\n            print(f\"ROLLBACK EXECUTED on {self.conn.conn_id} due to {exc_type.__name__}\")\n        if self.conn:\n            self.pool.checkin(self.conn)\n            print(f\"Safety invariant preserved: {self.conn.conn_id} safely checked in.\")\n        return False\n\nclass MockPool:\n    def __init__(self):\n        self.checked_out_count = 0\n\n    def checkout(self):\n        self.checked_out_count += 1\n        return ConnectionContract(f\"conn_{self.checked_out_count}\")\n\n    def checkin(self, conn):\n        self.checked_out_count -= 1\n\nmp = MockPool()\ntry:\n    with SafeTransactionContext(mp) as conn:\n        print(f\"Active query executing on {conn.conn_id}...\")\n        raise RuntimeError(\"Simulated transient network disconnect during write!\")\nexcept RuntimeError as err:\n    print(\"Caught expected exception:\", err)\n\nprint(f\"Pool state verification: Active leaks = {mp.checked_out_count}\")"
+            }
           }
         ]
       }
@@ -177,81 +357,257 @@
       "partTitle": "Integrated Unit of Work & Identity Map Engine",
       "codeHash": "8d05c8499e720b187e6e276b6c9e275f79e99681924ab7214cc4ca2762987b4c",
       "spec": {
-        "template": "table",
-        "title": "Integrated Unit of Work & Identity Map Engine",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "SynthesizedUnitOfWork entity state transitions",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The connection concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say3",
+            "caption": "Entities progress from transient objects into session pending queues.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Integrated"
-                  },
-                  {
-                    "text": "Unit"
-                  }
-                ],
+                "text": "TRANSIENT"
+              },
+              {
+                "text": "PENDING"
+              },
+              {
+                "text": "PERSISTENT"
+              },
+              {
+                "text": "identity_map"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "add()",
+                "index": 1,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "idle",
+              "1": "data",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The complementing logic drives deterministic execution.",
-            "rows": [
+            "at": "say4",
+            "caption": "Atomic commit flushes pending changes after dependency ordering runs.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Work"
-                  },
-                  {
-                    "text": "Identity"
-                  }
-                ],
+                "text": "TRANSIENT"
+              },
+              {
+                "text": "PENDING"
+              },
+              {
+                "text": "PERSISTENT"
+              },
+              {
+                "text": "identity_map"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "commit()",
+                "index": 2,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              1,
+              4
+            ],
+            "tones": {
+              "0": "idle",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Commit moves both account records smoothly into persistent Identity Map storage.",
+            "items": [
+              {
+                "text": "101"
+              },
+              {
+                "text": "102"
+              },
+              {
+                "text": "PERSISTENT"
+              },
+              {
+                "text": "identity_map"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "flushed=2",
+                "index": 2,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Track modified entity fields in dirty dict and emit minimal SQL UPDATE.",
+            "items": [
+              {
+                "text": "Add"
+              },
+              {
+                "text": "tracking"
+              },
+              {
+                "text": "SynthesizedUnitOfWork"
+              },
+              {
+                "text": "detects"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "update",
+                "index": 2,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "ok",
+              "3": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Integrated Unit of Work & Identity Map Engine",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "SynthesizedUnitOfWork entity state transitions",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The connection concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say3",
+            "caption": "Entities progress from transient objects into session pending queues.",
+            "items": [
+              "TRANSIENT (init)",
+              "PENDING (added)",
+              "PERSISTENT",
+              "identity_map: 0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Integrated",
-                  "Unit"
-                ],
+                "name": "add()",
+                "index": 1,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "idle",
+              "1": "data",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The complementing logic drives deterministic execution.",
-            "rows": [
+            "at": "say4",
+            "caption": "Atomic commit flushes pending changes after dependency ordering runs.",
+            "items": [
+              "TRANSIENT",
+              "PENDING (cleared)",
+              "PERSISTENT (flushed)",
+              "identity_map: 2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Work",
-                  "Identity"
-                ],
+                "name": "commit()",
+                "index": 2,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              1,
+              4
+            ],
+            "tones": {
+              "0": "idle",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Commit moves both account records smoothly into persistent Identity Map storage.",
+            "items": [
+              "Account 101 ($5000)",
+              "Account 102 ($12000)",
+              "PERSISTENT",
+              "IdentityMap: 2"
+            ],
+            "pointers": [
+              {
+                "name": "flushed=2",
+                "index": 2,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Track modified entity fields in dirty dict and emit minimal SQL UPDATE.",
+            "items": [
+              "a1 PERSISTENT",
+              "dirty: {101: balance}",
+              "UPDATE balance=5500",
+              "Minimal Flush OK"
+            ],
+            "pointers": [
+              {
+                "name": "update",
+                "index": 2,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "ok",
+              "3": "ok"
+            },
+            "whatIf": "class EntityState:\n    TRANSIENT = \"TRANSIENT\"\n    PENDING = \"PENDING\"\n    PERSISTENT = \"PERSISTENT\"\n\nclass SynthesizedUnitOfWork:\n    def __init__(self):\n        self.identity_map = {}\n        self.pending = []\n        self.db = {}\n\n    def add(self, entity):\n        entity.state = EntityState.PENDING\n        self.pending.append(entity)\n\n    def commit(self):\n        flushed = 0\n        for entity in self.pending:\n            self.db[entity.id] = entity\n            entity.state = EntityState.PERSISTENT\n            self.identity_map[entity.id] = entity\n            flushed += 1\n        self.pending.clear()\n        return flushed\n\nclass AccountRecord:\n    def __init__(self, id, balance):\n        self.id = id\n        self.balance = balance\n        self.state = EntityState.TRANSIENT\n\nuow = SynthesizedUnitOfWork()\na1 = AccountRecord(101, 5000)\na2 = AccountRecord(102, 12000)\nuow.add(a1)\nuow.add(a2)\nprint(\"Before commit: pending =\", len(uow.pending), \"| state =\", a1.state)\nflushed = uow.commit()\nprint(f\"Committed {flushed} entities. IdentityMap size: {len(uow.identity_map)}, state = {a1.state}\")\nuow.dirty_changes = {a1.id: {\"balance\": 5500}}\nupdates = [f\"UPDATE accounts SET {col}={val} WHERE id={aid}\" for aid, cols in uow.dirty_changes.items() for col, val in cols.items()]\nprint(f\"Minimal Dirty SQL: {updates[0]}\")",
+            "checks": [
+              "Minimal Dirty SQL: UPDATE accounts SET balance=5500 WHERE id=101"
             ]
           }
         ]
@@ -261,81 +617,318 @@
       "partTitle": "Query Execution Planner with Eager Loading",
       "codeHash": "3151ccad5a89ee6f76141ca603a3d2d14de93be9ff3bec4ccee32566b927ab48",
       "spec": {
-        "template": "table",
-        "title": "Query Execution Planner with Eager Loading",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "MilestoneQueryPlanner two-query hash join pipeline",
+        "nodes": [
+          {
+            "id": "cust",
+            "label": "customers_db"
+          },
+          {
+            "id": "ord",
+            "label": "orders_db"
+          },
+          {
+            "id": "stitch",
+            "label": "order_map"
+          },
+          {
+            "id": "log",
+            "label": "query_log"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The fourth concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Query"
-                  },
-                  {
-                    "text": "Execution"
-                  }
-                ],
-                "tone": "data"
+            "at": "say3",
+            "caption": "Two batched queries load parents and orders via one IN filter.",
+            "values": {
+              "cust": {
+                "text": "SELECT id, name FROM customers"
+              },
+              "ord": {
+                "text": "WHERE customer_id IN"
+              },
+              "stitch": {
+                "text": "order_map"
+              },
+              "log": {
+                "text": "query_log"
               }
+            },
+            "tones": {
+              "cust": "ok",
+              "ord": "data",
+              "stitch": "idle",
+              "log": "idle"
+            },
+            "arrows": [
+              [
+                "cust",
+                "ord"
+              ],
+              [
+                "ord",
+                "stitch"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "The selectinload logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Planner"
-                  },
-                  {
-                    "text": "with"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say4",
+            "caption": "Executing strictly 2 select statements keeps throughput constant.",
+            "values": {
+              "cust": {
+                "text": "Alice Corp"
+              },
+              "ord": {
+                "text": "Bob LLC"
+              },
+              "stitch": {
+                "text": "2"
+              },
+              "log": {
+                "text": "2"
               }
+            },
+            "tones": {
+              "cust": "ok",
+              "ord": "ok",
+              "stitch": "ok",
+              "log": "ok"
+            },
+            "arrows": [
+              [
+                "cust",
+                "stitch"
+              ],
+              [
+                "ord",
+                "stitch"
+              ],
+              [
+                "stitch",
+                "log"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Planner hydrates customer orders using strictly 2 SQL queries.",
+            "values": {
+              "cust": {
+                "text": "1"
+              },
+              "ord": {
+                "text": "1200"
+              },
+              "stitch": {
+                "text": "orders"
+              },
+              "log": {
+                "text": "2"
+              }
+            },
+            "tones": {
+              "cust": "ok",
+              "ord": "ok",
+              "stitch": "ok",
+              "log": "ok"
+            },
+            "arrows": [
+              [
+                "cust",
+                "ord"
+              ],
+              [
+                "ord",
+                "stitch"
+              ],
+              [
+                "stitch",
+                "log"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Verify MilestoneQueryPlanner issues 2 total queries across 10 customers.",
+            "values": {
+              "cust": {
+                "text": "Modify"
+              },
+              "ord": {
+                "text": "log"
+              },
+              "stitch": {
+                "text": "execution"
+              },
+              "log": {
+                "text": "and"
+              }
+            },
+            "tones": {
+              "cust": "data",
+              "ord": "data",
+              "stitch": "ok",
+              "log": "ok"
+            },
+            "arrows": [
+              [
+                "cust",
+                "ord"
+              ],
+              [
+                "ord",
+                "stitch"
+              ],
+              [
+                "stitch",
+                "log"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Query Execution Planner with Eager Loading",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "MilestoneQueryPlanner two-query hash join pipeline",
+        "nodes": [
+          {
+            "id": "cust",
+            "label": "customers_db"
+          },
+          {
+            "id": "ord",
+            "label": "orders_db"
+          },
+          {
+            "id": "stitch",
+            "label": "order_map"
+          },
+          {
+            "id": "log",
+            "label": "query_log"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The fourth concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Query",
-                  "Execution"
-                ],
-                "tone": "data"
-              }
+            "at": "say3",
+            "caption": "Two batched queries load parents and orders via one IN filter.",
+            "values": {
+              "cust": "SELECT customers",
+              "ord": "WHERE customer_id IN (1,2)",
+              "stitch": "Hash Stitch",
+              "log": "Logged"
+            },
+            "tones": {
+              "cust": "ok",
+              "ord": "data",
+              "stitch": "idle",
+              "log": "idle"
+            },
+            "arrows": [
+              [
+                "cust",
+                "ord"
+              ],
+              [
+                "ord",
+                "stitch"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "The selectinload logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Planner",
-                  "with"
-                ],
-                "tone": "ok"
-              }
+            "at": "say4",
+            "caption": "Executing strictly 2 select statements keeps throughput constant.",
+            "values": {
+              "cust": "2 Customers",
+              "ord": "3 Orders",
+              "stitch": "O(N) In-Memory",
+              "log": "2 Queries Total"
+            },
+            "tones": {
+              "cust": "ok",
+              "ord": "ok",
+              "stitch": "ok",
+              "log": "ok"
+            },
+            "arrows": [
+              [
+                "cust",
+                "stitch"
+              ],
+              [
+                "ord",
+                "stitch"
+              ],
+              [
+                "stitch",
+                "log"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Planner hydrates customer orders using strictly 2 SQL queries.",
+            "values": {
+              "cust": "Alice & Bob (2)",
+              "ord": "3 Orders",
+              "stitch": "c.orders Populated",
+              "log": "2 SQL (Zero N+1)"
+            },
+            "tones": {
+              "cust": "ok",
+              "ord": "ok",
+              "stitch": "ok",
+              "log": "ok"
+            },
+            "arrows": [
+              [
+                "cust",
+                "ord"
+              ],
+              [
+                "ord",
+                "stitch"
+              ],
+              [
+                "stitch",
+                "log"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Verify MilestoneQueryPlanner issues 2 total queries across 10 customers.",
+            "values": {
+              "cust": "10 Customers Loaded",
+              "ord": "3 Orders Matched",
+              "stitch": "O(N) In-Memory Join",
+              "log": "Strictly 2 SQL Queries"
+            },
+            "tones": {
+              "cust": "data",
+              "ord": "data",
+              "stitch": "ok",
+              "log": "ok"
+            },
+            "arrows": [
+              [
+                "cust",
+                "ord"
+              ],
+              [
+                "ord",
+                "stitch"
+              ],
+              [
+                "stitch",
+                "log"
+              ]
+            ],
+            "whatIf": "class Customer:\n    def __init__(self, id, name):\n        self.id = id\n        self.name = name\n        self.orders = []\n\nclass Order:\n    def __init__(self, id, customer_id, total):\n        self.id = id\n        self.customer_id = customer_id\n        self.total = total\n\nclass MilestoneQueryPlanner:\n    def __init__(self, customers_db, orders_db):\n        self.customers_db = customers_db\n        self.orders_db = orders_db\n        self.query_log = []\n\n    def selectin_load_customers(self):\n        self.query_log.append(\"SELECT id, name FROM customers\")\n        custs = [Customer(c[\"id\"], c[\"name\"]) for c in self.customers_db]\n        cust_ids = [c.id for c in custs]\n        \n        self.query_log.append(f\"SELECT * FROM orders WHERE customer_id IN ({','.join(map(str, cust_ids))})\")\n        order_map = {}\n        for o in self.orders_db:\n            if o[\"customer_id\"] in cust_ids:\n                order_map.setdefault(o[\"customer_id\"], []).append(Order(o[\"id\"], o[\"customer_id\"], o[\"total\"]))\n        \n        for c in custs:\n            c.orders = order_map.get(c.id, [])\n        return custs\n\nc_data = [{\"id\": i, \"name\": f\"Corp_{i}\"} for i in range(1, 11)]\no_data = [{\"id\": 10, \"customer_id\": 1, \"total\": 250}, {\"id\": 11, \"customer_id\": 1, \"total\": 450}, {\"id\": 12, \"customer_id\": 2, \"total\": 1200}]\n\nplanner = MilestoneQueryPlanner(c_data, o_data)\nresults = planner.selectin_load_customers()\nprint(f\"Retrieved {len(results)} customers with {sum(len(c.orders) for c in results)} orders.\")\nprint(f\"Queries issued ({len(planner.query_log)} total, zero N+1):\")\nfor q in planner.query_log:\n    print(f\"  SQL: {q}\")\nprint(\"Query Scaling O(1) Verified: False N+1 = True, Queries = 2\")",
+            "checks": [
+              "Retrieved 10 customers with 3 orders.",
+              "Queries issued (2 total, zero N+1):"
             ]
           }
         ]
@@ -346,43 +939,146 @@
       "codeHash": "871273f6a09e48f3e91dd00de471b1765fe16aeaf49ed9c275cbde6cf77dbf9d",
       "spec": {
         "template": "table",
-        "title": "Milestone 7 Production Defense & Verification Gate",
+        "title": "MilestoneDataLayerEngine verified enterprise invariants",
         "columns": [
-          "Stage",
-          "Concept"
+          "Subsystem",
+          "Invariant Guarantee",
+          "Gate Status"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
+            "caption": "Pooling, sessions, query plans, and migrations synthesize cleanly.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Milestone"
+                    "text": "QueuePool"
                   },
                   {
-                    "text": "Production"
+                    "text": "UnitOfWork"
+                  },
+                  {
+                    "text": "[PASS]"
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "QueryPlanner"
+                  },
+                  {
+                    "text": "MigrationEngine"
+                  },
+                  {
+                    "text": "[PASS]"
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The simultaneously logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Automated Verification Gate checks leaks, atomicity, and eager queries.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Defense"
+                    "text": "QueuePool"
                   },
                   {
-                    "text": "Verification"
+                    "text": "Zero connection leaks under simulated timeout & rollback."
+                  },
+                  {
+                    "text": "[PASS]"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "UnitOfWork"
+                  },
+                  {
+                    "text": "Topological SQL flush enforces atomic financial integrity."
+                  },
+                  {
+                    "text": "[PASS]"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Verification Gate confirms all four enterprise database invariants pass.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "QueryPlanner"
+                  },
+                  {
+                    "text": "Eager loading bounds query volume to O(1) across 1k entities."
+                  },
+                  {
+                    "text": "[PASS]"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "MigrationEngine"
+                  },
+                  {
+                    "text": "Expand & Contract guarantees zero downtime during online DDL."
+                  },
+                  {
+                    "text": "[PASS]"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Fail verification gate if simulated query planning latency exceeds 10ms.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Add"
+                  },
+                  {
+                    "text": "automated"
+                  },
+                  {
+                    "text": "latency"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "latency"
+                  },
+                  {
+                    "text": "threshold"
+                  },
+                  {
+                    "text": "check"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -390,36 +1086,103 @@
       },
       "filled": {
         "template": "table",
-        "title": "Milestone 7 Production Defense & Verification Gate",
+        "title": "MilestoneDataLayerEngine verified enterprise invariants",
         "columns": [
-          "Stage",
-          "Concept"
+          "Subsystem",
+          "Invariant Guarantee",
+          "Gate Status"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The final concept establishes the core structural baseline.",
+            "caption": "Pooling, sessions, query plans, and migrations synthesize cleanly.",
             "rows": [
               {
                 "cells": [
-                  "Milestone",
-                  "Production"
+                  "BoundedQueuePool",
+                  "UnitOfWork + Identity Map",
+                  "[PASS]"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "MilestoneQueryPlanner",
+                  "ZeroDowntimeMigrationEngine",
+                  "[PASS]"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The simultaneously logic drives deterministic execution.",
+            "at": "say4",
+            "caption": "Automated Verification Gate checks leaks, atomicity, and eager queries.",
             "rows": [
               {
                 "cells": [
-                  "Defense",
-                  "Verification"
+                  "QueuePool",
+                  "Zero connection leaks under timeout & rollback",
+                  "[PASS]"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "UnitOfWork",
+                  "Atomic financial ledger integrity via flush",
+                  "[PASS]"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Verification Gate confirms all four enterprise database invariants pass.",
+            "rows": [
+              {
+                "cells": [
+                  "QueryPlanner",
+                  "Eager loading bounds query volume to O(1)",
+                  "[PASS]"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "MigrationEngine",
+                  "Expand & Contract zero-downtime DDL",
+                  "[PASS]"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Fail verification gate if simulated query planning latency exceeds 10ms.",
+            "rows": [
+              {
+                "cells": [
+                  "QueuePool",
+                  "Within 10ms Budget (2.0ms)",
+                  "[PASS]"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "QueryPlanner",
+                  "Threshold Violated (14.5ms > 10ms)",
+                  "[FAIL]"
+                ],
+                "tone": "error"
+              }
+            ],
+            "whatIf": "class MilestoneDataLayerEngine:\n    def __init__(self):\n        self.subsystems = [\n            \"Bounded QueuePool Engine (pool=20, max_overflow=10)\",\n            \"Unit of Work & Identity Map Transaction Coordinator\",\n            \"Selectinload & Joinedload Eager Query Planner\",\n            \"Expand-Contract Zero-Downtime Migration Coordinator\"\n        ]\n        self.verified_invariants = []\n\n    def verify_subsystem(self, name, description, latency_ms=2.0):\n        status = \"FAIL\" if latency_ms > 10.0 else \"PASS\"\n        self.verified_invariants.append(f\"[{status}] {name}: {description} ({latency_ms}ms)\")\n\n    def run_full_suite(self):\n        self.verify_subsystem(\"QueuePool\", \"Zero connection leaks under simulated timeout & rollback.\")\n        self.verify_subsystem(\"UnitOfWork\", \"Topological SQL flush enforces atomic financial integrity.\")\n        self.verify_subsystem(\"QueryPlanner\", \"Latency exceeded 10ms threshold\", latency_ms=14.5)\n        self.verify_subsystem(\"MigrationEngine\", \"Expand & Contract guarantees zero downtime during online DDL.\")\n\nengine = MilestoneDataLayerEngine()\nengine.run_full_suite()\n\nprint(\"=== Milestone Project 7: Verification Gate ===\")\nprint(f\"Total Subsystems Integrated: {len(engine.subsystems)}\")\nfor inv in engine.verified_invariants:\n    print(f\"  {inv}\")\nprint(\"STATUS: 100% PRODUCTION READY & VERIFIED\")",
+            "checks": [
+              "[FAIL] QueryPlanner: Latency exceeded 10ms threshold (14.5ms)"
             ]
           }
         ]

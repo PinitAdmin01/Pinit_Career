@@ -2,256 +2,228 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 18,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What Value at Risk means",
       "codeHash": "7e7fe33c7ba497a0635b190a6748859ce069ed224d43935f2a6ea676f5e59789",
       "spec": {
-        "template": "table",
-        "title": "Value at Risk threshold formulation and breach backtesting",
-        "columns": [
-          "pnl",
-          "breaches"
+        "template": "flow",
+        "title": "What Value at Risk means",
+        "nodes": [
+          {
+            "id": "pnl",
+            "label": "pnl"
+          },
+          {
+            "id": "var_95",
+            "label": "var_95"
+          },
+          {
+            "id": "breaches",
+            "label": "breaches"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Value at Risk establishes threshold loss boundaries over defined horizons.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pnl"
-                  },
-                  {
-                    "text": "breaches"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Value at Risk (VaR) answers.",
+            "values": {
+              "pnl": {
+                "var": "pnl",
+                "line": 1,
+                "hit": 1
+              },
+              "var_95": {
+                "var": "var_95",
+                "line": 2,
+                "hit": 1
+              },
+              "breaches": {
+                "var": "breaches",
+                "line": 3,
+                "hit": 21
               }
+            },
+            "tones": {
+              "pnl": "data",
+              "var_95": "data",
+              "breaches": "data"
+            },
+            "arrows": [
+              [
+                "pnl",
+                "var_95"
+              ],
+              [
+                "var_95",
+                "breaches"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "VaR specifications require horizon duration, confidence level and loss amount.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pnl"
-                  },
-                  {
-                    "text": "breaches"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Trace how percent updates million during execution.",
+            "values": {
+              "pnl": {
+                "var": "pnl",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "var_95"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
+              "var_95": {
+                "var": "var_95",
+                "line": 3,
+                "hit": 1
+              },
+              "breaches": {
+                "var": "breaches",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "pnl": "data",
+              "var_95": "data",
+              "breaches": "data"
+            },
+            "arrows": [
+              [
+                "pnl",
+                "var_95"
+              ],
+              [
+                "var_95",
+                "breaches"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "VaR establishes quantile bounds rather than catastrophic worst case losses.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pnl"
-                  },
-                  {
-                    "text": "breaches"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say8",
+            "caption": "Too many breaches means the model underestimates risk.",
+            "values": {
+              "pnl": {
+                "var": "pnl",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "var_95"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
+              "var_95": {
+                "var": "var_95",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "len"
-                  },
-                  {
-                    "text": "pnl"
-                  }
-                ],
-                "tone": "data"
+              "breaches": {
+                "var": "breaches",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Backtesting breach counts validates whether risk models remain calibrated.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pnl"
-                  },
-                  {
-                    "text": "breaches"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "var_95"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "len"
-                  },
-                  {
-                    "text": "pnl"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "breaches"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "pnl": "ok",
+              "var_95": "ok",
+              "breaches": "ok"
+            },
+            "arrows": [
+              [
+                "pnl",
+                "var_95"
+              ],
+              [
+                "var_95",
+                "breaches"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Value at Risk threshold formulation and breach backtesting",
-        "columns": [
-          "pnl",
-          "breaches"
+        "template": "flow",
+        "title": "What Value at Risk means",
+        "nodes": [
+          {
+            "id": "pnl",
+            "label": "pnl"
+          },
+          {
+            "id": "var_95",
+            "label": "var_95"
+          },
+          {
+            "id": "breaches",
+            "label": "breaches"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Value at Risk establishes threshold loss boundaries over defined horizons.",
-            "rows": [
-              {
-                "cells": [
-                  "pnl",
-                  "breaches"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Value at Risk (VaR) answers.",
+            "values": {
+              "pnl": "[-12, 5, 8, -3, -25, 14, 2, -9, 6, -31,…",
+              "var_95": "24",
+              "breaches": "[-25, -31]"
+            },
+            "tones": {
+              "pnl": "data",
+              "var_95": "data",
+              "breaches": "data"
+            },
+            "arrows": [
+              [
+                "pnl",
+                "var_95"
+              ],
+              [
+                "var_95",
+                "breaches"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "VaR specifications require horizon duration, confidence level and loss amount.",
-            "rows": [
-              {
-                "cells": [
-                  "pnl",
-                  "breaches"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "var_95",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Trace how percent updates million during execution.",
+            "values": {
+              "pnl": "[-12, 5, 8, -3, -25, 14, 2, -9, 6, -31,…",
+              "var_95": "24",
+              "breaches": "[-25, -31]"
+            },
+            "tones": {
+              "pnl": "data",
+              "var_95": "data",
+              "breaches": "data"
+            },
+            "arrows": [
+              [
+                "pnl",
+                "var_95"
+              ],
+              [
+                "var_95",
+                "breaches"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "VaR establishes quantile bounds rather than catastrophic worst case losses.",
-            "rows": [
-              {
-                "cells": [
-                  "pnl",
-                  "breaches"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "var_95",
-                  "print"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "len",
-                  "pnl"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "Backtesting breach counts validates whether risk models remain calibrated.",
-            "rows": [
-              {
-                "cells": [
-                  "pnl",
-                  "breaches"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "var_95",
-                  "print"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "len",
-                  "pnl"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "breaches",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "at": "say8",
+            "caption": "Too many breaches means the model underestimates risk.",
+            "values": {
+              "pnl": "[-12, 5, 8, -3, -25, 14, 2, -9, 6, -31,…",
+              "var_95": "24",
+              "breaches": "[-25, -31]"
+            },
+            "tones": {
+              "pnl": "ok",
+              "var_95": "ok",
+              "breaches": "ok"
+            },
+            "arrows": [
+              [
+                "pnl",
+                "var_95"
+              ],
+              [
+                "var_95",
+                "breaches"
+              ]
             ]
           }
         ]
@@ -261,143 +233,131 @@
       "partTitle": "Parametric VaR",
       "codeHash": "0a1c21cb24f91c13bcfa3cd55ffab8f73160ffcb63446e0ceab6c84141b1dd4a",
       "spec": {
-        "template": "table",
-        "title": "Parametric variance-covariance Gaussian tail risk formulation",
-        "columns": [
-          "vol",
-          "mean"
-        ],
+        "template": "bars",
+        "title": "Parametric VaR",
         "steps": [
           {
             "at": "say1",
-            "caption": "The parametric method assumes portfolio returns follow known volatility.",
-            "rows": [
+            "caption": "The parametric (variance-covariance) method assumes returns are normally.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "vol"
-                  },
-                  {
-                    "text": "mean"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Multiplying portfolio value by tail loss fractions yields dollar VaR.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "vol"
-                  },
-                  {
-                    "text": "mean"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "value"
-                  },
-                  {
-                    "text": "pct"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Normal distribution assumptions underestimate extreme moves in fat tails.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "vol"
-                  },
-                  {
-                    "text": "mean"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "value"
-                  },
-                  {
-                    "text": "pct"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Z"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
+                "label": "value",
+                "value": {
+                  "var": "value",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "label": "mean",
+                "value": {
+                  "var": "mean",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "vol",
+                "value": {
+                  "var": "vol",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "conf",
+                "value": {
+                  "var": "conf",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how normal updates distribution during execution.",
+            "bars": [
+              {
+                "label": "value",
+                "value": {
+                  "var": "value",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mean",
+                "value": {
+                  "var": "mean",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "vol",
+                "value": {
+                  "var": "vol",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "conf",
+                "value": {
+                  "var": "conf",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example computes multiple confidence levels for the same portfolio.",
-            "rows": [
+            "caption": "The example computes both confidence levels for the same portfolio.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "vol"
-                  },
-                  {
-                    "text": "mean"
-                  }
-                ],
+                "label": "value",
+                "value": {
+                  "var": "value",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "value"
-                  },
-                  {
-                    "text": "pct"
-                  }
-                ],
+                "label": "mean",
+                "value": {
+                  "var": "mean",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "Z"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
-                "tone": "data"
+                "label": "vol",
+                "value": {
+                  "var": "vol",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "print"
-                  },
-                  {
-                    "text": "vol"
-                  }
-                ],
+                "label": "conf",
+                "value": {
+                  "var": "conf",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -405,103 +365,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Parametric variance-covariance Gaussian tail risk formulation",
-        "columns": [
-          "vol",
-          "mean"
-        ],
+        "template": "bars",
+        "title": "Parametric VaR",
         "steps": [
           {
             "at": "say1",
-            "caption": "The parametric method assumes portfolio returns follow known volatility.",
-            "rows": [
+            "caption": "The parametric (variance-covariance) method assumes returns are normally.",
+            "bars": [
               {
-                "cells": [
-                  "vol",
-                  "mean"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Multiplying portfolio value by tail loss fractions yields dollar VaR.",
-            "rows": [
-              {
-                "cells": [
-                  "vol",
-                  "mean"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "value",
-                  "pct"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Normal distribution assumptions underestimate extreme moves in fat tails.",
-            "rows": [
-              {
-                "cells": [
-                  "vol",
-                  "mean"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "value",
-                  "pct"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Z",
-                  "items"
-                ],
+                "label": "value",
+                "value": 1000000,
                 "tone": "data"
+              },
+              {
+                "label": "mean",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "vol",
+                "value": 0.02,
+                "tone": "data"
+              },
+              {
+                "label": "conf",
+                "value": 0.95,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how normal updates distribution during execution.",
+            "bars": [
+              {
+                "label": "value",
+                "value": 1000000,
+                "tone": "ok"
+              },
+              {
+                "label": "mean",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "vol",
+                "value": 0.02,
+                "tone": "ok"
+              },
+              {
+                "label": "conf",
+                "value": 0.95,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example computes multiple confidence levels for the same portfolio.",
-            "rows": [
+            "caption": "The example computes both confidence levels for the same portfolio.",
+            "bars": [
               {
-                "cells": [
-                  "vol",
-                  "mean"
-                ],
+                "label": "value",
+                "value": 1000000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "value",
-                  "pct"
-                ],
+                "label": "mean",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "Z",
-                  "items"
-                ],
-                "tone": "data"
+                "label": "vol",
+                "value": 0.02,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "print",
-                  "vol"
-                ],
+                "label": "conf",
+                "value": 0.95,
                 "tone": "ok"
               }
             ]
@@ -513,249 +453,277 @@
       "partTitle": "Historical VaR",
       "codeHash": "d36a864f8901e8d68603f8d0d66adc7eb4480911e86d76eb6e29d657c0dd7767",
       "spec": {
-        "template": "table",
-        "title": "Historical simulation, empirical return sorting and quantile cutoffs",
-        "columns": [
-          "rets",
-          "s"
+        "template": "flow",
+        "title": "Historical VaR",
+        "nodes": [
+          {
+            "id": "rets",
+            "label": "rets"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "conf",
+            "label": "conf"
+          },
+          {
+            "id": "idx",
+            "label": "idx"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Historical simulation uses actual past returns on current portfolio values.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rets"
-                  },
-                  {
-                    "text": "s"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Historical simulation drops the normal assumption.",
+            "values": {
+              "rets": {
+                "var": "rets",
+                "line": 3,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 4,
+                "hit": 1
+              },
+              "conf": {
+                "var": "conf",
+                "line": 6,
+                "hit": 1
+              },
+              "idx": {
+                "var": "idx",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "rets": "data",
+              "s": "data",
+              "conf": "data",
+              "idx": "data"
+            },
+            "arrows": [
+              [
+                "rets",
+                "s"
+              ],
+              [
+                "s",
+                "conf"
+              ],
+              [
+                "conf",
+                "idx"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Sorting empirical returns isolates percentile positions along the loss tail.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rets"
-                  },
-                  {
-                    "text": "s"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Sort the returns from worst to best.",
+            "values": {
+              "rets": {
+                "var": "rets",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "sorted"
-                  },
-                  {
-                    "text": "rets"
-                  }
-                ],
-                "tone": "ok"
+              "s": {
+                "var": "s",
+                "line": 5,
+                "hit": 1
+              },
+              "conf": {
+                "var": "conf",
+                "line": 7,
+                "hit": 1
+              },
+              "idx": {
+                "var": "idx",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Empirical histories incorporate realized fat tails and historical skew.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rets"
-                  },
-                  {
-                    "text": "s"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sorted"
-                  },
-                  {
-                    "text": "rets"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "floor"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "rets": "data",
+              "s": "data",
+              "conf": "data",
+              "idx": "data"
+            },
+            "arrows": [
+              [
+                "rets",
+                "s"
+              ],
+              [
+                "s",
+                "conf"
+              ],
+              [
+                "conf",
+                "idx"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example sorts a short return history and extracts quantile cutoffs.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rets"
-                  },
-                  {
-                    "text": "s"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example sorts a short return history and picks out the cut-off at two.",
+            "values": {
+              "rets": {
+                "var": "rets",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "sorted"
-                  },
-                  {
-                    "text": "rets"
-                  }
-                ],
-                "tone": "ok"
+              "s": {
+                "var": "s",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "floor"
-                  }
-                ],
-                "tone": "data"
+              "conf": {
+                "var": "conf",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "print"
-                  },
-                  {
-                    "text": "int"
-                  }
-                ],
-                "tone": "ok"
+              "idx": {
+                "var": "idx",
+                "line": 6,
+                "hit": 2
               }
+            },
+            "tones": {
+              "rets": "ok",
+              "s": "ok",
+              "conf": "ok",
+              "idx": "ok"
+            },
+            "arrows": [
+              [
+                "rets",
+                "s"
+              ],
+              [
+                "s",
+                "conf"
+              ],
+              [
+                "conf",
+                "idx"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Historical simulation, empirical return sorting and quantile cutoffs",
-        "columns": [
-          "rets",
-          "s"
+        "template": "flow",
+        "title": "Historical VaR",
+        "nodes": [
+          {
+            "id": "rets",
+            "label": "rets"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "conf",
+            "label": "conf"
+          },
+          {
+            "id": "idx",
+            "label": "idx"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Historical simulation uses actual past returns on current portfolio values.",
-            "rows": [
-              {
-                "cells": [
-                  "rets",
-                  "s"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Historical simulation drops the normal assumption.",
+            "values": {
+              "rets": "[0.01, -0.02, 0.005, -0.035, 0.012, -0.…",
+              "s": "[-0.05, -0.05, -0.035, -0.035, -0.02, -…",
+              "conf": "0.95",
+              "idx": "1"
+            },
+            "tones": {
+              "rets": "data",
+              "s": "data",
+              "conf": "data",
+              "idx": "data"
+            },
+            "arrows": [
+              [
+                "rets",
+                "s"
+              ],
+              [
+                "s",
+                "conf"
+              ],
+              [
+                "conf",
+                "idx"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Sorting empirical returns isolates percentile positions along the loss tail.",
-            "rows": [
-              {
-                "cells": [
-                  "rets",
-                  "s"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sorted",
-                  "rets"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Empirical histories incorporate realized fat tails and historical skew.",
-            "rows": [
-              {
-                "cells": [
-                  "rets",
-                  "s"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sorted",
-                  "rets"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "floor"
-                ],
-                "tone": "data"
-              }
+            "caption": "Sort the returns from worst to best.",
+            "values": {
+              "rets": "[0.01, -0.02, 0.005, -0.035, 0.012, -0.…",
+              "s": "[-0.05, -0.05, -0.035, -0.035, -0.02, -…",
+              "conf": "0.95",
+              "idx": "1"
+            },
+            "tones": {
+              "rets": "data",
+              "s": "data",
+              "conf": "data",
+              "idx": "data"
+            },
+            "arrows": [
+              [
+                "rets",
+                "s"
+              ],
+              [
+                "s",
+                "conf"
+              ],
+              [
+                "conf",
+                "idx"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example sorts a short return history and extracts quantile cutoffs.",
-            "rows": [
-              {
-                "cells": [
-                  "rets",
-                  "s"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sorted",
-                  "rets"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "floor"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "print",
-                  "int"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The example sorts a short return history and picks out the cut-off at two.",
+            "values": {
+              "rets": "[0.01, -0.02, 0.005, -0.035, 0.012, -0.…",
+              "s": "[-0.05, -0.05, -0.035, -0.035, -0.02, -…",
+              "conf": "0.95",
+              "idx": "1"
+            },
+            "tones": {
+              "rets": "ok",
+              "s": "ok",
+              "conf": "ok",
+              "idx": "ok"
+            },
+            "arrows": [
+              [
+                "rets",
+                "s"
+              ],
+              [
+                "s",
+                "conf"
+              ],
+              [
+                "conf",
+                "idx"
+              ]
             ]
           }
         ]
@@ -765,143 +733,90 @@
       "partTitle": "Scaling to longer horizons",
       "codeHash": "8555753327fdf7b458ce305e47eff9aee53fb03a4d56925e7bcbe60545d10394",
       "spec": {
-        "template": "table",
-        "title": "Square-root of time rule and multi-day horizon scaling",
-        "columns": [
+        "template": "sequence",
+        "title": "Scaling to longer horizons",
+        "actors": [
           "one_day",
           "days"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The square root of time rule scales daily loss estimates across longer periods.",
-            "rows": [
+            "caption": "Regulators often ask for 10-day VaR, but daily data is what firms have.",
+            "activeActor": "one_day",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "one_day"
-                  },
-                  {
-                    "text": "days"
-                  }
-                ],
+                "from": "one_day",
+                "to": "days",
+                "label": {
+                  "var": "one_day",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "days",
+                "to": "one_day",
+                "label": {
+                  "var": "days",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Independent return variances add linearly over successive trading intervals.",
-            "rows": [
+            "caption": "It follows from the fact that variances of independent returns add up.",
+            "activeActor": "days",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "one_day"
-                  },
-                  {
-                    "text": "days"
-                  }
-                ],
-                "tone": "ok"
+                "from": "one_day",
+                "to": "days",
+                "label": {
+                  "var": "one_day",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
+                "from": "days",
+                "to": "one_day",
+                "label": {
+                  "var": "days",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Scaling approximations break down when returns exhibit autocorrelation trends.",
-            "rows": [
+            "at": "say7",
+            "caption": "Notice that risk grows more slowly than time.",
+            "activeActor": "days",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "one_day"
-                  },
-                  {
-                    "text": "days"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "days"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example scales a baseline risk estimate across multi day horizons.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "one_day"
-                  },
-                  {
-                    "text": "days"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "days"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "from": "one_day",
+                "to": "days",
+                "label": {
+                  "var": "one_day",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "one_day"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
+                "from": "days",
+                "to": "one_day",
+                "label": {
+                  "var": "days",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -909,106 +824,69 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Square-root of time rule and multi-day horizon scaling",
-        "columns": [
+        "template": "sequence",
+        "title": "Scaling to longer horizons",
+        "actors": [
           "one_day",
           "days"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The square root of time rule scales daily loss estimates across longer periods.",
-            "rows": [
+            "caption": "Regulators often ask for 10-day VaR, but daily data is what firms have.",
+            "messages": [
               {
-                "cells": [
-                  "one_day",
-                  "days"
-                ],
+                "from": "one_day",
+                "to": "days",
+                "label": "10000",
+                "tone": "data"
+              },
+              {
+                "from": "days",
+                "to": "one_day",
+                "label": "1",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "one_day"
           },
           {
             "at": "say2",
-            "caption": "Independent return variances add linearly over successive trading intervals.",
-            "rows": [
+            "caption": "It follows from the fact that variances of independent returns add up.",
+            "messages": [
               {
-                "cells": [
-                  "one_day",
-                  "days"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "sqrt"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Scaling approximations break down when returns exhibit autocorrelation trends.",
-            "rows": [
-              {
-                "cells": [
-                  "one_day",
-                  "days"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "sqrt"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "days",
-                  "print"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example scales a baseline risk estimate across multi day horizons.",
-            "rows": [
-              {
-                "cells": [
-                  "one_day",
-                  "days"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "sqrt"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "days",
-                  "print"
-                ],
+                "from": "one_day",
+                "to": "days",
+                "label": "10000",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "one_day",
-                  "math"
-                ],
+                "from": "days",
+                "to": "one_day",
+                "label": "1",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "days"
+          },
+          {
+            "at": "say7",
+            "caption": "Notice that risk grows more slowly than time.",
+            "messages": [
+              {
+                "from": "one_day",
+                "to": "days",
+                "label": "10000",
+                "tone": "data"
+              },
+              {
+                "from": "days",
+                "to": "one_day",
+                "label": "4",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "days"
           }
         ]
       }
@@ -1018,110 +896,161 @@
       "codeHash": "7aee6323b1269ac8e89e327d9704da0e996cd1c100e5fe6ac551a791fb6deead",
       "spec": {
         "template": "flow",
-        "title": "Limits of VaR — Execution Pipeline",
+        "title": "Limits of VaR",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "calm",
+            "label": "calm"
           },
           {
-            "id": "proc",
-            "label": "2. Limits of VaR",
-            "tappable": true
+            "id": "hidden",
+            "label": "hidden"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "r",
+            "label": "r"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Limits of VaR [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Limits of VaR [D.Pfive.Stwo].",
+            "caption": "VaR is useful but has well-known weaknesses that every risk engineer must.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "calm": {
+                "var": "calm",
+                "line": 1,
+                "hit": 1
+              },
+              "hidden": {
+                "var": "hidden",
+                "line": 2,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 3,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "calm": "data",
+              "hidden": "data",
+              "name": "data",
+              "r": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "calm",
+                "hidden"
               ],
               [
-                "proc",
-                "out"
+                "hidden",
+                "name"
+              ],
+              [
+                "name",
+                "r"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "It ignores the size of losses beyond the threshold.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "calm": {
+                "var": "calm",
+                "line": 2,
+                "hit": 1
+              },
+              "hidden": {
+                "var": "hidden",
+                "line": 3,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "calm": "data",
+              "hidden": "data",
+              "name": "data",
+              "r": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "calm",
+                "hidden"
+              ],
+              [
+                "hidden",
+                "name"
+              ],
+              [
+                "name",
+                "r"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Limits of VaR [D.Pfive.Sfour].",
+            "at": "say7",
+            "caption": "Always report VaR alongside Expected Shortfall and stress test results.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "calm": {
+                "var": "calm",
+                "line": 3,
+                "hit": 1
+              },
+              "hidden": {
+                "var": "hidden",
+                "line": 4,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "calm": "ok",
+              "hidden": "ok",
+              "name": "ok",
+              "r": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "calm",
+                "hidden"
               ],
               [
-                "proc",
-                "out"
+                "hidden",
+                "name"
+              ],
+              [
+                "name",
+                "r"
               ]
             ]
           }
@@ -1129,110 +1058,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Limits of VaR — Execution Pipeline",
+        "title": "Limits of VaR",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "calm",
+            "label": "calm"
           },
           {
-            "id": "proc",
-            "label": "2. Limits of VaR",
-            "tappable": true
+            "id": "hidden",
+            "label": "hidden"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "r",
+            "label": "r"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Limits of VaR [D18.P5.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Limits of VaR [D18.P5.S2].",
+            "caption": "VaR is useful but has well-known weaknesses that every risk engineer must.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "calm": "[-0.02, -0.02, -0.02, -0.02, -0.02, 0.0…",
+              "hidden": "[-0.02, -0.02, -0.02, -0.02, -0.4, 0.01…",
+              "name": "'calm'",
+              "r": "[-0.02, -0.02, -0.02, -0.02, -0.02, 0.0…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "calm": "data",
+              "hidden": "data",
+              "name": "data",
+              "r": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "calm",
+                "hidden"
               ],
               [
-                "proc",
-                "out"
+                "hidden",
+                "name"
+              ],
+              [
+                "name",
+                "r"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P5.S3].",
+            "at": "say2",
+            "caption": "It ignores the size of losses beyond the threshold.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "calm": "[-0.02, -0.02, -0.02, -0.02, -0.02, 0.0…",
+              "hidden": "[-0.02, -0.02, -0.02, -0.02, -0.4, 0.01…",
+              "name": "'calm'",
+              "r": "[-0.02, -0.02, -0.02, -0.02, -0.02, 0.0…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "calm": "data",
+              "hidden": "data",
+              "name": "data",
+              "r": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "calm",
+                "hidden"
+              ],
+              [
+                "hidden",
+                "name"
+              ],
+              [
+                "name",
+                "r"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Limits of VaR [D18.P5.S4].",
+            "at": "say7",
+            "caption": "Always report VaR alongside Expected Shortfall and stress test results.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "calm": "[-0.02, -0.02, -0.02, -0.02, -0.02, 0.0…",
+              "hidden": "[-0.02, -0.02, -0.02, -0.02, -0.4, 0.01…",
+              "name": "'calm'",
+              "r": "[-0.02, -0.02, -0.02, -0.02, -0.02, 0.0…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "calm": "ok",
+              "hidden": "ok",
+              "name": "ok",
+              "r": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "calm",
+                "hidden"
               ],
               [
-                "proc",
-                "out"
+                "hidden",
+                "name"
+              ],
+              [
+                "name",
+                "r"
               ]
             ]
           }
@@ -1243,223 +1175,217 @@
       "partTitle": "Practice time: VaR calculators",
       "codeHash": "e2ed8a69b9af2a7764350de0666d940bcb3c1f77b0b7ae13ee0b99579898d908",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: VaR calculators — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: VaR ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: VaR calculators",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: VaR calculators [D.Psix.Sone].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: VaR ... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Trace how practice updates value during execution.",
+            "bars": [
+              {
+                "label": "mu",
+                "value": {
+                  "var": "mu",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "vol",
+                "value": {
+                  "var": "vol",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "parametric",
+                "value": {
+                  "var": "parametric",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "historical",
+                "value": {
+                  "var": "historical",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates million during execution.",
+            "bars": [
+              {
+                "label": "mu",
+                "value": {
+                  "var": "mu",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "vol",
+                "value": {
+                  "var": "vol",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "parametric",
+                "value": {
+                  "var": "parametric",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "historical",
+                "value": {
+                  "var": "historical",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: VaR calculators.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Differences between the two methods are a useful warning sign of fat tails.",
+            "bars": [
+              {
+                "label": "mu",
+                "value": {
+                  "var": "mu",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "vol",
+                "value": {
+                  "var": "vol",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "parametric",
+                "value": {
+                  "var": "parametric",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "historical",
+                "value": {
+                  "var": "historical",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: VaR calculators — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: VaR ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: VaR calculators",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: VaR calculators [D18.P6.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: VaR ... [D18.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Trace how practice updates value during execution.",
+            "bars": [
+              {
+                "label": "mu",
+                "value": -0.005300000000000001,
+                "tone": "data"
+              },
+              {
+                "label": "vol",
+                "value": 0.022567092949924372,
+                "tone": "data"
+              },
+              {
+                "label": "parametric",
+                "value": 0.04242286790262559,
+                "tone": "data"
+              },
+              {
+                "label": "historical",
+                "value": 0.05,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates million during execution.",
+            "bars": [
+              {
+                "label": "mu",
+                "value": -0.005300000000000001,
+                "tone": "ok"
+              },
+              {
+                "label": "vol",
+                "value": 0.022567092949924372,
+                "tone": "ok"
+              },
+              {
+                "label": "parametric",
+                "value": 0.04242286790262559,
+                "tone": "ok"
+              },
+              {
+                "label": "historical",
+                "value": 0.05,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: VaR calculators [D18.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Differences between the two methods are a useful warning sign of fat tails.",
+            "bars": [
+              {
+                "label": "mu",
+                "value": -0.005300000000000001,
+                "tone": "ok"
+              },
+              {
+                "label": "vol",
+                "value": 0.022567092949924372,
+                "tone": "ok"
+              },
+              {
+                "label": "parametric",
+                "value": 0.04242286790262559,
+                "tone": "ok"
+              },
+              {
+                "label": "historical",
+                "value": 0.05,
+                "tone": "ok"
+              }
             ]
           }
         ]

@@ -2,85 +2,98 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 14,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Code interpreter tools",
       "codeHash": "b89f27f37f0f347a0b72384bd9822abdb30c5d2cb6831a72be5074cbc9d5375b",
       "spec": {
-        "template": "table",
-        "title": "Code interpreter sandbox execution and arithmetic validation",
-        "columns": [
-          "region",
-          "amount",
-          "totals"
+        "template": "sequence",
+        "title": "Code interpreter tools",
+        "actors": [
+          "sales",
+          "totals",
+          "region"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Behind the scenes the system writes Python code and runs it in a sandbox.",
-            "rows": [
+            "at": "say1",
+            "caption": "Tools like ChatGPT's data analysis, Claude's analysis tool and Gemini.",
+            "activeActor": "sales",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "region"
-                  },
-                  {
-                    "text": "amount"
-                  },
-                  {
-                    "text": "totals"
-                  }
-                ],
-                "tone": "ok"
+                "from": "sales",
+                "to": "totals",
+                "label": {
+                  "var": "sales",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "region"
-                  },
-                  {
-                    "text": "amount"
-                  },
-                  {
-                    "text": "totals"
-                  }
-                ],
-                "tone": "data"
+                "from": "totals",
+                "to": "region",
+                "label": {
+                  "var": "totals",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Exact arithmetic is done by verified code rather than probabilistic guesses.",
-            "rows": [
+            "at": "say2",
+            "caption": "Behind the scenes, the AI writes Python code (often using the pandas.",
+            "activeActor": "totals",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "region"
-                  },
-                  {
-                    "text": "amount"
-                  },
-                  {
-                    "text": "totals"
-                  }
-                ],
+                "from": "sales",
+                "to": "totals",
+                "label": {
+                  "var": "sales",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "region"
-                  },
-                  {
-                    "text": "amount"
-                  },
-                  {
-                    "text": "sales"
-                  }
-                ],
+                "from": "totals",
+                "to": "region",
+                "label": {
+                  "var": "totals",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Good first questions to ask are simple.",
+            "activeActor": "region",
+            "messages": [
+              {
+                "from": "sales",
+                "to": "totals",
+                "label": {
+                  "var": "sales",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "totals",
+                "to": "region",
+                "label": {
+                  "var": "totals",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Code interpreter sandbox execution and arithmetic validation",
-        "columns": [
-          "region",
-          "amount",
-          "totals"
+        "template": "sequence",
+        "title": "Code interpreter tools",
+        "actors": [
+          "sales",
+          "totals",
+          "region"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Behind the scenes the system writes Python code and runs it in a sandbox.",
-            "rows": [
+            "at": "say1",
+            "caption": "Tools like ChatGPT's data analysis, Claude's analysis tool and Gemini.",
+            "messages": [
               {
-                "cells": [
-                  "region",
-                  "amount",
-                  "totals"
-                ],
-                "tone": "ok"
+                "from": "sales",
+                "to": "totals",
+                "label": "[['North', 120], ['South', 95], ['North…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "region",
-                  "amount",
-                  "totals"
-                ],
-                "tone": "data"
+                "from": "totals",
+                "to": "region",
+                "label": "{}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "sales"
           },
           {
-            "at": "say3",
-            "caption": "Exact arithmetic is done by verified code rather than probabilistic guesses.",
-            "rows": [
+            "at": "say2",
+            "caption": "Behind the scenes, the AI writes Python code (often using the pandas.",
+            "messages": [
               {
-                "cells": [
-                  "region",
-                  "amount",
-                  "totals"
-                ],
+                "from": "sales",
+                "to": "totals",
+                "label": "[['North', 120], ['South', 95], ['North…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "region",
-                  "amount",
-                  "sales"
-                ],
+                "from": "totals",
+                "to": "region",
+                "label": "{}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "totals"
+          },
+          {
+            "at": "say9",
+            "caption": "Good first questions to ask are simple.",
+            "messages": [
+              {
+                "from": "sales",
+                "to": "totals",
+                "label": "[['North', 120], ['South', 95], ['North…",
+                "tone": "data"
+              },
+              {
+                "from": "totals",
+                "to": "region",
+                "label": "{'North': 120}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "region"
           }
         ]
       }
@@ -148,41 +174,25 @@
       "codeHash": "fe02ae7199c236797b53d944c7a664b34d5cd26aa1492855d49120ecef5ba894",
       "spec": {
         "template": "table",
-        "title": "Summary statistics and distributional spread metrics",
+        "title": "Describing data",
         "columns": [
-          "count",
-          "mean",
-          "median"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The mean reflects the average while the median is resilient to skew.",
+            "at": "say1",
+            "caption": "The first step of any analysis is to describe the data.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "count"
+                    "text": "days"
                   },
                   {
-                    "text": "mean"
-                  },
-                  {
-                    "text": "median"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "count"
-                  },
-                  {
-                    "text": "mean"
-                  },
-                  {
-                    "text": "median"
+                    "var": "days",
+                    "line": 3,
+                    "hit": 1
                   }
                 ],
                 "tone": "data"
@@ -190,33 +200,68 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "Standard deviation measures data spread relative to the calculated mean.",
+            "at": "say2",
+            "caption": "The mean is the average.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "count"
+                    "text": "days"
                   },
                   {
-                    "text": "mean"
-                  },
-                  {
-                    "text": "median"
+                    "var": "days",
+                    "line": 4,
+                    "hit": 1
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The statistics module is built into Python, so this works anywhere.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               },
               {
                 "cells": [
                   {
-                    "text": "count"
+                    "text": "out 2"
                   },
                   {
-                    "text": "stdev"
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
                   },
                   {
-                    "text": "median"
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 4"
+                  },
+                  {
+                    "out": 4
                   }
                 ],
                 "tone": "ok"
@@ -227,52 +272,67 @@
       },
       "filled": {
         "template": "table",
-        "title": "Summary statistics and distributional spread metrics",
+        "title": "Describing data",
         "columns": [
-          "count",
-          "mean",
-          "median"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The mean reflects the average while the median is resilient to skew.",
+            "at": "say1",
+            "caption": "The first step of any analysis is to describe the data.",
             "rows": [
               {
                 "cells": [
-                  "count",
-                  "mean",
-                  "median"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "count",
-                  "mean",
-                  "median"
+                  "days",
+                  "[2, 3, 2, 4, 3, 2, 21]"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Standard deviation measures data spread relative to the calculated mean.",
+            "at": "say2",
+            "caption": "The mean is the average.",
             "rows": [
               {
                 "cells": [
-                  "count",
-                  "mean",
-                  "median"
+                  "days",
+                  "[2, 3, 2, 4, 3, 2, 21]"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The statistics module is built into Python, so this works anywhere.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "count  7"
+                ],
+                "tone": "ok"
               },
               {
                 "cells": [
-                  "count",
-                  "stdev",
-                  "median"
+                  "out 2",
+                  "mean   5.29"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "median 3"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 4",
+                  "stdev  6.97"
                 ],
                 "tone": "ok"
               }
@@ -285,78 +345,91 @@
       "partTitle": "Grouping and totals",
       "codeHash": "9055f74565558917815f8310177a1b1b07b8d3ceaf8520385a0093735d858e12",
       "spec": {
-        "template": "table",
-        "title": "Categorical aggregation and group sum sorting",
-        "columns": [
+        "template": "sequence",
+        "title": "Grouping and totals",
+        "actors": [
           "expenses",
           "totals",
-          "ranked"
+          "row"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Grouping sales and expenses by category answers key business questions.",
-            "rows": [
+            "caption": "Most business questions are group questions.",
+            "activeActor": "expenses",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "expenses"
-                  },
-                  {
-                    "text": "totals"
-                  },
-                  {
-                    "text": "ranked"
-                  }
-                ],
-                "tone": "ok"
+                "from": "expenses",
+                "to": "totals",
+                "label": {
+                  "var": "expenses",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "expenses"
-                  },
-                  {
-                    "text": "totals"
-                  },
-                  {
-                    "text": "ranked"
-                  }
-                ],
-                "tone": "data"
+                "from": "totals",
+                "to": "row",
+                "label": {
+                  "var": "totals",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Aggregating group totals sorts categories from largest to smallest.",
-            "rows": [
+            "at": "say2",
+            "caption": "Grouping means collecting rows by a key, then summing (or counting,.",
+            "activeActor": "totals",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "expenses"
-                  },
-                  {
-                    "text": "totals"
-                  },
-                  {
-                    "text": "ranked"
-                  }
-                ],
+                "from": "expenses",
+                "to": "totals",
+                "label": {
+                  "var": "expenses",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "expenses"
-                  },
-                  {
-                    "text": "check"
-                  },
-                  {
-                    "text": "ranked"
-                  }
-                ],
+                "from": "totals",
+                "to": "row",
+                "label": {
+                  "var": "totals",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Counting rows per group as well as summing values shows whether a big.",
+            "activeActor": "row",
+            "messages": [
+              {
+                "from": "expenses",
+                "to": "totals",
+                "label": {
+                  "var": "expenses",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "totals",
+                "to": "row",
+                "label": {
+                  "var": "totals",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +437,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Categorical aggregation and group sum sorting",
-        "columns": [
+        "template": "sequence",
+        "title": "Grouping and totals",
+        "actors": [
           "expenses",
           "totals",
-          "ranked"
+          "row"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Grouping sales and expenses by category answers key business questions.",
-            "rows": [
+            "caption": "Most business questions are group questions.",
+            "messages": [
               {
-                "cells": [
-                  "expenses",
-                  "totals",
-                  "ranked"
-                ],
-                "tone": "ok"
+                "from": "expenses",
+                "to": "totals",
+                "label": "[{'cat': 'travel', 'amt': 4200}, {'cat'…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "expenses",
-                  "totals",
-                  "ranked"
-                ],
-                "tone": "data"
+                "from": "totals",
+                "to": "row",
+                "label": "{}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "expenses"
           },
           {
-            "at": "say3",
-            "caption": "Aggregating group totals sorts categories from largest to smallest.",
-            "rows": [
+            "at": "say2",
+            "caption": "Grouping means collecting rows by a key, then summing (or counting,.",
+            "messages": [
               {
-                "cells": [
-                  "expenses",
-                  "totals",
-                  "ranked"
-                ],
+                "from": "expenses",
+                "to": "totals",
+                "label": "[{'cat': 'travel', 'amt': 4200}, {'cat'…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "expenses",
-                  "check",
-                  "ranked"
-                ],
+                "from": "totals",
+                "to": "row",
+                "label": "{}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "totals"
+          },
+          {
+            "at": "say9",
+            "caption": "Counting rows per group as well as summing values shows whether a big.",
+            "messages": [
+              {
+                "from": "expenses",
+                "to": "totals",
+                "label": "[{'cat': 'travel', 'amt': 4200}, {'cat'…",
+                "tone": "data"
+              },
+              {
+                "from": "totals",
+                "to": "row",
+                "label": "{'travel': 4200}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "row"
           }
         ]
       }
@@ -423,9 +509,9 @@
       "partTitle": "Common data problems",
       "codeHash": "c18b306b252488c5b7bdcc689c46fa17a47a0f8beddd1c14433d7d3efaf5b4dd",
       "spec": {
-        "template": "table",
-        "title": "Inconsistent data normalization and label resolution",
-        "columns": [
+        "template": "sequence",
+        "title": "Common data problems",
+        "actors": [
           "raw",
           "aliases",
           "totals"
@@ -433,68 +519,81 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Real data contains missing values, inconsistent labels, and messy numbers.",
-            "rows": [
+            "caption": "Real data is messy.",
+            "activeActor": "raw",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "aliases"
-                  },
-                  {
-                    "text": "totals"
-                  }
-                ],
-                "tone": "ok"
+                "from": "raw",
+                "to": "aliases",
+                "label": {
+                  "var": "raw",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "aliases"
-                  },
-                  {
-                    "text": "totals"
-                  }
-                ],
-                "tone": "data"
+                "from": "aliases",
+                "to": "totals",
+                "label": {
+                  "var": "aliases",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Standardising labels prevents the same category from splitting into parts.",
-            "rows": [
+            "at": "say2",
+            "caption": "AI tools often clean data silently, which can hide important decisions.",
+            "activeActor": "aliases",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "aliases"
-                  },
-                  {
-                    "text": "totals"
-                  }
-                ],
+                "from": "raw",
+                "to": "aliases",
+                "label": {
+                  "var": "raw",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "aliases"
-                  },
-                  {
-                    "text": "raw"
-                  }
-                ],
+                "from": "aliases",
+                "to": "totals",
+                "label": {
+                  "var": "aliases",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Keep the original data untouched and clean a copy, so you can always.",
+            "activeActor": "totals",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "aliases",
+                "label": {
+                  "var": "raw",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "aliases",
+                "to": "totals",
+                "label": {
+                  "var": "aliases",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,9 +601,9 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Inconsistent data normalization and label resolution",
-        "columns": [
+        "template": "sequence",
+        "title": "Common data problems",
+        "actors": [
           "raw",
           "aliases",
           "totals"
@@ -512,47 +611,60 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Real data contains missing values, inconsistent labels, and messy numbers.",
-            "rows": [
+            "caption": "Real data is messy.",
+            "messages": [
               {
-                "cells": [
-                  "raw",
-                  "aliases",
-                  "totals"
-                ],
-                "tone": "ok"
+                "from": "raw",
+                "to": "aliases",
+                "label": "[['North', '1,200'], ['north ', '800'],…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "raw",
-                  "aliases",
-                  "totals"
-                ],
-                "tone": "data"
+                "from": "aliases",
+                "to": "totals",
+                "label": "{'n': 'north'}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "raw"
           },
           {
-            "at": "say4",
-            "caption": "Standardising labels prevents the same category from splitting into parts.",
-            "rows": [
+            "at": "say2",
+            "caption": "AI tools often clean data silently, which can hide important decisions.",
+            "messages": [
               {
-                "cells": [
-                  "raw",
-                  "aliases",
-                  "totals"
-                ],
+                "from": "raw",
+                "to": "aliases",
+                "label": "[['North', '1,200'], ['north ', '800'],…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "raw",
-                  "aliases",
-                  "raw"
-                ],
+                "from": "aliases",
+                "to": "totals",
+                "label": "{'n': 'north'}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "aliases"
+          },
+          {
+            "at": "say9",
+            "caption": "Keep the original data untouched and clean a copy, so you can always.",
+            "messages": [
+              {
+                "from": "raw",
+                "to": "aliases",
+                "label": "[['North', '1,200'], ['north ', '800'],…",
+                "tone": "data"
+              },
+              {
+                "from": "aliases",
+                "to": "totals",
+                "label": "{'n': 'north'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "totals"
           }
         ]
       }
@@ -561,224 +673,162 @@
       "partTitle": "Checking AI analysis",
       "codeHash": "94c3f203b81daa228a5a5343dac0d445fa503adc3c20acb94f35af2a9ee31d78",
       "spec": {
-        "template": "flow",
-        "title": "Checking AI analysis — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Checking AI analysis",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Checking AI analysis",
+        "actors": [
+          "scores",
+          "ai_reported_average",
+          "valid"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Checking AI analysis [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Checking AI analysis [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Treat AI analysis like a colleague's spreadsheet.",
+            "activeActor": "scores",
+            "messages": [
+              {
+                "from": "scores",
+                "to": "ai_reported_average",
+                "label": {
+                  "var": "scores",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "ai_reported_average",
+                "to": "valid",
+                "label": {
+                  "var": "ai_reported_average",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Which rows were filtered out.",
+            "activeActor": "ai_reported_average",
+            "messages": [
+              {
+                "from": "scores",
+                "to": "ai_reported_average",
+                "label": {
+                  "var": "scores",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "ai_reported_average",
+                "to": "valid",
+                "label": {
+                  "var": "ai_reported_average",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Checking AI analysis [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Charts deserve checks too.",
+            "activeActor": "valid",
+            "messages": [
+              {
+                "from": "scores",
+                "to": "ai_reported_average",
+                "label": {
+                  "var": "scores",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "ai_reported_average",
+                "to": "valid",
+                "label": {
+                  "var": "ai_reported_average",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Checking AI analysis — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Checking AI analysis",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Checking AI analysis",
+        "actors": [
+          "scores",
+          "ai_reported_average",
+          "valid"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Checking AI analysis [D14.P5.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Checking AI analysis [D14.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Treat AI analysis like a colleague's spreadsheet.",
+            "messages": [
+              {
+                "from": "scores",
+                "to": "ai_reported_average",
+                "label": "[72, 85, None, 90, 64]",
+                "tone": "data"
+              },
+              {
+                "from": "ai_reported_average",
+                "to": "valid",
+                "label": "62.2",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "scores"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Which rows were filtered out.",
+            "messages": [
+              {
+                "from": "scores",
+                "to": "ai_reported_average",
+                "label": "[72, 85, None, 90, 64]",
+                "tone": "data"
+              },
+              {
+                "from": "ai_reported_average",
+                "to": "valid",
+                "label": "62.2",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ai_reported_average"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Checking AI analysis [D14.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say9",
+            "caption": "Charts deserve checks too.",
+            "messages": [
+              {
+                "from": "scores",
+                "to": "ai_reported_average",
+                "label": "[72, 85, None, 90, 64]",
+                "tone": "data"
+              },
+              {
+                "from": "ai_reported_average",
+                "to": "valid",
+                "label": "62.2",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "valid"
           }
         ]
       }
@@ -787,224 +837,162 @@
       "partTitle": "Practice time: describe and group",
       "codeHash": "f96a4921bb621e4cbe5f7e78ec1cea24385f8a0d7d0ad79f1405f36a5a8791e6",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: describe and group — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: desc...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: describe and group",
+        "actors": [
+          "week",
+          "amounts",
+          "totals"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: describe and group [D.Psix.Sone].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: desc... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Describe(values).",
+            "activeActor": "week",
+            "messages": [
+              {
+                "from": "week",
+                "to": "amounts",
+                "label": {
+                  "var": "week",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "amounts",
+                "to": "totals",
+                "label": {
+                  "var": "amounts",
+                  "line": 6,
+                  "hit": 6
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates five during execution.",
+            "activeActor": "amounts",
+            "messages": [
+              {
+                "from": "week",
+                "to": "amounts",
+                "label": {
+                  "var": "week",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "amounts",
+                "to": "totals",
+                "label": {
+                  "var": "amounts",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: describe and group.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "These two functions answer a surprising share of everyday business.",
+            "activeActor": "totals",
+            "messages": [
+              {
+                "from": "week",
+                "to": "amounts",
+                "label": {
+                  "var": "week",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "amounts",
+                "to": "totals",
+                "label": {
+                  "var": "amounts",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: describe and group — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: desc...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: describe and group",
+        "actors": [
+          "week",
+          "amounts",
+          "totals"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: describe and group [D14.P6.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: desc... [D14.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Describe(values).",
+            "messages": [
+              {
+                "from": "week",
+                "to": "amounts",
+                "label": "[{'day': 'Mon', 'cat': 'food', 'amt': 2…",
+                "tone": "data"
+              },
+              {
+                "from": "amounts",
+                "to": "totals",
+                "label": "[250, 400, 300, 900, 200]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "week"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Trace how checks updates five during execution.",
+            "messages": [
+              {
+                "from": "week",
+                "to": "amounts",
+                "label": "[{'day': 'Mon', 'cat': 'food', 'amt': 2…",
+                "tone": "data"
+              },
+              {
+                "from": "amounts",
+                "to": "totals",
+                "label": "[250, 400, 300, 900, 200]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "amounts"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: describe and group [D14.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "These two functions answer a surprising share of everyday business.",
+            "messages": [
+              {
+                "from": "week",
+                "to": "amounts",
+                "label": "[{'day': 'Mon', 'cat': 'food', 'amt': 2…",
+                "tone": "data"
+              },
+              {
+                "from": "amounts",
+                "to": "totals",
+                "label": "[250, 400, 300, 900, 200]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "totals"
           }
         ]
       }

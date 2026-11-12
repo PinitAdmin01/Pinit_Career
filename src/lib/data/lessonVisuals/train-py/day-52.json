@@ -2,269 +2,121 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 52,
-  "promptSha": "261ac92393a79fc79b46ece8102d9173ff72295869a7b7027f77cad20a3d3887",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "MoE Load-Balancing Auxiliary Loss & All-to-All Expert Dispatch Routing — Foundations & Mathematical Invariants",
-      "codeHash": "5f8d6470595189e1ffa19d78ff09af22a4d01d22f99d110ad3ad77b55c420949",
+      "partTitle": "Expert Parallelism — Foundations & Mathematical Invariants",
+      "codeHash": "4a227c3538506813676b632ddfbf971d3f192c7328a15f8b3ce1cb7f1c3856b9",
       "spec": {
-        "template": "flow",
-        "title": "MoE Load-Balancing Auxiliary Loss & All-to-All Expert Dispatch Routing",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Expert Parallelism — Foundations & Mathematical Invariants",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how scaling updates models during execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "info"
+                  },
+                  {
+                    "var": "info",
+                    "line": 10,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Expert Parallelism (EP) solves this memory bottleneck by placing different.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "info"
+                  },
+                  {
+                    "var": "info",
+                    "line": 11,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Understanding these communication mechanics is essential for architecting.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "MoE Load-Balancing Auxiliary Loss & All-to-All Expert Dispatch Routing",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Expert Parallelism — Foundations & Mathematical Invariants",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how scaling updates models during execution.",
+            "rows": [
+              {
+                "cells": [
+                  "info",
+                  "{'concept': 'EXPERT_PARALLELISM_ALL_TO_…"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Expert Parallelism (EP) solves this memory bottleneck by placing different.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "info",
+                  "{'concept': 'EXPERT_PARALLELISM_ALL_TO_…"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Understanding these communication mechanics is essential for architecting.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "[EXPERT_PARALLELISM_ALL_TO_ALL] Uses All-to-All_scatter_tokens_to_expert_ranks and All-to-All_gather_expert_outputs_to_token_ranks"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -272,265 +124,219 @@
       }
     },
     {
-      "partTitle": "MoE Load-Balancing Auxiliary Loss & All-to-All Expert Dispatch Routing — Core Algorithm & State Representation",
-      "codeHash": "4f58788c6da460b7ac7b68580962661e5439d1e6bdabe5307c59264dca0c48d1",
+      "partTitle": "Expert Parallelism — Core Algorithm & State Representation",
+      "codeHash": "b8478b465c9d451432f21ffc3ed649c3a34477a52ad4cbbae75a6eadb7d962f1",
       "spec": {
-        "template": "flow",
-        "title": "MoE Load-Balancing Auxiliary Loss & All-to-All Expert Dispatch Routing",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Expert Parallelism — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Without explicit regularization, gating networks suffer from.",
+            "bars": [
+              {
+                "label": "f",
+                "value": {
+                  "var": "f",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "num_experts",
+                "value": {
+                  "var": "num_experts",
+                  "line": 3,
+                  "hit": 10
+                },
+                "tone": "data"
+              },
+              {
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 3,
+                  "hit": 10
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If one expert randomly performs slightly better early in training,.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "f",
+                "value": {
+                  "var": "f",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "num_experts",
+                "value": {
+                  "var": "num_experts",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This mathematical formulation provides a robust, differentiable guarantee.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "f",
+                "value": {
+                  "var": "f",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "num_experts",
+                "value": {
+                  "var": "num_experts",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "MoE Load-Balancing Auxiliary Loss & All-to-All Expert Dispatch Routing",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Expert Parallelism — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Without explicit regularization, gating networks suffer from.",
+            "bars": [
+              {
+                "label": "f",
+                "value": 0.125,
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": 0.125,
+                "tone": "data"
+              },
+              {
+                "label": "num_experts",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "alpha",
+                "value": 0.01,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If one expert randomly performs slightly better early in training,.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "f",
+                "value": 0.125,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "p",
+                "value": 0.125,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "num_experts",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "alpha",
+                "value": 0.01,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This mathematical formulation provides a robust, differentiable guarantee.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "f",
+                "value": 0.125,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "p",
+                "value": 0.125,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "num_experts",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "alpha",
+                "value": 0.01,
+                "tone": "ok"
               }
             ]
           }
@@ -538,265 +344,219 @@
       }
     },
     {
-      "partTitle": "MoE Load-Balancing Auxiliary Loss & All-to-All Expert Dispatch Routing — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "78ffa7d063505caf32eec0e7be1a6cf6ef3610b5a5c3af2c48c335bdaf6956f0",
+      "partTitle": "Expert Parallelism — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "29cfcb955fbd8a713260c96be766a86831554eee2a8ad4e18f81de4972b0f637",
       "spec": {
-        "template": "flow",
-        "title": "MoE Load-Balancing Auxiliary Loss & All-to-All Expert Dispatch Routing",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Expert Parallelism — Throughput Optimization & Edge-Case Handlin",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantifying network communication volume during All-to-All token dispatch.",
+            "bars": [
+              {
+                "label": "num_tokens",
+                "value": {
+                  "var": "num_tokens",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "hidden_dim",
+                "value": {
+                  "var": "hidden_dim",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "top_k",
+                "value": {
+                  "var": "top_k",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "num_ranks",
+                "value": {
+                  "var": "num_ranks",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In a system with N ranks, an accelerator retains only 1/N of its assigned.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "num_tokens",
+                "value": {
+                  "var": "num_tokens",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "hidden_dim",
+                "value": {
+                  "var": "hidden_dim",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "top_k",
+                "value": {
+                  "var": "top_k",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "num_ranks",
+                "value": {
+                  "var": "num_ranks",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Optimizing All-to-All communication is the cornerstone of scaling sparse.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "num_tokens",
+                "value": {
+                  "var": "num_tokens",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "hidden_dim",
+                "value": {
+                  "var": "hidden_dim",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "top_k",
+                "value": {
+                  "var": "top_k",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "num_ranks",
+                "value": {
+                  "var": "num_ranks",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "MoE Load-Balancing Auxiliary Loss & All-to-All Expert Dispatch Routing",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Expert Parallelism — Throughput Optimization & Edge-Case Handlin",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantifying network communication volume during All-to-All token dispatch.",
+            "bars": [
+              {
+                "label": "num_tokens",
+                "value": 4096,
+                "tone": "data"
+              },
+              {
+                "label": "hidden_dim",
+                "value": 4096,
+                "tone": "data"
+              },
+              {
+                "label": "top_k",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "num_ranks",
+                "value": 8,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In a system with N ranks, an accelerator retains only 1/N of its assigned.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "num_tokens",
+                "value": 4096,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "hidden_dim",
+                "value": 4096,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "top_k",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "num_ranks",
+                "value": 8,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Optimizing All-to-All communication is the cornerstone of scaling sparse.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "num_tokens",
+                "value": 4096,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "hidden_dim",
+                "value": 4096,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "top_k",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "num_ranks",
+                "value": 8,
+                "tone": "ok"
               }
             ]
           }
@@ -804,531 +564,397 @@
       }
     },
     {
-      "partTitle": "MoE Load-Balancing Auxiliary Loss & All-to-All Expert Dispatch Routing — Resilience Guardrails & Failure Recovery",
-      "codeHash": "ebe056a49b53f8844048d59397b9726a2ca8e1640625ff7b55a8f1864efdffbf",
+      "partTitle": "Expert Parallelism — Resilience Guardrails & Failure Recovery",
+      "codeHash": "45a48b4b04d01b5603ce4a941e2f96fcac3095deafe21e42c8418b6a55088381",
       "spec": {
         "template": "flow",
-        "title": "MoE Load-Balancing Auxiliary Loss & All-to-All Expert Dispatch Routing",
+        "title": "Expert Parallelism — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": ".0",
+            "label": ".0"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "f",
+            "label": "f"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "token_fractions",
+            "label": "token_fractions"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "min_entropy",
+            "label": "min_entropy"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Routing entropy provides a sensitive mathematical metric for detecting.",
+            "values": {
+              ".0": {
+                "var": ".0",
+                "line": 5,
+                "hit": 1
+              },
+              "f": {
+                "var": "f",
+                "line": 5,
+                "hit": 1
+              },
+              "token_fractions": {
+                "var": "token_fractions",
+                "line": 5,
+                "hit": 10
+              },
+              "min_entropy": {
+                "var": "min_entropy",
+                "line": 5,
+                "hit": 10
+              }
+            },
+            "tones": {
+              ".0": "data",
+              "f": "data",
+              "token_fractions": "data",
+              "min_entropy": "data"
+            },
+            "arrows": [
+              [
+                ".0",
+                "f"
+              ],
+              [
+                "f",
+                "token_fractions"
+              ],
+              [
+                "token_fractions",
+                "min_entropy"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Routing entropy is calculated as.",
+            "values": {
+              ".0": {
+                "var": ".0",
+                "line": 5,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "f": {
+                "var": "f",
+                "line": 5,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "token_fractions": {
+                "var": "token_fractions",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "min_entropy": {
+                "var": "min_entropy",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              ".0": "data",
+              "f": "data",
+              "token_fractions": "data",
+              "min_entropy": "data"
+            },
+            "arrows": [
+              [
+                ".0",
+                "f"
+              ],
+              [
+                "f",
+                "token_fractions"
+              ],
+              [
+                "token_fractions",
+                "min_entropy"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "This automated surveillance guarantees stable, reliable pre-training.",
+            "values": {
+              ".0": {
+                "var": ".0",
+                "line": 5,
+                "hit": 3
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "f": {
+                "var": "f",
+                "line": 5,
+                "hit": 3
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "token_fractions": {
+                "var": "token_fractions",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "min_entropy": {
+                "var": "min_entropy",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              ".0": "ok",
+              "f": "ok",
+              "token_fractions": "ok",
+              "min_entropy": "ok"
+            },
+            "arrows": [
+              [
+                ".0",
+                "f"
+              ],
+              [
+                "f",
+                "token_fractions"
+              ],
+              [
+                "token_fractions",
+                "min_entropy"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "MoE Load-Balancing Auxiliary Loss & All-to-All Expert Dispatch Routing",
+        "title": "Expert Parallelism — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": ".0",
+            "label": ".0"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "f",
+            "label": "f"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "token_fractions",
+            "label": "token_fractions"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "min_entropy",
+            "label": "min_entropy"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Routing entropy provides a sensitive mathematical metric for detecting.",
+            "values": {
+              ".0": "{'__other__': 'list_iterator'}",
+              "f": "0.125",
+              "token_fractions": "[0.125, 0.125, 0.125, 0.125, 0.125, 0.1…",
+              "min_entropy": "2.5"
+            },
+            "tones": {
+              ".0": "data",
+              "f": "data",
+              "token_fractions": "data",
+              "min_entropy": "data"
+            },
+            "arrows": [
+              [
+                ".0",
+                "f"
+              ],
+              [
+                "f",
+                "token_fractions"
+              ],
+              [
+                "token_fractions",
+                "min_entropy"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Routing entropy is calculated as.",
+            "values": {
+              ".0": "{'__other__': 'list_iterator'}",
+              "f": "0.125",
+              "token_fractions": "[0.125, 0.125, 0.125, 0.125, 0.125, 0.1…",
+              "min_entropy": "2.5"
+            },
+            "tones": {
+              ".0": "data",
+              "f": "data",
+              "token_fractions": "data",
+              "min_entropy": "data"
+            },
+            "arrows": [
+              [
+                ".0",
+                "f"
+              ],
+              [
+                "f",
+                "token_fractions"
+              ],
+              [
+                "token_fractions",
+                "min_entropy"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "This automated surveillance guarantees stable, reliable pre-training.",
+            "values": {
+              ".0": "{'__other__': 'list_iterator'}",
+              "f": "0.125",
+              "token_fractions": "[0.125, 0.125, 0.125, 0.125, 0.125, 0.1…",
+              "min_entropy": "2.5"
+            },
+            "tones": {
+              ".0": "ok",
+              "f": "ok",
+              "token_fractions": "ok",
+              "min_entropy": "ok"
+            },
+            "arrows": [
+              [
+                ".0",
+                "f"
+              ],
+              [
+                "f",
+                "token_fractions"
+              ],
+              [
+                "token_fractions",
+                "min_entropy"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "MoE Load-Balancing Auxiliary Loss & All-to-All Expert Dispatch Routing — Production Telemetry & Verification Audit",
-      "codeHash": "afee8c3b99fd02af0bd6527543ba50fc4ed130c27bf53c866c719245d03e60c8",
+      "partTitle": "Expert Parallelism — Production Telemetry & Verification Audit",
+      "codeHash": "05dd84e11e0d5821ec065f4dd423ee6a3c1b1d1b7f2b31374e19cac20a998113",
       "spec": {
-        "template": "flow",
-        "title": "MoE Load-Balancing Auxiliary Loss & All-to-All Expert Dispatch Routing",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Expert Parallelism — Production Telemetry & Verification Audit",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing validates the empirical execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "audit"
+                  },
+                  {
+                    "var": "audit",
+                    "line": 10,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Auditors record All-to-All collective latencies in milliseconds, auxiliary.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "audit"
+                  },
+                  {
+                    "var": "audit",
+                    "line": 11,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This certification confirms that Expert Parallelism is fully.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "MoE Load-Balancing Auxiliary Loss & All-to-All Expert Dispatch Routing",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Expert Parallelism — Production Telemetry & Verification Audit",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry auditing validates the empirical execution.",
+            "rows": [
+              {
+                "cells": [
+                  "audit",
+                  "{'status': 'CERTIFIED', 'ep_ranks': 8, …"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Auditors record All-to-All collective latencies in milliseconds, auxiliary.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "audit",
+                  "{'status': 'CERTIFIED', 'ep_ranks': 8, …"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "This certification confirms that Expert Parallelism is fully.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "Expert Parallelism Audit: CERTIFIED (All-to-All: 1.82ms, Aux Loss: 0.0102)"
+                ],
+                "tone": "ok"
               }
             ]
           }

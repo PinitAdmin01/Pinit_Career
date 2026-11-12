@@ -2,270 +2,284 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 54,
-  "promptSha": "3ab6862510fef7975d7f34238a24412e5d34833b678ef86c8e7dd1e055573815",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Policy-as-Code Guardrails — Foundations & Mathematical Invariants",
-      "codeHash": "612f5409e904e3aa9027ce3f5047e45da4683caeabd64990459a456967a4ede1",
+      "codeHash": "3045b3531eaa768b6b7f64aab2f05878a392c029cab05d2cc230bc39d1e03563",
       "spec": {
         "template": "flow",
-        "title": "Policy-as-Code Guardrails — Foundations & Mathematical Invariants",
+        "title": "Policy-as-Code Guardrails — Foundations & Mathematical Invariant",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "resource_type",
+            "label": "resource_type"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "config",
+            "label": "config"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "mandatory_encryption",
+            "label": "mandatory_encryption"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "violations",
+            "label": "violations"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Codifying compliance policies into executable rules eliminates human error.",
+            "values": {
+              "resource_type": {
+                "var": "resource_type",
+                "line": 4,
+                "hit": 1
+              },
+              "config": {
+                "var": "config",
+                "line": 4,
+                "hit": 1
+              },
+              "mandatory_encryption": {
+                "var": "mandatory_encryption",
+                "line": 4,
+                "hit": 1
+              },
+              "violations": {
+                "var": "violations",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "resource_type": "data",
+              "config": "data",
+              "mandatory_encryption": "data",
+              "violations": "data"
+            },
+            "arrows": [
+              [
+                "resource_type",
+                "config"
+              ],
+              [
+                "config",
+                "mandatory_encryption"
+              ],
+              [
+                "mandatory_encryption",
+                "violations"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Embedding security and governance rules directly into continuous.",
+            "values": {
+              "resource_type": {
+                "var": "resource_type",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "config": {
+                "var": "config",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "mandatory_encryption": {
+                "var": "mandatory_encryption",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "violations": {
+                "var": "violations",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "resource_type": "data",
+              "config": "data",
+              "mandatory_encryption": "data",
+              "violations": "data"
+            },
+            "arrows": [
+              [
+                "resource_type",
+                "config"
+              ],
+              [
+                "config",
+                "mandatory_encryption"
+              ],
+              [
+                "mandatory_encryption",
+                "violations"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Understanding declarative policy models empowers engineers to enforce.",
+            "values": {
+              "resource_type": {
+                "var": "resource_type",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "config": {
+                "var": "config",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "mandatory_encryption": {
+                "var": "mandatory_encryption",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "violations": {
+                "var": "violations",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "resource_type": "ok",
+              "config": "ok",
+              "mandatory_encryption": "ok",
+              "violations": "ok"
+            },
+            "arrows": [
+              [
+                "resource_type",
+                "config"
+              ],
+              [
+                "config",
+                "mandatory_encryption"
+              ],
+              [
+                "mandatory_encryption",
+                "violations"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Policy-as-Code Guardrails — Foundations & Mathematical Invariants",
+        "title": "Policy-as-Code Guardrails — Foundations & Mathematical Invariant",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "resource_type",
+            "label": "resource_type"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "config",
+            "label": "config"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "mandatory_encryption",
+            "label": "mandatory_encryption"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "violations",
+            "label": "violations"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Codifying compliance policies into executable rules eliminates human error.",
+            "values": {
+              "resource_type": "'aws_s3_bucket'",
+              "config": "{'server_side_encryption': False}",
+              "mandatory_encryption": "True",
+              "violations": "[]"
+            },
+            "tones": {
+              "resource_type": "data",
+              "config": "data",
+              "mandatory_encryption": "data",
+              "violations": "data"
+            },
+            "arrows": [
+              [
+                "resource_type",
+                "config"
+              ],
+              [
+                "config",
+                "mandatory_encryption"
+              ],
+              [
+                "mandatory_encryption",
+                "violations"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Embedding security and governance rules directly into continuous.",
+            "values": {
+              "resource_type": "'aws_s3_bucket'",
+              "config": "{'server_side_encryption': False}",
+              "mandatory_encryption": "True",
+              "violations": "[]"
+            },
+            "tones": {
+              "resource_type": "data",
+              "config": "data",
+              "mandatory_encryption": "data",
+              "violations": "data"
+            },
+            "arrows": [
+              [
+                "resource_type",
+                "config"
+              ],
+              [
+                "config",
+                "mandatory_encryption"
+              ],
+              [
+                "mandatory_encryption",
+                "violations"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Understanding declarative policy models empowers engineers to enforce.",
+            "values": {
+              "resource_type": "'aws_s3_bucket'",
+              "config": "{'server_side_encryption': False}",
+              "mandatory_encryption": "True",
+              "violations": "[]"
+            },
+            "tones": {
+              "resource_type": "ok",
+              "config": "ok",
+              "mandatory_encryption": "ok",
+              "violations": "ok"
+            },
+            "arrows": [
+              [
+                "resource_type",
+                "config"
+              ],
+              [
+                "config",
+                "mandatory_encryption"
+              ],
+              [
+                "mandatory_encryption",
+                "violations"
+              ]
             ]
           }
         ]
@@ -273,797 +287,551 @@
     },
     {
       "partTitle": "Policy-as-Code Guardrails — Core Algorithm & State Representation",
-      "codeHash": "6f77c47da2b15724c5890e3986c023e65a2f5017b4d5aca6bf55302dfca44585",
+      "codeHash": "3435026033a8ccc10bc9cad4e37ca66aa8640a714ded182781e18315e2054ebf",
       "spec": {
-        "template": "flow",
-        "title": "Policy-as-Code Guardrails — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Policy-as-Code Guardrails — Core Algorithm & State Representatio",
+        "actors": [
+          "plan_bad",
+          "plan_good",
+          "tf_plan"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Establishing automated tagging rules enables financial analytics systems.",
+            "activeActor": "plan_bad",
+            "messages": [
+              {
+                "from": "plan_bad",
+                "to": "plan_good",
+                "label": {
+                  "var": "plan_bad",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "plan_good",
+                "to": "tf_plan",
+                "label": {
+                  "var": "plan_good",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Parsing planned resource changes allows policy engines to enforce.",
+            "activeActor": "plan_good",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "plan_bad",
+                "to": "plan_good",
+                "label": {
+                  "var": "plan_bad",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "plan_good",
+                "to": "tf_plan",
+                "label": {
+                  "var": "plan_good",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Detailed violation messages provide actionable feedback to developers.",
+            "activeActor": "tf_plan",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "plan_bad",
+                "to": "plan_good",
+                "label": {
+                  "var": "plan_bad",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "plan_good",
+                "to": "tf_plan",
+                "label": {
+                  "var": "plan_good",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Policy-as-Code Guardrails — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Policy-as-Code Guardrails — Core Algorithm & State Representatio",
+        "actors": [
+          "plan_bad",
+          "plan_good",
+          "tf_plan"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Establishing automated tagging rules enables financial analytics systems.",
+            "messages": [
+              {
+                "from": "plan_bad",
+                "to": "plan_good",
+                "label": "{'resource_changes': [{'address': 'aws_…",
+                "tone": "data"
+              },
+              {
+                "from": "plan_good",
+                "to": "tf_plan",
+                "label": "{'resource_changes': [{'address': 'aws_…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "plan_bad"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Parsing planned resource changes allows policy engines to enforce.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "plan_bad",
+                "to": "plan_good",
+                "label": "{'resource_changes': [{'address': 'aws_…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "plan_good",
+                "to": "tf_plan",
+                "label": "{'resource_changes': [{'address': 'aws_…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "plan_good"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Detailed violation messages provide actionable feedback to developers.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "plan_bad",
+                "to": "plan_good",
+                "label": "{'resource_changes': [{'address': 'aws_…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "plan_good",
+                "to": "tf_plan",
+                "label": "{'resource_changes': [{'address': 'aws_…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "tf_plan"
           }
         ]
       }
     },
     {
       "partTitle": "Policy-as-Code Guardrails — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "5ff327d7f693c8d8f8676bd74ba7f50622a96b32422423220acde0c0220d588b",
+      "codeHash": "9e3fd912341f626278c54d7dcc3d174df9aa958fc59fa716d1a460f6af1f19df",
       "spec": {
-        "template": "flow",
-        "title": "Policy-as-Code Guardrails — Throughput Optimization & Edge-Case Handli",
-        "nodes": [
+        "template": "states",
+        "title": "Policy-as-Code Guardrails — Throughput Optimization & Edge-Case ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "pod_rogue",
+            "label": "pod_rogue"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "pod_approved",
+            "label": "pod_approved"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "pod_spec",
+            "label": "pod_spec"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Admission controllers reject unauthorized images at the cluster threshold.",
+            "currentState": "pod_rogue",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Validating admission controllers evaluate Kubernetes API requests.",
+            "currentState": "pod_approved",
+            "transition": {
+              "from": "pod_rogue",
+              "to": "pod_approved",
+              "label": {
+                "var": "pod_approved",
+                "line": 33,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Decoupling policy templates from resource targets enables security teams.",
+            "currentState": "pod_spec",
+            "transition": {
+              "from": "pod_approved",
+              "to": "pod_spec",
+              "label": {
+                "var": "pod_spec",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Policy-as-Code Guardrails — Throughput Optimization & Edge-Case Handli",
-        "nodes": [
+        "template": "states",
+        "title": "Policy-as-Code Guardrails — Throughput Optimization & Edge-Case ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "pod_rogue",
+            "label": "pod_rogue"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "pod_approved",
+            "label": "pod_approved"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "pod_spec",
+            "label": "pod_spec"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Admission controllers reject unauthorized images at the cluster threshold.",
+            "currentState": "pod_rogue",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Validating admission controllers evaluate Kubernetes API requests.",
+            "currentState": "pod_approved",
+            "transition": {
+              "from": "pod_rogue",
+              "to": "pod_approved",
+              "label": "{'metadata': {'name': 'order-service'},…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Decoupling policy templates from resource targets enables security teams.",
+            "currentState": "pod_spec",
+            "transition": {
+              "from": "pod_approved",
+              "to": "pod_spec",
+              "label": "{'metadata': {'name': 'crypto-miner'}, …"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Policy-as-Code Guardrails — Resilience Guardrails & Failure Recovery",
-      "codeHash": "25c7ae282b735e8f990e962f43fab70750c9513219d0c4b90d540bdeb8847e7e",
+      "codeHash": "1a3f9b35409a0465b09c8cbd238a56d5186958f372b543eda6fce79b65a4b50f",
       "spec": {
         "template": "flow",
-        "title": "Policy-as-Code Guardrails — Resilience Guardrails & Failure Recovery",
+        "title": "Policy-as-Code Guardrails — Resilience Guardrails & Failure Reco",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sample_violations",
+            "label": "sample_violations"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "violations",
+            "label": "violations"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "enforcement_mode",
+            "label": "enforcement_mode"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "has_break_glass",
+            "label": "has_break_glass"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Establishing graduated policy enforcement allows engineering organizations.",
+            "values": {
+              "sample_violations": {
+                "var": "sample_violations",
+                "line": 27,
+                "hit": 1
+              },
+              "violations": {
+                "var": "violations",
+                "line": 4,
+                "hit": 1
+              },
+              "enforcement_mode": {
+                "var": "enforcement_mode",
+                "line": 4,
+                "hit": 1
+              },
+              "has_break_glass": {
+                "var": "has_break_glass",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "sample_violations": "data",
+              "violations": "data",
+              "enforcement_mode": "data",
+              "has_break_glass": "data"
+            },
+            "arrows": [
+              [
+                "sample_violations",
+                "violations"
+              ],
+              [
+                "violations",
+                "enforcement_mode"
+              ],
+              [
+                "enforcement_mode",
+                "has_break_glass"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Emergency break-glass workflows ensure that security policies never.",
+            "values": {
+              "sample_violations": {
+                "var": "sample_violations",
+                "line": 28,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "violations": {
+                "var": "violations",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "enforcement_mode": {
+                "var": "enforcement_mode",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "has_break_glass": {
+                "var": "has_break_glass",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "sample_violations": "data",
+              "violations": "data",
+              "enforcement_mode": "data",
+              "has_break_glass": "data"
+            },
+            "arrows": [
+              [
+                "sample_violations",
+                "violations"
+              ],
+              [
+                "violations",
+                "enforcement_mode"
+              ],
+              [
+                "enforcement_mode",
+                "has_break_glass"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "Audit logs capture every break-glass exception, ensuring complete.",
+            "values": {
+              "sample_violations": {
+                "var": "sample_violations",
+                "line": 29,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "violations": {
+                "var": "violations",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "enforcement_mode": {
+                "var": "enforcement_mode",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "has_break_glass": {
+                "var": "has_break_glass",
+                "line": 14,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "sample_violations": "ok",
+              "violations": "ok",
+              "enforcement_mode": "ok",
+              "has_break_glass": "ok"
+            },
+            "arrows": [
+              [
+                "sample_violations",
+                "violations"
+              ],
+              [
+                "violations",
+                "enforcement_mode"
+              ],
+              [
+                "enforcement_mode",
+                "has_break_glass"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Policy-as-Code Guardrails — Resilience Guardrails & Failure Recovery",
+        "title": "Policy-as-Code Guardrails — Resilience Guardrails & Failure Reco",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sample_violations",
+            "label": "sample_violations"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "violations",
+            "label": "violations"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "enforcement_mode",
+            "label": "enforcement_mode"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "has_break_glass",
+            "label": "has_break_glass"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Establishing graduated policy enforcement allows engineering organizations.",
+            "values": {
+              "sample_violations": "['EBS volume must be encrypted', 'Missi…",
+              "violations": "['EBS volume must be encrypted', 'Missi…",
+              "enforcement_mode": "'AUDIT'",
+              "has_break_glass": "False"
+            },
+            "tones": {
+              "sample_violations": "data",
+              "violations": "data",
+              "enforcement_mode": "data",
+              "has_break_glass": "data"
+            },
+            "arrows": [
+              [
+                "sample_violations",
+                "violations"
+              ],
+              [
+                "violations",
+                "enforcement_mode"
+              ],
+              [
+                "enforcement_mode",
+                "has_break_glass"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Emergency break-glass workflows ensure that security policies never.",
+            "values": {
+              "sample_violations": "['EBS volume must be encrypted', 'Missi…",
+              "violations": "['EBS volume must be encrypted', 'Missi…",
+              "enforcement_mode": "'AUDIT'",
+              "has_break_glass": "False"
+            },
+            "tones": {
+              "sample_violations": "data",
+              "violations": "data",
+              "enforcement_mode": "data",
+              "has_break_glass": "data"
+            },
+            "arrows": [
+              [
+                "sample_violations",
+                "violations"
+              ],
+              [
+                "violations",
+                "enforcement_mode"
+              ],
+              [
+                "enforcement_mode",
+                "has_break_glass"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "Audit logs capture every break-glass exception, ensuring complete.",
+            "values": {
+              "sample_violations": "['EBS volume must be encrypted', 'Missi…",
+              "violations": "['EBS volume must be encrypted', 'Missi…",
+              "enforcement_mode": "'AUDIT'",
+              "has_break_glass": "False"
+            },
+            "tones": {
+              "sample_violations": "ok",
+              "violations": "ok",
+              "enforcement_mode": "ok",
+              "has_break_glass": "ok"
+            },
+            "arrows": [
+              [
+                "sample_violations",
+                "violations"
+              ],
+              [
+                "violations",
+                "enforcement_mode"
+              ],
+              [
+                "enforcement_mode",
+                "has_break_glass"
+              ]
             ]
           }
         ]
@@ -1071,264 +839,218 @@
     },
     {
       "partTitle": "Policy-as-Code Guardrails — Production Telemetry & Verification Audit",
-      "codeHash": "c11914a092d297ee25a2adb2df42d1467bcd2fa21d781133cb0b3f86d10a34aa",
+      "codeHash": "81a0c7f7c98634bca06364a1dc32c2614235f4023deadf8ff009e61704dcd6d8",
       "spec": {
-        "template": "flow",
-        "title": "Policy-as-Code Guardrails — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Policy-as-Code Guardrails — Production Telemetry & Verification ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Real-time telemetry dashboards synthesize policy metrics across thousands.",
+            "bars": [
+              {
+                "label": "total_evals",
+                "value": {
+                  "var": "total_evals",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "blocked_count",
+                "value": {
+                  "var": "blocked_count",
+                  "line": 5,
+                  "hit": 7
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bypassed_count",
+                "value": {
+                  "var": "bypassed_count",
+                  "line": 6,
+                  "hit": 7
+                },
+                "tone": "data"
+              },
+              {
+                "label": "avg_latency",
+                "value": {
+                  "var": "avg_latency",
+                  "line": 7,
+                  "hit": 7
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Automated policy benchmarks track execution speeds continuously.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_evals",
+                "value": {
+                  "var": "total_evals",
+                  "line": 5,
+                  "hit": 7
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "blocked_count",
+                "value": {
+                  "var": "blocked_count",
+                  "line": 6,
+                  "hit": 7
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "bypassed_count",
+                "value": {
+                  "var": "bypassed_count",
+                  "line": 7,
+                  "hit": 7
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "avg_latency",
+                "value": {
+                  "var": "avg_latency",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Continuous policy verification ensures that cloud infrastructure adheres.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_evals",
+                "value": {
+                  "var": "total_evals",
+                  "line": 6,
+                  "hit": 7
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "blocked_count",
+                "value": {
+                  "var": "blocked_count",
+                  "line": 7,
+                  "hit": 7
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "bypassed_count",
+                "value": {
+                  "var": "bypassed_count",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "avg_latency",
+                "value": {
+                  "var": "avg_latency",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Policy-as-Code Guardrails — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Policy-as-Code Guardrails — Production Telemetry & Verification ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Real-time telemetry dashboards synthesize policy metrics across thousands.",
+            "bars": [
+              {
+                "label": "total_evals",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "blocked_count",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "bypassed_count",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "avg_latency",
+                "value": 14,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Automated policy benchmarks track execution speeds continuously.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_evals",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "blocked_count",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "bypassed_count",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "avg_latency",
+                "value": 14,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Continuous policy verification ensures that cloud infrastructure adheres.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_evals",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "blocked_count",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "bypassed_count",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "avg_latency",
+                "value": 14,
+                "tone": "ok"
               }
             ]
           }

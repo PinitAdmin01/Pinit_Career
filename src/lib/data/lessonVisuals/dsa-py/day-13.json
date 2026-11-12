@@ -2,87 +2,127 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 13,
-  "promptSha": "065b50590d187c674ccee228c8229ca9d26505f06ef9fe59d055a14cf222f040",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Partitioning around a pivot",
       "codeHash": "dccd2f7e8fdb0a5242544c29d69be773587c8fbb6bb9f35da9941dfdc936c708",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Partitioning around a pivot",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The quick concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Quick sort starts by choosing a pivot, one value from the list.",
+            "items": {
+              "var": "arr",
+              "line": 11,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Partitioning"
-                  },
-                  {
-                    "text": "around"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The lomuto logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "This is called partitioning.",
+            "items": {
+              "var": "arr",
+              "line": 5,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "pivot"
-                  },
-                  {
-                    "text": "around"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "In comparison to Lomuto's partitioning scheme, Hoare's two-pointer.",
+            "items": {
+              "var": "arr",
+              "line": 4,
+              "hit": 4
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Partitioning around a pivot",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The quick concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Quick sort starts by choosing a pivot, one value from the list.",
+            "items": [
+              "7",
+              "2",
+              "9",
+              "4",
+              "3",
+              "8",
+              "5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Partitioning",
-                  "around"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The lomuto logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "This is called partitioning.",
+            "items": [
+              "7",
+              "2",
+              "9",
+              "4",
+              "3",
+              "8",
+              "5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "pivot",
-                  "around"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "In comparison to Lomuto's partitioning scheme, Hoare's two-pointer.",
+            "items": [
+              "2",
+              "7",
+              "9",
+              "4",
+              "3",
+              "8",
+              "5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,82 +133,91 @@
       "partTitle": "Quick sort",
       "codeHash": "7b4a25aca864feade99832ca1c006f8887ad3f87ccabc0b38579aa53e06be224",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Quick sort",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Quick"
-                  },
-                  {
-                    "text": "sort"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Quick sort partitions the list, then quick sorts the left part and.",
+            "items": {
+              "var": "arr",
+              "line": 11,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The average logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Quick"
-                  },
-                  {
-                    "text": "sort"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Quick sort works in place.",
+            "items": {
+              "var": "arr",
+              "line": 12,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say4",
+            "caption": "The base case is a range with 0 or 1 items, when lo >= hi.",
+            "items": {
+              "var": "arr",
+              "line": 4,
+              "hit": 3
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Quick sort",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Quick",
-                  "sort"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Quick sort partitions the list, then quick sorts the left part and.",
+            "mode": "stack",
+            "items": [
+              "7",
+              "2",
+              "9",
+              "4",
+              "3",
+              "8",
+              "5"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The average logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Quick",
-                  "sort"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Quick sort works in place.",
+            "mode": "stack",
+            "items": [
+              "7",
+              "2",
+              "9",
+              "4",
+              "3",
+              "8",
+              "5"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say4",
+            "caption": "The base case is a range with 0 or 1 items, when lo >= hi.",
+            "mode": "stack",
+            "items": [
+              "2",
+              "7",
+              "9",
+              "4",
+              "3",
+              "8",
+              "5"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -177,43 +226,131 @@
       "partTitle": "The worst case and random pivots",
       "codeHash": "8f09b68fe7c0e52302116916cd160a95c19856ec49b953afa58f096c3d814448",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "The worst case and random pivots",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The quick concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Quick sort has a weakness.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "The"
-                  },
-                  {
-                    "text": "worst"
-                  }
-                ],
+                "label": "count",
+                "value": {
+                  "var": "count",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "lo",
+                "value": {
+                  "var": "lo",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "hi",
+                "value": {
+                  "var": "hi",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pivot",
+                "value": {
+                  "var": "pivot",
+                  "line": 13,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The choose logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "With the last item as pivot, this happens on a list that is already.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "case"
-                  },
-                  {
-                    "text": "and"
-                  }
-                ],
+                "label": "count",
+                "value": {
+                  "var": "count",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lo",
+                "value": {
+                  "var": "lo",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hi",
+                "value": {
+                  "var": "hi",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pivot",
+                "value": {
+                  "var": "pivot",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The code counts comparisons for a sorted list with the last-item pivot.",
+            "bars": [
+              {
+                "label": "count",
+                "value": {
+                  "var": "count",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lo",
+                "value": {
+                  "var": "lo",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hi",
+                "value": {
+                  "var": "hi",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pivot",
+                "value": {
+                  "var": "pivot",
+                  "line": 15,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +358,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "The worst case and random pivots",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The quick concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Quick sort has a weakness.",
+            "bars": [
               {
-                "cells": [
-                  "The",
-                  "worst"
-                ],
+                "label": "count",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "lo",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "hi",
+                "value": 299,
+                "tone": "data"
+              },
+              {
+                "label": "pivot",
+                "value": 299,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The choose logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "With the last item as pivot, this happens on a list that is already.",
+            "bars": [
               {
-                "cells": [
-                  "case",
-                  "and"
-                ],
+                "label": "count",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "lo",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "hi",
+                "value": 299,
+                "tone": "ok"
+              },
+              {
+                "label": "pivot",
+                "value": 299,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The code counts comparisons for a sorted list with the last-item pivot.",
+            "bars": [
+              {
+                "label": "count",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "lo",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "hi",
+                "value": 299,
+                "tone": "ok"
+              },
+              {
+                "label": "pivot",
+                "value": 299,
                 "tone": "ok"
               }
             ]
@@ -261,43 +446,131 @@
       "partTitle": "Quickselect: the k-th largest in O(N)",
       "codeHash": "fbcc169f0757a6e55bba1b71f61b682434e9670f762f56ddfbed2be827bccb06",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Quickselect: the k-th largest in O(N)",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 1 asks for the k-th largest number without fully sorting.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Quickselect"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "target",
+                "value": {
+                  "var": "target",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "hi",
+                "value": {
+                  "var": "hi",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The because logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The k-th largest is at position len(nums) - k in sorted order.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "largest"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "target",
+                "value": {
+                  "var": "target",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hi",
+                "value": {
+                  "var": "hi",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Quickselect achieves an optimal average time complexity of O(N) because it.",
+            "bars": [
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "target",
+                "value": {
+                  "var": "target",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hi",
+                "value": {
+                  "var": "hi",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 12,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -305,35 +578,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Quickselect: the k-th largest in O(N)",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 1 asks for the k-th largest number without fully sorting.",
+            "bars": [
               {
-                "cells": [
-                  "Quickselect",
-                  "the"
-                ],
+                "label": "k",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "target",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "hi",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The because logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The k-th largest is at position len(nums) - k in sorted order.",
+            "bars": [
               {
-                "cells": [
-                  "largest",
-                  "the"
-                ],
+                "label": "k",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "target",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "hi",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Quickselect achieves an optimal average time complexity of O(N) because it.",
+            "bars": [
+              {
+                "label": "k",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "target",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "hi",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -345,80 +666,123 @@
       "partTitle": "heapq and choosing the right tool",
       "codeHash": "8e13169eed2c06cfbb5e2132bb6b61cf9bd23f6124e4674e333bf5a6e56ae32d",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "heapq and choosing the right tool",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Python's heapq module offers another way to get the largest items.",
+            "items": {
+              "var": "nums",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "heapq"
-                  },
-                  {
-                    "text": "and"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The small logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "So for the k-th largest you now have three tools.",
+            "items": {
+              "var": "nums",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "choosing"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Unlike sorting which resolves the complete total ordering of all elements.",
+            "items": {
+              "var": "nums",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "heapq and choosing the right tool",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The python concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Python's heapq module offers another way to get the largest items.",
+            "items": [
+              "12",
+              "45",
+              "7",
+              "23",
+              "56",
+              "89",
+              "34",
+              "78"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "heapq",
-                  "and"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The small logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "So for the k-th largest you now have three tools.",
+            "items": [
+              "12",
+              "45",
+              "7",
+              "23",
+              "56",
+              "89",
+              "34",
+              "78"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "choosing",
-                  "the"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Unlike sorting which resolves the complete total ordering of all elements.",
+            "items": [
+              "12",
+              "45",
+              "7",
+              "23",
+              "56",
+              "89",
+              "34",
+              "78"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -429,82 +793,162 @@
       "partTitle": "Merge sort or quick sort?",
       "codeHash": "b18f76ca2572ee93ecc92dd1dac52eb41fd57b35c86c7590f25ea47b996f1d43",
       "spec": {
-        "template": "table",
+        "template": "boxes",
         "title": "Merge sort or quick sort?",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "merge",
+            "label": "merge"
+          },
+          {
+            "id": "quick",
+            "label": "quick"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The both concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Merge"
-                  },
-                  {
-                    "text": "sort"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Both are O(N log N) on average.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 8,
+                "hit": 1
+              },
+              "merge": {
+                "var": "merge",
+                "line": 8,
+                "hit": 1
+              },
+              "quick": {
+                "var": "quick",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "name": "data",
+              "merge": "data",
+              "quick": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The real logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "quick"
-                  },
-                  {
-                    "text": "sort"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "For linked lists, merge sort is the natural choice, because merging only.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 9,
+                "hit": 1
+              },
+              "merge": {
+                "var": "merge",
+                "line": 9,
+                "hit": 1
+              },
+              "quick": {
+                "var": "quick",
+                "line": 9,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "name": "data",
+              "merge": "data",
+              "quick": "data"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Knowing these trade-offs helps you answer \"which sort would you use and why.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 8,
+                "hit": 2
+              },
+              "merge": {
+                "var": "merge",
+                "line": 8,
+                "hit": 2
+              },
+              "quick": {
+                "var": "quick",
+                "line": 8,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "name": "ok",
+              "merge": "ok",
+              "quick": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "boxes",
         "title": "Merge sort or quick sort?",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "merge",
+            "label": "merge"
+          },
+          {
+            "id": "quick",
+            "label": "quick"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The both concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Merge",
-                  "sort"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Both are O(N log N) on average.",
+            "values": {
+              "name": "'average time'",
+              "merge": "'O(N log N)'",
+              "quick": "'O(N log N)'"
+            },
+            "tones": {
+              "name": "data",
+              "merge": "data",
+              "quick": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The real logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "quick",
-                  "sort"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "For linked lists, merge sort is the natural choice, because merging only.",
+            "values": {
+              "name": "'average time'",
+              "merge": "'O(N log N)'",
+              "quick": "'O(N log N)'"
+            },
+            "tones": {
+              "name": "data",
+              "merge": "data",
+              "quick": "data"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Knowing these trade-offs helps you answer \"which sort would you use and why.",
+            "values": {
+              "name": "'worst time'",
+              "merge": "'O(N log N)'",
+              "quick": "'O(N^2)'"
+            },
+            "tones": {
+              "name": "ok",
+              "merge": "ok",
+              "quick": "ok"
+            }
           }
         ]
       }

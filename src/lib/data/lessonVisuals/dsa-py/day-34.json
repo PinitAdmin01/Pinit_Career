@@ -2,50 +2,138 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 34,
-  "promptSha": "e9d4d93b6440543af6176a27e66e2d65b592820047ccb1323ee999ff0b0ec6f8",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Equivalence Classes, Disjoint Sets & The Naive Forest Trap",
       "codeHash": "145d75c64ac65af4bcf3616d91c69e0fbe15d17fc1139105b64521cdc8e729d9",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Equivalence Classes, Disjoint Sets & The Naive Forest Trap",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The disjoint design establishes the core structural invariant.",
-            "rows": [
+            "caption": "A Disjoint-Set Union (DSU), widely known as Union-Find, tracks elements.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Equivalence"
-                  },
-                  {
-                    "text": "Classes"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The union step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "An equivalence relation satisfies three mathematical axioms.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Disjoint"
-                  },
-                  {
-                    "text": "Sets"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Observe the self-contained NaiveUnionFind demonstration below tracking.",
+            "bars": [
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 19,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -53,35 +141,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Equivalence Classes, Disjoint Sets & The Naive Forest Trap",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The disjoint design establishes the core structural invariant.",
-            "rows": [
+            "caption": "A Disjoint-Set Union (DSU), widely known as Union-Find, tracks elements.",
+            "bars": [
               {
-                "cells": [
-                  "Equivalence",
-                  "Classes"
-                ],
+                "label": "size",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "steps",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The union step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "An equivalence relation satisfies three mathematical axioms.",
+            "bars": [
               {
-                "cells": [
-                  "Disjoint",
-                  "Sets"
-                ],
+                "label": "size",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Observe the self-contained NaiveUnionFind demonstration below tracking.",
+            "bars": [
+              {
+                "label": "size",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -93,43 +229,131 @@
       "partTitle": "Union by Rank & Union by Size: Logarithmic Depth Guarantees",
       "codeHash": "857a705612d85d08877410487597524ed2b201beb53142c4e6f38126fc5dd393",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Union by Rank & Union by Size: Logarithmic Depth Guarantees",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The eliminate design establishes the core structural invariant.",
-            "rows": [
+            "caption": "To eliminate degenerate chains permanently, our first invariant heuristic.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Union"
-                  },
-                  {
-                    "text": "Rank"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The attaching step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Each root records an upper bound on its subtree height called rank.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Size"
-                  },
-                  {
-                    "text": "Logarithmic"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect the UnionFindRank benchmark below running the exact same.",
+            "bars": [
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 28,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 11,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -137,35 +361,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Union by Rank & Union by Size: Logarithmic Depth Guarantees",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The eliminate design establishes the core structural invariant.",
-            "rows": [
+            "caption": "To eliminate degenerate chains permanently, our first invariant heuristic.",
+            "bars": [
               {
-                "cells": [
-                  "Union",
-                  "Rank"
-                ],
+                "label": "size",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "steps",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The attaching step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Each root records an upper bound on its subtree height called rank.",
+            "bars": [
               {
-                "cells": [
-                  "Size",
-                  "Logarithmic"
-                ],
+                "label": "size",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect the UnionFindRank benchmark below running the exact same.",
+            "bars": [
+              {
+                "label": "size",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -177,43 +449,131 @@
       "partTitle": "Path Compression: Flattening Trees to Near-Constant Time",
       "codeHash": "cf7d8acbd9a91bc98e9a938121f5a9452f64c7a0a61d49cc88dcb671bd6085cd",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Path Compression: Flattening Trees to Near-Constant Time",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The union design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Union by Rank bounds maximum height to O(log N).",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Path"
-                  },
-                  {
-                    "text": "Compression"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "rx",
+                "value": {
+                  "var": "rx",
+                  "line": 12,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The compression step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Whenever find(x) traverses intermediate nodes on the way up to root, all.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Flattening"
-                  },
-                  {
-                    "text": "Trees"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rx",
+                "value": {
+                  "var": "rx",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Observe UnionFindCompressed below displaying the parent array before.",
+            "bars": [
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rx",
+                "value": {
+                  "var": "rx",
+                  "line": 15,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +581,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Path Compression: Flattening Trees to Near-Constant Time",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The union design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Union by Rank bounds maximum height to O(log N).",
+            "bars": [
               {
-                "cells": [
-                  "Path",
-                  "Compression"
-                ],
+                "label": "size",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "rx",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The compression step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Whenever find(x) traverses intermediate nodes on the way up to root, all.",
+            "bars": [
               {
-                "cells": [
-                  "Flattening",
-                  "Trees"
-                ],
+                "label": "size",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "rx",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Observe UnionFindCompressed below displaying the parent array before.",
+            "bars": [
+              {
+                "label": "size",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "rx",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -261,43 +669,131 @@
       "partTitle": "The Inverse Ackermann Bound alpha(N) & Cycle Detection",
       "codeHash": "67726a38ab7a0b8e9c050230b633b4324d5dcc01b2e416196bdc23ebcac864de",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "The Inverse Ackermann Bound alpha(N) & Cycle Detection",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The combining design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Combining Union by Rank and Path Compression yields Robert Tarjan's.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Inverse"
-                  },
-                  {
-                    "text": "Ackermann"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "num_nodes",
+                "value": {
+                  "var": "num_nodes",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 26,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The flagship step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "The Ackermann function grows faster than towers of exponents.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Bound"
-                  },
-                  {
-                    "text": "alpha"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "num_nodes",
+                "value": {
+                  "var": "num_nodes",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Run the self-contained network cycle detector below identifying.",
+            "bars": [
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "num_nodes",
+                "value": {
+                  "var": "num_nodes",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 26,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 26,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -305,35 +801,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "The Inverse Ackermann Bound alpha(N) & Cycle Detection",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The combining design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Combining Union by Rank and Path Compression yields Robert Tarjan's.",
+            "bars": [
               {
-                "cells": [
-                  "Inverse",
-                  "Ackermann"
-                ],
+                "label": "size",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "num_nodes",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "u",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The flagship step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "The Ackermann function grows faster than towers of exponents.",
+            "bars": [
               {
-                "cells": [
-                  "Bound",
-                  "alpha"
-                ],
+                "label": "size",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "num_nodes",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Run the self-contained network cycle detector below identifying.",
+            "bars": [
+              {
+                "label": "size",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "num_nodes",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 2,
                 "tone": "ok"
               }
             ]
@@ -345,43 +889,131 @@
       "partTitle": "Persistent & Rollback DSU: Transactional Graph Connectivity",
       "codeHash": "6bc72bb3dbaf5b685021aa8fce2db393059a2ec8a029accd3d7239efcc4e3f17",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Persistent & Rollback DSU: Transactional Graph Connectivity",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The excels design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Standard DSU excels when edges are strictly added.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Persistent"
-                  },
-                  {
-                    "text": "Rollback"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "rx",
+                "value": {
+                  "var": "rx",
+                  "line": 13,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The clean step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Why does path compression break rollback.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Transactional"
-                  },
-                  {
-                    "text": "Graph"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rx",
+                "value": {
+                  "var": "rx",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Execute the complete RollbackDSU below verifying transactional speculative.",
+            "bars": [
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rx",
+                "value": {
+                  "var": "rx",
+                  "line": 17,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -389,35 +1021,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Persistent & Rollback DSU: Transactional Graph Connectivity",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The excels design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Standard DSU excels when edges are strictly added.",
+            "bars": [
               {
-                "cells": [
-                  "Persistent",
-                  "Rollback"
-                ],
+                "label": "size",
+                "value": 6,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "rx",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The clean step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Why does path compression break rollback.",
+            "bars": [
               {
-                "cells": [
-                  "Transactional",
-                  "Graph"
-                ],
+                "label": "size",
+                "value": 6,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "rx",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Execute the complete RollbackDSU below verifying transactional speculative.",
+            "bars": [
+              {
+                "label": "size",
+                "value": 6,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "rx",
+                "value": 0,
                 "tone": "ok"
               }
             ]

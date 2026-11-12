@@ -1,157 +1,228 @@
 {
-  "schemaVersion": "2.0.0",
-  "course": "prompt-py",
-  "day": 45,
+  "schemaVersion": 1,
   "prefix": "prompt-py",
+  "day": 45,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "ApexSwarm Architecture And Enterprise Mission Decomposition",
       "codeHash": "6dcce3e7fdd8e4c78d66e198fa552020fd2fab451f731933e2879f52b948d201",
       "spec": {
-        "template": "table",
-        "title": "ApexSwarm Architecture And Enterprise Mission Decomposition.",
-        "columns": [
-          "Supervisory Component",
-          "Orchestration Primitive",
-          "Mission Reliability Invariant"
+        "template": "flow",
+        "title": "ApexSwarm Architecture And Enterprise Mission Decomposition",
+        "nodes": [
+          {
+            "id": "integrated_subsystems",
+            "label": "integrated_subsystems"
+          },
+          {
+            "id": "capstone_benchmarks",
+            "label": "capstone_benchmarks"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise swarms decompose high level missions into task graphs.",
-            "rows": [
+            "caption": "Across the preceding four modules of Block Nine, we mastered the core.",
+            "values": {
+              "integrated_subsystems": {
+                "var": "integrated_subsystems",
+                "line": 10,
+                "hit": 1
+              },
+              "capstone_benchmarks": {
+                "var": "capstone_benchmarks",
+                "line": 17,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 34,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "integrated_subsystems": "data",
+              "capstone_benchmarks": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Task DAG Decomposer",
-                "Parses Charters Into Typed Causal Sub Task Graphs",
-                "Strict Directed Acyclic Graph Invariant"
+                "integrated_subsystems",
+                "capstone_benchmarks"
               ],
               [
-                "Dynamic Worker Allocator",
-                "Spins Up Specialized Personas On Demand",
-                "Optimal Compute Resource Allocation"
+                "capstone_benchmarks",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
             "caption": "The ApexSwarm sovereign architecture integrates hierarchical supervision.",
-            "rows": [
+            "values": {
+              "integrated_subsystems": {
+                "var": "integrated_subsystems",
+                "line": 18,
+                "hit": 1
+              },
+              "capstone_benchmarks": {
+                "var": "capstone_benchmarks",
+                "line": 26,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 35,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "integrated_subsystems": "data",
+              "capstone_benchmarks": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Dependency Schedular",
-                "Blocks Downstream Steps Until Prerequisites Pass",
-                "Zero Premature Execution Failures"
+                "integrated_subsystems",
+                "capstone_benchmarks"
               ],
               [
-                "Context Isolation Boundary",
-                "Injects Only Task Parameters And Pointers",
-                "Eighty Percent Token Cost Reduction SLA"
+                "capstone_benchmarks",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Supervisor agents decompose executive charters into task dependency graphs.",
-            "rows": [
+            "at": "say12",
+            "caption": "Mastering the supervisory and task decomposition foundations of ApexSwarm.",
+            "values": {
+              "integrated_subsystems": {
+                "var": "integrated_subsystems",
+                "line": 19,
+                "hit": 1
+              },
+              "capstone_benchmarks": {
+                "var": "capstone_benchmarks",
+                "line": 27,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 35,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "integrated_subsystems": "ok",
+              "capstone_benchmarks": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Workload Balancer",
-                "Scales Worker Nodes Horizontally During Surges",
-                "Maintains End To End Delivery Timelines"
+                "integrated_subsystems",
+                "capstone_benchmarks"
               ],
               [
-                "Adaptive Replanner",
-                "Reroutes Work Around Blocked External Providers",
-                "Self Healing Mission Execution Core"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a task DAG scheduler with dynamic worker allocation and schemas.",
-            "rows": [
-              [
-                "Executive Telemetry Bus",
-                "Streams Live State Transitions To Dashboards",
-                "Complete Enterprise Governance Visibility"
-              ],
-              [
-                "Cryptographic Audit Sealer",
-                "Signs Every Supervisory Scheduling Transition",
-                "Statutory Corporate Compliance Proof"
+                "capstone_benchmarks",
+                "result"
               ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "ApexSwarm Architecture And Enterprise Mission Decomposition.",
-        "columns": [
-          "Supervisory Component",
-          "Orchestration Primitive",
-          "Mission Reliability Invariant"
+        "template": "flow",
+        "title": "ApexSwarm Architecture And Enterprise Mission Decomposition",
+        "nodes": [
+          {
+            "id": "integrated_subsystems",
+            "label": "integrated_subsystems"
+          },
+          {
+            "id": "capstone_benchmarks",
+            "label": "capstone_benchmarks"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise swarms decompose high level missions into task graphs.",
-            "rows": [
+            "caption": "Across the preceding four modules of Block Nine, we mastered the core.",
+            "values": {
+              "integrated_subsystems": "['Hierarchical Supervisor Dispatcher & …",
+              "capstone_benchmarks": "{'multiAgentSwarmScale': 32, 'consensus…",
+              "result": "{'platform': 'ApexSwarm Sovereign Multi…"
+            },
+            "tones": {
+              "integrated_subsystems": "data",
+              "capstone_benchmarks": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Task DAG Decomposer",
-                "Parses Charters Into Typed Causal Sub Task Graphs",
-                "Strict Directed Acyclic Graph Invariant"
+                "integrated_subsystems",
+                "capstone_benchmarks"
               ],
               [
-                "Dynamic Worker Allocator",
-                "Spins Up Specialized Personas On Demand",
-                "Optimal Compute Resource Allocation"
+                "capstone_benchmarks",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
             "caption": "The ApexSwarm sovereign architecture integrates hierarchical supervision.",
-            "rows": [
+            "values": {
+              "integrated_subsystems": "['Hierarchical Supervisor Dispatcher & …",
+              "capstone_benchmarks": "{'multiAgentSwarmScale': 32, 'consensus…",
+              "result": "{'platform': 'ApexSwarm Sovereign Multi…"
+            },
+            "tones": {
+              "integrated_subsystems": "data",
+              "capstone_benchmarks": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Dependency Schedular",
-                "Blocks Downstream Steps Until Prerequisites Pass",
-                "Zero Premature Execution Failures"
+                "integrated_subsystems",
+                "capstone_benchmarks"
               ],
               [
-                "Context Isolation Boundary",
-                "Injects Only Task Parameters And Pointers",
-                "Eighty Percent Token Cost Reduction SLA"
+                "capstone_benchmarks",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Supervisor agents decompose executive charters into task dependency graphs.",
-            "rows": [
+            "at": "say12",
+            "caption": "Mastering the supervisory and task decomposition foundations of ApexSwarm.",
+            "values": {
+              "integrated_subsystems": "['Hierarchical Supervisor Dispatcher & …",
+              "capstone_benchmarks": "{'multiAgentSwarmScale': 32, 'consensus…",
+              "result": "{'platform': 'ApexSwarm Sovereign Multi…"
+            },
+            "tones": {
+              "integrated_subsystems": "ok",
+              "capstone_benchmarks": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Workload Balancer",
-                "Scales Worker Nodes Horizontally During Surges",
-                "Maintains End To End Delivery Timelines"
+                "integrated_subsystems",
+                "capstone_benchmarks"
               ],
               [
-                "Adaptive Replanner",
-                "Reroutes Work Around Blocked External Providers",
-                "Self Healing Mission Execution Core"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a task DAG scheduler with dynamic worker allocation and schemas.",
-            "rows": [
-              [
-                "Executive Telemetry Bus",
-                "Streams Live State Transitions To Dashboards",
-                "Complete Enterprise Governance Visibility"
-              ],
-              [
-                "Cryptographic Audit Sealer",
-                "Signs Every Supervisory Scheduling Transition",
-                "Statutory Corporate Compliance Proof"
+                "capstone_benchmarks",
+                "result"
               ]
             ]
           }
@@ -162,152 +233,162 @@
       "partTitle": "High Concurrency CRDT Working Memory And Epistemic Graph Fabric",
       "codeHash": "6dcce3e7fdd8e4c78d66e198fa552020fd2fab451f731933e2879f52b948d201",
       "spec": {
-        "template": "table",
-        "title": "High Concurrency CRDT Working Memory And Epistemic Graph Fabric.",
-        "columns": [
-          "Memory Fabric Subsystem",
-          "Synchronization Mechanism",
-          "Consistency And Latency SLA"
+        "template": "sequence",
+        "title": "High Concurrency CRDT Working Memory And Epistemic Graph Fabric",
+        "actors": [
+          "integrated_subsystems",
+          "capstone_benchmarks",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Distributed memory fabrics synchronize thoughts across agent swarms.",
-            "rows": [
-              [
-                "CRDT Replication Kernel",
-                "Merges Delta Payloads Across Distributed Clusters",
-                "Sub Two Millisecond State Convergence SLA"
-              ],
-              [
-                "Observed Remove Set Core",
-                "Tracks Unique Cryptographic Element Addition Tags",
-                "Eliminates Distributed Deletion Anomalies"
-              ]
+            "caption": "A sophisticated multi-agent swarm is only as effective as the memory.",
+            "activeActor": "integrated_subsystems",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "capstone_benchmarks",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "The ApexSwarm distributed memory fabric guarantees lock free state.",
-            "rows": [
-              [
-                "Typed Semantic Blackboard",
-                "Segregates Observations Hypotheses And Evidence",
-                "Pydantic Schema Validation At Rest"
-              ],
-              [
-                "Epistemic Vector Cache",
-                "Caches Verified Query Answers Semantically",
-                "Eliminates Redundant Compute Across Swarm"
-              ]
+            "caption": "The ApexSwarm distributed memory fabric guarantees lock-free state.",
+            "activeActor": "capstone_benchmarks",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "capstone_benchmarks",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "CRDT semilattices guarantee lock free memory convergence across swarms.",
-            "rows": [
-              [
-                "Hybrid GraphRAG Vault",
-                "Combines Dense Vector Search With Graph Paths",
-                "Deterministic Multi Hop Entity Traversal"
-              ],
-              [
-                "Temporal Decay Regulator",
-                "Applies Exponential Recency Weighting Over Time",
-                "Deprioritizes Stale Precedent Automatically"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy a distributed OR Set working memory blackboard with Redis pub sub.",
-            "rows": [
-              [
-                "Entity Resolution Daemon",
-                "Consolidates Acronyms Into Canonical Nodes",
-                "Creates Unified Corporate Knowledge Records"
-              ],
-              [
-                "Real Time Sync Monitor",
-                "Detects Replication Gaps And Triggers Anti Entropy",
-                "One Hundred Percent State Consistency SLA"
-              ]
+            "at": "say12",
+            "caption": "Mastering the high-concurrency CRDT memory fabric empowers architects.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "capstone_benchmarks",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "High Concurrency CRDT Working Memory And Epistemic Graph Fabric.",
-        "columns": [
-          "Memory Fabric Subsystem",
-          "Synchronization Mechanism",
-          "Consistency And Latency SLA"
+        "template": "sequence",
+        "title": "High Concurrency CRDT Working Memory And Epistemic Graph Fabric",
+        "actors": [
+          "integrated_subsystems",
+          "capstone_benchmarks",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Distributed memory fabrics synchronize thoughts across agent swarms.",
-            "rows": [
-              [
-                "CRDT Replication Kernel",
-                "Merges Delta Payloads Across Distributed Clusters",
-                "Sub Two Millisecond State Convergence SLA"
-              ],
-              [
-                "Observed Remove Set Core",
-                "Tracks Unique Cryptographic Element Addition Tags",
-                "Eliminates Distributed Deletion Anomalies"
-              ]
-            ]
+            "caption": "A sophisticated multi-agent swarm is only as effective as the memory.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": "['Hierarchical Supervisor Dispatcher & …",
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "integrated_subsystems"
           },
           {
             "at": "say2",
-            "caption": "The ApexSwarm distributed memory fabric guarantees lock free state.",
-            "rows": [
-              [
-                "Typed Semantic Blackboard",
-                "Segregates Observations Hypotheses And Evidence",
-                "Pydantic Schema Validation At Rest"
-              ],
-              [
-                "Epistemic Vector Cache",
-                "Caches Verified Query Answers Semantically",
-                "Eliminates Redundant Compute Across Swarm"
-              ]
-            ]
+            "caption": "The ApexSwarm distributed memory fabric guarantees lock-free state.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": "['Hierarchical Supervisor Dispatcher & …",
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "capstone_benchmarks"
           },
           {
-            "at": "example",
-            "caption": "CRDT semilattices guarantee lock free memory convergence across swarms.",
-            "rows": [
-              [
-                "Hybrid GraphRAG Vault",
-                "Combines Dense Vector Search With Graph Paths",
-                "Deterministic Multi Hop Entity Traversal"
-              ],
-              [
-                "Temporal Decay Regulator",
-                "Applies Exponential Recency Weighting Over Time",
-                "Deprioritizes Stale Precedent Automatically"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy a distributed OR Set working memory blackboard with Redis pub sub.",
-            "rows": [
-              [
-                "Entity Resolution Daemon",
-                "Consolidates Acronyms Into Canonical Nodes",
-                "Creates Unified Corporate Knowledge Records"
-              ],
-              [
-                "Real Time Sync Monitor",
-                "Detects Replication Gaps And Triggers Anti Entropy",
-                "One Hundred Percent State Consistency SLA"
-              ]
-            ]
+            "at": "say12",
+            "caption": "Mastering the high-concurrency CRDT memory fabric empowers architects.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": "['Hierarchical Supervisor Dispatcher & …",
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -316,152 +397,162 @@
       "partTitle": "Byzantine Deliberation Socratic Debate And Quorum Certification",
       "codeHash": "6dcce3e7fdd8e4c78d66e198fa552020fd2fab451f731933e2879f52b948d201",
       "spec": {
-        "template": "table",
-        "title": "Byzantine Deliberation Socratic Debate And Quorum Certification.",
-        "columns": [
-          "Consensus Protocol Layer",
-          "Deliberation Mechanism",
-          "Fault Tolerance Standard"
+        "template": "sequence",
+        "title": "Byzantine Deliberation Socratic Debate And Quorum Certification",
+        "actors": [
+          "integrated_subsystems",
+          "capstone_benchmarks",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Byzantine fault tolerance guarantees consensus despite corrupted nodes.",
-            "rows": [
-              [
-                "Byzantine Quorum Gate",
-                "Enforces Three F Plus One Node Requirement",
-                "Guarantees Honest Supermajority Agreement"
-              ],
-              [
-                "Dialectical Debate Arbiter",
-                "Manages Structured Turns Between Factions",
-                "Prosecutor Defender Evidentiary Testing"
-              ]
+            "caption": "Even with deterministic task graphs and a synchronized memory fabric.",
+            "activeActor": "integrated_subsystems",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "capstone_benchmarks",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "The ApexSwarm Byzantine deliberation network coordinates rigorous multi.",
-            "rows": [
-              [
-                "Evidence Admissibility Gate",
-                "Verifies Cryptographic Hashes Against Vaults",
-                "Disqualifies Ungrounded Hallucinations"
-              ],
-              [
-                "Quadratic Preference Core",
-                "Enables Agents To Spend Voting Credit Budgets",
-                "Surfaces High Conviction Minority Insights"
-              ]
+            "caption": "The ApexSwarm Byzantine deliberation network coordinates rigorous.",
+            "activeActor": "capstone_benchmarks",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "capstone_benchmarks",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Byzantine quorum gates enforce three f plus one nodes to ratify decisions.",
-            "rows": [
-              [
-                "Domain Expertise Multiplier",
-                "Weights Ballots By Historical Accuracy Scores",
-                "Guarantees Specialized Subject Dominance"
-              ],
-              [
-                "Chain Of Verification Gate",
-                "Extracts And Validates Explicit Question Pairs",
-                "Calibrates Model Uncertainty Pre Vote"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement a dialectical cross examination engine with quadratic voting.",
-            "rows": [
-              [
-                "Public Key Infrastructure",
-                "Mutual TLS Certificates And Keypair Signatures",
-                "Prevents Sybil Identity Spoofing Attacks"
-              ],
-              [
-                "Decision Sealing Gateway",
-                "Archives Hashes Of Transcripts And Quorum Proofs",
-                "Immutable Corporate Regulatory Auditability"
-              ]
+            "at": "say13",
+            "caption": "Mastering Byzantine deliberation protocols equips system architects.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "capstone_benchmarks",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Byzantine Deliberation Socratic Debate And Quorum Certification.",
-        "columns": [
-          "Consensus Protocol Layer",
-          "Deliberation Mechanism",
-          "Fault Tolerance Standard"
+        "template": "sequence",
+        "title": "Byzantine Deliberation Socratic Debate And Quorum Certification",
+        "actors": [
+          "integrated_subsystems",
+          "capstone_benchmarks",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Byzantine fault tolerance guarantees consensus despite corrupted nodes.",
-            "rows": [
-              [
-                "Byzantine Quorum Gate",
-                "Enforces Three F Plus One Node Requirement",
-                "Guarantees Honest Supermajority Agreement"
-              ],
-              [
-                "Dialectical Debate Arbiter",
-                "Manages Structured Turns Between Factions",
-                "Prosecutor Defender Evidentiary Testing"
-              ]
-            ]
+            "caption": "Even with deterministic task graphs and a synchronized memory fabric.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": "['Hierarchical Supervisor Dispatcher & …",
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "integrated_subsystems"
           },
           {
             "at": "say2",
-            "caption": "The ApexSwarm Byzantine deliberation network coordinates rigorous multi.",
-            "rows": [
-              [
-                "Evidence Admissibility Gate",
-                "Verifies Cryptographic Hashes Against Vaults",
-                "Disqualifies Ungrounded Hallucinations"
-              ],
-              [
-                "Quadratic Preference Core",
-                "Enables Agents To Spend Voting Credit Budgets",
-                "Surfaces High Conviction Minority Insights"
-              ]
-            ]
+            "caption": "The ApexSwarm Byzantine deliberation network coordinates rigorous.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": "['Hierarchical Supervisor Dispatcher & …",
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "capstone_benchmarks"
           },
           {
-            "at": "example",
-            "caption": "Byzantine quorum gates enforce three f plus one nodes to ratify decisions.",
-            "rows": [
-              [
-                "Domain Expertise Multiplier",
-                "Weights Ballots By Historical Accuracy Scores",
-                "Guarantees Specialized Subject Dominance"
-              ],
-              [
-                "Chain Of Verification Gate",
-                "Extracts And Validates Explicit Question Pairs",
-                "Calibrates Model Uncertainty Pre Vote"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement a dialectical cross examination engine with quadratic voting.",
-            "rows": [
-              [
-                "Public Key Infrastructure",
-                "Mutual TLS Certificates And Keypair Signatures",
-                "Prevents Sybil Identity Spoofing Attacks"
-              ],
-              [
-                "Decision Sealing Gateway",
-                "Archives Hashes Of Transcripts And Quorum Proofs",
-                "Immutable Corporate Regulatory Auditability"
-              ]
-            ]
+            "at": "say13",
+            "caption": "Mastering Byzantine deliberation protocols equips system architects.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": "['Hierarchical Supervisor Dispatcher & …",
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -470,152 +561,162 @@
       "partTitle": "Fault Tolerant Cyclical Execution Engine And Chaos Verification",
       "codeHash": "6dcce3e7fdd8e4c78d66e198fa552020fd2fab451f731933e2879f52b948d201",
       "spec": {
-        "template": "table",
-        "title": "Fault Tolerant Cyclical Execution Engine And Chaos Verification.",
-        "columns": [
-          "Execution Engine Kernel",
-          "Resilience Primitive",
-          "Recovery And Throughput SLA"
+        "template": "sequence",
+        "title": "Fault Tolerant Cyclical Execution Engine And Chaos Verification",
+        "actors": [
+          "integrated_subsystems",
+          "capstone_benchmarks",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cyclical execution engines provide state recovery and self healing.",
-            "rows": [
-              [
-                "Pregel Graph Kernel",
-                "Manages Atomic Transitions Across Workflow Nodes",
-                "Four Hundred Cycles Per Second Throughput"
-              ],
-              [
-                "Persistent Checkpointer",
-                "Serializes Graph State After Every Transition",
-                "Zero Data Loss Session Crash Recovery"
-              ]
+            "caption": "Executing long-horizon multi-agent workflows in mission-critical corporate.",
+            "activeActor": "integrated_subsystems",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "capstone_benchmarks",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "The ApexSwarm cyclical execution engine provides deterministic control.",
-            "rows": [
-              [
-                "Human In The Loop Gate",
-                "Pauses Execution Before High Risk Actions",
-                "Enforces Executive Administrative Oversight"
-              ],
-              [
-                "Time Travel State Explorer",
-                "Enables Historical Rewinds And Counterfactuals",
-                "Deterministic Edge Case Debugging Core"
-              ]
+            "activeActor": "capstone_benchmarks",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "capstone_benchmarks",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Persistent checkpointers restore graph state instantly after failures.",
-            "rows": [
-              [
-                "Dynamic Replanning Router",
-                "Reroutes Stalled Tasks Around Failed Tools",
-                "Ninety Nine Point Seven Percent Success"
-              ],
-              [
-                "Docker Sandbox Executor",
-                "Isolates Code And Database Script Execution",
-                "Prevents Production Infrastructure Damage"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Configure a Pregel state graph with human in the loop approval breakpoints.",
-            "rows": [
-              [
-                "Chaos Engineering Harness",
-                "Injects Latency Spikes And Container Crashes",
-                "Proves Extreme Operational System Resilience"
-              ],
-              [
-                "Adaptive Budget Regulator",
-                "Prunes Context To Enforce Spending Ceilings",
-                "Seventy Six Percent Cost Optimization SLA"
-              ]
+            "at": "say13",
+            "caption": "Mastering the cyclical execution engine and chaos verification protocols.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "capstone_benchmarks",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Fault Tolerant Cyclical Execution Engine And Chaos Verification.",
-        "columns": [
-          "Execution Engine Kernel",
-          "Resilience Primitive",
-          "Recovery And Throughput SLA"
+        "template": "sequence",
+        "title": "Fault Tolerant Cyclical Execution Engine And Chaos Verification",
+        "actors": [
+          "integrated_subsystems",
+          "capstone_benchmarks",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cyclical execution engines provide state recovery and self healing.",
-            "rows": [
-              [
-                "Pregel Graph Kernel",
-                "Manages Atomic Transitions Across Workflow Nodes",
-                "Four Hundred Cycles Per Second Throughput"
-              ],
-              [
-                "Persistent Checkpointer",
-                "Serializes Graph State After Every Transition",
-                "Zero Data Loss Session Crash Recovery"
-              ]
-            ]
+            "caption": "Executing long-horizon multi-agent workflows in mission-critical corporate.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": "['Hierarchical Supervisor Dispatcher & …",
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "integrated_subsystems"
           },
           {
             "at": "say2",
             "caption": "The ApexSwarm cyclical execution engine provides deterministic control.",
-            "rows": [
-              [
-                "Human In The Loop Gate",
-                "Pauses Execution Before High Risk Actions",
-                "Enforces Executive Administrative Oversight"
-              ],
-              [
-                "Time Travel State Explorer",
-                "Enables Historical Rewinds And Counterfactuals",
-                "Deterministic Edge Case Debugging Core"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": "['Hierarchical Supervisor Dispatcher & …",
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "capstone_benchmarks"
           },
           {
-            "at": "example",
-            "caption": "Persistent checkpointers restore graph state instantly after failures.",
-            "rows": [
-              [
-                "Dynamic Replanning Router",
-                "Reroutes Stalled Tasks Around Failed Tools",
-                "Ninety Nine Point Seven Percent Success"
-              ],
-              [
-                "Docker Sandbox Executor",
-                "Isolates Code And Database Script Execution",
-                "Prevents Production Infrastructure Damage"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Configure a Pregel state graph with human in the loop approval breakpoints.",
-            "rows": [
-              [
-                "Chaos Engineering Harness",
-                "Injects Latency Spikes And Container Crashes",
-                "Proves Extreme Operational System Resilience"
-              ],
-              [
-                "Adaptive Budget Regulator",
-                "Prunes Context To Enforce Spending Ceilings",
-                "Seventy Six Percent Cost Optimization SLA"
-              ]
-            ]
+            "at": "say13",
+            "caption": "Mastering the cyclical execution engine and chaos verification protocols.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": "['Hierarchical Supervisor Dispatcher & …",
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -624,152 +725,162 @@
       "partTitle": "ApexSwarm Platform Integration Enterprise Certification And Milestone Six",
       "codeHash": "6dcce3e7fdd8e4c78d66e198fa552020fd2fab451f731933e2879f52b948d201",
       "spec": {
-        "template": "table",
-        "title": "ApexSwarm Platform Integration Enterprise Certification And Milestone Six.",
-        "columns": [
-          "Integrated Platform Layer",
-          "Production Implementation",
-          "Capstone Benchmark Standard"
+        "template": "sequence",
+        "title": "ApexSwarm Platform Integration Enterprise Certification And Mile",
+        "actors": [
+          "integrated_subsystems",
+          "capstone_benchmarks",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production multi agent platforms deliver sub second consensus convergence.",
-            "rows": [
-              [
-                "ApexSwarm Command Core",
-                "Harmonizes Supervision Memory And Deliberation",
-                "Thirty Two Agent Sovereign Swarm Platform"
-              ],
-              [
-                "Distributed gRPC Transport",
-                "Coordinates Microservices Across Cloud Regions",
-                "Sub Thirty Millisecond Consensus Convergence"
-              ]
+            "caption": "In this climactic capstone integration, we assemble all four core.",
+            "activeActor": "integrated_subsystems",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "capstone_benchmarks",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "The fully integrated ApexSwarm enterprise platform coordinates thirty two.",
-            "rows": [
-              [
-                "Byzantine Consensus Engine",
-                "Executes Three Round Deliberations With Quorum",
-                "Ninety Nine Point Four Hallucination Drop"
-              ],
-              [
-                "Redis CRDT Storage Fabric",
-                "Maintains Shared Blackboard With Vector Caches",
-                "One Hundred Percent State Consistency SLA"
-              ]
+            "caption": "The fully integrated ApexSwarm enterprise platform coordinates thirty-two.",
+            "activeActor": "capstone_benchmarks",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "capstone_benchmarks",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "ApexSwarm integrates thirty two agents with rapid consensus convergence.",
-            "rows": [
-              [
-                "Stateful Cyclical Engine",
-                "Executes Checkpointed Graphs With Sandboxes",
-                "Ninety Nine Point Seven Task Completion SLA"
-              ],
-              [
-                "OpenTelemetry Trace Bus",
-                "Exports Real Time Histograms And Transition Logs",
-                "Granular SRE Production System Visibility"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy the complete ApexSwarm capstone suite and execute an audit mission.",
-            "rows": [
-              [
-                "Compliance Audit Sealer",
-                "Hashes Ballots And Evidence Into Final Dossier",
-                "Complete Statutory Corporate Adjudication"
-              ],
-              [
-                "Enterprise Architect Tier",
-                "Validates Planetary Scale Autonomous Platforms",
-                "Block Nine Milestone Six Accomplished"
-              ]
+            "at": "say13",
+            "caption": "Attaining the certification tier of ApexSwarm Enterprise Architect marks.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "capstone_benchmarks",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "ApexSwarm Platform Integration Enterprise Certification And Milestone Six.",
-        "columns": [
-          "Integrated Platform Layer",
-          "Production Implementation",
-          "Capstone Benchmark Standard"
+        "template": "sequence",
+        "title": "ApexSwarm Platform Integration Enterprise Certification And Mile",
+        "actors": [
+          "integrated_subsystems",
+          "capstone_benchmarks",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Production multi agent platforms deliver sub second consensus convergence.",
-            "rows": [
-              [
-                "ApexSwarm Command Core",
-                "Harmonizes Supervision Memory And Deliberation",
-                "Thirty Two Agent Sovereign Swarm Platform"
-              ],
-              [
-                "Distributed gRPC Transport",
-                "Coordinates Microservices Across Cloud Regions",
-                "Sub Thirty Millisecond Consensus Convergence"
-              ]
-            ]
+            "caption": "In this climactic capstone integration, we assemble all four core.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": "['Hierarchical Supervisor Dispatcher & …",
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "integrated_subsystems"
           },
           {
             "at": "say2",
-            "caption": "The fully integrated ApexSwarm enterprise platform coordinates thirty two.",
-            "rows": [
-              [
-                "Byzantine Consensus Engine",
-                "Executes Three Round Deliberations With Quorum",
-                "Ninety Nine Point Four Hallucination Drop"
-              ],
-              [
-                "Redis CRDT Storage Fabric",
-                "Maintains Shared Blackboard With Vector Caches",
-                "One Hundred Percent State Consistency SLA"
-              ]
-            ]
+            "caption": "The fully integrated ApexSwarm enterprise platform coordinates thirty-two.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": "['Hierarchical Supervisor Dispatcher & …",
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "capstone_benchmarks"
           },
           {
-            "at": "example",
-            "caption": "ApexSwarm integrates thirty two agents with rapid consensus convergence.",
-            "rows": [
-              [
-                "Stateful Cyclical Engine",
-                "Executes Checkpointed Graphs With Sandboxes",
-                "Ninety Nine Point Seven Task Completion SLA"
-              ],
-              [
-                "OpenTelemetry Trace Bus",
-                "Exports Real Time Histograms And Transition Logs",
-                "Granular SRE Production System Visibility"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy the complete ApexSwarm capstone suite and execute an audit mission.",
-            "rows": [
-              [
-                "Compliance Audit Sealer",
-                "Hashes Ballots And Evidence Into Final Dossier",
-                "Complete Statutory Corporate Adjudication"
-              ],
-              [
-                "Enterprise Architect Tier",
-                "Validates Planetary Scale Autonomous Platforms",
-                "Block Nine Milestone Six Accomplished"
-              ]
-            ]
+            "at": "say13",
+            "caption": "Attaining the certification tier of ApexSwarm Enterprise Architect marks.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "capstone_benchmarks",
+                "label": "['Hierarchical Supervisor Dispatcher & …",
+                "tone": "data"
+              },
+              {
+                "from": "capstone_benchmarks",
+                "to": "result",
+                "label": "{'multiAgentSwarmScale': 32, 'consensus…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }

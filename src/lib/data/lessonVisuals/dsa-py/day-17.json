@@ -2,50 +2,84 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 17,
-  "promptSha": "345993ce1bbce67154d6b2229f000bf9d7ce9914ab5781e86d98e9f54f078209",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The binary search tree rule",
       "codeHash": "22ad012b5111c5437109f098b7b2fb7fe31a0c1562bc19a5bb8299ab2b5cea7e",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "The binary search tree rule",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The binary concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A binary search tree (BST) is a binary tree with one rule.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "The"
-                  },
-                  {
-                    "text": "binary"
-                  }
-                ],
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The rule logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The rule applies to whole subtrees, not just the direct children.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "search"
-                  },
-                  {
-                    "text": "tree"
-                  }
-                ],
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Databases and file systems use search trees like this (usually wider.",
+            "bars": [
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 20,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -53,35 +87,53 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "The binary search tree rule",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The binary concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A binary search tree (BST) is a binary tree with one rule.",
+            "bars": [
               {
-                "cells": [
-                  "The",
-                  "binary"
-                ],
+                "label": "v",
+                "value": 50,
+                "tone": "data"
+              },
+              {
+                "label": "val",
+                "value": 50,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The rule logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The rule applies to whole subtrees, not just the direct children.",
+            "bars": [
               {
-                "cells": [
-                  "search",
-                  "tree"
-                ],
+                "label": "v",
+                "value": 50,
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": 50,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Databases and file systems use search trees like this (usually wider.",
+            "bars": [
+              {
+                "label": "v",
+                "value": 30,
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": 50,
                 "tone": "ok"
               }
             ]
@@ -93,43 +145,131 @@
       "partTitle": "Searching and the cost of balance",
       "codeHash": "a66dc1242cc5d472ac7955967945cac94d12240c553632feb3b96d47115c3d7b",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Searching and the cost of balance",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The search concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "To search a BST, start at the root and move left or right until you find.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Searching"
-                  },
-                  {
-                    "text": "and"
-                  }
-                ],
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "target",
+                "value": {
+                  "var": "target",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 17,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The inserting logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "So search costs O(height).",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "the"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "target",
+                "value": {
+                  "var": "target",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Python has no built-in BST.",
+            "bars": [
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 26,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "target",
+                "value": {
+                  "var": "target",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": {
+                  "var": "steps",
+                  "line": 19,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -137,35 +277,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Searching and the cost of balance",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The search concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "To search a BST, start at the root and move left or right until you find.",
+            "bars": [
               {
-                "cells": [
-                  "Searching",
-                  "and"
-                ],
+                "label": "v",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "val",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "target",
+                "value": 15,
+                "tone": "data"
+              },
+              {
+                "label": "steps",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The inserting logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "So search costs O(height).",
+            "bars": [
               {
-                "cells": [
-                  "the",
-                  "cost"
-                ],
+                "label": "v",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "target",
+                "value": 15,
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Python has no built-in BST.",
+            "bars": [
+              {
+                "label": "v",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "target",
+                "value": 15,
+                "tone": "ok"
+              },
+              {
+                "label": "steps",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -177,43 +365,104 @@
       "partTitle": "Validating a BST with ranges",
       "codeHash": "5f39d64fbcdcbced2a2d7d027d6febe7245571bbbf531c2b2f02ad9ed9c23e1c",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Validating a BST with ranges",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 1 checks whether a tree follows the BST rule.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Validating"
-                  },
-                  {
-                    "text": "BST"
-                  }
-                ],
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "low",
+                "value": {
+                  "var": "low",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "high",
+                "value": {
+                  "var": "high",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The node logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The correct method passes an allowed range down the tree.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "with"
-                  },
-                  {
-                    "text": "ranges"
-                  }
-                ],
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "low",
+                "value": {
+                  "var": "low",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "high",
+                "value": {
+                  "var": "high",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Another correct method uses inorder.",
+            "bars": [
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "low",
+                "value": {
+                  "var": "low",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "high",
+                "value": {
+                  "var": "high",
+                  "line": 8,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +470,68 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Validating a BST with ranges",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 1 checks whether a tree follows the BST rule.",
+            "bars": [
               {
-                "cells": [
-                  "Validating",
-                  "BST"
-                ],
+                "label": "val",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "low",
+                "value": "-inf",
+                "tone": "data"
+              },
+              {
+                "label": "high",
+                "value": "inf",
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The node logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The correct method passes an allowed range down the tree.",
+            "bars": [
               {
-                "cells": [
-                  "with",
-                  "ranges"
-                ],
+                "label": "val",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "low",
+                "value": "-inf",
+                "tone": "ok"
+              },
+              {
+                "label": "high",
+                "value": "inf",
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Another correct method uses inorder.",
+            "bars": [
+              {
+                "label": "val",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "low",
+                "value": "-inf",
+                "tone": "ok"
+              },
+              {
+                "label": "high",
+                "value": 5,
                 "tone": "ok"
               }
             ]
@@ -261,43 +543,104 @@
       "partTitle": "Lowest common ancestor in a BST",
       "codeHash": "82c840afedadd25b1ee1edf2ea99da4507b8d74ff7adfa7acadfa10bf4bff1dc",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Lowest common ancestor in a BST",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "The lowest common ancestor (LCA) of two values p and q is the deepest node.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Lowest"
-                  },
-                  {
-                    "text": "common"
-                  }
-                ],
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The otherwise logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "In a BST the rule makes this easy.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "ancestor"
-                  },
-                  {
-                    "text": "BST"
-                  }
-                ],
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "LCA answers questions like \"what is the closest shared manager of these.",
+            "bars": [
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "q",
+                "value": {
+                  "var": "q",
+                  "line": 11,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -305,35 +648,68 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Lowest common ancestor in a BST",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "The lowest common ancestor (LCA) of two values p and q is the deepest node.",
+            "bars": [
               {
-                "cells": [
-                  "Lowest",
-                  "common"
-                ],
+                "label": "val",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "q",
+                "value": 8,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The otherwise logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "In a BST the rule makes this easy.",
+            "bars": [
               {
-                "cells": [
-                  "ancestor",
-                  "BST"
-                ],
+                "label": "val",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "q",
+                "value": 8,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "LCA answers questions like \"what is the closest shared manager of these.",
+            "bars": [
+              {
+                "label": "val",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "q",
+                "value": 8,
                 "tone": "ok"
               }
             ]
@@ -345,43 +721,131 @@
       "partTitle": "The k-th smallest and range queries",
       "codeHash": "e4bc456d767e7faed5ee3c162a221e8c173484fb4cb06a6018022c307561274b",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "The k-th smallest and range queries",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The because concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Because inorder gives sorted order, the k-th smallest value is simply.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "The"
-                  },
-                  {
-                    "text": "smallest"
-                  }
-                ],
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "low",
+                "value": {
+                  "var": "low",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "high",
+                "value": {
+                  "var": "high",
+                  "line": 20,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The skipping logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "A range query asks for all values between low and high.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "and"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "low",
+                "value": {
+                  "var": "low",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "high",
+                "value": {
+                  "var": "high",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "You will meet another way to get the k-th smallest tomorrow, using a heap.",
+            "bars": [
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "low",
+                "value": {
+                  "var": "low",
+                  "line": 20,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "high",
+                "value": {
+                  "var": "high",
+                  "line": 20,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -389,35 +853,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "The k-th smallest and range queries",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The because concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Because inorder gives sorted order, the k-th smallest value is simply.",
+            "bars": [
               {
-                "cells": [
-                  "The",
-                  "smallest"
-                ],
+                "label": "val",
+                "value": 20,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "low",
+                "value": 35,
+                "tone": "data"
+              },
+              {
+                "label": "high",
+                "value": 65,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The skipping logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "A range query asks for all values between low and high.",
+            "bars": [
               {
-                "cells": [
-                  "and",
-                  "range"
-                ],
+                "label": "val",
+                "value": 20,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "low",
+                "value": 35,
+                "tone": "ok"
+              },
+              {
+                "label": "high",
+                "value": 65,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "You will meet another way to get the k-th smallest tomorrow, using a heap.",
+            "bars": [
+              {
+                "label": "val",
+                "value": 20,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "low",
+                "value": 35,
+                "tone": "ok"
+              },
+              {
+                "label": "high",
+                "value": 65,
                 "tone": "ok"
               }
             ]
@@ -429,43 +941,77 @@
       "partTitle": "Deleting from a BST",
       "codeHash": "c40440df8e4812c72754cd2ddff0b1499c94b5dfc0797232fa209947e0c5e577",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Deleting from a BST",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The deleting concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Deleting shows how the rule is protected.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Deleting"
-                  },
-                  {
-                    "text": "from"
-                  }
-                ],
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 39,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The successor logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "A node with two children is the tricky case.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "BST"
-                  },
-                  {
-                    "text": "from"
-                  }
-                ],
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 40,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "You rarely write BST deletion at work, but it is a favourite interview.",
+            "bars": [
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 39,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -473,35 +1019,53 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Deleting from a BST",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The deleting concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Deleting shows how the rule is protected.",
+            "bars": [
               {
-                "cells": [
-                  "Deleting",
-                  "from"
-                ],
+                "label": "v",
+                "value": 50,
+                "tone": "data"
+              },
+              {
+                "label": "val",
+                "value": 50,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The successor logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "A node with two children is the tricky case.",
+            "bars": [
               {
-                "cells": [
-                  "BST",
-                  "from"
-                ],
+                "label": "v",
+                "value": 50,
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": 50,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "You rarely write BST deletion at work, but it is a favourite interview.",
+            "bars": [
+              {
+                "label": "v",
+                "value": 30,
+                "tone": "ok"
+              },
+              {
+                "label": "val",
+                "value": 50,
                 "tone": "ok"
               }
             ]

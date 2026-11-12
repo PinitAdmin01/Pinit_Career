@@ -2,270 +2,284 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 53,
-  "promptSha": "190e6e86a93988d3481b9e3e93e55c4a8bacac66990321fe8a3e202ecab7abe0",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Terraform State Locking, Drift Detection & Ephemeral Preview Environments — Foundations & Mathematical Invariants",
-      "codeHash": "a98ce7ad177801d254482420489e677c865757570a8715863672882f1aff7e32",
+      "codeHash": "c43878de3725c195411a589d5e0a7d6bf9758aa777487064d62cbcb05422ebf1",
       "spec": {
         "template": "flow",
-        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Environme",
+        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Env",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "lock_id",
+            "label": "lock_id"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "operation",
+            "label": "operation"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "user",
+            "label": "user"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "lock1",
+            "label": "lock1"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In modern collaborative cloud environments, treating infrastructure.",
+            "values": {
+              "lock_id": {
+                "var": "lock_id",
+                "line": 4,
+                "hit": 1
+              },
+              "operation": {
+                "var": "operation",
+                "line": 4,
+                "hit": 1
+              },
+              "user": {
+                "var": "user",
+                "line": 4,
+                "hit": 1
+              },
+              "lock1": {
+                "var": "lock1",
+                "line": 24,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "lock_id": "data",
+              "operation": "data",
+              "user": "data",
+              "lock1": "data"
+            },
+            "arrows": [
+              [
+                "lock_id",
+                "operation"
+              ],
+              [
+                "operation",
+                "user"
+              ],
+              [
+                "user",
+                "lock1"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Distributed state locking guarantees serial execution across distributed.",
+            "values": {
+              "lock_id": {
+                "var": "lock_id",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "operation": {
+                "var": "operation",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "user": {
+                "var": "user",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "lock1": {
+                "var": "lock1",
+                "line": 25,
+                "hit": 1
               }
+            },
+            "tones": {
+              "lock_id": "data",
+              "operation": "data",
+              "user": "data",
+              "lock1": "data"
+            },
+            "arrows": [
+              [
+                "lock_id",
+                "operation"
+              ],
+              [
+                "operation",
+                "user"
+              ],
+              [
+                "user",
+                "lock1"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Strict state locking eliminates conflicting parallel modifications.",
+            "values": {
+              "lock_id": {
+                "var": "lock_id",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "operation": {
+                "var": "operation",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "user": {
+                "var": "user",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "lock1": {
+                "var": "lock1",
+                "line": 26,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "lock_id": "ok",
+              "operation": "ok",
+              "user": "ok",
+              "lock1": "ok"
+            },
+            "arrows": [
+              [
+                "lock_id",
+                "operation"
+              ],
+              [
+                "operation",
+                "user"
+              ],
+              [
+                "user",
+                "lock1"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Environme",
+        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Env",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "lock_id",
+            "label": "lock_id"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "operation",
+            "label": "operation"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "user",
+            "label": "user"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "lock1",
+            "label": "lock1"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In modern collaborative cloud environments, treating infrastructure.",
+            "values": {
+              "lock_id": "'lock-abc-111'",
+              "operation": "'OperationTypeApply'",
+              "user": "'ci-cd-runner'",
+              "lock1": "{'LockID': 'lock-abc-111', 'Operation':…"
+            },
+            "tones": {
+              "lock_id": "data",
+              "operation": "data",
+              "user": "data",
+              "lock1": "data"
+            },
+            "arrows": [
+              [
+                "lock_id",
+                "operation"
+              ],
+              [
+                "operation",
+                "user"
+              ],
+              [
+                "user",
+                "lock1"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Distributed state locking guarantees serial execution across distributed.",
+            "values": {
+              "lock_id": "'lock-abc-111'",
+              "operation": "'OperationTypeApply'",
+              "user": "'ci-cd-runner'",
+              "lock1": "{'LockID': 'lock-abc-111', 'Operation':…"
+            },
+            "tones": {
+              "lock_id": "data",
+              "operation": "data",
+              "user": "data",
+              "lock1": "data"
+            },
+            "arrows": [
+              [
+                "lock_id",
+                "operation"
+              ],
+              [
+                "operation",
+                "user"
+              ],
+              [
+                "user",
+                "lock1"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Strict state locking eliminates conflicting parallel modifications.",
+            "values": {
+              "lock_id": "'lock-abc-111'",
+              "operation": "'OperationTypeApply'",
+              "user": "'ci-cd-runner'",
+              "lock1": "{'LockID': 'lock-abc-111', 'Operation':…"
+            },
+            "tones": {
+              "lock_id": "ok",
+              "operation": "ok",
+              "user": "ok",
+              "lock1": "ok"
+            },
+            "arrows": [
+              [
+                "lock_id",
+                "operation"
+              ],
+              [
+                "operation",
+                "user"
+              ],
+              [
+                "user",
+                "lock1"
+              ]
             ]
           }
         ]
@@ -273,265 +287,279 @@
     },
     {
       "partTitle": "Terraform State Locking, Drift Detection & Ephemeral Preview Environments — Core Algorithm & State Representation",
-      "codeHash": "504bc6fea8adccc88c8e1c789950a203db316a247fe827889be55e611ce80f7d",
+      "codeHash": "8a8d275f5829165e369bdf3098718a78c00a8e1cd829042422888bc6517a8b97",
       "spec": {
         "template": "flow",
-        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Environme",
+        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Env",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "declared_s3",
+            "label": "declared_s3"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "actual_s3",
+            "label": "actual_s3"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "declared_state",
+            "label": "declared_state"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "actual_cloud_state",
+            "label": "actual_cloud_state"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated drift detection compares real-world cloud resource attributes.",
+            "values": {
+              "declared_s3": {
+                "var": "declared_s3",
+                "line": 20,
+                "hit": 1
+              },
+              "actual_s3": {
+                "var": "actual_s3",
+                "line": 22,
+                "hit": 1
+              },
+              "declared_state": {
+                "var": "declared_state",
+                "line": 4,
+                "hit": 1
+              },
+              "actual_cloud_state": {
+                "var": "actual_cloud_state",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "declared_s3": "data",
+              "actual_s3": "data",
+              "declared_state": "data",
+              "actual_cloud_state": "data"
+            },
+            "arrows": [
+              [
+                "declared_s3",
+                "actual_s3"
+              ],
+              [
+                "actual_s3",
+                "declared_state"
+              ],
+              [
+                "declared_state",
+                "actual_cloud_state"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Continuous reconciliation pipelines alert platform security teams.",
+            "values": {
+              "declared_s3": {
+                "var": "declared_s3",
+                "line": 22,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "actual_s3": {
+                "var": "actual_s3",
+                "line": 24,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "declared_state": {
+                "var": "declared_state",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "actual_cloud_state": {
+                "var": "actual_cloud_state",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "declared_s3": "data",
+              "actual_s3": "data",
+              "declared_state": "data",
+              "actual_cloud_state": "data"
+            },
+            "arrows": [
+              [
+                "declared_s3",
+                "actual_s3"
+              ],
+              [
+                "actual_s3",
+                "declared_state"
+              ],
+              [
+                "declared_state",
+                "actual_cloud_state"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Deterministic drift reports provide exact attribute-level visibility.",
+            "values": {
+              "declared_s3": {
+                "var": "declared_s3",
+                "line": 24,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "actual_s3": {
+                "var": "actual_s3",
+                "line": 25,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "declared_state": {
+                "var": "declared_state",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "actual_cloud_state": {
+                "var": "actual_cloud_state",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "declared_s3": "ok",
+              "actual_s3": "ok",
+              "declared_state": "ok",
+              "actual_cloud_state": "ok"
+            },
+            "arrows": [
+              [
+                "declared_s3",
+                "actual_s3"
+              ],
+              [
+                "actual_s3",
+                "declared_state"
+              ],
+              [
+                "declared_state",
+                "actual_cloud_state"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Environme",
+        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Env",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "declared_s3",
+            "label": "declared_s3"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "actual_s3",
+            "label": "actual_s3"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "declared_state",
+            "label": "declared_state"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "actual_cloud_state",
+            "label": "actual_cloud_state"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated drift detection compares real-world cloud resource attributes.",
+            "values": {
+              "declared_s3": "{'bucket': 'prod-assets', 'versioning':…",
+              "actual_s3": "{'bucket': 'prod-assets', 'versioning':…",
+              "declared_state": "{'bucket': 'prod-assets', 'versioning':…",
+              "actual_cloud_state": "{'bucket': 'prod-assets', 'versioning':…"
+            },
+            "tones": {
+              "declared_s3": "data",
+              "actual_s3": "data",
+              "declared_state": "data",
+              "actual_cloud_state": "data"
+            },
+            "arrows": [
+              [
+                "declared_s3",
+                "actual_s3"
+              ],
+              [
+                "actual_s3",
+                "declared_state"
+              ],
+              [
+                "declared_state",
+                "actual_cloud_state"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Continuous reconciliation pipelines alert platform security teams.",
+            "values": {
+              "declared_s3": "{'bucket': 'prod-assets', 'versioning':…",
+              "actual_s3": "{'bucket': 'prod-assets', 'versioning':…",
+              "declared_state": "{'bucket': 'prod-assets', 'versioning':…",
+              "actual_cloud_state": "{'bucket': 'prod-assets', 'versioning':…"
+            },
+            "tones": {
+              "declared_s3": "data",
+              "actual_s3": "data",
+              "declared_state": "data",
+              "actual_cloud_state": "data"
+            },
+            "arrows": [
+              [
+                "declared_s3",
+                "actual_s3"
+              ],
+              [
+                "actual_s3",
+                "declared_state"
+              ],
+              [
+                "declared_state",
+                "actual_cloud_state"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Deterministic drift reports provide exact attribute-level visibility.",
+            "values": {
+              "declared_s3": "{'bucket': 'prod-assets', 'versioning':…",
+              "actual_s3": "{'bucket': 'prod-assets', 'versioning':…",
+              "declared_state": "{'bucket': 'prod-assets', 'versioning':…",
+              "actual_cloud_state": "{'bucket': 'prod-assets', 'versioning':…"
+            },
+            "tones": {
+              "declared_s3": "ok",
+              "actual_s3": "ok",
+              "declared_state": "ok",
+              "actual_cloud_state": "ok"
+            },
+            "arrows": [
+              [
+                "declared_s3",
+                "actual_s3"
+              ],
+              [
+                "actual_s3",
+                "declared_state"
+              ],
+              [
+                "declared_state",
+                "actual_cloud_state"
+              ]
             ]
           }
         ]
@@ -539,797 +567,551 @@
     },
     {
       "partTitle": "Terraform State Locking, Drift Detection & Ephemeral Preview Environments — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "bbb908aef314606a355dabde50e2a5b2ce61ed0f1785b618aef2f4a4a1d1311c",
+      "codeHash": "1752184881f0ed039ec652afd4300e8d977203fe641450e7f830e2c0f5121ebc",
       "spec": {
-        "template": "flow",
-        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Environme",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Env",
+        "actors": [
+          "pr_number",
+          "commit_sha",
+          "base_domain"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Establishing automated preview environments accelerates product review.",
+            "activeActor": "pr_number",
+            "messages": [
+              {
+                "from": "pr_number",
+                "to": "commit_sha",
+                "label": {
+                  "var": "pr_number",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "commit_sha",
+                "to": "base_domain",
+                "label": {
+                  "var": "commit_sha",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Dynamic ephemeral environments provide dedicated, isolated testing.",
+            "activeActor": "commit_sha",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "pr_number",
+                "to": "commit_sha",
+                "label": {
+                  "var": "pr_number",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "commit_sha",
+                "to": "base_domain",
+                "label": {
+                  "var": "commit_sha",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Strict resource tagging ensures that cloud costs associated with ephemeral.",
+            "activeActor": "base_domain",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "pr_number",
+                "to": "commit_sha",
+                "label": {
+                  "var": "pr_number",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "commit_sha",
+                "to": "base_domain",
+                "label": {
+                  "var": "commit_sha",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Environme",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Env",
+        "actors": [
+          "pr_number",
+          "commit_sha",
+          "base_domain"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Establishing automated preview environments accelerates product review.",
+            "messages": [
+              {
+                "from": "pr_number",
+                "to": "commit_sha",
+                "label": "1042",
+                "tone": "data"
+              },
+              {
+                "from": "commit_sha",
+                "to": "base_domain",
+                "label": "'4bf92f3577b34da6a3ce929d0e0e4736'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "pr_number"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Dynamic ephemeral environments provide dedicated, isolated testing.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "pr_number",
+                "to": "commit_sha",
+                "label": "1042",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "commit_sha",
+                "to": "base_domain",
+                "label": "'4bf92f3577b34da6a3ce929d0e0e4736'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "commit_sha"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Strict resource tagging ensures that cloud costs associated with ephemeral.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "pr_number",
+                "to": "commit_sha",
+                "label": "1042",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "commit_sha",
+                "to": "base_domain",
+                "label": "'4bf92f3577b34da6a3ce929d0e0e4736'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "base_domain"
           }
         ]
       }
     },
     {
       "partTitle": "Terraform State Locking, Drift Detection & Ephemeral Preview Environments — Resilience Guardrails & Failure Recovery",
-      "codeHash": "a06bf67093c3285a4ebf6463fbf7aeea285646e23ee3a6d36e72cfc42f163d9f",
+      "codeHash": "32f71ea273ed44231fe6848b1aebb9ec795a217eba25513e3f5ccaa3c4f83666",
       "spec": {
-        "template": "flow",
-        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Environme",
-        "nodes": [
+        "template": "states",
+        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Env",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "envs",
+            "label": "envs"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "environments",
+            "label": "environments"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "current_timestamp",
+            "label": "current_timestamp"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated state locking monitors track lock acquisition latencies.",
+            "currentState": "envs",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Automated reaper daemons scan cloud accounts periodically, terminating.",
+            "currentState": "environments",
+            "transition": {
+              "from": "envs",
+              "to": "environments",
+              "label": {
+                "var": "environments",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Careful lock lease management guarantees that long-running deployments do.",
+            "currentState": "current_timestamp",
+            "transition": {
+              "from": "environments",
+              "to": "current_timestamp",
+              "label": {
+                "var": "current_timestamp",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Environme",
-        "nodes": [
+        "template": "states",
+        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Env",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "envs",
+            "label": "envs"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "environments",
+            "label": "environments"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "current_timestamp",
+            "label": "current_timestamp"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated state locking monitors track lock acquisition latencies.",
+            "currentState": "envs",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Automated reaper daemons scan cloud accounts periodically, terminating.",
+            "currentState": "environments",
+            "transition": {
+              "from": "envs",
+              "to": "environments",
+              "label": "[{'name': 'pr-101', 'expires_at': 17000…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Careful lock lease management guarantees that long-running deployments do.",
+            "currentState": "current_timestamp",
+            "transition": {
+              "from": "environments",
+              "to": "current_timestamp",
+              "label": "1700060000"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Terraform State Locking, Drift Detection & Ephemeral Preview Environments — Production Telemetry & Verification Audit",
-      "codeHash": "93c41fedf4cd250ed1c5cfe8d5f13da8c13cf40f20e58c768cd03f7a81fe7564",
+      "codeHash": "45443cbbc44f8fc3f349b0c9e1907440a19422131cce6843180a93f24c435ff3",
       "spec": {
         "template": "flow",
-        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Environme",
+        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Env",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "b_good",
+            "label": "b_good"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "b_bad",
+            "label": "b_bad"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "backend_config",
+            "label": "backend_config"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "violations",
+            "label": "violations"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Continuous drift telemetry feeds into centralized compliance portals.",
+            "values": {
+              "b_good": {
+                "var": "b_good",
+                "line": 17,
+                "hit": 1
+              },
+              "b_bad": {
+                "var": "b_bad",
+                "line": 18,
+                "hit": 1
+              },
+              "backend_config": {
+                "var": "backend_config",
+                "line": 4,
+                "hit": 1
+              },
+              "violations": {
+                "var": "violations",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "b_good": "data",
+              "b_bad": "data",
+              "backend_config": "data",
+              "violations": "data"
+            },
+            "arrows": [
+              [
+                "b_good",
+                "b_bad"
+              ],
+              [
+                "b_bad",
+                "backend_config"
+              ],
+              [
+                "backend_config",
+                "violations"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Comprehensive CloudTrail auditing captures every state backend read.",
+            "values": {
+              "b_good": {
+                "var": "b_good",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "b_bad": {
+                "var": "b_bad",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "backend_config": {
+                "var": "backend_config",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "violations": {
+                "var": "violations",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "b_good": "data",
+              "b_bad": "data",
+              "backend_config": "data",
+              "violations": "data"
+            },
+            "arrows": [
+              [
+                "b_good",
+                "b_bad"
+              ],
+              [
+                "b_bad",
+                "backend_config"
+              ],
+              [
+                "backend_config",
+                "violations"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Verifying IaC state integrity protects production environments.",
+            "values": {
+              "b_good": {
+                "var": "b_good",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "b_bad": {
+                "var": "b_bad",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "backend_config": {
+                "var": "backend_config",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "violations": {
+                "var": "violations",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "b_good": "ok",
+              "b_bad": "ok",
+              "backend_config": "ok",
+              "violations": "ok"
+            },
+            "arrows": [
+              [
+                "b_good",
+                "b_bad"
+              ],
+              [
+                "b_bad",
+                "backend_config"
+              ],
+              [
+                "backend_config",
+                "violations"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Environme",
+        "title": "Terraform State Locking, Drift Detection & Ephemeral Preview Env",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "b_good",
+            "label": "b_good"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "b_bad",
+            "label": "b_bad"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "backend_config",
+            "label": "backend_config"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "violations",
+            "label": "violations"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Continuous drift telemetry feeds into centralized compliance portals.",
+            "values": {
+              "b_good": "{'encrypted': True, 'versioning': True,…",
+              "b_bad": "{'encrypted': False, 'versioning': Fals…",
+              "backend_config": "{'encrypted': True, 'versioning': True,…",
+              "violations": "[]"
+            },
+            "tones": {
+              "b_good": "data",
+              "b_bad": "data",
+              "backend_config": "data",
+              "violations": "data"
+            },
+            "arrows": [
+              [
+                "b_good",
+                "b_bad"
+              ],
+              [
+                "b_bad",
+                "backend_config"
+              ],
+              [
+                "backend_config",
+                "violations"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Comprehensive CloudTrail auditing captures every state backend read.",
+            "values": {
+              "b_good": "{'encrypted': True, 'versioning': True,…",
+              "b_bad": "{'encrypted': False, 'versioning': Fals…",
+              "backend_config": "{'encrypted': True, 'versioning': True,…",
+              "violations": "[]"
+            },
+            "tones": {
+              "b_good": "data",
+              "b_bad": "data",
+              "backend_config": "data",
+              "violations": "data"
+            },
+            "arrows": [
+              [
+                "b_good",
+                "b_bad"
+              ],
+              [
+                "b_bad",
+                "backend_config"
+              ],
+              [
+                "backend_config",
+                "violations"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Verifying IaC state integrity protects production environments.",
+            "values": {
+              "b_good": "{'encrypted': True, 'versioning': True,…",
+              "b_bad": "{'encrypted': False, 'versioning': Fals…",
+              "backend_config": "{'encrypted': True, 'versioning': True,…",
+              "violations": "[]"
+            },
+            "tones": {
+              "b_good": "ok",
+              "b_bad": "ok",
+              "backend_config": "ok",
+              "violations": "ok"
+            },
+            "arrows": [
+              [
+                "b_good",
+                "b_bad"
+              ],
+              [
+                "b_bad",
+                "backend_config"
+              ],
+              [
+                "backend_config",
+                "violations"
+              ]
             ]
           }
         ]

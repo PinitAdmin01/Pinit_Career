@@ -2,255 +2,124 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 4,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Documents as vectors",
       "codeHash": "086d0c90f74f5c5ca8f3d603a82bc61e09272f59640d875f8bf842137c22b292",
       "spec": {
-        "template": "table",
-        "title": "Vector space model mapping documents into numerical coordinates",
-        "columns": [
-          "docs",
-          "vocab"
-        ],
+        "template": "cells",
+        "title": "Documents as vectors",
         "steps": [
           {
             "at": "say1",
-            "caption": "Documents convert into vectors to allow mathematical comparisons.",
-            "rows": [
+            "caption": "To compare documents with maths, we turn each into a vector.",
+            "items": {
+              "var": "vocab",
+              "line": 2,
+              "hit": 15
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "cat"
-                  },
-                  {
-                    "text": "sat"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The vocabulary collects distinct corpus words sorted into fixed positions.",
-            "rows": [
+            "caption": "The vocabulary is the set of all distinct words across the collection.",
+            "items": {
+              "var": "vocab",
+              "line": 3,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "cat"
-                  },
-                  {
-                    "text": "sat"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "dog"
-                  },
-                  {
-                    "text": "sat"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "A document vector records word occurrence counts across vocabulary entries.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cat"
-                  },
-                  {
-                    "text": "sat"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "dog"
-                  },
-                  {
-                    "text": "sat"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "fish"
-                  },
-                  {
-                    "text": "cat"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Sparse document vectors contain mostly zero entries across large corpora.",
-            "rows": [
+            "at": "say7",
+            "caption": "This vector space model, from the 1960s and 70s, is still the backbone.",
+            "items": {
+              "var": "vocab",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "cat"
-                  },
-                  {
-                    "text": "sat"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "dog"
-                  },
-                  {
-                    "text": "sat"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "fish"
-                  },
-                  {
-                    "text": "cat"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "vocab"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Vector space model mapping documents into numerical coordinates",
-        "columns": [
-          "docs",
-          "vocab"
-        ],
+        "template": "cells",
+        "title": "Documents as vectors",
         "steps": [
           {
             "at": "say1",
-            "caption": "Documents convert into vectors to allow mathematical comparisons.",
-            "rows": [
+            "caption": "To compare documents with maths, we turn each into a vector.",
+            "items": [
+              "'ate'",
+              "'cat'",
+              "'dog'",
+              "'fish'",
+              "'sat'",
+              "'the'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "cat",
-                  "sat"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The vocabulary collects distinct corpus words sorted into fixed positions.",
-            "rows": [
+            "caption": "The vocabulary is the set of all distinct words across the collection.",
+            "items": [
+              "'ate'",
+              "'cat'",
+              "'dog'",
+              "'fish'",
+              "'sat'",
+              "'the'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "cat",
-                  "sat"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "dog",
-                  "sat"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "A document vector records word occurrence counts across vocabulary entries.",
-            "rows": [
-              {
-                "cells": [
-                  "cat",
-                  "sat"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "dog",
-                  "sat"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "fish",
-                  "cat"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Sparse document vectors contain mostly zero entries across large corpora.",
-            "rows": [
+            "at": "say7",
+            "caption": "This vector space model, from the 1960s and 70s, is still the backbone.",
+            "items": [
+              "'ate'",
+              "'cat'",
+              "'dog'",
+              "'fish'",
+              "'sat'",
+              "'the'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "cat",
-                  "sat"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "dog",
-                  "sat"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "fish",
-                  "cat"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "docs",
-                  "vocab"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -261,248 +130,109 @@
       "partTitle": "Bag of words",
       "codeHash": "d5e1b5629ed795614dc1cc474e0d6f8c46d3ecabed753a8c8f52101bde0afc23",
       "spec": {
-        "template": "table",
-        "title": "Bag of words representation compiling word frequencies without syntax",
-        "columns": [
-          "vocab",
-          "vecs"
-        ],
+        "template": "cells",
+        "title": "Bag of words",
         "steps": [
           {
             "at": "say1",
-            "caption": "Bag of words represents documents by word counts discarding word order.",
-            "rows": [
+            "caption": "The bag-of-words model represents a document by word counts and throws.",
+            "items": {
+              "var": "d",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "dog"
-                  },
-                  {
-                    "text": "man"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Topic classification and search tasks depend primarily on word occurrences.",
-            "rows": [
+            "caption": "That sounds bad, and for some tasks it is.",
+            "items": {
+              "var": "d",
+              "line": 2,
+              "hit": 7
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "dog"
-                  },
-                  {
-                    "text": "man"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bites"
-                  },
-                  {
-                    "text": "dog"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Sorted vocabularies generate aligned count vectors for every document.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "dog"
-                  },
-                  {
-                    "text": "man"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bites"
-                  },
-                  {
-                    "text": "dog"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "vecs"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Binary vectors and n-gram representations augment standard count models.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example builds the count vectors and shows the order problem.",
+            "items": {
+              "var": "d",
+              "line": 2,
+              "hit": 12
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "dog"
-                  },
-                  {
-                    "text": "man"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bites"
-                  },
-                  {
-                    "text": "dog"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "vecs"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "vocab"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Bag of words representation compiling word frequencies without syntax",
-        "columns": [
-          "vocab",
-          "vecs"
-        ],
+        "template": "cells",
+        "title": "Bag of words",
         "steps": [
           {
             "at": "say1",
-            "caption": "Bag of words represents documents by word counts discarding word order.",
-            "rows": [
+            "caption": "The bag-of-words model represents a document by word counts and throws.",
+            "items": [
+              "'dog'",
+              "'bites'",
+              "'man'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "dog",
-                  "man"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Topic classification and search tasks depend primarily on word occurrences.",
-            "rows": [
+            "caption": "That sounds bad, and for some tasks it is.",
+            "items": [
+              "'man'",
+              "'bites'",
+              "'dog'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "dog",
-                  "man"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bites",
-                  "dog"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Sorted vocabularies generate aligned count vectors for every document.",
-            "rows": [
-              {
-                "cells": [
-                  "dog",
-                  "man"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bites",
-                  "dog"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "vocab",
-                  "vecs"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Binary vectors and n-gram representations augment standard count models.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example builds the count vectors and shows the order problem.",
+            "items": [
+              "'man'",
+              "'feeds'",
+              "'dog'",
+              "'dog'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "dog",
-                  "man"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bites",
-                  "dog"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "vocab",
-                  "vecs"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "docs",
-                  "vocab"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -513,248 +243,111 @@
       "partTitle": "Term frequency",
       "codeHash": "9fe9aa8262d82f5e186bb33b6496eeba4e83ae95313b4996348c393aac528caf",
       "spec": {
-        "template": "table",
-        "title": "Term frequency length normalization preventing document size distortion",
-        "columns": [
-          "short",
-          "long"
-        ],
+        "template": "cells",
+        "title": "Term frequency",
         "steps": [
           {
             "at": "say1",
-            "caption": "Raw counts favor long documents over short focused text notes.",
-            "rows": [
+            "caption": "Raw counts favour long documents.",
+            "items": {
+              "var": "short",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "cloud"
-                  },
-                  {
-                    "text": "report"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Term frequency divides term count by total document length.",
-            "rows": [
+            "caption": "Term frequency (TF) fixes that by dividing by document length.",
+            "items": {
+              "var": "short",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "cloud"
-                  },
-                  {
-                    "text": "report"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cost"
-                  },
-                  {
-                    "text": "meeting"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Dense words in short notes score higher than sparse mentions in long text.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cloud"
-                  },
-                  {
-                    "text": "report"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cost"
-                  },
-                  {
-                    "text": "meeting"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "savings"
-                  },
-                  {
-                    "text": "cloud"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Common words have high term frequency everywhere requiring normalization.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example compares raw counts and TF for a short and a long document.",
+            "items": {
+              "var": "short",
+              "line": 3,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "cloud"
-                  },
-                  {
-                    "text": "report"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cost"
-                  },
-                  {
-                    "text": "meeting"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "savings"
-                  },
-                  {
-                    "text": "cloud"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "short"
-                  },
-                  {
-                    "text": "long"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Term frequency length normalization preventing document size distortion",
-        "columns": [
-          "short",
-          "long"
-        ],
+        "template": "cells",
+        "title": "Term frequency",
         "steps": [
           {
             "at": "say1",
-            "caption": "Raw counts favor long documents over short focused text notes.",
-            "rows": [
+            "caption": "Raw counts favour long documents.",
+            "items": [
+              "'cloud'",
+              "'cost'",
+              "'cloud'",
+              "'savings'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "cloud",
-                  "report"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Term frequency divides term count by total document length.",
-            "rows": [
+            "caption": "Term frequency (TF) fixes that by dividing by document length.",
+            "items": [
+              "'cloud'",
+              "'cost'",
+              "'cloud'",
+              "'savings'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "cloud",
-                  "report"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cost",
-                  "meeting"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Dense words in short notes score higher than sparse mentions in long text.",
-            "rows": [
-              {
-                "cells": [
-                  "cloud",
-                  "report"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cost",
-                  "meeting"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "savings",
-                  "cloud"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Common words have high term frequency everywhere requiring normalization.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example compares raw counts and TF for a short and a long document.",
+            "items": [
+              "'cloud'",
+              "'cost'",
+              "'cloud'",
+              "'savings'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "cloud",
-                  "report"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cost",
-                  "meeting"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "savings",
-                  "cloud"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "short",
-                  "long"
-                ],
-                "tone": "idle"
               }
             ]
           }
@@ -765,248 +358,174 @@
       "partTitle": "Inverse document frequency",
       "codeHash": "57be2e19150d88c4b390ac7b2d6de0c68d8f3ea320e017654041dc39dad47a66",
       "spec": {
-        "template": "table",
-        "title": "Inverse document frequency measuring word rarity across document collections",
-        "columns": [
-          "word",
-          "df"
-        ],
+        "template": "bars",
+        "title": "Inverse document frequency",
         "steps": [
           {
             "at": "say1",
-            "caption": "Inverse document frequency measures word rarity across the corpus.",
-            "rows": [
+            "caption": "Inverse document frequency (IDF) measures how rare a word is across.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "cloud"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
-                "tone": "ok"
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "df",
+                "value": {
+                  "var": "df",
+                  "line": 6,
+                  "hit": 6
+                },
+                "tone": "data"
+              },
+              {
+                "label": "idf",
+                "value": {
+                  "var": "idf",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "IDF computes the logarithm of total documents divided by document frequency.",
-            "rows": [
+            "caption": "IDF = log(N / df), where N is the number of documents and df (document.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "cloud"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "python"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
+                "label": "df",
+                "value": {
+                  "var": "df",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "idf",
+                "value": {
+                  "var": "idf",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "A word present in every document yields zero inverse document frequency.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example computes IDF for common and rare words in a small corpus.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "cloud"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 6,
+                  "hit": 6
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "python"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
+                "label": "df",
+                "value": {
+                  "var": "df",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "cloud"
-                  },
-                  {
-                    "text": "word"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Rare words appearing in few documents receive high informative weights.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cloud"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
+                "label": "idf",
+                "value": {
+                  "var": "idf",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "python"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cloud"
-                  },
-                  {
-                    "text": "word"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "kafka"
-                  },
-                  {
-                    "text": "word"
-                  }
-                ],
-                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Inverse document frequency measuring word rarity across document collections",
-        "columns": [
-          "word",
-          "df"
-        ],
+        "template": "bars",
+        "title": "Inverse document frequency",
         "steps": [
           {
             "at": "say1",
-            "caption": "Inverse document frequency measures word rarity across the corpus.",
-            "rows": [
+            "caption": "Inverse document frequency (IDF) measures how rare a word is across.",
+            "bars": [
               {
-                "cells": [
-                  "cloud",
-                  "docs"
-                ],
-                "tone": "ok"
+                "label": "N",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "df",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "idf",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "IDF computes the logarithm of total documents divided by document frequency.",
-            "rows": [
+            "caption": "IDF = log(N / df), where N is the number of documents and df (document.",
+            "bars": [
               {
-                "cells": [
-                  "cloud",
-                  "docs"
-                ],
+                "label": "N",
+                "value": 4,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "python",
-                  "docs"
-                ],
+                "label": "df",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "idf",
+                "value": 0,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "A word present in every document yields zero inverse document frequency.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example computes IDF for common and rare words in a small corpus.",
+            "bars": [
               {
-                "cells": [
-                  "cloud",
-                  "docs"
-                ],
+                "label": "N",
+                "value": 4,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "python",
-                  "docs"
-                ],
+                "label": "df",
+                "value": 4,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "cloud",
-                  "word"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Rare words appearing in few documents receive high informative weights.",
-            "rows": [
-              {
-                "cells": [
-                  "cloud",
-                  "docs"
-                ],
+                "label": "idf",
+                "value": 0,
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "python",
-                  "docs"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cloud",
-                  "word"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "kafka",
-                  "word"
-                ],
-                "tone": "data"
               }
             ]
           }
@@ -1018,110 +537,161 @@
       "codeHash": "c17e1d7a529d024134c8fdbc5ea62a875efc17c9fd1d9ef045a0a8ede82ae46c",
       "spec": {
         "template": "flow",
-        "title": "TF-IDF — Execution Pipeline",
+        "title": "TF-IDF",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "docs",
+            "label": "docs"
           },
           {
-            "id": "proc",
-            "label": "2. TF-IDF",
-            "tappable": true
+            "id": "N",
+            "label": "N"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "doc",
+            "label": "doc"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for TF-IDF [Dfour.Pfive.Sone].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in TF-IDF [Dfour.Pfive.Stwo].",
+            "caption": "TF-IDF multiplies the two.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "docs": {
+                "var": "docs",
+                "line": 3,
+                "hit": 2
+              },
+              "N": {
+                "var": "N",
+                "line": 5,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 11,
+                "hit": 1
+              },
+              "doc": {
+                "var": "doc",
+                "line": 11,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "docs": "data",
+              "N": "data",
+              "name": "data",
+              "doc": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "docs",
+                "N"
               ],
               [
-                "proc",
-                "out"
+                "N",
+                "name"
+              ],
+              [
+                "name",
+                "doc"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The weight is high when a word is frequent in this document AND rare.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "docs": {
+                "var": "docs",
+                "line": 5,
+                "hit": 1
+              },
+              "N": {
+                "var": "N",
+                "line": 7,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 12,
+                "hit": 1
+              },
+              "doc": {
+                "var": "doc",
+                "line": 8,
+                "hit": 5
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "docs": "data",
+              "N": "data",
+              "name": "data",
+              "doc": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "docs",
+                "N"
+              ],
+              [
+                "N",
+                "name"
+              ],
+              [
+                "name",
+                "doc"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for TF-IDF [Dfour.Pfive.Sfour].",
+            "at": "say7",
+            "caption": "The example prints the top TF-IDF words for each document in a tiny corpus.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "docs": {
+                "var": "docs",
+                "line": 7,
+                "hit": 1
+              },
+              "N": {
+                "var": "N",
+                "line": 11,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 12,
+                "hit": 2
+              },
+              "doc": {
+                "var": "doc",
+                "line": 9,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "docs": "ok",
+              "N": "ok",
+              "name": "ok",
+              "doc": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "docs",
+                "N"
               ],
               [
-                "proc",
-                "out"
+                "N",
+                "name"
+              ],
+              [
+                "name",
+                "doc"
               ]
             ]
           }
@@ -1129,110 +699,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "TF-IDF — Execution Pipeline",
+        "title": "TF-IDF",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "docs",
+            "label": "docs"
           },
           {
-            "id": "proc",
-            "label": "2. TF-IDF",
-            "tappable": true
+            "id": "N",
+            "label": "N"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "doc",
+            "label": "doc"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for TF-IDF [D4.P5.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in TF-IDF [D4.P5.S2].",
+            "caption": "TF-IDF multiplies the two.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "docs": "{'d1': ['cloud', 'cost', 'cloud', 'savi…",
+              "N": "3",
+              "name": "'d1'",
+              "doc": "['cloud', 'cost', 'cloud', 'savings']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "docs": "data",
+              "N": "data",
+              "name": "data",
+              "doc": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "docs",
+                "N"
               ],
               [
-                "proc",
-                "out"
+                "N",
+                "name"
+              ],
+              [
+                "name",
+                "doc"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P5.S3].",
+            "at": "say2",
+            "caption": "The weight is high when a word is frequent in this document AND rare.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "docs": "{'d1': ['cloud', 'cost', 'cloud', 'savi…",
+              "N": "3",
+              "name": "'d1'",
+              "doc": "['cloud', 'cost', 'cloud', 'savings']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "docs": "data",
+              "N": "data",
+              "name": "data",
+              "doc": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "docs",
+                "N"
+              ],
+              [
+                "N",
+                "name"
+              ],
+              [
+                "name",
+                "doc"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for TF-IDF [D4.P5.S4].",
+            "at": "say7",
+            "caption": "The example prints the top TF-IDF words for each document in a tiny corpus.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "docs": "{'d1': ['cloud', 'cost', 'cloud', 'savi…",
+              "N": "3",
+              "name": "'d1'",
+              "doc": "['cloud', 'cost', 'cloud', 'savings']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "docs": "ok",
+              "N": "ok",
+              "name": "ok",
+              "doc": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "docs",
+                "N"
               ],
               [
-                "proc",
-                "out"
+                "N",
+                "name"
+              ],
+              [
+                "name",
+                "doc"
               ]
             ]
           }
@@ -1243,223 +816,217 @@
       "partTitle": "Practice time: weights and vectors",
       "codeHash": "aca96ba23f08bce53543501f4d113699b73c93b4b74df807f76499fb341e23ce",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: weights and vectors — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: weig...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: weights and vectors",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: weights and vectors.",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: weig... [Dfour.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Otherwise compute and round.",
+            "bars": [
+              {
+                "label": "tc",
+                "value": {
+                  "var": "tc",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "dl",
+                "value": {
+                  "var": "dl",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "df",
+                "value": {
+                  "var": "df",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfour.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how test updates yourself during execution.",
+            "bars": [
+              {
+                "label": "tc",
+                "value": {
+                  "var": "tc",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "dl",
+                "value": {
+                  "var": "dl",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "df",
+                "value": {
+                  "var": "df",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: weights and vectors.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows why the guard is needed, by triggering the division.",
+            "bars": [
+              {
+                "label": "tc",
+                "value": {
+                  "var": "tc",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "dl",
+                "value": {
+                  "var": "dl",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "df",
+                "value": {
+                  "var": "df",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: weights and vectors — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: weig...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: weights and vectors",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: weights and vectors [D4.P6.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: weig... [D4.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Otherwise compute and round.",
+            "bars": [
+              {
+                "label": "tc",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "dl",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": 1000,
+                "tone": "data"
+              },
+              {
+                "label": "df",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how test updates yourself during execution.",
+            "bars": [
+              {
+                "label": "tc",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "dl",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "df",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: weights and vectors [D4.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows why the guard is needed, by triggering the division.",
+            "bars": [
+              {
+                "label": "tc",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "dl",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "df",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]

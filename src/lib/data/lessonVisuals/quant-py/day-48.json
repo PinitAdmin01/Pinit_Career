@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 48,
-  "promptSha": "4d2195b07adada98f964a26c0a20477a334111af9a9f4cb68860c05abbe27007",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippage — Foundations & Mathematical Invariants",
-      "codeHash": "20d08559045c1408f6d6b8079c2f3b6368715f2509c9c8aca852f823cb9e695f",
+      "codeHash": "37135bd0bdc551244b1b78f092e27762f7f5e08b38ba2dcae277254f090f5266",
       "spec": {
-        "template": "flow",
-        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippage — Fo",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippag",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The theoretical derivation of the Black-Scholes-Merton model relies.",
+            "bars": [
+              {
+                "label": "gamma",
+                "value": {
+                  "var": "gamma",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "vol",
+                "value": {
+                  "var": "vol",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "dt",
+                "value": {
+                  "var": "dt",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In real-world options trading, continuous hedging is impossible.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "gamma",
+                "value": {
+                  "var": "gamma",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "vol",
+                "value": {
+                  "var": "vol",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "dt",
+                "value": {
+                  "var": "dt",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic simulation reveals the exact statistical distribution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "gamma",
+                "value": {
+                  "var": "gamma",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "vol",
+                "value": {
+                  "var": "vol",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "dt",
+                "value": {
+                  "var": "dt",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippage — Fo",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippag",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The theoretical derivation of the Black-Scholes-Merton model relies.",
+            "bars": [
+              {
+                "label": "gamma",
+                "value": 0.05,
+                "tone": "data"
+              },
+              {
+                "label": "s",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "vol",
+                "value": 0.2,
+                "tone": "data"
+              },
+              {
+                "label": "dt",
+                "value": 0.003968253968253968,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In real-world options trading, continuous hedging is impossible.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "gamma",
+                "value": 0.05,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "s",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "vol",
+                "value": 0.2,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "dt",
+                "value": 0.003968253968253968,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Deterministic simulation reveals the exact statistical distribution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "gamma",
+                "value": 0.05,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "s",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "vol",
+                "value": 0.2,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "dt",
+                "value": 0.003968253968253968,
+                "tone": "ok"
               }
             ]
           }
@@ -273,264 +227,218 @@
     },
     {
       "partTitle": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippage — Core Algorithm & State Representation",
-      "codeHash": "c5cdcf74fd0639b177d87994befde41e7545e19ec18b02321d24679eace6ab7f",
+      "codeHash": "d8f651164789f2ecac46405de9c89bd399dfee07d13627bccf3562611b408119",
       "spec": {
-        "template": "flow",
-        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippage — Co",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippag",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core hedging simulator models the life of an option position over $N$.",
+            "bars": [
+              {
+                "label": "strike",
+                "value": {
+                  "var": "strike",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "t_total",
+                "value": {
+                  "var": "t_total",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "vol",
+                "value": {
+                  "var": "vol",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "At each time step $k$, the simulator computes current underlying spot.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "strike",
+                "value": {
+                  "var": "strike",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "t_total",
+                "value": {
+                  "var": "t_total",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "vol",
+                "value": {
+                  "var": "vol",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "By tracking discrete delta error distributions, quantitative derivatives.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "strike",
+                "value": {
+                  "var": "strike",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "t_total",
+                "value": {
+                  "var": "t_total",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "vol",
+                "value": {
+                  "var": "vol",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippage — Co",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippag",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core hedging simulator models the life of an option position over $N$.",
+            "bars": [
+              {
+                "label": "strike",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "t_total",
+                "value": 0.25,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 0.05,
+                "tone": "data"
+              },
+              {
+                "label": "vol",
+                "value": 0.2,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "At each time step $k$, the simulator computes current underlying spot.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "strike",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "t_total",
+                "value": 0.25,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "r",
+                "value": 0.05,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "vol",
+                "value": 0.2,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "By tracking discrete delta error distributions, quantitative derivatives.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "strike",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "t_total",
+                "value": 0.25,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "r",
+                "value": 0.05,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "vol",
+                "value": 0.2,
+                "tone": "ok"
               }
             ]
           }
@@ -539,265 +447,279 @@
     },
     {
       "partTitle": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippage — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "6d7bdfa62d5efb1e91426c80d325c937a39bca7f58280fef29c9b5cda404680b",
+      "codeHash": "d60982903daafe126de224045df9fd43bb00af444d05af017702d5b5f222bd8a",
       "spec": {
         "template": "flow",
-        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippage — Th",
+        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippag",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "deltas",
+            "label": "deltas"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "delta_series",
+            "label": "delta_series"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "band_width",
+            "label": "band_width"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "rebalance_events",
+            "label": "rebalance_events"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Evaluating discrete hedging performance across Monte Carlo ensembles.",
+            "values": {
+              "deltas": {
+                "var": "deltas",
+                "line": 21,
+                "hit": 1
+              },
+              "delta_series": {
+                "var": "delta_series",
+                "line": 5,
+                "hit": 1
+              },
+              "band_width": {
+                "var": "band_width",
+                "line": 5,
+                "hit": 1
+              },
+              "rebalance_events": {
+                "var": "rebalance_events",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "deltas": "data",
+              "delta_series": "data",
+              "band_width": "data",
+              "rebalance_events": "data"
+            },
+            "arrows": [
+              [
+                "deltas",
+                "delta_series"
+              ],
+              [
+                "delta_series",
+                "band_width"
+              ],
+              [
+                "band_width",
+                "rebalance_events"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Computing Black-Scholes Delta at every tick for every simulated path.",
+            "values": {
+              "deltas": {
+                "var": "deltas",
+                "line": 23,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "delta_series": {
+                "var": "delta_series",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "band_width": {
+                "var": "band_width",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "rebalance_events": {
+                "var": "rebalance_events",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "deltas": "data",
+              "delta_series": "data",
+              "band_width": "data",
+              "rebalance_events": "data"
+            },
+            "arrows": [
+              [
+                "deltas",
+                "delta_series"
+              ],
+              [
+                "delta_series",
+                "band_width"
+              ],
+              [
+                "band_width",
+                "rebalance_events"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Trace how deterministic updates random during execution.",
+            "values": {
+              "deltas": {
+                "var": "deltas",
+                "line": 24,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "delta_series": {
+                "var": "delta_series",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "band_width": {
+                "var": "band_width",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "rebalance_events": {
+                "var": "rebalance_events",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "deltas": "ok",
+              "delta_series": "ok",
+              "band_width": "ok",
+              "rebalance_events": "ok"
+            },
+            "arrows": [
+              [
+                "deltas",
+                "delta_series"
+              ],
+              [
+                "delta_series",
+                "band_width"
+              ],
+              [
+                "band_width",
+                "rebalance_events"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippage — Th",
+        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippag",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "deltas",
+            "label": "deltas"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "delta_series",
+            "label": "delta_series"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "band_width",
+            "label": "band_width"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "rebalance_events",
+            "label": "rebalance_events"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Evaluating discrete hedging performance across Monte Carlo ensembles.",
+            "values": {
+              "deltas": "[0.5, 0.52, 0.53, 0.57, 0.54, 0.61, 0.6…",
+              "delta_series": "[0.5, 0.52, 0.53, 0.57, 0.54, 0.61, 0.6…",
+              "band_width": "0.05",
+              "rebalance_events": "0"
+            },
+            "tones": {
+              "deltas": "data",
+              "delta_series": "data",
+              "band_width": "data",
+              "rebalance_events": "data"
+            },
+            "arrows": [
+              [
+                "deltas",
+                "delta_series"
+              ],
+              [
+                "delta_series",
+                "band_width"
+              ],
+              [
+                "band_width",
+                "rebalance_events"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Computing Black-Scholes Delta at every tick for every simulated path.",
+            "values": {
+              "deltas": "[0.5, 0.52, 0.53, 0.57, 0.54, 0.61, 0.6…",
+              "delta_series": "[0.5, 0.52, 0.53, 0.57, 0.54, 0.61, 0.6…",
+              "band_width": "0.05",
+              "rebalance_events": "0"
+            },
+            "tones": {
+              "deltas": "data",
+              "delta_series": "data",
+              "band_width": "data",
+              "rebalance_events": "data"
+            },
+            "arrows": [
+              [
+                "deltas",
+                "delta_series"
+              ],
+              [
+                "delta_series",
+                "band_width"
+              ],
+              [
+                "band_width",
+                "rebalance_events"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Trace how deterministic updates random during execution.",
+            "values": {
+              "deltas": "[0.5, 0.52, 0.53, 0.57, 0.54, 0.61, 0.6…",
+              "delta_series": "[0.5, 0.52, 0.53, 0.57, 0.54, 0.61, 0.6…",
+              "band_width": "0.05",
+              "rebalance_events": "0"
+            },
+            "tones": {
+              "deltas": "ok",
+              "delta_series": "ok",
+              "band_width": "ok",
+              "rebalance_events": "ok"
+            },
+            "arrows": [
+              [
+                "deltas",
+                "delta_series"
+              ],
+              [
+                "delta_series",
+                "band_width"
+              ],
+              [
+                "band_width",
+                "rebalance_events"
+              ]
             ]
           }
         ]
@@ -805,530 +727,283 @@
     },
     {
       "partTitle": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippage — Resilience Guardrails & Failure Recovery",
-      "codeHash": "826891ae89772c10501d4b439f98360a1370b16a105f60559e8c6da12e2251c4",
+      "codeHash": "096225e80029aab210c9dde786681f652a3b04d4fc5986032fa410bacb0313df",
       "spec": {
-        "template": "flow",
-        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippage — Re",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippag",
+        "actors": [
+          "spot",
+          "strike",
+          "time_to_expiry_mins"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operational resilience in dynamic hedging systems requires strict defense.",
+            "activeActor": "spot",
+            "messages": [
+              {
+                "from": "spot",
+                "to": "strike",
+                "label": {
+                  "var": "spot",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "strike",
+                "to": "time_to_expiry_mins",
+                "label": {
+                  "var": "strike",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The most critical options-specific risk is Pin Risk.",
+            "activeActor": "strike",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "spot",
+                "to": "strike",
+                "label": {
+                  "var": "spot",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "strike",
+                "to": "time_to_expiry_mins",
+                "label": {
+                  "var": "strike",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Automated risk monitoring ensures that dynamic replication strategies.",
+            "activeActor": "time_to_expiry_mins",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "spot",
+                "to": "strike",
+                "label": {
+                  "var": "spot",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "strike",
+                "to": "time_to_expiry_mins",
+                "label": {
+                  "var": "strike",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippage — Re",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippag",
+        "actors": [
+          "spot",
+          "strike",
+          "time_to_expiry_mins"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operational resilience in dynamic hedging systems requires strict defense.",
+            "messages": [
+              {
+                "from": "spot",
+                "to": "strike",
+                "label": "100",
+                "tone": "data"
+              },
+              {
+                "from": "strike",
+                "to": "time_to_expiry_mins",
+                "label": "100",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "spot"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The most critical options-specific risk is Pin Risk.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "spot",
+                "to": "strike",
+                "label": "100",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "strike",
+                "to": "time_to_expiry_mins",
+                "label": "100",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "strike"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Automated risk monitoring ensures that dynamic replication strategies.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "spot",
+                "to": "strike",
+                "label": "100",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "strike",
+                "to": "time_to_expiry_mins",
+                "label": "100",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "time_to_expiry_mins"
           }
         ]
       }
     },
     {
       "partTitle": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippage — Production Telemetry & Verification Audit",
-      "codeHash": "5ea3b7d5aff3042703bbb2d6e0baf6db6fd011b581984f83c94f8a4c2bf1b8ab",
+      "codeHash": "bab72c2c216277e5de42357a4a4fad313dc41688e521854a9b8403e38d88df93",
       "spec": {
-        "template": "flow",
-        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippage — Pr",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippag",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for dynamic hedging systems requires real-time.",
+            "items": {
+              "var": "h_pnl",
+              "line": 28,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The telemetry pipeline computes the Hedging Error Ratio.",
+            "items": {
+              "var": "h_pnl",
+              "line": 33,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Automated hedging telemetry provides definitive empirical proof.",
+            "items": {
+              "var": "h_pnl",
+              "line": 37,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippage — Pr",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Delta-Gamma Hedging Simulator & Discrete Rebalancing PnL Slippag",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for dynamic hedging systems requires real-time.",
+            "items": [
+              "12",
+              "-8",
+              "15",
+              "-10",
+              "5",
+              "-4"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "The telemetry pipeline computes the Hedging Error Ratio.",
+            "items": [
+              "12",
+              "-8",
+              "15",
+              "-10",
+              "5",
+              "-4"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say11",
+            "caption": "Automated hedging telemetry provides definitive empirical proof.",
+            "items": [
+              "12",
+              "-8",
+              "15",
+              "-10",
+              "5",
+              "-4"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

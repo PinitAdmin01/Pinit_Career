@@ -2,231 +2,169 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 27,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why limits matter",
       "codeHash": "4d19240b3ccf2c5be6c274166ad26b9fb98343e26daffb36ed22b99dd036528e",
       "spec": {
-        "template": "flow",
-        "title": "Why limits matter — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Why limits matter",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Why limits matter",
+        "actors": [
+          "limits",
+          "burst",
+          "tokens_needed"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Why limits matter [D.Pone.Sone].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Why limits matter [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "LLM providers limit how much you can use.",
+            "activeActor": "limits",
+            "messages": [
+              {
+                "from": "limits",
+                "to": "burst",
+                "label": {
+                  "var": "limits",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "burst",
+                "to": "tokens_needed",
+                "label": {
+                  "var": "burst",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Your own app needs limits too.",
+            "activeActor": "burst",
+            "messages": [
+              {
+                "from": "limits",
+                "to": "burst",
+                "label": {
+                  "var": "limits",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "burst",
+                "to": "tokens_needed",
+                "label": {
+                  "var": "burst",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Why limits matter [D.Pone.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Today you will build one, then add retries and budgets around it.",
+            "activeActor": "tokens_needed",
+            "messages": [
+              {
+                "from": "limits",
+                "to": "burst",
+                "label": {
+                  "var": "limits",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "burst",
+                "to": "tokens_needed",
+                "label": {
+                  "var": "burst",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Why limits matter — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Why limits matter",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Why limits matter",
+        "actors": [
+          "limits",
+          "burst",
+          "tokens_needed"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Why limits matter [D27.P1.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Why limits matter [D27.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "LLM providers limit how much you can use.",
+            "messages": [
+              {
+                "from": "limits",
+                "to": "burst",
+                "label": "{'calls per minute': 500, 'tokens per m…",
+                "tone": "data"
+              },
+              {
+                "from": "burst",
+                "to": "tokens_needed",
+                "label": "{'calls': 40, 'tokens_each': 6000}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "limits"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Your own app needs limits too.",
+            "messages": [
+              {
+                "from": "limits",
+                "to": "burst",
+                "label": "{'calls per minute': 500, 'tokens per m…",
+                "tone": "data"
+              },
+              {
+                "from": "burst",
+                "to": "tokens_needed",
+                "label": "{'calls': 40, 'tokens_each': 6000}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "burst"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Why limits matter [D27.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Today you will build one, then add retries and budgets around it.",
+            "messages": [
+              {
+                "from": "limits",
+                "to": "burst",
+                "label": "{'calls per minute': 500, 'tokens per m…",
+                "tone": "data"
+              },
+              {
+                "from": "burst",
+                "to": "tokens_needed",
+                "label": "{'calls': 40, 'tokens_each': 6000}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "tokens_needed"
           }
         ]
       }
@@ -235,159 +173,194 @@
       "partTitle": "The token bucket",
       "codeHash": "0ec632fe756a2f8d91a4958cdfeffda9be179134cb10606dc50c28b39747c3c5",
       "spec": {
-        "template": "flow",
-        "title": "Token bucket state and lazy refill mechanism",
-        "nodes": [
+        "template": "boxes",
+        "title": "The token bucket",
+        "boxes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
           {
             "id": "capacity",
             "label": "capacity"
           },
           {
-            "id": "tokens",
-            "label": "tokens"
+            "id": "refill_per_sec",
+            "label": "refill_per_sec"
           },
           {
-            "id": "amount",
-            "label": "amount"
-          }
-        ],
-        "edges": [
-          {
-            "from": "capacity",
-            "to": "tokens",
-            "label": "rate"
-          },
-          {
-            "from": "tokens",
-            "to": "amount",
-            "label": "take"
+            "id": "bucket",
+            "label": "bucket"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Bucket holds up to capacity tokens refilling at fixed rate.",
+            "caption": "A bucket holds up to capacity tokens and refills at a fixed rate, say.",
             "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
               "capacity": {
-                "text": "10_000"
+                "var": "capacity",
+                "line": 3,
+                "hit": 1
               },
-              "tokens": {
-                "text": "10_000"
+              "refill_per_sec": {
+                "var": "refill_per_sec",
+                "line": 3,
+                "hit": 1
               },
-              "amount": {
-                "text": "6000"
+              "bucket": {
+                "var": "bucket",
+                "line": 14,
+                "hit": 1
               }
             },
             "tones": {
-              "capacity": "idle",
-              "tokens": "ok",
-              "amount": "data"
+              "self": "data",
+              "capacity": "data",
+              "refill_per_sec": "data",
+              "bucket": "data"
             }
           },
           {
             "at": "say2",
-            "caption": "Each call removes tokens if available or gets rejected.",
+            "caption": "Each call removes the tokens it needs.",
             "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
+              },
               "capacity": {
-                "text": "10_000"
+                "var": "capacity",
+                "line": 4,
+                "hit": 1
               },
-              "tokens": {
-                "text": "tokens"
+              "refill_per_sec": {
+                "var": "refill_per_sec",
+                "line": 4,
+                "hit": 1
               },
-              "amount": {
-                "text": "amount"
+              "bucket": {
+                "var": "bucket",
+                "line": 15,
+                "hit": 1
               }
             },
             "tones": {
-              "capacity": "idle",
-              "tokens": "ok",
-              "amount": "data"
+              "self": "data",
+              "capacity": "data",
+              "refill_per_sec": "data",
+              "bucket": "data"
             }
           },
           {
-            "at": "say5",
-            "caption": "Lazy refill computes added tokens on arrival capped at capacity.",
+            "at": "say7",
+            "caption": "Real systems keep buckets in a shared store like Redis, so all servers see.",
             "values": {
+              "self": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
+              },
               "capacity": {
-                "text": "capacity"
+                "var": "capacity",
+                "line": 4,
+                "hit": 1
               },
-              "tokens": {
-                "text": "tokens"
+              "refill_per_sec": {
+                "var": "refill_per_sec",
+                "line": 4,
+                "hit": 1
               },
-              "amount": {
-                "text": "amount"
+              "bucket": {
+                "var": "bucket",
+                "line": 16,
+                "hit": 1
               }
             },
             "tones": {
+              "self": "ok",
               "capacity": "ok",
-              "tokens": "ok",
-              "amount": "idle"
+              "refill_per_sec": "ok",
+              "bucket": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Token bucket state and lazy refill mechanism",
-        "nodes": [
+        "template": "boxes",
+        "title": "The token bucket",
+        "boxes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
           {
             "id": "capacity",
             "label": "capacity"
           },
           {
-            "id": "tokens",
-            "label": "tokens"
+            "id": "refill_per_sec",
+            "label": "refill_per_sec"
           },
           {
-            "id": "amount",
-            "label": "amount"
+            "id": "bucket",
+            "label": "bucket"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Bucket holds up to capacity tokens refilling at fixed rate.",
+            "caption": "A bucket holds up to capacity tokens and refills at a fixed rate, say.",
             "values": {
-              "capacity": "10_000",
-              "tokens": "10_000",
-              "amount": "6000"
+              "self": "<TokenBucket>",
+              "capacity": "10000",
+              "refill_per_sec": "1000",
+              "bucket": "<TokenBucket>"
             },
             "tones": {
-              "capacity": "idle",
-              "tokens": "ok",
-              "amount": "data"
-            },
-            "arrows": []
+              "self": "data",
+              "capacity": "data",
+              "refill_per_sec": "data",
+              "bucket": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Each call removes tokens if available or gets rejected.",
+            "caption": "Each call removes the tokens it needs.",
             "values": {
-              "capacity": "10_000",
-              "tokens": "tokens",
-              "amount": "amount"
+              "self": "<TokenBucket>",
+              "capacity": "10000",
+              "refill_per_sec": "1000",
+              "bucket": "<TokenBucket>"
             },
             "tones": {
-              "capacity": "idle",
-              "tokens": "ok",
-              "amount": "data"
-            },
-            "arrows": []
+              "self": "data",
+              "capacity": "data",
+              "refill_per_sec": "data",
+              "bucket": "data"
+            }
           },
           {
-            "at": "say5",
-            "caption": "Lazy refill computes added tokens on arrival capped at capacity.",
+            "at": "say7",
+            "caption": "Real systems keep buckets in a shared store like Redis, so all servers see.",
             "values": {
-              "capacity": "capacity",
-              "tokens": "tokens",
-              "amount": "amount"
+              "self": "<TokenBucket>",
+              "capacity": "10000",
+              "refill_per_sec": "1000",
+              "bucket": "<TokenBucket>"
             },
             "tones": {
+              "self": "ok",
               "capacity": "ok",
-              "tokens": "ok",
-              "amount": "idle"
-            },
-            "arrows": []
+              "refill_per_sec": "ok",
+              "bucket": "ok"
+            }
           }
         ]
       }
@@ -396,192 +369,162 @@
       "partTitle": "Allowing, rejecting and refusing",
       "codeHash": "7ec14cc0412a030205bed8a3c4035b17a0beeca0193a54d62853983168282008",
       "spec": {
-        "template": "table",
-        "title": "Token bucket request validation status and remaining limits",
-        "columns": [
-          "requested",
-          "available",
-          "status"
+        "template": "boxes",
+        "title": "Allowing, rejecting and refusing",
+        "boxes": [
+          {
+            "id": "requested",
+            "label": "requested"
+          },
+          {
+            "id": "available",
+            "label": "available"
+          },
+          {
+            "id": "capacity",
+            "label": "capacity"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Requested larger than capacity returns multiple error status.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "150000"
-                  },
-                  {
-                    "text": "100000"
-                  },
-                  {
-                    "text": "413"
-                  }
-                ],
-                "tone": "error"
+            "caption": "Token_bucket(requested, available, capacity).",
+            "values": {
+              "requested": {
+                "var": "requested",
+                "line": 2,
+                "hit": 1
+              },
+              "available": {
+                "var": "available",
+                "line": 2,
+                "hit": 1
+              },
+              "capacity": {
+                "var": "capacity",
+                "line": 2,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "requested": "data",
+              "available": "data",
+              "capacity": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Requested exceeding available returns rate-limited rate limit.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "150000"
-                  },
-                  {
-                    "text": "100000"
-                  },
-                  {
-                    "text": "413"
-                  }
-                ],
-                "tone": "error"
+            "caption": "Otherwise, if requested is more than available, return 429 with.",
+            "values": {
+              "requested": {
+                "var": "requested",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "25000"
-                  },
-                  {
-                    "text": "20000"
-                  },
-                  {
-                    "text": "429"
-                  }
-                ],
-                "tone": "error"
+              "available": {
+                "var": "available",
+                "line": 4,
+                "hit": 1
+              },
+              "capacity": {
+                "var": "capacity",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "requested": "data",
+              "available": "data",
+              "capacity": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "Fitting requested tokens return OK status code.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "150000"
-                  },
-                  {
-                    "text": "100000"
-                  },
-                  {
-                    "text": "413"
-                  }
-                ],
-                "tone": "error"
+            "at": "say7",
+            "caption": "Include a Retry-After header with 429 responses in real APIs, telling.",
+            "values": {
+              "requested": {
+                "var": "requested",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "25000"
-                  },
-                  {
-                    "text": "20000"
-                  },
-                  {
-                    "text": "429"
-                  }
-                ],
-                "tone": "error"
+              "available": {
+                "var": "available",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "5000"
-                  },
-                  {
-                    "text": "20000"
-                  },
-                  {
-                    "text": "200"
-                  }
-                ],
-                "tone": "ok"
+              "capacity": {
+                "var": "capacity",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "requested": "ok",
+              "available": "ok",
+              "capacity": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Token bucket request validation status and remaining limits",
-        "columns": [
-          "requested",
-          "available",
-          "status"
+        "template": "boxes",
+        "title": "Allowing, rejecting and refusing",
+        "boxes": [
+          {
+            "id": "requested",
+            "label": "requested"
+          },
+          {
+            "id": "available",
+            "label": "available"
+          },
+          {
+            "id": "capacity",
+            "label": "capacity"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Requested larger than capacity returns 413 error status.",
-            "rows": [
-              {
-                "cells": [
-                  "150000",
-                  "100000",
-                  "413"
-                ],
-                "tone": "error"
-              }
-            ]
+            "caption": "Token_bucket(requested, available, capacity).",
+            "values": {
+              "requested": "5000",
+              "available": "20000",
+              "capacity": "100000"
+            },
+            "tones": {
+              "requested": "data",
+              "available": "data",
+              "capacity": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Requested exceeding available returns 429 rate limit.",
-            "rows": [
-              {
-                "cells": [
-                  "150000",
-                  "100000",
-                  "413"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "25000",
-                  "20000",
-                  "429"
-                ],
-                "tone": "error"
-              }
-            ]
+            "caption": "Otherwise, if requested is more than available, return 429 with.",
+            "values": {
+              "requested": "5000",
+              "available": "20000",
+              "capacity": "100000"
+            },
+            "tones": {
+              "requested": "data",
+              "available": "data",
+              "capacity": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "Fitting requested tokens return 200 status code.",
-            "rows": [
-              {
-                "cells": [
-                  "150000",
-                  "100000",
-                  "413"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "25000",
-                  "20000",
-                  "429"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "5000",
-                  "20000",
-                  "200"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say7",
+            "caption": "Include a Retry-After header with 429 responses in real APIs, telling.",
+            "values": {
+              "requested": "5000",
+              "available": "20000",
+              "capacity": "100000"
+            },
+            "tones": {
+              "requested": "ok",
+              "available": "ok",
+              "capacity": "ok"
+            }
           }
         ]
       }
@@ -590,157 +533,277 @@
       "partTitle": "Counting calls per minute",
       "codeHash": "8add997e848c8c3fbe6f3353156dd6323d500c08bab52d77e9770488e0c637db",
       "spec": {
-        "template": "bars",
-        "title": "Sliding window rate limit call count per minute",
+        "template": "flow",
+        "title": "Counting calls per minute",
+        "nodes": [
+          {
+            "id": "window",
+            "label": "window"
+          },
+          {
+            "id": "t",
+            "label": "t"
+          },
+          {
+            "id": "now",
+            "label": "now"
+          },
+          {
+            "id": "max_rpm",
+            "label": "max_rpm"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function rpm_exceeded detects when count exceeds max_rpm.",
-            "bars": [
-              {
-                "label": "call_1",
-                "value": {
-                  "text": "1"
-                },
-                "tone": "ok"
+            "caption": "Rpm_exceeded(count, max_rpm) returns True when the number of calls this.",
+            "values": {
+              "window": {
+                "var": "window",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "label": "call_2",
-                "value": {
-                  "text": "1"
-                },
-                "tone": "ok"
+              "t": {
+                "var": "t",
+                "line": 15,
+                "hit": 1
+              },
+              "now": {
+                "var": "now",
+                "line": 8,
+                "hit": 1
+              },
+              "max_rpm": {
+                "var": "max_rpm",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "window": "data",
+              "t": "data",
+              "now": "data",
+              "max_rpm": "data"
+            },
+            "arrows": [
+              [
+                "window",
+                "t"
+              ],
+              [
+                "t",
+                "now"
+              ],
+              [
+                "now",
+                "max_rpm"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Sliding window keeps recent timestamps dropping older calls.",
-            "bars": [
-              {
-                "label": "call_1",
-                "value": {
-                  "text": "1"
-                },
-                "tone": "ok"
+            "caption": "To get the count, keep the timestamps of recent calls and drop those older.",
+            "values": {
+              "window": {
+                "var": "window",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "label": "call_2",
-                "value": {
-                  "text": "2"
-                },
-                "tone": "ok"
+              "t": {
+                "var": "t",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "label": "call_3",
-                "value": {
-                  "text": "3"
-                },
-                "tone": "ok"
+              "now": {
+                "var": "now",
+                "line": 10,
+                "hit": 1
+              },
+              "max_rpm": {
+                "var": "max_rpm",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "window": "data",
+              "t": "data",
+              "now": "data",
+              "max_rpm": "data"
+            },
+            "arrows": [
+              [
+                "window",
+                "t"
+              ],
+              [
+                "t",
+                "now"
+              ],
+              [
+                "now",
+                "max_rpm"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Deque collection stores timestamps efficiently.",
-            "bars": [
-              {
-                "label": "call_1",
-                "value": {
-                  "text": "1"
-                },
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Tell users kindly when they hit a limit, with how long to wait.",
+            "values": {
+              "window": {
+                "var": "window",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "label": "call_2",
-                "value": {
-                  "text": "2"
-                },
-                "tone": "ok"
+              "t": {
+                "var": "t",
+                "line": 15,
+                "hit": 2
               },
-              {
-                "label": "call_3",
-                "value": {
-                  "text": "3"
-                },
-                "tone": "ok"
+              "now": {
+                "var": "now",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "label": "max_rpm",
-                "value": {
-                  "text": "60"
-                },
-                "tone": "error"
+              "max_rpm": {
+                "var": "max_rpm",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "window": "ok",
+              "t": "ok",
+              "now": "ok",
+              "max_rpm": "ok"
+            },
+            "arrows": [
+              [
+                "window",
+                "t"
+              ],
+              [
+                "t",
+                "now"
+              ],
+              [
+                "now",
+                "max_rpm"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Sliding window rate limit call count per minute",
+        "template": "flow",
+        "title": "Counting calls per minute",
+        "nodes": [
+          {
+            "id": "window",
+            "label": "window"
+          },
+          {
+            "id": "t",
+            "label": "t"
+          },
+          {
+            "id": "now",
+            "label": "now"
+          },
+          {
+            "id": "max_rpm",
+            "label": "max_rpm"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function rpm_exceeded detects when count exceeds max_rpm.",
-            "bars": [
-              {
-                "label": "call_1",
-                "value": 1,
-                "tone": "ok"
-              },
-              {
-                "label": "call_2",
-                "value": 1,
-                "tone": "ok"
-              }
+            "caption": "Rpm_exceeded(count, max_rpm) returns True when the number of calls this.",
+            "values": {
+              "window": "{'__other__': 'deque'}",
+              "t": "0",
+              "now": "0",
+              "max_rpm": "3"
+            },
+            "tones": {
+              "window": "data",
+              "t": "data",
+              "now": "data",
+              "max_rpm": "data"
+            },
+            "arrows": [
+              [
+                "window",
+                "t"
+              ],
+              [
+                "t",
+                "now"
+              ],
+              [
+                "now",
+                "max_rpm"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Sliding window keeps recent timestamps dropping older calls.",
-            "bars": [
-              {
-                "label": "call_1",
-                "value": 1,
-                "tone": "ok"
-              },
-              {
-                "label": "call_2",
-                "value": 2,
-                "tone": "ok"
-              },
-              {
-                "label": "call_3",
-                "value": 3,
-                "tone": "ok"
-              }
+            "caption": "To get the count, keep the timestamps of recent calls and drop those older.",
+            "values": {
+              "window": "{'__other__': 'deque'}",
+              "t": "0",
+              "now": "0",
+              "max_rpm": "3"
+            },
+            "tones": {
+              "window": "data",
+              "t": "data",
+              "now": "data",
+              "max_rpm": "data"
+            },
+            "arrows": [
+              [
+                "window",
+                "t"
+              ],
+              [
+                "t",
+                "now"
+              ],
+              [
+                "now",
+                "max_rpm"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Deque collection stores timestamps efficiently.",
-            "bars": [
-              {
-                "label": "call_1",
-                "value": 1,
-                "tone": "ok"
-              },
-              {
-                "label": "call_2",
-                "value": 2,
-                "tone": "ok"
-              },
-              {
-                "label": "call_3",
-                "value": 3,
-                "tone": "ok"
-              },
-              {
-                "label": "max_rpm",
-                "value": 60,
-                "tone": "error"
-              }
+            "at": "say7",
+            "caption": "Tell users kindly when they hit a limit, with how long to wait.",
+            "values": {
+              "window": "{'__other__': 'deque'}",
+              "t": "10",
+              "now": "0",
+              "max_rpm": "3"
+            },
+            "tones": {
+              "window": "ok",
+              "t": "ok",
+              "now": "ok",
+              "max_rpm": "ok"
+            },
+            "arrows": [
+              [
+                "window",
+                "t"
+              ],
+              [
+                "t",
+                "now"
+              ],
+              [
+                "now",
+                "max_rpm"
+              ]
             ]
           }
         ]
@@ -750,132 +813,218 @@
       "partTitle": "Retries with exponential backoff",
       "codeHash": "36e651a51437e96f1ae8d964365918f361946bc8ea3c1c4a2c25151e96a05018",
       "spec": {
-        "template": "compare",
-        "title": "HTTP status code retry eligibility and exponential backoff",
-        "leftLabel": "Retryable Status",
-        "rightLabel": "Fatal Error Status",
+        "template": "bars",
+        "title": "Retries with exponential backoff",
         "steps": [
           {
             "at": "say1",
-            "caption": "Temporary server error and rate-limited rate limits are retryable.",
-            "left": {
-              "code": "status in RETRYABLE: 429",
-              "result": {
-                "text": "429"
+            "caption": "When your app gets a 429 or a temporary server error (500, 502, 503).",
+            "bars": [
+              {
+                "label": "max_retries",
+                "value": {
+                  "var": "max_retries",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "status in RETRYABLE: 400",
-              "result": {
-                "text": "400"
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            }
+              {
+                "label": "cap",
+                "value": {
+                  "var": "cap",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say2",
             "caption": "Exponential backoff waits longer after each failure.",
-            "left": {
-              "code": "retry status wait delay",
-              "result": {
-                "text": "retry"
+            "bars": [
+              {
+                "label": "max_retries",
+                "value": {
+                  "var": "max_retries",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "fatal status abort wait",
-              "result": {
-                "text": "do not retry"
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
-              "tone": "error"
-            }
+              {
+                "label": "cap",
+                "value": {
+                  "var": "cap",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say6",
-            "caption": "Errors like bad-request and multiple never fix themselves so abort retries.",
-            "left": {
-              "code": "status in RETRYABLE: 503",
-              "result": {
-                "text": "retry"
+            "at": "say7",
+            "caption": "The example uses a seeded random generator so the waits are the same every run.",
+            "bars": [
+              {
+                "label": "max_retries",
+                "value": {
+                  "var": "max_retries",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "status in RETRYABLE: 413",
-              "result": {
-                "text": "413"
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
-              "tone": "error"
-            }
+              {
+                "label": "cap",
+                "value": {
+                  "var": "cap",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "HTTP status code retry eligibility and exponential backoff",
-        "leftLabel": "Retryable Status",
-        "rightLabel": "Fatal Error Status",
+        "template": "bars",
+        "title": "Retries with exponential backoff",
         "steps": [
           {
             "at": "say1",
-            "caption": "Temporary server error and 429 rate limits are retryable.",
-            "left": {
-              "code": "status in RETRYABLE: 429",
-              "result": "429",
-              "tone": "ok",
-              "checks": [
-                "429"
-              ]
-            },
-            "right": {
-              "code": "status in RETRYABLE: 400",
-              "result": "400",
-              "tone": "error",
-              "checks": [
-                "400"
-              ]
-            }
+            "caption": "When your app gets a 429 or a temporary server error (500, 502, 503).",
+            "bars": [
+              {
+                "label": "max_retries",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "base",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "cap",
+                "value": 20,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say2",
             "caption": "Exponential backoff waits longer after each failure.",
-            "left": {
-              "code": "retry status wait delay",
-              "result": "retry",
-              "tone": "ok",
-              "checks": [
-                "retry"
-              ]
-            },
-            "right": {
-              "code": "fatal status abort wait",
-              "result": "do not retry",
-              "tone": "error",
-              "checks": [
-                "do not retry"
-              ]
-            }
+            "bars": [
+              {
+                "label": "max_retries",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "base",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "cap",
+                "value": 20,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say6",
-            "caption": "Errors like 400 and 413 never fix themselves so abort retries.",
-            "left": {
-              "code": "status in RETRYABLE: 503",
-              "result": "retry",
-              "tone": "ok",
-              "checks": [
-                "retry"
-              ]
-            },
-            "right": {
-              "code": "status in RETRYABLE: 413",
-              "result": "413",
-              "tone": "error",
-              "checks": [
-                "413"
-              ]
-            }
+            "at": "say7",
+            "caption": "The example uses a seeded random generator so the waits are the same every run.",
+            "bars": [
+              {
+                "label": "max_retries",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "base",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "cap",
+                "value": 20,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -884,223 +1033,217 @@
       "partTitle": "Budgets and graceful degradation",
       "codeHash": "5a2f16eb8ab41928b1cf86e5be7c7085ec6e7b41606a06a8c5450b5863d6e12a",
       "spec": {
-        "template": "flow",
-        "title": "Budgets and graceful degradation — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Budgets and gracefu...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Budgets and graceful degradation",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Budgets and graceful degradation [D.Psix.Sone].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Budgets and gracefu... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Set monthly budgets per team or feature, track spending as calls happen.",
+            "bars": [
+              {
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "spent",
+                "value": {
+                  "var": "spent",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "level",
+                "value": {
+                  "var": "level",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Near the limit, degrade gracefully instead of stopping.",
+            "bars": [
+              {
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "spent",
+                "value": {
+                  "var": "spent",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "level",
+                "value": {
+                  "var": "level",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Budgets and graceful degradation.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Tomorrow you will build the observability that makes these numbers visible.",
+            "bars": [
+              {
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "spent",
+                "value": {
+                  "var": "spent",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "level",
+                "value": {
+                  "var": "level",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Budgets and graceful degradation — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Budgets and gracefu...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Budgets and graceful degradation",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Budgets and graceful degradation [D27.P6.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Budgets and gracefu... [D27.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Set monthly budgets per team or feature, track spending as calls happen.",
+            "bars": [
+              {
+                "label": "budget",
+                "value": 1000,
+                "tone": "data"
+              },
+              {
+                "label": "spent",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "cost",
+                "value": 300,
+                "tone": "data"
+              },
+              {
+                "label": "level",
+                "value": 0.5,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Near the limit, degrade gracefully instead of stopping.",
+            "bars": [
+              {
+                "label": "budget",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "spent",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": 300,
+                "tone": "ok"
+              },
+              {
+                "label": "level",
+                "value": 0.5,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Budgets and graceful degradation [D27.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Tomorrow you will build the observability that makes these numbers visible.",
+            "bars": [
+              {
+                "label": "budget",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "spent",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": 300,
+                "tone": "ok"
+              },
+              {
+                "label": "level",
+                "value": 0.8,
+                "tone": "ok"
+              }
             ]
           }
         ]

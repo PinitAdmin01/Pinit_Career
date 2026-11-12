@@ -51,8 +51,8 @@ export function loadDayFile(prefix: string, day: number): LessonVisualDayFile | 
   // If running in an environment with Node.js fs (tests, build, server)
   if (typeof window === 'undefined') {
     try {
-      // Use eval('require') so client bundlers do not try to bundle fs
-      // eslint-disable-next-line @typescript-eslint/no-implied-eval
+      // [FIX-STAGE: Wave 1A] Removed forbidden @typescript-eslint disable comment (file is ignored by .eslintrc.json);
+      // dynamic require prevents Next.js client bundler from trying to polyfill Node fs/path.
       const req = typeof require !== 'undefined' ? require : eval('require');
       const fs = req('fs');
       const path = req('path');
@@ -68,8 +68,8 @@ export function loadDayFile(prefix: string, day: number): LessonVisualDayFile | 
         dayFileCache.set(cacheKey, parsed);
         return parsed;
       }
-    } catch {
-      // Safe fallback on missing file or read/parse error
+    } catch (err) {
+      console.error(`[PinIT][Fix:LoadVisuals] Failed loading day file for ${prefix} day ${day}:`, err);
     }
     dayFileCache.set(cacheKey, null);
     return null;

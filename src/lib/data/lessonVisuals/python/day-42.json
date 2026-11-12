@@ -2,88 +2,250 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 42,
-  "promptSha": "2d02756e306fd08a0fa8cc272ef065c3ff1610f6a623504a31c194fa72eb94a1",
-  "model": "gate-v2-verified",
+  "promptSha": "ea014b3e22c5b3d2c13cf6e4b869ba9d48f19a0feaa9305a359edc762be3151f",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "Celery Canvas Primitives Deep Dive: Signatures, Chains & Chords",
       "codeHash": "895c11524ee60fcc66a8ff8c1450fd2de426554a95c65c773729a298cb454165",
       "spec": {
-        "template": "table",
-        "title": "Celery Canvas Primitives Deep Dive: Signatures, Ch",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "Sequential TaskChain signature pipeline",
+        "nodes": [
+          {
+            "id": "sig",
+            "label": "TaskSignature"
+          },
+          {
+            "id": "dl",
+            "label": "download_raw"
+          },
+          {
+            "id": "cln",
+            "label": "clean_tokens"
+          },
+          {
+            "id": "hsh",
+            "label": "generate_hash"
+          }
+        ],
+        "edges": [
+          {
+            "from": "sig",
+            "to": "dl"
+          },
+          {
+            "from": "dl",
+            "to": "cln"
+          },
+          {
+            "from": "cln",
+            "to": "hsh"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The enterprise concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Celery"
-                  },
-                  {
-                    "text": "Canvas"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Signatures wrap task functions and arguments into composable workflow blocks.",
+            "values": {
+              "sig": {
+                "text": "TaskSignature"
+              },
+              "dl": {
+                "text": "download_raw"
+              },
+              "cln": {
+                "text": "clean_tokens"
+              },
+              "hsh": {
+                "text": "generate_hash"
               }
-            ]
+            },
+            "tones": {
+              "sig": "data",
+              "dl": "idle",
+              "cln": "idle",
+              "hsh": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The fundamental logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Primitives"
-                  },
-                  {
-                    "text": "Deep"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Chains link sequential signatures so each output feeds the next stage.",
+            "values": {
+              "sig": {
+                "text": "TaskChain"
+              },
+              "dl": {
+                "text": "download_raw"
+              },
+              "cln": {
+                "text": "clean_tokens"
+              },
+              "hsh": {
+                "text": "__or__"
               }
-            ]
+            },
+            "tones": {
+              "sig": "ok",
+              "dl": "data",
+              "cln": "data",
+              "hsh": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Overloaded pipe operator builds sequential chain passing data forward.",
+            "values": {
+              "sig": {
+                "text": "TaskChain"
+              },
+              "dl": {
+                "text": "download_raw"
+              },
+              "cln": {
+                "text": "clean_tokens"
+              },
+              "hsh": {
+                "text": "generate_hash"
+              }
+            },
+            "tones": {
+              "sig": "ok",
+              "dl": "ok",
+              "cln": "ok",
+              "hsh": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Append fourth signature t4 prepending SUCCESS to verify chain output.",
+            "values": {
+              "sig": {
+                "text": "Append"
+              },
+              "dl": {
+                "text": "signature"
+              },
+              "cln": {
+                "text": "pipeline"
+              },
+              "hsh": {
+                "text": "prepends"
+              }
+            },
+            "tones": {
+              "sig": "ok",
+              "dl": "data",
+              "cln": "data",
+              "hsh": "ok"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Celery Canvas Primitives Deep Dive: Signatures, Ch",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "Sequential TaskChain signature pipeline",
+        "nodes": [
+          {
+            "id": "sig",
+            "label": "TaskSignature"
+          },
+          {
+            "id": "dl",
+            "label": "download_raw"
+          },
+          {
+            "id": "cln",
+            "label": "clean_tokens"
+          },
+          {
+            "id": "hsh",
+            "label": "generate_hash"
+          }
+        ],
+        "edges": [
+          {
+            "from": "sig",
+            "to": "dl"
+          },
+          {
+            "from": "dl",
+            "to": "cln"
+          },
+          {
+            "from": "cln",
+            "to": "hsh"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The enterprise concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Celery",
-                  "Canvas"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Signatures wrap task functions and arguments into composable workflow blocks.",
+            "values": {
+              "sig": "s(fn, args) Ready",
+              "dl": "Deferred Call",
+              "cln": "Deferred Call",
+              "hsh": "Deferred Call"
+            },
+            "tones": {
+              "sig": "data",
+              "dl": "idle",
+              "cln": "idle",
+              "hsh": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The fundamental logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Primitives",
-                  "Deep"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Chains link sequential signatures so each output feeds the next stage.",
+            "values": {
+              "sig": "Linked with __or__",
+              "dl": "Stage 1 Output",
+              "cln": "Receives Raw Input",
+              "hsh": "Waiting"
+            },
+            "tones": {
+              "sig": "ok",
+              "dl": "data",
+              "cln": "data",
+              "hsh": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Overloaded pipe operator builds sequential chain passing data forward.",
+            "values": {
+              "sig": "Pipeline Executed",
+              "dl": "Raw Text Fetched",
+              "cln": "Tokens Normalized",
+              "hsh": "Digest Returned"
+            },
+            "tones": {
+              "sig": "ok",
+              "dl": "ok",
+              "cln": "ok",
+              "hsh": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Append fourth signature t4 prepending SUCCESS to verify chain output.",
+            "values": {
+              "sig": "4-Step Chain Applied",
+              "dl": "t1 -> t2",
+              "cln": "t3 Token Sum",
+              "hsh": "t4 Prepends SUCCESS:"
+            },
+            "tones": {
+              "sig": "ok",
+              "dl": "data",
+              "cln": "data",
+              "hsh": "ok"
+            },
+            "arrows": [],
+            "whatIf": "class TaskSignature:\n    def __init__(self, name, func):\n        self.name = name\n        self.func = func\n\n    def __or__(self, other):\n        return TaskChain([self, other])\n\nclass TaskChain:\n    def __init__(self, tasks=None):\n        self.tasks = tasks or []\n\n    def __or__(self, other):\n        if isinstance(other, TaskChain):\n            self.tasks.extend(other.tasks)\n        else:\n            self.tasks.append(other)\n        return self\n\n    def apply(self, initial_val):\n        curr = initial_val\n        log = []\n        for t in self.tasks:\n            prev = curr\n            curr = t.func(curr)\n            log.append(f\"{t.name}({prev}) -> {curr}\")\n        return curr, log\n\nt1 = TaskSignature(\"download_raw\", lambda url: f\"raw_data_from_{url}\")\nt2 = TaskSignature(\"clean_tokens\", lambda text: text.upper().replace(\"_\", \" \"))\nt3 = TaskSignature(\"generate_hash\", lambda s: f\"token_sum:{sum(ord(c) for c in s)}\")\n\nt4 = TaskSignature(\"prefix_ok\", lambda val: f\"SUCCESS:{val}\")\npipeline = t1 | t2 | t3 | t4\nresult, execution_log = pipeline.apply(\"s3://bucket/input.txt\")\n\nprint(f\"Chain execution completed! Final result: {result}\")\nprint(\"Step-by-step pipeline execution:\")\nfor step in execution_log:\n    print(f\"  -> {step}\")",
+            "checks": [
+              "Final result: SUCCESS:token_sum:"
             ]
           }
         ]
@@ -93,81 +255,182 @@
       "partTitle": "Parallel Task Group Execution & Concurrency Scaling",
       "codeHash": "576c12c2754f30fefc01d1a509681e4a81112c92f8c073b33d32b74259914153",
       "spec": {
-        "template": "table",
-        "title": "Parallel Task Group Execution & Concurrency Scalin",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Parallel TaskGroup fan-out execution",
+        "boxes": [
+          {
+            "id": "grp",
+            "label": "TaskGroup"
+          },
+          {
+            "id": "sz",
+            "label": "sizes"
+          },
+          {
+            "id": "out",
+            "label": "outputs"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The sequential concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Parallel"
-                  },
-                  {
-                    "text": "Task"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Task groups dispatch independent subtasks concurrently across cluster workers.",
+            "values": {
+              "grp": {
+                "text": "TaskGroup"
+              },
+              "sz": {
+                "text": "sizes"
+              },
+              "out": {
+                "text": "outputs"
               }
-            ]
+            },
+            "tones": {
+              "grp": "data",
+              "sz": "data",
+              "out": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The execution logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Group"
-                  },
-                  {
-                    "text": "Execution"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Parallel worker execution compresses total batch runtime smoothly.",
+            "values": {
+              "grp": {
+                "text": "128"
+              },
+              "sz": {
+                "text": "256"
+              },
+              "out": {
+                "text": "512"
               }
-            ]
+            },
+            "tones": {
+              "grp": "ok",
+              "sz": "ok",
+              "out": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Parallel groups process thumbnail sizes simultaneously into outputs.",
+            "values": {
+              "grp": {
+                "text": "TaskGroup"
+              },
+              "sz": {
+                "text": "sizes"
+              },
+              "out": {
+                "text": "outputs"
+              }
+            },
+            "tones": {
+              "grp": "ok",
+              "sz": "ok",
+              "out": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add 1024px fourth thumbnail resolution to TaskGroup sizes list.",
+            "values": {
+              "grp": {
+                "text": "Add"
+              },
+              "sz": {
+                "text": "thumbnail"
+              },
+              "out": {
+                "text": "1024px"
+              }
+            },
+            "tones": {
+              "grp": "ok",
+              "sz": "data",
+              "out": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Parallel Task Group Execution & Concurrency Scalin",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "Parallel TaskGroup fan-out execution",
+        "boxes": [
+          {
+            "id": "grp",
+            "label": "TaskGroup"
+          },
+          {
+            "id": "sz",
+            "label": "sizes"
+          },
+          {
+            "id": "out",
+            "label": "outputs"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The sequential concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Parallel",
-                  "Task"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Task groups dispatch independent subtasks concurrently across cluster workers.",
+            "values": {
+              "grp": "3 Concurrent Signatures",
+              "sz": "[128, 256, 512]",
+              "out": "[] Collecting"
+            },
+            "tones": {
+              "grp": "data",
+              "sz": "data",
+              "out": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The execution logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Group",
-                  "Execution"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Parallel worker execution compresses total batch runtime smoothly.",
+            "values": {
+              "grp": "max(task_times) Latency",
+              "sz": "3 Workers Active",
+              "out": "Independent Renders"
+            },
+            "tones": {
+              "grp": "ok",
+              "sz": "ok",
+              "out": "data"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Parallel groups process thumbnail sizes simultaneously into outputs.",
+            "values": {
+              "grp": "All 3 Returned",
+              "sz": "[128px, 256px, 512px]",
+              "out": "3 Thumbnails Ready"
+            },
+            "tones": {
+              "grp": "ok",
+              "sz": "ok",
+              "out": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add 1024px fourth thumbnail resolution to TaskGroup sizes list.",
+            "values": {
+              "grp": "4 Parallel Workers",
+              "sz": "[128, 256, 512, 1024]",
+              "out": "thumb_1024x1024.jpg Ready"
+            },
+            "tones": {
+              "grp": "ok",
+              "sz": "data",
+              "out": "ok"
+            },
+            "whatIf": "class TaskGroup:\n    def __init__(self, tasks):\n        self.tasks = tasks\n\n    def apply(self, arg_list):\n        results = []\n        for task_func, arg in zip(self.tasks, arg_list):\n            out = task_func(arg)\n            results.append(out)\n        return results\n\n# Parallel thumbnail generation functions\nfuncs = [\n    lambda size: f\"thumb_{size}x{size}.jpg\",\n    lambda size: f\"thumb_{size}x{size}.jpg\",\n    lambda size: f\"thumb_{size}x{size}.jpg\",\n    lambda size: f\"thumb_{size}x{size}.jpg\"\n]\n\ngroup = TaskGroup(funcs)\nsizes = [128, 256, 512, 1024]\noutputs = group.apply(sizes)\n\nprint(f\"Parallel Group dispatched {len(sizes)} tasks concurrently:\")\nfor sz, out in zip(sizes, outputs):\n    print(f\"  Processed {sz}px -> Generated: {out}\")",
+            "checks": [
+              "Parallel Group dispatched 4 tasks concurrently:",
+              "Processed 1024px -> Generated: thumb_1024x1024.jpg"
             ]
           }
         ]
@@ -177,81 +440,258 @@
       "partTitle": "Chord Barrier Synchronization & Callback Dispatch Mechanics",
       "codeHash": "6e8d5cb07de9fcbd5979df6205ee6e2fc714c1d5e82f66e5a9e40f80a739a7da",
       "spec": {
-        "template": "table",
-        "title": "Chord Barrier Synchronization & Callback Dispatch ",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "ChordBarrier atomic countdown before callback",
         "steps": [
           {
             "at": "say1",
-            "caption": "The real concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Chords combine parallel task groups with a final synchronization callback.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Chord"
-                  },
-                  {
-                    "text": "Barrier"
-                  }
-                ],
+                "text": "ChordBarrier"
+              },
+              {
+                "text": "expected_count"
+              },
+              {
+                "text": "completed_results"
+              },
+              {
+                "text": "merge_chunks_callback"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "barrier",
+                "index": 1,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The internal logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Barrier counters hold the callback until every parallel chunk completes.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Synchronization"
-                  },
-                  {
-                    "text": "Callback"
-                  }
-                ],
+                "text": "ChordBarrier"
+              },
+              {
+                "text": "3"
+              },
+              {
+                "text": "chunk_0_encoded"
+              },
+              {
+                "text": "merge_chunks_callback"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "done",
+                "index": 2,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "ok",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Synchronization fires the merge callback once expected chunks finish.",
+            "items": [
+              {
+                "text": "ChordBarrier"
+              },
+              {
+                "text": "expected_count"
+              },
+              {
+                "text": "completed_results"
+              },
+              {
+                "text": "merge_chunks_callback"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "fire",
+                "index": 3,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set expected_count to 4 and confirm chord callback awaits fourth chunk.",
+            "items": [
+              {
+                "text": "Change"
+              },
+              {
+                "text": "and"
+              },
+              {
+                "text": "that"
+              },
+              {
+                "text": "callback"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "waiting",
+                "index": 3,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "data"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Chord Barrier Synchronization & Callback Dispatch ",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "ChordBarrier atomic countdown before callback",
         "steps": [
           {
             "at": "say1",
-            "caption": "The real concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Chords combine parallel task groups with a final synchronization callback.",
+            "items": [
+              "ChordBarrier Armed",
+              "expected_count: 3",
+              "completed: 0/3",
+              "callback: WAITING"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Chord",
-                  "Barrier"
-                ],
+                "name": "barrier",
+                "index": 1,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The internal logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Barrier counters hold the callback until every parallel chunk completes.",
+            "items": [
+              "Countdown Active",
+              "3 Total Chunks",
+              "chunk_0_encoded Done",
+              "callback: HELD"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Synchronization",
-                  "Callback"
-                ],
+                "name": "done",
+                "index": 2,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "ok",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Synchronization fires the merge callback once expected chunks finish.",
+            "items": [
+              "Barrier Zeroed",
+              "3 == 3 Chunks",
+              "All Results Collected",
+              "merge_chunks_callback FIRED"
+            ],
+            "pointers": [
+              {
+                "name": "fire",
+                "index": 3,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Set expected_count to 4 and confirm chord callback awaits fourth chunk.",
+            "items": [
+              "chunk_0 -> 1/4",
+              "chunk_1 -> 2/4",
+              "chunk_2 -> 3/4",
+              "Callback Waiting (None)"
+            ],
+            "pointers": [
+              {
+                "name": "waiting",
+                "index": 3,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "data"
+            },
+            "whatIf": "class ChordBarrier:\n    def __init__(self, expected_count, callback):\n        self.expected_count = expected_count\n        self.callback = callback\n        self.completed_results = []\n\n    def task_complete(self, task_idx, result):\n        self.completed_results.append(result)\n        print(f\"[Chord Barrier] Task {task_idx+1}/{self.expected_count} completed: '{result}'\")\n        if len(self.completed_results) == self.expected_count:\n            print(\"[Chord Barrier] ALL group tasks completed! Firing aggregate callback...\")\n            return self.callback(self.completed_results)\n        return None\n\ndef merge_chunks_callback(results):\n    return f\"FINAL_RENDER_COMPOSED({','.join(results)})\"\n\nbarrier = ChordBarrier(expected_count=4, callback=merge_chunks_callback)\nbarrier.task_complete(0, \"chunk_0_encoded\")\nbarrier.task_complete(1, \"chunk_1_encoded\")\nfinal_output = barrier.task_complete(2, \"chunk_2_encoded\")\n\nprint(\"Callback result:\", final_output)",
+            "checks": [
+              "Task 3/4 completed",
+              "Callback result: None"
             ]
           }
         ]
@@ -261,82 +701,160 @@
       "partTitle": "Chord Barrier Synchronization & Redis Polling Storm Forensics",
       "codeHash": "9d725697dd19f5d0a130898b17d789ba3dd21e8afa0b816ee4b72e4c2e0ada1c",
       "spec": {
-        "template": "table",
-        "title": "Chord Barrier Synchronization & Redis Polling Stor",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Tight chord polling vs adaptive backoff defense",
+        "leftLabel": "Fixed Tight Polling",
+        "rightLabel": "Adaptive Backoff",
         "steps": [
           {
             "at": "say1",
-            "caption": "The celery concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Chord"
-                  },
-                  {
-                    "text": "Barrier"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Tight synchronization loops bombard result backends with repeated reads.",
+            "left": {
+              "code": "ChordPollingDefense",
+              "result": "2000 Queries/sec",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "simulate_adaptive_backoff",
+              "result": "Backoff Schedule",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The phenomenon logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Synchronization"
-                  },
-                  {
-                    "text": "Redis"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Adaptive backoff slows polling frequency to eliminate Redis CPU storms.",
+            "left": {
+              "code": "2000",
+              "result": "Redis CPU Saturated",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "1600",
+              "result": "Smooth Query Load",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Backoff simulation reduces backend polling load without stalling chords.",
+            "left": {
+              "code": "100",
+              "result": "Constant 50ms Hammer",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "50",
+              "result": "90% Query Reduction",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Compare 100ms backoff baseline against initial_ms 200ms polling schedule.",
+            "left": {
+              "code": "simulate_adaptive_backoff(initial_ms=100)",
+              "result": "100ms -> 200ms -> 400ms -> 800ms -> 1600ms",
+              "tone": "data",
+              "checks": [
+                "100ms -> 200ms -> 400ms -> 800ms -> 1600ms",
+                "Backoff Initial=100ms Step Count: 5"
+              ],
+              "whatIf": "class ChordPollingDefense:\n    def __init__(self, max_polls=5):\n        self.poll_log = []\n\n    def simulate_thundering_herd(self, task_count=100, poll_interval_ms=50):\n        # Naive polling: 100 workers poll Redis every 50ms -> 2000 queries/sec\n        qps = (1000 // poll_interval_ms) * task_count\n        return f\"NAIVE POLLING STORM: {task_count} tasks polling every {poll_interval_ms}ms = {qps} QPS on Redis!\"\n\n    def simulate_adaptive_backoff(self, initial_ms=100, max_ms=1600):\n        interval = initial_ms\n        backoff_steps = []\n        while interval <= max_ms:\n            backoff_steps.append(f\"{interval}ms\")\n            interval *= 2\n        return backoff_steps\n\ndefense = ChordPollingDefense()\nstorm_stat = defense.simulate_thundering_herd(task_count=100, poll_interval_ms=50)\nprint(storm_stat)\n\nbackoff = defense.simulate_adaptive_backoff(initial_ms=100)\nprint(f\"Backoff Initial=100ms Step Count: {len(backoff)}\")\nprint(f\"Defensive exponential backoff intervals: {' -> '.join(backoff)}\")\nprint(\"Redis QPS reduced by 94%, connection pool protected from exhaustion.\")"
+            },
+            "right": {
+              "code": "simulate_adaptive_backoff(initial_ms=200)",
+              "result": "200ms -> 400ms -> 800ms -> 1600ms (4 Steps)",
+              "tone": "ok",
+              "checks": [
+                "200ms -> 400ms -> 800ms -> 1600ms"
+              ],
+              "whatIf": "class ChordPollingDefense:\n    def __init__(self, max_polls=5):\n        self.poll_log = []\n\n    def simulate_thundering_herd(self, task_count=100, poll_interval_ms=50):\n        # Naive polling: 100 workers poll Redis every 50ms -> 2000 queries/sec\n        qps = (1000 // poll_interval_ms) * task_count\n        return f\"NAIVE POLLING STORM: {task_count} tasks polling every {poll_interval_ms}ms = {qps} QPS on Redis!\"\n\n    def simulate_adaptive_backoff(self, initial_ms=100, max_ms=1600):\n        interval = initial_ms\n        backoff_steps = []\n        while interval <= max_ms:\n            backoff_steps.append(f\"{interval}ms\")\n            interval *= 2\n        return backoff_steps\n\ndefense = ChordPollingDefense()\nstorm_stat = defense.simulate_thundering_herd(task_count=100, poll_interval_ms=50)\nprint(storm_stat)\n\nbackoff = defense.simulate_adaptive_backoff(initial_ms=200)\nprint(f\"Defensive exponential backoff intervals: {' -> '.join(backoff)}\")\nprint(\"Redis QPS reduced by 94%, connection pool protected from exhaustion.\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Chord Barrier Synchronization & Redis Polling Stor",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Tight chord polling vs adaptive backoff defense",
+        "leftLabel": "Fixed Tight Polling",
+        "rightLabel": "Adaptive Backoff",
         "steps": [
           {
             "at": "say1",
-            "caption": "The celery concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Chord",
-                  "Barrier"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Tight synchronization loops bombard result backends with repeated reads.",
+            "left": {
+              "code": "interval = 100ms tight loop",
+              "result": "2000 GET calls spike",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "simulate_adaptive_backoff()",
+              "result": "Geometric Sleep Growth",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The phenomenon logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Synchronization",
-                  "Redis"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Adaptive backoff slows polling frequency to eliminate Redis CPU storms.",
+            "left": {
+              "code": "1600 -> 2000 wasted reads",
+              "result": "Backend Thread Blocked",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "50ms -> 100ms -> 200ms",
+              "result": "Redis CPU < 15%",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Backoff simulation reduces backend polling load without stalling chords.",
+            "left": {
+              "code": "Fixed Poll Overhead",
+              "result": "Storm Unmitigated",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Adaptive Defense",
+              "result": "Chord Completes Cleanly",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Compare 100ms backoff baseline against initial_ms 200ms polling schedule.",
+            "left": {
+              "code": "simulate_adaptive_backoff(initial_ms=100)",
+              "result": "100ms -> 200ms -> 400ms -> 800ms -> 1600ms",
+              "tone": "data",
+              "checks": [
+                "100ms -> 200ms -> 400ms -> 800ms -> 1600ms",
+                "Backoff Initial=100ms Step Count: 5"
+              ],
+              "whatIf": "class ChordPollingDefense:\n    def __init__(self, max_polls=5):\n        self.poll_log = []\n\n    def simulate_thundering_herd(self, task_count=100, poll_interval_ms=50):\n        # Naive polling: 100 workers poll Redis every 50ms -> 2000 queries/sec\n        qps = (1000 // poll_interval_ms) * task_count\n        return f\"NAIVE POLLING STORM: {task_count} tasks polling every {poll_interval_ms}ms = {qps} QPS on Redis!\"\n\n    def simulate_adaptive_backoff(self, initial_ms=100, max_ms=1600):\n        interval = initial_ms\n        backoff_steps = []\n        while interval <= max_ms:\n            backoff_steps.append(f\"{interval}ms\")\n            interval *= 2\n        return backoff_steps\n\ndefense = ChordPollingDefense()\nstorm_stat = defense.simulate_thundering_herd(task_count=100, poll_interval_ms=50)\nprint(storm_stat)\n\nbackoff = defense.simulate_adaptive_backoff(initial_ms=100)\nprint(f\"Backoff Initial=100ms Step Count: {len(backoff)}\")\nprint(f\"Defensive exponential backoff intervals: {' -> '.join(backoff)}\")\nprint(\"Redis QPS reduced by 94%, connection pool protected from exhaustion.\")"
+            },
+            "right": {
+              "code": "simulate_adaptive_backoff(initial_ms=200)",
+              "result": "200ms -> 400ms -> 800ms -> 1600ms (4 Steps)",
+              "tone": "ok",
+              "checks": [
+                "200ms -> 400ms -> 800ms -> 1600ms"
+              ],
+              "whatIf": "class ChordPollingDefense:\n    def __init__(self, max_polls=5):\n        self.poll_log = []\n\n    def simulate_thundering_herd(self, task_count=100, poll_interval_ms=50):\n        # Naive polling: 100 workers poll Redis every 50ms -> 2000 queries/sec\n        qps = (1000 // poll_interval_ms) * task_count\n        return f\"NAIVE POLLING STORM: {task_count} tasks polling every {poll_interval_ms}ms = {qps} QPS on Redis!\"\n\n    def simulate_adaptive_backoff(self, initial_ms=100, max_ms=1600):\n        interval = initial_ms\n        backoff_steps = []\n        while interval <= max_ms:\n            backoff_steps.append(f\"{interval}ms\")\n            interval *= 2\n        return backoff_steps\n\ndefense = ChordPollingDefense()\nstorm_stat = defense.simulate_thundering_herd(task_count=100, poll_interval_ms=50)\nprint(storm_stat)\n\nbackoff = defense.simulate_adaptive_backoff(initial_ms=200)\nprint(f\"Defensive exponential backoff intervals: {' -> '.join(backoff)}\")\nprint(\"Redis QPS reduced by 94%, connection pool protected from exhaustion.\")"
+            }
           }
         ]
       }
@@ -346,43 +864,146 @@
       "codeHash": "acd01c5504d4c02a36374306109e5f9fc35ecbd4d6b3cd35c595dd9b2f1d99f7",
       "spec": {
         "template": "table",
-        "title": "Media Processing Pipeline Workflow Modernization",
+        "title": "CompleteMediaPipelineWorkflow Canvas stages",
         "columns": [
           "Stage",
-          "Concept"
+          "Primitive",
+          "Artifact"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
+            "caption": "Media pipelines orchestrate parallel segment encoding and final muxing.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Media"
+                    "text": "CompleteMediaPipelineWorkflow"
                   },
                   {
-                    "text": "Processing"
+                    "text": "audio.aac"
+                  },
+                  {
+                    "text": "seg_0.ts"
                   }
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "seg_0.ts"
+                  },
+                  {
+                    "text": "master_1080p.mp4"
+                  },
+                  {
+                    "text": "audio.aac"
+                  }
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The phase logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Media workflow combines sequential dependencies and parallel execution cleanly.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Pipeline"
+                    "text": "seg_0.ts"
                   },
                   {
-                    "text": "Workflow"
+                    "text": "audio.aac"
+                  },
+                  {
+                    "text": "master_1080p.mp4"
                   }
                 ],
                 "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "CompleteMediaPipelineWorkflow"
+                  },
+                  {
+                    "text": "seg_0.ts"
+                  },
+                  {
+                    "text": "master_1080p.mp4"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Pipeline synthesizes sequential chains, parallel groups, and chords cleanly.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "audio.aac"
+                  },
+                  {
+                    "text": "seg_0.ts"
+                  },
+                  {
+                    "text": "master_1080p.mp4"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "CompleteMediaPipelineWorkflow"
+                  },
+                  {
+                    "text": "master_1080p.mp4"
+                  },
+                  {
+                    "text": "audio.aac"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add notification dispatch step to CompleteMediaPipelineWorkflow and log.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Add"
+                  },
+                  {
+                    "text": "Step"
+                  },
+                  {
+                    "text": "notification"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "notification"
+                  },
+                  {
+                    "text": "step"
+                  },
+                  {
+                    "text": "CompleteMediaPipelineWorkflow"
+                  }
+                ],
+                "tone": "data"
               }
             ]
           }
@@ -390,36 +1011,103 @@
       },
       "filled": {
         "template": "table",
-        "title": "Media Processing Pipeline Workflow Modernization",
+        "title": "CompleteMediaPipelineWorkflow Canvas stages",
         "columns": [
           "Stage",
-          "Concept"
+          "Primitive",
+          "Artifact"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
+            "caption": "Media pipelines orchestrate parallel segment encoding and final muxing.",
             "rows": [
               {
                 "cells": [
-                  "Media",
-                  "Processing"
+                  "Extract Audio",
+                  "Chain Stage 1",
+                  "audio.aac"
                 ],
                 "tone": "data"
+              },
+              {
+                "cells": [
+                  "Chunk Video",
+                  "Group Fan-Out",
+                  "seg_0.ts, seg_1.ts"
+                ],
+                "tone": "idle"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The phase logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Media workflow combines sequential dependencies and parallel execution cleanly.",
             "rows": [
               {
                 "cells": [
-                  "Pipeline",
-                  "Workflow"
+                  "Encode Segments",
+                  "Parallel Workers",
+                  "seg_0.ts Ready"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Mux Master File",
+                  "Chord Callback",
+                  "master_1080p.mp4"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Pipeline synthesizes sequential chains, parallel groups, and chords cleanly.",
+            "rows": [
+              {
+                "cells": [
+                  "Audio + Chunks",
+                  "Merged via Chord",
+                  "master_1080p.mp4"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "CompleteMediaPipelineWorkflow",
+                  "DAG Completed",
+                  "Zero Orphan Chunks"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add notification dispatch step to CompleteMediaPipelineWorkflow and log.",
+            "rows": [
+              {
+                "cells": [
+                  "Audio + Chunks",
+                  "Merged via Chord",
+                  "master_1080p.mp4"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Step 4 Dispatch",
+                  "Post-Chord Webhook",
+                  "Creator Notified"
+                ],
+                "tone": "data"
+              }
+            ],
+            "whatIf": "class CompleteMediaPipelineWorkflow:\n    def __init__(self, video_id):\n        self.video_id = video_id\n        self.log = []\n\n    def run(self):\n        # Step 1: Sequential Chain (Extract audio & chunk video)\n        self.log.append(\"STEP 1 [Chain]: Extract audio stream 'audio.aac' from source.\")\n        self.log.append(\"STEP 1 [Chain]: Split video into 3 independent 10-second segments.\")\n        \n        # Step 2: Parallel Group (Transcode segments)\n        segments = [\"seg_0.ts\", \"seg_1.ts\", \"seg_2.ts\"]\n        self.log.append(f\"STEP 2 [Group]: Parallel transcode of {len(segments)} segments across worker cluster.\")\n        \n        # Step 3: Chord Barrier (Merge segments + mux audio)\n        self.log.append(\"STEP 3 [Chord]: Barrier sync reached (3/3 segments ready).\")\n        self.log.append(\"STEP 3 [Chord]: Mux audio.aac with segments -> 'master_1080p.mp4'.\")\n        self.log.append(\"STEP 4 [Notify]: Webhook dispatched to creator dashboard for master_1080p.mp4.\")\n        return \"master_1080p.mp4\"\n\npipeline = CompleteMediaPipelineWorkflow(\"vid_9841\")\noutput = pipeline.run()\n\nprint(\"=== Complete Celery Canvas Media Pipeline ===\")\nfor entry in pipeline.log:\n    print(f\"  {entry}\")\nprint(f\"Workflow finished successfully! Deliverable: {output}\")",
+            "checks": [
+              "STEP 4 [Notify]: Webhook dispatched to creator dashboard for master_1080p.mp4."
             ]
           }
         ]

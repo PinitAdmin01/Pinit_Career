@@ -2,139 +2,111 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 22,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Containers and images",
       "codeHash": "38a487d61587691ac6488183bf0f089d23a33269b7e9f63a6ef200749aeae3c5",
       "spec": {
-        "template": "table",
-        "title": "Container image layer structure and caching optimization",
-        "columns": [
-          "image",
-          "layer"
-        ],
+        "template": "bars",
+        "title": "Containers and images",
         "steps": [
           {
             "at": "say1",
-            "caption": "A container packages an application with its runtime.",
-            "rows": [
+            "caption": "A container packages an application with everything it needs to run.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "python:3.12-slim"
-                  },
-                  {
-                    "text": "base"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Images are built from a Dockerfile in the registry.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "python:3.12-slim"
-                  },
-                  {
-                    "text": "base"
-                  }
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "requirements.txt"
-                  },
-                  {
-                    "text": "dependencies"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Unchanged layers remain cached while copying code.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "python:3.12-slim"
-                  },
-                  {
-                    "text": "base"
-                  }
-                ],
-                "tone": "ok"
+                "label": "copy_all",
+                "value": {
+                  "var": "copy_all",
+                  "line": 9,
+                  "hit": 6
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "requirements.txt"
-                  },
-                  {
-                    "text": "dependencies"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "app:server"
-                  },
-                  {
-                    "text": "code"
-                  }
-                ],
+                "label": "install",
+                "value": {
+                  "var": "install",
+                  "line": 10,
+                  "hit": 5
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Tag images with something traceable like a commit.",
-            "rows": [
+            "at": "say2",
+            "caption": "You describe how to build it in a Dockerfile, and the result is an image.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "python:3.12-slim"
-                  },
-                  {
-                    "text": "base"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 9,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "requirements.txt"
-                  },
-                  {
-                    "text": "dependencies"
-                  }
-                ],
+                "label": "copy_all",
+                "value": {
+                  "var": "copy_all",
+                  "line": 10,
+                  "hit": 5
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "app:server"
-                  },
-                  {
-                    "text": "code"
-                  }
-                ],
+                "label": "install",
+                "value": {
+                  "var": "install",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "A small image is faster to pull and has fewer things that can be attacked.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 9,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "copy_all",
+                "value": {
+                  "var": "copy_all",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "install",
+                "value": {
+                  "var": "install",
+                  "line": 12,
+                  "hit": 7
+                },
                 "tone": "ok"
               }
             ]
@@ -142,96 +114,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Container image layer structure and caching optimization",
-        "columns": [
-          "image",
-          "layer"
-        ],
+        "template": "bars",
+        "title": "Containers and images",
         "steps": [
           {
             "at": "say1",
-            "caption": "A container packages an application with its runtime.",
-            "rows": [
+            "caption": "A container packages an application with everything it needs to run.",
+            "bars": [
               {
-                "cells": [
-                  "python:3.12-slim",
-                  "base"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Images are built from a Dockerfile in the registry.",
-            "rows": [
-              {
-                "cells": [
-                  "python:3.12-slim",
-                  "base"
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "requirements.txt",
-                  "dependencies"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Unchanged layers remain cached while copying code.",
-            "rows": [
-              {
-                "cells": [
-                  "python:3.12-slim",
-                  "base"
-                ],
-                "tone": "ok"
+                "label": "copy_all",
+                "value": 4,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "requirements.txt",
-                  "dependencies"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "app:server",
-                  "code"
-                ],
+                "label": "install",
+                "value": 3,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Tag images with something traceable like a commit.",
-            "rows": [
+            "at": "say2",
+            "caption": "You describe how to build it in a Dockerfile, and the result is an image.",
+            "bars": [
               {
-                "cells": [
-                  "python:3.12-slim",
-                  "base"
-                ],
+                "label": "i",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "requirements.txt",
-                  "dependencies"
-                ],
+                "label": "copy_all",
+                "value": 4,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "app:server",
-                  "code"
-                ],
+                "label": "install",
+                "value": 3,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "A small image is faster to pull and has fewer things that can be attacked.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "copy_all",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "install",
+                "value": 3,
                 "tone": "ok"
               }
             ]
@@ -243,141 +187,221 @@
       "partTitle": "ECS: clusters, task definitions and services",
       "codeHash": "6e3918a9a2da9e36497c7b449c0713e0a831db03e4d2f7efd2d31db60c3d2ced",
       "spec": {
-        "template": "table",
-        "title": "ECS task definition sizing and service execution settings",
-        "columns": [
-          "cpu",
-          "memory"
+        "template": "flow",
+        "title": "ECS: clusters, task definitions and services",
+        "nodes": [
+          {
+            "id": "task_definition",
+            "label": "task_definition"
+          },
+          {
+            "id": "service",
+            "label": "service"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Amazon Elastic Container Service (ECS) runs containers for you.",
+            "values": {
+              "task_definition": {
+                "var": "task_definition",
+                "line": 1,
+                "hit": 1
+              },
+              "service": {
+                "var": "service",
+                "line": 10,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 11,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "task_definition": "data",
+              "service": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "task_definition",
+                "service"
+              ],
+              [
+                "service",
+                "c"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Task definitions specify CPU and memory resources for containers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "512"
-                  },
-                  {
-                    "text": "1024"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A task definition is the recipe.",
+            "values": {
+              "task_definition": {
+                "var": "task_definition",
+                "line": 10,
+                "hit": 1
+              },
+              "service": {
+                "var": "service",
+                "line": 11,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 12,
+                "hit": 1
               }
+            },
+            "tones": {
+              "task_definition": "data",
+              "service": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "task_definition",
+                "service"
+              ],
+              [
+                "service",
+                "c"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "ECS services maintain desired running task instances.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "512"
-                  },
-                  {
-                    "text": "1024"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example builds a task definition as a Python dictionary, close to.",
+            "values": {
+              "task_definition": {
+                "var": "task_definition",
+                "line": 11,
+                "hit": 1
+              },
+              "service": {
+                "var": "service",
+                "line": 12,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 13,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Distinct task and execution roles provide least privilege access.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "512"
-                  },
-                  {
-                    "text": "1024"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "AWS Fargate runs containers without managing underlying servers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "512"
-                  },
-                  {
-                    "text": "1024"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "task_definition": "ok",
+              "service": "ok",
+              "c": "ok"
+            },
+            "arrows": [
+              [
+                "task_definition",
+                "service"
+              ],
+              [
+                "service",
+                "c"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "ECS task definition sizing and service execution settings",
-        "columns": [
-          "cpu",
-          "memory"
+        "template": "flow",
+        "title": "ECS: clusters, task definitions and services",
+        "nodes": [
+          {
+            "id": "task_definition",
+            "label": "task_definition"
+          },
+          {
+            "id": "service",
+            "label": "service"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Amazon Elastic Container Service (ECS) runs containers for you.",
+            "values": {
+              "task_definition": "{'family': 'shop-api', 'cpu': '512', 'm…",
+              "service": "{'desired': 3, 'running': 2}",
+              "c": "{'name': 'api', 'image': '111122223333.…"
+            },
+            "tones": {
+              "task_definition": "data",
+              "service": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "task_definition",
+                "service"
+              ],
+              [
+                "service",
+                "c"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Task definitions specify CPU and memory resources for containers.",
-            "rows": [
-              {
-                "cells": [
-                  "512",
-                  "1024"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A task definition is the recipe.",
+            "values": {
+              "task_definition": "{'family': 'shop-api', 'cpu': '512', 'm…",
+              "service": "{'desired': 3, 'running': 2}",
+              "c": "{'name': 'api', 'image': '111122223333.…"
+            },
+            "tones": {
+              "task_definition": "data",
+              "service": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "task_definition",
+                "service"
+              ],
+              [
+                "service",
+                "c"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "ECS services maintain desired running task instances.",
-            "rows": [
-              {
-                "cells": [
-                  "512",
-                  "1024"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Distinct task and execution roles provide least privilege access.",
-            "rows": [
-              {
-                "cells": [
-                  "512",
-                  "1024"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "AWS Fargate runs containers without managing underlying servers.",
-            "rows": [
-              {
-                "cells": [
-                  "512",
-                  "1024"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "The example builds a task definition as a Python dictionary, close to.",
+            "values": {
+              "task_definition": "{'family': 'shop-api', 'cpu': '512', 'm…",
+              "service": "{'desired': 3, 'running': 2}",
+              "c": "{'name': 'api', 'image': '111122223333.…"
+            },
+            "tones": {
+              "task_definition": "ok",
+              "service": "ok",
+              "c": "ok"
+            },
+            "arrows": [
+              [
+                "task_definition",
+                "service"
+              ],
+              [
+                "service",
+                "c"
+              ]
             ]
           }
         ]
@@ -387,249 +411,221 @@
       "partTitle": "Fargate sizes",
       "codeHash": "bcd41ac7ba499968824e2442b9f88a6d17bb8bf235c291afb7486844e179dd06",
       "spec": {
-        "template": "table",
-        "title": "Valid Fargate vCPU and memory configuration matrix",
-        "columns": [
-          "cpu",
-          "memory_mb"
+        "template": "flow",
+        "title": "Fargate sizes",
+        "nodes": [
+          {
+            "id": "ALLOWED",
+            "label": "ALLOWED"
+          },
+          {
+            "id": "cpu",
+            "label": "cpu"
+          },
+          {
+            "id": "mems",
+            "label": "mems"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fargate accepts CPU and memory pairs from defined configurations.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "256"
-                  },
-                  {
-                    "text": "512"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Fargate does not accept any CPU and memory you like.",
+            "values": {
+              "ALLOWED": {
+                "var": "ALLOWED",
+                "line": 1,
+                "hit": 1
+              },
+              "cpu": {
+                "var": "cpu",
+                "line": 7,
+                "hit": 1
+              },
+              "mems": {
+                "var": "mems",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "ALLOWED": "data",
+              "cpu": "data",
+              "mems": "data"
+            },
+            "arrows": [
+              [
+                "ALLOWED",
+                "cpu"
+              ],
+              [
+                "cpu",
+                "mems"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Each CPU tier allows specific memory increments.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "256"
-                  },
-                  {
-                    "text": "512"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Trace how example updates units during execution.",
+            "values": {
+              "ALLOWED": {
+                "var": "ALLOWED",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "512"
-                  },
-                  {
-                    "text": "1024"
-                  }
-                ],
-                "tone": "ok"
+              "cpu": {
+                "var": "cpu",
+                "line": 8,
+                "hit": 1
+              },
+              "mems": {
+                "var": "mems",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "ALLOWED": "data",
+              "cpu": "data",
+              "mems": "data"
+            },
+            "arrows": [
+              [
+                "ALLOWED",
+                "cpu"
+              ],
+              [
+                "cpu",
+                "mems"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Teams validate container sizes before initiating deployment.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "256"
-                  },
-                  {
-                    "text": "512"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example lists the allowed memory sizes for a few CPU values.",
+            "values": {
+              "ALLOWED": {
+                "var": "ALLOWED",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "512"
-                  },
-                  {
-                    "text": "1024"
-                  }
-                ],
-                "tone": "ok"
+              "cpu": {
+                "var": "cpu",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "1024"
-                  },
-                  {
-                    "text": "2048"
-                  }
-                ],
-                "tone": "ok"
+              "mems": {
+                "var": "mems",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Right-sizing containers minimizes waste while preserving headroom.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "256"
-                  },
-                  {
-                    "text": "512"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "512"
-                  },
-                  {
-                    "text": "1024"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "1024"
-                  },
-                  {
-                    "text": "2048"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "2048"
-                  },
-                  {
-                    "text": "4096"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "ALLOWED": "ok",
+              "cpu": "ok",
+              "mems": "ok"
+            },
+            "arrows": [
+              [
+                "ALLOWED",
+                "cpu"
+              ],
+              [
+                "cpu",
+                "mems"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Valid Fargate vCPU and memory configuration matrix",
-        "columns": [
-          "cpu",
-          "memory_mb"
+        "template": "flow",
+        "title": "Fargate sizes",
+        "nodes": [
+          {
+            "id": "ALLOWED",
+            "label": "ALLOWED"
+          },
+          {
+            "id": "cpu",
+            "label": "cpu"
+          },
+          {
+            "id": "mems",
+            "label": "mems"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fargate accepts CPU and memory pairs from defined configurations.",
-            "rows": [
-              {
-                "cells": [
-                  "256",
-                  "512"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Fargate does not accept any CPU and memory you like.",
+            "values": {
+              "ALLOWED": "{256: {1024, 2048, 512}, 512: {1024, 20…",
+              "cpu": "256",
+              "mems": "{1024, 2048, 512}"
+            },
+            "tones": {
+              "ALLOWED": "data",
+              "cpu": "data",
+              "mems": "data"
+            },
+            "arrows": [
+              [
+                "ALLOWED",
+                "cpu"
+              ],
+              [
+                "cpu",
+                "mems"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Each CPU tier allows specific memory increments.",
-            "rows": [
-              {
-                "cells": [
-                  "256",
-                  "512"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "512",
-                  "1024"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Trace how example updates units during execution.",
+            "values": {
+              "ALLOWED": "{256: {1024, 2048, 512}, 512: {1024, 20…",
+              "cpu": "256",
+              "mems": "{1024, 2048, 512}"
+            },
+            "tones": {
+              "ALLOWED": "data",
+              "cpu": "data",
+              "mems": "data"
+            },
+            "arrows": [
+              [
+                "ALLOWED",
+                "cpu"
+              ],
+              [
+                "cpu",
+                "mems"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Teams validate container sizes before initiating deployment.",
-            "rows": [
-              {
-                "cells": [
-                  "256",
-                  "512"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "512",
-                  "1024"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "1024",
-                  "2048"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Right-sizing containers minimizes waste while preserving headroom.",
-            "rows": [
-              {
-                "cells": [
-                  "256",
-                  "512"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "512",
-                  "1024"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "1024",
-                  "2048"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "2048",
-                  "4096"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example lists the allowed memory sizes for a few CPU values.",
+            "values": {
+              "ALLOWED": "{256: {1024, 2048, 512}, 512: {1024, 20…",
+              "cpu": "512",
+              "mems": "{1024, 2048, 3072, 4096}"
+            },
+            "tones": {
+              "ALLOWED": "ok",
+              "cpu": "ok",
+              "mems": "ok"
+            },
+            "arrows": [
+              [
+                "ALLOWED",
+                "cpu"
+              ],
+              [
+                "cpu",
+                "mems"
+              ]
             ]
           }
         ]
@@ -639,132 +635,91 @@
       "partTitle": "Configuration and secrets",
       "codeHash": "11dce1d575949e88c70ebb2a130fb016e4f6e3bed62fdba5339e78aa1c381c95",
       "spec": {
-        "template": "table",
-        "title": "Container environment variables and Secrets Manager bindings",
-        "columns": [
-          "name",
-          "value"
+        "template": "sequence",
+        "title": "Configuration and secrets",
+        "actors": [
+          "plain",
+          "secrets",
+          "clash"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Containers read environment variables for configuration.",
-            "rows": [
+            "caption": "Containers read their settings from environment variables.",
+            "activeActor": "plain",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "PORT"
-                  },
-                  {
-                    "text": "8080"
-                  }
-                ],
+                "from": "plain",
+                "to": "secrets",
+                "label": {
+                  "var": "plain",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "secrets",
+                "to": "clash",
+                "label": {
+                  "var": "secrets",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Sensitive database passwords must never be stored as plain values.",
-            "rows": [
+            "caption": "Secrets are different.",
+            "activeActor": "secrets",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "PORT"
-                  },
-                  {
-                    "text": "8080"
-                  }
-                ],
-                "tone": "ok"
+                "from": "plain",
+                "to": "secrets",
+                "label": {
+                  "var": "plain",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "LOG_LEVEL"
-                  },
-                  {
-                    "text": "info"
-                  }
-                ],
+                "from": "secrets",
+                "to": "clash",
+                "label": {
+                  "var": "secrets",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Secrets Manager references allow ECS to fetch credentials safely.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example builds the two lists and shows the clash being caught.",
+            "activeActor": "clash",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "PORT"
-                  },
-                  {
-                    "text": "8080"
-                  }
-                ],
-                "tone": "ok"
+                "from": "plain",
+                "to": "secrets",
+                "label": {
+                  "var": "plain",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "LOG_LEVEL"
-                  },
-                  {
-                    "text": "info"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "DB_PASS"
-                  },
-                  {
-                    "text": "arn:aws:secretsmanager:ap-south-1:1:secret:db"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Validation functions prevent collisions between plain settings and secrets.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "PORT"
-                  },
-                  {
-                    "text": "8080"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "LOG_LEVEL"
-                  },
-                  {
-                    "text": "info"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "DB_PASS"
-                  },
-                  {
-                    "text": "arn:aws:secretsmanager:ap-south-1:1:secret:db"
-                  }
-                ],
+                "from": "secrets",
+                "to": "clash",
+                "label": {
+                  "var": "secrets",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -772,99 +727,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Container environment variables and Secrets Manager bindings",
-        "columns": [
-          "name",
-          "value"
+        "template": "sequence",
+        "title": "Configuration and secrets",
+        "actors": [
+          "plain",
+          "secrets",
+          "clash"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Containers read environment variables for configuration.",
-            "rows": [
+            "caption": "Containers read their settings from environment variables.",
+            "messages": [
               {
-                "cells": [
-                  "PORT",
-                  "8080"
-                ],
+                "from": "plain",
+                "to": "secrets",
+                "label": "{'PORT': '8080', 'LOG_LEVEL': 'info'}",
+                "tone": "data"
+              },
+              {
+                "from": "secrets",
+                "to": "clash",
+                "label": "{'DB_PASS': 'arn:aws:secretsmanager:ap-…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "plain"
           },
           {
             "at": "say2",
-            "caption": "Sensitive database passwords must never be stored as plain values.",
-            "rows": [
+            "caption": "Secrets are different.",
+            "messages": [
               {
-                "cells": [
-                  "PORT",
-                  "8080"
-                ],
-                "tone": "ok"
+                "from": "plain",
+                "to": "secrets",
+                "label": "{'PORT': '8080', 'LOG_LEVEL': 'info'}",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "LOG_LEVEL",
-                  "info"
-                ],
+                "from": "secrets",
+                "to": "clash",
+                "label": "{'DB_PASS': 'arn:aws:secretsmanager:ap-…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "secrets"
           },
           {
-            "at": "say3",
-            "caption": "Secrets Manager references allow ECS to fetch credentials safely.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example builds the two lists and shows the clash being caught.",
+            "messages": [
               {
-                "cells": [
-                  "PORT",
-                  "8080"
-                ],
-                "tone": "ok"
+                "from": "plain",
+                "to": "secrets",
+                "label": "{'PORT': '8080', 'LOG_LEVEL': 'info'}",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "LOG_LEVEL",
-                  "info"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "DB_PASS",
-                  "arn:aws:secretsmanager:ap-south-1:1:secret:db"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Validation functions prevent collisions between plain settings and secrets.",
-            "rows": [
-              {
-                "cells": [
-                  "PORT",
-                  "8080"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "LOG_LEVEL",
-                  "info"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "DB_PASS",
-                  "arn:aws:secretsmanager:ap-south-1:1:secret:db"
-                ],
+                "from": "secrets",
+                "to": "clash",
+                "label": "{'DB_PASS': 'arn:aws:secretsmanager:ap-…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "clash"
           }
         ]
       }
@@ -873,224 +799,106 @@
       "partTitle": "Scaling and deploying services",
       "codeHash": "f478a04c1ddae6fa039bba009278bce4f0bfe5817b52a6b187b2aa5be36c5980",
       "spec": {
-        "template": "flow",
-        "title": "Scaling and deploying services — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Scaling and deploying services",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "desired",
+            "label": "desired"
           },
           {
-            "id": "proc",
-            "label": "2. Scaling and deployi...",
-            "tappable": true
+            "id": "old",
+            "label": "old"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "new",
+            "label": "new"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Scaling and deploying services [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Scaling and deployi... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "ECS services scale like Auto Scaling groups.",
+            "currentState": "desired",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Rolling deployments replace tasks gradually.",
+            "currentState": "old",
+            "transition": {
+              "from": "desired",
+              "to": "old",
+              "label": {
+                "var": "old",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Scaling and deploying services.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Whatever the method, the goal is the same.",
+            "currentState": "new",
+            "transition": {
+              "from": "old",
+              "to": "new",
+              "label": {
+                "var": "new",
+                "line": 4,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Scaling and deploying services — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Scaling and deploying services",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "desired",
+            "label": "desired"
           },
           {
-            "id": "proc",
-            "label": "2. Scaling and deployi...",
-            "tappable": true
+            "id": "old",
+            "label": "old"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "new",
+            "label": "new"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Scaling and deploying services [D22.P5.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Scaling and deployi... [D22.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "ECS services scale like Auto Scaling groups.",
+            "currentState": "desired",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Rolling deployments replace tasks gradually.",
+            "currentState": "old",
+            "transition": {
+              "from": "desired",
+              "to": "old",
+              "label": "4"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Scaling and deploying services [D22.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Whatever the method, the goal is the same.",
+            "currentState": "new",
+            "transition": {
+              "from": "old",
+              "to": "new",
+              "label": "0"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -1100,110 +908,93 @@
       "codeHash": "6eebd9370b07a849d1db28be7d1e85b3db7143551e8e532ed5bfcf1405db37d3",
       "spec": {
         "template": "flow",
-        "title": "Practice time: size and configure — Execution Pipeline",
+        "title": "Practice time: size and configure",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "without_plus_one",
+            "label": "without_plus_one"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: size...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "with_plus_one",
+            "label": "with_plus_one"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: size and configure [D.Psix.Sone].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: size... [D.Psix.Stwo].",
+            "caption": "Write the ALLOWED dictionary once at the top.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "without_plus_one": {
+                "var": "without_plus_one",
+                "line": 1,
+                "hit": 1
+              },
+              "with_plus_one": {
+                "var": "with_plus_one",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "without_plus_one": "data",
+              "with_plus_one": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "without_plus_one",
+                "with_plus_one"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Mind the ends of each range.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "without_plus_one": {
+                "var": "without_plus_one",
+                "line": 2,
+                "hit": 1
+              },
+              "with_plus_one": {
+                "var": "with_plus_one",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "without_plus_one": "data",
+              "with_plus_one": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "without_plus_one",
+                "with_plus_one"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: size and configure.",
+            "at": "say7",
+            "caption": "The example shows the off-by-one mistake with range.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "without_plus_one": {
+                "var": "without_plus_one",
+                "line": 3,
+                "hit": 1
+              },
+              "with_plus_one": {
+                "var": "with_plus_one",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "without_plus_one": "ok",
+              "with_plus_one": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "without_plus_one",
+                "with_plus_one"
               ]
             ]
           }
@@ -1211,110 +1002,69 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: size and configure — Execution Pipeline",
+        "title": "Practice time: size and configure",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "without_plus_one",
+            "label": "without_plus_one"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: size...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "with_plus_one",
+            "label": "with_plus_one"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: size and configure [D22.P6.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: size... [D22.P6.S2].",
+            "caption": "Write the ALLOWED dictionary once at the top.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "without_plus_one": "[2048, 3072, 4096, 5120, 6144, 7168]",
+              "with_plus_one": "[2048, 3072, 4096, 5120, 6144, 7168, 81…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "without_plus_one": "data",
+              "with_plus_one": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "without_plus_one",
+                "with_plus_one"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P6.S3].",
+            "at": "say2",
+            "caption": "Mind the ends of each range.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "without_plus_one": "[2048, 3072, 4096, 5120, 6144, 7168]",
+              "with_plus_one": "[2048, 3072, 4096, 5120, 6144, 7168, 81…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "without_plus_one": "data",
+              "with_plus_one": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "without_plus_one",
+                "with_plus_one"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: size and configure [D22.P6.S4].",
+            "at": "say7",
+            "caption": "The example shows the off-by-one mistake with range.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "without_plus_one": "[2048, 3072, 4096, 5120, 6144, 7168]",
+              "with_plus_one": "[2048, 3072, 4096, 5120, 6144, 7168, 81…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "without_plus_one": "ok",
+              "with_plus_one": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "without_plus_one",
+                "with_plus_one"
               ]
             ]
           }

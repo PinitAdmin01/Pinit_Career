@@ -2,256 +2,284 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 30,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The capstone architecture",
       "codeHash": "10b65b93a005d3ff69f094f99f4e24c384c7ce79f4d2882184fa3a859ed54734",
       "spec": {
-        "template": "table",
-        "title": "End-to-end question answering pipeline architecture stages",
-        "columns": [
-          "stage",
-          "days"
+        "template": "flow",
+        "title": "The capstone architecture",
+        "nodes": [
+          {
+            "id": "stages",
+            "label": "stages"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": "stage",
+            "label": "stage"
+          },
+          {
+            "id": "days",
+            "label": "days"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The system answers user questions from documents by pointing to its sources.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "stage"
-                  },
-                  {
-                    "text": "days"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A user asks a question in plain language, and the system answers from.",
+            "values": {
+              "stages": {
+                "var": "stages",
+                "line": 1,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 4,
+                "hit": 1
+              },
+              "stage": {
+                "var": "stage",
+                "line": 4,
+                "hit": 1
+              },
+              "days": {
+                "var": "days",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "stages": "data",
+              "n": "data",
+              "stage": "data",
+              "days": "data"
+            },
+            "arrows": [
+              [
+                "stages",
+                "n"
+              ],
+              [
+                "n",
+                "stage"
+              ],
+              [
+                "stage",
+                "days"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Retrieval maps the question to candidate passages and forms a shortlist.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "stage"
-                  },
-                  {
-                    "text": "days"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Stage 1, preparation.",
+            "values": {
+              "stages": {
+                "var": "stages",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "enumerate"
-                  }
-                ],
-                "tone": "ok"
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 1
+              },
+              "stage": {
+                "var": "stage",
+                "line": 5,
+                "hit": 1
+              },
+              "days": {
+                "var": "days",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Re-ranking scores candidate passages to select the best few items.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "stage"
-                  },
-                  {
-                    "text": "days"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "enumerate"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "days"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "stages": "data",
+              "n": "data",
+              "stage": "data",
+              "days": "data"
+            },
+            "arrows": [
+              [
+                "stages",
+                "n"
+              ],
+              [
+                "n",
+                "stage"
+              ],
+              [
+                "stage",
+                "days"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example prints the pipeline architecture across each processing stage.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "stage"
-                  },
-                  {
-                    "text": "days"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example prints the pipeline with the day behind each stage.",
+            "values": {
+              "stages": {
+                "var": "stages",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "enumerate"
-                  }
-                ],
-                "tone": "ok"
+              "n": {
+                "var": "n",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "days"
-                  }
-                ],
-                "tone": "data"
+              "stage": {
+                "var": "stage",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "stage"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
+              "days": {
+                "var": "days",
+                "line": 4,
+                "hit": 2
               }
+            },
+            "tones": {
+              "stages": "ok",
+              "n": "ok",
+              "stage": "ok",
+              "days": "ok"
+            },
+            "arrows": [
+              [
+                "stages",
+                "n"
+              ],
+              [
+                "n",
+                "stage"
+              ],
+              [
+                "stage",
+                "days"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "End-to-end question answering pipeline architecture stages",
-        "columns": [
-          "stage",
-          "days"
+        "template": "flow",
+        "title": "The capstone architecture",
+        "nodes": [
+          {
+            "id": "stages",
+            "label": "stages"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": "stage",
+            "label": "stage"
+          },
+          {
+            "id": "days",
+            "label": "days"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The system answers user questions from documents by pointing to its sources.",
-            "rows": [
-              {
-                "cells": [
-                  "stage",
-                  "days"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A user asks a question in plain language, and the system answers from.",
+            "values": {
+              "stages": "[['prepare: clean, split, index', '1, 2…",
+              "n": "1",
+              "stage": "'prepare: clean, split, index'",
+              "days": "'1, 2, 4, 22'"
+            },
+            "tones": {
+              "stages": "data",
+              "n": "data",
+              "stage": "data",
+              "days": "data"
+            },
+            "arrows": [
+              [
+                "stages",
+                "n"
+              ],
+              [
+                "n",
+                "stage"
+              ],
+              [
+                "stage",
+                "days"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Retrieval maps the question to candidate passages and forms a shortlist.",
-            "rows": [
-              {
-                "cells": [
-                  "stage",
-                  "days"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "stages",
-                  "enumerate"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Re-ranking scores candidate passages to select the best few items.",
-            "rows": [
-              {
-                "cells": [
-                  "stage",
-                  "days"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "stages",
-                  "enumerate"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "stages",
-                  "days"
-                ],
-                "tone": "data"
-              }
+            "at": "say2",
+            "caption": "Stage 1, preparation.",
+            "values": {
+              "stages": "[['prepare: clean, split, index', '1, 2…",
+              "n": "1",
+              "stage": "'prepare: clean, split, index'",
+              "days": "'1, 2, 4, 22'"
+            },
+            "tones": {
+              "stages": "data",
+              "n": "data",
+              "stage": "data",
+              "days": "data"
+            },
+            "arrows": [
+              [
+                "stages",
+                "n"
+              ],
+              [
+                "n",
+                "stage"
+              ],
+              [
+                "stage",
+                "days"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example prints the pipeline architecture across each processing stage.",
-            "rows": [
-              {
-                "cells": [
-                  "stage",
-                  "days"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "stages",
-                  "enumerate"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "stages",
-                  "days"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "stage",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The example prints the pipeline with the day behind each stage.",
+            "values": {
+              "stages": "[['prepare: clean, split, index', '1, 2…",
+              "n": "2",
+              "stage": "'retrieve: shortlist passages'",
+              "days": "'5, 6, 26'"
+            },
+            "tones": {
+              "stages": "ok",
+              "n": "ok",
+              "stage": "ok",
+              "days": "ok"
+            },
+            "arrows": [
+              [
+                "stages",
+                "n"
+              ],
+              [
+                "n",
+                "stage"
+              ],
+              [
+                "stage",
+                "days"
+              ]
             ]
           }
         ]
@@ -261,143 +289,104 @@
       "partTitle": "Preparing passages",
       "codeHash": "1451aaa3944d3da6061168ec1780b5fcdd59facbe33fb956182dd8afb1b614d6",
       "spec": {
-        "template": "table",
-        "title": "Passage chunking sliding windows and boundary metadata",
-        "columns": [
-          "chunks",
-          "words"
-        ],
+        "template": "bars",
+        "title": "Preparing passages",
         "steps": [
           {
             "at": "say1",
-            "caption": "Long documents split into passages small enough for model retrieval.",
-            "rows": [
+            "caption": "Long documents must be split into passages (chunks) small enough.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
-                "tone": "ok"
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Window overlap prevents boundary answers from being cut in half.",
-            "rows": [
+            "caption": "A common approach.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "size"
-                  },
-                  {
-                    "text": "overlap"
-                  }
-                ],
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Preserving position metadata enables generated answers to cite their source.",
-            "rows": [
+            "at": "say7",
+            "caption": "Getting chunking right often improves a RAG system more than changing.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "size"
-                  },
-                  {
-                    "text": "overlap"
-                  }
-                ],
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example splits document text into overlapping windows with positions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "size"
-                  },
-                  {
-                    "text": "overlap"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -405,103 +394,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Passage chunking sliding windows and boundary metadata",
-        "columns": [
-          "chunks",
-          "words"
-        ],
+        "template": "bars",
+        "title": "Preparing passages",
         "steps": [
           {
             "at": "say1",
-            "caption": "Long documents split into passages small enough for model retrieval.",
-            "rows": [
+            "caption": "Long documents must be split into passages (chunks) small enough.",
+            "bars": [
               {
-                "cells": [
-                  "chunks",
-                  "words"
-                ],
-                "tone": "ok"
+                "label": "size",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "overlap",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "start",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Window overlap prevents boundary answers from being cut in half.",
-            "rows": [
+            "caption": "A common approach.",
+            "bars": [
               {
-                "cells": [
-                  "chunks",
-                  "words"
-                ],
+                "label": "size",
+                "value": 10,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "size",
-                  "overlap"
-                ],
+                "label": "overlap",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "start",
+                "value": 0,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Preserving position metadata enables generated answers to cite their source.",
-            "rows": [
+            "at": "say7",
+            "caption": "Getting chunking right often improves a RAG system more than changing.",
+            "bars": [
               {
-                "cells": [
-                  "chunks",
-                  "words"
-                ],
+                "label": "size",
+                "value": 10,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "size",
-                  "overlap"
-                ],
+                "label": "overlap",
+                "value": 3,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "start",
-                  "range"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example splits document text into overlapping windows with positions.",
-            "rows": [
-              {
-                "cells": [
-                  "chunks",
-                  "words"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "size",
-                  "overlap"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "start",
-                  "range"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "text",
-                  "print"
-                ],
+                "label": "start",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -513,143 +467,131 @@
       "partTitle": "Retrieving passages",
       "codeHash": "3aa61abfb351a4ebd1972c479163a4d61aa52f95ac9270efb397dd19c24be9de",
       "spec": {
-        "template": "table",
-        "title": "Passage similarity matching and vocabulary cosine filtering",
-        "columns": [
-          "passages",
-          "STOP"
-        ],
+        "template": "bars",
+        "title": "Retrieving passages",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Practice 1 is retrieve(question, passages, stopwords, k).",
+            "bars": [
+              {
+                "label": "dot",
+                "value": {
+                  "var": "dot",
+                  "line": 8,
+                  "hit": 4
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "na",
+                "value": {
+                  "var": "na",
+                  "line": 9,
+                  "hit": 10
+                },
+                "tone": "data"
+              },
+              {
+                "label": "nb",
+                "value": {
+                  "var": "nb",
+                  "line": 9,
+                  "hit": 10
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Tokenise each passage and score candidates using cosine similarity.",
-            "rows": [
+            "caption": "Tokenise the question and each passage (lowercase, keep letters, digits.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "passages"
-                  },
-                  {
-                    "text": "STOP"
-                  }
-                ],
+                "label": "dot",
+                "value": {
+                  "var": "dot",
+                  "line": 9,
+                  "hit": 10
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "na",
+                "value": {
+                  "var": "na",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "nb",
+                "value": {
+                  "var": "nb",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Sparse retrieval structures evaluate text using token count vectors.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example retrieves passages for two questions from a tiny collection.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "passages"
-                  },
-                  {
-                    "text": "STOP"
-                  }
-                ],
+                "label": "dot",
+                "value": {
+                  "var": "dot",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "vec"
-                  },
-                  {
-                    "text": "cos"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Word counts and dot product operations compute shared dictionary cosine terms.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "passages"
-                  },
-                  {
-                    "text": "STOP"
-                  }
-                ],
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 9,
+                  "hit": 3
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "vec"
-                  },
-                  {
-                    "text": "cos"
-                  }
-                ],
+                "label": "na",
+                "value": {
+                  "var": "na",
+                  "line": 9,
+                  "hit": 18
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "Counter"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Returning nothing when no words match avoids answering from irrelevant text.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "passages"
-                  },
-                  {
-                    "text": "STOP"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "vec"
-                  },
-                  {
-                    "text": "cos"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "Counter"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "dot"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
+                "label": "nb",
+                "value": {
+                  "var": "nb",
+                  "line": 9,
+                  "hit": 18
+                },
                 "tone": "ok"
               }
             ]
@@ -657,103 +599,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Passage similarity matching and vocabulary cosine filtering",
-        "columns": [
-          "passages",
-          "STOP"
-        ],
+        "template": "bars",
+        "title": "Retrieving passages",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Practice 1 is retrieve(question, passages, stopwords, k).",
+            "bars": [
+              {
+                "label": "dot",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "na",
+                "value": 1.4142135623730951,
+                "tone": "data"
+              },
+              {
+                "label": "nb",
+                "value": 2.23606797749979,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Tokenise each passage and score candidates using cosine similarity.",
-            "rows": [
+            "caption": "Tokenise the question and each passage (lowercase, keep letters, digits.",
+            "bars": [
               {
-                "cells": [
-                  "passages",
-                  "STOP"
-                ],
+                "label": "dot",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "na",
+                "value": 1.4142135623730951,
+                "tone": "ok"
+              },
+              {
+                "label": "nb",
+                "value": 2.23606797749979,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Sparse retrieval structures evaluate text using token count vectors.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example retrieves passages for two questions from a tiny collection.",
+            "bars": [
               {
-                "cells": [
-                  "passages",
-                  "STOP"
-                ],
+                "label": "dot",
+                "value": 2,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "vec",
-                  "cos"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Word counts and dot product operations compute shared dictionary cosine terms.",
-            "rows": [
-              {
-                "cells": [
-                  "passages",
-                  "STOP"
-                ],
+                "label": "v",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "vec",
-                  "cos"
-                ],
+                "label": "na",
+                "value": 1.4142135623730951,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "math",
-                  "Counter"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Returning nothing when no words match avoids answering from irrelevant text.",
-            "rows": [
-              {
-                "cells": [
-                  "passages",
-                  "STOP"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "vec",
-                  "cos"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "Counter"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "dot",
-                  "text"
-                ],
+                "label": "nb",
+                "value": 1.7320508075688772,
                 "tone": "ok"
               }
             ]
@@ -765,249 +687,277 @@
       "partTitle": "Answering and grounding",
       "codeHash": "ccc501a1b3b8f427db0d1c6dfc7397e9b31d62f7dd7ed48380be985633af9c27",
       "spec": {
-        "template": "table",
-        "title": "Context prompt synthesis and factual grounding verification",
-        "columns": [
-          "passages",
-          "question"
+        "template": "flow",
+        "title": "Answering and grounding",
+        "nodes": [
+          {
+            "id": "passages",
+            "label": "passages"
+          },
+          {
+            "id": "question",
+            "label": "question"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "p",
+            "label": "p"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Retrieved passages provide the factual foundation to answer questions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "passages"
-                  },
-                  {
-                    "text": "question"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "With the best passages in hand, there are two ways to answer.",
+            "values": {
+              "passages": {
+                "var": "passages",
+                "line": 1,
+                "hit": 1
+              },
+              "question": {
+                "var": "question",
+                "line": 2,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 3,
+                "hit": 1
+              },
+              "p": {
+                "var": "p",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "passages": "data",
+              "question": "data",
+              "i": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "passages",
+                "question"
+              ],
+              [
+                "question",
+                "i"
+              ],
+              [
+                "i",
+                "p"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Extractive methods copy spans from the source to guarantee faithful answers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "passages"
-                  },
-                  {
-                    "text": "question"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Answers are always copied from the source, so they are faithful.",
+            "values": {
+              "passages": {
+                "var": "passages",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "join"
-                  }
-                ],
-                "tone": "ok"
+              "question": {
+                "var": "question",
+                "line": 3,
+                "hit": 4
+              },
+              "i": {
+                "var": "i",
+                "line": 3,
+                "hit": 2
+              },
+              "p": {
+                "var": "p",
+                "line": 3,
+                "hit": 2
               }
+            },
+            "tones": {
+              "passages": "data",
+              "question": "data",
+              "i": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "passages",
+                "question"
+              ],
+              [
+                "question",
+                "i"
+              ],
+              [
+                "i",
+                "p"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Grounding checks compare generated answer tokens with the source passages.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "passages"
-                  },
-                  {
-                    "text": "question"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example builds a grounded prompt and runs a simple word-overlap.",
+            "values": {
+              "passages": {
+                "var": "passages",
+                "line": 3,
+                "hit": 4
               },
-              {
-                "cells": [
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "join"
-                  }
-                ],
-                "tone": "ok"
+              "question": {
+                "var": "question",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "enumerate"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "data"
+              "i": {
+                "var": "i",
+                "line": 3,
+                "hit": 3
+              },
+              "p": {
+                "var": "p",
+                "line": 3,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Displaying retrieved sources allows users to verify important answers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "passages"
-                  },
-                  {
-                    "text": "question"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "join"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "enumerate"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "passages"
-                  },
-                  {
-                    "text": "prompt"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "passages": "ok",
+              "question": "ok",
+              "i": "ok",
+              "p": "ok"
+            },
+            "arrows": [
+              [
+                "passages",
+                "question"
+              ],
+              [
+                "question",
+                "i"
+              ],
+              [
+                "i",
+                "p"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Context prompt synthesis and factual grounding verification",
-        "columns": [
-          "passages",
-          "question"
+        "template": "flow",
+        "title": "Answering and grounding",
+        "nodes": [
+          {
+            "id": "passages",
+            "label": "passages"
+          },
+          {
+            "id": "question",
+            "label": "question"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "p",
+            "label": "p"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Retrieved passages provide the factual foundation to answer questions.",
-            "rows": [
-              {
-                "cells": [
-                  "passages",
-                  "question"
-                ],
-                "tone": "ok"
-              }
+            "caption": "With the best passages in hand, there are two ways to answer.",
+            "values": {
+              "passages": "['Mount Everest is the highest mountain…",
+              "question": "'Where is Everest base camp?'",
+              "i": "0",
+              "p": "'Mount Everest is the highest mountain …"
+            },
+            "tones": {
+              "passages": "data",
+              "question": "data",
+              "i": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "passages",
+                "question"
+              ],
+              [
+                "question",
+                "i"
+              ],
+              [
+                "i",
+                "p"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Extractive methods copy spans from the source to guarantee faithful answers.",
-            "rows": [
-              {
-                "cells": [
-                  "passages",
-                  "question"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "prompt",
-                  "join"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Answers are always copied from the source, so they are faithful.",
+            "values": {
+              "passages": "['Mount Everest is the highest mountain…",
+              "question": "'Where is Everest base camp?'",
+              "i": "1",
+              "p": "'Everest base camp is in Nepal.'"
+            },
+            "tones": {
+              "passages": "data",
+              "question": "data",
+              "i": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "passages",
+                "question"
+              ],
+              [
+                "question",
+                "i"
+              ],
+              [
+                "i",
+                "p"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Grounding checks compare generated answer tokens with the source passages.",
-            "rows": [
-              {
-                "cells": [
-                  "passages",
-                  "question"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "prompt",
-                  "join"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "enumerate",
-                  "print"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Displaying retrieved sources allows users to verify important answers.",
-            "rows": [
-              {
-                "cells": [
-                  "passages",
-                  "question"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "prompt",
-                  "join"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "enumerate",
-                  "print"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "passages",
-                  "prompt"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example builds a grounded prompt and runs a simple word-overlap.",
+            "values": {
+              "passages": "['Mount Everest is the highest mountain…",
+              "question": "'Where is Everest base camp?'",
+              "i": "1",
+              "p": "'Everest base camp is in Nepal.'"
+            },
+            "tones": {
+              "passages": "ok",
+              "question": "ok",
+              "i": "ok",
+              "p": "ok"
+            },
+            "arrows": [
+              [
+                "passages",
+                "question"
+              ],
+              [
+                "question",
+                "i"
+              ],
+              [
+                "i",
+                "p"
+              ]
             ]
           }
         ]
@@ -1017,223 +967,133 @@
       "partTitle": "Evaluating and auditing the system",
       "codeHash": "e6e6f369e8372bfc282eeb8a813e6293a11ca19025e7fb69b3c0c076af555f41",
       "spec": {
-        "template": "flow",
-        "title": "Evaluating and auditing the system — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Evaluating and audi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Evaluating and auditing the system",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Evaluating and auditing the system.",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Evaluating and audi... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A system with several stages needs measurements at each stage, or you.",
+            "bars": [
+              {
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "average",
+                "value": {
+                  "var": "average",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Recall at k (is a relevant passage in the top k.",
+            "bars": [
+              {
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "average",
+                "value": {
+                  "var": "average",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Evaluating and auditing the system.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example prints a small evaluation report for a pipeline.",
+            "bars": [
+              {
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "average",
+                "value": {
+                  "var": "average",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Evaluating and auditing the system — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Evaluating and audi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Evaluating and auditing the system",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Evaluating and auditing the system [D30.P5.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Evaluating and audi... [D30.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A system with several stages needs measurements at each stage, or you.",
+            "bars": [
+              {
+                "label": "score",
+                "value": 88,
+                "tone": "data"
+              },
+              {
+                "label": "average",
+                "value": 80.2,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Recall at k (is a relevant passage in the top k.",
+            "bars": [
+              {
+                "label": "score",
+                "value": 88,
+                "tone": "ok"
+              },
+              {
+                "label": "average",
+                "value": 80.2,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Evaluating and auditing the system [D30.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example prints a small evaluation report for a pipeline.",
+            "bars": [
+              {
+                "label": "score",
+                "value": 74,
+                "tone": "ok"
+              },
+              {
+                "label": "average",
+                "value": 80.2,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -1244,110 +1104,93 @@
       "codeHash": "798be0d826cfb48d1ed64c1301e3d734208bc69baff26c1bebc2c426c1264650",
       "spec": {
         "template": "flow",
-        "title": "Capstone practice and what comes next — Execution Pipeline",
+        "title": "Capstone practice and what comes next",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "milestones",
+            "label": "milestones"
           },
           {
-            "id": "proc",
-            "label": "2. Capstone practice a...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "day",
+            "label": "day"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Capstone practice and what comes next.",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Capstone practice a... [D.Psix.Stwo].",
+            "caption": "Retrieve(question, passages, stopwords, k).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "milestones": {
+                "var": "milestones",
+                "line": 1,
+                "hit": 2
+              },
+              "day": {
+                "var": "day",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "milestones": "data",
+              "day": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "milestones",
+                "day"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "The checks ask about the highest mountain (one passage), Everest in Nepal.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "milestones": {
+                "var": "milestones",
+                "line": 3,
+                "hit": 1
+              },
+              "day": {
+                "var": "day",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "milestones": "data",
+              "day": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "milestones",
+                "day"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Capstone practice and what comes .",
+            "at": "say7",
+            "caption": "The example prints the path you travelled through the course milestones.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "milestones": {
+                "var": "milestones",
+                "line": 4,
+                "hit": 1
+              },
+              "day": {
+                "var": "day",
+                "line": 3,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "milestones": "ok",
+              "day": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "milestones",
+                "day"
               ]
             ]
           }
@@ -1355,110 +1198,69 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Capstone practice and what comes next — Execution Pipeline",
+        "title": "Capstone practice and what comes next",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "milestones",
+            "label": "milestones"
           },
           {
-            "id": "proc",
-            "label": "2. Capstone practice a...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "day",
+            "label": "day"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Capstone practice and what comes next [D30.P6.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Capstone practice a... [D30.P6.S2].",
+            "caption": "Retrieve(question, passages, stopwords, k).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "milestones": "{5: 'TF-IDF search engine', 15: 'embedd…",
+              "day": "5"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "milestones": "data",
+              "day": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "milestones",
+                "day"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P6.S3].",
+            "at": "say2",
+            "caption": "The checks ask about the highest mountain (one passage), Everest in Nepal.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "milestones": "{5: 'TF-IDF search engine', 15: 'embedd…",
+              "day": "5"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "milestones": "data",
+              "day": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "milestones",
+                "day"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Capstone practice and what comes .. [D30.P6.S4].",
+            "at": "say7",
+            "caption": "The example prints the path you travelled through the course milestones.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "milestones": "{5: 'TF-IDF search engine', 15: 'embedd…",
+              "day": "15"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "milestones": "ok",
+              "day": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "milestones",
+                "day"
               ]
             ]
           }

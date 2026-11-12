@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 44,
-  "promptSha": "51884fceb2ed651af789bc19d5bb59b677968944be6a8b1c3405bd3f1007c72f",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Speculative Decoding — Foundations & Mathematical Invariants",
-      "codeHash": "30f5ce670da349d7eb367b17184698043e0117df8434d3cbf602fcf046049562",
+      "partTitle": "Why Autoregressive Decoding Is Memory-Bandwidth Bound",
+      "codeHash": "9f8cb839e163e9e622a836d9cf03b1f158d35e6f59b604ab4b047d4edd238a9a",
       "spec": {
-        "template": "flow",
-        "title": "Speculative Decoding — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Why Autoregressive Decoding Is Memory-Bandwidth Bound",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "During single-user autoregressive decoding on a 70B-parameter model (~140.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "weight_gb",
+                "value": {
+                  "var": "weight_gb",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "hbm_gb_per_s",
+                "value": {
+                  "var": "hbm_gb_per_s",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "gamma",
+                "value": {
+                  "var": "gamma",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "draft_ms_total",
+                "value": {
+                  "var": "draft_ms_total",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Because streaming 140 GB across the memory bus stays nearly constant.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "weight_gb",
+                "value": {
+                  "var": "weight_gb",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "hbm_gb_per_s",
+                "value": {
+                  "var": "hbm_gb_per_s",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "gamma",
+                "value": {
+                  "var": "gamma",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "draft_ms_total",
+                "value": {
+                  "var": "draft_ms_total",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Study step_cost_comparison() calculating HBM transfer duration on 140GB.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "weight_gb",
+                "value": {
+                  "var": "weight_gb",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "label": "hbm_gb_per_s",
+                "value": {
+                  "var": "hbm_gb_per_s",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+                "label": "gamma",
+                "value": {
+                  "var": "gamma",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "draft_ms_total",
+                "value": {
+                  "var": "draft_ms_total",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Speculative Decoding — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Why Autoregressive Decoding Is Memory-Bandwidth Bound",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "During single-user autoregressive decoding on a 70B-parameter model (~140.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "weight_gb",
+                "value": 140,
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "hbm_gb_per_s",
+                "value": 3350,
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "gamma",
+                "value": 5,
+                "tone": "data"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "draft_ms_total",
+                "value": 6,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Because streaming 140 GB across the memory bus stays nearly constant.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "weight_gb",
+                "value": 140,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "hbm_gb_per_s",
+                "value": 3350,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "gamma",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "draft_ms_total",
+                "value": 6,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Study step_cost_comparison() calculating HBM transfer duration on 140GB.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "weight_gb",
+                "value": 140,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "label": "hbm_gb_per_s",
+                "value": 3350,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+                "label": "gamma",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "draft_ms_total",
+                "value": 6,
+                "tone": "ok"
               }
             ]
           }
@@ -272,1064 +226,836 @@
       }
     },
     {
-      "partTitle": "Speculative Decoding — Core Algorithm & State Representation",
-      "codeHash": "0550a4c611510419cd5f41b7b686c3ca9f99d0403b40d2c527a888586327a2f9",
+      "partTitle": "Parallel Draft Generation and Longest Accepted Prefix Matching",
+      "codeHash": "91b1588ac9321d5a2b6b62d8ce4851bdfdec931b041830d2f244472012dbd4cc",
       "spec": {
-        "template": "flow",
-        "title": "Speculative Decoding — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Parallel Draft Generation and Longest Accepted Prefix Matching",
+        "actors": [
+          "draft_tokens",
+          "accept_flags",
+          "target_correction"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Once Draft generates a speculative lookahead sequence `[t1, t2, t3, t4.",
+            "activeActor": "draft_tokens",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "draft_tokens",
+                "to": "accept_flags",
+                "label": {
+                  "var": "draft_tokens",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "accept_flags",
+                "to": "target_correction",
+                "label": {
+                  "var": "accept_flags",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Walk strictly left to right checking each draft prediction against Target.",
+            "activeActor": "accept_flags",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "draft_tokens",
+                "to": "accept_flags",
+                "label": {
+                  "var": "draft_tokens",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "accept_flags",
+                "to": "target_correction",
+                "label": {
+                  "var": "accept_flags",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Trace verify_prefix() demonstrating both mid-sequence prefix recovery.",
+            "activeActor": "target_correction",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "draft_tokens",
+                "to": "accept_flags",
+                "label": {
+                  "var": "draft_tokens",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "accept_flags",
+                "to": "target_correction",
+                "label": {
+                  "var": "accept_flags",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Speculative Decoding — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Parallel Draft Generation and Longest Accepted Prefix Matching",
+        "actors": [
+          "draft_tokens",
+          "accept_flags",
+          "target_correction"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Once Draft generates a speculative lookahead sequence `[t1, t2, t3, t4.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "draft_tokens",
+                "to": "accept_flags",
+                "label": "['the', 'SQL', 'plan', 'is', 'fast']",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "accept_flags",
+                "to": "target_correction",
+                "label": "[True, True, False, True, True]",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "draft_tokens"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Walk strictly left to right checking each draft prediction against Target.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "draft_tokens",
+                "to": "accept_flags",
+                "label": "['the', 'SQL', 'plan', 'is', 'fast']",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "accept_flags",
+                "to": "target_correction",
+                "label": "[True, True, False, True, True]",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "accept_flags"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Trace verify_prefix() demonstrating both mid-sequence prefix recovery.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "draft_tokens",
+                "to": "accept_flags",
+                "label": "['the', 'SQL', 'plan', 'is', 'fast']",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "accept_flags",
+                "to": "target_correction",
+                "label": "[True, True, False, True, True]",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "target_correction"
           }
         ]
       }
     },
     {
-      "partTitle": "Speculative Decoding — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "f6c7974500fbfd9b649de1ab928739d1b7dc055f9af9a32d55efd2fe52752eb2",
+      "partTitle": "Lossless Speculative Rejection Sampling Math",
+      "codeHash": "8b86d92759ea66533476390b166fb9eb4bccf1d09a76b11b6b9e62de1c786812",
       "spec": {
-        "template": "flow",
-        "title": "Speculative Decoding — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "boxes",
+        "title": "Lossless Speculative Rejection Sampling Math",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "q",
+            "label": "q"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "p_target",
+            "label": "p_target"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "q_draft",
+            "label": "q_draft"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "at": "say1",
+            "caption": "The theoretical centerpiece of speculative decoding is its strict.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "q": {
+                "var": "q",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "p_target": {
+                "var": "p_target",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "q_draft": {
+                "var": "q_draft",
+                "line": 2,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "p": "data",
+              "q": "data",
+              "p_target": "data",
+              "q_draft": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "For candidate draft token `x` sampled from Draft probability `q(x)`.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "q": {
+                "var": "q",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "p_target": {
+                "var": "p_target",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "q_draft": {
+                "var": "q_draft",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "p": "data",
+              "q": "data",
+              "p_target": "data",
+              "q_draft": "data"
+            }
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "caption": "Inspect acceptance_prob() and residual_probs() calculating exact recovery.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "q": {
+                "var": "q",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "p_target": {
+                "var": "p_target",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "q_draft": {
+                "var": "q_draft",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "p": "ok",
+              "q": "ok",
+              "p_target": "ok",
+              "q_draft": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Speculative Decoding — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "boxes",
+        "title": "Lossless Speculative Rejection Sampling Math",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "q",
+            "label": "q"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "p_target",
+            "label": "p_target"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "q_draft",
+            "label": "q_draft"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "The theoretical centerpiece of speculative decoding is its strict.",
+            "values": {
+              "p": "{'use': 0.6, 'avoid': 0.3, 'drop': 0.1}",
+              "q": "{'use': 0.4, 'avoid': 0.5, 'drop': 0.1}",
+              "p_target": "0.3",
+              "q_draft": "0.5"
+            },
+            "tones": {
+              "p": "data",
+              "q": "data",
+              "p_target": "data",
+              "q_draft": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say2",
+            "caption": "For candidate draft token `x` sampled from Draft probability `q(x)`.",
+            "values": {
+              "p": "{'use': 0.6, 'avoid': 0.3, 'drop': 0.1}",
+              "q": "{'use': 0.4, 'avoid': 0.5, 'drop': 0.1}",
+              "p_target": "0.3",
+              "q_draft": "0.5"
+            },
+            "tones": {
+              "p": "data",
+              "q": "data",
+              "p_target": "data",
+              "q_draft": "data"
+            }
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "Inspect acceptance_prob() and residual_probs() calculating exact recovery.",
+            "values": {
+              "p": "{'use': 0.6, 'avoid': 0.3, 'drop': 0.1}",
+              "q": "{'use': 0.4, 'avoid': 0.5, 'drop': 0.1}",
+              "p_target": "0.3",
+              "q_draft": "0.5"
+            },
+            "tones": {
+              "p": "ok",
+              "q": "ok",
+              "p_target": "ok",
+              "q_draft": "ok"
+            }
           }
         ]
       }
     },
     {
-      "partTitle": "Speculative Decoding — Resilience Guardrails & Failure Recovery",
-      "codeHash": "b446b0f76732a91cdb95de1648d8b7a226cd26966a295316530eee7d0261f081",
+      "partTitle": "Expected Tokens Per Pass From Average Acceptance Rate Alpha",
+      "codeHash": "93cf9f8c9b5fe599ec5da4dd0d5c9237c6e3fdd168371bf98c48184f3e2d89d3",
       "spec": {
-        "template": "flow",
-        "title": "Speculative Decoding — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "boxes",
+        "title": "Expected Tokens Per Pass From Average Acceptance Rate Alpha",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "domain",
+            "label": "domain"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "alpha",
+            "label": "alpha"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "gamma",
+            "label": "gamma"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "yields",
+            "label": "yields"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "at": "say1",
+            "caption": "Speculative speedups vary sharply across domains depending cleanly.",
+            "values": {
+              "domain": {
+                "var": "domain",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "alpha": {
+                "var": "alpha",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "gamma": {
+                "var": "gamma",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "yields": {
+                "var": "yields",
+                "line": 7,
+                "hit": 4
               }
-            ]
+            },
+            "tones": {
+              "domain": "data",
+              "alpha": "data",
+              "gamma": "data",
+              "yields": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "With per-token acceptance probability `alpha` across `gamma` guesses plus.",
+            "values": {
+              "domain": {
+                "var": "domain",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "alpha": {
+                "var": "alpha",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "gamma": {
+                "var": "gamma",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "yields": {
+                "var": "yields",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "domain": "data",
+              "alpha": "data",
+              "gamma": "data",
+              "yields": "data"
+            }
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "caption": "Compare creative prose, RAG summaries, and Python code across horizons.",
+            "values": {
+              "domain": {
+                "var": "domain",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "alpha": {
+                "var": "alpha",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "gamma": {
+                "var": "gamma",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "yields": {
+                "var": "yields",
+                "line": 6,
+                "hit": 2
               }
-            ]
+            },
+            "tones": {
+              "domain": "ok",
+              "alpha": "ok",
+              "gamma": "ok",
+              "yields": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Speculative Decoding — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "boxes",
+        "title": "Expected Tokens Per Pass From Average Acceptance Rate Alpha",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "domain",
+            "label": "domain"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "alpha",
+            "label": "alpha"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "gamma",
+            "label": "gamma"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "yields",
+            "label": "yields"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Speculative speedups vary sharply across domains depending cleanly.",
+            "values": {
+              "domain": "'creative_prose'",
+              "alpha": "0.45",
+              "gamma": "2",
+              "yields": "{2: 1.65, 4: 1.78, 6: 1.81}"
+            },
+            "tones": {
+              "domain": "data",
+              "alpha": "data",
+              "gamma": "data",
+              "yields": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say2",
+            "caption": "With per-token acceptance probability `alpha` across `gamma` guesses plus.",
+            "values": {
+              "domain": "'creative_prose'",
+              "alpha": "0.45",
+              "gamma": "2",
+              "yields": "{2: 1.65, 4: 1.78, 6: 1.81}"
+            },
+            "tones": {
+              "domain": "data",
+              "alpha": "data",
+              "gamma": "data",
+              "yields": "data"
+            }
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "Compare creative prose, RAG summaries, and Python code across horizons.",
+            "values": {
+              "domain": "'creative_prose'",
+              "alpha": "0.45",
+              "gamma": "4",
+              "yields": "{2: 1.65, 4: 1.78, 6: 1.81}"
+            },
+            "tones": {
+              "domain": "ok",
+              "alpha": "ok",
+              "gamma": "ok",
+              "yields": "ok"
+            }
           }
         ]
       }
     },
     {
-      "partTitle": "Speculative Decoding — Production Telemetry & Verification Audit",
-      "codeHash": "3ed58892355d7647ec565dc72c558826ae8f391f8f5f665931d80311c34cbc09",
+      "partTitle": "Dynamic Gamma Window Adaptation on Live Traffic",
+      "codeHash": "cd88dd6a17711502189eab1224ffff16cea96275e2193a2f5241b2c0765c88a8",
       "spec": {
         "template": "flow",
-        "title": "Speculative Decoding — Production Telemetry & Verification Audit",
+        "title": "Dynamic Gamma Window Adaptation on Live Traffic",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "g",
+            "label": "g"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "step_hits",
+            "label": "step_hits"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "current_gamma",
+            "label": "current_gamma"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "accepted_hits",
+            "label": "accepted_hits"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Locking `gamma = 6` across mixed traffic wastes draft latency whenever.",
+            "values": {
+              "g": {
+                "var": "g",
+                "line": 8,
+                "hit": 1
+              },
+              "step_hits": {
+                "var": "step_hits",
+                "line": 9,
+                "hit": 1
+              },
+              "current_gamma": {
+                "var": "current_gamma",
+                "line": 2,
+                "hit": 1
+              },
+              "accepted_hits": {
+                "var": "accepted_hits",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "g": "data",
+              "step_hits": "data",
+              "current_gamma": "data",
+              "accepted_hits": "data"
+            },
+            "arrows": [
+              [
+                "g",
+                "step_hits"
+              ],
+              [
+                "step_hits",
+                "current_gamma"
+              ],
+              [
+                "current_gamma",
+                "accepted_hits"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Conversely, locking small `gamma = 2` caps peak throughput cleanly.",
+            "values": {
+              "g": {
+                "var": "g",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "step_hits": {
+                "var": "step_hits",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "current_gamma": {
+                "var": "current_gamma",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "accepted_hits": {
+                "var": "accepted_hits",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "g": "data",
+              "step_hits": "data",
+              "current_gamma": "data",
+              "accepted_hits": "data"
+            },
+            "arrows": [
+              [
+                "g",
+                "step_hits"
+              ],
+              [
+                "step_hits",
+                "current_gamma"
+              ],
+              [
+                "current_gamma",
+                "accepted_hits"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Watch adapt_gamma() track rising code agreement cleanly before snapping.",
+            "values": {
+              "g": {
+                "var": "g",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "step_hits": {
+                "var": "step_hits",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "current_gamma": {
+                "var": "current_gamma",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "accepted_hits": {
+                "var": "accepted_hits",
+                "line": 2,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "g": "ok",
+              "step_hits": "ok",
+              "current_gamma": "ok",
+              "accepted_hits": "ok"
+            },
+            "arrows": [
+              [
+                "g",
+                "step_hits"
+              ],
+              [
+                "step_hits",
+                "current_gamma"
+              ],
+              [
+                "current_gamma",
+                "accepted_hits"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Speculative Decoding — Production Telemetry & Verification Audit",
+        "title": "Dynamic Gamma Window Adaptation on Live Traffic",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "g",
+            "label": "g"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "step_hits",
+            "label": "step_hits"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "current_gamma",
+            "label": "current_gamma"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "accepted_hits",
+            "label": "accepted_hits"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Locking `gamma = 6` across mixed traffic wastes draft latency whenever.",
+            "values": {
+              "g": "4",
+              "step_hits": "4",
+              "current_gamma": "4",
+              "accepted_hits": "4"
+            },
+            "tones": {
+              "g": "data",
+              "step_hits": "data",
+              "current_gamma": "data",
+              "accepted_hits": "data"
+            },
+            "arrows": [
+              [
+                "g",
+                "step_hits"
+              ],
+              [
+                "step_hits",
+                "current_gamma"
+              ],
+              [
+                "current_gamma",
+                "accepted_hits"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Conversely, locking small `gamma = 2` caps peak throughput cleanly.",
+            "values": {
+              "g": "4",
+              "step_hits": "4",
+              "current_gamma": "4",
+              "accepted_hits": "4"
+            },
+            "tones": {
+              "g": "data",
+              "step_hits": "data",
+              "current_gamma": "data",
+              "accepted_hits": "data"
+            },
+            "arrows": [
+              [
+                "g",
+                "step_hits"
+              ],
+              [
+                "step_hits",
+                "current_gamma"
+              ],
+              [
+                "current_gamma",
+                "accepted_hits"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say7",
+            "caption": "Watch adapt_gamma() track rising code agreement cleanly before snapping.",
+            "values": {
+              "g": "4",
+              "step_hits": "4",
+              "current_gamma": "5",
+              "accepted_hits": "5"
+            },
+            "tones": {
+              "g": "ok",
+              "step_hits": "ok",
+              "current_gamma": "ok",
+              "accepted_hits": "ok"
+            },
+            "arrows": [
+              [
+                "g",
+                "step_hits"
+              ],
+              [
+                "step_hits",
+                "current_gamma"
+              ],
+              [
+                "current_gamma",
+                "accepted_hits"
+              ]
             ]
           }
         ]

@@ -2,85 +2,111 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 18,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Failures at scale",
       "codeHash": "bfa9558176b16ef504ec774fb81d748457bdb00dc2a7b3b90aeedfd5ec0ed51c",
       "spec": {
-        "template": "table",
-        "title": "Cluster hardware failures and mean time between interruptions",
-        "columns": [
-          "gpus",
-          "cluster_mtbf",
-          "gpu_mtbf_hours"
-        ],
+        "template": "bars",
+        "title": "Failures at scale",
         "steps": [
           {
             "at": "say1",
-            "caption": "Every GPU server cable and switch has a small chance of failing on any day.",
-            "rows": [
+            "caption": "Every GPU, server, cable and switch has a small chance of failing on any.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "cluster_mtbf"
-                  },
-                  {
-                    "text": "gpu_mtbf_hours"
-                  }
-                ],
-                "tone": "ok"
+                "label": "gpu_mtbf_hours",
+                "value": {
+                  "var": "gpu_mtbf_hours",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "cluster_mtbf"
-                  },
-                  {
-                    "text": "gpu_mtbf_hours"
-                  }
-                ],
+                "label": "gpus",
+                "value": {
+                  "var": "gpus",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cluster_mtbf",
+                "value": {
+                  "var": "cluster_mtbf",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "If one rank fails in a synchronous job the whole job stops.",
-            "rows": [
+            "at": "say2",
+            "caption": "With thousands of GPUs, small chances add up.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "cluster_mtbf"
-                  },
-                  {
-                    "text": "gpu_mtbf_hours"
-                  }
-                ],
-                "tone": "data"
+                "label": "gpu_mtbf_hours",
+                "value": {
+                  "var": "gpu_mtbf_hours",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "gpus"
-                  },
-                  {
-                    "text": "cluster_mtbf"
-                  },
-                  {
-                    "text": "gpus"
-                  }
-                ],
+                "label": "gpus",
+                "value": {
+                  "var": "gpus",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cluster_mtbf",
+                "value": {
+                  "var": "cluster_mtbf",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Good tooling turns failures into short pauses rather than lost days.",
+            "bars": [
+              {
+                "label": "gpu_mtbf_hours",
+                "value": {
+                  "var": "gpu_mtbf_hours",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "gpus",
+                "value": {
+                  "var": "gpus",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cluster_mtbf",
+                "value": {
+                  "var": "cluster_mtbf",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -88,54 +114,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cluster hardware failures and mean time between interruptions",
-        "columns": [
-          "gpus",
-          "cluster_mtbf",
-          "gpu_mtbf_hours"
-        ],
+        "template": "bars",
+        "title": "Failures at scale",
         "steps": [
           {
             "at": "say1",
-            "caption": "Every GPU server cable and switch has a small chance of failing on any day.",
-            "rows": [
+            "caption": "Every GPU, server, cable and switch has a small chance of failing on any.",
+            "bars": [
               {
-                "cells": [
-                  "gpus",
-                  "cluster_mtbf",
-                  "gpu_mtbf_hours"
-                ],
-                "tone": "ok"
+                "label": "gpu_mtbf_hours",
+                "value": 50000,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "gpus",
-                  "cluster_mtbf",
-                  "gpu_mtbf_hours"
-                ],
+                "label": "gpus",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "cluster_mtbf",
+                "value": 6250,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "If one rank fails in a synchronous job the whole job stops.",
-            "rows": [
+            "at": "say2",
+            "caption": "With thousands of GPUs, small chances add up.",
+            "bars": [
               {
-                "cells": [
-                  "gpus",
-                  "cluster_mtbf",
-                  "gpu_mtbf_hours"
-                ],
-                "tone": "data"
+                "label": "gpu_mtbf_hours",
+                "value": 50000,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "gpus",
-                  "cluster_mtbf",
-                  "gpus"
-                ],
+                "label": "gpus",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "cluster_mtbf",
+                "value": 6250,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Good tooling turns failures into short pauses rather than lost days.",
+            "bars": [
+              {
+                "label": "gpu_mtbf_hours",
+                "value": 50000,
+                "tone": "ok"
+              },
+              {
+                "label": "gpus",
+                "value": 8,
+                "tone": "ok"
+              },
+              {
+                "label": "cluster_mtbf",
+                "value": 6250,
                 "tone": "ok"
               }
             ]
@@ -147,135 +187,277 @@
       "partTitle": "The cost of a failure",
       "codeHash": "34c254fcb60d346145e42e1c65865c7dfa79118ee8c4630c54a20e0d995fc9ae",
       "spec": {
-        "template": "table",
-        "title": "Quantifying compute loss and restart overhead after failure",
-        "columns": [
-          "resume",
-          "lost_steps",
-          "minutes"
+        "template": "flow",
+        "title": "The cost of a failure",
+        "nodes": [
+          {
+            "id": "fail_step",
+            "label": "fail_step"
+          },
+          {
+            "id": "every",
+            "label": "every"
+          },
+          {
+            "id": "step_s",
+            "label": "step_s"
+          },
+          {
+            "id": "restart_s",
+            "label": "restart_s"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Training resumes from the last checkpoint after an unexpected job failure.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "resume"
-                  },
-                  {
-                    "text": "lost_steps"
-                  },
-                  {
-                    "text": "minutes"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "When a job fails, training resumes from the last checkpoint, so the work.",
+            "values": {
+              "fail_step": {
+                "var": "fail_step",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "resume"
-                  },
-                  {
-                    "text": "lost_steps"
-                  },
-                  {
-                    "text": "minutes"
-                  }
-                ],
-                "tone": "data"
+              "every": {
+                "var": "every",
+                "line": 1,
+                "hit": 1
+              },
+              "step_s": {
+                "var": "step_s",
+                "line": 1,
+                "hit": 1
+              },
+              "restart_s": {
+                "var": "restart_s",
+                "line": 1,
+                "hit": 1
               }
+            },
+            "tones": {
+              "fail_step": "data",
+              "every": "data",
+              "step_s": "data",
+              "restart_s": "data"
+            },
+            "arrows": [
+              [
+                "fail_step",
+                "every"
+              ],
+              [
+                "every",
+                "step_s"
+              ],
+              [
+                "step_s",
+                "restart_s"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Restart time covers detecting failure and reloading the checkpoint.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "resume"
-                  },
-                  {
-                    "text": "lost_steps"
-                  },
-                  {
-                    "text": "minutes"
-                  }
-                ],
-                "tone": "data"
+            "caption": "There is also restart time.",
+            "values": {
+              "fail_step": {
+                "var": "fail_step",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "resume"
-                  },
-                  {
-                    "text": "lost_steps"
-                  },
-                  {
-                    "text": "resume"
-                  }
-                ],
-                "tone": "ok"
+              "every": {
+                "var": "every",
+                "line": 2,
+                "hit": 1
+              },
+              "step_s": {
+                "var": "step_s",
+                "line": 2,
+                "hit": 1
+              },
+              "restart_s": {
+                "var": "restart_s",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "fail_step": "data",
+              "every": "data",
+              "step_s": "data",
+              "restart_s": "data"
+            },
+            "arrows": [
+              [
+                "fail_step",
+                "every"
+              ],
+              [
+                "every",
+                "step_s"
+              ],
+              [
+                "step_s",
+                "restart_s"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how large updates labs during execution.",
+            "values": {
+              "fail_step": {
+                "var": "fail_step",
+                "line": 3,
+                "hit": 1
+              },
+              "every": {
+                "var": "every",
+                "line": 3,
+                "hit": 1
+              },
+              "step_s": {
+                "var": "step_s",
+                "line": 3,
+                "hit": 1
+              },
+              "restart_s": {
+                "var": "restart_s",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "fail_step": "ok",
+              "every": "ok",
+              "step_s": "ok",
+              "restart_s": "ok"
+            },
+            "arrows": [
+              [
+                "fail_step",
+                "every"
+              ],
+              [
+                "every",
+                "step_s"
+              ],
+              [
+                "step_s",
+                "restart_s"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Quantifying compute loss and restart overhead after failure",
-        "columns": [
-          "resume",
-          "lost_steps",
-          "minutes"
+        "template": "flow",
+        "title": "The cost of a failure",
+        "nodes": [
+          {
+            "id": "fail_step",
+            "label": "fail_step"
+          },
+          {
+            "id": "every",
+            "label": "every"
+          },
+          {
+            "id": "step_s",
+            "label": "step_s"
+          },
+          {
+            "id": "restart_s",
+            "label": "restart_s"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Training resumes from the last checkpoint after an unexpected job failure.",
-            "rows": [
-              {
-                "cells": [
-                  "resume",
-                  "lost_steps",
-                  "minutes"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "resume",
-                  "lost_steps",
-                  "minutes"
-                ],
-                "tone": "data"
-              }
+            "caption": "When a job fails, training resumes from the last checkpoint, so the work.",
+            "values": {
+              "fail_step": "2750",
+              "every": "500",
+              "step_s": "2",
+              "restart_s": "300"
+            },
+            "tones": {
+              "fail_step": "data",
+              "every": "data",
+              "step_s": "data",
+              "restart_s": "data"
+            },
+            "arrows": [
+              [
+                "fail_step",
+                "every"
+              ],
+              [
+                "every",
+                "step_s"
+              ],
+              [
+                "step_s",
+                "restart_s"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Restart time covers detecting failure and reloading the checkpoint.",
-            "rows": [
-              {
-                "cells": [
-                  "resume",
-                  "lost_steps",
-                  "minutes"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "resume",
-                  "lost_steps",
-                  "resume"
-                ],
-                "tone": "ok"
-              }
+            "caption": "There is also restart time.",
+            "values": {
+              "fail_step": "2750",
+              "every": "500",
+              "step_s": "2",
+              "restart_s": "300"
+            },
+            "tones": {
+              "fail_step": "data",
+              "every": "data",
+              "step_s": "data",
+              "restart_s": "data"
+            },
+            "arrows": [
+              [
+                "fail_step",
+                "every"
+              ],
+              [
+                "every",
+                "step_s"
+              ],
+              [
+                "step_s",
+                "restart_s"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how large updates labs during execution.",
+            "values": {
+              "fail_step": "2750",
+              "every": "500",
+              "step_s": "2",
+              "restart_s": "300"
+            },
+            "tones": {
+              "fail_step": "ok",
+              "every": "ok",
+              "step_s": "ok",
+              "restart_s": "ok"
+            },
+            "arrows": [
+              [
+                "fail_step",
+                "every"
+              ],
+              [
+                "every",
+                "step_s"
+              ],
+              [
+                "step_s",
+                "restart_s"
+              ]
             ]
           }
         ]
@@ -285,135 +467,277 @@
       "partTitle": "Elastic training",
       "codeHash": "a709a0beff7a0fa8d3559c5f8d29667be0778c207f8269daa0ace4ef0c896e75",
       "spec": {
-        "template": "table",
-        "title": "Elastic reconfiguration and gradient accumulation scaling",
-        "columns": [
-          "global_batch",
-          "micro",
-          "gpus"
+        "template": "flow",
+        "title": "Elastic training",
+        "nodes": [
+          {
+            "id": "global_batch",
+            "label": "global_batch"
+          },
+          {
+            "id": "micro",
+            "label": "micro"
+          },
+          {
+            "id": "gpus",
+            "label": "gpus"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Elastic training continues with fewer GPUs instead of waiting.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "global_batch"
-                  },
-                  {
-                    "text": "micro"
-                  },
-                  {
-                    "text": "gpus"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Elastic training continues with fewer GPUs when some fail, and grows again.",
+            "values": {
+              "global_batch": {
+                "var": "global_batch",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "global_batch"
-                  },
-                  {
-                    "text": "micro"
-                  },
-                  {
-                    "text": "gpus"
-                  }
-                ],
-                "tone": "data"
+              "micro": {
+                "var": "micro",
+                "line": 1,
+                "hit": 1
+              },
+              "gpus": {
+                "var": "gpus",
+                "line": 2,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "global_batch": "data",
+              "micro": "data",
+              "gpus": "data",
+              "n": "data"
+            },
+            "arrows": [
+              [
+                "global_batch",
+                "micro"
+              ],
+              [
+                "micro",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "n"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The global batch must stay constant as gradient accumulation compensates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "global_batch"
-                  },
-                  {
-                    "text": "micro"
-                  },
-                  {
-                    "text": "gpus"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "PyTorch's torchrun supports elastic jobs that re-form the group of workers.",
+            "values": {
+              "global_batch": {
+                "var": "global_batch",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "global_batch"
-                  },
-                  {
-                    "text": "micro"
-                  },
-                  {
-                    "text": "global_batch"
-                  }
-                ],
-                "tone": "ok"
+              "micro": {
+                "var": "micro",
+                "line": 2,
+                "hit": 1
+              },
+              "gpus": {
+                "var": "gpus",
+                "line": 3,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "global_batch": "data",
+              "micro": "data",
+              "gpus": "data",
+              "n": "data"
+            },
+            "arrows": [
+              [
+                "global_batch",
+                "micro"
+              ],
+              [
+                "micro",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "n"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Elasticity is most valuable on shared or preemptible cloud capacity.",
+            "values": {
+              "global_batch": {
+                "var": "global_batch",
+                "line": 3,
+                "hit": 1
+              },
+              "micro": {
+                "var": "micro",
+                "line": 3,
+                "hit": 1
+              },
+              "gpus": {
+                "var": "gpus",
+                "line": 4,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "global_batch": "ok",
+              "micro": "ok",
+              "gpus": "ok",
+              "n": "ok"
+            },
+            "arrows": [
+              [
+                "global_batch",
+                "micro"
+              ],
+              [
+                "micro",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "n"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Elastic reconfiguration and gradient accumulation scaling",
-        "columns": [
-          "global_batch",
-          "micro",
-          "gpus"
+        "template": "flow",
+        "title": "Elastic training",
+        "nodes": [
+          {
+            "id": "global_batch",
+            "label": "global_batch"
+          },
+          {
+            "id": "micro",
+            "label": "micro"
+          },
+          {
+            "id": "gpus",
+            "label": "gpus"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Elastic training continues with fewer GPUs instead of waiting.",
-            "rows": [
-              {
-                "cells": [
-                  "global_batch",
-                  "micro",
-                  "gpus"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "global_batch",
-                  "micro",
-                  "gpus"
-                ],
-                "tone": "data"
-              }
+            "caption": "Elastic training continues with fewer GPUs when some fail, and grows again.",
+            "values": {
+              "global_batch": "1024",
+              "micro": "8",
+              "gpus": "16",
+              "n": "16"
+            },
+            "tones": {
+              "global_batch": "data",
+              "micro": "data",
+              "gpus": "data",
+              "n": "data"
+            },
+            "arrows": [
+              [
+                "global_batch",
+                "micro"
+              ],
+              [
+                "micro",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "n"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The global batch must stay constant as gradient accumulation compensates.",
-            "rows": [
-              {
-                "cells": [
-                  "global_batch",
-                  "micro",
-                  "gpus"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "global_batch",
-                  "micro",
-                  "global_batch"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "PyTorch's torchrun supports elastic jobs that re-form the group of workers.",
+            "values": {
+              "global_batch": "1024",
+              "micro": "8",
+              "gpus": "16",
+              "n": "16"
+            },
+            "tones": {
+              "global_batch": "data",
+              "micro": "data",
+              "gpus": "data",
+              "n": "data"
+            },
+            "arrows": [
+              [
+                "global_batch",
+                "micro"
+              ],
+              [
+                "micro",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "n"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Elasticity is most valuable on shared or preemptible cloud capacity.",
+            "values": {
+              "global_batch": "1024",
+              "micro": "8",
+              "gpus": "16",
+              "n": "16"
+            },
+            "tones": {
+              "global_batch": "ok",
+              "micro": "ok",
+              "gpus": "ok",
+              "n": "ok"
+            },
+            "arrows": [
+              [
+                "global_batch",
+                "micro"
+              ],
+              [
+                "micro",
+                "gpus"
+              ],
+              [
+                "gpus",
+                "n"
+              ]
             ]
           }
         ]
@@ -423,78 +747,91 @@
       "partTitle": "Preemption and cloud capacity",
       "codeHash": "cf6a87b098254577c4a527e19e81f17cc0baeecc7c468bc282cd0a49e5fab1d8",
       "spec": {
-        "template": "table",
-        "title": "Spot instance preemption economics and resilience",
-        "columns": [
+        "template": "sequence",
+        "title": "Preemption and cloud capacity",
+        "actors": [
           "gpu_hours",
           "price",
-          "on_demand"
+          "spot_discount"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cloud spot instances offer cheaper capacity with occasional interruption.",
-            "rows": [
+            "caption": "Cloud spot or preemptible instances are much cheaper, but the provider can.",
+            "activeActor": "gpu_hours",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "gpu_hours"
-                  },
-                  {
-                    "text": "price"
-                  },
-                  {
-                    "text": "on_demand"
-                  }
-                ],
-                "tone": "ok"
+                "from": "gpu_hours",
+                "to": "price",
+                "label": {
+                  "var": "gpu_hours",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "gpu_hours"
-                  },
-                  {
-                    "text": "price"
-                  },
-                  {
-                    "text": "on_demand"
-                  }
-                ],
-                "tone": "data"
+                "from": "price",
+                "to": "spot_discount",
+                "label": {
+                  "var": "price",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Spot capacity works effectively with frequent checkpoints and restarts.",
-            "rows": [
+            "caption": "Training on spot capacity only works with frequent checkpoints and elastic.",
+            "activeActor": "price",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "gpu_hours"
-                  },
-                  {
-                    "text": "price"
-                  },
-                  {
-                    "text": "on_demand"
-                  }
-                ],
+                "from": "gpu_hours",
+                "to": "price",
+                "label": {
+                  "var": "gpu_hours",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "gpu_hours"
-                  },
-                  {
-                    "text": "price"
-                  },
-                  {
-                    "text": "gpu_hours"
-                  }
-                ],
+                "from": "price",
+                "to": "spot_discount",
+                "label": {
+                  "var": "price",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Design for interruption and the cheapest capacity becomes usable.",
+            "activeActor": "spot_discount",
+            "messages": [
+              {
+                "from": "gpu_hours",
+                "to": "price",
+                "label": {
+                  "var": "gpu_hours",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "price",
+                "to": "spot_discount",
+                "label": {
+                  "var": "price",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,57 +839,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Spot instance preemption economics and resilience",
-        "columns": [
+        "template": "sequence",
+        "title": "Preemption and cloud capacity",
+        "actors": [
           "gpu_hours",
           "price",
-          "on_demand"
+          "spot_discount"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Cloud spot instances offer cheaper capacity with occasional interruption.",
-            "rows": [
+            "caption": "Cloud spot or preemptible instances are much cheaper, but the provider can.",
+            "messages": [
               {
-                "cells": [
-                  "gpu_hours",
-                  "price",
-                  "on_demand"
-                ],
-                "tone": "ok"
+                "from": "gpu_hours",
+                "to": "price",
+                "label": "10000",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "gpu_hours",
-                  "price",
-                  "on_demand"
-                ],
-                "tone": "data"
+                "from": "price",
+                "to": "spot_discount",
+                "label": "2",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "gpu_hours"
           },
           {
             "at": "say2",
-            "caption": "Spot capacity works effectively with frequent checkpoints and restarts.",
-            "rows": [
+            "caption": "Training on spot capacity only works with frequent checkpoints and elastic.",
+            "messages": [
               {
-                "cells": [
-                  "gpu_hours",
-                  "price",
-                  "on_demand"
-                ],
+                "from": "gpu_hours",
+                "to": "price",
+                "label": "10000",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "gpu_hours",
-                  "price",
-                  "gpu_hours"
-                ],
+                "from": "price",
+                "to": "spot_discount",
+                "label": "2",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "price"
+          },
+          {
+            "at": "say10",
+            "caption": "Design for interruption and the cheapest capacity becomes usable.",
+            "messages": [
+              {
+                "from": "gpu_hours",
+                "to": "price",
+                "label": "10000",
+                "tone": "data"
+              },
+              {
+                "from": "price",
+                "to": "spot_discount",
+                "label": "2",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "spot_discount"
           }
         ]
       }
@@ -561,224 +911,160 @@
       "partTitle": "Designing for failure",
       "codeHash": "b00330e98e0887691bd068016437f3e82d3d526477b05f0e001844ce83d41c19",
       "spec": {
-        "template": "flow",
-        "title": "Designing for failure — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Designing for failure",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Designing for failure",
+        "actors": [
+          "setup",
+          "score"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Designing for failure [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Designing for failure [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A fault-tolerant training system has several layers.",
+            "activeActor": "setup",
+            "messages": [
+              {
+                "from": "setup",
+                "to": "score",
+                "label": {
+                  "var": "setup",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "setup",
+                "label": {
+                  "var": "score",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Health checks test GPUs, memory and network links before a job uses them.",
+            "activeActor": "score",
+            "messages": [
+              {
+                "from": "setup",
+                "to": "score",
+                "label": {
+                  "var": "setup",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "setup",
+                "label": {
+                  "var": "score",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Designing for failure [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Reliable infrastructure is what makes very large training runs possible at all.",
+            "activeActor": "score",
+            "messages": [
+              {
+                "from": "setup",
+                "to": "score",
+                "label": {
+                  "var": "setup",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "setup",
+                "label": {
+                  "var": "score",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Designing for failure — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Designing for failure",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Designing for failure",
+        "actors": [
+          "setup",
+          "score"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Designing for failure [D18.P5.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Designing for failure [D18.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A fault-tolerant training system has several layers.",
+            "messages": [
+              {
+                "from": "setup",
+                "to": "score",
+                "label": "{'pre-job GPU health checks': True, 'ch…",
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "setup",
+                "label": "3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "setup"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Health checks test GPUs, memory and network links before a job uses them.",
+            "messages": [
+              {
+                "from": "setup",
+                "to": "score",
+                "label": "{'pre-job GPU health checks': True, 'ch…",
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "setup",
+                "label": "3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "score"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Designing for failure [D18.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say10",
+            "caption": "Reliable infrastructure is what makes very large training runs possible at all.",
+            "messages": [
+              {
+                "from": "setup",
+                "to": "score",
+                "label": "{'pre-job GPU health checks': True, 'ch…",
+                "tone": "data"
+              },
+              {
+                "from": "score",
+                "to": "setup",
+                "label": "3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "score"
           }
         ]
       }
@@ -787,223 +1073,217 @@
       "partTitle": "Practice time: resilience",
       "codeHash": "e5c2eec42d93cd38ff609a5500ab11e80b067515b08727443f3ccdf398f89206",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: resilience — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: resi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: resilience",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: resilience [D.Psix.Sone].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: resi... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Elastic_plan(global_batch, micro_batch, gpus).",
+            "bars": [
+              {
+                "label": "days",
+                "value": {
+                  "var": "days",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "failures_per_d",
+                "value": {
+                  "var": "failures_per_day",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "every_min",
+                "value": {
+                  "var": "every_min",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "restart_min",
+                "value": {
+                  "var": "restart_min",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
+            "bars": [
+              {
+                "label": "days",
+                "value": {
+                  "var": "days",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "failures_per_d",
+                "value": {
+                  "var": "failures_per_day",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "every_min",
+                "value": {
+                  "var": "every_min",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "restart_min",
+                "value": {
+                  "var": "restart_min",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: resilience [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If elastic_plan gives the wrong count, print each candidate and whether it.",
+            "bars": [
+              {
+                "label": "days",
+                "value": {
+                  "var": "days",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "failures_per_d",
+                "value": {
+                  "var": "failures_per_day",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "every_min",
+                "value": {
+                  "var": "every_min",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "restart_min",
+                "value": {
+                  "var": "restart_min",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: resilience — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: resi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: resilience",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: resilience [D18.P6.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: resi... [D18.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Elastic_plan(global_batch, micro_batch, gpus).",
+            "bars": [
+              {
+                "label": "days",
+                "value": 30,
+                "tone": "data"
+              },
+              {
+                "label": "failures_per_d",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "every_min",
+                "value": 30,
+                "tone": "data"
+              },
+              {
+                "label": "restart_min",
+                "value": 10,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
+            "bars": [
+              {
+                "label": "days",
+                "value": 30,
+                "tone": "ok"
+              },
+              {
+                "label": "failures_per_d",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "every_min",
+                "value": 30,
+                "tone": "ok"
+              },
+              {
+                "label": "restart_min",
+                "value": 10,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: resilience [D18.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If elastic_plan gives the wrong count, print each candidate and whether it.",
+            "bars": [
+              {
+                "label": "days",
+                "value": 30,
+                "tone": "ok"
+              },
+              {
+                "label": "failures_per_d",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "every_min",
+                "value": 30,
+                "tone": "ok"
+              },
+              {
+                "label": "restart_min",
+                "value": 10,
+                "tone": "ok"
+              }
             ]
           }
         ]

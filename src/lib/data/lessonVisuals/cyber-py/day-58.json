@@ -2,802 +2,588 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 58,
-  "promptSha": "cc39ca46dc75a7863d42bb019c22ca603dd8bf1909e0a5494bce8b5d4d30a034",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Automated Incident Response Playbooks — Foundations & Mathematical Invariants",
-      "codeHash": "6f20aa756a84eb389250490472609a968df95467b1552903534b84a0c06c382c",
+      "codeHash": "2a9ae45d73a767198d3d22e084e51ab2a513ddd435d741d04207d12ee62891b5",
       "spec": {
-        "template": "flow",
-        "title": "Automated Incident Response Playbooks — Foundations & Mathematical Inv",
-        "nodes": [
+        "template": "states",
+        "title": "Automated Incident Response Playbooks — Foundations & Mathematic",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "SOAR_PLAYBOOK_TAXONOMY",
+            "label": "SOAR_PLAYBOOK_TAXONOMY"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Modern cyber attacks operate at machine speed.",
+            "currentState": "SOAR_PLAYBOOK_TAXONOMY",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Relying exclusively on manual human intervention during active security.",
+            "currentState": "name",
+            "transition": {
+              "from": "SOAR_PLAYBOOK_TAXONOMY",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say11",
+            "caption": "Automated incident response platforms enable security operations centers.",
+            "currentState": "desc",
+            "transition": {
+              "from": "name",
+              "to": "desc",
+              "label": {
+                "var": "desc",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Automated Incident Response Playbooks — Foundations & Mathematical Inv",
-        "nodes": [
+        "template": "states",
+        "title": "Automated Incident Response Playbooks — Foundations & Mathematic",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "SOAR_PLAYBOOK_TAXONOMY",
+            "label": "SOAR_PLAYBOOK_TAXONOMY"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Modern cyber attacks operate at machine speed.",
+            "currentState": "SOAR_PLAYBOOK_TAXONOMY",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Relying exclusively on manual human intervention during active security.",
+            "currentState": "name",
+            "transition": {
+              "from": "SOAR_PLAYBOOK_TAXONOMY",
+              "to": "name",
+              "label": "'CHAIN_OF_CUSTODY'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say11",
+            "caption": "Automated incident response platforms enable security operations centers.",
+            "currentState": "desc",
+            "transition": {
+              "from": "name",
+              "to": "desc",
+              "label": "'Creating forensic memory snapshots and…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Automated Incident Response Playbooks — Core Algorithm & State Representation",
-      "codeHash": "c9a91e7b02fcd0cd6a5da5ef547c6da622f439fd74550e48ba3b0b1e530e1744",
+      "codeHash": "23f414e57e813620f731ba9d140ab8761ed938e3898af71ecdad69a15606cacb",
       "spec": {
-        "template": "flow",
-        "title": "Automated Incident Response Playbooks — Core Algorithm & State Represe",
-        "nodes": [
+        "template": "boxes",
+        "title": "Automated Incident Response Playbooks — Core Algorithm & State R",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "host_id",
+            "label": "host_id"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "compromised_user_id",
+            "label": "compromised_user_id"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "actions_taken",
+            "label": "actions_taken"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "status",
+            "label": "status"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The SOAR execution engine coordinates multi-step containment workflows.",
+            "values": {
+              "host_id": {
+                "var": "host_id",
+                "line": 4,
+                "hit": 1
+              },
+              "compromised_user_id": {
+                "var": "compromised_user_id",
+                "line": 4,
+                "hit": 1
+              },
+              "actions_taken": {
+                "var": "actions_taken",
+                "line": 4,
+                "hit": 1
+              },
+              "status": {
+                "var": "status",
+                "line": 13,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "host_id": "data",
+              "compromised_user_id": "data",
+              "actions_taken": "data",
+              "status": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Upon receiving a validated incident payload, the engine executes.",
+            "values": {
+              "host_id": {
+                "var": "host_id",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "compromised_user_id": {
+                "var": "compromised_user_id",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "actions_taken": {
+                "var": "actions_taken",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "status": {
+                "var": "status",
+                "line": 14,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "host_id": "data",
+              "compromised_user_id": "data",
+              "actions_taken": "data",
+              "status": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Multi-step containment workflows orchestrate host network isolation.",
+            "values": {
+              "host_id": {
+                "var": "host_id",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "compromised_user_id": {
+                "var": "compromised_user_id",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "actions_taken": {
+                "var": "actions_taken",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "status": {
+                "var": "status",
+                "line": 15,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "host_id": "ok",
+              "compromised_user_id": "ok",
+              "actions_taken": "ok",
+              "status": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Automated Incident Response Playbooks — Core Algorithm & State Represe",
-        "nodes": [
+        "template": "boxes",
+        "title": "Automated Incident Response Playbooks — Core Algorithm & State R",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "host_id",
+            "label": "host_id"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "compromised_user_id",
+            "label": "compromised_user_id"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "actions_taken",
+            "label": "actions_taken"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "status",
+            "label": "status"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The SOAR execution engine coordinates multi-step containment workflows.",
+            "values": {
+              "host_id": "'HOST-WKSTN-482'",
+              "compromised_user_id": "'user_malicious_01'",
+              "actions_taken": "[]",
+              "status": "'INCIDENT_REMEDIATED'"
+            },
+            "tones": {
+              "host_id": "data",
+              "compromised_user_id": "data",
+              "actions_taken": "data",
+              "status": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Upon receiving a validated incident payload, the engine executes.",
+            "values": {
+              "host_id": "'HOST-WKSTN-482'",
+              "compromised_user_id": "'user_malicious_01'",
+              "actions_taken": "[{'action': 'ISOLATE_HOST_NIC', 'target…",
+              "status": "'INCIDENT_REMEDIATED'"
+            },
+            "tones": {
+              "host_id": "data",
+              "compromised_user_id": "data",
+              "actions_taken": "data",
+              "status": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Multi-step containment workflows orchestrate host network isolation.",
+            "values": {
+              "host_id": "'HOST-WKSTN-482'",
+              "compromised_user_id": "'user_malicious_01'",
+              "actions_taken": "[{'action': 'ISOLATE_HOST_NIC', 'target…",
+              "status": "'INCIDENT_REMEDIATED'"
+            },
+            "tones": {
+              "host_id": "ok",
+              "compromised_user_id": "ok",
+              "actions_taken": "ok",
+              "status": "ok"
+            }
           }
         ]
       }
     },
     {
       "partTitle": "Automated Incident Response Playbooks — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "ff83cedccf1e1f4ed2cf40652e106e235e0d9814d6e5e544fa89bf5863d5e4ba",
+      "codeHash": "c1ca8c4745fa2ef4f21c2edb3fd1d198df2c6118adf2f681ce67668e4c489825",
       "spec": {
         "template": "flow",
-        "title": "Automated Incident Response Playbooks — Throughput Optimization & Edge",
+        "title": "Automated Incident Response Playbooks — Throughput Optimization ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sample_memory_dump",
+            "label": "sample_memory_dump"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "raw_artifact_bytes",
+            "label": "raw_artifact_bytes"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "case_id",
+            "label": "case_id"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sha256_digest",
+            "label": "sha256_digest"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Digital evidence collected during an active breachsuch as memory dumps.",
+            "values": {
+              "sample_memory_dump": {
+                "var": "sample_memory_dump",
+                "line": 15,
+                "hit": 1
+              },
+              "raw_artifact_bytes": {
+                "var": "raw_artifact_bytes",
+                "line": 6,
+                "hit": 1
+              },
+              "case_id": {
+                "var": "case_id",
+                "line": 6,
+                "hit": 1
+              },
+              "sha256_digest": {
+                "var": "sha256_digest",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "sample_memory_dump": "data",
+              "raw_artifact_bytes": "data",
+              "case_id": "data",
+              "sha256_digest": "data"
+            },
+            "arrows": [
+              [
+                "sample_memory_dump",
+                "raw_artifact_bytes"
+              ],
+              [
+                "raw_artifact_bytes",
+                "case_id"
+              ],
+              [
+                "case_id",
+                "sha256_digest"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The legal standard of 'chain of custody' requires proving that digital.",
+            "values": {
+              "sample_memory_dump": {
+                "var": "sample_memory_dump",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "raw_artifact_bytes": {
+                "var": "raw_artifact_bytes",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "case_id": {
+                "var": "case_id",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "sha256_digest": {
+                "var": "sha256_digest",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "sample_memory_dump": "data",
+              "raw_artifact_bytes": "data",
+              "case_id": "data",
+              "sha256_digest": "data"
+            },
+            "arrows": [
+              [
+                "sample_memory_dump",
+                "raw_artifact_bytes"
+              ],
+              [
+                "raw_artifact_bytes",
+                "case_id"
+              ],
+              [
+                "case_id",
+                "sha256_digest"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Cryptographic evidence hashing guarantees an unbroken chain of custody.",
+            "values": {
+              "sample_memory_dump": {
+                "var": "sample_memory_dump",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "raw_artifact_bytes": {
+                "var": "raw_artifact_bytes",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "case_id": {
+                "var": "case_id",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "sha256_digest": {
+                "var": "sha256_digest",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "sample_memory_dump": "ok",
+              "raw_artifact_bytes": "ok",
+              "case_id": "ok",
+              "sha256_digest": "ok"
+            },
+            "arrows": [
+              [
+                "sample_memory_dump",
+                "raw_artifact_bytes"
+              ],
+              [
+                "raw_artifact_bytes",
+                "case_id"
+              ],
+              [
+                "case_id",
+                "sha256_digest"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Automated Incident Response Playbooks — Throughput Optimization & Edge",
+        "title": "Automated Incident Response Playbooks — Throughput Optimization ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sample_memory_dump",
+            "label": "sample_memory_dump"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "raw_artifact_bytes",
+            "label": "raw_artifact_bytes"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "case_id",
+            "label": "case_id"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sha256_digest",
+            "label": "sha256_digest"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Digital evidence collected during an active breachsuch as memory dumps.",
+            "values": {
+              "sample_memory_dump": "{'__other__': 'bytes'}",
+              "raw_artifact_bytes": "{'__other__': 'bytes'}",
+              "case_id": "'CASE-2026-0914'",
+              "sha256_digest": "'8d18cea430678e1258edbb714f87f8d55281d2…"
+            },
+            "tones": {
+              "sample_memory_dump": "data",
+              "raw_artifact_bytes": "data",
+              "case_id": "data",
+              "sha256_digest": "data"
+            },
+            "arrows": [
+              [
+                "sample_memory_dump",
+                "raw_artifact_bytes"
+              ],
+              [
+                "raw_artifact_bytes",
+                "case_id"
+              ],
+              [
+                "case_id",
+                "sha256_digest"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The legal standard of 'chain of custody' requires proving that digital.",
+            "values": {
+              "sample_memory_dump": "{'__other__': 'bytes'}",
+              "raw_artifact_bytes": "{'__other__': 'bytes'}",
+              "case_id": "'CASE-2026-0914'",
+              "sha256_digest": "'8d18cea430678e1258edbb714f87f8d55281d2…"
+            },
+            "tones": {
+              "sample_memory_dump": "data",
+              "raw_artifact_bytes": "data",
+              "case_id": "data",
+              "sha256_digest": "data"
+            },
+            "arrows": [
+              [
+                "sample_memory_dump",
+                "raw_artifact_bytes"
+              ],
+              [
+                "raw_artifact_bytes",
+                "case_id"
+              ],
+              [
+                "case_id",
+                "sha256_digest"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Cryptographic evidence hashing guarantees an unbroken chain of custody.",
+            "values": {
+              "sample_memory_dump": "{'__other__': 'bytes'}",
+              "raw_artifact_bytes": "{'__other__': 'bytes'}",
+              "case_id": "'CASE-2026-0914'",
+              "sha256_digest": "'8d18cea430678e1258edbb714f87f8d55281d2…"
+            },
+            "tones": {
+              "sample_memory_dump": "ok",
+              "raw_artifact_bytes": "ok",
+              "case_id": "ok",
+              "sha256_digest": "ok"
+            },
+            "arrows": [
+              [
+                "sample_memory_dump",
+                "raw_artifact_bytes"
+              ],
+              [
+                "raw_artifact_bytes",
+                "case_id"
+              ],
+              [
+                "case_id",
+                "sha256_digest"
+              ]
             ]
           }
         ]
@@ -805,532 +591,272 @@
     },
     {
       "partTitle": "Automated Incident Response Playbooks — Resilience Guardrails & Failure Recovery",
-      "codeHash": "9ddca7e80e512c607c71ecbce46cfe6af0511a1325f747b6b33d82e23a9ae23f",
+      "codeHash": "af5912b5370db82126cbd6684274b6e8876a3289d95d77209737a582b23ddb10",
       "spec": {
-        "template": "flow",
-        "title": "Automated Incident Response Playbooks — Resilience Guardrails & Failur",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Automated Incident Response Playbooks — Resilience Guardrails & ",
+        "actors": [
+          "workstation",
+          "domain_controller",
+          "target_host"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated containment playbooks possess immense power.",
+            "activeActor": "workstation",
+            "messages": [
+              {
+                "from": "workstation",
+                "to": "domain_controller",
+                "label": {
+                  "var": "workstation",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "domain_controller",
+                "to": "target_host",
+                "label": {
+                  "var": "domain_controller",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "To prevent automated self-inflicted denial-of-service outages, modern SOAR.",
+            "activeActor": "domain_controller",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "workstation",
+                "to": "domain_controller",
+                "label": {
+                  "var": "workstation",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "domain_controller",
+                "to": "target_host",
+                "label": {
+                  "var": "domain_controller",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Protected infrastructure guardrails prevent automated containment.",
+            "activeActor": "target_host",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "workstation",
+                "to": "domain_controller",
+                "label": {
+                  "var": "workstation",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "domain_controller",
+                "to": "target_host",
+                "label": {
+                  "var": "domain_controller",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Automated Incident Response Playbooks — Resilience Guardrails & Failur",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Automated Incident Response Playbooks — Resilience Guardrails & ",
+        "actors": [
+          "workstation",
+          "domain_controller",
+          "target_host"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Automated containment playbooks possess immense power.",
+            "messages": [
+              {
+                "from": "workstation",
+                "to": "domain_controller",
+                "label": "'HOST-CORP-LPT-84'",
+                "tone": "data"
+              },
+              {
+                "from": "domain_controller",
+                "to": "target_host",
+                "label": "'DC-PRIMARY-01'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "workstation"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "To prevent automated self-inflicted denial-of-service outages, modern SOAR.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "workstation",
+                "to": "domain_controller",
+                "label": "'HOST-CORP-LPT-84'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "domain_controller",
+                "to": "target_host",
+                "label": "'DC-PRIMARY-01'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "domain_controller"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Protected infrastructure guardrails prevent automated containment.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "workstation",
+                "to": "domain_controller",
+                "label": "'HOST-CORP-LPT-84'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "domain_controller",
+                "to": "target_host",
+                "label": "'DC-PRIMARY-01'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "target_host"
           }
         ]
       }
     },
     {
       "partTitle": "Automated Incident Response Playbooks — Production Telemetry & Verification Audit",
-      "codeHash": "8fc709877a8f26e50473b12bebd25423620e55343b086bc469651465daff78f1",
+      "codeHash": "34ca9a83169227111c0e870f6f165396d126417200fddd1ee58f138a50414a87",
       "spec": {
-        "template": "flow",
-        "title": "Automated Incident Response Playbooks — Production Telemetry & Verific",
-        "nodes": [
+        "template": "states",
+        "title": "Automated Incident Response Playbooks — Production Telemetry & V",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "quarantine_engine_ok",
+            "label": "quarantine_engine_ok"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "evidence_hasher_ok",
+            "label": "evidence_hasher_ok"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "safety_guards_ok",
+            "label": "safety_guards_ok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing automated incident response requires comprehensive.",
+            "currentState": "quarantine_engine_ok",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "A SOAR certification auditor evaluates the operational status.",
+            "currentState": "evidence_hasher_ok",
+            "transition": {
+              "from": "quarantine_engine_ok",
+              "to": "evidence_hasher_ok",
+              "label": {
+                "var": "evidence_hasher_ok",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Continuous SOAR auditing asserts that automated containment playbooks.",
+            "currentState": "safety_guards_ok",
+            "transition": {
+              "from": "evidence_hasher_ok",
+              "to": "safety_guards_ok",
+              "label": {
+                "var": "safety_guards_ok",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Automated Incident Response Playbooks — Production Telemetry & Verific",
-        "nodes": [
+        "template": "states",
+        "title": "Automated Incident Response Playbooks — Production Telemetry & V",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "quarantine_engine_ok",
+            "label": "quarantine_engine_ok"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "evidence_hasher_ok",
+            "label": "evidence_hasher_ok"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "safety_guards_ok",
+            "label": "safety_guards_ok"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing automated incident response requires comprehensive.",
+            "currentState": "quarantine_engine_ok",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "A SOAR certification auditor evaluates the operational status.",
+            "currentState": "evidence_hasher_ok",
+            "transition": {
+              "from": "quarantine_engine_ok",
+              "to": "evidence_hasher_ok",
+              "label": "True"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Continuous SOAR auditing asserts that automated containment playbooks.",
+            "currentState": "safety_guards_ok",
+            "transition": {
+              "from": "evidence_hasher_ok",
+              "to": "safety_guards_ok",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }

@@ -2,31 +2,46 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 58,
-  "promptSha": "2e1a5bc2094c5af02726c42e654a9b3fa1a471c36fe2e49f51f9c74bedccfd36",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why Modulo Sharding (hash(k) % N) Fails Under Elastic Scaling",
       "codeHash": "956a8e27a2e9f60f1a25f03799e07ee5456c865ce41416c3113201653034ee64",
       "spec": {
         "template": "table",
-        "title": "Why Modulo Sharding (hash(k) % N) Fails Under Elastic",
+        "title": "Why Modulo Sharding (hash(k) % N) Fails Under Elastic Scaling",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The suppose design establishes the core structural invariant.",
+            "caption": "`shard = hash(key) % 4`.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Modulo"
+                    "text": "keys"
                   },
                   {
-                    "text": "Sharding"
+                    "var": "keys",
+                    "line": 7,
+                    "hit": 1001
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "key"
+                  },
+                  {
+                    "var": "key",
+                    "line": 5,
+                    "hit": 1
                   }
                 ],
                 "tone": "data"
@@ -34,16 +49,59 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The modulus step drives deterministic state transitions.",
+            "at": "say2",
+            "caption": "What breaks catastrophically the moment traffic spikes and ops scales.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "hash"
+                    "text": "keys"
                   },
                   {
-                    "text": "Fails"
+                    "var": "keys",
+                    "line": 8,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "key"
+                  },
+                  {
+                    "var": "key",
+                    "line": 5,
+                    "hit": 2
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Watch our quantitative simulation below measuring exact key reshuffle.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
                   }
                 ],
                 "tone": "ok"
@@ -54,33 +112,67 @@
       },
       "filled": {
         "template": "table",
-        "title": "Why Modulo Sharding (hash(k) % N) Fails Under Elastic",
+        "title": "Why Modulo Sharding (hash(k) % N) Fails Under Elastic Scaling",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The suppose design establishes the core structural invariant.",
+            "caption": "`shard = hash(key) % 4`.",
             "rows": [
               {
                 "cells": [
-                  "Modulo",
-                  "Sharding"
+                  "keys",
+                  "['session:0', 'session:1', 'session:2',…"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "key",
+                  "'session:0'"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The modulus step drives deterministic state transitions.",
+            "at": "say2",
+            "caption": "What breaks catastrophically the moment traffic spikes and ops scales.",
             "rows": [
               {
                 "cells": [
-                  "hash",
-                  "Fails"
+                  "keys",
+                  "['session:0', 'session:1', 'session:2',…"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "key",
+                  "'session:1'"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Watch our quantitative simulation below measuring exact key reshuffle.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "Modulo Sharding scale 4 -> 5 displaced 802/1000 keys (80.2%!!)"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "Ideal theoretical minimum needed for 5th shard = ~200/1000 (20.0%)"
                 ],
                 "tone": "ok"
               }
@@ -93,80 +185,111 @@
       "partTitle": "32-Bit Clockwise Consistent Hash Ring with bisect_right Wrap-Around",
       "codeHash": "af46e22ceebff90268dac9afacf2bd140fb136a861be710baa084ea5dfa201c6",
       "spec": {
-        "template": "table",
-        "title": "32-Bit Clockwise Consistent Hash Ring with bisect_right",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "32-Bit Clockwise Consistent Hash Ring with bisect_right Wrap-Aro",
         "steps": [
           {
             "at": "say1",
-            "caption": "The karger design establishes the core structural invariant.",
-            "rows": [
+            "caption": "How did Karger et al.",
+            "items": {
+              "var": "nodes",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Clockwise"
-                  },
-                  {
-                    "text": "Consistent"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The route step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Hash BOTH cluster node IDs (`shard-A`, `shard-B`,.",
+            "items": {
+              "var": "nodes",
+              "line": 9,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Hash"
-                  },
-                  {
-                    "text": "Ring"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Pause and see the miracle when `shard-5` joins the circle.",
+            "items": {
+              "var": "nodes",
+              "line": 8,
+              "hit": 4
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "32-Bit Clockwise Consistent Hash Ring with bisect_right",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "32-Bit Clockwise Consistent Hash Ring with bisect_right Wrap-Aro",
         "steps": [
           {
             "at": "say1",
-            "caption": "The karger design establishes the core structural invariant.",
-            "rows": [
+            "caption": "How did Karger et al.",
+            "items": [
+              "'shard-0'",
+              "'shard-1'",
+              "'shard-2'",
+              "'shard-3'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Clockwise",
-                  "Consistent"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The route step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Hash BOTH cluster node IDs (`shard-A`, `shard-B`,.",
+            "items": [
+              "'shard-0'",
+              "'shard-1'",
+              "'shard-2'",
+              "'shard-3'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Hash",
-                  "Ring"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Pause and see the miracle when `shard-5` joins the circle.",
+            "items": [
+              "'shard-0'",
+              "'shard-1'",
+              "'shard-2'",
+              "'shard-3'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,43 +300,131 @@
       "partTitle": "Virtual Nodes (vnodes): Eliminating Load Skew & Cascade Failures",
       "codeHash": "2192be5051c2945fdc0faf7c0eea78f9e705a489b7cd3e94c37e2101b5310e6e",
       "spec": {
-        "template": "table",
-        "title": "Virtual Nodes (vnodes)",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Virtual Nodes (vnodes): Eliminating Load Skew & Cascade Failures",
         "steps": [
           {
             "at": "say1",
-            "caption": "The hidden design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Did you notice the hidden warning printed by our Base Hash Ring experiment.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Virtual"
-                  },
-                  {
-                    "text": "Nodes"
-                  }
-                ],
+                "label": "vnodes",
+                "value": {
+                  "var": "vnodes",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 53,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The industry step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how worse updates point during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "vnodes"
-                  },
-                  {
-                    "text": "Eliminating"
-                  }
-                ],
+                "label": "vnodes",
+                "value": {
+                  "var": "vnodes",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 54,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect our quantitative side-by-side standard deviation comparison across.",
+            "bars": [
+              {
+                "label": "vnodes",
+                "value": {
+                  "var": "vnodes",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 53,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +432,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Virtual Nodes (vnodes)",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Virtual Nodes (vnodes): Eliminating Load Skew & Cascade Failures",
         "steps": [
           {
             "at": "say1",
-            "caption": "The hidden design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Did you notice the hidden warning printed by our Base Hash Ring experiment.",
+            "bars": [
               {
-                "cells": [
-                  "Virtual",
-                  "Nodes"
-                ],
+                "label": "vnodes",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "pos",
+                "value": 41562275,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The industry step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how worse updates point during execution.",
+            "bars": [
               {
-                "cells": [
-                  "vnodes",
-                  "Eliminating"
-                ],
+                "label": "vnodes",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "pos",
+                "value": 41562275,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect our quantitative side-by-side standard deviation comparison across.",
+            "bars": [
+              {
+                "label": "vnodes",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "pos",
+                "value": 41562275,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -261,43 +520,104 @@
       "partTitle": "Empirically Auditing ~1/N Key Movement on Scale-Out & Failover",
       "codeHash": "8c6df3785319f20428fc8c7e19c016f294d7758673d3fb2cf2f5b4984962aacc",
       "spec": {
-        "template": "table",
-        "title": "Empirically Auditing ~1/N Key Movement on Scale-Out &",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Empirically Auditing ~1/N Key Movement on Scale-Out & Failover",
         "steps": [
           {
             "at": "say1",
-            "caption": "The engineering design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Engineering confidence requires proving theoretical scaling claims on real.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Empirically"
-                  },
-                  {
-                    "text": "Auditing"
-                  }
-                ],
+                "label": "vnodes",
+                "value": {
+                  "var": "vnodes",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 18,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The conversely step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Check the **Consistent Hashing Monotonicity Invariant**.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Movement"
-                  },
-                  {
-                    "text": "Scale"
-                  }
-                ],
+                "label": "vnodes",
+                "value": {
+                  "var": "vnodes",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Asserting both zero collateral-churn invariants explicitly in code.",
+            "bars": [
+              {
+                "label": "vnodes",
+                "value": {
+                  "var": "vnodes",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 20,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -305,35 +625,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Empirically Auditing ~1/N Key Movement on Scale-Out &",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Empirically Auditing ~1/N Key Movement on Scale-Out & Failover",
         "steps": [
           {
             "at": "say1",
-            "caption": "The engineering design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Engineering confidence requires proving theoretical scaling claims on real.",
+            "bars": [
               {
-                "cells": [
-                  "Empirically",
-                  "Auditing"
-                ],
+                "label": "vnodes",
+                "value": 64,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "p",
+                "value": 3893028990,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The conversely step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Check the **Consistent Hashing Monotonicity Invariant**.",
+            "bars": [
               {
-                "cells": [
-                  "Movement",
-                  "Scale"
-                ],
+                "label": "vnodes",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 3893028990,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Asserting both zero collateral-churn invariants explicitly in code.",
+            "bars": [
+              {
+                "label": "vnodes",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "p",
+                "value": 3893028990,
                 "tone": "ok"
               }
             ]
@@ -345,80 +698,114 @@
       "partTitle": "Production Application: Multi-Replica Distributed Shard Router (N-Distinct Hosts)",
       "codeHash": "c714cf0a88bf0b6baf760ed06a5cc6cdf452351424523b0841c75c8d12aa5ccf",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Production Application: Multi-Replica Distributed Shard Router (",
         "steps": [
           {
             "at": "say1",
-            "caption": "The solve design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us solve ONE subtle real-world bug that trips up production.",
+            "items": {
+              "var": "sample_keys",
+              "line": 48,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The cleanly step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "If you simply walk clockwise along `ring[]` grabbing the NEXT `2` points.",
+            "items": {
+              "var": "sample_keys",
+              "line": 54,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Multi"
-                  },
-                  {
-                    "text": "Replica"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect and execute our production `DistributedShardRouter` supporting.",
+            "items": {
+              "var": "sample_keys",
+              "line": 54,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Production Application: Multi-Replica Distributed Shard Router (",
         "steps": [
           {
             "at": "say1",
-            "caption": "The solve design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us solve ONE subtle real-world bug that trips up production.",
+            "items": [
+              "'acct:101'",
+              "'acct:202'",
+              "'acct:303'",
+              "'order:991'",
+              "'order:992'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The cleanly step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "If you simply walk clockwise along `ring[]` grabbing the NEXT `2` points.",
+            "items": [
+              "'acct:101'",
+              "'acct:202'",
+              "'acct:303'",
+              "'order:991'",
+              "'order:992'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Multi",
-                  "Replica"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect and execute our production `DistributedShardRouter` supporting.",
+            "items": [
+              "'acct:101'",
+              "'acct:202'",
+              "'acct:303'",
+              "'order:991'",
+              "'order:992'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

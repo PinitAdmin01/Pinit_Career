@@ -2,230 +2,125 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 34,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Tokenization Problem: From Characters to Subwords and the OOV Dilemma",
       "codeHash": "18460d8a29730316846855c5f07141846f86b87b3f8a528b5b26d004c8566749",
       "spec": {
-        "template": "flow",
-        "title": "The Tokenization Problem: From Characters to ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Tokenization Pr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "The Tokenization Problem: From Characters to Subwords and the OO",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The Tokenization Problem: From Character...",
-            "values": {
-              "in": "Day 34 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The Tokenization Pr....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Before a single floating-point multiplication can take place in.",
+            "items": {
+              "var": "words",
+              "line": 2,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "To understand the mathematical necessity of subword tokenizers, we must.",
+            "items": {
+              "var": "words",
+              "line": 10,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The Tokenization Problem: From Ch...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "In the following analytical benchmark, we will evaluate word-level.",
+            "items": {
+              "var": "words",
+              "line": 15,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The Tokenization Problem: From Characters to ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Tokenization Pr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "The Tokenization Problem: From Characters to Subwords and the OO",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The Tokenization Problem: From Character...",
-            "values": {
-              "in": "Day 34 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Tokenization Pr....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Before a single floating-point multiplication can take place in.",
+            "items": [
+              "'Microwave'",
+              "'ovens'",
+              "'reheating'",
+              "'the'",
+              "'pizza'",
+              "'quickly!'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand the mathematical necessity of subword tokenizers, we must.",
+            "items": [
+              "'Microwave'",
+              "'ovens'",
+              "'reheating'",
+              "'the'",
+              "'pizza'",
+              "'quickly!'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Tokenization Problem: From Ch...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In the following analytical benchmark, we will evaluate word-level.",
+            "items": [
+              "'Microwave'",
+              "'ovens'",
+              "'reheating'",
+              "'the'",
+              "'pizza'",
+              "'quickly!'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -235,223 +130,114 @@
       "partTitle": "Byte-Pair Encoding (BPE): Iterative Pair Frequency Compression",
       "codeHash": "cbd4d1bc9823f7ff1fa664a224df6c551cb3fdd14d89e3c150ee00143460e6d4",
       "spec": {
-        "template": "flow",
-        "title": "Byte-Pair Encoding (BPE): Iterative Pair Freq... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Byte-Pair Encoding ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Byte-Pair Encoding (BPE): Iterative Pair Frequency Compression",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Byte-Pair Encoding (BPE): Iterative Pair...",
-            "values": {
-              "in": "Day 34 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Byte-Pair Encoding ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Having established the necessity of subword tokenization, we examine.",
+            "items": {
+              "var": "word_tuple",
+              "line": 5,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The core premise of BPE is elegant and data-driven.",
+            "items": {
+              "var": "word_tuple",
+              "line": 7,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Byte-Pair Encoding (BPE): Iterati...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "In our implementation below, we will build a complete pure Python.",
+            "items": {
+              "var": "word_tuple",
+              "line": 6,
+              "hit": 6
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Byte-Pair Encoding (BPE): Iterative Pair Freq... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Byte-Pair Encoding ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Byte-Pair Encoding (BPE): Iterative Pair Frequency Compression",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Byte-Pair Encoding (BPE): Iterative Pair...",
-            "values": {
-              "in": "Day 34 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Byte-Pair Encoding ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having established the necessity of subword tokenization, we examine.",
+            "items": [
+              "'l'",
+              "'o'",
+              "'w'",
+              "'_'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The core premise of BPE is elegant and data-driven.",
+            "items": [
+              "'l'",
+              "'o'",
+              "'w'",
+              "'_'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Byte-Pair Encoding (BPE): Iterati...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In our implementation below, we will build a complete pure Python.",
+            "items": [
+              "'l'",
+              "'o'",
+              "'w'",
+              "'e'",
+              "'r'",
+              "'_'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -461,223 +247,118 @@
       "partTitle": "WordPiece and Unigram Language Model Tokenizers",
       "codeHash": "31e8211152c6ae4f05ff45319ad01f4f64d18ce7c28ffad75c52d3f3d72ee467",
       "spec": {
-        "template": "flow",
-        "title": "WordPiece and Unigram Language Model Tokenizers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. WordPiece and Unigr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "WordPiece and Unigram Language Model Tokenizers",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for WordPiece and Unigram Language Model Tok...",
-            "values": {
-              "in": "Day 34 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in WordPiece and Unigr....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "While Byte-Pair Encoding (BPE) relies on simple raw frequency counts.",
+            "items": {
+              "var": "best_segment",
+              "line": 14,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "WordPiece shares a bottom-up merging structure with BPE, but modifies.",
+            "items": {
+              "var": "best_segment",
+              "line": 21,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for WordPiece and Unigram Language Mo...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "In our implementation below, we will write a pure Python Unigram tokenizer.",
+            "items": {
+              "var": "best_segment",
+              "line": 16,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "WordPiece and Unigram Language Model Tokenizers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. WordPiece and Unigr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "WordPiece and Unigram Language Model Tokenizers",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for WordPiece and Unigram Language Model Tok...",
-            "values": {
-              "in": "Day 34 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in WordPiece and Unigr....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While Byte-Pair Encoding (BPE) relies on simple raw frequency counts.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "WordPiece shares a bottom-up merging structure with BPE, but modifies.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for WordPiece and Unigram Language Mo...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "In our implementation below, we will write a pure Python Unigram tokenizer.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -687,223 +368,175 @@
       "partTitle": "Byte-Level BPE & Byte-Fallback: Eliminating the `<unk>` Token",
       "codeHash": "82d699b7da0ff44aa8d855903fa0212b475826bedb87f8b9dd4ddccad5f9ab33",
       "spec": {
-        "template": "flow",
-        "title": "Byte-Level BPE & Byte-Fallback: Eliminating t... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Byte-Level BPE & By...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Byte-Level BPE & Byte-Fallback: Eliminating the `<unk>` Token",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Byte-Level BPE & Byte-Fallback: Eliminat...",
-            "values": {
-              "in": "Day 34 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Byte-Level BPE & By....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Even with subword algorithms like BPE and WordPiece, early Transformer.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "idx",
+                "value": {
+                  "var": "idx",
+                  "line": 50,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Byte-Level Byte-Pair Encoding (BBPE).",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 13,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 20,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "idx",
+                "value": {
+                  "var": "idx",
+                  "line": 51,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Byte-Level BPE & Byte-Fallback: E...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "In our implementation below, we will build a pure Python Byte-Level BPE.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 13,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 20,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "idx",
+                "value": {
+                  "var": "idx",
+                  "line": 50,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Byte-Level BPE & Byte-Fallback: Eliminating t... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Byte-Level BPE & By...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Byte-Level BPE & Byte-Fallback: Eliminating the `<unk>` Token",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Byte-Level BPE & Byte-Fallback: Eliminat...",
-            "values": {
-              "in": "Day 34 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Byte-Level BPE & By....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Even with subword algorithms like BPE and WordPiece, early Transformer.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": 65,
+                "tone": "data"
+              },
+              {
+                "label": "idx",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Byte-Level Byte-Pair Encoding (BBPE).",
+            "bars": [
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 73,
+                "tone": "ok"
+              },
+              {
+                "label": "idx",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Byte-Level BPE & Byte-Fallback: E...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "In our implementation below, we will build a pure Python Byte-Level BPE.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 32,
+                "tone": "ok"
+              },
+              {
+                "label": "idx",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -914,110 +547,161 @@
       "codeHash": "88e06b9c00cc04276f810da47316b8ca1b805e6a3b92768771b13420c3465952",
       "spec": {
         "template": "flow",
-        "title": "Production Tokenizer Engineering: Special Tok... — Execution Pipeline",
+        "title": "Production Tokenizer Engineering: Special Tokens, Reversibility ",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "vocab",
+            "label": "vocab"
           },
           {
-            "id": "proc",
-            "label": "2. Production Tokenize...",
-            "tappable": true
+            "id": "special",
+            "label": "special"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "special_tokens",
+            "label": "special_tokens"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Production Tokenizer Engineering: Specia...",
-            "values": {
-              "in": "Day 34 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Production Tokenize....",
+            "caption": "A tokenizer is not merely an isolated text-processing script.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "vocab": {
+                "var": "vocab",
+                "line": 37,
+                "hit": 1
+              },
+              "special": {
+                "var": "special",
+                "line": 41,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
+              },
+              "special_tokens": {
+                "var": "special_tokens",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "vocab": "data",
+              "special": "data",
+              "self": "data",
+              "special_tokens": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "vocab",
+                "special"
               ],
               [
-                "proc",
-                "out"
+                "special",
+                "self"
+              ],
+              [
+                "self",
+                "special_tokens"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The first reliable production standard is Lossless Reversibility.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "vocab": {
+                "var": "vocab",
+                "line": 41,
+                "hit": 1
+              },
+              "special": {
+                "var": "special",
+                "line": 42,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
+              },
+              "special_tokens": {
+                "var": "special_tokens",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "vocab": "data",
+              "special": "data",
+              "self": "data",
+              "special_tokens": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "vocab",
+                "special"
+              ],
+              [
+                "special",
+                "self"
+              ],
+              [
+                "self",
+                "special_tokens"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Production Tokenizer Engineering:...",
+            "at": "say10",
+            "caption": "In the following production audit script, we will implement a tokenizer.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "vocab": {
+                "var": "vocab",
+                "line": 42,
+                "hit": 1
+              },
+              "special": {
+                "var": "special",
+                "line": 44,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 2
+              },
+              "special_tokens": {
+                "var": "special_tokens",
+                "line": 6,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "vocab": "ok",
+              "special": "ok",
+              "self": "ok",
+              "special_tokens": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "vocab",
+                "special"
               ],
               [
-                "proc",
-                "out"
+                "special",
+                "self"
+              ],
+              [
+                "self",
+                "special_tokens"
               ]
             ]
           }
@@ -1025,110 +709,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Production Tokenizer Engineering: Special Tok... — Execution Pipeline",
+        "title": "Production Tokenizer Engineering: Special Tokens, Reversibility ",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "vocab",
+            "label": "vocab"
           },
           {
-            "id": "proc",
-            "label": "2. Production Tokenize...",
-            "tappable": true
+            "id": "special",
+            "label": "special"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "special_tokens",
+            "label": "special_tokens"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Production Tokenizer Engineering: Specia...",
-            "values": {
-              "in": "Day 34 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Production Tokenize....",
+            "caption": "A tokenizer is not merely an isolated text-processing script.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "vocab": "{'<unk>': 0, '<s>': 1, '</s>': 2, '<|im…",
+              "special": "['<s>', '</s>', '<|im_start|>', '<|im_e…",
+              "self": "<ProductionTokenizerValidator>",
+              "special_tokens": "['<s>', '</s>', '<|im_start|>', '<|im_e…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "vocab": "data",
+              "special": "data",
+              "self": "data",
+              "special_tokens": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "vocab",
+                "special"
               ],
               [
-                "proc",
-                "out"
+                "special",
+                "self"
+              ],
+              [
+                "self",
+                "special_tokens"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The first reliable production standard is Lossless Reversibility.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "vocab": "{'<unk>': 0, '<s>': 1, '</s>': 2, '<|im…",
+              "special": "['<s>', '</s>', '<|im_start|>', '<|im_e…",
+              "self": "<ProductionTokenizerValidator>",
+              "special_tokens": "['<s>', '</s>', '<|im_start|>', '<|im_e…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "vocab": "data",
+              "special": "data",
+              "self": "data",
+              "special_tokens": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "vocab",
+                "special"
+              ],
+              [
+                "special",
+                "self"
+              ],
+              [
+                "self",
+                "special_tokens"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Production Tokenizer Engineering:...",
+            "at": "say10",
+            "caption": "In the following production audit script, we will implement a tokenizer.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "vocab": "{'<unk>': 0, '<s>': 1, '</s>': 2, '<|im…",
+              "special": "['<s>', '</s>', '<|im_start|>', '<|im_e…",
+              "self": "<ProductionTokenizerValidator>",
+              "special_tokens": "['<s>', '</s>', '<|im_start|>', '<|im_e…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "vocab": "ok",
+              "special": "ok",
+              "self": "ok",
+              "special_tokens": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "vocab",
+                "special"
               ],
               [
-                "proc",
-                "out"
+                "special",
+                "self"
+              ],
+              [
+                "self",
+                "special_tokens"
               ]
             ]
           }

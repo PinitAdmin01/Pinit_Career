@@ -2,1335 +2,687 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 37,
-  "promptSha": "176b1c28e5524330bf93e15d46a94f4168e4faefc2bbf0c38999ce3abd72bb47",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "JWT Security Hardening — Foundations & Mathematical Invariants",
-      "codeHash": "e549d318e9e65d0654410950066690fd8c72e00d27e1f5af08919cd49cef8448",
+      "codeHash": "82c58e4b895e467e18c37bbe1507c5b57003b7082816179ceb5c1d56eca9bc60",
       "spec": {
-        "template": "flow",
+        "template": "sequence",
         "title": "JWT Security Hardening — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "actors": [
+          "tv",
+          "desc"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how json updates tokens during execution.",
+            "activeActor": "tv",
+            "messages": [
+              {
+                "from": "tv",
+                "to": "desc",
+                "label": {
+                  "var": "tv",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "desc",
+                "to": "tv",
+                "label": {
+                  "var": "desc",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A standard JWT comprises three base64url-encoded segments joined by periods.",
+            "activeActor": "desc",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "tv",
+                "to": "desc",
+                "label": {
+                  "var": "tv",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "desc",
+                "to": "tv",
+                "label": {
+                  "var": "desc",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Modern cloud identity architectures mandate rotating token signing keys.",
+            "activeActor": "desc",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "tv",
+                "to": "desc",
+                "label": {
+                  "var": "tv",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "desc",
+                "to": "tv",
+                "label": {
+                  "var": "desc",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "sequence",
         "title": "JWT Security Hardening — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "actors": [
+          "tv",
+          "desc"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how json updates tokens during execution.",
+            "messages": [
+              {
+                "from": "tv",
+                "to": "desc",
+                "label": "'ALG_NONE_ATTACK'",
+                "tone": "data"
+              },
+              {
+                "from": "desc",
+                "to": "tv",
+                "label": "'Attacker sets header alg=none to bypas…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "tv"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A standard JWT comprises three base64url-encoded segments joined by periods.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "tv",
+                "to": "desc",
+                "label": "'ALG_NONE_ATTACK'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "desc",
+                "to": "tv",
+                "label": "'Attacker sets header alg=none to bypas…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "desc"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Modern cloud identity architectures mandate rotating token signing keys.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "tv",
+                "to": "desc",
+                "label": "'ALGORITHM_CONFUSION'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "desc",
+                "to": "tv",
+                "label": "'Attacker signs with HMAC using public …",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "desc"
           }
         ]
       }
     },
     {
       "partTitle": "JWT Security Hardening — Core Algorithm & State Representation",
-      "codeHash": "f1acd5ff256ec82cb3b6364b9ed755ed3dd80ff4b8b7800a4a007b6b6056dfef",
+      "codeHash": "806730efaa598552aaecc0b2af417e2c283f52239885593fa5a97810941184a6",
       "spec": {
-        "template": "flow",
+        "template": "states",
         "title": "JWT Security Hardening — Core Algorithm & State Representation",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "secret",
+            "label": "secret"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "h",
+            "label": "h"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "p",
+            "label": "p"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Implementing a hardened JWT validator requires strict adherence.",
+            "currentState": "secret",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The validator parses the incoming token string into its three constituent.",
+            "currentState": "h",
+            "transition": {
+              "from": "secret",
+              "to": "h",
+              "label": {
+                "var": "h",
+                "line": 33,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "When validating asymmetric signatures, services should restrict public key.",
+            "currentState": "p",
+            "transition": {
+              "from": "h",
+              "to": "p",
+              "label": {
+                "var": "p",
+                "line": 35,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "states",
         "title": "JWT Security Hardening — Core Algorithm & State Representation",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "secret",
+            "label": "secret"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "h",
+            "label": "h"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "p",
+            "label": "p"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Implementing a hardened JWT validator requires strict adherence.",
+            "currentState": "secret",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The validator parses the incoming token string into its three constituent.",
+            "currentState": "h",
+            "transition": {
+              "from": "secret",
+              "to": "h",
+              "label": "'eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVC…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "When validating asymmetric signatures, services should restrict public key.",
+            "currentState": "p",
+            "transition": {
+              "from": "h",
+              "to": "p",
+              "label": "'eyJzdWIiOiAidXNlcl80MiIsICJyb2xlIjogIm…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "JWT Security Hardening — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "65bc6d31a2a9649a6894fa4dd630ebbd3ce2f0e21cdd40d404300f204dc6fcf3",
+      "codeHash": "a40cbe4ba5dfc4479fe67822a8af0d048c0c610df8c9fa997661ddf1cd45e05c",
       "spec": {
-        "template": "flow",
-        "title": "JWT Security Hardening — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "JWT Security Hardening — Throughput Optimization & Edge-Case Han",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "keystore",
+            "label": "keystore"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "kid_header",
+            "label": "kid_header"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "trusted_key_store",
+            "label": "trusted_key_store"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Many enterprise identity providers utilize the Key Identifier (`kid`).",
+            "currentState": "keystore",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "When a service receives a JWT with a `kid`, it retrieves the corresponding.",
+            "currentState": "kid_header",
+            "transition": {
+              "from": "keystore",
+              "to": "kid_header",
+              "label": {
+                "var": "kid_header",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Microservices operating behind an API gateway should validate JWT.",
+            "currentState": "trusted_key_store",
+            "transition": {
+              "from": "kid_header",
+              "to": "trusted_key_store",
+              "label": {
+                "var": "trusted_key_store",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "JWT Security Hardening — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "JWT Security Hardening — Throughput Optimization & Edge-Case Han",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "keystore",
+            "label": "keystore"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "kid_header",
+            "label": "kid_header"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "trusted_key_store",
+            "label": "trusted_key_store"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Many enterprise identity providers utilize the Key Identifier (`kid`).",
+            "currentState": "keystore",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "When a service receives a JWT with a `kid`, it retrieves the corresponding.",
+            "currentState": "kid_header",
+            "transition": {
+              "from": "keystore",
+              "to": "kid_header",
+              "label": "'key2026a'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Microservices operating behind an API gateway should validate JWT.",
+            "currentState": "trusted_key_store",
+            "transition": {
+              "from": "kid_header",
+              "to": "trusted_key_store",
+              "label": "{'key2026a': 'PUB_KEY_DATA_A', 'key2026…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "JWT Security Hardening — Resilience Guardrails & Failure Recovery",
-      "codeHash": "15e19f6cd56165c3855f89e1d586177c1a276a694e50319ed47a931596315419",
+      "codeHash": "ad1857ffe7f21311d8b91b4a4f8efcc631136621c9e35c05b4730f9f2af5c060",
       "spec": {
-        "template": "flow",
-        "title": "JWT Security Hardening — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "states",
+        "title": "JWT Security Hardening — Resilience Guardrails & Failure Recover",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "rev",
+            "label": "rev"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "jti",
+            "label": "jti"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A fundamental limitation of stateless JWTs is the difficulty of immediate.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "If a user account is compromised, a session is terminated, or permissions.",
+            "currentState": "rev",
+            "transition": {
+              "from": "self",
+              "to": "rev",
+              "label": {
+                "var": "rev",
+                "line": 12,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Revocation blacklist clusters typically utilize distributed in-memory data.",
+            "currentState": "jti",
+            "transition": {
+              "from": "rev",
+              "to": "jti",
+              "label": {
+                "var": "jti",
+                "line": 9,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "JWT Security Hardening — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "states",
+        "title": "JWT Security Hardening — Resilience Guardrails & Failure Recover",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "rev",
+            "label": "rev"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "jti",
+            "label": "jti"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A fundamental limitation of stateless JWTs is the difficulty of immediate.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "If a user account is compromised, a session is terminated, or permissions.",
+            "currentState": "rev",
+            "transition": {
+              "from": "self",
+              "to": "rev",
+              "label": "<TokenRevocationBlacklist>"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Revocation blacklist clusters typically utilize distributed in-memory data.",
+            "currentState": "jti",
+            "transition": {
+              "from": "rev",
+              "to": "jti",
+              "label": "'jti_token_active_3490'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "JWT Security Hardening — Production Telemetry & Verification Audit",
-      "codeHash": "0cad3dba1e7e3aacc1322665b0024e7fd737a77a68bd3c8d5c7254e6785ae885",
+      "codeHash": "a8bcb9927b4c20e1ea327fe1b499721b9ab58abe0e19498da926bbee2da1374e",
       "spec": {
-        "template": "flow",
-        "title": "JWT Security Hardening — Production Telemetry & Verification Audit",
-        "nodes": [
+        "template": "boxes",
+        "title": "JWT Security Hardening — Production Telemetry & Verification Aud",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "alg_none_rejected",
+            "label": "alg_none_rejected"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "confusion_blocked",
+            "label": "confusion_blocked"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "kid_sanitized",
+            "label": "kid_sanitized"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "revocation_active",
+            "label": "revocation_active"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Securing enterprise API gateways requires continuous telemetry monitoring.",
+            "values": {
+              "alg_none_rejected": {
+                "var": "alg_none_rejected",
+                "line": 5,
+                "hit": 1
+              },
+              "confusion_blocked": {
+                "var": "confusion_blocked",
+                "line": 5,
+                "hit": 1
+              },
+              "kid_sanitized": {
+                "var": "kid_sanitized",
+                "line": 5,
+                "hit": 1
+              },
+              "revocation_active": {
+                "var": "revocation_active",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "alg_none_rejected": "data",
+              "confusion_blocked": "data",
+              "kid_sanitized": "data",
+              "revocation_active": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Production metrics monitor token validation latencies, algorithm.",
+            "values": {
+              "alg_none_rejected": {
+                "var": "alg_none_rejected",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "confusion_blocked": {
+                "var": "confusion_blocked",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "kid_sanitized": {
+                "var": "kid_sanitized",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "revocation_active": {
+                "var": "revocation_active",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "alg_none_rejected": "data",
+              "confusion_blocked": "data",
+              "kid_sanitized": "data",
+              "revocation_active": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Automated security fuzzing tools systematically inject malformed headers.",
+            "values": {
+              "alg_none_rejected": {
+                "var": "alg_none_rejected",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "confusion_blocked": {
+                "var": "confusion_blocked",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "kid_sanitized": {
+                "var": "kid_sanitized",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "revocation_active": {
+                "var": "revocation_active",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "alg_none_rejected": "ok",
+              "confusion_blocked": "ok",
+              "kid_sanitized": "ok",
+              "revocation_active": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "JWT Security Hardening — Production Telemetry & Verification Audit",
-        "nodes": [
+        "template": "boxes",
+        "title": "JWT Security Hardening — Production Telemetry & Verification Aud",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "alg_none_rejected",
+            "label": "alg_none_rejected"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "confusion_blocked",
+            "label": "confusion_blocked"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "kid_sanitized",
+            "label": "kid_sanitized"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "revocation_active",
+            "label": "revocation_active"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Securing enterprise API gateways requires continuous telemetry monitoring.",
+            "values": {
+              "alg_none_rejected": "True",
+              "confusion_blocked": "True",
+              "kid_sanitized": "True",
+              "revocation_active": "True"
+            },
+            "tones": {
+              "alg_none_rejected": "data",
+              "confusion_blocked": "data",
+              "kid_sanitized": "data",
+              "revocation_active": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Production metrics monitor token validation latencies, algorithm.",
+            "values": {
+              "alg_none_rejected": "True",
+              "confusion_blocked": "True",
+              "kid_sanitized": "True",
+              "revocation_active": "True"
+            },
+            "tones": {
+              "alg_none_rejected": "data",
+              "confusion_blocked": "data",
+              "kid_sanitized": "data",
+              "revocation_active": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Automated security fuzzing tools systematically inject malformed headers.",
+            "values": {
+              "alg_none_rejected": "True",
+              "confusion_blocked": "True",
+              "kid_sanitized": "True",
+              "revocation_active": "True"
+            },
+            "tones": {
+              "alg_none_rejected": "ok",
+              "confusion_blocked": "ok",
+              "kid_sanitized": "ok",
+              "revocation_active": "ok"
+            }
           }
         ]
       }

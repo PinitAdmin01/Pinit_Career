@@ -2,135 +2,285 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 24,
-  "promptSha": "d60cb67cc1ceb13af5e89bdda4d3b8e64e91237f56ccbed16f7df68623b1eefb",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Logs and SIEM",
       "codeHash": "0f047f45d0a184edb958c23c5d602c39718180f0f173dc8b2e42a75da59da9eb",
       "spec": {
         "template": "flow",
-        "title": "Enterprise security telemetry ingestion and schema normalization pipeline",
+        "title": "Logs and SIEM",
         "nodes": [
           {
-            "id": "logCollector",
-            "label": "Endpoint Telemetry Agent",
-            "tappable": false
+            "id": "lines",
+            "label": "lines"
           },
           {
-            "id": "logParser",
-            "label": "ECS Schema Normalization Parser",
-            "tappable": false
+            "id": "line",
+            "label": "line"
           },
           {
-            "id": "indexEngine",
-            "label": "Search Indexing Engine",
-            "tappable": false
+            "id": "ts",
+            "label": "ts"
           },
           {
-            "id": "detectionRules",
-            "label": "Continuous Detection Engine",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "logCollector",
-            "to": "logParser",
-            "label": "Streams"
-          },
-          {
-            "from": "logParser",
-            "to": "indexEngine",
-            "label": "Indexes"
-          },
-          {
-            "from": "indexEngine",
-            "to": "detectionRules",
-            "label": "Queries"
+            "id": "event",
+            "label": "event"
           }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Log parsers normalize disparate events into standardized schemas.",
-            "activeNodes": [
-              "logCollector",
-              "logParser"
-            ],
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Almost every system writes logs.",
+            "values": {
+              "lines": {
+                "var": "lines",
+                "line": 3,
+                "hit": 2
+              },
+              "line": {
+                "var": "line",
+                "line": 5,
+                "hit": 1
+              },
+              "ts": {
+                "var": "ts",
+                "line": 6,
+                "hit": 1
+              },
+              "event": {
+                "var": "event",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "lines": "data",
+              "line": "data",
+              "ts": "data",
+              "event": "data"
+            },
+            "arrows": [
+              [
+                "lines",
+                "line"
+              ],
+              [
+                "line",
+                "ts"
+              ],
+              [
+                "ts",
+                "event"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "The SIEM executes search queries and continuous detection rules across logs.",
-            "activeNodes": [
-              "indexEngine",
-              "detectionRules"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "A SIEM (security information and event management) system collects logs.",
+            "values": {
+              "lines": {
+                "var": "lines",
+                "line": 5,
+                "hit": 1
+              },
+              "line": {
+                "var": "line",
+                "line": 6,
+                "hit": 1
+              },
+              "ts": {
+                "var": "ts",
+                "line": 7,
+                "hit": 1
+              },
+              "event": {
+                "var": "event",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "lines": "data",
+              "line": "data",
+              "ts": "data",
+              "event": "data"
+            },
+            "arrows": [
+              [
+                "lines",
+                "line"
+              ],
+              [
+                "line",
+                "ts"
+              ],
+              [
+                "ts",
+                "event"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Never log passwords, tokens or full card numbers.",
+            "values": {
+              "lines": {
+                "var": "lines",
+                "line": 6,
+                "hit": 1
+              },
+              "line": {
+                "var": "line",
+                "line": 7,
+                "hit": 1
+              },
+              "ts": {
+                "var": "ts",
+                "line": 8,
+                "hit": 1
+              },
+              "event": {
+                "var": "event",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "lines": "ok",
+              "line": "ok",
+              "ts": "ok",
+              "event": "ok"
+            },
+            "arrows": [
+              [
+                "lines",
+                "line"
+              ],
+              [
+                "line",
+                "ts"
+              ],
+              [
+                "ts",
+                "event"
+              ]
+            ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Enterprise security telemetry ingestion and schema normalization pipeline",
+        "title": "Logs and SIEM",
         "nodes": [
           {
-            "id": "logCollector",
-            "label": "Endpoint Telemetry Agent",
-            "tappable": false
+            "id": "lines",
+            "label": "lines"
           },
           {
-            "id": "logParser",
-            "label": "ECS Schema Normalization Parser",
-            "tappable": false
+            "id": "line",
+            "label": "line"
           },
           {
-            "id": "indexEngine",
-            "label": "Search Indexing Engine",
-            "tappable": false
+            "id": "ts",
+            "label": "ts"
           },
           {
-            "id": "detectionRules",
-            "label": "Continuous Detection Engine",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "logCollector",
-            "to": "logParser",
-            "label": "Streams"
-          },
-          {
-            "from": "logParser",
-            "to": "indexEngine",
-            "label": "Indexes"
-          },
-          {
-            "from": "indexEngine",
-            "to": "detectionRules",
-            "label": "Queries"
+            "id": "event",
+            "label": "event"
           }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Log parsers normalize disparate events into standardized schemas.",
-            "activeNodes": [
-              "logCollector",
-              "logParser"
-            ],
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Almost every system writes logs.",
+            "values": {
+              "lines": "['2026-05-01T10:00:05 FAILED_LOGIN user…",
+              "line": "'2026-05-01T10:00:05 FAILED_LOGIN user=…",
+              "ts": "'2026-05-01T10:00:05'",
+              "event": "'FAILED_LOGIN'"
+            },
+            "tones": {
+              "lines": "data",
+              "line": "data",
+              "ts": "data",
+              "event": "data"
+            },
+            "arrows": [
+              [
+                "lines",
+                "line"
+              ],
+              [
+                "line",
+                "ts"
+              ],
+              [
+                "ts",
+                "event"
+              ]
+            ]
           },
           {
-            "at": "say7",
-            "caption": "The SIEM executes search queries and continuous detection rules across logs.",
-            "activeNodes": [
-              "indexEngine",
-              "detectionRules"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "A SIEM (security information and event management) system collects logs.",
+            "values": {
+              "lines": "['2026-05-01T10:00:05 FAILED_LOGIN user…",
+              "line": "'2026-05-01T10:00:05 FAILED_LOGIN user=…",
+              "ts": "'2026-05-01T10:00:05'",
+              "event": "'FAILED_LOGIN'"
+            },
+            "tones": {
+              "lines": "data",
+              "line": "data",
+              "ts": "data",
+              "event": "data"
+            },
+            "arrows": [
+              [
+                "lines",
+                "line"
+              ],
+              [
+                "line",
+                "ts"
+              ],
+              [
+                "ts",
+                "event"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Never log passwords, tokens or full card numbers.",
+            "values": {
+              "lines": "['2026-05-01T10:00:05 FAILED_LOGIN user…",
+              "line": "'2026-05-01T10:00:05 FAILED_LOGIN user=…",
+              "ts": "'2026-05-01T10:00:05'",
+              "event": "'FAILED_LOGIN'"
+            },
+            "tones": {
+              "lines": "ok",
+              "line": "ok",
+              "ts": "ok",
+              "event": "ok"
+            },
+            "arrows": [
+              [
+                "lines",
+                "line"
+              ],
+              [
+                "line",
+                "ts"
+              ],
+              [
+                "ts",
+                "event"
+              ]
+            ]
           }
         ]
       }
@@ -139,202 +289,162 @@
       "partTitle": "Detecting brute force with sliding windows",
       "codeHash": "b5157862421371c9a6d23713f1218a0ca31264e4fd6523bd801d42d36e15a55a",
       "spec": {
-        "template": "table",
-        "title": "Threat intelligence Indicator of Compromise matching and detection rules",
-        "columns": [
-          "IOC Category",
-          "Threat Telemetry Source",
-          "Observed Artifact",
-          "Automated SOC Action"
+        "template": "sequence",
+        "title": "Detecting brute force with sliding windows",
+        "actors": [
+          ".0",
+          "t",
+          "times"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Common categories include malicious addresses and malware file hashes.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
+            "at": "say1",
+            "caption": "A brute-force attack produces many failed logins from one source in.",
+            "activeActor": ".0",
+            "messages": [
               {
-                "cells": [
-                  "Malicious IP Address",
-                  "Threat Intelligence Feed",
-                  "Outbound Host Connection",
-                  "Firewall Block Rule Injected"
-                ],
+                "from": ".0",
+                "to": "t",
+                "label": {
+                  "var": ".0",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Malware File Hash",
-                  "Threat Intelligence Feed",
-                  "SHA Hash Executed on Host",
-                  "Quarantine Process Immediately"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Command Domain Name",
-                  "Threat Intelligence Feed",
-                  "DNS Query from Workstation",
-                  "Sinkhole Domain Resolution"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Phishing URL Link",
-                  "Threat Intelligence Feed",
-                  "Inbound Email Attachment",
-                  "Purge Email Across Mailboxes"
-                ],
-                "tone": "data"
+                "from": "t",
+                "to": "times",
+                "label": {
+                  "var": "t",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Matching malicious file hashes triggers automated containment actions.",
-            "activeRowIndex": 1,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "A sliding window checks whether any window of, say, 60 seconds contains.",
+            "activeActor": "t",
+            "messages": [
               {
-                "cells": [
-                  "Malicious IP Address",
-                  "Threat Intelligence Feed",
-                  "Outbound Host Connection",
-                  "Firewall Block Rule Injected"
-                ],
+                "from": ".0",
+                "to": "t",
+                "label": {
+                  "var": ".0",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Malware File Hash",
-                  "Threat Intelligence Feed",
-                  "SHA Hash Executed on Host",
-                  "Quarantine Process Immediately"
-                ],
+                "from": "t",
+                "to": "times",
+                "label": {
+                  "var": "t",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Password spraying, one attempt per account across many accounts, needs.",
+            "activeActor": "times",
+            "messages": [
+              {
+                "from": ".0",
+                "to": "t",
+                "label": {
+                  "var": ".0",
+                  "line": 3,
+                  "hit": 3
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Command Domain Name",
-                  "Threat Intelligence Feed",
-                  "DNS Query from Workstation",
-                  "Sinkhole Domain Resolution"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Phishing URL Link",
-                  "Threat Intelligence Feed",
-                  "Inbound Email Attachment",
-                  "Purge Email Across Mailboxes"
-                ],
-                "tone": "data"
+                "from": "t",
+                "to": "times",
+                "label": {
+                  "var": "t",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Threat intelligence Indicator of Compromise matching and detection rules",
-        "columns": [
-          "IOC Category",
-          "Threat Telemetry Source",
-          "Observed Artifact",
-          "Automated SOC Action"
+        "template": "sequence",
+        "title": "Detecting brute force with sliding windows",
+        "actors": [
+          ".0",
+          "t",
+          "times"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Common categories include malicious addresses and malware file hashes.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
+            "at": "say1",
+            "caption": "A brute-force attack produces many failed logins from one source in.",
+            "messages": [
               {
-                "cells": [
-                  "Malicious IP Address",
-                  "Threat Intelligence Feed",
-                  "Outbound Host Connection",
-                  "Firewall Block Rule Injected"
-                ],
+                "from": ".0",
+                "to": "t",
+                "label": "{'__other__': 'tuple_iterator'}",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Malware File Hash",
-                  "Threat Intelligence Feed",
-                  "SHA Hash Executed on Host",
-                  "Quarantine Process Immediately"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Command Domain Name",
-                  "Threat Intelligence Feed",
-                  "DNS Query from Workstation",
-                  "Sinkhole Domain Resolution"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Phishing URL Link",
-                  "Threat Intelligence Feed",
-                  "Inbound Email Attachment",
-                  "Purge Email Across Mailboxes"
-                ],
-                "tone": "data"
+                "from": "t",
+                "to": "times",
+                "label": "'2026-05-01T10:00:00'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": ".0"
           },
           {
-            "at": "say6",
-            "caption": "Matching malicious file hashes triggers automated containment actions.",
-            "activeRowIndex": 1,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "A sliding window checks whether any window of, say, 60 seconds contains.",
+            "messages": [
               {
-                "cells": [
-                  "Malicious IP Address",
-                  "Threat Intelligence Feed",
-                  "Outbound Host Connection",
-                  "Firewall Block Rule Injected"
-                ],
+                "from": ".0",
+                "to": "t",
+                "label": "{'__other__': 'tuple_iterator'}",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Malware File Hash",
-                  "Threat Intelligence Feed",
-                  "SHA Hash Executed on Host",
-                  "Quarantine Process Immediately"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Command Domain Name",
-                  "Threat Intelligence Feed",
-                  "DNS Query from Workstation",
-                  "Sinkhole Domain Resolution"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Phishing URL Link",
-                  "Threat Intelligence Feed",
-                  "Inbound Email Attachment",
-                  "Purge Email Across Mailboxes"
-                ],
-                "tone": "data"
+                "from": "t",
+                "to": "times",
+                "label": "'2026-05-01T10:00:20'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "t"
+          },
+          {
+            "at": "say10",
+            "caption": "Password spraying, one attempt per account across many accounts, needs.",
+            "messages": [
+              {
+                "from": ".0",
+                "to": "t",
+                "label": "{'__other__': 'tuple_iterator'}",
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "times",
+                "label": "'2026-05-01T10:00:35'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "times"
           }
         ]
       }
@@ -344,73 +454,105 @@
       "codeHash": "4d9faf0094504d7fc9e517671ce162037458c84b0f8140169e8747d062e26ebc",
       "spec": {
         "template": "states",
-        "title": "Multi-event correlation window detecting brute-force to privilege escalation",
+        "title": "Indicators of compromise",
         "states": [
           {
-            "id": "sshFailures",
-            "label": "Multiple Failed Authentication Attempts"
+            "id": "iocs",
+            "label": "iocs"
           },
           {
-            "id": "thresholdReached",
-            "label": "Threshold Exceeded in Sliding Window"
+            "id": "logs",
+            "label": "logs"
           },
           {
-            "id": "loginSucceeded",
-            "label": "Single Successful Login Occurs"
-          },
-          {
-            "id": "escalationCorrelated",
-            "label": "Immediate Sudo Privilege Escalation Detected"
+            "id": "i",
+            "label": "i"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Correlation patterns detect failed logins followed by successful access.",
-            "activeStateId": "sshFailures",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Indicators of compromise (IOCs) are known signs of malicious activity.",
+            "currentState": "iocs",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Satisfying rule conditions creates high priority incidents in the window.",
-            "activeStateId": "escalationCorrelated",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Threat intelligence feeds from vendors, governments (such as CERT-In.",
+            "currentState": "logs",
+            "transition": {
+              "from": "iocs",
+              "to": "logs",
+              "label": {
+                "var": "logs",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "A match is a lead to investigate, not proof of compromise.",
+            "currentState": "i",
+            "transition": {
+              "from": "logs",
+              "to": "i",
+              "label": {
+                "var": "i",
+                "line": 6,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Multi-event correlation window detecting brute-force to privilege escalation",
+        "title": "Indicators of compromise",
         "states": [
           {
-            "id": "sshFailures",
-            "label": "Multiple Failed Authentication Attempts"
+            "id": "iocs",
+            "label": "iocs"
           },
           {
-            "id": "thresholdReached",
-            "label": "Threshold Exceeded in Sliding Window"
+            "id": "logs",
+            "label": "logs"
           },
           {
-            "id": "loginSucceeded",
-            "label": "Single Successful Login Occurs"
-          },
-          {
-            "id": "escalationCorrelated",
-            "label": "Immediate Sudo Privilege Escalation Detected"
+            "id": "i",
+            "label": "i"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Correlation patterns detect failed logins followed by successful access.",
-            "activeStateId": "sshFailures",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Indicators of compromise (IOCs) are known signs of malicious activity.",
+            "currentState": "iocs",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Satisfying rule conditions creates high priority incidents in the window.",
-            "activeStateId": "escalationCorrelated",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Threat intelligence feeds from vendors, governments (such as CERT-In.",
+            "currentState": "logs",
+            "transition": {
+              "from": "iocs",
+              "to": "logs",
+              "label": "['conn 10.0.0.2:443', 'DNS query EVIL-C…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "A match is a lead to investigate, not proof of compromise.",
+            "currentState": "i",
+            "transition": {
+              "from": "logs",
+              "to": "i",
+              "label": "1"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -419,202 +561,106 @@
       "partTitle": "Alert quality",
       "codeHash": "5edcc6f6260f4f70644f08cb074947bbbdbc309f5329768378f05cef2a6dcfd7",
       "spec": {
-        "template": "table",
-        "title": "MITRE ATT&CK framework tactical matrix and technique classification",
-        "columns": [
-          "Adversary Tactic",
-          "Tactical Objective",
-          "Technique Identifier",
-          "Example Enterprise Activity"
+        "template": "states",
+        "title": "Alert quality",
+        "states": [
+          {
+            "id": "alerts",
+            "label": "alerts"
+          },
+          {
+            "id": "rule",
+            "label": "rule"
+          },
+          {
+            "id": "fired",
+            "label": "fired"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The framework organizes adversary activity into tactical phases.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Credential Access",
-                  "Steal User Passwords",
-                  "T1110 Brute Force",
-                  "SSH Password Spraying Attempts"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Privilege Escalation",
-                  "Acquire Administrator Rights",
-                  "T1548 Sudo Abuse",
-                  "Unauthorized Elevation Commands"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Defense Evasion",
-                  "Hide Malicious Activity",
-                  "T1070 Indicator Removal",
-                  "Clearing Security Audit Logs"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Lateral Movement",
-                  "Traverse Internal Network",
-                  "T1021 Remote Services",
-                  "RDP and SSH Internal Pivoting"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Security teams are often flooded with alerts.",
+            "currentState": "alerts",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Rules annotate incidents with corresponding technique and tactic names.",
-            "activeRowIndex": 1,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Credential Access",
-                  "Steal User Passwords",
-                  "T1110 Brute Force",
-                  "SSH Password Spraying Attempts"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Privilege Escalation",
-                  "Acquire Administrator Rights",
-                  "T1548 Sudo Abuse",
-                  "Unauthorized Elevation Commands"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Defense Evasion",
-                  "Hide Malicious Activity",
-                  "T1070 Indicator Removal",
-                  "Clearing Security Audit Logs"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Lateral Movement",
-                  "Traverse Internal Network",
-                  "T1021 Remote Services",
-                  "RDP and SSH Internal Pivoting"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Good alerts are specific, explain why they fired, include the evidence.",
+            "currentState": "rule",
+            "transition": {
+              "from": "alerts",
+              "to": "rule",
+              "label": {
+                "var": "rule",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Detection engineering treats rules as code.",
+            "currentState": "fired",
+            "transition": {
+              "from": "rule",
+              "to": "fired",
+              "label": {
+                "var": "fired",
+                "line": 2,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "MITRE ATT&CK framework tactical matrix and technique classification",
-        "columns": [
-          "Adversary Tactic",
-          "Tactical Objective",
-          "Technique Identifier",
-          "Example Enterprise Activity"
+        "template": "states",
+        "title": "Alert quality",
+        "states": [
+          {
+            "id": "alerts",
+            "label": "alerts"
+          },
+          {
+            "id": "rule",
+            "label": "rule"
+          },
+          {
+            "id": "fired",
+            "label": "fired"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The framework organizes adversary activity into tactical phases.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Credential Access",
-                  "Steal User Passwords",
-                  "T1110 Brute Force",
-                  "SSH Password Spraying Attempts"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Privilege Escalation",
-                  "Acquire Administrator Rights",
-                  "T1548 Sudo Abuse",
-                  "Unauthorized Elevation Commands"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Defense Evasion",
-                  "Hide Malicious Activity",
-                  "T1070 Indicator Removal",
-                  "Clearing Security Audit Logs"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Lateral Movement",
-                  "Traverse Internal Network",
-                  "T1021 Remote Services",
-                  "RDP and SSH Internal Pivoting"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Security teams are often flooded with alerts.",
+            "currentState": "alerts",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Rules annotate incidents with corresponding technique and tactic names.",
-            "activeRowIndex": 1,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Credential Access",
-                  "Steal User Passwords",
-                  "T1110 Brute Force",
-                  "SSH Password Spraying Attempts"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Privilege Escalation",
-                  "Acquire Administrator Rights",
-                  "T1548 Sudo Abuse",
-                  "Unauthorized Elevation Commands"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Defense Evasion",
-                  "Hide Malicious Activity",
-                  "T1070 Indicator Removal",
-                  "Clearing Security Audit Logs"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Lateral Movement",
-                  "Traverse Internal Network",
-                  "T1021 Remote Services",
-                  "RDP and SSH Internal Pivoting"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Good alerts are specific, explain why they fired, include the evidence.",
+            "currentState": "rule",
+            "transition": {
+              "from": "alerts",
+              "to": "rule",
+              "label": "'brute_force'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Detection engineering treats rules as code.",
+            "currentState": "fired",
+            "transition": {
+              "from": "rule",
+              "to": "fired",
+              "label": "25"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -623,300 +669,270 @@
       "partTitle": "From detection to response",
       "codeHash": "741b36be4ed5fab3ba44b694643d30fa63181eed9233b1177b28d41ce1c51ad1",
       "spec": {
-        "template": "compare",
-        "title": "Proprietary SIEM query lock-in versus open portable Sigma signatures",
-        "left": {
-          "title": "Vendor Proprietary Queries",
-          "items": [
-            "Locked into vendor specific query syntax and platforms",
-            "Migrating SIEM solutions requires rewriting thousands of rules",
-            "Incompatible across external threat intelligence communities"
-          ]
-        },
-        "right": {
-          "title": "Generic Open Sigma Rules",
-          "items": [
-            "YAML standardized syntax describing vendor neutral attacks",
-            "Compiler translates rules to Splunk Elastic and Sentinel",
-            "Decouples detection logic from underlying data stores"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "From detection to response",
+        "states": [
           {
-            "at": "say3",
-            "caption": "Sigma provides an open format for generic SIEM detection rules.",
-            "highlightSide": "right",
-            "statusBadge": "active"
+            "id": "runbooks",
+            "label": "runbooks"
           },
           {
-            "at": "say6",
-            "caption": "The compiler converts generic rules into native target query languages.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "alert",
+            "label": "alert"
+          },
+          {
+            "id": "steps",
+            "label": "steps"
           }
         ],
-        "leftLabel": "Vendor Proprietary Queries",
-        "rightLabel": "Generic Open Sigma Rules"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Detection is valuable only if someone acts.",
+            "currentState": "runbooks",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Confirm the pattern, check whether any login succeeded, block.",
+            "currentState": "alert",
+            "transition": {
+              "from": "runbooks",
+              "to": "alert",
+              "label": {
+                "var": "alert",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Practising responses with simulated alerts keeps teams ready.",
+            "currentState": "steps",
+            "transition": {
+              "from": "alert",
+              "to": "steps",
+              "label": {
+                "var": "steps",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Proprietary SIEM query lock-in versus open portable Sigma signatures",
-        "left": {
-          "title": "Vendor Proprietary Queries",
-          "items": [
-            "Locked into vendor specific query syntax and platforms",
-            "Migrating SIEM solutions requires rewriting thousands of rules",
-            "Incompatible across external threat intelligence communities"
-          ]
-        },
-        "right": {
-          "title": "Generic Open Sigma Rules",
-          "items": [
-            "YAML standardized syntax describing vendor neutral attacks",
-            "Compiler translates rules to Splunk Elastic and Sentinel",
-            "Decouples detection logic from underlying data stores"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "From detection to response",
+        "states": [
           {
-            "at": "say3",
-            "caption": "Sigma provides an open format for generic SIEM detection rules.",
-            "highlightSide": "right",
-            "statusBadge": "active"
+            "id": "runbooks",
+            "label": "runbooks"
           },
           {
-            "at": "say6",
-            "caption": "The compiler converts generic rules into native target query languages.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "alert",
+            "label": "alert"
+          },
+          {
+            "id": "steps",
+            "label": "steps"
           }
         ],
-        "leftLabel": "Vendor Proprietary Queries",
-        "rightLabel": "Generic Open Sigma Rules"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Detection is valuable only if someone acts.",
+            "currentState": "runbooks",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Confirm the pattern, check whether any login succeeded, block.",
+            "currentState": "alert",
+            "transition": {
+              "from": "runbooks",
+              "to": "alert",
+              "label": "'brute_force'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Practising responses with simulated alerts keeps teams ready.",
+            "currentState": "steps",
+            "transition": {
+              "from": "alert",
+              "to": "steps",
+              "label": "['check for a successful login', 'rate-…"
+            },
+            "tone": "ok"
+          }
+        ]
       }
     },
     {
       "partTitle": "Practice time: brute force and IOCs",
       "codeHash": "68dac6e6d7ed7d9eea92342f41bda60cc450e38992b3d95498cd072a62ab4499",
       "spec": {
-        "template": "flow",
-        "title": "Automated Incident Alert Prioritization & SOA... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Automated Incident ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: brute force and IOCs",
+        "actors": [
+          "logs",
+          "iocs",
+          ".0"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Automated Incident Alert Prioritization .",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Automated Incident ... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Brute_force_ips(lines, threshold, window).",
+            "activeActor": "logs",
+            "messages": [
+              {
+                "from": "logs",
+                "to": "iocs",
+                "label": {
+                  "var": "logs",
+                  "line": 4,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "from": "iocs",
+                "to": ".0",
+                "label": {
+                  "var": "iocs",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a fast attacker, a slow one visible only with.",
+            "activeActor": "iocs",
+            "messages": [
+              {
+                "from": "logs",
+                "to": "iocs",
+                "label": {
+                  "var": "logs",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "iocs",
+                "to": ".0",
+                "label": {
+                  "var": "iocs",
+                  "line": 6,
+                  "hit": 6
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Automated Incident Alert Prioriti.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "These two rules, behaviour and indicators, represent the two main families.",
+            "activeActor": ".0",
+            "messages": [
+              {
+                "from": "logs",
+                "to": "iocs",
+                "label": {
+                  "var": "logs",
+                  "line": 6,
+                  "hit": 6
+                },
+                "tone": "data"
+              },
+              {
+                "from": "iocs",
+                "to": ".0",
+                "label": {
+                  "var": "iocs",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Automated Incident Alert Prioritization & SOA... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Automated Incident ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: brute force and IOCs",
+        "actors": [
+          "logs",
+          "iocs",
+          ".0"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Automated Incident Alert Prioritization .. [D24.P6.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Automated Incident ... [D24.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Brute_force_ips(lines, threshold, window).",
+            "messages": [
+              {
+                "from": "logs",
+                "to": "iocs",
+                "label": "['2026-05-01T10:00:00 FAILED_LOGIN user…",
+                "tone": "data"
+              },
+              {
+                "from": "iocs",
+                "to": ".0",
+                "label": "{'198.51.100.77'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "logs"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks include a fast attacker, a slow one visible only with.",
+            "messages": [
+              {
+                "from": "logs",
+                "to": "iocs",
+                "label": "['2026-05-01T10:00:00 FAILED_LOGIN user…",
+                "tone": "data"
+              },
+              {
+                "from": "iocs",
+                "to": ".0",
+                "label": "{'198.51.100.77'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "iocs"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Automated Incident Alert Prioriti.. [D24.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say9",
+            "caption": "These two rules, behaviour and indicators, represent the two main families.",
+            "messages": [
+              {
+                "from": "logs",
+                "to": "iocs",
+                "label": "['2026-05-01T10:00:00 FAILED_LOGIN user…",
+                "tone": "data"
+              },
+              {
+                "from": "iocs",
+                "to": ".0",
+                "label": "{'198.51.100.77'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": ".0"
           }
         ]
       }

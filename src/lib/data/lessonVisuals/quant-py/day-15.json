@@ -2,150 +2,98 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 15,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The tick-to-trade pipeline",
       "codeHash": "7c75114e54b7762c70e9d9a117ce3a43e9f4cb6720374874297985d34c68e690",
       "spec": {
-        "template": "table",
-        "title": "Tick-to-trade stage budgets and pipeline latency allocation",
-        "columns": [
-          "stage",
-          "ns"
+        "template": "sequence",
+        "title": "The tick-to-trade pipeline",
+        "actors": [
+          "budget_ns",
+          "total",
+          "stage"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tick-to-trade measures elapsed time from market packet ingress to egress.",
-            "rows": [
+            "caption": "Tick-to-trade is the time from a market data packet arriving at your NIC.",
+            "activeActor": "budget_ns",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "stage"
-                  },
-                  {
-                    "text": "ns"
-                  }
-                ],
+                "from": "budget_ns",
+                "to": "total",
+                "label": {
+                  "var": "budget_ns",
+                  "line": 1,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "total",
+                "to": "stage",
+                "label": {
+                  "var": "total",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The pipeline receives packets, updates books, and evaluates strategy logic.",
-            "rows": [
+            "caption": "The NIC receives the packet.",
+            "activeActor": "total",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "stage"
-                  },
-                  {
-                    "text": "ns"
-                  }
-                ],
-                "tone": "ok"
+                "from": "budget_ns",
+                "to": "total",
+                "label": {
+                  "var": "budget_ns",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "budget_ns"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
+                "from": "total",
+                "to": "stage",
+                "label": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Dedicated cores pass execution messages through lock-free SPSC queues.",
-            "rows": [
+            "at": "say8",
+            "caption": "Budgets turn a vague goal (\"be fast\") into numbers each team can own.",
+            "activeActor": "stage",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "stage"
-                  },
-                  {
-                    "text": "ns"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "budget_ns"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "values"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example adds up a latency budget and shows which pipeline stage dominates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "stage"
-                  },
-                  {
-                    "text": "ns"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "budget_ns"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "values"
-                  }
-                ],
+                "from": "budget_ns",
+                "to": "total",
+                "label": {
+                  "var": "budget_ns",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "stage"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "from": "total",
+                "to": "stage",
+                "label": {
+                  "var": "total",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -153,106 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Tick-to-trade stage budgets and pipeline latency allocation",
-        "columns": [
-          "stage",
-          "ns"
+        "template": "sequence",
+        "title": "The tick-to-trade pipeline",
+        "actors": [
+          "budget_ns",
+          "total",
+          "stage"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tick-to-trade measures elapsed time from market packet ingress to egress.",
-            "rows": [
+            "caption": "Tick-to-trade is the time from a market data packet arriving at your NIC.",
+            "messages": [
               {
-                "cells": [
-                  "stage",
-                  "ns"
-                ],
+                "from": "budget_ns",
+                "to": "total",
+                "label": "{'NIC receive (bypass)': 900, 'decode +…",
+                "tone": "data"
+              },
+              {
+                "from": "total",
+                "to": "stage",
+                "label": "3700",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "budget_ns"
           },
           {
             "at": "say2",
-            "caption": "The pipeline receives packets, updates books, and evaluates strategy logic.",
-            "rows": [
+            "caption": "The NIC receives the packet.",
+            "messages": [
               {
-                "cells": [
-                  "stage",
-                  "ns"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "budget_ns",
-                  "total"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Dedicated cores pass execution messages through lock-free SPSC queues.",
-            "rows": [
-              {
-                "cells": [
-                  "stage",
-                  "ns"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "budget_ns",
-                  "total"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "items",
-                  "values"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say7",
-            "caption": "The example adds up a latency budget and shows which pipeline stage dominates.",
-            "rows": [
-              {
-                "cells": [
-                  "stage",
-                  "ns"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "budget_ns",
-                  "total"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "items",
-                  "values"
-                ],
+                "from": "budget_ns",
+                "to": "total",
+                "label": "{'NIC receive (bypass)': 900, 'decode +…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "stage",
-                  "print"
-                ],
+                "from": "total",
+                "to": "stage",
+                "label": "3700",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "total"
+          },
+          {
+            "at": "say8",
+            "caption": "Budgets turn a vague goal (\"be fast\") into numbers each team can own.",
+            "messages": [
+              {
+                "from": "budget_ns",
+                "to": "total",
+                "label": "{'NIC receive (bypass)': 900, 'decode +…",
+                "tone": "data"
+              },
+              {
+                "from": "total",
+                "to": "stage",
+                "label": "3700",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "stage"
           }
         ]
       }
@@ -261,248 +173,129 @@
       "partTitle": "Bursts and bounded queues",
       "codeHash": "01a79fa23f54e061420bd2d82a03f734d8f6643edcc715d9dcc547ed2739a638",
       "spec": {
-        "template": "table",
-        "title": "Traffic burst absorption, queue capacity and packet drop metrics",
-        "columns": [
-          "capacity",
-          "per_tick"
-        ],
+        "template": "cells",
+        "title": "Bursts and bounded queues",
         "steps": [
           {
             "at": "say1",
-            "caption": "Volatile trading bursts produce arrival volume spikes exceeding average rates.",
-            "rows": [
+            "caption": "Market data does not arrive evenly.",
+            "items": {
+              "var": "arrivals",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "capacity"
-                  },
-                  {
-                    "text": "per_tick"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Bounded queues absorb bursts until filled capacity forces packet drops.",
-            "rows": [
+            "caption": "Queues between stages absorb bursts, but they are bounded.",
+            "items": {
+              "var": "arrivals",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "capacity"
-                  },
-                  {
-                    "text": "per_tick"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "depth"
-                  },
-                  {
-                    "text": "dropped"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Maximum queue depth metrics reveal head room before buffer drops occur.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "capacity"
-                  },
-                  {
-                    "text": "per_tick"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "depth"
-                  },
-                  {
-                    "text": "dropped"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "arrivals"
-                  },
-                  {
-                    "text": "max_depth"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example runs the gateway with steady loads and acute traffic bursts.",
-            "rows": [
+            "caption": "The example runs the gateway with a steady load and with a burst.",
+            "items": {
+              "var": "arrivals",
+              "line": 5,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "capacity"
-                  },
-                  {
-                    "text": "per_tick"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "depth"
-                  },
-                  {
-                    "text": "dropped"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "arrivals"
-                  },
-                  {
-                    "text": "max_depth"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "gateway"
-                  },
-                  {
-                    "text": "min"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Traffic burst absorption, queue capacity and packet drop metrics",
-        "columns": [
-          "capacity",
-          "per_tick"
-        ],
+        "template": "cells",
+        "title": "Bursts and bounded queues",
         "steps": [
           {
             "at": "say1",
-            "caption": "Volatile trading bursts produce arrival volume spikes exceeding average rates.",
-            "rows": [
+            "caption": "Market data does not arrive evenly.",
+            "items": [
+              "4",
+              "4",
+              "4",
+              "4",
+              "4",
+              "4",
+              "4",
+              "4",
+              "4",
+              "4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "capacity",
-                  "per_tick"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Bounded queues absorb bursts until filled capacity forces packet drops.",
-            "rows": [
+            "caption": "Queues between stages absorb bursts, but they are bounded.",
+            "items": [
+              "4",
+              "4",
+              "4",
+              "4",
+              "4",
+              "4",
+              "4",
+              "4",
+              "4",
+              "4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "capacity",
-                  "per_tick"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "depth",
-                  "dropped"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Maximum queue depth metrics reveal head room before buffer drops occur.",
-            "rows": [
-              {
-                "cells": [
-                  "capacity",
-                  "per_tick"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "depth",
-                  "dropped"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "arrivals",
-                  "max_depth"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example runs the gateway with steady loads and acute traffic bursts.",
-            "rows": [
+            "caption": "The example runs the gateway with a steady load and with a burst.",
+            "items": [
+              "4",
+              "4",
+              "4",
+              "4",
+              "4",
+              "4",
+              "4",
+              "4",
+              "4",
+              "4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "capacity",
-                  "per_tick"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "depth",
-                  "dropped"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "arrivals",
-                  "max_depth"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "gateway",
-                  "min"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -513,249 +306,221 @@
       "partTitle": "Latency percentiles",
       "codeHash": "d0efad269c6f8881d8b641885b6b83e98072fb980fee7af26aa8d5a07ce7e30f",
       "spec": {
-        "template": "table",
-        "title": "Nearest-rank latency percentiles and tail spike evaluation",
-        "columns": [
-          "p50",
-          "p90"
+        "template": "flow",
+        "title": "Latency percentiles",
+        "nodes": [
+          {
+            "id": "samples",
+            "label": "samples"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "p",
+            "label": "p"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tick-to-trade latency distributions summarize performance across all messages.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "p50"
-                  },
-                  {
-                    "text": "p90"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "For the milestone report, you measure tick-to-trade for every message.",
+            "values": {
+              "samples": {
+                "var": "samples",
+                "line": 4,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 4,
+                "hit": 1
+              },
+              "p": {
+                "var": "p",
+                "line": 5,
+                "hit": 2
               }
+            },
+            "tones": {
+              "samples": "data",
+              "s": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "samples",
+                "s"
+              ],
+              [
+                "s",
+                "p"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "The nearest-rank method calculates percentile ranks over sorted sample sets.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "p50"
-                  },
-                  {
-                    "text": "p90"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The nearest-rank method is simple and common.",
+            "values": {
+              "samples": {
+                "var": "samples",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "p99"
-                  },
-                  {
-                    "text": "max"
-                  }
-                ],
-                "tone": "ok"
+              "s": {
+                "var": "s",
+                "line": 5,
+                "hit": 1
+              },
+              "p": {
+                "var": "p",
+                "line": 5,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Maximum latency metrics illuminate rare execution stalls masked by averages.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "p50"
-                  },
-                  {
-                    "text": "p90"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "p99"
-                  },
-                  {
-                    "text": "max"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "samples"
-                  },
-                  {
-                    "text": "sorted"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "samples": "data",
+              "s": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "samples",
+                "s"
+              ],
+              [
+                "s",
+                "p"
+              ]
             ]
           },
           {
             "at": "say8",
-            "caption": "The example computes percentiles for clean traffic and spiky latency runs.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "p50"
-                  },
-                  {
-                    "text": "p90"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example computes percentiles for a clean and a spiky run.",
+            "values": {
+              "samples": {
+                "var": "samples",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "p99"
-                  },
-                  {
-                    "text": "max"
-                  }
-                ],
-                "tone": "ok"
+              "s": {
+                "var": "s",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "samples"
-                  },
-                  {
-                    "text": "sorted"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "percentiles"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
+              "p": {
+                "var": "p",
+                "line": 5,
+                "hit": 4
               }
+            },
+            "tones": {
+              "samples": "ok",
+              "s": "ok",
+              "p": "ok"
+            },
+            "arrows": [
+              [
+                "samples",
+                "s"
+              ],
+              [
+                "s",
+                "p"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Nearest-rank latency percentiles and tail spike evaluation",
-        "columns": [
-          "p50",
-          "p90"
+        "template": "flow",
+        "title": "Latency percentiles",
+        "nodes": [
+          {
+            "id": "samples",
+            "label": "samples"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "p",
+            "label": "p"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tick-to-trade latency distributions summarize performance across all messages.",
-            "rows": [
-              {
-                "cells": [
-                  "p50",
-                  "p90"
-                ],
-                "tone": "ok"
-              }
+            "caption": "For the milestone report, you measure tick-to-trade for every message.",
+            "values": {
+              "samples": "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,…",
+              "s": "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,…",
+              "p": "50"
+            },
+            "tones": {
+              "samples": "data",
+              "s": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "samples",
+                "s"
+              ],
+              [
+                "s",
+                "p"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "The nearest-rank method calculates percentile ranks over sorted sample sets.",
-            "rows": [
-              {
-                "cells": [
-                  "p50",
-                  "p90"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "p99",
-                  "max"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Maximum latency metrics illuminate rare execution stalls masked by averages.",
-            "rows": [
-              {
-                "cells": [
-                  "p50",
-                  "p90"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "p99",
-                  "max"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "samples",
-                  "sorted"
-                ],
-                "tone": "data"
-              }
+            "caption": "The nearest-rank method is simple and common.",
+            "values": {
+              "samples": "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,…",
+              "s": "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,…",
+              "p": "90"
+            },
+            "tones": {
+              "samples": "data",
+              "s": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "samples",
+                "s"
+              ],
+              [
+                "s",
+                "p"
+              ]
             ]
           },
           {
             "at": "say8",
-            "caption": "The example computes percentiles for clean traffic and spiky latency runs.",
-            "rows": [
-              {
-                "cells": [
-                  "p50",
-                  "p90"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "p99",
-                  "max"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "samples",
-                  "sorted"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "percentiles",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The example computes percentiles for a clean and a spiky run.",
+            "values": {
+              "samples": "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,…",
+              "s": "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,…",
+              "p": "99"
+            },
+            "tones": {
+              "samples": "ok",
+              "s": "ok",
+              "p": "ok"
+            },
+            "arrows": [
+              [
+                "samples",
+                "s"
+              ],
+              [
+                "s",
+                "p"
+              ]
             ]
           }
         ]
@@ -765,143 +530,131 @@
       "partTitle": "Where latency hides",
       "codeHash": "727784b4cd78d099cc994b37530e0826f04efd2819db5aef82ff2ca6842b2833",
       "spec": {
-        "template": "table",
-        "title": "Queueing delay propagation and tail latency cascade modeling",
-        "columns": [
-          "service",
-          "arrivals"
-        ],
+        "template": "bars",
+        "title": "Where latency hides",
         "steps": [
           {
             "at": "say1",
-            "caption": "Excess tick-to-trade latency stems from specific system bottlenecks.",
-            "rows": [
+            "caption": "When tick-to-trade is too high, the causes are usually in a handful of places.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "service"
-                  },
-                  {
-                    "text": "arrivals"
-                  }
-                ],
-                "tone": "ok"
+                "label": "free_at",
+                "value": {
+                  "var": "free_at",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "arrive",
+                "value": {
+                  "var": "arrive",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Pre-allocating buffers avoids heap memory allocation pauses along hot paths.",
-            "rows": [
+            "caption": "Memory allocation or garbage collection on the hot path, which is why.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "service"
-                  },
-                  {
-                    "text": "arrivals"
-                  }
-                ],
+                "label": "free_at",
+                "value": {
+                  "var": "free_at",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "free_at"
-                  },
-                  {
-                    "text": "waits"
-                  }
-                ],
+                "label": "arrive",
+                "value": {
+                  "var": "arrive",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Occasional execution delays build queueing latency behind slower stages.",
-            "rows": [
+            "at": "say7",
+            "caption": "Latency is often not about the slow message itself, but about everything.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "service"
-                  },
-                  {
-                    "text": "arrivals"
-                  }
-                ],
+                "label": "free_at",
+                "value": {
+                  "var": "free_at",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "free_at"
-                  },
-                  {
-                    "text": "waits"
-                  }
-                ],
+                "label": "arrive",
+                "value": {
+                  "var": "arrive",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "arrive"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example shows how a slow stage creates queueing delay for trailing messages.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "service"
-                  },
-                  {
-                    "text": "arrivals"
-                  }
-                ],
+                "label": "cost",
+                "value": {
+                  "var": "cost",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "free_at"
-                  },
-                  {
-                    "text": "waits"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "arrive"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "append"
-                  },
-                  {
-                    "text": "zip"
-                  }
-                ],
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -909,103 +662,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Queueing delay propagation and tail latency cascade modeling",
-        "columns": [
-          "service",
-          "arrivals"
-        ],
+        "template": "bars",
+        "title": "Where latency hides",
         "steps": [
           {
             "at": "say1",
-            "caption": "Excess tick-to-trade latency stems from specific system bottlenecks.",
-            "rows": [
+            "caption": "When tick-to-trade is too high, the causes are usually in a handful of places.",
+            "bars": [
               {
-                "cells": [
-                  "service",
-                  "arrivals"
-                ],
-                "tone": "ok"
+                "label": "free_at",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "arrive",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "cost",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "start",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Pre-allocating buffers avoids heap memory allocation pauses along hot paths.",
-            "rows": [
+            "caption": "Memory allocation or garbage collection on the hot path, which is why.",
+            "bars": [
               {
-                "cells": [
-                  "service",
-                  "arrivals"
-                ],
+                "label": "free_at",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "free_at",
-                  "waits"
-                ],
+                "label": "arrive",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "cost",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "start",
+                "value": 0,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Occasional execution delays build queueing latency behind slower stages.",
-            "rows": [
+            "at": "say7",
+            "caption": "Latency is often not about the slow message itself, but about everything.",
+            "bars": [
               {
-                "cells": [
-                  "service",
-                  "arrivals"
-                ],
+                "label": "free_at",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "free_at",
-                  "waits"
-                ],
+                "label": "arrive",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "arrive",
-                  "cost"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example shows how a slow stage creates queueing delay for trailing messages.",
-            "rows": [
-              {
-                "cells": [
-                  "service",
-                  "arrivals"
-                ],
+                "label": "cost",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "free_at",
-                  "waits"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "arrive",
-                  "cost"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "append",
-                  "zip"
-                ],
+                "label": "start",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -1018,110 +751,161 @@
       "codeHash": "a7860e2ae7ecc94fce67bdcfa82e6f714c699faaeb6f20ef79b7f395d92cb447",
       "spec": {
         "template": "flow",
-        "title": "Observability without slowing down — Execution Pipeline",
+        "title": "Observability without slowing down",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "records",
+            "label": "records"
           },
           {
-            "id": "proc",
-            "label": "2. Observability witho...",
-            "tappable": true
+            "id": "stages",
+            "label": "stages"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "r",
+            "label": "r"
+          },
+          {
+            "id": "parts",
+            "label": "parts"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Observability without slowing down.",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Observability witho... [D.Pfive.Stwo].",
+            "caption": "You cannot fix what you cannot see, but measuring must not add latency.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "records": {
+                "var": "records",
+                "line": 1,
+                "hit": 1
+              },
+              "stages": {
+                "var": "stages",
+                "line": 6,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 7,
+                "hit": 1
+              },
+              "parts": {
+                "var": "parts",
+                "line": 8,
+                "hit": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "records": "data",
+              "stages": "data",
+              "r": "data",
+              "parts": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "records",
+                "stages"
               ],
               [
-                "proc",
-                "out"
+                "stages",
+                "r"
+              ],
+              [
+                "r",
+                "parts"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Timestamp at a few points using the cheapest clock available (such as.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "records": {
+                "var": "records",
+                "line": 6,
+                "hit": 1
+              },
+              "stages": {
+                "var": "stages",
+                "line": 7,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 8,
+                "hit": 1
+              },
+              "parts": {
+                "var": "parts",
+                "line": 9,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "records": "data",
+              "stages": "data",
+              "r": "data",
+              "parts": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "records",
+                "stages"
+              ],
+              [
+                "stages",
+                "r"
+              ],
+              [
+                "r",
+                "parts"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Observability without slowing down.",
+            "at": "say7",
+            "caption": "The pattern, record cheaply now and analyse later, is the key.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "records": {
+                "var": "records",
+                "line": 7,
+                "hit": 1
+              },
+              "stages": {
+                "var": "stages",
+                "line": 8,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 8,
+                "hit": 2
+              },
+              "parts": {
+                "var": "parts",
+                "line": 7,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "records": "ok",
+              "stages": "ok",
+              "r": "ok",
+              "parts": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "records",
+                "stages"
               ],
               [
-                "proc",
-                "out"
+                "stages",
+                "r"
+              ],
+              [
+                "r",
+                "parts"
               ]
             ]
           }
@@ -1129,110 +913,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Observability without slowing down — Execution Pipeline",
+        "title": "Observability without slowing down",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "records",
+            "label": "records"
           },
           {
-            "id": "proc",
-            "label": "2. Observability witho...",
-            "tappable": true
+            "id": "stages",
+            "label": "stages"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "r",
+            "label": "r"
+          },
+          {
+            "id": "parts",
+            "label": "parts"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Observability without slowing down [D15.P5.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Observability witho... [D15.P5.S2].",
+            "caption": "You cannot fix what you cannot see, but measuring must not add latency.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "records": "[{'rx': 0, 'decoded': 420, 'decided': 1…",
+              "stages": "['rx', 'decoded', 'decided', 'sent']",
+              "r": "{'rx': 0, 'decoded': 420, 'decided': 15…",
+              "parts": "{'rx->decoded': 420, 'decoded->decided'…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "records": "data",
+              "stages": "data",
+              "r": "data",
+              "parts": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "records",
+                "stages"
               ],
               [
-                "proc",
-                "out"
+                "stages",
+                "r"
+              ],
+              [
+                "r",
+                "parts"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P5.S3].",
+            "at": "say2",
+            "caption": "Timestamp at a few points using the cheapest clock available (such as.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "records": "[{'rx': 0, 'decoded': 420, 'decided': 1…",
+              "stages": "['rx', 'decoded', 'decided', 'sent']",
+              "r": "{'rx': 0, 'decoded': 420, 'decided': 15…",
+              "parts": "{'rx->decoded': 420, 'decoded->decided'…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "records": "data",
+              "stages": "data",
+              "r": "data",
+              "parts": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "records",
+                "stages"
+              ],
+              [
+                "stages",
+                "r"
+              ],
+              [
+                "r",
+                "parts"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Observability without slowing down [D15.P5.S4].",
+            "at": "say7",
+            "caption": "The pattern, record cheaply now and analyse later, is the key.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "records": "[{'rx': 0, 'decoded': 420, 'decided': 1…",
+              "stages": "['rx', 'decoded', 'decided', 'sent']",
+              "r": "{'rx': 0, 'decoded': 420, 'decided': 15…",
+              "parts": "{'rx->decoded': 420, 'decoded->decided'…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "records": "ok",
+              "stages": "ok",
+              "r": "ok",
+              "parts": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "records",
+                "stages"
               ],
               [
-                "proc",
-                "out"
+                "stages",
+                "r"
+              ],
+              [
+                "r",
+                "parts"
               ]
             ]
           }
@@ -1244,110 +1031,161 @@
       "codeHash": "c5ae83298b77f716484aa601a6b0a2cdab35f6f357aefb90bed7a7ff3a7fc145",
       "spec": {
         "template": "flow",
-        "title": "Milestone practice: gateway and percentiles — Execution Pipeline",
+        "title": "Milestone practice: gateway and percentiles",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "arrivals",
+            "label": "arrivals"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
+            "id": "capacity",
+            "label": "capacity"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "per_tick",
+            "label": "per_tick"
+          },
+          {
+            "id": "depth",
+            "label": "depth"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Milestone practice: gateway and percenti.",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Milestone practice:... [D.Psix.Stwo].",
+            "caption": "Gateway(arrivals, capacity, per_tick).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "arrivals": {
+                "var": "arrivals",
+                "line": 3,
+                "hit": 1
+              },
+              "capacity": {
+                "var": "capacity",
+                "line": 4,
+                "hit": 1
+              },
+              "per_tick": {
+                "var": "per_tick",
+                "line": 4,
+                "hit": 1
+              },
+              "depth": {
+                "var": "depth",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "arrivals": "data",
+              "capacity": "data",
+              "per_tick": "data",
+              "depth": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "arrivals",
+                "capacity"
               ],
               [
-                "proc",
-                "out"
+                "capacity",
+                "per_tick"
+              ],
+              [
+                "per_tick",
+                "depth"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Trace how checks updates easy during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "arrivals": {
+                "var": "arrivals",
+                "line": 4,
+                "hit": 1
+              },
+              "capacity": {
+                "var": "capacity",
+                "line": 5,
+                "hit": 1
+              },
+              "per_tick": {
+                "var": "per_tick",
+                "line": 5,
+                "hit": 1
+              },
+              "depth": {
+                "var": "depth",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "arrivals": "data",
+              "capacity": "data",
+              "per_tick": "data",
+              "depth": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "arrivals",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "per_tick"
+              ],
+              [
+                "per_tick",
+                "depth"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Milestone practice: gateway and p.",
+            "at": "say8",
+            "caption": "The example runs the gateway on a burst and reports latency-style.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "arrivals": {
+                "var": "arrivals",
+                "line": 5,
+                "hit": 1
+              },
+              "capacity": {
+                "var": "capacity",
+                "line": 6,
+                "hit": 1
+              },
+              "per_tick": {
+                "var": "per_tick",
+                "line": 6,
+                "hit": 1
+              },
+              "depth": {
+                "var": "depth",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "arrivals": "ok",
+              "capacity": "ok",
+              "per_tick": "ok",
+              "depth": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "arrivals",
+                "capacity"
               ],
               [
-                "proc",
-                "out"
+                "capacity",
+                "per_tick"
+              ],
+              [
+                "per_tick",
+                "depth"
               ]
             ]
           }
@@ -1355,110 +1193,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone practice: gateway and percentiles — Execution Pipeline",
+        "title": "Milestone practice: gateway and percentiles",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "arrivals",
+            "label": "arrivals"
           },
           {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
+            "id": "capacity",
+            "label": "capacity"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "per_tick",
+            "label": "per_tick"
+          },
+          {
+            "id": "depth",
+            "label": "depth"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Milestone practice: gateway and percenti.. [D15.P6.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Milestone practice:... [D15.P6.S2].",
+            "caption": "Gateway(arrivals, capacity, per_tick).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "arrivals": "[3, 3, 12, 12, 3, 3, 0, 0, 3, 3]",
+              "capacity": "16",
+              "per_tick": "5",
+              "depth": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "arrivals": "data",
+              "capacity": "data",
+              "per_tick": "data",
+              "depth": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "arrivals",
+                "capacity"
               ],
               [
-                "proc",
-                "out"
+                "capacity",
+                "per_tick"
+              ],
+              [
+                "per_tick",
+                "depth"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P6.S3].",
+            "at": "say2",
+            "caption": "Trace how checks updates easy during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "arrivals": "[3, 3, 12, 12, 3, 3, 0, 0, 3, 3]",
+              "capacity": "16",
+              "per_tick": "5",
+              "depth": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "arrivals": "data",
+              "capacity": "data",
+              "per_tick": "data",
+              "depth": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "arrivals",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "per_tick"
+              ],
+              [
+                "per_tick",
+                "depth"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Milestone practice: gateway and p.. [D15.P6.S4].",
+            "at": "say8",
+            "caption": "The example runs the gateway on a burst and reports latency-style.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "arrivals": "[3, 3, 12, 12, 3, 3, 0, 0, 3, 3]",
+              "capacity": "16",
+              "per_tick": "5",
+              "depth": "3"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "arrivals": "ok",
+              "capacity": "ok",
+              "per_tick": "ok",
+              "depth": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "arrivals",
+                "capacity"
               ],
               [
-                "proc",
-                "out"
+                "capacity",
+                "per_tick"
+              ],
+              [
+                "per_tick",
+                "depth"
               ]
             ]
           }

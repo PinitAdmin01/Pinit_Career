@@ -2,1335 +2,885 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 41,
-  "promptSha": "7c1e0e34bbb4b26ba74412b4b9ade388c34f17f1b8e2f21b1df38716051cae04",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Raft Log Compaction, Snapshotting & InstallSnapshot Chunk Streaming — Foundations & Mathematical Invariants",
-      "codeHash": "eb61bb826988437bc8919c0cfcafcdbac3cdea9daf5a9d9f9028cef9dce734cc",
+      "partTitle": "Bounding Unbounded WAL Growth via Prefix Snapshots",
+      "codeHash": "ab10f94c476729a15d42265b8516b3f9c21c832d9e3c3857838aa310f5cf2336",
       "spec": {
-        "template": "flow",
-        "title": "Raft Log Compaction, Snapshotting & InstallSnapshot Chunk Streaming — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Bounding Unbounded WAL Growth via Prefix Snapshots",
+        "actors": [
+          "self",
+          "n",
+          "i"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Without log compaction, disk space runs out rapidly and restarting.",
+            "activeActor": "self",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "n",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "n",
+                "to": "i",
+                "label": {
+                  "var": "n",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Think about why historical log entries become logically redundant.",
+            "activeActor": "n",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "n",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "n",
+                "to": "i",
+                "label": {
+                  "var": "n",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Simulate compacting a log prefix into a durable snapshot and translating.",
+            "activeActor": "i",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "n",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "n",
+                "to": "i",
+                "label": {
+                  "var": "n",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
+        "template": "sequence",
+        "title": "Bounding Unbounded WAL Growth via Prefix Snapshots",
+        "actors": [
+          "self",
+          "n",
+          "i"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Without log compaction, disk space runs out rapidly and restarting.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "n",
+                "label": "<CompactingRaftNode>",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "i",
+                "label": "<CompactingRaftNode>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
+            "at": "say2",
+            "caption": "Think about why historical log entries become logically redundant.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "n",
+                "label": "<CompactingRaftNode>",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "i",
+                "label": "<CompactingRaftNode>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "n"
+          },
+          {
+            "at": "say6",
+            "caption": "Simulate compacting a log prefix into a durable snapshot and translating.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "n",
+                "label": "<CompactingRaftNode>",
+                "tone": "data"
+              },
+              {
+                "from": "n",
+                "to": "i",
+                "label": "<CompactingRaftNode>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "i"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Copy-on-Write / Frozen Point-in-Time Snapshots Without Blocking Writes",
+      "codeHash": "61f7540dbedba29aeecc5d0ce5efdab0a1cc1f89b41b21ed91c450545ac54ed6",
+      "spec": {
+        "template": "sequence",
+        "title": "Copy-on-Write / Frozen Point-in-Time Snapshots Without Blocking ",
+        "actors": [
+          "self",
+          "st",
+          "ver"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Taking a 20GB key-value snapshot synchronously inside the main Raft apply.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "st",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "st",
+                "to": "ver",
+                "label": {
+                  "var": "st",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Production engines solve slow disk snapshot stalls using non-blocking.",
+            "activeActor": "st",
+            "messages": [
+              {
+                "from": "self",
+                "to": "st",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "st",
+                "to": "ver",
+                "label": {
+                  "var": "st",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Verify atomic immutable checkpoint creation cleanly decoupling foreground.",
+            "activeActor": "ver",
+            "messages": [
+              {
+                "from": "self",
+                "to": "st",
+                "label": {
+                  "var": "self",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "st",
+                "to": "ver",
+                "label": {
+                  "var": "st",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "Copy-on-Write / Frozen Point-in-Time Snapshots Without Blocking ",
+        "actors": [
+          "self",
+          "st",
+          "ver"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Taking a 20GB key-value snapshot synchronously inside the main Raft apply.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "st",
+                "label": "<NonBlockingMVCCStore>",
+                "tone": "data"
+              },
+              {
+                "from": "st",
+                "to": "ver",
+                "label": "<NonBlockingMVCCStore>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
+            "at": "say2",
+            "caption": "Production engines solve slow disk snapshot stalls using non-blocking.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "st",
+                "label": "<NonBlockingMVCCStore>",
+                "tone": "data"
+              },
+              {
+                "from": "st",
+                "to": "ver",
+                "label": "<NonBlockingMVCCStore>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "st"
+          },
+          {
+            "at": "say5",
+            "caption": "Verify atomic immutable checkpoint creation cleanly decoupling foreground.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "st",
+                "label": "<NonBlockingMVCCStore>",
+                "tone": "data"
+              },
+              {
+                "from": "st",
+                "to": "ver",
+                "label": "<NonBlockingMVCCStore>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ver"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "InstallSnapshot RPC & Offset-Tracked Chunk Streaming",
+      "codeHash": "9c6d6ee4055825a031ecbd57a90ddbf1f96a002bcf0e50b0898a25195fd29f37",
+      "spec": {
         "template": "flow",
-        "title": "Raft Log Compaction, Snapshotting & InstallSnapshot Chunk Streaming — ",
+        "title": "InstallSnapshot RPC & Offset-Tracked Chunk Streaming",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "payload",
+            "label": "payload"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "rx",
+            "label": "rx"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "rpc_term",
+            "label": "rpc_term"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Suppose follower F stayed offline for three days while the leader.",
+            "values": {
+              "payload": {
+                "var": "payload",
+                "line": 27,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
+              },
+              "rx": {
+                "var": "rx",
+                "line": 28,
+                "hit": 1
+              },
+              "rpc_term": {
+                "var": "rpc_term",
+                "line": 12,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "payload": "data",
+              "self": "data",
+              "rx": "data",
+              "rpc_term": "data"
+            },
+            "arrows": [
+              [
+                "payload",
+                "self"
+              ],
+              [
+                "self",
+                "rx"
+              ],
+              [
+                "rx",
+                "rpc_term"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Because the leader deleted entries 1.",
+            "values": {
+              "payload": {
+                "var": "payload",
+                "line": 28,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "rx": {
+                "var": "rx",
+                "line": 29,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "rpc_term": {
+                "var": "rpc_term",
+                "line": 14,
+                "hit": 1
               }
+            },
+            "tones": {
+              "payload": "data",
+              "self": "data",
+              "rx": "data",
+              "rpc_term": "data"
+            },
+            "arrows": [
+              [
+                "payload",
+                "self"
+              ],
+              [
+                "self",
+                "rx"
+              ],
+              [
+                "rx",
+                "rpc_term"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Simulate bounded multi-chunk `InstallSnapshot` streaming with out-of-order.",
+            "values": {
+              "payload": {
+                "var": "payload",
+                "line": 29,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "self": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "rx": {
+                "var": "rx",
+                "line": 30,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "rpc_term": {
+                "var": "rpc_term",
+                "line": 15,
+                "hit": 1
               }
+            },
+            "tones": {
+              "payload": "ok",
+              "self": "ok",
+              "rx": "ok",
+              "rpc_term": "ok"
+            },
+            "arrows": [
+              [
+                "payload",
+                "self"
+              ],
+              [
+                "self",
+                "rx"
+              ],
+              [
+                "rx",
+                "rpc_term"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "InstallSnapshot RPC & Offset-Tracked Chunk Streaming",
+        "nodes": [
+          {
+            "id": "payload",
+            "label": "payload"
+          },
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "rx",
+            "label": "rx"
+          },
+          {
+            "id": "rpc_term",
+            "label": "rpc_term"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Suppose follower F stayed offline for three days while the leader.",
+            "values": {
+              "payload": "{'__other__': 'bytes'}",
+              "self": "<SnapshotReceiver>",
+              "rx": "<SnapshotReceiver>",
+              "rpc_term": "4"
+            },
+            "tones": {
+              "payload": "data",
+              "self": "data",
+              "rx": "data",
+              "rpc_term": "data"
+            },
+            "arrows": [
+              [
+                "payload",
+                "self"
+              ],
+              [
+                "self",
+                "rx"
+              ],
+              [
+                "rx",
+                "rpc_term"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say2",
+            "caption": "Because the leader deleted entries 1.",
+            "values": {
+              "payload": "{'__other__': 'bytes'}",
+              "self": "<SnapshotReceiver>",
+              "rx": "<SnapshotReceiver>",
+              "rpc_term": "4"
+            },
+            "tones": {
+              "payload": "data",
+              "self": "data",
+              "rx": "data",
+              "rpc_term": "data"
+            },
+            "arrows": [
+              [
+                "payload",
+                "self"
+              ],
+              [
+                "self",
+                "rx"
+              ],
+              [
+                "rx",
+                "rpc_term"
+              ]
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Simulate bounded multi-chunk `InstallSnapshot` streaming with out-of-order.",
+            "values": {
+              "payload": "{'__other__': 'bytes'}",
+              "self": "<SnapshotReceiver>",
+              "rx": "<SnapshotReceiver>",
+              "rpc_term": "4"
+            },
+            "tones": {
+              "payload": "ok",
+              "self": "ok",
+              "rx": "ok",
+              "rpc_term": "ok"
+            },
+            "arrows": [
+              [
+                "payload",
+                "self"
+              ],
+              [
+                "self",
+                "rx"
+              ],
+              [
+                "rx",
+                "rpc_term"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Raft Log Compaction, Snapshotting & InstallSnapshot Chunk Streaming — Core Algorithm & State Representation",
-      "codeHash": "0f62f34d5e81d5d91d81ba811393c9a7e3d22d17cb6352e0e0305f00aacabb14",
+      "partTitle": "Handling Out-of-Date Snapshot Races & Prefix Matching",
+      "codeHash": "074f4ec524403300bf6be19a421937db6a4985ce470e07cca80cf7a801c99fd2",
       "spec": {
-        "template": "flow",
-        "title": "Raft Log Compaction, Snapshotting & InstallSnapshot Chunk Streaming — ",
-        "nodes": [
+        "template": "states",
+        "title": "Handling Out-of-Date Snapshot Races & Prefix Matching",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "follower_snap_idx",
+            "label": "follower_snap_idx"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "follower_commit_idx",
+            "label": "follower_commit_idx"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "follower_tail",
+            "label": "follower_tail"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "During heavy replication storms, delayed RPC packets create a subtle.",
+            "currentState": "follower_snap_idx",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say2",
+            "caption": "If follower F already applied past `last_included_index`, installing.",
+            "currentState": "follower_commit_idx",
+            "transition": {
+              "from": "follower_snap_idx",
+              "to": "follower_commit_idx",
+              "label": {
+                "var": "follower_commit_idx",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+            "caption": "Verify both anti-rewind and partial-tail-retention cases cleanly below.",
+            "currentState": "follower_tail",
+            "transition": {
+              "from": "follower_commit_idx",
+              "to": "follower_tail",
+              "label": {
+                "var": "follower_tail",
+                "line": 2,
+                "hit": 2
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Raft Log Compaction, Snapshotting & InstallSnapshot Chunk Streaming — ",
-        "nodes": [
+        "template": "states",
+        "title": "Handling Out-of-Date Snapshot Races & Prefix Matching",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "follower_snap_idx",
+            "label": "follower_snap_idx"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "follower_commit_idx",
+            "label": "follower_commit_idx"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "follower_tail",
+            "label": "follower_tail"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "During heavy replication storms, delayed RPC packets create a subtle.",
+            "currentState": "follower_snap_idx",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say2",
+            "caption": "If follower F already applied past `last_included_index`, installing.",
+            "currentState": "follower_commit_idx",
+            "transition": {
+              "from": "follower_snap_idx",
+              "to": "follower_commit_idx",
+              "label": "600"
+            },
+            "tone": "data"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "Verify both anti-rewind and partial-tail-retention cases cleanly below.",
+            "currentState": "follower_tail",
+            "transition": {
+              "from": "follower_commit_idx",
+              "to": "follower_tail",
+              "label": "[[0, None], [2, 'a'], [3, 'b'], [3, 'c'…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Raft Log Compaction, Snapshotting & InstallSnapshot Chunk Streaming — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "b6c2b2000cc0eacb82dfdebfb15a5fa5f155d755648498905f44ad69260d30c1",
+      "partTitle": "End-to-End Snapshot Compaction & Catch-Up Simulation",
+      "codeHash": "594b5d64c0ea5881e4cf58c921c457334fe25f961d23d5d9af62e6c707b2d293",
       "spec": {
-        "template": "flow",
-        "title": "Raft Log Compaction, Snapshotting & InstallSnapshot Chunk Streaming — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "End-to-End Snapshot Compaction & Catch-Up Simulation",
+        "actors": [
+          "leader_snap_idx",
+          "next_idx_for_peer",
+          "retention_lag"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Now integrate periodic size-threshold compaction (`max_tail_entries`).",
+            "activeActor": "leader_snap_idx",
+            "messages": [
+              {
+                "from": "leader_snap_idx",
+                "to": "next_idx_for_peer",
+                "label": {
+                  "var": "leader_snap_idx",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "next_idx_for_peer",
+                "to": "retention_lag",
+                "label": {
+                  "var": "next_idx_for_peer",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Notice the exact dispatch decision loop a Raft leader executes per.",
+            "activeActor": "next_idx_for_peer",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "leader_snap_idx",
+                "to": "next_idx_for_peer",
+                "label": {
+                  "var": "leader_snap_idx",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "next_idx_for_peer",
+                "to": "retention_lag",
+                "label": {
+                  "var": "next_idx_for_peer",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say5",
+            "caption": "Run the integrated leader dispatch simulator below handling fast live.",
+            "activeActor": "retention_lag",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "leader_snap_idx",
+                "to": "next_idx_for_peer",
+                "label": {
+                  "var": "leader_snap_idx",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "next_idx_for_peer",
+                "to": "retention_lag",
+                "label": {
+                  "var": "next_idx_for_peer",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Raft Log Compaction, Snapshotting & InstallSnapshot Chunk Streaming — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "End-to-End Snapshot Compaction & Catch-Up Simulation",
+        "actors": [
+          "leader_snap_idx",
+          "next_idx_for_peer",
+          "retention_lag"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Now integrate periodic size-threshold compaction (`max_tail_entries`).",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "leader_snap_idx",
+                "to": "next_idx_for_peer",
+                "label": "500",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "next_idx_for_peer",
+                "to": "retention_lag",
+                "label": "495",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "leader_snap_idx"
           },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Raft Log Compaction, Snapshotting & InstallSnapshot Chunk Streaming — Resilience Guardrails & Failure Recovery",
-      "codeHash": "c27a9250805c789c157b5c1fa9e550acd0ef1f76c2445c517b0b6a2c89f9c7a2",
-      "spec": {
-        "template": "flow",
-        "title": "Raft Log Compaction, Snapshotting & InstallSnapshot Chunk Streaming — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Notice the exact dispatch decision loop a Raft leader executes per.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "leader_snap_idx",
+                "to": "next_idx_for_peer",
+                "label": "500",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "next_idx_for_peer",
+                "to": "retention_lag",
+                "label": "495",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "next_idx_for_peer"
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "at": "say5",
+            "caption": "Run the integrated leader dispatch simulator below handling fast live.",
+            "messages": [
+              {
+                "from": "leader_snap_idx",
+                "to": "next_idx_for_peer",
+                "label": "500",
+                "tone": "data"
+              },
+              {
+                "from": "next_idx_for_peer",
+                "to": "retention_lag",
+                "label": "495",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Raft Log Compaction, Snapshotting & InstallSnapshot Chunk Streaming — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Raft Log Compaction, Snapshotting & InstallSnapshot Chunk Streaming — Production Telemetry & Verification Audit",
-      "codeHash": "3101f5ae48f656947875ffbbd8364ddedb050e07cf08607bdd6cdd5eed808fc4",
-      "spec": {
-        "template": "flow",
-        "title": "Raft Log Compaction, Snapshotting & InstallSnapshot Chunk Streaming — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Raft Log Compaction, Snapshotting & InstallSnapshot Chunk Streaming — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "retention_lag"
           }
         ]
       }

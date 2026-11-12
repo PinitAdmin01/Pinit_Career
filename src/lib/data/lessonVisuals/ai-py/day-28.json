@@ -2,231 +2,169 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 28,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why LLM apps need observability",
       "codeHash": "7a5d4edd7aa3c8931fa82ea8f3b326c66c097e9d184ac7a1c7a77dfcb7a7d3ea",
       "spec": {
-        "template": "flow",
-        "title": "Why LLM apps need observability — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Why LLM apps need observability",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "record",
+            "label": "record"
           },
           {
-            "id": "proc",
-            "label": "2. Why LLM apps need o...",
-            "tappable": true
+            "id": "key",
+            "label": "key"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "value",
+            "label": "value"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Why LLM apps need observability [D.Pone.Sone].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Why LLM apps need o... [D.Pone.Stwo].",
+            "caption": "Traditional apps fail loudly with errors.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "record": {
+                "var": "record",
+                "line": 1,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 11,
+                "hit": 1
+              },
+              "value": {
+                "var": "value",
+                "line": 11,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "record": "data",
+              "key": "data",
+              "value": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
+            "at": "say2",
+            "caption": "Observability means recording enough about every call to answer \"what.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "record": {
+                "var": "record",
+                "line": 11,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 12,
+                "hit": 1
+              },
+              "value": {
+                "var": "value",
+                "line": 12,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "record": "data",
+              "key": "data",
+              "value": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Why LLM apps need observability.",
+            "at": "say7",
+            "caption": "Today you will build the core pieces yourself, so any tool you use later.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "record": {
+                "var": "record",
+                "line": 12,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 11,
+                "hit": 2
+              },
+              "value": {
+                "var": "value",
+                "line": 11,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "record": "ok",
+              "key": "ok",
+              "value": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Why LLM apps need observability — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Why LLM apps need observability",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "record",
+            "label": "record"
           },
           {
-            "id": "proc",
-            "label": "2. Why LLM apps need o...",
-            "tappable": true
+            "id": "key",
+            "label": "key"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "value",
+            "label": "value"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Why LLM apps need observability [D28.P1.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Why LLM apps need o... [D28.P1.S2].",
+            "caption": "Traditional apps fail loudly with errors.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "record": "{'trace_id': 't-001', 'model': 'small-v…",
+              "key": "'trace_id'",
+              "value": "'t-001'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "record": "data",
+              "key": "data",
+              "value": "data"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P1.S3].",
+            "at": "say2",
+            "caption": "Observability means recording enough about every call to answer \"what.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "record": "{'trace_id': 't-001', 'model': 'small-v…",
+              "key": "'trace_id'",
+              "value": "'t-001'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "record": "data",
+              "key": "data",
+              "value": "data"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Why LLM apps need observability [D28.P1.S4].",
+            "at": "say7",
+            "caption": "Today you will build the core pieces yourself, so any tool you use later.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "record": "{'trace_id': 't-001', 'model': 'small-v…",
+              "key": "'model'",
+              "value": "'small-v2'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "record": "ok",
+              "key": "ok",
+              "value": "ok"
+            }
           }
         ]
       }
@@ -235,159 +173,162 @@
       "partTitle": "Traces and spans",
       "codeHash": "eabe3ecb376aa489ecc4ada9e974504521ba9ce1f240cf998b3fa534f7ad84f7",
       "spec": {
-        "template": "flow",
-        "title": "Distributed trace spans breakdown and timing hierarchy",
-        "nodes": [
+        "template": "boxes",
+        "title": "Traces and spans",
+        "boxes": [
           {
-            "id": "retrieve",
-            "label": "retrieve"
+            "id": "trace",
+            "label": "trace"
           },
           {
-            "id": "rerank",
-            "label": "rerank"
+            "id": "span",
+            "label": "span"
           },
           {
-            "id": "generate",
-            "label": "generate"
-          }
-        ],
-        "edges": [
-          {
-            "from": "retrieve",
-            "to": "rerank",
-            "label": "then"
-          },
-          {
-            "from": "rerank",
-            "to": "generate",
-            "label": "then"
+            "id": "bar",
+            "label": "bar"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "User request trace breaks down into sequential pipeline spans.",
+            "caption": "A trace is the record of one user request from start to finish.",
             "values": {
-              "retrieve": {
-                "text": "180"
+              "trace": {
+                "var": "trace",
+                "line": 1,
+                "hit": 2
               },
-              "rerank": {
-                "text": "140"
+              "span": {
+                "var": "span",
+                "line": 6,
+                "hit": 1
               },
-              "generate": {
-                "text": "1900"
+              "bar": {
+                "var": "bar",
+                "line": 7,
+                "hit": 1
               }
             },
             "tones": {
-              "retrieve": "data",
-              "rerank": "data",
-              "generate": "data"
+              "trace": "data",
+              "span": "data",
+              "bar": "data"
             }
           },
           {
             "at": "say2",
-            "caption": "Spans record latency tokens and cost details.",
+            "caption": "Spans have a name, a start and end time (or latency), and details like.",
             "values": {
-              "retrieve": {
-                "text": "retrieve"
+              "trace": {
+                "var": "trace",
+                "line": 6,
+                "hit": 1
               },
-              "rerank": {
-                "text": "rerank"
+              "span": {
+                "var": "span",
+                "line": 7,
+                "hit": 1
               },
-              "generate": {
-                "text": "generate"
+              "bar": {
+                "var": "bar",
+                "line": 8,
+                "hit": 1
               }
             },
             "tones": {
-              "retrieve": "ok",
-              "rerank": "ok",
-              "generate": "ok"
+              "trace": "data",
+              "span": "data",
+              "bar": "data"
             }
           },
           {
-            "at": "say5",
-            "caption": "Timeline trace shows immediately which step was slow.",
+            "at": "say7",
+            "caption": "The example builds a small trace with three spans.",
             "values": {
-              "retrieve": {
-                "text": "180"
+              "trace": {
+                "var": "trace",
+                "line": 7,
+                "hit": 1
               },
-              "rerank": {
-                "text": "140"
+              "span": {
+                "var": "span",
+                "line": 8,
+                "hit": 1
               },
-              "generate": {
-                "text": "1900"
+              "bar": {
+                "var": "bar",
+                "line": 6,
+                "hit": 2
               }
             },
             "tones": {
-              "retrieve": "ok",
-              "rerank": "ok",
-              "generate": "error"
+              "trace": "ok",
+              "span": "ok",
+              "bar": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Distributed trace spans breakdown and timing hierarchy",
-        "nodes": [
+        "template": "boxes",
+        "title": "Traces and spans",
+        "boxes": [
           {
-            "id": "retrieve",
-            "label": "retrieve"
+            "id": "trace",
+            "label": "trace"
           },
           {
-            "id": "rerank",
-            "label": "rerank"
+            "id": "span",
+            "label": "span"
           },
           {
-            "id": "generate",
-            "label": "generate"
+            "id": "bar",
+            "label": "bar"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "User request trace breaks down into sequential pipeline spans.",
+            "caption": "A trace is the record of one user request from start to finish.",
             "values": {
-              "retrieve": "180",
-              "rerank": "140",
-              "generate": "1900"
+              "trace": "{'trace_id': 't-042', 'spans': [{'name'…",
+              "span": "{'name': 'retrieve', 'prompt_tokens': 0…",
+              "bar": "'#'"
             },
             "tones": {
-              "retrieve": "data",
-              "rerank": "data",
-              "generate": "data"
-            },
-            "arrows": []
+              "trace": "data",
+              "span": "data",
+              "bar": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Spans record latency tokens and cost details.",
+            "caption": "Spans have a name, a start and end time (or latency), and details like.",
             "values": {
-              "retrieve": "retrieve",
-              "rerank": "rerank",
-              "generate": "generate"
+              "trace": "{'trace_id': 't-042', 'spans': [{'name'…",
+              "span": "{'name': 'retrieve', 'prompt_tokens': 0…",
+              "bar": "'#'"
             },
             "tones": {
-              "retrieve": "ok",
-              "rerank": "ok",
-              "generate": "ok"
-            },
-            "arrows": []
+              "trace": "data",
+              "span": "data",
+              "bar": "data"
+            }
           },
           {
-            "at": "say5",
-            "caption": "Timeline trace shows immediately which step was slow.",
+            "at": "say7",
+            "caption": "The example builds a small trace with three spans.",
             "values": {
-              "retrieve": "180",
-              "rerank": "140",
-              "generate": "1900"
+              "trace": "{'trace_id': 't-042', 'spans': [{'name'…",
+              "span": "{'name': 'retrieve', 'prompt_tokens': 0…",
+              "bar": "'#'"
             },
             "tones": {
-              "retrieve": "ok",
-              "rerank": "ok",
-              "generate": "error"
-            },
-            "arrows": []
+              "trace": "ok",
+              "span": "ok",
+              "bar": "ok"
+            }
           }
         ]
       }
@@ -396,191 +337,277 @@
       "partTitle": "Aggregating a trace",
       "codeHash": "ffd3985ae9e3bd5ce44c90c56486fcc99175825b1eee1f10e06bc14254e3af97",
       "spec": {
-        "template": "table",
-        "title": "Distributed trace span aggregation metrics",
-        "columns": [
-          "prompt_tokens",
-          "cost",
-          "latency_ms"
+        "template": "flow",
+        "title": "Aggregating a trace",
+        "nodes": [
+          {
+            "id": "spans",
+            "label": "spans"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "tokens",
+            "label": "tokens"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Aggregate function returns total tokens cost and seconds.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "0.0"
-                  },
-                  {
-                    "text": "180"
-                  }
-                ],
-                "tone": "idle"
+            "caption": "Aggregate_traces(spans) returns total tokens (prompt plus completion.",
+            "values": {
+              "spans": {
+                "var": "spans",
+                "line": 7,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 2,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 2,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 2,
+                "hit": 5
               }
+            },
+            "tones": {
+              "spans": "data",
+              ".0": "data",
+              "s": "data",
+              "tokens": "data"
+            },
+            "arrows": [
+              [
+                "spans",
+                ".0"
+              ],
+              [
+                ".0",
+                "s"
+              ],
+              [
+                "s",
+                "tokens"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Summing latency across spans calculates total execution time.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "0.0"
-                  },
-                  {
-                    "text": "180"
-                  }
-                ],
-                "tone": "idle"
+            "caption": "Summing latency is correct here because the spans ran one after another.",
+            "values": {
+              "spans": {
+                "var": "spans",
+                "line": 2,
+                "hit": 5
               },
-              {
-                "cells": [
-                  {
-                    "text": "300"
-                  },
-                  {
-                    "text": "0.0004"
-                  },
-                  {
-                    "text": "140"
-                  }
-                ],
-                "tone": "data"
+              ".0": {
+                "var": ".0",
+                "line": 2,
+                "hit": 2
+              },
+              "s": {
+                "var": "s",
+                "line": 2,
+                "hit": 2
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 3,
+                "hit": 5
               }
+            },
+            "tones": {
+              "spans": "data",
+              ".0": "data",
+              "s": "data",
+              "tokens": "data"
+            },
+            "arrows": [
+              [
+                "spans",
+                ".0"
+              ],
+              [
+                ".0",
+                "s"
+              ],
+              [
+                "s",
+                "tokens"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Aggregated traces give cost and tokens metrics per question.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "0.0"
-                  },
-                  {
-                    "text": "180"
-                  }
-                ],
-                "tone": "idle"
+            "at": "say7",
+            "caption": "Grouping them by feature or by model shows where to optimise.",
+            "values": {
+              "spans": {
+                "var": "spans",
+                "line": 3,
+                "hit": 5
               },
-              {
-                "cells": [
-                  {
-                    "text": "300"
-                  },
-                  {
-                    "text": "0.0004"
-                  },
-                  {
-                    "text": "140"
-                  }
-                ],
-                "tone": "data"
+              ".0": {
+                "var": ".0",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "cells": [
-                  {
-                    "text": "1200"
-                  },
-                  {
-                    "text": "0.0055"
-                  },
-                  {
-                    "text": "1900"
-                  }
-                ],
-                "tone": "ok"
+              "s": {
+                "var": "s",
+                "line": 2,
+                "hit": 3
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 4,
+                "hit": 5
               }
+            },
+            "tones": {
+              "spans": "ok",
+              ".0": "ok",
+              "s": "ok",
+              "tokens": "ok"
+            },
+            "arrows": [
+              [
+                "spans",
+                ".0"
+              ],
+              [
+                ".0",
+                "s"
+              ],
+              [
+                "s",
+                "tokens"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Distributed trace span aggregation metrics",
-        "columns": [
-          "prompt_tokens",
-          "cost",
-          "latency_ms"
+        "template": "flow",
+        "title": "Aggregating a trace",
+        "nodes": [
+          {
+            "id": "spans",
+            "label": "spans"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "tokens",
+            "label": "tokens"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Aggregate function returns total tokens cost and seconds.",
-            "rows": [
-              {
-                "cells": [
-                  "0",
-                  "0.0",
-                  "180"
-                ],
-                "tone": "idle"
-              }
+            "caption": "Aggregate_traces(spans) returns total tokens (prompt plus completion.",
+            "values": {
+              "spans": "[{'prompt_tokens': 0, 'completion_token…",
+              ".0": "{'__other__': 'list_iterator'}",
+              "s": "{'prompt_tokens': 0, 'completion_tokens…",
+              "tokens": "1770"
+            },
+            "tones": {
+              "spans": "data",
+              ".0": "data",
+              "s": "data",
+              "tokens": "data"
+            },
+            "arrows": [
+              [
+                "spans",
+                ".0"
+              ],
+              [
+                ".0",
+                "s"
+              ],
+              [
+                "s",
+                "tokens"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Summing latency across spans calculates total execution time.",
-            "rows": [
-              {
-                "cells": [
-                  "0",
-                  "0.0",
-                  "180"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "300",
-                  "0.0004",
-                  "140"
-                ],
-                "tone": "data"
-              }
+            "caption": "Summing latency is correct here because the spans ran one after another.",
+            "values": {
+              "spans": "[{'prompt_tokens': 0, 'completion_token…",
+              ".0": "{'__other__': 'list_iterator'}",
+              "s": "{'prompt_tokens': 300, 'completion_toke…",
+              "tokens": "1770"
+            },
+            "tones": {
+              "spans": "data",
+              ".0": "data",
+              "s": "data",
+              "tokens": "data"
+            },
+            "arrows": [
+              [
+                "spans",
+                ".0"
+              ],
+              [
+                ".0",
+                "s"
+              ],
+              [
+                "s",
+                "tokens"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Aggregated traces give cost and tokens metrics per question.",
-            "rows": [
-              {
-                "cells": [
-                  "0",
-                  "0.0",
-                  "180"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "300",
-                  "0.0004",
-                  "140"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "1200",
-                  "0.0055",
-                  "1900"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Grouping them by feature or by model shows where to optimise.",
+            "values": {
+              "spans": "[{'prompt_tokens': 0, 'completion_token…",
+              ".0": "{'__other__': 'list_iterator'}",
+              "s": "{'prompt_tokens': 1200, 'completion_tok…",
+              "tokens": "1770"
+            },
+            "tones": {
+              "spans": "ok",
+              ".0": "ok",
+              "s": "ok",
+              "tokens": "ok"
+            },
+            "arrows": [
+              [
+                "spans",
+                ".0"
+              ],
+              [
+                ".0",
+                "s"
+              ],
+              [
+                "s",
+                "tokens"
+              ]
             ]
           }
         ]
@@ -591,86 +618,131 @@
       "codeHash": "4192d9a745261d0b0203f61cb53c75ae6de233839534c1a180d959e6cf3b879b",
       "spec": {
         "template": "bars",
-        "title": "User feedback thumbs-up quality distribution",
+        "title": "User feedback",
         "steps": [
           {
             "at": "say1",
-            "caption": "User quality signal captures thumbs up or down on answers.",
+            "caption": "The best quality signal is users themselves.",
             "bars": [
               {
-                "label": "up_votes",
+                "label": "up",
                 "value": {
-                  "text": "0"
+                  "var": "up",
+                  "line": 6,
+                  "hit": 7
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "down_votes",
+                "label": "thumbs_up",
                 "value": {
-                  "text": "0"
+                  "var": "thumbs_up",
+                  "line": 2,
+                  "hit": 1
                 },
-                "tone": "error"
+                "tone": "data"
+              },
+              {
+                "label": "thumbs_down",
+                "value": {
+                  "var": "thumbs_down",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Function feedback_score returns share of positive votes.",
+            "caption": "Feedback_score(thumbs_up, thumbs_down) returns the share of positive votes.",
             "bars": [
               {
-                "label": "up_votes",
+                "label": "up",
                 "value": {
-                  "text": "0"
+                  "var": "up",
+                  "line": 7,
+                  "hit": 1
                 },
                 "tone": "ok"
               },
               {
-                "label": "down_votes",
+                "label": "thumbs_up",
                 "value": {
-                  "text": "0"
+                  "var": "thumbs_up",
+                  "line": 3,
+                  "hit": 1
                 },
-                "tone": "error"
+                "tone": "ok"
               },
               {
-                "label": "empty_votes",
+                "label": "thumbs_down",
                 "value": {
-                  "text": "0.0%"
+                  "var": "thumbs_down",
+                  "line": 3,
+                  "hit": 1
                 },
-                "tone": "idle"
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Review thumbs down traces weekly to fix failure causes.",
+            "at": "say7",
+            "caption": "Optional short comments (\"wrong price\", \"too long\") make the votes far.",
             "bars": [
               {
-                "label": "t-001",
+                "label": "up",
                 "value": {
-                  "text": "up"
+                  "var": "up",
+                  "line": 8,
+                  "hit": 1
                 },
                 "tone": "ok"
               },
               {
-                "label": "t-002",
+                "label": "thumbs_up",
                 "value": {
-                  "text": "down"
-                },
-                "tone": "error"
-              },
-              {
-                "label": "t-003",
-                "value": {
-                  "text": "up"
+                  "var": "thumbs_up",
+                  "line": 2,
+                  "hit": 2
                 },
                 "tone": "ok"
               },
               {
-                "label": "t-005",
+                "label": "thumbs_down",
                 "value": {
-                  "text": "down"
+                  "var": "thumbs_down",
+                  "line": 2,
+                  "hit": 2
                 },
-                "tone": "error"
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
@@ -678,68 +750,83 @@
       },
       "filled": {
         "template": "bars",
-        "title": "User feedback thumbs-up quality distribution",
+        "title": "User feedback",
         "steps": [
           {
             "at": "say1",
-            "caption": "User quality signal captures thumbs up or down on answers.",
+            "caption": "The best quality signal is users themselves.",
             "bars": [
               {
-                "label": "up_votes",
-                "value": 0,
-                "tone": "ok"
+                "label": "up",
+                "value": 3,
+                "tone": "data"
               },
               {
-                "label": "down_votes",
-                "value": 0,
-                "tone": "error"
+                "label": "thumbs_up",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "thumbs_down",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": 5,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Function feedback_score returns share of positive votes.",
+            "caption": "Feedback_score(thumbs_up, thumbs_down) returns the share of positive votes.",
             "bars": [
               {
-                "label": "up_votes",
-                "value": 0,
+                "label": "up",
+                "value": 3,
                 "tone": "ok"
               },
               {
-                "label": "down_votes",
-                "value": 0,
-                "tone": "error"
+                "label": "thumbs_up",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "label": "empty_votes",
-                "value": "0.0%",
-                "tone": "idle"
+                "label": "thumbs_down",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 5,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Review thumbs down traces weekly to fix failure causes.",
+            "at": "say7",
+            "caption": "Optional short comments (\"wrong price\", \"too long\") make the votes far.",
             "bars": [
               {
-                "label": "t-001",
-                "value": "up",
+                "label": "up",
+                "value": 3,
                 "tone": "ok"
               },
               {
-                "label": "t-002",
-                "value": "down",
-                "tone": "error"
-              },
-              {
-                "label": "t-003",
-                "value": "up",
+                "label": "thumbs_up",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "label": "t-005",
-                "value": "down",
-                "tone": "error"
+                "label": "thumbs_down",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           }
@@ -750,132 +837,162 @@
       "partTitle": "Dashboards and alerts",
       "codeHash": "be9a0a0e027181473245c38d0d1e1cde76023493e4032d14ec87939c983c3f8c",
       "spec": {
-        "template": "compare",
-        "title": "Observability alert thresholds today vs last week baseline",
-        "leftLabel": "Today Current",
-        "rightLabel": "Last Week Baseline",
+        "template": "sequence",
+        "title": "Dashboards and alerts",
+        "actors": [
+          "today",
+          "last_week",
+          "alerts"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Metrics track p latency error rate and cost per day.",
-            "left": {
-              "code": "today p95 latency 5400 ms",
-              "result": {
-                "text": "5400"
+            "caption": "Watch a few key metrics.",
+            "activeActor": "today",
+            "messages": [
+              {
+                "from": "today",
+                "to": "last_week",
+                "label": {
+                  "var": "today",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "baseline p95 latency 3100 ms",
-              "result": {
-                "text": "3100"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "last_week",
+                "to": "alerts",
+                "label": {
+                  "var": "last_week",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Set alerts when latency or cost cross normal thresholds.",
-            "left": {
-              "code": "today cost spike 182.0",
-              "result": {
-                "text": "182.0"
+            "caption": "Set alerts on thresholds that matter.",
+            "activeActor": "last_week",
+            "messages": [
+              {
+                "from": "today",
+                "to": "last_week",
+                "label": {
+                  "var": "today",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "baseline cost level 120.0",
-              "result": {
-                "text": "120.0"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "last_week",
+                "to": "alerts",
+                "label": {
+                  "var": "last_week",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Compare metrics against last week baseline for anomalies.",
-            "left": {
-              "code": "feedback drop 0.71",
-              "result": {
-                "text": "0.71"
+            "at": "say7",
+            "caption": "Every alert should link to example traces, so the person on call can start.",
+            "activeActor": "alerts",
+            "messages": [
+              {
+                "from": "today",
+                "to": "last_week",
+                "label": {
+                  "var": "today",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "baseline feedback 0.83",
-              "result": {
-                "text": "0.83"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "last_week",
+                "to": "alerts",
+                "label": {
+                  "var": "last_week",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Observability alert thresholds today vs last week baseline",
-        "leftLabel": "Today Current",
-        "rightLabel": "Last Week Baseline",
+        "template": "sequence",
+        "title": "Dashboards and alerts",
+        "actors": [
+          "today",
+          "last_week",
+          "alerts"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Metrics track p95 latency error rate and cost per day.",
-            "left": {
-              "code": "today p95 latency 5400 ms",
-              "result": "5400",
-              "tone": "error",
-              "checks": [
-                "5400"
-              ]
-            },
-            "right": {
-              "code": "baseline p95 latency 3100 ms",
-              "result": "3100",
-              "tone": "ok",
-              "checks": [
-                "3100"
-              ]
-            }
+            "caption": "Watch a few key metrics.",
+            "messages": [
+              {
+                "from": "today",
+                "to": "last_week",
+                "label": "{'p95_ms': 5400, 'error_rate': 0.011, '…",
+                "tone": "data"
+              },
+              {
+                "from": "last_week",
+                "to": "alerts",
+                "label": "{'p95_ms': 3100, 'error_rate': 0.009, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "today"
           },
           {
             "at": "say2",
-            "caption": "Set alerts when latency or cost cross normal thresholds.",
-            "left": {
-              "code": "today cost spike 182.0",
-              "result": "182.0",
-              "tone": "error",
-              "checks": [
-                "182.0"
-              ]
-            },
-            "right": {
-              "code": "baseline cost level 120.0",
-              "result": "120.0",
-              "tone": "ok",
-              "checks": [
-                "120.0"
-              ]
-            }
+            "caption": "Set alerts on thresholds that matter.",
+            "messages": [
+              {
+                "from": "today",
+                "to": "last_week",
+                "label": "{'p95_ms': 5400, 'error_rate': 0.011, '…",
+                "tone": "data"
+              },
+              {
+                "from": "last_week",
+                "to": "alerts",
+                "label": "{'p95_ms': 3100, 'error_rate': 0.009, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "last_week"
           },
           {
-            "at": "say3",
-            "caption": "Compare metrics against last week baseline for anomalies.",
-            "left": {
-              "code": "feedback drop 0.71",
-              "result": "0.71",
-              "tone": "error",
-              "checks": [
-                "0.71"
-              ]
-            },
-            "right": {
-              "code": "baseline feedback 0.83",
-              "result": "0.83",
-              "tone": "ok",
-              "checks": [
-                "0.83"
-              ]
-            }
+            "at": "say7",
+            "caption": "Every alert should link to example traces, so the person on call can start.",
+            "messages": [
+              {
+                "from": "today",
+                "to": "last_week",
+                "label": "{'p95_ms': 5400, 'error_rate': 0.011, '…",
+                "tone": "data"
+              },
+              {
+                "from": "last_week",
+                "to": "alerts",
+                "label": "{'p95_ms': 3100, 'error_rate': 0.009, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "alerts"
           }
         ]
       }
@@ -884,224 +1001,162 @@
       "partTitle": "Privacy in logs",
       "codeHash": "66c27c6b88e7b90e64c260190cb28f6fb8e69dd9428f40d97afe7d958d0f35f3",
       "spec": {
-        "template": "flow",
-        "title": "Privacy in logs — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Privacy in logs",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Privacy in logs",
+        "actors": [
+          "EMAIL",
+          "PHONE",
+          "text"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Privacy in logs [D.Psix.Sone].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Privacy in logs [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Traces contain user messages, which may include names, phone numbers.",
+            "activeActor": "EMAIL",
+            "messages": [
+              {
+                "from": "EMAIL",
+                "to": "PHONE",
+                "label": {
+                  "var": "EMAIL",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "PHONE",
+                "to": "text",
+                "label": {
+                  "var": "PHONE",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Mask personal data before storing.",
+            "activeActor": "PHONE",
+            "messages": [
+              {
+                "from": "EMAIL",
+                "to": "PHONE",
+                "label": {
+                  "var": "EMAIL",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "PHONE",
+                "to": "text",
+                "label": {
+                  "var": "PHONE",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Privacy in logs [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Tomorrow you will connect RAG to knowledge graphs for questions that need.",
+            "activeActor": "text",
+            "messages": [
+              {
+                "from": "EMAIL",
+                "to": "PHONE",
+                "label": {
+                  "var": "EMAIL",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "PHONE",
+                "to": "text",
+                "label": {
+                  "var": "PHONE",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Privacy in logs — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Privacy in logs",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Privacy in logs",
+        "actors": [
+          "EMAIL",
+          "PHONE",
+          "text"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Privacy in logs [D28.P6.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Privacy in logs [D28.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Traces contain user messages, which may include names, phone numbers.",
+            "messages": [
+              {
+                "from": "EMAIL",
+                "to": "PHONE",
+                "label": "{'__other__': 'Pattern'}",
+                "tone": "data"
+              },
+              {
+                "from": "PHONE",
+                "to": "text",
+                "label": "{'__other__': 'Pattern'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "EMAIL"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Mask personal data before storing.",
+            "messages": [
+              {
+                "from": "EMAIL",
+                "to": "PHONE",
+                "label": "{'__other__': 'Pattern'}",
+                "tone": "data"
+              },
+              {
+                "from": "PHONE",
+                "to": "text",
+                "label": "{'__other__': 'Pattern'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "PHONE"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Privacy in logs [D28.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Tomorrow you will connect RAG to knowledge graphs for questions that need.",
+            "messages": [
+              {
+                "from": "EMAIL",
+                "to": "PHONE",
+                "label": "{'__other__': 'Pattern'}",
+                "tone": "data"
+              },
+              {
+                "from": "PHONE",
+                "to": "text",
+                "label": "{'__other__': 'Pattern'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "text"
           }
         ]
       }

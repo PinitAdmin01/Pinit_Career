@@ -2,89 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 24,
-  "promptSha": "570c090aadc72f2d3e7a4db7afd722ef0616811bcf7b401d2899ea2ce7915595",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Groups that merge over time",
       "codeHash": "e88c51ac04b8f2e42d89740e4f7712bbb7c5aa68199f1ae8e2a9d6b6aae2085f",
       "spec": {
-        "template": "table",
+        "template": "boxes",
         "title": "Groups that merge over time",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The problems concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Groups"
-                  },
-                  {
-                    "text": "that"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Some problems keep merging groups.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 9,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 9,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "x": "data",
+              "a": "data",
+              "b": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The running logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "merge"
-                  },
-                  {
-                    "text": "over"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "You need two operations.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 6,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 9,
+                "hit": 2
+              },
+              "b": {
+                "var": "b",
+                "line": 9,
+                "hit": 2
               }
-            ]
+            },
+            "tones": {
+              "x": "data",
+              "a": "data",
+              "b": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Two items are in the same group exactly when find gives the same root for both.",
+            "values": {
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 2
+              },
+              "a": {
+                "var": "a",
+                "line": 9,
+                "hit": 3
+              },
+              "b": {
+                "var": "b",
+                "line": 9,
+                "hit": 3
+              }
+            },
+            "tones": {
+              "x": "ok",
+              "a": "ok",
+              "b": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "boxes",
         "title": "Groups that merge over time",
-        "columns": [
-          "Stage",
-          "Concept"
+        "boxes": [
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The problems concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Groups",
-                  "that"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Some problems keep merging groups.",
+            "values": {
+              "x": "'bala'",
+              "a": "'asha'",
+              "b": "'bala'"
+            },
+            "tones": {
+              "x": "data",
+              "a": "data",
+              "b": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The running logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "merge",
-                  "over"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "You need two operations.",
+            "values": {
+              "x": "'bala'",
+              "a": "'chitra'",
+              "b": "'dev'"
+            },
+            "tones": {
+              "x": "data",
+              "a": "data",
+              "b": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Two items are in the same group exactly when find gives the same root for both.",
+            "values": {
+              "x": "'asha'",
+              "a": "'bala'",
+              "b": "'dev'"
+            },
+            "tones": {
+              "x": "ok",
+              "a": "ok",
+              "b": "ok"
+            }
           }
         ]
       }
@@ -93,80 +173,114 @@
       "partTitle": "Path compression",
       "codeHash": "0f56fe8c3f274593d3d9b6abfa88f9f8a878a45cc5a517810ba8a248e5919c6c",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Path compression",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The without concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Without care, the trees can become long chains, and find becomes slow.",
+            "items": {
+              "var": "parent",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Path"
-                  },
-                  {
-                    "text": "compression"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The recursive logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Path compression fixes this.",
+            "items": {
+              "var": "parent",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Path"
-                  },
-                  {
-                    "text": "compression"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Path compression flattens the internal tree structure during find.",
+            "items": {
+              "var": "parent",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Path compression",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The without concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Without care, the trees can become long chains, and find becomes slow.",
+            "items": [
+              "0",
+              "0",
+              "1",
+              "2",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Path",
-                  "compression"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The recursive logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Path compression fixes this.",
+            "items": [
+              "0",
+              "0",
+              "1",
+              "2",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Path",
-                  "compression"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Path compression flattens the internal tree structure during find.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,43 +291,131 @@
       "partTitle": "Union by rank and the UnionFind class",
       "codeHash": "0b21a5c965c785b66206b0195a0f97c0989be812bf3719568d5d2f03c0245dab",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Union by rank and the UnionFind class",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 1 builds a UnionFind class for nodes 0 to n - 1 with find, union.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Union"
-                  },
-                  {
-                    "text": "rank"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "rx",
+                "value": {
+                  "var": "rx",
+                  "line": 13,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The union logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Union by rank keeps trees shallow.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "and"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rx",
+                "value": {
+                  "var": "rx",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "When path compression is paired with union by rank, the amortized time.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rx",
+                "value": {
+                  "var": "rx",
+                  "line": 16,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +423,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Union by rank and the UnionFind class",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Practice 1 builds a UnionFind class for nodes 0 to n - 1 with find, union.",
+            "bars": [
               {
-                "cells": [
-                  "Union",
-                  "rank"
-                ],
+                "label": "n",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "rx",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The union logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Union by rank keeps trees shallow.",
+            "bars": [
               {
-                "cells": [
-                  "and",
-                  "the"
-                ],
+                "label": "n",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "rx",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "When path compression is paired with union by rank, the amortized time.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "rx",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -261,82 +511,82 @@
       "partTitle": "Finding the redundant connection",
       "codeHash": "e21c47670382bb4f171d85d650b64615bb934e4ffc2827c62688a59e9d61c6a5",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Finding the redundant connection",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Finding"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A network of n computers was a tree, and then one extra cable was added.",
+            "items": {
+              "var": "parent",
+              "line": 2,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The cycle logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "redundant"
-                  },
-                  {
-                    "text": "connection"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Go through the edges in order and union their ends.",
+            "items": {
+              "var": "parent",
+              "line": 3,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "The same trick finds which road, pipe or cable closes a loop in any network.",
+            "items": {
+              "var": "parent",
+              "line": 8,
+              "hit": 3
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Finding the redundant connection",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Finding",
-                  "the"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A network of n computers was a tree, and then one extra cable was added.",
+            "mode": "queue",
+            "items": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The cycle logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "redundant",
-                  "connection"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Go through the edges in order and union their ends.",
+            "mode": "queue",
+            "items": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "The same trick finds which road, pipe or cable closes a loop in any network.",
+            "mode": "queue",
+            "items": [
+              "0",
+              "2",
+              "3",
+              "3"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -345,80 +595,111 @@
       "partTitle": "Kruskal's minimum spanning tree",
       "codeHash": "fcba1dbd725314f60a33367ac2fb4b36189f420b5dd0a25ea0ca00987dec466e",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Kruskal's minimum spanning tree",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The minimum concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A minimum spanning tree (MST) connects all nodes with the cheapest total.",
+            "items": {
+              "var": "parent",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Kruskal"
-                  },
-                  {
-                    "text": "minimum"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The sorting logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Kruskal's algorithm sorts the edges from cheapest to most expensive.",
+            "items": {
+              "var": "parent",
+              "line": 11,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "spanning"
-                  },
-                  {
-                    "text": "tree"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "This is union-find's most famous use and a common interview question.",
+            "items": {
+              "var": "parent",
+              "line": 10,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Kruskal's minimum spanning tree",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The minimum concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A minimum spanning tree (MST) connects all nodes with the cheapest total.",
+            "items": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Kruskal",
-                  "minimum"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The sorting logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Kruskal's algorithm sorts the edges from cheapest to most expensive.",
+            "items": [
+              "0",
+              "2",
+              "2",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "spanning",
-                  "tree"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "This is union-find's most famous use and a common interview question.",
+            "items": [
+              "0",
+              "2",
+              "2",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -429,43 +710,131 @@
       "partTitle": "Union-find or BFS?",
       "codeHash": "8fcd2c3a1d247a841defdcc3b49bcabab5a3d62151c5134586522354d415611c",
       "spec": {
-        "template": "table",
+        "template": "bars",
         "title": "Union-find or BFS?",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The both concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Both union-find and BFS/DFS can count groups and detect cycles.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Union"
-                  },
-                  {
-                    "text": "find"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "groups",
+                "value": {
+                  "var": "groups",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 14,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The edges logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "If the graph is given all at once and you ask one question, BFS or DFS.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "BFS"
-                  },
-                  {
-                    "text": "find"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "groups",
+                "value": {
+                  "var": "groups",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Knowing when a structure fits, and when it does not, is the skill.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "groups",
+                "value": {
+                  "var": "groups",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 16,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -473,35 +842,83 @@
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "bars",
         "title": "Union-find or BFS?",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The both concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Both union-find and BFS/DFS can count groups and detect cycles.",
+            "bars": [
               {
-                "cells": [
-                  "Union",
-                  "find"
-                ],
+                "label": "n",
+                "value": 1000,
+                "tone": "data"
+              },
+              {
+                "label": "groups",
+                "value": 1000,
+                "tone": "data"
+              },
+              {
+                "label": "step",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": 243,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The edges logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "If the graph is given all at once and you ask one question, BFS or DFS.",
+            "bars": [
               {
-                "cells": [
-                  "BFS",
-                  "find"
-                ],
+                "label": "n",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "groups",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "step",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": 243,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Knowing when a structure fits, and when it does not, is the skill.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "groups",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "step",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": 243,
                 "tone": "ok"
               }
             ]

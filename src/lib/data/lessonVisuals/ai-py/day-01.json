@@ -2,129 +2,169 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 1,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "A model that predicts the next word",
       "codeHash": "28581cfa499fde243888f7eb6e4d53c3395aaf25bbb7ea5b976b8606160ab10b",
       "spec": {
-        "template": "bars",
-        "title": "Word follower frequency distribution",
+        "template": "sequence",
+        "title": "A model that predicts the next word",
+        "actors": [
+          "text",
+          "words",
+          "follows"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Counting frequency determines which word follows an input word.",
-            "bars": [
+            "at": "say1",
+            "caption": "A large language model does one thing at its core.",
+            "activeActor": "text",
+            "messages": [
               {
-                "label": "morning",
-                "value": {
-                  "text": "3"
+                "from": "text",
+                "to": "words",
+                "label": {
+                  "var": "text",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "words",
+                "to": "follows",
+                "label": {
+                  "var": "words",
+                  "line": 4,
+                  "hit": 1
                 },
                 "tone": "ok"
-              },
-              {
-                "label": "night",
-                "value": {
-                  "text": "1"
-                },
-                "tone": "data"
-              },
-              {
-                "label": "all",
-                "value": {
-                  "text": "1"
-                },
-                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Language models score every possible candidate to choose the next piece.",
-            "bars": [
+            "at": "say2",
+            "caption": "The simplest version of the idea counts, in some example text, which word.",
+            "activeActor": "words",
+            "messages": [
               {
-                "label": "morning",
-                "value": {
-                  "text": "3"
+                "from": "text",
+                "to": "words",
+                "label": {
+                  "var": "text",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "words",
+                "to": "follows",
+                "label": {
+                  "var": "words",
+                  "line": 5,
+                  "hit": 1
                 },
                 "tone": "ok"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Keep this picture in mind all course.",
+            "activeActor": "follows",
+            "messages": [
               {
-                "label": "night",
-                "value": {
-                  "text": "1"
+                "from": "text",
+                "to": "words",
+                "label": {
+                  "var": "text",
+                  "line": 5,
+                  "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "all",
-                "value": {
-                  "text": "1"
+                "from": "words",
+                "to": "follows",
+                "label": {
+                  "var": "words",
+                  "line": 6,
+                  "hit": 1
                 },
-                "tone": "data"
-              },
-              {
-                "label": "team",
-                "value": {
-                  "text": "1"
-                },
-                "tone": "data"
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Word follower frequency distribution",
+        "template": "sequence",
+        "title": "A model that predicts the next word",
+        "actors": [
+          "text",
+          "words",
+          "follows"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Counting frequency determines which word follows an input word.",
-            "bars": [
+            "at": "say1",
+            "caption": "A large language model does one thing at its core.",
+            "messages": [
               {
-                "label": "morning",
-                "value": 3,
+                "from": "text",
+                "to": "words",
+                "label": "'good morning . good morning team . goo…",
+                "tone": "data"
+              },
+              {
+                "from": "words",
+                "to": "follows",
+                "label": "['good', 'morning', '.', 'good', 'morni…",
                 "tone": "ok"
-              },
-              {
-                "label": "night",
-                "value": 1,
-                "tone": "data"
-              },
-              {
-                "label": "all",
-                "value": 1,
-                "tone": "data"
               }
-            ]
+            ],
+            "activeActor": "text"
           },
           {
-            "at": "say3",
-            "caption": "Language models score every possible candidate to choose the next piece.",
-            "bars": [
+            "at": "say2",
+            "caption": "The simplest version of the idea counts, in some example text, which word.",
+            "messages": [
               {
-                "label": "morning",
-                "value": 3,
+                "from": "text",
+                "to": "words",
+                "label": "'good morning . good morning team . goo…",
+                "tone": "data"
+              },
+              {
+                "from": "words",
+                "to": "follows",
+                "label": "['good', 'morning', '.', 'good', 'morni…",
                 "tone": "ok"
-              },
-              {
-                "label": "night",
-                "value": 1,
-                "tone": "data"
-              },
-              {
-                "label": "all",
-                "value": 1,
-                "tone": "data"
-              },
-              {
-                "label": "team",
-                "value": 1,
-                "tone": "data"
               }
-            ]
+            ],
+            "activeActor": "words"
+          },
+          {
+            "at": "say5",
+            "caption": "Keep this picture in mind all course.",
+            "messages": [
+              {
+                "from": "text",
+                "to": "words",
+                "label": "'good morning . good morning team . goo…",
+                "tone": "data"
+              },
+              {
+                "from": "words",
+                "to": "follows",
+                "label": "['good', 'morning', '.', 'good', 'morni…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "follows"
           }
         ]
       }
@@ -133,94 +173,218 @@
       "partTitle": "From scores to probabilities: softmax",
       "codeHash": "b1c393d1ee42bd17bcb6238b7697a01a7fd4cf62b35acfa9b020ada879fd713b",
       "spec": {
-        "template": "compare",
-        "title": "Raw logit scores versus normalized probabilities",
-        "leftLabel": "Raw Logits",
-        "rightLabel": "Softmax Probabilities",
+        "template": "bars",
+        "title": "From scores to probabilities: softmax",
         "steps": [
           {
             "at": "say1",
-            "caption": "Raw logits can be negative numbers that are difficult to compare directly.",
-            "left": {
-              "code": "logits = [2.0, 1.0, 0.1]",
-              "result": {
-                "text": "unbounded scales"
+            "caption": "A model gives each possible next token a raw score called a logit.",
+            "bars": [
+              {
+                "label": "top",
+                "value": {
+                  "var": "top",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "data"
-            },
-            "right": {
-              "code": "direct comparison",
-              "result": {
-                "text": "hard to interpret"
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            }
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "e",
+                "value": {
+                  "var": "e",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "The softmax function transforms unbounded logits into positive probabilities.",
-            "left": {
-              "code": "exp(x - top)",
-              "result": {
-                "text": "positive weights"
+            "caption": "Softmax turns logits into probabilities that are all positive and add up to 1.",
+            "bars": [
+              {
+                "label": "top",
+                "value": {
+                  "var": "top",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
-              "tone": "data"
-            },
-            "right": {
-              "code": "sum to 1.0",
-              "result": {
-                "text": "[0.659, 0.2424, 0.0985]"
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
-              "tone": "ok"
-            }
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "e",
+                "value": {
+                  "var": "e",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Softmax appears twice in every transformer.",
+            "bars": [
+              {
+                "label": "top",
+                "value": {
+                  "var": "top",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "e",
+                "value": {
+                  "var": "e",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Raw logit scores versus normalized probabilities",
-        "leftLabel": "Raw Logits",
-        "rightLabel": "Softmax Probabilities",
+        "template": "bars",
+        "title": "From scores to probabilities: softmax",
         "steps": [
           {
             "at": "say1",
-            "caption": "Raw logits can be negative numbers that are difficult to compare directly.",
-            "left": {
-              "code": "logits = [2.0, 1.0, 0.1]",
-              "result": "unbounded scales",
-              "tone": "data",
-              "checks": [
-                "unbounded scales"
-              ]
-            },
-            "right": {
-              "code": "direct comparison",
-              "result": "hard to interpret",
-              "tone": "error",
-              "checks": [
-                "hard to interpret"
-              ]
-            }
+            "caption": "A model gives each possible next token a raw score called a logit.",
+            "bars": [
+              {
+                "label": "top",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": 1.5174480603940774,
+                "tone": "data"
+              },
+              {
+                "label": "e",
+                "value": 1,
+                "tone": "data"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "The softmax function transforms unbounded logits into positive probabilities.",
-            "left": {
-              "code": "exp(x - top)",
-              "result": "positive weights",
-              "tone": "data",
-              "checks": [
-                "positive weights"
-              ]
-            },
-            "right": {
-              "code": "sum to 1.0",
-              "result": "[0.659, 0.2424, 0.0985]",
-              "tone": "ok",
-              "checks": [
-                "[0.659, 0.2424, 0.0985]"
-              ]
-            }
+            "caption": "Softmax turns logits into probabilities that are all positive and add up to 1.",
+            "bars": [
+              {
+                "label": "top",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 1.5174480603940774,
+                "tone": "ok"
+              },
+              {
+                "label": "e",
+                "value": 0.36787944117144233,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Softmax appears twice in every transformer.",
+            "bars": [
+              {
+                "label": "top",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 1.5174480603940774,
+                "tone": "ok"
+              },
+              {
+                "label": "e",
+                "value": 0.14956861922263506,
+                "tone": "ok"
+              }
+            ]
           }
         ]
       }
@@ -229,110 +393,162 @@
       "partTitle": "Temperature: how adventurous the model is",
       "codeHash": "9c5b998e88b811116d804876391f19d9b79786ba2145f4d5e6030bf1dfe3daef",
       "spec": {
-        "template": "bars",
-        "title": "Probability sharpening with lower temperature",
+        "template": "sequence",
+        "title": "Temperature: how adventurous the model is",
+        "actors": [
+          "logits",
+          "t",
+          "temperature"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Lower temperature exaggerates differences while high temperature flattens them.",
-            "bars": [
+            "at": "say1",
+            "caption": "After softmax, the model samples a token from the probabilities.",
+            "activeActor": "logits",
+            "messages": [
               {
-                "label": "Paris (t=0.2)",
-                "value": {
-                  "text": "100"
+                "from": "logits",
+                "to": "t",
+                "label": {
+                  "var": "logits",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "temperature",
+                "label": {
+                  "var": "t",
+                  "line": 10,
+                  "hit": 1
                 },
                 "tone": "ok"
-              },
-              {
-                "label": "Lyon (t=0.2)",
-                "value": {
-                  "text": "0"
-                },
-                "tone": "data"
-              },
-              {
-                "label": "Nice (t=0.2)",
-                "value": {
-                  "text": "0"
-                },
-                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Greedy sampling yields predictable repeatable output for code and data.",
-            "bars": [
+            "at": "say2",
+            "caption": "Divide the logits by the temperature before softmax.",
+            "activeActor": "t",
+            "messages": [
               {
-                "label": "Paris (t=1.0)",
-                "value": {
-                  "text": "76"
+                "from": "logits",
+                "to": "t",
+                "label": {
+                  "var": "logits",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "temperature",
+                "label": {
+                  "var": "t",
+                  "line": 11,
+                  "hit": 1
                 },
                 "tone": "ok"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Setting the right temperature is one of the first product decisions an AI.",
+            "activeActor": "temperature",
+            "messages": [
               {
-                "label": "Lyon (t=1.0)",
-                "value": {
-                  "text": "17"
+                "from": "logits",
+                "to": "t",
+                "label": {
+                  "var": "logits",
+                  "line": 4,
+                  "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "label": "Nice (t=1.0)",
-                "value": {
-                  "text": "7"
+                "from": "t",
+                "to": "temperature",
+                "label": {
+                  "var": "t",
+                  "line": 12,
+                  "hit": 1
                 },
-                "tone": "data"
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Probability sharpening with lower temperature",
+        "template": "sequence",
+        "title": "Temperature: how adventurous the model is",
+        "actors": [
+          "logits",
+          "t",
+          "temperature"
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Lower temperature exaggerates differences while high temperature flattens them.",
-            "bars": [
+            "at": "say1",
+            "caption": "After softmax, the model samples a token from the probabilities.",
+            "messages": [
               {
-                "label": "Paris (t=0.2)",
-                "value": 100,
+                "from": "logits",
+                "to": "t",
+                "label": "{'Paris': 4, 'Lyon': 2.5, 'Nice': 2}",
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "temperature",
+                "label": "0.2",
                 "tone": "ok"
-              },
-              {
-                "label": "Lyon (t=0.2)",
-                "value": 0,
-                "tone": "data"
-              },
-              {
-                "label": "Nice (t=0.2)",
-                "value": 0,
-                "tone": "data"
               }
-            ]
+            ],
+            "activeActor": "logits"
           },
           {
-            "at": "say3",
-            "caption": "Greedy sampling yields predictable repeatable output for code and data.",
-            "bars": [
+            "at": "say2",
+            "caption": "Divide the logits by the temperature before softmax.",
+            "messages": [
               {
-                "label": "Paris (t=1.0)",
-                "value": 76,
+                "from": "logits",
+                "to": "t",
+                "label": "{'Paris': 4, 'Lyon': 2.5, 'Nice': 2}",
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "temperature",
+                "label": "0.2",
                 "tone": "ok"
-              },
-              {
-                "label": "Lyon (t=1.0)",
-                "value": 17,
-                "tone": "data"
-              },
-              {
-                "label": "Nice (t=1.0)",
-                "value": 7,
-                "tone": "data"
               }
-            ]
+            ],
+            "activeActor": "t"
+          },
+          {
+            "at": "say5",
+            "caption": "Setting the right temperature is one of the first product decisions an AI.",
+            "messages": [
+              {
+                "from": "logits",
+                "to": "t",
+                "label": "[4, 2.5, 2]",
+                "tone": "data"
+              },
+              {
+                "from": "t",
+                "to": "temperature",
+                "label": "0.2",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "temperature"
           }
         ]
       }
@@ -341,136 +557,194 @@
       "partTitle": "Attention: which words matter for this one?",
       "codeHash": "7f3bfb67a3b7f15d73d3631187a399ab0c46c5dd241b7c13391c5ff0796c74ed",
       "spec": {
-        "template": "table",
-        "title": "Query key dot product compatibility scores",
-        "columns": [
-          "candidate",
-          "key_vector",
-          "dot_score"
+        "template": "boxes",
+        "title": "Attention: which words matter for this one?",
+        "boxes": [
+          {
+            "id": "query_it",
+            "label": "query_it"
+          },
+          {
+            "id": "keys",
+            "label": "keys"
+          },
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The dot product measures match score between query and key vectors.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cat"
-                  },
-                  {
-                    "text": "[1, 0, 1]"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "In \"The cat sat on the mat because it was tired\", a reader knows \"it\".",
+            "values": {
+              "query_it": {
+                "var": "query_it",
+                "line": 4,
+                "hit": 1
+              },
+              "keys": {
+                "var": "keys",
+                "line": 5,
+                "hit": 1
+              },
+              "word": {
+                "var": "word",
+                "line": 6,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "query_it": "data",
+              "keys": "data",
+              "word": "data",
+              "key": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "Tokens that match well contribute the largest attention weights to output.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cat"
-                  },
-                  {
-                    "text": "[1, 0, 1]"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Each token produces three vectors (lists of numbers).",
+            "values": {
+              "query_it": {
+                "var": "query_it",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "tired"
-                  },
-                  {
-                    "text": "[1, 0, 0]"
-                  },
-                  {
-                    "text": "1"
-                  }
-                ],
-                "tone": "data"
+              "keys": {
+                "var": "keys",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "mat"
-                  },
-                  {
-                    "text": "[0, 1, 0]"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "data"
+              "word": {
+                "var": "word",
+                "line": 7,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "query_it": "data",
+              "keys": "data",
+              "word": "data",
+              "key": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "This lets every token gather information from every other token at once.",
+            "values": {
+              "query_it": {
+                "var": "query_it",
+                "line": 6,
+                "hit": 1
+              },
+              "keys": {
+                "var": "keys",
+                "line": 7,
+                "hit": 1
+              },
+              "word": {
+                "var": "word",
+                "line": 6,
+                "hit": 2
+              },
+              "key": {
+                "var": "key",
+                "line": 6,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "query_it": "ok",
+              "keys": "ok",
+              "word": "ok",
+              "key": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Query key dot product compatibility scores",
-        "columns": [
-          "candidate",
-          "key_vector",
-          "dot_score"
+        "template": "boxes",
+        "title": "Attention: which words matter for this one?",
+        "boxes": [
+          {
+            "id": "query_it",
+            "label": "query_it"
+          },
+          {
+            "id": "keys",
+            "label": "keys"
+          },
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The dot product measures match score between query and key vectors.",
-            "rows": [
-              {
-                "cells": [
-                  "cat",
-                  "[1, 0, 1]",
-                  "2"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say1",
+            "caption": "In \"The cat sat on the mat because it was tired\", a reader knows \"it\".",
+            "values": {
+              "query_it": "[1, 0, 1]",
+              "keys": "{'cat': [1, 0, 1], 'mat': [0, 1, 0], 't…",
+              "word": "'cat'",
+              "key": "[1, 0, 1]"
+            },
+            "tones": {
+              "query_it": "data",
+              "keys": "data",
+              "word": "data",
+              "key": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "Tokens that match well contribute the largest attention weights to output.",
-            "rows": [
-              {
-                "cells": [
-                  "cat",
-                  "[1, 0, 1]",
-                  "2"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tired",
-                  "[1, 0, 0]",
-                  "1"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "mat",
-                  "[0, 1, 0]",
-                  "0"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Each token produces three vectors (lists of numbers).",
+            "values": {
+              "query_it": "[1, 0, 1]",
+              "keys": "{'cat': [1, 0, 1], 'mat': [0, 1, 0], 't…",
+              "word": "'cat'",
+              "key": "[1, 0, 1]"
+            },
+            "tones": {
+              "query_it": "data",
+              "keys": "data",
+              "word": "data",
+              "key": "data"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "This lets every token gather information from every other token at once.",
+            "values": {
+              "query_it": "[1, 0, 1]",
+              "keys": "{'cat': [1, 0, 1], 'mat': [0, 1, 0], 't…",
+              "word": "'mat'",
+              "key": "[0, 1, 0]"
+            },
+            "tones": {
+              "query_it": "ok",
+              "keys": "ok",
+              "word": "ok",
+              "key": "ok"
+            }
           }
         ]
       }
@@ -479,223 +753,217 @@
       "partTitle": "Scaled dot-product attention",
       "codeHash": "2fd9f11b2ae7d18656765dfde2699b47b603929d26e0799046d85c158cfdc7e3",
       "spec": {
-        "template": "flow",
-        "title": "Scaled dot-product attention — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Scaled dot-product ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Scaled dot-product attention",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Scaled dot-product attention [Done.Pfive.Sone].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Scaled dot-product ... [Done.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Practice 1 builds the full formula.",
+            "bars": [
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d_k",
+                "value": {
+                  "var": "d_k",
+                  "line": 4,
+                  "hit": 6
+                },
+                "tone": "data"
+              },
+              {
+                "label": "top",
+                "value": {
+                  "var": "top",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "For each key, score = dot(query, key) / sqrt(d_k), where d_k is the length.",
+            "bars": [
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_k",
+                "value": {
+                  "var": "d_k",
+                  "line": 4,
+                  "hit": 12
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "top",
+                "value": {
+                  "var": "top",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Scaled dot-product attention.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say5",
+            "caption": "Real models do this for every token at once with matrices, and for many.",
+            "bars": [
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_k",
+                "value": {
+                  "var": "d_k",
+                  "line": 4,
+                  "hit": 13
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "top",
+                "value": {
+                  "var": "top",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Scaled dot-product attention — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Scaled dot-product ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Scaled dot-product attention",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Scaled dot-product attention [D1.P5.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Scaled dot-product ... [D1.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Practice 1 builds the full formula.",
+            "bars": [
+              {
+                "label": "a",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "d_k",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "top",
+                "value": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "For each key, score = dot(query, key) / sqrt(d_k), where d_k is the length.",
+            "bars": [
+              {
+                "label": "a",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "d_k",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "top",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Scaled dot-product attention [D1.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say5",
+            "caption": "Real models do this for every token at once with matrices, and for many.",
+            "bars": [
+              {
+                "label": "a",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "d_k",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "top",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -706,110 +974,161 @@
       "codeHash": "6b4b5c8dceea3c378d6bcd94ebabb395091fadfefc231ee709312bde77e3acf7",
       "spec": {
         "template": "flow",
-        "title": "The transformer, in one picture — Execution Pipeline",
+        "title": "The transformer, in one picture",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "scores",
+            "label": "scores"
           },
           {
-            "id": "proc",
-            "label": "2. The transformer, in...",
-            "tappable": true
+            "id": "tokens",
+            "label": "tokens"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "row",
+            "label": "row"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The transformer, in one picture.",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The transformer, in... [Done.Psix.Stwo].",
+            "caption": "A transformer stacks many layers.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "scores": {
+                "var": "scores",
+                "line": 3,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 4,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 5,
+                "hit": 1
+              },
+              "row": {
+                "var": "row",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "scores": "data",
+              "tokens": "data",
+              "i": "data",
+              "row": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "scores",
+                "tokens"
               ],
               [
-                "proc",
-                "out"
+                "tokens",
+                "i"
+              ],
+              [
+                "i",
+                "row"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Multi-head attention runs several attentions side by side.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "scores": {
+                "var": "scores",
+                "line": 4,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 5,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 6,
+                "hit": 1
+              },
+              "row": {
+                "var": "row",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "scores": "data",
+              "tokens": "data",
+              "i": "data",
+              "row": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "scores",
+                "tokens"
+              ],
+              [
+                "tokens",
+                "i"
+              ],
+              [
+                "i",
+                "row"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The transformer, in one picture.",
+            "at": "say5",
+            "caption": "You will not train transformers in this course.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "scores": {
+                "var": "scores",
+                "line": 5,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 6,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 6,
+                "hit": 2
+              },
+              "row": {
+                "var": "row",
+                "line": 6,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "scores": "ok",
+              "tokens": "ok",
+              "i": "ok",
+              "row": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "scores",
+                "tokens"
               ],
               [
-                "proc",
-                "out"
+                "tokens",
+                "i"
+              ],
+              [
+                "i",
+                "row"
               ]
             ]
           }
@@ -817,110 +1136,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "The transformer, in one picture — Execution Pipeline",
+        "title": "The transformer, in one picture",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "scores",
+            "label": "scores"
           },
           {
-            "id": "proc",
-            "label": "2. The transformer, in...",
-            "tappable": true
+            "id": "tokens",
+            "label": "tokens"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "row",
+            "label": "row"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The transformer, in one picture [D1.P6.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The transformer, in... [D1.P6.S2].",
+            "caption": "A transformer stacks many layers.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "scores": "[[2, 1, 0.5], [1, 2, 0.5], [0.5, 1, 2]]",
+              "tokens": "['I', 'love', 'chai']",
+              "i": "0",
+              "row": "[2, 1, 0.5]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "scores": "data",
+              "tokens": "data",
+              "i": "data",
+              "row": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "scores",
+                "tokens"
               ],
               [
-                "proc",
-                "out"
+                "tokens",
+                "i"
+              ],
+              [
+                "i",
+                "row"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P6.S3].",
+            "at": "say2",
+            "caption": "Multi-head attention runs several attentions side by side.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "scores": "[[2, 1, 0.5], [1, 2, 0.5], [0.5, 1, 2]]",
+              "tokens": "['I', 'love', 'chai']",
+              "i": "0",
+              "row": "[2, 1, 0.5]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "scores": "data",
+              "tokens": "data",
+              "i": "data",
+              "row": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "scores",
+                "tokens"
+              ],
+              [
+                "tokens",
+                "i"
+              ],
+              [
+                "i",
+                "row"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The transformer, in one picture [D1.P6.S4].",
+            "at": "say5",
+            "caption": "You will not train transformers in this course.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "scores": "[[2, 1, 0.5], [1, 2, 0.5], [0.5, 1, 2]]",
+              "tokens": "['I', 'love', 'chai']",
+              "i": "0",
+              "row": "[2, 1, 0.5]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "scores": "ok",
+              "tokens": "ok",
+              "i": "ok",
+              "row": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "scores",
+                "tokens"
               ],
               [
-                "proc",
-                "out"
+                "tokens",
+                "i"
+              ],
+              [
+                "i",
+                "row"
               ]
             ]
           }

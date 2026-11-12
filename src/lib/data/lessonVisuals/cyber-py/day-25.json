@@ -2,285 +2,243 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 25,
-  "promptSha": "4a5178bbc42a0dc4c187393dc30b4104d5e5ff07e7da5fc99c7ce8b6f0663b36",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "IDS and IPS",
       "codeHash": "d5e02b2c68ccb4ba20fbd266fc4cbb0c0de2dee9c16eeefa89acfabf788951d5",
       "spec": {
-        "template": "compare",
-        "title": "Network-based promiscuous sniffing versus host-based operating system IDS",
-        "left": {
-          "title": "Network Intrusion Detection (NIDS)",
-          "items": [
-            "Operates promiscuously on network taps and switch SPAN ports",
-            "Analyzes raw Ethernet frames across entire network subnets",
-            "Inspects unencrypted packet headers without host overhead"
-          ]
-        },
-        "right": {
-          "title": "Host Intrusion Detection (HIDS)",
-          "items": [
-            "Resides directly on individual endpoints and servers",
-            "Monitors local system calls authentication logs and rootkits",
-            "Inspects decrypted payload contents directly at the endpoint"
-          ]
-        },
-        "steps": [
-          {
-            "at": "say4",
-            "caption": "Network sensors analyze raw packets across subnets without host burdens.",
-            "highlightSide": "left",
-            "statusBadge": "active"
-          },
-          {
-            "at": "say6",
-            "caption": "Host monitors inspect local system calls and authentication logs.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
-          }
-        ],
-        "leftLabel": "Network Intrusion Detection (NIDS)",
-        "rightLabel": "Host Intrusion Detection (HIDS)"
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Network-based promiscuous sniffing versus host-based operating system IDS",
-        "left": {
-          "title": "Network Intrusion Detection (NIDS)",
-          "items": [
-            "Operates promiscuously on network taps and switch SPAN ports",
-            "Analyzes raw Ethernet frames across entire network subnets",
-            "Inspects unencrypted packet headers without host overhead"
-          ]
-        },
-        "right": {
-          "title": "Host Intrusion Detection (HIDS)",
-          "items": [
-            "Resides directly on individual endpoints and servers",
-            "Monitors local system calls authentication logs and rootkits",
-            "Inspects decrypted payload contents directly at the endpoint"
-          ]
-        },
-        "steps": [
-          {
-            "at": "say4",
-            "caption": "Network sensors analyze raw packets across subnets without host burdens.",
-            "highlightSide": "left",
-            "statusBadge": "active"
-          },
-          {
-            "at": "say6",
-            "caption": "Host monitors inspect local system calls and authentication logs.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
-          }
-        ],
-        "leftLabel": "Network Intrusion Detection (NIDS)",
-        "rightLabel": "Host Intrusion Detection (HIDS)"
-      }
-    },
-    {
-      "partTitle": "Anatomy of a rule",
-      "codeHash": "c0eaefece780402dbb9c285c0d749eee69f7924d92fb27324917ebf36c23d263",
-      "spec": {
-        "template": "table",
-        "title": "Snort and Suricata rule header components and payload options syntax",
-        "columns": [
-          "Rule Component",
-          "Component Function",
-          "Syntax Keyword",
-          "Example Value"
+        "template": "sequence",
+        "title": "IDS and IPS",
+        "actors": [
+          "packets",
+          "desc",
+          "malicious"
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "The rule header specifies the action and transport protocol.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
+            "at": "say1",
+            "caption": "An intrusion detection system (IDS) watches network traffic and raises.",
+            "activeActor": "packets",
+            "messages": [
               {
-                "cells": [
-                  "Rule Action",
-                  "Defines Response Action",
-                  "Action Declaration",
-                  "Alert or Drop"
-                ],
+                "from": "packets",
+                "to": "desc",
+                "label": {
+                  "var": "packets",
+                  "line": 1,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Rule Protocol",
-                  "Transport Protocol Target",
-                  "Protocol Keyword",
-                  "TCP UDP or ICMP"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Direction Operator",
-                  "Traffic Flow Orientation",
-                  "Direction Symbol",
-                  "Unidirectional Arrow"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Payload Content",
-                  "Pattern Search String",
-                  "Content Option",
-                  "Exact Byte Sequence"
-                ],
-                "tone": "data"
+                "from": "desc",
+                "to": "malicious",
+                "label": {
+                  "var": "desc",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Options define exact byte patterns to search for within payloads.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "Signature-based detection matches known attack patterns.",
+            "activeActor": "desc",
+            "messages": [
               {
-                "cells": [
-                  "Rule Action",
-                  "Defines Response Action",
-                  "Action Declaration",
-                  "Alert or Drop"
-                ],
+                "from": "packets",
+                "to": "desc",
+                "label": {
+                  "var": "packets",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Rule Protocol",
-                  "Transport Protocol Target",
-                  "Protocol Keyword",
-                  "TCP UDP or ICMP"
-                ],
+                "from": "desc",
+                "to": "malicious",
+                "label": {
+                  "var": "desc",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Rules are shared by communities and vendors, and updated as new attacks appear.",
+            "activeActor": "malicious",
+            "messages": [
+              {
+                "from": "packets",
+                "to": "desc",
+                "label": {
+                  "var": "packets",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Direction Operator",
-                  "Traffic Flow Orientation",
-                  "Direction Symbol",
-                  "Unidirectional Arrow"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Payload Content",
-                  "Pattern Search String",
-                  "Content Option",
-                  "Exact Byte Sequence"
-                ],
-                "tone": "data"
+                "from": "desc",
+                "to": "malicious",
+                "label": {
+                  "var": "desc",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Snort and Suricata rule header components and payload options syntax",
-        "columns": [
-          "Rule Component",
-          "Component Function",
-          "Syntax Keyword",
-          "Example Value"
+        "template": "sequence",
+        "title": "IDS and IPS",
+        "actors": [
+          "packets",
+          "desc",
+          "malicious"
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "The rule header specifies the action and transport protocol.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
+            "at": "say1",
+            "caption": "An intrusion detection system (IDS) watches network traffic and raises.",
+            "messages": [
               {
-                "cells": [
-                  "Rule Action",
-                  "Defines Response Action",
-                  "Action Declaration",
-                  "Alert or Drop"
-                ],
+                "from": "packets",
+                "to": "desc",
+                "label": "[['normal page view', False], ['SQL inj…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Rule Protocol",
-                  "Transport Protocol Target",
-                  "Protocol Keyword",
-                  "TCP UDP or ICMP"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Direction Operator",
-                  "Traffic Flow Orientation",
-                  "Direction Symbol",
-                  "Unidirectional Arrow"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Payload Content",
-                  "Pattern Search String",
-                  "Content Option",
-                  "Exact Byte Sequence"
-                ],
-                "tone": "data"
+                "from": "desc",
+                "to": "malicious",
+                "label": "'normal page view'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "packets"
           },
           {
-            "at": "say5",
-            "caption": "Options define exact byte patterns to search for within payloads.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "Signature-based detection matches known attack patterns.",
+            "messages": [
               {
-                "cells": [
-                  "Rule Action",
-                  "Defines Response Action",
-                  "Action Declaration",
-                  "Alert or Drop"
-                ],
+                "from": "packets",
+                "to": "desc",
+                "label": "[['normal page view', False], ['SQL inj…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Rule Protocol",
-                  "Transport Protocol Target",
-                  "Protocol Keyword",
-                  "TCP UDP or ICMP"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Direction Operator",
-                  "Traffic Flow Orientation",
-                  "Direction Symbol",
-                  "Unidirectional Arrow"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Payload Content",
-                  "Pattern Search String",
-                  "Content Option",
-                  "Exact Byte Sequence"
-                ],
-                "tone": "data"
+                "from": "desc",
+                "to": "malicious",
+                "label": "'normal page view'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "desc"
+          },
+          {
+            "at": "say10",
+            "caption": "Rules are shared by communities and vendors, and updated as new attacks appear.",
+            "messages": [
+              {
+                "from": "packets",
+                "to": "desc",
+                "label": "[['normal page view', False], ['SQL inj…",
+                "tone": "data"
+              },
+              {
+                "from": "desc",
+                "to": "malicious",
+                "label": "'normal page view'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "malicious"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Anatomy of a rule",
+      "codeHash": "c0eaefece780402dbb9c285c0d749eee69f7924d92fb27324917ebf36c23d263",
+      "spec": {
+        "template": "states",
+        "title": "Anatomy of a rule",
+        "states": [
+          {
+            "id": "rule",
+            "label": "rule"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A Snort-style rule has a header and options.",
+            "currentState": "rule",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how example updates alert during execution.",
+            "currentState": "m",
+            "transition": {
+              "from": "rule",
+              "to": "m",
+              "label": {
+                "var": "m",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Anatomy of a rule",
+        "states": [
+          {
+            "id": "rule",
+            "label": "rule"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A Snort-style rule has a header and options.",
+            "currentState": "rule",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how example updates alert during execution.",
+            "currentState": "m",
+            "transition": {
+              "from": "rule",
+              "to": "m",
+              "label": "{'__other__': 'Match'}"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -289,76 +247,108 @@
       "partTitle": "Matching packets",
       "codeHash": "97ebc722e97a6a050db1e75272a5f473612f90a3bfa01c32066d31297bf8b98d",
       "spec": {
-        "template": "compare",
-        "title": "Signature-based pattern matching versus protocol anomaly detection",
-        "left": {
-          "title": "Signature-Based Pattern Matching",
-          "items": [
-            "Searches packet payloads for documented exploit byte patterns",
-            "Extremely efficient with near zero false positive rates",
-            "Blind to unknown zero-day attacks and polymorphic payloads"
-          ]
-        },
-        "right": {
-          "title": "Protocol Anomaly Detection",
-          "items": [
-            "Models normal protocol standards and RFC specifications",
-            "Flags unexpected deviations illegal headers and port abuse",
-            "Catches novel zero-day attacks and evasive techniques"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Matching packets",
+        "states": [
           {
-            "at": "say2",
-            "caption": "Signatures search packet payloads for specific byte sequences.",
-            "highlightSide": "left",
-            "statusBadge": "active"
+            "id": "rule",
+            "label": "rule"
           },
           {
-            "at": "say6",
-            "caption": "Anomaly detection models normal specifications and flags deviations.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "packets",
+            "label": "packets"
+          },
+          {
+            "id": "p",
+            "label": "p"
           }
         ],
-        "leftLabel": "Signature-Based Pattern Matching",
-        "rightLabel": "Protocol Anomaly Detection"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "To match, every header field must fit the packet.",
+            "currentState": "rule",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "If the rule has content, that byte string must appear in the payload.",
+            "currentState": "packets",
+            "transition": {
+              "from": "rule",
+              "to": "packets",
+              "label": {
+                "var": "packets",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Testing rules against captured normal traffic before deployment prevents.",
+            "currentState": "p",
+            "transition": {
+              "from": "packets",
+              "to": "p",
+              "label": {
+                "var": "p",
+                "line": 9,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Signature-based pattern matching versus protocol anomaly detection",
-        "left": {
-          "title": "Signature-Based Pattern Matching",
-          "items": [
-            "Searches packet payloads for documented exploit byte patterns",
-            "Extremely efficient with near zero false positive rates",
-            "Blind to unknown zero-day attacks and polymorphic payloads"
-          ]
-        },
-        "right": {
-          "title": "Protocol Anomaly Detection",
-          "items": [
-            "Models normal protocol standards and RFC specifications",
-            "Flags unexpected deviations illegal headers and port abuse",
-            "Catches novel zero-day attacks and evasive techniques"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Matching packets",
+        "states": [
           {
-            "at": "say2",
-            "caption": "Signatures search packet payloads for specific byte sequences.",
-            "highlightSide": "left",
-            "statusBadge": "active"
+            "id": "rule",
+            "label": "rule"
           },
           {
-            "at": "say6",
-            "caption": "Anomaly detection models normal specifications and flags deviations.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "packets",
+            "label": "packets"
+          },
+          {
+            "id": "p",
+            "label": "p"
           }
         ],
-        "leftLabel": "Signature-Based Pattern Matching",
-        "rightLabel": "Protocol Anomaly Detection"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "To match, every header field must fit the packet.",
+            "currentState": "rule",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "If the rule has content, that byte string must appear in the payload.",
+            "currentState": "packets",
+            "transition": {
+              "from": "rule",
+              "to": "packets",
+              "label": "[{'proto': 'tcp', 'src': '203.0.113.40'…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Testing rules against captured normal traffic before deployment prevents.",
+            "currentState": "p",
+            "transition": {
+              "from": "packets",
+              "to": "p",
+              "label": "{'proto': 'tcp', 'src': '203.0.113.40',…"
+            },
+            "tone": "ok"
+          }
+        ]
       }
     },
     {
@@ -366,73 +356,105 @@
       "codeHash": "205a64046defc8f20ae96857a355a7d9b7ecf1664565496d3d09d39dd2bdf5fc",
       "spec": {
         "template": "states",
-        "title": "Inline IPS packet inspection stream interception and dropping stages",
+        "title": "Signatures versus anomalies",
         "states": [
           {
-            "id": "packetInspected",
-            "label": "Packet Traverses Inline Inspection Engine"
+            "id": "normal_mb_per_hour",
+            "label": "normal_mb_per_hour"
           },
           {
-            "id": "signatureMatched",
-            "label": "Exploit Signature Detected in Payload"
+            "id": "baseline",
+            "label": "baseline"
           },
           {
-            "id": "packetDropped",
-            "label": "Packet Discarded at Network Interface"
-          },
-          {
-            "id": "tcpResetEmitted",
-            "label": "TCP Reset Sent to Client and Server"
+            "id": "hour",
+            "label": "hour"
           }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "When an exploit signature matches the system drops the packet immediately.",
-            "activeStateId": "signatureMatched",
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Signatures are precise and explainable.",
+            "currentState": "normal_mb_per_hour",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "An IPS can reset connections by sending reset packets to both hosts.",
-            "activeStateId": "tcpResetEmitted",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "That precision makes them ideal for well-understood threats such as known.",
+            "currentState": "baseline",
+            "transition": {
+              "from": "normal_mb_per_hour",
+              "to": "baseline",
+              "label": {
+                "var": "baseline",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Baselines should be updated as the organisation changes, or alerts drift.",
+            "currentState": "hour",
+            "transition": {
+              "from": "baseline",
+              "to": "hour",
+              "label": {
+                "var": "hour",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Inline IPS packet inspection stream interception and dropping stages",
+        "title": "Signatures versus anomalies",
         "states": [
           {
-            "id": "packetInspected",
-            "label": "Packet Traverses Inline Inspection Engine"
+            "id": "normal_mb_per_hour",
+            "label": "normal_mb_per_hour"
           },
           {
-            "id": "signatureMatched",
-            "label": "Exploit Signature Detected in Payload"
+            "id": "baseline",
+            "label": "baseline"
           },
           {
-            "id": "packetDropped",
-            "label": "Packet Discarded at Network Interface"
-          },
-          {
-            "id": "tcpResetEmitted",
-            "label": "TCP Reset Sent to Client and Server"
+            "id": "hour",
+            "label": "hour"
           }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "When an exploit signature matches the system drops the packet immediately.",
-            "activeStateId": "signatureMatched",
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Signatures are precise and explainable.",
+            "currentState": "normal_mb_per_hour",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "An IPS can reset connections by sending reset packets to both hosts.",
-            "activeStateId": "tcpResetEmitted",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "That precision makes them ideal for well-understood threats such as known.",
+            "currentState": "baseline",
+            "transition": {
+              "from": "normal_mb_per_hour",
+              "to": "baseline",
+              "label": "125.14285714285714"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Baselines should be updated as the organisation changes, or alerts drift.",
+            "currentState": "hour",
+            "transition": {
+              "from": "baseline",
+              "to": "hour",
+              "label": "'09:00'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -441,202 +463,194 @@
       "partTitle": "Tuning and testing rules",
       "codeHash": "421ec3862b80a3fc7a5395dda4ef018d02a5ddf62e0d37f79ed32fb4522be2ce",
       "spec": {
-        "template": "table",
-        "title": "Deep packet inspection bounded search modifiers and PCRE options",
-        "columns": [
-          "Search Modifier",
-          "Inspection Scope",
-          "Optimization Rationale",
-          "Rule Example"
+        "template": "boxes",
+        "title": "Tuning and testing rules",
+        "boxes": [
+          {
+            "id": "tests",
+            "label": "tests"
+          },
+          {
+            "id": "payload",
+            "label": "payload"
+          },
+          {
+            "id": "should_match",
+            "label": "should_match"
+          },
+          {
+            "id": "got",
+            "label": "got"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The depth option specifies how many bytes of the payload to search.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Depth Option",
-                  "Bytes from Payload Start",
-                  "Bounds Search Window Size",
-                  "Limits CPU Search Cost"
-                ],
-                "tone": "data"
+            "at": "say1",
+            "caption": "New rules should start in alert-only mode, even on an IPS, until their.",
+            "values": {
+              "tests": {
+                "var": "tests",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Offset Option",
-                  "Bytes into Payload to Skip",
-                  "Bypasses Known Static Headers",
-                  "Skips Ethernet and IP Bytes"
-                ],
-                "tone": "data"
+              "payload": {
+                "var": "payload",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Distance Modifier",
-                  "Relative Bytes from Last Match",
-                  "Constrains Subsequent Strings",
-                  "Enforces Sequence Constraints"
-                ],
-                "tone": "data"
+              "should_match": {
+                "var": "should_match",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "PCRE Evaluation",
-                  "Perl Regular Expression",
-                  "Evaluates Complex Payload Variants",
-                  "Executed After Fast Literals"
-                ],
-                "tone": "data"
+              "got": {
+                "var": "got",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "tests": "data",
+              "payload": "data",
+              "should_match": "data",
+              "got": "data"
+            }
           },
           {
-            "at": "say8",
-            "caption": "Efficient rules combine fast string matches before executing evaluations.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Depth Option",
-                  "Bytes from Payload Start",
-                  "Bounds Search Window Size",
-                  "Limits CPU Search Cost"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Test each rule against captured normal traffic (should not match).",
+            "values": {
+              "tests": {
+                "var": "tests",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Offset Option",
-                  "Bytes into Payload to Skip",
-                  "Bypasses Known Static Headers",
-                  "Skips Ethernet and IP Bytes"
-                ],
-                "tone": "data"
+              "payload": {
+                "var": "payload",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Distance Modifier",
-                  "Relative Bytes from Last Match",
-                  "Constrains Subsequent Strings",
-                  "Enforces Sequence Constraints"
-                ],
-                "tone": "data"
+              "should_match": {
+                "var": "should_match",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "PCRE Evaluation",
-                  "Perl Regular Expression",
-                  "Evaluates Complex Payload Variants",
-                  "Executed After Fast Literals"
-                ],
-                "tone": "data"
+              "got": {
+                "var": "got",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "tests": "data",
+              "payload": "data",
+              "should_match": "data",
+              "got": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Tomorrow shifts from defence to assessment.",
+            "values": {
+              "tests": {
+                "var": "tests",
+                "line": 7,
+                "hit": 1
+              },
+              "payload": {
+                "var": "payload",
+                "line": 7,
+                "hit": 1
+              },
+              "should_match": {
+                "var": "should_match",
+                "line": 8,
+                "hit": 1
+              },
+              "got": {
+                "var": "got",
+                "line": 6,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "tests": "ok",
+              "payload": "ok",
+              "should_match": "ok",
+              "got": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Deep packet inspection bounded search modifiers and PCRE options",
-        "columns": [
-          "Search Modifier",
-          "Inspection Scope",
-          "Optimization Rationale",
-          "Rule Example"
+        "template": "boxes",
+        "title": "Tuning and testing rules",
+        "boxes": [
+          {
+            "id": "tests",
+            "label": "tests"
+          },
+          {
+            "id": "payload",
+            "label": "payload"
+          },
+          {
+            "id": "should_match",
+            "label": "should_match"
+          },
+          {
+            "id": "got",
+            "label": "got"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The depth option specifies how many bytes of the payload to search.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Depth Option",
-                  "Bytes from Payload Start",
-                  "Bounds Search Window Size",
-                  "Limits CPU Search Cost"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Offset Option",
-                  "Bytes into Payload to Skip",
-                  "Bypasses Known Static Headers",
-                  "Skips Ethernet and IP Bytes"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Distance Modifier",
-                  "Relative Bytes from Last Match",
-                  "Constrains Subsequent Strings",
-                  "Enforces Sequence Constraints"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "PCRE Evaluation",
-                  "Perl Regular Expression",
-                  "Evaluates Complex Payload Variants",
-                  "Executed After Fast Literals"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "New rules should start in alert-only mode, even on an IPS, until their.",
+            "values": {
+              "tests": "[['GET /search?q=union+select+data', Tr…",
+              "payload": "'GET /search?q=union+select+data'",
+              "should_match": "True",
+              "got": "False"
+            },
+            "tones": {
+              "tests": "data",
+              "payload": "data",
+              "should_match": "data",
+              "got": "data"
+            }
           },
           {
-            "at": "say8",
-            "caption": "Efficient rules combine fast string matches before executing evaluations.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Depth Option",
-                  "Bytes from Payload Start",
-                  "Bounds Search Window Size",
-                  "Limits CPU Search Cost"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Offset Option",
-                  "Bytes into Payload to Skip",
-                  "Bypasses Known Static Headers",
-                  "Skips Ethernet and IP Bytes"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Distance Modifier",
-                  "Relative Bytes from Last Match",
-                  "Constrains Subsequent Strings",
-                  "Enforces Sequence Constraints"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "PCRE Evaluation",
-                  "Perl Regular Expression",
-                  "Evaluates Complex Payload Variants",
-                  "Executed After Fast Literals"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Test each rule against captured normal traffic (should not match).",
+            "values": {
+              "tests": "[['GET /search?q=union+select+data', Tr…",
+              "payload": "'GET /search?q=union+select+data'",
+              "should_match": "True",
+              "got": "False"
+            },
+            "tones": {
+              "tests": "data",
+              "payload": "data",
+              "should_match": "data",
+              "got": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Tomorrow shifts from defence to assessment.",
+            "values": {
+              "tests": "[['GET /search?q=union+select+data', Tr…",
+              "payload": "'GET /search?q=union+select+data'",
+              "should_match": "True",
+              "got": "False"
+            },
+            "tones": {
+              "tests": "ok",
+              "payload": "ok",
+              "should_match": "ok",
+              "got": "ok"
+            }
           }
         ]
       }
@@ -646,110 +660,161 @@
       "codeHash": "08bd87491ad2a9c59bcbd98b205ee4e7e3d7b63485955588651b5087c6021bef",
       "spec": {
         "template": "flow",
-        "title": "TCP Stream Reassembly & Protocol Evasion Coun... — Execution Pipeline",
+        "title": "Practice time: parse and match rules",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "rule",
+            "label": "rule"
           },
           {
-            "id": "proc",
-            "label": "2. TCP Stream Reassemb...",
-            "tappable": true
+            "id": "m",
+            "label": "m"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "opts",
+            "label": "opts"
+          },
+          {
+            "id": "traffic",
+            "label": "traffic"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for TCP Stream Reassembly & Protocol Evasion.",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in TCP Stream Reassemb... [D.Psix.Stwo].",
+            "caption": "Parse_rule(rule).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "rule": {
+                "var": "rule",
+                "line": 3,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 4,
+                "hit": 1
+              },
+              "opts": {
+                "var": "opts",
+                "line": 5,
+                "hit": 1
+              },
+              "traffic": {
+                "var": "traffic",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "rule": "data",
+              "m": "data",
+              "opts": "data",
+              "traffic": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rule",
+                "m"
               ],
               [
-                "proc",
-                "out"
+                "m",
+                "opts"
+              ],
+              [
+                "opts",
+                "traffic"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "The checks include an alert rule with content, a drop rule without.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "rule": {
+                "var": "rule",
+                "line": 4,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 5,
+                "hit": 1
+              },
+              "opts": {
+                "var": "opts",
+                "line": 6,
+                "hit": 1
+              },
+              "traffic": {
+                "var": "traffic",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "rule": "data",
+              "m": "data",
+              "opts": "data",
+              "traffic": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "rule",
+                "m"
+              ],
+              [
+                "m",
+                "opts"
+              ],
+              [
+                "opts",
+                "traffic"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for TCP Stream Reassembly & Protocol .",
+            "at": "say9",
+            "caption": "Precision is the goal.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "rule": {
+                "var": "rule",
+                "line": 5,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 6,
+                "hit": 1
+              },
+              "opts": {
+                "var": "opts",
+                "line": 7,
+                "hit": 1
+              },
+              "traffic": {
+                "var": "traffic",
+                "line": 8,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "rule": "ok",
+              "m": "ok",
+              "opts": "ok",
+              "traffic": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rule",
+                "m"
               ],
               [
-                "proc",
-                "out"
+                "m",
+                "opts"
+              ],
+              [
+                "opts",
+                "traffic"
               ]
             ]
           }
@@ -757,110 +822,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "TCP Stream Reassembly & Protocol Evasion Coun... — Execution Pipeline",
+        "title": "Practice time: parse and match rules",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "rule",
+            "label": "rule"
           },
           {
-            "id": "proc",
-            "label": "2. TCP Stream Reassemb...",
-            "tappable": true
+            "id": "m",
+            "label": "m"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "opts",
+            "label": "opts"
+          },
+          {
+            "id": "traffic",
+            "label": "traffic"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for TCP Stream Reassembly & Protocol Evasion.. [D25.P6.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in TCP Stream Reassemb... [D25.P6.S2].",
+            "caption": "Parse_rule(rule).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "rule": "'alert tcp any any -> any 80 (msg:\"Admi…",
+              "m": "{'__other__': 'Match'}",
+              "opts": "{'msg': 'Admin probe', 'content': '/adm…",
+              "traffic": "[[80, 'GET /admin/login'], [80, 'GET /p…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "rule": "data",
+              "m": "data",
+              "opts": "data",
+              "traffic": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rule",
+                "m"
               ],
               [
-                "proc",
-                "out"
+                "m",
+                "opts"
+              ],
+              [
+                "opts",
+                "traffic"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P6.S3].",
+            "at": "say2",
+            "caption": "The checks include an alert rule with content, a drop rule without.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "rule": "'alert tcp any any -> any 80 (msg:\"Admi…",
+              "m": "{'__other__': 'Match'}",
+              "opts": "{'msg': 'Admin probe', 'content': '/adm…",
+              "traffic": "[[80, 'GET /admin/login'], [80, 'GET /p…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "rule": "data",
+              "m": "data",
+              "opts": "data",
+              "traffic": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "rule",
+                "m"
+              ],
+              [
+                "m",
+                "opts"
+              ],
+              [
+                "opts",
+                "traffic"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for TCP Stream Reassembly & Protocol .. [D25.P6.S4].",
+            "at": "say9",
+            "caption": "Precision is the goal.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "rule": "'alert tcp any any -> any 80 (msg:\"Admi…",
+              "m": "{'__other__': 'Match'}",
+              "opts": "{'msg': 'Admin probe', 'content': '/adm…",
+              "traffic": "[[80, 'GET /admin/login'], [80, 'GET /p…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "rule": "ok",
+              "m": "ok",
+              "opts": "ok",
+              "traffic": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rule",
+                "m"
               ],
               [
-                "proc",
-                "out"
+                "m",
+                "opts"
+              ],
+              [
+                "opts",
+                "traffic"
               ]
             ]
           }

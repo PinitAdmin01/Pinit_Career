@@ -67,9 +67,27 @@ export async function POST(req: Request) {
     // (correct answers failed with "not defined"). Running untrusted code needs an isolated judge
     // service; until one is configured, this endpoint checks the quest, timing and submission only.
 
+    // [FIX-STAGE: wave1c-quests-verify-hardening] Execute authoritative server-side verification instead of rubber-stamping non-empty code
+    const { verifyQuestSubmissionServerSide } = await import('@/lib/server/questServerVerifier');
+    const verification = await verifyQuestSubmissionServerSide(authQuest, code);
+    if (!verification.ok) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: verification.error || 'VERIFICATION_FAILED',
+          message: verification.message,
+          verificationMode: verification.verificationMode,
+          stdout: verification.stdout,
+          stderr: verification.stderr,
+        },
+        { status: verification.status }
+      );
+    }
+
     return NextResponse.json({
       success: true,
-      message: 'Verification Passed! Validated by authoritative judge.',
+      message: verification.message,
+      verificationMode: verification.verificationMode,
       questId: authQuest.id,
       xp: authQuest.xp,
       pins: authQuest.pins,

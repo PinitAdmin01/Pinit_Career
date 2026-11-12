@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 36,
-  "promptSha": "50899f05ebaf8e50889fe48a1873488326378455b04f0b95e8af0b3fffc69608",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estimation — Foundations & Mathematical Invariants",
-      "codeHash": "3b16e3c2b64fe8bce7e0700a3cb2d1bb938fab846ef05a9f77557ba80af27efa",
+      "codeHash": "7a71dc198c504687b7494d1996581bab2cb212654beec657fd84d5d4d5085ed4",
       "spec": {
-        "template": "flow",
-        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estimation —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estima",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In statistical arbitrage, trading strategies identify pairs or baskets.",
+            "bars": [
+              {
+                "label": "x0",
+                "value": {
+                  "var": "x0",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mu",
+                "value": {
+                  "var": "mu",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "theta",
+                "value": {
+                  "var": "theta",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The mathematical foundation of continuous mean-reverting processes is.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "x0",
+                "value": {
+                  "var": "x0",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "mu",
+                "value": {
+                  "var": "mu",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "theta",
+                "value": {
+                  "var": "theta",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "In statistical arbitrage, precision calibration of mean reversion.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "x0",
+                "value": {
+                  "var": "x0",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "mu",
+                "value": {
+                  "var": "mu",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "theta",
+                "value": {
+                  "var": "theta",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estimation —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estima",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In statistical arbitrage, trading strategies identify pairs or baskets.",
+            "bars": [
+              {
+                "label": "x0",
+                "value": 105,
+                "tone": "data"
+              },
+              {
+                "label": "mu",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "theta",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "t",
+                "value": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The mathematical foundation of continuous mean-reverting processes is.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "x0",
+                "value": 105,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "mu",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "theta",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "t",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "In statistical arbitrage, precision calibration of mean reversion.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "x0",
+                "value": 105,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "mu",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "theta",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "t",
+                "value": 5,
+                "tone": "ok"
               }
             ]
           }
@@ -273,264 +227,218 @@
     },
     {
       "partTitle": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estimation — Core Algorithm & State Representation",
-      "codeHash": "059880dd470f13d6dda667886a75fb08ccf8c96f5f7107ee874acc42d430ea5e",
+      "codeHash": "8aa074025259092495142ac9b79815e027ae6dca603a3687f5fe6e59d5eaa7f6",
       "spec": {
-        "template": "flow",
-        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estimation —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estima",
         "steps": [
           {
+            "at": "say1",
+            "caption": "To apply the Ornstein-Uhlenbeck model to discrete financial time series.",
+            "bars": [
+              {
+                "label": "a_intercept",
+                "value": {
+                  "var": "a_intercept",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "b_slope",
+                "value": {
+                  "var": "b_slope",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "residual_varia",
+                "value": {
+                  "var": "residual_variance",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "dt",
+                "value": {
+                  "var": "dt",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Applying Euler discretization with time step $\\Delta t$ yields.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "a_intercept",
+                "value": {
+                  "var": "a_intercept",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "b_slope",
+                "value": {
+                  "var": "b_slope",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "residual_varia",
+                "value": {
+                  "var": "residual_variance",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "dt",
+                "value": {
+                  "var": "dt",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Propagator models formalize price impact as a transient convolution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "a_intercept",
+                "value": {
+                  "var": "a_intercept",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "b_slope",
+                "value": {
+                  "var": "b_slope",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "residual_varia",
+                "value": {
+                  "var": "residual_variance",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "dt",
+                "value": {
+                  "var": "dt",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estimation —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estima",
         "steps": [
           {
+            "at": "say1",
+            "caption": "To apply the Ornstein-Uhlenbeck model to discrete financial time series.",
+            "bars": [
+              {
+                "label": "a_intercept",
+                "value": 15,
+                "tone": "data"
+              },
+              {
+                "label": "b_slope",
+                "value": 0.85,
+                "tone": "data"
+              },
+              {
+                "label": "residual_varia",
+                "value": 0.64,
+                "tone": "data"
+              },
+              {
+                "label": "dt",
+                "value": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Applying Euler discretization with time step $\\Delta t$ yields.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "a_intercept",
+                "value": 15,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "b_slope",
+                "value": 0.85,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "residual_varia",
+                "value": 0.64,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "dt",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Propagator models formalize price impact as a transient convolution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "a_intercept",
+                "value": 15,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "b_slope",
+                "value": 0.85,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "residual_varia",
+                "value": 0.64,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "dt",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           }
@@ -539,265 +447,279 @@
     },
     {
       "partTitle": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estimation — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "67e40e5aa1d9139794543329194a4ab2b180b801e4dd7ecbb0f143c60dc9ee72",
+      "codeHash": "1085b7f22a0c7831cf06e56bcf468a2826dcdf66f0dd8fe309eb1ae8bf8540be",
       "spec": {
         "template": "flow",
-        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estimation —",
+        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estima",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "b_slope",
+            "label": "b_slope"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "half_life_days",
+            "label": "half_life_days"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "current_spread",
+            "label": "current_spread"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "mu",
+            "label": "mu"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In large-scale statistical arbitrage engines scanning thousands of equity.",
+            "values": {
+              "b_slope": {
+                "var": "b_slope",
+                "line": 5,
+                "hit": 1
+              },
+              "half_life_days": {
+                "var": "half_life_days",
+                "line": 5,
+                "hit": 1
+              },
+              "current_spread": {
+                "var": "current_spread",
+                "line": 5,
+                "hit": 1
+              },
+              "mu": {
+                "var": "mu",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "b_slope": "data",
+              "half_life_days": "data",
+              "current_spread": "data",
+              "mu": "data"
+            },
+            "arrows": [
+              [
+                "b_slope",
+                "half_life_days"
+              ],
+              [
+                "half_life_days",
+                "current_spread"
+              ],
+              [
+                "current_spread",
+                "mu"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "When asset prices exhibit non-stationarity ($b \\ge 1.",
+            "values": {
+              "b_slope": {
+                "var": "b_slope",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "half_life_days": {
+                "var": "half_life_days",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "current_spread": {
+                "var": "current_spread",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "mu": {
+                "var": "mu",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "b_slope": "data",
+              "half_life_days": "data",
+              "current_spread": "data",
+              "mu": "data"
+            },
+            "arrows": [
+              [
+                "b_slope",
+                "half_life_days"
+              ],
+              [
+                "half_life_days",
+                "current_spread"
+              ],
+              [
+                "current_spread",
+                "mu"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Execution algorithms invert the cross-impact covariance tensor to compute.",
+            "values": {
+              "b_slope": {
+                "var": "b_slope",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "half_life_days": {
+                "var": "half_life_days",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "current_spread": {
+                "var": "current_spread",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "mu": {
+                "var": "mu",
+                "line": 11,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "b_slope": "ok",
+              "half_life_days": "ok",
+              "current_spread": "ok",
+              "mu": "ok"
+            },
+            "arrows": [
+              [
+                "b_slope",
+                "half_life_days"
+              ],
+              [
+                "half_life_days",
+                "current_spread"
+              ],
+              [
+                "current_spread",
+                "mu"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estimation —",
+        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estima",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "b_slope",
+            "label": "b_slope"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "half_life_days",
+            "label": "half_life_days"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "current_spread",
+            "label": "current_spread"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "mu",
+            "label": "mu"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In large-scale statistical arbitrage engines scanning thousands of equity.",
+            "values": {
+              "b_slope": "0.88",
+              "half_life_days": "5.4",
+              "current_spread": "104.5",
+              "mu": "100"
+            },
+            "tones": {
+              "b_slope": "data",
+              "half_life_days": "data",
+              "current_spread": "data",
+              "mu": "data"
+            },
+            "arrows": [
+              [
+                "b_slope",
+                "half_life_days"
+              ],
+              [
+                "half_life_days",
+                "current_spread"
+              ],
+              [
+                "current_spread",
+                "mu"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "When asset prices exhibit non-stationarity ($b \\ge 1.",
+            "values": {
+              "b_slope": "0.88",
+              "half_life_days": "5.4",
+              "current_spread": "104.5",
+              "mu": "100"
+            },
+            "tones": {
+              "b_slope": "data",
+              "half_life_days": "data",
+              "current_spread": "data",
+              "mu": "data"
+            },
+            "arrows": [
+              [
+                "b_slope",
+                "half_life_days"
+              ],
+              [
+                "half_life_days",
+                "current_spread"
+              ],
+              [
+                "current_spread",
+                "mu"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Execution algorithms invert the cross-impact covariance tensor to compute.",
+            "values": {
+              "b_slope": "0.88",
+              "half_life_days": "5.4",
+              "current_spread": "104.5",
+              "mu": "100"
+            },
+            "tones": {
+              "b_slope": "ok",
+              "half_life_days": "ok",
+              "current_spread": "ok",
+              "mu": "ok"
+            },
+            "arrows": [
+              [
+                "b_slope",
+                "half_life_days"
+              ],
+              [
+                "half_life_days",
+                "current_spread"
+              ],
+              [
+                "current_spread",
+                "mu"
+              ]
             ]
           }
         ]
@@ -805,530 +727,340 @@
     },
     {
       "partTitle": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estimation — Resilience Guardrails & Failure Recovery",
-      "codeHash": "ee934e7aa89a41461a13475b081627c6fec6be065dee8f143312f65536ac7a69",
+      "codeHash": "bc7666634f2c76e7c3b646f4441f75f073b72345524623f0e710931aef598936",
       "spec": {
-        "template": "flow",
-        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estimation —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estima",
+        "actors": [
+          "z_score",
+          "holding_days",
+          "expected_half_life"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The greatest danger in pairs trading is the Breakdown of Cointegration.",
+            "activeActor": "z_score",
+            "messages": [
+              {
+                "from": "z_score",
+                "to": "holding_days",
+                "label": {
+                  "var": "z_score",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "holding_days",
+                "to": "expected_half_life",
+                "label": {
+                  "var": "holding_days",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If company A is acquired, files for bankruptcy, or experiences.",
+            "activeActor": "holding_days",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "z_score",
+                "to": "holding_days",
+                "label": {
+                  "var": "z_score",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "holding_days",
+                "to": "expected_half_life",
+                "label": {
+                  "var": "holding_days",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Pre-trade risk engines enforce cross-asset slippage constraints.",
+            "activeActor": "expected_half_life",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "z_score",
+                "to": "holding_days",
+                "label": {
+                  "var": "z_score",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "holding_days",
+                "to": "expected_half_life",
+                "label": {
+                  "var": "holding_days",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estimation —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estima",
+        "actors": [
+          "z_score",
+          "holding_days",
+          "expected_half_life"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The greatest danger in pairs trading is the Breakdown of Cointegration.",
+            "messages": [
+              {
+                "from": "z_score",
+                "to": "holding_days",
+                "label": "2.1",
+                "tone": "data"
+              },
+              {
+                "from": "holding_days",
+                "to": "expected_half_life",
+                "label": "4",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "z_score"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If company A is acquired, files for bankruptcy, or experiences.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "z_score",
+                "to": "holding_days",
+                "label": "2.1",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "holding_days",
+                "to": "expected_half_life",
+                "label": "4",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "holding_days"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Pre-trade risk engines enforce cross-asset slippage constraints.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "z_score",
+                "to": "holding_days",
+                "label": "2.1",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "holding_days",
+                "to": "expected_half_life",
+                "label": "4",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "expected_half_life"
           }
         ]
       }
     },
     {
       "partTitle": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estimation — Production Telemetry & Verification Audit",
-      "codeHash": "0d64b71aa83bf62adb1116e4e8314d82058f434527b84d6231ca4a65c0acd844",
+      "codeHash": "e11cb7dec81427733f6210da88552223ba7b7a118e83bfee3a76e9e4f2664d3f",
       "spec": {
-        "template": "flow",
-        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estimation —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estima",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production statistical arbitrage platforms require continuous telemetry.",
+            "bars": [
+              {
+                "label": "adf_p_value",
+                "value": {
+                  "var": "adf_p_value",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "theta_estimate",
+                "value": {
+                  "var": "theta_estimate",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "rolling_pnl_sh",
+                "value": {
+                  "var": "rolling_pnl_sharpe",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The primary statistical test is the Augmented Dickey-Fuller (ADF) Test.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "adf_p_value",
+                "value": {
+                  "var": "adf_p_value",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "theta_estimate",
+                "value": {
+                  "var": "theta_estimate",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "rolling_pnl_sh",
+                "value": {
+                  "var": "rolling_pnl_sharpe",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Streaming execution telemetry monitors empirical post-trade price paths.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "adf_p_value",
+                "value": {
+                  "var": "adf_p_value",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "theta_estimate",
+                "value": {
+                  "var": "theta_estimate",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "rolling_pnl_sh",
+                "value": {
+                  "var": "rolling_pnl_sharpe",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estimation —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Ornstein-Uhlenbeck Mean Reversion Calibration & Half-Life Estima",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production statistical arbitrage platforms require continuous telemetry.",
+            "bars": [
+              {
+                "label": "adf_p_value",
+                "value": 0.012,
+                "tone": "data"
+              },
+              {
+                "label": "theta_estimate",
+                "value": 0.15,
+                "tone": "data"
+              },
+              {
+                "label": "rolling_pnl_sh",
+                "value": 2.1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The primary statistical test is the Augmented Dickey-Fuller (ADF) Test.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "adf_p_value",
+                "value": 0.012,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "theta_estimate",
+                "value": 0.15,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "rolling_pnl_sh",
+                "value": 2.1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Streaming execution telemetry monitors empirical post-trade price paths.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "adf_p_value",
+                "value": 0.012,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "theta_estimate",
+                "value": 0.15,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "rolling_pnl_sh",
+                "value": 2.1,
+                "tone": "ok"
               }
             ]
           }

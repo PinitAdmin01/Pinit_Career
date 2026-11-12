@@ -2,89 +2,86 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 36,
-  "promptSha": "42f9a9897ca6c569c44dd1f062db45367890ff05d5ad05526720ff56d1e83a07",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Directed Reachability vs Mutual Reachability: The SCC Equivalence Relation",
       "codeHash": "e314a11eb414cda6aebb0aaa19ce7aafe01ef635bd6b8cd0e8ba7de3f00c7ea3",
       "spec": {
-        "template": "table",
-        "title": "Directed Reachability vs Mutual Reachability",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Directed Reachability vs Mutual Reachability: The SCC Equivalenc",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The undirected design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Directed"
-                  },
-                  {
-                    "text": "Reachability"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "In an undirected graph, connectivity is symmetric.",
+            "items": {
+              "var": "peers",
+              "line": 22,
+              "hit": 7
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The mutual step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Mutual"
-                  },
-                  {
-                    "text": "Equivalence"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "A Strongly Connected Component (SCC) restores symmetry inside directed.",
+            "items": {
+              "var": "peers",
+              "line": 23,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "Let us inspect a brute-force reachability matrix first in Python so we can.",
+            "items": {
+              "var": "peers",
+              "line": 21,
+              "hit": 3
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Directed Reachability vs Mutual Reachability",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Directed Reachability vs Mutual Reachability: The SCC Equivalenc",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The undirected design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Directed",
-                  "Reachability"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "In an undirected graph, connectivity is symmetric.",
+            "mode": "stack",
+            "items": [
+              "0",
+              "1",
+              "2"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The mutual step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Mutual",
-                  "Equivalence"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "A Strongly Connected Component (SCC) restores symmetry inside directed.",
+            "mode": "stack",
+            "items": [
+              "0",
+              "1",
+              "2"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "Let us inspect a brute-force reachability matrix first in Python so we can.",
+            "mode": "stack",
+            "items": [
+              "0",
+              "1",
+              "2"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -93,82 +90,91 @@
       "partTitle": "Kosaraju Two-Pass Algorithm: Finish Times and Transpose Graphs",
       "codeHash": "274219c423f24227f579a6be7759a15de73038ff55b3738651d6c8f173ccf4c6",
       "spec": {
-        "template": "table",
-        "title": "Kosaraju Two-Pass Algorithm",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Kosaraju Two-Pass Algorithm: Finish Times and Transpose Graphs",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The computing design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Kosaraju"
-                  },
-                  {
-                    "text": "Pass"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Computing all-pairs reachability via DFS from each vertex costs O(V * (V +.",
+            "items": {
+              "var": "visited",
+              "line": 8,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The traverse step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Algorithm"
-                  },
-                  {
-                    "text": "Finish"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Pass 1 traverses the original graph G and appends each vertex to a finish.",
+            "items": {
+              "var": "visited",
+              "line": 9,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "When Pass 2 pops the finish stack on G^T, it starts in a former source SCC.",
+            "items": {
+              "var": "visited",
+              "line": 19,
+              "hit": 4
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Kosaraju Two-Pass Algorithm",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Kosaraju Two-Pass Algorithm: Finish Times and Transpose Graphs",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The computing design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Kosaraju",
-                  "Pass"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Computing all-pairs reachability via DFS from each vertex costs O(V * (V +.",
+            "mode": "stack",
+            "items": [
+              "False",
+              "False",
+              "False",
+              "False",
+              "False",
+              "False",
+              "False"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The traverse step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Algorithm",
-                  "Finish"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Pass 1 traverses the original graph G and appends each vertex to a finish.",
+            "mode": "stack",
+            "items": [
+              "False",
+              "False",
+              "False",
+              "False",
+              "False",
+              "False",
+              "False"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "When Pass 2 pops the finish stack on G^T, it starts in a former source SCC.",
+            "mode": "stack",
+            "items": [
+              "True",
+              "True",
+              "True",
+              "True",
+              "True",
+              "True",
+              "True"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -177,82 +183,91 @@
       "partTitle": "Tarjan Single-Pass SCC: Discovery Time, Low-Link Values & Active Stack",
       "codeHash": "b9a9c565ba71df0ecfe632683f7b50e5ef368835c0dc54e538b17f0110803347",
       "spec": {
-        "template": "table",
-        "title": "Tarjan Single-Pass SCC",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Tarjan Single-Pass SCC: Discovery Time, Low-Link Values & Active",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The kosaraju design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Tarjan"
-                  },
-                  {
-                    "text": "Single"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "While Kosaraju requires two full graph traversals and storing an explicit.",
+            "items": {
+              "var": "disc",
+              "line": 6,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The whenever step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Pass"
-                  },
-                  {
-                    "text": "Discovery"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Tarjan maintains an incrementing global discovery timer assigned.",
+            "items": {
+              "var": "disc",
+              "line": 7,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "Finally, once DFS finishes exploring all edges out of u, if low[u] ==.",
+            "items": {
+              "var": "disc",
+              "line": 38,
+              "hit": 2
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Tarjan Single-Pass SCC",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Tarjan Single-Pass SCC: Discovery Time, Low-Link Values & Active",
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The kosaraju design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Tarjan",
-                  "Single"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "While Kosaraju requires two full graph traversals and storing an explicit.",
+            "mode": "stack",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The whenever step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Pass",
-                  "Discovery"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Tarjan maintains an incrementing global discovery timer assigned.",
+            "mode": "stack",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "Finally, once DFS finishes exploring all edges out of u, if low[u] ==.",
+            "mode": "stack",
+            "items": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -261,82 +276,91 @@
       "partTitle": "Condensation DAG: Compressing Cycles into Topological Dependency Stages",
       "codeHash": "2f5d0b40434dc85f17da55749b095db194eb144b8db98dfaffd37040f56731bf",
       "spec": {
-        "template": "table",
-        "title": "Condensation DAG",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Condensation DAG: Compressing Cycles into Topological Dependency",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The extracting design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Condensation"
-                  },
-                  {
-                    "text": "Compressing"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Extracting SCCs yields an even stronger structural tool.",
+            "items": {
+              "var": "disc",
+              "line": 8,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The better step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Cycles"
-                  },
-                  {
-                    "text": "Topological"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Why is the Condensation Graph guaranteed to contain zero cycles.",
+            "items": {
+              "var": "disc",
+              "line": 9,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Below we take a tangled 7-node directed graph, extract Tarjan SCCs.",
+            "items": {
+              "var": "disc",
+              "line": 38,
+              "hit": 3
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Condensation DAG",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Condensation DAG: Compressing Cycles into Topological Dependency",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The extracting design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Condensation",
-                  "Compressing"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Extracting SCCs yields an even stronger structural tool.",
+            "mode": "queue",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The better step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Cycles",
-                  "Topological"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Why is the Condensation Graph guaranteed to contain zero cycles.",
+            "mode": "queue",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Below we take a tangled 7-node directed graph, extract Tarjan SCCs.",
+            "mode": "queue",
+            "items": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -345,82 +369,94 @@
       "partTitle": "Production Application: Microservice Circular-Dependency & Deadlock Auditor",
       "codeHash": "b4c531911fa134191786ec333448dd7e72e65bbc75fc5fed07a5b38da2b33905",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Production Application: Microservice Circular-Dependency & Deadl",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The synthesize design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Let us synthesize Tarjan's SCC and Condensation DAG decomposition into.",
+            "items": {
+              "var": "services",
+              "line": 74,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The constructs step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Microservice"
-                  },
-                  {
-                    "text": "Circular"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Our auditor ingests named microservice call edges, maps service strings.",
+            "items": {
+              "var": "services",
+              "line": 75,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Trace how self updates contained during execution.",
+            "items": {
+              "var": "services",
+              "line": 6,
+              "hit": 9
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Production Application: Microservice Circular-Dependency & Deadl",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The synthesize design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Let us synthesize Tarjan's SCC and Condensation DAG decomposition into.",
+            "mode": "queue",
+            "items": [
+              "'gateway'",
+              "'auth'",
+              "'session'",
+              "'orders'",
+              "'billing'",
+              "'ledger'",
+              "'notify'",
+              "'metrics'"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The constructs step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Microservice",
-                  "Circular"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Our auditor ingests named microservice call edges, maps service strings.",
+            "mode": "queue",
+            "items": [
+              "'gateway'",
+              "'auth'",
+              "'session'",
+              "'orders'",
+              "'billing'",
+              "'ledger'",
+              "'notify'",
+              "'metrics'"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Trace how self updates contained during execution.",
+            "mode": "queue",
+            "items": [
+              "'gateway'",
+              "'auth'",
+              "'session'",
+              "'orders'",
+              "'billing'",
+              "'ledger'",
+              "'notify'",
+              "'metrics'"
+            ],
+            "action": "idle"
           }
         ]
       }

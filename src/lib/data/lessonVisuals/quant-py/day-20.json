@@ -2,256 +2,284 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 20,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Return and risk of a portfolio",
       "codeHash": "0d7e113fc58c22d06a6ab5f542953699bf1b1c1526b2a2afc516acf464cd9a5c",
       "spec": {
-        "template": "table",
-        "title": "Portfolio expected return, covariance aggregation and correlation",
-        "columns": [
-          "mu",
-          "var"
+        "template": "flow",
+        "title": "Return and risk of a portfolio",
+        "nodes": [
+          {
+            "id": "w",
+            "label": "w"
+          },
+          {
+            "id": "mu_a",
+            "label": "mu_a"
+          },
+          {
+            "id": "sig_a",
+            "label": "sig_a"
+          },
+          {
+            "id": "mu_b",
+            "label": "mu_b"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Expected portfolio returns reflect weighted linear combinations of assets.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "mu"
-                  },
-                  {
-                    "text": "var"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A portfolio holds weights in several assets.",
+            "values": {
+              "w": {
+                "var": "w",
+                "line": 3,
+                "hit": 1
+              },
+              "mu_a": {
+                "var": "mu_a",
+                "line": 3,
+                "hit": 1
+              },
+              "sig_a": {
+                "var": "sig_a",
+                "line": 3,
+                "hit": 1
+              },
+              "mu_b": {
+                "var": "mu_b",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "w": "data",
+              "mu_a": "data",
+              "sig_a": "data",
+              "mu_b": "data"
+            },
+            "arrows": [
+              [
+                "w",
+                "mu_a"
+              ],
+              [
+                "mu_a",
+                "sig_a"
+              ],
+              [
+                "sig_a",
+                "mu_b"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Cross asset variance terms determine portfolio standard deviation nonlinearly.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "mu"
-                  },
-                  {
-                    "text": "var"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Its risk (standard deviation) is not the weighted average.",
+            "values": {
+              "w": {
+                "var": "w",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "mu_a"
-                  },
-                  {
-                    "text": "mu_b"
-                  }
-                ],
-                "tone": "ok"
+              "mu_a": {
+                "var": "mu_a",
+                "line": 4,
+                "hit": 1
+              },
+              "sig_a": {
+                "var": "sig_a",
+                "line": 4,
+                "hit": 1
+              },
+              "mu_b": {
+                "var": "mu_b",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Pairwise correlation terms govern diversification efficiency between assets.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "mu"
-                  },
-                  {
-                    "text": "var"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "mu_a"
-                  },
-                  {
-                    "text": "mu_b"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sig_a"
-                  },
-                  {
-                    "text": "sig_b"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "w": "data",
+              "mu_a": "data",
+              "sig_a": "data",
+              "mu_b": "data"
+            },
+            "arrows": [
+              [
+                "w",
+                "mu_a"
+              ],
+              [
+                "mu_a",
+                "sig_a"
+              ],
+              [
+                "sig_a",
+                "mu_b"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The return never changes with correlation; only the risk does.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "mu"
-                  },
-                  {
-                    "text": "var"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The return never changes with correlation.",
+            "values": {
+              "w": {
+                "var": "w",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "mu_a"
-                  },
-                  {
-                    "text": "mu_b"
-                  }
-                ],
-                "tone": "ok"
+              "mu_a": {
+                "var": "mu_a",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "sig_a"
-                  },
-                  {
-                    "text": "sig_b"
-                  }
-                ],
-                "tone": "data"
+              "sig_a": {
+                "var": "sig_a",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "print"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
+              "mu_b": {
+                "var": "mu_b",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "w": "ok",
+              "mu_a": "ok",
+              "sig_a": "ok",
+              "mu_b": "ok"
+            },
+            "arrows": [
+              [
+                "w",
+                "mu_a"
+              ],
+              [
+                "mu_a",
+                "sig_a"
+              ],
+              [
+                "sig_a",
+                "mu_b"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Portfolio expected return, covariance aggregation and correlation",
-        "columns": [
-          "mu",
-          "var"
+        "template": "flow",
+        "title": "Return and risk of a portfolio",
+        "nodes": [
+          {
+            "id": "w",
+            "label": "w"
+          },
+          {
+            "id": "mu_a",
+            "label": "mu_a"
+          },
+          {
+            "id": "sig_a",
+            "label": "sig_a"
+          },
+          {
+            "id": "mu_b",
+            "label": "mu_b"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Expected portfolio returns reflect weighted linear combinations of assets.",
-            "rows": [
-              {
-                "cells": [
-                  "mu",
-                  "var"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A portfolio holds weights in several assets.",
+            "values": {
+              "w": "0.5",
+              "mu_a": "0.1",
+              "sig_a": "0.2",
+              "mu_b": "0.06"
+            },
+            "tones": {
+              "w": "data",
+              "mu_a": "data",
+              "sig_a": "data",
+              "mu_b": "data"
+            },
+            "arrows": [
+              [
+                "w",
+                "mu_a"
+              ],
+              [
+                "mu_a",
+                "sig_a"
+              ],
+              [
+                "sig_a",
+                "mu_b"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Cross asset variance terms determine portfolio standard deviation nonlinearly.",
-            "rows": [
-              {
-                "cells": [
-                  "mu",
-                  "var"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "mu_a",
-                  "mu_b"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Pairwise correlation terms govern diversification efficiency between assets.",
-            "rows": [
-              {
-                "cells": [
-                  "mu",
-                  "var"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "mu_a",
-                  "mu_b"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sig_a",
-                  "sig_b"
-                ],
-                "tone": "data"
-              }
+            "caption": "Its risk (standard deviation) is not the weighted average.",
+            "values": {
+              "w": "0.5",
+              "mu_a": "0.1",
+              "sig_a": "0.2",
+              "mu_b": "0.06"
+            },
+            "tones": {
+              "w": "data",
+              "mu_a": "data",
+              "sig_a": "data",
+              "mu_b": "data"
+            },
+            "arrows": [
+              [
+                "w",
+                "mu_a"
+              ],
+              [
+                "mu_a",
+                "sig_a"
+              ],
+              [
+                "sig_a",
+                "mu_b"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The return never changes with correlation; only the risk does.",
-            "rows": [
-              {
-                "cells": [
-                  "mu",
-                  "var"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "mu_a",
-                  "mu_b"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sig_a",
-                  "sig_b"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "print",
-                  "math"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The return never changes with correlation.",
+            "values": {
+              "w": "0.5",
+              "mu_a": "0.1",
+              "sig_a": "0.2",
+              "mu_b": "0.06"
+            },
+            "tones": {
+              "w": "ok",
+              "mu_a": "ok",
+              "sig_a": "ok",
+              "mu_b": "ok"
+            },
+            "arrows": [
+              [
+                "w",
+                "mu_a"
+              ],
+              [
+                "mu_a",
+                "sig_a"
+              ],
+              [
+                "sig_a",
+                "mu_b"
+              ]
             ]
           }
         ]
@@ -261,143 +289,91 @@
       "partTitle": "The Sharpe ratio",
       "codeHash": "bf0d1005482216e780f1c3c348cf3fceb940700d5c9328faad4d4a981680b26a",
       "spec": {
-        "template": "table",
-        "title": "Risk-adjusted return benchmarking and Sharpe ratio metrics",
-        "columns": [
+        "template": "sequence",
+        "title": "The Sharpe ratio",
+        "actors": [
           "rf",
-          "mix_risk"
+          "mu",
+          "sigma"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The Sharpe ratio measures portfolio excess return relative to risk taken.",
-            "rows": [
+            "caption": "Investors care about return per unit of risk.",
+            "activeActor": "rf",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "rf"
-                  },
-                  {
-                    "text": "mix_risk"
-                  }
-                ],
+                "from": "rf",
+                "to": "mu",
+                "label": {
+                  "var": "rf",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "mu",
+                "to": "sigma",
+                "label": {
+                  "var": "mu",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Excess returns divided by volatility quantify compensation per risk unit.",
-            "rows": [
+            "caption": "It measures the excess return earned for each unit of volatility taken.",
+            "activeActor": "mu",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "rf"
-                  },
-                  {
-                    "text": "mix_risk"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sharpe"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example compares the Sharpe ratio of assets against the combined mix.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rf"
-                  },
-                  {
-                    "text": "mix_risk"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sharpe"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
+                "from": "rf",
+                "to": "mu",
+                "label": {
+                  "var": "rf",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "mu",
+                "to": "sigma",
+                "label": {
+                  "var": "mu",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Diversification raises Sharpe ratios above standalone assets as a free lunch.",
-            "rows": [
+            "caption": "Diversification can raise the Sharpe ratio above either asset alone.",
+            "activeActor": "sigma",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "rf"
-                  },
-                  {
-                    "text": "mix_risk"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sharpe"
-                  },
-                  {
-                    "text": "round"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
+                "from": "rf",
+                "to": "mu",
+                "label": {
+                  "var": "rf",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "print"
-                  },
-                  {
-                    "text": "sharpe"
-                  }
-                ],
+                "from": "mu",
+                "to": "sigma",
+                "label": {
+                  "var": "mu",
+                  "line": 5,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -405,106 +381,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Risk-adjusted return benchmarking and Sharpe ratio metrics",
-        "columns": [
+        "template": "sequence",
+        "title": "The Sharpe ratio",
+        "actors": [
           "rf",
-          "mix_risk"
+          "mu",
+          "sigma"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The Sharpe ratio measures portfolio excess return relative to risk taken.",
-            "rows": [
+            "caption": "Investors care about return per unit of risk.",
+            "messages": [
               {
-                "cells": [
-                  "rf",
-                  "mix_risk"
-                ],
+                "from": "rf",
+                "to": "mu",
+                "label": "0.02",
+                "tone": "data"
+              },
+              {
+                "from": "mu",
+                "to": "sigma",
+                "label": "0.1",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "rf"
           },
           {
             "at": "say2",
-            "caption": "Excess returns divided by volatility quantify compensation per risk unit.",
-            "rows": [
+            "caption": "It measures the excess return earned for each unit of volatility taken.",
+            "messages": [
               {
-                "cells": [
-                  "rf",
-                  "mix_risk"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sharpe",
-                  "round"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example compares the Sharpe ratio of assets against the combined mix.",
-            "rows": [
-              {
-                "cells": [
-                  "rf",
-                  "mix_risk"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sharpe",
-                  "round"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "sqrt"
-                ],
+                "from": "rf",
+                "to": "mu",
+                "label": "0.02",
                 "tone": "data"
+              },
+              {
+                "from": "mu",
+                "to": "sigma",
+                "label": "0.06",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "mu"
           },
           {
             "at": "say7",
-            "caption": "Diversification raises Sharpe ratios above standalone assets as a free lunch.",
-            "rows": [
+            "caption": "Diversification can raise the Sharpe ratio above either asset alone.",
+            "messages": [
               {
-                "cells": [
-                  "rf",
-                  "mix_risk"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sharpe",
-                  "round"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "math",
-                  "sqrt"
-                ],
+                "from": "rf",
+                "to": "mu",
+                "label": "0.02",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "print",
-                  "sharpe"
-                ],
+                "from": "mu",
+                "to": "sigma",
+                "label": "0.08",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "sigma"
           }
         ]
       }
@@ -513,248 +453,105 @@
       "partTitle": "The minimum-variance portfolio",
       "codeHash": "7b44aafe1b9724b281e975745afe388a81714f9dfdf005269a85cad78c1bd601",
       "spec": {
-        "template": "table",
-        "title": "Minimum-variance asset allocation and analytical risk minimization",
-        "columns": [
-          "sa",
-          "sb"
-        ],
+        "template": "cells",
+        "title": "The minimum-variance portfolio",
         "steps": [
           {
             "at": "say1",
-            "caption": "The minimum-variance portfolio identifies weights that minimize total risk.",
-            "rows": [
+            "caption": "Among all mixes of two assets, one has the lowest possible risk.",
+            "items": {
+              "var": "best",
+              "line": 7,
+              "hit": 103
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "sa"
-                  },
-                  {
-                    "text": "sb"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Analytical derivatives equate variance slopes to zero to solve optimal weights.",
-            "rows": [
+            "caption": "Setting the derivative of the variance to zero gives the weight in asset A.",
+            "items": {
+              "var": "best",
+              "line": 9,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "sa"
-                  },
-                  {
-                    "text": "sb"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "risk"
-                  },
-                  {
-                    "text": "formula"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example scans weights and confirms the formula finds the lowest risk.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sa"
-                  },
-                  {
-                    "text": "sb"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "risk"
-                  },
-                  {
-                    "text": "formula"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "best"
-                  },
-                  {
-                    "text": "min"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Checking formulas against brute-force scans verifies quantitative logic.",
-            "rows": [
+            "caption": "Checking a formula against a brute-force scan is a habit worth keeping.",
+            "items": {
+              "var": "best",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "sa"
-                  },
-                  {
-                    "text": "sb"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "risk"
-                  },
-                  {
-                    "text": "formula"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "best"
-                  },
-                  {
-                    "text": "min"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "print"
-                  },
-                  {
-                    "text": "rho"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Minimum-variance asset allocation and analytical risk minimization",
-        "columns": [
-          "sa",
-          "sb"
-        ],
+        "template": "cells",
+        "title": "The minimum-variance portfolio",
         "steps": [
           {
             "at": "say1",
-            "caption": "The minimum-variance portfolio identifies weights that minimize total risk.",
-            "rows": [
+            "caption": "Among all mixes of two assets, one has the lowest possible risk.",
+            "items": [
+              "0.0894427190999916",
+              "0.2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "sa",
-                  "sb"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Analytical derivatives equate variance slopes to zero to solve optimal weights.",
-            "rows": [
+            "caption": "Setting the derivative of the variance to zero gives the weight in asset A.",
+            "items": [
+              "0.0894427190999916",
+              "0.2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "sa",
-                  "sb"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "risk",
-                  "formula"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example scans weights and confirms the formula finds the lowest risk.",
-            "rows": [
-              {
-                "cells": [
-                  "sa",
-                  "sb"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "risk",
-                  "formula"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "best",
-                  "min"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Checking formulas against brute-force scans verifies quantitative logic.",
-            "rows": [
+            "caption": "Checking a formula against a brute-force scan is a habit worth keeping.",
+            "items": [
+              "0.0894427190999916",
+              "0.2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "sa",
-                  "sb"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "risk",
-                  "formula"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "best",
-                  "min"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "print",
-                  "rho"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -765,248 +562,111 @@
       "partTitle": "The efficient frontier",
       "codeHash": "f2b7657fd7e4c96db4d149baf0a92dc5f259d36dd62247cf3f30c1b057542a68",
       "spec": {
-        "template": "table",
-        "title": "Markowitz efficient frontier geometry and capital allocation line",
-        "columns": [
-          "mu",
-          "sig"
-        ],
+        "template": "cells",
+        "title": "The efficient frontier",
         "steps": [
           {
             "at": "say1",
-            "caption": "The efficient frontier traces upper bounds of optimal risk return trade-offs.",
-            "rows": [
+            "caption": "Plot every possible portfolio by risk (x axis) and return (y axis).",
+            "items": {
+              "var": "p",
+              "line": 9,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "mu"
-                  },
-                  {
-                    "text": "sig"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Efficient frontier portfolios deliver maximum expected returns for chosen risk.",
-            "rows": [
+            "caption": "Portfolios on the frontier give the highest return for their level of risk.",
+            "items": {
+              "var": "p",
+              "line": 9,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "mu"
-                  },
-                  {
-                    "text": "sig"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "append"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Tangency portfolios achieve optimal capital allocation with peak Sharpe ratios.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "mu"
-                  },
-                  {
-                    "text": "sig"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "append"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "rf"
-                  },
-                  {
-                    "text": "rho"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example prints the frontier points and marks the highest-Sharpe mix.",
-            "rows": [
+            "at": "say8",
+            "caption": "Notice in the output that w = 0.",
+            "items": {
+              "var": "p",
+              "line": 9,
+              "hit": 6
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "mu"
-                  },
-                  {
-                    "text": "sig"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "append"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "rf"
-                  },
-                  {
-                    "text": "rho"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "round"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Markowitz efficient frontier geometry and capital allocation line",
-        "columns": [
-          "mu",
-          "sig"
-        ],
+        "template": "cells",
+        "title": "The efficient frontier",
         "steps": [
           {
             "at": "say1",
-            "caption": "The efficient frontier traces upper bounds of optimal risk return trade-offs.",
-            "rows": [
+            "caption": "Plot every possible portfolio by risk (x axis) and return (y axis).",
+            "items": [
+              "0",
+              "0.06",
+              "0.1",
+              "0.4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "mu",
-                  "sig"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Efficient frontier portfolios deliver maximum expected returns for chosen risk.",
-            "rows": [
+            "caption": "Portfolios on the frontier give the highest return for their level of risk.",
+            "items": [
+              "0.6",
+              "0.084",
+              "0.1265",
+              "0.506"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "mu",
-                  "sig"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "points",
-                  "append"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Tangency portfolios achieve optimal capital allocation with peak Sharpe ratios.",
-            "rows": [
-              {
-                "cells": [
-                  "mu",
-                  "sig"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "points",
-                  "append"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "rf",
-                  "rho"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The example prints the frontier points and marks the highest-Sharpe mix.",
-            "rows": [
+            "at": "say8",
+            "caption": "Notice in the output that w = 0.",
+            "items": [
+              "1",
+              "0.1",
+              "0.2",
+              "0.4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "mu",
-                  "sig"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "points",
-                  "append"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "rf",
-                  "rho"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "round",
-                  "math"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -1017,223 +677,217 @@
       "partTitle": "Estimation error and practical limits",
       "codeHash": "4b78701da5484510c8c5b287b9222316839a879ee492325a8ef635553da32042",
       "spec": {
-        "template": "flow",
-        "title": "Estimation error and practical limits — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Estimation error an...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Estimation error and practical limits",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Estimation error and practical limits.",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Estimation error an... [Dtwenty.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Markowitz optimisation is only as good as its inputs, and expected returns.",
+            "bars": [
+              {
+                "label": "mu_a",
+                "value": {
+                  "var": "mu_a",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mu_b",
+                "value": {
+                  "var": "mu_b",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "sa",
+                "value": {
+                  "var": "sa",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "sb",
+                "value": {
+                  "var": "sb",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Small changes in estimated returns can swing optimal weights wildly,.",
+            "bars": [
+              {
+                "label": "mu_a",
+                "value": {
+                  "var": "mu_a",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mu_b",
+                "value": {
+                  "var": "mu_b",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "sa",
+                "value": {
+                  "var": "sa",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "sb",
+                "value": {
+                  "var": "sb",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Estimation error and practical li.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "A good habit is to rerun the optimiser with slightly changed inputs.",
+            "bars": [
+              {
+                "label": "mu_a",
+                "value": {
+                  "var": "mu_a",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mu_b",
+                "value": {
+                  "var": "mu_b",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "sa",
+                "value": {
+                  "var": "sa",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "sb",
+                "value": {
+                  "var": "sb",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Estimation error and practical limits — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Estimation error an...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Estimation error and practical limits",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Estimation error and practical limits [D20.P5.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Estimation error an... [D20.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Markowitz optimisation is only as good as its inputs, and expected returns.",
+            "bars": [
+              {
+                "label": "mu_a",
+                "value": 0.08,
+                "tone": "data"
+              },
+              {
+                "label": "mu_b",
+                "value": 0.06,
+                "tone": "data"
+              },
+              {
+                "label": "sa",
+                "value": 0.2,
+                "tone": "data"
+              },
+              {
+                "label": "sb",
+                "value": 0.1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Small changes in estimated returns can swing optimal weights wildly,.",
+            "bars": [
+              {
+                "label": "mu_a",
+                "value": 0.08,
+                "tone": "ok"
+              },
+              {
+                "label": "mu_b",
+                "value": 0.06,
+                "tone": "ok"
+              },
+              {
+                "label": "sa",
+                "value": 0.2,
+                "tone": "ok"
+              },
+              {
+                "label": "sb",
+                "value": 0.1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Estimation error and practical li.. [D20.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "A good habit is to rerun the optimiser with slightly changed inputs.",
+            "bars": [
+              {
+                "label": "mu_a",
+                "value": 0.08,
+                "tone": "ok"
+              },
+              {
+                "label": "mu_b",
+                "value": 0.06,
+                "tone": "ok"
+              },
+              {
+                "label": "sa",
+                "value": 0.2,
+                "tone": "ok"
+              },
+              {
+                "label": "sb",
+                "value": 0.1,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -1243,223 +897,217 @@
       "partTitle": "Practice time: build a portfolio",
       "codeHash": "89d99c0cce9b55cfd4d1c0b2f29ee248002c92c2d8ee3ad274b7604929d3fdc6",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: build a portfolio — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: buil...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: build a portfolio",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: build a portfolio.",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: buil... [Dtwenty.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Compute the weighted return, the variance with the correlation term, sigma.",
+            "bars": [
+              {
+                "label": "sa",
+                "value": {
+                  "var": "sa",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "sb",
+                "value": {
+                  "var": "sb",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "rho",
+                "value": {
+                  "var": "rho",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates zero during execution.",
+            "bars": [
+              {
+                "label": "sa",
+                "value": {
+                  "var": "sa",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "sb",
+                "value": {
+                  "var": "sb",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rho",
+                "value": {
+                  "var": "rho",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: build a portfolio.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Trace how tomorrow updates milestone during execution.",
+            "bars": [
+              {
+                "label": "sa",
+                "value": {
+                  "var": "sa",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "sb",
+                "value": {
+                  "var": "sb",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rho",
+                "value": {
+                  "var": "rho",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: build a portfolio — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: buil...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: build a portfolio",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: build a portfolio [D20.P6.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: buil... [D20.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Compute the weighted return, the variance with the correlation term, sigma.",
+            "bars": [
+              {
+                "label": "sa",
+                "value": 0.05,
+                "tone": "data"
+              },
+              {
+                "label": "sb",
+                "value": 0.18,
+                "tone": "data"
+              },
+              {
+                "label": "rho",
+                "value": -1,
+                "tone": "data"
+              },
+              {
+                "label": "w",
+                "value": 0.782608695652174,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates zero during execution.",
+            "bars": [
+              {
+                "label": "sa",
+                "value": 0.05,
+                "tone": "ok"
+              },
+              {
+                "label": "sb",
+                "value": 0.18,
+                "tone": "ok"
+              },
+              {
+                "label": "rho",
+                "value": -1,
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": 0.782608695652174,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: build a portfolio [D20.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Trace how tomorrow updates milestone during execution.",
+            "bars": [
+              {
+                "label": "sa",
+                "value": 0.05,
+                "tone": "ok"
+              },
+              {
+                "label": "sb",
+                "value": 0.18,
+                "tone": "ok"
+              },
+              {
+                "label": "rho",
+                "value": -1,
+                "tone": "ok"
+              },
+              {
+                "label": "w",
+                "value": 0.782608695652174,
+                "tone": "ok"
+              }
             ]
           }
         ]

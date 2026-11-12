@@ -2,150 +2,98 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 9,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Financial Information eXchange protocol",
       "codeHash": "0a12055d7d1314956a45da03d7b5e53007d6adb96e0d7f31d18ce73e128764fc",
       "spec": {
-        "template": "table",
-        "title": "FIX protocol tag value message structure and semantics",
-        "columns": [
-          "MsgType",
-          "Symbol"
+        "template": "sequence",
+        "title": "The Financial Information eXchange protocol",
+        "actors": [
+          "fields",
+          "names",
+          ".0"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Financial Information eXchange standardizes messaging between brokers.",
-            "rows": [
+            "caption": "FIX (Financial Information eXchange) is the standard messaging protocol.",
+            "activeActor": "fields",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "MsgType"
-                  },
-                  {
-                    "text": "Symbol"
-                  }
-                ],
+                "from": "fields",
+                "to": "names",
+                "label": {
+                  "var": "fields",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "names",
+                "to": ".0",
+                "label": {
+                  "var": "names",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Structured message payloads encode tag value pairs separated by delimiters.",
-            "rows": [
+            "caption": "A FIX message is a list of fields written as tag=value, separated by.",
+            "activeActor": "names",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "MsgType"
-                  },
-                  {
-                    "text": "Symbol"
-                  }
-                ],
-                "tone": "ok"
+                "from": "fields",
+                "to": "names",
+                "label": {
+                  "var": "fields",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "ClOrdID"
-                  },
-                  {
-                    "text": "Side"
-                  }
-                ],
+                "from": "names",
+                "to": ".0",
+                "label": {
+                  "var": "names",
+                  "line": 3,
+                  "hit": 9
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Tags specify message symbols, order quantities, and execution prices.",
-            "rows": [
+            "at": "say7",
+            "caption": "Almost every broker, trading platform and exchange gateway speaks FIX, so.",
+            "activeActor": ".0",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "MsgType"
-                  },
-                  {
-                    "text": "Symbol"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ClOrdID"
-                  },
-                  {
-                    "text": "Side"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "OrderQty"
-                  },
-                  {
-                    "text": "Price"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example builds a readable version of a new order message.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "MsgType"
-                  },
-                  {
-                    "text": "Symbol"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ClOrdID"
-                  },
-                  {
-                    "text": "Side"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "OrderQty"
-                  },
-                  {
-                    "text": "Price"
-                  }
-                ],
+                "from": "fields",
+                "to": "names",
+                "label": {
+                  "var": "fields",
+                  "line": 3,
+                  "hit": 9
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "fields"
-                  },
-                  {
-                    "text": "names"
-                  }
-                ],
+                "from": "names",
+                "to": ".0",
+                "label": {
+                  "var": "names",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -153,106 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "FIX protocol tag value message structure and semantics",
-        "columns": [
-          "MsgType",
-          "Symbol"
+        "template": "sequence",
+        "title": "The Financial Information eXchange protocol",
+        "actors": [
+          "fields",
+          "names",
+          ".0"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Financial Information eXchange standardizes messaging between brokers.",
-            "rows": [
+            "caption": "FIX (Financial Information eXchange) is the standard messaging protocol.",
+            "messages": [
               {
-                "cells": [
-                  "MsgType",
-                  "Symbol"
-                ],
+                "from": "fields",
+                "to": "names",
+                "label": "[[35, 'D'], [11, 'ORD-1001'], [55, 'INF…",
+                "tone": "data"
+              },
+              {
+                "from": "names",
+                "to": ".0",
+                "label": "{35: 'MsgType', 11: 'ClOrdID', 55: 'Sym…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "fields"
           },
           {
             "at": "say2",
-            "caption": "Structured message payloads encode tag value pairs separated by delimiters.",
-            "rows": [
+            "caption": "A FIX message is a list of fields written as tag=value, separated by.",
+            "messages": [
               {
-                "cells": [
-                  "MsgType",
-                  "Symbol"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ClOrdID",
-                  "Side"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Tags specify message symbols, order quantities, and execution prices.",
-            "rows": [
-              {
-                "cells": [
-                  "MsgType",
-                  "Symbol"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ClOrdID",
-                  "Side"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "OrderQty",
-                  "Price"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example builds a readable version of a new order message.",
-            "rows": [
-              {
-                "cells": [
-                  "MsgType",
-                  "Symbol"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ClOrdID",
-                  "Side"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "OrderQty",
-                  "Price"
-                ],
+                "from": "fields",
+                "to": "names",
+                "label": "[[35, 'D'], [11, 'ORD-1001'], [55, 'INF…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "fields",
-                  "names"
-                ],
+                "from": "names",
+                "to": ".0",
+                "label": "{35: 'MsgType', 11: 'ClOrdID', 55: 'Sym…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "names"
+          },
+          {
+            "at": "say7",
+            "caption": "Almost every broker, trading platform and exchange gateway speaks FIX, so.",
+            "messages": [
+              {
+                "from": "fields",
+                "to": "names",
+                "label": "[[35, 'D'], [11, 'ORD-1001'], [55, 'INF…",
+                "tone": "data"
+              },
+              {
+                "from": "names",
+                "to": ".0",
+                "label": "{35: 'MsgType', 11: 'ClOrdID', 55: 'Sym…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": ".0"
           }
         ]
       }
@@ -261,143 +173,91 @@
       "partTitle": "Header, body and trailer",
       "codeHash": "2d160298eac315fa14acdb3b395ee033434025a4b0f56bf38a4d2a08b15718c7",
       "spec": {
-        "template": "table",
-        "title": "Header framing, body length calculation and checksum trailing",
-        "columns": [
-          "head",
-          "body"
+        "template": "sequence",
+        "title": "Header, body and trailer",
+        "actors": [
+          "SOH",
+          "body",
+          "head"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Standard headers frame each transmission with BeginString and BodyLength tags.",
-            "rows": [
+            "caption": "Every FIX message starts with the same header fields in a fixed order.",
+            "activeActor": "SOH",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "head"
-                  },
-                  {
-                    "text": "body"
-                  }
-                ],
+                "from": "SOH",
+                "to": "body",
+                "label": {
+                  "var": "SOH",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "body",
+                "to": "head",
+                "label": {
+                  "var": "body",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "BodyLength counts transmission characters up to the terminal checksum trailer.",
-            "rows": [
+            "caption": "BodyLength (tag 9) is the number of characters from the start of tag 35 up.",
+            "activeActor": "body",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "head"
-                  },
-                  {
-                    "text": "body"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "SOH"
-                  },
-                  {
-                    "text": "FIX.4.4"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Framing fields let the receiver check integrity before acting on messages.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "head"
-                  },
-                  {
-                    "text": "body"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "SOH"
-                  },
-                  {
-                    "text": "FIX.4.4"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "checksum"
-                  },
-                  {
-                    "text": "ord"
-                  }
-                ],
+                "from": "SOH",
+                "to": "body",
+                "label": {
+                  "var": "SOH",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "body",
+                "to": "head",
+                "label": {
+                  "var": "body",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example builds a heartbeat message and prints its constituent parts.",
-            "rows": [
+            "caption": "The example builds a heartbeat message and prints its parts.",
+            "activeActor": "head",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "head"
-                  },
-                  {
-                    "text": "body"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "SOH"
-                  },
-                  {
-                    "text": "FIX.4.4"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "checksum"
-                  },
-                  {
-                    "text": "ord"
-                  }
-                ],
+                "from": "SOH",
+                "to": "body",
+                "label": {
+                  "var": "SOH",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "msg"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "from": "body",
+                "to": "head",
+                "label": {
+                  "var": "body",
+                  "line": 4,
+                  "hit": 21
+                },
                 "tone": "ok"
               }
             ]
@@ -405,106 +265,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Header framing, body length calculation and checksum trailing",
-        "columns": [
-          "head",
-          "body"
+        "template": "sequence",
+        "title": "Header, body and trailer",
+        "actors": [
+          "SOH",
+          "body",
+          "head"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Standard headers frame each transmission with BeginString and BodyLength tags.",
-            "rows": [
+            "caption": "Every FIX message starts with the same header fields in a fixed order.",
+            "messages": [
               {
-                "cells": [
-                  "head",
-                  "body"
-                ],
+                "from": "SOH",
+                "to": "body",
+                "label": "'\u0001'",
+                "tone": "data"
+              },
+              {
+                "from": "body",
+                "to": "head",
+                "label": "'35=0\u0001'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "SOH"
           },
           {
             "at": "say2",
-            "caption": "BodyLength counts transmission characters up to the terminal checksum trailer.",
-            "rows": [
+            "caption": "BodyLength (tag 9) is the number of characters from the start of tag 35 up.",
+            "messages": [
               {
-                "cells": [
-                  "head",
-                  "body"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "SOH",
-                  "FIX.4.4"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Framing fields let the receiver check integrity before acting on messages.",
-            "rows": [
-              {
-                "cells": [
-                  "head",
-                  "body"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "SOH",
-                  "FIX.4.4"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "checksum",
-                  "ord"
-                ],
+                "from": "SOH",
+                "to": "body",
+                "label": "'\u0001'",
                 "tone": "data"
+              },
+              {
+                "from": "body",
+                "to": "head",
+                "label": "'35=0\u0001'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "body"
           },
           {
             "at": "say7",
-            "caption": "The example builds a heartbeat message and prints its constituent parts.",
-            "rows": [
+            "caption": "The example builds a heartbeat message and prints its parts.",
+            "messages": [
               {
-                "cells": [
-                  "head",
-                  "body"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "SOH",
-                  "FIX.4.4"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "checksum",
-                  "ord"
-                ],
+                "from": "SOH",
+                "to": "body",
+                "label": "'\u0001'",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "msg",
-                  "print"
-                ],
+                "from": "body",
+                "to": "head",
+                "label": "'35=0\u0001'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "head"
           }
         ]
       }
@@ -513,143 +337,91 @@
       "partTitle": "Validating incoming messages",
       "codeHash": "82bf36cabdc4c216aecbf77cb043af3211150a47869241337d2d770eca81dccd",
       "spec": {
-        "template": "table",
-        "title": "Checksum verification and corrupted frame rejection",
-        "columns": [
-          "build",
-          "valid"
+        "template": "sequence",
+        "title": "Validating incoming messages",
+        "actors": [
+          "SOH",
+          "body",
+          "head"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A receiver rejects corrupted or truncated orders before processing.",
-            "rows": [
+            "caption": "A receiver must never act on a corrupted or truncated order.",
+            "activeActor": "SOH",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "build"
-                  },
-                  {
-                    "text": "valid"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Reverse searching identifies trailer tokens cleanly across complex payloads.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "build"
-                  },
-                  {
-                    "text": "valid"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "rfind"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Invalid frames return False rather than raising unexpected program errors.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "build"
-                  },
-                  {
-                    "text": "valid"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "rfind"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "False"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
+                "from": "SOH",
+                "to": "body",
+                "label": {
+                  "var": "SOH",
+                  "line": 1,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "body",
+                "to": "head",
+                "label": {
+                  "var": "body",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Find the last \"\\x0110=\" in the message, recompute the checksum.",
+            "activeActor": "body",
+            "messages": [
+              {
+                "from": "SOH",
+                "to": "body",
+                "label": {
+                  "var": "SOH",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "body",
+                "to": "head",
+                "label": {
+                  "var": "body",
+                  "line": 4,
+                  "hit": 37
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example corrupts a message and verifies that checksum catches errors.",
-            "rows": [
+            "caption": "The example corrupts one character of a valid message and shows.",
+            "activeActor": "head",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "build"
-                  },
-                  {
-                    "text": "valid"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "rfind"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "False"
-                  },
-                  {
-                    "text": "sum"
-                  }
-                ],
+                "from": "SOH",
+                "to": "body",
+                "label": {
+                  "var": "SOH",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "ord"
-                  },
-                  {
-                    "text": "len"
-                  }
-                ],
+                "from": "body",
+                "to": "head",
+                "label": {
+                  "var": "body",
+                  "line": 4,
+                  "hit": 37
+                },
                 "tone": "ok"
               }
             ]
@@ -657,106 +429,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Checksum verification and corrupted frame rejection",
-        "columns": [
-          "build",
-          "valid"
+        "template": "sequence",
+        "title": "Validating incoming messages",
+        "actors": [
+          "SOH",
+          "body",
+          "head"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A receiver rejects corrupted or truncated orders before processing.",
-            "rows": [
+            "caption": "A receiver must never act on a corrupted or truncated order.",
+            "messages": [
               {
-                "cells": [
-                  "build",
-                  "valid"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Reverse searching identifies trailer tokens cleanly across complex payloads.",
-            "rows": [
-              {
-                "cells": [
-                  "build",
-                  "valid"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "raw",
-                  "rfind"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Invalid frames return False rather than raising unexpected program errors.",
-            "rows": [
-              {
-                "cells": [
-                  "build",
-                  "valid"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "raw",
-                  "rfind"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "False",
-                  "sum"
-                ],
+                "from": "SOH",
+                "to": "body",
+                "label": "'\u0001'",
                 "tone": "data"
+              },
+              {
+                "from": "body",
+                "to": "head",
+                "label": "'35=D\u000155=INFY\u000138=100\u0001'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "SOH"
+          },
+          {
+            "at": "say2",
+            "caption": "Find the last \"\\x0110=\" in the message, recompute the checksum.",
+            "messages": [
+              {
+                "from": "SOH",
+                "to": "body",
+                "label": "'\u0001'",
+                "tone": "data"
+              },
+              {
+                "from": "body",
+                "to": "head",
+                "label": "'35=D\u000155=INFY\u000138=100\u0001'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "body"
           },
           {
             "at": "say7",
-            "caption": "The example corrupts a message and verifies that checksum catches errors.",
-            "rows": [
+            "caption": "The example corrupts one character of a valid message and shows.",
+            "messages": [
               {
-                "cells": [
-                  "build",
-                  "valid"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "raw",
-                  "rfind"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "False",
-                  "sum"
-                ],
+                "from": "SOH",
+                "to": "body",
+                "label": "'\u0001'",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "ord",
-                  "len"
-                ],
+                "from": "body",
+                "to": "head",
+                "label": "'35=D\u000155=INFY\u000138=100\u0001'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "head"
           }
         ]
       }
@@ -765,143 +501,77 @@
       "partTitle": "Sessions, logon and sequence numbers",
       "codeHash": "9ec071c702d827c6c6be9061efb2a197673ed17b09dede5aa9f70c22ad3b2735",
       "spec": {
-        "template": "table",
-        "title": "Session lifecycle management, heartbeats and sequence gap recovery",
-        "columns": [
-          "expected",
-          "seq"
-        ],
+        "template": "bars",
+        "title": "Sessions, logon and sequence numbers",
         "steps": [
           {
             "at": "say1",
-            "caption": "A FIX session connects two parties using registered company identifiers.",
-            "rows": [
+            "caption": "FIX runs over a session between two parties, each identified by.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "expected"
-                  },
-                  {
-                    "text": "seq"
-                  }
-                ],
-                "tone": "ok"
+                "label": "expected",
+                "value": {
+                  "var": "expected",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "seq",
+                "value": {
+                  "var": "seq",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Sessions initiate with Logon and maintain connection health via Heartbeats.",
-            "rows": [
+            "caption": "Trace how session updates starts during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "expected"
-                  },
-                  {
-                    "text": "seq"
-                  }
-                ],
+                "label": "expected",
+                "value": {
+                  "var": "expected",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "resend_requests"
-                  },
-                  {
-                    "text": "append"
-                  }
-                ],
+                "label": "seq",
+                "value": {
+                  "var": "seq",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Detected sequence gaps trigger ResendRequest ranges to replay lost messages.",
-            "rows": [
+            "at": "say7",
+            "caption": "Reliable messaging always comes down to numbered messages.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "expected"
-                  },
-                  {
-                    "text": "seq"
-                  }
-                ],
+                "label": "expected",
+                "value": {
+                  "var": "expected",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "resend_requests"
-                  },
-                  {
-                    "text": "append"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "expected"
-                  },
-                  {
-                    "text": "resend_requests"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example checks incoming sequence numbers and builds resend requests.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "expected"
-                  },
-                  {
-                    "text": "seq"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "resend_requests"
-                  },
-                  {
-                    "text": "append"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "expected"
-                  },
-                  {
-                    "text": "resend_requests"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "print"
-                  },
-                  {
-                    "text": "expected"
-                  }
-                ],
+                "label": "seq",
+                "value": {
+                  "var": "seq",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -909,103 +579,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Session lifecycle management, heartbeats and sequence gap recovery",
-        "columns": [
-          "expected",
-          "seq"
-        ],
+        "template": "bars",
+        "title": "Sessions, logon and sequence numbers",
         "steps": [
           {
             "at": "say1",
-            "caption": "A FIX session connects two parties using registered company identifiers.",
-            "rows": [
+            "caption": "FIX runs over a session between two parties, each identified by.",
+            "bars": [
               {
-                "cells": [
-                  "expected",
-                  "seq"
-                ],
-                "tone": "ok"
+                "label": "expected",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "seq",
+                "value": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Sessions initiate with Logon and maintain connection health via Heartbeats.",
-            "rows": [
+            "caption": "Trace how session updates starts during execution.",
+            "bars": [
               {
-                "cells": [
-                  "expected",
-                  "seq"
-                ],
+                "label": "expected",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "resend_requests",
-                  "append"
-                ],
+                "label": "seq",
+                "value": 1,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Detected sequence gaps trigger ResendRequest ranges to replay lost messages.",
-            "rows": [
+            "at": "say7",
+            "caption": "Reliable messaging always comes down to numbered messages.",
+            "bars": [
               {
-                "cells": [
-                  "expected",
-                  "seq"
-                ],
+                "label": "expected",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "resend_requests",
-                  "append"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "expected",
-                  "resend_requests"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example checks incoming sequence numbers and builds resend requests.",
-            "rows": [
-              {
-                "cells": [
-                  "expected",
-                  "seq"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "resend_requests",
-                  "append"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "expected",
-                  "resend_requests"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "print",
-                  "expected"
-                ],
+                "label": "seq",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -1017,223 +637,217 @@
       "partTitle": "Execution reports and order state",
       "codeHash": "3275dd5a3a809af6d1c887087408130e6fbf0b41c9b204a0a5633a61da9bff2a",
       "spec": {
-        "template": "flow",
-        "title": "Execution reports and order state — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Execution reports a...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Execution reports and order state",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Execution reports and order state.",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Execution reports a... [Dnine.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "After you send a New Order Single (D), the counterparty replies.",
+            "bars": [
+              {
+                "label": "last_qty",
+                "value": {
+                  "var": "last_qty",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "last_px",
+                "value": {
+                  "var": "last_px",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "leaves",
+                "value": {
+                  "var": "leaves",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "avg",
+                "value": {
+                  "var": "avg",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how fields updates ordstatus during execution.",
+            "bars": [
+              {
+                "label": "last_qty",
+                "value": {
+                  "var": "last_qty",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "last_px",
+                "value": {
+                  "var": "last_px",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "leaves",
+                "value": {
+                  "var": "leaves",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "avg",
+                "value": {
+                  "var": "avg",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Execution reports and order state.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "An order that your system thinks is filled but the exchange thinks is open.",
+            "bars": [
+              {
+                "label": "last_qty",
+                "value": {
+                  "var": "last_qty",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "last_px",
+                "value": {
+                  "var": "last_px",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "leaves",
+                "value": {
+                  "var": "leaves",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "avg",
+                "value": {
+                  "var": "avg",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Execution reports and order state — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Execution reports a...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Execution reports and order state",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Execution reports and order state [D9.P5.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Execution reports a... [D9.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "After you send a New Order Single (D), the counterparty replies.",
+            "bars": [
+              {
+                "label": "last_qty",
+                "value": 300,
+                "tone": "data"
+              },
+              {
+                "label": "last_px",
+                "value": 1520,
+                "tone": "data"
+              },
+              {
+                "label": "leaves",
+                "value": 700,
+                "tone": "data"
+              },
+              {
+                "label": "avg",
+                "value": 1520,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how fields updates ordstatus during execution.",
+            "bars": [
+              {
+                "label": "last_qty",
+                "value": 300,
+                "tone": "ok"
+              },
+              {
+                "label": "last_px",
+                "value": 1520,
+                "tone": "ok"
+              },
+              {
+                "label": "leaves",
+                "value": 700,
+                "tone": "ok"
+              },
+              {
+                "label": "avg",
+                "value": 1520,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Execution reports and order state [D9.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "An order that your system thinks is filled but the exchange thinks is open.",
+            "bars": [
+              {
+                "label": "last_qty",
+                "value": 300,
+                "tone": "ok"
+              },
+              {
+                "label": "last_px",
+                "value": 1520,
+                "tone": "ok"
+              },
+              {
+                "label": "leaves",
+                "value": 700,
+                "tone": "ok"
+              },
+              {
+                "label": "avg",
+                "value": 1520,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -1243,224 +857,162 @@
       "partTitle": "Practice time: build and validate",
       "codeHash": "b9f978ef322353cd000b4eed4c9152fafebc91b8cc9ba36509458a6808355fc5",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: build and validate — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: buil...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: build and validate",
+        "actors": [
+          "SOH",
+          "raw",
+          ".0"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: build and validate.",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: buil... [Dnine.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Fix_message(msg_type, fields).",
+            "activeActor": "SOH",
+            "messages": [
+              {
+                "from": "SOH",
+                "to": "raw",
+                "label": {
+                  "var": "SOH",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "raw",
+                "to": ".0",
+                "label": {
+                  "var": "raw",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dnine.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks verify the header fields, the exact checksum for a new order.",
+            "activeActor": "raw",
+            "messages": [
+              {
+                "from": "SOH",
+                "to": "raw",
+                "label": {
+                  "var": "SOH",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "raw",
+                "to": ".0",
+                "label": {
+                  "var": "raw",
+                  "line": 3,
+                  "hit": 10
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: build and validate.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example does that in one line.",
+            "activeActor": ".0",
+            "messages": [
+              {
+                "from": "SOH",
+                "to": "raw",
+                "label": {
+                  "var": "SOH",
+                  "line": 3,
+                  "hit": 10
+                },
+                "tone": "data"
+              },
+              {
+                "from": "raw",
+                "to": ".0",
+                "label": {
+                  "var": "raw",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: build and validate — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: buil...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: build and validate",
+        "actors": [
+          "SOH",
+          "raw",
+          ".0"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: build and validate [D9.P6.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: buil... [D9.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Fix_message(msg_type, fields).",
+            "messages": [
+              {
+                "from": "SOH",
+                "to": "raw",
+                "label": "'\u0001'",
+                "tone": "data"
+              },
+              {
+                "from": "raw",
+                "to": ".0",
+                "label": "'8=FIX.4.4\u00019=31\u000135=D\u000155=INFY\u000154=1\u000138=10…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "SOH"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks verify the header fields, the exact checksum for a new order.",
+            "messages": [
+              {
+                "from": "SOH",
+                "to": "raw",
+                "label": "'\u0001'",
+                "tone": "data"
+              },
+              {
+                "from": "raw",
+                "to": ".0",
+                "label": "'8=FIX.4.4\u00019=31\u000135=D\u000155=INFY\u000154=1\u000138=10…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "raw"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: build and validate [D9.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example does that in one line.",
+            "messages": [
+              {
+                "from": "SOH",
+                "to": "raw",
+                "label": "'\u0001'",
+                "tone": "data"
+              },
+              {
+                "from": "raw",
+                "to": ".0",
+                "label": "'8=FIX.4.4\u00019=31\u000135=D\u000155=INFY\u000154=1\u000138=10…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": ".0"
           }
         ]
       }

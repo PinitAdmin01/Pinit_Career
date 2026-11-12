@@ -2,1335 +2,1005 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 33,
-  "promptSha": "0729fdb78a10f6a24b0b47b5d9e331a7ab245199a7a6700a5a38fdb3640d8cac",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Hypothetical Document Embeddings (HyDE) & Multi-Query Decomposition — Foundations & Mathematical Invariants",
-      "codeHash": "3c483dcea530db6af3859e1da33001c23bfee8f409717edfee4db950b406b2d1",
+      "partTitle": "Understanding the Query-Document Asymmetry Problem",
+      "codeHash": "14739b3338e002110e62e87d289f65c66bb5765dda5dbabc452bc254d3a48f89",
       "spec": {
-        "template": "flow",
-        "title": "Hypothetical Document Embeddings (HyDE) & Multi-Query Decomposition — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Understanding the Query-Document Asymmetry Problem",
+        "actors": [
+          "doc_vec",
+          "raw_query",
+          "hypo_doc"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how user updates questions during execution.",
+            "activeActor": "doc_vec",
+            "messages": [
+              {
+                "from": "doc_vec",
+                "to": "raw_query",
+                "label": {
+                  "var": "doc_vec",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "raw_query",
+                "to": "hypo_doc",
+                "label": {
+                  "var": "raw_query",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Even strong symmetric bi-encoders embed a five-word question into a subtly.",
+            "activeActor": "raw_query",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "doc_vec",
+                "to": "raw_query",
+                "label": {
+                  "var": "doc_vec",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "raw_query",
+                "to": "hypo_doc",
+                "label": {
+                  "var": "raw_query",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect the simple vector comparison below.",
+            "activeActor": "hypo_doc",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "doc_vec",
+                "to": "raw_query",
+                "label": {
+                  "var": "doc_vec",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "raw_query",
+                "to": "hypo_doc",
+                "label": {
+                  "var": "raw_query",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Hypothetical Document Embeddings (HyDE) & Multi-Query Decomposition — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
+        "template": "sequence",
+        "title": "Understanding the Query-Document Asymmetry Problem",
+        "actors": [
+          "doc_vec",
+          "raw_query",
+          "hypo_doc"
         ],
-        "edges": [
+        "steps": [
           {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
+            "at": "say1",
+            "caption": "Trace how user updates questions during execution.",
+            "messages": [
+              {
+                "from": "doc_vec",
+                "to": "raw_query",
+                "label": "[0.82, 0.55, 0.14]",
+                "tone": "data"
+              },
+              {
+                "from": "raw_query",
+                "to": "hypo_doc",
+                "label": "[0.4, 0.25, 0.88]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "doc_vec"
           },
           {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
+            "at": "say2",
+            "caption": "Even strong symmetric bi-encoders embed a five-word question into a subtly.",
+            "messages": [
+              {
+                "from": "doc_vec",
+                "to": "raw_query",
+                "label": "[0.82, 0.55, 0.14]",
+                "tone": "data"
+              },
+              {
+                "from": "raw_query",
+                "to": "hypo_doc",
+                "label": "[0.4, 0.25, 0.88]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "raw_query"
           },
           {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "at": "say7",
+            "caption": "Inspect the simple vector comparison below.",
+            "messages": [
+              {
+                "from": "doc_vec",
+                "to": "raw_query",
+                "label": "[0.82, 0.55, 0.14]",
+                "tone": "data"
+              },
+              {
+                "from": "raw_query",
+                "to": "hypo_doc",
+                "label": "[0.4, 0.25, 0.88]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "hypo_doc"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "HyDE Centroid Averaging to Anchor Unverified Generations",
+      "codeHash": "bd7c9501717a515ed6bb73be5e0ad1564b235cc32f10de970ee3b3e4283fe39c",
+      "spec": {
+        "template": "boxes",
+        "title": "HyDE Centroid Averaging to Anchor Unverified Generations",
+        "boxes": [
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "hypos",
+            "label": "hypos"
+          },
+          {
+            "id": "query_v",
+            "label": "query_v"
+          },
+          {
+            "id": "hypo_vs",
+            "label": "hypo_vs"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Generating a hypothetical answer and discarding the original query carries.",
+            "values": {
+              "q": {
+                "var": "q",
+                "line": 17,
+                "hit": 1
+              },
+              "hypos": {
+                "var": "hypos",
+                "line": 18,
+                "hit": 1
+              },
+              "query_v": {
+                "var": "query_v",
+                "line": 8,
+                "hit": 1
+              },
+              "hypo_vs": {
+                "var": "hypo_vs",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "q": "data",
+              "hypos": "data",
+              "query_v": "data",
+              "hypo_vs": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Remember too that hypothetical drafts exist purely as temporary search.",
+            "values": {
+              "q": {
+                "var": "q",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "hypos": {
+                "var": "hypos",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "query_v": {
+                "var": "query_v",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "hypo_vs": {
+                "var": "hypo_vs",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "q": "data",
+              "hypos": "data",
+              "query_v": "data",
+              "hypo_vs": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Look at hyde_centroid() below computing the weighted centroid safely.",
+            "values": {
+              "q": {
+                "var": "q",
+                "line": 19,
+                "hit": 1
+              },
+              "hypos": {
+                "var": "hypos",
+                "line": 19,
+                "hit": 1
+              },
+              "query_v": {
+                "var": "query_v",
+                "line": 9,
+                "hit": 2
+              },
+              "hypo_vs": {
+                "var": "hypo_vs",
+                "line": 9,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "q": "ok",
+              "hypos": "ok",
+              "query_v": "ok",
+              "hypo_vs": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "HyDE Centroid Averaging to Anchor Unverified Generations",
+        "boxes": [
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "hypos",
+            "label": "hypos"
+          },
+          {
+            "id": "query_v",
+            "label": "query_v"
+          },
+          {
+            "id": "hypo_vs",
+            "label": "hypo_vs"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Generating a hypothetical answer and discarding the original query carries.",
+            "values": {
+              "q": "[0.4, 0.3, 0.85]",
+              "hypos": "[[0.8, 0.55, 0.2], [0.75, 0.62, 0.15]]",
+              "query_v": "[0.4, 0.3, 0.85]",
+              "hypo_vs": "[[0.8, 0.55, 0.2], [0.75, 0.62, 0.15]]"
+            },
+            "tones": {
+              "q": "data",
+              "hypos": "data",
+              "query_v": "data",
+              "hypo_vs": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Remember too that hypothetical drafts exist purely as temporary search.",
+            "values": {
+              "q": "[0.4, 0.3, 0.85]",
+              "hypos": "[[0.8, 0.55, 0.2], [0.75, 0.62, 0.15]]",
+              "query_v": "[0.4, 0.3, 0.85]",
+              "hypo_vs": "[[0.8, 0.55, 0.2], [0.75, 0.62, 0.15]]"
+            },
+            "tones": {
+              "q": "data",
+              "hypos": "data",
+              "query_v": "data",
+              "hypo_vs": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Look at hyde_centroid() below computing the weighted centroid safely.",
+            "values": {
+              "q": "[0.4, 0.3, 0.85]",
+              "hypos": "[[0.8, 0.55, 0.2], [0.75, 0.62, 0.15]]",
+              "query_v": "[0.4, 0.3, 0.85]",
+              "hypo_vs": "[[0.8, 0.55, 0.2], [0.75, 0.62, 0.15]]"
+            },
+            "tones": {
+              "q": "ok",
+              "hypos": "ok",
+              "query_v": "ok",
+              "hypo_vs": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Sub-Query Decomposition for Multi-Constraint Questions",
+      "codeHash": "29f54ce4f83867a1a20e84f27defb15fcd4917ebb62fc9a42016737ed86fc712",
+      "spec": {
+        "template": "boxes",
+        "title": "Sub-Query Decomposition for Multi-Constraint Questions",
+        "boxes": [
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "question",
+            "label": "question"
+          },
+          {
+            "id": "max_parts",
+            "label": "max_parts"
+          },
+          {
+            "id": "cleaned",
+            "label": "cleaned"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Single-vector retrieval fails predictably on multi-part questions like.",
+            "values": {
+              "q": {
+                "var": "q",
+                "line": 15,
+                "hit": 1
+              },
+              "question": {
+                "var": "question",
+                "line": 4,
+                "hit": 1
+              },
+              "max_parts": {
+                "var": "max_parts",
+                "line": 4,
+                "hit": 1
+              },
+              "cleaned": {
+                "var": "cleaned",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "q": "data",
+              "question": "data",
+              "max_parts": "data",
+              "cleaned": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Multi-query decomposition breaks compound questions into focused atomic.",
+            "values": {
+              "q": {
+                "var": "q",
+                "line": 16,
+                "hit": 1
+              },
+              "question": {
+                "var": "question",
+                "line": 5,
+                "hit": 1
+              },
+              "max_parts": {
+                "var": "max_parts",
+                "line": 5,
+                "hit": 1
+              },
+              "cleaned": {
+                "var": "cleaned",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "q": "data",
+              "question": "data",
+              "max_parts": "data",
+              "cleaned": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Notice also the regular expression cleanup stripping directive filler.",
+            "values": {
+              "q": {
+                "var": "q",
+                "line": 17,
+                "hit": 1
+              },
+              "question": {
+                "var": "question",
+                "line": 6,
+                "hit": 1
+              },
+              "max_parts": {
+                "var": "max_parts",
+                "line": 6,
+                "hit": 1
+              },
+              "cleaned": {
+                "var": "cleaned",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "q": "ok",
+              "question": "ok",
+              "max_parts": "ok",
+              "cleaned": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Sub-Query Decomposition for Multi-Constraint Questions",
+        "boxes": [
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "question",
+            "label": "question"
+          },
+          {
+            "id": "max_parts",
+            "label": "max_parts"
+          },
+          {
+            "id": "cleaned",
+            "label": "cleaned"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Single-vector retrieval fails predictably on multi-part questions like.",
+            "values": {
+              "q": "'Compare KMS rotation latency versus Va…",
+              "question": "'Compare KMS rotation latency versus Va…",
+              "max_parts": "4",
+              "cleaned": "'Compare KMS rotation latency versus Va…"
+            },
+            "tones": {
+              "q": "data",
+              "question": "data",
+              "max_parts": "data",
+              "cleaned": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Multi-query decomposition breaks compound questions into focused atomic.",
+            "values": {
+              "q": "'Compare KMS rotation latency versus Va…",
+              "question": "'Compare KMS rotation latency versus Va…",
+              "max_parts": "4",
+              "cleaned": "'Compare KMS rotation latency versus Va…"
+            },
+            "tones": {
+              "q": "data",
+              "question": "data",
+              "max_parts": "data",
+              "cleaned": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Notice also the regular expression cleanup stripping directive filler.",
+            "values": {
+              "q": "'Compare KMS rotation latency versus Va…",
+              "question": "'Compare KMS rotation latency versus Va…",
+              "max_parts": "4",
+              "cleaned": "'Compare KMS rotation latency versus Va…"
+            },
+            "tones": {
+              "q": "ok",
+              "question": "ok",
+              "max_parts": "ok",
+              "cleaned": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Merged Sub-Query Coverage and Missing-Facet Detection",
+      "codeHash": "9db9cfa18b6deff444368ba96a38e10b1312fce9b7baf7e73b349e40bf1f75e5",
+      "spec": {
+        "template": "flow",
+        "title": "Merged Sub-Query Coverage and Missing-Facet Detection",
+        "nodes": [
+          {
+            "id": "hits",
+            "label": "hits"
+          },
+          {
+            "id": "sub_hits",
+            "label": "sub_hits"
+          },
+          {
+            "id": "total_slots",
+            "label": "total_slots"
+          },
+          {
+            "id": "selected",
+            "label": "selected"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Running three sub-queries and dumping all hits into one flat score-sorted.",
+            "values": {
+              "hits": {
+                "var": "hits",
+                "line": 19,
+                "hit": 1
+              },
+              "sub_hits": {
+                "var": "sub_hits",
+                "line": 2,
+                "hit": 1
+              },
+              "total_slots": {
+                "var": "total_slots",
+                "line": 2,
+                "hit": 1
+              },
+              "selected": {
+                "var": "selected",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "hits": "data",
+              "sub_hits": "data",
+              "total_slots": "data",
+              "selected": "data"
+            },
+            "arrows": [
+              [
+                "hits",
+                "sub_hits"
+              ],
+              [
+                "sub_hits",
+                "total_slots"
+              ],
+              [
+                "total_slots",
+                "selected"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Round-robin slot reservation solves this by assigning at least one slot.",
+            "values": {
+              "hits": {
+                "var": "hits",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "sub_hits": {
+                "var": "sub_hits",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "total_slots": {
+                "var": "total_slots",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "selected": {
+                "var": "selected",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "hits": "data",
+              "sub_hits": "data",
+              "total_slots": "data",
+              "selected": "data"
+            },
+            "arrows": [
+              [
+                "hits",
+                "sub_hits"
+              ],
+              [
+                "sub_hits",
+                "total_slots"
+              ],
+              [
+                "total_slots",
+                "selected"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "When `missing_facets` comes back non-empty, your UI or system prompt can.",
+            "values": {
+              "hits": {
+                "var": "hits",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "sub_hits": {
+                "var": "sub_hits",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "total_slots": {
+                "var": "total_slots",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "selected": {
+                "var": "selected",
+                "line": 3,
+                "hit": 2
               }
+            },
+            "tones": {
+              "hits": "ok",
+              "sub_hits": "ok",
+              "total_slots": "ok",
+              "selected": "ok"
+            },
+            "arrows": [
+              [
+                "hits",
+                "sub_hits"
+              ],
+              [
+                "sub_hits",
+                "total_slots"
+              ],
+              [
+                "total_slots",
+                "selected"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Merged Sub-Query Coverage and Missing-Facet Detection",
+        "nodes": [
+          {
+            "id": "hits",
+            "label": "hits"
+          },
+          {
+            "id": "sub_hits",
+            "label": "sub_hits"
+          },
+          {
+            "id": "total_slots",
+            "label": "total_slots"
+          },
+          {
+            "id": "selected",
+            "label": "selected"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Running three sub-queries and dumping all hits into one flat score-sorted.",
+            "values": {
+              "hits": "{'KMS latency': ['doc_kms1', 'doc_kms2'…",
+              "sub_hits": "{'KMS latency': ['doc_kms1', 'doc_kms2'…",
+              "total_slots": "4",
+              "selected": "[]"
+            },
+            "tones": {
+              "hits": "data",
+              "sub_hits": "data",
+              "total_slots": "data",
+              "selected": "data"
+            },
+            "arrows": [
+              [
+                "hits",
+                "sub_hits"
+              ],
+              [
+                "sub_hits",
+                "total_slots"
+              ],
+              [
+                "total_slots",
+                "selected"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Round-robin slot reservation solves this by assigning at least one slot.",
+            "values": {
+              "hits": "['doc_kms1', 'doc_kms2']",
+              "sub_hits": "{'KMS latency': ['doc_kms1', 'doc_kms2'…",
+              "total_slots": "4",
+              "selected": "[]"
+            },
+            "tones": {
+              "hits": "data",
+              "sub_hits": "data",
+              "total_slots": "data",
+              "selected": "data"
+            },
+            "arrows": [
+              [
+                "hits",
+                "sub_hits"
+              ],
+              [
+                "sub_hits",
+                "total_slots"
+              ],
+              [
+                "total_slots",
+                "selected"
+              ]
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "When `missing_facets` comes back non-empty, your UI or system prompt can.",
+            "values": {
+              "hits": "['doc_vlt1', 'doc_vlt2']",
+              "sub_hits": "{'KMS latency': ['doc_kms1', 'doc_kms2'…",
+              "total_slots": "4",
+              "selected": "[]"
+            },
+            "tones": {
+              "hits": "ok",
+              "sub_hits": "ok",
+              "total_slots": "ok",
+              "selected": "ok"
+            },
+            "arrows": [
+              [
+                "hits",
+                "sub_hits"
+              ],
+              [
+                "sub_hits",
+                "total_slots"
+              ],
+              [
+                "total_slots",
+                "selected"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Hypothetical Document Embeddings (HyDE) & Multi-Query Decomposition — Core Algorithm & State Representation",
-      "codeHash": "d89a4e5c8331941af8cd8c76d85b2dc75552d672e38826d97102be7621ab68d2",
+      "partTitle": "Intent Router: Skipping Expansion on Literal Codes and Exact Lookups",
+      "codeHash": "643713c13295fa4cc5316eae4e78cf92436fb722a5208b13eb67ff3f00f5058e",
       "spec": {
-        "template": "flow",
-        "title": "Hypothetical Document Embeddings (HyDE) & Multi-Query Decomposition — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Intent Router: Skipping Expansion on Literal Codes and Exact Loo",
+        "actors": [
+          "queries",
+          "q",
+          "query"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Applying HyDE or multi-query expansion blindly to every user message adds.",
+            "activeActor": "queries",
+            "messages": [
+              {
+                "from": "queries",
+                "to": "q",
+                "label": {
+                  "var": "queries",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "query",
+                "label": {
+                  "var": "q",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Asking an LLM to paraphrase an unfamiliar internal error token may rewrite.",
+            "activeActor": "q",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "queries",
+                "to": "q",
+                "label": {
+                  "var": "queries",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "q",
+                "to": "query",
+                "label": {
+                  "var": "q",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Run choose_query_strategy() below across real developer search queries.",
+            "activeActor": "query",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "queries",
+                "to": "q",
+                "label": {
+                  "var": "queries",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "q",
+                "to": "query",
+                "label": {
+                  "var": "q",
+                  "line": 19,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Hypothetical Document Embeddings (HyDE) & Multi-Query Decomposition — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Intent Router: Skipping Expansion on Literal Codes and Exact Loo",
+        "actors": [
+          "queries",
+          "q",
+          "query"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Applying HyDE or multi-query expansion blindly to every user message adds.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "queries",
+                "to": "q",
+                "label": "['ERR_TLS_HANDSHAKE_TIMEOUT fix', 'Comp…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "q",
+                "to": "query",
+                "label": "'ERR_TLS_HANDSHAKE_TIMEOUT fix'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "queries"
           },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Hypothetical Document Embeddings (HyDE) & Multi-Query Decomposition — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "ece7d72fdfbe66ae1a45cb7ef279ff996ee77ed9839db3cb08652986bab0a434",
-      "spec": {
-        "template": "flow",
-        "title": "Hypothetical Document Embeddings (HyDE) & Multi-Query Decomposition — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Asking an LLM to paraphrase an unfamiliar internal error token may rewrite.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "queries",
+                "to": "q",
+                "label": "['ERR_TLS_HANDSHAKE_TIMEOUT fix', 'Comp…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "q",
+                "to": "query",
+                "label": "'ERR_TLS_HANDSHAKE_TIMEOUT fix'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "q"
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "at": "say7",
+            "caption": "Run choose_query_strategy() below across real developer search queries.",
+            "messages": [
+              {
+                "from": "queries",
+                "to": "q",
+                "label": "['ERR_TLS_HANDSHAKE_TIMEOUT fix', 'Comp…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "query",
+                "label": "'Compare OAuth PKCE vs client credentia…",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Hypothetical Document Embeddings (HyDE) & Multi-Query Decomposition — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Hypothetical Document Embeddings (HyDE) & Multi-Query Decomposition — Resilience Guardrails & Failure Recovery",
-      "codeHash": "6c78a7c398a9546a879d317737a79a33d144d9f4cd0895c8278d1bddafe51309",
-      "spec": {
-        "template": "flow",
-        "title": "Hypothetical Document Embeddings (HyDE) & Multi-Query Decomposition — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Hypothetical Document Embeddings (HyDE) & Multi-Query Decomposition — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Hypothetical Document Embeddings (HyDE) & Multi-Query Decomposition — Production Telemetry & Verification Audit",
-      "codeHash": "1c13b88e3b1d4f1afb420c36f159f31a6b9632dea17ced0a611fa83453dbb4bd",
-      "spec": {
-        "template": "flow",
-        "title": "Hypothetical Document Embeddings (HyDE) & Multi-Query Decomposition — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Hypothetical Document Embeddings (HyDE) & Multi-Query Decomposition — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "query"
           }
         ]
       }

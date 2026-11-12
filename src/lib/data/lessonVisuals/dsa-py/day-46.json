@@ -2,87 +2,113 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 46,
-  "promptSha": "238e1c7a03702cb50ff1d751163c4df9dcb636f0fba7eeff8b1ebf68ec008f5b",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Greedy Interval Scheduling vs Weighted Interval DP: Why Earliest Finish Wins",
       "codeHash": "cbadffdc819a690b60a27f47d80e2555ad1ccab6b2df3377f5edff1341f221d2",
       "spec": {
-        "template": "table",
-        "title": "Greedy Interval Scheduling vs Weighted Interval DP",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Greedy Interval Scheduling vs Weighted Interval DP: Why Earliest",
         "steps": [
           {
             "at": "say1",
-            "caption": "The scheduling design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Scheduling non-overlapping jobs or meeting reservations on a.",
+            "items": {
+              "var": "x",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Greedy"
-                  },
-                  {
-                    "text": "Interval"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The sorting step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Sorting by earliest start time fails immediately if the first meeting runs.",
+            "items": {
+              "var": "x",
+              "line": 4,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Scheduling"
-                  },
-                  {
-                    "text": "Weighted"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Run the Python side-by-side verifier below proving Earliest Finish optimal.",
+            "items": {
+              "var": "x",
+              "line": 15,
+              "hit": 4
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Greedy Interval Scheduling vs Weighted Interval DP",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Greedy Interval Scheduling vs Weighted Interval DP: Why Earliest",
         "steps": [
           {
             "at": "say1",
-            "caption": "The scheduling design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Scheduling non-overlapping jobs or meeting reservations on a.",
+            "items": [
+              "1",
+              "6"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Greedy",
-                  "Interval"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The sorting step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Sorting by earliest start time fails immediately if the first meeting runs.",
+            "items": [
+              "7",
+              "10"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Scheduling",
-                  "Weighted"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Run the Python side-by-side verifier below proving Earliest Finish optimal.",
+            "items": [
+              "6",
+              "9",
+              "30"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,80 +119,108 @@
       "partTitle": "Interval Partitioning & Minimum Concurrency Room Allocation via Min-Heap",
       "codeHash": "a4846d47b9002b168b11d891981820d957b56ea653ab244516f00957da9362a5",
       "spec": {
-        "template": "table",
-        "title": "Interval Partitioning & Minimum Concurrency Room Allocation",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Interval Partitioning & Minimum Concurrency Room Allocation via ",
         "steps": [
           {
             "at": "say1",
-            "caption": "The constraint design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now flip the constraint cleanly.",
+            "items": {
+              "var": "x",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Interval"
-                  },
-                  {
-                    "text": "Partitioning"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The clean step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Here we sort intervals strictly by START time `(start, end)` so events.",
+            "items": {
+              "var": "x",
+              "line": 4,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Minimum"
-                  },
-                  {
-                    "text": "Concurrency"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect the exact schedule assignment table produced in O(N log N) time.",
+            "items": {
+              "var": "x",
+              "line": 4,
+              "hit": 5
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Interval Partitioning & Minimum Concurrency Room Allocation",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Interval Partitioning & Minimum Concurrency Room Allocation via ",
         "steps": [
           {
             "at": "say1",
-            "caption": "The constraint design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now flip the constraint cleanly.",
+            "items": [
+              "'auth'",
+              "1",
+              "5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Interval",
-                  "Partitioning"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The clean step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Here we sort intervals strictly by START time `(start, end)` so events.",
+            "items": [
+              "'sync'",
+              "5",
+              "9"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Minimum",
-                  "Concurrency"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect the exact schedule assignment table produced in O(N log N) time.",
+            "items": [
+              "'backup'",
+              "7",
+              "8"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,43 +231,131 @@
       "partTitle": "Sweep-Line Events (+1 / -1) & Tie-Breaking Ordering Invariants",
       "codeHash": "d6acb18d538e717f1ade144c9ceb62a8d14274d3837ce0f3f30a25c1e7f6cd1f",
       "spec": {
-        "template": "table",
-        "title": "Sweep-Line Events (+1 / -1) & Tie-Breaking Ordering",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Sweep-Line Events (+1 / -1) & Tie-Breaking Ordering Invariants",
         "steps": [
           {
             "at": "say1",
-            "caption": "The schedules design establishes the core structural invariant.",
-            "rows": [
+            "caption": "What if you do NOT need per-room schedules, only peak instantaneous.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Sweep"
-                  },
-                  {
-                    "text": "Line"
-                  }
-                ],
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "e",
+                "value": {
+                  "var": "e",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "active",
+                "value": {
+                  "var": "active",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "peak",
+                "value": {
+                  "var": "peak",
+                  "line": 15,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The pause step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Sort all `2N` events chronologically and walk a single `running_active`.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Events"
-                  },
-                  {
-                    "text": "Breaking"
-                  }
-                ],
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "e",
+                "value": {
+                  "var": "e",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "active",
+                "value": {
+                  "var": "active",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "peak",
+                "value": {
+                  "var": "peak",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Watch how sorting `(t, -1)` vs `(t, +1)` changes touching boundary.",
+            "bars": [
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "e",
+                "value": {
+                  "var": "e",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "active",
+                "value": {
+                  "var": "active",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "peak",
+                "value": {
+                  "var": "peak",
+                  "line": 17,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -221,35 +363,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Sweep-Line Events (+1 / -1) & Tie-Breaking Ordering",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Sweep-Line Events (+1 / -1) & Tie-Breaking Ordering Invariants",
         "steps": [
           {
             "at": "say1",
-            "caption": "The schedules design establishes the core structural invariant.",
-            "rows": [
+            "caption": "What if you do NOT need per-room schedules, only peak instantaneous.",
+            "bars": [
               {
-                "cells": [
-                  "Sweep",
-                  "Line"
-                ],
+                "label": "s",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "e",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "active",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "peak",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The pause step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Sort all `2N` events chronologically and walk a single `running_active`.",
+            "bars": [
               {
-                "cells": [
-                  "Events",
-                  "Breaking"
-                ],
+                "label": "s",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "e",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "active",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "peak",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Watch how sorting `(t, -1)` vs `(t, +1)` changes touching boundary.",
+            "bars": [
+              {
+                "label": "s",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "e",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "active",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "peak",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -261,80 +451,117 @@
       "partTitle": "Coordinate Compression with Sorting, Deduplication & Bisect Lookups",
       "codeHash": "a37081e8225afc3492fd4c447f8466e53cf7552ac6765edf5549ece71b07bf1c",
       "spec": {
-        "template": "table",
-        "title": "Coordinate Compression with Sorting, Deduplication & Bisect",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Coordinate Compression with Sorting, Deduplication & Bisect Look",
         "steps": [
           {
             "at": "say1",
-            "caption": "The sweep design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Sweep-Line tracks event changes seamlessly, yet what if coordinates.",
+            "items": {
+              "var": "coords",
+              "line": 4,
+              "hit": 10
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Coordinate"
-                  },
-                  {
-                    "text": "Compression"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The building step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "You cannot allocate a billion-element array in memory.",
+            "items": {
+              "var": "coords",
+              "line": 5,
+              "hit": 6
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Sorting"
-                  },
-                  {
-                    "text": "Deduplication"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Watch our coordinate-compressed difference engine compute exact covered.",
+            "items": {
+              "var": "coords",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Coordinate Compression with Sorting, Deduplication & Bisect",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Coordinate Compression with Sorting, Deduplication & Bisect Look",
         "steps": [
           {
             "at": "say1",
-            "caption": "The sweep design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Sweep-Line tracks event changes seamlessly, yet what if coordinates.",
+            "items": [
+              "1000000100",
+              "1000000200",
+              "1000000250",
+              "1000000400",
+              "1000000600",
+              "1000000680"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Coordinate",
-                  "Compression"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The building step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "You cannot allocate a billion-element array in memory.",
+            "items": [
+              "1000000100",
+              "1000000200",
+              "1000000250",
+              "1000000400",
+              "1000000600",
+              "1000000680"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Sorting",
-                  "Deduplication"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Watch our coordinate-compressed difference engine compute exact covered.",
+            "items": [
+              "1000000100",
+              "1000000200",
+              "1000000250",
+              "1000000400",
+              "1000000600",
+              "1000000680"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -345,80 +572,110 @@
       "partTitle": "Production Application: Cloud Reservation Peak Overlap & Billing Union Engine",
       "codeHash": "fcbf7dbf4fce36eaaab64edfd98accad5420a3f82a7a53ac8eb24576182ac133",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Production Application: Cloud Reservation Peak Overlap & Billing",
         "steps": [
           {
             "at": "say1",
-            "caption": "The synthesize design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us synthesize Weighted Interval DP, Min-Heap Worker Partitioning.",
+            "items": {
+              "var": "x",
+              "line": 15,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Billing systems and cluster orchestrators examine a fleet of timestamped.",
+            "items": {
+              "var": "x",
+              "line": 15,
+              "hit": 7
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Cloud"
-                  },
-                  {
-                    "text": "Reservation"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect and execute the complete `CapacitySweepEngine` report below across.",
+            "items": {
+              "var": "x",
+              "line": 38,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Production Application: Cloud Reservation Peak Overlap & Billing",
         "steps": [
           {
             "at": "say1",
-            "caption": "The synthesize design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Now let us synthesize Weighted Interval DP, Min-Heap Worker Partitioning.",
+            "items": [
+              "1700000000",
+              "1",
+              "8"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Billing systems and cluster orchestrators examine a fleet of timestamped.",
+            "items": [
+              "1700000450",
+              "1",
+              "4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Cloud",
-                  "Reservation"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect and execute the complete `CapacitySweepEngine` report below across.",
+            "items": [
+              "'etl-b'",
+              "1700000100",
+              "1700000500",
+              "16",
+              "350"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

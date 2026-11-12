@@ -2,230 +2,224 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 52,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Architectural Bridge: Projecting Continuous Vision Tokens into LLM Embedding Spaces",
       "codeHash": "3c500092e3539c44f32034e4b2c663b67965059ae978dafd7a4f60add1ce80e3",
       "spec": {
-        "template": "flow",
-        "title": "The Architectural Bridge: Projecting Continuo... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Architectural B...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The Architectural Bridge: Projecting Continuous Vision Tokens in",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The Architectural Bridge: Projecting Con...",
-            "values": {
-              "in": "Day 52 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The Architectural B....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "CLIP models taught us how to embed an entire image and an entire text.",
+            "bars": [
+              {
+                "label": "M",
+                "value": {
+                  "var": "M",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To endow Large Language Models with the power to 'see' and reason over.",
+            "bars": [
+              {
+                "label": "M",
+                "value": {
+                  "var": "M",
+                  "line": 6,
+                  "hit": 6
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 6,
+                  "hit": 6
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 6,
+                  "hit": 6
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The Architectural Bridge: Project...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Throughout this masterclass, we will dissect the full evolutionary.",
+            "bars": [
+              {
+                "label": "M",
+                "value": {
+                  "var": "M",
+                  "line": 6,
+                  "hit": 12
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "K",
+                "value": {
+                  "var": "K",
+                  "line": 6,
+                  "hit": 12
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 6,
+                  "hit": 12
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 6,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The Architectural Bridge: Projecting Continuo... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Architectural B...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The Architectural Bridge: Projecting Continuous Vision Tokens in",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The Architectural Bridge: Projecting Con...",
-            "values": {
-              "in": "Day 52 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Architectural B....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "CLIP models taught us how to embed an entire image and an entire text.",
+            "bars": [
+              {
+                "label": "M",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "K",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "N",
+                "value": 6,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To endow Large Language Models with the power to 'see' and reason over.",
+            "bars": [
+              {
+                "label": "M",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "K",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "N",
+                "value": 6,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Architectural Bridge: Project...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Throughout this masterclass, we will dissect the full evolutionary.",
+            "bars": [
+              {
+                "label": "M",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "K",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "N",
+                "value": 6,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 2,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -236,110 +230,161 @@
       "codeHash": "93e574a6e2df3e0bfd5cb46ce1ccf4d8d5eea54f685f2e920d3ac1568d67994f",
       "spec": {
         "template": "flow",
-        "title": "Linear Projection vs Multi-Layer Perceptron (... — Execution Pipeline",
+        "title": "Linear Projection vs Multi-Layer Perceptron (MLP) Adapters: LLaV",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "W_1",
+            "label": "W_1"
           },
           {
-            "id": "proc",
-            "label": "2. Linear Projection v...",
-            "tappable": true
+            "id": "b_1",
+            "label": "b_1"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "W_2",
+            "label": "W_2"
+          },
+          {
+            "id": "b_2",
+            "label": "b_2"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Linear Projection vs Multi-Layer Percept...",
-            "values": {
-              "in": "Day 52 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Linear Projection v....",
+            "caption": "While the original LLaVA-1.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "W_1": {
+                "var": "W_1",
+                "line": 15,
+                "hit": 1
+              },
+              "b_1": {
+                "var": "b_1",
+                "line": 21,
+                "hit": 1
+              },
+              "W_2": {
+                "var": "W_2",
+                "line": 24,
+                "hit": 1
+              },
+              "b_2": {
+                "var": "b_2",
+                "line": 30,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "W_1": "data",
+              "b_1": "data",
+              "W_2": "data",
+              "b_2": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "W_1",
+                "b_1"
               ],
               [
-                "proc",
-                "out"
+                "b_1",
+                "W_2"
+              ],
+              [
+                "W_2",
+                "b_2"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Why is non-linear warping essential.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "W_1": {
+                "var": "W_1",
+                "line": 21,
+                "hit": 1
+              },
+              "b_1": {
+                "var": "b_1",
+                "line": 25,
+                "hit": 1
+              },
+              "W_2": {
+                "var": "W_2",
+                "line": 30,
+                "hit": 1
+              },
+              "b_2": {
+                "var": "b_2",
+                "line": 32,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "W_1": "data",
+              "b_1": "data",
+              "W_2": "data",
+              "b_2": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "W_1",
+                "b_1"
+              ],
+              [
+                "b_1",
+                "W_2"
+              ],
+              [
+                "W_2",
+                "b_2"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Linear Projection vs Multi-Layer ...",
+            "at": "say8",
+            "caption": "Moreover, the computational overhead of the 2-layer MLP adapter during.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "W_1": {
+                "var": "W_1",
+                "line": 25,
+                "hit": 1
+              },
+              "b_1": {
+                "var": "b_1",
+                "line": 26,
+                "hit": 1
+              },
+              "W_2": {
+                "var": "W_2",
+                "line": 32,
+                "hit": 1
+              },
+              "b_2": {
+                "var": "b_2",
+                "line": 42,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "W_1": "ok",
+              "b_1": "ok",
+              "W_2": "ok",
+              "b_2": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "W_1",
+                "b_1"
               ],
               [
-                "proc",
-                "out"
+                "b_1",
+                "W_2"
+              ],
+              [
+                "W_2",
+                "b_2"
               ]
             ]
           }
@@ -347,110 +392,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Linear Projection vs Multi-Layer Perceptron (... — Execution Pipeline",
+        "title": "Linear Projection vs Multi-Layer Perceptron (MLP) Adapters: LLaV",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "W_1",
+            "label": "W_1"
           },
           {
-            "id": "proc",
-            "label": "2. Linear Projection v...",
-            "tappable": true
+            "id": "b_1",
+            "label": "b_1"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "W_2",
+            "label": "W_2"
+          },
+          {
+            "id": "b_2",
+            "label": "b_2"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Linear Projection vs Multi-Layer Percept...",
-            "values": {
-              "in": "Day 52 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Linear Projection v....",
+            "caption": "While the original LLaVA-1.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "W_1": "[[0.6, -0.2, 0.4], [-0.3, 0.8, 0.1], [0…",
+              "b_1": "[0.1, -0.05, 0.2, 0]",
+              "W_2": "[[0.7, -0.1, 0.3, 0.2], [-0.2, 0.6, 0.1…",
+              "b_2": "[0.05, 0.1, -0.05, 0.02]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "W_1": "data",
+              "b_1": "data",
+              "W_2": "data",
+              "b_2": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "W_1",
+                "b_1"
               ],
               [
-                "proc",
-                "out"
+                "b_1",
+                "W_2"
+              ],
+              [
+                "W_2",
+                "b_2"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Why is non-linear warping essential.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "W_1": "[[0.6, -0.2, 0.4], [-0.3, 0.8, 0.1], [0…",
+              "b_1": "[0.1, -0.05, 0.2, 0]",
+              "W_2": "[[0.7, -0.1, 0.3, 0.2], [-0.2, 0.6, 0.1…",
+              "b_2": "[0.05, 0.1, -0.05, 0.02]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "W_1": "data",
+              "b_1": "data",
+              "W_2": "data",
+              "b_2": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "W_1",
+                "b_1"
+              ],
+              [
+                "b_1",
+                "W_2"
+              ],
+              [
+                "W_2",
+                "b_2"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Linear Projection vs Multi-Layer ...",
+            "at": "say8",
+            "caption": "Moreover, the computational overhead of the 2-layer MLP adapter during.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "W_1": "[[0.6, -0.2, 0.4], [-0.3, 0.8, 0.1], [0…",
+              "b_1": "[0.1, -0.05, 0.2, 0]",
+              "W_2": "[[0.7, -0.1, 0.3, 0.2], [-0.2, 0.6, 0.1…",
+              "b_2": "[0.05, 0.1, -0.05, 0.02]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "W_1": "ok",
+              "b_1": "ok",
+              "W_2": "ok",
+              "b_2": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "W_1",
+                "b_1"
               ],
               [
-                "proc",
-                "out"
+                "b_1",
+                "W_2"
+              ],
+              [
+                "W_2",
+                "b_2"
               ]
             ]
           }
@@ -461,223 +509,118 @@
       "partTitle": "Cross-Attention Bottlenecks & Perceiver Resamplers: Compressing Vision Patches into Latents",
       "codeHash": "ab2fa39983946cc690ab7d6ef4fa753c26c62a5972357dc4af67230bbbc90909",
       "spec": {
-        "template": "flow",
-        "title": "Cross-Attention Bottlenecks & Perceiver Resam... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Cross-Attention Bot...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Cross-Attention Bottlenecks & Perceiver Resamplers: Compressing ",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Cross-Attention Bottlenecks & Perceiver ...",
-            "values": {
-              "in": "Day 52 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Cross-Attention Bot....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "While linear and MLP projectors preserve every single spatial patch token (e.",
+            "items": {
+              "var": "row",
+              "line": 5,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "To resolve this token inflation crisis, DeepMind's Flamingo architecture.",
+            "items": {
+              "var": "row",
+              "line": 7,
+              "hit": 5
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Cross-Attention Bottlenecks & Per...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "From a mathematical optimization standpoint, initializing the latent query.",
+            "items": {
+              "var": "row",
+              "line": 9,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cross-Attention Bottlenecks & Perceiver Resam... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Cross-Attention Bot...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Cross-Attention Bottlenecks & Perceiver Resamplers: Compressing ",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Cross-Attention Bottlenecks & Perceiver ...",
-            "values": {
-              "in": "Day 52 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Cross-Attention Bot....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While linear and MLP projectors preserve every single spatial patch token (e.",
+            "items": [
+              "0.38105117766515306",
+              "0.3406366588218792",
+              "0.10392304845413265",
+              "0.14433756729740646",
+              "0.05773502691896259",
+              "0.08660254037844389"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To resolve this token inflation crisis, DeepMind's Flamingo architecture.",
+            "items": [
+              "0.38105117766515306",
+              "0.3406366588218792",
+              "0.10392304845413265",
+              "0.14433756729740646",
+              "0.05773502691896259",
+              "0.08660254037844389"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Cross-Attention Bottlenecks & Per...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "From a mathematical optimization standpoint, initializing the latent query.",
+            "items": [
+              "0.38105117766515306",
+              "0.3406366588218792",
+              "0.10392304845413265",
+              "0.14433756729740646",
+              "0.05773502691896259",
+              "0.08660254037844389"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -687,223 +630,217 @@
       "partTitle": "Two-Stage Training Protocol: Feature Alignment Pre-Training vs Visual Instruction Tuning",
       "codeHash": "a225ffe641e73104861d5a6be207a778028a6ad07340b221a08e838edc72d386",
       "spec": {
-        "template": "flow",
-        "title": "Two-Stage Training Protocol: Feature Alignmen... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Two-Stage Training ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Two-Stage Training Protocol: Feature Alignment Pre-Training vs V",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Two-Stage Training Protocol: Feature Ali...",
-            "values": {
-              "in": "Day 52 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Two-Stage Training ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Training a high-performing Multimodal Large Language Model is not.",
+            "bars": [
+              {
+                "label": "stage",
+                "value": {
+                  "var": "stage",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "stage_num",
+                "value": {
+                  "var": "stage_num",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "lr",
+                "value": {
+                  "var": "lr",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "trainable_pct",
+                "value": {
+                  "var": "trainable_pct",
+                  "line": 38,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To prevent this destruction, the canonical LLaVA framework establishes.",
+            "bars": [
+              {
+                "label": "stage",
+                "value": {
+                  "var": "stage",
+                  "line": 37,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "stage_num",
+                "value": {
+                  "var": "stage_num",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": {
+                  "var": "lr",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "trainable_pct",
+                "value": {
+                  "var": "trainable_pct",
+                  "line": 39,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Two-Stage Training Protocol: Feat...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Furthermore, modern enterprise implementations frequently introduce a Stage 1.",
+            "bars": [
+              {
+                "label": "stage",
+                "value": {
+                  "var": "stage",
+                  "line": 38,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "stage_num",
+                "value": {
+                  "var": "stage_num",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": {
+                  "var": "lr",
+                  "line": 37,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "trainable_pct",
+                "value": {
+                  "var": "trainable_pct",
+                  "line": 40,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Two-Stage Training Protocol: Feature Alignmen... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Two-Stage Training ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Two-Stage Training Protocol: Feature Alignment Pre-Training vs V",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Two-Stage Training Protocol: Feature Ali...",
-            "values": {
-              "in": "Day 52 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Two-Stage Training ....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Training a high-performing Multimodal Large Language Model is not.",
+            "bars": [
+              {
+                "label": "stage",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "stage_num",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "lr",
+                "value": 0.001,
+                "tone": "data"
+              },
+              {
+                "label": "trainable_pct",
+                "value": 0.273972602739726,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To prevent this destruction, the canonical LLaVA framework establishes.",
+            "bars": [
+              {
+                "label": "stage",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "stage_num",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": 0.001,
+                "tone": "ok"
+              },
+              {
+                "label": "trainable_pct",
+                "value": 0.273972602739726,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Two-Stage Training Protocol: Feat...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Furthermore, modern enterprise implementations frequently introduce a Stage 1.",
+            "bars": [
+              {
+                "label": "stage",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "stage_num",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "lr",
+                "value": 0.001,
+                "tone": "ok"
+              },
+              {
+                "label": "trainable_pct",
+                "value": 0.273972602739726,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -913,223 +850,109 @@
       "partTitle": "Masterclass Synthesis: Building the ApexProjector Multimodal Adapter Suite",
       "codeHash": "d20339800421cb92283399bc52dea742ca52a89b3409b45e665ff009987f6b36",
       "spec": {
-        "template": "flow",
-        "title": "Masterclass Synthesis: Building the ApexProje... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Synthes...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Masterclass Synthesis: Building the ApexProjector Multimodal Ada",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Masterclass Synthesis: Building.",
-            "values": {
-              "in": "Day 52 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Masterclass Synthes....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "This unified engine encapsulates the complete spectrum.",
+            "items": {
+              "var": "p",
+              "line": 39,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Let us trace the operational pipeline of the ApexProjector suite.",
+            "items": {
+              "var": "p",
+              "line": 41,
+              "hit": 5
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Masterclass Synthesis: Building t...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Every parameter in this suite has been verified for deterministic runtime.",
+            "items": {
+              "var": "p",
+              "line": 41,
+              "hit": 6
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Masterclass Synthesis: Building the ApexProje... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Synthes...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Masterclass Synthesis: Building the ApexProjector Multimodal Ada",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Synthesis: Building.",
-            "values": {
-              "in": "Day 52 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Synthes....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "This unified engine encapsulates the complete spectrum.",
+            "items": [
+              "0.8",
+              "0.2",
+              "0.1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us trace the operational pipeline of the ApexProjector suite.",
+            "items": [
+              "0.8",
+              "0.2",
+              "0.1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Synthesis: Building t...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Every parameter in this suite has been verified for deterministic runtime.",
+            "items": [
+              "0.7",
+              "0.3",
+              "0.2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

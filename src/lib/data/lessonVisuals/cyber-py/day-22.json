@@ -2,173 +2,113 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 22,
-  "promptSha": "18920fa758af36dcd83328eaa4f1025d4416bfb9400ae8e7c3846a810c41db81",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What a buffer overflow is",
       "codeHash": "cf51decdfb96cfa3fd3d189726764cad92b2913e97fb4cc269f74f2a9b31bd92",
       "spec": {
-        "template": "table",
-        "title": "Call stack frame layout and control data corruption under buffer overflow",
-        "columns": [
-          "Stack Region",
-          "Memory Direction",
-          "Original Content",
-          "Corrupted State Under Overflow"
+        "template": "states",
+        "title": "What a buffer overflow is",
+        "states": [
+          {
+            "id": "memory",
+            "label": "memory"
+          },
+          {
+            "id": "data",
+            "label": "data"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Oversized input writes past allocated array boundaries on the stack.",
-            "activeRowIndex": 0,
-            "statusBadge": "failed",
-            "rows": [
-              {
-                "cells": [
-                  "Local Buffer Array",
-                  "Grows Downward Stack",
-                  "User Input Storage Buffer",
-                  "Oversized Input Exceeds Bounds"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Saved Frame Pointer",
-                  "Higher Memory Address",
-                  "Base Pointer Value",
-                  "Overwritten with Attacker Bytes"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Saved Return Address",
-                  "Higher Memory Address",
-                  "Instruction Pointer EIP",
-                  "Hijacked to Point to Shellcode"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "A buffer overflow happens when a program writes more data than the buffer.",
+            "currentState": "memory",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "An attacker hijacks execution flow redirecting CPU control to shellcode.",
-            "activeRowIndex": 2,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Local Buffer Array",
-                  "Grows Downward Stack",
-                  "User Input Storage Buffer",
-                  "Oversized Input Exceeds Bounds"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Saved Frame Pointer",
-                  "Higher Memory Address",
-                  "Base Pointer Value",
-                  "Overwritten with Attacker Bytes"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Saved Return Address",
-                  "Higher Memory Address",
-                  "Instruction Pointer EIP",
-                  "Hijacked to Point to Shellcode"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "In languages without automatic bounds checking, such as C, the extra bytes.",
+            "currentState": "data",
+            "transition": {
+              "from": "memory",
+              "to": "data",
+              "label": {
+                "var": "data",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Trace how famous updates morris during execution.",
+            "currentState": "n",
+            "transition": {
+              "from": "data",
+              "to": "n",
+              "label": {
+                "var": "n",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Call stack frame layout and control data corruption under buffer overflow",
-        "columns": [
-          "Stack Region",
-          "Memory Direction",
-          "Original Content",
-          "Corrupted State Under Overflow"
+        "template": "states",
+        "title": "What a buffer overflow is",
+        "states": [
+          {
+            "id": "memory",
+            "label": "memory"
+          },
+          {
+            "id": "data",
+            "label": "data"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Oversized input writes past allocated array boundaries on the stack.",
-            "activeRowIndex": 0,
-            "statusBadge": "failed",
-            "rows": [
-              {
-                "cells": [
-                  "Local Buffer Array",
-                  "Grows Downward Stack",
-                  "User Input Storage Buffer",
-                  "Oversized Input Exceeds Bounds"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Saved Frame Pointer",
-                  "Higher Memory Address",
-                  "Base Pointer Value",
-                  "Overwritten with Attacker Bytes"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Saved Return Address",
-                  "Higher Memory Address",
-                  "Instruction Pointer EIP",
-                  "Hijacked to Point to Shellcode"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "A buffer overflow happens when a program writes more data than the buffer.",
+            "currentState": "memory",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "An attacker hijacks execution flow redirecting CPU control to shellcode.",
-            "activeRowIndex": 2,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Local Buffer Array",
-                  "Grows Downward Stack",
-                  "User Input Storage Buffer",
-                  "Oversized Input Exceeds Bounds"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Saved Frame Pointer",
-                  "Higher Memory Address",
-                  "Base Pointer Value",
-                  "Overwritten with Attacker Bytes"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Saved Return Address",
-                  "Higher Memory Address",
-                  "Instruction Pointer EIP",
-                  "Hijacked to Point to Shellcode"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "In languages without automatic bounds checking, such as C, the extra bytes.",
+            "currentState": "data",
+            "transition": {
+              "from": "memory",
+              "to": "data",
+              "label": "{'__other__': 'bytes'}"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Trace how famous updates morris during execution.",
+            "currentState": "n",
+            "transition": {
+              "from": "data",
+              "to": "n",
+              "label": "12"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -177,74 +117,194 @@
       "partTitle": "Stack canaries",
       "codeHash": "86674959a03592293206185f0b1bf5e50fbd899ff28f33bddbc07243fa83b8c9",
       "spec": {
-        "template": "states",
-        "title": "Stack canary prologue injection and epilogue corruption detection stages",
-        "states": [
+        "template": "boxes",
+        "title": "Stack canaries",
+        "boxes": [
           {
-            "id": "prologuePlaced",
-            "label": "Canary Secret Injected into Frame"
+            "id": "canary",
+            "label": "canary"
           },
           {
-            "id": "bufferOverwritten",
-            "label": "Linear Memory Write Targets Buffer"
+            "id": "data",
+            "label": "data"
           },
           {
-            "id": "cookieCorrupted",
-            "label": "Canary Value Altered by Overflow"
+            "id": "buf_size",
+            "label": "buf_size"
           },
           {
-            "id": "smashAborted",
-            "label": "Epilogue Aborts with Stack Smashing Error"
+            "id": "frame",
+            "label": "frame"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The compiler places a canary cookie on the stack before the return address.",
-            "activeStateId": "prologuePlaced",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "A stack canary is a secret random value placed between a function's.",
+            "values": {
+              "canary": {
+                "var": "canary",
+                "line": 7,
+                "hit": 1
+              },
+              "data": {
+                "var": "data",
+                "line": 8,
+                "hit": 1
+              },
+              "buf_size": {
+                "var": "buf_size",
+                "line": 2,
+                "hit": 1
+              },
+              "frame": {
+                "var": "frame",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "canary": "data",
+              "data": "data",
+              "buf_size": "data",
+              "frame": "data"
+            }
           },
           {
-            "at": "say6",
-            "caption": "The runtime immediately terminates the process when corruption is detected.",
-            "activeStateId": "smashAborted",
-            "statusBadge": "failed"
+            "at": "say2",
+            "caption": "Before the function returns, it checks the canary.",
+            "values": {
+              "canary": {
+                "var": "canary",
+                "line": 8,
+                "hit": 1
+              },
+              "data": {
+                "var": "data",
+                "line": 2,
+                "hit": 1
+              },
+              "buf_size": {
+                "var": "buf_size",
+                "line": 3,
+                "hit": 1
+              },
+              "frame": {
+                "var": "frame",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "canary": "data",
+              "data": "data",
+              "buf_size": "data",
+              "frame": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Canaries do not protect data before the canary, such as other local.",
+            "values": {
+              "canary": {
+                "var": "canary",
+                "line": 2,
+                "hit": 1
+              },
+              "data": {
+                "var": "data",
+                "line": 3,
+                "hit": 1
+              },
+              "buf_size": {
+                "var": "buf_size",
+                "line": 4,
+                "hit": 1
+              },
+              "frame": {
+                "var": "frame",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "canary": "ok",
+              "data": "ok",
+              "buf_size": "ok",
+              "frame": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Stack canary prologue injection and epilogue corruption detection stages",
-        "states": [
+        "template": "boxes",
+        "title": "Stack canaries",
+        "boxes": [
           {
-            "id": "prologuePlaced",
-            "label": "Canary Secret Injected into Frame"
+            "id": "canary",
+            "label": "canary"
           },
           {
-            "id": "bufferOverwritten",
-            "label": "Linear Memory Write Targets Buffer"
+            "id": "data",
+            "label": "data"
           },
           {
-            "id": "cookieCorrupted",
-            "label": "Canary Value Altered by Overflow"
+            "id": "buf_size",
+            "label": "buf_size"
           },
           {
-            "id": "smashAborted",
-            "label": "Epilogue Aborts with Stack Smashing Error"
+            "id": "frame",
+            "label": "frame"
           }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The compiler places a canary cookie on the stack before the return address.",
-            "activeStateId": "prologuePlaced",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "A stack canary is a secret random value placed between a function's.",
+            "values": {
+              "canary": "{'__other__': 'bytes'}",
+              "data": "{'__other__': 'bytes'}",
+              "buf_size": "8",
+              "frame": "{'__other__': 'bytearray'}"
+            },
+            "tones": {
+              "canary": "data",
+              "data": "data",
+              "buf_size": "data",
+              "frame": "data"
+            }
           },
           {
-            "at": "say6",
-            "caption": "The runtime immediately terminates the process when corruption is detected.",
-            "activeStateId": "smashAborted",
-            "statusBadge": "failed"
+            "at": "say2",
+            "caption": "Before the function returns, it checks the canary.",
+            "values": {
+              "canary": "{'__other__': 'bytes'}",
+              "data": "{'__other__': 'bytes'}",
+              "buf_size": "8",
+              "frame": "{'__other__': 'bytearray'}"
+            },
+            "tones": {
+              "canary": "data",
+              "data": "data",
+              "buf_size": "data",
+              "frame": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Canaries do not protect data before the canary, such as other local.",
+            "values": {
+              "canary": "{'__other__': 'bytes'}",
+              "data": "{'__other__': 'bytes'}",
+              "buf_size": "8",
+              "frame": "{'__other__': 'bytearray'}"
+            },
+            "tones": {
+              "canary": "ok",
+              "data": "ok",
+              "buf_size": "ok",
+              "frame": "ok"
+            }
           }
         ]
       }
@@ -253,176 +313,98 @@
       "partTitle": "ASLR and non-executable memory",
       "codeHash": "cfa80aa379f7e6e7e290acc5203889b73308a2998742359c2eb50718e8fc23bf",
       "spec": {
-        "template": "compare",
-        "title": "Deterministic memory layout versus Address Space Layout Randomization",
-        "left": {
-          "title": "Deterministic Static Memory",
-          "items": [
-            "Executables and libraries loaded at fixed predictable offsets",
-            "Attackers hardcode target function addresses with ease",
-            "Consistent memory addresses across all server restarts"
-          ]
-        },
-        "right": {
-          "title": "Randomized ASLR Memory",
-          "items": [
-            "Randomizes base addresses of stack heap and libraries",
-            "Shared library functions reside at unpredictable offsets",
-            "Blind jumps trigger immediate memory segmentation faults"
-          ]
-        },
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Predictable memory allowed attackers to hardcode fixed function addresses.",
-            "highlightSide": "left",
-            "statusBadge": "failed"
-          },
-          {
-            "at": "say5",
-            "caption": "The operating system randomizes base memory addresses of libraries.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
-          }
-        ],
-        "leftLabel": "Deterministic Static Memory",
-        "rightLabel": "Randomized ASLR Memory"
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Deterministic memory layout versus Address Space Layout Randomization",
-        "left": {
-          "title": "Deterministic Static Memory",
-          "items": [
-            "Executables and libraries loaded at fixed predictable offsets",
-            "Attackers hardcode target function addresses with ease",
-            "Consistent memory addresses across all server restarts"
-          ]
-        },
-        "right": {
-          "title": "Randomized ASLR Memory",
-          "items": [
-            "Randomizes base addresses of stack heap and libraries",
-            "Shared library functions reside at unpredictable offsets",
-            "Blind jumps trigger immediate memory segmentation faults"
-          ]
-        },
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Predictable memory allowed attackers to hardcode fixed function addresses.",
-            "highlightSide": "left",
-            "statusBadge": "failed"
-          },
-          {
-            "at": "say5",
-            "caption": "The operating system randomizes base memory addresses of libraries.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
-          }
-        ],
-        "leftLabel": "Deterministic Static Memory",
-        "rightLabel": "Randomized ASLR Memory"
-      }
-    },
-    {
-      "partTitle": "Bounded copies",
-      "codeHash": "17b2b13c4d7058b44239b9f9bb2900579d2be99470d4ea3bd43197d9c6b6b999",
-      "spec": {
         "template": "table",
-        "title": "Memory segment execution permissions under Write XOR Execute policy",
+        "title": "ASLR and non-executable memory",
         "columns": [
-          "Memory Segment",
-          "Writable Permission",
-          "Executable Permission",
-          "Policy Compliance"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Under this policy a page can be writable or executable but never both.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
+            "at": "say1",
+            "caption": "Address space layout randomisation (ASLR) places the stack, heap.",
             "rows": [
               {
                 "cells": [
-                  "Call Stack Segment",
-                  "Writable for Variables",
-                  "Execution Strictly Disabled",
-                  "Complies with Write XOR Execute"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Heap Allocation Space",
-                  "Writable for Dynamic Data",
-                  "Execution Strictly Disabled",
-                  "Complies with Write XOR Execute"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Code Text Segment",
-                  "Read Only Binary Data",
-                  "Executable for Machine Code",
-                  "Complies with Write XOR Execute"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Corrupted Attack Page",
-                  "Writable by Attacker",
-                  "Executable Shellcode Target",
-                  "Hardware Trap Halts Process"
+                  {
+                    "text": "bits"
+                  },
+                  {
+                    "var": "bits",
+                    "line": 1,
+                    "hit": 1
+                  }
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Executing code from a marked memory page raises an immediate hardware trap.",
-            "activeRowIndex": 3,
-            "statusBadge": "failed",
+            "at": "say2",
+            "caption": "Attackers who hijack control flow need to know where useful code is.",
             "rows": [
               {
                 "cells": [
-                  "Call Stack Segment",
-                  "Writable for Variables",
-                  "Execution Strictly Disabled",
-                  "Complies with Write XOR Execute"
+                  {
+                    "text": "bits"
+                  },
+                  {
+                    "var": "bits",
+                    "line": 2,
+                    "hit": 1
+                  }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Keeping systems patched ensures these mitigations and fixes are actually.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               },
               {
                 "cells": [
-                  "Heap Allocation Space",
-                  "Writable for Dynamic Data",
-                  "Execution Strictly Disabled",
-                  "Complies with Write XOR Execute"
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
                 ],
-                "tone": "data"
+                "tone": "ok"
               },
               {
                 "cells": [
-                  "Code Text Segment",
-                  "Read Only Binary Data",
-                  "Executable for Machine Code",
-                  "Complies with Write XOR Execute"
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
                 ],
-                "tone": "data"
+                "tone": "ok"
               },
               {
                 "cells": [
-                  "Corrupted Attack Page",
-                  "Writable by Attacker",
-                  "Executable Shellcode Target",
-                  "Hardware Trap Halts Process"
+                  {
+                    "text": "out 4"
+                  },
+                  {
+                    "out": 4
+                  }
                 ],
-                "tone": "data"
+                "tone": "ok"
               }
             ]
           }
@@ -430,101 +412,235 @@
       },
       "filled": {
         "template": "table",
-        "title": "Memory segment execution permissions under Write XOR Execute policy",
+        "title": "ASLR and non-executable memory",
         "columns": [
-          "Memory Segment",
-          "Writable Permission",
-          "Executable Permission",
-          "Policy Compliance"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Under this policy a page can be writable or executable but never both.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
+            "at": "say1",
+            "caption": "Address space layout randomisation (ASLR) places the stack, heap.",
             "rows": [
               {
                 "cells": [
-                  "Call Stack Segment",
-                  "Writable for Variables",
-                  "Execution Strictly Disabled",
-                  "Complies with Write XOR Execute"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Heap Allocation Space",
-                  "Writable for Dynamic Data",
-                  "Execution Strictly Disabled",
-                  "Complies with Write XOR Execute"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Code Text Segment",
-                  "Read Only Binary Data",
-                  "Executable for Machine Code",
-                  "Complies with Write XOR Execute"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Corrupted Attack Page",
-                  "Writable by Attacker",
-                  "Executable Shellcode Target",
-                  "Hardware Trap Halts Process"
+                  "bits",
+                  "8"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Executing code from a marked memory page raises an immediate hardware trap.",
-            "activeRowIndex": 3,
-            "statusBadge": "failed",
+            "at": "say2",
+            "caption": "Attackers who hijack control flow need to know where useful code is.",
             "rows": [
               {
                 "cells": [
-                  "Call Stack Segment",
-                  "Writable for Variables",
-                  "Execution Strictly Disabled",
-                  "Complies with Write XOR Execute"
+                  "bits",
+                  "8"
                 ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Heap Allocation Space",
-                  "Writable for Dynamic Data",
-                  "Execution Strictly Disabled",
-                  "Complies with Write XOR Execute"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Code Text Segment",
-                  "Read Only Binary Data",
-                  "Executable for Machine Code",
-                  "Complies with Write XOR Execute"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Corrupted Attack Page",
-                  "Writable by Attacker",
-                  "Executable Shellcode Target",
-                  "Hardware Trap Halts Process"
-                ],
-                "tone": "data"
+                "tone": "ok"
               }
             ]
+          },
+          {
+            "at": "say9",
+            "caption": "Keeping systems patched ensures these mitigations and fixes are actually.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  " 8 bits of randomness -> about 256 possible layouts"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "16 bits of randomness -> about 65,536 possible layouts"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "28 bits of randomness -> about 268,435,456 possible layouts"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 4",
+                  "40 bits of randomness -> about 1,099,511,627,776 possible layouts"
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Bounded copies",
+      "codeHash": "17b2b13c4d7058b44239b9f9bb2900579d2be99470d4ea3bd43197d9c6b6b999",
+      "spec": {
+        "template": "sequence",
+        "title": "Bounded copies",
+        "actors": [
+          "data",
+          "buf_size",
+          "kept"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The real fix is to never write past a buffer.",
+            "activeActor": "data",
+            "messages": [
+              {
+                "from": "data",
+                "to": "buf_size",
+                "label": {
+                  "var": "data",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "buf_size",
+                "to": "kept",
+                "label": {
+                  "var": "buf_size",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "C's strlcpy and snprintf take the buffer size, copy at most size - 1 bytes.",
+            "activeActor": "buf_size",
+            "messages": [
+              {
+                "from": "data",
+                "to": "buf_size",
+                "label": {
+                  "var": "data",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "buf_size",
+                "to": "kept",
+                "label": {
+                  "var": "buf_size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Code review should flag any copy whose length is controlled by input but.",
+            "activeActor": "kept",
+            "messages": [
+              {
+                "from": "data",
+                "to": "buf_size",
+                "label": {
+                  "var": "data",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "buf_size",
+                "to": "kept",
+                "label": {
+                  "var": "buf_size",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "Bounded copies",
+        "actors": [
+          "data",
+          "buf_size",
+          "kept"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The real fix is to never write past a buffer.",
+            "messages": [
+              {
+                "from": "data",
+                "to": "buf_size",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "data"
+              },
+              {
+                "from": "buf_size",
+                "to": "kept",
+                "label": "8",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "C's strlcpy and snprintf take the buffer size, copy at most size - 1 bytes.",
+            "messages": [
+              {
+                "from": "data",
+                "to": "buf_size",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "data"
+              },
+              {
+                "from": "buf_size",
+                "to": "kept",
+                "label": "8",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "buf_size"
+          },
+          {
+            "at": "say9",
+            "caption": "Code review should flag any copy whose length is controlled by input but.",
+            "messages": [
+              {
+                "from": "data",
+                "to": "buf_size",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "data"
+              },
+              {
+                "from": "buf_size",
+                "to": "kept",
+                "label": "8",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "kept"
           }
         ]
       }
@@ -533,108 +649,106 @@
       "partTitle": "Memory safety today",
       "codeHash": "ca100daec25d8733417c7470ffc46437700b779140987323a58dea01d1db61c5",
       "spec": {
-        "template": "flow",
-        "title": "Return-oriented programming gadget chaining bypassing non-executable memory",
-        "nodes": [
+        "template": "states",
+        "title": "Memory safety today",
+        "states": [
           {
-            "id": "smashedStack",
-            "label": "Smashed Call Stack Memory",
-            "tappable": false
+            "id": "languages",
+            "label": "languages"
           },
           {
-            "id": "popGadget",
-            "label": "ROP Gadget Pop Registers",
-            "tappable": false
+            "id": "lang",
+            "label": "lang"
           },
           {
-            "id": "syscallGadget",
-            "label": "ROP Gadget System Call Invocation",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "smashedStack",
-            "to": "popGadget",
-            "label": "Returns"
-          },
-          {
-            "from": "popGadget",
-            "to": "syscallGadget",
-            "label": "Chains"
+            "id": "bounds",
+            "label": "bounds"
           }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "A ROP gadget is a sequence of machine instructions ending with return.",
-            "activeNodes": [
-              "smashedStack",
-              "popGadget"
-            ],
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Trace how microsoft updates google during execution.",
+            "currentState": "languages",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "The processor pops the next gadget address from the stack and jumps.",
-            "activeNodes": [
-              "popGadget",
-              "syscallGadget"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Government agencies, including the US CISA, now encourage moving new code.",
+            "currentState": "lang",
+            "transition": {
+              "from": "languages",
+              "to": "lang",
+              "label": {
+                "var": "lang",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Tomorrow looks at the other half of memory safety.",
+            "currentState": "bounds",
+            "transition": {
+              "from": "lang",
+              "to": "bounds",
+              "label": {
+                "var": "bounds",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Return-oriented programming gadget chaining bypassing non-executable memory",
-        "nodes": [
+        "template": "states",
+        "title": "Memory safety today",
+        "states": [
           {
-            "id": "smashedStack",
-            "label": "Smashed Call Stack Memory",
-            "tappable": false
+            "id": "languages",
+            "label": "languages"
           },
           {
-            "id": "popGadget",
-            "label": "ROP Gadget Pop Registers",
-            "tappable": false
+            "id": "lang",
+            "label": "lang"
           },
           {
-            "id": "syscallGadget",
-            "label": "ROP Gadget System Call Invocation",
-            "tappable": false
-          }
-        ],
-        "edges": [
-          {
-            "from": "smashedStack",
-            "to": "popGadget",
-            "label": "Returns"
-          },
-          {
-            "from": "popGadget",
-            "to": "syscallGadget",
-            "label": "Chains"
+            "id": "bounds",
+            "label": "bounds"
           }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "A ROP gadget is a sequence of machine instructions ending with return.",
-            "activeNodes": [
-              "smashedStack",
-              "popGadget"
-            ],
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Trace how microsoft updates google during execution.",
+            "currentState": "languages",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "The processor pops the next gadget address from the stack and jumps.",
-            "activeNodes": [
-              "popGadget",
-              "syscallGadget"
-            ],
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Government agencies, including the US CISA, now encourage moving new code.",
+            "currentState": "lang",
+            "transition": {
+              "from": "languages",
+              "to": "lang",
+              "label": "'C'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Tomorrow looks at the other half of memory safety.",
+            "currentState": "bounds",
+            "transition": {
+              "from": "lang",
+              "to": "bounds",
+              "label": "'manual, with safer library options'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -643,224 +757,106 @@
       "partTitle": "Practice time: canaries and bounded copies",
       "codeHash": "00a41fbfe6359fd8eef7b7b81babd5ce2c32fee3c94125f5b5267af58634f9e4",
       "spec": {
-        "template": "flow",
-        "title": "Compiler Memory Hardening: Stack Protectors, ... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Practice time: canaries and bounded copies",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "worst",
+            "label": "worst"
           },
           {
-            "id": "proc",
-            "label": "2. Compiler Memory Har...",
-            "tappable": true
+            "id": "size",
+            "label": "size"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": ".0",
+            "label": ".0"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Compiler Memory Hardening: Stack Protect.",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Compiler Memory Har... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Copy_into_frame(buf_size, data, canary).",
+            "currentState": "worst",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include data that fits, data that exactly fills the buffer,.",
+            "currentState": "size",
+            "transition": {
+              "from": "worst",
+              "to": "size",
+              "label": {
+                "var": "size",
+                "line": 7,
+                "hit": 33
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Compiler Memory Hardening: Stack .",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "These simulations teach concepts.",
+            "currentState": ".0",
+            "transition": {
+              "from": "size",
+              "to": ".0",
+              "label": {
+                "var": ".0",
+                "line": 7,
+                "hit": 3
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Compiler Memory Hardening: Stack Protectors, ... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Practice time: canaries and bounded copies",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "worst",
+            "label": "worst"
           },
           {
-            "id": "proc",
-            "label": "2. Compiler Memory Har...",
-            "tappable": true
+            "id": "size",
+            "label": "size"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": ".0",
+            "label": ".0"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Compiler Memory Hardening: Stack Protect.. [D22.P6.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Compiler Memory Har... [D22.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Copy_into_frame(buf_size, data, canary).",
+            "currentState": "worst",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include data that fits, data that exactly fills the buffer,.",
+            "currentState": "size",
+            "transition": {
+              "from": "worst",
+              "to": "size",
+              "label": "9"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Compiler Memory Hardening: Stack .. [D22.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "These simulations teach concepts.",
+            "currentState": ".0",
+            "transition": {
+              "from": "size",
+              "to": ".0",
+              "label": "{'__other__': 'range_iterator'}"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

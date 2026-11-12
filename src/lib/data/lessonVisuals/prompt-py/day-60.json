@@ -1,157 +1,228 @@
 {
-  "schemaVersion": "2.0.0",
-  "course": "prompt-py",
-  "day": 60,
+  "schemaVersion": 1,
   "prefix": "prompt-py",
+  "day": 60,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "ApexPromptEngine: The Unified Architecture For Enterprise Sovereign AI",
       "codeHash": "58ea4edc053ab9638b74967e0a294a40f6159d95e151b0ae1d6ae60962716535",
       "spec": {
-        "template": "table",
-        "title": "ApexPromptEngine Unified Architecture For Sovereign AI.",
-        "columns": [
-          "Subsystem Module",
-          "Operational Mechanism",
-          "Architectural Role"
+        "template": "flow",
+        "title": "ApexPromptEngine: The Unified Architecture For Enterprise Sovere",
+        "nodes": [
+          {
+            "id": "subsystems",
+            "label": "subsystems"
+          },
+          {
+            "id": "grand_master_metrics",
+            "label": "grand_master_metrics"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "ApexPromptEngine unifies optimization safety and routing across fleets.",
-            "rows": [
+            "caption": "Over the course of sixty intensive days of rigorous engineering inquiry.",
+            "values": {
+              "subsystems": {
+                "var": "subsystems",
+                "line": 6,
+                "hit": 1
+              },
+              "grand_master_metrics": {
+                "var": "grand_master_metrics",
+                "line": 14,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 31,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "subsystems": "data",
+              "grand_master_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "MIPRO Tuning Mesh",
-                "Bayesian Search Over Instructions And Exemplars",
-                "Autonomous Self Optimization"
+                "subsystems",
+                "grand_master_metrics"
               ],
               [
-                "Input Perimeter Guard",
-                "Perplexity Anomaly And Llama Guard Inference",
-                "Eighteen Millisecond Screening"
+                "grand_master_metrics",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "The architectural blueprint of ApexPromptEngine unifies six subsystems.",
-            "rows": [
+            "caption": "ApexPromptEngine represents the culmination of autonomous artificial.",
+            "values": {
+              "subsystems": {
+                "var": "subsystems",
+                "line": 15,
+                "hit": 1
+              },
+              "grand_master_metrics": {
+                "var": "grand_master_metrics",
+                "line": 23,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 32,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "subsystems": "data",
+              "grand_master_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "In Flight Colang Rail",
-                "Declarative Dialogue State Transition Trees",
-                "Deterministic Conversation Control"
+                "subsystems",
+                "grand_master_metrics"
               ],
               [
-                "Egress Presidio Vault",
-                "PII Redaction And Canary Honeypot Tripping",
-                "Zero Sensitive Data Spillage"
+                "grand_master_metrics",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "ApexPromptEngine unifies optimization safety and routing across fleets.",
-            "rows": [
+            "at": "say15",
+            "caption": "Mastering the engineering architecture of ApexPromptEngine elevates you.",
+            "values": {
+              "subsystems": {
+                "var": "subsystems",
+                "line": 16,
+                "hit": 1
+              },
+              "grand_master_metrics": {
+                "var": "grand_master_metrics",
+                "line": 24,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 32,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "subsystems": "ok",
+              "grand_master_metrics": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Ragas Evaluation Core",
-                "Continuous Faithfulness And Relevance Auditing",
-                "One Point Four Percent Hallucination"
+                "subsystems",
+                "grand_master_metrics"
               ],
               [
-                "Pareto Cascade Router",
-                "Dynamic Multi Tier Model Allocation Engine",
-                "Seventy One Percent Cost Cut"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Architect an end to end sovereign AI platform unifying core subsystems.",
-            "rows": [
-              [
-                "OpenTelemetry Bus",
-                "Exports Real Time Distributed Traces And Metrics",
-                "Total Enterprise Transparency"
-              ],
-              [
-                "Apex Sovereign Engine",
-                "Harmonizes Six Pillars Into Autonomous Platform",
-                "Enterprise Production Grade SLA"
+                "grand_master_metrics",
+                "result"
               ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "ApexPromptEngine Unified Architecture For Sovereign AI.",
-        "columns": [
-          "Subsystem Module",
-          "Operational Mechanism",
-          "Architectural Role"
+        "template": "flow",
+        "title": "ApexPromptEngine: The Unified Architecture For Enterprise Sovere",
+        "nodes": [
+          {
+            "id": "subsystems",
+            "label": "subsystems"
+          },
+          {
+            "id": "grand_master_metrics",
+            "label": "grand_master_metrics"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "ApexPromptEngine unifies optimization safety and routing across fleets.",
-            "rows": [
+            "caption": "Over the course of sixty intensive days of rigorous engineering inquiry.",
+            "values": {
+              "subsystems": "['DSPy & MIPROv2 Autonomous Bayesian Op…",
+              "grand_master_metrics": "{'productionAccuracyScorePct': 98.9, 'a…",
+              "result": "{'capstonePlatform': 'ApexPromptEngine …"
+            },
+            "tones": {
+              "subsystems": "data",
+              "grand_master_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "MIPRO Tuning Mesh",
-                "Bayesian Search Over Instructions And Exemplars",
-                "Autonomous Self Optimization"
+                "subsystems",
+                "grand_master_metrics"
               ],
               [
-                "Input Perimeter Guard",
-                "Perplexity Anomaly And Llama Guard Inference",
-                "Eighteen Millisecond Screening"
+                "grand_master_metrics",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "The architectural blueprint of ApexPromptEngine unifies six subsystems.",
-            "rows": [
+            "caption": "ApexPromptEngine represents the culmination of autonomous artificial.",
+            "values": {
+              "subsystems": "['DSPy & MIPROv2 Autonomous Bayesian Op…",
+              "grand_master_metrics": "{'productionAccuracyScorePct': 98.9, 'a…",
+              "result": "{'capstonePlatform': 'ApexPromptEngine …"
+            },
+            "tones": {
+              "subsystems": "data",
+              "grand_master_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "In Flight Colang Rail",
-                "Declarative Dialogue State Transition Trees",
-                "Deterministic Conversation Control"
+                "subsystems",
+                "grand_master_metrics"
               ],
               [
-                "Egress Presidio Vault",
-                "PII Redaction And Canary Honeypot Tripping",
-                "Zero Sensitive Data Spillage"
+                "grand_master_metrics",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "ApexPromptEngine unifies optimization safety and routing across fleets.",
-            "rows": [
+            "at": "say15",
+            "caption": "Mastering the engineering architecture of ApexPromptEngine elevates you.",
+            "values": {
+              "subsystems": "['DSPy & MIPROv2 Autonomous Bayesian Op…",
+              "grand_master_metrics": "{'productionAccuracyScorePct': 98.9, 'a…",
+              "result": "{'capstonePlatform': 'ApexPromptEngine …"
+            },
+            "tones": {
+              "subsystems": "ok",
+              "grand_master_metrics": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Ragas Evaluation Core",
-                "Continuous Faithfulness And Relevance Auditing",
-                "One Point Four Percent Hallucination"
+                "subsystems",
+                "grand_master_metrics"
               ],
               [
-                "Pareto Cascade Router",
-                "Dynamic Multi Tier Model Allocation Engine",
-                "Seventy One Percent Cost Cut"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Architect an end to end sovereign AI platform unifying core subsystems.",
-            "rows": [
-              [
-                "OpenTelemetry Bus",
-                "Exports Real Time Distributed Traces And Metrics",
-                "Total Enterprise Transparency"
-              ],
-              [
-                "Apex Sovereign Engine",
-                "Harmonizes Six Pillars Into Autonomous Platform",
-                "Enterprise Production Grade SLA"
+                "grand_master_metrics",
+                "result"
               ]
             ]
           }
@@ -162,152 +233,162 @@
       "partTitle": "Autonomous Bayesian Self-Tuning: Closed-Loop MIPROv2 Optimization",
       "codeHash": "58ea4edc053ab9638b74967e0a294a40f6159d95e151b0ae1d6ae60962716535",
       "spec": {
-        "template": "table",
-        "title": "Autonomous Bayesian Self Tuning Closed Loop MIPRO Optimization.",
-        "columns": [
-          "Optimizer Component",
-          "Bayesian Optimization Technique",
-          "Tuning Convergence SLA"
+        "template": "sequence",
+        "title": "Autonomous Bayesian Self-Tuning: Closed-Loop MIPROv2 Optimizatio",
+        "actors": [
+          "subsystems",
+          "grand_master_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "MIPRO Engine optimizes prompt instructions and exemplars using search.",
-            "rows": [
-              [
-                "MIPRO Search Space",
-                "Joint Parameterization Over Instructions And Demos",
-                "Continuous Global Search"
-              ],
-              [
-                "Gaussian Surrogate Model",
-                "Balances Exploration And Exploitation Efficiently",
-                "Under One Hundred Trials SLA"
-              ]
+            "caption": "At the intellectual heart of the ApexPromptEngine lies its ability.",
+            "activeActor": "subsystems",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": {
+                  "var": "subsystems",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": {
+                  "var": "grand_master_metrics",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Multi stage Instruction and Demonstration Optimization tunes prompts.",
-            "rows": [
-              [
-                "Bootstrap Trace Miner",
-                "Extracts High Signal Few Shot Demonstrations",
-                "Superhuman Few Shot Synthesis"
-              ],
-              [
-                "Pareto Token Penalty",
-                "Penalizes Gratuitous Prompt Token Bloat",
-                "Compact High Value Prompts"
-              ]
+            "caption": "Multi-stage Instruction and Demonstration Optimization (MIPROv2) treats.",
+            "activeActor": "grand_master_metrics",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": {
+                  "var": "subsystems",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": {
+                  "var": "grand_master_metrics",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "MIPRO Engine optimizes prompt instructions and exemplars using search.",
-            "rows": [
-              [
-                "Continuous Recalibrator",
-                "Reruns Optimization On Upstream Performance Drops",
-                "Sub Thirty Minute Adaptation"
-              ],
-              [
-                "Versioned Prompt Registry",
-                "Archives Git Hashes And Optimization Scores",
-                "Full Reproducibility SLA"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement a MIPRO Bayesian prompt optimizer maximizing task metrics.",
-            "rows": [
-              [
-                "Cross Model Porter",
-                "Adapts Prompts To Unique Vendor Attention Spaces",
-                "Zero Friction Vendor Migration"
-              ],
-              [
-                "Bayesian Optimization Core",
-                "Discovers Non Intuitive Phrasing Combinations",
-                "Mastery Of Prompt Tuning SLA"
-              ]
+            "at": "say14",
+            "caption": "Mastering closed-loop Bayesian prompt optimization frees you from.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": {
+                  "var": "subsystems",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": {
+                  "var": "grand_master_metrics",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Autonomous Bayesian Self Tuning Closed Loop MIPRO Optimization.",
-        "columns": [
-          "Optimizer Component",
-          "Bayesian Optimization Technique",
-          "Tuning Convergence SLA"
+        "template": "sequence",
+        "title": "Autonomous Bayesian Self-Tuning: Closed-Loop MIPROv2 Optimizatio",
+        "actors": [
+          "subsystems",
+          "grand_master_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "MIPRO Engine optimizes prompt instructions and exemplars using search.",
-            "rows": [
-              [
-                "MIPRO Search Space",
-                "Joint Parameterization Over Instructions And Demos",
-                "Continuous Global Search"
-              ],
-              [
-                "Gaussian Surrogate Model",
-                "Balances Exploration And Exploitation Efficiently",
-                "Under One Hundred Trials SLA"
-              ]
-            ]
+            "caption": "At the intellectual heart of the ApexPromptEngine lies its ability.",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": "['DSPy & MIPROv2 Autonomous Bayesian Op…",
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": "{'productionAccuracyScorePct': 98.9, 'a…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "subsystems"
           },
           {
             "at": "say2",
-            "caption": "Multi stage Instruction and Demonstration Optimization tunes prompts.",
-            "rows": [
-              [
-                "Bootstrap Trace Miner",
-                "Extracts High Signal Few Shot Demonstrations",
-                "Superhuman Few Shot Synthesis"
-              ],
-              [
-                "Pareto Token Penalty",
-                "Penalizes Gratuitous Prompt Token Bloat",
-                "Compact High Value Prompts"
-              ]
-            ]
+            "caption": "Multi-stage Instruction and Demonstration Optimization (MIPROv2) treats.",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": "['DSPy & MIPROv2 Autonomous Bayesian Op…",
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": "{'productionAccuracyScorePct': 98.9, 'a…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "grand_master_metrics"
           },
           {
-            "at": "example",
-            "caption": "MIPRO Engine optimizes prompt instructions and exemplars using search.",
-            "rows": [
-              [
-                "Continuous Recalibrator",
-                "Reruns Optimization On Upstream Performance Drops",
-                "Sub Thirty Minute Adaptation"
-              ],
-              [
-                "Versioned Prompt Registry",
-                "Archives Git Hashes And Optimization Scores",
-                "Full Reproducibility SLA"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement a MIPRO Bayesian prompt optimizer maximizing task metrics.",
-            "rows": [
-              [
-                "Cross Model Porter",
-                "Adapts Prompts To Unique Vendor Attention Spaces",
-                "Zero Friction Vendor Migration"
-              ],
-              [
-                "Bayesian Optimization Core",
-                "Discovers Non Intuitive Phrasing Combinations",
-                "Mastery Of Prompt Tuning SLA"
-              ]
-            ]
+            "at": "say14",
+            "caption": "Mastering closed-loop Bayesian prompt optimization frees you from.",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": "['DSPy & MIPROv2 Autonomous Bayesian Op…",
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": "{'productionAccuracyScorePct': 98.9, 'a…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -316,152 +397,162 @@
       "partTitle": "Synchronized Defense In Depth: Pre-Flight Ingress And In-Flight Execution",
       "codeHash": "58ea4edc053ab9638b74967e0a294a40f6159d95e151b0ae1d6ae60962716535",
       "spec": {
-        "template": "table",
-        "title": "Synchronized Defense In Depth Ingress And Runtime Guardrails.",
-        "columns": [
-          "Defense Tier",
-          "Inspection Primitive",
-          "Neutralization Speed SLA"
+        "template": "sequence",
+        "title": "Synchronized Defense In Depth: Pre-Flight Ingress And In-Flight ",
+        "actors": [
+          "subsystems",
+          "grand_master_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Perimeter filters and Colang dialogue rails neutralize threats in speed.",
-            "rows": [
-              [
-                "Perplexity Anomaly Gate",
-                "Sliding Window Surprisal Scoring Over Prompts",
-                "Sub Two Millisecond Rejection"
-              ],
-              [
-                "Llama Guard Classifier",
-                "Categorizes Prompts Across Fourteen Hazard Types",
-                "Eighteen Milliseconds SLA"
-              ]
+            "caption": "An enterprise foundation model platform operating in production.",
+            "activeActor": "subsystems",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": {
+                  "var": "subsystems",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": {
+                  "var": "grand_master_metrics",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "The pre flight input interception mesh operates at the network gateway.",
-            "rows": [
-              [
-                "Obfuscation Normalizer",
-                "Decodes Base Sixty Four And Unicode Smuggling",
-                "Immediate Perimeter Defense"
-              ],
-              [
-                "Colang State Controller",
-                "Steers Dialogue Away From Unauthorized Topics",
-                "Zero Policy Drift Tolerance"
-              ]
+            "caption": "The pre-flight input interception mesh operates at the network gateway.",
+            "activeActor": "grand_master_metrics",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": {
+                  "var": "subsystems",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": {
+                  "var": "grand_master_metrics",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Perimeter filters and Colang dialogue rails neutralize threats in speed.",
-            "rows": [
-              [
-                "Tool Schema Gatekeeper",
-                "Validates Parameter Types And Enforces RBAC",
-                "Zero Injection Database Calls"
-              ],
-              [
-                "gVisor Ephemeral Sandbox",
-                "Isolates Python Code In Containerized Kernel",
-                "Zero OS Spillage Guarantee"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy synchronized ingress filters and sandboxed execution environments.",
-            "rows": [
-              [
-                "Traceback Self Healer",
-                "Parses Crash Lines And Synthesizes Unified Diffs",
-                "Autonomous Exception Fixes"
-              ],
-              [
-                "Defense In Depth Mesh",
-                "Envelopes Model In Synchronized Security Layers",
-                "Uncompromising Fleet Safety SLA"
-              ]
+            "at": "say15",
+            "caption": "Mastering synchronized defense-in-depth architecture guarantees that your.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": {
+                  "var": "subsystems",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": {
+                  "var": "grand_master_metrics",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Synchronized Defense In Depth Ingress And Runtime Guardrails.",
-        "columns": [
-          "Defense Tier",
-          "Inspection Primitive",
-          "Neutralization Speed SLA"
+        "template": "sequence",
+        "title": "Synchronized Defense In Depth: Pre-Flight Ingress And In-Flight ",
+        "actors": [
+          "subsystems",
+          "grand_master_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Perimeter filters and Colang dialogue rails neutralize threats in speed.",
-            "rows": [
-              [
-                "Perplexity Anomaly Gate",
-                "Sliding Window Surprisal Scoring Over Prompts",
-                "Sub Two Millisecond Rejection"
-              ],
-              [
-                "Llama Guard Classifier",
-                "Categorizes Prompts Across Fourteen Hazard Types",
-                "Eighteen Milliseconds SLA"
-              ]
-            ]
+            "caption": "An enterprise foundation model platform operating in production.",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": "['DSPy & MIPROv2 Autonomous Bayesian Op…",
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": "{'productionAccuracyScorePct': 98.9, 'a…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "subsystems"
           },
           {
             "at": "say2",
-            "caption": "The pre flight input interception mesh operates at the network gateway.",
-            "rows": [
-              [
-                "Obfuscation Normalizer",
-                "Decodes Base Sixty Four And Unicode Smuggling",
-                "Immediate Perimeter Defense"
-              ],
-              [
-                "Colang State Controller",
-                "Steers Dialogue Away From Unauthorized Topics",
-                "Zero Policy Drift Tolerance"
-              ]
-            ]
+            "caption": "The pre-flight input interception mesh operates at the network gateway.",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": "['DSPy & MIPROv2 Autonomous Bayesian Op…",
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": "{'productionAccuracyScorePct': 98.9, 'a…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "grand_master_metrics"
           },
           {
-            "at": "example",
-            "caption": "Perimeter filters and Colang dialogue rails neutralize threats in speed.",
-            "rows": [
-              [
-                "Tool Schema Gatekeeper",
-                "Validates Parameter Types And Enforces RBAC",
-                "Zero Injection Database Calls"
-              ],
-              [
-                "gVisor Ephemeral Sandbox",
-                "Isolates Python Code In Containerized Kernel",
-                "Zero OS Spillage Guarantee"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy synchronized ingress filters and sandboxed execution environments.",
-            "rows": [
-              [
-                "Traceback Self Healer",
-                "Parses Crash Lines And Synthesizes Unified Diffs",
-                "Autonomous Exception Fixes"
-              ],
-              [
-                "Defense In Depth Mesh",
-                "Envelopes Model In Synchronized Security Layers",
-                "Uncompromising Fleet Safety SLA"
-              ]
-            ]
+            "at": "say15",
+            "caption": "Mastering synchronized defense-in-depth architecture guarantees that your.",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": "['DSPy & MIPROv2 Autonomous Bayesian Op…",
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": "{'productionAccuracyScorePct': 98.9, 'a…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -470,152 +561,162 @@
       "partTitle": "Post-Generation Sanitization, Canary Honeypots, And Continuous Evaluation",
       "codeHash": "58ea4edc053ab9638b74967e0a294a40f6159d95e151b0ae1d6ae60962716535",
       "spec": {
-        "template": "table",
-        "title": "Post Generation Sanitization Canary Honeypots And Evaluation.",
-        "columns": [
-          "Data Protection Core",
-          "Forensic Technique",
-          "Statutory Compliance SLA"
+        "template": "sequence",
+        "title": "Post-Generation Sanitization, Canary Honeypots, And Continuous E",
+        "actors": [
+          "subsystems",
+          "grand_master_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Canary tripwires detect prompt extraction attempts with zero leakage.",
-            "rows": [
-              [
-                "Canary Honeypot Core",
-                "Cryptographic Nonces Embedded In Instructions",
-                "Zero Prompt Extraction Spillage"
-              ],
-              [
-                "Presidio Entity Scrubber",
-                "Replaces PII With Contextual Synthetic Placeholders",
-                "GDPR And HIPAA Privacy Standard"
-              ]
+            "caption": "The final defensive checkpoint in the ApexPromptEngine operates.",
+            "activeActor": "subsystems",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": {
+                  "var": "subsystems",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": {
+                  "var": "grand_master_metrics",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Canary honeypot tokens serve as cryptographic tripwires for prompts.",
-            "rows": [
-              [
-                "Entropy Secret Scanner",
-                "Identifies High Surprisal API Keys And Certs",
-                "Instantaneous Key Redaction"
-              ],
-              [
-                "Ragas Faithfulness Rail",
-                "Decomposes Completions Into Verifiable Claims",
-                "Ninety Eight Percent Precision"
-              ]
+            "caption": "Canary honeypot tokens serve as cryptographic tripwires protecting.",
+            "activeActor": "grand_master_metrics",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": {
+                  "var": "subsystems",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": {
+                  "var": "grand_master_metrics",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Canary tripwires detect prompt extraction attempts with zero leakage.",
-            "rows": [
-              [
-                "Cryptographic Ledger",
-                "Archives Append Only SHA Two Fifty Six Provenance",
-                "SOC Two Compliance Certification"
-              ],
-              [
-                "Automated CI Regression",
-                "Converts Intercepted Breaches Into Unit Tests",
-                "Permanent Vulnerability Fix"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Construct an egress scrubber masking sensitive records and canary tokens.",
-            "rows": [
-              [
-                "Streaming Token Masker",
-                "Scrubs Data In Sliding Sub Millisecond Windows",
-                "Zero Latency Impact On Streams"
-              ],
-              [
-                "Egress Governance Shield",
-                "Guarantees Inviolability Of Enterprise Secrets",
-                "Mastery Of AI Data Governance"
-              ]
+            "at": "say16",
+            "caption": "Mastering post-generation sanitization, canary tripwires, and continuous.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": {
+                  "var": "subsystems",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": {
+                  "var": "grand_master_metrics",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Post Generation Sanitization Canary Honeypots And Evaluation.",
-        "columns": [
-          "Data Protection Core",
-          "Forensic Technique",
-          "Statutory Compliance SLA"
+        "template": "sequence",
+        "title": "Post-Generation Sanitization, Canary Honeypots, And Continuous E",
+        "actors": [
+          "subsystems",
+          "grand_master_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Canary tripwires detect prompt extraction attempts with zero leakage.",
-            "rows": [
-              [
-                "Canary Honeypot Core",
-                "Cryptographic Nonces Embedded In Instructions",
-                "Zero Prompt Extraction Spillage"
-              ],
-              [
-                "Presidio Entity Scrubber",
-                "Replaces PII With Contextual Synthetic Placeholders",
-                "GDPR And HIPAA Privacy Standard"
-              ]
-            ]
+            "caption": "The final defensive checkpoint in the ApexPromptEngine operates.",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": "['DSPy & MIPROv2 Autonomous Bayesian Op…",
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": "{'productionAccuracyScorePct': 98.9, 'a…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "subsystems"
           },
           {
             "at": "say2",
-            "caption": "Canary honeypot tokens serve as cryptographic tripwires for prompts.",
-            "rows": [
-              [
-                "Entropy Secret Scanner",
-                "Identifies High Surprisal API Keys And Certs",
-                "Instantaneous Key Redaction"
-              ],
-              [
-                "Ragas Faithfulness Rail",
-                "Decomposes Completions Into Verifiable Claims",
-                "Ninety Eight Percent Precision"
-              ]
-            ]
+            "caption": "Canary honeypot tokens serve as cryptographic tripwires protecting.",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": "['DSPy & MIPROv2 Autonomous Bayesian Op…",
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": "{'productionAccuracyScorePct': 98.9, 'a…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "grand_master_metrics"
           },
           {
-            "at": "example",
-            "caption": "Canary tripwires detect prompt extraction attempts with zero leakage.",
-            "rows": [
-              [
-                "Cryptographic Ledger",
-                "Archives Append Only SHA Two Fifty Six Provenance",
-                "SOC Two Compliance Certification"
-              ],
-              [
-                "Automated CI Regression",
-                "Converts Intercepted Breaches Into Unit Tests",
-                "Permanent Vulnerability Fix"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Construct an egress scrubber masking sensitive records and canary tokens.",
-            "rows": [
-              [
-                "Streaming Token Masker",
-                "Scrubs Data In Sliding Sub Millisecond Windows",
-                "Zero Latency Impact On Streams"
-              ],
-              [
-                "Egress Governance Shield",
-                "Guarantees Inviolability Of Enterprise Secrets",
-                "Mastery Of AI Data Governance"
-              ]
-            ]
+            "at": "say16",
+            "caption": "Mastering post-generation sanitization, canary tripwires, and continuous.",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": "['DSPy & MIPROv2 Autonomous Bayesian Op…",
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": "{'productionAccuracyScorePct': 98.9, 'a…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -624,152 +725,162 @@
       "partTitle": "The Grand Master Capstone: ApexPromptEngine Fleet Graduation & Sovereign Mastery",
       "codeHash": "58ea4edc053ab9638b74967e0a294a40f6159d95e151b0ae1d6ae60962716535",
       "spec": {
-        "template": "table",
-        "title": "Grand Master Capstone ApexPromptEngine Fleet Graduation.",
-        "columns": [
-          "Capstone Pillar",
-          "Mastery Benchmark Metric",
-          "Enterprise Certification SLA"
+        "template": "sequence",
+        "title": "The Grand Master Capstone: ApexPromptEngine Fleet Graduation & S",
+        "actors": [
+          "subsystems",
+          "grand_master_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "ApexPromptEngine graduates Course Thirty Three with ninety eight percent.",
-            "rows": [
-              [
-                "Production Accuracy Core",
-                "Multi Domain Enterprise Problem Solving Score",
-                "Ninety Eight Point Nine Percent"
-              ],
-              [
-                "Attack Deflection Mesh",
-                "Deflects Adversarial Injections And Jailbreaks",
-                "Ninety Nine Point Eight Percent"
-              ]
+            "caption": "Translating Bayesian prompt optimization, multi-tier defense meshes.",
+            "activeActor": "subsystems",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": {
+                  "var": "subsystems",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": {
+                  "var": "grand_master_metrics",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "The integrated engineering architecture of ApexPromptEngine harmonizes.",
-            "rows": [
-              [
-                "FinOps Cost Reducer",
-                "Blended Multi Tier Computational Cost Reduction",
-                "Seventy One Point Four Percent"
-              ],
-              [
-                "End To End P Ninety Five",
-                "Full Ingress Defense And Inference Latency",
-                "Twenty Four Milliseconds SLA"
-              ]
+            "caption": "The integrated engineering architecture of ApexPromptEngine harmonizes six.",
+            "activeActor": "grand_master_metrics",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": {
+                  "var": "subsystems",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": {
+                  "var": "grand_master_metrics",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "ApexPromptEngine graduates Course Thirty Three with ninety eight percent.",
-            "rows": [
-              [
-                "Zero Day Immunity Core",
-                "Autonomous Red Teaming Immunization Rate",
-                "Ninety Nine Point One Percent"
-              ],
-              [
-                "Canary Extraction Rate",
-                "Cryptographic Honeypot Protection Validation",
-                "Zero Point Zero Percent Leakage"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy the complete Grand Master Capstone engine and certify mastery.",
-            "rows": [
-              [
-                "ApexPromptEngine Mesh",
-                "Harmonizes Sixty Days Of Engineering Excellence",
-                "One Hundred Percent Complete"
-              ],
-              [
-                "Grand Master Architect",
-                "Conferral Of Prestigious Industry Certification",
-                "Mastery Of Sovereign AI Systems"
-              ]
+            "at": "say14",
+            "caption": "Graduating as a Grand Master Prompt Systems Architect marks the transition.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": {
+                  "var": "subsystems",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": {
+                  "var": "grand_master_metrics",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Grand Master Capstone ApexPromptEngine Fleet Graduation.",
-        "columns": [
-          "Capstone Pillar",
-          "Mastery Benchmark Metric",
-          "Enterprise Certification SLA"
+        "template": "sequence",
+        "title": "The Grand Master Capstone: ApexPromptEngine Fleet Graduation & S",
+        "actors": [
+          "subsystems",
+          "grand_master_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "ApexPromptEngine graduates Course Thirty Three with ninety eight percent.",
-            "rows": [
-              [
-                "Production Accuracy Core",
-                "Multi Domain Enterprise Problem Solving Score",
-                "Ninety Eight Point Nine Percent"
-              ],
-              [
-                "Attack Deflection Mesh",
-                "Deflects Adversarial Injections And Jailbreaks",
-                "Ninety Nine Point Eight Percent"
-              ]
-            ]
+            "caption": "Translating Bayesian prompt optimization, multi-tier defense meshes.",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": "['DSPy & MIPROv2 Autonomous Bayesian Op…",
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": "{'productionAccuracyScorePct': 98.9, 'a…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "subsystems"
           },
           {
             "at": "say2",
-            "caption": "The integrated engineering architecture of ApexPromptEngine harmonizes.",
-            "rows": [
-              [
-                "FinOps Cost Reducer",
-                "Blended Multi Tier Computational Cost Reduction",
-                "Seventy One Point Four Percent"
-              ],
-              [
-                "End To End P Ninety Five",
-                "Full Ingress Defense And Inference Latency",
-                "Twenty Four Milliseconds SLA"
-              ]
-            ]
+            "caption": "The integrated engineering architecture of ApexPromptEngine harmonizes six.",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": "['DSPy & MIPROv2 Autonomous Bayesian Op…",
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": "{'productionAccuracyScorePct': 98.9, 'a…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "grand_master_metrics"
           },
           {
-            "at": "example",
-            "caption": "ApexPromptEngine graduates Course Thirty Three with ninety eight percent.",
-            "rows": [
-              [
-                "Zero Day Immunity Core",
-                "Autonomous Red Teaming Immunization Rate",
-                "Ninety Nine Point One Percent"
-              ],
-              [
-                "Canary Extraction Rate",
-                "Cryptographic Honeypot Protection Validation",
-                "Zero Point Zero Percent Leakage"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy the complete Grand Master Capstone engine and certify mastery.",
-            "rows": [
-              [
-                "ApexPromptEngine Mesh",
-                "Harmonizes Sixty Days Of Engineering Excellence",
-                "One Hundred Percent Complete"
-              ],
-              [
-                "Grand Master Architect",
-                "Conferral Of Prestigious Industry Certification",
-                "Mastery Of Sovereign AI Systems"
-              ]
-            ]
+            "at": "say14",
+            "caption": "Graduating as a Grand Master Prompt Systems Architect marks the transition.",
+            "messages": [
+              {
+                "from": "subsystems",
+                "to": "grand_master_metrics",
+                "label": "['DSPy & MIPROv2 Autonomous Bayesian Op…",
+                "tone": "data"
+              },
+              {
+                "from": "grand_master_metrics",
+                "to": "result",
+                "label": "{'productionAccuracyScorePct': 98.9, 'a…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }

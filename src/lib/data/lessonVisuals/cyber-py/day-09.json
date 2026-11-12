@@ -2,173 +2,113 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 9,
-  "promptSha": "0d1102ae8e5386aed09df8933c41e06f78d5eab149e5484d9b7cfadb832444c7",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What a JWT is",
       "codeHash": "50424734cd2f064d5ef13f62b804bb6015dcfdc5b261aa2f4c235e4b1397efd1",
       "spec": {
-        "template": "table",
-        "title": "JSON Web Token structural anatomy and component encoding breakdown",
-        "columns": [
-          "Component",
-          "Encoding Format",
-          "Typical Content",
-          "Cryptographic Role"
+        "template": "states",
+        "title": "What a JWT is",
+        "states": [
+          {
+            "id": "obj",
+            "label": "obj"
+          },
+          {
+            "id": "token",
+            "label": "token"
+          },
+          {
+            "id": "payload",
+            "label": "payload"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A standard token consists of three distinct components separated by dots.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Header",
-                  "Base64URL JSON",
-                  "typ: JWT, alg: RS256",
-                  "Specifies cryptographic signing algorithm"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Payload",
-                  "Base64URL JSON",
-                  "sub, role, exp claims",
-                  "Transmits application identity claims"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Signature",
-                  "Cryptographic Binary",
-                  "HMAC or RSA signature",
-                  "Validates token integrity and prevents edits"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "A JSON Web Token (JWT) is a compact token with three parts separated by dots.",
+            "currentState": "obj",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "The signature mathematically guarantees token integrity against tampering.",
-            "activeRowIndex": 2,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Header",
-                  "Base64URL JSON",
-                  "typ: JWT, alg: RS256",
-                  "Specifies cryptographic signing algorithm"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Payload",
-                  "Base64URL JSON",
-                  "sub, role, exp claims",
-                  "Transmits application identity claims"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Signature",
-                  "Cryptographic Binary",
-                  "HMAC or RSA signature",
-                  "Validates token integrity and prevents edits"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "The header names the signing algorithm.",
+            "currentState": "token",
+            "transition": {
+              "from": "obj",
+              "to": "token",
+              "label": {
+                "var": "token",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Tokens are often sent in the Authorization header as \"Bearer <token>\".",
+            "currentState": "payload",
+            "transition": {
+              "from": "token",
+              "to": "payload",
+              "label": {
+                "var": "payload",
+                "line": 10,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "JSON Web Token structural anatomy and component encoding breakdown",
-        "columns": [
-          "Component",
-          "Encoding Format",
-          "Typical Content",
-          "Cryptographic Role"
+        "template": "states",
+        "title": "What a JWT is",
+        "states": [
+          {
+            "id": "obj",
+            "label": "obj"
+          },
+          {
+            "id": "token",
+            "label": "token"
+          },
+          {
+            "id": "payload",
+            "label": "payload"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A standard token consists of three distinct components separated by dots.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Header",
-                  "Base64URL JSON",
-                  "typ: JWT, alg: RS256",
-                  "Specifies cryptographic signing algorithm"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Payload",
-                  "Base64URL JSON",
-                  "sub, role, exp claims",
-                  "Transmits application identity claims"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Signature",
-                  "Cryptographic Binary",
-                  "HMAC or RSA signature",
-                  "Validates token integrity and prevents edits"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "A JSON Web Token (JWT) is a compact token with three parts separated by dots.",
+            "currentState": "obj",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "The signature mathematically guarantees token integrity against tampering.",
-            "activeRowIndex": 2,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Header",
-                  "Base64URL JSON",
-                  "typ: JWT, alg: RS256",
-                  "Specifies cryptographic signing algorithm"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Payload",
-                  "Base64URL JSON",
-                  "sub, role, exp claims",
-                  "Transmits application identity claims"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Signature",
-                  "Cryptographic Binary",
-                  "HMAC or RSA signature",
-                  "Validates token integrity and prevents edits"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "The header names the signing algorithm.",
+            "currentState": "token",
+            "transition": {
+              "from": "obj",
+              "to": "token",
+              "label": "'eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVC…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Tokens are often sent in the Authorization header as \"Bearer <token>\".",
+            "currentState": "payload",
+            "transition": {
+              "from": "token",
+              "to": "payload",
+              "label": "'eyJzdWIiOiAidTQyIiwgInJvbGUiOiAidXNlci…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -177,150 +117,270 @@
       "partTitle": "Verifying an HS256 signature",
       "codeHash": "f8939627913e602742a2905e194da7b22b5cf4f3dcb8c3fae75188a7bd0ee337",
       "spec": {
-        "template": "compare",
-        "title": "Symmetric HS256 shared secret versus asymmetric RS256 key pair signing",
-        "left": {
-          "title": "Symmetric HS256 Signing",
-          "items": [
-            "Single shared secret key for signing and verifying",
-            "Shared secret must exist across all verifying services",
-            "Compromising one service exposes the enterprise secret"
-          ]
-        },
-        "right": {
-          "title": "Asymmetric RS256 Signing",
-          "items": [
-            "Private key signs tokens in secure auth server",
-            "Public keys distributed via JWKS for verification",
-            "Service compromise cannot forge administrative tokens"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Verifying an HS256 signature",
+        "states": [
           {
-            "at": "say3",
-            "caption": "Shared secrets introduce risks across microservice environments.",
-            "highlightSide": "left",
-            "statusBadge": "failed"
+            "id": "secret",
+            "label": "secret"
           },
           {
-            "at": "say6",
-            "caption": "Microservices verify tokens using distributed public key sets.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "data",
+            "label": "data"
+          },
+          {
+            "id": "h",
+            "label": "h"
           }
         ],
-        "leftLabel": "Symmetric HS256 Signing",
-        "rightLabel": "Asymmetric RS256 Signing"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The server computes HMAC-SHA256(secret, header + \".",
+            "currentState": "secret",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "If an attacker changes the payload (for example role to admin),.",
+            "currentState": "data",
+            "transition": {
+              "from": "secret",
+              "to": "data",
+              "label": {
+                "var": "data",
+                "line": 6,
+                "hit": 3
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Only after verification should the application read claims such as role.",
+            "currentState": "h",
+            "transition": {
+              "from": "data",
+              "to": "h",
+              "label": {
+                "var": "h",
+                "line": 10,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Symmetric HS256 shared secret versus asymmetric RS256 key pair signing",
-        "left": {
-          "title": "Symmetric HS256 Signing",
-          "items": [
-            "Single shared secret key for signing and verifying",
-            "Shared secret must exist across all verifying services",
-            "Compromising one service exposes the enterprise secret"
-          ]
-        },
-        "right": {
-          "title": "Asymmetric RS256 Signing",
-          "items": [
-            "Private key signs tokens in secure auth server",
-            "Public keys distributed via JWKS for verification",
-            "Service compromise cannot forge administrative tokens"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Verifying an HS256 signature",
+        "states": [
           {
-            "at": "say3",
-            "caption": "Shared secrets introduce risks across microservice environments.",
-            "highlightSide": "left",
-            "statusBadge": "failed"
+            "id": "secret",
+            "label": "secret"
           },
           {
-            "at": "say6",
-            "caption": "Microservices verify tokens using distributed public key sets.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "data",
+            "label": "data"
+          },
+          {
+            "id": "h",
+            "label": "h"
           }
         ],
-        "leftLabel": "Symmetric HS256 Signing",
-        "rightLabel": "Asymmetric RS256 Signing"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The server computes HMAC-SHA256(secret, header + \".",
+            "currentState": "secret",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "If an attacker changes the payload (for example role to admin),.",
+            "currentState": "data",
+            "transition": {
+              "from": "secret",
+              "to": "data",
+              "label": "{'__other__': 'bytes'}"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Only after verification should the application read claims such as role.",
+            "currentState": "h",
+            "transition": {
+              "from": "data",
+              "to": "h",
+              "label": "'eyJhbGciOiAiSFMyNTYifQ'"
+            },
+            "tone": "ok"
+          }
+        ]
       }
     },
     {
       "partTitle": "The \"alg: none\" attack",
       "codeHash": "dba4d57e3bbbb3811c54a3bad2ff112a947292cca0d82778f6869cb0f3065e87",
       "spec": {
-        "template": "states",
-        "title": "Algorithm none signature bypass vulnerability and hardened validation states",
-        "states": [
+        "template": "boxes",
+        "title": "The \"alg: none\" attack",
+        "boxes": [
           {
-            "id": "tamperedToken",
-            "label": "Attacker Forges Admin Role with Alg None"
+            "id": "obj",
+            "label": "obj"
           },
           {
-            "id": "flawedValidator",
-            "label": "Flawed Validator Trusts Header Alg Claim"
+            "id": "forged",
+            "label": "forged"
           },
           {
-            "id": "hardenedAllowlist",
-            "label": "Hardened Validator Enforces Explicit Allowlist"
-          },
-          {
-            "id": "tokenRejected",
-            "label": "Unsecured None Algorithm Rejected with Alert"
+            "id": "header",
+            "label": "header"
           }
         ],
         "steps": [
           {
-            "at": "say6",
-            "caption": "Attackers forge admin roles by setting the algorithm to none.",
-            "activeStateId": "tamperedToken",
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "The JWT standard allows \"alg\".",
+            "values": {
+              "obj": {
+                "var": "obj",
+                "line": 4,
+                "hit": 2
+              },
+              "forged": {
+                "var": "forged",
+                "line": 5,
+                "hit": 1
+              },
+              "header": {
+                "var": "header",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "obj": "data",
+              "forged": "data",
+              "header": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "An attacker could change the header to \"none\", change the payload to role.",
+            "values": {
+              "obj": {
+                "var": "obj",
+                "line": 4,
+                "hit": 3
+              },
+              "forged": {
+                "var": "forged",
+                "line": 6,
+                "hit": 1
+              },
+              "header": {
+                "var": "header",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "obj": "data",
+              "forged": "data",
+              "header": "data"
+            }
           },
           {
             "at": "say9",
-            "caption": "Any token presenting algorithm none must be rejected immediately.",
-            "activeStateId": "tokenRejected",
-            "statusBadge": "completed"
+            "caption": "Security tests should include an \"alg.",
+            "values": {
+              "obj": {
+                "var": "obj",
+                "line": 4,
+                "hit": 3
+              },
+              "forged": {
+                "var": "forged",
+                "line": 7,
+                "hit": 1
+              },
+              "header": {
+                "var": "header",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "obj": "ok",
+              "forged": "ok",
+              "header": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Algorithm none signature bypass vulnerability and hardened validation states",
-        "states": [
+        "template": "boxes",
+        "title": "The \"alg: none\" attack",
+        "boxes": [
           {
-            "id": "tamperedToken",
-            "label": "Attacker Forges Admin Role with Alg None"
+            "id": "obj",
+            "label": "obj"
           },
           {
-            "id": "flawedValidator",
-            "label": "Flawed Validator Trusts Header Alg Claim"
+            "id": "forged",
+            "label": "forged"
           },
           {
-            "id": "hardenedAllowlist",
-            "label": "Hardened Validator Enforces Explicit Allowlist"
-          },
-          {
-            "id": "tokenRejected",
-            "label": "Unsecured None Algorithm Rejected with Alert"
+            "id": "header",
+            "label": "header"
           }
         ],
         "steps": [
           {
-            "at": "say6",
-            "caption": "Attackers forge admin roles by setting the algorithm to none.",
-            "activeStateId": "tamperedToken",
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "The JWT standard allows \"alg\".",
+            "values": {
+              "obj": "{'alg': 'none'}",
+              "forged": "'eyJhbGciOiAibm9uZSJ9.eyJzdWIiOiAidTQyI…",
+              "header": "{'alg': 'none'}"
+            },
+            "tones": {
+              "obj": "data",
+              "forged": "data",
+              "header": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "An attacker could change the header to \"none\", change the payload to role.",
+            "values": {
+              "obj": "{'sub': 'u42', 'role': 'admin'}",
+              "forged": "'eyJhbGciOiAibm9uZSJ9.eyJzdWIiOiAidTQyI…",
+              "header": "{'alg': 'none'}"
+            },
+            "tones": {
+              "obj": "data",
+              "forged": "data",
+              "header": "data"
+            }
           },
           {
             "at": "say9",
-            "caption": "Any token presenting algorithm none must be rejected immediately.",
-            "activeStateId": "tokenRejected",
-            "statusBadge": "completed"
+            "caption": "Security tests should include an \"alg.",
+            "values": {
+              "obj": "{'sub': 'u42', 'role': 'admin'}",
+              "forged": "'eyJhbGciOiAibm9uZSJ9.eyJzdWIiOiAidTQyI…",
+              "header": "{'alg': 'none'}"
+            },
+            "tones": {
+              "obj": "ok",
+              "forged": "ok",
+              "header": "ok"
+            }
           }
         ]
       }
@@ -329,118 +389,222 @@
       "partTitle": "Expiry and revocation",
       "codeHash": "2b1601dc843abef677864da5fa90bf4497e881c313e0522c5e02303db6191929",
       "spec": {
-        "template": "sequence",
-        "title": "Key confusion algorithm substitution attack and mitigation sequence",
-        "actors": [
+        "template": "flow",
+        "title": "Expiry and revocation",
+        "nodes": [
           {
-            "id": "adversary",
-            "label": "Attacker"
+            "id": "payload",
+            "label": "payload"
           },
           {
-            "id": "vulnServer",
-            "label": "Vulnerable API"
+            "id": "now",
+            "label": "now"
           },
           {
-            "id": "hardenedServer",
-            "label": "Hardened API Guard"
-          }
-        ],
-        "messages": [
-          {
-            "from": "adversary",
-            "to": "vulnServer",
-            "label": "Forge Token Signed with Public Key as HMAC Secret",
-            "tone": "error"
-          },
-          {
-            "from": "vulnServer",
-            "to": "adversary",
-            "label": "Flawed Server Accepts Mismatched HMAC Verification",
-            "tone": "error"
-          },
-          {
-            "from": "adversary",
-            "to": "hardenedServer",
-            "label": "Submit Confused Algorithm Token to Hardened Guard",
-            "tone": "error"
-          },
-          {
-            "from": "hardenedServer",
-            "to": "adversary",
-            "label": "Reject Symmetric Token When Asymmetric Expected",
-            "tone": "ok"
+            "id": "status",
+            "label": "status"
           }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "The attacker crafts forged tokens altering algorithms to hstwo-fifty-six.",
-            "activeMessageIndex": 0,
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Trace how tokens updates should during execution.",
+            "values": {
+              "payload": {
+                "var": "payload",
+                "line": 1,
+                "hit": 1
+              },
+              "now": {
+                "var": "now",
+                "line": 2,
+                "hit": 1
+              },
+              "status": {
+                "var": "status",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "payload": "data",
+              "now": "data",
+              "status": "data"
+            },
+            "arrows": [
+              [
+                "payload",
+                "now"
+              ],
+              [
+                "now",
+                "status"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verification must reject tokens where the current time is at or after exp.",
+            "values": {
+              "payload": {
+                "var": "payload",
+                "line": 2,
+                "hit": 1
+              },
+              "now": {
+                "var": "now",
+                "line": 3,
+                "hit": 1
+              },
+              "status": {
+                "var": "status",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "payload": "data",
+              "now": "data",
+              "status": "data"
+            },
+            "arrows": [
+              [
+                "payload",
+                "now"
+              ],
+              [
+                "now",
+                "status"
+              ]
+            ]
           },
           {
             "at": "say9",
-            "caption": "Servers must reject symmetric tokens when asymmetric keys are expected.",
-            "activeMessageIndex": 3,
-            "statusBadge": "ok"
+            "caption": "Logging token identifiers (jti), not whole tokens, supports investigations.",
+            "values": {
+              "payload": {
+                "var": "payload",
+                "line": 3,
+                "hit": 1
+              },
+              "now": {
+                "var": "now",
+                "line": 4,
+                "hit": 1
+              },
+              "status": {
+                "var": "status",
+                "line": 2,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "payload": "ok",
+              "now": "ok",
+              "status": "ok"
+            },
+            "arrows": [
+              [
+                "payload",
+                "now"
+              ],
+              [
+                "now",
+                "status"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "sequence",
-        "title": "Key confusion algorithm substitution attack and mitigation sequence",
-        "actors": [
+        "template": "flow",
+        "title": "Expiry and revocation",
+        "nodes": [
           {
-            "id": "adversary",
-            "label": "Attacker"
+            "id": "payload",
+            "label": "payload"
           },
           {
-            "id": "vulnServer",
-            "label": "Vulnerable API"
+            "id": "now",
+            "label": "now"
           },
           {
-            "id": "hardenedServer",
-            "label": "Hardened API Guard"
-          }
-        ],
-        "messages": [
-          {
-            "from": "adversary",
-            "to": "vulnServer",
-            "label": "Forge Token Signed with Public Key as HMAC Secret",
-            "tone": "error"
-          },
-          {
-            "from": "vulnServer",
-            "to": "adversary",
-            "label": "Flawed Server Accepts Mismatched HMAC Verification",
-            "tone": "error"
-          },
-          {
-            "from": "adversary",
-            "to": "hardenedServer",
-            "label": "Submit Confused Algorithm Token to Hardened Guard",
-            "tone": "error"
-          },
-          {
-            "from": "hardenedServer",
-            "to": "adversary",
-            "label": "Reject Symmetric Token When Asymmetric Expected",
-            "tone": "ok"
+            "id": "status",
+            "label": "status"
           }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "The attacker crafts forged tokens altering algorithms to hs256.",
-            "activeMessageIndex": 0,
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Trace how tokens updates should during execution.",
+            "values": {
+              "payload": "{'sub': 'u42', 'iat': 1700000000, 'exp'…",
+              "now": "1700000100",
+              "status": "'valid'"
+            },
+            "tones": {
+              "payload": "data",
+              "now": "data",
+              "status": "data"
+            },
+            "arrows": [
+              [
+                "payload",
+                "now"
+              ],
+              [
+                "now",
+                "status"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Verification must reject tokens where the current time is at or after exp.",
+            "values": {
+              "payload": "{'sub': 'u42', 'iat': 1700000000, 'exp'…",
+              "now": "1700000100",
+              "status": "'valid'"
+            },
+            "tones": {
+              "payload": "data",
+              "now": "data",
+              "status": "data"
+            },
+            "arrows": [
+              [
+                "payload",
+                "now"
+              ],
+              [
+                "now",
+                "status"
+              ]
+            ]
           },
           {
             "at": "say9",
-            "caption": "Servers must reject symmetric tokens when asymmetric keys are expected.",
-            "activeMessageIndex": 3,
-            "statusBadge": "ok"
+            "caption": "Logging token identifiers (jti), not whole tokens, supports investigations.",
+            "values": {
+              "payload": "{'sub': 'u42', 'iat': 1700000000, 'exp'…",
+              "now": "1700000100",
+              "status": "'valid'"
+            },
+            "tones": {
+              "payload": "ok",
+              "now": "ok",
+              "status": "ok"
+            },
+            "arrows": [
+              [
+                "payload",
+                "now"
+              ],
+              [
+                "now",
+                "status"
+              ]
+            ]
           }
         ]
       }
@@ -449,202 +613,162 @@
       "partTitle": "Storing and sending tokens safely",
       "codeHash": "7f0ba6e7be3540a0a643381eb9737acabeee224aada5324a314cd53db7290e63",
       "spec": {
-        "template": "table",
-        "title": "Standard JSON Web Token registered claims and verification policies",
-        "columns": [
-          "Claim Name",
-          "RFC Designation",
-          "Evaluation Rule",
-          "Vulnerability Mitigated"
+        "template": "sequence",
+        "title": "Storing and sending tokens safely",
+        "actors": [
+          "practices",
+          "practice",
+          "ok"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Expired tokens must be rejected instantly after the timestamp.",
-            "activeRowIndex": 0,
-            "statusBadge": "failed",
-            "rows": [
+            "at": "say1",
+            "caption": "Tokens are credentials.",
+            "activeActor": "practices",
+            "messages": [
               {
-                "cells": [
-                  "exp",
-                  "Expiration Time",
-                  "Reject if current time > exp",
-                  "Token Lifetime Replay Attacks"
-                ],
+                "from": "practices",
+                "to": "practice",
+                "label": {
+                  "var": "practices",
+                  "line": 1,
+                  "hit": 2
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "nbf",
-                  "Not Before",
-                  "Reject if current time < nbf",
-                  "Pre-Activation Clock Attacks"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "iss",
-                  "Issuer Identity",
-                  "Must match trusted auth server URL",
-                  "Untrusted IdP Spoofing Attacks"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "aud",
-                  "Audience",
-                  "Must match current service endpoint",
-                  "Cross-Service Token Substitution"
-                ],
-                "tone": "data"
+                "from": "practice",
+                "to": "ok",
+                "label": {
+                  "var": "practice",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say8",
-            "caption": "Audience claims prevent cross service token substitution attacks.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "LocalStorage is readable by any script on the page.",
+            "activeActor": "practice",
+            "messages": [
               {
-                "cells": [
-                  "exp",
-                  "Expiration Time",
-                  "Reject if current time > exp",
-                  "Token Lifetime Replay Attacks"
-                ],
+                "from": "practices",
+                "to": "practice",
+                "label": {
+                  "var": "practices",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "nbf",
-                  "Not Before",
-                  "Reject if current time < nbf",
-                  "Pre-Activation Clock Attacks"
-                ],
+                "from": "practice",
+                "to": "ok",
+                "label": {
+                  "var": "practice",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Treat any token found in logs as compromised and revoke it.",
+            "activeActor": "ok",
+            "messages": [
+              {
+                "from": "practices",
+                "to": "practice",
+                "label": {
+                  "var": "practices",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "iss",
-                  "Issuer Identity",
-                  "Must match trusted auth server URL",
-                  "Untrusted IdP Spoofing Attacks"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "aud",
-                  "Audience",
-                  "Must match current service endpoint",
-                  "Cross-Service Token Substitution"
-                ],
-                "tone": "data"
+                "from": "practice",
+                "to": "ok",
+                "label": {
+                  "var": "practice",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Standard JSON Web Token registered claims and verification policies",
-        "columns": [
-          "Claim Name",
-          "RFC Designation",
-          "Evaluation Rule",
-          "Vulnerability Mitigated"
+        "template": "sequence",
+        "title": "Storing and sending tokens safely",
+        "actors": [
+          "practices",
+          "practice",
+          "ok"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Expired tokens must be rejected instantly after the timestamp.",
-            "activeRowIndex": 0,
-            "statusBadge": "failed",
-            "rows": [
+            "at": "say1",
+            "caption": "Tokens are credentials.",
+            "messages": [
               {
-                "cells": [
-                  "exp",
-                  "Expiration Time",
-                  "Reject if current time > exp",
-                  "Token Lifetime Replay Attacks"
-                ],
+                "from": "practices",
+                "to": "practice",
+                "label": "{'sent only over HTTPS': True, 'never p…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "nbf",
-                  "Not Before",
-                  "Reject if current time < nbf",
-                  "Pre-Activation Clock Attacks"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "iss",
-                  "Issuer Identity",
-                  "Must match trusted auth server URL",
-                  "Untrusted IdP Spoofing Attacks"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "aud",
-                  "Audience",
-                  "Must match current service endpoint",
-                  "Cross-Service Token Substitution"
-                ],
-                "tone": "data"
+                "from": "practice",
+                "to": "ok",
+                "label": "'sent only over HTTPS'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "practices"
           },
           {
-            "at": "say8",
-            "caption": "Audience claims prevent cross service token substitution attacks.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "LocalStorage is readable by any script on the page.",
+            "messages": [
               {
-                "cells": [
-                  "exp",
-                  "Expiration Time",
-                  "Reject if current time > exp",
-                  "Token Lifetime Replay Attacks"
-                ],
+                "from": "practices",
+                "to": "practice",
+                "label": "{'sent only over HTTPS': True, 'never p…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "nbf",
-                  "Not Before",
-                  "Reject if current time < nbf",
-                  "Pre-Activation Clock Attacks"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "iss",
-                  "Issuer Identity",
-                  "Must match trusted auth server URL",
-                  "Untrusted IdP Spoofing Attacks"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "aud",
-                  "Audience",
-                  "Must match current service endpoint",
-                  "Cross-Service Token Substitution"
-                ],
-                "tone": "data"
+                "from": "practice",
+                "to": "ok",
+                "label": "'sent only over HTTPS'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "practice"
+          },
+          {
+            "at": "say9",
+            "caption": "Treat any token found in logs as compromised and revoke it.",
+            "messages": [
+              {
+                "from": "practices",
+                "to": "practice",
+                "label": "{'sent only over HTTPS': True, 'never p…",
+                "tone": "data"
+              },
+              {
+                "from": "practice",
+                "to": "ok",
+                "label": "'never placed in URLs'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ok"
           }
         ]
       }
@@ -653,224 +777,106 @@
       "partTitle": "Practice time: decode and verify",
       "codeHash": "3ba2bdc448e19ff5d6f4e05c14f2415002b3b8b51d1818c069df3e5039fca568",
       "spec": {
-        "template": "flow",
-        "title": "Engineering a Hardened, Zero-Trust Enterprise... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Practice time: decode and verify",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "secret",
+            "label": "secret"
           },
           {
-            "id": "proc",
-            "label": "2. Engineering a Harde...",
-            "tappable": true
+            "id": "d",
+            "label": "d"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "h",
+            "label": "h"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Engineering a Hardened, Zero-Trust Enter.",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Engineering a Harde... [Dnine.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Decode_jwt(token).",
+            "currentState": "secret",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dnine.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks build a token with base64url and confirm both parts decode,.",
+            "currentState": "d",
+            "transition": {
+              "from": "secret",
+              "to": "d",
+              "label": {
+                "var": "d",
+                "line": 3,
+                "hit": 3
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Engineering a Hardened, Zero-Trus.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "Use PyJWT or a similar library in production, always passing the expected.",
+            "currentState": "h",
+            "transition": {
+              "from": "d",
+              "to": "h",
+              "label": {
+                "var": "h",
+                "line": 7,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Engineering a Hardened, Zero-Trust Enterprise... — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Practice time: decode and verify",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "secret",
+            "label": "secret"
           },
           {
-            "id": "proc",
-            "label": "2. Engineering a Harde...",
-            "tappable": true
+            "id": "d",
+            "label": "d"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "h",
+            "label": "h"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Engineering a Hardened, Zero-Trust Enter.. [D9.P6.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Engineering a Harde... [D9.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Decode_jwt(token).",
+            "currentState": "secret",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks build a token with base64url and confirm both parts decode,.",
+            "currentState": "d",
+            "transition": {
+              "from": "secret",
+              "to": "d",
+              "label": "{'__other__': 'bytes'}"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Engineering a Hardened, Zero-Trus.. [D9.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say9",
+            "caption": "Use PyJWT or a similar library in production, always passing the expected.",
+            "currentState": "h",
+            "transition": {
+              "from": "d",
+              "to": "h",
+              "label": "'eyJhbGciOiJIUzI1NiJ9'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

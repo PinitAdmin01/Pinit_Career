@@ -2,269 +2,664 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 48,
-  "promptSha": "6946113a012751049177f20b31b48ca2d3ae6bf9f410ea6844fe1adcc8445b08",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "LSM-Tree Storage Internals — Foundations & Mathematical Invariants",
-      "codeHash": "78bb6aa7890f10544a77f77b73b280561457757727ba211365fbe56128a9dea4",
+      "partTitle": "Why LSM-Trees Beat Random In-Place B-Trees on Write Throughput",
+      "codeHash": "517d1d24999f9c9b88bb7708c4d6f96f958ae0b62aae16d556615aa476f2cba4",
       "spec": {
-        "template": "flow",
-        "title": "LSM-Tree Storage Internals — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Why LSM-Trees Beat Random In-Place B-Trees on Write Throughput",
+        "actors": [
+          "self",
+          "mem_limit",
+          "lsm"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Traditional relational databases use B-Trees organized inside fixed.",
+            "activeActor": "self",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "mem_limit",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "mem_limit",
+                "to": "lsm",
+                "label": {
+                  "var": "mem_limit",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Storage engines powering RocksDB, Cassandra, LevelDB, and Pebble flip.",
+            "activeActor": "mem_limit",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "mem_limit",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "mem_limit",
+                "to": "lsm",
+                "label": {
+                  "var": "mem_limit",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Implement the dual WAL + sorted MemTable + immutable flush into SSTables below.",
+            "activeActor": "lsm",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "mem_limit",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "mem_limit",
+                "to": "lsm",
+                "label": {
+                  "var": "mem_limit",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
+        "template": "sequence",
+        "title": "Why LSM-Trees Beat Random In-Place B-Trees on Write Throughput",
+        "actors": [
+          "self",
+          "mem_limit",
+          "lsm"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Traditional relational databases use B-Trees organized inside fixed.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "mem_limit",
+                "label": "<SimpleLSM>",
+                "tone": "data"
+              },
+              {
+                "from": "mem_limit",
+                "to": "lsm",
+                "label": "3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
+            "at": "say2",
+            "caption": "Storage engines powering RocksDB, Cassandra, LevelDB, and Pebble flip.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "mem_limit",
+                "label": "<SimpleLSM>",
+                "tone": "data"
+              },
+              {
+                "from": "mem_limit",
+                "to": "lsm",
+                "label": "3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "mem_limit"
+          },
+          {
+            "at": "say6",
+            "caption": "Implement the dual WAL + sorted MemTable + immutable flush into SSTables below.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "mem_limit",
+                "label": "<SimpleLSM>",
+                "tone": "data"
+              },
+              {
+                "from": "mem_limit",
+                "to": "lsm",
+                "label": "3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "lsm"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Read Path Merging MemTable + Newest-First Immutable SSTables",
+      "codeHash": "e4e824a62e91a848848a1ccb67aeef126f40dfd138b09b930b1473cd3f8f10d8",
+      "spec": {
         "template": "flow",
-        "title": "LSM-Tree Storage Internals — Foundations & Mathematical Invariants",
+        "title": "Read Path Merging MemTable + Newest-First Immutable SSTables",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "mem",
+            "label": "mem"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "ssts",
+            "label": "ssts"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "q",
+            "label": "q"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "memtable",
+            "label": "memtable"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "High write speed in LSM-Trees creates a symmetrical read cost unless.",
+            "values": {
+              "mem": {
+                "var": "mem",
+                "line": 19,
+                "hit": 1
+              },
+              "ssts": {
+                "var": "ssts",
+                "line": 20,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 24,
+                "hit": 1
+              },
+              "memtable": {
+                "var": "memtable",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "mem": "data",
+              "ssts": "data",
+              "q": "data",
+              "memtable": "data"
+            },
+            "arrows": [
+              [
+                "mem",
+                "ssts"
+              ],
+              [
+                "ssts",
+                "q"
+              ],
+              [
+                "q",
+                "memtable"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Watch this strict correctness boundary carefully.",
+            "values": {
+              "mem": {
+                "var": "mem",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "ssts": {
+                "var": "ssts",
+                "line": 24,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "q": {
+                "var": "q",
+                "line": 25,
+                "hit": 1
               },
+              "memtable": {
+                "var": "memtable",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "mem": "data",
+              "ssts": "data",
+              "q": "data",
+              "memtable": "data"
+            },
+            "arrows": [
+              [
+                "mem",
+                "ssts"
+              ],
+              [
+                "ssts",
+                "q"
+              ],
+              [
+                "q",
+                "memtable"
+              ]
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Trace point lookup termination on tombstone and k-way sorted multi-layer.",
+            "values": {
+              "mem": {
+                "var": "mem",
+                "line": 22,
+                "hit": 1
+              },
+              "ssts": {
+                "var": "ssts",
+                "line": 25,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 24,
+                "hit": 2
+              },
+              "memtable": {
+                "var": "memtable",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "mem": "ok",
+              "ssts": "ok",
+              "q": "ok",
+              "memtable": "ok"
+            },
+            "arrows": [
+              [
+                "mem",
+                "ssts"
+              ],
+              [
+                "ssts",
+                "q"
+              ],
+              [
+                "q",
+                "memtable"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Read Path Merging MemTable + Newest-First Immutable SSTables",
+        "nodes": [
+          {
+            "id": "mem",
+            "label": "mem"
+          },
+          {
+            "id": "ssts",
+            "label": "ssts"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "memtable",
+            "label": "memtable"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "High write speed in LSM-Trees creates a symmetrical read cost unless.",
+            "values": {
+              "mem": "{'k2': 'latest_in_mem'}",
+              "ssts": "[[['k1', '__TOMBSTONE__'], ['k3', 'v3_n…",
+              "q": "'k1'",
+              "memtable": "{'k2': 'latest_in_mem'}"
+            },
+            "tones": {
+              "mem": "data",
+              "ssts": "data",
+              "q": "data",
+              "memtable": "data"
+            },
+            "arrows": [
+              [
+                "mem",
+                "ssts"
+              ],
+              [
+                "ssts",
+                "q"
+              ],
+              [
+                "q",
+                "memtable"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Watch this strict correctness boundary carefully.",
+            "values": {
+              "mem": "{'k2': 'latest_in_mem'}",
+              "ssts": "[[['k1', '__TOMBSTONE__'], ['k3', 'v3_n…",
+              "q": "'k1'",
+              "memtable": "{'k2': 'latest_in_mem'}"
+            },
+            "tones": {
+              "mem": "data",
+              "ssts": "data",
+              "q": "data",
+              "memtable": "data"
+            },
+            "arrows": [
+              [
+                "mem",
+                "ssts"
+              ],
+              [
+                "ssts",
+                "q"
+              ],
+              [
+                "q",
+                "memtable"
+              ]
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Trace point lookup termination on tombstone and k-way sorted multi-layer.",
+            "values": {
+              "mem": "{'k2': 'latest_in_mem'}",
+              "ssts": "[[['k1', '__TOMBSTONE__'], ['k3', 'v3_n…",
+              "q": "'k2'",
+              "memtable": "{'k2': 'latest_in_mem'}"
+            },
+            "tones": {
+              "mem": "ok",
+              "ssts": "ok",
+              "q": "ok",
+              "memtable": "ok"
+            },
+            "arrows": [
+              [
+                "mem",
+                "ssts"
+              ],
+              [
+                "ssts",
+                "q"
+              ],
+              [
+                "q",
+                "memtable"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Size-Tiered Compaction Strategy (STCS) vs Leveled Compaction (LCS)",
+      "codeHash": "bd094a565879ec9838305aeda7790114e56da5ef3b59b04e14a9fd8e12362efa",
+      "spec": {
+        "template": "states",
+        "title": "Size-Tiered Compaction Strategy (STCS) vs Leveled Compaction (LC",
+        "states": [
+          {
+            "id": "l0_new",
+            "label": "l0_new"
+          },
+          {
+            "id": "l0_old",
+            "label": "l0_old"
+          },
+          {
+            "id": "sstables_newest_first",
+            "label": "sstables_newest_first"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "As hundreds of tiny MemTable flushes stack up into hundreds of separate.",
+            "currentState": "l0_new",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Compaction runs a k-way merge-sort across multiple immutable SSTables.",
+            "currentState": "l0_old",
+            "transition": {
+              "from": "l0_new",
+              "to": "l0_old",
+              "label": {
+                "var": "l0_old",
+                "line": 18,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say7",
+            "caption": "Implement k-way size-tiered compaction with bottommost-only tombstone.",
+            "currentState": "sstables_newest_first",
+            "transition": {
+              "from": "l0_old",
+              "to": "sstables_newest_first",
+              "label": {
+                "var": "sstables_newest_first",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Size-Tiered Compaction Strategy (STCS) vs Leveled Compaction (LC",
+        "states": [
+          {
+            "id": "l0_new",
+            "label": "l0_new"
+          },
+          {
+            "id": "l0_old",
+            "label": "l0_old"
+          },
+          {
+            "id": "sstables_newest_first",
+            "label": "sstables_newest_first"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "As hundreds of tiny MemTable flushes stack up into hundreds of separate.",
+            "currentState": "l0_new",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Compaction runs a k-way merge-sort across multiple immutable SSTables.",
+            "currentState": "l0_old",
+            "transition": {
+              "from": "l0_new",
+              "to": "l0_old",
+              "label": "[['a', '1'], ['b', '2'], ['c', '3']]"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say7",
+            "caption": "Implement k-way size-tiered compaction with bottommost-only tombstone.",
+            "currentState": "sstables_newest_first",
+            "transition": {
+              "from": "l0_old",
+              "to": "sstables_newest_first",
+              "label": "[[['a', '__TOMBSTONE__'], ['c', '30']],…"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Measuring Write, Read & Space Amplification (RUM Conjecture)",
+      "codeHash": "8e1e0bbf62c0df67fddc913a404e6b6c2b571f03280e83215ca0a412c838cabe",
+      "spec": {
+        "template": "cells",
+        "title": "Measuring Write, Read & Space Amplification (RUM Conjecture)",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Database storage engineering revolves directly around the **RUM Conjecture**.",
+            "items": {
+              "var": "sst_sizes_bytes",
+              "line": 2,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Quantifying all three amplification ratios explicitly lets engineers tune.",
+            "items": {
+              "var": "sst_sizes_bytes",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "caption": "Compute all three RUM amplification ratios directly from compacted SSTable.",
+            "items": {
+              "var": "sst_sizes_bytes",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "cells",
+        "title": "Measuring Write, Read & Space Amplification (RUM Conjecture)",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Database storage engineering revolves directly around the **RUM Conjecture**.",
+            "items": [
+              "40",
+              "20"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Quantifying all three amplification ratios explicitly lets engineers tune.",
+            "items": [
+              "40",
+              "20"
+            ],
+            "pointers": [
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Compute all three RUM amplification ratios directly from compacted SSTable.",
+            "items": [
+              "40",
+              "20"
+            ],
+            "pointers": [
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -272,1065 +667,165 @@
       }
     },
     {
-      "partTitle": "LSM-Tree Storage Internals — Core Algorithm & State Representation",
-      "codeHash": "eea938025eb1ae72d2600be85d9fdedde0fa5daf8cff49ee7900584eafae1153",
+      "partTitle": "WAL Recovery Replay & Write Stall Backpressure Under L0 Bloat",
+      "codeHash": "b5174f238350e94f90d909710de4138abfe0c4f22c524509faaa89034527bf70",
       "spec": {
-        "template": "flow",
-        "title": "LSM-Tree Storage Internals — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "WAL Recovery Replay & Write Stall Backpressure Under L0 Bloat",
+        "actors": [
+          "wal_disk",
+          "wal_entries",
+          "recovered_mem"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "What brings real RocksDB/Cassandra clusters to their knees under heavy.",
+            "activeActor": "wal_disk",
+            "messages": [
+              {
+                "from": "wal_disk",
+                "to": "wal_entries",
+                "label": {
+                  "var": "wal_disk",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "wal_entries",
+                "to": "recovered_mem",
+                "label": {
+                  "var": "wal_entries",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how uncompacted updates file during execution.",
+            "activeActor": "wal_entries",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "wal_disk",
+                "to": "wal_entries",
+                "label": {
+                  "var": "wal_disk",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "wal_entries",
+                "to": "recovered_mem",
+                "label": {
+                  "var": "wal_entries",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say5",
+            "caption": "Execute both WAL crash-replay recovery and L0 stall throttle checks below.",
+            "activeActor": "recovered_mem",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "wal_disk",
+                "to": "wal_entries",
+                "label": {
+                  "var": "wal_disk",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "wal_entries",
+                "to": "recovered_mem",
+                "label": {
+                  "var": "wal_entries",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "LSM-Tree Storage Internals — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "WAL Recovery Replay & Write Stall Backpressure Under L0 Bloat",
+        "actors": [
+          "wal_disk",
+          "wal_entries",
+          "recovered_mem"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "What brings real RocksDB/Cassandra clusters to their knees under heavy.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "wal_disk",
+                "to": "wal_entries",
+                "label": "[['PUT', 'u1', '100'], ['PUT', 'u2', '2…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "wal_entries",
+                "to": "recovered_mem",
+                "label": "[['PUT', 'u1', '100'], ['PUT', 'u2', '2…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "wal_disk"
           },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "LSM-Tree Storage Internals — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "aa9ad6c9d49ddcf50844010cd38dd46ec3b8f9269a0a0af4ba89ea8b80042af1",
-      "spec": {
-        "template": "flow",
-        "title": "LSM-Tree Storage Internals — Throughput Optimization & Edge-Case Handl",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how uncompacted updates file during execution.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "wal_disk",
+                "to": "wal_entries",
+                "label": "[['PUT', 'u1', '100'], ['PUT', 'u2', '2…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "wal_entries",
+                "to": "recovered_mem",
+                "label": "[['PUT', 'u1', '100'], ['PUT', 'u2', '2…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "wal_entries"
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "at": "say5",
+            "caption": "Execute both WAL crash-replay recovery and L0 stall throttle checks below.",
+            "messages": [
+              {
+                "from": "wal_disk",
+                "to": "wal_entries",
+                "label": "[['PUT', 'u1', '100'], ['PUT', 'u2', '2…",
+                "tone": "data"
+              },
+              {
+                "from": "wal_entries",
+                "to": "recovered_mem",
+                "label": "[['PUT', 'u1', '100'], ['PUT', 'u2', '2…",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "LSM-Tree Storage Internals — Throughput Optimization & Edge-Case Handl",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "LSM-Tree Storage Internals — Resilience Guardrails & Failure Recovery",
-      "codeHash": "d4baf1f696b9e951084e70cf2eca765c9a70fb5a8b9d4953ff6be72465541869",
-      "spec": {
-        "template": "flow",
-        "title": "LSM-Tree Storage Internals — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "LSM-Tree Storage Internals — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "LSM-Tree Storage Internals — Production Telemetry & Verification Audit",
-      "codeHash": "d17362fac279ba216fc7f633ff881aa97806a3da9ddcf294585b986026d4945d",
-      "spec": {
-        "template": "flow",
-        "title": "LSM-Tree Storage Internals — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "LSM-Tree Storage Internals — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "recovered_mem"
           }
         ]
       }

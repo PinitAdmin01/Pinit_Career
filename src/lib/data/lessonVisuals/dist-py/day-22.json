@@ -2,231 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 22,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why gossip?",
       "codeHash": "55d8dc1f2844beea5c5fe9bbc74e516657829ff943766c3070366ad8fc6fa72d",
       "spec": {
-        "template": "flow",
-        "title": "Why gossip? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Why gossip?",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Why gossip?",
+        "actors": [
+          "rng",
+          "nodes",
+          "informed"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Why gossip? [D.Pone.Sone].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Why gossip? [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In a cluster of N nodes, if every node sends heartbeats to every other.",
+            "activeActor": "rng",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "nodes",
+                "label": {
+                  "var": "rng",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "informed",
+                "label": {
+                  "var": "nodes",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Gossip protocols instead have each node talk to a few random peers per round.",
+            "activeActor": "nodes",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "nodes",
+                "label": {
+                  "var": "rng",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "informed",
+                "label": {
+                  "var": "nodes",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Why gossip? [D.Pone.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "The simulation spreads one update through 100 nodes with a fan-out of 3.",
+            "activeActor": "informed",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "nodes",
+                "label": {
+                  "var": "rng",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "informed",
+                "label": {
+                  "var": "nodes",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Why gossip? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Why gossip?",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Why gossip?",
+        "actors": [
+          "rng",
+          "nodes",
+          "informed"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Why gossip? [D22.P1.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Why gossip? [D22.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "In a cluster of N nodes, if every node sends heartbeats to every other.",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "nodes",
+                "label": "<Random>",
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "informed",
+                "label": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "rng"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Gossip protocols instead have each node talk to a few random peers per round.",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "nodes",
+                "label": "<Random>",
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "informed",
+                "label": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "nodes"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Why gossip? [D22.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "The simulation spreads one update through 100 nodes with a fan-out of 3.",
+            "messages": [
+              {
+                "from": "rng",
+                "to": "nodes",
+                "label": "<Random>",
+                "tone": "data"
+              },
+              {
+                "from": "nodes",
+                "to": "informed",
+                "label": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "informed"
           }
         ]
       }
@@ -235,224 +173,162 @@
       "partTitle": "Choosing gossip peers",
       "codeHash": "3f35072d4a8c754be5070f7f8150f9ad3bbfc325afde1e9c7ceaf718b9a87583",
       "spec": {
-        "template": "flow",
-        "title": "Choosing gossip peers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing gossip peers",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Choosing gossip peers",
+        "actors": [
+          "peers",
+          "k",
+          "me"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing gossip peers [D.Ptwo.Sone].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing gossip peers [D.Ptwo.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Each round, a node picks k peers to gossip with.",
+            "activeActor": "peers",
+            "messages": [
+              {
+                "from": "peers",
+                "to": "k",
+                "label": {
+                  "var": "peers",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "me",
+                "label": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Ptwo.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Real protocols pick peers randomly (or shuffle the list each round) so.",
+            "activeActor": "k",
+            "messages": [
+              {
+                "from": "peers",
+                "to": "k",
+                "label": {
+                  "var": "peers",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "me",
+                "label": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing gossip peers [D.Ptwo.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example chooses peers from a shuffled list with a seeded generator.",
+            "activeActor": "me",
+            "messages": [
+              {
+                "from": "peers",
+                "to": "k",
+                "label": {
+                  "var": "peers",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "me",
+                "label": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Choosing gossip peers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing gossip peers",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Choosing gossip peers",
+        "actors": [
+          "peers",
+          "k",
+          "me"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing gossip peers [D22.P2.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing gossip peers [D22.P2.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Each round, a node picks k peers to gossip with.",
+            "messages": [
+              {
+                "from": "peers",
+                "to": "k",
+                "label": "['n1', 'n2', 'n3', 'n4', 'n5', 'n6']",
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "me",
+                "label": "3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "peers"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P2.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Real protocols pick peers randomly (or shuffle the list each round) so.",
+            "messages": [
+              {
+                "from": "peers",
+                "to": "k",
+                "label": "['n1', 'n2', 'n3', 'n4', 'n5', 'n6']",
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "me",
+                "label": "3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "k"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing gossip peers [D22.P2.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example chooses peers from a shuffled list with a seeded generator.",
+            "messages": [
+              {
+                "from": "peers",
+                "to": "k",
+                "label": "['n1', 'n2', 'n3', 'n4', 'n5', 'n6']",
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "me",
+                "label": "3",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "me"
           }
         ]
       }
@@ -461,192 +337,162 @@
       "partTitle": "SWIM: probing for failures",
       "codeHash": "d3ae5807f2d01c4b9102c7b07794245402f79391f334fb1287cf3b633cf847ac",
       "spec": {
-        "template": "table",
-        "title": "SWIM failure detection probe methods and target status outcomes",
-        "columns": [
-          "target",
-          "status",
-          "method"
+        "template": "sequence",
+        "title": "SWIM: probing for failures",
+        "actors": [
+          "peers",
+          "reachable_via",
+          "target"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each round a node pings one random member directly.",
-            "rows": [
+            "caption": "SWIM (Scalable Weakly-consistent Infection-style Membership) detects.",
+            "activeActor": "peers",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "n4"
-                  },
-                  {
-                    "text": "ALIVE"
-                  },
-                  {
-                    "text": "DIRECT"
-                  }
-                ],
+                "from": "peers",
+                "to": "reachable_via",
+                "label": {
+                  "var": "peers",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "reachable_via",
+                "to": "target",
+                "label": {
+                  "var": "reachable_via",
+                  "line": 16,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "When direct ping times out helpers probe the target indirectly.",
-            "rows": [
+            "caption": "If the direct ping times out, the node does not conclude failure at once.",
+            "activeActor": "reachable_via",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "n4"
-                  },
-                  {
-                    "text": "ALIVE"
-                  },
-                  {
-                    "text": "DIRECT"
-                  }
-                ],
-                "tone": "ok"
+                "from": "peers",
+                "to": "reachable_via",
+                "label": {
+                  "var": "peers",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "n4"
-                  },
-                  {
-                    "text": "ALIVE"
-                  },
-                  {
-                    "text": "INDIRECT"
-                  }
-                ],
+                "from": "reachable_via",
+                "to": "target",
+                "label": {
+                  "var": "reachable_via",
+                  "line": 19,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "If nobody reaches target swim probe returns suspect via indirect.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example simulates a target that is unreachable directly but reachable.",
+            "activeActor": "target",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "n4"
-                  },
-                  {
-                    "text": "ALIVE"
-                  },
-                  {
-                    "text": "DIRECT"
-                  }
-                ],
-                "tone": "ok"
+                "from": "peers",
+                "to": "reachable_via",
+                "label": {
+                  "var": "peers",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "n4"
-                  },
-                  {
-                    "text": "ALIVE"
-                  },
-                  {
-                    "text": "INDIRECT"
-                  }
-                ],
+                "from": "reachable_via",
+                "to": "target",
+                "label": {
+                  "var": "reachable_via",
+                  "line": 16,
+                  "hit": 2
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "n4"
-                  },
-                  {
-                    "text": "SUSPECT"
-                  },
-                  {
-                    "text": "INDIRECT"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "SWIM failure detection probe methods and target status outcomes",
-        "columns": [
-          "target",
-          "status",
-          "method"
+        "template": "sequence",
+        "title": "SWIM: probing for failures",
+        "actors": [
+          "peers",
+          "reachable_via",
+          "target"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each round a node pings one random member directly.",
-            "rows": [
+            "caption": "SWIM (Scalable Weakly-consistent Infection-style Membership) detects.",
+            "messages": [
               {
-                "cells": [
-                  "n4",
-                  "ALIVE",
-                  "DIRECT"
-                ],
+                "from": "peers",
+                "to": "reachable_via",
+                "label": "['n2', 'n3', 'n4']",
+                "tone": "data"
+              },
+              {
+                "from": "reachable_via",
+                "to": "target",
+                "label": "{None}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "peers"
           },
           {
             "at": "say2",
-            "caption": "When direct ping times out helpers probe the target indirectly.",
-            "rows": [
+            "caption": "If the direct ping times out, the node does not conclude failure at once.",
+            "messages": [
               {
-                "cells": [
-                  "n4",
-                  "ALIVE",
-                  "DIRECT"
-                ],
-                "tone": "ok"
+                "from": "peers",
+                "to": "reachable_via",
+                "label": "['n2', 'n3', 'n4']",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "n4",
-                  "ALIVE",
-                  "INDIRECT"
-                ],
+                "from": "reachable_via",
+                "to": "target",
+                "label": "{None}",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "reachable_via"
           },
           {
-            "at": "say5",
-            "caption": "If nobody reaches target swim probe returns suspect via indirect.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example simulates a target that is unreachable directly but reachable.",
+            "messages": [
               {
-                "cells": [
-                  "n4",
-                  "ALIVE",
-                  "DIRECT"
-                ],
-                "tone": "ok"
+                "from": "peers",
+                "to": "reachable_via",
+                "label": "['n2', 'n3', 'n4']",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "n4",
-                  "ALIVE",
-                  "INDIRECT"
-                ],
+                "from": "reachable_via",
+                "to": "target",
+                "label": "{'n3'}",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "n4",
-                  "SUSPECT",
-                  "INDIRECT"
-                ],
-                "tone": "idle"
               }
-            ]
+            ],
+            "activeActor": "target"
           }
         ]
       }
@@ -655,84 +501,278 @@
       "partTitle": "Suspicion before declaring death",
       "codeHash": "4a528fecd1917119eb0816449450c72c3775ee4c3753cc28b7989a1791ad22dc",
       "spec": {
-        "template": "states",
-        "title": "SWIM failure detection lifecycle states and refutations",
-        "states": [
-          "ALIVE",
-          "SUSPECT",
-          "DEAD"
+        "template": "flow",
+        "title": "Suspicion before declaring death",
+        "nodes": [
+          {
+            "id": "SUSPICION_TIMEOUT",
+            "label": "SUSPICION_TIMEOUT"
+          },
+          {
+            "id": "state",
+            "label": "state"
+          },
+          {
+            "id": "node",
+            "label": "node"
+          },
+          {
+            "id": "now",
+            "label": "now"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "currentState": "SUSPECT",
-            "transition": {
-              "from": "ALIVE",
-              "to": "SUSPECT"
+            "caption": "SWIM marks an unreachable node as SUSPECT first, and gossips that suspicion.",
+            "values": {
+              "SUSPICION_TIMEOUT": {
+                "var": "SUSPICION_TIMEOUT",
+                "line": 1,
+                "hit": 1
+              },
+              "state": {
+                "var": "state",
+                "line": 2,
+                "hit": 1
+              },
+              "node": {
+                "var": "node",
+                "line": 5,
+                "hit": 1
+              },
+              "now": {
+                "var": "now",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "caption": "Unreachable nodes become suspect first before declaring failure.",
-            "tone": "idle"
+            "tones": {
+              "SUSPICION_TIMEOUT": "data",
+              "state": "data",
+              "node": "data",
+              "now": "data"
+            },
+            "arrows": [
+              [
+                "SUSPICION_TIMEOUT",
+                "state"
+              ],
+              [
+                "state",
+                "node"
+              ],
+              [
+                "node",
+                "now"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "currentState": "DEAD",
-            "transition": {
-              "from": "SUSPECT",
-              "to": "DEAD"
+            "caption": "Only if the suspicion is not refuted within a timeout is the node declared.",
+            "values": {
+              "SUSPICION_TIMEOUT": {
+                "var": "SUSPICION_TIMEOUT",
+                "line": 2,
+                "hit": 1
+              },
+              "state": {
+                "var": "state",
+                "line": 4,
+                "hit": 1
+              },
+              "node": {
+                "var": "node",
+                "line": 8,
+                "hit": 1
+              },
+              "now": {
+                "var": "now",
+                "line": 12,
+                "hit": 1
+              }
             },
-            "caption": "If suspicion is not refuted within timeout the node is dead.",
-            "tone": "error"
+            "tones": {
+              "SUSPICION_TIMEOUT": "data",
+              "state": "data",
+              "node": "data",
+              "now": "data"
+            },
+            "arrows": [
+              [
+                "SUSPICION_TIMEOUT",
+                "state"
+              ],
+              [
+                "state",
+                "node"
+              ],
+              [
+                "node",
+                "now"
+              ]
+            ]
           },
           {
-            "at": "say5",
-            "currentState": "ALIVE",
-            "transition": {
-              "from": "SUSPECT",
-              "to": "ALIVE"
+            "at": "say7",
+            "caption": "The simulation walks one node through suspect, refute, and later dead.",
+            "values": {
+              "SUSPICION_TIMEOUT": {
+                "var": "SUSPICION_TIMEOUT",
+                "line": 4,
+                "hit": 1
+              },
+              "state": {
+                "var": "state",
+                "line": 7,
+                "hit": 1
+              },
+              "node": {
+                "var": "node",
+                "line": 9,
+                "hit": 1
+              },
+              "now": {
+                "var": "now",
+                "line": 13,
+                "hit": 1
+              }
             },
-            "caption": "Incarnation numbers let newer alive messages refute suspicion.",
-            "tone": "ok"
+            "tones": {
+              "SUSPICION_TIMEOUT": "ok",
+              "state": "ok",
+              "node": "ok",
+              "now": "ok"
+            },
+            "arrows": [
+              [
+                "SUSPICION_TIMEOUT",
+                "state"
+              ],
+              [
+                "state",
+                "node"
+              ],
+              [
+                "node",
+                "now"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "SWIM failure detection lifecycle states and refutations",
-        "states": [
-          "ALIVE",
-          "SUSPECT",
-          "DEAD"
+        "template": "flow",
+        "title": "Suspicion before declaring death",
+        "nodes": [
+          {
+            "id": "SUSPICION_TIMEOUT",
+            "label": "SUSPICION_TIMEOUT"
+          },
+          {
+            "id": "state",
+            "label": "state"
+          },
+          {
+            "id": "node",
+            "label": "node"
+          },
+          {
+            "id": "now",
+            "label": "now"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Unreachable nodes become suspect first before declaring failure.",
-            "currentState": "SUSPECT",
-            "transition": {
-              "from": "ALIVE",
-              "to": "SUSPECT"
+            "caption": "SWIM marks an unreachable node as SUSPECT first, and gossips that suspicion.",
+            "values": {
+              "SUSPICION_TIMEOUT": "5",
+              "state": "{'n4': {'status': 'ALIVE', 'incarnation…",
+              "node": "'n4'",
+              "now": "0"
             },
-            "tone": "idle"
+            "tones": {
+              "SUSPICION_TIMEOUT": "data",
+              "state": "data",
+              "node": "data",
+              "now": "data"
+            },
+            "arrows": [
+              [
+                "SUSPICION_TIMEOUT",
+                "state"
+              ],
+              [
+                "state",
+                "node"
+              ],
+              [
+                "node",
+                "now"
+              ]
+            ]
           },
           {
             "at": "say2",
-            "caption": "If suspicion is not refuted within timeout the node is dead.",
-            "currentState": "DEAD",
-            "transition": {
-              "from": "SUSPECT",
-              "to": "DEAD"
+            "caption": "Only if the suspicion is not refuted within a timeout is the node declared.",
+            "values": {
+              "SUSPICION_TIMEOUT": "5",
+              "state": "{'n4': {'status': 'ALIVE', 'incarnation…",
+              "node": "'n4'",
+              "now": "6"
             },
-            "tone": "error"
+            "tones": {
+              "SUSPICION_TIMEOUT": "data",
+              "state": "data",
+              "node": "data",
+              "now": "data"
+            },
+            "arrows": [
+              [
+                "SUSPICION_TIMEOUT",
+                "state"
+              ],
+              [
+                "state",
+                "node"
+              ],
+              [
+                "node",
+                "now"
+              ]
+            ]
           },
           {
-            "at": "say5",
-            "caption": "Incarnation numbers let newer alive messages refute suspicion.",
-            "currentState": "ALIVE",
-            "transition": {
-              "from": "SUSPECT",
-              "to": "ALIVE"
+            "at": "say7",
+            "caption": "The simulation walks one node through suspect, refute, and later dead.",
+            "values": {
+              "SUSPICION_TIMEOUT": "5",
+              "state": "{'n4': {'status': 'ALIVE', 'incarnation…",
+              "node": "'n4'",
+              "now": "6"
             },
-            "tone": "ok"
+            "tones": {
+              "SUSPICION_TIMEOUT": "ok",
+              "state": "ok",
+              "node": "ok",
+              "now": "ok"
+            },
+            "arrows": [
+              [
+                "SUSPICION_TIMEOUT",
+                "state"
+              ],
+              [
+                "state",
+                "node"
+              ],
+              [
+                "node",
+                "now"
+              ]
+            ]
           }
         ]
       }
@@ -741,236 +781,106 @@
       "partTitle": "Membership and dissemination",
       "codeHash": "ea8a5206f11be83791bacd69274facf93e14a63df34d4d5a60dc8a3da69a1238",
       "spec": {
-        "template": "table",
-        "title": "SWIM membership table updating statuses by incarnation number",
-        "columns": [
-          "node",
-          "status",
-          "incarnation"
+        "template": "states",
+        "title": "Membership and dissemination",
+        "states": [
+          {
+            "id": "members",
+            "label": "members"
+          },
+          {
+            "id": "incoming",
+            "label": "incoming"
+          },
+          {
+            "id": "node",
+            "label": "node"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Updates piggyback on ping and ack messages without extra overhead.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "n1"
-                  },
-                  {
-                    "text": "ALIVE"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "n2"
-                  },
-                  {
-                    "text": "SUSPECT"
-                  },
-                  {
-                    "text": "1"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
+            "caption": "SWIM piggybacks membership updates (joined, suspect, alive, dead) on its.",
+            "currentState": "members",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Recent updates with higher incarnation numbers take priority.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "n1"
-                  },
-                  {
-                    "text": "ALIVE"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "n2"
-                  },
-                  {
-                    "text": "ALIVE"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "n3"
-                  },
-                  {
-                    "text": "ALIVE"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Each update is sent a limited number of times (about log(N)) and then.",
+            "currentState": "incoming",
+            "transition": {
+              "from": "members",
+              "to": "incoming",
+              "label": {
+                "var": "incoming",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Membership lists are eventually consistent across cluster members.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "n1"
-                  },
-                  {
-                    "text": "ALIVE"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "n2"
-                  },
-                  {
-                    "text": "ALIVE"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "n3"
-                  },
-                  {
-                    "text": "ALIVE"
-                  },
-                  {
-                    "text": "0"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example merges membership updates using incarnation numbers.",
+            "currentState": "node",
+            "transition": {
+              "from": "incoming",
+              "to": "node",
+              "label": {
+                "var": "node",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "SWIM membership table updating statuses by incarnation number",
-        "columns": [
-          "node",
-          "status",
-          "incarnation"
+        "template": "states",
+        "title": "Membership and dissemination",
+        "states": [
+          {
+            "id": "members",
+            "label": "members"
+          },
+          {
+            "id": "incoming",
+            "label": "incoming"
+          },
+          {
+            "id": "node",
+            "label": "node"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Updates piggyback on ping and ack messages without extra overhead.",
-            "rows": [
-              {
-                "cells": [
-                  "n1",
-                  "ALIVE",
-                  "3"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "n2",
-                  "SUSPECT",
-                  "1"
-                ],
-                "tone": "idle"
-              }
-            ]
+            "caption": "SWIM piggybacks membership updates (joined, suspect, alive, dead) on its.",
+            "currentState": "members",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Recent updates with higher incarnation numbers take priority.",
-            "rows": [
-              {
-                "cells": [
-                  "n1",
-                  "ALIVE",
-                  "3"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "n2",
-                  "ALIVE",
-                  "2"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "n3",
-                  "ALIVE",
-                  "0"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Each update is sent a limited number of times (about log(N)) and then.",
+            "currentState": "incoming",
+            "transition": {
+              "from": "members",
+              "to": "incoming",
+              "label": "[['n2', ['ALIVE', 2]], ['n3', ['ALIVE',…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Membership lists are eventually consistent across cluster members.",
-            "rows": [
-              {
-                "cells": [
-                  "n1",
-                  "ALIVE",
-                  "3"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "n2",
-                  "ALIVE",
-                  "2"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "n3",
-                  "ALIVE",
-                  "0"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say7",
+            "caption": "The example merges membership updates using incarnation numbers.",
+            "currentState": "node",
+            "transition": {
+              "from": "incoming",
+              "to": "node",
+              "label": "'n2'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -979,132 +889,160 @@
       "partTitle": "Where gossip fits",
       "codeHash": "3fcd7b412bcf90e3a0f7e391af784f31b26ea770c2a55d825a1b42c4d72b0718",
       "spec": {
-        "template": "compare",
-        "title": "Information suitability comparison between gossip and consensus",
-        "leftLabel": "Gossip Protocols",
-        "rightLabel": "Consensus Raft",
+        "template": "sequence",
+        "title": "Where gossip fits",
+        "actors": [
+          "info",
+          "exact"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Gossip suits eventually consistent state like node health and load.",
-            "left": {
-              "code": "cluster membership",
-              "result": {
-                "text": "gossip"
+            "caption": "Gossip is ideal for information that can be slightly out of date.",
+            "activeActor": "info",
+            "messages": [
+              {
+                "from": "info",
+                "to": "exact",
+                "label": {
+                  "var": "info",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "lock owner",
-              "result": {
-                "text": "consensus (Raft)"
-              },
-              "tone": "data"
-            }
+              {
+                "from": "exact",
+                "to": "info",
+                "label": {
+                  "var": "exact",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Exact decisions like locks and write order still require Raft.",
-            "left": {
-              "code": "node health",
-              "result": {
-                "text": "gossip"
+            "caption": "It is not a replacement for consensus.",
+            "activeActor": "exact",
+            "messages": [
+              {
+                "from": "info",
+                "to": "exact",
+                "label": {
+                  "var": "info",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "order of writes",
-              "result": {
-                "text": "consensus (Raft)"
-              },
-              "tone": "data"
-            }
+              {
+                "from": "exact",
+                "to": "info",
+                "label": {
+                  "var": "exact",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Many distributed architectures combine gossip and consensus together.",
-            "left": {
-              "code": "load per node",
-              "result": {
-                "text": "gossip"
+            "at": "say7",
+            "caption": "The helper compares gossip and consensus for different kinds of information.",
+            "activeActor": "exact",
+            "messages": [
+              {
+                "from": "info",
+                "to": "exact",
+                "label": {
+                  "var": "info",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "leader identity",
-              "result": {
-                "text": "consensus (Raft)"
-              },
-              "tone": "data"
-            }
+              {
+                "from": "exact",
+                "to": "info",
+                "label": {
+                  "var": "exact",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Information suitability comparison between gossip and consensus",
-        "leftLabel": "Gossip Protocols",
-        "rightLabel": "Consensus Raft",
+        "template": "sequence",
+        "title": "Where gossip fits",
+        "actors": [
+          "info",
+          "exact"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Gossip suits eventually consistent state like node health and load.",
-            "left": {
-              "code": "cluster membership",
-              "result": "gossip",
-              "tone": "ok",
-              "checks": [
-                "gossip"
-              ]
-            },
-            "right": {
-              "code": "lock owner",
-              "result": "consensus (Raft)",
-              "tone": "data",
-              "checks": [
-                "consensus (Raft)"
-              ]
-            }
+            "caption": "Gossip is ideal for information that can be slightly out of date.",
+            "messages": [
+              {
+                "from": "info",
+                "to": "exact",
+                "label": "'node health'",
+                "tone": "data"
+              },
+              {
+                "from": "exact",
+                "to": "info",
+                "label": "{'configuration version', 'leader ident…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "info"
           },
           {
             "at": "say2",
-            "caption": "Exact decisions like locks and write order still require Raft.",
-            "left": {
-              "code": "node health",
-              "result": "gossip",
-              "tone": "ok",
-              "checks": [
-                "gossip"
-              ]
-            },
-            "right": {
-              "code": "order of writes",
-              "result": "consensus (Raft)",
-              "tone": "data",
-              "checks": [
-                "consensus (Raft)"
-              ]
-            }
+            "caption": "It is not a replacement for consensus.",
+            "messages": [
+              {
+                "from": "info",
+                "to": "exact",
+                "label": "'node health'",
+                "tone": "data"
+              },
+              {
+                "from": "exact",
+                "to": "info",
+                "label": "{'configuration version', 'leader ident…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "exact"
           },
           {
-            "at": "say3",
-            "caption": "Many distributed architectures combine gossip and consensus together.",
-            "left": {
-              "code": "load per node",
-              "result": "gossip",
-              "tone": "ok",
-              "checks": [
-                "gossip"
-              ]
-            },
-            "right": {
-              "code": "leader identity",
-              "result": "consensus (Raft)",
-              "tone": "data",
-              "checks": [
-                "consensus (Raft)"
-              ]
-            }
+            "at": "say7",
+            "caption": "The helper compares gossip and consensus for different kinds of information.",
+            "messages": [
+              {
+                "from": "info",
+                "to": "exact",
+                "label": "'node health'",
+                "tone": "data"
+              },
+              {
+                "from": "exact",
+                "to": "info",
+                "label": "{'configuration version', 'leader ident…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "exact"
           }
         ]
       }

@@ -2,171 +2,181 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 24,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The speed of light in fibre",
       "codeHash": "f36af4c4f35d551a4056a6aa218fc0b6e9a65bc6412eea9b32b6d776c083d05a",
       "spec": {
-        "template": "table",
-        "title": "Signal propagation latency across physical cable mediums",
-        "columns": [
-          "label",
-          "meters"
-        ],
+        "template": "bars",
+        "title": "The speed of light in fibre",
         "steps": [
           {
             "at": "say1",
-            "caption": "Vacuum propagation represents the ultimate physical upper speed bound.",
-            "rows": [
+            "caption": "Trace how light updates vacuum during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "rack cable"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
-                "tone": "ok"
+                "label": "C",
+                "value": {
+                  "var": "C",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "meters",
+                "value": {
+                  "var": "meters",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Glass refractive index slows optical signal transmission velocity.",
-            "rows": [
+            "caption": "Trace how optical updates fibre during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "rack cable"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
+                "label": "C",
+                "value": {
+                  "var": "C",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "cross-connect"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
+                "label": "meters",
+                "value": {
+                  "var": "meters",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Physical cable lengths dictate unavoidable propagation delays.",
-            "rows": [
+            "at": "say8",
+            "caption": "These numbers are hard physical limits.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "rack cable"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
+                "label": "C",
+                "value": {
+                  "var": "C",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "cross-connect"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
+                "label": "meters",
+                "value": {
+                  "var": "meters",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "Mumbai to Pune (fibre)"
-                  },
-                  {
-                    "text": "150_000"
-                  }
-                ],
-                "tone": "idle"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Signal propagation latency across physical cable mediums",
-        "columns": [
-          "label",
-          "meters"
-        ],
+        "template": "bars",
+        "title": "The speed of light in fibre",
         "steps": [
           {
             "at": "say1",
-            "caption": "Vacuum propagation represents the ultimate physical upper speed bound.",
-            "rows": [
+            "caption": "Trace how light updates vacuum during execution.",
+            "bars": [
               {
-                "cells": [
-                  "rack cable",
-                  "2"
-                ],
-                "tone": "ok"
+                "label": "C",
+                "value": 299792458,
+                "tone": "data"
+              },
+              {
+                "label": "meters",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": 1.4682,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Glass refractive index slows optical signal transmission velocity.",
-            "rows": [
+            "caption": "Trace how optical updates fibre during execution.",
+            "bars": [
               {
-                "cells": [
-                  "rack cable",
-                  "2"
-                ],
+                "label": "C",
+                "value": 299792458,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "cross-connect",
-                  "100"
-                ],
+                "label": "meters",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 1.4682,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Physical cable lengths dictate unavoidable propagation delays.",
-            "rows": [
+            "at": "say8",
+            "caption": "These numbers are hard physical limits.",
+            "bars": [
               {
-                "cells": [
-                  "rack cable",
-                  "2"
-                ],
+                "label": "C",
+                "value": 299792458,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "cross-connect",
-                  "100"
-                ],
+                "label": "meters",
+                "value": 2,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "Mumbai to Pune (fibre)",
-                  "150_000"
-                ],
-                "tone": "idle"
+                "label": "n",
+                "value": 1.4682,
+                "tone": "ok"
               }
             ]
           }
@@ -177,164 +187,216 @@
       "partTitle": "Colocation",
       "codeHash": "abd9fc48c2192cd799abad0eb465c7e60249799f44111e4c2fc4f68ec86bd11b",
       "spec": {
-        "template": "table",
-        "title": "Exchange colocation distance advantages versus remote offices",
-        "columns": [
-          "office",
-          "colo"
-        ],
+        "template": "bars",
+        "title": "Colocation",
         "steps": [
           {
             "at": "say1",
-            "caption": "Colocation positions servers inside exchange data centres for speed.",
-            "rows": [
+            "caption": "Colocation means renting space for your servers inside the exchange's own.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "office"
-                  },
-                  {
-                    "text": "colo"
-                  }
-                ],
-                "tone": "ok"
+                "label": "C",
+                "value": {
+                  "var": "C",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "office",
+                "value": {
+                  "var": "office",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "colo",
+                "value": {
+                  "var": "colo",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "meters",
+                "value": {
+                  "var": "meters",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Proximity to the matching engine compresses transit times significantly.",
-            "rows": [
+            "caption": "Distance from the matching engine shrinks from kilometres to metres.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "office"
-                  },
-                  {
-                    "text": "colo"
-                  }
-                ],
+                "label": "C",
+                "value": {
+                  "var": "C",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "20_000"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
+                "label": "office",
+                "value": {
+                  "var": "office",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "colo",
+                "value": {
+                  "var": "colo",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "meters",
+                "value": {
+                  "var": "meters",
+                  "line": 2,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Equalized cable coils maintain fair latency access for colocated racks.",
-            "rows": [
+            "at": "say8",
+            "caption": "Colocation is now table stakes for any latency-sensitive strategy.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "office"
-                  },
-                  {
-                    "text": "colo"
-                  }
-                ],
+                "label": "C",
+                "value": {
+                  "var": "C",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "20_000"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
+                "label": "office",
+                "value": {
+                  "var": "office",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "office"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
-                "tone": "data"
+                "label": "colo",
+                "value": {
+                  "var": "colo",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "meters",
+                "value": {
+                  "var": "meters",
+                  "line": 2,
+                  "hit": 4
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Exchange colocation distance advantages versus remote offices",
-        "columns": [
-          "office",
-          "colo"
-        ],
+        "template": "bars",
+        "title": "Colocation",
         "steps": [
           {
             "at": "say1",
-            "caption": "Colocation positions servers inside exchange data centres for speed.",
-            "rows": [
+            "caption": "Colocation means renting space for your servers inside the exchange's own.",
+            "bars": [
               {
-                "cells": [
-                  "office",
-                  "colo"
-                ],
-                "tone": "ok"
+                "label": "C",
+                "value": 299792458,
+                "tone": "data"
+              },
+              {
+                "label": "office",
+                "value": 20000,
+                "tone": "data"
+              },
+              {
+                "label": "colo",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "meters",
+                "value": 20000,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Proximity to the matching engine compresses transit times significantly.",
-            "rows": [
+            "caption": "Distance from the matching engine shrinks from kilometres to metres.",
+            "bars": [
               {
-                "cells": [
-                  "office",
-                  "colo"
-                ],
+                "label": "C",
+                "value": 299792458,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "20_000",
-                  "100"
-                ],
+                "label": "office",
+                "value": 20000,
+                "tone": "ok"
+              },
+              {
+                "label": "colo",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "meters",
+                "value": 100,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Equalized cable coils maintain fair latency access for colocated racks.",
-            "rows": [
+            "at": "say8",
+            "caption": "Colocation is now table stakes for any latency-sensitive strategy.",
+            "bars": [
               {
-                "cells": [
-                  "office",
-                  "colo"
-                ],
+                "label": "C",
+                "value": 299792458,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "20_000",
-                  "100"
-                ],
+                "label": "office",
+                "value": 20000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "office",
-                  "100"
-                ],
-                "tone": "data"
+                "label": "colo",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "meters",
+                "value": 20000,
+                "tone": "ok"
               }
             ]
           }
@@ -345,165 +407,277 @@
       "partTitle": "Cross-connects and network design",
       "codeHash": "57b152dced2d5670437cbf9eb9b8ccfb32304b1f8ed7ac50650da2ccb409f0ab",
       "spec": {
-        "template": "table",
-        "title": "Data centre cross-connect hops and hardware switch budgets",
-        "columns": [
-          "hop",
-          "ns"
+        "template": "flow",
+        "title": "Cross-connects and network design",
+        "nodes": [
+          {
+            "id": "C",
+            "label": "C"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          },
+          {
+            "id": "path",
+            "label": "path"
+          },
+          {
+            "id": "hop",
+            "label": "hop"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Direct cross connect cables link trading servers with exchange gates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cable to switch"
-                  },
-                  {
-                    "text": "ns"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A cross-connect is a direct physical cable between your equipment.",
+            "values": {
+              "C": {
+                "var": "C",
+                "line": 1,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 2,
+                "hit": 2
+              },
+              "path": {
+                "var": "path",
+                "line": 3,
+                "hit": 2
+              },
+              "hop": {
+                "var": "hop",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "C": "data",
+              "m": "data",
+              "path": "data",
+              "hop": "data"
+            },
+            "arrows": [
+              [
+                "C",
+                "m"
+              ],
+              [
+                "m",
+                "path"
+              ],
+              [
+                "path",
+                "hop"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Intermediate network switches introduce serial packet traversal delay.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cable to switch"
-                  },
-                  {
-                    "text": "ns"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Every switch, router or converter along the path adds delay, from tens.",
+            "values": {
+              "C": {
+                "var": "C",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "layer 1 switch"
-                  },
-                  {
-                    "text": "5.0"
-                  }
-                ],
-                "tone": "idle"
+              "m": {
+                "var": "m",
+                "line": 2,
+                "hit": 3
+              },
+              "path": {
+                "var": "path",
+                "line": 5,
+                "hit": 1
+              },
+              "hop": {
+                "var": "hop",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "C": "data",
+              "m": "data",
+              "path": "data",
+              "hop": "data"
+            },
+            "arrows": [
+              [
+                "C",
+                "m"
+              ],
+              [
+                "m",
+                "path"
+              ],
+              [
+                "path",
+                "hop"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Flattened network topologies reduce conversion hops across cables.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cable to switch"
-                  },
-                  {
-                    "text": "ns"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say8",
+            "caption": "Just as with software, you optimise the biggest term first.",
+            "values": {
+              "C": {
+                "var": "C",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "layer 1 switch"
-                  },
-                  {
-                    "text": "5.0"
-                  }
-                ],
-                "tone": "idle"
+              "m": {
+                "var": "m",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "cells": [
-                  {
-                    "text": "exchange handoff"
-                  },
-                  {
-                    "text": "150.0"
-                  }
-                ],
-                "tone": "data"
+              "path": {
+                "var": "path",
+                "line": 6,
+                "hit": 1
+              },
+              "hop": {
+                "var": "hop",
+                "line": 5,
+                "hit": 2
               }
+            },
+            "tones": {
+              "C": "ok",
+              "m": "ok",
+              "path": "ok",
+              "hop": "ok"
+            },
+            "arrows": [
+              [
+                "C",
+                "m"
+              ],
+              [
+                "m",
+                "path"
+              ],
+              [
+                "path",
+                "hop"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Data centre cross-connect hops and hardware switch budgets",
-        "columns": [
-          "hop",
-          "ns"
+        "template": "flow",
+        "title": "Cross-connects and network design",
+        "nodes": [
+          {
+            "id": "C",
+            "label": "C"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          },
+          {
+            "id": "path",
+            "label": "path"
+          },
+          {
+            "id": "hop",
+            "label": "hop"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Direct cross connect cables link trading servers with exchange gates.",
-            "rows": [
-              {
-                "cells": [
-                  "cable to switch",
-                  "ns"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A cross-connect is a direct physical cable between your equipment.",
+            "values": {
+              "C": "299792458",
+              "m": "10",
+              "path": "[['cable to switch', 48.97388045699268]…",
+              "hop": "'cable to switch'"
+            },
+            "tones": {
+              "C": "data",
+              "m": "data",
+              "path": "data",
+              "hop": "data"
+            },
+            "arrows": [
+              [
+                "C",
+                "m"
+              ],
+              [
+                "m",
+                "path"
+              ],
+              [
+                "path",
+                "hop"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Intermediate network switches introduce serial packet traversal delay.",
-            "rows": [
-              {
-                "cells": [
-                  "cable to switch",
-                  "ns"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "layer 1 switch",
-                  "5.0"
-                ],
-                "tone": "idle"
-              }
+            "caption": "Every switch, router or converter along the path adds delay, from tens.",
+            "values": {
+              "C": "299792458",
+              "m": "90",
+              "path": "[['cable to switch', 48.97388045699268]…",
+              "hop": "'cable to switch'"
+            },
+            "tones": {
+              "C": "data",
+              "m": "data",
+              "path": "data",
+              "hop": "data"
+            },
+            "arrows": [
+              [
+                "C",
+                "m"
+              ],
+              [
+                "m",
+                "path"
+              ],
+              [
+                "path",
+                "hop"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Flattened network topologies reduce conversion hops across cables.",
-            "rows": [
-              {
-                "cells": [
-                  "cable to switch",
-                  "ns"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "layer 1 switch",
-                  "5.0"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "exchange handoff",
-                  "150.0"
-                ],
-                "tone": "data"
-              }
+            "at": "say8",
+            "caption": "Just as with software, you optimise the biggest term first.",
+            "values": {
+              "C": "299792458",
+              "m": "90",
+              "path": "[['cable to switch', 48.97388045699268]…",
+              "hop": "'layer 1 switch'"
+            },
+            "tones": {
+              "C": "ok",
+              "m": "ok",
+              "path": "ok",
+              "hop": "ok"
+            },
+            "arrows": [
+              [
+                "C",
+                "m"
+              ],
+              [
+                "m",
+                "path"
+              ],
+              [
+                "path",
+                "hop"
+              ]
             ]
           }
         ]
@@ -513,192 +687,162 @@
       "partTitle": "Fibre versus air",
       "codeHash": "a4d1aaa126f73bed22eb6f9f628085074b472313d1fcaa1f78ba15ed558c3d57",
       "spec": {
-        "template": "table",
-        "title": "Terrestrial fibre compared against atmospheric microwave paths",
-        "columns": [
-          "fibre",
-          "straight_fibre",
-          "micro"
+        "template": "sequence",
+        "title": "Fibre versus air",
+        "actors": [
+          "C",
+          "d",
+          "meters"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Microwave radio propagation in air outpaces optical fibre speeds.",
-            "rows": [
+            "caption": "Radio waves in air travel at nearly the speed of light in a vacuum (air's.",
+            "activeActor": "C",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "fibre"
-                  },
-                  {
-                    "text": "straight_fibre"
-                  },
-                  {
-                    "text": "micro"
-                  }
-                ],
+                "from": "C",
+                "to": "d",
+                "label": {
+                  "var": "C",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "d",
+                "to": "meters",
+                "label": {
+                  "var": "d",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Terrestrial fibre routes follow curved paths adding route distance.",
-            "rows": [
+            "caption": "Fibre routes also rarely go in straight lines.",
+            "activeActor": "d",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "fibre"
-                  },
-                  {
-                    "text": "straight_fibre"
-                  },
-                  {
-                    "text": "micro"
-                  }
-                ],
-                "tone": "ok"
+                "from": "C",
+                "to": "d",
+                "label": {
+                  "var": "C",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "fibre"
-                  },
-                  {
-                    "text": "straight_fibre"
-                  },
-                  {
-                    "text": "micro"
-                  }
-                ],
+                "from": "d",
+                "to": "meters",
+                "label": {
+                  "var": "d",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Intercity latency savings give high speed traders immediate price priority.",
-            "rows": [
+            "at": "say8",
+            "caption": "Even perfectly straight fibre would lose.",
+            "activeActor": "meters",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "fibre"
-                  },
-                  {
-                    "text": "straight_fibre"
-                  },
-                  {
-                    "text": "micro"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "fibre"
-                  },
-                  {
-                    "text": "straight_fibre"
-                  },
-                  {
-                    "text": "micro"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "fibre"
-                  },
-                  {
-                    "text": "straight_fibre"
-                  },
-                  {
-                    "text": "micro"
-                  }
-                ],
+                "from": "C",
+                "to": "d",
+                "label": {
+                  "var": "C",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "d",
+                "to": "meters",
+                "label": {
+                  "var": "d",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Terrestrial fibre compared against atmospheric microwave paths",
-        "columns": [
-          "fibre",
-          "straight_fibre",
-          "micro"
+        "template": "sequence",
+        "title": "Fibre versus air",
+        "actors": [
+          "C",
+          "d",
+          "meters"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Microwave radio propagation in air outpaces optical fibre speeds.",
-            "rows": [
+            "caption": "Radio waves in air travel at nearly the speed of light in a vacuum (air's.",
+            "messages": [
               {
-                "cells": [
-                  "fibre",
-                  "straight_fibre",
-                  "micro"
-                ],
+                "from": "C",
+                "to": "d",
+                "label": "299792458",
+                "tone": "data"
+              },
+              {
+                "from": "d",
+                "to": "meters",
+                "label": "1180000",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "C"
           },
           {
             "at": "say2",
-            "caption": "Terrestrial fibre routes follow curved paths adding route distance.",
-            "rows": [
+            "caption": "Fibre routes also rarely go in straight lines.",
+            "messages": [
               {
-                "cells": [
-                  "fibre",
-                  "straight_fibre",
-                  "micro"
-                ],
-                "tone": "ok"
+                "from": "C",
+                "to": "d",
+                "label": "299792458",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "fibre",
-                  "straight_fibre",
-                  "micro"
-                ],
+                "from": "d",
+                "to": "meters",
+                "label": "1180000",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "d"
           },
           {
-            "at": "say5",
-            "caption": "Intercity latency savings give high speed traders immediate price priority.",
-            "rows": [
+            "at": "say8",
+            "caption": "Even perfectly straight fibre would lose.",
+            "messages": [
               {
-                "cells": [
-                  "fibre",
-                  "straight_fibre",
-                  "micro"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "fibre",
-                  "straight_fibre",
-                  "micro"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "fibre",
-                  "straight_fibre",
-                  "micro"
-                ],
+                "from": "C",
+                "to": "d",
+                "label": "299792458",
                 "tone": "data"
+              },
+              {
+                "from": "d",
+                "to": "meters",
+                "label": "1180000",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "meters"
           }
         ]
       }
@@ -707,223 +851,175 @@
       "partTitle": "The latency arms race and its limits",
       "codeHash": "ac407927f95d230814dbda0f4c5fc7b69a32ba0fd772b01b5083c4b2e63ad7a1",
       "spec": {
-        "template": "flow",
-        "title": "The latency arms race and its limits — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The latency arms ra...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The latency arms race and its limits",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The latency arms race and its limits.",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The latency arms ra... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Within a few years, microwave networks beat it.",
+            "bars": [
+              {
+                "label": "C",
+                "value": {
+                  "var": "C",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "km",
+                "value": {
+                  "var": "km",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "floor_us",
+                "value": {
+                  "var": "floor_us",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Firms now compete on tower locations, antenna design and even the speed.",
+            "bars": [
+              {
+                "label": "C",
+                "value": {
+                  "var": "C",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "km",
+                "value": {
+                  "var": "km",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "floor_us",
+                "value": {
+                  "var": "floor_us",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The latency arms race and its lim.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Understanding the floor tells you when further investment cannot pay off.",
+            "bars": [
+              {
+                "label": "C",
+                "value": {
+                  "var": "C",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "km",
+                "value": {
+                  "var": "km",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "floor_us",
+                "value": {
+                  "var": "floor_us",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The latency arms race and its limits — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The latency arms ra...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The latency arms race and its limits",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The latency arms race and its limits [D24.P5.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The latency arms ra... [D24.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Within a few years, microwave networks beat it.",
+            "bars": [
+              {
+                "label": "C",
+                "value": 299792458,
+                "tone": "data"
+              },
+              {
+                "label": "km",
+                "value": 1180,
+                "tone": "data"
+              },
+              {
+                "label": "floor_us",
+                "value": 3936.056323338194,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Firms now compete on tower locations, antenna design and even the speed.",
+            "bars": [
+              {
+                "label": "C",
+                "value": 299792458,
+                "tone": "ok"
+              },
+              {
+                "label": "km",
+                "value": 1180,
+                "tone": "ok"
+              },
+              {
+                "label": "floor_us",
+                "value": 3936.056323338194,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The latency arms race and its lim.. [D24.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Understanding the floor tells you when further investment cannot pay off.",
+            "bars": [
+              {
+                "label": "C",
+                "value": 299792458,
+                "tone": "ok"
+              },
+              {
+                "label": "km",
+                "value": 1180,
+                "tone": "ok"
+              },
+              {
+                "label": "floor_us",
+                "value": 3936.056323338194,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -933,223 +1029,133 @@
       "partTitle": "Practice time: physics calculators",
       "codeHash": "9e00cf937822a717b7b030a8db4230592907b8da24392bed17d3d790b30f4a58",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: physics calculators — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: phys...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: physics calculators",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: physics calculators.",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: phys... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Fibre_latency(meters, n=1.",
+            "bars": [
+              {
+                "label": "C",
+                "value": {
+                  "var": "C",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "one_way",
+                "value": {
+                  "var": "one_way",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates metre during execution.",
+            "bars": [
+              {
+                "label": "C",
+                "value": {
+                  "var": "C",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "one_way",
+                "value": {
+                  "var": "one_way",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: physics calculators.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows why rounding order matters.",
+            "bars": [
+              {
+                "label": "C",
+                "value": {
+                  "var": "C",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "one_way",
+                "value": {
+                  "var": "one_way",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: physics calculators — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: phys...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: physics calculators",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: physics calculators [D24.P6.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: phys... [D24.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Fibre_latency(meters, n=1.",
+            "bars": [
+              {
+                "label": "C",
+                "value": 299792458,
+                "tone": "data"
+              },
+              {
+                "label": "one_way",
+                "value": 4.897388045699269,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates metre during execution.",
+            "bars": [
+              {
+                "label": "C",
+                "value": 299792458,
+                "tone": "ok"
+              },
+              {
+                "label": "one_way",
+                "value": 4.897388045699269,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: physics calculators [D24.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows why rounding order matters.",
+            "bars": [
+              {
+                "label": "C",
+                "value": 299792458,
+                "tone": "ok"
+              },
+              {
+                "label": "one_way",
+                "value": 4.897388045699269,
+                "tone": "ok"
+              }
             ]
           }
         ]

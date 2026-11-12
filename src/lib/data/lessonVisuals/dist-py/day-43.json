@@ -2,269 +2,670 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 43,
-  "promptSha": "b32bf116ff37a5715c82f50216c5c2b44b326907bd03ccbb442c51cbd85d4652",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Transactional Outbox Pattern & Change Data Capture (CDC) Log Tailing — Foundations & Mathematical Invariants",
-      "codeHash": "413704cc27653fdbb5e240a0db4bb1f7c5bd3570ae65b288b0fca25b027ce197",
+      "partTitle": "Eliminating Dual-Write Split Failures Across DB and Kafka",
+      "codeHash": "3feb3b0f12fa1069c73e5089ac3ef2c5242292e0531d5f423aaa6ab1f538f5f7",
       "spec": {
         "template": "flow",
-        "title": "Transactional Outbox Pattern & Change Data Capture (CDC) Log Tailing —",
+        "title": "Eliminating Dual-Write Split Failures Across DB and Kafka",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "db",
+            "label": "db"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "order_id",
+            "label": "order_id"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "amount",
+            "label": "amount"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Almost every distributed backend writes business rows into PostgreSQL.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "db": {
+                "var": "db",
+                "line": 17,
+                "hit": 1
+              },
+              "order_id": {
+                "var": "order_id",
+                "line": 7,
+                "hit": 1
+              },
+              "amount": {
+                "var": "amount",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "db": "data",
+              "order_id": "data",
+              "amount": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "db"
+              ],
+              [
+                "db",
+                "order_id"
+              ],
+              [
+                "order_id",
+                "amount"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "There is no atomic distributed lock spanning both systems without slow 2PC.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "db": {
+                "var": "db",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "order_id": {
+                "var": "order_id",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "amount": {
+                "var": "amount",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "db": "data",
+              "order_id": "data",
+              "amount": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "db"
+              ],
+              [
+                "db",
+                "order_id"
+              ],
+              [
+                "order_id",
+                "amount"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Demonstrate dual-write ghost/dropped event failure vs atomic.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "db": {
+                "var": "db",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "order_id": {
+                "var": "order_id",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "amount": {
+                "var": "amount",
+                "line": 11,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "db": "ok",
+              "order_id": "ok",
+              "amount": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "db"
+              ],
+              [
+                "db",
+                "order_id"
+              ],
+              [
+                "order_id",
+                "amount"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Transactional Outbox Pattern & Change Data Capture (CDC) Log Tailing —",
+        "title": "Eliminating Dual-Write Split Failures Across DB and Kafka",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "db",
+            "label": "db"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "order_id",
+            "label": "order_id"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "amount",
+            "label": "amount"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Almost every distributed backend writes business rows into PostgreSQL.",
+            "values": {
+              "self": "<DbWithOutbox>",
+              "db": "<DbWithOutbox>",
+              "order_id": "'ord-1'",
+              "amount": "120"
+            },
+            "tones": {
+              "self": "data",
+              "db": "data",
+              "order_id": "data",
+              "amount": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "db"
+              ],
+              [
+                "db",
+                "order_id"
+              ],
+              [
+                "order_id",
+                "amount"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "There is no atomic distributed lock spanning both systems without slow 2PC.",
+            "values": {
+              "self": "<DbWithOutbox>",
+              "db": "<DbWithOutbox>",
+              "order_id": "'ord-1'",
+              "amount": "120"
+            },
+            "tones": {
+              "self": "data",
+              "db": "data",
+              "order_id": "data",
+              "amount": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "db"
+              ],
+              [
+                "db",
+                "order_id"
+              ],
+              [
+                "order_id",
+                "amount"
+              ]
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Demonstrate dual-write ghost/dropped event failure vs atomic.",
+            "values": {
+              "self": "<DbWithOutbox>",
+              "db": "<DbWithOutbox>",
+              "order_id": "'ord-1'",
+              "amount": "120"
+            },
+            "tones": {
+              "self": "ok",
+              "db": "ok",
+              "order_id": "ok",
+              "amount": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "db"
+              ],
+              [
+                "db",
+                "order_id"
+              ],
+              [
+                "order_id",
+                "amount"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Polling Relay vs WAL Change Data Capture (Debezium)",
+      "codeHash": "7992a228105afa50d56eef81099a2f917f21516a3d344cc45a0b03f0796e8b12",
+      "spec": {
+        "template": "states",
+        "title": "Polling Relay vs WAL Change Data Capture (Debezium)",
+        "states": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "cdc",
+            "label": "cdc"
+          },
+          {
+            "id": "table",
+            "label": "table"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Once `outbox_events` rows sit durably inside the database, an asynchronous.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Two main architectural implementations power that relay.",
+            "currentState": "cdc",
+            "transition": {
+              "from": "self",
+              "to": "cdc",
+              "label": {
+                "var": "cdc",
+                "line": 26,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say7",
+            "caption": "Simulate sequential WAL LSN log tailing with checkpoint cursor persistence.",
+            "currentState": "table",
+            "transition": {
+              "from": "cdc",
+              "to": "table",
+              "label": {
+                "var": "table",
+                "line": 10,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Polling Relay vs WAL Change Data Capture (Debezium)",
+        "states": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "cdc",
+            "label": "cdc"
+          },
+          {
+            "id": "table",
+            "label": "table"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Once `outbox_events` rows sit durably inside the database, an asynchronous.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Two main architectural implementations power that relay.",
+            "currentState": "cdc",
+            "transition": {
+              "from": "self",
+              "to": "cdc",
+              "label": "<WalCdcRelay>"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say7",
+            "caption": "Simulate sequential WAL LSN log tailing with checkpoint cursor persistence.",
+            "currentState": "table",
+            "transition": {
+              "from": "cdc",
+              "to": "table",
+              "label": "'orders'"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "At-Least-Once Broker Replays & Consumer Deduplication",
+      "codeHash": "24037b0c3e1146a910c646dcaa3db01f8651e590ea4c6070de0eb946c71285e9",
+      "spec": {
+        "template": "sequence",
+        "title": "At-Least-Once Broker Replays & Consumer Deduplication",
+        "actors": [
+          "self",
+          "consumer",
+          "ev"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Inspect the exact crash window inside any Outbox Relay or CDC tailer.",
+            "activeActor": "self",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "consumer",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "consumer",
+                "to": "ev",
+                "label": {
+                  "var": "consumer",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "On restart, the relay resumes conservatively from its last saved.",
+            "activeActor": "consumer",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "consumer",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "consumer",
+                "to": "ev",
+                "label": {
+                  "var": "consumer",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "at": "say7",
+            "caption": "Test the duplicate crash-replay outbox consumer guard below proving zero.",
+            "activeActor": "ev",
+            "messages": [
+              {
+                "from": "self",
+                "to": "consumer",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "consumer",
+                "to": "ev",
+                "label": {
+                  "var": "consumer",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "At-Least-Once Broker Replays & Consumer Deduplication",
+        "actors": [
+          "self",
+          "consumer",
+          "ev"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Inspect the exact crash window inside any Outbox Relay or CDC tailer.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "consumer",
+                "label": "<IdempotentBillingConsumer>",
+                "tone": "data"
+              },
+              {
+                "from": "consumer",
+                "to": "ev",
+                "label": "<IdempotentBillingConsumer>",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
+            "activeActor": "self"
+          },
+          {
+            "at": "say2",
+            "caption": "On restart, the relay resumes conservatively from its last saved.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "consumer",
+                "label": "<IdempotentBillingConsumer>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "from": "consumer",
+                "to": "ev",
+                "label": "<IdempotentBillingConsumer>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "consumer"
+          },
+          {
+            "at": "say7",
+            "caption": "Test the duplicate crash-replay outbox consumer guard below proving zero.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "consumer",
+                "label": "<IdempotentBillingConsumer>",
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
+                "from": "consumer",
+                "to": "ev",
+                "label": "<IdempotentBillingConsumer>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ev"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Partitioned Routing Keys & Ordering Preservation per Aggregate",
+      "codeHash": "801dfbdbd8d4baddcec34ab15ababe3df750b2b0dec0b1296da9969cb242403b",
+      "spec": {
+        "template": "cells",
+        "title": "Partitioned Routing Keys & Ordering Preservation per Aggregate",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Notice what goes wrong if an Outbox Relay pushes `OrderCreated`.",
+            "items": {
+              "var": "row",
+              "line": 14,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Transactional outbox schemas MUST store explicit `aggregate_type`.",
+            "items": {
+              "var": "row",
+              "line": 14,
+              "hit": 4
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Demonstrate the concurrent T1/T2 uncommitted-ID gap trap vs safe CDC.",
+            "items": {
+              "var": "row",
+              "line": 20,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "cells",
+        "title": "Partitioned Routing Keys & Ordering Preservation per Aggregate",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Notice what goes wrong if an Outbox Relay pushes `OrderCreated`.",
+            "items": [
+              "10",
+              "'ord-9'",
+              "'OrderCreated'",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Transactional outbox schemas MUST store explicit `aggregate_type`.",
+            "items": [
+              "15",
+              "'ord-9'",
+              "'OrderCanceled'",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Demonstrate the concurrent T1/T2 uncommitted-ID gap trap vs safe CDC.",
+            "items": [
+              "15",
+              "'ord-9'",
+              "'OrderCanceled'",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -272,1065 +673,165 @@
       }
     },
     {
-      "partTitle": "Transactional Outbox Pattern & Change Data Capture (CDC) Log Tailing — Core Algorithm & State Representation",
-      "codeHash": "2ae4d1ca9fc12aebcc86826713d51701a549c18dafa89b7cdf23232bfd7cfeb2",
+      "partTitle": "Outbox Compaction, Table Retention & End-to-End Parity Audit",
+      "codeHash": "4ed23a4a046772a3cb75cbf9a633f67afff9fab2760e140affa24c5b558be050",
       "spec": {
-        "template": "flow",
-        "title": "Transactional Outbox Pattern & Change Data Capture (CDC) Log Tailing —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Outbox Compaction, Table Retention & End-to-End Parity Audit",
+        "actors": [
+          "orders",
+          "wal",
+          "broker"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Left unpruned over months of millions of daily events, an append-only.",
+            "activeActor": "orders",
+            "messages": [
+              {
+                "from": "orders",
+                "to": "wal",
+                "label": {
+                  "var": "orders",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "wal",
+                "to": "broker",
+                "label": {
+                  "var": "wal",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Clean outbox architectures prune acknowledged rows sustainably using two.",
+            "activeActor": "wal",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "orders",
+                "to": "wal",
+                "label": {
+                  "var": "orders",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "wal",
+                "to": "broker",
+                "label": {
+                  "var": "wal",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say5",
+            "caption": "Run the full end-to-end Transactional Outbox + WAL CDC + Idempotent.",
+            "activeActor": "broker",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "orders",
+                "to": "wal",
+                "label": {
+                  "var": "orders",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "wal",
+                "to": "broker",
+                "label": {
+                  "var": "wal",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Transactional Outbox Pattern & Change Data Capture (CDC) Log Tailing —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Outbox Compaction, Table Retention & End-to-End Parity Audit",
+        "actors": [
+          "orders",
+          "wal",
+          "broker"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Left unpruned over months of millions of daily events, an append-only.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "orders",
+                "to": "wal",
+                "label": "{}",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "wal",
+                "to": "broker",
+                "label": "[]",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "orders"
           },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Transactional Outbox Pattern & Change Data Capture (CDC) Log Tailing — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "617c289bb1bc696ed3c83fe55e485581c68b2e0c94f84348e2058ce797603f8e",
-      "spec": {
-        "template": "flow",
-        "title": "Transactional Outbox Pattern & Change Data Capture (CDC) Log Tailing —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Clean outbox architectures prune acknowledged rows sustainably using two.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "orders",
+                "to": "wal",
+                "label": "{}",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "wal",
+                "to": "broker",
+                "label": "[]",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "wal"
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "at": "say5",
+            "caption": "Run the full end-to-end Transactional Outbox + WAL CDC + Idempotent.",
+            "messages": [
+              {
+                "from": "orders",
+                "to": "wal",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "wal",
+                "to": "broker",
+                "label": "[]",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Transactional Outbox Pattern & Change Data Capture (CDC) Log Tailing —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Transactional Outbox Pattern & Change Data Capture (CDC) Log Tailing — Resilience Guardrails & Failure Recovery",
-      "codeHash": "7f463c3ff97eec135891e45da6b204955908760c037ebda1b3a906a8b96f063c",
-      "spec": {
-        "template": "flow",
-        "title": "Transactional Outbox Pattern & Change Data Capture (CDC) Log Tailing —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Transactional Outbox Pattern & Change Data Capture (CDC) Log Tailing —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Transactional Outbox Pattern & Change Data Capture (CDC) Log Tailing — Production Telemetry & Verification Audit",
-      "codeHash": "1ed1276ecc7d3375c573850b3e5c9f98f1306ed573bd17c23b2f64ff0aa51b3b",
-      "spec": {
-        "template": "flow",
-        "title": "Transactional Outbox Pattern & Change Data Capture (CDC) Log Tailing —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Transactional Outbox Pattern & Change Data Capture (CDC) Log Tailing —",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "broker"
           }
         ]
       }

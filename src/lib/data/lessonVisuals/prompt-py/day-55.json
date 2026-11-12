@@ -1,157 +1,228 @@
 {
-  "schemaVersion": "2.0.0",
-  "course": "prompt-py",
-  "day": 55,
+  "schemaVersion": 1,
   "prefix": "prompt-py",
+  "day": 55,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "ApexShield Architecture: The Multi-Tier Defense Mesh Blueprint",
       "codeHash": "202de0cd2cb75dbdf1f0eb3ae2230770ad87c093d470fd413148dcc75a2f4c89",
       "spec": {
-        "template": "table",
-        "title": "ApexShield Architecture The Multi Tier Defense Mesh Blueprint.",
-        "columns": [
-          "Defense Tier",
-          "Operational Mechanism",
-          "Protection SLA"
+        "template": "flow",
+        "title": "ApexShield Architecture: The Multi-Tier Defense Mesh Blueprint",
+        "nodes": [
+          {
+            "id": "integrated_subsystems",
+            "label": "integrated_subsystems"
+          },
+          {
+            "id": "safety_metrics",
+            "label": "safety_metrics"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "ApexShield establishes an enterprise defense in depth security mesh.",
-            "rows": [
+            "caption": "As enterprise organizations deploy autonomous foundation models.",
+            "values": {
+              "integrated_subsystems": {
+                "var": "integrated_subsystems",
+                "line": 6,
+                "hit": 1
+              },
+              "safety_metrics": {
+                "var": "safety_metrics",
+                "line": 13,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 29,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "integrated_subsystems": "data",
+              "safety_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Perimeter Ingress Gateway",
-                "Perplexity Anomaly Detection And Token Filtering",
-                "Sub Ten Milliseconds Screening"
+                "integrated_subsystems",
+                "safety_metrics"
               ],
               [
-                "Semantic Classifier Tier",
-                "Llama Guard Safety Taxonomy Categorization",
-                "Microsecond Policy Enforcement"
+                "safety_metrics",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "The multi tier defense mesh integrates input runtime and output layers.",
-            "rows": [
+            "caption": "The multi-tier defense mesh integrates input, runtime, and output layers.",
+            "values": {
+              "integrated_subsystems": {
+                "var": "integrated_subsystems",
+                "line": 14,
+                "hit": 1
+              },
+              "safety_metrics": {
+                "var": "safety_metrics",
+                "line": 21,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 30,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "integrated_subsystems": "data",
+              "safety_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Programmable Runtime Rail",
-                "NeMo Colang Dialogue Flow Steering",
-                "Deterministic Turn Execution"
+                "integrated_subsystems",
+                "safety_metrics"
               ],
               [
-                "Post Generation Scrubber",
-                "Presidio PII Entity Masking And Redaction",
-                "Flawless Privacy Preservation"
+                "safety_metrics",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Layered defensive firewalls intercept adversarial exploits systematically.",
-            "rows": [
+            "at": "say12",
+            "caption": "Mastering the architecture of the ApexShield multi-tier defense mesh.",
+            "values": {
+              "integrated_subsystems": {
+                "var": "integrated_subsystems",
+                "line": 15,
+                "hit": 1
+              },
+              "safety_metrics": {
+                "var": "safety_metrics",
+                "line": 22,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 30,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "integrated_subsystems": "ok",
+              "safety_metrics": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Canary Extraction Trap",
-                "Cryptographic Honeypot Token Verification",
-                "Zero System Prompt Leakage"
+                "integrated_subsystems",
+                "safety_metrics"
               ],
               [
-                "Immutable Audit Ledger",
-                "Cryptographic Hash Provenance Chains",
-                "Statutory Compliance Guarantee"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Architect a multi tier defense mesh protecting foundation model APIs.",
-            "rows": [
-              [
-                "Layered Defense Mesh",
-                "Synchronized Defense In Depth Protection",
-                "Ninety Nine Percent Resilience"
-              ],
-              [
-                "Apex Sovereign Gateway",
-                "Unified Multi Tier Enterprise AI Firewall",
-                "Enterprise Production Grade SLA"
+                "safety_metrics",
+                "result"
               ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "ApexShield Architecture The Multi Tier Defense Mesh Blueprint.",
-        "columns": [
-          "Defense Tier",
-          "Operational Mechanism",
-          "Protection SLA"
+        "template": "flow",
+        "title": "ApexShield Architecture: The Multi-Tier Defense Mesh Blueprint",
+        "nodes": [
+          {
+            "id": "integrated_subsystems",
+            "label": "integrated_subsystems"
+          },
+          {
+            "id": "safety_metrics",
+            "label": "safety_metrics"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "ApexShield establishes an enterprise defense in depth security mesh.",
-            "rows": [
+            "caption": "As enterprise organizations deploy autonomous foundation models.",
+            "values": {
+              "integrated_subsystems": "['Perplexity & Llama Guard Multi-Tier I…",
+              "safety_metrics": "{'overallAttackDeflectionRatePct': 99.8…",
+              "result": "{'defensePlatform': 'ApexShield Soverei…"
+            },
+            "tones": {
+              "integrated_subsystems": "data",
+              "safety_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Perimeter Ingress Gateway",
-                "Perplexity Anomaly Detection And Token Filtering",
-                "Sub Ten Milliseconds Screening"
+                "integrated_subsystems",
+                "safety_metrics"
               ],
               [
-                "Semantic Classifier Tier",
-                "Llama Guard Safety Taxonomy Categorization",
-                "Microsecond Policy Enforcement"
+                "safety_metrics",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "The multi tier defense mesh integrates input runtime and output layers.",
-            "rows": [
+            "caption": "The multi-tier defense mesh integrates input, runtime, and output layers.",
+            "values": {
+              "integrated_subsystems": "['Perplexity & Llama Guard Multi-Tier I…",
+              "safety_metrics": "{'overallAttackDeflectionRatePct': 99.8…",
+              "result": "{'defensePlatform': 'ApexShield Soverei…"
+            },
+            "tones": {
+              "integrated_subsystems": "data",
+              "safety_metrics": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Programmable Runtime Rail",
-                "NeMo Colang Dialogue Flow Steering",
-                "Deterministic Turn Execution"
+                "integrated_subsystems",
+                "safety_metrics"
               ],
               [
-                "Post Generation Scrubber",
-                "Presidio PII Entity Masking And Redaction",
-                "Flawless Privacy Preservation"
+                "safety_metrics",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Layered defensive firewalls intercept adversarial exploits systematically.",
-            "rows": [
+            "at": "say12",
+            "caption": "Mastering the architecture of the ApexShield multi-tier defense mesh.",
+            "values": {
+              "integrated_subsystems": "['Perplexity & Llama Guard Multi-Tier I…",
+              "safety_metrics": "{'overallAttackDeflectionRatePct': 99.8…",
+              "result": "{'defensePlatform': 'ApexShield Soverei…"
+            },
+            "tones": {
+              "integrated_subsystems": "ok",
+              "safety_metrics": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Canary Extraction Trap",
-                "Cryptographic Honeypot Token Verification",
-                "Zero System Prompt Leakage"
+                "integrated_subsystems",
+                "safety_metrics"
               ],
               [
-                "Immutable Audit Ledger",
-                "Cryptographic Hash Provenance Chains",
-                "Statutory Compliance Guarantee"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Architect a multi tier defense mesh protecting foundation model APIs.",
-            "rows": [
-              [
-                "Layered Defense Mesh",
-                "Synchronized Defense In Depth Protection",
-                "Ninety Nine Percent Resilience"
-              ],
-              [
-                "Apex Sovereign Gateway",
-                "Unified Multi Tier Enterprise AI Firewall",
-                "Enterprise Production Grade SLA"
+                "safety_metrics",
+                "result"
               ]
             ]
           }
@@ -162,152 +233,162 @@
       "partTitle": "Input Interception Mesh: Perplexity, Llama Guard, And Classifiers",
       "codeHash": "202de0cd2cb75dbdf1f0eb3ae2230770ad87c093d470fd413148dcc75a2f4c89",
       "spec": {
-        "template": "table",
-        "title": "Input Interception Mesh Perplexity Llama Guard And Classifiers.",
-        "columns": [
-          "Inspection Stage",
-          "Detection Primitive",
-          "Filtering Latency SLA"
+        "template": "sequence",
+        "title": "Input Interception Mesh: Perplexity, Llama Guard, And Classifier",
+        "actors": [
+          "integrated_subsystems",
+          "safety_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Perimeter input sanitizers screen adversarial prompt payloads in speed.",
-            "rows": [
-              [
-                "Perplexity Analysis",
-                "Ngram Surprisal And Cross Entropy Scoring",
-                "Single Millisecond Screening"
-              ],
-              [
-                "Embedding Distance Gate",
-                "Cosine Similarity Against Jailbreak Vectors",
-                "Low Latency Vector Lookup"
-              ]
+            "caption": "The ingress perimeter serves as the first line of defense in.",
+            "activeActor": "integrated_subsystems",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": {
+                  "var": "safety_metrics",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Perplexity estimators and safety classifiers filter malicious tokens.",
-            "rows": [
-              [
-                "Llama Guard Inference",
-                "Fine Tuned Safety Taxonomy Categorization",
-                "Eighteen Milliseconds Evaluation"
-              ],
-              [
-                "Multi Modal Scanner",
-                "Cross Attention Perturbation Analysis",
-                "Comprehensive Image Text Defense"
-              ]
+            "activeActor": "safety_metrics",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": {
+                  "var": "safety_metrics",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Multi tier input filters achieve microsecond detection with zero leakage.",
-            "rows": [
-              [
-                "Token Smuggling Trap",
-                "Base Sixty Four And Unicode Normalization",
-                "Immediate Perimeter Rejection"
-              ],
-              [
-                "Adaptive Rate Limiter",
-                "Dynamic Probing Velocity Throttling",
-                "Denial Of Service Protection"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy an input inspection proxy screening perplexity and hazard types.",
-            "rows": [
-              [
-                "Ingress Security Mesh",
-                "Unified Perimeter Pre Flight Sanitization",
-                "Zero Unchecked Prompt Leakage"
-              ],
-              [
-                "Perimeter Defense Shield",
-                "Deflects Adversarial Inputs Deterministically",
-                "Ultra Low False Positive SLA"
-              ]
+            "at": "say13",
+            "caption": "Mastering the engineering mechanics of the input interception mesh ensures.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": {
+                  "var": "safety_metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Input Interception Mesh Perplexity Llama Guard And Classifiers.",
-        "columns": [
-          "Inspection Stage",
-          "Detection Primitive",
-          "Filtering Latency SLA"
+        "template": "sequence",
+        "title": "Input Interception Mesh: Perplexity, Llama Guard, And Classifier",
+        "actors": [
+          "integrated_subsystems",
+          "safety_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Perimeter input sanitizers screen adversarial prompt payloads in speed.",
-            "rows": [
-              [
-                "Perplexity Analysis",
-                "Ngram Surprisal And Cross Entropy Scoring",
-                "Single Millisecond Screening"
-              ],
-              [
-                "Embedding Distance Gate",
-                "Cosine Similarity Against Jailbreak Vectors",
-                "Low Latency Vector Lookup"
-              ]
-            ]
+            "caption": "The ingress perimeter serves as the first line of defense in.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": "['Perplexity & Llama Guard Multi-Tier I…",
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": "{'overallAttackDeflectionRatePct': 99.8…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "integrated_subsystems"
           },
           {
             "at": "say2",
             "caption": "Perplexity estimators and safety classifiers filter malicious tokens.",
-            "rows": [
-              [
-                "Llama Guard Inference",
-                "Fine Tuned Safety Taxonomy Categorization",
-                "Eighteen Milliseconds Evaluation"
-              ],
-              [
-                "Multi Modal Scanner",
-                "Cross Attention Perturbation Analysis",
-                "Comprehensive Image Text Defense"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": "['Perplexity & Llama Guard Multi-Tier I…",
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": "{'overallAttackDeflectionRatePct': 99.8…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "safety_metrics"
           },
           {
-            "at": "example",
-            "caption": "Multi tier input filters achieve microsecond detection with zero leakage.",
-            "rows": [
-              [
-                "Token Smuggling Trap",
-                "Base Sixty Four And Unicode Normalization",
-                "Immediate Perimeter Rejection"
-              ],
-              [
-                "Adaptive Rate Limiter",
-                "Dynamic Probing Velocity Throttling",
-                "Denial Of Service Protection"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy an input inspection proxy screening perplexity and hazard types.",
-            "rows": [
-              [
-                "Ingress Security Mesh",
-                "Unified Perimeter Pre Flight Sanitization",
-                "Zero Unchecked Prompt Leakage"
-              ],
-              [
-                "Perimeter Defense Shield",
-                "Deflects Adversarial Inputs Deterministically",
-                "Ultra Low False Positive SLA"
-              ]
-            ]
+            "at": "say13",
+            "caption": "Mastering the engineering mechanics of the input interception mesh ensures.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": "['Perplexity & Llama Guard Multi-Tier I…",
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": "{'overallAttackDeflectionRatePct': 99.8…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -316,152 +397,162 @@
       "partTitle": "Programmable Execution Guardrails: NeMo Colang Flows And Sandboxing",
       "codeHash": "202de0cd2cb75dbdf1f0eb3ae2230770ad87c093d470fd413148dcc75a2f4c89",
       "spec": {
-        "template": "table",
-        "title": "Programmable Execution Guardrails NeMo Colang Flows And Sandboxing.",
-        "columns": [
-          "Guardrail Component",
-          "Policy Specification",
-          "Enforcement Reliability SLA"
+        "template": "sequence",
+        "title": "Programmable Execution Guardrails: NeMo Colang Flows And Sandbox",
+        "actors": [
+          "integrated_subsystems",
+          "safety_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Programmable dialogue flows constrain model execution within safe rails.",
-            "rows": [
-              [
-                "Colang Flow Controller",
-                "Declarative Dialogue State Transition Trees",
-                "Deterministic Conversation Steering"
-              ],
-              [
-                "Topical Self Check Rail",
-                "Secondary LLM Verification Of User Intent",
-                "Sub Second Intent Verification"
-              ]
+            "caption": "Even with rigorous perimeter filtering, sophisticated multi-turn attacks.",
+            "activeActor": "integrated_subsystems",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": {
+                  "var": "safety_metrics",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Declarative Colang policies steer conversational trajectories safely.",
-            "rows": [
-              [
-                "Tool Authorization Gate",
-                "Schema Conformance And Parameter Sanitization",
-                "Zero Injection Tool Execution"
-              ],
-              [
-                "Ephemeral Sandbox Engine",
-                "Isolated Containerized Python Tool Runtime",
-                "Complete OS Kernel Protection"
-              ]
+            "activeActor": "safety_metrics",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": {
+                  "var": "safety_metrics",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Execution guardrails enforce policy flows and isolate untrusted tool calls.",
-            "rows": [
-              [
-                "Hallucination Interceptor",
-                "Self Consistency And Groundedness Verification",
-                "Factually Anchored Completions"
-              ],
-              [
-                "Memory Boundary Guard",
-                "Prevents Context Poisoning Across Turns",
-                "Strict Conversation Isolation"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement programmable dialog rails constraining multi turn agent state.",
-            "rows": [
-              [
-                "Runtime Execution Mesh",
-                "End To End Programmable Safety Architecture",
-                "Flawless Behavioral Compliance"
-              ],
-              [
-                "Autonomous Agent Guard",
-                "Protects Tool Augmented Agent Workflows",
-                "Uncompromising Safety Standards"
-              ]
+            "at": "say13",
+            "caption": "Mastering programmable execution guardrails empowers you to build.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": {
+                  "var": "safety_metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Programmable Execution Guardrails NeMo Colang Flows And Sandboxing.",
-        "columns": [
-          "Guardrail Component",
-          "Policy Specification",
-          "Enforcement Reliability SLA"
+        "template": "sequence",
+        "title": "Programmable Execution Guardrails: NeMo Colang Flows And Sandbox",
+        "actors": [
+          "integrated_subsystems",
+          "safety_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Programmable dialogue flows constrain model execution within safe rails.",
-            "rows": [
-              [
-                "Colang Flow Controller",
-                "Declarative Dialogue State Transition Trees",
-                "Deterministic Conversation Steering"
-              ],
-              [
-                "Topical Self Check Rail",
-                "Secondary LLM Verification Of User Intent",
-                "Sub Second Intent Verification"
-              ]
-            ]
+            "caption": "Even with rigorous perimeter filtering, sophisticated multi-turn attacks.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": "['Perplexity & Llama Guard Multi-Tier I…",
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": "{'overallAttackDeflectionRatePct': 99.8…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "integrated_subsystems"
           },
           {
             "at": "say2",
             "caption": "Declarative Colang policies steer conversational trajectories safely.",
-            "rows": [
-              [
-                "Tool Authorization Gate",
-                "Schema Conformance And Parameter Sanitization",
-                "Zero Injection Tool Execution"
-              ],
-              [
-                "Ephemeral Sandbox Engine",
-                "Isolated Containerized Python Tool Runtime",
-                "Complete OS Kernel Protection"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": "['Perplexity & Llama Guard Multi-Tier I…",
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": "{'overallAttackDeflectionRatePct': 99.8…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "safety_metrics"
           },
           {
-            "at": "example",
-            "caption": "Execution guardrails enforce policy flows and isolate untrusted tool calls.",
-            "rows": [
-              [
-                "Hallucination Interceptor",
-                "Self Consistency And Groundedness Verification",
-                "Factually Anchored Completions"
-              ],
-              [
-                "Memory Boundary Guard",
-                "Prevents Context Poisoning Across Turns",
-                "Strict Conversation Isolation"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement programmable dialog rails constraining multi turn agent state.",
-            "rows": [
-              [
-                "Runtime Execution Mesh",
-                "End To End Programmable Safety Architecture",
-                "Flawless Behavioral Compliance"
-              ],
-              [
-                "Autonomous Agent Guard",
-                "Protects Tool Augmented Agent Workflows",
-                "Uncompromising Safety Standards"
-              ]
-            ]
+            "at": "say13",
+            "caption": "Mastering programmable execution guardrails empowers you to build.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": "['Perplexity & Llama Guard Multi-Tier I…",
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": "{'overallAttackDeflectionRatePct': 99.8…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -470,152 +561,162 @@
       "partTitle": "Output Scrubbing, Canary Leakage Traps, And Cryptographic Auditing",
       "codeHash": "202de0cd2cb75dbdf1f0eb3ae2230770ad87c093d470fd413148dcc75a2f4c89",
       "spec": {
-        "template": "table",
-        "title": "Output Scrubbing Canary Leakage Traps And Cryptographic Auditing.",
-        "columns": [
-          "Scrubbing Module",
-          "Forensic Technique",
-          "Compliance Standard SLA"
+        "template": "sequence",
+        "title": "Output Scrubbing, Canary Leakage Traps, And Cryptographic Auditi",
+        "actors": [
+          "integrated_subsystems",
+          "safety_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Post generation filters scrub sensitive data and detect canary tokens.",
-            "rows": [
-              [
-                "Presidio Entity Recognizer",
-                "Named Entity Recognition For PII Detection",
-                "GDPR And HIPAA Privacy Standard"
-              ],
-              [
-                "PCI DSS Credit Card Mask",
-                "Luhn Algorithm Check With Regex Substitution",
-                "Zero Payment Record Exposure"
-              ]
+            "caption": "The final defensive checkpoint in the ApexShield architecture operates.",
+            "activeActor": "integrated_subsystems",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": {
+                  "var": "safety_metrics",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Canary token traps intercept prompt extraction attempts deterministically.",
-            "rows": [
-              [
-                "Canary Honeypot Monitor",
-                "Exact Cryptographic Nonce Token Matching",
-                "Zero Prompt Extraction Leakage"
-              ],
-              [
-                "Entropy Secret Scanner",
-                "Shannon Information Entropy Peak Detection",
-                "Immediate Secret Key Scrubbing"
-              ]
+            "activeActor": "safety_metrics",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": {
+                  "var": "safety_metrics",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Cryptographic audit ledgers record verified model completions securely.",
-            "rows": [
-              [
-                "Synthetic Data Replacer",
-                "Substitutes Sensitive Fields With Fake Values",
-                "Preserves Downstream Utility"
-              ],
-              [
-                "Automated Redaction Log",
-                "Emits Redacted Completion Audit Transcripts",
-                "Complete Operational Transparency"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Construct an output scrubber masking sensitive records and canary tokens.",
-            "rows": [
-              [
-                "Cryptographic Ledger Core",
-                "Append Only SHA Two Fifty Six Provenance Chains",
-                "SOC Two Compliance Certification"
-              ],
-              [
-                "Egress Defense Gateway",
-                "Comprehensive Post Generation Sanitization",
-                "Flawless Output Governance SLA"
-              ]
+            "at": "say13",
+            "caption": "Mastering output scrubbing and canary leakage detection equips you.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": {
+                  "var": "safety_metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Output Scrubbing Canary Leakage Traps And Cryptographic Auditing.",
-        "columns": [
-          "Scrubbing Module",
-          "Forensic Technique",
-          "Compliance Standard SLA"
+        "template": "sequence",
+        "title": "Output Scrubbing, Canary Leakage Traps, And Cryptographic Auditi",
+        "actors": [
+          "integrated_subsystems",
+          "safety_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Post generation filters scrub sensitive data and detect canary tokens.",
-            "rows": [
-              [
-                "Presidio Entity Recognizer",
-                "Named Entity Recognition For PII Detection",
-                "GDPR And HIPAA Privacy Standard"
-              ],
-              [
-                "PCI DSS Credit Card Mask",
-                "Luhn Algorithm Check With Regex Substitution",
-                "Zero Payment Record Exposure"
-              ]
-            ]
+            "caption": "The final defensive checkpoint in the ApexShield architecture operates.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": "['Perplexity & Llama Guard Multi-Tier I…",
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": "{'overallAttackDeflectionRatePct': 99.8…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "integrated_subsystems"
           },
           {
             "at": "say2",
             "caption": "Canary token traps intercept prompt extraction attempts deterministically.",
-            "rows": [
-              [
-                "Canary Honeypot Monitor",
-                "Exact Cryptographic Nonce Token Matching",
-                "Zero Prompt Extraction Leakage"
-              ],
-              [
-                "Entropy Secret Scanner",
-                "Shannon Information Entropy Peak Detection",
-                "Immediate Secret Key Scrubbing"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": "['Perplexity & Llama Guard Multi-Tier I…",
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": "{'overallAttackDeflectionRatePct': 99.8…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "safety_metrics"
           },
           {
-            "at": "example",
-            "caption": "Cryptographic audit ledgers record verified model completions securely.",
-            "rows": [
-              [
-                "Synthetic Data Replacer",
-                "Substitutes Sensitive Fields With Fake Values",
-                "Preserves Downstream Utility"
-              ],
-              [
-                "Automated Redaction Log",
-                "Emits Redacted Completion Audit Transcripts",
-                "Complete Operational Transparency"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Construct an output scrubber masking sensitive records and canary tokens.",
-            "rows": [
-              [
-                "Cryptographic Ledger Core",
-                "Append Only SHA Two Fifty Six Provenance Chains",
-                "SOC Two Compliance Certification"
-              ],
-              [
-                "Egress Defense Gateway",
-                "Comprehensive Post Generation Sanitization",
-                "Flawless Output Governance SLA"
-              ]
-            ]
+            "at": "say13",
+            "caption": "Mastering output scrubbing and canary leakage detection equips you.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": "['Perplexity & Llama Guard Multi-Tier I…",
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": "{'overallAttackDeflectionRatePct': 99.8…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -624,152 +725,162 @@
       "partTitle": "The Continuous Immune System: Autonomous Fuzzing And Self-Hardening",
       "codeHash": "202de0cd2cb75dbdf1f0eb3ae2230770ad87c093d470fd413148dcc75a2f4c89",
       "spec": {
-        "template": "table",
-        "title": "The Continuous Immune System Autonomous Fuzzing And Self Hardening.",
-        "columns": [
-          "Subsystem Module",
-          "Architecture Role",
-          "Verification Metric SLA"
+        "template": "sequence",
+        "title": "The Continuous Immune System: Autonomous Fuzzing And Self-Harden",
+        "actors": [
+          "integrated_subsystems",
+          "safety_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Continuous automated red teaming hardens the enterprise immune system.",
-            "rows": [
-              [
-                "Multi Tier Input Proxy",
-                "Perplexity And Llama Guard Pre Flight Shield",
-                "Eighteen Millisecond Latency SLA"
-              ],
-              [
-                "NeMo Colang Engine",
-                "Programmable Dialog Steerage And Rail Routing",
-                "Deterministic State Transitions"
-              ]
+            "caption": "The true resilience of the ApexShield architecture lies in its ability.",
+            "activeActor": "integrated_subsystems",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": {
+                  "var": "safety_metrics",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Autonomous red teaming meshes continuously probe and repair guardrails.",
-            "rows": [
-              [
-                "Presidio Canary Core",
-                "PII Redaction And Prompt Honeypot Trapping",
-                "Zero Sensitive Data Spillage"
-              ],
-              [
-                "Continuous Red Teamer",
-                "Autonomous Multi Algorithm Adversarial Fuzzing",
-                "Ten Thousand Attack Vectors Probed"
-              ]
+            "activeActor": "safety_metrics",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": {
+                  "var": "safety_metrics",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "ApexShield achieves ninety nine percent attack deflection in production.",
-            "rows": [
-              [
-                "Cryptographic Audit Vault",
-                "Immutable Hash Chaining And Audit Provenance",
-                "Statutory Compliance Assurance"
-              ],
-              [
-                "Immune Self Healing",
-                "Synthesizes Defensive Rules From Red Teaming",
-                "Rapid Automated Patch Deployment"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy the integrated ApexShield capstone defense mesh in production.",
-            "rows": [
-              [
-                "ApexShield Enterprise Mesh",
-                "Unified Defense Platform For Sovereign AI",
-                "Ninety Nine Point Eight Percent Deflection"
-              ],
-              [
-                "Milestone Eight Capstone",
-                "Full Block Eleven Enterprise Certification",
-                "Mastery Of AI Safety Systems"
-              ]
+            "at": "say14",
+            "caption": "Mastering the ApexShield capstone establishes you as a preeminent leader.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": {
+                  "var": "integrated_subsystems",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": {
+                  "var": "safety_metrics",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "The Continuous Immune System Autonomous Fuzzing And Self Hardening.",
-        "columns": [
-          "Subsystem Module",
-          "Architecture Role",
-          "Verification Metric SLA"
+        "template": "sequence",
+        "title": "The Continuous Immune System: Autonomous Fuzzing And Self-Harden",
+        "actors": [
+          "integrated_subsystems",
+          "safety_metrics",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Continuous automated red teaming hardens the enterprise immune system.",
-            "rows": [
-              [
-                "Multi Tier Input Proxy",
-                "Perplexity And Llama Guard Pre Flight Shield",
-                "Eighteen Millisecond Latency SLA"
-              ],
-              [
-                "NeMo Colang Engine",
-                "Programmable Dialog Steerage And Rail Routing",
-                "Deterministic State Transitions"
-              ]
-            ]
+            "caption": "The true resilience of the ApexShield architecture lies in its ability.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": "['Perplexity & Llama Guard Multi-Tier I…",
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": "{'overallAttackDeflectionRatePct': 99.8…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "integrated_subsystems"
           },
           {
             "at": "say2",
             "caption": "Autonomous red teaming meshes continuously probe and repair guardrails.",
-            "rows": [
-              [
-                "Presidio Canary Core",
-                "PII Redaction And Prompt Honeypot Trapping",
-                "Zero Sensitive Data Spillage"
-              ],
-              [
-                "Continuous Red Teamer",
-                "Autonomous Multi Algorithm Adversarial Fuzzing",
-                "Ten Thousand Attack Vectors Probed"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": "['Perplexity & Llama Guard Multi-Tier I…",
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": "{'overallAttackDeflectionRatePct': 99.8…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "safety_metrics"
           },
           {
-            "at": "example",
-            "caption": "ApexShield achieves ninety nine percent attack deflection in production.",
-            "rows": [
-              [
-                "Cryptographic Audit Vault",
-                "Immutable Hash Chaining And Audit Provenance",
-                "Statutory Compliance Assurance"
-              ],
-              [
-                "Immune Self Healing",
-                "Synthesizes Defensive Rules From Red Teaming",
-                "Rapid Automated Patch Deployment"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy the integrated ApexShield capstone defense mesh in production.",
-            "rows": [
-              [
-                "ApexShield Enterprise Mesh",
-                "Unified Defense Platform For Sovereign AI",
-                "Ninety Nine Point Eight Percent Deflection"
-              ],
-              [
-                "Milestone Eight Capstone",
-                "Full Block Eleven Enterprise Certification",
-                "Mastery Of AI Safety Systems"
-              ]
-            ]
+            "at": "say14",
+            "caption": "Mastering the ApexShield capstone establishes you as a preeminent leader.",
+            "messages": [
+              {
+                "from": "integrated_subsystems",
+                "to": "safety_metrics",
+                "label": "['Perplexity & Llama Guard Multi-Tier I…",
+                "tone": "data"
+              },
+              {
+                "from": "safety_metrics",
+                "to": "result",
+                "label": "{'overallAttackDeflectionRatePct': 99.8…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }

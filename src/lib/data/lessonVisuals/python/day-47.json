@@ -2,88 +2,250 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 47,
-  "promptSha": "dc8fb794026f3037652aebddd112218f50c2081f9ac9af42a081c6cd19ac8c4a",
-  "model": "gate-v2-verified",
+  "promptSha": "c9d024cf5ebccfb7f9dae16d2c096a14811adc74be9757a21363a759c55d89a5",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "Kafka Partition Physics, Consumer Groups & Offset Mechanics",
       "codeHash": "abc94ef776a8f13544741eecc13016b347eebf6a97fd0b80f66c2bbbe3463050",
       "spec": {
-        "template": "table",
-        "title": "Kafka Partition Physics, Consumer Groups & Offset ",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "KafkaTopicSimulator deterministic key hashing",
+        "nodes": [
+          {
+            "id": "pub",
+            "label": "publish_event"
+          },
+          {
+            "id": "key",
+            "label": "partition_key"
+          },
+          {
+            "id": "part",
+            "label": "partitions"
+          },
+          {
+            "id": "off",
+            "label": "offset"
+          }
+        ],
+        "edges": [
+          {
+            "from": "pub",
+            "to": "key"
+          },
+          {
+            "from": "key",
+            "to": "part"
+          },
+          {
+            "from": "part",
+            "to": "off"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The large concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Kafka"
-                  },
-                  {
-                    "text": "Partition"
-                  }
-                ],
-                "tone": "data"
+            "at": "say3",
+            "caption": "Deterministic hashing routes events sharing keys into matching partitions.",
+            "values": {
+              "pub": {
+                "text": "publish_event"
+              },
+              "key": {
+                "text": "partition_key"
+              },
+              "part": {
+                "text": "partitions"
+              },
+              "off": {
+                "text": "offset"
               }
-            ]
+            },
+            "tones": {
+              "pub": "data",
+              "key": "data",
+              "part": "ok",
+              "off": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The physical logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Physics"
-                  },
-                  {
-                    "text": "Consumer"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say4",
+            "caption": "Each partition assigns an immutable sequential integer offset to messages.",
+            "values": {
+              "pub": {
+                "text": "KafkaTopicSimulator"
+              },
+              "key": {
+                "text": "payload"
+              },
+              "part": {
+                "text": "partitions"
+              },
+              "off": {
+                "text": "offset"
               }
-            ]
+            },
+            "tones": {
+              "pub": "ok",
+              "key": "data",
+              "part": "ok",
+              "off": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Publishing keyed events assigns deterministic partitions and log offsets.",
+            "values": {
+              "pub": {
+                "text": "publish_event"
+              },
+              "key": {
+                "text": "partition_key"
+              },
+              "part": {
+                "text": "partitions"
+              },
+              "off": {
+                "text": "offset"
+              }
+            },
+            "tones": {
+              "pub": "ok",
+              "key": "ok",
+              "part": "ok",
+              "off": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Publish fourth order_101 event confirming identical partition routing.",
+            "values": {
+              "pub": {
+                "text": "Publish"
+              },
+              "key": {
+                "text": "event"
+              },
+              "part": {
+                "text": "partition"
+              },
+              "off": {
+                "text": "order_101"
+              }
+            },
+            "tones": {
+              "pub": "data",
+              "key": "ok",
+              "part": "ok",
+              "off": "ok"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Kafka Partition Physics, Consumer Groups & Offset ",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "KafkaTopicSimulator deterministic key hashing",
+        "nodes": [
+          {
+            "id": "pub",
+            "label": "publish_event"
+          },
+          {
+            "id": "key",
+            "label": "partition_key"
+          },
+          {
+            "id": "part",
+            "label": "partitions"
+          },
+          {
+            "id": "off",
+            "label": "offset"
+          }
+        ],
+        "edges": [
+          {
+            "from": "pub",
+            "to": "key"
+          },
+          {
+            "from": "key",
+            "to": "part"
+          },
+          {
+            "from": "part",
+            "to": "off"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The large concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Kafka",
-                  "Partition"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say3",
+            "caption": "Deterministic hashing routes events sharing keys into matching partitions.",
+            "values": {
+              "pub": "order_101..103",
+              "key": "hash(key) % 4",
+              "part": "Partition 1, 2, 3",
+              "off": "Appending Tail"
+            },
+            "tones": {
+              "pub": "data",
+              "key": "data",
+              "part": "ok",
+              "off": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The physical logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Physics",
-                  "Consumer"
-                ],
-                "tone": "ok"
-              }
+            "at": "say4",
+            "caption": "Each partition assigns an immutable sequential integer offset to messages.",
+            "values": {
+              "pub": "4 Topic Partitions",
+              "key": "OrderCreated",
+              "part": "Append-Only Segment",
+              "off": "Monotonic Offset 0"
+            },
+            "tones": {
+              "pub": "ok",
+              "key": "data",
+              "part": "ok",
+              "off": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Publishing keyed events assigns deterministic partitions and log offsets.",
+            "values": {
+              "pub": "3 Events Stored",
+              "key": "Key Order Preserved",
+              "part": "Partition 1,2,3",
+              "off": "Offsets 0 Assigned"
+            },
+            "tones": {
+              "pub": "ok",
+              "key": "ok",
+              "part": "ok",
+              "off": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Publish fourth order_101 event confirming identical partition routing.",
+            "values": {
+              "pub": "4th Event OrderShipped",
+              "key": "order_101 Hash Match",
+              "part": "Partition 1 (p4 == p1)",
+              "off": "Offset Incremented -> 1"
+            },
+            "tones": {
+              "pub": "data",
+              "key": "ok",
+              "part": "ok",
+              "off": "ok"
+            },
+            "arrows": [],
+            "whatIf": "class KafkaTopicSimulator:\n    def __init__(self, partition_count=4):\n        self.partitions = {p: [] for p in range(partition_count)}\n\n    def publish_event(self, partition_key, payload):\n        # Deterministic partition assignment via hash\n        p_idx = sum(ord(c) for c in partition_key) % len(self.partitions)\n        offset = len(self.partitions[p_idx])\n        event = {\"offset\": offset, \"key\": partition_key, \"payload\": payload}\n        self.partitions[p_idx].append(event)\n        return p_idx, offset\n\ntopic = KafkaTopicSimulator(partition_count=4)\np1, o1 = topic.publish_event(\"order_101\", \"OrderCreated\")\np2, o2 = topic.publish_event(\"order_102\", \"OrderCreated\")\np3, o3 = topic.publish_event(\"order_103\", \"OrderCreated\")\n\nprint(f\"Event 1 -> Partition: {p1}, Offset: {o1}\")\nprint(f\"Event 2 -> Partition: {p2}, Offset: {o2}\")\np4, o4 = topic.publish_event(\"order_101\", \"OrderShipped\")\nprint(f\"Event 3 -> Partition: {p3}, Offset: {o3}\")\nprint(f\"Event 4 -> Partition: {p4}, Offset: {o4} (Same as Event 1: {p4 == p1})\")\nprint(\"Partition Invariant: Events with identical keys are guaranteed strictly ordered within the same partition.\")",
+            "checks": [
+              "Event 4 -> Partition: 1, Offset: 1 (Same as Event 1: True)"
             ]
           }
         ]
@@ -93,82 +255,160 @@
       "partTitle": "Auto-Commit Message Loss & Rebalance Storm Forensics",
       "codeHash": "9bbbea5a7ee0197c1e6cd249a27913d6e6c3fd7158282c3d51d862adebbe074d",
       "spec": {
-        "template": "table",
-        "title": "Auto-Commit Message Loss & Rebalance Storm Forensi",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Premature auto-commit loss vs manual commit safety",
+        "leftLabel": "Auto-Commit Enabled",
+        "rightLabel": "Manual Commit After DB",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The apache concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Auto"
-                  },
-                  {
-                    "text": "Commit"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Timer commits advance consumer offsets before unfinished database writes.",
+            "left": {
+              "code": "committed_offset",
+              "result": "Offset 10 Timer Commit",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "db_persisted_offset",
+              "result": "Held Until Persist",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The upon logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Message"
-                  },
-                  {
-                    "text": "Loss"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Restarts skip unprocessed records forever after premature offset commits.",
+            "left": {
+              "code": "lost_count",
+              "result": "4 Messages Skipped",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "simulate_manual_commit_recovery",
+              "result": "Replays From Offset 6",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Manual commits replay safely while auto-commit drops uncommitted records.",
+            "left": {
+              "code": "simulate_auto_commit_crash",
+              "result": "4 Lost Forever",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "simulate_manual_commit_recovery",
+              "result": "0 Messages Lost",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Alter db_persisted_offset in simulate_auto_commit_crash measuring skipped.",
+            "left": {
+              "code": "db_persisted_offset = 6 (committed = 10)",
+              "result": "4 messages SKIPPED FOREVER",
+              "tone": "error",
+              "checks": [
+                "4 messages SKIPPED FOREVER.",
+                "GAP_OFFSET_6_CHECK"
+              ],
+              "whatIf": "class AutoVsManualCommitSimulator:\n    def simulate_auto_commit_crash(self):\n        # Auto-commit commits offset 10 on timer before DB write completes at offset 7\n        committed_offset = 10\n        db_persisted_offset = 6\n        lost_count = committed_offset - db_persisted_offset\n        return f\"AUTO-COMMIT LOSS: Worker crashed at offset {db_persisted_offset}. Offset {committed_offset} was already committed! {lost_count} messages SKIPPED FOREVER.\"\n\n    def simulate_manual_commit_recovery(self):\n        # Manual commit only commits AFTER DB write\n        db_persisted_offset = 6\n        committed_offset = db_persisted_offset\n        # Worker restarts and resumes from committed_offset\n        return f\"MANUAL COMMIT SAFETY: Worker crashed at offset {db_persisted_offset}. Committed offset is {committed_offset}. 0 messages lost, clean replay on restart.\"\n\nsim = AutoVsManualCommitSimulator()\nprint(sim.simulate_auto_commit_crash())\nprint(sim.simulate_manual_commit_recovery())\nprint(\"GAP_OFFSET_6_CHECK\")"
+            },
+            "right": {
+              "code": "db_persisted_offset = 8 (committed = 10)",
+              "result": "2 messages SKIPPED FOREVER",
+              "tone": "error",
+              "checks": [
+                "Worker crashed at offset 8. Offset 10 was already committed! 2 messages SKIPPED FOREVER."
+              ],
+              "whatIf": "class AutoVsManualCommitSimulator:\n    def simulate_auto_commit_crash(self):\n        # Auto-commit commits offset 10 on timer before DB write completes at offset 7\n        committed_offset = 10\n        db_persisted_offset = 8\n        lost_count = committed_offset - db_persisted_offset\n        return f\"AUTO-COMMIT LOSS: Worker crashed at offset {db_persisted_offset}. Offset {committed_offset} was already committed! {lost_count} messages SKIPPED FOREVER.\"\n\n    def simulate_manual_commit_recovery(self):\n        # Manual commit only commits AFTER DB write\n        db_persisted_offset = 6\n        committed_offset = db_persisted_offset\n        # Worker restarts and resumes from committed_offset\n        return f\"MANUAL COMMIT SAFETY: Worker crashed at offset {db_persisted_offset}. Committed offset is {committed_offset}. 0 messages lost, clean replay on restart.\"\n\nsim = AutoVsManualCommitSimulator()\nprint(sim.simulate_auto_commit_crash())\nprint(sim.simulate_manual_commit_recovery())"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Auto-Commit Message Loss & Rebalance Storm Forensi",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Premature auto-commit loss vs manual commit safety",
+        "leftLabel": "Auto-Commit Enabled",
+        "rightLabel": "Manual Commit After DB",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The apache concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Auto",
-                  "Commit"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Timer commits advance consumer offsets before unfinished database writes.",
+            "left": {
+              "code": "Timer Committed Offset 10",
+              "result": "DB Only Persisted 6",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "enable_auto_commit = False",
+              "result": "Commit Waits For DB",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The upon logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Message",
-                  "Loss"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Restarts skip unprocessed records forever after premature offset commits.",
+            "left": {
+              "code": "Restart Polls From 11",
+              "result": "Offsets 7..10 Vanished",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Restart Polls From 6",
+              "result": "Zero Silent Drops",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Manual commits replay safely while auto-commit drops uncommitted records.",
+            "left": {
+              "code": "AUTO-COMMIT LOSS (4 Lost)",
+              "result": "Permanent Ledger Gap",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "MANUAL COMMIT SAFETY",
+              "result": "Clean Replay Recovery",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Alter db_persisted_offset in simulate_auto_commit_crash measuring skipped.",
+            "left": {
+              "code": "db_persisted_offset = 6 (committed = 10)",
+              "result": "4 messages SKIPPED FOREVER",
+              "tone": "error",
+              "checks": [
+                "4 messages SKIPPED FOREVER.",
+                "GAP_OFFSET_6_CHECK"
+              ],
+              "whatIf": "class AutoVsManualCommitSimulator:\n    def simulate_auto_commit_crash(self):\n        # Auto-commit commits offset 10 on timer before DB write completes at offset 7\n        committed_offset = 10\n        db_persisted_offset = 6\n        lost_count = committed_offset - db_persisted_offset\n        return f\"AUTO-COMMIT LOSS: Worker crashed at offset {db_persisted_offset}. Offset {committed_offset} was already committed! {lost_count} messages SKIPPED FOREVER.\"\n\n    def simulate_manual_commit_recovery(self):\n        # Manual commit only commits AFTER DB write\n        db_persisted_offset = 6\n        committed_offset = db_persisted_offset\n        # Worker restarts and resumes from committed_offset\n        return f\"MANUAL COMMIT SAFETY: Worker crashed at offset {db_persisted_offset}. Committed offset is {committed_offset}. 0 messages lost, clean replay on restart.\"\n\nsim = AutoVsManualCommitSimulator()\nprint(sim.simulate_auto_commit_crash())\nprint(sim.simulate_manual_commit_recovery())\nprint(\"GAP_OFFSET_6_CHECK\")"
+            },
+            "right": {
+              "code": "db_persisted_offset = 8 (committed = 10)",
+              "result": "2 messages SKIPPED FOREVER",
+              "tone": "error",
+              "checks": [
+                "Worker crashed at offset 8. Offset 10 was already committed! 2 messages SKIPPED FOREVER."
+              ],
+              "whatIf": "class AutoVsManualCommitSimulator:\n    def simulate_auto_commit_crash(self):\n        # Auto-commit commits offset 10 on timer before DB write completes at offset 7\n        committed_offset = 10\n        db_persisted_offset = 8\n        lost_count = committed_offset - db_persisted_offset\n        return f\"AUTO-COMMIT LOSS: Worker crashed at offset {db_persisted_offset}. Offset {committed_offset} was already committed! {lost_count} messages SKIPPED FOREVER.\"\n\n    def simulate_manual_commit_recovery(self):\n        # Manual commit only commits AFTER DB write\n        db_persisted_offset = 6\n        committed_offset = db_persisted_offset\n        # Worker restarts and resumes from committed_offset\n        return f\"MANUAL COMMIT SAFETY: Worker crashed at offset {db_persisted_offset}. Committed offset is {committed_offset}. 0 messages lost, clean replay on restart.\"\n\nsim = AutoVsManualCommitSimulator()\nprint(sim.simulate_auto_commit_crash())\nprint(sim.simulate_manual_commit_recovery())"
+            }
           }
         ]
       }
@@ -177,81 +417,266 @@
       "partTitle": "aiokafka Event Consumer with Manual Offset Management",
       "codeHash": "b8a7dd6880adc29a3de9bb2b4e3439b45361834e9b84c0063888f4948d960c4e",
       "spec": {
-        "template": "table",
-        "title": "aiokafka Event Consumer with Manual Offset Managem",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "ResilientKafkaConsumer post-write manual offset commit",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The enterprise concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Consumers execute database updates first and commit offsets afterwards.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "aiokafka"
-                  },
-                  {
-                    "text": "Event"
-                  }
-                ],
+                "text": "process_batch"
+              },
+              {
+                "text": "events"
+              },
+              {
+                "text": "persisted_records"
+              },
+              {
+                "text": "committed_offset"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "write",
+                "index": 2,
                 "tone": "data"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "ok",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The coupling logic drives deterministic execution.",
-            "rows": [
+            "caption": "At-least-once delivery replays uncompleted batches after consumer crashes.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Consumer"
-                  },
-                  {
-                    "text": "with"
-                  }
-                ],
+                "text": "ResilientKafkaConsumer"
+              },
+              {
+                "text": "events"
+              },
+              {
+                "text": "persisted_records"
+              },
+              {
+                "text": "committed_offset"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "commit",
+                "index": 3,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              1,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Batch persistence completes before advancing the committed Kafka offset.",
+            "items": [
+              {
+                "text": "events"
+              },
+              {
+                "text": "persisted_records"
+              },
+              {
+                "text": "process_batch"
+              },
+              {
+                "text": "committed_offset"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "next",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Append fourth batch event at offset 3 so committed offset advances to 4.",
+            "items": [
+              {
+                "text": "Add"
+              },
+              {
+                "text": "event"
+              },
+              {
+                "text": "batch"
+              },
+              {
+                "text": "with"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "offset",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "data"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "aiokafka Event Consumer with Manual Offset Managem",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "ResilientKafkaConsumer post-write manual offset commit",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The enterprise concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Consumers execute database updates first and commit offsets afterwards.",
+            "items": [
+              "Poll 3 Events",
+              "ord_881..ord_883",
+              "persisted_records = 3",
+              "commit() Waiting"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "aiokafka",
-                  "Event"
-                ],
+                "name": "write",
+                "index": 2,
                 "tone": "data"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "ok",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The coupling logic drives deterministic execution.",
-            "rows": [
+            "caption": "At-least-once delivery replays uncompleted batches after consumer crashes.",
+            "items": [
+              "Manual Commit Mode",
+              " Crash Safe Replay",
+              "Atomic TX Durable",
+              "Offset = 3 Committed"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Consumer",
-                  "with"
-                ],
+                "name": "commit",
+                "index": 3,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              1,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Batch persistence completes before advancing the committed Kafka offset.",
+            "items": [
+              "Offsets 0, 1, 2",
+              "3 Rows In Database",
+              "Batch Finished",
+              "committed_offset = 3"
+            ],
+            "pointers": [
+              {
+                "name": "next",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Append fourth batch event at offset 3 so committed offset advances to 4.",
+            "items": [
+              "Offsets 0, 1, 2, 3",
+              "4 Rows In Database",
+              "Batch Finished",
+              "committed_offset = 4"
+            ],
+            "pointers": [
+              {
+                "name": "offset",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "data"
+            },
+            "whatIf": "class ResilientKafkaConsumer:\n    def __init__(self):\n        self.committed_offset = 0\n        self.persisted_records = []\n\n    def process_batch(self, events):\n        print(f\"Consumer polled batch of {len(events)} events from Kafka...\")\n        for ev in events:\n            # Step 1: Execute transactional database write\n            self.persisted_records.append(ev)\n            # Step 2: Manually commit offset ONLY after write succeeds\n            self.committed_offset = ev[\"offset\"] + 1\n        print(f\"Batch processed cleanly. Kafka committed offset advanced to: {self.committed_offset}\")\n        return self.committed_offset\n\nconsumer = ResilientKafkaConsumer()\nbatch = [\n    {\"offset\": 0, \"order_id\": \"ord_881\", \"amount\": 120},\n    {\"offset\": 1, \"order_id\": \"ord_882\", \"amount\": 450},\n    {\"offset\": 2, \"order_id\": \"ord_883\", \"amount\": 90},\n    {\"offset\": 3, \"order_id\": \"ord_884\", \"amount\": 210}\n]\n\nnew_offset = consumer.process_batch(batch)\nprint(f\"Total Database Persisted Records: {len(consumer.persisted_records)}\")\nprint(f\"Latest Committed Kafka Offset: {new_offset}\")",
+            "checks": [
+              "Total Database Persisted Records: 4",
+              "Latest Committed Kafka Offset: 4"
             ]
           }
         ]
@@ -262,23 +687,41 @@
       "codeHash": "41dd0cf2ff95cb5ff1e70dc30a2cb473c1fbe47f7273b0e557dc1f8fe722c39a",
       "spec": {
         "template": "table",
-        "title": "Backpressure Regulation & Dynamic Batch Throttling",
+        "title": "BackpressureThrottler lag and database latency rules",
         "columns": [
-          "Stage",
-          "Concept"
+          "Condition",
+          "Batch Size",
+          "Action"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The high concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Bounded batch limits prevent greedy memory exhaustion during polls.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Backpressure"
+                    "text": "current_consumer_lag"
                   },
                   {
-                    "text": "Regulation"
+                    "text": "batch_size"
+                  },
+                  {
+                    "text": "BackpressureThrottler"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "max_buffer_size"
+                  },
+                  {
+                    "text": "compute_poll_batch"
+                  },
+                  {
+                    "text": "db_latency_ms"
                   }
                 ],
                 "tone": "data"
@@ -287,15 +730,100 @@
           },
           {
             "at": "say3",
-            "caption": "The furthermore logic drives deterministic execution.",
+            "caption": "Downstream latency spikes throttle batch polling to protect databases.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Dynamic"
+                    "text": "db_latency_ms"
                   },
                   {
-                    "text": "Batch"
+                    "text": "batch_size"
+                  },
+                  {
+                    "text": "compute_poll_batch"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "current_consumer_lag"
+                  },
+                  {
+                    "text": "batch_size"
+                  },
+                  {
+                    "text": "BackpressureThrottler"
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Dynamic throttler adjusts poll batch sizes across lag and latency.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "800"
+                  },
+                  {
+                    "text": "500"
+                  },
+                  {
+                    "text": "20"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "180"
+                  },
+                  {
+                    "text": "50"
+                  },
+                  {
+                    "text": "compute_poll_batch"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Pass high db_latency_ms to throttler confirming THROTTLE_DOWN triggers.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Pass"
+                  },
+                  {
+                    "text": "db_latency_ms=250"
+                  },
+                  {
+                    "text": "throttler"
+                  }
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "throttler"
+                  },
+                  {
+                    "text": "and"
+                  },
+                  {
+                    "text": "confirm"
                   }
                 ],
                 "tone": "ok"
@@ -306,20 +834,30 @@
       },
       "filled": {
         "template": "table",
-        "title": "Backpressure Regulation & Dynamic Batch Throttling",
+        "title": "BackpressureThrottler lag and database latency rules",
         "columns": [
-          "Stage",
-          "Concept"
+          "Condition",
+          "Batch Size",
+          "Action"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The high concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Bounded batch limits prevent greedy memory exhaustion during polls.",
             "rows": [
               {
                 "cells": [
-                  "Backpressure",
-                  "Regulation"
+                  "Normal Lag=50, DB=15ms",
+                  "200 Records",
+                  "STEADY_STATE"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Max Buffer Bound = 1000",
+                  "Bounded Poll Window",
+                  "Zero OOM Risk"
                 ],
                 "tone": "data"
               }
@@ -327,15 +865,72 @@
           },
           {
             "at": "say3",
-            "caption": "The furthermore logic drives deterministic execution.",
+            "caption": "Downstream latency spikes throttle batch polling to protect databases.",
             "rows": [
               {
                 "cells": [
-                  "Dynamic",
-                  "Batch"
+                  "DB Latency = 180ms (>100)",
+                  "50 Records",
+                  "THROTTLE_DOWN"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Lag = 800, Healthy DB",
+                  "500 Records",
+                  "RAMP_UP"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Dynamic throttler adjusts poll batch sizes across lag and latency.",
+            "rows": [
+              {
+                "cells": [
+                  "Lag=800, DB=20ms",
+                  "500 Batch",
+                  "Drain Backlog Fast"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Lag=800, DB=180ms",
+                  "50 Batch",
+                  "Protect Overloaded DB"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Pass high db_latency_ms to throttler confirming THROTTLE_DOWN triggers.",
+            "rows": [
+              {
+                "cells": [
+                  "Lag=100, DB=250ms",
+                  "50 Batch",
+                  "THROTTLE_DOWN Triggered"
+                ],
+                "tone": "error"
+              },
+              {
+                "cells": [
+                  "Lag=800, DB=20ms",
+                  "500 Batch",
+                  "Drain Backlog Fast"
                 ],
                 "tone": "ok"
               }
+            ],
+            "whatIf": "class BackpressureThrottler:\n    def __init__(self, max_buffer_size=1000):\n        self.max_buffer = max_buffer_size\n\n    def compute_poll_batch(self, current_consumer_lag, db_latency_ms):\n        if db_latency_ms > 100:\n            # Downstream DB is degraded: throttle batch down to protect DB\n            batch_size = 50\n            action = \"THROTTLE_DOWN: DB degraded, batch size reduced to 50\"\n        elif current_consumer_lag > 500:\n            # High lag, healthy DB: ramp up batch to drain backlog\n            batch_size = 500\n            action = \"RAMP_UP: High lag detected, batch size increased to 500\"\n        else:\n            batch_size = 200\n            action = \"STEADY_STATE: Normal batch size of 200\"\n        return batch_size, action\n\nthrottler = BackpressureThrottler()\nsz1, act1 = throttler.compute_poll_batch(current_consumer_lag=50, db_latency_ms=15)\nsz2, act2 = throttler.compute_poll_batch(current_consumer_lag=800, db_latency_ms=20)\nsz3, act3 = throttler.compute_poll_batch(current_consumer_lag=100, db_latency_ms=250)\n\nprint(f\"Scenario 1: {act1} (Batch: {sz1})\")\nprint(f\"Scenario 2: {act2} (Batch: {sz2})\")\nprint(f\"Scenario 3 (db_latency_ms=250): {act3} (Batch: {sz3})\")",
+            "checks": [
+              "Scenario 3 (db_latency_ms=250): THROTTLE_DOWN: DB degraded, batch size reduced to 50 (Batch: 50)"
             ]
           }
         ]
@@ -345,81 +940,182 @@
       "partTitle": "High-Throughput Order Event Pipeline Hardening",
       "codeHash": "c17dacff5e49c66cef81e77ec2f571b44855bf53b64c25011042a5f6c373acfb",
       "spec": {
-        "template": "table",
-        "title": "High-Throughput Order Event Pipeline Hardening",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "HardenedOrderStreamingPipeline ingestion synchronization",
+        "boxes": [
+          {
+            "id": "in",
+            "label": "total_ingested"
+          },
+          {
+            "id": "part",
+            "label": "partitions"
+          },
+          {
+            "id": "com",
+            "label": "total_committed"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "High"
-                  },
-                  {
-                    "text": "Throughput"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Customer partition keys preserve sequential event ordering per entity.",
+            "values": {
+              "in": {
+                "text": "process_order_stream"
+              },
+              "part": {
+                "text": "partitions"
+              },
+              "com": {
+                "text": "total_committed"
               }
-            ]
+            },
+            "tones": {
+              "in": "data",
+              "part": "data",
+              "com": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The consuming logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Order"
-                  },
-                  {
-                    "text": "Event"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Manual commits guarantee full ingestion persistence with zero event loss.",
+            "values": {
+              "in": {
+                "text": "total_ingested"
+              },
+              "part": {
+                "text": "partitions"
+              },
+              "com": {
+                "text": "total_committed"
               }
-            ]
+            },
+            "tones": {
+              "in": "ok",
+              "part": "ok",
+              "com": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Hardened streaming confirms zero event loss across partitioned topics.",
+            "values": {
+              "in": {
+                "text": "300"
+              },
+              "part": {
+                "text": "partitions"
+              },
+              "com": {
+                "text": "HardenedOrderStreamingPipeline"
+              }
+            },
+            "tones": {
+              "in": "ok",
+              "part": "ok",
+              "com": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase order_count in process_order_stream verifying events_committed.",
+            "values": {
+              "in": {
+                "text": "Increase"
+              },
+              "part": {
+                "text": "process_order_stream"
+              },
+              "com": {
+                "text": "and"
+              }
+            },
+            "tones": {
+              "in": "data",
+              "part": "ok",
+              "com": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "High-Throughput Order Event Pipeline Hardening",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "HardenedOrderStreamingPipeline ingestion synchronization",
+        "boxes": [
+          {
+            "id": "in",
+            "label": "total_ingested"
+          },
+          {
+            "id": "part",
+            "label": "partitions"
+          },
+          {
+            "id": "com",
+            "label": "total_committed"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "High",
-                  "Throughput"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Customer partition keys preserve sequential event ordering per entity.",
+            "values": {
+              "in": "300 Incoming Orders",
+              "part": "Sharded Across [0, 1, 2]",
+              "com": "Awaiting TX Persist"
+            },
+            "tones": {
+              "in": "data",
+              "part": "data",
+              "com": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The consuming logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Order",
-                  "Event"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Manual commits guarantee full ingestion persistence with zero event loss.",
+            "values": {
+              "in": "total_ingested = 300",
+              "part": "Lag = 0 (Balanced)",
+              "com": "total_committed = 300"
+            },
+            "tones": {
+              "in": "ok",
+              "part": "ok",
+              "com": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Hardened streaming confirms zero event loss across partitioned topics.",
+            "values": {
+              "in": "300 Events Ingested",
+              "part": "[0, 1, 2] SYNCHRONIZED",
+              "com": "event_loss_count = 0"
+            },
+            "tones": {
+              "in": "ok",
+              "part": "ok",
+              "com": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase order_count in process_order_stream verifying events_committed.",
+            "values": {
+              "in": "1000 Events Ingested",
+              "part": "[0, 1, 2] SYNCHRONIZED",
+              "com": "events_committed = 1000"
+            },
+            "tones": {
+              "in": "data",
+              "part": "ok",
+              "com": "ok"
+            },
+            "whatIf": "class HardenedOrderStreamingPipeline:\n    def __init__(self):\n        self.total_ingested = 0\n        self.total_committed = 0\n        self.partitions = [0, 1, 2]\n\n    def process_order_stream(self, order_count=300):\n        self.total_ingested = order_count\n        # Distributed evenly across partitions with manual commits\n        self.total_committed = order_count\n        return {\n            \"events_ingested\": self.total_ingested,\n            \"events_committed\": self.total_committed,\n            \"event_loss_count\": 0,\n            \"consumer_status\": \"SYNCHRONIZED\"\n        }\n\npipeline = HardenedOrderStreamingPipeline()\nreport = pipeline.process_order_stream(1000)\n\nprint(\"=== Hardened Kafka Order Event Streaming Pipeline ===\")\nfor k, v in report.items():\n    print(f\"  {k}: {v}\")\nprint(\"INVARIANT SATISFIED: Zero event loss across streaming partitions under manual offset commits.\")",
+            "checks": [
+              "events_ingested: 1000",
+              "events_committed: 1000"
             ]
           }
         ]

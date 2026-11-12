@@ -162,6 +162,8 @@ export const CERTIFICATION_TRACKS = [
 ];
 
 export const COURSE_TO_ROLE: Record<string, string> = {
+  // [FIX-STAGE: option-a-python-alignment] Ensure course-python-backend resolves to canonical Python trajectory
+  'course-python-backend': 'Python Software Engineer (Basic to Advance)',
   'course-react-web': 'Frontend React Engineer',
   'course-node-web': 'Backend Web Engineer',
   'course-ai-eng': 'AI & LLM Systems Engineer',
@@ -634,13 +636,18 @@ export function useQuestProgression() {
   );
 
   const standaloneCourseObj = COURSES_REGISTRY.find(c => c.id === selectedStandaloneCourseId) || COURSES_REGISTRY[0];
+  // [FIX-STAGE: option-a-python-alignment] Reflect 60-day curriculum length for 8-week courses like course-python-backend
+  const isSixtyDayStandalone =
+    standaloneCourseObj.id === 'course-python-backend' || ((standaloneCourseObj as any).durationWeeks ?? 4) >= 8;
+  const standaloneTotalDays = isSixtyDayStandalone ? 60 : 30;
+  const standaloneQuarterDays = isSixtyDayStandalone ? [15, 15, 15, 15] : [7, 7, 8, 8];
   const standaloneTrajectory: CareerTrajectory = {
     roleId: standaloneCourseObj.id,
     roleTitle: `Direct Course Focus: ${standaloneCourseObj.title}`,
     icon: standaloneCourseObj.icon,
     description: standaloneCourseObj.desc,
     averageSalaryRange: 'Specialized Skill Mastery',
-    targetTotalDays: 30,
+    targetTotalDays: standaloneTotalDays,
     recommendationReason: `Direct Single-Course Mode Active: Pure standalone focus on ${standaloneCourseObj.title} without multi-course fusion.`,
     nodes: [
       {
@@ -651,7 +658,7 @@ export function useQuestProgression() {
         icon: standaloneCourseObj.icon,
         skillsLearned: [standaloneCourseObj.title, 'Syntax Basics', 'Control Flow', 'Core Mechanics'],
         careerImpact: '+20% Core Foundation',
-        estimatedDays: 7
+        estimatedDays: standaloneQuarterDays[0]
       },
       {
         nodeId: `${standaloneCourseObj.id}-node-2`,
@@ -661,7 +668,7 @@ export function useQuestProgression() {
         icon: '⚡',
         skillsLearned: ['Architecture', 'Design Patterns', 'Best Practices', 'Error Handling'],
         careerImpact: '+25% Applied Skill',
-        estimatedDays: 7
+        estimatedDays: standaloneQuarterDays[1]
       },
       {
         nodeId: `${standaloneCourseObj.id}-node-3`,
@@ -671,7 +678,7 @@ export function useQuestProgression() {
         icon: '🔢',
         skillsLearned: ['Data Structures', 'Algorithmic Efficiency', 'Memory Tuning', 'Edge Cases'],
         careerImpact: '+25% Logic Power',
-        estimatedDays: 8
+        estimatedDays: standaloneQuarterDays[2]
       },
       {
         nodeId: `${standaloneCourseObj.id}-node-4`,
@@ -681,7 +688,7 @@ export function useQuestProgression() {
         icon: '🚀',
         skillsLearned: ['Production Deployment', 'System Integration', 'Performance Audit', 'Capstone Verification'],
         careerImpact: '+30% Pro Mastery',
-        estimatedDays: 8
+        estimatedDays: standaloneQuarterDays[3]
       }
     ]
   };

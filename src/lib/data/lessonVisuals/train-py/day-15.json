@@ -2,85 +2,98 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 15,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why change the learning rate",
       "codeHash": "a7e09a8122494adef780f057bd28d1e6e710912fae681086acac1f20dda0463c",
       "spec": {
-        "template": "table",
-        "title": "Three-phase learning rate scheduling: warmup, train, and cooldown",
-        "columns": [
-          "warmup",
+        "template": "sequence",
+        "title": "Why change the learning rate",
+        "actors": [
+          "plan",
           "name",
-          "plan"
+          "start"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Erratic early gradients require guarded learning rates to stabilise weights.",
-            "rows": [
+            "caption": "Early in training, weights are random and gradients can be large and erratic.",
+            "activeActor": "plan",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "warmup"
-                  },
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "plan"
-                  }
-                ],
-                "tone": "ok"
+                "from": "plan",
+                "to": "name",
+                "label": {
+                  "var": "plan",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "warmup"
-                  },
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "plan"
-                  }
-                ],
-                "tone": "data"
+                "from": "name",
+                "to": "start",
+                "label": {
+                  "var": "name",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Decaying step sizes allow the model to settle stably into sharp minima.",
-            "rows": [
+            "at": "say2",
+            "caption": "In the middle, a fairly large learning rate makes fast progress.",
+            "activeActor": "name",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "warmup"
-                  },
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "plan"
-                  }
-                ],
+                "from": "plan",
+                "to": "name",
+                "label": {
+                  "var": "plan",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "warmup"
-                  },
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "warmup"
-                  }
-                ],
+                "from": "name",
+                "to": "start",
+                "label": {
+                  "var": "name",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Most modern language models use warmup followed by cosine decay.",
+            "activeActor": "start",
+            "messages": [
+              {
+                "from": "plan",
+                "to": "name",
+                "label": {
+                  "var": "plan",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "start",
+                "label": {
+                  "var": "name",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Three-phase learning rate scheduling: warmup, train, and cooldown",
-        "columns": [
-          "warmup",
+        "template": "sequence",
+        "title": "Why change the learning rate",
+        "actors": [
+          "plan",
           "name",
-          "plan"
+          "start"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Erratic early gradients require guarded learning rates to stabilise weights.",
-            "rows": [
+            "caption": "Early in training, weights are random and gradients can be large and erratic.",
+            "messages": [
               {
-                "cells": [
-                  "warmup",
-                  "name",
-                  "plan"
-                ],
-                "tone": "ok"
+                "from": "plan",
+                "to": "name",
+                "label": "[['warmup', 0, 500, 'rise from near 0 t…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "warmup",
-                  "name",
-                  "plan"
-                ],
-                "tone": "data"
+                "from": "name",
+                "to": "start",
+                "label": "'warmup'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "plan"
           },
           {
-            "at": "say3",
-            "caption": "Decaying step sizes allow the model to settle stably into sharp minima.",
-            "rows": [
+            "at": "say2",
+            "caption": "In the middle, a fairly large learning rate makes fast progress.",
+            "messages": [
               {
-                "cells": [
-                  "warmup",
-                  "name",
-                  "plan"
-                ],
+                "from": "plan",
+                "to": "name",
+                "label": "[['warmup', 0, 500, 'rise from near 0 t…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "warmup",
-                  "name",
-                  "warmup"
-                ],
+                "from": "name",
+                "to": "start",
+                "label": "'warmup'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "name"
+          },
+          {
+            "at": "say10",
+            "caption": "Most modern language models use warmup followed by cosine decay.",
+            "messages": [
+              {
+                "from": "plan",
+                "to": "name",
+                "label": "[['warmup', 0, 500, 'rise from near 0 t…",
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "start",
+                "label": "'main phase'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "start"
           }
         ]
       }
@@ -147,9 +173,9 @@
       "partTitle": "Linear warmup",
       "codeHash": "26f4ca6aaa9555c4763eb8902ab00ba2e17c555b5346fd5984236d3d99965fc3",
       "spec": {
-        "template": "table",
-        "title": "Linear warmup rate scaling from zero to maximum learning rate",
-        "columns": [
+        "template": "sequence",
+        "title": "Linear warmup",
+        "actors": [
           "max_lr",
           "warmup",
           "step"
@@ -157,68 +183,81 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Linear warmup scales the learning rate from near zero to peak levels.",
-            "rows": [
+            "caption": "In linear warmup, the learning rate rises in a straight line from near.",
+            "activeActor": "max_lr",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "max_lr"
-                  },
-                  {
-                    "text": "warmup"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "ok"
+                "from": "max_lr",
+                "to": "warmup",
+                "label": {
+                  "var": "max_lr",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "max_lr"
-                  },
-                  {
-                    "text": "warmup"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "data"
+                "from": "warmup",
+                "to": "step",
+                "label": {
+                  "var": "warmup",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Warmup provides cheap stability insurance during early training steps.",
-            "rows": [
+            "at": "say2",
+            "caption": "A common formula is max_lr (step + 1) / warmup, so the very first step.",
+            "activeActor": "warmup",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "max_lr"
-                  },
-                  {
-                    "text": "warmup"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
+                "from": "max_lr",
+                "to": "warmup",
+                "label": {
+                  "var": "max_lr",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "max_lr"
-                  },
-                  {
-                    "text": "warmup"
-                  },
-                  {
-                    "text": "max_lr"
-                  }
-                ],
+                "from": "warmup",
+                "to": "step",
+                "label": {
+                  "var": "warmup",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Always plot the schedule before launching a long run.",
+            "activeActor": "step",
+            "messages": [
+              {
+                "from": "max_lr",
+                "to": "warmup",
+                "label": {
+                  "var": "max_lr",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "warmup",
+                "to": "step",
+                "label": {
+                  "var": "warmup",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -226,9 +265,9 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Linear warmup rate scaling from zero to maximum learning rate",
-        "columns": [
+        "template": "sequence",
+        "title": "Linear warmup",
+        "actors": [
           "max_lr",
           "warmup",
           "step"
@@ -236,47 +275,60 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Linear warmup scales the learning rate from near zero to peak levels.",
-            "rows": [
+            "caption": "In linear warmup, the learning rate rises in a straight line from near.",
+            "messages": [
               {
-                "cells": [
-                  "max_lr",
-                  "warmup",
-                  "step"
-                ],
-                "tone": "ok"
+                "from": "max_lr",
+                "to": "warmup",
+                "label": "0.0003",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "max_lr",
-                  "warmup",
-                  "step"
-                ],
-                "tone": "data"
+                "from": "warmup",
+                "to": "step",
+                "label": "1000",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "max_lr"
           },
           {
-            "at": "say6",
-            "caption": "Warmup provides cheap stability insurance during early training steps.",
-            "rows": [
+            "at": "say2",
+            "caption": "A common formula is max_lr (step + 1) / warmup, so the very first step.",
+            "messages": [
               {
-                "cells": [
-                  "max_lr",
-                  "warmup",
-                  "step"
-                ],
+                "from": "max_lr",
+                "to": "warmup",
+                "label": "0.0003",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "max_lr",
-                  "warmup",
-                  "max_lr"
-                ],
+                "from": "warmup",
+                "to": "step",
+                "label": "1000",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "warmup"
+          },
+          {
+            "at": "say10",
+            "caption": "Always plot the schedule before launching a long run.",
+            "messages": [
+              {
+                "from": "max_lr",
+                "to": "warmup",
+                "label": "0.0003",
+                "tone": "data"
+              },
+              {
+                "from": "warmup",
+                "to": "step",
+                "label": "1000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "step"
           }
         ]
       }
@@ -285,78 +337,131 @@
       "partTitle": "Cosine decay",
       "codeHash": "9aa785303ceb2e03c3f6afa13d5820b1763650da84e9c620e113c745a38b44c3",
       "spec": {
-        "template": "table",
-        "title": "Cosine annealing schedule and smooth decay trajectory",
-        "columns": [
-          "step",
-          "warmup",
-          "total"
-        ],
+        "template": "bars",
+        "title": "Cosine decay",
         "steps": [
           {
             "at": "say1",
-            "caption": "Cosine decay lowers the learning rate smoothly along an annealing wave.",
-            "rows": [
+            "caption": "After warmup, cosine decay lowers the learning rate smoothly following.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "warmup"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "ok"
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "warmup"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
+                "label": "max_lr",
+                "value": {
+                  "var": "max_lr",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "warmup",
+                "value": {
+                  "var": "warmup",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Annealing rates decay gently to support extended optimization phases.",
-            "rows": [
+            "at": "say2",
+            "caption": "Progress p runs from 0 at the end of warmup to 1 at the last step.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "warmup"
-                  },
-                  {
-                    "text": "total"
-                  }
-                ],
-                "tone": "data"
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "warmup"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
+                "label": "max_lr",
+                "value": {
+                  "var": "max_lr",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "warmup",
+                "value": {
+                  "var": "warmup",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how rounding updates rate during execution.",
+            "bars": [
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "max_lr",
+                "value": {
+                  "var": "max_lr",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "warmup",
+                "value": {
+                  "var": "warmup",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -364,54 +469,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cosine annealing schedule and smooth decay trajectory",
-        "columns": [
-          "step",
-          "warmup",
-          "total"
-        ],
+        "template": "bars",
+        "title": "Cosine decay",
         "steps": [
           {
             "at": "say1",
-            "caption": "Cosine decay lowers the learning rate smoothly along an annealing wave.",
-            "rows": [
+            "caption": "After warmup, cosine decay lowers the learning rate smoothly following.",
+            "bars": [
               {
-                "cells": [
-                  "step",
-                  "warmup",
-                  "total"
-                ],
-                "tone": "ok"
+                "label": "step",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "step",
-                  "warmup",
-                  "total"
-                ],
+                "label": "max_lr",
+                "value": 0.0003,
+                "tone": "data"
+              },
+              {
+                "label": "warmup",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": 1000,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Annealing rates decay gently to support extended optimization phases.",
-            "rows": [
+            "at": "say2",
+            "caption": "Progress p runs from 0 at the end of warmup to 1 at the last step.",
+            "bars": [
               {
-                "cells": [
-                  "step",
-                  "warmup",
-                  "total"
-                ],
-                "tone": "data"
+                "label": "step",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "step",
-                  "warmup",
-                  "step"
-                ],
+                "label": "max_lr",
+                "value": 0.0003,
+                "tone": "ok"
+              },
+              {
+                "label": "warmup",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 1000,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how rounding updates rate during execution.",
+            "bars": [
+              {
+                "label": "step",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "max_lr",
+                "value": 0.0003,
+                "tone": "ok"
+              },
+              {
+                "label": "warmup",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 1000,
                 "tone": "ok"
               }
             ]
@@ -423,78 +557,131 @@
       "partTitle": "Step decay",
       "codeHash": "b40e88f73af5a03d884661fa8d885c337f9d61f98e87ec3c70973a4856f8613c",
       "spec": {
-        "template": "table",
-        "title": "Step decay schedule and discrete geometric rate reductions",
-        "columns": [
-          "base",
-          "drop",
-          "every"
-        ],
+        "template": "bars",
+        "title": "Step decay",
         "steps": [
           {
             "at": "say1",
-            "caption": "Step decay multiplies the learning rate by a drop factor at intervals.",
-            "rows": [
+            "caption": "Step decay keeps the learning rate constant for a while, then multiplies.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "drop"
-                  },
-                  {
-                    "text": "every"
-                  }
-                ],
-                "tone": "ok"
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "drop"
-                  },
-                  {
-                    "text": "every"
-                  }
-                ],
+                "label": "drop",
+                "value": {
+                  "var": "drop",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "every",
+                "value": {
+                  "var": "every",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Sudden learning rate reductions trigger sharp drops in loss curves.",
-            "rows": [
+            "at": "say2",
+            "caption": "The formula is base_lr drop^(step // every).",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "drop"
-                  },
-                  {
-                    "text": "every"
-                  }
-                ],
-                "tone": "data"
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "drop"
-                  },
-                  {
-                    "text": "base"
-                  }
-                ],
+                "label": "drop",
+                "value": {
+                  "var": "drop",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "every",
+                "value": {
+                  "var": "every",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Comparing schedules on small runs before choosing one for a big run.",
+            "bars": [
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "drop",
+                "value": {
+                  "var": "drop",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "every",
+                "value": {
+                  "var": "every",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +689,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Step decay schedule and discrete geometric rate reductions",
-        "columns": [
-          "base",
-          "drop",
-          "every"
-        ],
+        "template": "bars",
+        "title": "Step decay",
         "steps": [
           {
             "at": "say1",
-            "caption": "Step decay multiplies the learning rate by a drop factor at intervals.",
-            "rows": [
+            "caption": "Step decay keeps the learning rate constant for a while, then multiplies.",
+            "bars": [
               {
-                "cells": [
-                  "base",
-                  "drop",
-                  "every"
-                ],
-                "tone": "ok"
+                "label": "base",
+                "value": 0.1,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "base",
-                  "drop",
-                  "every"
-                ],
+                "label": "drop",
+                "value": 0.1,
+                "tone": "data"
+              },
+              {
+                "label": "every",
+                "value": 30,
+                "tone": "data"
+              },
+              {
+                "label": "s",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Sudden learning rate reductions trigger sharp drops in loss curves.",
-            "rows": [
+            "at": "say2",
+            "caption": "The formula is base_lr drop^(step // every).",
+            "bars": [
               {
-                "cells": [
-                  "base",
-                  "drop",
-                  "every"
-                ],
-                "tone": "data"
+                "label": "base",
+                "value": 0.1,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "base",
-                  "drop",
-                  "base"
-                ],
+                "label": "drop",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "every",
+                "value": 30,
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Comparing schedules on small runs before choosing one for a big run.",
+            "bars": [
+              {
+                "label": "base",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "drop",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "every",
+                "value": 30,
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": 30,
                 "tone": "ok"
               }
             ]
@@ -562,110 +778,93 @@
       "codeHash": "0acde2d516b82ede5f02e59dc4ed20d9f5e410000df4fcf733ca19f3df2cb9ef",
       "spec": {
         "template": "flow",
-        "title": "Schedules in practice — Execution Pipeline",
+        "title": "Schedules in practice",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "resume_step",
+            "label": "resume_step"
           },
           {
-            "id": "proc",
-            "label": "2. Schedules in practice",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "step",
+            "label": "step"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Schedules in practice [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Schedules in practice [D.Pfive.Stwo].",
+            "caption": "In distributed training, the schedule must be identical on every rank.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "resume_step": {
+                "var": "resume_step",
+                "line": 8,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "resume_step": "data",
+              "step": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "resume_step",
+                "step"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "After resuming from a checkpoint, the scheduler must continue from.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "resume_step": {
+                "var": "resume_step",
+                "line": 9,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "resume_step": "data",
+              "step": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "resume_step",
+                "step"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Schedules in practice [D.Pfive.Sfour].",
+            "at": "say10",
+            "caption": "Good schedules are simple, logged and saved with the checkpoint.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "resume_step": {
+                "var": "resume_step",
+                "line": 10,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 4,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "resume_step": "ok",
+              "step": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "resume_step",
+                "step"
               ]
             ]
           }
@@ -673,110 +872,69 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Schedules in practice — Execution Pipeline",
+        "title": "Schedules in practice",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "resume_step",
+            "label": "resume_step"
           },
           {
-            "id": "proc",
-            "label": "2. Schedules in practice",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "step",
+            "label": "step"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Schedules in practice [D15.P5.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Schedules in practice [D15.P5.S2].",
+            "caption": "In distributed training, the schedule must be identical on every rank.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "resume_step": "600",
+              "step": "600"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "resume_step": "data",
+              "step": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "resume_step",
+                "step"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P5.S3].",
+            "at": "say2",
+            "caption": "After resuming from a checkpoint, the scheduler must continue from.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "resume_step": "600",
+              "step": "600"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "resume_step": "data",
+              "step": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "resume_step",
+                "step"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Schedules in practice [D15.P5.S4].",
+            "at": "say10",
+            "caption": "Good schedules are simple, logged and saved with the checkpoint.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "resume_step": "600",
+              "step": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "resume_step": "ok",
+              "step": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "resume_step",
+                "step"
               ]
             ]
           }
@@ -788,110 +946,161 @@
       "codeHash": "287be1f5903c4681200c1caf31630cda58e5524c9e116287555f046da98cb2be",
       "spec": {
         "template": "flow",
-        "title": "Practice time: schedules — Execution Pipeline",
+        "title": "Practice time: schedules",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "step",
+            "label": "step"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: sche...",
-            "tappable": true
+            "id": "max_lr",
+            "label": "max_lr"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "warmup",
+            "label": "warmup"
+          },
+          {
+            "id": "total",
+            "label": "total"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: schedules [D.Psix.Sone].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: sche... [D.Psix.Stwo].",
+            "caption": "Lr_at(step, max_lr, warmup, total, min_lr=0.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "step": {
+                "var": "step",
+                "line": 8,
+                "hit": 1
+              },
+              "max_lr": {
+                "var": "max_lr",
+                "line": 4,
+                "hit": 1
+              },
+              "warmup": {
+                "var": "warmup",
+                "line": 4,
+                "hit": 1
+              },
+              "total": {
+                "var": "total",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "step": "data",
+              "max_lr": "data",
+              "warmup": "data",
+              "total": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "step",
+                "max_lr"
               ],
               [
-                "proc",
-                "out"
+                "max_lr",
+                "warmup"
+              ],
+              [
+                "warmup",
+                "total"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "The checks include the first warmup step, the end of warmup, the start.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "step": {
+                "var": "step",
+                "line": 4,
+                "hit": 1
+              },
+              "max_lr": {
+                "var": "max_lr",
+                "line": 5,
+                "hit": 1
+              },
+              "warmup": {
+                "var": "warmup",
+                "line": 5,
+                "hit": 1
+              },
+              "total": {
+                "var": "total",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "step": "data",
+              "max_lr": "data",
+              "warmup": "data",
+              "total": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "step",
+                "max_lr"
+              ],
+              [
+                "max_lr",
+                "warmup"
+              ],
+              [
+                "warmup",
+                "total"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: schedules [D.Psix.Sfour].",
+            "at": "say10",
+            "caption": "If a halfway check fails, check the progress formula uses total warmup.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "step": {
+                "var": "step",
+                "line": 5,
+                "hit": 1
+              },
+              "max_lr": {
+                "var": "max_lr",
+                "line": 4,
+                "hit": 2
+              },
+              "warmup": {
+                "var": "warmup",
+                "line": 4,
+                "hit": 2
+              },
+              "total": {
+                "var": "total",
+                "line": 4,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "step": "ok",
+              "max_lr": "ok",
+              "warmup": "ok",
+              "total": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "step",
+                "max_lr"
               ],
               [
-                "proc",
-                "out"
+                "max_lr",
+                "warmup"
+              ],
+              [
+                "warmup",
+                "total"
               ]
             ]
           }
@@ -899,110 +1108,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: schedules — Execution Pipeline",
+        "title": "Practice time: schedules",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "step",
+            "label": "step"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: sche...",
-            "tappable": true
+            "id": "max_lr",
+            "label": "max_lr"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "warmup",
+            "label": "warmup"
+          },
+          {
+            "id": "total",
+            "label": "total"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: schedules [D15.P6.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: sche... [D15.P6.S2].",
+            "caption": "Lr_at(step, max_lr, warmup, total, min_lr=0.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "step": "0",
+              "max_lr": "0.1",
+              "warmup": "50",
+              "total": "1000"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "step": "data",
+              "max_lr": "data",
+              "warmup": "data",
+              "total": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "step",
+                "max_lr"
               ],
               [
-                "proc",
-                "out"
+                "max_lr",
+                "warmup"
+              ],
+              [
+                "warmup",
+                "total"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P6.S3].",
+            "at": "say2",
+            "caption": "The checks include the first warmup step, the end of warmup, the start.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "step": "0",
+              "max_lr": "0.1",
+              "warmup": "50",
+              "total": "1000"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "step": "data",
+              "max_lr": "data",
+              "warmup": "data",
+              "total": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "step",
+                "max_lr"
+              ],
+              [
+                "max_lr",
+                "warmup"
+              ],
+              [
+                "warmup",
+                "total"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: schedules [D15.P6.S4].",
+            "at": "say10",
+            "caption": "If a halfway check fails, check the progress formula uses total warmup.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "step": "0",
+              "max_lr": "0.1",
+              "warmup": "50",
+              "total": "1000"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "step": "ok",
+              "max_lr": "ok",
+              "warmup": "ok",
+              "total": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "step",
+                "max_lr"
               ],
               [
-                "proc",
-                "out"
+                "max_lr",
+                "warmup"
+              ],
+              [
+                "warmup",
+                "total"
               ]
             ]
           }

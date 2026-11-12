@@ -2,269 +2,276 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 39,
-  "promptSha": "b761849fde6e17575be38780289477af8adad3798759e19d33f522b25cc70f56",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Raft Log Replication — Foundations & Mathematical Invariants",
-      "codeHash": "67c48688e15d0017645e9bfbfde7d1cec43d1fa4d5be0e19fe3c9e2154e6b666",
+      "partTitle": "Replicated Log Structure & Term-Indexed AppendEntries RPCs",
+      "codeHash": "4d2a55244ffce2ea037229fb7cd2e1ef0bbda1ed8a26c1b6675f2a9f97c33ac2",
       "spec": {
-        "template": "flow",
-        "title": "Raft Log Replication — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Replicated Log Structure & Term-Indexed AppendEntries RPCs",
+        "actors": [
+          "self",
+          "nid",
+          "term"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Consensus algorithms like Raft ensure a cluster of five unreliable servers.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "nid",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "nid",
+                "to": "term",
+                "label": {
+                  "var": "nid",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Each Raft log slot stores three exact fields.",
+            "activeActor": "nid",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "nid",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "nid",
+                "to": "term",
+                "label": {
+                  "var": "nid",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Construct the term-stamped LogEntry model and stale-term leader rejection.",
+            "activeActor": "term",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "self",
+                "to": "nid",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "nid",
+                "to": "term",
+                "label": {
+                  "var": "nid",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Raft Log Replication — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Replicated Log Structure & Term-Indexed AppendEntries RPCs",
+        "actors": [
+          "self",
+          "nid",
+          "term"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Consensus algorithms like Raft ensure a cluster of five unreliable servers.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "nid",
+                "label": "<RaftFollowerBase>",
+                "tone": "data"
+              },
+              {
+                "from": "nid",
+                "to": "term",
+                "label": "'f1'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "Each Raft log slot stores three exact fields.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "nid",
+                "label": "<RaftFollowerBase>",
+                "tone": "data"
+              },
+              {
+                "from": "nid",
+                "to": "term",
+                "label": "'f1'",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
+            "activeActor": "nid"
+          },
+          {
+            "at": "say7",
+            "caption": "Construct the term-stamped LogEntry model and stale-term leader rejection.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "self",
+                "to": "nid",
+                "label": "<RaftFollowerBase>",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
+                "from": "nid",
+                "to": "term",
+                "label": "'f1'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "term"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "PrevLogIndex Consistency Check & Divergent Tail Truncation",
+      "codeHash": "7e022d97f4030ab31dc16b9c98d6b3b97ef9fffc63cbdaeb073950f425313b60",
+      "spec": {
+        "template": "cells",
+        "title": "PrevLogIndex Consistency Check & Divergent Tail Truncation",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The cornerstone safety theorem of Raft is Log Matching.",
+            "items": {
+              "var": "entry",
+              "line": 13,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "How does Raft uphold Log Matching inductively during every replication step.",
+            "items": {
+              "var": "entry",
+              "line": 19,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "at": "say8",
+            "caption": "Trace both stale-conflict truncation and idempotent out-of-order retry.",
+            "items": {
+              "var": "entry",
+              "line": 16,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "cells",
+        "title": "PrevLogIndex Consistency Check & Divergent Tail Truncation",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The cornerstone safety theorem of Raft is Log Matching.",
+            "items": [
+              "2",
+              "'b_new'"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "How does Raft uphold Log Matching inductively during every replication step.",
+            "items": [
+              "2",
+              "'b_new'"
+            ],
+            "pointers": [
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Trace both stale-conflict truncation and idempotent out-of-order retry.",
+            "items": [
+              "1",
+              "'a'"
+            ],
+            "pointers": [
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -272,1064 +279,608 @@
       }
     },
     {
-      "partTitle": "Raft Log Replication — Core Algorithm & State Representation",
-      "codeHash": "5fb6538a70dda29a1c8e0e1ed89dedfbd3e270984b1124d5d7bc591f84804416",
+      "partTitle": "Leader next_index Backtracking & Fast Conflict Bypass",
+      "codeHash": "730ab5d1fb37ef9e24241fbf8031760ca40851782102e66d77710e997773e94e",
       "spec": {
-        "template": "flow",
-        "title": "Raft Log Replication — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Leader next_index Backtracking & Fast Conflict Bypass",
+        "actors": [
+          "l_log",
+          "leader_log",
+          "rejection_info"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Whenever a freshly elected Raft leader assumes office, it initializes.",
+            "activeActor": "l_log",
+            "messages": [
+              {
+                "from": "l_log",
+                "to": "leader_log",
+                "label": {
+                  "var": "l_log",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "leader_log",
+                "to": "rejection_info",
+                "label": {
+                  "var": "leader_log",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If follower F crashed ten minutes earlier or holds divergent uncommitted.",
+            "activeActor": "leader_log",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "l_log",
+                "to": "leader_log",
+                "label": {
+                  "var": "l_log",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "leader_log",
+                "to": "rejection_info",
+                "label": {
+                  "var": "leader_log",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Trace how watch updates dramatically during execution.",
+            "activeActor": "rejection_info",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "l_log",
+                "to": "leader_log",
+                "label": {
+                  "var": "l_log",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "leader_log",
+                "to": "rejection_info",
+                "label": {
+                  "var": "leader_log",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Raft Log Replication — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Leader next_index Backtracking & Fast Conflict Bypass",
+        "actors": [
+          "l_log",
+          "leader_log",
+          "rejection_info"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Whenever a freshly elected Raft leader assumes office, it initializes.",
+            "messages": [
+              {
+                "from": "l_log",
+                "to": "leader_log",
+                "label": "[[0, None], [1, 'a'], [1, 'b'], [4, 'c'…",
+                "tone": "data"
+              },
+              {
+                "from": "leader_log",
+                "to": "rejection_info",
+                "label": "[[0, None], [1, 'a'], [1, 'b'], [4, 'c'…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "l_log"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If follower F crashed ten minutes earlier or holds divergent uncommitted.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "l_log",
+                "to": "leader_log",
+                "label": "[[0, None], [1, 'a'], [1, 'b'], [4, 'c'…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "leader_log",
+                "to": "rejection_info",
+                "label": "[[0, None], [1, 'a'], [1, 'b'], [4, 'c'…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "leader_log"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Trace how watch updates dramatically during execution.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "l_log",
+                "to": "leader_log",
+                "label": "[[0, None], [1, 'a'], [1, 'b'], [4, 'c'…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "leader_log",
+                "to": "rejection_info",
+                "label": "[[0, None], [1, 'a'], [1, 'b'], [4, 'c'…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "rejection_info"
           }
         ]
       }
     },
     {
-      "partTitle": "Raft Log Replication — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "fa53e50ed035ba150be1fc476e707b5622de3a69893aaee8f78335763661881d",
+      "partTitle": "Majority Quorum Commit Index & Figure 8 No-Old-Term Rule",
+      "codeHash": "63a8f8cc143ee28df07159186b5ec8a490bc0223c4d13ff2713b2531314a6a35",
       "spec": {
-        "template": "flow",
-        "title": "Raft Log Replication — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Majority Quorum Commit Index & Figure 8 No-Old-Term Rule",
+        "actors": [
+          "l_log",
+          "leader_log",
+          "current_term"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Once a follower acknowledges `AppendEntries`, the leader updates.",
+            "activeActor": "l_log",
+            "messages": [
+              {
+                "from": "l_log",
+                "to": "leader_log",
+                "label": {
+                  "var": "l_log",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "leader_log",
+                "to": "current_term",
+                "label": {
+                  "var": "leader_log",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Look closely at one of the most famous subtle correctness traps.",
+            "activeActor": "leader_log",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "l_log",
+                "to": "leader_log",
+                "label": {
+                  "var": "l_log",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "leader_log",
+                "to": "current_term",
+                "label": {
+                  "var": "leader_log",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Verify the Figure 8 commit guard below rejecting direct commit promotion.",
+            "activeActor": "current_term",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "l_log",
+                "to": "leader_log",
+                "label": {
+                  "var": "l_log",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "leader_log",
+                "to": "current_term",
+                "label": {
+                  "var": "leader_log",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Raft Log Replication — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Majority Quorum Commit Index & Figure 8 No-Old-Term Rule",
+        "actors": [
+          "l_log",
+          "leader_log",
+          "current_term"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Once a follower acknowledges `AppendEntries`, the leader updates.",
+            "messages": [
+              {
+                "from": "l_log",
+                "to": "leader_log",
+                "label": "[[0, None], [1, 'x=1'], [2, 'x=2'], [4,…",
+                "tone": "data"
+              },
+              {
+                "from": "leader_log",
+                "to": "current_term",
+                "label": "[[0, None], [1, 'x=1'], [2, 'x=2'], [4,…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "l_log"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Look closely at one of the most famous subtle correctness traps.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "l_log",
+                "to": "leader_log",
+                "label": "[[0, None], [1, 'x=1'], [2, 'x=2'], [4,…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "leader_log",
+                "to": "current_term",
+                "label": "[[0, None], [1, 'x=1'], [2, 'x=2'], [4,…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "leader_log"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Verify the Figure 8 commit guard below rejecting direct commit promotion.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "l_log",
+                "to": "leader_log",
+                "label": "[[0, None], [1, 'x=1'], [2, 'x=2'], [4,…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "leader_log",
+                "to": "current_term",
+                "label": "[[0, None], [1, 'x=1'], [2, 'x=2'], [4,…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "current_term"
           }
         ]
       }
     },
     {
-      "partTitle": "Raft Log Replication — Resilience Guardrails & Failure Recovery",
-      "codeHash": "d39660a53be3e5a421fecfe34b1d13d273c6fb2b4d2caf4779766611b9aa3d07",
+      "partTitle": "Deterministic State Machine Application & Outbound Replication Audit",
+      "codeHash": "a7a661f47b3c23f2e2442a0392c995d41758c6446861ad5d0d42609d909b5428",
       "spec": {
         "template": "flow",
-        "title": "Raft Log Replication — Resilience Guardrails & Failure Recovery",
+        "title": "Deterministic State Machine Application & Outbound Replication A",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "logs",
+            "label": "logs"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "states",
+            "label": "states"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "lg",
+            "label": "lg"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Once `leader_commit` rises across RPC heartbeats, each follower updates.",
+            "values": {
+              "logs": {
+                "var": "logs",
+                "line": 12,
+                "hit": 1
+              },
+              "states": {
+                "var": "states",
+                "line": 17,
+                "hit": 4
+              },
+              "n": {
+                "var": "n",
+                "line": 18,
+                "hit": 1
+              },
+              "lg": {
+                "var": "lg",
+                "line": 18,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "logs": "data",
+              "states": "data",
+              "n": "data",
+              "lg": "data"
+            },
+            "arrows": [
+              [
+                "logs",
+                "states"
+              ],
+              [
+                "states",
+                "n"
+              ],
+              [
+                "n",
+                "lg"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Notice carefully that exact clamping formula `min(leader_commit.",
+            "values": {
+              "logs": {
+                "var": "logs",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "states": {
+                "var": "states",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "n": {
+                "var": "n",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "lg": {
+                "var": "lg",
+                "line": 19,
+                "hit": 1
               }
+            },
+            "tones": {
+              "logs": "data",
+              "states": "data",
+              "n": "data",
+              "lg": "data"
+            },
+            "arrows": [
+              [
+                "logs",
+                "states"
+              ],
+              [
+                "states",
+                "n"
+              ],
+              [
+                "n",
+                "lg"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say5",
+            "caption": "Step through the follower commit clamping and end-to-end multi-node Raft.",
+            "values": {
+              "logs": {
+                "var": "logs",
+                "line": 17,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "states": {
+                "var": "states",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "n": {
+                "var": "n",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "lg": {
+                "var": "lg",
+                "line": 20,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "logs": "ok",
+              "states": "ok",
+              "n": "ok",
+              "lg": "ok"
+            },
+            "arrows": [
+              [
+                "logs",
+                "states"
+              ],
+              [
+                "states",
+                "n"
+              ],
+              [
+                "n",
+                "lg"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Raft Log Replication — Resilience Guardrails & Failure Recovery",
+        "title": "Deterministic State Machine Application & Outbound Replication A",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "logs",
+            "label": "logs"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "states",
+            "label": "states"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "lg",
+            "label": "lg"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "at": "say1",
+            "caption": "Once `leader_commit` rises across RPC heartbeats, each follower updates.",
+            "values": {
+              "logs": "{'leader': [[0, None], [1, 'set x 10'],…",
+              "states": "{'leader': {}, 'f1': {}, 'f2': {}}",
+              "n": "'leader'",
+              "lg": "[[0, None], [1, 'set x 10'], [2, 'set y…"
+            },
+            "tones": {
+              "logs": "data",
+              "states": "data",
+              "n": "data",
+              "lg": "data"
+            },
+            "arrows": [
+              [
+                "logs",
+                "states"
+              ],
+              [
+                "states",
+                "n"
+              ],
+              [
+                "n",
+                "lg"
+              ]
             ]
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Raft Log Replication — Production Telemetry & Verification Audit",
-      "codeHash": "b3550b500c1e51e1a60ccac6d2d89e8ef0739b90288c2243015004314d7bb6fd",
-      "spec": {
-        "template": "flow",
-        "title": "Raft Log Replication — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Notice carefully that exact clamping formula `min(leader_commit.",
+            "values": {
+              "logs": "{'leader': [[0, None], [1, 'set x 10'],…",
+              "states": "{'leader': {}, 'f1': {}, 'f2': {}}",
+              "n": "'leader'",
+              "lg": "[[0, None], [1, 'set x 10'], [2, 'set y…"
+            },
+            "tones": {
+              "logs": "data",
+              "states": "data",
+              "n": "data",
+              "lg": "data"
+            },
+            "arrows": [
+              [
+                "logs",
+                "states"
+              ],
+              [
+                "states",
+                "n"
+              ],
+              [
+                "n",
+                "lg"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Raft Log Replication — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say5",
+            "caption": "Step through the follower commit clamping and end-to-end multi-node Raft.",
+            "values": {
+              "logs": "{'leader': [[0, None], [1, 'set x 10'],…",
+              "states": "{'leader': {}, 'f1': {}, 'f2': {}}",
+              "n": "'leader'",
+              "lg": "[[0, None], [1, 'set x 10'], [2, 'set y…"
+            },
+            "tones": {
+              "logs": "ok",
+              "states": "ok",
+              "n": "ok",
+              "lg": "ok"
+            },
+            "arrows": [
+              [
+                "logs",
+                "states"
+              ],
+              [
+                "states",
+                "n"
+              ],
+              [
+                "n",
+                "lg"
+              ]
             ]
           }
         ]

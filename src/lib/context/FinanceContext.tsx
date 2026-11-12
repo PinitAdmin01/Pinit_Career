@@ -206,3 +206,11 @@ export function useFinance(): FinanceContextType {
   }
   return ctx;
 }
+
+/**
+ * [FIX-STAGE: Wave 1A - Hook Order Safety]
+ * Non-throwing optional accessor for isolated renders outside FinanceProvider.
+ */
+export function useOptionalFinance(): FinanceContextType | null {
+  return useContext(FinanceContext);
+}

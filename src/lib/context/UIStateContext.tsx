@@ -76,3 +76,12 @@ export function useUIState(): UIStateContextType {
   }
   return ctx;
 }
+
+/**
+ * [FIX-STAGE: Wave 1A - Hook Order Safety]
+ * Non-throwing optional accessor for components rendered in isolated SSR or unit tests
+ * outside UIStateProvider, eliminating unsafe try/catch wrappers around React hooks.
+ */
+export function useOptionalUIState(): UIStateContextType | null {
+  return useContext(UIStateContext);
+}

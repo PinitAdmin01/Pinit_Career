@@ -2,209 +2,167 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 7,
-  "promptSha": "fe68bac5fb6534596a64dd2d958df342a4366e58da721886dcfe1ea2cac7a3a6",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Never store passwords",
       "codeHash": "fad99e4eac7afc8efcb1c275915d72736d547b2c4fa3be753d327fa4b4e1ba95",
       "spec": {
-        "template": "table",
-        "title": "Cryptographic hash throughput benchmarks and password cracking resistance",
-        "columns": [
-          "Hash Algorithm",
-          "GPU Hash Rate",
-          "Time to Crack Password",
-          "Suitability for Credentials"
+        "template": "sequence",
+        "title": "Never store passwords",
+        "actors": [
+          "stored",
+          "attempt"
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Graphics cards compute billions of general hashes per second.",
-            "activeRowIndex": 1,
-            "statusBadge": "failed",
-            "rows": [
+            "at": "say1",
+            "caption": "A system should never store users' passwords, not even encrypted, because.",
+            "activeActor": "stored",
+            "messages": [
               {
-                "cells": [
-                  "MD5",
-                  "Fifty Billion Hashes per Sec",
-                  "Under Five Seconds",
-                  "Broken and Forbidden"
-                ],
+                "from": "stored",
+                "to": "attempt",
+                "label": {
+                  "var": "stored",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "SHA-256",
-                  "Ten Billion Hashes per Sec",
-                  "Under Ten Minutes",
-                  "Insecure for Credentials (Fast)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Bcrypt Cost 12",
-                  "Four Hashes per Second",
-                  "Decades of Compute",
-                  "Strong CPU Key Stretching"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Argon2id",
-                  "Two Hashes per Second",
-                  "Centuries of Memory Compute",
-                  "Supreme Modern Gold Standard"
-                ],
-                "tone": "data"
+                "from": "attempt",
+                "to": "stored",
+                "label": {
+                  "var": "attempt",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Password hashes require slow functions engineered to resist attacks.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "Instead it stores a password hash.",
+            "activeActor": "attempt",
+            "messages": [
               {
-                "cells": [
-                  "MD5",
-                  "Fifty Billion Hashes per Sec",
-                  "Under Five Seconds",
-                  "Broken and Forbidden"
-                ],
+                "from": "stored",
+                "to": "attempt",
+                "label": {
+                  "var": "stored",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "SHA-256",
-                  "Ten Billion Hashes per Sec",
-                  "Under Ten Minutes",
-                  "Insecure for Credentials (Fast)"
-                ],
+                "from": "attempt",
+                "to": "stored",
+                "label": {
+                  "var": "attempt",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Even with perfect hashing, you should still protect the database.",
+            "activeActor": "attempt",
+            "messages": [
+              {
+                "from": "stored",
+                "to": "attempt",
+                "label": {
+                  "var": "stored",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  "Bcrypt Cost 12",
-                  "Four Hashes per Second",
-                  "Decades of Compute",
-                  "Strong CPU Key Stretching"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Argon2id",
-                  "Two Hashes per Second",
-                  "Centuries of Memory Compute",
-                  "Supreme Modern Gold Standard"
-                ],
-                "tone": "data"
+                "from": "attempt",
+                "to": "stored",
+                "label": {
+                  "var": "attempt",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cryptographic hash throughput benchmarks and password cracking resistance",
-        "columns": [
-          "Hash Algorithm",
-          "GPU Hash Rate",
-          "Time to Crack Password",
-          "Suitability for Credentials"
+        "template": "sequence",
+        "title": "Never store passwords",
+        "actors": [
+          "stored",
+          "attempt"
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Graphics cards compute billions of general hashes per second.",
-            "activeRowIndex": 1,
-            "statusBadge": "failed",
-            "rows": [
+            "at": "say1",
+            "caption": "A system should never store users' passwords, not even encrypted, because.",
+            "messages": [
               {
-                "cells": [
-                  "MD5",
-                  "Fifty Billion Hashes per Sec",
-                  "Under Five Seconds",
-                  "Broken and Forbidden"
-                ],
+                "from": "stored",
+                "to": "attempt",
+                "label": "'ef92b778bafe771e89245b89ecbc08a44a4e16…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "SHA-256",
-                  "Ten Billion Hashes per Sec",
-                  "Under Ten Minutes",
-                  "Insecure for Credentials (Fast)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Bcrypt Cost 12",
-                  "Four Hashes per Second",
-                  "Decades of Compute",
-                  "Strong CPU Key Stretching"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Argon2id",
-                  "Two Hashes per Second",
-                  "Centuries of Memory Compute",
-                  "Supreme Modern Gold Standard"
-                ],
-                "tone": "data"
+                "from": "attempt",
+                "to": "stored",
+                "label": "'ef92b778bafe771e89245b89ecbc08a44a4e16…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "stored"
           },
           {
-            "at": "say6",
-            "caption": "Password hashes require slow functions engineered to resist attacks.",
-            "activeRowIndex": 3,
-            "statusBadge": "completed",
-            "rows": [
+            "at": "say2",
+            "caption": "Instead it stores a password hash.",
+            "messages": [
               {
-                "cells": [
-                  "MD5",
-                  "Fifty Billion Hashes per Sec",
-                  "Under Five Seconds",
-                  "Broken and Forbidden"
-                ],
+                "from": "stored",
+                "to": "attempt",
+                "label": "'ef92b778bafe771e89245b89ecbc08a44a4e16…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "SHA-256",
-                  "Ten Billion Hashes per Sec",
-                  "Under Ten Minutes",
-                  "Insecure for Credentials (Fast)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Bcrypt Cost 12",
-                  "Four Hashes per Second",
-                  "Decades of Compute",
-                  "Strong CPU Key Stretching"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Argon2id",
-                  "Two Hashes per Second",
-                  "Centuries of Memory Compute",
-                  "Supreme Modern Gold Standard"
-                ],
-                "tone": "data"
+                "from": "attempt",
+                "to": "stored",
+                "label": "'ef92b778bafe771e89245b89ecbc08a44a4e16…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "attempt"
+          },
+          {
+            "at": "say9",
+            "caption": "Even with perfect hashing, you should still protect the database.",
+            "messages": [
+              {
+                "from": "stored",
+                "to": "attempt",
+                "label": "'ef92b778bafe771e89245b89ecbc08a44a4e16…",
+                "tone": "data"
+              },
+              {
+                "from": "attempt",
+                "to": "stored",
+                "label": "'ef92b778bafe771e89245b89ecbc08a44a4e16…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "attempt"
           }
         ]
       }
@@ -213,76 +171,74 @@
       "partTitle": "Salts",
       "codeHash": "bc430404c4d23d3a9bb90c4342b57886d181408215b248948c67887b81434e34",
       "spec": {
-        "template": "compare",
-        "title": "Unsalted hash rainbow table lookups versus unique cryptographic salt defense",
-        "left": {
-          "title": "Unsalted Hash Vulnerability",
-          "items": [
-            "Identical passwords generate identical hash digests",
-            "Instantaneous reverse lookups via precomputed tables",
-            "Single compromised hash reveals thousands of accounts"
-          ]
-        },
-        "right": {
-          "title": "Salted Credential Protection",
-          "items": [
-            "Unique random byte sequence per account credential",
-            "Identical passwords produce completely distinct hashes",
-            "Forces adversaries to recompute hashes from scratch"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Salts",
+        "states": [
           {
-            "at": "say3",
-            "caption": "Identical passwords produce matching hashes when unsalted.",
-            "highlightSide": "left",
-            "statusBadge": "failed"
+            "id": "salt",
+            "label": "salt"
           },
           {
-            "at": "say8",
-            "caption": "Unique random salts ensure identical passwords produce distinct hashes.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "h",
+            "label": "h"
           }
         ],
-        "leftLabel": "Unsalted Hash Vulnerability",
-        "rightLabel": "Salted Credential Protection"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "If two users choose the same password, a plain hash gives them the same.",
+            "currentState": "salt",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Attackers also use precomputed tables of hashes for common passwords.",
+            "currentState": "h",
+            "transition": {
+              "from": "salt",
+              "to": "h",
+              "label": {
+                "var": "h",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Unsalted hash rainbow table lookups versus unique cryptographic salt defense",
-        "left": {
-          "title": "Unsalted Hash Vulnerability",
-          "items": [
-            "Identical passwords generate identical hash digests",
-            "Instantaneous reverse lookups via precomputed tables",
-            "Single compromised hash reveals thousands of accounts"
-          ]
-        },
-        "right": {
-          "title": "Salted Credential Protection",
-          "items": [
-            "Unique random byte sequence per account credential",
-            "Identical passwords produce completely distinct hashes",
-            "Forces adversaries to recompute hashes from scratch"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Salts",
+        "states": [
           {
-            "at": "say3",
-            "caption": "Identical passwords produce matching hashes when unsalted.",
-            "highlightSide": "left",
-            "statusBadge": "failed"
+            "id": "salt",
+            "label": "salt"
           },
           {
-            "at": "say8",
-            "caption": "Unique random salts ensure identical passwords produce distinct hashes.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "h",
+            "label": "h"
           }
         ],
-        "leftLabel": "Unsalted Hash Vulnerability",
-        "rightLabel": "Salted Credential Protection"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "If two users choose the same password, a plain hash gives them the same.",
+            "currentState": "salt",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Attackers also use precomputed tables of hashes for common passwords.",
+            "currentState": "h",
+            "transition": {
+              "from": "salt",
+              "to": "h",
+              "label": "'9138f2df85b98f98a8dd8945156de42b77e356…"
+            },
+            "tone": "ok"
+          }
+        ]
       }
     },
     {
@@ -290,73 +246,105 @@
       "codeHash": "0a14fc4fce1ca01c36fa9d102f53b84951d4786253857c6ac8e2d60f7c6de450",
       "spec": {
         "template": "states",
-        "title": "Bcrypt exponential cost rounds and password key stretching progression",
+        "title": "Slow on purpose: key stretching",
         "states": [
           {
-            "id": "rawInput",
-            "label": "Plaintext Password Provided"
+            "id": "password",
+            "label": "password"
           },
           {
-            "id": "costParsed",
-            "label": "Exponential Work Factor Parsed"
+            "id": "salt_hex",
+            "label": "salt_hex"
           },
           {
-            "id": "keyStretched",
-            "label": "Thousands of Expansion Rounds Applied"
-          },
-          {
-            "id": "hashEmitted",
-            "label": "Modular Crypt Format Hash Emitted"
+            "id": "rounds",
+            "label": "rounds"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Key stretching repeatedly executes cryptographic operations thousands of times.",
-            "activeStateId": "keyStretched",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "A modern graphics card can compute billions of hashes per second, so.",
+            "currentState": "password",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Increasing the cost factor doubles the computational effort required.",
-            "activeStateId": "hashEmitted",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Password hashing functions are deliberately slow and memory-hungry, so.",
+            "currentState": "salt_hex",
+            "transition": {
+              "from": "password",
+              "to": "salt_hex",
+              "label": {
+                "var": "salt_hex",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Memory-hard functions such as Argon2id also defeat specialised cracking.",
+            "currentState": "rounds",
+            "transition": {
+              "from": "salt_hex",
+              "to": "rounds",
+              "label": {
+                "var": "rounds",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Bcrypt exponential cost rounds and password key stretching progression",
+        "title": "Slow on purpose: key stretching",
         "states": [
           {
-            "id": "rawInput",
-            "label": "Plaintext Password Provided"
+            "id": "password",
+            "label": "password"
           },
           {
-            "id": "costParsed",
-            "label": "Exponential Work Factor Parsed"
+            "id": "salt_hex",
+            "label": "salt_hex"
           },
           {
-            "id": "keyStretched",
-            "label": "Thousands of Expansion Rounds Applied"
-          },
-          {
-            "id": "hashEmitted",
-            "label": "Modular Crypt Format Hash Emitted"
+            "id": "rounds",
+            "label": "rounds"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Key stretching repeatedly executes cryptographic operations thousands of times.",
-            "activeStateId": "keyStretched",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "A modern graphics card can compute billions of hashes per second, so.",
+            "currentState": "password",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Increasing the cost factor doubles the computational effort required.",
-            "activeStateId": "hashEmitted",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Password hashing functions are deliberately slow and memory-hungry, so.",
+            "currentState": "salt_hex",
+            "transition": {
+              "from": "password",
+              "to": "salt_hex",
+              "label": "'0a1b2c3d'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Memory-hard functions such as Argon2id also defeat specialised cracking.",
+            "currentState": "rounds",
+            "transition": {
+              "from": "salt_hex",
+              "to": "rounds",
+              "label": "5000"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -365,278 +353,236 @@
       "partTitle": "Verifying safely",
       "codeHash": "bd492ca7999f514bc345048f952426e78c042fb97c42019a0d13d508fbedf018",
       "spec": {
-        "template": "compare",
-        "title": "Argon2 cryptographic memory hardness variants comparison matrix",
-        "left": {
-          "title": "Argon2d Variant",
-          "items": [
-            "Data-dependent memory addressing matrix",
-            "Maximum resistance against GPU cracking farms",
-            "Potential vulnerability to cache timing side channels"
-          ]
-        },
-        "right": {
-          "title": "Argon2id Hybrid",
-          "items": [
-            "Combines data-independent and data-dependent passes",
-            "Defeats side-channel attacks during initial passes",
-            "Mandated gold standard by RFC 9106 and OWASP"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Verifying safely",
+        "states": [
           {
-            "at": "say4",
-            "caption": "Argontwo is specifically designed to require large memory allocations.",
-            "highlightSide": "left",
-            "statusBadge": "active"
+            "id": "pw",
+            "label": "pw"
           },
           {
-            "at": "say8",
-            "caption": "Argontwoid combines passes to defeat side channels and cracking farms.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "h",
+            "label": "h"
           }
         ],
-        "leftLabel": "Argon2d Variant",
-        "rightLabel": "Argon2id Hybrid"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "To verify a login, split the stored record into scheme, cost, salt.",
+            "currentState": "pw",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Compare with hmac.",
+            "currentState": "h",
+            "transition": {
+              "from": "pw",
+              "to": "h",
+              "label": {
+                "var": "h",
+                "line": 14,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Argon2 cryptographic memory hardness variants comparison matrix",
-        "left": {
-          "title": "Argon2d Variant",
-          "items": [
-            "Data-dependent memory addressing matrix",
-            "Maximum resistance against GPU cracking farms",
-            "Potential vulnerability to cache timing side channels"
-          ]
-        },
-        "right": {
-          "title": "Argon2id Hybrid",
-          "items": [
-            "Combines data-independent and data-dependent passes",
-            "Defeats side-channel attacks during initial passes",
-            "Mandated gold standard by RFC 9106 and OWASP"
-          ]
-        },
-        "steps": [
+        "template": "states",
+        "title": "Verifying safely",
+        "states": [
           {
-            "at": "say4",
-            "caption": "Argon2 is specifically designed to require large memory allocations.",
-            "highlightSide": "left",
-            "statusBadge": "active"
+            "id": "pw",
+            "label": "pw"
           },
           {
-            "at": "say8",
-            "caption": "Argon2id combines passes to defeat side channels and cracking farms.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "id": "h",
+            "label": "h"
           }
         ],
-        "leftLabel": "Argon2d Variant",
-        "rightLabel": "Argon2id Hybrid"
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "To verify a login, split the stored record into scheme, cost, salt.",
+            "currentState": "pw",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Compare with hmac.",
+            "currentState": "h",
+            "transition": {
+              "from": "pw",
+              "to": "h",
+              "label": "{'__other__': 'bytes'}"
+            },
+            "tone": "ok"
+          }
+        ]
       }
     },
     {
       "partTitle": "Password policies that help",
       "codeHash": "ebf184b59d064e0fef2ee977c531143a39aaa541d2642fb8cf850da65d3ae20a",
       "spec": {
-        "template": "table",
-        "title": "Argon2id configuration tuning parameters and OWASP recommended baselines",
-        "columns": [
-          "Tuning Parameter",
-          "Symbol",
-          "Recommended Baseline",
-          "Operational Role"
+        "template": "boxes",
+        "title": "Password policies that help",
+        "boxes": [
+          {
+            "id": "breached",
+            "label": "breached"
+          },
+          {
+            "id": "pw",
+            "label": "pw"
+          },
+          {
+            "id": "problems",
+            "label": "problems"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The memory cost defines memory allocation in kibibytes for verification.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Memory Cost",
-                  "m",
-                  "64 MiB (65,536 KiB)",
-                  "Allocates RAM matrix defeating ASIC farms"
-                ],
-                "tone": "data"
+            "at": "say1",
+            "caption": "Trace how modern updates guidance during execution.",
+            "values": {
+              "breached": {
+                "var": "breached",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Time Cost",
-                  "t",
-                  "3 Iteration Passes",
-                  "Executes sequential passes over memory matrix"
-                ],
-                "tone": "data"
+              "pw": {
+                "var": "pw",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Parallelism",
-                  "p",
-                  "4 Concurrent Threads",
-                  "Utilizes independent CPU execution lanes"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Output Length",
-                  "hash_len",
-                  "32 Bytes (256 bits)",
-                  "Length of derived credential verification hash"
-                ],
-                "tone": "data"
+              "problems": {
+                "var": "problems",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "breached": "data",
+              "pw": "data",
+              "problems": "data"
+            }
           },
           {
-            "at": "say5",
-            "caption": "Hash strings follow the modular crypt format encoding parameters.",
-            "activeRowIndex": 1,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Memory Cost",
-                  "m",
-                  "64 MiB (65,536 KiB)",
-                  "Allocates RAM matrix defeating ASIC farms"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Check new passwords against lists of breached and common passwords,.",
+            "values": {
+              "breached": {
+                "var": "breached",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Time Cost",
-                  "t",
-                  "3 Iteration Passes",
-                  "Executes sequential passes over memory matrix"
-                ],
-                "tone": "data"
+              "pw": {
+                "var": "pw",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  "Parallelism",
-                  "p",
-                  "4 Concurrent Threads",
-                  "Utilizes independent CPU execution lanes"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Output Length",
-                  "hash_len",
-                  "32 Bytes (256 bits)",
-                  "Length of derived credential verification hash"
-                ],
-                "tone": "data"
+              "problems": {
+                "var": "problems",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "breached": "data",
+              "pw": "data",
+              "problems": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Showing a strength meter with honest feedback helps users choose well.",
+            "values": {
+              "breached": {
+                "var": "breached",
+                "line": 10,
+                "hit": 1
+              },
+              "pw": {
+                "var": "pw",
+                "line": 4,
+                "hit": 1
+              },
+              "problems": {
+                "var": "problems",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "breached": "ok",
+              "pw": "ok",
+              "problems": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Argon2id configuration tuning parameters and OWASP recommended baselines",
-        "columns": [
-          "Tuning Parameter",
-          "Symbol",
-          "Recommended Baseline",
-          "Operational Role"
+        "template": "boxes",
+        "title": "Password policies that help",
+        "boxes": [
+          {
+            "id": "breached",
+            "label": "breached"
+          },
+          {
+            "id": "pw",
+            "label": "pw"
+          },
+          {
+            "id": "problems",
+            "label": "problems"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The memory cost defines memory allocation in kibibytes for verification.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "Memory Cost",
-                  "m",
-                  "64 MiB (65,536 KiB)",
-                  "Allocates RAM matrix defeating ASIC farms"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Time Cost",
-                  "t",
-                  "3 Iteration Passes",
-                  "Executes sequential passes over memory matrix"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Parallelism",
-                  "p",
-                  "4 Concurrent Threads",
-                  "Utilizes independent CPU execution lanes"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Output Length",
-                  "hash_len",
-                  "32 Bytes (256 bits)",
-                  "Length of derived credential verification hash"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Trace how modern updates guidance during execution.",
+            "values": {
+              "breached": "{'123456789', 'iloveyou', 'password123'…",
+              "pw": "'qwerty'",
+              "problems": "[]"
+            },
+            "tones": {
+              "breached": "data",
+              "pw": "data",
+              "problems": "data"
+            }
           },
           {
-            "at": "say5",
-            "caption": "Hash strings follow the modular crypt format encoding parameters.",
-            "activeRowIndex": 1,
-            "statusBadge": "completed",
-            "rows": [
-              {
-                "cells": [
-                  "Memory Cost",
-                  "m",
-                  "64 MiB (65,536 KiB)",
-                  "Allocates RAM matrix defeating ASIC farms"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Time Cost",
-                  "t",
-                  "3 Iteration Passes",
-                  "Executes sequential passes over memory matrix"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Parallelism",
-                  "p",
-                  "4 Concurrent Threads",
-                  "Utilizes independent CPU execution lanes"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Output Length",
-                  "hash_len",
-                  "32 Bytes (256 bits)",
-                  "Length of derived credential verification hash"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Check new passwords against lists of breached and common passwords,.",
+            "values": {
+              "breached": "{'123456789', 'iloveyou', 'password123'…",
+              "pw": "'qwerty'",
+              "problems": "[]"
+            },
+            "tones": {
+              "breached": "data",
+              "pw": "data",
+              "problems": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Showing a strength meter with honest feedback helps users choose well.",
+            "values": {
+              "breached": "{'123456789', 'iloveyou', 'password123'…",
+              "pw": "'qwerty'",
+              "problems": "['too short']"
+            },
+            "tones": {
+              "breached": "ok",
+              "pw": "ok",
+              "problems": "ok"
+            }
           }
         ]
       }
@@ -646,110 +592,161 @@
       "codeHash": "6ffe63a06ce7c396bc0576f23c8abe31eefb105d5857002d86813ac617421307",
       "spec": {
         "template": "flow",
-        "title": "Building an Enterprise Credential Storage, Sa... — Execution Pipeline",
+        "title": "Practice time: hash and verify",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "pw",
+            "label": "pw"
           },
           {
-            "id": "proc",
-            "label": "2. Building an Enterpr...",
-            "tappable": true
+            "id": "salt",
+            "label": "salt"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "rounds",
+            "label": "rounds"
+          },
+          {
+            "id": "h",
+            "label": "h"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Building an Enterprise Credential Storag.",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Building an Enterpr... [Dseven.Psix.Stwo].",
+            "caption": "Hash_password(password, salt_hex, rounds).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "pw": {
+                "var": "pw",
+                "line": 5,
+                "hit": 1
+              },
+              "salt": {
+                "var": "salt",
+                "line": 5,
+                "hit": 1
+              },
+              "rounds": {
+                "var": "rounds",
+                "line": 5,
+                "hit": 1
+              },
+              "h": {
+                "var": "h",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "pw": "data",
+              "salt": "data",
+              "rounds": "data",
+              "h": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "pw",
+                "salt"
               ],
               [
-                "proc",
-                "out"
+                "salt",
+                "rounds"
+              ],
+              [
+                "rounds",
+                "h"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The checks rebuild the hash independently, confirm a different salt gives.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "pw": {
+                "var": "pw",
+                "line": 6,
+                "hit": 1
+              },
+              "salt": {
+                "var": "salt",
+                "line": 6,
+                "hit": 1
+              },
+              "rounds": {
+                "var": "rounds",
+                "line": 6,
+                "hit": 1
+              },
+              "h": {
+                "var": "h",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "pw": "data",
+              "salt": "data",
+              "rounds": "data",
+              "h": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "pw",
+                "salt"
+              ],
+              [
+                "salt",
+                "rounds"
+              ],
+              [
+                "rounds",
+                "h"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Building an Enterprise Credential.",
+            "at": "say9",
+            "caption": "The self-describing format makes that migration possible.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "pw": {
+                "var": "pw",
+                "line": 7,
+                "hit": 1
+              },
+              "salt": {
+                "var": "salt",
+                "line": 7,
+                "hit": 1
+              },
+              "rounds": {
+                "var": "rounds",
+                "line": 7,
+                "hit": 1
+              },
+              "h": {
+                "var": "h",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "pw": "ok",
+              "salt": "ok",
+              "rounds": "ok",
+              "h": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "pw",
+                "salt"
               ],
               [
-                "proc",
-                "out"
+                "salt",
+                "rounds"
+              ],
+              [
+                "rounds",
+                "h"
               ]
             ]
           }
@@ -757,110 +754,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Building an Enterprise Credential Storage, Sa... — Execution Pipeline",
+        "title": "Practice time: hash and verify",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "pw",
+            "label": "pw"
           },
           {
-            "id": "proc",
-            "label": "2. Building an Enterpr...",
-            "tappable": true
+            "id": "salt",
+            "label": "salt"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "rounds",
+            "label": "rounds"
+          },
+          {
+            "id": "h",
+            "label": "h"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Enterprise Credential Storag.. [D7.P6.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Enterpr... [D7.P6.S2].",
+            "caption": "Hash_password(password, salt_hex, rounds).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "pw": "'blue tiger river'",
+              "salt": "'c0ffee00'",
+              "rounds": "1000",
+              "h": "{'__other__': 'bytes'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "pw": "data",
+              "salt": "data",
+              "rounds": "data",
+              "h": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "pw",
+                "salt"
               ],
               [
-                "proc",
-                "out"
+                "salt",
+                "rounds"
+              ],
+              [
+                "rounds",
+                "h"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P6.S3].",
+            "at": "say2",
+            "caption": "The checks rebuild the hash independently, confirm a different salt gives.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "pw": "'blue tiger river'",
+              "salt": "'c0ffee00'",
+              "rounds": "1000",
+              "h": "{'__other__': 'bytes'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "pw": "data",
+              "salt": "data",
+              "rounds": "data",
+              "h": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "pw",
+                "salt"
+              ],
+              [
+                "salt",
+                "rounds"
+              ],
+              [
+                "rounds",
+                "h"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Enterprise Credential.. [D7.P6.S4].",
+            "at": "say9",
+            "caption": "The self-describing format makes that migration possible.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "pw": "'blue tiger river'",
+              "salt": "'c0ffee00'",
+              "rounds": "1000",
+              "h": "{'__other__': 'bytes'}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "pw": "ok",
+              "salt": "ok",
+              "rounds": "ok",
+              "h": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "pw",
+                "salt"
               ],
               [
-                "proc",
-                "out"
+                "salt",
+                "rounds"
+              ],
+              [
+                "rounds",
+                "h"
               ]
             ]
           }

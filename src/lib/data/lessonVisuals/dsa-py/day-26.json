@@ -2,87 +2,118 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 26,
-  "promptSha": "321f34ee15901eb024f62728f4fcf92046343157ac0199a63b4216177e0843a3",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "When greedy choices fail",
       "codeHash": "1189478b8daf70030a9cc2a3f0809301501d89fe2a5f083d806a95f77d40ad1b",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "When greedy choices fail",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The greedy concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A greedy algorithm always takes the choice that looks best right now.",
+            "items": {
+              "var": "coins",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "When"
-                  },
-                  {
-                    "text": "greedy"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The greedy logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "But with coins 1, 3 and 4, making 6 greedily gives 4 + 1 + 1, which.",
+            "items": {
+              "var": "coins",
+              "line": 3,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "choices"
-                  },
-                  {
-                    "text": "fail"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Always test a greedy idea on small tricky inputs before trusting it.",
+            "items": {
+              "var": "coins",
+              "line": 3,
+              "hit": 3
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "When greedy choices fail",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The greedy concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A greedy algorithm always takes the choice that looks best right now.",
+            "items": [
+              "1",
+              "2",
+              "5",
+              "10"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "When",
-                  "greedy"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The greedy logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "But with coins 1, 3 and 4, making 6 greedily gives 4 + 1 + 1, which.",
+            "items": [
+              "1",
+              "2",
+              "5",
+              "10"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "choices",
-                  "fail"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Always test a greedy idea on small tricky inputs before trusting it.",
+            "items": [
+              "1",
+              "2",
+              "5",
+              "10"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,80 +124,108 @@
       "partTitle": "Coin change with a DP table",
       "codeHash": "8c5fca956f3e128740cad58e9300d1841a83786f24056fd425e15c20f8cfe548",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Coin change with a DP table",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Coin_change(coins, amount) returns the fewest coins that make the amount.",
+            "items": {
+              "var": "coins",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Coin"
-                  },
-                  {
-                    "text": "change"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The recurrence logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Follow the recipe.",
+            "items": {
+              "var": "coins",
+              "line": 5,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "with"
-                  },
-                  {
-                    "text": "table"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Time is O(amount x number of coins), and memory is O(amount).",
+            "items": {
+              "var": "coins",
+              "line": 4,
+              "hit": 5
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Coin change with a DP table",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Coin_change(coins, amount) returns the fewest coins that make the amount.",
+            "items": [
+              "1",
+              "3",
+              "4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Coin",
-                  "change"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The recurrence logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Follow the recipe.",
+            "items": [
+              "1",
+              "3",
+              "4"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "with",
-                  "table"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Time is O(amount x number of coins), and memory is O(amount).",
+            "items": [
+              "1",
+              "3",
+              "4"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -177,80 +236,105 @@
       "partTitle": "Counting the ways instead",
       "codeHash": "848be9216c5b2063b3946dd529223a2a107bb4e04930934ac00e96ed27c6f848",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Counting the ways instead",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The close concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A close cousin asks how many different combinations of coins make.",
+            "items": {
+              "var": "coins",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Counting"
-                  },
-                  {
-                    "text": "the"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The loop logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The table now stores counts.",
+            "items": {
+              "var": "coins",
+              "line": 4,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "ways"
-                  },
-                  {
-                    "text": "instead"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Reading the question slowly and deciding what dp[x] stores is half.",
+            "items": {
+              "var": "coins",
+              "line": 5,
+              "hit": 5
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Counting the ways instead",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The close concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A close cousin asks how many different combinations of coins make.",
+            "items": [
+              "2",
+              "5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Counting",
-                  "the"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The loop logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "The table now stores counts.",
+            "items": [
+              "2",
+              "5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "ways",
-                  "instead"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Reading the question slowly and deciding what dp[x] stores is half.",
+            "items": [
+              "2",
+              "5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -261,80 +345,111 @@
       "partTitle": "The 0/1 knapsack problem",
       "codeHash": "8304c50ce4f6496771029c5d5ddb2fee7852c11ca253a645dde27b841169c801",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "The 0/1 knapsack problem",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Each item has a weight and a value, and your bag holds a limited weight.",
+            "items": {
+              "var": "weights",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "The"
-                  },
-                  {
-                    "text": "knapsack"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The best logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "For each item there are two choices.",
+            "items": {
+              "var": "weights",
+              "line": 4,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "problem"
-                  },
-                  {
-                    "text": "knapsack"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Time is O(number of items x capacity).",
+            "items": {
+              "var": "weights",
+              "line": 3,
+              "hit": 2
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "The 0/1 knapsack problem",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Each item has a weight and a value, and your bag holds a limited weight.",
+            "items": [
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "The",
-                  "knapsack"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The best logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "For each item there are two choices.",
+            "items": [
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "problem",
-                  "knapsack"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Time is O(number of items x capacity).",
+            "items": [
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -345,80 +460,111 @@
       "partTitle": "Which items were taken?",
       "codeHash": "da5914af9133fc9baa4f9b66f2140d4d54897365027198eb5d6523228fa917f2",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Which items were taken?",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The useful concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A useful answer names the chosen items, not just the value.",
+            "items": {
+              "var": "names",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Which"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The costs logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "After filling it, walk backwards from dp[n][capacity].",
+            "items": {
+              "var": "names",
+              "line": 3,
+              "hit": 6
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "were"
-                  },
-                  {
-                    "text": "taken"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "You will use the same idea tomorrow to rebuild the common letters of two.",
+            "items": {
+              "var": "names",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Which items were taken?",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The useful concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "A useful answer names the chosen items, not just the value.",
+            "items": [
+              "'stove'",
+              "'tent'",
+              "'camera'",
+              "'book'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Which",
-                  "items"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The costs logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "After filling it, walk backwards from dp[n][capacity].",
+            "items": [
+              "'stove'",
+              "'tent'",
+              "'camera'",
+              "'book'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "were",
-                  "taken"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "You will use the same idea tomorrow to rebuild the common letters of two.",
+            "items": [
+              "'stove'",
+              "'tent'",
+              "'camera'",
+              "'book'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -429,80 +575,108 @@
       "partTitle": "Milestone 4: an optimisation engine",
       "codeHash": "6f008be9d52eb4cbcec77c33a80e9fe2317dc547b841a8451898ea22c3e6642b",
       "spec": {
-        "template": "table",
+        "template": "cells",
         "title": "Milestone 4: an optimisation engine",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The milestone concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Your Milestone 4 combines both tools into one small engine.",
+            "items": {
+              "var": "coins",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Milestone"
-                  },
-                  {
-                    "text": "optimisation"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The problems logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Put them behind clear function names, validate the inputs (no negative.",
+            "items": {
+              "var": "coins",
+              "line": 6,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "engine"
-                  },
-                  {
-                    "text": "optimisation"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Test with the greedy counter-examples from part 1.",
+            "items": {
+              "var": "coins",
+              "line": 6,
+              "hit": 8
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "cells",
         "title": "Milestone 4: an optimisation engine",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The milestone concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Your Milestone 4 combines both tools into one small engine.",
+            "items": [
+              "4",
+              "6",
+              "10"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Milestone",
-                  "optimisation"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The problems logic drives deterministic execution.",
-            "rows": [
+            "at": "say2",
+            "caption": "Put them behind clear function names, validate the inputs (no negative.",
+            "items": [
+              "4",
+              "6",
+              "10"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "engine",
-                  "optimisation"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Test with the greedy counter-examples from part 1.",
+            "items": [
+              "4",
+              "6",
+              "10"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

@@ -2,87 +2,121 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 42,
-  "promptSha": "a1fc2ed6b49628c135c7a37a3bba5c70a4245f08f945ce8047dcccd6beb37c43",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Maximum Cardinality Bipartite Matching via Unit-Capacity Flow Networks",
       "codeHash": "da9de2e45c2414dc6d28ba682e9b00dbcd4638f1e503e99f49a543b2ac8a76ab",
       "spec": {
-        "template": "table",
-        "title": "Maximum Cardinality Bipartite Matching via Unit-Capacity",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Maximum Cardinality Bipartite Matching via Unit-Capacity Flow Ne",
         "steps": [
           {
             "at": "say1",
-            "caption": "The suppose design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Suppose a job scheduler assigns engineers (Set U) to compatible.",
+            "items": {
+              "var": "match_right",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Maximum"
-                  },
-                  {
-                    "text": "Cardinality"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The integral step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Observe how cleanly Bipartite Matching reduces to Max Flow.",
+            "items": {
+              "var": "match_right",
+              "line": 19,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "Bipartite"
-                  },
-                  {
-                    "text": "Matching"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Run Kuhn's O(V * E) bipartite DFS matcher below to trace augmenting.",
+            "items": {
+              "var": "match_right",
+              "line": 21,
+              "hit": 3
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Maximum Cardinality Bipartite Matching via Unit-Capacity",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Maximum Cardinality Bipartite Matching via Unit-Capacity Flow Ne",
         "steps": [
           {
             "at": "say1",
-            "caption": "The suppose design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Suppose a job scheduler assigns engineers (Set U) to compatible.",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Maximum",
-                  "Cardinality"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The integral step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Observe how cleanly Bipartite Matching reduces to Max Flow.",
+            "items": [
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Bipartite",
-                  "Matching"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Run Kuhn's O(V * E) bipartite DFS matcher below to trace augmenting.",
+            "items": [
+              "0",
+              "1",
+              "2",
+              "-1",
+              "-1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -93,82 +127,85 @@
       "partTitle": "Hopcroft-Karp Algorithm: Simultaneous Shortest Disjoint Augmenting Paths in O(E sqrt(V))",
       "codeHash": "3d2df3615e92d1c76840d476d9c791009557de1f75635f46633f8927288010c0",
       "spec": {
-        "template": "table",
-        "title": "Hopcroft-Karp Algorithm",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Hopcroft-Karp Algorithm: Simultaneous Shortest Disjoint Augmenti",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The matcher design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Hopcroft"
-                  },
-                  {
-                    "text": "Karp"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Kuhn's DFS matcher searches for a single augmenting path per iteration.",
+            "items": {
+              "var": "pair_u",
+              "line": 8,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The hopcroft step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Algorithm"
-                  },
-                  {
-                    "text": "Simultaneous"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Trace how john updates hopcroft during execution.",
+            "items": {
+              "var": "pair_u",
+              "line": 9,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Right after BFS finishes mapping all shortest alternating paths, DFS.",
+            "items": {
+              "var": "pair_u",
+              "line": 55,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Hopcroft-Karp Algorithm",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Hopcroft-Karp Algorithm: Simultaneous Shortest Disjoint Augmenti",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The matcher design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Hopcroft",
-                  "Karp"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Kuhn's DFS matcher searches for a single augmenting path per iteration.",
+            "mode": "queue",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The hopcroft step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Algorithm",
-                  "Simultaneous"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Trace how john updates hopcroft during execution.",
+            "mode": "queue",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Right after BFS finishes mapping all shortest alternating paths, DFS.",
+            "mode": "queue",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -177,82 +214,82 @@
       "partTitle": "Min-Cost Max-Flow Foundations: Negative Cost Residual Cancellation via SPFA",
       "codeHash": "fed39f88977b5d393f21b257c58f36697ed582a84ea51355ee1a7755920ba299",
       "spec": {
-        "template": "table",
-        "title": "Min-Cost Max-Flow Foundations",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Min-Cost Max-Flow Foundations: Negative Cost Residual Cancellati",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The maximum design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Cost"
-                  },
-                  {
-                    "text": "Flow"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Maximum Flow optimizes volume while Hopcroft-Karp optimizes cardinality.",
+            "items": {
+              "var": "dist",
+              "line": 24,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The successive step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Foundations"
-                  },
-                  {
-                    "text": "Negative"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Min-Cost Max-Flow (MCMF) seeks the assignment that first achieves MAXIMUM.",
+            "items": {
+              "var": "dist",
+              "line": 25,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Because residual cancellation edges inherently carry negative weights even.",
+            "items": {
+              "var": "dist",
+              "line": 33,
+              "hit": 2
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Min-Cost Max-Flow Foundations",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Min-Cost Max-Flow Foundations: Negative Cost Residual Cancellati",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The maximum design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Cost",
-                  "Flow"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Maximum Flow optimizes volume while Hopcroft-Karp optimizes cardinality.",
+            "mode": "queue",
+            "items": [
+              "1000000000",
+              "1000000000",
+              "1000000000",
+              "1000000000"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The successive step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Foundations",
-                  "Negative"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Min-Cost Max-Flow (MCMF) seeks the assignment that first achieves MAXIMUM.",
+            "mode": "queue",
+            "items": [
+              "1000000000",
+              "1000000000",
+              "1000000000",
+              "1000000000"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Because residual cancellation edges inherently carry negative weights even.",
+            "mode": "queue",
+            "items": [
+              "0",
+              "1000000000",
+              "1000000000",
+              "1000000000"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -261,82 +298,82 @@
       "partTitle": "Cycle-Free Successive Shortest Augmenting Paths & Bottleneck Scaling",
       "codeHash": "36f6b2f96bc5203acb0242b276849cc2fcccfd4397d07a54683245e56a1153ca",
       "spec": {
-        "template": "table",
-        "title": "Cycle-Free Successive Shortest Augmenting Paths & Bottleneck",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Cycle-Free Successive Shortest Augmenting Paths & Bottleneck Sca",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The residual design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Cycle"
-                  },
-                  {
-                    "text": "Free"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Now let us turn that residual insight into a reusable, industrial-grade.",
+            "items": {
+              "var": "dist",
+              "line": 18,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The along step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Successive"
-                  },
-                  {
-                    "text": "Shortest"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Notice a neat mathematical theorem guaranteeing termination.",
+            "items": {
+              "var": "dist",
+              "line": 19,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect the full `MinCostMaxFlow` implementation below, solving both.",
+            "items": {
+              "var": "dist",
+              "line": 31,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cycle-Free Successive Shortest Augmenting Paths & Bottleneck",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Cycle-Free Successive Shortest Augmenting Paths & Bottleneck Sca",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The residual design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Cycle",
-                  "Free"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Now let us turn that residual insight into a reusable, industrial-grade.",
+            "mode": "queue",
+            "items": [
+              "1000000000000000000",
+              "1000000000000000000",
+              "1000000000000000000",
+              "1000000000000000000"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The along step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Successive",
-                  "Shortest"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Notice a neat mathematical theorem guaranteeing termination.",
+            "mode": "queue",
+            "items": [
+              "1000000000000000000",
+              "1000000000000000000",
+              "1000000000000000000",
+              "1000000000000000000"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect the full `MinCostMaxFlow` implementation below, solving both.",
+            "mode": "queue",
+            "items": [
+              "0",
+              "1000000000000000000",
+              "1000000000000000000",
+              "1000000000000000000"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -345,82 +382,82 @@
       "partTitle": "Production Application: Compute Cluster Task-to-GPU Assignment & Latency Optimizer",
       "codeHash": "273ec28484156ac3437a19cd8f0e89f2ee873282ca8c79f4a5d02c736875d59b",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Production Application: Compute Cluster Task-to-GPU Assignment &",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The combine design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Now let us combine Hopcroft-Karp Bipartite Matching and Min-Cost Max-Flow.",
+            "items": {
+              "var": "jobs",
+              "line": 120,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The multiple step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Compute"
-                  },
-                  {
-                    "text": "Cluster"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Scheduling happens in two stages.",
+            "items": {
+              "var": "jobs",
+              "line": 121,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Run `GPUClusterScheduler` below across 4 inference jobs and 3 GPU machines.",
+            "items": {
+              "var": "jobs",
+              "line": 132,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Production Application: Compute Cluster Task-to-GPU Assignment &",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The combine design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Now let us combine Hopcroft-Karp Bipartite Matching and Min-Cost Max-Flow.",
+            "mode": "queue",
+            "items": [
+              "'llm-eval'",
+              "'vision-prep'",
+              "'embed-idx'",
+              "'ranker'"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The multiple step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Compute",
-                  "Cluster"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Scheduling happens in two stages.",
+            "mode": "queue",
+            "items": [
+              "'llm-eval'",
+              "'vision-prep'",
+              "'embed-idx'",
+              "'ranker'"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Run `GPUClusterScheduler` below across 4 inference jobs and 3 GPU machines.",
+            "mode": "queue",
+            "items": [
+              "'llm-eval'",
+              "'vision-prep'",
+              "'embed-idx'",
+              "'ranker'"
+            ],
+            "action": "idle"
           }
         ]
       }

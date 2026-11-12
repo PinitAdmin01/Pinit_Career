@@ -2,1335 +2,661 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 42,
-  "promptSha": "e09711b6f440baf2f2277dbbb723b4384286d122fd5643e6bbe24ebac9941624",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Content Security Policy (CSP) Nonce Generators & Trusted Types DOM Sanitizers — Foundations & Mathematical Invariants",
-      "codeHash": "5d3c40299b84ef00eaf20d8d8dae579e4ee85dc85f3e2d4aec984251d93df2ed",
+      "partTitle": "Content Security Policy & DOM Sanitizers — Foundations & Mathematical Invariants",
+      "codeHash": "b6d8d1e81971b8739f91c8997d080e9dfd141feaa29886e452d4cd26b2f88749",
       "spec": {
         "template": "flow",
-        "title": "Content Security Policy (CSP) Nonce Generators & Trusted Types DOM San",
+        "title": "Content Security Policy & DOM Sanitizers — Foundations & Mathema",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "v",
+            "label": "v"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cross-Site Scripting (XSS) remains the most prevalent and damaging.",
+            "values": {
+              "v": {
+                "var": "v",
+                "line": 9,
+                "hit": 1
+              },
+              "desc": {
+                "var": "desc",
+                "line": 9,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "v": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "v",
+                "desc"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "XSS manifests in three distinct flavors.",
+            "values": {
+              "v": {
+                "var": "v",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "desc": {
+                "var": "desc",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "v": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "v",
+                "desc"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Modern frontend frameworks help mitigate XSS by escaping variable.",
+            "values": {
+              "v": {
+                "var": "v",
+                "line": 9,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "desc": {
+                "var": "desc",
+                "line": 9,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "v": "ok",
+              "desc": "ok"
+            },
+            "arrows": [
+              [
+                "v",
+                "desc"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Content Security Policy (CSP) Nonce Generators & Trusted Types DOM San",
+        "title": "Content Security Policy & DOM Sanitizers — Foundations & Mathema",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "v",
+            "label": "v"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cross-Site Scripting (XSS) remains the most prevalent and damaging.",
+            "values": {
+              "v": "'STORED_XSS'",
+              "desc": "'Malicious script persisted in database…"
+            },
+            "tones": {
+              "v": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "v",
+                "desc"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "XSS manifests in three distinct flavors.",
+            "values": {
+              "v": "'STORED_XSS'",
+              "desc": "'Malicious script persisted in database…"
+            },
+            "tones": {
+              "v": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "v",
+                "desc"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Modern frontend frameworks help mitigate XSS by escaping variable.",
+            "values": {
+              "v": "'REFLECTED_XSS'",
+              "desc": "'Payload reflected immediately off serv…"
+            },
+            "tones": {
+              "v": "ok",
+              "desc": "ok"
+            },
+            "arrows": [
+              [
+                "v",
+                "desc"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Content Security Policy (CSP) Nonce Generators & Trusted Types DOM Sanitizers — Core Algorithm & State Representation",
-      "codeHash": "e3154f50b2c7d5909d2372d28794c5982095aa4974e9481c912cd1a81ca68e1e",
+      "partTitle": "Content Security Policy & DOM Sanitizers — Core Algorithm & State Representation",
+      "codeHash": "64aa65e492a36ffe2c6b3dcf68d4fe3db721ee2631e59c7386d53eb1dddb7aef",
       "spec": {
-        "template": "flow",
-        "title": "Content Security Policy (CSP) Nonce Generators & Trusted Types DOM San",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Content Security Policy & DOM Sanitizers — Core Algorithm & Stat",
+        "actors": [
+          "random_bytes",
+          "nonce",
+          "csp"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Implementing strict CSP requires generating a fresh, cryptographically.",
+            "activeActor": "random_bytes",
+            "messages": [
+              {
+                "from": "random_bytes",
+                "to": "nonce",
+                "label": {
+                  "var": "random_bytes",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "nonce",
+                "to": "csp",
+                "label": {
+                  "var": "nonce",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The `CSPNonceGenerator` utilizes kernel-level randomness (`secrets.",
+            "activeActor": "nonce",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "random_bytes",
+                "to": "nonce",
+                "label": {
+                  "var": "random_bytes",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "nonce",
+                "to": "csp",
+                "label": {
+                  "var": "nonce",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Dynamic cryptographic nonce generation guarantees that inline scripts.",
+            "activeActor": "csp",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "random_bytes",
+                "to": "nonce",
+                "label": {
+                  "var": "random_bytes",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "nonce",
+                "to": "csp",
+                "label": {
+                  "var": "nonce",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Content Security Policy (CSP) Nonce Generators & Trusted Types DOM San",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Content Security Policy & DOM Sanitizers — Core Algorithm & Stat",
+        "actors": [
+          "random_bytes",
+          "nonce",
+          "csp"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Implementing strict CSP requires generating a fresh, cryptographically.",
+            "messages": [
+              {
+                "from": "random_bytes",
+                "to": "nonce",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "data"
+              },
+              {
+                "from": "nonce",
+                "to": "csp",
+                "label": "'ZGV0ZXJtaW5pc3RpY19ubw=='",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "random_bytes"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The `CSPNonceGenerator` utilizes kernel-level randomness (`secrets.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "random_bytes",
+                "to": "nonce",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "nonce",
+                "to": "csp",
+                "label": "'ZGV0ZXJtaW5pc3RpY19ubw=='",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "nonce"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Dynamic cryptographic nonce generation guarantees that inline scripts.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "random_bytes",
+                "to": "nonce",
+                "label": "{'__other__': 'bytes'}",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "nonce",
+                "to": "csp",
+                "label": "'ZGV0ZXJtaW5pc3RpY19ubw=='",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "csp"
           }
         ]
       }
     },
     {
-      "partTitle": "Content Security Policy (CSP) Nonce Generators & Trusted Types DOM Sanitizers — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "cfbf36be219ce01dde23061e0f784923c3977c00d6eafed48395b9f5973abd76",
+      "partTitle": "Content Security Policy & DOM Sanitizers — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "95adfdeab20dfdb4c44bf3fe9e94c7020b7ac609214a2e08ffd0cb7367a58e90",
       "spec": {
-        "template": "flow",
-        "title": "Content Security Policy (CSP) Nonce Generators & Trusted Types DOM San",
-        "nodes": [
+        "template": "states",
+        "title": "Content Security Policy & DOM Sanitizers — Throughput Optimizati",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "dirty",
+            "label": "dirty"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "html_str",
+            "label": "html_str"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "cleaned",
+            "label": "cleaned"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While CSP protects against script execution, web applications often need.",
+            "currentState": "dirty",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Directly assigning untrusted HTML strings to DOM elements via `element.",
+            "currentState": "html_str",
+            "transition": {
+              "from": "dirty",
+              "to": "html_str",
+              "label": {
+                "var": "html_str",
+                "line": 12,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "DOM sanitization routines must operate on structured element.",
+            "currentState": "cleaned",
+            "transition": {
+              "from": "html_str",
+              "to": "cleaned",
+              "label": {
+                "var": "cleaned",
+                "line": 13,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Content Security Policy (CSP) Nonce Generators & Trusted Types DOM San",
-        "nodes": [
+        "template": "states",
+        "title": "Content Security Policy & DOM Sanitizers — Throughput Optimizati",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "dirty",
+            "label": "dirty"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "html_str",
+            "label": "html_str"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "cleaned",
+            "label": "cleaned"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While CSP protects against script execution, web applications often need.",
+            "currentState": "dirty",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Directly assigning untrusted HTML strings to DOM elements via `element.",
+            "currentState": "html_str",
+            "transition": {
+              "from": "dirty",
+              "to": "html_str",
+              "label": "'<a href=\"javascript:alert(1)\" onclick=…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "DOM sanitization routines must operate on structured element.",
+            "currentState": "cleaned",
+            "transition": {
+              "from": "html_str",
+              "to": "cleaned",
+              "label": "'<a href=\"#blocked-js:alert(1)\" data-bl…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Content Security Policy (CSP) Nonce Generators & Trusted Types DOM Sanitizers — Resilience Guardrails & Failure Recovery",
-      "codeHash": "802b75905be6cc902000b59dcf4372d2904771254f1dce60f94a5e703da18ade",
+      "partTitle": "Content Security Policy & DOM Sanitizers — Resilience Guardrails & Failure Recovery",
+      "codeHash": "e9e50243d2d1c32136d8ab9955083f1524b361c60122441e3136558998f9bc0a",
       "spec": {
-        "template": "flow",
-        "title": "Content Security Policy (CSP) Nonce Generators & Trusted Types DOM San",
-        "nodes": [
+        "template": "states",
+        "title": "Content Security Policy & DOM Sanitizers — Resilience Guardrails",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "markup",
+            "label": "markup"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "trusted",
+            "label": "trusted"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Even with sanitizers, complex frontend codebases with hundreds.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The W3C Trusted Types standard introduces an unyielding client-side.",
+            "currentState": "markup",
+            "transition": {
+              "from": "self",
+              "to": "markup",
+              "label": {
+                "var": "markup",
+                "line": 11,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Enforcing W3C Trusted Types shifts client-side security from reactive.",
+            "currentState": "trusted",
+            "transition": {
+              "from": "markup",
+              "to": "trusted",
+              "label": {
+                "var": "trusted",
+                "line": 15,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Content Security Policy (CSP) Nonce Generators & Trusted Types DOM San",
-        "nodes": [
+        "template": "states",
+        "title": "Content Security Policy & DOM Sanitizers — Resilience Guardrails",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "markup",
+            "label": "markup"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "trusted",
+            "label": "trusted"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Even with sanitizers, complex frontend codebases with hundreds.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The W3C Trusted Types standard introduces an unyielding client-side.",
+            "currentState": "markup",
+            "transition": {
+              "from": "self",
+              "to": "markup",
+              "label": "'<b>Safe bold text</b>'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Enforcing W3C Trusted Types shifts client-side security from reactive.",
+            "currentState": "trusted",
+            "transition": {
+              "from": "markup",
+              "to": "trusted",
+              "label": "<MockTrustedHTML>"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Content Security Policy (CSP) Nonce Generators & Trusted Types DOM Sanitizers — Production Telemetry & Verification Audit",
-      "codeHash": "5af7c3f60ed3414c0dd32bfae026cf8aab36f5c3edc0438bed461cd793cd2c37",
+      "partTitle": "Content Security Policy & DOM Sanitizers — Production Telemetry & Verification Audit",
+      "codeHash": "a222bc3904f7b732d3671ebb64c50d7b05cd41283110997966e2d926295262b7",
       "spec": {
-        "template": "flow",
-        "title": "Content Security Policy (CSP) Nonce Generators & Trusted Types DOM San",
-        "nodes": [
+        "template": "states",
+        "title": "Content Security Policy & DOM Sanitizers — Production Telemetry ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "strict_csp_active",
+            "label": "strict_csp_active"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "trusted_types_enforced",
+            "label": "trusted_types_enforced"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "dom_sanitized",
+            "label": "dom_sanitized"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating hardened client-side architectures requires continuous telemetry.",
+            "currentState": "strict_csp_active",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Content Security Policy provides real-time violation reporting via.",
+            "currentState": "trusted_types_enforced",
+            "transition": {
+              "from": "strict_csp_active",
+              "to": "trusted_types_enforced",
+              "label": {
+                "var": "trusted_types_enforced",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Real-time CSP violation reporting enables security operations centers.",
+            "currentState": "dom_sanitized",
+            "transition": {
+              "from": "trusted_types_enforced",
+              "to": "dom_sanitized",
+              "label": {
+                "var": "dom_sanitized",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Content Security Policy (CSP) Nonce Generators & Trusted Types DOM San",
-        "nodes": [
+        "template": "states",
+        "title": "Content Security Policy & DOM Sanitizers — Production Telemetry ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "strict_csp_active",
+            "label": "strict_csp_active"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "trusted_types_enforced",
+            "label": "trusted_types_enforced"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "dom_sanitized",
+            "label": "dom_sanitized"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating hardened client-side architectures requires continuous telemetry.",
+            "currentState": "strict_csp_active",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Content Security Policy provides real-time violation reporting via.",
+            "currentState": "trusted_types_enforced",
+            "transition": {
+              "from": "strict_csp_active",
+              "to": "trusted_types_enforced",
+              "label": "True"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Real-time CSP violation reporting enables security operations centers.",
+            "currentState": "dom_sanitized",
+            "transition": {
+              "from": "trusted_types_enforced",
+              "to": "dom_sanitized",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }

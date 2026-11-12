@@ -2,142 +2,284 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 1,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Parameters take up memory",
       "codeHash": "ecf8242465da87f9fcdcdd5a77050bbcc7b6087a9c00435ba4886e77aa4c5f70",
       "spec": {
-        "template": "table",
-        "title": "Model parameter precision and memory footprints",
-        "columns": [
-          "name",
-          "params",
-          "row"
+        "template": "flow",
+        "title": "Parameters take up memory",
+        "nodes": [
+          {
+            "id": "BYTES",
+            "label": "BYTES"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "params",
+            "label": "params"
+          },
+          {
+            "id": "p",
+            "label": "p"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Neural network architectures store weights as numerical parameters.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "row"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A neural network is mostly a very long list of numbers called parameters.",
+            "values": {
+              "BYTES": {
+                "var": "BYTES",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "row"
-                  }
-                ],
-                "tone": "data"
+              "name": {
+                "var": "name",
+                "line": 2,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 2,
+                "hit": 1
+              },
+              "p": {
+                "var": "p",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "BYTES": "data",
+              "name": "data",
+              "params": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "BYTES",
+                "name"
+              ],
+              [
+                "name",
+                "params"
+              ],
+              [
+                "params",
+                "p"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Precision formats allocate distinct memory bytes per parameter weight.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "row"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Trace how billion updates parameter during execution.",
+            "values": {
+              "BYTES": {
+                "var": "BYTES",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "ok"
+              "name": {
+                "var": "name",
+                "line": 3,
+                "hit": 6
+              },
+              "params": {
+                "var": "params",
+                "line": 3,
+                "hit": 6
+              },
+              "p": {
+                "var": "p",
+                "line": 3,
+                "hit": 2
               }
+            },
+            "tones": {
+              "BYTES": "data",
+              "name": "data",
+              "params": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "BYTES",
+                "name"
+              ],
+              [
+                "name",
+                "params"
+              ],
+              [
+                "params",
+                "p"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Memory for weights is only the beginning.",
+            "values": {
+              "BYTES": {
+                "var": "BYTES",
+                "line": 3,
+                "hit": 6
+              },
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 4,
+                "hit": 1
+              },
+              "p": {
+                "var": "p",
+                "line": 3,
+                "hit": 3
+              }
+            },
+            "tones": {
+              "BYTES": "ok",
+              "name": "ok",
+              "params": "ok",
+              "p": "ok"
+            },
+            "arrows": [
+              [
+                "BYTES",
+                "name"
+              ],
+              [
+                "name",
+                "params"
+              ],
+              [
+                "params",
+                "p"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Model parameter precision and memory footprints",
-        "columns": [
-          "name",
-          "params",
-          "row"
+        "template": "flow",
+        "title": "Parameters take up memory",
+        "nodes": [
+          {
+            "id": "BYTES",
+            "label": "BYTES"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "params",
+            "label": "params"
+          },
+          {
+            "id": "p",
+            "label": "p"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Neural network architectures store weights as numerical parameters.",
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "params",
-                  "row"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "name",
-                  "params",
-                  "row"
-                ],
-                "tone": "data"
-              }
+            "caption": "A neural network is mostly a very long list of numbers called parameters.",
+            "values": {
+              "BYTES": "{'fp32': 4, 'fp16': 2, 'int8': 1, 'int4…",
+              "name": "'1.3B'",
+              "params": "1300000000",
+              "p": "'fp32'"
+            },
+            "tones": {
+              "BYTES": "data",
+              "name": "data",
+              "params": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "BYTES",
+                "name"
+              ],
+              [
+                "name",
+                "params"
+              ],
+              [
+                "params",
+                "p"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Precision formats allocate distinct memory bytes per parameter weight.",
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "params",
-                  "row"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "name",
-                  "params",
-                  "name"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Trace how billion updates parameter during execution.",
+            "values": {
+              "BYTES": "{'fp32': 4, 'fp16': 2, 'int8': 1, 'int4…",
+              "name": "'1.3B'",
+              "params": "1300000000",
+              "p": "'fp16'"
+            },
+            "tones": {
+              "BYTES": "data",
+              "name": "data",
+              "params": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "BYTES",
+                "name"
+              ],
+              [
+                "name",
+                "params"
+              ],
+              [
+                "params",
+                "p"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Memory for weights is only the beginning.",
+            "values": {
+              "BYTES": "{'fp32': 4, 'fp16': 2, 'int8': 1, 'int4…",
+              "name": "'1.3B'",
+              "params": "1300000000",
+              "p": "'int8'"
+            },
+            "tones": {
+              "BYTES": "ok",
+              "name": "ok",
+              "params": "ok",
+              "p": "ok"
+            },
+            "arrows": [
+              [
+                "BYTES",
+                "name"
+              ],
+              [
+                "name",
+                "params"
+              ],
+              [
+                "params",
+                "p"
+              ]
             ]
           }
         ]
@@ -147,135 +289,277 @@
       "partTitle": "How much compute training takes",
       "codeHash": "f5088a3d133ba4dea34cdb243a764f82bec8932b070d9b7b014dc0485ba6c521",
       "spec": {
-        "template": "table",
-        "title": "Training compute arithmetic and floating-point operations",
-        "columns": [
-          "name",
-          "params",
-          "tokens"
+        "template": "flow",
+        "title": "How much compute training takes",
+        "nodes": [
+          {
+            "id": "runs",
+            "label": "runs"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "params",
+            "label": "params"
+          },
+          {
+            "id": "tokens",
+            "label": "tokens"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Training computation cost is measured in floating point operations.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Training cost is measured in floating-point operations, or FLOPs.",
+            "values": {
+              "runs": {
+                "var": "runs",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "data"
+              "name": {
+                "var": "name",
+                "line": 2,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 2,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "runs": "data",
+              "name": "data",
+              "params": "data",
+              "tokens": "data"
+            },
+            "arrows": [
+              [
+                "runs",
+                "name"
+              ],
+              [
+                "name",
+                "params"
+              ],
+              [
+                "params",
+                "tokens"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Every token represents a distinct piece of text processed during training.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "A very useful rule of thumb says that training a dense transformer costs.",
+            "values": {
+              "runs": {
+                "var": "runs",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
+              "name": {
+                "var": "name",
+                "line": 3,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 3,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "runs": "data",
+              "name": "data",
+              "params": "data",
+              "tokens": "data"
+            },
+            "arrows": [
+              [
+                "runs",
+                "name"
+              ],
+              [
+                "name",
+                "params"
+              ],
+              [
+                "params",
+                "tokens"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how scientific updates notation during execution.",
+            "values": {
+              "runs": {
+                "var": "runs",
+                "line": 3,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 4,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "runs": "ok",
+              "name": "ok",
+              "params": "ok",
+              "tokens": "ok"
+            },
+            "arrows": [
+              [
+                "runs",
+                "name"
+              ],
+              [
+                "name",
+                "params"
+              ],
+              [
+                "params",
+                "tokens"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Training compute arithmetic and floating-point operations",
-        "columns": [
-          "name",
-          "params",
-          "tokens"
+        "template": "flow",
+        "title": "How much compute training takes",
+        "nodes": [
+          {
+            "id": "runs",
+            "label": "runs"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "params",
+            "label": "params"
+          },
+          {
+            "id": "tokens",
+            "label": "tokens"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Training computation cost is measured in floating point operations.",
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "params",
-                  "tokens"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "name",
-                  "params",
-                  "tokens"
-                ],
-                "tone": "data"
-              }
+            "caption": "Training cost is measured in floating-point operations, or FLOPs.",
+            "values": {
+              "runs": "[['125M on 300B tokens', 125000000, 300…",
+              "name": "'125M on 300B tokens'",
+              "params": "125000000",
+              "tokens": "300000000000"
+            },
+            "tones": {
+              "runs": "data",
+              "name": "data",
+              "params": "data",
+              "tokens": "data"
+            },
+            "arrows": [
+              [
+                "runs",
+                "name"
+              ],
+              [
+                "name",
+                "params"
+              ],
+              [
+                "params",
+                "tokens"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Every token represents a distinct piece of text processed during training.",
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "params",
-                  "tokens"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "name",
-                  "params",
-                  "tokens"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "A very useful rule of thumb says that training a dense transformer costs.",
+            "values": {
+              "runs": "[['125M on 300B tokens', 125000000, 300…",
+              "name": "'125M on 300B tokens'",
+              "params": "125000000",
+              "tokens": "300000000000"
+            },
+            "tones": {
+              "runs": "data",
+              "name": "data",
+              "params": "data",
+              "tokens": "data"
+            },
+            "arrows": [
+              [
+                "runs",
+                "name"
+              ],
+              [
+                "name",
+                "params"
+              ],
+              [
+                "params",
+                "tokens"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how scientific updates notation during execution.",
+            "values": {
+              "runs": "[['125M on 300B tokens', 125000000, 300…",
+              "name": "'125M on 300B tokens'",
+              "params": "125000000",
+              "tokens": "300000000000"
+            },
+            "tones": {
+              "runs": "ok",
+              "name": "ok",
+              "params": "ok",
+              "tokens": "ok"
+            },
+            "arrows": [
+              [
+                "runs",
+                "name"
+              ],
+              [
+                "name",
+                "params"
+              ],
+              [
+                "params",
+                "tokens"
+              ]
             ]
           }
         ]
@@ -285,78 +569,91 @@
       "partTitle": "From FLOPs to days",
       "codeHash": "7642026b3e10e3841b9435ec0c7f3a44a3d96e7b905b357def198a390f36f8ef",
       "spec": {
-        "template": "table",
-        "title": "Cluster hardware throughput and training timeline estimation",
-        "columns": [
+        "template": "sequence",
+        "title": "From FLOPs to days",
+        "actors": [
           "flops",
           "peak",
-          "days"
+          "mfu"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Hardware utilisation reflects the achieved fraction of maximum capacity.",
-            "rows": [
+            "at": "say1",
+            "caption": "Trace how modern updates data during execution.",
+            "activeActor": "flops",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "flops"
-                  },
-                  {
-                    "text": "peak"
-                  },
-                  {
-                    "text": "days"
-                  }
-                ],
-                "tone": "ok"
+                "from": "flops",
+                "to": "peak",
+                "label": {
+                  "var": "flops",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "flops"
-                  },
-                  {
-                    "text": "peak"
-                  },
-                  {
-                    "text": "days"
-                  }
-                ],
-                "tone": "data"
+                "from": "peak",
+                "to": "mfu",
+                "label": {
+                  "var": "peak",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Distributed execution shortens impossible timelines into realistic runs.",
-            "rows": [
+            "at": "say2",
+            "caption": "Real training never reaches the peak.",
+            "activeActor": "peak",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "flops"
-                  },
-                  {
-                    "text": "peak"
-                  },
-                  {
-                    "text": "days"
-                  }
-                ],
+                "from": "flops",
+                "to": "peak",
+                "label": {
+                  "var": "flops",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "flops"
-                  },
-                  {
-                    "text": "peak"
-                  },
-                  {
-                    "text": "flops"
-                  }
-                ],
+                "from": "peak",
+                "to": "mfu",
+                "label": {
+                  "var": "peak",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Planning numbers like these are what engineers present when asking for.",
+            "activeActor": "mfu",
+            "messages": [
+              {
+                "from": "flops",
+                "to": "peak",
+                "label": {
+                  "var": "flops",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "peak",
+                "to": "mfu",
+                "label": {
+                  "var": "peak",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +661,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cluster hardware throughput and training timeline estimation",
-        "columns": [
+        "template": "sequence",
+        "title": "From FLOPs to days",
+        "actors": [
           "flops",
           "peak",
-          "days"
+          "mfu"
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Hardware utilisation reflects the achieved fraction of maximum capacity.",
-            "rows": [
+            "at": "say1",
+            "caption": "Trace how modern updates data during execution.",
+            "messages": [
               {
-                "cells": [
-                  "flops",
-                  "peak",
-                  "days"
-                ],
-                "tone": "ok"
+                "from": "flops",
+                "to": "peak",
+                "label": "4.2e+22",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "flops",
-                  "peak",
-                  "days"
-                ],
-                "tone": "data"
+                "from": "peak",
+                "to": "mfu",
+                "label": "312000000000000",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "flops"
           },
           {
-            "at": "say7",
-            "caption": "Distributed execution shortens impossible timelines into realistic runs.",
-            "rows": [
+            "at": "say2",
+            "caption": "Real training never reaches the peak.",
+            "messages": [
               {
-                "cells": [
-                  "flops",
-                  "peak",
-                  "days"
-                ],
+                "from": "flops",
+                "to": "peak",
+                "label": "4.2e+22",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "flops",
-                  "peak",
-                  "flops"
-                ],
+                "from": "peak",
+                "to": "mfu",
+                "label": "312000000000000",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "peak"
+          },
+          {
+            "at": "say10",
+            "caption": "Planning numbers like these are what engineers present when asking for.",
+            "messages": [
+              {
+                "from": "flops",
+                "to": "peak",
+                "label": "4.2e+22",
+                "tone": "data"
+              },
+              {
+                "from": "peak",
+                "to": "mfu",
+                "label": "312000000000000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "mfu"
           }
         ]
       }
@@ -423,78 +733,91 @@
       "partTitle": "Why one GPU is not enough",
       "codeHash": "50c0a57e0bad4610be1445e8d1424fcf71d919e3e42ee1ed196c2119de1d617c",
       "spec": {
-        "template": "table",
-        "title": "Hardware scaling boundaries: memory wall versus time wall",
-        "columns": [
-          "name",
-          "params",
-          "walls"
+        "template": "sequence",
+        "title": "Why one GPU is not enough",
+        "actors": [
+          "gpu_gb",
+          "cases",
+          "name"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Training bottlenecks present separate memory and time constraints.",
-            "rows": [
+            "caption": "There are two separate walls.",
+            "activeActor": "gpu_gb",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "walls"
-                  }
-                ],
-                "tone": "ok"
+                "from": "gpu_gb",
+                "to": "cases",
+                "label": {
+                  "var": "gpu_gb",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "walls"
-                  }
-                ],
-                "tone": "data"
+                "from": "cases",
+                "to": "name",
+                "label": {
+                  "var": "cases",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Data parallelism distributes independent batches across separate devices.",
-            "rows": [
+            "at": "say2",
+            "caption": "The memory wall means the model and its training data structures do not.",
+            "activeActor": "cases",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "walls"
-                  }
-                ],
+                "from": "gpu_gb",
+                "to": "cases",
+                "label": {
+                  "var": "gpu_gb",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "params"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
+                "from": "cases",
+                "to": "name",
+                "label": {
+                  "var": "cases",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Very large models need memory sharding even before speed becomes the concern.",
+            "activeActor": "name",
+            "messages": [
+              {
+                "from": "gpu_gb",
+                "to": "cases",
+                "label": {
+                  "var": "gpu_gb",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cases",
+                "to": "name",
+                "label": {
+                  "var": "cases",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,57 +825,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Hardware scaling boundaries: memory wall versus time wall",
-        "columns": [
-          "name",
-          "params",
-          "walls"
+        "template": "sequence",
+        "title": "Why one GPU is not enough",
+        "actors": [
+          "gpu_gb",
+          "cases",
+          "name"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Training bottlenecks present separate memory and time constraints.",
-            "rows": [
+            "caption": "There are two separate walls.",
+            "messages": [
               {
-                "cells": [
-                  "name",
-                  "params",
-                  "walls"
-                ],
-                "tone": "ok"
+                "from": "gpu_gb",
+                "to": "cases",
+                "label": "80",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "name",
-                  "params",
-                  "walls"
-                ],
-                "tone": "data"
+                "from": "cases",
+                "to": "name",
+                "label": "[['350M model, 20 GPU-days of work', 35…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "gpu_gb"
           },
           {
-            "at": "say4",
-            "caption": "Data parallelism distributes independent batches across separate devices.",
-            "rows": [
+            "at": "say2",
+            "caption": "The memory wall means the model and its training data structures do not.",
+            "messages": [
               {
-                "cells": [
-                  "name",
-                  "params",
-                  "walls"
-                ],
+                "from": "gpu_gb",
+                "to": "cases",
+                "label": "80",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "name",
-                  "params",
-                  "name"
-                ],
+                "from": "cases",
+                "to": "name",
+                "label": "[['350M model, 20 GPU-days of work', 35…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "cases"
+          },
+          {
+            "at": "say10",
+            "caption": "Very large models need memory sharding even before speed becomes the concern.",
+            "messages": [
+              {
+                "from": "gpu_gb",
+                "to": "cases",
+                "label": "80",
+                "tone": "data"
+              },
+              {
+                "from": "cases",
+                "to": "name",
+                "label": "[['350M model, 20 GPU-days of work', 35…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "name"
           }
         ]
       }
@@ -562,110 +898,161 @@
       "codeHash": "302e9db2766fdabb07650b0290c41884ab45293c9091fc2624b50ac780868d4f",
       "spec": {
         "template": "flow",
-        "title": "Validating inputs like a professional — Execution Pipeline",
+        "title": "Validating inputs like a professional",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "BYTES",
+            "label": "BYTES"
           },
           {
-            "id": "proc",
-            "label": "2. Validating inputs l...",
-            "tappable": true
+            "id": "args",
+            "label": "args"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "params",
+            "label": "params"
+          },
+          {
+            "id": "precision",
+            "label": "precision"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Validating inputs like a professional.",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Validating inputs l... [Done.Pfive.Stwo].",
+            "caption": "Planning tools are only useful if they refuse nonsense.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "BYTES": {
+                "var": "BYTES",
+                "line": 1,
+                "hit": 1
+              },
+              "args": {
+                "var": "args",
+                "line": 9,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 3,
+                "hit": 1
+              },
+              "precision": {
+                "var": "precision",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "BYTES": "data",
+              "args": "data",
+              "params": "data",
+              "precision": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "BYTES",
+                "args"
               ],
               [
-                "proc",
-                "out"
+                "args",
+                "params"
+              ],
+              [
+                "params",
+                "precision"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Unknown precision names, zero or negative parameter counts and impossible.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "BYTES": {
+                "var": "BYTES",
+                "line": 2,
+                "hit": 1
+              },
+              "args": {
+                "var": "args",
+                "line": 10,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 5,
+                "hit": 1
+              },
+              "precision": {
+                "var": "precision",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "BYTES": "data",
+              "args": "data",
+              "params": "data",
+              "precision": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "BYTES",
+                "args"
+              ],
+              [
+                "args",
+                "params"
+              ],
+              [
+                "params",
+                "precision"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Validating inputs like a professi.",
+            "at": "say10",
+            "caption": "Tests that feed bad inputs deliberately, as today's checks do, protect.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "BYTES": {
+                "var": "BYTES",
+                "line": 9,
+                "hit": 1
+              },
+              "args": {
+                "var": "args",
+                "line": 11,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 7,
+                "hit": 1
+              },
+              "precision": {
+                "var": "precision",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "BYTES": "ok",
+              "args": "ok",
+              "params": "ok",
+              "precision": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "BYTES",
+                "args"
               ],
               [
-                "proc",
-                "out"
+                "args",
+                "params"
+              ],
+              [
+                "params",
+                "precision"
               ]
             ]
           }
@@ -673,110 +1060,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Validating inputs like a professional — Execution Pipeline",
+        "title": "Validating inputs like a professional",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "BYTES",
+            "label": "BYTES"
           },
           {
-            "id": "proc",
-            "label": "2. Validating inputs l...",
-            "tappable": true
+            "id": "args",
+            "label": "args"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "params",
+            "label": "params"
+          },
+          {
+            "id": "precision",
+            "label": "precision"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Validating inputs like a professional [D1.P5.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Validating inputs l... [D1.P5.S2].",
+            "caption": "Planning tools are only useful if they refuse nonsense.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "BYTES": "{'fp32': 4, 'fp16': 2, 'bf16': 2, 'int8…",
+              "args": "[7000000000, 'bf16']",
+              "params": "7000000000",
+              "precision": "'bf16'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "BYTES": "data",
+              "args": "data",
+              "params": "data",
+              "precision": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "BYTES",
+                "args"
               ],
               [
-                "proc",
-                "out"
+                "args",
+                "params"
+              ],
+              [
+                "params",
+                "precision"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P5.S3].",
+            "at": "say2",
+            "caption": "Unknown precision names, zero or negative parameter counts and impossible.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "BYTES": "{'fp32': 4, 'fp16': 2, 'bf16': 2, 'int8…",
+              "args": "[7000000000, 'bf16']",
+              "params": "7000000000",
+              "precision": "'bf16'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "BYTES": "data",
+              "args": "data",
+              "params": "data",
+              "precision": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "BYTES",
+                "args"
+              ],
+              [
+                "args",
+                "params"
+              ],
+              [
+                "params",
+                "precision"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Validating inputs like a professi.. [D1.P5.S4].",
+            "at": "say10",
+            "caption": "Tests that feed bad inputs deliberately, as today's checks do, protect.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "BYTES": "{'fp32': 4, 'fp16': 2, 'bf16': 2, 'int8…",
+              "args": "[7000000000, 'bf16']",
+              "params": "7000000000",
+              "precision": "'bf16'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "BYTES": "ok",
+              "args": "ok",
+              "params": "ok",
+              "precision": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "BYTES",
+                "args"
               ],
               [
-                "proc",
-                "out"
+                "args",
+                "params"
+              ],
+              [
+                "params",
+                "precision"
               ]
             ]
           }
@@ -787,223 +1177,217 @@
       "partTitle": "Practice time: memory and time",
       "codeHash": "75b15c2c051f50bb0feedef889470ce671a5f2b162ac80c9b85210b7f507e1e7",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: memory and time — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: memo...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: memory and time",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: memory and time [Done.Psix.Sone].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: memo... [Done.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Model_memory_gb(params, precision).",
+            "bars": [
+              {
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "tokens",
+                "value": {
+                  "var": "tokens",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "peak",
+                "value": {
+                  "var": "peak",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mfu",
+                "value": {
+                  "var": "mfu",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a 7B model in FP16 and FP32, a 70B model in INT4,.",
+            "bars": [
+              {
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "tokens",
+                "value": {
+                  "var": "tokens",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "peak",
+                "value": {
+                  "var": "peak",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mfu",
+                "value": {
+                  "var": "mfu",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: memory and time.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Write down your estimates and compare them with real published training.",
+            "bars": [
+              {
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "tokens",
+                "value": {
+                  "var": "tokens",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "peak",
+                "value": {
+                  "var": "peak",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mfu",
+                "value": {
+                  "var": "mfu",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: memory and time — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: memo...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: memory and time",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: memory and time [D1.P6.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: memo... [D1.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Model_memory_gb(params, precision).",
+            "bars": [
+              {
+                "label": "params",
+                "value": 13000000000,
+                "tone": "data"
+              },
+              {
+                "label": "tokens",
+                "value": 2000000000000,
+                "tone": "data"
+              },
+              {
+                "label": "peak",
+                "value": 312000000000000,
+                "tone": "data"
+              },
+              {
+                "label": "mfu",
+                "value": 0.4,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a 7B model in FP16 and FP32, a 70B model in INT4,.",
+            "bars": [
+              {
+                "label": "params",
+                "value": 13000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "tokens",
+                "value": 2000000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "peak",
+                "value": 312000000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "mfu",
+                "value": 0.4,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: memory and time [D1.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Write down your estimates and compare them with real published training.",
+            "bars": [
+              {
+                "label": "params",
+                "value": 13000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "tokens",
+                "value": 2000000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "peak",
+                "value": 312000000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "mfu",
+                "value": 0.4,
+                "tone": "ok"
+              }
             ]
           }
         ]

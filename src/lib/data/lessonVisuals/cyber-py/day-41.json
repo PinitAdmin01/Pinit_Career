@@ -2,536 +2,360 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 41,
-  "promptSha": "419d484f01c1e0aef50365ddd205bd23b4b9421c237801ac400bf4f59b4c2ac4",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "SSRF Cloud Metadata Firewalls — Foundations & Mathematical Invariants",
-      "codeHash": "6545ceda61a0080427344ff624ba6d008947c9e5a43044f6f62266c9a4583659",
+      "codeHash": "3cb068247490252006cbdcb2b4a8a78a3f1bcaf74de5dba8e5c9d88fe69bc1c6",
       "spec": {
-        "template": "flow",
-        "title": "SSRF Cloud Metadata Firewalls — Foundations & Mathematical Invariants",
-        "nodes": [
+        "template": "boxes",
+        "title": "SSRF Cloud Metadata Firewalls — Foundations & Mathematical Invar",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "tr",
+            "label": "tr"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Server-Side Request Forgery (SSRF) occurs when a web application accepts.",
+            "values": {
+              "tr": {
+                "var": "tr",
+                "line": 9,
+                "hit": 1
+              },
+              "desc": {
+                "var": "desc",
+                "line": 9,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "tr": "data",
+              "desc": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "In traditional on-premises networks, SSRF allowed attackers to port-scan.",
+            "values": {
+              "tr": {
+                "var": "tr",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "desc": {
+                "var": "desc",
+                "line": 10,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "tr": "data",
+              "desc": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Trace how modern updates cloud during execution.",
+            "values": {
+              "tr": {
+                "var": "tr",
+                "line": 9,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "desc": {
+                "var": "desc",
+                "line": 9,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "tr": "ok",
+              "desc": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "SSRF Cloud Metadata Firewalls — Foundations & Mathematical Invariants",
-        "nodes": [
+        "template": "boxes",
+        "title": "SSRF Cloud Metadata Firewalls — Foundations & Mathematical Invar",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "tr",
+            "label": "tr"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Server-Side Request Forgery (SSRF) occurs when a web application accepts.",
+            "values": {
+              "tr": "'AWS_METADATA_IMDS'",
+              "desc": "'http://169.254.169.254/latest/meta-dat…"
+            },
+            "tones": {
+              "tr": "data",
+              "desc": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "In traditional on-premises networks, SSRF allowed attackers to port-scan.",
+            "values": {
+              "tr": "'AWS_METADATA_IMDS'",
+              "desc": "'http://169.254.169.254/latest/meta-dat…"
+            },
+            "tones": {
+              "tr": "data",
+              "desc": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Trace how modern updates cloud during execution.",
+            "values": {
+              "tr": "'GCP_METADATA_FLAVOR'",
+              "desc": "'http://metadata.google.internal/comput…"
+            },
+            "tones": {
+              "tr": "ok",
+              "desc": "ok"
+            }
           }
         ]
       }
     },
     {
       "partTitle": "SSRF Cloud Metadata Firewalls — Core Algorithm & State Representation",
-      "codeHash": "b1c2d086ac9f8ed2793d2eadf72a17d402dee9bebe2007169f184a2a65b75d26",
+      "codeHash": "d74016a28a04dd5d6133f9b523ca8395ee9f416e41f8fbd10fc3623e13d44b28",
       "spec": {
         "template": "flow",
-        "title": "SSRF Cloud Metadata Firewalls — Core Algorithm & State Representation",
+        "title": "SSRF Cloud Metadata Firewalls — Core Algorithm & State Represent",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "resolved_ip",
+            "label": "resolved_ip"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "prefix",
+            "label": "prefix"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "e",
+            "label": "e"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Implementing an effective SSRF firewall requires validating destination IP.",
+            "values": {
+              "resolved_ip": {
+                "var": "resolved_ip",
+                "line": 15,
+                "hit": 1
+              },
+              "prefix": {
+                "var": "prefix",
+                "line": 15,
+                "hit": 1
+              },
+              "e": {
+                "var": "e",
+                "line": 23,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "resolved_ip": "data",
+              "prefix": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "resolved_ip",
+                "prefix"
+              ],
+              [
+                "prefix",
+                "e"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The `SSRFMetadataFirewall` inspects resolved IP addresses before any.",
+            "values": {
+              "resolved_ip": {
+                "var": "resolved_ip",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "prefix": {
+                "var": "prefix",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "e": {
+                "var": "e",
+                "line": 23,
+                "hit": 1
               }
+            },
+            "tones": {
+              "resolved_ip": "data",
+              "prefix": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "resolved_ip",
+                "prefix"
+              ],
+              [
+                "prefix",
+                "e"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Transport-layer egress proxies intercept raw socket connections before TCP.",
+            "values": {
+              "resolved_ip": {
+                "var": "resolved_ip",
+                "line": 15,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "prefix": {
+                "var": "prefix",
+                "line": 15,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "e": {
+                "var": "e",
+                "line": 23,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "resolved_ip": "ok",
+              "prefix": "ok",
+              "e": "ok"
+            },
+            "arrows": [
+              [
+                "resolved_ip",
+                "prefix"
+              ],
+              [
+                "prefix",
+                "e"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "SSRF Cloud Metadata Firewalls — Core Algorithm & State Representation",
+        "title": "SSRF Cloud Metadata Firewalls — Core Algorithm & State Represent",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "resolved_ip",
+            "label": "resolved_ip"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "prefix",
+            "label": "prefix"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "e",
+            "label": "e"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Implementing an effective SSRF firewall requires validating destination IP.",
+            "values": {
+              "resolved_ip": "'93.184.216.34'",
+              "prefix": "'127.'",
+              "e": "<PermissionError>"
+            },
+            "tones": {
+              "resolved_ip": "data",
+              "prefix": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "resolved_ip",
+                "prefix"
+              ],
+              [
+                "prefix",
+                "e"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The `SSRFMetadataFirewall` inspects resolved IP addresses before any.",
+            "values": {
+              "resolved_ip": "'93.184.216.34'",
+              "prefix": "'127.'",
+              "e": "<PermissionError>"
+            },
+            "tones": {
+              "resolved_ip": "data",
+              "prefix": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "resolved_ip",
+                "prefix"
+              ],
+              [
+                "prefix",
+                "e"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Transport-layer egress proxies intercept raw socket connections before TCP.",
+            "values": {
+              "resolved_ip": "'93.184.216.34'",
+              "prefix": "'10.'",
+              "e": "<PermissionError>"
+            },
+            "tones": {
+              "resolved_ip": "ok",
+              "prefix": "ok",
+              "e": "ok"
+            },
+            "arrows": [
+              [
+                "resolved_ip",
+                "prefix"
+              ],
+              [
+                "prefix",
+                "e"
+              ]
             ]
           }
         ]
@@ -539,798 +363,380 @@
     },
     {
       "partTitle": "SSRF Cloud Metadata Firewalls — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "cc2de6fb9c730f59c97cd8853a5497670249c26e62790568cca3e455e7cab119",
+      "codeHash": "7b8b5bd420810a53e537b9efd6a9e742309896fc4e22dfbf6d55fff671995832",
       "spec": {
-        "template": "flow",
-        "title": "SSRF Cloud Metadata Firewalls — Throughput Optimization & Edge-Case Ha",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "SSRF Cloud Metadata Firewalls — Throughput Optimization & Edge-C",
+        "actors": [
+          "h",
+          "hostname",
+          "resolved_ip"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Adversaries employ sophisticated evasion techniques to bypass naive SSRF.",
+            "activeActor": "h",
+            "messages": [
+              {
+                "from": "h",
+                "to": "hostname",
+                "label": {
+                  "var": "h",
+                  "line": 11,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "hostname",
+                "to": "resolved_ip",
+                "label": {
+                  "var": "hostname",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The most powerful evasion technique is DNS Rebinding.",
+            "activeActor": "hostname",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "h",
+                "to": "hostname",
+                "label": {
+                  "var": "h",
+                  "line": 12,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "hostname",
+                "to": "resolved_ip",
+                "label": {
+                  "var": "hostname",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "DNS resolution pinning defeats sophisticated TOCTOU attacks where.",
+            "activeActor": "resolved_ip",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "h",
+                "to": "hostname",
+                "label": {
+                  "var": "h",
+                  "line": 12,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "hostname",
+                "to": "resolved_ip",
+                "label": {
+                  "var": "hostname",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "SSRF Cloud Metadata Firewalls — Throughput Optimization & Edge-Case Ha",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "SSRF Cloud Metadata Firewalls — Throughput Optimization & Edge-C",
+        "actors": [
+          "h",
+          "hostname",
+          "resolved_ip"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Adversaries employ sophisticated evasion techniques to bypass naive SSRF.",
+            "messages": [
+              {
+                "from": "h",
+                "to": "hostname",
+                "label": "'api.safe.com'",
+                "tone": "data"
+              },
+              {
+                "from": "hostname",
+                "to": "resolved_ip",
+                "label": "'api.safe.com'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "h"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The most powerful evasion technique is DNS Rebinding.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "h",
+                "to": "hostname",
+                "label": "'attacker-rebinding.com'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "hostname",
+                "to": "resolved_ip",
+                "label": "'api.safe.com'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "hostname"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "DNS resolution pinning defeats sophisticated TOCTOU attacks where.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "h",
+                "to": "hostname",
+                "label": "'attacker-rebinding.com'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "hostname",
+                "to": "resolved_ip",
+                "label": "'api.safe.com'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "resolved_ip"
           }
         ]
       }
     },
     {
       "partTitle": "SSRF Cloud Metadata Firewalls — Resilience Guardrails & Failure Recovery",
-      "codeHash": "b896b2e54c18fd1cea1a3a495c980ef6c2dd7d2af5f5843f8275dfee0d2694ae",
+      "codeHash": "1bf6e1329ceb808abfd7f0f3d7b4379841e51fb65937b6f4166fe3e50e62679d",
       "spec": {
-        "template": "flow",
-        "title": "SSRF Cloud Metadata Firewalls — Resilience Guardrails & Failure Recove",
-        "nodes": [
+        "template": "states",
+        "title": "SSRF Cloud Metadata Firewalls — Resilience Guardrails & Failure ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sample_hops",
+            "label": "sample_hops"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "hops",
+            "label": "hops"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "url",
+            "label": "url"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Another critical edge case in outbound request processing is HTTP Redirection.",
+            "currentState": "sample_hops",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "An attacker provides a public URL (e.",
+            "currentState": "hops",
+            "transition": {
+              "from": "sample_hops",
+              "to": "hops",
+              "label": {
+                "var": "hops",
+                "line": 14,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Redirect chains must be bounded and monitored to prevent external.",
+            "currentState": "url",
+            "transition": {
+              "from": "hops",
+              "to": "url",
+              "label": {
+                "var": "url",
+                "line": 14,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "SSRF Cloud Metadata Firewalls — Resilience Guardrails & Failure Recove",
-        "nodes": [
+        "template": "states",
+        "title": "SSRF Cloud Metadata Firewalls — Resilience Guardrails & Failure ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sample_hops",
+            "label": "sample_hops"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "hops",
+            "label": "hops"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "url",
+            "label": "url"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Another critical edge case in outbound request processing is HTTP Redirection.",
+            "currentState": "sample_hops",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "An attacker provides a public URL (e.",
+            "currentState": "hops",
+            "transition": {
+              "from": "sample_hops",
+              "to": "hops",
+              "label": "[['https://public-cdn.com/asset', '93.1…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Redirect chains must be bounded and monitored to prevent external.",
+            "currentState": "url",
+            "transition": {
+              "from": "hops",
+              "to": "url",
+              "label": "'https://redirect.com/target'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "SSRF Cloud Metadata Firewalls — Production Telemetry & Verification Audit",
-      "codeHash": "d9f801a1f18440cfbc36d6280926825ba12c892293e4491305a0b8c4c412dca2",
+      "codeHash": "2e57cc763f25e81fd3c4810a1b3f9ec3b491a87b1061acb383b7c3aa796c2b80",
       "spec": {
-        "template": "flow",
-        "title": "SSRF Cloud Metadata Firewalls — Production Telemetry & Verification Au",
-        "nodes": [
+        "template": "states",
+        "title": "SSRF Cloud Metadata Firewalls — Production Telemetry & Verificat",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "imds_blocked",
+            "label": "imds_blocked"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "rfc1918_blocked",
+            "label": "rfc1918_blocked"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "rebinding_pinned",
+            "label": "rebinding_pinned"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Maintaining secure cloud egress infrastructure demands continuous.",
+            "currentState": "imds_blocked",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Production metrics monitor total outbound request volume, average DNS.",
+            "currentState": "rfc1918_blocked",
+            "transition": {
+              "from": "imds_blocked",
+              "to": "rfc1918_blocked",
+              "label": {
+                "var": "rfc1918_blocked",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say9",
+            "caption": "Continuous automated egress monitoring guarantees that containerized.",
+            "currentState": "rebinding_pinned",
+            "transition": {
+              "from": "rfc1918_blocked",
+              "to": "rebinding_pinned",
+              "label": {
+                "var": "rebinding_pinned",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "SSRF Cloud Metadata Firewalls — Production Telemetry & Verification Au",
-        "nodes": [
+        "template": "states",
+        "title": "SSRF Cloud Metadata Firewalls — Production Telemetry & Verificat",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "imds_blocked",
+            "label": "imds_blocked"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "rfc1918_blocked",
+            "label": "rfc1918_blocked"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "rebinding_pinned",
+            "label": "rebinding_pinned"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Maintaining secure cloud egress infrastructure demands continuous.",
+            "currentState": "imds_blocked",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Production metrics monitor total outbound request volume, average DNS.",
+            "currentState": "rfc1918_blocked",
+            "transition": {
+              "from": "imds_blocked",
+              "to": "rfc1918_blocked",
+              "label": "True"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say9",
+            "caption": "Continuous automated egress monitoring guarantees that containerized.",
+            "currentState": "rebinding_pinned",
+            "transition": {
+              "from": "rfc1918_blocked",
+              "to": "rebinding_pinned",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }

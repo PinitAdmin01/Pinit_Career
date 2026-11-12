@@ -2,100 +2,200 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 4,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Zero-shot and few-shot prompts",
       "codeHash": "3e47504f6fa75621e9c779b08c31e4dea6ed2f6283d5fcd9ecd99d9b5d0cd3c7",
       "spec": {
-        "template": "compare",
-        "title": "Zero-shot prompt versus few-shot demonstration prompt",
-        "leftLabel": "Zero-Shot",
-        "rightLabel": "Few-Shot",
+        "template": "boxes",
+        "title": "Zero-shot and few-shot prompts",
+        "boxes": [
+          {
+            "id": "task",
+            "label": "task"
+          },
+          {
+            "id": "examples",
+            "label": "examples"
+          },
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "zero_shot",
+            "label": "zero_shot"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A zero-shot prompt just describes the task without providing sample answers.",
-            "left": {
-              "code": "Classify review directly",
-              "result": {
-                "text": "general instructions"
+            "caption": "A zero-shot prompt just describes the task.",
+            "values": {
+              "task": {
+                "var": "task",
+                "line": 1,
+                "hit": 1
               },
-              "tone": "data"
+              "examples": {
+                "var": "examples",
+                "line": 2,
+                "hit": 1
+              },
+              "query": {
+                "var": "query",
+                "line": 3,
+                "hit": 1
+              },
+              "zero_shot": {
+                "var": "zero_shot",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "right": {
-              "code": "Include sample reviews",
-              "result": {
-                "text": "patterned demonstration"
-              },
-              "tone": "ok"
+            "tones": {
+              "task": "data",
+              "examples": "data",
+              "query": "data",
+              "zero_shot": "data"
             }
           },
           {
             "at": "say2",
-            "caption": "A few-shot prompt adds worked examples to guide format and consistent labels.",
-            "left": {
-              "code": "Review: Dosa was crisp",
-              "result": {
-                "text": "variable format"
+            "caption": "A few-shot prompt adds a handful of worked examples before the real question.",
+            "values": {
+              "task": {
+                "var": "task",
+                "line": 2,
+                "hit": 1
               },
-              "tone": "data"
+              "examples": {
+                "var": "examples",
+                "line": 3,
+                "hit": 1
+              },
+              "query": {
+                "var": "query",
+                "line": 5,
+                "hit": 1
+              },
+              "zero_shot": {
+                "var": "zero_shot",
+                "line": 6,
+                "hit": 4
+              }
             },
-            "right": {
-              "code": "Review: Great! Label: POSITIVE",
-              "result": {
-                "text": "consistent styling"
+            "tones": {
+              "task": "data",
+              "examples": "data",
+              "query": "data",
+              "zero_shot": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Examples teach format extremely strongly.",
+            "values": {
+              "task": {
+                "var": "task",
+                "line": 3,
+                "hit": 1
               },
-              "tone": "ok"
+              "examples": {
+                "var": "examples",
+                "line": 5,
+                "hit": 1
+              },
+              "query": {
+                "var": "query",
+                "line": 6,
+                "hit": 4
+              },
+              "zero_shot": {
+                "var": "zero_shot",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "task": "ok",
+              "examples": "ok",
+              "query": "ok",
+              "zero_shot": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Zero-shot prompt versus few-shot demonstration prompt",
-        "leftLabel": "Zero-Shot",
-        "rightLabel": "Few-Shot",
+        "template": "boxes",
+        "title": "Zero-shot and few-shot prompts",
+        "boxes": [
+          {
+            "id": "task",
+            "label": "task"
+          },
+          {
+            "id": "examples",
+            "label": "examples"
+          },
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "zero_shot",
+            "label": "zero_shot"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A zero-shot prompt just describes the task without providing sample answers.",
-            "left": {
-              "code": "Classify review directly",
-              "result": "general instructions",
-              "tone": "data",
-              "checks": [
-                "general instructions"
-              ]
+            "caption": "A zero-shot prompt just describes the task.",
+            "values": {
+              "task": "'Classify the review as POSITIVE or NEG…",
+              "examples": "[['Loved the biryani, will come again!'…",
+              "query": "'The dosa was crisp and the chutney fre…",
+              "zero_shot": "'Classify the review as POSITIVE or NEG…"
             },
-            "right": {
-              "code": "Include sample reviews",
-              "result": "patterned demonstration",
-              "tone": "ok",
-              "checks": [
-                "patterned demonstration"
-              ]
+            "tones": {
+              "task": "data",
+              "examples": "data",
+              "query": "data",
+              "zero_shot": "data"
             }
           },
           {
             "at": "say2",
-            "caption": "A few-shot prompt adds worked examples to guide format and consistent labels.",
-            "left": {
-              "code": "Review: Dosa was crisp",
-              "result": "variable format",
-              "tone": "data",
-              "checks": [
-                "variable format"
-              ]
+            "caption": "A few-shot prompt adds a handful of worked examples before the real question.",
+            "values": {
+              "task": "'Classify the review as POSITIVE or NEG…",
+              "examples": "[['Loved the biryani, will come again!'…",
+              "query": "'The dosa was crisp and the chutney fre…",
+              "zero_shot": "'Classify the review as POSITIVE or NEG…"
             },
-            "right": {
-              "code": "Review: Great! Label: POSITIVE",
-              "result": "consistent styling",
-              "tone": "ok",
-              "checks": [
-                "consistent styling"
-              ]
+            "tones": {
+              "task": "data",
+              "examples": "data",
+              "query": "data",
+              "zero_shot": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Examples teach format extremely strongly.",
+            "values": {
+              "task": "'Classify the review as POSITIVE or NEG…",
+              "examples": "[['Loved the biryani, will come again!'…",
+              "query": "'The dosa was crisp and the chutney fre…",
+              "zero_shot": "'Classify the review as POSITIVE or NEG…"
+            },
+            "tones": {
+              "task": "ok",
+              "examples": "ok",
+              "query": "ok",
+              "zero_shot": "ok"
             }
           }
         ]
@@ -105,158 +205,194 @@
       "partTitle": "Formatting examples cleanly",
       "codeHash": "ae620757f69cdb7e1e6f7cff56aab9ab66fc662b7b9811f26347a1ca9d97beec",
       "spec": {
-        "template": "table",
-        "title": "Structural layout of clean few-shot prompt blocks",
-        "columns": [
-          "section",
-          "content",
-          "role"
+        "template": "boxes",
+        "title": "Formatting examples cleanly",
+        "boxes": [
+          {
+            "id": "examples",
+            "label": "examples"
+          },
+          {
+            "id": "task",
+            "label": "task"
+          },
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "blocks",
+            "label": "blocks"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each example has an input thought and output line written cleanly.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "task"
-                  },
-                  {
-                    "text": "Solve word problem"
-                  },
-                  {
-                    "text": "goal"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Format_few_shot_prompt(task, examples, query).",
+            "values": {
+              "examples": {
+                "var": "examples",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "example"
-                  },
-                  {
-                    "text": "Input: 12 apples"
-                  },
-                  {
-                    "text": "demonstration"
-                  }
-                ],
-                "tone": "data"
+              "task": {
+                "var": "task",
+                "line": 2,
+                "hit": 1
+              },
+              "query": {
+                "var": "query",
+                "line": 2,
+                "hit": 1
+              },
+              "blocks": {
+                "var": "blocks",
+                "line": 2,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "examples": "data",
+              "task": "data",
+              "query": "data",
+              "blocks": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "Ending with Thought nudges the model to reason before giving its output.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "task"
-                  },
-                  {
-                    "text": "Solve word problem"
-                  },
-                  {
-                    "text": "goal"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Put the task first, then each example block, separated by blank lines,.",
+            "values": {
+              "examples": {
+                "var": "examples",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "example"
-                  },
-                  {
-                    "text": "Input: 12 apples"
-                  },
-                  {
-                    "text": "demonstration"
-                  }
-                ],
-                "tone": "data"
+              "task": {
+                "var": "task",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "query"
-                  },
-                  {
-                    "text": "Thought:"
-                  },
-                  {
-                    "text": "reasoning trigger"
-                  }
-                ],
-                "tone": "ok"
+              "query": {
+                "var": "query",
+                "line": 3,
+                "hit": 1
+              },
+              "blocks": {
+                "var": "blocks",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "examples": "data",
+              "task": "data",
+              "query": "data",
+              "blocks": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Small formatting details matter.",
+            "values": {
+              "examples": {
+                "var": "examples",
+                "line": 3,
+                "hit": 1
+              },
+              "task": {
+                "var": "task",
+                "line": 4,
+                "hit": 1
+              },
+              "query": {
+                "var": "query",
+                "line": 4,
+                "hit": 1
+              },
+              "blocks": {
+                "var": "blocks",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "examples": "ok",
+              "task": "ok",
+              "query": "ok",
+              "blocks": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Structural layout of clean few-shot prompt blocks",
-        "columns": [
-          "section",
-          "content",
-          "role"
+        "template": "boxes",
+        "title": "Formatting examples cleanly",
+        "boxes": [
+          {
+            "id": "examples",
+            "label": "examples"
+          },
+          {
+            "id": "task",
+            "label": "task"
+          },
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "blocks",
+            "label": "blocks"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each example has an input thought and output line written cleanly.",
-            "rows": [
-              {
-                "cells": [
-                  "task",
-                  "Solve word problem",
-                  "goal"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "example",
-                  "Input: 12 apples",
-                  "demonstration"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Format_few_shot_prompt(task, examples, query).",
+            "values": {
+              "examples": "[{'input': '12 apples, eat 5', 'thought…",
+              "task": "'Solve the word problem.'",
+              "query": "'20 pens, give away 8'",
+              "blocks": "['Solve the word problem.']"
+            },
+            "tones": {
+              "examples": "data",
+              "task": "data",
+              "query": "data",
+              "blocks": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "Ending with Thought nudges the model to reason before giving its output.",
-            "rows": [
-              {
-                "cells": [
-                  "task",
-                  "Solve word problem",
-                  "goal"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "example",
-                  "Input: 12 apples",
-                  "demonstration"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "query",
-                  "Thought:",
-                  "reasoning trigger"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Put the task first, then each example block, separated by blank lines,.",
+            "values": {
+              "examples": "[{'input': '12 apples, eat 5', 'thought…",
+              "task": "'Solve the word problem.'",
+              "query": "'20 pens, give away 8'",
+              "blocks": "['Solve the word problem.']"
+            },
+            "tones": {
+              "examples": "data",
+              "task": "data",
+              "query": "data",
+              "blocks": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Small formatting details matter.",
+            "values": {
+              "examples": "[{'input': '12 apples, eat 5', 'thought…",
+              "task": "'Solve the word problem.'",
+              "query": "'20 pens, give away 8'",
+              "blocks": "['Solve the word problem.', 'Input: 12 …"
+            },
+            "tones": {
+              "examples": "ok",
+              "task": "ok",
+              "query": "ok",
+              "blocks": "ok"
+            }
           }
         ]
       }
@@ -265,85 +401,277 @@
       "partTitle": "Choosing good examples",
       "codeHash": "c8d986d7187720335b89e1fc2546fd67a1262226745f3640efe02708a4e819c6",
       "spec": {
-        "template": "bars",
-        "title": "Example label balance distribution checks",
+        "template": "flow",
+        "title": "Choosing good examples",
+        "nodes": [
+          {
+            "id": "examples",
+            "label": "examples"
+          },
+          {
+            "id": "label",
+            "label": "label"
+          },
+          {
+            "id": "counts",
+            "label": "counts"
+          },
+          {
+            "id": "most",
+            "label": "most"
+          }
+        ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Balancing example labels prevents the model from leaning towards one class.",
-            "bars": [
-              {
-                "label": "POSITIVE",
-                "value": {
-                  "text": "3"
-                },
-                "tone": "data"
+            "at": "say1",
+            "caption": "Examples should look like the real inputs.",
+            "values": {
+              "examples": {
+                "var": "examples",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "label": "NEGATIVE",
-                "value": {
-                  "text": "1"
-                },
-                "tone": "error"
+              "label": {
+                "var": "label",
+                "line": 4,
+                "hit": 1
+              },
+              "counts": {
+                "var": "counts",
+                "line": 4,
+                "hit": 6
+              },
+              "most": {
+                "var": "most",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "examples": "data",
+              "label": "data",
+              "counts": "data",
+              "most": "data"
+            },
+            "arrows": [
+              [
+                "examples",
+                "label"
+              ],
+              [
+                "label",
+                "counts"
+              ],
+              [
+                "counts",
+                "most"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Balance the labels.",
+            "values": {
+              "examples": {
+                "var": "examples",
+                "line": 4,
+                "hit": 6
+              },
+              "label": {
+                "var": "label",
+                "line": 4,
+                "hit": 2
+              },
+              "counts": {
+                "var": "counts",
+                "line": 5,
+                "hit": 1
+              },
+              "most": {
+                "var": "most",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "examples": "data",
+              "label": "data",
+              "counts": "data",
+              "most": "data"
+            },
+            "arrows": [
+              [
+                "examples",
+                "label"
+              ],
+              [
+                "label",
+                "counts"
+              ],
+              [
+                "counts",
+                "most"
+              ]
             ]
           },
           {
             "at": "say6",
-            "caption": "A quick count in code catches unbalanced labels before you ship the prompt.",
-            "bars": [
-              {
-                "label": "POSITIVE",
-                "value": {
-                  "text": "2"
-                },
-                "tone": "ok"
+            "caption": "A quick label count in code catches imbalance before you ship the prompt.",
+            "values": {
+              "examples": {
+                "var": "examples",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "label": "NEGATIVE",
-                "value": {
-                  "text": "2"
-                },
-                "tone": "ok"
+              "label": {
+                "var": "label",
+                "line": 4,
+                "hit": 3
+              },
+              "counts": {
+                "var": "counts",
+                "line": 6,
+                "hit": 1
+              },
+              "most": {
+                "var": "most",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "examples": "ok",
+              "label": "ok",
+              "counts": "ok",
+              "most": "ok"
+            },
+            "arrows": [
+              [
+                "examples",
+                "label"
+              ],
+              [
+                "label",
+                "counts"
+              ],
+              [
+                "counts",
+                "most"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Example label balance distribution checks",
+        "template": "flow",
+        "title": "Choosing good examples",
+        "nodes": [
+          {
+            "id": "examples",
+            "label": "examples"
+          },
+          {
+            "id": "label",
+            "label": "label"
+          },
+          {
+            "id": "counts",
+            "label": "counts"
+          },
+          {
+            "id": "most",
+            "label": "most"
+          }
+        ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Examples should look like the real inputs.",
+            "values": {
+              "examples": "[['Superb!', 'POSITIVE'], ['Loved it', …",
+              "label": "'POSITIVE'",
+              "counts": "{'POSITIVE': 3, 'NEGATIVE': 1}",
+              "most": "3"
+            },
+            "tones": {
+              "examples": "data",
+              "label": "data",
+              "counts": "data",
+              "most": "data"
+            },
+            "arrows": [
+              [
+                "examples",
+                "label"
+              ],
+              [
+                "label",
+                "counts"
+              ],
+              [
+                "counts",
+                "most"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Balancing example labels prevents the model from leaning towards one class.",
-            "bars": [
-              {
-                "label": "POSITIVE",
-                "value": 3,
-                "tone": "data"
-              },
-              {
-                "label": "NEGATIVE",
-                "value": 1,
-                "tone": "error"
-              }
+            "caption": "Balance the labels.",
+            "values": {
+              "examples": "[['Superb!', 'POSITIVE'], ['Loved it', …",
+              "label": "'POSITIVE'",
+              "counts": "{'POSITIVE': 3, 'NEGATIVE': 1}",
+              "most": "3"
+            },
+            "tones": {
+              "examples": "data",
+              "label": "data",
+              "counts": "data",
+              "most": "data"
+            },
+            "arrows": [
+              [
+                "examples",
+                "label"
+              ],
+              [
+                "label",
+                "counts"
+              ],
+              [
+                "counts",
+                "most"
+              ]
             ]
           },
           {
             "at": "say6",
-            "caption": "A quick count in code catches unbalanced labels before you ship the prompt.",
-            "bars": [
-              {
-                "label": "POSITIVE",
-                "value": 2,
-                "tone": "ok"
-              },
-              {
-                "label": "NEGATIVE",
-                "value": 2,
-                "tone": "ok"
-              }
+            "caption": "A quick label count in code catches imbalance before you ship the prompt.",
+            "values": {
+              "examples": "[['Superb!', 'POSITIVE'], ['Loved it', …",
+              "label": "'POSITIVE'",
+              "counts": "{'POSITIVE': 3, 'NEGATIVE': 1}",
+              "most": "3"
+            },
+            "tones": {
+              "examples": "ok",
+              "label": "ok",
+              "counts": "ok",
+              "most": "ok"
+            },
+            "arrows": [
+              [
+                "examples",
+                "label"
+              ],
+              [
+                "label",
+                "counts"
+              ],
+              [
+                "counts",
+                "most"
+              ]
             ]
           }
         ]
@@ -353,224 +681,162 @@
       "partTitle": "Chain-of-thought reasoning",
       "codeHash": "0372d63fd53657cb30bb2064354485b81e88ef9dc4e42d02f3654df9feab9b4f",
       "spec": {
-        "template": "flow",
-        "title": "Chain-of-thought reasoning — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Chain-of-thought re...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Chain-of-thought reasoning",
+        "actors": [
+          "reply",
+          "text",
+          "match"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Chain-of-thought reasoning [Dfour.Pfour.Sone].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Chain-of-thought re... [Dfour.Pfour.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "For maths, logic and multi-step questions, asking the model to \"think step.",
+            "activeActor": "reply",
+            "messages": [
+              {
+                "from": "reply",
+                "to": "text",
+                "label": {
+                  "var": "reply",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "match",
+                "label": {
+                  "var": "text",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Each generated token is a small amount of thinking.",
+            "activeActor": "text",
+            "messages": [
+              {
+                "from": "reply",
+                "to": "text",
+                "label": {
+                  "var": "reply",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "match",
+                "label": {
+                  "var": "text",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Chain-of-thought reasoning.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say6",
+            "caption": "Many newer \"reasoning\" models do this thinking internally, but asking.",
+            "activeActor": "match",
+            "messages": [
+              {
+                "from": "reply",
+                "to": "text",
+                "label": {
+                  "var": "reply",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "match",
+                "label": {
+                  "var": "text",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Chain-of-thought reasoning — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Chain-of-thought re...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Chain-of-thought reasoning",
+        "actors": [
+          "reply",
+          "text",
+          "match"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Chain-of-thought reasoning [D4.P4.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Chain-of-thought re... [D4.P4.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "For maths, logic and multi-step questions, asking the model to \"think step.",
+            "messages": [
+              {
+                "from": "reply",
+                "to": "text",
+                "label": "'Step 1: A ticket costs 150 rupees.\nSte…",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "match",
+                "label": "'Step 1: A ticket costs 150 rupees.\nSte…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "reply"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P4.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Each generated token is a small amount of thinking.",
+            "messages": [
+              {
+                "from": "reply",
+                "to": "text",
+                "label": "'Step 1: A ticket costs 150 rupees.\nSte…",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "match",
+                "label": "'Step 1: A ticket costs 150 rupees.\nSte…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "text"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Chain-of-thought reasoning [D4.P4.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say6",
+            "caption": "Many newer \"reasoning\" models do this thinking internally, but asking.",
+            "messages": [
+              {
+                "from": "reply",
+                "to": "text",
+                "label": "'Step 1: A ticket costs 150 rupees.\nSte…",
+                "tone": "data"
+              },
+              {
+                "from": "text",
+                "to": "match",
+                "label": "'I think it is 550'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "match"
           }
         ]
       }
@@ -580,27 +846,44 @@
       "codeHash": "af9b78b67571f9b123cbcce153747b8448b20ab52dec54728a8da8adeb201755",
       "spec": {
         "template": "table",
-        "title": "Candidate answer aggregation and majority voting",
+        "title": "Self-consistency: majority vote",
         "columns": [
-          "candidate_answer",
-          "vote_count",
-          "selected_status"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Self-consistency takes the most common final answer to improve accuracy.",
+            "at": "say1",
+            "caption": "Sampling the same question several times at a moderate temperature gives.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "550"
+                    "text": "samples"
                   },
                   {
-                    "text": "3"
+                    "var": "samples",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Self-consistency takes the most common final answer.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "samples"
                   },
                   {
-                    "text": "majority leader"
+                    "var": "samples",
+                    "line": 4,
+                    "hit": 2
                   }
                 ],
                 "tone": "ok"
@@ -608,19 +891,16 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "Counting each answer determines the winner or returns the one appearing first.",
+            "at": "say6",
+            "caption": "Normalise answers before voting.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "550"
+                    "text": "out 1"
                   },
                   {
-                    "text": "3"
-                  },
-                  {
-                    "text": "winner"
+                    "out": 1
                   }
                 ],
                 "tone": "ok"
@@ -628,30 +908,24 @@
               {
                 "cells": [
                   {
-                    "text": "600"
+                    "text": "out 2"
                   },
                   {
-                    "text": "1"
-                  },
-                  {
-                    "text": "runner-up"
+                    "out": 2
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
               },
               {
                 "cells": [
                   {
-                    "text": "500"
+                    "text": "out 3"
                   },
                   {
-                    "text": "1"
-                  },
-                  {
-                    "text": "runner-up"
+                    "out": 3
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
               }
             ]
           }
@@ -659,54 +933,62 @@
       },
       "filled": {
         "template": "table",
-        "title": "Candidate answer aggregation and majority voting",
+        "title": "Self-consistency: majority vote",
         "columns": [
-          "candidate_answer",
-          "vote_count",
-          "selected_status"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Self-consistency takes the most common final answer to improve accuracy.",
+            "at": "say1",
+            "caption": "Sampling the same question several times at a moderate temperature gives.",
             "rows": [
               {
                 "cells": [
-                  "550",
-                  "3",
-                  "majority leader"
+                  "samples",
+                  "['550', '600', '550', '550', '500']"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Self-consistency takes the most common final answer.",
+            "rows": [
+              {
+                "cells": [
+                  "samples",
+                  "['A', 'B', 'B', 'A']"
                 ],
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Counting each answer determines the winner or returns the one appearing first.",
+            "at": "say6",
+            "caption": "Normalise answers before voting.",
             "rows": [
               {
                 "cells": [
-                  "550",
-                  "3",
-                  "winner"
+                  "out 1",
+                  "550"
                 ],
                 "tone": "ok"
               },
               {
                 "cells": [
-                  "600",
-                  "1",
-                  "runner-up"
+                  "out 2",
+                  "A"
                 ],
-                "tone": "data"
+                "tone": "ok"
               },
               {
                 "cells": [
-                  "500",
-                  "1",
-                  "runner-up"
+                  "out 3",
+                  "only"
                 ],
-                "tone": "data"
+                "tone": "ok"
               }
             ]
           }
@@ -717,224 +999,162 @@
       "partTitle": "When reasoning is worth the tokens",
       "codeHash": "f0a417dcb809c25fbbf797c59b953bec45eaaab03a33ccd3d94c8a730c39bb35",
       "spec": {
-        "template": "flow",
-        "title": "When reasoning is worth the tokens — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. When reasoning is w...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "When reasoning is worth the tokens",
+        "actors": [
+          "tokens_per_call",
+          "calls",
+          "price_per_million"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for When reasoning is worth the tokens.",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in When reasoning is w... [Dfour.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Chain-of-thought and voting improve accuracy but multiply tokens.",
+            "activeActor": "tokens_per_call",
+            "messages": [
+              {
+                "from": "tokens_per_call",
+                "to": "calls",
+                "label": {
+                  "var": "tokens_per_call",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "calls",
+                "to": "price_per_million",
+                "label": {
+                  "var": "calls",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfour.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Use them for maths, planning, tricky logic and high-stakes decisions.",
+            "activeActor": "calls",
+            "messages": [
+              {
+                "from": "tokens_per_call",
+                "to": "calls",
+                "label": {
+                  "var": "tokens_per_call",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "calls",
+                "to": "price_per_million",
+                "label": {
+                  "var": "calls",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for When reasoning is worth the tokens.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say5",
+            "caption": "Tomorrow's milestone makes model output machine-readable with JSON, so.",
+            "activeActor": "price_per_million",
+            "messages": [
+              {
+                "from": "tokens_per_call",
+                "to": "calls",
+                "label": {
+                  "var": "tokens_per_call",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "data"
+              },
+              {
+                "from": "calls",
+                "to": "price_per_million",
+                "label": {
+                  "var": "calls",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "When reasoning is worth the tokens — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. When reasoning is w...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "When reasoning is worth the tokens",
+        "actors": [
+          "tokens_per_call",
+          "calls",
+          "price_per_million"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for When reasoning is worth the tokens [D4.P6.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in When reasoning is w... [D4.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Chain-of-thought and voting improve accuracy but multiply tokens.",
+            "messages": [
+              {
+                "from": "tokens_per_call",
+                "to": "calls",
+                "label": "20",
+                "tone": "data"
+              },
+              {
+                "from": "calls",
+                "to": "price_per_million",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "tokens_per_call"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Use them for maths, planning, tricky logic and high-stakes decisions.",
+            "messages": [
+              {
+                "from": "tokens_per_call",
+                "to": "calls",
+                "label": "300",
+                "tone": "data"
+              },
+              {
+                "from": "calls",
+                "to": "price_per_million",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "calls"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for When reasoning is worth the tokens [D4.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say5",
+            "caption": "Tomorrow's milestone makes model output machine-readable with JSON, so.",
+            "messages": [
+              {
+                "from": "tokens_per_call",
+                "to": "calls",
+                "label": "300",
+                "tone": "data"
+              },
+              {
+                "from": "calls",
+                "to": "price_per_million",
+                "label": "5",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "price_per_million"
           }
         ]
       }

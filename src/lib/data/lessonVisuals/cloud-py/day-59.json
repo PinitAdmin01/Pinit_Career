@@ -2,270 +2,284 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 59,
-  "promptSha": "1a8672eed5ef64c95412ccfce5c47bc7158f70b166f894e1536232bda2e4b8ab",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook Remediation — Foundations & Mathematical Invariants",
-      "codeHash": "44827ba522b61d91d2edc75240e6a0faa5af316082991e4e5c00777a6684f162",
+      "codeHash": "02969eee91547379653709db01d8acb99fd01264e285fef1bc11b09b97b92ef9",
       "spec": {
         "template": "flow",
-        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook Remed",
+        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "hypothesis",
+            "label": "hypothesis"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "targets",
+            "label": "targets"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "fault_action",
+            "label": "fault_action"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Controlled chaos testing builds organizational resilience by validating.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
+              },
+              "hypothesis": {
+                "var": "hypothesis",
+                "line": 5,
+                "hit": 1
+              },
+              "targets": {
+                "var": "targets",
+                "line": 5,
+                "hit": 1
+              },
+              "fault_action": {
+                "var": "fault_action",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "name": "data",
+              "hypothesis": "data",
+              "targets": "data",
+              "fault_action": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "hypothesis"
+              ],
+              [
+                "hypothesis",
+                "targets"
+              ],
+              [
+                "targets",
+                "fault_action"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Chaos engineering replaces theoretical disaster recovery assumptions.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "hypothesis": {
+                "var": "hypothesis",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "targets": {
+                "var": "targets",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "fault_action": {
+                "var": "fault_action",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "name": "data",
+              "hypothesis": "data",
+              "targets": "data",
+              "fault_action": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "hypothesis"
+              ],
+              [
+                "hypothesis",
+                "targets"
+              ],
+              [
+                "targets",
+                "fault_action"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Review the chaos engineering hypothesis framework and blast radius.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "hypothesis": {
+                "var": "hypothesis",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "targets": {
+                "var": "targets",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "fault_action": {
+                "var": "fault_action",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "name": "ok",
+              "hypothesis": "ok",
+              "targets": "ok",
+              "fault_action": "ok"
+            },
+            "arrows": [
+              [
+                "name",
+                "hypothesis"
+              ],
+              [
+                "hypothesis",
+                "targets"
+              ],
+              [
+                "targets",
+                "fault_action"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook Remed",
+        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "hypothesis",
+            "label": "hypothesis"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "targets",
+            "label": "targets"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "fault_action",
+            "label": "fault_action"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Controlled chaos testing builds organizational resilience by validating.",
+            "values": {
+              "name": "'AZ_Impairment_Test'",
+              "hypothesis": "'Application availability remains >= 99…",
+              "targets": "{'resource_type': 'aws:ec2:subnet', 'fi…",
+              "fault_action": "'aws:network:disrupt-connectivity'"
+            },
+            "tones": {
+              "name": "data",
+              "hypothesis": "data",
+              "targets": "data",
+              "fault_action": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "hypothesis"
+              ],
+              [
+                "hypothesis",
+                "targets"
+              ],
+              [
+                "targets",
+                "fault_action"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Chaos engineering replaces theoretical disaster recovery assumptions.",
+            "values": {
+              "name": "'AZ_Impairment_Test'",
+              "hypothesis": "'Application availability remains >= 99…",
+              "targets": "{'resource_type': 'aws:ec2:subnet', 'fi…",
+              "fault_action": "'aws:network:disrupt-connectivity'"
+            },
+            "tones": {
+              "name": "data",
+              "hypothesis": "data",
+              "targets": "data",
+              "fault_action": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "hypothesis"
+              ],
+              [
+                "hypothesis",
+                "targets"
+              ],
+              [
+                "targets",
+                "fault_action"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Review the chaos engineering hypothesis framework and blast radius.",
+            "values": {
+              "name": "'AZ_Impairment_Test'",
+              "hypothesis": "'Application availability remains >= 99…",
+              "targets": "{'resource_type': 'aws:ec2:subnet', 'fi…",
+              "fault_action": "'aws:network:disrupt-connectivity'"
+            },
+            "tones": {
+              "name": "ok",
+              "hypothesis": "ok",
+              "targets": "ok",
+              "fault_action": "ok"
+            },
+            "arrows": [
+              [
+                "name",
+                "hypothesis"
+              ],
+              [
+                "hypothesis",
+                "targets"
+              ],
+              [
+                "targets",
+                "fault_action"
+              ]
             ]
           }
         ]
@@ -273,265 +287,279 @@
     },
     {
       "partTitle": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook Remediation — Core Algorithm & State Representation",
-      "codeHash": "98d61164dc4634978d98052681db4e0ea2455d25c4f2cb78929926e0bcf9df64",
+      "codeHash": "716df66950be2bae28bb44d994d23d99c7333ed108d82ed7b1bc8f352ed1c113",
       "spec": {
         "template": "flow",
-        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook Remed",
+        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "spec",
+            "label": "spec"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "experiment_spec",
+            "label": "experiment_spec"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "cloudwatch_alarm_state",
+            "label": "cloudwatch_alarm_state"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "state",
+            "label": "state"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Tracking steady-state metrics continuously during fault injection ensures.",
+            "values": {
+              "spec": {
+                "var": "spec",
+                "line": 29,
+                "hit": 1
+              },
+              "experiment_spec": {
+                "var": "experiment_spec",
+                "line": 5,
+                "hit": 1
+              },
+              "cloudwatch_alarm_state": {
+                "var": "cloudwatch_alarm_state",
+                "line": 5,
+                "hit": 1
+              },
+              "state": {
+                "var": "state",
+                "line": 9,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "spec": "data",
+              "experiment_spec": "data",
+              "cloudwatch_alarm_state": "data",
+              "state": "data"
+            },
+            "arrows": [
+              [
+                "spec",
+                "experiment_spec"
+              ],
+              [
+                "experiment_spec",
+                "cloudwatch_alarm_state"
+              ],
+              [
+                "cloudwatch_alarm_state",
+                "state"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Structured experiment lifecycles ensure that every injected fault.",
+            "values": {
+              "spec": {
+                "var": "spec",
+                "line": 30,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "experiment_spec": {
+                "var": "experiment_spec",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "cloudwatch_alarm_state": {
+                "var": "cloudwatch_alarm_state",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "state": {
+                "var": "state",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "spec": "data",
+              "experiment_spec": "data",
+              "cloudwatch_alarm_state": "data",
+              "state": "data"
+            },
+            "arrows": [
+              [
+                "spec",
+                "experiment_spec"
+              ],
+              [
+                "experiment_spec",
+                "cloudwatch_alarm_state"
+              ],
+              [
+                "cloudwatch_alarm_state",
+                "state"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Structured experiment logs provide comprehensive documentation.",
+            "values": {
+              "spec": {
+                "var": "spec",
+                "line": 31,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "experiment_spec": {
+                "var": "experiment_spec",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "cloudwatch_alarm_state": {
+                "var": "cloudwatch_alarm_state",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "state": {
+                "var": "state",
+                "line": 12,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "spec": "ok",
+              "experiment_spec": "ok",
+              "cloudwatch_alarm_state": "ok",
+              "state": "ok"
+            },
+            "arrows": [
+              [
+                "spec",
+                "experiment_spec"
+              ],
+              [
+                "experiment_spec",
+                "cloudwatch_alarm_state"
+              ],
+              [
+                "cloudwatch_alarm_state",
+                "state"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook Remed",
+        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "spec",
+            "label": "spec"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "experiment_spec",
+            "label": "experiment_spec"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "cloudwatch_alarm_state",
+            "label": "cloudwatch_alarm_state"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "state",
+            "label": "state"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Tracking steady-state metrics continuously during fault injection ensures.",
+            "values": {
+              "spec": "{'name': 'EC2_CPU_Stress_50pct', 'actio…",
+              "experiment_spec": "{'name': 'EC2_CPU_Stress_50pct', 'actio…",
+              "cloudwatch_alarm_state": "'OK'",
+              "state": "'RUNNING'"
+            },
+            "tones": {
+              "spec": "data",
+              "experiment_spec": "data",
+              "cloudwatch_alarm_state": "data",
+              "state": "data"
+            },
+            "arrows": [
+              [
+                "spec",
+                "experiment_spec"
+              ],
+              [
+                "experiment_spec",
+                "cloudwatch_alarm_state"
+              ],
+              [
+                "cloudwatch_alarm_state",
+                "state"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Structured experiment lifecycles ensure that every injected fault.",
+            "values": {
+              "spec": "{'name': 'EC2_CPU_Stress_50pct', 'actio…",
+              "experiment_spec": "{'name': 'EC2_CPU_Stress_50pct', 'actio…",
+              "cloudwatch_alarm_state": "'OK'",
+              "state": "'RUNNING'"
+            },
+            "tones": {
+              "spec": "data",
+              "experiment_spec": "data",
+              "cloudwatch_alarm_state": "data",
+              "state": "data"
+            },
+            "arrows": [
+              [
+                "spec",
+                "experiment_spec"
+              ],
+              [
+                "experiment_spec",
+                "cloudwatch_alarm_state"
+              ],
+              [
+                "cloudwatch_alarm_state",
+                "state"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Structured experiment logs provide comprehensive documentation.",
+            "values": {
+              "spec": "{'name': 'EC2_CPU_Stress_50pct', 'actio…",
+              "experiment_spec": "{'name': 'EC2_CPU_Stress_50pct', 'actio…",
+              "cloudwatch_alarm_state": "'OK'",
+              "state": "'RUNNING'"
+            },
+            "tones": {
+              "spec": "ok",
+              "experiment_spec": "ok",
+              "cloudwatch_alarm_state": "ok",
+              "state": "ok"
+            },
+            "arrows": [
+              [
+                "spec",
+                "experiment_spec"
+              ],
+              [
+                "experiment_spec",
+                "cloudwatch_alarm_state"
+              ],
+              [
+                "cloudwatch_alarm_state",
+                "state"
+              ]
             ]
           }
         ]
@@ -539,796 +567,490 @@
     },
     {
       "partTitle": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook Remediation — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "a6b436e7149ad37b77db7c7758db3659105ead12e88d1fbeacf7fe98c6ddbd30",
+      "codeHash": "057b4473732b2f5def5dbd8ce7992bd55e02d4c5d9ad7e98459d4ad767d3b589",
       "spec": {
-        "template": "flow",
-        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook Remed",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook",
+        "actors": [
+          "downstream_latency_ms",
+          "client_timeout_ms",
+          "retry_count"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Validating backpressure and rate limiting under simulated packet delay.",
+            "activeActor": "downstream_latency_ms",
+            "messages": [
+              {
+                "from": "downstream_latency_ms",
+                "to": "client_timeout_ms",
+                "label": {
+                  "var": "downstream_latency_ms",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "client_timeout_ms",
+                "to": "retry_count",
+                "label": {
+                  "var": "client_timeout_ms",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Simulating network packet latency and cross-region transit delays uncovers.",
+            "activeActor": "client_timeout_ms",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "downstream_latency_ms",
+                "to": "client_timeout_ms",
+                "label": {
+                  "var": "downstream_latency_ms",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "client_timeout_ms",
+                "to": "retry_count",
+                "label": {
+                  "var": "client_timeout_ms",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Uncovering subtle cascading failure modes in staging environments prevents.",
+            "activeActor": "retry_count",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "downstream_latency_ms",
+                "to": "client_timeout_ms",
+                "label": {
+                  "var": "downstream_latency_ms",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "client_timeout_ms",
+                "to": "retry_count",
+                "label": {
+                  "var": "client_timeout_ms",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook Remed",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook",
+        "actors": [
+          "downstream_latency_ms",
+          "client_timeout_ms",
+          "retry_count"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Validating backpressure and rate limiting under simulated packet delay.",
+            "messages": [
+              {
+                "from": "downstream_latency_ms",
+                "to": "client_timeout_ms",
+                "label": "85",
+                "tone": "data"
+              },
+              {
+                "from": "client_timeout_ms",
+                "to": "retry_count",
+                "label": "200",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "downstream_latency_ms"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Simulating network packet latency and cross-region transit delays uncovers.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "downstream_latency_ms",
+                "to": "client_timeout_ms",
+                "label": "85",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "client_timeout_ms",
+                "to": "retry_count",
+                "label": "200",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "client_timeout_ms"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Uncovering subtle cascading failure modes in staging environments prevents.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "downstream_latency_ms",
+                "to": "client_timeout_ms",
+                "label": "85",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "client_timeout_ms",
+                "to": "retry_count",
+                "label": "200",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "retry_count"
           }
         ]
       }
     },
     {
       "partTitle": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook Remediation — Resilience Guardrails & Failure Recovery",
-      "codeHash": "bb563073d92f7441ef3b9c7a9e005269f64ddcc64d88f63fc9febce4b6a3c2c4",
+      "codeHash": "fa20eff807fde7865c12ae290f6b30d9102964ed0d77a253b86d6e611919eb9b",
       "spec": {
-        "template": "flow",
-        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook Remed",
-        "nodes": [
+        "template": "states",
+        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "trigger_alarm",
+            "label": "trigger_alarm"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "target_resource",
+            "label": "target_resource"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "runbook_steps",
+            "label": "runbook_steps"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Executable runbooks triggered by automated monitoring alerts eliminate.",
+            "currentState": "trigger_alarm",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Event-driven integration between CloudWatch alarms and SSM Automation.",
+            "currentState": "target_resource",
+            "transition": {
+              "from": "trigger_alarm",
+              "to": "target_resource",
+              "label": {
+                "var": "target_resource",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Every automated remediation execution generates detailed audit logs.",
+            "currentState": "runbook_steps",
+            "transition": {
+              "from": "target_resource",
+              "to": "runbook_steps",
+              "label": {
+                "var": "runbook_steps",
+                "line": 14,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook Remed",
-        "nodes": [
+        "template": "states",
+        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "trigger_alarm",
+            "label": "trigger_alarm"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "target_resource",
+            "label": "target_resource"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "runbook_steps",
+            "label": "runbook_steps"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Executable runbooks triggered by automated monitoring alerts eliminate.",
+            "currentState": "trigger_alarm",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Event-driven integration between CloudWatch alarms and SSM Automation.",
+            "currentState": "target_resource",
+            "transition": {
+              "from": "trigger_alarm",
+              "to": "target_resource",
+              "label": "'svc-orders-pod-42'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Every automated remediation execution generates detailed audit logs.",
+            "currentState": "runbook_steps",
+            "transition": {
+              "from": "target_resource",
+              "to": "runbook_steps",
+              "label": "[{'step': 1, 'action': 'aws:executeScri…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook Remediation — Production Telemetry & Verification Audit",
-      "codeHash": "74d3e2d108b6e137ce7a4edc9d2076de36ae9feab159a1a577dad256fa7fa99e",
+      "codeHash": "066eb89d6bca4607d26f6c5c19e8ec0f4f35e6a7598c2047ad3b1174041ecc71",
       "spec": {
-        "template": "flow",
-        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook Remed",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Resilience audits ensure that every critical user journey maintains strict.",
+            "bars": [
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "passed",
+                "value": {
+                  "var": "passed",
+                  "line": 5,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "label": "avg_ttd",
+                "value": {
+                  "var": "avg_ttd",
+                  "line": 6,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "label": "avg_mttr",
+                "value": {
+                  "var": "avg_mttr",
+                  "line": 7,
+                  "hit": 5
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Resilience scorecards aggregate GameDay outcomes, quantifying.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 5,
+                  "hit": 5
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "passed",
+                "value": {
+                  "var": "passed",
+                  "line": 6,
+                  "hit": 5
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "avg_ttd",
+                "value": {
+                  "var": "avg_ttd",
+                  "line": 7,
+                  "hit": 5
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "avg_mttr",
+                "value": {
+                  "var": "avg_mttr",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Verifying self-healing mechanisms empirically guarantees that production.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 6,
+                  "hit": 5
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "passed",
+                "value": {
+                  "var": "passed",
+                  "line": 7,
+                  "hit": 5
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "avg_ttd",
+                "value": {
+                  "var": "avg_ttd",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "avg_mttr",
+                "value": {
+                  "var": "avg_mttr",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook Remed",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "AWS Fault Injection Simulator (FIS) GameDays & Automated Runbook",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Resilience audits ensure that every critical user journey maintains strict.",
+            "bars": [
+              {
+                "label": "total",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "passed",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "avg_ttd",
+                "value": 11.7,
+                "tone": "data"
+              },
+              {
+                "label": "avg_mttr",
+                "value": 63.3,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Resilience scorecards aggregate GameDay outcomes, quantifying.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "passed",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "avg_ttd",
+                "value": 11.7,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "avg_mttr",
+                "value": 63.3,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Verifying self-healing mechanisms empirically guarantees that production.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "passed",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "avg_ttd",
+                "value": 11.7,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "avg_mttr",
+                "value": 63.3,
+                "tone": "ok"
               }
             ]
           }

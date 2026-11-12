@@ -2,1335 +2,1005 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 52,
-  "promptSha": "fa2d1522414d8945fb9a90dfbf0b9d1691d151401c5019d1feb3cab6626c8ea0",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "PII Detection, Deterministic Token Vaults & Reversible Redaction — Foundations & Mathematical Invariants",
-      "codeHash": "25f4785797f164fea6f634c154961e1d2b6ff66a880047b71118c10e0dcf9c8a",
+      "partTitle": "Why Naive Permanent Masking Destroys Multi-Entity Reasoning",
+      "codeHash": "867ff0bd775f3a2ce509a0fec65d59ba55be864b081c6999a0043e3bd8c73a26",
       "spec": {
-        "template": "flow",
-        "title": "PII Detection, Deterministic Token Vaults & Reversible Redaction — Fou",
-        "nodes": [
+        "template": "boxes",
+        "title": "Why Naive Permanent Masking Destroys Multi-Entity Reasoning",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "msg",
+            "label": "msg"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "targets",
+            "label": "targets"
           },
           {
             "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "label": "out"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Sending raw customer Social Security numbers, personal cell numbers,.",
+            "values": {
+              "msg": {
+                "var": "msg",
+                "line": 16,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 2,
+                "hit": 1
+              },
+              "targets": {
+                "var": "targets",
+                "line": 2,
+                "hit": 1
+              },
+              "out": {
+                "var": "out",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "msg": "data",
+              "text": "data",
+              "targets": "data",
+              "out": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Yet hammering texts blindly with naive permanent `****` replacement.",
+            "values": {
+              "msg": {
+                "var": "msg",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "text": {
+                "var": "text",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "targets": {
+                "var": "targets",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "out": {
+                "var": "out",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "msg": "data",
+              "text": "data",
+              "targets": "data",
+              "out": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Run compare_masking_vs_vault() observing how surrogate placeholders retain.",
+            "values": {
+              "msg": {
+                "var": "msg",
+                "line": 18,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 1
+              },
+              "targets": {
+                "var": "targets",
+                "line": 4,
+                "hit": 1
+              },
+              "out": {
+                "var": "out",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "msg": "ok",
+              "text": "ok",
+              "targets": "ok",
+              "out": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Why Naive Permanent Masking Destroys Multi-Entity Reasoning",
+        "boxes": [
+          {
+            "id": "msg",
+            "label": "msg"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "targets",
+            "label": "targets"
+          },
+          {
+            "id": "out",
+            "label": "out"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Sending raw customer Social Security numbers, personal cell numbers,.",
+            "values": {
+              "msg": "'Alice (alice@acme.io) transfers $500 t…",
+              "text": "'Alice (alice@acme.io) transfers $500 t…",
+              "targets": "['alice@acme.io', 'bob@acme.io']",
+              "out": "'Alice (alice@acme.io) transfers $500 t…"
+            },
+            "tones": {
+              "msg": "data",
+              "text": "data",
+              "targets": "data",
+              "out": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Yet hammering texts blindly with naive permanent `****` replacement.",
+            "values": {
+              "msg": "'Alice (alice@acme.io) transfers $500 t…",
+              "text": "'Alice (alice@acme.io) transfers $500 t…",
+              "targets": "['alice@acme.io', 'bob@acme.io']",
+              "out": "'Alice (alice@acme.io) transfers $500 t…"
+            },
+            "tones": {
+              "msg": "data",
+              "text": "data",
+              "targets": "data",
+              "out": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Run compare_masking_vs_vault() observing how surrogate placeholders retain.",
+            "values": {
+              "msg": "'Alice (alice@acme.io) transfers $500 t…",
+              "text": "'Alice (alice@acme.io) transfers $500 t…",
+              "targets": "['alice@acme.io', 'bob@acme.io']",
+              "out": "'Alice ([REDACTED]) transfers $500 to B…"
+            },
+            "tones": {
+              "msg": "ok",
+              "text": "ok",
+              "targets": "ok",
+              "out": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Deterministic Scoped HMAC Tokenization Across Multi-Turn Chats",
+      "codeHash": "1bc2f7b97a04188fde282f3916e38fcbeba0e5cfd98c11c29ec44b5b08ea78a6",
+      "spec": {
+        "template": "boxes",
+        "title": "Deterministic Scoped HMAC Tokenization Across Multi-Turn Chats",
+        "boxes": [
+          {
+            "id": "sec",
+            "label": "sec"
+          },
+          {
+            "id": "vault_secret",
+            "label": "vault_secret"
+          },
+          {
+            "id": "session_id",
+            "label": "session_id"
+          },
+          {
+            "id": "kind",
+            "label": "kind"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Notice what collapses silently when using ad-hoc per-request random.",
+            "values": {
+              "sec": {
+                "var": "sec",
+                "line": 8,
+                "hit": 1
+              },
+              "vault_secret": {
+                "var": "vault_secret",
+                "line": 4,
+                "hit": 1
+              },
+              "session_id": {
+                "var": "session_id",
+                "line": 4,
+                "hit": 1
+              },
+              "kind": {
+                "var": "kind",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "sec": "data",
+              "vault_secret": "data",
+              "session_id": "data",
+              "kind": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "**Keyed HMAC-SHA256 deterministic tokenization** scoped strictly.",
+            "values": {
+              "sec": {
+                "var": "sec",
+                "line": 9,
+                "hit": 1
+              },
+              "vault_secret": {
+                "var": "vault_secret",
+                "line": 5,
+                "hit": 1
+              },
+              "session_id": {
+                "var": "session_id",
+                "line": 5,
+                "hit": 1
+              },
+              "kind": {
+                "var": "kind",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "sec": "data",
+              "vault_secret": "data",
+              "session_id": "data",
+              "kind": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Inspect hmac_token() guaranteeing same-session consistency alongside.",
+            "values": {
+              "sec": {
+                "var": "sec",
+                "line": 10,
+                "hit": 1
+              },
+              "vault_secret": {
+                "var": "vault_secret",
+                "line": 6,
+                "hit": 1
+              },
+              "session_id": {
+                "var": "session_id",
+                "line": 6,
+                "hit": 1
+              },
+              "kind": {
+                "var": "kind",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "sec": "ok",
+              "vault_secret": "ok",
+              "session_id": "ok",
+              "kind": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Deterministic Scoped HMAC Tokenization Across Multi-Turn Chats",
+        "boxes": [
+          {
+            "id": "sec",
+            "label": "sec"
+          },
+          {
+            "id": "vault_secret",
+            "label": "vault_secret"
+          },
+          {
+            "id": "session_id",
+            "label": "session_id"
+          },
+          {
+            "id": "kind",
+            "label": "kind"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Notice what collapses silently when using ad-hoc per-request random.",
+            "values": {
+              "sec": "'kms_ephemeral_key_91'",
+              "vault_secret": "'kms_ephemeral_key_91'",
+              "session_id": "'sess_A'",
+              "kind": "'EMAIL'"
+            },
+            "tones": {
+              "sec": "data",
+              "vault_secret": "data",
+              "session_id": "data",
+              "kind": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "**Keyed HMAC-SHA256 deterministic tokenization** scoped strictly.",
+            "values": {
+              "sec": "'kms_ephemeral_key_91'",
+              "vault_secret": "'kms_ephemeral_key_91'",
+              "session_id": "'sess_A'",
+              "kind": "'EMAIL'"
+            },
+            "tones": {
+              "sec": "data",
+              "vault_secret": "data",
+              "session_id": "data",
+              "kind": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Inspect hmac_token() guaranteeing same-session consistency alongside.",
+            "values": {
+              "sec": "'kms_ephemeral_key_91'",
+              "vault_secret": "'kms_ephemeral_key_91'",
+              "session_id": "'sess_A'",
+              "kind": "'EMAIL'"
+            },
+            "tones": {
+              "sec": "ok",
+              "vault_secret": "ok",
+              "session_id": "ok",
+              "kind": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Contextual Validation: Reducing False Positives via Luhn & Pattern Checks",
+      "codeHash": "f37969e91948f6486567bbd3abd906534c93de2f44924f184da59e05940adcd8",
+      "spec": {
+        "template": "flow",
+        "title": "Contextual Validation: Reducing False Positives via Luhn & Patte",
+        "nodes": [
+          {
+            "id": "digits_str",
+            "label": "digits_str"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "digits",
+            "label": "digits"
+          },
+          {
+            "id": "total",
+            "label": "total"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Over-aggressive naive regexes (`\\b\\d{13,19}\\b`) destroy useful engineering.",
+            "values": {
+              "digits_str": {
+                "var": "digits_str",
+                "line": 2,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 2,
+                "hit": 1
+              },
+              "digits": {
+                "var": "digits",
+                "line": 2,
+                "hit": 20
+              },
+              "total": {
+                "var": "total",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "digits_str": "data",
+              "c": "data",
+              "digits": "data",
+              "total": "data"
+            },
+            "arrows": [
+              [
+                "digits_str",
+                "c"
+              ],
+              [
+                "c",
+                "digits"
+              ],
+              [
+                "digits",
+                "total"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Sharp production PII detectors layer fast structural syntax sweeps.",
+            "values": {
+              "digits_str": {
+                "var": "digits_str",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "c": {
+                "var": "c",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "digits": {
+                "var": "digits",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "total": {
+                "var": "total",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "digits_str": "data",
+              "c": "data",
+              "digits": "data",
+              "total": "data"
+            },
+            "arrows": [
+              [
+                "digits_str",
+                "c"
+              ],
+              [
+                "c",
+                "digits"
+              ],
+              [
+                "digits",
+                "total"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Test passes_luhn() cleanly approving real format card strings while.",
+            "values": {
+              "digits_str": {
+                "var": "digits_str",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "c": {
+                "var": "c",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "digits": {
+                "var": "digits",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "total": {
+                "var": "total",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "digits_str": "ok",
+              "c": "ok",
+              "digits": "ok",
+              "total": "ok"
+            },
+            "arrows": [
+              [
+                "digits_str",
+                "c"
+              ],
+              [
+                "c",
+                "digits"
+              ],
+              [
+                "digits",
+                "total"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "PII Detection, Deterministic Token Vaults & Reversible Redaction — Fou",
+        "title": "Contextual Validation: Reducing False Positives via Luhn & Patte",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "digits_str",
+            "label": "digits_str"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "c",
+            "label": "c"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "digits",
+            "label": "digits"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "total",
+            "label": "total"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Over-aggressive naive regexes (`\\b\\d{13,19}\\b`) destroy useful engineering.",
+            "values": {
+              "digits_str": "'4532-0151-1283-0366'",
+              "c": "'4'",
+              "digits": "[4, 5, 3, 2, 0, 1, 5, 1, 1, 2, 8, 3, 0,…",
+              "total": "0"
+            },
+            "tones": {
+              "digits_str": "data",
+              "c": "data",
+              "digits": "data",
+              "total": "data"
+            },
+            "arrows": [
+              [
+                "digits_str",
+                "c"
+              ],
+              [
+                "c",
+                "digits"
+              ],
+              [
+                "digits",
+                "total"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Sharp production PII detectors layer fast structural syntax sweeps.",
+            "values": {
+              "digits_str": "'4532-0151-1283-0366'",
+              "c": "'5'",
+              "digits": "[4, 5, 3, 2, 0, 1, 5, 1, 1, 2, 8, 3, 0,…",
+              "total": "0"
+            },
+            "tones": {
+              "digits_str": "data",
+              "c": "data",
+              "digits": "data",
+              "total": "data"
+            },
+            "arrows": [
+              [
+                "digits_str",
+                "c"
+              ],
+              [
+                "c",
+                "digits"
+              ],
+              [
+                "digits",
+                "total"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say7",
+            "caption": "Test passes_luhn() cleanly approving real format card strings while.",
+            "values": {
+              "digits_str": "'4532-0151-1283-0366'",
+              "c": "'3'",
+              "digits": "[4, 5, 3, 2, 0, 1, 5, 1, 1, 2, 8, 3, 0,…",
+              "total": "0"
+            },
+            "tones": {
+              "digits_str": "ok",
+              "c": "ok",
+              "digits": "ok",
+              "total": "ok"
+            },
+            "arrows": [
+              [
+                "digits_str",
+                "c"
+              ],
+              [
+                "c",
+                "digits"
+              ],
+              [
+                "digits",
+                "total"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "PII Detection, Deterministic Token Vaults & Reversible Redaction — Core Algorithm & State Representation",
-      "codeHash": "7f1a40e9a810c7d5703a9f7c87b9caf88e76d0f7a42a2ca34621ec32ee46d11c",
+      "partTitle": "Safe Bidirectional Rehydration Without Double-Substitution Bugs",
+      "codeHash": "fa31407ff28d85be969bc9cb91de2ee975cffb7cadb9aaa139bcf7e37fedba2f",
       "spec": {
-        "template": "flow",
-        "title": "PII Detection, Deterministic Token Vaults & Reversible Redaction — Cor",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Safe Bidirectional Rehydration Without Double-Substitution Bugs",
+        "actors": [
+          "SURROGATE_RE",
+          "vault",
+          "reply_text"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Once the external model synthesizes its reply referencing surrogate keys.",
+            "activeActor": "SURROGATE_RE",
+            "messages": [
+              {
+                "from": "SURROGATE_RE",
+                "to": "vault",
+                "label": {
+                  "var": "SURROGATE_RE",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "vault",
+                "to": "reply_text",
+                "label": {
+                  "var": "vault",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Look closely for two sneaky security bugs during response rehydration.",
+            "activeActor": "vault",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "SURROGATE_RE",
+                "to": "vault",
+                "label": {
+                  "var": "SURROGATE_RE",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "vault",
+                "to": "reply_text",
+                "label": {
+                  "var": "vault",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Trace safe_rehydrate() cleanly swapping legitimate session tokens while.",
+            "activeActor": "reply_text",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "SURROGATE_RE",
+                "to": "vault",
+                "label": {
+                  "var": "SURROGATE_RE",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "vault",
+                "to": "reply_text",
+                "label": {
+                  "var": "vault",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "PII Detection, Deterministic Token Vaults & Reversible Redaction — Cor",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Safe Bidirectional Rehydration Without Double-Substitution Bugs",
+        "actors": [
+          "SURROGATE_RE",
+          "vault",
+          "reply_text"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Once the external model synthesizes its reply referencing surrogate keys.",
+            "messages": [
+              {
+                "from": "SURROGATE_RE",
+                "to": "vault",
+                "label": "{'__other__': 'Pattern'}",
+                "tone": "data"
+              },
+              {
+                "from": "vault",
+                "to": "reply_text",
+                "label": "{'<EMAIL_4c91f2>': 'alice@acme.io'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "SURROGATE_RE"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Look closely for two sneaky security bugs during response rehydration.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "SURROGATE_RE",
+                "to": "vault",
+                "label": "{'__other__': 'Pattern'}",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "vault",
+                "to": "reply_text",
+                "label": "{'<EMAIL_4c91f2>': 'alice@acme.io'}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "vault"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Trace safe_rehydrate() cleanly swapping legitimate session tokens while.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "SURROGATE_RE",
+                "to": "vault",
+                "label": "{'__other__': 'Pattern'}",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "vault",
+                "to": "reply_text",
+                "label": "{'<EMAIL_4c91f2>': 'alice@acme.io'}",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "reply_text"
           }
         ]
       }
     },
     {
-      "partTitle": "PII Detection, Deterministic Token Vaults & Reversible Redaction — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "0795594dd5370943fe5f555cba3c5521a7885a01372df051a356540a6a605b10",
+      "partTitle": "Vault Retention TTLs, Right-to-Erasure & Zero-Leak Logging",
+      "codeHash": "f8ce077653405ceb6521bf311134a9eefc62beec7c696d4d848dcc5041fa7035",
       "spec": {
-        "template": "flow",
-        "title": "PII Detection, Deterministic Token Vaults & Reversible Redaction — Thr",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Vault Retention TTLs, Right-to-Erasure & Zero-Leak Logging",
+        "actors": [
+          "store",
+          "vault_store",
+          "now_ts"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Encrypting or vaulting PII away from external model vendors brings zero.",
+            "activeActor": "store",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "store",
+                "to": "vault_store",
+                "label": {
+                  "var": "store",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "vault_store",
+                "to": "now_ts",
+                "label": {
+                  "var": "vault_store",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Production privacy vaults tie every temporary surrogate mapping to crisp.",
+            "activeActor": "vault_store",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "store",
+                "to": "vault_store",
+                "label": {
+                  "var": "store",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "vault_store",
+                "to": "now_ts",
+                "label": {
+                  "var": "vault_store",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Run purge_expired_vaults() verifying deterministic cleanup once timestamps.",
+            "activeActor": "now_ts",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "store",
+                "to": "vault_store",
+                "label": {
+                  "var": "store",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "vault_store",
+                "to": "now_ts",
+                "label": {
+                  "var": "vault_store",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "PII Detection, Deterministic Token Vaults & Reversible Redaction — Thr",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Vault Retention TTLs, Right-to-Erasure & Zero-Leak Logging",
+        "actors": [
+          "store",
+          "vault_store",
+          "now_ts"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Encrypting or vaulting PII away from external model vendors brings zero.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "store",
+                "to": "vault_store",
+                "label": "{'s1': {'last_active': 1000, 'ttl_sec':…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "vault_store",
+                "to": "now_ts",
+                "label": "{'s1': {'last_active': 1000, 'ttl_sec':…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "store"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Production privacy vaults tie every temporary surrogate mapping to crisp.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "store",
+                "to": "vault_store",
+                "label": "{'s1': {'last_active': 1000, 'ttl_sec':…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "vault_store",
+                "to": "now_ts",
+                "label": "{'s1': {'last_active': 1000, 'ttl_sec':…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "vault_store"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Run purge_expired_vaults() verifying deterministic cleanup once timestamps.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "store",
+                "to": "vault_store",
+                "label": "{'s1': {'last_active': 1000, 'ttl_sec':…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "vault_store",
+                "to": "now_ts",
+                "label": "{'s1': {'last_active': 1000, 'ttl_sec':…",
+                "tone": "ok"
               }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "PII Detection, Deterministic Token Vaults & Reversible Redaction — Resilience Guardrails & Failure Recovery",
-      "codeHash": "6bac9d8fb180e420f45bbb072393e1ff517bec8a2c5b6e1df2abb9df0c6b8165",
-      "spec": {
-        "template": "flow",
-        "title": "PII Detection, Deterministic Token Vaults & Reversible Redaction — Res",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "PII Detection, Deterministic Token Vaults & Reversible Redaction — Res",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "PII Detection, Deterministic Token Vaults & Reversible Redaction — Production Telemetry & Verification Audit",
-      "codeHash": "14a884d9d5e4d1492c13d25c6941a3f19604e93d586c231e2c26f5ecf4903166",
-      "spec": {
-        "template": "flow",
-        "title": "PII Detection, Deterministic Token Vaults & Reversible Redaction — Pro",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "PII Detection, Deterministic Token Vaults & Reversible Redaction — Pro",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "now_ts"
           }
         ]
       }

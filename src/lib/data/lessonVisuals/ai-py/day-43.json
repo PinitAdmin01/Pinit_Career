@@ -2,269 +2,139 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 43,
-  "promptSha": "0576a36b88783986a2aefc2b9a29bdb05ccbd58ee32c13dd12ffad380577ed88",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Model Cascading & Complexity Routers — Foundations & Mathematical Invariants",
-      "codeHash": "52c0a5382fd35a2b2cbf8156665675457c40dc2748cc3000b3f52cac4bc3805d",
+      "partTitle": "Pre-Inference Feature-Based Complexity Classification",
+      "codeHash": "d420fcf8deebb248fd222c587e4d33bfe96b1dbddeb00acfcb71bc1a265fec3a",
       "spec": {
-        "template": "flow",
-        "title": "Model Cascading & Complexity Routers — Foundations & Mathematical Inva",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Pre-Inference Feature-Based Complexity Classification",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Routing routine sentiment classification, entity tagging, or single-clause.",
+            "bars": [
+              {
+                "label": "words",
+                "value": {
+                  "var": "words",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Lightweight pre-inference complexity routers analyze crisp surface.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "words",
+                "value": {
+                  "var": "words",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Run classify_complexity() assigning deterministic routing tiers across.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "words",
+                "value": {
+                  "var": "words",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Model Cascading & Complexity Routers — Foundations & Mathematical Inva",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Pre-Inference Feature-Based Complexity Classification",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Routing routine sentiment classification, entity tagging, or single-clause.",
+            "bars": [
+              {
+                "label": "words",
+                "value": 6,
+                "tone": "data"
+              },
+              {
+                "label": "score",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Lightweight pre-inference complexity routers analyze crisp surface.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "words",
+                "value": 6,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "score",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Run classify_complexity() assigning deterministic routing tiers across.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "words",
+                "value": 6,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "score",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           }
@@ -272,1065 +142,721 @@
       }
     },
     {
-      "partTitle": "Model Cascading & Complexity Routers — Core Algorithm & State Representation",
-      "codeHash": "755bea04184f1d04e487ed968ab1c6677dce6a17ae735c98ddacdad40bf7b837",
+      "partTitle": "Speculative Cascades: Cheap Draft With Confident Exit vs Escalation",
+      "codeHash": "c626be7396c45d5cfbf0bed46da0afa7249bb8035c33dfd66aba75e5b180307f",
       "spec": {
-        "template": "flow",
-        "title": "Model Cascading & Complexity Routers — Core Algorithm & State Represen",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Speculative Cascades: Cheap Draft With Confident Exit vs Escalat",
+        "actors": [
+          "p",
+          "prompt",
+          "min_conf"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "When prompt complexity remains ambiguous ahead of generationyou cannot.",
+            "activeActor": "p",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "p",
+                "to": "prompt",
+                "label": {
+                  "var": "p",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "prompt",
+                "to": "min_conf",
+                "label": {
+                  "var": "prompt",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "First dispatch to the nimble `SMALL` tier, inspect deterministic exit.",
+            "activeActor": "prompt",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "p",
+                "to": "prompt",
+                "label": {
+                  "var": "p",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "prompt",
+                "to": "min_conf",
+                "label": {
+                  "var": "prompt",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Trace run_cascade() below observing fast early exits alongside seamless.",
+            "activeActor": "min_conf",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "p",
+                "to": "prompt",
+                "label": {
+                  "var": "p",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "prompt",
+                "to": "min_conf",
+                "label": {
+                  "var": "prompt",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Model Cascading & Complexity Routers — Core Algorithm & State Represen",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Speculative Cascades: Cheap Draft With Confident Exit vs Escalat",
+        "actors": [
+          "p",
+          "prompt",
+          "min_conf"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "When prompt complexity remains ambiguous ahead of generationyou cannot.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "p",
+                "to": "prompt",
+                "label": "'simple extract'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "prompt",
+                "to": "min_conf",
+                "label": "'simple extract'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "p"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "First dispatch to the nimble `SMALL` tier, inspect deterministic exit.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "p",
+                "to": "prompt",
+                "label": "'ambiguous audit'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "prompt",
+                "to": "min_conf",
+                "label": "'simple extract'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "prompt"
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Trace run_cascade() below observing fast early exits alongside seamless.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "p",
+                "to": "prompt",
+                "label": "'ambiguous audit'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "prompt",
+                "to": "min_conf",
+                "label": "'simple extract'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "min_conf"
           }
         ]
       }
     },
     {
-      "partTitle": "Model Cascading & Complexity Routers — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "1dcf37b7fdeee748af79cf851c27dbb53f1b2ee7aeb3051dd52e6a07c4825ca3",
+      "partTitle": "Margin Confidence Calibration for Escalation Triggers",
+      "codeHash": "3399fa6de7a813701dd794723e131b4790d1edb3e5a0f7d34b838ad6e582eec2",
       "spec": {
-        "template": "flow",
-        "title": "Model Cascading & Complexity Routers — Throughput Optimization & Edge-",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Margin Confidence Calibration for Escalation Triggers",
+        "actors": [
+          "label",
+          "p1",
+          "p2"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how inspecting updates probability during execution.",
+            "activeActor": "label",
+            "messages": [
+              {
+                "from": "label",
+                "to": "p1",
+                "label": {
+                  "var": "label",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "p1",
+                "to": "p2",
+                "label": {
+                  "var": "p1",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how measuring updates minus during execution.",
+            "activeActor": "p1",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "label",
+                "to": "p1",
+                "label": {
+                  "var": "label",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "p1",
+                "to": "p2",
+                "label": {
+                  "var": "p1",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Verify should_escalate_margin() catching both coin_flip and low_peak cases.",
+            "activeActor": "p2",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "label",
+                "to": "p1",
+                "label": {
+                  "var": "label",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "p1",
+                "to": "p2",
+                "label": {
+                  "var": "p1",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Model Cascading & Complexity Routers — Throughput Optimization & Edge-",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Margin Confidence Calibration for Escalation Triggers",
+        "actors": [
+          "label",
+          "p1",
+          "p2"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how inspecting updates probability during execution.",
+            "messages": [
+              {
+                "from": "label",
+                "to": "p1",
+                "label": "'clear'",
+                "tone": "data"
+              },
+              {
+                "from": "p1",
+                "to": "p2",
+                "label": "0.88",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "label"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how measuring updates minus during execution.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "label",
+                "to": "p1",
+                "label": "'clear'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "p1",
+                "to": "p2",
+                "label": "0.88",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "p1"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Verify should_escalate_margin() catching both coin_flip and low_peak cases.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "label",
+                "to": "p1",
+                "label": "'coin_flip'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "p1",
+                "to": "p2",
+                "label": "0.52",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "p2"
           }
         ]
       }
     },
     {
-      "partTitle": "Model Cascading & Complexity Routers — Resilience Guardrails & Failure Recovery",
-      "codeHash": "5bdbac9249a398ce57daa4ab396b0da07e8e2ce28b71f999869ad2507f6f255c",
+      "partTitle": "Blended Unit Economics Across Tiered Model Mixes",
+      "codeHash": "07be8ece157651c167ceead5178019e5767ded570b0c9c90c5d6feb0eb334f62",
       "spec": {
-        "template": "flow",
-        "title": "Model Cascading & Complexity Routers — Resilience Guardrails & Failure",
-        "nodes": [
+        "template": "boxes",
+        "title": "Blended Unit Economics Across Tiered Model Mixes",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "esc",
+            "label": "esc"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "total_reqs",
+            "label": "total_reqs"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "escalate_rate",
+            "label": "escalate_rate"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "small_usd",
+            "label": "small_usd"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cascade routers harbor a counter-intuitive billing trap that catches naive.",
+            "values": {
+              "esc": {
+                "var": "esc",
+                "line": 12,
+                "hit": 1
+              },
+              "total_reqs": {
+                "var": "total_reqs",
+                "line": 2,
+                "hit": 1
+              },
+              "escalate_rate": {
+                "var": "escalate_rate",
+                "line": 2,
+                "hit": 1
+              },
+              "small_usd": {
+                "var": "small_usd",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "esc": "data",
+              "total_reqs": "data",
+              "escalate_rate": "data",
+              "small_usd": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Because of sunk failed draft charges (`small_usd`), a cascade saves money.",
+            "values": {
+              "esc": {
+                "var": "esc",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "total_reqs": {
+                "var": "total_reqs",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "escalate_rate": {
+                "var": "escalate_rate",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "small_usd": {
+                "var": "small_usd",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "esc": "data",
+              "total_reqs": "data",
+              "escalate_rate": "data",
+              "small_usd": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Trace how analyze updates contrasting during execution.",
+            "values": {
+              "esc": {
+                "var": "esc",
+                "line": 12,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "total_reqs": {
+                "var": "total_reqs",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "escalate_rate": {
+                "var": "escalate_rate",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "small_usd": {
+                "var": "small_usd",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "esc": "ok",
+              "total_reqs": "ok",
+              "escalate_rate": "ok",
+              "small_usd": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Model Cascading & Complexity Routers — Resilience Guardrails & Failure",
-        "nodes": [
+        "template": "boxes",
+        "title": "Blended Unit Economics Across Tiered Model Mixes",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "esc",
+            "label": "esc"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "total_reqs",
+            "label": "total_reqs"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "escalate_rate",
+            "label": "escalate_rate"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "small_usd",
+            "label": "small_usd"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cascade routers harbor a counter-intuitive billing trap that catches naive.",
+            "values": {
+              "esc": "0.15",
+              "total_reqs": "10000",
+              "escalate_rate": "0.15",
+              "small_usd": "0.002"
+            },
+            "tones": {
+              "esc": "data",
+              "total_reqs": "data",
+              "escalate_rate": "data",
+              "small_usd": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Because of sunk failed draft charges (`small_usd`), a cascade saves money.",
+            "values": {
+              "esc": "0.15",
+              "total_reqs": "10000",
+              "escalate_rate": "0.15",
+              "small_usd": "0.002"
+            },
+            "tones": {
+              "esc": "data",
+              "total_reqs": "data",
+              "escalate_rate": "data",
+              "small_usd": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say7",
+            "caption": "Trace how analyze updates contrasting during execution.",
+            "values": {
+              "esc": "0.4",
+              "total_reqs": "10000",
+              "escalate_rate": "0.15",
+              "small_usd": "0.002"
+            },
+            "tones": {
+              "esc": "ok",
+              "total_reqs": "ok",
+              "escalate_rate": "ok",
+              "small_usd": "ok"
+            }
           }
         ]
       }
     },
     {
-      "partTitle": "Model Cascading & Complexity Routers — Production Telemetry & Verification Audit",
-      "codeHash": "dde1018b68e209fa950a432d600419388a0dd10d2af12f4cfeea2a954efc0d23",
+      "partTitle": "SLA Tail-Latency Impact of Serial Fallback Retries",
+      "codeHash": "595d5c931b91dd5e32b67dc30e98e2074f43ac237566eefb59e8259015c5d996",
       "spec": {
-        "template": "flow",
-        "title": "Model Cascading & Complexity Routers — Production Telemetry & Verifica",
-        "nodes": [
+        "template": "boxes",
+        "title": "SLA Tail-Latency Impact of Serial Fallback Retries",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "esc_rate",
+            "label": "esc_rate"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "small_ms",
+            "label": "small_ms"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "large_ms",
+            "label": "large_ms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sla_ms",
+            "label": "sla_ms"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "at": "say1",
+            "caption": "Even when blended dollar cost looks fantastic, cascades reshape response.",
+            "values": {
+              "esc_rate": {
+                "var": "esc_rate",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "small_ms": {
+                "var": "small_ms",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "large_ms": {
+                "var": "large_ms",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "sla_ms": {
+                "var": "sla_ms",
+                "line": 2,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "esc_rate": "data",
+              "small_ms": "data",
+              "large_ms": "data",
+              "sla_ms": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "If your small tier spends 700 ms generating full prose before discovering.",
+            "values": {
+              "esc_rate": {
+                "var": "esc_rate",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "small_ms": {
+                "var": "small_ms",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "large_ms": {
+                "var": "large_ms",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "sla_ms": {
+                "var": "sla_ms",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "esc_rate": "data",
+              "small_ms": "data",
+              "large_ms": "data",
+              "sla_ms": "data"
+            }
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "caption": "Audit estimate_cascade_latency() showing how trimming `small_ms`.",
+            "values": {
+              "esc_rate": {
+                "var": "esc_rate",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "small_ms": {
+                "var": "small_ms",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "large_ms": {
+                "var": "large_ms",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "sla_ms": {
+                "var": "sla_ms",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "esc_rate": "ok",
+              "small_ms": "ok",
+              "large_ms": "ok",
+              "sla_ms": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Model Cascading & Complexity Routers — Production Telemetry & Verifica",
-        "nodes": [
+        "template": "boxes",
+        "title": "SLA Tail-Latency Impact of Serial Fallback Retries",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "esc_rate",
+            "label": "esc_rate"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "small_ms",
+            "label": "small_ms"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "large_ms",
+            "label": "large_ms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sla_ms",
+            "label": "sla_ms"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Even when blended dollar cost looks fantastic, cascades reshape response.",
+            "values": {
+              "esc_rate": "0.2",
+              "small_ms": "220",
+              "large_ms": "1100",
+              "sla_ms": "1500"
+            },
+            "tones": {
+              "esc_rate": "data",
+              "small_ms": "data",
+              "large_ms": "data",
+              "sla_ms": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say2",
+            "caption": "If your small tier spends 700 ms generating full prose before discovering.",
+            "values": {
+              "esc_rate": "0.2",
+              "small_ms": "220",
+              "large_ms": "1100",
+              "sla_ms": "1500"
+            },
+            "tones": {
+              "esc_rate": "data",
+              "small_ms": "data",
+              "large_ms": "data",
+              "sla_ms": "data"
+            }
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "Audit estimate_cascade_latency() showing how trimming `small_ms`.",
+            "values": {
+              "esc_rate": "0.2",
+              "small_ms": "220",
+              "large_ms": "1100",
+              "sla_ms": "1500"
+            },
+            "tones": {
+              "esc_rate": "ok",
+              "small_ms": "ok",
+              "large_ms": "ok",
+              "sla_ms": "ok"
+            }
           }
         ]
       }

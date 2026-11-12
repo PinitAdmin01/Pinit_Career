@@ -2,1068 +2,696 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 51,
-  "promptSha": "4f116e2d8485ad1d0b48b2ea59d27b6f212e28a5c8821bf8f7d85ee0eb3ce858",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Network Packet Flow Forensics — Foundations & Mathematical Invariants",
-      "codeHash": "619b3392a83eb8956bd4460bb2f846a2957e38a61d3675aef204694f332a16ef",
+      "codeHash": "69c12db6ddf76d6411544032a8f0c733bd9ea6b383f8291a3e4c3e0531323a01",
       "spec": {
-        "template": "flow",
-        "title": "Network Packet Flow Forensics — Foundations & Mathematical Invariants",
-        "nodes": [
+        "template": "states",
+        "title": "Network Packet Flow Forensics — Foundations & Mathematical Invar",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "FLOW_THREAT_TAXONOMY",
+            "label": "FLOW_THREAT_TAXONOMY"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cat",
+            "label": "cat"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Network flow forensics is the art and science of detecting adversarial.",
+            "currentState": "FLOW_THREAT_TAXONOMY",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Trace how high updates speed during execution.",
+            "currentState": "cat",
+            "transition": {
+              "from": "FLOW_THREAT_TAXONOMY",
+              "to": "cat",
+              "label": {
+                "var": "cat",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say11",
+            "caption": "Threat hunters analyze packet flow statistics across edge firewalls.",
+            "currentState": "desc",
+            "transition": {
+              "from": "cat",
+              "to": "desc",
+              "label": {
+                "var": "desc",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Network Packet Flow Forensics — Foundations & Mathematical Invariants",
-        "nodes": [
+        "template": "states",
+        "title": "Network Packet Flow Forensics — Foundations & Mathematical Invar",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "FLOW_THREAT_TAXONOMY",
+            "label": "FLOW_THREAT_TAXONOMY"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cat",
+            "label": "cat"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Network flow forensics is the art and science of detecting adversarial.",
+            "currentState": "FLOW_THREAT_TAXONOMY",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Trace how high updates speed during execution.",
+            "currentState": "cat",
+            "transition": {
+              "from": "FLOW_THREAT_TAXONOMY",
+              "to": "cat",
+              "label": "'C2_BEACONING'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say11",
+            "caption": "Threat hunters analyze packet flow statistics across edge firewalls.",
+            "currentState": "desc",
+            "transition": {
+              "from": "cat",
+              "to": "desc",
+              "label": "'Rapid horizontal reconnaissance queryi…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Network Packet Flow Forensics — Core Algorithm & State Representation",
-      "codeHash": "b71f8826d2859bc8bc7d86ee5c446b0905f4b80d86b605bdd7eb728bb58c0241",
+      "codeHash": "d8da73d02ae0a570891627f793c51e81f7648200f87d258de9a0ef833e68629a",
       "spec": {
-        "template": "flow",
-        "title": "Network Packet Flow Forensics — Core Algorithm & State Representation",
-        "nodes": [
+        "template": "states",
+        "title": "Network Packet Flow Forensics — Core Algorithm & State Represent",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "normal_counts",
+            "label": "normal_counts"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "flood_counts",
+            "label": "flood_counts"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "packet_counts",
+            "label": "packet_counts"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The SYN flood detection algorithm inspects aggregated flow counters over.",
+            "currentState": "normal_counts",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Under standard enterprise web traffic, clients initiate sessions with SYN.",
+            "currentState": "flood_counts",
+            "transition": {
+              "from": "normal_counts",
+              "to": "flood_counts",
+              "label": {
+                "var": "flood_counts",
+                "line": 14,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Edge load balancers execute real-time SYN ratio analysis in hardware.",
+            "currentState": "packet_counts",
+            "transition": {
+              "from": "flood_counts",
+              "to": "packet_counts",
+              "label": {
+                "var": "packet_counts",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Network Packet Flow Forensics — Core Algorithm & State Representation",
-        "nodes": [
+        "template": "states",
+        "title": "Network Packet Flow Forensics — Core Algorithm & State Represent",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "normal_counts",
+            "label": "normal_counts"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "flood_counts",
+            "label": "flood_counts"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "packet_counts",
+            "label": "packet_counts"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The SYN flood detection algorithm inspects aggregated flow counters over.",
+            "currentState": "normal_counts",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Under standard enterprise web traffic, clients initiate sessions with SYN.",
+            "currentState": "flood_counts",
+            "transition": {
+              "from": "normal_counts",
+              "to": "flood_counts",
+              "label": "{'SYN': 1500, 'ACK': 30}"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Edge load balancers execute real-time SYN ratio analysis in hardware.",
+            "currentState": "packet_counts",
+            "transition": {
+              "from": "flood_counts",
+              "to": "packet_counts",
+              "label": "{'SYN': 45, 'ACK': 42}"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Network Packet Flow Forensics — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "ecf7b242e7f9053378b9904ba25f2656d0b50d921785b6e2e061ea312635d7b7",
+      "codeHash": "10c89b5cf72b263b769413f11afe7668cce0388904ccf52d329c26c8ff4be827",
       "spec": {
-        "template": "flow",
-        "title": "Network Packet Flow Forensics — Throughput Optimization & Edge-Case Ha",
-        "nodes": [
+        "template": "boxes",
+        "title": "Network Packet Flow Forensics — Throughput Optimization & Edge-C",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "flows",
+            "label": "flows"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "flow_records",
+            "label": "flow_records"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "scan_port_threshold",
+            "label": "scan_port_threshold"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "scanned_ports_per_ip",
+            "label": "scanned_ports_per_ip"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Adversaries begin network penetration by scanning internal subnets.",
+            "values": {
+              "flows": {
+                "var": "flows",
+                "line": 16,
+                "hit": 1
+              },
+              "flow_records": {
+                "var": "flow_records",
+                "line": 4,
+                "hit": 1
+              },
+              "scan_port_threshold": {
+                "var": "scan_port_threshold",
+                "line": 4,
+                "hit": 1
+              },
+              "scanned_ports_per_ip": {
+                "var": "scanned_ports_per_ip",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "flows": "data",
+              "flow_records": "data",
+              "scan_port_threshold": "data",
+              "scanned_ports_per_ip": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "A horizontal port scan occurs when an external attacker probes dozens.",
+            "values": {
+              "flows": {
+                "var": "flows",
+                "line": 25,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "flow_records": {
+                "var": "flow_records",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "scan_port_threshold": {
+                "var": "scan_port_threshold",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "scanned_ports_per_ip": {
+                "var": "scanned_ports_per_ip",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "flows": "data",
+              "flow_records": "data",
+              "scan_port_threshold": "data",
+              "scanned_ports_per_ip": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "Security operations centers correlate horizontal port scan alerts.",
+            "values": {
+              "flows": {
+                "var": "flows",
+                "line": 25,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "flow_records": {
+                "var": "flow_records",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "scan_port_threshold": {
+                "var": "scan_port_threshold",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "scanned_ports_per_ip": {
+                "var": "scanned_ports_per_ip",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "flows": "ok",
+              "flow_records": "ok",
+              "scan_port_threshold": "ok",
+              "scanned_ports_per_ip": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Network Packet Flow Forensics — Throughput Optimization & Edge-Case Ha",
-        "nodes": [
+        "template": "boxes",
+        "title": "Network Packet Flow Forensics — Throughput Optimization & Edge-C",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "flows",
+            "label": "flows"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "flow_records",
+            "label": "flow_records"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "scan_port_threshold",
+            "label": "scan_port_threshold"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "scanned_ports_per_ip",
+            "label": "scanned_ports_per_ip"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Adversaries begin network penetration by scanning internal subnets.",
+            "values": {
+              "flows": "[{'src_ip': '10.0.0.99', 'dst_port': 22…",
+              "flow_records": "[{'src_ip': '10.0.0.99', 'dst_port': 22…",
+              "scan_port_threshold": "5",
+              "scanned_ports_per_ip": "{}"
+            },
+            "tones": {
+              "flows": "data",
+              "flow_records": "data",
+              "scan_port_threshold": "data",
+              "scanned_ports_per_ip": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "A horizontal port scan occurs when an external attacker probes dozens.",
+            "values": {
+              "flows": "[{'src_ip': '10.0.0.99', 'dst_port': 22…",
+              "flow_records": "[{'src_ip': '10.0.0.99', 'dst_port': 22…",
+              "scan_port_threshold": "5",
+              "scanned_ports_per_ip": "{}"
+            },
+            "tones": {
+              "flows": "data",
+              "flow_records": "data",
+              "scan_port_threshold": "data",
+              "scanned_ports_per_ip": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say11",
+            "caption": "Security operations centers correlate horizontal port scan alerts.",
+            "values": {
+              "flows": "[{'src_ip': '10.0.0.99', 'dst_port': 22…",
+              "flow_records": "[{'src_ip': '10.0.0.99', 'dst_port': 22…",
+              "scan_port_threshold": "5",
+              "scanned_ports_per_ip": "{}"
+            },
+            "tones": {
+              "flows": "ok",
+              "flow_records": "ok",
+              "scan_port_threshold": "ok",
+              "scanned_ports_per_ip": "ok"
+            }
           }
         ]
       }
     },
     {
       "partTitle": "Network Packet Flow Forensics — Resilience Guardrails & Failure Recovery",
-      "codeHash": "f6ba355024786aa68b6438c56aaad625564784e43acfb8b28d556ea76aaa8f8d",
+      "codeHash": "2afbee89804d0fb844d818a4912156506d2620c33874a51b98b6fc131c1d83c4",
       "spec": {
         "template": "flow",
-        "title": "Network Packet Flow Forensics — Resilience Guardrails & Failure Recove",
+        "title": "Network Packet Flow Forensics — Resilience Guardrails & Failure ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "c2_timestamps",
+            "label": "c2_timestamps"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "human_timestamps",
+            "label": "human_timestamps"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "timestamps",
+            "label": "timestamps"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "t1",
+            "label": "t1"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Post-exploitation malware frequently maintains persistent access.",
+            "values": {
+              "c2_timestamps": {
+                "var": "c2_timestamps",
+                "line": 18,
+                "hit": 1
+              },
+              "human_timestamps": {
+                "var": "human_timestamps",
+                "line": 19,
+                "hit": 1
+              },
+              "timestamps": {
+                "var": "timestamps",
+                "line": 6,
+                "hit": 1
+              },
+              "t1": {
+                "var": "t1",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "c2_timestamps": "data",
+              "human_timestamps": "data",
+              "timestamps": "data",
+              "t1": "data"
+            },
+            "arrows": [
+              [
+                "c2_timestamps",
+                "human_timestamps"
+              ],
+              [
+                "human_timestamps",
+                "timestamps"
+              ],
+              [
+                "timestamps",
+                "t1"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "To blend in with normal web browsing, malware communicates over standard.",
+            "values": {
+              "c2_timestamps": {
+                "var": "c2_timestamps",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "human_timestamps": {
+                "var": "human_timestamps",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "timestamps": {
+                "var": "timestamps",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "t1": {
+                "var": "t1",
+                "line": 8,
+                "hit": 2
               }
+            },
+            "tones": {
+              "c2_timestamps": "data",
+              "human_timestamps": "data",
+              "timestamps": "data",
+              "t1": "data"
+            },
+            "arrows": [
+              [
+                "c2_timestamps",
+                "human_timestamps"
+              ],
+              [
+                "human_timestamps",
+                "timestamps"
+              ],
+              [
+                "timestamps",
+                "t1"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "Network forensic analysts combine connection jitter calculations.",
+            "values": {
+              "c2_timestamps": {
+                "var": "c2_timestamps",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "human_timestamps": {
+                "var": "human_timestamps",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "timestamps": {
+                "var": "timestamps",
+                "line": 8,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "t1": {
+                "var": "t1",
+                "line": 8,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "c2_timestamps": "ok",
+              "human_timestamps": "ok",
+              "timestamps": "ok",
+              "t1": "ok"
+            },
+            "arrows": [
+              [
+                "c2_timestamps",
+                "human_timestamps"
+              ],
+              [
+                "human_timestamps",
+                "timestamps"
+              ],
+              [
+                "timestamps",
+                "t1"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Network Packet Flow Forensics — Resilience Guardrails & Failure Recove",
+        "title": "Network Packet Flow Forensics — Resilience Guardrails & Failure ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "c2_timestamps",
+            "label": "c2_timestamps"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "human_timestamps",
+            "label": "human_timestamps"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "timestamps",
+            "label": "timestamps"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "t1",
+            "label": "t1"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Post-exploitation malware frequently maintains persistent access.",
+            "values": {
+              "c2_timestamps": "[100, 160.1, 220, 279.9, 340.2]",
+              "human_timestamps": "[10, 45, 52, 180, 195]",
+              "timestamps": "[100, 160.1, 220, 279.9, 340.2]",
+              "t1": "100"
+            },
+            "tones": {
+              "c2_timestamps": "data",
+              "human_timestamps": "data",
+              "timestamps": "data",
+              "t1": "data"
+            },
+            "arrows": [
+              [
+                "c2_timestamps",
+                "human_timestamps"
+              ],
+              [
+                "human_timestamps",
+                "timestamps"
+              ],
+              [
+                "timestamps",
+                "t1"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "To blend in with normal web browsing, malware communicates over standard.",
+            "values": {
+              "c2_timestamps": "[100, 160.1, 220, 279.9, 340.2]",
+              "human_timestamps": "[10, 45, 52, 180, 195]",
+              "timestamps": "[100, 160.1, 220, 279.9, 340.2]",
+              "t1": "160.1"
+            },
+            "tones": {
+              "c2_timestamps": "data",
+              "human_timestamps": "data",
+              "timestamps": "data",
+              "t1": "data"
+            },
+            "arrows": [
+              [
+                "c2_timestamps",
+                "human_timestamps"
+              ],
+              [
+                "human_timestamps",
+                "timestamps"
+              ],
+              [
+                "timestamps",
+                "t1"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "Network forensic analysts combine connection jitter calculations.",
+            "values": {
+              "c2_timestamps": "[100, 160.1, 220, 279.9, 340.2]",
+              "human_timestamps": "[10, 45, 52, 180, 195]",
+              "timestamps": "[100, 160.1, 220, 279.9, 340.2]",
+              "t1": "220"
+            },
+            "tones": {
+              "c2_timestamps": "ok",
+              "human_timestamps": "ok",
+              "timestamps": "ok",
+              "t1": "ok"
+            },
+            "arrows": [
+              [
+                "c2_timestamps",
+                "human_timestamps"
+              ],
+              [
+                "human_timestamps",
+                "timestamps"
+              ],
+              [
+                "timestamps",
+                "t1"
+              ]
             ]
           }
         ]
@@ -1071,266 +699,164 @@
     },
     {
       "partTitle": "Network Packet Flow Forensics — Production Telemetry & Verification Audit",
-      "codeHash": "a855f0f9cbc57c531abc43f9936007614b2afd809c740b1406f19a96274d07ed",
+      "codeHash": "7adb64b92ddace848ceedbb10bbb08bb09bd6cbc1cd170484d6c1fde1bbde0b9",
       "spec": {
-        "template": "flow",
-        "title": "Network Packet Flow Forensics — Production Telemetry & Verification Au",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Network Packet Flow Forensics — Production Telemetry & Verificat",
+        "actors": [
+          "syn_detector_ok",
+          "port_scanner_ok",
+          "jitter_classifier_ok"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Maintaining high-confidence network flow forensics requires continuous.",
+            "activeActor": "syn_detector_ok",
+            "messages": [
+              {
+                "from": "syn_detector_ok",
+                "to": "port_scanner_ok",
+                "label": {
+                  "var": "syn_detector_ok",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "port_scanner_ok",
+                "to": "jitter_classifier_ok",
+                "label": {
+                  "var": "port_scanner_ok",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A network forensics auditor evaluates the health of all three foundational.",
+            "activeActor": "port_scanner_ok",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "syn_detector_ok",
+                "to": "port_scanner_ok",
+                "label": {
+                  "var": "syn_detector_ok",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "port_scanner_ok",
+                "to": "jitter_classifier_ok",
+                "label": {
+                  "var": "port_scanner_ok",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Production network defense pipelines maintain continuous telemetry.",
+            "activeActor": "jitter_classifier_ok",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "syn_detector_ok",
+                "to": "port_scanner_ok",
+                "label": {
+                  "var": "syn_detector_ok",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "port_scanner_ok",
+                "to": "jitter_classifier_ok",
+                "label": {
+                  "var": "port_scanner_ok",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Network Packet Flow Forensics — Production Telemetry & Verification Au",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Network Packet Flow Forensics — Production Telemetry & Verificat",
+        "actors": [
+          "syn_detector_ok",
+          "port_scanner_ok",
+          "jitter_classifier_ok"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Maintaining high-confidence network flow forensics requires continuous.",
+            "messages": [
+              {
+                "from": "syn_detector_ok",
+                "to": "port_scanner_ok",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "port_scanner_ok",
+                "to": "jitter_classifier_ok",
+                "label": "True",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "syn_detector_ok"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A network forensics auditor evaluates the health of all three foundational.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "syn_detector_ok",
+                "to": "port_scanner_ok",
+                "label": "True",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "port_scanner_ok",
+                "to": "jitter_classifier_ok",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "port_scanner_ok"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Production network defense pipelines maintain continuous telemetry.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "syn_detector_ok",
+                "to": "port_scanner_ok",
+                "label": "True",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "port_scanner_ok",
+                "to": "jitter_classifier_ok",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "jitter_classifier_ok"
           }
         ]
       }

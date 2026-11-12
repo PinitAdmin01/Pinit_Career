@@ -2,224 +2,284 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 29,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why hardware",
       "codeHash": "3528074ba178ab3693ed8ae0d12161a28468e76dfffc1b1801784becbc5783a8",
       "spec": {
-        "template": "table",
-        "title": "FPGA hardware tick-to-trade path versus software pipeline",
-        "columns": [
-          "path",
-          "decode",
-          "strategy",
-          "send"
+        "template": "flow",
+        "title": "Why hardware",
+        "nodes": [
+          {
+            "id": "software",
+            "label": "software"
+          },
+          {
+            "id": "fpga",
+            "label": "fpga"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "path",
+            "label": "path"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A CPU runs a general-purpose sequence of instructions.",
+            "values": {
+              "software": {
+                "var": "software",
+                "line": 1,
+                "hit": 1
+              },
+              "fpga": {
+                "var": "fpga",
+                "line": 2,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 3,
+                "hit": 1
+              },
+              "path": {
+                "var": "path",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "software": "data",
+              "fpga": "data",
+              "name": "data",
+              "path": "data"
+            },
+            "arrows": [
+              [
+                "software",
+                "fpga"
+              ],
+              [
+                "fpga",
+                "name"
+              ],
+              [
+                "name",
+                "path"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "FPGA circuits implement logic physically without instructions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "path"
-                  },
-                  {
-                    "text": "decode"
-                  },
-                  {
-                    "text": "strategy"
-                  },
-                  {
-                    "text": "send"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "An FPGA (field-programmable gate array) is a chip whose circuits can be.",
+            "values": {
+              "software": {
+                "var": "software",
+                "line": 2,
+                "hit": 1
+              },
+              "fpga": {
+                "var": "fpga",
+                "line": 3,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
+              },
+              "path": {
+                "var": "path",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "software": "data",
+              "fpga": "data",
+              "name": "data",
+              "path": "data"
+            },
+            "arrows": [
+              [
+                "software",
+                "fpga"
+              ],
+              [
+                "fpga",
+                "name"
+              ],
+              [
+                "name",
+                "path"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Network card FPGAs decode market packets directly bypassing the host CPU.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "path"
-                  },
-                  {
-                    "text": "decode"
-                  },
-                  {
-                    "text": "strategy"
-                  },
-                  {
-                    "text": "send"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Hardware wins on latency and consistency.",
+            "values": {
+              "software": {
+                "var": "software",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "software"
-                  },
-                  {
-                    "text": "300"
-                  },
-                  {
-                    "text": "800"
-                  },
-                  {
-                    "text": "800"
-                  }
-                ],
-                "tone": "ok"
+              "fpga": {
+                "var": "fpga",
+                "line": 4,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 3,
+                "hit": 2
+              },
+              "path": {
+                "var": "path",
+                "line": 3,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Sub microsecond tick to trade latency drastically outperforms software.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "path"
-                  },
-                  {
-                    "text": "decode"
-                  },
-                  {
-                    "text": "strategy"
-                  },
-                  {
-                    "text": "send"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "software"
-                  },
-                  {
-                    "text": "300"
-                  },
-                  {
-                    "text": "800"
-                  },
-                  {
-                    "text": "800"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "fpga"
-                  },
-                  {
-                    "text": "12"
-                  },
-                  {
-                    "text": "16"
-                  },
-                  {
-                    "text": "20"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "software": "ok",
+              "fpga": "ok",
+              "name": "ok",
+              "path": "ok"
+            },
+            "arrows": [
+              [
+                "software",
+                "fpga"
+              ],
+              [
+                "fpga",
+                "name"
+              ],
+              [
+                "name",
+                "path"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "FPGA hardware tick-to-trade path versus software pipeline",
-        "columns": [
-          "path",
-          "decode",
-          "strategy",
-          "send"
+        "template": "flow",
+        "title": "Why hardware",
+        "nodes": [
+          {
+            "id": "software",
+            "label": "software"
+          },
+          {
+            "id": "fpga",
+            "label": "fpga"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "path",
+            "label": "path"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A CPU runs a general-purpose sequence of instructions.",
+            "values": {
+              "software": "{'NIC + kernel bypass': 900, 'decode': …",
+              "fpga": "{'PHY + MAC': 20, 'decode': 12, 'strate…",
+              "name": "'software'",
+              "path": "{'NIC + kernel bypass': 900, 'decode': …"
+            },
+            "tones": {
+              "software": "data",
+              "fpga": "data",
+              "name": "data",
+              "path": "data"
+            },
+            "arrows": [
+              [
+                "software",
+                "fpga"
+              ],
+              [
+                "fpga",
+                "name"
+              ],
+              [
+                "name",
+                "path"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "FPGA circuits implement logic physically without instructions.",
-            "rows": [
-              {
-                "cells": [
-                  "path",
-                  "decode",
-                  "strategy",
-                  "send"
-                ],
-                "tone": "ok"
-              }
+            "caption": "An FPGA (field-programmable gate array) is a chip whose circuits can be.",
+            "values": {
+              "software": "{'NIC + kernel bypass': 900, 'decode': …",
+              "fpga": "{'PHY + MAC': 20, 'decode': 12, 'strate…",
+              "name": "'software'",
+              "path": "{'NIC + kernel bypass': 900, 'decode': …"
+            },
+            "tones": {
+              "software": "data",
+              "fpga": "data",
+              "name": "data",
+              "path": "data"
+            },
+            "arrows": [
+              [
+                "software",
+                "fpga"
+              ],
+              [
+                "fpga",
+                "name"
+              ],
+              [
+                "name",
+                "path"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Network card FPGAs decode market packets directly bypassing the host CPU.",
-            "rows": [
-              {
-                "cells": [
-                  "path",
-                  "decode",
-                  "strategy",
-                  "send"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "software",
-                  "300",
-                  "800",
-                  "800"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Sub microsecond tick to trade latency drastically outperforms software.",
-            "rows": [
-              {
-                "cells": [
-                  "path",
-                  "decode",
-                  "strategy",
-                  "send"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "software",
-                  "300",
-                  "800",
-                  "800"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "fpga",
-                  "12",
-                  "16",
-                  "20"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Hardware wins on latency and consistency.",
+            "values": {
+              "software": "{'NIC + kernel bypass': 900, 'decode': …",
+              "fpga": "{'PHY + MAC': 20, 'decode': 12, 'strate…",
+              "name": "'FPGA'",
+              "path": "{'PHY + MAC': 20, 'decode': 12, 'strate…"
+            },
+            "tones": {
+              "software": "ok",
+              "fpga": "ok",
+              "name": "ok",
+              "path": "ok"
+            },
+            "arrows": [
+              [
+                "software",
+                "fpga"
+              ],
+              [
+                "fpga",
+                "name"
+              ],
+              [
+                "name",
+                "path"
+              ]
             ]
           }
         ]
@@ -229,216 +289,216 @@
       "partTitle": "Clocks and pipelines",
       "codeHash": "50b1d27139b27f3c81115f09d4586ac55b2ba6d1238e3897212bbd8c80086ca5",
       "spec": {
-        "template": "table",
-        "title": "Clock frequency and stage pipelining latency and throughput",
-        "columns": [
-          "stages",
-          "mhz",
-          "cycles",
-          "cycles_per_stage"
-        ],
+        "template": "bars",
+        "title": "Clocks and pipelines",
         "steps": [
           {
             "at": "say1",
-            "caption": "Clock frequencies determine the nanosecond cycle duration of each tick.",
-            "rows": [
+            "caption": "An FPGA design runs on a clock.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "mhz"
-                  },
-                  {
-                    "text": "cycles"
-                  },
-                  {
-                    "text": "cycles_per_stage"
-                  }
-                ],
-                "tone": "ok"
+                "label": "stages",
+                "value": {
+                  "var": "stages",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mhz",
+                "value": {
+                  "var": "mhz",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cps",
+                "value": {
+                  "var": "cps",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cycles_per_sta",
+                "value": {
+                  "var": "cycles_per_stage",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Pipelining subdivides packet processing into discrete clocked stages.",
-            "rows": [
+            "caption": "Work is split into pipeline stages, each taking one or more cycles.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "mhz"
-                  },
-                  {
-                    "text": "cycles"
-                  },
-                  {
-                    "text": "cycles_per_stage"
-                  }
-                ],
+                "label": "stages",
+                "value": {
+                  "var": "stages",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "12"
-                  },
-                  {
-                    "text": "250"
-                  },
-                  {
-                    "text": "cycles"
-                  },
-                  {
-                    "text": "1"
-                  }
-                ],
+                "label": "mhz",
+                "value": {
+                  "var": "mhz",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cps",
+                "value": {
+                  "var": "cps",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cycles_per_sta",
+                "value": {
+                  "var": "cycles_per_stage",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Single cycle pipelines maximize high throughput message ingestion.",
-            "rows": [
+            "at": "say7",
+            "caption": "Engineers trade clock speed against logic per stage.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "stages"
-                  },
-                  {
-                    "text": "mhz"
-                  },
-                  {
-                    "text": "cycles"
-                  },
-                  {
-                    "text": "cycles_per_stage"
-                  }
-                ],
+                "label": "stages",
+                "value": {
+                  "var": "stages",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "12"
-                  },
-                  {
-                    "text": "250"
-                  },
-                  {
-                    "text": "cycles"
-                  },
-                  {
-                    "text": "1"
-                  }
-                ],
+                "label": "mhz",
+                "value": {
+                  "var": "mhz",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "12"
-                  },
-                  {
-                    "text": "400"
-                  },
-                  {
-                    "text": "cycles"
-                  },
-                  {
-                    "text": "2"
-                  }
-                ],
-                "tone": "data"
+                "label": "cps",
+                "value": {
+                  "var": "cps",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cycles_per_sta",
+                "value": {
+                  "var": "cycles_per_stage",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Clock frequency and stage pipelining latency and throughput",
-        "columns": [
-          "stages",
-          "mhz",
-          "cycles",
-          "cycles_per_stage"
-        ],
+        "template": "bars",
+        "title": "Clocks and pipelines",
         "steps": [
           {
             "at": "say1",
-            "caption": "Clock frequencies determine the nanosecond cycle duration of each tick.",
-            "rows": [
+            "caption": "An FPGA design runs on a clock.",
+            "bars": [
               {
-                "cells": [
-                  "stages",
-                  "mhz",
-                  "cycles",
-                  "cycles_per_stage"
-                ],
-                "tone": "ok"
+                "label": "stages",
+                "value": 12,
+                "tone": "data"
+              },
+              {
+                "label": "mhz",
+                "value": 250,
+                "tone": "data"
+              },
+              {
+                "label": "cps",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "cycles_per_sta",
+                "value": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Pipelining subdivides packet processing into discrete clocked stages.",
-            "rows": [
+            "caption": "Work is split into pipeline stages, each taking one or more cycles.",
+            "bars": [
               {
-                "cells": [
-                  "stages",
-                  "mhz",
-                  "cycles",
-                  "cycles_per_stage"
-                ],
+                "label": "stages",
+                "value": 12,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "12",
-                  "250",
-                  "cycles",
-                  "1"
-                ],
+                "label": "mhz",
+                "value": 250,
+                "tone": "ok"
+              },
+              {
+                "label": "cps",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "cycles_per_sta",
+                "value": 1,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Single cycle pipelines maximize high throughput message ingestion.",
-            "rows": [
+            "at": "say7",
+            "caption": "Engineers trade clock speed against logic per stage.",
+            "bars": [
               {
-                "cells": [
-                  "stages",
-                  "mhz",
-                  "cycles",
-                  "cycles_per_stage"
-                ],
+                "label": "stages",
+                "value": 12,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "12",
-                  "250",
-                  "cycles",
-                  "1"
-                ],
+                "label": "mhz",
+                "value": 250,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "12",
-                  "400",
-                  "cycles",
-                  "2"
-                ],
-                "tone": "data"
+                "label": "cps",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "cycles_per_sta",
+                "value": 2,
+                "tone": "ok"
               }
             ]
           }
@@ -449,190 +509,174 @@
       "partTitle": "Resources and fitting the design",
       "codeHash": "840f3da764be859154515398ef9045b1500c5fa4c30353e8642a6ae20dac9418",
       "spec": {
-        "template": "table",
-        "title": "FPGA lookup table utilization and timing closure feasibility",
-        "columns": [
-          "used",
-          "total",
-          "status"
-        ],
+        "template": "bars",
+        "title": "Resources and fitting the design",
         "steps": [
           {
             "at": "say1",
-            "caption": "Hardware silicon budgets limit available lookup tables and registers.",
-            "rows": [
+            "caption": "An FPGA has a fixed number of resources.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "used"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "status"
-                  }
-                ],
-                "tone": "ok"
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "used",
+                "value": {
+                  "var": "used",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pct",
+                "value": {
+                  "var": "pct",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "High resource utilization complicates routing and target clock closure.",
-            "rows": [
+            "caption": "A design must fit within these resources.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "used"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "status"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "300_000"
-                  },
-                  {
-                    "text": "1_000_000"
-                  },
-                  {
-                    "text": "OK"
-                  }
-                ],
+                "label": "used",
+                "value": {
+                  "var": "used",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "pct",
+                "value": {
+                  "var": "pct",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Percentage thresholds classify status as tight risky or ok.",
-            "rows": [
+            "at": "say7",
+            "caption": "Keeping hardware designs small and focused is both a performance and.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "used"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "status"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "300_000"
-                  },
-                  {
-                    "text": "1_000_000"
-                  },
-                  {
-                    "text": "OK"
-                  }
-                ],
+                "label": "used",
+                "value": {
+                  "var": "used",
+                  "line": 11,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "700_000"
-                  },
-                  {
-                    "text": "1_000_000"
-                  },
-                  {
-                    "text": "TIGHT"
-                  }
-                ],
-                "tone": "idle"
+                "label": "pct",
+                "value": {
+                  "var": "pct",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "FPGA lookup table utilization and timing closure feasibility",
-        "columns": [
-          "used",
-          "total",
-          "status"
-        ],
+        "template": "bars",
+        "title": "Resources and fitting the design",
         "steps": [
           {
             "at": "say1",
-            "caption": "Hardware silicon budgets limit available lookup tables and registers.",
-            "rows": [
+            "caption": "An FPGA has a fixed number of resources.",
+            "bars": [
               {
-                "cells": [
-                  "used",
-                  "total",
-                  "status"
-                ],
-                "tone": "ok"
+                "label": "total",
+                "value": 1000000,
+                "tone": "data"
+              },
+              {
+                "label": "used",
+                "value": 300000,
+                "tone": "data"
+              },
+              {
+                "label": "pct",
+                "value": 30,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "High resource utilization complicates routing and target clock closure.",
-            "rows": [
+            "caption": "A design must fit within these resources.",
+            "bars": [
               {
-                "cells": [
-                  "used",
-                  "total",
-                  "status"
-                ],
+                "label": "total",
+                "value": 1000000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "300_000",
-                  "1_000_000",
-                  "OK"
-                ],
+                "label": "used",
+                "value": 300000,
+                "tone": "ok"
+              },
+              {
+                "label": "pct",
+                "value": 30,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Percentage thresholds classify status as tight risky or ok.",
-            "rows": [
+            "at": "say7",
+            "caption": "Keeping hardware designs small and focused is both a performance and.",
+            "bars": [
               {
-                "cells": [
-                  "used",
-                  "total",
-                  "status"
-                ],
+                "label": "total",
+                "value": 1000000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "300_000",
-                  "1_000_000",
-                  "OK"
-                ],
+                "label": "used",
+                "value": 300000,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "700_000",
-                  "1_000_000",
-                  "TIGHT"
-                ],
-                "tone": "idle"
+                "label": "pct",
+                "value": 30,
+                "tone": "ok"
               }
             ]
           }
@@ -643,191 +687,277 @@
       "partTitle": "Hardware and software together",
       "codeHash": "4d074a64a1507f673bb717af6564c55c80b4ac194444300f84fef3e4dbe1efc2",
       "spec": {
-        "template": "table",
-        "title": "Hybrid architecture hardware comparator triggers",
-        "columns": [
-          "side",
-          "below",
-          "qty"
+        "template": "flow",
+        "title": "Hardware and software together",
+        "nodes": [
+          {
+            "id": "trigger",
+            "label": "trigger"
+          },
+          {
+            "id": "ticks",
+            "label": "ticks"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "best_offer",
+            "label": "best_offer"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Hybrid architectures partition work across software engines and hardware.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "below"
-                  },
-                  {
-                    "text": "qty"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Most firms use a hybrid design.",
+            "values": {
+              "trigger": {
+                "var": "trigger",
+                "line": 1,
+                "hit": 1
+              },
+              "ticks": {
+                "var": "ticks",
+                "line": 2,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 3,
+                "hit": 1
+              },
+              "best_offer": {
+                "var": "best_offer",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "trigger": "data",
+              "ticks": "data",
+              "i": "data",
+              "best_offer": "data"
+            },
+            "arrows": [
+              [
+                "trigger",
+                "ticks"
+              ],
+              [
+                "ticks",
+                "i"
+              ],
+              [
+                "i",
+                "best_offer"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Software configures parameters while hardware reacts at line rates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "below"
-                  },
-                  {
-                    "text": "qty"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Software computes parameters (fair values, quote prices, risk limits).",
+            "values": {
+              "trigger": {
+                "var": "trigger",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "BUY"
-                  },
-                  {
-                    "text": "100.05"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
-                "tone": "ok"
+              "ticks": {
+                "var": "ticks",
+                "line": 3,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 1
+              },
+              "best_offer": {
+                "var": "best_offer",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "trigger": "data",
+              "ticks": "data",
+              "i": "data",
+              "best_offer": "data"
+            },
+            "arrows": [
+              [
+                "trigger",
+                "ticks"
+              ],
+              [
+                "ticks",
+                "i"
+              ],
+              [
+                "i",
+                "best_offer"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Inline hardware risk checks prevent safety bypass on fast paths.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "side"
-                  },
-                  {
-                    "text": "below"
-                  },
-                  {
-                    "text": "qty"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The skill is choosing what belongs in hardware.",
+            "values": {
+              "trigger": {
+                "var": "trigger",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "BUY"
-                  },
-                  {
-                    "text": "100.05"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
-                "tone": "ok"
+              "ticks": {
+                "var": "ticks",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "BUY"
-                  },
-                  {
-                    "text": "100.05"
-                  },
-                  {
-                    "text": "qty"
-                  }
-                ],
-                "tone": "ok"
+              "i": {
+                "var": "i",
+                "line": 7,
+                "hit": 1
+              },
+              "best_offer": {
+                "var": "best_offer",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "trigger": "ok",
+              "ticks": "ok",
+              "i": "ok",
+              "best_offer": "ok"
+            },
+            "arrows": [
+              [
+                "trigger",
+                "ticks"
+              ],
+              [
+                "ticks",
+                "i"
+              ],
+              [
+                "i",
+                "best_offer"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Hybrid architecture hardware comparator triggers",
-        "columns": [
-          "side",
-          "below",
-          "qty"
+        "template": "flow",
+        "title": "Hardware and software together",
+        "nodes": [
+          {
+            "id": "trigger",
+            "label": "trigger"
+          },
+          {
+            "id": "ticks",
+            "label": "ticks"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "best_offer",
+            "label": "best_offer"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Hybrid architectures partition work across software engines and hardware.",
-            "rows": [
-              {
-                "cells": [
-                  "side",
-                  "below",
-                  "qty"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Most firms use a hybrid design.",
+            "values": {
+              "trigger": "{'side': 'BUY', 'below': 100.05, 'qty':…",
+              "ticks": "[100.1, 100.08, 100.06, 100.04, 100.07]",
+              "i": "0",
+              "best_offer": "100.1"
+            },
+            "tones": {
+              "trigger": "data",
+              "ticks": "data",
+              "i": "data",
+              "best_offer": "data"
+            },
+            "arrows": [
+              [
+                "trigger",
+                "ticks"
+              ],
+              [
+                "ticks",
+                "i"
+              ],
+              [
+                "i",
+                "best_offer"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Software configures parameters while hardware reacts at line rates.",
-            "rows": [
-              {
-                "cells": [
-                  "side",
-                  "below",
-                  "qty"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "BUY",
-                  "100.05",
-                  "100"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Software computes parameters (fair values, quote prices, risk limits).",
+            "values": {
+              "trigger": "{'side': 'BUY', 'below': 100.05, 'qty':…",
+              "ticks": "[100.1, 100.08, 100.06, 100.04, 100.07]",
+              "i": "0",
+              "best_offer": "100.1"
+            },
+            "tones": {
+              "trigger": "data",
+              "ticks": "data",
+              "i": "data",
+              "best_offer": "data"
+            },
+            "arrows": [
+              [
+                "trigger",
+                "ticks"
+              ],
+              [
+                "ticks",
+                "i"
+              ],
+              [
+                "i",
+                "best_offer"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Inline hardware risk checks prevent safety bypass on fast paths.",
-            "rows": [
-              {
-                "cells": [
-                  "side",
-                  "below",
-                  "qty"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "BUY",
-                  "100.05",
-                  "100"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "BUY",
-                  "100.05",
-                  "qty"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The skill is choosing what belongs in hardware.",
+            "values": {
+              "trigger": "{'side': 'BUY', 'below': 100.05, 'qty':…",
+              "ticks": "[100.1, 100.08, 100.06, 100.04, 100.07]",
+              "i": "0",
+              "best_offer": "100.1"
+            },
+            "tones": {
+              "trigger": "ok",
+              "ticks": "ok",
+              "i": "ok",
+              "best_offer": "ok"
+            },
+            "arrows": [
+              [
+                "trigger",
+                "ticks"
+              ],
+              [
+                "ticks",
+                "i"
+              ],
+              [
+                "i",
+                "best_offer"
+              ]
             ]
           }
         ]
@@ -837,224 +967,162 @@
       "partTitle": "Costs and trade-offs",
       "codeHash": "dfef34ffca91291ba1b08f01e4e3a3cdeb6d8256e8db9f50be29ba083ed4024b",
       "spec": {
-        "template": "flow",
-        "title": "Costs and trade-offs — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Costs and trade-offs",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Costs and trade-offs",
+        "actors": [
+          "project_cost",
+          "extra_profit_per_day",
+          "trading_days"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Costs and trade-offs [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Costs and trade-offs [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "FPGA development is expensive.",
+            "activeActor": "project_cost",
+            "messages": [
+              {
+                "from": "project_cost",
+                "to": "extra_profit_per_day",
+                "label": {
+                  "var": "project_cost",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "extra_profit_per_day",
+                "to": "trading_days",
+                "label": {
+                  "var": "extra_profit_per_day",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Changing strategy logic can take days or weeks in hardware instead.",
+            "activeActor": "extra_profit_per_day",
+            "messages": [
+              {
+                "from": "project_cost",
+                "to": "extra_profit_per_day",
+                "label": {
+                  "var": "project_cost",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "extra_profit_per_day",
+                "to": "trading_days",
+                "label": {
+                  "var": "extra_profit_per_day",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Costs and trade-offs [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Choose your battles.",
+            "activeActor": "trading_days",
+            "messages": [
+              {
+                "from": "project_cost",
+                "to": "extra_profit_per_day",
+                "label": {
+                  "var": "project_cost",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "extra_profit_per_day",
+                "to": "trading_days",
+                "label": {
+                  "var": "extra_profit_per_day",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Costs and trade-offs — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Costs and trade-offs",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Costs and trade-offs",
+        "actors": [
+          "project_cost",
+          "extra_profit_per_day",
+          "trading_days"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Costs and trade-offs [D29.P5.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Costs and trade-offs [D29.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "FPGA development is expensive.",
+            "messages": [
+              {
+                "from": "project_cost",
+                "to": "extra_profit_per_day",
+                "label": "1500000",
+                "tone": "data"
+              },
+              {
+                "from": "extra_profit_per_day",
+                "to": "trading_days",
+                "label": "4000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "project_cost"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Changing strategy logic can take days or weeks in hardware instead.",
+            "messages": [
+              {
+                "from": "project_cost",
+                "to": "extra_profit_per_day",
+                "label": "1500000",
+                "tone": "data"
+              },
+              {
+                "from": "extra_profit_per_day",
+                "to": "trading_days",
+                "label": "4000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "extra_profit_per_day"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Costs and trade-offs [D29.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Choose your battles.",
+            "messages": [
+              {
+                "from": "project_cost",
+                "to": "extra_profit_per_day",
+                "label": "1500000",
+                "tone": "data"
+              },
+              {
+                "from": "extra_profit_per_day",
+                "to": "trading_days",
+                "label": "4000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "trading_days"
           }
         ]
       }
@@ -1063,223 +1131,217 @@
       "partTitle": "Practice time: pipeline and resources",
       "codeHash": "bf10a8eaa12dbdba966c5b99d98a595944e63baee8468f52577c4c5edebe42e6",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: pipeline and resources — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: pipe...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: pipeline and resources",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: pipeline and resources.",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: pipe... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Cycles = stages cycles_per_stage.",
+            "bars": [
+              {
+                "label": "stages",
+                "value": {
+                  "var": "stages",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "budget_ns",
+                "value": {
+                  "var": "budget_ns",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mhz",
+                "value": {
+                  "var": "mhz",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "ns",
+                "value": {
+                  "var": "ns",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "12 stages at 250 MHz give 12 cycles, 48 ns and 250 million messages per second.",
+            "bars": [
+              {
+                "label": "stages",
+                "value": {
+                  "var": "stages",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "budget_ns",
+                "value": {
+                  "var": "budget_ns",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mhz",
+                "value": {
+                  "var": "mhz",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ns",
+                "value": {
+                  "var": "ns",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: pipeline and resou.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Tomorrow is the final capstone.",
+            "bars": [
+              {
+                "label": "stages",
+                "value": {
+                  "var": "stages",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "budget_ns",
+                "value": {
+                  "var": "budget_ns",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mhz",
+                "value": {
+                  "var": "mhz",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ns",
+                "value": {
+                  "var": "ns",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: pipeline and resources — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: pipe...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: pipeline and resources",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: pipeline and resources [D29.P6.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: pipe... [D29.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Cycles = stages cycles_per_stage.",
+            "bars": [
+              {
+                "label": "stages",
+                "value": 12,
+                "tone": "data"
+              },
+              {
+                "label": "budget_ns",
+                "value": 40,
+                "tone": "data"
+              },
+              {
+                "label": "mhz",
+                "value": 250,
+                "tone": "data"
+              },
+              {
+                "label": "ns",
+                "value": 48,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "12 stages at 250 MHz give 12 cycles, 48 ns and 250 million messages per second.",
+            "bars": [
+              {
+                "label": "stages",
+                "value": 12,
+                "tone": "ok"
+              },
+              {
+                "label": "budget_ns",
+                "value": 40,
+                "tone": "ok"
+              },
+              {
+                "label": "mhz",
+                "value": 250,
+                "tone": "ok"
+              },
+              {
+                "label": "ns",
+                "value": 48,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: pipeline and resou.. [D29.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Tomorrow is the final capstone.",
+            "bars": [
+              {
+                "label": "stages",
+                "value": 12,
+                "tone": "ok"
+              },
+              {
+                "label": "budget_ns",
+                "value": 40,
+                "tone": "ok"
+              },
+              {
+                "label": "mhz",
+                "value": 250,
+                "tone": "ok"
+              },
+              {
+                "label": "ns",
+                "value": 48,
+                "tone": "ok"
+              }
             ]
           }
         ]

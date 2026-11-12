@@ -1,159 +1,170 @@
 {
-  "schemaVersion": "2.0.0",
-  "course": "prompt-py",
-  "day": 54,
+  "schemaVersion": 1,
   "prefix": "prompt-py",
+  "day": 54,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Evolution From Manual Probing To Automated Red Teaming",
       "codeHash": "4b588d9be120aabfb0837f607664b7b0cec49681c6cf436fc0e1fb1e8e5e81e7",
       "spec": {
-        "template": "table",
-        "title": "The Evolution From Manual Probing To Automated Red Teaming.",
-        "columns": [
-          "Testing Paradigm",
-          "Generation Scalability",
-          "Vulnerability Coverage"
+        "template": "sequence",
+        "title": "The Evolution From Manual Probing To Automated Red Teaming",
+        "actors": [
+          "red_team_algorithms",
+          "fuzzing_benchmarks",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Automated red teaming exposes subtle model vulnerabilities at scale.",
-            "rows": [
-              [
-                "Manual Red Teaming",
-                "Constrained By Human Fatigue And Working Hours",
-                "Limited Exploratory Sample Space"
-              ],
-              [
-                "Automated Fuzzing Mesh",
-                "Generates Millions Of Attack Vectors Continuously",
-                "Exhaustive Cross Domain Coverage"
-              ]
+            "caption": "As enterprise foundation models assume critical responsibilities.",
+            "activeActor": "red_team_algorithms",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": {
+                  "var": "red_team_algorithms",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "fuzzing_benchmarks",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "The evolution from manual probing to automated red teaming accelerates.",
-            "rows": [
-              [
-                "Attacker Judge Harness",
-                "Closed Loop Mutation Guided By Scoring Models",
-                "Rapid Systematic Attack Refinement"
-              ],
-              [
-                "Regression Test Generation",
-                "Converts Successful Jailbreaks Into CI Assertions",
-                "Prevents Future Model Regressions"
-              ]
+            "activeActor": "fuzzing_benchmarks",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": {
+                  "var": "red_team_algorithms",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "fuzzing_benchmarks",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Autonomous attacker models probe defensive guardrails around the clock.",
-            "rows": [
-              [
-                "Full Stack Testing",
-                "Probes Models Input Sanitizers And Output Scrubbers",
-                "Zero Single Point Of Failure"
-              ],
-              [
-                "Air Gapped Test Isolation",
-                "Quarantines Generated Exploit Payloads Safely",
-                "Zero Production Spillage Risk"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Analyze limitations of manual red teaming and design automated frameworks.",
-            "rows": [
-              [
-                "Sovereign Fuzzing Mesh",
-                "Pits Attacker Models Against Defensive Shields",
-                "Superhuman Vulnerability Discovery"
-              ],
-              [
-                "Enterprise Immune System",
-                "Hardens AI Infrastructure Continuously",
-                "Flawless Enterprise Compliance"
-              ]
+            "at": "say12",
+            "caption": "Mastering the paradigm of automated red-teaming transitions security.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": {
+                  "var": "red_team_algorithms",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "fuzzing_benchmarks",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "The Evolution From Manual Probing To Automated Red Teaming.",
-        "columns": [
-          "Testing Paradigm",
-          "Generation Scalability",
-          "Vulnerability Coverage"
+        "template": "sequence",
+        "title": "The Evolution From Manual Probing To Automated Red Teaming",
+        "actors": [
+          "red_team_algorithms",
+          "fuzzing_benchmarks",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Automated red teaming exposes subtle model vulnerabilities at scale.",
-            "rows": [
-              [
-                "Manual Red Teaming",
-                "Constrained By Human Fatigue And Working Hours",
-                "Limited Exploratory Sample Space"
-              ],
-              [
-                "Automated Fuzzing Mesh",
-                "Generates Millions Of Attack Vectors Continuously",
-                "Exhaustive Cross Domain Coverage"
-              ]
-            ]
+            "caption": "As enterprise foundation models assume critical responsibilities.",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "red_team_algorithms"
           },
           {
             "at": "say2",
             "caption": "The evolution from manual probing to automated red teaming accelerates.",
-            "rows": [
-              [
-                "Attacker Judge Harness",
-                "Closed Loop Mutation Guided By Scoring Models",
-                "Rapid Systematic Attack Refinement"
-              ],
-              [
-                "Regression Test Generation",
-                "Converts Successful Jailbreaks Into CI Assertions",
-                "Prevents Future Model Regressions"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "fuzzing_benchmarks"
           },
           {
-            "at": "example",
-            "caption": "Autonomous attacker models probe defensive guardrails around the clock.",
-            "rows": [
-              [
-                "Full Stack Testing",
-                "Probes Models Input Sanitizers And Output Scrubbers",
-                "Zero Single Point Of Failure"
-              ],
-              [
-                "Air Gapped Test Isolation",
-                "Quarantines Generated Exploit Payloads Safely",
-                "Zero Production Spillage Risk"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Analyze limitations of manual red teaming and design automated frameworks.",
-            "rows": [
-              [
-                "Sovereign Fuzzing Mesh",
-                "Pits Attacker Models Against Defensive Shields",
-                "Superhuman Vulnerability Discovery"
-              ],
-              [
-                "Enterprise Immune System",
-                "Hardens AI Infrastructure Continuously",
-                "Flawless Enterprise Compliance"
-              ]
-            ]
+            "at": "say12",
+            "caption": "Mastering the paradigm of automated red-teaming transitions security.",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -162,150 +173,220 @@
       "partTitle": "Greedy Coordinate Gradient Optimization And Universal Suffixes",
       "codeHash": "4b588d9be120aabfb0837f607664b7b0cec49681c6cf436fc0e1fb1e8e5e81e7",
       "spec": {
-        "template": "table",
-        "title": "Greedy Coordinate Gradient Optimization And Universal Suffixes.",
-        "columns": [
-          "Optimization Phase",
-          "Mathematical Gradient Metric",
-          "Convergence Rate"
+        "template": "flow",
+        "title": "Greedy Coordinate Gradient Optimization And Universal Suffixes",
+        "nodes": [
+          {
+            "id": "red_team_algorithms",
+            "label": "red_team_algorithms"
+          },
+          {
+            "id": "fuzzing_benchmarks",
+            "label": "fuzzing_benchmarks"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Coordinate gradient optimizers compute token swaps on embedding loss.",
-            "rows": [
+            "caption": "Among the most mathematically rigorous automated red-teaming algorithms.",
+            "values": {
+              "red_team_algorithms": {
+                "var": "red_team_algorithms",
+                "line": 8,
+                "hit": 1
+              },
+              "fuzzing_benchmarks": {
+                "var": "fuzzing_benchmarks",
+                "line": 14,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 28,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "red_team_algorithms": "data",
+              "fuzzing_benchmarks": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "White Box Access",
-                "Inspects Model Weights And Attention Logits",
-                "Direct Mathematical Optimization"
+                "red_team_algorithms",
+                "fuzzing_benchmarks"
               ],
               [
-                "Coordinate Gradient Scan",
-                "Computes Loss Gradients Across Token Vocabulary",
-                "Microsecond Candidate Token Ranking"
+                "fuzzing_benchmarks",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
             "caption": "Greedy coordinate gradient optimization computes token gradients directly.",
-            "rows": [
+            "values": {
+              "red_team_algorithms": {
+                "var": "red_team_algorithms",
+                "line": 15,
+                "hit": 1
+              },
+              "fuzzing_benchmarks": {
+                "var": "fuzzing_benchmarks",
+                "line": 21,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 29,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "red_team_algorithms": "data",
+              "fuzzing_benchmarks": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Top Candidate Selection",
-                "Evaluates Batch Forward Loss Over Token Swaps",
-                "Fast Discrete Coordinate Descent"
+                "red_team_algorithms",
+                "fuzzing_benchmarks"
               ],
               [
-                "Universal Multi Prompt Loss",
-                "Jointly Optimizes Suffix Across Diverse Prompts",
-                "Universal Alignment Bypass Key"
+                "fuzzing_benchmarks",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Universal adversarial suffixes transfer across distinct model families.",
-            "rows": [
+            "at": "say12",
+            "caption": "Mastering Greedy Coordinate Gradient optimization equips AI security.",
+            "values": {
+              "red_team_algorithms": {
+                "var": "red_team_algorithms",
+                "line": 16,
+                "hit": 1
+              },
+              "fuzzing_benchmarks": {
+                "var": "fuzzing_benchmarks",
+                "line": 22,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 29,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "red_team_algorithms": "ok",
+              "fuzzing_benchmarks": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Black Box Transfer",
-                "Transfers Suffixes To Commercial Proprietary APIs",
-                "Exploits Universal Attention Physics"
+                "red_team_algorithms",
+                "fuzzing_benchmarks"
               ],
               [
-                "Perplexity Anomaly Gate",
-                "Detects Extreme Statistical Surprisal In Suffixes",
-                "Microsecond Perimeter Interception"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement a white box gradient optimizer computing token replacement loss.",
-            "rows": [
-              [
-                "GCG Optimization Core",
-                "Uncovers Decision Boundary Vulnerabilities",
-                "Mathematically Rigorous Alignment Testing"
-              ],
-              [
-                "Sovereign Gradient Defense",
-                "Integrates Adversarial Tokens Into DPO Training",
-                "Robust Model Hardening SLA"
+                "fuzzing_benchmarks",
+                "result"
               ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Greedy Coordinate Gradient Optimization And Universal Suffixes.",
-        "columns": [
-          "Optimization Phase",
-          "Mathematical Gradient Metric",
-          "Convergence Rate"
+        "template": "flow",
+        "title": "Greedy Coordinate Gradient Optimization And Universal Suffixes",
+        "nodes": [
+          {
+            "id": "red_team_algorithms",
+            "label": "red_team_algorithms"
+          },
+          {
+            "id": "fuzzing_benchmarks",
+            "label": "fuzzing_benchmarks"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Coordinate gradient optimizers compute token swaps on embedding loss.",
-            "rows": [
+            "caption": "Among the most mathematically rigorous automated red-teaming algorithms.",
+            "values": {
+              "red_team_algorithms": "['Greedy Coordinate Gradient (GCG) Opti…",
+              "fuzzing_benchmarks": "{'jailbreakAttemptsEvaluated': 10000, '…",
+              "result": "{'fuzzerPlatform': 'Autonomous Red-Team…"
+            },
+            "tones": {
+              "red_team_algorithms": "data",
+              "fuzzing_benchmarks": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "White Box Access",
-                "Inspects Model Weights And Attention Logits",
-                "Direct Mathematical Optimization"
+                "red_team_algorithms",
+                "fuzzing_benchmarks"
               ],
               [
-                "Coordinate Gradient Scan",
-                "Computes Loss Gradients Across Token Vocabulary",
-                "Microsecond Candidate Token Ranking"
+                "fuzzing_benchmarks",
+                "result"
               ]
             ]
           },
           {
             "at": "say2",
             "caption": "Greedy coordinate gradient optimization computes token gradients directly.",
-            "rows": [
+            "values": {
+              "red_team_algorithms": "['Greedy Coordinate Gradient (GCG) Opti…",
+              "fuzzing_benchmarks": "{'jailbreakAttemptsEvaluated': 10000, '…",
+              "result": "{'fuzzerPlatform': 'Autonomous Red-Team…"
+            },
+            "tones": {
+              "red_team_algorithms": "data",
+              "fuzzing_benchmarks": "data",
+              "result": "data"
+            },
+            "arrows": [
               [
-                "Top Candidate Selection",
-                "Evaluates Batch Forward Loss Over Token Swaps",
-                "Fast Discrete Coordinate Descent"
+                "red_team_algorithms",
+                "fuzzing_benchmarks"
               ],
               [
-                "Universal Multi Prompt Loss",
-                "Jointly Optimizes Suffix Across Diverse Prompts",
-                "Universal Alignment Bypass Key"
+                "fuzzing_benchmarks",
+                "result"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Universal adversarial suffixes transfer across distinct model families.",
-            "rows": [
+            "at": "say12",
+            "caption": "Mastering Greedy Coordinate Gradient optimization equips AI security.",
+            "values": {
+              "red_team_algorithms": "['Greedy Coordinate Gradient (GCG) Opti…",
+              "fuzzing_benchmarks": "{'jailbreakAttemptsEvaluated': 10000, '…",
+              "result": "{'fuzzerPlatform': 'Autonomous Red-Team…"
+            },
+            "tones": {
+              "red_team_algorithms": "ok",
+              "fuzzing_benchmarks": "ok",
+              "result": "ok"
+            },
+            "arrows": [
               [
-                "Black Box Transfer",
-                "Transfers Suffixes To Commercial Proprietary APIs",
-                "Exploits Universal Attention Physics"
+                "red_team_algorithms",
+                "fuzzing_benchmarks"
               ],
               [
-                "Perplexity Anomaly Gate",
-                "Detects Extreme Statistical Surprisal In Suffixes",
-                "Microsecond Perimeter Interception"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement a white box gradient optimizer computing token replacement loss.",
-            "rows": [
-              [
-                "GCG Optimization Core",
-                "Uncovers Decision Boundary Vulnerabilities",
-                "Mathematically Rigorous Alignment Testing"
-              ],
-              [
-                "Sovereign Gradient Defense",
-                "Integrates Adversarial Tokens Into DPO Training",
-                "Robust Model Hardening SLA"
+                "fuzzing_benchmarks",
+                "result"
               ]
             ]
           }
@@ -316,152 +397,162 @@
       "partTitle": "Black Box Adversarial Refinement With Prompt Iterative Frameworks",
       "codeHash": "4b588d9be120aabfb0837f607664b7b0cec49681c6cf436fc0e1fb1e8e5e81e7",
       "spec": {
-        "template": "table",
-        "title": "Black Box Adversarial Refinement With Prompt Iterative Frameworks.",
-        "columns": [
-          "Agent Role",
-          "Cognitive Function",
-          "Adversarial Refinement SLA"
+        "template": "sequence",
+        "title": "Black Box Adversarial Refinement With Prompt Iterative Framework",
+        "actors": [
+          "red_team_algorithms",
+          "fuzzing_benchmarks",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Iterative black box agents refine jailbreak prompts using judge feedback.",
-            "rows": [
-              [
-                "Attacker Model Agent",
-                "Generates Creative Social Engineering Prompts",
-                "Autonomous Strategy Formulation"
-              ],
-              [
-                "Target Model Endpoint",
-                "Evaluates Candidate Prompts Under Black Box Rules",
-                "Production API Testing Standard"
-              ]
+            "caption": "While white-box gradient optimization is extraordinarily powerful.",
+            "activeActor": "red_team_algorithms",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": {
+                  "var": "red_team_algorithms",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "fuzzing_benchmarks",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Black box adversarial refinement with prompt iterative frameworks probes.",
-            "rows": [
-              [
-                "Judge Model Evaluator",
-                "Scores Alignment Breaches On Quantitative Scale",
-                "Provides Rich Diagnostic Feedback"
-              ],
-              [
-                "Failure Reflection Loop",
-                "Mutates Rejected Prompts Based On Judge Critiques",
-                "Rapid Convergence Velocity"
-              ]
+            "activeActor": "fuzzing_benchmarks",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": {
+                  "var": "red_team_algorithms",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "fuzzing_benchmarks",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Adversarial attacker models achieve jailbreaks in under five iterations.",
-            "rows": [
-              [
-                "Strategy Adaptation",
-                "Pivots Between Roleplay Ciphers And Hypotheticals",
-                "Median Four Iterations To Converge"
-              ],
-              [
-                "Multi Turn Trajectory",
-                "Executes Multi Step Conversational Steering Attacks",
-                "Tests Long Context Vigilance"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Construct a closed loop attacker judge harness refining adversarial inputs.",
-            "rows": [
-              [
-                "PAIR Framework Core",
-                "Coordinates Black Box Attacker Judge Loops",
-                "Sub Twenty API Call Convergence"
-              ],
-              [
-                "Sovereign Black Box Mesh",
-                "Benchmarks Commercial Models Without Weights",
-                "Flawless Security Penetration SLA"
-              ]
+            "at": "say12",
+            "caption": "Mastering Prompt Automatic Iterative Refinement provides security.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": {
+                  "var": "red_team_algorithms",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "fuzzing_benchmarks",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Black Box Adversarial Refinement With Prompt Iterative Frameworks.",
-        "columns": [
-          "Agent Role",
-          "Cognitive Function",
-          "Adversarial Refinement SLA"
+        "template": "sequence",
+        "title": "Black Box Adversarial Refinement With Prompt Iterative Framework",
+        "actors": [
+          "red_team_algorithms",
+          "fuzzing_benchmarks",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Iterative black box agents refine jailbreak prompts using judge feedback.",
-            "rows": [
-              [
-                "Attacker Model Agent",
-                "Generates Creative Social Engineering Prompts",
-                "Autonomous Strategy Formulation"
-              ],
-              [
-                "Target Model Endpoint",
-                "Evaluates Candidate Prompts Under Black Box Rules",
-                "Production API Testing Standard"
-              ]
-            ]
+            "caption": "While white-box gradient optimization is extraordinarily powerful.",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "red_team_algorithms"
           },
           {
             "at": "say2",
             "caption": "Black box adversarial refinement with prompt iterative frameworks probes.",
-            "rows": [
-              [
-                "Judge Model Evaluator",
-                "Scores Alignment Breaches On Quantitative Scale",
-                "Provides Rich Diagnostic Feedback"
-              ],
-              [
-                "Failure Reflection Loop",
-                "Mutates Rejected Prompts Based On Judge Critiques",
-                "Rapid Convergence Velocity"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "fuzzing_benchmarks"
           },
           {
-            "at": "example",
-            "caption": "Adversarial attacker models achieve jailbreaks in under five iterations.",
-            "rows": [
-              [
-                "Strategy Adaptation",
-                "Pivots Between Roleplay Ciphers And Hypotheticals",
-                "Median Four Iterations To Converge"
-              ],
-              [
-                "Multi Turn Trajectory",
-                "Executes Multi Step Conversational Steering Attacks",
-                "Tests Long Context Vigilance"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Construct a closed loop attacker judge harness refining adversarial inputs.",
-            "rows": [
-              [
-                "PAIR Framework Core",
-                "Coordinates Black Box Attacker Judge Loops",
-                "Sub Twenty API Call Convergence"
-              ],
-              [
-                "Sovereign Black Box Mesh",
-                "Benchmarks Commercial Models Without Weights",
-                "Flawless Security Penetration SLA"
-              ]
-            ]
+            "at": "say12",
+            "caption": "Mastering Prompt Automatic Iterative Refinement provides security.",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -470,152 +561,162 @@
       "partTitle": "Tree Of Attacks With Pruning And Evolutionary Genetic Fuzzing",
       "codeHash": "4b588d9be120aabfb0837f607664b7b0cec49681c6cf436fc0e1fb1e8e5e81e7",
       "spec": {
-        "template": "table",
-        "title": "Tree Of Attacks With Pruning And Evolutionary Genetic Fuzzing.",
-        "columns": [
-          "Search Algorithm",
-          "Branching Mechanism",
-          "Exploration Efficiency SLA"
+        "template": "sequence",
+        "title": "Tree Of Attacks With Pruning And Evolutionary Genetic Fuzzing",
+        "actors": [
+          "red_team_algorithms",
+          "fuzzing_benchmarks",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tree search algorithms explore parallel prompt branches and prune failures.",
-            "rows": [
-              [
-                "Branching Decision Tree",
-                "Synthesizes Multiple Parallel Candidate Mutations",
-                "Eliminates Linear Search Dead Ends"
-              ],
-              [
-                "Automated Branch Pruning",
-                "Eliminates Off Topic Or Futile Paths Early",
-                "Prevents Exponential Tree Explosion"
-              ]
+            "caption": "While linear iterative algorithms like PAIR are remarkably effective, they.",
+            "activeActor": "red_team_algorithms",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": {
+                  "var": "red_team_algorithms",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "fuzzing_benchmarks",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Tree of attacks with pruning and evolutionary genetic fuzzing scale tests.",
-            "rows": [
-              [
-                "Evolutionary Genetic Fuzzer",
-                "Executes Crossover And Mutation Across Prompts",
-                "Breeds Stealthy Attack Populations"
-              ],
-              [
-                "Composite Fitness Metric",
-                "Evaluates Refusal Probability And Lexical Drift",
-                "Guides Fuzzer Toward Weak Spots"
-              ]
+            "activeActor": "fuzzing_benchmarks",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": {
+                  "var": "red_team_algorithms",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "fuzzing_benchmarks",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Evolutionary fuzzers mutate adversarial prompts across diverse lineages.",
-            "rows": [
-              [
-                "Distributed Worker Mesh",
-                "Distributes Tree Nodes Across Ray Worker Clusters",
-                "Tens Of Thousands Of Tests Per Hour"
-              ],
-              [
-                "Safety Immunization Core",
-                "Feeds Pruned Attack Branches Into Guardrail Data",
-                "Continuous Platform Hardening"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a tree search fuzzer exploring parallel prompt candidate branches.",
-            "rows": [
-              [
-                "Tree Search Architecture",
-                "Combines Parallel Branching And Genetic Mutations",
-                "Superhuman Exploration Power"
-              ],
-              [
-                "Sovereign Testing Engine",
-                "Exposes Deepest Alignment Vulnerabilities",
-                "Uncompromised Fleet Reliability"
-              ]
+            "at": "say12",
+            "caption": "Mastering Tree of Attacks with Pruning and evolutionary genetic fuzzing.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": {
+                  "var": "red_team_algorithms",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "fuzzing_benchmarks",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Tree Of Attacks With Pruning And Evolutionary Genetic Fuzzing.",
-        "columns": [
-          "Search Algorithm",
-          "Branching Mechanism",
-          "Exploration Efficiency SLA"
+        "template": "sequence",
+        "title": "Tree Of Attacks With Pruning And Evolutionary Genetic Fuzzing",
+        "actors": [
+          "red_team_algorithms",
+          "fuzzing_benchmarks",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tree search algorithms explore parallel prompt branches and prune failures.",
-            "rows": [
-              [
-                "Branching Decision Tree",
-                "Synthesizes Multiple Parallel Candidate Mutations",
-                "Eliminates Linear Search Dead Ends"
-              ],
-              [
-                "Automated Branch Pruning",
-                "Eliminates Off Topic Or Futile Paths Early",
-                "Prevents Exponential Tree Explosion"
-              ]
-            ]
+            "caption": "While linear iterative algorithms like PAIR are remarkably effective, they.",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "red_team_algorithms"
           },
           {
             "at": "say2",
             "caption": "Tree of attacks with pruning and evolutionary genetic fuzzing scale tests.",
-            "rows": [
-              [
-                "Evolutionary Genetic Fuzzer",
-                "Executes Crossover And Mutation Across Prompts",
-                "Breeds Stealthy Attack Populations"
-              ],
-              [
-                "Composite Fitness Metric",
-                "Evaluates Refusal Probability And Lexical Drift",
-                "Guides Fuzzer Toward Weak Spots"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "fuzzing_benchmarks"
           },
           {
-            "at": "example",
-            "caption": "Evolutionary fuzzers mutate adversarial prompts across diverse lineages.",
-            "rows": [
-              [
-                "Distributed Worker Mesh",
-                "Distributes Tree Nodes Across Ray Worker Clusters",
-                "Tens Of Thousands Of Tests Per Hour"
-              ],
-              [
-                "Safety Immunization Core",
-                "Feeds Pruned Attack Branches Into Guardrail Data",
-                "Continuous Platform Hardening"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a tree search fuzzer exploring parallel prompt candidate branches.",
-            "rows": [
-              [
-                "Tree Search Architecture",
-                "Combines Parallel Branching And Genetic Mutations",
-                "Superhuman Exploration Power"
-              ],
-              [
-                "Sovereign Testing Engine",
-                "Exposes Deepest Alignment Vulnerabilities",
-                "Uncompromised Fleet Reliability"
-              ]
-            ]
+            "at": "say12",
+            "caption": "Mastering Tree of Attacks with Pruning and evolutionary genetic fuzzing.",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }
@@ -624,152 +725,162 @@
       "partTitle": "Enterprise Autonomous Red Teaming And Adversarial Fuzzing Mesh",
       "codeHash": "4b588d9be120aabfb0837f607664b7b0cec49681c6cf436fc0e1fb1e8e5e81e7",
       "spec": {
-        "template": "table",
-        "title": "Enterprise Autonomous Red Teaming And Adversarial Fuzzing Mesh.",
-        "columns": [
-          "Fuzzer Component",
-          "Orchestration Primitive",
-          "Benchmark Verification SLA"
+        "template": "sequence",
+        "title": "Enterprise Autonomous Red Teaming And Adversarial Fuzzing Mesh",
+        "actors": [
+          "red_team_algorithms",
+          "fuzzing_benchmarks",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise red teaming meshes evaluate model robustness continuously.",
-            "rows": [
-              [
-                "GCG Optimizer Engine",
-                "Executes White Box Token Coordinate Optimization",
-                "Calculates Loss Over Vocabulary"
-              ],
-              [
-                "PAIR Refinement Harness",
-                "Coordinates Closed Loop Black Box Agent Battles",
-                "Four Point Two Median Iterations"
-              ]
+            "caption": "Translating automated red-teaming theory, Greedy Coordinate Gradient.",
+            "activeActor": "red_team_algorithms",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": {
+                  "var": "red_team_algorithms",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "fuzzing_benchmarks",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Enterprise autonomous red teaming and adversarial fuzzing meshes verify.",
-            "rows": [
-              [
-                "TAP Tree Search Module",
-                "Executes Parallel Branching With Automated Pruning",
-                "Scales Without Exponential Bloat"
-              ],
-              [
-                "Evolutionary Genetic Fuzzer",
-                "Mutates Prompt Populations Across Generations",
-                "Discovers Zero Day Phrasing Vectors"
-              ]
+            "activeActor": "fuzzing_benchmarks",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": {
+                  "var": "red_team_algorithms",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "fuzzing_benchmarks",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Automated red team fuzzers evaluate ten thousand attacks deterministically.",
-            "rows": [
-              [
-                "AsyncIO Cluster Worker",
-                "Coordinates Distributed Fuzzing Task Queues",
-                "High Concurrency Fleet Scalability"
-              ],
-              [
-                "OpenTelemetry Trace Bus",
-                "Exports Real Time Attack Success Histograms",
-                "Granular Production Observability"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy an autonomous red teaming mesh benchmarking model security gates.",
-            "rows": [
-              [
-                "Cryptographic Safety Ledger",
-                "Archives Hashes Of Prompts Classifications",
-                "Statutory Compliance Architecture"
-              ],
-              [
-                "Apex Red Teaming Mesh",
-                "Harmonizes GCG PAIR And TAP Algorithms",
-                "Ninety Nine Percent Deflection SLA"
-              ]
+            "at": "say14",
+            "caption": "Mastering the engineering architecture of autonomous red-teaming.",
+            "activeActor": "result",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": {
+                  "var": "red_team_algorithms",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": {
+                  "var": "fuzzing_benchmarks",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Enterprise Autonomous Red Teaming And Adversarial Fuzzing Mesh.",
-        "columns": [
-          "Fuzzer Component",
-          "Orchestration Primitive",
-          "Benchmark Verification SLA"
+        "template": "sequence",
+        "title": "Enterprise Autonomous Red Teaming And Adversarial Fuzzing Mesh",
+        "actors": [
+          "red_team_algorithms",
+          "fuzzing_benchmarks",
+          "result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise red teaming meshes evaluate model robustness continuously.",
-            "rows": [
-              [
-                "GCG Optimizer Engine",
-                "Executes White Box Token Coordinate Optimization",
-                "Calculates Loss Over Vocabulary"
-              ],
-              [
-                "PAIR Refinement Harness",
-                "Coordinates Closed Loop Black Box Agent Battles",
-                "Four Point Two Median Iterations"
-              ]
-            ]
+            "caption": "Translating automated red-teaming theory, Greedy Coordinate Gradient.",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "red_team_algorithms"
           },
           {
             "at": "say2",
             "caption": "Enterprise autonomous red teaming and adversarial fuzzing meshes verify.",
-            "rows": [
-              [
-                "TAP Tree Search Module",
-                "Executes Parallel Branching With Automated Pruning",
-                "Scales Without Exponential Bloat"
-              ],
-              [
-                "Evolutionary Genetic Fuzzer",
-                "Mutates Prompt Populations Across Generations",
-                "Discovers Zero Day Phrasing Vectors"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "fuzzing_benchmarks"
           },
           {
-            "at": "example",
-            "caption": "Automated red team fuzzers evaluate ten thousand attacks deterministically.",
-            "rows": [
-              [
-                "AsyncIO Cluster Worker",
-                "Coordinates Distributed Fuzzing Task Queues",
-                "High Concurrency Fleet Scalability"
-              ],
-              [
-                "OpenTelemetry Trace Bus",
-                "Exports Real Time Attack Success Histograms",
-                "Granular Production Observability"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy an autonomous red teaming mesh benchmarking model security gates.",
-            "rows": [
-              [
-                "Cryptographic Safety Ledger",
-                "Archives Hashes Of Prompts Classifications",
-                "Statutory Compliance Architecture"
-              ],
-              [
-                "Apex Red Teaming Mesh",
-                "Harmonizes GCG PAIR And TAP Algorithms",
-                "Ninety Nine Percent Deflection SLA"
-              ]
-            ]
+            "at": "say14",
+            "caption": "Mastering the engineering architecture of autonomous red-teaming.",
+            "messages": [
+              {
+                "from": "red_team_algorithms",
+                "to": "fuzzing_benchmarks",
+                "label": "['Greedy Coordinate Gradient (GCG) Opti…",
+                "tone": "data"
+              },
+              {
+                "from": "fuzzing_benchmarks",
+                "to": "result",
+                "label": "{'jailbreakAttemptsEvaluated': 10000, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "result"
           }
         ]
       }

@@ -2,270 +2,228 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 35,
-  "promptSha": "d03c8d4ef493e8482cf1814db16e0d739087af8903c214b37715e8f6ec492200",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Milestone 7 — Foundations & Mathematical Invariants",
-      "codeHash": "af4e91932987b547e938c1cc3af34cf4d52eb3bdbd01d4b3828e98993627a27b",
+      "codeHash": "9c5c7d6986c50b191bfc7e3c2c8c803ff52a23e3e1ffaf43c6f9f0d039e5e318",
       "spec": {
         "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
+        "title": "Milestone 7 — Foundations & Mathematical Invariants",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "spec",
+            "label": "spec"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how milestone updates unifies during execution.",
+            "values": {
+              "spec": {
+                "var": "spec",
+                "line": 18,
+                "hit": 1
+              },
+              "p": {
+                "var": "p",
+                "line": 20,
+                "hit": 1
+              },
+              "desc": {
+                "var": "desc",
+                "line": 20,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "spec": "data",
+              "p": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "spec",
+                "p"
+              ],
+              [
+                "p",
+                "desc"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "High-frequency algorithmic trading requires coordinating multiple.",
+            "values": {
+              "spec": {
+                "var": "spec",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "p": {
+                "var": "p",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "desc": {
+                "var": "desc",
+                "line": 21,
+                "hit": 1
               }
+            },
+            "tones": {
+              "spec": "data",
+              "p": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "spec",
+                "p"
+              ],
+              [
+                "p",
+                "desc"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Comprehensive architecture verification ensures that all order generation.",
+            "values": {
+              "spec": {
+                "var": "spec",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "p": {
+                "var": "p",
+                "line": 20,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "desc": {
+                "var": "desc",
+                "line": 20,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "spec": "ok",
+              "p": "ok",
+              "desc": "ok"
+            },
+            "arrows": [
+              [
+                "spec",
+                "p"
+              ],
+              [
+                "p",
+                "desc"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
+        "title": "Milestone 7 — Foundations & Mathematical Invariants",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "spec",
+            "label": "spec"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how milestone updates unifies during execution.",
+            "values": {
+              "spec": "{'pillar_count': 4, 'pillars': {'FLOW_A…",
+              "p": "'FLOW_ALPHA'",
+              "desc": "'Order Flow Imbalance (OFI) L1/L2 Delta…"
+            },
+            "tones": {
+              "spec": "data",
+              "p": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "spec",
+                "p"
+              ],
+              [
+                "p",
+                "desc"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "High-frequency algorithmic trading requires coordinating multiple.",
+            "values": {
+              "spec": "{'pillar_count': 4, 'pillars': {'FLOW_A…",
+              "p": "'FLOW_ALPHA'",
+              "desc": "'Order Flow Imbalance (OFI) L1/L2 Delta…"
+            },
+            "tones": {
+              "spec": "data",
+              "p": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "spec",
+                "p"
+              ],
+              [
+                "p",
+                "desc"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Comprehensive architecture verification ensures that all order generation.",
+            "values": {
+              "spec": "{'pillar_count': 4, 'pillars': {'FLOW_A…",
+              "p": "'TOXICITY_FILTER'",
+              "desc": "'Volume-Synchronized Probability of Inf…"
+            },
+            "tones": {
+              "spec": "ok",
+              "p": "ok",
+              "desc": "ok"
+            },
+            "arrows": [
+              [
+                "spec",
+                "p"
+              ],
+              [
+                "p",
+                "desc"
+              ]
             ]
           }
         ]
@@ -273,264 +231,218 @@
     },
     {
       "partTitle": "Milestone 7 — Core Algorithm & State Representation",
-      "codeHash": "cd2d5adf9b6b26ae78a9dff63f33ba3a4b7ae95c9e3df51838dc59898f5c3216",
+      "codeHash": "2ed72619da8716a59fad1168c1a140ba785896ee41cb758afa5e16c6de2f8b65",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Milestone 7 — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core market making algorithm coordinates signal evaluation, state.",
+            "bars": [
+              {
+                "label": "mid_price",
+                "value": {
+                  "var": "mid_price",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "max_inv",
+                "value": {
+                  "var": "max_inv",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "vpin_score",
+                "value": {
+                  "var": "vpin_score",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "volatility",
+                "value": {
+                  "var": "volatility",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "When a market depth update arrives, the kernel updates running OFI.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "mid_price",
+                "value": {
+                  "var": "mid_price",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_inv",
+                "value": {
+                  "var": "max_inv",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "vpin_score",
+                "value": {
+                  "var": "vpin_score",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "volatility",
+                "value": {
+                  "var": "volatility",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "The state representation maintains circular event queues and real-time.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "mid_price",
+                "value": {
+                  "var": "mid_price",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_inv",
+                "value": {
+                  "var": "max_inv",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "vpin_score",
+                "value": {
+                  "var": "vpin_score",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "volatility",
+                "value": {
+                  "var": "volatility",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Milestone 7 — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core market making algorithm coordinates signal evaluation, state.",
+            "bars": [
+              {
+                "label": "mid_price",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "max_inv",
+                "value": 50,
+                "tone": "data"
+              },
+              {
+                "label": "vpin_score",
+                "value": 0.25,
+                "tone": "data"
+              },
+              {
+                "label": "volatility",
+                "value": 0.02,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "When a market depth update arrives, the kernel updates running OFI.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "mid_price",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_inv",
+                "value": 50,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "vpin_score",
+                "value": 0.25,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "volatility",
+                "value": 0.02,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "The state representation maintains circular event queues and real-time.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "mid_price",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_inv",
+                "value": 50,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "vpin_score",
+                "value": 0.25,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "volatility",
+                "value": 0.02,
+                "tone": "ok"
               }
             ]
           }
@@ -539,264 +451,218 @@
     },
     {
       "partTitle": "Milestone 7 — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "82f2599252e8f4ce88d045e0da6810ef7a69556ca713fe566d9c6ded099a86ce",
+      "codeHash": "bcc822c14ceb17559e594d0fcb5cde6d83204b83341a7efe7c1f906907af207b",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Milestone 7 — Throughput Optimization & Edge-Case Handling",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Sustaining market making across dozens of correlated instruments requires.",
+            "bars": [
+              {
+                "label": "old_bid",
+                "value": {
+                  "var": "old_bid",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "old_ask",
+                "value": {
+                  "var": "old_ask",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "new_bid",
+                "value": {
+                  "var": "new_bid",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "new_ask",
+                "value": {
+                  "var": "new_ask",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In production architectures, order book updates and trade feeds are parsed.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "old_bid",
+                "value": {
+                  "var": "old_bid",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "old_ask",
+                "value": {
+                  "var": "old_ask",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "new_bid",
+                "value": {
+                  "var": "new_bid",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "new_ask",
+                "value": {
+                  "var": "new_ask",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Latency profile benchmarking on production hardware confirms that quote.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "old_bid",
+                "value": {
+                  "var": "old_bid",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "old_ask",
+                "value": {
+                  "var": "old_ask",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "new_bid",
+                "value": {
+                  "var": "new_bid",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "new_ask",
+                "value": {
+                  "var": "new_ask",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Milestone 7 — Throughput Optimization & Edge-Case Handling",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Sustaining market making across dozens of correlated instruments requires.",
+            "bars": [
+              {
+                "label": "old_bid",
+                "value": 100.01,
+                "tone": "data"
+              },
+              {
+                "label": "old_ask",
+                "value": 100.05,
+                "tone": "data"
+              },
+              {
+                "label": "new_bid",
+                "value": 100.012,
+                "tone": "data"
+              },
+              {
+                "label": "new_ask",
+                "value": 100.051,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In production architectures, order book updates and trade feeds are parsed.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "old_bid",
+                "value": 100.01,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "old_ask",
+                "value": 100.05,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "new_bid",
+                "value": 100.012,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "new_ask",
+                "value": 100.051,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Latency profile benchmarking on production hardware confirms that quote.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "old_bid",
+                "value": 100.01,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "old_ask",
+                "value": 100.05,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "new_bid",
+                "value": 100.012,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "new_ask",
+                "value": 100.051,
+                "tone": "ok"
               }
             ]
           }
@@ -805,265 +671,279 @@
     },
     {
       "partTitle": "Milestone 7 — Resilience Guardrails & Failure Recovery",
-      "codeHash": "c7169f711b43a3aed4417b6e98fac30a0e86b1815c4cb4c71b3a1ed7ad0af73f",
+      "codeHash": "8c449b1ab254edf69bb717abd47f11fbf3894dc15a3eae6a03bbb181490c6359",
       "spec": {
         "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
+        "title": "Milestone 7 — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "heartbeat_delay_ms",
+            "label": "heartbeat_delay_ms"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "intraday_drawdown_pct",
+            "label": "intraday_drawdown_pct"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "current_inventory",
+            "label": "current_inventory"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "issues",
+            "label": "issues"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating an autonomous market making kernel requires comprehensive.",
+            "values": {
+              "heartbeat_delay_ms": {
+                "var": "heartbeat_delay_ms",
+                "line": 4,
+                "hit": 1
+              },
+              "intraday_drawdown_pct": {
+                "var": "intraday_drawdown_pct",
+                "line": 4,
+                "hit": 1
+              },
+              "current_inventory": {
+                "var": "current_inventory",
+                "line": 4,
+                "hit": 1
+              },
+              "issues": {
+                "var": "issues",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "heartbeat_delay_ms": "data",
+              "intraday_drawdown_pct": "data",
+              "current_inventory": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "heartbeat_delay_ms",
+                "intraday_drawdown_pct"
+              ],
+              [
+                "intraday_drawdown_pct",
+                "current_inventory"
+              ],
+              [
+                "current_inventory",
+                "issues"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "When market volatility spikes beyond historical norms or when exchange.",
+            "values": {
+              "heartbeat_delay_ms": {
+                "var": "heartbeat_delay_ms",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "intraday_drawdown_pct": {
+                "var": "intraday_drawdown_pct",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "current_inventory": {
+                "var": "current_inventory",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "issues": {
+                "var": "issues",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "heartbeat_delay_ms": "data",
+              "intraday_drawdown_pct": "data",
+              "current_inventory": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "heartbeat_delay_ms",
+                "intraday_drawdown_pct"
+              ],
+              [
+                "intraday_drawdown_pct",
+                "current_inventory"
+              ],
+              [
+                "current_inventory",
+                "issues"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Automated circuit breakers trigger instantaneous quote cancellation across.",
+            "values": {
+              "heartbeat_delay_ms": {
+                "var": "heartbeat_delay_ms",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "intraday_drawdown_pct": {
+                "var": "intraday_drawdown_pct",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "current_inventory": {
+                "var": "current_inventory",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "issues": {
+                "var": "issues",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "heartbeat_delay_ms": "ok",
+              "intraday_drawdown_pct": "ok",
+              "current_inventory": "ok",
+              "issues": "ok"
+            },
+            "arrows": [
+              [
+                "heartbeat_delay_ms",
+                "intraday_drawdown_pct"
+              ],
+              [
+                "intraday_drawdown_pct",
+                "current_inventory"
+              ],
+              [
+                "current_inventory",
+                "issues"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
+        "title": "Milestone 7 — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "heartbeat_delay_ms",
+            "label": "heartbeat_delay_ms"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "intraday_drawdown_pct",
+            "label": "intraday_drawdown_pct"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "current_inventory",
+            "label": "current_inventory"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "issues",
+            "label": "issues"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operating an autonomous market making kernel requires comprehensive.",
+            "values": {
+              "heartbeat_delay_ms": "12",
+              "intraday_drawdown_pct": "0.45",
+              "current_inventory": "10",
+              "issues": "[]"
+            },
+            "tones": {
+              "heartbeat_delay_ms": "data",
+              "intraday_drawdown_pct": "data",
+              "current_inventory": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "heartbeat_delay_ms",
+                "intraday_drawdown_pct"
+              ],
+              [
+                "intraday_drawdown_pct",
+                "current_inventory"
+              ],
+              [
+                "current_inventory",
+                "issues"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "When market volatility spikes beyond historical norms or when exchange.",
+            "values": {
+              "heartbeat_delay_ms": "12",
+              "intraday_drawdown_pct": "0.45",
+              "current_inventory": "10",
+              "issues": "[]"
+            },
+            "tones": {
+              "heartbeat_delay_ms": "data",
+              "intraday_drawdown_pct": "data",
+              "current_inventory": "data",
+              "issues": "data"
+            },
+            "arrows": [
+              [
+                "heartbeat_delay_ms",
+                "intraday_drawdown_pct"
+              ],
+              [
+                "intraday_drawdown_pct",
+                "current_inventory"
+              ],
+              [
+                "current_inventory",
+                "issues"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say8",
+            "caption": "Automated circuit breakers trigger instantaneous quote cancellation across.",
+            "values": {
+              "heartbeat_delay_ms": "12",
+              "intraday_drawdown_pct": "0.45",
+              "current_inventory": "10",
+              "issues": "[]"
+            },
+            "tones": {
+              "heartbeat_delay_ms": "ok",
+              "intraday_drawdown_pct": "ok",
+              "current_inventory": "ok",
+              "issues": "ok"
+            },
+            "arrows": [
+              [
+                "heartbeat_delay_ms",
+                "intraday_drawdown_pct"
+              ],
+              [
+                "intraday_drawdown_pct",
+                "current_inventory"
+              ],
+              [
+                "current_inventory",
+                "issues"
+              ]
             ]
           }
         ]
@@ -1071,266 +951,164 @@
     },
     {
       "partTitle": "Milestone 7 — Production Telemetry & Verification Audit",
-      "codeHash": "f892a019aea81784df10d862bbe1baed50ed195f72e50ed153c321bcdb282cd2",
+      "codeHash": "5cd6ecc126fe069c8a11eb90d102b6602bef00f94fa5ff6e522797823223b7e1",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Milestone 7 — Production Telemetry & Verification Audit",
+        "actors": [
+          "gates",
+          ".0",
+          "g"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how gate updates certification during execution.",
+            "activeActor": "gates",
+            "messages": [
+              {
+                "from": "gates",
+                "to": ".0",
+                "label": {
+                  "var": "gates",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "g",
+                "label": {
+                  "var": ".0",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how gate updates asserts during execution.",
+            "activeActor": ".0",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "gates",
+                "to": ".0",
+                "label": {
+                  "var": "gates",
+                  "line": 12,
+                  "hit": 7
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": ".0",
+                "to": "g",
+                "label": {
+                  "var": ".0",
+                  "line": 12,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Production telemetry streams execution shortfall and inventory decay.",
+            "activeActor": "g",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "gates",
+                "to": ".0",
+                "label": {
+                  "var": "gates",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": ".0",
+                "to": "g",
+                "label": {
+                  "var": ".0",
+                  "line": 12,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Milestone 7 — Production Telemetry & Verification Audit",
+        "actors": [
+          "gates",
+          ".0",
+          "g"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how gate updates certification during execution.",
+            "messages": [
+              {
+                "from": "gates",
+                "to": ".0",
+                "label": "{'GATE_1_OFI_ALPHA_IC': {'passed': True…",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "g",
+                "label": "{'__other__': 'dict_valueiterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "gates"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how gate updates asserts during execution.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "gates",
+                "to": ".0",
+                "label": "{'GATE_1_OFI_ALPHA_IC': {'passed': True…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": ".0",
+                "to": "g",
+                "label": "{'__other__': 'dict_valueiterator'}",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": ".0"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Production telemetry streams execution shortfall and inventory decay.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "gates",
+                "to": ".0",
+                "label": "{'GATE_1_OFI_ALPHA_IC': {'passed': True…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": ".0",
+                "to": "g",
+                "label": "{'__other__': 'dict_valueiterator'}",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "g"
           }
         ]
       }

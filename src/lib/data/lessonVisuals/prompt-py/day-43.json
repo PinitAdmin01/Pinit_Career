@@ -1,158 +1,141 @@
 {
-  "schemaVersion": "2.0.0",
-  "course": "prompt-py",
-  "day": 43,
+  "schemaVersion": 1,
   "prefix": "prompt-py",
+  "day": 43,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Democratic And Weighted Voting Protocols In Autonomous Agent Swarms",
       "codeHash": "1fa7f732f55795000202d8c3f2a3abcf939e78b5669acb3132030c105d10de95",
       "spec": {
-        "template": "table",
-        "title": "Democratic And Weighted Voting Protocols In Autonomous Agent Swarms.",
-        "columns": [
-          "Voting Protocol Model",
-          "Ballot Aggregation Rule",
-          "Strategic Resilience Level"
-        ],
+        "template": "bars",
+        "title": "Democratic And Weighted Voting Protocols In Autonomous Agent Swa",
         "steps": [
           {
             "at": "say1",
-            "caption": "Democratic voting protocols aggregate distributed swarm judgments.",
-            "rows": [
-              [
-                "Plurality Majority Ballot",
-                "Candidate Receiving Highest Vote Share Wins",
-                "Basic Low Stakes Decision Alignment"
-              ],
-              [
-                "Borda Ranked Preference",
-                "Points Assigned By Inverted Position Order",
-                "Prevents Polarizing Fringe Outcomes"
-              ]
+            "caption": "In single-agent generative pipelines, model outputs are notoriously.",
+            "bars": [
+              {
+                "label": "total_nodes",
+                "value": {
+                  "var": "total_nodes",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "f_faults_toler",
+                "value": {
+                  "var": "f_faults_tolerated",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Democratic and weighted voting protocols in autonomous swarms aggregate.",
-            "rows": [
-              [
-                "Quadratic Conviction Pool",
-                "Token Cost Equals Square Of Votes Cast",
-                "Enables Passionate Minority Insight"
-              ],
-              [
-                "Domain Weighted Matrix",
-                "Votes Scaled By Verified Historical Accuracy",
-                "Guarantees Specialized Subject Dominance"
-              ]
+            "bars": [
+              {
+                "label": "total_nodes",
+                "value": {
+                  "var": "total_nodes",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "f_faults_toler",
+                "value": {
+                  "var": "f_faults_tolerated",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Voters aggregate domain weighted ballots to establish swarm consensus.",
-            "rows": [
-              [
-                "Self Consistency Sampler",
-                "Aggregates High Temperature Model Variations",
-                "Eliminates Idiosyncratic Generation Bias"
-              ],
-              [
-                "Pairwise Condorcet Check",
-                "Tournaments Compare All Alternative Pairings",
-                "Identifies Unanimously Respected Consensus"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement a quadratic voting calculator with preference cost budgets.",
-            "rows": [
-              [
-                "Commit Reveal Cryptography",
-                "Encrypted Hash Submitted Prior To Disclosure",
-                "Prevents Peer Herding Cascade Effects"
-              ],
-              [
-                "Sovereign Voting Gateway",
-                "Collects Signed Ballots Across Worker Swarm",
-                "Enforces Complete Electoral Provenance"
-              ]
+            "at": "say10",
+            "caption": "Mastering democratic and weighted voting protocols equips AI system.",
+            "bars": [
+              {
+                "label": "total_nodes",
+                "value": {
+                  "var": "total_nodes",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "f_faults_toler",
+                "value": {
+                  "var": "f_faults_tolerated",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Democratic And Weighted Voting Protocols In Autonomous Agent Swarms.",
-        "columns": [
-          "Voting Protocol Model",
-          "Ballot Aggregation Rule",
-          "Strategic Resilience Level"
-        ],
+        "template": "bars",
+        "title": "Democratic And Weighted Voting Protocols In Autonomous Agent Swa",
         "steps": [
           {
             "at": "say1",
-            "caption": "Democratic voting protocols aggregate distributed swarm judgments.",
-            "rows": [
-              [
-                "Plurality Majority Ballot",
-                "Candidate Receiving Highest Vote Share Wins",
-                "Basic Low Stakes Decision Alignment"
-              ],
-              [
-                "Borda Ranked Preference",
-                "Points Assigned By Inverted Position Order",
-                "Prevents Polarizing Fringe Outcomes"
-              ]
+            "caption": "In single-agent generative pipelines, model outputs are notoriously.",
+            "bars": [
+              {
+                "label": "total_nodes",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "f_faults_toler",
+                "value": 1,
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Democratic and weighted voting protocols in autonomous swarms aggregate.",
-            "rows": [
-              [
-                "Quadratic Conviction Pool",
-                "Token Cost Equals Square Of Votes Cast",
-                "Enables Passionate Minority Insight"
-              ],
-              [
-                "Domain Weighted Matrix",
-                "Votes Scaled By Verified Historical Accuracy",
-                "Guarantees Specialized Subject Dominance"
-              ]
+            "bars": [
+              {
+                "label": "total_nodes",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "f_faults_toler",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Voters aggregate domain weighted ballots to establish swarm consensus.",
-            "rows": [
-              [
-                "Self Consistency Sampler",
-                "Aggregates High Temperature Model Variations",
-                "Eliminates Idiosyncratic Generation Bias"
-              ],
-              [
-                "Pairwise Condorcet Check",
-                "Tournaments Compare All Alternative Pairings",
-                "Identifies Unanimously Respected Consensus"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement a quadratic voting calculator with preference cost budgets.",
-            "rows": [
-              [
-                "Commit Reveal Cryptography",
-                "Encrypted Hash Submitted Prior To Disclosure",
-                "Prevents Peer Herding Cascade Effects"
-              ],
-              [
-                "Sovereign Voting Gateway",
-                "Collects Signed Ballots Across Worker Swarm",
-                "Enforces Complete Electoral Provenance"
-              ]
+            "at": "say10",
+            "caption": "Mastering democratic and weighted voting protocols equips AI system.",
+            "bars": [
+              {
+                "label": "total_nodes",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "f_faults_toler",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -162,152 +145,162 @@
       "partTitle": "Structured Socratic Debate And Adversarial Cross Examination",
       "codeHash": "1fa7f732f55795000202d8c3f2a3abcf939e78b5669acb3132030c105d10de95",
       "spec": {
-        "template": "table",
-        "title": "Structured Socratic Debate And Adversarial Cross Examination.",
-        "columns": [
-          "Debate Architecture Role",
-          "Dialectical Function",
-          "Evidence Admissibility Rule"
+        "template": "sequence",
+        "title": "Structured Socratic Debate And Adversarial Cross Examination",
+        "actors": [
+          "participating_agents",
+          "total_nodes",
+          "f_faults_tolerated"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dialectical debate rounds eliminate cognitive errors across agents.",
-            "rows": [
-              [
-                "Proponent Defender Agent",
-                "Presents Structured Recommendation And Citations",
-                "Strict Fact Grounding Requirement"
-              ],
-              [
-                "Prosecutor Adversary Agent",
-                "Identifies Counter Evidence And Hidden Flaws",
-                "Aggressive Premise Interrogation Rule"
-              ]
+            "caption": "While voting protocols aggregate existing opinions efficiently, they do.",
+            "activeActor": "participating_agents",
+            "messages": [
+              {
+                "from": "participating_agents",
+                "to": "total_nodes",
+                "label": {
+                  "var": "participating_agents",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "total_nodes",
+                "to": "f_faults_tolerated",
+                "label": {
+                  "var": "total_nodes",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Structured Socratic debate architectures pit autonomous agents against.",
-            "rows": [
-              [
-                "Impartial Arbiter Judge",
-                "Evaluates Evidentiary Weight And Legal Claims",
-                "Neutral Ruling Standard Without Bias"
-              ],
-              [
-                "Dialectical Cross Examiner",
-                "Submits Direct Interrogatories To Adversaries",
-                "Mandatory Empirical Data Disclosure"
-              ]
+            "caption": "Structured Socratic debate architectures pit autonomous agents against one.",
+            "activeActor": "total_nodes",
+            "messages": [
+              {
+                "from": "participating_agents",
+                "to": "total_nodes",
+                "label": {
+                  "var": "participating_agents",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "total_nodes",
+                "to": "f_faults_tolerated",
+                "label": {
+                  "var": "total_nodes",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Prosecutor and defender agents cross examine claims to eliminate errors.",
-            "rows": [
-              [
-                "Evidence Validation Proxy",
-                "Verifies SHA Hashes Against Document Store",
-                "Excludes Ungrounded Hallucinated Assertions"
-              ],
-              [
-                "Synthesis Formulation Core",
-                "Merges Validated Arguments Into Final Policy",
-                "Constructs Robust Enterprise Directives"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Design a dialectical prompt chain with thesis and synthesis stages.",
-            "rows": [
-              [
-                "Socratic Question Engine",
-                "Probes Implicit Deductive Leap Assumptions",
-                "Instills Deep Epistemic Swarm Humility"
-              ],
-              [
-                "Debate Termination Monitor",
-                "Stops Deliberation Upon Diminishing Returns",
-                "Controls Computational Token Budgets"
-              ]
+            "at": "say10",
+            "caption": "Mastering structured Socratic debate transforms prompt engineers.",
+            "activeActor": "f_faults_tolerated",
+            "messages": [
+              {
+                "from": "participating_agents",
+                "to": "total_nodes",
+                "label": {
+                  "var": "participating_agents",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "total_nodes",
+                "to": "f_faults_tolerated",
+                "label": {
+                  "var": "total_nodes",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Structured Socratic Debate And Adversarial Cross Examination.",
-        "columns": [
-          "Debate Architecture Role",
-          "Dialectical Function",
-          "Evidence Admissibility Rule"
+        "template": "sequence",
+        "title": "Structured Socratic Debate And Adversarial Cross Examination",
+        "actors": [
+          "participating_agents",
+          "total_nodes",
+          "f_faults_tolerated"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Dialectical debate rounds eliminate cognitive errors across agents.",
-            "rows": [
-              [
-                "Proponent Defender Agent",
-                "Presents Structured Recommendation And Citations",
-                "Strict Fact Grounding Requirement"
-              ],
-              [
-                "Prosecutor Adversary Agent",
-                "Identifies Counter Evidence And Hidden Flaws",
-                "Aggressive Premise Interrogation Rule"
-              ]
-            ]
+            "caption": "While voting protocols aggregate existing opinions efficiently, they do.",
+            "messages": [
+              {
+                "from": "participating_agents",
+                "to": "total_nodes",
+                "label": "['Financial Risk Modeling Agent', 'Regu…",
+                "tone": "data"
+              },
+              {
+                "from": "total_nodes",
+                "to": "f_faults_tolerated",
+                "label": "4",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "participating_agents"
           },
           {
             "at": "say2",
-            "caption": "Structured Socratic debate architectures pit autonomous agents against.",
-            "rows": [
-              [
-                "Impartial Arbiter Judge",
-                "Evaluates Evidentiary Weight And Legal Claims",
-                "Neutral Ruling Standard Without Bias"
-              ],
-              [
-                "Dialectical Cross Examiner",
-                "Submits Direct Interrogatories To Adversaries",
-                "Mandatory Empirical Data Disclosure"
-              ]
-            ]
+            "caption": "Structured Socratic debate architectures pit autonomous agents against one.",
+            "messages": [
+              {
+                "from": "participating_agents",
+                "to": "total_nodes",
+                "label": "['Financial Risk Modeling Agent', 'Regu…",
+                "tone": "data"
+              },
+              {
+                "from": "total_nodes",
+                "to": "f_faults_tolerated",
+                "label": "4",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "total_nodes"
           },
           {
-            "at": "example",
-            "caption": "Prosecutor and defender agents cross examine claims to eliminate errors.",
-            "rows": [
-              [
-                "Evidence Validation Proxy",
-                "Verifies SHA Hashes Against Document Store",
-                "Excludes Ungrounded Hallucinated Assertions"
-              ],
-              [
-                "Synthesis Formulation Core",
-                "Merges Validated Arguments Into Final Policy",
-                "Constructs Robust Enterprise Directives"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Design a dialectical prompt chain with thesis and synthesis stages.",
-            "rows": [
-              [
-                "Socratic Question Engine",
-                "Probes Implicit Deductive Leap Assumptions",
-                "Instills Deep Epistemic Swarm Humility"
-              ],
-              [
-                "Debate Termination Monitor",
-                "Stops Deliberation Upon Diminishing Returns",
-                "Controls Computational Token Budgets"
-              ]
-            ]
+            "at": "say10",
+            "caption": "Mastering structured Socratic debate transforms prompt engineers.",
+            "messages": [
+              {
+                "from": "participating_agents",
+                "to": "total_nodes",
+                "label": "['Financial Risk Modeling Agent', 'Regu…",
+                "tone": "data"
+              },
+              {
+                "from": "total_nodes",
+                "to": "f_faults_tolerated",
+                "label": "4",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "f_faults_tolerated"
           }
         ]
       }
@@ -316,150 +309,276 @@
       "partTitle": "Byzantine Fault Tolerance And Sybil Resistance In Agent Networks",
       "codeHash": "1fa7f732f55795000202d8c3f2a3abcf939e78b5669acb3132030c105d10de95",
       "spec": {
-        "template": "table",
-        "title": "Byzantine Fault Tolerance And Sybil Resistance In Agent Networks.",
-        "columns": [
-          "Fault Tolerance Primitive",
-          "Mathematical Quorum Rule",
-          "Adversarial Threat Mitigated"
+        "template": "flow",
+        "title": "Byzantine Fault Tolerance And Sybil Resistance In Agent Networks",
+        "nodes": [
+          {
+            "id": "participating_agents",
+            "label": "participating_agents"
+          },
+          {
+            "id": "total_nodes",
+            "label": "total_nodes"
+          },
+          {
+            "id": "f_faults_tolerated",
+            "label": "f_faults_tolerated"
+          },
+          {
+            "id": "consensus_metrics",
+            "label": "consensus_metrics"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fault tolerant consensus protocols protect swarms from corrupted nodes.",
-            "rows": [
+            "caption": "In large-scale distributed AI systems, not all agents can be assumed to be.",
+            "values": {
+              "participating_agents": {
+                "var": "participating_agents",
+                "line": 9,
+                "hit": 1
+              },
+              "total_nodes": {
+                "var": "total_nodes",
+                "line": 17,
+                "hit": 1
+              },
+              "f_faults_tolerated": {
+                "var": "f_faults_tolerated",
+                "line": 18,
+                "hit": 1
+              },
+              "consensus_metrics": {
+                "var": "consensus_metrics",
+                "line": 20,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "participating_agents": "data",
+              "total_nodes": "data",
+              "f_faults_tolerated": "data",
+              "consensus_metrics": "data"
+            },
+            "arrows": [
               [
-                "Byzantine Quorum Kernel",
-                "Requires Three F Plus One Total Network Nodes",
-                "Guarantees Supermajority Honest Quorum"
+                "participating_agents",
+                "total_nodes"
               ],
               [
-                "PBFT Three Phase Gate",
-                "Pre Prepare Prepare And Commit State Transitions",
-                "Enforces Global Distributed Finality"
+                "total_nodes",
+                "f_faults_tolerated"
+              ],
+              [
+                "f_faults_tolerated",
+                "consensus_metrics"
               ]
             ]
           },
           {
             "at": "say2",
             "caption": "Byzantine fault tolerance protocols guarantee consensus in distributed.",
-            "rows": [
+            "values": {
+              "participating_agents": {
+                "var": "participating_agents",
+                "line": 17,
+                "hit": 1
+              },
+              "total_nodes": {
+                "var": "total_nodes",
+                "line": 18,
+                "hit": 1
+              },
+              "f_faults_tolerated": {
+                "var": "f_faults_tolerated",
+                "line": 21,
+                "hit": 1
+              },
+              "consensus_metrics": {
+                "var": "consensus_metrics",
+                "line": 28,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "participating_agents": "data",
+              "total_nodes": "data",
+              "f_faults_tolerated": "data",
+              "consensus_metrics": "data"
+            },
+            "arrows": [
               [
-                "Public Key Infrastructure",
-                "Mutual TLS Certificates And Keypair Signatures",
-                "Prevents Sybil Identity Spoofing Attacks"
+                "participating_agents",
+                "total_nodes"
               ],
               [
-                "Reputation Staking System",
-                "Slashes Staked Points For Proven Hallucinations",
-                "Incentivizes Truthful Verification Behavior"
+                "total_nodes",
+                "f_faults_tolerated"
+              ],
+              [
+                "f_faults_tolerated",
+                "consensus_metrics"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Consensus quorums require three f plus one nodes to tolerate faulty peers.",
-            "rows": [
+            "at": "say10",
+            "caption": "Implementing Byzantine fault tolerance elevates autonomous agent.",
+            "values": {
+              "participating_agents": {
+                "var": "participating_agents",
+                "line": 18,
+                "hit": 1
+              },
+              "total_nodes": {
+                "var": "total_nodes",
+                "line": 21,
+                "hit": 1
+              },
+              "f_faults_tolerated": {
+                "var": "f_faults_tolerated",
+                "line": 22,
+                "hit": 1
+              },
+              "consensus_metrics": {
+                "var": "consensus_metrics",
+                "line": 29,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "participating_agents": "ok",
+              "total_nodes": "ok",
+              "f_faults_tolerated": "ok",
+              "consensus_metrics": "ok"
+            },
+            "arrows": [
               [
-                "Byzantine Anomaly Detector",
-                "Identifies High Semantic Divergence Patterns",
-                "Quarantines Corrupted Rogue Agent Nodes"
+                "participating_agents",
+                "total_nodes"
               ],
               [
-                "Automated View Changer",
-                "Deposes Unresponsive Or Malicious Leaders",
-                "Maintains Swarm Liveness During Failures"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Calculate the minimum quorum required to tolerate two faulty agents.",
-            "rows": [
-              [
-                "Threshold Signature Aggregator",
-                "Compacts Multi Agent Signatures Into Proof",
-                "Sub Millisecond Verification Efficiency"
+                "total_nodes",
+                "f_faults_tolerated"
               ],
               [
-                "Fault Tolerant Consensus Mesh",
-                "Coordinates Distributed Voting Without Deadlocks",
-                "Unbreakable Enterprise Swarm Resilience"
+                "f_faults_tolerated",
+                "consensus_metrics"
               ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Byzantine Fault Tolerance And Sybil Resistance In Agent Networks.",
-        "columns": [
-          "Fault Tolerance Primitive",
-          "Mathematical Quorum Rule",
-          "Adversarial Threat Mitigated"
+        "template": "flow",
+        "title": "Byzantine Fault Tolerance And Sybil Resistance In Agent Networks",
+        "nodes": [
+          {
+            "id": "participating_agents",
+            "label": "participating_agents"
+          },
+          {
+            "id": "total_nodes",
+            "label": "total_nodes"
+          },
+          {
+            "id": "f_faults_tolerated",
+            "label": "f_faults_tolerated"
+          },
+          {
+            "id": "consensus_metrics",
+            "label": "consensus_metrics"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Fault tolerant consensus protocols protect swarms from corrupted nodes.",
-            "rows": [
+            "caption": "In large-scale distributed AI systems, not all agents can be assumed to be.",
+            "values": {
+              "participating_agents": "['Financial Risk Modeling Agent', 'Regu…",
+              "total_nodes": "4",
+              "f_faults_tolerated": "1",
+              "consensus_metrics": "{'byzantineFaultToleranceThreshold': '3…"
+            },
+            "tones": {
+              "participating_agents": "data",
+              "total_nodes": "data",
+              "f_faults_tolerated": "data",
+              "consensus_metrics": "data"
+            },
+            "arrows": [
               [
-                "Byzantine Quorum Kernel",
-                "Requires Three F Plus One Total Network Nodes",
-                "Guarantees Supermajority Honest Quorum"
+                "participating_agents",
+                "total_nodes"
               ],
               [
-                "PBFT Three Phase Gate",
-                "Pre Prepare Prepare And Commit State Transitions",
-                "Enforces Global Distributed Finality"
+                "total_nodes",
+                "f_faults_tolerated"
+              ],
+              [
+                "f_faults_tolerated",
+                "consensus_metrics"
               ]
             ]
           },
           {
             "at": "say2",
             "caption": "Byzantine fault tolerance protocols guarantee consensus in distributed.",
-            "rows": [
+            "values": {
+              "participating_agents": "['Financial Risk Modeling Agent', 'Regu…",
+              "total_nodes": "4",
+              "f_faults_tolerated": "1",
+              "consensus_metrics": "{'byzantineFaultToleranceThreshold': '3…"
+            },
+            "tones": {
+              "participating_agents": "data",
+              "total_nodes": "data",
+              "f_faults_tolerated": "data",
+              "consensus_metrics": "data"
+            },
+            "arrows": [
               [
-                "Public Key Infrastructure",
-                "Mutual TLS Certificates And Keypair Signatures",
-                "Prevents Sybil Identity Spoofing Attacks"
+                "participating_agents",
+                "total_nodes"
               ],
               [
-                "Reputation Staking System",
-                "Slashes Staked Points For Proven Hallucinations",
-                "Incentivizes Truthful Verification Behavior"
+                "total_nodes",
+                "f_faults_tolerated"
+              ],
+              [
+                "f_faults_tolerated",
+                "consensus_metrics"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Consensus quorums require three f plus one nodes to tolerate faulty peers.",
-            "rows": [
+            "at": "say10",
+            "caption": "Implementing Byzantine fault tolerance elevates autonomous agent.",
+            "values": {
+              "participating_agents": "['Financial Risk Modeling Agent', 'Regu…",
+              "total_nodes": "4",
+              "f_faults_tolerated": "1",
+              "consensus_metrics": "{'byzantineFaultToleranceThreshold': '3…"
+            },
+            "tones": {
+              "participating_agents": "ok",
+              "total_nodes": "ok",
+              "f_faults_tolerated": "ok",
+              "consensus_metrics": "ok"
+            },
+            "arrows": [
               [
-                "Byzantine Anomaly Detector",
-                "Identifies High Semantic Divergence Patterns",
-                "Quarantines Corrupted Rogue Agent Nodes"
+                "participating_agents",
+                "total_nodes"
               ],
               [
-                "Automated View Changer",
-                "Deposes Unresponsive Or Malicious Leaders",
-                "Maintains Swarm Liveness During Failures"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Calculate the minimum quorum required to tolerate two faulty agents.",
-            "rows": [
-              [
-                "Threshold Signature Aggregator",
-                "Compacts Multi Agent Signatures Into Proof",
-                "Sub Millisecond Verification Efficiency"
+                "total_nodes",
+                "f_faults_tolerated"
               ],
               [
-                "Fault Tolerant Consensus Mesh",
-                "Coordinates Distributed Voting Without Deadlocks",
-                "Unbreakable Enterprise Swarm Resilience"
+                "f_faults_tolerated",
+                "consensus_metrics"
               ]
             ]
           }
@@ -470,151 +589,133 @@
       "partTitle": "Swarm Self Reflection Epistemic Uncertainty And Recursive Verification",
       "codeHash": "1fa7f732f55795000202d8c3f2a3abcf939e78b5669acb3132030c105d10de95",
       "spec": {
-        "template": "table",
-        "title": "Swarm Self Reflection Epistemic Uncertainty And Recursive Verification.",
-        "columns": [
-          "Epistemic Telemetry Metric",
-          "Calibration Algorithm",
-          "Cognitive Failure Prevented"
-        ],
+        "template": "bars",
+        "title": "Swarm Self Reflection Epistemic Uncertainty And Recursive Verifi",
         "steps": [
           {
             "at": "say1",
-            "caption": "Meta cognitive reflection calibrates model uncertainty before voting.",
-            "rows": [
-              [
-                "Epistemic Uncertainty Metric",
-                "Quantifies Reducible Information Knowledge Gaps",
-                "Identifies When To Query External Tools"
-              ],
-              [
-                "Aleatoric Variance Filter",
-                "Models Irreducible Environmental Stochasticity",
-                "Prevents Overfitting On Random Noise"
-              ]
+            "caption": "Even when an agent swarm operates with robust voting protocols and BFT.",
+            "bars": [
+              {
+                "label": "total_nodes",
+                "value": {
+                  "var": "total_nodes",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "f_faults_toler",
+                "value": {
+                  "var": "f_faults_tolerated",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Swarm self reflection and epistemic uncertainty quantification calibrate.",
-            "rows": [
-              [
-                "Verbalized Confidence Scaler",
-                "Calibrates Probability Text To Match Reality",
-                "Eliminates Dangerous Overconfidence Bias"
-              ],
-              [
-                "Critique Revision Loop",
-                "Forces Internal Flaw Identification And Edit",
-                "Cleanses Draft Quality Prior To Peer Review"
-              ]
+            "caption": "Swarm self-reflection and epistemic uncertainty quantification calibrate.",
+            "bars": [
+              {
+                "label": "total_nodes",
+                "value": {
+                  "var": "total_nodes",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "f_faults_toler",
+                "value": {
+                  "var": "f_faults_tolerated",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Agents quantify epistemic uncertainty using calibrated confidence scores.",
-            "rows": [
-              [
-                "Recursive Verification Tree",
-                "Decomposes Complex Claims Into Atomic Nodes",
-                "Prevents Hidden Errors In Logic Hierarchies"
-              ],
-              [
-                "Chain Of Verification Gate",
-                "Extracts And Validates Explicit Question Pairs",
-                "Guarantees Source Citation Authenticity"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a critique revision loop with chain of verification prompt stages.",
-            "rows": [
-              [
-                "Brier Calibration Tracker",
-                "Measures Squared Deviation From Ground Truth",
-                "Promotes Accurately Calibrated Reasoners"
-              ],
-              [
-                "Entropy Budget Monitor",
-                "Terminates Iteration When Gain Falls Under Five",
-                "Prevents Infinite Analysis Paralysis"
-              ]
+            "at": "say10",
+            "caption": "Mastering swarm self-reflection and epistemic uncertainty transforms.",
+            "bars": [
+              {
+                "label": "total_nodes",
+                "value": {
+                  "var": "total_nodes",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "f_faults_toler",
+                "value": {
+                  "var": "f_faults_tolerated",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Swarm Self Reflection Epistemic Uncertainty And Recursive Verification.",
-        "columns": [
-          "Epistemic Telemetry Metric",
-          "Calibration Algorithm",
-          "Cognitive Failure Prevented"
-        ],
+        "template": "bars",
+        "title": "Swarm Self Reflection Epistemic Uncertainty And Recursive Verifi",
         "steps": [
           {
             "at": "say1",
-            "caption": "Meta cognitive reflection calibrates model uncertainty before voting.",
-            "rows": [
-              [
-                "Epistemic Uncertainty Metric",
-                "Quantifies Reducible Information Knowledge Gaps",
-                "Identifies When To Query External Tools"
-              ],
-              [
-                "Aleatoric Variance Filter",
-                "Models Irreducible Environmental Stochasticity",
-                "Prevents Overfitting On Random Noise"
-              ]
+            "caption": "Even when an agent swarm operates with robust voting protocols and BFT.",
+            "bars": [
+              {
+                "label": "total_nodes",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "f_faults_toler",
+                "value": 1,
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Swarm self reflection and epistemic uncertainty quantification calibrate.",
-            "rows": [
-              [
-                "Verbalized Confidence Scaler",
-                "Calibrates Probability Text To Match Reality",
-                "Eliminates Dangerous Overconfidence Bias"
-              ],
-              [
-                "Critique Revision Loop",
-                "Forces Internal Flaw Identification And Edit",
-                "Cleanses Draft Quality Prior To Peer Review"
-              ]
+            "caption": "Swarm self-reflection and epistemic uncertainty quantification calibrate.",
+            "bars": [
+              {
+                "label": "total_nodes",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "f_faults_toler",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Agents quantify epistemic uncertainty using calibrated confidence scores.",
-            "rows": [
-              [
-                "Recursive Verification Tree",
-                "Decomposes Complex Claims Into Atomic Nodes",
-                "Prevents Hidden Errors In Logic Hierarchies"
-              ],
-              [
-                "Chain Of Verification Gate",
-                "Extracts And Validates Explicit Question Pairs",
-                "Guarantees Source Citation Authenticity"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a critique revision loop with chain of verification prompt stages.",
-            "rows": [
-              [
-                "Brier Calibration Tracker",
-                "Measures Squared Deviation From Ground Truth",
-                "Promotes Accurately Calibrated Reasoners"
-              ],
-              [
-                "Entropy Budget Monitor",
-                "Terminates Iteration When Gain Falls Under Five",
-                "Prevents Infinite Analysis Paralysis"
-              ]
+            "at": "say10",
+            "caption": "Mastering swarm self-reflection and epistemic uncertainty transforms.",
+            "bars": [
+              {
+                "label": "total_nodes",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "f_faults_toler",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -624,151 +725,133 @@
       "partTitle": "Enterprise Multi Agent Consensus Engine In Asynchronous Python",
       "codeHash": "1fa7f732f55795000202d8c3f2a3abcf939e78b5669acb3132030c105d10de95",
       "spec": {
-        "template": "table",
-        "title": "Enterprise Multi Agent Consensus Engine In Asynchronous Python.",
-        "columns": [
-          "Engine Subsystem Layer",
-          "Asynchronous Implementation",
-          "Consensus Verification SLA"
-        ],
+        "template": "bars",
+        "title": "Enterprise Multi Agent Consensus Engine In Asynchronous Python",
         "steps": [
           {
             "at": "say1",
-            "caption": "Production consensus engines coordinate asynchronous deliberations.",
-            "rows": [
-              [
-                "Deliberation Orchestrator",
-                "Initializes Task Parameters And Worker Briefs",
-                "Dispatches Sub Tasks In Parallel Coroutines"
-              ],
-              [
-                "Dialectical Debate Arbiter",
-                "Manages Turn Taking And Citation Auditing",
-                "Executes Structured Socratic Deliberations"
-              ]
+            "caption": "Synthesizing weighted voting protocols, Socratic debate dynamics.",
+            "bars": [
+              {
+                "label": "total_nodes",
+                "value": {
+                  "var": "total_nodes",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "f_faults_toler",
+                "value": {
+                  "var": "f_faults_tolerated",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Enterprise multi agent consensus engines coordinate distributed.",
-            "rows": [
-              [
-                "Byzantine Quorum Gate",
-                "Enforces Supermajority Signature Requirements",
-                "Guarantees Consensus Finality Across Nodes"
-              ],
-              [
-                "Epistemic Audit Vault",
-                "Archives Cryptographic Hashes Of Transcripts",
-                "Provides Immutable Regulatory Compliance Proof"
-              ]
+            "caption": "Enterprise multi-agent consensus engines coordinate distributed.",
+            "bars": [
+              {
+                "label": "total_nodes",
+                "value": {
+                  "var": "total_nodes",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "f_faults_toler",
+                "value": {
+                  "var": "f_faults_tolerated",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Asynchronous python engines execute byzantine consensus across agents.",
-            "rows": [
-              [
-                "AsyncIO Parallel Dispatcher",
-                "Broadcasts Voting Requests Concurrently",
-                "Sub Second End To End Deliberation Latency"
-              ],
-              [
-                "OpenTelemetry Trace Emitter",
-                "Exports Deliberation Histograms And Brier Curves",
-                "Delivers Granular DevOps System Observability"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy a distributed deliberation engine tracking consensus metrics.",
-            "rows": [
-              [
-                "Executive Fallback Router",
-                "Escalates Deadlocks To Human Leadership Panels",
-                "Guarantees Safe Fail Soft Enterprise Operations"
-              ],
-              [
-                "Sovereign Consensus Engine",
-                "Combines Voting Debate BFT And Self Reflection",
-                "Delivers Unshakeable Enterprise Truth"
-              ]
+            "at": "say13",
+            "caption": "Mastering the architecture of enterprise multi-agent consensus protocols.",
+            "bars": [
+              {
+                "label": "total_nodes",
+                "value": {
+                  "var": "total_nodes",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "f_faults_toler",
+                "value": {
+                  "var": "f_faults_tolerated",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Enterprise Multi Agent Consensus Engine In Asynchronous Python.",
-        "columns": [
-          "Engine Subsystem Layer",
-          "Asynchronous Implementation",
-          "Consensus Verification SLA"
-        ],
+        "template": "bars",
+        "title": "Enterprise Multi Agent Consensus Engine In Asynchronous Python",
         "steps": [
           {
             "at": "say1",
-            "caption": "Production consensus engines coordinate asynchronous deliberations.",
-            "rows": [
-              [
-                "Deliberation Orchestrator",
-                "Initializes Task Parameters And Worker Briefs",
-                "Dispatches Sub Tasks In Parallel Coroutines"
-              ],
-              [
-                "Dialectical Debate Arbiter",
-                "Manages Turn Taking And Citation Auditing",
-                "Executes Structured Socratic Deliberations"
-              ]
+            "caption": "Synthesizing weighted voting protocols, Socratic debate dynamics.",
+            "bars": [
+              {
+                "label": "total_nodes",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "f_faults_toler",
+                "value": 1,
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Enterprise multi agent consensus engines coordinate distributed.",
-            "rows": [
-              [
-                "Byzantine Quorum Gate",
-                "Enforces Supermajority Signature Requirements",
-                "Guarantees Consensus Finality Across Nodes"
-              ],
-              [
-                "Epistemic Audit Vault",
-                "Archives Cryptographic Hashes Of Transcripts",
-                "Provides Immutable Regulatory Compliance Proof"
-              ]
+            "caption": "Enterprise multi-agent consensus engines coordinate distributed.",
+            "bars": [
+              {
+                "label": "total_nodes",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "f_faults_toler",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Asynchronous python engines execute byzantine consensus across agents.",
-            "rows": [
-              [
-                "AsyncIO Parallel Dispatcher",
-                "Broadcasts Voting Requests Concurrently",
-                "Sub Second End To End Deliberation Latency"
-              ],
-              [
-                "OpenTelemetry Trace Emitter",
-                "Exports Deliberation Histograms And Brier Curves",
-                "Delivers Granular DevOps System Observability"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy a distributed deliberation engine tracking consensus metrics.",
-            "rows": [
-              [
-                "Executive Fallback Router",
-                "Escalates Deadlocks To Human Leadership Panels",
-                "Guarantees Safe Fail Soft Enterprise Operations"
-              ],
-              [
-                "Sovereign Consensus Engine",
-                "Combines Voting Debate BFT And Self Reflection",
-                "Delivers Unshakeable Enterprise Truth"
-              ]
+            "at": "say13",
+            "caption": "Mastering the architecture of enterprise multi-agent consensus protocols.",
+            "bars": [
+              {
+                "label": "total_nodes",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "f_faults_toler",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           }
         ]

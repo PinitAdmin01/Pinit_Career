@@ -2,142 +2,228 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 15,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The pipeline",
       "codeHash": "a148089ce9f1b908c23f3400c121133c9509cdcb1e3b1f107287b4f65ec02b40",
       "spec": {
-        "template": "table",
-        "title": "Five-stage grounded question answering pipeline architecture",
-        "columns": [
-          "chunks",
-          "prompt",
-          "citations"
+        "template": "flow",
+        "title": "The pipeline",
+        "nodes": [
+          {
+            "id": "steps",
+            "label": "steps"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A question answering pipeline connects prompt building and model calls.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "citations"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A document question-answering pipeline has five steps.",
+            "values": {
+              "steps": {
+                "var": "steps",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "citations"
-                  }
-                ],
-                "tone": "data"
+              "i": {
+                "var": "i",
+                "line": 3,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "steps": "data",
+              "i": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "steps",
+                "i"
+              ],
+              [
+                "i",
+                "s"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Numbered sources and question instructions anchor model answer citations.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "citations"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Retrieve finds the most relevant chunks.",
+            "values": {
+              "steps": {
+                "var": "steps",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "answer"
-                  }
-                ],
-                "tone": "ok"
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "steps": "data",
+              "i": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "steps",
+                "i"
+              ],
+              [
+                "i",
+                "s"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Building it once by hand, as you will today, makes every such product much.",
+            "values": {
+              "steps": {
+                "var": "steps",
+                "line": 4,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 3,
+                "hit": 2
+              },
+              "s": {
+                "var": "s",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "steps": "ok",
+              "i": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "steps",
+                "i"
+              ],
+              [
+                "i",
+                "s"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Five-stage grounded question answering pipeline architecture",
-        "columns": [
-          "chunks",
-          "prompt",
-          "citations"
+        "template": "flow",
+        "title": "The pipeline",
+        "nodes": [
+          {
+            "id": "steps",
+            "label": "steps"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A question answering pipeline connects prompt building and model calls.",
-            "rows": [
-              {
-                "cells": [
-                  "chunks",
-                  "prompt",
-                  "citations"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "chunks",
-                  "prompt",
-                  "citations"
-                ],
-                "tone": "data"
-              }
+            "caption": "A document question-answering pipeline has five steps.",
+            "values": {
+              "steps": "['retrieve relevant chunks', 'build gro…",
+              "i": "1",
+              "s": "'retrieve relevant chunks'"
+            },
+            "tones": {
+              "steps": "data",
+              "i": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "steps",
+                "i"
+              ],
+              [
+                "i",
+                "s"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Numbered sources and question instructions anchor model answer citations.",
-            "rows": [
-              {
-                "cells": [
-                  "chunks",
-                  "prompt",
-                  "citations"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "chunks",
-                  "prompt",
-                  "answer"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Retrieve finds the most relevant chunks.",
+            "values": {
+              "steps": "['retrieve relevant chunks', 'build gro…",
+              "i": "1",
+              "s": "'retrieve relevant chunks'"
+            },
+            "tones": {
+              "steps": "data",
+              "i": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "steps",
+                "i"
+              ],
+              [
+                "i",
+                "s"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Building it once by hand, as you will today, makes every such product much.",
+            "values": {
+              "steps": "['retrieve relevant chunks', 'build gro…",
+              "i": "2",
+              "s": "'build grounded prompt'"
+            },
+            "tones": {
+              "steps": "ok",
+              "i": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "steps",
+                "i"
+              ],
+              [
+                "i",
+                "s"
+              ]
             ]
           }
         ]
@@ -147,78 +233,77 @@
       "partTitle": "Retrieval and the grounded prompt",
       "codeHash": "5dfe4f5867e6f00ed94a123d569ca1760683b4d1bee5b8da25f330e09ca951a0",
       "spec": {
-        "template": "table",
-        "title": "Ranked chunk retrieval and indexed prompt assembly",
-        "columns": [
-          "chunks",
-          "ranked",
-          "ids"
-        ],
+        "template": "bars",
+        "title": "Retrieval and the grounded prompt",
         "steps": [
           {
             "at": "say1",
-            "caption": "A grounded prompt combines retrieved chunks with structured question format.",
-            "rows": [
+            "caption": "Practice 1 is grounded_prompt(question, chunks, k=2), which combines Day.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "ranked"
-                  },
-                  {
-                    "text": "ids"
-                  }
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "ranked"
-                  },
-                  {
-                    "text": "ids"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Returning chunk indices lets later steps map citations back to sources.",
-            "rows": [
+            "caption": "It returns the retrieved chunk indices, so later steps can map citation.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "ranked"
-                  },
-                  {
-                    "text": "ids"
-                  }
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "ranked"
-                  },
-                  {
-                    "text": "ids"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 10,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Returning both the prompt and the source indices is a small design choice.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 10,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +311,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Ranked chunk retrieval and indexed prompt assembly",
-        "columns": [
-          "chunks",
-          "ranked",
-          "ids"
-        ],
+        "template": "bars",
+        "title": "Retrieval and the grounded prompt",
         "steps": [
           {
             "at": "say1",
-            "caption": "A grounded prompt combines retrieved chunks with structured question format.",
-            "rows": [
+            "caption": "Practice 1 is grounded_prompt(question, chunks, k=2), which combines Day.",
+            "bars": [
               {
-                "cells": [
-                  "chunks",
-                  "ranked",
-                  "ids"
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "chunks",
-                  "ranked",
-                  "ids"
-                ],
+                "label": "n",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Returning chunk indices lets later steps map citations back to sources.",
-            "rows": [
+            "caption": "It returns the retrieved chunk indices, so later steps can map citation.",
+            "bars": [
               {
-                "cells": [
-                  "chunks",
-                  "ranked",
-                  "ids"
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "words",
-                  "ranked",
-                  "ids"
-                ],
+                "label": "n",
+                "value": 2,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Returning both the prompt and the source indices is a small design choice.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 2,
                 "tone": "ok"
               }
             ]
@@ -285,78 +369,90 @@
       "partTitle": "Asking for a JSON answer",
       "codeHash": "c1f13d80c535f67709771e9d8c3cef876bfd8a1b24aa28d72125a05db1fa66e0",
       "spec": {
-        "template": "table",
-        "title": "JSON response schema instructions and format enforcement",
-        "columns": [
-          "fmt",
-          "answer",
-          "citations"
+        "template": "sequence",
+        "title": "Asking for a JSON answer",
+        "actors": [
+          "base",
+          "fmt"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The prompt demands structured JSON output containing an answer and citations.",
-            "rows": [
+            "caption": "Add a format instruction to the grounded prompt.",
+            "activeActor": "base",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "fmt"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "citations"
-                  }
-                ],
-                "tone": "ok"
+                "from": "base",
+                "to": "fmt",
+                "label": {
+                  "var": "base",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "fmt"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "citations"
-                  }
-                ],
-                "tone": "data"
+                "from": "fmt",
+                "to": "base",
+                "label": {
+                  "var": "fmt",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Structured JSON lets validation code check citations directly.",
-            "rows": [
+            "at": "say2",
+            "caption": "An example reply in the prompt, such as {\"answer\".",
+            "activeActor": "fmt",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "fmt"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "citations"
-                  }
-                ],
+                "from": "base",
+                "to": "fmt",
+                "label": {
+                  "var": "base",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "citations"
-                  }
-                ],
+                "from": "fmt",
+                "to": "base",
+                "label": {
+                  "var": "fmt",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Many providers offer a JSON or structured-output mode that enforces this.",
+            "activeActor": "fmt",
+            "messages": [
+              {
+                "from": "base",
+                "to": "fmt",
+                "label": {
+                  "var": "base",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "fmt",
+                "to": "base",
+                "label": {
+                  "var": "fmt",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +460,69 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "JSON response schema instructions and format enforcement",
-        "columns": [
-          "fmt",
-          "answer",
-          "citations"
+        "template": "sequence",
+        "title": "Asking for a JSON answer",
+        "actors": [
+          "base",
+          "fmt"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The prompt demands structured JSON output containing an answer and citations.",
-            "rows": [
+            "caption": "Add a format instruction to the grounded prompt.",
+            "messages": [
               {
-                "cells": [
-                  "fmt",
-                  "answer",
-                  "citations"
-                ],
-                "tone": "ok"
+                "from": "base",
+                "to": "fmt",
+                "label": "'...grounded prompt from the previous s…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "fmt",
-                  "answer",
-                  "citations"
-                ],
-                "tone": "data"
+                "from": "fmt",
+                "to": "base",
+                "label": "'Reply with JSON only, like {\"answer\": …",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "base"
           },
           {
-            "at": "say3",
-            "caption": "Structured JSON lets validation code check citations directly.",
-            "rows": [
+            "at": "say2",
+            "caption": "An example reply in the prompt, such as {\"answer\".",
+            "messages": [
               {
-                "cells": [
-                  "fmt",
-                  "answer",
-                  "citations"
-                ],
+                "from": "base",
+                "to": "fmt",
+                "label": "'...grounded prompt from the previous s…",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "base",
-                  "answer",
-                  "citations"
-                ],
+                "from": "fmt",
+                "to": "base",
+                "label": "'Reply with JSON only, like {\"answer\": …",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "fmt"
+          },
+          {
+            "at": "say9",
+            "caption": "Many providers offer a JSON or structured-output mode that enforces this.",
+            "messages": [
+              {
+                "from": "base",
+                "to": "fmt",
+                "label": "'...grounded prompt from the previous s…",
+                "tone": "data"
+              },
+              {
+                "from": "fmt",
+                "to": "base",
+                "label": "'Reply with JSON only, like {\"answer\": …",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "fmt"
           }
         ]
       }
@@ -423,78 +531,104 @@
       "partTitle": "Parsing and validating the reply",
       "codeHash": "fb9e4d9f9eeffe3f8fb68af088c48949ad2e232fb5baeeb321fa030c0d8c730f",
       "spec": {
-        "template": "table",
-        "title": "Response extraction, JSON parsing and citation bounds validation",
-        "columns": [
-          "reply",
-          "answer",
-          "citations"
-        ],
+        "template": "bars",
+        "title": "Parsing and validating the reply",
         "steps": [
           {
             "at": "say1",
-            "caption": "Parsing extracts the inner JSON payload from a chatty model reply.",
-            "rows": [
+            "caption": "Practice 2 is parse_reply(text), which extracts the JSON object from.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "reply"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "citations"
-                  }
-                ],
-                "tone": "ok"
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "reply"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "citations"
-                  }
-                ],
+                "label": "end",
+                "value": {
+                  "var": "end",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Validation checks that citations form an integer list and answer is present.",
-            "rows": [
+            "caption": "It checks that \"answer\" is a non-empty string and \"citations\" is a list.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "reply"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "citations"
-                  }
-                ],
-                "tone": "data"
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "citations"
-                  }
-                ],
+                "label": "end",
+                "value": {
+                  "var": "end",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Recording which check failed for each rejected reply builds a picture.",
+            "bars": [
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "end",
+                "value": {
+                  "var": "end",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +636,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Response extraction, JSON parsing and citation bounds validation",
-        "columns": [
-          "reply",
-          "answer",
-          "citations"
-        ],
+        "template": "bars",
+        "title": "Parsing and validating the reply",
         "steps": [
           {
             "at": "say1",
-            "caption": "Parsing extracts the inner JSON payload from a chatty model reply.",
-            "rows": [
+            "caption": "Practice 2 is parse_reply(text), which extracts the JSON object from.",
+            "bars": [
               {
-                "cells": [
-                  "reply",
-                  "answer",
-                  "citations"
-                ],
-                "tone": "ok"
+                "label": "start",
+                "value": 21,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "reply",
-                  "answer",
-                  "citations"
-                ],
+                "label": "end",
+                "value": 82,
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": 2,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Validation checks that citations form an integer list and answer is present.",
-            "rows": [
+            "caption": "It checks that \"answer\" is a non-empty string and \"citations\" is a list.",
+            "bars": [
               {
-                "cells": [
-                  "reply",
-                  "answer",
-                  "citations"
-                ],
-                "tone": "data"
+                "label": "start",
+                "value": 21,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "data",
-                  "answer",
-                  "citations"
-                ],
+                "label": "end",
+                "value": 82,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 2,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Recording which check failed for each rejected reply builds a picture.",
+            "bars": [
+              {
+                "label": "start",
+                "value": 21,
+                "tone": "ok"
+              },
+              {
+                "label": "end",
+                "value": 82,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 2,
                 "tone": "ok"
               }
             ]
@@ -561,224 +709,162 @@
       "partTitle": "Failure handling and user experience",
       "codeHash": "ab5de3a346cf3a6c93cbf8d21ce4183320ed5717c10e8abdfdad969816baf8f8",
       "spec": {
-        "template": "flow",
-        "title": "Failure handling and user experience — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Failure handling an...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Failure handling and user experience",
+        "actors": [
+          "MESSAGES",
+          "outcome",
+          "answer"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Failure handling and user experience.",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Failure handling an... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Users should never see a crash or raw JSON.",
+            "activeActor": "MESSAGES",
+            "messages": [
+              {
+                "from": "MESSAGES",
+                "to": "outcome",
+                "label": {
+                  "var": "MESSAGES",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "outcome",
+                "to": "answer",
+                "label": {
+                  "var": "outcome",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "No relevant chunks.",
+            "activeActor": "outcome",
+            "messages": [
+              {
+                "from": "MESSAGES",
+                "to": "outcome",
+                "label": {
+                  "var": "MESSAGES",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "outcome",
+                "to": "answer",
+                "label": {
+                  "var": "outcome",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Failure handling and user experie.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Honest \"I don't know\" replies build more trust over time than confident.",
+            "activeActor": "answer",
+            "messages": [
+              {
+                "from": "MESSAGES",
+                "to": "outcome",
+                "label": {
+                  "var": "MESSAGES",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "outcome",
+                "to": "answer",
+                "label": {
+                  "var": "outcome",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Failure handling and user experience — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Failure handling an...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Failure handling and user experience",
+        "actors": [
+          "MESSAGES",
+          "outcome",
+          "answer"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Failure handling and user experience [D15.P5.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Failure handling an... [D15.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Users should never see a crash or raw JSON.",
+            "messages": [
+              {
+                "from": "MESSAGES",
+                "to": "outcome",
+                "label": "{'no_sources': 'I could not find that i…",
+                "tone": "data"
+              },
+              {
+                "from": "outcome",
+                "to": "answer",
+                "label": "'ok'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "MESSAGES"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "No relevant chunks.",
+            "messages": [
+              {
+                "from": "MESSAGES",
+                "to": "outcome",
+                "label": "{'no_sources': 'I could not find that i…",
+                "tone": "data"
+              },
+              {
+                "from": "outcome",
+                "to": "answer",
+                "label": "'ok'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "outcome"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Failure handling and user experie.. [D15.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say9",
+            "caption": "Honest \"I don't know\" replies build more trust over time than confident.",
+            "messages": [
+              {
+                "from": "MESSAGES",
+                "to": "outcome",
+                "label": "{'no_sources': 'I could not find that i…",
+                "tone": "data"
+              },
+              {
+                "from": "outcome",
+                "to": "answer",
+                "label": "'no_sources'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "answer"
           }
         ]
       }
@@ -787,224 +873,162 @@
       "partTitle": "Milestone practice: grounded prompt and reply parser",
       "codeHash": "598b94ab836d68188f0980e50d9a32dc12766bfd861a3783b1279c236fe1c995",
       "spec": {
-        "template": "flow",
-        "title": "Milestone practice: grounded prompt and reply... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Milestone practice: grounded prompt and reply parser",
+        "actors": [
+          "chunks",
+          "q",
+          "t"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Milestone practice: grounded prompt and .",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Milestone practice:... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Grounded_prompt(question, chunks, k=2).",
+            "activeActor": "chunks",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": {
+                  "var": "chunks",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": {
+                  "var": "q",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Return {\"sources\".",
+            "activeActor": "q",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": {
+                  "var": "chunks",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": {
+                  "var": "q",
+                  "line": 7,
+                  "hit": 8
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Milestone practice: grounded prom.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Keep this pipeline code.",
+            "activeActor": "t",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": {
+                  "var": "chunks",
+                  "line": 7,
+                  "hit": 8
+                },
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": {
+                  "var": "q",
+                  "line": 7,
+                  "hit": 9
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone practice: grounded prompt and reply... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Milestone practice: grounded prompt and reply parser",
+        "actors": [
+          "chunks",
+          "q",
+          "t"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Milestone practice: grounded prompt and .. [D15.P6.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Milestone practice:... [D15.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Grounded_prompt(question, chunks, k=2).",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": "['Fees are 5 rupees per day late.', 'Me…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": "'How many books can members borrow?'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "chunks"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Return {\"sources\".",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": "['Fees are 5 rupees per day late.', 'Me…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": "'How many books can members borrow?'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "q"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Milestone practice: grounded prom.. [D15.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "Keep this pipeline code.",
+            "messages": [
+              {
+                "from": "chunks",
+                "to": "q",
+                "label": "['Fees are 5 rupees per day late.', 'Me…",
+                "tone": "data"
+              },
+              {
+                "from": "q",
+                "to": "t",
+                "label": "'How many books can members borrow?'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "t"
           }
         ]
       }

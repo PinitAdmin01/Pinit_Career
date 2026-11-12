@@ -2,270 +2,228 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 60,
-  "promptSha": "b0200d67dd87b71ff113ccfeccc9598078d2c1aca464099d56eaabed57407378",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Milestone 12 Capstone — Foundations & Mathematical Invariants",
-      "codeHash": "971152ec68ba11c33b16c37b9712701de3f32d6fc2f841c27c15769b047e8fb3",
+      "codeHash": "fa42177788321ec7e581ec00398690269dce76f3363aeec347a288c168e65755",
       "spec": {
         "template": "flow",
-        "title": "Milestone Capstone — Foundations & Mathematical Invariants",
+        "title": "Milestone 12 Capstone — Foundations & Mathematical Invariants",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "MILESTONE_12_CAPSTONE_PILLARS",
+            "label": "MILESTONE_12_CAPSTONE_PILLARS"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how milestone updates represents during execution.",
+            "values": {
+              "MILESTONE_12_CAPSTONE_PILLARS": {
+                "var": "MILESTONE_12_CAPSTONE_PILLARS",
+                "line": 1,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 8,
+                "hit": 1
+              },
+              "desc": {
+                "var": "desc",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "MILESTONE_12_CAPSTONE_PILLARS": "data",
+              "name": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "MILESTONE_12_CAPSTONE_PILLARS",
+                "name"
+              ],
+              [
+                "name",
+                "desc"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Modern enterprise defense requires breaking down silos between endpoint.",
+            "values": {
+              "MILESTONE_12_CAPSTONE_PILLARS": {
+                "var": "MILESTONE_12_CAPSTONE_PILLARS",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "name": {
+                "var": "name",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "desc": {
+                "var": "desc",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "MILESTONE_12_CAPSTONE_PILLARS": "data",
+              "name": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "MILESTONE_12_CAPSTONE_PILLARS",
+                "name"
+              ],
+              [
+                "name",
+                "desc"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Trace how milestone updates capstone during execution.",
+            "values": {
+              "MILESTONE_12_CAPSTONE_PILLARS": {
+                "var": "MILESTONE_12_CAPSTONE_PILLARS",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "name": {
+                "var": "name",
+                "line": 8,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "desc": {
+                "var": "desc",
+                "line": 8,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "MILESTONE_12_CAPSTONE_PILLARS": "ok",
+              "name": "ok",
+              "desc": "ok"
+            },
+            "arrows": [
+              [
+                "MILESTONE_12_CAPSTONE_PILLARS",
+                "name"
+              ],
+              [
+                "name",
+                "desc"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone Capstone — Foundations & Mathematical Invariants",
+        "title": "Milestone 12 Capstone — Foundations & Mathematical Invariants",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "MILESTONE_12_CAPSTONE_PILLARS",
+            "label": "MILESTONE_12_CAPSTONE_PILLARS"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how milestone updates represents during execution.",
+            "values": {
+              "MILESTONE_12_CAPSTONE_PILLARS": "{'AI_SECURITY_GUARDRAILS': 'Input promp…",
+              "name": "'AI_SECURITY_GUARDRAILS'",
+              "desc": "'Input prompt injection screening, tool…"
+            },
+            "tones": {
+              "MILESTONE_12_CAPSTONE_PILLARS": "data",
+              "name": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "MILESTONE_12_CAPSTONE_PILLARS",
+                "name"
+              ],
+              [
+                "name",
+                "desc"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Modern enterprise defense requires breaking down silos between endpoint.",
+            "values": {
+              "MILESTONE_12_CAPSTONE_PILLARS": "{'AI_SECURITY_GUARDRAILS': 'Input promp…",
+              "name": "'AI_SECURITY_GUARDRAILS'",
+              "desc": "'Input prompt injection screening, tool…"
+            },
+            "tones": {
+              "MILESTONE_12_CAPSTONE_PILLARS": "data",
+              "name": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "MILESTONE_12_CAPSTONE_PILLARS",
+                "name"
+              ],
+              [
+                "name",
+                "desc"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Trace how milestone updates capstone during execution.",
+            "values": {
+              "MILESTONE_12_CAPSTONE_PILLARS": "{'AI_SECURITY_GUARDRAILS': 'Input promp…",
+              "name": "'CVSS_SLA_TRIAGE'",
+              "desc": "'Algorithmic vulnerability scoring and …"
+            },
+            "tones": {
+              "MILESTONE_12_CAPSTONE_PILLARS": "ok",
+              "name": "ok",
+              "desc": "ok"
+            },
+            "arrows": [
+              [
+                "MILESTONE_12_CAPSTONE_PILLARS",
+                "name"
+              ],
+              [
+                "name",
+                "desc"
+              ]
             ]
           }
         ]
@@ -273,1064 +231,488 @@
     },
     {
       "partTitle": "Milestone 12 Capstone — Core Algorithm & State Representation",
-      "codeHash": "b344e0edc473353cd8119e6746c7490a5cbf703733dcb464865068b69c78b616",
+      "codeHash": "ee7229f55149becd972f18695388345ec78a5ea4308b2672cc2107a55fe42c66",
       "spec": {
-        "template": "flow",
-        "title": "Milestone Capstone — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Milestone 12 Capstone — Core Algorithm & State Representation",
+        "actors": [
+          "threat_type",
+          "target_host",
+          "user_id"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core SecOps platform engine coordinates threat evaluation.",
+            "activeActor": "threat_type",
+            "messages": [
+              {
+                "from": "threat_type",
+                "to": "target_host",
+                "label": {
+                  "var": "threat_type",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "target_host",
+                "to": "user_id",
+                "label": {
+                  "var": "target_host",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "When an incident is reported, the engine evaluates the threat type, target.",
+            "activeActor": "target_host",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "threat_type",
+                "to": "target_host",
+                "label": {
+                  "var": "threat_type",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "target_host",
+                "to": "user_id",
+                "label": {
+                  "var": "target_host",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Real-time SecOps engines evaluate multi-source attack telemetry, executing.",
+            "activeActor": "user_id",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "threat_type",
+                "to": "target_host",
+                "label": {
+                  "var": "threat_type",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "target_host",
+                "to": "user_id",
+                "label": {
+                  "var": "target_host",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone Capstone — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Milestone 12 Capstone — Core Algorithm & State Representation",
+        "actors": [
+          "threat_type",
+          "target_host",
+          "user_id"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core SecOps platform engine coordinates threat evaluation.",
+            "messages": [
+              {
+                "from": "threat_type",
+                "to": "target_host",
+                "label": "'REMOTE_CODE_EXECUTION'",
+                "tone": "data"
+              },
+              {
+                "from": "target_host",
+                "to": "user_id",
+                "label": "'PROD-API-01'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "threat_type"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "When an incident is reported, the engine evaluates the threat type, target.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "threat_type",
+                "to": "target_host",
+                "label": "'REMOTE_CODE_EXECUTION'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "target_host",
+                "to": "user_id",
+                "label": "'PROD-API-01'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "target_host"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Real-time SecOps engines evaluate multi-source attack telemetry, executing.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "threat_type",
+                "to": "target_host",
+                "label": "'REMOTE_CODE_EXECUTION'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "target_host",
+                "to": "user_id",
+                "label": "'PROD-API-01'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "user_id"
           }
         ]
       }
     },
     {
       "partTitle": "Milestone 12 Capstone — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "408638358974a477c0233bef2044a536400a3a1d4936c173225c08362856e68f",
+      "codeHash": "81f0ccea6441ebb44bbf417adbc912c55ab80ddfb80938c1dd95ba17178805b6",
       "spec": {
-        "template": "flow",
-        "title": "Milestone Capstone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone 12 Capstone — Throughput Optimization & Edge-Case Hand",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "incident_id",
+            "label": "incident_id"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "raw_log_data",
+            "label": "raw_log_data"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "severity_score",
+            "label": "severity_score"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The end-to-end incident pipeline unifies telemetry processing.",
+            "currentState": "incident_id",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Upon receiving raw incident telemetry, the pipeline immediately hashes.",
+            "currentState": "raw_log_data",
+            "transition": {
+              "from": "incident_id",
+              "to": "raw_log_data",
+              "label": {
+                "var": "raw_log_data",
+                "line": 9,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "End-to-end incident pipelines coordinate cryptographic evidence.",
+            "currentState": "severity_score",
+            "transition": {
+              "from": "raw_log_data",
+              "to": "severity_score",
+              "label": {
+                "var": "severity_score",
+                "line": 11,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone Capstone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone 12 Capstone — Throughput Optimization & Edge-Case Hand",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "incident_id",
+            "label": "incident_id"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "raw_log_data",
+            "label": "raw_log_data"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "severity_score",
+            "label": "severity_score"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The end-to-end incident pipeline unifies telemetry processing.",
+            "currentState": "incident_id",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Upon receiving raw incident telemetry, the pipeline immediately hashes.",
+            "currentState": "raw_log_data",
+            "transition": {
+              "from": "incident_id",
+              "to": "raw_log_data",
+              "label": "'MALICIOUS_PAYLOAD_DETECTED'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "End-to-end incident pipelines coordinate cryptographic evidence.",
+            "currentState": "severity_score",
+            "transition": {
+              "from": "raw_log_data",
+              "to": "severity_score",
+              "label": "9.5"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Milestone 12 Capstone — Resilience Guardrails & Failure Recovery",
-      "codeHash": "16610f55618c4b70566c9e7d5291a17512533bf9746339584378f008212c21d3",
+      "codeHash": "0a286dd25547156ef6e9ce1a9f1ecf2aded94f03480c722deffde285c0c4fe7a",
       "spec": {
-        "template": "flow",
-        "title": "Milestone Capstone — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone 12 Capstone — Resilience Guardrails & Failure Recovery",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "is_authenticated",
+            "label": "is_authenticated"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "is_mfa_verified",
+            "label": "is_mfa_verified"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "is_device_healthy",
+            "label": "is_device_healthy"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Zero Trust requires continuous, dynamic verification.",
+            "currentState": "is_authenticated",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The zero-trust continuous policy enforcer evaluates four mandatory access.",
+            "currentState": "is_mfa_verified",
+            "transition": {
+              "from": "is_authenticated",
+              "to": "is_mfa_verified",
+              "label": {
+                "var": "is_mfa_verified",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Continuous zero-trust policy enforcement asserts authentication.",
+            "currentState": "is_device_healthy",
+            "transition": {
+              "from": "is_mfa_verified",
+              "to": "is_device_healthy",
+              "label": {
+                "var": "is_device_healthy",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone Capstone — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone 12 Capstone — Resilience Guardrails & Failure Recovery",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "is_authenticated",
+            "label": "is_authenticated"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "is_mfa_verified",
+            "label": "is_mfa_verified"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "is_device_healthy",
+            "label": "is_device_healthy"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Zero Trust requires continuous, dynamic verification.",
+            "currentState": "is_authenticated",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The zero-trust continuous policy enforcer evaluates four mandatory access.",
+            "currentState": "is_mfa_verified",
+            "transition": {
+              "from": "is_authenticated",
+              "to": "is_mfa_verified",
+              "label": "True"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Continuous zero-trust policy enforcement asserts authentication.",
+            "currentState": "is_device_healthy",
+            "transition": {
+              "from": "is_mfa_verified",
+              "to": "is_device_healthy",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Milestone 12 Capstone — Production Telemetry & Verification Audit",
-      "codeHash": "1ea57e7f3805eb39ccd7f715f65b6fccfb4fd018753838097fd1a1b63c5680f9",
+      "codeHash": "52ee8de27ecc5580e4a13e5312e376a86d0ac67c0f37496e9a935d28bf198398",
       "spec": {
-        "template": "flow",
-        "title": "Milestone Capstone — Production Telemetry & Verification Audit",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone 12 Capstone — Production Telemetry & Verification Audi",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "gates",
+            "label": "gates"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "all_passed",
+            "label": "all_passed"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "passed",
+            "label": "passed"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The capstone milestone culminates in a comprehensive end-to-end.",
+            "currentState": "gates",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The Milestone 12 Capstone auditor evaluates all five foundational.",
+            "currentState": "all_passed",
+            "transition": {
+              "from": "gates",
+              "to": "all_passed",
+              "label": {
+                "var": "all_passed",
+                "line": 12,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say10",
+            "caption": "Milestone 12 certification confirms full mastery of enterprise.",
+            "currentState": "passed",
+            "transition": {
+              "from": "all_passed",
+              "to": "passed",
+              "label": {
+                "var": "passed",
+                "line": 16,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone Capstone — Production Telemetry & Verification Audit",
-        "nodes": [
+        "template": "states",
+        "title": "Milestone 12 Capstone — Production Telemetry & Verification Audi",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "gates",
+            "label": "gates"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "all_passed",
+            "label": "all_passed"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "passed",
+            "label": "passed"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The capstone milestone culminates in a comprehensive end-to-end.",
+            "currentState": "gates",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The Milestone 12 Capstone auditor evaluates all five foundational.",
+            "currentState": "all_passed",
+            "transition": {
+              "from": "gates",
+              "to": "all_passed",
+              "label": "True"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say10",
+            "caption": "Milestone 12 certification confirms full mastery of enterprise.",
+            "currentState": "passed",
+            "transition": {
+              "from": "all_passed",
+              "to": "passed",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }

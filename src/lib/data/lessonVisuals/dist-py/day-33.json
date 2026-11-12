@@ -2,1334 +2,940 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 33,
-  "promptSha": "525b6fdb4517d726e0aecf042c0e5b7d7aa5025b1f554d2bedbab23b96efc0e8",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Hybrid Logical Clocks (HLC) & Bounded Physical Time Drift — Foundations & Mathematical Invariants",
-      "codeHash": "d498034d44bdfd8ec21db3cbe3e0d1dc8480f30d56cf833326027ca8d85371ef",
+      "partTitle": "Why Pure Logical and Pure Physical Clocks Both Fall Short",
+      "codeHash": "a09dcd6441eda6c4e51f83e31e84e92a0804cbfa61c827ba2df8a43632bfb023",
       "spec": {
-        "template": "flow",
-        "title": "Hybrid Logical Clocks (HLC) & Bounded Physical Time Drift — Foundation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Why Pure Logical and Pure Physical Clocks Both Fall Short",
+        "actors": [
+          "l_ms",
+          "c",
+          "t1"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Distributed SQL databases like CockroachDB and YugabyteDB face two.",
+            "activeActor": "l_ms",
+            "messages": [
+              {
+                "from": "l_ms",
+                "to": "c",
+                "label": {
+                  "var": "l_ms",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "c",
+                "to": "t1",
+                "label": {
+                  "var": "c",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Pure NTP wall clocks fail correctness whenever clock skew pulls a follower.",
+            "activeActor": "c",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "l_ms",
+                "to": "c",
+                "label": {
+                  "var": "l_ms",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "c",
+                "to": "t1",
+                "label": {
+                  "var": "c",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Trace how inspect updates packed during execution.",
+            "activeActor": "t1",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "l_ms",
+                "to": "c",
+                "label": {
+                  "var": "l_ms",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "c",
+                "to": "t1",
+                "label": {
+                  "var": "c",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Hybrid Logical Clocks (HLC) & Bounded Physical Time Drift — Foundation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Why Pure Logical and Pure Physical Clocks Both Fall Short",
+        "actors": [
+          "l_ms",
+          "c",
+          "t1"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Distributed SQL databases like CockroachDB and YugabyteDB face two.",
+            "messages": [
+              {
+                "from": "l_ms",
+                "to": "c",
+                "label": "1700000000100",
+                "tone": "data"
+              },
+              {
+                "from": "c",
+                "to": "t1",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "l_ms"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Pure NTP wall clocks fail correctness whenever clock skew pulls a follower.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "l_ms",
+                "to": "c",
+                "label": "1700000000100",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "c",
+                "to": "t1",
+                "label": "1",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "c"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Trace how inspect updates packed during execution.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "l_ms",
+                "to": "c",
+                "label": "1700000000101",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "c",
+                "to": "t1",
+                "label": "0",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "t1"
           }
         ]
       }
     },
     {
-      "partTitle": "Hybrid Logical Clocks (HLC) & Bounded Physical Time Drift — Core Algorithm & State Representation",
-      "codeHash": "aeed8a6cc5b1d6156c31d77d664dda59882570ccb7f27dc08a6d2d03f7b9de2b",
+      "partTitle": "HLC Update Algorithm on Local Sends and Remote Receives",
+      "codeHash": "52da786c6019ad74c852c02d5b830bbe69b54d6d85bf02070691bbd9adcd4324",
       "spec": {
-        "template": "flow",
-        "title": "Hybrid Logical Clocks (HLC) & Bounded Physical Time Drift — Core Algor",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "HLC Update Algorithm on Local Sends and Remote Receives",
+        "actors": [
+          "clock_ms",
+          "self",
+          "hlc"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The HLC algorithm enforces three invariant state transitions across local.",
+            "activeActor": "clock_ms",
+            "messages": [
+              {
+                "from": "clock_ms",
+                "to": "self",
+                "label": {
+                  "var": "clock_ms",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "hlc",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "For any local event or outbound RPC send, save l_prev = l first.",
+            "activeActor": "self",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "clock_ms",
+                "to": "self",
+                "label": {
+                  "var": "clock_ms",
+                  "line": 32,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "hlc",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Trace all four receive branches in the working HLC engine below.",
+            "activeActor": "hlc",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "clock_ms",
+                "to": "self",
+                "label": {
+                  "var": "clock_ms",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "self",
+                "to": "hlc",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Hybrid Logical Clocks (HLC) & Bounded Physical Time Drift — Core Algor",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "HLC Update Algorithm on Local Sends and Remote Receives",
+        "actors": [
+          "clock_ms",
+          "self",
+          "hlc"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The HLC algorithm enforces three invariant state transitions across local.",
+            "messages": [
+              {
+                "from": "clock_ms",
+                "to": "self",
+                "label": "[1000]",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "hlc",
+                "label": "<HLC>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "clock_ms"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "For any local event or outbound RPC send, save l_prev = l first.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "clock_ms",
+                "to": "self",
+                "label": "[1000]",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "hlc",
+                "label": "<HLC>",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "self"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Trace all four receive branches in the working HLC engine below.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "clock_ms",
+                "to": "self",
+                "label": "[1000]",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "hlc",
+                "label": "<HLC>",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "hlc"
           }
         ]
       }
     },
     {
-      "partTitle": "Hybrid Logical Clocks (HLC) & Bounded Physical Time Drift — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "97f4d155b0d12932142077d88fbd36404c9047f5413a339a4d954bf8cc2af50f",
+      "partTitle": "Enforcing Maximum Offset Bounds to Prevent Skew Poisoning",
+      "codeHash": "d15f27ec407d4eb03ab872a98403f05d3ffca3dcf702919ef544d0d30026cbca",
       "spec": {
-        "template": "flow",
-        "title": "Hybrid Logical Clocks (HLC) & Bounded Physical Time Drift — Throughput",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Enforcing Maximum Offset Bounds to Prevent Skew Poisoning",
+        "actors": [
+          "t",
+          "self",
+          "max_offset_ms"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "What happens if one misconfigured VM suffers an NTP jump five years.",
+            "activeActor": "t",
+            "messages": [
+              {
+                "from": "t",
+                "to": "self",
+                "label": {
+                  "var": "t",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "max_offset_ms",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Because physical clocks would take five years to catch up, logical.",
+            "activeActor": "self",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "t",
+                "to": "self",
+                "label": {
+                  "var": "t",
+                  "line": 32,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "max_offset_ms",
+                "label": {
+                  "var": "self",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Test both healthy within-tolerance skew acceptance and excessive-skew.",
+            "activeActor": "max_offset_ms",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "t",
+                "to": "self",
+                "label": {
+                  "var": "t",
+                  "line": 33,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "self",
+                "to": "max_offset_ms",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Hybrid Logical Clocks (HLC) & Bounded Physical Time Drift — Throughput",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Enforcing Maximum Offset Bounds to Prevent Skew Poisoning",
+        "actors": [
+          "t",
+          "self",
+          "max_offset_ms"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "What happens if one misconfigured VM suffers an NTP jump five years.",
+            "messages": [
+              {
+                "from": "t",
+                "to": "self",
+                "label": "[5000]",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "max_offset_ms",
+                "label": "<BoundedHLC>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "t"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Because physical clocks would take five years to catch up, logical.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "t",
+                "to": "self",
+                "label": "[5000]",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "max_offset_ms",
+                "label": "<BoundedHLC>",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "self"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Test both healthy within-tolerance skew acceptance and excessive-skew.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "t",
+                "to": "self",
+                "label": "[5000]",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "self",
+                "to": "max_offset_ms",
+                "label": "<BoundedHLC>",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "max_offset_ms"
           }
         ]
       }
     },
     {
-      "partTitle": "Hybrid Logical Clocks (HLC) & Bounded Physical Time Drift — Resilience Guardrails & Failure Recovery",
-      "codeHash": "9038a0baad8a8cefe6b4568d8717e1723e1ddda76c04c9e29b7505556e2ce7c5",
+      "partTitle": "MVCC Read Uncertainty Windows in Transaction Engines",
+      "codeHash": "3ee32c3a4d9b839623c023e82fedd4e34bb75b10d3d4627575713d269578bce7",
       "spec": {
-        "template": "flow",
-        "title": "Hybrid Logical Clocks (HLC) & Bounded Physical Time Drift — Resilience",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "MVCC Read Uncertainty Windows in Transaction Engines",
+        "actors": [
+          "kv_history",
+          "versions",
+          "read_ts"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Bounding cluster skew within epsilon = max_offset unlocks a critical.",
+            "activeActor": "kv_history",
+            "messages": [
+              {
+                "from": "kv_history",
+                "to": "versions",
+                "label": {
+                  "var": "kv_history",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "versions",
+                "to": "read_ts",
+                "label": {
+                  "var": "versions",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Suppose transaction T1 writes key X at node A with HLC timestamp t_1 = 1000ms.",
+            "activeActor": "versions",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "kv_history",
+                "to": "versions",
+                "label": {
+                  "var": "kv_history",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "versions",
+                "to": "read_ts",
+                "label": {
+                  "var": "versions",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Simulate an uncertainty-window scan and restart resolution step below.",
+            "activeActor": "read_ts",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "kv_history",
+                "to": "versions",
+                "label": {
+                  "var": "kv_history",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "versions",
+                "to": "read_ts",
+                "label": {
+                  "var": "versions",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Hybrid Logical Clocks (HLC) & Bounded Physical Time Drift — Resilience",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "MVCC Read Uncertainty Windows in Transaction Engines",
+        "actors": [
+          "kv_history",
+          "versions",
+          "read_ts"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Bounding cluster skew within epsilon = max_offset unlocks a critical.",
+            "messages": [
+              {
+                "from": "kv_history",
+                "to": "versions",
+                "label": "[[1040, 'v2'], [900, 'v1']]",
+                "tone": "data"
+              },
+              {
+                "from": "versions",
+                "to": "read_ts",
+                "label": "[[1040, 'v2'], [900, 'v1']]",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "kv_history"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Suppose transaction T1 writes key X at node A with HLC timestamp t_1 = 1000ms.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "kv_history",
+                "to": "versions",
+                "label": "[[1040, 'v2'], [900, 'v1']]",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "versions",
+                "to": "read_ts",
+                "label": "[[1040, 'v2'], [900, 'v1']]",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "versions"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Simulate an uncertainty-window scan and restart resolution step below.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "kv_history",
+                "to": "versions",
+                "label": "[[1040, 'v2'], [900, 'v1']]",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "versions",
+                "to": "read_ts",
+                "label": "[[1040, 'v2'], [900, 'v1']]",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "read_ts"
           }
         ]
       }
     },
     {
-      "partTitle": "Hybrid Logical Clocks (HLC) & Bounded Physical Time Drift — Production Telemetry & Verification Audit",
-      "codeHash": "97155ef2280b8c273b71b8f4df299b7fe43f4568a75466cfaba5f17f50da410f",
+      "partTitle": "Cross-Cluster HLC Closed Timestamps & Stale Follower Reads",
+      "codeHash": "c11f80aee5fccd1ffbc704e86124ed0d61a30d028aba0791040109b72a493455",
       "spec": {
         "template": "flow",
-        "title": "Hybrid Logical Clocks (HLC) & Bounded Physical Time Drift — Production",
+        "title": "Cross-Cluster HLC Closed Timestamps & Stale Follower Reads",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "safety_lag_ms",
+            "label": "safety_lag_ms"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "gate",
+            "label": "gate"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "leader_hlc",
+            "label": "leader_hlc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Serving read-only queries locally from nearby geo-replicas without.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "safety_lag_ms": {
+                "var": "safety_lag_ms",
+                "line": 3,
+                "hit": 1
+              },
+              "gate": {
+                "var": "gate",
+                "line": 18,
+                "hit": 1
+              },
+              "leader_hlc": {
+                "var": "leader_hlc",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "safety_lag_ms": "data",
+              "gate": "data",
+              "leader_hlc": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "safety_lag_ms"
+              ],
+              [
+                "safety_lag_ms",
+                "gate"
+              ],
+              [
+                "gate",
+                "leader_hlc"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Think about how HLC integrates with Raft replication to advertise closed.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "safety_lag_ms": {
+                "var": "safety_lag_ms",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "gate": {
+                "var": "gate",
+                "line": 19,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "leader_hlc": {
+                "var": "leader_hlc",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "safety_lag_ms": "data",
+              "gate": "data",
+              "leader_hlc": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "safety_lag_ms"
+              ],
+              [
+                "safety_lag_ms",
+                "gate"
+              ],
+              [
+                "gate",
+                "leader_hlc"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Simulate a closed-timestamp follower cache gate tracking live writes vs.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "safety_lag_ms": {
+                "var": "safety_lag_ms",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "gate": {
+                "var": "gate",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "leader_hlc": {
+                "var": "leader_hlc",
+                "line": 11,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "safety_lag_ms": "ok",
+              "gate": "ok",
+              "leader_hlc": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "safety_lag_ms"
+              ],
+              [
+                "safety_lag_ms",
+                "gate"
+              ],
+              [
+                "gate",
+                "leader_hlc"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Hybrid Logical Clocks (HLC) & Bounded Physical Time Drift — Production",
+        "title": "Cross-Cluster HLC Closed Timestamps & Stale Follower Reads",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "safety_lag_ms",
+            "label": "safety_lag_ms"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "gate",
+            "label": "gate"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "leader_hlc",
+            "label": "leader_hlc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Serving read-only queries locally from nearby geo-replicas without.",
+            "values": {
+              "self": "<FollowerReadGate>",
+              "safety_lag_ms": "2000",
+              "gate": "<FollowerReadGate>",
+              "leader_hlc": "12000"
+            },
+            "tones": {
+              "self": "data",
+              "safety_lag_ms": "data",
+              "gate": "data",
+              "leader_hlc": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "safety_lag_ms"
+              ],
+              [
+                "safety_lag_ms",
+                "gate"
+              ],
+              [
+                "gate",
+                "leader_hlc"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Think about how HLC integrates with Raft replication to advertise closed.",
+            "values": {
+              "self": "<FollowerReadGate>",
+              "safety_lag_ms": "2000",
+              "gate": "<FollowerReadGate>",
+              "leader_hlc": "12000"
+            },
+            "tones": {
+              "self": "data",
+              "safety_lag_ms": "data",
+              "gate": "data",
+              "leader_hlc": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "safety_lag_ms"
+              ],
+              [
+                "safety_lag_ms",
+                "gate"
+              ],
+              [
+                "gate",
+                "leader_hlc"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say7",
+            "caption": "Simulate a closed-timestamp follower cache gate tracking live writes vs.",
+            "values": {
+              "self": "<FollowerReadGate>",
+              "safety_lag_ms": "2000",
+              "gate": "<FollowerReadGate>",
+              "leader_hlc": "12000"
+            },
+            "tones": {
+              "self": "ok",
+              "safety_lag_ms": "ok",
+              "gate": "ok",
+              "leader_hlc": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "safety_lag_ms"
+              ],
+              [
+                "safety_lag_ms",
+                "gate"
+              ],
+              [
+                "gate",
+                "leader_hlc"
+              ]
             ]
           }
         ]

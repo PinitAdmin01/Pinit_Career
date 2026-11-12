@@ -2,230 +2,224 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 55,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "ApexOmni Master Architecture: Unifying Vision, Projectors, AnyRes & Autoregressive LLMs",
       "codeHash": "f78eb4cfd62408f7dd9e710914ba3e45221ad15259b301599fb4929e3aaa5413",
       "spec": {
-        "template": "flow",
-        "title": "ApexOmni Master Architecture: Unifying Vision... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. ApexOmni Master Arc...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "ApexOmni Master Architecture: Unifying Vision, Projectors, AnyRe",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for ApexOmni Master Architecture: Unifying V...",
-            "values": {
-              "in": "Day 55 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in ApexOmni Master Arc....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Today, we synthesize these disparate components into a sovereign.",
+            "bars": [
+              {
+                "label": "d_v",
+                "value": {
+                  "var": "d_v",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d_llm",
+                "value": {
+                  "var": "d_llm",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "num_bins",
+                "value": {
+                  "var": "num_bins",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In enterprise technology deployments, generative AI systems cannot afford.",
+            "bars": [
+              {
+                "label": "d_v",
+                "value": {
+                  "var": "d_v",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_llm",
+                "value": {
+                  "var": "d_llm",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "num_bins",
+                "value": {
+                  "var": "num_bins",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for ApexOmni Master Architecture: Uni...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "As you build and defend this master capstone, recognize that you are.",
+            "bars": [
+              {
+                "label": "d_v",
+                "value": {
+                  "var": "d_v",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_llm",
+                "value": {
+                  "var": "d_llm",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "num_bins",
+                "value": {
+                  "var": "num_bins",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 31,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "ApexOmni Master Architecture: Unifying Vision... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. ApexOmni Master Arc...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "ApexOmni Master Architecture: Unifying Vision, Projectors, AnyRe",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for ApexOmni Master Architecture: Unifying V...",
-            "values": {
-              "in": "Day 55 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in ApexOmni Master Arc....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Today, we synthesize these disparate components into a sovereign.",
+            "bars": [
+              {
+                "label": "d_v",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "d_llm",
+                "value": 6,
+                "tone": "data"
+              },
+              {
+                "label": "num_bins",
+                "value": 1000,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 4,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In enterprise technology deployments, generative AI systems cannot afford.",
+            "bars": [
+              {
+                "label": "d_v",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "d_llm",
+                "value": 6,
+                "tone": "ok"
+              },
+              {
+                "label": "num_bins",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 4,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for ApexOmni Master Architecture: Uni...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "As you build and defend this master capstone, recognize that you are.",
+            "bars": [
+              {
+                "label": "d_v",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "d_llm",
+                "value": 6,
+                "tone": "ok"
+              },
+              {
+                "label": "num_bins",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 6,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -235,223 +229,106 @@
       "partTitle": "Subsystem 1: Dual-Stream AnyRes Vision Processor & Visual Newline Spatial Layout Engine",
       "codeHash": "b47c160366df583a08e2442ed02f9047836f0918a57865df15af5dc89087ee58",
       "spec": {
-        "template": "flow",
-        "title": "Subsystem 1: Dual-Stream AnyRes Vision Proces... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Subsystem 1: Dual-S...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Subsystem 1: Dual-Stream AnyRes Vision Processor & Visual Newlin",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Subsystem one: Dual-Stream AnyRes Vision P...",
-            "values": {
-              "in": "Day 55 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Subsystem one: Dual-S....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "We now engineer Subsystem 1 of the ApexOmni suite.",
+            "items": {
+              "var": "best_grid",
+              "line": 14,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "When an asset with dimensions W x H enters Subsystem 1, the engine.",
+            "items": {
+              "var": "best_grid",
+              "line": 20,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Subsystem one: Dual-Stream AnyRes V...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "This dynamic architectural flexibility establishes Subsystem 1 as.",
+            "items": {
+              "var": "best_grid",
+              "line": 19,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Subsystem 1: Dual-Stream AnyRes Vision Proces... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Subsystem 1: Dual-S...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Subsystem 1: Dual-Stream AnyRes Vision Processor & Visual Newlin",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 1: Dual-Stream AnyRes Vision P...",
-            "values": {
-              "in": "Day 55 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 1: Dual-S....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "We now engineer Subsystem 1 of the ApexOmni suite.",
+            "items": [
+              "1",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "When an asset with dimensions W x H enters Subsystem 1, the engine.",
+            "items": [
+              "1",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 1: Dual-Stream AnyRes V...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "This dynamic architectural flexibility establishes Subsystem 1 as.",
+            "items": [
+              "1",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -461,223 +338,217 @@
       "partTitle": "Subsystem 2: 2-Layer GELU MLP Projection Bridge & Cross-Modal Normalization",
       "codeHash": "278a2c71bff5026691991675b97077d4cf8c8499e26e4f77e6d34a7470ff1876",
       "spec": {
-        "template": "flow",
-        "title": "Subsystem 2: 2-Layer GELU MLP Projection Brid... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Subsystem 2: 2-Laye...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Subsystem 2: 2-Layer GELU MLP Projection Bridge & Cross-Modal No",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Subsystem two: two-Layer GELU MLP Projection...",
-            "values": {
-              "in": "Day 55 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Subsystem two: two-Laye....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "We now implement Subsystem 2 of the ApexOmni master suite.",
+            "bars": [
+              {
+                "label": "d_v",
+                "value": {
+                  "var": "d_v",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d_llm",
+                "value": {
+                  "var": "d_llm",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us analyze the mathematical transformation executed by Subsystem 2.",
+            "bars": [
+              {
+                "label": "d_v",
+                "value": {
+                  "var": "d_v",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_llm",
+                "value": {
+                  "var": "d_llm",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 17,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 17,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Subsystem two: two-Layer GELU MLP Pro...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say12",
+            "caption": "Furthermore, empirical ablation studies demonstrate that omitting either.",
+            "bars": [
+              {
+                "label": "d_v",
+                "value": {
+                  "var": "d_v",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_llm",
+                "value": {
+                  "var": "d_llm",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 17,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 17,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Subsystem 2: 2-Layer GELU MLP Projection Brid... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Subsystem 2: 2-Laye...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Subsystem 2: 2-Layer GELU MLP Projection Bridge & Cross-Modal No",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 2: 2-Layer GELU MLP Projection...",
-            "values": {
-              "in": "Day 55 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 2: 2-Laye....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "We now implement Subsystem 2 of the ApexOmni master suite.",
+            "bars": [
+              {
+                "label": "d_v",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "d_llm",
+                "value": 6,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us analyze the mathematical transformation executed by Subsystem 2.",
+            "bars": [
+              {
+                "label": "d_v",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "d_llm",
+                "value": 6,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 2: 2-Layer GELU MLP Pro...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say12",
+            "caption": "Furthermore, empirical ablation studies demonstrate that omitting either.",
+            "bars": [
+              {
+                "label": "d_v",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "d_llm",
+                "value": 6,
+                "tone": "ok"
+              },
+              {
+                "label": "r",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 2,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -688,110 +559,161 @@
       "codeHash": "4d0334d12e7488586195617350998483f60f624197ae6ec731d936314e691284",
       "spec": {
         "template": "flow",
-        "title": "Subsystems 3 & 4: Discrete Coordinate Visual ... — Execution Pipeline",
+        "title": "Subsystems 3 & 4: Discrete Coordinate Visual Grounding & Masked ",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Subsystems 3 & 4: D...",
-            "tappable": true
+            "id": "num_bins",
+            "label": "num_bins"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "engine",
+            "label": "engine"
+          },
+          {
+            "id": "w",
+            "label": "w"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Subsystems three & four: Discrete Coordinate.",
-            "values": {
-              "in": "Day 55 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Subsystems three & four: D....",
+            "caption": "We now integrate Subsystem 3 (The Discrete Coordinate Visual Grounding.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": {
+                "var": "self",
+                "line": 11,
+                "hit": 1
+              },
+              "num_bins": {
+                "var": "num_bins",
+                "line": 11,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 47,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 50,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "num_bins": "data",
+              "engine": "data",
+              "w": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "num_bins"
               ],
               [
-                "proc",
-                "out"
+                "num_bins",
+                "engine"
+              ],
+              [
+                "engine",
+                "w"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Subsystem 3 implements Spatial Coordinate Tokenization.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": {
+                "var": "self",
+                "line": 23,
+                "hit": 1
+              },
+              "num_bins": {
+                "var": "num_bins",
+                "line": 11,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 50,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 51,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "num_bins": "data",
+              "engine": "data",
+              "w": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "num_bins"
+              ],
+              [
+                "num_bins",
+                "engine"
+              ],
+              [
+                "engine",
+                "w"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Subsystems three & four: Discrete.",
+            "at": "say11",
+            "caption": "From an inference latency standpoint, emitting discrete coordinate tokens.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": {
+                "var": "self",
+                "line": 25,
+                "hit": 1
+              },
+              "num_bins": {
+                "var": "num_bins",
+                "line": 11,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 51,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 52,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "num_bins": "ok",
+              "engine": "ok",
+              "w": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "num_bins"
               ],
               [
-                "proc",
-                "out"
+                "num_bins",
+                "engine"
+              ],
+              [
+                "engine",
+                "w"
               ]
             ]
           }
@@ -799,110 +721,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Subsystems 3 & 4: Discrete Coordinate Visual ... — Execution Pipeline",
+        "title": "Subsystems 3 & 4: Discrete Coordinate Visual Grounding & Masked ",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Subsystems 3 & 4: D...",
-            "tappable": true
+            "id": "num_bins",
+            "label": "num_bins"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "engine",
+            "label": "engine"
+          },
+          {
+            "id": "w",
+            "label": "w"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystems 3 & 4: Discrete Coordinate Vi...",
-            "values": {
-              "in": "Day 55 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystems 3 & 4: D....",
+            "caption": "We now integrate Subsystem 3 (The Discrete Coordinate Visual Grounding.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": "<GroundingAndSFTEngine>",
+              "num_bins": "1000",
+              "engine": "<GroundingAndSFTEngine>",
+              "w": "1920"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "num_bins": "data",
+              "engine": "data",
+              "w": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "num_bins"
               ],
               [
-                "proc",
-                "out"
+                "num_bins",
+                "engine"
+              ],
+              [
+                "engine",
+                "w"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Subsystem 3 implements Spatial Coordinate Tokenization.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": "<GroundingAndSFTEngine>",
+              "num_bins": "1000",
+              "engine": "<GroundingAndSFTEngine>",
+              "w": "1920"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "num_bins": "data",
+              "engine": "data",
+              "w": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "num_bins"
+              ],
+              [
+                "num_bins",
+                "engine"
+              ],
+              [
+                "engine",
+                "w"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystems 3 & 4: Discrete Coordi...",
+            "at": "say11",
+            "caption": "From an inference latency standpoint, emitting discrete coordinate tokens.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": "<GroundingAndSFTEngine>",
+              "num_bins": "1000",
+              "engine": "<GroundingAndSFTEngine>",
+              "w": "1920"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "num_bins": "ok",
+              "engine": "ok",
+              "w": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "num_bins"
               ],
               [
-                "proc",
-                "out"
+                "num_bins",
+                "engine"
+              ],
+              [
+                "engine",
+                "w"
               ]
             ]
           }
@@ -914,110 +839,161 @@
       "codeHash": "b576818f6fcdc2d4c22af46b697cb42554c00341f4b44126a17f5cd194d2ae64",
       "spec": {
         "template": "flow",
-        "title": "Subsystem 5: Milestone Capstone Defense, Benc... — Execution Pipeline",
+        "title": "Subsystem 5: Milestone Capstone Defense, Benchmarking & Sovereig",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Subsystem 5: Milest...",
-            "tappable": true
+            "id": "defense",
+            "label": "defense"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "value",
+            "label": "value"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Subsystem five: Milestone Capstone Defense,...",
-            "values": {
-              "in": "Day 55 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Subsystem five: Milest....",
+            "caption": "We now conduct Subsystem 5.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
+              },
+              "defense": {
+                "var": "defense",
+                "line": 24,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 10,
+                "hit": 1
+              },
+              "value": {
+                "var": "value",
+                "line": 10,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "defense": "data",
+              "name": "data",
+              "value": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "defense"
               ],
               [
-                "proc",
-                "out"
+                "defense",
+                "name"
+              ],
+              [
+                "name",
+                "value"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Let us review the statutory milestones audited by the Sovereign Defense Engine.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": {
+                "var": "self",
+                "line": 10,
+                "hit": 1
+              },
+              "defense": {
+                "var": "defense",
+                "line": 27,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 11,
+                "hit": 1
+              },
+              "value": {
+                "var": "value",
+                "line": 11,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "defense": "data",
+              "name": "data",
+              "value": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "defense"
+              ],
+              [
+                "defense",
+                "name"
+              ],
+              [
+                "name",
+                "value"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Subsystem five: Milestone Capstone D...",
+            "at": "say11",
+            "caption": "Every line of standard library code in the ApexOmni engine has been.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": {
+                "var": "self",
+                "line": 11,
+                "hit": 1
+              },
+              "defense": {
+                "var": "defense",
+                "line": 28,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 12,
+                "hit": 1
+              },
+              "value": {
+                "var": "value",
+                "line": 12,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "defense": "ok",
+              "name": "ok",
+              "value": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "defense"
               ],
               [
-                "proc",
-                "out"
+                "defense",
+                "name"
+              ],
+              [
+                "name",
+                "value"
               ]
             ]
           }
@@ -1025,110 +1001,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Subsystem 5: Milestone Capstone Defense, Benc... — Execution Pipeline",
+        "title": "Subsystem 5: Milestone Capstone Defense, Benchmarking & Sovereig",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Subsystem 5: Milest...",
-            "tappable": true
+            "id": "defense",
+            "label": "defense"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "value",
+            "label": "value"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 5: Milestone Capstone Defense,...",
-            "values": {
-              "in": "Day 55 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 5: Milest....",
+            "caption": "We now conduct Subsystem 5.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": "<ApexOmniDefenseEngine>",
+              "defense": "<ApexOmniDefenseEngine>",
+              "name": "'Aspect_Ratio_Preservation'",
+              "value": "'1x2 Grid Assigned (0.0% squish)'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "defense": "data",
+              "name": "data",
+              "value": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "defense"
               ],
               [
-                "proc",
-                "out"
+                "defense",
+                "name"
+              ],
+              [
+                "name",
+                "value"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Let us review the statutory milestones audited by the Sovereign Defense Engine.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": "<ApexOmniDefenseEngine>",
+              "defense": "<ApexOmniDefenseEngine>",
+              "name": "'Aspect_Ratio_Preservation'",
+              "value": "'1x2 Grid Assigned (0.0% squish)'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "defense": "data",
+              "name": "data",
+              "value": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "defense"
+              ],
+              [
+                "defense",
+                "name"
+              ],
+              [
+                "name",
+                "value"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 5: Milestone Capstone D...",
+            "at": "say11",
+            "caption": "Every line of standard library code in the ApexOmni engine has been.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": "<ApexOmniDefenseEngine>",
+              "defense": "<ApexOmniDefenseEngine>",
+              "name": "'Aspect_Ratio_Preservation'",
+              "value": "'1x2 Grid Assigned (0.0% squish)'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "defense": "ok",
+              "name": "ok",
+              "value": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "defense"
               ],
               [
-                "proc",
-                "out"
+                "defense",
+                "name"
+              ],
+              [
+                "name",
+                "value"
               ]
             ]
           }

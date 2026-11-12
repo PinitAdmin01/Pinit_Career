@@ -2,231 +2,169 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 19,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Plan first, then act",
       "codeHash": "27ab8dbbc6902f4310d40552f97c1596e5a8e999b5d9b432a38b362ea4ca9b63",
       "spec": {
-        "template": "flow",
-        "title": "Plan first, then act — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Plan first, then act",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Plan first, then act",
+        "actors": [
+          "plan_text",
+          "plan",
+          "i"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Plan first, then act [D.Pone.Sone].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Plan first, then act [D.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "ReAct agents decide one step at a time, which can wander.",
+            "activeActor": "plan_text",
+            "messages": [
+              {
+                "from": "plan_text",
+                "to": "plan",
+                "label": {
+                  "var": "plan_text",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "plan",
+                "to": "i",
+                "label": {
+                  "var": "plan",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "A plan makes the agent's intention visible.",
+            "activeActor": "plan",
+            "messages": [
+              {
+                "from": "plan_text",
+                "to": "plan",
+                "label": {
+                  "var": "plan_text",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "plan",
+                "to": "i",
+                "label": {
+                  "var": "plan",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Plan first, then act [D.Pone.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "A small model can often follow a plan written by a larger one, which saves.",
+            "activeActor": "i",
+            "messages": [
+              {
+                "from": "plan_text",
+                "to": "plan",
+                "label": {
+                  "var": "plan_text",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "plan",
+                "to": "i",
+                "label": {
+                  "var": "plan",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Plan first, then act — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Plan first, then act",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Plan first, then act",
+        "actors": [
+          "plan_text",
+          "plan",
+          "i"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Plan first, then act [D19.P1.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Plan first, then act [D19.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "ReAct agents decide one step at a time, which can wander.",
+            "messages": [
+              {
+                "from": "plan_text",
+                "to": "plan",
+                "label": "'[{\"step\": \"Find 3 hotels in Goa under …",
+                "tone": "data"
+              },
+              {
+                "from": "plan",
+                "to": "i",
+                "label": "[{'step': 'Find 3 hotels in Goa under 5…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "plan_text"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "A plan makes the agent's intention visible.",
+            "messages": [
+              {
+                "from": "plan_text",
+                "to": "plan",
+                "label": "'[{\"step\": \"Find 3 hotels in Goa under …",
+                "tone": "data"
+              },
+              {
+                "from": "plan",
+                "to": "i",
+                "label": "[{'step': 'Find 3 hotels in Goa under 5…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "plan"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Plan first, then act [D19.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "A small model can often follow a plan written by a larger one, which saves.",
+            "messages": [
+              {
+                "from": "plan_text",
+                "to": "plan",
+                "label": "'[{\"step\": \"Find 3 hotels in Goa under …",
+                "tone": "data"
+              },
+              {
+                "from": "plan",
+                "to": "i",
+                "label": "[{'step': 'Find 3 hotels in Goa under 5…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "i"
           }
         ]
       }
@@ -235,122 +173,162 @@
       "partTitle": "Tracking progress",
       "codeHash": "62ce4240b969c74db395bc187579755883ac56237ec03c6e9bb96f30b164c82d",
       "spec": {
-        "template": "bars",
-        "title": "Plan progress tracking across execution milestones",
+        "template": "sequence",
+        "title": "Tracking progress",
+        "actors": [
+          "plan",
+          "steps",
+          "s"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Plan progress returns percentage string of done steps.",
-            "bars": [
+            "caption": "Plan_progress(steps) returns the share of steps with status DONE as.",
+            "activeActor": "plan",
+            "messages": [
               {
-                "label": "done_steps",
-                "value": {
-                  "text": "100"
+                "from": "plan",
+                "to": "steps",
+                "label": {
+                  "var": "plan",
+                  "line": 7,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "empty_plan",
-                "value": {
-                  "text": "0%"
+                "from": "steps",
+                "to": "s",
+                "label": {
+                  "var": "steps",
+                  "line": 2,
+                  "hit": 1
                 },
-                "tone": "idle"
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Update step status as the agent works.",
-            "bars": [
+            "at": "say2",
+            "caption": "Use round(done / total x 100) and an f-string.",
+            "activeActor": "steps",
+            "messages": [
               {
-                "label": "done_steps",
-                "value": {
-                  "text": "100"
+                "from": "plan",
+                "to": "steps",
+                "label": {
+                  "var": "plan",
+                  "line": 8,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "empty_plan",
-                "value": {
-                  "text": "0%"
+                "from": "steps",
+                "to": "s",
+                "label": {
+                  "var": "steps",
+                  "line": 4,
+                  "hit": 5
                 },
-                "tone": "idle"
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Showing progress builds trust while users wait for work.",
-            "bars": [
+            "at": "say7",
+            "caption": "A step that fails should be visible too, not hidden inside a percentage.",
+            "activeActor": "s",
+            "messages": [
               {
-                "label": "done_steps",
-                "value": {
-                  "text": "100"
+                "from": "plan",
+                "to": "steps",
+                "label": {
+                  "var": "plan",
+                  "line": 9,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "label": "empty_plan",
-                "value": {
-                  "text": "0%"
+                "from": "steps",
+                "to": "s",
+                "label": {
+                  "var": "steps",
+                  "line": 5,
+                  "hit": 1
                 },
-                "tone": "idle"
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "bars",
-        "title": "Plan progress tracking across execution milestones",
+        "template": "sequence",
+        "title": "Tracking progress",
+        "actors": [
+          "plan",
+          "steps",
+          "s"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Plan progress returns percentage string of done steps.",
-            "bars": [
+            "caption": "Plan_progress(steps) returns the share of steps with status DONE as.",
+            "messages": [
               {
-                "label": "done_steps",
-                "value": 100,
-                "tone": "ok"
+                "from": "plan",
+                "to": "steps",
+                "label": "[{'status': 'DONE'}, {'status': 'DONE'}…",
+                "tone": "data"
               },
               {
-                "label": "empty_plan",
-                "value": "0%",
-                "tone": "idle"
+                "from": "steps",
+                "to": "s",
+                "label": "[{'status': 'DONE'}, {'status': 'DONE'}…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "plan"
           },
           {
-            "at": "say4",
-            "caption": "Update step status as the agent works.",
-            "bars": [
+            "at": "say2",
+            "caption": "Use round(done / total x 100) and an f-string.",
+            "messages": [
               {
-                "label": "done_steps",
-                "value": 100,
-                "tone": "ok"
+                "from": "plan",
+                "to": "steps",
+                "label": "[{'status': 'DONE'}, {'status': 'DONE'}…",
+                "tone": "data"
               },
               {
-                "label": "empty_plan",
-                "value": "0%",
-                "tone": "idle"
+                "from": "steps",
+                "to": "s",
+                "label": "[{'status': 'DONE'}, {'status': 'DONE'}…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "steps"
           },
           {
-            "at": "say6",
-            "caption": "Showing progress builds trust while users wait for work.",
-            "bars": [
+            "at": "say7",
+            "caption": "A step that fails should be visible too, not hidden inside a percentage.",
+            "messages": [
               {
-                "label": "done_steps",
-                "value": 100,
-                "tone": "ok"
+                "from": "plan",
+                "to": "steps",
+                "label": "[{'status': 'DONE'}, {'status': 'DONE'}…",
+                "tone": "data"
               },
               {
-                "label": "empty_plan",
-                "value": "0%",
-                "tone": "idle"
+                "from": "steps",
+                "to": "s",
+                "label": "[{'status': 'DONE'}, {'status': 'DONE'}…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "s"
           }
         ]
       }
@@ -359,132 +337,162 @@
       "partTitle": "Reflection: checking your own work",
       "codeHash": "fbdc6de4e5f89aa6fe054c9a01ec2598bc8a6e7678ad7b904aef3f7d98f716ec",
       "spec": {
-        "template": "compare",
-        "title": "Self-reflection feedback validation before and after revision",
-        "leftLabel": "Initial Draft",
-        "rightLabel": "Reflected Version",
+        "template": "sequence",
+        "title": "Reflection: checking your own work",
+        "actors": [
+          "draft",
+          "requirements",
+          "answer"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Reflection asks the model to review output against the task.",
-            "left": {
-              "code": "Stay at Sea Breeze Inn in Goa, rated 4.5, near the beach.",
-              "result": {
-                "text": "price"
+            "caption": "Reflection asks the model to review its own output against the task.",
+            "activeActor": "draft",
+            "messages": [
+              {
+                "from": "draft",
+                "to": "requirements",
+                "label": {
+                  "var": "draft",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "data"
-            },
-            "right": {
-              "code": "Stay at Sea Breeze Inn in Goa, rated 4.5, near the beach. Price: 4200 rupees.",
-              "result": {
-                "text": "all requirements met"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "requirements",
+                "to": "answer",
+                "label": {
+                  "var": "requirements",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Second pass uses feedback to improve the answer and fix mistakes.",
-            "left": {
-              "code": "missing: price requirement",
-              "result": {
-                "text": "price"
+            "caption": "The review produces feedback, and a second pass uses that feedback.",
+            "activeActor": "requirements",
+            "messages": [
+              {
+                "from": "draft",
+                "to": "requirements",
+                "label": {
+                  "var": "draft",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "error"
-            },
-            "right": {
-              "code": "improved draft meets all criteria",
-              "result": {
-                "text": "all requirements met"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "requirements",
+                "to": "answer",
+                "label": {
+                  "var": "requirements",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Reflection works best with concrete list of requirements.",
-            "left": {
-              "code": "requirements = [\"price\", \"Goa\", \"rated\"]",
-              "result": {
-                "text": "price"
+            "at": "say7",
+            "caption": "The code below uses simple checks to generate reflection feedback.",
+            "activeActor": "answer",
+            "messages": [
+              {
+                "from": "draft",
+                "to": "requirements",
+                "label": {
+                  "var": "draft",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "data"
-            },
-            "right": {
-              "code": "reflect(improved, requirements)",
-              "result": {
-                "text": "all requirements met"
-              },
-              "tone": "ok"
-            }
+              {
+                "from": "requirements",
+                "to": "answer",
+                "label": {
+                  "var": "requirements",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Self-reflection feedback validation before and after revision",
-        "leftLabel": "Initial Draft",
-        "rightLabel": "Reflected Version",
+        "template": "sequence",
+        "title": "Reflection: checking your own work",
+        "actors": [
+          "draft",
+          "requirements",
+          "answer"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Reflection asks the model to review output against the task.",
-            "left": {
-              "code": "Stay at Sea Breeze Inn in Goa, rated 4.5, near the beach.",
-              "result": "price",
-              "tone": "data",
-              "checks": [
-                "price"
-              ]
-            },
-            "right": {
-              "code": "Stay at Sea Breeze Inn in Goa, rated 4.5, near the beach. Price: 4200 rupees.",
-              "result": "all requirements met",
-              "tone": "ok",
-              "checks": [
-                "all requirements met"
-              ]
-            }
+            "caption": "Reflection asks the model to review its own output against the task.",
+            "messages": [
+              {
+                "from": "draft",
+                "to": "requirements",
+                "label": "'Stay at Sea Breeze Inn in Goa, rated 4…",
+                "tone": "data"
+              },
+              {
+                "from": "requirements",
+                "to": "answer",
+                "label": "['price', 'Goa', 'rated']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "draft"
           },
           {
             "at": "say2",
-            "caption": "Second pass uses feedback to improve the answer and fix mistakes.",
-            "left": {
-              "code": "missing: price requirement",
-              "result": "price",
-              "tone": "error",
-              "checks": [
-                "price"
-              ]
-            },
-            "right": {
-              "code": "improved draft meets all criteria",
-              "result": "all requirements met",
-              "tone": "ok",
-              "checks": [
-                "all requirements met"
-              ]
-            }
+            "caption": "The review produces feedback, and a second pass uses that feedback.",
+            "messages": [
+              {
+                "from": "draft",
+                "to": "requirements",
+                "label": "'Stay at Sea Breeze Inn in Goa, rated 4…",
+                "tone": "data"
+              },
+              {
+                "from": "requirements",
+                "to": "answer",
+                "label": "['price', 'Goa', 'rated']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "requirements"
           },
           {
-            "at": "say3",
-            "caption": "Reflection works best with concrete list of requirements.",
-            "left": {
-              "code": "requirements = [\"price\", \"Goa\", \"rated\"]",
-              "result": "price",
-              "tone": "data",
-              "checks": [
-                "price"
-              ]
-            },
-            "right": {
-              "code": "reflect(improved, requirements)",
-              "result": "all requirements met",
-              "tone": "ok",
-              "checks": [
-                "all requirements met"
-              ]
-            }
+            "at": "say7",
+            "caption": "The code below uses simple checks to generate reflection feedback.",
+            "messages": [
+              {
+                "from": "draft",
+                "to": "requirements",
+                "label": "'Stay at Sea Breeze Inn in Goa, rated 4…",
+                "tone": "data"
+              },
+              {
+                "from": "requirements",
+                "to": "answer",
+                "label": "['price', 'Goa', 'rated']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "answer"
           }
         ]
       }
@@ -493,192 +501,194 @@
       "partTitle": "Repair prompts from errors",
       "codeHash": "0cb95cb46b7d8341996e7353c754f4a667b9c3403ef2e7b6fdcb876fdd55ac00",
       "spec": {
-        "template": "table",
-        "title": "Constructing structured repair prompts from execution errors",
-        "columns": [
-          "code_sample",
-          "error_signal",
-          "needs_correction"
+        "template": "boxes",
+        "title": "Repair prompts from errors",
+        "boxes": [
+          {
+            "id": "broken",
+            "label": "broken"
+          },
+          {
+            "id": "error",
+            "label": "error"
+          },
+          {
+            "id": "code",
+            "label": "code"
+          },
+          {
+            "id": "prompt",
+            "label": "prompt"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When an agent writes code error message provides best feedback.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "broken"
-                  },
-                  {
-                    "text": "SyntaxError: expected ':' (line 2)"
-                  },
-                  {
-                    "text": "needs_correction"
-                  }
-                ],
-                "tone": "error"
+            "caption": "When an agent writes code, the best feedback is the actual error message.",
+            "values": {
+              "broken": {
+                "var": "broken",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "broken"
-                  },
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "needs_correction"
-                  }
-                ],
-                "tone": "ok"
+              "error": {
+                "var": "error",
+                "line": 8,
+                "hit": 1
+              },
+              "code": {
+                "var": "code",
+                "line": 2,
+                "hit": 1
+              },
+              "prompt": {
+                "var": "prompt",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "broken": "data",
+              "error": "data",
+              "code": "data",
+              "prompt": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Build prompt in exact format with error and corrected code instruction.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "broken"
-                  },
-                  {
-                    "text": "SyntaxError: expected ':' (line 2)"
-                  },
-                  {
-                    "text": "needs_correction"
-                  }
-                ],
-                "tone": "error"
+            "caption": "If error is empty, return {\"needs_correction\".",
+            "values": {
+              "broken": {
+                "var": "broken",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "broken"
-                  },
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "needs_correction"
-                  }
-                ],
-                "tone": "ok"
+              "error": {
+                "var": "error",
+                "line": 2,
+                "hit": 1
+              },
+              "code": {
+                "var": "code",
+                "line": 4,
+                "hit": 1
+              },
+              "prompt": {
+                "var": "prompt",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "broken": "data",
+              "error": "data",
+              "code": "data",
+              "prompt": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "Including real error text lets model target actual problem.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "broken"
-                  },
-                  {
-                    "text": "SyntaxError: expected ':' (line 2)"
-                  },
-                  {
-                    "text": "needs_correction"
-                  }
-                ],
-                "tone": "error"
+            "at": "say7",
+            "caption": "Loop at most two or three times.",
+            "values": {
+              "broken": {
+                "var": "broken",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "broken"
-                  },
-                  {
-                    "text": "prompt"
-                  },
-                  {
-                    "text": "needs_correction"
-                  }
-                ],
-                "tone": "ok"
+              "error": {
+                "var": "error",
+                "line": 4,
+                "hit": 1
+              },
+              "code": {
+                "var": "code",
+                "line": 5,
+                "hit": 1
+              },
+              "prompt": {
+                "var": "prompt",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "broken": "ok",
+              "error": "ok",
+              "code": "ok",
+              "prompt": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Constructing structured repair prompts from execution errors",
-        "columns": [
-          "code_sample",
-          "error_signal",
-          "needs_correction"
+        "template": "boxes",
+        "title": "Repair prompts from errors",
+        "boxes": [
+          {
+            "id": "broken",
+            "label": "broken"
+          },
+          {
+            "id": "error",
+            "label": "error"
+          },
+          {
+            "id": "code",
+            "label": "code"
+          },
+          {
+            "id": "prompt",
+            "label": "prompt"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When an agent writes code error message provides best feedback.",
-            "rows": [
-              {
-                "cells": [
-                  "broken",
-                  "SyntaxError: expected ':' (line 2)",
-                  "needs_correction"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "broken",
-                  "prompt",
-                  "needs_correction"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "When an agent writes code, the best feedback is the actual error message.",
+            "values": {
+              "broken": "'total = 0\nfor x in range(5)\n    total …",
+              "error": "\"SyntaxError: expected ':' (line 2)\"",
+              "code": "'total = 0\nfor x in range(5)\n    total …",
+              "prompt": "\"The code failed with this error: Synta…"
+            },
+            "tones": {
+              "broken": "data",
+              "error": "data",
+              "code": "data",
+              "prompt": "data"
+            }
           },
           {
             "at": "say2",
-            "caption": "Build prompt in exact format with error and corrected code instruction.",
-            "rows": [
-              {
-                "cells": [
-                  "broken",
-                  "SyntaxError: expected ':' (line 2)",
-                  "needs_correction"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "broken",
-                  "prompt",
-                  "needs_correction"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "If error is empty, return {\"needs_correction\".",
+            "values": {
+              "broken": "'total = 0\nfor x in range(5)\n    total …",
+              "error": "\"SyntaxError: expected ':' (line 2)\"",
+              "code": "'total = 0\nfor x in range(5)\n    total …",
+              "prompt": "\"The code failed with this error: Synta…"
+            },
+            "tones": {
+              "broken": "data",
+              "error": "data",
+              "code": "data",
+              "prompt": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "Including real error text lets model target actual problem.",
-            "rows": [
-              {
-                "cells": [
-                  "broken",
-                  "SyntaxError: expected ':' (line 2)",
-                  "needs_correction"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "broken",
-                  "prompt",
-                  "needs_correction"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say7",
+            "caption": "Loop at most two or three times.",
+            "values": {
+              "broken": "'total = 0\nfor x in range(5)\n    total …",
+              "error": "\"SyntaxError: expected ':' (line 2)\"",
+              "code": "'total = 0\nfor x in range(5)\n    total …",
+              "prompt": "\"The code failed with this error: Synta…"
+            },
+            "tones": {
+              "broken": "ok",
+              "error": "ok",
+              "code": "ok",
+              "prompt": "ok"
+            }
           }
         ]
       }
@@ -687,157 +697,194 @@
       "partTitle": "A write, test, repair loop",
       "codeHash": "73e97b2d01d815559176df22453d904f05aa892ccb6db31ccf7dd8520a0406ad",
       "spec": {
-        "template": "flow",
-        "title": "Automated code repair loop driven by test assertion feedback",
-        "nodes": [
+        "template": "boxes",
+        "title": "A write, test, repair loop",
+        "boxes": [
+          {
+            "id": "attempts",
+            "label": "attempts"
+          },
+          {
+            "id": "attempt",
+            "label": "attempt"
+          },
           {
             "id": "body",
             "label": "body"
           },
           {
-            "id": "area",
-            "label": "area"
-          },
-          {
-            "id": "error",
-            "label": "error"
-          }
-        ],
-        "edges": [
-          {
-            "from": "body",
-            "to": "area"
-          },
-          {
-            "from": "area",
-            "to": "error"
+            "id": "w",
+            "label": "w"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Agent writes code, program runs tests, and error becomes repair prompt.",
+            "caption": "The agent writes code, your program runs the tests, and if they fail,.",
             "values": {
+              "attempts": {
+                "var": "attempts",
+                "line": 1,
+                "hit": 2
+              },
+              "attempt": {
+                "var": "attempt",
+                "line": 10,
+                "hit": 1
+              },
               "body": {
-                "text": "return w + h"
+                "var": "body",
+                "line": 11,
+                "hit": 1
               },
-              "area": {
-                "text": "area"
-              },
-              "error": {
-                "text": "tests passed"
+              "w": {
+                "var": "w",
+                "line": 2,
+                "hit": 2
               }
             },
             "tones": {
+              "attempts": "data",
+              "attempt": "data",
               "body": "data",
-              "area": "idle",
-              "error": "idle"
+              "w": "data"
             }
           },
           {
-            "at": "say3",
-            "caption": "Model returns broken version first then fixed version that passes test.",
+            "at": "say2",
+            "caption": "Running real code needs a sandbox.",
             "values": {
+              "attempts": {
+                "var": "attempts",
+                "line": 6,
+                "hit": 1
+              },
+              "attempt": {
+                "var": "attempt",
+                "line": 11,
+                "hit": 1
+              },
               "body": {
-                "text": "return w + h"
+                "var": "body",
+                "line": 12,
+                "hit": 1
               },
-              "area": {
-                "text": "area"
-              },
-              "error": {
-                "text": "tests passed"
+              "w": {
+                "var": "w",
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
-              "body": "error",
-              "area": "data",
-              "error": "error"
+              "attempts": "data",
+              "attempt": "data",
+              "body": "data",
+              "w": "data"
             }
           },
           {
-            "at": "say4",
-            "caption": "This loop fixes mistakes with tests as source of truth.",
+            "at": "say7",
+            "caption": "The same loop idea powers data-cleaning agents, SQL generators and more.",
             "values": {
+              "attempts": {
+                "var": "attempts",
+                "line": 10,
+                "hit": 1
+              },
+              "attempt": {
+                "var": "attempt",
+                "line": 12,
+                "hit": 1
+              },
               "body": {
-                "text": "return w + h"
+                "var": "body",
+                "line": 13,
+                "hit": 1
               },
-              "area": {
-                "text": "area"
-              },
-              "error": {
-                "text": "tests passed"
+              "w": {
+                "var": "w",
+                "line": 3,
+                "hit": 2
               }
             },
             "tones": {
+              "attempts": "ok",
+              "attempt": "ok",
               "body": "ok",
-              "area": "ok",
-              "error": "ok"
+              "w": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Automated code repair loop driven by test assertion feedback",
-        "nodes": [
+        "template": "boxes",
+        "title": "A write, test, repair loop",
+        "boxes": [
+          {
+            "id": "attempts",
+            "label": "attempts"
+          },
+          {
+            "id": "attempt",
+            "label": "attempt"
+          },
           {
             "id": "body",
             "label": "body"
           },
           {
-            "id": "area",
-            "label": "area"
-          },
-          {
-            "id": "error",
-            "label": "error"
+            "id": "w",
+            "label": "w"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Agent writes code, program runs tests, and error becomes repair prompt.",
+            "caption": "The agent writes code, your program runs the tests, and if they fail,.",
             "values": {
-              "body": "return w + h",
-              "area": "area",
-              "error": "tests passed"
+              "attempts": "{'__other__': 'list_iterator'}",
+              "attempt": "1",
+              "body": "'return w + h'",
+              "w": "3"
             },
             "tones": {
+              "attempts": "data",
+              "attempt": "data",
               "body": "data",
-              "area": "idle",
-              "error": "idle"
-            },
-            "arrows": []
+              "w": "data"
+            }
           },
           {
-            "at": "say3",
-            "caption": "Model returns broken version first then fixed version that passes test.",
+            "at": "say2",
+            "caption": "Running real code needs a sandbox.",
             "values": {
-              "body": "return w + h",
-              "area": "area",
-              "error": "tests passed"
+              "attempts": "{'__other__': 'list_iterator'}",
+              "attempt": "1",
+              "body": "'return w + h'",
+              "w": "3"
             },
             "tones": {
-              "body": "error",
-              "area": "data",
-              "error": "error"
-            },
-            "arrows": []
+              "attempts": "data",
+              "attempt": "data",
+              "body": "data",
+              "w": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "This loop fixes mistakes with tests as source of truth.",
+            "at": "say7",
+            "caption": "The same loop idea powers data-cleaning agents, SQL generators and more.",
             "values": {
-              "body": "return w + h",
-              "area": "area",
-              "error": "tests passed"
+              "attempts": "{'__other__': 'list_iterator'}",
+              "attempt": "1",
+              "body": "'return w + h'",
+              "w": "3"
             },
             "tones": {
+              "attempts": "ok",
+              "attempt": "ok",
               "body": "ok",
-              "area": "ok",
-              "error": "ok"
-            },
-            "arrows": []
+              "w": "ok"
+            }
           }
         ]
       }
@@ -847,110 +894,161 @@
       "codeHash": "e131a1651608b40368b34cff49c7c21723a88e11359b5317750ae9d99a1512b9",
       "spec": {
         "template": "flow",
-        "title": "Balancing planning, reflection and cost — Execution Pipeline",
+        "title": "Balancing planning, reflection and cost",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "setups",
+            "label": "setups"
           },
           {
-            "id": "proc",
-            "label": "2. Balancing planning,...",
-            "tappable": true
+            "id": "price_per_call",
+            "label": "price_per_call"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "calls",
+            "label": "calls"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Balancing planning, reflection and cost.",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Balancing planning,... [D.Psix.Stwo].",
+            "caption": "Each technique adds calls.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "setups": {
+                "var": "setups",
+                "line": 1,
+                "hit": 1
+              },
+              "price_per_call": {
+                "var": "price_per_call",
+                "line": 6,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
+              },
+              "calls": {
+                "var": "calls",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "setups": "data",
+              "price_per_call": "data",
+              "name": "data",
+              "calls": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "setups",
+                "price_per_call"
               ],
               [
-                "proc",
-                "out"
+                "price_per_call",
+                "name"
+              ],
+              [
+                "name",
+                "calls"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Use planning for long, multi-step tasks.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "setups": {
+                "var": "setups",
+                "line": 6,
+                "hit": 1
+              },
+              "price_per_call": {
+                "var": "price_per_call",
+                "line": 7,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 8,
+                "hit": 1
+              },
+              "calls": {
+                "var": "calls",
+                "line": 8,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "setups": "data",
+              "price_per_call": "data",
+              "name": "data",
+              "calls": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "setups",
+                "price_per_call"
+              ],
+              [
+                "price_per_call",
+                "name"
+              ],
+              [
+                "name",
+                "calls"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Balancing planning, reflection an.",
+            "at": "say7",
+            "caption": "Tomorrow switches to user experience.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "setups": {
+                "var": "setups",
+                "line": 7,
+                "hit": 1
+              },
+              "price_per_call": {
+                "var": "price_per_call",
+                "line": 8,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 9,
+                "hit": 1
+              },
+              "calls": {
+                "var": "calls",
+                "line": 9,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "setups": "ok",
+              "price_per_call": "ok",
+              "name": "ok",
+              "calls": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "setups",
+                "price_per_call"
               ],
               [
-                "proc",
-                "out"
+                "price_per_call",
+                "name"
+              ],
+              [
+                "name",
+                "calls"
               ]
             ]
           }
@@ -958,110 +1056,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Balancing planning, reflection and cost — Execution Pipeline",
+        "title": "Balancing planning, reflection and cost",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "setups",
+            "label": "setups"
           },
           {
-            "id": "proc",
-            "label": "2. Balancing planning,...",
-            "tappable": true
+            "id": "price_per_call",
+            "label": "price_per_call"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "calls",
+            "label": "calls"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Balancing planning, reflection and cost [D19.P6.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Balancing planning,... [D19.P6.S2].",
+            "caption": "Each technique adds calls.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "setups": "{'act only': [1, 0.72], 'plan + act': […",
+              "price_per_call": "0.003",
+              "name": "'act only'",
+              "calls": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "setups": "data",
+              "price_per_call": "data",
+              "name": "data",
+              "calls": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "setups",
+                "price_per_call"
               ],
               [
-                "proc",
-                "out"
+                "price_per_call",
+                "name"
+              ],
+              [
+                "name",
+                "calls"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
+            "at": "say2",
+            "caption": "Use planning for long, multi-step tasks.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "setups": "{'act only': [1, 0.72], 'plan + act': […",
+              "price_per_call": "0.003",
+              "name": "'act only'",
+              "calls": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "setups": "data",
+              "price_per_call": "data",
+              "name": "data",
+              "calls": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "setups",
+                "price_per_call"
+              ],
+              [
+                "price_per_call",
+                "name"
+              ],
+              [
+                "name",
+                "calls"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Balancing planning, reflection an.. [D19.P6.S4].",
+            "at": "say7",
+            "caption": "Tomorrow switches to user experience.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "setups": "{'act only': [1, 0.72], 'plan + act': […",
+              "price_per_call": "0.003",
+              "name": "'act only'",
+              "calls": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "setups": "ok",
+              "price_per_call": "ok",
+              "name": "ok",
+              "calls": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "setups",
+                "price_per_call"
               ],
               [
-                "proc",
-                "out"
+                "price_per_call",
+                "name"
+              ],
+              [
+                "name",
+                "calls"
               ]
             ]
           }

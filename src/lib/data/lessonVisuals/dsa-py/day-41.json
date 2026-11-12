@@ -2,50 +2,138 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 41,
-  "promptSha": "0e82cfc2c65581fd6a721bf44e1a06e302586096704152af7c4580fa68225c80",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Flow Networks, Capacity Constraints & Residual Backward Edges",
       "codeHash": "6f47263da3607d91a7b531f00439774c622fc5bf81ab722dd185d5abddb00174",
       "spec": {
-        "template": "table",
-        "title": "Flow Networks, Capacity Constraints & Residual Backward",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Flow Networks, Capacity Constraints & Residual Backward Edges",
         "steps": [
           {
             "at": "say1",
-            "caption": "The shortest design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Shortest-path algorithms route a single unit packet along one optimal path.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Flow"
-                  },
-                  {
-                    "text": "Networks"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The naive step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Two ironclad invariants govern every valid flow network.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "Capacity"
-                  },
-                  {
-                    "text": "Constraints"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Sending flow backward across residual edge v -> u does not violate.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 8,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": {
+                  "var": "u",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 11,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -53,35 +141,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Flow Networks, Capacity Constraints & Residual Backward",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "bars",
+        "title": "Flow Networks, Capacity Constraints & Residual Backward Edges",
         "steps": [
           {
             "at": "say1",
-            "caption": "The shortest design establishes the core structural invariant.",
-            "rows": [
+            "caption": "Shortest-path algorithms route a single unit packet along one optimal path.",
+            "bars": [
               {
-                "cells": [
-                  "Flow",
-                  "Networks"
-                ],
+                "label": "n",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "u",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": 10,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The naive step drives deterministic state transitions.",
-            "rows": [
+            "at": "say2",
+            "caption": "Two ironclad invariants govern every valid flow network.",
+            "bars": [
               {
-                "cells": [
-                  "Capacity",
-                  "Constraints"
-                ],
+                "label": "n",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 10,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Sending flow backward across residual edge v -> u does not violate.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "u",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "v",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 10,
                 "tone": "ok"
               }
             ]
@@ -93,82 +229,82 @@
       "partTitle": "Ford-Fulkerson vs Edmonds-Karp: Shortest Augmenting Paths via BFS",
       "codeHash": "2f16783af7d77e600e13d9b26a398e57e3a64623cda076fa9ff84f2a9e055a13",
       "spec": {
-        "template": "table",
-        "title": "Ford-Fulkerson vs Edmonds-Karp",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Ford-Fulkerson vs Edmonds-Karp: Shortest Augmenting Paths via BF",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The basic design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Ford"
-                  },
-                  {
-                    "text": "Fulkerson"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Basic Ford-Fulkerson leaves the choice of augmenting path completely.",
+            "items": {
+              "var": "parent_node",
+              "line": 13,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The edmonds step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Edmonds"
-                  },
-                  {
-                    "text": "Karp"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Specifically, on a graph with huge edge capacities C = 1,000,000,000 and.",
+            "items": {
+              "var": "parent_node",
+              "line": 14,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Execute the complete self-contained Edmonds-Karp BFS solver below on.",
+            "items": {
+              "var": "parent_node",
+              "line": 20,
+              "hit": 2
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Ford-Fulkerson vs Edmonds-Karp",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Ford-Fulkerson vs Edmonds-Karp: Shortest Augmenting Paths via BF",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The basic design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Ford",
-                  "Fulkerson"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Basic Ford-Fulkerson leaves the choice of augmenting path completely.",
+            "mode": "queue",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The edmonds step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Edmonds",
-                  "Karp"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Specifically, on a graph with huge edge capacities C = 1,000,000,000 and.",
+            "mode": "queue",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Execute the complete self-contained Edmonds-Karp BFS solver below on.",
+            "mode": "queue",
+            "items": [
+              "0",
+              "0",
+              "-1",
+              "-1"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -177,82 +313,88 @@
       "partTitle": "Dinic's Algorithm Part 1: Layered Level Graphs & Dead-End Pruning",
       "codeHash": "d652be368bbb85834bd83ebe5168d040a594391c08610cdf4d8a28a6d423f704",
       "spec": {
-        "template": "table",
-        "title": "Dinic's Algorithm Part 1",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Dinic's Algorithm Part 1: Layered Level Graphs & Dead-End Prunin",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The edmonds design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Dinic"
-                  },
-                  {
-                    "text": "Algorithm"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Edmonds-Karp computes a whole O(E) BFS traversal to discover just ONE.",
+            "items": {
+              "var": "level",
+              "line": 9,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The inside step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Part"
-                  },
-                  {
-                    "text": "Layered"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Yefim Dinic realized you can squeeze vastly more work out of every.",
+            "items": {
+              "var": "level",
+              "line": 10,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Overall worst-case runtime accelerates dramatically from O(V * E^2) down.",
+            "items": {
+              "var": "level",
+              "line": 16,
+              "hit": 2
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Dinic's Algorithm Part 1",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Dinic's Algorithm Part 1: Layered Level Graphs & Dead-End Prunin",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The edmonds design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Dinic",
-                  "Algorithm"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Edmonds-Karp computes a whole O(E) BFS traversal to discover just ONE.",
+            "mode": "queue",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The inside step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Part",
-                  "Layered"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Yefim Dinic realized you can squeeze vastly more work out of every.",
+            "mode": "queue",
+            "items": [
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Overall worst-case runtime accelerates dramatically from O(V * E^2) down.",
+            "mode": "queue",
+            "items": [
+              "0",
+              "1",
+              "1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -261,82 +403,88 @@
       "partTitle": "Dinic's Algorithm Part 2: Blocking Flow DFS & Current-Arc ptr[] Optimization",
       "codeHash": "5278fd1483ff2b4f0eb0bdc588c14fbc9b0ce2ed2e2af7aa0958dfb72c77271b",
       "spec": {
-        "template": "table",
-        "title": "Dinic's Algorithm Part 2",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Dinic's Algorithm Part 2: Blocking Flow DFS & Current-Arc ptr[] ",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The running design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Dinic"
-                  },
-                  {
-                    "text": "Algorithm"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Running DFS inside Dinic's level graph sounds simple, yet omitting one.",
+            "items": {
+              "var": "level",
+              "line": 42,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The combining step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Part"
-                  },
-                  {
-                    "text": "Blocking"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Because edges that return 0 usable flow inside the current level graph can.",
+            "items": {
+              "var": "level",
+              "line": 43,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect and run the full Dinic Max-Flow + Min-Cut verifier below on.",
+            "items": {
+              "var": "level",
+              "line": 16,
+              "hit": 5
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Dinic's Algorithm Part 2",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Dinic's Algorithm Part 2: Blocking Flow DFS & Current-Arc ptr[] ",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The running design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Dinic",
-                  "Algorithm"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Running DFS inside Dinic's level graph sounds simple, yet omitting one.",
+            "mode": "queue",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The combining step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Part",
-                  "Blocking"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Because edges that return 0 usable flow inside the current level graph can.",
+            "mode": "queue",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect and run the full Dinic Max-Flow + Min-Cut verifier below on.",
+            "mode": "queue",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -345,82 +493,100 @@
       "partTitle": "Production Application: Multi-Region Data Pipeline Bottleneck & Cut Solver",
       "codeHash": "43e9d4b3122f30694dc880e2f1d2ff7ce2f69c8419766fae4a728933180a94a5",
       "spec": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Production Application: Multi-Region Data Pipeline Bottleneck & ",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The large design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Production"
-                  },
-                  {
-                    "text": "Application"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "In large-scale telemetry and streaming systems, data engineers need.",
+            "items": {
+              "var": "level",
+              "line": 35,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Multi"
-                  },
-                  {
-                    "text": "Region"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Notice two production realities modeled cleanly by Max-Flow.",
+            "items": {
+              "var": "level",
+              "line": 36,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect and execute the complete multi-source, node-capped pipeline solver.",
+            "items": {
+              "var": "level",
+              "line": 67,
+              "hit": 2
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production Application",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "stack-queue",
+        "title": "Production Application: Multi-Region Data Pipeline Bottleneck & ",
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The large design establishes the core structural invariant.",
-            "rows": [
-              {
-                "cells": [
-                  "Production",
-                  "Application"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "In large-scale telemetry and streaming systems, data engineers need.",
+            "mode": "queue",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The second step drives deterministic state transitions.",
-            "rows": [
-              {
-                "cells": [
-                  "Multi",
-                  "Region"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Notice two production realities modeled cleanly by Max-Flow.",
+            "mode": "queue",
+            "items": [
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1",
+              "-1"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "Inspect and execute the complete multi-source, node-capped pipeline solver.",
+            "mode": "queue",
+            "items": [
+              "2",
+              "3",
+              "1",
+              "1",
+              "4",
+              "4",
+              "5",
+              "5",
+              "0",
+              "6"
+            ],
+            "action": "idle"
           }
         ]
       }

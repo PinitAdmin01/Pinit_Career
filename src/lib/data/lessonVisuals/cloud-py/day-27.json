@@ -2,256 +2,284 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 27,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Threats at the front door",
       "codeHash": "b1b1adc363f00c1b2f0979da1ab58a9e0e7b0397eb4289936ba1617232d84f38",
       "spec": {
-        "template": "table",
-        "title": "Common web attack vectors and database injection prevention",
-        "columns": [
-          "query",
-          "params"
+        "template": "flow",
+        "title": "Threats at the front door",
+        "nodes": [
+          {
+            "id": "user_input",
+            "label": "user_input"
+          },
+          {
+            "id": "unsafe",
+            "label": "unsafe"
+          },
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "params",
+            "label": "params"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Anything public receives hostile traffic including bots and scrapers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "query"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Anything public receives hostile traffic within minutes.",
+            "values": {
+              "user_input": {
+                "var": "user_input",
+                "line": 1,
+                "hit": 1
+              },
+              "unsafe": {
+                "var": "unsafe",
+                "line": 2,
+                "hit": 1
+              },
+              "query": {
+                "var": "query",
+                "line": 5,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "user_input": "data",
+              "unsafe": "data",
+              "query": "data",
+              "params": "data"
+            },
+            "arrows": [
+              [
+                "user_input",
+                "unsafe"
+              ],
+              [
+                "unsafe",
+                "query"
+              ],
+              [
+                "query",
+                "params"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "SQL injection happens when untrusted input enters a database query.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "query"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "SQL injection sneaks database commands into input, such as a login name.",
+            "values": {
+              "user_input": {
+                "var": "user_input",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "unsafe"
-                  },
-                  {
-                    "text": "user_input"
-                  }
-                ],
-                "tone": "error"
+              "unsafe": {
+                "var": "unsafe",
+                "line": 3,
+                "hit": 1
+              },
+              "query": {
+                "var": "query",
+                "line": 6,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "user_input": "data",
+              "unsafe": "data",
+              "query": "data",
+              "params": "data"
+            },
+            "arrows": [
+              [
+                "user_input",
+                "unsafe"
+              ],
+              [
+                "unsafe",
+                "query"
+              ],
+              [
+                "query",
+                "params"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Cross-site scripting sneaks JavaScript into pages other users view.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "query"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Defence in depth again.",
+            "values": {
+              "user_input": {
+                "var": "user_input",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "unsafe"
-                  },
-                  {
-                    "text": "user_input"
-                  }
-                ],
-                "tone": "error"
+              "unsafe": {
+                "var": "unsafe",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "database"
-                  },
-                  {
-                    "text": "query"
-                  }
-                ],
-                "tone": "idle"
+              "query": {
+                "var": "query",
+                "line": 7,
+                "hit": 1
+              },
+              "params": {
+                "var": "params",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Parameterised queries and output escaping fix injection vulnerabilities.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "query"
-                  },
-                  {
-                    "text": "params"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "unsafe"
-                  },
-                  {
-                    "text": "user_input"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "database"
-                  },
-                  {
-                    "text": "query"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "firewall"
-                  },
-                  {
-                    "text": "patterns"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "user_input": "ok",
+              "unsafe": "ok",
+              "query": "ok",
+              "params": "ok"
+            },
+            "arrows": [
+              [
+                "user_input",
+                "unsafe"
+              ],
+              [
+                "unsafe",
+                "query"
+              ],
+              [
+                "query",
+                "params"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Common web attack vectors and database injection prevention",
-        "columns": [
-          "query",
-          "params"
+        "template": "flow",
+        "title": "Threats at the front door",
+        "nodes": [
+          {
+            "id": "user_input",
+            "label": "user_input"
+          },
+          {
+            "id": "unsafe",
+            "label": "unsafe"
+          },
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "params",
+            "label": "params"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Anything public receives hostile traffic including bots and scrapers.",
-            "rows": [
-              {
-                "cells": [
-                  "query",
-                  "params"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Anything public receives hostile traffic within minutes.",
+            "values": {
+              "user_input": "\"' OR 1=1 --\"",
+              "unsafe": "\"SELECT * FROM users WHERE name = '' OR…",
+              "query": "'SELECT * FROM users WHERE name = ?'",
+              "params": "[\"' OR 1=1 --\"]"
+            },
+            "tones": {
+              "user_input": "data",
+              "unsafe": "data",
+              "query": "data",
+              "params": "data"
+            },
+            "arrows": [
+              [
+                "user_input",
+                "unsafe"
+              ],
+              [
+                "unsafe",
+                "query"
+              ],
+              [
+                "query",
+                "params"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "SQL injection happens when untrusted input enters a database query.",
-            "rows": [
-              {
-                "cells": [
-                  "query",
-                  "params"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "unsafe",
-                  "user_input"
-                ],
-                "tone": "error"
-              }
+            "caption": "SQL injection sneaks database commands into input, such as a login name.",
+            "values": {
+              "user_input": "\"' OR 1=1 --\"",
+              "unsafe": "\"SELECT * FROM users WHERE name = '' OR…",
+              "query": "'SELECT * FROM users WHERE name = ?'",
+              "params": "[\"' OR 1=1 --\"]"
+            },
+            "tones": {
+              "user_input": "data",
+              "unsafe": "data",
+              "query": "data",
+              "params": "data"
+            },
+            "arrows": [
+              [
+                "user_input",
+                "unsafe"
+              ],
+              [
+                "unsafe",
+                "query"
+              ],
+              [
+                "query",
+                "params"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Cross-site scripting sneaks JavaScript into pages other users view.",
-            "rows": [
-              {
-                "cells": [
-                  "query",
-                  "params"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "unsafe",
-                  "user_input"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "database",
-                  "query"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Parameterised queries and output escaping fix injection vulnerabilities.",
-            "rows": [
-              {
-                "cells": [
-                  "query",
-                  "params"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "unsafe",
-                  "user_input"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "database",
-                  "query"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "firewall",
-                  "patterns"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Defence in depth again.",
+            "values": {
+              "user_input": "\"' OR 1=1 --\"",
+              "unsafe": "\"SELECT * FROM users WHERE name = '' OR…",
+              "query": "'SELECT * FROM users WHERE name = ?'",
+              "params": "[\"' OR 1=1 --\"]"
+            },
+            "tones": {
+              "user_input": "ok",
+              "unsafe": "ok",
+              "query": "ok",
+              "params": "ok"
+            },
+            "arrows": [
+              [
+                "user_input",
+                "unsafe"
+              ],
+              [
+                "unsafe",
+                "query"
+              ],
+              [
+                "query",
+                "params"
+              ]
             ]
           }
         ]
@@ -261,249 +289,277 @@
       "partTitle": "AWS WAF web ACLs",
       "codeHash": "e3c1a793a94cec7e7f6c55f80452a6ed045623e610749c6b7c64e63e32fde599",
       "spec": {
-        "template": "table",
-        "title": "AWS WAF web ACL rule evaluation priority and actions",
-        "columns": [
-          "action",
-          "rule"
+        "template": "flow",
+        "title": "AWS WAF web ACLs",
+        "nodes": [
+          {
+            "id": "SQLI_SIGNS",
+            "label": "SQLI_SIGNS"
+          },
+          {
+            "id": "acl",
+            "label": "acl"
+          },
+          {
+            "id": "req",
+            "label": "req"
+          },
+          {
+            "id": "rules",
+            "label": "rules"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "AWS WAF is a web application firewall you attach to CloudFront,.",
+            "values": {
+              "SQLI_SIGNS": {
+                "var": "SQLI_SIGNS",
+                "line": 1,
+                "hit": 1
+              },
+              "acl": {
+                "var": "acl",
+                "line": 14,
+                "hit": 1
+              },
+              "req": {
+                "var": "req",
+                "line": 15,
+                "hit": 2
+              },
+              "rules": {
+                "var": "rules",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "SQLI_SIGNS": "data",
+              "acl": "data",
+              "req": "data",
+              "rules": "data"
+            },
+            "arrows": [
+              [
+                "SQLI_SIGNS",
+                "acl"
+              ],
+              [
+                "acl",
+                "req"
+              ],
+              [
+                "req",
+                "rules"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Web ACL configurations evaluate ordered rules with configured actions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "BLOCK"
-                  },
-                  {
-                    "text": "IP_BLOCK"
-                  }
-                ],
-                "tone": "error"
+            "caption": "You configure a web ACL.",
+            "values": {
+              "SQLI_SIGNS": {
+                "var": "SQLI_SIGNS",
+                "line": 3,
+                "hit": 1
+              },
+              "acl": {
+                "var": "acl",
+                "line": 15,
+                "hit": 1
+              },
+              "req": {
+                "var": "req",
+                "line": 4,
+                "hit": 1
+              },
+              "rules": {
+                "var": "rules",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "SQLI_SIGNS": "data",
+              "acl": "data",
+              "req": "data",
+              "rules": "data"
+            },
+            "arrows": [
+              [
+                "SQLI_SIGNS",
+                "acl"
+              ],
+              [
+                "acl",
+                "req"
+              ],
+              [
+                "req",
+                "rules"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Rules are evaluated by priority where the first matching rule wins.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "BLOCK"
-                  },
-                  {
-                    "text": "IP_BLOCK"
-                  }
-                ],
-                "tone": "error"
+            "at": "say7",
+            "caption": "The example evaluates a web ACL over a few calls.",
+            "values": {
+              "SQLI_SIGNS": {
+                "var": "SQLI_SIGNS",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "BLOCK"
-                  },
-                  {
-                    "text": "SQLI"
-                  }
-                ],
-                "tone": "error"
+              "acl": {
+                "var": "acl",
+                "line": 16,
+                "hit": 1
+              },
+              "req": {
+                "var": "req",
+                "line": 5,
+                "hit": 1
+              },
+              "rules": {
+                "var": "rules",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "AWS Managed Rules give ready-made rule groups for injection defense.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "BLOCK"
-                  },
-                  {
-                    "text": "IP_BLOCK"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "BLOCK"
-                  },
-                  {
-                    "text": "SQLI"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Allow"
-                  },
-                  {
-                    "text": "core"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Roll out new rules in Count mode first before switching to Block.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "BLOCK"
-                  },
-                  {
-                    "text": "IP_BLOCK"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "BLOCK"
-                  },
-                  {
-                    "text": "SQLI"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Allow"
-                  },
-                  {
-                    "text": "core"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Count"
-                  },
-                  {
-                    "text": "BLOCK"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "SQLI_SIGNS": "ok",
+              "acl": "ok",
+              "req": "ok",
+              "rules": "ok"
+            },
+            "arrows": [
+              [
+                "SQLI_SIGNS",
+                "acl"
+              ],
+              [
+                "acl",
+                "req"
+              ],
+              [
+                "req",
+                "rules"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "AWS WAF web ACL rule evaluation priority and actions",
-        "columns": [
-          "action",
-          "rule"
+        "template": "flow",
+        "title": "AWS WAF web ACLs",
+        "nodes": [
+          {
+            "id": "SQLI_SIGNS",
+            "label": "SQLI_SIGNS"
+          },
+          {
+            "id": "acl",
+            "label": "acl"
+          },
+          {
+            "id": "req",
+            "label": "req"
+          },
+          {
+            "id": "rules",
+            "label": "rules"
+          }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "AWS WAF is a web application firewall you attach to CloudFront,.",
+            "values": {
+              "SQLI_SIGNS": "[\"' or 1=1\", 'union select', '; drop ta…",
+              "acl": "[{'type': 'IP_BLOCK', 'ips': ['198.51.1…",
+              "req": "{'ip': '49.36.1.2', 'query': 'page=2', …",
+              "rules": "[{'type': 'IP_BLOCK', 'ips': ['198.51.1…"
+            },
+            "tones": {
+              "SQLI_SIGNS": "data",
+              "acl": "data",
+              "req": "data",
+              "rules": "data"
+            },
+            "arrows": [
+              [
+                "SQLI_SIGNS",
+                "acl"
+              ],
+              [
+                "acl",
+                "req"
+              ],
+              [
+                "req",
+                "rules"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Web ACL configurations evaluate ordered rules with configured actions.",
-            "rows": [
-              {
-                "cells": [
-                  "BLOCK",
-                  "IP_BLOCK"
-                ],
-                "tone": "error"
-              }
+            "caption": "You configure a web ACL.",
+            "values": {
+              "SQLI_SIGNS": "[\"' or 1=1\", 'union select', '; drop ta…",
+              "acl": "[{'type': 'IP_BLOCK', 'ips': ['198.51.1…",
+              "req": "{'ip': '49.36.1.2', 'query': 'page=2', …",
+              "rules": "[{'type': 'IP_BLOCK', 'ips': ['198.51.1…"
+            },
+            "tones": {
+              "SQLI_SIGNS": "data",
+              "acl": "data",
+              "req": "data",
+              "rules": "data"
+            },
+            "arrows": [
+              [
+                "SQLI_SIGNS",
+                "acl"
+              ],
+              [
+                "acl",
+                "req"
+              ],
+              [
+                "req",
+                "rules"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Rules are evaluated by priority where the first matching rule wins.",
-            "rows": [
-              {
-                "cells": [
-                  "BLOCK",
-                  "IP_BLOCK"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "BLOCK",
-                  "SQLI"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "AWS Managed Rules give ready-made rule groups for injection defense.",
-            "rows": [
-              {
-                "cells": [
-                  "BLOCK",
-                  "IP_BLOCK"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "BLOCK",
-                  "SQLI"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "Allow",
-                  "core"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Roll out new rules in Count mode first before switching to Block.",
-            "rows": [
-              {
-                "cells": [
-                  "BLOCK",
-                  "IP_BLOCK"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "BLOCK",
-                  "SQLI"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "Allow",
-                  "core"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Count",
-                  "BLOCK"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "The example evaluates a web ACL over a few calls.",
+            "values": {
+              "SQLI_SIGNS": "[\"' or 1=1\", 'union select', '; drop ta…",
+              "acl": "[{'type': 'IP_BLOCK', 'ips': ['198.51.1…",
+              "req": "{'ip': '49.36.1.2', 'query': 'page=2', …",
+              "rules": "[{'type': 'IP_BLOCK', 'ips': ['198.51.1…"
+            },
+            "tones": {
+              "SQLI_SIGNS": "ok",
+              "acl": "ok",
+              "req": "ok",
+              "rules": "ok"
+            },
+            "arrows": [
+              [
+                "SQLI_SIGNS",
+                "acl"
+              ],
+              [
+                "acl",
+                "req"
+              ],
+              [
+                "req",
+                "rules"
+              ]
             ]
           }
         ]
@@ -513,231 +569,277 @@
       "partTitle": "Rate-based rules",
       "codeHash": "44ccb3c585d24e8edb922a46863f6e8d4b8fefe5b9b3a8d48cfb29a48b811198",
       "spec": {
-        "template": "table",
-        "title": "Rate-based rules tracking client request volume per IP address",
-        "columns": [
-          "ip",
-          "path"
+        "template": "flow",
+        "title": "Rate-based rules",
+        "nodes": [
+          {
+            "id": "window",
+            "label": "window"
+          },
+          {
+            "id": "LOGIN_LIMIT",
+            "label": "LOGIN_LIMIT"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "ip",
+            "label": "ip"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Rate-based rules count calls per IP address over rolling windows.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "49.36.1.2"
-                  },
-                  {
-                    "text": "/products"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Many attacks are simply too many calls from one place.",
+            "values": {
+              "window": {
+                "var": "window",
+                "line": 3,
+                "hit": 1
+              },
+              "LOGIN_LIMIT": {
+                "var": "LOGIN_LIMIT",
+                "line": 4,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 5,
+                "hit": 1
+              },
+              "ip": {
+                "var": "ip",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "window": "data",
+              "LOGIN_LIMIT": "data",
+              ".0": "data",
+              "ip": "data"
+            },
+            "arrows": [
+              [
+                "window",
+                "LOGIN_LIMIT"
+              ],
+              [
+                "LOGIN_LIMIT",
+                ".0"
+              ],
+              [
+                ".0",
+                "ip"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "When an IP goes over the limit WAF blocks it until rates fall.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "49.36.1.2"
-                  },
-                  {
-                    "text": "/products"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "When an IP goes over the limit, WAF blocks it (or challenges it) until its.",
+            "values": {
+              "window": {
+                "var": "window",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "203.0.113.9"
-                  },
-                  {
-                    "text": "/login"
-                  }
-                ],
-                "tone": "error"
+              "LOGIN_LIMIT": {
+                "var": "LOGIN_LIMIT",
+                "line": 5,
+                "hit": 105
+              },
+              ".0": {
+                "var": ".0",
+                "line": 5,
+                "hit": 2
+              },
+              "ip": {
+                "var": "ip",
+                "line": 5,
+                "hit": 2
               }
+            },
+            "tones": {
+              "window": "data",
+              "LOGIN_LIMIT": "data",
+              ".0": "data",
+              "ip": "data"
+            },
+            "arrows": [
+              [
+                "window",
+                "LOGIN_LIMIT"
+              ],
+              [
+                "LOGIN_LIMIT",
+                ".0"
+              ],
+              [
+                ".0",
+                "ip"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Scope-down statements count suspicious calls to login paths.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "49.36.1.2"
-                  },
-                  {
-                    "text": "/products"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Rate limits in WAF protect everything behind them.",
+            "values": {
+              "window": {
+                "var": "window",
+                "line": 5,
+                "hit": 105
               },
-              {
-                "cells": [
-                  {
-                    "text": "203.0.113.9"
-                  },
-                  {
-                    "text": "/login"
-                  }
-                ],
-                "tone": "error"
+              "LOGIN_LIMIT": {
+                "var": "LOGIN_LIMIT",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "49.36.7.7"
-                  },
-                  {
-                    "text": "/login"
-                  }
-                ],
-                "tone": "ok"
+              ".0": {
+                "var": ".0",
+                "line": 5,
+                "hit": 3
+              },
+              "ip": {
+                "var": "ip",
+                "line": 5,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Choose limits from real traffic data comfortably above typical rates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "49.36.1.2"
-                  },
-                  {
-                    "text": "/products"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "203.0.113.9"
-                  },
-                  {
-                    "text": "/login"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "49.36.7.7"
-                  },
-                  {
-                    "text": "/login"
-                  }
-                ],
-                "tone": "idle"
-              }
+            },
+            "tones": {
+              "window": "ok",
+              "LOGIN_LIMIT": "ok",
+              ".0": "ok",
+              "ip": "ok"
+            },
+            "arrows": [
+              [
+                "window",
+                "LOGIN_LIMIT"
+              ],
+              [
+                "LOGIN_LIMIT",
+                ".0"
+              ],
+              [
+                ".0",
+                "ip"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Rate-based rules tracking client request volume per IP address",
-        "columns": [
-          "ip",
-          "path"
+        "template": "flow",
+        "title": "Rate-based rules",
+        "nodes": [
+          {
+            "id": "window",
+            "label": "window"
+          },
+          {
+            "id": "LOGIN_LIMIT",
+            "label": "LOGIN_LIMIT"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "ip",
+            "label": "ip"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Rate-based rules count calls per IP address over rolling windows.",
-            "rows": [
-              {
-                "cells": [
-                  "49.36.1.2",
-                  "/products"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Many attacks are simply too many calls from one place.",
+            "values": {
+              "window": "[['49.36.1.2', '/products'], ['49.36.1.…",
+              "LOGIN_LIMIT": "20",
+              ".0": "{'__other__': 'list_iterator'}",
+              "ip": "'49.36.1.2'"
+            },
+            "tones": {
+              "window": "data",
+              "LOGIN_LIMIT": "data",
+              ".0": "data",
+              "ip": "data"
+            },
+            "arrows": [
+              [
+                "window",
+                "LOGIN_LIMIT"
+              ],
+              [
+                "LOGIN_LIMIT",
+                ".0"
+              ],
+              [
+                ".0",
+                "ip"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "When an IP goes over the limit WAF blocks it until rates fall.",
-            "rows": [
-              {
-                "cells": [
-                  "49.36.1.2",
-                  "/products"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "203.0.113.9",
-                  "/login"
-                ],
-                "tone": "error"
-              }
+            "caption": "When an IP goes over the limit, WAF blocks it (or challenges it) until its.",
+            "values": {
+              "window": "[['49.36.1.2', '/products'], ['49.36.1.…",
+              "LOGIN_LIMIT": "20",
+              ".0": "{'__other__': 'list_iterator'}",
+              "ip": "'49.36.1.2'"
+            },
+            "tones": {
+              "window": "data",
+              "LOGIN_LIMIT": "data",
+              ".0": "data",
+              "ip": "data"
+            },
+            "arrows": [
+              [
+                "window",
+                "LOGIN_LIMIT"
+              ],
+              [
+                "LOGIN_LIMIT",
+                ".0"
+              ],
+              [
+                ".0",
+                "ip"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Scope-down statements count suspicious calls to login paths.",
-            "rows": [
-              {
-                "cells": [
-                  "49.36.1.2",
-                  "/products"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "203.0.113.9",
-                  "/login"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "49.36.7.7",
-                  "/login"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Choose limits from real traffic data comfortably above typical rates.",
-            "rows": [
-              {
-                "cells": [
-                  "49.36.1.2",
-                  "/products"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "203.0.113.9",
-                  "/login"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "49.36.7.7",
-                  "/login"
-                ],
-                "tone": "idle"
-              }
+            "at": "say7",
+            "caption": "Rate limits in WAF protect everything behind them.",
+            "values": {
+              "window": "[['49.36.1.2', '/products'], ['49.36.1.…",
+              "LOGIN_LIMIT": "20",
+              ".0": "{'__other__': 'list_iterator'}",
+              "ip": "'49.36.1.2'"
+            },
+            "tones": {
+              "window": "ok",
+              "LOGIN_LIMIT": "ok",
+              ".0": "ok",
+              "ip": "ok"
+            },
+            "arrows": [
+              [
+                "window",
+                "LOGIN_LIMIT"
+              ],
+              [
+                "LOGIN_LIMIT",
+                ".0"
+              ],
+              [
+                ".0",
+                "ip"
+              ]
             ]
           }
         ]
@@ -747,249 +849,277 @@
       "partTitle": "IP sets and CIDR validation",
       "codeHash": "7c9bbd9d51e7671339a892bdc042aa720e4805b8d52bd13c33075c73f18a5792",
       "spec": {
-        "template": "table",
-        "title": "Validating IP sets and network ranges against CIDR constraints",
-        "columns": [
-          "entry",
-          "net"
+        "template": "flow",
+        "title": "IP sets and CIDR validation",
+        "nodes": [
+          {
+            "id": "entry",
+            "label": "entry"
+          },
+          {
+            "id": "net",
+            "label": "net"
+          },
+          {
+            "id": "note",
+            "label": "note"
+          },
+          {
+            "id": "err",
+            "label": "err"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "IP sets define lists of addresses or ranges for firewall rules.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "203.0.113.0/24"
-                  },
-                  {
-                    "text": "203.0.113.0/24"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "IP sets are lists of addresses or ranges that rules can reference, such.",
+            "values": {
+              "entry": {
+                "var": "entry",
+                "line": 3,
+                "hit": 1
+              },
+              "net": {
+                "var": "net",
+                "line": 8,
+                "hit": 1
+              },
+              "note": {
+                "var": "note",
+                "line": 9,
+                "hit": 1
+              },
+              "err": {
+                "var": "err",
+                "line": 11,
+                "hit": 1
               }
+            },
+            "tones": {
+              "entry": "data",
+              "net": "data",
+              "note": "data",
+              "err": "data"
+            },
+            "arrows": [
+              [
+                "entry",
+                "net"
+              ],
+              [
+                "net",
+                "note"
+              ],
+              [
+                "note",
+                "err"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Entries require valid CIDR notation with prefix lengths.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "203.0.113.0/24"
-                  },
-                  {
-                    "text": "203.0.113.0/24"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A single address needs a prefix length too.",
+            "values": {
+              "entry": {
+                "var": "entry",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "2001:db8::/32"
-                  },
-                  {
-                    "text": "2001:db8::/32"
-                  }
-                ],
-                "tone": "ok"
+              "net": {
+                "var": "net",
+                "line": 9,
+                "hit": 1
+              },
+              "note": {
+                "var": "note",
+                "line": 10,
+                "hit": 1
+              },
+              "err": {
+                "var": "err",
+                "line": 11,
+                "hit": 1
               }
+            },
+            "tones": {
+              "entry": "data",
+              "net": "data",
+              "note": "data",
+              "err": "data"
+            },
+            "arrows": [
+              [
+                "entry",
+                "net"
+              ],
+              [
+                "net",
+                "note"
+              ],
+              [
+                "note",
+                "err"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Strict parsing rejects ambiguous ranges containing host bits.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "203.0.113.0/24"
-                  },
-                  {
-                    "text": "203.0.113.0/24"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The same ipaddress module you used for subnets works for IPv6, so one.",
+            "values": {
+              "entry": {
+                "var": "entry",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "2001:db8::/32"
-                  },
-                  {
-                    "text": "2001:db8::/32"
-                  }
-                ],
-                "tone": "ok"
+              "net": {
+                "var": "net",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "10.0.0.5/24"
-                  },
-                  {
-                    "text": "10.0.0.5/24"
-                  }
-                ],
-                "tone": "error"
+              "note": {
+                "var": "note",
+                "line": 3,
+                "hit": 2
+              },
+              "err": {
+                "var": "err",
+                "line": 11,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Every entry must contain a slash prefix to pass validation.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "203.0.113.0/24"
-                  },
-                  {
-                    "text": "203.0.113.0/24"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "2001:db8::/32"
-                  },
-                  {
-                    "text": "2001:db8::/32"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "10.0.0.5/24"
-                  },
-                  {
-                    "text": "10.0.0.5/24"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "10.0.0.1"
-                  },
-                  {
-                    "text": "10.0.0.1"
-                  }
-                ],
-                "tone": "idle"
-              }
+            },
+            "tones": {
+              "entry": "ok",
+              "net": "ok",
+              "note": "ok",
+              "err": "ok"
+            },
+            "arrows": [
+              [
+                "entry",
+                "net"
+              ],
+              [
+                "net",
+                "note"
+              ],
+              [
+                "note",
+                "err"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Validating IP sets and network ranges against CIDR constraints",
-        "columns": [
-          "entry",
-          "net"
+        "template": "flow",
+        "title": "IP sets and CIDR validation",
+        "nodes": [
+          {
+            "id": "entry",
+            "label": "entry"
+          },
+          {
+            "id": "net",
+            "label": "net"
+          },
+          {
+            "id": "note",
+            "label": "note"
+          },
+          {
+            "id": "err",
+            "label": "err"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "IP sets define lists of addresses or ranges for firewall rules.",
-            "rows": [
-              {
-                "cells": [
-                  "203.0.113.0/24",
-                  "203.0.113.0/24"
-                ],
-                "tone": "ok"
-              }
+            "caption": "IP sets are lists of addresses or ranges that rules can reference, such.",
+            "values": {
+              "entry": "'203.0.113.0/24'",
+              "net": "<IPv4Network>",
+              "note": "''",
+              "err": "<ValueError>"
+            },
+            "tones": {
+              "entry": "data",
+              "net": "data",
+              "note": "data",
+              "err": "data"
+            },
+            "arrows": [
+              [
+                "entry",
+                "net"
+              ],
+              [
+                "net",
+                "note"
+              ],
+              [
+                "note",
+                "err"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Entries require valid CIDR notation with prefix lengths.",
-            "rows": [
-              {
-                "cells": [
-                  "203.0.113.0/24",
-                  "203.0.113.0/24"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "2001:db8::/32",
-                  "2001:db8::/32"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A single address needs a prefix length too.",
+            "values": {
+              "entry": "'203.0.113.0/24'",
+              "net": "<IPv4Network>",
+              "note": "''",
+              "err": "<ValueError>"
+            },
+            "tones": {
+              "entry": "data",
+              "net": "data",
+              "note": "data",
+              "err": "data"
+            },
+            "arrows": [
+              [
+                "entry",
+                "net"
+              ],
+              [
+                "net",
+                "note"
+              ],
+              [
+                "note",
+                "err"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Strict parsing rejects ambiguous ranges containing host bits.",
-            "rows": [
-              {
-                "cells": [
-                  "203.0.113.0/24",
-                  "203.0.113.0/24"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "2001:db8::/32",
-                  "2001:db8::/32"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "10.0.0.5/24",
-                  "10.0.0.5/24"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Every entry must contain a slash prefix to pass validation.",
-            "rows": [
-              {
-                "cells": [
-                  "203.0.113.0/24",
-                  "203.0.113.0/24"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "2001:db8::/32",
-                  "2001:db8::/32"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "10.0.0.5/24",
-                  "10.0.0.5/24"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "10.0.0.1",
-                  "10.0.0.1"
-                ],
-                "tone": "idle"
-              }
+            "at": "say7",
+            "caption": "The same ipaddress module you used for subnets works for IPv6, so one.",
+            "values": {
+              "entry": "'203.0.113.0/24'",
+              "net": "<IPv4Network>",
+              "note": "''",
+              "err": "<ValueError>"
+            },
+            "tones": {
+              "entry": "ok",
+              "net": "ok",
+              "note": "ok",
+              "err": "ok"
+            },
+            "arrows": [
+              [
+                "entry",
+                "net"
+              ],
+              [
+                "net",
+                "note"
+              ],
+              [
+                "note",
+                "err"
+              ]
             ]
           }
         ]
@@ -999,224 +1129,162 @@
       "partTitle": "DDoS and AWS Shield",
       "codeHash": "d0d360bb1b0f7992fa98bdeca630a5737cd7edbd43221aed71a1ca48746cbd96",
       "spec": {
-        "template": "flow",
-        "title": "DDoS and AWS Shield — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. DDoS and AWS Shield",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "DDoS and AWS Shield",
+        "actors": [
+          "attack_calls_per_s",
+          "hit_ratio",
+          "to_origin"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for DDoS and AWS Shield [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in DDoS and AWS Shield [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Distributed denial of service attacks come in layers.",
+            "activeActor": "attack_calls_per_s",
+            "messages": [
+              {
+                "from": "attack_calls_per_s",
+                "to": "hit_ratio",
+                "label": {
+                  "var": "attack_calls_per_s",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "hit_ratio",
+                "to": "to_origin",
+                "label": {
+                  "var": "hit_ratio",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how application updates attacks during execution.",
+            "activeActor": "hit_ratio",
+            "messages": [
+              {
+                "from": "attack_calls_per_s",
+                "to": "hit_ratio",
+                "label": {
+                  "var": "attack_calls_per_s",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "hit_ratio",
+                "to": "to_origin",
+                "label": {
+                  "var": "hit_ratio",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for DDoS and AWS Shield [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Test your defences only with permission and through AWS's approved process.",
+            "activeActor": "to_origin",
+            "messages": [
+              {
+                "from": "attack_calls_per_s",
+                "to": "hit_ratio",
+                "label": {
+                  "var": "attack_calls_per_s",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "hit_ratio",
+                "to": "to_origin",
+                "label": {
+                  "var": "hit_ratio",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "DDoS and AWS Shield — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. DDoS and AWS Shield",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "DDoS and AWS Shield",
+        "actors": [
+          "attack_calls_per_s",
+          "hit_ratio",
+          "to_origin"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for DDoS and AWS Shield [D27.P5.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in DDoS and AWS Shield [D27.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Distributed denial of service attacks come in layers.",
+            "messages": [
+              {
+                "from": "attack_calls_per_s",
+                "to": "hit_ratio",
+                "label": "200000",
+                "tone": "data"
+              },
+              {
+                "from": "hit_ratio",
+                "to": "to_origin",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "attack_calls_per_s"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Trace how application updates attacks during execution.",
+            "messages": [
+              {
+                "from": "attack_calls_per_s",
+                "to": "hit_ratio",
+                "label": "200000",
+                "tone": "data"
+              },
+              {
+                "from": "hit_ratio",
+                "to": "to_origin",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "hit_ratio"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for DDoS and AWS Shield [D27.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Test your defences only with permission and through AWS's approved process.",
+            "messages": [
+              {
+                "from": "attack_calls_per_s",
+                "to": "hit_ratio",
+                "label": "200000",
+                "tone": "data"
+              },
+              {
+                "from": "hit_ratio",
+                "to": "to_origin",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "to_origin"
           }
         ]
       }
@@ -1225,224 +1293,106 @@
       "partTitle": "Practice time: inspect and validate",
       "codeHash": "33f64d61c9d0483aadeb966925424763ce3d9c5d49a15b4b6163c3da2684ec62",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: inspect and validate — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Practice time: inspect and validate",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "SIGNS",
+            "label": "SIGNS"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: insp...",
-            "tappable": true
+            "id": "traffic",
+            "label": "traffic"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "s",
+            "label": "s"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: inspect and validate.",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: insp... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Inspect_request(rules, request).",
+            "currentState": "SIGNS",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The signs list includes \"--\", the SQL comment marker, because attackers.",
+            "currentState": "traffic",
+            "transition": {
+              "from": "SIGNS",
+              "to": "traffic",
+              "label": {
+                "var": "traffic",
+                "line": 3,
+                "hit": 5
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: inspect and validate.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example shows a Count-mode dry run over a batch of traffic.",
+            "currentState": "s",
+            "transition": {
+              "from": "traffic",
+              "to": "s",
+              "label": {
+                "var": "s",
+                "line": 3,
+                "hit": 3
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: inspect and validate — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Practice time: inspect and validate",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "SIGNS",
+            "label": "SIGNS"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: insp...",
-            "tappable": true
+            "id": "traffic",
+            "label": "traffic"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "s",
+            "label": "s"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: inspect and validate [D27.P6.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: insp... [D27.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Inspect_request(rules, request).",
+            "currentState": "SIGNS",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The signs list includes \"--\", the SQL comment marker, because attackers.",
+            "currentState": "traffic",
+            "transition": {
+              "from": "SIGNS",
+              "to": "traffic",
+              "label": "['page=1', 'q=shoes', \"id=1' OR 1=1\", '…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: inspect and validate [D27.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example shows a Count-mode dry run over a batch of traffic.",
+            "currentState": "s",
+            "transition": {
+              "from": "traffic",
+              "to": "s",
+              "label": "'--'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

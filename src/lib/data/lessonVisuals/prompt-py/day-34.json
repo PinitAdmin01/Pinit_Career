@@ -1,159 +1,170 @@
 {
-  "schemaVersion": "2.0.0",
-  "course": "prompt-py",
-  "day": 34,
+  "schemaVersion": 1,
   "prefix": "prompt-py",
+  "day": 34,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Physics Of Transformer Context Windows: Rotary Positional Embeddings & Attention Dynamics",
       "codeHash": "56ba2f1a329284487a2fffd81838cb95507093adbfc1fa356459f9f7f8b7e9cc",
       "spec": {
-        "template": "table",
-        "title": "Transformer Context Physics And Positional Softmax Attention Mechanics.",
-        "columns": [
-          "Context Physics Factor",
-          "Mathematical Foundation",
-          "Production System Consequence"
+        "template": "sequence",
+        "title": "The Physics Of Transformer Context Windows: Rotary Positional Em",
+        "actors": [
+          "self",
+          "context_tokens",
+          "optimizer"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Massive context windows face mathematical softmax distribution dilution.",
-            "rows": [
-              [
-                "Softmax Dispersion",
-                "Attention Weights Spread Across Denominator",
-                "Dilutes Semantic Signals In Noise"
-              ],
-              [
-                "RoPE Phase Shift",
-                "High Frequency Phase Degradation Over Distance",
-                "Reduces Precise Positional Resolution"
-              ]
+            "caption": "The advent of million-token context windows in modern foundation models.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "context_tokens",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "context_tokens",
+                "to": "optimizer",
+                "label": {
+                  "var": "context_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Rotary positional embeddings experience phase decay at long distances.",
-            "rows": [
-              [
-                "FlashAttention Kernel",
-                "Tiled GPU Computation And Memory Reduction",
-                "Enables Sub Second Long Window Execution"
-              ],
-              [
-                "Attention Entropy",
-                "Representational Bloat From Irrelevant Tokens",
-                "Degrades Multi Hop Logical Deduction"
-              ]
+            "caption": "At the mathematical core of transformer attention lies the scaled.",
+            "activeActor": "context_tokens",
+            "messages": [
+              {
+                "from": "self",
+                "to": "context_tokens",
+                "label": {
+                  "var": "self",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "context_tokens",
+                "to": "optimizer",
+                "label": {
+                  "var": "context_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Astronomical telescopes focus optical mirrors to prevent image blur.",
-            "rows": [
-              [
-                "Quadratic Scaling Wall",
-                "Computational Complexity Proportional To Square",
-                "Demands Hybrid State Space Architectures"
-              ],
-              [
-                "Context Dilution Risk",
-                "Uncurated Ingestion Flooding Token Space",
-                "Causes Premature Perspective Collapse"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Measure how token attention entropy increases with background noise.",
-            "rows": [
-              [
-                "Effective Horizon",
-                "Empirical Reasoning Limit Versus Token Cap",
-                "Governs True Reliable Decision Depths"
-              ],
-              [
-                "Boilerplate Aliasing",
-                "Repetitive Delimiters Inducing Phase Errors",
-                "Requires Aggressive String Sanitization"
-              ]
+            "at": "say8",
+            "caption": "The distinction between context capacity and effective reasoning horizon.",
+            "activeActor": "optimizer",
+            "messages": [
+              {
+                "from": "self",
+                "to": "context_tokens",
+                "label": {
+                  "var": "self",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "context_tokens",
+                "to": "optimizer",
+                "label": {
+                  "var": "context_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Transformer Context Physics And Positional Softmax Attention Mechanics.",
-        "columns": [
-          "Context Physics Factor",
-          "Mathematical Foundation",
-          "Production System Consequence"
+        "template": "sequence",
+        "title": "The Physics Of Transformer Context Windows: Rotary Positional Em",
+        "actors": [
+          "self",
+          "context_tokens",
+          "optimizer"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Massive context windows face mathematical softmax distribution dilution.",
-            "rows": [
-              [
-                "Softmax Dispersion",
-                "Attention Weights Spread Across Denominator",
-                "Dilutes Semantic Signals In Noise"
-              ],
-              [
-                "RoPE Phase Shift",
-                "High Frequency Phase Degradation Over Distance",
-                "Reduces Precise Positional Resolution"
-              ]
-            ]
+            "caption": "The advent of million-token context windows in modern foundation models.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "context_tokens",
+                "label": "<ContextHygieneOptimizer>",
+                "tone": "data"
+              },
+              {
+                "from": "context_tokens",
+                "to": "optimizer",
+                "label": "128000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
           },
           {
             "at": "say2",
-            "caption": "Rotary positional embeddings experience phase decay at long distances.",
-            "rows": [
-              [
-                "FlashAttention Kernel",
-                "Tiled GPU Computation And Memory Reduction",
-                "Enables Sub Second Long Window Execution"
-              ],
-              [
-                "Attention Entropy",
-                "Representational Bloat From Irrelevant Tokens",
-                "Degrades Multi Hop Logical Deduction"
-              ]
-            ]
+            "caption": "At the mathematical core of transformer attention lies the scaled.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "context_tokens",
+                "label": "<ContextHygieneOptimizer>",
+                "tone": "data"
+              },
+              {
+                "from": "context_tokens",
+                "to": "optimizer",
+                "label": "128000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "context_tokens"
           },
           {
-            "at": "example",
-            "caption": "Astronomical telescopes focus optical mirrors to prevent image blur.",
-            "rows": [
-              [
-                "Quadratic Scaling Wall",
-                "Computational Complexity Proportional To Square",
-                "Demands Hybrid State Space Architectures"
-              ],
-              [
-                "Context Dilution Risk",
-                "Uncurated Ingestion Flooding Token Space",
-                "Causes Premature Perspective Collapse"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Measure how token attention entropy increases with background noise.",
-            "rows": [
-              [
-                "Effective Horizon",
-                "Empirical Reasoning Limit Versus Token Cap",
-                "Governs True Reliable Decision Depths"
-              ],
-              [
-                "Boilerplate Aliasing",
-                "Repetitive Delimiters Inducing Phase Errors",
-                "Requires Aggressive String Sanitization"
-              ]
-            ]
+            "at": "say8",
+            "caption": "The distinction between context capacity and effective reasoning horizon.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "context_tokens",
+                "label": "<ContextHygieneOptimizer>",
+                "tone": "data"
+              },
+              {
+                "from": "context_tokens",
+                "to": "optimizer",
+                "label": "128000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "optimizer"
           }
         ]
       }
@@ -162,150 +173,276 @@
       "partTitle": "The Lost-In-The-Middle Phenomenon: Primacy, Recency & The U-Shaped Attention Dip",
       "codeHash": "56ba2f1a329284487a2fffd81838cb95507093adbfc1fa356459f9f7f8b7e9cc",
       "spec": {
-        "template": "table",
-        "title": "The Lost In The Middle Phenomenon And U Shaped Attention Degradation.",
-        "columns": [
-          "Attention Window Zone",
-          "Relative Depth Range",
-          "Retrieval Fidelity Profile"
+        "template": "flow",
+        "title": "The Lost-In-The-Middle Phenomenon: Primacy, Recency & The U-Shap",
+        "nodes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "context_tokens",
+            "label": "context_tokens"
+          },
+          {
+            "id": "optimizer",
+            "label": "optimizer"
+          },
+          {
+            "id": "relative_depth_pct",
+            "label": "relative_depth_pct"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Retrieval fidelity follows an exaggerated U shaped attention curve.",
-            "rows": [
+            "caption": "The Lost-in-the-Middle phenomenon represents one of the most consistent.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
+              },
+              "context_tokens": {
+                "var": "context_tokens",
+                "line": 7,
+                "hit": 1
+              },
+              "optimizer": {
+                "var": "optimizer",
+                "line": 28,
+                "hit": 1
+              },
+              "relative_depth_pct": {
+                "var": "relative_depth_pct",
+                "line": 11,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "context_tokens": "data",
+              "optimizer": "data",
+              "relative_depth_pct": "data"
+            },
+            "arrows": [
               [
-                "Primacy Zone",
-                "Opening Percentage Of Context Window",
-                "Exceptional Retention Of System Directives"
+                "self",
+                "context_tokens"
               ],
               [
-                "Intermediate Valley",
-                "Middle Forty To Eighty Percent Range",
-                "Severe Retrieval Loss And Confabulation"
+                "context_tokens",
+                "optimizer"
+              ],
+              [
+                "optimizer",
+                "relative_depth_pct"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "The intermediate context valley suffers severe information retrieval drops.",
-            "rows": [
+            "caption": "The root cause of the primacy effect is architectural and historical.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 11,
+                "hit": 1
+              },
+              "context_tokens": {
+                "var": "context_tokens",
+                "line": 7,
+                "hit": 1
+              },
+              "optimizer": {
+                "var": "optimizer",
+                "line": 29,
+                "hit": 1
+              },
+              "relative_depth_pct": {
+                "var": "relative_depth_pct",
+                "line": 12,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "context_tokens": "data",
+              "optimizer": "data",
+              "relative_depth_pct": "data"
+            },
+            "arrows": [
               [
-                "Recency Zone",
-                "Final Ten Percent Preceding Generation",
-                "Peak Retrieval Due To Causal Proximity"
+                "self",
+                "context_tokens"
               ],
               [
-                "U Shaped Curve",
-                "Bimodal Attention Distribution Landscape",
-                "Dictates Algorithmic Placement Strategy"
+                "context_tokens",
+                "optimizer"
+              ],
+              [
+                "optimizer",
+                "relative_depth_pct"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Human memory recall curves show high retention for opening items.",
-            "rows": [
+            "at": "say8",
+            "caption": "Multi-document summarization pipelines that ignore context topology suffer.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 12,
+                "hit": 1
+              },
+              "context_tokens": {
+                "var": "context_tokens",
+                "line": 7,
+                "hit": 1
+              },
+              "optimizer": {
+                "var": "optimizer",
+                "line": 30,
+                "hit": 1
+              },
+              "relative_depth_pct": {
+                "var": "relative_depth_pct",
+                "line": 11,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "self": "ok",
+              "context_tokens": "ok",
+              "optimizer": "ok",
+              "relative_depth_pct": "ok"
+            },
+            "arrows": [
               [
-                "Anchor Bias",
-                "Early Attention Heads Treating Start As Truth",
-                "Locks Reasoning Onto Initial Premise"
+                "self",
+                "context_tokens"
               ],
               [
-                "Representational Decay",
-                "Cumulative Softmax Dispersal Across Intermediates",
-                "Buries Intermediate Document Variables"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Test model recall accuracy for a key fact placed at variable depths.",
-            "rows": [
-              [
-                "Salience Reordering",
-                "Algorithmic Placement At Attention Poles",
-                "Guarantees High Priority Comprehension"
+                "context_tokens",
+                "optimizer"
               ],
               [
-                "Context Gap Failure",
-                "Inability To Synthesize Dispersed Facts",
-                "Breaks Multi Step Deductive Chains"
+                "optimizer",
+                "relative_depth_pct"
               ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "The Lost In The Middle Phenomenon And U Shaped Attention Degradation.",
-        "columns": [
-          "Attention Window Zone",
-          "Relative Depth Range",
-          "Retrieval Fidelity Profile"
+        "template": "flow",
+        "title": "The Lost-In-The-Middle Phenomenon: Primacy, Recency & The U-Shap",
+        "nodes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "context_tokens",
+            "label": "context_tokens"
+          },
+          {
+            "id": "optimizer",
+            "label": "optimizer"
+          },
+          {
+            "id": "relative_depth_pct",
+            "label": "relative_depth_pct"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Retrieval fidelity follows an exaggerated U shaped attention curve.",
-            "rows": [
+            "caption": "The Lost-in-the-Middle phenomenon represents one of the most consistent.",
+            "values": {
+              "self": "<ContextHygieneOptimizer>",
+              "context_tokens": "128000",
+              "optimizer": "<ContextHygieneOptimizer>",
+              "relative_depth_pct": "5"
+            },
+            "tones": {
+              "self": "data",
+              "context_tokens": "data",
+              "optimizer": "data",
+              "relative_depth_pct": "data"
+            },
+            "arrows": [
               [
-                "Primacy Zone",
-                "Opening Percentage Of Context Window",
-                "Exceptional Retention Of System Directives"
+                "self",
+                "context_tokens"
               ],
               [
-                "Intermediate Valley",
-                "Middle Forty To Eighty Percent Range",
-                "Severe Retrieval Loss And Confabulation"
+                "context_tokens",
+                "optimizer"
+              ],
+              [
+                "optimizer",
+                "relative_depth_pct"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "The intermediate context valley suffers severe information retrieval drops.",
-            "rows": [
+            "caption": "The root cause of the primacy effect is architectural and historical.",
+            "values": {
+              "self": "<ContextHygieneOptimizer>",
+              "context_tokens": "128000",
+              "optimizer": "<ContextHygieneOptimizer>",
+              "relative_depth_pct": "5"
+            },
+            "tones": {
+              "self": "data",
+              "context_tokens": "data",
+              "optimizer": "data",
+              "relative_depth_pct": "data"
+            },
+            "arrows": [
               [
-                "Recency Zone",
-                "Final Ten Percent Preceding Generation",
-                "Peak Retrieval Due To Causal Proximity"
+                "self",
+                "context_tokens"
               ],
               [
-                "U Shaped Curve",
-                "Bimodal Attention Distribution Landscape",
-                "Dictates Algorithmic Placement Strategy"
+                "context_tokens",
+                "optimizer"
+              ],
+              [
+                "optimizer",
+                "relative_depth_pct"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Human memory recall curves show high retention for opening items.",
-            "rows": [
+            "at": "say8",
+            "caption": "Multi-document summarization pipelines that ignore context topology suffer.",
+            "values": {
+              "self": "<ContextHygieneOptimizer>",
+              "context_tokens": "128000",
+              "optimizer": "<ContextHygieneOptimizer>",
+              "relative_depth_pct": "50"
+            },
+            "tones": {
+              "self": "ok",
+              "context_tokens": "ok",
+              "optimizer": "ok",
+              "relative_depth_pct": "ok"
+            },
+            "arrows": [
               [
-                "Anchor Bias",
-                "Early Attention Heads Treating Start As Truth",
-                "Locks Reasoning Onto Initial Premise"
+                "self",
+                "context_tokens"
               ],
               [
-                "Representational Decay",
-                "Cumulative Softmax Dispersal Across Intermediates",
-                "Buries Intermediate Document Variables"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Test model recall accuracy for a key fact placed at variable depths.",
-            "rows": [
-              [
-                "Salience Reordering",
-                "Algorithmic Placement At Attention Poles",
-                "Guarantees High Priority Comprehension"
+                "context_tokens",
+                "optimizer"
               ],
               [
-                "Context Gap Failure",
-                "Inability To Synthesize Dispersed Facts",
-                "Breaks Multi Step Deductive Chains"
+                "optimizer",
+                "relative_depth_pct"
               ]
             ]
           }
@@ -316,151 +453,217 @@
       "partTitle": "Needle-In-A-Haystack Benchmarking: Multi-Hop Retrieval, Reasoning Horizons & Distractor Testing",
       "codeHash": "56ba2f1a329284487a2fffd81838cb95507093adbfc1fa356459f9f7f8b7e9cc",
       "spec": {
-        "template": "table",
-        "title": "Needle In A Haystack Diagnostics And Multi Hop Reasoning Horizons.",
-        "columns": [
-          "Benchmark Dimension",
-          "Diagnostic Methodology",
-          "Cognitive Capability Evaluated"
-        ],
+        "template": "bars",
+        "title": "Needle-In-A-Haystack Benchmarking: Multi-Hop Retrieval, Reasonin",
         "steps": [
           {
             "at": "say1",
-            "caption": "Needle in a haystack benchmarks diagnose positional retrieval fidelity.",
-            "rows": [
-              [
-                "Single Needle Lookup",
-                "Insert Isolated Target In Arbitrary Haystack",
-                "Evaluates Baseline Keyword Grounding"
-              ],
-              [
-                "Multi Needle Synthesis",
-                "Scattered Interdependent Fact Fragments",
-                "Tests Cross Document Association Capacity"
-              ]
+            "caption": "Evaluating long-context performance requires rigorous, quantitative.",
+            "bars": [
+              {
+                "label": "context_tokens",
+                "value": {
+                  "var": "context_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "relative_depth",
+                "value": {
+                  "var": "relative_depth_pct",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fidelity_start",
+                "value": {
+                  "var": "fidelity_start",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "distance_from_",
+                "value": {
+                  "var": "distance_from_center",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Multi hop reasoning across long contexts degrades faster than lookup.",
-            "rows": [
-              [
-                "Distractor Interference",
-                "Semantically Similar Falsehoods In Context",
-                "Measures Resistance To False Latching"
-              ],
-              [
-                "Multi Hop Horizon",
-                "Logical Deductions Spanning Dispersed Pages",
-                "Determines Complex Reasoning Boundaries"
-              ]
+            "caption": "A comprehensive Needle-in-a-Haystack evaluation generates.",
+            "bars": [
+              {
+                "label": "context_tokens",
+                "value": {
+                  "var": "context_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "relative_depth",
+                "value": {
+                  "var": "relative_depth_pct",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fidelity_start",
+                "value": {
+                  "var": "fidelity_start",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "distance_from_",
+                "value": {
+                  "var": "distance_from_center",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Search and rescue radar systems detect beacons across vast wilderness.",
-            "rows": [
-              [
-                "Heat Map Profiling",
-                "Two Dimensional Depth By Length Accuracy Plot",
-                "Reveals Latent Attention Degradation Pockets"
-              ],
-              [
-                "Synthetic Stress Test",
-                "Automated Parameterized Fact Injections",
-                "Validates Prompt Optimization Resilience"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Run a synthetic needle benchmark inserting keys at variable depths.",
-            "rows": [
-              [
-                "Zero Tolerance Scoring",
-                "Deterministic Ground Truth String Verification",
-                "Prevents Production Metric Hallucination"
-              ],
-              [
-                "Semantic Gap Metric",
-                "Embedding Distance Between Needle And Context",
-                "Calibrates True Retrieval Difficulty"
-              ]
+            "at": "say9",
+            "caption": "Cross-attention heat map visualization tools convert abstract attention.",
+            "bars": [
+              {
+                "label": "context_tokens",
+                "value": {
+                  "var": "context_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "relative_depth",
+                "value": {
+                  "var": "relative_depth_pct",
+                  "line": 11,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fidelity_start",
+                "value": {
+                  "var": "fidelity_start",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "distance_from_",
+                "value": {
+                  "var": "distance_from_center",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Needle In A Haystack Diagnostics And Multi Hop Reasoning Horizons.",
-        "columns": [
-          "Benchmark Dimension",
-          "Diagnostic Methodology",
-          "Cognitive Capability Evaluated"
-        ],
+        "template": "bars",
+        "title": "Needle-In-A-Haystack Benchmarking: Multi-Hop Retrieval, Reasonin",
         "steps": [
           {
             "at": "say1",
-            "caption": "Needle in a haystack benchmarks diagnose positional retrieval fidelity.",
-            "rows": [
-              [
-                "Single Needle Lookup",
-                "Insert Isolated Target In Arbitrary Haystack",
-                "Evaluates Baseline Keyword Grounding"
-              ],
-              [
-                "Multi Needle Synthesis",
-                "Scattered Interdependent Fact Fragments",
-                "Tests Cross Document Association Capacity"
-              ]
+            "caption": "Evaluating long-context performance requires rigorous, quantitative.",
+            "bars": [
+              {
+                "label": "context_tokens",
+                "value": 128000,
+                "tone": "data"
+              },
+              {
+                "label": "relative_depth",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "fidelity_start",
+                "value": 0.955,
+                "tone": "data"
+              },
+              {
+                "label": "distance_from_",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Multi hop reasoning across long contexts degrades faster than lookup.",
-            "rows": [
-              [
-                "Distractor Interference",
-                "Semantically Similar Falsehoods In Context",
-                "Measures Resistance To False Latching"
-              ],
-              [
-                "Multi Hop Horizon",
-                "Logical Deductions Spanning Dispersed Pages",
-                "Determines Complex Reasoning Boundaries"
-              ]
+            "caption": "A comprehensive Needle-in-a-Haystack evaluation generates.",
+            "bars": [
+              {
+                "label": "context_tokens",
+                "value": 128000,
+                "tone": "ok"
+              },
+              {
+                "label": "relative_depth",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "fidelity_start",
+                "value": 0.955,
+                "tone": "ok"
+              },
+              {
+                "label": "distance_from_",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Search and rescue radar systems detect beacons across vast wilderness.",
-            "rows": [
-              [
-                "Heat Map Profiling",
-                "Two Dimensional Depth By Length Accuracy Plot",
-                "Reveals Latent Attention Degradation Pockets"
-              ],
-              [
-                "Synthetic Stress Test",
-                "Automated Parameterized Fact Injections",
-                "Validates Prompt Optimization Resilience"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Run a synthetic needle benchmark inserting keys at variable depths.",
-            "rows": [
-              [
-                "Zero Tolerance Scoring",
-                "Deterministic Ground Truth String Verification",
-                "Prevents Production Metric Hallucination"
-              ],
-              [
-                "Semantic Gap Metric",
-                "Embedding Distance Between Needle And Context",
-                "Calibrates True Retrieval Difficulty"
-              ]
+            "at": "say9",
+            "caption": "Cross-attention heat map visualization tools convert abstract attention.",
+            "bars": [
+              {
+                "label": "context_tokens",
+                "value": 128000,
+                "tone": "ok"
+              },
+              {
+                "label": "relative_depth",
+                "value": 50,
+                "tone": "ok"
+              },
+              {
+                "label": "fidelity_start",
+                "value": 0.955,
+                "tone": "ok"
+              },
+              {
+                "label": "distance_from_",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -470,151 +673,217 @@
       "partTitle": "Long-Context Architecture & Layout Hygiene: Placement Optimization & Structured Tagging",
       "codeHash": "56ba2f1a329284487a2fffd81838cb95507093adbfc1fa356459f9f7f8b7e9cc",
       "spec": {
-        "template": "table",
-        "title": "Long Context Layout Architecture And Structured Tagging Hygiene.",
-        "columns": [
-          "Layout Hygiene Pattern",
-          "Structural Implementation",
-          "Attention Optimization Effect"
-        ],
+        "template": "bars",
+        "title": "Long-Context Architecture & Layout Hygiene: Placement Optimizati",
         "steps": [
           {
             "at": "say1",
-            "caption": "The primacy recency sandwich layout anchors directives at polar ends.",
-            "rows": [
-              [
-                "Primacy Sandwich Pattern",
-                "Critical Rules At Head And Target Task At Tail",
-                "Maximizes Attention On Crucial Directives"
-              ],
-              [
-                "XML Boundary Tagging",
-                "Explicit Document Tags With Metadata Attributes",
-                "Enables Unambiguous Source Attribution"
-              ]
+            "caption": "Long-context architecture and layout hygiene encompass the systematic.",
+            "bars": [
+              {
+                "label": "context_tokens",
+                "value": {
+                  "var": "context_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "relative_depth",
+                "value": {
+                  "var": "relative_depth_pct",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fidelity_start",
+                "value": {
+                  "var": "fidelity_start",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "distance_from_",
+                "value": {
+                  "var": "distance_from_center",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "The primacy recency sandwich anchors critical operational directives.",
-            "rows": [
-              [
-                "Salience Ordering",
-                "Rank Chunks And Place Low Priority In Middle",
-                "Protects Critical Insights From Decay"
-              ],
-              [
-                "Context Deduplication",
-                "Eliminate Boilerplate And Repeated Content",
-                "Preserves Informational Token Entropy"
-              ]
+            "caption": "The Primacy-Recency Sandwich represents the foundational layout pattern.",
+            "bars": [
+              {
+                "label": "context_tokens",
+                "value": {
+                  "var": "context_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "relative_depth",
+                "value": {
+                  "var": "relative_depth_pct",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fidelity_start",
+                "value": {
+                  "var": "fidelity_start",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "distance_from_",
+                "value": {
+                  "var": "distance_from_center",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Architectural blueprints organize schematics in distinct overlays.",
-            "rows": [
-              [
-                "Iterative Compaction",
-                "Summarize Historical Tool Calls Into States",
-                "Maintains Lean Low Latency Context"
-              ],
-              [
-                "JSON Table Serialization",
-                "Convert Tabular Matrices Into Key Value Pairs",
-                "Prevents Column To Value Misalignment"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Restructure an unorganized collection using explicit XML tags.",
-            "rows": [
-              [
-                "Privacy Redaction Gate",
-                "Filter Sensitive Markers Before Ingestion",
-                "Enforces Regulatory Compliance Boundaries"
-              ],
-              [
-                "Dynamic Chunk Sizing",
-                "Adaptive Boundary Partitioning By Topic",
-                "Eliminates Mid Concept Semantic Fractures"
-              ]
+            "at": "say9",
+            "caption": "Context pruning filters powered by small local cross-encoders eliminate.",
+            "bars": [
+              {
+                "label": "context_tokens",
+                "value": {
+                  "var": "context_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "relative_depth",
+                "value": {
+                  "var": "relative_depth_pct",
+                  "line": 11,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fidelity_start",
+                "value": {
+                  "var": "fidelity_start",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "distance_from_",
+                "value": {
+                  "var": "distance_from_center",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Long Context Layout Architecture And Structured Tagging Hygiene.",
-        "columns": [
-          "Layout Hygiene Pattern",
-          "Structural Implementation",
-          "Attention Optimization Effect"
-        ],
+        "template": "bars",
+        "title": "Long-Context Architecture & Layout Hygiene: Placement Optimizati",
         "steps": [
           {
             "at": "say1",
-            "caption": "The primacy recency sandwich layout anchors directives at polar ends.",
-            "rows": [
-              [
-                "Primacy Sandwich Pattern",
-                "Critical Rules At Head And Target Task At Tail",
-                "Maximizes Attention On Crucial Directives"
-              ],
-              [
-                "XML Boundary Tagging",
-                "Explicit Document Tags With Metadata Attributes",
-                "Enables Unambiguous Source Attribution"
-              ]
+            "caption": "Long-context architecture and layout hygiene encompass the systematic.",
+            "bars": [
+              {
+                "label": "context_tokens",
+                "value": 128000,
+                "tone": "data"
+              },
+              {
+                "label": "relative_depth",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "fidelity_start",
+                "value": 0.955,
+                "tone": "data"
+              },
+              {
+                "label": "distance_from_",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "The primacy recency sandwich anchors critical operational directives.",
-            "rows": [
-              [
-                "Salience Ordering",
-                "Rank Chunks And Place Low Priority In Middle",
-                "Protects Critical Insights From Decay"
-              ],
-              [
-                "Context Deduplication",
-                "Eliminate Boilerplate And Repeated Content",
-                "Preserves Informational Token Entropy"
-              ]
+            "caption": "The Primacy-Recency Sandwich represents the foundational layout pattern.",
+            "bars": [
+              {
+                "label": "context_tokens",
+                "value": 128000,
+                "tone": "ok"
+              },
+              {
+                "label": "relative_depth",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "fidelity_start",
+                "value": 0.955,
+                "tone": "ok"
+              },
+              {
+                "label": "distance_from_",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Architectural blueprints organize schematics in distinct overlays.",
-            "rows": [
-              [
-                "Iterative Compaction",
-                "Summarize Historical Tool Calls Into States",
-                "Maintains Lean Low Latency Context"
-              ],
-              [
-                "JSON Table Serialization",
-                "Convert Tabular Matrices Into Key Value Pairs",
-                "Prevents Column To Value Misalignment"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Restructure an unorganized collection using explicit XML tags.",
-            "rows": [
-              [
-                "Privacy Redaction Gate",
-                "Filter Sensitive Markers Before Ingestion",
-                "Enforces Regulatory Compliance Boundaries"
-              ],
-              [
-                "Dynamic Chunk Sizing",
-                "Adaptive Boundary Partitioning By Topic",
-                "Eliminates Mid Concept Semantic Fractures"
-              ]
+            "at": "say9",
+            "caption": "Context pruning filters powered by small local cross-encoders eliminate.",
+            "bars": [
+              {
+                "label": "context_tokens",
+                "value": 128000,
+                "tone": "ok"
+              },
+              {
+                "label": "relative_depth",
+                "value": 50,
+                "tone": "ok"
+              },
+              {
+                "label": "fidelity_start",
+                "value": 0.955,
+                "tone": "ok"
+              },
+              {
+                "label": "distance_from_",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -624,151 +893,217 @@
       "partTitle": "Enterprise Context Engineering: Implementing A Production Context Hygiene Controller In Python",
       "codeHash": "56ba2f1a329284487a2fffd81838cb95507093adbfc1fa356459f9f7f8b7e9cc",
       "spec": {
-        "template": "table",
-        "title": "Enterprise Context Engineering And Production Python Controller Systems.",
-        "columns": [
-          "Platform Controller Layer",
-          "Component Implementation",
-          "Enterprise Reliability SLA"
-        ],
+        "template": "bars",
+        "title": "Enterprise Context Engineering: Implementing A Production Contex",
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise context engineering implements python layout compilers.",
-            "rows": [
-              [
-                "Token Budget Governor",
-                "Precise Token Counting And Limit Enforcement",
-                "Prevents Context Window Overflow Errors"
-              ],
-              [
-                "Salience Layout Compiler",
-                "Algorithmic Partitioning Into Placement Queues",
-                "Guarantees Polar Attention Allocation"
-              ]
+            "caption": "Translating theoretical context physics into enterprise production systems.",
+            "bars": [
+              {
+                "label": "context_tokens",
+                "value": {
+                  "var": "context_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "relative_depth",
+                "value": {
+                  "var": "relative_depth_pct",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fidelity_start",
+                "value": {
+                  "var": "fidelity_start",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "distance_from_",
+                "value": {
+                  "var": "distance_from_center",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Standardizing prompt primacy prefixes maximizes cloud cache hits.",
-            "rows": [
-              [
-                "Prefix Caching Optimizer",
-                "Standardize Primary Directive Text Blocks",
-                "Cuts Operational Costs And Latencies"
-              ],
-              [
-                "Degradation Cascade",
-                "Adaptive Middle Pruning Upon Volume Spikes",
-                "Prevents Pipeline Crashing Under Load"
-              ]
+            "caption": "The core Python architecture comprises five specialized modules.",
+            "bars": [
+              {
+                "label": "context_tokens",
+                "value": {
+                  "var": "context_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "relative_depth",
+                "value": {
+                  "var": "relative_depth_pct",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fidelity_start",
+                "value": {
+                  "var": "fidelity_start",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "distance_from_",
+                "value": {
+                  "var": "distance_from_center",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Operating system memory managers page active memory blocks to cache.",
-            "rows": [
-              [
-                "OpenTelemetry Tracer",
-                "Track Depth Latency And Retrieval Accuracy",
-                "Provides Real Time Observability"
-              ],
-              [
-                "Audit Provenance Ledger",
-                "Cryptographic Hash Of Compiled Prompt State",
-                "Ensures Full Institutional Compliance"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement a Python class partitioning documents into priority queues.",
-            "rows": [
-              [
-                "Automated SLA Watchdog",
-                "Sub Second Retrieval Tail Latency Targets",
-                "Maintains Consistent Enterprise Uptime"
-              ],
-              [
-                "Dynamic Worker Cluster",
-                "Isolated Distributed Context Compilers",
-                "Guarantees High Concurrency Throughput"
-              ]
+            "at": "say9",
+            "caption": "Comprehensive synthetic regression testing suites run continuous automated.",
+            "bars": [
+              {
+                "label": "context_tokens",
+                "value": {
+                  "var": "context_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "relative_depth",
+                "value": {
+                  "var": "relative_depth_pct",
+                  "line": 11,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fidelity_start",
+                "value": {
+                  "var": "fidelity_start",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "distance_from_",
+                "value": {
+                  "var": "distance_from_center",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Enterprise Context Engineering And Production Python Controller Systems.",
-        "columns": [
-          "Platform Controller Layer",
-          "Component Implementation",
-          "Enterprise Reliability SLA"
-        ],
+        "template": "bars",
+        "title": "Enterprise Context Engineering: Implementing A Production Contex",
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise context engineering implements python layout compilers.",
-            "rows": [
-              [
-                "Token Budget Governor",
-                "Precise Token Counting And Limit Enforcement",
-                "Prevents Context Window Overflow Errors"
-              ],
-              [
-                "Salience Layout Compiler",
-                "Algorithmic Partitioning Into Placement Queues",
-                "Guarantees Polar Attention Allocation"
-              ]
+            "caption": "Translating theoretical context physics into enterprise production systems.",
+            "bars": [
+              {
+                "label": "context_tokens",
+                "value": 128000,
+                "tone": "data"
+              },
+              {
+                "label": "relative_depth",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "fidelity_start",
+                "value": 0.955,
+                "tone": "data"
+              },
+              {
+                "label": "distance_from_",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Standardizing prompt primacy prefixes maximizes cloud cache hits.",
-            "rows": [
-              [
-                "Prefix Caching Optimizer",
-                "Standardize Primary Directive Text Blocks",
-                "Cuts Operational Costs And Latencies"
-              ],
-              [
-                "Degradation Cascade",
-                "Adaptive Middle Pruning Upon Volume Spikes",
-                "Prevents Pipeline Crashing Under Load"
-              ]
+            "caption": "The core Python architecture comprises five specialized modules.",
+            "bars": [
+              {
+                "label": "context_tokens",
+                "value": 128000,
+                "tone": "ok"
+              },
+              {
+                "label": "relative_depth",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "fidelity_start",
+                "value": 0.955,
+                "tone": "ok"
+              },
+              {
+                "label": "distance_from_",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Operating system memory managers page active memory blocks to cache.",
-            "rows": [
-              [
-                "OpenTelemetry Tracer",
-                "Track Depth Latency And Retrieval Accuracy",
-                "Provides Real Time Observability"
-              ],
-              [
-                "Audit Provenance Ledger",
-                "Cryptographic Hash Of Compiled Prompt State",
-                "Ensures Full Institutional Compliance"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement a Python class partitioning documents into priority queues.",
-            "rows": [
-              [
-                "Automated SLA Watchdog",
-                "Sub Second Retrieval Tail Latency Targets",
-                "Maintains Consistent Enterprise Uptime"
-              ],
-              [
-                "Dynamic Worker Cluster",
-                "Isolated Distributed Context Compilers",
-                "Guarantees High Concurrency Throughput"
-              ]
+            "at": "say9",
+            "caption": "Comprehensive synthetic regression testing suites run continuous automated.",
+            "bars": [
+              {
+                "label": "context_tokens",
+                "value": 128000,
+                "tone": "ok"
+              },
+              {
+                "label": "relative_depth",
+                "value": 50,
+                "tone": "ok"
+              },
+              {
+                "label": "fidelity_start",
+                "value": 0.955,
+                "tone": "ok"
+              },
+              {
+                "label": "distance_from_",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]

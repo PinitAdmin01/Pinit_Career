@@ -2,85 +2,98 @@
   "schemaVersion": 1,
   "prefix": "prompt-py",
   "day": 17,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "How image generators work",
       "codeHash": "b57413d9bcbc5c1b72e70deb68c5fed121d6777db18d4932f59e1cac101f5d22",
       "spec": {
-        "template": "table",
-        "title": "Iterative reverse diffusion noise removal progression",
-        "columns": [
-          "image",
+        "template": "sequence",
+        "title": "How image generators work",
+        "actors": [
           "target",
+          "image",
           "step"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Diffusion models learn to remove noise from synthetic images step by step.",
-            "rows": [
+            "caption": "Most image generators are diffusion models.",
+            "activeActor": "target",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "image"
-                  },
-                  {
-                    "text": "target"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "ok"
+                "from": "target",
+                "to": "image",
+                "label": {
+                  "var": "target",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "image"
-                  },
-                  {
-                    "text": "target"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "data"
+                "from": "image",
+                "to": "step",
+                "label": {
+                  "var": "image",
+                  "line": 5,
+                  "hit": 5
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The generator removes noise guided by your prompt until an image appears.",
-            "rows": [
+            "caption": "To create a picture, they start from pure random noise and repeatedly.",
+            "activeActor": "image",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "image"
-                  },
-                  {
-                    "text": "target"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
+                "from": "target",
+                "to": "image",
+                "label": {
+                  "var": "target",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "image"
-                  },
-                  {
-                    "text": "target"
-                  },
-                  {
-                    "text": "image"
-                  }
-                ],
+                "from": "image",
+                "to": "step",
+                "label": {
+                  "var": "image",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Generation usually takes seconds, so trying many variations quickly.",
+            "activeActor": "step",
+            "messages": [
+              {
+                "from": "target",
+                "to": "image",
+                "label": {
+                  "var": "target",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "image",
+                "to": "step",
+                "label": {
+                  "var": "image",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -88,57 +101,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Iterative reverse diffusion noise removal progression",
-        "columns": [
-          "image",
+        "template": "sequence",
+        "title": "How image generators work",
+        "actors": [
           "target",
+          "image",
           "step"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Diffusion models learn to remove noise from synthetic images step by step.",
-            "rows": [
+            "caption": "Most image generators are diffusion models.",
+            "messages": [
               {
-                "cells": [
-                  "image",
-                  "target",
-                  "step"
-                ],
-                "tone": "ok"
+                "from": "target",
+                "to": "image",
+                "label": "[0.2, 0.8, 0.5, 0.9]",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "image",
-                  "target",
-                  "step"
-                ],
-                "tone": "data"
+                "from": "image",
+                "to": "step",
+                "label": "[0.23604808973743452, 0.103166034230715…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "target"
           },
           {
             "at": "say2",
-            "caption": "The generator removes noise guided by your prompt until an image appears.",
-            "rows": [
+            "caption": "To create a picture, they start from pure random noise and repeatedly.",
+            "messages": [
               {
-                "cells": [
-                  "image",
-                  "target",
-                  "step"
-                ],
+                "from": "target",
+                "to": "image",
+                "label": "[0.2, 0.8, 0.5, 0.9]",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "image",
-                  "target",
-                  "image"
-                ],
+                "from": "image",
+                "to": "step",
+                "label": "[0.23604808973743452, 0.103166034230715…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "image"
+          },
+          {
+            "at": "say9",
+            "caption": "Generation usually takes seconds, so trying many variations quickly.",
+            "messages": [
+              {
+                "from": "target",
+                "to": "image",
+                "label": "[0.2, 0.8, 0.5, 0.9]",
+                "tone": "data"
+              },
+              {
+                "from": "image",
+                "to": "step",
+                "label": "[0.23604808973743452, 0.103166034230715…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "step"
           }
         ]
       }
@@ -147,9 +173,9 @@
       "partTitle": "Anatomy of an image prompt",
       "codeHash": "4a95fb320257077a4a61aed773194459509ff444a36d324b12ddc068fac17577",
       "spec": {
-        "template": "table",
-        "title": "Layered image prompt composition components",
-        "columns": [
+        "template": "sequence",
+        "title": "Anatomy of an image prompt",
+        "actors": [
           "subject",
           "styles",
           "lighting"
@@ -157,68 +183,81 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Image prompts describe distinct layers including subject, style, and lighting.",
-            "rows": [
+            "caption": "Good image prompts describe several layers.",
+            "activeActor": "subject",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "subject"
-                  },
-                  {
-                    "text": "styles"
-                  },
-                  {
-                    "text": "lighting"
-                  }
-                ],
-                "tone": "ok"
+                "from": "subject",
+                "to": "styles",
+                "label": {
+                  "var": "subject",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "subject"
-                  },
-                  {
-                    "text": "styles"
-                  },
-                  {
-                    "text": "lighting"
-                  }
-                ],
-                "tone": "data"
+                "from": "styles",
+                "to": "lighting",
+                "label": {
+                  "var": "styles",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Lighting and camera composition establish the overall aesthetic atmosphere.",
-            "rows": [
+            "at": "say2",
+            "caption": "\"a red fox curled up in fresh snow\".",
+            "activeActor": "styles",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "subject"
-                  },
-                  {
-                    "text": "styles"
-                  },
-                  {
-                    "text": "lighting"
-                  }
-                ],
+                "from": "subject",
+                "to": "styles",
+                "label": {
+                  "var": "subject",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "subject"
-                  },
-                  {
-                    "text": "styles"
-                  },
-                  {
-                    "text": "subject"
-                  }
-                ],
+                "from": "styles",
+                "to": "lighting",
+                "label": {
+                  "var": "styles",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Reference artists and brands carefully.",
+            "activeActor": "lighting",
+            "messages": [
+              {
+                "from": "subject",
+                "to": "styles",
+                "label": {
+                  "var": "subject",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "styles",
+                "to": "lighting",
+                "label": {
+                  "var": "styles",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -226,9 +265,9 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Layered image prompt composition components",
-        "columns": [
+        "template": "sequence",
+        "title": "Anatomy of an image prompt",
+        "actors": [
           "subject",
           "styles",
           "lighting"
@@ -236,47 +275,60 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Image prompts describe distinct layers including subject, style, and lighting.",
-            "rows": [
+            "caption": "Good image prompts describe several layers.",
+            "messages": [
               {
-                "cells": [
-                  "subject",
-                  "styles",
-                  "lighting"
-                ],
-                "tone": "ok"
+                "from": "subject",
+                "to": "styles",
+                "label": "'a street food stall selling pani puri'",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "subject",
-                  "styles",
-                  "lighting"
-                ],
-                "tone": "data"
+                "from": "styles",
+                "to": "lighting",
+                "label": "['35mm photograph', 'watercolour illust…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "subject"
           },
           {
-            "at": "say3",
-            "caption": "Lighting and camera composition establish the overall aesthetic atmosphere.",
-            "rows": [
+            "at": "say2",
+            "caption": "\"a red fox curled up in fresh snow\".",
+            "messages": [
               {
-                "cells": [
-                  "subject",
-                  "styles",
-                  "lighting"
-                ],
+                "from": "subject",
+                "to": "styles",
+                "label": "'a street food stall selling pani puri'",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "subject",
-                  "styles",
-                  "subject"
-                ],
+                "from": "styles",
+                "to": "lighting",
+                "label": "['35mm photograph', 'watercolour illust…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "styles"
+          },
+          {
+            "at": "say9",
+            "caption": "Reference artists and brands carefully.",
+            "messages": [
+              {
+                "from": "subject",
+                "to": "styles",
+                "label": "'a street food stall selling pani puri'",
+                "tone": "data"
+              },
+              {
+                "from": "styles",
+                "to": "lighting",
+                "label": "['35mm photograph', 'watercolour illust…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "lighting"
           }
         ]
       }
@@ -285,78 +337,91 @@
       "partTitle": "Parameters: aspect ratio and negatives",
       "codeHash": "49dd4680180461ee59d181f19aa140e86fc70d4cefa3b66e1aea6164fc77f1f6",
       "spec": {
-        "template": "table",
-        "title": "Generation parameter flags for aspect ratio and exclusions",
-        "columns": [
-          "subject",
-          "style",
-          "lighting"
+        "template": "sequence",
+        "title": "Parameters: aspect ratio and negatives",
+        "actors": [
+          "channel",
+          "ar",
+          "subject"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tools accept explicit parameters alongside the prompt to set aspect ratio.",
-            "rows": [
+            "caption": "Many tools accept parameters alongside the prompt.",
+            "activeActor": "channel",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "subject"
-                  },
-                  {
-                    "text": "style"
-                  },
-                  {
-                    "text": "lighting"
-                  }
-                ],
-                "tone": "ok"
+                "from": "channel",
+                "to": "ar",
+                "label": {
+                  "var": "channel",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "subject"
-                  },
-                  {
-                    "text": "style"
-                  },
-                  {
-                    "text": "lighting"
-                  }
-                ],
-                "tone": "data"
+                "from": "ar",
+                "to": "subject",
+                "label": {
+                  "var": "ar",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Negative prompts explicitly list unwanted elements such as text or watermarks.",
-            "rows": [
+            "caption": "Negative prompts list what you do not want.",
+            "activeActor": "ar",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "subject"
-                  },
-                  {
-                    "text": "style"
-                  },
-                  {
-                    "text": "lighting"
-                  }
-                ],
+                "from": "channel",
+                "to": "ar",
+                "label": {
+                  "var": "channel",
+                  "line": 10,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "subject"
-                  },
-                  {
-                    "text": "style"
-                  },
-                  {
-                    "text": "subject"
-                  }
-                ],
+                "from": "ar",
+                "to": "subject",
+                "label": {
+                  "var": "ar",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Other common parameters include the style strength, the model version.",
+            "activeActor": "subject",
+            "messages": [
+              {
+                "from": "channel",
+                "to": "ar",
+                "label": {
+                  "var": "channel",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "ar",
+                "to": "subject",
+                "label": {
+                  "var": "ar",
+                  "line": 9,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +429,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Generation parameter flags for aspect ratio and exclusions",
-        "columns": [
-          "subject",
-          "style",
-          "lighting"
+        "template": "sequence",
+        "title": "Parameters: aspect ratio and negatives",
+        "actors": [
+          "channel",
+          "ar",
+          "subject"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tools accept explicit parameters alongside the prompt to set aspect ratio.",
-            "rows": [
+            "caption": "Many tools accept parameters alongside the prompt.",
+            "messages": [
               {
-                "cells": [
-                  "subject",
-                  "style",
-                  "lighting"
-                ],
-                "tone": "ok"
+                "from": "channel",
+                "to": "ar",
+                "label": "'YouTube thumbnail'",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "subject",
-                  "style",
-                  "lighting"
-                ],
-                "tone": "data"
+                "from": "ar",
+                "to": "subject",
+                "label": "'16:9'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "channel"
           },
           {
             "at": "say2",
-            "caption": "Negative prompts explicitly list unwanted elements such as text or watermarks.",
-            "rows": [
+            "caption": "Negative prompts list what you do not want.",
+            "messages": [
               {
-                "cells": [
-                  "subject",
-                  "style",
-                  "lighting"
-                ],
+                "from": "channel",
+                "to": "ar",
+                "label": "'YouTube thumbnail'",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "subject",
-                  "style",
-                  "subject"
-                ],
+                "from": "ar",
+                "to": "subject",
+                "label": "'16:9'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "ar"
+          },
+          {
+            "at": "say8",
+            "caption": "Other common parameters include the style strength, the model version.",
+            "messages": [
+              {
+                "from": "channel",
+                "to": "ar",
+                "label": "'Instagram post'",
+                "tone": "data"
+              },
+              {
+                "from": "ar",
+                "to": "subject",
+                "label": "'1:1'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "subject"
           }
         ]
       }
@@ -423,135 +501,277 @@
       "partTitle": "Weighting parts of a prompt",
       "codeHash": "6b3ffc4e7e5e8cf2d004884fc22757ef0bebcb39cefe484cc977eb347c978c61",
       "spec": {
-        "template": "table",
-        "title": "Token weight parsing and relative attention allocation",
-        "columns": [
-          "parts",
-          "total",
-          "text"
+        "template": "flow",
+        "title": "Weighting parts of a prompt",
+        "nodes": [
+          {
+            "id": "prompt",
+            "label": "prompt"
+          },
+          {
+            "id": "parts",
+            "label": "parts"
+          },
+          {
+            "id": "pos",
+            "label": "pos"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Explicit weight syntax lets users emphasize specific parts of a prompt.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Some tools let you weight parts of a prompt.",
+            "values": {
+              "prompt": {
+                "var": "prompt",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "data"
+              "parts": {
+                "var": "parts",
+                "line": 4,
+                "hit": 1
+              },
+              "pos": {
+                "var": "pos",
+                "line": 4,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "prompt": "data",
+              "parts": "data",
+              "pos": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "prompt",
+                "parts"
+              ],
+              [
+                "parts",
+                "pos"
+              ],
+              [
+                "pos",
+                "m"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Normalising weights against the total clarifies the relative visual balance.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Weights help when the model ignores an element or overdoes one.",
+            "values": {
+              "prompt": {
+                "var": "prompt",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "parts"
-                  }
-                ],
-                "tone": "ok"
+              "parts": {
+                "var": "parts",
+                "line": 5,
+                "hit": 1
+              },
+              "pos": {
+                "var": "pos",
+                "line": 5,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "prompt": "data",
+              "parts": "data",
+              "pos": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "prompt",
+                "parts"
+              ],
+              [
+                "parts",
+                "pos"
+              ],
+              [
+                "pos",
+                "m"
+              ]
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Extreme weights tend to distort images, so small adjustments, such as 1.",
+            "values": {
+              "prompt": {
+                "var": "prompt",
+                "line": 5,
+                "hit": 1
+              },
+              "parts": {
+                "var": "parts",
+                "line": 6,
+                "hit": 1
+              },
+              "pos": {
+                "var": "pos",
+                "line": 6,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "prompt": "ok",
+              "parts": "ok",
+              "pos": "ok",
+              "m": "ok"
+            },
+            "arrows": [
+              [
+                "prompt",
+                "parts"
+              ],
+              [
+                "parts",
+                "pos"
+              ],
+              [
+                "pos",
+                "m"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Token weight parsing and relative attention allocation",
-        "columns": [
-          "parts",
-          "total",
-          "text"
+        "template": "flow",
+        "title": "Weighting parts of a prompt",
+        "nodes": [
+          {
+            "id": "prompt",
+            "label": "prompt"
+          },
+          {
+            "id": "parts",
+            "label": "parts"
+          },
+          {
+            "id": "pos",
+            "label": "pos"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Explicit weight syntax lets users emphasize specific parts of a prompt.",
-            "rows": [
-              {
-                "cells": [
-                  "parts",
-                  "total",
-                  "text"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "parts",
-                  "total",
-                  "text"
-                ],
-                "tone": "data"
-              }
+            "caption": "Some tools let you weight parts of a prompt.",
+            "values": {
+              "prompt": "'sunset beach::2 palm trees::1 boats'",
+              "parts": "[]",
+              "pos": "0",
+              "m": "{'__other__': 'Match'}"
+            },
+            "tones": {
+              "prompt": "data",
+              "parts": "data",
+              "pos": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "prompt",
+                "parts"
+              ],
+              [
+                "parts",
+                "pos"
+              ],
+              [
+                "pos",
+                "m"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Normalising weights against the total clarifies the relative visual balance.",
-            "rows": [
-              {
-                "cells": [
-                  "parts",
-                  "total",
-                  "text"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "parts",
-                  "total",
-                  "parts"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Weights help when the model ignores an element or overdoes one.",
+            "values": {
+              "prompt": "'sunset beach::2 palm trees::1 boats'",
+              "parts": "[]",
+              "pos": "0",
+              "m": "{'__other__': 'Match'}"
+            },
+            "tones": {
+              "prompt": "data",
+              "parts": "data",
+              "pos": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "prompt",
+                "parts"
+              ],
+              [
+                "parts",
+                "pos"
+              ],
+              [
+                "pos",
+                "m"
+              ]
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Extreme weights tend to distort images, so small adjustments, such as 1.",
+            "values": {
+              "prompt": "'sunset beach::2 palm trees::1 boats'",
+              "parts": "[['sunset beach', 2]]",
+              "pos": "0",
+              "m": "{'__other__': 'Match'}"
+            },
+            "tones": {
+              "prompt": "ok",
+              "parts": "ok",
+              "pos": "ok",
+              "m": "ok"
+            },
+            "arrows": [
+              [
+                "prompt",
+                "parts"
+              ],
+              [
+                "parts",
+                "pos"
+              ],
+              [
+                "pos",
+                "m"
+              ]
             ]
           }
         ]
@@ -561,224 +781,162 @@
       "partTitle": "Responsible image generation",
       "codeHash": "c6bf90e90d4fdf4b1151adf65fee2ab61dce16ab918708ea8f93296a16182bd4",
       "spec": {
-        "template": "flow",
-        "title": "Responsible image generation — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Responsible image g...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Responsible image generation",
+        "actors": [
+          "RISKY",
+          "prompts",
+          "p"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Responsible image generation [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Responsible image g... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Do not generate realistic images of real people doing things they did not do.",
+            "activeActor": "RISKY",
+            "messages": [
+              {
+                "from": "RISKY",
+                "to": "prompts",
+                "label": {
+                  "var": "RISKY",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "prompts",
+                "to": "p",
+                "label": {
+                  "var": "prompts",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Respect copyright and trademarks.",
+            "activeActor": "prompts",
+            "messages": [
+              {
+                "from": "RISKY",
+                "to": "prompts",
+                "label": {
+                  "var": "RISKY",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "prompts",
+                "to": "p",
+                "label": {
+                  "var": "prompts",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Responsible image generation.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "When in doubt, ask whether the person or rights holder shown would be.",
+            "activeActor": "p",
+            "messages": [
+              {
+                "from": "RISKY",
+                "to": "prompts",
+                "label": {
+                  "var": "RISKY",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "prompts",
+                "to": "p",
+                "label": {
+                  "var": "prompts",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Responsible image generation — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Responsible image g...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Responsible image generation",
+        "actors": [
+          "RISKY",
+          "prompts",
+          "p"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Responsible image generation [D17.P5.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Responsible image g... [D17.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Do not generate realistic images of real people doing things they did not do.",
+            "messages": [
+              {
+                "from": "RISKY",
+                "to": "prompts",
+                "label": "['in the style of', 'logo', 'photo of p…",
+                "tone": "data"
+              },
+              {
+                "from": "prompts",
+                "to": "p",
+                "label": "['a watercolour of a Kerala backwater a…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "RISKY"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Respect copyright and trademarks.",
+            "messages": [
+              {
+                "from": "RISKY",
+                "to": "prompts",
+                "label": "['in the style of', 'logo', 'photo of p…",
+                "tone": "data"
+              },
+              {
+                "from": "prompts",
+                "to": "p",
+                "label": "['a watercolour of a Kerala backwater a…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "prompts"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Responsible image generation [D17.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say8",
+            "caption": "When in doubt, ask whether the person or rights holder shown would be.",
+            "messages": [
+              {
+                "from": "RISKY",
+                "to": "prompts",
+                "label": "['in the style of', 'logo', 'photo of p…",
+                "tone": "data"
+              },
+              {
+                "from": "prompts",
+                "to": "p",
+                "label": "['a watercolour of a Kerala backwater a…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "p"
           }
         ]
       }
@@ -787,223 +945,133 @@
       "partTitle": "Practice time: compose and parse",
       "codeHash": "4ab19b381183be078c0e58b6b2a16eb5b5e693ce4f1ace554ed97c2f02b3a9e3",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: compose and parse — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: comp...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: compose and parse",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: compose and parse [D.Psix.Sone].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: comp... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Image_prompt(subject, style, lighting, aspect, negatives).",
+            "bars": [
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 5,
+                  "hit": 5
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include extra spaces, no negatives, and four invalid aspect ratios.",
+            "bars": [
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: compose and parse.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Saving prompts that produced good images, with their seeds, lets you.",
+            "bars": [
+              {
+                "label": "w",
+                "value": {
+                  "var": "w",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: compose and parse — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: comp...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: compose and parse",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: compose and parse [D17.P6.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: comp... [D17.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Image_prompt(subject, style, lighting, aspect, negatives).",
+            "bars": [
+              {
+                "label": "w",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": 4,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include extra spaces, no negatives, and four invalid aspect ratios.",
+            "bars": [
+              {
+                "label": "w",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 4,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: compose and parse [D17.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Saving prompts that produced good images, with their seeds, lets you.",
+            "bars": [
+              {
+                "label": "w",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 4,
+                "tone": "ok"
+              }
             ]
           }
         ]

@@ -2,1335 +2,885 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 45,
-  "promptSha": "69840b47f85b03999f35250339ff0b476b38c30bd5303787c50859d0f2773e35",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Milestone 9 — Foundations & Mathematical Invariants",
-      "codeHash": "df60b82c9d953a92e46802b05c6dca105788df3cf91c11c44e6c621c7a44b6eb",
+      "partTitle": "Unified Request Context Across Memory, Cache, and Tier Budget",
+      "codeHash": "d1e52e01161c11e998d105fa508841ec2b4d715defe6fe2d50bfa40d6c2cba4e",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Unified Request Context Across Memory, Cache, and Tier Budget",
+        "actors": [
+          "tenant_id",
+          "user_id",
+          "prompt_ver"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Combining optimization techniques hastily often triggers brittle interactions.",
+            "activeActor": "tenant_id",
+            "messages": [
+              {
+                "from": "tenant_id",
+                "to": "user_id",
+                "label": {
+                  "var": "tenant_id",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "user_id",
+                "to": "prompt_ver",
+                "label": {
+                  "var": "user_id",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Anchor every inference gateway call cleanly inside an immutable.",
+            "activeActor": "user_id",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "tenant_id",
+                "to": "user_id",
+                "label": {
+                  "var": "tenant_id",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "user_id",
+                "to": "prompt_ver",
+                "label": {
+                  "var": "user_id",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Run init_request_ctx() contrasting shared tenant documentation scopes.",
+            "activeActor": "prompt_ver",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "tenant_id",
+                "to": "user_id",
+                "label": {
+                  "var": "tenant_id",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "user_id",
+                "to": "prompt_ver",
+                "label": {
+                  "var": "user_id",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
+        "template": "sequence",
+        "title": "Unified Request Context Across Memory, Cache, and Tier Budget",
+        "actors": [
+          "tenant_id",
+          "user_id",
+          "prompt_ver"
         ],
-        "edges": [
+        "steps": [
           {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
+            "at": "say1",
+            "caption": "Combining optimization techniques hastily often triggers brittle interactions.",
+            "messages": [
+              {
+                "from": "tenant_id",
+                "to": "user_id",
+                "label": "'acme'",
+                "tone": "data"
+              },
+              {
+                "from": "user_id",
+                "to": "prompt_ver",
+                "label": "'u_42'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "tenant_id"
           },
           {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
+            "at": "say2",
+            "caption": "Anchor every inference gateway call cleanly inside an immutable.",
+            "messages": [
+              {
+                "from": "tenant_id",
+                "to": "user_id",
+                "label": "'acme'",
+                "tone": "data"
+              },
+              {
+                "from": "user_id",
+                "to": "prompt_ver",
+                "label": "'u_42'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "user_id"
           },
           {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "at": "say8",
+            "caption": "Run init_request_ctx() contrasting shared tenant documentation scopes.",
+            "messages": [
+              {
+                "from": "tenant_id",
+                "to": "user_id",
+                "label": "'acme'",
+                "tone": "data"
+              },
+              {
+                "from": "user_id",
+                "to": "prompt_ver",
+                "label": "'u_42'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "prompt_ver"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Scoped Exact + Semantic Probe With Guardrails",
+      "codeHash": "17223827c5341a614fc4e1195d8f95f82fa70c2ad258cfe46f351375957103f8",
+      "spec": {
+        "template": "boxes",
+        "title": "Scoped Exact + Semantic Probe With Guardrails",
+        "boxes": [
+          {
+            "id": "entries",
+            "label": "entries"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "scope_key",
+            "label": "scope_key"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "at": "say1",
+            "caption": "During inference routing, probing caches safely demands two simultaneous.",
+            "values": {
+              "entries": {
+                "var": "entries",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "s": {
+                "var": "s",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "query": {
+                "var": "query",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "scope_key": {
+                "var": "scope_key",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "entries": "data",
+              "s": "data",
+              "query": "data",
+              "scope_key": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Why does numeric parity catch nasty bugs vector embeddings miss.",
+            "values": {
+              "entries": {
+                "var": "entries",
+                "line": 18,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 4,
+                "hit": 2
+              },
+              "query": {
+                "var": "query",
+                "line": 8,
+                "hit": 1
+              },
+              "scope_key": {
+                "var": "scope_key",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "entries": "data",
+              "s": "data",
+              "query": "data",
+              "scope_key": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect guarded_cache_probe() hitting `'fix error 502'` safely while.",
+            "values": {
+              "entries": {
+                "var": "entries",
+                "line": 19,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 4,
+                "hit": 3
+              },
+              "query": {
+                "var": "query",
+                "line": 9,
+                "hit": 1
+              },
+              "scope_key": {
+                "var": "scope_key",
+                "line": 9,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "entries": "ok",
+              "s": "ok",
+              "query": "ok",
+              "scope_key": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Scoped Exact + Semantic Probe With Guardrails",
+        "boxes": [
+          {
+            "id": "entries",
+            "label": "entries"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "scope_key",
+            "label": "scope_key"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "During inference routing, probing caches safely demands two simultaneous.",
+            "values": {
+              "entries": "[{'scope': 'acme:v7', 'norm_q': 'fix er…",
+              "s": "'how fix error 502?'",
+              "query": "'how fix error 502?'",
+              "scope_key": "'acme:v7'"
+            },
+            "tones": {
+              "entries": "data",
+              "s": "data",
+              "query": "data",
+              "scope_key": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Why does numeric parity catch nasty bugs vector embeddings miss.",
+            "values": {
+              "entries": "[{'scope': 'acme:v7', 'norm_q': 'fix er…",
+              "s": "'fix error 502 timeout'",
+              "query": "'how fix error 502?'",
+              "scope_key": "'acme:v7'"
+            },
+            "tones": {
+              "entries": "data",
+              "s": "data",
+              "query": "data",
+              "scope_key": "data"
+            }
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect guarded_cache_probe() hitting `'fix error 502'` safely while.",
+            "values": {
+              "entries": "[{'scope': 'acme:v7', 'norm_q': 'fix er…",
+              "s": "'how fix error 504?'",
+              "query": "'how fix error 502?'",
+              "scope_key": "'acme:v7'"
+            },
+            "tones": {
+              "entries": "ok",
+              "s": "ok",
+              "query": "ok",
+              "scope_key": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Integrated Complexity-Guided Cascade Dispatch",
+      "codeHash": "e2eac739ee1e414279232522c8f76dcb280659fdc80e42b47b2097d1b424d125",
+      "spec": {
+        "template": "boxes",
+        "title": "Integrated Complexity-Guided Cascade Dispatch",
+        "boxes": [
+          {
+            "id": "complexity_score",
+            "label": "complexity_score"
+          },
+          {
+            "id": "small_ok",
+            "label": "small_ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Whenever a request misses every tier of cache safely, our gateway fuses.",
+            "values": {
+              "complexity_score": {
+                "var": "complexity_score",
+                "line": 2,
+                "hit": 1
+              },
+              "small_ok": {
+                "var": "small_ok",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "complexity_score": "data",
+              "small_ok": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Notice the critical interplay.",
+            "values": {
+              "complexity_score": {
+                "var": "complexity_score",
+                "line": 4,
+                "hit": 1
+              },
+              "small_ok": {
+                "var": "small_ok",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "complexity_score": "data",
+              "small_ok": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Inspect route_cache_miss() recording explicit route path, total USD spent.",
+            "values": {
+              "complexity_score": {
+                "var": "complexity_score",
+                "line": 5,
+                "hit": 1
+              },
+              "small_ok": {
+                "var": "small_ok",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "complexity_score": "ok",
+              "small_ok": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Integrated Complexity-Guided Cascade Dispatch",
+        "boxes": [
+          {
+            "id": "complexity_score",
+            "label": "complexity_score"
+          },
+          {
+            "id": "small_ok",
+            "label": "small_ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Whenever a request misses every tier of cache safely, our gateway fuses.",
+            "values": {
+              "complexity_score": "0",
+              "small_ok": "True"
+            },
+            "tones": {
+              "complexity_score": "data",
+              "small_ok": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Notice the critical interplay.",
+            "values": {
+              "complexity_score": "0",
+              "small_ok": "True"
+            },
+            "tones": {
+              "complexity_score": "data",
+              "small_ok": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Inspect route_cache_miss() recording explicit route path, total USD spent.",
+            "values": {
+              "complexity_score": "0",
+              "small_ok": "True"
+            },
+            "tones": {
+              "complexity_score": "ok",
+              "small_ok": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Safe Cache Write-Back Gating",
+      "codeHash": "d795c42e56bc3c8b044c8172aa2ce9805fe61b7b25afa2b403ddb0b365e7d043",
+      "spec": {
+        "template": "flow",
+        "title": "Safe Cache Write-Back Gating",
+        "nodes": [
+          {
+            "id": "cases",
+            "label": "cases"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Equally critical as scoping reads safely is policing **cache writes**.",
+            "values": {
+              "cases": {
+                "var": "cases",
+                "line": 12,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 17,
+                "hit": 1
+              },
+              "result": {
+                "var": "result",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "cases": "data",
+              "c": "data",
+              "result": "data"
+            },
+            "arrows": [
+              [
+                "cases",
+                "c"
+              ],
+              [
+                "c",
+                "result"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Enforce a non-negotiable four-point cache eligibility gate ahead.",
+            "values": {
+              "cases": {
+                "var": "cases",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "c": {
+                "var": "c",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "result": {
+                "var": "result",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "cases": "data",
+              "c": "data",
+              "result": "data"
+            },
+            "arrows": [
+              [
+                "cases",
+                "c"
+              ],
+              [
+                "c",
+                "result"
+              ]
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "caption": "Test should_cache_write() guarding storage boundaries cleanly across three.",
+            "values": {
+              "cases": {
+                "var": "cases",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "c": {
+                "var": "c",
+                "line": 17,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "result": {
+                "var": "result",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "cases": "ok",
+              "c": "ok",
+              "result": "ok"
+            },
+            "arrows": [
+              [
+                "cases",
+                "c"
+              ],
+              [
+                "c",
+                "result"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Safe Cache Write-Back Gating",
+        "nodes": [
+          {
+            "id": "cases",
+            "label": "cases"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Equally critical as scoping reads safely is policing **cache writes**.",
+            "values": {
+              "cases": "[{'status': 'OK', 'schema_ok': True, 'c…",
+              "c": "{'status': 'OK', 'schema_ok': True, 'co…",
+              "result": "{'status': 'OK', 'schema_ok': True, 'co…"
+            },
+            "tones": {
+              "cases": "data",
+              "c": "data",
+              "result": "data"
+            },
+            "arrows": [
+              [
+                "cases",
+                "c"
+              ],
+              [
+                "c",
+                "result"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Enforce a non-negotiable four-point cache eligibility gate ahead.",
+            "values": {
+              "cases": "[{'status': 'OK', 'schema_ok': True, 'c…",
+              "c": "{'status': 'OK', 'schema_ok': True, 'co…",
+              "result": "{'status': 'OK', 'schema_ok': True, 'co…"
+            },
+            "tones": {
+              "cases": "data",
+              "c": "data",
+              "result": "data"
+            },
+            "arrows": [
+              [
+                "cases",
+                "c"
+              ],
+              [
+                "c",
+                "result"
+              ]
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Test should_cache_write() guarding storage boundaries cleanly across three.",
+            "values": {
+              "cases": "[{'status': 'OK', 'schema_ok': True, 'c…",
+              "c": "{'status': 'PARTIAL', 'schema_ok': True…",
+              "result": "{'status': 'OK', 'schema_ok': True, 'co…"
+            },
+            "tones": {
+              "cases": "ok",
+              "c": "ok",
+              "result": "ok"
+            },
+            "arrows": [
+              [
+                "cases",
+                "c"
+              ],
+              [
+                "c",
+                "result"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Milestone 9 — Core Algorithm & State Representation",
-      "codeHash": "8c51bd407b3db79782c78a08b551ef078aa237547f8b1b4b5b64ebfc0972aa47",
+      "partTitle": "Milestone 9 Cost & Correctness Regression Suite",
+      "codeHash": "d2d53d1bf5d1fe2c81f8f6bff75f5ceb80c1504cdfffb44914e6a77f693cac67",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Milestone 9 Cost & Correctness Regression Suite",
+        "actors": [
+          "checks",
+          "k_a",
+          "k_b"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how milestone updates closes during execution.",
+            "activeActor": "checks",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "k_a",
+                "label": {
+                  "var": "checks",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "k_a",
+                "to": "k_b",
+                "label": {
+                  "var": "k_a",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how cache updates efficiency during execution.",
+            "activeActor": "k_a",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "checks",
+                "to": "k_a",
+                "label": {
+                  "var": "checks",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "k_a",
+                "to": "k_b",
+                "label": {
+                  "var": "k_a",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Run audit_milestone9() verifying all three enterprise optimization checks.",
+            "activeActor": "k_b",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "checks",
+                "to": "k_a",
+                "label": {
+                  "var": "checks",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "k_a",
+                "to": "k_b",
+                "label": {
+                  "var": "k_a",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Milestone 9 Cost & Correctness Regression Suite",
+        "actors": [
+          "checks",
+          "k_a",
+          "k_b"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Trace how milestone updates closes during execution.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "checks",
+                "to": "k_a",
+                "label": "{}",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "k_a",
+                "to": "k_b",
+                "label": "'acme:v1:abc'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "checks"
           },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Milestone 9 — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "99dd0decae9d821cf3f10f6fe5c6799a938b918cb3b0bb969a06ebc28d20bbde",
-      "spec": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how cache updates efficiency during execution.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "checks",
+                "to": "k_a",
+                "label": "{}",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "k_a",
+                "to": "k_b",
+                "label": "'acme:v1:abc'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "k_a"
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "at": "say7",
+            "caption": "Run audit_milestone9() verifying all three enterprise optimization checks.",
+            "messages": [
+              {
+                "from": "checks",
+                "to": "k_a",
+                "label": "{}",
+                "tone": "data"
+              },
+              {
+                "from": "k_a",
+                "to": "k_b",
+                "label": "'acme:v1:abc'",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Milestone 9 — Resilience Guardrails & Failure Recovery",
-      "codeHash": "9dba1c0e6a76535db562ad6c73662cccb42d51bb795db6bffacbc750271cfdc5",
-      "spec": {
-        "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Milestone 9 — Production Telemetry & Verification Audit",
-      "codeHash": "b4da27338e18e4c5449dfba93b891d3121f31f1885f59f3fd19acf4f42009247",
-      "spec": {
-        "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "k_b"
           }
         ]
       }

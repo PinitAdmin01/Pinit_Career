@@ -2,231 +2,169 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 10,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "All or nothing across services",
       "codeHash": "5486091dcf823aef45d001073e0d910769560b557f1511c18f673b0fd62b85ce",
       "spec": {
-        "template": "flow",
-        "title": "All or nothing across services — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. All or nothing acro...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "All or nothing across services",
+        "actors": [
+          "bank_a",
+          "bank_b",
+          "amount"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for All or nothing across services [Dten.Pone.Sone].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in All or nothing acro... [Dten.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A money transfer between two banks' systems must debit one account.",
+            "activeActor": "bank_a",
+            "messages": [
+              {
+                "from": "bank_a",
+                "to": "bank_b",
+                "label": {
+                  "var": "bank_a",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bank_b",
+                "to": "amount",
+                "label": {
+                  "var": "bank_b",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dten.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Inside one database, a transaction gives all-or-nothing.",
+            "activeActor": "bank_b",
+            "messages": [
+              {
+                "from": "bank_a",
+                "to": "bank_b",
+                "label": {
+                  "var": "bank_a",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bank_b",
+                "to": "amount",
+                "label": {
+                  "var": "bank_b",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for All or nothing across services.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Keep this failure picture in mind.",
+            "activeActor": "amount",
+            "messages": [
+              {
+                "from": "bank_a",
+                "to": "bank_b",
+                "label": {
+                  "var": "bank_a",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "bank_b",
+                "to": "amount",
+                "label": {
+                  "var": "bank_b",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "All or nothing across services — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. All or nothing acro...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "All or nothing across services",
+        "actors": [
+          "bank_a",
+          "bank_b",
+          "amount"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for All or nothing across services [D10.P1.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in All or nothing acro... [D10.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A money transfer between two banks' systems must debit one account.",
+            "messages": [
+              {
+                "from": "bank_a",
+                "to": "bank_b",
+                "label": "{'asha': 1000}",
+                "tone": "data"
+              },
+              {
+                "from": "bank_b",
+                "to": "amount",
+                "label": "{'bala': 200}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "bank_a"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Inside one database, a transaction gives all-or-nothing.",
+            "messages": [
+              {
+                "from": "bank_a",
+                "to": "bank_b",
+                "label": "{'asha': 1000}",
+                "tone": "data"
+              },
+              {
+                "from": "bank_b",
+                "to": "amount",
+                "label": "{'bala': 200}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "bank_b"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for All or nothing across services [D10.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "Keep this failure picture in mind.",
+            "messages": [
+              {
+                "from": "bank_a",
+                "to": "bank_b",
+                "label": "{'asha': 1000}",
+                "tone": "data"
+              },
+              {
+                "from": "bank_b",
+                "to": "amount",
+                "label": "{'bala': 200}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "amount"
           }
         ]
       }
@@ -236,74 +174,89 @@
       "codeHash": "344c653381540761bc3ccbebd532b3060065730f447e9014b57194e5cf1863ae",
       "spec": {
         "template": "sequence",
-        "title": "Two phase commit coordinator prepare and decision phases",
+        "title": "The two phases",
         "actors": [
-          "coordinator",
-          "bank_a",
-          "bank_b"
+          "participants",
+          "votes",
+          "p"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Coordinator asks every participant whether they can commit.",
+            "caption": "A coordinator runs the protocol.",
+            "activeActor": "participants",
             "messages": [
               {
-                "from": "coordinator",
-                "to": "bank_a",
+                "from": "participants",
+                "to": "votes",
                 "label": {
-                  "text": "prepare?"
+                  "var": "participants",
+                  "line": 1,
+                  "hit": 1
                 },
                 "tone": "data"
               },
               {
-                "from": "coordinator",
-                "to": "bank_b",
+                "from": "votes",
+                "to": "p",
                 "label": {
-                  "text": "prepare?"
+                  "var": "votes",
+                  "line": 2,
+                  "hit": 1
                 },
-                "tone": "data"
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Each participant records prepared state and returns COMMIT vote.",
+            "caption": "A COMMIT vote is a promise.",
+            "activeActor": "votes",
             "messages": [
               {
-                "from": "bank_a",
-                "to": "coordinator",
+                "from": "participants",
+                "to": "votes",
                 "label": {
-                  "text": "VOTE_COMMIT"
+                  "var": "participants",
+                  "line": 2,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "from": "bank_b",
-                "to": "coordinator",
+                "from": "votes",
+                "to": "p",
                 "label": {
-                  "text": "VOTE_COMMIT"
+                  "var": "votes",
+                  "line": 3,
+                  "hit": 1
                 },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Coordinator notifies participants of the final commit decision.",
+            "at": "say7",
+            "caption": "The trace below shows both phases for a successful transaction.",
+            "activeActor": "p",
             "messages": [
               {
-                "from": "coordinator",
-                "to": "bank_a",
+                "from": "participants",
+                "to": "votes",
                 "label": {
-                  "text": "COMMIT"
+                  "var": "participants",
+                  "line": 3,
+                  "hit": 1
                 },
-                "tone": "ok"
+                "tone": "data"
               },
               {
-                "from": "coordinator",
-                "to": "bank_b",
+                "from": "votes",
+                "to": "p",
                 "label": {
-                  "text": "COMMIT"
+                  "var": "votes",
+                  "line": 4,
+                  "hit": 1
                 },
                 "tone": "ok"
               }
@@ -313,66 +266,69 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Two phase commit coordinator prepare and decision phases",
+        "title": "The two phases",
         "actors": [
-          "coordinator",
-          "bank_a",
-          "bank_b"
+          "participants",
+          "votes",
+          "p"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Coordinator asks every participant whether they can commit.",
+            "caption": "A coordinator runs the protocol.",
             "messages": [
               {
-                "from": "coordinator",
-                "to": "bank_a",
-                "label": "prepare?",
+                "from": "participants",
+                "to": "votes",
+                "label": "['bank_a', 'bank_b']",
                 "tone": "data"
               },
               {
-                "from": "coordinator",
-                "to": "bank_b",
-                "label": "prepare?",
-                "tone": "data"
+                "from": "votes",
+                "to": "p",
+                "label": "{'bank_a': 'VOTE_COMMIT', 'bank_b': 'VO…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "participants"
           },
           {
             "at": "say2",
-            "caption": "Each participant records prepared state and returns COMMIT vote.",
+            "caption": "A COMMIT vote is a promise.",
             "messages": [
               {
-                "from": "bank_a",
-                "to": "coordinator",
-                "label": "VOTE_COMMIT",
-                "tone": "ok"
+                "from": "participants",
+                "to": "votes",
+                "label": "['bank_a', 'bank_b']",
+                "tone": "data"
               },
               {
-                "from": "bank_b",
-                "to": "coordinator",
-                "label": "VOTE_COMMIT",
+                "from": "votes",
+                "to": "p",
+                "label": "{'bank_a': 'VOTE_COMMIT', 'bank_b': 'VO…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "votes"
           },
           {
-            "at": "say4",
-            "caption": "Coordinator notifies participants of the final commit decision.",
+            "at": "say7",
+            "caption": "The trace below shows both phases for a successful transaction.",
             "messages": [
               {
-                "from": "coordinator",
-                "to": "bank_a",
-                "label": "COMMIT",
-                "tone": "ok"
+                "from": "participants",
+                "to": "votes",
+                "label": "['bank_a', 'bank_b']",
+                "tone": "data"
               },
               {
-                "from": "coordinator",
-                "to": "bank_b",
-                "label": "COMMIT",
+                "from": "votes",
+                "to": "p",
+                "label": "{'bank_a': 'VOTE_COMMIT', 'bank_b': 'VO…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "p"
           }
         ]
       }
@@ -381,132 +337,162 @@
       "partTitle": "Implementing the coordinator",
       "codeHash": "3e33cc780e3530fedf21e1175ff59b66a8df16f75dfb443a344f538843df0a13",
       "spec": {
-        "template": "compare",
-        "title": "Coordinator consensus commit versus abort outcomes comparison",
-        "leftLabel": "All Cohorts Vote Commit",
-        "rightLabel": "Any Cohort Votes Abort",
+        "template": "sequence",
+        "title": "Implementing the coordinator",
+        "actors": [
+          "votes",
+          "self",
+          "name"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function two_phase_commit calls prepare on every cohort.",
-            "left": {
-              "code": "cohorts vote VOTE_COMMIT",
-              "result": {
-                "text": "prepared"
+            "caption": "Two_phase_commit(cohorts).",
+            "activeActor": "votes",
+            "messages": [
+              {
+                "from": "votes",
+                "to": "self",
+                "label": {
+                  "var": "votes",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "cohort votes VOTE_ABORT",
-              "result": {
-                "text": "prepared"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "self",
+                "to": "name",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Unanimous commit returns GLOBAL_COMMITTED otherwise GLOBAL_ABORTED.",
-            "left": {
-              "code": "all cohorts voted commit",
-              "result": {
-                "text": "GLOBAL_COMMITTED"
+            "caption": "If all are VOTE_COMMIT, call commit() on every cohort and return.",
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "votes",
+                "to": "self",
+                "label": {
+                  "var": "votes",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "cohort voted abort",
-              "result": {
-                "text": "GLOBAL_ABORTED"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "self",
+                "to": "name",
+                "label": {
+                  "var": "self",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say3",
-            "caption": "Abort signal transitions every cohort to aborted state.",
-            "left": {
-              "code": "c.commit() sets state",
-              "result": {
-                "text": "committed"
+            "at": "say7",
+            "caption": "The code runs one transaction that commits and one that aborts.",
+            "activeActor": "name",
+            "messages": [
+              {
+                "from": "votes",
+                "to": "self",
+                "label": {
+                  "var": "votes",
+                  "line": 13,
+                  "hit": 3
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "c.abort() sets state",
-              "result": {
-                "text": "aborted"
-              },
-              "tone": "idle"
-            }
+              {
+                "from": "self",
+                "to": "name",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Coordinator consensus commit versus abort outcomes comparison",
-        "leftLabel": "All Cohorts Vote Commit",
-        "rightLabel": "Any Cohort Votes Abort",
+        "template": "sequence",
+        "title": "Implementing the coordinator",
+        "actors": [
+          "votes",
+          "self",
+          "name"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function two_phase_commit calls prepare on every cohort.",
-            "left": {
-              "code": "cohorts vote VOTE_COMMIT",
-              "result": "prepared",
-              "tone": "ok",
-              "checks": [
-                "prepared"
-              ]
-            },
-            "right": {
-              "code": "cohort votes VOTE_ABORT",
-              "result": "prepared",
-              "tone": "error",
-              "checks": [
-                "prepared"
-              ]
-            }
+            "caption": "Two_phase_commit(cohorts).",
+            "messages": [
+              {
+                "from": "votes",
+                "to": "self",
+                "label": "['VOTE_COMMIT', 'VOTE_COMMIT']",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "name",
+                "label": "<Cohort>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "votes"
           },
           {
             "at": "say2",
-            "caption": "Unanimous commit returns GLOBAL_COMMITTED otherwise GLOBAL_ABORTED.",
-            "left": {
-              "code": "all cohorts voted commit",
-              "result": "GLOBAL_COMMITTED",
-              "tone": "ok",
-              "checks": [
-                "GLOBAL_COMMITTED"
-              ]
-            },
-            "right": {
-              "code": "cohort voted abort",
-              "result": "GLOBAL_ABORTED",
-              "tone": "error",
-              "checks": [
-                "GLOBAL_ABORTED"
-              ]
-            }
+            "caption": "If all are VOTE_COMMIT, call commit() on every cohort and return.",
+            "messages": [
+              {
+                "from": "votes",
+                "to": "self",
+                "label": "['VOTE_COMMIT', 'VOTE_COMMIT']",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "name",
+                "label": "<Cohort>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
           },
           {
-            "at": "say3",
-            "caption": "Abort signal transitions every cohort to aborted state.",
-            "left": {
-              "code": "c.commit() sets state",
-              "result": "committed",
-              "tone": "ok",
-              "checks": [
-                "committed"
-              ]
-            },
-            "right": {
-              "code": "c.abort() sets state",
-              "result": "aborted",
-              "tone": "idle",
-              "checks": [
-                "aborted"
-              ]
-            }
+            "at": "say7",
+            "caption": "The code runs one transaction that commits and one that aborts.",
+            "messages": [
+              {
+                "from": "votes",
+                "to": "self",
+                "label": "['VOTE_COMMIT', 'VOTE_COMMIT']",
+                "tone": "data"
+              },
+              {
+                "from": "self",
+                "to": "name",
+                "label": "<Cohort>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "name"
           }
         ]
       }
@@ -515,191 +501,277 @@
       "partTitle": "Counting votes and keeping a log",
       "codeHash": "6380f83488ef0c299882a9607c546052d9b808cae8ed9d8b972586e3a8853785",
       "spec": {
-        "template": "table",
-        "title": "Two phase commit coordinator crash log recovery decision actions",
-        "columns": [
-          "tx",
-          "decision",
-          "action"
+        "template": "flow",
+        "title": "Counting votes and keeping a log",
+        "nodes": [
+          {
+            "id": "votes",
+            "label": "votes"
+          },
+          {
+            "id": "coordinator_log",
+            "label": "coordinator_log"
+          },
+          {
+            "id": "tx",
+            "label": "tx"
+          },
+          {
+            "id": "decision",
+            "label": "decision"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function count_votes returns commit and abort counts.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tx-1"
-                  },
-                  {
-                    "text": "COMMIT"
-                  },
-                  {
-                    "text": "COMMIT"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Count_votes(votes) returns {\"commit\".",
+            "values": {
+              "votes": {
+                "var": "votes",
+                "line": 2,
+                "hit": 1
+              },
+              "coordinator_log": {
+                "var": "coordinator_log",
+                "line": 6,
+                "hit": 1
+              },
+              "tx": {
+                "var": "tx",
+                "line": 7,
+                "hit": 1
+              },
+              "decision": {
+                "var": "decision",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "votes": "data",
+              "coordinator_log": "data",
+              "tx": "data",
+              "decision": "data"
+            },
+            "arrows": [
+              [
+                "votes",
+                "coordinator_log"
+              ],
+              [
+                "coordinator_log",
+                "tx"
+              ],
+              [
+                "tx",
+                "decision"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "After crash logged decisions are resent while unlogged abort.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tx-1"
-                  },
-                  {
-                    "text": "COMMIT"
-                  },
-                  {
-                    "text": "COMMIT"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Counts are useful for monitoring.",
+            "values": {
+              "votes": {
+                "var": "votes",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "tx-2"
-                  },
-                  {
-                    "text": "None"
-                  },
-                  {
-                    "text": "ABORT"
-                  }
-                ],
-                "tone": "error"
+              "coordinator_log": {
+                "var": "coordinator_log",
+                "line": 7,
+                "hit": 1
+              },
+              "tx": {
+                "var": "tx",
+                "line": 8,
+                "hit": 1
+              },
+              "decision": {
+                "var": "decision",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "votes": "data",
+              "coordinator_log": "data",
+              "tx": "data",
+              "decision": "data"
+            },
+            "arrows": [
+              [
+                "votes",
+                "coordinator_log"
+              ],
+              [
+                "coordinator_log",
+                "tx"
+              ],
+              [
+                "tx",
+                "decision"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Persistent logs ensure every promise survives crashes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tx-1"
-                  },
-                  {
-                    "text": "COMMIT"
-                  },
-                  {
-                    "text": "COMMIT"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The code counts votes and shows the recovery rule.",
+            "values": {
+              "votes": {
+                "var": "votes",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "tx-2"
-                  },
-                  {
-                    "text": "None"
-                  },
-                  {
-                    "text": "ABORT"
-                  }
-                ],
-                "tone": "error"
+              "coordinator_log": {
+                "var": "coordinator_log",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "commit"
-                  },
-                  {
-                    "text": "COMMIT"
-                  },
-                  {
-                    "text": "COMMIT"
-                  }
-                ],
-                "tone": "ok"
+              "tx": {
+                "var": "tx",
+                "line": 9,
+                "hit": 1
+              },
+              "decision": {
+                "var": "decision",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "votes": "ok",
+              "coordinator_log": "ok",
+              "tx": "ok",
+              "decision": "ok"
+            },
+            "arrows": [
+              [
+                "votes",
+                "coordinator_log"
+              ],
+              [
+                "coordinator_log",
+                "tx"
+              ],
+              [
+                "tx",
+                "decision"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Two phase commit coordinator crash log recovery decision actions",
-        "columns": [
-          "tx",
-          "decision",
-          "action"
+        "template": "flow",
+        "title": "Counting votes and keeping a log",
+        "nodes": [
+          {
+            "id": "votes",
+            "label": "votes"
+          },
+          {
+            "id": "coordinator_log",
+            "label": "coordinator_log"
+          },
+          {
+            "id": "tx",
+            "label": "tx"
+          },
+          {
+            "id": "decision",
+            "label": "decision"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function count_votes returns commit and abort counts.",
-            "rows": [
-              {
-                "cells": [
-                  "tx-1",
-                  "COMMIT",
-                  "COMMIT"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Count_votes(votes) returns {\"commit\".",
+            "values": {
+              "votes": "['VOTE_COMMIT', 'VOTE_ABORT', 'VOTE_COM…",
+              "coordinator_log": "{'tx-1': 'COMMIT', 'tx-2': None}",
+              "tx": "'tx-1'",
+              "decision": "'COMMIT'"
+            },
+            "tones": {
+              "votes": "data",
+              "coordinator_log": "data",
+              "tx": "data",
+              "decision": "data"
+            },
+            "arrows": [
+              [
+                "votes",
+                "coordinator_log"
+              ],
+              [
+                "coordinator_log",
+                "tx"
+              ],
+              [
+                "tx",
+                "decision"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "After crash logged decisions are resent while unlogged abort.",
-            "rows": [
-              {
-                "cells": [
-                  "tx-1",
-                  "COMMIT",
-                  "COMMIT"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tx-2",
-                  "None",
-                  "ABORT"
-                ],
-                "tone": "error"
-              }
+            "at": "say2",
+            "caption": "Counts are useful for monitoring.",
+            "values": {
+              "votes": "['VOTE_COMMIT', 'VOTE_ABORT', 'VOTE_COM…",
+              "coordinator_log": "{'tx-1': 'COMMIT', 'tx-2': None}",
+              "tx": "'tx-1'",
+              "decision": "'COMMIT'"
+            },
+            "tones": {
+              "votes": "data",
+              "coordinator_log": "data",
+              "tx": "data",
+              "decision": "data"
+            },
+            "arrows": [
+              [
+                "votes",
+                "coordinator_log"
+              ],
+              [
+                "coordinator_log",
+                "tx"
+              ],
+              [
+                "tx",
+                "decision"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Persistent logs ensure every promise survives crashes.",
-            "rows": [
-              {
-                "cells": [
-                  "tx-1",
-                  "COMMIT",
-                  "COMMIT"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tx-2",
-                  "None",
-                  "ABORT"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "commit",
-                  "COMMIT",
-                  "COMMIT"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The code counts votes and shows the recovery rule.",
+            "values": {
+              "votes": "['VOTE_COMMIT', 'VOTE_ABORT', 'VOTE_COM…",
+              "coordinator_log": "{'tx-1': 'COMMIT', 'tx-2': None}",
+              "tx": "'tx-1'",
+              "decision": "'COMMIT'"
+            },
+            "tones": {
+              "votes": "ok",
+              "coordinator_log": "ok",
+              "tx": "ok",
+              "decision": "ok"
+            },
+            "arrows": [
+              [
+                "votes",
+                "coordinator_log"
+              ],
+              [
+                "coordinator_log",
+                "tx"
+              ],
+              [
+                "tx",
+                "decision"
+              ]
             ]
           }
         ]
@@ -709,224 +781,106 @@
       "partTitle": "The blocking problem",
       "codeHash": "c858300e3fef6d84a1ed0399233df5e93a60103d47f8a860d66504d2a7780a77",
       "spec": {
-        "template": "flow",
-        "title": "The blocking problem — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "The blocking problem",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "participants",
+            "label": "participants"
           },
           {
-            "id": "proc",
-            "label": "2. The blocking problem",
-            "tappable": true
+            "id": "coordinator_alive",
+            "label": "coordinator_alive"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The blocking problem [Dten.Pfive.Sone].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The blocking problem [Dten.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "2PC has a famous weakness.",
+            "currentState": "participants",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dten.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "They cannot commit (maybe someone else voted abort) and cannot abort.",
+            "currentState": "coordinator_alive",
+            "transition": {
+              "from": "participants",
+              "to": "coordinator_alive",
+              "label": {
+                "var": "coordinator_alive",
+                "line": 4,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The blocking problem [Dten.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The simulation shows participants stuck in the prepared state.",
+            "currentState": "name",
+            "transition": {
+              "from": "coordinator_alive",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The blocking problem — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "The blocking problem",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "participants",
+            "label": "participants"
           },
           {
-            "id": "proc",
-            "label": "2. The blocking problem",
-            "tappable": true
+            "id": "coordinator_alive",
+            "label": "coordinator_alive"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The blocking problem [D10.P5.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The blocking problem [D10.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "2PC has a famous weakness.",
+            "currentState": "participants",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "They cannot commit (maybe someone else voted abort) and cannot abort.",
+            "currentState": "coordinator_alive",
+            "transition": {
+              "from": "participants",
+              "to": "coordinator_alive",
+              "label": "False"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The blocking problem [D10.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The simulation shows participants stuck in the prepared state.",
+            "currentState": "name",
+            "transition": {
+              "from": "coordinator_alive",
+              "to": "name",
+              "label": "'orders'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -935,182 +889,91 @@
       "partTitle": "Three-phase commit and alternatives",
       "codeHash": "7942af06606f0227f9f09a9f5d7f540acf8b350b27eeb669fc9859de83252545",
       "spec": {
-        "template": "table",
-        "title": "Distributed transaction protocols comparison guarantees and trade-offs",
-        "columns": [
+        "template": "sequence",
+        "title": "Three-phase commit and alternatives",
+        "actors": [
+          "options",
           "name",
-          "guarantee",
-          "weakness",
-          "used"
+          "guarantee"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Three-phase commit adds pre-commit before committing.",
-            "rows": [
+            "caption": "Three-phase commit (3PC) adds a pre-commit phase between voting.",
+            "activeActor": "options",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "2PC"
-                  },
-                  {
-                    "text": "atomic"
-                  },
-                  {
-                    "text": "blocks if coordinator fails"
-                  },
-                  {
-                    "text": "databases, XA"
-                  }
-                ],
-                "tone": "ok"
+                "from": "options",
+                "to": "name",
+                "label": {
+                  "var": "options",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "3PC"
-                  },
-                  {
-                    "text": "atomic"
-                  },
-                  {
-                    "text": "unsafe under partitions"
-                  },
-                  {
-                    "text": "rarely used"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Modern consensus systems replicate coordinators to prevent failure.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "2PC"
-                  },
-                  {
-                    "text": "atomic"
-                  },
-                  {
-                    "text": "blocks if coordinator fails"
-                  },
-                  {
-                    "text": "databases, XA"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "3PC"
-                  },
-                  {
-                    "text": "atomic"
-                  },
-                  {
-                    "text": "unsafe under partitions"
-                  },
-                  {
-                    "text": "rarely used"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "2PC + consensus"
-                  },
-                  {
-                    "text": "atomic"
-                  },
-                  {
-                    "text": "complex, slower"
-                  },
-                  {
-                    "text": "Spanner, CockroachDB"
-                  }
-                ],
+                "from": "name",
+                "to": "guarantee",
+                "label": {
+                  "var": "name",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Sagas break long transactions into local steps with compensations.",
-            "rows": [
+            "at": "say2",
+            "caption": "With timeouts, 3PC lets participants finish on their own if.",
+            "activeActor": "name",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "2PC"
-                  },
-                  {
-                    "text": "atomic"
-                  },
-                  {
-                    "text": "blocks if coordinator fails"
-                  },
-                  {
-                    "text": "databases, XA"
-                  }
-                ],
+                "from": "options",
+                "to": "name",
+                "label": {
+                  "var": "options",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "name",
+                "to": "guarantee",
+                "label": {
+                  "var": "name",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The table compares the options.",
+            "activeActor": "guarantee",
+            "messages": [
+              {
+                "from": "options",
+                "to": "name",
+                "label": {
+                  "var": "options",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "3PC"
-                  },
-                  {
-                    "text": "atomic"
-                  },
-                  {
-                    "text": "unsafe under partitions"
-                  },
-                  {
-                    "text": "rarely used"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "2PC + consensus"
-                  },
-                  {
-                    "text": "atomic"
-                  },
-                  {
-                    "text": "complex, slower"
-                  },
-                  {
-                    "text": "Spanner, CockroachDB"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Saga"
-                  },
-                  {
-                    "text": "eventually consistent"
-                  },
-                  {
-                    "text": "needs compensations"
-                  },
-                  {
-                    "text": "microservices"
-                  }
-                ],
+                "from": "name",
+                "to": "guarantee",
+                "label": {
+                  "var": "name",
+                  "line": 7,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -1118,113 +981,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Distributed transaction protocols comparison guarantees and trade-offs",
-        "columns": [
+        "template": "sequence",
+        "title": "Three-phase commit and alternatives",
+        "actors": [
+          "options",
           "name",
-          "guarantee",
-          "weakness",
-          "used"
+          "guarantee"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Three-phase commit adds pre-commit before committing.",
-            "rows": [
+            "caption": "Three-phase commit (3PC) adds a pre-commit phase between voting.",
+            "messages": [
               {
-                "cells": [
-                  "2PC",
-                  "atomic",
-                  "blocks if coordinator fails",
-                  "databases, XA"
-                ],
-                "tone": "ok"
+                "from": "options",
+                "to": "name",
+                "label": "[['2PC', 'atomic', 'blocks if coordinat…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "3PC",
-                  "atomic",
-                  "unsafe under partitions",
-                  "rarely used"
-                ],
-                "tone": "idle"
+                "from": "name",
+                "to": "guarantee",
+                "label": "'2PC'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "options"
           },
           {
-            "at": "say3",
-            "caption": "Modern consensus systems replicate coordinators to prevent failure.",
-            "rows": [
+            "at": "say2",
+            "caption": "With timeouts, 3PC lets participants finish on their own if.",
+            "messages": [
               {
-                "cells": [
-                  "2PC",
-                  "atomic",
-                  "blocks if coordinator fails",
-                  "databases, XA"
-                ],
-                "tone": "ok"
+                "from": "options",
+                "to": "name",
+                "label": "[['2PC', 'atomic', 'blocks if coordinat…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "3PC",
-                  "atomic",
-                  "unsafe under partitions",
-                  "rarely used"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "2PC + consensus",
-                  "atomic",
-                  "complex, slower",
-                  "Spanner, CockroachDB"
-                ],
+                "from": "name",
+                "to": "guarantee",
+                "label": "'2PC'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "name"
           },
           {
-            "at": "say5",
-            "caption": "Sagas break long transactions into local steps with compensations.",
-            "rows": [
+            "at": "say7",
+            "caption": "The table compares the options.",
+            "messages": [
               {
-                "cells": [
-                  "2PC",
-                  "atomic",
-                  "blocks if coordinator fails",
-                  "databases, XA"
-                ],
-                "tone": "ok"
+                "from": "options",
+                "to": "name",
+                "label": "[['2PC', 'atomic', 'blocks if coordinat…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "3PC",
-                  "atomic",
-                  "unsafe under partitions",
-                  "rarely used"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "2PC + consensus",
-                  "atomic",
-                  "complex, slower",
-                  "Spanner, CockroachDB"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Saga",
-                  "eventually consistent",
-                  "needs compensations",
-                  "microservices"
-                ],
+                "from": "name",
+                "to": "guarantee",
+                "label": "'3PC'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "guarantee"
           }
         ]
       }

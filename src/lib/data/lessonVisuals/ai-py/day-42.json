@@ -2,269 +2,503 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 42,
-  "promptSha": "354a1f91b50f877655bb7295b07ac44c1f0ce30caa835e2869096201b8a605e2",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Semantic Caching — Foundations & Mathematical Invariants",
-      "codeHash": "c5d3f2c2c665f9814b78aa62b463af51726fe2ed6f91de814d37e556ca072956",
+      "partTitle": "Two-Tier Lookup: Normalized Exact Hash Before Semantic Vector Cache",
+      "codeHash": "a34e24c7a9cde0ef9258f818e609b46c94bf4eeda720649442a1f24790d7b2f6",
       "spec": {
         "template": "flow",
-        "title": "Semantic Caching — Foundations & Mathematical Invariants",
+        "title": "Two-Tier Lookup: Normalized Exact Hash Before Semantic Vector Ca",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "exact",
+            "label": "exact"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "sem",
+            "label": "sem"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "query",
+            "label": "query"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Computing query embeddings and probing vector stores across thousands.",
+            "values": {
+              "exact": {
+                "var": "exact",
+                "line": 15,
+                "hit": 1
+              },
+              "sem": {
+                "var": "sem",
+                "line": 16,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 1
+              },
+              "query": {
+                "var": "query",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "exact": "data",
+              "sem": "data",
+              "text": "data",
+              "query": "data"
+            },
+            "arrows": [
+              [
+                "exact",
+                "sem"
+              ],
+              [
+                "sem",
+                "text"
+              ],
+              [
+                "text",
+                "query"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Always position an ultra-fast normalized exact hash lookup (`collapsed.",
+            "values": {
+              "exact": {
+                "var": "exact",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "sem": {
+                "var": "sem",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "query": {
+                "var": "query",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "exact": "data",
+              "sem": "data",
+              "text": "data",
+              "query": "data"
+            },
+            "arrows": [
+              [
+                "exact",
+                "sem"
+              ],
+              [
+                "sem",
+                "text"
+              ],
+              [
+                "text",
+                "query"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Run two_tier_lookup() observing fast exact resolution vs semantic match.",
+            "values": {
+              "exact": {
+                "var": "exact",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "sem": {
+                "var": "sem",
+                "line": 18,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "query": {
+                "var": "query",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "exact": "ok",
+              "sem": "ok",
+              "text": "ok",
+              "query": "ok"
+            },
+            "arrows": [
+              [
+                "exact",
+                "sem"
+              ],
+              [
+                "sem",
+                "text"
+              ],
+              [
+                "text",
+                "query"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Semantic Caching — Foundations & Mathematical Invariants",
+        "title": "Two-Tier Lookup: Normalized Exact Hash Before Semantic Vector Ca",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "exact",
+            "label": "exact"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "sem",
+            "label": "sem"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "query",
+            "label": "query"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Computing query embeddings and probing vector stores across thousands.",
+            "values": {
+              "exact": "{'how reset api key': 'Click Settings -…",
+              "sem": "[['how reset api key', 0.94, 'Click Set…",
+              "text": "'  How RESET api key? '",
+              "query": "'  How RESET api key? '"
+            },
+            "tones": {
+              "exact": "data",
+              "sem": "data",
+              "text": "data",
+              "query": "data"
+            },
+            "arrows": [
+              [
+                "exact",
+                "sem"
+              ],
+              [
+                "sem",
+                "text"
+              ],
+              [
+                "text",
+                "query"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Always position an ultra-fast normalized exact hash lookup (`collapsed.",
+            "values": {
+              "exact": "{'how reset api key': 'Click Settings -…",
+              "sem": "[['how reset api key', 0.94, 'Click Set…",
+              "text": "'Rotate secret key steps'",
+              "query": "'  How RESET api key? '"
+            },
+            "tones": {
+              "exact": "data",
+              "sem": "data",
+              "text": "data",
+              "query": "data"
+            },
+            "arrows": [
+              [
+                "exact",
+                "sem"
+              ],
+              [
+                "sem",
+                "text"
+              ],
+              [
+                "text",
+                "query"
+              ]
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Run two_tier_lookup() observing fast exact resolution vs semantic match.",
+            "values": {
+              "exact": "{'how reset api key': 'Click Settings -…",
+              "sem": "[['how reset api key', 0.94, 'Click Set…",
+              "text": "'Rotate secret key steps'",
+              "query": "'  How RESET api key? '"
+            },
+            "tones": {
+              "exact": "ok",
+              "sem": "ok",
+              "text": "ok",
+              "query": "ok"
+            },
+            "arrows": [
+              [
+                "exact",
+                "sem"
+              ],
+              [
+                "sem",
+                "text"
+              ],
+              [
+                "text",
+                "query"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Similarity Threshold Tuning: Hit Rate vs False-Positive Collisions",
+      "codeHash": "a059542a43bdefd572c1f5f989276e27598ca23f1f108a2c664b257a3d3d0e8a",
+      "spec": {
+        "template": "bars",
+        "title": "Similarity Threshold Tuning: Hit Rate vs False-Positive Collisio",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Semantic caching walks a razor-thin tightrope between cost reduction.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "cutoff",
+                "value": {
+                  "var": "cutoff",
+                  "line": 2,
+                  "hit": 7
+                },
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "true_hits",
+                "value": {
+                  "var": "true_hits",
+                  "line": 2,
+                  "hit": 7
+                },
+                "tone": "data"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "false_hits",
+                "value": {
+                  "var": "false_hits",
+                  "line": 2,
+                  "hit": 7
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Because serving the wrong cached answer gives zero hint of model.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "cutoff",
+                "value": {
+                  "var": "cutoff",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "true_hits",
+                "value": {
+                  "var": "true_hits",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "false_hits",
+                "value": {
+                  "var": "false_hits",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "caption": "Inspect evaluate_threshold() demonstrating why `0.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 21,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "label": "cutoff",
+                "value": {
+                  "var": "cutoff",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+                "label": "true_hits",
+                "value": {
+                  "var": "true_hits",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "false_hits",
+                "value": {
+                  "var": "false_hits",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "bars",
+        "title": "Similarity Threshold Tuning: Hit Rate vs False-Positive Collisio",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Semantic caching walks a razor-thin tightrope between cost reduction.",
+            "bars": [
+              {
+                "label": "t",
+                "value": 0.85,
+                "tone": "data"
+              },
+              {
+                "label": "cutoff",
+                "value": 0.85,
+                "tone": "data"
+              },
+              {
+                "label": "true_hits",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "false_hits",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Because serving the wrong cached answer gives zero hint of model.",
+            "bars": [
+              {
+                "label": "t",
+                "value": 0.85,
+                "tone": "ok"
+              },
+              {
+                "label": "cutoff",
+                "value": 0.85,
+                "tone": "ok"
+              },
+              {
+                "label": "true_hits",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "false_hits",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Inspect evaluate_threshold() demonstrating why `0.",
+            "bars": [
+              {
+                "label": "t",
+                "value": 0.92,
+                "tone": "ok"
+              },
+              {
+                "label": "cutoff",
+                "value": 0.85,
+                "tone": "ok"
+              },
+              {
+                "label": "true_hits",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "false_hits",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           }
@@ -272,1065 +506,525 @@
       }
     },
     {
-      "partTitle": "Semantic Caching — Core Algorithm & State Representation",
-      "codeHash": "6cc14be158216170e1df6854855f4d78d6e43d3cb6c380aec992f2c64fc49e3a",
+      "partTitle": "Composite Cache Keys: Versioning, Model IDs, and Tenants",
+      "codeHash": "8d036591f058f08f751dfbd3c0def7a937293823c8012f6fd97d9bc2ccbb0321",
       "spec": {
-        "template": "flow",
-        "title": "Semantic Caching — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Composite Cache Keys: Versioning, Model IDs, and Tenants",
+        "actors": [
+          "tenant_id",
+          "user_scope",
+          "prompt_ver"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Keying cached completions exclusively on query text causes silent failures.",
+            "activeActor": "tenant_id",
+            "messages": [
+              {
+                "from": "tenant_id",
+                "to": "user_scope",
+                "label": {
+                  "var": "tenant_id",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "user_scope",
+                "to": "prompt_ver",
+                "label": {
+                  "var": "user_scope",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Bind every cache key deterministically inside a composite namespace.",
+            "activeActor": "user_scope",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "tenant_id",
+                "to": "user_scope",
+                "label": {
+                  "var": "tenant_id",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "user_scope",
+                "to": "prompt_ver",
+                "label": {
+                  "var": "user_scope",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect build_cache_key() producing distinct reproducible namespaces.",
+            "activeActor": "prompt_ver",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "tenant_id",
+                "to": "user_scope",
+                "label": {
+                  "var": "tenant_id",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "user_scope",
+                "to": "prompt_ver",
+                "label": {
+                  "var": "user_scope",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Semantic Caching — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Composite Cache Keys: Versioning, Model IDs, and Tenants",
+        "actors": [
+          "tenant_id",
+          "user_scope",
+          "prompt_ver"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Keying cached completions exclusively on query text causes silent failures.",
+            "messages": [
+              {
+                "from": "tenant_id",
+                "to": "user_scope",
+                "label": "'acme'",
+                "tone": "data"
+              },
+              {
+                "from": "user_scope",
+                "to": "prompt_ver",
+                "label": "'public'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "tenant_id"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Bind every cache key deterministically inside a composite namespace.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "tenant_id",
+                "to": "user_scope",
+                "label": "'acme'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "user_scope",
+                "to": "prompt_ver",
+                "label": "'public'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "user_scope"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect build_cache_key() producing distinct reproducible namespaces.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "tenant_id",
+                "to": "user_scope",
+                "label": "'acme'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "user_scope",
+                "to": "prompt_ver",
+                "label": "'public'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "prompt_ver"
           }
         ]
       }
     },
     {
-      "partTitle": "Semantic Caching — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "6fc0ab2739071d3e90d5ade0f51eb6cf7c374b27caafbacc1eb4f3214419e9fa",
+      "partTitle": "TTL Expiration and Document-Driven Dependency Invalidation",
+      "codeHash": "f8bf722b6f676627c960bc417cedc30a5de6b22555838a2e849859ff86e56901",
       "spec": {
-        "template": "flow",
-        "title": "Semantic Caching — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "TTL Expiration and Document-Driven Dependency Invalidation",
+        "actors": [
+          "cache",
+          "entries",
+          "now_ts"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Fixed Time-To-Live (TTL) timers expire aging answers reliablysay clearing.",
+            "activeActor": "cache",
+            "messages": [
+              {
+                "from": "cache",
+                "to": "entries",
+                "label": {
+                  "var": "cache",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "entries",
+                "to": "now_ts",
+                "label": {
+                  "var": "entries",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Event-driven dependency invalidation pairs timestamps with forward.",
+            "activeActor": "entries",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "cache",
+                "to": "entries",
+                "label": {
+                  "var": "cache",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "entries",
+                "to": "now_ts",
+                "label": {
+                  "var": "entries",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect sweep_cache() demonstrating simultaneous timestamp expiry.",
+            "activeActor": "now_ts",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "cache",
+                "to": "entries",
+                "label": {
+                  "var": "cache",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "entries",
+                "to": "now_ts",
+                "label": {
+                  "var": "entries",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Semantic Caching — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "TTL Expiration and Document-Driven Dependency Invalidation",
+        "actors": [
+          "cache",
+          "entries",
+          "now_ts"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Fixed Time-To-Live (TTL) timers expire aging answers reliablysay clearing.",
+            "messages": [
+              {
+                "from": "cache",
+                "to": "entries",
+                "label": "{'k1': {'created_at': 100, 'ttl_sec': 3…",
+                "tone": "data"
+              },
+              {
+                "from": "entries",
+                "to": "now_ts",
+                "label": "{'k1': {'created_at': 100, 'ttl_sec': 3…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "cache"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Event-driven dependency invalidation pairs timestamps with forward.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "cache",
+                "to": "entries",
+                "label": "{'k1': {'created_at': 100, 'ttl_sec': 3…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "entries",
+                "to": "now_ts",
+                "label": "{'k1': {'created_at': 100, 'ttl_sec': 3…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "entries"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect sweep_cache() demonstrating simultaneous timestamp expiry.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "cache",
+                "to": "entries",
+                "label": "{'k1': {'created_at': 100, 'ttl_sec': 3…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "entries",
+                "to": "now_ts",
+                "label": "{'k1': {'created_at': 100, 'ttl_sec': 3…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "now_ts"
           }
         ]
       }
     },
     {
-      "partTitle": "Semantic Caching — Resilience Guardrails & Failure Recovery",
-      "codeHash": "580a4bd0433684f24b5a78e61d54315a8fb6bc79e7eaa5389b36fe3ad5ef8628",
+      "partTitle": "Net Unit Economics: Embedding Overhead vs Inference Savings",
+      "codeHash": "014511c2e6f0f3fcbbd9131037f142abd422ee448b0d7c070bce8f3048e05110",
       "spec": {
-        "template": "flow",
-        "title": "Semantic Caching — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "boxes",
+        "title": "Net Unit Economics: Embedding Overhead vs Inference Savings",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "requests",
+            "label": "requests"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "hit_rate",
+            "label": "hit_rate"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "llm_cost_per_req",
+            "label": "llm_cost_per_req"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "embed_cost_per_req",
+            "label": "embed_cost_per_req"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Building vector cache infrastructure costs real cloud compute.",
+            "values": {
+              "requests": {
+                "var": "requests",
+                "line": 2,
+                "hit": 1
+              },
+              "hit_rate": {
+                "var": "hit_rate",
+                "line": 2,
+                "hit": 1
+              },
+              "llm_cost_per_req": {
+                "var": "llm_cost_per_req",
+                "line": 2,
+                "hit": 1
+              },
+              "embed_cost_per_req": {
+                "var": "embed_cost_per_req",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "requests": "data",
+              "hit_rate": "data",
+              "llm_cost_per_req": "data",
+              "embed_cost_per_req": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Consequently, semantic caching generates strong positive financial return.",
+            "values": {
+              "requests": {
+                "var": "requests",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "hit_rate": {
+                "var": "hit_rate",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "llm_cost_per_req": {
+                "var": "llm_cost_per_req",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "embed_cost_per_req": {
+                "var": "embed_cost_per_req",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "requests": "data",
+              "hit_rate": "data",
+              "llm_cost_per_req": "data",
+              "embed_cost_per_req": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Inspect cache_roi() contrasting profitable high-volume RAG savings against.",
+            "values": {
+              "requests": {
+                "var": "requests",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "hit_rate": {
+                "var": "hit_rate",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "llm_cost_per_req": {
+                "var": "llm_cost_per_req",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "embed_cost_per_req": {
+                "var": "embed_cost_per_req",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "requests": "ok",
+              "hit_rate": "ok",
+              "llm_cost_per_req": "ok",
+              "embed_cost_per_req": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Semantic Caching — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "boxes",
+        "title": "Net Unit Economics: Embedding Overhead vs Inference Savings",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "requests",
+            "label": "requests"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "hit_rate",
+            "label": "hit_rate"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "llm_cost_per_req",
+            "label": "llm_cost_per_req"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "embed_cost_per_req",
+            "label": "embed_cost_per_req"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Building vector cache infrastructure costs real cloud compute.",
+            "values": {
+              "requests": "100000",
+              "hit_rate": "0.35",
+              "llm_cost_per_req": "0.012",
+              "embed_cost_per_req": "0.0002"
+            },
+            "tones": {
+              "requests": "data",
+              "hit_rate": "data",
+              "llm_cost_per_req": "data",
+              "embed_cost_per_req": "data"
+            }
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Semantic Caching — Production Telemetry & Verification Audit",
-      "codeHash": "524106719fee9ad4deeea5ff1faf4e3be2b5c73ddffeea62c5e04588f9f1f5f7",
-      "spec": {
-        "template": "flow",
-        "title": "Semantic Caching — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Consequently, semantic caching generates strong positive financial return.",
+            "values": {
+              "requests": "100000",
+              "hit_rate": "0.35",
+              "llm_cost_per_req": "0.012",
+              "embed_cost_per_req": "0.0002"
+            },
+            "tones": {
+              "requests": "data",
+              "hit_rate": "data",
+              "llm_cost_per_req": "data",
+              "embed_cost_per_req": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Semantic Caching — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say7",
+            "caption": "Inspect cache_roi() contrasting profitable high-volume RAG savings against.",
+            "values": {
+              "requests": "100000",
+              "hit_rate": "0.35",
+              "llm_cost_per_req": "0.012",
+              "embed_cost_per_req": "0.0002"
+            },
+            "tones": {
+              "requests": "ok",
+              "hit_rate": "ok",
+              "llm_cost_per_req": "ok",
+              "embed_cost_per_req": "ok"
+            }
           }
         ]
       }

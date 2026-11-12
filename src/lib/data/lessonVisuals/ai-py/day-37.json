@@ -2,1335 +2,889 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 37,
-  "promptSha": "00c005f905b97b8432e2ff62c9c6285fabe1248367f9d61674e20434cc22cf82",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "ReAct Agent Loops — Foundations & Mathematical Invariants",
-      "codeHash": "c132fa73eed05a496b377f928a0b5b2694fe916931f9250e0b512ebd05a6b1e5",
+      "partTitle": "Explicit Loop State and Budget Modeling",
+      "codeHash": "f390c25ed74262b895e61b370777e033c8001e80f8ac7560b698459bafe4c5a9",
       "spec": {
-        "template": "flow",
-        "title": "ReAct Agent Loops — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Explicit Loop State and Budget Modeling",
+        "actors": [
+          "max_steps",
+          "trace",
+          "state"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Unbounded `while True:` agent loops are a production incident waiting.",
+            "activeActor": "max_steps",
+            "messages": [
+              {
+                "from": "max_steps",
+                "to": "trace",
+                "label": {
+                  "var": "max_steps",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "trace",
+                "to": "state",
+                "label": {
+                  "var": "trace",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Engineering reliable agents begins by treating loop execution as a bounded.",
+            "activeActor": "trace",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "max_steps",
+                "to": "trace",
+                "label": {
+                  "var": "max_steps",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "trace",
+                "to": "state",
+                "label": {
+                  "var": "trace",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Look at step_budget_state() tracing bounded step progression cleanly.",
+            "activeActor": "state",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "max_steps",
+                "to": "trace",
+                "label": {
+                  "var": "max_steps",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "trace",
+                "to": "state",
+                "label": {
+                  "var": "trace",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "ReAct Agent Loops — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Explicit Loop State and Budget Modeling",
+        "actors": [
+          "max_steps",
+          "trace",
+          "state"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Unbounded `while True:` agent loops are a production incident waiting.",
+            "messages": [
+              {
+                "from": "max_steps",
+                "to": "trace",
+                "label": "3",
+                "tone": "data"
+              },
+              {
+                "from": "trace",
+                "to": "state",
+                "label": "[['SEARCH', 'q1', 'r1'], ['CALC', '2+2'…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "max_steps"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Engineering reliable agents begins by treating loop execution as a bounded.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "max_steps",
+                "to": "trace",
+                "label": "3",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "trace",
+                "to": "state",
+                "label": "[['SEARCH', 'q1', 'r1'], ['CALC', '2+2'…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "trace"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Look at step_budget_state() tracing bounded step progression cleanly.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "max_steps",
+                "to": "trace",
+                "label": "3",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "trace",
+                "to": "state",
+                "label": "[['SEARCH', 'q1', 'r1'], ['CALC', '2+2'…",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "state"
           }
         ]
       }
     },
     {
-      "partTitle": "ReAct Agent Loops — Core Algorithm & State Representation",
-      "codeHash": "2bb5ffd0ffcb682173c3332fff1d6909d26f351db2b103d9783b75a373684979",
+      "partTitle": "Strict Prefix Parsing for Thought, Action, and Action Input",
+      "codeHash": "a5fd3faba2828c3950beebc978bdc6dc2a0d56d49a1a77d8e40f5e017353ce40",
       "spec": {
-        "template": "flow",
-        "title": "ReAct Agent Loops — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Strict Prefix Parsing for Thought, Action, and Action Input",
+        "actors": [
+          "t1",
+          "t2",
+          "text"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Even capable reasoning models occasionally tweak casing, insert extra.",
+            "activeActor": "t1",
+            "messages": [
+              {
+                "from": "t1",
+                "to": "t2",
+                "label": {
+                  "var": "t1",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "t2",
+                "to": "text",
+                "label": {
+                  "var": "t2",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Two parser bugs break ReAct agents repeatedly.",
+            "activeActor": "t2",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "t1",
+                "to": "t2",
+                "label": {
+                  "var": "t1",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "t2",
+                "to": "text",
+                "label": {
+                  "var": "t2",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Notice that keeping structured error keys (`MISSING_ACTION_OR_FINAL`).",
+            "activeActor": "text",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "t1",
+                "to": "t2",
+                "label": {
+                  "var": "t1",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "t2",
+                "to": "text",
+                "label": {
+                  "var": "t2",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "ReAct Agent Loops — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Strict Prefix Parsing for Thought, Action, and Action Input",
+        "actors": [
+          "t1",
+          "t2",
+          "text"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Even capable reasoning models occasionally tweak casing, insert extra.",
+            "messages": [
+              {
+                "from": "t1",
+                "to": "t2",
+                "label": "'Thought: need API status\nAction: http_…",
+                "tone": "data"
+              },
+              {
+                "from": "t2",
+                "to": "text",
+                "label": "'Just guessing here without format'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "t1"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Two parser bugs break ReAct agents repeatedly.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "t1",
+                "to": "t2",
+                "label": "'Thought: need API status\nAction: http_…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "t2",
+                "to": "text",
+                "label": "'Just guessing here without format'",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "t2"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say8",
+            "caption": "Notice that keeping structured error keys (`MISSING_ACTION_OR_FINAL`).",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "t1",
+                "to": "t2",
+                "label": "'Thought: need API status\nAction: http_…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "t2",
+                "to": "text",
+                "label": "'Just guessing here without format'",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "text"
           }
         ]
       }
     },
     {
-      "partTitle": "ReAct Agent Loops — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "ae6d37dbf49be797b3f3a74f6374a46a2cfaf7ff6334ff5ab2b4e8102068b6bd",
+      "partTitle": "Stuck-Loop Circuit Breakers on Repeated Tool Signatures",
+      "codeHash": "95131f47dcab3040b3998d1d539437562b01bde2cd1044e1424b52eb38551148",
       "spec": {
-        "template": "flow",
-        "title": "ReAct Agent Loops — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Stuck-Loop Circuit Breakers on Repeated Tool Signatures",
+        "actors": [
+          "calls",
+          "seen",
+          "executed"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how sometimes updates agent during execution.",
+            "activeActor": "calls",
+            "messages": [
+              {
+                "from": "calls",
+                "to": "seen",
+                "label": {
+                  "var": "calls",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "executed",
+                "label": {
+                  "var": "seen",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Notice that slight formatting tweaks such as extra leading spaces (`\" tax.",
+            "activeActor": "seen",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "calls",
+                "to": "seen",
+                "label": {
+                  "var": "calls",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "seen",
+                "to": "executed",
+                "label": {
+                  "var": "seen",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Catching disguised whitespace repeats immediately preserves leftover.",
+            "activeActor": "executed",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "calls",
+                "to": "seen",
+                "label": {
+                  "var": "calls",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "seen",
+                "to": "executed",
+                "label": {
+                  "var": "seen",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "ReAct Agent Loops — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Stuck-Loop Circuit Breakers on Repeated Tool Signatures",
+        "actors": [
+          "calls",
+          "seen",
+          "executed"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how sometimes updates agent during execution.",
+            "messages": [
+              {
+                "from": "calls",
+                "to": "seen",
+                "label": "[['search', 'tax rate 2025'], ['search'…",
+                "tone": "data"
+              },
+              {
+                "from": "seen",
+                "to": "executed",
+                "label": "set()",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "calls"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Notice that slight formatting tweaks such as extra leading spaces (`\" tax.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "calls",
+                "to": "seen",
+                "label": "[['search', 'tax rate 2025'], ['search'…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "seen",
+                "to": "executed",
+                "label": "set()",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "seen"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Catching disguised whitespace repeats immediately preserves leftover.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "calls",
+                "to": "seen",
+                "label": "[['search', 'tax rate 2025'], ['search'…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "seen",
+                "to": "executed",
+                "label": "set()",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "executed"
           }
         ]
       }
     },
     {
-      "partTitle": "ReAct Agent Loops — Resilience Guardrails & Failure Recovery",
-      "codeHash": "fdb2d08d63f2e861c9f8c8f078d5d694717b60b3b502a3f12b026c9b8a99f92d",
+      "partTitle": "Observation Truncation and Error-to-Observation Adaptation",
+      "codeHash": "30d057a2db44eb5e486bad1f943b297522e246075058d1d78f336c2b27897a5e",
       "spec": {
-        "template": "flow",
-        "title": "ReAct Agent Loops — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "boxes",
+        "title": "Observation Truncation and Error-to-Observation Adaptation",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "arg",
+            "label": "arg"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_chars",
+            "label": "max_chars"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "x",
+            "label": "x"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "raw",
+            "label": "raw"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Two seemingly minor tool mishaps destroy ReAct reliability in production.",
+            "values": {
+              "arg": {
+                "var": "arg",
+                "line": 2,
+                "hit": 1
+              },
+              "max_chars": {
+                "var": "max_chars",
+                "line": 2,
+                "hit": 1
+              },
+              "x": {
+                "var": "x",
+                "line": 11,
+                "hit": 2
+              },
+              "raw": {
+                "var": "raw",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "arg": "data",
+              "max_chars": "data",
+              "x": "data",
+              "raw": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Capping observations at `max_chars` with an explicit `[truncated N chars]`.",
+            "values": {
+              "arg": {
+                "var": "arg",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "max_chars": {
+                "var": "max_chars",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "x": {
+                "var": "x",
+                "line": 12,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "raw": {
+                "var": "raw",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tones": {
+              "arg": "data",
+              "max_chars": "data",
+              "x": "data",
+              "raw": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Observe both printed branches below.",
+            "values": {
+              "arg": {
+                "var": "arg",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "max_chars": {
+                "var": "max_chars",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "x": {
+                "var": "x",
+                "line": 12,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "raw": {
+                "var": "raw",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "arg": "ok",
+              "max_chars": "ok",
+              "x": "ok",
+              "raw": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "ReAct Agent Loops — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "boxes",
+        "title": "Observation Truncation and Error-to-Observation Adaptation",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "arg",
+            "label": "arg"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_chars",
+            "label": "max_chars"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "x",
+            "label": "x"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "raw",
+            "label": "raw"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Two seemingly minor tool mishaps destroy ReAct reliability in production.",
+            "values": {
+              "arg": "'q'",
+              "max_chars": "45",
+              "x": "'q'",
+              "raw": "'Records: item-item-item-item-item-item…"
+            },
+            "tones": {
+              "arg": "data",
+              "max_chars": "data",
+              "x": "data",
+              "raw": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Capping observations at `max_chars` with an explicit `[truncated N chars]`.",
+            "values": {
+              "arg": "'q'",
+              "max_chars": "45",
+              "x": "'bad'",
+              "raw": "'Records: item-item-item-item-item-item…"
+            },
+            "tones": {
+              "arg": "data",
+              "max_chars": "data",
+              "x": "data",
+              "raw": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say7",
+            "caption": "Observe both printed branches below.",
+            "values": {
+              "arg": "'q'",
+              "max_chars": "45",
+              "x": "'bad'",
+              "raw": "'Records: item-item-item-item-item-item…"
+            },
+            "tones": {
+              "arg": "ok",
+              "max_chars": "ok",
+              "x": "ok",
+              "raw": "ok"
+            }
           }
         ]
       }
     },
     {
-      "partTitle": "ReAct Agent Loops — Production Telemetry & Verification Audit",
-      "codeHash": "648e6836d82f2a00c793830048aa002e2806bc472512407fefcf6e1b21fe8794",
+      "partTitle": "Graceful Partial-Evidence Finalization When Budget Ends",
+      "codeHash": "5dbbc0fb01f73f996c257a777cdeb2c19544390a958b3eb5a6d594e34b319844",
       "spec": {
-        "template": "flow",
-        "title": "ReAct Agent Loops — Production Telemetry & Verification Audit",
-        "nodes": [
+        "template": "boxes",
+        "title": "Graceful Partial-Evidence Finalization When Budget Ends",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "goal",
+            "label": "goal"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "observations",
+            "label": "observations"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "i",
+            "label": "i"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "obs",
+            "label": "obs"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When step budget hits zero without encountering a clean `Final Answer:`.",
+            "values": {
+              "goal": {
+                "var": "goal",
+                "line": 2,
+                "hit": 1
+              },
+              "observations": {
+                "var": "observations",
+                "line": 2,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 1
+              },
+              "obs": {
+                "var": "obs",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "goal": "data",
+              "observations": "data",
+              "i": "data",
+              "obs": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Instead, distill surviving scratchpad observations into a clear partial.",
+            "values": {
+              "goal": {
+                "var": "goal",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "observations": {
+                "var": "observations",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "obs": {
+                "var": "obs",
+                "line": 4,
+                "hit": 2
               }
-            ]
+            },
+            "tones": {
+              "goal": "data",
+              "observations": "data",
+              "i": "data",
+              "obs": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say8",
+            "caption": "Even in interactive chat UIs, surfacing partial tool progress paired.",
+            "values": {
+              "goal": {
+                "var": "goal",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "observations": {
+                "var": "observations",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "obs": {
+                "var": "obs",
+                "line": 4,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tones": {
+              "goal": "ok",
+              "observations": "ok",
+              "i": "ok",
+              "obs": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "ReAct Agent Loops — Production Telemetry & Verification Audit",
-        "nodes": [
+        "template": "boxes",
+        "title": "Graceful Partial-Evidence Finalization When Budget Ends",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "goal",
+            "label": "goal"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "observations",
+            "label": "observations"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "i",
+            "label": "i"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "obs",
+            "label": "obs"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When step budget hits zero without encountering a clean `Final Answer:`.",
+            "values": {
+              "goal": "'Compare Q4 latency'",
+              "observations": "['us-east p95=142ms', 'eu-west p95=210m…",
+              "i": "1",
+              "obs": "'us-east p95=142ms'"
+            },
+            "tones": {
+              "goal": "data",
+              "observations": "data",
+              "i": "data",
+              "obs": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Instead, distill surviving scratchpad observations into a clear partial.",
+            "values": {
+              "goal": "'Compare Q4 latency'",
+              "observations": "['us-east p95=142ms', 'eu-west p95=210m…",
+              "i": "2",
+              "obs": "'eu-west p95=210ms'"
+            },
+            "tones": {
+              "goal": "data",
+              "observations": "data",
+              "i": "data",
+              "obs": "data"
+            }
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say8",
+            "caption": "Even in interactive chat UIs, surfacing partial tool progress paired.",
+            "values": {
+              "goal": "'Compare Q4 latency'",
+              "observations": "['us-east p95=142ms', 'eu-west p95=210m…",
+              "i": "2",
+              "obs": "'eu-west p95=210ms'"
+            },
+            "tones": {
+              "goal": "ok",
+              "observations": "ok",
+              "i": "ok",
+              "obs": "ok"
+            }
           }
         ]
       }

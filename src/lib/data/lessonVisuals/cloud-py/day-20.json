@@ -2,149 +2,79 @@
   "schemaVersion": 1,
   "prefix": "cloud-py",
   "day": 20,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Events and the event bus",
       "codeHash": "ff584bb1116860ab615fca6dca1183e7f585e509d5071d88a877b0bd04e4cebf",
       "spec": {
-        "template": "table",
-        "title": "EventBridge event envelope structure and detail attributes",
-        "columns": [
-          "order_id",
-          "currency"
+        "template": "states",
+        "title": "Events and the event bus",
+        "states": [
+          {
+            "id": "event",
+            "label": "event"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An event records facts that happened in the system past.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ord-981"
-                  },
-                  {
-                    "text": "INR"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "An event is a record that something happened.",
+            "currentState": "event",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "EventBridge collects events across account event buses.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ord-981"
-                  },
-                  {
-                    "text": "INR"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Amazon EventBridge collects events on an event bus.",
+            "currentState": "key",
+            "transition": {
+              "from": "event",
+              "to": "key",
+              "label": {
+                "var": "key",
+                "line": 11,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Rules match events and forward them to downstream targets.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ord-981"
-                  },
-                  {
-                    "text": "INR"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "EventBridge routes on complete nested event detail content.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "ord-981"
-                  },
-                  {
-                    "text": "INR"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "EventBridge event envelope structure and detail attributes",
-        "columns": [
-          "order_id",
-          "currency"
+        "template": "states",
+        "title": "Events and the event bus",
+        "states": [
+          {
+            "id": "event",
+            "label": "event"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An event records facts that happened in the system past.",
-            "rows": [
-              {
-                "cells": [
-                  "ord-981",
-                  "INR"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "An event is a record that something happened.",
+            "currentState": "event",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "EventBridge collects events across account event buses.",
-            "rows": [
-              {
-                "cells": [
-                  "ord-981",
-                  "INR"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Rules match events and forward them to downstream targets.",
-            "rows": [
-              {
-                "cells": [
-                  "ord-981",
-                  "INR"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "EventBridge routes on complete nested event detail content.",
-            "rows": [
-              {
-                "cells": [
-                  "ord-981",
-                  "INR"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Amazon EventBridge collects events on an event bus.",
+            "currentState": "key",
+            "transition": {
+              "from": "event",
+              "to": "key",
+              "label": "'source'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -153,231 +83,277 @@
       "partTitle": "Event patterns",
       "codeHash": "671a839e033221e0805904e723fafce671f7d38187ca5fcb7cf760684d9dba79",
       "spec": {
-        "template": "table",
-        "title": "Event pattern matching against structured event content",
-        "columns": [
-          "source",
-          "currency"
+        "template": "flow",
+        "title": "Event patterns",
+        "nodes": [
+          {
+            "id": "pattern",
+            "label": "pattern"
+          },
+          {
+            "id": "ev",
+            "label": "ev"
+          },
+          {
+            "id": "event",
+            "label": "event"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Event patterns specify matching field values in JSON format.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pinit.billing"
-                  },
-                  {
-                    "text": "EUR"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A rule's event pattern is JSON with the same shape as the events it should.",
+            "values": {
+              "pattern": {
+                "var": "pattern",
+                "line": 12,
+                "hit": 1
+              },
+              "ev": {
+                "var": "ev",
+                "line": 13,
+                "hit": 2
+              },
+              "event": {
+                "var": "event",
+                "line": 2,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "pattern": "data",
+              "ev": "data",
+              "event": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "pattern",
+                "ev"
+              ],
+              [
+                "ev",
+                "event"
+              ],
+              [
+                "event",
+                "key"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Patterns match source fields regardless of additional detail.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pinit.billing"
-                  },
-                  {
-                    "text": "EUR"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "For example {\"source\".",
+            "values": {
+              "pattern": {
+                "var": "pattern",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "pinit.billing"
-                  },
-                  {
-                    "text": "INR"
-                  }
-                ],
-                "tone": "idle"
+              "ev": {
+                "var": "ev",
+                "line": 16,
+                "hit": 1
+              },
+              "event": {
+                "var": "event",
+                "line": 3,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "pattern": "data",
+              "ev": "data",
+              "event": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "pattern",
+                "ev"
+              ],
+              [
+                "ev",
+                "event"
+              ],
+              [
+                "event",
+                "key"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Nested patterns inspect specific currency values inside detail.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pinit.billing"
-                  },
-                  {
-                    "text": "EUR"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example tests one pattern against several events.",
+            "values": {
+              "pattern": {
+                "var": "pattern",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "pinit.billing"
-                  },
-                  {
-                    "text": "INR"
-                  }
-                ],
-                "tone": "idle"
+              "ev": {
+                "var": "ev",
+                "line": 13,
+                "hit": 3
               },
-              {
-                "cells": [
-                  {
-                    "text": "pinit.auth"
-                  },
-                  {
-                    "text": "USD"
-                  }
-                ],
-                "tone": "error"
+              "event": {
+                "var": "event",
+                "line": 5,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Fields omitted from the pattern are ignored during matching.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pinit.billing"
-                  },
-                  {
-                    "text": "EUR"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "pinit.billing"
-                  },
-                  {
-                    "text": "INR"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "pinit.auth"
-                  },
-                  {
-                    "text": "USD"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "pattern": "ok",
+              "ev": "ok",
+              "event": "ok",
+              "key": "ok"
+            },
+            "arrows": [
+              [
+                "pattern",
+                "ev"
+              ],
+              [
+                "ev",
+                "event"
+              ],
+              [
+                "event",
+                "key"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Event pattern matching against structured event content",
-        "columns": [
-          "source",
-          "currency"
+        "template": "flow",
+        "title": "Event patterns",
+        "nodes": [
+          {
+            "id": "pattern",
+            "label": "pattern"
+          },
+          {
+            "id": "ev",
+            "label": "ev"
+          },
+          {
+            "id": "event",
+            "label": "event"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Event patterns specify matching field values in JSON format.",
-            "rows": [
-              {
-                "cells": [
-                  "pinit.billing",
-                  "EUR"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A rule's event pattern is JSON with the same shape as the events it should.",
+            "values": {
+              "pattern": "{'source': ['pinit.billing'], 'detail':…",
+              "ev": "{'source': 'pinit.billing', 'detail': {…",
+              "event": "{'source': 'pinit.billing', 'detail': {…",
+              "key": "'source'"
+            },
+            "tones": {
+              "pattern": "data",
+              "ev": "data",
+              "event": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "pattern",
+                "ev"
+              ],
+              [
+                "ev",
+                "event"
+              ],
+              [
+                "event",
+                "key"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Patterns match source fields regardless of additional detail.",
-            "rows": [
-              {
-                "cells": [
-                  "pinit.billing",
-                  "EUR"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pinit.billing",
-                  "INR"
-                ],
-                "tone": "idle"
-              }
+            "caption": "For example {\"source\".",
+            "values": {
+              "pattern": "{'source': ['pinit.billing'], 'detail':…",
+              "ev": "{'source': 'pinit.billing', 'detail': {…",
+              "event": "{'source': 'pinit.billing', 'detail': {…",
+              "key": "'source'"
+            },
+            "tones": {
+              "pattern": "data",
+              "ev": "data",
+              "event": "data",
+              "key": "data"
+            },
+            "arrows": [
+              [
+                "pattern",
+                "ev"
+              ],
+              [
+                "ev",
+                "event"
+              ],
+              [
+                "event",
+                "key"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Nested patterns inspect specific currency values inside detail.",
-            "rows": [
-              {
-                "cells": [
-                  "pinit.billing",
-                  "EUR"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pinit.billing",
-                  "INR"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "pinit.auth",
-                  "USD"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Fields omitted from the pattern are ignored during matching.",
-            "rows": [
-              {
-                "cells": [
-                  "pinit.billing",
-                  "EUR"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pinit.billing",
-                  "INR"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "pinit.auth",
-                  "USD"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "The example tests one pattern against several events.",
+            "values": {
+              "pattern": "{'source': ['pinit.billing'], 'detail':…",
+              "ev": "{'source': 'pinit.billing', 'detail': {…",
+              "event": "{'source': 'pinit.billing', 'detail': {…",
+              "key": "'source'"
+            },
+            "tones": {
+              "pattern": "ok",
+              "ev": "ok",
+              "event": "ok",
+              "key": "ok"
+            },
+            "arrows": [
+              [
+                "pattern",
+                "ev"
+              ],
+              [
+                "ev",
+                "event"
+              ],
+              [
+                "event",
+                "key"
+              ]
             ]
           }
         ]
@@ -387,231 +363,277 @@
       "partTitle": "Publishing your own events",
       "codeHash": "e4b865c47acb583babe07b2bbaf2727e927ee5ebdbe14a67334807e053586e1e",
       "spec": {
-        "template": "table",
-        "title": "Custom event construction and source validation checks",
-        "columns": [
-          "source",
-          "detail_type"
+        "template": "flow",
+        "title": "Publishing your own events",
+        "nodes": [
+          {
+            "id": "source",
+            "label": "source"
+          },
+          {
+            "id": "detail_type",
+            "label": "detail_type"
+          },
+          {
+            "id": "detail",
+            "label": "detail"
+          },
+          {
+            "id": "event_id",
+            "label": "event_id"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Custom applications publish events providing source and detail.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pinit.orders"
-                  },
-                  {
-                    "text": "OrderPlaced"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Applications publish custom events with the PutEvents API.",
+            "values": {
+              "source": {
+                "var": "source",
+                "line": 2,
+                "hit": 1
+              },
+              "detail_type": {
+                "var": "detail_type",
+                "line": 2,
+                "hit": 1
+              },
+              "detail": {
+                "var": "detail",
+                "line": 2,
+                "hit": 1
+              },
+              "event_id": {
+                "var": "event_id",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "source": "data",
+              "detail_type": "data",
+              "detail": "data",
+              "event_id": "data"
+            },
+            "arrows": [
+              [
+                "source",
+                "detail_type"
+              ],
+              [
+                "detail_type",
+                "detail"
+              ],
+              [
+                "detail",
+                "event_id"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "EventBridge rejects custom events using reserved source prefixes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pinit.orders"
-                  },
-                  {
-                    "text": "OrderPlaced"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Choose sources like \"company.",
+            "values": {
+              "source": {
+                "var": "source",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "orders"
-                  },
-                  {
-                    "text": "X"
-                  }
-                ],
-                "tone": "idle"
+              "detail_type": {
+                "var": "detail_type",
+                "line": 4,
+                "hit": 1
+              },
+              "detail": {
+                "var": "detail",
+                "line": 4,
+                "hit": 1
+              },
+              "event_id": {
+                "var": "event_id",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Past tense detail names ensure clear event rule filtering.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pinit.orders"
-                  },
-                  {
-                    "text": "OrderPlaced"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "orders"
-                  },
-                  {
-                    "text": "X"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "aws.s3"
-                  },
-                  {
-                    "text": "X"
-                  }
-                ],
-                "tone": "error"
-              }
+            },
+            "tones": {
+              "source": "data",
+              "detail_type": "data",
+              "detail": "data",
+              "event_id": "data"
+            },
+            "arrows": [
+              [
+                "source",
+                "detail_type"
+              ],
+              [
+                "detail_type",
+                "detail"
+              ],
+              [
+                "detail",
+                "event_id"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example validates source syntax before building events.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pinit.orders"
-                  },
-                  {
-                    "text": "OrderPlaced"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The example builds a valid event and shows the validation catching.",
+            "values": {
+              "source": {
+                "var": "source",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "orders"
-                  },
-                  {
-                    "text": "X"
-                  }
-                ],
-                "tone": "error"
+              "detail_type": {
+                "var": "detail_type",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "aws.s3"
-                  },
-                  {
-                    "text": "X"
-                  }
-                ],
-                "tone": "error"
+              "detail": {
+                "var": "detail",
+                "line": 5,
+                "hit": 1
+              },
+              "event_id": {
+                "var": "event_id",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "source": "ok",
+              "detail_type": "ok",
+              "detail": "ok",
+              "event_id": "ok"
+            },
+            "arrows": [
+              [
+                "source",
+                "detail_type"
+              ],
+              [
+                "detail_type",
+                "detail"
+              ],
+              [
+                "detail",
+                "event_id"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Custom event construction and source validation checks",
-        "columns": [
-          "source",
-          "detail_type"
+        "template": "flow",
+        "title": "Publishing your own events",
+        "nodes": [
+          {
+            "id": "source",
+            "label": "source"
+          },
+          {
+            "id": "detail_type",
+            "label": "detail_type"
+          },
+          {
+            "id": "detail",
+            "label": "detail"
+          },
+          {
+            "id": "event_id",
+            "label": "event_id"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Custom applications publish events providing source and detail.",
-            "rows": [
-              {
-                "cells": [
-                  "pinit.orders",
-                  "OrderPlaced"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Applications publish custom events with the PutEvents API.",
+            "values": {
+              "source": "'pinit.orders'",
+              "detail_type": "'OrderPlaced'",
+              "detail": "{'order_id': 'ord-1'}",
+              "event_id": "'ev-1'"
+            },
+            "tones": {
+              "source": "data",
+              "detail_type": "data",
+              "detail": "data",
+              "event_id": "data"
+            },
+            "arrows": [
+              [
+                "source",
+                "detail_type"
+              ],
+              [
+                "detail_type",
+                "detail"
+              ],
+              [
+                "detail",
+                "event_id"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "EventBridge rejects custom events using reserved source prefixes.",
-            "rows": [
-              {
-                "cells": [
-                  "pinit.orders",
-                  "OrderPlaced"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "orders",
-                  "X"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Past tense detail names ensure clear event rule filtering.",
-            "rows": [
-              {
-                "cells": [
-                  "pinit.orders",
-                  "OrderPlaced"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "orders",
-                  "X"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "aws.s3",
-                  "X"
-                ],
-                "tone": "error"
-              }
+            "caption": "Choose sources like \"company.",
+            "values": {
+              "source": "'pinit.orders'",
+              "detail_type": "'OrderPlaced'",
+              "detail": "{'order_id': 'ord-1'}",
+              "event_id": "'ev-1'"
+            },
+            "tones": {
+              "source": "data",
+              "detail_type": "data",
+              "detail": "data",
+              "event_id": "data"
+            },
+            "arrows": [
+              [
+                "source",
+                "detail_type"
+              ],
+              [
+                "detail_type",
+                "detail"
+              ],
+              [
+                "detail",
+                "event_id"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "The example validates source syntax before building events.",
-            "rows": [
-              {
-                "cells": [
-                  "pinit.orders",
-                  "OrderPlaced"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "orders",
-                  "X"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "aws.s3",
-                  "X"
-                ],
-                "tone": "error"
-              }
+            "caption": "The example builds a valid event and shows the validation catching.",
+            "values": {
+              "source": "'pinit.orders'",
+              "detail_type": "'OrderPlaced'",
+              "detail": "{'order_id': 'ord-1'}",
+              "event_id": "'ev-1'"
+            },
+            "tones": {
+              "source": "ok",
+              "detail_type": "ok",
+              "detail": "ok",
+              "event_id": "ok"
+            },
+            "arrows": [
+              [
+                "source",
+                "detail_type"
+              ],
+              [
+                "detail_type",
+                "detail"
+              ],
+              [
+                "detail",
+                "event_id"
+              ]
             ]
           }
         ]
@@ -621,141 +643,277 @@
       "partTitle": "Schedules, archives and replay",
       "codeHash": "c41db9f2f7c2eb28ef10d7d776b4949ec5b20502d625ad9c9aa2859818f16829",
       "spec": {
-        "template": "table",
-        "title": "Scheduled event timer intervals and archive recovery",
-        "columns": [
-          "start",
-          "every"
+        "template": "flow",
+        "title": "Schedules, archives and replay",
+        "nodes": [
+          {
+            "id": "start",
+            "label": "start"
+          },
+          {
+            "id": "every",
+            "label": "every"
+          },
+          {
+            "id": "archive",
+            "label": "archive"
+          },
+          {
+            "id": "processed_ok",
+            "label": "processed_ok"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "EventBridge Scheduler triggers recurring timed event tasks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "15"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "EventBridge can also produce events on a timer.",
+            "values": {
+              "start": {
+                "var": "start",
+                "line": 1,
+                "hit": 1
+              },
+              "every": {
+                "var": "every",
+                "line": 1,
+                "hit": 1
+              },
+              "archive": {
+                "var": "archive",
+                "line": 4,
+                "hit": 6
+              },
+              "processed_ok": {
+                "var": "processed_ok",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "start": "data",
+              "every": "data",
+              "archive": "data",
+              "processed_ok": "data"
+            },
+            "arrows": [
+              [
+                "start",
+                "every"
+              ],
+              [
+                "every",
+                "archive"
+              ],
+              [
+                "archive",
+                "processed_ok"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Archives retain event history for bus replay.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "15"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "That replaces a server whose only job was running cron.",
+            "values": {
+              "start": {
+                "var": "start",
+                "line": 2,
+                "hit": 1
+              },
+              "every": {
+                "var": "every",
+                "line": 2,
+                "hit": 1
+              },
+              "archive": {
+                "var": "archive",
+                "line": 5,
+                "hit": 1
+              },
+              "processed_ok": {
+                "var": "processed_ok",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "start": "data",
+              "every": "data",
+              "archive": "data",
+              "processed_ok": "data"
+            },
+            "arrows": [
+              [
+                "start",
+                "every"
+              ],
+              [
+                "every",
+                "archive"
+              ],
+              [
+                "archive",
+                "processed_ok"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Replay redelivers past events to corrected consumers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "15"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Schedules, archives and replay turn the event bus into a small time.",
+            "values": {
+              "start": {
+                "var": "start",
+                "line": 2,
+                "hit": 2
+              },
+              "every": {
+                "var": "every",
+                "line": 2,
+                "hit": 2
+              },
+              "archive": {
+                "var": "archive",
+                "line": 6,
+                "hit": 1
+              },
+              "processed_ok": {
+                "var": "processed_ok",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example simulates schedule intervals and event replay.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "0"
-                  },
-                  {
-                    "text": "15"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "start": "ok",
+              "every": "ok",
+              "archive": "ok",
+              "processed_ok": "ok"
+            },
+            "arrows": [
+              [
+                "start",
+                "every"
+              ],
+              [
+                "every",
+                "archive"
+              ],
+              [
+                "archive",
+                "processed_ok"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Scheduled event timer intervals and archive recovery",
-        "columns": [
-          "start",
-          "every"
+        "template": "flow",
+        "title": "Schedules, archives and replay",
+        "nodes": [
+          {
+            "id": "start",
+            "label": "start"
+          },
+          {
+            "id": "every",
+            "label": "every"
+          },
+          {
+            "id": "archive",
+            "label": "archive"
+          },
+          {
+            "id": "processed_ok",
+            "label": "processed_ok"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "EventBridge Scheduler triggers recurring timed event tasks.",
-            "rows": [
-              {
-                "cells": [
-                  "0",
-                  "15"
-                ],
-                "tone": "ok"
-              }
+            "caption": "EventBridge can also produce events on a timer.",
+            "values": {
+              "start": "0",
+              "every": "15",
+              "archive": "[{'id': 1, 'detail-type': 'OrderPlaced'…",
+              "processed_ok": "{1, 2}"
+            },
+            "tones": {
+              "start": "data",
+              "every": "data",
+              "archive": "data",
+              "processed_ok": "data"
+            },
+            "arrows": [
+              [
+                "start",
+                "every"
+              ],
+              [
+                "every",
+                "archive"
+              ],
+              [
+                "archive",
+                "processed_ok"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Archives retain event history for bus replay.",
-            "rows": [
-              {
-                "cells": [
-                  "0",
-                  "15"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "That replaces a server whose only job was running cron.",
+            "values": {
+              "start": "0",
+              "every": "15",
+              "archive": "[{'id': 1, 'detail-type': 'OrderPlaced'…",
+              "processed_ok": "{1, 2}"
+            },
+            "tones": {
+              "start": "data",
+              "every": "data",
+              "archive": "data",
+              "processed_ok": "data"
+            },
+            "arrows": [
+              [
+                "start",
+                "every"
+              ],
+              [
+                "every",
+                "archive"
+              ],
+              [
+                "archive",
+                "processed_ok"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Replay redelivers past events to corrected consumers.",
-            "rows": [
-              {
-                "cells": [
-                  "0",
-                  "15"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "The example simulates schedule intervals and event replay.",
-            "rows": [
-              {
-                "cells": [
-                  "0",
-                  "15"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Schedules, archives and replay turn the event bus into a small time.",
+            "values": {
+              "start": "0",
+              "every": "15",
+              "archive": "[{'id': 1, 'detail-type': 'OrderPlaced'…",
+              "processed_ok": "{1, 2}"
+            },
+            "tones": {
+              "start": "ok",
+              "every": "ok",
+              "archive": "ok",
+              "processed_ok": "ok"
+            },
+            "arrows": [
+              [
+                "start",
+                "every"
+              ],
+              [
+                "every",
+                "archive"
+              ],
+              [
+                "archive",
+                "processed_ok"
+              ]
             ]
           }
         ]
@@ -766,110 +924,161 @@
       "codeHash": "8e455d7027df48b80b95817c75e31e05ad42d22b47865983059298b35768a23b",
       "spec": {
         "template": "flow",
-        "title": "SNS, SQS or EventBridge? — Execution Pipeline",
+        "title": "SNS, SQS or EventBridge?",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "cases",
+            "label": "cases"
           },
           {
-            "id": "proc",
-            "label": "2. SNS, SQS or EventBr...",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "args",
+            "label": "args"
+          },
+          {
+            "id": "receivers",
+            "label": "receivers"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for SNS, SQS or EventBridge? [Dtwenty.Pfive.Sone].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in SNS, SQS or EventBr... [Dtwenty.Pfive.Stwo].",
+            "caption": "These three services overlap, and choosing well keeps designs simple.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "cases": {
+                "var": "cases",
+                "line": 8,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 10,
+                "hit": 1
+              },
+              "args": {
+                "var": "args",
+                "line": 10,
+                "hit": 1
+              },
+              "receivers": {
+                "var": "receivers",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "cases": "data",
+              "name": "data",
+              "args": "data",
+              "receivers": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cases",
+                "name"
               ],
               [
-                "proc",
-                "out"
+                "name",
+                "args"
+              ],
+              [
+                "args",
+                "receivers"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "One message, processed by one consumer, stored until handled.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "cases": {
+                "var": "cases",
+                "line": 10,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 11,
+                "hit": 1
+              },
+              "args": {
+                "var": "args",
+                "line": 11,
+                "hit": 1
+              },
+              "receivers": {
+                "var": "receivers",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "cases": "data",
+              "name": "data",
+              "args": "data",
+              "receivers": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "cases",
+                "name"
+              ],
+              [
+                "name",
+                "args"
+              ],
+              [
+                "args",
+                "receivers"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for SNS, SQS or EventBridge.",
+            "at": "say7",
+            "caption": "When in doubt, ask two questions.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "cases": {
+                "var": "cases",
+                "line": 11,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 10,
+                "hit": 2
+              },
+              "args": {
+                "var": "args",
+                "line": 10,
+                "hit": 2
+              },
+              "receivers": {
+                "var": "receivers",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "cases": "ok",
+              "name": "ok",
+              "args": "ok",
+              "receivers": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cases",
+                "name"
               ],
               [
-                "proc",
-                "out"
+                "name",
+                "args"
+              ],
+              [
+                "args",
+                "receivers"
               ]
             ]
           }
@@ -877,110 +1086,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "SNS, SQS or EventBridge? — Execution Pipeline",
+        "title": "SNS, SQS or EventBridge?",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "cases",
+            "label": "cases"
           },
           {
-            "id": "proc",
-            "label": "2. SNS, SQS or EventBr...",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "args",
+            "label": "args"
+          },
+          {
+            "id": "receivers",
+            "label": "receivers"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for SNS, SQS or EventBridge? [D20.P5.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in SNS, SQS or EventBr... [D20.P5.S2].",
+            "caption": "These three services overlap, and choosing well keeps designs simple.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "cases": "[['resize jobs for one worker pool', 1,…",
+              "name": "'resize jobs for one worker pool'",
+              "args": "[1, False]",
+              "receivers": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "cases": "data",
+              "name": "data",
+              "args": "data",
+              "receivers": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cases",
+                "name"
               ],
               [
-                "proc",
-                "out"
+                "name",
+                "args"
+              ],
+              [
+                "args",
+                "receivers"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P5.S3].",
+            "at": "say2",
+            "caption": "One message, processed by one consumer, stored until handled.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "cases": "[['resize jobs for one worker pool', 1,…",
+              "name": "'resize jobs for one worker pool'",
+              "args": "[1, False]",
+              "receivers": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "cases": "data",
+              "name": "data",
+              "args": "data",
+              "receivers": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "cases",
+                "name"
+              ],
+              [
+                "name",
+                "args"
+              ],
+              [
+                "args",
+                "receivers"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for SNS, SQS or EventBridge? [D20.P5.S4].",
+            "at": "say7",
+            "caption": "When in doubt, ask two questions.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "cases": "[['resize jobs for one worker pool', 1,…",
+              "name": "'order placed to 5 services'",
+              "args": "[5, False]",
+              "receivers": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "cases": "ok",
+              "name": "ok",
+              "args": "ok",
+              "receivers": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cases",
+                "name"
               ],
               [
-                "proc",
-                "out"
+                "name",
+                "args"
+              ],
+              [
+                "args",
+                "receivers"
               ]
             ]
           }
@@ -991,224 +1203,162 @@
       "partTitle": "Practice time: match and build events",
       "codeHash": "7a1b84722ae8fa577c41b804c2459d2ec139300ab9fffb5cf7dbebf661a9d12a",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: match and build events — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: matc...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: match and build events",
+        "actors": [
+          "pattern",
+          "k",
+          "v"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: match and build events.",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: matc... [Dtwenty.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Match_pattern(pattern, event).",
+            "activeActor": "pattern",
+            "messages": [
+              {
+                "from": "pattern",
+                "to": "k",
+                "label": {
+                  "var": "pattern",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "v",
+                "label": {
+                  "var": "k",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Return True only after every key has passed.",
+            "activeActor": "k",
+            "messages": [
+              {
+                "from": "pattern",
+                "to": "k",
+                "label": {
+                  "var": "pattern",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "v",
+                "label": {
+                  "var": "k",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: match and build ev.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows the recursion working two levels deep.",
+            "activeActor": "v",
+            "messages": [
+              {
+                "from": "pattern",
+                "to": "k",
+                "label": {
+                  "var": "pattern",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "v",
+                "label": {
+                  "var": "k",
+                  "line": 2,
+                  "hit": 4
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: match and build events — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: matc...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: match and build events",
+        "actors": [
+          "pattern",
+          "k",
+          "v"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: match and build events [D20.P6.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: matc... [D20.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Match_pattern(pattern, event).",
+            "messages": [
+              {
+                "from": "pattern",
+                "to": "k",
+                "label": "{'detail': {'customer': {'tier': ['gold…",
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "v",
+                "label": "'tier'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "pattern"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Return True only after every key has passed.",
+            "messages": [
+              {
+                "from": "pattern",
+                "to": "k",
+                "label": "{'detail': {'customer': {'tier': ['gold…",
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "v",
+                "label": "'tier'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "k"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: match and build ev.. [D20.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example shows the recursion working two levels deep.",
+            "messages": [
+              {
+                "from": "pattern",
+                "to": "k",
+                "label": "{'detail': {'customer': {'tier': ['gold…",
+                "tone": "data"
+              },
+              {
+                "from": "k",
+                "to": "v",
+                "label": "'customer'",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "v"
           }
         ]
       }

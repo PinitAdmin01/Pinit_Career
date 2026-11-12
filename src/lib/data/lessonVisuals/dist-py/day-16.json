@@ -2,153 +2,112 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 16,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Physical clocks drift",
       "codeHash": "c49a239ffad8c068fe98c9aa0422d4e9529660f738346b367d424b1e0dee69d3",
       "spec": {
-        "template": "table",
-        "title": "Physical server clock drift causing silent last-write-wins data loss",
-        "columns": [
-          "server",
-          "value"
-        ],
+        "template": "cells",
+        "title": "Physical clocks drift",
         "steps": [
           {
             "at": "say1",
-            "caption": "Quartz clocks on servers drift by milliseconds per hour.",
-            "rows": [
+            "caption": "Every server has a quartz clock that runs slightly fast or slow, typically.",
+            "items": {
+              "var": "true_time",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "server-A"
-                  },
-                  {
-                    "text": "status=SHIPPED"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Events a few milliseconds apart cannot be ordered by physical timestamps.",
-            "rows": [
+            "at": "say2",
+            "caption": "Corrections can make a clock jump forwards or even backwards, and NTP.",
+            "items": {
+              "var": "true_time",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "server-A"
-                  },
-                  {
-                    "text": "status=SHIPPED"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "server-B"
-                  },
-                  {
-                    "text": "status=DELIVERED"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Last-write-wins based on wall clock time can drop the latest write.",
-            "rows": [
+            "at": "say6",
+            "caption": "Google Spanner uses GPS and atomic clocks with a known error bound.",
+            "items": {
+              "var": "true_time",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "server-A"
-                  },
-                  {
-                    "text": "status=SHIPPED"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "server-B"
-                  },
-                  {
-                    "text": "status=DELIVERED"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Physical server clock drift causing silent last-write-wins data loss",
-        "columns": [
-          "server",
-          "value"
-        ],
+        "template": "cells",
+        "title": "Physical clocks drift",
         "steps": [
           {
             "at": "say1",
-            "caption": "Quartz clocks on servers drift by milliseconds per hour.",
-            "rows": [
+            "caption": "Every server has a quartz clock that runs slightly fast or slow, typically.",
+            "items": [
+              "1000",
+              "1003"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "server-A",
-                  "status=SHIPPED"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Events a few milliseconds apart cannot be ordered by physical timestamps.",
-            "rows": [
+            "at": "say2",
+            "caption": "Corrections can make a clock jump forwards or even backwards, and NTP.",
+            "items": [
+              "1000",
+              "1003"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "server-A",
-                  "status=SHIPPED"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "server-B",
-                  "status=DELIVERED"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Last-write-wins based on wall clock time can drop the latest write.",
-            "rows": [
+            "at": "say6",
+            "caption": "Google Spanner uses GPS and atomic clocks with a known error bound.",
+            "items": [
+              "1000",
+              "1003"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "server-A",
-                  "status=SHIPPED"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "server-B",
-                  "status=DELIVERED"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -159,224 +118,162 @@
       "partTitle": "Happened-before",
       "codeHash": "8a2ec2f43daac40792da71cc9e8cf496092f63182a56f33cd3d44aa6669c7f69",
       "spec": {
-        "template": "flow",
-        "title": "Happened-before — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Happened-before",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Happened-before",
+        "actors": [
+          "events",
+          "i",
+          "proc"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Happened-before [Dsixteen.Ptwo.Sone].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Happened-before [Dsixteen.Ptwo.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Event a happened before b if they are on the same process and a came.",
+            "activeActor": "events",
+            "messages": [
+              {
+                "from": "events",
+                "to": "i",
+                "label": {
+                  "var": "events",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "proc",
+                "label": {
+                  "var": "i",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "If neither happened before the other, the events are concurrent.",
+            "activeActor": "i",
+            "messages": [
+              {
+                "from": "events",
+                "to": "i",
+                "label": {
+                  "var": "events",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "proc",
+                "label": {
+                  "var": "i",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Happened-before [Dsixteen.Ptwo.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example traces a chain of messages between three processes.",
+            "activeActor": "proc",
+            "messages": [
+              {
+                "from": "events",
+                "to": "i",
+                "label": {
+                  "var": "events",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "proc",
+                "label": {
+                  "var": "i",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Happened-before — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Happened-before",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Happened-before",
+        "actors": [
+          "events",
+          "i",
+          "proc"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Happened-before [D16.P2.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Happened-before [D16.P2.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Event a happened before b if they are on the same process and a came.",
+            "messages": [
+              {
+                "from": "events",
+                "to": "i",
+                "label": "[['P1', 'write draft'], ['P1', 'send dr…",
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "proc",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "events"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P2.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "If neither happened before the other, the events are concurrent.",
+            "messages": [
+              {
+                "from": "events",
+                "to": "i",
+                "label": "[['P1', 'write draft'], ['P1', 'send dr…",
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "proc",
+                "label": "0",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "i"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Happened-before [D16.P2.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say7",
+            "caption": "The example traces a chain of messages between three processes.",
+            "messages": [
+              {
+                "from": "events",
+                "to": "i",
+                "label": "[['P1', 'write draft'], ['P1', 'send dr…",
+                "tone": "data"
+              },
+              {
+                "from": "i",
+                "to": "proc",
+                "label": "1",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "proc"
           }
         ]
       }
@@ -385,82 +282,91 @@
       "partTitle": "Lamport timestamps",
       "codeHash": "3a3ad6bdf02076b98c93e946bdafe550759e43d14c8fdf31cbcf46eae19be81d",
       "spec": {
-        "template": "table",
-        "title": "Lamport logical clock updates on message receipt and local events",
-        "columns": [
-          "local",
-          "received"
+        "template": "sequence",
+        "title": "Lamport timestamps",
+        "actors": [
+          "clock",
+          "p",
+          "sent"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A Lamport clock increments before each local event or send.",
-            "rows": [
+            "caption": "A Lamport clock is a counter on each process.",
+            "activeActor": "clock",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
+                "from": "clock",
+                "to": "p",
+                "label": {
+                  "var": "clock",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "sent",
+                "label": {
+                  "var": "p",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "On receiving the clock becomes max of local and received plus one.",
-            "rows": [
+            "caption": "On receiving, the clock becomes max(local, received) + 1, so the receive.",
+            "activeActor": "p",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
-                "tone": "ok"
+                "from": "clock",
+                "to": "p",
+                "label": {
+                  "var": "clock",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "7"
-                  }
-                ],
+                "from": "p",
+                "to": "sent",
+                "label": {
+                  "var": "p",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Lamport timestamps guarantee consistent total order across all nodes.",
-            "rows": [
+            "at": "say7",
+            "caption": "The simulation runs three processes exchanging two messages.",
+            "activeActor": "sent",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "3"
-                  }
-                ],
-                "tone": "ok"
+                "from": "clock",
+                "to": "p",
+                "label": {
+                  "var": "clock",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "7"
-                  }
-                ],
+                "from": "p",
+                "to": "sent",
+                "label": {
+                  "var": "p",
+                  "line": 6,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -468,65 +374,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Lamport logical clock updates on message receipt and local events",
-        "columns": [
-          "local",
-          "received"
+        "template": "sequence",
+        "title": "Lamport timestamps",
+        "actors": [
+          "clock",
+          "p",
+          "sent"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A Lamport clock increments before each local event or send.",
-            "rows": [
+            "caption": "A Lamport clock is a counter on each process.",
+            "messages": [
               {
-                "cells": [
-                  "10",
-                  "3"
-                ],
+                "from": "clock",
+                "to": "p",
+                "label": "{'P1': 0, 'P2': 0, 'P3': 0}",
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "sent",
+                "label": "'P1'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "clock"
           },
           {
             "at": "say2",
-            "caption": "On receiving the clock becomes max of local and received plus one.",
-            "rows": [
+            "caption": "On receiving, the clock becomes max(local, received) + 1, so the receive.",
+            "messages": [
               {
-                "cells": [
-                  "10",
-                  "3"
-                ],
-                "tone": "ok"
+                "from": "clock",
+                "to": "p",
+                "label": "{'P1': 0, 'P2': 0, 'P3': 0}",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "2",
-                  "7"
-                ],
+                "from": "p",
+                "to": "sent",
+                "label": "'P1'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "p"
           },
           {
-            "at": "say3",
-            "caption": "Lamport timestamps guarantee consistent total order across all nodes.",
-            "rows": [
+            "at": "say7",
+            "caption": "The simulation runs three processes exchanging two messages.",
+            "messages": [
               {
-                "cells": [
-                  "10",
-                  "3"
-                ],
-                "tone": "ok"
+                "from": "clock",
+                "to": "p",
+                "label": "{'P1': 1, 'P2': 0, 'P3': 0}",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "2",
-                  "7"
-                ],
+                "from": "p",
+                "to": "sent",
+                "label": "'P2'",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "sent"
           }
         ]
       }
@@ -536,110 +447,161 @@
       "codeHash": "4f73f0f9bfac241c91031288289d5003cb5ac933f07d90a215d4fb93ff8405e6",
       "spec": {
         "template": "flow",
-        "title": "Vector clocks — Execution Pipeline",
+        "title": "Vector clocks",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "base",
+            "label": "base"
           },
           {
-            "id": "proc",
-            "label": "2. Vector clocks",
-            "tappable": true
+            "id": "edit_on_n1",
+            "label": "edit_on_n1"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "edit_on_n2",
+            "label": "edit_on_n2"
+          },
+          {
+            "id": "a",
+            "label": "a"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Vector clocks [Dsixteen.Pfour.Sone].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Vector clocks [Dsixteen.Pfour.Stwo].",
+            "caption": "A vector clock keeps one counter per process.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "base": {
+                "var": "base",
+                "line": 4,
+                "hit": 1
+              },
+              "edit_on_n1": {
+                "var": "edit_on_n1",
+                "line": 5,
+                "hit": 1
+              },
+              "edit_on_n2": {
+                "var": "edit_on_n2",
+                "line": 6,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "base": "data",
+              "edit_on_n1": "data",
+              "edit_on_n2": "data",
+              "a": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "base",
+                "edit_on_n1"
               ],
               [
-                "proc",
-                "out"
+                "edit_on_n1",
+                "edit_on_n2"
+              ],
+              [
+                "edit_on_n2",
+                "a"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "On a local event, a process increases its own entry.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "base": {
+                "var": "base",
+                "line": 5,
+                "hit": 1
+              },
+              "edit_on_n1": {
+                "var": "edit_on_n1",
+                "line": 6,
+                "hit": 1
+              },
+              "edit_on_n2": {
+                "var": "edit_on_n2",
+                "line": 7,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 2,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "base": "data",
+              "edit_on_n1": "data",
+              "edit_on_n2": "data",
+              "a": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "base",
+                "edit_on_n1"
+              ],
+              [
+                "edit_on_n1",
+                "edit_on_n2"
+              ],
+              [
+                "edit_on_n2",
+                "a"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Vector clocks [Dsixteen.Pfour.Sfour].",
+            "at": "say7",
+            "caption": "The example builds two diverging clocks and a merged one.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "base": {
+                "var": "base",
+                "line": 6,
+                "hit": 1
+              },
+              "edit_on_n1": {
+                "var": "edit_on_n1",
+                "line": 7,
+                "hit": 1
+              },
+              "edit_on_n2": {
+                "var": "edit_on_n2",
+                "line": 8,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 2,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "base": "ok",
+              "edit_on_n1": "ok",
+              "edit_on_n2": "ok",
+              "a": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "base",
+                "edit_on_n1"
               ],
               [
-                "proc",
-                "out"
+                "edit_on_n1",
+                "edit_on_n2"
+              ],
+              [
+                "edit_on_n2",
+                "a"
               ]
             ]
           }
@@ -647,110 +609,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Vector clocks — Execution Pipeline",
+        "title": "Vector clocks",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "base",
+            "label": "base"
           },
           {
-            "id": "proc",
-            "label": "2. Vector clocks",
-            "tappable": true
+            "id": "edit_on_n1",
+            "label": "edit_on_n1"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "edit_on_n2",
+            "label": "edit_on_n2"
+          },
+          {
+            "id": "a",
+            "label": "a"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Vector clocks [D16.P4.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Vector clocks [D16.P4.S2].",
+            "caption": "A vector clock keeps one counter per process.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "base": "{'N1': 1, 'N2': 1}",
+              "edit_on_n1": "{'N1': 2, 'N2': 1}",
+              "edit_on_n2": "{'N1': 1, 'N2': 2}",
+              "a": "{'N1': 2, 'N2': 1}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "base": "data",
+              "edit_on_n1": "data",
+              "edit_on_n2": "data",
+              "a": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "base",
+                "edit_on_n1"
               ],
               [
-                "proc",
-                "out"
+                "edit_on_n1",
+                "edit_on_n2"
+              ],
+              [
+                "edit_on_n2",
+                "a"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P4.S3].",
+            "at": "say2",
+            "caption": "On a local event, a process increases its own entry.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "base": "{'N1': 1, 'N2': 1}",
+              "edit_on_n1": "{'N1': 2, 'N2': 1}",
+              "edit_on_n2": "{'N1': 1, 'N2': 2}",
+              "a": "{'N1': 2, 'N2': 1}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "base": "data",
+              "edit_on_n1": "data",
+              "edit_on_n2": "data",
+              "a": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "base",
+                "edit_on_n1"
+              ],
+              [
+                "edit_on_n1",
+                "edit_on_n2"
+              ],
+              [
+                "edit_on_n2",
+                "a"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Vector clocks [D16.P4.S4].",
+            "at": "say7",
+            "caption": "The example builds two diverging clocks and a merged one.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "base": "{'N1': 1, 'N2': 1}",
+              "edit_on_n1": "{'N1': 2, 'N2': 1}",
+              "edit_on_n2": "{'N1': 1, 'N2': 2}",
+              "a": "{'N1': 2, 'N2': 1}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "base": "ok",
+              "edit_on_n1": "ok",
+              "edit_on_n2": "ok",
+              "a": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "base",
+                "edit_on_n1"
               ],
               [
-                "proc",
-                "out"
+                "edit_on_n1",
+                "edit_on_n2"
+              ],
+              [
+                "edit_on_n2",
+                "a"
               ]
             ]
           }
@@ -761,132 +726,106 @@
       "partTitle": "Comparing vector clocks",
       "codeHash": "28f50947d76cad90e3c822a06eee67b57b5510efe032d29836c32b0aba53ef74",
       "spec": {
-        "template": "compare",
-        "title": "Vector clock comparison causal dominance versus concurrent conflict",
-        "leftLabel": "Causal Dominance (A_BEFORE_B)",
-        "rightLabel": "Divergent Concurrent Writes",
+        "template": "states",
+        "title": "Comparing vector clocks",
+        "states": [
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "nodes",
+            "label": "nodes"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function compare_vector_clocks determines causal ordering.",
-            "left": {
-              "code": "N1: 1 compared to N1: 2, N2: 1",
-              "result": {
-                "text": "A_BEFORE_B"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "N1: 2, N2: 1 compared to N1: 1, N2: 2",
-              "result": {
-                "text": "CONCURRENT"
-              },
-              "tone": "error"
-            }
+            "caption": "Compare_vector_clocks(a, b) returns A_BEFORE_B, B_BEFORE_A, EQUAL.",
+            "currentState": "a",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Compute flags to check if one clock is ahead of the other.",
-            "left": {
-              "code": "b_ahead is true",
-              "result": {
-                "text": "A_BEFORE_B"
-              },
-              "tone": "ok"
+            "caption": "Compute two flags over every node in either clock.",
+            "currentState": "b",
+            "transition": {
+              "from": "a",
+              "to": "b",
+              "label": {
+                "var": "b",
+                "line": 3,
+                "hit": 4
+              }
             },
-            "right": {
-              "code": "both ahead is true",
-              "result": {
-                "text": "CONCURRENT"
-              },
-              "tone": "error"
-            }
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "CONCURRENT identifies conflicting writes requiring conflict resolution.",
-            "left": {
-              "code": "clear causal ancestor",
-              "result": {
-                "text": "A_BEFORE_B"
-              },
-              "tone": "ok"
+            "at": "say6",
+            "caption": "The examples cover all four outcomes.",
+            "currentState": "nodes",
+            "transition": {
+              "from": "b",
+              "to": "nodes",
+              "label": {
+                "var": "nodes",
+                "line": 4,
+                "hit": 2
+              }
             },
-            "right": {
-              "code": "divergent concurrent branches",
-              "result": {
-                "text": "CONCURRENT"
-              },
-              "tone": "error"
-            }
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Vector clock comparison causal dominance versus concurrent conflict",
-        "leftLabel": "Causal Dominance (A_BEFORE_B)",
-        "rightLabel": "Divergent Concurrent Writes",
+        "template": "states",
+        "title": "Comparing vector clocks",
+        "states": [
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "nodes",
+            "label": "nodes"
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Function compare_vector_clocks determines causal ordering.",
-            "left": {
-              "code": "N1: 1 compared to N1: 2, N2: 1",
-              "result": "A_BEFORE_B",
-              "tone": "ok",
-              "checks": [
-                "A_BEFORE_B"
-              ]
-            },
-            "right": {
-              "code": "N1: 2, N2: 1 compared to N1: 1, N2: 2",
-              "result": "CONCURRENT",
-              "tone": "error",
-              "checks": [
-                "CONCURRENT"
-              ]
-            }
+            "caption": "Compare_vector_clocks(a, b) returns A_BEFORE_B, B_BEFORE_A, EQUAL.",
+            "currentState": "a",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Compute flags to check if one clock is ahead of the other.",
-            "left": {
-              "code": "b_ahead is true",
-              "result": "A_BEFORE_B",
-              "tone": "ok",
-              "checks": [
-                "A_BEFORE_B"
-              ]
+            "caption": "Compute two flags over every node in either clock.",
+            "currentState": "b",
+            "transition": {
+              "from": "a",
+              "to": "b",
+              "label": "{'N1': 2, 'N2': 1}"
             },
-            "right": {
-              "code": "both ahead is true",
-              "result": "CONCURRENT",
-              "tone": "error",
-              "checks": [
-                "CONCURRENT"
-              ]
-            }
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "CONCURRENT identifies conflicting writes requiring conflict resolution.",
-            "left": {
-              "code": "clear causal ancestor",
-              "result": "A_BEFORE_B",
-              "tone": "ok",
-              "checks": [
-                "A_BEFORE_B"
-              ]
+            "at": "say6",
+            "caption": "The examples cover all four outcomes.",
+            "currentState": "nodes",
+            "transition": {
+              "from": "b",
+              "to": "nodes",
+              "label": "{'N1', 'N2'}"
             },
-            "right": {
-              "code": "divergent concurrent branches",
-              "result": "CONCURRENT",
-              "tone": "error",
-              "checks": [
-                "CONCURRENT"
-              ]
-            }
+            "tone": "ok"
           }
         ]
       }
@@ -895,132 +834,162 @@
       "partTitle": "Resolving conflicts",
       "codeHash": "5a8baca7185a8a3b9597f67d46055c50a78331eadd29c5dd5f4aa32b13e80751",
       "spec": {
-        "template": "compare",
-        "title": "Conflict resolution strategies deterministic union merge versus LWW",
-        "leftLabel": "Union Merge (No Data Lost)",
-        "rightLabel": "Last-Write-Wins (LWW Loss)",
+        "template": "sequence",
+        "title": "Resolving conflicts",
+        "actors": [
+          "cart_phone",
+          "cart_laptop",
+          "merged"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Concurrent writes require deterministic conflict resolution strategies.",
-            "left": {
-              "code": "cart_phone | cart_laptop",
-              "result": {
-                "text": "ghee"
+            "caption": "When writes are concurrent, the system must choose what to keep.",
+            "activeActor": "cart_phone",
+            "messages": [
+              {
+                "from": "cart_phone",
+                "to": "cart_laptop",
+                "label": {
+                  "var": "cart_phone",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "last-write-wins keeps laptop only",
-              "result": {
-                "text": "jaggery"
-              },
-              "tone": "idle"
-            }
+              {
+                "from": "cart_laptop",
+                "to": "merged",
+                "label": {
+                  "var": "cart_laptop",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Shopping carts merged by union preserve all added items.",
-            "left": {
-              "code": "all items preserved",
-              "result": {
-                "text": "rice"
+            "caption": "Shopping carts in Amazon's original Dynamo kept both versions and merged.",
+            "activeActor": "cart_laptop",
+            "messages": [
+              {
+                "from": "cart_phone",
+                "to": "cart_laptop",
+                "label": {
+                  "var": "cart_phone",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "concurrent item overwritten",
-              "result": {
-                "text": "dal"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "cart_laptop",
+                "to": "merged",
+                "label": {
+                  "var": "cart_laptop",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say6",
-            "caption": "Conflict resolution must be deterministic across replicas.",
-            "left": {
-              "code": "union merge preserves ghee",
-              "result": {
-                "text": "ghee"
+            "at": "say7",
+            "caption": "The example merges two concurrent carts by union.",
+            "activeActor": "merged",
+            "messages": [
+              {
+                "from": "cart_phone",
+                "to": "cart_laptop",
+                "label": {
+                  "var": "cart_phone",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "lww silently drops ghee",
-              "result": {
-                "text": "jaggery"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "cart_laptop",
+                "to": "merged",
+                "label": {
+                  "var": "cart_laptop",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Conflict resolution strategies deterministic union merge versus LWW",
-        "leftLabel": "Union Merge (No Data Lost)",
-        "rightLabel": "Last-Write-Wins (LWW Loss)",
+        "template": "sequence",
+        "title": "Resolving conflicts",
+        "actors": [
+          "cart_phone",
+          "cart_laptop",
+          "merged"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Concurrent writes require deterministic conflict resolution strategies.",
-            "left": {
-              "code": "cart_phone | cart_laptop",
-              "result": "ghee",
-              "tone": "ok",
-              "checks": [
-                "ghee"
-              ]
-            },
-            "right": {
-              "code": "last-write-wins keeps laptop only",
-              "result": "jaggery",
-              "tone": "idle",
-              "checks": [
-                "jaggery"
-              ]
-            }
+            "caption": "When writes are concurrent, the system must choose what to keep.",
+            "messages": [
+              {
+                "from": "cart_phone",
+                "to": "cart_laptop",
+                "label": "{'dal', 'ghee', 'rice'}",
+                "tone": "data"
+              },
+              {
+                "from": "cart_laptop",
+                "to": "merged",
+                "label": "{'dal', 'jaggery', 'rice'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "cart_phone"
           },
           {
             "at": "say2",
-            "caption": "Shopping carts merged by union preserve all added items.",
-            "left": {
-              "code": "all items preserved",
-              "result": "rice",
-              "tone": "ok",
-              "checks": [
-                "rice"
-              ]
-            },
-            "right": {
-              "code": "concurrent item overwritten",
-              "result": "dal",
-              "tone": "error",
-              "checks": [
-                "dal"
-              ]
-            }
+            "caption": "Shopping carts in Amazon's original Dynamo kept both versions and merged.",
+            "messages": [
+              {
+                "from": "cart_phone",
+                "to": "cart_laptop",
+                "label": "{'dal', 'ghee', 'rice'}",
+                "tone": "data"
+              },
+              {
+                "from": "cart_laptop",
+                "to": "merged",
+                "label": "{'dal', 'jaggery', 'rice'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "cart_laptop"
           },
           {
-            "at": "say6",
-            "caption": "Conflict resolution must be deterministic across replicas.",
-            "left": {
-              "code": "union merge preserves ghee",
-              "result": "ghee",
-              "tone": "ok",
-              "checks": [
-                "ghee"
-              ]
-            },
-            "right": {
-              "code": "lww silently drops ghee",
-              "result": "jaggery",
-              "tone": "error",
-              "checks": [
-                "jaggery"
-              ]
-            }
+            "at": "say7",
+            "caption": "The example merges two concurrent carts by union.",
+            "messages": [
+              {
+                "from": "cart_phone",
+                "to": "cart_laptop",
+                "label": "{'dal', 'ghee', 'rice'}",
+                "tone": "data"
+              },
+              {
+                "from": "cart_laptop",
+                "to": "merged",
+                "label": "{'dal', 'jaggery', 'rice'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "merged"
           }
         ]
       }

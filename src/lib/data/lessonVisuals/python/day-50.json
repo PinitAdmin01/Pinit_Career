@@ -2,88 +2,265 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 50,
-  "promptSha": "ba5ea6c29d801e43d47bb388c738873962a171f5f68853e04662f460750b12f3",
-  "model": "gate-v2-verified",
+  "promptSha": "c8cf8be0109fffb7d3d51f99a02ef113e76a9231faafccf16a0ce7194c7303fd",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "Milestone 9 Architecture & gRPC Interface Contracts",
       "codeHash": "1b01c3a4a25d48602f9778411e27425d451c1b8c7b7a273e1a94e5f2a4ebdaa5",
       "spec": {
-        "template": "table",
-        "title": "Milestone 9 Architecture & gRPC Interface Contract",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Binary gRPC frame header and payload framing",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Binary Protobuf frames carry compact gateway RPC data cleanly.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Milestone"
-                  },
-                  {
-                    "text": "Architecture"
-                  }
-                ],
+                "text": "encode_grpc_frame"
+              },
+              {
+                "text": "msg_type"
+              },
+              {
+                "text": "length"
+              },
+              {
+                "text": "payload"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "frame",
+                "index": 0,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The under logic drives deterministic execution.",
-            "rows": [
+            "caption": "Compact integer varints shrink payloads while enforcing strict schemas.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "gRPC"
-                  },
-                  {
-                    "text": "Interface"
-                  }
-                ],
+                "text": "msg_type"
+              },
+              {
+                "text": "length"
+              },
+              {
+                "text": "payload"
+              },
+              {
+                "text": "decode_grpc_frame"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "hdr",
+                "index": 1,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "data",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Compact binary frame headers encode type and length for multiplexing.",
+            "items": [
+              {
+                "text": "encode_grpc_frame"
+              },
+              {
+                "text": "msg_type"
+              },
+              {
+                "text": "length"
+              },
+              {
+                "text": "decode_grpc_frame"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "ok",
+                "index": 3,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Expand raw_payload with category and price metadata to inspect frame scaling.",
+            "items": [
+              {
+                "text": "Change"
+              },
+              {
+                "text": "include"
+              },
+              {
+                "text": "product"
+              },
+              {
+                "text": "and"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "payload",
+                "index": 1,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "ok",
+              "3": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Milestone 9 Architecture & gRPC Interface Contract",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "Binary gRPC frame header and payload framing",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The welcome concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Binary Protobuf frames carry compact gateway RPC data cleanly.",
+            "items": [
+              "5-Byte Frame Header",
+              "1-Byte msg_type",
+              "4-Byte Big-Endian Len",
+              "Multiplexed Stream"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Milestone",
-                  "Architecture"
-                ],
+                "name": "frame",
+                "index": 0,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "data",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The under logic drives deterministic execution.",
-            "rows": [
+            "caption": "Compact integer varints shrink payloads while enforcing strict schemas.",
+            "items": [
+              "msg_type = 1",
+              "payload len = 47 B",
+              "GetProductCatalog",
+              "52 Bytes Wire Total"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "gRPC",
-                  "Interface"
-                ],
+                "name": "hdr",
+                "index": 1,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              0,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "data",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Compact binary frame headers encode type and length for multiplexing.",
+            "items": [
+              "Packed With >BI",
+              "Type 1 Read",
+              "47-Byte Slice Unpacked",
+              "Decoded Cleanly"
+            ],
+            "pointers": [
+              {
+                "name": "ok",
+                "index": 3,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Expand raw_payload with category and price metadata to inspect frame scaling.",
+            "items": [
+              "Header Stays 5 Bytes",
+              "Payload Scales -> 88B",
+              "Wire Frame: 93 Bytes",
+              "Decoded Cleanly"
+            ],
+            "pointers": [
+              {
+                "name": "payload",
+                "index": 1,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "ok",
+              "3": "ok"
+            },
+            "whatIf": "import struct\n\n# Binary Protobuf frame simulation: [1-byte type][4-byte payload length][payload]\ndef encode_grpc_frame(msg_type: int, payload: bytes) -> bytes:\n    header = struct.pack(\">BI\", msg_type, len(payload))\n    return header + payload\n\ndef decode_grpc_frame(frame: bytes):\n    msg_type, length = struct.unpack(\">BI\", frame[:5])\n    payload = frame[5:5 + length]\n    return msg_type, length, payload\n\n# Simulate gRPC client request\nraw_payload = b'{\"rpc\": \"GetProductCatalog\", \"sku\": \"SKU-9901\", \"category\": \"electronics\", \"price\": 199}'\nwire_frame = encode_grpc_frame(1, raw_payload)\nm_type, p_len, decoded = decode_grpc_frame(wire_frame)\n\nprint(f\"Wire Frame Length: {len(wire_frame)} bytes (Header: 5 bytes, Payload: {p_len} bytes)\")\nprint(f\"Decoded Message Type: {m_type} | Content: {decoded.decode('utf-8')}\")\nprint(\"gRPC Contract Invariant: Binary framed RPC multiplexing eliminates text serialization overhead.\")",
+            "checks": [
+              "Wire Frame Length: 93 bytes (Header: 5 bytes, Payload: 88 bytes)",
+              "\"category\": \"electronics\""
             ]
           }
         ]
@@ -93,81 +270,182 @@
       "partTitle": "Kafka Event Pipeline & Durable Offset Commit Semantics",
       "codeHash": "3f23557dd6bc180a60a252cd5e98957730108616c3da38f0a76957db03757e4c",
       "spec": {
-        "template": "table",
-        "title": "Kafka Event Pipeline & Durable Offset Commit Seman",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "KafkaPartitionConsumer queue and committed offset",
+        "boxes": [
+          {
+            "id": "q",
+            "label": "queue"
+          },
+          {
+            "id": "cons",
+            "label": "consume_batch"
+          },
+          {
+            "id": "off",
+            "label": "committed_offset"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The synchronous concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Kafka"
-                  },
-                  {
-                    "text": "Event"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Gateway appends order events durably into partitioned Kafka commit logs.",
+            "values": {
+              "q": {
+                "text": "produce"
+              },
+              "cons": {
+                "text": "partition_id"
+              },
+              "off": {
+                "text": "committed_offset"
               }
-            ]
+            },
+            "tones": {
+              "q": "data",
+              "cons": "idle",
+              "off": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The kafka logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Pipeline"
-                  },
-                  {
-                    "text": "Durable"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Consumers advance committed offsets strictly after database persistence.",
+            "values": {
+              "q": {
+                "text": "queue"
+              },
+              "cons": {
+                "text": "consume_batch"
+              },
+              "off": {
+                "text": "commit"
               }
-            ]
+            },
+            "tones": {
+              "q": "data",
+              "cons": "ok",
+              "off": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Partition queues preserve events cleanly until explicit commits advance.",
+            "values": {
+              "q": {
+                "text": "queue"
+              },
+              "cons": {
+                "text": "consume_batch"
+              },
+              "off": {
+                "text": "committed_offset"
+              }
+            },
+            "tones": {
+              "q": "ok",
+              "cons": "ok",
+              "off": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Produce three more events and consume in batch size three to update commit.",
+            "values": {
+              "q": {
+                "text": "Produce"
+              },
+              "cons": {
+                "text": "events"
+              },
+              "off": {
+                "text": "and"
+              }
+            },
+            "tones": {
+              "q": "data",
+              "cons": "ok",
+              "off": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Kafka Event Pipeline & Durable Offset Commit Seman",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "boxes",
+        "title": "KafkaPartitionConsumer queue and committed offset",
+        "boxes": [
+          {
+            "id": "q",
+            "label": "queue"
+          },
+          {
+            "id": "cons",
+            "label": "consume_batch"
+          },
+          {
+            "id": "off",
+            "label": "committed_offset"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The synchronous concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Kafka",
-                  "Event"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Gateway appends order events durably into partitioned Kafka commit logs.",
+            "values": {
+              "q": "3 Order Events Appended",
+              "cons": "Partition 0 Ready",
+              "off": "committed_offset = 0"
+            },
+            "tones": {
+              "q": "data",
+              "cons": "idle",
+              "off": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The kafka logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Pipeline",
-                  "Durable"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Consumers advance committed offsets strictly after database persistence.",
+            "values": {
+              "q": "1 Event Remaining",
+              "cons": "Batch Of 2 Processed",
+              "off": "commit(2) Executed"
+            },
+            "tones": {
+              "q": "data",
+              "cons": "ok",
+              "off": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Partition queues preserve events cleanly until explicit commits advance.",
+            "values": {
+              "q": "INVENTORY_RESERVED Next",
+              "cons": "ORDER_CREATED + PAYMENT OK",
+              "off": "committed_offset = 2"
+            },
+            "tones": {
+              "q": "ok",
+              "cons": "ok",
+              "off": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Produce three more events and consume in batch size three to update commit.",
+            "values": {
+              "q": "3 Additional Produced",
+              "cons": "Batch Of 3 Consumed",
+              "off": "Committed Offset: 3"
+            },
+            "tones": {
+              "q": "data",
+              "cons": "ok",
+              "off": "ok"
+            },
+            "whatIf": "from collections import deque\n\nclass KafkaPartitionConsumer:\n    def __init__(self, partition_id):\n        self.partition_id = partition_id\n        self.queue = deque()\n        self.committed_offset = 0\n\n    def produce(self, event_type, order_id):\n        offset = len(self.queue) + self.committed_offset + 1\n        self.queue.append((offset, event_type, order_id))\n\n    def consume_batch(self, batch_size=2):\n        batch = []\n        while self.queue and len(batch) < batch_size:\n            batch.append(self.queue.popleft())\n        return batch\n\n    def commit(self, offset):\n        self.committed_offset = offset\n        return f\"[PARTITION-{self.partition_id}] Committed Offset: {self.committed_offset}\"\n\npartition = KafkaPartitionConsumer(partition_id=0)\npartition.produce(\"ORDER_CREATED\", \"ORD_9001\")\npartition.produce(\"PAYMENT_CAPTURED\", \"ORD_9001\")\npartition.produce(\"INVENTORY_RESERVED\", \"ORD_9001\")\n\npartition.produce(\"PAYMENT_VERIFIED\", \"ORD_9002\")\npartition.produce(\"LABEL_PRINTED\", \"ORD_9002\")\npartition.produce(\"DISPATCHED\", \"ORD_9002\")\nbatch = partition.consume_batch(3)\nfor offset, ev, oid in batch:\n    print(f\"Consumed Event: offset={offset}, type={ev}, id={oid}\")\nprint(partition.commit(batch[-1][0]))\nprint(\"Kafka Pipeline Invariant: At-least-once processing guaranteed through explicit log offset commits.\")",
+            "checks": [
+              "Consumed Event: offset=3, type=INVENTORY_RESERVED",
+              "[PARTITION-0] Committed Offset: 3"
             ]
           }
         ]
@@ -177,81 +455,244 @@
       "partTitle": "Multi-Tier Caching & XFetch Stampede Elimination",
       "codeHash": "86fc5ef6a68e5f12721504dc0c15e45cff67a2bb7de875448a5289f70006c54a",
       "spec": {
-        "template": "table",
-        "title": "Multi-Tier Caching & XFetch Stampede Elimination",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "XFetchCacheTier background early key pre-warming",
+        "nodes": [
+          {
+            "id": "st",
+            "label": "store"
+          },
+          {
+            "id": "get",
+            "label": "get"
+          },
+          {
+            "id": "ref",
+            "label": "should_refresh"
+          },
+          {
+            "id": "put",
+            "label": "put"
+          }
+        ],
+        "edges": [
+          {
+            "from": "st",
+            "to": "get"
+          },
+          {
+            "from": "get",
+            "to": "ref"
+          },
+          {
+            "from": "ref",
+            "to": "put"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The handle concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Multi"
-                  },
-                  {
-                    "text": "Tier"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "XFetch weighs compute latency and remaining lifetime on every cache read.",
+            "values": {
+              "st": {
+                "text": "store"
+              },
+              "get": {
+                "text": "get"
+              },
+              "ref": {
+                "text": "beta"
+              },
+              "put": {
+                "text": "put"
               }
-            ]
+            },
+            "tones": {
+              "st": "data",
+              "get": "data",
+              "ref": "idle",
+              "put": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The approaches logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Caching"
-                  },
-                  {
-                    "text": "XFetch"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Background refreshes warm hot keys before expiration hits client traffic.",
+            "values": {
+              "st": {
+                "text": "store"
+              },
+              "get": {
+                "text": "get"
+              },
+              "ref": {
+                "text": "should_refresh"
+              },
+              "put": {
+                "text": "put"
               }
-            ]
+            },
+            "tones": {
+              "st": "ok",
+              "get": "ok",
+              "ref": "ok",
+              "put": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Calibrated XFetch pre-warms expiring catalog SKUs to prevent stampedes.",
+            "values": {
+              "st": {
+                "text": "XFetchCacheTier"
+              },
+              "get": {
+                "text": "get"
+              },
+              "ref": {
+                "text": "should_refresh"
+              },
+              "put": {
+                "text": "put"
+              }
+            },
+            "tones": {
+              "st": "ok",
+              "get": "ok",
+              "ref": "ok",
+              "put": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Raise beta to 2 and sample at earlier timestamp to confirm early refresh.",
+            "values": {
+              "st": {
+                "text": "Change"
+              },
+              "get": {
+                "text": "2.0"
+              },
+              "ref": {
+                "text": "observe"
+              },
+              "put": {
+                "text": "early"
+              }
+            },
+            "tones": {
+              "st": "data",
+              "get": "data",
+              "ref": "ok",
+              "put": "ok"
+            },
+            "arrows": []
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Multi-Tier Caching & XFetch Stampede Elimination",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "XFetchCacheTier background early key pre-warming",
+        "nodes": [
+          {
+            "id": "st",
+            "label": "store"
+          },
+          {
+            "id": "get",
+            "label": "get"
+          },
+          {
+            "id": "ref",
+            "label": "should_refresh"
+          },
+          {
+            "id": "put",
+            "label": "put"
+          }
+        ],
+        "edges": [
+          {
+            "from": "st",
+            "to": "get"
+          },
+          {
+            "from": "get",
+            "to": "ref"
+          },
+          {
+            "from": "ref",
+            "to": "put"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The handle concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Multi",
-                  "Tier"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "XFetch weighs compute latency and remaining lifetime on every cache read.",
+            "values": {
+              "st": "sku:9901 (TTL 1.5s)",
+              "get": "Serves Cached String",
+              "ref": "1.2 * 1.5 * 1.2 >= 1.5",
+              "put": "Standby"
+            },
+            "tones": {
+              "st": "data",
+              "get": "data",
+              "ref": "idle",
+              "put": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The approaches logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Caching",
-                  "XFetch"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Background refreshes warm hot keys before expiration hits client traffic.",
+            "values": {
+              "st": "99.8% Hit Rate Kept",
+              "get": "Instant Read Returned",
+              "ref": "should_refresh = True",
+              "put": "Async Refresh Stored"
+            },
+            "tones": {
+              "st": "ok",
+              "get": "ok",
+              "ref": "ok",
+              "put": "ok"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Calibrated XFetch pre-warms expiring catalog SKUs to prevent stampedes.",
+            "values": {
+              "st": "Gaming Laptop RTX 4090",
+              "get": "Read at t=8.5s",
+              "ref": "Early Refresh = True",
+              "put": "Zero DB Stampede"
+            },
+            "tones": {
+              "st": "ok",
+              "get": "ok",
+              "ref": "ok",
+              "put": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Raise beta to 2 and sample at earlier timestamp to confirm early refresh.",
+            "values": {
+              "st": "beta = 2.0 Aggressive",
+              "get": "Read at t=7.6s (2.4s left)",
+              "ref": "Early Refresh = True",
+              "put": "Warmed Earlier Before Expiry"
+            },
+            "tones": {
+              "st": "data",
+              "get": "data",
+              "ref": "ok",
+              "put": "ok"
+            },
+            "arrows": [],
+            "whatIf": "import math\n\nclass XFetchCacheTier:\n    def __init__(self, beta=1.5):\n        self.beta = beta\n        self.store = {}\n        self.db_reads = 0\n\n    def get(self, key, current_time):\n        entry = self.store.get(key)\n        if not entry:\n            return None, True\n\n        val, delta, expiry = entry\n        remaining_ttl = expiry - current_time\n        if remaining_ttl <= 0:\n            return val, True\n\n        # XFetch probabilistic early refresh\n        simulated_log_rand = -1.2\n        should_refresh = (delta * self.beta * (-simulated_log_rand)) >= remaining_ttl\n        return val, should_refresh\n\n    def put(self, key, value, compute_time, ttl, current_time):\n        self.store[key] = (value, compute_time, current_time + ttl)\n\ncache = XFetchCacheTier(beta=2.0)\ncache.put(\"sku:9901\", \"Gaming Laptop RTX 4090\", compute_time=1.2, ttl=10.0, current_time=0.0)\n\n# Read at t=8.5s (remaining TTL: 1.5s)\nval, early_refresh = cache.get(\"sku:9901\", current_time=7.6)\nprint(f\"Cache Read at t=7.6s: val='{val}' | Early Refresh Triggered: {early_refresh}\")\nprint(\"XFetch Tier Invariant: Hot items refreshed in background before TTL expiry, zero stampede.\")",
+            "checks": [
+              "Cache Read at t=7.6s:",
+              "Early Refresh Triggered: True"
             ]
           }
         ]
@@ -261,82 +702,162 @@
       "partTitle": "Fault-Tolerant Distributed Mesh: Circuit Breakers & Bulkheads",
       "codeHash": "da2360d838966d170c041c856989f30c1819ae573d394484f78b2b9c6d0fbf4b",
       "spec": {
-        "template": "table",
-        "title": "Fault-Tolerant Distributed Mesh: Circuit Breakers ",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "MeshCircuitBreaker CLOSED flow vs OPEN fast-fail",
+        "leftLabel": "Unprotected Retries",
+        "rightLabel": "MeshCircuitBreaker",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The complex concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Fault"
-                  },
-                  {
-                    "text": "Tolerant"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "OPEN dependency breakers fast-fail calls before worker pools exhaust.",
+            "left": {
+              "code": "failures",
+              "result": "Hanging Worker Sockets",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "can_execute",
+              "result": "False -> Instant Fallback",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The simultaneously logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Distributed"
-                  },
-                  {
-                    "text": "Mesh"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Partitioned bulkhead limits keep healthy payment capacity isolated.",
+            "left": {
+              "code": "threshold",
+              "result": "Slow Service Starves Mesh",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "MeshCircuitBreaker",
+              "result": "Isolated Per Target",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Tripping dependency breakers shields callers immediately during outages.",
+            "left": {
+              "code": "record_result",
+              "result": "2 Failures Trip Breaker",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "state",
+              "result": "Call 3 -> FAST_FAIL",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Call record_result True in HALF_OPEN state to observe healing back to CLOSED.",
+            "left": {
+              "code": "payment_cb.state == \"OPEN\" (2 failures)",
+              "result": "Call 3: FAST_FAIL",
+              "tone": "error",
+              "checks": [
+                "Call 3: FAST_FAIL",
+                "STATE_STAYS_OPEN"
+              ],
+              "whatIf": "class MeshCircuitBreaker:\n    def __init__(self, service_name, threshold=2):\n        self.service = service_name\n        self.threshold = threshold\n        self.failures = 0\n        self.state = \"CLOSED\"\n\n    def record_result(self, success: bool):\n        if success:\n            if self.state == \"HALF_OPEN\":\n                self.state = \"CLOSED\"\n                self.failures = 0\n                print(f\"[{self.service}] Canary probe succeeded -> Circuit healed to CLOSED\")\n        else:\n            self.failures += 1\n            if self.failures >= self.threshold and self.state != \"OPEN\":\n                self.state = \"OPEN\"\n                print(f\"[{self.service}] Failure limit reached -> Circuit TRIPPED to OPEN\")\n\n    def can_execute(self):\n        return self.state != \"OPEN\"\n\npayment_cb = MeshCircuitBreaker(\"PaymentGateway\", threshold=2)\nprint(\"Call 1:\", \"ALLOWED\" if payment_cb.can_execute() else \"FAST_FAIL\")\npayment_cb.record_result(False)\nprint(\"Call 2:\", \"ALLOWED\" if payment_cb.can_execute() else \"FAST_FAIL\")\npayment_cb.record_result(False)\nprint(\"Call 3:\", \"ALLOWED\" if payment_cb.can_execute() else \"FAST_FAIL\")\nprint(\"STATE_STAYS_OPEN\")\nprint(\"Mesh Resilience Invariant: Downstream outages fast-fail instantly to shield upstream callers.\")"
+            },
+            "right": {
+              "code": "state = \"HALF_OPEN\"; record_result(True)",
+              "result": "Healed To CLOSED -> Call 4 ALLOWED",
+              "tone": "ok",
+              "checks": [
+                "[PaymentGateway] Canary probe succeeded -> Circuit healed to CLOSED",
+                "Call 4 (Post-Heal): ALLOWED | State: CLOSED"
+              ],
+              "whatIf": "class MeshCircuitBreaker:\n    def __init__(self, service_name, threshold=2):\n        self.service = service_name\n        self.threshold = threshold\n        self.failures = 0\n        self.state = \"CLOSED\"\n\n    def record_result(self, success: bool):\n        if success:\n            if self.state == \"HALF_OPEN\":\n                self.state = \"CLOSED\"\n                self.failures = 0\n                print(f\"[{self.service}] Canary probe succeeded -> Circuit healed to CLOSED\")\n        else:\n            self.failures += 1\n            if self.failures >= self.threshold and self.state != \"OPEN\":\n                self.state = \"OPEN\"\n                print(f\"[{self.service}] Failure limit reached -> Circuit TRIPPED to OPEN\")\n\n    def can_execute(self):\n        return self.state != \"OPEN\"\n\npayment_cb = MeshCircuitBreaker(\"PaymentGateway\", threshold=2)\nprint(\"Call 1:\", \"ALLOWED\" if payment_cb.can_execute() else \"FAST_FAIL\")\npayment_cb.record_result(False)\nprint(\"Call 2:\", \"ALLOWED\" if payment_cb.can_execute() else \"FAST_FAIL\")\npayment_cb.record_result(False)\nprint(\"Call 3:\", \"ALLOWED\" if payment_cb.can_execute() else \"FAST_FAIL\")\npayment_cb.state = \"HALF_OPEN\"\npayment_cb.record_result(True)\nprint(\"Call 4 (Post-Heal):\", \"ALLOWED\" if payment_cb.can_execute() else \"FAST_FAIL\", \"| State:\", payment_cb.state)\nprint(\"Mesh Resilience Invariant: Downstream outages fast-fail instantly to shield upstream callers.\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Fault-Tolerant Distributed Mesh: Circuit Breakers ",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "MeshCircuitBreaker CLOSED flow vs OPEN fast-fail",
+        "leftLabel": "Unprotected Retries",
+        "rightLabel": "MeshCircuitBreaker",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The complex concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Fault",
-                  "Tolerant"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "OPEN dependency breakers fast-fail calls before worker pools exhaust.",
+            "left": {
+              "code": "All Threads Hang 30s",
+              "result": "Upstream Collapse",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "state == OPEN -> 0.1ms",
+              "result": "can_execute() == False",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
             "at": "say3",
-            "caption": "The simultaneously logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Distributed",
-                  "Mesh"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Partitioned bulkhead limits keep healthy payment capacity isolated.",
+            "left": {
+              "code": "Shared Thread Starvation",
+              "result": "Global Latency Spike",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "10 Rec / 50 Payment Slots",
+              "result": "Payments Unimpeded",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Tripping dependency breakers shields callers immediately during outages.",
+            "left": {
+              "code": "record_result(False) x2",
+              "result": "PaymentGateway Tripped",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "Call 3 Skips Network",
+              "result": "FAST_FAIL Protected Caller",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Call record_result True in HALF_OPEN state to observe healing back to CLOSED.",
+            "left": {
+              "code": "payment_cb.state == \"OPEN\" (2 failures)",
+              "result": "Call 3: FAST_FAIL",
+              "tone": "error",
+              "checks": [
+                "Call 3: FAST_FAIL",
+                "STATE_STAYS_OPEN"
+              ],
+              "whatIf": "class MeshCircuitBreaker:\n    def __init__(self, service_name, threshold=2):\n        self.service = service_name\n        self.threshold = threshold\n        self.failures = 0\n        self.state = \"CLOSED\"\n\n    def record_result(self, success: bool):\n        if success:\n            if self.state == \"HALF_OPEN\":\n                self.state = \"CLOSED\"\n                self.failures = 0\n                print(f\"[{self.service}] Canary probe succeeded -> Circuit healed to CLOSED\")\n        else:\n            self.failures += 1\n            if self.failures >= self.threshold and self.state != \"OPEN\":\n                self.state = \"OPEN\"\n                print(f\"[{self.service}] Failure limit reached -> Circuit TRIPPED to OPEN\")\n\n    def can_execute(self):\n        return self.state != \"OPEN\"\n\npayment_cb = MeshCircuitBreaker(\"PaymentGateway\", threshold=2)\nprint(\"Call 1:\", \"ALLOWED\" if payment_cb.can_execute() else \"FAST_FAIL\")\npayment_cb.record_result(False)\nprint(\"Call 2:\", \"ALLOWED\" if payment_cb.can_execute() else \"FAST_FAIL\")\npayment_cb.record_result(False)\nprint(\"Call 3:\", \"ALLOWED\" if payment_cb.can_execute() else \"FAST_FAIL\")\nprint(\"STATE_STAYS_OPEN\")\nprint(\"Mesh Resilience Invariant: Downstream outages fast-fail instantly to shield upstream callers.\")"
+            },
+            "right": {
+              "code": "state = \"HALF_OPEN\"; record_result(True)",
+              "result": "Healed To CLOSED -> Call 4 ALLOWED",
+              "tone": "ok",
+              "checks": [
+                "[PaymentGateway] Canary probe succeeded -> Circuit healed to CLOSED",
+                "Call 4 (Post-Heal): ALLOWED | State: CLOSED"
+              ],
+              "whatIf": "class MeshCircuitBreaker:\n    def __init__(self, service_name, threshold=2):\n        self.service = service_name\n        self.threshold = threshold\n        self.failures = 0\n        self.state = \"CLOSED\"\n\n    def record_result(self, success: bool):\n        if success:\n            if self.state == \"HALF_OPEN\":\n                self.state = \"CLOSED\"\n                self.failures = 0\n                print(f\"[{self.service}] Canary probe succeeded -> Circuit healed to CLOSED\")\n        else:\n            self.failures += 1\n            if self.failures >= self.threshold and self.state != \"OPEN\":\n                self.state = \"OPEN\"\n                print(f\"[{self.service}] Failure limit reached -> Circuit TRIPPED to OPEN\")\n\n    def can_execute(self):\n        return self.state != \"OPEN\"\n\npayment_cb = MeshCircuitBreaker(\"PaymentGateway\", threshold=2)\nprint(\"Call 1:\", \"ALLOWED\" if payment_cb.can_execute() else \"FAST_FAIL\")\npayment_cb.record_result(False)\nprint(\"Call 2:\", \"ALLOWED\" if payment_cb.can_execute() else \"FAST_FAIL\")\npayment_cb.record_result(False)\nprint(\"Call 3:\", \"ALLOWED\" if payment_cb.can_execute() else \"FAST_FAIL\")\npayment_cb.state = \"HALF_OPEN\"\npayment_cb.record_result(True)\nprint(\"Call 4 (Post-Heal):\", \"ALLOWED\" if payment_cb.can_execute() else \"FAST_FAIL\", \"| State:\", payment_cb.state)\nprint(\"Mesh Resilience Invariant: Downstream outages fast-fail instantly to shield upstream callers.\")"
+            }
           }
         ]
       }
@@ -346,23 +867,41 @@
       "codeHash": "87ca48d62d5c7b04aaf0975b5c3d054a65808755d740d246e1f93b532be65662",
       "spec": {
         "template": "table",
-        "title": "Milestone 9 Production Defense & Verification Gate",
+        "title": "Milestone9Platform 20k RPS benchmark telemetry",
         "columns": [
-          "Stage",
-          "Concept"
+          "Subsystem",
+          "Observed Metric",
+          "Certification"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "XFetch caching and partitioned Kafka absorb sustained peak workloads.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Milestone"
+                    "text": "cache_hits"
                   },
                   {
-                    "text": "Production"
+                    "text": "kafka_events_published"
+                  },
+                  {
+                    "text": "total_rpcs"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Milestone9Platform"
+                  },
+                  {
+                    "text": "run_benchmark"
+                  },
+                  {
+                    "text": "total_rpcs"
                   }
                 ],
                 "tone": "data"
@@ -371,15 +910,100 @@
           },
           {
             "at": "say3",
-            "caption": "The midway logic drives deterministic execution.",
+            "caption": "Payment brownouts isolate into retry queues while browsing stays up.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Defense"
+                    "text": "isolated_failures"
                   },
                   {
-                    "text": "Verification"
+                    "text": "cache_hits"
+                  },
+                  {
+                    "text": "kafka_events_published"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "total_rpcs"
+                  },
+                  {
+                    "text": "run_benchmark"
+                  },
+                  {
+                    "text": "isolated_failures"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Benchmark synthesis confirms low latency, durability, and isolation.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "total_rpcs"
+                  },
+                  {
+                    "text": "cache_hits"
+                  },
+                  {
+                    "text": "kafka_events_published"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "isolated_failures"
+                  },
+                  {
+                    "text": "Milestone9Platform"
+                  },
+                  {
+                    "text": "run_benchmark"
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase request_count in run_benchmark reviewing scaled production telemetry.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Increase"
+                  },
+                  {
+                    "text": "request_count"
+                  },
+                  {
+                    "text": "run_benchmark"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "run_benchmark"
+                  },
+                  {
+                    "text": "run_benchmark"
+                  },
+                  {
+                    "text": "and"
                   }
                 ],
                 "tone": "ok"
@@ -390,20 +1014,30 @@
       },
       "filled": {
         "template": "table",
-        "title": "Milestone 9 Production Defense & Verification Gate",
+        "title": "Milestone9Platform 20k RPS benchmark telemetry",
         "columns": [
-          "Stage",
-          "Concept"
+          "Subsystem",
+          "Observed Metric",
+          "Certification"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "XFetch caching and partitioned Kafka absorb sustained peak workloads.",
             "rows": [
               {
                 "cells": [
-                  "Milestone",
-                  "Production"
+                  "XFetch Redis Tier",
+                  "99.8% Hit Rate",
+                  "DB CPU < 15%"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Kafka Partition Stream",
+                  "5,000 Events Durable",
+                  "0 Dropped Events"
                 ],
                 "tone": "data"
               }
@@ -411,15 +1045,73 @@
           },
           {
             "at": "say3",
-            "caption": "The midway logic drives deterministic execution.",
+            "caption": "Payment brownouts isolate into retry queues while browsing stays up.",
             "rows": [
               {
                 "cells": [
-                  "Defense",
-                  "Verification"
+                  "Circuit Breaker Mesh",
+                  "12 Outages Isolated",
+                  "100% Catalog Uptime"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "HTTP/2 gRPC Gateway",
+                  "p50 0.42ms / p99 1.85ms",
+                  "Zero Port Exhaustion"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Benchmark synthesis confirms low latency, durability, and isolation.",
+            "rows": [
+              {
+                "cells": [
+                  "20,000 Total RPCs",
+                  "p99 = 1.85ms, 99.8% Cache",
+                  "Zero Event Loss"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Milestone 9 Defense",
+                  "12 Outages Contained",
+                  "[MILESTONE 9 PASSED]"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase request_count in run_benchmark reviewing scaled production telemetry.",
+            "rows": [
+              {
+                "cells": [
+                  "50000 Total RPCs",
+                  "p99 = 1.85ms, 99.8% Cache",
+                  "Zero Event Loss"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Isolated Outages",
+                  "12 Shielded cleanly",
+                  "[MILESTONE 9 PASSED]"
+                ],
+                "tone": "ok"
+              }
+            ],
+            "whatIf": "class Milestone9Platform:\n    def __init__(self):\n        self.total_rpcs = 0\n        self.kafka_events_published = 0\n        self.cache_hits = 0\n        self.isolated_failures = 0\n\n    def run_benchmark(self, request_count=20000):\n        self.total_rpcs = request_count\n        self.cache_hits = int(request_count * 0.998)\n        self.kafka_events_published = 5000\n        self.isolated_failures = 12\n\n        p99_latency_ms = 1.85\n        p50_latency_ms = 0.42\n\n        return {\n            \"total_rpcs\": self.total_rpcs,\n            \"p50_latency_ms\": p50_latency_ms,\n            \"p99_latency_ms\": p99_latency_ms,\n            \"kafka_events\": self.kafka_events_published,\n            \"cache_hit_rate\": f\"{(self.cache_hits / self.total_rpcs) * 100:.1f}%\",\n            \"isolated_outages\": self.isolated_failures\n        }\n\nengine = Milestone9Platform()\nresults = engine.run_benchmark(50000)\n\nprint(\"=== Milestone 9 Production Verification Report ===\")\nfor k, v in results.items():\n    print(f\"  {k}: {v}\")\nprint(\"[MILESTONE 9 PASSED] Event-Driven Microservice & gRPC Gateway Engine Certified for Production!\")",
+            "checks": [
+              "total_rpcs: 50000",
+              "cache_hit_rate: 99.8%"
             ]
           }
         ]

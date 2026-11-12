@@ -2,269 +2,699 @@
   "schemaVersion": 1,
   "prefix": "ai-py",
   "day": 47,
-  "promptSha": "6de7241c4cb6b7c96e3861bb507ef347626a4faca6d114a050e484d525dde971",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "RAG Triad Telemetry — Foundations & Mathematical Invariants",
-      "codeHash": "dfe8b71deb3dc7328c6eb1777c5173246a912b62fa8fc774e64efd5b96ce7ee2",
+      "partTitle": "Separating Retrieval Faults From Generation Hallucinations",
+      "codeHash": "6d2a46101989693f92bb9d57fb4eea95c803a2e8b71425424ab69f6d2b939f91",
       "spec": {
-        "template": "flow",
-        "title": "RAG Triad Telemetry — Foundations & Mathematical Invariants",
-        "nodes": [
+        "template": "boxes",
+        "title": "Separating Retrieval Faults From Generation Hallucinations",
+        "boxes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "case",
+            "label": "case"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "ctx_rel",
+            "label": "ctx_rel"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "groundedness",
+            "label": "groundedness"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "ans_rel",
+            "label": "ans_rel"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When an enterprise user reports a wrong RAG answer, staring purely at.",
+            "values": {
+              "case": {
+                "var": "case",
+                "line": 15,
+                "hit": 1
+              },
+              "ctx_rel": {
+                "var": "ctx_rel",
+                "line": 2,
+                "hit": 1
+              },
+              "groundedness": {
+                "var": "groundedness",
+                "line": 2,
+                "hit": 1
+              },
+              "ans_rel": {
+                "var": "ans_rel",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "case": "data",
+              "ctx_rel": "data",
+              "groundedness": "data",
+              "ans_rel": "data"
+            }
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The **RAG Triad** solves this diagnostic blind spot mathematically.",
+            "values": {
+              "case": {
+                "var": "case",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "ctx_rel": {
+                "var": "ctx_rel",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "groundedness": {
+                "var": "groundedness",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "ans_rel": {
+                "var": "ans_rel",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "case": "data",
+              "ctx_rel": "data",
+              "groundedness": "data",
+              "ans_rel": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Run diagnose_rag_failure() mapping concrete score combinations directly.",
+            "values": {
+              "case": {
+                "var": "case",
+                "line": 15,
+                "hit": 2
+              },
+              "ctx_rel": {
+                "var": "ctx_rel",
+                "line": 4,
+                "hit": 1
+              },
+              "groundedness": {
+                "var": "groundedness",
+                "line": 4,
+                "hit": 1
+              },
+              "ans_rel": {
+                "var": "ans_rel",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "case": "ok",
+              "ctx_rel": "ok",
+              "groundedness": "ok",
+              "ans_rel": "ok"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Separating Retrieval Faults From Generation Hallucinations",
+        "boxes": [
+          {
+            "id": "case",
+            "label": "case"
+          },
+          {
+            "id": "ctx_rel",
+            "label": "ctx_rel"
+          },
+          {
+            "id": "groundedness",
+            "label": "groundedness"
+          },
+          {
+            "id": "ans_rel",
+            "label": "ans_rel"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "When an enterprise user reports a wrong RAG answer, staring purely at.",
+            "values": {
+              "case": "[0.42, 0.91, 0.55]",
+              "ctx_rel": "0.42",
+              "groundedness": "0.91",
+              "ans_rel": "0.55"
+            },
+            "tones": {
+              "case": "data",
+              "ctx_rel": "data",
+              "groundedness": "data",
+              "ans_rel": "data"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "The **RAG Triad** solves this diagnostic blind spot mathematically.",
+            "values": {
+              "case": "[0.42, 0.91, 0.55]",
+              "ctx_rel": "0.42",
+              "groundedness": "0.91",
+              "ans_rel": "0.55"
+            },
+            "tones": {
+              "case": "data",
+              "ctx_rel": "data",
+              "groundedness": "data",
+              "ans_rel": "data"
+            }
+          },
+          {
+            "at": "say7",
+            "caption": "Run diagnose_rag_failure() mapping concrete score combinations directly.",
+            "values": {
+              "case": "[0.93, 0.38, 0.85]",
+              "ctx_rel": "0.42",
+              "groundedness": "0.91",
+              "ans_rel": "0.55"
+            },
+            "tones": {
+              "case": "ok",
+              "ctx_rel": "ok",
+              "groundedness": "ok",
+              "ans_rel": "ok"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Claim Decomposition for Granular Groundedness Scoring",
+      "codeHash": "821e0f6c51b59e1aaba80aa1e1371d2cb301913b190c1279ca82238a472088e9",
+      "spec": {
+        "template": "flow",
+        "title": "Claim Decomposition for Granular Groundedness Scoring",
+        "nodes": [
+          {
+            "id": "STOPWORDS",
+            "label": "STOPWORDS"
+          },
+          {
+            "id": "evidence",
+            "label": "evidence"
+          },
+          {
+            "id": "draft_claims",
+            "label": "draft_claims"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Trace how asking updates holistic during execution.",
+            "values": {
+              "STOPWORDS": {
+                "var": "STOPWORDS",
+                "line": 3,
+                "hit": 1
+              },
+              "evidence": {
+                "var": "evidence",
+                "line": 21,
+                "hit": 1
+              },
+              "draft_claims": {
+                "var": "draft_claims",
+                "line": 22,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "STOPWORDS": "data",
+              "evidence": "data",
+              "draft_claims": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "STOPWORDS",
+                "evidence"
+              ],
+              [
+                "evidence",
+                "draft_claims"
+              ],
+              [
+                "draft_claims",
+                "text"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Atomic **claim decomposition** sharpens verification ruthlessly.",
+            "values": {
+              "STOPWORDS": {
+                "var": "STOPWORDS",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "evidence": {
+                "var": "evidence",
+                "line": 23,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "draft_claims": {
+                "var": "draft_claims",
+                "line": 26,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "text": {
+                "var": "text",
+                "line": 6,
+                "hit": 2
               }
+            },
+            "tones": {
+              "STOPWORDS": "data",
+              "evidence": "data",
+              "draft_claims": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "STOPWORDS",
+                "evidence"
+              ],
+              [
+                "evidence",
+                "draft_claims"
+              ],
+              [
+                "draft_claims",
+                "text"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say7",
+            "caption": "Audit groundedness_score() below breaking a multi-sentence answer down.",
+            "values": {
+              "STOPWORDS": {
+                "var": "STOPWORDS",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "evidence": {
+                "var": "evidence",
+                "line": 24,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "draft_claims": {
+                "var": "draft_claims",
+                "line": 26,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "text": {
+                "var": "text",
+                "line": 6,
+                "hit": 3
               }
+            },
+            "tones": {
+              "STOPWORDS": "ok",
+              "evidence": "ok",
+              "draft_claims": "ok",
+              "text": "ok"
+            },
+            "arrows": [
+              [
+                "STOPWORDS",
+                "evidence"
+              ],
+              [
+                "evidence",
+                "draft_claims"
+              ],
+              [
+                "draft_claims",
+                "text"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "RAG Triad Telemetry — Foundations & Mathematical Invariants",
+        "title": "Claim Decomposition for Granular Groundedness Scoring",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "STOPWORDS",
+            "label": "STOPWORDS"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "evidence",
+            "label": "evidence"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "draft_claims",
+            "label": "draft_claims"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "text",
+            "label": "text"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how asking updates holistic during execution.",
+            "values": {
+              "STOPWORDS": "{'a', 'an', 'and', 'are', 'by', 'for', …",
+              "evidence": "['Enterprise plans include 99.95 uptime…",
+              "draft_claims": "['Enterprise plans include 99.95 uptime…",
+              "text": "'Enterprise plans include 99.95 uptime …"
+            },
+            "tones": {
+              "STOPWORDS": "data",
+              "evidence": "data",
+              "draft_claims": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "STOPWORDS",
+                "evidence"
+              ],
+              [
+                "evidence",
+                "draft_claims"
+              ],
+              [
+                "draft_claims",
+                "text"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Atomic **claim decomposition** sharpens verification ruthlessly.",
+            "values": {
+              "STOPWORDS": "{'a', 'an', 'and', 'are', 'by', 'for', …",
+              "evidence": "['Enterprise plans include 99.95 uptime…",
+              "draft_claims": "['Enterprise plans include 99.95 uptime…",
+              "text": "'Enterprise plans include 99.95 uptime …"
+            },
+            "tones": {
+              "STOPWORDS": "data",
+              "evidence": "data",
+              "draft_claims": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "STOPWORDS",
+                "evidence"
+              ],
+              [
+                "evidence",
+                "draft_claims"
+              ],
+              [
+                "draft_claims",
+                "text"
+              ]
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Audit groundedness_score() below breaking a multi-sentence answer down.",
+            "values": {
+              "STOPWORDS": "{'a', 'an', 'and', 'are', 'by', 'for', …",
+              "evidence": "['Enterprise plans include 99.95 uptime…",
+              "draft_claims": "['Enterprise plans include 99.95 uptime…",
+              "text": "'Enterprise plans include 99.95 uptime …"
+            },
+            "tones": {
+              "STOPWORDS": "ok",
+              "evidence": "ok",
+              "draft_claims": "ok",
+              "text": "ok"
+            },
+            "arrows": [
+              [
+                "STOPWORDS",
+                "evidence"
+              ],
+              [
+                "evidence",
+                "draft_claims"
+              ],
+              [
+                "draft_claims",
+                "text"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Precision@K Filtering Inside Context Relevance Audits",
+      "codeHash": "32a1a3a625129d3df4c0fb85b4523a7fb0b944d5e58368cfb5794c275f63fa25",
+      "spec": {
+        "template": "bars",
+        "title": "Precision@K Filtering Inside Context Relevance Audits",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Standard dense similarity stores always return full `top_k` results.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 4,
+                  "hit": 6
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "first_rank",
+                "value": {
+                  "var": "first_rank",
+                  "line": 5,
+                  "hit": 4
+                },
+                "tone": "data"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "mrr",
+                "value": {
+                  "var": "mrr",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Evaluating **Chunk-Level Context Relevance** labels every returned passage.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 5,
+                  "hit": 4
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "first_rank",
+                "value": {
+                  "var": "first_rank",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "mrr",
+                "value": {
+                  "var": "mrr",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Trace how trace updates across during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+                "label": "first_rank",
+                "value": {
+                  "var": "first_rank",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "mrr",
+                "value": {
+                  "var": "mrr",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "bars",
+        "title": "Precision@K Filtering Inside Context Relevance Audits",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Standard dense similarity stores always return full `top_k` results.",
+            "bars": [
+              {
+                "label": "hits",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "first_rank",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "mrr",
+                "value": 0.333,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Evaluating **Chunk-Level Context Relevance** labels every returned passage.",
+            "bars": [
+              {
+                "label": "hits",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "first_rank",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "mrr",
+                "value": 0.333,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Trace how trace updates across during execution.",
+            "bars": [
+              {
+                "label": "hits",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "first_rank",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "mrr",
+                "value": 0.333,
+                "tone": "ok"
               }
             ]
           }
@@ -272,1065 +702,329 @@
       }
     },
     {
-      "partTitle": "RAG Triad Telemetry — Core Algorithm & State Representation",
-      "codeHash": "326b0a6ac6356e292e8c25bb3f8d05abc5ff174edd5f58ed8ecdeac32756001e",
+      "partTitle": "Answer Relevance: Catching Evasive Refusals and Question Drift",
+      "codeHash": "7fd285de92ebc48b1d873322d95868dc801666c33f38a2be8a40e55b2961a511",
       "spec": {
-        "template": "flow",
-        "title": "RAG Triad Telemetry — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Answer Relevance: Catching Evasive Refusals and Question Drift",
+        "actors": [
+          "reqs",
+          "required_intents",
+          "answer_text"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Picture a user asking specifically `'How do I rotate staging S3 keys.",
+            "activeActor": "reqs",
+            "messages": [
+              {
+                "from": "reqs",
+                "to": "required_intents",
+                "label": {
+                  "var": "reqs",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "required_intents",
+                "to": "answer_text",
+                "label": {
+                  "var": "required_intents",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Yet the user leaves empty-handed because the response never delivered one.",
+            "activeActor": "required_intents",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "reqs",
+                "to": "required_intents",
+                "label": {
+                  "var": "reqs",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "required_intents",
+                "to": "answer_text",
+                "label": {
+                  "var": "required_intents",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Run check_answer_relevance() distinguishing concrete step-by-step coverage.",
+            "activeActor": "answer_text",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "reqs",
+                "to": "required_intents",
+                "label": {
+                  "var": "reqs",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "required_intents",
+                "to": "answer_text",
+                "label": {
+                  "var": "required_intents",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "RAG Triad Telemetry — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Answer Relevance: Catching Evasive Refusals and Question Drift",
+        "actors": [
+          "reqs",
+          "required_intents",
+          "answer_text"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Picture a user asking specifically `'How do I rotate staging S3 keys.",
+            "messages": [
+              {
+                "from": "reqs",
+                "to": "required_intents",
+                "label": "['dual keys', 'verify', 'revoke old']",
+                "tone": "data"
+              },
+              {
+                "from": "required_intents",
+                "to": "answer_text",
+                "label": "['dual keys', 'verify', 'revoke old']",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "reqs"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Yet the user leaves empty-handed because the response never delivered one.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "reqs",
+                "to": "required_intents",
+                "label": "['dual keys', 'verify', 'revoke old']",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "required_intents",
+                "to": "answer_text",
+                "label": "['dual keys', 'verify', 'revoke old']",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "required_intents"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Run check_answer_relevance() distinguishing concrete step-by-step coverage.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "reqs",
+                "to": "required_intents",
+                "label": "['dual keys', 'verify', 'revoke old']",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "required_intents",
+                "to": "answer_text",
+                "label": "['dual keys', 'verify', 'revoke old']",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "answer_text"
           }
         ]
       }
     },
     {
-      "partTitle": "RAG Triad Telemetry — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "a0f7e4a8ed07efcbd86150e3b1633699dc9520d0b55744d3a0e358743ca17735",
+      "partTitle": "Inline Span Attribution and Continuous Triad Production Monitoring",
+      "codeHash": "e75cb7153abf7e6cbb7a5f1c575d7fe27aa6b6580d070f741d5e07dc67874662",
       "spec": {
-        "template": "flow",
-        "title": "RAG Triad Telemetry — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Inline Span Attribution and Continuous Triad Production Monitori",
+        "actors": [
+          "answer",
+          "retrieved_ids",
+          "ctx_rel"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Collecting Triad metrics only once a month on synthetic test sheets misses.",
+            "activeActor": "answer",
+            "messages": [
+              {
+                "from": "answer",
+                "to": "retrieved_ids",
+                "label": {
+                  "var": "answer",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "retrieved_ids",
+                "to": "ctx_rel",
+                "label": {
+                  "var": "retrieved_ids",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Enterprise AI platforms wire lightweight asynchronous Triad auditors over.",
+            "activeActor": "retrieved_ids",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "answer",
+                "to": "retrieved_ids",
+                "label": {
+                  "var": "answer",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "retrieved_ids",
+                "to": "ctx_rel",
+                "label": {
+                  "var": "retrieved_ids",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say7",
+            "caption": "Inspect audit_citations_and_triad() checking ghost bracket references.",
+            "activeActor": "ctx_rel",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "answer",
+                "to": "retrieved_ids",
+                "label": {
+                  "var": "answer",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "retrieved_ids",
+                "to": "ctx_rel",
+                "label": {
+                  "var": "retrieved_ids",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "RAG Triad Telemetry — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Inline Span Attribution and Continuous Triad Production Monitori",
+        "actors": [
+          "answer",
+          "retrieved_ids",
+          "ctx_rel"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Collecting Triad metrics only once a month on synthetic test sheets misses.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "answer",
+                "to": "retrieved_ids",
+                "label": "'Limit is 50 req/s [doc_2].'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "retrieved_ids",
+                "to": "ctx_rel",
+                "label": "['doc_1', 'doc_2']",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "answer"
           },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "RAG Triad Telemetry — Resilience Guardrails & Failure Recovery",
-      "codeHash": "8d28c07e93defba0b2719d6414efc8a5032b52022c534061212956851c85b7f3",
-      "spec": {
-        "template": "flow",
-        "title": "RAG Triad Telemetry — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Enterprise AI platforms wire lightweight asynchronous Triad auditors over.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "answer",
+                "to": "retrieved_ids",
+                "label": "'Limit is 50 req/s [doc_2].'",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "retrieved_ids",
+                "to": "ctx_rel",
+                "label": "['doc_1', 'doc_2']",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "activeActor": "retrieved_ids"
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
+            "at": "say7",
+            "caption": "Inspect audit_citations_and_triad() checking ghost bracket references.",
+            "messages": [
+              {
+                "from": "answer",
+                "to": "retrieved_ids",
+                "label": "'Limit is 50 req/s [doc_2].'",
+                "tone": "data"
+              },
+              {
+                "from": "retrieved_ids",
+                "to": "ctx_rel",
+                "label": "['doc_1', 'doc_2']",
+                "tone": "ok"
+              }
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "RAG Triad Telemetry — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "RAG Triad Telemetry — Production Telemetry & Verification Audit",
-      "codeHash": "10864e3821ef7234a0962000861c3ea71288ab1ffd3ff34df71c5337e3f2cc7d",
-      "spec": {
-        "template": "flow",
-        "title": "RAG Triad Telemetry — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "RAG Triad Telemetry — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "ctx_rel"
           }
         ]
       }

@@ -2,256 +2,228 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 2,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Many forms, one meaning",
       "codeHash": "598b312ff39cbd6aefb4cdbc381030f4f56501315deff8367e452436ec3ed0fb",
       "spec": {
-        "template": "table",
-        "title": "Morphological inflected forms grouped by common base root",
-        "columns": [
-          "tokens",
-          "base"
+        "template": "flow",
+        "title": "Many forms, one meaning",
+        "nodes": [
+          {
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "base",
+            "label": "base"
+          },
+          {
+            "id": "t",
+            "label": "t"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "English words change form across tenses and comparative variations.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "runs"
-                  },
-                  {
-                    "text": "run"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "English words change form.",
+            "values": {
+              "tokens": {
+                "var": "tokens",
+                "line": 3,
+                "hit": 1
+              },
+              "base": {
+                "var": "base",
+                "line": 4,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "tokens": "data",
+              "base": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "base"
+              ],
+              [
+                "base",
+                "t"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Search tasks expect different inflected forms to match the same root.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "runs"
-                  },
-                  {
-                    "text": "run"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "For many tasks these forms mean the same thing.",
+            "values": {
+              "tokens": {
+                "var": "tokens",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "running"
-                  },
-                  {
-                    "text": "run"
-                  }
-                ],
-                "tone": "ok"
+              "base": {
+                "var": "base",
+                "line": 5,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 6,
+                "hit": 2
               }
+            },
+            "tones": {
+              "tokens": "data",
+              "base": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "base"
+              ],
+              [
+                "base",
+                "t"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Reducing each word to a base form shrinks overall vocabulary size.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "runs"
-                  },
-                  {
-                    "text": "run"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The goal is not perfect linguistics but better matching and counting.",
+            "values": {
+              "tokens": {
+                "var": "tokens",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "running"
-                  },
-                  {
-                    "text": "run"
-                  }
-                ],
-                "tone": "ok"
+              "base": {
+                "var": "base",
+                "line": 6,
+                "hit": 8
               },
-              {
-                "cells": [
-                  {
-                    "text": "shoes"
-                  },
-                  {
-                    "text": "shoe"
-                  }
-                ],
-                "tone": "ok"
+              "t": {
+                "var": "t",
+                "line": 6,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Stemming chops off endings while lemmatisation finds dictionary lemmas.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "runs"
-                  },
-                  {
-                    "text": "run"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "running"
-                  },
-                  {
-                    "text": "run"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "shoes"
-                  },
-                  {
-                    "text": "shoe"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "base"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "tokens": "ok",
+              "base": "ok",
+              "t": "ok"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "base"
+              ],
+              [
+                "base",
+                "t"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Morphological inflected forms grouped by common base root",
-        "columns": [
-          "tokens",
-          "base"
+        "template": "flow",
+        "title": "Many forms, one meaning",
+        "nodes": [
+          {
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "base",
+            "label": "base"
+          },
+          {
+            "id": "t",
+            "label": "t"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "English words change form across tenses and comparative variations.",
-            "rows": [
-              {
-                "cells": [
-                  "runs",
-                  "run"
-                ],
-                "tone": "ok"
-              }
+            "caption": "English words change form.",
+            "values": {
+              "tokens": "['run', 'runs', 'running', 'ran', 'shoe…",
+              "base": "{'runs': 'run', 'running': 'run', 'ran'…",
+              "t": "'run'"
+            },
+            "tones": {
+              "tokens": "data",
+              "base": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "base"
+              ],
+              [
+                "base",
+                "t"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Search tasks expect different inflected forms to match the same root.",
-            "rows": [
-              {
-                "cells": [
-                  "runs",
-                  "run"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "running",
-                  "run"
-                ],
-                "tone": "ok"
-              }
+            "caption": "For many tasks these forms mean the same thing.",
+            "values": {
+              "tokens": "['run', 'runs', 'running', 'ran', 'shoe…",
+              "base": "{'runs': 'run', 'running': 'run', 'ran'…",
+              "t": "'runs'"
+            },
+            "tones": {
+              "tokens": "data",
+              "base": "data",
+              "t": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "base"
+              ],
+              [
+                "base",
+                "t"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Reducing each word to a base form shrinks overall vocabulary size.",
-            "rows": [
-              {
-                "cells": [
-                  "runs",
-                  "run"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "running",
-                  "run"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "shoes",
-                  "shoe"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Stemming chops off endings while lemmatisation finds dictionary lemmas.",
-            "rows": [
-              {
-                "cells": [
-                  "runs",
-                  "run"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "running",
-                  "run"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "shoes",
-                  "shoe"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tokens",
-                  "base"
-                ],
-                "tone": "data"
-              }
+            "at": "say7",
+            "caption": "The goal is not perfect linguistics but better matching and counting.",
+            "values": {
+              "tokens": "['run', 'runs', 'running', 'ran', 'shoe…",
+              "base": "{'runs': 'run', 'running': 'run', 'ran'…",
+              "t": "'running'"
+            },
+            "tones": {
+              "tokens": "ok",
+              "base": "ok",
+              "t": "ok"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "base"
+              ],
+              [
+                "base",
+                "t"
+              ]
             ]
           }
         ]
@@ -261,249 +233,221 @@
       "partTitle": "Stemming with suffix rules",
       "codeHash": "20dd7327dd5fa0a232ea08a6159832666e4d5b0e303698c8e14573ddd84ab9d0",
       "spec": {
-        "template": "table",
-        "title": "Heuristic suffix stripping rules and consonant undoubling logic",
-        "columns": [
-          "word",
-          "suf"
+        "template": "flow",
+        "title": "Stemming with suffix rules",
+        "nodes": [
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "w",
+            "label": "w"
+          },
+          {
+            "id": "suf",
+            "label": "suf"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A stemmer applies rules to strip suffixes across languages.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "studies"
-                  },
-                  {
-                    "text": "es"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A stemmer applies rules to strip suffixes.",
+            "values": {
+              "word": {
+                "var": "word",
+                "line": 11,
+                "hit": 1
+              },
+              "w": {
+                "var": "w",
+                "line": 2,
+                "hit": 1
+              },
+              "suf": {
+                "var": "suf",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "word": "data",
+              "w": "data",
+              "suf": "data"
+            },
+            "arrows": [
+              [
+                "word",
+                "w"
+              ],
+              [
+                "w",
+                "suf"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Stems are not always real words when suffixes are stripped.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "studies"
-                  },
-                  {
-                    "text": "es"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Stems are not always real words.",
+            "values": {
+              "word": {
+                "var": "word",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "studi"
-                  },
-                  {
-                    "text": "es"
-                  }
-                ],
-                "tone": "idle"
+              "w": {
+                "var": "w",
+                "line": 3,
+                "hit": 1
+              },
+              "suf": {
+                "var": "suf",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "word": "data",
+              "w": "data",
+              "suf": "data"
+            },
+            "arrows": [
+              [
+                "word",
+                "w"
+              ],
+              [
+                "w",
+                "suf"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Stemmers make errors through over-stemming and under-stemming.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "studies"
-                  },
-                  {
-                    "text": "es"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example runs the simple stemmer over a list of words, including some.",
+            "values": {
+              "word": {
+                "var": "word",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "studi"
-                  },
-                  {
-                    "text": "es"
-                  }
-                ],
-                "tone": "idle"
+              "w": {
+                "var": "w",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "universal"
-                  },
-                  {
-                    "text": "ly"
-                  }
-                ],
-                "tone": "error"
+              "suf": {
+                "var": "suf",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The minimum length rule protects short words from excessive truncation.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "studies"
-                  },
-                  {
-                    "text": "es"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "studi"
-                  },
-                  {
-                    "text": "es"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "universal"
-                  },
-                  {
-                    "text": "ly"
-                  }
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "word"
-                  },
-                  {
-                    "text": "suf"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "word": "ok",
+              "w": "ok",
+              "suf": "ok"
+            },
+            "arrows": [
+              [
+                "word",
+                "w"
+              ],
+              [
+                "w",
+                "suf"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Heuristic suffix stripping rules and consonant undoubling logic",
-        "columns": [
-          "word",
-          "suf"
+        "template": "flow",
+        "title": "Stemming with suffix rules",
+        "nodes": [
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "w",
+            "label": "w"
+          },
+          {
+            "id": "suf",
+            "label": "suf"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A stemmer applies rules to strip suffixes across languages.",
-            "rows": [
-              {
-                "cells": [
-                  "studies",
-                  "es"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A stemmer applies rules to strip suffixes.",
+            "values": {
+              "word": "'running'",
+              "w": "'running'",
+              "suf": "'ing'"
+            },
+            "tones": {
+              "word": "data",
+              "w": "data",
+              "suf": "data"
+            },
+            "arrows": [
+              [
+                "word",
+                "w"
+              ],
+              [
+                "w",
+                "suf"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Stems are not always real words when suffixes are stripped.",
-            "rows": [
-              {
-                "cells": [
-                  "studies",
-                  "es"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "studi",
-                  "es"
-                ],
-                "tone": "idle"
-              }
+            "caption": "Stems are not always real words.",
+            "values": {
+              "word": "'running'",
+              "w": "'running'",
+              "suf": "'ing'"
+            },
+            "tones": {
+              "word": "data",
+              "w": "data",
+              "suf": "data"
+            },
+            "arrows": [
+              [
+                "word",
+                "w"
+              ],
+              [
+                "w",
+                "suf"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Stemmers make errors through over-stemming and under-stemming.",
-            "rows": [
-              {
-                "cells": [
-                  "studies",
-                  "es"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "studi",
-                  "es"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "universal",
-                  "ly"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The minimum length rule protects short words from excessive truncation.",
-            "rows": [
-              {
-                "cells": [
-                  "studies",
-                  "es"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "studi",
-                  "es"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "universal",
-                  "ly"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "word",
-                  "suf"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example runs the simple stemmer over a list of words, including some.",
+            "values": {
+              "word": "'running'",
+              "w": "'running'",
+              "suf": "'ing'"
+            },
+            "tones": {
+              "word": "ok",
+              "w": "ok",
+              "suf": "ok"
+            },
+            "arrows": [
+              [
+                "word",
+                "w"
+              ],
+              [
+                "w",
+                "suf"
+              ]
             ]
           }
         ]
@@ -513,249 +457,221 @@
       "partTitle": "Parts of speech",
       "codeHash": "3727d6849eed8a0de32b2ea06d6c2866b9885958b84b60a5d9558a691e05cf6a",
       "spec": {
-        "template": "table",
-        "title": "Part of speech tags influencing lemma resolution for identical words",
-        "columns": [
-          "word",
-          "pos"
+        "template": "flow",
+        "title": "Parts of speech",
+        "nodes": [
+          {
+            "id": "lemmas",
+            "label": "lemmas"
+          },
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "pos",
+            "label": "pos"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The same word can play different roles as a noun or verb.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "meeting"
-                  },
-                  {
-                    "text": "NOUN"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The same word can play different roles.",
+            "values": {
+              "lemmas": {
+                "var": "lemmas",
+                "line": 1,
+                "hit": 2
+              },
+              "word": {
+                "var": "word",
+                "line": 3,
+                "hit": 1
+              },
+              "pos": {
+                "var": "pos",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "lemmas": "data",
+              "word": "data",
+              "pos": "data"
+            },
+            "arrows": [
+              [
+                "lemmas",
+                "word"
+              ],
+              [
+                "word",
+                "pos"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Parts of speech classify grammatical roles such as noun and verb.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "meeting"
-                  },
-                  {
-                    "text": "NOUN"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "These roles are parts of speech (POS).",
+            "values": {
+              "lemmas": {
+                "var": "lemmas",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "meeting"
-                  },
-                  {
-                    "text": "VERB"
-                  }
-                ],
-                "tone": "ok"
+              "word": {
+                "var": "word",
+                "line": 5,
+                "hit": 1
+              },
+              "pos": {
+                "var": "pos",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "lemmas": "data",
+              "word": "data",
+              "pos": "data"
+            },
+            "arrows": [
+              [
+                "lemmas",
+                "word"
+              ],
+              [
+                "word",
+                "pos"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Part of speech changes the base form when reducing verbs and adjectives.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "meeting"
-                  },
-                  {
-                    "text": "NOUN"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example shows the same word getting different lemmas depending on its.",
+            "values": {
+              "lemmas": {
+                "var": "lemmas",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "meeting"
-                  },
-                  {
-                    "text": "VERB"
-                  }
-                ],
-                "tone": "ok"
+              "word": {
+                "var": "word",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "better"
-                  },
-                  {
-                    "text": "ADJ"
-                  }
-                ],
-                "tone": "data"
+              "pos": {
+                "var": "pos",
+                "line": 3,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Lemmatisers take the part of speech as input to avoid guessing.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "meeting"
-                  },
-                  {
-                    "text": "NOUN"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "meeting"
-                  },
-                  {
-                    "text": "VERB"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "better"
-                  },
-                  {
-                    "text": "ADJ"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "saw"
-                  },
-                  {
-                    "text": "NOUN"
-                  }
-                ],
-                "tone": "idle"
-              }
+            },
+            "tones": {
+              "lemmas": "ok",
+              "word": "ok",
+              "pos": "ok"
+            },
+            "arrows": [
+              [
+                "lemmas",
+                "word"
+              ],
+              [
+                "word",
+                "pos"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Part of speech tags influencing lemma resolution for identical words",
-        "columns": [
-          "word",
-          "pos"
+        "template": "flow",
+        "title": "Parts of speech",
+        "nodes": [
+          {
+            "id": "lemmas",
+            "label": "lemmas"
+          },
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "pos",
+            "label": "pos"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The same word can play different roles as a noun or verb.",
-            "rows": [
-              {
-                "cells": [
-                  "meeting",
-                  "NOUN"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The same word can play different roles.",
+            "values": {
+              "lemmas": "{['meeting', 'VERB']: 'meet', ['better'…",
+              "word": "'meeting'",
+              "pos": "'VERB'"
+            },
+            "tones": {
+              "lemmas": "data",
+              "word": "data",
+              "pos": "data"
+            },
+            "arrows": [
+              [
+                "lemmas",
+                "word"
+              ],
+              [
+                "word",
+                "pos"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Parts of speech classify grammatical roles such as noun and verb.",
-            "rows": [
-              {
-                "cells": [
-                  "meeting",
-                  "NOUN"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "meeting",
-                  "VERB"
-                ],
-                "tone": "ok"
-              }
+            "caption": "These roles are parts of speech (POS).",
+            "values": {
+              "lemmas": "{['meeting', 'VERB']: 'meet', ['better'…",
+              "word": "'meeting'",
+              "pos": "'VERB'"
+            },
+            "tones": {
+              "lemmas": "data",
+              "word": "data",
+              "pos": "data"
+            },
+            "arrows": [
+              [
+                "lemmas",
+                "word"
+              ],
+              [
+                "word",
+                "pos"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Part of speech changes the base form when reducing verbs and adjectives.",
-            "rows": [
-              {
-                "cells": [
-                  "meeting",
-                  "NOUN"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "meeting",
-                  "VERB"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "better",
-                  "ADJ"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Lemmatisers take the part of speech as input to avoid guessing.",
-            "rows": [
-              {
-                "cells": [
-                  "meeting",
-                  "NOUN"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "meeting",
-                  "VERB"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "better",
-                  "ADJ"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "saw",
-                  "NOUN"
-                ],
-                "tone": "idle"
-              }
+            "at": "say7",
+            "caption": "The example shows the same word getting different lemmas depending on its.",
+            "values": {
+              "lemmas": "{['meeting', 'VERB']: 'meet', ['better'…",
+              "word": "'meeting'",
+              "pos": "'NOUN'"
+            },
+            "tones": {
+              "lemmas": "ok",
+              "word": "ok",
+              "pos": "ok"
+            },
+            "arrows": [
+              [
+                "lemmas",
+                "word"
+              ],
+              [
+                "word",
+                "pos"
+              ]
             ]
           }
         ]
@@ -765,249 +681,277 @@
       "partTitle": "Dictionary lemmatisation",
       "codeHash": "8b8b28f3b99a38091b09ebc009878d4057ee4cd62faf87fe5e710fb8f9a2fe7d",
       "spec": {
-        "template": "table",
-        "title": "Dictionary lookup mapping irregular inflections to canon lemmas",
-        "columns": [
-          "word",
-          "pos"
+        "template": "flow",
+        "title": "Dictionary lemmatisation",
+        "nodes": [
+          {
+            "id": "D",
+            "label": "D"
+          },
+          {
+            "id": "tagged",
+            "label": "tagged"
+          },
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "pos",
+            "label": "pos"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A lemmatiser uses a dictionary of word forms and regular ending rules.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cats"
-                  },
-                  {
-                    "text": "NOUN"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A lemmatiser uses a dictionary of word forms, such as WordNet for English.",
+            "values": {
+              "D": {
+                "var": "D",
+                "line": 1,
+                "hit": 2
+              },
+              "tagged": {
+                "var": "tagged",
+                "line": 8,
+                "hit": 1
+              },
+              "word": {
+                "var": "word",
+                "line": 5,
+                "hit": 1
+              },
+              "pos": {
+                "var": "pos",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "D": "data",
+              "tagged": "data",
+              "word": "data",
+              "pos": "data"
+            },
+            "arrows": [
+              [
+                "D",
+                "tagged"
+              ],
+              [
+                "tagged",
+                "word"
+              ],
+              [
+                "word",
+                "pos"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Dictionary lookup handles irregular forms like mice becoming mouse.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cats"
-                  },
-                  {
-                    "text": "NOUN"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "It handles irregular forms that no suffix rule could.",
+            "values": {
+              "D": {
+                "var": "D",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "mice"
-                  },
-                  {
-                    "text": "NOUN"
-                  }
-                ],
-                "tone": "ok"
+              "tagged": {
+                "var": "tagged",
+                "line": 9,
+                "hit": 1
+              },
+              "word": {
+                "var": "word",
+                "line": 6,
+                "hit": 1
+              },
+              "pos": {
+                "var": "pos",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "D": "data",
+              "tagged": "data",
+              "word": "data",
+              "pos": "data"
+            },
+            "arrows": [
+              [
+                "D",
+                "tagged"
+              ],
+              [
+                "tagged",
+                "word"
+              ],
+              [
+                "word",
+                "pos"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Lookup the word and part of speech pair to return the base lemma.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cats"
-                  },
-                  {
-                    "text": "NOUN"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "The example builds a tiny lemmatiser and applies it to a tagged sentence.",
+            "values": {
+              "D": {
+                "var": "D",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "mice"
-                  },
-                  {
-                    "text": "NOUN"
-                  }
-                ],
-                "tone": "ok"
+              "tagged": {
+                "var": "tagged",
+                "line": 9,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "was"
-                  },
-                  {
-                    "text": "VERB"
-                  }
-                ],
-                "tone": "data"
+              "word": {
+                "var": "word",
+                "line": 5,
+                "hit": 2
+              },
+              "pos": {
+                "var": "pos",
+                "line": 5,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Tuple keys allow fast single operation dictionary lookups.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cats"
-                  },
-                  {
-                    "text": "NOUN"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "mice"
-                  },
-                  {
-                    "text": "NOUN"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "was"
-                  },
-                  {
-                    "text": "VERB"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "better"
-                  },
-                  {
-                    "text": "ADJ"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "D": "ok",
+              "tagged": "ok",
+              "word": "ok",
+              "pos": "ok"
+            },
+            "arrows": [
+              [
+                "D",
+                "tagged"
+              ],
+              [
+                "tagged",
+                "word"
+              ],
+              [
+                "word",
+                "pos"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Dictionary lookup mapping irregular inflections to canon lemmas",
-        "columns": [
-          "word",
-          "pos"
+        "template": "flow",
+        "title": "Dictionary lemmatisation",
+        "nodes": [
+          {
+            "id": "D",
+            "label": "D"
+          },
+          {
+            "id": "tagged",
+            "label": "tagged"
+          },
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "pos",
+            "label": "pos"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A lemmatiser uses a dictionary of word forms and regular ending rules.",
-            "rows": [
-              {
-                "cells": [
-                  "cats",
-                  "NOUN"
-                ],
-                "tone": "ok"
-              }
+            "caption": "A lemmatiser uses a dictionary of word forms, such as WordNet for English.",
+            "values": {
+              "D": "{['mice', 'NOUN']: 'mouse', ['was', 'VE…",
+              "tagged": "[['The', 'DET'], ['cats', 'NOUN'], ['wa…",
+              "word": "'The'",
+              "pos": "'DET'"
+            },
+            "tones": {
+              "D": "data",
+              "tagged": "data",
+              "word": "data",
+              "pos": "data"
+            },
+            "arrows": [
+              [
+                "D",
+                "tagged"
+              ],
+              [
+                "tagged",
+                "word"
+              ],
+              [
+                "word",
+                "pos"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Dictionary lookup handles irregular forms like mice becoming mouse.",
-            "rows": [
-              {
-                "cells": [
-                  "cats",
-                  "NOUN"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "mice",
-                  "NOUN"
-                ],
-                "tone": "ok"
-              }
+            "caption": "It handles irregular forms that no suffix rule could.",
+            "values": {
+              "D": "{['mice', 'NOUN']: 'mouse', ['was', 'VE…",
+              "tagged": "[['The', 'DET'], ['cats', 'NOUN'], ['wa…",
+              "word": "'The'",
+              "pos": "'DET'"
+            },
+            "tones": {
+              "D": "data",
+              "tagged": "data",
+              "word": "data",
+              "pos": "data"
+            },
+            "arrows": [
+              [
+                "D",
+                "tagged"
+              ],
+              [
+                "tagged",
+                "word"
+              ],
+              [
+                "word",
+                "pos"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Lookup the word and part of speech pair to return the base lemma.",
-            "rows": [
-              {
-                "cells": [
-                  "cats",
-                  "NOUN"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "mice",
-                  "NOUN"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "was",
-                  "VERB"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Tuple keys allow fast single operation dictionary lookups.",
-            "rows": [
-              {
-                "cells": [
-                  "cats",
-                  "NOUN"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "mice",
-                  "NOUN"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "was",
-                  "VERB"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "better",
-                  "ADJ"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The example builds a tiny lemmatiser and applies it to a tagged sentence.",
+            "values": {
+              "D": "{['mice', 'NOUN']: 'mouse', ['was', 'VE…",
+              "tagged": "[['The', 'DET'], ['cats', 'NOUN'], ['wa…",
+              "word": "'cats'",
+              "pos": "'NOUN'"
+            },
+            "tones": {
+              "D": "ok",
+              "tagged": "ok",
+              "word": "ok",
+              "pos": "ok"
+            },
+            "arrows": [
+              [
+                "D",
+                "tagged"
+              ],
+              [
+                "tagged",
+                "word"
+              ],
+              [
+                "word",
+                "pos"
+              ]
             ]
           }
         ]
@@ -1017,223 +961,127 @@
       "partTitle": "Choosing between them",
       "codeHash": "3de8f5c8d84b8b8be9ef33d41cf2a69cfc69b8a06080203ef083dff308f1ff89",
       "spec": {
-        "template": "flow",
-        "title": "Choosing between them — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing between them",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Choosing between them",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing between them [Dtwo.Pfive.Sone].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing between them [Dtwo.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Stemming is fast, needs no dictionary and works acceptably for search.",
+            "items": {
+              "var": "words",
+              "line": 7,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Lemmatisation is more accurate, keeps real words and handles irregular.",
+            "items": {
+              "var": "words",
+              "line": 10,
+              "hit": 4
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing between them [Dtwo.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "A smaller vocabulary is not automatically better.",
+            "items": {
+              "var": "words",
+              "line": 10,
+              "hit": 9
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Choosing between them — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing between them",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Choosing between them",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing between them [D2.P5.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing between them [D2.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Stemming is fast, needs no dictionary and works acceptably for search.",
+            "items": [
+              "'play'",
+              "'plays'",
+              "'played'",
+              "'playing'",
+              "'study'",
+              "'studies'",
+              "'studied'",
+              "'mouse'",
+              "'mice'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Lemmatisation is more accurate, keeps real words and handles irregular.",
+            "items": [
+              "'play'",
+              "'plays'",
+              "'played'",
+              "'playing'",
+              "'study'",
+              "'studies'",
+              "'studied'",
+              "'mouse'",
+              "'mice'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing between them [D2.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "A smaller vocabulary is not automatically better.",
+            "items": [
+              "'play'",
+              "'plays'",
+              "'played'",
+              "'playing'",
+              "'study'",
+              "'studies'",
+              "'studied'",
+              "'mouse'",
+              "'mice'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -1244,110 +1092,93 @@
       "codeHash": "65b5a89e779840a68b8ac7d82f2173d3f279a1719d24e7f15fe65c296608ba81",
       "spec": {
         "template": "flow",
-        "title": "Practice time: stem and lemmatise — Execution Pipeline",
+        "title": "Practice time: stem and lemmatise",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "w",
+            "label": "w"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: stem...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "suf",
+            "label": "suf"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: stem and lemmatise.",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: stem... [Dtwo.Psix.Stwo].",
+            "caption": "Simple_stem(word).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "w": {
+                "var": "w",
+                "line": 13,
+                "hit": 1
+              },
+              "suf": {
+                "var": "suf",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "w": "data",
+              "suf": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "w",
+                "suf"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Psix.object-storage].",
+            "at": "say2",
+            "caption": "The break matters.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "w": {
+                "var": "w",
+                "line": 2,
+                "hit": 1
+              },
+              "suf": {
+                "var": "suf",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "w": "data",
+              "suf": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "w",
+                "suf"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: stem and lemmatise.",
+            "at": "say7",
+            "caption": "The example shows why the break is needed.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "w": {
+                "var": "w",
+                "line": 3,
+                "hit": 1
+              },
+              "suf": {
+                "var": "suf",
+                "line": 2,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "w": "ok",
+              "suf": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "w",
+                "suf"
               ]
             ]
           }
@@ -1355,110 +1186,69 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: stem and lemmatise — Execution Pipeline",
+        "title": "Practice time: stem and lemmatise",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "w",
+            "label": "w"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: stem...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "suf",
+            "label": "suf"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: stem and lemmatise [D2.P6.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: stem... [D2.P6.S2].",
+            "caption": "Simple_stem(word).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "w": "'glasses'",
+              "suf": "'ing'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "w": "data",
+              "suf": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "w",
+                "suf"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
+            "at": "say2",
+            "caption": "The break matters.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "w": "'glasses'",
+              "suf": "'ing'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "w": "data",
+              "suf": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "w",
+                "suf"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: stem and lemmatise [D2.P6.S4].",
+            "at": "say7",
+            "caption": "The example shows why the break is needed.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "w": "'glasses'",
+              "suf": "'ed'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "w": "ok",
+              "suf": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "w",
+                "suf"
               ]
             ]
           }

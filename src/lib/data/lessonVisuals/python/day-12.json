@@ -2,6 +2,8 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 12,
+  "promptSha": "8c2fcd1a45f799c332d903d909abe40ca0ceca60da52a3c44ef1d89efdd623ce",
+  "model": "hand-verified-day12",
   "entries": [
     {
       "partTitle": "Tuples: fixed groups of values",

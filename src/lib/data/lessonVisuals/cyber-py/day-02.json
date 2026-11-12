@@ -2,83 +2,161 @@
   "schemaVersion": 1,
   "prefix": "cyber-py",
   "day": 2,
-  "promptSha": "b49a2824de246a43252a753bcd38a5a5a245a27714e8daf096a44bf3d517657c",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "How SQL injection happens",
       "codeHash": "aa573b6567b5ecbe160d0761d2b8a4f0a8825635c94a3cd3a192c151e82a0235",
       "spec": {
-        "template": "compare",
-        "title": "Vulnerable dynamic SQL concatenation versus secure parameterized query architecture",
-        "left": {
-          "title": "Vulnerable Concatenation",
-          "items": [
-            "Raw user input interpolated into query template",
-            "Attacker input modifies the query abstract syntax tree",
-            "Bypasses authentication and leaks confidential tables"
-          ]
-        },
-        "right": {
-          "title": "Parameterized Statement",
-          "items": [
-            "SQL logic compiled ahead of execution phase",
-            "User inputs bound purely as literal scalar values",
-            "Input quotes and operators cannot alter command logic"
-          ]
-        },
+        "template": "table",
+        "title": "How SQL injection happens",
+        "columns": [
+          "Symbol",
+          "Executed Value"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "SQL injection occurs when untrusted input is directly concatenated.",
-            "highlightSide": "left",
-            "statusBadge": "active"
+            "caption": "Many applications build database queries by gluing user input into SQL.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "email"
+                  },
+                  {
+                    "var": "email",
+                    "line": 2,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If the input contains SQL syntax, the database cannot tell data from code.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "email"
+                  },
+                  {
+                    "var": "email",
+                    "line": 2,
+                    "hit": 2
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say9",
-            "caption": "Prepared statements separate query logic from runtime parameters.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "caption": "Once you understand this one idea, code versus data, many other injection.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
           }
-        ],
-        "leftLabel": "Vulnerable Concatenation",
-        "rightLabel": "Parameterized Statement"
+        ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Vulnerable dynamic SQL concatenation versus secure parameterized query architecture",
-        "left": {
-          "title": "Vulnerable Concatenation",
-          "items": [
-            "Raw user input interpolated into query template",
-            "Attacker input modifies the query abstract syntax tree",
-            "Bypasses authentication and leaks confidential tables"
-          ]
-        },
-        "right": {
-          "title": "Parameterized Statement",
-          "items": [
-            "SQL logic compiled ahead of execution phase",
-            "User inputs bound purely as literal scalar values",
-            "Input quotes and operators cannot alter command logic"
-          ]
-        },
+        "template": "table",
+        "title": "How SQL injection happens",
+        "columns": [
+          "Symbol",
+          "Executed Value"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "SQL injection occurs when untrusted input is directly concatenated.",
-            "highlightSide": "left",
-            "statusBadge": "active"
+            "caption": "Many applications build database queries by gluing user input into SQL.",
+            "rows": [
+              {
+                "cells": [
+                  "email",
+                  "'asha@example.com'"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If the input contains SQL syntax, the database cannot tell data from code.",
+            "rows": [
+              {
+                "cells": [
+                  "email",
+                  "\"x' OR '1'='1\""
+                ],
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say9",
-            "caption": "Prepared statements separate query logic from runtime parameters.",
-            "highlightSide": "right",
-            "statusBadge": "completed"
+            "caption": "Once you understand this one idea, code versus data, many other injection.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "SELECT * FROM users WHERE email = 'asha@example.com'"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "SELECT * FROM users WHERE email = 'x' OR '1'='1'"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "the second query is true for every row: the input changed the SQL itself"
+                ],
+                "tone": "ok"
+              }
+            ]
           }
-        ],
-        "leftLabel": "Vulnerable Concatenation",
-        "rightLabel": "Parameterized Statement"
+        ]
       }
     },
     {
@@ -86,73 +164,105 @@
       "codeHash": "b3a32c3ede88043397860679dd5bdf4a31ceac4add9ecec70893ceca6f17710d",
       "spec": {
         "template": "states",
-        "title": "Authentication query evaluation states under boolean tautology injection",
+        "title": "Parameterised queries",
         "states": [
           {
-            "id": "cleanInput",
-            "label": "Standard Credential Verification"
+            "id": "table",
+            "label": "table"
           },
           {
-            "id": "tautologyInjected",
-            "label": "Tautology Expression Evaluates to True"
+            "id": "filters",
+            "label": "filters"
           },
           {
-            "id": "passwordBypassed",
-            "label": "Password Check Truncated by Comments"
-          },
-          {
-            "id": "adminReturned",
-            "label": "First Administrator Record Returned"
+            "id": "sql",
+            "label": "sql"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A tautology attack crafts boolean expressions evaluating to true.",
-            "activeStateId": "tautologyInjected",
-            "statusBadge": "failed"
+            "caption": "The fix is parameterised queries (also called prepared statements).",
+            "currentState": "table",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "When comment tokens appear the database ignores password verification.",
-            "activeStateId": "passwordBypassed",
-            "statusBadge": "active"
+            "at": "say2",
+            "caption": "The database parses the SQL first, then treats each value strictly.",
+            "currentState": "filters",
+            "transition": {
+              "from": "table",
+              "to": "filters",
+              "label": {
+                "var": "filters",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Many databases can also reuse the parsed query, so parameterising can even.",
+            "currentState": "sql",
+            "transition": {
+              "from": "filters",
+              "to": "sql",
+              "label": {
+                "var": "sql",
+                "line": 4,
+                "hit": 3
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
         "template": "states",
-        "title": "Authentication query evaluation states under boolean tautology injection",
+        "title": "Parameterised queries",
         "states": [
           {
-            "id": "cleanInput",
-            "label": "Standard Credential Verification"
+            "id": "table",
+            "label": "table"
           },
           {
-            "id": "tautologyInjected",
-            "label": "Tautology Expression Evaluates to True"
+            "id": "filters",
+            "label": "filters"
           },
           {
-            "id": "passwordBypassed",
-            "label": "Password Check Truncated by Comments"
-          },
-          {
-            "id": "adminReturned",
-            "label": "First Administrator Record Returned"
+            "id": "sql",
+            "label": "sql"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A tautology attack crafts boolean expressions evaluating to true.",
-            "activeStateId": "tautologyInjected",
-            "statusBadge": "failed"
+            "caption": "The fix is parameterised queries (also called prepared statements).",
+            "currentState": "table",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "When comment tokens appear the database ignores password verification.",
-            "activeStateId": "passwordBypassed",
-            "statusBadge": "active"
+            "at": "say2",
+            "caption": "The database parses the SQL first, then treats each value strictly.",
+            "currentState": "filters",
+            "transition": {
+              "from": "table",
+              "to": "filters",
+              "label": "{'email': \"x' OR '1'='1\"}"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say9",
+            "caption": "Many databases can also reuse the parsed query, so parameterising can even.",
+            "currentState": "sql",
+            "transition": {
+              "from": "filters",
+              "to": "sql",
+              "label": "'SELECT * FROM users WHERE email = ?'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -161,166 +271,72 @@
       "partTitle": "Identifiers cannot be parameters",
       "codeHash": "f4521317ae18a06b25f320b31e4bf597dbbc1d308d903d646e7816e7b129f4a5",
       "spec": {
-        "template": "table",
-        "title": "Advanced SQL injection exploit techniques and impact classification",
-        "columns": [
-          "Attack Technique",
-          "SQL Mechanism",
-          "Objective",
-          "Prevention Strategy"
+        "template": "states",
+        "title": "Identifiers cannot be parameters",
+        "states": [
+          {
+            "id": "IDENT",
+            "label": "IDENT"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A union based injection merges the result set with secondary queries.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "UNION SELECT",
-                  "Appends secondary SELECT query",
-                  "Extracts hidden credentials and schema",
-                  "Parameterized Statements"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Piggybacked Query",
-                  "Semicolon statement delimiter",
-                  "Executes DROP or INSERT commands",
-                  "Disable Multi-Statement Support"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Schema Mapping",
-                  "Queries information_schema",
-                  "Discovers table and column layouts",
-                  "Least Privilege Database Grants"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Placeholders work only for values.",
+            "currentState": "IDENT",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Attackers execute piggybacked queries separated by semicolons.",
-            "activeRowIndex": 1,
-            "statusBadge": "failed",
-            "rows": [
-              {
-                "cells": [
-                  "UNION SELECT",
-                  "Appends secondary SELECT query",
-                  "Extracts hidden credentials and schema",
-                  "Parameterized Statements"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Piggybacked Query",
-                  "Semicolon statement delimiter",
-                  "Executes DROP or INSERT commands",
-                  "Disable Multi-Statement Support"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Schema Mapping",
-                  "Queries information_schema",
-                  "Discovers table and column layouts",
-                  "Least Privilege Database Grants"
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "If users can choose a column to sort by, you must validate it strictly.",
+            "currentState": "name",
+            "transition": {
+              "from": "IDENT",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Advanced SQL injection exploit techniques and impact classification",
-        "columns": [
-          "Attack Technique",
-          "SQL Mechanism",
-          "Objective",
-          "Prevention Strategy"
+        "template": "states",
+        "title": "Identifiers cannot be parameters",
+        "states": [
+          {
+            "id": "IDENT",
+            "label": "IDENT"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A union based injection merges the result set with secondary queries.",
-            "activeRowIndex": 0,
-            "statusBadge": "active",
-            "rows": [
-              {
-                "cells": [
-                  "UNION SELECT",
-                  "Appends secondary SELECT query",
-                  "Extracts hidden credentials and schema",
-                  "Parameterized Statements"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Piggybacked Query",
-                  "Semicolon statement delimiter",
-                  "Executes DROP or INSERT commands",
-                  "Disable Multi-Statement Support"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Schema Mapping",
-                  "Queries information_schema",
-                  "Discovers table and column layouts",
-                  "Least Privilege Database Grants"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Placeholders work only for values.",
+            "currentState": "IDENT",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Attackers execute piggybacked queries separated by semicolons.",
-            "activeRowIndex": 1,
-            "statusBadge": "failed",
-            "rows": [
-              {
-                "cells": [
-                  "UNION SELECT",
-                  "Appends secondary SELECT query",
-                  "Extracts hidden credentials and schema",
-                  "Parameterized Statements"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Piggybacked Query",
-                  "Semicolon statement delimiter",
-                  "Executes DROP or INSERT commands",
-                  "Disable Multi-Statement Support"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Schema Mapping",
-                  "Queries information_schema",
-                  "Discovers table and column layouts",
-                  "Least Privilege Database Grants"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "If users can choose a column to sort by, you must validate it strictly.",
+            "currentState": "name",
+            "transition": {
+              "from": "IDENT",
+              "to": "name",
+              "label": "'users'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -329,118 +345,162 @@
       "partTitle": "Detection as an extra alarm",
       "codeHash": "39c1b5f7c81a6e8ed19c03c60d6a7af43545d4fb3933c420f7c50c207780b0e1",
       "spec": {
-        "template": "sequence",
-        "title": "Time-based blind SQL injection extraction and delay inference sequence",
-        "actors": [
+        "template": "boxes",
+        "title": "Detection as an extra alarm",
+        "boxes": [
           {
-            "id": "adversary",
-            "label": "Attacking Client"
+            "id": "v",
+            "label": "v"
           },
           {
-            "id": "webApp",
-            "label": "Web Application"
+            "id": "low",
+            "label": "low"
           },
           {
-            "id": "dbServer",
-            "label": "Database Server"
-          }
-        ],
-        "messages": [
-          {
-            "from": "adversary",
-            "to": "webApp",
-            "label": "Submit Injected Sleep Payload in Parameter",
-            "tone": "error"
-          },
-          {
-            "from": "webApp",
-            "to": "dbServer",
-            "label": "Execute Blind Query with Sleep Conditional",
-            "tone": "error"
-          },
-          {
-            "from": "dbServer",
-            "to": "webApp",
-            "label": "Execution Thread Sleeps on True Condition",
-            "tone": "data"
-          },
-          {
-            "from": "webApp",
-            "to": "adversary",
-            "label": "Delayed HTTP Response Confirms Character Bit",
-            "tone": "ok"
+            "id": "found",
+            "label": "found"
           }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "The attacker forces the database execution thread to sleep.",
-            "activeMessageIndex": 0,
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Detection does not replace prevention, but it warns you that someone.",
+            "values": {
+              "v": {
+                "var": "v",
+                "line": 10,
+                "hit": 1
+              },
+              "low": {
+                "var": "low",
+                "line": 4,
+                "hit": 1
+              },
+              "found": {
+                "var": "found",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "v": "data",
+              "low": "data",
+              "found": "data"
+            }
           },
           {
-            "at": "say7",
-            "caption": "Automated tools can exfiltrate entire databases over blind channels.",
-            "activeMessageIndex": 3,
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Common injection signals include a quote followed by OR, SQL comment.",
+            "values": {
+              "v": {
+                "var": "v",
+                "line": 4,
+                "hit": 1
+              },
+              "low": {
+                "var": "low",
+                "line": 5,
+                "hit": 1
+              },
+              "found": {
+                "var": "found",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "v": "data",
+              "low": "data",
+              "found": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Seeing many signals from one address in a short time is a strong sign.",
+            "values": {
+              "v": {
+                "var": "v",
+                "line": 5,
+                "hit": 1
+              },
+              "low": {
+                "var": "low",
+                "line": 6,
+                "hit": 1
+              },
+              "found": {
+                "var": "found",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "v": "ok",
+              "low": "ok",
+              "found": "ok"
+            }
           }
         ]
       },
       "filled": {
-        "template": "sequence",
-        "title": "Time-based blind SQL injection extraction and delay inference sequence",
-        "actors": [
+        "template": "boxes",
+        "title": "Detection as an extra alarm",
+        "boxes": [
           {
-            "id": "adversary",
-            "label": "Attacking Client"
+            "id": "v",
+            "label": "v"
           },
           {
-            "id": "webApp",
-            "label": "Web Application"
+            "id": "low",
+            "label": "low"
           },
           {
-            "id": "dbServer",
-            "label": "Database Server"
-          }
-        ],
-        "messages": [
-          {
-            "from": "adversary",
-            "to": "webApp",
-            "label": "Submit Injected Sleep Payload in Parameter",
-            "tone": "error"
-          },
-          {
-            "from": "webApp",
-            "to": "dbServer",
-            "label": "Execute Blind Query with Sleep Conditional",
-            "tone": "error"
-          },
-          {
-            "from": "dbServer",
-            "to": "webApp",
-            "label": "Execution Thread Sleeps on True Condition",
-            "tone": "data"
-          },
-          {
-            "from": "webApp",
-            "to": "adversary",
-            "label": "Delayed HTTP Response Confirms Character Bit",
-            "tone": "ok"
+            "id": "found",
+            "label": "found"
           }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "The attacker forces the database execution thread to sleep.",
-            "activeMessageIndex": 0,
-            "statusBadge": "failed"
+            "at": "say1",
+            "caption": "Detection does not replace prevention, but it warns you that someone.",
+            "values": {
+              "v": "\"admin' OR 1=1 --\"",
+              "low": "\"admin' or 1=1 --\"",
+              "found": "[]"
+            },
+            "tones": {
+              "v": "data",
+              "low": "data",
+              "found": "data"
+            }
           },
           {
-            "at": "say7",
-            "caption": "Automated tools can exfiltrate entire databases over blind channels.",
-            "activeMessageIndex": 3,
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "Common injection signals include a quote followed by OR, SQL comment.",
+            "values": {
+              "v": "\"admin' OR 1=1 --\"",
+              "low": "\"admin' or 1=1 --\"",
+              "found": "['QUOTE_OR']"
+            },
+            "tones": {
+              "v": "data",
+              "low": "data",
+              "found": "data"
+            }
+          },
+          {
+            "at": "say9",
+            "caption": "Seeing many signals from one address in a short time is a strong sign.",
+            "values": {
+              "v": "\"admin' OR 1=1 --\"",
+              "low": "\"admin' or 1=1 --\"",
+              "found": "['QUOTE_OR', 'COMMENT']"
+            },
+            "tones": {
+              "v": "ok",
+              "low": "ok",
+              "found": "ok"
+            }
           }
         ]
       }
@@ -449,74 +509,278 @@
       "partTitle": "Least privilege for databases",
       "codeHash": "8ebd27ae6e2569030405a483e4e03443b9017be28472d40f84334bee78b45f47",
       "spec": {
-        "template": "states",
-        "title": "Parameterized prepared statement compilation and execution phases",
-        "states": [
+        "template": "flow",
+        "title": "Least privilege for databases",
+        "nodes": [
           {
-            "id": "templateSent",
-            "label": "SQL Template Transmitted with Placeholders"
+            "id": "granted",
+            "label": "granted"
           },
           {
-            "id": "astCompiled",
-            "label": "Immutable Query AST Pre-Compiled"
+            "id": "attempts",
+            "label": "attempts"
           },
           {
-            "id": "paramsBound",
-            "label": "User Values Bound as Literal Scalars"
+            "id": "account",
+            "label": "account"
           },
           {
-            "id": "safeExecuted",
-            "label": "Query Plan Executed Safely"
+            "id": "statement",
+            "label": "statement"
           }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "The database parses the template and compiles an immutable syntax tree.",
-            "activeStateId": "astCompiled",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Even with perfect code, assume a bug will slip through someday, and limit.",
+            "values": {
+              "granted": {
+                "var": "granted",
+                "line": 1,
+                "hit": 1
+              },
+              "attempts": {
+                "var": "attempts",
+                "line": 2,
+                "hit": 1
+              },
+              "account": {
+                "var": "account",
+                "line": 3,
+                "hit": 1
+              },
+              "statement": {
+                "var": "statement",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "granted": "data",
+              "attempts": "data",
+              "account": "data",
+              "statement": "data"
+            },
+            "arrows": [
+              [
+                "granted",
+                "attempts"
+              ],
+              [
+                "attempts",
+                "account"
+              ],
+              [
+                "account",
+                "statement"
+              ]
+            ]
           },
           {
-            "at": "say6",
-            "caption": "The database treats bound parameters purely as literal scalar values.",
-            "activeStateId": "paramsBound",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "The application's database account should have only the permissions it needs.",
+            "values": {
+              "granted": {
+                "var": "granted",
+                "line": 2,
+                "hit": 1
+              },
+              "attempts": {
+                "var": "attempts",
+                "line": 3,
+                "hit": 1
+              },
+              "account": {
+                "var": "account",
+                "line": 4,
+                "hit": 1
+              },
+              "statement": {
+                "var": "statement",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "granted": "data",
+              "attempts": "data",
+              "account": "data",
+              "statement": "data"
+            },
+            "arrows": [
+              [
+                "granted",
+                "attempts"
+              ],
+              [
+                "attempts",
+                "account"
+              ],
+              [
+                "account",
+                "statement"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Backups, tested regularly, are the final layer if data is destroyed.",
+            "values": {
+              "granted": {
+                "var": "granted",
+                "line": 3,
+                "hit": 1
+              },
+              "attempts": {
+                "var": "attempts",
+                "line": 4,
+                "hit": 1
+              },
+              "account": {
+                "var": "account",
+                "line": 5,
+                "hit": 1
+              },
+              "statement": {
+                "var": "statement",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "granted": "ok",
+              "attempts": "ok",
+              "account": "ok",
+              "statement": "ok"
+            },
+            "arrows": [
+              [
+                "granted",
+                "attempts"
+              ],
+              [
+                "attempts",
+                "account"
+              ],
+              [
+                "account",
+                "statement"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "states",
-        "title": "Parameterized prepared statement compilation and execution phases",
-        "states": [
+        "template": "flow",
+        "title": "Least privilege for databases",
+        "nodes": [
           {
-            "id": "templateSent",
-            "label": "SQL Template Transmitted with Placeholders"
+            "id": "granted",
+            "label": "granted"
           },
           {
-            "id": "astCompiled",
-            "label": "Immutable Query AST Pre-Compiled"
+            "id": "attempts",
+            "label": "attempts"
           },
           {
-            "id": "paramsBound",
-            "label": "User Values Bound as Literal Scalars"
+            "id": "account",
+            "label": "account"
           },
           {
-            "id": "safeExecuted",
-            "label": "Query Plan Executed Safely"
+            "id": "statement",
+            "label": "statement"
           }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "The database parses the template and compiles an immutable syntax tree.",
-            "activeStateId": "astCompiled",
-            "statusBadge": "active"
+            "at": "say1",
+            "caption": "Even with perfect code, assume a bug will slip through someday, and limit.",
+            "values": {
+              "granted": "{'app_user': {'INSERT', 'SELECT', 'UPDA…",
+              "attempts": "[['app_user', 'SELECT'], ['app_user', '…",
+              "account": "'app_user'",
+              "statement": "'SELECT'"
+            },
+            "tones": {
+              "granted": "data",
+              "attempts": "data",
+              "account": "data",
+              "statement": "data"
+            },
+            "arrows": [
+              [
+                "granted",
+                "attempts"
+              ],
+              [
+                "attempts",
+                "account"
+              ],
+              [
+                "account",
+                "statement"
+              ]
+            ]
           },
           {
-            "at": "say6",
-            "caption": "The database treats bound parameters purely as literal scalar values.",
-            "activeStateId": "paramsBound",
-            "statusBadge": "completed"
+            "at": "say2",
+            "caption": "The application's database account should have only the permissions it needs.",
+            "values": {
+              "granted": "{'app_user': {'INSERT', 'SELECT', 'UPDA…",
+              "attempts": "[['app_user', 'SELECT'], ['app_user', '…",
+              "account": "'app_user'",
+              "statement": "'SELECT'"
+            },
+            "tones": {
+              "granted": "data",
+              "attempts": "data",
+              "account": "data",
+              "statement": "data"
+            },
+            "arrows": [
+              [
+                "granted",
+                "attempts"
+              ],
+              [
+                "attempts",
+                "account"
+              ],
+              [
+                "account",
+                "statement"
+              ]
+            ]
+          },
+          {
+            "at": "say9",
+            "caption": "Backups, tested regularly, are the final layer if data is destroyed.",
+            "values": {
+              "granted": "{'app_user': {'INSERT', 'SELECT', 'UPDA…",
+              "attempts": "[['app_user', 'SELECT'], ['app_user', '…",
+              "account": "'app_user'",
+              "statement": "'SELECT'"
+            },
+            "tones": {
+              "granted": "ok",
+              "attempts": "ok",
+              "account": "ok",
+              "statement": "ok"
+            },
+            "arrows": [
+              [
+                "granted",
+                "attempts"
+              ],
+              [
+                "attempts",
+                "account"
+              ],
+              [
+                "account",
+                "statement"
+              ]
+            ]
           }
         ]
       }
@@ -525,224 +789,162 @@
       "partTitle": "Practice time: build and detect",
       "codeHash": "c6eb6a79d121e30db4f27ddd1db727ef93ec14114443395524e5b168f9140c8c",
       "spec": {
-        "template": "flow",
-        "title": "Building an Enterprise Query Parameterizer & ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building an Enterpr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: build and detect",
+        "actors": [
+          "IDENT",
+          "filters",
+          ".0"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Building an Enterprise Query Parameteriz.",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Building an Enterpr... [Dtwo.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Build_query(table, filters).",
+            "activeActor": "IDENT",
+            "messages": [
+              {
+                "from": "IDENT",
+                "to": "filters",
+                "label": {
+                  "var": "IDENT",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "filters",
+                "to": ".0",
+                "label": {
+                  "var": "filters",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include an injection string as a value (which must stay.",
+            "activeActor": "filters",
+            "messages": [
+              {
+                "from": "IDENT",
+                "to": "filters",
+                "label": {
+                  "var": "IDENT",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "filters",
+                "to": ".0",
+                "label": {
+                  "var": "filters",
+                  "line": 5,
+                  "hit": 4
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Building an Enterprise Query Para.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "In code reviews, search for SQL built with + or f-strings.",
+            "activeActor": ".0",
+            "messages": [
+              {
+                "from": "IDENT",
+                "to": "filters",
+                "label": {
+                  "var": "IDENT",
+                  "line": 5,
+                  "hit": 4
+                },
+                "tone": "data"
+              },
+              {
+                "from": "filters",
+                "to": ".0",
+                "label": {
+                  "var": "filters",
+                  "line": 6,
+                  "hit": 4
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Building an Enterprise Query Parameterizer & ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building an Enterpr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: build and detect",
+        "actors": [
+          "IDENT",
+          "filters",
+          ".0"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Enterprise Query Parameteriz.. [D2.P6.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Enterpr... [D2.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Build_query(table, filters).",
+            "messages": [
+              {
+                "from": "IDENT",
+                "to": "filters",
+                "label": "'[A-Za-z_][A-Za-z0-9_]*'",
+                "tone": "data"
+              },
+              {
+                "from": "filters",
+                "to": ".0",
+                "label": "{'city': 'Pune', 'name': \"x' OR 1=1 --\"}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "IDENT"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks include an injection string as a value (which must stay.",
+            "messages": [
+              {
+                "from": "IDENT",
+                "to": "filters",
+                "label": "'[A-Za-z_][A-Za-z0-9_]*'",
+                "tone": "data"
+              },
+              {
+                "from": "filters",
+                "to": ".0",
+                "label": "{'city': 'Pune', 'name': \"x' OR 1=1 --\"}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "filters"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Enterprise Query Para.. [D2.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say9",
+            "caption": "In code reviews, search for SQL built with + or f-strings.",
+            "messages": [
+              {
+                "from": "IDENT",
+                "to": "filters",
+                "label": "'[A-Za-z_][A-Za-z0-9_]*'",
+                "tone": "data"
+              },
+              {
+                "from": "filters",
+                "to": ".0",
+                "label": "{'city': 'Pune', 'name': \"x' OR 1=1 --\"}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": ".0"
           }
         ]
       }

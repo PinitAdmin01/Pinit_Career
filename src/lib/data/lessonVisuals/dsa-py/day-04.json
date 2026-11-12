@@ -2,89 +2,78 @@
   "schemaVersion": 1,
   "prefix": "dsa-py",
   "day": 4,
-  "promptSha": "bedf0be57ecacd45efb8ba034310e8215aa983024e657aad2752c776fba3576b",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "A stack: last in, first out",
       "codeHash": "782ae3b4cef9111c49a250fbfe2531883f1d3940ce5c46267b64d883bcb1ba3c",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "A stack: last in, first out",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stack concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "stack"
-                  },
-                  {
-                    "text": "last"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A stack is a pile where you only add and remove at the top.",
+            "items": {
+              "var": "stack",
+              "line": 1,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The before logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "first"
-                  },
-                  {
-                    "text": "out"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "A Python list is a perfect stack.",
+            "items": {
+              "var": "stack",
+              "line": 2,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "At the operating system level, execution stacks manage local function.",
+            "items": {
+              "var": "stack",
+              "line": 9,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "A stack: last in, first out",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stack concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "stack",
-                  "last"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A stack is a pile where you only add and remove at the top.",
+            "mode": "stack",
+            "items": [],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The before logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "first",
-                  "out"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "A Python list is a perfect stack.",
+            "mode": "stack",
+            "items": [
+              "'open file'"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say5",
+            "caption": "At the operating system level, execution stacks manage local function.",
+            "mode": "stack",
+            "items": [
+              "'open file'"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -93,82 +82,69 @@
       "partTitle": "Matching brackets with a stack",
       "codeHash": "961eae5faaaf8c433a8e904524e5c6b7665e4198a90cbd006272b35eae6af459",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Matching brackets with a stack",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Matching"
-                  },
-                  {
-                    "text": "brackets"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Is a string of brackets valid.",
+            "items": {
+              "var": "stack",
+              "line": 3,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The closing logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "with"
-                  },
-                  {
-                    "text": "stack"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "The rule \"the most recent unclosed bracket must be closed first\".",
+            "items": {
+              "var": "stack",
+              "line": 4,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say4",
+            "caption": "At the end the stack must be empty.",
+            "items": {
+              "var": "stack",
+              "line": 5,
+              "hit": 4
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "Matching brackets with a stack",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Matching",
-                  "brackets"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Is a string of brackets valid.",
+            "mode": "stack",
+            "items": [],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The closing logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "with",
-                  "stack"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "The rule \"the most recent unclosed bracket must be closed first\".",
+            "mode": "stack",
+            "items": [],
+            "action": "push"
+          },
+          {
+            "at": "say4",
+            "caption": "At the end the stack must be empty.",
+            "mode": "stack",
+            "items": [
+              "'('"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -177,82 +153,85 @@
       "partTitle": "The next greater element",
       "codeHash": "b6cce9533304d16e90e090373a7e5f0a3b61c62e612f10d0bcd4df1c32bd454b",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "The next greater element",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "The"
-                  },
-                  {
-                    "text": "next"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "For each number in a list, find the first number to its right that is bigger.",
+            "items": {
+              "var": "nums",
+              "line": 2,
+              "hit": 1
+            },
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The walk logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "greater"
-                  },
-                  {
-                    "text": "element"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "The simple way checks every later number for every number.",
+            "items": {
+              "var": "nums",
+              "line": 3,
+              "hit": 1
+            },
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "By keeping the stack strictly ordered, you eliminate the quadratic O(N^2).",
+            "items": {
+              "var": "nums",
+              "line": 5,
+              "hit": 4
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "The next greater element",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "queue",
         "steps": [
           {
             "at": "say1",
-            "caption": "The practice concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "The",
-                  "next"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "For each number in a list, find the first number to its right that is bigger.",
+            "mode": "queue",
+            "items": [
+              "2",
+              "1",
+              "2",
+              "4",
+              "3"
+            ],
+            "action": "enqueue"
           },
           {
-            "at": "say3",
-            "caption": "The walk logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "greater",
-                  "element"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "The simple way checks every later number for every number.",
+            "mode": "queue",
+            "items": [
+              "2",
+              "1",
+              "2",
+              "4",
+              "3"
+            ],
+            "action": "enqueue"
+          },
+          {
+            "at": "say5",
+            "caption": "By keeping the stack strictly ordered, you eliminate the quadratic O(N^2).",
+            "mode": "queue",
+            "items": [
+              "2",
+              "1",
+              "2",
+              "4",
+              "3"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -261,82 +240,88 @@
       "partTitle": "What \"monotonic\" means",
       "codeHash": "c06d234cd1dc1a54f49d8e9b80cbfe0656ea29a56b8adcf1be11c4b29cede7e5",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "What \"monotonic\" means",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The next concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "What"
-                  },
-                  {
-                    "text": "monotonic"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "In the next greater solution, the numbers at the waiting positions always.",
+            "items": {
+              "var": "temps",
+              "line": 2,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The monotonic logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "means"
-                  },
-                  {
-                    "text": "monotonic"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "We keep it decreasing by popping anything smaller than the new number.",
+            "items": {
+              "var": "temps",
+              "line": 3,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say4",
+            "caption": "For \"next smaller\", flip the comparison.",
+            "items": {
+              "var": "temps",
+              "line": 4,
+              "hit": 3
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "What \"monotonic\" means",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The next concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "What",
-                  "monotonic"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "In the next greater solution, the numbers at the waiting positions always.",
+            "mode": "stack",
+            "items": [
+              "30",
+              "31",
+              "29",
+              "28",
+              "33",
+              "32"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The monotonic logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "means",
-                  "monotonic"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "We keep it decreasing by popping anything smaller than the new number.",
+            "mode": "stack",
+            "items": [
+              "30",
+              "31",
+              "29",
+              "28",
+              "33",
+              "32"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say4",
+            "caption": "For \"next smaller\", flip the comparison.",
+            "mode": "stack",
+            "items": [
+              "30",
+              "31",
+              "29",
+              "28",
+              "33",
+              "32"
+            ],
+            "action": "idle"
           }
         ]
       }
@@ -348,21 +333,49 @@
         "template": "table",
         "title": "A min stack: O(1) minimum",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The common concept establishes the core structural baseline.",
+            "caption": "A common interview extension.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "min"
+                    "text": "self"
                   },
                   {
-                    "text": "stack"
+                    "var": "self",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "s"
+                  },
+                  {
+                    "var": "s",
+                    "line": 17,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "x"
+                  },
+                  {
+                    "var": "x",
+                    "line": 18,
+                    "hit": 1
                   }
                 ],
                 "tone": "data"
@@ -370,16 +383,72 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The stack logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Keep a second stack alongside.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "minimum"
+                    "text": "self"
                   },
                   {
-                    "text": "stack"
+                    "var": "self",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "s"
+                  },
+                  {
+                    "var": "s",
+                    "line": 18,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "x"
+                  },
+                  {
+                    "var": "x",
+                    "line": 7,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "This is the \"trade memory for speed\" idea again.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
                   }
                 ],
                 "tone": "ok"
@@ -392,31 +461,79 @@
         "template": "table",
         "title": "A min stack: O(1) minimum",
         "columns": [
-          "Stage",
-          "Concept"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The common concept establishes the core structural baseline.",
+            "caption": "A common interview extension.",
             "rows": [
               {
                 "cells": [
-                  "min",
-                  "stack"
+                  "self",
+                  "<MinStack>"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "s",
+                  "<MinStack>"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "x",
+                  "5"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The stack logic drives deterministic execution.",
+            "at": "say2",
+            "caption": "Keep a second stack alongside.",
             "rows": [
               {
                 "cells": [
-                  "minimum",
-                  "stack"
+                  "self",
+                  "<MinStack>"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "s",
+                  "<MinStack>"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "x",
+                  "5"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "This is the \"trade memory for speed\" idea again.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "2"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "3"
                 ],
                 "tone": "ok"
               }
@@ -429,82 +546,79 @@
       "partTitle": "A calculator built on a stack",
       "codeHash": "87b7c95a9ee20d5c57206df2babc943201f81950e5d930c194d8034b35e065ac",
       "spec": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "A calculator built on a stack",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stacks concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "calculator"
-                  },
-                  {
-                    "text": "built"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Stacks can evaluate maths.",
+            "items": {
+              "var": "tokens",
+              "line": 2,
+              "hit": 1
+            },
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The order logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "stack"
-                  },
-                  {
-                    "text": "built"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Read the tokens left to right.",
+            "items": {
+              "var": "tokens",
+              "line": 3,
+              "hit": 1
+            },
+            "action": "push"
+          },
+          {
+            "at": "say4",
+            "caption": "Calculators, compilers and spreadsheet engines use stacks like this inside.",
+            "items": {
+              "var": "tokens",
+              "line": 7,
+              "hit": 1
+            },
+            "action": "idle"
           }
         ]
       },
       "filled": {
-        "template": "table",
+        "template": "stack-queue",
         "title": "A calculator built on a stack",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "mode": "stack",
         "steps": [
           {
             "at": "say1",
-            "caption": "The stacks concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "calculator",
-                  "built"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Stacks can evaluate maths.",
+            "mode": "stack",
+            "items": [
+              "'3'",
+              "'4'",
+              "'+'"
+            ],
+            "action": "push"
           },
           {
-            "at": "say3",
-            "caption": "The order logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "stack",
-                  "built"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Read the tokens left to right.",
+            "mode": "stack",
+            "items": [
+              "'3'",
+              "'4'",
+              "'+'"
+            ],
+            "action": "push"
+          },
+          {
+            "at": "say4",
+            "caption": "Calculators, compilers and spreadsheet engines use stacks like this inside.",
+            "mode": "stack",
+            "items": [
+              "'3'",
+              "'4'",
+              "'+'"
+            ],
+            "action": "idle"
           }
         ]
       }

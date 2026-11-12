@@ -1,6 +1,19 @@
 {
   "catalog": [
     {
+      "id": "EVT-1794464189570-3D0A77",
+      "category": "Tech",
+      "title": "AI Summit",
+      "description": "Annual AI Conference",
+      "date": "2026-11-01",
+      "time": "10:00 AM",
+      "venue": "Auditorium",
+      "capacity": 100,
+      "rsvpCount": 1,
+      "host": "ACM",
+      "completed": false
+    },
+    {
       "id": "EVT-1789725922969-E9CB6E",
       "category": "Tech",
       "title": "AI Summit",
@@ -119,6 +132,14 @@
       "studentName": "Attending Student",
       "hasCertificate": true,
       "certificateCode": "CERT-ACC80699-MU6SM3AO"
+    },
+    {
+      "id": "RSVP-1794464189575-96EF8A",
+      "eventId": "EVT-1794464189570-3D0A77",
+      "studentId": "ev_stu_1794464189570",
+      "studentName": "Attending Student",
+      "hasCertificate": true,
+      "certificateCode": "CERT-B513063F-MWD5NA8A"
     }
   ]
 }

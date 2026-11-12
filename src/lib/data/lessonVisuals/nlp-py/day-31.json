@@ -2,230 +2,224 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 31,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Memory Bandwidth Bottleneck & Multi-Head Attention (MHA) KV-Cache Scaling",
       "codeHash": "062b82db33881ff9257a56bc815abfe6a62e5825184037adb910085618564cf1",
       "spec": {
-        "template": "flow",
-        "title": "The Memory Bandwidth Bottleneck & Multi-Head ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Memory Bandwidt...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The Memory Bandwidth Bottleneck & Multi-Head Attention (MHA) KV-",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The Memory Bandwidth Bottleneck & Multi-...",
-            "values": {
-              "in": "Day 31 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The Memory Bandwidt....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Welcome to Month 2 of Natural Language Processing and Computational.",
+            "bars": [
+              {
+                "label": "n_layers",
+                "value": {
+                  "var": "n_layers",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n_heads",
+                "value": {
+                  "var": "n_heads",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d_head",
+                "value": {
+                  "var": "d_head",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "seq_len",
+                "value": {
+                  "var": "seq_len",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In standard Multi-Head Attention (MHA), a model with hidden dimension.",
+            "bars": [
+              {
+                "label": "n_layers",
+                "value": {
+                  "var": "n_layers",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n_heads",
+                "value": {
+                  "var": "n_heads",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_head",
+                "value": {
+                  "var": "d_head",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seq_len",
+                "value": {
+                  "var": "seq_len",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The Memory Bandwidth Bottleneck &...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following hands-on simulation, we will construct a pure Python.",
+            "bars": [
+              {
+                "label": "n_layers",
+                "value": {
+                  "var": "n_layers",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n_heads",
+                "value": {
+                  "var": "n_heads",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_head",
+                "value": {
+                  "var": "d_head",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seq_len",
+                "value": {
+                  "var": "seq_len",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The Memory Bandwidth Bottleneck & Multi-Head ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Memory Bandwidt...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The Memory Bandwidth Bottleneck & Multi-Head Attention (MHA) KV-",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The Memory Bandwidth Bottleneck & Multi-...",
-            "values": {
-              "in": "Day 31 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Memory Bandwidt....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Welcome to Month 2 of Natural Language Processing and Computational.",
+            "bars": [
+              {
+                "label": "n_layers",
+                "value": 80,
+                "tone": "data"
+              },
+              {
+                "label": "n_heads",
+                "value": 64,
+                "tone": "data"
+              },
+              {
+                "label": "d_head",
+                "value": 128,
+                "tone": "data"
+              },
+              {
+                "label": "seq_len",
+                "value": 4096,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In standard Multi-Head Attention (MHA), a model with hidden dimension.",
+            "bars": [
+              {
+                "label": "n_layers",
+                "value": 80,
+                "tone": "ok"
+              },
+              {
+                "label": "n_heads",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "d_head",
+                "value": 128,
+                "tone": "ok"
+              },
+              {
+                "label": "seq_len",
+                "value": 4096,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Memory Bandwidth Bottleneck &...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following hands-on simulation, we will construct a pure Python.",
+            "bars": [
+              {
+                "label": "n_layers",
+                "value": 80,
+                "tone": "ok"
+              },
+              {
+                "label": "n_heads",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "d_head",
+                "value": 128,
+                "tone": "ok"
+              },
+              {
+                "label": "seq_len",
+                "value": 4096,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -235,223 +229,217 @@
       "partTitle": "Multi-Query Attention (MQA): Single Shared Key-Value Head Mechanics",
       "codeHash": "a48003c431321bc63f385e2355add3da5299eecf2110c3acf4050dfd706981e5",
       "spec": {
-        "template": "flow",
-        "title": "Multi-Query Attention (MQA): Single Shared Ke... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Multi-Query Attenti...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Multi-Query Attention (MQA): Single Shared Key-Value Head Mechan",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Multi-Query Attention (MQA): Single Shar...",
-            "values": {
-              "in": "Day 31 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Multi-Query Attenti....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having diagnosed the memory bandwidth bottleneck of Multi-Head Attention.",
+            "bars": [
+              {
+                "label": "n_query_heads",
+                "value": {
+                  "var": "n_query_heads",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d_head",
+                "value": {
+                  "var": "d_head",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "seq_len",
+                "value": {
+                  "var": "seq_len",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In classical MHA, given an input tensor X of shape [batch, seq_len.",
+            "bars": [
+              {
+                "label": "n_query_heads",
+                "value": {
+                  "var": "n_query_heads",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_head",
+                "value": {
+                  "var": "d_head",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seq_len",
+                "value": {
+                  "var": "seq_len",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Multi-Query Attention (MQA): Sing...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In our implementation below, we will write a pure Python tensor simulation.",
+            "bars": [
+              {
+                "label": "n_query_heads",
+                "value": {
+                  "var": "n_query_heads",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_head",
+                "value": {
+                  "var": "d_head",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seq_len",
+                "value": {
+                  "var": "seq_len",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "scale",
+                "value": {
+                  "var": "scale",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Multi-Query Attention (MQA): Single Shared Ke... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Multi-Query Attenti...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Multi-Query Attention (MQA): Single Shared Key-Value Head Mechan",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Multi-Query Attention (MQA): Single Shar...",
-            "values": {
-              "in": "Day 31 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Multi-Query Attenti....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Having diagnosed the memory bandwidth bottleneck of Multi-Head Attention.",
+            "bars": [
+              {
+                "label": "n_query_heads",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "d_head",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "seq_len",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "scale",
+                "value": 0.5,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In classical MHA, given an input tensor X of shape [batch, seq_len.",
+            "bars": [
+              {
+                "label": "n_query_heads",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "d_head",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "seq_len",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "scale",
+                "value": 0.5,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Multi-Query Attention (MQA): Sing...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In our implementation below, we will write a pure Python tensor simulation.",
+            "bars": [
+              {
+                "label": "n_query_heads",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "d_head",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "seq_len",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "scale",
+                "value": 0.5,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -462,110 +450,161 @@
       "codeHash": "313022d7aff766c1f77fd8e8eed2da81efe8f659bf0ca6b5e95fb2a16b83e9c0",
       "spec": {
         "template": "flow",
-        "title": "Grouped-Query Attention (GQA): Interpolating ... — Execution Pipeline",
+        "title": "Grouped-Query Attention (GQA): Interpolating MHA and MQA with He",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "n_query_heads",
+            "label": "n_query_heads"
           },
           {
-            "id": "proc",
-            "label": "2. Grouped-Query Atten...",
-            "tappable": true
+            "id": "n_kv_heads",
+            "label": "n_kv_heads"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "group_size",
+            "label": "group_size"
+          },
+          {
+            "id": "d_head",
+            "label": "d_head"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Grouped-Query Attention (GQA): Interpola...",
-            "values": {
-              "in": "Day 31 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Grouped-Query Atten....",
+            "caption": "Between the extremes of Multi-Head Attention (which preserves full.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "n_query_heads": {
+                "var": "n_query_heads",
+                "line": 12,
+                "hit": 1
+              },
+              "n_kv_heads": {
+                "var": "n_kv_heads",
+                "line": 13,
+                "hit": 1
+              },
+              "group_size": {
+                "var": "group_size",
+                "line": 14,
+                "hit": 1
+              },
+              "d_head": {
+                "var": "d_head",
+                "line": 15,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "n_query_heads": "data",
+              "n_kv_heads": "data",
+              "group_size": "data",
+              "d_head": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "n_query_heads",
+                "n_kv_heads"
               ],
               [
-                "proc",
-                "out"
+                "n_kv_heads",
+                "group_size"
+              ],
+              [
+                "group_size",
+                "d_head"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The core insight of Grouped-Query Attention is simple.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "n_query_heads": {
+                "var": "n_query_heads",
+                "line": 13,
+                "hit": 1
+              },
+              "n_kv_heads": {
+                "var": "n_kv_heads",
+                "line": 14,
+                "hit": 1
+              },
+              "group_size": {
+                "var": "group_size",
+                "line": 15,
+                "hit": 1
+              },
+              "d_head": {
+                "var": "d_head",
+                "line": 16,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "n_query_heads": "data",
+              "n_kv_heads": "data",
+              "group_size": "data",
+              "d_head": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "n_query_heads",
+                "n_kv_heads"
+              ],
+              [
+                "n_kv_heads",
+                "group_size"
+              ],
+              [
+                "group_size",
+                "d_head"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Grouped-Query Attention (GQA): In...",
+            "at": "say8",
+            "caption": "In the following code block, we will implement a fully functional pure.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "n_query_heads": {
+                "var": "n_query_heads",
+                "line": 14,
+                "hit": 1
+              },
+              "n_kv_heads": {
+                "var": "n_kv_heads",
+                "line": 15,
+                "hit": 1
+              },
+              "group_size": {
+                "var": "group_size",
+                "line": 16,
+                "hit": 1
+              },
+              "d_head": {
+                "var": "d_head",
+                "line": 18,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "n_query_heads": "ok",
+              "n_kv_heads": "ok",
+              "group_size": "ok",
+              "d_head": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "n_query_heads",
+                "n_kv_heads"
               ],
               [
-                "proc",
-                "out"
+                "n_kv_heads",
+                "group_size"
+              ],
+              [
+                "group_size",
+                "d_head"
               ]
             ]
           }
@@ -573,110 +612,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Grouped-Query Attention (GQA): Interpolating ... — Execution Pipeline",
+        "title": "Grouped-Query Attention (GQA): Interpolating MHA and MQA with He",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "n_query_heads",
+            "label": "n_query_heads"
           },
           {
-            "id": "proc",
-            "label": "2. Grouped-Query Atten...",
-            "tappable": true
+            "id": "n_kv_heads",
+            "label": "n_kv_heads"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "group_size",
+            "label": "group_size"
+          },
+          {
+            "id": "d_head",
+            "label": "d_head"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Grouped-Query Attention (GQA): Interpola...",
-            "values": {
-              "in": "Day 31 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Grouped-Query Atten....",
+            "caption": "Between the extremes of Multi-Head Attention (which preserves full.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "n_query_heads": "8",
+              "n_kv_heads": "2",
+              "group_size": "4",
+              "d_head": "4"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "n_query_heads": "data",
+              "n_kv_heads": "data",
+              "group_size": "data",
+              "d_head": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "n_query_heads",
+                "n_kv_heads"
               ],
               [
-                "proc",
-                "out"
+                "n_kv_heads",
+                "group_size"
+              ],
+              [
+                "group_size",
+                "d_head"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The core insight of Grouped-Query Attention is simple.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "n_query_heads": "8",
+              "n_kv_heads": "2",
+              "group_size": "4",
+              "d_head": "4"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "n_query_heads": "data",
+              "n_kv_heads": "data",
+              "group_size": "data",
+              "d_head": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "n_query_heads",
+                "n_kv_heads"
+              ],
+              [
+                "n_kv_heads",
+                "group_size"
+              ],
+              [
+                "group_size",
+                "d_head"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Grouped-Query Attention (GQA): In...",
+            "at": "say8",
+            "caption": "In the following code block, we will implement a fully functional pure.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "n_query_heads": "8",
+              "n_kv_heads": "2",
+              "group_size": "4",
+              "d_head": "4"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "n_query_heads": "ok",
+              "n_kv_heads": "ok",
+              "group_size": "ok",
+              "d_head": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "n_query_heads",
+                "n_kv_heads"
               ],
               [
-                "proc",
-                "out"
+                "n_kv_heads",
+                "group_size"
+              ],
+              [
+                "group_size",
+                "d_head"
               ]
             ]
           }
@@ -687,223 +729,112 @@
       "partTitle": "Sliding Window Attention (SWA): Capping Context Receptive Fields",
       "codeHash": "85aac27ba06ab2d89d60b20103e432ae0f2ca819e3f8ef73c734017f3342a7bc",
       "spec": {
-        "template": "flow",
-        "title": "Sliding Window Attention (SWA): Capping Conte... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Sliding Window Atte...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Sliding Window Attention (SWA): Capping Context Receptive Fields",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Sliding Window Attention (SWA): Capping ...",
-            "values": {
-              "in": "Day 31 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Sliding Window Atte....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "While Grouped-Query Attention addresses the hidden dimension multiplier.",
+            "items": {
+              "var": "q_vec",
+              "line": 44,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Sliding Window Attention was popularized in models like Longformer.",
+            "items": {
+              "var": "q_vec",
+              "line": 51,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Sliding Window Attention (SWA): C...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "In our implementation below, we will build a pure Python Sliding Window.",
+            "items": {
+              "var": "q_vec",
+              "line": 53,
+              "hit": 12
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Sliding Window Attention (SWA): Capping Conte... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Sliding Window Atte...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Sliding Window Attention (SWA): Capping Context Receptive Fields",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Sliding Window Attention (SWA): Capping ...",
-            "values": {
-              "in": "Day 31 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Sliding Window Atte....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While Grouped-Query Attention addresses the hidden dimension multiplier.",
+            "items": [
+              "1",
+              "1",
+              "1",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Sliding Window Attention was popularized in models like Longformer.",
+            "items": [
+              "1",
+              "1",
+              "1",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Sliding Window Attention (SWA): C...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In our implementation below, we will build a pure Python Sliding Window.",
+            "items": [
+              "1",
+              "1",
+              "1",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -913,223 +844,217 @@
       "partTitle": "Production Benchmarking: Memory Footprint, Serving Concurrency & Latency Verification",
       "codeHash": "bf1247eee5a51a3dd66995854e79e8ee0d921748f5dcc74d206a96eda6bddda4",
       "spec": {
-        "template": "flow",
-        "title": "Production Benchmarking: Memory Footprint, Se... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Production Benchmar...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Production Benchmarking: Memory Footprint, Serving Concurrency &",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Production Benchmarking: Memory Footprin...",
-            "values": {
-              "in": "Day 31 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Production Benchmar....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "As a foundation model systems architect, you will frequently be tasked.",
+            "bars": [
+              {
+                "label": "kv_budget",
+                "value": {
+                  "var": "kv_budget",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "seq_len",
+                "value": {
+                  "var": "seq_len",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n_layers",
+                "value": {
+                  "var": "n_layers",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n_q_heads",
+                "value": {
+                  "var": "n_q_heads",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To ground our analysis in industrial reality, let us evaluate.",
+            "bars": [
+              {
+                "label": "kv_budget",
+                "value": {
+                  "var": "kv_budget",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seq_len",
+                "value": {
+                  "var": "seq_len",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n_layers",
+                "value": {
+                  "var": "n_layers",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n_q_heads",
+                "value": {
+                  "var": "n_q_heads",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Production Benchmarking: Memory F...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following production benchmark script, we will implement.",
+            "bars": [
+              {
+                "label": "kv_budget",
+                "value": {
+                  "var": "kv_budget",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "seq_len",
+                "value": {
+                  "var": "seq_len",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n_layers",
+                "value": {
+                  "var": "n_layers",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n_q_heads",
+                "value": {
+                  "var": "n_q_heads",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Production Benchmarking: Memory Footprint, Se... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Production Benchmar...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Production Benchmarking: Memory Footprint, Serving Concurrency &",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Production Benchmarking: Memory Footprin...",
-            "values": {
-              "in": "Day 31 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Production Benchmar....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "As a foundation model systems architect, you will frequently be tasked.",
+            "bars": [
+              {
+                "label": "kv_budget",
+                "value": 480,
+                "tone": "data"
+              },
+              {
+                "label": "seq_len",
+                "value": 8192,
+                "tone": "data"
+              },
+              {
+                "label": "n_layers",
+                "value": 80,
+                "tone": "data"
+              },
+              {
+                "label": "n_q_heads",
+                "value": 64,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To ground our analysis in industrial reality, let us evaluate.",
+            "bars": [
+              {
+                "label": "kv_budget",
+                "value": 480,
+                "tone": "ok"
+              },
+              {
+                "label": "seq_len",
+                "value": 8192,
+                "tone": "ok"
+              },
+              {
+                "label": "n_layers",
+                "value": 80,
+                "tone": "ok"
+              },
+              {
+                "label": "n_q_heads",
+                "value": 64,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Production Benchmarking: Memory F...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "In the following production benchmark script, we will implement.",
+            "bars": [
+              {
+                "label": "kv_budget",
+                "value": 480,
+                "tone": "ok"
+              },
+              {
+                "label": "seq_len",
+                "value": 8192,
+                "tone": "ok"
+              },
+              {
+                "label": "n_layers",
+                "value": 80,
+                "tone": "ok"
+              },
+              {
+                "label": "n_q_heads",
+                "value": 64,
+                "tone": "ok"
+              }
             ]
           }
         ]

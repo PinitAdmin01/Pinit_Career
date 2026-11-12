@@ -5,7 +5,7 @@ import { trackKeyForGoal } from './useQuestProgression';
 import type { TrajectoryNode, CareerTrajectory } from '@/lib/data/careerTrajectories';
 import type { Course } from '@/lib/data/coursesData';
 import { COURSES_REGISTRY as DEFAULT_COURSES } from '@/lib/data/coursesData';
-import { useCareerOS } from '@/lib/context/CareerOSContext';
+import { useOptionalCareerOS } from '@/lib/context/CareerOSContext';
 import { QRCodeSVG } from 'qrcode.react';
 import { CourseNotesModal } from '@/components/CourseNotesModal';
 import { nextRoadmapNumber } from '@/lib/quests/extraRoadmaps';
@@ -29,12 +29,9 @@ export const CareerGateModal: React.FC<CareerGateModalProps> = ({
   atsScore,
   isProjectVerified
 }) => {
-  let cOS: Partial<ReturnType<typeof useCareerOS>> = {};
-  try {
-    cOS = useCareerOS();
-  } catch {
-    // Resilient fallback when rendered in isolated SSR or unit tests without CareerOSProvider
-  }
+  // [FIX-STAGE: Wave 1A] Replaced try/catch around useCareerOS() with unconditional
+  // useOptionalCareerOS() so react-hooks/rules-of-hooks is strictly satisfied in SSR & tests.
+  const cOS = useOptionalCareerOS();
 
   React.useEffect(() => {
     if (!node || typeof window === 'undefined') return;

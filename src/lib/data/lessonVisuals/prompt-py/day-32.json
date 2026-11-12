@@ -1,159 +1,170 @@
 {
-  "schemaVersion": "2.0.0",
-  "course": "prompt-py",
-  "day": 32,
+  "schemaVersion": 1,
   "prefix": "prompt-py",
+  "day": 32,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Principle Of Directional Stimulus Prompting: Guiding Autoregressive Focus With Semantic Anchors",
       "codeHash": "68ec5b42979080f55f44f3afd9343738300b49ed760466ab36fb2e2ba9b94d80",
       "spec": {
-        "template": "table",
-        "title": "Directional Stimulus Principles And Semantic Anchor Focus Mechanics.",
-        "columns": [
-          "Prompting Architecture",
-          "Attention Steering Mechanism",
-          "Target Quality Objective"
+        "template": "sequence",
+        "title": "The Principle Of Directional Stimulus Prompting: Guiding Autoreg",
+        "actors": [
+          "self",
+          "engine",
+          "domain_key"
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Directional stimulus prompting guides attention toward desired focal areas.",
-            "rows": [
-              [
-                "Standard Prompt Baseline",
-                "Uniform Self Attention Distribution",
-                "Broad Generic Text Generation"
-              ],
-              [
-                "Directional Stimulus Injected",
-                "Targeted Semantic Anchor Prioritization",
-                "Focused Executive Synthesis Output"
-              ]
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": {
+                  "var": "engine",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Standard foundation prompts often emphasize irrelevant peripheral details.",
-            "rows": [
-              [
-                "Attention Weight Modulator",
-                "Bias Query Key Inner Products",
-                "Elevates Crucial Domain Metrics"
-              ],
-              [
-                "Token Salience Director",
-                "Constrain Lexical Trajectory Horizons",
-                "Eliminates Peripheral Digressions"
-              ]
+            "activeActor": "engine",
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": {
+                  "var": "self",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": {
+                  "var": "engine",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "A museum docent points visitors directly toward pivotal gallery art.",
-            "rows": [
-              [
-                "Context Efficiency Tier",
-                "Compact Few Word Directive Prefix",
-                "Minimal Prompt Token Consumption"
-              ],
-              [
-                "Negative Constraint Barrier",
-                "Suppress Irrelevant Concept Likelihoods",
-                "Zero Negative Instruction Hallucination"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Inject directional stimulus hints to steering summary attention weights.",
-            "rows": [
-              [
-                "Linguistic Fluency Shield",
-                "Preserve Natural Sentence Construction",
-                "High Flow Without Prescriptive Rules"
-              ],
-              [
-                "Evaluation Benchmark Rank",
-                "Statistically Elevated BLEU ROUGE",
-                "Statistically Proven Information Yield"
-              ]
+            "at": "say8",
+            "caption": "Contextual entropy modulation further enhances the precision.",
+            "activeActor": "domain_key",
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": {
+                  "var": "engine",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Directional Stimulus Principles And Semantic Anchor Focus Mechanics.",
-        "columns": [
-          "Prompting Architecture",
-          "Attention Steering Mechanism",
-          "Target Quality Objective"
+        "template": "sequence",
+        "title": "The Principle Of Directional Stimulus Prompting: Guiding Autoreg",
+        "actors": [
+          "self",
+          "engine",
+          "domain_key"
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Directional stimulus prompting guides attention toward desired focal areas.",
-            "rows": [
-              [
-                "Standard Prompt Baseline",
-                "Uniform Self Attention Distribution",
-                "Broad Generic Text Generation"
-              ],
-              [
-                "Directional Stimulus Injected",
-                "Targeted Semantic Anchor Prioritization",
-                "Focused Executive Synthesis Output"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
           },
           {
             "at": "say2",
             "caption": "Standard foundation prompts often emphasize irrelevant peripheral details.",
-            "rows": [
-              [
-                "Attention Weight Modulator",
-                "Bias Query Key Inner Products",
-                "Elevates Crucial Domain Metrics"
-              ],
-              [
-                "Token Salience Director",
-                "Constrain Lexical Trajectory Horizons",
-                "Eliminates Peripheral Digressions"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "engine"
           },
           {
-            "at": "example",
-            "caption": "A museum docent points visitors directly toward pivotal gallery art.",
-            "rows": [
-              [
-                "Context Efficiency Tier",
-                "Compact Few Word Directive Prefix",
-                "Minimal Prompt Token Consumption"
-              ],
-              [
-                "Negative Constraint Barrier",
-                "Suppress Irrelevant Concept Likelihoods",
-                "Zero Negative Instruction Hallucination"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Inject directional stimulus hints to steering summary attention weights.",
-            "rows": [
-              [
-                "Linguistic Fluency Shield",
-                "Preserve Natural Sentence Construction",
-                "High Flow Without Prescriptive Rules"
-              ],
-              [
-                "Evaluation Benchmark Rank",
-                "Statistically Elevated BLEU ROUGE",
-                "Statistically Proven Information Yield"
-              ]
-            ]
+            "at": "say8",
+            "caption": "Contextual entropy modulation further enhances the precision.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "domain_key"
           }
         ]
       }
@@ -162,152 +173,162 @@
       "partTitle": "The Policy Language Model Architecture: Decoupling Lightweight Hint Generators From Heavy Task Models",
       "codeHash": "68ec5b42979080f55f44f3afd9343738300b49ed760466ab36fb2e2ba9b94d80",
       "spec": {
-        "template": "table",
-        "title": "Policy Language Model Architectures And Hint Generation Frameworks.",
-        "columns": [
-          "Model Pipeline Layer",
-          "Assigned Functional Role",
-          "Computational Overhead Profile"
+        "template": "sequence",
+        "title": "The Policy Language Model Architecture: Decoupling Lightweight H",
+        "actors": [
+          "self",
+          "engine",
+          "domain_key"
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "The policy model architecture decouples hint generation from generation.",
-            "rows": [
-              [
-                "Policy Model Gateway",
-                "Rapid Intent Analysis And Hint Generation",
-                "Single Digit Millisecond Latency"
-              ],
-              [
-                "Target Foundation Model",
-                "Complex Multi Stage Synthesis Execution",
-                "High Parameter Deep Reasoning"
-              ]
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": {
+                  "var": "engine",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Lightweight policy models generate compact directional hints in parallel.",
-            "rows": [
-              [
-                "Decoupled Training Loop",
-                "Reinforcement Learning Via Downstream Reward",
-                "Frozen Target Weights Unchanged"
-              ],
-              [
-                "Policy Gradient Stabilizer",
-                "Optimize Small Guidance Model Independently",
-                "Cost Effective Continuous Refinement"
-              ]
+            "activeActor": "engine",
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": {
+                  "var": "self",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": {
+                  "var": "engine",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Tugboats guide massive ocean vessels into tight metropolitan dock spaces.",
-            "rows": [
-              [
-                "Template Synthesis Engine",
-                "Merge Stimulus Prefix With User Query",
-                "Deterministic AST Validated Prompt"
-              ],
-              [
-                "Semantic AST Formatter",
-                "Structure Injected Guidance Explicitly",
-                "Prevents Downstream Parsing Crashes"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy small policy models to emit targeted directional guidance tokens.",
-            "rows": [
-              [
-                "Security Validation Fence",
-                "Verify Emitted Hint Against Known Lexicons",
-                "Blocks Adversarial Token Injection"
-              ],
-              [
-                "Adversarial Jailbreak Guard",
-                "Deterministic Regex Boundary Checking",
-                "Enforces Strict Safety Ceilings"
-              ]
+            "at": "say9",
+            "caption": "Empirical ablation studies demonstrate that directional stimulus hints.",
+            "activeActor": "domain_key",
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": {
+                  "var": "engine",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Policy Language Model Architectures And Hint Generation Frameworks.",
-        "columns": [
-          "Model Pipeline Layer",
-          "Assigned Functional Role",
-          "Computational Overhead Profile"
+        "template": "sequence",
+        "title": "The Policy Language Model Architecture: Decoupling Lightweight H",
+        "actors": [
+          "self",
+          "engine",
+          "domain_key"
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "The policy model architecture decouples hint generation from generation.",
-            "rows": [
-              [
-                "Policy Model Gateway",
-                "Rapid Intent Analysis And Hint Generation",
-                "Single Digit Millisecond Latency"
-              ],
-              [
-                "Target Foundation Model",
-                "Complex Multi Stage Synthesis Execution",
-                "High Parameter Deep Reasoning"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
           },
           {
             "at": "say2",
             "caption": "Lightweight policy models generate compact directional hints in parallel.",
-            "rows": [
-              [
-                "Decoupled Training Loop",
-                "Reinforcement Learning Via Downstream Reward",
-                "Frozen Target Weights Unchanged"
-              ],
-              [
-                "Policy Gradient Stabilizer",
-                "Optimize Small Guidance Model Independently",
-                "Cost Effective Continuous Refinement"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "engine"
           },
           {
-            "at": "example",
-            "caption": "Tugboats guide massive ocean vessels into tight metropolitan dock spaces.",
-            "rows": [
-              [
-                "Template Synthesis Engine",
-                "Merge Stimulus Prefix With User Query",
-                "Deterministic AST Validated Prompt"
-              ],
-              [
-                "Semantic AST Formatter",
-                "Structure Injected Guidance Explicitly",
-                "Prevents Downstream Parsing Crashes"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Deploy small policy models to emit targeted directional guidance tokens.",
-            "rows": [
-              [
-                "Security Validation Fence",
-                "Verify Emitted Hint Against Known Lexicons",
-                "Blocks Adversarial Token Injection"
-              ],
-              [
-                "Adversarial Jailbreak Guard",
-                "Deterministic Regex Boundary Checking",
-                "Enforces Strict Safety Ceilings"
-              ]
-            ]
+            "at": "say9",
+            "caption": "Empirical ablation studies demonstrate that directional stimulus hints.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "domain_key"
           }
         ]
       }
@@ -316,152 +337,162 @@
       "partTitle": "Meta-Prompting & Recursive Prompt Rewriting: Automated Prompt Optimization Loops",
       "codeHash": "68ec5b42979080f55f44f3afd9343738300b49ed760466ab36fb2e2ba9b94d80",
       "spec": {
-        "template": "table",
-        "title": "Meta Prompting Optimization Loops And Recursive Prompt Rewriters.",
-        "columns": [
-          "Optimization Phase",
-          "Meta Prompting Operation",
-          "Convergence Guarantee Rule"
+        "template": "sequence",
+        "title": "Meta-Prompting & Recursive Prompt Rewriting: Automated Prompt Op",
+        "actors": [
+          "self",
+          "engine",
+          "domain_key"
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Meta prompting architectures utilize recursive reflection to optimize text.",
-            "rows": [
-              [
-                "Task Execution Phase",
-                "Run Candidate Prompt Across Benchmark Slices",
-                "Empirical Output Quality Measurement"
-              ],
-              [
-                "Evaluator Critique Pass",
-                "Multi Criteria Rubric Failure Isolation",
-                "Synthesizes Concrete Flaw Manifest"
-              ]
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": {
+                  "var": "engine",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Evaluator models critique generated drafts and output refined instructions.",
-            "rows": [
-              [
-                "Meta Optimizer Step",
-                "Recursive Reflection And Instruction Rewrite",
-                "Produces Superior Successor Prompt"
-              ],
-              [
-                "Instruction Refinement Loop",
-                "Direct Feedback Into Prompt Mutator",
-                "Eliminates Identified Failure Modes"
-              ]
+            "activeActor": "engine",
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": {
+                  "var": "self",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": {
+                  "var": "engine",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Editors critique rough drafts and provide structural guidance to authors.",
-            "rows": [
-              [
-                "Holdout Validation Gate",
-                "Score Successor Against Unseen Test Data",
-                "Guarantees Generalization Robustness"
-              ],
-              [
-                "Overfitting Protection Gate",
-                "Reject Prompts Failing Generalization Tests",
-                "Preserves Universal Applicability"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build meta prompt rewriting loops using evaluation score feedback.",
-            "rows": [
-              [
-                "Rollback Safety Switch",
-                "Reject Mutated Prompt On Metric Regression",
-                "Eliminates Overfitting And Semantic Drift"
-              ],
-              [
-                "Versioned Prompt Archive",
-                "Cryptographic Provenance For Each Mutation",
-                "Enables Immediate Instant Rollbacks"
-              ]
+            "at": "say9",
+            "caption": "Automated prompt versioning and semantic drift tracking ensure.",
+            "activeActor": "domain_key",
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": {
+                  "var": "engine",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Meta Prompting Optimization Loops And Recursive Prompt Rewriters.",
-        "columns": [
-          "Optimization Phase",
-          "Meta Prompting Operation",
-          "Convergence Guarantee Rule"
+        "template": "sequence",
+        "title": "Meta-Prompting & Recursive Prompt Rewriting: Automated Prompt Op",
+        "actors": [
+          "self",
+          "engine",
+          "domain_key"
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Meta prompting architectures utilize recursive reflection to optimize text.",
-            "rows": [
-              [
-                "Task Execution Phase",
-                "Run Candidate Prompt Across Benchmark Slices",
-                "Empirical Output Quality Measurement"
-              ],
-              [
-                "Evaluator Critique Pass",
-                "Multi Criteria Rubric Failure Isolation",
-                "Synthesizes Concrete Flaw Manifest"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
           },
           {
             "at": "say2",
             "caption": "Evaluator models critique generated drafts and output refined instructions.",
-            "rows": [
-              [
-                "Meta Optimizer Step",
-                "Recursive Reflection And Instruction Rewrite",
-                "Produces Superior Successor Prompt"
-              ],
-              [
-                "Instruction Refinement Loop",
-                "Direct Feedback Into Prompt Mutator",
-                "Eliminates Identified Failure Modes"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "engine"
           },
           {
-            "at": "example",
-            "caption": "Editors critique rough drafts and provide structural guidance to authors.",
-            "rows": [
-              [
-                "Holdout Validation Gate",
-                "Score Successor Against Unseen Test Data",
-                "Guarantees Generalization Robustness"
-              ],
-              [
-                "Overfitting Protection Gate",
-                "Reject Prompts Failing Generalization Tests",
-                "Preserves Universal Applicability"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build meta prompt rewriting loops using evaluation score feedback.",
-            "rows": [
-              [
-                "Rollback Safety Switch",
-                "Reject Mutated Prompt On Metric Regression",
-                "Eliminates Overfitting And Semantic Drift"
-              ],
-              [
-                "Versioned Prompt Archive",
-                "Cryptographic Provenance For Each Mutation",
-                "Enables Immediate Instant Rollbacks"
-              ]
-            ]
+            "at": "say9",
+            "caption": "Automated prompt versioning and semantic drift tracking ensure.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "domain_key"
           }
         ]
       }
@@ -470,150 +501,276 @@
       "partTitle": "Gradient-Free Prompt Tuning Algorithms: Automatic Prompt Engineer (APE) & Evolutionary Mutation",
       "codeHash": "68ec5b42979080f55f44f3afd9343738300b49ed760466ab36fb2e2ba9b94d80",
       "spec": {
-        "template": "table",
-        "title": "Gradient Free Prompt Tuning And Evolutionary Mutation Algorithms.",
-        "columns": [
-          "Search Algorithm",
-          "Candidate Mutation Strategy",
-          "Objective Evaluation Metric"
+        "template": "flow",
+        "title": "Gradient-Free Prompt Tuning Algorithms: Automatic Prompt Enginee",
+        "nodes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "engine",
+            "label": "engine"
+          },
+          {
+            "id": "domain_key",
+            "label": "domain_key"
+          },
+          {
+            "id": "hint",
+            "label": "hint"
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Gradient free prompt tuning algorithms explore vast linguistic spaces.",
-            "rows": [
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 16,
+                "hit": 1
+              },
+              "domain_key": {
+                "var": "domain_key",
+                "line": 11,
+                "hit": 1
+              },
+              "hint": {
+                "var": "hint",
+                "line": 17,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "engine": "data",
+              "domain_key": "data",
+              "hint": "data"
+            },
+            "arrows": [
               [
-                "Automatic Prompt Engineer",
-                "Generate Candidate Prompts From Input Output",
-                "Discovers Non Intuitive Phrasings"
+                "self",
+                "engine"
               ],
               [
-                "Evolutionary Mutation Core",
-                "Apply Crossover And Lexical Rephrasing",
-                "Breeds High Fitness Prompt Variants"
+                "engine",
+                "domain_key"
+              ],
+              [
+                "domain_key",
+                "hint"
               ]
             ]
           },
           {
             "at": "say2",
             "caption": "Automatic prompt engineers mutate candidate prompts using fitness scores.",
-            "rows": [
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 17,
+                "hit": 1
+              },
+              "domain_key": {
+                "var": "domain_key",
+                "line": 11,
+                "hit": 1
+              },
+              "hint": {
+                "var": "hint",
+                "line": 14,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "engine": "data",
+              "domain_key": "data",
+              "hint": "data"
+            },
+            "arrows": [
               [
-                "Bayesian Optimization Loop",
-                "Map Discrete Text Into Embedding Space",
-                "Maximizes Acquisition Function Score"
+                "self",
+                "engine"
               ],
               [
-                "Surrogate Gaussian Process",
-                "Model Quality Surfaces Continuously",
-                "Guides Efficient Frontier Exploration"
+                "engine",
+                "domain_key"
+              ],
+              [
+                "domain_key",
+                "hint"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Biological evolution breeds diverse genetic variants across generations.",
-            "rows": [
+            "at": "say10",
+            "caption": "Statistical fitness tracking maintains strict historical records.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
+              },
+              "engine": {
+                "var": "engine",
+                "line": 18,
+                "hit": 1
+              },
+              "domain_key": {
+                "var": "domain_key",
+                "line": 11,
+                "hit": 1
+              },
+              "hint": {
+                "var": "hint",
+                "line": 18,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "ok",
+              "engine": "ok",
+              "domain_key": "ok",
+              "hint": "ok"
+            },
+            "arrows": [
               [
-                "Hyperparameter Harmonizer",
-                "Jointly Tune Temperature And Presence Penalty",
-                "Discovers Optimal Decoding Envelope"
+                "self",
+                "engine"
               ],
               [
-                "Presence Penalty Calibrator",
-                "Modulate Sampling Diversity Dynamically",
-                "Balances Exploration And Exploitation"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Run evolutionary prompt mutation cycles evaluating candidates on test sets.",
-            "rows": [
-              [
-                "Benchmark Convergence Proof",
-                "Iterative Progression Toward Peak Accuracy",
-                "Empirical Quality Verification SLA"
+                "engine",
+                "domain_key"
               ],
               [
-                "Statistical Convergence Gate",
-                "Stop Evolutionary Cycles On Plateau",
-                "Guarantees Bounded Compute Budgets"
+                "domain_key",
+                "hint"
               ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Gradient Free Prompt Tuning And Evolutionary Mutation Algorithms.",
-        "columns": [
-          "Search Algorithm",
-          "Candidate Mutation Strategy",
-          "Objective Evaluation Metric"
+        "template": "flow",
+        "title": "Gradient-Free Prompt Tuning Algorithms: Automatic Prompt Enginee",
+        "nodes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "engine",
+            "label": "engine"
+          },
+          {
+            "id": "domain_key",
+            "label": "domain_key"
+          },
+          {
+            "id": "hint",
+            "label": "hint"
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Gradient free prompt tuning algorithms explore vast linguistic spaces.",
-            "rows": [
+            "values": {
+              "self": "<DirectionalStimulusEngine>",
+              "engine": "<DirectionalStimulusEngine>",
+              "domain_key": "'financial_forecast'",
+              "hint": "'Focus strictly on recurring subscripti…"
+            },
+            "tones": {
+              "self": "data",
+              "engine": "data",
+              "domain_key": "data",
+              "hint": "data"
+            },
+            "arrows": [
               [
-                "Automatic Prompt Engineer",
-                "Generate Candidate Prompts From Input Output",
-                "Discovers Non Intuitive Phrasings"
+                "self",
+                "engine"
               ],
               [
-                "Evolutionary Mutation Core",
-                "Apply Crossover And Lexical Rephrasing",
-                "Breeds High Fitness Prompt Variants"
+                "engine",
+                "domain_key"
+              ],
+              [
+                "domain_key",
+                "hint"
               ]
             ]
           },
           {
             "at": "say2",
             "caption": "Automatic prompt engineers mutate candidate prompts using fitness scores.",
-            "rows": [
+            "values": {
+              "self": "<DirectionalStimulusEngine>",
+              "engine": "<DirectionalStimulusEngine>",
+              "domain_key": "'financial_forecast'",
+              "hint": "'Focus strictly on recurring subscripti…"
+            },
+            "tones": {
+              "self": "data",
+              "engine": "data",
+              "domain_key": "data",
+              "hint": "data"
+            },
+            "arrows": [
               [
-                "Bayesian Optimization Loop",
-                "Map Discrete Text Into Embedding Space",
-                "Maximizes Acquisition Function Score"
+                "self",
+                "engine"
               ],
               [
-                "Surrogate Gaussian Process",
-                "Model Quality Surfaces Continuously",
-                "Guides Efficient Frontier Exploration"
+                "engine",
+                "domain_key"
+              ],
+              [
+                "domain_key",
+                "hint"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Biological evolution breeds diverse genetic variants across generations.",
-            "rows": [
+            "at": "say10",
+            "caption": "Statistical fitness tracking maintains strict historical records.",
+            "values": {
+              "self": "<DirectionalStimulusEngine>",
+              "engine": "<DirectionalStimulusEngine>",
+              "domain_key": "'financial_forecast'",
+              "hint": "'Focus strictly on recurring subscripti…"
+            },
+            "tones": {
+              "self": "ok",
+              "engine": "ok",
+              "domain_key": "ok",
+              "hint": "ok"
+            },
+            "arrows": [
               [
-                "Hyperparameter Harmonizer",
-                "Jointly Tune Temperature And Presence Penalty",
-                "Discovers Optimal Decoding Envelope"
+                "self",
+                "engine"
               ],
               [
-                "Presence Penalty Calibrator",
-                "Modulate Sampling Diversity Dynamically",
-                "Balances Exploration And Exploitation"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Run evolutionary prompt mutation cycles evaluating candidates on test sets.",
-            "rows": [
-              [
-                "Benchmark Convergence Proof",
-                "Iterative Progression Toward Peak Accuracy",
-                "Empirical Quality Verification SLA"
+                "engine",
+                "domain_key"
               ],
               [
-                "Statistical Convergence Gate",
-                "Stop Evolutionary Cycles On Plateau",
-                "Guarantees Bounded Compute Budgets"
+                "domain_key",
+                "hint"
               ]
             ]
           }
@@ -624,152 +781,162 @@
       "partTitle": "Production Implementation: Building An Adaptive Directional Stimulus Engine In Python",
       "codeHash": "68ec5b42979080f55f44f3afd9343738300b49ed760466ab36fb2e2ba9b94d80",
       "spec": {
-        "template": "table",
-        "title": "Enterprise Directional Stimulus Engine Implementation In Python.",
-        "columns": [
-          "Engine Subsystem",
-          "Production Python Component",
-          "Reliability Assurance SLA"
+        "template": "sequence",
+        "title": "Production Implementation: Building An Adaptive Directional Stim",
+        "actors": [
+          "self",
+          "engine",
+          "domain_key"
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Production directional stimulus engines require hardened python pipelines.",
-            "rows": [
-              [
-                "In Memory Stimulus Cache",
-                "Sub Millisecond Redis Hash Retrieval",
-                "Bypasses Redundant Policy Invocations"
-              ],
-              [
-                "Async Orchestrator Core",
-                "Non Blocking Dual Model Pipeline Routing",
-                "High Concurrency Multi Thread Scaling"
-              ]
+            "activeActor": "self",
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": {
+                  "var": "self",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": {
+                  "var": "engine",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "Dynamic hint injection operates through cached domain guidance libraries.",
-            "rows": [
-              [
-                "Regression Testing Harness",
-                "Continuous CI CD Pipeline Evaluation Gates",
-                "Blocks Unvalidated Prompt Deployments"
-              ],
-              [
-                "Automated Test Runner",
-                "Run Parameterized Synthetic Test Cases",
-                "Guarantees Continuous Quality Assurance"
-              ]
+            "activeActor": "engine",
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": {
+                  "var": "self",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": {
+                  "var": "engine",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Precision flight computers compute navigational drift adjustments.",
-            "rows": [
-              [
-                "OpenTelemetry Ingestion Node",
-                "Structured Traces On Hint Impact And Latency",
-                "Real Time Observability And Monitoring"
-              ],
-              [
-                "Distributed Trace Emitter",
-                "Propagate Span Context Across Dual Models",
-                "Provides Granular System Telemetry"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Construct an adaptive directional stimulus engine using python classes.",
-            "rows": [
-              [
-                "Enterprise Security Barrier",
-                "Validate User Authorization And API Scopes",
-                "Guarantees Compliance And Data Privacy"
-              ],
-              [
-                "Role Based Access Controller",
-                "Enforce Least Privilege API Scopes",
-                "Protects Proprietary Organizational Data"
-              ]
+            "at": "say10",
+            "caption": "Continuous telemetry emission and automated SLA alerting monitor hint.",
+            "activeActor": "domain_key",
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": {
+                  "var": "self",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": {
+                  "var": "engine",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Enterprise Directional Stimulus Engine Implementation In Python.",
-        "columns": [
-          "Engine Subsystem",
-          "Production Python Component",
-          "Reliability Assurance SLA"
+        "template": "sequence",
+        "title": "Production Implementation: Building An Adaptive Directional Stim",
+        "actors": [
+          "self",
+          "engine",
+          "domain_key"
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Production directional stimulus engines require hardened python pipelines.",
-            "rows": [
-              [
-                "In Memory Stimulus Cache",
-                "Sub Millisecond Redis Hash Retrieval",
-                "Bypasses Redundant Policy Invocations"
-              ],
-              [
-                "Async Orchestrator Core",
-                "Non Blocking Dual Model Pipeline Routing",
-                "High Concurrency Multi Thread Scaling"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "self"
           },
           {
             "at": "say2",
             "caption": "Dynamic hint injection operates through cached domain guidance libraries.",
-            "rows": [
-              [
-                "Regression Testing Harness",
-                "Continuous CI CD Pipeline Evaluation Gates",
-                "Blocks Unvalidated Prompt Deployments"
-              ],
-              [
-                "Automated Test Runner",
-                "Run Parameterized Synthetic Test Cases",
-                "Guarantees Continuous Quality Assurance"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "engine"
           },
           {
-            "at": "example",
-            "caption": "Precision flight computers compute navigational drift adjustments.",
-            "rows": [
-              [
-                "OpenTelemetry Ingestion Node",
-                "Structured Traces On Hint Impact And Latency",
-                "Real Time Observability And Monitoring"
-              ],
-              [
-                "Distributed Trace Emitter",
-                "Propagate Span Context Across Dual Models",
-                "Provides Granular System Telemetry"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Construct an adaptive directional stimulus engine using python classes.",
-            "rows": [
-              [
-                "Enterprise Security Barrier",
-                "Validate User Authorization And API Scopes",
-                "Guarantees Compliance And Data Privacy"
-              ],
-              [
-                "Role Based Access Controller",
-                "Enforce Least Privilege API Scopes",
-                "Protects Proprietary Organizational Data"
-              ]
-            ]
+            "at": "say10",
+            "caption": "Continuous telemetry emission and automated SLA alerting monitor hint.",
+            "messages": [
+              {
+                "from": "self",
+                "to": "engine",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "data"
+              },
+              {
+                "from": "engine",
+                "to": "domain_key",
+                "label": "<DirectionalStimulusEngine>",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "domain_key"
           }
         ]
       }

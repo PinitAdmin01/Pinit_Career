@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 54,
-  "promptSha": "500647540a6caf1b651efb1cdf33434e5bca03fdd4346d253bbec99da10f99ed",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Purged Walk-Forward Cross-Validation & Embargo Windows for Financial ML — Foundations & Mathematical Invariants",
-      "codeHash": "b1e4ae649cbca1ce6fc05a07380a0514435564b447e37ae7cae373b9fec6bd59",
+      "codeHash": "836c1a32e825123caea4fd6528013903c28d8c7270a082bde22146a83aa9c293",
       "spec": {
-        "template": "flow",
-        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Financial M",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Finan",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In standard machine learning, datasets consist of independent.",
+            "bars": [
+              {
+                "label": "train_start",
+                "value": {
+                  "var": "train_start",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "train_end",
+                "value": {
+                  "var": "train_end",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "test_start",
+                "value": {
+                  "var": "test_start",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "test_end",
+                "value": {
+                  "var": "test_end",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In financial machine learning, observations are time series characterized.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "train_start",
+                "value": {
+                  "var": "train_start",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "train_end",
+                "value": {
+                  "var": "train_end",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "test_start",
+                "value": {
+                  "var": "test_start",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "test_end",
+                "value": {
+                  "var": "test_end",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Mathematical purging transforms unrealistic, overfitted backtest results.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "train_start",
+                "value": {
+                  "var": "train_start",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "train_end",
+                "value": {
+                  "var": "train_end",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "test_start",
+                "value": {
+                  "var": "test_start",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "test_end",
+                "value": {
+                  "var": "test_end",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Financial M",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Finan",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In standard machine learning, datasets consist of independent.",
+            "bars": [
+              {
+                "label": "train_start",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "train_end",
+                "value": 27,
+                "tone": "data"
+              },
+              {
+                "label": "test_start",
+                "value": 25,
+                "tone": "data"
+              },
+              {
+                "label": "test_end",
+                "value": 50,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In financial machine learning, observations are time series characterized.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "train_start",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "train_end",
+                "value": 27,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "test_start",
+                "value": 25,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "test_end",
+                "value": 50,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Mathematical purging transforms unrealistic, overfitted backtest results.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "train_start",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "train_end",
+                "value": 27,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "test_start",
+                "value": 25,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "test_end",
+                "value": 50,
+                "tone": "ok"
               }
             ]
           }
@@ -273,264 +227,218 @@
     },
     {
       "partTitle": "Purged Walk-Forward Cross-Validation & Embargo Windows for Financial ML — Core Algorithm & State Representation",
-      "codeHash": "c0604f74c81fc8434dd457ccc6aa51a002f5adc96c961f5bc38543a9afd846fe",
+      "codeHash": "07da9d46c51c3feaa19b868349949eba7ac1bbdc174c50322d1cfebbdd1f153c",
       "spec": {
-        "template": "flow",
-        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Financial M",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Finan",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core Purged K-Fold algorithm takes a time-indexed dataset, sample.",
+            "bars": [
+              {
+                "label": "total_samples",
+                "value": {
+                  "var": "total_samples",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "test_start_idx",
+                "value": {
+                  "var": "test_start_idx",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "test_end_idx",
+                "value": {
+                  "var": "test_end_idx",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "label_horizon_",
+                "value": {
+                  "var": "label_horizon_steps",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "For each fold $k \\in \\{1, \\dots, K\\}$, the test set is assigned.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_samples",
+                "value": {
+                  "var": "total_samples",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "test_start_idx",
+                "value": {
+                  "var": "test_start_idx",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "test_end_idx",
+                "value": {
+                  "var": "test_end_idx",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "label_horizon_",
+                "value": {
+                  "var": "label_horizon_steps",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Out-of-sample performance evaluated on purged folds accurately mirrors.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_samples",
+                "value": {
+                  "var": "total_samples",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "test_start_idx",
+                "value": {
+                  "var": "test_start_idx",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "test_end_idx",
+                "value": {
+                  "var": "test_end_idx",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "label_horizon_",
+                "value": {
+                  "var": "label_horizon_steps",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Financial M",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Finan",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core Purged K-Fold algorithm takes a time-indexed dataset, sample.",
+            "bars": [
+              {
+                "label": "total_samples",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "test_start_idx",
+                "value": 40,
+                "tone": "data"
+              },
+              {
+                "label": "test_end_idx",
+                "value": 60,
+                "tone": "data"
+              },
+              {
+                "label": "label_horizon_",
+                "value": 5,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "For each fold $k \\in \\{1, \\dots, K\\}$, the test set is assigned.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_samples",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "test_start_idx",
+                "value": 40,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "test_end_idx",
+                "value": 60,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "label_horizon_",
+                "value": 5,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Out-of-sample performance evaluated on purged folds accurately mirrors.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_samples",
+                "value": 100,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "test_start_idx",
+                "value": 40,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "test_end_idx",
+                "value": 60,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "label_horizon_",
+                "value": 5,
+                "tone": "ok"
               }
             ]
           }
@@ -539,265 +447,279 @@
     },
     {
       "partTitle": "Purged Walk-Forward Cross-Validation & Embargo Windows for Financial ML — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "51fbb6125f27e83093831e59eebfd7ca6895c17a0ab4d11ab229c522cb765345",
+      "codeHash": "a4fff6b1182bbbfa89c3cede5d40906bb3e024da5c169c2051018397d7184199",
       "spec": {
         "template": "flow",
-        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Financial M",
+        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Finan",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "total_n",
+            "label": "total_n"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "test_start",
+            "label": "test_start"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "test_end",
+            "label": "test_end"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "purge_len",
+            "label": "purge_len"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Evaluating purged cross-validation across hundreds of machine learning.",
+            "values": {
+              "total_n": {
+                "var": "total_n",
+                "line": 5,
+                "hit": 1
+              },
+              "test_start": {
+                "var": "test_start",
+                "line": 5,
+                "hit": 1
+              },
+              "test_end": {
+                "var": "test_end",
+                "line": 5,
+                "hit": 1
+              },
+              "purge_len": {
+                "var": "purge_len",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "total_n": "data",
+              "test_start": "data",
+              "test_end": "data",
+              "purge_len": "data"
+            },
+            "arrows": [
+              [
+                "total_n",
+                "test_start"
+              ],
+              [
+                "test_start",
+                "test_end"
+              ],
+              [
+                "test_end",
+                "purge_len"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Iterating over individual row timestamps sequentially in Python introduces.",
+            "values": {
+              "total_n": {
+                "var": "total_n",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "test_start": {
+                "var": "test_start",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "test_end": {
+                "var": "test_end",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "purge_len": {
+                "var": "purge_len",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "total_n": "data",
+              "test_start": "data",
+              "test_end": "data",
+              "purge_len": "data"
+            },
+            "arrows": [
+              [
+                "total_n",
+                "test_start"
+              ],
+              [
+                "test_start",
+                "test_end"
+              ],
+              [
+                "test_end",
+                "purge_len"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "High-performance bitmask operations enable researchers to train.",
+            "values": {
+              "total_n": {
+                "var": "total_n",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "test_start": {
+                "var": "test_start",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "test_end": {
+                "var": "test_end",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "purge_len": {
+                "var": "purge_len",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "total_n": "ok",
+              "test_start": "ok",
+              "test_end": "ok",
+              "purge_len": "ok"
+            },
+            "arrows": [
+              [
+                "total_n",
+                "test_start"
+              ],
+              [
+                "test_start",
+                "test_end"
+              ],
+              [
+                "test_end",
+                "purge_len"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Financial M",
+        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Finan",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "total_n",
+            "label": "total_n"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "test_start",
+            "label": "test_start"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "test_end",
+            "label": "test_end"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "purge_len",
+            "label": "purge_len"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Evaluating purged cross-validation across hundreds of machine learning.",
+            "values": {
+              "total_n": "1000",
+              "test_start": "400",
+              "test_end": "600",
+              "purge_len": "20"
+            },
+            "tones": {
+              "total_n": "data",
+              "test_start": "data",
+              "test_end": "data",
+              "purge_len": "data"
+            },
+            "arrows": [
+              [
+                "total_n",
+                "test_start"
+              ],
+              [
+                "test_start",
+                "test_end"
+              ],
+              [
+                "test_end",
+                "purge_len"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Iterating over individual row timestamps sequentially in Python introduces.",
+            "values": {
+              "total_n": "1000",
+              "test_start": "400",
+              "test_end": "600",
+              "purge_len": "20"
+            },
+            "tones": {
+              "total_n": "data",
+              "test_start": "data",
+              "test_end": "data",
+              "purge_len": "data"
+            },
+            "arrows": [
+              [
+                "total_n",
+                "test_start"
+              ],
+              [
+                "test_start",
+                "test_end"
+              ],
+              [
+                "test_end",
+                "purge_len"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "High-performance bitmask operations enable researchers to train.",
+            "values": {
+              "total_n": "1000",
+              "test_start": "400",
+              "test_end": "600",
+              "purge_len": "20"
+            },
+            "tones": {
+              "total_n": "ok",
+              "test_start": "ok",
+              "test_end": "ok",
+              "purge_len": "ok"
+            },
+            "arrows": [
+              [
+                "total_n",
+                "test_start"
+              ],
+              [
+                "test_start",
+                "test_end"
+              ],
+              [
+                "test_end",
+                "purge_len"
+              ]
             ]
           }
         ]
@@ -805,530 +727,274 @@
     },
     {
       "partTitle": "Purged Walk-Forward Cross-Validation & Embargo Windows for Financial ML — Resilience Guardrails & Failure Recovery",
-      "codeHash": "40d3d1ce6870042cc0455e99d221bbc9cce8e342665160ac71ee5da250c217aa",
+      "codeHash": "adc9a196bd9c33067c23c3e6bdae8ace4b9fab524e624715d1f76f44b54be7cb",
       "spec": {
-        "template": "flow",
-        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Financial M",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Finan",
+        "actors": [
+          "events_end",
+          "test_start",
+          "train_good"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantitative research teams must enforce strict validation guardrails.",
+            "activeActor": "events_end",
+            "messages": [
+              {
+                "from": "events_end",
+                "to": "test_start",
+                "label": {
+                  "var": "events_end",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "test_start",
+                "to": "train_good",
+                "label": {
+                  "var": "test_start",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The most insidious failure in financial ML is accidental backtest.",
+            "activeActor": "test_start",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "events_end",
+                "to": "test_start",
+                "label": {
+                  "var": "events_end",
+                  "line": 26,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "test_start",
+                "to": "train_good",
+                "label": {
+                  "var": "test_start",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Automated audit trails protect hedge funds from allocating investor.",
+            "activeActor": "train_good",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "events_end",
+                "to": "test_start",
+                "label": {
+                  "var": "events_end",
+                  "line": 27,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "test_start",
+                "to": "train_good",
+                "label": {
+                  "var": "test_start",
+                  "line": 28,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Financial M",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Finan",
+        "actors": [
+          "events_end",
+          "test_start",
+          "train_good"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantitative research teams must enforce strict validation guardrails.",
+            "messages": [
+              {
+                "from": "events_end",
+                "to": "test_start",
+                "label": "[10, 15, 22, 28, 32]",
+                "tone": "data"
+              },
+              {
+                "from": "test_start",
+                "to": "train_good",
+                "label": "25",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "events_end"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The most insidious failure in financial ML is accidental backtest.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "events_end",
+                "to": "test_start",
+                "label": "[10, 15, 22, 28, 32]",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "test_start",
+                "to": "train_good",
+                "label": "25",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "test_start"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Automated audit trails protect hedge funds from allocating investor.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "events_end",
+                "to": "test_start",
+                "label": "[10, 15, 22, 28, 32]",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "test_start",
+                "to": "train_good",
+                "label": "25",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "train_good"
           }
         ]
       }
     },
     {
       "partTitle": "Purged Walk-Forward Cross-Validation & Embargo Windows for Financial ML — Production Telemetry & Verification Audit",
-      "codeHash": "409e16434f6c73a69ea46d192a1f803ad8f8db7b446e877b46d7764c0d094669",
+      "codeHash": "e4967dcedf5bc11714846a02e1e62fb770ef963cfba946a7159586421ae96925",
       "spec": {
-        "template": "flow",
-        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Financial M",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Finan",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for financial ML validation requires tracking.",
+            "items": {
+              "var": "train_scores",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The telemetry pipeline compares in-sample (train) score against.",
+            "items": {
+              "var": "train_scores",
+              "line": 15,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say11",
+            "caption": "Rigorous cross-validation audits ensure that machine learning algorithms.",
+            "items": {
+              "var": "train_scores",
+              "line": 14,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Financial M",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Purged Walk-Forward Cross-Validation & Embargo Windows for Finan",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production observability for financial ML validation requires tracking.",
+            "items": [
+              "1.8",
+              "1.9",
+              "1.7"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "The telemetry pipeline compares in-sample (train) score against.",
+            "items": [
+              "1.8",
+              "1.9",
+              "1.7"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say11",
+            "caption": "Rigorous cross-validation audits ensure that machine learning algorithms.",
+            "items": [
+              "1.8",
+              "1.9",
+              "1.7"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

@@ -2,150 +2,84 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 25,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Extractive question answering",
       "codeHash": "8590c4686f87020b26420cbf37bc2dbf342f341cff950ba0d526edf095119160",
       "spec": {
-        "template": "table",
-        "title": "Extractive question answering span pointer grounding",
-        "columns": [
-          "start",
-          "end"
-        ],
+        "template": "bars",
+        "title": "Extractive question answering",
         "steps": [
           {
             "at": "say1",
-            "caption": "Extractive systems identify spans directly copied from the input passage.",
-            "rows": [
+            "caption": "In extractive QA, the answer is a span copied from a given passage.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "end"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Extracting spans guarantees factual answers remain traceable to the source.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "end"
-                  }
-                ],
-                "tone": "ok"
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "passage"
-                  },
-                  {
-                    "text": "question"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The model outputs start and end scores for every passage token.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "end"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "passage"
-                  },
-                  {
-                    "text": "question"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "list"
-                  },
-                  {
-                    "text": "enumerate"
-                  }
-                ],
+                "label": "end",
+                "value": {
+                  "var": "end",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Boundary indices locate the target span within the sequence passage.",
-            "rows": [
+            "at": "say2",
+            "caption": "The standard benchmark is SQuAD (the Stanford Question Answering Dataset).",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "end"
-                  }
-                ],
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "passage"
-                  },
-                  {
-                    "text": "question"
-                  }
-                ],
+                "label": "end",
+                "value": {
+                  "var": "end",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Pointing to evidence is also the foundation of retrieval-augmented.",
+            "bars": [
+              {
+                "label": "start",
+                "value": {
+                  "var": "start",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "list"
-                  },
-                  {
-                    "text": "enumerate"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "end",
+                "value": {
+                  "var": "end",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -153,103 +87,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Extractive question answering span pointer grounding",
-        "columns": [
-          "start",
-          "end"
-        ],
+        "template": "bars",
+        "title": "Extractive question answering",
         "steps": [
           {
             "at": "say1",
-            "caption": "Extractive systems identify spans directly copied from the input passage.",
-            "rows": [
+            "caption": "In extractive QA, the answer is a span copied from a given passage.",
+            "bars": [
               {
-                "cells": [
-                  "start",
-                  "end"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Extracting spans guarantees factual answers remain traceable to the source.",
-            "rows": [
-              {
-                "cells": [
-                  "start",
-                  "end"
-                ],
-                "tone": "ok"
+                "label": "start",
+                "value": 6,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "passage",
-                  "question"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The model outputs start and end scores for every passage token.",
-            "rows": [
-              {
-                "cells": [
-                  "start",
-                  "end"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "passage",
-                  "question"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "list",
-                  "enumerate"
-                ],
+                "label": "end",
+                "value": 6,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Boundary indices locate the target span within the sequence passage.",
-            "rows": [
+            "at": "say2",
+            "caption": "The standard benchmark is SQuAD (the Stanford Question Answering Dataset).",
+            "bars": [
               {
-                "cells": [
-                  "start",
-                  "end"
-                ],
+                "label": "start",
+                "value": 6,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "passage",
-                  "question"
-                ],
+                "label": "end",
+                "value": 6,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Pointing to evidence is also the foundation of retrieval-augmented.",
+            "bars": [
+              {
+                "label": "start",
+                "value": 6,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "list",
-                  "enumerate"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "start",
-                  "print"
-                ],
+                "label": "end",
+                "value": 6,
                 "tone": "ok"
               }
             ]
@@ -261,248 +145,123 @@
       "partTitle": "Start and end scores",
       "codeHash": "31837c71d98418d9a19838012a479f1851553dad27752807fbd211b001074702",
       "spec": {
-        "template": "table",
-        "title": "Token-level span boundary start and end logits",
-        "columns": [
-          "start",
-          "end"
-        ],
+        "template": "cells",
+        "title": "Start and end scores",
         "steps": [
           {
             "at": "say1",
-            "caption": "Dual output heads produce start and end logits for each passage token.",
-            "rows": [
+            "caption": "On top of BERT, two small layers produce two numbers for each passage token.",
+            "items": {
+              "var": "tokens",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "end"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Raw logits quantify likelihood scores over positions prior to softmax.",
-            "rows": [
+            "caption": "A logit is a raw score before softmax.",
+            "items": {
+              "var": "tokens",
+              "line": 4,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "end"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "zip"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Fine-tuning trains models to yield high scores at true span boundaries.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "end"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "zip"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "max"
-                  },
-                  {
-                    "text": "marks"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Displaying output vectors marks the highest scoring positions.",
-            "rows": [
+            "at": "say7",
+            "caption": "Always look at the constraints, not just the scores.",
+            "items": {
+              "var": "tokens",
+              "line": 6,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "end"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "zip"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "max"
-                  },
-                  {
-                    "text": "marks"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Token-level span boundary start and end logits",
-        "columns": [
-          "start",
-          "end"
-        ],
+        "template": "cells",
+        "title": "Start and end scores",
         "steps": [
           {
             "at": "say1",
-            "caption": "Dual output heads produce start and end logits for each passage token.",
-            "rows": [
+            "caption": "On top of BERT, two small layers produce two numbers for each passage token.",
+            "items": [
+              "'the'",
+              "'tower'",
+              "'was'",
+              "'built'",
+              "'in'",
+              "'1889'",
+              "'by'",
+              "'eiffel'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "start",
-                  "end"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Raw logits quantify likelihood scores over positions prior to softmax.",
-            "rows": [
+            "caption": "A logit is a raw score before softmax.",
+            "items": [
+              "'the'",
+              "'tower'",
+              "'was'",
+              "'built'",
+              "'in'",
+              "'1889'",
+              "'by'",
+              "'eiffel'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "start",
-                  "end"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tokens",
-                  "zip"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Fine-tuning trains models to yield high scores at true span boundaries.",
-            "rows": [
-              {
-                "cells": [
-                  "start",
-                  "end"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tokens",
-                  "zip"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "max",
-                  "marks"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Displaying output vectors marks the highest scoring positions.",
-            "rows": [
+            "at": "say7",
+            "caption": "Always look at the constraints, not just the scores.",
+            "items": [
+              "'the'",
+              "'tower'",
+              "'was'",
+              "'built'",
+              "'in'",
+              "'1889'",
+              "'by'",
+              "'eiffel'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "start",
-                  "end"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tokens",
-                  "zip"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "max",
-                  "marks"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "tokens",
-                  "print"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -513,143 +272,131 @@
       "partTitle": "Choosing the best valid span",
       "codeHash": "fcabdd40ea4ba53ed65845ae59f9451989585ee638d5161db3227f2f0378d944",
       "spec": {
-        "template": "table",
-        "title": "Constrained valid span search and length thresholding",
-        "columns": [
-          "start",
-          "end"
-        ],
+        "template": "bars",
+        "title": "Choosing the best valid span",
         "steps": [
           {
             "at": "say1",
-            "caption": "Unconstrained selection risks predicting inverted or impossible spans.",
-            "rows": [
+            "caption": "Picking the best start and the best end independently can give.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "end"
-                  }
-                ],
-                "tone": "ok"
+                "label": "max_len",
+                "value": {
+                  "var": "max_len",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "best_score",
+                "value": {
+                  "var": "best_score",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Constrained search evaluates valid index pairs within maximum span length.",
-            "rows": [
+            "caption": "So we search over valid pairs only.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "end"
-                  }
-                ],
+                "label": "max_len",
+                "value": {
+                  "var": "max_len",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "max_len"
-                  },
-                  {
-                    "text": "best_span"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Nested iteration tests pairs and resolves ties by keeping the first best.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "end"
-                  }
-                ],
+                "label": "best_score",
+                "value": {
+                  "var": "best_score",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "max_len"
-                  },
-                  {
-                    "text": "best_span"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
-                "tone": "data"
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Heuristic constraints turn raw model scores into sensible decisions.",
-            "rows": [
+            "caption": "Constraints like this are a recurring pattern.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "end"
-                  }
-                ],
+                "label": "max_len",
+                "value": {
+                  "var": "max_len",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "max_len"
-                  },
-                  {
-                    "text": "best_span"
-                  }
-                ],
+                "label": "best_score",
+                "value": {
+                  "var": "best_score",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "range"
-                  },
-                  {
-                    "text": "score"
-                  }
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "round"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -657,103 +404,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Constrained valid span search and length thresholding",
-        "columns": [
-          "start",
-          "end"
-        ],
+        "template": "bars",
+        "title": "Choosing the best valid span",
         "steps": [
           {
             "at": "say1",
-            "caption": "Unconstrained selection risks predicting inverted or impossible spans.",
-            "rows": [
+            "caption": "Picking the best start and the best end independently can give.",
+            "bars": [
               {
-                "cells": [
-                  "start",
-                  "end"
-                ],
-                "tone": "ok"
+                "label": "max_len",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "best_score",
+                "value": "None",
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "j",
+                "value": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Constrained search evaluates valid index pairs within maximum span length.",
-            "rows": [
+            "caption": "So we search over valid pairs only.",
+            "bars": [
               {
-                "cells": [
-                  "start",
-                  "end"
-                ],
+                "label": "max_len",
+                "value": 3,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "max_len",
-                  "best_span"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Nested iteration tests pairs and resolves ties by keeping the first best.",
-            "rows": [
-              {
-                "cells": [
-                  "start",
-                  "end"
-                ],
+                "label": "best_score",
+                "value": "None",
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "max_len",
-                  "best_span"
-                ],
+                "label": "i",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "range",
-                  "score"
-                ],
-                "tone": "data"
+                "label": "j",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "Heuristic constraints turn raw model scores into sensible decisions.",
-            "rows": [
+            "caption": "Constraints like this are a recurring pattern.",
+            "bars": [
               {
-                "cells": [
-                  "start",
-                  "end"
-                ],
+                "label": "max_len",
+                "value": 3,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "max_len",
-                  "best_span"
-                ],
+                "label": "best_score",
+                "value": "None",
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "range",
-                  "score"
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "round",
-                  "print"
-                ],
+                "label": "j",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -765,249 +492,277 @@
       "partTitle": "Normalising answers",
       "codeHash": "75a687b0ea2e134b0e116ba2a1b2491e201c283a667bd2304951389a60a52672",
       "spec": {
-        "template": "table",
-        "title": "Evaluation answer canonicalization and whitespace normalization",
-        "columns": [
-          "answer",
-          "normalise"
+        "template": "flow",
+        "title": "Normalising answers",
+        "nodes": [
+          {
+            "id": "answer",
+            "label": "answer"
+          },
+          {
+            "id": "ch",
+            "label": "ch"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Superficial differences in casing should not penalize correct answers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "normalise"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "To check an answer against the correct one, small differences should not.",
+            "values": {
+              "answer": {
+                "var": "answer",
+                "line": 7,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 4,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 4,
+                "hit": 18
+              },
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 18
               }
+            },
+            "tones": {
+              "answer": "data",
+              "ch": "data",
+              "s": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "answer",
+                "ch"
+              ],
+              [
+                "ch",
+                "s"
+              ],
+              [
+                "s",
+                "text"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Standard evaluation normalises strings by stripping punctuation and casing.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "normalise"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The SQuAD evaluation normalises both strings.",
+            "values": {
+              "answer": {
+                "var": "answer",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "string"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
+              "ch": {
+                "var": "ch",
+                "line": 4,
+                "hit": 2
+              },
+              "s": {
+                "var": "s",
+                "line": 5,
+                "hit": 5
+              },
+              "text": {
+                "var": "text",
+                "line": 5,
+                "hit": 5
               }
+            },
+            "tones": {
+              "answer": "data",
+              "ch": "data",
+              "s": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "answer",
+                "ch"
+              ],
+              [
+                "ch",
+                "s"
+              ],
+              [
+                "s",
+                "text"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Standard character sets assist in filtering punctuation symbols easily.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "normalise"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say7",
+            "caption": "Normalisation rules differ between benchmarks, so always use the official.",
+            "values": {
+              "answer": {
+                "var": "answer",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "string"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
+              "ch": {
+                "var": "ch",
+                "line": 4,
+                "hit": 3
               },
-              {
-                "cells": [
-                  {
-                    "text": "split"
-                  },
-                  {
-                    "text": "lower"
-                  }
-                ],
-                "tone": "data"
+              "s": {
+                "var": "s",
+                "line": 4,
+                "hit": 33
+              },
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 33
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Canonical form transformations normalize varied answer candidates cleanly.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "normalise"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "string"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "split"
-                  },
-                  {
-                    "text": "lower"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "print"
-                  }
-                ],
-                "tone": "ok"
-              }
+            },
+            "tones": {
+              "answer": "ok",
+              "ch": "ok",
+              "s": "ok",
+              "text": "ok"
+            },
+            "arrows": [
+              [
+                "answer",
+                "ch"
+              ],
+              [
+                "ch",
+                "s"
+              ],
+              [
+                "s",
+                "text"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Evaluation answer canonicalization and whitespace normalization",
-        "columns": [
-          "answer",
-          "normalise"
+        "template": "flow",
+        "title": "Normalising answers",
+        "nodes": [
+          {
+            "id": "answer",
+            "label": "answer"
+          },
+          {
+            "id": "ch",
+            "label": "ch"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Superficial differences in casing should not penalize correct answers.",
-            "rows": [
-              {
-                "cells": [
-                  "answer",
-                  "normalise"
-                ],
-                "tone": "ok"
-              }
+            "caption": "To check an answer against the correct one, small differences should not.",
+            "values": {
+              "answer": "'The Eiffel Tower'",
+              "ch": "'t'",
+              "s": "'The Eiffel Tower'",
+              "text": "'the eiffel tower'"
+            },
+            "tones": {
+              "answer": "data",
+              "ch": "data",
+              "s": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "answer",
+                "ch"
+              ],
+              [
+                "ch",
+                "s"
+              ],
+              [
+                "s",
+                "text"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Standard evaluation normalises strings by stripping punctuation and casing.",
-            "rows": [
-              {
-                "cells": [
-                  "answer",
-                  "normalise"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "string",
-                  "text"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The SQuAD evaluation normalises both strings.",
+            "values": {
+              "answer": "'The Eiffel Tower'",
+              "ch": "'h'",
+              "s": "'The Eiffel Tower'",
+              "text": "'the eiffel tower'"
+            },
+            "tones": {
+              "answer": "data",
+              "ch": "data",
+              "s": "data",
+              "text": "data"
+            },
+            "arrows": [
+              [
+                "answer",
+                "ch"
+              ],
+              [
+                "ch",
+                "s"
+              ],
+              [
+                "s",
+                "text"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Standard character sets assist in filtering punctuation symbols easily.",
-            "rows": [
-              {
-                "cells": [
-                  "answer",
-                  "normalise"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "string",
-                  "text"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "split",
-                  "lower"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Canonical form transformations normalize varied answer candidates cleanly.",
-            "rows": [
-              {
-                "cells": [
-                  "answer",
-                  "normalise"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "string",
-                  "text"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "split",
-                  "lower"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "answer",
-                  "print"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "Normalisation rules differ between benchmarks, so always use the official.",
+            "values": {
+              "answer": "'eiffel tower.'",
+              "ch": "'e'",
+              "s": "'eiffel tower.'",
+              "text": "'eiffel tower'"
+            },
+            "tones": {
+              "answer": "ok",
+              "ch": "ok",
+              "s": "ok",
+              "text": "ok"
+            },
+            "arrows": [
+              [
+                "answer",
+                "ch"
+              ],
+              [
+                "ch",
+                "s"
+              ],
+              [
+                "s",
+                "text"
+              ]
             ]
           }
         ]
@@ -1017,223 +772,106 @@
       "partTitle": "Exact match and F1",
       "codeHash": "8dc92bfea9941576c2603b17b0be208116cd64b84b72e056ef857e7cd7b66b0d",
       "spec": {
-        "template": "flow",
-        "title": "Exact match and F1 — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Exact match and F1",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Exact match and F1",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Exact match and Fone [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Exact match and Fone [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Two metrics are standard for extractive QA.",
+            "items": {
+              "var": "t",
+              "line": 9,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Exact match (EM).",
+            "items": {
+              "var": "t",
+              "line": 10,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Exact match and Fone [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example computes EM and F1 for a few predictions.",
+            "items": {
+              "var": "t",
+              "line": 11,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Exact match and F1 — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Exact match and F1",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Exact match and F1",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Exact match and F1 [D25.P5.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Exact match and F1 [D25.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Two metrics are standard for extractive QA.",
+            "items": [
+              "'eiffel'",
+              "'tower'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Exact match (EM).",
+            "items": [
+              "'eiffel'",
+              "'tower'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Exact match and F1 [D25.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example computes EM and F1 for a few predictions.",
+            "items": [
+              "'eiffel'",
+              "'tower'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -1243,223 +881,115 @@
       "partTitle": "Practice time: spans and matches",
       "codeHash": "0259fc93f0cea88ccea236e05d9f5ddddd56fa1f0a194d28222785380344db0c",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: spans and matches — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: span...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: spans and matches",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: spans and matches [D.Psix.Sone].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: span... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "J runs from i up to min(len(end_logits), i + max_len) - 1.",
+            "items": {
+              "var": "scores",
+              "line": 8,
+              "hit": 6
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Equal scores give (0, 0) thanks to the tie rule.",
+            "items": {
+              "var": "scores",
+              "line": 9,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: spans and matches.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example shows that averaging.",
+            "items": {
+              "var": "scores",
+              "line": 10,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: spans and matches — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: span...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: spans and matches",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: spans and matches [D25.P6.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: span... [D25.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "J runs from i up to min(len(end_logits), i + max_len) - 1.",
+            "items": [
+              "1",
+              "1",
+              "0",
+              "1",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Equal scores give (0, 0) thanks to the tie rule.",
+            "items": [
+              "1",
+              "1",
+              "0",
+              "1",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: spans and matches [D25.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example shows that averaging.",
+            "items": [
+              "1",
+              "1",
+              "0",
+              "1",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

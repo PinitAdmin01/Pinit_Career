@@ -2,1335 +2,1061 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 36,
-  "promptSha": "c678f09b34912a1c857f11f5936dcf142c98246003d484ea2eb1076f1ba99262",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "ZeRO Stage 1, Stage 2 & Stage 3 Memory Sharding & Communication Overhead — Foundations & Mathematical Invariants",
-      "codeHash": "374537d3d0f79d3650476fe2446a07daa26a4aa9481f45b4be9b2dde5df8afb8",
+      "partTitle": "ZeRO Stage 1, Stage 2 & Stage 3 — Foundations & Mathematical Invariants",
+      "codeHash": "d15148752fa858d0643682db101c6b4fb3e8c2d8c48b71958012fb3d2dbbef76",
       "spec": {
         "template": "flow",
-        "title": "ZeRO Stage , Stage & Stage Memory Sharding & Communication Overhead — ",
+        "title": "ZeRO Stage 1, Stage 2 & Stage 3 — Foundations & Mathematical Inv",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "ZERO_STAGES_TAXONOMY",
+            "label": "ZERO_STAGES_TAXONOMY"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "stage",
+            "label": "stage"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Standard Distributed Data Parallel (DDP) training is memory-inefficient.",
+            "values": {
+              "ZERO_STAGES_TAXONOMY": {
+                "var": "ZERO_STAGES_TAXONOMY",
+                "line": 1,
+                "hit": 1
+              },
+              "stage": {
+                "var": "stage",
+                "line": 7,
+                "hit": 1
+              },
+              "desc": {
+                "var": "desc",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "ZERO_STAGES_TAXONOMY": "data",
+              "stage": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "ZERO_STAGES_TAXONOMY",
+                "stage"
+              ],
+              [
+                "stage",
+                "desc"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Trace how cluster updates storing during execution.",
+            "values": {
+              "ZERO_STAGES_TAXONOMY": {
+                "var": "ZERO_STAGES_TAXONOMY",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "stage": {
+                "var": "stage",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "desc": {
+                "var": "desc",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "ZERO_STAGES_TAXONOMY": "data",
+              "stage": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "ZERO_STAGES_TAXONOMY",
+                "stage"
+              ],
+              [
+                "stage",
+                "desc"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say11",
+            "caption": "Modern distributed frameworks implement ZeRO memory sharding principles.",
+            "values": {
+              "ZERO_STAGES_TAXONOMY": {
+                "var": "ZERO_STAGES_TAXONOMY",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "stage": {
+                "var": "stage",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "desc": {
+                "var": "desc",
+                "line": 7,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "ZERO_STAGES_TAXONOMY": "ok",
+              "stage": "ok",
+              "desc": "ok"
+            },
+            "arrows": [
+              [
+                "ZERO_STAGES_TAXONOMY",
+                "stage"
+              ],
+              [
+                "stage",
+                "desc"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "ZeRO Stage , Stage & Stage Memory Sharding & Communication Overhead — ",
+        "title": "ZeRO Stage 1, Stage 2 & Stage 3 — Foundations & Mathematical Inv",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "ZERO_STAGES_TAXONOMY",
+            "label": "ZERO_STAGES_TAXONOMY"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "stage",
+            "label": "stage"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "desc",
+            "label": "desc"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Standard Distributed Data Parallel (DDP) training is memory-inefficient.",
+            "values": {
+              "ZERO_STAGES_TAXONOMY": "{'ZERO_STAGE_1': 'Optimizer state parti…",
+              "stage": "'ZERO_OFFLOAD'",
+              "desc": "'Offloading partitioned optimizer state…"
+            },
+            "tones": {
+              "ZERO_STAGES_TAXONOMY": "data",
+              "stage": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "ZERO_STAGES_TAXONOMY",
+                "stage"
+              ],
+              [
+                "stage",
+                "desc"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Trace how cluster updates storing during execution.",
+            "values": {
+              "ZERO_STAGES_TAXONOMY": "{'ZERO_STAGE_1': 'Optimizer state parti…",
+              "stage": "'ZERO_OFFLOAD'",
+              "desc": "'Offloading partitioned optimizer state…"
+            },
+            "tones": {
+              "ZERO_STAGES_TAXONOMY": "data",
+              "stage": "data",
+              "desc": "data"
+            },
+            "arrows": [
+              [
+                "ZERO_STAGES_TAXONOMY",
+                "stage"
+              ],
+              [
+                "stage",
+                "desc"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say11",
+            "caption": "Modern distributed frameworks implement ZeRO memory sharding principles.",
+            "values": {
+              "ZERO_STAGES_TAXONOMY": "{'ZERO_STAGE_1': 'Optimizer state parti…",
+              "stage": "'ZERO_STAGE_1'",
+              "desc": "'Optimizer state partitioning: shards 1…"
+            },
+            "tones": {
+              "ZERO_STAGES_TAXONOMY": "ok",
+              "stage": "ok",
+              "desc": "ok"
+            },
+            "arrows": [
+              [
+                "ZERO_STAGES_TAXONOMY",
+                "stage"
+              ],
+              [
+                "stage",
+                "desc"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "ZeRO Stage 1, Stage 2 & Stage 3 Memory Sharding & Communication Overhead — Core Algorithm & State Representation",
-      "codeHash": "aab8b2efe3c3e7991afab95684509a084539d96f4d01de9c4b01bea2e4fdd171",
+      "partTitle": "ZeRO Stage 1, Stage 2 & Stage 3 — Core Algorithm & State Representation",
+      "codeHash": "57399849e00ee240a1a847478d6d6f0a1d4468176e354d3854d8212dca543778",
       "spec": {
         "template": "flow",
-        "title": "ZeRO Stage , Stage & Stage Memory Sharding & Communication Overhead — ",
+        "title": "ZeRO Stage 1, Stage 2 & Stage 3 — Core Algorithm & State Represe",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "param_billions",
+            "label": "param_billions"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "num_gpus",
+            "label": "num_gpus"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "stage",
+            "label": "stage"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "p",
+            "label": "p"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The ZeRO stage memory calculator evaluates static VRAM requirements per.",
+            "values": {
+              "param_billions": {
+                "var": "param_billions",
+                "line": 6,
+                "hit": 1
+              },
+              "num_gpus": {
+                "var": "num_gpus",
+                "line": 6,
+                "hit": 1
+              },
+              "stage": {
+                "var": "stage",
+                "line": 6,
+                "hit": 1
+              },
+              "p": {
+                "var": "p",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "param_billions": "data",
+              "num_gpus": "data",
+              "stage": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "param_billions",
+                "num_gpus"
+              ],
+              [
+                "num_gpus",
+                "stage"
+              ],
+              [
+                "stage",
+                "p"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Under baseline DDP (Stage 0), each GPU requires the full sixteen bytes per.",
+            "values": {
+              "param_billions": {
+                "var": "param_billions",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "num_gpus": {
+                "var": "num_gpus",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "stage": {
+                "var": "stage",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "p": {
+                "var": "p",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "param_billions": "data",
+              "num_gpus": "data",
+              "stage": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "param_billions",
+                "num_gpus"
+              ],
+              [
+                "num_gpus",
+                "stage"
+              ],
+              [
+                "stage",
+                "p"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say9",
+            "caption": "Production training recipes default to ZeRO-2 when memory permits to avoid.",
+            "values": {
+              "param_billions": {
+                "var": "param_billions",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "num_gpus": {
+                "var": "num_gpus",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "stage": {
+                "var": "stage",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "p": {
+                "var": "p",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "param_billions": "ok",
+              "num_gpus": "ok",
+              "stage": "ok",
+              "p": "ok"
+            },
+            "arrows": [
+              [
+                "param_billions",
+                "num_gpus"
+              ],
+              [
+                "num_gpus",
+                "stage"
+              ],
+              [
+                "stage",
+                "p"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "ZeRO Stage , Stage & Stage Memory Sharding & Communication Overhead — ",
+        "title": "ZeRO Stage 1, Stage 2 & Stage 3 — Core Algorithm & State Represe",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "param_billions",
+            "label": "param_billions"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "num_gpus",
+            "label": "num_gpus"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "stage",
+            "label": "stage"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "p",
+            "label": "p"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The ZeRO stage memory calculator evaluates static VRAM requirements per.",
+            "values": {
+              "param_billions": "13",
+              "num_gpus": "8",
+              "stage": "0",
+              "p": "13000000000"
+            },
+            "tones": {
+              "param_billions": "data",
+              "num_gpus": "data",
+              "stage": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "param_billions",
+                "num_gpus"
+              ],
+              [
+                "num_gpus",
+                "stage"
+              ],
+              [
+                "stage",
+                "p"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Under baseline DDP (Stage 0), each GPU requires the full sixteen bytes per.",
+            "values": {
+              "param_billions": "13",
+              "num_gpus": "8",
+              "stage": "0",
+              "p": "13000000000"
+            },
+            "tones": {
+              "param_billions": "data",
+              "num_gpus": "data",
+              "stage": "data",
+              "p": "data"
+            },
+            "arrows": [
+              [
+                "param_billions",
+                "num_gpus"
+              ],
+              [
+                "num_gpus",
+                "stage"
+              ],
+              [
+                "stage",
+                "p"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say9",
+            "caption": "Production training recipes default to ZeRO-2 when memory permits to avoid.",
+            "values": {
+              "param_billions": "13",
+              "num_gpus": "8",
+              "stage": "0",
+              "p": "13000000000"
+            },
+            "tones": {
+              "param_billions": "ok",
+              "num_gpus": "ok",
+              "stage": "ok",
+              "p": "ok"
+            },
+            "arrows": [
+              [
+                "param_billions",
+                "num_gpus"
+              ],
+              [
+                "num_gpus",
+                "stage"
+              ],
+              [
+                "stage",
+                "p"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "ZeRO Stage 1, Stage 2 & Stage 3 Memory Sharding & Communication Overhead — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "e6159e40accbdc2d905014aa3a9448a6a3f5b299855d7205a22c16c79d542492",
+      "partTitle": "ZeRO Stage 1, Stage 2 & Stage 3 — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "c4716c8cd2708bcb99552c4f78923047228241f173f6f2f06ed818bcebecf609",
       "spec": {
         "template": "flow",
-        "title": "ZeRO Stage , Stage & Stage Memory Sharding & Communication Overhead — ",
+        "title": "ZeRO Stage 1, Stage 2 & Stage 3 — Throughput Optimization & Edge",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "s",
+            "label": "s"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "stage",
+            "label": "stage"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "multipliers",
+            "label": "multipliers"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Understanding the communication overhead of each ZeRO stage is critical.",
+            "values": {
+              "s": {
+                "var": "s",
+                "line": 11,
+                "hit": 1
+              },
+              "stage": {
+                "var": "stage",
+                "line": 8,
+                "hit": 1
+              },
+              "multipliers": {
+                "var": "multipliers",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "s": "data",
+              "stage": "data",
+              "multipliers": "data"
+            },
+            "arrows": [
+              [
+                "s",
+                "stage"
+              ],
+              [
+                "stage",
+                "multipliers"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "In baseline DDP, GPUs perform an All-Reduce on gradients at the end of.",
+            "values": {
+              "s": {
+                "var": "s",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "stage": {
+                "var": "stage",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "multipliers": {
+                "var": "multipliers",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "s": "data",
+              "stage": "data",
+              "multipliers": "data"
+            },
+            "arrows": [
+              [
+                "s",
+                "stage"
+              ],
+              [
+                "stage",
+                "multipliers"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Understanding communication volume multipliers enables performance.",
+            "values": {
+              "s": {
+                "var": "s",
+                "line": 11,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "stage": {
+                "var": "stage",
+                "line": 8,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "multipliers": {
+                "var": "multipliers",
+                "line": 8,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "s": "ok",
+              "stage": "ok",
+              "multipliers": "ok"
+            },
+            "arrows": [
+              [
+                "s",
+                "stage"
+              ],
+              [
+                "stage",
+                "multipliers"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "ZeRO Stage , Stage & Stage Memory Sharding & Communication Overhead — ",
+        "title": "ZeRO Stage 1, Stage 2 & Stage 3 — Throughput Optimization & Edge",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "s",
+            "label": "s"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "stage",
+            "label": "stage"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "multipliers",
+            "label": "multipliers"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Understanding the communication overhead of each ZeRO stage is critical.",
+            "values": {
+              "s": "0",
+              "stage": "0",
+              "multipliers": "{0: 1, 1: 1, 2: 1, 3: 1.5}"
+            },
+            "tones": {
+              "s": "data",
+              "stage": "data",
+              "multipliers": "data"
+            },
+            "arrows": [
+              [
+                "s",
+                "stage"
+              ],
+              [
+                "stage",
+                "multipliers"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "In baseline DDP, GPUs perform an All-Reduce on gradients at the end of.",
+            "values": {
+              "s": "0",
+              "stage": "0",
+              "multipliers": "{0: 1, 1: 1, 2: 1, 3: 1.5}"
+            },
+            "tones": {
+              "s": "data",
+              "stage": "data",
+              "multipliers": "data"
+            },
+            "arrows": [
+              [
+                "s",
+                "stage"
+              ],
+              [
+                "stage",
+                "multipliers"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Understanding communication volume multipliers enables performance.",
+            "values": {
+              "s": "1",
+              "stage": "1",
+              "multipliers": "{0: 1, 1: 1, 2: 1, 3: 1.5}"
+            },
+            "tones": {
+              "s": "ok",
+              "stage": "ok",
+              "multipliers": "ok"
+            },
+            "arrows": [
+              [
+                "s",
+                "stage"
+              ],
+              [
+                "stage",
+                "multipliers"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "ZeRO Stage 1, Stage 2 & Stage 3 Memory Sharding & Communication Overhead — Resilience Guardrails & Failure Recovery",
-      "codeHash": "93fd63826684ac6ca316bc2eae2f101eb710bd6f9285c78ecd6b21f37b1a724a",
+      "partTitle": "ZeRO Stage 1, Stage 2 & Stage 3 — Resilience Guardrails & Failure Recovery",
+      "codeHash": "41213a7f3be3022013fdd42efcc06ed3c6c45bd8c2b9a189352bcdcd2963024c",
       "spec": {
-        "template": "flow",
-        "title": "ZeRO Stage , Stage & Stage Memory Sharding & Communication Overhead — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "ZeRO Stage 1, Stage 2 & Stage 3 — Resilience Guardrails & Failur",
+        "actors": [
+          "stage",
+          "cpu_offload",
+          "interconnect_speed_gbps"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When physical GPU VRAM is completely exhausted, ZeRO-Offload allows.",
+            "activeActor": "stage",
+            "messages": [
+              {
+                "from": "stage",
+                "to": "cpu_offload",
+                "label": {
+                  "var": "stage",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "cpu_offload",
+                "to": "interconnect_speed_gbps",
+                "label": {
+                  "var": "cpu_offload",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "However, offloading memory over slow system buses (such as PCIe Gen4.",
+            "activeActor": "cpu_offload",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "stage",
+                "to": "cpu_offload",
+                "label": {
+                  "var": "stage",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "cpu_offload",
+                "to": "interconnect_speed_gbps",
+                "label": {
+                  "var": "cpu_offload",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Cloud infrastructure teams deploy these validations within distributed.",
+            "activeActor": "interconnect_speed_gbps",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "stage",
+                "to": "cpu_offload",
+                "label": {
+                  "var": "stage",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "cpu_offload",
+                "to": "interconnect_speed_gbps",
+                "label": {
+                  "var": "cpu_offload",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "ZeRO Stage , Stage & Stage Memory Sharding & Communication Overhead — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "ZeRO Stage 1, Stage 2 & Stage 3 — Resilience Guardrails & Failur",
+        "actors": [
+          "stage",
+          "cpu_offload",
+          "interconnect_speed_gbps"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When physical GPU VRAM is completely exhausted, ZeRO-Offload allows.",
+            "messages": [
+              {
+                "from": "stage",
+                "to": "cpu_offload",
+                "label": "3",
+                "tone": "data"
+              },
+              {
+                "from": "cpu_offload",
+                "to": "interconnect_speed_gbps",
+                "label": "False",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "stage"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "However, offloading memory over slow system buses (such as PCIe Gen4.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "stage",
+                "to": "cpu_offload",
+                "label": "3",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "cpu_offload",
+                "to": "interconnect_speed_gbps",
+                "label": "False",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "cpu_offload"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say9",
+            "caption": "Cloud infrastructure teams deploy these validations within distributed.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "stage",
+                "to": "cpu_offload",
+                "label": "3",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "cpu_offload",
+                "to": "interconnect_speed_gbps",
+                "label": "False",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "interconnect_speed_gbps"
           }
         ]
       }
     },
     {
-      "partTitle": "ZeRO Stage 1, Stage 2 & Stage 3 Memory Sharding & Communication Overhead — Production Telemetry & Verification Audit",
-      "codeHash": "feca337f68e363915d11aa47406a47bda6ecde0274e22060e5c143e057a7b239",
+      "partTitle": "ZeRO Stage 1, Stage 2 & Stage 3 — Production Telemetry & Verification Audit",
+      "codeHash": "790d7203cc105ef20186e9b6b104686ce84964e0c7a9006f5fe5365d65dd5de4",
       "spec": {
-        "template": "flow",
-        "title": "ZeRO Stage , Stage & Stage Memory Sharding & Communication Overhead — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "ZeRO Stage 1, Stage 2 & Stage 3 — Production Telemetry & Verific",
+        "actors": [
+          "memory_calc_ok",
+          "comm_overhead_ok",
+          "config_guard_ok"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing ZeRO memory sharding requires continuous telemetry.",
+            "activeActor": "memory_calc_ok",
+            "messages": [
+              {
+                "from": "memory_calc_ok",
+                "to": "comm_overhead_ok",
+                "label": {
+                  "var": "memory_calc_ok",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "comm_overhead_ok",
+                "to": "config_guard_ok",
+                "label": {
+                  "var": "comm_overhead_ok",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A ZeRO stage auditor asserts that memory sharding calculations.",
+            "activeActor": "comm_overhead_ok",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "memory_calc_ok",
+                "to": "comm_overhead_ok",
+                "label": {
+                  "var": "memory_calc_ok",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "comm_overhead_ok",
+                "to": "config_guard_ok",
+                "label": {
+                  "var": "comm_overhead_ok",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Continuous memory sharding auditing ensures that distributed training.",
+            "activeActor": "config_guard_ok",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "memory_calc_ok",
+                "to": "comm_overhead_ok",
+                "label": {
+                  "var": "memory_calc_ok",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "comm_overhead_ok",
+                "to": "config_guard_ok",
+                "label": {
+                  "var": "comm_overhead_ok",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "ZeRO Stage , Stage & Stage Memory Sharding & Communication Overhead — ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "sequence",
+        "title": "ZeRO Stage 1, Stage 2 & Stage 3 — Production Telemetry & Verific",
+        "actors": [
+          "memory_calc_ok",
+          "comm_overhead_ok",
+          "config_guard_ok"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operationalizing ZeRO memory sharding requires continuous telemetry.",
+            "messages": [
+              {
+                "from": "memory_calc_ok",
+                "to": "comm_overhead_ok",
+                "label": "True",
+                "tone": "data"
+              },
+              {
+                "from": "comm_overhead_ok",
+                "to": "config_guard_ok",
+                "label": "True",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "memory_calc_ok"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A ZeRO stage auditor asserts that memory sharding calculations.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "memory_calc_ok",
+                "to": "comm_overhead_ok",
+                "label": "True",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "comm_overhead_ok",
+                "to": "config_guard_ok",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "comm_overhead_ok"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Continuous memory sharding auditing ensures that distributed training.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "memory_calc_ok",
+                "to": "comm_overhead_ok",
+                "label": "True",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "comm_overhead_ok",
+                "to": "config_guard_ok",
+                "label": "True",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "config_guard_ok"
           }
         ]
       }

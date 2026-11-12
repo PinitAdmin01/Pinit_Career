@@ -2,230 +2,224 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 42,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Curse of Full Fine-Tuning & The Intrinsic Rank Hypothesis",
       "codeHash": "d4517178100cb8e6b9b20a73b1732557d3b2c41217d69dc64a3d5b41203efd03",
       "spec": {
-        "template": "flow",
-        "title": "The Curse of Full Fine-Tuning & The Intrinsic... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Curse of Full F...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The Curse of Full Fine-Tuning & The Intrinsic Rank Hypothesis",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The Curse of Full Fine-Tuning & The Intr...",
-            "values": {
-              "in": "Day 42 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The Curse of Full F....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In yesterday's masterclass, we mastered the mechanics of Supervised.",
+            "bars": [
+              {
+                "label": "d_in",
+                "value": {
+                  "var": "d_in",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d_out",
+                "value": {
+                  "var": "d_out",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 29,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_singular",
+                "value": {
+                  "var": "total_singular_energy",
+                  "line": 29,
+                  "hit": 258
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand why full fine-tuning becomes mathematically and economically.",
+            "bars": [
+              {
+                "label": "d_in",
+                "value": {
+                  "var": "d_in",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_out",
+                "value": {
+                  "var": "d_out",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 29,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total_singular",
+                "value": {
+                  "var": "total_singular_energy",
+                  "line": 31,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The Curse of Full Fine-Tuning & T...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "In the following Python script, we implement an IntrinsicRankEstimator.",
+            "bars": [
+              {
+                "label": "d_in",
+                "value": {
+                  "var": "d_in",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_out",
+                "value": {
+                  "var": "d_out",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 29,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total_singular",
+                "value": {
+                  "var": "total_singular_energy",
+                  "line": 32,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The Curse of Full Fine-Tuning & The Intrinsic... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The Curse of Full F...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The Curse of Full Fine-Tuning & The Intrinsic Rank Hypothesis",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The Curse of Full Fine-Tuning & The Intr...",
-            "values": {
-              "in": "Day 42 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Curse of Full F....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In yesterday's masterclass, we mastered the mechanics of Supervised.",
+            "bars": [
+              {
+                "label": "d_in",
+                "value": 4096,
+                "tone": "data"
+              },
+              {
+                "label": "d_out",
+                "value": 4096,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "total_singular",
+                "value": 9.219981496139434,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "To understand why full fine-tuning becomes mathematically and economically.",
+            "bars": [
+              {
+                "label": "d_in",
+                "value": 4096,
+                "tone": "ok"
+              },
+              {
+                "label": "d_out",
+                "value": 4096,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "total_singular",
+                "value": 9.219981496139434,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Curse of Full Fine-Tuning & T...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "In the following Python script, we implement an IntrinsicRankEstimator.",
+            "bars": [
+              {
+                "label": "d_in",
+                "value": 4096,
+                "tone": "ok"
+              },
+              {
+                "label": "d_out",
+                "value": 4096,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "total_singular",
+                "value": 9.219981496139434,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -236,110 +230,161 @@
       "codeHash": "cf09bbec3858fb9e64d98739455fe6c2b48d032958f6c255d89c4ff2cdfaea9d",
       "spec": {
         "template": "flow",
-        "title": "Low-Rank Adaptation (LoRA) Mechanics: Forward... — Execution Pipeline",
+        "title": "Low-Rank Adaptation (LoRA) Mechanics: Forward Formulation, Rank ",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "d_in",
+            "label": "d_in"
           },
           {
-            "id": "proc",
-            "label": "2. Low-Rank Adaptation...",
-            "tappable": true
+            "id": "d_out",
+            "label": "d_out"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "r",
+            "label": "r"
+          },
+          {
+            "id": "alpha",
+            "label": "alpha"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Low-Rank Adaptation (LoRA) Mechanics: Fo...",
-            "values": {
-              "in": "Day 42 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Low-Rank Adaptation....",
+            "caption": "Having established the theoretical validity of low-rank adaptation, we now.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "d_in": {
+                "var": "d_in",
+                "line": 66,
+                "hit": 1
+              },
+              "d_out": {
+                "var": "d_out",
+                "line": 66,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 66,
+                "hit": 1
+              },
+              "alpha": {
+                "var": "alpha",
+                "line": 66,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "d_in": "data",
+              "d_out": "data",
+              "r": "data",
+              "alpha": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "d_in",
+                "d_out"
               ],
               [
-                "proc",
-                "out"
+                "d_out",
+                "r"
+              ],
+              [
+                "r",
+                "alpha"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The core mathematical formulation of LoRA decomposes the weight update.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "d_in": {
+                "var": "d_in",
+                "line": 22,
+                "hit": 1
+              },
+              "d_out": {
+                "var": "d_out",
+                "line": 22,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 67,
+                "hit": 1
+              },
+              "alpha": {
+                "var": "alpha",
+                "line": 22,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "d_in": "data",
+              "d_out": "data",
+              "r": "data",
+              "alpha": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "d_in",
+                "d_out"
+              ],
+              [
+                "d_out",
+                "r"
+              ],
+              [
+                "r",
+                "alpha"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Low-Rank Adaptation (LoRA) Mechan...",
+            "at": "say8",
+            "caption": "Empirical Rank Search and Hyperparameter Tuning Guidelines provide.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "d_in": {
+                "var": "d_in",
+                "line": 23,
+                "hit": 1
+              },
+              "d_out": {
+                "var": "d_out",
+                "line": 23,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 69,
+                "hit": 1
+              },
+              "alpha": {
+                "var": "alpha",
+                "line": 23,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "d_in": "ok",
+              "d_out": "ok",
+              "r": "ok",
+              "alpha": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "d_in",
+                "d_out"
               ],
               [
-                "proc",
-                "out"
+                "d_out",
+                "r"
+              ],
+              [
+                "r",
+                "alpha"
               ]
             ]
           }
@@ -347,110 +392,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Low-Rank Adaptation (LoRA) Mechanics: Forward... — Execution Pipeline",
+        "title": "Low-Rank Adaptation (LoRA) Mechanics: Forward Formulation, Rank ",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "d_in",
+            "label": "d_in"
           },
           {
-            "id": "proc",
-            "label": "2. Low-Rank Adaptation...",
-            "tappable": true
+            "id": "d_out",
+            "label": "d_out"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "r",
+            "label": "r"
+          },
+          {
+            "id": "alpha",
+            "label": "alpha"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Low-Rank Adaptation (LoRA) Mechanics: Fo...",
-            "values": {
-              "in": "Day 42 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Low-Rank Adaptation....",
+            "caption": "Having established the theoretical validity of low-rank adaptation, we now.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "d_in": "8",
+              "d_out": "8",
+              "r": "2",
+              "alpha": "4"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "d_in": "data",
+              "d_out": "data",
+              "r": "data",
+              "alpha": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "d_in",
+                "d_out"
               ],
               [
-                "proc",
-                "out"
+                "d_out",
+                "r"
+              ],
+              [
+                "r",
+                "alpha"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The core mathematical formulation of LoRA decomposes the weight update.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "d_in": "8",
+              "d_out": "8",
+              "r": "2",
+              "alpha": "4"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "d_in": "data",
+              "d_out": "data",
+              "r": "data",
+              "alpha": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "d_in",
+                "d_out"
+              ],
+              [
+                "d_out",
+                "r"
+              ],
+              [
+                "r",
+                "alpha"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Low-Rank Adaptation (LoRA) Mechan...",
+            "at": "say8",
+            "caption": "Empirical Rank Search and Hyperparameter Tuning Guidelines provide.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "d_in": "8",
+              "d_out": "8",
+              "r": "2",
+              "alpha": "4"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "d_in": "ok",
+              "d_out": "ok",
+              "r": "ok",
+              "alpha": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "d_in",
+                "d_out"
               ],
               [
-                "proc",
-                "out"
+                "d_out",
+                "r"
+              ],
+              [
+                "r",
+                "alpha"
               ]
             ]
           }
@@ -461,223 +509,217 @@
       "partTitle": "Quantized LoRA (QLoRA): 4-bit NormalFloat (NF4), Double Quantization & Paged Optimizers",
       "codeHash": "b0ae1fbb7a389a1797eae00b0b8d6d002700dac225bd46f1d5d2b33fb76fee14",
       "spec": {
-        "template": "flow",
-        "title": "Quantized LoRA (QLoRA): 4-bit NormalFloat (NF... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Quantized LoRA (QLo...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Quantized LoRA (QLoRA): 4-bit NormalFloat (NF4), Double Quantiza",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Quantized LoRA (QLoRA): four-bit NormalFloa...",
-            "values": {
-              "in": "Day 42 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Quantized LoRA (QLo....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While standard LoRA slashes optimizer memory by freezing base weights,.",
+            "bars": [
+              {
+                "label": "block1",
+                "value": {
+                  "var": "block1",
+                  "line": 44,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "block2",
+                "value": {
+                  "var": "block2",
+                  "line": 44,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 49,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 54,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "QLoRA achieves this miraculous efficiency through three core algorithmic.",
+            "bars": [
+              {
+                "label": "block1",
+                "value": {
+                  "var": "block1",
+                  "line": 45,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "block2",
+                "value": {
+                  "var": "block2",
+                  "line": 45,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 51,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 55,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Quantized LoRA (QLoRA): four-bit Nor...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "One common pitfall when implementing Quantized LoRA (QLoRA).",
+            "bars": [
+              {
+                "label": "block1",
+                "value": {
+                  "var": "block1",
+                  "line": 46,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "block2",
+                "value": {
+                  "var": "block2",
+                  "line": 46,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 52,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 56,
+                  "hit": 66
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Quantized LoRA (QLoRA): 4-bit NormalFloat (NF... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Quantized LoRA (QLo...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Quantized LoRA (QLoRA): 4-bit NormalFloat (NF4), Double Quantiza",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Quantized LoRA (QLoRA): 4-bit NormalFloa...",
-            "values": {
-              "in": "Day 42 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Quantized LoRA (QLo....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While standard LoRA slashes optimizer memory by freezing base weights,.",
+            "bars": [
+              {
+                "label": "block1",
+                "value": 64,
+                "tone": "data"
+              },
+              {
+                "label": "block2",
+                "value": 256,
+                "tone": "data"
+              },
+              {
+                "label": "N",
+                "value": 512,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "QLoRA achieves this miraculous efficiency through three core algorithmic.",
+            "bars": [
+              {
+                "label": "block1",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "block2",
+                "value": 256,
+                "tone": "ok"
+              },
+              {
+                "label": "N",
+                "value": 512,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Quantized LoRA (QLoRA): 4-bit Nor...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "One common pitfall when implementing Quantized LoRA (QLoRA).",
+            "bars": [
+              {
+                "label": "block1",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "block2",
+                "value": 256,
+                "tone": "ok"
+              },
+              {
+                "label": "N",
+                "value": 512,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -687,223 +729,115 @@
       "partTitle": "Adapter Swapping, Multi-LoRA Serving & Inference Latency Overhead",
       "codeHash": "5a7d5bfd6fb4341f7dc8a6178456d1d9157587ecef724e7e259106b1a7acd757",
       "spec": {
-        "template": "flow",
-        "title": "Adapter Swapping, Multi-LoRA Serving & Infere... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Adapter Swapping, M...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Adapter Swapping, Multi-LoRA Serving & Inference Latency Overhea",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Adapter Swapping, Multi-LoRA Serving & I...",
-            "values": {
-              "in": "Day 42 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Adapter Swapping, M....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "In high-concurrency enterprise applications, parameter-efficient.",
+            "items": {
+              "var": "registered_adapters",
+              "line": 30,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Multi-LoRA Serving architectures (such as S-LoRA, Punica, and vLLM.",
+            "items": {
+              "var": "registered_adapters",
+              "line": 30,
+              "hit": 4
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Adapter Swapping, Multi-LoRA Serv...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say11",
+            "caption": "Take a moment to compare how a novice approaches Adapter Swapping.",
+            "items": {
+              "var": "registered_adapters",
+              "line": 30,
+              "hit": 6
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Adapter Swapping, Multi-LoRA Serving & Infere... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Adapter Swapping, M...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Adapter Swapping, Multi-LoRA Serving & Inference Latency Overhea",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Adapter Swapping, Multi-LoRA Serving & I...",
-            "values": {
-              "in": "Day 42 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Adapter Swapping, M....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In high-concurrency enterprise applications, parameter-efficient.",
+            "items": [
+              "'LEGAL'",
+              "'MEDICAL'",
+              "'FINANCE'",
+              "'SOFTWARE'",
+              "'CYBERSECURITY'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Multi-LoRA Serving architectures (such as S-LoRA, Punica, and vLLM.",
+            "items": [
+              "'LEGAL'",
+              "'MEDICAL'",
+              "'FINANCE'",
+              "'SOFTWARE'",
+              "'CYBERSECURITY'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Adapter Swapping, Multi-LoRA Serv...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Take a moment to compare how a novice approaches Adapter Swapping.",
+            "items": [
+              "'LEGAL'",
+              "'MEDICAL'",
+              "'FINANCE'",
+              "'SOFTWARE'",
+              "'CYBERSECURITY'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -913,223 +847,106 @@
       "partTitle": "Masterclass Synthesis: Building the ApexLoRA Parameter-Efficient Adapter Suite",
       "codeHash": "46bc1082fc53c23c066b0bb8e26bd90cb1b6ebcc4611fc4ec9a9f464f66385bb",
       "spec": {
-        "template": "flow",
-        "title": "Masterclass Synthesis: Building the ApexLoRA ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Synthes...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Masterclass Synthesis: Building the ApexLoRA Parameter-Efficient",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Masterclass Synthesis: Building the Apex...",
-            "values": {
-              "in": "Day 42 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Masterclass Synthes....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Building the ApexLoRA Parameter-Efficient Adapter Suite.",
+            "items": {
+              "var": "ax",
+              "line": 62,
+              "hit": 37
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "In this masterclass capstone, you assume the role of Principal.",
+            "items": {
+              "var": "ax",
+              "line": 63,
+              "hit": 24
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Masterclass Synthesis: Building t...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say11",
+            "caption": "As you review the code and worked example for Masterclass Synthesis.",
+            "items": {
+              "var": "ax",
+              "line": 63,
+              "hit": 44
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Masterclass Synthesis: Building the ApexLoRA ... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Synthes...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Masterclass Synthesis: Building the ApexLoRA Parameter-Efficient",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Synthesis: Building the Apex...",
-            "values": {
-              "in": "Day 42 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Synthes....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Building the ApexLoRA Parameter-Efficient Adapter Suite.",
+            "items": [
+              "0.02034878113867726",
+              "0.644773562773932"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In this masterclass capstone, you assume the role of Principal.",
+            "items": [
+              "0.02034878113867726",
+              "0.644773562773932"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Synthesis: Building t...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "As you review the code and worked example for Masterclass Synthesis.",
+            "items": [
+              "0.02034878113867726",
+              "0.644773562773932"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]

@@ -1,159 +1,170 @@
 {
-  "schemaVersion": "2.0.0",
-  "course": "prompt-py",
-  "day": 39,
+  "schemaVersion": 1,
   "prefix": "prompt-py",
+  "day": 39,
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Collapse Of Monolithic Omniprompts: Why Single Prompts Fail Across Multi-Domain Systems",
       "codeHash": "8a5ab1671652912f8bd6b332d5c4e5fc2b77ba1846189ad202e3f3400faa5858",
       "spec": {
-        "template": "table",
-        "title": "Monolithic Omniprompt Failures And Cross Directive Attention Collapse.",
-        "columns": [
-          "Prompt Architectural Strategy",
-          "Context Organization Profile",
-          "Enterprise Operational SLA"
+        "template": "sequence",
+        "title": "The Collapse Of Monolithic Omniprompts: Why Single Prompts Fail ",
+        "actors": [
+          "categories",
+          ".0",
+          "data"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Monolithic Omniprompts suffer from cross directive interference.",
-            "rows": [
-              [
-                "Monolithic Omniprompt Mode",
-                "Four Thousand Word Colossal Prompt",
-                "High Cross Directive Contradiction Risk"
-              ],
-              [
-                "Modular Micro Prompt Fleet",
-                "Domain Specific Isolated Prompt Templates",
-                "Zero Cross Directive Interference"
-              ]
+            "caption": "In the early architectural evolution of enterprise language model.",
+            "activeActor": "categories",
+            "messages": [
+              {
+                "from": "categories",
+                "to": ".0",
+                "label": {
+                  "var": "categories",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "data",
+                "label": {
+                  "var": ".0",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
             "at": "say2",
             "caption": "The primary failure pathology of the Omniprompt is prompt interference.",
-            "rows": [
-              [
-                "Compounding Latency Penalty",
-                "Hundreds Of Milliseconds Pre Fill Time",
-                "Sluggish Frustrating User Latency"
-              ],
-              [
-                "Surgical Prompt Dispatch",
-                "Compact Sub Hundred Word Prompt Preambles",
-                "Crisp Sub Second Interactive Experience"
-              ]
+            "activeActor": ".0",
+            "messages": [
+              {
+                "from": "categories",
+                "to": ".0",
+                "label": {
+                  "var": "categories",
+                  "line": 11,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "data",
+                "label": {
+                  "var": ".0",
+                  "line": 11,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Banking prompts confuse mortgage rules with checking overdraft waivers.",
-            "rows": [
-              [
-                "Billing Explosion Risk",
-                "Paying Frontier Token Rates On Every Query",
-                "Tens Of Thousands In Wasted Cloud Costs"
-              ],
-              [
-                "Multi Tier Serving Economy",
-                "Blended Model Deployment By Complexity",
-                "Eighty Four Percent Cost Reduction"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Compare a four thousand word monolithic prompt against modular templates.",
-            "rows": [
-              [
-                "Engineering Merge Conflicts",
-                "Single Shared Prompt File Across Teams",
-                "Fragile High Risk Deployment Cycle"
-              ],
-              [
-                "Domain Ownership Model",
-                "Decoupled Prompt Files Per Business Unit",
-                "Rapid Agility With Zero Cross Regressions"
-              ]
+            "at": "say9",
+            "caption": "Mastering hierarchical prompt routing and omniprompt decomposition.",
+            "activeActor": "data",
+            "messages": [
+              {
+                "from": "categories",
+                "to": ".0",
+                "label": {
+                  "var": "categories",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "data",
+                "label": {
+                  "var": ".0",
+                  "line": 11,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Monolithic Omniprompt Failures And Cross Directive Attention Collapse.",
-        "columns": [
-          "Prompt Architectural Strategy",
-          "Context Organization Profile",
-          "Enterprise Operational SLA"
+        "template": "sequence",
+        "title": "The Collapse Of Monolithic Omniprompts: Why Single Prompts Fail ",
+        "actors": [
+          "categories",
+          ".0",
+          "data"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Monolithic Omniprompts suffer from cross directive interference.",
-            "rows": [
-              [
-                "Monolithic Omniprompt Mode",
-                "Four Thousand Word Colossal Prompt",
-                "High Cross Directive Contradiction Risk"
-              ],
-              [
-                "Modular Micro Prompt Fleet",
-                "Domain Specific Isolated Prompt Templates",
-                "Zero Cross Directive Interference"
-              ]
-            ]
+            "caption": "In the early architectural evolution of enterprise language model.",
+            "messages": [
+              {
+                "from": "categories",
+                "to": ".0",
+                "label": "{'Tier 1: Fast FAQ & Status': {'model':…",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "data",
+                "label": "{'__other__': 'dict_valueiterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "categories"
           },
           {
             "at": "say2",
             "caption": "The primary failure pathology of the Omniprompt is prompt interference.",
-            "rows": [
-              [
-                "Compounding Latency Penalty",
-                "Hundreds Of Milliseconds Pre Fill Time",
-                "Sluggish Frustrating User Latency"
-              ],
-              [
-                "Surgical Prompt Dispatch",
-                "Compact Sub Hundred Word Prompt Preambles",
-                "Crisp Sub Second Interactive Experience"
-              ]
-            ]
+            "messages": [
+              {
+                "from": "categories",
+                "to": ".0",
+                "label": "{'Tier 1: Fast FAQ & Status': {'model':…",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "data",
+                "label": "{'__other__': 'dict_valueiterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": ".0"
           },
           {
-            "at": "example",
-            "caption": "Banking prompts confuse mortgage rules with checking overdraft waivers.",
-            "rows": [
-              [
-                "Billing Explosion Risk",
-                "Paying Frontier Token Rates On Every Query",
-                "Tens Of Thousands In Wasted Cloud Costs"
-              ],
-              [
-                "Multi Tier Serving Economy",
-                "Blended Model Deployment By Complexity",
-                "Eighty Four Percent Cost Reduction"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Compare a four thousand word monolithic prompt against modular templates.",
-            "rows": [
-              [
-                "Engineering Merge Conflicts",
-                "Single Shared Prompt File Across Teams",
-                "Fragile High Risk Deployment Cycle"
-              ],
-              [
-                "Domain Ownership Model",
-                "Decoupled Prompt Files Per Business Unit",
-                "Rapid Agility With Zero Cross Regressions"
-              ]
-            ]
+            "at": "say9",
+            "caption": "Mastering hierarchical prompt routing and omniprompt decomposition.",
+            "messages": [
+              {
+                "from": "categories",
+                "to": ".0",
+                "label": "{'Tier 1: Fast FAQ & Status': {'model':…",
+                "tone": "data"
+              },
+              {
+                "from": ".0",
+                "to": "data",
+                "label": "{'__other__': 'dict_valueiterator'}",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "data"
           }
         ]
       }
@@ -162,150 +173,276 @@
       "partTitle": "Semantic Intent Classification & Vector Routers: Fast Embeddings & Lightweight Classifiers",
       "codeHash": "8a5ab1671652912f8bd6b332d5c4e5fc2b77ba1846189ad202e3f3400faa5858",
       "spec": {
-        "template": "table",
-        "title": "Semantic Intent Classification And Sub Fifty Millisecond Vector Routing.",
-        "columns": [
-          "Routing Mechanism",
-          "Classification Technology",
-          "Latency And Accuracy Profile"
+        "template": "flow",
+        "title": "Semantic Intent Classification & Vector Routers: Fast Embeddings",
+        "nodes": [
+          {
+            "id": "categories",
+            "label": "categories"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "data",
+            "label": "data"
+          },
+          {
+            "id": "blended_cost",
+            "label": "blended_cost"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Semantic intent classifiers categorize inquiries in sub fifty milliseconds.",
-            "rows": [
+            "caption": "At the operational entrance of the hierarchical prompt architecture lies.",
+            "values": {
+              "categories": {
+                "var": "categories",
+                "line": 5,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 11,
+                "hit": 1
+              },
+              "data": {
+                "var": "data",
+                "line": 11,
+                "hit": 1
+              },
+              "blended_cost": {
+                "var": "blended_cost",
+                "line": 11,
+                "hit": 5
+              }
+            },
+            "tones": {
+              "categories": "data",
+              ".0": "data",
+              "data": "data",
+              "blended_cost": "data"
+            },
+            "arrows": [
               [
-                "Vector Embedding Router",
-                "Cosine Similarity Against Category Centroids",
-                "Sub Fifty Millisecond Intent Matching"
+                "categories",
+                ".0"
               ],
               [
-                "Lightweight SLM Classifier",
-                "Fine Tuned Small Model On Taxonomies",
-                "Deep Nuanced Intent Disambiguation"
+                ".0",
+                "data"
+              ],
+              [
+                "data",
+                "blended_cost"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Vector embedding routers represent foundational mechanism for speed.",
-            "rows": [
+            "caption": "Vector embedding routers represent the foundational mechanism.",
+            "values": {
+              "categories": {
+                "var": "categories",
+                "line": 11,
+                "hit": 5
+              },
+              ".0": {
+                "var": ".0",
+                "line": 11,
+                "hit": 2
+              },
+              "data": {
+                "var": "data",
+                "line": 11,
+                "hit": 2
+              },
+              "blended_cost": {
+                "var": "blended_cost",
+                "line": 12,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "categories": "data",
+              ".0": "data",
+              "data": "data",
+              "blended_cost": "data"
+            },
+            "arrows": [
               [
-                "Pydantic JSON Contract",
-                "Structured Intent Category Output Schemas",
-                "Deterministic Type Safe Routing Decision"
+                "categories",
+                ".0"
               ],
               [
-                "Defensive Fallback Triage",
-                "Route Anomalous Queries To UNKNOWN Handler",
-                "Protects Against Hostile Injection Attacks"
+                ".0",
+                "data"
+              ],
+              [
+                "data",
+                "blended_cost"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Vector routers calculate cosine similarity against category centroids.",
-            "rows": [
+            "at": "say10",
+            "caption": "Semantic intent classification establishes the intelligent traffic.",
+            "values": {
+              "categories": {
+                "var": "categories",
+                "line": 12,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 11,
+                "hit": 3
+              },
+              "data": {
+                "var": "data",
+                "line": 11,
+                "hit": 3
+              },
+              "blended_cost": {
+                "var": "blended_cost",
+                "line": 13,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "categories": "ok",
+              ".0": "ok",
+              "data": "ok",
+              "blended_cost": "ok"
+            },
+            "arrows": [
               [
-                "Intent Drift Monitor",
-                "Cluster Unclassified Queries In Latent Space",
-                "Proactive Detection Of Shifting Behaviors"
+                "categories",
+                ".0"
               ],
               [
-                "Memory Mapped Vector Index",
-                "In Memory Centroid Search In Single Digit Ms",
-                "Zero Network I O Overhead On Classification"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement an embedding router classifying queries into discrete domains.",
-            "rows": [
-              [
-                "Confidence Score Filter",
-                "Enforce Strict Ninety Percent Confidence Bars",
-                "Prevents Erratic Misclassification Traps"
+                ".0",
+                "data"
               ],
               [
-                "Zero Shot Classifier Core",
-                "Semantic Proximity Matching On Embeddings",
-                "Instantaneous High Accuracy Intent Routing"
+                "data",
+                "blended_cost"
               ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Semantic Intent Classification And Sub Fifty Millisecond Vector Routing.",
-        "columns": [
-          "Routing Mechanism",
-          "Classification Technology",
-          "Latency And Accuracy Profile"
+        "template": "flow",
+        "title": "Semantic Intent Classification & Vector Routers: Fast Embeddings",
+        "nodes": [
+          {
+            "id": "categories",
+            "label": "categories"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "data",
+            "label": "data"
+          },
+          {
+            "id": "blended_cost",
+            "label": "blended_cost"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Semantic intent classifiers categorize inquiries in sub fifty milliseconds.",
-            "rows": [
+            "caption": "At the operational entrance of the hierarchical prompt architecture lies.",
+            "values": {
+              "categories": "{'Tier 1: Fast FAQ & Status': {'model':…",
+              ".0": "{'__other__': 'dict_valueiterator'}",
+              "data": "{'model': 'In-Memory Semantic Cache / 8…",
+              "blended_cost": "0.765"
+            },
+            "tones": {
+              "categories": "data",
+              ".0": "data",
+              "data": "data",
+              "blended_cost": "data"
+            },
+            "arrows": [
               [
-                "Vector Embedding Router",
-                "Cosine Similarity Against Category Centroids",
-                "Sub Fifty Millisecond Intent Matching"
+                "categories",
+                ".0"
               ],
               [
-                "Lightweight SLM Classifier",
-                "Fine Tuned Small Model On Taxonomies",
-                "Deep Nuanced Intent Disambiguation"
+                ".0",
+                "data"
+              ],
+              [
+                "data",
+                "blended_cost"
               ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Vector embedding routers represent foundational mechanism for speed.",
-            "rows": [
+            "caption": "Vector embedding routers represent the foundational mechanism.",
+            "values": {
+              "categories": "{'Tier 1: Fast FAQ & Status': {'model':…",
+              ".0": "{'__other__': 'dict_valueiterator'}",
+              "data": "{'model': 'Domain-Specific Modular Prom…",
+              "blended_cost": "0.765"
+            },
+            "tones": {
+              "categories": "data",
+              ".0": "data",
+              "data": "data",
+              "blended_cost": "data"
+            },
+            "arrows": [
               [
-                "Pydantic JSON Contract",
-                "Structured Intent Category Output Schemas",
-                "Deterministic Type Safe Routing Decision"
+                "categories",
+                ".0"
               ],
               [
-                "Defensive Fallback Triage",
-                "Route Anomalous Queries To UNKNOWN Handler",
-                "Protects Against Hostile Injection Attacks"
+                ".0",
+                "data"
+              ],
+              [
+                "data",
+                "blended_cost"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Vector routers calculate cosine similarity against category centroids.",
-            "rows": [
+            "at": "say10",
+            "caption": "Semantic intent classification establishes the intelligent traffic.",
+            "values": {
+              "categories": "{'Tier 1: Fast FAQ & Status': {'model':…",
+              ".0": "{'__other__': 'dict_valueiterator'}",
+              "data": "{'model': 'Frontier Flagship Reasoning …",
+              "blended_cost": "0.765"
+            },
+            "tones": {
+              "categories": "ok",
+              ".0": "ok",
+              "data": "ok",
+              "blended_cost": "ok"
+            },
+            "arrows": [
               [
-                "Intent Drift Monitor",
-                "Cluster Unclassified Queries In Latent Space",
-                "Proactive Detection Of Shifting Behaviors"
+                "categories",
+                ".0"
               ],
               [
-                "Memory Mapped Vector Index",
-                "In Memory Centroid Search In Single Digit Ms",
-                "Zero Network I O Overhead On Classification"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Implement an embedding router classifying queries into discrete domains.",
-            "rows": [
-              [
-                "Confidence Score Filter",
-                "Enforce Strict Ninety Percent Confidence Bars",
-                "Prevents Erratic Misclassification Traps"
+                ".0",
+                "data"
               ],
               [
-                "Zero Shot Classifier Core",
-                "Semantic Proximity Matching On Embeddings",
-                "Instantaneous High Accuracy Intent Routing"
+                "data",
+                "blended_cost"
               ]
             ]
           }
@@ -316,151 +453,175 @@
       "partTitle": "Hierarchical Dispatch Architecture: Dynamic Schema Injection & Multi-Tier Model Serving",
       "codeHash": "8a5ab1671652912f8bd6b332d5c4e5fc2b77ba1846189ad202e3f3400faa5858",
       "spec": {
-        "template": "table",
-        "title": "Hierarchical Dispatch Architecture And Multi Tier Model Serving.",
-        "columns": [
-          "Serving Model Tier",
-          "Assigned Workload Category",
-          "Cost And Performance Profile"
-        ],
+        "template": "bars",
+        "title": "Hierarchical Dispatch Architecture: Dynamic Schema Injection & M",
         "steps": [
           {
             "at": "say1",
-            "caption": "Hierarchical dispatch architecture governs dynamic prompt assembly.",
-            "rows": [
-              [
-                "Dynamic Schema Injector",
-                "Inject Only Relevant Tool Schemas Per Intent",
-                "Maximizes Tool Selection Reasoning Accuracy"
-              ],
-              [
-                "Tier One Model Fleet",
-                "In Memory Caches And Eight Billion Classifiers",
-                "Resolves Routine Inquiries At Ten Cents"
-              ]
+            "caption": "Hierarchical dispatch architecture governs the dynamic assembly, context.",
+            "bars": [
+              {
+                "label": "blended_cost",
+                "value": {
+                  "var": "blended_cost",
+                  "line": 11,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "label": "monolithic_cos",
+                "value": {
+                  "var": "monolithic_cost",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cost_reduction",
+                "value": {
+                  "var": "cost_reduction_pct",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Dynamic schema and tool injection represents first major responsibility.",
-            "rows": [
-              [
-                "Tier Two Mid Tier Fleet",
-                "Domain Specific Fine Tuned Operational Models",
-                "Handles Business Tasks At Eighty Cents"
-              ],
-              [
-                "Tier Three Frontier LLM",
-                "Flagship Frontier Models For Deep Synthesis",
-                "Reserved For Complex Ten Percent Edge Cases"
-              ]
+            "caption": "Dynamic schema and tool injection represents the first major operational.",
+            "bars": [
+              {
+                "label": "blended_cost",
+                "value": {
+                  "var": "blended_cost",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "monolithic_cos",
+                "value": {
+                  "var": "monolithic_cost",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cost_reduction",
+                "value": {
+                  "var": "cost_reduction_pct",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Dispatchers route FAQs to fast models and reserve frontier LLMs for legal.",
-            "rows": [
-              [
-                "Just In Time RAG Filter",
-                "Pass Intent Metadata To Vector Retrieval",
-                "Restricts Search To Verified Domain Vaults"
-              ],
-              [
-                "Session Context Store",
-                "Maintain Identity Across Intent Swaps",
-                "Seamless Multi Turn Conversational Flow"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Construct a multi tier dispatcher routing queries based on complexity.",
-            "rows": [
-              [
-                "Failover Load Balancer",
-                "Dynamic Provider Failover Under High Load",
-                "Maintains Uptime During Cloud Outages"
-              ],
-              [
-                "Blended Economics Engine",
-                "Optimal Algorithmic Model Tier Matching",
-                "Delivers Planetary Enterprise Scalability"
-              ]
+            "at": "say10",
+            "caption": "Hierarchical dispatch architecture transforms fragmented AI tools into.",
+            "bars": [
+              {
+                "label": "blended_cost",
+                "value": {
+                  "var": "blended_cost",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "monolithic_cos",
+                "value": {
+                  "var": "monolithic_cost",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cost_reduction",
+                "value": {
+                  "var": "cost_reduction_pct",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Hierarchical Dispatch Architecture And Multi Tier Model Serving.",
-        "columns": [
-          "Serving Model Tier",
-          "Assigned Workload Category",
-          "Cost And Performance Profile"
-        ],
+        "template": "bars",
+        "title": "Hierarchical Dispatch Architecture: Dynamic Schema Injection & M",
         "steps": [
           {
             "at": "say1",
-            "caption": "Hierarchical dispatch architecture governs dynamic prompt assembly.",
-            "rows": [
-              [
-                "Dynamic Schema Injector",
-                "Inject Only Relevant Tool Schemas Per Intent",
-                "Maximizes Tool Selection Reasoning Accuracy"
-              ],
-              [
-                "Tier One Model Fleet",
-                "In Memory Caches And Eight Billion Classifiers",
-                "Resolves Routine Inquiries At Ten Cents"
-              ]
+            "caption": "Hierarchical dispatch architecture governs the dynamic assembly, context.",
+            "bars": [
+              {
+                "label": "blended_cost",
+                "value": 0.765,
+                "tone": "data"
+              },
+              {
+                "label": "monolithic_cos",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "cost_reduction",
+                "value": 84.7,
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "Dynamic schema and tool injection represents first major responsibility.",
-            "rows": [
-              [
-                "Tier Two Mid Tier Fleet",
-                "Domain Specific Fine Tuned Operational Models",
-                "Handles Business Tasks At Eighty Cents"
-              ],
-              [
-                "Tier Three Frontier LLM",
-                "Flagship Frontier Models For Deep Synthesis",
-                "Reserved For Complex Ten Percent Edge Cases"
-              ]
+            "caption": "Dynamic schema and tool injection represents the first major operational.",
+            "bars": [
+              {
+                "label": "blended_cost",
+                "value": 0.765,
+                "tone": "ok"
+              },
+              {
+                "label": "monolithic_cos",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "cost_reduction",
+                "value": 84.7,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Dispatchers route FAQs to fast models and reserve frontier LLMs for legal.",
-            "rows": [
-              [
-                "Just In Time RAG Filter",
-                "Pass Intent Metadata To Vector Retrieval",
-                "Restricts Search To Verified Domain Vaults"
-              ],
-              [
-                "Session Context Store",
-                "Maintain Identity Across Intent Swaps",
-                "Seamless Multi Turn Conversational Flow"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Construct a multi tier dispatcher routing queries based on complexity.",
-            "rows": [
-              [
-                "Failover Load Balancer",
-                "Dynamic Provider Failover Under High Load",
-                "Maintains Uptime During Cloud Outages"
-              ],
-              [
-                "Blended Economics Engine",
-                "Optimal Algorithmic Model Tier Matching",
-                "Delivers Planetary Enterprise Scalability"
-              ]
+            "at": "say10",
+            "caption": "Hierarchical dispatch architecture transforms fragmented AI tools into.",
+            "bars": [
+              {
+                "label": "blended_cost",
+                "value": 0.765,
+                "tone": "ok"
+              },
+              {
+                "label": "monolithic_cos",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "cost_reduction",
+                "value": 84.7,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -470,151 +631,175 @@
       "partTitle": "Omniprompt Decomposition & Modular Prompts: Negative Constraint Specialization & Context Isolation",
       "codeHash": "8a5ab1671652912f8bd6b332d5c4e5fc2b77ba1846189ad202e3f3400faa5858",
       "spec": {
-        "template": "table",
-        "title": "Omniprompt Decomposition And Modular Negative Constraint Specialization.",
-        "columns": [
-          "Modular Design Dimension",
-          "Engineering Implementation",
-          "Governance Resilience Profile"
-        ],
+        "template": "bars",
+        "title": "Omniprompt Decomposition & Modular Prompts: Negative Constraint ",
         "steps": [
           {
             "at": "say1",
-            "caption": "Decomposing monolithic Omniprompts requires systematic engineering.",
-            "rows": [
-              [
-                "Domain Responsibility Split",
-                "Partition Instructions Into Cohesive Units",
-                "Establishes Clear Institutional Ownership"
-              ],
-              [
-                "Negative Constraint Focus",
-                "Surgically Targeted Rules Per Specialized Task",
-                "Eliminates Overly Broad Negative Clashes"
-              ]
+            "caption": "Decomposing a sprawling monolithic Omniprompt into a modular prompt.",
+            "bars": [
+              {
+                "label": "blended_cost",
+                "value": {
+                  "var": "blended_cost",
+                  "line": 11,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "label": "monolithic_cos",
+                "value": {
+                  "var": "monolithic_cost",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cost_reduction",
+                "value": {
+                  "var": "cost_reduction_pct",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "The first step in omniprompt decomposition is domain segregation.",
-            "rows": [
-              [
-                "Uniform Interface Contract",
-                "Standardized Sections Across All Prompts",
-                "Enables Automated Linting And CI CD Gates"
-              ],
-              [
-                "Context Attention Peak",
-                "Small Prompts Positioning Rules In Polar Zones",
-                "Maximizes Retention On Crucial Directives"
-              ]
+            "caption": "The first step in omniprompt decomposition is Domain Responsibility.",
+            "bars": [
+              {
+                "label": "blended_cost",
+                "value": {
+                  "var": "blended_cost",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "monolithic_cos",
+                "value": {
+                  "var": "monolithic_cost",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cost_reduction",
+                "value": {
+                  "var": "cost_reduction_pct",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Decomposed prompt libraries allow billing and security to update rules.",
-            "rows": [
-              [
-                "Automated Version Control",
-                "Git Backed Prompt Repositories With Tracing",
-                "Enables Instant Rollbacks On Regression"
-              ],
-              [
-                "A B Testing Harness",
-                "Route Canary Traffic To Candidate Prompts",
-                "Validates Performance Prior To Rollout"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Decompose a multi topic prompt into three isolated modular templates.",
-            "rows": [
-              [
-                "Modular Governance Board",
-                "Dedicated Business Unit Review Ownership",
-                "Eliminates Organizational Deployment Bottlenecks"
-              ],
-              [
-                "Prompt Linting Engine",
-                "Automated Structural Quality Checks In CI",
-                "Guarantees Standardized Enterprise Formats"
-              ]
+            "at": "say11",
+            "caption": "Modular prompt decomposition establishes the foundation for scalable.",
+            "bars": [
+              {
+                "label": "blended_cost",
+                "value": {
+                  "var": "blended_cost",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "monolithic_cos",
+                "value": {
+                  "var": "monolithic_cost",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cost_reduction",
+                "value": {
+                  "var": "cost_reduction_pct",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Omniprompt Decomposition And Modular Negative Constraint Specialization.",
-        "columns": [
-          "Modular Design Dimension",
-          "Engineering Implementation",
-          "Governance Resilience Profile"
-        ],
+        "template": "bars",
+        "title": "Omniprompt Decomposition & Modular Prompts: Negative Constraint ",
         "steps": [
           {
             "at": "say1",
-            "caption": "Decomposing monolithic Omniprompts requires systematic engineering.",
-            "rows": [
-              [
-                "Domain Responsibility Split",
-                "Partition Instructions Into Cohesive Units",
-                "Establishes Clear Institutional Ownership"
-              ],
-              [
-                "Negative Constraint Focus",
-                "Surgically Targeted Rules Per Specialized Task",
-                "Eliminates Overly Broad Negative Clashes"
-              ]
+            "caption": "Decomposing a sprawling monolithic Omniprompt into a modular prompt.",
+            "bars": [
+              {
+                "label": "blended_cost",
+                "value": 0.765,
+                "tone": "data"
+              },
+              {
+                "label": "monolithic_cos",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "cost_reduction",
+                "value": 84.7,
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "The first step in omniprompt decomposition is domain segregation.",
-            "rows": [
-              [
-                "Uniform Interface Contract",
-                "Standardized Sections Across All Prompts",
-                "Enables Automated Linting And CI CD Gates"
-              ],
-              [
-                "Context Attention Peak",
-                "Small Prompts Positioning Rules In Polar Zones",
-                "Maximizes Retention On Crucial Directives"
-              ]
+            "caption": "The first step in omniprompt decomposition is Domain Responsibility.",
+            "bars": [
+              {
+                "label": "blended_cost",
+                "value": 0.765,
+                "tone": "ok"
+              },
+              {
+                "label": "monolithic_cos",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "cost_reduction",
+                "value": 84.7,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Decomposed prompt libraries allow billing and security to update rules.",
-            "rows": [
-              [
-                "Automated Version Control",
-                "Git Backed Prompt Repositories With Tracing",
-                "Enables Instant Rollbacks On Regression"
-              ],
-              [
-                "A B Testing Harness",
-                "Route Canary Traffic To Candidate Prompts",
-                "Validates Performance Prior To Rollout"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Decompose a multi topic prompt into three isolated modular templates.",
-            "rows": [
-              [
-                "Modular Governance Board",
-                "Dedicated Business Unit Review Ownership",
-                "Eliminates Organizational Deployment Bottlenecks"
-              ],
-              [
-                "Prompt Linting Engine",
-                "Automated Structural Quality Checks In CI",
-                "Guarantees Standardized Enterprise Formats"
-              ]
+            "at": "say11",
+            "caption": "Modular prompt decomposition establishes the foundation for scalable.",
+            "bars": [
+              {
+                "label": "blended_cost",
+                "value": 0.765,
+                "tone": "ok"
+              },
+              {
+                "label": "monolithic_cos",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "cost_reduction",
+                "value": 84.7,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -624,151 +809,175 @@
       "partTitle": "Enterprise Routing Engineering: Implementing A Sub-50ms Dynamic Prompt Dispatcher In Python",
       "codeHash": "8a5ab1671652912f8bd6b332d5c4e5fc2b77ba1846189ad202e3f3400faa5858",
       "spec": {
-        "template": "table",
-        "title": "Enterprise Routing Engineering And Production Python Service Deployment.",
-        "columns": [
-          "Platform Service Layer",
-          "Component Implementation",
-          "Production Reliability SLA"
-        ],
+        "template": "bars",
+        "title": "Enterprise Routing Engineering: Implementing A Sub-50ms Dynamic ",
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise routing translates architectures into python services.",
-            "rows": [
-              [
-                "Request Gateway Layer",
-                "Validate Session Tokens And Rate Limits",
-                "Enforces Strict Enterprise Entry Boundaries"
-              ],
-              [
-                "ONNX Embedding Kernel",
-                "Quantized Sentence Transformer Inference",
-                "Single Digit Millisecond Representation"
-              ]
+            "caption": "Translating hierarchical routing and modular prompt architectures.",
+            "bars": [
+              {
+                "label": "blended_cost",
+                "value": {
+                  "var": "blended_cost",
+                  "line": 11,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "label": "monolithic_cos",
+                "value": {
+                  "var": "monolithic_cost",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "cost_reduction",
+                "value": {
+                  "var": "cost_reduction_pct",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "The software architecture comprises five decoupled microservice layers.",
-            "rows": [
-              [
-                "Async Parallel Dispatcher",
-                "Concurrent RAG Retrieval And Prompt Build",
-                "Eliminates Serial Network Idle Times"
-              ],
-              [
-                "OpenTelemetry Trace Core",
-                "Distributed Spans Across Intent And LLM Calls",
-                "Provides Granular System Observability"
-              ]
+            "caption": "The software architecture of a production prompt routing service comprises.",
+            "bars": [
+              {
+                "label": "blended_cost",
+                "value": {
+                  "var": "blended_cost",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "monolithic_cos",
+                "value": {
+                  "var": "monolithic_cost",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cost_reduction",
+                "value": {
+                  "var": "cost_reduction_pct",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Enterprise routing engines dispatch incoming banking requests concurrently.",
-            "rows": [
-              [
-                "Safety Fallback Sandbox",
-                "Secondary Intent Verification On Ambiguity",
-                "Prevents Erratic Misrouting Incidents"
-              ],
-              [
-                "Cryptographic Audit Vault",
-                "SHA Two Fifty Six Hash Of Prompt And Route",
-                "Satisfies External Regulatory Oversight"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a modular Python router with embedding classification and tracing.",
-            "rows": [
-              [
-                "Automated SLA Watchdog",
-                "Sub Fifty Millisecond Classification SLA",
-                "Maintains High Availability Platform SLA"
-              ],
-              [
-                "Dynamic Worker Cluster",
-                "Isolated Distributed Routing Microservices",
-                "Guarantees High Concurrency Throughput"
-              ]
+            "at": "say12",
+            "caption": "Mastering hierarchical prompt routing and modular prompt engineering.",
+            "bars": [
+              {
+                "label": "blended_cost",
+                "value": {
+                  "var": "blended_cost",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "monolithic_cos",
+                "value": {
+                  "var": "monolithic_cost",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cost_reduction",
+                "value": {
+                  "var": "cost_reduction_pct",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Enterprise Routing Engineering And Production Python Service Deployment.",
-        "columns": [
-          "Platform Service Layer",
-          "Component Implementation",
-          "Production Reliability SLA"
-        ],
+        "template": "bars",
+        "title": "Enterprise Routing Engineering: Implementing A Sub-50ms Dynamic ",
         "steps": [
           {
             "at": "say1",
-            "caption": "Enterprise routing translates architectures into python services.",
-            "rows": [
-              [
-                "Request Gateway Layer",
-                "Validate Session Tokens And Rate Limits",
-                "Enforces Strict Enterprise Entry Boundaries"
-              ],
-              [
-                "ONNX Embedding Kernel",
-                "Quantized Sentence Transformer Inference",
-                "Single Digit Millisecond Representation"
-              ]
+            "caption": "Translating hierarchical routing and modular prompt architectures.",
+            "bars": [
+              {
+                "label": "blended_cost",
+                "value": 0.765,
+                "tone": "data"
+              },
+              {
+                "label": "monolithic_cos",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "cost_reduction",
+                "value": 84.7,
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "say2",
-            "caption": "The software architecture comprises five decoupled microservice layers.",
-            "rows": [
-              [
-                "Async Parallel Dispatcher",
-                "Concurrent RAG Retrieval And Prompt Build",
-                "Eliminates Serial Network Idle Times"
-              ],
-              [
-                "OpenTelemetry Trace Core",
-                "Distributed Spans Across Intent And LLM Calls",
-                "Provides Granular System Observability"
-              ]
+            "caption": "The software architecture of a production prompt routing service comprises.",
+            "bars": [
+              {
+                "label": "blended_cost",
+                "value": 0.765,
+                "tone": "ok"
+              },
+              {
+                "label": "monolithic_cos",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "cost_reduction",
+                "value": 84.7,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Enterprise routing engines dispatch incoming banking requests concurrently.",
-            "rows": [
-              [
-                "Safety Fallback Sandbox",
-                "Secondary Intent Verification On Ambiguity",
-                "Prevents Erratic Misrouting Incidents"
-              ],
-              [
-                "Cryptographic Audit Vault",
-                "SHA Two Fifty Six Hash Of Prompt And Route",
-                "Satisfies External Regulatory Oversight"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Build a modular Python router with embedding classification and tracing.",
-            "rows": [
-              [
-                "Automated SLA Watchdog",
-                "Sub Fifty Millisecond Classification SLA",
-                "Maintains High Availability Platform SLA"
-              ],
-              [
-                "Dynamic Worker Cluster",
-                "Isolated Distributed Routing Microservices",
-                "Guarantees High Concurrency Throughput"
-              ]
+            "at": "say12",
+            "caption": "Mastering hierarchical prompt routing and modular prompt engineering.",
+            "bars": [
+              {
+                "label": "blended_cost",
+                "value": 0.765,
+                "tone": "ok"
+              },
+              {
+                "label": "monolithic_cos",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "cost_reduction",
+                "value": 84.7,
+                "tone": "ok"
+              }
             ]
           }
         ]

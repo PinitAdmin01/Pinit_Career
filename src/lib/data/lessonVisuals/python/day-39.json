@@ -2,88 +2,266 @@
   "schemaVersion": 1,
   "prefix": "python",
   "day": 39,
-  "promptSha": "ec8f9900067f3b7cfe6e57acd77323776f8e1881b1c40d844c5395d7618d649b",
-  "model": "gate-v2-verified",
+  "promptSha": "5db18810b49e9d03c1b2b30fec7d37053f04195c7208f5c8d5474f06da324888",
+  "model": "hand-authored-m2-gate-v2",
   "entries": [
     {
       "partTitle": "Alembic Revision Graph & DDL Locking Mechanics",
       "codeHash": "0cd597e11eb8d008e7f23d76dcf1b3e9f69f1161686c8c600c7064a63d1c3059",
       "spec": {
-        "template": "table",
-        "title": "Alembic Revision Graph & DDL Locking Mechanics",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "MigrationDAG revision upgrade chain",
         "steps": [
           {
             "at": "say1",
-            "caption": "The high concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Alembic traces each revision backward via down_revision pointers.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Alembic"
-                  },
-                  {
-                    "text": "Revision"
-                  }
-                ],
+                "text": "001_init"
+              },
+              {
+                "text": "002_add_email"
+              },
+              {
+                "text": "003_add_avatar"
+              },
+              {
+                "text": "004_split_names"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "current",
+                "index": 0,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "idle",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The access logic drives deterministic execution.",
-            "rows": [
+            "caption": "DDL ALTER waits block incoming table queries behind lock queues.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Graph"
-                  },
-                  {
-                    "text": "DDL"
-                  }
-                ],
+                "text": "001_init"
+              },
+              {
+                "text": "002_add_email"
+              },
+              {
+                "text": "003_add_avatar"
+              },
+              {
+                "text": "004_split_names"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "blocked",
+                "index": 2,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              1,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "error",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Strict lock timeouts abort stalled migrations while DAG chains apply.",
+            "items": [
+              {
+                "text": "001_init"
+              },
+              {
+                "text": "002_add_email"
+              },
+              {
+                "text": "003_add_avatar"
+              },
+              {
+                "text": "004_split_names"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "head",
+                "index": 3,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Register 005_add_status pointing to 004_split_names and compute upgrade path.",
+            "items": [
+              {
+                "text": "Instantiate"
+              },
+              {
+                "text": "MigrationDAG"
+              },
+              {
+                "text": "register"
+              },
+              {
+                "text": "revision"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "head",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "data"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Alembic Revision Graph & DDL Locking Mechanics",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "MigrationDAG revision upgrade chain",
         "steps": [
           {
             "at": "say1",
-            "caption": "The high concept establishes the core structural baseline.",
-            "rows": [
+            "caption": "Alembic traces each revision backward via down_revision pointers.",
+            "items": [
+              "001_init",
+              "002_add_email",
+              "003_add_avatar",
+              "004_split_names"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Alembic",
-                  "Revision"
-                ],
+                "name": "current",
+                "index": 0,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "idle",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "The access logic drives deterministic execution.",
-            "rows": [
+            "caption": "DDL ALTER waits block incoming table queries behind lock queues.",
+            "items": [
+              "001_init",
+              "002_add_email",
+              "003_add_avatar (LOCK RISK)",
+              "004_split_names"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Graph",
-                  "DDL"
-                ],
+                "name": "blocked",
+                "index": 2,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              1,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "error",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Strict lock timeouts abort stalled migrations while DAG chains apply.",
+            "items": [
+              "001_init",
+              "002_add_email",
+              "003_add_avatar",
+              "004_split_names (HEAD)"
+            ],
+            "pointers": [
+              {
+                "name": "head",
+                "index": 3,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Register 005_add_status pointing to 004_split_names and compute upgrade path.",
+            "items": [
+              "002_add_email",
+              "003_add_avatar",
+              "004_split_names",
+              "005_add_status (HEAD)"
+            ],
+            "pointers": [
+              {
+                "name": "head",
+                "index": 3,
+                "tone": "ok"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "data"
+            },
+            "whatIf": "class RevisionNode:\n    def __init__(self, revision_id, down_revision, description):\n        self.revision_id = revision_id\n        self.down_revision = down_revision\n        self.description = description\n\nclass MigrationDAG:\n    def __init__(self):\n        self.nodes = {}\n        self.heads = set()\n\n    def register(self, rev_id, down_rev, description):\n        node = RevisionNode(rev_id, down_rev, description)\n        self.nodes[rev_id] = node\n        if down_rev in self.heads:\n            self.heads.remove(down_rev)\n        self.heads.add(rev_id)\n\n    def get_upgrade_path(self, current_rev, target_rev):\n        path = []\n        curr = target_rev\n        while curr != current_rev and curr is not None:\n            node = self.nodes.get(curr)\n            if not node:\n                raise ValueError(f\"Unknown revision: {curr}\")\n            path.append(node)\n            curr = node.down_revision\n        if curr != current_rev:\n            raise RuntimeError(f\"Cannot trace upgrade path from {current_rev} to {target_rev}\")\n        path.reverse()\n        return [(n.revision_id, n.description) for n in path]\n\ndag = MigrationDAG()\ndag.register(\"001_init\", None, \"Create baseline user table\")\ndag.register(\"002_add_email\", \"001_init\", \"Add email column with index\")\ndag.register(\"003_add_avatar\", \"002_add_email\", \"Expand user schema with avatar_url\")\ndag.register(\"004_split_names\", \"003_add_avatar\", \"Split full_name into first and last\")\n\ndag.register(\"005_add_status\", \"004_split_names\", \"Add account status index\")\nsteps = dag.get_upgrade_path(\"001_init\", \"005_add_status\")\nprint(\"Target head:\", list(dag.heads)[0])\nprint(f\"Computed upgrade plan ({len(steps)} revisions):\")\nfor rev_id, desc in steps:\n    print(f\" -> Apply {rev_id}: {desc}\")",
+            "checks": [
+              "Target head: 005_add_status",
+              "Computed upgrade plan (4 revisions):",
+              "Apply 005_add_status: Add account status index"
             ]
           }
         ]
@@ -93,82 +271,162 @@
       "partTitle": "Rolling Deployment Migration Failure Forensics",
       "codeHash": "fb2d8f71e3e337519d758e8efaa848654425900de874fd8280f037a33edfbd4a",
       "spec": {
-        "template": "table",
-        "title": "Rolling Deployment Migration Failure Forensics",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Unbounded DDL wait vs 50ms lock_timeout guard",
+        "leftLabel": "Blocking DDL Wait (75ms)",
+        "rightLabel": "Lock Timeout Guard (50ms)",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The modern concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Rolling"
-                  },
-                  {
-                    "text": "Deployment"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Renaming columns immediately crashes active rolling deployment pods.",
+            "left": {
+              "code": "RENAME COLUMN full_name TO display_name",
+              "result": "v1 Pods OperationalError",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "ADD COLUMN display_name DEFAULT NULL",
+              "result": "v1 & v2 Compatible",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The similarly logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Migration"
-                  },
-                  {
-                    "text": "Failure"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say5",
+            "caption": "Timeout aborts blocked migrations before query starvation spreads.",
+            "left": {
+              "code": "acquire_exclusive_ddl_lock(wait_ms=75)",
+              "result": "Aborted (>50ms Readers Active)",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "release_read_lock(); acquire(wait_ms=10)",
+              "result": "Acquired Without Starvation",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Active reader queries trigger immediate lock_timeout protection at 50ms.",
+            "left": {
+              "code": "active_readers=2, wait_ms=75",
+              "result": "LockConflictException (Shielded)",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "active_readers=0, wait_ms=10",
+              "result": "Exclusive Lock Granted",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase lock_timeout_ms to 100ms so wait_ms 75 succeeds immediately.",
+            "left": {
+              "code": "TableLockManager(lock_timeout_ms=50)",
+              "result": "Shielded LockConflictException (75 > 50)",
+              "tone": "error",
+              "checks": [
+                "lock_timeout (50ms) exceeded!",
+                "Timeout=50ms blocked 75ms wait cleanly"
+              ],
+              "whatIf": "import time\n\nclass LockConflictException(Exception):\n    pass\n\nclass TableLockManager:\n    def __init__(self, table_name, lock_timeout_ms=50):\n        self.table_name = table_name\n        self.lock_timeout_ms = lock_timeout_ms\n        self.active_readers = 0\n        self.exclusive_lock_held = False\n\n    def acquire_read_lock(self, client_id):\n        if self.exclusive_lock_held:\n            raise LockConflictException(f\"Client {client_id}: Blocked by EXCLUSIVE lock\")\n        self.active_readers += 1\n        return True\n\n    def release_read_lock(self):\n        self.active_readers = max(0, self.active_readers - 1)\n\n    def acquire_exclusive_ddl_lock(self, migration_id, wait_ms):\n        print(f\"[{migration_id}] Requesting ACCESS EXCLUSIVE lock on {self.table_name}...\")\n        if self.active_readers > 0:\n            if wait_ms > self.lock_timeout_ms:\n                raise LockConflictException(\n                    f\"[{migration_id}] ERROR: lock_timeout ({self.lock_timeout_ms}ms) exceeded! \"\n                    f\"Blocked by {self.active_readers} active reading queries. DDL aborted.\"\n                )\n        self.exclusive_lock_held = True\n        return True\n\nmgr = TableLockManager(\"users\", lock_timeout_ms=50)\nmgr.acquire_read_lock(\"web_worker_1\")\nmgr.acquire_read_lock(\"web_worker_2\")\nprint(f\"Active readers on 'users': {mgr.active_readers}\")\n\ntry:\n    mgr.acquire_exclusive_ddl_lock(\"migration_005\", wait_ms=75)\nexcept LockConflictException as exc:\n    print(\"Shielded incident:\", exc)\nfinally:\n    mgr.release_read_lock()\n    mgr.release_read_lock()\n\nprint(f\"Readers after release: {mgr.active_readers}\")\nmgr.acquire_exclusive_ddl_lock(\"migration_005\", wait_ms=10)\nprint(\"Timeout=50ms blocked 75ms wait cleanly\")\nprint(\"Exclusive DDL lock successfully acquired with zero query starvation!\")"
+            },
+            "right": {
+              "code": "TableLockManager(lock_timeout_ms=100)",
+              "result": "Lock Granted at wait_ms=75 (<= 100ms)",
+              "tone": "ok",
+              "checks": [
+                "75ms Wait Acq: True",
+                "Exclusive DDL lock successfully acquired"
+              ],
+              "whatIf": "import time\n\nclass LockConflictException(Exception):\n    pass\n\nclass TableLockManager:\n    def __init__(self, table_name, lock_timeout_ms=100):\n        self.table_name = table_name\n        self.lock_timeout_ms = lock_timeout_ms\n        self.active_readers = 0\n        self.exclusive_lock_held = False\n\n    def acquire_read_lock(self, client_id):\n        if self.exclusive_lock_held:\n            raise LockConflictException(f\"Client {client_id}: Blocked by EXCLUSIVE lock\")\n        self.active_readers += 1\n        return True\n\n    def release_read_lock(self):\n        self.active_readers = max(0, self.active_readers - 1)\n\n    def acquire_exclusive_ddl_lock(self, migration_id, wait_ms):\n        print(f\"[{migration_id}] Requesting ACCESS EXCLUSIVE lock on {self.table_name}...\")\n        if self.active_readers > 0:\n            if wait_ms > self.lock_timeout_ms:\n                raise LockConflictException(\n                    f\"[{migration_id}] ERROR: lock_timeout ({self.lock_timeout_ms}ms) exceeded! \"\n                    f\"Blocked by {self.active_readers} active reading queries. DDL aborted.\"\n                )\n        self.exclusive_lock_held = True\n        return True\n\nmgr = TableLockManager(\"users\", lock_timeout_ms=50)\nmgr.acquire_read_lock(\"web_worker_1\")\nmgr.acquire_read_lock(\"web_worker_2\")\nprint(f\"Active readers on 'users': {mgr.active_readers}\")\n\ntry:\n    mgr.acquire_exclusive_ddl_lock(\"migration_005\", wait_ms=75)\nexcept LockConflictException as exc:\n    print(\"Shielded incident:\", exc)\nfinally:\n    mgr.release_read_lock()\n    mgr.release_read_lock()\n\nprint(f\"Readers after release: {mgr.active_readers}\")\nprint(\"75ms Wait Acq:\", mgr.acquire_exclusive_ddl_lock(\"migration_005\", wait_ms=10))\nprint(\"Exclusive DDL lock successfully acquired with zero query starvation!\")"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Rolling Deployment Migration Failure Forensics",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "compare",
+        "title": "Unbounded DDL wait vs 50ms lock_timeout guard",
+        "leftLabel": "Blocking DDL Wait (75ms)",
+        "rightLabel": "Lock Timeout Guard (50ms)",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The modern concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Rolling",
-                  "Deployment"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say2",
+            "caption": "Renaming columns immediately crashes active rolling deployment pods.",
+            "left": {
+              "code": "RENAME COLUMN full_name TO display_name",
+              "result": "v1 Pods OperationalError",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "ADD COLUMN display_name DEFAULT NULL",
+              "result": "v1 & v2 Compatible",
+              "tone": "ok",
+              "checks": []
+            }
           },
           {
-            "at": "say3",
-            "caption": "The similarly logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Migration",
-                  "Failure"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say5",
+            "caption": "Timeout aborts blocked migrations before query starvation spreads.",
+            "left": {
+              "code": "acquire_exclusive_ddl_lock(wait_ms=75)",
+              "result": "Aborted (>50ms Readers Active)",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "release_read_lock(); acquire(wait_ms=10)",
+              "result": "Acquired Without Starvation",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Active reader queries trigger immediate lock_timeout protection at 50ms.",
+            "left": {
+              "code": "active_readers=2, wait_ms=75",
+              "result": "LockConflictException (Shielded)",
+              "tone": "error",
+              "checks": []
+            },
+            "right": {
+              "code": "active_readers=0, wait_ms=10",
+              "result": "Exclusive Lock Granted",
+              "tone": "ok",
+              "checks": []
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase lock_timeout_ms to 100ms so wait_ms 75 succeeds immediately.",
+            "left": {
+              "code": "TableLockManager(lock_timeout_ms=50)",
+              "result": "Shielded LockConflictException (75 > 50)",
+              "tone": "error",
+              "checks": [
+                "lock_timeout (50ms) exceeded!",
+                "Timeout=50ms blocked 75ms wait cleanly"
+              ],
+              "whatIf": "import time\n\nclass LockConflictException(Exception):\n    pass\n\nclass TableLockManager:\n    def __init__(self, table_name, lock_timeout_ms=50):\n        self.table_name = table_name\n        self.lock_timeout_ms = lock_timeout_ms\n        self.active_readers = 0\n        self.exclusive_lock_held = False\n\n    def acquire_read_lock(self, client_id):\n        if self.exclusive_lock_held:\n            raise LockConflictException(f\"Client {client_id}: Blocked by EXCLUSIVE lock\")\n        self.active_readers += 1\n        return True\n\n    def release_read_lock(self):\n        self.active_readers = max(0, self.active_readers - 1)\n\n    def acquire_exclusive_ddl_lock(self, migration_id, wait_ms):\n        print(f\"[{migration_id}] Requesting ACCESS EXCLUSIVE lock on {self.table_name}...\")\n        if self.active_readers > 0:\n            if wait_ms > self.lock_timeout_ms:\n                raise LockConflictException(\n                    f\"[{migration_id}] ERROR: lock_timeout ({self.lock_timeout_ms}ms) exceeded! \"\n                    f\"Blocked by {self.active_readers} active reading queries. DDL aborted.\"\n                )\n        self.exclusive_lock_held = True\n        return True\n\nmgr = TableLockManager(\"users\", lock_timeout_ms=50)\nmgr.acquire_read_lock(\"web_worker_1\")\nmgr.acquire_read_lock(\"web_worker_2\")\nprint(f\"Active readers on 'users': {mgr.active_readers}\")\n\ntry:\n    mgr.acquire_exclusive_ddl_lock(\"migration_005\", wait_ms=75)\nexcept LockConflictException as exc:\n    print(\"Shielded incident:\", exc)\nfinally:\n    mgr.release_read_lock()\n    mgr.release_read_lock()\n\nprint(f\"Readers after release: {mgr.active_readers}\")\nmgr.acquire_exclusive_ddl_lock(\"migration_005\", wait_ms=10)\nprint(\"Timeout=50ms blocked 75ms wait cleanly\")\nprint(\"Exclusive DDL lock successfully acquired with zero query starvation!\")"
+            },
+            "right": {
+              "code": "TableLockManager(lock_timeout_ms=100)",
+              "result": "Lock Granted at wait_ms=75 (<= 100ms)",
+              "tone": "ok",
+              "checks": [
+                "75ms Wait Acq: True",
+                "Exclusive DDL lock successfully acquired"
+              ],
+              "whatIf": "import time\n\nclass LockConflictException(Exception):\n    pass\n\nclass TableLockManager:\n    def __init__(self, table_name, lock_timeout_ms=100):\n        self.table_name = table_name\n        self.lock_timeout_ms = lock_timeout_ms\n        self.active_readers = 0\n        self.exclusive_lock_held = False\n\n    def acquire_read_lock(self, client_id):\n        if self.exclusive_lock_held:\n            raise LockConflictException(f\"Client {client_id}: Blocked by EXCLUSIVE lock\")\n        self.active_readers += 1\n        return True\n\n    def release_read_lock(self):\n        self.active_readers = max(0, self.active_readers - 1)\n\n    def acquire_exclusive_ddl_lock(self, migration_id, wait_ms):\n        print(f\"[{migration_id}] Requesting ACCESS EXCLUSIVE lock on {self.table_name}...\")\n        if self.active_readers > 0:\n            if wait_ms > self.lock_timeout_ms:\n                raise LockConflictException(\n                    f\"[{migration_id}] ERROR: lock_timeout ({self.lock_timeout_ms}ms) exceeded! \"\n                    f\"Blocked by {self.active_readers} active reading queries. DDL aborted.\"\n                )\n        self.exclusive_lock_held = True\n        return True\n\nmgr = TableLockManager(\"users\", lock_timeout_ms=50)\nmgr.acquire_read_lock(\"web_worker_1\")\nmgr.acquire_read_lock(\"web_worker_2\")\nprint(f\"Active readers on 'users': {mgr.active_readers}\")\n\ntry:\n    mgr.acquire_exclusive_ddl_lock(\"migration_005\", wait_ms=75)\nexcept LockConflictException as exc:\n    print(\"Shielded incident:\", exc)\nfinally:\n    mgr.release_read_lock()\n    mgr.release_read_lock()\n\nprint(f\"Readers after release: {mgr.active_readers}\")\nprint(\"75ms Wait Acq:\", mgr.acquire_exclusive_ddl_lock(\"migration_005\", wait_ms=10))\nprint(\"Exclusive DDL lock successfully acquired with zero query starvation!\")"
+            }
           }
         ]
       }
@@ -177,81 +435,301 @@
       "partTitle": "Expand and Contract Schema Migration Engine",
       "codeHash": "b1154ccc26e8352a4177011ba791a517c3a1391eae667c203ff2ca267e84e9b4",
       "spec": {
-        "template": "table",
-        "title": "Expand and Contract Schema Migration Engine",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "ExpandContractSchemaService zero-downtime phases",
+        "nodes": [
+          {
+            "id": "exp",
+            "label": "EXPAND"
+          },
+          {
+            "id": "dual",
+            "label": "DUAL_WRITE"
+          },
+          {
+            "id": "back",
+            "label": "BACKFILLED"
+          },
+          {
+            "id": "cont",
+            "label": "CONTRACTED"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The achieve concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Expand"
-                  },
-                  {
-                    "text": "and"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Expand phase introduces nullable columns with negligible lock duration.",
+            "values": {
+              "exp": {
+                "text": "first_name"
+              },
+              "dual": {
+                "text": "full_name"
+              },
+              "back": {
+                "text": "None"
+              },
+              "cont": {
+                "text": "CONTRACTED"
               }
+            },
+            "tones": {
+              "exp": "ok",
+              "dual": "idle",
+              "back": "idle",
+              "cont": "idle"
+            },
+            "arrows": [
+              [
+                "exp",
+                "dual"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "The phase logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Contract"
-                  },
-                  {
-                    "text": "Schema"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say4",
+            "caption": "Dual-write and chunked backfill synchronize historical user records.",
+            "values": {
+              "exp": {
+                "text": "EXPAND"
+              },
+              "dual": {
+                "text": "Claude Shannon"
+              },
+              "back": {
+                "text": "Alan Turing"
+              },
+              "cont": {
+                "text": "CONTRACTED"
               }
+            },
+            "tones": {
+              "exp": "ok",
+              "dual": "ok",
+              "back": "data",
+              "cont": "idle"
+            },
+            "arrows": [
+              [
+                "exp",
+                "dual"
+              ],
+              [
+                "dual",
+                "back"
+              ]
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Contract phase removes legacy columns once backfill completes safely.",
+            "values": {
+              "exp": {
+                "text": "EXPAND"
+              },
+              "dual": {
+                "text": "DUAL_WRITE"
+              },
+              "back": {
+                "text": "BACKFILLED"
+              },
+              "cont": {
+                "text": "CONTRACTED"
+              }
+            },
+            "tones": {
+              "exp": "ok",
+              "dual": "ok",
+              "back": "ok",
+              "cont": "ok"
+            },
+            "arrows": [
+              [
+                "exp",
+                "dual"
+              ],
+              [
+                "dual",
+                "back"
+              ],
+              [
+                "back",
+                "cont"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Block writes to legacy full_name once phase reaches CONTRACTED state.",
+            "values": {
+              "exp": {
+                "text": "Add"
+              },
+              "dual": {
+                "text": "check"
+              },
+              "back": {
+                "text": "raise"
+              },
+              "cont": {
+                "text": "someone"
+              }
+            },
+            "tones": {
+              "exp": "ok",
+              "dual": "ok",
+              "back": "ok",
+              "cont": "error"
+            },
+            "arrows": [
+              [
+                "exp",
+                "dual"
+              ],
+              [
+                "dual",
+                "back"
+              ],
+              [
+                "back",
+                "cont"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Expand and Contract Schema Migration Engine",
-        "columns": [
-          "Stage",
-          "Concept"
+        "template": "flow",
+        "title": "ExpandContractSchemaService zero-downtime phases",
+        "nodes": [
+          {
+            "id": "exp",
+            "label": "EXPAND"
+          },
+          {
+            "id": "dual",
+            "label": "DUAL_WRITE"
+          },
+          {
+            "id": "back",
+            "label": "BACKFILLED"
+          },
+          {
+            "id": "cont",
+            "label": "CONTRACTED"
+          }
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The achieve concept establishes the core structural baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "Expand",
-                  "and"
-                ],
-                "tone": "data"
-              }
+            "at": "say2",
+            "caption": "Expand phase introduces nullable columns with negligible lock duration.",
+            "values": {
+              "exp": "ADD first/last NULL",
+              "dual": "v1 writes full_name",
+              "back": "Pending NULLs",
+              "cont": "Pending"
+            },
+            "tones": {
+              "exp": "ok",
+              "dual": "idle",
+              "back": "idle",
+              "cont": "idle"
+            },
+            "arrows": [
+              [
+                "exp",
+                "dual"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "The phase logic drives deterministic execution.",
-            "rows": [
-              {
-                "cells": [
-                  "Contract",
-                  "Schema"
-                ],
-                "tone": "ok"
-              }
+            "at": "say4",
+            "caption": "Dual-write and chunked backfill synchronize historical user records.",
+            "values": {
+              "exp": "Done",
+              "dual": "Claude Shannon",
+              "back": "3 Historical Rows",
+              "cont": "Pending"
+            },
+            "tones": {
+              "exp": "ok",
+              "dual": "ok",
+              "back": "data",
+              "cont": "idle"
+            },
+            "arrows": [
+              [
+                "exp",
+                "dual"
+              ],
+              [
+                "dual",
+                "back"
+              ]
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Contract phase removes legacy columns once backfill completes safely.",
+            "values": {
+              "exp": "Done",
+              "dual": "Done",
+              "back": "Done (0 NULLs)",
+              "cont": "DROP full_name"
+            },
+            "tones": {
+              "exp": "ok",
+              "dual": "ok",
+              "back": "ok",
+              "cont": "ok"
+            },
+            "arrows": [
+              [
+                "exp",
+                "dual"
+              ],
+              [
+                "dual",
+                "back"
+              ],
+              [
+                "back",
+                "cont"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Block writes to legacy full_name once phase reaches CONTRACTED state.",
+            "values": {
+              "exp": "Done",
+              "dual": "Done",
+              "back": "Backfilled",
+              "cont": "Legacy Write Blocked"
+            },
+            "tones": {
+              "exp": "ok",
+              "dual": "ok",
+              "back": "ok",
+              "cont": "error"
+            },
+            "arrows": [
+              [
+                "exp",
+                "dual"
+              ],
+              [
+                "dual",
+                "back"
+              ],
+              [
+                "back",
+                "cont"
+              ]
+            ],
+            "whatIf": "class UserRecord:\n    def __init__(self, id, full_name, first_name=None, last_name=None):\n        self.id = id\n        self.full_name = full_name\n        self.first_name = first_name\n        self.last_name = last_name\n\nclass ExpandContractSchemaService:\n    def __init__(self):\n        self.phase = \"EXPAND\"  # Phases: EXPAND, DUAL_WRITE, BACKFILLED, CONTRACTED\n        self.db = {\n            1: UserRecord(1, \"Alan Turing\"),\n            2: UserRecord(2, \"Grace Hopper\"),\n            3: UserRecord(3, \"Ada Lovelace\")\n        }\n\n    def write_user(self, user_id, full_name):\n        if self.phase == \"CONTRACTED\":\n            raise RuntimeError(\"CONTRACT violation: legacy full_name column dropped!\")\n        parts = full_name.split(\" \", 1)\n        first = parts[0]\n        last = parts[1] if len(parts) > 1 else \"\"\n        if self.phase in (\"DUAL_WRITE\", \"BACKFILLED\"):\n            self.db[user_id] = UserRecord(user_id, full_name, first, last)\n        else:\n            self.db[user_id] = UserRecord(user_id, full_name)\n\n    def run_chunked_backfill(self, chunk_size=2):\n        print(f\"Starting chunked backfill (phase={self.phase})...\")\n        updated = 0\n        for uid, user in self.db.items():\n            if user.first_name is None:\n                p = user.full_name.split(\" \", 1)\n                user.first_name = p[0]\n                user.last_name = p[1] if len(p) > 1 else \"\"\n                updated += 1\n        print(f\"Backfilled {updated} historical rows across chunks.\")\n        self.phase = \"BACKFILLED\"\n\nsvc = ExpandContractSchemaService()\nsvc.phase = \"DUAL_WRITE\"\nsvc.write_user(4, \"Claude Shannon\")\nprint(\"New user written under DUAL_WRITE:\", svc.db[4].first_name, svc.db[4].last_name)\nsvc.run_chunked_backfill()\nfor uid, u in svc.db.items():\n    print(f\"User {u.id}: {u.first_name} | {u.last_name} (Legacy full: '{u.full_name}')\")\nsvc.phase = \"CONTRACTED\"\ntry:\n    svc.write_user(5, \"Ada Two\")\nexcept RuntimeError as e:\n    print(f\"Contract Guard Caught: {e}\")",
+            "checks": [
+              "Contract Guard Caught: CONTRACT violation: legacy full_name column dropped!"
             ]
           }
         ]
@@ -262,23 +740,41 @@
       "codeHash": "4b5c3a5fb3b6dfc6e3062f05b0bb41f3c536619c55113da09970c99e53068f53",
       "spec": {
         "template": "table",
-        "title": "Online DDL & Index Creation Mechanics",
+        "title": "Blocking CREATE INDEX vs CREATE INDEX CONCURRENTLY",
         "columns": [
-          "Stage",
-          "Concept"
+          "Index Build Step",
+          "Blocking DDL",
+          "Concurrent DDL"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The database concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Concurrent index building allows reads and table writes simultaneously.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Online"
+                    "text": "CREATE INDEX"
                   },
                   {
-                    "text": "DDL"
+                    "text": "BLOCKING"
+                  },
+                  {
+                    "text": "CONCURRENT"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "orders"
+                  },
+                  {
+                    "text": "ACTIVE"
+                  },
+                  {
+                    "text": "VALID"
                   }
                 ],
                 "tone": "data"
@@ -287,18 +783,103 @@
           },
           {
             "at": "say3",
-            "caption": "The internal logic drives deterministic execution.",
+            "caption": "Multi-pass snapshots scan live rows and catch WAL updates.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "Index"
+                    "text": "Pass 1"
                   },
                   {
-                    "text": "Creation"
+                    "text": "SHARE"
+                  },
+                  {
+                    "text": "VALID"
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Pass 2"
+                  },
+                  {
+                    "text": "ACTIVE"
+                  },
+                  {
+                    "text": "CONCURRENT"
                   }
                 ],
                 "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Failed concurrent builds leave INVALID entries that need monitoring.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "CREATE INDEX CONCURRENTLY"
+                  },
+                  {
+                    "text": "SHARE"
+                  },
+                  {
+                    "text": "VALID"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "INVALID"
+                  },
+                  {
+                    "text": "BLOCKING"
+                  },
+                  {
+                    "text": "DROP INDEX CONCURRENTLY"
+                  }
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate duplicate key violation leaving index status INVALID in engine.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Add"
+                  },
+                  {
+                    "text": "invalid"
+                  },
+                  {
+                    "text": "status"
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "status"
+                  },
+                  {
+                    "text": "simulation"
+                  },
+                  {
+                    "text": "IndexBuildingEngine"
+                  }
+                ],
+                "tone": "error"
               }
             ]
           }
@@ -306,20 +887,30 @@
       },
       "filled": {
         "template": "table",
-        "title": "Online DDL & Index Creation Mechanics",
+        "title": "Blocking CREATE INDEX vs CREATE INDEX CONCURRENTLY",
         "columns": [
-          "Stage",
-          "Concept"
+          "Index Build Step",
+          "Blocking DDL",
+          "Concurrent DDL"
         ],
         "steps": [
           {
-            "at": "say1",
-            "caption": "The database concept establishes the core structural baseline.",
+            "at": "say2",
+            "caption": "Concurrent index building allows reads and table writes simultaneously.",
             "rows": [
               {
                 "cells": [
-                  "Online",
-                  "DDL"
+                  "Table Lock Mode",
+                  "SHARE (Blocks Writes!)",
+                  "SHARE UPDATE EXCLUSIVE"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "idx_orders_customer_id",
+                  "Writes Stalled",
+                  "Writes Allowed"
                 ],
                 "tone": "data"
               }
@@ -327,15 +918,72 @@
           },
           {
             "at": "say3",
-            "caption": "The internal logic drives deterministic execution.",
+            "caption": "Multi-pass snapshots scan live rows and catch WAL updates.",
             "rows": [
               {
                 "cells": [
-                  "Index",
-                  "Creation"
+                  "Pass 1: Table Scan",
+                  "Single Locked Scan",
+                  "In-Memory Tree (Non-blocking)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Pass 2-3: WAL Catchup",
+                  "N/A",
+                  "Sync Active Transactions -> VALID"
                 ],
                 "tone": "ok"
               }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Failed concurrent builds leave INVALID entries that need monitoring.",
+            "rows": [
+              {
+                "cells": [
+                  "Success Path",
+                  "VALID (After Downtime)",
+                  "VALID (Zero Write Stalls)"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Failure Recovery",
+                  "Transaction Rolls Back",
+                  "Drops INVALID Index Safely"
+                ],
+                "tone": "error"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate duplicate key violation leaving index status INVALID in engine.",
+            "rows": [
+              {
+                "cells": [
+                  "Normal Build",
+                  "VALID",
+                  "CONCURRENT (Ready)"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Duplicate Key Violation",
+                  "LOCK_FREE",
+                  "INVALID (Safe Drop)"
+                ],
+                "tone": "error"
+              }
+            ],
+            "whatIf": "class IndexBuildingEngine:\n    def __init__(self):\n        self.indexes = {}\n\n    def create_index_blocking(self, table, column):\n        print(f\"CREATE INDEX idx_{table}_{column}: Acquires SHARE lock; writes BLOCKED!\")\n        self.indexes[f\"idx_{table}_{column}\"] = {\"status\": \"ACTIVE\", \"mode\": \"BLOCKING\"}\n\n    def create_index_concurrently(self, table, column, row_count):\n        print(f\"CREATE INDEX CONCURRENTLY idx_{table}_{column} ON {table}({column}):\")\n        print(\"  Pass 1: Scan table and construct in-memory tree (Concurrent writes ALLOWED).\")\n        print(\"  Pass 2: Re-scan WAL modifications and sync concurrent writes.\")\n        print(\"  Pass 3: Validate and mark index VALID & READY.\")\n        idx_name = f\"idx_{table}_{column}\"\n        self.indexes[idx_name] = {\n            \"status\": \"VALID\",\n            \"mode\": \"CONCURRENT\",\n            \"indexed_rows\": row_count\n        }\n        return idx_name\n\nengine = IndexBuildingEngine()\nidx = engine.create_index_concurrently(\"orders\", \"customer_id\", 10_000_000)\nengine.indexes[\"idx_orders_dup\"] = {\"status\": \"INVALID\", \"mode\": \"CONCURRENT\", \"indexed_rows\": 0}\nprint(f\"Duplicate Key Failure -> idx_orders_dup status: {engine.indexes['idx_orders_dup']['status']}\")\nmeta = engine.indexes[idx]\nprint(f\"Status of {idx}: {meta['status']} (Mode: {meta['mode']}, Indexed: {meta['indexed_rows']:,} rows)\")",
+            "checks": [
+              "Duplicate Key Failure -> idx_orders_dup status: INVALID"
             ]
           }
         ]
@@ -345,81 +993,258 @@
       "partTitle": "Enterprise Zero-Downtime Migration Coordinator",
       "codeHash": "27c219ef4988238927441c1e680b55e3d9377bcd590d46ff097e1a70c8a7ddbd",
       "spec": {
-        "template": "table",
-        "title": "Enterprise Zero-Downtime Migration Coordinator",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "ZeroDowntimeMigrationEngine coordinated rollout stages",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say3",
+            "caption": "Expand phase adds nullable status and builds its concurrent index.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Enterprise"
-                  },
-                  {
-                    "text": "Zero"
-                  }
-                ],
+                "text": "PHASE 1: EXPAND"
+              },
+              {
+                "text": "PHASE 2: DUAL_WRITE"
+              },
+              {
+                "text": "PHASE 3: BACKFILL"
+              },
+              {
+                "text": "PHASE 4: CONTRACT"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "expand",
+                "index": 0,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "idle",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The phase logic drives deterministic execution.",
-            "rows": [
+            "at": "say4",
+            "caption": "Dual-writes and batched 5000-row backfills populate accounts safely.",
+            "items": [
               {
-                "cells": [
-                  {
-                    "text": "Downtime"
-                  },
-                  {
-                    "text": "Migration"
-                  }
-                ],
+                "text": "PHASE 1: EXPAND"
+              },
+              {
+                "text": "PHASE 2: DUAL_WRITE"
+              },
+              {
+                "text": "PHASE 3: BACKFILL"
+              },
+              {
+                "text": "PHASE 4: CONTRACT"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "backfill",
+                "index": 2,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              1,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "data",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "say5",
+            "caption": "Contract drops legacy state after backfill completes across v1 to v2.",
+            "items": [
+              {
+                "text": "PHASE 1: EXPAND"
+              },
+              {
+                "text": "PHASE 2: DUAL_WRITE"
+              },
+              {
+                "text": "PHASE 3: BACKFILL"
+              },
+              {
+                "text": "PHASE 4: CONTRACT"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "v2",
+                "index": 3,
                 "tone": "ok"
               }
-            ]
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add NULL count guard in execute_contract so un-backfilled rows abort cleanly.",
+            "items": [
+              {
+                "text": "Add"
+              },
+              {
+                "text": "step"
+              },
+              {
+                "text": "execute_contract"
+              },
+              {
+                "text": "counts"
+              }
+            ],
+            "pointers": [
+              {
+                "name": "aborted",
+                "index": 3,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "data",
+              "3": "error"
+            }
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Enterprise Zero-Downtime Migration Coordinator",
-        "columns": [
-          "Stage",
-          "Concept"
-        ],
+        "template": "cells",
+        "title": "ZeroDowntimeMigrationEngine coordinated rollout stages",
         "steps": [
           {
-            "at": "say1",
-            "caption": "The capstone concept establishes the core structural baseline.",
-            "rows": [
+            "at": "say3",
+            "caption": "Expand phase adds nullable status and builds its concurrent index.",
+            "items": [
+              "PHASE 1: EXPAND",
+              "PHASE 2: DUAL_WRITE",
+              "PHASE 3: BACKFILL",
+              "PHASE 4: CONTRACT"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Enterprise",
-                  "Zero"
-                ],
+                "name": "expand",
+                "index": 0,
                 "tone": "data"
               }
-            ]
+            ],
+            "tones": {
+              "0": "data",
+              "1": "idle",
+              "2": "idle",
+              "3": "idle"
+            }
           },
           {
-            "at": "say3",
-            "caption": "The phase logic drives deterministic execution.",
-            "rows": [
+            "at": "say4",
+            "caption": "Dual-writes and batched 5000-row backfills populate accounts safely.",
+            "items": [
+              "PHASE 1: EXPAND",
+              "PHASE 2: DUAL_WRITE (v2)",
+              "PHASE 3: BACKFILL (5000/batch)",
+              "PHASE 4: CONTRACT"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "Downtime",
-                  "Migration"
-                ],
+                "name": "backfill",
+                "index": 2,
+                "tone": "data"
+              }
+            ],
+            "highlightRange": [
+              1,
+              3
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "data",
+              "2": "data",
+              "3": "idle"
+            }
+          },
+          {
+            "at": "example",
+            "caption": "Contract drops legacy state after backfill completes across v1 to v2.",
+            "items": [
+              "PHASE 1: EXPAND",
+              "PHASE 2: DUAL_WRITE",
+              "PHASE 3: BACKFILL",
+              "PHASE 4: CONTRACT (v2)"
+            ],
+            "pointers": [
+              {
+                "name": "v2",
+                "index": 3,
                 "tone": "ok"
               }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "ok",
+              "3": "ok"
+            }
+          },
+          {
+            "at": "tryIt",
+            "caption": "Add NULL count guard in execute_contract so un-backfilled rows abort cleanly.",
+            "items": [
+              "PHASE 1: EXPAND",
+              "PHASE 2: DUAL_WRITE",
+              "PHASE 3: BACKFILL",
+              "CONTRACT ABORTED (42 NULLs)"
+            ],
+            "pointers": [
+              {
+                "name": "aborted",
+                "index": 3,
+                "tone": "error"
+              }
+            ],
+            "highlightRange": [
+              0,
+              4
+            ],
+            "tones": {
+              "0": "ok",
+              "1": "ok",
+              "2": "data",
+              "3": "error"
+            },
+            "whatIf": "class ZeroDowntimeMigrationEngine:\n    def __init__(self):\n        self.events = []\n        self.schema_version = \"v1\"\n\n    def log(self, stage, msg):\n        self.events.append(f\"[{stage}] {msg}\")\n\n    def execute_expand(self):\n        self.log(\"PHASE 1: EXPAND\", \"ALTER TABLE accounts ADD COLUMN status VARCHAR(20) DEFAULT NULL;\")\n        self.log(\"PHASE 1: EXPAND\", \"CREATE INDEX CONCURRENTLY idx_accounts_status ON accounts(status);\")\n\n    def execute_dual_write(self):\n        self.log(\"PHASE 2: DUAL_WRITE\", \"Application version v2 deployed; writes dual 'state' and 'status'.\")\n\n    def execute_backfill(self, batch_size=5000):\n        self.log(\"PHASE 3: BACKFILL\", f\"Batched UPDATE accounts SET status = state WHERE status IS NULL LIMIT {batch_size};\")\n        self.log(\"PHASE 3: BACKFILL\", \"All historical rows synchronized without table lock.\")\n\n    def execute_contract(self, null_count=0):\n        if null_count > 0:\n            self.log(\"CONTRACT ABORTED\", f\"Found {null_count} NULL rows before drop!\")\n            return False\n        self.log(\"PHASE 4: CONTRACT\", \"Application version v3 deployed; reads only from 'status'.\")\n        self.log(\"PHASE 4: CONTRACT\", \"ALTER TABLE accounts ALTER COLUMN status SET NOT NULL;\")\n        self.log(\"PHASE 4: CONTRACT\", \"ALTER TABLE accounts DROP COLUMN state;\")\n        self.schema_version = \"v2\"\n\nmigrator = ZeroDowntimeMigrationEngine()\nmigrator.execute_expand()\nmigrator.execute_dual_write()\nmigrator.execute_backfill()\nmigrator.execute_contract(null_count=42)\n\nprint(f\"Abort Guard Verified! Schema still: {migrator.schema_version}\")\nprint(f\"Execution Log ({len(migrator.events)} operations):\")\nfor evt in migrator.events:\n    print(f\"  {evt}\")",
+            "checks": [
+              "Abort Guard Verified! Schema still: v1",
+              "[CONTRACT ABORTED] Found 42 NULL rows before drop!"
             ]
           }
         ]

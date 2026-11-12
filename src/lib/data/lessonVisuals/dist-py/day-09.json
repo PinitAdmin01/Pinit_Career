@@ -2,230 +2,116 @@
   "schemaVersion": 1,
   "prefix": "dist-py",
   "day": 9,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Replicated state machines",
       "codeHash": "e6e8cff6e7f99e29388c29e48223bb96286699cf7947dc008b971aabbda8f5be",
       "spec": {
-        "template": "flow",
-        "title": "Replicated state machines — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Replicated state ma...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Replicated state machines",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Replicated state machines [Dnine.Pone.Sone].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Replicated state ma... [Dnine.Pone.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "If several machines start in the same state and apply the same commands.",
+            "items": {
+              "var": "entry",
+              "line": 13,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dnine.Pone.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "So the hard problem becomes.",
+            "items": {
+              "var": "entry",
+              "line": 5,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Replicated state machines.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Keep the separation clear.",
+            "items": {
+              "var": "entry",
+              "line": 5,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Replicated state machines — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Replicated state ma...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Replicated state machines",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Replicated state machines [D9.P1.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Replicated state ma... [D9.P1.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "If several machines start in the same state and apply the same commands.",
+            "items": [
+              "'set'",
+              "'x'",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P1.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "So the hard problem becomes.",
+            "items": [
+              "'set'",
+              "'x'",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Replicated state machines [D9.P1.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Keep the separation clear.",
+            "items": [
+              "'set'",
+              "'y'",
+              "5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -235,236 +121,162 @@
       "partTitle": "Log entries, terms and AppendEntries",
       "codeHash": "31c4441c10673f9ad930dd597e6dcb8fcb59408e03cdbcb4694653dc805a4974",
       "spec": {
-        "template": "table",
-        "title": "Raft leader log entries terms and AppendEntries fields",
-        "columns": [
-          "entry",
-          "term",
-          "cmd"
+        "template": "sequence",
+        "title": "Log entries, terms and AppendEntries",
+        "actors": [
+          "leader_log",
+          "index",
+          "entry"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each log entry records the command and term received.",
-            "rows": [
+            "caption": "Each log entry records the command and the term in which the leader.",
+            "activeActor": "leader_log",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "index"
-                  },
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "set x=1"
-                  }
-                ],
+                "from": "leader_log",
+                "to": "index",
+                "label": {
+                  "var": "leader_log",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "index",
+                "to": "entry",
+                "label": {
+                  "var": "index",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The leader sends followers AppendEntries messages.",
-            "rows": [
+            "caption": "The leader sends followers AppendEntries messages containing new entries.",
+            "activeActor": "index",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "index"
-                  },
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "set x=1"
-                  }
-                ],
-                "tone": "ok"
+                "from": "leader_log",
+                "to": "index",
+                "label": {
+                  "var": "leader_log",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "prev_index"
-                  },
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "set y=2"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "prev_term"
-                  },
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "set x=3"
-                  }
-                ],
+                "from": "index",
+                "to": "entry",
+                "label": {
+                  "var": "index",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say7",
-            "caption": "The example prints leader log with index and term.",
-            "rows": [
+            "caption": "The example prints a leader's log with index and term, the way Raft papers.",
+            "activeActor": "entry",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "index"
-                  },
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "set x=1"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "prev_index"
-                  },
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "set y=2"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "prev_term"
-                  },
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "set x=3"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "entries"
-                  },
-                  {
-                    "text": "3"
-                  },
-                  {
-                    "text": "set z=9"
-                  }
-                ],
+                "from": "leader_log",
+                "to": "index",
+                "label": {
+                  "var": "leader_log",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
+              },
+              {
+                "from": "index",
+                "to": "entry",
+                "label": {
+                  "var": "index",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Raft leader log entries terms and AppendEntries fields",
-        "columns": [
-          "entry",
-          "term",
-          "cmd"
+        "template": "sequence",
+        "title": "Log entries, terms and AppendEntries",
+        "actors": [
+          "leader_log",
+          "index",
+          "entry"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each log entry records the command and term received.",
-            "rows": [
+            "caption": "Each log entry records the command and the term in which the leader.",
+            "messages": [
               {
-                "cells": [
-                  "index",
-                  "1",
-                  "set x=1"
-                ],
+                "from": "leader_log",
+                "to": "index",
+                "label": "[{'term': 1, 'cmd': 'set x=1'}, {'term'…",
+                "tone": "data"
+              },
+              {
+                "from": "index",
+                "to": "entry",
+                "label": "0",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "leader_log"
           },
           {
             "at": "say2",
-            "caption": "The leader sends followers AppendEntries messages.",
-            "rows": [
+            "caption": "The leader sends followers AppendEntries messages containing new entries.",
+            "messages": [
               {
-                "cells": [
-                  "index",
-                  "1",
-                  "set x=1"
-                ],
-                "tone": "ok"
+                "from": "leader_log",
+                "to": "index",
+                "label": "[{'term': 1, 'cmd': 'set x=1'}, {'term'…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "prev_index",
-                  "1",
-                  "set y=2"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "prev_term",
-                  "2",
-                  "set x=3"
-                ],
+                "from": "index",
+                "to": "entry",
+                "label": "0",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "index"
           },
           {
             "at": "say7",
-            "caption": "The example prints leader log with index and term.",
-            "rows": [
+            "caption": "The example prints a leader's log with index and term, the way Raft papers.",
+            "messages": [
               {
-                "cells": [
-                  "index",
-                  "1",
-                  "set x=1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "prev_index",
-                  "1",
-                  "set y=2"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "prev_term",
-                  "2",
-                  "set x=3"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "entries",
-                  "3",
-                  "set z=9"
-                ],
+                "from": "leader_log",
+                "to": "index",
+                "label": "[{'term': 1, 'cmd': 'set x=1'}, {'term'…",
                 "tone": "data"
+              },
+              {
+                "from": "index",
+                "to": "entry",
+                "label": "1",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "entry"
           }
         ]
       }
@@ -473,132 +285,162 @@
       "partTitle": "The follower's consistency check",
       "codeHash": "01b642c332fab6905568fb84afd334b8b5e37075383d5a2ea7b2f78b08baa3df",
       "spec": {
-        "template": "compare",
-        "title": "Raft follower consistency check matching log prefix against mismatch",
-        "leftLabel": "Consistent Prefix Match",
-        "rightLabel": "Conflicting Log Mismatch",
+        "template": "sequence",
+        "title": "The follower's consistency check",
+        "actors": [
+          "follower",
+          "log",
+          "prev_index"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When term differs append_entries replies LOG_MISMATCH.",
-            "left": {
-              "code": "prev_index term matches follower log",
-              "result": {
-                "text": "True"
+            "caption": "Append_entries(log, prev_index, prev_term, entries).",
+            "activeActor": "follower",
+            "messages": [
+              {
+                "from": "follower",
+                "to": "log",
+                "label": {
+                  "var": "follower",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "prev_index term mismatch on follower",
-              "result": {
-                "text": "LOG_MISMATCH"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "log",
+                "to": "prev_index",
+                "label": {
+                  "var": "log",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
             "at": "say2",
-            "caption": "Otherwise keep prefix add entries and reply match_index.",
-            "left": {
-              "code": "new_log = log[:prev_index + 1] + list(entries)",
-              "result": {
-                "text": "True"
+            "caption": "Otherwise keep log[:prev_index + 1], add the new entries (dropping any.",
+            "activeActor": "log",
+            "messages": [
+              {
+                "from": "follower",
+                "to": "log",
+                "label": {
+                  "var": "follower",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "drop conflicting tail entries",
-              "result": {
-                "text": "False"
-              },
-              "tone": "error"
-            }
+              {
+                "from": "log",
+                "to": "prev_index",
+                "label": {
+                  "var": "log",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           },
           {
-            "at": "say4",
-            "caption": "Entries after prev_index drop stale follower tail.",
-            "left": {
-              "code": "current leader version accepted",
-              "result": {
-                "text": "True"
+            "at": "say6",
+            "caption": "By induction, if every append passes this check, follower logs always.",
+            "activeActor": "prev_index",
+            "messages": [
+              {
+                "from": "follower",
+                "to": "log",
+                "label": {
+                  "var": "follower",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "stale entry from old leader dropped",
-              "result": {
-                "text": "stale"
-              },
-              "tone": "idle"
-            }
+              {
+                "from": "log",
+                "to": "prev_index",
+                "label": {
+                  "var": "log",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
           }
         ]
       },
       "filled": {
-        "template": "compare",
-        "title": "Raft follower consistency check matching log prefix against mismatch",
-        "leftLabel": "Consistent Prefix Match",
-        "rightLabel": "Conflicting Log Mismatch",
+        "template": "sequence",
+        "title": "The follower's consistency check",
+        "actors": [
+          "follower",
+          "log",
+          "prev_index"
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "When term differs append_entries replies LOG_MISMATCH.",
-            "left": {
-              "code": "prev_index term matches follower log",
-              "result": "True",
-              "tone": "ok",
-              "checks": [
-                "True"
-              ]
-            },
-            "right": {
-              "code": "prev_index term mismatch on follower",
-              "result": "LOG_MISMATCH",
-              "tone": "error",
-              "checks": [
-                "LOG_MISMATCH"
-              ]
-            }
+            "caption": "Append_entries(log, prev_index, prev_term, entries).",
+            "messages": [
+              {
+                "from": "follower",
+                "to": "log",
+                "label": "[{'term': 1, 'cmd': 'a'}, {'term': 1, '…",
+                "tone": "data"
+              },
+              {
+                "from": "log",
+                "to": "prev_index",
+                "label": "[{'term': 1, 'cmd': 'a'}, {'term': 1, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "follower"
           },
           {
             "at": "say2",
-            "caption": "Otherwise keep prefix add entries and reply match_index.",
-            "left": {
-              "code": "new_log = log[:prev_index + 1] + list(entries)",
-              "result": "True",
-              "tone": "ok",
-              "checks": [
-                "True"
-              ]
-            },
-            "right": {
-              "code": "drop conflicting tail entries",
-              "result": "False",
-              "tone": "error",
-              "checks": [
-                "False"
-              ]
-            }
+            "caption": "Otherwise keep log[:prev_index + 1], add the new entries (dropping any.",
+            "messages": [
+              {
+                "from": "follower",
+                "to": "log",
+                "label": "[{'term': 1, 'cmd': 'a'}, {'term': 1, '…",
+                "tone": "data"
+              },
+              {
+                "from": "log",
+                "to": "prev_index",
+                "label": "[{'term': 1, 'cmd': 'a'}, {'term': 1, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "log"
           },
           {
-            "at": "say4",
-            "caption": "Entries after prev_index drop stale follower tail.",
-            "left": {
-              "code": "current leader version accepted",
-              "result": "True",
-              "tone": "ok",
-              "checks": [
-                "True"
-              ]
-            },
-            "right": {
-              "code": "stale entry from old leader dropped",
-              "result": "stale",
-              "tone": "idle",
-              "checks": [
-                "stale"
-              ]
-            }
+            "at": "say6",
+            "caption": "By induction, if every append passes this check, follower logs always.",
+            "messages": [
+              {
+                "from": "follower",
+                "to": "log",
+                "label": "[{'term': 1, 'cmd': 'a'}, {'term': 1, '…",
+                "tone": "data"
+              },
+              {
+                "from": "log",
+                "to": "prev_index",
+                "label": "[{'term': 1, 'cmd': 'a'}, {'term': 1, '…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "prev_index"
           }
         ]
       }
@@ -607,192 +449,162 @@
       "partTitle": "When is an entry committed?",
       "codeHash": "c48c5ff0ed18b22131fafa0f810b0b437e30f184a506521a63d5ec3ca3021926",
       "spec": {
-        "template": "table",
-        "title": "Raft cluster match index quorum tracking and commit index calculation",
-        "columns": [
-          "match_count",
-          "cluster_size",
+        "template": "sequence",
+        "title": "When is an entry committed?",
+        "actors": [
+          "match_index",
+          "ordered",
           "commit_index"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An entry is committed once stored on cluster majority.",
-            "rows": [
+            "caption": "An entry is committed once the leader knows it is stored on a majority.",
+            "activeActor": "match_index",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "7"
-                  },
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "5"
-                  }
-                ],
+                "from": "match_index",
+                "to": "ordered",
+                "label": {
+                  "var": "match_index",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "ordered",
+                "to": "commit_index",
+                "label": {
+                  "var": "ordered",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Function is_committed checks match_count and cluster_size.",
-            "rows": [
+            "caption": "Is_committed(match_count, cluster_size) returns match_count > cluster_size.",
+            "activeActor": "ordered",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "7"
-                  },
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "5"
-                  }
-                ],
-                "tone": "ok"
+                "from": "match_index",
+                "to": "ordered",
+                "label": {
+                  "var": "match_index",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "4"
-                  },
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "5"
-                  }
-                ],
-                "tone": "idle"
+                "from": "ordered",
+                "to": "commit_index",
+                "label": {
+                  "var": "ordered",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Leader tracks match_index taking middle value commit index.",
-            "rows": [
+            "at": "say7",
+            "caption": "The code computes the commit index for a 5-node cluster.",
+            "activeActor": "commit_index",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "7"
-                  },
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "5"
-                  }
-                ],
+                "from": "match_index",
+                "to": "ordered",
+                "label": {
+                  "var": "match_index",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "ordered",
+                "to": "commit_index",
+                "label": {
+                  "var": "ordered",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "4"
-                  },
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "5"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "5"
-                  },
-                  {
-                    "text": "5"
-                  }
-                ],
-                "tone": "idle"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Raft cluster match index quorum tracking and commit index calculation",
-        "columns": [
-          "match_count",
-          "cluster_size",
+        "template": "sequence",
+        "title": "When is an entry committed?",
+        "actors": [
+          "match_index",
+          "ordered",
           "commit_index"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An entry is committed once stored on cluster majority.",
-            "rows": [
+            "caption": "An entry is committed once the leader knows it is stored on a majority.",
+            "messages": [
               {
-                "cells": [
-                  "7",
-                  "5",
-                  "5"
-                ],
+                "from": "match_index",
+                "to": "ordered",
+                "label": "{'leader': 7, 'n2': 7, 'n3': 5, 'n4': 4…",
+                "tone": "data"
+              },
+              {
+                "from": "ordered",
+                "to": "commit_index",
+                "label": "[7, 7, 5, 4, 2]",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "match_index"
           },
           {
             "at": "say2",
-            "caption": "Function is_committed checks match_count and cluster_size.",
-            "rows": [
+            "caption": "Is_committed(match_count, cluster_size) returns match_count > cluster_size.",
+            "messages": [
               {
-                "cells": [
-                  "7",
-                  "5",
-                  "5"
-                ],
-                "tone": "ok"
+                "from": "match_index",
+                "to": "ordered",
+                "label": "{'leader': 7, 'n2': 7, 'n3': 5, 'n4': 4…",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "4",
-                  "5",
-                  "5"
-                ],
-                "tone": "idle"
+                "from": "ordered",
+                "to": "commit_index",
+                "label": "[7, 7, 5, 4, 2]",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "ordered"
           },
           {
-            "at": "say3",
-            "caption": "Leader tracks match_index taking middle value commit index.",
-            "rows": [
+            "at": "say7",
+            "caption": "The code computes the commit index for a 5-node cluster.",
+            "messages": [
               {
-                "cells": [
-                  "7",
-                  "5",
-                  "5"
-                ],
+                "from": "match_index",
+                "to": "ordered",
+                "label": "{'leader': 7, 'n2': 7, 'n3': 5, 'n4': 4…",
+                "tone": "data"
+              },
+              {
+                "from": "ordered",
+                "to": "commit_index",
+                "label": "[7, 7, 5, 4, 2]",
                 "tone": "ok"
-              },
-              {
-                "cells": [
-                  "4",
-                  "5",
-                  "5"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "2",
-                  "5",
-                  "5"
-                ],
-                "tone": "idle"
               }
-            ]
+            ],
+            "activeActor": "commit_index"
           }
         ]
       }
@@ -801,191 +613,277 @@
       "partTitle": "Repairing a lagging follower",
       "codeHash": "80d969ddee1d36a93c61c1b4dc484587faee63aab0cc1b207e46fcce81a7768c",
       "spec": {
-        "template": "table",
-        "title": "Raft leader stepping back next_index to repair follower log mismatch",
-        "columns": [
-          "next_index",
-          "prev_term",
-          "result"
+        "template": "flow",
+        "title": "Repairing a lagging follower",
+        "nodes": [
+          {
+            "id": "leader",
+            "label": "leader"
+          },
+          {
+            "id": "follower",
+            "label": "follower"
+          },
+          {
+            "id": "next_index",
+            "label": "next_index"
+          },
+          {
+            "id": "prev",
+            "label": "prev"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Leader tracks next_index for each follower.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "next_index"
-                  },
-                  {
-                    "text": "3"
-                  },
-                  {
-                    "text": "None"
-                  }
-                ],
-                "tone": "idle"
+            "caption": "A follower that was offline has a shorter or different log.",
+            "values": {
+              "leader": {
+                "var": "leader",
+                "line": 6,
+                "hit": 7
+              },
+              "follower": {
+                "var": "follower",
+                "line": 7,
+                "hit": 6
+              },
+              "next_index": {
+                "var": "next_index",
+                "line": 8,
+                "hit": 1
+              },
+              "prev": {
+                "var": "prev",
+                "line": 10,
+                "hit": 1
               }
+            },
+            "tones": {
+              "leader": "data",
+              "follower": "data",
+              "next_index": "data",
+              "prev": "data"
+            },
+            "arrows": [
+              [
+                "leader",
+                "follower"
+              ],
+              [
+                "follower",
+                "next_index"
+              ],
+              [
+                "next_index",
+                "prev"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Mismatch decreases next_index stepping back to match.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "next_index"
-                  },
-                  {
-                    "text": "3"
-                  },
-                  {
-                    "text": "None"
-                  }
-                ],
-                "tone": "error"
+            "caption": "If AppendEntries fails with a mismatch, the leader decreases next_index.",
+            "values": {
+              "leader": {
+                "var": "leader",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "prev"
-                  },
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "None"
-                  }
-                ],
-                "tone": "error"
+              "follower": {
+                "var": "follower",
+                "line": 8,
+                "hit": 1
+              },
+              "next_index": {
+                "var": "next_index",
+                "line": 9,
+                "hit": 1
+              },
+              "prev": {
+                "var": "prev",
+                "line": 11,
+                "hit": 1
               }
+            },
+            "tones": {
+              "leader": "data",
+              "follower": "data",
+              "next_index": "data",
+              "prev": "data"
+            },
+            "arrows": [
+              [
+                "leader",
+                "follower"
+              ],
+              [
+                "follower",
+                "next_index"
+              ],
+              [
+                "next_index",
+                "prev"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Successful append replaces conflicting follower tail.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "next_index"
-                  },
-                  {
-                    "text": "3"
-                  },
-                  {
-                    "text": "None"
-                  }
-                ],
-                "tone": "error"
+            "at": "say7",
+            "caption": "The simulation brings a follower from a stale log to the leader's log.",
+            "values": {
+              "leader": {
+                "var": "leader",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "prev"
-                  },
-                  {
-                    "text": "2"
-                  },
-                  {
-                    "text": "None"
-                  }
-                ],
-                "tone": "error"
+              "follower": {
+                "var": "follower",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "result"
-                  },
-                  {
-                    "text": "1"
-                  },
-                  {
-                    "text": "True"
-                  }
-                ],
-                "tone": "ok"
+              "next_index": {
+                "var": "next_index",
+                "line": 10,
+                "hit": 1
+              },
+              "prev": {
+                "var": "prev",
+                "line": 12,
+                "hit": 1
               }
+            },
+            "tones": {
+              "leader": "ok",
+              "follower": "ok",
+              "next_index": "ok",
+              "prev": "ok"
+            },
+            "arrows": [
+              [
+                "leader",
+                "follower"
+              ],
+              [
+                "follower",
+                "next_index"
+              ],
+              [
+                "next_index",
+                "prev"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Raft leader stepping back next_index to repair follower log mismatch",
-        "columns": [
-          "next_index",
-          "prev_term",
-          "result"
+        "template": "flow",
+        "title": "Repairing a lagging follower",
+        "nodes": [
+          {
+            "id": "leader",
+            "label": "leader"
+          },
+          {
+            "id": "follower",
+            "label": "follower"
+          },
+          {
+            "id": "next_index",
+            "label": "next_index"
+          },
+          {
+            "id": "prev",
+            "label": "prev"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Leader tracks next_index for each follower.",
-            "rows": [
-              {
-                "cells": [
-                  "next_index",
-                  "3",
-                  "None"
-                ],
-                "tone": "idle"
-              }
+            "caption": "A follower that was offline has a shorter or different log.",
+            "values": {
+              "leader": "[{'term': 1}, {'term': 1}, {'term': 2},…",
+              "follower": "[{'term': 1}, {'term': 1}, {'term': 2},…",
+              "next_index": "6",
+              "prev": "5"
+            },
+            "tones": {
+              "leader": "data",
+              "follower": "data",
+              "next_index": "data",
+              "prev": "data"
+            },
+            "arrows": [
+              [
+                "leader",
+                "follower"
+              ],
+              [
+                "follower",
+                "next_index"
+              ],
+              [
+                "next_index",
+                "prev"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Mismatch decreases next_index stepping back to match.",
-            "rows": [
-              {
-                "cells": [
-                  "next_index",
-                  "3",
-                  "None"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "prev",
-                  "2",
-                  "None"
-                ],
-                "tone": "error"
-              }
+            "caption": "If AppendEntries fails with a mismatch, the leader decreases next_index.",
+            "values": {
+              "leader": "[{'term': 1}, {'term': 1}, {'term': 2},…",
+              "follower": "[{'term': 1}, {'term': 1}, {'term': 2},…",
+              "next_index": "6",
+              "prev": "5"
+            },
+            "tones": {
+              "leader": "data",
+              "follower": "data",
+              "next_index": "data",
+              "prev": "data"
+            },
+            "arrows": [
+              [
+                "leader",
+                "follower"
+              ],
+              [
+                "follower",
+                "next_index"
+              ],
+              [
+                "next_index",
+                "prev"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Successful append replaces conflicting follower tail.",
-            "rows": [
-              {
-                "cells": [
-                  "next_index",
-                  "3",
-                  "None"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "prev",
-                  "2",
-                  "None"
-                ],
-                "tone": "error"
-              },
-              {
-                "cells": [
-                  "result",
-                  "1",
-                  "True"
-                ],
-                "tone": "ok"
-              }
+            "at": "say7",
+            "caption": "The simulation brings a follower from a stale log to the leader's log.",
+            "values": {
+              "leader": "[{'term': 1}, {'term': 1}, {'term': 2},…",
+              "follower": "[{'term': 1}, {'term': 1}, {'term': 2},…",
+              "next_index": "6",
+              "prev": "5"
+            },
+            "tones": {
+              "leader": "ok",
+              "follower": "ok",
+              "next_index": "ok",
+              "prev": "ok"
+            },
+            "arrows": [
+              [
+                "leader",
+                "follower"
+              ],
+              [
+                "follower",
+                "next_index"
+              ],
+              [
+                "next_index",
+                "prev"
+              ]
             ]
           }
         ]
@@ -995,224 +893,106 @@
       "partTitle": "Reads, snapshots and Raft in practice",
       "codeHash": "e56bc86b3012d9093664d2916992687a1952be8467ddc2a2539fd1f10946c6d6",
       "spec": {
-        "template": "flow",
-        "title": "Reads, snapshots and Raft in practice — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Reads, snapshots and Raft in practice",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "reply_ms",
+            "label": "reply_ms"
           },
           {
-            "id": "proc",
-            "label": "2. Reads, snapshots an...",
-            "tappable": true
+            "id": "ordered",
+            "label": "ordered"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "majority",
+            "label": "majority"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Reads, snapshots and Raft in practice.",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Reads, snapshots an... [Dnine.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Writes go through the log.",
+            "currentState": "reply_ms",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dnine.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Logs grow forever, so nodes periodically save a snapshot of the state.",
+            "currentState": "ordered",
+            "transition": {
+              "from": "reply_ms",
+              "to": "ordered",
+              "label": {
+                "var": "ordered",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Reads, snapshots and Raft in prac.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The majority's slowest replies decide it.",
+            "currentState": "majority",
+            "transition": {
+              "from": "ordered",
+              "to": "majority",
+              "label": {
+                "var": "majority",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Reads, snapshots and Raft in practice — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Reads, snapshots and Raft in practice",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "reply_ms",
+            "label": "reply_ms"
           },
           {
-            "id": "proc",
-            "label": "2. Reads, snapshots an...",
-            "tappable": true
+            "id": "ordered",
+            "label": "ordered"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "majority",
+            "label": "majority"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Reads, snapshots and Raft in practice [D9.P6.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Reads, snapshots an... [D9.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Writes go through the log.",
+            "currentState": "reply_ms",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Logs grow forever, so nodes periodically save a snapshot of the state.",
+            "currentState": "ordered",
+            "transition": {
+              "from": "reply_ms",
+              "to": "ordered",
+              "label": "[0, 3, 4, 40, 120]"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Reads, snapshots and Raft in prac.. [D9.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The majority's slowest replies decide it.",
+            "currentState": "majority",
+            "transition": {
+              "from": "ordered",
+              "to": "majority",
+              "label": "3"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

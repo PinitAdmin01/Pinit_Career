@@ -2,142 +2,284 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 5,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Collective operations",
       "codeHash": "bf82c99ac3700919aac6a5f89f4664d312ac9fe97330debe8f1052ed5a14f7b8",
       "spec": {
-        "template": "table",
-        "title": "Distributed collective communication operations and data flow",
-        "columns": [
-          "broadcast",
-          "reduce_to_0",
-          "all_gather"
+        "template": "flow",
+        "title": "Collective operations",
+        "nodes": [
+          {
+            "id": "workers",
+            "label": "workers"
+          },
+          {
+            "id": "broadcast",
+            "label": "broadcast"
+          },
+          {
+            "id": "reduce_to_0",
+            "label": "reduce_to_0"
+          },
+          {
+            "id": "all_gather",
+            "label": "all_gather"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Collective communication patterns coordinate worker communication groups.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "broadcast"
-                  },
-                  {
-                    "text": "reduce_to_0"
-                  },
-                  {
-                    "text": "all_gather"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A collective operation is a communication pattern in which a whole group.",
+            "values": {
+              "workers": {
+                "var": "workers",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "broadcast"
-                  },
-                  {
-                    "text": "reduce_to_0"
-                  },
-                  {
-                    "text": "all_gather"
-                  }
-                ],
-                "tone": "data"
+              "broadcast": {
+                "var": "broadcast",
+                "line": 2,
+                "hit": 4
+              },
+              "reduce_to_0": {
+                "var": "reduce_to_0",
+                "line": 3,
+                "hit": 3
+              },
+              "all_gather": {
+                "var": "all_gather",
+                "line": 4,
+                "hit": 4
               }
+            },
+            "tones": {
+              "workers": "data",
+              "broadcast": "data",
+              "reduce_to_0": "data",
+              "all_gather": "data"
+            },
+            "arrows": [
+              [
+                "workers",
+                "broadcast"
+              ],
+              [
+                "broadcast",
+                "reduce_to_0"
+              ],
+              [
+                "reduce_to_0",
+                "all_gather"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "All-reduce combines participant tensors and delivers results to all.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "broadcast"
-                  },
-                  {
-                    "text": "reduce_to_0"
-                  },
-                  {
-                    "text": "all_gather"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Broadcast sends one worker's data to everyone, for example the initial.",
+            "values": {
+              "workers": {
+                "var": "workers",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "broadcast"
-                  },
-                  {
-                    "text": "reduce_to_0"
-                  },
-                  {
-                    "text": "broadcast"
-                  }
-                ],
-                "tone": "ok"
+              "broadcast": {
+                "var": "broadcast",
+                "line": 3,
+                "hit": 1
+              },
+              "reduce_to_0": {
+                "var": "reduce_to_0",
+                "line": 4,
+                "hit": 1
+              },
+              "all_gather": {
+                "var": "all_gather",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "workers": "data",
+              "broadcast": "data",
+              "reduce_to_0": "data",
+              "all_gather": "data"
+            },
+            "arrows": [
+              [
+                "workers",
+                "broadcast"
+              ],
+              [
+                "broadcast",
+                "reduce_to_0"
+              ],
+              [
+                "reduce_to_0",
+                "all_gather"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Learning these five names makes framework documentation and error messages.",
+            "values": {
+              "workers": {
+                "var": "workers",
+                "line": 2,
+                "hit": 2
+              },
+              "broadcast": {
+                "var": "broadcast",
+                "line": 3,
+                "hit": 2
+              },
+              "reduce_to_0": {
+                "var": "reduce_to_0",
+                "line": 4,
+                "hit": 2
+              },
+              "all_gather": {
+                "var": "all_gather",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "workers": "ok",
+              "broadcast": "ok",
+              "reduce_to_0": "ok",
+              "all_gather": "ok"
+            },
+            "arrows": [
+              [
+                "workers",
+                "broadcast"
+              ],
+              [
+                "broadcast",
+                "reduce_to_0"
+              ],
+              [
+                "reduce_to_0",
+                "all_gather"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Distributed collective communication operations and data flow",
-        "columns": [
-          "broadcast",
-          "reduce_to_0",
-          "all_gather"
+        "template": "flow",
+        "title": "Collective operations",
+        "nodes": [
+          {
+            "id": "workers",
+            "label": "workers"
+          },
+          {
+            "id": "broadcast",
+            "label": "broadcast"
+          },
+          {
+            "id": "reduce_to_0",
+            "label": "reduce_to_0"
+          },
+          {
+            "id": "all_gather",
+            "label": "all_gather"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Collective communication patterns coordinate worker communication groups.",
-            "rows": [
-              {
-                "cells": [
-                  "broadcast",
-                  "reduce_to_0",
-                  "all_gather"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "broadcast",
-                  "reduce_to_0",
-                  "all_gather"
-                ],
-                "tone": "data"
-              }
+            "caption": "A collective operation is a communication pattern in which a whole group.",
+            "values": {
+              "workers": "[[1, 2], [3, 4], [5, 6]]",
+              "broadcast": "[[1, 2], [1, 2], [1, 2]]",
+              "reduce_to_0": "[9, 12]",
+              "all_gather": "[[1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6]…"
+            },
+            "tones": {
+              "workers": "data",
+              "broadcast": "data",
+              "reduce_to_0": "data",
+              "all_gather": "data"
+            },
+            "arrows": [
+              [
+                "workers",
+                "broadcast"
+              ],
+              [
+                "broadcast",
+                "reduce_to_0"
+              ],
+              [
+                "reduce_to_0",
+                "all_gather"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "All-reduce combines participant tensors and delivers results to all.",
-            "rows": [
-              {
-                "cells": [
-                  "broadcast",
-                  "reduce_to_0",
-                  "all_gather"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "broadcast",
-                  "reduce_to_0",
-                  "broadcast"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Broadcast sends one worker's data to everyone, for example the initial.",
+            "values": {
+              "workers": "[[1, 2], [3, 4], [5, 6]]",
+              "broadcast": "[[1, 2], [1, 2], [1, 2]]",
+              "reduce_to_0": "[9, 12]",
+              "all_gather": "[[1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6]…"
+            },
+            "tones": {
+              "workers": "data",
+              "broadcast": "data",
+              "reduce_to_0": "data",
+              "all_gather": "data"
+            },
+            "arrows": [
+              [
+                "workers",
+                "broadcast"
+              ],
+              [
+                "broadcast",
+                "reduce_to_0"
+              ],
+              [
+                "reduce_to_0",
+                "all_gather"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Learning these five names makes framework documentation and error messages.",
+            "values": {
+              "workers": "[[1, 2], [3, 4], [5, 6]]",
+              "broadcast": "[[1, 2], [1, 2], [1, 2]]",
+              "reduce_to_0": "[9, 12]",
+              "all_gather": "[[1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6]…"
+            },
+            "tones": {
+              "workers": "ok",
+              "broadcast": "ok",
+              "reduce_to_0": "ok",
+              "all_gather": "ok"
+            },
+            "arrows": [
+              [
+                "workers",
+                "broadcast"
+              ],
+              [
+                "broadcast",
+                "reduce_to_0"
+              ],
+              [
+                "reduce_to_0",
+                "all_gather"
+              ]
             ]
           }
         ]
@@ -147,135 +289,277 @@
       "partTitle": "All-reduce",
       "codeHash": "f33adef39bd6bd2c42b03c5aea285b96580593a89f8661bcd86b68e65ad57f33",
       "spec": {
-        "template": "table",
-        "title": "All-reduce vector aggregation operations: sum, mean, and max",
-        "columns": [
-          "name",
-          "ops",
-          "result"
+        "template": "flow",
+        "title": "All-reduce",
+        "nodes": [
+          {
+            "id": "vectors",
+            "label": "vectors"
+          },
+          {
+            "id": "ops",
+            "label": "ops"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "v",
+            "label": "v"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "All-reduce forms the primary communication engine in parallel training.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "ops"
-                  },
-                  {
-                    "text": "result"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "All-reduce is the workhorse of data-parallel training.",
+            "values": {
+              "vectors": {
+                "var": "vectors",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "ops"
-                  },
-                  {
-                    "text": "result"
-                  }
-                ],
-                "tone": "data"
+              "ops": {
+                "var": "ops",
+                "line": 2,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 3,
+                "hit": 1
+              },
+              "v": {
+                "var": "v",
+                "line": 2,
+                "hit": 2
               }
+            },
+            "tones": {
+              "vectors": "data",
+              "ops": "data",
+              "name": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "vectors",
+                "ops"
+              ],
+              [
+                "ops",
+                "name"
+              ],
+              [
+                "name",
+                "v"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Workers contribute vectors and receive combined element-wise results.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "ops"
-                  },
-                  {
-                    "text": "result"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Each worker contributes a vector.",
+            "values": {
+              "vectors": {
+                "var": "vectors",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "ops"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "ok"
+              "ops": {
+                "var": "ops",
+                "line": 3,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
+              },
+              "v": {
+                "var": "v",
+                "line": 2,
+                "hit": 3
               }
+            },
+            "tones": {
+              "vectors": "data",
+              "ops": "data",
+              "name": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "vectors",
+                "ops"
+              ],
+              [
+                "ops",
+                "name"
+              ],
+              [
+                "name",
+                "v"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Everything we build today simulates the result.",
+            "values": {
+              "vectors": {
+                "var": "vectors",
+                "line": 3,
+                "hit": 1
+              },
+              "ops": {
+                "var": "ops",
+                "line": 4,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 2
+              },
+              "v": {
+                "var": "v",
+                "line": 2,
+                "hit": 4
+              }
+            },
+            "tones": {
+              "vectors": "ok",
+              "ops": "ok",
+              "name": "ok",
+              "v": "ok"
+            },
+            "arrows": [
+              [
+                "vectors",
+                "ops"
+              ],
+              [
+                "ops",
+                "name"
+              ],
+              [
+                "name",
+                "v"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "All-reduce vector aggregation operations: sum, mean, and max",
-        "columns": [
-          "name",
-          "ops",
-          "result"
+        "template": "flow",
+        "title": "All-reduce",
+        "nodes": [
+          {
+            "id": "vectors",
+            "label": "vectors"
+          },
+          {
+            "id": "ops",
+            "label": "ops"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "v",
+            "label": "v"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "All-reduce forms the primary communication engine in parallel training.",
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "ops",
-                  "result"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "name",
-                  "ops",
-                  "result"
-                ],
-                "tone": "data"
-              }
+            "caption": "All-reduce is the workhorse of data-parallel training.",
+            "values": {
+              "vectors": "[[1, 4], [2, 0], [6, 2]]",
+              "ops": "{'sum': {'__other__': 'function'}, 'mea…",
+              "name": "'sum'",
+              "v": "[1, 2, 6]"
+            },
+            "tones": {
+              "vectors": "data",
+              "ops": "data",
+              "name": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "vectors",
+                "ops"
+              ],
+              [
+                "ops",
+                "name"
+              ],
+              [
+                "name",
+                "v"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Workers contribute vectors and receive combined element-wise results.",
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "ops",
-                  "result"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "name",
-                  "ops",
-                  "name"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Each worker contributes a vector.",
+            "values": {
+              "vectors": "[[1, 4], [2, 0], [6, 2]]",
+              "ops": "{'sum': {'__other__': 'function'}, 'mea…",
+              "name": "'sum'",
+              "v": "[4, 0, 2]"
+            },
+            "tones": {
+              "vectors": "data",
+              "ops": "data",
+              "name": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "vectors",
+                "ops"
+              ],
+              [
+                "ops",
+                "name"
+              ],
+              [
+                "name",
+                "v"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Everything we build today simulates the result.",
+            "values": {
+              "vectors": "[[1, 4], [2, 0], [6, 2]]",
+              "ops": "{'sum': {'__other__': 'function'}, 'mea…",
+              "name": "'sum'",
+              "v": "[1, 2, 6]"
+            },
+            "tones": {
+              "vectors": "ok",
+              "ops": "ok",
+              "name": "ok",
+              "v": "ok"
+            },
+            "arrows": [
+              [
+                "vectors",
+                "ops"
+              ],
+              [
+                "ops",
+                "name"
+              ],
+              [
+                "name",
+                "v"
+              ]
             ]
           }
         ]
@@ -285,135 +569,221 @@
       "partTitle": "The naive approach and its bottleneck",
       "codeHash": "c5b204fb1c48da6c95cf43cc46b266a30470e021c0fded3b6e44e26e18b12e69",
       "spec": {
-        "template": "table",
-        "title": "Centralised leader bottleneck in naive parameter collection",
-        "columns": [
-          "size_gb",
-          "leader_traffic",
-          "step"
+        "template": "flow",
+        "title": "The naive approach and its bottleneck",
+        "nodes": [
+          {
+            "id": "size_gb",
+            "label": "size_gb"
+          },
+          {
+            "id": "p",
+            "label": "p"
+          },
+          {
+            "id": "leader_traffic",
+            "label": "leader_traffic"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Centralised reduction routes all worker traffic through a single leader.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "size_gb"
-                  },
-                  {
-                    "text": "leader_traffic"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A naive all-reduce sends every worker's data to one leader, which sums it.",
+            "values": {
+              "size_gb": {
+                "var": "size_gb",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "size_gb"
-                  },
-                  {
-                    "text": "leader_traffic"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "data"
+              "p": {
+                "var": "p",
+                "line": 2,
+                "hit": 1
+              },
+              "leader_traffic": {
+                "var": "leader_traffic",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "size_gb": "data",
+              "p": "data",
+              "leader_traffic": "data"
+            },
+            "arrows": [
+              [
+                "size_gb",
+                "p"
+              ],
+              [
+                "p",
+                "leader_traffic"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Concentrating network transfers on one leader creates severe bottlenecks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "size_gb"
-                  },
-                  {
-                    "text": "leader_traffic"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "data"
+            "caption": "The leader must receive p 1 full copies and send p 1 full copies, so its.",
+            "values": {
+              "size_gb": {
+                "var": "size_gb",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "size_gb"
-                  },
-                  {
-                    "text": "leader_traffic"
-                  },
-                  {
-                    "text": "size_gb"
-                  }
-                ],
-                "tone": "ok"
+              "p": {
+                "var": "p",
+                "line": 3,
+                "hit": 1
+              },
+              "leader_traffic": {
+                "var": "leader_traffic",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "size_gb": "data",
+              "p": "data",
+              "leader_traffic": "data"
+            },
+            "arrows": [
+              [
+                "size_gb",
+                "p"
+              ],
+              [
+                "p",
+                "leader_traffic"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Understanding the naive version makes the clever version easier to appreciate.",
+            "values": {
+              "size_gb": {
+                "var": "size_gb",
+                "line": 3,
+                "hit": 1
+              },
+              "p": {
+                "var": "p",
+                "line": 4,
+                "hit": 1
+              },
+              "leader_traffic": {
+                "var": "leader_traffic",
+                "line": 2,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "size_gb": "ok",
+              "p": "ok",
+              "leader_traffic": "ok"
+            },
+            "arrows": [
+              [
+                "size_gb",
+                "p"
+              ],
+              [
+                "p",
+                "leader_traffic"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Centralised leader bottleneck in naive parameter collection",
-        "columns": [
-          "size_gb",
-          "leader_traffic",
-          "step"
+        "template": "flow",
+        "title": "The naive approach and its bottleneck",
+        "nodes": [
+          {
+            "id": "size_gb",
+            "label": "size_gb"
+          },
+          {
+            "id": "p",
+            "label": "p"
+          },
+          {
+            "id": "leader_traffic",
+            "label": "leader_traffic"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Centralised reduction routes all worker traffic through a single leader.",
-            "rows": [
-              {
-                "cells": [
-                  "size_gb",
-                  "leader_traffic",
-                  "step"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "size_gb",
-                  "leader_traffic",
-                  "step"
-                ],
-                "tone": "data"
-              }
+            "caption": "A naive all-reduce sends every worker's data to one leader, which sums it.",
+            "values": {
+              "size_gb": "14",
+              "p": "4",
+              "leader_traffic": "84"
+            },
+            "tones": {
+              "size_gb": "data",
+              "p": "data",
+              "leader_traffic": "data"
+            },
+            "arrows": [
+              [
+                "size_gb",
+                "p"
+              ],
+              [
+                "p",
+                "leader_traffic"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Concentrating network transfers on one leader creates severe bottlenecks.",
-            "rows": [
-              {
-                "cells": [
-                  "size_gb",
-                  "leader_traffic",
-                  "step"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "size_gb",
-                  "leader_traffic",
-                  "size_gb"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The leader must receive p 1 full copies and send p 1 full copies, so its.",
+            "values": {
+              "size_gb": "14",
+              "p": "4",
+              "leader_traffic": "84"
+            },
+            "tones": {
+              "size_gb": "data",
+              "p": "data",
+              "leader_traffic": "data"
+            },
+            "arrows": [
+              [
+                "size_gb",
+                "p"
+              ],
+              [
+                "p",
+                "leader_traffic"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Understanding the naive version makes the clever version easier to appreciate.",
+            "values": {
+              "size_gb": "14",
+              "p": "4",
+              "leader_traffic": "84"
+            },
+            "tones": {
+              "size_gb": "ok",
+              "p": "ok",
+              "leader_traffic": "ok"
+            },
+            "arrows": [
+              [
+                "size_gb",
+                "p"
+              ],
+              [
+                "p",
+                "leader_traffic"
+              ]
             ]
           }
         ]
@@ -423,135 +793,277 @@
       "partTitle": "Ring all-reduce",
       "codeHash": "9ffe09e1fbb7f2d20006c5a1ae9b98522762194c9e8f97b6dbc14cb3eb387584",
       "spec": {
-        "template": "table",
-        "title": "Ring all-reduce topological pipelining and bandwidth optimisation",
-        "columns": [
-          "data",
-          "chunks",
-          "step"
+        "template": "flow",
+        "title": "Ring all-reduce",
+        "nodes": [
+          {
+            "id": "p",
+            "label": "p"
+          },
+          {
+            "id": "data",
+            "label": "data"
+          },
+          {
+            "id": "chunks",
+            "label": "chunks"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In a logical ring each worker sends data only to its direct neighbour.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "In ring all-reduce, workers are arranged in a circle, and each sends only.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "data"
+              "data": {
+                "var": "data",
+                "line": 2,
+                "hit": 1
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 3,
+                "hit": 4
+              },
+              "step": {
+                "var": "step",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "p": "data",
+              "data": "data",
+              "chunks": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "data"
+              ],
+              [
+                "data",
+                "chunks"
+              ],
+              [
+                "chunks",
+                "step"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Reduce-scatter transmits tensor chunks around the ring in sequence.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "data"
+            "caption": "The data is cut into p chunks.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "data"
-                  }
-                ],
-                "tone": "ok"
+              "data": {
+                "var": "data",
+                "line": 3,
+                "hit": 1
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 4,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "p": "data",
+              "data": "data",
+              "chunks": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "data"
+              ],
+              [
+                "data",
+                "chunks"
+              ],
+              [
+                "chunks",
+                "step"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Every link in the ring is busy at the same time, which is why bandwidth.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 3,
+                "hit": 1
+              },
+              "data": {
+                "var": "data",
+                "line": 3,
+                "hit": 2
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 5,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 5,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "p": "ok",
+              "data": "ok",
+              "chunks": "ok",
+              "step": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "data"
+              ],
+              [
+                "data",
+                "chunks"
+              ],
+              [
+                "chunks",
+                "step"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Ring all-reduce topological pipelining and bandwidth optimisation",
-        "columns": [
-          "data",
-          "chunks",
-          "step"
+        "template": "flow",
+        "title": "Ring all-reduce",
+        "nodes": [
+          {
+            "id": "p",
+            "label": "p"
+          },
+          {
+            "id": "data",
+            "label": "data"
+          },
+          {
+            "id": "chunks",
+            "label": "chunks"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In a logical ring each worker sends data only to its direct neighbour.",
-            "rows": [
-              {
-                "cells": [
-                  "data",
-                  "chunks",
-                  "step"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "data",
-                  "chunks",
-                  "step"
-                ],
-                "tone": "data"
-              }
+            "caption": "In ring all-reduce, workers are arranged in a circle, and each sends only.",
+            "values": {
+              "p": "3",
+              "data": "[[1, 10, 100], [2, 20, 200], [3, 30, 30…",
+              "chunks": "[[1, 10, 100], [2, 20, 200], [3, 30, 30…",
+              "step": "0"
+            },
+            "tones": {
+              "p": "data",
+              "data": "data",
+              "chunks": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "data"
+              ],
+              [
+                "data",
+                "chunks"
+              ],
+              [
+                "chunks",
+                "step"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Reduce-scatter transmits tensor chunks around the ring in sequence.",
-            "rows": [
-              {
-                "cells": [
-                  "data",
-                  "chunks",
-                  "step"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "data",
-                  "chunks",
-                  "data"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The data is cut into p chunks.",
+            "values": {
+              "p": "3",
+              "data": "[[1, 10, 100], [2, 20, 200], [3, 30, 30…",
+              "chunks": "[[1, 10, 100], [2, 20, 200], [3, 30, 30…",
+              "step": "0"
+            },
+            "tones": {
+              "p": "data",
+              "data": "data",
+              "chunks": "data",
+              "step": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "data"
+              ],
+              [
+                "data",
+                "chunks"
+              ],
+              [
+                "chunks",
+                "step"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Every link in the ring is busy at the same time, which is why bandwidth.",
+            "values": {
+              "p": "3",
+              "data": "[[1, 10, 100], [2, 20, 200], [3, 30, 30…",
+              "chunks": "[[1, 10, 100], [2, 20, 200], [3, 30, 30…",
+              "step": "0"
+            },
+            "tones": {
+              "p": "ok",
+              "data": "ok",
+              "chunks": "ok",
+              "step": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "data"
+              ],
+              [
+                "data",
+                "chunks"
+              ],
+              [
+                "chunks",
+                "step"
+              ]
             ]
           }
         ]
@@ -561,223 +1073,106 @@
       "partTitle": "Choosing and using collectives",
       "codeHash": "fb44be0dfe2124e0dc9eb69b17cc34bed63b7d3f376baa17a563693276afda5b",
       "spec": {
-        "template": "flow",
-        "title": "Choosing and using collectives — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing and using ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Choosing and using collectives",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing and using collectives.",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing and using ... [Dfive.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Frameworks choose algorithms automatically, but engineers still choose.",
+            "items": {
+              "var": "ops",
+              "line": 5,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Data parallelism needs one all-reduce of gradients per step.",
+            "items": {
+              "var": "ops",
+              "line": 6,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing and using collectives.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "The next days show how these operations are combined into larger strategies.",
+            "items": {
+              "var": "ops",
+              "line": 6,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Choosing and using collectives — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing and using ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Choosing and using collectives",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing and using collectives [D5.P5.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing and using ... [D5.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Frameworks choose algorithms automatically, but engineers still choose.",
+            "items": [
+              "'all-gather parameters'",
+              "'reduce-scatter gradients'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Data parallelism needs one all-reduce of gradients per step.",
+            "items": [
+              "'all-gather parameters'",
+              "'reduce-scatter gradients'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing and using collectives [D5.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "The next days show how these operations are combined into larger strategies.",
+            "items": [
+              "'all-gather parameters'",
+              "'reduce-scatter gradients'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -787,224 +1182,162 @@
       "partTitle": "Practice time: collectives",
       "codeHash": "567c34de4fa5ad60f2314e4d0bd111eea404b716e6d8e59bf961db65bed7bcad",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: collectives — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: coll...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: collectives",
+        "actors": [
+          "size_mb",
+          "p",
+          "ring"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: collectives [Dfive.Psix.Sone].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: coll... [Dfive.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "All_reduce(vectors, op='sum').",
+            "activeActor": "size_mb",
+            "messages": [
+              {
+                "from": "size_mb",
+                "to": "p",
+                "label": {
+                  "var": "size_mb",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "ring",
+                "label": {
+                  "var": "p",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfive.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include sum, max and mean, and a test that changing one.",
+            "activeActor": "p",
+            "messages": [
+              {
+                "from": "size_mb",
+                "to": "p",
+                "label": {
+                  "var": "size_mb",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "ring",
+                "label": {
+                  "var": "p",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: collectives.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If a mean check fails, check that you divide by the number of workers, not.",
+            "activeActor": "ring",
+            "messages": [
+              {
+                "from": "size_mb",
+                "to": "p",
+                "label": {
+                  "var": "size_mb",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "ring",
+                "label": {
+                  "var": "p",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: collectives — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: coll...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "sequence",
+        "title": "Practice time: collectives",
+        "actors": [
+          "size_mb",
+          "p",
+          "ring"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: collectives [D5.P6.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: coll... [D5.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "All_reduce(vectors, op='sum').",
+            "messages": [
+              {
+                "from": "size_mb",
+                "to": "p",
+                "label": "1000",
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "ring",
+                "label": "2",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "size_mb"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "The checks include sum, max and mean, and a test that changing one.",
+            "messages": [
+              {
+                "from": "size_mb",
+                "to": "p",
+                "label": "1000",
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "ring",
+                "label": "2",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "p"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: collectives [D5.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say10",
+            "caption": "If a mean check fails, check that you divide by the number of workers, not.",
+            "messages": [
+              {
+                "from": "size_mb",
+                "to": "p",
+                "label": "1000",
+                "tone": "data"
+              },
+              {
+                "from": "p",
+                "to": "ring",
+                "label": "2",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "ring"
           }
         ]
       }

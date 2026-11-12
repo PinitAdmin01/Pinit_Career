@@ -2,142 +2,284 @@
   "schemaVersion": 1,
   "prefix": "train-py",
   "day": 13,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why activations are stored",
       "codeHash": "35113706312b9ace0b4551de83cd4e83d8620f4a84333bc8b4b665c86d53bf1c",
       "spec": {
-        "template": "table",
-        "title": "Activation accumulation across forward and backward passes",
-        "columns": [
-          "layers",
-          "stored",
-          "range"
+        "template": "flow",
+        "title": "Why activations are stored",
+        "nodes": [
+          {
+            "id": "layers",
+            "label": "layers"
+          },
+          {
+            "id": "per_layer_gb",
+            "label": "per_layer_gb"
+          },
+          {
+            "id": "stored",
+            "label": "stored"
+          },
+          {
+            "id": "L",
+            "label": "L"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Forward passes store intermediate activations to compute backward gradients.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "stored"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "During the forward pass, each layer's outputs are kept, because.",
+            "values": {
+              "layers": {
+                "var": "layers",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "stored"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
-                "tone": "data"
+              "per_layer_gb": {
+                "var": "per_layer_gb",
+                "line": 1,
+                "hit": 1
+              },
+              "stored": {
+                "var": "stored",
+                "line": 2,
+                "hit": 1
+              },
+              "L": {
+                "var": "L",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "layers": "data",
+              "per_layer_gb": "data",
+              "stored": "data",
+              "L": "data"
+            },
+            "arrows": [
+              [
+                "layers",
+                "per_layer_gb"
+              ],
+              [
+                "per_layer_gb",
+                "stored"
+              ],
+              [
+                "stored",
+                "L"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Activation checkpointing saves selected states and recomputes on demand.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "stored"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "For a model with L layers, the saved activations grow in proportion to L.",
+            "values": {
+              "layers": {
+                "var": "layers",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "stored"
-                  },
-                  {
-                    "text": "layers"
-                  }
-                ],
-                "tone": "ok"
+              "per_layer_gb": {
+                "var": "per_layer_gb",
+                "line": 2,
+                "hit": 1
+              },
+              "stored": {
+                "var": "stored",
+                "line": 3,
+                "hit": 1
+              },
+              "L": {
+                "var": "L",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "layers": "data",
+              "per_layer_gb": "data",
+              "stored": "data",
+              "L": "data"
+            },
+            "arrows": [
+              [
+                "layers",
+                "per_layer_gb"
+              ],
+              [
+                "per_layer_gb",
+                "stored"
+              ],
+              [
+                "stored",
+                "L"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The result of training is identical with or without it.",
+            "values": {
+              "layers": {
+                "var": "layers",
+                "line": 3,
+                "hit": 1
+              },
+              "per_layer_gb": {
+                "var": "per_layer_gb",
+                "line": 3,
+                "hit": 1
+              },
+              "stored": {
+                "var": "stored",
+                "line": 4,
+                "hit": 1
+              },
+              "L": {
+                "var": "L",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "layers": "ok",
+              "per_layer_gb": "ok",
+              "stored": "ok",
+              "L": "ok"
+            },
+            "arrows": [
+              [
+                "layers",
+                "per_layer_gb"
+              ],
+              [
+                "per_layer_gb",
+                "stored"
+              ],
+              [
+                "stored",
+                "L"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Activation accumulation across forward and backward passes",
-        "columns": [
-          "layers",
-          "stored",
-          "range"
+        "template": "flow",
+        "title": "Why activations are stored",
+        "nodes": [
+          {
+            "id": "layers",
+            "label": "layers"
+          },
+          {
+            "id": "per_layer_gb",
+            "label": "per_layer_gb"
+          },
+          {
+            "id": "stored",
+            "label": "stored"
+          },
+          {
+            "id": "L",
+            "label": "L"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Forward passes store intermediate activations to compute backward gradients.",
-            "rows": [
-              {
-                "cells": [
-                  "layers",
-                  "stored",
-                  "range"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "layers",
-                  "stored",
-                  "range"
-                ],
-                "tone": "data"
-              }
+            "caption": "During the forward pass, each layer's outputs are kept, because.",
+            "values": {
+              "layers": "8",
+              "per_layer_gb": "1.5",
+              "stored": "0",
+              "L": "1"
+            },
+            "tones": {
+              "layers": "data",
+              "per_layer_gb": "data",
+              "stored": "data",
+              "L": "data"
+            },
+            "arrows": [
+              [
+                "layers",
+                "per_layer_gb"
+              ],
+              [
+                "per_layer_gb",
+                "stored"
+              ],
+              [
+                "stored",
+                "L"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Activation checkpointing saves selected states and recomputes on demand.",
-            "rows": [
-              {
-                "cells": [
-                  "layers",
-                  "stored",
-                  "range"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "layers",
-                  "stored",
-                  "layers"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "For a model with L layers, the saved activations grow in proportion to L.",
+            "values": {
+              "layers": "8",
+              "per_layer_gb": "1.5",
+              "stored": "0",
+              "L": "1"
+            },
+            "tones": {
+              "layers": "data",
+              "per_layer_gb": "data",
+              "stored": "data",
+              "L": "data"
+            },
+            "arrows": [
+              [
+                "layers",
+                "per_layer_gb"
+              ],
+              [
+                "per_layer_gb",
+                "stored"
+              ],
+              [
+                "stored",
+                "L"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The result of training is identical with or without it.",
+            "values": {
+              "layers": "8",
+              "per_layer_gb": "1.5",
+              "stored": "1.5",
+              "L": "1"
+            },
+            "tones": {
+              "layers": "ok",
+              "per_layer_gb": "ok",
+              "stored": "ok",
+              "L": "ok"
+            },
+            "arrows": [
+              [
+                "layers",
+                "per_layer_gb"
+              ],
+              [
+                "per_layer_gb",
+                "stored"
+              ],
+              [
+                "stored",
+                "L"
+              ]
             ]
           }
         ]
@@ -147,135 +289,277 @@
       "partTitle": "Checkpointing every k layers",
       "codeHash": "ae9915a0059ae34a98d30f521aedbce9d9cb50cf7568a719f5db5685d55d9f98",
       "spec": {
-        "template": "table",
-        "title": "Periodic checkpointing intervals and segment memory trade-offs",
-        "columns": [
-          "layers",
-          "every",
-          "mem"
+        "template": "flow",
+        "title": "Checkpointing every k layers",
+        "nodes": [
+          {
+            "id": "layers",
+            "label": "layers"
+          },
+          {
+            "id": "per_layer",
+            "label": "per_layer"
+          },
+          {
+            "id": "every",
+            "label": "every"
+          },
+          {
+            "id": "mem",
+            "label": "mem"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Segmented checkpointing saves only segment inputs between layer boundaries.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "every"
-                  },
-                  {
-                    "text": "mem"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "With checkpointing every k layers, the model is divided into L/k segments.",
+            "values": {
+              "layers": {
+                "var": "layers",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "every"
-                  },
-                  {
-                    "text": "mem"
-                  }
-                ],
-                "tone": "data"
+              "per_layer": {
+                "var": "per_layer",
+                "line": 1,
+                "hit": 1
+              },
+              "every": {
+                "var": "every",
+                "line": 3,
+                "hit": 1
+              },
+              "mem": {
+                "var": "mem",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "layers": "data",
+              "per_layer": "data",
+              "every": "data",
+              "mem": "data"
+            },
+            "arrows": [
+              [
+                "layers",
+                "per_layer"
+              ],
+              [
+                "per_layer",
+                "every"
+              ],
+              [
+                "every",
+                "mem"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Peak activation memory shrinks to a modest fraction of uncheckpointed layers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "every"
-                  },
-                  {
-                    "text": "mem"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "During the backward pass, one segment at a time is recomputed from its.",
+            "values": {
+              "layers": {
+                "var": "layers",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "every"
-                  },
-                  {
-                    "text": "layers"
-                  }
-                ],
-                "tone": "ok"
+              "per_layer": {
+                "var": "per_layer",
+                "line": 2,
+                "hit": 1
+              },
+              "every": {
+                "var": "every",
+                "line": 4,
+                "hit": 1
+              },
+              "mem": {
+                "var": "mem",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "layers": "data",
+              "per_layer": "data",
+              "every": "data",
+              "mem": "data"
+            },
+            "arrows": [
+              [
+                "layers",
+                "per_layer"
+              ],
+              [
+                "per_layer",
+                "every"
+              ],
+              [
+                "every",
+                "mem"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Selective checkpointing, which recomputes only cheap operations such.",
+            "values": {
+              "layers": {
+                "var": "layers",
+                "line": 3,
+                "hit": 1
+              },
+              "per_layer": {
+                "var": "per_layer",
+                "line": 3,
+                "hit": 1
+              },
+              "every": {
+                "var": "every",
+                "line": 5,
+                "hit": 1
+              },
+              "mem": {
+                "var": "mem",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "layers": "ok",
+              "per_layer": "ok",
+              "every": "ok",
+              "mem": "ok"
+            },
+            "arrows": [
+              [
+                "layers",
+                "per_layer"
+              ],
+              [
+                "per_layer",
+                "every"
+              ],
+              [
+                "every",
+                "mem"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Periodic checkpointing intervals and segment memory trade-offs",
-        "columns": [
-          "layers",
-          "every",
-          "mem"
+        "template": "flow",
+        "title": "Checkpointing every k layers",
+        "nodes": [
+          {
+            "id": "layers",
+            "label": "layers"
+          },
+          {
+            "id": "per_layer",
+            "label": "per_layer"
+          },
+          {
+            "id": "every",
+            "label": "every"
+          },
+          {
+            "id": "mem",
+            "label": "mem"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Segmented checkpointing saves only segment inputs between layer boundaries.",
-            "rows": [
-              {
-                "cells": [
-                  "layers",
-                  "every",
-                  "mem"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "layers",
-                  "every",
-                  "mem"
-                ],
-                "tone": "data"
-              }
+            "caption": "With checkpointing every k layers, the model is divided into L/k segments.",
+            "values": {
+              "layers": "32",
+              "per_layer": "1.5",
+              "every": "1",
+              "mem": "49.5"
+            },
+            "tones": {
+              "layers": "data",
+              "per_layer": "data",
+              "every": "data",
+              "mem": "data"
+            },
+            "arrows": [
+              [
+                "layers",
+                "per_layer"
+              ],
+              [
+                "per_layer",
+                "every"
+              ],
+              [
+                "every",
+                "mem"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Peak activation memory shrinks to a modest fraction of uncheckpointed layers.",
-            "rows": [
-              {
-                "cells": [
-                  "layers",
-                  "every",
-                  "mem"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "layers",
-                  "every",
-                  "layers"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "During the backward pass, one segment at a time is recomputed from its.",
+            "values": {
+              "layers": "32",
+              "per_layer": "1.5",
+              "every": "1",
+              "mem": "49.5"
+            },
+            "tones": {
+              "layers": "data",
+              "per_layer": "data",
+              "every": "data",
+              "mem": "data"
+            },
+            "arrows": [
+              [
+                "layers",
+                "per_layer"
+              ],
+              [
+                "per_layer",
+                "every"
+              ],
+              [
+                "every",
+                "mem"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Selective checkpointing, which recomputes only cheap operations such.",
+            "values": {
+              "layers": "32",
+              "per_layer": "1.5",
+              "every": "1",
+              "mem": "49.5"
+            },
+            "tones": {
+              "layers": "ok",
+              "per_layer": "ok",
+              "every": "ok",
+              "mem": "ok"
+            },
+            "arrows": [
+              [
+                "layers",
+                "per_layer"
+              ],
+              [
+                "per_layer",
+                "every"
+              ],
+              [
+                "every",
+                "mem"
+              ]
             ]
           }
         ]
@@ -285,78 +569,91 @@
       "partTitle": "The square-root rule",
       "codeHash": "3f8b59c62d5e63ec3673bb26ff5a6291f694ad199b6c617f1eee57f0b3f34132",
       "spec": {
-        "template": "table",
-        "title": "Square-root rule for optimal checkpointing segment intervals",
-        "columns": [
+        "template": "sequence",
+        "title": "The square-root rule",
+        "actors": [
+          "L",
           "options",
-          "cost",
-          "range"
+          "cost"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Segment size balances best when close to the square root of layer depth.",
-            "rows": [
+            "caption": "The expression L/k + k is smallest when k is close to the square root of L.",
+            "activeActor": "L",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "options"
-                  },
-                  {
-                    "text": "cost"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
-                "tone": "ok"
+                "from": "L",
+                "to": "options",
+                "label": {
+                  "var": "L",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "options"
-                  },
-                  {
-                    "text": "cost"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
-                "tone": "data"
+                "from": "options",
+                "to": "cost",
+                "label": {
+                  "var": "options",
+                  "line": 2,
+                  "hit": 17
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Square root memory savings render huge models trainable on limited devices.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how layers updates gives during execution.",
+            "activeActor": "options",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "options"
-                  },
-                  {
-                    "text": "cost"
-                  },
-                  {
-                    "text": "range"
-                  }
-                ],
+                "from": "L",
+                "to": "options",
+                "label": {
+                  "var": "L",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "options"
-                  },
-                  {
-                    "text": "cost"
-                  },
-                  {
-                    "text": "options"
-                  }
-                ],
+                "from": "options",
+                "to": "cost",
+                "label": {
+                  "var": "options",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trying every option, as best_interval does, is a small but honest.",
+            "activeActor": "cost",
+            "messages": [
+              {
+                "from": "L",
+                "to": "options",
+                "label": {
+                  "var": "L",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "from": "options",
+                "to": "cost",
+                "label": {
+                  "var": "options",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,57 +661,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Square-root rule for optimal checkpointing segment intervals",
-        "columns": [
+        "template": "sequence",
+        "title": "The square-root rule",
+        "actors": [
+          "L",
           "options",
-          "cost",
-          "range"
+          "cost"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Segment size balances best when close to the square root of layer depth.",
-            "rows": [
+            "caption": "The expression L/k + k is smallest when k is close to the square root of L.",
+            "messages": [
               {
-                "cells": [
-                  "options",
-                  "cost",
-                  "range"
-                ],
-                "tone": "ok"
+                "from": "L",
+                "to": "options",
+                "label": "16",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "options",
-                  "cost",
-                  "range"
-                ],
-                "tone": "data"
+                "from": "options",
+                "to": "cost",
+                "label": "[[17, 1], [10, 2], [8, 4], [10, 8], [17…",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "L"
           },
           {
-            "at": "say7",
-            "caption": "Square root memory savings render huge models trainable on limited devices.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how layers updates gives during execution.",
+            "messages": [
               {
-                "cells": [
-                  "options",
-                  "cost",
-                  "range"
-                ],
+                "from": "L",
+                "to": "options",
+                "label": "16",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "options",
-                  "cost",
-                  "options"
-                ],
+                "from": "options",
+                "to": "cost",
+                "label": "[[17, 1], [10, 2], [8, 4], [10, 8], [17…",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "options"
+          },
+          {
+            "at": "say10",
+            "caption": "Trying every option, as best_interval does, is a small but honest.",
+            "messages": [
+              {
+                "from": "L",
+                "to": "options",
+                "label": "16",
+                "tone": "data"
+              },
+              {
+                "from": "options",
+                "to": "cost",
+                "label": "[[17, 1], [10, 2], [8, 4], [10, 8], [17…",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "cost"
           }
         ]
       }
@@ -423,78 +733,91 @@
       "partTitle": "The compute cost",
       "codeHash": "2ee048a0afadfaa3f41c3adb945930a2bb9d6e9f3766ba1aef8bcc7c4b92c7a2",
       "spec": {
-        "template": "table",
-        "title": "Recomputation overhead versus activation memory savings",
-        "columns": [
-          "plain",
-          "checkpointed",
-          "forward_ms"
+        "template": "sequence",
+        "title": "The compute cost",
+        "actors": [
+          "forward_ms",
+          "backward_ms",
+          "plain"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Recomputing activations introduces a partial second forward pass overhead.",
-            "rows": [
+            "caption": "Recomputing activations means running parts of the forward pass twice.",
+            "activeActor": "forward_ms",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "plain"
-                  },
-                  {
-                    "text": "checkpointed"
-                  },
-                  {
-                    "text": "forward_ms"
-                  }
-                ],
-                "tone": "ok"
+                "from": "forward_ms",
+                "to": "backward_ms",
+                "label": {
+                  "var": "forward_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "plain"
-                  },
-                  {
-                    "text": "checkpointed"
-                  },
-                  {
-                    "text": "forward_ms"
-                  }
-                ],
-                "tone": "data"
+                "from": "backward_ms",
+                "to": "plain",
+                "label": {
+                  "var": "backward_ms",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Memory saved allows larger micro-batches that improve GPU efficiency.",
-            "rows": [
+            "at": "say2",
+            "caption": "With full checkpointing, the extra cost is about one additional forward.",
+            "activeActor": "backward_ms",
+            "messages": [
               {
-                "cells": [
-                  {
-                    "text": "plain"
-                  },
-                  {
-                    "text": "checkpointed"
-                  },
-                  {
-                    "text": "forward_ms"
-                  }
-                ],
+                "from": "forward_ms",
+                "to": "backward_ms",
+                "label": {
+                  "var": "forward_ms",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "plain"
-                  },
-                  {
-                    "text": "checkpointed"
-                  },
-                  {
-                    "text": "plain"
-                  }
-                ],
+                "from": "backward_ms",
+                "to": "plain",
+                "label": {
+                  "var": "backward_ms",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Like accumulation, it is a trade.",
+            "activeActor": "plain",
+            "messages": [
+              {
+                "from": "forward_ms",
+                "to": "backward_ms",
+                "label": {
+                  "var": "forward_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "backward_ms",
+                "to": "plain",
+                "label": {
+                  "var": "backward_ms",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,57 +825,70 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Recomputation overhead versus activation memory savings",
-        "columns": [
-          "plain",
-          "checkpointed",
-          "forward_ms"
+        "template": "sequence",
+        "title": "The compute cost",
+        "actors": [
+          "forward_ms",
+          "backward_ms",
+          "plain"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Recomputing activations introduces a partial second forward pass overhead.",
-            "rows": [
+            "caption": "Recomputing activations means running parts of the forward pass twice.",
+            "messages": [
               {
-                "cells": [
-                  "plain",
-                  "checkpointed",
-                  "forward_ms"
-                ],
-                "tone": "ok"
+                "from": "forward_ms",
+                "to": "backward_ms",
+                "label": "100",
+                "tone": "data"
               },
               {
-                "cells": [
-                  "plain",
-                  "checkpointed",
-                  "forward_ms"
-                ],
-                "tone": "data"
+                "from": "backward_ms",
+                "to": "plain",
+                "label": "200",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "forward_ms"
           },
           {
-            "at": "say6",
-            "caption": "Memory saved allows larger micro-batches that improve GPU efficiency.",
-            "rows": [
+            "at": "say2",
+            "caption": "With full checkpointing, the extra cost is about one additional forward.",
+            "messages": [
               {
-                "cells": [
-                  "plain",
-                  "checkpointed",
-                  "forward_ms"
-                ],
+                "from": "forward_ms",
+                "to": "backward_ms",
+                "label": "100",
                 "tone": "data"
               },
               {
-                "cells": [
-                  "plain",
-                  "checkpointed",
-                  "plain"
-                ],
+                "from": "backward_ms",
+                "to": "plain",
+                "label": "200",
                 "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "backward_ms"
+          },
+          {
+            "at": "say10",
+            "caption": "Like accumulation, it is a trade.",
+            "messages": [
+              {
+                "from": "forward_ms",
+                "to": "backward_ms",
+                "label": "100",
+                "tone": "data"
+              },
+              {
+                "from": "backward_ms",
+                "to": "plain",
+                "label": "200",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "plain"
           }
         ]
       }
@@ -561,223 +897,217 @@
       "partTitle": "Putting the memory tools together",
       "codeHash": "e0a42b030ce2484a5ec3ffcc5039b89903c6382410dbc5ca448c0a715a6ac613",
       "spec": {
-        "template": "flow",
-        "title": "Putting the memory tools together — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting the memory ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Putting the memory tools together",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting the memory tools together.",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting the memory ... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Each memory technique shrinks a different part of the budget.",
+            "bars": [
+              {
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "gpus",
+                "value": {
+                  "var": "gpus",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "layers",
+                "value": {
+                  "var": "layers",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "per_layer_act",
+                "value": {
+                  "var": "per_layer_act",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Mixed precision halves 16-bit weights and activations.",
+            "bars": [
+              {
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "gpus",
+                "value": {
+                  "var": "gpus",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "layers",
+                "value": {
+                  "var": "layers",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "per_layer_act",
+                "value": {
+                  "var": "per_layer_act",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting the memory tools together.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Being able to build this table is a sign of real understanding.",
+            "bars": [
+              {
+                "label": "params",
+                "value": {
+                  "var": "params",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "gpus",
+                "value": {
+                  "var": "gpus",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "layers",
+                "value": {
+                  "var": "layers",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "per_layer_act",
+                "value": {
+                  "var": "per_layer_act",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting the memory tools together — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting the memory ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Putting the memory tools together",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting the memory tools together [D13.P5.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting the memory ... [D13.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Each memory technique shrinks a different part of the budget.",
+            "bars": [
+              {
+                "label": "params",
+                "value": 13000000000,
+                "tone": "data"
+              },
+              {
+                "label": "gpus",
+                "value": 64,
+                "tone": "data"
+              },
+              {
+                "label": "layers",
+                "value": 40,
+                "tone": "data"
+              },
+              {
+                "label": "per_layer_act",
+                "value": 2,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Mixed precision halves 16-bit weights and activations.",
+            "bars": [
+              {
+                "label": "params",
+                "value": 13000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "gpus",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "layers",
+                "value": 40,
+                "tone": "ok"
+              },
+              {
+                "label": "per_layer_act",
+                "value": 2,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting the memory tools together [D13.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Being able to build this table is a sign of real understanding.",
+            "bars": [
+              {
+                "label": "params",
+                "value": 13000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "gpus",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "layers",
+                "value": 40,
+                "tone": "ok"
+              },
+              {
+                "label": "per_layer_act",
+                "value": 2,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -787,223 +1117,133 @@
       "partTitle": "Practice time: checkpointing",
       "codeHash": "dd6b6cebcc4a8f4ce5896d0bbaa7b3baed8895760adc868ef7eb622dcd23304b",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: checkpointing — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: chec...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: checkpointing",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: checkpointing [D.Psix.Sone].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: chec... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Activation_memory(layers, per_layer_gb, every=None).",
+            "bars": [
+              {
+                "label": "L",
+                "value": {
+                  "var": "L",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include 32 layers with no checkpointing, every 4 and every 32.",
+            "bars": [
+              {
+                "label": "L",
+                "value": {
+                  "var": "L",
+                  "line": 2,
+                  "hit": 14
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: checkpointing.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If best_interval returns the wrong divisor on ties, check the order.",
+            "bars": [
+              {
+                "label": "L",
+                "value": {
+                  "var": "L",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: checkpointing — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: chec...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: checkpointing",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: checkpointing [D13.P6.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: chec... [D13.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Activation_memory(layers, per_layer_gb, every=None).",
+            "bars": [
+              {
+                "label": "L",
+                "value": 12,
+                "tone": "data"
+              },
+              {
+                "label": "k",
+                "value": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include 32 layers with no checkpointing, every 4 and every 32.",
+            "bars": [
+              {
+                "label": "L",
+                "value": 12,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 2,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: checkpointing [D13.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If best_interval returns the wrong divisor on ties, check the order.",
+            "bars": [
+              {
+                "label": "L",
+                "value": 12,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 3,
+                "tone": "ok"
+              }
             ]
           }
         ]

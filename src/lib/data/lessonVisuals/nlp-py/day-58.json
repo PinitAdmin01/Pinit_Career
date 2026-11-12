@@ -2,118 +2,169 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 58,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The Agentic Reasoning Paradigm: Thought-Action-Observation Loops & ReAct Mechanics",
       "codeHash": "1e2b98343fd95fc8a5ecddac89bba4c129abc6a35089763cb70b036b8dd92619",
       "spec": {
         "template": "flow",
-        "title": "The Agentic Reasoning Paradigm: Thought-Actio... — Execution Pipeline",
+        "title": "The Agentic Reasoning Paradigm: Thought-Action-Observation Loops",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. The Agentic Reasoni...",
-            "tappable": true
+            "id": "env",
+            "label": "env"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "agent",
+            "label": "agent"
+          },
+          {
+            "id": "thought",
+            "label": "thought"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The Agentic Reasoning Paradigm: Thought-...",
-            "values": {
-              "in": "Day 58 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The Agentic Reasoni....",
+            "caption": "Over the first fifty-seven days of this master journey, our models have.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": {
+                "var": "self",
+                "line": 15,
+                "hit": 1
+              },
+              "env": {
+                "var": "env",
+                "line": 49,
+                "hit": 1
+              },
+              "agent": {
+                "var": "agent",
+                "line": 50,
+                "hit": 1
+              },
+              "thought": {
+                "var": "thought",
+                "line": 35,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "env": "data",
+              "agent": "data",
+              "thought": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "env"
               ],
               [
-                "proc",
-                "out"
+                "env",
+                "agent"
+              ],
+              [
+                "agent",
+                "thought"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The foundational architectural pattern for modern language model agents.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": {
+                "var": "self",
+                "line": 16,
+                "hit": 1
+              },
+              "env": {
+                "var": "env",
+                "line": 31,
+                "hit": 1
+              },
+              "agent": {
+                "var": "agent",
+                "line": 53,
+                "hit": 1
+              },
+              "thought": {
+                "var": "thought",
+                "line": 36,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "env": "data",
+              "agent": "data",
+              "thought": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "env"
+              ],
+              [
+                "env",
+                "agent"
+              ],
+              [
+                "agent",
+                "thought"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The Agentic Reasoning Paradigm: T...",
+            "at": "say8",
+            "caption": "Furthermore, managing context window economics in extended agentic.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": {
+                "var": "self",
+                "line": 17,
+                "hit": 1
+              },
+              "env": {
+                "var": "env",
+                "line": 32,
+                "hit": 1
+              },
+              "agent": {
+                "var": "agent",
+                "line": 54,
+                "hit": 1
+              },
+              "thought": {
+                "var": "thought",
+                "line": 45,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "env": "ok",
+              "agent": "ok",
+              "thought": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "env"
               ],
               [
-                "proc",
-                "out"
+                "env",
+                "agent"
+              ],
+              [
+                "agent",
+                "thought"
               ]
             ]
           }
@@ -121,110 +172,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "The Agentic Reasoning Paradigm: Thought-Actio... — Execution Pipeline",
+        "title": "The Agentic Reasoning Paradigm: Thought-Action-Observation Loops",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. The Agentic Reasoni...",
-            "tappable": true
+            "id": "env",
+            "label": "env"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "agent",
+            "label": "agent"
+          },
+          {
+            "id": "thought",
+            "label": "thought"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The Agentic Reasoning Paradigm: Thought-...",
-            "values": {
-              "in": "Day 58 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Agentic Reasoni....",
+            "caption": "Over the first fifty-seven days of this master journey, our models have.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": "<Environment>",
+              "env": "<Environment>",
+              "agent": "<ReActAgent>",
+              "thought": "'I need to retrieve the actual Q3 reven…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "env": "data",
+              "agent": "data",
+              "thought": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "env"
               ],
               [
-                "proc",
-                "out"
+                "env",
+                "agent"
+              ],
+              [
+                "agent",
+                "thought"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The foundational architectural pattern for modern language model agents.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": "<Environment>",
+              "env": "<Environment>",
+              "agent": "<ReActAgent>",
+              "thought": "'I need to retrieve the actual Q3 reven…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "env": "data",
+              "agent": "data",
+              "thought": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "env"
+              ],
+              [
+                "env",
+                "agent"
+              ],
+              [
+                "agent",
+                "thought"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Agentic Reasoning Paradigm: T...",
+            "at": "say8",
+            "caption": "Furthermore, managing context window economics in extended agentic.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": "<Environment>",
+              "env": "<Environment>",
+              "agent": "<ReActAgent>",
+              "thought": "'I need to retrieve the actual Q3 reven…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "env": "ok",
+              "agent": "ok",
+              "thought": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "env"
               ],
               [
-                "proc",
-                "out"
+                "env",
+                "agent"
+              ],
+              [
+                "agent",
+                "thought"
               ]
             ]
           }
@@ -235,223 +289,130 @@
       "partTitle": "Constrained Decoding & Schema Adherence: Context-Free Grammars & Validated JSON",
       "codeHash": "22789be57d86a736f2fe7ecd46afbc1a1b8912b7c22efda85d37545b9fdef03a",
       "spec": {
-        "template": "flow",
-        "title": "Constrained Decoding & Schema Adherence: Cont... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Constrained Decodin...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Constrained Decoding & Schema Adherence: Context-Free Grammars &",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Constrained Decoding & Schema Adherence:...",
-            "values": {
-              "in": "Day 58 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Constrained Decodin....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "While ReAct provides the cognitive loop for reasoning and acting,.",
+            "items": {
+              "var": "target_sequence",
+              "line": 53,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Instead, they intervene directly at the logit level during autoregressive.",
+            "items": {
+              "var": "target_sequence",
+              "line": 57,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Constrained Decoding & Schema Adh...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say8",
+            "caption": "Even more remarkably, grammar-constrained decoding enables Speculative.",
+            "items": {
+              "var": "target_sequence",
+              "line": 59,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Constrained Decoding & Schema Adherence: Cont... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Constrained Decodin...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Constrained Decoding & Schema Adherence: Context-Free Grammars &",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Constrained Decoding & Schema Adherence:...",
-            "values": {
-              "in": "Day 58 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Constrained Decodin....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "While ReAct provides the cognitive loop for reasoning and acting,.",
+            "items": [
+              "'{'",
+              "'\"'",
+              "'q'",
+              "'3'",
+              "'\"'",
+              "':'",
+              "'1'",
+              "'4'",
+              "'5'",
+              "'}'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Instead, they intervene directly at the logit level during autoregressive.",
+            "items": [
+              "'{'",
+              "'\"'",
+              "'q'",
+              "'3'",
+              "'\"'",
+              "':'",
+              "'1'",
+              "'4'",
+              "'5'",
+              "'}'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Constrained Decoding & Schema Adh...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say8",
+            "caption": "Even more remarkably, grammar-constrained decoding enables Speculative.",
+            "items": [
+              "'{'",
+              "'\"'",
+              "'q'",
+              "'3'",
+              "'\"'",
+              "':'",
+              "'1'",
+              "'4'",
+              "'5'",
+              "'}'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -461,223 +422,133 @@
       "partTitle": "Multi-Tool Function Calling & Parameter Binding: Tool Registries & Semantic Dispatch",
       "codeHash": "e922cc3552e49540fda6bb8ab80dcdd31cbc4ccad098f5d93135f62e63f5521f",
       "spec": {
-        "template": "flow",
-        "title": "Multi-Tool Function Calling & Parameter Bindi... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Multi-Tool Function...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Multi-Tool Function Calling & Parameter Binding: Tool Registries",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Multi-Tool Function Calling & Parameter ...",
-            "values": {
-              "in": "Day 58 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Multi-Tool Function....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Real-world enterprise agents rarely operate with a single hard-coded API.",
+            "bars": [
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 42,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "amount",
+                "value": {
+                  "var": "amount",
+                  "line": 72,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In modern frontier LLMs, function calling is formalized through.",
+            "bars": [
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 43,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "amount",
+                "value": {
+                  "var": "amount",
+                  "line": 72,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Multi-Tool Function Calling & Par...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Security in multi-tool parameter binding also demands strict credential.",
+            "bars": [
+              {
+                "label": "val",
+                "value": {
+                  "var": "val",
+                  "line": 45,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "amount",
+                "value": {
+                  "var": "amount",
+                  "line": 72,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Multi-Tool Function Calling & Parameter Bindi... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Multi-Tool Function...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Multi-Tool Function Calling & Parameter Binding: Tool Registries",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Multi-Tool Function Calling & Parameter ...",
-            "values": {
-              "in": "Day 58 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Multi-Tool Function....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Real-world enterprise agents rarely operate with a single hard-coded API.",
+            "bars": [
+              {
+                "label": "val",
+                "value": "'ACC-8821'",
+                "tone": "data"
+              },
+              {
+                "label": "amount",
+                "value": 500000,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "In modern frontier LLMs, function calling is formalized through.",
+            "bars": [
+              {
+                "label": "val",
+                "value": "'ACC-8821'",
+                "tone": "ok"
+              },
+              {
+                "label": "amount",
+                "value": 500000,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Multi-Tool Function Calling & Par...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Security in multi-tool parameter binding also demands strict credential.",
+            "bars": [
+              {
+                "label": "val",
+                "value": "'ACC-8821'",
+                "tone": "ok"
+              },
+              {
+                "label": "amount",
+                "value": 500000,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -688,110 +559,161 @@
       "codeHash": "a1a3523d8f683bf30ec2cbeb3803fe5c32532d0cd8e2a711d53663a81bc6a778",
       "spec": {
         "template": "flow",
-        "title": "Self-Reflective Planning & Failsafe Recovery:... — Execution Pipeline",
+        "title": "Self-Reflective Planning & Failsafe Recovery: Backtracking Trees",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Self-Reflective Pla...",
-            "tappable": true
+            "id": "max_consecutive_failures",
+            "label": "max_consecutive_failures"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "controller",
+            "label": "controller"
+          },
+          {
+            "id": "tool",
+            "label": "tool"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Self-Reflective Planning & Failsafe Reco...",
-            "values": {
-              "in": "Day 58 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Self-Reflective Pla....",
+            "caption": "In complex multi-step reasoning, agents inevitably encounter failures.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": {
+                "var": "self",
+                "line": 14,
+                "hit": 1
+              },
+              "max_consecutive_failures": {
+                "var": "max_consecutive_failures",
+                "line": 14,
+                "hit": 1
+              },
+              "controller": {
+                "var": "controller",
+                "line": 54,
+                "hit": 1
+              },
+              "tool": {
+                "var": "tool",
+                "line": 19,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "max_consecutive_failures": "data",
+              "controller": "data",
+              "tool": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "max_consecutive_failures"
               ],
               [
-                "proc",
-                "out"
+                "max_consecutive_failures",
+                "controller"
+              ],
+              [
+                "controller",
+                "tool"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The core principle of Self-Reflective Planning, pioneered by Reflexion.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": {
+                "var": "self",
+                "line": 15,
+                "hit": 1
+              },
+              "max_consecutive_failures": {
+                "var": "max_consecutive_failures",
+                "line": 15,
+                "hit": 1
+              },
+              "controller": {
+                "var": "controller",
+                "line": 57,
+                "hit": 1
+              },
+              "tool": {
+                "var": "tool",
+                "line": 20,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "max_consecutive_failures": "data",
+              "controller": "data",
+              "tool": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "max_consecutive_failures"
+              ],
+              [
+                "max_consecutive_failures",
+                "controller"
+              ],
+              [
+                "controller",
+                "tool"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Self-Reflective Planning & Failsa...",
+            "at": "say8",
+            "caption": "From an engineering telemetry standpoint, implementing effective.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": {
+                "var": "self",
+                "line": 16,
+                "hit": 1
+              },
+              "max_consecutive_failures": {
+                "var": "max_consecutive_failures",
+                "line": 16,
+                "hit": 1
+              },
+              "controller": {
+                "var": "controller",
+                "line": 59,
+                "hit": 1
+              },
+              "tool": {
+                "var": "tool",
+                "line": 23,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "max_consecutive_failures": "ok",
+              "controller": "ok",
+              "tool": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "max_consecutive_failures"
               ],
               [
-                "proc",
-                "out"
+                "max_consecutive_failures",
+                "controller"
+              ],
+              [
+                "controller",
+                "tool"
               ]
             ]
           }
@@ -799,110 +721,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Self-Reflective Planning & Failsafe Recovery:... — Execution Pipeline",
+        "title": "Self-Reflective Planning & Failsafe Recovery: Backtracking Trees",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "proc",
-            "label": "2. Self-Reflective Pla...",
-            "tappable": true
+            "id": "max_consecutive_failures",
+            "label": "max_consecutive_failures"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "controller",
+            "label": "controller"
+          },
+          {
+            "id": "tool",
+            "label": "tool"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Self-Reflective Planning & Failsafe Reco...",
-            "values": {
-              "in": "Day 58 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Self-Reflective Pla....",
+            "caption": "In complex multi-step reasoning, agents inevitably encounter failures.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "self": "<SelfReflectiveController>",
+              "max_consecutive_failures": "2",
+              "controller": "<SelfReflectiveController>",
+              "tool": "'fetch_data'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "self": "data",
+              "max_consecutive_failures": "data",
+              "controller": "data",
+              "tool": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "max_consecutive_failures"
               ],
               [
-                "proc",
-                "out"
+                "max_consecutive_failures",
+                "controller"
+              ],
+              [
+                "controller",
+                "tool"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The core principle of Self-Reflective Planning, pioneered by Reflexion.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "self": "<SelfReflectiveController>",
+              "max_consecutive_failures": "2",
+              "controller": "<SelfReflectiveController>",
+              "tool": "'fetch_data'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "self": "data",
+              "max_consecutive_failures": "data",
+              "controller": "data",
+              "tool": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "self",
+                "max_consecutive_failures"
+              ],
+              [
+                "max_consecutive_failures",
+                "controller"
+              ],
+              [
+                "controller",
+                "tool"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Self-Reflective Planning & Failsa...",
+            "at": "say8",
+            "caption": "From an engineering telemetry standpoint, implementing effective.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "self": "<SelfReflectiveController>",
+              "max_consecutive_failures": "2",
+              "controller": "<SelfReflectiveController>",
+              "tool": "'fetch_data'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "self": "ok",
+              "max_consecutive_failures": "ok",
+              "controller": "ok",
+              "tool": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "self",
+                "max_consecutive_failures"
               ],
               [
-                "proc",
-                "out"
+                "max_consecutive_failures",
+                "controller"
+              ],
+              [
+                "controller",
+                "tool"
               ]
             ]
           }
@@ -913,223 +838,175 @@
       "partTitle": "Masterclass Implementation: ApexAgent Sovereign ReAct Execution Suite",
       "codeHash": "8db4f43fc9a32258dacd45e1b9a02cfa9cf9d01571b00a18beb17ac0345426cc",
       "spec": {
-        "template": "flow",
-        "title": "Masterclass Implementation: ApexAgent Soverei... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Impleme...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Masterclass Implementation: ApexAgent Sovereign ReAct Execution ",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Masterclass Implementation: ApexAgent So...",
-            "values": {
-              "in": "Day 58 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Masterclass Impleme....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The sovereign enterprise agent execution platform.",
+            "bars": [
+              {
+                "label": "transfer_amoun",
+                "value": {
+                  "var": "transfer_amount",
+                  "line": 22,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bal",
+                "value": {
+                  "var": "bal",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "new_bal",
+                "value": {
+                  "var": "new_bal",
+                  "line": 34,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us trace how an enterprise business mission executes within ApexAgent.",
+            "bars": [
+              {
+                "label": "transfer_amoun",
+                "value": {
+                  "var": "transfer_amount",
+                  "line": 23,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bal",
+                "value": {
+                  "var": "bal",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "new_bal",
+                "value": {
+                  "var": "new_bal",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Masterclass Implementation: ApexA...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Finally, ApexAgent incorporates multi-tenant resource quotas and token.",
+            "bars": [
+              {
+                "label": "transfer_amoun",
+                "value": {
+                  "var": "transfer_amount",
+                  "line": 24,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bal",
+                "value": {
+                  "var": "bal",
+                  "line": 25,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "new_bal",
+                "value": {
+                  "var": "new_bal",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Masterclass Implementation: ApexAgent Soverei... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masterclass Impleme...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Masterclass Implementation: ApexAgent Sovereign ReAct Execution ",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Implementation: ApexAgent So...",
-            "values": {
-              "in": "Day 58 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Impleme....",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The sovereign enterprise agent execution platform.",
+            "bars": [
+              {
+                "label": "transfer_amoun",
+                "value": 50000,
+                "tone": "data"
+              },
+              {
+                "label": "bal",
+                "value": 1250000,
+                "tone": "data"
+              },
+              {
+                "label": "new_bal",
+                "value": 1200000,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Let us trace how an enterprise business mission executes within ApexAgent.",
+            "bars": [
+              {
+                "label": "transfer_amoun",
+                "value": 50000,
+                "tone": "ok"
+              },
+              {
+                "label": "bal",
+                "value": 1250000,
+                "tone": "ok"
+              },
+              {
+                "label": "new_bal",
+                "value": 1200000,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Implementation: ApexA...",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say9",
+            "caption": "Finally, ApexAgent incorporates multi-tenant resource quotas and token.",
+            "bars": [
+              {
+                "label": "transfer_amoun",
+                "value": 50000,
+                "tone": "ok"
+              },
+              {
+                "label": "bal",
+                "value": 1250000,
+                "tone": "ok"
+              },
+              {
+                "label": "new_bal",
+                "value": 1200000,
+                "tone": "ok"
+              }
             ]
           }
         ]

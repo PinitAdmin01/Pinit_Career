@@ -2,150 +2,84 @@
   "schemaVersion": 1,
   "prefix": "nlp-py",
   "day": 15,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The milestone pipeline",
       "codeHash": "1ec33556e6f9fec0d34e0f658e845c80f5dd869d8a2959666a2540db532e22d0",
       "spec": {
-        "template": "table",
-        "title": "Pre-Transformer classical neural NLP pipeline stages",
-        "columns": [
-          "step",
-          "what"
-        ],
+        "template": "bars",
+        "title": "The milestone pipeline",
         "steps": [
           {
             "at": "say1",
-            "caption": "Pre-Transformer systems map tokens to embeddings and process with BiLSTMs.",
-            "rows": [
+            "caption": "A typical pre-Transformer NLP system looked like this.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "what"
-                  }
-                ],
-                "tone": "ok"
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "day",
+                "value": {
+                  "var": "day",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Output heads perform sequence classification or token level tagging.",
-            "rows": [
+            "caption": "For classification (such as sentiment), the output layer reads a summary.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "what"
-                  }
-                ],
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "pipeline"
-                  },
-                  {
-                    "text": "day"
-                  }
-                ],
+                "label": "day",
+                "value": {
+                  "var": "day",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Recurrent networks convert static embeddings into context aware representations.",
-            "rows": [
+            "at": "say7",
+            "caption": "Today you implement the two remaining connecting pieces.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "what"
-                  }
-                ],
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "pipeline"
-                  },
-                  {
-                    "text": "day"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "pipeline"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "This modular architecture pattern directly transfers to modern Transformers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "what"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "pipeline"
-                  },
-                  {
-                    "text": "day"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "pipeline"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "what"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
+                "label": "day",
+                "value": {
+                  "var": "day",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -153,103 +87,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Pre-Transformer classical neural NLP pipeline stages",
-        "columns": [
-          "step",
-          "what"
-        ],
+        "template": "bars",
+        "title": "The milestone pipeline",
         "steps": [
           {
             "at": "say1",
-            "caption": "Pre-Transformer systems map tokens to embeddings and process with BiLSTMs.",
-            "rows": [
+            "caption": "A typical pre-Transformer NLP system looked like this.",
+            "bars": [
               {
-                "cells": [
-                  "step",
-                  "what"
-                ],
-                "tone": "ok"
+                "label": "step",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "day",
+                "value": 1,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Output heads perform sequence classification or token level tagging.",
-            "rows": [
+            "caption": "For classification (such as sentiment), the output layer reads a summary.",
+            "bars": [
               {
-                "cells": [
-                  "step",
-                  "what"
-                ],
+                "label": "step",
+                "value": 1,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "pipeline",
-                  "day"
-                ],
+                "label": "day",
+                "value": 1,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Recurrent networks convert static embeddings into context aware representations.",
-            "rows": [
+            "at": "say7",
+            "caption": "Today you implement the two remaining connecting pieces.",
+            "bars": [
               {
-                "cells": [
-                  "step",
-                  "what"
-                ],
+                "label": "step",
+                "value": 2,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "pipeline",
-                  "day"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "step",
-                  "pipeline"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "This modular architecture pattern directly transfers to modern Transformers.",
-            "rows": [
-              {
-                "cells": [
-                  "step",
-                  "what"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pipeline",
-                  "day"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "step",
-                  "pipeline"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "what",
-                  "step"
-                ],
+                "label": "day",
+                "value": 7,
                 "tone": "ok"
               }
             ]
@@ -261,248 +145,108 @@
       "partTitle": "Sentence embeddings by averaging",
       "codeHash": "6d87557b54e93ede829869b7be44dad646b57aa8c800aa1310cfc2d26b965cb9",
       "spec": {
-        "template": "table",
-        "title": "Word embedding pooling for whole sentence representation",
-        "columns": [
-          "great",
-          "movie"
-        ],
+        "template": "cells",
+        "title": "Sentence embeddings by averaging",
         "steps": [
           {
             "at": "say1",
-            "caption": "Averaging word vectors constructs an efficient whole sentence embedding.",
-            "rows": [
+            "caption": "The simplest way to get one vector for a whole sentence is to average its.",
+            "items": {
+              "var": "tokens",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "great"
-                  },
-                  {
-                    "text": "movie"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Dense representations preserve semantic meaning despite ignoring word order.",
-            "rows": [
+            "caption": "It ignores word order, like bag of words, but because the word vectors.",
+            "items": {
+              "var": "tokens",
+              "line": 7,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "great"
-                  },
-                  {
-                    "text": "movie"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "film"
-                  },
-                  {
-                    "text": "vecs"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Averaged embeddings provide a robust baseline for sentiment analysis.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "great"
-                  },
-                  {
-                    "text": "movie"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "film"
-                  },
-                  {
-                    "text": "vecs"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "embed"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Filtering unknown vocabulary tokens avoids zero bias distortion in sums.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example compares two sentences with the same meaning using averaged.",
+            "items": {
+              "var": "tokens",
+              "line": 7,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "great"
-                  },
-                  {
-                    "text": "movie"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "film"
-                  },
-                  {
-                    "text": "vecs"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "embed"
-                  }
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "math"
-                  },
-                  {
-                    "text": "great"
-                  }
-                ],
-                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Word embedding pooling for whole sentence representation",
-        "columns": [
-          "great",
-          "movie"
-        ],
+        "template": "cells",
+        "title": "Sentence embeddings by averaging",
         "steps": [
           {
             "at": "say1",
-            "caption": "Averaging word vectors constructs an efficient whole sentence embedding.",
-            "rows": [
+            "caption": "The simplest way to get one vector for a whole sentence is to average its.",
+            "items": [
+              "'a'",
+              "'great'",
+              "'film'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "great",
-                  "movie"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Dense representations preserve semantic meaning despite ignoring word order.",
-            "rows": [
+            "caption": "It ignores word order, like bag of words, but because the word vectors.",
+            "items": [
+              "'a'",
+              "'great'",
+              "'film'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "great",
-                  "movie"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "film",
-                  "vecs"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Averaged embeddings provide a robust baseline for sentiment analysis.",
-            "rows": [
-              {
-                "cells": [
-                  "great",
-                  "movie"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "film",
-                  "vecs"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tokens",
-                  "embed"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Filtering unknown vocabulary tokens avoids zero bias distortion in sums.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example compares two sentences with the same meaning using averaged.",
+            "items": [
+              "'an'",
+              "'excellent'",
+              "'movie'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "great",
-                  "movie"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "film",
-                  "vecs"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tokens",
-                  "embed"
-                ],
+                "name": "idx",
+                "index": 2,
                 "tone": "data"
-              },
-              {
-                "cells": [
-                  "math",
-                  "great"
-                ],
-                "tone": "ok"
               }
             ]
           }
@@ -513,143 +257,104 @@
       "partTitle": "Bidirectional reading",
       "codeHash": "60a309656db1227d58097aeb9c06cfd1db067b6e3fd91f9eef14dadff8a9052f",
       "spec": {
-        "template": "table",
-        "title": "Bidirectional recurrence state propagation and positional alignment",
-        "columns": [
-          "fwd",
-          "bwd"
-        ],
+        "template": "bars",
+        "title": "Bidirectional reading",
         "steps": [
           {
+            "at": "say1",
+            "caption": "A left-to-right RNN at word t knows only the words before t.",
+            "bars": [
+              {
+                "label": "h0",
+                "value": {
+                  "var": "h0",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "h",
+                "value": {
+                  "var": "h",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "A bidirectional RNN runs independent forward and backward recurrence passes.",
-            "rows": [
+            "caption": "A bidirectional RNN runs two RNNs.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "fwd"
-                  },
-                  {
-                    "text": "bwd"
-                  }
-                ],
+                "label": "h0",
+                "value": {
+                  "var": "h0",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "h",
+                "value": {
+                  "var": "h",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 11,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Concatenating directional states grants each token both left and right context.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example runs a bidirectional pass with a simple summing step, so.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "fwd"
-                  },
-                  {
-                    "text": "bwd"
-                  }
-                ],
+                "label": "h0",
+                "value": {
+                  "var": "h0",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "bidirectional"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Backward pass outputs require reversal before positional alignment with forward.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "fwd"
-                  },
-                  {
-                    "text": "bwd"
-                  }
-                ],
+                "label": "h",
+                "value": {
+                  "var": "h",
+                  "line": 11,
+                  "hit": 1
+                },
                 "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "bidirectional"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "reversed"
-                  },
-                  {
-                    "text": "fwd"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Abstraction over step functions enables plugging arbitrary recurrent cells.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "fwd"
-                  },
-                  {
-                    "text": "bwd"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "step"
-                  },
-                  {
-                    "text": "bidirectional"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "reversed"
-                  },
-                  {
-                    "text": "fwd"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "bwd"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -657,103 +362,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Bidirectional recurrence state propagation and positional alignment",
-        "columns": [
-          "fwd",
-          "bwd"
-        ],
+        "template": "bars",
+        "title": "Bidirectional reading",
         "steps": [
           {
+            "at": "say1",
+            "caption": "A left-to-right RNN at word t knows only the words before t.",
+            "bars": [
+              {
+                "label": "h0",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "h",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "A bidirectional RNN runs independent forward and backward recurrence passes.",
-            "rows": [
+            "caption": "A bidirectional RNN runs two RNNs.",
+            "bars": [
               {
-                "cells": [
-                  "fwd",
-                  "bwd"
-                ],
+                "label": "h0",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "h",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 1,
                 "tone": "ok"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Concatenating directional states grants each token both left and right context.",
-            "rows": [
+            "at": "say7",
+            "caption": "The example runs a bidirectional pass with a simple summing step, so.",
+            "bars": [
               {
-                "cells": [
-                  "fwd",
-                  "bwd"
-                ],
+                "label": "h0",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "step",
-                  "bidirectional"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Backward pass outputs require reversal before positional alignment with forward.",
-            "rows": [
-              {
-                "cells": [
-                  "fwd",
-                  "bwd"
-                ],
+                "label": "h",
+                "value": 0,
                 "tone": "ok"
               },
               {
-                "cells": [
-                  "step",
-                  "bidirectional"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "reversed",
-                  "fwd"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Abstraction over step functions enables plugging arbitrary recurrent cells.",
-            "rows": [
-              {
-                "cells": [
-                  "fwd",
-                  "bwd"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "step",
-                  "bidirectional"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "reversed",
-                  "fwd"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "bwd",
-                  "step"
-                ],
+                "label": "x",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -765,249 +435,277 @@
       "partTitle": "The BiLSTM tagger",
       "codeHash": "9d94bd105b50c26a6998ac887609cab18b168878d5e136d46babd85164f740af",
       "spec": {
-        "template": "table",
-        "title": "Neural sequence tag scoring and structured constraint decoding",
-        "columns": [
-          "tokens",
-          "greedy"
+        "template": "flow",
+        "title": "The BiLSTM tagger",
+        "nodes": [
+          {
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "scores",
+            "label": "scores"
+          },
+          {
+            "id": "greedy",
+            "label": "greedy"
+          },
+          {
+            "id": "prev",
+            "label": "prev"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The BiLSTM combined state feeds a classification layer scoring candidate tags.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "greedy"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "For tagging, the BiLSTM's combined state at each position feeds a small.",
+            "values": {
+              "tokens": {
+                "var": "tokens",
+                "line": 1,
+                "hit": 1
+              },
+              "scores": {
+                "var": "scores",
+                "line": 2,
+                "hit": 2
+              },
+              "greedy": {
+                "var": "greedy",
+                "line": 5,
+                "hit": 4
+              },
+              "prev": {
+                "var": "prev",
+                "line": 7,
+                "hit": 2
               }
+            },
+            "tones": {
+              "tokens": "data",
+              "scores": "data",
+              "greedy": "data",
+              "prev": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "scores"
+              ],
+              [
+                "scores",
+                "greedy"
+              ],
+              [
+                "greedy",
+                "prev"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Independent greedy scoring risks generating syntactically invalid BIO sequences.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "greedy"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Taking the highest-scoring tag per token is fast, but can produce invalid.",
+            "values": {
+              "tokens": {
+                "var": "tokens",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "allowed"
-                  }
-                ],
-                "tone": "ok"
+              "scores": {
+                "var": "scores",
+                "line": 5,
+                "hit": 1
+              },
+              "greedy": {
+                "var": "greedy",
+                "line": 6,
+                "hit": 1
+              },
+              "prev": {
+                "var": "prev",
+                "line": 7,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "A CRF layer uses Viterbi decoding to find optimal globally consistent paths.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "greedy"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "allowed"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "greedy"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
-                "tone": "data"
-              }
+            },
+            "tones": {
+              "tokens": "data",
+              "scores": "data",
+              "greedy": "data",
+              "prev": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "scores"
+              ],
+              [
+                "scores",
+                "greedy"
+              ],
+              [
+                "greedy",
+                "prev"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "Neural layers generate token features while the decoder enforces validity.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "greedy"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The network provides good local evidence.",
+            "values": {
+              "tokens": {
+                "var": "tokens",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "allowed"
-                  }
-                ],
-                "tone": "ok"
+              "scores": {
+                "var": "scores",
+                "line": 5,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "greedy"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
-                "tone": "data"
+              "greedy": {
+                "var": "greedy",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
-                "tone": "ok"
+              "prev": {
+                "var": "prev",
+                "line": 7,
+                "hit": 4
               }
+            },
+            "tones": {
+              "tokens": "ok",
+              "scores": "ok",
+              "greedy": "ok",
+              "prev": "ok"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "scores"
+              ],
+              [
+                "scores",
+                "greedy"
+              ],
+              [
+                "greedy",
+                "prev"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Neural sequence tag scoring and structured constraint decoding",
-        "columns": [
-          "tokens",
-          "greedy"
+        "template": "flow",
+        "title": "The BiLSTM tagger",
+        "nodes": [
+          {
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "scores",
+            "label": "scores"
+          },
+          {
+            "id": "greedy",
+            "label": "greedy"
+          },
+          {
+            "id": "prev",
+            "label": "prev"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The BiLSTM combined state feeds a classification layer scoring candidate tags.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens",
-                  "greedy"
-                ],
-                "tone": "ok"
-              }
+            "caption": "For tagging, the BiLSTM's combined state at each position feeds a small.",
+            "values": {
+              "tokens": "['New', 'Delhi', 'rocks']",
+              "scores": "[{'B-LOC': 0.6, 'I-LOC': 0.1, 'O': 0.3}…",
+              "greedy": "['B-LOC', 'I-LOC', 'I-LOC']",
+              "prev": "'O'"
+            },
+            "tones": {
+              "tokens": "data",
+              "scores": "data",
+              "greedy": "data",
+              "prev": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "scores"
+              ],
+              [
+                "scores",
+                "greedy"
+              ],
+              [
+                "greedy",
+                "prev"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Independent greedy scoring risks generating syntactically invalid BIO sequences.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens",
-                  "greedy"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "scores",
-                  "allowed"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "A CRF layer uses Viterbi decoding to find optimal globally consistent paths.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens",
-                  "greedy"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "scores",
-                  "allowed"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "greedy",
-                  "scores"
-                ],
-                "tone": "data"
-              }
+            "caption": "Taking the highest-scoring tag per token is fast, but can produce invalid.",
+            "values": {
+              "tokens": "['New', 'Delhi', 'rocks']",
+              "scores": "[{'B-LOC': 0.6, 'I-LOC': 0.1, 'O': 0.3}…",
+              "greedy": "['B-LOC', 'I-LOC', 'I-LOC']",
+              "prev": "'B-LOC'"
+            },
+            "tones": {
+              "tokens": "data",
+              "scores": "data",
+              "greedy": "data",
+              "prev": "data"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "scores"
+              ],
+              [
+                "scores",
+                "greedy"
+              ],
+              [
+                "greedy",
+                "prev"
+              ]
             ]
           },
           {
             "at": "say7",
-            "caption": "Neural layers generate token features while the decoder enforces validity.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens",
-                  "greedy"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "scores",
-                  "allowed"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "greedy",
-                  "scores"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "tokens",
-                  "scores"
-                ],
-                "tone": "ok"
-              }
+            "caption": "The network provides good local evidence.",
+            "values": {
+              "tokens": "['New', 'Delhi', 'rocks']",
+              "scores": "[{'B-LOC': 0.6, 'I-LOC': 0.1, 'O': 0.3}…",
+              "greedy": "['B-LOC', 'I-LOC', 'I-LOC']",
+              "prev": "'I-LOC'"
+            },
+            "tones": {
+              "tokens": "ok",
+              "scores": "ok",
+              "greedy": "ok",
+              "prev": "ok"
+            },
+            "arrows": [
+              [
+                "tokens",
+                "scores"
+              ],
+              [
+                "scores",
+                "greedy"
+              ],
+              [
+                "greedy",
+                "prev"
+              ]
             ]
           }
         ]
@@ -1017,223 +715,106 @@
       "partTitle": "The BiLSTM classifier and its limits",
       "codeHash": "e530feb3240b1fdba186414fd318294f7e965f8f87a5c9643736a57a47e157af",
       "spec": {
-        "template": "flow",
-        "title": "The BiLSTM classifier and its limits — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The BiLSTM classifi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "The BiLSTM classifier and its limits",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The BiLSTM classifier and its limits.",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The BiLSTM classifi... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "For classification, the BiLSTM's states must become one vector for.",
+            "items": {
+              "var": "mean_pool",
+              "line": 2,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "That vector goes through a classifier layer that outputs a probability.",
+            "items": {
+              "var": "mean_pool",
+              "line": 3,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The BiLSTM classifier and its lim.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "Knowing these limits makes the motivation for attention obvious.",
+            "items": {
+              "var": "mean_pool",
+              "line": 5,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The BiLSTM classifier and its limits — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The BiLSTM classifi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "The BiLSTM classifier and its limits",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The BiLSTM classifier and its limits [D15.P5.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The BiLSTM classifi... [D15.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "For classification, the BiLSTM's states must become one vector for.",
+            "items": [
+              "0.4",
+              "0.5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "That vector goes through a classifier layer that outputs a probability.",
+            "items": [
+              "0.4",
+              "0.5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The BiLSTM classifier and its lim.. [D15.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "Knowing these limits makes the motivation for attention obvious.",
+            "items": [
+              "0.4",
+              "0.5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -1243,223 +824,109 @@
       "partTitle": "Milestone practice: connect the pieces",
       "codeHash": "082eab8d21f69bf148d711eed2a30dbcaf2337252c396fb98f30faa22cf67179",
       "spec": {
-        "template": "flow",
-        "title": "Milestone practice: connect the pieces — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Milestone practice: connect the pieces",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Milestone practice: connect the pieces.",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Milestone practice:... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Two loops, one over xs and one over reversed(xs), each collecting states.",
+            "items": {
+              "var": "xs",
+              "line": 2,
+              "hit": 4
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks use a summing step (easy numbers), an empty input (returns []).",
+            "items": {
+              "var": "xs",
+              "line": 4,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Milestone practice: connect the p.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say7",
+            "caption": "The example combines both functions into a tiny context-aware sentence.",
+            "items": {
+              "var": "xs",
+              "line": 8,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone practice: connect the pieces — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Milestone practice:...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Milestone practice: connect the pieces",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Milestone practice: connect the pieces [D15.P6.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Milestone practice:... [D15.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Two loops, one over xs and one over reversed(xs), each collecting states.",
+            "items": [
+              "-1",
+              "0.5",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks use a summing step (easy numbers), an empty input (returns []).",
+            "items": [
+              "-1",
+              "0.5",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Milestone practice: connect the p.. [D15.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say7",
+            "caption": "The example combines both functions into a tiny context-aware sentence.",
+            "items": [
+              "-1",
+              "0.5",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

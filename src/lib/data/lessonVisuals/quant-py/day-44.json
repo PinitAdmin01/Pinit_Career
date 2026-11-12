@@ -2,139 +2,170 @@
   "schemaVersion": 1,
   "prefix": "quant-py",
   "day": 44,
-  "promptSha": "5e8075d95963930ba84ac71057cea827a10205ec7f7003416d6534e4c36c6e2b",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Smart Order Router (SOR) — Foundations & Mathematical Invariants",
-      "codeHash": "57af27134b333d61f2d0d8c12f2e75b977a5f82527bc0b6d7061ced2adc933ad",
+      "codeHash": "49e2aaf2f67b433d225ebf2446a7c2920ac267931b7a08c92b1162ea976f18c6",
       "spec": {
         "template": "flow",
         "title": "Smart Order Router (SOR) — Foundations & Mathematical Invariants",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "venue",
+            "label": "venue"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "order_type",
+            "label": "order_type"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "price",
+            "label": "price"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In modern fragmented equity markets, identical securities trade.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 19,
+                "hit": 1
+              },
+              "venue": {
+                "var": "venue",
+                "line": 10,
+                "hit": 1
+              },
+              "order_type": {
+                "var": "order_type",
+                "line": 10,
+                "hit": 1
+              },
+              "price": {
+                "var": "price",
+                "line": 10,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "p": "data",
+              "venue": "data",
+              "order_type": "data",
+              "price": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "venue"
+              ],
+              [
+                "venue",
+                "order_type"
+              ],
+              [
+                "order_type",
+                "price"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "A single stock like Apple or Microsoft trades across NASDAQ, the New York.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 20,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "venue": {
+                "var": "venue",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "order_type": {
+                "var": "order_type",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "price": {
+                "var": "price",
+                "line": 11,
+                "hit": 1
               }
+            },
+            "tones": {
+              "p": "data",
+              "venue": "data",
+              "order_type": "data",
+              "price": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "venue"
+              ],
+              [
+                "venue",
+                "order_type"
+              ],
+              [
+                "order_type",
+                "price"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say10",
+            "caption": "Mathematical modeling of fee tiers and fill hazards transforms order.",
+            "values": {
+              "p": {
+                "var": "p",
+                "line": 21,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "venue": {
+                "var": "venue",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "order_type": {
+                "var": "order_type",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "price": {
+                "var": "price",
+                "line": 12,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "p": "ok",
+              "venue": "ok",
+              "order_type": "ok",
+              "price": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "venue"
+              ],
+              [
+                "venue",
+                "order_type"
+              ],
+              [
+                "order_type",
+                "price"
+              ]
             ]
           }
         ]
@@ -144,128 +175,111 @@
         "title": "Smart Order Router (SOR) — Foundations & Mathematical Invariants",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "venue",
+            "label": "venue"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "order_type",
+            "label": "order_type"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "price",
+            "label": "price"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In modern fragmented equity markets, identical securities trade.",
+            "values": {
+              "p": "150",
+              "venue": "'NASDAQ'",
+              "order_type": "'MAKER'",
+              "price": "150"
+            },
+            "tones": {
+              "p": "data",
+              "venue": "data",
+              "order_type": "data",
+              "price": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "venue"
+              ],
+              [
+                "venue",
+                "order_type"
+              ],
+              [
+                "order_type",
+                "price"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "A single stock like Apple or Microsoft trades across NASDAQ, the New York.",
+            "values": {
+              "p": "150",
+              "venue": "'NASDAQ'",
+              "order_type": "'MAKER'",
+              "price": "150"
+            },
+            "tones": {
+              "p": "data",
+              "venue": "data",
+              "order_type": "data",
+              "price": "data"
+            },
+            "arrows": [
+              [
+                "p",
+                "venue"
+              ],
+              [
+                "venue",
+                "order_type"
+              ],
+              [
+                "order_type",
+                "price"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say10",
+            "caption": "Mathematical modeling of fee tiers and fill hazards transforms order.",
+            "values": {
+              "p": "150",
+              "venue": "'NASDAQ'",
+              "order_type": "'MAKER'",
+              "price": "150"
+            },
+            "tones": {
+              "p": "ok",
+              "venue": "ok",
+              "order_type": "ok",
+              "price": "ok"
+            },
+            "arrows": [
+              [
+                "p",
+                "venue"
+              ],
+              [
+                "venue",
+                "order_type"
+              ],
+              [
+                "order_type",
+                "price"
+              ]
             ]
           }
         ]
@@ -273,530 +287,277 @@
     },
     {
       "partTitle": "Smart Order Router (SOR) — Core Algorithm & State Representation",
-      "codeHash": "ee68c90b5afdd5d90cb97721720f0550b780da92175538fef1da46f6aaaf5b07",
+      "codeHash": "a618e4017c44eac5405e88db865ce59653c95e6d40e020dcaf2d624807610c7c",
       "spec": {
-        "template": "flow",
+        "template": "sequence",
         "title": "Smart Order Router (SOR) — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "actors": [
+          "lit",
+          "shares",
+          "dark_available"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core SOR algorithm evaluates order slicing across available venues.",
+            "activeActor": "lit",
+            "messages": [
+              {
+                "from": "lit",
+                "to": "shares",
+                "label": {
+                  "var": "lit",
+                  "line": 30,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "from": "shares",
+                "to": "dark_available",
+                "label": {
+                  "var": "shares",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Let $Q$ be the parent order quantity, and let $V_1, \\dots, V_m$ be.",
+            "activeActor": "shares",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "lit",
+                "to": "shares",
+                "label": {
+                  "var": "lit",
+                  "line": 35,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "shares",
+                "to": "dark_available",
+                "label": {
+                  "var": "shares",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Dynamic fee optimization ensures that child orders maximize fee capture.",
+            "activeActor": "dark_available",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "lit",
+                "to": "shares",
+                "label": {
+                  "var": "lit",
+                  "line": 36,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "from": "shares",
+                "to": "dark_available",
+                "label": {
+                  "var": "shares",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "sequence",
         "title": "Smart Order Router (SOR) — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "actors": [
+          "lit",
+          "shares",
+          "dark_available"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core SOR algorithm evaluates order slicing across available venues.",
+            "messages": [
+              {
+                "from": "lit",
+                "to": "shares",
+                "label": "[{'name': 'NASDAQ', 'depth': 5000, 'tak…",
+                "tone": "data"
+              },
+              {
+                "from": "shares",
+                "to": "dark_available",
+                "label": "6000",
+                "tone": "ok"
+              }
+            ],
+            "activeActor": "lit"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Let $Q$ be the parent order quantity, and let $V_1, \\dots, V_m$ be.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "from": "lit",
+                "to": "shares",
+                "label": "[{'name': 'NASDAQ', 'depth': 5000, 'tak…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "shares",
+                "to": "dark_available",
+                "label": "6000",
+                "tone": "ok"
               }
-            ]
+            ],
+            "activeActor": "shares"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Dynamic fee optimization ensures that child orders maximize fee capture.",
+            "messages": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "from": "lit",
+                "to": "shares",
+                "label": "[{'name': 'NASDAQ', 'depth': 5000, 'tak…",
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "from": "shares",
+                "to": "dark_available",
+                "label": "6000",
+                "tone": "ok"
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
             ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "activeActor": "dark_available"
           }
         ]
       }
     },
     {
       "partTitle": "Smart Order Router (SOR) — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "3a397624eebc529661e553480a9c494b918bd544159cb941389caad349af0abc",
+      "codeHash": "dcdbf890929230db199733bb1eb938b57ff15d352eec9527c7844d48bcb5dcda",
       "spec": {
-        "template": "flow",
-        "title": "Smart Order Router (SOR) — Throughput Optimization & Edge-Case Handlin",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Smart Order Router (SOR) — Throughput Optimization & Edge-Case H",
         "steps": [
           {
+            "at": "say1",
+            "caption": "High-throughput Smart Order Routers must make routing decisions.",
+            "items": {
+              "var": "venues",
+              "line": 20,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Evaluating dynamic linear programs on every inbound parent slice.",
+            "items": {
+              "var": "venues",
+              "line": 24,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Zero-allocation memory design guarantees that routing performance remains.",
+            "items": {
+              "var": "venues",
+              "line": 25,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Smart Order Router (SOR) — Throughput Optimization & Edge-Case Handlin",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Smart Order Router (SOR) — Throughput Optimization & Edge-Case H",
         "steps": [
           {
+            "at": "say1",
+            "caption": "High-throughput Smart Order Routers must make routing decisions.",
+            "items": [
+              "'NASDAQ'",
+              "'NYSE'",
+              "'BATS'",
+              "'IEX'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "Evaluating dynamic linear programs on every inbound parent slice.",
+            "items": [
+              "'NASDAQ'",
+              "'NYSE'",
+              "'BATS'",
+              "'IEX'"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say10",
+            "caption": "Zero-allocation memory design guarantees that routing performance remains.",
+            "items": [
+              "'NASDAQ'",
+              "'NYSE'",
+              "'BATS'",
+              "'IEX'"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -805,264 +566,218 @@
     },
     {
       "partTitle": "Smart Order Router (SOR) — Resilience Guardrails & Failure Recovery",
-      "codeHash": "568b33f355819db6c0c650357bc1c8a9486878a35c11769e151ae592d67a2cfc",
+      "codeHash": "fbc3c944e764a0a6a4bef3437b834b5e9d36acc9546fbd71d32ca76f23e51707",
       "spec": {
-        "template": "flow",
-        "title": "Smart Order Router (SOR) — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Smart Order Router (SOR) — Resilience Guardrails & Failure Recov",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operational risk controls for Smart Order Routers enforce strict.",
+            "bars": [
+              {
+                "label": "nbbo_bid",
+                "value": {
+                  "var": "nbbo_bid",
+                  "line": 18,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "nbbo_ask",
+                "value": {
+                  "var": "nbbo_ask",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "routed_price",
+                "value": {
+                  "var": "routed_price",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "best_bid",
+                "value": {
+                  "var": "best_bid",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The most fundamental compliance guardrail is the Reg NMS Rule 611.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "nbbo_bid",
+                "value": {
+                  "var": "nbbo_bid",
+                  "line": 19,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "nbbo_ask",
+                "value": {
+                  "var": "nbbo_ask",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "routed_price",
+                "value": {
+                  "var": "routed_price",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "best_bid",
+                "value": {
+                  "var": "best_bid",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Automated failover pathways reroute orders to backup broker gateways.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "nbbo_bid",
+                "value": {
+                  "var": "nbbo_bid",
+                  "line": 20,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "nbbo_ask",
+                "value": {
+                  "var": "nbbo_ask",
+                  "line": 21,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "routed_price",
+                "value": {
+                  "var": "routed_price",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "best_bid",
+                "value": {
+                  "var": "best_bid",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Smart Order Router (SOR) — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Smart Order Router (SOR) — Resilience Guardrails & Failure Recov",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operational risk controls for Smart Order Routers enforce strict.",
+            "bars": [
+              {
+                "label": "nbbo_bid",
+                "value": 150.2,
+                "tone": "data"
+              },
+              {
+                "label": "nbbo_ask",
+                "value": 150.25,
+                "tone": "data"
+              },
+              {
+                "label": "routed_price",
+                "value": 150.25,
+                "tone": "data"
+              },
+              {
+                "label": "best_bid",
+                "value": 150.2,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The most fundamental compliance guardrail is the Reg NMS Rule 611.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "nbbo_bid",
+                "value": 150.2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "nbbo_ask",
+                "value": 150.25,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "routed_price",
+                "value": 150.25,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "best_bid",
+                "value": 150.2,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Automated failover pathways reroute orders to backup broker gateways.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "nbbo_bid",
+                "value": 150.2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "nbbo_ask",
+                "value": 150.25,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "routed_price",
+                "value": 150.25,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "best_bid",
+                "value": 150.2,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,264 +786,218 @@
     },
     {
       "partTitle": "Smart Order Router (SOR) — Production Telemetry & Verification Audit",
-      "codeHash": "659dbc452135eca1728b65495a69f47377c11b551db6c3c7ddf1eb3adf1ff402",
+      "codeHash": "8e69a04b56cf28f9d7bd1697e7d0a0766e8c312896f5738aaf3c51b9b3098035",
       "spec": {
-        "template": "flow",
-        "title": "Smart Order Router (SOR) — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Smart Order Router (SOR) — Production Telemetry & Verification A",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry for Smart Order Routers focuses on Best Execution.",
+            "bars": [
+              {
+                "label": "total_shares",
+                "value": {
+                  "var": "total_shares",
+                  "line": 4,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "label": "total_fees",
+                "value": {
+                  "var": "total_fees",
+                  "line": 8,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "label": "improved_share",
+                "value": {
+                  "var": "improved_shares",
+                  "line": 9,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "label": "net_fee_per_sh",
+                "value": {
+                  "var": "net_fee_per_share",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The telemetry pipeline aggregates routing records across venues, computing.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_shares",
+                "value": {
+                  "var": "total_shares",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_fees",
+                "value": {
+                  "var": "total_fees",
+                  "line": 9,
+                  "hit": 5
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "improved_share",
+                "value": {
+                  "var": "improved_shares",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "net_fee_per_sh",
+                "value": {
+                  "var": "net_fee_per_share",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Continuous metric verification certifies that the order routing engine.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_shares",
+                "value": {
+                  "var": "total_shares",
+                  "line": 8,
+                  "hit": 5
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_fees",
+                "value": {
+                  "var": "total_fees",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "improved_share",
+                "value": {
+                  "var": "improved_shares",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "net_fee_per_sh",
+                "value": {
+                  "var": "net_fee_per_share",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Smart Order Router (SOR) — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Smart Order Router (SOR) — Production Telemetry & Verification A",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production telemetry for Smart Order Routers focuses on Best Execution.",
+            "bars": [
+              {
+                "label": "total_shares",
+                "value": 6000,
+                "tone": "data"
+              },
+              {
+                "label": "total_fees",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "improved_share",
+                "value": 2000,
+                "tone": "data"
+              },
+              {
+                "label": "net_fee_per_sh",
+                "value": 0.00008,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The telemetry pipeline aggregates routing records across venues, computing.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_shares",
+                "value": 6000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_fees",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "improved_share",
+                "value": 2000,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "net_fee_per_sh",
+                "value": 0.00008,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say10",
+            "caption": "Continuous metric verification certifies that the order routing engine.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_shares",
+                "value": 6000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "total_fees",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "improved_share",
+                "value": 2000,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "net_fee_per_sh",
+                "value": 0.00008,
+                "tone": "ok"
               }
             ]
           }
